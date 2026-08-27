@@ -7,6 +7,7 @@ import csv
 import json
 import math
 import re
+import statistics
 import subprocess
 from pathlib import Path
 
@@ -47,6 +48,46 @@ def parse_scenes(path: Path):
         (float(row["Start Time (seconds)"]), float(row["End Time (seconds)"]))
         for row in csv.DictReader(lines[header:])
     ]
+
+
+def measure_reference_rhythm(reference: Path, work: Path) -> float:
+    fallback = 3.7
+    if not reference.exists():
+        print("Reference video unavailable; using 3.7-second measured fallback rhythm.")
+        return fallback
+    output_dir = work / "reference_scan"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    scene_file = output_dir / "reference-scenes.csv"
+    try:
+        run(
+            [
+                "scenedetect",
+                "-q",
+                "-i",
+                reference,
+                "-o",
+                output_dir,
+                "detect-content",
+                "-t",
+                "27",
+                "list-scenes",
+                "-f",
+                scene_file.name,
+            ]
+        )
+        scenes = parse_scenes(scene_file)
+        lengths = [b - a for a, b in scenes if 0.6 <= b - a <= 15]
+        measured = statistics.fmean(lengths)
+        rhythm = max(2.8, min(4.2, measured))
+        print(
+            f"Reference scan: {len(scenes)} shots, mean usable shot {measured:.2f}s; "
+            f"target rhythm {rhythm:.2f}s",
+            flush=True,
+        )
+        return rhythm
+    except Exception as exc:
+        print(f"Reference scan failed ({exc}); using {fallback:.1f}s fallback.")
+        return fallback
 
 
 def visible_length(text: str) -> int:
@@ -133,7 +174,7 @@ def subtract_used(start, end, used, padding=0.35):
     return [(a, b) for a, b in segments if b - a >= 0.25]
 
 
-def pick_shots(scenes, start, end, target, used):
+def pick_shots(scenes, start, end, target, used, anchor, shot_duration):
     candidates = []
     for scene_start, scene_end in scenes:
         a, b = max(scene_start, start), min(scene_end, end)
@@ -145,37 +186,37 @@ def pick_shots(scenes, start, end, target, used):
             if free_end - free_start >= 0.9
         )
     if not candidates:
-        candidates = [segment for segment in subtract_used(start, end, used) if segment[1] - segment[0] >= 0.4]
-    if not candidates:
-        # Stay near the described event while still avoiding an exact repeat.
         candidates = [
             segment
-            for segment in subtract_used(max(0, start - 12), end + 12, used)
+            for segment in subtract_used(start, end, used)
             if segment[1] - segment[0] >= 0.4
         ]
     if not candidates:
-        raise RuntimeError(f"No unused source footage remains for cue range {start}-{end}")
+        raise RuntimeError(f"No unused source footage remains inside cue range {start}-{end}")
 
-    count = max(1, math.ceil(target / 3.4))
+    # Choose real shots closest to the exact subtitle/event anchor. This avoids
+    # sampling unrelated establishing shots from elsewhere in the same scene.
+    ranked = sorted(
+        candidates,
+        key=lambda item: (abs((item[0] + item[1]) / 2 - anchor), item[0]),
+    )
+    count = max(1, math.ceil(target / shot_duration))
     while True:
-        indices = []
-        for item in range(count):
-            index = min(
-                len(candidates) - 1,
-                max(0, round((item + 0.5) * len(candidates) / count - 0.5)),
-            )
-            if index not in indices:
-                indices.append(index)
-        selected = [candidates[index] for index in indices]
-        caps = [min(4.4, b - a - 0.03) for a, b in selected]
-        if sum(caps) >= target - 0.01 or count >= len(candidates):
+        selected = sorted(ranked[:count], key=lambda item: item[0])
+        caps = [min(shot_duration * 1.25, b - a - 0.03) for a, b in selected]
+        if sum(caps) >= target - 0.01:
+            break
+        if count >= len(ranked):
+            # A single long take may need to remain on screen longer, but it
+            # must still stay inside the exact event window.
+            caps = [b - a - 0.03 for a, b in selected]
+            if sum(caps) < target - 0.01:
+                raise RuntimeError(
+                    f"Cue audio ({target:.2f}s) is longer than unused event footage "
+                    f"inside {start}-{end} ({sum(caps):.2f}s)"
+                )
             break
         count += 1
-
-    # If an event is mostly one long take, permit a longer excerpt rather than
-    # filling from a different event.
-    if sum(caps) < target:
-        caps = [b - a - 0.03 for a, b in selected]
 
     durations = [0.0] * len(selected)
     remaining = target
@@ -200,11 +241,20 @@ def pick_shots(scenes, start, end, target, used):
     for (a, b), duration in zip(selected, durations):
         if duration < 0.12:
             continue
-        clip_start = a + max(0, (b - a - duration) / 2)
+        # Keep the anchor inside one of the selected shots whenever possible.
+        if a <= anchor <= b and duration < b - a:
+            clip_start = min(max(a, anchor - duration / 2), b - duration)
+        else:
+            clip_start = a + max(0, (b - a - duration) / 2)
         shots.append((clip_start, clip_start + duration))
-    delta = target - sum(b - a for a, b in shots)
-    if shots and abs(delta) > 0.001:
-        shots[-1] = (shots[-1][0], min(end, shots[-1][1] + delta))
+
+    actual = sum(b - a for a, b in shots)
+    if abs(actual - target) > 0.02:
+        raise RuntimeError(
+            f"Frame allocation mismatch in {start}-{end}: {actual:.3f}s != {target:.3f}s"
+        )
+    if any(a < start - 0.01 or b > end + 0.01 for a, b in shots):
+        raise RuntimeError(f"Shot escaped its exact cue range {start}-{end}")
     return shots
 
 
@@ -266,7 +316,14 @@ def build_section_audio(section_index, cue_paths, directory: Path):
 
 
 def render_section(
-    index, section, scenes, source: Path, tts_directory: Path, directory: Path, used_intervals
+    index,
+    section,
+    scenes,
+    source: Path,
+    tts_directory: Path,
+    directory: Path,
+    used_intervals,
+    shot_duration,
 ):
     output = directory / f"section_{index:02d}.mp4"
     ass = directory / f"section_{index:02d}.ass"
@@ -290,16 +347,24 @@ def render_section(
         ranges = cue["ranges"]
         per_range = cue_duration / len(ranges)
         for start, end in ranges:
+            start, end = float(start), float(end)
+            anchor = float(cue.get("anchor", (start + end) / 2))
             cue_shots.extend(
                 pick_shots(
-                    scenes, float(start), float(end), per_range, used_intervals
+                    scenes,
+                    start,
+                    end,
+                    per_range,
+                    used_intervals,
+                    anchor,
+                    shot_duration,
                 )
             )
         cue_total = sum(b - a for a, b in cue_shots)
-        if cue_shots:
-            cue_shots[-1] = (
-                cue_shots[-1][0],
-                cue_shots[-1][1] + cue_duration - cue_total,
+        if abs(cue_total - cue_duration) > 0.03:
+            raise RuntimeError(
+                f"Cue {index}.{cue_index} video/audio mismatch: "
+                f"{cue_total:.3f}s != {cue_duration:.3f}s"
             )
         for source_in, source_out in cue_shots:
             if any(
@@ -349,8 +414,8 @@ def render_section(
         duration = source_out - source_in
         filters.append(
             f"[{shot_index}:v]trim=duration={duration:.4f},setpts=PTS-STARTPTS,"
-            "crop=iw:ih-114:0:60,scale=1280:-2:flags=lanczos,"
-            "pad=1280:720:0:(oh-ih)/2:black,drawbox=x=0:y=0:w=iw:h=90:color=black:t=fill,"
+            "crop=iw:340:0:55,scale=1280:-2:flags=lanczos,"
+            "pad=1280:720:0:(oh-ih)/2:black,"
             f"setsar=1,fps=24,format=yuv420p[v{shot_index}]"
         )
         filters.append(
@@ -432,6 +497,8 @@ def main():
 
     asyncio.run(generate_cue_tts(sections, tts_directory))
     scenes = parse_scenes(args.scenes)
+    reference = args.source.parent / "reference.mp4"
+    shot_duration = measure_reference_rhythm(reference, args.work)
     outputs = []
     used_intervals = []
     for index, section in enumerate(sections, 1):
@@ -444,6 +511,7 @@ def main():
                 tts_directory,
                 render_directory,
                 used_intervals,
+                shot_duration,
             )
         )
 

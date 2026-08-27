@@ -13,7 +13,9 @@ import sys
 from pathlib import Path
 
 GOOGLE_DRIVE_SOURCE = "https://drive.google.com/file/d/1NBU97TEL-qlqxgLE4MY5oaS33akWC6CM/view?usp=sharing"
+GOOGLE_DRIVE_REFERENCE = "https://drive.google.com/file/d/1HtUQyrpBSwYLJvqMXSa5kz_E2cjOmmcR/view?usp=sharing"
 MIN_SOURCE_SIZE = 500_000_000
+MIN_REFERENCE_SIZE = 20_000_000
 
 
 def main() -> None:
@@ -49,6 +51,29 @@ def main() -> None:
         size = output.stat().st_size if output.exists() else 0
         if result.returncode == 0 and size >= MIN_SOURCE_SIZE:
             print(f"Movie downloaded successfully: {size} bytes", flush=True)
+            reference = output.parent / "reference.mp4"
+            reference.unlink(missing_ok=True)
+            print("Downloading the supplied Douyin reference for shot-rhythm analysis...", flush=True)
+            reference_result = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "gdown",
+                    "--fuzzy",
+                    GOOGLE_DRIVE_REFERENCE,
+                    "-O",
+                    str(reference),
+                ]
+            )
+            reference_size = reference.stat().st_size if reference.exists() else 0
+            if reference_result.returncode != 0 or reference_size < MIN_REFERENCE_SIZE:
+                print(
+                    f"::warning title=Reference download::Reference unavailable ({reference_size} bytes); "
+                    "using the measured fallback rhythm"
+                )
+                reference.unlink(missing_ok=True)
+            else:
+                print(f"Reference downloaded successfully: {reference_size} bytes", flush=True)
             return
         print(f"Attempt {attempt} did not produce the full movie ({size} bytes).", flush=True)
         output.unlink(missing_ok=True)
