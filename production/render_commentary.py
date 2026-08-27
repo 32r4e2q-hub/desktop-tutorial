@@ -334,61 +334,58 @@ def render_section(
     cue_durations = [media_duration(path) for path in cue_paths]
     narration_audio = build_section_audio(index, cue_paths, tts_directory)
     section_duration = media_duration(narration_audio)
-
-    # Keep the final cue exactly aligned with the decoded, concatenated audio.
     cue_durations[-1] += section_duration - sum(cue_durations)
     write_ass(ass, cue_subtitle_timeline(section["cues"], cue_durations))
 
+    # Visual-first plan: source clips are immutable and were chosen before the
+    # narration was written. Only a small uniform speed adjustment is allowed
+    # to make each visual beat exactly equal its Yunxi recording.
     shots = []
     edl_rows = []
     output_cursor = 0.0
     for cue_index, (cue, cue_duration) in enumerate(zip(section["cues"], cue_durations), 1):
-        cue_shots = []
-        ranges = cue["ranges"]
-        per_range = cue_duration / len(ranges)
-        for start, end in ranges:
-            start, end = float(start), float(end)
-            anchor = float(cue.get("anchor", (start + end) / 2))
-            cue_shots.extend(
-                pick_shots(
-                    scenes,
-                    start,
-                    end,
-                    per_range,
-                    used_intervals,
-                    anchor,
-                    shot_duration,
-                )
-            )
-        cue_total = sum(b - a for a, b in cue_shots)
-        if abs(cue_total - cue_duration) > 0.03:
+        fixed_clips = [(float(a), float(b)) for a, b in cue["clips"]]
+        source_duration = sum(b - a for a, b in fixed_clips)
+        speed_factor = cue_duration / source_duration
+        if not 0.76 <= speed_factor <= 1.28:
             raise RuntimeError(
-                f"Cue {index}.{cue_index} video/audio mismatch: "
-                f"{cue_total:.3f}s != {cue_duration:.3f}s"
+                f"Cue {index}.{cue_index} would require excessive visual retiming: "
+                f"factor={speed_factor:.3f}, audio={cue_duration:.3f}s, "
+                f"selected footage={source_duration:.3f}s"
             )
-        for source_in, source_out in cue_shots:
+        cue_output = 0.0
+        for source_in, source_out in fixed_clips:
+            if source_out <= source_in:
+                raise RuntimeError(f"Invalid fixed clip {source_in}-{source_out}")
             if any(
                 source_in < used_end and source_out > used_start
                 for used_start, used_end in used_intervals
             ):
                 raise RuntimeError(
-                    f"Duplicate source interval detected: {source_in}-{source_out}"
+                    f"Duplicate fixed source clip detected: {source_in}-{source_out}"
                 )
             used_intervals.append((source_in, source_out))
-            duration = source_out - source_in
-            shots.append((source_in, source_out))
+            output_duration = (source_out - source_in) * speed_factor
+            shots.append((source_in, source_out, speed_factor, output_duration))
             edl_rows.append(
                 {
                     "section": index,
                     "cue": cue_index,
                     "source_in": round(source_in, 3),
                     "source_out": round(source_out, 3),
+                    "speed_factor": round(speed_factor, 5),
                     "output_in": round(output_cursor, 3),
-                    "output_out": round(output_cursor + duration, 3),
+                    "output_out": round(output_cursor + output_duration, 3),
                     "narration": cue["text"],
                 }
             )
-            output_cursor += duration
+            output_cursor += output_duration
+            cue_output += output_duration
+        if abs(cue_output - cue_duration) > 0.02:
+            raise RuntimeError(
+                f"Cue {index}.{cue_index} visual/audio mismatch: "
+                f"{cue_output:.3f}s != {cue_duration:.3f}s"
+            )
 
     with (directory / f"section_{index:02d}_edl.csv").open(
         "w", encoding="utf-8-sig", newline=""
@@ -398,7 +395,7 @@ def render_section(
         writer.writerows(edl_rows)
 
     command = ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error"]
-    for source_in, source_out in shots:
+    for source_in, source_out, _, _ in shots:
         command += [
             "-ss",
             f"{source_in:.3f}",
@@ -410,17 +407,20 @@ def render_section(
     command += ["-i", str(narration_audio)]
 
     filters, pairs = [], []
-    for shot_index, (source_in, source_out) in enumerate(shots):
-        duration = source_out - source_in
+    for shot_index, (source_in, source_out, speed_factor, output_duration) in enumerate(shots):
+        source_length = source_out - source_in
+        audio_tempo = 1.0 / speed_factor
         filters.append(
-            f"[{shot_index}:v]trim=duration={duration:.4f},setpts=PTS-STARTPTS,"
-            "crop=iw:340:0:55,scale=1280:-2:flags=lanczos,"
+            f"[{shot_index}:v]trim=duration={source_length:.4f},"
+            f"setpts=(PTS-STARTPTS)*{speed_factor:.8f},"
+            "crop=iw:325:0:55,scale=1280:-2:flags=lanczos,"
             "pad=1280:720:0:(oh-ih)/2:black,"
-            f"setsar=1,fps=24,format=yuv420p[v{shot_index}]"
+            f"setsar=1,fps=24,trim=duration={output_duration:.4f},format=yuv420p[v{shot_index}]"
         )
         filters.append(
-            f"[{shot_index}:a]atrim=duration={duration:.4f},"
-            f"asetpts=PTS-STARTPTS,aresample=44100[a{shot_index}]"
+            f"[{shot_index}:a]atrim=duration={source_length:.4f},"
+            f"asetpts=PTS-STARTPTS,atempo={audio_tempo:.8f},"
+            f"atrim=duration={output_duration:.4f},aresample=44100[a{shot_index}]"
         )
         pairs.append(f"[v{shot_index}][a{shot_index}]")
     filters.append("".join(pairs) + f"concat=n={len(shots)}:v=1:a=1[vcat][acat]")
@@ -437,43 +437,17 @@ def render_section(
         "alimiter=limit=0.96[aout]"
     )
     command += [
-        "-filter_complex",
-        ";".join(filters),
-        "-map",
-        "[vout]",
-        "-map",
-        "[aout]",
-        "-c:v",
-        "libx264",
-        "-preset",
-        "veryfast",
-        "-b:v",
-        "1100k",
-        "-maxrate",
-        "1450k",
-        "-bufsize",
-        "2200k",
-        "-pix_fmt",
-        "yuv420p",
-        "-r",
-        "24",
-        "-g",
-        "48",
-        "-c:a",
-        "aac",
-        "-b:a",
-        "128k",
-        "-ar",
-        "44100",
-        "-movflags",
-        "+faststart",
-        "-t",
-        f"{section_duration:.4f}",
+        "-filter_complex", ";".join(filters), "-map", "[vout]", "-map", "[aout]",
+        "-c:v", "libx264", "-preset", "veryfast", "-b:v", "1100k",
+        "-maxrate", "1450k", "-bufsize", "2200k", "-pix_fmt", "yuv420p",
+        "-r", "24", "-g", "48", "-c:a", "aac", "-b:a", "128k",
+        "-ar", "44100", "-movflags", "+faststart", "-t", f"{section_duration:.4f}",
         str(output),
     ]
     print(
-        f"Rendering aligned section {index}: {section_duration:.1f}s / "
-        f"{len(section['cues'])} cues / {len(shots)} shots",
+        f"Rendering visual-first section {index}: {section_duration:.1f}s / "
+        f"{len(section['cues'])} beats / {len(shots)} preselected clips / "
+        f"reference rhythm {shot_duration:.2f}s",
         flush=True,
     )
     run(command)
