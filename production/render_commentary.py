@@ -13,7 +13,7 @@ from pathlib import Path
 import edge_tts
 
 VOICE = "zh-CN-YunxiNeural"
-VOICE_RATE = "-3%"
+VOICE_RATE = "+12%"
 MOVIE_VOLUME = 0.025
 MAX_SUBTITLE_CHARS = 14
 
