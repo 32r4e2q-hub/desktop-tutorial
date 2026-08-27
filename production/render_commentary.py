@@ -17,6 +17,7 @@ VOICE = "zh-CN-YunxiNeural"
 VOICE_RATE = "+12%"
 MOVIE_VOLUME = 0.025
 MAX_SUBTITLE_CHARS = 14
+ANALYSIS_ONLY = True
 
 
 def run(command):
@@ -462,6 +463,17 @@ def main():
     parser.add_argument("--work", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
+
+    if ANALYSIS_ONLY:
+        from analyze_visuals import create_visual_package
+
+        create_visual_package(
+            source=args.source,
+            source_scenes=args.scenes,
+            work=args.work,
+            output=args.output,
+        )
+        return
 
     args.work.mkdir(parents=True, exist_ok=True)
     sections = json.loads(args.narration.read_text(encoding="utf-8"))
