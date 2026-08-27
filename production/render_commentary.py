@@ -115,14 +115,46 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     path.write_text(header + "\n".join(rows) + "\n", encoding="utf-8")
 
 
-def pick_shots(scenes, start, end, target):
+def subtract_used(start, end, used, padding=0.35):
+    segments = [(start, end)]
+    for used_start, used_end in sorted(used):
+        blocked_start = used_start - padding
+        blocked_end = used_end + padding
+        revised = []
+        for a, b in segments:
+            if blocked_end <= a or blocked_start >= b:
+                revised.append((a, b))
+                continue
+            if blocked_start > a:
+                revised.append((a, min(b, blocked_start)))
+            if blocked_end < b:
+                revised.append((max(a, blocked_end), b))
+        segments = revised
+    return [(a, b) for a, b in segments if b - a >= 0.25]
+
+
+def pick_shots(scenes, start, end, target, used):
     candidates = []
     for scene_start, scene_end in scenes:
         a, b = max(scene_start, start), min(scene_end, end)
-        if b - a >= 0.9:
-            candidates.append((a, b))
+        if b - a < 0.9:
+            continue
+        candidates.extend(
+            (free_start, free_end)
+            for free_start, free_end in subtract_used(a, b, used)
+            if free_end - free_start >= 0.9
+        )
     if not candidates:
-        return [(start, min(end, start + target))]
+        candidates = [segment for segment in subtract_used(start, end, used) if segment[1] - segment[0] >= 0.4]
+    if not candidates:
+        # Stay near the described event while still avoiding an exact repeat.
+        candidates = [
+            segment
+            for segment in subtract_used(max(0, start - 12), end + 12, used)
+            if segment[1] - segment[0] >= 0.4
+        ]
+    if not candidates:
+        raise RuntimeError(f"No unused source footage remains for cue range {start}-{end}")
 
     count = max(1, math.ceil(target / 3.4))
     while True:
@@ -233,7 +265,9 @@ def build_section_audio(section_index, cue_paths, directory: Path):
     return output
 
 
-def render_section(index, section, scenes, source: Path, tts_directory: Path, directory: Path):
+def render_section(
+    index, section, scenes, source: Path, tts_directory: Path, directory: Path, used_intervals
+):
     output = directory / f"section_{index:02d}.mp4"
     ass = directory / f"section_{index:02d}.ass"
     cue_paths = [
@@ -256,11 +290,26 @@ def render_section(index, section, scenes, source: Path, tts_directory: Path, di
         ranges = cue["ranges"]
         per_range = cue_duration / len(ranges)
         for start, end in ranges:
-            cue_shots.extend(pick_shots(scenes, float(start), float(end), per_range))
+            cue_shots.extend(
+                pick_shots(
+                    scenes, float(start), float(end), per_range, used_intervals
+                )
+            )
         cue_total = sum(b - a for a, b in cue_shots)
         if cue_shots:
-            cue_shots[-1] = (cue_shots[-1][0], cue_shots[-1][1] + cue_duration - cue_total)
+            cue_shots[-1] = (
+                cue_shots[-1][0],
+                cue_shots[-1][1] + cue_duration - cue_total,
+            )
         for source_in, source_out in cue_shots:
+            if any(
+                source_in < used_end and source_out > used_start
+                for used_start, used_end in used_intervals
+            ):
+                raise RuntimeError(
+                    f"Duplicate source interval detected: {source_in}-{source_out}"
+                )
+            used_intervals.append((source_in, source_out))
             duration = source_out - source_in
             shots.append((source_in, source_out))
             edl_rows.append(
@@ -384,10 +433,17 @@ def main():
     asyncio.run(generate_cue_tts(sections, tts_directory))
     scenes = parse_scenes(args.scenes)
     outputs = []
+    used_intervals = []
     for index, section in enumerate(sections, 1):
         outputs.append(
             render_section(
-                index, section, scenes, args.source, tts_directory, render_directory
+                index,
+                section,
+                scenes,
+                args.source,
+                tts_directory,
+                render_directory,
+                used_intervals,
             )
         )
 
