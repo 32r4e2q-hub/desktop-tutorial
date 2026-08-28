@@ -7,7 +7,6 @@ import json
 import shutil
 import subprocess
 import urllib.request
-import zipfile
 from pathlib import Path
 
 import cv2
@@ -128,6 +127,134 @@ def detect_reference(reference: Path, output_dir: Path):
     return output_dir / "reference-scenes.csv"
 
 
+def make_title_card(path: Path, title: str, subtitle: str):
+    height = ROWS * (THUMB_H + LABEL_H)
+    width = COLS * THUMB_W
+    image = np.zeros((height, width, 3), dtype=np.uint8)
+    title_size = cv2.getTextSize(title, cv2.FONT_HERSHEY_SIMPLEX, 1.8, 3)[0]
+    subtitle_size = cv2.getTextSize(subtitle, cv2.FONT_HERSHEY_SIMPLEX, 0.85, 2)[0]
+    cv2.putText(
+        image,
+        title,
+        ((width - title_size[0]) // 2, height // 2 - 20),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        1.8,
+        (255, 255, 255),
+        3,
+        cv2.LINE_AA,
+    )
+    cv2.putText(
+        image,
+        subtitle,
+        ((width - subtitle_size[0]) // 2, height // 2 + 40),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.85,
+        (180, 190, 210),
+        2,
+        cv2.LINE_AA,
+    )
+    cv2.imwrite(str(path), image, [cv2.IMWRITE_JPEG_QUALITY, 92])
+
+
+def render_review_video(package: Path, source_dir: Path, reference_dir: Path, output: Path):
+    source_title = package / "source-title.jpg"
+    reference_title = package / "reference-title.jpg"
+    make_title_card(source_title, "SOURCE MOVIE - ALL DETECTED SHOTS", "Each tile: scene number and original timecode")
+    make_title_card(reference_title, "DOUYIN REFERENCE - ALL DETECTED SHOTS", "Used only as editing and matching reference")
+
+    sequence = [(source_title, 3.0)]
+    sequence.extend((path, 4.0) for path in sorted(source_dir.glob("source_*.jpg")))
+    if list(reference_dir.glob("reference_*.jpg")):
+        sequence.append((reference_title, 3.0))
+        sequence.extend((path, 4.0) for path in sorted(reference_dir.glob("reference_*.jpg")))
+
+    concat_file = package / "review-video.txt"
+    rows = []
+    for path, duration in sequence:
+        escaped = path.resolve().as_posix().replace("'", "'\\''")
+        rows.extend([f"file '{escaped}'", f"duration {duration:.3f}"])
+    escaped_last = sequence[-1][0].resolve().as_posix().replace("'", "'\\''")
+    rows.append(f"file '{escaped_last}'")
+    concat_file.write_text("\n".join(rows) + "\n", encoding="utf-8")
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.unlink(missing_ok=True)
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-y",
+            "-hide_banner",
+            "-loglevel",
+            "error",
+            "-f",
+            "concat",
+            "-safe",
+            "0",
+            "-i",
+            str(concat_file),
+            "-f",
+            "lavfi",
+            "-i",
+            "anullsrc=r=48000:cl=stereo",
+            "-vf",
+            "scale=1920:1080:force_original_aspect_ratio=decrease,"
+            "pad=1920:1080:(ow-iw)/2:(oh-ih)/2:black,format=yuv420p",
+            "-r",
+            "24",
+            "-c:v",
+            "libx264",
+            "-profile:v",
+            "main",
+            "-level",
+            "4.0",
+            "-preset",
+            "veryfast",
+            "-crf",
+            "21",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "48k",
+            "-shortest",
+            "-movflags",
+            "+faststart",
+            str(output),
+        ],
+        check=True,
+    )
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-v",
+            "error",
+            "-i",
+            str(output),
+            "-map",
+            "0:v:0",
+            "-map",
+            "0:a:0",
+            "-f",
+            "null",
+            "-",
+        ],
+        check=True,
+    )
+    probe = subprocess.check_output(
+        [
+            "ffprobe",
+            "-v",
+            "error",
+            "-show_entries",
+            "format=duration,size:stream=codec_name,width,height,pix_fmt",
+            "-of",
+            "json",
+            str(output),
+        ],
+        text=True,
+    )
+    print(f"PLAYABLE REVIEW MP4 VERIFIED: {probe}", flush=True)
+
+
 def create_visual_package(source: Path, source_scenes: Path, work: Path, output: Path):
     package = work / "visual-review"
     if package.exists():
@@ -178,14 +305,9 @@ def create_visual_package(source: Path, source_scenes: Path, work: Path, output:
         encoding="utf-8",
     )
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.unlink(missing_ok=True)
-    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
-        for path in sorted(package.rglob("*")):
-            if path.is_file():
-                archive.write(path, path.relative_to(package))
+    render_review_video(package, source_dir, reference_dir, output)
     print(
-        f"VISUAL REVIEW PACKAGE: {output} / {output.stat().st_size/1048576:.1f}MB / "
+        f"VISUAL REVIEW VIDEO: {output} / {output.stat().st_size/1048576:.1f}MB / "
         f"{len(source_items)} source shots / {len(reference_items)} reference shots",
         flush=True,
     )
