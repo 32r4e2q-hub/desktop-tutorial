@@ -260,27 +260,32 @@ def pick_shots(scenes, start, end, target, used, anchor, shot_duration):
 
 async def generate_cue_tts(sections, directory: Path):
     directory.mkdir(parents=True, exist_ok=True)
-    total = sum(len(section["cues"]) for section in sections)
+    total = sum(len(cue["clip_texts"]) for section in sections for cue in section["cues"])
     completed = 0
     for section_index, section in enumerate(sections, 1):
         for cue_index, cue in enumerate(section["cues"], 1):
-            completed += 1
-            target = directory / f"section_{section_index:02d}_cue_{cue_index:02d}.mp3"
-            if target.exists() and target.stat().st_size:
-                continue
-            print(f"Generating Yunxi cue {completed}/{total}: {cue['text']}", flush=True)
-            for attempt in range(4):
-                try:
-                    communication = edge_tts.Communicate(
-                        cue["text"], VOICE, rate=VOICE_RATE, volume="+0%"
-                    )
-                    await communication.save(str(target))
-                    break
-                except Exception:
-                    if attempt == 3:
-                        raise
-                    await asyncio.sleep(2**attempt)
-            await asyncio.sleep(0.12)
+            for clip_index, text in enumerate(cue["clip_texts"], 1):
+                completed += 1
+                target = directory / (
+                    f"section_{section_index:02d}_cue_{cue_index:02d}_clip_{clip_index:02d}.mp3"
+                )
+                if target.exists() and target.stat().st_size:
+                    continue
+                print(
+                    f"Generating Yunxi clip {completed}/{total}: {text}", flush=True
+                )
+                for attempt in range(4):
+                    try:
+                        communication = edge_tts.Communicate(
+                            text, VOICE, rate=VOICE_RATE, volume="+0%"
+                        )
+                        await communication.save(str(target))
+                        break
+                    except Exception:
+                        if attempt == 3:
+                            raise
+                        await asyncio.sleep(2**attempt)
+                await asyncio.sleep(0.12)
 
 
 def build_section_audio(section_index, cue_paths, directory: Path):
@@ -327,65 +332,79 @@ def render_section(
 ):
     output = directory / f"section_{index:02d}.mp4"
     ass = directory / f"section_{index:02d}.ass"
-    cue_paths = [
-        tts_directory / f"section_{index:02d}_cue_{cue_index:02d}.mp3"
-        for cue_index in range(1, len(section["cues"]) + 1)
-    ]
-    cue_durations = [media_duration(path) for path in cue_paths]
-    narration_audio = build_section_audio(index, cue_paths, tts_directory)
-    section_duration = media_duration(narration_audio)
-    cue_durations[-1] += section_duration - sum(cue_durations)
-    write_ass(ass, cue_subtitle_timeline(section["cues"], cue_durations))
 
-    # Visual-first plan: source clips are immutable and were chosen before the
-    # narration was written. Only a small uniform speed adjustment is allowed
-    # to make each visual beat exactly equal its Yunxi recording.
+    clip_records = []
+    clip_paths = []
+    for cue_index, cue in enumerate(section["cues"], 1):
+        if len(cue["clips"]) != len(cue["clip_texts"]):
+            raise RuntimeError(f"Cue {index}.{cue_index} clip/text count mismatch")
+        for clip_index, ((source_in, source_out), text) in enumerate(
+            zip(cue["clips"], cue["clip_texts"]), 1
+        ):
+            path = tts_directory / (
+                f"section_{index:02d}_cue_{cue_index:02d}_clip_{clip_index:02d}.mp3"
+            )
+            clip_paths.append(path)
+            clip_records.append(
+                {
+                    "cue": cue_index,
+                    "clip": clip_index,
+                    "source_in": float(source_in),
+                    "source_out": float(source_out),
+                    "text": text,
+                }
+            )
+
+    clip_durations = [media_duration(path) for path in clip_paths]
+    narration_audio = build_section_audio(index, clip_paths, tts_directory)
+    section_duration = media_duration(narration_audio)
+    clip_durations[-1] += section_duration - sum(clip_durations)
+    subtitle_items = [{"text": record["text"]} for record in clip_records]
+    write_ass(ass, cue_subtitle_timeline(subtitle_items, clip_durations))
+
+    # Each selected movie clip now owns exactly one narration recording. The
+    # video cannot cut to the next clip until that recording has ended.
     shots = []
     edl_rows = []
     output_cursor = 0.0
-    for cue_index, (cue, cue_duration) in enumerate(zip(section["cues"], cue_durations), 1):
-        fixed_clips = [(float(a), float(b)) for a, b in cue["clips"]]
-        source_duration = sum(b - a for a, b in fixed_clips)
-        speed_factor = cue_duration / source_duration
-        if not 0.76 <= speed_factor <= 1.28:
+    for record, audio_duration in zip(clip_records, clip_durations):
+        source_in = record["source_in"]
+        source_out = record["source_out"]
+        source_duration = source_out - source_in
+        speed_factor = audio_duration / source_duration
+        if not 0.70 <= speed_factor <= 1.35:
             raise RuntimeError(
-                f"Cue {index}.{cue_index} would require excessive visual retiming: "
-                f"factor={speed_factor:.3f}, audio={cue_duration:.3f}s, "
-                f"selected footage={source_duration:.3f}s"
+                f"Clip {index}.{record['cue']}.{record['clip']} requires excessive retiming: "
+                f"factor={speed_factor:.3f}, audio={audio_duration:.3f}s, "
+                f"footage={source_duration:.3f}s"
             )
-        cue_output = 0.0
-        for source_in, source_out in fixed_clips:
-            if source_out <= source_in:
-                raise RuntimeError(f"Invalid fixed clip {source_in}-{source_out}")
-            if any(
-                source_in < used_end and source_out > used_start
-                for used_start, used_end in used_intervals
-            ):
-                raise RuntimeError(
-                    f"Duplicate fixed source clip detected: {source_in}-{source_out}"
-                )
-            used_intervals.append((source_in, source_out))
-            output_duration = (source_out - source_in) * speed_factor
-            shots.append((source_in, source_out, speed_factor, output_duration))
-            edl_rows.append(
-                {
-                    "section": index,
-                    "cue": cue_index,
-                    "source_in": round(source_in, 3),
-                    "source_out": round(source_out, 3),
-                    "speed_factor": round(speed_factor, 5),
-                    "output_in": round(output_cursor, 3),
-                    "output_out": round(output_cursor + output_duration, 3),
-                    "narration": cue["text"],
-                }
-            )
-            output_cursor += output_duration
-            cue_output += output_duration
-        if abs(cue_output - cue_duration) > 0.02:
-            raise RuntimeError(
-                f"Cue {index}.{cue_index} visual/audio mismatch: "
-                f"{cue_output:.3f}s != {cue_duration:.3f}s"
-            )
+        if any(
+            source_in < used_end and source_out > used_start
+            for used_start, used_end in used_intervals
+        ):
+            raise RuntimeError(f"Duplicate fixed source clip: {source_in}-{source_out}")
+        used_intervals.append((source_in, source_out))
+        shots.append((source_in, source_out, speed_factor, audio_duration))
+        edl_rows.append(
+            {
+                "section": index,
+                "cue": record["cue"],
+                "clip": record["clip"],
+                "source_in": round(source_in, 3),
+                "source_out": round(source_out, 3),
+                "speed_factor": round(speed_factor, 5),
+                "output_in": round(output_cursor, 3),
+                "output_out": round(output_cursor + audio_duration, 3),
+                "narration": record["text"],
+            }
+        )
+        output_cursor += audio_duration
+
+    if abs(output_cursor - section_duration) > 0.03:
+        raise RuntimeError(
+            f"Section {index} clip/audio timeline mismatch: "
+            f"{output_cursor:.3f}s != {section_duration:.3f}s"
+        )
 
     with (directory / f"section_{index:02d}_edl.csv").open(
         "w", encoding="utf-8-sig", newline=""
@@ -397,12 +416,8 @@ def render_section(
     command = ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error"]
     for source_in, source_out, _, _ in shots:
         command += [
-            "-ss",
-            f"{source_in:.3f}",
-            "-t",
-            f"{source_out-source_in:.3f}",
-            "-i",
-            str(source),
+            "-ss", f"{source_in:.3f}", "-t", f"{source_out-source_in:.3f}",
+            "-i", str(source),
         ]
     command += ["-i", str(narration_audio)]
 
@@ -446,9 +461,8 @@ def render_section(
         str(output),
     ]
     print(
-        f"Rendering visual-first section {index}: {section_duration:.1f}s / "
-        f"{len(section['cues'])} beats / {len(shots)} preselected clips / "
-        f"reference rhythm {shot_duration:.2f}s",
+        f"Rendering clip-locked section {index}: {section_duration:.1f}s / "
+        f"{len(shots)} clips with independent Yunxi tracks",
         flush=True,
     )
     run(command)
