@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import shutil
 import subprocess
@@ -177,6 +178,7 @@ def render_review_video(package: Path, source_dir: Path, reference_dir: Path, ou
     rows.append(f"file '{escaped_last}'")
     concat_file.write_text("\n".join(rows) + "\n", encoding="utf-8")
 
+    total_duration = sum(duration for _, duration in sequence)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)
     subprocess.run(
@@ -195,27 +197,38 @@ def render_review_video(package: Path, source_dir: Path, reference_dir: Path, ou
             "-f",
             "lavfi",
             "-i",
-            "anullsrc=r=48000:cl=stereo",
+            "anullsrc=r=44100:cl=stereo",
             "-vf",
-            "scale=1920:1080:force_original_aspect_ratio=decrease,"
-            "pad=1920:1080:(ow-iw)/2:(oh-ih)/2:black,format=yuv420p",
+            "scale=1280:720:force_original_aspect_ratio=decrease,"
+            "pad=1280:720:(ow-iw)/2:(oh-ih)/2:black,format=yuv420p",
             "-r",
-            "24",
+            "25",
             "-c:v",
             "libx264",
             "-profile:v",
-            "main",
+            "baseline",
             "-level",
-            "4.0",
+            "3.1",
+            "-tag:v",
+            "avc1",
+            "-x264-params",
+            "bframes=0:keyint=50:min-keyint=50:scenecut=0",
             "-preset",
             "veryfast",
             "-crf",
             "21",
             "-c:a",
             "aac",
+            "-profile:a",
+            "aac_low",
             "-b:a",
-            "48k",
-            "-shortest",
+            "64k",
+            "-ar",
+            "44100",
+            "-t",
+            f"{total_duration:.3f}",
+            "-video_track_timescale",
+            "90000",
             "-movflags",
             "+faststart",
             str(output),
@@ -227,6 +240,7 @@ def render_review_video(package: Path, source_dir: Path, reference_dir: Path, ou
             "ffmpeg",
             "-v",
             "error",
+            "-xerror",
             "-i",
             str(output),
             "-map",
@@ -245,14 +259,55 @@ def render_review_video(package: Path, source_dir: Path, reference_dir: Path, ou
             "-v",
             "error",
             "-show_entries",
-            "format=duration,size:stream=codec_name,width,height,pix_fmt",
+            "format=format_name,duration,size:stream=codec_name,profile,codec_tag_string,width,height,pix_fmt,r_frame_rate,sample_rate",
             "-of",
             "json",
             str(output),
         ],
         text=True,
     )
-    print(f"PLAYABLE REVIEW MP4 VERIFIED: {probe}", flush=True)
+    metadata = json.loads(probe)
+    streams = metadata.get("streams", [])
+    video = next((stream for stream in streams if stream.get("codec_name") == "h264"), None)
+    audio = next((stream for stream in streams if stream.get("codec_name") == "aac"), None)
+    if not video or not audio:
+        raise RuntimeError(f"Compatibility validation failed: {metadata}")
+    if video.get("codec_tag_string") != "avc1" or video.get("pix_fmt") != "yuv420p":
+        raise RuntimeError(f"Unexpected video compatibility metadata: {video}")
+    with output.open("rb") as handle:
+        payload = handle.read()
+    for atom in (b"ftyp", b"moov", b"mdat"):
+        if atom not in payload:
+            raise RuntimeError(f"Required MP4 atom is missing: {atom.decode()}")
+    checksum = hashlib.sha256(payload).hexdigest()
+    print(f"WINDOWS-COMPATIBLE REVIEW MP4 VERIFIED: {probe}", flush=True)
+    print(f"SHA256: {checksum}", flush=True)
+
+    # Publish a raw MP4 URL as a fallback so the user does not need to unpack
+    # GitHub's artifact ZIP before testing playback.
+    try:
+        upload = subprocess.run(
+            [
+                "curl",
+                "-fsS",
+                "--retry",
+                "2",
+                "-F",
+                "reqtype=fileupload",
+                "-F",
+                f"fileToUpload=@{output}",
+                "https://catbox.moe/user/api.php",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+        direct_url = upload.stdout.strip()
+        if direct_url.startswith("https://"):
+            print(f"::notice title=Direct validated MP4::{direct_url}", flush=True)
+    except Exception as exc:
+        print(f"::warning title=Direct upload unavailable::{exc}", flush=True)
 
 
 def create_visual_package(source: Path, source_scenes: Path, work: Path, output: Path):
