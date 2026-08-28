@@ -14,8 +14,8 @@ from pathlib import Path
 import edge_tts
 
 VOICE = "zh-CN-YunxiNeural"
-VOICE_RATE = "+25%"
-MOVIE_VOLUME = 0.025
+VOICE_RATE = "+35%"
+MOVIE_VOLUME = 0.02
 MAX_SUBTITLE_CHARS = 14
 
 
@@ -413,8 +413,9 @@ def render_section(
         filters.append(
             f"[{shot_index}:v]trim=duration={source_length:.4f},"
             f"setpts=(PTS-STARTPTS)*{speed_factor:.8f},"
-            "crop=iw:325:0:55,scale=1280:-2:flags=lanczos,"
-            "pad=1280:720:0:(oh-ih)/2:black,"
+            "scale=1280:718:force_original_aspect_ratio=decrease:flags=lanczos,"
+            "pad=1280:720:(ow-iw)/2:(oh-ih)/2:black,"
+            "drawbox=x=0:y=610:w=1280:h=110:color=black:t=fill,"
             f"setsar=1,fps=24,trim=duration={output_duration:.4f},format=yuv420p[v{shot_index}]"
         )
         filters.append(
