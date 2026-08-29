@@ -16,7 +16,7 @@ import edge_tts
 VOICE = "zh-CN-YunxiNeural"
 VOICE_RATE = "+35%"
 MOVIE_VOLUME = 0.02
-MAX_SUBTITLE_CHARS = 14
+MAX_SUBTITLE_CHARS = 22
 
 
 def run(command):
@@ -94,34 +94,48 @@ def visible_length(text: str) -> int:
     return len(re.sub(r"[^\u3400-\u9fffA-Za-z0-9]", "", text))
 
 
-def split_subtitle_phrases(text: str, limit: int = MAX_SUBTITLE_CHARS):
-    # Prefer semantic punctuation, then hard-wrap exceptionally long clauses.
-    clauses = [part.strip() for part in re.findall(r"[^，。！？；：]+[，。！？；：]?", text) if part.strip()]
-    output = []
-    for clause in clauses:
-        punctuation = clause[-1] if clause[-1] in "，。！？；：" else ""
-        body = clause[:-1] if punctuation else clause
-        while visible_length(body) > limit:
-            cut = min(limit, len(body))
-            output.append(body[:cut])
-            body = body[cut:]
-        if body or punctuation:
-            output.append(body + punctuation)
-    return output or [text]
+def split_complete_sentences(text: str):
+    sentences = [
+        part.strip()
+        for part in re.findall(r"[^。！？]+[。！？]?", text)
+        if part.strip()
+    ]
+    return sentences or [text]
+
+
+def format_complete_sentence(text: str, line_limit: int = MAX_SUBTITLE_CHARS):
+    # A caption event always contains one complete sentence. Long sentences are
+    # balanced over two lines within the same event; they are never split into
+    # separate one- or two-character captions.
+    if visible_length(text) <= line_limit:
+        return text
+    candidates = [match.end() for match in re.finditer(r"[，；：、]", text)]
+    valid = [
+        cut
+        for cut in candidates
+        if visible_length(text[:cut]) >= 6 and visible_length(text[cut:]) >= 6
+    ]
+    if valid:
+        cut = min(valid, key=lambda value: abs(visible_length(text[:value]) - visible_length(text[value:])))
+    else:
+        cut = max(6, min(len(text) - 6, len(text) // 2))
+    return text[:cut] + "[[BR]]" + text[cut:]
 
 
 def cue_subtitle_timeline(cues, cue_durations):
     timeline = []
     cursor = 0.0
     for cue, duration in zip(cues, cue_durations):
-        phrases = split_subtitle_phrases(cue["text"])
-        weights = [max(2, visible_length(phrase)) + 0.8 for phrase in phrases]
+        sentences = split_complete_sentences(cue["text"])
+        weights = [max(3, visible_length(sentence)) + 1.0 for sentence in sentences]
         scale = duration / sum(weights)
-        phrase_start = cursor
-        for index, (phrase, weight) in enumerate(zip(phrases, weights)):
-            phrase_end = cursor + duration if index == len(phrases) - 1 else phrase_start + weight * scale
-            timeline.append((phrase_start, phrase_end, phrase))
-            phrase_start = phrase_end
+        sentence_start = cursor
+        for index, (sentence, weight) in enumerate(zip(sentences, weights)):
+            sentence_end = cursor + duration if index == len(sentences) - 1 else sentence_start + weight * scale
+            timeline.append(
+                (sentence_start, sentence_end, format_complete_sentence(sentence))
+            )
+            sentence_start = sentence_end
         cursor += duration
     return timeline
 
@@ -144,7 +158,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Narration,Noto Sans CJK SC,39,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.5,0,2,55,55,48,1
+Style: Narration,Noto Sans CJK SC,36,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.5,0,2,55,55,45,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -152,6 +166,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     rows = []
     for start, end, text in timeline:
         text = text.replace("\\", "\\\\").replace("{", "（").replace("}", "）").replace("\n", "")
+        text = text.replace("[[BR]]", r"\N")
         rows.append(f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Narration,,0,0,0,,{text}")
     path.write_text(header + "\n".join(rows) + "\n", encoding="utf-8")
 
