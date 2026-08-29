@@ -14,11 +14,11 @@ from pathlib import Path
 import edge_tts
 
 VOICE = "zh-CN-YunjianNeural"
-VOICE_RATE = "+18%"
+VOICE_RATE = "+5%"
 VOICE_PITCH = "-8Hz"
-MOVIE_VOLUME = 0.02
+MOVIE_VOLUME = 0.0
 BGM_VOLUME = 0.08
-MAX_SUBTITLE_CHARS = 22
+MAX_SUBTITLE_CHARS = 18
 
 
 def run(command):
@@ -153,14 +153,14 @@ def ass_time(seconds):
 def write_ass(path: Path, timeline):
     header = """[Script Info]
 ScriptType: v4.00+
-PlayResX: 1280
-PlayResY: 720
+PlayResX: 720
+PlayResY: 1280
 WrapStyle: 2
 ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Narration,Noto Sans CJK SC,36,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.5,0,2,55,55,45,1
+Style: Narration,Noto Sans CJK SC,31,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.3,0,2,38,38,68,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -449,9 +449,9 @@ def render_section(
         filters.append(
             f"[{shot_index}:v]trim=duration={source_length:.4f},"
             f"setpts=(PTS-STARTPTS)*{speed_factor:.8f},"
-            "scale=1280:718:force_original_aspect_ratio=decrease:flags=lanczos,"
-            "pad=1280:720:(ow-iw)/2:(oh-ih)/2:black,"
-            "drawbox=x=0:y=610:w=1280:h=110:color=black:t=fill,"
+            "scale=720:1280:force_original_aspect_ratio=decrease:flags=lanczos,"
+            "pad=720:1280:(ow-iw)/2:(oh-ih)/2:black,"
+            "drawbox=x=0:y=1050:w=720:h=230:color=black:t=fill,"
             f"setsar=1,fps=24,trim=duration={output_duration:.4f},format=yuv420p[v{shot_index}]"
         )
         filters.append(
@@ -503,6 +503,15 @@ def main():
 
     args.work.mkdir(parents=True, exist_ok=True)
     sections = json.loads(args.narration.read_text(encoding="utf-8"))
+    if any(not cue.get("clips") for section in sections for cue in section["cues"]):
+        from align_reference_clips import align_sections
+
+        sections = align_sections(
+            source=args.source,
+            sections=sections,
+            work=args.work,
+            source_duration=media_duration(args.source),
+        )
     tts_directory = args.work / "tts"
     render_directory = args.work / "render"
     render_directory.mkdir(parents=True, exist_ok=True)

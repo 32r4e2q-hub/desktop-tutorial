@@ -10,11 +10,10 @@ import sys
 import urllib.request
 from pathlib import Path
 
-SOURCE_ITEM_API = 'https://onedrive.live.com/_api/v2.0/drives/b!8CGwIeTW9UOMBN7bDXIXSGyINjJWHwNIrnuHIGwgU9I8I7ew4QkfQpur8Xfy2CxW/items/01BIVNJFW2O3VS57M6RVF3QRIIXSLZM7TF?tempauth=v1e.eyJzaXRlaWQiOiIyMWIwMjFmMC1kNmU0LTQzZjUtOGMwNC1kZWRiMGQ3MjE3NDgiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvb25lZHJpdmUubGl2ZS5jb21AOTE4ODA0MGQtNmM2Ny00YzViLWIxMTItMzZhMzA0YjY2ZGFkIiwiZXhwIjoiMTc4ODAzMDczOSJ9.rMsAjQFyCgZIEMe1-ftm1uUo4PZ80QaU63KSKkSetodsJug_aT8LkFmvGYyKWq07ivID3uT8jKgIZ5zjoavEO5fdLJKmj0fzk9Co_IyRL7Rgaft2uLuMkETR9Jq42a3m7jvAtD3u6c_xn1Wb4vycZk2EV98fiQTdLu8xihh71jHrSZ81Ory2qeybzP-hZrG-G3AHIvneUIXppyXbBAqFldrh-hCBkzrAn1E5bF3K-_cPTxpBsGR9PpxaCx6U4mQPiaDn5sCXksrN0G9fC0yAAtuIalBiO49GLV1FVDG260BpvXtCngbms3lPFy1t7YIahTHEu21vqMP1G3aC4S8yKeyo7w5ugWWHlCvanIOcC-3jxPokuq8B04ip615XBSoBXUpsla0ShhRjsBnAWi4QTD2ASoGZaeH_6zHgAhnltRR1JQt4NdDL6FNprddrsDCiNJxbIoSQ6Y6Ts9mUnCF30tUBSl-rUNqioWwTH15OV8o._ntqknK7sdDAFTH6DS3IeYwNCt9vzUGLcYxASZgrA4g&version=Published&VroomTakeover=1'
-REFERENCE_GOOGLE_DRIVE = "https://drive.google.com/file/d/1HtUQyrpBSwYLJvqMXSa5kz_E2cjOmmcR/view?usp=sharing"
-EXPECTED_NAME = "Colony.2026.1080p.mp4"
-EXPECTED_SIZE = 3_805_764_950
-EXPECTED_SHA1 = "6BB98ACDB12B77B5B8DCADCF78200784983FB72E"
+SOURCE_ITEM_API = 'https://onedrive.live.com/_api/v2.0/drives/b!8CGwIeTW9UOMBN7bDXIXSGyINjJWHwNIrnuHIGwgU9I8I7ew4QkfQpur8Xfy2CxW/items/01BIVNJFRWZH3DX35NYFHKFWBGDFBQGPN5?tempauth=v1e.eyJzaXRlaWQiOiIyMWIwMjFmMC1kNmU0LTQzZjUtOGMwNC1kZWRiMGQ3MjE3NDgiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvb25lZHJpdmUubGl2ZS5jb21AOTE4ODA0MGQtNmM2Ny00YzViLWIxMTItMzZhMzA0YjY2ZGFkIiwiZXhwIjoiMTc4ODAzNTAzNCJ9.-FwFn9Y2jL64Yc6OD2-pC8tReestuGVmov19bQeQP5S9BBThm5JerY93HXuR1lV5k2wYDC2h225NWuL0inLIx1M-Mn2fHNbo5jd6JqF2_nVb5K8A9X7do2WARYeQ1meGZF020uEwIjxbenU4EeVbglk5b7ld2F_8cHlHjGAiIuJhq9L302gn3Pn7sSQGIlOQTuMp6r_wMtM0cKJ_rJT_dC7QmGPZ_9Ad2I2fmz9NnsugTnT2lR1zqsx5e4iIlhKxTp8yj8rNCQAmpgVvL19uBbjr32QY10WovQEIKIfxEEsHBwtf__yrivwxeps3cQrSzGWOmHtB5GkiSpaMhadWi4d-ryDocWAfZCnD7WzAaR5bERewDWklh0iI2MtQWu30wxG4xnsSVkolAFwacdXg9fzKUVdarGCEnT_rTXyC3WeMqfclPNI0MLF8dcTWeF2iIoj1xnmFMzf_zQXm9dZb5bBC2wwbIHAeLMeQidpESYY.rsV8h87yL5ZWS8Gp42WWO7NpbRqLzQiFRHFlgsjYPK8&version=Published&VroomTakeover=1'
+EXPECTED_NAME = '@shincyan666=dd9cac.mp4'
+EXPECTED_SIZE = 182_506_802
+EXPECTED_SHA1 = 'A3EBAD8411FDB5231B5F56B03C050DEC4D8CCF35'
 
 
 def sha1(path: Path) -> str:
@@ -59,16 +58,6 @@ def main() -> None:
         raise RuntimeError(f"Source SHA1 mismatch: {actual_sha1} != {EXPECTED_SHA1}")
     print(f"SOURCE VERIFIED: {EXPECTED_NAME} / {size} bytes / SHA1 {actual_sha1}", flush=True)
 
-    # Download the user's original Douyin commentary example for rhythm analysis.
-    subprocess.run([sys.executable, "-m", "pip", "install", "--quiet", "gdown==5.2.0"], check=True)
-    reference = output.parent / "reference.mp4"
-    reference.unlink(missing_ok=True)
-    result = subprocess.run(
-        [sys.executable, "-m", "gdown", "--fuzzy", REFERENCE_GOOGLE_DRIVE, "-O", str(reference)]
-    )
-    if result.returncode != 0 or not reference.exists() or reference.stat().st_size < 20_000_000:
-        print("::warning title=Reference download::Douyin reference unavailable; using measured 3.7s rhythm")
-        reference.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
