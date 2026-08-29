@@ -13,9 +13,11 @@ from pathlib import Path
 
 import edge_tts
 
-VOICE = "zh-CN-YunxiNeural"
-VOICE_RATE = "+35%"
+VOICE = "zh-CN-YunjianNeural"
+VOICE_RATE = "+18%"
+VOICE_PITCH = "-8Hz"
 MOVIE_VOLUME = 0.02
+BGM_VOLUME = 0.08
 MAX_SUBTITLE_CHARS = 22
 
 
@@ -292,7 +294,11 @@ async def generate_cue_tts(sections, directory: Path):
                 for attempt in range(4):
                     try:
                         communication = edge_tts.Communicate(
-                            text, VOICE, rate=VOICE_RATE, volume="+0%"
+                            text,
+                            VOICE,
+                            rate=VOICE_RATE,
+                            volume="+2%",
+                            pitch=VOICE_PITCH,
                         )
                         await communication.save(str(target))
                         break
@@ -460,7 +466,9 @@ def render_section(
     narration_index = len(shots)
     filters.append(
         f"[{narration_index}:a]atrim=duration={section_duration:.4f},"
-        "asetpts=PTS-STARTPTS,aresample=44100[narr]"
+        "asetpts=PTS-STARTPTS,aresample=44100,highpass=f=70,lowpass=f=12000,"
+        "equalizer=f=160:t=q:w=1:g=2,"
+        "acompressor=threshold=0.125:ratio=2.2:attack=15:release=140:makeup=1.4[narr]"
     )
     filters.append(
         f"[acat]volume={MOVIE_VOLUME}[movie];[movie][narr]"
@@ -477,7 +485,7 @@ def render_section(
     ]
     print(
         f"Rendering clip-locked section {index}: {section_duration:.1f}s / "
-        f"{len(shots)} clips with independent Yunxi tracks",
+        f"{len(shots)} clips with independent Yunjian tracks",
         flush=True,
     )
     run(command)
@@ -546,7 +554,20 @@ def main():
         ]
     )
 
+    from generate_horror_bgm import generate_horror_bgm
+
+    raw_duration = media_duration(raw_output)
+    bgm = args.work / "original-horror-underscore.wav"
+    generate_horror_bgm(bgm, raw_duration)
+
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    mix_filter = (
+        f"[0:a]asplit=2[main][side];"
+        f"[1:a]volume={BGM_VOLUME}[bg];"
+        "[bg][side]sidechaincompress=threshold=0.02:ratio=3:attack=25:release=350[ducked];"
+        "[main][ducked]amix=inputs=2:duration=first:normalize=0,"
+        "loudnorm=I=-16:TP=-1.5:LRA=11[aout]"
+    )
     run(
         [
             "ffmpeg",
@@ -556,14 +577,16 @@ def main():
             "error",
             "-i",
             raw_output,
+            "-i",
+            bgm,
+            "-filter_complex",
+            mix_filter,
             "-map",
             "0:v:0",
             "-map",
-            "0:a:0",
+            "[aout]",
             "-c:v",
             "copy",
-            "-af",
-            "loudnorm=I=-16:TP=-1.5:LRA=11",
             "-c:a",
             "aac",
             "-b:a",
