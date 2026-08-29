@@ -43,18 +43,19 @@ TRACKS = {
 def make_url(track: str, part: str, segment_time: int | None = None) -> str:
     spec = TRACKS[track]
     params = dict(COMMON)
-    params.update(
-        {
-            'part': part,
-            'track': track,
-            'quality': spec['quality'],
-            'wsd': str(spec['wsd']),
-            'ppd': str(spec['ppd']),
-            'ppst': '0',
-        }
-    )
+    params.update({'part': part, 'track': track, 'quality': spec['quality']})
     if 'cacheVersion' in spec:
         params['cacheVersion'] = spec['cacheVersion']
+    # Window duration and presentation duration are valid only for media
+    # fragments. Including them on the initialization request returns HTTP 400.
+    if part == 'mediasegment':
+        params.update(
+            {
+                'wsd': str(spec['wsd']),
+                'ppd': str(spec['ppd']),
+                'ppst': '0',
+            }
+        )
     if segment_time is not None:
         params['segmentTime'] = str(segment_time)
     return BASE + '?' + urllib.parse.urlencode(params)
@@ -86,8 +87,31 @@ def fetch(url: str, label: str) -> bytes:
 def download_track(track: str, output: Path) -> None:
     spec = TRACKS[track]
     print(f'Downloading {track} initialization segment...', flush=True)
-    header = fetch(make_url(track, 'header'), f'{track} header')
+    header = None
+    header_error = None
+    for part, segment_time in (('header', None), ('initsegment', None), ('header', 0)):
+        try:
+            candidate = fetch(
+                make_url(track, part, segment_time),
+                f'{track} {part}' + (f' {segment_time}' if segment_time is not None else ''),
+            )
+            if b'ftyp' in candidate[:128] or b'moov' in candidate:
+                header = candidate
+                print(f'{track}: initialization obtained via part={part}', flush=True)
+                break
+            header_error = RuntimeError(f'part={part} returned {len(candidate)} bytes without MP4 init atoms')
+        except Exception as exc:
+            header_error = exc
     starts = list(range(0, spec['ppd'], spec['wsd']))
+    if header is None:
+        # Some OneDrive variants prepend initialization atoms to segment zero.
+        first = fetch(make_url(track, 'mediasegment', 0), f'{track} segment zero')
+        if b'ftyp' in first[:128] or b'moov' in first:
+            header = first
+            starts = starts[1:]
+            print(f'{track}: segment zero contains initialization atoms', flush=True)
+        else:
+            raise RuntimeError(f'no usable {track} initialization segment: {header_error}')
     print(f'Downloading {len(starts)} signed {track} media segments...', flush=True)
     with output.open('wb') as handle:
         handle.write(header)
