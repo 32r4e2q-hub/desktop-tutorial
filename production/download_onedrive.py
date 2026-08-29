@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 import urllib.request
@@ -43,18 +44,41 @@ def main() -> None:
         raise RuntimeError("OneDrive item API did not return @content.downloadUrl")
 
     print(f"Downloading {EXPECTED_NAME} ({EXPECTED_SIZE} bytes) from signed OneDrive content URL...", flush=True)
-    subprocess.run(
+    curl_result = subprocess.run(
         [
-            "curl", "-fL", "--retry", "4", "--retry-delay", "4", "--connect-timeout", "30",
-            "--output", str(output), download_url,
-        ],
-        check=True,
+            "curl", "-fL", "--retry", "4", "--retry-all-errors", "--retry-delay", "4",
+            "--connect-timeout", "30", "-A", "Mozilla/5.0", "-H",
+            "Referer: https://onedrive.live.com/", "--output", str(output), download_url,
+        ]
     )
+    if curl_result.returncode != 0 or not output.exists():
+        print(
+            f"::warning title=OneDrive curl download::curl exited with {curl_result.returncode}; "
+            "retrying with Python streaming",
+            flush=True,
+        )
+        output.unlink(missing_ok=True)
+        stream_request = urllib.request.Request(
+            download_url,
+            headers={
+                "User-Agent": "Mozilla/5.0",
+                "Referer": "https://onedrive.live.com/",
+                "Accept": "*/*",
+            },
+        )
+        try:
+            with urllib.request.urlopen(stream_request, timeout=120) as response, output.open("wb") as handle:
+                shutil.copyfileobj(response, handle, length=8 * 1024 * 1024)
+        except Exception as exc:
+            print(f"::error title=OneDrive stream download failed::{type(exc).__name__}: {exc}")
+            raise
     size = output.stat().st_size
     if size != EXPECTED_SIZE:
+        print(f"::error title=Source size mismatch::{size} != {EXPECTED_SIZE}")
         raise RuntimeError(f"Source size mismatch: {size} != {EXPECTED_SIZE}")
     actual_sha1 = sha1(output)
     if actual_sha1 != EXPECTED_SHA1:
+        print(f"::error title=Source checksum mismatch::{actual_sha1} != {EXPECTED_SHA1}")
         raise RuntimeError(f"Source SHA1 mismatch: {actual_sha1} != {EXPECTED_SHA1}")
     print(f"SOURCE VERIFIED: {EXPECTED_NAME} / {size} bytes / SHA1 {actual_sha1}", flush=True)
 
