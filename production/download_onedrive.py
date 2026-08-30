@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import hashlib
 import json
+import shutil
 import struct
 import subprocess
 import time
@@ -17,6 +19,9 @@ from pathlib import Path
 SOURCE_ITEM_API = 'https://onedrive.live.com/_api/v2.0/drives/b!8CGwIeTW9UOMBN7bDXIXSGyINjJWHwNIrnuHIGwgU9I8I7ew4QkfQpur8Xfy2CxW/items/01BIVNJFRWZH3DX35NYFHKFWBGDFBQGPN5?tempauth=v1e.eyJzaXRlaWQiOiIyMWIwMjFmMC1kNmU0LTQzZjUtOGMwNC1kZWRiMGQ3MjE3NDgiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvb25lZHJpdmUubGl2ZS5jb21AOTE4ODA0MGQtNmM2Ny00YzViLWIxMTItMzZhMzA0YjY2ZGFkIiwiZXhwIjoiMTc4ODAzNTAzNCJ9.-FwFn9Y2jL64Yc6OD2-pC8tReestuGVmov19bQeQP5S9BBThm5JerY93HXuR1lV5k2wYDC2h225NWuL0inLIx1M-Mn2fHNbo5jd6JqF2_nVb5K8A9X7do2WARYeQ1meGZF020uEwIjxbenU4EeVbglk5b7ld2F_8cHlHjGAiIuJhq9L302gn3Pn7sSQGIlOQTuMp6r_wMtM0cKJ_rJT_dC7QmGPZ_9Ad2I2fmz9NnsugTnT2lR1zqsx5e4iIlhKxTp8yj8rNCQAmpgVvL19uBbjr32QY10WovQEIKIfxEEsHBwtf__yrivwxeps3cQrSzGWOmHtB5GkiSpaMhadWi4d-ryDocWAfZCnD7WzAaR5bERewDWklh0iI2MtQWu30wxG4xnsSVkolAFwacdXg9fzKUVdarGCEnT_rTXyC3WeMqfclPNI0MLF8dcTWeF2iIoj1xnmFMzf_zQXm9dZb5bBC2wwbIHAeLMeQidpESYY.rsV8h87yL5ZWS8Gp42WWO7NpbRqLzQiFRHFlgsjYPK8&version=Published&VroomTakeover=1'
 PLAYBACK_SESSION_DATA = 'eyJDYW5Vc2VJdGVyYXRpdmVTZWVrRm9yTWV0YWRhdGFEZXJpdmF0aW9uIjpmYWxzZSwiRnJhbWVSYXRlMTAwMEZwcyI6Mjk5OTgsIkhhc01mcmFJbmRleCI6ZmFsc2UsIklucHV0RnJhbWVIZWlnaHRQaXhlbHMiOjEyODAsIklucHV0RnJhbWVXaWR0aFBpeGVscyI6NzIwLCJWaWRlb0JpdHJhdGVCcHMiOjUwNDQ2N30='
 EXPECTED_DURATION = 2539.266
+LOCAL_PARTS = Path(__file__).resolve().parent / 'source_parts'
+LOCAL_SIZE = 182_506_802
+LOCAL_SHA256 = 'F2DAD2D76B01C5F648CCC7B6107BF50B76952237FA5EC18DB8B038C6958D54D8'
 BASE = 'https://canadaeast1-mediap.svc.ms/transform/videotranscode'
 COMMON = {
     'provider': 'Spo',
@@ -144,21 +149,44 @@ def main() -> None:
     for path in (output, video, audio):
         path.unlink(missing_ok=True)
 
-    try:
-        download_track('video', video)
-        download_track('audio', audio)
-    except Exception as exc:
-        print(f'::error title=OneDrive segment reconstruction failed::{type(exc).__name__}: {exc}')
-        raise
-
-    subprocess.run(
-        [
-            'ffmpeg', '-y', '-hide_banner', '-loglevel', 'warning',
-            '-i', str(video), '-i', str(audio), '-map', '0:v:0', '-map', '1:a:0',
-            '-c', 'copy', '-movflags', '+faststart', str(output),
-        ],
-        check=True,
-    )
+    local_manifest = LOCAL_PARTS / 'manifest.json'
+    if local_manifest.exists():
+        manifest = json.loads(local_manifest.read_text(encoding='utf-8'))
+        digest = hashlib.sha256()
+        with output.open('wb') as destination:
+            for part_name in manifest['parts']:
+                part = LOCAL_PARTS / part_name
+                print(f'Assembling uploaded source part: {part.name}', flush=True)
+                with part.open('rb') as source:
+                    while True:
+                        block = source.read(8 * 1024 * 1024)
+                        if not block:
+                            break
+                        destination.write(block)
+                        digest.update(block)
+        if output.stat().st_size != LOCAL_SIZE:
+            raise RuntimeError(f'Uploaded source size mismatch: {output.stat().st_size} != {LOCAL_SIZE}')
+        if digest.hexdigest().upper() != LOCAL_SHA256:
+            raise RuntimeError(f'Uploaded source checksum mismatch: {digest.hexdigest()}')
+        print(
+            f'LOCAL UPLOAD VERIFIED: {output.stat().st_size} bytes / SHA256 {digest.hexdigest()}',
+            flush=True,
+        )
+    else:
+        try:
+            download_track('video', video)
+            download_track('audio', audio)
+        except Exception as exc:
+            print(f'::error title=OneDrive segment reconstruction failed::{type(exc).__name__}: {exc}')
+            raise
+        subprocess.run(
+            [
+                'ffmpeg', '-y', '-hide_banner', '-loglevel', 'warning',
+                '-i', str(video), '-i', str(audio), '-map', '0:v:0', '-map', '1:a:0',
+                '-c', 'copy', '-movflags', '+faststart', str(output),
+            ],
+            check=True,
+        )
     probe_raw = subprocess.check_output(
         [
             'ffprobe', '-v', 'error', '-show_entries',
