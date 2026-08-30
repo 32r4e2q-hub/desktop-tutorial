@@ -59,7 +59,8 @@ def transcribe(source: Path, work: Path):
         packed = base64.b64encode(
             zlib.compress(json.dumps(document, ensure_ascii=False).encode("utf-8"), 9)
         ).decode("ascii")
-        chunks = [packed[index : index + 7000] for index in range(0, len(packed), 7000)]
+        # GitHub truncates an individual annotation message at 4096 bytes.
+        chunks = [packed[index : index + 3500] for index in range(0, len(packed), 3500)]
         for index, chunk in enumerate(chunks, 1):
             print(
                 f"::notice title=Transcript payload {index}/{len(chunks)}::{chunk}",
