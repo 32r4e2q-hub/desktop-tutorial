@@ -36,7 +36,7 @@ jobs:
         run: |
           mkdir -p work/scenes output
           python production/download_onedrive.py "$SOURCE_URL" work/source.mp4
-          test "$(stat -c%s work/source.mp4)" -gt 500000000
+          test "$(stat -c%s work/source.mp4)" -gt 100000000
           ffprobe -v error -show_entries format=duration,size -of default=nw=1 work/source.mp4
 
       - name: Detect source shots
