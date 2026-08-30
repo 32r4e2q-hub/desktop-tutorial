@@ -81,15 +81,19 @@ if [[ "$is_source" == "1" ]]; then
   fi
   exit 0
 fi
-exec /usr/bin/ffprobe "$@"
+exec /usr/bin/ffprobe.real "$@"
 """,
         encoding="utf-8",
     )
     subprocess.run(
-        ["sudo", "install", "-m", "0755", str(wrapper), "/usr/local/bin/ffprobe"],
+        ["sudo", "mv", "/usr/bin/ffprobe", "/usr/bin/ffprobe.real"],
         check=True,
     )
-    print("::notice title=FFprobe compatibility::Installed source-only metadata shim", flush=True)
+    subprocess.run(
+        ["sudo", "install", "-m", "0755", str(wrapper), "/usr/bin/ffprobe"],
+        check=True,
+    )
+    print("::notice title=FFprobe compatibility::Installed shim at /usr/bin/ffprobe", flush=True)
 
 
 if __name__ == "__main__":
