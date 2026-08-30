@@ -63,7 +63,7 @@ def align_sections(source: Path, sections, work: Path, source_duration: float):
 
     all_cues = [(si, ci, cue) for si, section in enumerate(sections, 1) for ci, cue in enumerate(section["cues"], 1)]
     for order, (section_index, cue_index, cue) in enumerate(all_cues, 1):
-        groups = cue.get("keywords", [])
+        groups = [] if cue.get("fixed_sequence") else cue.get("keywords", [])
         best = None
         # Keep the search monotonic and local; each event must follow the one before it.
         search_end = min(len(segments), cursor + 180)
