@@ -22,6 +22,11 @@ def main() -> None:
     if not manifest_path.exists():
         raise RuntimeError(f"Uploaded source manifest is missing: {manifest_path}")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    inventory = []
+    for part_name in manifest["parts"]:
+        part = PARTS_DIR / part_name
+        inventory.append(f"{part_name}:{part.stat().st_size if part.exists() else 'missing'}")
+    print(f"::notice title=Uploaded part inventory::{', '.join(inventory)}", flush=True)
     output = Path(args.output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)
@@ -41,13 +46,15 @@ def main() -> None:
     actual_size = output.stat().st_size
     actual_sha256 = digest.hexdigest().upper()
     if actual_size != EXPECTED_SIZE:
+        print(f"::error title=Uploaded source size mismatch::{actual_size} != {EXPECTED_SIZE}")
         raise RuntimeError(f"Uploaded source size mismatch: {actual_size} != {EXPECTED_SIZE}")
     if actual_sha256 != EXPECTED_SHA256:
+        print(f"::error title=Uploaded source checksum mismatch::{actual_sha256} != {EXPECTED_SHA256}")
         raise RuntimeError(
             f"Uploaded source checksum mismatch: {actual_sha256} != {EXPECTED_SHA256}"
         )
     print(
-        f"UPLOADED SOURCE VERIFIED: {actual_size} bytes / SHA256 {actual_sha256}",
+        f"::notice title=Uploaded source verified::{actual_size} bytes / SHA256 {actual_sha256}",
         flush=True,
     )
 
