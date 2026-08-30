@@ -289,7 +289,7 @@ async def generate_cue_tts(sections, directory: Path):
                 if target.exists() and target.stat().st_size:
                     continue
                 print(
-                    f"Generating Yunxi clip {completed}/{total}: {text}", flush=True
+                    f"Generating Yunjian clip {completed}/{total}: {text}", flush=True
                 )
                 for attempt in range(4):
                     try:
@@ -503,15 +503,38 @@ def main():
 
     args.work.mkdir(parents=True, exist_ok=True)
     sections = json.loads(args.narration.read_text(encoding="utf-8"))
-    if any(not cue.get("clips") for section in sections for cue in section["cues"]):
-        from align_reference_clips import align_sections
 
-        sections = align_sections(
-            source=args.source,
-            sections=sections,
-            work=args.work,
-            source_duration=media_duration(args.source),
-        )
+    # This production uses a reviewed, event-level EDL. Never guess a clip from
+    # keywords or proportional source position: a missing range is a hard error.
+    source_duration = media_duration(args.source)
+    selected = []
+    cue_count = 0
+    for section_index, section in enumerate(sections, 1):
+        for cue_index, cue in enumerate(section["cues"], 1):
+            cue_count += 1
+            clips = cue.get("clips") or []
+            clip_texts = cue.get("clip_texts") or []
+            if len(clips) != 1 or len(clip_texts) != 1:
+                raise RuntimeError(
+                    f"Cue {section_index}.{cue_index} must own exactly one reviewed clip and narration"
+                )
+            if clip_texts[0] != cue["text"]:
+                raise RuntimeError(f"Cue {section_index}.{cue_index} text differs from its clip narration")
+            start, end = map(float, clips[0])
+            if not (0 <= start < end <= source_duration):
+                raise RuntimeError(f"Cue {section_index}.{cue_index} has invalid source range {start}-{end}")
+            for previous_start, previous_end, previous_name in selected:
+                if start < previous_end and end > previous_start:
+                    raise RuntimeError(
+                        f"Cue {section_index}.{cue_index} overlaps reviewed cue {previous_name}: "
+                        f"{start}-{end} vs {previous_start}-{previous_end}"
+                    )
+            selected.append((start, end, f"{section_index}.{cue_index}"))
+    print(
+        f"Verified manual EDL: {cue_count} narration events / {len(selected)} exclusive source clips.",
+        flush=True,
+    )
+
     tts_directory = args.work / "tts"
     render_directory = args.work / "render"
     render_directory.mkdir(parents=True, exist_ok=True)

@@ -36,7 +36,7 @@ jobs:
         run: |
           mkdir -p work/scenes output
           python production/download_onedrive.py "$SOURCE_URL" work/source.mp4
-          test "$(stat -c%s work/source.mp4)" -gt 500000000
+          test "$(stat -c%s work/source.mp4)" -gt 100000000
           ffprobe -v error -show_entries format=duration,size -of default=nw=1 work/source.mp4
 
       - name: Detect source shots
@@ -44,20 +44,20 @@ jobs:
           scenedetect -q -i work/source.mp4 -o work/scenes detect-content -t 27 list-scenes -f scenes.csv
           test -s work/scenes/scenes.csv
 
-      - name: Generate Yunxi narration and render 720p video
+      - name: Generate Yunjian narration and render 720p video
         run: |
           python production/render_commentary.py \
             --source work/source.mp4 \
             --scenes work/scenes/scenes.csv \
             --narration production/narration.json \
             --work work/production \
-            --output "output/阴曹使者_10分钟电影解说_720p.mp4"
+            --output "output/恶缘_10分钟电影解说_720p.mp4"
 
       - name: Upload final MP4
         uses: actions/upload-artifact@v4
         with:
-          name: 阴曹使者-10分钟电影解说-720p
-          path: output/阴曹使者_10分钟电影解说_720p.mp4
+          name: 恶缘-10分钟电影解说-720p
+          path: output/恶缘_10分钟电影解说_720p.mp4
           if-no-files-found: error
           compression-level: 0
           retention-days: 7

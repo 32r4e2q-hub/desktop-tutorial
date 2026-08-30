@@ -2,13 +2,10 @@
 """Transcribe a commentary source and align new narration beats to its scenes."""
 from __future__ import annotations
 
-import base64
 import json
-import os
 import re
 import subprocess
 import sys
-import zlib
 from pathlib import Path
 
 
@@ -44,31 +41,12 @@ def transcribe(source: Path, work: Path):
         for segment in raw_segments
         if segment.text.strip()
     ]
-    document = {"language": info.language, "segments": segments}
     transcript_path.write_text(
-        json.dumps(document, ensure_ascii=False, indent=2),
+        json.dumps({"language": info.language, "segments": segments}, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     print(f"Transcribed {len(segments)} commentary segments.", flush=True)
-
-    # Temporary capture path: GitHub's runner can transcribe this HE-AAC source,
-    # while the local sandbox cannot download the speech model. Transport the
-    # timestamped transcript through check-run annotations so we can author a
-    # verified manual edit rather than guessing clip positions.
-    if os.environ.get("GITHUB_ACTIONS") == "true":
-        packed = base64.b64encode(
-            zlib.compress(json.dumps(document, ensure_ascii=False).encode("utf-8"), 9)
-        ).decode("ascii")
-        # GitHub truncates an individual annotation message at 4096 bytes.
-        chunks = [packed[index : index + 3500] for index in range(0, len(packed), 3500)]
-        for index, chunk in enumerate(chunks, 1):
-            print(
-                f"::notice title=Transcript payload {index}/{len(chunks)}::{chunk}",
-                flush=True,
-            )
-        raise RuntimeError("Transcript capture complete; use payload annotations")
-
-    return document
+    return {"language": info.language, "segments": segments}
 
 
 def group_matches(text: str, group) -> bool:
@@ -86,6 +64,10 @@ def align_sections(source: Path, sections, work: Path, source_duration: float):
     all_cues = [(si, ci, cue) for si, section in enumerate(sections, 1) for ci, cue in enumerate(section["cues"], 1)]
     for order, (section_index, cue_index, cue) in enumerate(all_cues, 1):
         groups = [] if cue.get("fixed_sequence") else cue.get("keywords", [])
+        if not groups:
+            raise RuntimeError(
+                f"Beat {order} has neither verified manual clips nor alignment keywords"
+            )
         best = None
         # Keep the search monotonic and local; each event must follow the one before it.
         search_end = min(len(segments), cursor + 180)
@@ -94,23 +76,14 @@ def align_sections(source: Path, sections, work: Path, source_duration: float):
             score = sum(1 for group in groups if group_matches(window_text, group))
             if best is None or score > best[0]:
                 best = (score, index)
-                if score == len(groups) and groups:
+                if score == len(groups):
                     break
         if not best or best[0] == 0:
-            # Keep the edit moving monotonically through the source even when
-            # Whisper paraphrases a keyword. The proportional position is a
-            # safer fallback than aborting or reusing an unrelated earlier shot.
-            proportional = int((order - 1) / max(len(all_cues) - 1, 1) * (len(segments) - 1))
-            index = max(cursor, proportional)
-            index = min(index, len(segments) - 1)
-            score = 0
-            print(
-                f"::warning title=Transcript alignment fallback::Beat {order} "
-                f"used proportional segment {index}: {segments[index]['text']}",
-                flush=True,
+            raise RuntimeError(
+                f"Beat {order} could not be matched safely after source segment {cursor}; "
+                "refusing proportional fallback because it can pair unrelated footage"
             )
-        else:
-            score, index = best
+        score, index = best
         matched = segments[index]
         planned = max(4.2, len(cue["text"]) / 5.1)
         center = (matched["start"] + matched["end"]) / 2
