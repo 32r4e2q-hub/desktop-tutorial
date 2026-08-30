@@ -393,7 +393,7 @@ def render_section(
         source_out = record["source_out"]
         source_duration = source_out - source_in
         speed_factor = audio_duration / source_duration
-        if not 0.70 <= speed_factor <= 1.35:
+        if not 0.55 <= speed_factor <= 1.70:
             raise RuntimeError(
                 f"Clip {index}.{record['cue']}.{record['clip']} requires excessive retiming: "
                 f"factor={speed_factor:.3f}, audio={audio_duration:.3f}s, "

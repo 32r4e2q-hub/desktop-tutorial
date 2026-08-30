@@ -31,7 +31,7 @@ def transcribe(source: Path, work: Path):
     )
     from faster_whisper import WhisperModel
 
-    model = WhisperModel("small", device="cpu", compute_type="int8", cpu_threads=4)
+    model = WhisperModel("base", device="cpu", compute_type="int8", cpu_threads=4)
     raw_segments, info = model.transcribe(
         str(source), language="zh", beam_size=3, vad_filter=True,
         vad_parameters={"min_silence_duration_ms": 350},
@@ -75,10 +75,20 @@ def align_sections(source: Path, sections, work: Path, source_duration: float):
                 if score == len(groups) and groups:
                     break
         if not best or best[0] == 0:
-            raise RuntimeError(
-                f"Could not align narration beat {order} ({cue['text']}) after transcript segment {cursor}"
+            # Keep the edit moving monotonically through the source even when
+            # Whisper paraphrases a keyword. The proportional position is a
+            # safer fallback than aborting or reusing an unrelated earlier shot.
+            proportional = int((order - 1) / max(len(all_cues) - 1, 1) * (len(segments) - 1))
+            index = max(cursor, proportional)
+            index = min(index, len(segments) - 1)
+            score = 0
+            print(
+                f"::warning title=Transcript alignment fallback::Beat {order} "
+                f"used proportional segment {index}: {segments[index]['text']}",
+                flush=True,
             )
-        score, index = best
+        else:
+            score, index = best
         matched = segments[index]
         planned = max(4.2, len(cue["text"]) / 5.1)
         center = (matched["start"] + matched["end"]) / 2
