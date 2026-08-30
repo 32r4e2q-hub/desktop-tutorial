@@ -17,8 +17,9 @@ VOICE = "zh-CN-YunjianNeural"
 VOICE_RATE = "+5%"
 VOICE_PITCH = "-8Hz"
 MOVIE_VOLUME = 0.0
-BGM_VOLUME = 0.08
-MAX_SUBTITLE_CHARS = 18
+BGM_VOLUME = 0.05
+BGM_LOOP_SECONDS = 96.0
+SINGLE_LINE_SUBTITLE_CHARS = 15
 
 
 def run(command):
@@ -96,48 +97,39 @@ def visible_length(text: str) -> int:
     return len(re.sub(r"[^\u3400-\u9fffA-Za-z0-9]", "", text))
 
 
-def split_complete_sentences(text: str):
-    sentences = [
+def split_caption_clauses(text: str):
+    """Split at every spoken punctuation mark for short, single-line captions."""
+    clauses = [
         part.strip()
-        for part in re.findall(r"[^。！？]+[。！？]?", text)
+        for part in re.findall(r"[^，。！？；：]+[，。！？；：]?", text)
         if part.strip()
     ]
-    return sentences or [text]
+    return clauses or [text]
 
 
-def format_complete_sentence(text: str, line_limit: int = MAX_SUBTITLE_CHARS):
-    # A caption event always contains one complete sentence. Long sentences are
-    # balanced over two lines within the same event; they are never split into
-    # separate one- or two-character captions.
-    if visible_length(text) <= line_limit:
-        return text
-    candidates = [match.end() for match in re.finditer(r"[，；：、]", text)]
-    valid = [
-        cut
-        for cut in candidates
-        if visible_length(text[:cut]) >= 6 and visible_length(text[cut:]) >= 6
-    ]
-    if valid:
-        cut = min(valid, key=lambda value: abs(visible_length(text[:value]) - visible_length(text[value:])))
-    else:
-        cut = max(6, min(len(text) - 6, len(text) // 2))
-    return text[:cut] + "[[BR]]" + text[cut:]
+def format_single_line_caption(text: str):
+    """Keep one clause on one line, shrinking only exceptionally long clauses."""
+    length = max(1, visible_length(text))
+    if length > SINGLE_LINE_SUBTITLE_CHARS:
+        font_size = max(34, min(40, int(600 / length)))
+        return f"[[SINGLE:{font_size}]]{text}"
+    return "[[SINGLE:40]]" + text
 
 
 def cue_subtitle_timeline(cues, cue_durations):
     timeline = []
     cursor = 0.0
     for cue, duration in zip(cues, cue_durations):
-        sentences = split_complete_sentences(cue["text"])
-        weights = [max(3, visible_length(sentence)) + 1.0 for sentence in sentences]
+        clauses = split_caption_clauses(cue["text"])
+        weights = [max(3, visible_length(clause)) + 1.0 for clause in clauses]
         scale = duration / sum(weights)
-        sentence_start = cursor
-        for index, (sentence, weight) in enumerate(zip(sentences, weights)):
-            sentence_end = cursor + duration if index == len(sentences) - 1 else sentence_start + weight * scale
+        clause_start = cursor
+        for index, (clause, weight) in enumerate(zip(clauses, weights)):
+            clause_end = cursor + duration if index == len(clauses) - 1 else clause_start + weight * scale
             timeline.append(
-                (sentence_start, sentence_end, format_complete_sentence(sentence))
+                (clause_start, clause_end, format_single_line_caption(clause))
             )
-            sentence_start = sentence_end
+            clause_start = clause_end
         cursor += duration
     return timeline
 
@@ -160,15 +152,20 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Narration,Noto Sans CJK SC,31,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.3,0,2,38,38,68,1
+Style: Narration,Noto Sans CJK SC,40,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.6,0,2,30,30,170,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     rows = []
     for start, end, text in timeline:
+        size_match = re.match(r"^\[\[SINGLE:(\d+)\]\]", text)
+        font_size = size_match.group(1) if size_match else "40"
+        if size_match:
+            text = text[size_match.end() :]
         text = text.replace("\\", "\\\\").replace("{", "（").replace("}", "）").replace("\n", "")
-        text = text.replace("[[BR]]", r"\N")
+        # \q2 disables wrapping. Each event is one punctuation-delimited clause.
+        text = rf"{{\q2\fs{font_size}}}" + text
         rows.append(f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Narration,,0,0,0,,{text}")
     path.write_text(header + "\n".join(rows) + "\n", encoding="utf-8")
 
@@ -449,9 +446,12 @@ def render_section(
         filters.append(
             f"[{shot_index}:v]trim=duration={source_length:.4f},"
             f"setpts=(PTS-STARTPTS)*{speed_factor:.8f},"
-            "scale=720:1280:force_original_aspect_ratio=decrease:flags=lanczos,"
-            "pad=720:1280:(ow-iw)/2:(oh-ih)/2:black,"
-            "drawbox=x=0:y=1050:w=720:h=230:color=black:t=fill,"
+            # The uploaded recap has baked-in captions below y=836, a fixed
+            # creator watermark at x=500/y=772, and a platform mark on the far
+            # right edge. Remove those zones before adding our subtitle track.
+            "delogo=x=500:y=772:w=148:h=48:show=0,"
+            "crop=690:570:0:266,scale=720:595:flags=lanczos,"
+            "pad=720:1280:0:(oh-ih)/2:black,"
             f"setsar=1,fps=24,trim=duration={output_duration:.4f},format=yuv420p[v{shot_index}]"
         )
         filters.append(
@@ -588,9 +588,8 @@ def main():
 
     from generate_horror_bgm import generate_horror_bgm
 
-    raw_duration = media_duration(raw_output)
-    bgm = args.work / "original-horror-underscore.wav"
-    generate_horror_bgm(bgm, raw_duration)
+    bgm = args.work / "original-horror-loop.wav"
+    generate_horror_bgm(bgm, BGM_LOOP_SECONDS)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     mix_filter = (
@@ -609,6 +608,8 @@ def main():
             "error",
             "-i",
             raw_output,
+            "-stream_loop",
+            "-1",
             "-i",
             bgm,
             "-filter_complex",

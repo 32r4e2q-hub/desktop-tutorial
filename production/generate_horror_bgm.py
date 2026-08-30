@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate an original, low-volume cinematic horror underscore."""
+"""Generate one original, low-volume crime-thriller music loop."""
 from __future__ import annotations
 
 import math
@@ -12,7 +12,7 @@ SAMPLE_RATE = 44_100
 
 
 def generate_horror_bgm(output: Path, duration: float) -> None:
-    """Write a stereo PCM soundtrack with drone, pulse, texture, and impacts."""
+    """Write one stereo PCM loop with drone, pulse, texture, and impacts."""
     output.parent.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(20260829)
     total_samples = int(math.ceil(duration * SAMPLE_RATE))
@@ -45,7 +45,7 @@ def generate_horror_bgm(output: Path, duration: float) -> None:
                 + 0.032 * np.sin(2 * np.pi * 233.08 * t + 0.4)
             ) * (0.45 + 0.35 * np.sin(2 * np.pi * 0.017 * t))
 
-            # A restrained heartbeat-like pulse for zombie chase momentum.
+            # A restrained heartbeat-like pulse for crime-thriller momentum.
             beat = np.mod(t, 0.78)
             pulse = 0.18 * np.sin(2 * np.pi * 47.0 * t) * np.exp(-beat * 8.5)
 
@@ -70,14 +70,14 @@ def generate_horror_bgm(output: Path, duration: float) -> None:
                         * np.exp(-delta[mask] * 2.2)
                     )
 
-            # Increase tension toward the city outbreak and final ant-mill sequence.
+            # Let the single loop rise gently before returning to its seam.
             progress = t / max(duration, 1.0)
-            intensity = 0.62 + 0.20 * np.clip((progress - 0.55) / 0.45, 0, 1)
+            intensity = 0.62 + 0.16 * np.sin(np.pi * progress) ** 2
             signal = (drone + pulse + tension + texture + impacts) * intensity
 
             # Gentle fades prevent clicks at the beginning and end.
-            fade_in = np.clip(t / 3.0, 0, 1)
-            fade_out = np.clip((duration - t) / 4.0, 0, 1)
+            fade_in = np.clip(t / 1.5, 0, 1)
+            fade_out = np.clip((duration - t) / 1.5, 0, 1)
             signal *= np.minimum(fade_in, fade_out)
             signal = np.tanh(signal * 1.25) * 0.72
 
@@ -90,4 +90,4 @@ def generate_horror_bgm(output: Path, duration: float) -> None:
             handle.writeframes(pcm.tobytes())
             written += count
 
-    print(f"Generated original horror underscore: {output} ({duration:.2f}s)", flush=True)
+    print(f"Generated original thriller music loop: {output} ({duration:.2f}s)", flush=True)
