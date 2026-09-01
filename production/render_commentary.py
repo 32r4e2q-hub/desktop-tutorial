@@ -363,9 +363,12 @@ def overlay_chain(shot_index, source_in, source_out):
         return ""
     lo, hi = source_in - 2.5, source_out + 2.5
     boxes = []
+    tags = []
     for b in OVERLAYS:
         if b["t0"] - 2.0 <= hi and b["t1"] + 2.0 >= lo:
-            if b["w"] >= 90:
+            if b.get("tag"):
+                tags.append([b["x"], b["y"], b["w"], b["h"]])
+            elif b["w"] >= 90:
                 boxes.append([b["x"], b["y"], b["w"], b["h"]])
     # attach companion marks near a primary box
     attached = []
@@ -384,15 +387,21 @@ def overlay_chain(shot_index, source_in, source_out):
     merged = []
     for x, y, w, h in boxes:
         x2, y2 = x + w, y + h
-        if merged and x < merged[-1][2] + 40 and not (y2 < merged[-1][1] - 60 or y > merged[-1][3] + 60):
+        if merged and x < merged[-1][2] + 56 and not (y2 < merged[-1][1] - 110 or y > merged[-1][3] + 110):
             px, py, pxb, pyb = merged[-1]
             merged[-1] = (min(px, x), min(py, y), max(pxb, x2), max(pyb, y2))
         else:
             merged.append((x, y, x2, y2))
     parts = []
-    for x, y, x2, y2 in merged[:2]:
-        x = max(1, x - 10); y = max(BAND_TOP + 1, y - 7) - BAND_TOP
-        x2 = min(1279, x2 + 10); y2 = min(BAND_TOP + BAND_H - 1, y2 + 7) - BAND_TOP
+    for x, y, w, h in tags:  # static banners: tight pad only, avoids huge smear
+        x = max(1, x - 6); y = max(BAND_TOP + 1, y - 6) - BAND_TOP
+        x2 = min(1279, x + w + 6); y2 = min(BAND_TOP + BAND_H - 1, y + h + 6) - BAND_TOP
+        tw, th = x2 - x, y2 - y
+        if tw >= 12 and th >= 8 and th < 300:
+            parts.append(f"delogo=x={x}:y={y}:w={tw}:h={th},")
+    for x, y, x2, y2 in merged[:4]:
+        x = max(1, x - 30); y = max(BAND_TOP + 1, y - 26) - BAND_TOP
+        x2 = min(1279, x2 + 30); y2 = min(BAND_TOP + BAND_H - 1, y2 + 26) - BAND_TOP
         w, h = x2 - x, y2 - y
         if w >= 12 and h >= 8 and h < 300:
             parts.append(f"delogo=x={x}:y={y}:w={w}:h={h},")
