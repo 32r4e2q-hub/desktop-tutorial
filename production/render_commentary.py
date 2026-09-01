@@ -6,7 +6,6 @@ import asyncio
 import csv
 import json
 import math
-import os
 import re
 import statistics
 import subprocess
@@ -20,7 +19,7 @@ VOICE_PITCH = "-8Hz"
 MOVIE_VOLUME = 0.0
 BGM_VOLUME = 0.05
 BGM_LOOP_SECONDS = 96.0
-SINGLE_LINE_SUBTITLE_CHARS = 15
+SINGLE_LINE_SUBTITLE_CHARS = 24
 
 
 def run(command):
@@ -112,9 +111,9 @@ def format_single_line_caption(text: str):
     """Keep one clause on one line, shrinking only exceptionally long clauses."""
     length = max(1, visible_length(text))
     if length > SINGLE_LINE_SUBTITLE_CHARS:
-        font_size = max(34, min(40, int(600 / length)))
+        font_size = max(34, min(42, int(1120 / length)))
         return f"[[SINGLE:{font_size}]]{text}"
-    return "[[SINGLE:40]]" + text
+    return "[[SINGLE:42]]" + text
 
 
 def cue_subtitle_timeline(cues, cue_durations):
@@ -146,14 +145,14 @@ def ass_time(seconds):
 def write_ass(path: Path, timeline):
     header = """[Script Info]
 ScriptType: v4.00+
-PlayResX: 720
-PlayResY: 1280
+PlayResX: 1280
+PlayResY: 720
 WrapStyle: 2
 ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Narration,Noto Sans CJK SC,40,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.6,0,2,30,30,170,1
+Style: Narration,Noto Sans CJK SC,42,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.8,0,2,40,40,18,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -161,7 +160,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     rows = []
     for start, end, text in timeline:
         size_match = re.match(r"^\[\[SINGLE:(\d+)\]\]", text)
-        font_size = size_match.group(1) if size_match else "40"
+        font_size = size_match.group(1) if size_match else "42"
         if size_match:
             text = text[size_match.end() :]
         text = text.replace("\\", "\\\\").replace("{", "（").replace("}", "）").replace("\n", "")
@@ -447,12 +446,10 @@ def render_section(
         filters.append(
             f"[{shot_index}:v]trim=duration={source_length:.4f},"
             f"setpts=(PTS-STARTPTS)*{speed_factor:.8f},"
-            # The uploaded recap has baked-in captions below y=836, a fixed
-            # creator watermark at x=500/y=772, and a platform mark on the far
-            # right edge. Remove those zones before adding our subtitle track.
-            "delogo=x=500:y=772:w=148:h=48:show=0,"
-            "crop=690:570:0:266,scale=720:595:flags=lanczos,"
-            "pad=720:1280:0:(oh-ih)/2:black,"
+            # The new 1280x720 recap keeps its creator mark in the top 56
+            # pixels and baked captions below y=664. Retain only the clean
+            # movie image, then reserve a fresh lower band for our subtitles.
+            "crop=1280:608:0:56,pad=1280:720:0:30:black,"
             f"setsar=1,fps=24,trim=duration={output_duration:.4f},format=yuv420p[v{shot_index}]"
         )
         filters.append(
@@ -478,8 +475,8 @@ def render_section(
     )
     command += [
         "-filter_complex", ";".join(filters), "-map", "[vout]", "-map", "[aout]",
-        "-c:v", "libx264", "-preset", "veryfast", "-b:v", "1100k",
-        "-maxrate", "1450k", "-bufsize", "2200k", "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", "veryfast", "-b:v", "2200k",
+        "-maxrate", "2800k", "-bufsize", "4400k", "-pix_fmt", "yuv420p",
         "-r", "24", "-g", "48", "-c:a", "aac", "-b:a", "128k",
         "-ar", "44100", "-movflags", "+faststart", "-t", f"{section_duration:.4f}",
         str(output),
@@ -503,12 +500,6 @@ def main():
     args = parser.parse_args()
 
     args.work.mkdir(parents=True, exist_ok=True)
-    if os.environ.get("GITHUB_ACTIONS") == "true":
-        from align_reference_clips import transcribe
-
-        transcribe(args.source, args.work)
-        raise RuntimeError("New source transcript capture did not stop as expected")
-
     sections = json.loads(args.narration.read_text(encoding="utf-8"))
 
     # This production uses a reviewed, event-level EDL. Never guess a clip from
