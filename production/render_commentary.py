@@ -17,9 +17,16 @@ VOICE = "zh-CN-YunjianNeural"
 VOICE_RATE = "+5%"
 VOICE_PITCH = "-8Hz"
 MOVIE_VOLUME = 0.0
+BAND_TOP, BAND_H = 53, 606          # keep y=53..659 (banner above, captions below)
+PAD_Y = 46                          # movie band sits at y=46..652 in final 720
+FONTNAME = __import__("os").environ.get("FONTNAME", "Noto Sans CJK SC")
+FONTS_DIR = __import__("os").environ.get("FONTS_DIR", "")
 BGM_VOLUME = 0.05
 BGM_LOOP_SECONDS = 96.0
 SINGLE_LINE_SUBTITLE_CHARS = 24
+
+
+OVERLAY_LOGO_PLACEHOLDER = "{ov}"
 
 
 def run(command):
@@ -143,7 +150,7 @@ def ass_time(seconds):
 
 
 def write_ass(path: Path, timeline):
-    header = """[Script Info]
+    header = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: 1280
 PlayResY: 720
@@ -152,7 +159,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Narration,Noto Sans CJK SC,42,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.8,0,2,40,40,18,1
+Style: Narration," + FONTNAME + ",42,&H00FFFFFF,&H000000FF,&H00101010,&H78000000,1,0,0,0,100,100,0,0,1,2.8,0,2,40,40,18,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -338,6 +345,60 @@ def build_section_audio(section_index, cue_paths, directory: Path):
     return output
 
 
+
+OVERLAYS = []
+
+def load_overlays(path):
+    global OVERLAYS
+    import json as _json
+    path = Path(path)
+    if not path.exists():
+        OVERLAYS = []
+        return
+    OVERLAYS = _json.loads(path.read_text(encoding="utf-8"))
+
+def overlay_chain(shot_index, source_in, source_out):
+    """Delogo rects for overlays overlapping this clip's source window."""
+    if not OVERLAYS:
+        return ""
+    lo, hi = source_in - 2.5, source_out + 2.5
+    boxes = []
+    for b in OVERLAYS:
+        if b["t0"] - 2.0 <= hi and b["t1"] + 2.0 >= lo:
+            if b["w"] >= 90:
+                boxes.append([b["x"], b["y"], b["w"], b["h"]])
+    # attach companion marks near a primary box
+    attached = []
+    for b in OVERLAYS:
+        if not (b["t0"] - 2.0 <= hi and b["t1"] + 2.0 >= lo) or b["w"] >= 90:
+            continue
+        for m in boxes:
+            if abs(b["x"] - m[0]) < 210 and abs(b["y"] - m[1]) < 95:
+                attached.append([b["x"], b["y"], b["w"], b["h"]])
+                break
+    boxes.extend(attached)
+    if not boxes:
+        return ""
+    # merge overlapping rects into at most two clusters
+    boxes.sort(key=lambda v: v[0])
+    merged = []
+    for x, y, w, h in boxes:
+        x2, y2 = x + w, y + h
+        if merged and x < merged[-1][2] + 40 and not (y2 < merged[-1][1] - 60 or y > merged[-1][3] + 60):
+            px, py, pxb, pyb = merged[-1]
+            merged[-1] = (min(px, x), min(py, y), max(pxb, x2), max(pyb, y2))
+        else:
+            merged.append((x, y, x2, y2))
+    parts = []
+    for x, y, x2, y2 in merged[:2]:
+        x = max(1, x - 10); y = max(BAND_TOP + 1, y - 7) - BAND_TOP
+        x2 = min(1279, x2 + 10); y2 = min(BAND_TOP + BAND_H - 1, y2 + 7) - BAND_TOP
+        w, h = x2 - x, y2 - y
+        if w >= 12 and h >= 8 and h < 300:
+            parts.append(f"delogo=x={x}:y={y}:w={w}:h={h},")
+    return "".join(parts)
+
+
 def render_section(
     index,
     section,
@@ -446,10 +507,11 @@ def render_section(
         filters.append(
             f"[{shot_index}:v]trim=duration={source_length:.4f},"
             f"setpts=(PTS-STARTPTS)*{speed_factor:.8f},"
-            # The new 1280x720 recap keeps its creator mark in the top 56
-            # pixels and baked captions below y=664. Retain only the clean
-            # movie image, then reserve a fresh lower band for our subtitles.
-            "crop=1280:608:0:56,pad=1280:720:0:30:black,"
+            # Source carries a burned title banner (top ~52px), captions below
+            # y=660 and a drifting translucent creator mark. Crop to the clean
+            # band, delogo the watermark per clip, then pad for our own subtitle strip.
+            f"crop=1280:{BAND_H}:0:{BAND_TOP}," + overlay_chain(shot_index, source_in, source_out) + 
+            f"pad=1280:720:0:{PAD_Y}:black,"
             f"setsar=1,fps=24,trim=duration={output_duration:.4f},format=yuv420p[v{shot_index}]"
         )
         filters.append(
@@ -460,7 +522,7 @@ def render_section(
         pairs.append(f"[v{shot_index}][a{shot_index}]")
     filters.append("".join(pairs) + f"concat=n={len(shots)}:v=1:a=1[vcat][acat]")
     ass_name = str(ass).replace("\\", "/").replace(":", "\\:").replace("'", "\\'")
-    filters.append(f"[vcat]subtitles=filename='{ass_name}'[vout]")
+    filters.append(f"[vcat]subtitles=filename='{ass_name}'{(':fontsdir=' + FONTS_DIR) if FONTS_DIR else ''}[vout]")
     narration_index = len(shots)
     filters.append(
         f"[{narration_index}:a]atrim=duration={section_duration:.4f},"
@@ -496,10 +558,12 @@ def main():
     parser.add_argument("--scenes", required=True, type=Path)
     parser.add_argument("--narration", required=True, type=Path)
     parser.add_argument("--work", required=True, type=Path)
+    parser.add_argument("--overlays", type=Path, default=None)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
 
     args.work.mkdir(parents=True, exist_ok=True)
+    load_overlays(args.overlays) if args.overlays else None
     sections = json.loads(args.narration.read_text(encoding="utf-8"))
 
     # This production uses a reviewed, event-level EDL. Never guess a clip from

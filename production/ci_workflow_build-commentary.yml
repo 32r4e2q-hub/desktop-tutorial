@@ -1,0 +1,70 @@
+name: Build movie commentary
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      OUT_NAME: "无名之众_10分钟电影解说_720p.mp4"
+    steps:
+      - name: Check out production branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk
+          python -m pip install --upgrade pip
+          python -m pip install --quiet edge-tts scenedetect opencv-python-headless numpy
+          ffmpeg -version | head -1
+
+      - name: Reassemble source from git parts
+        run: |
+          mkdir -p work output
+          cat production/new_source_parts/source.part-* > work/source.mkv
+          test "$(stat -c%s work/source.mkv)" -gt 100000000
+          ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 work/source.mkv
+          cp production/scenes.csv work/scenes.csv
+          cp production/overlays.json work/overlays.json
+
+      - name: Generate suspense male narration and render 720p video
+        run: |
+          python production/render_commentary.py \
+            --source work/source.mkv \
+            --scenes work/scenes/scenes.csv \
+            --overlays work/overlays.json \
+            --narration production/narration.json \
+            --work work/production \
+            --output "output/$OUT_NAME"
+
+      - name: Upload final MP4 as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wumingzhizhong-recap-720p
+          path: output/*.mp4
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+
+      - name: Send finished video back through branch parts
+        run: |
+          git config user.name "ci-render"
+          git config user.email "ci-render@users.noreply.github.com"
+          mkdir -p production/final_parts
+          cd output && split -b 44m "$OUT_NAME" ../production/final_parts/final.part- && cd ..
+          ls -la production/final_parts/
+          git add -f production/final_parts
+          git commit -m "Return rendered commentary to branch"
+          git push origin HEAD:${{ github.ref_name }}
