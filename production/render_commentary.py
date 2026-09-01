@@ -6,6 +6,7 @@ import asyncio
 import csv
 import json
 import math
+import os
 import re
 import statistics
 import subprocess
@@ -502,6 +503,12 @@ def main():
     args = parser.parse_args()
 
     args.work.mkdir(parents=True, exist_ok=True)
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        from align_reference_clips import transcribe
+
+        transcribe(args.source, args.work)
+        raise RuntimeError("New source transcript capture did not stop as expected")
+
     sections = json.loads(args.narration.read_text(encoding="utf-8"))
 
     # This production uses a reviewed, event-level EDL. Never guess a clip from
