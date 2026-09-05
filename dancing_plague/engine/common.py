@@ -137,63 +137,54 @@ def scrolled(tile, dx, dy):
 # ----------------------------------------------------------------------------- sprites / glow
 
 _glow_cache = {}
-_GLOW_MAX_R = 260          # sprites above this are produced by resizing the largest cached one
-_GLOW_CACHE_MAX = 48       # bounded cache (was unbounded → multi-GB leak over a long render)
-
-
-def _make_glow(r):
-    y, x = np.mgrid[-r:r + 1, -r:r + 1].astype(np.float32)
-    d = np.sqrt(x * x + y * y) / r
-    return (np.clip(1 - d, 0, 1) ** 2.2).astype(np.float32)
+_GLOW_BASE_R = 256  # one master sprite; every radius is a resized copy (bounded memory)
 
 
 def glow_sprite(r):
-    """Radial falloff sprite of radius r (quantised so the cache stays small and bounded)."""
+    """Radial falloff sprite of radius r (px). Only a few quantised sizes are cached."""
     r = int(max(2, r))
-    if r > _GLOW_MAX_R:
-        base = glow_sprite(_GLOW_MAX_R)
-        return cv2.resize(base, (2 * r + 1, 2 * r + 1), interpolation=cv2.INTER_LINEAR)
-    # quantise: exact below 16 px, then ~6 % steps
-    if r > 16:
-        r = int(round(16 * (1.06 ** round(math.log(r / 16.0) / math.log(1.06)))))
-        r = min(r, _GLOW_MAX_R)
-    sp = _glow_cache.get(r)
-    if sp is None:
-        if len(_glow_cache) >= _GLOW_CACHE_MAX:
-            _glow_cache.pop(next(iter(_glow_cache)))
-        sp = _make_glow(r)
-        _glow_cache[r] = sp
-    return sp
-
-
-GLOW_MAX_RADIUS = 700  # hard cap: anything bigger than the frame is pointless and would allocate GBs
+    if "base" not in _glow_cache:
+        R = _GLOW_BASE_R
+        y, x = np.mgrid[-R:R + 1, -R:R + 1].astype(np.float32)
+        d = np.sqrt(x * x + y * y) / R
+        _glow_cache["base"] = (np.clip(1 - d, 0, 1) ** 2.2).astype(np.float32)
+    base = _glow_cache["base"]
+    if r == _GLOW_BASE_R:
+        return base
+    # quantise radius so the per-size cache stays small (<= ~40 entries), and evict if it grows
+    q = r if r <= 32 else int(round(r / 8.0)) * 8 if r <= 256 else int(round(r / 32.0)) * 32
+    key = ("q", q)
+    if key not in _glow_cache:
+        if len(_glow_cache) > 48:
+            for k in [k for k in _glow_cache if k != "base"]:
+                del _glow_cache[k]
+        _glow_cache[key] = cv2.resize(base, (2 * q + 1, 2 * q + 1), interpolation=cv2.INTER_AREA if q < _GLOW_BASE_R else cv2.INTER_LINEAR)
+    return _glow_cache[key]
 
 
 def draw_glow(fbuf, x, y, r, color, intensity=1.0, aspect=1.0):
-    """Additive radial glow into float RGB buffer (values ~0..1). color in 0..1.
-    Large radii are rendered analytically on the clipped ROI only (no giant sprite allocations)."""
-    r = int(max(2, min(r, GLOW_MAX_RADIUS)))
-    ry = max(1, int(min(r * aspect, GLOW_MAX_RADIUS)))
-    if not (math.isfinite(x) and math.isfinite(y)):
-        return
+    """Additive radial glow into float RGB buffer (values ~0..1). color in 0..1."""
+    hh, ww = fbuf.shape[:2]
+    r = int(max(2, min(r, 2 * max(hh, ww))))  # a glow larger than 2x the frame is visually flat anyway
+    ry = max(1, int(r * aspect))
     x0, y0 = int(round(x)) - r, int(round(y)) - ry
     x1, y1 = x0 + 2 * r + 1, y0 + 2 * ry + 1
-    hh, ww = fbuf.shape[:2]
     cx0, cy0, cx1, cy1 = max(x0, 0), max(y0, 0), min(x1, ww), min(y1, hh)
     if cx1 <= cx0 or cy1 <= cy0:
         return
-    if r <= _GLOW_MAX_R and ry == r:
-        s = glow_sprite(r)
-        rr = s.shape[0] // 2
-        if rr != r:  # quantised sprite → resize to the exact requested size (small arrays only)
-            s = cv2.resize(s, (2 * r + 1, 2 * r + 1), interpolation=cv2.INTER_LINEAR)
-        sub = s[cy0 - y0:cy1 - y0, cx0 - x0:cx1 - x0]
+    s = glow_sprite(r)
+    if s.shape[0] != 2 * ry + 1 or s.shape[1] != 2 * r + 1:
+        # resize only the visible crop region → never allocates a huge full sprite
+        sy = s.shape[0] / (2 * ry + 1)
+        sx = s.shape[1] / (2 * r + 1)
+        yy0, yy1 = int((cy0 - y0) * sy), int(math.ceil((cy1 - y0) * sy))
+        xx0, xx1 = int((cx0 - x0) * sx), int(math.ceil((cx1 - x0) * sx))
+        crop = s[max(yy0, 0):min(yy1, s.shape[0]), max(xx0, 0):min(xx1, s.shape[1])]
+        if crop.size == 0:
+            return
+        sub = cv2.resize(crop, (cx1 - cx0, cy1 - cy0), interpolation=cv2.INTER_LINEAR)
     else:
-        # analytic falloff evaluated only inside the visible ROI
-        yy = (np.arange(cy0, cy1, dtype=np.float32) - (y0 + ry)) / ry
-        xx = (np.arange(cx0, cx1, dtype=np.float32) - (x0 + r)) / r
-        d = np.sqrt(xx[None, :] ** 2 + yy[:, None] ** 2)
-        sub = np.clip(1 - d, 0, 1) ** 2.2
+        sub = s[cy0 - y0:cy1 - y0, cx0 - x0:cx1 - x0]
     roi = fbuf[cy0:cy1, cx0:cx1]
     roi += sub[..., None] * (np.asarray(color, np.float32) * intensity)
 

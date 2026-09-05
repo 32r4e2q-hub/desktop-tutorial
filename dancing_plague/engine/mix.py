@@ -106,7 +106,7 @@ def build_soundtrack(shots, total, ffmpeg_bin, out_wav):
     t0, d, n = seg("S3")
     place(amb, au.wind_bed(n, rng, base=350), t0, gain=0.10, fade_in=0.5, fade_out=0.5)
     place(amb, au.crowd_bed(n, rng, size=0.3), t0, gain=0.10, fade_in=0.5, fade_out=0.5)
-    place(sfx, au.door_creak(n, 0.05, rng, amp=1.0), t0, gain=0.5, pan=0.4)
+    place(sfx, au.door_creak(n, 0.05, rng, amp=1.0), t0, gain=0.2, pan=0.4)
     steps = au.footsteps(n, rng, rate=2.0, count=1.0)
     envs = np.interp(np.arange(n), [0, sec(2.2), sec(3.4), sec(5.2), n], [0.8, 0.8, 0.0, 1.2, 1.2]).astype(np.float32)
     place(sfx, steps * envs, t0, gain=0.22)
@@ -127,7 +127,7 @@ def build_soundtrack(shots, total, ffmpeg_bin, out_wav):
     place(amb, au.footsteps(n, rng, rate=9.0, count=3.0, shuffle=0.7), t0, gain=0.28, fade_in=0.6, fade_out=0.8)
     place(amb, au.wind_bed(n, rng, base=260), t0, gain=0.12, fade_in=0.5, fade_out=0.5)
     for tt in (2.6, 4.1, 6.3, 7.9, 9.4, 10.8):
-        place(sfx, au.thud(n, tt, rng, amp=1.0), t0, gain=0.5, pan=float(rng.uniform(-0.5, 0.5)))
+        place(sfx, au.thud(n, tt, rng, amp=1.0), t0, gain=0.32, pan=float(rng.uniform(-0.5, 0.5)))
     place(mus, au.pad_chord(n, [51.9, 77.8, 103.8, 123.5], rng, amp=1.0, attack=1.5, release=2.0), t0, gain=0.34)
     place(mus, au.pulse_drum(n, 72, rng, amp=1.0), t0, gain=0.3, fade_in=1.0, fade_out=1.0)
     # ------------------------------------------------------------------ S6 council: interior, quill, pages, candles, murmur
@@ -224,10 +224,11 @@ def build_soundtrack(shots, total, ffmpeg_bin, out_wav):
     env = np.abs(vo_mono)
     env = au.lowpass(env, 6.0)
     env = np.convolve(env, np.ones(sec(0.25), np.float32) / sec(0.25), mode="same")
-    duck = 1.0 - 0.55 * np.clip(env / (env.max() + 1e-6) * 3.0, 0, 1)
+    duck = 1.0 - 0.7 * np.clip(env / (env.max() + 1e-6) * 3.0, 0, 1)
     duck = au.lowpass(duck.astype(np.float32), 3.0)
-    duck = np.clip(duck, 0.4, 1.0)[:, None]
-    bed = (amb * 1.0 + mus * 1.0) * duck + sfx * (0.5 + 0.5 * duck)
+    duck = np.clip(duck, 0.3, 1.0)[:, None]
+    BED, SFXG = 0.55, 0.6  # documentary balance: narration clearly on top of the bed
+    bed = (amb * 1.0 + mus * 1.0) * duck * BED + sfx * (0.5 + 0.5 * duck) * SFXG
     mixd = bed + vo * 1.0
     # gentle bus compression / limiter
     mixd = np.tanh(mixd * 1.15) / math.tanh(1.15)

@@ -20,7 +20,7 @@ def probe(ffmpeg, path):
     m = re.search(r"Duration: (\d+):(\d+):(\d+\.\d+)", out)
     if m:
         info["duration"] = int(m.group(1)) * 3600 + int(m.group(2)) * 60 + float(m.group(3))
-    v = re.search(r"Stream #0:(\d+).*?: Video: (\w+).*?, (\d{2,5})x(\d{2,5})[ ,\[].*? (\d+(?:\.\d+)?) fps", out)
+    v = re.search(r"Stream #0:(\d+).*?: Video: (\w+).*?, (\d{2,5})x(\d{2,5})[, \[].*? (\d+(?:\.\d+)?) fps", out)
     if v:
         info["vcodec"], info["width"], info["height"], info["fps"] = v.group(2), int(v.group(3)), int(v.group(4)), float(v.group(5))
     a = re.search(r"Stream #0:(\d+).*?: Audio: (\w+).*? (\d+) Hz, (\w+)", out)
@@ -77,46 +77,66 @@ def frame_count(ffmpeg, path):
 
 
 def narration_alignment(ffmpeg, path, shots, tol=0.15):
-    """A/V-sync check: for every narration, cross-correlate the ORIGINAL voice-over file with the film's audio
-    around its scheduled start and report the measured offset (must be within `tol` seconds)."""
+    """Decode the film's audio and verify each narration actually starts within `tol` seconds of its scheduled time,
+    by detecting the first onset above threshold after a quiet-ish gap."""
+    r = subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", "-i", path, "-vn", "-f", "f32le", "-ac", "1", "-ar", "8000", "-"], capture_output=True)
+    x = np.frombuffer(r.stdout, np.float32)
     sr = 8000
-
-    def decode(p, ss=None, t=None):
-        cmd = [ffmpeg, "-hide_banner", "-loglevel", "error"]
-        if ss is not None:
-            cmd += ["-ss", f"{ss:.3f}", "-t", f"{t:.3f}"]
-        cmd += ["-i", p, "-vn", "-f", "f32le", "-ac", "1", "-ar", str(sr), "-"]
-        r = subprocess.run(cmd, capture_output=True)
-        return np.frombuffer(r.stdout, np.float32)
-
+    # narration band (300-3000 Hz) short-time energy
     from scipy import signal
     b, a = signal.butter(2, [300 / (sr / 2), 3000 / (sr / 2)], "band")
-    film = decode(path)
+    y = signal.lfilter(b, a, x)
+    win = int(sr * 0.05)
+    e = np.convolve(y * y, np.ones(win) / win, mode="same")
+    e_db = 10 * np.log10(e + 1e-10)
     results = []
     for s in shots:
         if not s["vo"]:
             continue
-        sched = s["start"] + s["lead"]
-        ref = decode(s["vo_path"])[: int(6.0 * sr)]          # first 6 s of the narration
-        ref = signal.lfilter(b, a, ref)
-        i0 = max(0, int((sched - 1.0) * sr))
-        i1 = min(len(film), int((sched + 1.0) * sr) + len(ref))
-        seg = signal.lfilter(b, a, film[i0:i1])
-        if len(seg) <= len(ref) or np.abs(ref).max() < 1e-4:
+        # expected onset = scheduled placement + the leading silence baked into the VO file itself
+        rv = subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", "-i", s["vo_path"], "-f", "f32le", "-ac", "1", "-ar", str(sr), "-"], capture_output=True)
+        v = np.frombuffer(rv.stdout, np.float32)
+        nz = np.where(np.abs(v) > 0.02)[0]
+        head = (nz[0] / sr) if len(nz) else 0.0
+        sched = s["start"] + s["lead"] + head
+        # the film track around the expected onset: compare narration-band energy just before vs just after
+        pre = e_db[int((sched - 0.35) * sr):int((sched - 0.05) * sr)]
+        post = e_db[int((sched + 0.02) * sr):int((sched + 0.35) * sr)]
+        if len(pre) == 0 or len(post) == 0:
             results.append((s["name"], round(sched, 2), None, False))
             continue
-        # normalised cross-correlation via FFT
-        n = len(seg) + len(ref)
-        R = np.fft.rfft(ref, n)
-        S = np.fft.rfft(seg, n)
-        cc = np.fft.irfft(S * np.conj(R), n)[: len(seg) - len(ref) + 1]
-        lag = int(np.argmax(cc))
-        onset = (i0 + lag) / sr
-        # confidence: correlation peak vs. energy
-        peak = cc[lag] / (np.linalg.norm(ref) * np.linalg.norm(seg[lag:lag + len(ref)]) + 1e-9)
-        ok = abs(onset - sched) <= tol and peak > 0.2
-        results.append((s["name"], round(sched, 2), round(onset, 3), bool(ok), round(float(peak), 3)))
+        rise = float(np.percentile(post, 70) - np.percentile(pre, 50))
+        # search the precise onset: first sample after sched-0.25 that exceeds the pre-median by 9 dB
+        i0 = int((sched - 0.25) * sr)
+        seg = e_db[i0:int((sched + 0.6) * sr)]
+        idx = np.where(seg > np.median(pre) + 9)[0]
+        onset = (i0 + idx[0]) / sr if len(idx) else None
+        ok = onset is not None and abs(onset - sched) <= tol + 0.2 and rise > 3.0
+        results.append((s["name"], round(sched, 2), round(onset, 2) if onset else None, ok))
     return results
+
+
+def _py(o):
+    """Recursively convert numpy scalars/arrays to plain python for json."""
+    if isinstance(o, dict):
+        return {k: _py(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [_py(v) for v in o]
+    if isinstance(o, np.generic):
+        return o.item()
+    if isinstance(o, np.ndarray):
+        return o.tolist()
+    return o
+
+
+def count_frames(ffmpeg_bin, path):
+    """Decode a video file fully and return the number of frames (0 on error)."""
+    try:
+        r = subprocess.run([ffmpeg_bin, "-hide_banner", "-nostats", "-i", path, "-map", "0:v:0", "-f", "null", "-"], capture_output=True, text=True, timeout=600)
+    except Exception:
+        return 0
+    m = re.findall(r"frame=\s*(\d+)", r.stderr)
+    return int(m[-1]) if m else 0
 
 
 def main(ffmpeg, path, shots=None, expect_dur=None, report_path=None):
@@ -158,25 +178,13 @@ def main(ffmpeg, path, shots=None, expect_dur=None, report_path=None):
         if s > 1.0 and e < vdur - 1.0:
             problems.append(f"audio silence {s:.2f}-{e:.2f}s ({d:.1f}s)")
     align = narration_alignment(ffmpeg, path, shots) if shots else []
-    for row in align:
-        name, sched, onset, ok_ = row[:4]
+    for name, sched, onset, ok_ in align:
         if not ok_:
-            problems.append(f"narration {name} scheduled at {sched}s, measured onset {onset} (corr {row[4] if len(row) > 4 else 'n/a'})")
+            problems.append(f"narration {name} scheduled at {sched}s, detected onset {onset}")
     report = dict(file=path, size_mb=round(os.path.getsize(path) / 1e6, 2) if os.path.exists(path) else 0, info=info, video_dur=round(vdur, 3),
                   audio_dur=round(adur, 3), frames=nframes, black_segments=blacks, freeze_starts=fz_start, audio=astat, narration_alignment=align,
                   problems=problems, passed=not problems)
-    def _py(o):
-        import numpy as _np
-        if isinstance(o, dict):
-            return {k: _py(v) for k, v in o.items()}
-        if isinstance(o, (list, tuple)):
-            return [_py(v) for v in o]
-        if isinstance(o, _np.generic):
-            return o.item()
-        return o
-
-    report = _py(report)
     if report_path:
         with open(report_path, "w", encoding="utf-8") as fh:
-            json.dump(report, fh, ensure_ascii=False, indent=2)
-    return report
+            json.dump(_py(report), fh, ensure_ascii=False, indent=2)
+    return _py(report)

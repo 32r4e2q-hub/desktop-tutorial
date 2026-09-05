@@ -123,7 +123,7 @@ def render_shot(s, scene_objs, t_local, rng):
 def render_range(args):
     """Worker: render frames [f0, f1) into an h264 segment."""
     f0, f1, seg_path, shots, total = args
-    scene_objs = {s["name"]: s["cls"](s["dur"], seed=i + 1) for i, s in enumerate(shots)}  # lazily built on first use
+    scene_objs = {s["name"]: s["cls"](s["dur"], seed=i + 1) for i, s in enumerate(shots)}
     rng = np.random.default_rng(1000 + f0)
     cmd = [FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
            "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p", "-g", "48", "-an", seg_path]
@@ -145,9 +145,6 @@ def render_range(args):
     proc.wait()
     if proc.returncode != 0:
         raise RuntimeError(f"ffmpeg segment failed: {seg_path}")
-    scene_objs.clear()
-    import gc
-    gc.collect()
     return seg_path
 
 

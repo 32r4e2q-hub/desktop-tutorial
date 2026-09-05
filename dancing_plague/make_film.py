@@ -13,6 +13,7 @@ import argparse
 import glob
 import json
 import multiprocessing as mp
+import concurrent.futures as cf
 import os
 import shutil
 import subprocess
@@ -60,14 +61,15 @@ def do_audio():
     return wav, shots, total
 
 
-def do_render(workers, chunk_seconds=None):
+def do_render(workers, chunk_seconds=None, reuse=False):
     shots, total = TL.build_timeline(FFMPEG, FPS)
     print(TL.describe(shots, total))
     os.makedirs(BUILD, exist_ok=True)
     os.makedirs(OUT_DIR, exist_ok=True)
     seg_dir = os.path.join(BUILD, "segments")
-    shutil.rmtree(seg_dir, ignore_errors=True)
-    os.makedirs(seg_dir)
+    if not reuse:
+        shutil.rmtree(seg_dir, ignore_errors=True)
+    os.makedirs(seg_dir, exist_ok=True)
     total_frames = int(round(total * FPS))
     # split at shot boundaries into ~equal work chunks (each chunk keeps whole GOPs; concat is lossless)
     n_chunks = max(workers * 3, 8)
@@ -78,16 +80,29 @@ def do_render(workers, chunk_seconds=None):
         f1 = min(total_frames, f + per)
         ranges.append((f, f1, os.path.join(seg_dir, f"seg_{f:06d}.mp4"), shots, total))
         f = f1
-    print(f"rendering {total_frames} frames in {len(ranges)} segments on {workers} workers")
+    all_paths = [r[2] for r in ranges]
+    if reuse:
+        # keep segments that already exist and decode cleanly with the expected frame count
+        keep = []
+        for r in ranges:
+            if os.path.exists(r[2]) and CHECK.count_frames(FFMPEG, r[2]) == r[1] - r[0]:
+                keep.append(r[2])
+        ranges = [r for r in ranges if r[2] not in keep]
+        print(f"reusing {len(keep)} finished segments")
+    print(f"rendering {sum(r[1] - r[0] for r in ranges)} frames in {len(ranges)} segments on {workers} workers")
     t0 = time.time()
     # audio in the main process while workers render frames
     wav = os.path.join(BUILD, "soundtrack.wav")
-    with mp.get_context("fork").Pool(workers, maxtasksperchild=1) as pool:
-        async_res = pool.map_async(render_range, ranges, chunksize=1)
+    # ProcessPoolExecutor raises BrokenProcessPool if a worker dies (e.g. OOM) instead of hanging forever
+    with cf.ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("fork")) as pool:
+        futs = [pool.submit(render_range, r) for r in ranges]
         ta = time.time()
-        MIX.build_soundtrack(shots, total, FFMPEG, wav)
-        print(f"soundtrack done in {time.time() - ta:.1f}s", flush=True)
-        seg_paths = async_res.get()
+        if not (reuse and os.path.exists(wav)):
+            MIX.build_soundtrack(shots, total, FFMPEG, wav)
+            print(f"soundtrack done in {time.time() - ta:.1f}s", flush=True)
+        for fu in futs:
+            fu.result()
+    seg_paths = all_paths
     print(f"frames rendered in {time.time() - t0:.1f}s")
     # concat + mux
     lst = os.path.join(seg_dir, "list.txt")
@@ -114,6 +129,7 @@ def do_check(shots=None, total=None):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["plan", "preview", "audio", "render", "check"])
+    ap.add_argument("--reuse", action="store_true", help="keep already-rendered, complete segments")
     ap.add_argument("times", nargs="*", type=float)
     ap.add_argument("--workers", type=int, default=max(1, os.cpu_count() or 1))
     a = ap.parse_args()
@@ -124,7 +140,7 @@ if __name__ == "__main__":
     elif a.cmd == "audio":
         do_audio()
     elif a.cmd == "render":
-        rep = do_render(a.workers)
+        rep = do_render(a.workers, reuse=a.reuse)
         sys.exit(0 if rep["passed"] else 1)
     elif a.cmd == "check":
         rep = do_check()

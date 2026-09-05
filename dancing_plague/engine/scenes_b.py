@@ -550,46 +550,44 @@ class S10_Hysteria(Scene):
         gy = 1.5
         dur = self.C_END - self.B_END
         dx, dy = handheld(t, 2.0, 12)
-        # eye-level camera (1 m above the floor) slowly dollying toward the shrine
-        cam = Cam(x=kf([(0, 0.3), (dur, 0.0)], t), y=0.5, z=kf([(0, -2.2), (dur, -0.6)], t), zoom=1.0, hy=kf([(0, AH * 0.42), (dur, AH * 0.40)], t), dx=dx, dy=dy)
+        cam = Cam(x=0.0, y=kf([(0, -0.6), (dur, -0.2)], t), z=kf([(0, -4.4), (dur, -2.4)], t), zoom=1.0, hy=kf([(0, AH * 0.5), (dur, AH * 0.56)], t), dx=dx, dy=dy)
         canvas[:] = (12, 10, 10)
         self.wallC.draw(canvas, cam, fog=fog)
         nz = 4.95
-        # niche (dark arch) from y = gy-2.7 to gy-0.6
-        nq = [cam.proj(-0.75, gy - 2.7, nz)[:2], cam.proj(0.75, gy - 2.7, nz)[:2], cam.proj(0.75, gy - 0.6, nz)[:2], cam.proj(-0.75, gy - 0.6, nz)[:2]]
+        # niche (dark arch) from y = gy-3.9 to gy-1.0
+        nq = [cam.proj(-0.8, gy - 3.4, nz)[:2], cam.proj(0.8, gy - 3.4, nz)[:2], cam.proj(0.8, gy - 1.0, nz)[:2], cam.proj(-0.8, gy - 1.0, nz)[:2]]
         cv2.fillPoly(canvas, [PTS(nq)], (30, 26, 26), AA, 4)
-        top = cam.proj(0, gy - 2.7, nz)
-        cv2.ellipse(canvas, P(top[0], top[1]), (int(0.75 * top[2] * 16), int(0.55 * top[2] * 16)), 0, 180, 360, (30, 26, 26), -1, AA, 4)
-        # plinth / altar step
-        pq = [cam.proj(-0.6, gy - 0.6, nz - 0.01)[:2], cam.proj(0.6, gy - 0.6, nz - 0.01)[:2], cam.proj(0.6, gy - 0.25, nz - 0.01)[:2], cam.proj(-0.6, gy - 0.25, nz - 0.01)[:2]]
+        top = cam.proj(0, gy - 3.4, nz)
+        cv2.ellipse(canvas, P(top[0], top[1]), (int(0.8 * top[2] * 16), int(0.6 * top[2] * 16)), 0, 180, 360, (30, 26, 26), -1, AA, 4)
+        # plinth
+        pq = [cam.proj(-0.6, gy - 1.0, nz - 0.01)[:2], cam.proj(0.6, gy - 1.0, nz - 0.01)[:2], cam.proj(0.6, gy - 0.55, nz - 0.01)[:2], cam.proj(-0.6, gy - 0.55, nz - 0.01)[:2]]
         cv2.fillPoly(canvas, [PTS(pq)], (64, 58, 54), AA, 4)
-        # statue on the plinth (stone saint, 80 % scale, raised hand of blessing)
+        # statue on the plinth: stone saint with a raised hand
         sp = ch.pose(lean=0.0, head=-0.05, sL=1.9, eL=0.9, sR=0.3, eR=0.4)
         _, h = ch.skeleton(sp)
-        sc = 0.8
-        px, py, k = cam.proj(0.0, gy - 0.6 - h * sc, nz - 0.03)
+        px, py, k = cam.proj(0.0, gy - 1.0 - h, nz - 0.03)
         stone = dict(tunic=(150, 140, 128), hose=(140, 130, 120), skin=(160, 150, 140), hair=(150, 140, 130), cover=None, skirt=(140, 130, 118))
-        ch.draw_figure(canvas, px, py, k * sc, sp, stone, facing=-1)
-        hc = cam.proj(0.0, gy - 0.6 - 1.72 * sc, nz)
-        cv2.circle(canvas, P(hc[0], hc[1]), int(0.22 * hc[2] * 16), (200, 170, 90), max(1, int(0.025 * hc[2])), AA, 4)
-        # warm candle light on the niche
-        draw_glow(fbuf, px, py - 0.4 * k * sc, max(20, 0.9 * k), (1.0, 0.72, 0.4), 0.22 * fx.torch_light(t, 133))
+        ch.draw_figure(canvas, px, py, k, sp, stone, facing=-1)
+        hc = cam.proj(0.0, gy - 1.0 - 1.72, nz)
+        cv2.circle(canvas, P(hc[0], hc[1]), int(0.24 * hc[2] * 16), (200, 170, 90), max(1, int(0.03 * hc[2])), AA, 4)
+        # warm glow from the candles lighting the niche
+        draw_glow(fbuf, px, py - 0.6 * k, max(20, 1.4 * k), (1.0, 0.72, 0.4), 0.28 * fx.torch_light(t, 133))
         self.floorC.draw(canvas, cam)
-        # candles row on the altar step
-        for i, cx_ in enumerate(np.linspace(-1.4, 1.4, 9)):
-            cp = cam.proj(cx_, gy - 0.25, nz - 0.3)
+        # candles row on a step in front of the plinth
+        for i, cx_ in enumerate(np.linspace(-1.5, 1.5, 9)):
+            cp = cam.proj(cx_, gy - 0.3, 4.4)
             hgt = 0.14 + 0.06 * math.sin(i * 1.7)
             cv2.rectangle(canvas, P(cp[0] - 0.015 * cp[2], cp[1] - hgt * cp[2]), P(cp[0] + 0.015 * cp[2], cp[1]), (226, 214, 184), -1, AA, 4)
-            fx.flame(canvas, cp[0], cp[1] - hgt * cp[2], 0.08 * cp[2], t, seed=120 + i)
-            draw_glow(fbuf, cp[0], cp[1] - (hgt + 0.05) * cp[2], max(8, 0.35 * cp[2]), (1.0, 0.7, 0.35), 0.28 * fx.torch_light(t, 130 + i))
-        # kneeling worshippers facing the statue (backs toward us at an angle), bowing in and out
-        for i, (x, z, ph, pi) in enumerate(((-1.25, 2.6, 0.0, 1), (1.05, 2.9, 1.3, 3), (-0.15, 1.9, 2.4, 6))):
+            fx.flame(canvas, cp[0], cp[1] - hgt * cp[2], 0.09 * cp[2], t, seed=120 + i)
+            draw_glow(fbuf, cp[0], cp[1] - (hgt + 0.06) * cp[2], max(8, 1.1 * cp[2]), (1.0, 0.7, 0.35), 0.4 * fx.torch_light(t, 130 + i))
+        # kneeling worshippers (side view toward the statue), bowing
+        for i, (x, z, ph, pi) in enumerate(((-1.3, 3.0, 0.0, 1), (1.1, 3.2, 1.3, 3), (-0.1, 2.2, 2.4, 6))):
             p = ch.kneel_pray(t, ph=ph)
             _, h = ch.skeleton(p)
             px, py, k = cam.proj(x, gy - h, z)
             figure_shadow(canvas, px, cam.proj(x, gy, z)[1], k, light_dir=(0, 0), length=0, alpha=0.3)
             ch.draw_figure(canvas, px, py, k, p, ch.palette(pi), facing=1, hood=(i == 2))
-        self.dust.draw(canvas, t, weight=0.3, drift_y=-4)
+        self.dust.draw(canvas, t, weight=0.4, drift_y=-4)
         ctx["captions"].append(("caption", "圣维特的诅咒", smoothstep(0.8, 1.4, t) * (1 - smoothstep(dur - 0.8, dur - 0.3, t))))
 
     def draw_grid(self, t, dur, canvas, fbuf, ctx):
