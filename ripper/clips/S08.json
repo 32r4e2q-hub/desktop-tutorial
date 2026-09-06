@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 8,
+    "seconds": 7,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S08",
     "vo": "N03",
-    "seed": 1302,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A tall detective inspector in his forties with a heavy dark walrus moustache, receding hairline, black bowler hat and long grey overcoat steps out of a back door into the misty yard, removes his hat, and slowly scans the scene with tired, intelligent eyes; behind him constables' helmets bob; dawn light through fog. Camera: slow arc around him at eye level.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow"
+    "seed": 2081,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A tall detective inspector in his forties with a heavy dark walrus moustache, receding hairline and a long grey overcoat steps out of a tenement back door into a cramped yard at grey dawn, takes off his bowler hat and looks slowly around at the crowd and the wet fence; Rembrandt chiaroscuro, realistic proportions, muted palette, painterly. Camera: slow descend to his eye level.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a07471-7b2d-74e5-7ef6-feb20429b9dfa",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a07471-7b2d-74e5-7ef6-feb20429b9dfa/output.mp4",
-  "size_bytes": 639353,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzYwOWNmMGQ3NDQwMDQ4OGI5OWU1N2QyZjk1M2ZhOGQx",
+  "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_609cf0d74400488b99e57d2f953fa8d1.mp4",
+  "size_bytes": 1255271,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A tall detective inspector in his forties with a heavy dark walrus moustache, receding hairline, black bowler hat and long grey overcoat steps out of a back door into the misty yard, removes his hat, and slowly scans the scene with tired, intelligent eyes; behind him constables' helmets bob; dawn light through fog. Camera: slow arc around him at eye level.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A tall detective inspector in his forties with a heavy dark walrus moustache, receding hairline and a long grey overcoat steps out of a tenement back door into a cramped yard at grey dawn, takes off his bowler hat and looks slowly around at the crowd and the wet fence; Rembrandt chiaroscuro, realistic proportions, muted palette, painterly. Camera: slow descend to his eye level.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 169,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-    "seed": 1302
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2081
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:01:46Z"
+  "generated_at": "2026-09-06T05:29:59Z"
 }
