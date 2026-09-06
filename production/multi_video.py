@@ -227,7 +227,9 @@ def agnes_generate(shot: dict, dest: Path, api_key: str, poll: float, timeout: f
     log("agnes payload: " + json.dumps(payload, ensure_ascii=False))
     base = os.environ.get("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).rstrip("/")
     try:
-        created = agnes.create_task(base, api_key, payload, retries=4, retry_delay=5.0)
+        created = agnes.create_task(base, api_key, payload,
+                                    retries=int(os.environ.get("AGNES_CREATE_RETRIES", "4") or 4),
+                                    retry_delay=float(os.environ.get("AGNES_CREATE_DELAY", "5") or 5))
         video_id = created.get("video_id") or created.get("id") or created.get("task_id")
         task_id = created.get("task_id") or created.get("id")
         if not video_id:
@@ -375,7 +377,11 @@ def main(argv=None) -> int:
         shots = load_shots(args.shots)
         out_dir: Path = args.out_dir
         out_dir.mkdir(parents=True, exist_ok=True)
-        only = {s.strip() for s in args.only.split(",") if s.strip()}
+        only_list = [s.strip() for s in args.only.split(",") if s.strip()]
+        only = set(only_list)
+        if only_list:                                      # process in the order given → priority order
+            by_id = {s["id"]: s for s in shots}
+            shots = [by_id[i] for i in only_list if i in by_id]
         rows = []
         failures = 0
         t_start = time.monotonic()

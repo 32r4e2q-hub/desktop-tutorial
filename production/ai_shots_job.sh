@@ -18,9 +18,11 @@ FORCE=$(getp force "false")
 PROVIDERS=$(getp providers "agnes,pixazo")
 MAX_MINUTES=$(getp max_minutes "300")
 TIMEOUT=$(getp timeout "1500")
+export AGNES_CREATE_RETRIES=$(getp agnes_retries "4")
+export AGNES_CREATE_DELAY=$(getp agnes_delay "5")
 
 echo "== ai-shots job"
-echo "   shots_file=$SHOTS_FILE out_dir=$OUT_DIR only='$ONLY' force=$FORCE providers=$PROVIDERS max_minutes=$MAX_MINUTES"
+echo "   shots_file=$SHOTS_FILE out_dir=$OUT_DIR only='$ONLY' force=$FORCE providers=$PROVIDERS max_minutes=$MAX_MINUTES agnes_retries=$AGNES_CREATE_RETRIES agnes_delay=$AGNES_CREATE_DELAY"
 [ -n "${AGNES_API_KEY:-}" ]  && echo "   AGNES_API_KEY: set"  || echo "   AGNES_API_KEY: missing"
 [ -n "${PIXAZO_API_KEY:-}" ] && echo "   PIXAZO_API_KEY: set" || echo "   PIXAZO_API_KEY: missing"
 if [ -z "${AGNES_API_KEY:-}" ] && [ -z "${PIXAZO_API_KEY:-}" ]; then
