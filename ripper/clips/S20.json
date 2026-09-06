@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 7,
+    "seconds": 8,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S20",
     "vo": "N07",
-    "seed": 1701,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Miller's Court, a squalid brick courtyard on a grey November morning: a nervous young man with a thin face, prominent ears and a shabby brown coat knocks on a peeling green door of number 13, waits, knocks again, then leans toward a small window with a broken pane covered by a curtain. Camera: slow push in behind him.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow"
+    "seed": 2201,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Miller's Court, a squalid brick courtyard on a grey November morning: a nervous young man of about twenty with a thin face, dark hair under a bowler hat and a worn brown coat walks to a green door marked 13, knocks twice and waits, glancing at the small broken window beside the door; realistic human proportions, painterly, muted palette. Camera: slow tracking behind him.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a07487-08b9-77bb-fff1-4b4934ea489f4",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a07487-08b9-77bb-fff1-4b4934ea489f4/output.mp4",
-  "size_bytes": 588286,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzhkYWRhNWU0NWZhMDQxNTM4ZTIzMWZjODQ1NDIxYjRh",
+  "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_8dada5e45fa041538e231fc845421b4a.mp4",
+  "size_bytes": 1639535,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Miller's Court, a squalid brick courtyard on a grey November morning: a nervous young man with a thin face, prominent ears and a shabby brown coat knocks on a peeling green door of number 13, waits, knocks again, then leans toward a small window with a broken pane covered by a curtain. Camera: slow push in behind him.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Miller's Court, a squalid brick courtyard on a grey November morning: a nervous young man of about twenty with a thin face, dark hair under a bowler hat and a worn brown coat walks to a green door marked 13, knocks twice and waits, glancing at the small broken window beside the door; realistic human proportions, painterly, muted palette. Camera: slow tracking behind him.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 193,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-    "seed": 1701
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2201
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:25:08Z"
+  "generated_at": "2026-09-06T05:11:10Z"
 }
