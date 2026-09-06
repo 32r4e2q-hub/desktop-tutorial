@@ -70,4 +70,6 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
 `source_manifest.json` 固定全部源素材版本；大文件只放在忽略的 `.cache/`、`build/`、`output/` 中。
 工作区重新恢复后若缺少素材或字体，重新执行 `recover_assets.py` 即可。恢复脚本只下载已有素材，不生成新镜头。
 
-最终视频不加入 Git。Arena 中下载文件保存在工作区；需要 GitHub 持久分发时可另行按用户要求发布。
+用户要求固定下载链接后，GitHub Release 附件上传失败，因此本版 MP4 按原项目 `deliverable/` 的成片保存方式纳入当前分支（87.6 MB，低于 GitHub 单文件限制）。源镜头、配音、字体和中间文件仍不加入 Git。
+
+`/home/user/downloads/` 中保留指向该成片的链接，Arena 文件查看器仍可下载；GitHub 固定下载地址需要登录拥有私有仓库权限的账号。
