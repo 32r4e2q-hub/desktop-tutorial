@@ -1,64 +1,208 @@
 {
   "title": "白教堂的雾 — 开膛手杰克 (1888) · 抖音竖屏 3 分钟",
   "style_prefix": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, ",
-  "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-  "defaults": {"seconds": 7, "aspect": "9:16", "resolution": "720p"},
+  "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text",
+  "defaults": {
+    "seconds": 7,
+    "aspect": "9:16",
+    "resolution": "720p"
+  },
   "shots": [
-    {"id": "S01", "vo": "N01", "seconds": 6, "seed": 1101,
-     "prompt": "Slow dolly forward along a narrow fog-choked Whitechapel street at night, a single cast-iron gas lamp flickering amber, fog drifting in layers across the frame, wet cobblestones glistening, soot-stained brick warehouses, distant church spire; at the far end of the street a tall silhouette holding a lantern crosses the road and dissolves into the fog. No faces visible. Camera: slow push in, slight handheld drift."},
-    {"id": "S02", "vo": "N01", "seconds": 6, "seed": 1102,
-     "prompt": "Low angle looking up at a soot-blackened Victorian brick tenement at night, laundry lines swaying, a single candle-lit window on the third floor where a thin woman with grey hair in a bun draws a curtain closed; fog rolls past the chimney pots; the gas lamp below flickers. Camera: slow tilt down from the roofline to the wet street."},
-    {"id": "S03", "vo": "N01", "seconds": 6, "seed": 1103,
-     "prompt": "Extreme close-up of a gloved hand dipping a steel-nib pen into a bottle of red ink on a scarred wooden desk lit by a single candle; the nib touches cream paper and begins writing in looping Victorian script; ink bleeds slightly into the paper fibres; candle flame trembles. Camera: static macro, shallow focus, the flame flicker animates the shadows."},
-    {"id": "S04", "vo": "N02", "seconds": 8, "seed": 1201,
-     "prompt": "A stocky middle-aged carman with a thick brown moustache, flat cap and canvas work jacket walks toward camera down Buck's Row at 3:40 AM, swinging a tin lantern that throws swaying light across the brick wall; his breath fogs in the cold; he slows and squints ahead. Camera: tracking backward at walking pace, lantern light swinging."},
-    {"id": "S05", "vo": "N02", "seconds": 7, "seed": 1202,
-     "prompt": "Over-the-shoulder of the moustached carman in a flat cap as he raises his lantern toward the base of a gateway; the light reveals only a dark bundle of shawl and skirt lying against the wall in deep shadow, a woman's boot, a fallen straw bonnet; fog drifts between him and the gate. Camera: slow push in past his shoulder, everything beyond the boot stays in shadow, no wounds, no face."},
-    {"id": "S06", "vo": "N02", "seconds": 7, "seed": 1203,
-     "prompt": "Close-up portrait of the carman's weathered face: thick brown moustache, broad nose, deep-set eyes; lantern light from below; his expression shifts from curiosity to dawning horror, he swallows, eyes widen, he steps back half a pace; fog curls behind him. Camera: slow push in on the eyes."},
-    {"id": "S07", "vo": "N03", "seconds": 7, "seed": 1301,
-     "prompt": "High angle looking down into a cramped Hanbury Street backyard at dawn: a dozen East Enders crowd the fence and doorway — an old woman in a shawl, a barefoot boy, a bearded docker, a young red-haired woman with a baby, a bald man in an apron — all different faces, shifting, craning to see; grey dawn light, mist in the yard; two constables in tall helmets hold them back. Camera: slow descending crane."},
-    {"id": "S08", "vo": "N03", "seconds": 8, "seed": 1302,
-     "prompt": "A tall detective inspector in his forties with a heavy dark walrus moustache, receding hairline, black bowler hat and long grey overcoat steps out of a back door into the misty yard, removes his hat, and slowly scans the scene with tired, intelligent eyes; behind him constables' helmets bob; dawn light through fog. Camera: slow arc around him at eye level."},
-    {"id": "S09", "vo": "N03", "seconds": 6, "seed": 1303,
-     "prompt": "Close-up of the inspector's gloved hand resting on a rough wooden fence, rainwater dripping from the slats; slow rack focus from his hand to a row of grimy back windows where several different faces — a young girl, an old man with a clay pipe, a woman with a lace cap — watch silently from behind the glass, breath fogging the panes. Camera: rack focus, then slow pan across the windows."},
-    {"id": "S10", "vo": "N04", "seconds": 7, "seed": 1401,
-     "prompt": "Top-down shot of a Central News Agency desk: a clerk's ink-stained hands with rolled shirt sleeves open a cream envelope and unfold a letter written in red ink; the looping script fills the frame; a brass desk lamp casts a warm pool of light; a teacup steams; papers stir in a draught. Camera: slow push in toward the red writing."},
-    {"id": "S11", "vo": "N04", "seconds": 7, "seed": 1402,
-     "prompt": "A young clerk with round wire spectacles, neat side-parted blond hair and a starched collar reads the red-ink letter under a green-shaded desk lamp; his eyebrows rise, he glances nervously over his shoulder toward a dark doorway, then back at the page; the lamp flame flickers. Camera: slow push in on his face."},
-    {"id": "S12", "vo": "N04", "seconds": 7, "seed": 1403,
-     "prompt": "A Victorian steam printing press thundering in a dim pressroom: giant iron rollers spin, sheets of newsprint fly off in a blur, a soot-faced pressman with a grey beard and leather apron pulls a lever; sparks and steam; then a stack of fresh newspapers with a bold black headline lands on a counter. Camera: fast tracking shot along the press, then whip to the stack."},
-    {"id": "S13", "vo": "N04", "seconds": 6, "seed": 1404,
-     "prompt": "A freckled newsboy of about ten in an oversized cap and patched jacket stands on a foggy street corner under a gas lamp waving a newspaper above his head and shouting, mouth open, breath steaming; well-dressed passers-by in top hats and bonnets turn their heads and snatch copies; horse-drawn cab wheels splash past. Camera: slow push in through the crowd toward the boy."},
-    {"id": "S14", "vo": "N05", "seconds": 7, "seed": 1501,
-     "prompt": "Berner Street at 1 AM: a small pony pulling a costermonger's cart suddenly shies and rears at a dark gateway, nostrils flaring, eyes rolling white; the driver — a thin man with a black beard and wide-brimmed hat — hauls on the reins, half-standing; the gateway beyond is pitch black; fog swirls. Camera: handheld, slight shake, low angle on the frightened pony."},
-    {"id": "S15", "vo": "N05", "seconds": 7, "seed": 1502,
-     "prompt": "Continuous lateral tracking shot along a fog-filled London street: gas lamps pass one by one like ghostly halos, dark house fronts slide by, the fog thickens into a solid white wall, and the camera pushes through it to emerge in a wide empty square lined with dark arcades. No people. Camera: smooth lateral dolly then push through fog."},
-    {"id": "S16", "vo": "N05", "seconds": 8, "seed": 1503,
-     "prompt": "A young constable in a tall custodian helmet and rain cape, clean-shaven with a strong jaw and pale worried eyes, walks slowly into Mitre Square holding a bullseye lantern; the beam sweeps across the wet flagstones, passes a dark corner, stops, and slowly returns to it; he freezes. Camera: following behind him, then slow push past his shoulder toward the dark corner, nothing explicit shown."},
-    {"id": "S17", "vo": "N06", "seconds": 7, "seed": 1601,
-     "prompt": "A dark tenement doorway on Goulston Street lit by a policeman's lantern: on the black brick wall a line of chalk writing in a scrawled hand glows in the beam; a torn scrap of cloth lies on the step; the lantern beam wavers; fog drifts through the doorway. Camera: slow push in on the chalk letters, the letters remain out of focus and illegible."},
-    {"id": "S18", "vo": "N06", "seconds": 7, "seed": 1602,
-     "prompt": "Close-up: a gentleman's hand in a white cuff with gold cufflink, holding a wet sponge, wipes across a chalk inscription on dark brick; the letters smear and vanish in streaks of white; water runs down the wall; behind, out of focus, a stern grey-whiskered police commissioner in a peaked cap watches. Camera: static close on the wall, slight drift."},
-    {"id": "S19", "vo": "N06", "seconds": 6, "seed": 1603,
-     "prompt": "A cluster of policemen's faces in the doorway lit from below by a single lantern — a young one with freckles, a sergeant with mutton-chop whiskers, an older one with a scar over his eyebrow, a stout one with a red nose — each different; they exchange uneasy glances as the light flickers and shadows swing across them; dawn greys the sky behind. Camera: slow pan across the faces."},
-    {"id": "S20", "vo": "N07", "seconds": 7, "seed": 1701,
-     "prompt": "Miller's Court, a squalid brick courtyard on a grey November morning: a nervous young man with a thin face, prominent ears and a shabby brown coat knocks on a peeling green door of number 13, waits, knocks again, then leans toward a small window with a broken pane covered by a curtain. Camera: slow push in behind him."},
-    {"id": "S21", "vo": "N07", "seconds": 7, "seed": 1702,
-     "prompt": "Close-up on the thin young man's face as he reaches through the broken pane and lifts the edge of a muslin curtain; faint firelight from inside flickers across his cheek and eyes; his eyes widen, pupils shrink, his mouth opens, colour drains from his face. Nothing inside is shown. Camera: slow push in on his eyes."},
-    {"id": "S22", "vo": "N07", "seconds": 7, "seed": 1703,
-     "prompt": "The young man stumbles backward from the window into the courtyard, knocks over a wooden bucket that clatters and rolls, and runs out through the narrow arched passage toward the street; the green door remains shut; a crow lifts off the roof; a curtain in the window falls still. Camera: static wide, then slow push toward the closed door."},
-    {"id": "S23", "vo": "N08", "seconds": 8, "seed": 1801,
-     "prompt": "A dark gallery wall: a candle carried by an unseen hand moves along a row of oil portraits, illuminating each in turn — a gaunt Polish barber with hollow cheeks and wild dark hair; a handsome young barrister with fair side whiskers; a florid American doctor with a huge grey moustache; a sharp-faced painter with a pointed beard — four completely different faces; each fades back into darkness as the light passes. Camera: smooth lateral tracking with the candle."},
-    {"id": "S24", "vo": "N08", "seconds": 6, "seed": 1802,
-     "prompt": "The candlelight reaches the last frame on the gallery wall: an ornate gilded frame that is empty, only cracked dark canvas inside; the flame trembles, throws long shadows, then gutters; the empty frame slowly sinks into darkness. Camera: slow push in on the empty frame."},
-    {"id": "S25", "vo": "N09", "seconds": 7, "seed": 1901,
-     "prompt": "Inside a Scotland Yard archive: a wooden card-index drawer slides open by itself, yellowed case files flip open, pages lift and turn in a draught, dust motes drift in a shaft of pale light; a magnifying glass rests on a faded floral silk shawl. Camera: slow push in over the drawer toward the magnifying glass."},
-    {"id": "S26", "vo": "N09", "seconds": 7, "seed": 1902,
-     "prompt": "Extreme close-up through a magnifying glass on the weave of an old faded silk shawl; the fibres slowly transform into a glowing double-helix of DNA drawn in luminous amber and blue oil-paint strokes rotating slowly in darkness, then the helix dissolves back into fog and thread. Camera: slow rotation, painterly transition."},
-    {"id": "S27", "vo": "N10", "seconds": 8, "seed": 2001,
-     "prompt": "The same narrow Whitechapel street as the opening: the fog thins and lifts, night turns to grey morning, the gas lamp gutters out, translucent ghostly figures of modern passers-by stream through the frame at high speed like long-exposure trails, the brick walls stay unchanged; painterly time-lapse. Camera: static locked-off, matching the opening framing."},
-    {"id": "S28", "vo": "N10", "seconds": 8, "seed": 2002,
-     "prompt": "The empty foggy Whitechapel street at dusk: one dark figure in a long coat and top hat stands far down the street with his back to camera under the last lit gas lamp; he slowly begins to turn his head toward the camera, but the fog thickens and swallows him before his face is revealed; the lamp flickers out. Camera: very slow push in, ending in near-darkness."}
+    {
+      "id": "S01",
+      "vo": "N01",
+      "seconds": 6,
+      "seed": 1101,
+      "prompt": "Slow dolly forward along a narrow fog-choked Whitechapel street at night, a single cast-iron gas lamp flickering amber, fog drifting in layers across the frame, wet cobblestones glistening, soot-stained brick warehouses, distant church spire; at the far end of the street a tall silhouette holding a lantern crosses the road and dissolves into the fog. No faces visible. Camera: slow push in, slight handheld drift."
+    },
+    {
+      "id": "S02",
+      "vo": "N01",
+      "seconds": 6,
+      "seed": 1102,
+      "prompt": "Low angle looking up at a soot-blackened Victorian brick tenement at night, laundry lines swaying, a single candle-lit window on the third floor where a thin woman with grey hair in a bun draws a curtain closed; fog rolls past the chimney pots; the gas lamp below flickers. Camera: slow tilt down from the roofline to the wet street."
+    },
+    {
+      "id": "S03",
+      "vo": "N01",
+      "seconds": 6,
+      "seed": 1103,
+      "prompt": "Extreme close-up of a gloved hand dipping a steel-nib pen into a bottle of red ink on a scarred wooden desk lit by a single candle; the nib touches cream paper and begins writing in looping Victorian script; ink bleeds slightly into the paper fibres; candle flame trembles. Camera: static macro, shallow focus, the flame flicker animates the shadows."
+    },
+    {
+      "id": "S04",
+      "vo": "N02",
+      "seconds": 8,
+      "seed": 1201,
+      "prompt": "A stocky middle-aged carman with a thick brown moustache, flat cap and canvas work jacket walks toward camera down Buck's Row at 3:40 AM, swinging a tin lantern that throws swaying light across the brick wall; his breath fogs in the cold; he slows and squints ahead. Camera: tracking backward at walking pace, lantern light swinging."
+    },
+    {
+      "id": "S05",
+      "vo": "N02",
+      "seconds": 7,
+      "seed": 1202,
+      "prompt": "Over-the-shoulder of the moustached carman in a flat cap as he raises his lantern toward the base of a gateway; the light reveals only a dark bundle of shawl and skirt lying against the wall in deep shadow, a woman's boot, a fallen straw bonnet; fog drifts between him and the gate. Camera: slow push in past his shoulder, everything beyond the boot stays in shadow, no wounds, no face."
+    },
+    {
+      "id": "S06",
+      "vo": "N02",
+      "seconds": 7,
+      "seed": 1206,
+      "prompt": "Medium close-up of the carman's weathered face lit from below by his lantern: thick brown moustache, broad nose, deep-set eyes, realistic proportions; he stares at something off-frame below, his jaw tightens, he slowly takes off his flat cap and swallows; restrained dread, no exaggeration; fog curls behind him. Camera: very slow push in."
+    },
+    {
+      "id": "S07",
+      "vo": "N03",
+      "seconds": 7,
+      "seed": 1301,
+      "prompt": "High angle looking down into a cramped Hanbury Street backyard at dawn: a dozen East Enders crowd the fence and doorway — an old woman in a shawl, a barefoot boy, a bearded docker, a young red-haired woman with a baby, a bald man in an apron — all different faces, shifting, craning to see; grey dawn light, mist in the yard; two constables in tall helmets hold them back. Camera: slow descending crane."
+    },
+    {
+      "id": "S08",
+      "vo": "N03",
+      "seconds": 8,
+      "seed": 1302,
+      "prompt": "A tall detective inspector in his forties with a heavy dark walrus moustache, receding hairline, black bowler hat and long grey overcoat steps out of a back door into the misty yard, removes his hat, and slowly scans the scene with tired, intelligent eyes; behind him constables' helmets bob; dawn light through fog. Camera: slow arc around him at eye level."
+    },
+    {
+      "id": "S09",
+      "vo": "N03",
+      "seconds": 6,
+      "seed": 1303,
+      "prompt": "Close-up of the inspector's gloved hand resting on a rough wooden fence, rainwater dripping from the slats; slow rack focus from his hand to a row of grimy back windows where several different faces — a young girl, an old man with a clay pipe, a woman with a lace cap — watch silently from behind the glass, breath fogging the panes. Camera: rack focus, then slow pan across the windows."
+    },
+    {
+      "id": "S10",
+      "vo": "N04",
+      "seconds": 7,
+      "seed": 1401,
+      "prompt": "Top-down shot of a Central News Agency desk: a clerk's ink-stained hands with rolled shirt sleeves open a cream envelope and unfold a letter written in red ink; the looping script fills the frame; a brass desk lamp casts a warm pool of light; a teacup steams; papers stir in a draught. Camera: slow push in toward the red writing."
+    },
+    {
+      "id": "S11",
+      "vo": "N04",
+      "seconds": 7,
+      "seed": 1402,
+      "prompt": "A young clerk with round wire spectacles, neat side-parted blond hair and a starched collar reads the red-ink letter under a green-shaded desk lamp; his eyebrows rise, he glances nervously over his shoulder toward a dark doorway, then back at the page; the lamp flame flickers. Camera: slow push in on his face."
+    },
+    {
+      "id": "S12",
+      "vo": "N04",
+      "seconds": 7,
+      "seed": 1406,
+      "prompt": "A Victorian steam printing press thundering in a dim pressroom: giant iron rollers spin, sheets of newsprint fly off in a blur, a soot-faced pressman with a grey beard and leather apron pulls a lever; sparks and steam; the printed pages are a soft out-of-focus grey blur with no legible words. Camera: fast tracking shot along the press."
+    },
+    {
+      "id": "S13",
+      "vo": "N04",
+      "seconds": 6,
+      "seed": 1404,
+      "prompt": "A freckled newsboy of about ten in an oversized cap and patched jacket stands on a foggy street corner under a gas lamp waving a newspaper above his head and shouting, mouth open, breath steaming; well-dressed passers-by in top hats and bonnets turn their heads and snatch copies; horse-drawn cab wheels splash past. Camera: slow push in through the crowd toward the boy."
+    },
+    {
+      "id": "S14",
+      "vo": "N05",
+      "seconds": 7,
+      "seed": 1501,
+      "prompt": "Berner Street at 1 AM: a small pony pulling a costermonger's cart suddenly shies and rears at a dark gateway, nostrils flaring, eyes rolling white; the driver — a thin man with a black beard and wide-brimmed hat — hauls on the reins, half-standing; the gateway beyond is pitch black; fog swirls. Camera: handheld, slight shake, low angle on the frightened pony."
+    },
+    {
+      "id": "S15",
+      "vo": "N05",
+      "seconds": 7,
+      "seed": 1502,
+      "prompt": "Continuous lateral tracking shot along a fog-filled London street: gas lamps pass one by one like ghostly halos, dark house fronts slide by, the fog thickens into a solid white wall, and the camera pushes through it to emerge in a wide empty square lined with dark arcades. No people. Camera: smooth lateral dolly then push through fog."
+    },
+    {
+      "id": "S16",
+      "vo": "N05",
+      "seconds": 8,
+      "seed": 1503,
+      "prompt": "A young constable in a tall custodian helmet and rain cape, clean-shaven with a strong jaw and pale worried eyes, walks slowly into Mitre Square holding a bullseye lantern; the beam sweeps across the wet flagstones, passes a dark corner, stops, and slowly returns to it; he freezes. Camera: following behind him, then slow push past his shoulder toward the dark corner, nothing explicit shown."
+    },
+    {
+      "id": "S17",
+      "vo": "N06",
+      "seconds": 7,
+      "seed": 1601,
+      "prompt": "A dark tenement doorway on Goulston Street lit by a policeman's lantern: on the black brick wall a line of chalk writing in a scrawled hand glows in the beam; a torn scrap of cloth lies on the step; the lantern beam wavers; fog drifts through the doorway. Camera: slow push in on the chalk letters, the letters remain out of focus and illegible."
+    },
+    {
+      "id": "S18",
+      "vo": "N06",
+      "seconds": 7,
+      "seed": 1606,
+      "prompt": "Close-up: a gentleman's hand in a white cuff with a gold cufflink, holding a wet sponge, wipes across a smudge of white chalk marks on dark brick; the marks are an illegible blur that smears and vanishes in streaks; water runs down the wall; behind, out of focus, a stern grey-whiskered police commissioner in a peaked cap watches. Camera: static close on the wall, slight drift."
+    },
+    {
+      "id": "S19",
+      "vo": "N06",
+      "seconds": 6,
+      "seed": 1607,
+      "prompt": "A cluster of Victorian policemen's faces in a dark doorway lit from below by a single lantern — a young one with freckles, a sergeant with mutton-chop whiskers, an older one with a scar over his eyebrow, a stout one with a red nose — realistic human proportions, painterly realism, each face different; they exchange uneasy glances as the light flickers and shadows swing across them; dawn greys the sky behind. Camera: slow pan across the faces."
+    },
+    {
+      "id": "S20",
+      "vo": "N07",
+      "seconds": 7,
+      "seed": 1701,
+      "prompt": "Miller's Court, a squalid brick courtyard on a grey November morning: a nervous young man with a thin face, prominent ears and a shabby brown coat knocks on a peeling green door of number 13, waits, knocks again, then leans toward a small window with a broken pane covered by a curtain. Camera: slow push in behind him."
+    },
+    {
+      "id": "S21",
+      "vo": "N07",
+      "seconds": 7,
+      "seed": 1702,
+      "prompt": "Close-up on the thin young man's face as he reaches through the broken pane and lifts the edge of a muslin curtain; faint firelight from inside flickers across his cheek and eyes; his eyes widen, pupils shrink, his mouth opens, colour drains from his face. Nothing inside is shown. Camera: slow push in on his eyes."
+    },
+    {
+      "id": "S22",
+      "vo": "N07",
+      "seconds": 7,
+      "seed": 1703,
+      "prompt": "The young man stumbles backward from the window into the courtyard, knocks over a wooden bucket that clatters and rolls, and runs out through the narrow arched passage toward the street; the green door remains shut; a crow lifts off the roof; a curtain in the window falls still. Camera: static wide, then slow push toward the closed door."
+    },
+    {
+      "id": "S23",
+      "vo": "N08",
+      "seconds": 8,
+      "seed": 1801,
+      "prompt": "A dark gallery wall: a candle carried by an unseen hand moves along a row of oil portraits, illuminating each in turn — a gaunt Polish barber with hollow cheeks and wild dark hair; a handsome young barrister with fair side whiskers; a florid American doctor with a huge grey moustache; a sharp-faced painter with a pointed beard — four completely different faces; each fades back into darkness as the light passes. Camera: smooth lateral tracking with the candle."
+    },
+    {
+      "id": "S24",
+      "vo": "N08",
+      "seconds": 6,
+      "seed": 1806,
+      "prompt": "The candlelight reaches the last frame on the dark gallery wall: an ornate gilded frame whose canvas is completely blank and black, no picture and no face inside it, only cracked dark varnish; the flame trembles, throws long shadows, then gutters; the empty frame slowly sinks into darkness. Camera: slow push in on the empty frame."
+    },
+    {
+      "id": "S25",
+      "vo": "N09",
+      "seconds": 7,
+      "seed": 1901,
+      "prompt": "Inside a Scotland Yard archive: a wooden card-index drawer slides open by itself, yellowed case files flip open, pages lift and turn in a draught, dust motes drift in a shaft of pale light; a magnifying glass rests on a faded floral silk shawl. Camera: slow push in over the drawer toward the magnifying glass."
+    },
+    {
+      "id": "S26",
+      "vo": "N09",
+      "seconds": 7,
+      "seed": 1906,
+      "prompt": "Extreme close-up through a magnifying glass of the woven silk fibres of an old faded floral shawl; the threads begin to glow and rearrange themselves into a slowly rotating luminous double helix painted in amber and slate-blue brushstrokes against darkness, then dissolve back into fog and thread; no people, no faces. Camera: slow rotation, painterly transition."
+    },
+    {
+      "id": "S27",
+      "vo": "N10",
+      "seconds": 8,
+      "seed": 2001,
+      "prompt": "The same narrow Whitechapel street as the opening: the fog thins and lifts, night turns to grey morning, the gas lamp gutters out, translucent ghostly figures of modern passers-by stream through the frame at high speed like long-exposure trails, the brick walls stay unchanged; painterly time-lapse. Camera: static locked-off, matching the opening framing."
+    },
+    {
+      "id": "S28",
+      "vo": "N10",
+      "seconds": 8,
+      "seed": 2002,
+      "prompt": "The empty foggy Whitechapel street at dusk: one dark figure in a long coat and top hat stands far down the street with his back to camera under the last lit gas lamp; he slowly begins to turn his head toward the camera, but the fog thickens and swallows him before his face is revealed; the lamp flickers out. Camera: very slow push in, ending in near-darkness."
+    }
   ]
 }
