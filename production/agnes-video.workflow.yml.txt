@@ -1,0 +1,122 @@
+name: Generate Agnes video
+
+# 安装：把本文件原样保存为 main 分支上的 .github/workflows/agnes-video.yml
+#（说明见 production/AGNES_VIDEO.md）。
+# 用 Agnes Video V2.0 生成一段短视频，并把 MP4 作为 artifact 上传。
+# 需要仓库 secret AGNES_API_KEY（Settings → Secrets and variables → Actions）。
+# 单个视频最长 441 帧（24 fps 约 18 秒）；图生视频 / 关键帧需要公网可访问的图片 URL。
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "视频内容描述（主体 + 动作 + 场景 + 运镜 + 光线 + 风格；英文提示词更稳定）"
+        required: true
+        type: string
+      image_urls:
+        description: "可选：参考图 URL。1 张 = 图生视频；2 张及以上（英文逗号分隔）= 关键帧动画"
+        required: false
+        type: string
+        default: ""
+      aspect:
+        description: "画面比例"
+        type: choice
+        default: "16:9"
+        options: ["16:9", "9:16", "1:1", "4:3", "3:4"]
+      resolution:
+        description: "分辨率档位"
+        type: choice
+        default: "720p"
+        options: ["480p", "720p", "1080p"]
+      seconds:
+        description: "时长（秒，最长约 18）"
+        type: string
+        default: "5"
+      negative_prompt:
+        description: "可选：不希望出现的内容"
+        type: string
+        default: ""
+      seed:
+        description: "可选：随机种子（填数字可复现结果）"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      # Same convention as build-commentary.yml: the workflow file lives on main
+      # (so the "Run workflow" button shows up) and pulls its scripts from the
+      # branch where they are developed.
+      - name: Check out scripts
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a06f58-desktop-tutorial
+
+      - name: Check API key is configured
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          if [ -z "$AGNES_API_KEY" ]; then
+            echo "::error::Repository secret AGNES_API_KEY is missing. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+      - name: Generate video
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PROMPT: ${{ inputs.prompt }}
+          IMAGE_URLS: ${{ inputs.image_urls }}
+          ASPECT: ${{ inputs.aspect }}
+          RESOLUTION: ${{ inputs.resolution }}
+          DURATION: ${{ inputs.seconds }}
+          NEGATIVE_PROMPT: ${{ inputs.negative_prompt }}
+          SEED: ${{ inputs.seed }}
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          args=(
+            --prompt "$PROMPT"
+            --aspect "$ASPECT"
+            --resolution "$RESOLUTION"
+            --seconds "$DURATION"
+            --timeout 2400
+            --output "output/agnes_video_${GITHUB_RUN_NUMBER}.mp4"
+          )
+          if [ -n "$IMAGE_URLS" ]; then
+            IFS=',' read -ra urls <<< "$IMAGE_URLS"
+            for url in "${urls[@]}"; do
+              url="${url// /}"
+              if [ -n "$url" ]; then
+                args+=(--image "$url")
+              fi
+            done
+          fi
+          if [ -n "$NEGATIVE_PROMPT" ]; then
+            args+=(--negative-prompt "$NEGATIVE_PROMPT")
+          fi
+          if [ -n "$SEED" ]; then
+            args+=(--seed "$SEED")
+          fi
+          python3 production/agnes_video.py "${args[@]}"
+
+      - name: Inspect result
+        run: |
+          ls -la output
+          if command -v ffprobe >/dev/null 2>&1; then
+            ffprobe -v error -show_entries format=duration,size:stream=width,height,r_frame_rate \
+              -of default=nw=1 output/*.mp4 || true
+          fi
+
+      - name: Upload video
+        uses: actions/upload-artifact@v4
+        with:
+          name: agnes-video-${{ github.run_number }}
+          path: output/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7

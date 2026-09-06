@@ -1,0 +1,52 @@
+name: Generate AI video shots
+
+# 安装（只需一次）：把本文件原样保存为 main 分支上的 .github/workflows/ai-shots.yml
+# 之后不需要再手动点击：Arena 代理可以通过 repository_dispatch 事件（event_type: ai-shots）
+# 远程触发它；也可以在 Actions 页面手动 Run workflow。
+# 真正的逻辑在开发分支的 production/ai_shots_job.sh 里，本文件只是一个"跳板"，以后改逻辑不用再动 main。
+# 需要 secrets：AGNES_API_KEY 和/或 PIXAZO_API_KEY。
+
+on:
+  repository_dispatch:
+    types: [ai-shots]
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: '可选 JSON，例如 {"only":"S01,S02","force":true,"providers":"pixazo,agnes"}'
+        type: string
+        default: "{}"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-shots
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Check out development branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a06f58-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Generate shots and commit them back
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PIXAZO_API_KEY: ${{ secrets.PIXAZO_API_KEY }}
+          PAYLOAD: ${{ github.event_name == 'repository_dispatch' && toJSON(github.event.client_payload) || inputs.payload }}
+        run: bash production/ai_shots_job.sh
+
+      - name: Upload clips as artifact (backup)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-shots-${{ github.run_number }}
+          path: ripper/clips
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7

@@ -1,0 +1,11 @@
+# generated media / pipeline scratch space (kept out of Git; CI uploads them as artifacts)
+output/
+work/
+*.part
+
+# local secrets
+.env
+
+# python
+__pycache__/
+*.pyc
