@@ -303,19 +303,42 @@ def draw_text_center(canvas, text, cy, size, serif=True, color=(236, 226, 206), 
     canvas[ys:ye, xs:xe] = reg.astype(np.uint8)
 
 
+_SUB_BOUNDS = None
+
+
+def _load_sub_bounds():
+    """Subtitle line boundaries measured from the narration audio (build/subtitle_bounds.json);
+    falls back to proportional character timing when the file is missing."""
+    global _SUB_BOUNDS
+    if _SUB_BOUNDS is None:
+        fp = os.path.join(BUILD, "subtitle_bounds.json")
+        try:
+            _SUB_BOUNDS = json.load(open(fp, encoding="utf-8"))
+        except Exception:
+            _SUB_BOUNDS = {}
+    return _SUB_BOUNDS
+
+
 def subtitle_for(block, t_in_block):
-    """Pick the subtitle line by proportional character timing inside the VO span."""
+    """Pick the subtitle line by measured pause timing inside the VO span."""
     lines = NARRATION[block["vo"]]
     vo_t = t_in_block - PRE_ROLL
-    if vo_t < 0 or vo_t > block["vo_dur"] + 0.4:
+    if vo_t < -0.15 or vo_t > block["vo_dur"] + 0.4:
         return None, 0.0
-    weights = np.array([max(2, len(l)) for l in lines], np.float32)
-    bounds = np.concatenate([[0], np.cumsum(weights) / weights.sum()]) * block["vo_dur"]
+    b = _load_sub_bounds().get(block["vo"])
+    if b and len(b) == len(lines) + 1:
+        bounds = np.array(b, np.float32)
+        bounds[0] = max(0.0, bounds[0] - 0.12)          # show a hair before the first word
+        bounds[-1] = bounds[-1] + 0.35                   # keep the last line up briefly after the voice stops
+    else:
+        weights = np.array([max(2, len(l)) for l in lines], np.float32)
+        bounds = np.concatenate([[0], np.cumsum(weights) / weights.sum()]) * block["vo_dur"]
     for i, l in enumerate(lines):
-        if bounds[i] <= vo_t < bounds[i + 1] + (0.4 if i == len(lines) - 1 else 0):
-            a = min(1.0, (vo_t - bounds[i]) / 0.18)
-            b = min(1.0, (bounds[i + 1] - vo_t) / 0.18) if i < len(lines) - 1 else 1.0
-            return l, max(0.0, min(a, b if b > 0 else 1.0))
+        if bounds[i] <= vo_t < bounds[i + 1]:
+            a = min(1.0, (vo_t - bounds[i]) / 0.14)
+            out = bounds[i + 1] - vo_t
+            bq = min(1.0, out / 0.14)
+            return l, max(0.0, min(a, bq))
     return None, 0.0
 
 
