@@ -1,32 +1,29 @@
 {
   "shot": {
-    "seconds": 7,
+    "seconds": 8,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S05",
     "vo": "N02",
-    "seed": 1202,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Over-the-shoulder of the moustached carman in a flat cap as he raises his lantern toward the base of a gateway; the light reveals only a dark bundle of shawl and skirt lying against the wall in deep shadow, a woman's boot, a fallen straw bonnet; fog drifts between him and the gate. Camera: slow push in past his shoulder, everything beyond the boot stays in shadow, no wounds, no face.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow"
+    "seed": 2051,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Over-the-shoulder of the moustached carman in a flat cap as he raises his swaying lantern toward the base of a dark brick wall on Buck's Row; the light slides along wet cobblestones and lights up the hem of a dark shawl at the bottom of the frame; fog drifts between him and the wall. Camera: slow push in past his shoulder.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a0746b-9b44-74fa-475e-f5fa54daeb4a5",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a0746b-9b44-74fa-475e-f5fa54daeb4a5/output.mp4",
-  "size_bytes": 676524,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzE4Zjc1MzAxODkyMDRkZGE4NjdiZDhjNDI4NDFlYWZm",
+  "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_18f7530189204dda867bd8c42841eaff.mp4",
+  "size_bytes": 1437754,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Over-the-shoulder of the moustached carman in a flat cap as he raises his lantern toward the base of a gateway; the light reveals only a dark bundle of shawl and skirt lying against the wall in deep shadow, a woman's boot, a fallen straw bonnet; fog drifts between him and the gate. Camera: slow push in past his shoulder, everything beyond the boot stays in shadow, no wounds, no face.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Over-the-shoulder of the moustached carman in a flat cap as he raises his swaying lantern toward the base of a dark brick wall on Buck's Row; the light slides along wet cobblestones and lights up the hem of a dark shawl at the bottom of the frame; fog drifts between him and the wall. Camera: slow push in past his shoulder.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 193,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-    "seed": 1202
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2051
   },
-  "errors_before_success": [
-    "agnes: agnes: Could not create video task after 4 attempts; last problem: HTTP 429: You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20260906015322807904282syfHesJc) (code=rate_limit_exceeded)"
-  ],
-  "generated_at": "2026-09-06T01:55:17Z"
+  "errors_before_success": [],
+  "generated_at": "2026-09-06T05:08:44Z"
 }
