@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 7,
+    "seconds": 8,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S22",
     "vo": "N07",
-    "seed": 1703,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The young man stumbles backward from the window into the courtyard, knocks over a wooden bucket that clatters and rolls, and runs out through the narrow arched passage toward the street; the green door remains shut; a crow lifts off the roof; a curtain in the window falls still. Camera: static wide, then slow push toward the closed door.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow"
+    "seed": 2221,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The thin young man in a bowler hat staggers backward from the small broken window of Miller's Court, knocks over a wooden bucket that clatters across the wet flagstones, clutches the courtyard wall and stares at the window with wide eyes; grey November light, painterly, realistic proportions. Camera: slow pull back.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a0748a-5b77-7111-8bb0-b9efe4c16a5b2",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a0748a-5b77-7111-8bb0-b9efe4c16a5b2/output.mp4",
-  "size_bytes": 959851,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzU5ZDE4YjJjMWQ3NTQ1NmI4NDkxNjg3NzYwNzkyZTdj",
+  "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_59d18b2c1d75456b8491687760792e7c.mp4",
+  "size_bytes": 1445079,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The young man stumbles backward from the window into the courtyard, knocks over a wooden bucket that clatters and rolls, and runs out through the narrow arched passage toward the street; the green door remains shut; a crow lifts off the roof; a curtain in the window falls still. Camera: static wide, then slow push toward the closed door.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The thin young man in a bowler hat staggers backward from the small broken window of Miller's Court, knocks over a wooden bucket that clatters across the wet flagstones, clutches the courtyard wall and stares at the window with wide eyes; grey November light, painterly, realistic proportions. Camera: slow pull back.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 193,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-    "seed": 1703
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2221
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:28:43Z"
+  "generated_at": "2026-09-06T05:19:20Z"
 }
