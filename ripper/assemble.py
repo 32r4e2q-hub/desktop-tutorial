@@ -125,8 +125,15 @@ def build_timeline():
             share = s.get("seconds", 7) / planned
             d = block_dur * share
             p, nat, n, fps = available[s["id"]]
+            off = 0
+            if s.get("use"):
+                u0, u1 = float(s["use"][0]), float(s["use"][1])
+                u0 = max(0.0, min(u0, nat - 0.5))
+                u1 = max(u0 + 0.5, min(u1, nat))
+                off = int(round(u0 * fps))
+                nat = u1 - u0
             timeline.append({"id": s["id"], "vo": vo, "path": p, "start": t, "dur": d, "natural": nat, "frames": n,
-                             "fps": fps, "block_start": b["start"], "block_dur": block_dur})
+                             "fps": fps, "offset": off, "block_start": b["start"], "block_dur": block_dur})
             t += d
     return timeline, live_blocks, t, vo_dur
 
@@ -341,7 +348,7 @@ def compose(gt, timeline, blocks, total, reader, rng):
             u = u % period
             ct = (nat - margin) - u if u <= span else margin + (u - span)
     ct = max(0.0, min(nat - 1.0 / cur["fps"], ct))
-    idx = ct * cur["fps"]
+    idx = ct * cur["fps"] + cur.get("offset", 0)
     f0 = reader.get(cur["path"], math.floor(idx))
     fr = idx - math.floor(idx)
     if fr > 0.02:
@@ -621,27 +628,44 @@ def cmd_plan():
     return timeline, blocks, total
 
 
-def cmd_render(workers):
+def cmd_render(workers, only=None):
     timeline, blocks, total = cmd_plan()
     if not timeline:
         print("no clips available yet")
         return 1
     os.makedirs(BUILD, exist_ok=True)
     os.makedirs(OUT, exist_ok=True)
-    for f in glob.glob(os.path.join(BUILD, "seg_*.mp4")):
-        os.remove(f)
     nframes = int(round(total * FPS))
     seg = 600
-    jobs = []
+    dirty = []                                   # (t0, t1) ranges whose pixels changed
+    if only:
+        ids = {x.strip().upper() for x in only.split(",") if x.strip()}
+        for sh in timeline:
+            if sh["id"] in ids:
+                dirty.append((sh["start"] - 0.7, sh["start"] + sh["dur"] + 0.1))   # incl. dissolve from previous shot
+        print(f"incremental render for {sorted(ids)} → dirty ranges {[(round(a,1), round(b,1)) for a, b in dirty]}")
+    else:
+        for f in glob.glob(os.path.join(BUILD, "seg_*.mp4")):
+            os.remove(f)
+    jobs, keep = [], []
     for f0 in range(0, nframes, seg):
         f1 = min(nframes, f0 + seg)
-        jobs.append((f0, f1, os.path.join(BUILD, f"seg_{f0:06d}.mp4"), timeline, blocks, total))
+        path = os.path.join(BUILD, f"seg_{f0:06d}.mp4")
+        t0s, t1s = f0 / FPS, f1 / FPS
+        touched = (not only) or any(a < t1s and b > t0s for a, b in dirty) or not os.path.exists(path)
+        if touched:
+            jobs.append((f0, f1, path, timeline, blocks, total))
+        else:
+            keep.append(path)
+    print(f"segments to render: {len(jobs)}, reused: {len(keep)}", flush=True)
     t0 = time.time()
     snd = build_soundtrack(timeline, blocks, total, os.path.join(BUILD, "soundtrack.wav"))
     print(f"soundtrack done ({time.time() - t0:.0f}s)", flush=True)
-    with mp.Pool(workers, maxtasksperchild=1) as pool:
-        paths = pool.map(render_range, jobs, chunksize=1)
-    print(f"video segments done ({time.time() - t0:.0f}s)")
+    if jobs:
+        with mp.Pool(min(workers, len(jobs)), maxtasksperchild=1) as pool:
+            pool.map(render_range, jobs, chunksize=1)
+    print(f"video segments done ({time.time() - t0:.0f}s)", flush=True)
+    paths = sorted(glob.glob(os.path.join(BUILD, "seg_*.mp4")))
     lst = os.path.join(BUILD, "segments.txt")
     with open(lst, "w") as fh:
         for p in paths:
@@ -663,12 +687,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["plan", "render", "check"])
     ap.add_argument("--workers", type=int, default=2)
+    ap.add_argument("--only", default=None, help="comma-separated shot ids: re-render only segments touched by them")
     a = ap.parse_args()
     if a.cmd == "plan":
         cmd_plan()
         return 0
     if a.cmd == "render":
-        return cmd_render(a.workers)
+        return cmd_render(a.workers, a.only)
     timeline, blocks, total = cmd_plan()
     rep = qc(FINAL, total, blocks)
     print(json.dumps(rep, ensure_ascii=False, indent=2))
