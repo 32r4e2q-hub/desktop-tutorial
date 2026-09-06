@@ -192,12 +192,18 @@ def vignette():
     if _vignette is None:
         yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
         d = np.sqrt(((xx - W / 2) / (W / 2)) ** 2 + ((yy - H / 2) / (H / 2)) ** 2)
-        _vignette = np.clip(1.0 - 0.55 * np.clip(d - 0.55, 0, 1) ** 1.8, 0, 1)[..., None]
+        _vignette = np.clip(1.0 - 0.45 * np.clip(d - 0.6, 0, 1) ** 1.8, 0, 1)[..., None]
     return _vignette
+
+
+_veil_cache = {}
 
 
 def fog_veil(t, seed):
     """Slow rolling low-frequency fog multiplier field (adds unity to clips from different generations)."""
+    key = (round(t * 8) / 8, seed)
+    if key in _veil_cache:
+        return _veil_cache[key]
     rng = np.random.default_rng(seed)
     small = np.zeros((24, 14), np.float32)
     for o, amp in ((1, 1.0), (2, 0.5), (4, 0.25)):
@@ -206,29 +212,55 @@ def fog_veil(t, seed):
         x = np.linspace(0, o * 1.3, 14)[None, :]
         small += amp * (np.sin(y + t * 0.07 * o + ph[0, 0]) * np.cos(x - t * 0.05 * o + ph[0, 1]))
     field = cv2.resize(small, (W, H), interpolation=cv2.INTER_CUBIC)
-    return (field - field.min()) / (field.max() - field.min() + 1e-6)
+    out = (field - field.min()) / (field.max() - field.min() + 1e-6)
+    if len(_veil_cache) > 8:
+        _veil_cache.pop(next(iter(_veil_cache)))
+    _veil_cache[key] = out
+    return out
+
+
+def painterly(frame_bgr):
+    """Flatten photo-like micro detail into brush-like patches and darken edges (oil-sketch look)."""
+    small = cv2.resize(frame_bgr, (W // 3, H // 3), interpolation=cv2.INTER_AREA)
+    sm = cv2.bilateralFilter(small, 7, 45, 5)
+    # keep some of the original mid-frequency detail so faces stay crisp (unsharp on the smoothed layer)
+    up = cv2.resize(sm, (W, H), interpolation=cv2.INTER_LINEAR).astype(np.float32)
+    orig = frame_bgr.astype(np.float32)
+    mixed = up * 0.7 + orig * 0.3
+    g = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Laplacian(g, cv2.CV_32F, ksize=3)
+    edges = np.clip(np.abs(edges) / 48.0, 0, 1)
+    edges = cv2.resize(edges, (W, H), interpolation=cv2.INTER_LINEAR)[..., None]
+    return mixed * (1 - 0.28 * edges)
 
 
 def post(frame_bgr, t, rng, fog_strength=0.10, grain_amt=0.035):
-    f = frame_bgr.astype(np.float32) / 255.0
+    f = painterly(frame_bgr) / 255.0
     # split tone: cool shadows (slate blue) / warm highlights (gaslight amber)
     lum = f.mean(axis=2, keepdims=True)
-    shadow = np.array([0.09, 0.04, -0.02], np.float32)  # BGR: +blue, -red
-    high = np.array([-0.03, 0.02, 0.06], np.float32)
-    f = f + shadow * (1 - lum) * 0.35 + high * lum * 0.35
-    # slight contrast S-curve + lifted blacks (oil varnish look)
+    shadow = np.array([0.10, 0.05, -0.03], np.float32)  # BGR: +blue, -red  (slate-blue shadows)
+    high = np.array([-0.05, 0.02, 0.08], np.float32)    # gaslight-amber highlights
+    f = f + shadow * (1 - lum) * 0.5 + high * lum * 0.5
+    # global desaturation toward the umber/sepia palette
+    grey = f.mean(axis=2, keepdims=True)
+    f = grey + (f - grey) * 0.78
+    f = f * np.array([0.93, 0.97, 1.03], np.float32)     # warm bias
+    # exposure: lift very dark clips toward a common key, then a soft S-curve with lifted blacks
     f = np.clip(f, 0, 1)
-    f = 0.03 + 0.97 * (f * f * (3 - 2 * f)) * 0.75 + f * 0.25
+    key = float(lum.mean())
+    gain = float(np.clip(0.34 / max(key, 1e-3), 1.0, 2.2))
+    f = 1.0 - (1.0 - f) ** gain              # screen-like lift: brightens shadows, keeps highlights
+    f = 0.045 + 0.955 * ((f * f * (3 - 2 * f)) * 0.55 + f * 0.45)
     # rolling fog veil
     veil = fog_veil(t, 7)[..., None]
     fogcol = np.array([0.62, 0.66, 0.70], np.float32)
     f = f * (1 - fog_strength * veil) + fogcol * fog_strength * veil * 0.9
     # canvas grain (static weave + animated fine grain)
     tex = canvas_texture(rng)
-    live = cv2.resize(np.random.default_rng(int(t * FPS) + 11).standard_normal((H // 3, W // 3)).astype(np.float32), (W, H))
+    live = cv2.resize(np.random.default_rng(int(t * FPS) + 11).standard_normal((H // 4, W // 4)).astype(np.float32), (W, H), interpolation=cv2.INTER_LINEAR)
     f = f + (tex * 0.6 + live * 0.4)[..., None] * grain_amt * (0.6 + 0.4 * (1 - lum))
     # vignette
-    f = f * (0.35 + 0.65 * vignette()) + 0.0
+    f = f * (0.45 + 0.55 * vignette())
     return np.clip(f * 255.0 + 0.5, 0, 255).astype(np.uint8)
 
 
@@ -288,23 +320,29 @@ def compose(gt, timeline, blocks, total, reader, rng):
     if cur is None:
         cur = timeline[-1]
     lt = gt - cur["start"]
-    # time remap: play the clip at natural speed; if the slot is longer, ease into a slow-motion tail
+    # time remap: play the clip at natural speed; if the slot is longer than the clip, continue with a
+    # slowed ping-pong (forward → reverse → forward) so the image keeps moving instead of freezing.
     nat = cur["natural"]
     slot = cur["dur"]
-    if slot <= nat:
+    if slot <= nat + 0.05:
         ct = lt * (nat / slot) if slot > 0 else 0.0
     else:
-        # first 70% of the natural clip in real time, then stretch the remaining 30% across the leftover slot
-        knee = nat * 0.7
-        if lt <= knee:
+        margin = 0.15
+        if lt <= nat - margin:
             ct = lt
         else:
-            ct = knee + (lt - knee) * (nat - knee) / max(1e-6, slot - knee)
+            rest = slot - (nat - margin)                 # time left in the slot
+            span = nat - 2 * margin                      # usable clip span for the ping-pong
+            speed = min(1.0, max(0.45, (2 * span) / max(rest, 1e-6)))  # slow down so one full bounce fits
+            u = (lt - (nat - margin)) * speed
+            period = 2 * span
+            u = u % period
+            ct = (nat - margin) - u if u <= span else margin + (u - span)
+    ct = max(0.0, min(nat - 1.0 / cur["fps"], ct))
     idx = ct * cur["fps"]
-    # blend between neighbouring frames when slowed down (smooth slow-mo instead of held frames)
     f0 = reader.get(cur["path"], math.floor(idx))
     fr = idx - math.floor(idx)
-    if fr > 0.02 and slot > nat:
+    if fr > 0.02:
         f1 = reader.get(cur["path"], math.floor(idx) + 1)
         frame = cv2.addWeighted(f0, 1 - fr, f1, fr, 0)
     else:
