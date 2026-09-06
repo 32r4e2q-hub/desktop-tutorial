@@ -141,30 +141,71 @@ def build_timeline():
 # --------------------------------------------------------------------------- per-frame rendering
 
 class ClipReader:
-    """Sequential-friendly random access reader (frames cached per shot)."""
+    """Sequential-friendly random access reader with a small sliding cache (memory-bounded).
+
+    Frames are decoded on demand; the cache keeps the most recent ~64 frames of the current clip,
+    which covers the interpolation neighbour and the ping-pong reversal without holding the whole
+    clip (a 9 s Agnes clip at 720 px would be ~600 MB per worker otherwise).
+    """
+
+    CACHE = 64
 
     def __init__(self):
         self.path = None
-        self.frames = None
+        self.cap = None
+        self.n = 0
+        self.pos = 0            # index of the next frame the capture will return
+        self.cache = {}         # idx → frame
+        self.order = []
+
+    def _open(self, path):
+        if self.cap is not None:
+            self.cap.release()
+        self.cap = cv2.VideoCapture(path)
+        self.n = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        self.pos = 0
+        self.cache, self.order = {}, []
+        self.path = path
+
+    def _decode_next(self):
+        ok, f = self.cap.read()
+        if not ok:
+            return None
+        if f.shape[1] > 720:
+            f = cv2.resize(f, (720, int(round(f.shape[0] * 720 / f.shape[1]))), interpolation=cv2.INTER_AREA)
+        idx = self.pos
+        self.pos += 1
+        self.cache[idx] = f
+        self.order.append(idx)
+        if len(self.order) > self.CACHE:
+            old = self.order.pop(0)
+            self.cache.pop(old, None)
+        return f
 
     def get(self, path, idx):
         if path != self.path:
-            self.frames = None
-            cap = cv2.VideoCapture(path)
-            frames = []
-            while True:
-                ok, f = cap.read()
-                if not ok:
-                    break
-                if f.shape[1] > 720:
-                    f = cv2.resize(f, (720, int(round(f.shape[0] * 720 / f.shape[1]))), interpolation=cv2.INTER_AREA)
-                frames.append(f)
-            cap.release()
-            self.path, self.frames = path, frames
-        if not self.frames:
+            self._open(path)
+        if self.n <= 0:
             return np.zeros((H, W, 3), np.uint8)
-        idx = int(max(0, min(len(self.frames) - 1, idx)))
-        return self.frames[idx]
+        idx = int(max(0, min(self.n - 1, idx)))
+        f = self.cache.get(idx)
+        if f is not None:
+            return f
+        if idx < self.pos or idx > self.pos + self.CACHE:
+            # backwards jump (ping-pong) or far seek: reposition a little before the target
+            start = max(0, idx - 8)
+            self.cap.set(cv2.CAP_PROP_POS_FRAMES, start)
+            self.pos = start
+        while self.pos <= idx:
+            f = self._decode_next()
+            if f is None:
+                break
+        f = self.cache.get(idx)
+        if f is None:                       # decode failed at the tail: use the last frame we have
+            if self.order:
+                return self.cache[self.order[-1]]
+            return np.zeros((H, W, 3), np.uint8)
+        return f
 
 
 def fit_cover(img, zoom=1.0, cx=0.5, cy=0.5):
