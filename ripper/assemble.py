@@ -59,8 +59,8 @@ NARRATION = {
 }
 TITLE_AT = "S02"      # main title card overlays this shot
 END_AT = "S28"        # closing question overlays this shot
-PRE_ROLL = 0.9        # seconds of picture before the first narration word of a block
-POST_ROLL = 0.8
+PRE_ROLL = 0.7        # seconds of picture before the first narration word of a block
+POST_ROLL = 0.5
 
 # --------------------------------------------------------------------------- probing helpers
 
@@ -117,7 +117,7 @@ def build_timeline():
             continue
         live_blocks.append(b)
         planned = sum(s.get("seconds", 7) for s in live)
-        block_dur = max(vo_dur[vo] + PRE_ROLL + POST_ROLL, planned * 0.85)
+        block_dur = max(vo_dur[vo] + PRE_ROLL + POST_ROLL, planned * 0.8)
         b["start"] = t
         b["dur"] = block_dur
         b["vo_dur"] = vo_dur[vo]
@@ -430,7 +430,36 @@ def build_soundtrack(timeline, blocks, total, path):
             place(tone, b["start"] + 0.3, 0.16)
     # closing bell
     place(au.bell(int(8 * sr), 0.0, f0=110.0, decay=4.0, amp=1.0), max(0, total - 6.5), 0.22)
-    bed = np.stack([mixL, mixR], axis=1)
+    # native ambience from the AI clips (rain / street tone), time-aligned to each shot's slot
+    nat = np.zeros((n, 2), np.float32)
+    for sh in timeline:
+        wav = os.path.join(BUILD, f"nat_{sh['id']}.wav")
+        r = subprocess.run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-i", sh["path"], "-vn", "-ar", str(sr), "-ac", "2", wav])
+        if r.returncode != 0 or not os.path.exists(wav):
+            continue
+        try:
+            _, data = wavfile.read(wav)
+        except Exception:
+            continue
+        data = data.astype(np.float32) / 32768.0 if data.dtype == np.int16 else data.astype(np.float32)
+        if data.ndim == 1:
+            data = np.stack([data, data], axis=1)
+        slot = int(sh["dur"] * sr)
+        seg = data[:slot]
+        if len(seg) < slot:  # clip shorter than its slot → loop the tail with a crossfade-free repeat of ambience
+            reps = int(np.ceil(slot / max(1, len(seg))))
+            seg = np.concatenate([seg] * reps, axis=0)[:slot]
+        fade = np.ones(slot, np.float32)
+        k = min(slot // 2, int(0.6 * sr))
+        if k > 0:
+            fade[:k] = np.linspace(0, 1, k); fade[-k:] = np.linspace(1, 0, k)
+        s0 = int(sh["start"] * sr)
+        seg = seg[: max(0, n - s0)] * fade[: max(0, n - s0)][:, None]
+        nat[s0:s0 + len(seg)] += seg
+    # normalise native ambience to a steady bed level
+    nrms = float(np.sqrt(np.mean(nat ** 2)) + 1e-9)
+    nat *= min(4.0, 0.045 / nrms)
+    bed = np.stack([mixL, mixR], axis=1) + nat
 
     # narration
     vo = np.zeros((n, 2), np.float32)
