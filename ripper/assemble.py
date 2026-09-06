@@ -142,12 +142,15 @@ class ClipReader:
 
     def get(self, path, idx):
         if path != self.path:
+            self.frames = None
             cap = cv2.VideoCapture(path)
             frames = []
             while True:
                 ok, f = cap.read()
                 if not ok:
                     break
+                if f.shape[1] > 720:
+                    f = cv2.resize(f, (720, int(round(f.shape[0] * 720 / f.shape[1]))), interpolation=cv2.INTER_AREA)
                 frames.append(f)
             cap.release()
             self.path, self.frames = path, frames
@@ -224,9 +227,8 @@ def painterly(frame_bgr):
     small = cv2.resize(frame_bgr, (W // 3, H // 3), interpolation=cv2.INTER_AREA)
     sm = cv2.bilateralFilter(small, 7, 45, 5)
     # keep some of the original mid-frequency detail so faces stay crisp (unsharp on the smoothed layer)
-    up = cv2.resize(sm, (W, H), interpolation=cv2.INTER_LINEAR).astype(np.float32)
-    orig = frame_bgr.astype(np.float32)
-    mixed = up * 0.7 + orig * 0.3
+    up = cv2.resize(sm, (W, H), interpolation=cv2.INTER_LINEAR)
+    mixed = cv2.addWeighted(up, 0.7, frame_bgr, 0.3, 0).astype(np.float32)
     g = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
     edges = cv2.Laplacian(g, cv2.CV_32F, ksize=3)
     edges = np.clip(np.abs(edges) / 48.0, 0, 1)
@@ -371,8 +373,12 @@ def compose(gt, timeline, blocks, total, reader, rng):
     nxt = next((s for s in timeline if s["start"] > cur["start"]), None)
     if nxt and nxt["vo"] == cur["vo"] and (cur["start"] + cur["dur"] - gt) < 0.6:
         a = 1 - (cur["start"] + cur["dur"] - gt) / 0.6
-        f1 = reader_next.get(nxt["path"], 0)
-        img1 = post(fit_cover(f1, 1.0, 0.5, 0.5), gt, rng, fog_strength=fog_strength)
+        img1 = _dissolve_cache.get(nxt["id"])
+        if img1 is None:
+            f1 = reader_next.get(nxt["path"], 0)
+            img1 = post(fit_cover(f1, 1.0, 0.5, 0.5), gt, rng, fog_strength=fog_strength)
+            _dissolve_cache.clear()
+            _dissolve_cache[nxt["id"]] = img1
         img = cv2.addWeighted(img, 1 - a, img1, a, 0)
     if fade < 1:
         img = (img.astype(np.float32) * max(0.0, fade)).astype(np.uint8)
@@ -397,6 +403,7 @@ def compose(gt, timeline, blocks, total, reader, rng):
 
 
 reader_next = ClipReader()
+_dissolve_cache = {}
 
 
 def render_range(args):
@@ -472,7 +479,10 @@ def build_soundtrack(timeline, blocks, total, path):
     nat = np.zeros((n, 2), np.float32)
     for sh in timeline:
         wav = os.path.join(BUILD, f"nat_{sh['id']}.wav")
-        r = subprocess.run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-i", sh["path"], "-vn", "-ar", str(sr), "-ac", "2", wav])
+        info = subprocess.run([FFMPEG, "-hide_banner", "-i", sh["path"]], capture_output=True, text=True).stderr
+        if "Audio:" not in info:
+            continue
+        r = subprocess.run([FFMPEG, "-hide_banner", "-loglevel", "quiet", "-y", "-i", sh["path"], "-vn", "-ar", str(sr), "-ac", "2", wav])
         if r.returncode != 0 or not os.path.exists(wav):
             continue
         try:
@@ -621,17 +631,16 @@ def cmd_render(workers):
     for f in glob.glob(os.path.join(BUILD, "seg_*.mp4")):
         os.remove(f)
     nframes = int(round(total * FPS))
-    seg = 480
+    seg = 600
     jobs = []
     for f0 in range(0, nframes, seg):
         f1 = min(nframes, f0 + seg)
         jobs.append((f0, f1, os.path.join(BUILD, f"seg_{f0:06d}.mp4"), timeline, blocks, total))
     t0 = time.time()
-    with mp.Pool(workers) as pool:
-        async_res = pool.map_async(render_range, jobs)
-        snd = build_soundtrack(timeline, blocks, total, os.path.join(BUILD, "soundtrack.wav"))
-        print(f"soundtrack done ({time.time() - t0:.0f}s)")
-        paths = async_res.get()
+    snd = build_soundtrack(timeline, blocks, total, os.path.join(BUILD, "soundtrack.wav"))
+    print(f"soundtrack done ({time.time() - t0:.0f}s)", flush=True)
+    with mp.Pool(workers, maxtasksperchild=1) as pool:
+        paths = pool.map(render_range, jobs, chunksize=1)
     print(f"video segments done ({time.time() - t0:.0f}s)")
     lst = os.path.join(BUILD, "segments.txt")
     with open(lst, "w") as fh:
