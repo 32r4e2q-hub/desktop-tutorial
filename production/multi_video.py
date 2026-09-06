@@ -26,6 +26,7 @@ import json
 import os
 import shutil
 import socket
+import subprocess
 import sys
 import time
 import urllib.error
@@ -354,6 +355,8 @@ def parse_args(argv=None):
     p.add_argument("--timeout", type=float, default=1500.0, help="per provider, per shot")
     p.add_argument("--max-minutes", type=float, default=0.0,
                    help="batch: stop starting new shots after this many minutes (0 = no limit)")
+    p.add_argument("--after-shot", default=os.environ.get("AFTER_SHOT_CMD", ""),
+                   help="batch: shell command run after each finished shot (env SHOT_ID, SHOT_PATH, OUT_DIR)")
     p.add_argument("--dry-run", action="store_true")
     return p.parse_args(argv)
 
@@ -409,6 +412,10 @@ def main(argv=None) -> int:
                 continue
             write_sidecar(dest, shot, result)
             log(f"shot {sid}: OK via {result['provider']} → {dest} ({result['size_bytes'] / 1e6:.1f} MB)")
+            if args.after_shot:
+                env = dict(os.environ, SHOT_ID=sid, SHOT_PATH=str(dest), OUT_DIR=str(out_dir))
+                rc = subprocess.call(args.after_shot, shell=True, env=env)
+                log(f"after-shot hook exit {rc}")
             rows.append({"id": sid, "status": "ok", "provider": result["provider"], "seconds": shot.get("seconds"),
                          "size_bytes": result["size_bytes"],
                          "note": "; ".join(result.get("errors_before_success", []))[:160]})

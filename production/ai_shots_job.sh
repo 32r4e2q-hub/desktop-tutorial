@@ -29,6 +29,10 @@ if [ -z "${AGNES_API_KEY:-}" ] && [ -z "${PIXAZO_API_KEY:-}" ]; then
 fi
 
 mkdir -p "$OUT_DIR"
+git config user.name "github-actions[bot]"
+git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+# commit + push every finished clip immediately
+export AFTER_SHOT_CMD='git add -A "$OUT_DIR" && (git diff --cached --quiet || git commit -q -m "ai-shots: $SHOT_ID (run ${GITHUB_RUN_NUMBER:-local})") && for i in 1 2 3; do git push -q origin HEAD:'"$BRANCH"' && break; git pull -q --rebase origin '"$BRANCH"' || true; sleep 3; done'
 args=(--shots "$SHOTS_FILE" --out-dir "$OUT_DIR" --providers "$PROVIDERS" --max-minutes "$MAX_MINUTES" --timeout "$TIMEOUT")
 [ -n "$ONLY" ] && args+=(--only "$ONLY")
 [ "$FORCE" = "true" ] || [ "$FORCE" = "True" ] && args+=(--force)
