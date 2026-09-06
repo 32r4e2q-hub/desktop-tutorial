@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 8,
+    "seconds": 9,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S27",
     "vo": "N10",
-    "seed": 2001,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The same narrow Whitechapel street as the opening: the fog thins and lifts, night turns to grey morning, the gas lamp gutters out, translucent ghostly figures of modern passers-by stream through the frame at high speed like long-exposure trails, the brick walls stay unchanged; painterly time-lapse. Camera: static locked-off, matching the opening framing.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow"
+    "seed": 2701,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The same narrow fog-choked Whitechapel street as the opening: the fog thins and lifts, night turns to grey morning, gas lamps fade out one by one, and translucent ghostly silhouettes of modern pedestrians hurry through the frame in fast motion while the painted brick walls stay still. Camera: locked-off, slow time-lapse feel.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a07492-63e2-74e4-ff0a-b115642e2b5d0",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a07492-63e2-74e4-ff0a-b115642e2b5d0/output.mp4",
-  "size_bytes": 1001411,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzNiZTlmODE1NzYxMDQxNzA4NzFlMzg0NDk0YjNlZGE5",
+  "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_3be9f81576104170871e384494b3eda9.mp4",
+  "size_bytes": 1978381,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The same narrow Whitechapel street as the opening: the fog thins and lifts, night turns to grey morning, the gas lamp gutters out, translucent ghostly figures of modern passers-by stream through the frame at high speed like long-exposure trails, the brick walls stay unchanged; painterly time-lapse. Camera: static locked-off, matching the opening framing.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The same narrow fog-choked Whitechapel street as the opening: the fog thins and lifts, night turns to grey morning, gas lamps fade out one by one, and translucent ghostly silhouettes of modern pedestrians hurry through the frame in fast motion while the painted brick walls stay still. Camera: locked-off, slow time-lapse feel.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 217,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-    "seed": 2001
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2701
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:37:43Z"
+  "generated_at": "2026-09-06T05:02:38Z"
 }
