@@ -59,6 +59,7 @@ NARRATION = {
 }
 TITLE_AT = "S02"      # main title card overlays this shot
 END_AT = "S28"        # closing question overlays this shot
+RENDER_VERSION = "v3"  # bump whenever the per-frame pixel pipeline changes (invalidates the segment cache)
 PRE_ROLL = 0.7        # seconds of picture before the first narration word of a block
 POST_ROLL = 0.5
 
@@ -133,7 +134,7 @@ def build_timeline():
                 off = int(round(u0 * fps))
                 nat = u1 - u0
             timeline.append({"id": s["id"], "vo": vo, "path": p, "start": t, "dur": d, "natural": nat, "frames": n,
-                             "fps": fps, "offset": off, "block_start": b["start"], "block_dur": block_dur})
+                             "fps": fps, "offset": off, "crop": s.get("crop"), "block_start": b["start"], "block_dur": block_dur})
             t += d
     return timeline, live_blocks, t, vo_dur
 
@@ -421,9 +422,10 @@ def compose(gt, timeline, blocks, total, reader, rng):
     else:
         frame = f0
     # gentle push-in over the shot for extra life + gate weave
-    zoom = 1.0 + 0.04 * (lt / max(slot, 1e-6))
+    crop = cur.get("crop") or {}
+    zoom = crop.get("zoom", 1.0) * (1.0 + 0.04 * (lt / max(slot, 1e-6)))
     dx, dy = gate_weave(gt, 3)
-    img = fit_cover(frame, zoom, 0.5 + dx / W, 0.5 + dy / H)
+    img = fit_cover(frame, zoom, crop.get("cx", 0.5) + dx / W, crop.get("cy", 0.5) + dy / H)
     block = next(b for b in blocks if b["vo"] == cur["vo"])
     fog_strength = 0.10 if cur["vo"] not in ("N08", "N09") else 0.06
     img = post(img, gt, rng, fog_strength=fog_strength)
@@ -733,13 +735,13 @@ def cmd_render(workers, only=None):
     # Segment cache keyed by everything that influences its pixels: the shots overlapping the segment
     # (id, path, mtime, start, dur, offset, natural), the block boundaries, total length and the code version.
     import hashlib
-    code_sig = hashlib.md5(open(os.path.abspath(__file__), "rb").read()).hexdigest()[:8]
+    code_sig = RENDER_VERSION
     def seg_key(f0, f1):
         t0s, t1s = f0 / FPS, f1 / FPS
         parts = [code_sig, f"{total:.3f}", f"{f0}-{f1}"]
         for sh in timeline:
             if sh["start"] - 1.0 < t1s and sh["start"] + sh["dur"] + 1.0 > t0s:
-                parts.append(f"{sh['id']}|{os.path.getmtime(sh['path']):.0f}|{sh['start']:.3f}|{sh['dur']:.3f}|{sh.get('offset',0)}|{sh['natural']:.3f}")
+                parts.append(f"{sh['id']}|{os.path.getmtime(sh['path']):.0f}|{sh['start']:.3f}|{sh['dur']:.3f}|{sh.get('offset',0)}|{sh['natural']:.3f}|{json.dumps(sh.get('crop') or {}, sort_keys=True)}")
         for b in blocks:
             if b["start"] - 1.0 < t1s and b["start"] + b["dur"] + 1.0 > t0s:
                 parts.append(f"{b['vo']}|{b['start']:.3f}|{b['dur']:.3f}")
@@ -761,12 +763,18 @@ def cmd_render(workers, only=None):
         f1 = min(nframes, f0 + seg)
         path = os.path.join(BUILD, f"seg_{f0:06d}.mp4")
         key = seg_key(f0, f1)
+        complete = False
         if only and os.path.exists(path) and cache.get(os.path.basename(path)) == key:
+            c = cv2.VideoCapture(path)
+            complete = int(c.get(cv2.CAP_PROP_FRAME_COUNT)) == (f1 - f0)
+            c.release()
+        if complete:
             keep.append(path)
         else:
             jobs.append((f0, f1, path, timeline, blocks, total))
             cache[os.path.basename(path)] = key
-    json.dump(cache, open(cache_fp, "w"))
+            if os.path.exists(path):
+                os.remove(path)
     print(f"segments to render: {len(jobs)}, reused: {len(keep)}", flush=True)
     t0 = time.time()
     snd = build_soundtrack(timeline, blocks, total, os.path.join(BUILD, "soundtrack.wav"))
@@ -774,6 +782,7 @@ def cmd_render(workers, only=None):
     if jobs:
         with mp.Pool(min(workers, len(jobs)), maxtasksperchild=1) as pool:
             pool.map(render_range, jobs, chunksize=1)
+    json.dump(cache, open(cache_fp, "w"))
     print(f"video segments done ({time.time() - t0:.0f}s)", flush=True)
     paths = sorted(glob.glob(os.path.join(BUILD, "seg_*.mp4")))
     lst = os.path.join(BUILD, "segments.txt")
