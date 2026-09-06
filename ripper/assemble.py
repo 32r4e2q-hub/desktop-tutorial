@@ -59,7 +59,7 @@ NARRATION = {
 }
 TITLE_AT = "S02"      # main title card overlays this shot
 END_AT = "S28"        # closing question overlays this shot
-RENDER_VERSION = "v3"  # bump whenever the per-frame pixel pipeline changes (invalidates the segment cache)
+RENDER_VERSION = "v4"  # bump whenever the per-frame pixel pipeline changes (invalidates the segment cache)
 PRE_ROLL = 0.7        # seconds of picture before the first narration word of a block
 POST_ROLL = 0.5
 
@@ -384,6 +384,42 @@ def subtitle_for(block, t_in_block):
     return None, 0.0
 
 
+_flow_cache = {}
+_dis = None
+
+
+def flow_interp(a, b, t, key=None):
+    """Motion-compensated in-between of frames a,b at fraction t (0..1) using DIS optical flow.
+
+    Warps both neighbours toward the intermediate time and blends them, which removes the
+    double-image ghosting of plain cross-fades when a clip is slowed down.
+    """
+    global _dis
+    if _dis is None:
+        _dis = cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
+        _dis.setFinestScale(1)
+    h, w = a.shape[:2]
+    cached = _flow_cache.get(key) if key is not None else None
+    if cached is None:
+        ga = cv2.cvtColor(a, cv2.COLOR_BGR2GRAY)
+        gb = cv2.cvtColor(b, cv2.COLOR_BGR2GRAY)
+        fab = _dis.calc(ga, gb, None)          # a → b
+        fba = _dis.calc(gb, ga, None)          # b → a
+        cached = (fab, fba)
+        if key is not None:
+            if len(_flow_cache) > 6:
+                _flow_cache.clear()
+            _flow_cache[key] = cached
+    fab, fba = cached
+    ys, xs = np.mgrid[0:h, 0:w].astype(np.float32)
+    # backward warping: sample a at (x - t*flow_ab) approximates the motion at time t
+    map_a = (xs - fab[..., 0] * t, ys - fab[..., 1] * t)
+    map_b = (xs - fba[..., 0] * (1 - t), ys - fba[..., 1] * (1 - t))
+    wa = cv2.remap(a, map_a[0], map_a[1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    wb = cv2.remap(b, map_b[0], map_b[1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    return cv2.addWeighted(wa, 1 - t, wb, t, 0)
+
+
 def compose(gt, timeline, blocks, total, reader, rng):
     # find shot
     cur = None
@@ -394,31 +430,18 @@ def compose(gt, timeline, blocks, total, reader, rng):
     if cur is None:
         cur = timeline[-1]
     lt = gt - cur["start"]
-    # time remap: play the clip at natural speed; if the slot is longer than the clip, continue with a
-    # slowed ping-pong (forward → reverse → forward) so the image keeps moving instead of freezing.
+    # time remap: strictly monotonic. The clip is stretched uniformly over its slot (never reversed,
+    # never frozen). Slow-motion up to ~1.6x is smoothed with optical-flow interpolation below.
     nat = cur["natural"]
     slot = cur["dur"]
-    if slot <= nat + 0.05:
-        ct = lt * (nat / slot) if slot > 0 else 0.0
-    else:
-        margin = 0.15
-        if lt <= nat - margin:
-            ct = lt
-        else:
-            rest = slot - (nat - margin)                 # time left in the slot
-            span = nat - 2 * margin                      # usable clip span for the ping-pong
-            speed = min(1.0, max(0.45, (2 * span) / max(rest, 1e-6)))  # slow down so one full bounce fits
-            u = (lt - (nat - margin)) * speed
-            period = 2 * span
-            u = u % period
-            ct = (nat - margin) - u if u <= span else margin + (u - span)
+    ct = lt * (nat / slot) if slot > 0 else 0.0
     ct = max(0.0, min(nat - 1.0 / cur["fps"], ct))
     idx = ct * cur["fps"] + cur.get("offset", 0)
     f0 = reader.get(cur["path"], math.floor(idx))
     fr = idx - math.floor(idx)
     if fr > 0.02:
         f1 = reader.get(cur["path"], math.floor(idx) + 1)
-        frame = cv2.addWeighted(f0, 1 - fr, f1, fr, 0)
+        frame = flow_interp(f0, f1, fr, key=(cur["id"], math.floor(idx)))
     else:
         frame = f0
     # gentle push-in over the shot for extra life + gate weave

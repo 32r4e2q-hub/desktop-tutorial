@@ -1,7 +1,7 @@
 {
   "title": "白教堂的雾 — 开膛手杰克 (1888) · 抖音竖屏 3 分钟",
   "style_prefix": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, ",
-  "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+  "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi, painted frame border, ornate border, picture frame around the image, vignette border, fire on fingers, burning hand, floating flame, objects appearing or disappearing, changing clothes, hat appearing, hat disappearing, morphing objects, extra fingers, six fingers, fused fingers, duplicated people, clone crowd, identical twins",
   "defaults": {
     "seconds": 7,
     "aspect": "9:16",
@@ -34,21 +34,33 @@
       "vo": "N02",
       "seconds": 8,
       "seed": 1201,
-      "prompt": "A stocky middle-aged carman with a thick brown moustache, flat cap and canvas work jacket walks toward camera down Buck's Row at 3:40 AM, swinging a tin lantern that throws swaying light across the brick wall; his breath fogs in the cold; he slows and squints ahead. Camera: tracking backward at walking pace, lantern light swinging."
+      "prompt": "A stocky middle-aged carman with a thick brown moustache, flat cap and canvas work jacket walks toward camera down Buck's Row at 3:40 AM, swinging a tin lantern that throws swaying light across the brick wall; his breath fogs in the cold; he slows and squints ahead. Camera: tracking backward at walking pace, lantern light swinging.",
+      "use": [
+        1.6,
+        8.0
+      ]
     },
     {
       "id": "S05",
       "vo": "N02",
       "seconds": 8,
       "seed": 2051,
-      "prompt": "Over-the-shoulder of the moustached carman in a flat cap as he raises his swaying lantern toward the base of a dark brick wall on Buck's Row; the light slides along wet cobblestones and lights up the hem of a dark shawl at the bottom of the frame; fog drifts between him and the wall. Camera: slow push in past his shoulder."
+      "prompt": "Over-the-shoulder of the moustached carman in a flat cap as he raises his swaying lantern toward the base of a dark brick wall on Buck's Row; the light slides along wet cobblestones and lights up the hem of a dark shawl at the bottom of the frame; fog drifts between him and the wall. Camera: slow push in past his shoulder.",
+      "use": [
+        0.0,
+        7.6
+      ]
     },
     {
       "id": "S06",
       "vo": "N02",
       "seconds": 7,
       "seed": 1207,
-      "prompt": "Medium shot: the carman Charles Cross kneels on wet cobblestones beside a dark shape hidden by fog at the bottom of the frame, holding his lantern low; a lean man in his forties, thick brown moustache, weathered face, realistic human proportions painted like a Rembrandt portrait; he slowly lifts his head toward the camera, dread in his eyes, breath visible in the cold; fog drifts past. Camera: very slow push in."
+      "prompt": "Medium shot: the carman Charles Cross kneels on wet cobblestones beside a dark shape hidden by fog at the bottom of the frame, holding his lantern low; a lean man in his forties, thick brown moustache, weathered face, realistic human proportions painted like a Rembrandt portrait; he slowly lifts his head toward the camera, dread in his eyes, breath visible in the cold; fog drifts past. Camera: very slow push in.",
+      "use": [
+        0.0,
+        6.6
+      ]
     },
     {
       "id": "S07",
@@ -61,37 +73,29 @@
       "id": "S08",
       "vo": "N03",
       "seconds": 7,
-      "seed": 2081,
-      "prompt": "A tall detective inspector in his forties with a heavy dark walrus moustache, receding hairline and a long grey overcoat steps out of a tenement back door into a cramped yard at grey dawn, takes off his bowler hat and looks slowly around at the crowd and the wet fence; Rembrandt chiaroscuro, realistic proportions, muted palette, painterly. Camera: slow descend to his eye level."
+      "seed": 2082,
+      "prompt": "A tall detective inspector in his forties with a heavy dark walrus moustache, wearing a grey bowler hat firmly on his head and a long grey overcoat, steps out of a tenement back door into a cramped yard at grey dawn and stops, looking slowly left to right at the wet fence and the crowd; the bowler hat stays on his head the entire time, his hands stay in his coat pockets; Rembrandt chiaroscuro, realistic proportions, muted palette, painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S09",
       "vo": "N03",
-      "seconds": 6,
-      "seed": 1303,
-      "prompt": "Close-up of the inspector's gloved hand resting on a rough wooden fence, rainwater dripping from the slats; slow rack focus from his hand to a row of grimy back windows where several different faces — a young girl, an old man with a clay pipe, a woman with a lace cap — watch silently from behind the glass, breath fogging the panes. Camera: rack focus, then slow pan across the windows."
+      "seconds": 5,
+      "seed": 2091,
+      "prompt": "Close-up of a detective's black-gloved hand resting on the top of a rough wet wooden fence in a backyard, rainwater dripping from the wood, fingers slowly tightening their grip; behind, out of focus, grey dawn light and drifting fog; the camera holds on the hand; realistic anatomy, five fingers, painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S10",
       "vo": "N04",
-      "seconds": 5,
-      "seed": 2101,
-      "prompt": "Top-down shot of a Central News Agency desk under a green-shaded lamp: a clerk's ink-stained hands with rolled shirt sleeves open a cream envelope and unfold a sheet of paper; the paper is blank cream with a few blurred red ink smudges bleeding into the fibre, no legible writing; a cup of cold tea and a brass letter-opener beside it. Camera: slow push in on the paper.",
-      "use": [
-        2.4,
-        5.0
-      ],
-      "crop": {
-        "zoom": 1.55,
-        "cy": 0.78
-      }
+      "seconds": 6,
+      "seed": 2102,
+      "prompt": "Top-down shot of a plain wooden desk under a green-shaded lamp: a clerk's ink-stained hands with rolled shirt sleeves unfold a single sheet of cream paper; a few blurred red ink smudges bleed into the fibre, no legible writing anywhere; a cup of cold tea and a brass letter-opener beside it; nothing else on the desk, no boxes, no signs; painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S11",
       "vo": "N04",
-      "seconds": 7,
-      "seed": 1402,
-      "prompt": "A young clerk with round wire spectacles, neat side-parted blond hair and a starched collar reads the red-ink letter under a green-shaded desk lamp; his eyebrows rise, he glances nervously over his shoulder toward a dark doorway, then back at the page; the lamp flame flickers. Camera: slow push in on his face."
+      "seconds": 6,
+      "seed": 2111,
+      "prompt": "A young clerk with round wire spectacles, neat side-parted blond hair and a starched collar sits at a desk under a green-shaded lamp and reads a single sheet of paper held in both hands; his eyes move along the lines, his brow tightens, he swallows; no candle, no flame, no fire anywhere; the paper is blank cream, no writing; realistic proportions, painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S12",
@@ -103,45 +107,37 @@
     {
       "id": "S13",
       "vo": "N04",
-      "seconds": 5,
-      "seed": 2131,
-      "prompt": "A freckled newsboy of about ten in an oversized cap and patched jacket stands under a gas lamp on a foggy street corner shouting the news, mouth open, one arm raised high out of frame, breath steaming; well-dressed passers-by in top hats turn toward him, one hands over a coin; fog and gaslight, muted palette. Camera: slow push in on the boy."
+      "seconds": 6,
+      "seed": 2132,
+      "prompt": "A single freckled newsboy of about ten in an oversized cap and patched jacket stands under a gas lamp on a foggy street corner, shouting the news with his mouth open and one arm raised; two well-dressed men in top hats walk past behind him; exactly one boy, nobody else raises an arm; muted palette, fog, gaslight, painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S14",
       "vo": "N05",
       "seconds": 7,
-      "seed": 2141,
-      "prompt": "Berner Street at one in the morning: a small brown pony pulling a costermonger's cart suddenly shies and rears at a pitch-black gateway, the bearded costermonger in a wide-brimmed hat hauls on the reins and stands up on the cart; realistic horse anatomy, fog and one gas lamp, wet cobblestones, muted palette, painterly. Camera: slow push in from street level.",
-      "use": [
-        2.3,
-        5.9
-      ]
+      "seed": 2142,
+      "prompt": "Berner Street at one in the morning, the picture filling the whole frame edge to edge: a small brown pony pulling a costermonger's cart shies and rears at a pitch-black gateway, the bearded costermonger in a wide-brimmed hat hauls on the reins; realistic horse anatomy, fog and one gas lamp, wet cobblestones, muted palette, painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S15",
       "vo": "N05",
       "seconds": 7,
-      "seed": 2151,
-      "prompt": "Continuous lateral tracking shot along a fog-filled London street at night: gas lamps pass one by one like halos, blurred silhouettes of two policemen with lanterns hurry the other way, wet cobblestones reflecting amber light, brick walls sliding by; muted umber and slate palette, painterly texture. Camera: steady lateral dolly, moderate speed.",
-      "use": [
-        2.1,
-        7.0
-      ]
+      "seed": 2152,
+      "prompt": "Continuous lateral tracking shot along a fog-filled London street at night filling the whole frame edge to edge: gas lamps pass one by one like halos, blurred silhouettes of two policemen with lanterns hurry the other way, wet cobblestones reflect amber light; muted umber and slate palette, painterly texture. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S16",
       "vo": "N05",
-      "seconds": 8,
-      "seed": 2161,
-      "prompt": "A young constable in a tall custodian helmet and rain cape, clean-shaven with a strong jaw and pale eyes, walks slowly through Mitre Square at night raising his bullseye lantern; the beam sweeps across wet cobblestones and a dark archway, then stops dead on a shape below the frame; his face freezes, his breath fogs. Camera: slow tracking beside him, then stop."
+      "seconds": 7,
+      "seed": 2162,
+      "prompt": "A young constable in a tall custodian helmet and dark rain cape walks slowly through Mitre Square at night holding a bullseye lantern in his right hand at chest height; the lantern's warm beam sweeps the wet cobblestones and stops; he freezes and his breath fogs; the lantern is a solid brass lamp with a handle, always in his hand; realistic proportions, painterly, muted palette. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S17",
       "vo": "N06",
-      "seconds": 8,
-      "seed": 2171,
-      "prompt": "A dark tenement doorway on Goulston Street at four in the morning lit by a policeman's lantern: on the black brick wall inside the arch a faint pale smear of chalk marks — blurred, unreadable — and on the wet step below a crumpled dark rag; the lantern beam trembles across the bricks as the constable leans in; fog behind him. Camera: slow push in toward the wall."
+      "seconds": 7,
+      "seed": 2172,
+      "prompt": "A dark tenement doorway on Goulston Street at four in the morning lit by a policeman's swaying lantern: on the black brick wall inside the arch there is only a faint pale chalk smear, blurred and unreadable, no letters; on the wet step below lies a crumpled dark rag; the lantern beam trembles across the bricks; fog behind; painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S18",
@@ -174,13 +170,9 @@
     {
       "id": "S22",
       "vo": "N07",
-      "seconds": 8,
-      "seed": 2221,
-      "prompt": "The thin young man in a bowler hat staggers backward from the small broken window of Miller's Court, knocks over a wooden bucket that clatters across the wet flagstones, clutches the courtyard wall and stares at the window with wide eyes; grey November light, painterly, realistic proportions. Camera: slow pull back.",
-      "use": [
-        1.9,
-        8.0
-      ]
+      "seconds": 7,
+      "seed": 2222,
+      "prompt": "A thin young man in a bowler hat and worn brown coat stands at the small broken window of Miller's Court, staggers back one step from it and knocks over a wooden bucket that rolls across the wet flagstones; he presses his back against the brick wall, staring at the window; grey November morning, painterly, realistic proportions. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S23",
@@ -193,8 +185,8 @@
       "id": "S24",
       "vo": "N08",
       "seconds": 8,
-      "seed": 2401,
-      "prompt": "The candle stops at the last gilded frame on the dark gallery wall: the canvas inside is empty, only cracked dark varnish and a faint glint of gold leaf; the flame flickers, shadows breathe across the empty canvas, a thin wisp of smoke rises. Camera: very slow push in toward the empty canvas, holding on the dark."
+      "seed": 2402,
+      "prompt": "The candle stops at the last gilded frame on a dark gallery wall: the canvas inside is empty, only cracked dark varnish and a faint glint of gold leaf; the flame flickers and shadows breathe across the empty canvas; the candle keeps burning to the end, the picture never fades to black; very slow push in toward the empty canvas; painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S25",
@@ -206,31 +198,23 @@
     {
       "id": "S26",
       "vo": "N09",
-      "seconds": 9,
-      "seed": 2601,
-      "prompt": "Extreme close-up through a round magnifying glass of the woven silk fibres of an old faded floral shawl, brown and blue threads in soft focus; the glass drifts slowly across the fabric, then the image slowly dissolves into a glowing amber double-helix of DNA drawn in fine painterly brushstrokes turning in darkness. Camera: slow drift, then slow rotation of the helix."
+      "seconds": 8,
+      "seed": 2602,
+      "prompt": "Extreme close-up of one single round magnifying glass held over the woven silk fibres of an old faded floral shawl, brown and blue threads; the glass drifts slowly across the fabric; then the image slowly dissolves into one glowing amber double-helix of DNA drawn in fine painterly brushstrokes turning in darkness; exactly one magnifying glass, exactly one helix. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S27",
       "vo": "N10",
-      "seconds": 9,
-      "seed": 2701,
-      "prompt": "The same narrow fog-choked Whitechapel street as the opening: the fog thins and lifts, night turns to grey morning, gas lamps fade out one by one, and translucent ghostly silhouettes of modern pedestrians hurry through the frame in fast motion while the painted brick walls stay still. Camera: locked-off, slow time-lapse feel.",
-      "use": [
-        2.4,
-        9.0
-      ]
+      "seconds": 8,
+      "seed": 2702,
+      "prompt": "A narrow fog-choked Whitechapel street in the pale grey of early morning: the fog slowly thins, gas lamps go out one after another, and translucent blurred silhouettes of hurrying pedestrians pass through the frame while the wet cobblestones and painted brick walls stay still; the picture fills the whole frame edge to edge; painterly, muted palette. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     },
     {
       "id": "S28",
       "vo": "N10",
-      "seconds": 9,
-      "seed": 2801,
-      "prompt": "The empty foggy Whitechapel street at dusk: a single dark figure in a long coat and top hat stands far away under the last gas lamp, face lost in shadow; the fog slowly thickens around him until only the lamp glow remains; painterly, quiet, ominous. Camera: very slow push in, then hold.",
-      "use": [
-        2.3,
-        9.0
-      ]
+      "seconds": 8,
+      "seed": 2802,
+      "prompt": "An empty foggy Whitechapel street at dusk filling the whole frame edge to edge: a single dark figure in a long coat and top hat stands far away under the last lit gas lamp with his face lost in shadow; the fog slowly thickens around him until only the lamp glow remains; quiet, ominous, painterly. Continuity: the same person, same clothes and same props from the first frame to the last; nothing appears or disappears; edge-to-edge scene, no border."
     }
   ]
 }
