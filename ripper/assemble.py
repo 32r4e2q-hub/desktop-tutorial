@@ -547,19 +547,48 @@ def build_soundtrack(timeline, blocks, total, path):
         subprocess.run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-i", mp3, "-ar", str(sr), "-ac", "2", wav], check=True)
         _, data = wavfile.read(wav)
         data = data.astype(np.float32) / 32768.0 if data.dtype == np.int16 else data.astype(np.float32)
+        # remove any DC / rumble, tame isolated peaks (soft knee above 0.45), micro fades at both ends
+        data = data - data.mean(axis=0, keepdims=True)
+        mag = np.abs(data)
+        soft = np.where(mag > 0.45, 0.45 + (mag - 0.45) / (1 + (mag - 0.45) * 4.0), mag)
+        data = np.sign(data) * soft
+        k = int(0.02 * sr)
+        if len(data) > 2 * k:
+            data[:k] *= np.linspace(0, 1, k)[:, None]
+            data[-k:] *= np.linspace(1, 0, k)[:, None]
         s0 = int((b["start"] + PRE_ROLL) * sr)
         seg = data[: max(0, n - s0)]
         vo[s0:s0 + len(seg)] += seg
     # duck the bed under narration
     env = np.abs(vo).max(axis=1)
-    k = int(0.25 * sr)
+    k = int(0.08 * sr)
     env = np.convolve(env, np.ones(k) / k, mode="same")
+    # asymmetric smoothing: fast attack, slow release (done on a decimated envelope for speed)
+    dec = 480
+    e = env[::dec]
+    out = np.zeros_like(e)
+    a_att, a_rel = 0.55, 0.985
+    v = 0.0
+    for i, x in enumerate(e):
+        v = x + (v - x) * (a_att if x > v else a_rel)
+        out[i] = v
+    env = np.interp(np.arange(len(env)), np.arange(len(out)) * dec, out)
     duck = np.clip(1.0 - 0.65 * np.clip(env / (env.max() + 1e-6) * 3.0, 0, 1), 0.35, 1.0)[:, None]
     mix = bed * duck * 0.9 + vo * 1.0
-    peak = np.abs(mix).max()
-    if peak > 0.95:
-        mix = mix / peak * 0.95
     mix = mix[: int(total * sr)]
+    # loudness: bring the programme to ≈ -18 dBFS RMS (≈ -16 LUFS for speech-led content), then soft-limit at -1 dBFS
+    rms = float(np.sqrt(np.mean(mix ** 2)) + 1e-9)
+    mix *= min(2.5, (10 ** (-20 / 20)) / rms)
+    lim = 10 ** (-1 / 20)
+    mag = np.abs(mix)
+    over = mag > lim * 0.8
+    mix[over] = np.sign(mix[over]) * (lim * 0.8 + (mag[over] - lim * 0.8) * (lim * 0.2) / (lim * 0.2 + (mag[over] - lim * 0.8)))
+    mix = np.clip(mix, -lim, lim)
+    # master fades
+    kf = int(0.8 * sr)
+    mix[:kf] *= np.linspace(0, 1, kf)[:, None]
+    kf = int(1.5 * sr)
+    mix[-kf:] *= np.linspace(1, 0, kf)[:, None]
     wavfile.write(path, sr, (mix * 32767).astype(np.int16))
     return path
 
