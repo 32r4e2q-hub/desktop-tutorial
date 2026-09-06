@@ -689,26 +689,43 @@ def cmd_render(workers, only=None):
     os.makedirs(OUT, exist_ok=True)
     nframes = int(round(total * FPS))
     seg = 600
-    dirty = []                                   # (t0, t1) ranges whose pixels changed
-    if only:
-        ids = {x.strip().upper() for x in only.split(",") if x.strip()}
+    # Segment cache keyed by everything that influences its pixels: the shots overlapping the segment
+    # (id, path, mtime, start, dur, offset, natural), the block boundaries, total length and the code version.
+    import hashlib
+    code_sig = hashlib.md5(open(os.path.abspath(__file__), "rb").read()).hexdigest()[:8]
+    def seg_key(f0, f1):
+        t0s, t1s = f0 / FPS, f1 / FPS
+        parts = [code_sig, f"{total:.3f}", f"{f0}-{f1}"]
         for sh in timeline:
-            if sh["id"] in ids:
-                dirty.append((sh["start"] - 0.7, sh["start"] + sh["dur"] + 0.1))   # incl. dissolve from previous shot
-        print(f"incremental render for {sorted(ids)} → dirty ranges {[(round(a,1), round(b,1)) for a, b in dirty]}")
-    else:
+            if sh["start"] - 1.0 < t1s and sh["start"] + sh["dur"] + 1.0 > t0s:
+                parts.append(f"{sh['id']}|{os.path.getmtime(sh['path']):.0f}|{sh['start']:.3f}|{sh['dur']:.3f}|{sh.get('offset',0)}|{sh['natural']:.3f}")
+        for b in blocks:
+            if b["start"] - 1.0 < t1s and b["start"] + b["dur"] + 1.0 > t0s:
+                parts.append(f"{b['vo']}|{b['start']:.3f}|{b['dur']:.3f}")
+        return hashlib.md5("\n".join(parts).encode()).hexdigest()
+    cache_fp = os.path.join(BUILD, "seg_cache.json")
+    try:
+        cache = json.load(open(cache_fp))
+    except Exception:
+        cache = {}
+    if not only:
         for f in glob.glob(os.path.join(BUILD, "seg_*.mp4")):
             os.remove(f)
+        cache = {}
     jobs, keep = [], []
+    for f in glob.glob(os.path.join(BUILD, "seg_*.mp4")):
+        if int(os.path.basename(f)[4:10]) >= nframes:
+            os.remove(f)                                      # stale segment beyond the new end
     for f0 in range(0, nframes, seg):
         f1 = min(nframes, f0 + seg)
         path = os.path.join(BUILD, f"seg_{f0:06d}.mp4")
-        t0s, t1s = f0 / FPS, f1 / FPS
-        touched = (not only) or any(a < t1s and b > t0s for a, b in dirty) or not os.path.exists(path)
-        if touched:
-            jobs.append((f0, f1, path, timeline, blocks, total))
-        else:
+        key = seg_key(f0, f1)
+        if only and os.path.exists(path) and cache.get(os.path.basename(path)) == key:
             keep.append(path)
+        else:
+            jobs.append((f0, f1, path, timeline, blocks, total))
+            cache[os.path.basename(path)] = key
+    json.dump(cache, open(cache_fp, "w"))
     print(f"segments to render: {len(jobs)}, reused: {len(keep)}", flush=True)
     t0 = time.time()
     snd = build_soundtrack(timeline, blocks, total, os.path.join(BUILD, "soundtrack.wav"))
@@ -739,7 +756,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["plan", "render", "check"])
     ap.add_argument("--workers", type=int, default=2)
-    ap.add_argument("--only", default=None, help="comma-separated shot ids: re-render only segments touched by them")
+    ap.add_argument("--incremental", "--only", dest="only", action="store_true", help="reuse cached segments whose inputs are unchanged")
     a = ap.parse_args()
     if a.cmd == "plan":
         cmd_plan()
