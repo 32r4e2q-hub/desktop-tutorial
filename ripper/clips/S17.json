@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 7,
+    "seconds": 8,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S17",
     "vo": "N06",
-    "seed": 1601,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A dark tenement doorway on Goulston Street lit by a policeman's lantern: on the black brick wall a line of chalk writing in a scrawled hand glows in the beam; a torn scrap of cloth lies on the step; the lantern beam wavers; fog drifts through the doorway. Camera: slow push in on the chalk letters, the letters remain out of focus and illegible.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow"
+    "seed": 2171,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A dark tenement doorway on Goulston Street at four in the morning lit by a policeman's lantern: on the black brick wall inside the arch a faint pale smear of chalk marks — blurred, unreadable — and on the wet step below a crumpled dark rag; the lantern beam trembles across the bricks as the constable leans in; fog behind him. Camera: slow push in toward the wall.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a07481-1d16-7ef0-a819-f419145c38286",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a07481-1d16-7ef0-a819-f419145c38286/output.mp4",
-  "size_bytes": 385041,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzkwNDE1MWFhZDU1MTQwMDk4ZmQxY2E4NzQxNWE4NDRm",
+  "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_904151aad55140098fd1ca87415a844f.mp4",
+  "size_bytes": 1370710,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A dark tenement doorway on Goulston Street lit by a policeman's lantern: on the black brick wall a line of chalk writing in a scrawled hand glows in the beam; a torn scrap of cloth lies on the step; the lantern beam wavers; fog drifts through the doorway. Camera: slow push in on the chalk letters, the letters remain out of focus and illegible.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, A dark tenement doorway on Goulston Street at four in the morning lit by a policeman's lantern: on the black brick wall inside the arch a faint pale smear of chalk marks — blurred, unreadable — and on the wet step below a crumpled dark rag; the lantern beam trembles across the bricks as the constable leans in; fog behind him. Camera: slow push in toward the wall.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 193,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-    "seed": 1601
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2171
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:19:49Z"
+  "generated_at": "2026-09-06T05:24:07Z"
 }
