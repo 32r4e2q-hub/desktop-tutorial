@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 7,
+    "seconds": 9,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S25",
     "vo": "N09",
-    "seed": 1901,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Inside a Scotland Yard archive: a wooden card-index drawer slides open by itself, yellowed case files flip open, pages lift and turn in a draught, dust motes drift in a shaft of pale light; a magnifying glass rests on a faded floral silk shawl. Camera: slow push in over the drawer toward the magnifying glass.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow"
+    "seed": 2501,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Inside a Scotland Yard archive lit by a single green-shaded desk lamp: a long wooden card-index drawer slides open, yellowed case files and faded ribbon-tied bundles inside; a hand in a grey sleeve lifts a folder and its pages fan open, dust motes drifting in the lamp light. Camera: slow push in over the drawer.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a0748f-2d07-77fe-4512-fc0084706b21c",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a0748f-2d07-77fe-4512-fc0084706b21c/output.mp4",
-  "size_bytes": 739311,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2MwZTRjMzI2OWNhMzRlZGU4NTBlOWE4MjAzNDY4NWE3",
+  "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_c0e4c3269ca34ede850e9a82034685a7.mp4",
+  "size_bytes": 1491437,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Inside a Scotland Yard archive: a wooden card-index drawer slides open by itself, yellowed case files flip open, pages lift and turn in a draught, dust motes drift in a shaft of pale light; a magnifying glass rests on a faded floral silk shawl. Camera: slow push in over the drawer toward the magnifying glass.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Inside a Scotland Yard archive lit by a single green-shaded desk lamp: a long wooden card-index drawer slides open, yellowed case files and faded ribbon-tied bundles inside; a hand in a grey sleeve lifts a folder and its pages fan open, dust motes drifting in the lamp light. Camera: slow push in over the drawer.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 217,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow",
-    "seed": 1901
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2501
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:34:00Z"
+  "generated_at": "2026-09-06T05:04:49Z"
 }
