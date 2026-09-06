@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 6,
+    "seconds": 8,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S24",
     "vo": "N08",
-    "seed": 1806,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The candlelight reaches the last frame on the dark gallery wall: an ornate gilded frame whose canvas is completely blank and black, no picture and no face inside it, only cracked dark varnish; the flame trembles, throws long shadows, then gutters; the empty frame slowly sinks into darkness. Camera: slow push in on the empty frame.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text"
+    "seed": 2401,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The candle stops at the last gilded frame on the dark gallery wall: the canvas inside is empty, only cracked dark varnish and a faint glint of gold leaf; the flame flickers, shadows breathe across the empty canvas, a thin wisp of smoke rises. Camera: very slow push in toward the empty canvas, holding on the dark.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a074a2-6a59-704d-64ff-80781453fad14",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a074a2-6a59-704d-64ff-80781453fad14/output.mp4",
-  "size_bytes": 566273,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzM5OTVkYjg1Zjk3ZTRjODY5NTExMjljZDA1ZDRiNDJm",
+  "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_3995db85f97e4c86951129cd05d4b42f.mp4",
+  "size_bytes": 1109416,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The candlelight reaches the last frame on the dark gallery wall: an ornate gilded frame whose canvas is completely blank and black, no picture and no face inside it, only cracked dark varnish; the flame trembles, throws long shadows, then gutters; the empty frame slowly sinks into darkness. Camera: slow push in on the empty frame.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, The candle stops at the last gilded frame on the dark gallery wall: the canvas inside is empty, only cracked dark varnish and a faint glint of gold leaf; the flame flickers, shadows breathe across the empty canvas, a thin wisp of smoke rises. Camera: very slow push in toward the empty canvas, holding on the dark.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 193,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text",
-    "seed": 1806
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2401
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:55:02Z"
+  "generated_at": "2026-09-06T04:53:37Z"
 }
