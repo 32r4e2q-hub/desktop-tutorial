@@ -1,0 +1,137 @@
+name: Generate AI video shots
+
+# 安装：把本文件原样保存为 main 分支上的 .github/workflows/ai-shots.yml
+# 作用：读取分镜清单 JSON，逐镜调用 AI 视频模型（Agnes 优先，失败自动切 Pixazo LTX），
+#       把生成的 MP4 片段直接提交回开发分支（ripper/clips/），供后续在沙箱中剪辑成片。
+# 需要 secrets：AGNES_API_KEY 和/或 PIXAZO_API_KEY（Settings → Secrets and variables → Actions）。
+# 可重复运行：已生成的镜头自动跳过，只补缺的；每次运行有时间预算，超时的镜头留到下次。
+
+on:
+  workflow_dispatch:
+    inputs:
+      shots_file:
+        description: "分镜清单 JSON（仓库内路径）"
+        type: string
+        default: "ripper/shots.json"
+      out_dir:
+        description: "片段输出目录（会提交回分支）"
+        type: string
+        default: "ripper/clips"
+      only:
+        description: "可选：只生成这些镜头（英文逗号分隔，如 S01,S05）"
+        type: string
+        default: ""
+      force:
+        description: "已存在的片段也重新生成"
+        type: boolean
+        default: false
+      providers:
+        description: "供应商优先级"
+        type: choice
+        default: "agnes,pixazo"
+        options: ["agnes,pixazo", "pixazo,agnes", "agnes", "pixazo"]
+      max_minutes:
+        description: "本次运行生成新镜头的时间预算（分钟）"
+        type: string
+        default: "300"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-shots-${{ inputs.out_dir }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Check out development branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a06f58-desktop-tutorial
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check API keys
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PIXAZO_API_KEY: ${{ secrets.PIXAZO_API_KEY }}
+        run: |
+          ok=0
+          [ -n "$AGNES_API_KEY" ]  && { echo "AGNES_API_KEY: set";  ok=1; } || echo "AGNES_API_KEY: missing"
+          [ -n "$PIXAZO_API_KEY" ] && { echo "PIXAZO_API_KEY: set"; ok=1; } || echo "PIXAZO_API_KEY: missing"
+          if [ "$ok" = 0 ]; then
+            echo "::error::Add AGNES_API_KEY and/or PIXAZO_API_KEY under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+      - name: Generate shots (resumable)
+        id: gen
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PIXAZO_API_KEY: ${{ secrets.PIXAZO_API_KEY }}
+          SHOTS_FILE: ${{ inputs.shots_file }}
+          OUT_DIR: ${{ inputs.out_dir }}
+          ONLY: ${{ inputs.only }}
+          FORCE: ${{ inputs.force }}
+          PROVIDERS: ${{ inputs.providers }}
+          MAX_MINUTES: ${{ inputs.max_minutes }}
+        run: |
+          set -uo pipefail
+          mkdir -p "$OUT_DIR"
+          args=(--shots "$SHOTS_FILE" --out-dir "$OUT_DIR" --providers "$PROVIDERS" --max-minutes "$MAX_MINUTES" --timeout 1500)
+          [ -n "$ONLY" ] && args+=(--only "$ONLY")
+          [ "$FORCE" = "true" ] && args+=(--force)
+          python3 production/multi_video.py "${args[@]}"
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          echo "clips=$(ls "$OUT_DIR"/*.mp4 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+
+      - name: Probe clips
+        if: always()
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg >/dev/null 2>&1 || true
+          for f in ${{ inputs.out_dir }}/*.mp4; do
+            [ -f "$f" ] || continue
+            echo "== $f"
+            ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of default=nw=1 "$f" || true
+          done
+
+      - name: Commit clips back to the branch
+        if: always()
+        env:
+          OUT_DIR: ${{ inputs.out_dir }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A "$OUT_DIR"
+          if git diff --cached --quiet; then
+            echo "nothing new to commit"
+            exit 0
+          fi
+          n=$(ls "$OUT_DIR"/*.mp4 2>/dev/null | wc -l)
+          git commit -m "ai-shots: ${n} clips in ${OUT_DIR} (run ${GITHUB_RUN_NUMBER})"
+          # retry push in case the branch moved meanwhile
+          for i in 1 2 3 4 5; do
+            git push origin HEAD:arena/01a06f58-desktop-tutorial && exit 0
+            git pull --rebase origin arena/01a06f58-desktop-tutorial || true
+            sleep 5
+          done
+          echo "::error::could not push clips"; exit 1
+
+      - name: Upload clips as artifact (backup)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-shots-${{ github.run_number }}
+          path: ${{ inputs.out_dir }}
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
+
+      - name: Fail the job if nothing could be generated
+        if: steps.gen.outputs.clips == '0'
+        run: |
+          echo "::error::No clip was generated – check the provider errors above."
+          exit 1
