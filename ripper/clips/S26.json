@@ -1,30 +1,29 @@
 {
   "shot": {
-    "seconds": 7,
+    "seconds": 9,
     "aspect": "9:16",
     "resolution": "720p",
     "id": "S26",
     "vo": "N09",
-    "seed": 1906,
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Extreme close-up through a magnifying glass of the woven silk fibres of an old faded floral shawl; the threads begin to glow and rearrange themselves into a slowly rotating luminous double helix painted in amber and slate-blue brushstrokes against darkness, then dissolve back into fog and thread; no people, no faces. Camera: slow rotation, painterly transition.",
-    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text"
+    "seed": 2601,
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Extreme close-up through a round magnifying glass of the woven silk fibres of an old faded floral shawl, brown and blue threads in soft focus; the glass drifts slowly across the fabric, then the image slowly dissolves into a glowing amber double-helix of DNA drawn in fine painterly brushstrokes turning in darkness. Camera: slow drift, then slow rotation of the helix.",
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi"
   },
-  "provider": "pixazo",
-  "model": "ltx-video",
-  "request_id": "ltx-video_01a074a4-0e27-7837-fa18-c12ea4e0fb224",
-  "video_url": "https://pub-582b7213209642b9b995c96c95a30381.r2.dev/v1/ltx-video_01a074a4-0e27-7837-fa18-c12ea4e0fb224/output.mp4",
-  "size_bytes": 1129803,
+  "provider": "agnes",
+  "model": "agnes-video-v2.0",
+  "request_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzAzYjBlM2NiMzQyMDQ0ZjliZWVhNzZlZjMyYmY4M2E1",
+  "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_03b0e3cb342044f9beea76ef32bf83a5.mp4",
+  "size_bytes": 2085983,
   "payload": {
-    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Extreme close-up through a magnifying glass of the woven silk fibres of an old faded floral shawl; the threads begin to glow and rearrange themselves into a slowly rotating luminous double helix painted in amber and slate-blue brushstrokes against darkness, then dissolve back into fog and thread; no people, no faces. Camera: slow rotation, painterly transition.",
-    "width": 576,
-    "height": 1024,
-    "num_frames": 121,
+    "model": "agnes-video-v2.0",
+    "prompt": "Animated oil painting, 19th-century nocturne style in the manner of John Atkinson Grimshaw and Rembrandt chiaroscuro, fine visible brushstrokes, delicate impasto highlights, muted palette of raw umber, sepia, slate blue and gaslight amber, thick London fog, wet cobblestones reflecting gaslight, 1888 Whitechapel, vertical 9:16 portrait framing, cinematic, suspenseful, highly detailed, consistent painterly texture, smooth continuous motion, Extreme close-up through a round magnifying glass of the woven silk fibres of an old faded floral shawl, brown and blue threads in soft focus; the glass drifts slowly across the fabric, then the image slowly dissolves into a glowing amber double-helix of DNA drawn in fine painterly brushstrokes turning in darkness. Camera: slow drift, then slow rotation of the helix.",
+    "width": 720,
+    "height": 1280,
+    "num_frames": 217,
     "frame_rate": 24,
-    "steps": 8,
-    "cfg": 3.0,
-    "negative": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text",
-    "seed": 1906
+    "negative_prompt": "photorealistic, photo, 3D render, CGI, anime, cartoon, flat vector, modern clothing, cars, neon, text, watermark, logo, subtitles, blood, gore, wounds, corpse, mutilation, nudity, extra limbs, deformed hands, duplicate faces, identical faces, jitter, flicker, static image, slideshow, clay, plasticine, claymation, caricature, exaggerated features, bulging eyes, readable text, letters, words, newspaper headline text, pixar style, disney style, 3D animated film, stylized cartoon character, oversized nose, chibi",
+    "seed": 2601
   },
   "errors_before_success": [],
-  "generated_at": "2026-09-06T02:57:27Z"
+  "generated_at": "2026-09-06T04:57:40Z"
 }
