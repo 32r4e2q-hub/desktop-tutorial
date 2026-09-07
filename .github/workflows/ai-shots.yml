@@ -25,7 +25,7 @@ jobs:
       - name: Check out development branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a06f58-desktop-tutorial
+          ref: arena/01a07943-desktop-tutorial
           fetch-depth: 1
 
       - name: Generate shots and commit them back
