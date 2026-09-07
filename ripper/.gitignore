@@ -5,6 +5,7 @@ assets/gen/
 __pycache__/
 
 # Binary sources are reproducibly restored from source_manifest.json.
-clips/*.mp4
+# 注意：AI 片段（clips/*.mp4）需要进 Git 供组装引擎使用，不能排除。
+# clips/*.mp4
 audio/vo/*.mp3
 assets/fonts/*
