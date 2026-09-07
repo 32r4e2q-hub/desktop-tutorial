@@ -1,0 +1,52 @@
+name: Generate VO narration + CJK fonts
+
+on:
+  repository_dispatch:
+    types: [tts-vo]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a07943-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install edge-tts and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk ffmpeg
+          python -m pip install -q --upgrade pip
+          python -m pip install -q edge-tts
+
+      - name: Generate narration (Yunxi)
+        run: python .github/scripts/tts_vo.py
+
+      - name: Collect fonts + VO into one artifact
+        run: |
+          mkdir -p staging/vo staging/fonts
+          cp ripper/audio/vo/*.mp3 staging/vo/
+          cp /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc staging/fonts/ 2>/dev/null || true
+          cp /usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc staging/fonts/ 2>/dev/null || true
+          ls -la staging/vo staging/fonts
+          md5sum staging/vo/*.mp3 | sort
+
+      - name: Upload VO + fonts artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vo-and-fonts
+          path: staging/
+          if-no-files-found: error
+          retention-days: 14
