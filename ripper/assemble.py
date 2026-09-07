@@ -61,9 +61,9 @@ NARRATION = {
     "N09": ["2014年，有人用一条据称来自现场的披肩", "做DNA检测，指向科斯明斯基。", "但披肩来历不明，检测方法也遭到质疑。", "答案似乎近在眼前，又再一次滑走。"],
     "N10": ["白教堂的雾早就散了。", "可只要那五个名字还被人提起，", "那个没有脸的男人，", "就还站在灯光照不到的地方。", "他是谁？评论区，说出你的推理。"],
 }
-TITLE_AT = "S02"      # main title card overlays this shot
-END_AT = "S28"        # closing question overlays this shot
-RENDER_VERSION = "v4.1-resumed-20260906"  # bump whenever the per-frame pixel pipeline changes (invalidates the segment cache)
+TITLE_AT = "S03"      # main title card overlays this shot (after the cold open)
+END_AT = "S27"        # closing question overlays this shot
+RENDER_VERSION = "v5-filmic-20260907"  # bump whenever the per-frame pixel pipeline changes (invalidates the segment cache)
 PRE_ROLL = 0.7        # seconds of picture before the first narration word of a block
 POST_ROLL = 0.5
 
@@ -280,22 +280,17 @@ def fog_veil(t, seed):
     return out
 
 
-def painterly(frame_bgr):
-    """Flatten photo-like micro detail into brush-like patches and darken edges (oil-sketch look)."""
+def filmic(frame_bgr):
+    """Light filmic grade: keep photographic detail, very gentle micro smoothing (no paint look)."""
     small = cv2.resize(frame_bgr, (RW // 3, RH // 3), interpolation=cv2.INTER_AREA)
-    sm = cv2.bilateralFilter(small, 7, 45, 5)
-    # keep some of the original mid-frequency detail so faces stay crisp (unsharp on the smoothed layer)
+    sm = cv2.bilateralFilter(small, 7, 28, 4)
     up = cv2.resize(sm, (RW, RH), interpolation=cv2.INTER_LINEAR)
-    mixed = cv2.addWeighted(up, 0.7, frame_bgr, 0.3, 0).astype(np.float32)
-    g = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
-    edges = cv2.Laplacian(g, cv2.CV_32F, ksize=3)
-    edges = np.clip(np.abs(edges) / 48.0, 0, 1)
-    edges = cv2.resize(edges, (RW, RH), interpolation=cv2.INTER_LINEAR)[..., None]
-    return mixed * (1 - 0.28 * edges)
+    # preserve 70% of the crisp photographic detail so faces and fabric stay sharp
+    return cv2.addWeighted(up, 0.3, frame_bgr, 0.7, 0).astype(np.float32)
 
 
-def post(frame_bgr, t, rng, fog_strength=0.10, grain_amt=0.035):
-    f = painterly(frame_bgr) / 255.0
+def post(frame_bgr, t, rng, fog_strength=0.07, grain_amt=0.022):
+    f = filmic(frame_bgr) / 255.0
     # split tone: cool shadows (slate blue) / warm highlights (gaslight amber)
     lum = f.mean(axis=2, keepdims=True)
     shadow = np.array([0.10, 0.05, -0.03], np.float32)  # BGR: +blue, -red  (slate-blue shadows)
