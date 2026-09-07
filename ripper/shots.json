@@ -148,7 +148,13 @@
       "id": "S22",
       "prompt": "A dark university-style wall with an ornate golden picture frame: inside the frame is a painted portrait of a bearded doctor holding a medical bag; a second empty ornate frame beside it; a candle flame passes across the wall (held off-camera, NO person visible, no hands, no figures); dust in the beam; the two frames are lit then fade to darkness; extremely moody, mysterious, no people in the room, no faces except the painted one.",
       "seed": 2122,
-      "vo": "N08"
+      "vo": "N08",
+      "crop": {
+        "zoom": 1.28,
+        "cx": 0.5,
+        "cy": 0.0
+      },
+      "note": "crop removes row of dark figure silhouettes at bottom edge"
     },
     {
       "id": "S23",
