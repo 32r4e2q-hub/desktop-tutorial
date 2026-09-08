@@ -1,5 +1,19 @@
 # 《白教堂的雾 — 开膛手杰克》最终交付包（本次会话重建 + 提供链接）
 
+## 最新：v4.2 CRF24 交付档已按分片方案入库 ✅
+
+按要求做了**全量重渲 → CRF24 交付档 → 45 MB 分片提交**，详见 `v4_2/README.md`。
+
+| 项 | 值 |
+|---|---|
+| 成片 | `ripper_whitechapel_fog_v4_2_crf24_1080x1920.mp4` · **100,216,657 B（100.2 MB）** · SHA-256 `f723581d2a7954bb…6ede5902` |
+| 规格 | 1080×1920 · 24 fps · 4720 帧 · 3:16.67 · 27 镜 · libx264 CRF24 medium High@4.1 + `+faststart` · AAC 48k 161k |
+| 入库形式 | `v4_2/parts/movie.part-000…002` + `manifest.json`（100.2 MB 超过 GitHub 单文件 100 MB 上限，必须分片） |
+| 复原 | `cat movie.part-* > out.mp4`，或 `python3 deliverable/verify_parts.py deliverable/v4_2/parts --emit 交付版_v4.2.mp4`（已实测：复原后 SHA 与母档逐字节一致） |
+| 附带 | `v4_2/preview_30s_v4_2.mp4`（30s 预览，13 MB）、`v4_2/poster_v4_2.jpg`（t=15.5s 片名卡海报帧）、`v4_2/subtitles.srt`、`qc_report.json`、`final_manifest.json` |
+| 素材来源 | 固定在 `arena/01a07943-desktop-tutorial` 的 `4aaab74`（run 17 重拍 + S22 二次裁切 + 10 段旁白 + CJK 字体，43 个输入逐 git-blob 校验），管线 `v5-filmic-20260907` |
+| 说明 | 这是**从最新保存素材重新导出**的版本；上一会话那份 113.2 MB 从未进 Git，无法"找回"，只做重做 |
+
 ## 一句话结论
 
 **你说的那份 113.2 MB 的 v4 文件已经不存在了**，它当年只落在那个会话的沙箱目录里、没有进 Git；

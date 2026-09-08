@@ -1,0 +1,109 @@
+{
+  "version": "v4.2-crf24-20260907",
+  "file": "/home/user/desktop-tutorial/deliverable/v4_2/ripper_whitechapel_fog_v4_2_crf24_1080x1920.mp4",
+  "size_bytes": 100216657,
+  "source_commit": "4aaab744545297514c69e70fb5a76d88aec7e934",
+  "pipeline": "v5-filmic-20260907",
+  "problems": [],
+  "frames": 4720,
+  "expected_frames": 4720,
+  "duration": 196.67,
+  "probed": "        handler_name    : SoundHandler",
+  "faststart_moov_first": true,
+  "full_decode_ok": true,
+  "video_stream": [
+    "Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1080x1920, 3909 kb/s, 24 fps, 24 tbr, 12288 tbn (default)"
+  ],
+  "audio_stream": [
+    "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 161 kb/s (default)"
+  ],
+  "assembler_qc": {
+    "file": "/home/user/desktop-tutorial/deliverable/v4_2/ripper_whitechapel_fog_v4_2_crf24_1080x1920.mp4",
+    "passed": true,
+    "problems": [],
+    "duration": 196.66,
+    "frames": 4720,
+    "black_samples": [
+      [
+        20.75,
+        20.75
+      ],
+      [
+        42.5,
+        42.5
+      ],
+      [
+        58.5,
+        58.5
+      ],
+      [
+        103.25,
+        103.25
+      ],
+      [
+        123.75,
+        123.75
+      ],
+      [
+        144.25,
+        144.25
+      ],
+      [
+        162.75,
+        162.75
+      ]
+    ],
+    "frozen_samples": [],
+    "audio_rms_db": -20.3,
+    "audio_peak_db": -1.82,
+    "vo_onsets": [
+      [
+        "N01",
+        0.811
+      ],
+      [
+        "N02",
+        0.707
+      ],
+      [
+        "N03",
+        0.669
+      ],
+      [
+        "N04",
+        0.744
+      ],
+      [
+        "N05",
+        0.571
+      ],
+      [
+        "N06",
+        0.71
+      ],
+      [
+        "N07",
+        0.706
+      ],
+      [
+        "N08",
+        0.69
+      ],
+      [
+        "N09",
+        0.757
+      ],
+      [
+        "N10",
+        0.695
+      ]
+    ]
+  },
+  "passed": true,
+  "probe_lines": [
+    "Duration: 00:03:16.67, start: 0.000000, bitrate: 4076 kb/s",
+    "Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1080x1920, 3909 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 161 kb/s (default)"
+  ],
+  "bitrate_total_kbps": 4077
+}

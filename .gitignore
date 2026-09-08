@@ -1,5 +1,10 @@
-# 交付包里的大文件不进 Git（成片本体已保存在 arena/01a076fd-desktop-tutorial 分支）
-deliverable/ripper_whitechapel_fog_v4_1_resumed_1080x1920.mp4
+# 渲染用的输入工作副本（27 个源镜头 / 旁白 / 字体 / 引擎代码）本体都在 arena/01a07943-desktop-tutorial，
+# 中间产物与母版体积超过 GitHub 单文件上限，都不进本分支的 Git。
+/ripper/
+/deliverable/ripper_whitechapel_fog_v4_1_resumed_1080x1920.mp4
+/deliverable/v4_2/ripper_whitechapel_fog_v4_2_crf24_1080x1920.mp4
 .venv/
+.venv-render/
 .venv-ff/
 __pycache__/
+*.pyc
