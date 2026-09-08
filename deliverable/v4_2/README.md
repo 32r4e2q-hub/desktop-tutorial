@@ -18,11 +18,17 @@
 | QC | 全片解码 `-xerror` 无错；帧数 = 期望 4720；无长黑场/冻结段；10 段旁白起点 0.57–0.81 s；见 `qc_report.json` |
 | 来源 | 输入固定在 `arena/01a07943-desktop-tutorial` 提交 `4aaab744545297514c69e70fb5a76d88aec7e934`（run 17 重拍镜头 + S22 裁切 + 10 段旁白 + CJK 字体），逐文件按 git blob 校验通过；渲染管线 `RENDER_VERSION = v5-filmic-20260907` |
 
-## 为什么在 Git 里是 3 个分片
+## 下载方式：单文件优先，分片作冗余
 
-100,216,657 字节 **超过 GitHub 仓库单文件 100 MB 上限**，整档提交会被服务端拒收；
-所以沿用本仓库既有的做法（`production/new_source_parts/` 装 340 MB 的 `bailin.mp4` 时就是这么干的）：
-按 45 MB 切块 + `manifest.json`（含整档 sha256）。
+**GitHub 的硬上限是 100 MiB（104,857,600 B），50 MB 那条只是警告线。**
+本档 100,216,657 B = **95.57 MiB**，所以整档已直接入库，一个链接下完就能播：
+
+```
+https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/01a07be4-desktop-tutorial/deliverable/v4_2/ripper_whitechapel_fog_v4_2_crf24_1080x1920.mp4
+```
+
+`parts/` 里保留同一份字节按 45 MB 切的 3 块 + `manifest.json`（仓库给 340 MB `bailin.mp4` 用的老办法），
+用于校验、断点或以后真的超过 100 MiB 时直接改用：
 
 ```
 parts/movie.part-000   45,000,000 B
@@ -31,7 +37,7 @@ parts/movie.part-002   10,216,657 B
 parts/manifest.json    整档 sha256 / size / parts 列表 / 复原命令
 ```
 
-## 一条命令复原（已实测字节级一致）
+## 用分片复原（已实测字节级一致；单文件下载后也建议跑一次校验）
 
 ```bash
 mkdir -p out && cd out
