@@ -1,46 +1,50 @@
 name: Generate AI video shots
+run-name: Black Dahlia · Agnes Video V2.0
 
 on:
-  repository_dispatch:
-    types: [ai-shots]
   workflow_dispatch:
     inputs:
       payload:
-        description: '可选 JSON，例如 {"only":"S01,S02","force":true,"providers":"pixazo,agnes"}'
+        description: 'JSON: {"only":"S01","workers":1}; empty only generates the full reviewed shot plan'
         type: string
-        default: "{}"
+        default: '{"only":"S01","workers":1}'
 
 permissions:
   contents: write
 
 concurrency:
-  group: ai-shots
+  group: black-dahlia-arena-01a083bb
   cancel-in-progress: false
 
 jobs:
   generate:
+    if: github.ref == 'refs/heads/arena/01a083bb-desktop-tutorial'
     runs-on: ubuntu-latest
-    timeout-minutes: 350
+    timeout-minutes: 100
     steps:
-      - name: Check out development branch
+      - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a07943-desktop-tutorial
+          ref: arena/01a083bb-desktop-tutorial
           fetch-depth: 1
 
-      - name: Generate shots and commit them back
+      - name: Validate the complete three-minute timeline
+        run: python3 production/dahlia/generate.py --validate
+
+      - name: Generate Agnes clips and checkpoint provenance
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
-          PIXAZO_API_KEY: ${{ secrets.PIXAZO_API_KEY }}
-          PAYLOAD: ${{ github.event_name == 'repository_dispatch' && toJSON(github.event.client_payload) || inputs.payload }}
-        run: bash production/ai_shots_job.sh
+          PAYLOAD: ${{ inputs.payload }}
+        run: python3 -u production/dahlia/generate.py --publish --payload "$PAYLOAD"
 
-      - name: Upload clips as artifact (backup)
+      - name: Save video clips as downloadable artifacts, not Git objects
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ai-shots-${{ github.run_number }}
-          path: ripper/clips
+          name: black-dahlia-agnes-${{ github.run_number }}
+          path: |
+            work/dahlia/clips/
+            production/dahlia/results.json
           if-no-files-found: warn
           compression-level: 0
-          retention-days: 7
+          retention-days: 14
