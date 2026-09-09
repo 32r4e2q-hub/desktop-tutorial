@@ -483,14 +483,45 @@
       "visual_review": "pending"
     }
   },
-  "updated_at": "2026-09-09T06:07:33Z",
-  "run_id": "34316011433",
+  "updated_at": "2026-09-09T07:09:44Z",
+  "run_id": "34322385590",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
     "blocking_generation": false,
     "note": "No automatic visual approval. Export is an unreviewed first cut."
   },
-  "phase": "generation_incomplete",
-  "workflow_policy": "cloud-first-cut-v2"
+  "phase": "generating_sources",
+  "workflow_policy": "cloud-first-cut-v3-rate-aware",
+  "rate_policy": {
+    "minimum_creation_interval_seconds": 75,
+    "poll_interval_seconds": 25,
+    "shared_retry_after_cooldown": true,
+    "key_rotation": false
+  },
+  "required_generated_shots": [
+    "S01",
+    "S02",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S10",
+    "S12",
+    "S13",
+    "S15",
+    "S16",
+    "S17",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29",
+    "S30"
+  ]
 }
