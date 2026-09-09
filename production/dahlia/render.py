@@ -148,6 +148,34 @@ def archive_image(variant,directory):
     return dest
 
 
+def fingerprint_overlay(directory,width,height):
+    """Controlled diagram covers an incorrect generated pattern; not evidence imagery."""
+    directory.mkdir(parents=True,exist_ok=True)
+    dest=directory/f'fingerprint-diagram-{width}x{height}.png'
+    if dest.exists():return dest
+    im=Image.new('RGBA',(1920,1080),(0,0,0,0));d=ImageDraw.Draw(im)
+    d.rounded_rectangle((130,150,1790,930),radius=14,fill=(22,29,24,250))
+    d.rounded_rectangle((160,180,940,900),radius=5,fill=(220,212,191,255))
+    # A generic whorl icon. No real person's biometric data is reproduced.
+    cx,cy=550,520
+    for radius in range(12,232,10):
+        points=[]
+        for t in np.linspace(0,2*math.pi,360):
+            x=cx+radius*.76*math.cos(t)+math.sin(t*2)*radius*.09
+            y=cy+radius*1.18*math.sin(t)+math.cos(t)*radius*.04
+            points.append((x,y))
+        d.line(points,fill=(60,73,59,245),width=3)
+    centered(d,'指纹样式示意',810,28,(84,91,75,255),x=550)
+    centered(d,'指纹与身份比对',330,66,(235,230,213,255),x=1345,serif=True)
+    centered(d,'旧档案中的记录',490,42,(204,191,151,255),x=1345)
+    d.line((1240,605,1450,605),fill=(147,137,105,255),width=3)
+    centered(d,'仅说明鉴定过程',690,32,(167,179,155,255),x=1345)
+    centered(d,'非当年证物图像',752,26,(143,157,133,255),x=1345)
+    if (width,height)!=(1920,1080):im=im.resize((width,height),Image.Resampling.LANCZOS)
+    im.save(dest)
+    return dest
+
+
 def audio_layout(chapters, audio_root, work, manifest):
     directory=work/'audio';directory.mkdir(parents=True,exist_ok=True)
     files=[];durations=[];waves=[]
@@ -274,6 +302,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         if entry['id']=='END':continue
         label={'agnes':'AI情景重现 · 非历史影像','archive':'档案照片 · 来源：警方调查通告',
                'graphic':'资料摘要与示意图'}[entry['kind']]
+        if entry['id']=='S06':label='指纹图解 · 非原始证物图像'
+        if entry['id']=='S07':label='影像传输的AI示意 · 非设备实拍'
         if entry['id']=='S12':label='酒店外景为AI示意 · 非实地影像'
         if entry['id']=='S29':label='AI生活意象 · 非本人档案影像'
         if entry['id']=='S30':label='AI象征画面 · 非案件证物'
@@ -350,7 +380,14 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
     if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
     if sid=='S30':vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
-    cmd+=['-an','-vf',vf+',format=yuv420p','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
+    if sid=='S06':
+        overlay=fingerprint_overlay(graphics,width,height)
+        cmd+=['-loop','1','-framerate',str(FPS),'-i',str(overlay),'-filter_complex_threads','1',
+              '-filter_complex',f'[0:v]{vf},boxblur=18:2[under];[1:v]format=rgba[diagram];[under][diagram]overlay=shortest=1,format=yuv420p[fixed]',
+              '-map','[fixed]']
+        entry['visual_correction']='Generated pattern obscured; explicitly labeled generic fingerprint diagram added'
+    else:cmd+=['-vf',vf+',format=yuv420p']
+    cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
           '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
 
