@@ -51,7 +51,46 @@ def validate(project):
 
 
 def git(*args):
-    return subprocess.check_output(['git', *args], cwd=ROOT, text=True, stderr=subprocess.STDOUT)
+    return subprocess.check_output(['git', *args], cwd=ROOT, text=True,
+                                   stderr=subprocess.STDOUT, timeout=90)
+
+
+def review_matches(review, first_result):
+    """A visual approval applies only to the exact first-shot request and bytes."""
+    return (
+        isinstance(review, dict)
+        and review.get('decision') == 'approved'
+        and review.get('first_shot_id') == first_result.get('id')
+        and bool(first_result.get('sha256'))
+        and review.get('video_sha256') == first_result.get('sha256')
+        and bool(first_result.get('request_hash'))
+        and review.get('request_hash') == first_result.get('request_hash')
+    )
+
+
+def wait_for_review(first_result, timeout=1800):
+    """The already-running job waits for a reviewed JSON file on this same branch.
+
+    No new Actions dispatch or secret access is needed to approve the first clip.
+    The remaining generation requests are not submitted until this gate passes.
+    """
+    deadline = time.monotonic() + timeout
+    print('WAITING_FOR_VISUAL_REVIEW: ' + first_result['id'], flush=True)
+    while time.monotonic() < deadline:
+        try:
+            git('fetch', '--no-tags', 'origin', BRANCH)
+            raw = git('show', 'FETCH_HEAD:production/dahlia/review.json')
+            review = json.loads(raw)
+            if review_matches(review, first_result):
+                return review
+            if (isinstance(review, dict) and review.get('decision') == 'rejected'
+                    and review.get('video_sha256') == first_result.get('sha256')):
+                raise RuntimeError('First shot was rejected during visual review; batch not submitted')
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired, ValueError):
+            # Missing approval is expected while the reviewer is inspecting the clip.
+            pass
+        time.sleep(min(20, max(0, deadline - time.monotonic())))
+    raise RuntimeError('First-shot review timed out; no remaining clips were submitted')
 
 
 def main():
@@ -97,7 +136,17 @@ def main():
                 changed = subprocess.run(['git', 'diff', '--cached', '--quiet', '--', rel], cwd=ROOT).returncode
                 if changed:
                     git('commit', '-m', f'dahlia: {sid} {row.get("status", "checkpoint")}', '--', rel)
-                    git('push', 'origin', BRANCH)
+                    for attempt in range(3):
+                        try:
+                            git('push', 'origin', BRANCH)
+                            break
+                        except subprocess.CalledProcessError:
+                            if attempt == 2:
+                                raise
+                            # A visual-review approval may have advanced this same
+                            # branch. Rebase only this job's metadata commit; never
+                            # force-push or modify the approval file.
+                            git('pull', '--rebase', 'origin', BRANCH)
             print('SHOT_STATUS ' + sid + ' ' + str(row.get('status')), flush=True)
 
     def generate(shot):
@@ -146,13 +195,37 @@ def main():
             print(f'{sid}: failed: {error[:600]}', flush=True)
             return False
 
+    requested_count = len(shots)
+    outcomes = []
+    if publish and not only and requested_count > 1:
+        # One manual workflow start is sufficient: generate a canary, wait for
+        # human visual review recorded on this branch, then continue the batch.
+        first = shots[0]
+        if not generate(first):
+            print('FIRST_SHOT_FAILED: remaining clips were not submitted', flush=True)
+            return 1
+        outcomes.append(True)
+        first_result = dict(doc['shots'][first['id']])
+        doc['review'] = {'status': 'awaiting_visual_review', 'first_shot_id': first['id']}
+        checkpoint(first['id'])
+        try:
+            approval = wait_for_review(first_result)
+        except RuntimeError as exc:
+            doc['review'] = {'status': 'stopped', 'reason': str(exc), 'first_shot_id': first['id']}
+            checkpoint(first['id'])
+            print(str(exc), flush=True)
+            return 1
+        doc['review'] = {'status': 'approved', 'first_shot_id': first['id'],
+                         'video_sha256': approval['video_sha256']}
+        checkpoint(first['id'])
+        shots = shots[1:]
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        outcomes = list(pool.map(generate, shots))
-    print(f'COMPLETE: {sum(outcomes)}/{len(shots)} requested clips available', flush=True)
+        outcomes.extend(pool.map(generate, shots))
+    print(f'COMPLETE: {sum(outcomes)}/{requested_count} requested clips available', flush=True)
     summary = os.getenv('GITHUB_STEP_SUMMARY')
     if summary:
         with open(summary, 'a') as handle:
-            handle.write(f'## 黑色大丽花 · Agnes V2.0\n\n{sum(outcomes)}/{len(shots)} requested clips completed.\n\n')
+            handle.write(f'## 黑色大丽花 · Agnes V2.0\n\n{sum(outcomes)}/{requested_count} requested clips completed.\n\n')
             handle.write('Videos are artifacts, not Git objects. Task provenance is in `production/dahlia/results.json`.\n')
     return 0 if all(outcomes) else 1
 
