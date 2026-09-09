@@ -38,8 +38,10 @@ def main():
             (args.out/'results.json').write_bytes(raw)
             phase=doc.get('phase')
             if phase!=last_phase:print('PHASE '+str(phase),flush=True);last_phase=phase
+            required=set(doc.get('required_generated_shots') or
+                         [s['id'] for s in json.loads(Path(__file__).with_name('story.json').read_text())['shots'] if s['kind']=='agnes'])
             for sid,row in sorted(doc.get('shots',{}).items()):
-                if sid not in {f'S{i:02d}' for i in range(1,31)}:continue
+                if sid not in required:continue
                 if row.get('status')=='completed' and row.get('inspection') and seen.get(sid)!=row.get('sha256'):
                     (args.out/(sid+'.jpg')).write_bytes(content('production/dahlia/qa/'+sid+'.jpg'))
                     (args.out/(sid+'.json')).write_bytes(content('production/dahlia/qa/'+sid+'.json'))
@@ -51,7 +53,7 @@ def main():
                 print('FIRST_CUT_REVIEW_FILES_READY',flush=True)
             if tick%3==0 or phase in ('pipeline_failed','generation_incomplete','first_cut_ready'):
                 run=api(f'repos/{REPO}/actions/runs/{args.run_id}')
-                print(f'RUN {run["status"]} {run.get("conclusion")} QA={len(seen)}/24',flush=True)
+                print(f'RUN {run["status"]} {run.get("conclusion")} QA={len(seen)}/{len(required)}',flush=True)
                 if run['status']=='completed':
                     artifacts=api(f'repos/{REPO}/actions/runs/{args.run_id}/artifacts')
                     (args.out/'artifacts.json').write_text(json.dumps(artifacts,ensure_ascii=False,indent=2))

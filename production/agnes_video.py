@@ -32,6 +32,8 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import email.utils
+import datetime
 import http.client
 import json
 import os
@@ -69,6 +71,37 @@ class Fatal(Exception):
 
 class TransientError(Exception):
     """Network-level failure that is worth retrying."""
+
+
+class RateLimited(Fatal):
+    """A rejected request, not a created task. Preserve the server's cooldown."""
+    def __init__(self, message, retry_after=None):
+        super().__init__(message)
+        self.retry_after = retry_after
+
+
+def parse_retry_after(value, now=None):
+    if not value:
+        return None
+    try:
+        return max(0.0, float(value))
+    except (ValueError, TypeError):
+        try:
+            when = email.utils.parsedate_to_datetime(str(value))
+            if when.tzinfo is None:
+                when = when.replace(tzinfo=datetime.timezone.utc)
+            current = time.time() if now is None else now
+            return max(0.0, when.timestamp() - current)
+        except (TypeError, ValueError, OverflowError):
+            return None
+
+
+class HttpResult(tuple):
+    """Compatible three-tuple plus optional Retry-After metadata."""
+    def __new__(cls, code, body, text, retry_after=None):
+        obj = super().__new__(cls, (code, body, text))
+        obj.retry_after = retry_after
+        return obj
 
 
 def log(message: str) -> None:
@@ -180,8 +213,10 @@ def http_json(method: str, url: str, api_key: str, payload: Optional[dict] = Non
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             code, raw = response.status, response.read()
+            retry_after = parse_retry_after(response.headers.get('Retry-After'))
     except urllib.error.HTTPError as exc:  # HTTP error responses still carry a useful body
         code, raw = exc.code, exc.read()
+        retry_after = parse_retry_after(exc.headers.get('Retry-After')) if exc.headers else None
     except (urllib.error.URLError, socket.timeout, ConnectionError, TimeoutError, http.client.HTTPException) as exc:
         raise TransientError(f"{type(exc).__name__}: {exc}") from exc
 
@@ -190,7 +225,7 @@ def http_json(method: str, url: str, api_key: str, payload: Optional[dict] = Non
         body = json.loads(text) if text.strip() else None
     except ValueError:
         body = None
-    return code, body, text
+    return HttpResult(code, body, text, retry_after)
 
 
 def describe_error(body: Any, text: str, code: int) -> str:
@@ -231,8 +266,12 @@ def create_task(base_url: str, api_key: str, payload: dict, retries: int, retry_
     delay = retry_delay
     for attempt in range(1, retries + 1):
         problem = None
+        rate_limited = False
+        retry_after = None
         try:
-            code, body, text = http_json("POST", url, api_key, payload, timeout=120)
+            response = http_json("POST", url, api_key, payload, timeout=120)
+            code, body, text = response
+            retry_after = getattr(response, 'retry_after', None)
         except TransientError as exc:
             problem = f"network error: {exc}"
         else:
@@ -244,13 +283,18 @@ def create_task(base_url: str, api_key: str, payload: dict, retries: int, retry_
             if code in (400, 404, 405, 413, 422):
                 raise Fatal(f"Request rejected (HTTP {code}): {detail}")
             if code == 429 or code >= 500:
+                rate_limited = code == 429
                 problem = f"HTTP {code}: {detail}"
             else:
                 raise Fatal(f"Unexpected response (HTTP {code}): {detail}")
         if attempt == retries:
-            raise Fatal(f"Could not create video task after {retries} attempts; last problem: {problem}")
-        log(f"create task: {problem}; retry {attempt}/{retries - 1} in {delay:g}s")
-        time.sleep(delay)
+            message = f"Could not create video task after {retries} attempts; last problem: {problem}"
+            if rate_limited:
+                raise RateLimited(message, retry_after)
+            raise Fatal(message)
+        wait = max(delay, retry_after or 0)
+        log(f"create task: {problem}; retry {attempt}/{retries - 1} in {wait:g}s")
+        time.sleep(wait)
         delay = min(delay * 2, 60)
     raise Fatal("Could not create video task")  # unreachable, keeps type checkers happy
 
@@ -264,6 +308,8 @@ def poll_task(
     interval: float,
     timeout: float,
     max_failures: int,
+    before_request=None,
+    rate_limit_callback=None,
 ):
     primary = f"{base_url}/agnesapi?" + urllib.parse.urlencode({"video_id": video_id, "model_name": model})
     legacy = f"{base_url}/v1/videos/{urllib.parse.quote(task_id, safe='')}" if task_id else None
@@ -274,8 +320,16 @@ def poll_task(
     last_line = None
 
     while True:
+        sleep_delay = interval
+        if before_request:
+            before_request()
         try:
-            code, body, text = http_json("GET", url, api_key, timeout=60)
+            response = http_json("GET", url, api_key, timeout=60)
+            code, body, text = response
+            if code == 429:
+                sleep_delay = max(60, interval * 2, getattr(response, 'retry_after', None) or 0)
+                if rate_limit_callback:
+                    rate_limit_callback(sleep_delay)
         except TransientError as exc:
             failures += 1
             log(f"poll: network error ({exc}) [{failures}/{max_failures}]")
@@ -315,7 +369,7 @@ def poll_task(
             raise Fatal(f"Gave up after {failures} consecutive polling failures (video_id={video_id})")
         if time.monotonic() >= deadline:
             raise Fatal(f"Timed out after {timeout:g}s waiting for video_id={video_id} (last: {last_line})")
-        time.sleep(interval)
+        time.sleep(sleep_delay)
 
 
 def download(url: str, dest: Path, retries: int, retry_delay: float) -> int:

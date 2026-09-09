@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic three-minute cloud edit; generated footage is never replaced by fixtures.
 
-Requires all 24 verified Agnes clips plus the six user-selected narration recordings.
+Requires the planned Agnes clips, a sourced archival portrait, and six selected narration recordings.
 Outputs an explicitly unreviewed first cut, technical report, EDL, captions and QA sheet.
 """
 import argparse
@@ -36,9 +36,9 @@ CUTS = {
             (11.2,'S06','fingerprint_b'), (14.0,'S08','archive'), (17.4,'S10',''),
             (22.0,'S09','portrait_b'), (26.0,'S11','')],
     'N03': [(0,'S11',''), (6.1,'S12',''), (8.6,'S13',''), (11.05,'S14',''), (16.9,'S15','')],
-    'N04': [(0,'S16',''), (5.8,'S17',''), (9.2,'S18',''), (15.1,'S19',''), (21.8,'S20','')],
+    'N04': [(0,'S16',''), (5.8,'S17',''), (8.1,'S18',''), (15.1,'S19',''), (21.8,'S20','')],
     'N05': [(0,'S21',''), (2.85,'S22',''), (5.25,'S23',''), (13.1,'S24',''),
-            (16.6,'S25',''), (22.65,'S23','truth')],
+            (16.6,'S25',''), (19.8,'S23','truth')],
     'N06': [(0,'S26',''), (7.65,'S27',''), (13.45,'S28',''), (18.0,'S29',''), (23.75,'S30','')],
 }
 
@@ -118,6 +118,33 @@ def card_image(sid, variant, directory):
         centered(d,line2,720,38,'#5c6656')
         d.text((265,875),'资料摘要与示意图 · 并非原始档案影像',font=font(21),fill='#75806c')
     im.save(dest,quality=93)
+    return dest
+
+
+def archive_image(variant,directory):
+    """Use the identified bulletin portrait instead of the unsuitable generated face."""
+    directory.mkdir(parents=True,exist_ok=True)
+    dest=directory/f'archival-portrait-{variant or "base"}.jpg'
+    if dest.exists():return dest
+    im=Image.new('RGB',(1920,1080),'#1b211d');d=ImageDraw.Draw(im)
+    source=HERE/'assets/elizabeth_short_archival.jpg'
+    portrait=Image.open(source).convert('RGB')
+    if variant=='portrait_b':
+        w,h=portrait.size
+        portrait=portrait.crop((int(w*.04),int(h*.02),int(w*.97),int(h*.92)))
+    portrait.thumbnail((710,810),Image.Resampling.LANCZOS)
+    scale=min(710/portrait.width,810/portrait.height)
+    portrait=portrait.resize((round(portrait.width*scale),round(portrait.height*scale)),Image.Resampling.LANCZOS)
+    x=200+(710-portrait.width)//2;y=125+(810-portrait.height)//2
+    d.rectangle((x-12,y-12,x+portrait.width+12,y+portrait.height+12),fill='#cfc6ac')
+    im.paste(portrait,(x,y));d=ImageDraw.Draw(im)
+    centered(d,'她的名字',316,34,'#b7aa82',x=1330)
+    centered(d,'伊丽莎白 · 肖特',400,72,'#ede8db',x=1330,serif=True)
+    centered(d,'22岁',536,90,'#d4c69d',x=1330)
+    d.line((1240,695,1420,695),fill='#8e8466',width=2)
+    centered(d,'档案照片 · 非AI生成人像',747,28,'#a7b09f',x=1330)
+    centered(d,'来源：1947年1月21日洛杉矶警方调查通告',942,23,'#84917d')
+    im.save(dest,quality=94)
     return dest
 
 
@@ -221,7 +248,7 @@ def safe_text(text):
     return text.replace('\\','/').replace('{','（').replace('}','）').replace('\n',' ')
 
 
-def write_subtitles(path,cues):
+def write_subtitles(path,cues,edl):
     text='''[Script Info]
 ScriptType: v4.00+
 PlayResX: 1920
@@ -243,7 +270,14 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         for key in ['五十六分钟','伊丽莎白·肖特','二十二岁','黑色大丽花','没有血迹','没有匹配','仍未侦破']:
             if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
         text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
-    text+='Dialogue: 0,0:00:00.00,0:02:56.20,Label,,0,0,0,,AI情景重现 · 依据公开资料编写\n'
+    for entry in edl:
+        if entry['id']=='END':continue
+        label={'agnes':'AI情景重现 · 非历史影像','archive':'档案照片 · 来源：警方调查通告',
+               'graphic':'资料摘要与示意图'}[entry['kind']]
+        if entry['id']=='S12':label='酒店外景为AI示意 · 非实地影像'
+        if entry['id']=='S29':label='AI生活意象 · 非本人档案影像'
+        if entry['id']=='S30':label='AI象征画面 · 非案件证物'
+        text+=f"Dialogue: 0,{ass_time(entry['start_frame']/FPS)},{ass_time(entry['end_frame']/FPS)},Label,,0,0,0,,{label}\n"
     text+='Dialogue: 2,0:00:00.35,0:00:04.70,Title,,0,0,0,,{\\fad(500,550)}黑色大丽花\\N{\\fs41\\fsp6}消失的六天\n'
     path.write_text(text)
     srt=path.with_suffix('.srt')
@@ -256,7 +290,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 def write_sfx(path,edl):
     rng=np.random.default_rng(19470115);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
     events=[]
-    for source,kind in [('S06','paper'),('S07','machine'),('S10','press'),('S21','phone'),('S25','keys')]:
+    for source,kind in [('S06','paper'),('S07','machine'),('S10','press'),('S21','phone'),('S25','paper')]:
         first=next(e for e in edl if e['id']==source)
         events.append((max(0,first['start_frame']/FPS-.18),kind))
     for start,kind in events:
@@ -282,8 +316,8 @@ def write_sfx(path,edl):
 def render_segment(entry,index,sources,graphics,segments,width,height,checks):
     target=segments/f'{index:03d}.mp4';frames=entry['end_frame']-entry['start_frame'];duration=frames/FPS
     cmd=['ffmpeg','-y','-v','error','-threads','2'];sid=entry['id'];variant=entry['variant']
-    if entry['kind']=='graphic':
-        picture=card_image(sid,variant,graphics)
+    if entry['kind'] in ('graphic','archive'):
+        picture=archive_image(variant,graphics) if entry['kind']=='archive' else card_image(sid,variant,graphics)
         cmd+=['-loop','1','-framerate',str(FPS),'-i',str(picture)]
         # Restrained paper drift rather than a static slide or artificial fast transition.
         vf=f"scale={width}:{height},zoompan=z='min(1.025,1+0.00011*on)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s={width}x{height}:fps={FPS}"
@@ -294,12 +328,22 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         elif variant=='portrait_b':a=length/2;b=length-.04
         elif sid=='S06' and variant=='fingerprint_b':a=3.2;b=min(length-.08,6.4)
         elif sid=='S06':a=.12;b=min(3.05,length-.12)
+        # Windows chosen after inspecting the real generated contact sheets.
+        # Avoid the late leaf-like pattern on the envelope and late invented text.
+        if sid=='S17':a=0.0;b=min(2.0,length)
+        if sid=='S25':a=0.0;b=min(2.7,length)
+        if sid=='S12':a=0.0;b=min(2.15,length)
         available=b-a
         take=min(available,duration)
         factor=duration/take
         if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
-        vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},scale={width}:{height}:force_original_aspect_ratio=increase,'
+        tighter=''
+        if sid=='S02':
+            cw=math.floor(info['width']/1.24/2)*2;ch=math.floor(info['height']/1.24/2)*2
+            cy=max(0,round(info['height']*.43-ch/2))
+            tighter=f'crop={cw}:{ch}:0:{cy},'
+        vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
             f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         entry.update(source_in=a,source_out=a+take,time_stretch=factor)
@@ -368,7 +412,7 @@ def main():
         alignment.append({'id':row['id'],'method':'ASR-assisted' if aligned else 'pause-aware estimate',
                           'character_match_coverage':coverage})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
-    subtitle=work/'captions.ass';write_subtitles(subtitle,cues)
+    subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl)
     (work/'caption-timing.json').write_text(json.dumps(cues,ensure_ascii=False,indent=2))
     segments=work/'segments';segments.mkdir(exist_ok=True)
     outputs=[]
@@ -401,7 +445,8 @@ def main():
     technical={**info,'sha256':digest(args.output),'decoded_ok':True,'status':'draft_rendered',
                'visual_review':'pending','caption_alignment':alignment,
                'narration_voice_id':audio_manifest['voice_id'],'narration_tempo':narration[0]['tempo'],
-               'editorial_segments':len(edl),'source_clips':24,'output':args.output.name,
+               'editorial_segments':len(edl),'source_clips':len(checks),'archival_portrait':True,
+               'output':args.output.name,
                'note':'Technical checks passed; this is an unreviewed first cut, not a claim of full visual/audio inspection.'}
     (work/'technical-report.json').write_text(json.dumps(technical,ensure_ascii=False,indent=2)+'\n')
     (work/'edit-decision-list.json').write_text(json.dumps(edl,ensure_ascii=False,indent=2)+'\n')

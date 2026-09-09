@@ -191,19 +191,22 @@
     },
     {
       "id": "S09",
-      "kind": "agnes",
+      "kind": "archive",
       "start": 48,
       "duration": 6,
       "narration_id": "N02",
-      "prompt": "An illustrative adult woman aged twenty-two, dark shoulder-length 1940s pin curls, fair skin, oval face, modest charcoal wool jacket over an ivory blouse, natural muted lipstick, not an actor impersonation, no glamorous pose. A respectful medium close portrait in a modest 1940s room beside a tall window, looking slightly to camera-left, fully dressed, thoughtful neutral expression, breathing naturally. No danger, no injuries, no other people. Gentle four-inch camera push, do not change facial features or clothing.",
-      "purpose": "第一次呈现她作为人的形象；AI形象非档案照片",
+      "prompt": "",
+      "purpose": "用警方通告中的档案肖像介绍真实身份；排除外观偏成熟的AI试片",
       "transition_out": "旁白连续，肖像切报刊印刷",
       "graphic": "",
       "seed": 19470123,
       "seconds": 7,
       "aspect": "16:9",
       "resolution": "1080p",
-      "frame_rate": 24
+      "frame_rate": 24,
+      "original_ai_prompt": "An illustrative adult woman aged twenty-two, dark shoulder-length 1940s pin curls, fair skin, oval face, modest charcoal wool jacket over an ivory blouse, natural muted lipstick, not an actor impersonation, no glamorous pose. A respectful medium close portrait in a modest 1940s room beside a tall window, looking slightly to camera-left, fully dressed, thoughtful neutral expression, breathing naturally. No danger, no injuries, no other people. Gentle four-inch camera push, do not change facial features or clothing.",
+      "archive_asset": "assets/elizabeth_short_archival.jpg",
+      "archive_sha256": "26fefb4c856ed207f2d1abeec74ef387ab22433f3f083dc1a53bec6415ea3b97"
     },
     {
       "id": "S10",
@@ -325,7 +328,7 @@
       "narration_id": "N04",
       "prompt": "The same dark walnut investigation desk with an ivory closed case folder, a single silver paperclip, and an emerald-green glass banker lamp at the upper left. A single white cotton-gloved right hand carefully lifts the edge of that same cream envelope using its thumb and forefinger, holding it below a magnifying glass on a stand. Hands remain anatomically normal, no liquid, no chemicals, no hidden weapon. Slow macro focus pull from paper edge to abstract fingerprint ridge texture. No readable text.",
       "purpose": "检查信上指纹；与S06使用同类道具",
-      "transition_out": "纹理匹配到无匹配结果卡",
+      "transition_out": "仅取已检查的前2.0秒动作，提前切后期指纹结果卡",
       "graphic": "",
       "seed": 19470131,
       "seconds": 7,
@@ -453,7 +456,7 @@
       "narration_id": "N05",
       "prompt": "Close view of a vintage black typewriter on a dark desk, two ordinary adult hands type a few slow keystrokes on completely unreadable cream paper. Camera gradually shifts focus from keys to the blank upper paper margin. No legible words generated, restrained tungsten side light.",
       "purpose": "区分吸引人的故事与已证明的事实",
-      "transition_out": "最后一下键音收尾，过渡至事实汇总",
+      "transition_out": "仅取前2.7秒整理纸张动作，以纸声接事实边界信息卡",
       "graphic": "",
       "seed": 19470139,
       "seconds": 7,
@@ -501,7 +504,7 @@
       "narration_id": "N06",
       "prompt": "An empty late-1940s grand hotel corridor with cream columns, muted brass fixtures and a tall window at the far end, matching the earlier hotel lobby materials. No people and no supernatural silhouette. Camera gently moves toward the vacant pool of daylight, quiet human absence rather than horror.",
       "purpose": "拒绝虚构凶手；回到人的缺席",
-      "transition_out": "柔和6帧叠化，仅作情绪过渡",
+      "transition_out": "同向光线匹配剪辑，配乐连续",
       "graphic": "",
       "seed": 19470142,
       "seconds": 7,
@@ -552,6 +555,11 @@
       "id": 5,
       "url": "https://goldenglobes.com/articles/forgotten-hollywood-mystery-black-dahlia-killing/",
       "usage": "警方当年通告记载1月9日在比尔特莫尔酒店下车，寻求1月9日至15日行踪信息"
+    },
+    {
+      "id": 6,
+      "url": "https://archives.fbi.gov/archives/news/stories/2006/october/lapd-seeking-information-poster-on-elizabeth-short",
+      "usage": "直接检视1947年1月21日警方通告：1月9日至15日的线索征集、在Biltmore下车及进入大堂；身份肖像来源"
     }
   ]
 }

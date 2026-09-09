@@ -22,6 +22,7 @@ sys.path.insert(0,str(ROOT/'production'))
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import agnes_video as agnes
 from media import ensure_tools, inspect_clip, render_python
+from throttle import RequestGate, BudgetExhausted
 
 BRANCH='arena/01a083bb-desktop-tutorial'
 PLAN=Path(__file__).with_name('story.json')
@@ -62,6 +63,10 @@ def validate(project):
             payload=full_payload(project,shot)
             if not shot['prompt'].strip() or payload['model']!='agnes-video-v2.0' or (payload['num_frames']-1)%8:
                 raise ValueError('Invalid Agnes request')
+        elif shot['kind']=='archive':
+            asset=(PLAN.parent/shot['archive_asset']).resolve()
+            if not asset.is_relative_to(PLAN.parent) or not asset.is_file() or digest(asset)!=shot['archive_sha256']:
+                raise ValueError('Missing or changed archival image')
         elif shot['kind']!='graphic' or not shot['graphic'].strip():raise ValueError('Invalid graphic cue')
     if sum(c['duration'] for c in project['chapters'])!=180:raise ValueError('Invalid chapter plan')
 
@@ -88,7 +93,8 @@ def main():
         if record.get('text')!=chapter['text'] or not path.is_file() or digest(path)!=record.get('sha256'):
             raise ValueError('Narration text/audio mismatch: '+chapter['id'])
     if args.validate:
-        print('VALID: 180-second plan; 24 Agnes sources; 6 graphics; all narration hashes match');return 0
+        count=sum(s['kind']=='agnes' for s in project['shots'])
+        print(f'VALID: 180-second plan; {count} Agnes sources; 6 graphics; 1 archival portrait; narration hashes match');return 0
     options=json.loads(args.payload or '{}')
     requested=options.get('only','')
     if not isinstance(requested,str):raise ValueError('only must be comma-separated IDs')
@@ -97,6 +103,10 @@ def main():
     if only-{s['id'] for s in shots}:raise ValueError('Unknown/non-Agnes shot ID')
     if only:shots=[s for s in shots if s['id'] in only]
     workers=min(2,max(1,int(options.get('workers',2))))
+    # Free video model creation is documented at 1 RPM. Two in-flight tasks do
+    # not permit bursts of creation requests; they share this paced gate.
+    gate=RequestGate(minimum_interval=75)
+    generation_deadline=time.monotonic()+85*60
     if args.publish:
         if os.getenv('GITHUB_ACTIONS')!='true' or git('branch','--show-current').strip()!=BRANCH:
             raise RuntimeError('Publish only from this fixed Arena branch in Actions')
@@ -106,7 +116,10 @@ def main():
     doc['phase']='preparing_sources'
     doc['review']={'status':'pending','scope':'visual/audio quality','blocking_generation':False,
                    'note':'No automatic visual approval. Export is an unreviewed first cut.'}
-    doc['workflow_policy']='cloud-first-cut-v2'
+    doc['workflow_policy']='cloud-first-cut-v3-rate-aware'
+    doc['rate_policy']={'minimum_creation_interval_seconds':75,'poll_interval_seconds':25,
+                        'shared_retry_after_cooldown':True,'key_rotation':False}
+    doc['required_generated_shots']=[s['id'] for s in project['shots'] if s['kind']=='agnes']
     sources=ROOT/'work/dahlia/sources';sources.mkdir(parents=True,exist_ok=True)
     export=ROOT/'work/dahlia/clips';export.mkdir(parents=True,exist_ok=True)
     qa=ROOT/'production/dahlia/qa';qa.mkdir(parents=True,exist_ok=True)
@@ -145,6 +158,23 @@ def main():
                    reused_existing_asset=reused,visual_review='pending')
         return True
 
+    def create_paced(sid,payload):
+        for attempt in range(8):
+            checkpoint(sid+' waiting for a creation slot',sid,status='waiting_create_slot',error=None)
+            gate.acquire_creation(generation_deadline)
+            try:
+                # Only this outer policy retries 429, so every attempt is paced.
+                return agnes.create_task(base,key,payload,retries=1,retry_delay=75)
+            except agnes.RateLimited as exc:
+                cooldown=max(min(300,75*(2**attempt)),exc.retry_after or 0)
+                checkpoint(sid+' provider cooldown',sid,status='rate_limited',
+                           quota_retry=attempt+1,provider_retry_after_seconds=exc.retry_after,
+                           applied_cooldown_seconds=cooldown,error=str(exc).replace(key,'[redacted]')[:600])
+                gate.defer(cooldown)
+                if attempt==7:
+                    raise
+        raise RuntimeError('Creation retry budget exhausted')
+
     def generate(shot):
         sid=shot['id'];payload=full_payload(project,shot);wanted_hash=request_hash(project,shot)
         with LOCK:old=dict(doc['shots'].get(sid,{}))
@@ -165,15 +195,19 @@ def main():
             video_id,task_id=old.get('video_id'),old.get('task_id')
             if not video_id:
                 checkpoint(sid+' submitting',sid,status='submitting',request_hash=wanted_hash,error=None)
-                created=agnes.create_task(base,key,payload,retries=2,retry_delay=10)
+                created=create_paced(sid,payload)
                 video_id=created.get('video_id') or created.get('id') or created.get('task_id')
                 task_id=created.get('task_id') or created.get('id')
                 if not video_id:raise agnes.Fatal('No task identifier returned')
                 checkpoint(sid+' queued',sid,status='queued',video_id=str(video_id),task_id=str(task_id or ''),
                            requested_seconds=payload['num_frames']/payload['frame_rate'])
             else:print(sid+': resuming existing provider task',flush=True)
+            remaining=generation_deadline-time.monotonic()
+            if remaining<30:raise BudgetExhausted('Generation budget reached; task ID was saved for resumption')
             final,url=agnes.poll_task(base,key,agnes.DEFAULT_MODEL,str(video_id),str(task_id) if task_id else None,
-                                     interval=8,timeout=1500,max_failures=12)
+                                     interval=25,timeout=min(1500,remaining),max_failures=12,
+                                     before_request=lambda:gate.wait_unblocked(generation_deadline),
+                                     rate_limit_callback=gate.defer)
             size=agnes.download(url,dest,retries=3,retry_delay=5)
             checksum=digest(dest)
             receipt={'video_url':url,'bytes':size,'sha256':checksum,'request_hash':wanted_hash}
@@ -229,7 +263,7 @@ def main():
         summary=os.getenv('GITHUB_STEP_SUMMARY')
         if summary:
             with open(summary,'a') as f:
-                f.write('## 黑色大丽花 · 三分钟初版\n\n24段Agnes素材已生成、解码检查并完成剪辑。\n\n')
+                f.write(f'## 黑色大丽花 · 三分钟初版\n\n{len(shots)}段Agnes素材已完成解码检查并剪辑，身份介绍另使用档案肖像。\n\n')
                 f.write(f'输出：**{final_name}**，180秒；视觉/听感仍待人工审核。\n\n')
                 f.write('成片在本次运行的 `black-dahlia-agnes-*` artifact 中。大视频未提交到Git。\n')
         print('CLOUD_FIRST_CUT_READY '+final_name,flush=True);return 0

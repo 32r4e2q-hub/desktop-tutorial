@@ -18,8 +18,9 @@ class ProductionTests(unittest.TestCase):
 
     def test_complete_plan_and_model(self):
         generator.validate(self.project)
-        self.assertEqual(sum(s['kind']=='agnes' for s in self.project['shots']),24)
+        self.assertEqual(sum(s['kind']=='agnes' for s in self.project['shots']),23)
         self.assertEqual(sum(s['kind']=='graphic' for s in self.project['shots']),6)
+        self.assertEqual(sum(s['kind']=='archive' for s in self.project['shots']),1)
         for shot in self.project['shots']:
             if shot['kind']=='agnes':
                 self.assertEqual(generator.full_payload(self.project,shot)['model'],'agnes-video-v2.0')
@@ -32,6 +33,12 @@ class ProductionTests(unittest.TestCase):
         self.assertTrue(generator.cached_result_matches(result,wanted))
         self.assertFalse(generator.cached_result_matches(result,'different-request'))
         self.assertFalse(generator.cached_result_matches({**result,'sha256':None},wanted))
+        all_results=json.loads(path.read_text())['shots']
+        for shot in self.project['shots']:
+            if shot['kind']!='agnes':continue
+            existing=all_results.get(shot['id'],{})
+            if existing.get('status')=='completed':
+                self.assertTrue(generator.cached_result_matches(existing,generator.request_hash(self.project,shot)),shot['id'])
 
     def test_audio_is_bound_to_the_reviewed_script(self):
         root=ROOT/'production/dahlia/audio'
