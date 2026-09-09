@@ -16,8 +16,15 @@ sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
 ffmpeg -hide_banner -version | head -1
 
 echo "=== 2/6 install python dependencies ==="
-python3 -m pip install --upgrade pip
-python3 -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2"
+# Ubuntu 24.04 marks the system Python as externally managed, so plain pip
+# installs can be refused; fall back to --break-system-packages on this
+# disposable runner rather than failing the whole render.
+DEPS=("pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2")
+python3 -m pip install --upgrade pip || true
+if ! python3 -m pip install --quiet "${DEPS[@]}"; then
+  python3 -m pip install --quiet --break-system-packages "${DEPS[@]}"
+fi
+python3 -c "import PIL, numpy; print('deps ok', numpy.__version__)"
 
 echo "=== 3/6 validate the plan and narration provenance ==="
 python3 production/dahlia/generate.py --validate
