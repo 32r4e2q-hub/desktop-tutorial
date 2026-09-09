@@ -1,0 +1,34 @@
+name: Arena Runner
+run-name: Black Dahlia · 有声成片
+
+# One generic trigger. The real pipeline lives in production/dahlia/arena_job.sh
+# so it can be changed and re-run without editing .github/workflows again
+# (this GitHub authorization cannot write workflow files, but it can write the
+# job script).
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: '要运行的任务脚本（相对仓库根目录）'
+        type: string
+        default: production/dahlia/arena_job.sh
+
+permissions: write-all
+
+concurrency:
+  group: arena-runner
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out the Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a085be-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Run the job script
+        run: bash "${{ inputs.job }}"
