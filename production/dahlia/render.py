@@ -360,6 +360,7 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         elif sid=='S06':a=.12;b=min(3.05,length-.12)
         # Windows chosen after inspecting the real generated contact sheets.
         # Avoid the late leaf-like pattern on the envelope and late invented text.
+        if sid=='S21':a=3.8;b=length-.12  # Use the receiver-lifting action, not the static lead-in.
         if sid=='S13':a=1.4;b=length-.12  # Keep only the reviewed rear-view portion.
         if sid=='S17':a=0.0;b=min(2.0,length)
         if sid=='S25':a=0.0;b=min(2.7,length)
