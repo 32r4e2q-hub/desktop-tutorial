@@ -1,234 +1,244 @@
 #!/usr/bin/env python3
-"""Generate only Agnes V2.0 shots; checkpoint small metadata, never commit video bytes."""
+"""Cloud-first Agnes production: verified clips, small QA sheets, then a 180s first cut.
+
+Never pretends a visual review has happened. Human review is nonblocking and the
+export remains labeled a first cut until it is actually inspected. No video bytes
+are committed to Git; only required small QA images, receipts and edit metadata.
+"""
 import argparse
 import concurrent.futures
 import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import threading
 import time
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / 'production'))
+ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'production'))
+sys.path.insert(0,str(Path(__file__).resolve().parent))
 import agnes_video as agnes
+from media import ensure_tools, inspect_clip, render_python
 
-BRANCH = 'arena/01a083bb-desktop-tutorial'
-PLAN = Path(__file__).with_name('story.json')
-RESULTS = Path(__file__).with_name('results.json')
-LOCK = threading.RLock()
+BRANCH='arena/01a083bb-desktop-tutorial'
+PLAN=Path(__file__).with_name('story.json')
+RESULTS=Path(__file__).with_name('results.json')
+LOCK=threading.RLock()
 
 
-def read_json(path, default):
+def read_json(path,default):
     return json.loads(path.read_text()) if path.exists() else default
 
 
-def full_payload(project, shot):
+def digest(path):
+    h=hashlib.sha256()
+    with Path(path).open('rb') as f:
+        for block in iter(lambda:f.read(1024*1024),b''):h.update(block)
+    return h.hexdigest()
+
+
+def full_payload(project,shot):
     return agnes.build_payload(argparse.Namespace(
-        prompt=project['style_prefix'] + shot['prompt'], negative_prompt=project['negative_prompt'],
-        image=None, mode=None, seed=shot['seed'], steps=None, seconds=shot['seconds'],
-        num_frames=None, frame_rate=shot['frame_rate'], aspect=shot['aspect'],
-        resolution=shot['resolution'], width=None, height=None, model=agnes.DEFAULT_MODEL))
+        prompt=project['style_prefix']+shot['prompt'],negative_prompt=project['negative_prompt'],
+        image=None,mode=None,seed=shot['seed'],steps=None,seconds=shot['seconds'],num_frames=None,
+        frame_rate=shot['frame_rate'],aspect=shot['aspect'],resolution=shot['resolution'],
+        width=None,height=None,model=agnes.DEFAULT_MODEL))
+
+
+def request_hash(project,shot):
+    return hashlib.sha256(json.dumps(full_payload(project,shot),sort_keys=True).encode()).hexdigest()
 
 
 def validate(project):
-    assert project['target_duration'] == 180
-    assert len(project['shots']) == 30
-    assert len({shot['id'] for shot in project['shots']}) == 30
-    for i, shot in enumerate(project['shots']):
-        assert shot['start'] == i * 6 and shot['duration'] == 6
-        assert shot['kind'] in ('agnes', 'graphic')
-        if shot['kind'] == 'agnes':
-            assert shot['prompt'].strip()
-            payload = full_payload(project, shot)
-            assert payload['model'] == 'agnes-video-v2.0'
-            assert (payload['num_frames'] - 1) % 8 == 0
-        else:
-            assert shot['graphic'].strip()
-    assert sum(c['duration'] for c in project['chapters']) == 180
+    if project['target_duration']!=180 or len(project['shots'])!=30:
+        raise ValueError('Expected the reviewed 180-second, 30-unit plan')
+    if len({s['id'] for s in project['shots']})!=30:raise ValueError('Duplicate shot IDs')
+    for i,shot in enumerate(project['shots']):
+        if shot['start']!=i*6 or shot['duration']!=6:raise ValueError('Invalid planning timeline')
+        if shot['kind']=='agnes':
+            payload=full_payload(project,shot)
+            if not shot['prompt'].strip() or payload['model']!='agnes-video-v2.0' or (payload['num_frames']-1)%8:
+                raise ValueError('Invalid Agnes request')
+        elif shot['kind']!='graphic' or not shot['graphic'].strip():raise ValueError('Invalid graphic cue')
+    if sum(c['duration'] for c in project['chapters'])!=180:raise ValueError('Invalid chapter plan')
 
 
 def git(*args):
-    return subprocess.check_output(['git', *args], cwd=ROOT, text=True,
-                                   stderr=subprocess.STDOUT, timeout=90)
+    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
 
 
-def review_matches(review, first_result):
-    """A visual approval applies only to the exact first-shot request and bytes."""
-    return (
-        isinstance(review, dict)
-        and review.get('decision') == 'approved'
-        and review.get('first_shot_id') == first_result.get('id')
-        and bool(first_result.get('sha256'))
-        and review.get('video_sha256') == first_result.get('sha256')
-        and bool(first_result.get('request_hash'))
-        and review.get('request_hash') == first_result.get('request_hash')
-    )
-
-
-def wait_for_review(first_result, timeout=1800):
-    """The already-running job waits for a reviewed JSON file on this same branch.
-
-    No new Actions dispatch or secret access is needed to approve the first clip.
-    The remaining generation requests are not submitted until this gate passes.
-    """
-    deadline = time.monotonic() + timeout
-    print('WAITING_FOR_VISUAL_REVIEW: ' + first_result['id'], flush=True)
-    while time.monotonic() < deadline:
-        try:
-            git('fetch', '--no-tags', 'origin', BRANCH)
-            raw = git('show', 'FETCH_HEAD:production/dahlia/review.json')
-            review = json.loads(raw)
-            if review_matches(review, first_result):
-                return review
-            if (isinstance(review, dict) and review.get('decision') == 'rejected'
-                    and review.get('video_sha256') == first_result.get('sha256')):
-                raise RuntimeError('First shot was rejected during visual review; batch not submitted')
-        except (subprocess.CalledProcessError, subprocess.TimeoutExpired, ValueError):
-            # Missing approval is expected while the reviewer is inspecting the clip.
-            pass
-        time.sleep(min(20, max(0, deadline - time.monotonic())))
-    raise RuntimeError('First-shot review timed out; no remaining clips were submitted')
+def cached_result_matches(old,wanted_hash):
+    return (old.get('request_hash')==wanted_hash and bool(old.get('video_url'))
+            and bool(old.get('sha256')) and bool(old.get('bytes')))
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--payload', default='{}')
-    parser.add_argument('--validate', action='store_true')
-    parser.add_argument('--publish', action='store_true')
-    args = parser.parse_args()
-    project = read_json(PLAN, {})
-    validate(project)
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--payload',default='{}');parser.add_argument('--validate',action='store_true')
+    parser.add_argument('--publish',action='store_true');args=parser.parse_args()
+    project=read_json(PLAN,{});validate(project)
+    audio_manifest=read_json(PLAN.parent/'audio/manifest.json',{})
+    audio_by_id={r['id']:r for r in audio_manifest.get('clips',[])}
+    for chapter in project['chapters']:
+        record=audio_by_id.get(chapter['id'],{})
+        path=PLAN.parent/'audio'/record.get('file','missing.mp3')
+        if record.get('text')!=chapter['text'] or not path.is_file() or digest(path)!=record.get('sha256'):
+            raise ValueError('Narration text/audio mismatch: '+chapter['id'])
     if args.validate:
-        print('VALID: 180 seconds, 30 shots, 24 Agnes clips and 6 graphics.'); return 0
-    options = json.loads(args.payload or '{}')
-    requested = options.get('only', '')
-    if not isinstance(requested, str): raise ValueError('only must be comma-separated IDs')
-    only = {s.strip() for s in requested.split(',') if s.strip()}
-    shots = [s for s in project['shots'] if s['kind'] == 'agnes']
-    if only - {s['id'] for s in shots}: raise ValueError('Unknown or non-Agnes shot ID')
-    if only: shots = [s for s in shots if s['id'] in only]
-    workers = min(2, max(1, int(options.get('workers', 2))))
-    publish = args.publish
-    if publish:
-        if os.getenv('GITHUB_ACTIONS') != 'true' or git('branch', '--show-current').strip() != BRANCH:
-            raise RuntimeError('Publishing is allowed only from the fixed Arena branch in Actions')
-        git('config', 'user.name', 'github-actions[bot]')
-        git('config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com')
-    doc = read_json(RESULTS, {'project': project['title'], 'model': agnes.DEFAULT_MODEL, 'shots': {}})
-    out = ROOT / 'work' / 'dahlia' / 'clips'; out.mkdir(parents=True, exist_ok=True)
-    key = os.environ.get('AGNES_API_KEY', '').strip()
-    base = os.environ.get('AGNES_BASE_URL', agnes.DEFAULT_BASE_URL).rstrip('/')
+        print('VALID: 180-second plan; 24 Agnes sources; 6 graphics; all narration hashes match');return 0
+    options=json.loads(args.payload or '{}')
+    requested=options.get('only','')
+    if not isinstance(requested,str):raise ValueError('only must be comma-separated IDs')
+    only={s.strip() for s in requested.split(',') if s.strip()}
+    shots=[s for s in project['shots'] if s['kind']=='agnes']
+    if only-{s['id'] for s in shots}:raise ValueError('Unknown/non-Agnes shot ID')
+    if only:shots=[s for s in shots if s['id'] in only]
+    workers=min(2,max(1,int(options.get('workers',2))))
+    if args.publish:
+        if os.getenv('GITHUB_ACTIONS')!='true' or git('branch','--show-current').strip()!=BRANCH:
+            raise RuntimeError('Publish only from this fixed Arena branch in Actions')
+        git('config','user.name','github-actions[bot]')
+        git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
+    doc=read_json(RESULTS,{'project':project['title'],'model':agnes.DEFAULT_MODEL,'shots':{}})
+    doc['phase']='preparing_sources'
+    doc['review']={'status':'pending','scope':'visual/audio quality','blocking_generation':False,
+                   'note':'No automatic visual approval. Export is an unreviewed first cut.'}
+    doc['workflow_policy']='cloud-first-cut-v2'
+    sources=ROOT/'work/dahlia/sources';sources.mkdir(parents=True,exist_ok=True)
+    export=ROOT/'work/dahlia/clips';export.mkdir(parents=True,exist_ok=True)
+    qa=ROOT/'production/dahlia/qa';qa.mkdir(parents=True,exist_ok=True)
+    key=os.getenv('AGNES_API_KEY','').strip();base=os.getenv('AGNES_BASE_URL',agnes.DEFAULT_BASE_URL).rstrip('/')
 
-    def checkpoint(sid, **values):
+    def checkpoint(label,sid=None,files=(),**values):
         with LOCK:
-            row = doc['shots'].setdefault(sid, {'id': sid})
-            row.update(values)
-            row['updated_at'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
-            doc['updated_at'] = row['updated_at']
-            doc['run_id'] = os.getenv('GITHUB_RUN_ID')
-            RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\n')
-            if publish:
-                rel = str(RESULTS.relative_to(ROOT))
-                git('add', '--', rel)
-                changed = subprocess.run(['git', 'diff', '--cached', '--quiet', '--', rel], cwd=ROOT).returncode
-                if changed:
-                    git('commit', '-m', f'dahlia: {sid} {row.get("status", "checkpoint")}', '--', rel)
+            if sid:
+                row=doc['shots'].setdefault(sid,{'id':sid});row.update(values)
+                row['updated_at']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
+            doc['updated_at']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
+            doc['run_id']=os.getenv('GITHUB_RUN_ID')
+            RESULTS.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+            paths=[str(RESULTS.relative_to(ROOT))]+[str(Path(p).relative_to(ROOT)) for p in files]
+            if args.publish:
+                git('add','--',*paths)
+                if subprocess.run(['git','diff','--cached','--quiet','--',*paths],cwd=ROOT).returncode:
+                    git('commit','-m','dahlia: '+label,'--',*paths)
                     for attempt in range(3):
-                        try:
-                            git('push', 'origin', BRANCH)
-                            break
+                        try:git('push','origin',BRANCH);break
                         except subprocess.CalledProcessError:
-                            if attempt == 2:
-                                raise
-                            # A visual-review approval may have advanced this same
-                            # branch. Rebase only this job's metadata commit; never
-                            # force-push or modify the approval file.
-                            git('pull', '--rebase', 'origin', BRANCH)
-            print('SHOT_STATUS ' + sid + ' ' + str(row.get('status')), flush=True)
+                            if attempt==2:raise
+                            git('pull','--rebase','origin',BRANCH)
+            print('PRODUCTION_STATUS '+label,flush=True)
+
+    def finish_asset(shot,old,dest,wanted_hash,reused=False):
+        sid=shot['id']
+        if not dest.exists() or digest(dest)!=old['sha256']:
+            agnes.download(old['video_url'],dest,retries=3,retry_delay=5)
+        if dest.stat().st_size!=old['bytes'] or digest(dest)!=old['sha256']:
+            raise RuntimeError('Downloaded file does not match its receipt: '+sid)
+        info=inspect_clip(dest,qa,sid)
+        checkpoint(sid+' media and QA ready',sid,files=[qa/(sid+'.jpg'),qa/(sid+'.json')],
+                   status='completed',request_hash=wanted_hash,video_url=old['video_url'],
+                   sha256=old['sha256'],bytes=old['bytes'],inspection=info,error=None,
+                   reused_existing_asset=reused,visual_review='pending')
+        return True
 
     def generate(shot):
-        sid = shot['id']
-        payload = full_payload(project, shot)
-        request_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
-        with LOCK: old = dict(doc['shots'].get(sid, {}))
-        if old.get('request_hash') != request_hash:
-            old = {}
-        if old.get('status') == 'completed' and old.get('video_url'):
-            print(f'{sid}: existing matching result retained', flush=True); return True
-        if not key:
-            checkpoint(sid, status='blocked', error='AGNES_API_KEY is not available to this workflow', request_hash=request_hash)
-            return False
+        sid=shot['id'];payload=full_payload(project,shot);wanted_hash=request_hash(project,shot)
+        with LOCK:old=dict(doc['shots'].get(sid,{}))
+        dest=sources/(sid+'.mp4')
         try:
-            video_id, task_id = old.get('video_id'), old.get('task_id')
-            if video_id:
-                print(f'{sid}: resuming recorded task (no new create request)', flush=True)
-            else:
-                checkpoint(sid, status='submitting', request_hash=request_hash, error=None)
-                created = agnes.create_task(base, key, payload, retries=2, retry_delay=10)
-                video_id = created.get('video_id') or created.get('id') or created.get('task_id')
-                task_id = created.get('task_id') or created.get('id')
-                if not video_id: raise agnes.Fatal('No video/task identifier returned')
-                checkpoint(sid, status='queued', request_hash=request_hash,
-                           video_id=str(video_id), task_id=str(task_id or ''),
+            if cached_result_matches(old,wanted_hash):
+                print(sid+': reusing completed provider result; no new generation request',flush=True)
+                return finish_asset(shot,old,dest,wanted_hash,reused=True)
+            if old.get('request_hash')!=wanted_hash:
+                with LOCK:
+                    if old:doc.setdefault('previous_results',{}).setdefault(sid,[]).append(old)
+                    doc['shots'][sid]={'id':sid}
+                old={}
+            if not key:
+                checkpoint(sid+' blocked',sid,status='blocked',request_hash=wanted_hash,
+                           error='AGNES_API_KEY is unavailable to this workflow')
+                return False
+            video_id,task_id=old.get('video_id'),old.get('task_id')
+            if not video_id:
+                checkpoint(sid+' submitting',sid,status='submitting',request_hash=wanted_hash,error=None)
+                created=agnes.create_task(base,key,payload,retries=2,retry_delay=10)
+                video_id=created.get('video_id') or created.get('id') or created.get('task_id')
+                task_id=created.get('task_id') or created.get('id')
+                if not video_id:raise agnes.Fatal('No task identifier returned')
+                checkpoint(sid+' queued',sid,status='queued',video_id=str(video_id),task_id=str(task_id or ''),
                            requested_seconds=payload['num_frames']/payload['frame_rate'])
-            final, url = agnes.poll_task(base, key, agnes.DEFAULT_MODEL, str(video_id), str(task_id) if task_id else None,
-                                        interval=8, timeout=1500, max_failures=12)
-            target = out / (sid + '.mp4')
-            size = agnes.download(url, target, retries=3, retry_delay=5)
-            # Store provenance separately from the large clip.
-            checksum = hashlib.sha256(target.read_bytes()).hexdigest()
-            receipt = {'id': sid, 'provider': 'agnes', 'model': agnes.DEFAULT_MODEL,
-                       'request_hash': request_hash, 'request': payload, 'video_id': str(video_id),
-                       'video_url': url, 'bytes': size, 'sha256': checksum,
-                       'reported_size': final.get('size'), 'reported_seconds': final.get('seconds')}
-            target.with_suffix('.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2))
-            checkpoint(sid, status='completed', video_url=url, bytes=size, sha256=checksum,
-                       reported_size=final.get('size'), reported_seconds=final.get('seconds'), error=None)
-            return True
+            else:print(sid+': resuming existing provider task',flush=True)
+            final,url=agnes.poll_task(base,key,agnes.DEFAULT_MODEL,str(video_id),str(task_id) if task_id else None,
+                                     interval=8,timeout=1500,max_failures=12)
+            size=agnes.download(url,dest,retries=3,retry_delay=5)
+            checksum=digest(dest)
+            receipt={'video_url':url,'bytes':size,'sha256':checksum,'request_hash':wanted_hash}
+            checkpoint(sid+' generated',sid,status='generated',video_url=url,bytes=size,sha256=checksum,
+                       reported_size=final.get('size'),reported_seconds=final.get('seconds'),error=None)
+            return finish_asset(shot,receipt,dest,wanted_hash)
         except Exception as exc:
-            error = str(exc).replace(key, '[redacted]') if key else str(exc)
-            # A receipt prevents automatic recreation of an already-submitted task.
-            checkpoint(sid, status='failed', error=error[:600])
-            print(f'{sid}: failed: {error[:600]}', flush=True)
+            error=str(exc).replace(key,'[redacted]') if key else str(exc)
+            checkpoint(sid+' failed',sid,status='failed',error=error[:600])
             return False
 
-    requested_count = len(shots)
-    outcomes = []
-    if publish and not only and requested_count > 1:
-        # One manual workflow start is sufficient: generate a canary, wait for
-        # human visual review recorded on this branch, then continue the batch.
-        first = shots[0]
-        if not generate(first):
-            print('FIRST_SHOT_FAILED: remaining clips were not submitted', flush=True)
+    try:
+        ensure_tools();doc['phase']='generating_sources';checkpoint('cloud generation started')
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+            outcomes=list(pool.map(generate,shots))
+        if not all(outcomes):
+            doc['phase']='generation_incomplete';checkpoint('generation incomplete')
+            (export/'未完成说明.txt').write_text('生成尚未完成，未导出成片。请查看 production/dahlia/results.json。\n')
+            for p in sources.glob('*.mp4'):shutil.copy2(p,export/p.name)
             return 1
-        outcomes.append(True)
-        first_result = dict(doc['shots'][first['id']])
-        doc['review'] = {'status': 'awaiting_visual_review', 'first_shot_id': first['id']}
-        checkpoint(first['id'])
-        try:
-            approval = wait_for_review(first_result)
-        except RuntimeError as exc:
-            doc['review'] = {'status': 'stopped', 'reason': str(exc), 'first_shot_id': first['id']}
-            checkpoint(first['id'])
-            print(str(exc), flush=True)
-            return 1
-        doc['review'] = {'status': 'approved', 'first_shot_id': first['id'],
-                         'video_sha256': approval['video_sha256']}
-        checkpoint(first['id'])
-        shots = shots[1:]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        outcomes.extend(pool.map(generate, shots))
-    print(f'COMPLETE: {sum(outcomes)}/{requested_count} requested clips available', flush=True)
-    summary = os.getenv('GITHUB_STEP_SUMMARY')
-    if summary:
-        with open(summary, 'a') as handle:
-            handle.write(f'## 黑色大丽花 · Agnes V2.0\n\n{sum(outcomes)}/{requested_count} requested clips completed.\n\n')
-            handle.write('Videos are artifacts, not Git objects. Task provenance is in `production/dahlia/results.json`.\n')
-    return 0 if all(outcomes) else 1
+        if only:
+            doc['phase']='selected_sources_ready';checkpoint('selected sources ready')
+            for sid in only:shutil.copy2(sources/(sid+'.mp4'),export/(sid+'.mp4'))
+            return 0
+        doc['phase']='preparing_cloud_edit';checkpoint('preparing cloud edit')
+        python=render_python(ROOT);edit=ROOT/'work/dahlia/edit';edit.mkdir(parents=True,exist_ok=True)
+        doc['phase']='rendering_first_cut';checkpoint('rendering first cut')
+        staging=edit/'first-cut.mp4'
+        subprocess.run([str(python),str(Path(__file__).with_name('render.py')),
+                        '--sources',str(sources),'--work',str(edit),'--output',str(staging)],check=True)
+        final_name='黑色大丽花_三分钟_初版.mp4'
+        shutil.move(staging,export/final_name)
+        delivery=ROOT/'production/dahlia/delivery';delivery.mkdir(parents=True,exist_ok=True)
+        names=['technical-report.json','edit-decision-list.json','narration-timing.json',
+               'caption-timing.json','alignment-report.json','captions.srt','final-contact.jpg']
+        saved=[]
+        for name in names:
+            path=delivery/name;shutil.copy2(edit/name,path);saved.append(path)
+        report=read_json(delivery/'technical-report.json',{})
+        report['output']=final_name
+        (delivery/'technical-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+        shutil.copy2(delivery/'technical-report.json',export/'技术检查.json')
+        shutil.copy2(delivery/'captions.srt',export/'黑色大丽花_字幕.srt')
+        shutil.copy2(ROOT/'production/dahlia/screenplay.md',export/'剧本与来源.md')
+        (export/'交付说明.txt').write_text(
+            '黑色大丽花：消失的六天\n180秒 / 1920×1080 / 30fps / 中文解说\n'
+            '使用 Agnes Video V2.0 生成镜头，配音来自用户选定的声音。\n'
+            '此文件是技术检查通过的初版；视觉与听感仍需审核，不声称已逐帧或逐字验收。\n'
+            'AI情景重现并非历史影像；未证实的凶手身份没有被写成事实。\n')
+        doc['phase']='first_cut_ready'
+        doc['delivery']={**report,'artifact_name':'black-dahlia-agnes-'+os.getenv('GITHUB_RUN_NUMBER','local')}
+        checkpoint('three-minute first cut ready',files=saved)
+        summary=os.getenv('GITHUB_STEP_SUMMARY')
+        if summary:
+            with open(summary,'a') as f:
+                f.write('## 黑色大丽花 · 三分钟初版\n\n24段Agnes素材已生成、解码检查并完成剪辑。\n\n')
+                f.write(f'输出：**{final_name}**，180秒；视觉/听感仍待人工审核。\n\n')
+                f.write('成片在本次运行的 `black-dahlia-agnes-*` artifact 中。大视频未提交到Git。\n')
+        print('CLOUD_FIRST_CUT_READY '+final_name,flush=True);return 0
+    except Exception as exc:
+        error=str(exc).replace(key,'[redacted]') if key else str(exc)
+        doc['phase']='pipeline_failed';doc['pipeline_error']=error[:800]
+        checkpoint('pipeline stopped')
+        (export/'未完成说明.txt').write_text('制作未完成：'+error[:800]+'\n没有把测试图或静态图冒充Agnes成片。\n')
+        raise
 
 
-if __name__ == '__main__':
-    raise SystemExit(main())
+if __name__=='__main__':raise SystemExit(main())
