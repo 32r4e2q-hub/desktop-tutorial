@@ -18,11 +18,14 @@
       "reported_seconds": "7.0"
     }
   },
-  "updated_at": "2026-09-09T03:17:49Z",
-  "run_id": "34304398402",
+  "updated_at": "2026-09-09T05:43:51Z",
+  "run_id": "34316011433",
   "review": {
-    "status": "stopped",
-    "reason": "First-shot review timed out; no remaining clips were submitted",
-    "first_shot_id": "S01"
-  }
+    "status": "pending",
+    "scope": "visual/audio quality",
+    "blocking_generation": false,
+    "note": "No automatic visual approval. Export is an unreviewed first cut."
+  },
+  "phase": "generating_sources",
+  "workflow_policy": "cloud-first-cut-v2"
 }
