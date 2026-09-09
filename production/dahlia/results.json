@@ -242,13 +242,13 @@
     },
     "S21": {
       "id": "S21",
-      "status": "submitting",
+      "status": "failed",
       "request_hash": "4e25438e24284c1b4fe947d057246f44756856b03b7d28c27a6b4d02f26881c3",
-      "error": null,
-      "updated_at": "2026-09-09T05:53:24Z"
+      "error": "Could not create video task after 2 attempts; last problem: HTTP 429: You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 202609090553358259198317lHA9Tyb) (code=rate_limit_exceeded)",
+      "updated_at": "2026-09-09T05:53:35Z"
     }
   },
-  "updated_at": "2026-09-09T05:53:24Z",
+  "updated_at": "2026-09-09T05:53:35Z",
   "run_id": "34316011433",
   "review": {
     "status": "pending",
