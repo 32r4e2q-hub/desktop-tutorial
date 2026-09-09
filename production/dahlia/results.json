@@ -70,10 +70,10 @@
     },
     "S04": {
       "id": "S04",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "5d13237fe252efa75e19d71fd392c607bc8d6441bd8ca0ad0dda46522b87370c",
       "error": null,
-      "updated_at": "2026-09-09T07:13:32Z",
+      "updated_at": "2026-09-09T07:13:34Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2E4MjAxNmM4YmQ4NDQ4ZjZiMjc1YWJkYWUyMTM4N2I5",
       "task_id": "task_5Gc9l3c7nqUHXWKVCfd0fYIakXYYYsH6",
       "requested_seconds": 7.041666666666667,
@@ -81,7 +81,25 @@
       "bytes": 2137904,
       "sha256": "7a0afb58271897eb94a502ae0fd8d12c392efaf87fd389bfc11cdd2490a729cd",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 2137904,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/dahlia/qa/S04.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S05": {
       "id": "S05",
@@ -494,7 +512,7 @@
       "visual_review": "pending"
     }
   },
-  "updated_at": "2026-09-09T07:13:32Z",
+  "updated_at": "2026-09-09T07:13:34Z",
   "run_id": "34322385590",
   "review": {
     "status": "pending",
