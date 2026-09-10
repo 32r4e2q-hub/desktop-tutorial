@@ -1,0 +1,185 @@
+"""出片工作流的自检：`.github/workflows/` 里的东西必须真的是工作流。
+
+为什么要有这份测试：``.github/workflows/commentary-render.yml`` 需要人手动从
+``production/commentary-render.workflow.yml`` 复制一次（GitHub 授权缺 ``workflows``
+权限，代理写不了那个目录）。2026-09-10 那次手动复制贴进去的是**一段聊天文字**，
+文件根本不是 YAML——main 上每次 push 都会产生一次 0 秒失败的 Actions 运行
+（run 34421881730，GitHub 报 "workflow file issue"），而当时仓库里 39 个离线测试
+全都照样通过，没有任何东西拦住它。
+
+所以这里守四条，全部离线（不需要网络、ffmpeg、也不需要 pyyaml 才生效）：
+
+1. ``commentary-render.yml`` 与模板**逐字节相同**——这条不需要 YAML 解析器，
+   贴错内容立刻失败；
+2. 每个工作流形状正确（``name`` / ``on`` / ``jobs``），且**非注释行**里不出现
+   Markdown 正文特征；装了 ``pyyaml`` 时再做完整解析与结构校验；
+3. 在**当前分支**上跑的工作流（没有 pin ``ref:`` 的），它引用的脚本必须在本仓库
+   真实存在且能通过 ``bash -n``；pin 了 ``ref:`` 的老工作流跑的是别的分支的代码，
+   脚本可以不在本分支——但必须看得出它是 pin 过的（避免"忘了 pin"混进来）。
+"""
+from __future__ import annotations
+
+import re
+import subprocess
+from pathlib import Path
+import unittest
+
+ROOT = Path(__file__).resolve().parents[2]
+WORKFLOWS_DIR = ROOT / ".github" / "workflows"
+TEMPLATE = ROOT / "production" / "commentary-render.workflow.yml"
+INSTALLED = WORKFLOWS_DIR / "commentary-render.yml"
+
+try:  # pyyaml 不在最小依赖里：装了就做完整解析，没装就退回形状检查
+    import yaml
+except ImportError:  # pragma: no cover - 取决于环境
+    yaml = None
+
+# 顶层键从行首开始，值可以为空（on: / jobs:）也可以跟在冒号后（name: 解说短片出片）
+TOP_LEVEL = re.compile(r"^(?P<key>[A-Za-z_][\w-]*):(?:[ \t].*)?$", re.MULTILINE)
+CHECKOUT_REF = re.compile(r"^\s+ref:\s*(\S+)", re.MULTILINE)
+
+
+def workflow_files() -> list[Path]:
+    return sorted(WORKFLOWS_DIR.glob("*.yml")) + sorted(WORKFLOWS_DIR.glob("*.yaml"))
+
+
+def top_level_keys(text: str) -> set[str]:
+    return set(TOP_LEVEL.findall(text))
+
+
+def non_comment_lines(text: str) -> str:
+    """去掉整行注释与行尾注释：模板里的 Markdown 记号都写在注释里，不算正文。"""
+    kept = []
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("#"):
+            continue
+        kept.append(re.sub(r"[ \t]+#.*$", "", line))
+    return "\n".join(kept)
+
+
+class WorkflowIntegrityTests(unittest.TestCase):
+    def test_installed_workflow_is_byte_identical_to_template(self):
+        """手动复制那一步贴错内容，这里必须失败。"""
+        self.assertTrue(INSTALLED.exists(), f"缺少 {INSTALLED}（把模板复制过去一次）")
+        self.assertEqual(
+            TEMPLATE.read_bytes(), INSTALLED.read_bytes(),
+            f"{INSTALLED.relative_to(ROOT)} 与模板 {TEMPLATE.relative_to(ROOT)} 不一致："
+            "请重新执行 cp production/commentary-render.workflow.yml "
+            ".github/workflows/commentary-render.yml",
+        )
+
+    def test_installed_workflow_is_yaml_not_prose(self):
+        text = INSTALLED.read_text(encoding="utf-8")
+        first = next((ln for ln in text.splitlines() if ln.strip()), "")
+        self.assertRegex(
+            first, r"^(name|on|run-name):",
+            f"{INSTALLED.name} 的首个非空行是 {first!r}，看起来不是工作流（贴进聊天文字了？）",
+        )
+        body = non_comment_lines(text)
+        self.assertNotRegex(body, r"(?m)^#{1,6}\s", "正文里有 Markdown 标题，不是 YAML 工作流")
+        self.assertNotIn("**", body, "正文里有 Markdown 粗体，不是 YAML 工作流")
+
+    def test_every_workflow_has_required_top_level_keys(self):
+        files = workflow_files()
+        self.assertTrue(files, "仓库里一个工作流都没有？")
+        for path in files:
+            with self.subTest(workflow=path.name):
+                keys = top_level_keys(path.read_text(encoding="utf-8"))
+                for required in ("name", "jobs"):
+                    self.assertIn(required, keys, f"{path.name} 缺顶层 {required}:")
+                self.assertTrue(
+                    {"on", "true"} & keys,
+                    f"{path.name} 缺触发器 on:（pyyaml 把 on 解析成布尔 True，故两者都认）",
+                )
+
+    @unittest.skipIf(yaml is None, "未安装 pyyaml，跳过完整解析")
+    def test_every_workflow_parses_and_declares_a_runnable_job(self):
+        files = workflow_files() + sorted(ROOT.glob("production/**/*.workflow.yml"))
+        for path in files:
+            with self.subTest(workflow=path.name):
+                data = yaml.safe_load(path.read_text(encoding="utf-8"))
+                self.assertIsInstance(data, dict, f"{path.name} 顶层不是映射")
+                trigger = data.get("on", data.get(True))
+                self.assertIsNotNone(trigger, f"{path.name} 没有触发器")
+                jobs = data["jobs"]
+                self.assertIsInstance(jobs, dict, f"{path.name} 的 jobs 不是映射")
+                for job_name, job in jobs.items():
+                    self.assertIn("runs-on", job, f"{path.name}:{job_name} 缺 runs-on")
+                    self.assertIn("steps", job, f"{path.name}:{job_name} 缺 steps")
+
+    def test_render_workflow_inputs_match_run_project_script(self):
+        """工作流填的 slug 必须能喂给 run_project.sh，路径不能对不上。"""
+        text = INSTALLED.read_text(encoding="utf-8")
+        self.assertIn("production/run_project.sh", text,
+                      "出片工作流没有调用共用的 production/run_project.sh")
+        self.assertTrue((ROOT / "production" / "run_project.sh").exists())
+        if yaml is None:
+            return
+        inputs = yaml.safe_load(text)[True]["workflow_dispatch"]["inputs"]
+        self.assertIn("project", inputs, "缺 project 输入（Actions 里要填 slug）")
+
+    def test_film_name_input_reaches_run_project_script(self):
+        """成片名要能从 Actions 一路传到 run_project.sh 的第 3 个参数。
+
+        不传的话脚本会用 story.json 的标题当文件名，对已经交付过的片子就会在
+        交付/ 里多出一个 48 MB 的副本（dahlia 的成片名是"黑色大丽花_三分钟_带声音"，
+        跟标题不是一回事）。
+        """
+        text = INSTALLED.read_text(encoding="utf-8")
+        self.assertIn("inputs.film_name", text, "工作流没有暴露 film_name 输入")
+        self.assertRegex(text, r'run_project\.sh\s+"\$PROJECT"\s+"\$SKIP_ASR"\s+"\$FILM_NAME"',
+                         "工作流没有把成片名作为第 3 个参数传给 run_project.sh")
+        script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        self.assertRegex(script, r'FILM="[^"]*\$\{3:-',
+                         "run_project.sh 的第 3 个参数没有回退到默认片名")
+        # 直接把脚本里那行 FILM=... 拿出来执行：空片名要退回标题，给了片名要用给的
+        film_line = re.search(r"(?m)^FILM=.*$", script)
+        self.assertIsNotNone(film_line, "run_project.sh 里找不到 FILM= 赋值行")
+        harness = f'set -euo pipefail; WORK=work/p; SAFE_TITLE="默认标题"; {film_line.group(0)}; printf %s "$FILM"'
+        for args, expected in ((("p", "false", ""), "work/p/默认标题.mp4"),
+                               (("p", "false", "原名.mp4"), "work/p/原名.mp4")):
+            with self.subTest(argv=args):
+                proc = subprocess.run(["bash", "-c", harness, "bash", *args],
+                                      cwd=ROOT, capture_output=True, text=True)
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+                self.assertEqual(proc.stdout, expected)
+        # 位置参数契约：少了 slug 必须报错退出，不能默默按空项目跑下去
+        proc = subprocess.run(["bash", "production/run_project.sh"], cwd=ROOT,
+                              capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 1, "缺 slug 时应当以非 0 退出")
+        proc = subprocess.run(["bash", "production/run_project.sh", "no-such-project"],
+                              cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("没有这个项目", proc.stdout + proc.stderr)
+
+    def test_scripts_run_on_this_branch_exist_and_are_valid_shell(self):
+        """只有没 pin ref 的工作流跑本分支代码，它们引用的脚本必须真的在这儿。"""
+        checked = pinned = 0
+        for path in workflow_files():
+            text = path.read_text(encoding="utf-8")
+            scripts = re.findall(r"bash\s+(production/[\w./-]+\.sh)", text)
+            refs = CHECKOUT_REF.findall(text)
+            if refs:
+                pinned += len(scripts)
+                self.assertTrue(
+                    all(not ref.startswith(("refs/", "$")) for ref in refs),
+                    f"{path.name} 的 ref 是动态表达式，无法判断它跑哪个分支",
+                )
+                continue  # 老工作流：跑的是别的分支上的脚本，本分支没有是正常的
+            for script in scripts:
+                with self.subTest(workflow=path.name, script=script):
+                    target = ROOT / script
+                    self.assertTrue(target.exists(),
+                                    f"{path.name} 在当前分支上调用了不存在的 {script}")
+                    proc = subprocess.run(["bash", "-n", str(target)],
+                                          capture_output=True, text=True)
+                    self.assertEqual(proc.returncode, 0, f"{script} 语法错误：{proc.stderr}")
+                    checked += 1
+        self.assertGreaterEqual(checked, 1,
+                                "没有任何在当前分支上运行的脚本被检查到，正则失配了")
+        self.assertGreaterEqual(pinned, 1, "应当存在 pin 了 ref 的历史工作流")
+
+
+if __name__ == "__main__":
+    unittest.main()
