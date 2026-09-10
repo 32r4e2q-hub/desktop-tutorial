@@ -14,6 +14,23 @@
 | [`production/dahlia/制作过程.md`](production/dahlia/制作过程.md) | 参考项目全过程，含"第一版为什么没声音"的根因与修复 |
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
 
+## 待办（需要仓库主手动做一次）
+
+`.github/workflows/commentary-render.yml` 现在是**一段中文聊天正文**，不是 YAML——
+2026-09-10 手动放置时贴错了内容。后果：main 上每次 push 都产生一次 0 秒失败的 Actions 运行
+（[run 34421881730](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/34421881730)，
+GitHub 报 "This run likely failed because of a workflow file issue."）。
+代理改不了这个目录（`git push` 与 Contents API 均实测 403，缺 `workflows` 权限），只能你来做：
+
+```bash
+cp production/commentary-render.workflow.yml .github/workflows/commentary-render.yml
+python3 -m pytest production/tests/test_workflows.py -q    # 必须全绿
+```
+
+或在 GitHub 网页编辑器里把该文件内容整体替换成
+[`production/commentary-render.workflow.yml`](production/commentary-render.workflow.yml) 的内容。
+修好之前 `production/tests` 会有 7 项失败——那是测试在如实报告，不是测试坏了。
+
 ## 开一个新题目
 
 ```bash
@@ -41,13 +58,20 @@ python3 -m pip install pillow numpy            # 另需 ffmpeg/ffprobe 与中文
 python3 -m pytest production/tests -q          # 离线测试
 ```
 
-当前环境实测：`39 passed, 4 skipped`（跳过的 4 个用例需要 ffmpeg 解码测电平）。
+当前环境实测（工作流文件放对之后）：装 `pyyaml` 时 `46 passed, 4 skipped`，
+不装时 `45 passed, 5 skipped`（多跳过的那 1 个是工作流的完整 YAML 解析）。
+4 个跳过的用例需要 ffmpeg 解码测电平，本沙箱没有 ffmpeg。
+`pyyaml` 不是必需依赖：不装也有 4 条工作流守卫生效。
 
 ## 出片
 
-本地：`bash production/run_project.sh <slug>`。
-Actions：把 `production/commentary-render.workflow.yml` 复制到 `.github/workflows/commentary-render.yml`
-一次，之后在 Actions 里填 slug 即可（不用再动 workflows）。
+本地：`bash production/run_project.sh <slug> [skip_asr] [成片文件名]`。
+Actions：「解说短片出片」→ 填 `project`（slug）、`skip_asr`、`film_name`。
+**`film_name` 留空会用 `story.json` 的标题当片名**，重跑已交付的片子会多出一个副本，
+所以重跑 dahlia 要填 `黑色大丽花_三分钟_带声音.mp4`。
+
+工作流的三个输入怎么传到脚本、脚本怎么用第 3 个参数，都有测试守着
+（`production/tests/test_workflows.py`）。
 
 ## 事实边界
 

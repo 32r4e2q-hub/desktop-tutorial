@@ -428,11 +428,13 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
    在本目录副本的 `card_image()` / `archive_image()` 里加分支，别去改参考项目。
 6. **校验** → `python3 production/{slug}/generate.py --validate` 必须通过。
 7. **出片** → 本地：`bash production/run_project.sh {slug}`；
-   Actions：用仓库里那个通用工作流（`production/commentary-render.workflow.yml`
-   复制到 `.github/workflows/commentary-render.yml` 一次，之后在 Actions 里填
-   `{slug}` 即可），或者把本目录的 `{slug}.workflow.yml` 复制成 `.github/workflows/{slug}.yml`
-   要一个专属按钮。当前 GitHub 授权缺 workflows 权限，复制到 `.github/workflows/`
-   这一步只能你手动做。
+   Actions：「解说短片出片」→ `project` 填 `{slug}`（`.github/workflows/commentary-render.yml`
+   已经在仓库里，不用再放一次；它必须与 `production/commentary-render.workflow.yml`
+   逐字节相同，`python3 -m pytest production/tests/test_workflows.py -q` 守着这件事）。
+   想要专属按钮，把本目录的 `{slug}.workflow.yml` 复制成 `.github/workflows/{slug}.yml`——
+   这一步代理做不了（GitHub App 缺 workflows 权限，push 与 API 均 403），只能你手动做，
+   而且要**逐字节照抄**：上一次贴错内容（贴成聊天正文）让 main 每次 push 都失败一次。
+   `film_name` 留空会用标题当片名，重跑已交付的片子请填原片名。
 
 ## 目录
 

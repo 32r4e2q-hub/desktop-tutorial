@@ -16,6 +16,10 @@ on:
         description: '跳过 ASR 对轨（离线时用停顿估算字幕时间）'
         type: boolean
         default: false
+      film_name:
+        description: '成片文件名（留空则用 story.json 的标题；已交付过的片子请填原名，避免交付目录里出现第二个副本）'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -55,8 +59,10 @@ jobs:
         env:
           PROJECT: ${{ inputs.project }}
           SKIP_ASR: ${{ inputs.skip_asr }}
+          FILM_NAME: ${{ inputs.film_name }}
           BRANCH: ${{ github.ref_name }}
-        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR"
+        # 第三个参数留空时 run_project.sh 会用 story.json 的标题（${3:-...}）
+        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
 
       - name: Upload the finished film
         if: always()
