@@ -1,0 +1,12 @@
+# Runtime uploads and caches are temporary, not repository content.
+.cache/
+incoming_uploads/
+__pycache__/
+*.py[cod]
+
+# Production intermediates and downloadable deliverables
+.venv/
+work/
+production/dahlia/media/
+# the finished film is intentionally committed to this branch
+交付/*.mp3
