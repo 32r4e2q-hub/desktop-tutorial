@@ -1,0 +1,55 @@
+name: 十二宫杀手 · Agnes 素材生成（push 触发）
+run-name: 十二宫杀手 · Agnes Video V2.0（自动）
+
+# 本分支上的 push 触发器：改动 .agnes-trigger 文件即触发一轮生成。
+# paths 过滤保证生成过程中 checkpoint 推回分支的提交不会再次触发本工作流。
+# 与 .github/workflows/zodiac1969-agnes.yml（手动按钮版）共用同一个并发组。
+
+on:
+  push:
+    branches: [arena/01a08a23-desktop-tutorial]
+    paths:
+      - 'production/zodiac1969/.agnes-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: zodiac1969-arena-01a08a23
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/01a08a23-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a08a23-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Attach HEAD to the production branch (publish guard)
+        run: git checkout -B arena/01a08a23-desktop-tutorial
+
+      - name: Validate the complete three-minute timeline
+        run: python3 production/zodiac1969/generate.py --validate
+
+      - name: Generate Agnes clips and checkpoint provenance
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: '{"workers":2}'
+        run: python3 -u production/zodiac1969/generate.py --publish --payload "$PAYLOAD"
+
+      - name: Save video clips as downloadable artifacts, not Git objects
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zodiac1969-agnes-${{ github.run_number }}
+          path: |
+            work/zodiac1969/clips/
+            production/zodiac1969/results.json
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 14
