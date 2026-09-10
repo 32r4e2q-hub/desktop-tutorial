@@ -465,6 +465,30 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
 # --------------------------------------------------------------------------
 # 主流程
 # --------------------------------------------------------------------------
+def starter_review_readme(slug: str, title: str) -> str:
+    return f"""# 《{title}》审片清单
+
+出片之后、交付之前，五项审片产物必须齐、结论必须绿——跑
+`review_gate.py`，红着不许交付：
+
+```bash
+python3 production/review_gate.py --project production/{slug}
+```
+
+| # | 跑什么 | 落盘到 review/（delivery/ 除外注明的） |
+|---|---|---|
+| 1 | `review_film.py`（黑帧/冻结/电平/语速） | `film-review.json` + 对照表 |
+| 2 | `review_transcode.py`（抽帧指纹/SAR/拼接，须 pass） | `transcode-check.json` |
+| 3 | `review_distortion.py` 采样（`--dense-shots` 列人物/手部镜头）→ **看对照表逐段填 verdict** | `distortion-check.json`（无 pending 才算做完） |
+| 4 | `review_captions.py`（文字硬门 + 边界短名单）→ **听短名单** | `caption-energy-check.json` + `--sign-captions` 签字 |
+| 5 | Actions「逐字听检」（project 填 `{slug}`） | `delivery/verbatim-check.json`（failing 为空） |
+
+第 3、4 项的结论是人写的，工具只负责"摆出来 + 搭架子"——
+但门禁不管是谁写的：`pending` 没清零、短名单没签字，门就红着，
+片子就出不了门。dahlia 参考见 `production/dahlia/review/`。
+"""
+
+
 def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path) -> Path:
     if not reference.is_dir():
         raise SystemExit(f"参考项目不存在：{reference}")
@@ -497,6 +521,11 @@ def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path) ->
     # 出片流程统一走仓库里的 production/run_project.sh，所以这里只给一份薄薄的
     # 工作流模板（真正的步骤不在 workflows 里，改流程不必再动 workflows）。
     (dest / f"{slug}.workflow.yml").write_text(starter_workflow(slug, title, branch))
+
+    # 审片清单：新题目一生下来就知道"交付前要过哪五项"，畸变结论不清零、
+    # 短名单不签字，review_gate.py 就红着，片子出不了门。
+    (dest / "review").mkdir()
+    (dest / "review" / "README.md").write_text(starter_review_readme(slug, title))
     return dest
 
 

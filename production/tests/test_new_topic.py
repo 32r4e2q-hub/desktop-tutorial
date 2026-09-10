@@ -94,6 +94,17 @@ class ScaffoldTests(unittest.TestCase):
         self.assertGreaterEqual(render_source.count("TODO"), 7,
                                 "render.py 副本里参考项目的内容没有被标成 TODO")
 
+    def test_review_checklist_is_scaffolded(self):
+        """新题目自带审片清单：门禁命令、畸变 verdict、短名单签字都在里面，
+        下次跑审片不用人提醒，清单说了算。"""
+        readme = self.project_dir / "review" / "README.md"
+        self.assertTrue(readme.is_file(), "review/README.md 没生成")
+        text = readme.read_text()
+        for token in ("review_gate.py", "review_distortion.py", "distortion-check.json",
+                      "pending", "--sign-captions", "verbatim-check.json"):
+            self.assertIn(token, text, f"审片清单里缺 {token}")
+        self.assertNotIn("dahlia", text.replace("production/dahlia/review", ""))
+
     def test_branch_and_artifact_names_follow_the_new_project(self):
         generator = load_module("scaffold_generate", self.project_dir / "generate.py")
         self.assertEqual(generator.BRANCH, BRANCH)

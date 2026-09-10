@@ -17,6 +17,7 @@
 | `production/review_transcode.py` | 转制核查：24→30 抽帧指纹 / SAR / EDL 拼接，dahlia 24 段全过 |
 | `production/review_captions.py` | 字幕验证：文字零漏字硬门 + 能量筛查边界短名单给人耳 |
 | `production/review_distortion.py` | 畸变采样：每段取帧 + 人物镜头密扫 + 逐段结论脚手架（结论人填） |
+| `production/review_gate.py` | 交付门禁：五项审片产物齐了、结论绿了才许交付，红着拦住 |
 | [`production/requirements.txt`](production/requirements.txt) | 跑流水线与测试的全部 Python 依赖（ffmpeg 与中文字体仍需系统装） |
 | [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml) | 每次 push 跑离线自检的工作流模板（需手动复制一次到 `.github/workflows/`） |
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
