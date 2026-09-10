@@ -38,6 +38,12 @@ from pathlib import Path
 
 import numpy as np
 
+try:
+    from opencc import OpenCC
+    _T2S = OpenCC("t2s")
+except ImportError:  # pragma: no cover - runner 经 requirements.txt 必装，见测试
+    _T2S = None
+
 RATE = 48000
 DIGITS = "零一二三四五六七八九"
 DEFAULT_MODEL = "small"
@@ -61,9 +67,16 @@ def chinese_number(value: int) -> str:
 
 
 def normalize(text: str) -> str:
-    """只保留汉字与字母、数字转汉字、统一小写：比对的是"念出来的字"，不是标点。"""
+    """只保留汉字与字母、数字转汉字、统一小写：比对的是"念出来的字"，不是标点。
+
+    第一行先做繁→简：whisper small 的中文转写偶发繁体（dahlia 重跑那次 N03
+    整段繁体，CER 虚高到 0.33），不统一就会冤枉好片子。简体过一遍 OpenCC
+    是恒等变换，不影响原有行为。
+    """
     import re
 
+    if _T2S is not None:
+        text = _T2S.convert(text)
     text = re.sub(r"(\d{4})(?=年)", lambda m: "".join(DIGITS[int(c)] for c in m.group(1)), text)
     text = re.sub(r"\d+", lambda m: chinese_number(int(m.group(0))), text)
     return "".join(re.findall(r"[\u3400-\u9fffA-Za-z]", text)).lower()

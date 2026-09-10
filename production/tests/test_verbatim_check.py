@@ -17,6 +17,12 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "production"))
 import verbatim_check  # noqa: E402
 
+try:
+    import opencc  # noqa: F401
+    HAS_OPENCC = True
+except ImportError:
+    HAS_OPENCC = False
+
 SCRIPT = "一九四七年一月十五日，洛杉矶。她只有二十二岁。"
 
 
@@ -86,6 +92,44 @@ class DiffSpanTests(unittest.TestCase):
     def test_a_verbatim_match_has_no_spans(self):
         text = verbatim_check.normalize(SCRIPT)
         self.assertEqual(verbatim_check.diff_spans(text, text), [])
+
+
+class TraditionalChineseTests(unittest.TestCase):
+    """whisper small 的中文转写偶发繁体：dahlia 重跑那次 N03 整段繁体，
+    CER 虚高到 0.33 把一次好听检染红了。normalize 必须先繁转简。"""
+
+    def test_traditional_matches_simplified(self):
+        if not HAS_OPENCC:
+            self.skipTest("没装 opencc，只验 requirements 里钉住了它")
+        self.assertEqual(verbatim_check.normalize("調查通告鎖定"),
+                         verbatim_check.normalize("调查通告锁定"))
+        expected = verbatim_check.normalize("调查通告锁定")
+        heard = verbatim_check.normalize("調查通告鎖定")
+        self.assertEqual(verbatim_check.character_error_rate(expected, heard), 0.0)
+
+    def test_dahlia_n03_rerun_regression(self):
+        """用染红那次的真实 transcript 回放：统一后 CER 必须落到 0.05 以下，
+        剩下的只是她/他、莫/摩这类同音字。"""
+        if not HAS_OPENCC:
+            self.skipTest("没装 opencc，只验 requirements 里钉住了它")
+        story = json.loads((ROOT / "production" / "dahlia" / "story.json")
+                           .read_text(encoding="utf-8"))
+        script = next(c for c in story["chapters"] if c["id"] == "N03")["text"]
+        transcript = ("警方當年的調查通告把目光鎖定在1月9日至15日通告記錄他1月9日"
+                      "曾在比爾特摩爾酒店下車此後幾天他去了哪裡見過誰時間線出現了"
+                      "空白要找到兇手首先要把這段行蹤接起來而不是用傳聞填滿他")
+        expected = verbatim_check.normalize(script)
+        heard = verbatim_check.normalize(transcript)
+        rate = verbatim_check.character_error_rate(expected, heard)
+        self.assertLessEqual(rate, 0.05, f"繁简统一后 CER 仍有 {rate}，回归失败")
+
+    def test_requirements_pins_opencc(self):
+        """runner 经 requirements.txt 装依赖：opencc 必须钉在里面，
+        否则 normalize 的繁简统一在真正跑听检的地方不生效。"""
+        text = (ROOT / "production" / "requirements.txt").read_text(encoding="utf-8")
+        self.assertTrue(any(line.startswith("opencc-python-reimplemented")
+                            for line in text.splitlines()),
+                        "requirements.txt 里没有 opencc，runner 上听检会重蹈 N03 覆辙")
 
 
 class VerdictTests(unittest.TestCase):
