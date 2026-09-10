@@ -1,0 +1,27 @@
+
+（push 与 API 均 403）。所以"代理写不了"是真的。我把它改成了**一次性**：
+
+- 新增 `production/commentary-render.workflow.yml`（模板）+ `production/run_project.sh`（共用出片脚本，都**不**在 `.github/` 下，
+- 你把 `production/commentary-render.workflow.yml` 复制到 `.github/workflows/commentary-render.yml` **一次**。之后所有新题目都在 Actions 里填 slug，流水线改动全在 `run_project.sh`，
+- 已推上分支并验证：相对远端 `.github/workflows` 零改动（push 成功 073e32a）。
+
+## 第 2 项：审片 + 听检 ✔
+
+写了可复用的 `production/review_film.py`（pyav 解码，不需系统 ffmpeg），对**成片**全解码 5400 帧 + 独立复测音频：
+
+- **音频**：与交付报告逐项一致（整体 -21.09 dBFS / 峰值 -1.52 / 静音 1.1% / 六章逐章一致）——"有声音"由两套独立代码各自确认。
+- **视频**：无缺帧；黑帧=片头尾淡入淡出 + `176.2s` 一处单帧黑闪（唯一点）；冻结段=信息卡/档案卡(预期)+缓慢运镜(误报,无真冻结)。
+- **配音**：语速 4.1–4.4 字/秒正常，无中途丢声。
+- 记录在 `production/dahlia/review/审片与听检-2026-09-09.md` + `film-review.json` + 两张对照表。
+- **仍要人做**：构图/字幕错字/AI 畸变看对照表；逐字听检需人耳或 ASR（faster-whisper 装不上）。
+
+## 第 3 项：合并进 main ✔
+
+`gh pr merge 4 --merge` → main 现在 = `b2cc366`，包含：
+- `交付/黑色大丽花_三分钟_带声音.mp4`、`production/dahlia/review/`、`new_topic.py`、`run_project.sh`、`review_film.py`、`commentary-render.workflow.yml`、`新题目开工手册.md`。
+
+## 测试
+
+`python3 -m pytest production/tests -q` → **39 passed, 4 skipped**（4 个需 ffmpeg 解码测电平的用例在本环境跳过）。
+
+以后新题目：`new_topic.py` 开目录 → 按手册填 → `run_project.sh <slug>` 出片 → `review_film.py` 审片。唯一的一次性手动：复制那个 workflow 文件。
