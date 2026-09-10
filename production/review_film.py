@@ -12,6 +12,11 @@
 * ``frames/*.jpg`` —— 每 ``--every`` 秒一帧，供人工看片；
 * ``contact-sheet-*.png`` —— 抽样帧拼成的对照表，一屏看完。
 
+冻结帧报警分两步：先用 16x16 签名把"1 秒内几乎没变"的片段全部抓出来（宁可多报），
+再用 64x64 签名复核，给每段打上 ``verdict``：``static`` 是真静止（信息卡、档案照、
+片尾卡，本来就该静止），``micro_motion`` 是慢速运镜被严阈值误判。参考片一审报的
+35 处里，22 处属于后者——所以别看见"35 处冻结"就以为片子坏了。
+
 它只做**能机器判定**的部分：黑帧、冻结帧、静音、电平。构图好不好、
 字幕有没有错字、AI 画面有没有畸变，仍然要人看抽样帧——这个工具的作用
 是把该看的东西摆到你面前，并且把"看起来没问题"变成可复查的数字。
@@ -38,6 +43,17 @@ BLACK_FRAME_LUMA = 12.0
 FROZEN_SIGNATURE_SIZE = 16
 FROZEN_TOLERANCE = 0.6          # 16x16 灰度签名的平均绝对差（0-255 尺度）
 FROZEN_RUN_SECONDS = 1.0        # 连续相同画面超过这个秒数才算冻结
+
+# 复核口径。16x16 的阈值只有 0.6/255 灰阶，慢速推拉的 AI 素材也会被判成"冻结"
+# ——参考片一审报了 35 处，复核后 22 处其实是微动画面。所以检出之后再用 64x64
+# 量一次，取窗口内**逐帧差的中位数**（不是最大值：一段静止画面里只要夹一次硬切，
+# 最大值就会飙到 100+，反而把信息卡误判成微动）。
+#
+# 阈值是在参考片的 35 个窗口上实测标定的（delivery/frozen-triage-calibration.json）：
+# 13 个真静止窗口的中位数 ≤ 0.08，22 个微动窗口的中位数 ≥ 0.21，0.15 落在中间的
+# 空档里。改这个数之前先跑一遍标定，别凭感觉调。
+TRIAGE_SIGNATURE_SIZE = 64
+TRIAGE_STATIC_DELTA = 0.15      # 窗口内逐帧 64x64 灰度差的中位数，低于此判为"真静止"
 
 
 def dbfs(level: float) -> float:
@@ -104,6 +120,32 @@ def signature(image: Image.Image) -> np.ndarray:
     return np.asarray(small, dtype=np.float32)
 
 
+def frame_delta(before: Image.Image, after: Image.Image) -> float:
+    """64x64 灰度签名的平均绝对差（0-255）：给"冻结"报警做复核。
+
+    16x16 的签名太粗，慢速运镜会被判成静止；放大到 64x64 再量一次，
+    就能把"真静止"（信息卡、档案照、片尾卡）和"微动"（慢速 AI 素材）分开。
+    """
+    size = (TRIAGE_SIGNATURE_SIZE, TRIAGE_SIGNATURE_SIZE)
+    left = np.asarray(before.convert("L").resize(size, Image.Resampling.BILINEAR), dtype=np.float32)
+    right = np.asarray(after.convert("L").resize(size, Image.Resampling.BILINEAR), dtype=np.float32)
+    return float(np.abs(left - right).mean())
+
+
+def triage_score(deltas: list[float]) -> float:
+    """窗口内逐帧差的中位数。
+
+    用中位数而不是最大值：静止画面里夹一次硬切，最大值能到 100+，会把信息卡
+    误判成"有微动"。中位数不受单点影响。
+    """
+    return float(np.median(deltas)) if deltas else 0.0
+
+
+def frozen_verdict(score: float) -> str:
+    """把复核量到的帧间差翻译成结论：真静止 / 微动。"""
+    return "static" if score < TRIAGE_STATIC_DELTA else "micro_motion"
+
+
 def review_video(path: Path, work: Path, every: float, sheet_every: float) -> dict:
     frames_dir = work / "frames"
     frames_dir.mkdir(parents=True, exist_ok=True)
@@ -117,8 +159,10 @@ def review_video(path: Path, work: Path, every: float, sheet_every: float) -> di
 
         sampled, sheets = [], []
         previous: np.ndarray | None = None
+        previous_frame: Image.Image | None = None
         run = 0
         run_max = 0.0
+        run_triage: list[float] = []
         frozen_runs: list[dict] = []
         black_frames: list[dict] = []
         luma_by_second: dict[int, float] = {}
@@ -137,16 +181,23 @@ def review_video(path: Path, work: Path, every: float, sheet_every: float) -> di
 
             sign = signature(image)
             delta = None if previous is None else float(np.abs(sign - previous).mean())
+            triage = None if previous_frame is None else frame_delta(previous_frame, image)
             if delta is not None and delta < FROZEN_TOLERANCE:
                 run += 1
                 run_max = max(run_max, delta)
+                if triage is not None:
+                    run_triage.append(triage)
                 if run == int(FROZEN_RUN_SECONDS * fps):
+                    score = triage_score(run_triage)
                     frozen_runs.append({"start_second": round(seconds - run / fps, 2),
                                         "end_second": round(seconds, 2),
-                                        "max_frame_delta": round(run_max, 3)})
+                                        "max_frame_delta": round(run_max, 3),
+                                        "triage_median_delta": round(score, 3),
+                                        "verdict": frozen_verdict(score)})
             else:
-                run, run_max = 0, 0.0
+                run, run_max, run_triage = 0, 0.0, []
             previous = sign
+            previous_frame = image
 
             if abs(seconds - round(seconds / every) * every) < 1.0 / (2 * fps):
                 name = f"t{seconds:07.2f}s.jpg"
@@ -231,11 +282,19 @@ def main(argv: list[str] | None = None) -> int:
             flags.append(f"{row['id']} 电平 {row['rms_dbfs']} dBFS 低于 {MIN_CHAPTER_RMS_DBFS}")
     if video["black_frames"]:
         flags.append(f"{len(video['black_frames'])} 帧接近全黑")
-    if video["frozen_runs_over_one_second"]:
-        flags.append(f"{len(video['frozen_runs_over_one_second'])} 处画面冻结超过 1 秒")
+    runs = video["frozen_runs_over_one_second"]
+    if runs:
+        static = sum(1 for row in runs if row.get("verdict") == "static")
+        moving = len(runs) - static
+        flags.append(
+            f"{len(runs)} 处画面 1 秒内几乎无变化：{static} 处复核为真静止"
+            f"（信息卡/档案照/片尾卡，设计如此），{moving} 处复核有微动"
+            "（16x16 阈值过严，不是冻结帧）"
+        )
 
     result = {"flags": flags, "video": video, "audio": audio,
-              "note": "自动判定只覆盖黑帧/冻结帧/静音/电平；构图、字幕错字、AI 画面畸变需人工看抽样帧。"}
+              "note": "自动判定只覆盖黑帧/冻结帧/静音/电平；构图、字幕错字、AI 画面畸变需人工看抽样帧。"
+                      "冻结帧报警都带 verdict：static=真静止（多为信息卡），micro_motion=复核有微动。"}
     out = args.work / "film-review.json"
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
 
