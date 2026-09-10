@@ -1,0 +1,185 @@
+{
+  "audio_sampling": "AvFoundation/FFmpeg decode of the committed film; frame grabs with imageio-ffmpeg static ffmpeg 7.0.2",
+  "evidence_dir": "production/dahlia/review/distortion",
+  "film": "交付/黑色大丽花_三分钟_带声音.mp4",
+  "film_duration_seconds": 180.011,
+  "film_frames": 5400,
+  "film_sha256": "4129ae6ba87ac7e609b6c777d57ecb48385b16891002adbd9b44615a2fcdca8b",
+  "findings": [
+    {
+      "evidence": "distortion/z-S17-persist.jpg",
+      "id": "D1",
+      "location": "94.5-97.0s（S17，N04，row19），画面右侧边缘约 200x150px 区域",
+      "recommendation": "记录、不返工：重生成 S17 + 重渲染整片的收益不抵风险",
+      "severity": "minor",
+      "shot": "S17",
+      "status": "accepted",
+      "what": "白手套手指下方透出肤色指节：手套与手指像是两层没对齐的结构，定格可见，动态（2.5 秒镜头、手在画边、带运镜）不易察觉"
+    },
+    {
+      "evidence": "distortion/z-S12-sign.jpg",
+      "id": "D2",
+      "location": "68.67-71.37s（S12，N03，row14），门楣招牌",
+      "recommendation": "维持 visual-review.json 的已有处置，不再动作",
+      "severity": "known_accepted",
+      "shot": "S12",
+      "status": "accepted",
+      "what": "旅馆门楣招牌为模型虚构拼写（定格可辨 \"Los BILLBAVEZ\"，非 Biltmore）。此前 visual-review.json 已点名并处置：只取前段远景 + AI 外景示意 + 右上角常驻 AI 重现标注；解说词未引用该字样"
+    },
+    {
+      "evidence": null,
+      "id": "D3",
+      "location": "104.53-111.77s（S19，N04，row21），档案柜抽屉标签",
+      "recommendation": "维持已有处置，不再动作",
+      "severity": "known_accepted",
+      "shot": "S19",
+      "status": "accepted",
+      "what": "抽屉标签为伪文字（\"N…5 / A…5\"式涂鸦），动态中小而虚。此前已按\"柜上生成字样不当作真实姓名或案件证物\"处置"
+    },
+    {
+      "evidence": null,
+      "id": "D4",
+      "location": "S16 信封 / S26 笔记本 / S07 传真照片（道具）",
+      "recommendation": "无",
+      "severity": "info",
+      "shot": "S16/S26/S07",
+      "status": "accepted",
+      "what": "信封与笔记本上的手写痕、传真机内的照片均为不可辨认的抽象笔触道具，解说词未引用其内容"
+    }
+  ],
+  "method": "35 个 EDL 片段每段取 1/3、2/3 处两帧（70 帧）做全覆盖初筛；12 个人物/手部镜头按 0.5 秒步长密扫（114 帧）查帧间突变；14 处脸/手/招牌取原生分辨率局部放大复核",
+  "project": "black-dahlia",
+  "report": "production/dahlia/review/畸变核查-2026-09-10.md",
+  "reviewer": "Arena agent（AI 目检）+ 仓库主可按 evidence 复看",
+  "scope": "成片（最终 mp4 合成结果，含字幕烧录、裁剪、卡片叠加），不是原始 AI 素材；原始素材的抽检结论见 visual-review.json",
+  "shots": {
+    "END": {
+      "kind": "graphic",
+      "verdict": "pass"
+    },
+    "S01": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S02": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S03": {
+      "kind": "graphic",
+      "verdict": "pass"
+    },
+    "S04": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S05": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S06": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S07": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S08": {
+      "kind": "graphic",
+      "verdict": "pass"
+    },
+    "S09": {
+      "kind": "archive",
+      "verdict": "pass"
+    },
+    "S10": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S11": {
+      "kind": "graphic",
+      "verdict": "pass"
+    },
+    "S12": {
+      "kind": "agnes",
+      "verdict": "pass_with_note",
+      "verdict_ref": "D2"
+    },
+    "S13": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S14": {
+      "kind": "graphic",
+      "verdict": "pass"
+    },
+    "S15": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S16": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S17": {
+      "kind": "agnes",
+      "verdict": "pass_with_note",
+      "verdict_ref": "D1"
+    },
+    "S18": {
+      "kind": "graphic",
+      "verdict": "pass"
+    },
+    "S19": {
+      "kind": "agnes",
+      "verdict": "pass_with_note",
+      "verdict_ref": "D3"
+    },
+    "S20": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S21": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S22": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S23": {
+      "kind": "graphic",
+      "verdict": "pass"
+    },
+    "S24": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S25": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S26": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S27": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S28": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S29": {
+      "kind": "agnes",
+      "verdict": "pass"
+    },
+    "S30": {
+      "kind": "agnes",
+      "verdict": "pass"
+    }
+  },
+  "verdict": "pass_with_notes"
+}
