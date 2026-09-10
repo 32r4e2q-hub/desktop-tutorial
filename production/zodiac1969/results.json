@@ -795,7 +795,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -835,6 +835,75 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-10T08:34:18Z",
-  "run_id": "34455145450"
+  "updated_at": "2026-09-10T08:44:09Z",
+  "run_id": "34455145450",
+  "delivery": {
+    "duration": 180.0,
+    "bytes": 64136485,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "video_codec": "h264",
+    "frames": 5400,
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2,
+    "sha256": "54130f04c713b16daa5fd76ce3901ef065c97fd5b01ad9f90bd1a25f44d44e21",
+    "decoded_ok": true,
+    "status": "audio_verified_cut",
+    "visual_review": "pending",
+    "caption_alignment": [
+      {
+        "id": "N01",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9574468085106383
+      },
+      {
+        "id": "N02",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9646017699115044
+      },
+      {
+        "id": "N03",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.09482758620689655
+      },
+      {
+        "id": "N04",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.3577981651376147
+      },
+      {
+        "id": "N05",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.7739130434782608
+      },
+      {
+        "id": "N06",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.2571428571428571
+      }
+    ],
+    "narration_voice_id": "voice-00",
+    "narration_tempo": 0.8969134424603175,
+    "editorial_segments": 32,
+    "source_clips": 24,
+    "archival_portrait": true,
+    "output": "十二宫杀手：仍未说出的名字_三分钟_初版.mp4",
+    "soundtrack_mix": {
+      "rms_dbfs": -20.24,
+      "peak_dbfs": -1.52,
+      "silent_fraction": 0.0,
+      "target_rms_dbfs": -20.0
+    },
+    "delivered_audio": {
+      "rms_dbfs": -20.26,
+      "peak_dbfs": -1.55,
+      "silent_fraction": 0.0055,
+      "quietest_window_dbfs": -120.0
+    },
+    "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+    "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
+    "artifact_name": "zodiac1969-agnes-2"
+  }
 }
