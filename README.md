@@ -14,6 +14,9 @@
 | [`production/dahlia/制作过程.md`](production/dahlia/制作过程.md) | 参考项目全过程，含"第一版为什么没声音"的根因与修复 |
 | [`production/dahlia/review/`](production/dahlia/review/) | 审片记录：2026-09-09 首审 + 2026-09-10 复核（换机器复现、35 处"冻结"的定性） |
 | [`production/review_film.py`](production/review_film.py) | 审片工具：黑帧/冻结帧（带 64×64 复核）/逐章电平/语速，冻结帧阈值有实测标定 |
+| `production/review_transcode.py` | 转制核查：24→30 抽帧指纹 / SAR / EDL 拼接，dahlia 24 段全过 |
+| `production/review_captions.py` | 字幕验证：文字零漏字硬门 + 能量筛查边界短名单给人耳 |
+| `production/review_distortion.py` | 畸变采样：每段取帧 + 人物镜头密扫 + 逐段结论脚手架（结论人填） |
 | [`production/requirements.txt`](production/requirements.txt) | 跑流水线与测试的全部 Python 依赖（ffmpeg 与中文字体仍需系统装） |
 | [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml) | 每次 push 跑离线自检的工作流模板（需手动复制一次到 `.github/workflows/`） |
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
@@ -98,15 +101,15 @@ python3 -m pip install -r production/requirements.txt   # 另需 ffmpeg/ffprobe 
 python3 -m pytest production/tests -q                   # 离线测试
 ```
 
-当前环境实测（2026-09-10）：
+当前环境实测（2026-09-10，审片三件套进工具链之后）：
 
 | 环境 | 结果 |
 |---|---|
-| 有 ffmpeg（装了 `imageio-ffmpeg` 也行） | `61 passed, 1 skipped` |
-| 没有 ffmpeg | `54 passed, 8 skipped` |
+| 有 ffmpeg（含 `imageio-ffmpeg` 的静态二进制） | `105 passed` |
+| 没有 ffmpeg | `95 passed, 10 skipped` |
 
-跳过的都是"要真解码才测得出来"的用例：7 个需要 ffmpeg（电平、混音复现），
-1 个是 CI 自检模板还没手动放进 `.github/workflows/`。
+跳过的 10 个全是"要真解码才测得出来"的用例（电平测量、混音复现、听检切片，
+都要调 ffmpeg 二进制）；CI 自检模板已就位，不再跳过。
 `pyyaml` 写在 `requirements.txt` 里但不是硬依赖：不装也有 4 条工作流守卫生效。
 
 ## 复现实测（换一台机器量，还是同一组数字）
