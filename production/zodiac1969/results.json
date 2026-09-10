@@ -202,10 +202,10 @@
     },
     "S09": {
       "id": "S09",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "82052ec66756d121f0ea21a43b2e37e86c00fb74c8f28d2d46002d8c2257977c",
       "error": null,
-      "updated_at": "2026-09-10T07:47:24Z",
+      "updated_at": "2026-09-10T07:47:28Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzliOThjODliZTdiMTRhNDE4ZjVmYjQzMDQ4NjU4ZDY0",
       "task_id": "task_MzEHGsJyMhllIrYmrvfFTObAjiKGe3SG",
       "requested_seconds": 7.041666666666667,
@@ -213,7 +213,25 @@
       "bytes": 6505879,
       "sha256": "d42ec13a58a5d3995bee12515c5ed7a398d9a3388cf1609b18724ce9c5434953",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 6505879,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/zodiac1969/qa/S09.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -266,6 +284,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-10T07:47:24Z",
+  "updated_at": "2026-09-10T07:47:28Z",
   "run_id": "34450063165"
 }
