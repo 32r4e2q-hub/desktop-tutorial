@@ -45,8 +45,9 @@ python3 -m pytest production/tests -q          # 离线测试
 
 ## 出片
 
-把项目目录里的 `<slug>.workflow.yml` 复制到 `.github/workflows/<slug>.yml`，
-再在 Actions 里 Run workflow。当前 GitHub 授权没有 `workflows` 权限，这一步需要手动做一次。
+本地：`bash production/run_project.sh <slug>`。
+Actions：把 `production/commentary-render.workflow.yml` 复制到 `.github/workflows/commentary-render.yml`
+一次，之后在 Actions 里填 slug 即可（不用再动 workflows）。
 
 ## 事实边界
 

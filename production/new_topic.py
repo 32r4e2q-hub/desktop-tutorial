@@ -15,8 +15,8 @@
    Actions 并发组名替换成新项目的；
 3. 按参考项目的 30 镜 × 6 秒 / 6 章 × 30 秒 结构生成 ``story.json`` 骨架，
    并把 ``render.py`` 的 ``CUTS`` 剪辑表重写成对应骨架（每段解说 5 个镜头）；
-4. 生成 ``screenplay.md``、``audio/manifest.json``、``README.md``、
-   ``<slug>.workflow.yml``、``arena_job.sh``。
+4. 生成 ``screenplay.md``、``audio/manifest.json``、``README.md`` 和一份薄薄的
+   ``<slug>.workflow.yml``（真正的出片步骤统一在 ``production/run_project.sh``）。
 
 生成的项目**故意过不了** ``generate.py --validate``：镜头提示词、解说词、
 配音文件与 SHA-256 都是空的，必须人来填。这是设计，不是缺陷——参考项目里
@@ -322,6 +322,77 @@ def starter_manifest(story: dict) -> dict:
     }
 
 
+def starter_workflow(slug: str, title: str, branch: str) -> str:
+    """每个项目自带一份工作流模板；真正的流程在 production/run_project.sh 里。
+
+    仓库里已经有一个通用工作流（`production/commentary-render.workflow.yml`，
+    复制到 `.github/workflows/commentary-render.yml` 后在 Actions 里填 slug 即可）。
+    这份是给"想要一个专属按钮"的情况用的，两者不冲突。
+    """
+    short_branch = branch.rsplit("/", 1)[-1]
+    return f"""name: {title} · 出片
+run-name: {title} · 出片（含音量实测）
+
+# 真正的流程在 production/run_project.sh，改流程只改脚本，不必再动 workflows。
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_asr:
+        description: '跳过 ASR 对轨（离线时用停顿估算字幕时间）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: {slug}-arena-{short_branch}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.ref == 'refs/heads/{branch}'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          ffmpeg -hide_banner -version | head -1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install render dependencies
+        run: |
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" || \\
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2"
+
+      - name: Validate, restore footage, render, publish reports
+        env:
+          SKIP_ASR: ${{{{ inputs.skip_asr }}}}
+          BRANCH: {branch}
+        run: bash production/run_project.sh {slug} "$SKIP_ASR"
+
+      - name: Upload the finished film
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: {title}-成片
+          path: work/{slug}/*.mp4
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 30
+"""
+
+
 def starter_readme(slug: str, title: str, branch: str) -> str:
     return f"""# {title}
 
@@ -356,9 +427,12 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
    需要具名信息卡（参考项目的 `portrait_a` / `archive` / `truth` 那类）时，
    在本目录副本的 `card_image()` / `archive_image()` 里加分支，别去改参考项目。
 6. **校验** → `python3 production/{slug}/generate.py --validate` 必须通过。
-7. **出片** → 把 `{slug}.workflow.yml` 放到 `.github/workflows/{slug}.yml`（当前 GitHub
-   授权缺 workflows 权限，需要手动放一次），然后在 Actions 里 Run workflow；
-   或用 `arena_job.sh` 在本地跑。
+7. **出片** → 本地：`bash production/run_project.sh {slug}`；
+   Actions：用仓库里那个通用工作流（`production/commentary-render.workflow.yml`
+   复制到 `.github/workflows/commentary-render.yml` 一次，之后在 Actions 里填
+   `{slug}` 即可），或者把本目录的 `{slug}.workflow.yml` 复制成 `.github/workflows/{slug}.yml`
+   要一个专属按钮。当前 GitHub 授权缺 workflows 权限，复制到 `.github/workflows/`
+   这一步只能你手动做。
 
 ## 目录
 
@@ -373,8 +447,8 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
 | `render.py` | 剪辑、字幕、信息卡、封装，并对**最终 mp4** 复测电平 |
 | `align_audio.py` | 字幕对轨（ASR 或停顿估算） |
 | `media.py` / `throttle.py` | 探测与节流的公共实现（副本） |
-| `{slug}.workflow.yml` | 出片工作流（放到 `.github/workflows/` 才能用） |
-| `arena_job.sh` | 同一个出片流程的脚本版，可本地重跑 |
+| `{slug}.workflow.yml` | 本项目专属的出片工作流模板（放到 `.github/workflows/` 才能用） |
+| `../run_project.sh` | **所有项目共用**的出片脚本：`bash production/run_project.sh {slug}` |
 
 ## 红线（继承自参考项目，不要删）
 
@@ -418,15 +492,9 @@ def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path) ->
         json.dumps(starter_manifest(story), ensure_ascii=False, indent=2) + "\n")
     (dest / "README.md").write_text(starter_readme(slug, title, branch))
 
-    for source_name, target_name in (
-        ("dahlia-audio.workflow.yml", f"{slug}.workflow.yml"),
-        ("arena_job.sh", "arena_job.sh"),
-    ):
-        source = reference / source_name
-        if not source.is_file():
-            raise SystemExit(f"参考项目缺少 {source_name}")
-        (dest / target_name).write_text(patch(source.read_text(), slug, branch, title))
-    (dest / "arena_job.sh").chmod(0o755)
+    # 出片流程统一走仓库里的 production/run_project.sh，所以这里只给一份薄薄的
+    # 工作流模板（真正的步骤不在 workflows 里，改流程不必再动 workflows）。
+    (dest / f"{slug}.workflow.yml").write_text(starter_workflow(slug, title, branch))
     return dest
 
 

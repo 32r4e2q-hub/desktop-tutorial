@@ -35,9 +35,19 @@ def load_module(name: str, path: Path):
     return module
 
 
+def _hash_tree(root: Path) -> dict:
+    import hashlib
+    out = {}
+    for path in sorted(root.rglob("*")):
+        if path.is_file():
+            out[str(path.relative_to(root))] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return out
+
+
 class ScaffoldTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.dahlia_before = _hash_tree(ROOT / "production/dahlia")
         cls.tmp = Path(tempfile.mkdtemp(prefix="scaffold-test-"))
         # 副本里的 generate.py 会按 parents[2] 找仓库根，再把 ROOT/production
         # 放进 sys.path 去找共享引擎 agnes_video.py，所以临时目录要长成仓库的样子。
@@ -59,7 +69,7 @@ class ScaffoldTests(unittest.TestCase):
         for name in new_topic.ENGINE_FILES:
             self.assertTrue((self.project_dir / name).is_file(), name)
         for name in ("story.json", "screenplay.md", "README.md",
-                     f"{SLUG}.workflow.yml", "arena_job.sh", "audio/manifest.json"):
+                     f"{SLUG}.workflow.yml", "audio/manifest.json"):
             self.assertTrue((self.project_dir / name).is_file(), name)
 
         leftovers = []
@@ -92,8 +102,10 @@ class ScaffoldTests(unittest.TestCase):
         self.assertEqual(story["title"], TITLE)
         workflow = (self.project_dir / f"{SLUG}.workflow.yml").read_text()
         self.assertIn(f"refs/heads/{BRANCH}", workflow)
-        self.assertIn(f"{TITLE} · 有声成片", workflow)
+        self.assertIn(f"{TITLE} · 出片", workflow)
         self.assertNotIn("dahlia", workflow.lower())
+        # 出片步骤统一在共用脚本里，工作流只是薄薄一层
+        self.assertIn(f"bash production/run_project.sh {SLUG}", workflow)
 
     # -- 2. 骨架正确 + 闸门有效 -------------------------------------------
     def test_story_skeleton_timeline_is_mechanically_correct(self):
@@ -156,9 +168,9 @@ class ScaffoldTests(unittest.TestCase):
 
     # -- 3. 参考项目不许被动 ----------------------------------------------
     def test_reference_project_is_untouched(self):
-        result = subprocess.run(["git", "status", "--porcelain", "--", "production/dahlia"],
-                                cwd=ROOT, capture_output=True, text=True, check=True)
-        self.assertEqual(result.stdout.strip(), "",
+        # 脚手架运行前后，参考项目每个文件的哈希必须完全一致。
+        # （不能用 git status：参考项目里允许另外提交审片记录这类新文件。）
+        self.assertEqual(_hash_tree(ROOT / "production/dahlia"), self.dahlia_before,
                          "脚手架不允许修改已交付的参考项目")
 
     def test_scaffold_refuses_to_overwrite_an_existing_project(self):
