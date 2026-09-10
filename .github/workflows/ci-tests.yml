@@ -1,0 +1,45 @@
+name: 离线自检
+
+# 每次 push / PR 都跑一遍离线测试：流水线闸门、工作流形状、配音哈希。
+# 这里只做离线检查（不需要 ffmpeg、不消耗生成额度），所以可以每次提交都跑。
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r production/requirements.txt
+
+      - name: Install ffmpeg (the four level-measuring tests need it)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Run the offline gate
+        run: python -m pytest production/tests -q
