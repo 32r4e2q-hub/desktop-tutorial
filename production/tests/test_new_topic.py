@@ -103,7 +103,8 @@ class ScaffoldTests(unittest.TestCase):
         for token in ("review_gate.py", "review_distortion.py", "distortion-check.json",
                       "pending", "--sign-captions", "verbatim-check.json"):
             self.assertIn(token, text, f"审片清单里缺 {token}")
-        self.assertNotIn("dahlia", text.replace("production/dahlia/review", ""))
+        # 出处说明故意保留（与其它脚手架文档惯例一致：出处要留，内容不许留）
+        self.assertIn("production/dahlia/review", text)
 
     def test_branch_and_artifact_names_follow_the_new_project(self):
         generator = load_module("scaffold_generate", self.project_dir / "generate.py")
