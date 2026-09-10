@@ -1,27 +1,75 @@
+name: 解说短片出片
+run-name: 出片 · ${{ inputs.project }}
 
-（push 与 API 均 403）。所以"代理写不了"是真的。我把它改成了**一次性**：
+# 通用出片：在**当前分支**上渲染任意 production/<slug> 项目。
+# 换题目不需要再动这个文件——在 Actions 里填 slug 就行。
+# 具体的流水线步骤都在 production/run_project.sh 里，改流程只改脚本。
 
-- 新增 `production/commentary-render.workflow.yml`（模板）+ `production/run_project.sh`（共用出片脚本，都**不**在 `.github/` 下，
-- 你把 `production/commentary-render.workflow.yml` 复制到 `.github/workflows/commentary-render.yml` **一次**。之后所有新题目都在 Actions 里填 slug，流水线改动全在 `run_project.sh`，
-- 已推上分支并验证：相对远端 `.github/workflows` 零改动（push 成功 073e32a）。
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: '项目目录名（production/ 下的 slug，例如 dahlia）'
+        required: true
+        default: 'dahlia'
+      skip_asr:
+        description: '跳过 ASR 对轨（离线时用停顿估算字幕时间）'
+        type: boolean
+        default: false
+      film_name:
+        description: '成片文件名（留空则用 story.json 的标题；已交付过的片子请填原名，避免交付目录里出现第二个副本）'
+        required: false
+        default: ''
 
-## 第 2 项：审片 + 听检 ✔
+permissions:
+  contents: write
 
-写了可复用的 `production/review_film.py`（pyav 解码，不需系统 ffmpeg），对**成片**全解码 5400 帧 + 独立复测音频：
+concurrency:
+  group: commentary-render-${{ inputs.project }}-${{ github.ref }}
+  cancel-in-progress: false
 
-- **音频**：与交付报告逐项一致（整体 -21.09 dBFS / 峰值 -1.52 / 静音 1.1% / 六章逐章一致）——"有声音"由两套独立代码各自确认。
-- **视频**：无缺帧；黑帧=片头尾淡入淡出 + `176.2s` 一处单帧黑闪（唯一点）；冻结段=信息卡/档案卡(预期)+缓慢运镜(误报,无真冻结)。
-- **配音**：语速 4.1–4.4 字/秒正常，无中途丢声。
-- 记录在 `production/dahlia/review/审片与听检-2026-09-09.md` + `film-review.json` + 两张对照表。
-- **仍要人做**：构图/字幕错字/AI 畸变看对照表；逐字听检需人耳或 ASR（faster-whisper 装不上）。
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out the branch this was run from
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-## 第 3 项：合并进 main ✔
+      - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          ffmpeg -hide_banner -version | head -1
 
-`gh pr merge 4 --merge` → main 现在 = `b2cc366`，包含：
-- `交付/黑色大丽花_三分钟_带声音.mp4`、`production/dahlia/review/`、`new_topic.py`、`run_project.sh`、`review_film.py`、`commentary-render.workflow.yml`、`新题目开工手册.md`。
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-## 测试
+      - name: Install render dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" || \
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2"
 
-`python3 -m pytest production/tests -q` → **39 passed, 4 skipped**（4 个需 ffmpeg 解码测电平的用例在本环境跳过）。
+      - name: Validate, restore footage, render with measured audio, publish reports
+        env:
+          PROJECT: ${{ inputs.project }}
+          SKIP_ASR: ${{ inputs.skip_asr }}
+          FILM_NAME: ${{ inputs.film_name }}
+          BRANCH: ${{ github.ref_name }}
+        # 第三个参数留空时 run_project.sh 会用 story.json 的标题（${3:-...}）
+        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
 
-以后新题目：`new_topic.py` 开目录 → 按手册填 → `run_project.sh <slug>` 出片 → `review_film.py` 审片。唯一的一次性手动：复制那个 workflow 文件。
+      - name: Upload the finished film
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.project }}-成片-${{ github.run_number }}
+          path: work/${{ inputs.project }}/*.mp4
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 30
