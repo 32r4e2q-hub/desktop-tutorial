@@ -12,24 +12,64 @@
 | [`新题目开工手册.md`](新题目开工手册.md) | **换题目做新片就照这份走** |
 | [`production/new_topic.py`](production/new_topic.py) | 开新题目的脚手架：复制流水线、生成骨架、把上一部片子的内容标成 TODO |
 | [`production/dahlia/制作过程.md`](production/dahlia/制作过程.md) | 参考项目全过程，含"第一版为什么没声音"的根因与修复 |
+| [`production/dahlia/review/`](production/dahlia/review/) | 审片记录：2026-09-09 首审 + 2026-09-10 复核（换机器复现、35 处"冻结"的定性） |
+| [`production/review_film.py`](production/review_film.py) | 审片工具：黑帧/冻结帧（带 64×64 复核）/逐章电平/语速，冻结帧阈值有实测标定 |
+| [`production/requirements.txt`](production/requirements.txt) | 跑流水线与测试的全部 Python 依赖（ffmpeg 与中文字体仍需系统装） |
+| [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml) | 每次 push 跑离线自检的工作流模板（需手动复制一次到 `.github/workflows/`） |
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
 
 ## 待办（需要仓库主手动做一次）
 
-`.github/workflows/commentary-render.yml` 现在是**一段中文聊天正文**，不是 YAML——
-2026-09-10 手动放置时贴错了内容。后果：main 上每次 push 都产生一次 0 秒失败的 Actions 运行
-（[run 34421881730](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/34421881730)，
-GitHub 报 "This run likely failed because of a workflow file issue."）。
-代理改不了这个目录（`git push` 与 Contents API 均实测 403，缺 `workflows` 权限），只能你来做：
+**状态更新（2026-09-10）**：`.github/workflows/commentary-render.yml` 已经是正确 YAML，
+与模板 `production/commentary-render.workflow.yml` 逐字节一致（blob `98e4e84`），
+`test_workflows.py` 全绿——上面那段"贴错聊天正文"的历史问题已经修掉了。
+（那次事故留下的一条经验仍然有效：离线测试当时全绿却拦不住它，所以现在
+`production/tests/test_workflows.py` 守着工作流文件的形状与逐字节一致性。）
+
+还剩**两件**需要你手动做的事（都是复制一个文件，复制完我就能远程触发）：
+
+1. **启用每次 push 自动跑离线自检**；
+2. **启用逐字听检**（`production/verbatim_check.py`，把成片里的解说转写成文字与剧本逐字比对——
+   ASR 模型要从 Hugging Face 下载，本地沙箱连不上，只有 runner 上跑得了）。
+
+
+代理（GitHub App）写不了 `.github/workflows/`——今天又实测了一次，
+`git push` 报 `refusing to allow a GitHub App to create or update workflow ... without 'workflows' permission`。
+给我权限的办法：仓库 **Settings → GitHub Apps（<https://github.com/32r4e2q-hub/desktop-tutorial/settings/installations>）
+→ Arena 应用 → Configure → Repository permissions → Workflows: Read and write → Save**；
+或者换成开了 **Actions: Read and write** 的 fine-grained PAT。给不给都行，不想授权就复制一次：
 
 ```bash
-cp production/commentary-render.workflow.yml .github/workflows/commentary-render.yml
+cp production/ci-tests.workflow.yml .github/workflows/ci-tests.yml
 python3 -m pytest production/tests/test_workflows.py -q    # 必须全绿
 ```
 
-或在 GitHub 网页编辑器里把该文件内容整体替换成
-[`production/commentary-render.workflow.yml`](production/commentary-render.workflow.yml) 的内容。
-修好之前 `production/tests` 会有 7 项失败——那是测试在如实报告，不是测试坏了。
+```bash
+cp production/ci-tests.workflow.yml       .github/workflows/ci-tests.yml
+cp production/verbatim-check.workflow.yml .github/workflows/verbatim-check.yml
+python3 -m pytest production/tests/test_workflows.py -q    # 必须全绿
+```
+
+没启用不会让测试变红（会跳过 2 个用例），只是没人替你在每次 push 时跑闸门、
+也没人把"配音念的字和剧本一字不差"这件事验掉。
+自检查什么见 [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml)：
+装依赖 → `pytest production/tests`（含工作流形状、混音复现、冻结帧阈值标定）。
+
+### 逐字听检（第四道闸门，只能跑在 Actions 上）
+
+前三道闸门证明"有声、电平正常、每段都有声"，**证明不了配音念的字与剧本一字不差**。
+`production/verbatim_check.py` 补的就是这一道：解码成片 → 按章节切段 →
+faster-whisper 转写（**不给 `initial_prompt`**，否则等于先把答案告诉模型再让它复述）
+→ 与剧本逐字算字错率（CER），超阈值就点名要人耳听那一段。
+
+```bash
+# 放好 verbatim-check.yml 之后，Actions → 「逐字听检」→ 填 project（默认 dahlia）
+# 或本地（要有能下载模型的网络）：
+python3 production/verbatim_check.py --film 交付/<片名>.mp4 \
+    --project production/<slug> --work work/<slug>/verbatim --model small
+```
+
+报告 commit 回 `production/<slug>/delivery/verbatim-check.json`。
 
 ## 开一个新题目
 
@@ -54,14 +94,28 @@ python3 production/new_topic.py --slug ripper1888 --title "开膛手杰克：188
 ## 本地跑
 
 ```bash
-python3 -m pip install pillow numpy            # 另需 ffmpeg/ffprobe 与中文字体
-python3 -m pytest production/tests -q          # 离线测试
+python3 -m pip install -r production/requirements.txt   # 另需 ffmpeg/ffprobe 与中文字体
+python3 -m pytest production/tests -q                   # 离线测试
 ```
 
-当前环境实测（工作流文件放对之后）：装 `pyyaml` 时 `46 passed, 4 skipped`，
-不装时 `45 passed, 5 skipped`（多跳过的那 1 个是工作流的完整 YAML 解析）。
-4 个跳过的用例需要 ffmpeg 解码测电平，本沙箱没有 ffmpeg。
-`pyyaml` 不是必需依赖：不装也有 4 条工作流守卫生效。
+当前环境实测（2026-09-10）：
+
+| 环境 | 结果 |
+|---|---|
+| 有 ffmpeg（装了 `imageio-ffmpeg` 也行） | `61 passed, 1 skipped` |
+| 没有 ffmpeg | `54 passed, 8 skipped` |
+
+跳过的都是"要真解码才测得出来"的用例：7 个需要 ffmpeg（电平、混音复现），
+1 个是 CI 自检模板还没手动放进 `.github/workflows/`。
+`pyyaml` 写在 `requirements.txt` 里但不是硬依赖：不装也有 4 条工作流守卫生效。
+
+## 复现实测（换一台机器量，还是同一组数字）
+
+参考项目的混音在**另一台机器、另一个 ffmpeg 构建**上重跑，与云端出片时的记录
+**逐项差 0.00 dB**：混音 -21.08 dBFS RMS / 峰值 -1.51，成片 -21.09 / -1.52，
+逐章 N01–N06 全部一致。数据见
+[`production/dahlia/delivery/reproducibility-2026-09-10.json`](production/dahlia/delivery/reproducibility-2026-09-10.json)，
+并且由 `production/tests/test_dahlia_mix.py` 钉住（容差 0.05 dB）。
 
 ## 出片
 

@@ -1,0 +1,15 @@
+# 跑流水线与离线测试需要的 Python 依赖。
+# ffmpeg / ffprobe 与中文字体（Linux: fonts-noto-cjk）要另外用系统包管理器装。
+#
+#   python -m pip install -r production/requirements.txt
+#   python -m pytest production/tests -q
+#
+pillow>=10,<13           # 绘图：信息卡、字幕烧录、审片对照表
+numpy>=1.26,<3           # 混音（build_audio.py）与电平测量
+av>=12,<19               # PyAV：production/review_film.py 审片时解码成片
+pyyaml>=6,<7             # 工作流完整解析；不装也能跑，只是少跑 1 个用例
+pytest>=7,<10            # 只用于跑 production/tests
+
+# 可选：faster-whisper>=1.1,<2 —— ASR 对轨（align_audio.py）。
+# 首次使用会下载模型，离线或装不上时渲染会退回"停顿估算"并在
+# delivery/alignment-report.json 里如实标注，不会静默降级。

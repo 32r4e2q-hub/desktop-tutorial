@@ -12,7 +12,7 @@
 成片已由 Actions 渲染并 **commit 进本分支**：
 
 **`交付/黑色大丽花_三分钟_带声音.mp4`**（48.1 MB，SHA-256 `4129ae6b…`）
-→ 在线播放/下载：https://github.com/32r4e2q-hub/desktop-tutorial/blob/arena/01a085be-desktop-tutorial/交付/黑色大丽花_三分钟_带声音.mp4
+→ 在线播放/下载：https://github.com/32r4e2q-hub/desktop-tutorial/blob/main/交付/黑色大丽花_三分钟_带声音.mp4
 
 出片运行：[run 34348339183](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/34348339183)（11 分 31 秒，success）。
 23 条素材全部按 SHA-256 取回，**没有重新生成、没有消耗额度**。
@@ -46,12 +46,24 @@
 
 ## 出片
 
-1. 把 `dahlia-audio.workflow.yml` 放到仓库的 `.github/workflows/dahlia-audio.yml`
-   （当前 GitHub 授权缺 `workflows` 权限，代理写不了这个目录，需手动放一次）。
-2. Actions → **Black Dahlia · 有声成片** → Run workflow（约 10–20 分钟）。
-3. 页面底部 Artifacts 下载 `黑色大丽花-三分钟-带声音`；实测报告会自动 commit 回 `delivery/`。
+重跑这一部（或任何一部）都用**仓库共用的**出片流程，不再用本目录里的老模板：
+
+```bash
+# 本地
+bash production/run_project.sh dahlia false 黑色大丽花_三分钟_带声音.mp4
+
+# GitHub Actions：Actions → 「解说短片出片」→ project 填 dahlia、
+# film_name 填 黑色大丽花_三分钟_带声音.mp4、skip_asr 视网络勾选
+```
+
+`film_name` 一定要填原片名：留空会用 `story.json` 的标题（「黑色大丽花：消失的六天」）
+当文件名，`交付/` 里就会多出一个 48 MB 的副本。
 
 素材**不会重新生成**：`fetch_sources.py` 按 `results.json` 的 SHA-256 回填 23 条已生成素材，哈希不符即报错。
+
+> 本目录里的 `dahlia-audio.workflow.yml` / `ai-shots.workflow.yml` 是**历史模板**（pin 在旧分支
+> `arena/01a085be-desktop-tutorial` 上，那个分支还留着当时的代码）。新片子走
+> `production/commentary-render.workflow.yml`，别再复制这两个。
 
 ## 成品规格
 
@@ -85,10 +97,14 @@
 | `build_audio.py` | 确定性混音 + 静音闸门 |
 | `align_audio.py` | 本地 ASR 对轨，不足则回退并标注 |
 | `delivery/` | 技术报告、音频实测报告、字幕、EDL、抽样图 |
+| `delivery/reproducibility-2026-09-10.json` | 换机器复现实测（与云端记录逐项差 0.00 dB） |
+| `delivery/frozen-triage-calibration.json` | 冻结帧复核阈值的标定数据 |
+| `review/` | 审片记录：2026-09-09 首审、2026-09-10 复核 |
 | `制作过程.md` | 完整制作过程 |
 
 ## 尚未完成
 
-- **视觉逐帧审片**：目前只做了抽样图检查（每秒 2 帧）。
 - **逐字听检**：闸门证明"有声且电平正常"，不证明配音念的字与剧本一字不差；N03/N05/N06 的 ASR 匹配度偏低，字幕为审定剧本 + 停顿估算，仍需人工听一遍。
-- 大文件走 Actions artifact，**不进 Git**；仓库只保存输入、小尺寸检查图和制作元数据。
+- **构图/字幕错字/AI 畸变**：`review_film.py` 只把抽样帧摆到人面前，判断仍要人看片。
+  （"35 处画面冻结"这个旧flag已经在 2026-09-10 定性完毕：13 处设计内静帧 + 22 处阈值误报，真缺陷 0 处，见 `review/复核-2026-09-10.md`。）
+- 中间产物走 Actions artifact / 本地 `work/`，**不进 Git**；仓库只保存输入、小尺寸检查图、成片与制作元数据。
