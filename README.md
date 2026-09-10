@@ -26,7 +26,12 @@
 （那次事故留下的一条经验仍然有效：离线测试当时全绿却拦不住它，所以现在
 `production/tests/test_workflows.py` 守着工作流文件的形状与逐字节一致性。）
 
-还剩**一件**需要你手动做的事：**启用每次 push 自动跑离线自检**。
+还剩**两件**需要你手动做的事（都是复制一个文件，复制完我就能远程触发）：
+
+1. **启用每次 push 自动跑离线自检**；
+2. **启用逐字听检**（`production/verbatim_check.py`，把成片里的解说转写成文字与剧本逐字比对——
+   ASR 模型要从 Hugging Face 下载，本地沙箱连不上，只有 runner 上跑得了）。
+
 
 代理（GitHub App）写不了 `.github/workflows/`——今天又实测了一次，
 `git push` 报 `refusing to allow a GitHub App to create or update workflow ... without 'workflows' permission`。
@@ -39,9 +44,32 @@ cp production/ci-tests.workflow.yml .github/workflows/ci-tests.yml
 python3 -m pytest production/tests/test_workflows.py -q    # 必须全绿
 ```
 
-没启用不会让测试变红（会跳过 1 个用例），只是没人替你在每次 push 时跑闸门。
+```bash
+cp production/ci-tests.workflow.yml       .github/workflows/ci-tests.yml
+cp production/verbatim-check.workflow.yml .github/workflows/verbatim-check.yml
+python3 -m pytest production/tests/test_workflows.py -q    # 必须全绿
+```
+
+没启用不会让测试变红（会跳过 2 个用例），只是没人替你在每次 push 时跑闸门、
+也没人把"配音念的字和剧本一字不差"这件事验掉。
 自检查什么见 [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml)：
 装依赖 → `pytest production/tests`（含工作流形状、混音复现、冻结帧阈值标定）。
+
+### 逐字听检（第四道闸门，只能跑在 Actions 上）
+
+前三道闸门证明"有声、电平正常、每段都有声"，**证明不了配音念的字与剧本一字不差**。
+`production/verbatim_check.py` 补的就是这一道：解码成片 → 按章节切段 →
+faster-whisper 转写（**不给 `initial_prompt`**，否则等于先把答案告诉模型再让它复述）
+→ 与剧本逐字算字错率（CER），超阈值就点名要人耳听那一段。
+
+```bash
+# 放好 verbatim-check.yml 之后，Actions → 「逐字听检」→ 填 project（默认 dahlia）
+# 或本地（要有能下载模型的网络）：
+python3 production/verbatim_check.py --film 交付/<片名>.mp4 \
+    --project production/<slug> --work work/<slug>/verbatim --model small
+```
+
+报告 commit 回 `production/<slug>/delivery/verbatim-check.json`。
 
 ## 开一个新题目
 

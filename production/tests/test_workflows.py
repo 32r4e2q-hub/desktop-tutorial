@@ -30,6 +30,8 @@ TEMPLATE = ROOT / "production" / "commentary-render.workflow.yml"
 INSTALLED = WORKFLOWS_DIR / "commentary-render.yml"
 CI_TEMPLATE = ROOT / "production" / "ci-tests.workflow.yml"
 CI_INSTALLED = WORKFLOWS_DIR / "ci-tests.yml"
+VERBATIM_TEMPLATE = ROOT / "production" / "verbatim-check.workflow.yml"
+VERBATIM_INSTALLED = WORKFLOWS_DIR / "verbatim-check.yml"
 
 try:  # pyyaml 不在最小依赖里：装了就做完整解析，没装就退回形状检查
     import yaml
@@ -69,6 +71,34 @@ class WorkflowIntegrityTests(unittest.TestCase):
             f"{INSTALLED.relative_to(ROOT)} 与模板 {TEMPLATE.relative_to(ROOT)} 不一致："
             "请重新执行 cp production/commentary-render.workflow.yml "
             ".github/workflows/commentary-render.yml",
+        )
+
+    def test_verbatim_check_template_runs_the_real_script(self):
+        """逐字听检模板必须真的调用 production/verbatim_check.py，并把报告落回分支。
+
+        这个检查的价值全在"它真的跑了"：参考片一直挂着"逐字听检没做完"，
+        而 ASR 只能在 runner 上跑（沙箱连不上 Hugging Face），本地测不了。
+        模板跑错脚本 == 这个洞继续挂着，还没人知道。
+        """
+        text = VERBATIM_TEMPLATE.read_text(encoding="utf-8")
+        self.assertIn("production/verbatim_check.py", text,
+                      "听检模板没有调用 production/verbatim_check.py")
+        self.assertTrue((ROOT / "production" / "verbatim_check.py").exists())
+        # 报告必须 commit 回分支：本环境读不到 Actions 的日志与 artifact
+        self.assertIn("production/$PROJECT/delivery/verbatim-check.json", text,
+                      "报告没有 commit 回分支，本地就拿不到听检结果")
+        # 转写失败时也要先把报告落盘，再判失败
+        self.assertIn("continue-on-error: true", text,
+                      "转写不达标的运行也要先把报告 publish 出来")
+
+    def test_verbatim_workflow_matches_template_when_installed(self):
+        if not VERBATIM_INSTALLED.exists():
+            self.skipTest("未启用：把 production/verbatim-check.workflow.yml 复制成 "
+                          ".github/workflows/verbatim-check.yml 即可")
+        self.assertEqual(
+            VERBATIM_TEMPLATE.read_bytes(), VERBATIM_INSTALLED.read_bytes(),
+            f"{VERBATIM_INSTALLED.relative_to(ROOT)} 与模板不一致：请重新执行 "
+            "cp production/verbatim-check.workflow.yml .github/workflows/verbatim-check.yml",
         )
 
     def test_ci_workflow_matches_template_when_installed(self):
