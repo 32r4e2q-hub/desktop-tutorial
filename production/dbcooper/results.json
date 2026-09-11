@@ -462,7 +462,7 @@
     },
     "S30": {
       "id": "S30",
-      "status": "completed",
+      "status": "failed",
       "request_hash": "73b428b90a8158184ad009434add0d155abbacf0b3a168db4620d0cfe13c550e",
       "sha256": "c69d534c09e0a2579f19506e708f764321ba026cd37a9d6323f1b220a7c190cc",
       "bytes": 15616,
@@ -476,7 +476,9 @@
         "fps": 24.0,
         "frames": 168,
         "video_codec": "h264"
-      }
+      },
+      "error": "Could not download file:///home/user/desktop-tutorial/work/dbcooper/sources/S30.mp4",
+      "updated_at": "2026-09-11T03:22:54Z"
     }
   },
   "phase": "generating_sources",
@@ -519,6 +521,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-11T03:22:37Z",
+  "updated_at": "2026-09-11T03:22:54Z",
   "run_id": "34557964261"
 }
