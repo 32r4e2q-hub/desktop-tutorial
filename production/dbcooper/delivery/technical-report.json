@@ -1,0 +1,69 @@
+{
+  "duration": 180.0,
+  "bytes": 9523122,
+  "probe_backend": "pyav",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "frames": 5400,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "1b2c91c3241d2f8ba33e99872c1b46d941a9f35098238d330fd650f21295919c",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "id": "N01",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.0
+    },
+    {
+      "id": "N02",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.0
+    },
+    {
+      "id": "N03",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.0
+    },
+    {
+      "id": "N04",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.0
+    },
+    {
+      "id": "N05",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.0
+    },
+    {
+      "id": "N06",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.0
+    }
+  ],
+  "narration_voice_id": "voice-00",
+  "narration_tempo": 0.8614097968936678,
+  "editorial_segments": 31,
+  "source_clips": 24,
+  "archival_portrait": false,
+  "output": "DB库珀劫机案_三分钟.mp4",
+  "soundtrack_mix": {
+    "rms_dbfs": -20.0,
+    "peak_dbfs": -2.23,
+    "silent_fraction": 0.0,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -20.02,
+    "peak_dbfs": -2.25,
+    "silent_fraction": 0.0055,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
