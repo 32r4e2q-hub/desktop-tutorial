@@ -51,7 +51,7 @@ python3 -u "$DIR/render.py" \
 echo "=== 5/6 把成片与实测报告 commit 回 $BRANCH ==="
 mkdir -p 交付 "$DIR/delivery"
 cp "$FILM" "交付/$(basename "$FILM")"
-for f in technical-report.json audio-report.json final-audio-report.json \
+for f in technical-report.json audio-report.json final-audio-report.json voice-check.json \
          alignment-report.json caption-timing.json narration-timing.json \
          edit-decision-list.json final-contact.jpg captions.srt; do
   [ -f "$WORK/$f" ] && cp "$WORK/$f" "$DIR/delivery/" || echo "skip $f"
@@ -68,7 +68,7 @@ else
   echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
 fi
 
-echo "=== 5/5 实测摘要 ==="
+echo "=== 6/6 实测摘要 ==="
 ls -la "$FILM"
 python3 - "$DIR/delivery/final-audio-report.json" "$DIR/delivery/technical-report.json" <<'PY'
 import json, sys

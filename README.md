@@ -8,6 +8,8 @@
 | 路径 | 内容 |
 |---|---|
 | [`production/dahlia/`](production/dahlia/) | **参考实现**：《黑色大丽花：消失的六天》，已成片、已实测 |
+| [`production/zodiac1969/`](production/zodiac1969/) | 《十二宫杀手：仍未说出的名字》，2026-09-11 重配音为参考片同款男音后重新出片 |
+| [`production/voice_reference/`](production/voice_reference/) | **解说固定男音**：规格、参考样本与实测数字（配套闸门 `production/check_voice.py`） |
 | [`交付/`](交付/) | 成片 `黑色大丽花_三分钟_带声音.mp4`（48.1 MB，1920×1080 / 30fps / 180 秒） |
 | [`新题目开工手册.md`](新题目开工手册.md) | **换题目做新片就照这份走** |
 | [`production/new_topic.py`](production/new_topic.py) | 开新题目的脚手架：复制流水线、生成骨架、把上一部片子的内容标成 TODO |
