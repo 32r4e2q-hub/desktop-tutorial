@@ -11,8 +11,8 @@
         "end": 31.173,
         "script_chars": 94,
         "heard_chars": 94,
-        "character_error_rate": 0.0638,
-        "match_coverage": 0.9362,
+        "character_error_rate": 0.0745,
+        "match_coverage": 0.9255,
         "verdict": "ok",
         "diff": [
           {
@@ -28,6 +28,12 @@
             "heard": "单窟破"
           },
           {
+            "at": 47,
+            "kind": "replace",
+            "script": "票",
+            "heard": "条"
+          },
+          {
             "at": 64,
             "kind": "replace",
             "script": "起",
@@ -40,7 +46,7 @@
             "heard": "弥"
           }
         ],
-        "transcript": "1971年11月24日,感恩节前夜,破特兰机场一个自称单窟破的男人,用现金买了一张飞往西雅图的单程票他穿着西装,打着黑色领带,看起来毫不齐眼谁也没想到,这趟30分钟的航班,会成为美国航空史上最大的弥团"
+        "transcript": "1971年11月24日,感恩节前夜,破特兰机场一个自称单窟破的男人,用现金买了一张飞往西雅图的单程条他穿着西装,打着黑色领带,看起来毫不齐眼谁也没想到,这趟30分钟的航班,会成为美国航空史上最大的弥团"
       },
       {
         "id": "N02",
@@ -48,8 +54,8 @@
         "end": 58.619,
         "script_chars": 91,
         "heard_chars": 91,
-        "character_error_rate": 0.044,
-        "match_coverage": 0.956,
+        "character_error_rate": 0.0549,
+        "match_coverage": 0.9451,
         "verdict": "ok",
         "diff": [
           {
@@ -71,13 +77,19 @@
             "heard": "它"
           },
           {
+            "at": 61,
+            "kind": "replace",
+            "script": "钞",
+            "heard": "超"
+          },
+          {
             "at": 67,
             "kind": "replace",
             "script": "伞",
             "heard": "散"
           }
         ],
-        "transcript": "飞机起飞后不久库帕递给空姐一张纸条说公文包里有炸弹它打开箱子里面是电线和红色管状物它要求飞机降落后准备20万美元的20元旧钞和4个降落散机长接到通知开始在西雅图上空盘旋为地面争取时间"
+        "transcript": "飞机起飞后不久库帕递给空姐一张纸条说公文包里有炸弹它打开箱子里面是电线和红色管状物它要求飞机降落后准备20万美元的20元旧超和4个降落散机长接到通知开始在西雅图上空盘旋为地面争取时间"
       },
       {
         "id": "N03",
@@ -93,7 +105,7 @@
             "at": 23,
             "kind": "replace",
             "script": "库珀",
-            "heard": "枯波"
+            "heard": "哭泼"
           },
           {
             "at": 30,
@@ -102,7 +114,7 @@
             "heard": "散"
           }
         ],
-        "transcript": "经过两个多小时的盘旋飞机在西雅图塔科马机场降落枯波拿到了钱和散释放了36名乘客和两名机组他留下两名飞行员一名机械师和一名空姐下令再次起飞目的地墨西哥城但要求低空低速飞行并保持后舱门可打开"
+        "transcript": "经过两个多小时的盘旋飞机在西雅图塔科马机场降落哭泼拿到了钱和散释放了36名乘客和两名机组他留下两名飞行员一名机械师和一名空姐下令再次起飞目的地墨西哥城但要求低空低速飞行并保持后舱门可打开"
       },
       {
         "id": "N04",
@@ -147,8 +159,8 @@
         "end": 141.709,
         "script_chars": 98,
         "heard_chars": 100,
-        "character_error_rate": 0.0612,
-        "match_coverage": 0.9694,
+        "character_error_rate": 0.0714,
+        "match_coverage": 0.9592,
         "verdict": "ok",
         "diff": [
           {
@@ -174,9 +186,15 @@
             "kind": "replace",
             "script": "百",
             "heard": "零零"
+          },
+          {
+            "at": 95,
+            "kind": "replace",
+            "script": "物",
+            "heard": "务"
           }
         ],
-        "transcript": "联邦调查局代号Norjack展开了史上最漫长的调查之一五年内排查超过800名嫌疑人搜遍了预判的降落区却一无所获直到1980年一个男孩在哥伦比亚河边挖出了5800美元编号与赎金一致这是此案唯一的实物突破"
+        "transcript": "聯邦調查局代號Norjack展開了史上最漫長的調查之一五年內排查超過800名嫌疑人搜遍了預判的降落區卻一無所獲直到1980年一個男孩在哥倫比亞河邊挖出了5800美元編號與贖金一致這是此案唯一的實務突破"
       },
       {
         "id": "N06",
@@ -184,9 +202,9 @@
         "end": 174.0,
         "script_chars": 99,
         "heard_chars": 99,
-        "character_error_rate": 0.2525,
-        "match_coverage": 0.7475,
-        "verdict": "needs_human_listen",
+        "character_error_rate": 0.0606,
+        "match_coverage": 0.9394,
+        "verdict": "ok",
         "diff": [
           {
             "at": 0,
@@ -195,43 +213,29 @@
             "heard": "酷破"
           },
           {
-            "at": 7,
-            "kind": "replace",
-            "script": "领带",
-            "heard": "領帶"
-          },
-          {
             "at": 12,
             "kind": "replace",
             "script": "脱氧",
-            "heard": "拖養"
+            "heard": "拖养"
           },
           {
-            "at": 18,
+            "at": 76,
             "kind": "replace",
-            "script": "样",
-            "heard": "樣"
+            "script": "劫",
+            "heard": "结"
           },
           {
-            "at": 25,
+            "at": 96,
             "kind": "replace",
-            "script": "无",
-            "heard": "無"
-          },
-          {
-            "at": 27,
-            "kind": "replace",
-            "script": "确",
-            "heard": "確"
+            "script": "劫",
+            "heard": "结"
           }
         ],
         "transcript": "酷破留下的黑色領帶提供了拖養核糖核酸樣本,但已被污染無法確定身份。有人認為他根本沒能活過那一夜,也有人相信他成功了。2016年7月,聯邦調查局正式停止主動調查。這起結機案至今仍是美國唯一未被偵破的商業航空結機案。"
       }
     ],
-    "max_cer": 0.2525,
-    "failing": [
-      "N06"
-    ]
+    "max_cer": 0.0745,
+    "failing": []
   },
   "narration_control": {
     "chapters": [
@@ -241,8 +245,8 @@
         "end": 31.173,
         "script_chars": 94,
         "heard_chars": 94,
-        "character_error_rate": 0.0638,
-        "match_coverage": 0.9362,
+        "character_error_rate": 0.0745,
+        "match_coverage": 0.9255,
         "verdict": "ok",
         "diff": [
           {
@@ -258,13 +262,19 @@
             "heard": "单枯破"
           },
           {
+            "at": 42,
+            "kind": "replace",
+            "script": "雅",
+            "heard": "亚"
+          },
+          {
             "at": 64,
             "kind": "replace",
             "script": "起眼",
-            "heard": "欺骗"
+            "heard": "欺验"
           }
         ],
-        "transcript": "1971年11月24日,感恩节前夜,破特兰机场一个自称单枯破的男人,用现金买了一张飞往西雅图的单程票他穿着西装,打着黑色领带,看起来毫不欺骗谁也没想到,这趟30分钟的航班,会成为美国航空史上最大的谜团"
+        "transcript": "1971年11月24日感恩节前夜破特兰机场一个自称单枯破的男人用现金买了一张飞往西亚图的单程票他穿着西装打着黑色领带看起来毫不欺验谁也没想到这趟30分钟的航班会成为美国航空史上最大的谜团"
       },
       {
         "id": "N02",
@@ -272,8 +282,8 @@
         "end": 58.619,
         "script_chars": 91,
         "heard_chars": 96,
-        "character_error_rate": 0.1099,
-        "match_coverage": 0.9451,
+        "character_error_rate": 0.1209,
+        "match_coverage": 0.9341,
         "verdict": "ok",
         "diff": [
           {
@@ -295,13 +305,19 @@
             "heard": "它"
           },
           {
+            "at": 61,
+            "kind": "replace",
+            "script": "钞",
+            "heard": "超"
+          },
+          {
             "at": 67,
             "kind": "replace",
             "script": "伞",
             "heard": "散"
           }
         ],
-        "transcript": "飞机起飞后不久Coupard递给空姐一张纸条说公文包里有炸弹它打开箱子里面是电线和红色管状物它要求飞机降落后准备20万美元的20元旧钞和4个降落散机长接到通知开始在西雅图上空盘旋为地面争取时间"
+        "transcript": "飞机起飞后不久Coupard递给空姐一张纸条说公文包里有炸弹它打开箱子里面是电线和红色管状物它要求飞机降落后准备20万美元的20元旧超和4个降落散机长接到通知开始在西雅图上空盘旋为地面争取时间"
       },
       {
         "id": "N03",
@@ -309,10 +325,16 @@
         "end": 85.124,
         "script_chars": 94,
         "heard_chars": 94,
-        "character_error_rate": 0.0319,
-        "match_coverage": 0.9681,
+        "character_error_rate": 0.0426,
+        "match_coverage": 0.9574,
         "verdict": "ok",
         "diff": [
+          {
+            "at": 14,
+            "kind": "replace",
+            "script": "雅",
+            "heard": "亚"
+          },
           {
             "at": 23,
             "kind": "replace",
@@ -326,7 +348,7 @@
             "heard": "散"
           }
         ],
-        "transcript": "经过两个多小时的盘旋飞机在西雅图塔科马机场降落枯波拿到了钱和散释放了36名乘客和两名机组他留下两名飞行员一名机械师和一名空姐下令再次起飞目的地墨西哥城但要求低空低速飞行并保持后舱门可打开"
+        "transcript": "经过两个多小时的盘旋飞机在西亚图塔科马机场降落枯波拿到了钱和散释放了36名乘客和两名机组他留下两名飞行员一名机械师和一名空姐下令再次起飞目的地墨西哥城但要求低空低速飞行并保持后舱门可打开"
       },
       {
         "id": "N04",
@@ -334,8 +356,8 @@
         "end": 112.664,
         "script_chars": 88,
         "heard_chars": 88,
-        "character_error_rate": 0.0455,
-        "match_coverage": 0.9545,
+        "character_error_rate": 0.0682,
+        "match_coverage": 0.9318,
         "verdict": "ok",
         "diff": [
           {
@@ -345,13 +367,25 @@
             "heard": "酷破"
           },
           {
+            "at": 41,
+            "kind": "replace",
+            "script": "他",
+            "heard": "它"
+          },
+          {
             "at": 64,
             "kind": "replace",
             "script": "钱袋",
             "heard": "前代"
+          },
+          {
+            "at": 81,
+            "kind": "replace",
+            "script": "他",
+            "heard": "它"
           }
         ],
-        "transcript": "晚上八点左右,飞机飞在华盛顿州西南部的暴雨和夜空中酷破让所有人留在驾驶舱,自己留在客舱他打开了波音727特有的后部登机梯,在狂风中抱着前代跳了下去机组只感到机身轻微晃动,他就这样消失了"
+        "transcript": "晚上八点左右,飞机飞在华盛顿州西南部的暴雨和夜空中酷破让所有人留在驾驶舱,自己留在客舱它打开了波音727特有的后部登机梯,在狂风中抱着前代跳了下去机组只感到机身轻微晃动,它就这样消失了"
       },
       {
         "id": "N05",
@@ -359,28 +393,10 @@
         "end": 141.709,
         "script_chars": 98,
         "heard_chars": 101,
-        "character_error_rate": 0.3061,
-        "match_coverage": 0.7347,
-        "verdict": "needs_human_listen",
+        "character_error_rate": 0.0816,
+        "match_coverage": 0.9592,
+        "verdict": "ok",
         "diff": [
-          {
-            "at": 0,
-            "kind": "replace",
-            "script": "联",
-            "heard": "聯"
-          },
-          {
-            "at": 2,
-            "kind": "replace",
-            "script": "调",
-            "heard": "調"
-          },
-          {
-            "at": 6,
-            "kind": "replace",
-            "script": "号",
-            "heard": "號"
-          },
           {
             "at": 12,
             "kind": "insert",
@@ -388,19 +404,37 @@
             "heard": "c"
           },
           {
-            "at": 14,
+            "at": 34,
             "kind": "replace",
-            "script": "开",
-            "heard": "開"
+            "script": "百",
+            "heard": "零零"
           },
           {
-            "at": 20,
+            "at": 64,
+            "kind": "insert",
+            "script": "",
+            "heard": "儿"
+          },
+          {
+            "at": 75,
+            "kind": "delete",
+            "script": "千",
+            "heard": ""
+          },
+          {
+            "at": 77,
             "kind": "replace",
-            "script": "长",
-            "heard": "長"
+            "script": "百",
+            "heard": "零零"
+          },
+          {
+            "at": 95,
+            "kind": "replace",
+            "script": "物",
+            "heard": "务"
           }
         ],
-        "transcript": "聯邦調查局,代號Norjack,展開了史上最漫長的調查之一五年內排查超過800名嫌疑人,搜遍了預判的降落區,卻一無所獲直到1980年,一個男孩兒在哥倫比亞河邊挖出了5800美元,編號與贖金一致這是此案唯一的實物突破"
+        "transcript": "聯邦調查局代號Norjack,展開了史上最漫長的調查之一五年內排查超過800名嫌疑人,搜遍了預判的降落區,卻一無所獲直到1980年,一個男孩兒在哥倫比亞河邊挖出了5800美元,編號與贖金一致這是此案唯一的實務突破"
       },
       {
         "id": "N06",
@@ -408,9 +442,9 @@
         "end": 174.0,
         "script_chars": 99,
         "heard_chars": 99,
-        "character_error_rate": 0.2727,
-        "match_coverage": 0.7273,
-        "verdict": "needs_human_listen",
+        "character_error_rate": 0.0505,
+        "match_coverage": 0.9495,
+        "verdict": "ok",
         "diff": [
           {
             "at": 0,
@@ -419,44 +453,29 @@
             "heard": "酷破"
           },
           {
-            "at": 7,
+            "at": 44,
             "kind": "replace",
-            "script": "领带",
-            "heard": "領帶"
+            "script": "夜",
+            "heard": "页"
           },
           {
-            "at": 12,
+            "at": 76,
             "kind": "replace",
-            "script": "脱氧",
-            "heard": "拖養"
+            "script": "劫",
+            "heard": "结"
           },
           {
-            "at": 18,
+            "at": 96,
             "kind": "replace",
-            "script": "样",
-            "heard": "樣"
-          },
-          {
-            "at": 23,
-            "kind": "replace",
-            "script": "污",
-            "heard": "汙"
-          },
-          {
-            "at": 25,
-            "kind": "replace",
-            "script": "无",
-            "heard": "無"
+            "script": "劫",
+            "heard": "结"
           }
         ],
-        "transcript": "酷破留下的黑色領帶提供了拖養核糖核酸樣本但已被汙染無法確定身份有人認為他根本沒能活過那一頁也有人相信他成功了2016年7月聯邦調查局正式停止主動調查這起結機案至今仍是美國唯一未被偵破的商業航空結機案"
+        "transcript": "酷破留下的黑色領帶提供了脫氧核糖核酸樣本但已被污染無法確定身份有人認為他根本沒能活過那一頁也有人相信他成功了2016年7月聯邦調查局正式停止主動調查這起結機案至今仍是美國唯一未被偵破的商業航空結機案"
       }
     ],
-    "max_cer": 0.3061,
-    "failing": [
-      "N05",
-      "N06"
-    ]
+    "max_cer": 0.1209,
+    "failing": []
   },
   "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
 }
