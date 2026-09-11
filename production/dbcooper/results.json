@@ -136,10 +136,10 @@
     },
     "S06": {
       "id": "S06",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "663e1c4e49e08072756212823d6cd3645ca8d77448b5962f04bfbdd652eb9e74",
       "error": null,
-      "updated_at": "2026-09-11T03:39:56Z",
+      "updated_at": "2026-09-11T03:39:59Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzg1OGExNjJhMDdhZDRiZjY4OWIzMjg4YzY4NzkxYTNi",
       "task_id": "task_P65GRfhvRxhjfbqNEKIyzjWRVbiB0NH9",
       "requested_seconds": 7.041666666666667,
@@ -147,7 +147,25 @@
       "bytes": 2847881,
       "sha256": "ff0e5c6dbee449d423b7c94e2f00b1084e9cf054dafba7dab85755fac0828c48",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 2847881,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/dbcooper/qa/S06.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S07": {
       "id": "S07",
@@ -200,6 +218,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-11T03:39:56Z",
+  "updated_at": "2026-09-11T03:39:59Z",
   "run_id": "34558529915"
 }
