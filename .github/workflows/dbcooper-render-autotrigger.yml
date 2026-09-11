@@ -1,14 +1,6 @@
 name: DB库珀 · 出片（push 触发）
 
 on:
-  push:
-    branches:
-      - arena/01a08e48-desktop-tutorial
-    paths:
-      - production/dbcooper/story.json
-      - production/dbcooper/results.json
-      - production/dbcooper/render.py
-      - production/dbcooper/audio/**
   workflow_dispatch:
     inputs:
       film_name:
