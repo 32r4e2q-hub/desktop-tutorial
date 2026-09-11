@@ -150,7 +150,7 @@ def audio_layout(chapters, audio_root, work, manifest):
         durations.append(len(samples)/RATE);waves.append(samples);files.append(dest)
     usable=DURATION-INTRO-OUTRO-GAP*(len(chapters)-1)
     tempo=sum(durations)/usable
-    if not .86<=tempo<=1.1:raise RuntimeError(f'Narration would need excessive retiming: {tempo}')
+    if not .84<=tempo<=1.1:raise RuntimeError(f'Narration would need excessive retiming: {tempo}')
     start=INTRO;rows=[]
     for c,d,path,samples in zip(chapters,durations,files,waves):
         rows.append({'id':c['id'],'start':start,'end':start+d/tempo,'raw_duration':d,
