@@ -329,10 +329,10 @@
     },
     "S17": {
       "id": "S17",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "11f1fcaa5135f63a0228f8437d053fd12c727694b91df53cd73e4ee39e510a69",
-      "error": null,
-      "updated_at": "2026-09-11T03:49:49Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Service busy: inference slot is in use.\\\",\\\"code\\\":\\\"503\\\"}}\",\"type\":null,\"param\":null,\"code\":\"503\"}}",
+      "updated_at": "2026-09-11T03:51:24Z"
     }
   },
   "phase": "generating_sources",
@@ -375,6 +375,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-11T03:49:49Z",
+  "updated_at": "2026-09-11T03:51:24Z",
   "run_id": "34558529915"
 }
