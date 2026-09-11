@@ -1,0 +1,27 @@
+{
+  "name": "解说固定男音（与《黑色大丽花》参考片同款）",
+  "language": "zh-CN",
+  "gender": "masculine",
+  "use_case": "narration",
+  "origin": "Selected by the user in the dahlia voice audition (2026-09-09) and reproduced for zodiac1969 (2026-09-11, battle 00). This spec pins it so every future film uses the same narrator without being asked.",
+  "reference_samples": [
+    "production/voice_reference/dahlia_male_narration_N01.mp3",
+    "production/voice_reference/zodiac1969_male_narration_N01.mp3"
+  ],
+  "selection_procedure": "试听时明确要求：普通话（zh-CN）、男声（masculine）、解说（narration）。两个候选各听一遍，与本目录的参考样本（dahlia_male_narration_N01.mp3）对比，选音色最接近的那个；如果两个都不像，换下一组重新试听。配完后跑 `python3 production/check_voice.py --project production/<slug>`，不过闸门就不许进混音。",
+  "measured_reference": {
+    "note": "Median F0 per chapter, measured with this repo's own analyzer (production/check_voice.py): 40 ms frames / 20 ms hop, autocorrelation, voiced = RMS > 0.02 and peak > 0.35.",
+    "dahlia_median_f0_hz_per_chapter": [129.6, 112.7, 112.7, 135.6, 139.1, 113.1],
+    "zodiac1969_revoice_median_f0_hz_per_chapter": [118.5, 126.0, 134.5, 123.1, 133.3, 109.2],
+    "pooled_median_f0_hz": 124.5,
+    "p10_f0_hz_range": [78.0, 91.0],
+    "rejected_take_median_f0_hz_per_chapter": [168.4, 177.8, 170.2, 173.9, 200.0, 186.0],
+    "rejected_take_note": "The first zodiac1969 take sounded female (median F0 168-200 Hz). It shipped before this gate existed; the gate exists so it cannot ship again."
+  },
+  "gate": {
+    "median_f0_hz": [95, 155],
+    "p10_f0_hz_max": 110,
+    "min_voiced_frames_per_clip": 40,
+    "pooled_median_within_percent_of_reference": 25
+  }
+}
