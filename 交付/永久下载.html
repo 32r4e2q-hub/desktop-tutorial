@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>永久下载 - DB库珀</title>
+<style>body{font-family:sans-serif; padding:32px; background:#111; color:#eee;} a{color:#76ddf2;} button{padding:16px 32px; font-size:18px; background:#76ddf2; border:none; border-radius:8px; cursor:pointer;}</style>
+</head><body>
+<h1>DB库珀劫机案 3分钟成片 - 永久下载（不走沙箱）</h1>
+<p>原文件 73M 已拆为 8 个 10M 分片，托管在 GitHub Raw（每个 &lt;50M，可直接下载），点击下方按钮自动合并为完整 MP4 并保存。</p>
+<button id="btn">点此一键下载完整 MP4（73M）</button>
+<p id="status" style="color:#aaa; margin-top:16px;"></p>
+<h3>分片直链（备用，右键另存为后用 cat 合并）</h3>
+<ol id="list"></ol>
+<pre>cat DB库珀*.part-* > DB库珀劫机案_三分钟_带声音.mp4
+# Windows: copy /b *.part-* 完整.mp4</pre>
+
+<script>
+const parts = [
+  "DB库珀劫机案_三分钟_带声音.mp4.part-aa",
+  "DB库珀劫机案_三分钟_带声音.mp4.part-ab",
+  "DB库珀劫机案_三分钟_带声音.mp4.part-ac",
+  "DB库珀劫机案_三分钟_带声音.mp4.part-ad",
+  "DB库珀劫机案_三分钟_带声音.mp4.part-ae",
+  "DB库珀劫机案_三分钟_带声音.mp4.part-af",
+  "DB库珀劫机案_三分钟_带声音.mp4.part-ag",
+  "DB库珀劫机案_三分钟_带声音.mp4.part-ah"
+];
+const base = "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/01a08e48-desktop-tutorial/交付/";
+const list = document.getElementById('list');
+parts.forEach(p=>{
+  const li=document.createElement('li');
+  const a=document.createElement('a');
+  a.href=base+p;
+  a.textContent=p+" (10M)";
+  a.target="_blank";
+  li.appendChild(a);
+  list.appendChild(li);
+});
+
+document.getElementById('btn').onclick = async ()=>{
+  const status=document.getElementById('status');
+  status.textContent="开始下载 8 个分片...";
+  try{
+    const blobs=[];
+    for(let i=0;i<parts.length;i++){
+      status.textContent=`下载 ${i+1}/${parts.length} ${parts[i]}...`;
+      const resp=await fetch(base+parts[i]);
+      if(!resp.ok) throw new Error(`分片 ${parts[i]} 下载失败 ${resp.status}`);
+      const buf=await resp.arrayBuffer();
+      blobs.push(buf);
+    }
+    status.textContent="合并中...";
+    const blob=new Blob(blobs,{type:"video/mp4"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download="DB库珀劫机案_三分钟_带声音.mp4";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    status.textContent="已触发保存（73M），请查看浏览器下载";
+  }catch(e){
+    status.textContent="失败: "+e.message+"，请用分片直链手动下载后合并";
+  }
+};
+</script>
+</body></html>
