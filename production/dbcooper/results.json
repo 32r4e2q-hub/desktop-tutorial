@@ -164,7 +164,7 @@
     },
     "S11": {
       "id": "S11",
-      "status": "completed",
+      "status": "failed",
       "request_hash": "4bd66f0f4baf830de35e2e44e374b096f45359d3bd49a3c39fd8f58cf47930a7",
       "sha256": "27e6235043e13465c51f6eec2b3372d4a343b62e0adb80b1928a9554bffbc35f",
       "bytes": 15610,
@@ -178,7 +178,9 @@
         "fps": 24.0,
         "frames": 168,
         "video_codec": "h264"
-      }
+      },
+      "error": "Could not download file:///home/user/desktop-tutorial/work/dbcooper/sources/S11.mp4",
+      "updated_at": "2026-09-11T03:20:54Z"
     },
     "S12": {
       "id": "S12",
@@ -491,6 +493,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-11T03:20:39Z",
+  "updated_at": "2026-09-11T03:20:54Z",
   "run_id": "34557964261"
 }
