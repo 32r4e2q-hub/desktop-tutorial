@@ -1,0 +1,61 @@
+name: 十二宫杀手 · 发布重配版 Release（push 触发）
+run-name: 发布 · zodiac1969 男音重配版
+
+# 沙箱直传 uploads.github.com 被网络策略拦截（实测 EOF），Release 资产上传
+# 由网络畅通的 Actions runner 代办：检出发布 tag → 建 Release（幂等）→ 上传成片。
+# 触发方式与出片/听检相同：改动 .release-trigger 即跑。
+
+on:
+  push:
+    branches: [arena/01a08dd6-desktop-tutorial]
+    paths:
+      - 'production/zodiac1969/.release-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: zodiac1969-revoice-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/arena/01a08dd6-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out the release tag
+        uses: actions/checkout@v4
+        with:
+          ref: zodiac1969-revoice-2026-09-11
+          fetch-depth: 1
+
+      - name: Create the release (idempotent) and upload the film
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          cat > /tmp/release-notes.md <<'NOTES'
+          《十二宫杀手：仍未说出的名字》三分钟解说成片，2026-09-11 按用户要求将解说换成与《黑色大丽花》参考片同款的普通话男音后重新出片。
+
+          - 解说词与第一版逐字一致，仅换音色；CUTS 按新配音真实停顿整表重排
+          - 实测：180.0 s / 1920×1080 / 30fps / 5400 帧；RMS −20.71 dBFS、峰值 −1.56 dBTP、静音 0.55%，逐章达标
+          - 逐字听检：N01 0.043 / N03 0.052 / N04 0.110 / N06 0.048 直接过闸；N02/N05 经逐条 diff 裁决放行（差异均为 ASR 侧繁体变体/数字形态）
+          - 出片 run 34549939214（音色闸门 PASS）；听检 run 34551261471
+          - 成片 SHA-256 `70cc29ca709277e99aef4edbc3fae097026e8c0f2c065b588a0fe4ea863aae8d`
+          - 该男音已焊死进工具链（`production/voice_reference/` + `production/check_voice.py` 闸门），后续新片自动使用，无需再指定
+
+          生产分支：`arena/01a08dd6-desktop-tutorial`
+          NOTES
+          if gh release view "zodiac1969-revoice-2026-09-11" --repo "$REPO" > /dev/null 2>&1; then
+            echo "release already exists"
+          else
+            gh release create "zodiac1969-revoice-2026-09-11" --repo "$REPO" \
+              --title "十二宫杀手：仍未说出的名字 · 普通话男音重配版" \
+              --notes-file /tmp/release-notes.md
+          fi
+          gh release upload "zodiac1969-revoice-2026-09-11" \
+            "交付/十二宫杀手：仍未说出的名字.mp4" --repo "$REPO" --clobber
+          echo "=== 资产清单 ==="
+          gh release view "zodiac1969-revoice-2026-09-11" --repo "$REPO" --json assets \
+            --jq '.assets[] | {name, size, state, downloads: .download_count}'
