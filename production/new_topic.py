@@ -314,7 +314,10 @@ def starter_manifest(story: dict) -> dict:
     return {
         "voice_id": "",
         "language": "zh-CN",
-        "selection": "TODO 用户试听后选定的音色",
+        "voice_spec": "production/voice_reference/spec.json",
+        "selection": "TODO 试听选定后回填 voice_id。音色已钉死：《黑色大丽花》同款普通话男音"
+                     "（zh-CN / masculine / narration），试听时照 production/voice_reference/ "
+                     "的参考样本选最接近的；配完必须过 production/check_voice.py 才许出片。",
         "clips": [
             {"id": chapter["id"], "file": f"{chapter['id']}.mp3", "sha256": "", "text": ""}
             for chapter in story["chapters"]
@@ -416,11 +419,16 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
 3. **分镜提示词** → `story.json` 的 `shots[].prompt`（英文，前面会自动拼 `style_prefix`）、
    `purpose`、`transition_out`。信息卡镜头把 `kind` 改成 `graphic` 并写 `graphic` 文案；
    用真实档案照片的镜头改成 `archive`，并补 `archive_asset` / `archive_sha256`。
-4. **配音** → 六段 mp3 放进 `audio/`，把每段的 `sha256` 和 `text` 填进 `audio/manifest.json`：
+4. **配音（音色已钉死：普通话男音）** → 六段 mp3 放进 `audio/`，把每段的 `sha256` 和 `text` 填进 `audio/manifest.json`：
 
    ```bash
    sha256sum audio/N01.mp3
    ```
+
+   音色不用再问用户要：**与《黑色大丽花》同款的普通话男音**（zh-CN / masculine / narration）。
+   试听候选时对照 `production/voice_reference/` 里的参考样本选最接近的，
+   配完跑 `python3 production/check_voice.py --project production/{slug}`，不过闸门不许出片
+   （出片脚本 `run_project.sh` 也会自动再跑一遍这道闸门）。
 
 5. **剪辑表与字幕内容** → `render.py` 的 `CUTS` 骨架是均匀 6 秒一切，**必须**听完配音后按真实停顿重对。
    副本里已经用 `TODO` 标出三处参考项目专属内容：字幕高亮关键词、逐镜标签覆盖、片头字幕卡。

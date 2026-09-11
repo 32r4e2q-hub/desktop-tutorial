@@ -30,19 +30,25 @@ FILM="$WORK/${3:-$SAFE_TITLE.mp4}"
 
 echo "=== 项目 $PROJECT / 分支 $BRANCH / 成片 $FILM ==="
 
-echo "=== 1/5 校验计划与配音来源（闸门一）==="
+echo "=== 1/6 校验计划与配音来源（闸门一）==="
 python3 "$DIR/generate.py" --validate
 
-echo "=== 2/5 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）==="
+echo "=== 2/6 固定音色闸门：解说必须是《黑色大丽花》同款普通话男音 ==="
+python3 production/check_voice.py --project "$DIR" --report "$WORK/voice-check.json" || {
+  echo "配音音色不在钉死的男音区间内，拒绝出片（见上、见 $WORK/voice-check.json）" >&2
+  exit 1
+}
+
+echo "=== 3/6 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）==="
 python3 -u "$DIR/fetch_sources.py" --dest "$WORK/clips"
 
-echo "=== 3/5 剪辑 + 混音 + 成品复测（闸门二、三）==="
+echo "=== 4/6 剪辑 + 混音 + 成品复测（闸门二、三）==="
 EXTRA=()
 [ "$SKIP_ASR" = "true" ] && EXTRA+=("--skip-asr")
 python3 -u "$DIR/render.py" \
   --sources "$WORK/clips" --work "$WORK" --output "$FILM" ${EXTRA[@]+"${EXTRA[@]}"}
 
-echo "=== 4/5 把成片与实测报告 commit 回 $BRANCH ==="
+echo "=== 5/6 把成片与实测报告 commit 回 $BRANCH ==="
 mkdir -p 交付 "$DIR/delivery"
 cp "$FILM" "交付/$(basename "$FILM")"
 for f in technical-report.json audio-report.json final-audio-report.json \

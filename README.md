@@ -88,6 +88,11 @@ python3 production/new_topic.py --slug ripper1888 --title "开膛手杰克：188
 2. `build_audio.py` —— 整体电平 / 波峰因数 / 静音占比 / **逐段**解说电平；
 3. `render.py` 收尾 —— 对**最终 mp4** 复测一遍，不达标直接失败。
 
+外加一道**固定音色闸门**（`production/check_voice.py`，出片脚本第 2 步自动跑）：
+解说必须是《黑色大丽花》同款普通话男音（每章中位基频 95–155 Hz、与参考音色偏差 ≤ 25%），
+音色不对直接拒绝出片。规格、参考样本与实测数字见
+[`production/voice_reference/`](production/voice_reference/)——换配音时照着选，不用再问用户。
+
 参考项目成片实测：`-21.09 dBFS RMS`、峰值 `-1.52 dBFS`、静音占比 `1.1%`
 （见 [`production/dahlia/delivery/final-audio-report.json`](production/dahlia/delivery/final-audio-report.json)）。
 
