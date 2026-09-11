@@ -4,7 +4,7 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "completed",
+      "status": "failed",
       "request_hash": "ec38e017868be9bef29ef5d693156c21d30a004cf74f8bfa8d7c0dd01e612c1c",
       "sha256": "643f197e86a59412e676196b6536abe6174c11a6edaa8ef5c454b17447d3fe5d",
       "bytes": 15616,
@@ -18,7 +18,9 @@
         "fps": 24.0,
         "frames": 168,
         "video_codec": "h264"
-      }
+      },
+      "error": "Could not download file:///home/user/desktop-tutorial/work/dbcooper/sources/S01.mp4",
+      "updated_at": "2026-09-11T03:19:49Z"
     },
     "S02": {
       "id": "S02",
@@ -475,6 +477,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-11T03:19:33Z",
+  "updated_at": "2026-09-11T03:19:49Z",
   "run_id": "34557964261"
 }
