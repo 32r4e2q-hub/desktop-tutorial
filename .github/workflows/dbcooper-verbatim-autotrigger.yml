@@ -8,6 +8,8 @@ on:
       - production/dbcooper/audio/**
       - 交付/DB库珀劫机案_三分钟_带声音.mp4
       - production/dbcooper/delivery/technical-report.json
+      - production/verbatim_check.py
+      - .github/workflows/dbcooper-verbatim-autotrigger.yml
   workflow_dispatch:
     inputs:
       film:
