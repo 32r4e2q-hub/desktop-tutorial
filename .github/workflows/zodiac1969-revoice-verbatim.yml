@@ -1,0 +1,97 @@
+name: 十二宫杀手 · 重配音逐字听检（push 触发）
+run-name: 听检 · zodiac1969 男音重配版
+
+# 成片落地后改动 .verbatim-trigger 触发：whisper 转写成片与干净配音，
+# 与 story.json 逐字比对，CER 报告 commit 回本分支。
+# 与通用 verbatim-check.yml 的步骤一致，实际逻辑在 production/verbatim_check.py。
+
+on:
+  push:
+    branches: [arena/01a08dd6-desktop-tutorial]
+    paths:
+      - 'production/zodiac1969/.verbatim-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: zodiac1969-revoice-verbatim
+  cancel-in-progress: false
+
+jobs:
+  listen:
+    if: github.ref == 'refs/heads/arena/01a08dd6-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a08dd6-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r production/requirements.txt
+          python -m pip install "faster-whisper>=1.1,<2" || \
+          python -m pip install --break-system-packages "faster-whisper>=1.1,<2"
+
+      - name: Transcribe the delivered film and compare it to the script
+        id: check
+        continue-on-error: true
+        env:
+          FILM: "交付/十二宫杀手：仍未说出的名字.mp4"
+          MODEL: "small"
+          MAX_CER: "0.15"
+        run: |
+          python3 -u production/verbatim_check.py \
+            --film "$FILM" \
+            --project "production/zodiac1969" \
+            --work "work/zodiac1969/verbatim" \
+            --narration "production/zodiac1969/audio" \
+            --model "$MODEL" \
+            --max-cer "$MAX_CER"
+
+      - name: Publish the report back to the branch
+        env:
+          BRANCH: arena/01a08dd6-desktop-tutorial
+        run: |
+          mkdir -p "production/zodiac1969/delivery"
+          cp "work/zodiac1969/verbatim/verbatim-check.json" "production/zodiac1969/delivery/"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "production/zodiac1969/delivery/verbatim-check.json"
+          if git diff --cached --quiet; then
+            echo "No changes to publish"
+          else
+            git commit -m "Add the verbatim listening check for the re-voiced zodiac1969"
+            git push origin "HEAD:$BRANCH"
+            echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
+          fi
+
+      - name: Upload the slices and the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zodiac1969-revoice-逐字听检-${{ github.run_number }}
+          path: work/zodiac1969/verbatim
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Fail if a chapter needs a human ear
+        if: steps.check.outcome == 'failure'
+        run: |
+          echo "::error::有段落的字错率超过上限，看 production/zodiac1969/delivery/verbatim-check.json"
+          exit 1
