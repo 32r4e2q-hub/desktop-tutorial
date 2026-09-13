@@ -78,10 +78,14 @@
    25 个镜头 × 75 秒节流 ≈ 30~60 分钟；`results.json` 与 `qa/` 抽帧逐镜 commit 回本分支。
    **补坏镜头**：provider 判死的任务（如 S10 的 500）会连带清掉——工作流先跑
    `generate.py --prune-failed`，否则重跑只会去轮询同一个已死的 task_id。
-2. **出片**：Actions 触发「解说短片出片」（`.github/workflows/commentary-render.yml`，
-   已存在），`project` 填 `dbcooper`，`film_name` 填 `DB库珀劫机案_三分钟_带声音.mp4`。
-   它按 SHA-256 回填素材（不重新生成）、渲染混音、复测电平，并把成片与报告
-   commit 回本分支的 `交付/` 与 `delivery/`。
+2. **出片**：两条路等价——
+   - 人在 Actions 触发「解说短片出片」（`.github/workflows/commentary-render.yml`），
+     `project` 填 `dbcooper`，`film_name` 填 `DB库珀劫机案_三分钟_带声音.mp4`；
+   - 代理把 `production/dbcooper/RENDER_REQUEST` 的 `seq` +1 后 push，
+     走本项目的 `.github/workflows/dbcooper-render.yml`（与
+     `dbcooper-render.workflow.yml` 逐字节一致，有测试守着）。
+   两者跑的都是 `production/run_project.sh`：按 SHA-256 回填素材（不重新生成）、
+   渲染混音、复测电平，并把成片与报告 commit 回本分支的 `交付/` 与 `delivery/`。
 3. **审片**：`python3 production/review_film.py --film 交付/DB库珀劫机案_三分钟_带声音.mp4
    --project production/dbcooper --work work/dbcooper/review`；
    逐字听检：「逐字听检」工作流填 `dbcooper`。
@@ -97,7 +101,7 @@
 | `fetch_sources.py` | 按 `results.json` 的 SHA-256 回填素材，不重新生成 |
 | `render.py` | 剪辑（CUTS 已按真实停顿对齐）、字幕、信息卡、混音、成品复测 |
 | `build_audio.py` | numpy 混音 + 静音闸门 |
-| `dbcooper.workflow.yml` | 本项目专属的出片工作流模板（备用） |
+| `dbcooper-render.workflow.yml` | 本项目专属的出片工作流模板（`RENDER_REQUEST` 的 push 即可触发） |
 | `dbcooper-agnes.workflow.yml` | 本项目专属的 Agnes 生成工作流模板（需复制到 .github/workflows/） |
 | `results.json` | 生成回执（生成后出现）：请求哈希、SHA-256、CDN 地址 |
 | `qa/` | 每镜抽帧回执（生成后出现），人工审片用 |

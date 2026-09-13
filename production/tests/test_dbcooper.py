@@ -351,6 +351,30 @@ class RestartTests(unittest.TestCase):
         self.assertLess(text.index('--prune-failed'), text.index('--publish'),
                         '清理死任务必须发生在生成之前')
 
+    def test_render_workflow_is_wired_to_this_branch_and_the_shared_script(self):
+        """出片也要能由代理触发：RENDER_REQUEST 的 push 是唯一入口，流程本体仍是共用脚本。
+
+        刻意 pin 在本分支的 if + 只看 RENDER_REQUEST 的 paths 过滤器上：
+        出片会把成片与报告 commit 回本分支，若触发条件写宽了（比如 on: push 不带 paths），
+        每次交付都会再点一次自己。
+        """
+        template = PROJECT / 'dbcooper-render.workflow.yml'
+        installed = ROOT / '.github/workflows/dbcooper-render.yml'
+        self.assertTrue(installed.exists(),
+                        '缺少 .github/workflows/dbcooper-render.yml（把模板逐字节复制过去）')
+        self.assertEqual(template.read_bytes(), installed.read_bytes(), '安装版与模板不一致')
+        text = installed.read_text(encoding='utf-8')
+        self.assertIn(f"if: github.ref == 'refs/heads/{generator.BRANCH}'", text,
+                      '出片工作流的 if 还指着别的分支')
+        block = text.split('push:', 1)[1].split('permissions:', 1)[0]
+        self.assertIn('production/dbcooper/RENDER_REQUEST', block,
+                      'push 触发没有只看 RENDER_REQUEST')
+        self.assertTrue((PROJECT / 'RENDER_REQUEST').exists(), '代理侧的触发文件不见了')
+        self.assertIn('bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"', text,
+                      '出片必须走共用的 production/run_project.sh，别在这里复制一份流程')
+        self.assertNotIn('ref: arena/', text, '本分支的出片不该 pin 到别的分支的代码')
+        self.assertIn('fonts-noto-cjk', text, '烧中文字幕要 CJK 字体，缺了 render.py 会拒绝出片')
+
     def test_prune_flag_cleans_and_exits_without_generating(self):
         """--prune-failed 只清理、不生成。
 

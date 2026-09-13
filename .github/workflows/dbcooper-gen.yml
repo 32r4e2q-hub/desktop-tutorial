@@ -70,6 +70,9 @@ jobs:
 
       - name: Save video clips as downloadable artifacts
         if: always()
+        # 备份用的：真正要留住的东西已经逐镜 commit 回分支了（results.json + qa/），
+        # 上传服务偶发失败不该把"素材齐了"这一次运行标成红。
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: dbcooper-agnes-${{ github.run_number }}
