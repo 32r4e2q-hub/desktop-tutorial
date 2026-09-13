@@ -99,7 +99,8 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--payload',default='{}');parser.add_argument('--validate',action='store_true')
     parser.add_argument('--publish',action='store_true')
-    parser.add_argument('--prune-failed',action='store_true',help='丢掉失败/中断的进度记录后再重跑')
+    parser.add_argument('--prune-failed',action='store_true',
+                       help='只清理 results.json 里的死任务记录，清完就退出（不生成）')
     args=parser.parse_args()
     project=read_json(PLAN,{});validate(project)
     audio_manifest=read_json(PLAN.parent/'audio/manifest.json',{})
@@ -133,9 +134,12 @@ def main():
         git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
     doc=read_json(RESULTS,{'project':project['title'],'model':agnes.DEFAULT_MODEL,'shots':{}})
     if args.prune_failed:
+        # 只清理、不生成：出片工作流把它单独作为生成前的步骤。
+        # （它要是继续往下跑，就把"清理"变成了第二次全量生成，还会把失败当成自己的失败。）
         stale=prune_stale(doc)
         RESULTS.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
         print('PRUNED_STALE '+json.dumps(stale),flush=True)
+        return 0
     doc['phase']='preparing_sources'
     doc['review']={'status':'pending','scope':'visual/audio quality','blocking_generation':False,
                    'note':'No automatic visual approval. Export is an unreviewed first cut.'}

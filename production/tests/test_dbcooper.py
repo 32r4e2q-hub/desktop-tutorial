@@ -351,6 +351,32 @@ class RestartTests(unittest.TestCase):
         self.assertLess(text.index('--prune-failed'), text.index('--publish'),
                         '清理死任务必须发生在生成之前')
 
+    def test_prune_flag_cleans_and_exits_without_generating(self):
+        """--prune-failed 只清理、不生成。
+
+        踩过的坑：第一版这个开关清完记录就继续往下跑全量生成，于是工作流里
+        "清理"那一步变成了第二次生成——24 镜要从 CDN 重新下载校验，还顺手把
+        补镜任务又提交了一遍；补镜失败时，失败算在"清理"头上，出片那步根本没跑。
+        """
+        import tempfile
+        with tempfile.TemporaryDirectory() as temporary:
+            results = Path(temporary) / 'results.json'
+            results.write_text(json.dumps({'project': 'x', 'shots': {
+                'S10': {'id': 'S10', 'status': 'failed', 'task_id': 'task_dead'},
+                'S01': {'id': 'S01', 'status': 'completed', 'video_url': 'u', 'sha256': 'h', 'bytes': 1},
+            }}, ensure_ascii=False), encoding='utf-8')
+            original, original_argv = generator.RESULTS, sys.argv
+            try:
+                generator.RESULTS = results
+                sys.argv = ['generate.py', '--prune-failed']
+                code = generator.main()
+            finally:
+                generator.RESULTS, sys.argv = original, original_argv
+            self.assertEqual(code, 0)
+            doc = json.loads(results.read_text(encoding='utf-8'))
+            self.assertEqual(sorted(doc['shots']), ['S01'], '死任务没清掉')
+            self.assertNotIn('phase', doc, '清理之后还继续跑了生成流程：--prune-failed 必须就地退出')
+
 
 if __name__ == '__main__':
     unittest.main()
