@@ -563,13 +563,6 @@
       "reused_existing_asset": true,
       "visual_review": "pending"
     },
-    "S22": {
-      "id": "S22",
-      "status": "failed",
-      "request_hash": "b3bcb11fc6138d43ccecaa451f402bcdee718e123310989ae1cb1e8da6f061b6",
-      "error": "Could not create video task after 1 attempts; last problem: network error: TimeoutError: The read operation timed out",
-      "updated_at": "2026-09-13T12:59:02Z"
-    },
     "S24": {
       "id": "S24",
       "status": "completed",
@@ -802,7 +795,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -843,8 +836,8 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-13T12:59:03Z",
-  "run_id": "34758449788",
+  "updated_at": "2026-09-13T13:00:32Z",
+  "run_id": "34758599334",
   "previous_results": {
     "S05": [
       {
