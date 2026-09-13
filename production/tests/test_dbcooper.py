@@ -369,7 +369,8 @@ class RestartTests(unittest.TestCase):
         block = text.split('push:', 1)[1].split('permissions:', 1)[0]
         self.assertIn('production/dbcooper/RENDER_REQUEST', block,
                       'push 触发没有只看 RENDER_REQUEST')
-        self.assertTrue((PROJECT / 'RENDER_REQUEST').exists(), '代理侧的触发文件不见了')
+        # 触发文件是"临时便签"：push 一次就该被消费掉（删掉），所以不能断言它常驻。
+        # 它存在的意义只是让 push 事件的 paths 过滤器命中一次。
         self.assertIn('bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"', text,
                       '出片必须走共用的 production/run_project.sh，别在这里复制一份流程')
         self.assertNotIn('ref: arena/', text, '本分支的出片不该 pin 到别的分支的代码')
