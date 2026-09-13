@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 53254880,
+  "bytes": 52907291,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,18 +9,18 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "41cdd275956a3e8e95385f4f6ff7690d4a6b00c9c8eebb20bf7654cfb814c9cc",
+  "sha256": "4bc53d9b5d84733e2c2bf706fe82c2b2163c304679e5ee97f5328a120d006f29",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
   "caption_alignment": [
     {
       "id": "N01",
-      "method": "pause-aware estimate",
-      "character_match_coverage": 0.028846153846153848,
-      "boundary_penalty_asr": null,
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9807692307692307,
+      "boundary_penalty_asr": 0.0,
       "boundary_penalty_estimate": 0.0341,
-      "asr_model": null,
+      "asr_model": "small",
       "asr_skipped": false
     },
     {
@@ -44,7 +44,7 @@
     {
       "id": "N04",
       "method": "ASR-assisted",
-      "character_match_coverage": 0.9666666666666667,
+      "character_match_coverage": 0.9777777777777777,
       "boundary_penalty_asr": 0.0,
       "boundary_penalty_estimate": 0.0,
       "asr_model": "small",
@@ -52,11 +52,11 @@
     },
     {
       "id": "N05",
-      "method": "pause-aware estimate",
-      "character_match_coverage": 0.9056603773584906,
-      "boundary_penalty_asr": null,
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9905660377358491,
+      "boundary_penalty_asr": 0.0,
       "boundary_penalty_estimate": 0.0,
-      "asr_model": null,
+      "asr_model": "small",
       "asr_skipped": false
     },
     {
