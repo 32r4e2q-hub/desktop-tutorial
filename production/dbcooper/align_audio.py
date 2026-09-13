@@ -10,6 +10,12 @@ import re
 
 DIGITS = '零一二三四五六七八九'
 
+# 对轨用的模型。参考项目最初用 `base`，六章里有四章匹配度不到 0.75 只能回落到
+# "停顿估算"——不是估算不好，是**明明能对齐却放弃了**。换 `small`（逐字听检用的就是它，
+# 六章匹配度 0.92~0.97，跑一次约三分钟）之后应当六章全对齐。
+# 换模型只影响字幕**时间戳**怎么来；字幕文字始终是剧本原文（闸门一逐字验过）。
+ASR_MODEL = os.getenv('COMMENTARY_ASR_MODEL', 'small')
+
 
 def chinese_number(value):
     n=int(value)
@@ -61,8 +67,9 @@ def transcribe_on_runner(narration, work):
     os.environ.setdefault('HF_HUB_DOWNLOAD_TIMEOUT','90')
     try:
         from faster_whisper import WhisperModel
-        model=WhisperModel('base',device='cpu',compute_type='int8',cpu_threads=2,
+        model=WhisperModel(ASR_MODEL,device='cpu',compute_type='int8',cpu_threads=2,
                            download_root=str(work/'model-cache'))
+        print(f'ASR_MODEL {ASR_MODEL}',flush=True)
         results={}
         for row in narration:
             segments,_=model.transcribe(row['path'],language='zh',beam_size=5,word_timestamps=True,

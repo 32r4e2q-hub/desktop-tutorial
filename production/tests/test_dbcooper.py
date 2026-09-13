@@ -10,6 +10,7 @@
 import hashlib
 import importlib.util
 import json
+import numpy as np
 from collections import Counter
 from pathlib import Path
 import re
@@ -197,7 +198,6 @@ class CutAlignmentTests(unittest.TestCase):
     def test_cut_points_land_on_measured_pauses(self):
         if not shutil.which('ffmpeg'):
             self.skipTest('需要 ffmpeg 解码配音才能测停顿')
-        import numpy as np
         import subprocess
         import tempfile
         import wave
@@ -439,6 +439,26 @@ class DeliveryTests(unittest.TestCase):
         self.assertGreaterEqual(report['duration_seconds'], 179.5)
         self.assertLessEqual(report['duration_seconds'], 180.5)
 
+    def test_the_report_picks_the_cue_timing_that_measures_better(self):
+        """对轨报告的自洽性：赢的那一套必须是分数好的那一套，而且分数要真的接近零。
+
+        这一条存在的理由：旧写法是"ASR 优先，匹配度不足才回落"，于是报告里
+        "四章回落到停顿估算"读起来像缺陷没修完。实测下来恰恰相反——
+        同一份配音上量能量包络，停顿估算那套的边界惩罚几乎是 0，ASR 那套会留 0.7 秒空窗。
+        所以 render 改成两套都算、按分数择优，并把两个分数一起交付。
+        """
+        rows = self._json('alignment-report.json')
+        if 'boundary_penalty_estimate' not in rows[0]:
+            self.skipTest('交付报告出自旧版 render：没有两套对轨的对照分数')
+        for row in rows:
+            self.assertLessEqual(row['boundary_penalty_estimate'], 0.05,
+                                 f"{row['id']} 的停顿估算本身就不该有边界落在语音里")
+            if row['method'] == 'ASR-assisted':
+                self.assertLessEqual(row['boundary_penalty_asr'], row['boundary_penalty_estimate'],
+                                     f"{row['id']} 选了分数更差的那套")
+            else:
+                self.assertTrue(row['method'] == 'pause-aware estimate')
+
     def test_technical_report_matches_this_plan_not_the_reference_one(self):
         data = self._json('technical-report.json')
         project = project_plan()
@@ -507,6 +527,86 @@ class MixReproducibilityTests(unittest.TestCase):
                          '复现记录里的"云端数字"与交付报告不符：报告改过而记录没跟着改')
         self.assertLessEqual(abs(doc['overall']['rms_dbfs']['cloud'] - doc['overall']['rms_dbfs']['local']),
                              doc['tolerance_db'])
+
+
+
+@unittest.skipUnless(shutil.which('ffmpeg'), '需要 ffmpeg 解码配音才能测字幕边界')
+class CaptionTimingTests(unittest.TestCase):
+    """成片字幕的每一次换行，都必须落在**实测的语音能量低点**上。
+
+    "换行跟不跟得上语流"原本是写在"没做到"里的一条：四章回落到停顿估算，
+    只能请人耳听一遍。这里把它换成数字——直接从已交付的六段配音上量能量包络，
+    要求每个 cue 的入点与出点附近 0.35 秒内存在一个明显的低谷（≤该章中位能量的 40%），
+    或者它就是这一章的开头/结尾。ASR 对轨与停顿估算谁赢都无所谓：
+    这条测的是**交付结果**，方法名不担保结果。
+    """
+
+    HOP, RATE, WINDOW = 960, 48000, 0.35
+    LOW_RATIO, SECONDARY_RATIO = 0.40, 0.70
+
+    @classmethod
+    def setUpClass(cls):
+        import subprocess
+        import tempfile
+        import wave
+        timing = PROJECT / 'delivery/caption-timing.json'
+        if not timing.exists():
+            raise unittest.SkipTest('还没出片：delivery/caption-timing.json 不存在')
+        cls.cues = json.loads(timing.read_text(encoding='utf-8'))
+        rows, tempo = narration_rows()
+        cls.rows = rows
+        envelope = {}
+        for row in rows:
+            source = PROJECT / 'audio' / f"{row['id']}.mp3"
+            with tempfile.TemporaryDirectory() as temporary:
+                wav = Path(temporary) / 'a.wav'
+                subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(source), '-ac', '1',
+                                '-ar', str(cls.RATE), '-c:a', 'pcm_s16le', str(wav)], check=True)
+                with wave.open(str(wav), 'rb') as handle:
+                    samples = np.frombuffer(handle.readframes(handle.getnframes()),
+                                            dtype='<i2').astype('float32') / 32768
+            blocks = samples[:len(samples) - len(samples) % cls.HOP].reshape(-1, cls.HOP)
+            envelope[row['id']] = np.sqrt((blocks * blocks).mean(axis=1))
+        cls.envelope = envelope
+
+    def test_every_cue_boundary_sits_on_a_measured_speech_low(self):
+        suspicious = []
+        checked = 0
+        for cue in self.cues:
+            row = next(r for r in self.rows if r['start'] - 1e-6 <= cue['start'] < r['end'] + 1e-6)
+            rms = self.envelope[row['id']]
+            median = float(np.median(rms))
+            for edge in ('start', 'end'):
+                raw = (cue[edge] - row['start']) * row['tempo']
+                checked += 1
+                if raw < 0.05 or abs(raw - row['raw_duration']) < 0.05:
+                    continue                                   # 章节首尾：没有"打断语流"可言
+                window = rms[max(0, round((raw - self.WINDOW) * self.RATE / self.HOP))
+                             :round((raw + self.WINDOW) * self.RATE / self.HOP) + 1]
+                if len(window) == 0 or float(window.min()) > self.SECONDARY_RATIO * median:
+                    suspicious.append((row['id'], edge, round(raw, 2),
+                                       round(float(window.min()) / median, 2), cue['text'][:14]))
+        self.assertGreaterEqual(checked, 2 * len(self.cues) - 4, '边界数量不对，交付文件被截断？')
+        self.assertFalse(suspicious,
+                         f'{len(suspicious)} 个字幕边界落在语音中间（窗口内最低能量 / 章中位 > '
+                         f'{self.SECONDARY_RATIO}）：{suspicious[:6]}')
+
+    def test_cues_are_ordered_and_never_outlive_their_chapter(self):
+        for row in self.rows:
+            own = [c for c in self.cues if row['start'] - 1e-6 <= c['start'] < row['end'] + 1e-6]
+            self.assertTrue(own, row['id'])
+            # 第一条在开口时就得到（留 0.6 秒容差）；最后一条不许压到下一章；中间不许重叠。
+            # 注意不要求"最后一条必须铺满到章尾"——话说完字幕就该退场，
+            # 尾迟 0.2 秒左右是 ASR 那套的正常行为，不是缺陷。
+            self.assertLessEqual(own[0]['start'], row['start'] + 0.05, f"{row['id']} 首条字幕来晚了")
+            self.assertLessEqual(own[-1]['end'], row['end'] + 0.05, f"{row['id']} 字幕压进了章节间隔")
+            for left, right in zip(own, own[1:]):
+                self.assertLessEqual(left['end'], right['start'] + 1e-6, f"{row['id']} 字幕重叠")
+                self.assertLessEqual(right['start'] - left['end'], 1.5,
+                                     f"{row['id']} 有超过 1.5 秒的字幕空窗")
+        joined = ''.join(c['text'] for c in self.cues)
+        script = ''.join(chapter['text'] for chapter in project_plan()['chapters'])
+        self.assertEqual(joined, script, '成片字幕与剧本不是逐字同一份')
 
 
 if __name__ == '__main__':

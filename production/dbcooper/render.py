@@ -271,6 +271,32 @@ def safe_text(text):
     return text.replace('\\','/').replace('{','（').replace('}','）').replace('\n',' ')
 
 
+
+def boundary_penalty(cues,row,samples,hop=960):
+    """给一套字幕时间打分：每个"入点/出点"落在语音中间多少，就加多少分。低者赢。
+
+    为什么要有这个：对轨有两条路——ASR 逐词时间戳，与按实测停顿等比分配。
+    原先的写法是"ASR 优先，匹配度不够才回落"，等于把一个模型的名额当成质量担保；
+    实际数据里 ASR 那条反而会留下 0.7 秒的空窗与 0.25 秒的尾迟。
+    到底哪套更贴语流，不该由信仰决定，该由**同一份配音上量出来的能量包络**决定。
+    """
+    if not cues: return float('inf')
+    blocks=samples[:len(samples)-len(samples)%hop].reshape(-1,hop)
+    rms=np.sqrt((blocks*blocks).mean(axis=1))
+    median=float(np.median(rms)) if len(rms) else 0.0
+    if median<=0: return 0.0
+    penalty=0.0
+    for cue in cues:
+        for moment in (cue['start'],cue['end']):
+            raw=(moment-row['start'])*row['tempo']
+            if raw<0.05 or abs(raw-row['raw_duration'])<0.05: continue   # 章首尾无所谓打断
+            begin=max(0,int(round((raw-.35)*RATE/hop))); end=int(round((raw+.35)*RATE/hop))+1
+            window=rms[begin:end]
+            if not len(window): continue
+            ratio=float(window.min())/median
+            if ratio>.40: penalty+=ratio-.40                              # 0.4 倍以下算"低谷"
+    return penalty
+
 def write_subtitles(path,cues,edl):
     text='''[Script Info]
 ScriptType: v4.00+
@@ -424,16 +450,24 @@ def main():
         checks[sid]=probe(source)
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
     edl=make_edl(project,narration)
-    from align_audio import transcribe_on_runner, aligned_cues
+    from align_audio import transcribe_on_runner, aligned_cues, ASR_MODEL
     asr={} if args.skip_asr else transcribe_on_runner(narration,work)
     cues=[];alignment=[]
     for row,samples in zip(narration,waves):
+        estimate=captions_for(row,samples)
         aligned=None;coverage=0.0
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        cues.extend(aligned if aligned else captions_for(row,samples))
-        alignment.append({'id':row['id'],'method':'ASR-assisted' if aligned else 'pause-aware estimate',
-                          'character_match_coverage':coverage})
+        # 两套都在的时候，用实测能量比较谁更贴语流；只有一套可用时也没什么好挑的。
+        chosen,won = (aligned,'ASR-assisted') if aligned and boundary_penalty(aligned,row,samples) \
+                     <= boundary_penalty(estimate,row,samples) else (estimate,'pause-aware estimate')
+        cues.extend(chosen)
+        alignment.append({'id':row['id'],'method':won,'character_match_coverage':coverage,
+                          # 报告要能自证：用什么模型对的、两套各自的分数、离线跳过时对轨根本没跑
+                          'boundary_penalty_asr':(round(boundary_penalty(aligned,row,samples),4) if aligned else None),
+                          'boundary_penalty_estimate':round(boundary_penalty(estimate,row,samples),4),
+                          'asr_model':(ASR_MODEL if aligned else None),
+                          'asr_skipped':bool(args.skip_asr)})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl)
     (work/'caption-timing.json').write_text(json.dumps(cues,ensure_ascii=False,indent=2))
