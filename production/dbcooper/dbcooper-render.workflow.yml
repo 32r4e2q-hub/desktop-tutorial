@@ -85,6 +85,9 @@ jobs:
 
       - name: Upload the finished film
         if: always()
+        # 只是备份：成片与实测报告已经由 run_project.sh commit 回本分支（交付/ 与 delivery/），
+        # 这个环境里 artifact 服务连着两次传不上去，不该把"出片成功"标成红的运行。
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: dbcooper-成片-${{ github.run_number }}

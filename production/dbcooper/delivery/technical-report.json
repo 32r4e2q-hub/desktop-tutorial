@@ -49,7 +49,7 @@
   "narration_tempo": 0.9842857142857142,
   "editorial_segments": 32,
   "source_clips": 25,
-  "archival_portrait": true,
+  "archival_portrait": false,
   "output": "DB库珀劫机案_三分钟_带声音.mp4",
   "soundtrack_mix": {
     "rms_dbfs": -21.75,
@@ -64,5 +64,6 @@
     "quietest_window_dbfs": -120.0
   },
   "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
-  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
+  "report_note": "2026-09-13 事后修正：archival_portrait 原本是从参考项目抄来的常量 True，而本片 0 个 archive 镜头（劫机者没有可核实的真实照片）。只改这一个字段，实测数字一律未动；render.py 已改为按 EDL 计算，测试会拦住再抄回来。"
 }

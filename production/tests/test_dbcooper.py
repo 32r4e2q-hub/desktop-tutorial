@@ -403,5 +403,38 @@ class RestartTests(unittest.TestCase):
             self.assertNotIn('phase', doc, '清理之后还继续跑了生成流程：--prune-failed 必须就地退出')
 
 
+
+class DeliveryTests(unittest.TestCase):
+    """交付报告必须说真话：数字来自实测，字段不许是抄参考项目的常量。"""
+
+    def _json(self, name):
+        path = PROJECT / 'delivery' / name
+        if not path.exists():
+            self.skipTest(f'还没出片：delivery/{name} 不存在')
+        return json.loads(path.read_text(encoding='utf-8'))
+
+    def test_delivered_film_passes_the_audibility_gate_on_its_own_numbers(self):
+        """拿流水线自己的闸门函数复查交付报告——"过闸"这句话要能被机器重放。"""
+        report = self._json('final-audio-report.json')
+        editor.assert_audible(report)
+        self.assertGreaterEqual(report['duration_seconds'], 179.5)
+        self.assertLessEqual(report['duration_seconds'], 180.5)
+
+    def test_technical_report_matches_this_plan_not_the_reference_one(self):
+        data = self._json('technical-report.json')
+        project = project_plan()
+        self.assertEqual((data['width'], data['height']), (project['width'], project['height']))
+        self.assertEqual(data['fps'], project['fps'])
+        self.assertEqual(data['frames'], round(project['target_duration'] * project['fps']))
+        self.assertEqual(data['source_clips'], sum(s['kind'] == 'agnes' for s in project['shots']))
+        self.assertTrue(data['decoded_ok'])
+        # 这是抄参考项目最容易留下的一句假话：本片一个 archive 镜头都没有
+        self.assertEqual(data['archival_portrait'], any(s['kind'] == 'archive' for s in project['shots']),
+                         '报告不许替片子声称"用了档案肖像"')
+        # 出片那刻的诚实标注：视觉审片不是自动的，没做完就写 pending
+        self.assertIn(data['visual_review'], ('pending', 'reviewed'))
+
+
+
 if __name__ == '__main__':
     unittest.main()

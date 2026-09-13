@@ -482,7 +482,10 @@ def main():
     technical={**info,'sha256':digest(args.output),'decoded_ok':True,'status':'audio_verified_cut',
                'visual_review':'pending','caption_alignment':alignment,
                'narration_voice_id':audio_manifest['voice_id'],'narration_tempo':narration[0]['tempo'],
-               'editorial_segments':len(edl),'source_clips':len(checks),'archival_portrait':True,
+               'editorial_segments':len(edl),'source_clips':len(checks),
+               # 本片 0 个 archive 镜头（劫机者没有可核实的真实照片，红线禁止用 AI 脸冒充）：
+               # 这个字段是从参考项目抄来的常量 True，等于让报告替片子撒谎。
+               'archival_portrait':any(e['kind']=='archive' for e in edl),
                'output':args.output.name,
                'soundtrack_mix':{k:mix_report[k] for k in
                                  ('rms_dbfs','peak_dbfs','silent_fraction','target_rms_dbfs')},
