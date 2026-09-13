@@ -1,7 +1,7 @@
 {
   "flags": [
     "175 帧接近全黑",
-    "36 处画面 1 秒内几乎无变化：12 处复核为真静止（信息卡/档案照/片尾卡，设计如此），24 处复核有微动（16x16 阈值过严，不是冻结帧）"
+    "38 处画面 1 秒内几乎无变化：11 处复核为真静止（信息卡/档案照/片尾卡，设计如此），27 处复核有微动（16x16 阈值过严，不是冻结帧）"
   ],
   "video": {
     "file": "DB库珀劫机案_三分钟_带声音.mp4",
@@ -719,8 +719,8 @@
       {
         "start_second": 0.27,
         "end_second": 1.27,
-        "max_frame_delta": 0.473,
-        "triage_median_delta": 0.901,
+        "max_frame_delta": 0.492,
+        "triage_median_delta": 0.902,
         "verdict": "micro_motion"
       },
       {
@@ -733,22 +733,22 @@
       {
         "start_second": 13.43,
         "end_second": 14.43,
-        "max_frame_delta": 0.535,
-        "triage_median_delta": 0.296,
+        "max_frame_delta": 0.523,
+        "triage_median_delta": 0.295,
         "verdict": "micro_motion"
       },
       {
         "start_second": 14.73,
         "end_second": 15.73,
         "max_frame_delta": 0.34,
-        "triage_median_delta": 0.056,
+        "triage_median_delta": 0.055,
         "verdict": "static"
       },
       {
         "start_second": 23.67,
         "end_second": 24.67,
-        "max_frame_delta": 0.59,
-        "triage_median_delta": 0.181,
+        "max_frame_delta": 0.566,
+        "triage_median_delta": 0.184,
         "verdict": "micro_motion"
       },
       {
@@ -796,15 +796,15 @@
       {
         "start_second": 64.7,
         "end_second": 65.7,
-        "max_frame_delta": 0.297,
-        "triage_median_delta": 0.189,
+        "max_frame_delta": 0.359,
+        "triage_median_delta": 0.289,
         "verdict": "micro_motion"
       },
       {
         "start_second": 72.0,
         "end_second": 73.0,
-        "max_frame_delta": 0.477,
-        "triage_median_delta": 0.728,
+        "max_frame_delta": 0.488,
+        "triage_median_delta": 0.723,
         "verdict": "micro_motion"
       },
       {
@@ -892,24 +892,38 @@
         "verdict": "static"
       },
       {
-        "start_second": 136.33,
-        "end_second": 137.33,
-        "max_frame_delta": 0.34,
-        "triage_median_delta": 0.054,
+        "start_second": 117.87,
+        "end_second": 118.87,
+        "max_frame_delta": 0.398,
+        "triage_median_delta": 0.052,
         "verdict": "static"
       },
       {
-        "start_second": 138.6,
-        "end_second": 139.6,
-        "max_frame_delta": 0.426,
-        "triage_median_delta": 0.041,
-        "verdict": "static"
+        "start_second": 121.5,
+        "end_second": 122.5,
+        "max_frame_delta": 0.492,
+        "triage_median_delta": 0.797,
+        "verdict": "micro_motion"
       },
       {
-        "start_second": 142.07,
-        "end_second": 143.07,
-        "max_frame_delta": 0.445,
-        "triage_median_delta": 0.073,
+        "start_second": 123.9,
+        "end_second": 124.9,
+        "max_frame_delta": 0.586,
+        "triage_median_delta": 1.051,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 126.03,
+        "end_second": 127.03,
+        "max_frame_delta": 0.59,
+        "triage_median_delta": 0.957,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 135.3,
+        "end_second": 136.3,
+        "max_frame_delta": 0.293,
+        "triage_median_delta": 0.058,
         "verdict": "static"
       },
       {
@@ -969,9 +983,9 @@
         "verdict": "static"
       }
     ],
-    "mean_luma": 64.57,
+    "mean_luma": 66.42,
     "min_luma": 0.07,
-    "max_luma": 143.75,
+    "max_luma": 143.87,
     "sampled_frames": [
       "t0000.00s.jpg",
       "t0005.00s.jpg",
@@ -1011,14 +1025,7 @@
       "t0175.00s.jpg"
     ],
     "contact_sheets": [
-      "contact-sheet-01.png",
-      "contact-sheet-02.png",
-      "contact-sheet-03.png",
-      "contact-sheet-04.png",
-      "contact-sheet-05.png",
-      "contact-sheet-06.png",
-      "contact-sheet-07.png",
-      "contact-sheet-08.png"
+      "contact-sheet-01.png"
     ]
   },
   "audio": {

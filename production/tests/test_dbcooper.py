@@ -503,10 +503,25 @@ class DeliveryTests(unittest.TestCase):
         # 出片那刻的诚实标注：视觉审片不是自动的，没做完就写 pending
         self.assertIn(data['visual_review'], ('pending', 'reviewed'))
 
+    def test_listening_report_is_bound_to_the_delivered_film(self):
+        """听检报告必须说清它量的是哪一版成片。
+
+        本片一天里出了四版，而报告原先只记文件名：`CER 全过` 于是可以被任何一版沿用——
+        两次重跑后文件内容一字不变，恰恰暴露了"报告不绑定输入"这件事。
+        现在 `verbatim_check.py` 写 `film_sha256`，这里要求它与 technical-report 的 sha 相同：
+        不一致就是报告过期，得重跑，而不是"大概也一样吧"。
+        """
+        report = PROJECT / 'delivery/verbatim-check.json'
+        if not report.exists():
+            self.skipTest('还没跑逐字听检')
+        data = json.loads(report.read_text(encoding='utf-8'))
+        self.assertIn('film_sha256', data, '听检报告没绑定成片指纹：报告过期或工具回退了')
+        tech = json.loads((PROJECT / 'delivery/technical-report.json').read_text(encoding='utf-8'))
+        self.assertEqual(data['film_sha256'], tech['sha256'],
+                         '听检报告量的是另一版成片：bump VERBATIM_REQUEST 重跑')
+        self.assertEqual(data['film'], tech['output'], '报告里的文件名要与被检成片对上')
 
 
-
-@unittest.skipUnless(shutil.which('ffmpeg'), '需要 ffmpeg 解码那六段配音')
 class MixReproducibilityTests(unittest.TestCase):
     """换一台机器把混音重跑一遍，电平必须与云端交付时记录的完全一致。
 
@@ -560,6 +575,8 @@ class MixReproducibilityTests(unittest.TestCase):
 
 
 
+
+@unittest.skipUnless(shutil.which('ffmpeg'), '需要 ffmpeg 解码那六段配音')
 @unittest.skipUnless(shutil.which('ffmpeg'), '需要 ffmpeg 解码配音才能测字幕边界')
 class CaptionTimingTests(unittest.TestCase):
     """成片字幕的每一次换行，都必须落在**实测的语音能量低点**上。
