@@ -221,6 +221,24 @@
   "not_claimed": [
     "不是 5400 帧逐帧目视：按 5 秒抽样 + 修正处全帧放大，未看过的帧不写进任何\"已验\"",
     "provider 侧的先验仍在工作：S22 抽到第四次才压住，同类镜头（任何\"带字的纸\"）下次仍可能复发——所以本项目把\"画面里不留下可被印刷的表面\"记为对文字穿帮的默认解法",
-    "逐字听检见 delivery/verbatim-check.json，其中 video_sha256 必须与本片一致才算本轮结论"
-  ]
+    "逐字听检已绑定成片指纹并重跑（delivery/verbatim-check.json 的 film_sha256 == 本片，六章 CER 0.029–0.077、failing 为空）；测试 DeliveryTests 要求两者一致"
+  ],
+  "verbatim": {
+    "report": "delivery/verbatim-check.json",
+    "asr": "faster-whisper small",
+    "initial_prompt": false,
+    "max_cer_allowed": 0.15,
+    "cer": {
+      "N01": 0.0769,
+      "N02": 0.0294,
+      "N03": 0.0769,
+      "N04": 0.0556,
+      "N05": 0.0566,
+      "N06": 0.0515
+    },
+    "failing": [],
+    "narration_control_max_cer": 0.1346,
+    "bound_to_film": true,
+    "note": "差异全是同音字与数字写法（帆/凡、舱/仓、伞/傘、丹库珀→当枯铺），不是配音念错；对照组（干净配音）的 N03 CER 反而更高（0.1346 > 0.0769），说明差异来自识别端"
+  }
 }
