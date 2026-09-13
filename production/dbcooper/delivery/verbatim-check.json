@@ -1,5 +1,8 @@
 {
   "film": "DB库珀劫机案_三分钟_带声音.mp4",
+  "film_sha256": "4bc53d9b5d84733e2c2bf706fe82c2b2163c304679e5ee97f5328a120d006f29",
+  "film_bytes": 52907291,
+  "decoded_audio_seconds": 180.011,
   "project": "production/dbcooper",
   "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
   "max_cer_allowed": 0.15,
@@ -519,5 +522,5 @@
     "max_cer": 0.1346,
     "failing": []
   },
-  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。本报告按 film_sha256 绑定被检成片：换一版成片必须重跑，结论不跨版本沿用。"
 }
