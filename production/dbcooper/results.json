@@ -235,36 +235,10 @@
     },
     "S11": {
       "id": "S11",
-      "status": "completed",
-      "request_hash": "3f027c6fff13e64ca0cc755fdbad4903a469df86302c9983cc65dd5551f1b5c5",
+      "status": "submitting",
+      "request_hash": "b87e288dee87261cdf9f3fcfcb69aee02ac6148047b3df84e36f937037f7d740",
       "error": null,
-      "updated_at": "2026-09-13T08:52:43Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzE3NTEyMzI1M2YyMzQ3YmJhZGM1Y2JkOWNkYjQ2YTM2",
-      "task_id": "task_k6EC7jgV8DcP17Syr6Twk1UB8495ZtZ5",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_175123253f2347bbadc5cbd9cdb46a36.mp4",
-      "bytes": 3421111,
-      "sha256": "ef366e29965b184604a8bcc3410953d4482af50b7496f2002e59873a388d9b73",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 3421111,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/dbcooper/qa/S11.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": false,
-      "visual_review": "pending"
+      "updated_at": "2026-09-13T09:37:42Z"
     },
     "S12": {
       "id": "S12",
@@ -846,7 +820,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-13T09:37:41Z",
+  "updated_at": "2026-09-13T09:37:42Z",
   "run_id": "34749708553",
   "previous_results": {
     "S05": [
@@ -877,6 +851,41 @@
           "audio_channels": 2,
           "decoded_ok": true,
           "contact_sheet": "production/dbcooper/qa/S05.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": false,
+        "visual_review": "pending"
+      }
+    ],
+    "S11": [
+      {
+        "id": "S11",
+        "status": "completed",
+        "request_hash": "3f027c6fff13e64ca0cc755fdbad4903a469df86302c9983cc65dd5551f1b5c5",
+        "error": null,
+        "updated_at": "2026-09-13T08:52:43Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzE3NTEyMzI1M2YyMzQ3YmJhZGM1Y2JkOWNkYjQ2YTM2",
+        "task_id": "task_k6EC7jgV8DcP17Syr6Twk1UB8495ZtZ5",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_175123253f2347bbadc5cbd9cdb46a36.mp4",
+        "bytes": 3421111,
+        "sha256": "ef366e29965b184604a8bcc3410953d4482af50b7496f2002e59873a388d9b73",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 3421111,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/dbcooper/qa/S11.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         },
