@@ -80,7 +80,7 @@ def card_image(sid, variant, directory):
     directory.mkdir(parents=True,exist_ok=True)
     dest=directory/f'{sid}-{variant or "base"}.jpg'
     if dest.exists():return dest
-    rng=np.random.default_rng(1947+int(sid[1:]) if sid.startswith('S') else 1947)
+    rng=np.random.default_rng(1971+int(sid[1:]) if sid.startswith('S') else 1971)
     y,x=np.mgrid[0:1080,0:1920]
     glow=np.clip(1-((x-940)/1200)**2-((y-510)/850)**2,0,1)
     grain=rng.normal(0,1.2,(1080,1920))
@@ -138,7 +138,7 @@ def archive_image(variant,directory):
     centered(d,'TODO 档案卡副标',536,90,'#d4c69d',x=1330)
     d.line((1240,695,1420,695),fill='#8e8466',width=2)
     centered(d,'档案照片 · 非AI生成人像',747,28,'#a7b09f',x=1330)
-    centered(d,'来源：1947年1月21日洛杉矶警方调查通告',942,23,'#84917d')
+    centered(d,'来源见 story.json 的 sources',942,23,'#84917d')
     im.save(dest,quality=94)
     return dest
 
@@ -318,7 +318,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 
 def write_sfx(path,edl):
-    rng=np.random.default_rng(19470115);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
+    rng=np.random.default_rng(19711124);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
     events=[]
     for source,kind in [('S06','paper'),('S17','press'),('S18','press')]:
         first=next(e for e in edl if e['id']==source)
