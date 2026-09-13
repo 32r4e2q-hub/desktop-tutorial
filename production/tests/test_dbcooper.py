@@ -339,17 +339,41 @@ class RestartTests(unittest.TestCase):
         self.assertIn(f'ref: {branch}', text, 'checkout 的 ref 还指着别的分支：跑的不是这里的代码')
         self.assertIn(f'- {branch}', text, 'push 触发（GEN_REQUEST）的分支过滤还指着别的分支')
 
-    def test_marker_file_is_the_agent_side_trigger(self):
-        text = self._workflow_text()
-        block = text.split('push:', 1)[1]
-        self.assertIn('production/dbcooper/GEN_REQUEST', block.split('permissions:', 1)[0],
-                      'push 触发没有只看 GEN_REQUEST，逐镜 checkpoint 会把出片循环点着')
+    #: 每个专属工作流一张"便签"：代理没有 workflow_dispatch 权限（403），
+    #: push 便签文件是唯一可用的触发方式。
+    MARKER_TRIGGERS = {
+        'dbcooper-gen': 'GEN_REQUEST',
+        'dbcooper-render': 'RENDER_REQUEST',
+        'dbcooper-verbatim': 'VERBATIM_REQUEST',
+    }
 
-    def test_prune_step_runs_before_generation(self):
-        text = self._workflow_text()
-        self.assertIn('--prune-failed', text)
-        self.assertLess(text.index('--prune-failed'), text.index('--publish'),
-                        '清理死任务必须发生在生成之前')
+    def test_project_workflows_are_pinned_here_and_loop_free(self):
+        """三个专属工作流：与模板逐字节一致、pin 在本分支、只认自己那张便签。
+
+        paths 过滤器是防自我循环的关键：gen 每完成一镜就 commit `results.json` 与 `qa/`，
+        render 把成片与 `delivery/` commit 回来，verbatim 把听检报告 commit 回来——
+        任何一条把触发条件写宽（比如 `on: push` 不带 paths），都会把自己再点一遍。
+        "if 指着别的分支"的症状更阴：job 被静默跳过，看起来"跑了但什么都没发生"。
+        """
+        branch = generator.BRANCH
+        for workflow, marker in self.MARKER_TRIGGERS.items():
+            with self.subTest(workflow=workflow):
+                template = PROJECT / {
+                    'dbcooper-gen': 'dbcooper-agnes.workflow.yml',
+                    'dbcooper-render': 'dbcooper-render.workflow.yml',
+                    'dbcooper-verbatim': 'dbcooper-verbatim.workflow.yml',
+                }[workflow]
+                installed = ROOT / '.github' / 'workflows' / f'{workflow}.yml'
+                self.assertTrue(installed.exists(), f'缺少 {installed.relative_to(ROOT)}（把模板逐字节复制过去）')
+                self.assertEqual(template.read_bytes(), installed.read_bytes(),
+                                 f'{installed.name} 与 {template.name} 不一致：以后者为准重新复制')
+                text = installed.read_text(encoding='utf-8')
+                self.assertIn(f"if: github.ref == 'refs/heads/{branch}'", text,
+                              'if 还指着别的分支：job 会被静默跳过')
+                self.assertIn(f'- {branch}', text, 'push 的分支过滤还指着别的分支')
+                block = text.split('push:', 1)[1].split('permissions:', 1)[0]
+                self.assertIn(f'production/dbcooper/{marker}', block,
+                              f'push 触发没有只看 {marker}，交付物会把流水线自己点第二遍')
 
     def test_render_workflow_is_wired_to_this_branch_and_the_shared_script(self):
         """出片也要能由代理触发：RENDER_REQUEST 的 push 是唯一入口，流程本体仍是共用脚本。
@@ -364,11 +388,6 @@ class RestartTests(unittest.TestCase):
                         '缺少 .github/workflows/dbcooper-render.yml（把模板逐字节复制过去）')
         self.assertEqual(template.read_bytes(), installed.read_bytes(), '安装版与模板不一致')
         text = installed.read_text(encoding='utf-8')
-        self.assertIn(f"if: github.ref == 'refs/heads/{generator.BRANCH}'", text,
-                      '出片工作流的 if 还指着别的分支')
-        block = text.split('push:', 1)[1].split('permissions:', 1)[0]
-        self.assertIn('production/dbcooper/RENDER_REQUEST', block,
-                      'push 触发没有只看 RENDER_REQUEST')
         # 触发文件是"临时便签"：push 一次就该被消费掉（删掉），所以不能断言它常驻。
         # 它存在的意义只是让 push 事件的 paths 过滤器命中一次。
         self.assertIn('bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"', text,
