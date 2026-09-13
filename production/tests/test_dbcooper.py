@@ -278,7 +278,11 @@ class ProvenanceTests(unittest.TestCase):
             self.assertEqual(receipt['request_hash'], wanted[sid], f'{sid} 的请求与当前分镜不一致')
             self.assertTrue(generator.cached_result_matches(receipt, wanted[sid]))
         # 出片需要全部 25 镜都有可核验的回执，缺一镜就地失败，不许拿图凑数
-        self.assertEqual(sorted(completed), sorted(wanted), '素材尚未齐备')
+        lacking = sorted(set(wanted) - set(completed))
+        self.assertFalse(lacking,
+                         '素材尚未齐备：缺 ' + ','.join(lacking) +
+                         '。把 {"only":"' + ','.join(lacking) + '","workers":1} 写进 '
+                         'production/dbcooper/GEN_REQUEST 再 push，触发生成工作流补镜')
 
     def test_every_generated_shot_has_a_qa_frame(self):
         path = PROJECT / 'results.json'
