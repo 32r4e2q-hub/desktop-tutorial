@@ -828,7 +828,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -869,7 +869,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-13T11:41:53Z",
+  "updated_at": "2026-09-13T11:50:05Z",
   "run_id": "34755014732",
   "previous_results": {
     "S05": [
@@ -1179,5 +1179,98 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "duration": 180.0,
+    "bytes": 55648567,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "video_codec": "h264",
+    "frames": 5400,
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2,
+    "sha256": "a57ef7fbd2748645123183542f5f083a0e84094a6f15d79e63750f241e8cdd23",
+    "decoded_ok": true,
+    "status": "audio_verified_cut",
+    "visual_review": "pending",
+    "caption_alignment": [
+      {
+        "id": "N01",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.9230769230769231,
+        "boundary_penalty_asr": 1.1754,
+        "boundary_penalty_estimate": 0.0341,
+        "asr_model": "small",
+        "asr_skipped": false
+      },
+      {
+        "id": "N02",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.9117647058823529,
+        "boundary_penalty_asr": null,
+        "boundary_penalty_estimate": 0.0,
+        "asr_model": null,
+        "asr_skipped": false
+      },
+      {
+        "id": "N03",
+        "method": "ASR-assisted",
+        "character_match_coverage": 1.0,
+        "boundary_penalty_asr": 0.0,
+        "boundary_penalty_estimate": 0.0,
+        "asr_model": "small",
+        "asr_skipped": false
+      },
+      {
+        "id": "N04",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9666666666666667,
+        "boundary_penalty_asr": 0.0,
+        "boundary_penalty_estimate": 0.0,
+        "asr_model": "small",
+        "asr_skipped": false
+      },
+      {
+        "id": "N05",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.9056603773584906,
+        "boundary_penalty_asr": null,
+        "boundary_penalty_estimate": 0.0,
+        "asr_model": null,
+        "asr_skipped": false
+      },
+      {
+        "id": "N06",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9896907216494846,
+        "boundary_penalty_asr": 0.0,
+        "boundary_penalty_estimate": 0.0,
+        "asr_model": "small",
+        "asr_skipped": false
+      }
+    ],
+    "narration_voice_id": "voice-00",
+    "narration_tempo": 0.9842857142857143,
+    "editorial_segments": 32,
+    "source_clips": 25,
+    "archival_portrait": false,
+    "output": "D.B. Cooper：雨夜里消失的名字_三分钟_初版.mp4",
+    "soundtrack_mix": {
+      "rms_dbfs": -21.75,
+      "peak_dbfs": -1.52,
+      "silent_fraction": 0.0056,
+      "target_rms_dbfs": -20.0
+    },
+    "delivered_audio": {
+      "rms_dbfs": -21.77,
+      "peak_dbfs": -1.5,
+      "silent_fraction": 0.011,
+      "quietest_window_dbfs": -120.0
+    },
+    "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+    "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
+    "artifact_name": "dbcooper-agnes-8"
   }
 }
