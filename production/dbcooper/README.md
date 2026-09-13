@@ -4,7 +4,7 @@
 开出；参考实现只被复制、未被修改，本片所有编辑都发生在这个目录里。
 
 - slug：`dbcooper`
-- 出片分支：`arena/01a099c4-desktop-tutorial`
+- 出片分支：`arena/01a099eb-desktop-tutorial`（素材生成从 `arena/01a099c4` 接力过来，results.json 已合入本分支）
 - 成片目标文件名：`DB库珀劫机案_三分钟_带声音.mp4`（1920×1080 / 30fps / 180s）
 
 ## 针对上一版两个问题的设计（2026-09-13 重做）
@@ -57,10 +57,16 @@
 
 ## 出片步骤（在 GitHub Actions 上）
 
-1. **生成素材**：仓库主把 `dbcooper-agnes.workflow.yml` 逐字节复制为
-   `.github/workflows/dbcooper-gen.yml`（代理没有 workflows 权限），
-   然后在 Actions 触发「DB库珀 · Agnes生成」。25 个镜头 × 75 秒节流 ≈ 30 分钟；
-   `results.json` 与 `qa/` 抽帧会自动 commit 回本分支（可逐镜检查）。
+1. **生成素材**：「DB库珀 · Agnes生成」（`.github/workflows/dbcooper-gen.yml`，
+   与 `dbcooper-agnes.workflow.yml` 逐字节一致，有测试守着）已在 2026-09-13 起
+   同时支持两种触发方式：
+   - 人在 Actions 里点，填 `payload`；
+   - 代理（没有 workflow_dispatch 权限时）把要补的镜头写进
+     `production/dbcooper/GEN_REQUEST`（如 `{"only":"S10","workers":1}`）再 push——
+     只有这个文件变化才触发，逐镜 checkpoint 不会把出片循环点着。
+   25 个镜头 × 75 秒节流 ≈ 30~60 分钟；`results.json` 与 `qa/` 抽帧逐镜 commit 回本分支。
+   **补坏镜头**：provider 判死的任务（如 S10 的 500）会连带清掉——工作流先跑
+   `generate.py --prune-failed`，否则重跑只会去轮询同一个已死的 task_id。
 2. **出片**：Actions 触发「解说短片出片」（`.github/workflows/commentary-render.yml`，
    已存在），`project` 填 `dbcooper`，`film_name` 填 `DB库珀劫机案_三分钟_带声音.mp4`。
    它按 SHA-256 回填素材（不重新生成）、渲染混音、复测电平，并把成片与报告

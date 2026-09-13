@@ -1,10 +1,13 @@
 name: DB库珀 · Agnes生成
 run-name: DB库珀 · Agnes Video V2.0 生成
 
-# 用法：仓库主把本文件**逐字节**复制为 .github/workflows/dbcooper-gen.yml，
-# 然后在 Actions 里手动触发（默认 workers=2，75 秒节流，25 个镜头约 30 分钟）。
-# 中途失败可断点续跑：重新触发即可，已完成的镜头按 SHA-256 复用、不重新生成。
-# 补做个别镜头：payload 填 {"only":"S07,S12","workers":1}。
+# 用法一（人在 Actions 里点）：选「DB库珀 · Agnes生成」，填 payload
+#   （默认 workers=2，75 秒节流，25 个镜头约 30~60 分钟）。
+# 用法二（代理触发）：代理只能靠 push 事件触发工作流——把要补的镜头写进
+#   production/dbcooper/GEN_REQUEST（例：{"only":"S10","workers":1}）再 push，
+#   本文件就会跑起来；results.json 与 qa/ 由生成脚本逐镜 commit 回本分支。
+# 断点续跑：已完成的镜头按 SHA-256 复用、不重新生成；被 provider 判死的任务记录
+#   先由 --prune-failed 清掉，否则重跑会一直轮询同一个死任务（S10 就是这么卡住的）。
 
 on:
   workflow_dispatch:
@@ -13,33 +16,56 @@ on:
         description: 'JSON: {"only":"S01","workers":1}; 空则生成全部 25 个镜头'
         type: string
         default: '{"workers":2}'
+  push:
+    branches:
+      - arena/01a099eb-desktop-tutorial
+    paths:
+      - production/dbcooper/GEN_REQUEST
 
 permissions:
   contents: write
 
 concurrency:
-  group: dbcooper-agnes-arena-01a099c4-desktop-tutorial
+  group: dbcooper-agnes-arena-01a099eb-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/01a099c4-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a099eb-desktop-tutorial'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a099c4-desktop-tutorial
+          ref: arena/01a099eb-desktop-tutorial
           fetch-depth: 1
+
+      - name: Resolve the generation payload
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then
+            payload="$PAYLOAD_INPUT"
+          elif [ -f production/dbcooper/GEN_REQUEST ]; then
+            payload="$(tr -d '\n' < production/dbcooper/GEN_REQUEST)"
+          else
+            payload='{"workers":2}'
+          fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "Generation payload: $payload"
 
       - name: Validate the complete three-minute timeline
         run: python3 production/dbcooper/generate.py --validate
 
+      - name: Drop dead provider tasks so a re-run submits fresh ones
+        run: python3 production/dbcooper/generate.py --prune-failed
+
       - name: Generate Agnes clips and checkpoint provenance
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
-          PAYLOAD: ${{ inputs.payload }}
+          PAYLOAD: ${{ env.PAYLOAD }}
         run: python3 -u production/dbcooper/generate.py --publish --payload "$PAYLOAD"
 
       - name: Save video clips as downloadable artifacts
