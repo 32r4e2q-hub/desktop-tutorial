@@ -595,10 +595,19 @@ class CaptionTimingTests(unittest.TestCase):
         for row in self.rows:
             own = [c for c in self.cues if row['start'] - 1e-6 <= c['start'] < row['end'] + 1e-6]
             self.assertTrue(own, row['id'])
-            # 第一条在开口时就得到（留 0.6 秒容差）；最后一条不许压到下一章；中间不许重叠。
-            # 注意不要求"最后一条必须铺满到章尾"——话说完字幕就该退场，
-            # 尾迟 0.2 秒左右是 ASR 那套的正常行为，不是缺陷。
-            self.assertLessEqual(own[0]['start'], row['start'] + 0.05, f"{row['id']} 首条字幕来晚了")
+            # 「第一条字幕来得准不准」不许靠人耳印象：拿本段配音的能量包络量出真正的开口时刻，
+            # 要求字幕相对它落在 [−0.9, +0.35] 秒内。实测六章为
+            # N01 +0.15 / N02 −0.79 / N03 −0.31 / N04 +0.21 / N05 +0.05 / N06 −0.33：
+            # ASR 那套贴着第一个字，停顿估算那套在章头就把第一条放上去（允许早一点，读得从容）。
+            # 上限 0.35 是硬的：字幕比开口晚于一个字，观众就是"先听见后看见"。
+            # 也不要求"最后一条铺满到章尾"——话说完字幕就该退场，尾迟 0.2 秒是正常行为。
+            rms = self.envelope[row['id']]
+            voiced = np.nonzero(rms >= self.LOW_RATIO * float(np.median(rms)))[0]
+            onset = row['start'] + (float(voiced[0]) * self.HOP / self.RATE) / row['tempo'] \
+                if len(voiced) else row['start']
+            lead = own[0]['start'] - onset
+            self.assertLessEqual(lead, 0.35, f"{row['id']} 首条字幕比开口晚了 {lead:.2f}s")
+            self.assertGreaterEqual(lead, -0.9, f"{row['id']} 首条字幕比开口早了 {-lead:.2f}s")
             self.assertLessEqual(own[-1]['end'], row['end'] + 0.05, f"{row['id']} 字幕压进了章节间隔")
             for left, right in zip(own, own[1:]):
                 self.assertLessEqual(left['end'], right['start'] + 1e-6, f"{row['id']} 字幕重叠")
