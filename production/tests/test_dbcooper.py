@@ -157,13 +157,43 @@ class CutAlignmentTests(unittest.TestCase):
     def test_every_generated_shot_is_used_and_only_reused_where_documented(self):
         entries = [(sid, variant) for chapter in self.chapters for _, sid, variant in self.cuts[chapter]]
         agnes = {shot['id'] for shot in self.project['shots'] if shot['kind'] == 'agnes'}
-        self.assertEqual(len(entries), 31)                       # 31 个编辑段 + 片尾卡 = 32
+        self.assertEqual(len(entries), 32)                       # 32 个编辑段 + 片尾卡 = 33
         self.assertEqual({sid for sid, _ in entries}, agnes | {'S03', 'S08', 'S20', 'S23', 'S27'})
         counts = Counter(sid for sid, _ in entries)
-        # 只有 S06 允许回到同一素材（'b' 变体取同一镜的后半段），其余一镜一次
-        self.assertEqual(sorted(sid for sid, n in counts.items() if n > 1), ['S06'])
-        self.assertEqual(counts['S06'], 2)
-        self.assertEqual(sorted({variant for sid, variant in entries if sid == 'S06'}), ['', 'b'])
+        # 同一素材被两次用到的，只有 S06（'b' 变体取同一镜的后半段）与 S23（两张不同文字的数据卡）；
+        # 其余一镜一次。规则是「复用必须换 variant」，不是「某个号可以出现两次」。
+        self.assertEqual(sorted(sid for sid, n in counts.items() if n > 1), ['S06', 'S23'])
+        for sid in ('S06', 'S23'):
+            variants = [variant for got, variant in entries if got == sid]
+            self.assertEqual(len(variants), len(set(variants)), f'{sid} 同一 variant 被排了两次')
+        self.assertEqual(sorted(variant for sid, variant in entries if sid == 'S06'), ['', 'b'])
+        self.assertEqual(sorted(variant for sid, variant in entries if sid == 'S23'),
+                         ['ransom', 'suspects'])
+
+    def test_every_data_card_says_one_thing_and_has_its_own_text(self):
+        """数据卡最容易出的纰漏：嘴上说的是 A，纸上写的是 B。
+
+        自动检查能做到的部分：每张卡都必须有自己的一条文字（(镜头号, variant) 唯一），
+        且被排进 CUTS 的 graphic 段必须与它对准解说文本里的数字同源——
+        S23 因此被拆成两张：1980 河畔的 5800 美元压在"说到这笔钱"的那句，
+        八百余名/只剩 24 名压在"头五年"那句。
+        """
+        cards = [(sid, variant) for chapter in self.chapters
+                 for _, sid, variant in self.cuts[chapter]
+                 if self.by_id[sid]['kind'] == 'graphic']
+        self.assertEqual(len(cards), len(set(cards)), '同一张卡（同 variant）被排了两次')
+        for sid, variant in cards:
+            heading = editor.CARD_HEADINGS.get((sid, variant or ''))
+            self.assertIsNotNone(heading, f'{sid}/{variant} 没有对应的卡面文字')
+            self.assertTrue(all(str(part).strip() for part in heading), f'{sid}/{variant} 卡面有空行')
+        text = ''.join(chapter['text'] for chapter in self.project['chapters'])
+        # 卡面里的数字必须都能在解说里找到同一说法，不允许卡片替解说新增事实
+        for claim in ('二十万美元', '四个降落伞', '五千八百美元', '至今未破'):
+            self.assertIn(claim, text)
+        self.assertIn('八百多名嫌疑人被核查', text)
+        self.assertTrue(any('800' in line for line in
+                            (PROJECT / 'screenplay.md').read_text(encoding='utf-8').splitlines()),
+                        '「八百余名嫌疑人」这条卡面数字在事实清单里没有出处')
 
     def test_cuts_never_cross_into_the_next_chapter(self):
         for index, chapter in enumerate(self.chapters):
