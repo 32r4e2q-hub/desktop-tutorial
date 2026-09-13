@@ -182,6 +182,21 @@ class WorkflowIntegrityTests(unittest.TestCase):
         inputs = yaml.safe_load(text)[True]["workflow_dispatch"]["inputs"]
         self.assertIn("project", inputs, "缺 project 输入（Actions 里要填 slug）")
 
+    def test_publish_step_survives_a_moved_branch(self):
+        """出片要跑十几分钟，分支不会乖乖等着：生成/听检的 checkpoint 会先把它推进一格。
+
+        裸 push 在这种时候被拒（`! [rejected] ... (fetch first)`），整次运行标红，
+        而片子、报告、全部校验其实都是好的——本项目的 seq6 交付就是这么假红掉一次。
+        所以共用脚本的发布步必须"被拒 → 吸收分支最新提交 → 再推"，且次数有上限，
+        让不开时要明说失败并把人指回 artifact，不许静默留一个红。
+        """
+        text = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        block = text[text.index("Deliver the $PROJECT cut"):]
+        self.assertIn('git fetch origin "$BRANCH"', block, "发布步没打算吸收并发提交")
+        self.assertIn("git rebase FETCH_HEAD", block, "发布步没有 rebase：push 一被拒就直接红")
+        self.assertRegex(block, r"for attempt in 1 2 3", "重试必须有上限，不许无限循环")
+        self.assertRegex(block, r"exit 1", "三次都推不上去要明说失败，不许静默")
+
     def test_film_name_input_reaches_run_project_script(self):
         """成片名要能从 Actions 一路传到 run_project.sh 的第 3 个参数。
 

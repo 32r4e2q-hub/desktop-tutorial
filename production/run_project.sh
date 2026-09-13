@@ -58,8 +58,23 @@ if git diff --cached --quiet; then
   echo "No changes to publish"
 else
   git commit -m "Deliver the $PROJECT cut with measured audio"
-  git push origin "HEAD:$BRANCH"
-  echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
+  # 出片一趟十几分钟，期间生成/听检的 checkpoint 可能先把分支推进了一格；
+  # 裸 push 会被 "fetch first" 拒掉，于是整次运行红掉——而片子、报告、校验全都已经好了。
+  # 与 dbcooper-verbatim 的 publish 步同一招：被拒就把分支 rebase 到最新再推，最多三次。
+  published=0
+  for attempt in 1 2 3; do
+    if git push origin "HEAD:$BRANCH"; then
+      published=1
+      echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
+      break
+    fi
+    echo "push 被拒（第 $attempt 次），把 $BRANCH 的最新提交吸收进来再试"
+    git fetch origin "$BRANCH" && git rebase FETCH_HEAD || break
+  done
+  if [ "$published" != "1" ]; then
+    echo "::error::成片与报告推不回 $BRANCH（并发提交冲突且 rebase 让不开）；文件在本次运行的 artifact 里"
+    exit 1
+  fi
 fi
 
 echo "=== 5/5 实测摘要 ==="
