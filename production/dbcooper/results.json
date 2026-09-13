@@ -565,10 +565,10 @@
     },
     "S22": {
       "id": "S22",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "b3bcb11fc6138d43ccecaa451f402bcdee718e123310989ae1cb1e8da6f061b6",
-      "error": null,
-      "updated_at": "2026-09-13T12:57:00Z"
+      "error": "Could not create video task after 1 attempts; last problem: network error: TimeoutError: The read operation timed out",
+      "updated_at": "2026-09-13T12:59:02Z"
     },
     "S24": {
       "id": "S24",
@@ -843,7 +843,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-13T12:57:00Z",
+  "updated_at": "2026-09-13T12:59:02Z",
   "run_id": "34758449788",
   "previous_results": {
     "S05": [
