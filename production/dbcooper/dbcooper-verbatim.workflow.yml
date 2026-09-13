@@ -89,8 +89,15 @@ jobs:
             echo "No changes to publish"
           else
             git commit -m "Add the verbatim listening check for dbcooper"
-            git push origin "HEAD:$BRANCH"
-            echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
+            # 分支在跑动中被推进过就会 non-fast-forward：转写要十几分钟，撞车的窗口不小，
+            # 而报告是这次运行唯一的产出，丢了就得整个重跑。2026-09-13 就是这么红过一次。
+            for attempt in 1 2 3; do
+              if git push origin "HEAD:$BRANCH"; then
+                echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"; exit 0
+              fi
+              git pull --rebase origin "$BRANCH"
+            done
+            echo "::error::听检报告推不回分支（并发提交冲突），看本次运行的 artifact"; exit 1
           fi
 
       - name: Upload the slices and the report
