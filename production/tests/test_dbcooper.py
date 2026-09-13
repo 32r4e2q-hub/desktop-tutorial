@@ -455,5 +455,59 @@ class DeliveryTests(unittest.TestCase):
 
 
 
+
+@unittest.skipUnless(shutil.which('ffmpeg'), '需要 ffmpeg 解码那六段配音')
+class MixReproducibilityTests(unittest.TestCase):
+    """换一台机器把混音重跑一遍，电平必须与云端交付时记录的完全一致。
+
+    参考项目当年把混音从 ffmpeg 滤镜链搬进 numpy，理由就是"换版本换数字"这件事
+    会静默改变成片（第一部片子因此没声音却照样出片）。这里拿**仓库里真实的六段配音**
+    在当前机器上重混一遍，与 delivery/audio-report.json 对照（±0.05 dB）：
+    漂移了就说明有人把测量又交回给 ffmpeg 的内部实现了。
+    """
+
+    TOLERANCE_DB = 0.05
+
+    @classmethod
+    def setUpClass(cls):
+        import subprocess
+        import tempfile
+        cls.work = Path(tempfile.mkdtemp(prefix='dbcooper-mix-'))
+        cls.result = subprocess.run(
+            [sys.executable, str(PROJECT / 'build_audio.py'),
+             '--work', str(cls.work), '--output', str(cls.work / 'mix.wav')],
+            cwd=ROOT, capture_output=True, text=True)
+        cls.fresh = cls.work / 'audio-report.json'
+
+    def test_remix_matches_the_delivered_levels(self):
+        self.assertEqual(self.result.returncode, 0, self.result.stderr[-800:])
+        self.assertTrue(self.fresh.is_file(), '重混没有产出电平报告')
+        fresh = json.loads(self.fresh.read_text(encoding='utf-8'))
+        recorded = json.loads((PROJECT / 'delivery/audio-report.json').read_text(encoding='utf-8'))
+        for key in ('rms_dbfs', 'peak_dbfs'):
+            delta = abs(fresh[key] - recorded[key])
+            self.assertLessEqual(delta, self.TOLERANCE_DB,
+                                 f'{key} 在另一台机器上漂移 {delta:.3f} dB：'
+                                 f'{fresh[key]} != {recorded[key]}')
+        self.assertEqual(fresh['silent_fraction'], recorded['silent_fraction'],
+                         '静音占比变了，混出来的不是同一个东西')
+        local = {row['id']: row['rms_dbfs'] for row in fresh['chapters']}
+        cloud = {row['id']: row['rms_dbfs'] for row in recorded['chapters']}
+        for sid, value in cloud.items():
+            self.assertLessEqual(abs(local[sid] - value), self.TOLERANCE_DB,
+                                 f'{sid} 逐章电平漂移：{local[sid]} != {value}')
+
+    def test_recorded_reproduction_across_machines_is_self_consistent(self):
+        path = PROJECT / 'delivery/reproducibility-2026-09-13.json'
+        if not path.exists():
+            self.skipTest('还没做换机器复现')
+        doc = json.loads(path.read_text(encoding='utf-8'))
+        recorded = json.loads((PROJECT / 'delivery/audio-report.json').read_text(encoding='utf-8'))
+        self.assertEqual(doc['overall']['rms_dbfs']['cloud'], recorded['rms_dbfs'],
+                         '复现记录里的"云端数字"与交付报告不符：报告改过而记录没跟着改')
+        self.assertLessEqual(abs(doc['overall']['rms_dbfs']['cloud'] - doc['overall']['rms_dbfs']['local']),
+                             doc['tolerance_db'])
+
+
 if __name__ == '__main__':
     unittest.main()
