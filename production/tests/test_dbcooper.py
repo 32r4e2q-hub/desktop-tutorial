@@ -920,11 +920,33 @@ class QcMetricUnitTests(unittest.TestCase):
         flat = np.full((1080, 1920), 170.0) + rng.normal(0, 0.5, (1080, 1920))
         # JPEG 式的 8px 周期网格：每隔一个 8 列块整体抬高 3 灰阶，
         # 台阶只落在 8k+7 → 8k+8 的块边界上（单列脉冲会在两侧各留一个沿，不像块效应）。
-        # 实测 numer≈2.4——与成片 S03 卡面帧的 2.23 同一量级，必须远超 0.5 的门限。
+        # 实测 numer≈2.44——与成片 S03 卡面帧的 2.23 同一量级，必须远超 0.5 的门限。
+        # round-6 起口径是截尾均值：遍布全帧的真网格掐 2% 列不伤筋骨，数值与旧口径一致。
         flat[:, (np.arange(1920) // 8) % 2 == 1] += 3.0
         ratio, numer, _ = qc_film.blocking_parts(flat.astype('float32'))
         self.assertGreater(numer, 1.5, '强网格的绝对强度必须显著')
         self.assertGreater(ratio, 0.8, '强网格的比值也必须显著')
+
+    def test_isolated_aligned_edges_do_not_fire(self):
+        # round-6 回归：信息卡纸面的左右沿（两条约 190 灰阶的台阶）恰好落在
+        # 8k+7 列上时，旧"全体均值"口径单帧虚报 +0.8，seq15/seq16 的 FLAG
+        # 全是它。截尾均值必须把它吃掉：孤立强边缘只占个位数列。
+        rng = np.random.default_rng(3)
+        card = np.full((1080, 1920), 30.0) + rng.normal(0, 1.2, (1080, 1920))
+        card[:, 184:1736] = 205.0 + rng.normal(0, 1.2, (1080, 1552))
+        ratio, numer, _ = qc_film.blocking_parts(card.astype('float32'))
+        self.assertLess(abs(numer), 0.2, f'孤立对齐边缘不许触发绝对强度，实测 {numer:.3f}')
+        self.assertLess(abs(ratio), 0.2, f'孤立对齐边缘不许触发比值，实测 {ratio:.3f}')
+
+    def test_grid_plus_edges_still_fires(self):
+        # 承上：截尾不能把真网格也截没——纸沿 + 全帧网格叠加时照样超标。
+        rng = np.random.default_rng(3)
+        card = np.full((1080, 1920), 30.0) + rng.normal(0, 1.2, (1080, 1920))
+        card[:, 184:1736] = 205.0 + rng.normal(0, 1.2, (1080, 1552))
+        card[:, (np.arange(1920) // 8) % 2 == 1] += 3.0
+        ratio, numer, _ = qc_film.blocking_parts(card.astype('float32'))
+        self.assertGreater(numer, 0.5, '纸沿存在时真网格仍须超 0.5 门限')
+        self.assertGreater(ratio, 0.5, '纸沿存在时真网格的比值仍须显著')
 
     def test_smooth_dark_field_stays_low_in_absolute_terms(self):
         y, x = np.mgrid[0:1080, 0:1920]

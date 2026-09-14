@@ -45,13 +45,15 @@ PICTURE_ROWS = (140, 940)        # 上下为 16:9 黑边；下方黑边里还有
 FPS = 30.0                       # 交付帧率（EDL 的帧号按它换算）
 
 DEFAULTS = {
-    # 块效应比值中位数：守编码链（精确采样下旧双压管线 0.174、新管线 0.115；
-    # 去掉卡面帧后 0.140 对 0.096——0.14 卡在中间，两边都有约 20% 裕量）
+    # 块效应比值中位数：守编码链（旧均值口径精确采样：旧双压管线 0.174、新管线 0.115；
+    # 截尾口径下新片 0.085、旧片 0.102——0.14 在两种口径下都有裕量）
     "blocking_p50_max": 0.14,
     # 块效应绝对强度上限（灰阶）：守"某一帧出现肉眼可见的强网格"。
-    # 实测：JPEG 卡面帧 0.41–2.23、旧管线非卡面损伤帧 0.43–0.63、自带竖线结构的
-    # 干净内容（S25 试剂架）0.37、平滑暗场 0.05–0.26。0.5 落在"干净 ≤0.37"与
-    # "强网格 ≥0.48"之间；0.37–0.5 是未验证带，落进去必须先看裁放图再下结论。
+    # 实测（round-6 起截尾口径）：全对齐 JPEG 网格 0.54–0.65、自带竖线结构的
+    # 干净内容（S25 试剂架）0.38、PNG 卡面 ≤0.22、平滑暗场 0.05–0.26。
+    # 0.5 落在"干净 ≤0.38"与"强网格 ≥0.54"之间；0.38–0.5 是未验证带，
+    # 落进去必须先看裁放图再下结论。旧均值口径的 0.41–2.23 卡面数是纸沿误报，
+    # 见 review/qc-round6-paper-edge-2026-09-14.md。
     "blocking_abs_max_allow": 0.5,
     "overexposed_fraction_max": 0.06,
     "overexposed_frame_count_max": 0,
@@ -150,13 +152,36 @@ def blocking_parts(gray: np.ndarray) -> tuple:
     比值 = (边界-内部)/内部：编码链退化（二次压缩）会把它推高，适合守中位数。
     绝对强度 = 边界-内部（灰阶）：比值在平滑暗场里分母趋零时会虚高，
     尾部必须看绝对值——0.2 灰阶的起伏肉眼不可见，2 灰阶的网格在 2× 裁放下可辨。
+
+    2026-09-14 round-6：边界/内部都改用"列均值的双侧 2% 截尾均值"，不再用全体均值。
+    起因：信息卡的纸面左右沿（两条约 190 灰阶的竖直台阶）恰好落在 8k+7 列上，
+    单帧就能把均值口径的绝对强度推高 +0.8——漂移相位不同，此起彼伏，
+    seq15/seq16 的绝对强度 FLAG（0.56–0.88）几乎全是它，不是什么编码网格。
+    真网格是遍布全帧的周期结构，截尾 2% 照样量得到（全对齐 JPEG 网格截尾后
+    仍有 0.54–0.65，照样超 0.5 门限）；孤立的画面强边缘只占个位数列，
+    被截尾吃掉。门限数字不动（0.5/0.14），动的是统计量本身。
+    证据：production/dbcooper/review/qc-round6-paper-edge-2026-09-14.md。
     """
     pic = gray[PICTURE_ROWS[0]:PICTURE_ROWS[1]]
     gx = np.abs(np.diff(pic.astype(float), axis=1)).mean(axis=0)
-    edge = gx[7::8].mean()
-    inner = np.delete(gx, np.arange(7, len(gx), 8)).mean()
+    edge = _trimmed_mean(gx[7::8])
+    inner = _trimmed_mean(np.delete(gx, np.arange(7, len(gx), 8)))
     numer = float(edge - inner)
     return float(numer / max(inner, 1e-6)), numer, float(inner)
+
+
+def _trimmed_mean(values: np.ndarray, fraction: float = 0.02) -> float:
+    """双侧截尾均值：掐掉最热/最冷的各 `fraction` 列再平均。
+
+    列是按"整列 800 行的平均梯度"排的：画面里的孤立强边缘（卡纸沿、
+    门框、试剂架竖杆）只占个位数列，必然落在被掐掉的两头；真正的 8px
+    周期网格遍布全帧，掐 2% 不伤筋骨。"""
+    ordered = np.sort(np.asarray(values, dtype=float).ravel())
+    if ordered.size == 0:
+        return 0.0
+    cut = int(ordered.size * fraction)
+    core = ordered[cut:ordered.size - cut] if cut else ordered
+    return float(core.mean())
 
 
 def blocking_index(gray: np.ndarray) -> float:
@@ -418,7 +443,7 @@ def main() -> int:
         f"画面区内量；比值 p50={p50:.3f}（上限 {thresholds['blocking_p50_max']}，守编码链）"
         f"、绝对强度 max={abs_max:.3f} 灰阶（上限 {thresholds['blocking_abs_max_allow']}，"
         f"守单帧强网格）。校准（精确采样）：旧双压管线比值 p50=0.174、新管线 0.115；"
-        f"JPEG 卡面帧绝对强度 0.41–2.23、旧管线损伤帧 0.43–0.63、"
+        f"全对齐 JPEG 网格绝对强度 0.54–0.65（截尾口径，照样超标）、"
         f"干净竖线内容（S25 试剂架）0.37、平滑暗场 ≤0.26。"
         f"比值 p90={np.percentile(blk_arr, 90):.3f} 只作参考——"
         f"它在平滑暗场里是分母噪声（0.18 灰阶起伏 ⇒ 比值 1.0），不判定。")

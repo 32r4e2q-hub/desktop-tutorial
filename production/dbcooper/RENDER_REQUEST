@@ -1,7 +1,7 @@
 {
-  "purpose": "第五轮（QC 方法修正 + 真网格消除）：(1) 卡面 JPEG q93 改无损 PNG——JPEG 的 8x8 网格是成片里唯一的强网格（S03 首帧绝对强度 2.23 灰阶，24 个卡面采样帧 0.41-0.88），PNG 后应塌到 x264 本底；(2) 新版 qc_film.py 随本次出片第一次跑在 runner 上：精确采样（select 按帧序号，旧 fps 滤镜恒定 +7 帧滞后已证）、尾部改判绝对强度（上限 0.5）、遮幅加“静止”规则。素材/剪辑/配音/混音/上屏文案一字不动。",
+  "purpose": "第六轮（QC 量具修正：绝对强度改截尾均值）：seq16 证明卡面 FLAG（0.56–0.76）不是编码网格，是卡纸左右沿（两条约 190 灰阶台阶恰在 8k+7 列）顶翻了旧“全体均值”口径——相位分析 + 2× 裁放（视觉无网格、新旧卡无差）双证，见 review/qc-round6-paper-edge-2026-09-14.md。本轮只改量具：blocking_parts 改用列均值双侧 2% 截尾均值，门限数字不动（0.5/0.14）；牙齿仍在（全对齐 JPEG 网格截尾后 0.54–0.65 照样超标）。素材/剪辑/配音/混音/上屏文案/卡图一字不动，成片应与 seq16 逐字节一致（管线确定性已证：非卡面段跨轮实测 4 位小数全同）。",
   "project": "dbcooper",
   "film_name": "DB库珀劫机案_三分钟_带声音.mp4",
-  "note": "出片后必查：delivery/qc-report.json 须为精确采样口径（sampler 含 select=），blocking p50<=0.14（预期~0.10）、blocking_abs_max<=0.5（预期~0.37，S25 试剂架）、letterbox 违规段为空；音频 AAC 流 sha256 前缀须仍为 4976ca9100e9264e（本轮不该动声音）；随后 VERBATIM 必须重跑（seq9，当前听检绑的是 seq14 的片子）",
-  "seq": 16
+  "note": "出片后必查：qc-report.json blocking p50<=0.14（本地预跑 0.0850）、blocking_abs_max<=0.5（本地预跑 0.3814，S25 试剂架）、其余 8 项全绿；film_sha256 预期仍为 23f0f17f65a1cdfc（输入未动）；随后 VERBATIM 必须重跑（seq9，当前听检绑的仍是旧片指纹 974a…——test_listening_report_is_bound_to_the_delivered_film 红着）",
+  "seq": 17
 }
