@@ -85,7 +85,49 @@ r = client.chat.completions.create(model="auto", messages=[{"role": "user", "con
 
 ---
 
-## 3. 部署到 Cloudflare Workers（免费档、不要信用卡）
+## 3′. 全程只用鼠标（不装任何东西、不打开终端）★推荐给不熟命令行的你
+
+原理：本项目压成了一个文件 `bundle/worker.js`（851 行），Cloudflare 网页编辑器可以整份粘进去。
+**不用等 PR 合并**：分支上就能直接复制 →
+https://github.com/32r4e2q-hub/desktop-tutorial/blob/arena/01a09ead-desktop-tutorial/ai-gateway/bundle/worker.js
+代码与 `src/` 由 `node scripts/bundle.mjs` 同步生成，且**用同一套 21 条测试验过**（`BUNDLE=1 node test/run-tests.mjs`）。
+
+1. **拿一个 Groq key**：https://console.groq.com/keys → `Create API Key` → 立刻复制（只显示一次）。
+2. **注册 Cloudflare**：https://dash.cloudflare.com/sign-up （邮箱+密码即可，**不要信用卡**）。
+3. 打开 https://dash.cloudflare.com/?to=/:account/workers-and-pages → **Create application** →
+   选 **Hello World** 模板 → 名字随便，如 `zeroroute-lite` → **Deploy**。（这几个按钮名与
+   Cloudflare 官方文档 2026-05 版一致；UI 若微调，找同名的那一个。）
+4. 进去后点 **Edit code**（会打开网页编辑器）→ 把左侧 `worker.js` 里的内容**全删**→
+   粘贴本仓库 [`bundle/worker.js`](./bundle/worker.js) 的**全部内容**（在 GitHub 上打开该文件，
+   点代码块右上角的复制图标）→ **Save and Deploy**（若只有 **Deploy** 带下拉箭头，就选里面的 **Save**，
+   然后回 Overview 点 Deploy）。
+5. 配 3 个 key（**这一步决定安全与否**）：你的 Worker → **Settings** →
+   **Variables and Secrets** → **Add** → 类型选 **Secret** → 填名字和值，逐条加完点 **Deploy**。
+   ⚠️ 一定选 **Secret**，不要选 Variable：Cloudflare 文档原话是"Do not use vars to store
+   sensitive information — use secrets instead"，Variable 的值在 dashboard 里是明文可读的。
+
+   | 名字 | 值 | 说明 |
+   |---|---|---|
+   | `GROQ_API_KEY` | 第 1 步那串 | 上游模型 |
+   | `ROUTER_API_KEY` | 自己现编一串，如 `https://www.random.org/strings/` 生成 32 位 | 你的客户端要带的 key |
+   | `ADMIN_KEY` | **另一个**不同的串 | 只有看 `/metrics` 才用 |
+
+   ⚠️ 三个都必须填。`ROUTER_API_KEY` 留空的话网关会直接 503 拒绝所有请求（这是故意的 fail-closed，
+   而 zeroroute 会当成"公开模式"放任何人进来烧你的额度）。
+6. 你的地址就在 **Settings → Domains** 里：`https://zeroroute-lite.<你的子域>.workers.dev`。
+7. 验证（只需浏览器，直接开这两个链接看 JSON）：
+   - `https://zeroroute-lite.<你的子域>.workers.dev/healthz` → 应看到 `"mode": "authenticated"`、groq `"enabled": true`
+   - `.../v1/models` → 用第 5 步的 `ROUTER_API_KEY` 才有结果；**不带 key 打开必须报 401**（报 200 就说明你配错了）
+
+要挂到自己网站/OpenAI 客户端时：`base_url = https://zeroroute-lite.<你的子域>.workers.dev/v1`，`api_key` = `ROUTER_API_KEY`。
+
+> 想改模型名/加别的上游：就在第 5 步的 Secrets 里再加 `GROQ_MODEL=...`（或 `MISTRAL_API_KEY=...`）。
+> 不知道哪个模型名真实存在？先跑 `node scripts/check-providers.mjs`（这条确实需要终端），
+> 或直接去 https://console.groq.com/docs/model-limits/preview 看当前可用清单，别信任何 README 里的示例名。
+
+---
+
+## 3. 部署到 Cloudflare Workers（走命令行，可重复部署）
 
 免费档：10 万请求/天、每请求 10ms CPU。本网关流式是**原样透传字节**，CPU 很省。
 

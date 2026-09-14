@@ -4,9 +4,16 @@
  *
  * 运行：node test/run-tests.mjs
  */
-import { handle } from "../src/router.js";
-
 import { createMockServer, hits } from "./mock-upstream.mjs";
+
+/**
+ * BUNDLE=1 时改成测 bundle/worker.js —— 也就是你"粘进 Cloudflare 控制台的那一份"。
+ * 两条路都必须全绿，否则单文件产物不可信（这一步真的能抓出打包漏掉的依赖）。
+ */
+const mod = /^(1|true|yes)$/i.test(process.env.BUNDLE || "")
+  ? await import("../bundle/worker.js")
+  : await import("../src/router.js");
+const handle = mod.handle ? (req, env) => mod.handle(req, env) : (req, env) => mod.default.fetch(req, env);
 
 let MOCK_PORT = 0;   // 0 = 让内核挑空闲端口，避免和 demo 抢 8791
 
