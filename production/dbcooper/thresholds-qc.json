@@ -1,0 +1,31 @@
+{
+  "_comment": [
+    "闸门四（画质 QC）的权威阈值。production/qc_film.py 会读这个文件；",
+    "production/tests/test_dbcooper.py 用同一份阈值**从报告的原始 metrics 重新判定**，",
+    "所以改脚本放水过不了测试。要动这里的数字必须在 review/ 里给出实测依据。"
+  ],
+  "calibration": {
+    "blocking_reference": "同素材无损编码 p50=0.084（1920x1080，画面区行 140-940）",
+    "blocking_before": "双重有损编码（逐段 crf21/veryfast + 终压 crf21/fast）实测 p50=0.168、p90=0.726",
+    "blocking_reproduction": "把同一代理源喂进旧管线复现实验得 p50=0.171，与成片吻合 ⇒ 归因于编码链而非素材",
+    "blocking_target": "改为「中间段 crf14 + 终压 crf20/medium + aq-mode=3 + deblock=1,1」后复现实验 p50=0.118",
+    "blocking_p50_limit_rationale": "取无损参照 0.084 与旧管线 0.168 之间、且低于新管线上限的 0.14：新口径若失效即红",
+    "letterbox_rule": "整行 max<=4 且 std<=1.5 才算纯黑遮幅，且该段 >=80% 采样帧都有；偏暗但有内容不算（上一版据此误报）",
+    "flash_rule": "只用单帧反向亮度尖峰判定；硬切台阶与淡入淡出相邻帧不计（否则 34 个切点必然顶满）"
+  },
+  "blocking_p50_max": 0.14,
+  "blocking_p90_max": 0.30,
+  "overexposed_fraction_max": 0.06,
+  "overexposed_frame_count_max": 0,
+  "saturation_mean_min": 0.02,
+  "saturation_mean_max": 0.42,
+  "flash_reversal_spikes_max": 0,
+  "flash_reversal_amp_min": 0.045,
+  "letterbox_unexpected_px_max": 0,
+  "letterbox_min_frame_fraction": 0.80,
+  "border_pure_max": 4,
+  "border_pure_std": 1.5,
+  "designed_border_segments": ["S26"],
+  "axis_aligned_fraction_min": 0.18,
+  "underexposed_p95_reference": 0.80
+}

@@ -1,0 +1,33 @@
+{
+  "what": "混音换机器复现：云端出片时的 delivery/audio-report.json 与本地重混一遍的实测数字对照",
+  "date": "2026-09-13",
+  "reference_run": {
+    "where": "GitHub Actions (ubuntu-latest)",
+    "workflow": "DB库珀 · 出片",
+    "run_id": 34750911326,
+    "commit": "a3ec8f9"
+  },
+  "reproduction": {
+    "where": "Arena 沙箱（另一台机器、另一个 ffmpeg 构建）",
+    "command": "python3 production/dbcooper/build_audio.py --work work/dbcooper/repro --output work/dbcooper/repro/mix.wav",
+    "ffmpeg": "7.0.2-static (johnvansickle)",
+    "seconds": 4.5
+  },
+  "tolerance_db": 0.05,
+  "overall": {
+    "rms_dbfs": {"cloud": -21.75, "local": -21.75, "delta": 0.0},
+    "peak_dbfs": {"cloud": -1.52, "local": -1.52, "delta": 0.0},
+    "silent_fraction": {"cloud": 0.0056, "local": 0.0056, "delta": 0.0},
+    "quietest_window_dbfs": {"cloud": -50.82, "local": -50.82, "delta": 0.0}
+  },
+  "chapters": {
+    "N01": {"cloud_rms_dbfs": -21.64, "local_rms_dbfs": -21.64, "delta": 0.0},
+    "N02": {"cloud_rms_dbfs": -21.37, "local_rms_dbfs": -21.37, "delta": 0.0},
+    "N03": {"cloud_rms_dbfs": -21.48, "local_rms_dbfs": -21.48, "delta": 0.0},
+    "N04": {"cloud_rms_dbfs": -21.42, "local_rms_dbfs": -21.42, "delta": 0.0},
+    "N05": {"cloud_rms_dbfs": -21.55, "local_rms_dbfs": -21.55, "delta": 0.0},
+    "N06": {"cloud_rms_dbfs": -21.30, "local_rms_dbfs": -21.30, "delta": 0.0}
+  },
+  "conclusion": "逐项差 0.00 dB：混音不依赖 ffmpeg 的内部测量（这正是当年把混音从滤镜链搬进 numpy 的全部理由）。由 production/tests/test_dbcooper.py 的 MixReproducibilityTests 钉住。",
+  "not_covered": "成片复测（final-audio-report.json，−21.77 / −1.50）测的是 AAC 编码之后的 mp4，与混音数字差 0.02 dB 来自编码与容器，不在这份对照的范围内。"
+}

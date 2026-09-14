@@ -1,0 +1,97 @@
+name: DB库珀 · 出片
+run-name: 出片 · DB库珀劫机案
+
+# 两条触发路径：
+#   1) 人：用通用工作流「解说短片出片」（.github/workflows/commentary-render.yml），
+#      project 填 dbcooper，film_name 填 DB库珀劫机案_三分钟_带声音.mp4；
+#   2) 代理：把 production/dbcooper/RENDER_REQUEST 改一下 push 上来即可——
+#      push 事件只看这一个文件，所以出片自己 commit 回去的成片与报告
+#      （delivery/、results.json、qa/）不会把这条流水线再点一遍。
+# 流程本体在 production/run_project.sh（校验 → 按 SHA-256 回填素材 → 剪辑混音复测 →
+# 成片与报告 commit 回本分支），所有项目共用，别在这里复制一份。
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_asr:
+        description: '跳过 ASR 对轨（离线时用停顿估算字幕时间）'
+        type: boolean
+        default: false
+      film_name:
+        description: '成片文件名'
+        required: false
+        default: 'DB库珀劫机案_三分钟_带声音.mp4'
+  push:
+    branches:
+      - arena/01a099eb-desktop-tutorial
+    paths:
+      - production/dbcooper/RENDER_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dbcooper-render-arena-01a099eb-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.ref == 'refs/heads/arena/01a099eb-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install render dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" || \
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2"
+
+      - name: Resolve the deliverable name
+        env:
+          FILM_INPUT: ${{ inputs.film_name }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FILM_INPUT:-}" ]; then
+            film="$FILM_INPUT"
+          else
+            film='DB库珀劫机案_三分钟_带声音.mp4'
+          fi
+          echo "FILM_NAME=$film" >> "$GITHUB_ENV"
+          echo "Deliverable: $film"
+
+      - name: Validate, restore footage, render with measured audio, publish reports
+        env:
+          PROJECT: dbcooper
+          SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
+          FILM_NAME: ${{ env.FILM_NAME }}
+          BRANCH: arena/01a099eb-desktop-tutorial
+        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
+
+      - name: Upload the finished film
+        if: always()
+        # 只是备份：成片与实测报告已经由 run_project.sh commit 回本分支（交付/ 与 delivery/），
+        # 这个环境里 artifact 服务连着两次传不上去，不该把"出片成功"标成红的运行。
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbcooper-成片-${{ github.run_number }}
+          path: work/dbcooper/*.mp4
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 30

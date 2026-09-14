@@ -24,7 +24,7 @@ import agnes_video as agnes
 from media import ensure_tools, inspect_clip, render_python
 from throttle import RequestGate, BudgetExhausted
 
-BRANCH='arena/01a099c4-desktop-tutorial'
+BRANCH='arena/01a099eb-desktop-tutorial'
 PLAN=Path(__file__).with_name('story.json')
 RESULTS=Path(__file__).with_name('results.json')
 LOCK=threading.RLock()
@@ -75,6 +75,21 @@ def git(*args):
     return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
 
 
+def prune_stale(doc):
+    """丢掉「还没有可复用素材」的进度记录，让重跑提交新任务而不是去复述一个已失败的任务。
+
+    生成器会记住 provider 的 task_id 以便断点续跑，这在一个任务只是**排队中断**时是省额度的好事；
+    但当 provider 已经把这个任务判死（500 / Generation failed）时，续跑会一直轮询同一个死任务，
+    于是「重新触发一次」永远修不好它——2026-09-13 的 S10 就是这样。
+    已经有 ``video_url`` 的记录（``generated``：素材在 CDN 上但还没落盘校验）保留：那种情况只需重新下载。
+    """
+    shots=doc.setdefault('shots',{})
+    stale=sorted(sid for sid,row in shots.items()
+                 if row.get('status')!='completed' and not row.get('video_url'))
+    for sid in stale: shots.pop(sid)
+    return stale
+
+
 def cached_result_matches(old,wanted_hash):
     return (old.get('request_hash')==wanted_hash and bool(old.get('video_url'))
             and bool(old.get('sha256')) and bool(old.get('bytes')))
@@ -83,7 +98,10 @@ def cached_result_matches(old,wanted_hash):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--payload',default='{}');parser.add_argument('--validate',action='store_true')
-    parser.add_argument('--publish',action='store_true');args=parser.parse_args()
+    parser.add_argument('--publish',action='store_true')
+    parser.add_argument('--prune-failed',action='store_true',
+                       help='只清理 results.json 里的死任务记录，清完就退出（不生成）')
+    args=parser.parse_args()
     project=read_json(PLAN,{});validate(project)
     audio_manifest=read_json(PLAN.parent/'audio/manifest.json',{})
     audio_by_id={r['id']:r for r in audio_manifest.get('clips',[])}
@@ -115,6 +133,13 @@ def main():
         git('config','user.name','github-actions[bot]')
         git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
     doc=read_json(RESULTS,{'project':project['title'],'model':agnes.DEFAULT_MODEL,'shots':{}})
+    if args.prune_failed:
+        # 只清理、不生成：出片工作流把它单独作为生成前的步骤。
+        # （它要是继续往下跑，就把"清理"变成了第二次全量生成，还会把失败当成自己的失败。）
+        stale=prune_stale(doc)
+        RESULTS.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+        print('PRUNED_STALE '+json.dumps(stale),flush=True)
+        return 0
     doc['phase']='preparing_sources'
     doc['review']={'status':'pending','scope':'visual/audio quality','blocking_generation':False,
                    'note':'No automatic visual approval. Export is an unreviewed first cut.'}

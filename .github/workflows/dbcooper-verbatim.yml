@@ -1,0 +1,117 @@
+name: DB库珀 · 逐字听检
+run-name: 听检 · DB库珀劫机案
+
+# 把成片里的解说转写成文字，与 story.json 逐字比对（CER），报告 commit 回分支。
+# 与通用的「逐字听检」（.github/workflows/verbatim-check.yml）跑的是同一个
+# production/verbatim_check.py，区别只在触发方式：
+# 这个环境里代理没有 workflow_dispatch 权限（403 Resource not accessible by integration），
+# 所以把 production/dbcooper/VERBATIM_REQUEST 改一下 push 上来就能跑——
+# paths 只看这一个文件，报告 commit 回分支不会把听检自己点第二遍。
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'whisper 模型：tiny / base / small / medium / large-v3'
+        type: string
+        default: 'small'
+      max_cer:
+        description: '字错率上限，超过就要求人工听那一段'
+        type: string
+        default: '0.15'
+  push:
+    branches:
+      - arena/01a099eb-desktop-tutorial
+    paths:
+      - production/dbcooper/VERBATIM_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dbcooper-verbatim-arena-01a099eb-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  listen:
+    if: github.ref == 'refs/heads/arena/01a099eb-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r production/requirements.txt
+          python -m pip install "faster-whisper>=1.1,<2" || \
+          python -m pip install --break-system-packages "faster-whisper>=1.1,<2"
+
+      - name: Transcribe the delivered film and compare it to the script
+        id: check
+        continue-on-error: true        # 报告一定先落盘，再决定这次运行算不算失败
+        env:
+          MODEL: ${{ inputs.model || 'small' }}
+          MAX_CER: ${{ inputs.max_cer || '0.15' }}
+        run: |
+          python3 -u production/verbatim_check.py \
+            --film "交付/DB库珀劫机案_三分钟_带声音.mp4" \
+            --project production/dbcooper \
+            --work work/dbcooper/verbatim \
+            --narration production/dbcooper/audio \
+            --model "$MODEL" \
+            --max-cer "$MAX_CER"
+
+      - name: Publish the report back to the branch
+        env:
+          BRANCH: arena/01a099eb-desktop-tutorial
+        run: |
+          mkdir -p production/dbcooper/delivery
+          cp work/dbcooper/verbatim/verbatim-check.json production/dbcooper/delivery/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/dbcooper/delivery/verbatim-check.json
+          if git diff --cached --quiet; then
+            echo "No changes to publish"
+          else
+            git commit -m "Add the verbatim listening check for dbcooper"
+            # 分支在跑动中被推进过就会 non-fast-forward：转写要十几分钟，撞车的窗口不小，
+            # 而报告是这次运行唯一的产出，丢了就得整个重跑。2026-09-13 就是这么红过一次。
+            for attempt in 1 2 3; do
+              if git push origin "HEAD:$BRANCH"; then
+                echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"; exit 0
+              fi
+              git pull --rebase origin "$BRANCH"
+            done
+            echo "::error::听检报告推不回分支（并发提交冲突），看本次运行的 artifact"; exit 1
+          fi
+
+      - name: Upload the slices and the report
+        if: always()
+        continue-on-error: true        # 备份：报告已经 commit 回分支
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbcooper-逐字听检-${{ github.run_number }}
+          path: work/dbcooper/verbatim
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Fail if a chapter needs a human ear
+        if: steps.check.outcome == 'failure'
+        run: |
+          echo "::error::有段落的字错率超过上限，看 production/dbcooper/delivery/verbatim-check.json"
+          exit 1

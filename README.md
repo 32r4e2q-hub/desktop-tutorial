@@ -8,7 +8,8 @@
 | 路径 | 内容 |
 |---|---|
 | [`production/dahlia/`](production/dahlia/) | **参考实现**：《黑色大丽花：消失的六天》，已成片、已实测 |
-| [`交付/`](交付/) | 成片 `黑色大丽花_三分钟_带声音.mp4`（48.1 MB，1920×1080 / 30fps / 180 秒） |
+| [`production/dbcooper/`](production/dbcooper/) | **第二部（流水线开出来的第一个新题目）**：《D.B. Cooper：雨夜里消失的名字》——为"运镜太单一""解说跟画面对不上"两条意见重做过一遍，[制作过程](production/dbcooper/制作过程.md)与[审片记录](production/dbcooper/review/审片与听检-2026-09-13.md)都在 |
+| [`交付/`](交付/) | `黑色大丽花_三分钟_带声音.mp4`（48.1 MB）与 `DB库珀劫机案_三分钟_带声音.mp4`（53.4 MB，成片实测 −21.77 dBFS RMS / 峰值 −1.5 / 静音占比 1.1%） |
 | [`新题目开工手册.md`](新题目开工手册.md) | **换题目做新片就照这份走** |
 | [`production/new_topic.py`](production/new_topic.py) | 开新题目的脚手架：复制流水线、生成骨架、把上一部片子的内容标成 TODO |
 | [`production/dahlia/制作过程.md`](production/dahlia/制作过程.md) | 参考项目全过程，含"第一版为什么没声音"的根因与修复 |
@@ -19,6 +20,15 @@
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
 
 ## 待办（需要仓库主手动做一次）
+
+**状态更新（2026-09-13）**：这两件事**都做完了**，而且代理现在能自己维护 `.github/workflows/`——
+Arena 应用拿到了 `workflows: Read and write`（第二次实测：推送工作流文件成功）。
+`.github/workflows/ci-tests.yml` 与 `verbatim-check.yml` 都在，`test_workflows.py` 的逐字节比对全绿。
+顺带长出一条约定：**代理触发专属工作流用"便签文件 + push"**，因为
+`workflow_dispatch` 走 API 仍是 403（`Resource not accessible by integration`）。
+`production/dbcooper/` 里的 `GEN_REQUEST` / `RENDER_REQUEST` / `VERBATIM_REQUEST` 就是三张便签，
+每个专属工作流的 `on.push.paths` 只认自己那一张——否则逐镜 checkpoint 与交付提交会把自己点第二遍。
+这条约定有测试守（`test_dbcooper.py::RestartTests::test_project_workflows_are_pinned_here_and_loop_free`）。
 
 **状态更新（2026-09-10）**：`.github/workflows/commentary-render.yml` 已经是正确 YAML，
 与模板 `production/commentary-render.workflow.yml` 逐字节一致（blob `98e4e84`），
@@ -33,11 +43,13 @@
    ASR 模型要从 Hugging Face 下载，本地沙箱连不上，只有 runner 上跑得了）。
 
 
-代理（GitHub App）写不了 `.github/workflows/`——今天又实测了一次，
-`git push` 报 `refusing to allow a GitHub App to create or update workflow ... without 'workflows' permission`。
-给我权限的办法：仓库 **Settings → GitHub Apps（<https://github.com/32r4e2q-hub/desktop-tutorial/settings/installations>）
-→ Arena 应用 → Configure → Repository permissions → Workflows: Read and write → Save**；
-或者换成开了 **Actions: Read and write** 的 fine-grained PAT。给不给都行，不想授权就复制一次：
+> 历史：2026-09-10 与 09-13 上午，代理（GitHub App）还写不了 `.github/workflows/`——
+> `git push` 报 `refusing to allow a GitHub App to create or update workflow ... without 'workflows' permission`，
+> 当时给权限的办法是仓库 **Settings → GitHub Apps（<https://github.com/32r4e2q-hub/desktop-tutorial/settings/installations>）
+> → Arena 应用 → Configure → Repository permissions → Workflows: Read and write → Save**，
+> 或者换成开了 **Actions: Read and write** 的 fine-grained PAT。
+> **2026-09-13 起这条已经不适用**：权限给了，工作流文件由代理直接维护，下面两条复制命令留着只是给
+> "哪天想重放"的人（复制完必须逐字节一致，`test_workflows.py` 会验）。
 
 ```bash
 cp production/ci-tests.workflow.yml .github/workflows/ci-tests.yml

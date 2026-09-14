@@ -38,9 +38,17 @@ RATE = 48000
 CUTS = {
     'N01': [(0,'S01',''), (5.7,'S02',''), (13.9,'S03',''), (19.0,'S05',''), (22.7,'S04','')],
     'N02': [(0,'S06',''), (5.6,'S06','b'), (9.26,'S07',''), (17.34,'S08',''), (20.48,'S09',''), (24.02,'S10','')],
-    'N03': [(0,'S11',''), (6.5,'S12',''), (13.2,'S13',''), (19.7,'S15',''), (25.5,'S14','')],
+    # 15.84 / 20.02 / 25.68 = 三句的真实开口秒（raw 秒，由 caption-timing 反算 ÷ tempo）：
+    # 「它再次起飞」起于 74.33s 电影秒 ⇒ 从这一刀起画面交给起飞镜 S14，登机镜 S13 只承担
+    # 「钱和四个降落伞装上飞机」；末句「飞机低低地掠过山谷」回到 S14 的另一段（variant 'b'，
+    # 入点 4.0s，不重上素材）。上一版这里被记成瑕疵 B4：起飞那句压在登机镜尾巴上 1.2 秒。
+    'N03': [(0,'S11',''), (6.5,'S12',''), (13.2,'S13',''), (15.84,'S14',''), (20.02,'S15',''), (25.68,'S14','b')],
     'N04': [(0,'S18',''), (5.78,'S16',''), (7.42,'S17',''), (11.63,'S19',''), (18.11,'S20','')],
-    'N05': [(0,'S21',''), (6.4,'S22',''), (13.8,'S24',''), (17.7,'S25',''), (21.0,'S23','')],
+    # 2.80 / 13.99 / 19.97 = 该句在本章配音里的真实开口时刻（raw 秒，已由 caption-timing 反算）。
+    # 两张数据卡各说各的事：1980 河畔数字压在"说到这笔钱"的时候，
+    # 嫌疑人核查数字压在"头五年"那句上——卡上写的与嘴上说的不许打架。
+    'N05': [(0,'S21',''), (2.80,'S23','ransom'), (6.4,'S22',''), (13.99,'S24',''), (17.7,'S25',''),
+            (19.97,'S23','suspects')],
     'N06': [(0,'S26',''), (8.7,'S27',''), (18.5,'S28',''), (23.8,'S29',''), (26.1,'S30','')],
 }
 
@@ -76,6 +84,51 @@ def centered(draw, text, y, size, color, x=960, serif=False):
     draw.text((x-(box[2]-box[0])/2,y),text,font=f,fill=color)
 
 
+# 数据卡的文字全部由本项目排版（不交给视频模型拼写）；键是 (镜头号, variant)。
+# 同一张卡可以按 variant 换内容：S23 有「1980 河畔寻回」与「头五年排查」两张，
+# 各自对准解说正在说的那件事（此前一张卡要同时盖住两句话，纸面与台词各说一半）。
+CARD_HEADINGS = {
+    ('S03', ''): ('四十岁上下', '西装 · 黑领带 · 样子平淡', '化名：丹 · 库珀'),
+    ('S08', ''): ('他的条件', '二十万美元 · 只要二十美元面额', '外加四个降落伞'),
+    ('S20', ''): ('代号 NORJAK', '山区 · 河谷 · 彻夜搜索', '直到凌晨 · 一无所获'),
+    ('S23', 'ransom'): ('1980.11', '哥伦比亚河畔 · 5800美元', '钞票编号 · 与当年记录吻合'),
+    ('S23', 'suspects'): ('头五年', '八百余名嫌疑人被核查', '只剩 24 名 · 来源：FBI 案件页'),
+    ('S27', ''): ('至今未破', '民航史上唯一未破劫机案', '2016年起不再主动追查'),
+}
+CARD_HEADINGS[('S23', '')] = CARD_HEADINGS[('S23', 'ransom')]   # 不带 variant 的旧写法仍指向 1980 那张
+
+# 上屏文案里不许出现工程路径。观众拿不到 story.json：把它印在片尾，等于把便条当字幕。
+# 2026-09-14 成片全帧复核时发现的位置只有一处——END 卡的最后一行（`card_image` 里
+# `sid=='END'` 那个分支）；片头那两行是字幕轨里的 Title 行（见 write_subtitles），从来只有片名。
+# 另外 archive_image 里抄来的那三行待填占位文字（档案卡标题/人物/副标）也在这条红线上，见那个函数。
+END_FOOTER='资料来源：FBI 案件页与四条公开报道 · 解说原创 · 画面为 AI 情景重现'
+ARCHIVE_FOOTER='档案照片 · 来源见片尾说明'
+
+# 同一素材被排进两个编辑段时的入点偏移（raw 秒）；加了条目就必须加到这里。
+VARIANT_IN={('S06','b'):2.9, ('S14','b'):4.0}
+
+# 素材入点：短窗口不整片铺慢，只取 7 秒素材的对应片段，保证变速比落在 ±33% 内（引擎闸门）。
+# 顺序是承重的：先套逐镜上限，**最后**才让 VARIANT_IN 覆盖——反过来写，被复用的那一镜会被上限
+# 拉回基段的入点，两遍放同一段画面还谁也测不出来（2026-09-14 就是这么差点蒙过去一次）。
+CLIP_CAPS={'S05':3.85,'S09':3.70,'S14':4.00,'S16':1.75,'S17':4.40,'S24':4.10,'S25':3.40,
+           'S29':2.50,'S30':4.10}
+
+
+def clip_window(sid, variant, length, duration):
+    """返回 (入点, 出点, 实际取用时长, 变速比)。"""
+    a, b = .12, length - .12
+    if sid == 'S10':a = max(.12, length - 2.2)          # 只取四个帆布袋的揭示段
+    if sid in CLIP_CAPS:b = min(CLIP_CAPS[sid], length - .12)
+    if sid == 'S30':b = length - .12                    # 末镜保留 2.2s 无解说静场，接片尾卡
+    if (sid, variant) in VARIANT_IN:                    # 复用同一素材必须换入点
+        a, b = VARIANT_IN[(sid, variant)], length - .12
+    take = min(b - a, duration)
+    factor = duration / take
+    if factor > 1.33:
+        raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+    return a, a + take, take, factor
+
+
 def card_image(sid, variant, directory):
     directory.mkdir(parents=True,exist_ok=True)
     dest=directory/f'{sid}-{variant or "base"}.jpg'
@@ -90,23 +143,16 @@ def card_image(sid, variant, directory):
         centered(d,'D.B. Cooper',342,105,'#ede8db',serif=True)
         centered(d,'雨夜里消失的名字',498,48,'#b7aa82')
         centered(d,'一个名字，至今没有对应的人。',668,31,'#a6aaa0')
-        centered(d,'资料：来源见 story.json 的 sources / 原创解说 · AI情景重现',895,21,'#7f897d')
+        centered(d,END_FOOTER,895,21,'#7f897d')
     else:
         d.rounded_rectangle((169,104,1751,954),radius=6,fill='#0d1210')
         # Physical-paper palette connects the cards to the generated walnut desks and case folders.
         paper=np.stack([218+grain,212+grain,192+grain],axis=-1)
         patch=Image.fromarray(np.uint8(np.clip(paper[119:939,184:1736],0,255)),'RGB')
         im.paste(patch,(184,119));d=ImageDraw.Draw(im)
-        d.text((265,180),'案件档案  /  PACIFIC NORTHWEST · 1971',font=font(24),fill='#5d6456')
+        d.text((265,180),'案件档案  /  PORTLAND-SEATTLE-RENO · 1971',font=font(24),fill='#5d6456')
         d.line((265,236,1655,236),fill='#929781',width=2)
-        headings={
-            'S03':('四十岁上下','西装 · 黑领带 · 样子平淡','化名：丹 · 库珀'),
-            'S08':('他的条件','二十万美元 · 只要二十美元面额','外加四个降落伞'),
-            'S20':('代号 NORJAK','山区 · 河谷 · 彻夜搜索','直到凌晨 · 一无所获'),
-            'S23':('1980.11','哥伦比亚河畔 · 5800美元','钞票编号 · 与当年记录吻合'),
-            'S27':('至今未破','民航史上唯一未破劫机案','2016年起不再主动追查'),
-        }
-        title,line1,line2=headings[sid]
+        title,line1,line2=CARD_HEADINGS[(sid,variant or '')]
         centered(d,title,302,108,'#2c3a32',serif=True)
         centered(d,line1,486,49,'#475648')
         d.line((855,628,1065,628),fill='#958358',width=3)
@@ -117,30 +163,15 @@ def card_image(sid, variant, directory):
 
 
 def archive_image(variant,directory):
-    """Use the identified bulletin portrait instead of the unsuitable generated face."""
-    directory.mkdir(parents=True,exist_ok=True)
-    dest=directory/f'archival-portrait-{variant or "base"}.jpg'
-    if dest.exists():return dest
-    im=Image.new('RGB',(1920,1080),'#1b211d');d=ImageDraw.Draw(im)
-    source=HERE/'assets'/'unused-in-this-film.jpg'  # 本片没有 archive 镜头：劫机者没有可核实的真实照片，红线禁止用AI脸冒充
-    portrait=Image.open(source).convert('RGB')
-    if variant=='portrait_b':
-        w,h=portrait.size
-        portrait=portrait.crop((int(w*.04),int(h*.02),int(w*.97),int(h*.92)))
-    portrait.thumbnail((710,810),Image.Resampling.LANCZOS)
-    scale=min(710/portrait.width,810/portrait.height)
-    portrait=portrait.resize((round(portrait.width*scale),round(portrait.height*scale)),Image.Resampling.LANCZOS)
-    x=200+(710-portrait.width)//2;y=125+(810-portrait.height)//2
-    d.rectangle((x-12,y-12,x+portrait.width+12,y+portrait.height+12),fill='#cfc6ac')
-    im.paste(portrait,(x,y));d=ImageDraw.Draw(im)
-    centered(d,'TODO 档案卡标题',316,34,'#b7aa82',x=1330)
-    centered(d,'TODO 人物或主题',400,72,'#ede8db',x=1330,serif=True)
-    centered(d,'TODO 档案卡副标',536,90,'#d4c69d',x=1330)
-    d.line((1240,695,1420,695),fill='#8e8466',width=2)
-    centered(d,'档案照片 · 非AI生成人像',747,28,'#a7b09f',x=1330)
-    centered(d,'来源见 story.json 的 sources',942,23,'#84917d')
-    im.save(dest,quality=94)
-    return dest
+    """本片没有 archive 镜头——所以这个函数必须炸，而不是画一张占位卡。
+
+    劫机者没有可核实的真实照片，红线禁止用 AI 生成的脸冒充本人，story.json 里
+    `kind=="archive"` 的镜头数为 0。但这个函数是从参考项目抄来的，原本在那里画
+    三行未填的卡片占位文字（标题 / 人物 / 副标各一行）：谁哪天加一个档案镜头，
+    那三行就会被印到 1920×1080 的画面上，观众会以为片子没做完。
+    要出档案卡，先在 story.json 补 archive_card 的文案再放开这里。
+    """
+    raise RuntimeError('本片未定义档案卡文案：不许用脚手架占位文字上屏')
 
 
 def fingerprint_overlay(directory,width,height):
@@ -271,6 +302,32 @@ def safe_text(text):
     return text.replace('\\','/').replace('{','（').replace('}','）').replace('\n',' ')
 
 
+
+def boundary_penalty(cues,row,samples,hop=960):
+    """给一套字幕时间打分：每个"入点/出点"落在语音中间多少，就加多少分。低者赢。
+
+    为什么要有这个：对轨有两条路——ASR 逐词时间戳，与按实测停顿等比分配。
+    原先的写法是"ASR 优先，匹配度不够才回落"，等于把一个模型的名额当成质量担保；
+    实际数据里 ASR 那条反而会留下 0.7 秒的空窗与 0.25 秒的尾迟。
+    到底哪套更贴语流，不该由信仰决定，该由**同一份配音上量出来的能量包络**决定。
+    """
+    if not cues: return float('inf')
+    blocks=samples[:len(samples)-len(samples)%hop].reshape(-1,hop)
+    rms=np.sqrt((blocks*blocks).mean(axis=1))
+    median=float(np.median(rms)) if len(rms) else 0.0
+    if median<=0: return 0.0
+    penalty=0.0
+    for cue in cues:
+        for moment in (cue['start'],cue['end']):
+            raw=(moment-row['start'])*row['tempo']
+            if raw<0.05 or abs(raw-row['raw_duration'])<0.05: continue   # 章首尾无所谓打断
+            begin=max(0,int(round((raw-.35)*RATE/hop))); end=int(round((raw+.35)*RATE/hop))+1
+            window=rms[begin:end]
+            if not len(window): continue
+            ratio=float(window.min())/median
+            if ratio>.40: penalty+=ratio-.40                              # 0.4 倍以下算"低谷"
+    return penalty
+
 def write_subtitles(path,cues,edl):
     text='''[Script Info]
 ScriptType: v4.00+
@@ -297,7 +354,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
     for entry in edl:
         if entry['id']=='END':continue
-        label={'agnes':'AI情景重现 · 非历史影像','archive':'档案照片 · 来源见 story.json 的 sources',
+        label={'agnes':'AI情景重现 · 非历史影像','archive':ARCHIVE_FOOTER,
                'graphic':'资料摘要与示意图'}[entry['kind']]
         if entry['id']=='S02':label='柜台情景为AI重现 · 非历史影像'
         if entry['id']=='S07':label='手提箱内容为AI示意 · 静态道具 · 非真实证物'
@@ -343,6 +400,62 @@ def write_sfx(path,edl):
         f.writeframes(np.int16(np.clip(out,-1,1)*32767).tobytes())
 
 
+# ---- 模型自拼黑边：数出来、挪出去（零缩放） ----------------------------------
+# 生成式视频模型有时在画面边缘留一条纯黑 mat。管线是 scale=increase + crop，本来就有
+# 被丢掉的过扫描像素，所以把 crop 窗口朝对侧平移即可把黑边移出画面：**不改缩放比例、
+# 不改画幅、不动时间线**，比裁剪放大安全。判据与 production/qc_film.py 完全一致：
+# 整行 max <= 4 且 std <= 1.5 才算"纯黑"，偏暗但有内容的行不算（那是夜戏）。
+BORDER_PURE_MAX = 4
+BORDER_PURE_STD = 1.5
+MARGIN_CAP = 32          # 只处理 <=32px 的边缘 mat；更宽的是构图问题，交给镜头返工
+
+
+def pure_black_run(line) -> int:
+    """从这一头数起连续的纯黑行（列）数。"""
+    k = 0
+    for row in line:
+        if float(row.max()) <= BORDER_PURE_MAX and float(row.std()) <= BORDER_PURE_STD:
+            k += 1
+        else:
+            break
+    return k
+
+
+def measure_margins(path, start, take, width, height, samples=3):
+    """在素材被用到的那段里均匀取几帧，返回四边纯黑宽的**最小值**（三帧都有才算）。"""
+    proc = subprocess.run(
+        ['ffmpeg', '-v', 'error', '-ss', f'{start:.6f}', '-t', f'{take:.6f}', '-i', str(path),
+         '-vf', f'fps={max(samples,1)}/{max(take,.5):.6f}', '-f', 'rawvideo', '-pix_fmt', 'gray', '-'],
+        capture_output=True)
+    size = width * height
+    raw = proc.stdout or b''
+    found = []
+    for i in range(min(samples, len(raw) // size)):
+        g = np.frombuffer(raw[i * size:(i + 1) * size], dtype=np.uint8).reshape(height, width)
+        found.append({'left': pure_black_run(g[:, :MARGIN_CAP].T),
+                      'right': pure_black_run(g[:, -MARGIN_CAP:].T[:, ::-1]),
+                      'top': pure_black_run(g[:MARGIN_CAP]),
+                      'bottom': pure_black_run(g[-MARGIN_CAP:][::-1])})
+    if not found:
+        return {'left': 0, 'right': 0, 'top': 0, 'bottom': 0}
+    return {k: min(f[k] for f in found) for k in ('left', 'right', 'top', 'bottom')}
+
+
+def margin_shift(margins, overscan_x, overscan_y):
+    """把黑边挪出画面的平移量；可用平移量受两侧过扫描限制，取不到就老实报 0。
+
+    正值 = 窗口向右/下移（让出左侧/上侧的黑边）。两侧同时有黑边时无法靠平移解决，
+    那种情况返回 0 并留给目视/返工，不做任何"看起来修了"的假动作。
+    """
+    room_left = overscan_x // 2
+    room_right = overscan_x - room_left
+    room_up = overscan_y // 2
+    room_down = overscan_y - room_up
+    x = min(margins.get('left', 0), room_right) - min(margins.get('right', 0), room_left)
+    y = min(margins.get('top', 0), room_down) - min(margins.get('bottom', 0), room_up)
+    return {'x': int(x), 'y': int(y)}
+
+
 def render_segment(entry,index,sources,graphics,segments,width,height,checks):
     target=segments/f'{index:03d}.mp4';frames=entry['end_frame']-entry['start_frame'];duration=frames/FPS
     cmd=['ffmpeg','-y','-v','error','-threads','2'];sid=entry['id'];variant=entry['variant']
@@ -353,37 +466,34 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         vf=f"scale={width}:{height},zoompan=z='min(1.025,1+0.00011*on)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s={width}x{height}:fps={FPS}"
     else:
         source=sources/(sid+'.mp4');info=checks[sid]
-        length=info['duration'];a=.12;b=length-.12
-        # S06 的 'b' 变体复用纸条镜头后半段（手拿起纸条），见 CUTS 'N02'。
-        if sid=='S06' and variant=='b':a=2.9;b=length-.12
-        # 窗口选择：CUTS 里较短的编辑窗口只取 7 秒素材的对应片段，
-        # 保证每段变速比落在 ±33% 以内（引擎闸门 factor<=1.33）。
-        if sid=='S05':a=.12;b=min(3.85,length-.12)
-        if sid=='S09':a=.12;b=min(3.7,length-.12)
-        if sid=='S10':a=max(.12,length-2.2);b=length-.12  # 只取四个帆布袋的揭示段
-        if sid=='S14':a=.12;b=min(4.0,length-.12)
-        if sid=='S16':a=.12;b=min(1.75,length-.12)
-        if sid=='S17':a=.12;b=min(4.4,length-.12)
-        if sid=='S24':a=.12;b=min(4.1,length-.12)
-        if sid=='S25':a=.12;b=min(3.4,length-.12)
-        if sid=='S29':a=.12;b=min(2.5,length-.12)
-        if sid=='S30':a=.12;b=min(4.1,length-.12)  # 末镜含 2.2s 无解说静场，接片尾卡
-        available=b-a
-        take=min(available,duration)
-        factor=duration/take
-        if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+        a,b,take,factor=clip_window(sid,variant,info['duration'],duration)
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
+        # 先量模型自拼的黑边，能靠平移 crop 消掉就消掉（不改变缩放，只换用本来要丢的过扫描像素）
+        sw,sh=int(info['width']),int(info['height'])
+        cover=max(width/sw,height/sh)
+        over_x=max(0,int(math.floor(sw*cover+0.5))-width)
+        over_y=max(0,int(math.floor(sh*cover+0.5))-height)
+        margins=measure_margins(source,a,take,sw,sh)
+        shift=margin_shift(margins,over_x,over_y)
+        if any(margins[k] for k in margins) or any(shift.values()):
+            print(f'MARGIN_PROBE {sid} margins={margins} overscan={over_x}x{over_y} shift={shift}',flush=True)
+        entry.update(margins=margins,crop_overscan={'x':over_x,'y':over_y},crop_shift=shift)
+        crop_x,y0=over_x//2+shift['x'],over_y//2+shift['y']
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'
             f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
+            f'crop={width}:{height}:{crop_x}:{y0},setsar=1,fps={FPS},'
+            f'eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
-        entry.update(source_in=a,source_out=a+take,time_stretch=factor)
+        entry.update(source_in=a,source_out=b,time_stretch=factor)
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
     if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
     if sid=='S30':vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
     cmd+=['-vf',vf+',format=yuv420p']
+    # 中间段只做"接近无损"的一次编码，最终交付再压一遍——两段都按交付质量压会把
+    # 暗部方格叠成可见缺陷（qc_film.py 实测：crf21+crf21 双段 p50=0.171，vs 无损参照 0.084）。
+    # work/ 不入库，所以中间段变大不占交付体积；交付体积由终压那一档控制。
     cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
-          '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
+          '-crf','14','-maxrate','30000k','-bufsize','60000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
 
 
@@ -424,16 +534,24 @@ def main():
         checks[sid]=probe(source)
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
     edl=make_edl(project,narration)
-    from align_audio import transcribe_on_runner, aligned_cues
+    from align_audio import transcribe_on_runner, aligned_cues, ASR_MODEL
     asr={} if args.skip_asr else transcribe_on_runner(narration,work)
     cues=[];alignment=[]
     for row,samples in zip(narration,waves):
+        estimate=captions_for(row,samples)
         aligned=None;coverage=0.0
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        cues.extend(aligned if aligned else captions_for(row,samples))
-        alignment.append({'id':row['id'],'method':'ASR-assisted' if aligned else 'pause-aware estimate',
-                          'character_match_coverage':coverage})
+        # 两套都在的时候，用实测能量比较谁更贴语流；只有一套可用时也没什么好挑的。
+        chosen,won = (aligned,'ASR-assisted') if aligned and boundary_penalty(aligned,row,samples) \
+                     <= boundary_penalty(estimate,row,samples) else (estimate,'pause-aware estimate')
+        cues.extend(chosen)
+        alignment.append({'id':row['id'],'method':won,'character_match_coverage':coverage,
+                          # 报告要能自证：用什么模型对的、两套各自的分数、离线跳过时对轨根本没跑
+                          'boundary_penalty_asr':(round(boundary_penalty(aligned,row,samples),4) if aligned else None),
+                          'boundary_penalty_estimate':round(boundary_penalty(estimate,row,samples),4),
+                          'asr_model':(ASR_MODEL if aligned else None),
+                          'asr_skipped':bool(args.skip_asr)})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl)
     (work/'caption-timing.json').write_text(json.dumps(cues,ensure_ascii=False,indent=2))
@@ -457,7 +575,11 @@ def main():
     font_directory=find_font().parent
     vf=f"subtitles=filename='{subtitle.resolve().as_posix()}':fontsdir='{font_directory.as_posix()}'"
     run(['ffmpeg','-y','-v','error','-threads','2','-i',image_track,'-i',mixed,'-map','0:v:0','-map','1:a:0',
-         '-vf',vf,'-c:v','libx264','-preset','fast','-crf','21','-maxrate','4000k','-bufsize','8000k',
+         '-vf',vf,'-c:v','libx264','-preset','medium','-crf','20',
+         # 全片以暗部为主：aq-mode=3 把比特让给平坦暗区，deblock 略加强以压掉块边界；
+         # 上限 7000k 保证交付体积仍在百 MB 内（上一版 2.35 Mbps 对应 52.9 MB）。
+         '-x264-params','aq-mode=3:aq-strength=0.9:deblock=1,1',
+         '-maxrate','7000k','-bufsize','14000k',
          '-pix_fmt','yuv420p','-r','30','-c:a','aac','-b:a','160k','-ar','48000','-t','180',
          '-movflags','+faststart',args.output])
     info=probe(args.output)
@@ -482,7 +604,10 @@ def main():
     technical={**info,'sha256':digest(args.output),'decoded_ok':True,'status':'audio_verified_cut',
                'visual_review':'pending','caption_alignment':alignment,
                'narration_voice_id':audio_manifest['voice_id'],'narration_tempo':narration[0]['tempo'],
-               'editorial_segments':len(edl),'source_clips':len(checks),'archival_portrait':True,
+               'editorial_segments':len(edl),'source_clips':len(checks),
+               # 本片 0 个 archive 镜头（劫机者没有可核实的真实照片，红线禁止用 AI 脸冒充）：
+               # 这个字段是从参考项目抄来的常量 True，等于让报告替片子撒谎。
+               'archival_portrait':any(e['kind']=='archive' for e in edl),
                'output':args.output.name,
                'soundtrack_mix':{k:mix_report[k] for k in
                                  ('rms_dbfs','peak_dbfs','silent_fraction','target_rms_dbfs')},

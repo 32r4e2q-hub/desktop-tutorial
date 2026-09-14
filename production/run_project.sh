@@ -30,21 +30,32 @@ FILM="$WORK/${3:-$SAFE_TITLE.mp4}"
 
 echo "=== 项目 $PROJECT / 分支 $BRANCH / 成片 $FILM ==="
 
-echo "=== 1/5 校验计划与配音来源（闸门一）==="
+echo "=== 1/6 校验计划与配音来源（闸门一）==="
 python3 "$DIR/generate.py" --validate
 
-echo "=== 2/5 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）==="
+echo "=== 2/6 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）==="
 python3 -u "$DIR/fetch_sources.py" --dest "$WORK/clips"
 
-echo "=== 3/5 剪辑 + 混音 + 成品复测（闸门二、三）==="
+echo "=== 3/6 剪辑 + 混音 + 成品复测（闸门二、三）==="
 EXTRA=()
 [ "$SKIP_ASR" = "true" ] && EXTRA+=("--skip-asr")
 python3 -u "$DIR/render.py" \
   --sources "$WORK/clips" --work "$WORK" --output "$FILM" ${EXTRA[@]+"${EXTRA[@]}"}
 
-echo "=== 4/5 把成片与实测报告 commit 回 $BRANCH ==="
 mkdir -p 交付 "$DIR/delivery"
 cp "$FILM" "交付/$(basename "$FILM")"
+echo "=== 4/6 画质 QC（闸门四：块效应/纯黑遮幅/段内闪烁/曝光，绑本版 SHA-256）==="
+# 有 FLAG 时这一步不红：退出码 1 是闸门语义，交给 production/tests 去挡；
+# 但结论必须打在日志上，免得"出了片却没人看 QC"。跑在 cp 之后，报告里记的就是交付路径。
+if [ -f production/qc_film.py ]; then
+  python3 production/qc_film.py --film "交付/$(basename "$FILM")" --project "$DIR" --fps 2 \
+    --out "$DIR/delivery/qc-report.json" \
+    || echo "QC_FLAGGED：见上面 ✗ 项与 $DIR/delivery/qc-report.json"
+else
+  echo "skip qc（没有 production/qc_film.py）"
+fi
+
+echo "=== 5/6 把成片与实测报告 commit 回 $BRANCH ==="
 for f in technical-report.json audio-report.json final-audio-report.json \
          alignment-report.json caption-timing.json narration-timing.json \
          edit-decision-list.json final-contact.jpg captions.srt; do
@@ -58,11 +69,26 @@ if git diff --cached --quiet; then
   echo "No changes to publish"
 else
   git commit -m "Deliver the $PROJECT cut with measured audio"
-  git push origin "HEAD:$BRANCH"
-  echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
+  # 出片一趟十几分钟，期间生成/听检的 checkpoint 可能先把分支推进了一格；
+  # 裸 push 会被 "fetch first" 拒掉，于是整次运行红掉——而片子、报告、校验全都已经好了。
+  # 与 dbcooper-verbatim 的 publish 步同一招：被拒就把分支 rebase 到最新再推，最多三次。
+  published=0
+  for attempt in 1 2 3; do
+    if git push origin "HEAD:$BRANCH"; then
+      published=1
+      echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
+      break
+    fi
+    echo "push 被拒（第 $attempt 次），把 $BRANCH 的最新提交吸收进来再试"
+    git fetch origin "$BRANCH" && git rebase FETCH_HEAD || break
+  done
+  if [ "$published" != "1" ]; then
+    echo "::error::成片与报告推不回 $BRANCH（并发提交冲突且 rebase 让不开）；文件在本次运行的 artifact 里"
+    exit 1
+  fi
 fi
 
-echo "=== 5/5 实测摘要 ==="
+echo "=== 6/6 实测摘要 ==="
 ls -la "$FILM"
 python3 - "$DIR/delivery/final-audio-report.json" "$DIR/delivery/technical-report.json" <<'PY'
 import json, sys
