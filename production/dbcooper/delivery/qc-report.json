@@ -1,10 +1,11 @@
 {
   "film": "交付/DB库珀劫机案_三分钟_带声音.mp4",
-  "film_bytes": 68888442,
-  "film_sha256": "0ac7a9b66199e44bba9ed679e92841e4c8bdada8984b40d660569c7341474edb",
+  "film_bytes": 70133211,
+  "film_sha256": "23f0f17f65a1cdfc42868aee8d02e796a31c3b77d117b5065740e036000bc112",
   "duration_s": 180.0,
-  "avg_bitrate_mbps": 3.062,
+  "avg_bitrate_mbps": 3.117,
   "sample_fps": 2.0,
+  "sampler": "select='not(mod(n,15))' + vsync 0（按帧序号精确抽取；旧版 fps 滤镜有恒定 +7 帧滞后，2026-09-14 起弃用）",
   "sampled_frames": 360,
   "picture_rows_measured": [
     140,
@@ -12,7 +13,7 @@
   ],
   "thresholds": {
     "blocking_p50_max": 0.14,
-    "blocking_p90_max": 0.3,
+    "blocking_abs_max_allow": 0.5,
     "overexposed_fraction_max": 0.06,
     "overexposed_frame_count_max": 0,
     "underexposed_p95_reference": 0.8,
@@ -21,6 +22,7 @@
     "flash_reversal_spikes_max": 0,
     "flash_reversal_amp_min": 0.045,
     "letterbox_min_frame_fraction": 0.8,
+    "letterbox_static_px_tol": 2,
     "border_pure_max": 4,
     "border_pure_std": 1.5,
     "designed_border_segments": [
@@ -33,12 +35,15 @@
       "所以改脚本放水过不了测试。要动这里的数字必须在 review/ 里给出实测依据。"
     ],
     "calibration": {
-      "blocking_reference": "同素材无损编码 p50=0.084（1920x1080，画面区行 140-940）",
-      "blocking_before": "双重有损编码（逐段 crf21/veryfast + 终压 crf21/fast）实测 p50=0.168、p90=0.726",
+      "blocking_reference": "同素材无损编码 p50=0.084（1920x1080，画面区行 140-940；旧 fps 采样口径）",
+      "blocking_before": "双重有损编码（逐段 crf21/veryfast + 终压 crf21/fast）实测 p50=0.168、p90=0.726（旧采样口径）",
       "blocking_reproduction": "把同一代理源喂进旧管线复现实验得 p50=0.171，与成片吻合 ⇒ 归因于编码链而非素材",
       "blocking_target": "改为「中间段 crf14 + 终压 crf20/medium + aq-mode=3 + deblock=1,1」后复现实验 p50=0.118",
       "blocking_p50_limit_rationale": "取无损参照 0.084 与旧管线 0.168 之间、且低于新管线上限的 0.14：新口径若失效即红",
+      "blocking_round5_resample": "2026-09-14 起改用精确采样（select 按帧序号；旧 fps 滤镜恒定 +7 帧滞后已证）。精确采样下旧片 p50=0.174、新片 0.115；去掉卡面帧后 0.140 对 0.096——0.14 不动，两边仍有约 20% 裕量",
+      "blocking_abs_rule": "尾部改判绝对强度（灰阶），不再判比值 p90：比值在平滑暗场里分母趋零（0.18 灰阶起伏 ⇒ 比值 1.0），旧 p90=0.3 门限量的是分母噪声。绝对强度实测：JPEG 卡面帧 0.41–2.23、旧管线损伤帧 0.43–0.63、干净竖线内容（S25 试剂架）0.37、平滑暗场 ≤0.26；上限 0.5 落在干净与强网格之间",
       "letterbox_rule": "整行 max<=4 且 std<=1.5 才算纯黑遮幅，且该段 >=80% 采样帧都有；偏暗但有内容不算（上一版据此误报）",
+      "letterbox_static_rule": "2026-09-14 起加一条“静止”：宽度极差超过 2px 的不算遮幅。S14 的“黑边”是机舱壁被 eq 压成纯黑，随运镜在 0–40px 间漂移——真 mat 钉在画框边上，不会漂。证据见 review/qc-s14-wall-2026-09-14.png",
       "flash_rule": "只用单帧反向亮度尖峰判定；硬切台阶与淡入淡出相邻帧不计（否则 34 个切点必然顶满）"
     },
     "letterbox_unexpected_px_max": 0
@@ -67,18 +72,17 @@
       "name": "blocking",
       "desc": "8x8 块效应不超阈值（压缩伪影）",
       "measured": [
-        0.109,
-        0.5958,
-        1.9541
+        0.1146,
+        0.7595
       ],
       "ok": false,
-      "note": "画面区内量；p50=0.109（上限 0.14）、p90=0.596（上限 0.3）、max=1.954；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+      "note": "画面区内量；比值 p50=0.115（上限 0.14，守编码链）、绝对强度 max=0.759 灰阶（上限 0.5，守单帧强网格）。校准（精确采样）：旧双压管线比值 p50=0.174、新管线 0.115；JPEG 卡面帧绝对强度 0.41–2.23、旧管线损伤帧 0.43–0.63、干净竖线内容（S25 试剂架）0.37、平滑暗场 ≤0.26。比值 p90=0.568 只作参考——它在平滑暗场里是分母噪声（0.18 灰阶起伏 ⇒ 比值 1.0），不判定。"
     },
     {
       "name": "banding_reference",
       "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
       "measured": [
-        0.701
+        0.699
       ],
       "ok": true,
       "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
@@ -87,30 +91,30 @@
       "name": "overexposed",
       "desc": "高光不削顶",
       "measured": [
-        0.00266,
+        0.00263,
         0
       ],
       "ok": true,
-      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.00266；占比 >2% 的帧数 0（上限 0）"
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.00263；占比 >2% 的帧数 0（上限 0）"
     },
     {
       "name": "underexposed_reference",
       "desc": "暗部死黑占比（参考量，不判定）",
       "measured": [
-        0.7487
+        0.7509
       ],
       "ok": true,
-      "note": "≤6 灰阶占比 p95=0.749；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
+      "note": "≤6 灰阶占比 p95=0.751；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
     },
     {
       "name": "saturation",
       "desc": "饱和度不过冲、也不脱色",
       "measured": [
-        0.0639,
-        0.1159
+        0.0537,
+        0.0878
       ],
       "ok": true,
-      "note": "均值 0.064（要求 0.02..0.42）"
+      "note": "均值 0.054（要求 0.02..0.42）"
     },
     {
       "name": "flash",
@@ -127,932 +131,2476 @@
       "name": "letterbox",
       "desc": "设计外无额外遮幅/纯黑 mat",
       "measured": [
-        {
-          "S14": {
-            "left": [
-              10,
-              0.933
-            ]
-          }
-        }
+        {}
       ],
-      "ok": false,
-      "note": "判据：整行 max≤4 且 σ≤1.5，且该段 ≥80% 的采样帧都有；白名单（设计内）['S26']；卡面段与淡入淡出帧不参与；违规段：{'S14': {'left': (10, 0.933)}}。偏暗但有内容的行不计入（上一版误把夜戏暗场当遮幅，已修）"
+      "ok": true,
+      "note": "判据：整行 max≤4 且 σ≤1.5，且该段 ≥80% 的采样帧都有，且宽度极差 ≤2px（静止）；白名单（设计内）['S26']；卡面段与淡入淡出帧不参与；违规段：无。偏暗但有内容的行不计入；随运镜漂移的场景暗部（S14 机舱壁 0–40px）不算遮幅——真 mat 钉在画框边上，不会漂。"
     },
     {
       "name": "orientation_purity",
       "desc": "强边缘轴向占比（畸变代理，仅对照）",
       "measured": [
-        0.7166
+        0.716
       ],
       "ok": true,
-      "note": "p5=0.717，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
+      "note": "p5=0.716，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
     }
   ],
   "metrics": {
-    "blocking_mean": 0.1804,
-    "blocking_p50": 0.109,
-    "blocking_p90": 0.5958,
-    "blocking_p95": 0.7411,
-    "blocking_max": 1.9541,
-    "step_ratio_p95_reference": 0.701,
-    "saturation_mean": 0.0639,
-    "saturation_p95": 0.1159,
-    "overexposed_max": 0.00266,
-    "underexposed_p95": 0.7487,
-    "luma_mean": 67.92,
-    "luma_max": 145.46,
+    "blocking_mean": 0.1754,
+    "blocking_p50": 0.1146,
+    "blocking_p90_reference": 0.5676,
+    "blocking_p95_reference": 0.7403,
+    "blocking_max": 1.7204,
+    "blocking_abs_max": 0.7595,
+    "blocking_abs_p99": 0.6446,
+    "step_ratio_p95_reference": 0.699,
+    "saturation_mean": 0.0537,
+    "saturation_p95": 0.0878,
+    "overexposed_max": 0.00263,
+    "underexposed_p95": 0.7509,
+    "luma_mean": 67.18,
+    "luma_max": 145.43,
     "flash_reversal_spikes": 0,
     "flash_spike_times_s": [],
     "letterbox_by_segment": {
-      "S13": {
-        "left": [
-          52,
-          0.2
-        ]
-      },
       "S14": {
-        "left": [
-          10,
-          0.933
-        ]
-      },
-      "S17": {
-        "bottom": [
-          2,
-          0.111
-        ]
+        "left": {
+          "median": 10,
+          "presence": 0.933,
+          "min": 7,
+          "max": 40,
+          "static": false,
+          "widths": [
+            33,
+            40,
+            38,
+            35,
+            31,
+            32,
+            10,
+            10,
+            0,
+            7,
+            7,
+            7,
+            7,
+            8,
+            7
+          ]
+        }
       },
       "S19": {
-        "bottom": [
-          8,
-          0.077
-        ]
+        "bottom": {
+          "median": 2,
+          "presence": 0.077,
+          "min": 2,
+          "max": 2,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       }
     },
-    "axis_aligned_p5": 0.7166
+    "axis_aligned_p5": 0.716
   },
   "per_segment": {
     "S01": {
       "kind": "agnes",
       "frames": 13,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0296,
-      "blocking_max": 0.0632,
+      "blocking_p50": 0.0227,
+      "blocking_max": 0.0529,
+      "blocking_abs_max": 0.0951,
       "overexposed_max": 0.00102
     },
     "S02": {
       "kind": "agnes",
       "frames": 17,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0566,
-      "blocking_max": 1.9541,
+      "blocking_p50": 0.073,
+      "blocking_max": 0.136,
+      "blocking_abs_max": 0.1421,
       "overexposed_max": 0.00144
     },
     "S03": {
       "kind": "graphic",
       "frames": 10,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": -0.1264,
-      "blocking_max": 0.4726,
-      "overexposed_max": 0.00093
+      "blocking_p50": 0.107,
+      "blocking_max": 0.434,
+      "blocking_abs_max": 0.6328,
+      "overexposed_max": 0.00092
     },
     "S05": {
       "kind": "agnes",
       "frames": 8,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0359,
-      "blocking_max": 0.1316,
+      "blocking_p50": 0.0265,
+      "blocking_max": 0.0438,
+      "blocking_abs_max": 0.0532,
       "overexposed_max": 0.00119
     },
     "S04": {
       "kind": "agnes",
       "frames": 15,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0287,
-      "blocking_max": 0.1631,
+      "blocking_p50": 0.0201,
+      "blocking_max": 0.061,
+      "blocking_abs_max": 0.0751,
       "overexposed_max": 0.00145
     },
     "S06": {
       "kind": "agnes",
       "frames": 18,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.1244,
-      "blocking_max": 0.2996,
+      "blocking_p50": 0.1201,
+      "blocking_max": 0.2557,
+      "blocking_abs_max": 0.1477,
       "overexposed_max": 0.00162
     },
     "S07": {
       "kind": "agnes",
       "frames": 17,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.2194,
-      "blocking_max": 0.5768,
+      "blocking_p50": 0.2144,
+      "blocking_max": 0.4063,
+      "blocking_abs_max": 0.2767,
       "overexposed_max": 0.00148
     },
     "S08": {
       "kind": "graphic",
       "frames": 6,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": -0.1366,
-      "blocking_max": 0.2317,
+      "blocking_p50": 0.0517,
+      "blocking_max": 0.3583,
+      "blocking_abs_max": 0.56,
       "overexposed_max": 0.00101
     },
     "S09": {
       "kind": "agnes",
       "frames": 7,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.1403,
-      "blocking_max": 0.2327,
+      "blocking_p50": 0.1507,
+      "blocking_max": 0.3559,
+      "blocking_abs_max": 0.2519,
       "overexposed_max": 0.00132
     },
     "S10": {
       "kind": "agnes",
       "frames": 6,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0383,
-      "blocking_max": 0.9234,
-      "overexposed_max": 0.00068
+      "blocking_p50": 0.0168,
+      "blocking_max": 0.1757,
+      "blocking_abs_max": 0.2398,
+      "overexposed_max": 0.00029
     },
     "S11": {
       "kind": "agnes",
       "frames": 13,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.7357,
-      "blocking_max": 0.8521,
+      "blocking_p50": 0.7388,
+      "blocking_max": 0.8029,
+      "blocking_abs_max": 0.2323,
       "overexposed_max": 0.00131
     },
     "S12": {
       "kind": "agnes",
       "frames": 14,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.2901,
-      "blocking_max": 0.3223,
-      "overexposed_max": 0.00115
+      "blocking_p50": 0.303,
+      "blocking_max": 0.3344,
+      "blocking_abs_max": 0.1692,
+      "overexposed_max": 0.00116
     },
     "S13": {
       "kind": "agnes",
       "frames": 5,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          52,
-          0.2
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.1584,
-      "blocking_max": 0.2352,
+      "blocking_p50": 0.1829,
+      "blocking_max": 0.1918,
+      "blocking_abs_max": 0.1665,
       "overexposed_max": 0.00086
     },
     "S14": {
       "kind": "agnes",
       "frames": 15,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          10,
-          0.933
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 10,
+          "presence": 0.933,
+          "min": 7,
+          "max": 40,
+          "static": false,
+          "widths": [
+            33,
+            40,
+            38,
+            35,
+            31,
+            32,
+            10,
+            10,
+            0,
+            7,
+            7,
+            7,
+            7,
+            8,
+            7
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.1783,
-      "blocking_max": 0.2516,
+      "blocking_p50": 0.1785,
+      "blocking_max": 0.2172,
+      "blocking_abs_max": 0.1454,
       "overexposed_max": 0.00107
     },
     "S15": {
       "kind": "agnes",
       "frames": 12,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": 0.3499,
-      "blocking_max": 0.5721,
+      "blocking_p50": 0.4391,
+      "blocking_max": 0.5148,
+      "blocking_abs_max": 0.2066,
       "overexposed_max": 0.001
     },
     "S18": {
       "kind": "agnes",
       "frames": 12,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": 0.0406,
-      "blocking_max": 0.0603,
+      "blocking_p50": 0.0218,
+      "blocking_max": 0.152,
+      "blocking_abs_max": 0.132,
       "overexposed_max": 0.00155
     },
     "S16": {
       "kind": "agnes",
       "frames": 3,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": 0.1,
-      "blocking_max": 0.1022,
+      "blocking_p50": 0.0876,
+      "blocking_max": 0.121,
+      "blocking_abs_max": 0.0325,
       "overexposed_max": 0.00155
     },
     "S17": {
       "kind": "agnes",
       "frames": 9,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          2,
-          0.111
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.9342,
-      "blocking_max": 1.0561,
+      "blocking_p50": 0.9267,
+      "blocking_max": 1.7204,
+      "blocking_abs_max": 0.2534,
       "overexposed_max": 0.00073
     },
     "S19": {
       "kind": "agnes",
       "frames": 13,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          8,
-          0.077
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 2,
+          "presence": 0.077,
+          "min": 2,
+          "max": 2,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.5436,
-      "blocking_max": 0.6229,
+      "blocking_p50": 0.5003,
+      "blocking_max": 0.6368,
+      "blocking_abs_max": 0.2147,
       "overexposed_max": 0.002
     },
     "S20": {
       "kind": "graphic",
       "frames": 17,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": -0.054,
-      "blocking_max": 0.4711,
-      "overexposed_max": 0.00103
+      "blocking_p50": -0.087,
+      "blocking_max": 0.4179,
+      "blocking_abs_max": 0.6833,
+      "overexposed_max": 0.00105
     },
     "S21": {
       "kind": "agnes",
       "frames": 6,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0289,
-      "blocking_max": 0.0569,
+      "blocking_p50": 0.0486,
+      "blocking_max": 0.1893,
+      "blocking_abs_max": 0.3217,
       "overexposed_max": 0.00124
     },
     "S23": {
       "kind": "graphic",
       "frames": 28,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": -0.0572,
-      "blocking_max": 0.5042,
+      "blocking_p50": -0.0858,
+      "blocking_max": 0.5001,
+      "blocking_abs_max": 0.7595,
       "overexposed_max": 0.00121
     },
     "S22": {
       "kind": "agnes",
       "frames": 16,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": -0.0215,
-      "blocking_max": 0.2457,
+      "blocking_p50": -0.0133,
+      "blocking_max": 0.1083,
+      "blocking_abs_max": 0.2127,
       "overexposed_max": 0.00138
     },
     "S24": {
       "kind": "agnes",
       "frames": 7,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": -0.0001,
-      "blocking_max": 0.1098,
-      "overexposed_max": 0.00077
+      "blocking_p50": 0.0574,
+      "blocking_max": 0.0967,
+      "blocking_abs_max": 0.0994,
+      "overexposed_max": 0.00076
     },
     "S25": {
       "kind": "agnes",
       "frames": 5,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0267,
-      "blocking_max": 0.1643,
+      "blocking_p50": 0.0298,
+      "blocking_max": 0.2135,
+      "blocking_abs_max": 0.3706,
       "overexposed_max": 0.00072
     },
     "S26": {
       "kind": "agnes",
       "frames": 18,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": 0.1424,
-      "blocking_max": 0.5978,
-      "overexposed_max": 0.00266
+      "blocking_p50": 0.1455,
+      "blocking_max": 0.3278,
+      "blocking_abs_max": 0.102,
+      "overexposed_max": 0.00263
     },
     "S27": {
       "kind": "graphic",
       "frames": 20,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": -0.0426,
-      "blocking_max": 1.139,
+      "blocking_p50": -0.0869,
+      "blocking_max": 0.4317,
+      "blocking_abs_max": 0.6577,
       "overexposed_max": 0.00116
     },
     "S28": {
       "kind": "agnes",
       "frames": 10,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.6955,
-      "blocking_max": 0.7856,
+      "blocking_p50": 0.6984,
+      "blocking_max": 0.9031,
+      "blocking_abs_max": 0.2168,
       "overexposed_max": 0.00074
     },
     "S29": {
       "kind": "agnes",
       "frames": 5,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": -0.0108,
-      "blocking_max": 0.0221,
+      "blocking_p50": 0.0343,
+      "blocking_max": 0.0961,
+      "blocking_abs_max": 0.1326,
       "overexposed_max": 0.00099
     },
     "S30": {
       "kind": "agnes",
       "frames": 8,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       },
-      "blocking_p50": 0.0585,
-      "blocking_max": 0.3827,
+      "blocking_p50": 0.0954,
+      "blocking_max": 0.1615,
+      "blocking_abs_max": 0.1263,
       "overexposed_max": 0.00058
     },
     "END": {
       "kind": "graphic",
       "frames": 7,
       "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
+        "top": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "bottom": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "left": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        },
+        "right": {
+          "median": 0,
+          "presence": 0.0,
+          "min": 0,
+          "max": 0,
+          "static": false,
+          "widths": []
+        }
       },
-      "blocking_p50": 0.1121,
-      "blocking_max": 0.3023,
+      "blocking_p50": 0.084,
+      "blocking_max": 0.1979,
+      "blocking_abs_max": 0.1569,
       "overexposed_max": 3e-05
     }
   },
   "worst_blocking_frames": [
     {
-      "frame": 29,
-      "t": 14.5,
-      "segment": "S02",
-      "blocking": 1.9541,
-      "step_ratio": 0.7016
-    },
-    {
-      "frame": 329,
-      "t": 164.5,
-      "segment": "S27",
-      "blocking": 1.139,
-      "step_ratio": 0.5212
-    },
-    {
-      "frame": 191,
+      "frame": 2865,
       "t": 95.5,
       "segment": "S17",
-      "blocking": 1.0561,
-      "step_ratio": 0.707
+      "blocking": 1.7204,
+      "blocking_abs": 0.2534,
+      "step_ratio": 0.7027
     },
     {
-      "frame": 197,
-      "t": 98.5,
+      "frame": 2985,
+      "t": 99.5,
       "segment": "S17",
-      "blocking": 0.9942,
-      "step_ratio": 0.7102
+      "blocking": 1.051,
+      "blocking_abs": 0.1622,
+      "step_ratio": 0.7164
     },
     {
-      "frame": 198,
-      "t": 99.0,
-      "segment": "S17",
-      "blocking": 0.9571,
-      "step_ratio": 0.6951
-    },
-    {
-      "frame": 195,
+      "frame": 2925,
       "t": 97.5,
       "segment": "S17",
-      "blocking": 0.9432,
-      "step_ratio": 0.7102
+      "blocking": 1.0119,
+      "blocking_abs": 0.1704,
+      "step_ratio": 0.7105
     },
     {
-      "frame": 193,
-      "t": 96.5,
+      "frame": 2970,
+      "t": 99.0,
       "segment": "S17",
-      "blocking": 0.9342,
-      "step_ratio": 0.7072
+      "blocking": 0.9548,
+      "blocking_abs": 0.1557,
+      "step_ratio": 0.6971
     },
     {
-      "frame": 116,
-      "t": 58.0,
-      "segment": "S10",
-      "blocking": 0.9234,
-      "step_ratio": 0.542
-    },
-    {
-      "frame": 196,
-      "t": 98.0,
-      "segment": "S17",
-      "blocking": 0.92,
-      "step_ratio": 0.6897
-    },
-    {
-      "frame": 194,
-      "t": 97.0,
-      "segment": "S17",
-      "blocking": 0.9006,
-      "step_ratio": 0.6938
-    },
-    {
-      "frame": 192,
+      "frame": 2880,
       "t": 96.0,
       "segment": "S17",
-      "blocking": 0.8766,
-      "step_ratio": 0.6869
+      "blocking": 0.9267,
+      "blocking_abs": 0.165,
+      "step_ratio": 0.6894
     },
     {
-      "frame": 126,
-      "t": 63.0,
+      "frame": 2895,
+      "t": 96.5,
+      "segment": "S17",
+      "blocking": 0.9264,
+      "blocking_abs": 0.1675,
+      "step_ratio": 0.6964
+    },
+    {
+      "frame": 2955,
+      "t": 98.5,
+      "segment": "S17",
+      "blocking": 0.9178,
+      "blocking_abs": 0.155,
+      "step_ratio": 0.6979
+    },
+    {
+      "frame": 4950,
+      "t": 165.0,
+      "segment": "S28",
+      "blocking": 0.9031,
+      "blocking_abs": 0.2168,
+      "step_ratio": 0.5286
+    },
+    {
+      "frame": 2910,
+      "t": 97.0,
+      "segment": "S17",
+      "blocking": 0.8929,
+      "blocking_abs": 0.1615,
+      "step_ratio": 0.6971
+    },
+    {
+      "frame": 2940,
+      "t": 98.0,
+      "segment": "S17",
+      "blocking": 0.8531,
+      "blocking_abs": 0.1488,
+      "step_ratio": 0.697
+    },
+    {
+      "frame": 1935,
+      "t": 64.5,
       "segment": "S11",
-      "blocking": 0.8521,
-      "step_ratio": 0.5858
+      "blocking": 0.8029,
+      "blocking_abs": 0.2241,
+      "step_ratio": 0.6057
+    },
+    {
+      "frame": 1920,
+      "t": 64.0,
+      "segment": "S11",
+      "blocking": 0.8024,
+      "blocking_abs": 0.2275,
+      "step_ratio": 0.594
     }
   ],
   "not_measured": [
