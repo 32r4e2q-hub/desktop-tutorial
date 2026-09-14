@@ -18,7 +18,7 @@ on:
         default: '{"workers":2}'
   push:
     branches:
-      - arena/01a099eb-desktop-tutorial
+      - arena/01a09eea-desktop-tutorial
     paths:
       - production/dbcooper/GEN_REQUEST
 
@@ -26,19 +26,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: dbcooper-agnes-arena-01a099eb-desktop-tutorial
+  group: dbcooper-agnes-arena-01a09eea-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/01a099eb-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a09eea-desktop-tutorial'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a099eb-desktop-tutorial
+          ref: arena/01a09eea-desktop-tutorial
           fetch-depth: 1
 
       - name: Resolve the generation payload

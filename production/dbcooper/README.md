@@ -4,7 +4,7 @@
 开出；参考实现只被复制、未被修改，本片所有编辑都发生在这个目录里。
 
 - slug：`dbcooper`
-- 出片分支：`arena/01a099eb-desktop-tutorial`（素材生成从 `arena/01a099c4` 接力过来，results.json 已合入本分支）
+- 出片分支：`arena/01a09eea-desktop-tutorial`（素材生成从 `arena/01a099c4` 接力过来，results.json 已合入本分支）
 - 成片目标文件名：`DB库珀劫机案_三分钟_带声音.mp4`（1920×1080 / 30fps / 180s）
 
 ## 针对上一版两个问题的设计（2026-09-13 重做）

@@ -23,7 +23,7 @@ on:
         default: 'DB库珀劫机案_三分钟_带声音.mp4'
   push:
     branches:
-      - arena/01a099eb-desktop-tutorial
+      - arena/01a09eea-desktop-tutorial
     paths:
       - production/dbcooper/RENDER_REQUEST
 
@@ -31,12 +31,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: dbcooper-render-arena-01a099eb-desktop-tutorial
+  group: dbcooper-render-arena-01a09eea-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   render:
-    if: github.ref == 'refs/heads/arena/01a099eb-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a09eea-desktop-tutorial'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -80,7 +80,7 @@ jobs:
           PROJECT: dbcooper
           SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
           FILM_NAME: ${{ env.FILM_NAME }}
-          BRANCH: arena/01a099eb-desktop-tutorial
+          BRANCH: arena/01a09eea-desktop-tutorial
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
 
       - name: Upload the finished film
