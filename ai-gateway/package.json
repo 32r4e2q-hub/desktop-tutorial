@@ -1,0 +1,19 @@
+{
+  "name": "zeroroute-lite",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "自有实现的免费额度多云 LLM 网关：OpenAI 兼容 + 失败转移 + SSE 透传 + 内存缓存。零运行时依赖，无 dashboard、无遥测。",
+  "engines": { "node": ">=18.17" },
+  "scripts": {
+    "dev": "node local-server.mjs",
+    "start": "node local-server.mjs",
+    "test": "node test/run-tests.mjs",
+    "check": "node scripts/check-providers.mjs",
+    "cf:dev": "wrangler dev",
+    "cf:deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
