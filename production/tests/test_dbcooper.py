@@ -20,6 +20,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / 'production/dbcooper'
+sys.path.insert(0, str(ROOT / 'production'))
+import qc_film
 
 
 def _load(name, filename):
@@ -844,14 +846,17 @@ class QualityControlGateTests(unittest.TestCase):
     def test_every_gate_metric_clears_the_repo_thresholds(self):
         _, qc = self._reports()
         limits = json.loads((PROJECT / 'thresholds-qc.json').read_text(encoding='utf-8'))
+        self.assertIn('select=', qc.get('sampler', ''),
+                      'QC 报告不是精确采样口径：fps 滤镜有恒定 +7 帧滞后，分段归因会错位')
         metrics = qc['metrics']
-        for key in ('blocking_p50', 'blocking_p90', 'flash_reversal_spikes', 'overexposed_max',
+        for key in ('blocking_p50', 'blocking_abs_max', 'flash_reversal_spikes', 'overexposed_max',
                     'saturation_mean', 'axis_aligned_p5', 'letterbox_by_segment'):
             self.assertIn(key, metrics, f'QC 报告缺字段 {key}：脚本与闸门已经不同步')
         self.assertLessEqual(metrics['blocking_p50'], limits['blocking_p50_max'],
                              '暗部 8x8 块效应超阈值：先查编码链是不是又变成了两段都有损压缩')
-        self.assertLessEqual(metrics['blocking_p90'], limits['blocking_p90_max'],
-                             '块效应尾部超阈值：最暗的几个镜头要出裁放图判读')
+        self.assertLessEqual(metrics['blocking_abs_max'], limits['blocking_abs_max_allow'],
+                             '某一帧出现了强 8x8 网格（绝对强度超阈值）：按 worst_blocking_frames '
+                             '里的真帧号抽帧看——JPEG 卡面、坏素材、编码器抽风都在这个名单里')
         self.assertLessEqual(metrics['overexposed_max'], limits['overexposed_fraction_max'],
                              '高光削顶')
         self.assertEqual(metrics['flash_reversal_spikes'], 0, '段内出现了单帧亮度反跳（闪烁）')
@@ -860,13 +865,23 @@ class QualityControlGateTests(unittest.TestCase):
         self.assertGreaterEqual(metrics['axis_aligned_p5'], limits['axis_aligned_fraction_min'],
                                 '强边缘的轴向占比掉下去了：透视/几何畸变的代理量异常')
         designed = set(limits['designed_border_segments'])
+        frac_min = limits['letterbox_min_frame_fraction']
+        tol = limits['letterbox_static_px_tol']
         offenders = {}
         for sid, sides in metrics['letterbox_by_segment'].items():
             if sid in designed:
                 continue
-            bad = {k: v for k, v in sides.items()
-                   if v[0] > limits['letterbox_unexpected_px_max']
-                   and v[1] >= limits['letterbox_min_frame_fraction']}
+            bad = {}
+            for k, v in sides.items():
+                # 报告自洽：聚合数必须能从原始宽度算出来，否则报告被手改过
+                pos = [w for w in v['widths'] if w > 0]
+                self.assertEqual(v['median'], int(np.median(pos)) if pos else 0,
+                                 f'{sid}/{k} 的中位数与原始宽度对不上')
+                self.assertEqual((v['min'], v['max']),
+                                 (min(pos), max(pos)) if pos else (0, 0),
+                                 f'{sid}/{k} 的最小/最大与原始宽度对不上')
+                if qc_film.is_static_mat(v['widths'], frac_min, tol):
+                    bad[k] = {kk: v[kk] for kk in ('median', 'presence', 'min', 'max')}
             if bad:
                 offenders[sid] = bad
         self.assertEqual(offenders, {}, '故事镜头出现了设计外的纯黑遮幅（模型自拼黑边没被消掉）')
@@ -877,8 +892,9 @@ class QualityControlGateTests(unittest.TestCase):
     def test_qc_thresholds_file_is_the_single_source_of_truth(self):
         """阈值文件必须把脚本用到的键都写全：只写在脚本默认值里的阈值没人评审。"""
         limits = json.loads((PROJECT / 'thresholds-qc.json').read_text(encoding='utf-8'))
-        needed = ('blocking_p50_max', 'blocking_p90_max', 'flash_reversal_spikes_max',
+        needed = ('blocking_p50_max', 'blocking_abs_max_allow', 'flash_reversal_spikes_max',
                   'letterbox_unexpected_px_max', 'letterbox_min_frame_fraction',
+                  'letterbox_static_px_tol',
                   'border_pure_max', 'border_pure_std', 'designed_border_segments',
                   'overexposed_fraction_max', 'saturation_mean_min', 'saturation_mean_max',
                   'axis_aligned_fraction_min')
@@ -889,6 +905,79 @@ class QualityControlGateTests(unittest.TestCase):
         ids = {s['id'] for s in (edl if isinstance(edl, list) else edl['segments'])}
         for sid in limits['designed_border_segments']:
             self.assertIn(sid, ids, f'黑边白名单里的 {sid} 不在 EDL 中')
+
+
+class QcMetricUnitTests(unittest.TestCase):
+    """块效应"比值 + 绝对强度"双口径：合成图上证明它分得开真网格与暗场噪声。
+
+    2026-09-14 的教训：只看比值，S17 的平滑暗场（0.18 灰阶起伏）能算出 1.0 的
+    "超标"；而 S03 卡面的 JPEG 网格（2.2 灰阶、2× 裁放下可辨）混在同一个尾巴里。
+    这两个必须被不同的数字抓住，否则闸门要么冤枉夜戏、要么放过真网格。
+    """
+
+    def test_strong_grid_fires_both_ratio_and_absolute(self):
+        rng = np.random.default_rng(7)
+        flat = np.full((1080, 1920), 170.0) + rng.normal(0, 0.5, (1080, 1920))
+        # JPEG 式的 8px 周期网格：每隔一个 8 列块整体抬高 3 灰阶，
+        # 台阶只落在 8k+7 → 8k+8 的块边界上（单列脉冲会在两侧各留一个沿，不像块效应）。
+        # 实测 numer≈2.4——与成片 S03 卡面帧的 2.23 同一量级，必须远超 0.5 的门限。
+        flat[:, (np.arange(1920) // 8) % 2 == 1] += 3.0
+        ratio, numer, _ = qc_film.blocking_parts(flat.astype('float32'))
+        self.assertGreater(numer, 1.5, '强网格的绝对强度必须显著')
+        self.assertGreater(ratio, 0.8, '强网格的比值也必须显著')
+
+    def test_smooth_dark_field_stays_low_in_absolute_terms(self):
+        y, x = np.mgrid[0:1080, 0:1920]
+        smooth = 26.0 + 8.0 * np.sin(x / 300.0) * np.cos(y / 400.0)   # 无网格的暗渐变
+        ratio, numer, _ = qc_film.blocking_parts(smooth.astype('float32'))
+        self.assertLess(numer, 0.1, f'平滑暗场的绝对强度必须接近零，实测 {numer:.3f}')
+
+    def test_grainy_midtone_has_no_systematic_grid(self):
+        rng = np.random.default_rng(11)
+        grain = np.full((1080, 1920), 110.0) + rng.normal(0, 3.0, (1080, 1920))
+        ratio, numer, _ = qc_film.blocking_parts(grain.astype('float32'))
+        self.assertLess(abs(numer), 0.1, f'纯颗粒无 8px 结构，实测 {numer:.3f}')
+        self.assertLess(abs(ratio), 0.1, f'纯颗粒的比值应接近零，实测 {ratio:.3f}')
+
+
+class StaticMatTests(unittest.TestCase):
+    """遮幅必须是"钉在画框边上"的：宽度在段内几乎不变，否则就是场景暗部。
+
+    S14 的"左缘黑带"（中位数 10px、出现率 93%）曾让旧闸门变红，
+    但它是舷窗镜头的机舱壁被 eq 压成纯黑——15 个采样帧里从 0 漂到 40px。
+    真 mat 不会漂；这条规则就是干这个区分的。
+    """
+
+    def test_static_bar_is_a_mat(self):
+        self.assertTrue(qc_film.is_static_mat([10] * 15, 0.80, 2))
+        self.assertTrue(qc_film.is_static_mat([9, 10, 10, 11] * 4, 0.80, 2))
+
+    def test_drifting_dark_edge_is_not_a_mat(self):
+        s14 = [0, 7, 7, 7, 7, 7, 8, 10, 10, 31, 32, 33, 35, 38, 40]
+        self.assertFalse(qc_film.is_static_mat(s14, 0.80, 2),
+                         'S14 机舱壁：出现率高但宽度漂移，不许再报遮幅')
+
+    def test_sparse_or_empty_is_not_a_mat(self):
+        self.assertFalse(qc_film.is_static_mat([0] * 15, 0.80, 2))
+        self.assertFalse(qc_film.is_static_mat([12, 0, 0, 0] * 4, 0.80, 2),
+                         '出现率不足：个别帧的暗构图不是 mat')
+
+
+class PngCardTests(unittest.TestCase):
+    """信息卡必须存无损 PNG：JPEG q93 的 8×8 网格会直接印进成片。
+
+    实测：同一纸面存 JPEG q93 即得 blocking=1.04，存 PNG 为 -0.00；
+    成片 S03 首帧（zoom=1.0 原样透出）blocking=1.95、绝对强度 2.23 灰阶。
+    卡图只活在 work/ 里，不进交付体积——为省中间文件印网格是亏本买卖。
+    CI 无中文字体，跑不起 card_image()，所以这里扫源码（与脚手架扫描同口径）。
+    """
+
+    def test_card_image_saves_lossless_png(self):
+        text = (PROJECT / 'render.py').read_text(encoding='utf-8')
+        body = text.split('def card_image', 1)[1].split('def archive_image', 1)[0]
+        self.assertIn('.png', body, 'card_image 的落盘路径必须以 .png 结尾')
+        self.assertNotIn('.jpg', body, 'card_image 不许再落 JPEG（8×8 网格会印进成片）')
+        self.assertNotIn('quality=', body, 'card_image 不许再用 JPEG 质量参数')
 
 
 if __name__ == '__main__':

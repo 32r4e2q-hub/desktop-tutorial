@@ -12,13 +12,20 @@
 
 退出码：0 = 全部通过；1 = 有 FLAG（闸门语义，与 `review_film.py` 一致）。
 
-四条踩过的坑写在这里，别改回去：
+六条踩过的坑写在这里，别改回去：
 1. 全帧统计量必须先排除「片子本来就该变」的位置（切点、淡入淡出），否则量到的是剪辑；
 2. 任何在全幅上量的指标都要先剔除上下黑边与字幕带，否则画框自己的硬边会被当成"8 像素对齐"；
 3. 8-bit 素材里"相邻像素差恰为 1 灰阶"占多数是**抖动/颗粒**的正常表现，不能当假轮廓判据
    —— 所以 banding 只作参考，不给判定；
 4. 没有未处理的原始帧就没有几何 ground truth，本脚本**不能**宣布"无畸变"，
    只能给出对照量；畸变的判定证据是 review/ 下的密扫表与裁放图（人工逐格）。
+5. 采样必须按**帧序号**精确抽取（`select='not(mod(n,15))'`），不许用 `fps=2` 滤镜：
+   实测 `fps=2` 输出的第 m 帧是输入第 15m+7 帧（恒定 +7 帧滞后，framemd5 逐帧对过，
+   360/360 吻合）——用它采样，分段归因在切点附近会错位 0.23 秒，"S02 的峰值"实际是
+   S03 首帧，"S27 的峰值"实际是 S28 的第 5 帧。select 采样已用同一方法验证为精确映射。
+6. 块效应**比值**必须配一个**绝对强度**：比值在平滑暗场里分母趋零，0.18 灰阶的
+   不可见起伏也能算出 1.0 的"超标"。尾部门限只看比值，等于给每个夜戏镜头发红牌。
+   所以尾部改判绝对强度（8px 边界梯度超过内部的灰阶数），比值只留中位数守编码链。
 """
 from __future__ import annotations
 
@@ -38,9 +45,14 @@ PICTURE_ROWS = (140, 940)        # 上下为 16:9 黑边；下方黑边里还有
 FPS = 30.0                       # 交付帧率（EDL 的帧号按它换算）
 
 DEFAULTS = {
-    # 块效应：同一素材无损参照实测 p50≈0.09；一次合理有损 ≈0.10-0.12；二次压缩会翻倍
+    # 块效应比值中位数：守编码链（精确采样下旧双压管线 0.174、新管线 0.115；
+    # 去掉卡面帧后 0.140 对 0.096——0.14 卡在中间，两边都有约 20% 裕量）
     "blocking_p50_max": 0.14,
-    "blocking_p90_max": 0.30,
+    # 块效应绝对强度上限（灰阶）：守"某一帧出现肉眼可见的强网格"。
+    # 实测：JPEG 卡面帧 0.41–2.23、旧管线非卡面损伤帧 0.43–0.63、自带竖线结构的
+    # 干净内容（S25 试剂架）0.37、平滑暗场 0.05–0.26。0.5 落在"干净 ≤0.37"与
+    # "强网格 ≥0.48"之间；0.37–0.5 是未验证带，落进去必须先看裁放图再下结论。
+    "blocking_abs_max_allow": 0.5,
     "overexposed_fraction_max": 0.06,
     "overexposed_frame_count_max": 0,
     "underexposed_p95_reference": 0.80,
@@ -49,6 +61,9 @@ DEFAULTS = {
     "flash_reversal_spikes_max": 0,
     "flash_reversal_amp_min": 0.045,      # 小于此幅度的反向不算异常（颗粒/电平噪声）
     "letterbox_min_frame_fraction": 0.80,   # 遮幅必须"整段都在"才算，个别帧的暗构图不算
+    "letterbox_static_px_tol": 2,           # 真遮幅钉在画框边上，宽度在段内几乎不变；
+                                            # 场景暗部（S14 的机舱壁）随运镜漂移，15 个采样帧里
+                                            # 量到 0–40px。宽度极差超过 2px 的不算遮幅。
     "border_pure_max": 4,                   # 真遮幅：整行最大灰阶 ≤4 且 σ ≤1.5
     "border_pure_std": 1.5,
     # 这几段的纯黑边是设计的一部分（档案图把文件摆在暗场中央），列明白而不是偷偷放宽阈值
@@ -126,17 +141,28 @@ def lead(gray: np.ndarray, side: str) -> int:
     return k
 
 
-def blocking_index(gray: np.ndarray) -> float:
-    """8×8 块边界上的水平梯度相对块内部的倍数 —— 过压缩/二次压缩会放大暗部方格。
+def blocking_parts(gray: np.ndarray) -> tuple:
+    """8×8 块边界上的水平梯度 vs 块内部：返回 (比值, 绝对强度灰阶, 内部梯度)。
 
     只在画面区内量：黑边与字幕带自己的硬边界就是"8 像素对齐的强边缘"，
     全幅量会量到画框而不是画质。
+
+    比值 = (边界-内部)/内部：编码链退化（二次压缩）会把它推高，适合守中位数。
+    绝对强度 = 边界-内部（灰阶）：比值在平滑暗场里分母趋零时会虚高，
+    尾部必须看绝对值——0.2 灰阶的起伏肉眼不可见，2 灰阶的网格在 2× 裁放下可辨。
     """
     pic = gray[PICTURE_ROWS[0]:PICTURE_ROWS[1]]
-    gx = np.abs(np.diff(pic, axis=1)).mean(axis=0)
+    gx = np.abs(np.diff(pic.astype(float), axis=1)).mean(axis=0)
     edge = gx[7::8].mean()
     inner = np.delete(gx, np.arange(7, len(gx), 8)).mean()
-    return float((edge - inner) / max(inner, 1e-6))
+    numer = float(edge - inner)
+    return float(numer / max(inner, 1e-6)), numer, float(inner)
+
+
+def blocking_index(gray: np.ndarray) -> float:
+    """比值部分（兼容旧口径；新闸门同时看 `blocking_parts` 的绝对强度）。"""
+    ratio, _, _ = blocking_parts(gray)
+    return ratio
 
 
 def quantized_step_ratio(gray: np.ndarray) -> float:
@@ -160,6 +186,24 @@ def axis_aligned_fraction(gray: np.ndarray) -> float:
     return float((horiz.sum() + vert.sum()) / strong.sum())
 
 
+def is_static_mat(widths, frac_min: float, tol_px: float) -> bool:
+    """这段量到的"纯黑宽度"是不是钉在画框边上的 mat。
+
+    widths：段内各采样帧的 lead() 值。真遮幅/模型自拼 mat 同时满足三条：
+    出现比例够高（整段都在）、中位数 >0（真有宽度）、极差 ≤ tol（静止不动）。
+    场景暗部（S14 机舱壁：[0,7,…,40]）过不了"静止"这一条——随运镜漂移的
+    黑不是 mat。单元测试直接测这个函数，不需要 ffmpeg。
+    """
+    vals = [int(v) for v in widths]
+    if not vals:
+        return False
+    present = sum(1 for v in vals if v > 0) / len(vals)
+    pos = [v for v in vals if v > 0]
+    if not pos or present < frac_min:
+        return False
+    return (max(pos) - min(pos)) <= tol_px
+
+
 def load_edl(project: Path) -> list:
     """读 delivery/edit-decision-list.json → [(id, kind, start_s, end_s)]，用于分段归因。"""
     path = project / "delivery" / "edit-decision-list.json"
@@ -171,10 +215,14 @@ def load_edl(project: Path) -> list:
             for s in segs if "start_frame" in s and "end_frame" in s]
 
 
-def sample_saturation(film: Path, fps: float, every: int = 8) -> list:
-    """每 every 个采样帧取 1 帧量饱和度（max-min 通道均值 / 255）。"""
+def sample_saturation(film: Path, step: int, every: int = 8) -> list:
+    """每 every×step 帧取 1 帧量饱和度（max-min 通道均值 / 255）。
+
+    与主采样同一口径：按帧序号精确抽取，不用 fps 滤镜（见模块注释第 5 条）。
+    """
     proc = subprocess.Popen(
-        ["ffmpeg", "-v", "error", "-i", str(film), "-vf", f"fps={fps}",
+        ["ffmpeg", "-v", "error", "-i", str(film),
+         "-vf", f"select='not(mod(n,{step * every}))'", "-vsync", "0",
          "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
         stdout=subprocess.PIPE, bufsize=1 << 20)
     size = FRAME_W * FRAME_H * 3
@@ -228,10 +276,14 @@ def main() -> int:
                    for _, _, a, b in segments)
 
     w, h, dur = probe_geometry(film)
+    # 精确采样：第 m 个输出 = 输入第 m×step 帧（framemd5 验证过 360/360 精确；
+    # fps 滤镜有恒定 +7 帧滞后，见模块注释第 5 条）。默认 fps=2 ⇒ step=15。
+    step = max(1, round(FPS / args.fps))
     per_segment: dict[str, dict] = {}
     luma: list[float] = []
     times: list[float] = []
     blocking: list[float] = []
+    blocking_abs: list[float] = []
     step_ratio: list[float] = []
     overex: list[float] = []
     underex: list[float] = []
@@ -240,7 +292,8 @@ def main() -> int:
     n = 0
 
     proc = subprocess.Popen(
-        ["ffmpeg", "-v", "error", "-i", str(film), "-vf", f"fps={args.fps}",
+        ["ffmpeg", "-v", "error", "-i", str(film),
+         "-vf", f"select='not(mod(n,{step}))'", "-vsync", "0",
          "-f", "rawvideo", "-pix_fmt", "gray", "-"],
         stdout=subprocess.PIPE, bufsize=1 << 20)
     size = FRAME_W * FRAME_H
@@ -250,15 +303,16 @@ def main() -> int:
         if len(buf) < size:
             break
         g = np.frombuffer(buf, dtype=np.uint8).reshape(FRAME_H, FRAME_W).astype("float32")
-        t = n / args.fps
+        t = n * step / FPS
         mean_l = float(g.mean())
-        blk = blocking_index(g)
+        blk, numer, _ = blocking_parts(g)
         bx = float((g >= 250).mean())
         un = float((g <= 6).mean())
         ax = axis_aligned_fraction(g)
         times.append(t)
         luma.append(mean_l / 255.0)
         blocking.append(blk)
+        blocking_abs.append(numer)
         step_ratio.append(quantized_step_ratio(g))
         overex.append(bx)
         underex.append(un)
@@ -266,16 +320,20 @@ def main() -> int:
 
         sid, kind = seg_of(t)
         rec = per_segment.setdefault(sid or "?", {
-            "kind": kind, "frames": 0, "blocking": [], "overexposed": [],
+            "kind": kind, "frames": 0, "blocking": [], "blocking_abs": [], "overexposed": [],
             "border_frames": {k: [] for k in ("top", "bottom", "left", "right")}})
         rec["frames"] += 1
         rec["blocking"].append(blk)
+        rec["blocking_abs"].append(numer)
         rec["overexposed"].append(bx)
         if mean_l > 25.0 and kind != "graphic":       # 淡入淡出帧与卡面段不参与黑边判定
             for k in ("top", "bottom", "left", "right"):
                 rec["border_frames"][k].append(lead(g, k))
-        per_frame.append({"frame": n, "t": round(t, 2), "segment": sid,
-                          "blocking": round(blk, 4), "step_ratio": round(step_ratio[-1], 4)})
+        # frame 记的是输入流里的真帧号（select 精确采样，可直接 select 复现），
+        # 不是采样序号——旧版 fps 采样把两者混为一谈，错位 7 帧都没人发现。
+        per_frame.append({"frame": n * step, "t": round(t, 2), "segment": sid,
+                          "blocking": round(blk, 4), "blocking_abs": round(numer, 4),
+                          "step_ratio": round(step_ratio[-1], 4)})
         n += 1
     proc.wait()
     if not n:
@@ -284,22 +342,34 @@ def main() -> int:
 
     frac_min = thresholds["letterbox_min_frame_fraction"]
     for rec in per_segment.values():
-        # 只有"整段都在"的纯黑行才算遮幅；个别帧量到的是暗构图，不是 mat
+        # 只有"整段都在 + 宽度静止"的纯黑行才算遮幅；个别帧量到的是暗构图，
+        # 随运镜漂移的是场景暗部，都不是 mat。widths 原样存进报告，
+        # 测试用同一谓词 is_static_mat 从原始宽度重新判定，不读这里的结论。
         rec["border"] = {}
         for k, vals in rec["border_frames"].items():
-            vals = np.array(vals, dtype=float)
-            present = float((vals > 0).mean()) if vals.size else 0.0
-            rec["border"][k] = (int(np.median(vals[vals > 0])) if present else 0, round(present, 3))
+            arr = np.array(vals, dtype=float)
+            present = float((arr > 0).mean()) if arr.size else 0.0
+            pos = arr[arr > 0]
+            rec["border"][k] = {
+                "median": int(np.median(pos)) if present else 0,
+                "presence": round(present, 3),
+                "min": int(pos.min()) if present else 0,
+                "max": int(pos.max()) if present else 0,
+                "static": bool(is_static_mat(vals, frac_min, thresholds["letterbox_static_px_tol"])),
+                "widths": [int(v) for v in vals],
+            }
         rec.pop("border_frames", None)
     for rec in per_segment.values():
         rec["blocking_p50"] = round(float(np.percentile(rec["blocking"], 50)), 4)
         rec["blocking_max"] = round(float(max(rec["blocking"])), 4)
+        rec["blocking_abs_max"] = round(float(max(rec["blocking_abs"])), 4)
         rec["overexposed_max"] = round(float(max(rec["overexposed"])), 5)
-        for key in ("blocking", "overexposed"):
+        for key in ("blocking", "blocking_abs", "overexposed"):
             rec.pop(key, None)
 
-    saturation = sample_saturation(film, args.fps)
+    saturation = sample_saturation(film, step)
     blk_arr = np.array(blocking)
+    abs_arr = np.array(blocking_abs)
     over_arr = np.array(overex)
     sat_arr = np.array(saturation)
 
@@ -318,12 +388,15 @@ def main() -> int:
         spike_frames.append(round(times[idx], 2))
         spike_amps.append(round(amp, 4))
 
-    # 黑边：设计内的段列白名单，其余段一有黑边就是 FLAG
+    # 黑边：设计内的段列白名单；其余段同时满足"整段都在 + 宽度静止"才是 FLAG。
+    # "静止"是关键：真遮幅/mat 钉在画框边上，宽度在段内几乎不变；场景暗部
+    # （S14 的机舱壁被 eq 压成纯黑）随运镜漂移，15 个采样帧里量到 0–40px。
     designed = set(thresholds["designed_border_segments"])
-    stray = {sid: {k: v for k, v in rec["border"].items() if v[0] > 0}
+    static_tol = thresholds["letterbox_static_px_tol"]
+    stray = {sid: {k: {"median": v["median"], "presence": v["presence"],
+                       "min": v["min"], "max": v["max"]}
+                   for k, v in rec["border"].items() if v["static"]}
              for sid, rec in per_segment.items() if sid not in designed}
-    stray = {sid: {k: v for k, v in d.items()
-                   if v[1] >= frac_min} for sid, d in stray.items()}
     stray = {sid: d for sid, d in stray.items() if d}
 
     checks = []
@@ -336,17 +409,19 @@ def main() -> int:
         f"{w}x{h}，要求 {FRAME_W}x{FRAME_H}")
     add("decode_errors", "全片完整解码无错误行", [len(err_lines)], not err_lines,
         "; ".join(err_lines[:3]) if err_lines else "ffmpeg -v error -xerror 全片解码，无 error/invalid/conceal 行")
+    p50 = float(np.percentile(blk_arr, 50))
+    abs_max = float(abs_arr.max())
     add("blocking", "8x8 块效应不超阈值（压缩伪影）",
-        [round(float(np.percentile(blk_arr, 50)), 4), round(float(np.percentile(blk_arr, 90)), 4),
-         round(float(blk_arr.max()), 4)],
-        np.percentile(blk_arr, 50) <= thresholds["blocking_p50_max"]
-        and np.percentile(blk_arr, 90) <= thresholds["blocking_p90_max"],
-        f"画面区内量；p50={np.percentile(blk_arr, 50):.3f}（上限 {thresholds['blocking_p50_max']}）、"
-        f"p90={np.percentile(blk_arr, 90):.3f}（上限 {thresholds['blocking_p90_max']}）、"
-        f"max={blk_arr.max():.3f}；校准：同素材无损参照 p50=0.084，"
-        f"双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），"
-        f"改后目标 ≤0.14；"
-        f"最暗的夜镜（S02/S17/S27/S28）贡献尾部")
+        [round(p50, 4), round(abs_max, 4)],
+        p50 <= thresholds["blocking_p50_max"]
+        and abs_max <= thresholds["blocking_abs_max_allow"],
+        f"画面区内量；比值 p50={p50:.3f}（上限 {thresholds['blocking_p50_max']}，守编码链）"
+        f"、绝对强度 max={abs_max:.3f} 灰阶（上限 {thresholds['blocking_abs_max_allow']}，"
+        f"守单帧强网格）。校准（精确采样）：旧双压管线比值 p50=0.174、新管线 0.115；"
+        f"JPEG 卡面帧绝对强度 0.41–2.23、旧管线损伤帧 0.43–0.63、"
+        f"干净竖线内容（S25 试剂架）0.37、平滑暗场 ≤0.26。"
+        f"比值 p90={np.percentile(blk_arr, 90):.3f} 只作参考——"
+        f"它在平滑暗场里是分母噪声（0.18 灰阶起伏 ⇒ 比值 1.0），不判定。")
     add("banding_reference", "假轮廓参考量（不判定，见模块注释第 3 条）",
         [round(float(np.percentile(step_ratio, 95)), 4)], True,
         "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，"
@@ -374,9 +449,10 @@ def main() -> int:
         f"{thresholds['flash_reversal_amp_min']}；硬切台阶与淡入淡出不计入（那是剪辑）")
     add("letterbox", "设计外无额外遮幅/纯黑 mat", [stray], not stray,
         f"判据：整行 max≤{thresholds['border_pure_max']} 且 σ≤{thresholds['border_pure_std']}，"
-        f"且该段 ≥{int(frac_min * 100)}% 的采样帧都有；"
+        f"且该段 ≥{int(frac_min * 100)}% 的采样帧都有，且宽度极差 ≤{static_tol}px（静止）；"
         f"白名单（设计内）{sorted(designed)}；卡面段与淡入淡出帧不参与；违规段：{stray or '无'}。"
-        f"偏暗但有内容的行不计入（上一版误把夜戏暗场当遮幅，已修）")
+        f"偏暗但有内容的行不计入；随运镜漂移的场景暗部（S14 机舱壁 0–40px）"
+        f"不算遮幅——真 mat 钉在画框边上，不会漂。")
     add("orientation_purity", "强边缘轴向占比（畸变代理，仅对照）",
         [round(float(np.percentile(axis, 5)), 4)],
         np.percentile(axis, 5) >= thresholds["axis_aligned_fraction_min"],
@@ -391,6 +467,8 @@ def main() -> int:
         "duration_s": dur,
         "avg_bitrate_mbps": round(video_bps / 1e6, 3),
         "sample_fps": args.fps,
+        "sampler": f"select='not(mod(n,{step}))' + vsync 0（按帧序号精确抽取；"
+                   "旧版 fps 滤镜有恒定 +7 帧滞后，2026-09-14 起弃用）",
         "sampled_frames": n,
         "picture_rows_measured": list(PICTURE_ROWS),
         "thresholds": thresholds,
@@ -398,9 +476,11 @@ def main() -> int:
         "metrics": {
             "blocking_mean": round(float(blk_arr.mean()), 4),
             "blocking_p50": round(float(np.percentile(blk_arr, 50)), 4),
-            "blocking_p90": round(float(np.percentile(blk_arr, 90)), 4),
-            "blocking_p95": round(float(np.percentile(blk_arr, 95)), 4),
+            "blocking_p90_reference": round(float(np.percentile(blk_arr, 90)), 4),
+            "blocking_p95_reference": round(float(np.percentile(blk_arr, 95)), 4),
             "blocking_max": round(float(blk_arr.max()), 4),
+            "blocking_abs_max": round(float(abs_arr.max()), 4),
+            "blocking_abs_p99": round(float(np.percentile(abs_arr, 99)), 4),
             "step_ratio_p95_reference": round(float(np.percentile(step_ratio, 95)), 4),
             "saturation_mean": round(float(sat_arr.mean()), 4),
             "saturation_p95": round(float(np.percentile(sat_arr, 95)), 4),
@@ -410,9 +490,10 @@ def main() -> int:
             "luma_max": round(float(np.max(lum) * 255.0), 2),
             "flash_reversal_spikes": len(spike_frames),
             "flash_spike_times_s": spike_frames,
-            "letterbox_by_segment": {sid: {k: v for k, v in rec["border"].items() if v[0] > 0}
+            "letterbox_by_segment": {sid: {k: v for k, v in rec["border"].items()
+                                                 if v["median"] > 0}
                                      for sid, rec in per_segment.items()
-                                     if max(v[0] for v in rec["border"].values()) > 0},
+                                     if max(v["median"] for v in rec["border"].values()) > 0},
             "axis_aligned_p5": round(float(np.percentile(axis, 5)), 4),
         },
         "per_segment": per_segment,

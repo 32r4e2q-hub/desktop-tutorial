@@ -131,7 +131,11 @@ def clip_window(sid, variant, length, duration):
 
 def card_image(sid, variant, directory):
     directory.mkdir(parents=True,exist_ok=True)
-    dest=directory/f'{sid}-{variant or "base"}.jpg'
+    # 无损 PNG，不是 JPEG：卡面是平坦纸色 + 细颗粒，JPEG q93 的 8×8 网格在这种内容上
+    # 会留下分子 +2.2 灰阶的周期结构（2026-09-14 在成片 S03 首帧上实测 blocking=1.95，
+    # 本地复现纸面存 JPEG q93 即得 1.04、同像素存 PNG 为 -0.00）。卡图只活在 work/ 里，
+    # 不进交付体积，不必为省几 MB 中间文件往成片里印网格。
+    dest=directory/f'{sid}-{variant or "base"}.png'
     if dest.exists():return dest
     rng=np.random.default_rng(1971+int(sid[1:]) if sid.startswith('S') else 1971)
     y,x=np.mgrid[0:1080,0:1920]
@@ -158,7 +162,7 @@ def card_image(sid, variant, directory):
         d.line((855,628,1065,628),fill='#958358',width=3)
         centered(d,line2,720,38,'#5c6656')
         d.text((265,875),'资料摘要与示意图 · 并非原始档案影像',font=font(21),fill='#75806c')
-    im.save(dest,quality=93)
+    im.save(dest)
     return dest
 
 

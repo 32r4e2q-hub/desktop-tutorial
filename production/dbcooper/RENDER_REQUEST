@@ -1,7 +1,7 @@
 {
-  "purpose": "只改编码链与边缘处理，素材/剪辑/配音/上屏文案一字不动：(1) 逐段压像从 crf21/veryfast 提到 crf14（中间段近无损，work/ 不入库），终压从 crf21/fast 改为 crf20/medium + aq-mode=3:aq-strength=0.9:deblock=1,1、maxrate 7000k；旧做法是两代 CRF21 有损叠加，qc_film.py 实测把暗部 8x8 块边界梯度比从无损参照 0.084 顶到 0.168；(2) 新增 measure_margins/margin_shift：把模型自拼的纯黑边缘用\"平移 crop\"挪出画面（不改缩放），本版预期消掉 S14 左缘 8px 黑带",
+  "purpose": "第五轮（QC 方法修正 + 真网格消除）：(1) 卡面 JPEG q93 改无损 PNG——JPEG 的 8x8 网格是成片里唯一的强网格（S03 首帧绝对强度 2.23 灰阶，24 个卡面采样帧 0.41-0.88），PNG 后应塌到 x264 本底；(2) 新版 qc_film.py 随本次出片第一次跑在 runner 上：精确采样（select 按帧序号，旧 fps 滤镜恒定 +7 帧滞后已证）、尾部改判绝对强度（上限 0.5）、遮幅加“静止”规则。素材/剪辑/配音/混音/上屏文案一字不动。",
   "project": "dbcooper",
   "film_name": "DB库珀劫机案_三分钟_带声音.mp4",
-  "note": "出片后必查：delivery/qc-report.json 由 run_project.sh 的 4/6 步生成并绑定本版 sha，blocking p50 须 <=0.14、letterbox 违规段须为空；音频 AAC 的 sha256 前缀须仍为 4976ca9100e9264e（本轮不该动声音）；逐镜亮度/结构与 seq14 对拍应几乎一致（只允许压缩伪影与 S14 左缘位移）；MARGIN_PROBE 日志行要抄进台账；随后 VERBATIM 必须重跑",
-  "seq": 15
+  "note": "出片后必查：delivery/qc-report.json 须为精确采样口径（sampler 含 select=），blocking p50<=0.14（预期~0.10）、blocking_abs_max<=0.5（预期~0.37，S25 试剂架）、letterbox 违规段为空；音频 AAC 流 sha256 前缀须仍为 4976ca9100e9264e（本轮不该动声音）；随后 VERBATIM 必须重跑（seq9，当前听检绑的是 seq14 的片子）",
+  "seq": 16
 }
