@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 53364485,
+  "bytes": 52499565,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,18 +9,18 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "b10cad23c2c9503ec25ad1c54f4299ee349a89675961478353d032fdf262675e",
+  "sha256": "a8460c30d4e576e2a035f7ac94777dcdab08fea602e3eea923f0abfe82aea698",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
   "caption_alignment": [
     {
       "id": "N01",
-      "method": "pause-aware estimate",
-      "character_match_coverage": 0.038461538461538464,
-      "boundary_penalty_asr": null,
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9519230769230769,
+      "boundary_penalty_asr": 0.0,
       "boundary_penalty_estimate": 0.0341,
-      "asr_model": null,
+      "asr_model": "small",
       "asr_skipped": false
     },
     {
@@ -44,7 +44,7 @@
     {
       "id": "N04",
       "method": "ASR-assisted",
-      "character_match_coverage": 0.9777777777777777,
+      "character_match_coverage": 0.9666666666666667,
       "boundary_penalty_asr": 0.0,
       "boundary_penalty_estimate": 0.0,
       "asr_model": "small",
@@ -52,11 +52,11 @@
     },
     {
       "id": "N05",
-      "method": "ASR-assisted",
-      "character_match_coverage": 0.9905660377358491,
-      "boundary_penalty_asr": 0.0,
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.9056603773584906,
+      "boundary_penalty_asr": null,
       "boundary_penalty_estimate": 0.0,
-      "asr_model": "small",
+      "asr_model": null,
       "asr_skipped": false
     },
     {
@@ -71,7 +71,7 @@
   ],
   "narration_voice_id": "voice-00",
   "narration_tempo": 0.9842857142857142,
-  "editorial_segments": 33,
+  "editorial_segments": 34,
   "source_clips": 25,
   "archival_portrait": false,
   "output": "DB库珀劫机案_三分钟_带声音.mp4",
