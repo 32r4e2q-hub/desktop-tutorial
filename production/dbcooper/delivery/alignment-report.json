@@ -1,11 +1,11 @@
 [
   {
     "id": "N01",
-    "method": "pause-aware estimate",
-    "character_match_coverage": 0.019230769230769232,
-    "boundary_penalty_asr": null,
+    "method": "ASR-assisted",
+    "character_match_coverage": 0.9903846153846154,
+    "boundary_penalty_asr": 0.0,
     "boundary_penalty_estimate": 0.0341,
-    "asr_model": null,
+    "asr_model": "small",
     "asr_skipped": false
   },
   {
@@ -37,11 +37,11 @@
   },
   {
     "id": "N05",
-    "method": "pause-aware estimate",
-    "character_match_coverage": 0.9056603773584906,
-    "boundary_penalty_asr": null,
+    "method": "ASR-assisted",
+    "character_match_coverage": 0.9905660377358491,
+    "boundary_penalty_asr": 0.0,
     "boundary_penalty_estimate": 0.0,
-    "asr_model": null,
+    "asr_model": "small",
     "asr_skipped": false
   },
   {
