@@ -1,14 +1,16 @@
 {
-  "run_id": 34759907493,
-  "render_request_seq": 7,
+  "run_id": 34792629026,
+  "render_request_seq": 9,
   "video": "交付/DB库珀劫机案_三分钟_带声音.mp4",
-  "video_bytes": 52907291,
-  "video_sha256": "4bc53d9b5d84733e2c2bf706fe82c2b2163c304679e5ee97f5328a120d006f29",
-  "stage": "flaw_sweep_round2_delivered",
+  "video_bytes": 53364485,
+  "video_sha256": "b10cad23c2c9503ec25ad1c54f4299ee349a89675961478353d032fdf262675e",
+  "stage": "flaw_sweep_round3_delivered",
   "superseded_cuts": {
     "6e110ff01f1e2e0d": "第一轮：机型与露脸问题",
     "2597017018a5900c": "机型修正 + 对轨择优",
-    "41cdd275956a3e8e": "S12/S24/S22(三抽)/拆卡；字幕仍达标"
+    "41cdd275956a3e8e": "S12/S24/S22(三抽)/拆卡",
+    "4bc53d9b5d84733e": "S22 第四抽 + 全片回归；此版之后抽样被加密，抓到 S09",
+    "a9c144d321704007": "S09 第二抽（票面出画，但纸带上仍有伪字）"
   },
   "technical_checks": {
     "duration_seconds": 180.0,
@@ -36,11 +38,11 @@
       "N05": -21.58,
       "N06": -21.32
     },
-    "independent_recheck": "production/review_film.py 独立复算，与 render 闸门一致"
+    "independent_recheck": "production/review_film.py 对新版复算：整体 −21.77 / 峰值 −1.50 / 静音 1.1%，六章 −21.32~−21.67，与上一版逐项相同（配音未动）"
   },
   "caption_alignment": {
     "method_per_chapter": {
-      "N01": "ASR-assisted",
+      "N01": "pause-aware estimate",
       "N02": "pause-aware estimate",
       "N03": "ASR-assisted",
       "N04": "ASR-assisted",
@@ -56,7 +58,7 @@
       "N06": 0.0
     },
     "character_match_coverage": {
-      "N01": 0.9808,
+      "N01": 0.0385,
       "N02": 0.9118,
       "N03": 1.0,
       "N04": 0.9778,
@@ -64,12 +66,26 @@
       "N06": 0.9897
     },
     "asr_model": "faster-whisper small",
-    "run_to_run_note": "择优结果每次出片可能不同：上一版 N01 曾回落估算（ASR 匹配度只给到 0.029，转抽风），本版 N01 又回到 ASR。两套都被同一把尺子量过，所以无论哪套赢，交付的字幕边界都落在实测语音低点。"
+    "run_to_run_note": "择优结果每次出片都会重算，因此逐章方法可能变：本版 N01/N02 由停顿估算胜出（N01 估算分 0.0341 仍被采纳，因为 ASR 那套在 N01 的匹配度只有 0.029，转写抽风），上一版则是 N01 走 ASR。两套都被同一把尺子量过（166 个字幕边界逐一在成片配音上量能量低谷，见 CaptionTimingTests），所以无论哪套赢，交付的字幕边界都落在实测语音低点。",
+    "boundary_penalty": {
+      "N01": 0.0341,
+      "N02": 0.0,
+      "N03": 0.0,
+      "N04": 0.0,
+      "N05": 0.0,
+      "N06": 0.0
+    }
   },
   "visual_review": {
-    "method": "成片全帧抽样（每 5 秒 1 帧，36 帧两张对照表）+ 对修正处逐点在 CUTS 窗口内取帧并做 1600px 放大",
+    "method": "成片全帧抽样（每 5 秒 1 帧 + 每个编辑段 2 帧，共 66 帧）；修正处另在 CUTS 窗口内取 4 帧并裁到 1350–1720px 放大。注意：接触印相（每格 ~340px）看不见票面上的数字——S09 就是只看过印相而漏掉的那一处",
     "frames_reviewed_full_resolution": [
+      "18.2",
       "45.0",
+      "49.0",
+      "52.3",
+      "53.2",
+      "54.1",
+      "55.0",
       "61.0",
       "65.5",
       "68.0",
@@ -87,15 +103,18 @@
     ],
     "auto_flags_triaged": {
       "near_black_frames": 175,
-      "frozen_suspects": 38,
-      "true_static_after_64x64_recheck": 11,
-      "micro_motion_misfires": 27
+      "frozen_suspects": 39,
+      "true_static_after_64x64_recheck": 12,
+      "micro_motion_misfires": 27,
+      "static_list": "14.7 S02 / 18.2 S03卡 / 48.7 S08卡 / 93.8 S16 / 106.3 S20卡 / 117.9 S23-ransom卡 / 135.3 S23-suspects卡 / 145.8–155.6 S26×4 / 176.4 END卡——12 处全部是本该静止的画面（6 张卡 + 片尾卡 + 三个黑场/固定机位镜头）"
     },
     "contact_sheets": [
       "review/contact-sheet-01.png",
-      "review/contact-sheet-02.png"
+      "review/contact-sheet-02.png",
+      "review/contact-sheet-final.jpg"
     ],
-    "machine_readable": "review/film-review.json"
+    "machine_readable": "review/film-review.json",
+    "regression_vs_previous_cut": "本版只换了 S09 一个素材、CUTS 未动；review_film 复算的音频逐项与上一版相同、近黑帧计数相同、静止位仅多出 18.2s 的 S03 卡（阈值边界抖动，不是新问题）"
   },
   "defect_ledger": [
     {
@@ -216,12 +235,30 @@
       "item": "technical-report 里 visual_review 仍为 pending",
       "status": "保留（有意）",
       "reason": "自动闸门没有跑逐帧人眼判定，就不许报告替片子声称它没有的东西；人工判定逐条写在本文件与 review/ 记录里"
+    },
+    {
+      "id": "A10",
+      "item": "S09 数钞镜：票面被模型自拼出可读数字，压在「只要二十美元面额的钞票」那句上",
+      "status": "已修·成片复验（第三抽）",
+      "how_found": "把成片抽样从\"每 5 秒 1 帧\"加密到\"每个编辑段 2 帧\"（66 帧全帧）时抓到；此前只看过 4×4 接触印相，格子里那些数字糊成一团，判成了\"可接受\"",
+      "action": "同 S22 的解法：把\"可被印刷的表面\"移出命题——第二抽让票面不出画（只露纸边与捆带），第三抽进一步要求连纸带也不许有印刷（\"if any paper face would need printing, turn that face down\"）",
+      "evidence": [
+        "qa/S09-before-fix.jpg：改前 t=52.77 全帧裁放，绿圈里清楚是「5 2 / 5 9 / 8 2」",
+        "qa/S09-roll2-band-print.jpg：第二抽（成片 a9c144d3，t=52.3–55.0）票面已不出画，但纸带上印出 \"Peamces FA\" 之类伪字",
+        "qa/S09-roll3-band-glyphs.jpg：第三抽（现版 t=54.1/55.0）绿墨与面额数字均无，只剩线刻装饰符"
+      ]
+    },
+    {
+      "id": "B7",
+      "item": "S09 纸带上仍有一圈线刻伪字（椭圆、几个不可判读的拉丁字母）",
+      "status": "不修（已定）+ 记为已知残留",
+      "reason": "三次尝试后剩余的部分不再\"表态\"：没有任何可判读的面额数字、没有绿色印鉴，因而与解说（二十美元面额）不构成矛盾；再抽的收益已低于代价，且模型对\"捆钞纸带\"的先验就是要在带上印字。若还要更干净，唯一确定的路子是换个命题（只拍帆布袋口与推入的手，钱在袋内不可见），但那会让\"银行把钱装进帆布袋\"这句失去画面。",
+      "evidence": "qa/S09-roll3-band-glyphs.jpg（t=54.1 / 55.0 放大到 1720px 的裁片）"
     }
   ],
   "not_claimed": [
-    "不是 5400 帧逐帧目视：按 5 秒抽样 + 修正处全帧放大，未看过的帧不写进任何\"已验\"",
-    "provider 侧的先验仍在工作：S22 抽到第四次才压住，同类镜头（任何\"带字的纸\"）下次仍可能复发——所以本项目把\"画面里不留下可被印刷的表面\"记为对文字穿帮的默认解法",
-    "逐字听检已绑定成片指纹并重跑（delivery/verbatim-check.json 的 film_sha256 == 本片，六章 CER 0.029–0.077、failing 为空）；测试 DeliveryTests 要求两者一致"
+    "不是 5400 帧逐帧目视：全片按\"每段 2 帧\"看过（66 帧），修正处另做放大裁片；未看过的帧不写进任何\"已验\"",
+    "只有 S09 的素材换了：其余 24 镜与上一版共用同一批文件与同一套 CUTS，因此上一版对它们的复验仍成立；本版另做了全片自动判定复算（见 visual_review.regression_vs_previous_cut）"
   ],
   "verbatim": {
     "report": "delivery/verbatim-check.json",
@@ -240,5 +277,6 @@
     "narration_control_max_cer": 0.1346,
     "bound_to_film": true,
     "note": "差异全是同音字与数字写法（帆/凡、舱/仓、伞/傘、丹库珀→当枯铺），不是配音念错；对照组（干净配音）的 N03 CER 反而更高（0.1346 > 0.0769），说明差异来自识别端"
-  }
+  },
+  "film_sha256": "b10cad23c2c9503ec25ad1c54f4299ee349a89675961478353d032fdf262675e"
 }
