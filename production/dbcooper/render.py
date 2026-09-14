@@ -97,6 +97,11 @@ CARD_HEADINGS = {
 }
 CARD_HEADINGS[('S23', '')] = CARD_HEADINGS[('S23', 'ransom')]   # 不带 variant 的旧写法仍指向 1980 那张
 
+# 上屏文案里不许出现工程路径。观众拿不到 story.json：把内部文件名印在片头/片尾，
+# 等于把便条当字幕（2026-09-14 成片全帧复核时发现，片头卡与片尾卡各一处，已改）。
+END_FOOTER='资料来源：FBI 案件页与四条公开报道 · 解说原创 · 画面为 AI 情景重现'
+ARCHIVE_FOOTER='档案照片 · 来源见片尾说明'
+
 # 同一素材被排进两个编辑段时的入点偏移（raw 秒）；加了条目就必须加到这里。
 VARIANT_IN={('S06','b'):2.9, ('S14','b'):4.0}
 
@@ -136,7 +141,7 @@ def card_image(sid, variant, directory):
         centered(d,'D.B. Cooper',342,105,'#ede8db',serif=True)
         centered(d,'雨夜里消失的名字',498,48,'#b7aa82')
         centered(d,'一个名字，至今没有对应的人。',668,31,'#a6aaa0')
-        centered(d,'资料：来源见 story.json 的 sources / 原创解说 · AI情景重现',895,21,'#7f897d')
+        centered(d,END_FOOTER,895,21,'#7f897d')
     else:
         d.rounded_rectangle((169,104,1751,954),radius=6,fill='#0d1210')
         # Physical-paper palette connects the cards to the generated walnut desks and case folders.
@@ -156,30 +161,15 @@ def card_image(sid, variant, directory):
 
 
 def archive_image(variant,directory):
-    """Use the identified bulletin portrait instead of the unsuitable generated face."""
-    directory.mkdir(parents=True,exist_ok=True)
-    dest=directory/f'archival-portrait-{variant or "base"}.jpg'
-    if dest.exists():return dest
-    im=Image.new('RGB',(1920,1080),'#1b211d');d=ImageDraw.Draw(im)
-    source=HERE/'assets'/'unused-in-this-film.jpg'  # 本片没有 archive 镜头：劫机者没有可核实的真实照片，红线禁止用AI脸冒充
-    portrait=Image.open(source).convert('RGB')
-    if variant=='portrait_b':
-        w,h=portrait.size
-        portrait=portrait.crop((int(w*.04),int(h*.02),int(w*.97),int(h*.92)))
-    portrait.thumbnail((710,810),Image.Resampling.LANCZOS)
-    scale=min(710/portrait.width,810/portrait.height)
-    portrait=portrait.resize((round(portrait.width*scale),round(portrait.height*scale)),Image.Resampling.LANCZOS)
-    x=200+(710-portrait.width)//2;y=125+(810-portrait.height)//2
-    d.rectangle((x-12,y-12,x+portrait.width+12,y+portrait.height+12),fill='#cfc6ac')
-    im.paste(portrait,(x,y));d=ImageDraw.Draw(im)
-    centered(d,'TODO 档案卡标题',316,34,'#b7aa82',x=1330)
-    centered(d,'TODO 人物或主题',400,72,'#ede8db',x=1330,serif=True)
-    centered(d,'TODO 档案卡副标',536,90,'#d4c69d',x=1330)
-    d.line((1240,695,1420,695),fill='#8e8466',width=2)
-    centered(d,'档案照片 · 非AI生成人像',747,28,'#a7b09f',x=1330)
-    centered(d,'来源见 story.json 的 sources',942,23,'#84917d')
-    im.save(dest,quality=94)
-    return dest
+    """本片没有 archive 镜头——所以这个函数必须炸，而不是画一张占位卡。
+
+    劫机者没有可核实的真实照片，红线禁止用 AI 生成的脸冒充本人，story.json 里
+    `kind=="archive"` 的镜头数为 0。但这个函数是从参考项目抄来的，原本在那里画
+    三行未填的卡片占位文字（标题 / 人物 / 副标各一行）：谁哪天加一个档案镜头，
+    那三行就会被印到 1920×1080 的画面上，观众会以为片子没做完。
+    要出档案卡，先在 story.json 补 archive_card 的文案再放开这里。
+    """
+    raise RuntimeError('本片未定义档案卡文案：不许用脚手架占位文字上屏')
 
 
 def fingerprint_overlay(directory,width,height):
@@ -362,7 +352,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
     for entry in edl:
         if entry['id']=='END':continue
-        label={'agnes':'AI情景重现 · 非历史影像','archive':'档案照片 · 来源见 story.json 的 sources',
+        label={'agnes':'AI情景重现 · 非历史影像','archive':ARCHIVE_FOOTER,
                'graphic':'资料摘要与示意图'}[entry['kind']]
         if entry['id']=='S02':label='柜台情景为AI重现 · 非历史影像'
         if entry['id']=='S07':label='手提箱内容为AI示意 · 静态道具 · 非真实证物'

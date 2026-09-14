@@ -563,6 +563,33 @@ class DeliveryTests(unittest.TestCase):
         self.assertEqual(data['film'], tech['output'], '报告里的文件名要与被检成片对上')
 
 
+    def test_no_scaffolding_or_engineering_paths_end_up_on_screen(self):
+        """画面上不许出现工程路径，也不许出现脚手架占位句。
+
+        两类都有实物为证：片尾卡（EDL 里唯一的 END 条目，5286–5400 帧）最后一行原本印的是
+        「资料：来源见 story.json 的 sources」——观众拿不到那个文件，等于把内部便条当字幕；
+        `archive_image` 里还留着参考项目的「TODO 档案卡标题」三行，本片 archive 镜头数为 0
+        所以它没上屏，但闸门不该指望"没人点到它"。
+        """
+        src = (PROJECT / 'render.py').read_text(encoding='utf-8')
+        self.assertNotIn('TODO', src, '脚手架占位文字还没清干净')
+        drawn = re.findall(r"(?:centered|d\.text)\((?:d,)?[^)]*?'([^']*)'", src)
+        offenders = [s for s in drawn if re.search(r'\.json|story\.|production/|work/|\.md\b', s)]
+        self.assertEqual(offenders, [], f'上屏文案里出现了工程路径：{offenders}')
+        for constant in ('END_FOOTER', 'ARCHIVE_FOOTER'):
+            self.assertRegex(src, re.compile(rf"^{constant}='", re.M),
+                             f'{constant} 应当是模块级常量，便于测试与复用')
+        self.assertIn('FBI', re.search(r"END_FOOTER='([^']*)'", src).group(1),
+                      '片尾要真的给出资料来源，而不是指一个文件名')
+        self.assertIn("kind", src)  # 标签映射仍在按 kind 取文案
+        for chap in project_plan()['chapters']:
+            for seg in re.split(r'[。？！]', chap['text']):
+                if re.search(r'\.json|story|production/|\.md\b', seg):
+                    self.fail(f'解说里出现工程标识：{seg[:60]}')
+        with self.assertRaises(RuntimeError):
+            editor.archive_image('', Path('/tmp/dbcooper-archive-card-check'))
+
+
 class MixReproducibilityTests(unittest.TestCase):
     """换一台机器把混音重跑一遍，电平必须与云端交付时记录的完全一致。
 
