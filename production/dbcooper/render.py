@@ -148,7 +148,7 @@ def card_image(sid, variant, directory):
         paper=np.stack([218+grain,212+grain,192+grain],axis=-1)
         patch=Image.fromarray(np.uint8(np.clip(paper[119:939,184:1736],0,255)),'RGB')
         im.paste(patch,(184,119));d=ImageDraw.Draw(im)
-        d.text((265,180),'案件档案  /  PACIFIC NORTHWEST · 1971',font=font(24),fill='#5d6456')
+        d.text((265,180),'案件档案  /  PORTLAND-SEATTLE-RENO · 1971',font=font(24),fill='#5d6456')
         d.line((265,236,1655,236),fill='#929781',width=2)
         title,line1,line2=CARD_HEADINGS[(sid,variant or '')]
         centered(d,title,302,108,'#2c3a32',serif=True)

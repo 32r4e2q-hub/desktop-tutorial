@@ -99,6 +99,34 @@ class PlanTests(unittest.TestCase):
         self.assertFalse(any(s['kind'] == 'archive' for s in self.project['shots']))
 
 
+    def test_the_airframe_is_the_same_aircraft_in_every_shot_that_shows_it(self):
+        """凡出现机身，就必须是同一架：三发 727、翼下不吊发、面上不写字。
+
+        这条是写给我自己的。上一轮为了躲开 S28 机身上那两组红色字母，我把提示词改成
+        "narrow-body twin-jet + engines slung under the wings"——那是一架 737/DC-9，
+        而 N01 的解说正在念「西北航空」，S01/S11/S12/S13 又都是三发 727。机型口径是
+        四轮返工换来的，不能被我一句话推翻；画面与解说矛盾在本项目里就算穿帮。
+        """
+        shots = project_plan()['shots']
+
+        def mentions_airframe(prompt):
+            if re.search(r'no aircraft anywhere', prompt, re.I):
+                return False            # S10/S17 用"画面里根本没有飞机"来消歧，那是另一种正解
+            return bool(re.search(r'jetliner|airliner|727|three-engine', prompt, re.I))
+
+        airframe = [x for x in shots if mentions_airframe(x['prompt'])]
+        self.assertEqual([x['id'] for x in airframe], ['S01', 'S11', 'S12', 'S13', 'S28'],
+                         '有机身入画的镜头集合变了：新增/删除机型镜头时必须同步这条与画面口径')
+        for x in airframe:
+            self.assertRegex(x['prompt'], re.compile(r'727|three-engine', re.I),
+                             f"{x['id']} 只写了「一架飞机」，机型没落字")
+            self.assertRegex(x['prompt'], re.compile(r'(no|never)[^.\n]{0,70}under the wings|no wingside engines', re.I),
+                             f"{x['id']} 没有明确否定翼下吊发——727 的三台发动机在机身尾部")
+        for x in shots:
+            self.assertNotRegex(x['prompt'], r'twin[- ]jet|twin[- ]engine|engines slung under|wing-mounted engines',
+                               f"{x['id']} 的提示词把机型写成了翼下吊发的双发机")
+
+
 class CameraDiversityTests(unittest.TestCase):
     """「全片一个飞入」是上一版被打回的原因，这里把它变成数字。"""
 
@@ -588,6 +616,18 @@ class DeliveryTests(unittest.TestCase):
                     self.fail(f'解说里出现工程标识：{seg[:60]}')
         with self.assertRaises(RuntimeError):
             editor.archive_image('', Path('/tmp/dbcooper-archive-card-check'))
+
+    def test_the_case_file_header_states_the_route_not_an_invented_carrier(self):
+        """四张档案卡的表头不许写一个不存在的航司名。
+
+        原本印的是「案件档案 / PACIFIC NORTHWEST · 1971」。真实承运人是西北航空
+        （N01 解说里念的就是它），"Pacific Northwest" 只是地区名——把它挂在公司名的位置上，
+        观众只会读成"片方编了一家航司"。改成三个经停点，全部来自 sources：
+        14:50 波特兰起飞、17:46 西雅图塔科马、22:15 里诺。
+        """
+        src = (PROJECT / 'render.py').read_text(encoding='utf-8')
+        self.assertNotIn('PACIFIC NORTHWEST', src, '卡面上那个位置是"公司名"，不许放地区名')
+        self.assertIn('PORTLAND-SEATTLE-RENO', src, '表头要给出可核的航段，而不是空着')
 
 
 class MixReproducibilityTests(unittest.TestCase):
