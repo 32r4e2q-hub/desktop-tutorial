@@ -2,7 +2,7 @@
   {
     "id": "N01",
     "method": "pause-aware estimate",
-    "character_match_coverage": 0.009615384615384616,
+    "character_match_coverage": 0.0,
     "boundary_penalty_asr": null,
     "boundary_penalty_estimate": 0.0341,
     "asr_model": null,
@@ -10,11 +10,11 @@
   },
   {
     "id": "N02",
-    "method": "pause-aware estimate",
-    "character_match_coverage": 0.46078431372549017,
-    "boundary_penalty_asr": null,
+    "method": "ASR-assisted",
+    "character_match_coverage": 0.9901960784313726,
+    "boundary_penalty_asr": 0.0,
     "boundary_penalty_estimate": 0.0,
-    "asr_model": null,
+    "asr_model": "small",
     "asr_skipped": false
   },
   {
