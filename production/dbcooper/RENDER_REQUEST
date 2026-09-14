@@ -1,7 +1,7 @@
 {
-  "purpose": "seq14：只把 S01 换成第七抽（开场画面里没有飞机）；S10/S28 沿用 seq13 已判读通过的版本，上屏文案（片尾真出处、档案卡 PORTLAND-SEATTLE-RENO）不变",
+  "purpose": "只改编码链与边缘处理，素材/剪辑/配音/上屏文案一字不动：(1) 逐段压像从 crf21/veryfast 提到 crf14（中间段近无损，work/ 不入库），终压从 crf21/fast 改为 crf20/medium + aq-mode=3:aq-strength=0.9:deblock=1,1、maxrate 7000k；旧做法是两代 CRF21 有损叠加，qc_film.py 实测把暗部 8x8 块边界梯度比从无损参照 0.084 顶到 0.168；(2) 新增 measure_margins/margin_shift：把模型自拼的纯黑边缘用\"平移 crop\"挪出画面（不改缩放），本版预期消掉 S14 左缘 8px 黑带",
   "project": "dbcooper",
   "film_name": "DB库珀劫机案_三分钟_带声音.mp4",
-  "note": "EDL/CLIP_CAPS/对轨与配音全沿用；出片后复核：S01 全帧无飞机且立面无可读标牌、档案卡表头跨度、片尾 footer 跨度、S28 机身框偏红像素=0、每编辑段 2 帧密扫；随后 VERBATIM 必须重跑",
-  "seq": 14
+  "note": "出片后必查：delivery/qc-report.json 由 run_project.sh 的 4/6 步生成并绑定本版 sha，blocking p50 须 <=0.14、letterbox 违规段须为空；音频 AAC 的 sha256 前缀须仍为 4976ca9100e9264e（本轮不该动声音）；逐镜亮度/结构与 seq14 对拍应几乎一致（只允许压缩伪影与 S14 左缘位移）；MARGIN_PROBE 日志行要抄进台账；随后 VERBATIM 必须重跑",
+  "seq": 15
 }

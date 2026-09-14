@@ -400,6 +400,62 @@ def write_sfx(path,edl):
         f.writeframes(np.int16(np.clip(out,-1,1)*32767).tobytes())
 
 
+# ---- 模型自拼黑边：数出来、挪出去（零缩放） ----------------------------------
+# 生成式视频模型有时在画面边缘留一条纯黑 mat。管线是 scale=increase + crop，本来就有
+# 被丢掉的过扫描像素，所以把 crop 窗口朝对侧平移即可把黑边移出画面：**不改缩放比例、
+# 不改画幅、不动时间线**，比裁剪放大安全。判据与 production/qc_film.py 完全一致：
+# 整行 max <= 4 且 std <= 1.5 才算"纯黑"，偏暗但有内容的行不算（那是夜戏）。
+BORDER_PURE_MAX = 4
+BORDER_PURE_STD = 1.5
+MARGIN_CAP = 32          # 只处理 <=32px 的边缘 mat；更宽的是构图问题，交给镜头返工
+
+
+def pure_black_run(line) -> int:
+    """从这一头数起连续的纯黑行（列）数。"""
+    k = 0
+    for row in line:
+        if float(row.max()) <= BORDER_PURE_MAX and float(row.std()) <= BORDER_PURE_STD:
+            k += 1
+        else:
+            break
+    return k
+
+
+def measure_margins(path, start, take, width, height, samples=3):
+    """在素材被用到的那段里均匀取几帧，返回四边纯黑宽的**最小值**（三帧都有才算）。"""
+    proc = subprocess.run(
+        ['ffmpeg', '-v', 'error', '-ss', f'{start:.6f}', '-t', f'{take:.6f}', '-i', str(path),
+         '-vf', f'fps={max(samples,1)}/{max(take,.5):.6f}', '-f', 'rawvideo', '-pix_fmt', 'gray', '-'],
+        capture_output=True)
+    size = width * height
+    raw = proc.stdout or b''
+    found = []
+    for i in range(min(samples, len(raw) // size)):
+        g = np.frombuffer(raw[i * size:(i + 1) * size], dtype=np.uint8).reshape(height, width)
+        found.append({'left': pure_black_run(g[:, :MARGIN_CAP].T),
+                      'right': pure_black_run(g[:, -MARGIN_CAP:].T[:, ::-1]),
+                      'top': pure_black_run(g[:MARGIN_CAP]),
+                      'bottom': pure_black_run(g[-MARGIN_CAP:][::-1])})
+    if not found:
+        return {'left': 0, 'right': 0, 'top': 0, 'bottom': 0}
+    return {k: min(f[k] for f in found) for k in ('left', 'right', 'top', 'bottom')}
+
+
+def margin_shift(margins, overscan_x, overscan_y):
+    """把黑边挪出画面的平移量；可用平移量受两侧过扫描限制，取不到就老实报 0。
+
+    正值 = 窗口向右/下移（让出左侧/上侧的黑边）。两侧同时有黑边时无法靠平移解决，
+    那种情况返回 0 并留给目视/返工，不做任何"看起来修了"的假动作。
+    """
+    room_left = overscan_x // 2
+    room_right = overscan_x - room_left
+    room_up = overscan_y // 2
+    room_down = overscan_y - room_up
+    x = min(margins.get('left', 0), room_right) - min(margins.get('right', 0), room_left)
+    y = min(margins.get('top', 0), room_down) - min(margins.get('bottom', 0), room_up)
+    return {'x': int(x), 'y': int(y)}
+
+
 def render_segment(entry,index,sources,graphics,segments,width,height,checks):
     target=segments/f'{index:03d}.mp4';frames=entry['end_frame']-entry['start_frame'];duration=frames/FPS
     cmd=['ffmpeg','-y','-v','error','-threads','2'];sid=entry['id'];variant=entry['variant']
@@ -412,17 +468,32 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         source=sources/(sid+'.mp4');info=checks[sid]
         a,b,take,factor=clip_window(sid,variant,info['duration'],duration)
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
+        # 先量模型自拼的黑边，能靠平移 crop 消掉就消掉（不改变缩放，只换用本来要丢的过扫描像素）
+        sw,sh=int(info['width']),int(info['height'])
+        cover=max(width/sw,height/sh)
+        over_x=max(0,int(math.floor(sw*cover+0.5))-width)
+        over_y=max(0,int(math.floor(sh*cover+0.5))-height)
+        margins=measure_margins(source,a,take,sw,sh)
+        shift=margin_shift(margins,over_x,over_y)
+        if any(margins[k] for k in margins) or any(shift.values()):
+            print(f'MARGIN_PROBE {sid} margins={margins} overscan={over_x}x{over_y} shift={shift}',flush=True)
+        entry.update(margins=margins,crop_overscan={'x':over_x,'y':over_y},crop_shift=shift)
+        crop_x,y0=over_x//2+shift['x'],over_y//2+shift['y']
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'
             f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
+            f'crop={width}:{height}:{crop_x}:{y0},setsar=1,fps={FPS},'
+            f'eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         entry.update(source_in=a,source_out=b,time_stretch=factor)
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
     if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
     if sid=='S30':vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
     cmd+=['-vf',vf+',format=yuv420p']
+    # 中间段只做"接近无损"的一次编码，最终交付再压一遍——两段都按交付质量压会把
+    # 暗部方格叠成可见缺陷（qc_film.py 实测：crf21+crf21 双段 p50=0.171，vs 无损参照 0.084）。
+    # work/ 不入库，所以中间段变大不占交付体积；交付体积由终压那一档控制。
     cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
-          '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
+          '-crf','14','-maxrate','30000k','-bufsize','60000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
 
 
@@ -504,7 +575,11 @@ def main():
     font_directory=find_font().parent
     vf=f"subtitles=filename='{subtitle.resolve().as_posix()}':fontsdir='{font_directory.as_posix()}'"
     run(['ffmpeg','-y','-v','error','-threads','2','-i',image_track,'-i',mixed,'-map','0:v:0','-map','1:a:0',
-         '-vf',vf,'-c:v','libx264','-preset','fast','-crf','21','-maxrate','4000k','-bufsize','8000k',
+         '-vf',vf,'-c:v','libx264','-preset','medium','-crf','20',
+         # 全片以暗部为主：aq-mode=3 把比特让给平坦暗区，deblock 略加强以压掉块边界；
+         # 上限 7000k 保证交付体积仍在百 MB 内（上一版 2.35 Mbps 对应 52.9 MB）。
+         '-x264-params','aq-mode=3:aq-strength=0.9:deblock=1,1',
+         '-maxrate','7000k','-bufsize','14000k',
          '-pix_fmt','yuv420p','-r','30','-c:a','aac','-b:a','160k','-ar','48000','-t','180',
          '-movflags','+faststart',args.output])
     info=probe(args.output)

@@ -774,5 +774,122 @@ class CaptionTimingTests(unittest.TestCase):
         self.assertEqual(joined, script, '成片字幕与剧本不是逐字同一份')
 
 
+class BakedMarginShiftTests(unittest.TestCase):
+    """模型自拼黑边的处置：只允许"平移 crop"，不许偷缩放。
+
+    管线是 `scale=increase + crop`，本来就有一圈被丢掉的过扫描像素；把 crop 窗口
+    朝有黑边那侧平移，黑边移出画面而画幅、缩放、时间线都不动。所以这里的规矩是：
+    平移量绝不能超过该侧可用的过扫描，两侧同时有黑边时不许动（平移解决不了，
+    硬要修就会变成裁剪放大——那是另一种穿帮）。
+    """
+
+    def test_shift_uses_only_the_discarded_overscan(self):
+        self.assertEqual(editor.margin_shift({'left': 8, 'right': 0, 'top': 0, 'bottom': 0}, 60, 0),
+                         {'x': 8, 'y': 0})
+        # 过扫描只有 12px（左 6 / 右 6）：左边 20px 的黑边最多挪走 6px，不许自己加缩放
+        self.assertEqual(editor.margin_shift({'left': 20, 'right': 0, 'top': 0, 'bottom': 0}, 12, 0),
+                         {'x': 6, 'y': 0})
+        # 两侧都是纯黑 mat：平移无解，必须老实返回 0，让 QC/目视去追
+        self.assertEqual(editor.margin_shift({'left': 8, 'right': 8, 'top': 0, 'bottom': 0}, 16, 0),
+                         {'x': 0, 'y': 0})
+        self.assertEqual(editor.margin_shift({'left': 0, 'right': 0, 'top': 0, 'bottom': 0}, 60, 4),
+                         {'x': 0, 'y': 0})
+
+    def test_pure_black_run_requires_pure_black_not_merely_dark(self):
+        """夜戏的暗天空不是遮幅：判据必须是整行 max<=4 且 std<=1.5。"""
+        plain = np.zeros((1080, 1920), dtype=np.uint8)
+        band = np.zeros((1080, 1920), dtype=np.uint8)
+        band[:, 8:] = 30
+        self.assertEqual(editor.pure_black_run(plain[:, :32].T), 32)
+        self.assertEqual(editor.pure_black_run(band[:, :32].T), 8)
+        noisy = band.copy()
+        noisy[:, 7] = 90                      # 第 8 列有内容 ⇒ 到这就停
+        self.assertEqual(editor.pure_black_run(noisy[:, :32].T), 7)
+        dark_sky = np.full((1080, 1920), 22, dtype=np.uint8)   # 偏暗但有内容
+        self.assertEqual(editor.pure_black_run(dark_sky[:, :32].T), 0)
+
+
+class QualityControlGateTests(unittest.TestCase):
+    """闸门四：画质 QC 报告必须存在、必须绑本版成片、并且按仓库里的阈值真的过。
+
+    为什么不信报告里的 `checks[].ok`：那份判定出自 `qc_film.py` 自己，脚本调一下就绿了。
+    这里从报告的原始 `metrics` 用 `thresholds-qc.json` 重新算一遍——**阈值在 git 里，
+    要放宽就得改这个文件，改动会在评审时露出来**。
+    """
+
+    def _reports(self):
+        tech_path = PROJECT / 'delivery' / 'technical-report.json'
+        if not tech_path.exists():
+            self.skipTest('还没出片：delivery/technical-report.json 不存在')
+        qc_path = PROJECT / 'delivery' / 'qc-report.json'
+        self.assertTrue(qc_path.exists(),
+                        '出过片就必须有 delivery/qc-report.json（run_project.sh 的 4/6 步生成）')
+        return (json.loads(tech_path.read_text(encoding='utf-8')),
+                json.loads(qc_path.read_text(encoding='utf-8')))
+
+    def test_qc_report_is_bound_to_the_delivered_film_hash(self):
+        tech, qc = self._reports()
+        self.assertIn('film_sha256', qc, 'QC 报告没绑定成片指纹：报告过期或工具回退了')
+        self.assertEqual(qc['film_sha256'], tech['sha256'],
+                         'QC 报告量的是另一版片子：重跑 production/qc_film.py 再交付')
+        self.assertEqual(qc['film_bytes'], tech['bytes'], 'QC 报告与交付报告的字节数不一致')
+        film = ROOT / qc['film']
+        self.assertTrue(film.exists(), f"QC 报告里的成片路径不存在：{qc['film']}")
+        handle = hashlib.sha256()
+        with film.open('rb') as fh:
+            for chunk in iter(lambda: fh.read(1 << 20), b''):
+                handle.update(chunk)
+        self.assertEqual(handle.hexdigest(), qc['film_sha256'], 'QC 报告对应的文件内容已经变了')
+
+    def test_every_gate_metric_clears_the_repo_thresholds(self):
+        _, qc = self._reports()
+        limits = json.loads((PROJECT / 'thresholds-qc.json').read_text(encoding='utf-8'))
+        metrics = qc['metrics']
+        for key in ('blocking_p50', 'blocking_p90', 'flash_reversal_spikes', 'overexposed_max',
+                    'saturation_mean', 'axis_aligned_p5', 'letterbox_by_segment'):
+            self.assertIn(key, metrics, f'QC 报告缺字段 {key}：脚本与闸门已经不同步')
+        self.assertLessEqual(metrics['blocking_p50'], limits['blocking_p50_max'],
+                             '暗部 8x8 块效应超阈值：先查编码链是不是又变成了两段都有损压缩')
+        self.assertLessEqual(metrics['blocking_p90'], limits['blocking_p90_max'],
+                             '块效应尾部超阈值：最暗的几个镜头要出裁放图判读')
+        self.assertLessEqual(metrics['overexposed_max'], limits['overexposed_fraction_max'],
+                             '高光削顶')
+        self.assertEqual(metrics['flash_reversal_spikes'], 0, '段内出现了单帧亮度反跳（闪烁）')
+        self.assertGreaterEqual(metrics['saturation_mean'], limits['saturation_mean_min'], '画面脱色')
+        self.assertLessEqual(metrics['saturation_mean'], limits['saturation_mean_max'], '饱和度过冲')
+        self.assertGreaterEqual(metrics['axis_aligned_p5'], limits['axis_aligned_fraction_min'],
+                                '强边缘的轴向占比掉下去了：透视/几何畸变的代理量异常')
+        designed = set(limits['designed_border_segments'])
+        offenders = {}
+        for sid, sides in metrics['letterbox_by_segment'].items():
+            if sid in designed:
+                continue
+            bad = {k: v for k, v in sides.items()
+                   if v[0] > limits['letterbox_unexpected_px_max']
+                   and v[1] >= limits['letterbox_min_frame_fraction']}
+            if bad:
+                offenders[sid] = bad
+        self.assertEqual(offenders, {}, '故事镜头出现了设计外的纯黑遮幅（模型自拼黑边没被消掉）')
+        blocking_names = [c['name'] for c in qc['checks'] if not c['ok']]
+        self.assertEqual(blocking_names, [],
+                         f"qc_film.py 自己也在报 FLAG：{blocking_names}（要么修片子，要么在台账里给出量化理由）")
+
+    def test_qc_thresholds_file_is_the_single_source_of_truth(self):
+        """阈值文件必须把脚本用到的键都写全：只写在脚本默认值里的阈值没人评审。"""
+        limits = json.loads((PROJECT / 'thresholds-qc.json').read_text(encoding='utf-8'))
+        needed = ('blocking_p50_max', 'blocking_p90_max', 'flash_reversal_spikes_max',
+                  'letterbox_unexpected_px_max', 'letterbox_min_frame_fraction',
+                  'border_pure_max', 'border_pure_std', 'designed_border_segments',
+                  'overexposed_fraction_max', 'saturation_mean_min', 'saturation_mean_max',
+                  'axis_aligned_fraction_min')
+        missing = [k for k in needed if k not in limits]
+        self.assertEqual(missing, [], f'thresholds-qc.json 缺键：{missing}')
+        # 白名单只许列"确有设计依据"的段，且必须能在 EDL 里找到（防我随手加一段躲检测）
+        edl = json.loads((PROJECT / 'delivery' / 'edit-decision-list.json').read_text(encoding='utf-8'))
+        ids = {s['id'] for s in (edl if isinstance(edl, list) else edl['segments'])}
+        for sid in limits['designed_border_segments']:
+            self.assertIn(sid, ids, f'黑边白名单里的 {sid} 不在 EDL 中')
+
+
 if __name__ == '__main__':
     unittest.main()
