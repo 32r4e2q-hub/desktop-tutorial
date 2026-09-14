@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 52813689,
+  "bytes": 52664476,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,27 +9,27 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "200b3784e96e32f53addde9345d7d25c972906404fa79db1bca52d807b0af7b1",
+  "sha256": "efe1f921da698552bb40636416c0ddc4abd22ed37d5bf9e76f65133e2fb4fc48",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
   "caption_alignment": [
     {
       "id": "N01",
-      "method": "pause-aware estimate",
-      "character_match_coverage": 0.0,
-      "boundary_penalty_asr": null,
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9423076923076923,
+      "boundary_penalty_asr": 0.0,
       "boundary_penalty_estimate": 0.0341,
-      "asr_model": null,
+      "asr_model": "small",
       "asr_skipped": false
     },
     {
       "id": "N02",
-      "method": "ASR-assisted",
-      "character_match_coverage": 0.9901960784313726,
-      "boundary_penalty_asr": 0.0,
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.058823529411764705,
+      "boundary_penalty_asr": null,
       "boundary_penalty_estimate": 0.0,
-      "asr_model": "small",
+      "asr_model": null,
       "asr_skipped": false
     },
     {
