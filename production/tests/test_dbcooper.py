@@ -157,16 +157,21 @@ class CutAlignmentTests(unittest.TestCase):
     def test_every_generated_shot_is_used_and_only_reused_where_documented(self):
         entries = [(sid, variant) for chapter in self.chapters for _, sid, variant in self.cuts[chapter]]
         agnes = {shot['id'] for shot in self.project['shots'] if shot['kind'] == 'agnes'}
-        self.assertEqual(len(entries), 32)                       # 32 个编辑段 + 片尾卡 = 33
+        self.assertEqual(len(entries), 33)                       # 33 个编辑段 + 片尾卡 = 34
+        # N03 从 5 刀变 6 刀：为了让「它再次起飞」落到起飞镜上（多出来的一刀用 S14 的另一段）
         self.assertEqual({sid for sid, _ in entries}, agnes | {'S03', 'S08', 'S20', 'S23', 'S27'})
         counts = Counter(sid for sid, _ in entries)
-        # 同一素材被两次用到的，只有 S06（'b' 变体取同一镜的后半段）与 S23（两张不同文字的数据卡）；
+        # 同一素材被两次用到的，只有 S06 与 S14（'b' 变体取同一镜的另一段）和 S23（两张不同文字的数据卡）；
         # 其余一镜一次。规则是「复用必须换 variant」，不是「某个号可以出现两次」。
-        self.assertEqual(sorted(sid for sid, n in counts.items() if n > 1), ['S06', 'S23'])
-        for sid in ('S06', 'S23'):
+        self.assertEqual(sorted(sid for sid, n in counts.items() if n > 1), ['S06', 'S14', 'S23'])
+        for sid in ('S06', 'S14', 'S23'):
             variants = [variant for got, variant in entries if got == sid]
             self.assertEqual(len(variants), len(set(variants)), f'{sid} 同一 variant 被排了两次')
-        self.assertEqual(sorted(variant for sid, variant in entries if sid == 'S06'), ['', 'b'])
+        for sid in ('S06', 'S14'):
+            self.assertEqual(sorted(variant for got, variant in entries if got == sid), ['', 'b'],
+                             f'{sid} 复用必须是一段原样、一段换 variant')
+        self.assertEqual(len(set(editor.VARIANT_IN)) , len(editor.VARIANT_IN), 'VARIANT_IN 有重复键')
+        self.assertTrue(all(k[1] == 'b' for k in editor.VARIANT_IN), 'VARIANT_IN 只登记复用段')
         self.assertEqual(sorted(variant for sid, variant in entries if sid == 'S23'),
                          ['ransom', 'suspects'])
 
