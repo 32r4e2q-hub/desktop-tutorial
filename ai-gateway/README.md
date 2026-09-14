@@ -87,6 +87,8 @@ r = client.chat.completions.create(model="auto", messages=[{"role": "user", "con
 
 ## 3′. 全程只用鼠标（不装任何东西、不打开终端）★推荐给不熟命令行的你
 
+> 想直接照抄、不想读本文其余部分：[`部署清单.md`](./部署清单.md)（Mistral 版，5 步 + 验证表 + 三条禁令）。
+
 原理：本项目压成了一个文件 `bundle/worker.js`（851 行），Cloudflare 网页编辑器可以整份粘进去。
 **不用等 PR 合并**：分支上就能直接复制 →
 https://github.com/32r4e2q-hub/desktop-tutorial/blob/arena/01a09ead-desktop-tutorial/ai-gateway/bundle/worker.js
