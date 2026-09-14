@@ -264,6 +264,42 @@ class CutAlignmentTests(unittest.TestCase):
 
 
 class EdlTests(unittest.TestCase):
+    def test_a_reused_clip_actually_changes_its_in_point(self):
+        """被复用的镜头必须真的换入点——这条钉住的是 clip_window 里的**语句顺序**。
+
+        原先入点选择散在 render_segment 里，"逐镜上限"排在 variant 之后，于是 S14/b 的
+        新入点会被上限一把拉回 0.12–4.00：两遍放同一段素材，而段数、缝隙、变速比全部照绿。
+        这类"闸门看不见"的错只能靠把逻辑抽成纯函数再钉住。
+        （S06 与其 'b' 段有意重叠：N02 只有 5 个镜头却有 9.4 秒解说，基段本身已铺满 5.7 秒，
+        再切一段只能回头取同一段动作——这条写在台账 B8，不是漏网。）
+        """
+        lengths = {}
+        for receipt in sorted((PROJECT / 'qa').glob('S*.json')):
+            lengths[receipt.stem] = json.loads(receipt.read_text(encoding='utf-8'))['duration']
+        rows, _ = narration_rows()
+        windows = {}
+        for entry in editor.make_edl(project_plan(), rows):
+            if entry['kind'] != 'agnes':
+                continue
+            key = (entry['id'], entry['variant'])
+            windows[key] = max(windows.get(key, 0.0),
+                               (entry['end_frame'] - entry['start_frame']) / editor.FPS)
+        reused = sorted({sid for sid, _ in windows if sum(1 for k in windows if k[0] == sid) > 1})
+        self.assertEqual(reused, ['S06', 'S14'], '复用清单变了：加镜头时要一并登记 VARIANT_IN')
+        for sid in reused:
+            length = lengths.get(sid, 7.041667)
+            base = editor.clip_window(sid, '', length, windows[(sid, '')])
+            for (got, variant), window in windows.items():
+                if got != sid or not variant:
+                    continue
+                alt = editor.clip_window(sid, variant, length, window)
+                self.assertEqual(alt[0], editor.VARIANT_IN[(sid, variant)],
+                                 f'{sid}/{variant} 的入点被逐镜上限覆盖了（clip_window 顺序写反）')
+                self.assertGreater(alt[0], base[0], f'{sid}/{variant} 没有比基段更晚的入点')
+        for key in editor.VARIANT_IN:
+            self.assertIn(key, windows, f'VARIANT_IN 登记了 {key}，但 CUTS 里没有这一段')
+
+
     def test_edl_is_gap_free_and_covers_exactly_three_minutes(self):
         project = project_plan()
         rows, tempo = narration_rows()

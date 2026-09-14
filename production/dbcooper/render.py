@@ -100,6 +100,27 @@ CARD_HEADINGS[('S23', '')] = CARD_HEADINGS[('S23', 'ransom')]   # 不带 variant
 # 同一素材被排进两个编辑段时的入点偏移（raw 秒）；加了条目就必须加到这里。
 VARIANT_IN={('S06','b'):2.9, ('S14','b'):4.0}
 
+# 素材入点：短窗口不整片铺慢，只取 7 秒素材的对应片段，保证变速比落在 ±33% 内（引擎闸门）。
+# 顺序是承重的：先套逐镜上限，**最后**才让 VARIANT_IN 覆盖——反过来写，被复用的那一镜会被上限
+# 拉回基段的入点，两遍放同一段画面还谁也测不出来（2026-09-14 就是这么差点蒙过去一次）。
+CLIP_CAPS={'S05':3.85,'S09':3.70,'S14':4.00,'S16':1.75,'S17':4.40,'S24':4.10,'S25':3.40,
+           'S29':2.50,'S30':4.10}
+
+
+def clip_window(sid, variant, length, duration):
+    """返回 (入点, 出点, 实际取用时长, 变速比)。"""
+    a, b = .12, length - .12
+    if sid == 'S10':a = max(.12, length - 2.2)          # 只取四个帆布袋的揭示段
+    if sid in CLIP_CAPS:b = min(CLIP_CAPS[sid], length - .12)
+    if sid == 'S30':b = length - .12                    # 末镜保留 2.2s 无解说静场，接片尾卡
+    if (sid, variant) in VARIANT_IN:                    # 复用同一素材必须换入点
+        a, b = VARIANT_IN[(sid, variant)], length - .12
+    take = min(b - a, duration)
+    factor = duration / take
+    if factor > 1.33:
+        raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+    return a, a + take, take, factor
+
 
 def card_image(sid, variant, directory):
     directory.mkdir(parents=True,exist_ok=True)
@@ -397,32 +418,13 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         vf=f"scale={width}:{height},zoompan=z='min(1.025,1+0.00011*on)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s={width}x{height}:fps={FPS}"
     else:
         source=sources/(sid+'.mp4');info=checks[sid]
-        length=info['duration'];a=.12;b=length-.12
-        # 复用同一素材必须换入点（否则肉眼立刻看出"这镜我看过"）：S06/b 取纸条镜后半段，
-        # S14/b 取起飞镜后段地形掠过的部分，都只改入点、不重新生成素材。见 CUTS 里的 variant。
-        if (sid,variant) in VARIANT_IN:a=VARIANT_IN[(sid,variant)];b=length-.12
-        # 窗口选择：CUTS 里较短的编辑窗口只取 7 秒素材的对应片段，
-        # 保证每段变速比落在 ±33% 以内（引擎闸门 factor<=1.33）。
-        if sid=='S05':a=.12;b=min(3.85,length-.12)
-        if sid=='S09':a=.12;b=min(3.7,length-.12)
-        if sid=='S10':a=max(.12,length-2.2);b=length-.12  # 只取四个帆布袋的揭示段
-        if sid=='S14':a=.12;b=min(4.0,length-.12)
-        if sid=='S16':a=.12;b=min(1.75,length-.12)
-        if sid=='S17':a=.12;b=min(4.4,length-.12)
-        if sid=='S24':a=.12;b=min(4.1,length-.12)
-        if sid=='S25':a=.12;b=min(3.4,length-.12)
-        if sid=='S29':a=.12;b=min(2.5,length-.12)
-        if sid=='S30':a=.12;b=min(4.1,length-.12)  # 末镜含 2.2s 无解说静场，接片尾卡
-        available=b-a
-        take=min(available,duration)
-        factor=duration/take
-        if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+        a,b,take,factor=clip_window(sid,variant,info['duration'],duration)
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'
             f'scale={width}:{height}:force_original_aspect_ratio=increase,'
             f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
-        entry.update(source_in=a,source_out=a+take,time_stretch=factor)
+        entry.update(source_in=a,source_out=b,time_stretch=factor)
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
     if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
     if sid=='S30':vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
