@@ -115,8 +115,9 @@ class PlanTests(unittest.TestCase):
             return bool(re.search(r'jetliner|airliner|727|three-engine', prompt, re.I))
 
         airframe = [x for x in shots if mentions_airframe(x['prompt'])]
-        self.assertEqual([x['id'] for x in airframe], ['S01', 'S11', 'S12', 'S13', 'S28'],
-                         '有机身入画的镜头集合变了：新增/删除机型镜头时必须同步这条与画面口径')
+        self.assertEqual([x['id'] for x in airframe], ['S11', 'S12', 'S13', 'S28'],
+                         '有机身入画的镜头集合变了：新增/删除机型镜头时必须同步这条与画面口径。'
+                         'S01 在第七抽被移出这个集合——它改成\"画面里没有飞机\"（同一个正解，S10/S17 也用它）')
         for x in airframe:
             self.assertRegex(x['prompt'], re.compile(r'727|three-engine', re.I),
                              f"{x['id']} 只写了「一架飞机」，机型没落字")
