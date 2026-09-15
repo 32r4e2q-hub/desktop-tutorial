@@ -84,17 +84,24 @@ jobs:
           SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
           FILM_NAME: ${{ env.FILM_NAME }}
           BRANCH: arena/01a0a39f-desktop-tutorial
-        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log; exit ${PIPESTATUS[0]}
+        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log production/pizzabomber/last-render.log; exit ${PIPESTATUS[0]}
 
-      - name: Ship failure tail to branch (sandbox cannot read Actions logs)
+      - name: Ship failure log to branch (sandbox cannot read Actions logs)
         if: failure()
         run: |
-          tail -c 60000 /tmp/rend.log > production/pizzabomber/render-diag.log
+          tail -c 200000 /tmp/rend.log > production/pizzabomber/render-diag.log
           git config user.name "arena-diag"
           git config user.email "arena@local"
           git add -f production/pizzabomber/render-diag.log
           git commit -m "render 失败诊断 $(date -u +%FT%TZ)"
-          git push origin "HEAD:${{ github.ref_name }}"
+          # 与 run_project.sh 发布步同一招：并发 checkpoint 可能刚把分支推进，
+          # 裸 push 会被拒——上次（2026-09-15 05:56 那次）就是这样把诊断也丢了。
+          pushed=0
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:${{ github.ref_name }}"; then pushed=1; break; fi
+            git fetch origin ${{ github.ref_name }} && git rebase FETCH_HEAD || break
+          done
+          [ "$pushed" = "1" ] || echo "::error::诊断日志推不回分支，看本次运行的 artifact"
 
       - name: Upload the finished film
         if: always()
