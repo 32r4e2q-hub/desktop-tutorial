@@ -15,7 +15,7 @@ import { MemoryCache, cacheKeyOf } from "./cache.js";
 import { buildUpstream, normalize, streamBodyFor, upstreamReason } from "./adapters.js";
 import { apiError, bearerOf, brief, json, newId, openaiChunk, sseChunk } from "./util.js";
 
-export const VERSION = "1.1.0";
+export const VERSION = "1.1.1";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -83,6 +83,8 @@ export async function handle(request, env = {}) {
       status: "ok",
       version: VERSION,
       mode: cfg.routerKey ? "authenticated" : "OPEN — set ROUTER_API_KEY",
+      // PROVIDER_ORDER 里认不出的 id（拼错、大小写）在这里现形，而不是被静默跳过
+      ...(cfg.ignoredIds.length ? { ignored_ids_in_PROVIDER_ORDER: cfg.ignoredIds } : {}),
       providers: cfg.providers.map(p => ({
         id: p.id, enabled: p.enabled, model: p.model,
         key: p.apiKey ? maskKey(p.apiKey) : "未配置",

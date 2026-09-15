@@ -202,9 +202,10 @@ function loadConfig(env = {}) {
 
   const byId = new Map(PROVIDER_DEFS.map(d => [d.id, d]));
   const providers = [];
+  const ignoredIds = [];   // 认不出的 id（拼错/大小写）不静默丢，交给 /healthz 报出来
   for (const id of order) {
     const def = byId.get(id);
-    if (!def) continue;
+    if (!def) { ignoredIds.push(id); continue; }
     const U = upper(id);
     const apiKey = String(env[`${U}_API_KEY`] || "").trim();
     const account = def.requiresAccount ? String(env.CLOUDFLARE_ACCOUNT_ID || "").trim() : "";
@@ -226,6 +227,7 @@ function loadConfig(env = {}) {
 
   return {
     providers,
+    ignoredIds,
     routerKey,
     adminKey,
     // 明确关掉时（默认）匿名请求一律 401；zeroroute 的 same-origin / "free" token 兜底这里一律不存在
@@ -552,7 +554,7 @@ function upstreamReason(status, providerId) {
  *   其它路径一律 404 —— 不内置 dashboard / widget，少一个可被攻击的面。
  */
 
-const VERSION = "1.1.0";
+const VERSION = "1.1.1";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -620,6 +622,8 @@ async function handle(request, env = {}) {
       status: "ok",
       version: VERSION,
       mode: cfg.routerKey ? "authenticated" : "OPEN — set ROUTER_API_KEY",
+      // PROVIDER_ORDER 里认不出的 id（拼错、大小写）在这里现形，而不是被静默跳过
+      ...(cfg.ignoredIds.length ? { ignored_ids_in_PROVIDER_ORDER: cfg.ignoredIds } : {}),
       providers: cfg.providers.map(p => ({
         id: p.id, enabled: p.enabled, model: p.model,
         key: p.apiKey ? maskKey(p.apiKey) : "未配置",

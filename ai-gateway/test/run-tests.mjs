@@ -254,6 +254,14 @@ await t("新增 provider agnes：通用 openai 通路无需特化代码", async 
   eq(hits.length - before, 1, "钉定时只该多打一次上游");
 });
 
+await t("🔧 PROVIDER_ORDER 里的拼错 id 不再静默丢弃（会在 /healthz 报出来）", async () => {
+  const body = await (await get("/healthz", {
+    env: { ...ENV, PROVIDER_ORDER: "gemini,Agnes,openrouter,mistral" },  // 大写 A：认不出
+  })).json();
+  eq(body.providers.map(p => p.id).join(","), "gemini,openrouter,mistral", "认不出的不该进链路");
+  eq(body.ignored_ids_in_PROVIDER_ORDER.join(","), "Agnes", "但该明确告诉我它被丢了");
+});
+
 await t("默认 PROVIDER_ORDER：agnes 紧随 openrouter，模型名对上官方 id", async () => {
   const body = await (await get("/healthz", { env: { ROUTER_API_KEY: "sk-test-1234567890" } })).json();
   const ids = body.providers.map(p => p.id);

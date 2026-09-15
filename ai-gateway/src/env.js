@@ -88,9 +88,10 @@ export function loadConfig(env = {}) {
 
   const byId = new Map(PROVIDER_DEFS.map(d => [d.id, d]));
   const providers = [];
+  const ignoredIds = [];   // 认不出的 id（拼错/大小写）不静默丢，交给 /healthz 报出来
   for (const id of order) {
     const def = byId.get(id);
-    if (!def) continue;
+    if (!def) { ignoredIds.push(id); continue; }
     const U = upper(id);
     const apiKey = String(env[`${U}_API_KEY`] || "").trim();
     const account = def.requiresAccount ? String(env.CLOUDFLARE_ACCOUNT_ID || "").trim() : "";
@@ -112,6 +113,7 @@ export function loadConfig(env = {}) {
 
   return {
     providers,
+    ignoredIds,
     routerKey,
     adminKey,
     // 明确关掉时（默认）匿名请求一律 401；zeroroute 的 same-origin / "free" token 兜底这里一律不存在
