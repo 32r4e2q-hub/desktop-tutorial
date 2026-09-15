@@ -191,7 +191,7 @@ class CutAlignmentTests(unittest.TestCase):
         for sid in ('S19', 'S21', 'S26'):
             variants = [variant for got, variant in entries if got == sid]
             self.assertEqual(sorted(variants), ['', 'b'], f'{sid} 必须一段原样、一段换 variant')
-        self.assertEqual(sorted(editor.VARIANT_IN), sorted([('S19', 'b'), ('S21', 'b'), ('S26', 'b')]),
+        self.assertEqual(sorted(editor.VARIANT_IN), sorted([('S10', 'b'), ('S19', 'b'), ('S21', 'b'), ('S26', 'b')]),
                          'VARIANT_IN 与 CUTS 的复用不同源')
 
     def test_cards_only_show_the_number_being_spoken(self):
