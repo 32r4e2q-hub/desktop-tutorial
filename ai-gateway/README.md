@@ -83,11 +83,30 @@ r = client.chat.completions.create(model="auto", messages=[{"role": "user", "con
 | `groq/llama-3.3-70b-versatile` | 钉定这个 provider 的这个模型；不失败转移 |
 | 未知模型 | **直接 404 并提示**（不静默烧一遍所有上游） |
 
+### 2.1 加一个新免费源（例：Agnes AI 的 `agnes-2.5-flash`）
+
+只要上游讲 OpenAI 兼容，加源就是**往表里加一行**，路由/流式/降级/缓存全都不用碰：
+
+```js
+// src/env.js PROVIDER_DEFS
+{ id: "agnes", name: "Agnes AI", style: "openai",
+  base: "https://apihub.agnes-ai.cn/v1", defaultModel: "agnes-2.5-flash" },
+```
+
+然后 `node scripts/bundle.mjs` 重打包 + `npm test`，部署侧只加两个配置：
+`AGNES_API_KEY`（secret）和可选的 `AGNES_MODEL` / `AGNES_BASE_URL`（海外节点用 `https://apihub.agnes-ai.com/v1`）。
+默认 `PROVIDER_ORDER` 里 `agnes` 紧跟 `openrouter`：两个免费源互为备胎，谁挂了都不影响整体可用。
+
+> ⚠️ 说清楚：`agnes-2.5-flash` 现在的 $0 报价来自 Agnes AI（Sapiens AI，2026 年才成立的新公司）的促销期，
+> 「永久免费」这类话术不要写进你的架构假设。它排在链路中间、失败就自动降级，才是对的用法。
+> 同门的 `agnes-2.5-pro-alpha` 是**付费**的，别填进 `AGNES_MODEL`。
+
 ---
 
 ## 3′. 全程只用鼠标（不装任何东西、不打开终端）★推荐给不熟命令行的你
 
-> 想直接照抄、不想读本文其余部分：[`部署清单.md`](./部署清单.md)（Mistral 版，5 步 + 验证表 + 三条禁令）。
+> 想直接照抄、不想读本文其余部分：[`部署清单.md`](./部署清单.md)（5 步 + 验证表 + 三条禁令）。
+
 
 原理：本项目压成了一个文件 `bundle/worker.js`（851 行），Cloudflare 网页编辑器可以整份粘进去。
 **不用等 PR 合并**：分支上就能直接复制 →
@@ -187,6 +206,8 @@ curl -s -X POST https://zeroroute-lite.<你的子域>.workers.dev/v1/chat/comple
 ## 5. 实话实说的限制
 
 - **免费额度不是"0 成本架构"**。Groq/Gemini 等的条款禁止把免费 key 用于生产/中转分发，被判定滥用会封号。自用、demo、做实验可以；商用请买正式额度。
+- **免费源模型 id 有保质期**：`gemini-2.5-*` 整代 2026-10-16 关停（已下线的 id 一律 404），各家数字也按项目/地区浮动。所以模型名走变量、链路走 `PROVIDER_ORDER`，别把 id 硬编码进客户端。
+- **上游的 400 不一定是你说的这件事**：Google 对**无效 key** 也回 400 `INVALID_ARGUMENT`（不是 401）。本网关只回 `gemini: http 400` 这种摘要，先怀疑 key，再怀疑模型名；实在要确诊就临时设 `DEBUG=true`，去 Workers 日志看被截断的上游原文。
 - 内存缓存与限流是 **per-isolate**：冷启动清空、跨地区不共享，命中率别指望。要共享得换 KV / Durable Objects（见下）。
 - Cloudflare 免费档 10ms CPU：长 prompt + 高并发时会撞墙（透传已经很省了，但这是平台限制）。
 - 只有 `text` 内容：不支持 function calling / tools / 图片 / 流式 usage 统计（各家字段差异太大，宁可不做也别做错）。
@@ -212,5 +233,5 @@ src/util.js            常数时间比较、SSE、摘要
 scripts/demo.mjs       离线演示（mock 上游）
 scripts/check-providers.mjs  上线前实测 key/模型名/SSE
 test/mock-upstream.mjs 可控的坏上游（500/429/401/超时/空流/方言）
-test/run-tests.mjs     21 条自检
+test/run-tests.mjs     23 条自检
 ```

@@ -230,6 +230,39 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("新增 provider agnes：通用 openai 通路无需特化代码", async () => {
+  const base = { ...ENV, AGNES_API_KEY: "sk-agnes-real", AGNES_BASE_URL: `${baseOf()}/ok/v1` };
+  // 只挂 agnes 一家：证明 openai style 是通用的，新免费源=加一行表
+  const solo = await post({ model: "auto", messages: [{ role: "user", content: "冒泡排序" }] },
+    { env: { ...base, PROVIDER_ORDER: "agnes" } });
+  const sb = await solo.json();
+  eq(solo.status, 200, `单挂 agnes 应 200，实际 ${JSON.stringify(sb.error || {})}`);
+  eq(sb.provider, "agnes", "provider 标记");
+  eq(hits.length, 1, "只打一次上游");
+  ok(String(sb.model).startsWith("agnes:"), `model 回显：${sb.model}`);
+
+  // 排在 openrouter 之后：openrouter 返 500 时降级到 agnes（冷却导致顺序抖动，故只断言最终答者）
+  const chain = await post({ model: "auto", messages: [{ role: "user", content: "x" }] },
+    { env: { ...base, PROVIDER_ORDER: "openrouter,agnes", OPENROUTER_BASE_URL: `${baseOf()}/bad-500/v1` } });
+  eq(chain.status, 200, "openrouter 挂了不该把整个请求带崩");
+
+  // 钉定 agnes/<model> 时不得扩散到其它 provider
+  const before = hits.length;
+  const pinned = await post({ model: "agnes/agnes-2.5-flash", messages: [{ role: "user", content: "x" }] },
+    { env: { ...base, PROVIDER_ORDER: "openrouter,agnes" } });
+  eq(pinned.status, 200, "钉定 agnes/<model> 应可用");
+  eq(hits.length - before, 1, "钉定时只该多打一次上游");
+});
+
+await t("默认 PROVIDER_ORDER：agnes 紧随 openrouter，模型名对上官方 id", async () => {
+  const body = await (await get("/healthz", { env: { ROUTER_API_KEY: "sk-test-1234567890" } })).json();
+  const ids = body.providers.map(p => p.id);
+  eq(ids.indexOf("agnes"), ids.indexOf("openrouter") + 1, `顺序：${ids.join(",")}`);
+  const ag = body.providers.find(p => p.id === "agnes");
+  eq(ag.model, "agnes-2.5-flash", "默认模型");
+  eq(ag.enabled, false, "没配 key 时不该被启用");
+});
+
 await t("Gemini 方言：请求翻译 + 非流式响应归一化 + usage 映射", async () => {
   const env = { ...ENV, PROVIDER_ORDER: "gemini", GEMINI_API_KEY: "key-gemini-real", GEMINI_BASE_URL: `${baseOf()}/gemini/v1beta` };
   const res = await post({ model: "auto", messages: [{ role: "system", content: "你是中文助手" }, { role: "user", content: "把这段翻成英文" }] }, { env });

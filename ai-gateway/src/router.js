@@ -15,7 +15,7 @@ import { MemoryCache, cacheKeyOf } from "./cache.js";
 import { buildUpstream, normalize, streamBodyFor, upstreamReason } from "./adapters.js";
 import { apiError, bearerOf, brief, json, newId, openaiChunk, sseChunk } from "./util.js";
 
-export const VERSION = "1.0.0";
+export const VERSION = "1.1.0";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {

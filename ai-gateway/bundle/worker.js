@@ -151,6 +151,15 @@ const PROVIDER_DEFS = [
     defaultModel: "meta-llama/llama-3.3-70b-instruct:free",
   },
   {
+    // Agnes AI（Sapiens AI）：OpenAI 兼容，$0/百万 token 的 flash 档。
+    // 国内走 .cn，海外走 https://apihub.agnes-ai.com/v1（用 AGNES_BASE_URL 覆盖）。
+    // ⚠️ 上游是 2026-07 才成立的新公司，"永久免费"当宣传语听，别当架构前提：
+    //    所以默认排在 openrouter 之后，它挂了自动退回上一家。
+    id: "agnes", name: "Agnes AI", style: "openai",
+    base: "https://apihub.agnes-ai.cn/v1",
+    defaultModel: "agnes-2.5-flash",
+  },
+  {
     id: "nvidia", name: "NVIDIA NIM", style: "openai",
     base: "https://integrate.api.nvidia.com/v1",
     defaultModel: "nvidia/llama-3.1-nemotron-70b-instruct",
@@ -168,7 +177,8 @@ const PROVIDER_DEFS = [
   {
     id: "gemini", name: "Google Gemini", style: "gemini",
     base: "https://generativelanguage.googleapis.com/v1beta",
-    defaultModel: "gemini-2.5-flash",
+    // 2026-10-16 起 gemini-2.5-* 整代关停（已下线的 id 一律 404），默认值必须用 3.x
+    defaultModel: "gemini-3.5-flash-lite",
   },
   {
     id: "cloudflare", name: "Cloudflare AI", style: "cloudflare",
@@ -542,7 +552,7 @@ function upstreamReason(status, providerId) {
  *   其它路径一律 404 —— 不内置 dashboard / widget，少一个可被攻击的面。
  */
 
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
