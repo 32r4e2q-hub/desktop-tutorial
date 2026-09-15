@@ -78,7 +78,19 @@ jobs:
           SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
           FILM_NAME: ${{ env.FILM_NAME }}
           BRANCH: arena/01a0a242-desktop-tutorial
-        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
+        run: |
+          set +e
+          bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log
+          rc=${PIPESTATUS[0]}
+          if [ "$rc" != "0" ]; then
+            git -c user.email=arena@local -c user.name=arena-diag add -f -
+            tail -c 60000 /tmp/rend.log | git -c user.email=arena@local -c user.name=arena-diag commit -q -F /dev/null --author="arena-diag <arena@local>" -m "render 诊断日志（沙箱读不到 Actions 原生日志，失败尾部回写分支）" production/pizzabomber/render-diag.log 2>/dev/null || true
+            git commit -q --allow-empty -m x >/dev/null 2>&1
+            git -c user.email=arena@local -c user.name=arena-diag add -f production/pizzabomber/render-diag.log
+            git -c user.email=arena@local -c user.name=arena-diag commit -q -m "render 诊断日志" || true
+            git push -q origin HEAD:${{ github.ref_name }} || true
+          fi
+          exit $rc
 
       - name: Upload the finished film
         if: always()
