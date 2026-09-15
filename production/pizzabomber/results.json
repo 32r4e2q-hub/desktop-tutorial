@@ -762,7 +762,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "pipeline_failed",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -801,7 +801,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-15T02:40:55Z",
+  "updated_at": "2026-09-15T02:44:05Z",
   "run_id": "34920395665",
   "previous_results": {
     "S04": [
@@ -1189,5 +1189,6 @@
         "visual_review": "pending"
       }
     ]
-  }
+  },
+  "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/pizzabomber/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/pizzabomber/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/pizzabomber/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/pizzabomber/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/pizzabomber/edit/first-cut.mp4']' returned non-zero exit status 1."
 }
