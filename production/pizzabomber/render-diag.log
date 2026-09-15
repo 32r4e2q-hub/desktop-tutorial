@@ -1,1 +1,82 @@
-production/run_project.sh: line 13: 1: 用法: production/run_project.sh <slug> [skip_asr] [成片文件名]
+=== 项目 pizzabomber / 分支 arena/01a0a39f-desktop-tutorial / 成片 work/pizzabomber/披萨炸弹劫案_三分钟_带声音.mp4 ===
+=== 1/6 校验计划与配音来源（闸门一）===
+VALID: 180-second plan; 23 Agnes sources; 7 graphics; 0 archival; narration hashes match
+=== 2/6 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）===
+FETCH S01 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_6e25cdd68d614c5c8caa95d77149284d.mp4
+  OK S01 3993279 bytes / 7.04s
+FETCH S02 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_16ce7f3986fd4e179184332905623fbd.mp4
+  OK S02 2447193 bytes / 7.04s
+FETCH S04 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_0367ac0e555242d68f7cfdfe11b62d22.mp4
+  OK S04 5340200 bytes / 7.04s
+FETCH S05 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_0c8e69e30e6646b09568cfbea2576956.mp4
+  OK S05 3316209 bytes / 7.04s
+FETCH S06 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_1794ad4945614b0981ee97b367852b37.mp4
+  OK S06 2643856 bytes / 7.04s
+FETCH S07 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_ed8b875933634b5b956e0bb9e3080f56.mp4
+  OK S07 2525397 bytes / 7.04s
+FETCH S09 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_4075c30633a14ace85fc3f5f2ffa788e.mp4
+  OK S09 4492285 bytes / 7.04s
+FETCH S10 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_896f1c5a163b4f64bd2d74e0c995144f.mp4
+  OK S10 3608007 bytes / 7.04s
+FETCH S11 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_349ecbdb89a84d9fafabd00e7c3417f2.mp4
+  OK S11 2865856 bytes / 7.04s
+FETCH S12 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_3c43249ec1634c2694fb3505aeb12271.mp4
+  OK S12 3412414 bytes / 7.04s
+FETCH S14 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_87267bdf8cd84ca89da18d5b95a5d152.mp4
+  OK S14 2103918 bytes / 7.04s
+FETCH S15 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_7be25588494548deafdb48e0bb981b3a.mp4
+  OK S15 3492489 bytes / 7.04s
+FETCH S16 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_3c7d9e7b0b334ed78414bed36cc0aed1.mp4
+  OK S16 3394775 bytes / 7.04s
+FETCH S18 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_8a3bb54be829412ea3c121389b0cb399.mp4
+  OK S18 2829454 bytes / 7.04s
+FETCH S19 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_3301612a0a9d4ff1a5f44bda37a03cf1.mp4
+  OK S19 5920379 bytes / 7.04s
+FETCH S21 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_5d6affce9b1441058fbed0277e15424d.mp4
+  OK S21 1428853 bytes / 7.04s
+FETCH S23 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_5069b28f49604395a4e91e518f56788f.mp4
+  OK S23 2534724 bytes / 7.04s
+FETCH S24 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_564f7cd28728495c8e59f7c6e42a11e7.mp4
+  OK S24 3927514 bytes / 7.04s
+FETCH S25 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_446f346fc7374880b233ca81abbb34e5.mp4
+  OK S25 1718656 bytes / 7.04s
+FETCH S26 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_45ec42605a054a30a67a163c5eaea22b.mp4
+  OK S26 2556826 bytes / 7.04s
+FETCH S28 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_41658e50f369486d85e51f13e35e8a9a.mp4
+  OK S28 2173035 bytes / 7.04s
+FETCH S29 https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_ec765085dba7461a82dc2eb864e9d82a.mp4
+  OK S29 2065308 bytes / 7.04s
+FETCH S30 https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_0f8a2532e79b425eba91029b7d689b28.mp4
+  OK S30 1896090 bytes / 7.04s
+FETCH_COMPLETE {"downloaded": 23, "reused": 0, "clips": 23}
+=== 3/6 剪辑 + 混音 + 成品复测（闸门二、三）===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+ASR_MODEL small
+[0;93m2026-09-15 06:07:18.213835238 [W:onnxruntime:Default, device_discovery.cc:146 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+ASR_TIMING_READY N01
+ASR_TIMING_READY N02
+ASR_TIMING_READY N03
+ASR_TIMING_READY N04
+ASR_TIMING_READY N05
+ASR_TIMING_READY N06
+RENDER_SEGMENT 1/34 S01
+RENDER_SEGMENT 2/34 S02
+RENDER_SEGMENT 3/34 S03
+RENDER_SEGMENT 4/34 S04
+RENDER_SEGMENT 5/34 S05
+RENDER_SEGMENT 6/34 S06
+RENDER_SEGMENT 7/34 S07
+RENDER_SEGMENT 8/34 S08
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/pizzabomber/render.py", line 618, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/pizzabomber/render.py", line 553, in main
+    outputs.append(render_segment(entry,i,args.sources,work/'graphics',segments,args.width,args.height,checks))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/pizzabomber/render.py", line 461, in render_segment
+    a,b,take,factor=clip_window(sid,variant,info['duration'],duration)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/pizzabomber/render.py", line 122, in clip_window
+    raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+RuntimeError: S09/: requires excessive slow motion (1.33)
