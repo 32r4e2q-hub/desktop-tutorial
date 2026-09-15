@@ -1,0 +1,424 @@
+{
+  "flags": [
+    "12 帧接近全黑",
+    "36 处画面 1 秒内几乎无变化：22 处复核为真静止（信息卡/档案照/片尾卡，设计如此），14 处复核有微动（16x16 阈值过严，不是冻结帧）"
+  ],
+  "video": {
+    "file": "披萨炸弹劫案_三分钟_带声音.mp4",
+    "video_codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "decoded_frames": 5400,
+    "duration_seconds": 180.0,
+    "black_frame_luma_threshold": 12.0,
+    "black_frames": [
+      {
+        "second": 0.0,
+        "luma": 0.07
+      },
+      {
+        "second": 176.2,
+        "luma": 0.0
+      },
+      {
+        "second": 176.23,
+        "luma": 5.0
+      },
+      {
+        "second": 176.27,
+        "luma": 11.27
+      },
+      {
+        "second": 179.73,
+        "luma": 11.4
+      },
+      {
+        "second": 179.77,
+        "luma": 10.02
+      },
+      {
+        "second": 179.8,
+        "luma": 8.73
+      },
+      {
+        "second": 179.83,
+        "luma": 6.65
+      },
+      {
+        "second": 179.87,
+        "luma": 5.29
+      },
+      {
+        "second": 179.9,
+        "luma": 3.95
+      },
+      {
+        "second": 179.93,
+        "luma": 2.64
+      },
+      {
+        "second": 179.97,
+        "luma": 1.09
+      }
+    ],
+    "frozen_tolerance": 0.6,
+    "frozen_runs_over_one_second": [
+      {
+        "start_second": 0.27,
+        "end_second": 1.27,
+        "max_frame_delta": 0.543,
+        "triage_median_delta": 0.746,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 4.8,
+        "end_second": 5.8,
+        "max_frame_delta": 0.598,
+        "triage_median_delta": 0.831,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 6.2,
+        "end_second": 7.2,
+        "max_frame_delta": 0.32,
+        "triage_median_delta": 0.146,
+        "verdict": "static"
+      },
+      {
+        "start_second": 12.9,
+        "end_second": 13.9,
+        "max_frame_delta": 0.5,
+        "triage_median_delta": 0.013,
+        "verdict": "static"
+      },
+      {
+        "start_second": 19.13,
+        "end_second": 20.13,
+        "max_frame_delta": 0.211,
+        "triage_median_delta": 0.05,
+        "verdict": "static"
+      },
+      {
+        "start_second": 26.37,
+        "end_second": 27.37,
+        "max_frame_delta": 0.562,
+        "triage_median_delta": 0.336,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 28.13,
+        "end_second": 29.13,
+        "max_frame_delta": 0.273,
+        "triage_median_delta": 0.335,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 33.77,
+        "end_second": 34.77,
+        "max_frame_delta": 0.578,
+        "triage_median_delta": 0.389,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 35.77,
+        "end_second": 36.77,
+        "max_frame_delta": 0.574,
+        "triage_median_delta": 0.338,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 39.9,
+        "end_second": 40.9,
+        "max_frame_delta": 0.223,
+        "triage_median_delta": 0.024,
+        "verdict": "static"
+      },
+      {
+        "start_second": 45.53,
+        "end_second": 46.53,
+        "max_frame_delta": 0.414,
+        "triage_median_delta": 0.037,
+        "verdict": "static"
+      },
+      {
+        "start_second": 53.23,
+        "end_second": 54.23,
+        "max_frame_delta": 0.5,
+        "triage_median_delta": 0.048,
+        "verdict": "static"
+      },
+      {
+        "start_second": 64.23,
+        "end_second": 65.23,
+        "max_frame_delta": 0.547,
+        "triage_median_delta": 0.728,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 65.97,
+        "end_second": 66.97,
+        "max_frame_delta": 0.492,
+        "triage_median_delta": 0.166,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 72.1,
+        "end_second": 73.1,
+        "max_frame_delta": 0.223,
+        "triage_median_delta": 0.021,
+        "verdict": "static"
+      },
+      {
+        "start_second": 76.67,
+        "end_second": 77.67,
+        "max_frame_delta": 0.383,
+        "triage_median_delta": 0.018,
+        "verdict": "static"
+      },
+      {
+        "start_second": 79.1,
+        "end_second": 80.1,
+        "max_frame_delta": 0.285,
+        "triage_median_delta": 0.092,
+        "verdict": "static"
+      },
+      {
+        "start_second": 80.9,
+        "end_second": 81.9,
+        "max_frame_delta": 0.586,
+        "triage_median_delta": 1.129,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 83.6,
+        "end_second": 84.6,
+        "max_frame_delta": 0.473,
+        "triage_median_delta": 0.184,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 86.6,
+        "end_second": 87.6,
+        "max_frame_delta": 0.461,
+        "triage_median_delta": 0.337,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 96.87,
+        "end_second": 97.87,
+        "max_frame_delta": 0.43,
+        "triage_median_delta": 0.021,
+        "verdict": "static"
+      },
+      {
+        "start_second": 102.5,
+        "end_second": 103.5,
+        "max_frame_delta": 0.211,
+        "triage_median_delta": 0.019,
+        "verdict": "static"
+      },
+      {
+        "start_second": 113.53,
+        "end_second": 114.53,
+        "max_frame_delta": 0.574,
+        "triage_median_delta": 0.134,
+        "verdict": "static"
+      },
+      {
+        "start_second": 114.6,
+        "end_second": 115.6,
+        "max_frame_delta": 0.211,
+        "triage_median_delta": 0.122,
+        "verdict": "static"
+      },
+      {
+        "start_second": 117.83,
+        "end_second": 118.83,
+        "max_frame_delta": 0.223,
+        "triage_median_delta": 0.019,
+        "verdict": "static"
+      },
+      {
+        "start_second": 122.07,
+        "end_second": 123.07,
+        "max_frame_delta": 0.254,
+        "triage_median_delta": 0.331,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 125.0,
+        "end_second": 126.0,
+        "max_frame_delta": 0.059,
+        "triage_median_delta": 0.031,
+        "verdict": "static"
+      },
+      {
+        "start_second": 129.43,
+        "end_second": 130.43,
+        "max_frame_delta": 0.59,
+        "triage_median_delta": 1.01,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 132.6,
+        "end_second": 133.6,
+        "max_frame_delta": 0.438,
+        "triage_median_delta": 0.062,
+        "verdict": "static"
+      },
+      {
+        "start_second": 139.37,
+        "end_second": 140.37,
+        "max_frame_delta": 0.34,
+        "triage_median_delta": 0.091,
+        "verdict": "static"
+      },
+      {
+        "start_second": 142.93,
+        "end_second": 143.93,
+        "max_frame_delta": 0.543,
+        "triage_median_delta": 0.83,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 147.0,
+        "end_second": 148.0,
+        "max_frame_delta": 0.457,
+        "triage_median_delta": 0.022,
+        "verdict": "static"
+      },
+      {
+        "start_second": 150.43,
+        "end_second": 151.43,
+        "max_frame_delta": 0.258,
+        "triage_median_delta": 0.023,
+        "verdict": "static"
+      },
+      {
+        "start_second": 163.63,
+        "end_second": 164.63,
+        "max_frame_delta": 0.297,
+        "triage_median_delta": 0.075,
+        "verdict": "static"
+      },
+      {
+        "start_second": 167.77,
+        "end_second": 168.77,
+        "max_frame_delta": 0.242,
+        "triage_median_delta": 0.036,
+        "verdict": "static"
+      },
+      {
+        "start_second": 176.4,
+        "end_second": 177.4,
+        "max_frame_delta": 0.082,
+        "triage_median_delta": 0.017,
+        "verdict": "static"
+      }
+    ],
+    "mean_luma": 101.66,
+    "min_luma": 0.07,
+    "max_luma": 156.81,
+    "sampled_frames": [
+      "t0000.00s.jpg",
+      "t0005.00s.jpg",
+      "t0010.00s.jpg",
+      "t0015.00s.jpg",
+      "t0020.00s.jpg",
+      "t0025.00s.jpg",
+      "t0030.00s.jpg",
+      "t0035.00s.jpg",
+      "t0040.00s.jpg",
+      "t0045.00s.jpg",
+      "t0050.00s.jpg",
+      "t0055.00s.jpg",
+      "t0060.00s.jpg",
+      "t0065.00s.jpg",
+      "t0070.00s.jpg",
+      "t0075.00s.jpg",
+      "t0080.00s.jpg",
+      "t0085.00s.jpg",
+      "t0090.00s.jpg",
+      "t0095.00s.jpg",
+      "t0100.00s.jpg",
+      "t0105.00s.jpg",
+      "t0110.00s.jpg",
+      "t0115.00s.jpg",
+      "t0120.00s.jpg",
+      "t0125.00s.jpg",
+      "t0130.00s.jpg",
+      "t0135.00s.jpg",
+      "t0140.00s.jpg",
+      "t0145.00s.jpg",
+      "t0150.00s.jpg",
+      "t0155.00s.jpg",
+      "t0160.00s.jpg",
+      "t0165.00s.jpg",
+      "t0170.00s.jpg",
+      "t0175.00s.jpg"
+    ],
+    "contact_sheets": [
+      "contact-sheet-01.png",
+      "contact-sheet-02.png"
+    ]
+  },
+  "audio": {
+    "file": "披萨炸弹劫案_三分钟_带声音.mp4",
+    "duration_seconds": 180.011,
+    "sample_rate": 48000,
+    "channels": 1,
+    "rms_dbfs": -21.22,
+    "peak_dbfs": -1.75,
+    "window_seconds": 1.0,
+    "window_count": 181,
+    "silent_windows": 2,
+    "silent_fraction": 0.011,
+    "quietest_window_dbfs": -120.0,
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 27.046,
+        "rms_dbfs": -21.09,
+        "peak_dbfs": -1.79
+      },
+      {
+        "id": "N02",
+        "start": 28.126,
+        "end": 58.218,
+        "rms_dbfs": -20.72,
+        "peak_dbfs": -1.78
+      },
+      {
+        "id": "N03",
+        "start": 59.298,
+        "end": 85.508,
+        "rms_dbfs": -20.89,
+        "peak_dbfs": -2.11
+      },
+      {
+        "id": "N04",
+        "start": 86.588,
+        "end": 113.506,
+        "rms_dbfs": -20.87,
+        "peak_dbfs": -1.75
+      },
+      {
+        "id": "N05",
+        "start": 114.586,
+        "end": 145.91,
+        "rms_dbfs": -20.89,
+        "peak_dbfs": -2.52
+      },
+      {
+        "id": "N06",
+        "start": 146.99,
+        "end": 174.0,
+        "rms_dbfs": -21.15,
+        "peak_dbfs": -2.57
+      }
+    ]
+  },
+  "note": "自动判定只覆盖黑帧/冻结帧/静音/电平；构图、字幕错字、AI 画面畸变需人工看抽样帧。冻结帧报警都带 verdict：static=真静止（多为信息卡），micro_motion=复核有微动。"
+}
