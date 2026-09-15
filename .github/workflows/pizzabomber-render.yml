@@ -43,54 +43,17 @@ jobs:
           fetch-depth: 1
 
       - name: Install media tools and CJK fonts
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
-          ffmpeg -hide_banner -version | head -1
+        run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log; exit ${PIPESTATUS[0]}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install render dependencies
+      - name: Ship failure tail to branch (sandbox cannot read Actions logs)
+        if: failure()
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16" || \
-          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16"
-
-      - name: Resolve the deliverable name
-        env:
-          FILM_INPUT: ${{ inputs.film_name }}
-        run: |
-          set -euo pipefail
-          if [ -n "${FILM_INPUT:-}" ]; then
-            film="$FILM_INPUT"
-          else
-            film='披萨炸弹劫案_三分钟_带声音.mp4'
-          fi
-          echo "FILM_NAME=$film" >> "$GITHUB_ENV"
-          echo "Deliverable: $film"
-
-      - name: Validate, restore footage, render with measured audio, publish reports
-        env:
-          PROJECT: pizzabomber
-          SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
-          FILM_NAME: ${{ env.FILM_NAME }}
-          BRANCH: arena/01a0a242-desktop-tutorial
-        run: |
-          set +e
-          bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log
-          rc=${PIPESTATUS[0]}
-          if [ "$rc" != "0" ]; then
-            git -c user.email=arena@local -c user.name=arena-diag add -f -
-            tail -c 60000 /tmp/rend.log | git -c user.email=arena@local -c user.name=arena-diag commit -q -F /dev/null --author="arena-diag <arena@local>" -m "render 诊断日志（沙箱读不到 Actions 原生日志，失败尾部回写分支）" production/pizzabomber/render-diag.log 2>/dev/null || true
-            git commit -q --allow-empty -m x >/dev/null 2>&1
-            git -c user.email=arena@local -c user.name=arena-diag add -f production/pizzabomber/render-diag.log
-            git -c user.email=arena@local -c user.name=arena-diag commit -q -m "render 诊断日志" || true
-            git push -q origin HEAD:${{ github.ref_name }} || true
-          fi
-          exit $rc
+          tail -c 60000 /tmp/rend.log > production/pizzabomber/render-diag.log
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/pizzabomber/render-diag.log
+          git commit -m "render 失败诊断 $(date -u +%FT%TZ)"
+          git push origin "HEAD:${{ github.ref_name }}"
 
       - name: Upload the finished film
         if: always()
