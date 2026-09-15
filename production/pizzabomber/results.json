@@ -674,36 +674,10 @@
     },
     "S30": {
       "id": "S30",
-      "status": "completed",
-      "request_hash": "1e4c6da792dcadb3f73587a52ca92a8f621338990ab0ec4b1571184971962e83",
+      "status": "submitting",
+      "request_hash": "8f7436fc0b615f30e96f108fc17b050cb65a7007852d4e243d50e13c01c60abc",
       "error": null,
-      "updated_at": "2026-09-15T02:40:33Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzkzODcyM2VlZGI0MTQ1ZDQ5ZDg3MzlkYjYyMDE3NjJk",
-      "task_id": "task_8hDisE3ZaN8MV6QFYBQJBMXaatrVtoBS",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_938723eedb4145d49d8739db6201762d.mp4",
-      "bytes": 4137400,
-      "sha256": "c394e60f279160519b951fe7a4819d35d6c6dfa71eb342a97bd69be67d5d6fce",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 4137400,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/pizzabomber/qa/S30.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": false,
-      "visual_review": "pending"
+      "updated_at": "2026-09-15T04:49:51Z"
     },
     "S02": {
       "id": "S02",
@@ -778,7 +752,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-15T04:49:50Z",
+  "updated_at": "2026-09-15T04:49:51Z",
   "run_id": "34929802852",
   "previous_results": {
     "S04": [
@@ -1281,6 +1255,39 @@
         "inspection": {
           "duration": 7.041667,
           "bytes": 6695477,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/pizzabomber/qa/S30.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": false,
+        "visual_review": "pending"
+      },
+      {
+        "id": "S30",
+        "status": "completed",
+        "request_hash": "1e4c6da792dcadb3f73587a52ca92a8f621338990ab0ec4b1571184971962e83",
+        "error": null,
+        "updated_at": "2026-09-15T02:40:33Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzkzODcyM2VlZGI0MTQ1ZDQ5ZDg3MzlkYjYyMDE3NjJk",
+        "task_id": "task_8hDisE3ZaN8MV6QFYBQJBMXaatrVtoBS",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_938723eedb4145d49d8739db6201762d.mp4",
+        "bytes": 4137400,
+        "sha256": "c394e60f279160519b951fe7a4819d35d6c6dfa71eb342a97bd69be67d5d6fce",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 4137400,
           "width": 1920,
           "height": 1088,
           "fps": 24.0,
