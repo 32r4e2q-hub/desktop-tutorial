@@ -697,10 +697,10 @@
     },
     "S30": {
       "id": "S30",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "8f7436fc0b615f30e96f108fc17b050cb65a7007852d4e243d50e13c01c60abc",
       "error": null,
-      "updated_at": "2026-09-15T04:53:48Z",
+      "updated_at": "2026-09-15T04:53:50Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzBmOGEyNTMyZTc5YjQyNWViYTkxMDI5YjdkNjg5YjI4",
       "task_id": "task_wOvaf1ZyIqlmq5KaBRbm5TRI89M2OyMA",
       "requested_seconds": 7.041666666666667,
@@ -708,7 +708,25 @@
       "bytes": 1896090,
       "sha256": "7d9fb71d7574961f9c49f6477724fc09a43a743d21cec903db6125dcad2bbcd9",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 1896090,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/pizzabomber/qa/S30.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S02": {
       "id": "S02",
@@ -783,7 +801,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-15T04:53:48Z",
+  "updated_at": "2026-09-15T04:53:50Z",
   "run_id": "34929802852",
   "previous_results": {
     "S04": [
