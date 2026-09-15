@@ -30,9 +30,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # --name 指定 ASCII 资产名（runner 上中文文件名会被 locale 损坏成 ._）
-          gh release upload pizzabomber-final-2026-09-15 \
-            "交付/披萨炸弹劫案_三分钟_带声音.mp4" \
-            --clobber --name pizzabomber-3min-final-1080p.mp4
+          # 复制为 ASCII 文件名再传（runner locale 会损坏中文资产名；gh 无 --name 标志）
+          cp "交付/披萨炸弹劫案_三分钟_带声音.mp4" /tmp/pizzabomber-3min-final-1080p.mp4
+          sha256sum /tmp/pizzabomber-3min-final-1080p.mp4
+          gh release upload pizzabomber-final-2026-09-15 /tmp/pizzabomber-3min-final-1080p.mp4 --clobber
           gh api repos/32r4e2q-hub/desktop-tutorial/releases/tags/pizzabomber-final-2026-09-15 \
             --jq '.assets[] | {id,name,size,download_url}'
