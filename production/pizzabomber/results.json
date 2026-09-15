@@ -37,10 +37,10 @@
     },
     "S02": {
       "id": "S02",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "d4e814d03d9c1cc1aec77a8a9cbc26ced8411ee2c7042b37bf20d2c42c5be606",
-      "error": null,
-      "updated_at": "2026-09-15T01:14:01Z",
+      "error": "Video task failed: ComfyUI internal error: inference not finished after 15 minutes (code=500)",
+      "updated_at": "2026-09-15T01:29:41Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzhhODcxNGE0NjBiZjRiZDc4YzAxNmJkODNkYzA3ZmEz",
       "task_id": "task_tXRTc9V2ThpuVwJmNxjPkUrG4sWppKtt",
       "requested_seconds": 7.041666666666667
@@ -194,6 +194,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-15T01:28:52Z",
+  "updated_at": "2026-09-15T01:29:41Z",
   "run_id": "34916321425"
 }
