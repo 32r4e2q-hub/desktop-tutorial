@@ -23,7 +23,14 @@ export function createMockServer() {
     for await (const c of req) raw += c;
     const body = (() => { try { return JSON.parse(raw || "{}"); } catch { return {}; } })();
     const kind = req.url.split("/")[1] || "ok";
-    hits.push({ kind, model: body.model || "?", auth: req.headers.authorization || "" });
+    const lastMsg = Array.isArray(body.messages) ? body.messages[body.messages.length - 1] : null;
+    hits.push({
+      kind, model: body.model || "?", auth: req.headers.authorization || "",
+      // 断言用：上游实际收到的最后一条文本（多模态数组应已被拍平成字符串）
+      lastText: typeof lastMsg?.content === "string"
+        ? lastMsg.content
+        : (body.contents?.[body.contents.length - 1]?.parts || []).map(p => p.text || "").join(""),
+    });
 
     const reply = (code, obj) => { res.writeHead(code, { "content-type": "application/json" }); res.end(JSON.stringify(obj)); };
     const sseHead = () => res.writeHead(200, { "content-type": "text/event-stream" });

@@ -230,6 +230,29 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("多模态形状兼容：content 数组拍平 / null 容忍 / 非法形状给具体 400", async () => {
+  const env = { ...ENV, PROVIDER_ORDER: "groq" };
+  // 客户端最常见的数组形状（OpenAI vision/agent 格式）：两段 text 拼成一个字符串
+  const arr = await post({ messages: [{ role: "user", content: [
+    { type: "text", text: "第一段" }, { type: "image_url", image_url: { url: "http://x/y.png" } },
+    { type: "text", text: "第二段" },
+  ] }] }, { env });
+  eq(arr.status, 200, `数组 content 不该再被 400 挡掉：${JSON.stringify(await arr.clone().json())}`);
+  eq(hits[0].lastText, "第一段\n第二段", "text 块应按序拼接、图片块丢弃");
+  // assistant 只带 tool_calls 时 content 为 null：不能算错
+  const nul = await post({ messages: [
+    { role: "user", content: "查天气" },
+    { role: "assistant", content: null, tool_calls: [{ id: "1" }] },
+    { role: "user", content: "继续" },
+  ] }, { env });
+  eq(nul.status, 200, "content:null 应被容忍");
+  // 真正不合法的形状：报错必须点明是第几条、什么类型
+  const bad = await post({ messages: [{ role: "user", content: 42 }] }, { env });
+  eq(bad.status, 400, "数字 content 仍应 400");
+  const msg = (await bad.json()).error.message;
+  ok(msg.includes("messages[0]") && msg.includes("number"), `错误信息要具体：${msg}`);
+  eq((await post({ messages: [{ content: "没 role" }] }, { env })).status, 400, "缺 role 仍应 400");
+});
 await t("新增 provider agnes：通用 openai 通路无需特化代码", async () => {
   const base = { ...ENV, AGNES_API_KEY: "sk-agnes-real", AGNES_BASE_URL: `${baseOf()}/ok/v1` };
   // 只挂 agnes 一家：证明 openai style 是通用的，新免费源=加一行表

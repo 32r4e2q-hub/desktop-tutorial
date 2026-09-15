@@ -210,7 +210,9 @@ curl -s -X POST https://zeroroute-lite.<你的子域>.workers.dev/v1/chat/comple
 - **上游的 400 不一定是你说的这件事**：Google 对**无效 key** 也回 400 `INVALID_ARGUMENT`（不是 401）。本网关只回 `gemini: http 400` 这种摘要，先怀疑 key，再怀疑模型名；实在要确诊就临时设 `DEBUG=true`，去 Workers 日志看被截断的上游原文。
 - 内存缓存与限流是 **per-isolate**：冷启动清空、跨地区不共享，命中率别指望。要共享得换 KV / Durable Objects（见下）。
 - Cloudflare 免费档 10ms CPU：长 prompt + 高并发时会撞墙（透传已经很省了，但这是平台限制）。
-- 只有 `text` 内容：不支持 function calling / tools / 图片 / 流式 usage 统计（各家字段差异太大，宁可不做也别做错）。
+- 只做纯文本：`content` 接受字符串或 OpenAI 的内容块数组（text 块按序拼接），
+  但 **image / audio / file 块会被丢掉**，也不支持 function calling / tools / 流式 usage 统计
+  （各家字段差异太大，宁可不做也别做错）。要真用图，得给 provider 加 vision 通路。
 - 无 dashboard 是故意的：那玩意把"改你的 provider 配置"暴露到公网，是本项目要修的那个洞本身。
 
 ## 6. 延伸（需要时再加，别提前造）
