@@ -1,0 +1,28 @@
+name: 披萨炸弹 · Release 资产上传
+run-name: 上传终版成片到 Release
+
+# 一次性辅助管道：沙箱出口连不上 uploads.github.com，
+# 由 runner 从本分支取成片，传到 release pizzabomber-final-2026-09-15。
+# 手动触发（workflow_dispatch）。用完可删。
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a0a39f-desktop-tutorial
+          fetch-depth: 1
+      - name: 上传资产到 release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload pizzabomber-final-2026-09-15 \
+            "交付/披萨炸弹劫案_三分钟_带声音.mp4" --clobber
+          gh release view pizzabomber-final-2026-09-15 --json assets
