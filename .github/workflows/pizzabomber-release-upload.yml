@@ -7,6 +7,13 @@ run-name: 上传终版成片到 Release
 
 on:
   workflow_dispatch:
+  # 仓库惯例的代理触发：push 一个空标记文件即可跑（本工作流只在 arena 分支上，
+  # main 上不可被发现，workflow_dispatch 会 404）。
+  push:
+    branches:
+      - arena/01a0a39f-desktop-tutorial
+    paths:
+      - production/pizzabomber/RELEASE_UPLOAD_REQUEST
 
 permissions:
   contents: write
