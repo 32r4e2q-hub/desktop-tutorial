@@ -1,0 +1,595 @@
+{
+  "film": "披萨炸弹劫案_三分钟_带声音.mp4",
+  "film_sha256": "c96f1d12d536bed1418514383aa875eb018f803d4788f3588c8513cb152dfd07",
+  "film_bytes": 97496896,
+  "decoded_audio_seconds": 180.011,
+  "project": "production/pizzabomber",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 27.046,
+        "script_chars": 106,
+        "heard_chars": 108,
+        "character_error_rate": 0.3019,
+        "match_coverage": 0.717,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零零"
+          },
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "宾",
+            "heard": "賓"
+          },
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "亚",
+            "heard": "亞"
+          },
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "利",
+            "heard": "麗"
+          },
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "萨",
+            "heard": "薩"
+          },
+          {
+            "at": 27,
+            "kind": "replace",
+            "script": "电话两",
+            "heard": "電話兩"
+          }
+        ],
+        "transcript": "2003年,8月28日下午,賓夕法尼亞州伊麗城披薩店接到一通電話,兩份披薩,送到城外的電視發射塔46歲的布萊恩維爾斯,在這家店跑了10年外買,接下了這一單塔下等著他的,不是小費,是一副鎖上就摘不下來的金屬領圈和領圈上掛著的定時炸彈"
+      },
+      {
+        "id": "N02",
+        "start": 28.126,
+        "end": 58.218,
+        "script_chars": 122,
+        "heard_chars": 120,
+        "character_error_rate": 0.0492,
+        "match_coverage": 0.9508,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 5,
+            "kind": "replace",
+            "script": "韦",
+            "heard": "威"
+          },
+          {
+            "at": 87,
+            "kind": "delete",
+            "script": "千",
+            "heard": ""
+          },
+          {
+            "at": 89,
+            "kind": "delete",
+            "script": "百",
+            "heard": ""
+          },
+          {
+            "at": 111,
+            "kind": "replace",
+            "script": "摆",
+            "heard": "白"
+          },
+          {
+            "at": 114,
+            "kind": "replace",
+            "script": "袋",
+            "heard": "带"
+          },
+          {
+            "at": 118,
+            "kind": "replace",
+            "script": "像",
+            "heard": "向"
+          }
+        ],
+        "transcript": "下午两点半,威尔斯走进PNC银行,安静排队,嘴里还含着棒棒糖。轮到柜台,他递进一张纸条。把能开金库的人叫来,15分钟,装够25万美元,不然脖子上的炸弹就响。金库开不了那么快,柜员只好把能凑出的8702美元,装进他的披萨袋。目击者后来说,他离开时白弄纸带和拐杖,向卓别林。"
+      },
+      {
+        "id": "N03",
+        "start": 59.298,
+        "end": 85.508,
+        "script_chars": 104,
+        "heard_chars": 104,
+        "character_error_rate": 0.3077,
+        "match_coverage": 0.6923,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "replace",
+            "script": "没",
+            "heard": "沒"
+          },
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "没报",
+            "heard": "沒報"
+          },
+          {
+            "at": 7,
+            "kind": "replace",
+            "script": "纸条",
+            "heard": "紙條"
+          },
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "线",
+            "heard": "線"
+          },
+          {
+            "at": 27,
+            "kind": "replace",
+            "script": "个线",
+            "heard": "個線"
+          },
+          {
+            "at": 34,
+            "kind": "replace",
+            "script": "车里",
+            "heard": "車裡"
+          }
+        ],
+        "transcript": "他沒跑,也沒報警,紙條替他安排好了路線先去隔壁快餐店取下一個線索警方在他車裡搜出九頁手寫指令收件人寫著,炸彈人質紙上的說法是,找七幾百鑰匙就能拖延引爆最後一步,給出拆彈暗號每一步都有人盯著頁墨一行大字先行動,後思考,否則死"
+      },
+      {
+        "id": "N04",
+        "start": 86.588,
+        "end": 113.506,
+        "script_chars": 107,
+        "heard_chars": 104,
+        "character_error_rate": 0.1495,
+        "match_coverage": 0.8505,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 9,
+            "kind": "replace",
+            "script": "韦",
+            "heard": "维"
+          },
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "按",
+            "heard": "暗"
+          },
+          {
+            "at": 17,
+            "kind": "replace",
+            "script": "铐",
+            "heard": "靠"
+          },
+          {
+            "at": 54,
+            "kind": "delete",
+            "script": "点零",
+            "heard": ""
+          },
+          {
+            "at": 63,
+            "kind": "replace",
+            "script": "呼叫",
+            "heard": "胡角"
+          },
+          {
+            "at": 66,
+            "kind": "delete",
+            "script": "点",
+            "heard": ""
+          }
+        ],
+        "transcript": "离开银行约一刻钟后,维尔斯被警察暗倒靠在停车场。他冲警察喊,快炸了,我不骗你们。警方不敢碰领圈,只拉起封锁线等拆弹的人。3.04分,拆弹队接到胡角,3.18分,炸弹抢线三分钟起爆。事后警方按酒业指条冲跑任务路线,结论时在实现之内根本跑不完。"
+      },
+      {
+        "id": "N05",
+        "start": 114.586,
+        "end": 145.91,
+        "script_chars": 124,
+        "heard_chars": 126,
+        "character_error_rate": 0.3468,
+        "match_coverage": 0.6774,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "两",
+            "heard": "兩"
+          },
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "柜",
+            "heard": "櫃"
+          },
+          {
+            "at": 14,
+            "kind": "insert",
+            "script": "",
+            "heard": "零零"
+          },
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "造弹",
+            "heard": "灶旦"
+          },
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "罗",
+            "heard": "羅"
+          },
+          {
+            "at": 26,
+            "kind": "replace",
+            "script": "动报",
+            "heard": "動報"
+          }
+        ],
+        "transcript": "案子卡了兩年,栽在一台冰櫃上。2003年9月,灶旦的羅斯斯坦主動報警,自家車庫冰櫃裡有一具屍體。死者是馬喬利·迪爾·阿姆斯特朗的同居男友。據檢方說法,他應知道太多被滅口。同案人在庭上作證,那副領圈是他照著維爾斯的脖子量了尺寸做的。而動機檢方只說了一句,湊25萬美元,故兇殺他父親。"
+      },
+      {
+        "id": "N06",
+        "start": 146.99,
+        "end": 174.0,
+        "script_chars": 115,
+        "heard_chars": 110,
+        "character_error_rate": 0.4,
+        "match_coverage": 0.6348,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 2,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "审团",
+            "heard": "審團"
+          },
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "玛乔丽",
+            "heard": "馬橋麗"
+          },
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "项",
+            "heard": "項"
+          },
+          {
+            "at": 20,
+            "kind": "replace",
+            "script": "无",
+            "heard": "無"
+          }
+        ],
+        "transcript": "2010年,陪審團裁定馬橋麗三項罪名成立,次年判無期,加30年,上訴全部被駁回。他當聽說,真凶還在外面,致死咬定主謀是羅斯斯坦,那人在起訴前便已病故,他自己在2017年病死獄中。至於威爾斯,是共謀還是替死鬼,警方與家屬各治一次,至今沒有第三種答案。"
+      }
+    ],
+    "max_cer": 0.4,
+    "failing": [
+      "N01",
+      "N03",
+      "N05",
+      "N06"
+    ]
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 27.046,
+        "script_chars": 106,
+        "heard_chars": 108,
+        "character_error_rate": 0.2925,
+        "match_coverage": 0.7264,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零零"
+          },
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "宾",
+            "heard": "賓"
+          },
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "亚",
+            "heard": "亞"
+          },
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "萨",
+            "heard": "薩"
+          },
+          {
+            "at": 27,
+            "kind": "replace",
+            "script": "电话两",
+            "heard": "電話兩"
+          },
+          {
+            "at": 32,
+            "kind": "replace",
+            "script": "萨",
+            "heard": "薩"
+          }
+        ],
+        "transcript": "2003年8月28日下午賓夕法尼亞州伊利城披薩店接到一通電話兩份披薩送到城外的電視發射塔46歲的布萊恩維爾斯在這家店跑了10年外買接下了這一單塔下等著他的不是小費是一副鎖上就摘不下來的金屬領圈和領圈上掛著的定時炸彈"
+      },
+      {
+        "id": "N02",
+        "start": 28.126,
+        "end": 58.218,
+        "script_chars": 122,
+        "heard_chars": 122,
+        "character_error_rate": 0.041,
+        "match_coverage": 0.959,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 5,
+            "kind": "replace",
+            "script": "韦",
+            "heard": "威"
+          },
+          {
+            "at": 68,
+            "kind": "replace",
+            "script": "响",
+            "heard": "想"
+          },
+          {
+            "at": 111,
+            "kind": "replace",
+            "script": "摆",
+            "heard": "白"
+          },
+          {
+            "at": 114,
+            "kind": "replace",
+            "script": "袋",
+            "heard": "带"
+          },
+          {
+            "at": 118,
+            "kind": "replace",
+            "script": "像",
+            "heard": "向"
+          }
+        ],
+        "transcript": "下午两点半,威尔斯走进PNC银行,安静排队,嘴里还含着棒棒糖。轮到柜台,他递进一张纸条。把能开金库的人叫来,十五分钟,装够二十五万美元,不然脖子上的炸弹就想。金库开不了那么快,柜员只好把能凑出的八千七百零二美元,装进他的披萨袋。目击者后来说,他离开时白弄纸带和拐杖,向卓别林。"
+      },
+      {
+        "id": "N03",
+        "start": 59.298,
+        "end": 85.508,
+        "script_chars": 104,
+        "heard_chars": 104,
+        "character_error_rate": 0.0385,
+        "match_coverage": 0.9615,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 38,
+            "kind": "replace",
+            "script": "九页",
+            "heard": "酒业"
+          },
+          {
+            "at": 60,
+            "kind": "replace",
+            "script": "齐",
+            "heard": "其"
+          },
+          {
+            "at": 89,
+            "kind": "replace",
+            "script": "页",
+            "heard": "夜"
+          }
+        ],
+        "transcript": "他没跑,也没报警,纸条替他安排好了路线,先去隔壁快餐店取下一个线索。警方在他车里搜出酒业手写指令,收件人写着,炸弹人质。纸上的说法是,找其几把钥匙就能拖延引爆,最后一步给出拆弹暗号,每一步都有人盯着。夜末一行大字,先行动,后思考,否则死。"
+      },
+      {
+        "id": "N04",
+        "start": 86.588,
+        "end": 113.506,
+        "script_chars": 107,
+        "heard_chars": 104,
+        "character_error_rate": 0.1402,
+        "match_coverage": 0.8598,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "刻",
+            "heard": "课"
+          },
+          {
+            "at": 9,
+            "kind": "replace",
+            "script": "韦",
+            "heard": "维"
+          },
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "按",
+            "heard": "暗"
+          },
+          {
+            "at": 17,
+            "kind": "replace",
+            "script": "铐",
+            "heard": "靠"
+          },
+          {
+            "at": 54,
+            "kind": "delete",
+            "script": "点零",
+            "heard": ""
+          },
+          {
+            "at": 63,
+            "kind": "replace",
+            "script": "呼叫",
+            "heard": "胡角"
+          }
+        ],
+        "transcript": "离开银行约一课钟后,维尔斯被警察暗倒靠在停车场。他冲警察喊,快炸了,我不骗你们。警方不敢碰领圈,只拉起封锁线等拆弹的人。3.04分,拆弹队接到胡角,3.18分,炸弹抢线三分钟起爆。事后警方按九页指条冲跑任务路线,结论时,在实现之内,根本跑不完。"
+      },
+      {
+        "id": "N05",
+        "start": 114.586,
+        "end": 145.91,
+        "script_chars": 124,
+        "heard_chars": 126,
+        "character_error_rate": 0.3468,
+        "match_coverage": 0.6774,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "两",
+            "heard": "兩"
+          },
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "柜",
+            "heard": "櫃"
+          },
+          {
+            "at": 14,
+            "kind": "insert",
+            "script": "",
+            "heard": "零零"
+          },
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "造弹",
+            "heard": "罩旦"
+          },
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "罗",
+            "heard": "羅"
+          },
+          {
+            "at": 26,
+            "kind": "replace",
+            "script": "动报",
+            "heard": "動報"
+          }
+        ],
+        "transcript": "案子卡了兩年,栽在一台冰櫃上。2003年9月,罩旦的羅斯斯坦主動報警。自家車庫冰櫃裡有一具屍體。死者是馬喬利·迪爾·阿姆斯特朗的同居男友。據檢方說法,他應知道太多被滅口。同案人在庭上作證,那副領圈是他照著維爾斯的脖子量了尺寸做的。而動機,檢方只說了一句,臭25萬美元,故兇殺他父親。"
+      },
+      {
+        "id": "N06",
+        "start": 146.99,
+        "end": 174.0,
+        "script_chars": 115,
+        "heard_chars": 110,
+        "character_error_rate": 0.4087,
+        "match_coverage": 0.6261,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 2,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "审团",
+            "heard": "審團"
+          },
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "玛乔丽",
+            "heard": "馬橋麗"
+          },
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "项",
+            "heard": "項"
+          },
+          {
+            "at": 20,
+            "kind": "replace",
+            "script": "无",
+            "heard": "無"
+          }
+        ],
+        "transcript": "2010年,陪審團裁定馬橋麗三項罪名成立,次年判無期加30年,上訴全部被駁回。他當聽說,真兄還在外面,致死咬定主謀是羅斯斯坦,那人在起訴前便已病故,他自己在2017年病死獄中。至於威爾斯,是共謀還是替死鬼,警方與家屬各治一詞,至今沒有第三種答案。"
+      }
+    ],
+    "max_cer": 0.4087,
+    "failing": [
+      "N01",
+      "N05",
+      "N06"
+    ]
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。本报告按 film_sha256 绑定被检成片：换一版成片必须重跑，结论不跨版本沿用。"
+}
