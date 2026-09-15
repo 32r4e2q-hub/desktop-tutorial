@@ -184,7 +184,12 @@ def transcribe(paths: dict[str, Path], model_size: str, language: str,
                work: Path) -> dict[str, str]:
     """转写。**刻意不给 initial_prompt**：模型不该事先知道剧本写了什么。"""
     work.mkdir(parents=True, exist_ok=True)
-    os.environ.setdefault("HF_HOME", str(work / "model-cache"))
+    # 模型缓存必须放在 work 的**外面**：工作流把整个 work 目录上传为 artifact，
+    # 2026-09-15 之前缓存落在 work/model-cache 里，每次听检白传 ~864MB，
+    # 七个旧项目的听检 artifact 把仓库配额打满（6GB/7.17GB）。
+    model_cache = work.parent / "model-cache"
+    model_cache.mkdir(parents=True, exist_ok=True)
+    os.environ.setdefault("HF_HOME", str(model_cache))
     os.environ.setdefault("HF_HUB_ETAG_TIMEOUT", "15")
     os.environ.setdefault("HF_HUB_DOWNLOAD_TIMEOUT", "90")
     try:
@@ -193,7 +198,7 @@ def transcribe(paths: dict[str, Path], model_size: str, language: str,
         raise VerdictError(f"faster-whisper 不可用，逐字听检没做成（不是通过）：{error}") from error
 
     model = WhisperModel(model_size, device="cpu", compute_type="int8", cpu_threads=4,
-                         download_root=str(work / "model-cache"))
+                         download_root=str(model_cache))
     transcripts: dict[str, str] = {}
     for cid, path in paths.items():
         segments, info = model.transcribe(str(path), language=language, beam_size=5,

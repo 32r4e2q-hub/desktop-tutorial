@@ -7,8 +7,9 @@
 
 | 路径 | 内容 |
 |---|---|
-| [`production/dahlia/`](production/dahlia/) | **参考实现**：《黑色大丽花：消失的六天》，已成片、已实测 |
-| [`交付/`](交付/) | 成片 `黑色大丽花_三分钟_带声音.mp4`（48.1 MB，1920×1080 / 30fps / 180 秒） |
+| [`production/dahlia/`](production/dahlia/) | **参考实现**（工具链的脚手架模板）：《黑色大丽花：消失的六天》，成片、实测、审片记录齐全；其成片文件已从工作树删除腾空间（Git 历史里可取回） |
+| [`production/pizzabomber/`](production/pizzabomber/) | **第二片**《披萨炸弹劫案（2003）》：已成片、已实测、已审片（`production/pizzabomber/review/` 有 2026-09-15 审片与听检裁决） |
+| [`交付/`](交付/) | 成片 `披萨炸弹劫案_三分钟_带声音.mp4`（97.5 MB，1920×1080 / 30fps / 180 秒） |
 | [`新题目开工手册.md`](新题目开工手册.md) | **换题目做新片就照这份走** |
 | [`production/new_topic.py`](production/new_topic.py) | 开新题目的脚手架：复制流水线、生成骨架、把上一部片子的内容标成 TODO |
 | [`production/dahlia/制作过程.md`](production/dahlia/制作过程.md) | 参考项目全过程，含"第一版为什么没声音"的根因与修复 |
@@ -122,7 +123,7 @@ python3 -m pytest production/tests -q                   # 离线测试
 本地：`bash production/run_project.sh <slug> [skip_asr] [成片文件名]`。
 Actions：「解说短片出片」→ 填 `project`（slug）、`skip_asr`、`film_name`。
 **`film_name` 留空会用 `story.json` 的标题当片名**，重跑已交付的片子会多出一个副本，
-所以重跑 dahlia 要填 `黑色大丽花_三分钟_带声音.mp4`。
+所以重跑已交付的片子要填原片名（例如重跑 pizzabomber 要填 `披萨炸弹劫案_三分钟_带声音.mp4`）。
 
 工作流的三个输入怎么传到脚本、脚本怎么用第 3 个参数，都有测试守着
 （`production/tests/test_workflows.py`）。
