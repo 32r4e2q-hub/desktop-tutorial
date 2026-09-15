@@ -187,6 +187,7 @@ class CutAlignmentTests(unittest.TestCase):
         counts = Counter(sid for sid, _ in entries)
         self.assertEqual(sorted(sid for sid, n in counts.items() if n > 1), ['S19', 'S21', 'S26'],
                          '复用清单变了：改复用要一并改 VARIANT_IN 与分镜表')
+        self.assertIn(('S10', 'b'), editor.VARIANT_IN, 'S10 用后段就必须登记入点（前 3.2s 有侧脸与门贴）')
         for sid in ('S19', 'S21', 'S26'):
             variants = [variant for got, variant in entries if got == sid]
             self.assertEqual(sorted(variants), ['', 'b'], f'{sid} 必须一段原样、一段换 variant')
