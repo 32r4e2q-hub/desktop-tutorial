@@ -17,7 +17,7 @@ on:
         default: '0.15'
   push:
     branches:
-      - arena/01a0a242-desktop-tutorial
+      - arena/01a0a39f-desktop-tutorial
     paths:
       - production/pizzabomber/VERBATIM_REQUEST
 
@@ -25,19 +25,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: pizzabomber-verbatim-arena-01a0a242-desktop-tutorial
+  group: pizzabomber-verbatim-arena-01a0a39f-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   listen:
-    if: github.ref == 'refs/heads/arena/01a0a242-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a0a39f-desktop-tutorial'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a0a242-desktop-tutorial
+          ref: arena/01a0a39f-desktop-tutorial
           fetch-depth: 1
 
       - name: Install ffmpeg
@@ -75,7 +75,7 @@ jobs:
 
       - name: Publish the report back to the branch
         env:
-          BRANCH: arena/01a0a242-desktop-tutorial
+          BRANCH: arena/01a0a39f-desktop-tutorial
         run: |
           mkdir -p production/pizzabomber/delivery
           cp work/pizzabomber/verbatim/verbatim-check.json production/pizzabomber/delivery/

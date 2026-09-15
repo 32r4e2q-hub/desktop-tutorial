@@ -9,7 +9,7 @@ import time
 import urllib.parse
 
 REPO='32r4e2q-hub/desktop-tutorial'
-BRANCH='arena/01a0a242-desktop-tutorial'
+BRANCH='arena/01a0a39f-desktop-tutorial'
 
 
 def api(endpoint):

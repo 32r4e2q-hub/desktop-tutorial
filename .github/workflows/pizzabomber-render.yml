@@ -5,6 +5,12 @@ run-name: 出片 · 披萨炸弹劫案
 # paths 只看这一个文件，所以出片自己 commit 回分支的成片与报告不会自我循环。
 # 流程本体在 production/run_project.sh（校验 → 按 SHA-256 回填素材 → 剪辑混音复测
 # → 画质QC → 成片与报告 commit 回本分支），所有项目共用。
+#
+# 2026-09-15：本片续做迁入 arena/01a0a39f-desktop-tutorial，四处 pin 全部改到新分支。
+# 同日事故复盘：上一会话给「已装的」.github/workflows/pizzabomber-render.yml 加诊断步骤时
+# 把文件截断了——主步骤丢失 PROJECT/SKIP_ASR/FILM_NAME 注入与全部安装步骤，
+# run_project.sh 以 0 参数启动直接报用法错（见 render-diag.log 2026-09-15T05:23Z 那次）。
+# 对策：失败诊断步骤并进本模板，已装副本必须与模板逐字节一致（test_pizzabomber 守着）。
 
 on:
   workflow_dispatch:
@@ -19,7 +25,7 @@ on:
         default: '披萨炸弹劫案_三分钟_带声音.mp4'
   push:
     branches:
-      - arena/01a0a242-desktop-tutorial
+      - arena/01a0a39f-desktop-tutorial
     paths:
       - production/pizzabomber/RENDER_REQUEST
 
@@ -27,22 +33,57 @@ permissions:
   contents: write
 
 concurrency:
-  group: pizzabomber-render-arena-01a0a242-desktop-tutorial
+  group: pizzabomber-render-arena-01a0a39f-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   render:
-    if: github.ref == 'refs/heads/arena/01a0a242-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a0a39f-desktop-tutorial'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a0a242-desktop-tutorial
+          ref: arena/01a0a39f-desktop-tutorial
           fetch-depth: 1
 
       - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install render dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16" || \
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16"
+
+      - name: Resolve the deliverable name
+        env:
+          FILM_INPUT: ${{ inputs.film_name }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FILM_INPUT:-}" ]; then
+            film="$FILM_INPUT"
+          else
+            film='披萨炸弹劫案_三分钟_带声音.mp4'
+          fi
+          echo "FILM_NAME=$film" >> "$GITHUB_ENV"
+          echo "Deliverable: $film"
+
+      - name: Validate, restore footage, render with measured audio, publish reports
+        env:
+          PROJECT: pizzabomber
+          SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
+          FILM_NAME: ${{ env.FILM_NAME }}
+          BRANCH: arena/01a0a39f-desktop-tutorial
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log; exit ${PIPESTATUS[0]}
 
       - name: Ship failure tail to branch (sandbox cannot read Actions logs)

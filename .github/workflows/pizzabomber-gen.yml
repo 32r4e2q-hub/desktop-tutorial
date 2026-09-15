@@ -18,7 +18,7 @@ on:
         default: '{"workers":2}'
   push:
     branches:
-      - arena/01a0a242-desktop-tutorial
+      - arena/01a0a39f-desktop-tutorial
     paths:
       - production/pizzabomber/GEN_REQUEST
 
@@ -26,19 +26,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: pizzabomber-agnes-arena-01a0a242-desktop-tutorial
+  group: pizzabomber-agnes-arena-01a0a39f-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/01a0a242-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a0a39f-desktop-tutorial'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a0a242-desktop-tutorial
+          ref: arena/01a0a39f-desktop-tutorial
           fetch-depth: 1
 
       - name: Resolve the generation payload
