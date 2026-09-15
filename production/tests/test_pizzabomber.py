@@ -271,26 +271,27 @@ class CutAlignmentTests(unittest.TestCase):
 
 class EditWindowTests(unittest.TestCase):
     def test_no_edit_window_is_too_long_to_fill(self):
-        """出片前就算出「窗口 > 素材可用时长 × 1.33」，省一次 40 分钟的失败运行。"""
+        """出片前就算出「窗口 > 素材可用时长 × 1.33」，省一次 40 分钟的失败运行。
+
+        2026-09-15：旧版在这里自己算 take——`clip_length - 0.12`——而引擎 clip_window
+        是首尾各削 0.12（take = (length-0.12) - 0.12）。S09 因此在测试里 1.31 绿、
+        runner 上 1.33 炸，测试与闸门用了两把尺。现在直接调 clip_window：
+        引擎抛 = 测试红，二者永不失同步（逐镜上限/VARIANT_IN/S30 特例也一并由引擎裁决）。
+        """
         lengths = {}
         for receipt in sorted((PROJECT / 'qa').glob('S*.json')):
             lengths[receipt.stem] = json.loads(receipt.read_text(encoding='utf-8'))['duration']
         rows, _ = narration_rows()
         edl = editor.make_edl(project_plan(), rows)
-        windows = {}
         for entry in edl:
             if entry['kind'] != 'agnes':
                 continue
-            key = (entry['id'], entry['variant'])
-            length = (entry['end_frame'] - entry['start_frame']) / editor.FPS
-            windows[key] = max(windows.get(key, 0.0), length)
-        for (sid, variant), duration in windows.items():
-            clip_length = lengths.get(sid, 7.041667)   # 素材未生成时按 7 秒标称算
-            in_point = editor.VARIANT_IN.get((sid, variant), 0.12)
-            take = min(clip_length - 0.12, clip_length - in_point, duration) if (sid, variant) in editor.VARIANT_IN else min(clip_length - 0.12, duration)
-            factor = duration / max(take, 0.001)
-            self.assertLessEqual(factor, 1.33,
-                                 f'{sid}/{variant or "base"} 需要 {factor:.2f}× 慢放来铺满窗口——先加镜头或改提示词')
+            duration = (entry['end_frame'] - entry['start_frame']) / editor.FPS
+            clip_length = lengths.get(entry['id'], 7.041667)   # 素材未生成时按 7 秒标称算
+            try:
+                editor.clip_window(entry['id'], entry['variant'], clip_length, duration)
+            except RuntimeError as exc:
+                self.fail(f"{entry['id']}/{entry['variant'] or 'base'}: {exc}——先加镜头或改提示词")
 
     def test_variant_reuse_shifts_the_in_point(self):
         lengths = {}
