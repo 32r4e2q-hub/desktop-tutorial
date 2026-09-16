@@ -230,6 +230,20 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("🔒 任何响应都不得带逐跳头：HTTP/2 客户端 + CDN 会把响应判成「空 body 400」", async () => {
+  // Hermes(openai SDK→httpx+h2) 现场：Worker 代码正常跑完，但 Cloudflare 边缘因协议违例拒了响应，
+  // 客户端只看到 "Error code: 400"，response body 是空的，服务端什么日志都没有。
+  const HOP = ["connection", "keep-alive", "proxy-connection", "te", "trailer", "transfer-encoding", "upgrade"];
+  const env = { ...ENV, PROVIDER_ORDER: "groq" };
+  const s = await post({ stream: true, messages: [{ role: "user", content: "hi" }] }, { env });
+  eq(s.status, 200, "流式应 200");
+  await s.text();
+  for (const h of HOP) ok(!s.headers.has(h), `流式响应里出现了逐跳头 ${h}（h2 下会被 CDN 拒）`);
+  eq(s.headers.get("content-type"), "text/event-stream; charset=utf-8", "SSE 的 content-type 要保持");
+  const j = await post({ messages: [{ role: "user", content: "hi" }] }, { env });
+  await j.text();
+  for (const h of HOP) ok(!j.headers.has(h), `非流式响应里出现了逐跳头 ${h}`);
+});
 await t("/v1/models 上报 max_model_len：Hermes 靠它探测上下文窗口，探不到就瞎兜底", async () => {
   const env = {
     ...ENV, PROVIDER_ORDER: "agnes", AGNES_API_KEY: "sk-agnes-real", AGNES_MODEL: "agnes-2.5-flash",

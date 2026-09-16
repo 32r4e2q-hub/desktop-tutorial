@@ -97,6 +97,7 @@ fetch("/v1/chat/completions",{method:"POST",headers:{"content-type":"application
 | 发图过去模型说"我看不到图" | 有意为之：`image_url` 内容块会被丢掉，本网关只做文字 |
 | `400 messages 必须是非空数组` | 老版本网关只认 `messages`；**1.4.0 起兼容 Responses 风格的 `input`+`instructions`**（也认 `prompt`）。若仍 400，报错里会列出它收到的顶层字段名，照那个字段名告诉我即可 |
 | 左下角 `Gateway needs setup` | Hermes 自己的**工具网关**没配（与本网关无关）。不配的话 agent 能力受限，但纯聊天不受影响 |
+| `Error code: 400` 且 `response_text` 是**空字符串**、只有 `stream:true` 那发失败、`code: format_error` | **1.6.1 修的正是这个**：流式响应里我原来带了 `connection: keep-alive`，HTTP/2 禁止逐跳头 → Cloudflare 边缘拒掉整个响应，客户端只看到裸 400。若你贴的还是旧版，`/v1/models` 之外没有任何办法绕开（不是 Hermes 的配置问题） |
 | `code: format_error`、`layer: provider`，而且**没有生成 request dump 文件** | 请求在 Hermes 内部就没组好（多半是上下文窗口算歪）。**1.6.0 起**网关在 `/v1/models` 里上报 `max_model_len`（= 各家最小窗口，可用 `<ID>_CONTEXT` 覆盖），它就不用兜底猜了。要手工钉死：`config.yaml` 的 `model:` 下加 `context_length: 32000`（**别用 `hermes config set`，那条会把 base_url/api_key 一起清掉**） |
 | `error code 400`，但网关 `arrivals` 不涨、dump 里 `response_text` 是**空字符串** | **不是网关拒的**：我的每个 400 都带 JSON 文案，空 body 说明请求在 Cloudflare 边缘就被拦了。去看 Cloudflare → `安全性 / Security` → `事件 / Events`（WAF、Bot Fight Mode 的拦截记录都在那），以及 `可观测性 → 日志` 里到底有没有这条 POST。**1.5.3 起**，凡是我拒的请求还会往 Workers 日志写一行 `[zeroroute-lite] 拒绝 …`，所以"日志里完全没有"就是硬证据 |
 | `error code 400` 且看不到细节 | 在 Cloudflare 加变量 `DEBUG=true` 并部署 → 浏览器开 `https://<worker>.<子域>.workers.dev/debug/last-error`，把里面的 `last` 段贴给排错的人（只有形状与字节数，没有内容）。`arrivals` 不涨说明请求没进网关，问题在 Hermes/Cloudflare 侧 |

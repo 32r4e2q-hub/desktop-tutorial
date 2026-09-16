@@ -651,7 +651,7 @@ function upstreamReason(status, providerId) {
  *   其它路径一律 404 —— 不内置 dashboard / widget，少一个可被攻击的面。
  */
 
-const VERSION = "1.6.0";
+const VERSION = "1.6.1";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -1009,10 +1009,14 @@ async function streamResponse(upstream, provider, body) {
   if (first.done) return null;
 
   const transform = streamBodyFor(provider, id, model);
+  // ⚠️ 这里绝不能放逐跳(hop-by-hop)头：`Connection`/`Keep-Alive`/`Transfer-Encoding`/`Upgrade`/`TE`/
+  // `Trailer`/`Proxy-Connection` 在 HTTP/2 里是禁止的（RFC 7540 §8.1.2.2）。客户端若是 httpx+h2
+  // （openai SDK 就是），Cloudflare 边缘会因协议违例直接回一个**空 body 的 400**：Worker 代码毫无
+  // 痕迹、日志里没有、客户端只看到 "Error code: 400"。这个坑花了一整轮排查，别再加回来。
+  // 而且经由 CDN 时 keep-alive 本来也没有意义，连接复用由边缘自己决定。
   const headers = {
     "content-type": "text/event-stream; charset=utf-8",
     "cache-control": "no-cache, no-transform",
-    connection: "keep-alive",
     "x-accel-buffering": "no",
     "x-provider": provider.id,
   };

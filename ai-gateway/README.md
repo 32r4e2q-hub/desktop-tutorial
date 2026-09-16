@@ -222,6 +222,15 @@ https://<你的worker>.<子域>.workers.dev/debug/last-error
 
 ---
 
+## 4″. 响应头里不放逐跳（hop-by-hop）头
+
+`Connection` / `Keep-Alive` / `Transfer-Encoding` / `Upgrade` / `TE` / `Trailer` 这些头在 HTTP/2 里是
+**禁止**的（RFC 7540 §8.1.2.2）。经 Cloudflare 回源时带了它们，边缘会以协议违例为由**丢掉整个响应**，
+客户端只收到一个 body 为空的 400 —— 而 Worker 的日志与计数器一切正常，排查起来极其误导。
+本网关只在 SSE 那条路径上需要设置头，那里刻意不放任何逐跳头，并有自检锁住。
+
+---
+
 ## 5. 实话实说的限制
 
 - **免费额度不是"0 成本架构"**。Groq/Gemini 等的条款禁止把免费 key 用于生产/中转分发，被判定滥用会封号。自用、demo、做实验可以；商用请买正式额度。
