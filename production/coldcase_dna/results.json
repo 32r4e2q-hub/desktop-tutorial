@@ -795,7 +795,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "pipeline_failed",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -835,6 +835,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-16T02:12:13Z",
-  "run_id": "35043688862"
+  "updated_at": "2026-09-16T02:13:51Z",
+  "run_id": "35043688862",
+  "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/coldcase_dna/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/coldcase_dna/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/coldcase_dna/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/coldcase_dna/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/coldcase_dna/edit/first-cut.mp4']' returned non-zero exit status 1."
 }
