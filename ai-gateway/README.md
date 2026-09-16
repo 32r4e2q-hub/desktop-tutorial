@@ -106,6 +106,8 @@ r = client.chat.completions.create(model="auto", messages=[{"role": "user", "con
 ## 3′. 全程只用鼠标（不装任何东西、不打开终端）★推荐给不熟命令行的你
 
 > 想直接照抄、不想读本文其余部分：[`部署清单.md`](./部署清单.md)（5 步 + 验证表 + 三条禁令）。
+>
+> 要接进 **Windows 版 Hermes**（agent 客户端）：[`Hermes-Windows接入.md`](./Hermes-Windows接入.md)。
 
 
 原理：本项目压成了一个文件 `bundle/worker.js`（851 行），Cloudflare 网页编辑器可以整份粘进去。
@@ -211,8 +213,14 @@ curl -s -X POST https://zeroroute-lite.<你的子域>.workers.dev/v1/chat/comple
 - 内存缓存与限流是 **per-isolate**：冷启动清空、跨地区不共享，命中率别指望。要共享得换 KV / Durable Objects（见下）。
 - Cloudflare 免费档 10ms CPU：长 prompt + 高并发时会撞墙（透传已经很省了，但这是平台限制）。
 - 只做纯文本：`content` 接受字符串或 OpenAI 的内容块数组（text 块按序拼接），
-  但 **image / audio / file 块会被丢掉**，也不支持 function calling / tools / 流式 usage 统计
-  （各家字段差异太大，宁可不做也别做错）。要真用图，得给 provider 加 vision 通路。
+  但 **image / audio / file 块会被丢掉**。要真用图，得给 provider 加 vision 通路。
+- **function calling 只在 `style:"openai"` 的上游透传**（groq / sambanova / mistral / openrouter /
+  agnes / cohere / nvidia / huggingface）：请求里的 `tools`/`tool_choice` 原样送上去，响应里的
+  `tool_calls` 原样带回来，流式则是字节级透传。**`gemini` 与 `cloudflare` 两家不做翻译**，
+  带 `tools` 时会被忽略（模型只回文字）——所以接 Hermes / Claude-Code 这类 agent 时，
+  `PROVIDER_ORDER` 里要让它排在这些家之后，或干脆用 `<id>/<model>` 钉到 OpenAI 兼容的那几家。
+- 不做 /v1/responses（OpenAI 的另一种协议）、不做 `anthropic_messages`：Hermes 里请显式写
+  `api_mode: chat_completions`。
 - 无 dashboard 是故意的：那玩意把"改你的 provider 配置"暴露到公网，是本项目要修的那个洞本身。
 
 ## 6. 延伸（需要时再加，别提前造）

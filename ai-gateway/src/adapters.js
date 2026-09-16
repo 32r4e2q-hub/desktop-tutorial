@@ -20,6 +20,12 @@ export function buildUpstream(provider, body, { stream }) {
 
   if (provider.style === "openai") {
     const payload = { model: provider.model, messages: body.messages, stream, ...compact(p) };
+    // agent 类客户端（Hermes 等）靠 tools 才能真动手：原样透传，不做方言翻译
+    if (Array.isArray(body.tools) && body.tools.length) {
+      payload.tools = body.tools;
+      if (body.tool_choice !== undefined) payload.tool_choice = body.tool_choice;
+      if (body.parallel_tool_calls !== undefined) payload.parallel_tool_calls = body.parallel_tool_calls;
+    }
     return {
       url: `${provider.baseUrl}/chat/completions`,
       init: {
@@ -84,7 +90,13 @@ export function normalize(provider, raw) {
       provider: provider.id,
       choices: [{
         index: 0,
-        message: { role: "assistant", content: choice?.message?.content ?? choice?.text ?? "" },
+        message: {
+          role: "assistant",
+          content: choice?.message?.content ?? choice?.text ?? "",
+          // 上游要调工具时 content 往往是空的，答案全在 tool_calls 里 —— 吞掉就等于让 agent 失忆
+          ...(Array.isArray(choice?.message?.tool_calls) && choice.message.tool_calls.length
+            ? { tool_calls: choice.message.tool_calls } : {}),
+        },
         finish_reason: choice?.finish_reason || "stop",
       }],
       usage: raw?.usage || null,

@@ -25,7 +25,7 @@ export function createMockServer() {
     const kind = req.url.split("/")[1] || "ok";
     const lastMsg = Array.isArray(body.messages) ? body.messages[body.messages.length - 1] : null;
     hits.push({
-      kind, model: body.model || "?", auth: req.headers.authorization || "",
+      kind, model: body.model || "?", auth: req.headers.authorization || "", tools: (body.tools || []).length,
       // 断言用：上游实际收到的最后一条文本（多模态数组应已被拍平成字符串）
       lastText: typeof lastMsg?.content === "string"
         ? lastMsg.content
@@ -84,6 +84,25 @@ export function createMockServer() {
     }
 
     // ── 默认：健康上游 ──
+    const wantTool = Array.isArray(body.tools) && body.tools.length > 0;
+    if (body.stream && wantTool) {            // 工具调用的流式形状
+      sseHead();
+      const call = { index: 0, id: "call_1", type: "function",
+        function: { name: body.tools[0].function?.name || "lookup", arguments: "{}" } };
+      res.write(`data: ${JSON.stringify({ id: "cmpl-mock", object: "chat.completion.chunk", created: 1,
+        model: "mock-model", choices: [{ index: 0, delta: { role: "assistant", tool_calls: [call] } }] })}\n\n`);
+      res.write(`data: ${JSON.stringify({ id: "cmpl-mock", object: "chat.completion.chunk", created: 1,
+        model: "mock-model", choices: [{ index: 0, delta: {}, finish_reason: "tool_calls" }] })}\n\n`);
+      return res.end("data: [DONE]\n\n");
+    }
+    if (wantTool) {                            // 非流式：content 为空，答案在 tool_calls
+      return reply(200, {
+        id: "cmpl-mock", object: "chat.completion", created: 1, model: "mock-model",
+        choices: [{ index: 0, message: { role: "assistant", content: null, tool_calls:
+          [{ id: "call_1", type: "function", function: { name: body.tools[0].function?.name || "lookup", arguments: "{}" } }] },
+          finish_reason: "tool_calls" }],
+      });
+    }
     if (body.stream) {
       sseHead();
       for (const w of ["你好", "，", "世界"]) res.write(openaiChunk(w));

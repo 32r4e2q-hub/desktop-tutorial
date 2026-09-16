@@ -253,6 +253,30 @@ await t("多模态形状兼容：content 数组拍平 / null 容忍 / 非法形�
   ok(msg.includes("messages[0]") && msg.includes("number"), `错误信息要具体：${msg}`);
   eq((await post({ messages: [{ content: "没 role" }] }, { env })).status, 400, "缺 role 仍应 400");
 });
+await t("function calling 透传：openai 风格上游带 tools 进出，gemini 明确忽略不报错", async () => {
+  const TOOLS = [{ type: "function", function: { name: "get_weather", parameters: { type: "object" } } }];
+  const env = { ...ENV, PROVIDER_ORDER: "groq", GROQ_BASE_URL: `${baseOf()}/ok/v1` };
+  const res = await post({ messages: [{ role: "user", content: "北京天气" }], tools: TOOLS }, { env });
+  eq(res.status, 200, "带 tools 的请求不该被网关挡掉");
+  eq(hits[0].tools, 1, "tools 必须原样送到上游");
+  const body = await res.json();
+  eq(body.choices[0].finish_reason, "tool_calls", "finish_reason 别被改写成 stop");
+  const tc = body.choices[0].message.tool_calls;
+  ok(Array.isArray(tc) && tc[0].function.name === "get_weather", `tool_calls 要带回：${JSON.stringify(body.choices[0].message)}`);
+  eq(tc[0].function.arguments, "{}", "arguments 原样");
+  // 流式：openai 风格是原样透传字节，tool_calls 增量不该被动过
+  const sres = await post({ stream: true, messages: [{ role: "user", content: "北京天气" }], tools: TOOLS }, { env });
+  const st = await sres.text();
+  ok(st.includes("tool_calls"), "流式里没有 tool_calls 增量 = 被吞了");
+  ok(st.includes("data: [DONE]"), "流式仍要 [DONE] 收尾");
+  // 不带 tools 时上游请求体里不该凭空多出 tools 字段（省得有些上游报错）
+  await post({ messages: [{ role: "user", content: "闲聊" }] }, { env });
+  eq(hits[2].tools, 0, "没传 tools 就不该塞进去");
+  // gemini 方言没有 tools 通路：忽略 tools 正常回答，而不是 400/502
+  const genv = { ...ENV, PROVIDER_ORDER: "gemini", GEMINI_API_KEY: "key-gemini-real", GEMINI_BASE_URL: `${baseOf()}/gemini/v1beta` };
+  const g = await post({ messages: [{ role: "system", content: "你是中文助手" }, { role: "user", content: "天气" }], tools: TOOLS }, { env: genv });
+  eq(g.status, 200, "gemini 侧应忽略 tools 而不是报错");
+});
 await t("新增 provider agnes：通用 openai 通路无需特化代码", async () => {
   const base = { ...ENV, AGNES_API_KEY: "sk-agnes-real", AGNES_BASE_URL: `${baseOf()}/ok/v1` };
   // 只挂 agnes 一家：证明 openai style 是通用的，新免费源=加一行表
