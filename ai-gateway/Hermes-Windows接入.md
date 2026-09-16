@@ -95,6 +95,8 @@ fetch("/v1/chat/completions",{method:"POST",headers:{"content-type":"application
 | `401 invalid router api key` | 网关的 `ROUTER_API_KEY` 和 config.yaml 里 `api_key` 不一致（轮换过的话最容易漏改） |
 | 上下文窗口显示得比预期小一半 | Windows 桌面版对 custom provider 读的是家族默认值，不是你的配置：`context_length` 已在 YAML 里显式写死 |
 | 发图过去模型说"我看不到图" | 有意为之：`image_url` 内容块会被丢掉，本网关只做文字 |
+| `400 messages 必须是非空数组` | 老版本网关只认 `messages`；**1.4.0 起兼容 Responses 风格的 `input`+`instructions`**（也认 `prompt`）。若仍 400，报错里会列出它收到的顶层字段名，照那个字段名告诉我即可 |
+| 左下角 `Gateway needs setup` | Hermes 自己的**工具网关**没配（与本网关无关）。不配的话 agent 能力受限，但纯聊天不受影响 |
 | 429 rate limited | 免费档 RPM，等 60 秒或让 `auto` 降级；频繁出现就把 `RATE_LIMIT_RPM` 抬一档 |
 
 ## 6. 两句实话

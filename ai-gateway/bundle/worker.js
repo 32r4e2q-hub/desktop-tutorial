@@ -143,6 +143,36 @@ function flattenMessages(messages) {
   return { messages: out, dropped };
 }
 
+/**
+ * 把"消息列表"从各家形状里取出来。
+ *
+ * 除了标准 `messages`，还接受 Responses 风格的 `input`（字符串或 item 数组）
+ * + `instructions`（当 system），以及老式补全的 `prompt` —— Hermes 这类客户端
+ * 有时会发这些。返回数组；实在取不到就返回 null（由调用方给出可诊断的 400）。
+ */
+function coerceMessages(body) {
+  if (Array.isArray(body.messages) && body.messages.length) return body.messages;
+  const out = [];
+  const sys = typeof body.instructions === "string" ? body.instructions
+    : (typeof body.system === "string" ? body.system : "");
+  if (sys) out.push({ role: "system", content: sys });
+  const src = body.input ?? body.prompt;
+  if (typeof src === "string") out.push({ role: "user", content: src });
+  else if (Array.isArray(src)) {
+    for (const it of src) {
+      if (typeof it === "string") { out.push({ role: "user", content: it }); continue; }
+      const parts = Array.isArray(it?.content) ? it.content : null;
+      out.push({
+        ...it,
+        role: typeof it?.role === "string" ? it.role : "user",
+        content: parts ? parts.map(p => (typeof p === "string" ? p : p?.text ?? "")).join("\n")
+          : (it?.content ?? it?.output_text ?? ""),
+      });
+    }
+  }
+  return out.length ? out : null;
+}
+
 function brief(s, n = 120) {
   const t = String(s ?? "").replace(/\s+/g, " ").trim();
   return t.length > n ? `${t.slice(0, n)}…` : t;
@@ -604,7 +634,7 @@ function upstreamReason(status, providerId) {
  *   其它路径一律 404 —— 不内置 dashboard / widget，少一个可被攻击的面。
  */
 
-const VERSION = "1.3.0";
+const VERSION = "1.4.0";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -727,11 +757,14 @@ async function handle(request, env = {}) {
 
     let body;
     try { body = await request.json(); } catch { return withCors(apiError("请求体不是合法 JSON", 400)); }
-    if (!Array.isArray(body.messages) || body.messages.length === 0) {
-      return withCors(apiError("messages 必须是非空数组", 400));
+    // 取消息：标准 messages，或 Responses 风格的 input/instructions，或老式 prompt
+    const msgs = coerceMessages(body);
+    if (!msgs) {
+      return withCors(apiError(
+        `messages 必须是非空数组（收到 ${brief(Object.keys(body).join(","), 120) || "空对象"}）`, 400));
     }
     // content 允许 string / 内容块数组 / null（见 util.flattenMessages），这里统一拍平
-    const flat = flattenMessages(body.messages);
+    const flat = flattenMessages(msgs);
     if (flat.error) return withCors(apiError(flat.error, 400, { code: "invalid_message" }));
     if (flat.dropped && cfg.debug) {
       console.warn(`[zeroroute-lite] 忽略了 ${flat.dropped} 个非文本内容块（本网关只做 text）`);

@@ -13,9 +13,9 @@ import { loadConfig, maskKey } from "./env.js";
 import { checkToken, clientKeyOf, RateLimiter } from "./auth.js";
 import { MemoryCache, cacheKeyOf } from "./cache.js";
 import { buildUpstream, normalize, streamBodyFor, upstreamReason } from "./adapters.js";
-import { apiError, bearerOf, brief, flattenMessages, json, newId, openaiChunk, sseChunk } from "./util.js";
+import { apiError, bearerOf, brief, coerceMessages, flattenMessages, json, newId, openaiChunk, sseChunk } from "./util.js";
 
-export const VERSION = "1.3.0";
+export const VERSION = "1.4.0";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -138,11 +138,14 @@ export async function handle(request, env = {}) {
 
     let body;
     try { body = await request.json(); } catch { return withCors(apiError("请求体不是合法 JSON", 400)); }
-    if (!Array.isArray(body.messages) || body.messages.length === 0) {
-      return withCors(apiError("messages 必须是非空数组", 400));
+    // 取消息：标准 messages，或 Responses 风格的 input/instructions，或老式 prompt
+    const msgs = coerceMessages(body);
+    if (!msgs) {
+      return withCors(apiError(
+        `messages 必须是非空数组（收到 ${brief(Object.keys(body).join(","), 120) || "空对象"}）`, 400));
     }
     // content 允许 string / 内容块数组 / null（见 util.flattenMessages），这里统一拍平
-    const flat = flattenMessages(body.messages);
+    const flat = flattenMessages(msgs);
     if (flat.error) return withCors(apiError(flat.error, 400, { code: "invalid_message" }));
     if (flat.dropped && cfg.debug) {
       console.warn(`[zeroroute-lite] 忽略了 ${flat.dropped} 个非文本内容块（本网关只做 text）`);

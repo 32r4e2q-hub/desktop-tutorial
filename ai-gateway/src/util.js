@@ -133,6 +133,36 @@ export function flattenMessages(messages) {
   return { messages: out, dropped };
 }
 
+/**
+ * 把"消息列表"从各家形状里取出来。
+ *
+ * 除了标准 `messages`，还接受 Responses 风格的 `input`（字符串或 item 数组）
+ * + `instructions`（当 system），以及老式补全的 `prompt` —— Hermes 这类客户端
+ * 有时会发这些。返回数组；实在取不到就返回 null（由调用方给出可诊断的 400）。
+ */
+export function coerceMessages(body) {
+  if (Array.isArray(body.messages) && body.messages.length) return body.messages;
+  const out = [];
+  const sys = typeof body.instructions === "string" ? body.instructions
+    : (typeof body.system === "string" ? body.system : "");
+  if (sys) out.push({ role: "system", content: sys });
+  const src = body.input ?? body.prompt;
+  if (typeof src === "string") out.push({ role: "user", content: src });
+  else if (Array.isArray(src)) {
+    for (const it of src) {
+      if (typeof it === "string") { out.push({ role: "user", content: it }); continue; }
+      const parts = Array.isArray(it?.content) ? it.content : null;
+      out.push({
+        ...it,
+        role: typeof it?.role === "string" ? it.role : "user",
+        content: parts ? parts.map(p => (typeof p === "string" ? p : p?.text ?? "")).join("\n")
+          : (it?.content ?? it?.output_text ?? ""),
+      });
+    }
+  }
+  return out.length ? out : null;
+}
+
 export function brief(s, n = 120) {
   const t = String(s ?? "").replace(/\s+/g, " ").trim();
   return t.length > n ? `${t.slice(0, n)}…` : t;

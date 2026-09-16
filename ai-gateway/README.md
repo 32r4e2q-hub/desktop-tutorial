@@ -213,6 +213,8 @@ curl -s -X POST https://zeroroute-lite.<你的子域>.workers.dev/v1/chat/comple
 - 内存缓存与限流是 **per-isolate**：冷启动清空、跨地区不共享，命中率别指望。要共享得换 KV / Durable Objects（见下）。
 - Cloudflare 免费档 10ms CPU：长 prompt + 高并发时会撞墙（透传已经很省了，但这是平台限制）。
 - 只做纯文本：`content` 接受字符串或 OpenAI 的内容块数组（text 块按序拼接），
+  `messages` 缺失时兼容 Responses 风格的 `input` + `instructions` 与老式 `prompt`；
+  都取不到才 400，且 400 里会列出**收到的顶层字段名**（只给字段名，不碰内容）。
   但 **image / audio / file 块会被丢掉**。要真用图，得给 provider 加 vision 通路。
 - **function calling 只在 `style:"openai"` 的上游透传**（groq / sambanova / mistral / openrouter /
   agnes / cohere / nvidia / huggingface）：请求里的 `tools`/`tool_choice` 原样送上去，响应里的

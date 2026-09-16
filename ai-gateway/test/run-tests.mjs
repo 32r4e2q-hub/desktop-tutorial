@@ -230,6 +230,21 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("Responses 风格兼容：input/instructions 也能跑；取不到消息时 400 里列出顶层字段名", async () => {
+  const env = { ...ENV, PROVIDER_ORDER: "groq" };
+  const r1 = await post({ model: "auto", instructions: "你是中文助手", input: "你好" }, { env });
+  eq(r1.status, 200, `input 字符串形状应可用：${JSON.stringify(await r1.clone().json())}`);
+  eq(hits[0].lastText, "你好", "input 应转成最后一条 user 文本");
+  const r2 = await post({ model: "auto", input: [{ role: "user", content: [{ type: "input_text", text: "多段" }] }] }, { env });
+  eq(r2.status, 200, "input item 数组应可用");
+  eq(hits[1].lastText, "多段", "input_text 块要拼进来");
+  const r3 = await post({ model: "auto", prompt: "老式补全字段" }, { env });
+  eq(r3.status, 200, "老式 prompt 字段也该能用");
+  const r4 = await post({ model: "auto", foo: 1 }, { env });
+  eq(r4.status, 400, "什么都没有时仍要 400");
+  ok((await r4.json()).error.message.includes("foo"), "400 要说明收到了哪些顶层字段");
+  eq((await post({ model: "auto", messages: [] }, { env })).status, 400, "空 messages 依旧 400");
+});
 await t("多模态形状兼容：content 数组拍平 / null 容忍 / 非法形状给具体 400", async () => {
   const env = { ...ENV, PROVIDER_ORDER: "groq" };
   // 客户端最常见的数组形状（OpenAI vision/agent 格式）：两段 text 拼成一个字符串
