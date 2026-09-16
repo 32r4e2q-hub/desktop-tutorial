@@ -349,16 +349,9 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         if sid=='S06' and variant=='b':a=2.9;b=length-.12
         # 窗口选择：CUTS 里较短的编辑窗口只取 7 秒素材的对应片段，
         # 保证每段变速比落在 ±33% 以内（引擎闸门 factor<=1.33）。
-        if sid=='S05':a=.12;b=min(3.85,length-.12)
-        if sid=='S09':a=.12;b=min(3.7,length-.12)
-        if sid=='S10':a=max(.12,length-2.2);b=length-.12  # 只取四个帆布袋的揭示段
-        if sid=='S14':a=.12;b=min(4.0,length-.12)
-        if sid=='S16':a=.12;b=min(1.75,length-.12)
-        if sid=='S17':a=.12;b=min(4.4,length-.12)
-        if sid=='S24':a=.12;b=min(4.1,length-.12)
-        if sid=='S25':a=.12;b=min(3.4,length-.12)
-        if sid=='S29':a=.12;b=min(2.5,length-.12)
-        if sid=='S30':a=.12;b=min(4.1,length-.12)  # 末镜含 2.2s 无解说静场，接片尾卡
+        # Full clip windowing adapted to 7-second footage
+        a = 0.05
+        b = length - 0.05
         available=b-a
         take=min(available,duration)
         factor=duration/take
