@@ -1,5 +1,5 @@
 name: 成片 · Release 资产上传（通用，marker 驱动）
-run-name: 上传 Release 资产 · ${{ github.head_ref }}
+run-name: 上传 Release 资产 · ${{ github.ref_name }}
 
 # 沙箱出口封了 uploads.github.com / release-assets.githubusercontent.com，
 # 代理（Agent）在沙箱里**传不了** release 资产。本管道由 runner 代传：
