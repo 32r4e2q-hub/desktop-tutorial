@@ -98,6 +98,7 @@ fetch("/v1/chat/completions",{method:"POST",headers:{"content-type":"application
 | `400 messages 必须是非空数组` | 老版本网关只认 `messages`；**1.4.0 起兼容 Responses 风格的 `input`+`instructions`**（也认 `prompt`）。若仍 400，报错里会列出它收到的顶层字段名，照那个字段名告诉我即可 |
 | 左下角 `Gateway needs setup` | Hermes 自己的**工具网关**没配（与本网关无关）。不配的话 agent 能力受限，但纯聊天不受影响 |
 | `error code 400` 且看不到细节 | 在 Cloudflare 加变量 `DEBUG=true` 并部署 → 浏览器开 `https://<worker>.<子域>.workers.dev/debug/last-error`，把里面的 `last` 段贴给排错的人（只有形状与字节数，没有内容）。`arrivals` 不涨说明请求没进网关，问题在 Hermes/Cloudflare 侧 |
+| 分不清"Hermes 没发请求"还是"发了但被拒" | 看 `/debug/last-error` 里三个字段：`paths`（每个路径各数一次，**1.5.2 起**，不再被诊断端点自己污染）、`last_chat`（成功也记：状态码/耗时/谁答的）、`last`（被我拒的才有）。`paths` 里没有 `/v1/chat/completions` = 它打的不是这个路径，`asked_path` 会写出真实路径 |
 | `error code 400` 且 `debug/last-error` 里 `arrivals: 0` | 请求没打到 `/v1/chat/completions`。**1.5.1 起**未知路径/未知模型也会计数并记下 `asked_path`/`asked_model`，直接看那个字符串就知道它拼错了什么 |
 | 429 rate limited | 免费档 RPM，等 60 秒或让 `auto` 降级；频繁出现就把 `RATE_LIMIT_RPM` 抬一档 |
 

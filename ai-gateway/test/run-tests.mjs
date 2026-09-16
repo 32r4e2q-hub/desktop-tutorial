@@ -230,6 +230,27 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("🔧 成功的 chat 也要留下痕迹：paths 分路径计数 + last_chat 记结果", async () => {
+  const env = { ...ENV, DEBUG: "true", PROVIDER_ORDER: "groq" };
+  const okRes = await post({ model: "auto", messages: [{ role: "user", content: "hi" }] }, { env });
+  eq(okRes.status, 200, "上游正常应 200");
+  await okRes.text();
+  const d = await (await get("/debug/last-error", { env })).json();
+  eq(d.paths["/v1/chat/completions"] >= 1, true, `按路径计数才分得开：${JSON.stringify(d.paths)}`);
+  eq(d.paths["/debug/last-error"] >= 1, true, "诊断端点自己被数进去也不能污染结论");
+  eq(d.last_chat.status, 200, "成功也要记 last_chat");
+  eq(d.last_chat.provider, "groq", "顺带记下是谁答的");
+  ok(d.last_chat.ms >= 0 && typeof d.last_chat.user_agent === "string", "要有耗时与 UA");
+  // 上游全挂时，last_chat 记的是 502（这才是"到过了、但不是我的锅"的证据）
+  const down = { ...ENV, DEBUG: "true", PROVIDER_ORDER: "nvidia", NVIDIA_BASE_URL: "http://127.0.0.1:1/v1" };
+  const beforeRej = (await (await get("/debug/last-error", { env: down })).json()).rejections;
+  const bad = await post({ model: "auto", messages: [{ role: "user", content: "hi" }] }, { env: down });
+  eq(bad.status, 502, "上游不可达应 502");
+  await bad.text();
+  const d2 = await (await get("/debug/last-error", { env: down })).json();
+  eq(d2.last_chat.status, 502, "502 也要记进 last_chat");
+  eq(d2.rejections, beforeRej, "上游挂了不该新增 rejections（那是「我拒了客户端」）");
+});
 await t("🔧 门口就被拒的请求也算 arrivals（路径不对 / 模型名不对都会留下痕迹）", async () => {
   const env = { ...ENV, DEBUG: "true" };
   const badPath = await get("/v1/chat/completions/extra", { token: ENV.ROUTER_API_KEY, env });

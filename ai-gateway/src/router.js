@@ -15,13 +15,15 @@ import { MemoryCache, cacheKeyOf } from "./cache.js";
 import { buildUpstream, normalize, streamBodyFor, upstreamReason } from "./adapters.js";
 import { apiError, bearerOf, brief, coerceMessages, describeMessages, flattenMessages, json, newId, openaiChunk, sseChunk } from "./util.js";
 
-export const VERSION = "1.5.1";
+export const VERSION = "1.5.2";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
   lastRejection: null,          // 最近一次"进来了但被我拒了"的元数据（只有形状，没有内容）
   rejections: 0,
   arrivals: 0,
+  paths: Object.create(null),   // 每个路径各数一次：证明"Hermes 到底打的是哪个路径"
+  lastChat: null,             // 最近一次 /v1/chat/completions 的结果摘要（成功也记；只有元数据）
   providers: new Map(),          // id -> { cooldownUntil, failures, lastLatencyMs, lastError }
   cache: null,
   limiter: null,
@@ -76,8 +78,26 @@ export async function handle(request, env = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, "") || "/";
   const cors = corsHeaders(request, cfg);
-  const withCors = (res) => { for (const [k, v] of Object.entries(cors)) res.headers.set(k, v); return res; };
-  state.arrivals++;   // 先计数：这样"到门口就被 404/405"的请求也算进来了，不会假报"没请求"
+  state.arrivals++;
+  state.paths[path] = (state.paths[path] || 0) + 1;
+  const t0 = Date.now();
+  // withCors 是每个响应唯一的出口，所以在这儿顺手记一笔 chat 的结果：
+  // 成功也要记 —— 否则"答应了但客户端不认"和"根本没来"看起来一模一样。
+  const withCors = (res) => {
+    for (const [k, v] of Object.entries(cors)) res.headers.set(k, v);
+    if (path === "/v1/chat/completions") {
+      state.lastChat = {
+        at: new Date().toISOString(),
+        status: res.status,
+        ms: Date.now() - t0,
+        provider: res.headers.get("x-provider") || "-",
+        cache: res.headers.get("x-cache") || "-",
+        content_type: res.headers.get("content-type") || "-",
+        user_agent: brief(request.headers.get("user-agent") || "(无)", 60),
+      };
+    }
+    return res;
+  };   // 先计数：这样"到门口就被 404/405"的请求也算进来了，不会假报"没请求"
 
   if (request.method === "OPTIONS") return withCors(new Response(null, { status: 204 }));
 
@@ -90,7 +110,9 @@ export async function handle(request, env = {}) {
     }
     return withCors(json({
       status: "ok", version: VERSION, arrivals: state.arrivals, rejections: state.rejections,
-      last: state.lastRejection || "(还没有被拒的请求：如果 arrivals 也不涨，说明请求根本没到这里)",
+      paths: state.paths,
+      last_chat: state.lastChat || "(还没有 /v1/chat/completions 请求到过这个 isolate)",
+      last: state.lastRejection || "(还没有被拒的请求)",
       note: "只有形状与字节数等元数据，不含任何 prompt/回答内容",
     }));
   }
