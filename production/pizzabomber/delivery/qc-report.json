@@ -1,0 +1,273 @@
+{
+  "film": "交付/披萨炸弹劫案_三分钟_带声音.mp4",
+  "film_bytes": 97496896,
+  "film_sha256": "c96f1d12d536bed1418514383aa875eb018f803d4788f3588c8513cb152dfd07",
+  "duration_s": 180.0,
+  "avg_bitrate_mbps": 4.333,
+  "sample_fps": 2.0,
+  "sampled_frames": 360,
+  "picture_rows_measured": [
+    140,
+    940
+  ],
+  "thresholds": {
+    "blocking_p50_max": 0.14,
+    "blocking_p90_max": 0.3,
+    "overexposed_fraction_max": 0.06,
+    "overexposed_frame_count_max": 0,
+    "underexposed_p95_reference": 0.8,
+    "saturation_mean_min": 0.02,
+    "saturation_mean_max": 0.42,
+    "flash_reversal_spikes_max": 0,
+    "flash_reversal_amp_min": 0.045,
+    "letterbox_min_frame_fraction": 0.8,
+    "border_pure_max": 4,
+    "border_pure_std": 1.5,
+    "designed_border_segments": [
+      "S26"
+    ],
+    "axis_aligned_fraction_min": 0.18
+  },
+  "checks": [
+    {
+      "name": "resolution",
+      "desc": "交付片为 1920x1080",
+      "measured": [
+        1920,
+        1080
+      ],
+      "ok": true,
+      "note": "1920x1080，要求 1920x1080"
+    },
+    {
+      "name": "decode_errors",
+      "desc": "全片完整解码无错误行",
+      "measured": [
+        0
+      ],
+      "ok": true,
+      "note": "ffmpeg -v error -xerror 全片解码，无 error/invalid/conceal 行"
+    },
+    {
+      "name": "blocking",
+      "desc": "8x8 块效应不超阈值（压缩伪影）",
+      "measured": [
+        0.0418,
+        0.2006,
+        0.5607
+      ],
+      "ok": true,
+      "note": "画面区内量；p50=0.042（上限 0.14）、p90=0.201（上限 0.3）、max=0.561；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+    },
+    {
+      "name": "banding_reference",
+      "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
+      "measured": [
+        0.6928
+      ],
+      "ok": true,
+      "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
+    },
+    {
+      "name": "overexposed",
+      "desc": "高光不削顶",
+      "measured": [
+        0.00267,
+        0
+      ],
+      "ok": true,
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.00267；占比 >2% 的帧数 0（上限 0）"
+    },
+    {
+      "name": "underexposed_reference",
+      "desc": "暗部死黑占比（参考量，不判定）",
+      "measured": [
+        0.2559
+      ],
+      "ok": true,
+      "note": "≤6 灰阶占比 p95=0.256；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
+    },
+    {
+      "name": "saturation",
+      "desc": "饱和度不过冲、也不脱色",
+      "measured": [
+        0.0999,
+        0.1453
+      ],
+      "ok": true,
+      "note": "均值 0.100（要求 0.02..0.42）"
+    },
+    {
+      "name": "flash",
+      "desc": "段内无异常闪烁（单帧反向亮度尖峰，切点与淡变已排除）",
+      "measured": [
+        1,
+        [
+          176.0
+        ],
+        [
+          0.1159
+        ]
+      ],
+      "ok": false,
+      "note": "360 个采样帧里量到 1 次；幅度阈值 0.045；硬切台阶与淡入淡出不计入（那是剪辑）"
+    },
+    {
+      "name": "letterbox",
+      "desc": "设计外无额外遮幅/纯黑 mat",
+      "measured": [
+        {}
+      ],
+      "ok": true,
+      "note": "判据：整行 max≤4 且 σ≤1.5，且该段 ≥80% 的采样帧都有；白名单（设计内）['S26']；卡面段与淡入淡出帧不参与；违规段：无。偏暗但有内容的行不计入（上一版误把夜戏暗场当遮幅，已修）"
+    },
+    {
+      "name": "orientation_purity",
+      "desc": "强边缘轴向占比（畸变代理，仅对照）",
+      "measured": [
+        0.7309
+      ],
+      "ok": true,
+      "note": "p5=0.731，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
+    }
+  ],
+  "metrics": {
+    "blocking_mean": 0.0548,
+    "blocking_p50": 0.0418,
+    "blocking_p90": 0.2006,
+    "blocking_p95": 0.3143,
+    "blocking_max": 0.5607,
+    "step_ratio_p95_reference": 0.6928,
+    "saturation_mean": 0.0999,
+    "saturation_p95": 0.1453,
+    "overexposed_max": 0.00267,
+    "underexposed_p95": 0.2559,
+    "luma_mean": 102.11,
+    "luma_max": 158.48,
+    "flash_reversal_spikes": 1,
+    "flash_spike_times_s": [
+      176.0
+    ],
+    "letterbox_by_segment": {},
+    "axis_aligned_p5": 0.7309
+  },
+  "per_segment": {
+    "?": {
+      "kind": null,
+      "frames": 360,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0418,
+      "blocking_max": 0.5607,
+      "overexposed_max": 0.00267
+    }
+  },
+  "worst_blocking_frames": [
+    {
+      "frame": 336,
+      "t": 168.0,
+      "segment": null,
+      "blocking": 0.5607,
+      "step_ratio": 0.4787
+    },
+    {
+      "frame": 144,
+      "t": 72.0,
+      "segment": null,
+      "blocking": 0.5295,
+      "step_ratio": 0.6841
+    },
+    {
+      "frame": 294,
+      "t": 147.0,
+      "segment": null,
+      "blocking": 0.5214,
+      "step_ratio": 0.6933
+    },
+    {
+      "frame": 25,
+      "t": 12.5,
+      "segment": null,
+      "blocking": 0.4805,
+      "step_ratio": 0.6928
+    },
+    {
+      "frame": 300,
+      "t": 150.0,
+      "segment": null,
+      "blocking": 0.4729,
+      "step_ratio": 0.6847
+    },
+    {
+      "frame": 211,
+      "t": 105.5,
+      "segment": null,
+      "blocking": 0.465,
+      "step_ratio": 0.6826
+    },
+    {
+      "frame": 86,
+      "t": 43.0,
+      "segment": null,
+      "blocking": 0.441,
+      "step_ratio": 0.6753
+    },
+    {
+      "frame": 200,
+      "t": 100.0,
+      "segment": null,
+      "blocking": 0.4171,
+      "step_ratio": 0.6811
+    },
+    {
+      "frame": 151,
+      "t": 75.5,
+      "segment": null,
+      "blocking": 0.3955,
+      "step_ratio": 0.6743
+    },
+    {
+      "frame": 242,
+      "t": 121.0,
+      "segment": null,
+      "blocking": 0.3893,
+      "step_ratio": 0.675
+    },
+    {
+      "frame": 205,
+      "t": 102.5,
+      "segment": null,
+      "blocking": 0.3809,
+      "step_ratio": 0.6872
+    },
+    {
+      "frame": 337,
+      "t": 168.5,
+      "segment": null,
+      "blocking": 0.3795,
+      "step_ratio": 0.4793
+    }
+  ],
+  "not_measured": [
+    "单帧局部畸变（无原始未处理帧可比对，几何上无 ground truth）——由 review/ 的 68 帧全幅密扫表 + 定点裁放图逐格人工判读代替",
+    "色彩保真度绝对值（无参考母带；只量了饱和度分布）",
+    "AI 素材自身的解剖/结构错误 —— 属镜头抽卡闸门，不由本脚本负责",
+    "假轮廓判定（见模块注释第 3 条：现口径无法区分抖动与条带，只给参考量）"
+  ]
+}

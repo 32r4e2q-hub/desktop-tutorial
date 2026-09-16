@@ -28,6 +28,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -183,7 +184,12 @@ def transcribe(paths: dict[str, Path], model_size: str, language: str,
                work: Path) -> dict[str, str]:
     """转写。**刻意不给 initial_prompt**：模型不该事先知道剧本写了什么。"""
     work.mkdir(parents=True, exist_ok=True)
-    os.environ.setdefault("HF_HOME", str(work / "model-cache"))
+    # 模型缓存必须放在 work 的**外面**：工作流把整个 work 目录上传为 artifact，
+    # 2026-09-15 之前缓存落在 work/model-cache 里，每次听检白传 ~864MB，
+    # 七个旧项目的听检 artifact 把仓库配额打满（6GB/7.17GB）。
+    model_cache = work.parent / "model-cache"
+    model_cache.mkdir(parents=True, exist_ok=True)
+    os.environ.setdefault("HF_HOME", str(model_cache))
     os.environ.setdefault("HF_HUB_ETAG_TIMEOUT", "15")
     os.environ.setdefault("HF_HUB_DOWNLOAD_TIMEOUT", "90")
     try:
@@ -192,7 +198,7 @@ def transcribe(paths: dict[str, Path], model_size: str, language: str,
         raise VerdictError(f"faster-whisper 不可用，逐字听检没做成（不是通过）：{error}") from error
 
     model = WhisperModel(model_size, device="cpu", compute_type="int8", cpu_threads=4,
-                         download_root=str(work / "model-cache"))
+                         download_root=str(model_cache))
     transcripts: dict[str, str] = {}
     for cid, path in paths.items():
         segments, info = model.transcribe(str(path), language=language, beam_size=5,
@@ -278,8 +284,17 @@ def main(argv: list[str] | None = None) -> int:
             control = compare(chapters, transcribe(control_paths, args.model, args.language,
                                                    args.work), args.max_cer)
 
+    # 报告必须说清它量的是哪一版成片：dbcooper 一天里出片四次，而交付的
+    # delivery/verbatim-check.json 只有文件名没有指纹，"CER 全过"就成了可以跨版本沿用的空话。
+    # 顺带这也是唯一能发现"两次结果一模一样"的办法——音频真的一致时它是巧合，
+    # 不一致时它是 bug。
+    with args.film.open("rb") as handle:
+        film_digest = hashlib.file_digest(handle, "sha256").hexdigest()
     report = {
         "film": args.film.name,
+        "film_sha256": film_digest,
+        "film_bytes": args.film.stat().st_size,
+        "decoded_audio_seconds": round(len(samples) / RATE, 3),
         "project": str(args.project),
         "method": f"faster-whisper {args.model}，无 initial_prompt；转写对象为最终成片按章节切出的音频",
         "max_cer_allowed": args.max_cer,
@@ -287,7 +302,8 @@ def main(argv: list[str] | None = None) -> int:
         "narration_control": control,
         "note": ("CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是"
                  "\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；"
-                 "对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"),
+                 "对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+                 "本报告按 film_sha256 绑定被检成片：换一版成片必须重跑，结论不跨版本沿用。"),
     }
     out = args.report or args.work / "verbatim-check.json"
     out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
