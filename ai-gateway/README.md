@@ -205,6 +205,23 @@ curl -s -X POST https://zeroroute-lite.<你的子域>.workers.dev/v1/chat/comple
 
 ---
 
+## 4′. 远程排错：`GET /debug/last-error`
+
+客户端报 `400` 却不告诉你它发了什么时（Hermes 就是这样），在 Cloudflare 里加一个变量
+`DEBUG=true` 并部署，然后浏览器直接开：
+
+```
+https://<你的worker>.<子域>.workers.dev/debug/last-error
+```
+
+它会给出：最近一次被拒请求的方法/路径/状态码/**content-type/字节数/UA**、body 的**顶层字段名**、
+每条消息的**形状摘要**（如 `user:array(text+image_url)`）。`arrivals` 不涨 = 请求根本没进到你的代码，
+该去查客户端或 Cloudflare 边缘；`arrivals` 涨而 `rejections` 也涨 = 是我的校验拒的，按 `message` 改即可。
+
+**它不含任何 prompt 或回答内容，也不含任何 key**（`note` 里明说了这条），`DEBUG` 关着时仍需要带 key 才能读。
+
+---
+
 ## 5. 实话实说的限制
 
 - **免费额度不是"0 成本架构"**。Groq/Gemini 等的条款禁止把免费 key 用于生产/中转分发，被判定滥用会封号。自用、demo、做实验可以；商用请买正式额度。

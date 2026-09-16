@@ -173,6 +173,20 @@ function coerceMessages(body) {
   return out.length ? out : null;
 }
 
+/** 把消息列表压成"形状摘要"（角色:内容类型），用于 /debug/last-error。不含任何正文。 */
+function describeMessages(list) {
+  return (Array.isArray(list) ? list : []).slice(0, 12).map((m) => {
+    const role = typeof m?.role === "string" ? m.role : "?";
+    const c = m?.content;
+    if (Array.isArray(c)) {
+      const kinds = c.map(p => (typeof p === "string" ? "str" : (p && typeof p === "object" ? (p.type || "obj") : typeof p))).join("+");
+      return `${role}:array(${brief(kinds, 48)})`;
+    }
+    if (c == null) return `${role}:null`;
+    return `${role}:${typeof c}`;
+  });
+}
+
 function brief(s, n = 120) {
   const t = String(s ?? "").replace(/\s+/g, " ").trim();
   return t.length > n ? `${t.slice(0, n)}…` : t;
@@ -634,10 +648,13 @@ function upstreamReason(status, providerId) {
  *   其它路径一律 404 —— 不内置 dashboard / widget，少一个可被攻击的面。
  */
 
-const VERSION = "1.4.0";
+const VERSION = "1.5.0";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
+  lastRejection: null,          // 最近一次"进来了但被我拒了"的元数据（只有形状，没有内容）
+  rejections: 0,
+  arrivals: 0,
   providers: new Map(),          // id -> { cooldownUntil, failures, lastLatencyMs, lastError }
   cache: null,
   limiter: null,
@@ -697,6 +714,19 @@ async function handle(request, env = {}) {
   if (request.method === "OPTIONS") return withCors(new Response(null, { status: 204 }));
 
   // ── 公开探针：只报"配了几个 provider / 掩码"，不报 key，不报 prompt ──────────
+  if (request.method === "GET" && path === "/debug/last-error") {
+    // 默认仍要 key；只有 DEBUG=true 时才允许直接开在浏览器地址栏里看
+    if (!cfg.debug) {
+      const denied = authorize(request, cfg, "models");
+      if (denied) return withCors(denied);
+    }
+    return withCors(json({
+      status: "ok", version: VERSION, arrivals: state.arrivals, rejections: state.rejections,
+      last: state.lastRejection || "(还没有被拒的请求：如果 arrivals 也不涨，说明请求根本没到这里)",
+      note: "只有形状与字节数等元数据，不含任何 prompt/回答内容",
+    }));
+  }
+
   if (request.method === "GET" && (path === "/healthz" || path === "/health")) {
     return withCors(json({
       status: "ok",
@@ -744,7 +774,11 @@ async function handle(request, env = {}) {
   // ── 聊天主路 ────────────────────────────────────────────────────────────────
   if (request.method === "POST" && (path === "/v1/chat/completions" || path === "/chat/completions")) {
     const denied = authorize(request, cfg, "chat");
-    if (denied) return withCors(denied);
+    if (denied) {
+      state.arrivals++;
+      noteRejection(request, denied.status, "鉴权未通过（详见 message）", { has_auth_header: !!request.headers.get("authorization") });
+      return withCors(denied);
+    }
 
     const rl = state.limiter.check(clientKeyOf(request));
     if (!rl.allowed) {
@@ -755,17 +789,36 @@ async function handle(request, env = {}) {
       );
     }
 
-    let body;
-    try { body = await request.json(); } catch { return withCors(apiError("请求体不是合法 JSON", 400)); }
+    let body, raw = "";
+    try { raw = await request.text(); } catch {
+      noteRejection(request, 400, "读取请求体失败", { raw_bytes: 0 });
+      return withCors(apiError("读取请求体失败", 400, { code: "unreadable_body" }));
+    }
+    try { body = JSON.parse(raw); } catch {
+      noteRejection(request, 400, "请求体不是合法 JSON", {
+        raw_bytes: raw.length, first_char: (raw.trim().slice(0, 1) || "(空)"),
+      });
+      return withCors(apiError("请求体不是合法 JSON", 400, { code: "invalid_json", raw_bytes: raw.length }));
+    }
     // 取消息：标准 messages，或 Responses 风格的 input/instructions，或老式 prompt
     const msgs = coerceMessages(body);
     if (!msgs) {
+      const keys = Object.keys(body).join(",");
+      noteRejection(request, 400, "messages 必须是非空数组", {
+        top_level_keys: brief(keys, 200) || "(空对象)", raw_bytes: raw.length,
+      });
       return withCors(apiError(
-        `messages 必须是非空数组（收到 ${brief(Object.keys(body).join(","), 120) || "空对象"}）`, 400));
+        `messages 必须是非空数组（收到 ${brief(keys, 160) || "空对象"}）`, 400));
     }
     // content 允许 string / 内容块数组 / null（见 util.flattenMessages），这里统一拍平
     const flat = flattenMessages(msgs);
-    if (flat.error) return withCors(apiError(flat.error, 400, { code: "invalid_message" }));
+    if (flat.error) {
+      noteRejection(request, 400, flat.error, {
+        messages_shape: describeMessages(msgs), top_level_keys: brief(Object.keys(body).join(","), 200),
+        dropped_non_text: flat.dropped,
+      });
+      return withCors(apiError(flat.error, 400, { code: "invalid_message" }));
+    }
     if (flat.dropped && cfg.debug) {
       console.warn(`[zeroroute-lite] 忽略了 ${flat.dropped} 个非文本内容块（本网关只做 text）`);
     }
@@ -847,6 +900,26 @@ async function handle(request, env = {}) {
 }
 
 // ── 内部小工具 ────────────────────────────────────────────────────────────────
+
+/**
+ * 记一笔"被拒"的元数据，供 GET /debug/last-error 读。
+ * 刻意只存：方法/路径/状态码/字节数/content-type/UA/消息形状 —— 一个字的 prompt 都不留，
+ * 与"不落盘 prompt"是同一条原则。远程排错时它是唯一能看清"客户端到底发了什么形状"的办法。
+ */
+function noteRejection(request, status, message, extra = {}) {
+  state.rejections++;
+  state.lastRejection = {
+    at: new Date().toISOString(),
+    method: request.method,
+    path: new URL(request.url).pathname,
+    status,
+    message: String(message).slice(0, 200),
+    content_type: request.headers.get("content-type") || "(无)",
+    content_length: request.headers.get("content-length") || "(无)",
+    user_agent: brief(request.headers.get("user-agent") || "(无)", 60),
+    ...extra,
+  };
+}
 
 function authorize(request, cfg, what) {
   const token = bearerOf(request.headers.get("authorization"));

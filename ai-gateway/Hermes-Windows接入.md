@@ -97,6 +97,7 @@ fetch("/v1/chat/completions",{method:"POST",headers:{"content-type":"application
 | 发图过去模型说"我看不到图" | 有意为之：`image_url` 内容块会被丢掉，本网关只做文字 |
 | `400 messages 必须是非空数组` | 老版本网关只认 `messages`；**1.4.0 起兼容 Responses 风格的 `input`+`instructions`**（也认 `prompt`）。若仍 400，报错里会列出它收到的顶层字段名，照那个字段名告诉我即可 |
 | 左下角 `Gateway needs setup` | Hermes 自己的**工具网关**没配（与本网关无关）。不配的话 agent 能力受限，但纯聊天不受影响 |
+| `error code 400` 且看不到细节 | 在 Cloudflare 加变量 `DEBUG=true` 并部署 → 浏览器开 `https://<worker>.<子域>.workers.dev/debug/last-error`，把里面的 `last` 段贴给排错的人（只有形状与字节数，没有内容）。`arrivals` 不涨说明请求没进网关，问题在 Hermes/Cloudflare 侧 |
 | 429 rate limited | 免费档 RPM，等 60 秒或让 `auto` 降级；频繁出现就把 `RATE_LIMIT_RPM` 抬一档 |
 
 ## 6. 两句实话

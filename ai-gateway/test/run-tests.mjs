@@ -230,6 +230,22 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("🔒 /debug/last-error：只暴露形状与字节数，绝不泄露一个字的内容", async () => {
+  const env = { ...ENV, PROVIDER_ORDER: "groq", DEBUG: "true" };
+  const secret = "这句话绝不能出现在诊断里";
+  const res = await post({ model: "auto", messages: [{ role: "user", content: { bad: secret } }] }, { env });
+  eq(res.status, 400, "非法 content 形状应 400");
+  const d = await (await get("/debug/last-error", { env })).json();
+  eq(d.arrivals >= 1, true, "arrivals 要计数（否则无从判断请求有没有进来）");
+  eq(d.last.status, 400, "记录的状态码");
+  ok(JSON.stringify(d.last.messages_shape).includes("user:object"), `形状摘要：${JSON.stringify(d.last.messages_shape)}`);
+  const dump = JSON.stringify(d);
+  ok(!dump.includes(secret), "🔒 诊断里出现了 prompt 原文！");
+  ok(!dump.includes("key-groq-real"), "🔒 诊断里不得出现任何 key");
+  // DEBUG 关掉时必须仍然要 key（诊断端点不能变成新的公开面）
+  const locked = await get("/debug/last-error", { env: { ...ENV, PROVIDER_ORDER: "groq" } });
+  eq(locked.status, 401, "没开 DEBUG 时诊断端点仍需鉴权");
+});
 await t("Responses 风格兼容：input/instructions 也能跑；取不到消息时 400 里列出顶层字段名", async () => {
   const env = { ...ENV, PROVIDER_ORDER: "groq" };
   const r1 = await post({ model: "auto", instructions: "你是中文助手", input: "你好" }, { env });

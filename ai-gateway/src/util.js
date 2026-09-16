@@ -163,6 +163,20 @@ export function coerceMessages(body) {
   return out.length ? out : null;
 }
 
+/** 把消息列表压成"形状摘要"（角色:内容类型），用于 /debug/last-error。不含任何正文。 */
+export function describeMessages(list) {
+  return (Array.isArray(list) ? list : []).slice(0, 12).map((m) => {
+    const role = typeof m?.role === "string" ? m.role : "?";
+    const c = m?.content;
+    if (Array.isArray(c)) {
+      const kinds = c.map(p => (typeof p === "string" ? "str" : (p && typeof p === "object" ? (p.type || "obj") : typeof p))).join("+");
+      return `${role}:array(${brief(kinds, 48)})`;
+    }
+    if (c == null) return `${role}:null`;
+    return `${role}:${typeof c}`;
+  });
+}
+
 export function brief(s, n = 120) {
   const t = String(s ?? "").replace(/\s+/g, " ").trim();
   return t.length > n ? `${t.slice(0, n)}…` : t;
