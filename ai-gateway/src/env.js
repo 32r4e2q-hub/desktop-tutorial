@@ -17,7 +17,7 @@
  */
 export const PROVIDER_DEFS = [
   {
-    id: "groq", name: "Groq", style: "openai",
+    id: "groq", name: "Groq", style: "openai", context: 128000,
     base: "https://api.groq.com/openai/v1",
     defaultModel: "llama-3.3-70b-versatile",
   },
@@ -27,12 +27,12 @@ export const PROVIDER_DEFS = [
     defaultModel: "Meta-Llama-3.3-70B-Instruct",
   },
   {
-    id: "mistral", name: "Mistral", style: "openai",
+    id: "mistral", name: "Mistral", style: "openai", context: 32768,
     base: "https://api.mistral.ai/v1",
     defaultModel: "mistral-small-latest",
   },
   {
-    id: "openrouter", name: "OpenRouter", style: "openai",
+    id: "openrouter", name: "OpenRouter", style: "openai", context: 128000,
     base: "https://openrouter.ai/api/v1",
     defaultModel: "meta-llama/llama-3.3-70b-instruct:free",
   },
@@ -41,7 +41,7 @@ export const PROVIDER_DEFS = [
     // 国内走 .cn，海外走 https://apihub.agnes-ai.com/v1（用 AGNES_BASE_URL 覆盖）。
     // ⚠️ 上游是 2026-07 才成立的新公司，"永久免费"当宣传语听，别当架构前提：
     //    所以默认排在 openrouter 之后，它挂了自动退回上一家。
-    id: "agnes", name: "Agnes AI", style: "openai",
+    id: "agnes", name: "Agnes AI", style: "openai", context: 262144,
     base: "https://apihub.agnes-ai.cn/v1",
     defaultModel: "agnes-2.5-flash",
   },
@@ -61,7 +61,7 @@ export const PROVIDER_DEFS = [
     defaultModel: "meta-llama/Llama-3.1-8B-Instruct",
   },
   {
-    id: "gemini", name: "Google Gemini", style: "gemini",
+    id: "gemini", name: "Google Gemini", style: "gemini", context: 1048576,
     base: "https://generativelanguage.googleapis.com/v1beta",
     // 2026-10-16 起 gemini-2.5-* 整代关停（已下线的 id 一律 404），默认值必须用 3.x
     defaultModel: "gemini-3.5-flash-lite",
@@ -101,6 +101,9 @@ export function loadConfig(env = {}) {
       style: def.style,
       baseUrl: String(env[`${U}_BASE_URL`] || def.base).replace(/\/+$/, ""),
       model: String(env[`${U}_MODEL`] || def.defaultModel).trim(),
+      // 上报给 /v1/models 的上下文窗口：Hermes 这类客户端靠 max_model_len 探测，
+      // 探不到就用兜底值（可能比模型实际支持的还大，于是请求在客户端就被组坏）
+      context: intEnv(env[`${U}_CONTEXT`], def.context || 128000),
       apiKey,
       account,
       // 配齐凭据才启用；cloudflare 额外要求 account id

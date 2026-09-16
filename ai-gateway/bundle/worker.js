@@ -213,7 +213,7 @@ function brief(s, n = 120) {
  */
 const PROVIDER_DEFS = [
   {
-    id: "groq", name: "Groq", style: "openai",
+    id: "groq", name: "Groq", style: "openai", context: 128000,
     base: "https://api.groq.com/openai/v1",
     defaultModel: "llama-3.3-70b-versatile",
   },
@@ -223,12 +223,12 @@ const PROVIDER_DEFS = [
     defaultModel: "Meta-Llama-3.3-70B-Instruct",
   },
   {
-    id: "mistral", name: "Mistral", style: "openai",
+    id: "mistral", name: "Mistral", style: "openai", context: 32768,
     base: "https://api.mistral.ai/v1",
     defaultModel: "mistral-small-latest",
   },
   {
-    id: "openrouter", name: "OpenRouter", style: "openai",
+    id: "openrouter", name: "OpenRouter", style: "openai", context: 128000,
     base: "https://openrouter.ai/api/v1",
     defaultModel: "meta-llama/llama-3.3-70b-instruct:free",
   },
@@ -237,7 +237,7 @@ const PROVIDER_DEFS = [
     // 国内走 .cn，海外走 https://apihub.agnes-ai.com/v1（用 AGNES_BASE_URL 覆盖）。
     // ⚠️ 上游是 2026-07 才成立的新公司，"永久免费"当宣传语听，别当架构前提：
     //    所以默认排在 openrouter 之后，它挂了自动退回上一家。
-    id: "agnes", name: "Agnes AI", style: "openai",
+    id: "agnes", name: "Agnes AI", style: "openai", context: 262144,
     base: "https://apihub.agnes-ai.cn/v1",
     defaultModel: "agnes-2.5-flash",
   },
@@ -257,7 +257,7 @@ const PROVIDER_DEFS = [
     defaultModel: "meta-llama/Llama-3.1-8B-Instruct",
   },
   {
-    id: "gemini", name: "Google Gemini", style: "gemini",
+    id: "gemini", name: "Google Gemini", style: "gemini", context: 1048576,
     base: "https://generativelanguage.googleapis.com/v1beta",
     // 2026-10-16 起 gemini-2.5-* 整代关停（已下线的 id 一律 404），默认值必须用 3.x
     defaultModel: "gemini-3.5-flash-lite",
@@ -297,6 +297,9 @@ function loadConfig(env = {}) {
       style: def.style,
       baseUrl: String(env[`${U}_BASE_URL`] || def.base).replace(/\/+$/, ""),
       model: String(env[`${U}_MODEL`] || def.defaultModel).trim(),
+      // 上报给 /v1/models 的上下文窗口：Hermes 这类客户端靠 max_model_len 探测，
+      // 探不到就用兜底值（可能比模型实际支持的还大，于是请求在客户端就被组坏）
+      context: intEnv(env[`${U}_CONTEXT`], def.context || 128000),
       apiKey,
       account,
       // 配齐凭据才启用；cloudflare 额外要求 account id
@@ -648,7 +651,7 @@ function upstreamReason(status, providerId) {
  *   其它路径一律 404 —— 不内置 dashboard / widget，少一个可被攻击的面。
  */
 
-const VERSION = "1.5.2";
+const VERSION = "1.6.0";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -656,6 +659,7 @@ const state = {
   rejections: 0,
   arrivals: 0,
   paths: Object.create(null),   // 每个路径各数一次：证明"Hermes 到底打的是哪个路径"
+  dbg: false,                 // DEBUG 开关的镜像：让"拒绝原因"也能进 Workers 日志（计数器是 per-isolate，日志不是）
   lastChat: null,             // 最近一次 /v1/chat/completions 的结果摘要（成功也记；只有元数据）
   providers: new Map(),          // id -> { cooldownUntil, failures, lastLatencyMs, lastError }
   cache: null,
@@ -711,6 +715,7 @@ async function handle(request, env = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, "") || "/";
   const cors = corsHeaders(request, cfg);
+  state.dbg = cfg.debug;
   state.arrivals++;
   state.paths[path] = (state.paths[path] || 0) + 1;
   const t0 = Date.now();
@@ -787,10 +792,17 @@ async function handle(request, env = {}) {
     const denied = authorize(request, cfg, "models");
     if (denied) return withCors(denied);
     const data = cfg.providers.filter(p => p.enabled).flatMap(p => [
-      { id: p.model, object: "model", created: 1700000000, owned_by: p.id },
-      { id: `${p.id}/${p.model}`, object: "model", created: 1700000000, owned_by: p.id },
+      { id: p.model, object: "model", created: 1700000000, owned_by: p.id, max_model_len: p.context, context_length: p.context },
+      { id: `${p.id}/${p.model}`, object: "model", created: 1700000000, owned_by: p.id, max_model_len: p.context, context_length: p.context },
     ]);
-    data.push({ id: "auto", object: "model", created: 1700000000, owned_by: "zeroroute-lite" });
+    // auto 这个条目也要报窗口，而且必须取各家里的**最小值**：它可能落到任何一家，
+    // 报大了就等于骗客户端（那正是"Hermes 组出畸形请求、在发出前就 400"的成因）
+    const minCtx = data.reduce((m, x) => Math.min(m, x.max_model_len || Infinity), Infinity);
+    data.push({
+      id: "auto", object: "model", created: 1700000000, owned_by: "zeroroute-lite",
+      max_model_len: Number.isFinite(minCtx) ? minCtx : 128000,
+      context_length: Number.isFinite(minCtx) ? minCtx : 128000,
+    });
     return withCors(json({ object: "list", data }));
   }
 
@@ -916,6 +928,7 @@ async function handle(request, env = {}) {
     }
 
     state.counters.failed++;
+    if (cfg.debug) console.warn(`[zeroroute-lite] 502 failovers: ${brief(failures.join(","), 160)}`);
     return withCors(apiError(
       `所有候选 provider 都失败了${cooling ? `（有 ${cooling} 个在冷却中）` : ""}`,
       502,
@@ -939,6 +952,10 @@ async function handle(request, env = {}) {
  */
 function noteRejection(request, status, message, extra = {}) {
   state.rejections++;
+  if (state.dbg) {
+    // 只有元数据；Workers 日志按请求逐条落地，比 per-isolate 计数器可靠
+    console.warn(`[zeroroute-lite] 拒绝 ${request.method} ${new URL(request.url).pathname} → ${status} ${brief(message, 160)}`);
+  }
   state.lastRejection = {
     at: new Date().toISOString(),
     method: request.method,

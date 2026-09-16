@@ -230,6 +230,21 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("/v1/models 上报 max_model_len：Hermes 靠它探测上下文窗口，探不到就瞎兜底", async () => {
+  const env = {
+    ...ENV, PROVIDER_ORDER: "agnes", AGNES_API_KEY: "sk-agnes-real", AGNES_MODEL: "agnes-2.5-flash",
+    AGNES_CONTEXT: "131072",
+  };
+  const body = await (await get("/v1/models", { token: ENV.ROUTER_API_KEY, env })).json();
+  const mine = body.data.filter((x) => x.owned_by === "agnes");
+  eq(mine.length, 2, "裸模型名与 agnes/<model> 两种写法都要列出");
+  ok(mine.every(x => x.max_model_len === 131072 && x.context_length === 131072), `条目：${JSON.stringify(mine[0])}`);
+  const dft = { ...ENV, PROVIDER_ORDER: "agnes", AGNES_API_KEY: "sk-agnes-real" };
+  const b2 = await (await get("/v1/models", { token: ENV.ROUTER_API_KEY, env: dft })).json();
+  eq(b2.data[0].max_model_len, 262144, "没设 <ID>_CONTEXT 时用表里的保守默认值");
+  const auto = body.data.find(x => x.id === "auto");
+  eq(auto.max_model_len, 131072, "auto 要报各家最小窗口，不能报大的那个");
+});
 await t("🔧 成功的 chat 也要留下痕迹：paths 分路径计数 + last_chat 记结果", async () => {
   const env = { ...ENV, DEBUG: "true", PROVIDER_ORDER: "groq" };
   const okRes = await post({ model: "auto", messages: [{ role: "user", content: "hi" }] }, { env });

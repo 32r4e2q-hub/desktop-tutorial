@@ -229,6 +229,9 @@ https://<你的worker>.<子域>.workers.dev/debug/last-error
 - **上游的 400 不一定是你说的这件事**：Google 对**无效 key** 也回 400 `INVALID_ARGUMENT`（不是 401）。本网关只回 `gemini: http 400` 这种摘要，先怀疑 key，再怀疑模型名；实在要确诊就临时设 `DEBUG=true`，去 Workers 日志看被截断的上游原文。
 - 内存缓存与限流是 **per-isolate**：冷启动清空、跨地区不共享，命中率别指望。要共享得换 KV / Durable Objects（见下）。
 - Cloudflare 免费档 10ms CPU：长 prompt + 高并发时会撞墙（透传已经很省了，但这是平台限制）。
+- `/v1/models` 每个条目带 `max_model_len`/`context_length`（取 `<ID>_CONTEXT`，默认各家保守值）：
+  Hermes 这类客户端会拿它探测上下文窗口，探测失败就用内置兜底值 —— 报大了它会在**发出请求之前**把
+  上下文算成畸形，症状是 `format_error` / `HTTP 400` 而网关啥也没收到。`auto` 那条报的是**各家最小值**。
 - 只做纯文本：`content` 接受字符串或 OpenAI 的内容块数组（text 块按序拼接），
   `messages` 缺失时兼容 Responses 风格的 `input` + `instructions` 与老式 `prompt`；
   都取不到才 400，且 400 里会列出**收到的顶层字段名**（只给字段名，不碰内容）。

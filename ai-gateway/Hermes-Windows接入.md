@@ -97,6 +97,8 @@ fetch("/v1/chat/completions",{method:"POST",headers:{"content-type":"application
 | 发图过去模型说"我看不到图" | 有意为之：`image_url` 内容块会被丢掉，本网关只做文字 |
 | `400 messages 必须是非空数组` | 老版本网关只认 `messages`；**1.4.0 起兼容 Responses 风格的 `input`+`instructions`**（也认 `prompt`）。若仍 400，报错里会列出它收到的顶层字段名，照那个字段名告诉我即可 |
 | 左下角 `Gateway needs setup` | Hermes 自己的**工具网关**没配（与本网关无关）。不配的话 agent 能力受限，但纯聊天不受影响 |
+| `code: format_error`、`layer: provider`，而且**没有生成 request dump 文件** | 请求在 Hermes 内部就没组好（多半是上下文窗口算歪）。**1.6.0 起**网关在 `/v1/models` 里上报 `max_model_len`（= 各家最小窗口，可用 `<ID>_CONTEXT` 覆盖），它就不用兜底猜了。要手工钉死：`config.yaml` 的 `model:` 下加 `context_length: 32000`（**别用 `hermes config set`，那条会把 base_url/api_key 一起清掉**） |
+| `error code 400`，但网关 `arrivals` 不涨、dump 里 `response_text` 是**空字符串** | **不是网关拒的**：我的每个 400 都带 JSON 文案，空 body 说明请求在 Cloudflare 边缘就被拦了。去看 Cloudflare → `安全性 / Security` → `事件 / Events`（WAF、Bot Fight Mode 的拦截记录都在那），以及 `可观测性 → 日志` 里到底有没有这条 POST。**1.5.3 起**，凡是我拒的请求还会往 Workers 日志写一行 `[zeroroute-lite] 拒绝 …`，所以"日志里完全没有"就是硬证据 |
 | `error code 400` 且看不到细节 | 在 Cloudflare 加变量 `DEBUG=true` 并部署 → 浏览器开 `https://<worker>.<子域>.workers.dev/debug/last-error`，把里面的 `last` 段贴给排错的人（只有形状与字节数，没有内容）。`arrivals` 不涨说明请求没进网关，问题在 Hermes/Cloudflare 侧 |
 | 分不清"Hermes 没发请求"还是"发了但被拒" | 看 `/debug/last-error` 里三个字段：`paths`（每个路径各数一次，**1.5.2 起**，不再被诊断端点自己污染）、`last_chat`（成功也记：状态码/耗时/谁答的）、`last`（被我拒的才有）。`paths` 里没有 `/v1/chat/completions` = 它打的不是这个路径，`asked_path` 会写出真实路径 |
 | `error code 400` 且 `debug/last-error` 里 `arrivals: 0` | 请求没打到 `/v1/chat/completions`。**1.5.1 起**未知路径/未知模型也会计数并记下 `asked_path`/`asked_model`，直接看那个字符串就知道它拼错了什么 |

@@ -15,7 +15,7 @@ import { MemoryCache, cacheKeyOf } from "./cache.js";
 import { buildUpstream, normalize, streamBodyFor, upstreamReason } from "./adapters.js";
 import { apiError, bearerOf, brief, coerceMessages, describeMessages, flattenMessages, json, newId, openaiChunk, sseChunk } from "./util.js";
 
-export const VERSION = "1.5.2";
+export const VERSION = "1.6.0";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -23,6 +23,7 @@ const state = {
   rejections: 0,
   arrivals: 0,
   paths: Object.create(null),   // 每个路径各数一次：证明"Hermes 到底打的是哪个路径"
+  dbg: false,                 // DEBUG 开关的镜像：让"拒绝原因"也能进 Workers 日志（计数器是 per-isolate，日志不是）
   lastChat: null,             // 最近一次 /v1/chat/completions 的结果摘要（成功也记；只有元数据）
   providers: new Map(),          // id -> { cooldownUntil, failures, lastLatencyMs, lastError }
   cache: null,
@@ -78,6 +79,7 @@ export async function handle(request, env = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, "") || "/";
   const cors = corsHeaders(request, cfg);
+  state.dbg = cfg.debug;
   state.arrivals++;
   state.paths[path] = (state.paths[path] || 0) + 1;
   const t0 = Date.now();
@@ -154,10 +156,17 @@ export async function handle(request, env = {}) {
     const denied = authorize(request, cfg, "models");
     if (denied) return withCors(denied);
     const data = cfg.providers.filter(p => p.enabled).flatMap(p => [
-      { id: p.model, object: "model", created: 1700000000, owned_by: p.id },
-      { id: `${p.id}/${p.model}`, object: "model", created: 1700000000, owned_by: p.id },
+      { id: p.model, object: "model", created: 1700000000, owned_by: p.id, max_model_len: p.context, context_length: p.context },
+      { id: `${p.id}/${p.model}`, object: "model", created: 1700000000, owned_by: p.id, max_model_len: p.context, context_length: p.context },
     ]);
-    data.push({ id: "auto", object: "model", created: 1700000000, owned_by: "zeroroute-lite" });
+    // auto 这个条目也要报窗口，而且必须取各家里的**最小值**：它可能落到任何一家，
+    // 报大了就等于骗客户端（那正是"Hermes 组出畸形请求、在发出前就 400"的成因）
+    const minCtx = data.reduce((m, x) => Math.min(m, x.max_model_len || Infinity), Infinity);
+    data.push({
+      id: "auto", object: "model", created: 1700000000, owned_by: "zeroroute-lite",
+      max_model_len: Number.isFinite(minCtx) ? minCtx : 128000,
+      context_length: Number.isFinite(minCtx) ? minCtx : 128000,
+    });
     return withCors(json({ object: "list", data }));
   }
 
@@ -283,6 +292,7 @@ export async function handle(request, env = {}) {
     }
 
     state.counters.failed++;
+    if (cfg.debug) console.warn(`[zeroroute-lite] 502 failovers: ${brief(failures.join(","), 160)}`);
     return withCors(apiError(
       `所有候选 provider 都失败了${cooling ? `（有 ${cooling} 个在冷却中）` : ""}`,
       502,
@@ -306,6 +316,10 @@ export async function handle(request, env = {}) {
  */
 function noteRejection(request, status, message, extra = {}) {
   state.rejections++;
+  if (state.dbg) {
+    // 只有元数据；Workers 日志按请求逐条落地，比 per-isolate 计数器可靠
+    console.warn(`[zeroroute-lite] 拒绝 ${request.method} ${new URL(request.url).pathname} → ${status} ${brief(message, 160)}`);
+  }
   state.lastRejection = {
     at: new Date().toISOString(),
     method: request.method,
