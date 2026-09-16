@@ -230,6 +230,19 @@ await t("没有 dashboard/widget：/app、/widget.js 一律 404", async () => {
   }
 });
 
+await t("🔧 门口就被拒的请求也算 arrivals（路径不对 / 模型名不对都会留下痕迹）", async () => {
+  const env = { ...ENV, DEBUG: "true" };
+  const badPath = await get("/v1/chat/completions/extra", { token: ENV.ROUTER_API_KEY, env });
+  eq(badPath.status, 404, "未知路径应 404");
+  let d = await (await get("/debug/last-error", { env })).json();
+  ok(d.arrivals >= 1, `未知路径也要计入 arrivals，否则又变成"没请求"的假象：${d.arrivals}`);
+  eq(d.last.path, "/v1/chat/completions/extra", "要能看见客户端到底打了哪个路径");
+  const badModel = await post({ model: "nope/nope-model", messages: [{ role: "user", content: "hi" }] }, { env });
+  eq(badModel.status, 404, "未知模型 404");
+  d = await (await get("/debug/last-error", { env })).json();
+  eq(d.last.asked_model, "nope/nope-model", "要记下它问的模型名（这是排错关键，且不含内容）");
+  ok(!JSON.stringify(d).includes("hi\u0022"), "🔒 仍然不得出现正文");
+});
 await t("🔒 /debug/last-error：只暴露形状与字节数，绝不泄露一个字的内容", async () => {
   const env = { ...ENV, PROVIDER_ORDER: "groq", DEBUG: "true" };
   const secret = "这句话绝不能出现在诊断里";

@@ -15,7 +15,7 @@ import { MemoryCache, cacheKeyOf } from "./cache.js";
 import { buildUpstream, normalize, streamBodyFor, upstreamReason } from "./adapters.js";
 import { apiError, bearerOf, brief, coerceMessages, describeMessages, flattenMessages, json, newId, openaiChunk, sseChunk } from "./util.js";
 
-export const VERSION = "1.5.0";
+export const VERSION = "1.5.1";
 
 // ── 每个 isolate 一份运行时状态（冷启动即清空，这是有意的：不落盘） ──────────
 const state = {
@@ -77,6 +77,7 @@ export async function handle(request, env = {}) {
   const path = url.pathname.replace(/\/+$/, "") || "/";
   const cors = corsHeaders(request, cfg);
   const withCors = (res) => { for (const [k, v] of Object.entries(cors)) res.headers.set(k, v); return res; };
+  state.arrivals++;   // 先计数：这样"到门口就被 404/405"的请求也算进来了，不会假报"没请求"
 
   if (request.method === "OPTIONS") return withCors(new Response(null, { status: 204 }));
 
@@ -142,7 +143,6 @@ export async function handle(request, env = {}) {
   if (request.method === "POST" && (path === "/v1/chat/completions" || path === "/chat/completions")) {
     const denied = authorize(request, cfg, "chat");
     if (denied) {
-      state.arrivals++;
       noteRejection(request, denied.status, "鉴权未通过（详见 message）", { has_auth_header: !!request.headers.get("authorization") });
       return withCors(denied);
     }
@@ -196,6 +196,11 @@ export async function handle(request, env = {}) {
     const { picked, unknownModel, cooling } = candidatesFor(cfg, body.model);
 
     if (unknownModel) {
+      noteRejection(request, 404, `未知模型 "${String(body.model).slice(0, 60)}"`, {
+        asked_model: String(body.model).slice(0, 60),
+        top_level_keys: brief(Object.keys(body).join(","), 200),
+        messages_shape: describeMessages(coerceMessages(body) || []),
+      });
       return withCors(apiError(`未知模型 "${body.model}"；用 "auto" 或 GET /v1/models 看可用值`, 404, { code: "model_not_found" }));
     }
     if (!picked.length) {
@@ -263,6 +268,10 @@ export async function handle(request, env = {}) {
     ));
   }
 
+  // 到这儿说明路径/方法我根本不认——正是"客户端说 400/404，但网关毫无记录"的那种情况
+  noteRejection(request, 404, `路径不存在：${request.method} ${path}`, {
+    asked_path: path, query: brief(url.search.slice(0, 60), 60),
+  });
   return withCors(apiError(`not found: ${path}`, 404, { code: "not_found" }));
 }
 
