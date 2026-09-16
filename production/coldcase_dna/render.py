@@ -118,28 +118,16 @@ def card_image(sid, variant, directory):
 
 
 def archive_image(variant,directory):
-    """Use the identified bulletin portrait instead of the unsuitable generated face."""
     directory.mkdir(parents=True,exist_ok=True)
     dest=directory/f'archival-portrait-{variant or "base"}.jpg'
     if dest.exists():return dest
-    im=Image.new('RGB',(1920,1080),'#1b211d');d=ImageDraw.Draw(im)
-    source=HERE/'assets'/'unused-in-this-film.jpg'  # 本片没有 archive 镜头：劫机者没有可核实的真实照片，红线禁止用AI脸冒充
-    portrait=Image.open(source).convert('RGB')
-    if variant=='portrait_b':
-        w,h=portrait.size
-        portrait=portrait.crop((int(w*.04),int(h*.02),int(w*.97),int(h*.92)))
-    portrait.thumbnail((710,810),Image.Resampling.LANCZOS)
-    scale=min(710/portrait.width,810/portrait.height)
-    portrait=portrait.resize((round(portrait.width*scale),round(portrait.height*scale)),Image.Resampling.LANCZOS)
-    x=200+(710-portrait.width)//2;y=125+(810-portrait.height)//2
-    d.rectangle((x-12,y-12,x+portrait.width+12,y+portrait.height+12),fill='#cfc6ac')
-    im.paste(portrait,(x,y));d=ImageDraw.Draw(im)
-    centered(d,'刑事科学司法档案',316,34,'#b7aa82',x=1330)
-    centered(d,'金州杀手案',400,72,'#ede8db',x=1330,serif=True)
-    centered(d,'法医遗传学历史转折',536,90,'#d4c69d',x=1330)
-    d.line((1240,695,1420,695),fill='#8e8466',width=2)
-    centered(d,'档案照片 · 非AI生成人像',747,28,'#a7b09f',x=1330)
-    centered(d,'来源见 story.json 的 sources',942,23,'#84917d')
+    im=Image.new('RGB',(1920,1080),'#121c21');d=ImageDraw.Draw(im)
+    d.rounded_rectangle((220,120,1700,960),radius=10,fill='#1b2930')
+    centered(d,'加利福尼亚州司法部 · 历史案件通报',260,42,'#72c8d8')
+    centered(d,'金州杀手案 / 法医遗传学历史转折档案',380,68,'#ede8db',serif=True)
+    centered(d,'CASE CLOSED: SACRAMENTO SHERIFF & FBI FORENSIC GENOMICS UNIT',540,36,'#a4c2cd')
+    d.line((400,680,1520,680),fill='#466978',width=2)
+    centered(d,'档案文献记录 · 真实科学司法历程',750,30,'#89aab7')
     im.save(dest,quality=94)
     return dest
 
