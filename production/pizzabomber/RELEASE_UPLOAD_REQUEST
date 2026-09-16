@@ -1,1 +1,5 @@
-2026-09-15 v3: 复制为 /tmp ASCII 名再传（gh 无 --name 标志，v2 因此失败）
+# 上传终版片到 release（2026-09-15 建；沙箱出口封 uploads.github.com，由 runner 代传）
+# 用法见 新题目开工手册.md「第 9 步 · 发 Release 下载链接」。改任意一行并 push 即重传（--clobber 幂等）。
+tag=pizzabomber-final-2026-09-15
+src=交付/披萨炸弹劫案_三分钟_带声音.mp4
+asset=pizzabomber-3min-final-1080p.mp4
