@@ -1,0 +1,68 @@
+{
+  "duration": 180.0,
+  "bytes": 82419641,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "frames": 5400,
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "ca96f52faa9d9274d9d2066dadbe6d4d06212fd08996ab47a708120cb9d252fd",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "id": "N01",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.8016528925619835
+    },
+    {
+      "id": "N02",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.7416666666666667
+    },
+    {
+      "id": "N03",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9827586206896551
+    },
+    {
+      "id": "N04",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.5873015873015873
+    },
+    {
+      "id": "N05",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.20175438596491227
+    },
+    {
+      "id": "N06",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9914529914529915
+    }
+  ],
+  "narration_voice_id": "voice-00",
+  "narration_tempo": 1.0302380952380952,
+  "editorial_segments": 31,
+  "source_clips": 24,
+  "archival_portrait": true,
+  "output": "一根头发引发的破案革命_冷案复活与DNA表型分析_三分钟_带声音.mp4",
+  "soundtrack_mix": {
+    "rms_dbfs": -21.62,
+    "peak_dbfs": -1.5,
+    "silent_fraction": 0.0,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -21.64,
+    "peak_dbfs": -1.56,
+    "silent_fraction": 0.0055,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
