@@ -75,6 +75,21 @@ def git(*args):
     return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
 
 
+def prune_stale(doc):
+    """丢掉「还没有可复用素材」的进度记录，让重跑提交新任务而不是去复述一个已失败的任务。
+
+    生成器会记住 provider 的 task_id 以便断点续跑，这在一个任务只是**排队中断**时是省额度的好事；
+    但当 provider 已经把这个任务判死（500 / Generation failed）时，续跑会一直轮询同一个死任务，
+    于是「重新触发一次」永远修不好它——2026-09-13 的 S10 就是这样。
+    已经有 ``video_url`` 的记录（``generated``：素材在 CDN 上但还没落盘校验）保留：那种情况只需重新下载。
+    """
+    shots=doc.setdefault('shots',{})
+    stale=sorted(sid for sid,row in shots.items()
+                 if row.get('status')!='completed' and not row.get('video_url'))
+    for sid in stale: shots.pop(sid)
+    return stale
+
+
 def cached_result_matches(old,wanted_hash):
     return (old.get('request_hash')==wanted_hash and bool(old.get('video_url'))
             and bool(old.get('sha256')) and bool(old.get('bytes')))
@@ -83,7 +98,10 @@ def cached_result_matches(old,wanted_hash):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--payload',default='{}');parser.add_argument('--validate',action='store_true')
-    parser.add_argument('--publish',action='store_true');args=parser.parse_args()
+    parser.add_argument('--publish',action='store_true')
+    parser.add_argument('--prune-failed',action='store_true',
+                       help='只清理 results.json 里的死任务记录，清完就退出（不生成）')
+    args=parser.parse_args()
     project=read_json(PLAN,{});validate(project)
     audio_manifest=read_json(PLAN.parent/'audio/manifest.json',{})
     audio_by_id={r['id']:r for r in audio_manifest.get('clips',[])}
@@ -94,7 +112,9 @@ def main():
             raise ValueError('Narration text/audio mismatch: '+chapter['id'])
     if args.validate:
         count=sum(s['kind']=='agnes' for s in project['shots'])
-        print(f'VALID: 180-second plan; {count} Agnes sources; 6 graphics; 1 archival portrait; narration hashes match');return 0
+        gcount=sum(s['kind']=='graphic' for s in project['shots'])
+        acount=sum(s['kind']=='archive' for s in project['shots'])
+        print(f'VALID: 180-second plan; {count} Agnes sources; {gcount} graphics; {acount} archival; narration hashes match');return 0
     options=json.loads(args.payload or '{}')
     requested=options.get('only','')
     if not isinstance(requested,str):raise ValueError('only must be comma-separated IDs')
@@ -113,6 +133,13 @@ def main():
         git('config','user.name','github-actions[bot]')
         git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
     doc=read_json(RESULTS,{'project':project['title'],'model':agnes.DEFAULT_MODEL,'shots':{}})
+    if args.prune_failed:
+        # 只清理、不生成：出片工作流把它单独作为生成前的步骤。
+        # （它要是继续往下跑，就把"清理"变成了第二次全量生成，还会把失败当成自己的失败。）
+        stale=prune_stale(doc)
+        RESULTS.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+        print('PRUNED_STALE '+json.dumps(stale),flush=True)
+        return 0
     doc['phase']='preparing_sources'
     doc['review']={'status':'pending','scope':'visual/audio quality','blocking_generation':False,
                    'note':'No automatic visual approval. Export is an unreviewed first cut.'}
@@ -238,7 +265,7 @@ def main():
         staging=edit/'first-cut.mp4'
         subprocess.run([str(python),str(Path(__file__).with_name('render.py')),
                         '--sources',str(sources),'--work',str(edit),'--output',str(staging)],check=True)
-        final_name='一根头发引发的破案革命：冷案复活与DNA表型分析_三分钟_初版.mp4'
+        final_name='披萨炸弹劫案_三分钟_初版.mp4'
         shutil.move(staging,export/final_name)
         delivery=ROOT/'production/coldcase_dna/delivery';delivery.mkdir(parents=True,exist_ok=True)
         names=['technical-report.json','edit-decision-list.json','narration-timing.json',
@@ -250,11 +277,11 @@ def main():
         report['output']=final_name
         (delivery/'technical-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
         shutil.copy2(delivery/'technical-report.json',export/'技术检查.json')
-        shutil.copy2(delivery/'captions.srt',export/'一根头发引发的破案革命：冷案复活与DNA表型分析_字幕.srt')
+        shutil.copy2(delivery/'captions.srt',export/'披萨炸弹劫案_字幕.srt')
         shutil.copy2(ROOT/'production/coldcase_dna/screenplay.md',export/'剧本与来源.md')
         (export/'交付说明.txt').write_text(
-            '一根头发引发的破案革命：冷案复活与DNA表型分析\n180秒 / 1920×1080 / 30fps / 中文解说\n'
-            '使用 Agnes Video V2.0 生成镜头，配音来自用户选定的声音。\n'
+            '贴身绑爆弹的快递员：披萨炸弹劫案（2003）\n180秒 / 1920×1080 / 30fps / 中文解说（动画情景重现）\n'
+            'Agnes Video V2.0 生成动画镜头（风格化 2D 动画纪录片），配音来自用户试听选定的声音。\n'
             '此文件是技术检查通过的初版；视觉与听感仍需审核，不声称已逐帧或逐字验收。\n'
             'AI情景重现并非历史影像；未经证实的推测没有被写成事实。\n')
         doc['phase']='first_cut_ready'
@@ -263,8 +290,8 @@ def main():
         summary=os.getenv('GITHUB_STEP_SUMMARY')
         if summary:
             with open(summary,'a') as f:
-                f.write(f'## 一根头发引发的破案革命：冷案复活与DNA表型分析 · 三分钟初版\n\n{len(shots)}段Agnes素材已完成解码检查并剪辑，身份介绍另使用档案肖像。\n\n')
-                f.write(f'输出：**{final_name}**，180秒；视觉/听感仍待人工审核。\n\n')
+                f.write(f'## 贴身绑爆弹的快递员：披萨炸弹劫案（2003）· 三分钟初版\n\n{len(shots)}段Agnes素材已完成解码检查并剪辑；本片不使用档案照片。\n\n')
+                f.write(f'输出：**{final_name}**，180秒；画面为动画情景重现、非历史影像；视觉/听感仍待人工审核。\n\n')
                 f.write('成片在本次运行的 `coldcase_dna-agnes-*` artifact 中。大视频未提交到Git。\n')
         print('CLOUD_FIRST_CUT_READY '+final_name,flush=True);return 0
     except Exception as exc:
