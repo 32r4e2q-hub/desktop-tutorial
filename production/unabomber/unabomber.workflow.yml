@@ -81,6 +81,54 @@ jobs:
             fi
           done
 
+      - name: Distortion, freeze, audio and verbatim QC
+        run: |
+          set -euo pipefail
+          FILM="work/unabomber/尤纳炸弹客：林中的宣言.mp4"
+          python3 production/qc_film.py \
+            --film "$FILM" \
+            --project production/unabomber \
+            --fps 2 \
+            --out production/unabomber/delivery/qc-report.json
+          python3 production/review_film.py \
+            --film "$FILM" \
+            --project production/unabomber \
+            --work work/unabomber/review \
+            --every 2 \
+            --sheet-every 6
+          python3 production/verbatim_check.py \
+            --film "$FILM" \
+            --project production/unabomber \
+            --work work/unabomber/verbatim \
+            --narration production/unabomber/audio \
+            --report production/unabomber/delivery/verbatim-check.json
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          review = json.loads(Path('work/unabomber/review/film-review.json').read_text())
+          qc = json.loads(Path('production/unabomber/delivery/qc-report.json').read_text())
+          verb = json.loads(Path('production/unabomber/delivery/verbatim-check.json').read_text())
+          bad = [c['name'] for c in qc['checks'] if not c['ok']]
+          audio_flags = [f for f in review['flags'] if any(k in f for k in ('静音', '电平'))]
+          failing = verb.get('film_pass', {}).get('failing', [])
+          print('QC_FAILING_CHECKS', bad)
+          print('REVIEW_AUDIO_FLAGS', audio_flags)
+          print('VERBATIM_FAILING', failing)
+          if bad or audio_flags or failing:
+              sys.exit(1)
+          print('QC_ALL_GATES_PASSED')
+          PY
+
+      - name: Collect QC stills and reports
+        if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p production/unabomber/delivery/review
+          if [ -f work/unabomber/review/film-review.json ]; then
+            cp work/unabomber/review/film-review.json production/unabomber/delivery/film-review.json
+          fi
+          cp work/unabomber/review/contact-sheet-*.png production/unabomber/delivery/review/ 2>/dev/null || true
+
       - name: Upload the finished film
         if: always()
         uses: actions/upload-artifact@v4
