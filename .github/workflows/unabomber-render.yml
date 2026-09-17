@@ -1,8 +1,6 @@
 name: 尤纳炸弹客：林中的宣言 · 出片
 run-name: 尤纳炸弹客：林中的宣言 · 出片（含音量实测）
 
-# 真正的流程在 production/run_project.sh，改流程只改脚本，不必再动 workflows。
-
 on:
   workflow_dispatch:
     inputs:
@@ -26,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: arena/01a0adec-desktop-tutorial
           fetch-depth: 1
 
       - name: Install media tools and CJK fonts
@@ -40,21 +39,68 @@ jobs:
 
       - name: Install render dependencies
         run: |
-          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" || \
-          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2"
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<16" "faster-whisper>=1.1,<2" || \
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<16" "faster-whisper>=1.1,<2"
 
-      - name: Validate, restore footage, render, publish reports
+      - name: Validate the timeline
+        run: python3 production/unabomber/generate.py --validate
+
+      - name: Restore Agnes clips by SHA-256
+        run: python3 -u production/unabomber/fetch_sources.py --dest work/unabomber/sources
+
+      - name: Render the three-minute cut
         env:
           SKIP_ASR: ${{ inputs.skip_asr }}
-          BRANCH: arena/01a0adec-desktop-tutorial
-        run: bash production/run_project.sh unabomber "$SKIP_ASR"
+        run: |
+          set -euo pipefail
+          extra=()
+          if [ "${SKIP_ASR}" = "true" ]; then extra+=(--skip-asr); fi
+          mkdir -p work/unabomber production/unabomber/delivery
+          python3 -u production/unabomber/render.py \
+            --sources work/unabomber/sources \
+            --work work/unabomber/edit \
+            --output "work/unabomber/尤纳炸弹客：林中的宣言.mp4" \
+            "${extra[@]+"${extra[@]}"}"
+
+      - name: Copy small delivery reports
+        if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p production/unabomber/delivery
+          for f in technical-report.json audio-report.json final-audio-report.json \
+                   alignment-report.json caption-timing.json narration-timing.json \
+                   edit-decision-list.json final-contact.jpg captions.srt; do
+            if [ -f "work/unabomber/edit/$f" ]; then
+              cp "work/unabomber/edit/$f" "production/unabomber/delivery/$f"
+            fi
+          done
 
       - name: Upload the finished film
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: 尤纳炸弹客：林中的宣言-成片
-          path: work/unabomber/*.mp4
+          path: |
+            work/unabomber/*.mp4
+            work/unabomber/edit/final-contact.jpg
+            work/unabomber/edit/technical-report.json
+            work/unabomber/edit/captions.srt
+            production/unabomber/delivery/
           if-no-files-found: warn
           compression-level: 0
           retention-days: 30
+
+      - name: Publish delivery reports to this branch
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/unabomber/delivery
+          if git diff --cached --quiet; then
+            echo "No report changes"
+          else
+            git commit -m "unabomber: reviewed three-minute cut reports"
+            git push origin HEAD:arena/01a0adec-desktop-tutorial
+          fi
