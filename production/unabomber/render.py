@@ -41,12 +41,24 @@ RATE = 48000
 # 骨架 CUTS：均匀 6 秒一切，只是起点。
 # 拿到真实配音后，必须按配音里的实际停顿重新对时间点（参考项目就是这么做的）。
 CUTS = {
-    'N01': [(0,'S01',''), (6,'S02',''), (12,'S03',''), (18,'S04',''), (24,'S05','')],
-    'N02': [(0,'S06',''), (6,'S07',''), (12,'S08',''), (18,'S09',''), (24,'S10','')],
-    'N03': [(0,'S11',''), (6,'S12',''), (12,'S13',''), (18,'S14',''), (24,'S15','')],
-    'N04': [(0,'S16',''), (6,'S17',''), (12,'S18',''), (18,'S19',''), (24,'S20','')],
-    'N05': [(0,'S21',''), (6,'S22',''), (12,'S23',''), (18,'S24',''), (24,'S25','')],
-    'N06': [(0,'S26',''), (6,'S27',''), (12,'S28',''), (18,'S29',''), (24,'S30','')],
+    # Reviewed against 2fps QA sheets: morphing Agnes clips are held only for
+    # their single-scene head, then the edit returns to a clean continuous shot.
+    'N01': [(0,'S01',''), (7.0,'S02',''), (9.4,'S03',''), (16.0,'S04',''), (23.0,'S05','')],
+    'N02': [(0,'S06',''), (6.5,'S07',''), (13.0,'S08',''), (19.5,'S09',''), (25.5,'S10','')],
+    'N03': [(0,'S11',''), (5.5,'S13',''), (8.0,'S14',''), (14.0,'S17',''), (20.0,'S06','')],
+    'N04': [(0,'S16',''), (2.4,'S17',''), (9.0,'S18',''), (15.0,'S19',''), (21.0,'S25','')],
+    'N05': [(0,'S21',''), (6.0,'S22',''), (12.0,'S23',''), (14.4,'S24',''), (20.5,'S25','')],
+    'N06': [(0,'S26',''), (2.4,'S27',''), (10.0,'S28',''), (18.0,'S29',''), (24.0,'S30','')],
+}
+
+# QA contact sheets are 2 fps (0.5s/tile). Values are inclusive source windows
+# inside the 7.04s Agnes clip; unused morphing tails are never sampled.
+SOURCE_WINDOWS = {
+    'S02': (0.12, 2.45),   # Harvard quad only; office/cabin/book morph after
+    'S13': (0.12, 2.90),   # 90s newsroom desks; cabin morph after ~3s
+    'S16': (0.12, 2.40),   # gloved letters; bullpen morph after
+    'S23': (0.12, 2.40),   # desert prison aerial; office morph after
+    'S26': (0.12, 2.40),   # case folder; crowd/mountain morph after
 }
 
 
@@ -289,8 +301,8 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Caption,Noto Sans CJK SC,58,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,3.2,1.0,2,70,70,54,1
-Style: Label,Noto Sans CJK SC,34,&H70E9E4D4,&H000000FF,&H00262621,&H99000000,0,0,0,0,100,100,1,0,1,1.6,0,9,48,48,28,1
+Style: Caption,Noto Sans CJK SC,64,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,3.2,1.0,2,70,70,54,1
+Style: Label,Noto Sans CJK SC,40,&H70E9E4D4,&H000000FF,&H00262621,&H99000000,0,0,0,0,100,100,1,0,1,1.6,0,9,48,48,28,1
 Style: Title,Noto Serif CJK SC,102,&H00EBE8DE,&H000000FF,&H00141B17,&H99000000,0,0,0,0,100,100,4,0,1,1,2,7,104,104,205,1
 
 [Events]
@@ -330,8 +342,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 def write_sfx(path,edl):
     rng=np.random.default_rng(19780525);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
     events=[]
-    for source,kind in [('S05','paper'),('S10','press'),('S12','paper'),('S16','paper'),('S24','keys')]:
-        first=next(e for e in edl if e['id']==source)
+    for source,kind in [('S05','paper'),('S10','press'),('S07','paper'),('S16','paper'),('S24','keys')]:
+        first=next((e for e in edl if e['id']==source), None)
+        if first is None:
+            continue
         events.append((max(0,first['start_frame']/FPS-.18),kind))
     for start,kind in events:
         duration={'paper':.7,'machine':1.1,'press':1.5,'phone':1.3,'keys':1.1}[kind]
@@ -364,6 +378,9 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
     else:
         source=sources/(sid+'.mp4');info=checks[sid]
         length=info['duration'];a=.12;b=length-.12
+        if sid in SOURCE_WINDOWS:
+            a,b=SOURCE_WINDOWS[sid]
+            b=min(b,length-.04)
         available=b-a
         take=min(available,duration)
         factor=duration/take

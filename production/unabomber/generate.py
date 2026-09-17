@@ -291,6 +291,8 @@ def main():
         error=str(exc).replace(key,'[redacted]') if key else str(exc)
         doc['phase']='pipeline_failed';doc['pipeline_error']=error[:800]
         checkpoint('pipeline stopped')
+        for p in sources.glob('*.mp4'):
+            shutil.copy2(p, export/p.name)
         (export/'未完成说明.txt').write_text('制作未完成：'+error[:800]+'\n没有把测试图或静态图冒充Agnes成片。\n')
         raise
 
