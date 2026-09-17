@@ -1,12 +1,264 @@
 {
   "film": "一根头发引发的破案革命_冷案复活与DNA表型分析_三分钟_带声音.mp4",
-  "film_sha256": "5b528c5c284d570323494c9f42ce766d54a88c094a63942f55dbb1f2d58a6a88",
-  "film_bytes": 57882979,
+  "film_sha256": "958323e509b80af92823bf6a5176877f82b6ff4ea1ff545649a22bfaf4e23bb5",
+  "film_bytes": 57829739,
   "decoded_audio_seconds": 180.011,
   "project": "production/coldcase_dna",
   "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
   "max_cer_allowed": 0.15,
   "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 29.681,
+        "script_chars": 121,
+        "heard_chars": 121,
+        "character_error_rate": 0.0165,
+        "match_coverage": 0.9835,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 35,
+            "kind": "replace",
+            "script": "接",
+            "heard": "劫"
+          },
+          {
+            "at": 91,
+            "kind": "replace",
+            "script": "档",
+            "heard": "当"
+          }
+        ],
+        "transcript": "上世紀七八十年代加利福尼亞州籠罩在巨大的陰影之中一名代號金州殺手的凶徒劫連作案幾十起隨後銷聲匿跡現場留下的微量毛髮與物證在當年的技術條件下無法提取有效線索最終成了躺在檔案庫裡厚厚的死當誰也沒有想到三十年後這批沉睡的物證將徹底改寫刑事偵查的歷史"
+      },
+      {
+        "id": "N02",
+        "start": 30.761,
+        "end": 57.628,
+        "script_chars": 120,
+        "heard_chars": 120,
+        "character_error_rate": 0.05,
+        "match_coverage": 0.95,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "r",
+            "heard": "二"
+          },
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "型",
+            "heard": "形"
+          },
+          {
+            "at": 57,
+            "kind": "replace",
+            "script": "案",
+            "heard": "暗"
+          },
+          {
+            "at": 72,
+            "kind": "replace",
+            "script": "刑",
+            "heard": "行"
+          },
+          {
+            "at": 95,
+            "kind": "replace",
+            "script": "序",
+            "heard": "试"
+          },
+          {
+            "at": 112,
+            "kind": "replace",
+            "script": "划",
+            "heard": "化"
+          }
+        ],
+        "transcript": "传统的法医比对依赖ST2基因分形必须在现有的前科犯罪数据库中碰撞出完全吻合的人如果凶手从未被捕 数据库里就查无此人冷暗之所以冰封数十年根源正是传统行侦数据库的盲区然而 进入21世纪高通量基因测试技术突飞猛进让法医学界迎来了一场化时代的认知飞跃"
+      },
+      {
+        "id": "N03",
+        "start": 58.708,
+        "end": 85.304,
+        "script_chars": 116,
+        "heard_chars": 116,
+        "character_error_rate": 0.0776,
+        "match_coverage": 0.9224,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "型",
+            "heard": "情"
+          },
+          {
+            "at": 41,
+            "kind": "replace",
+            "script": "苷",
+            "heard": "干"
+          },
+          {
+            "at": 46,
+            "kind": "replace",
+            "script": "位",
+            "heard": "味"
+          },
+          {
+            "at": 61,
+            "kind": "replace",
+            "script": "升陈旧",
+            "heard": "生成就"
+          },
+          {
+            "at": 80,
+            "kind": "replace",
+            "script": "虹",
+            "heard": "红"
+          },
+          {
+            "at": 90,
+            "kind": "replace",
+            "script": "祖源",
+            "heard": "组员"
+          }
+        ],
+        "transcript": "第一項突破性技術是DNA表情分析科學家不再只把基因當成一組身份條碼而是通過海量單核乾酸多態性味點直接反推生理外貌特徵從幾微生成就物證中算法能夠精準推斷出嫌疑人的紅膜顏色髮色 膚色乃至組員構成甚至生成預測畫像直接刺破了未知幽靈的偽裝迷霧"
+      },
+      {
+        "id": "N04",
+        "start": 86.384,
+        "end": 114.3,
+        "script_chars": 126,
+        "heard_chars": 126,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "系学",
+            "heard": "细选"
+          },
+          {
+            "at": 94,
+            "kind": "replace",
+            "script": "远",
+            "heard": "元"
+          },
+          {
+            "at": 108,
+            "kind": "replace",
+            "script": "间织就",
+            "heard": "間支救"
+          }
+        ],
+        "transcript": "真正扭轉全局的是法醫遺傳譜細選調查人員做出了一個前所未有的決定他們沒有繼續死守警方封閉數據庫而是將嫌疑人的基因數據上傳到了公開的家譜基因檢索平台GEDmatch在這裡幾萬名普通公眾為了尋找元祖上傳了自己的基因這也無意間支救了一張覆蓋全社會的基因互聯網絡"
+      },
+      {
+        "id": "N05",
+        "start": 115.38,
+        "end": 143.606,
+        "script_chars": 114,
+        "heard_chars": 114,
+        "character_error_rate": 0.1053,
+        "match_coverage": 0.8947,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "揪",
+            "heard": "交"
+          },
+          {
+            "at": 25,
+            "kind": "replace",
+            "script": "房",
+            "heard": "方"
+          },
+          {
+            "at": 30,
+            "kind": "replace",
+            "script": "谱",
+            "heard": "普"
+          },
+          {
+            "at": 34,
+            "kind": "replace",
+            "script": "柯琳",
+            "heard": "科林"
+          },
+          {
+            "at": 40,
+            "kind": "replace",
+            "script": "里",
+            "heard": "利"
+          },
+          {
+            "at": 47,
+            "kind": "replace",
+            "script": "藤",
+            "heard": "同"
+          }
+        ],
+        "transcript": "系统没有匹配到凶手本人却交出了几位共享基因片段的远方表亲遗传普系学家科林菲茨帕特利克与调查组顺同摸瓜沿着十九世纪的增组父母向上回溯汇制出拥有数千名后代的庞大家族术通过逐条排查支系年龄居住地与外貌表行嫌疑范围被奇迹般收窄到唯一个体"
+      },
+      {
+        "id": "N06",
+        "start": 144.686,
+        "end": 174.0,
+        "script_chars": 117,
+        "heard_chars": 118,
+        "character_error_rate": 0.0427,
+        "match_coverage": 0.9658,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 23,
+            "kind": "replace",
+            "script": "夫",
+            "heard": "福"
+          },
+          {
+            "at": 54,
+            "kind": "replace",
+            "script": "网",
+            "heard": "亡"
+          },
+          {
+            "at": 65,
+            "kind": "replace",
+            "script": "树",
+            "heard": "数"
+          },
+          {
+            "at": 81,
+            "kind": "replace",
+            "script": "案",
+            "heard": "暗"
+          }
+        ],
+        "transcript": "2018年 警方暗中提取了已經72歲的前警官約瑟福迪安傑洛丟棄的物品確認DNA百分之百吻合滿頭白髮的惡魔終於落亡從一根微量毛髮到家族數檢索法醫基因組學讓幾十年前的冷暗全面復活基因不會說謊 歲月也無法洗脫罪惡科學終將照亮一切被遺忘的黑暗角落"
+      }
+    ],
+    "max_cer": 0.1053,
+    "failing": []
+  },
+  "narration_control": {
     "chapters": [
       {
         "id": "N01",
@@ -25,19 +277,19 @@
             "heard": "劫"
           },
           {
+            "at": 42,
+            "kind": "replace",
+            "script": "随",
+            "heard": "最"
+          },
+          {
             "at": 91,
             "kind": "replace",
             "script": "档",
             "heard": "当"
-          },
-          {
-            "at": 117,
-            "kind": "replace",
-            "script": "查",
-            "heard": "察"
           }
         ],
-        "transcript": "上世紀七八十年代加利福尼亞州籠罩在巨大的陰影之中一名代號金州殺手的凶徒劫連作案幾十起隨後銷聲匿跡現場留下的微量毛髮與物證在當年的技術條件下無法提取有效線索最終成了躺在檔案庫裡厚厚的死當誰也沒有想到三十年後這批沉睡的物證將徹底改寫刑事偵察的歷史"
+        "transcript": "上世紀七八十年代加利福尼亞州籠罩在巨大的陰影之中一名代號金州殺手的凶徒劫連作案幾十起最後銷聲匿跡現場留下的微量毛髮與物證在當年的技術條件下無法提取有效線索最終成了躺在檔案庫裡厚厚的死當誰也沒有想到三十年後這批沉睡的物證將徹底改寫刑事偵查的歷史"
       },
       {
         "id": "N02",
@@ -74,13 +326,13 @@
             "heard": "行"
           },
           {
-            "at": 95,
+            "at": 112,
             "kind": "replace",
-            "script": "序",
-            "heard": "试"
+            "script": "划",
+            "heard": "话"
           }
         ],
-        "transcript": "传统的法医比对依赖ST2基因分形必须在现有的前科犯罪数据库中碰撞出完全吻合的人如果凶手从未被捕 数据库里就查无此人冷暗之所以冰封数十年根源正是传统行侦数据库的盲区然而 进入21世纪高通量基因测试技术突飞猛进让法医学界迎来了一场划时代的认知飞跃"
+        "transcript": "传统的法医比对依赖ST2基因分形必须在现有的前科犯罪数据库中碰撞出完全吻合的人如果凶手从未被捕数据库里就查无此人冷暗之所以冰封数十年根源正是传统行侦数据库的盲区然而进入21世纪高通量基因测序技术突飞猛进让法医学界迎来了一场话时代的认知飞跃"
       },
       {
         "id": "N03",
@@ -168,267 +420,27 @@
         "end": 143.606,
         "script_chars": 114,
         "heard_chars": 114,
-        "character_error_rate": 0.0965,
-        "match_coverage": 0.9035,
-        "verdict": "ok",
+        "character_error_rate": 0.1754,
+        "match_coverage": 0.8246,
+        "verdict": "needs_human_listen",
         "diff": [
           {
-            "at": 12,
+            "at": 7,
             "kind": "replace",
-            "script": "揪",
-            "heard": "交"
+            "script": "凶",
+            "heard": "兇"
           },
-          {
-            "at": 30,
-            "kind": "replace",
-            "script": "谱系",
-            "heard": "普戏"
-          },
-          {
-            "at": 34,
-            "kind": "replace",
-            "script": "柯琳",
-            "heard": "科林"
-          },
-          {
-            "at": 37,
-            "kind": "replace",
-            "script": "茨",
-            "heard": "斯"
-          },
-          {
-            "at": 40,
-            "kind": "replace",
-            "script": "里",
-            "heard": "利"
-          },
-          {
-            "at": 47,
-            "kind": "replace",
-            "script": "藤",
-            "heard": "同"
-          }
-        ],
-        "transcript": "系统没有匹配到凶手本人却交出了几位共享基因片段的远房表亲遗传普戏学家科林菲斯帕特利克与调查组顺同摸瓜沿着十九世纪的曾祖父母向上回溯汇制出拥有数千名后代的庞大家族术通过逐条排查支系年龄居住地与外貌表行嫌疑范围被奇迹般收窄到唯一个体"
-      },
-      {
-        "id": "N06",
-        "start": 144.686,
-        "end": 174.0,
-        "script_chars": 117,
-        "heard_chars": 118,
-        "character_error_rate": 0.0427,
-        "match_coverage": 0.9658,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 1,
-            "kind": "insert",
-            "script": "",
-            "heard": "零"
-          },
-          {
-            "at": 23,
-            "kind": "replace",
-            "script": "夫",
-            "heard": "福"
-          },
-          {
-            "at": 54,
-            "kind": "replace",
-            "script": "网",
-            "heard": "亡"
-          },
-          {
-            "at": 65,
-            "kind": "replace",
-            "script": "树",
-            "heard": "数"
-          },
-          {
-            "at": 81,
-            "kind": "replace",
-            "script": "案",
-            "heard": "暗"
-          }
-        ],
-        "transcript": "2018年,警方暗中提取了已經72歲的前警官約瑟福迪安傑洛丟棄的物品確認DNA百分之百吻合滿頭白髮的惡魔終於落亡從一根微量毛髮到家族數檢索法醫基因組學讓幾十年前的冷暗全面復活基因不會說謊,歲月也無法洗脫罪惡科學終將照亮一切被遺忘的黑暗角落"
-      }
-    ],
-    "max_cer": 0.0965,
-    "failing": []
-  },
-  "narration_control": {
-    "chapters": [
-      {
-        "id": "N01",
-        "start": 0.6,
-        "end": 29.681,
-        "script_chars": 121,
-        "heard_chars": 121,
-        "character_error_rate": 0.0248,
-        "match_coverage": 0.9752,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 35,
-            "kind": "replace",
-            "script": "接",
-            "heard": "劫"
-          },
-          {
-            "at": 42,
-            "kind": "replace",
-            "script": "随",
-            "heard": "最"
-          },
-          {
-            "at": 91,
-            "kind": "replace",
-            "script": "档",
-            "heard": "当"
-          }
-        ],
-        "transcript": "上世紀七八十年代加利福尼亞州籠罩在巨大的陰影之中一名代號金州殺手的凶徒劫連作案幾十起最後銷聲匿跡現場留下的微量毛髮與物證在當年的技術條件下無法提取有效線索最終成了躺在檔案庫裡厚厚的死當誰也沒有想到三十年後這批沉睡的物證將徹底改寫刑事偵查的歷史"
-      },
-      {
-        "id": "N02",
-        "start": 30.761,
-        "end": 57.628,
-        "script_chars": 120,
-        "heard_chars": 120,
-        "character_error_rate": 0.0417,
-        "match_coverage": 0.9583,
-        "verdict": "ok",
-        "diff": [
           {
             "at": 11,
             "kind": "replace",
-            "script": "r",
-            "heard": "二"
+            "script": "却",
+            "heard": "卻"
           },
           {
-            "at": 15,
+            "at": 25,
             "kind": "replace",
-            "script": "型",
-            "heard": "形"
-          },
-          {
-            "at": 57,
-            "kind": "replace",
-            "script": "案",
-            "heard": "暗"
-          },
-          {
-            "at": 72,
-            "kind": "replace",
-            "script": "刑",
-            "heard": "行"
-          },
-          {
-            "at": 112,
-            "kind": "replace",
-            "script": "划",
-            "heard": "话"
-          }
-        ],
-        "transcript": "传统的法医比对依赖ST2基因分形必须在现有的前科犯罪数据库中碰撞出完全吻合的人如果凶手从未被捕数据库里就查无此人冷暗之所以冰封数十年根源正是传统行侦数据库的盲区然而 进入21世纪高通量基因测序技术突飞猛进让法医学界迎来了一场话时代的认知飞跃"
-      },
-      {
-        "id": "N03",
-        "start": 58.708,
-        "end": 85.304,
-        "script_chars": 116,
-        "heard_chars": 116,
-        "character_error_rate": 0.0776,
-        "match_coverage": 0.9224,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 13,
-            "kind": "replace",
-            "script": "型",
-            "heard": "情"
-          },
-          {
-            "at": 41,
-            "kind": "replace",
-            "script": "苷",
-            "heard": "干"
-          },
-          {
-            "at": 46,
-            "kind": "replace",
-            "script": "位",
-            "heard": "味"
-          },
-          {
-            "at": 61,
-            "kind": "replace",
-            "script": "升陈旧",
-            "heard": "生成就"
-          },
-          {
-            "at": 80,
-            "kind": "replace",
-            "script": "虹",
-            "heard": "红"
-          },
-          {
-            "at": 90,
-            "kind": "replace",
-            "script": "祖源",
-            "heard": "组员"
-          }
-        ],
-        "transcript": "第一項突破性技術是DNA表情分析科學家不再只把基因當成一組身份條碼而是通過海量、單核、乾酸、多態性味點直接反推生理外貌特徵從幾微生成就物證中算法能夠精準推斷出嫌疑人的紅膜顏色、髮色、膚色乃至組員構成甚至生成預測畫像直接刺破了未知幽靈的偽裝迷霧"
-      },
-      {
-        "id": "N04",
-        "start": 86.384,
-        "end": 114.3,
-        "script_chars": 126,
-        "heard_chars": 126,
-        "character_error_rate": 0.0397,
-        "match_coverage": 0.9603,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 13,
-            "kind": "replace",
-            "script": "系",
-            "heard": "细"
-          },
-          {
-            "at": 94,
-            "kind": "replace",
-            "script": "远",
-            "heard": "元"
-          },
-          {
-            "at": 108,
-            "kind": "replace",
-            "script": "间织就",
-            "heard": "間支救"
-          }
-        ],
-        "transcript": "真正扭轉全局的是法醫遺傳譜細學調查人員做出了一個前所未有的決定他們沒有繼續死守警方封閉數據庫而是將嫌疑人的基因數據上傳到了公開的家譜基因檢索平台GEDmatch在這裡幾萬名普通公眾為了尋找元祖上傳了自己的基因這也無意間支救了一張覆蓋全社會的基因互聯網絡"
-      },
-      {
-        "id": "N05",
-        "start": 115.38,
-        "end": 143.606,
-        "script_chars": 114,
-        "heard_chars": 114,
-        "character_error_rate": 0.0877,
-        "match_coverage": 0.9123,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 12,
-            "kind": "replace",
-            "script": "揪",
-            "heard": "交"
+            "script": "房",
+            "heard": "方"
           },
           {
             "at": 30,
@@ -447,21 +459,9 @@
             "kind": "replace",
             "script": "里",
             "heard": "利"
-          },
-          {
-            "at": 47,
-            "kind": "replace",
-            "script": "藤",
-            "heard": "同"
-          },
-          {
-            "at": 57,
-            "kind": "replace",
-            "script": "曾祖",
-            "heard": "增组"
           }
         ],
-        "transcript": "系统没有匹配到凶手本人却交出了几位共享基因片段的远房表亲遗传普系学家柯林菲茨帕特利克与调查组顺同摸瓜沿着十九世纪的增组父母向上回溯汇制出拥有数千名后代的庞大家族术通过逐条排查支系年龄、居住地与外貌表行嫌疑范围被奇迹般收窄到唯一个体"
+        "transcript": "系統沒有匹配到兇手本人卻揪出了幾位共享基因片段的遠方表親遺傳普系學家柯林菲茨帕特利克與調查組順同摸瓜沿著十九世紀的增組父母向上迴速繪製出擁有數千名後代的龐大家族術通過逐條排查知系年齡、居住地與外貌表行嫌疑範圍被奇蹟般收窄到唯一個體"
       },
       {
         "id": "N06",
@@ -501,8 +501,10 @@
         "transcript": "2018年,警方暗中提取了已經72歲的前警官約瑟福迪安傑洛丟棄的物品確認DNA百分之百吻合滿頭白髮的惡魔終於落網從一根微量毛髮到家族數檢索法醫基因組學讓幾十年前的冷暗全面復活基因不會說謊,歲月也無法洗脫罪惡科學終將照亮一切被遺忘的黑暗角落"
       }
     ],
-    "max_cer": 0.0877,
-    "failing": []
+    "max_cer": 0.1754,
+    "failing": [
+      "N05"
+    ]
   },
   "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。本报告按 film_sha256 绑定被检成片：换一版成片必须重跑，结论不跨版本沿用。"
 }
