@@ -408,13 +408,13 @@ def main():
         checks[sid]=probe(source)
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
     edl=make_edl(project,narration)
-    from align_audio import transcribe_on_runner, aligned_cues
-    asr={} if args.skip_asr else transcribe_on_runner(narration,work)
+    from align_audio import best_cues
     cues=[];alignment=[]
     for row,samples in zip(narration,waves):
-        aligned=None;coverage=0.0
-        if row['id'] in asr:
-            aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
+        if args.skip_asr:
+            aligned=None;coverage=0.0
+        else:
+            aligned,coverage=best_cues(row,caption_clauses(row['text']),work)
         cues.extend(aligned if aligned else captions_for(row,samples))
         alignment.append({'id':row['id'],'method':'ASR-assisted' if aligned else 'pause-aware estimate',
                           'character_match_coverage':coverage})

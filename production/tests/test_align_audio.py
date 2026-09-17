@@ -60,5 +60,28 @@ class AlignedCuesTests(unittest.TestCase):
                          align_audio.normalize("刑事侦察学术讨论"))
 
 
+
+class PickBestTests(unittest.TestCase):
+    def test_stops_at_acceptable_variant(self):
+        row = dict(ROW); row["text"] = "第一句话讲完。"
+        clauses = ["第一句话讲完。"]
+        sparse = [{"word": "第", "start": 0.0, "end": 0.3}]
+        full = [{"word": c, "start": i * 0.3, "end": i * 0.3 + 0.3}
+                for i, c in enumerate("第一句话讲完")]
+        cues, coverage = align_audio.pick_best(row, clauses, [sparse, full])
+        self.assertIsNotNone(cues)
+        self.assertEqual(coverage, 1.0)
+
+    def test_keeps_best_when_all_weak(self):
+        row = dict(ROW); row["text"] = "第一句话讲完。"
+        clauses = ["第一句话讲完。"]
+        weak1 = [{"word": "第", "start": 0.0, "end": 0.3}]
+        weak2 = [{"word": "第", "start": 0.0, "end": 0.3},
+                 {"word": "一", "start": 0.3, "end": 0.6}]
+        cues, coverage = align_audio.pick_best(row, clauses, [weak1, weak2])
+        self.assertIsNone(cues)
+        self.assertAlmostEqual(coverage, 1 / 6, places=3)
+
+
 if __name__ == "__main__":
     unittest.main()

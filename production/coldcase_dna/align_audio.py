@@ -1,7 +1,9 @@
-"""Optional local-on-runner ASR-assisted timing; captions retain the reviewed script.
+"""Runner 本地 ASR 辅助字幕对齐；字幕文本始终用审定稿。
 
-No audio is sent to an external transcription service. Model weights are downloaded
-on the runner. Low-coverage matches explicitly fall back to pause-aware timing.
+音频不出本机，模型权重在 runner 上下载。v2-v4 的三课都在这条路径上：
+繁体转写拖垮字符匹配（修复：production/simpfold.py 折叠）；单次转写
+不可信（修复：pick_best 多配置择优）；个别分句零锚点就整章放弃会退回
+停顿估算（修复：aligned_cues 锚点间线性内插）。
 """
 import importlib.util
 from difflib import SequenceMatcher
@@ -93,30 +95,55 @@ def aligned_cues(row, clauses, words):
     return cues,coverage
 
 
-def transcribe_on_runner(narration, work):
-    work=Path(work)
-    os.environ.setdefault('HF_HOME',str(work/'model-cache'))
-    os.environ.setdefault('HF_HUB_ETAG_TIMEOUT','15')
-    os.environ.setdefault('HF_HUB_DOWNLOAD_TIMEOUT','90')
-    try:
+def pick_best(row, clauses, attempts, accept=.75):
+    """按尝试顺序对同一章做多次 (words->cues)，返回 (cues, coverage) 最优解。
+
+    覆盖率一旦达到 accept 立即收手；全部尝试结束仍低于阈值时返回最优的
+    （可能是 None，由调用方回落停顿估算）。v3/v4 实证：同一章在不同
+    转写配置下表现完全不同（N04：small+提示词 0.43，base 0.85，small
+    无提示词 0.95+），单次转写不可信，必须择优。
+    """
+    best=None
+    for words in attempts:
+        cues,cov=aligned_cues(row,clauses,words)
+        if best is None or cov>best[1]:best=(cues,cov)
+        if cov>=accept:break
+    return best
+
+
+_MODELS={}
+_MODEL_SPECS=(('small',True,False),('small',False,True),('base',True,False))
+
+
+def _get_model(name, work):
+    if name not in _MODELS:
         from faster_whisper import WhisperModel
-        # small 而不是 base：v3 实证 base 对 N05 的干净配音几乎转写不出可用文本
-        # （字符匹配率 0.03，small 同段 0.9+）；condition off 防提示词复述式幻觉。
-        model=WhisperModel('small',device='cpu',compute_type='int8',cpu_threads=2,
-                           download_root=str(work/'model-cache'))
-        results={}
-        for row in narration:
-            segments,_=model.transcribe(row['path'],language='zh',beam_size=5,word_timestamps=True,
-                                        vad_filter=True,condition_on_previous_text=False,
-                                        initial_prompt=row['text'])
-            words=[];text=[]
-            for s in segments:
-                text.append(s.text)
-                for word in s.words or []:
-                    words.append({'word':word.word,'start':word.start,'end':word.end})
-            results[row['id']]={'words':words,'recognized_text':''.join(text)}
-            print('ASR_TIMING_READY '+row['id'],flush=True)
-        return results
+        _MODELS[name]=WhisperModel(name,device='cpu',compute_type='int8',cpu_threads=2,
+                                   download_root=str(Path(work)/'model-cache'))
+    return _MODELS[name]
+
+
+def _words(model, row, use_prompt, condition_previous):
+    segments,_=model.transcribe(row['path'],language='zh',beam_size=5,word_timestamps=True,
+                                vad_filter=True,condition_on_previous_text=condition_previous,
+                                initial_prompt=row['text'] if use_prompt else None)
+    words=[]
+    for sgm in segments:
+        for word in sgm.words or []:
+            words.append({'word':word.word,'start':word.start,'end':word.end})
+    return words
+
+
+def best_cues(row, clauses, work):
+    """逐配置转写一章并择优；全部失败返回 (None, 0.0)。转写异常不抬闸门。"""
+    attempts=[]
+    try:
+        for name,use_prompt,cond in _MODEL_SPECS:
+            attempts.append(_words(_get_model(name,work),row,use_prompt,cond))
     except Exception as exc:
-        print(f'ASR_TIMING_UNAVAILABLE {type(exc).__name__}: {exc}; pause-aware fallback will be labeled',flush=True)
-        return {}
+        print(f'ASR_TIMING_UNAVAILABLE {row["id"]} {type(exc).__name__}: {exc}; '
+              'pause-aware fallback will be labeled',flush=True)
+        return None,0.0
+    cues,cov=pick_best(row,clauses,attempts)
+    print(f'ASR_TIMING {row["id"]} coverage={cov:.3f} cues={"asr" if cues else "estimate"}',flush=True)
+    return cues,cov
