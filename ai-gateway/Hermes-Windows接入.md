@@ -105,7 +105,38 @@ fetch("/v1/chat/completions",{method:"POST",headers:{"content-type":"application
 | `error code 400` 且 `debug/last-error` 里 `arrivals: 0` | 请求没打到 `/v1/chat/completions`。**1.5.1 起**未知路径/未知模型也会计数并记下 `asked_path`/`asked_model`，直接看那个字符串就知道它拼错了什么 |
 | 429 rate limited | 免费档 RPM，等 60 秒或让 `auto` 降级；频繁出现就把 `RATE_LIMIT_RPM` 抬一档 |
 
-## 6. 两句实话
+## 6. 那轮 `HTTP 400`（空 body）的最终定论：根因在 Hermes 的 relay
+
+现象（当时哪个单一解释都对不上）：`Error code: 400` 且 `response_text` 是**空字符串**；没生成
+request dump；网关日志查不到；而我用 PowerShell / curl 打**同一个 URL、同一个 key**永远 200。
+
+根因：**Hermes 的 LLM 调用全部经过 `agent/relay_llm.py`（它的 Gateway / Nous Portal 那一层）**。
+该层没配完时（界面挂着 `⚠ Gateway needs setup`、`hermes doctor` 报 `⚠ Nous Portal auth (not logged in)`），
+它会**自己**造一个空 body 的 400，并且顺手把 URL 里的 `/v1` 剥掉 —— 日志里这行就是铁证：
+
+```
+Failed to fetch model metadata from https://<host>/v1/models: 400 … for url: https://<host>/models
+```
+
+本网关对 `/models` 是照答的，而且我这里的错误一律带 JSON、错路径回 404 —— **绝不会**回一个
+body 为空的 400。所以状态码不是网关发的。
+
+处理：`hermes setup` → 把 **Nous Portal / Gateway** 那项登录（或选择不使用 gateway）。真机验证：
+配完立刻通，`你好` → `你好！有什么我可以帮助你的吗？`，底栏出现 `16K/200K`、`36 t/s`。
+
+**下次遇到同类问题，先跑这两条判据（能省一整轮）：**
+
+1. 同一个请求换个客户端**直连**（`Invoke-WebRequest` / `curl.exe`）。它们通、agent 不通 ⇒ 问题在
+   agent 自己的转发层，跟你的端点无关。
+2. 看 `response_text` 是不是**空的**。本网关每个错误都带 `{"error":{"message":…}}`；空 body =
+   那个状态码不是网关产生的。
+
+顺带：1.6.1 删掉了 SSE 响应里的 `connection: keep-alive`（HTTP/2 禁止逐跳头，
+RFC 7540 §8.1.2.2）—— 那是个真 bug，但与本次根因无关。
+
+---
+
+## 7. 两句实话
 
 1. **`config.yaml` 里是明文 key**：别把它贴到网上/截进图里。真泄露了就回 Cloudflare 改 `ROUTER_API_KEY` 的值并重新部署（10 秒，客户端只改一处）。
 2. Hermes 是**会真的执行命令**的 agent，而它背后的模型此刻是"几家免费档轮流转、谁挂了换谁"。
