@@ -31,8 +31,10 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
+import time
 import wave
 from difflib import SequenceMatcher
 from pathlib import Path
@@ -197,8 +199,22 @@ def transcribe(paths: dict[str, Path], model_size: str, language: str,
     except ImportError as error:      # 装不上就明说，不许"没做检查却说通过了"
         raise VerdictError(f"faster-whisper 不可用，逐字听检没做成（不是通过）：{error}") from error
 
-    model = WhisperModel(model_size, device="cpu", compute_type="int8", cpu_threads=4,
-                         download_root=str(model_cache))
+    # Hugging Face 偶发抽风（TLS 被掐、限流）时重试，而不是让整次听检白跑；
+    # 三次都失败才认输——错误会随失败报告一起发布，供人工定位。
+    model = None
+    attempts = 3
+    for attempt in range(1, attempts + 1):
+        try:
+            model = WhisperModel(model_size, device="cpu", compute_type="int8", cpu_threads=4,
+                                 download_root=str(model_cache))
+            break
+        except Exception as error:
+            if attempt == attempts:
+                raise VerdictError(
+                    f"whisper 模型 {model_size} 下载/加载连续 {attempts} 次失败：{error}") from error
+            wait = 10 * attempt
+            print(f"MODEL_DOWNLOAD_RETRY attempt={attempt} error={error}；{wait}s 后重试", flush=True)
+            time.sleep(wait)
     transcripts: dict[str, str] = {}
     for cid, path in paths.items():
         segments, info = model.transcribe(str(path), language=language, beam_size=5,
@@ -235,6 +251,62 @@ def compare(chapters: list[dict], transcripts: dict[str, str], max_cer: float) -
             "failing": failing}
 
 
+def publish_report(report_path, project_dir, reason: str) -> None:
+    """把听检报告（成功结论或失败现场）commit 回当前分支——尽力而为。
+
+    运行环境（沙箱）拉不到 Actions 的日志 CDN，失败时唯一能带回来的证据就是
+    分支上的文件。这里所有 git 步骤都吞异常：发布失败绝不掩盖原始检查结论。
+    """
+    if not report_path or not Path(report_path).is_file():
+        print("REPORT_PUBLISH_SKIP 没有可发布的报告文件", flush=True)
+        return
+    try:
+        repo = subprocess.check_output(["git", "rev-parse", "--show-toplevel"],
+                                       text=True, stderr=subprocess.DEVNULL).strip()
+    except Exception as error:
+        print(f"REPORT_PUBLISH_SKIP 不在 git 仓库里：{error}", flush=True)
+        return
+    branch = os.environ.get("GITHUB_REF_NAME") or ""
+    if not branch:
+        # 只允许在 Actions 运行时发布（GITHUB_REF_NAME 必然存在）；
+        # 本地/沙箱里跑听检绝不碰 git，防止冒烟测试污染真实分支。
+        print("REPORT_PUBLISH_SKIP 本地运行，不发布（仅 Actions 内自发布）", flush=True)
+        return
+    target = Path(repo) / project_dir / "delivery" / Path(report_path).name
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(report_path, target)
+        subprocess.run(["git", "config", "user.name", "arena-verbatim"],
+                       cwd=repo, check=True, capture_output=True)
+        subprocess.run(["git", "config", "user.email", "arena@local"],
+                       cwd=repo, check=True, capture_output=True)
+        subprocess.run(["git", "add", "-f", str(target.relative_to(repo))],
+                       cwd=repo, check=True, capture_output=True)
+        subprocess.run(["git", "commit", "-m", f"听检: 发布逐字听检报告（{reason}）"],
+                       cwd=repo, check=True, capture_output=True)
+    except Exception as error:
+        print(f"REPORT_PUBLISH_SKIP 发布未完成：{error}", flush=True)
+        return
+    for attempt in range(1, 4):
+        try:
+            subprocess.run(["git", "push", "origin", f"HEAD:{branch}"],
+                           cwd=repo, check=True, capture_output=True)
+            print(f"REPORT_PUBLISHED {target.relative_to(repo)} -> {branch}", flush=True)
+            return
+        except Exception as error:
+            if attempt == 3:
+                print(f"REPORT_PUBLISH_SKIP push 三次被拒：{error}", flush=True)
+                return
+            try:
+                subprocess.run(["git", "fetch", "origin", branch],
+                               cwd=repo, check=True, capture_output=True)
+                subprocess.run(["git", "rebase", "FETCH_HEAD"],
+                               cwd=repo, check=True, capture_output=True)
+            except Exception:
+                pass
+            time.sleep(5)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -254,7 +326,38 @@ def main(argv: list[str] | None = None) -> int:
     if not args.film.is_file():
         raise SystemExit(f"找不到成片：{args.film}")
     args.work.mkdir(parents=True, exist_ok=True)
+    try:
+        return _run(args)
+    except SystemExit:
+        raise
+    except Exception as error:
+        # 运行环境拉不到 Actions 日志时，git 是唯一能把失败现场带回分支的通道：
+        # 把错误写进报告并 commit/push（尽力而为），然后仍以非零退出——闸门不许变绿。
+        digest = None
+        try:
+            with args.film.open("rb") as handle:
+                digest = hashlib.file_digest(handle, "sha256").hexdigest()
+        except OSError:
+            pass
+        report = {
+            "status": "error",
+            "film": args.film.name,
+            "film_sha256": digest,
+            "project": str(args.project),
+            "model": args.model,
+            "error": f"{type(error).__name__}: {error}",
+            "note": "本次逐字听检没有完成（不是通过）。此报告由失败路径自动发布，供人工定位。",
+        }
+        out = args.report or args.work / "verbatim-check.json"
+        try:
+            out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        except OSError:
+            pass
+        publish_report(out, args.project, f"听检未完成：{type(error).__name__}")
+        raise SystemExit(f"逐字听检失败：{type(error).__name__}: {error}") from error
 
+
+def _run(args):  # noqa: C901
     chapters = load_chapters(args.project, args.timing)
     print(f"DECODE {args.film}", flush=True)
     samples = decode_audio(args.film, args.work)
@@ -319,6 +422,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  最大字错率 {film_result['max_cer']:.3f}（上限 {args.max_cer}）")
     if film_result["failing"]:
         print("  需人工听：" + "、".join(film_result["failing"]), flush=True)
+        publish_report(out, args.project, "CER 超上限，报告随失败发布供人耳裁决")
         return 1
     print("  六段全部落在字错率上限内")
     return 0
