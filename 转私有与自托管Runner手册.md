@@ -1,0 +1,224 @@
+# 转到私有仓库 + 自托管 Runner 手册
+
+**这份手册解决两件事**：① 让仓库里的东西不再被外人看到；② 转私有之后渲染还能跑，
+而且不再受 2000 分钟/月的限制。
+
+一句话结论：**内容要藏 → 必须转私有；转私有还要不限量跑渲染 → 自托管 runner。**
+这两件事必须按顺序做，顺序反了会有一段时间把你自己的电脑暴露出去（见第 0 节）。
+
+---
+
+## 0. 先纠正两个常见误解
+
+### 误解一："把东西放到分支，别人就看不到了"
+
+不成立。公开仓库里**所有分支、所有提交、所有 Actions 日志**对全世界可见。
+实测（无任何登录凭证）：
+
+| 操作 | 结果 |
+|---|---|
+| `GET /repos/32r4e2q-hub/desktop-tutorial/branches` | 返回全部 30+ 个 `arena/...` 分支名 |
+| 下载某个非默认分支的 tar.gz | HTTP 200，整包下载成功 |
+| 打开 `/actions` 页面 | 匿名可见 |
+
+默认分支只是"仓库首页默认展示哪一支"，不是权限。分支下拉框就在首页右上角。
+
+### 误解二："转私有 + 无限跑 Actions"
+
+也不成立。免费账号的额度是这样的：
+
+| 仓库可见性 | runner | 计费 |
+|---|---|---|
+| 公开 | GitHub-hosted | **免费、不计分钟** |
+| 私有 | GitHub-hosted | **2000 分钟/月**，用完就停 |
+| 私有 | **自托管** | **不计分钟**（目前） |
+
+出片一次 6~90 分钟，2000 分钟大约只够 20 次左右出片。所以要么公开换额度，要么把
+机器换成你自己的——**自托管 runner 是目前唯一"内容藏起来 + 渲染不限量"的组合**。
+
+> 关于自托管计费的一个诚实说明：GitHub 曾在 2025-12 宣布 2026-03-01 起对私有仓库的
+> 自托管用量收 $0.002/分钟（理由是"编排层成本"），社区反弹后**已推迟、至今未生效**，
+> 官方现行文档仍写明 self-hosted runners 免费。这件事随时可能变，所以下面第 4 节教你
+> 怎么核对。真收起来也就是"自托管 ≈ 现在的 2000 分钟额度"，不会更糟。
+
+---
+
+## ⚠️ 顺序不能换：先转私有，再装 runner
+
+GitHub 官方安全文档明确警告：**自托管 runner 几乎不应该用于公开仓库**——
+任何人都能 fork 仓库、提一个 PR，让工作流在你自己的电脑上执行任意代码
+（本仓库的 `.github/workflows/ci-tests.yml` 正好是 `on: pull_request` 触发）。
+
+所以：
+
+```
+① 转私有  →  ② 装自托管 runner  →  ③ 设置 RUNNER_LABEL 变量  →  ④ 跑一次出片验证
+```
+
+顺序反了（先装 runner 后转私有），中间那段时间你的电脑对任何 fork PR 敞开。
+
+---
+
+## 1. 转私有（网页操作，约 2 分钟）
+
+1. 打开 <https://github.com/32r4e2q-hub/desktop-tutorial/settings>
+2. 拉到页面**最底部**的 **Danger Zone**
+3. **Change repository visibility** → **Make private** → 按提示输入仓库全名确认
+
+转完立刻发生的变化：
+
+- 首页、分支、提交历史、Issues、PR、**Actions 日志**都只对有权限的人可见；
+- **Actions 会因为没有额度而停摆**——这是预期内的，第 3 步装好 runner 就恢复；
+- 你的 Arena 代理（GitHub App）不受影响，仍然是同一个仓库、同一套权限。
+
+**关于"已经露过"的部分**：公开期间别人下载走的副本收不回来，GH Archive 也永久记录了
+"这个仓库曾经公开"这件事。转私有能阻止的是**以后**的访问，不是过去。所以：
+
+- 仓库里有过真密钥的话，**先作废重发**，别指望转私有兜底（本仓库实测没扫到硬编码密钥，
+  `AGNES_API_KEY` / `PIXAZO_API_KEY` 都走的 Secrets，做法是对的）；
+- 目前 `forks: 0`、`stars: 0`，说明还没有人 fork 过——现在是收手成本最低的时候。
+
+---
+
+## 2. 在那台常开的机器上装 runner（约 10 分钟）
+
+### 2.1 先说系统：必须是 Linux，或者是 Windows 里的 WSL2
+
+这条不是偏好，是这套流水线的硬性要求：
+
+- `production/dahlia/media.py` 会直接调 `sudo apt-get install fonts-noto-cjk`；
+- `production/dahlia/render.py` 只认 `/usr/share/fonts/opentype/noto/...` 这些路径下的中文字体，
+  找不到就直接拒绝渲染（`refusing to render missing glyphs`）；
+- 出片脚本是 `bash production/run_project.sh`。
+
+所以 **Windows 原生（PowerShell）跑不通**，请用 **WSL2 里的 Ubuntu**（推荐）或一台 Linux 机器。
+macOS 能改，但字体路径要你自己调，性价比低。
+
+### 2.2 装依赖（WSL2/Ubuntu 里执行）
+
+```bash
+sudo apt-get update
+sudo apt-get install -y git python3 python3-venv python3-pip ffmpeg fonts-noto-cjk curl
+ffmpeg -version | head -1                 # 有输出就行
+fc-list | grep -i "Noto.*CJK" | head -3   # 能看到中文字体就行
+```
+
+### 2.3 注册 runner
+
+1. 打开 <https://github.com/32r4e2q-hub/desktop-tutorial/settings/actions/runners/new>
+2. 选 **Linux / x64**，页面上会生成一段**带版本号的一次性命令**——直接照抄那一段，
+   不要抄别人文章里的版本号（会过期），也不要把里面的 token 发给任何人
+3. 依次是：建目录 → 下载 → 解压 → `./config.sh --url ... --token ...`
+4. 最后别急着 `./run.sh`，改装成系统服务，这样关机重启后自动回来：
+
+```bash
+sudo ./svc.sh install
+sudo ./svc.sh start
+sudo ./svc.sh status      # 看到 active (running) 就成了
+```
+
+5. 回到 Runners 页面，应该能看到这个 runner 是**绿色 Idle**
+
+> 想临时试一下可以用 `./run.sh` 前台跑，但关掉终端就没了，不适合出片。
+
+---
+
+## 3. 打开开关（网页操作，约 1 分钟）
+
+工作流里的 `runs-on` 已经统一改成：
+
+```yaml
+runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+```
+
+- **没设这个变量** → 一切照旧，跑 GitHub 的机器（行为与现在完全一样）；
+- **设了这个变量** → 全部 9 个工作流一起切到你自己的机器。
+
+设置位置：<https://github.com/32r4e2q-hub/desktop-tutorial/settings/variables/actions>
+→ **New repository variable**
+
+| Name | Value |
+|---|---|
+| `RUNNER_LABEL` | `self-hosted` |
+
+`self-hosted` 是每个自托管 runner 都有的标签，一个 runner 就够用。
+要精确指定某一台，就在注册时给它起个名字（比如 `home-rig`），这里填 `home-rig`。
+
+顺手可加的第二个变量（可选，见第 4 节第 1 条）：
+
+| Name | Value |
+|---|---|
+| `HF_ENDPOINT` | `https://hf-mirror.com` |
+
+---
+
+## 4. 跑一次验证
+
+Actions → **解说短片出片** → Run workflow → `project` 填 `dahlia`
+（**重跑已经交付过的片子要填 `film_name: 黑色大丽花_三分钟_带声音.mp4`**，
+留空会在 `交付/` 里多出一个 48 MB 的副本）。
+
+跑起来后确认三件事：
+
+1. 日志里 checkout 的路径像是你自己机器上的目录；
+2. 任务在跑的时候，看 GitHub 的 **Billing → Actions** 页面，分钟数**没有增加**；
+3. `交付/` 目录里成片照常被 commit 回来。
+
+---
+
+## 5. 常见坑
+
+1. **HF 连不上，ASR / 逐字听检卡住**
+   模型要从 `huggingface.co` 下载，国内网络常常连不上。把仓库变量 `HF_ENDPOINT`
+   设成 `https://hf-mirror.com` 即可——`commentary-render.yml` 与 `verbatim-check.yml`
+   已经把这个变量透传进去了，不设就是官方地址。
+
+2. **机器连不上 GitHub 本身**
+   给 runner 配代理：在 runner 目录下建 `.env`，写 `HTTPS_PROXY=http://...` / `HTTP_PROXY=http://...`，
+   然后 `sudo ./svc.sh stop && sudo ./svc.sh start`。
+
+3. **电脑休眠/关机时点了出片**
+   任务会一直排队等着（直到超时）。自托管 runner 的代价就在这里：**机器得是开着的**。
+
+4. **磁盘**
+   `work/` 下的中间产物、`work/*/model-cache` 的 whisper 模型（small 约 500 MB）、
+   成片 48 MB 都会留在本机，记得偶尔清一下。
+
+5. **私有仓库的 artifact 存储也有额度**（Free 账号 500 MB）
+   出片工作流会把成片当 artifact 传一份（保留 30 天），而成片本来就 commit 回 `交付/` 了，
+   等于存了两份。想省额度就把 `.github/workflows/commentary-render.yml` 里那步
+   `retention-days: 30` 改小，或者整段 `Upload the finished film` 删掉
+   （改完记得同步 `production/commentary-render.workflow.yml`，
+   `production/tests/test_workflows.py` 会检查两份逐字节一致）。
+
+6. **别再把这个 runner 挂回公开仓库**
+   任何时候想把仓库改回公开，先去 Settings → Actions → Runners 把 runner 删掉。
+
+---
+
+## 6. 一页速查
+
+| 我想…… | 怎么做 |
+|---|---|
+| 内容不再被外人看到 | 转私有（第 1 节）——分支做不到这件事 |
+| 转私有后还能出片、还不限量 | 装自托管 runner（第 2 节）+ 设 `RUNNER_LABEL`（第 3 节） |
+| 临时不够用，想借 GitHub 的机器 | 把 `RUNNER_LABEL` 变量删掉，全部工作流回到 `ubuntu-latest`（吃 2000 分钟额度） |
+| 只想让某几个工作流用自托管 | 别用仓库变量，直接在那个文件的 `runs-on:` 里写 `self-hosted`（会有测试提醒你这么干的目的） |
+| ASR 模型下不下来 | 设 `HF_ENDPOINT=https://hf-mirror.com` |
+| 核对自托管到底收不收费 | <https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions> 里的 "Free use of GitHub Actions" |
+
+**永远不要**把 runner 的注册 token、PAT、API key 贴进任何聊天框（包括和我对话时）。
+registration token 从 GitHub 页面复制、只填进 `./config.sh` 那一行就够了。
+
+---
+
+## 附：这次改了哪些文件
+
+| 文件 | 改动 |
+|---|---|
+| `.github/workflows/*.yml`（9 个） | `runs-on` 统一改成 `${{ vars.RUNNER_LABEL \|\| 'ubuntu-latest' }}` |
+| `production/*.workflow.yml`（3 个模板） | 同上；`commentary-render` 与 `verbatim-check` 增加 `HF_ENDPOINT` 透传 |
+| `production/dahlia/*.workflow.yml`、`production/dbcooper/*.workflow.yml`（5 个归档模板） | 同上，避免以后复制出去又写死 |
+| `production/tests/test_workflows.py` | 新增 `test_no_workflow_hardcodes_a_github_hosted_runner`：谁再写死 `ubuntu-latest` 就红 |
+
+没设 `RUNNER_LABEL` 之前，这些改动**不改变任何行为**——可以放心先合进 main。

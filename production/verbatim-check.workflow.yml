@@ -40,8 +40,13 @@ concurrency:
 
 jobs:
   listen:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 60
+    env:
+      # 转写模型从 Hugging Face 下载。自托管 runner 走的是你自己家/公司的网络，
+      # 连不上 huggingface.co 时把仓库变量 HF_ENDPOINT 设成镜像（如 https://hf-mirror.com）。
+      # 不设变量时就是官方地址，行为与切 runner 之前完全一样。
+      HF_ENDPOINT: ${{ vars.HF_ENDPOINT || 'https://huggingface.co' }}
     steps:
       - name: Check out the branch this was run from
         uses: actions/checkout@v4

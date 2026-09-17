@@ -16,7 +16,19 @@
 | [`production/review_film.py`](production/review_film.py) | 审片工具：黑帧/冻结帧（带 64×64 复核）/逐章电平/语速，冻结帧阈值有实测标定 |
 | [`production/requirements.txt`](production/requirements.txt) | 跑流水线与测试的全部 Python 依赖（ffmpeg 与中文字体仍需系统装） |
 | [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml) | 每次 push 跑离线自检的工作流模板（需手动复制一次到 `.github/workflows/`） |
+| [`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md) | **要让仓库不再公开时读这份**：转私有的正确顺序、自托管 runner 怎么装、`RUNNER_LABEL` 开关 |
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
+
+## 仓库可见性与 runner
+
+- **分支不是"隐藏"**：公开仓库的所有分支、提交与 **Actions 日志**对全世界可见，
+  把内容挪到分支只是不在首页展示。真要藏住只能转私有。
+- 转私有后 GitHub-hosted runner 走 **2000 分钟/月**的额度（出片一次 6~90 分钟），
+  自托管 runner **不计分钟**——所以这套流水线的机器由仓库变量 `RUNNER_LABEL` 决定：
+  `runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}`。**不设这个变量时行为与以前完全一样。**
+- ⚠️ 自托管 runner **绝不能挂在公开仓库上**（fork PR 能在你机器上执行任意代码），
+  所以顺序是**先转私有、再装 runner**。完整步骤见
+  [`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md)。
 
 ## 待办（需要仓库主手动做一次）
 
@@ -26,32 +38,18 @@
 （那次事故留下的一条经验仍然有效：离线测试当时全绿却拦不住它，所以现在
 `production/tests/test_workflows.py` 守着工作流文件的形状与逐字节一致性。）
 
-还剩**两件**需要你手动做的事（都是复制一个文件，复制完我就能远程触发）：
+**状态更新（2026-09-18）**：上面那两件"要手动复制"的事**都已经做完了**——
+`.github/workflows/ci-tests.yml` 与 `.github/workflows/verbatim-check.yml` 都在仓库里、
+与模板逐字节一致、`test_workflows.py` 全绿（74 passed / 10 skipped，跳过的是要真解码的用例）。
 
-1. **启用每次 push 自动跑离线自检**；
-2. **启用逐字听检**（`production/verbatim_check.py`，把成片里的解说转写成文字与剧本逐字比对——
-   ASR 模型要从 Hugging Face 下载，本地沙箱连不上，只有 runner 上跑得了）。
+同时，**代理（GitHub App）现在写得动 `.github/workflows/` 了**——2026-09-18 实测
+`git push` 成功，不再报 `without 'workflows' permission`。历史教训仍然有效：
+离线测试当时全绿却拦不住"贴错内容"，所以 `production/tests/test_workflows.py`
+继续守着工作流文件的形状与逐字节一致性，别把这两份文件改成"只改一份"的状态。
 
-
-代理（GitHub App）写不了 `.github/workflows/`——今天又实测了一次，
-`git push` 报 `refusing to allow a GitHub App to create or update workflow ... without 'workflows' permission`。
-给我权限的办法：仓库 **Settings → GitHub Apps（<https://github.com/32r4e2q-hub/desktop-tutorial/settings/installations>）
-→ Arena 应用 → Configure → Repository permissions → Workflows: Read and write → Save**；
-或者换成开了 **Actions: Read and write** 的 fine-grained PAT。给不给都行，不想授权就复制一次：
-
-```bash
-cp production/ci-tests.workflow.yml .github/workflows/ci-tests.yml
-python3 -m pytest production/tests/test_workflows.py -q    # 必须全绿
-```
-
-```bash
-cp production/ci-tests.workflow.yml       .github/workflows/ci-tests.yml
-cp production/verbatim-check.workflow.yml .github/workflows/verbatim-check.yml
-python3 -m pytest production/tests/test_workflows.py -q    # 必须全绿
-```
-
-没启用不会让测试变红（会跳过 2 个用例），只是没人替你在每次 push 时跑闸门、
-也没人把"配音念的字和剧本一字不差"这件事验掉。
+**现在真正剩下的手动事项是仓库可见性**：要让项目不再公开，见
+[`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md)——
+先转私有、再装自托管 runner、最后设 `RUNNER_LABEL`，顺序不能换。
 自检查什么见 [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml)：
 装依赖 → `pytest production/tests`（含工作流形状、混音复现、冻结帧阈值标定）。
 

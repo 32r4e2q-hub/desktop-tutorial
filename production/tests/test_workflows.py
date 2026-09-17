@@ -41,6 +41,10 @@ except ImportError:  # pragma: no cover - 取决于环境
 # 顶层键从行首开始，值可以为空（on: / jobs:）也可以跟在冒号后（name: 解说短片出片）
 TOP_LEVEL = re.compile(r"^(?P<key>[A-Za-z_][\w-]*):(?:[ \t].*)?$", re.MULTILINE)
 CHECKOUT_REF = re.compile(r"^\s+ref:\s*(\S+)", re.MULTILINE)
+RUNS_ON = re.compile(r"^\s*runs-on:\s*(?P<value>.+?)\s*$", re.MULTILINE)
+# 仓库转私有后，GitHub-hosted 的每一分钟都在烧额度（2000 分钟/月），自托管不计分钟。
+# 所以 runs-on 统一走这一个开关，见 转私有与自托管Runner手册.md。
+RUNNER_SWITCH = "vars.RUNNER_LABEL"
 
 
 def workflow_files() -> list[Path]:
@@ -170,6 +174,30 @@ class WorkflowIntegrityTests(unittest.TestCase):
                 for job_name, job in jobs.items():
                     self.assertIn("runs-on", job, f"{path.name}:{job_name} 缺 runs-on")
                     self.assertIn("steps", job, f"{path.name}:{job_name} 缺 steps")
+
+    def test_no_workflow_hardcodes_a_github_hosted_runner(self):
+        """runs-on 必须走仓库变量开关，不能写死 ubuntu-latest。
+
+        仓库一旦转私有，GitHub-hosted 的每分钟都从 2000 分钟额度里扣；自托管 runner 不计分。
+        写死 ``ubuntu-latest`` 的话，切 runner 那天会漏掉这个工作流，继续偷偷烧额度
+        ——而且因为不报错，没人会发现。开关的形状只有一种：
+        ``runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}``，
+        没设变量时行为与切私有之前一模一样。
+        """
+        files = workflow_files() + sorted(ROOT.glob("production/**/*.workflow.yml"))
+        self.assertTrue(files, "仓库里一个工作流都没有？")
+        for path in files:
+            text = path.read_text(encoding="utf-8")
+            values = RUNS_ON.findall(text)
+            with self.subTest(workflow=path.name):
+                self.assertTrue(values, f"{path.name} 里一个 runs-on 都没有")
+                for value in values:
+                    self.assertIn(
+                        RUNNER_SWITCH, value,
+                        f"{path.name} 的 runs-on 写死了 {value!r}：转私有后这里会继续烧 "
+                        "GitHub-hosted 额度。改成 "
+                        "${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}",
+                    )
 
     def test_render_workflow_inputs_match_run_project_script(self):
         """工作流填的 slug 必须能喂给 run_project.sh，路径不能对不上。"""
