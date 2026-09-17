@@ -1,7 +1,7 @@
 {
   "film": "交付/一根头发引发的破案革命_冷案复活与DNA表型分析_三分钟_带声音.mp4",
-  "film_bytes": 57827021,
-  "film_sha256": "7613c9417540a724b5cc21e04896c6f43b1e84bec21368d093423a288cbae5e5",
+  "film_bytes": 57829739,
+  "film_sha256": "958323e509b80af92823bf6a5176877f82b6ff4ea1ff545649a22bfaf4e23bb5",
   "duration_s": 180.0,
   "avg_bitrate_mbps": 2.57,
   "sample_fps": 2.0,
@@ -52,18 +52,18 @@
       "name": "blocking",
       "desc": "8x8 块效应不超阈值（压缩伪影）",
       "measured": [
-        0.0604,
-        0.2593,
+        0.0608,
+        0.2623,
         0.5906
       ],
       "ok": true,
-      "note": "画面区内量；p50=0.060（上限 0.14）、p90=0.259（上限 0.3）、max=0.591；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+      "note": "画面区内量；p50=0.061（上限 0.14）、p90=0.262（上限 0.3）、max=0.591；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
     },
     {
       "name": "banding_reference",
       "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
       "measured": [
-        0.6919
+        0.6924
       ],
       "ok": true,
       "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
@@ -72,11 +72,11 @@
       "name": "overexposed",
       "desc": "高光不削顶",
       "measured": [
-        0.00294,
+        0.00293,
         0
       ],
       "ok": true,
-      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.00294；占比 >2% 的帧数 0（上限 0）"
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.00293；占比 >2% 的帧数 0（上限 0）"
     },
     {
       "name": "underexposed_reference",
@@ -92,7 +92,7 @@
       "desc": "饱和度不过冲、也不脱色",
       "measured": [
         0.0585,
-        0.0919
+        0.0914
       ],
       "ok": true,
       "note": "均值 0.058（要求 0.02..0.42）"
@@ -121,28 +121,34 @@
       "name": "orientation_purity",
       "desc": "强边缘轴向占比（畸变代理，仅对照）",
       "measured": [
-        0.7652
+        0.7654
       ],
       "ok": true,
       "note": "p5=0.765，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
     }
   ],
   "metrics": {
-    "blocking_mean": 0.0891,
-    "blocking_p50": 0.0604,
-    "blocking_p90": 0.2593,
+    "blocking_mean": 0.089,
+    "blocking_p50": 0.0608,
+    "blocking_p90": 0.2623,
     "blocking_p95": 0.3447,
     "blocking_max": 0.5906,
-    "step_ratio_p95_reference": 0.6919,
+    "step_ratio_p95_reference": 0.6924,
     "saturation_mean": 0.0585,
-    "saturation_p95": 0.0919,
-    "overexposed_max": 0.00294,
+    "saturation_p95": 0.0914,
+    "overexposed_max": 0.00293,
     "underexposed_p95": 0.5565,
     "luma_mean": 62.79,
     "luma_max": 144.72,
     "flash_reversal_spikes": 0,
     "flash_spike_times_s": [],
     "letterbox_by_segment": {
+      "S01": {
+        "top": [
+          7,
+          0.083
+        ]
+      },
       "S04": {
         "bottom": [
           60,
@@ -156,7 +162,7 @@
         ]
       }
     },
-    "axis_aligned_p5": 0.7652
+    "axis_aligned_p5": 0.7654
   },
   "per_segment": {
     "S01": {
@@ -164,8 +170,8 @@
       "frames": 12,
       "border": {
         "top": [
-          0,
-          0.0
+          7,
+          0.083
         ],
         "bottom": [
           0,
@@ -180,9 +186,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1381,
+      "blocking_p50": 0.1371,
       "blocking_max": 0.2787,
-      "overexposed_max": 0.00234
+      "overexposed_max": 0.00233
     },
     "S02": {
       "kind": "agnes",
@@ -280,9 +286,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0152,
-      "blocking_max": 0.063,
-      "overexposed_max": 0.00237
+      "blocking_p50": 0.0162,
+      "blocking_max": 0.0623,
+      "overexposed_max": 0.00227
     },
     "S06": {
       "kind": "agnes",
@@ -380,7 +386,7 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0374,
+      "blocking_p50": 0.0392,
       "blocking_max": 0.4447,
       "overexposed_max": 0.00212
     },
@@ -406,7 +412,7 @@
         ]
       },
       "blocking_p50": 0.1526,
-      "blocking_max": 0.3917,
+      "blocking_max": 0.3904,
       "overexposed_max": 0.00217
     },
     "S11": {
@@ -455,7 +461,7 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1152,
+      "blocking_p50": 0.1161,
       "blocking_max": 0.5906,
       "overexposed_max": 0.00212
     },
@@ -480,9 +486,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0021,
-      "blocking_max": 0.4974,
-      "overexposed_max": 0.00168
+      "blocking_p50": -0.0022,
+      "blocking_max": 0.4963,
+      "overexposed_max": 0.0016
     },
     "S14": {
       "kind": "agnes",
@@ -505,9 +511,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1556,
-      "blocking_max": 0.1953,
-      "overexposed_max": 0.00177
+      "blocking_p50": 0.155,
+      "blocking_max": 0.1949,
+      "overexposed_max": 0.00176
     },
     "S15": {
       "kind": "agnes",
@@ -556,8 +562,8 @@
         ]
       },
       "blocking_p50": 0.1855,
-      "blocking_max": 0.435,
-      "overexposed_max": 0.00178
+      "blocking_max": 0.4291,
+      "overexposed_max": 0.00176
     },
     "S17": {
       "kind": "agnes",
@@ -580,9 +586,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0776,
+      "blocking_p50": 0.0802,
       "blocking_max": 0.4248,
-      "overexposed_max": 0.00284
+      "overexposed_max": 0.0028
     },
     "S18": {
       "kind": "graphic",
@@ -605,8 +611,8 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0437,
-      "blocking_max": 0.483,
+      "blocking_p50": -0.0465,
+      "blocking_max": 0.4893,
       "overexposed_max": 0.0028
     },
     "S19": {
@@ -630,8 +636,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0311,
-      "blocking_max": 0.0561,
+      "blocking_p50": 0.0296,
+      "blocking_max": 0.0556,
       "overexposed_max": 0.00254
     },
     "S20": {
@@ -655,7 +661,7 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0138,
+      "blocking_p50": 0.013,
       "blocking_max": 0.0384,
       "overexposed_max": 0.00278
     },
@@ -680,9 +686,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0265,
-      "blocking_max": 0.0814,
-      "overexposed_max": 0.00192
+      "blocking_p50": 0.0229,
+      "blocking_max": 0.0817,
+      "overexposed_max": 0.00213
     },
     "S22": {
       "kind": "agnes",
@@ -705,9 +711,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.021,
+      "blocking_p50": 0.0209,
       "blocking_max": 0.0795,
-      "overexposed_max": 0.00294
+      "overexposed_max": 0.00293
     },
     "S23": {
       "kind": "graphic",
@@ -730,8 +736,8 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0284,
-      "blocking_max": 0.4456,
+      "blocking_p50": -0.0313,
+      "blocking_max": 0.4635,
       "overexposed_max": 0.00181
     },
     "S24": {
@@ -755,9 +761,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0431,
-      "blocking_max": 0.1577,
-      "overexposed_max": 0.0017
+      "blocking_p50": 0.0449,
+      "blocking_max": 0.1573,
+      "overexposed_max": 0.00116
     },
     "S25": {
       "kind": "agnes",
@@ -780,9 +786,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1887,
-      "blocking_max": 0.2866,
-      "overexposed_max": 0.00184
+      "blocking_p50": 0.1853,
+      "blocking_max": 0.2994,
+      "overexposed_max": 0.00181
     },
     "S26": {
       "kind": "agnes",
@@ -805,7 +811,7 @@
           0.0
         ]
       },
-      "blocking_p50": 0.082,
+      "blocking_p50": 0.0798,
       "blocking_max": 0.1153,
       "overexposed_max": 0.00169
     },
@@ -880,9 +886,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0442,
-      "blocking_max": 0.2892,
-      "overexposed_max": 0.00119
+      "blocking_p50": 0.0406,
+      "blocking_max": 0.2991,
+      "overexposed_max": 0.00115
     },
     "S30": {
       "kind": "agnes",
@@ -905,9 +911,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.049,
+      "blocking_p50": 0.0505,
       "blocking_max": 0.3041,
-      "overexposed_max": 0.00192
+      "overexposed_max": 0.00195
     },
     "END": {
       "kind": "graphic",
@@ -961,15 +967,15 @@
       "frame": 150,
       "t": 75.0,
       "segment": "S13",
-      "blocking": 0.4974,
-      "step_ratio": 0.6839
+      "blocking": 0.4963,
+      "step_ratio": 0.6871
     },
     {
       "frame": 203,
       "t": 101.5,
       "segment": "S18",
-      "blocking": 0.483,
-      "step_ratio": 0.6809
+      "blocking": 0.4893,
+      "step_ratio": 0.6696
     },
     {
       "frame": 34,
@@ -977,6 +983,13 @@
       "segment": "S03",
       "blocking": 0.4638,
       "step_ratio": 0.6961
+    },
+    {
+      "frame": 263,
+      "t": 131.5,
+      "segment": "S23",
+      "blocking": 0.4635,
+      "step_ratio": 0.6941
     },
     {
       "frame": 304,
@@ -993,13 +1006,6 @@
       "step_ratio": 0.6902
     },
     {
-      "frame": 263,
-      "t": 131.5,
-      "segment": "S23",
-      "blocking": 0.4456,
-      "step_ratio": 0.6847
-    },
-    {
       "frame": 108,
       "t": 54.0,
       "segment": "S09",
@@ -1007,18 +1013,18 @@
       "step_ratio": 0.644
     },
     {
-      "frame": 183,
-      "t": 91.5,
-      "segment": "S16",
-      "blocking": 0.435,
-      "step_ratio": 0.4247
-    },
-    {
       "frame": 257,
       "t": 128.5,
       "segment": "S23",
       "blocking": 0.4311,
       "step_ratio": 0.6885
+    },
+    {
+      "frame": 183,
+      "t": 91.5,
+      "segment": "S16",
+      "blocking": 0.4291,
+      "step_ratio": 0.4241
     }
   ],
   "not_measured": [
