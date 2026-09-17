@@ -37,6 +37,13 @@ class NormalizeTests(unittest.TestCase):
     def test_years_are_spelled_digit_by_digit(self):
         self.assertIn("一九四七", verbatim_check.normalize("1947年"))
 
+    def test_traditional_asr_output_folds_to_simplified(self):
+        """whisper 常输出繁体；字形差异不该算成配音念错（v2 听检假阳性教训）。"""
+        self.assertEqual(verbatim_check.normalize("刑事偵察學術討論"),
+                         verbatim_check.normalize("刑事侦察学术讨论"))
+        self.assertEqual(verbatim_check.character_error_rate(
+            verbatim_check.normalize("档案库裡的死檔"), verbatim_check.normalize("档案库里的死档")), 0.0)
+
 
 class ErrorRateTests(unittest.TestCase):
     def test_a_verbatim_match_scores_zero(self):
