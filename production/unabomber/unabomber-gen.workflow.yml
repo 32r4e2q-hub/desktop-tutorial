@@ -1,0 +1,92 @@
+name: 尤纳炸弹客 · Agnes生成
+run-name: 尤纳炸弹客 · Agnes Video V2.0 生成 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON: {"only":"S01","workers":1}；空则读 GEN_REQUEST'
+        type: string
+        default: '{"workers":2}'
+  push:
+    branches:
+      - arena/01a0adec-desktop-tutorial
+    paths:
+      - production/unabomber/GEN_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: unabomber-agnes-arena-01a0adec-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/01a0adec-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a0adec-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Resolve the generation payload
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then
+            payload="$PAYLOAD_INPUT"
+          elif [ -f production/unabomber/GEN_REQUEST ]; then
+            payload="$(tr -d '\n' < production/unabomber/GEN_REQUEST)"
+          else
+            payload='{"workers":2}'
+          fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "Generation payload: $payload"
+
+      - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install render dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<16" || \
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<16"
+
+      - name: Validate the complete three-minute timeline
+        run: python3 production/unabomber/generate.py --validate
+
+      - name: Drop dead provider tasks so a re-run submits fresh ones
+        run: python3 production/unabomber/generate.py --prune-failed
+
+      - name: Generate Agnes clips and checkpoint provenance
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: python3 -u production/unabomber/generate.py --publish --payload "$PAYLOAD"
+
+      - name: Save video clips as downloadable artifacts
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: unabomber-agnes-${{ github.run_number }}
+          path: |
+            work/unabomber/clips/
+            production/unabomber/results.json
+            production/unabomber/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 14
