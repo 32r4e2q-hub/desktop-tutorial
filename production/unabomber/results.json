@@ -202,10 +202,10 @@
     },
     "S09": {
       "id": "S09",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "b106cc4579c431690993183824e89917e36865caf010ef7d95218f6e4ca52d1c",
       "error": null,
-      "updated_at": "2026-09-17T06:33:38Z",
+      "updated_at": "2026-09-17T06:33:40Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzcwOTNmNGZkM2FiNzQ4ZWE5NjJjYzFmZGEwMjUzMDlk",
       "task_id": "task_9Vb86ptvBoWHZKS3a1xttM3mkm4QeaW2",
       "requested_seconds": 7.041666666666667,
@@ -213,7 +213,25 @@
       "bytes": 1842963,
       "sha256": "5a9d314dcc8b12fd4bd6ab7e03c5b595b54d3dc83faae83b01472bd6fe1d3979",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 1842963,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/unabomber/qa/S09.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -265,6 +283,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-09-17T06:33:38Z",
+  "updated_at": "2026-09-17T06:33:40Z",
   "run_id": "35189038442"
 }
