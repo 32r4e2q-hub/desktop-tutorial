@@ -17,6 +17,7 @@
 | [`production/requirements.txt`](production/requirements.txt) | 跑流水线与测试的全部 Python 依赖（ffmpeg 与中文字体仍需系统装） |
 | [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml) | 每次 push 跑离线自检的工作流模板（需手动复制一次到 `.github/workflows/`） |
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
+| [`ai-gateway/`](ai-gateway/) | 另一件事：自写的零依赖多云 LLM 网关（OpenAI 兼容 + 失败转移 + SSE + 缓存）。附 [amjadlle/zeroroute](https://github.com/amjadlle/zeroroute) 的审计结论与 4 个安全问题的回归测试 |
 
 ## 待办（需要仓库主手动做一次）
 

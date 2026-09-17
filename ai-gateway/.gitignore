@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.dev.vars
+*.log
+.wrangler/
+dist/
+.DS_Store
+
+# 注意：本项目**故意**没有任何"运行时落盘"文件要忽略 ——
+# 不写 secrets.json / config.json / metrics.json，key 只来自环境变量。

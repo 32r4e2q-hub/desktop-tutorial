@@ -1,0 +1,15 @@
+name = "zeroroute-lite"
+main = "worker.js"
+compatibility_date = "2025-06-01"
+
+# 只有非敏感的开关放这里；key 一律走 `wrangler secret put`（见 README 第 2 步）
+[vars]
+PROVIDER_ORDER = "groq,sambanova,mistral,openrouter,cohere,gemini"
+TIMEOUT_MS = "15000"
+COOLDOWN_MS = "30000"
+CACHE_TTL_MS = "300000"
+RATE_LIMIT_RPM = "60"
+ALLOW_ANONYMOUS = "false"
+
+# 想绑自己的域名时取消注释：
+# routes = [{ pattern = "ai.example.com", custom_domain = true }]
