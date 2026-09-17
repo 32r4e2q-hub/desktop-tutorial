@@ -1,9 +1,9 @@
 {
   "film": "交付/一根头发引发的破案革命_冷案复活与DNA表型分析_三分钟_带声音.mp4",
-  "film_bytes": 57883710,
-  "film_sha256": "8894c13ec2ae1c1d053962f795a3f9800dee8f558dc88ec135c38d4a4a5ed69a",
+  "film_bytes": 57827021,
+  "film_sha256": "7613c9417540a724b5cc21e04896c6f43b1e84bec21368d093423a288cbae5e5",
   "duration_s": 180.0,
-  "avg_bitrate_mbps": 2.573,
+  "avg_bitrate_mbps": 2.57,
   "sample_fps": 2.0,
   "sampled_frames": 360,
   "picture_rows_measured": [
@@ -52,18 +52,18 @@
       "name": "blocking",
       "desc": "8x8 块效应不超阈值（压缩伪影）",
       "measured": [
-        0.0619,
-        0.2618,
+        0.0604,
+        0.2593,
         0.5906
       ],
       "ok": true,
-      "note": "画面区内量；p50=0.062（上限 0.14）、p90=0.262（上限 0.3）、max=0.591；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+      "note": "画面区内量；p50=0.060（上限 0.14）、p90=0.259（上限 0.3）、max=0.591；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
     },
     {
       "name": "banding_reference",
       "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
       "measured": [
-        0.6947
+        0.6919
       ],
       "ok": true,
       "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
@@ -72,17 +72,17 @@
       "name": "overexposed",
       "desc": "高光不削顶",
       "measured": [
-        0.00293,
+        0.00294,
         0
       ],
       "ok": true,
-      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.00293；占比 >2% 的帧数 0（上限 0）"
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.00294；占比 >2% 的帧数 0（上限 0）"
     },
     {
       "name": "underexposed_reference",
       "desc": "暗部死黑占比（参考量，不判定）",
       "measured": [
-        0.5564
+        0.5565
       ],
       "ok": true,
       "note": "≤6 灰阶占比 p95=0.556；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
@@ -91,8 +91,8 @@
       "name": "saturation",
       "desc": "饱和度不过冲、也不脱色",
       "measured": [
-        0.0584,
-        0.0914
+        0.0585,
+        0.0919
       ],
       "ok": true,
       "note": "均值 0.058（要求 0.02..0.42）"
@@ -121,37 +121,31 @@
       "name": "orientation_purity",
       "desc": "强边缘轴向占比（畸变代理，仅对照）",
       "measured": [
-        0.7651
+        0.7652
       ],
       "ok": true,
       "note": "p5=0.765，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
     }
   ],
   "metrics": {
-    "blocking_mean": 0.089,
-    "blocking_p50": 0.0619,
-    "blocking_p90": 0.2618,
-    "blocking_p95": 0.3511,
+    "blocking_mean": 0.0891,
+    "blocking_p50": 0.0604,
+    "blocking_p90": 0.2593,
+    "blocking_p95": 0.3447,
     "blocking_max": 0.5906,
-    "step_ratio_p95_reference": 0.6947,
-    "saturation_mean": 0.0584,
-    "saturation_p95": 0.0914,
-    "overexposed_max": 0.00293,
-    "underexposed_p95": 0.5564,
-    "luma_mean": 62.81,
+    "step_ratio_p95_reference": 0.6919,
+    "saturation_mean": 0.0585,
+    "saturation_p95": 0.0919,
+    "overexposed_max": 0.00294,
+    "underexposed_p95": 0.5565,
+    "luma_mean": 62.79,
     "luma_max": 144.72,
     "flash_reversal_spikes": 0,
     "flash_spike_times_s": [],
     "letterbox_by_segment": {
-      "S01": {
-        "top": [
-          8,
-          0.083
-        ]
-      },
       "S04": {
         "bottom": [
-          44,
+          60,
           0.5
         ]
       },
@@ -162,7 +156,7 @@
         ]
       }
     },
-    "axis_aligned_p5": 0.7651
+    "axis_aligned_p5": 0.7652
   },
   "per_segment": {
     "S01": {
@@ -170,8 +164,8 @@
       "frames": 12,
       "border": {
         "top": [
-          8,
-          0.083
+          0,
+          0.0
         ],
         "bottom": [
           0,
@@ -186,7 +180,7 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1364,
+      "blocking_p50": 0.1381,
       "blocking_max": 0.2787,
       "overexposed_max": 0.00234
     },
@@ -211,9 +205,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0568,
-      "blocking_max": 0.1869,
-      "overexposed_max": 0.0017
+      "blocking_p50": 0.0554,
+      "blocking_max": 0.1893,
+      "overexposed_max": 0.00161
     },
     "S03": {
       "kind": "graphic",
@@ -236,9 +230,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.107,
-      "blocking_max": 0.4613,
-      "overexposed_max": 0.00202
+      "blocking_p50": -0.1072,
+      "blocking_max": 0.4638,
+      "overexposed_max": 0.00195
     },
     "S04": {
       "kind": "agnes",
@@ -249,7 +243,7 @@
           0.0
         ],
         "bottom": [
-          44,
+          60,
           0.5
         ],
         "left": [
@@ -261,9 +255,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2535,
-      "blocking_max": 0.2967,
-      "overexposed_max": 0.00206
+      "blocking_p50": 0.2619,
+      "blocking_max": 0.301,
+      "overexposed_max": 0.002
     },
     "S05": {
       "kind": "agnes",
@@ -286,8 +280,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0147,
-      "blocking_max": 0.0569,
+      "blocking_p50": 0.0152,
+      "blocking_max": 0.063,
       "overexposed_max": 0.00237
     },
     "S06": {
@@ -311,9 +305,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0285,
+      "blocking_p50": 0.0287,
       "blocking_max": 0.2503,
-      "overexposed_max": 0.00283
+      "overexposed_max": 0.00268
     },
     "S07": {
       "kind": "agnes",
@@ -336,7 +330,7 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0676,
+      "blocking_p50": 0.0698,
       "blocking_max": 0.5136,
       "overexposed_max": 0.00293
     },
@@ -361,9 +355,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0329,
-      "blocking_max": 0.5333,
-      "overexposed_max": 0.00183
+      "blocking_p50": -0.0256,
+      "blocking_max": 0.5305,
+      "overexposed_max": 0.00174
     },
     "S09": {
       "kind": "agnes",
@@ -386,9 +380,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0384,
-      "blocking_max": 0.4423,
-      "overexposed_max": 0.00211
+      "blocking_p50": 0.0374,
+      "blocking_max": 0.4447,
+      "overexposed_max": 0.00212
     },
     "S10": {
       "kind": "agnes",
@@ -411,9 +405,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.156,
-      "blocking_max": 0.4043,
-      "overexposed_max": 0.00218
+      "blocking_p50": 0.1526,
+      "blocking_max": 0.3917,
+      "overexposed_max": 0.00217
     },
     "S11": {
       "kind": "agnes",
@@ -436,8 +430,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1035,
-      "blocking_max": 0.2057,
+      "blocking_p50": 0.11,
+      "blocking_max": 0.216,
       "overexposed_max": 0.00212
     },
     "S12": {
@@ -461,9 +455,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1095,
+      "blocking_p50": 0.1152,
       "blocking_max": 0.5906,
-      "overexposed_max": 0.00211
+      "overexposed_max": 0.00212
     },
     "S13": {
       "kind": "graphic",
@@ -486,9 +480,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.003,
-      "blocking_max": 0.4935,
-      "overexposed_max": 0.00167
+      "blocking_p50": -0.0021,
+      "blocking_max": 0.4974,
+      "overexposed_max": 0.00168
     },
     "S14": {
       "kind": "agnes",
@@ -511,9 +505,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1518,
-      "blocking_max": 0.184,
-      "overexposed_max": 0.00166
+      "blocking_p50": 0.1556,
+      "blocking_max": 0.1953,
+      "overexposed_max": 0.00177
     },
     "S15": {
       "kind": "agnes",
@@ -536,8 +530,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0933,
-      "blocking_max": 0.2223,
+      "blocking_p50": 0.0908,
+      "blocking_max": 0.2198,
       "overexposed_max": 0.00189
     },
     "S16": {
@@ -561,9 +555,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1803,
-      "blocking_max": 0.4324,
-      "overexposed_max": 0.0018
+      "blocking_p50": 0.1855,
+      "blocking_max": 0.435,
+      "overexposed_max": 0.00178
     },
     "S17": {
       "kind": "agnes",
@@ -586,9 +580,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0767,
+      "blocking_p50": 0.0776,
       "blocking_max": 0.4248,
-      "overexposed_max": 0.00283
+      "overexposed_max": 0.00284
     },
     "S18": {
       "kind": "graphic",
@@ -636,9 +630,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0312,
-      "blocking_max": 0.0565,
-      "overexposed_max": 0.00256
+      "blocking_p50": 0.0311,
+      "blocking_max": 0.0561,
+      "overexposed_max": 0.00254
     },
     "S20": {
       "kind": "agnes",
@@ -661,9 +655,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0174,
-      "blocking_max": 0.0382,
-      "overexposed_max": 0.00279
+      "blocking_p50": 0.0138,
+      "blocking_max": 0.0384,
+      "overexposed_max": 0.00278
     },
     "S21": {
       "kind": "agnes",
@@ -686,9 +680,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0246,
-      "blocking_max": 0.0789,
-      "overexposed_max": 0.00207
+      "blocking_p50": 0.0265,
+      "blocking_max": 0.0814,
+      "overexposed_max": 0.00192
     },
     "S22": {
       "kind": "agnes",
@@ -711,9 +705,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0226,
-      "blocking_max": 0.0812,
-      "overexposed_max": 0.00285
+      "blocking_p50": 0.021,
+      "blocking_max": 0.0795,
+      "overexposed_max": 0.00294
     },
     "S23": {
       "kind": "graphic",
@@ -736,8 +730,8 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0326,
-      "blocking_max": 0.4538,
+      "blocking_p50": -0.0284,
+      "blocking_max": 0.4456,
       "overexposed_max": 0.00181
     },
     "S24": {
@@ -761,9 +755,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0437,
-      "blocking_max": 0.1556,
-      "overexposed_max": 0.00172
+      "blocking_p50": 0.0431,
+      "blocking_max": 0.1577,
+      "overexposed_max": 0.0017
     },
     "S25": {
       "kind": "agnes",
@@ -786,9 +780,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1878,
-      "blocking_max": 0.3046,
-      "overexposed_max": 0.00183
+      "blocking_p50": 0.1887,
+      "blocking_max": 0.2866,
+      "overexposed_max": 0.00184
     },
     "S26": {
       "kind": "agnes",
@@ -811,9 +805,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0777,
-      "blocking_max": 0.113,
-      "overexposed_max": 0.00163
+      "blocking_p50": 0.082,
+      "blocking_max": 0.1153,
+      "overexposed_max": 0.00169
     },
     "S27": {
       "kind": "graphic",
@@ -836,9 +830,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.033,
-      "blocking_max": 0.4589,
-      "overexposed_max": 0.00137
+      "blocking_p50": -0.0488,
+      "blocking_max": 0.4613,
+      "overexposed_max": 0.00139
     },
     "S28": {
       "kind": "agnes",
@@ -861,9 +855,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0856,
-      "blocking_max": 0.1999,
-      "overexposed_max": 0.00217
+      "blocking_p50": 0.0889,
+      "blocking_max": 0.1951,
+      "overexposed_max": 0.00214
     },
     "S29": {
       "kind": "agnes",
@@ -886,8 +880,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0406,
-      "blocking_max": 0.2974,
+      "blocking_p50": 0.0442,
+      "blocking_max": 0.2892,
       "overexposed_max": 0.00119
     },
     "S30": {
@@ -911,9 +905,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0466,
+      "blocking_p50": 0.049,
       "blocking_max": 0.3041,
-      "overexposed_max": 0.00193
+      "overexposed_max": 0.00192
     },
     "END": {
       "kind": "graphic",
@@ -947,28 +941,28 @@
       "t": 71.5,
       "segment": "S12",
       "blocking": 0.5906,
-      "step_ratio": 0.7017
+      "step_ratio": 0.702
     },
     {
       "frame": 93,
       "t": 46.5,
       "segment": "S08",
-      "blocking": 0.5333,
-      "step_ratio": 0.7013
+      "blocking": 0.5305,
+      "step_ratio": 0.6939
     },
     {
       "frame": 86,
       "t": 43.0,
       "segment": "S07",
       "blocking": 0.5136,
-      "step_ratio": 0.701
+      "step_ratio": 0.7072
     },
     {
       "frame": 150,
       "t": 75.0,
       "segment": "S13",
-      "blocking": 0.4935,
-      "step_ratio": 0.6836
+      "blocking": 0.4974,
+      "step_ratio": 0.6839
     },
     {
       "frame": 203,
@@ -981,50 +975,50 @@
       "frame": 34,
       "t": 17.0,
       "segment": "S03",
-      "blocking": 0.4613,
-      "step_ratio": 0.6929
+      "blocking": 0.4638,
+      "step_ratio": 0.6961
     },
     {
       "frame": 304,
       "t": 152.0,
       "segment": "S27",
-      "blocking": 0.4589,
-      "step_ratio": 0.6995
+      "blocking": 0.4613,
+      "step_ratio": 0.6918
     },
     {
       "frame": 310,
       "t": 155.0,
       "segment": "S27",
-      "blocking": 0.4564,
-      "step_ratio": 0.6959
+      "blocking": 0.4458,
+      "step_ratio": 0.6902
     },
     {
       "frame": 263,
       "t": 131.5,
       "segment": "S23",
-      "blocking": 0.4538,
-      "step_ratio": 0.6974
+      "blocking": 0.4456,
+      "step_ratio": 0.6847
     },
     {
       "frame": 108,
       "t": 54.0,
       "segment": "S09",
-      "blocking": 0.4423,
-      "step_ratio": 0.6447
+      "blocking": 0.4447,
+      "step_ratio": 0.644
     },
     {
       "frame": 183,
       "t": 91.5,
       "segment": "S16",
-      "blocking": 0.4324,
-      "step_ratio": 0.425
+      "blocking": 0.435,
+      "step_ratio": 0.4247
     },
     {
       "frame": 257,
       "t": 128.5,
       "segment": "S23",
-      "blocking": 0.4296,
-      "step_ratio": 0.6881
+      "blocking": 0.4311,
+      "step_ratio": 0.6885
     }
   ],
   "not_measured": [
