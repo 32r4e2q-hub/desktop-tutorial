@@ -8,6 +8,11 @@ on:
         description: '跳过 ASR 对轨（离线时用停顿估算字幕时间）'
         type: boolean
         default: false
+  push:
+    branches:
+      - arena/01a0adec-desktop-tutorial
+    paths:
+      - production/unabomber/RENDER_REQUEST
 
 permissions:
   contents: write
