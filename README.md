@@ -9,7 +9,7 @@
 |---|---|
 | [`production/dahlia/`](production/dahlia/) | **参考实现**（工具链的脚手架模板）：《黑色大丽花：消失的六天》，成片、实测、审片记录齐全；其成片文件已从工作树删除腾空间（Git 历史里可取回） |
 | [`production/pizzabomber/`](production/pizzabomber/) | **第二片**《披萨炸弹劫案（2003）》：已成片、已实测、已审片（`production/pizzabomber/review/` 有 2026-09-15 审片与听检裁决） |
-| [`production/coldcase_dna/`](production/coldcase_dna/) | **第三片**《一根头发引发的破案革命》：**v2 已发布**（Release `coldcase_dna-v2`）——按用户反馈六轮逐镜复检重生成，24/24 镜合格、四道闸门全过（含简繁折叠修复后的逐字听检）；经验教训见其 `review/审片复检-2026-09-16.md` |
+| [`production/coldcase_dna/`](production/coldcase_dna/) | **第三片**《一根头发引发的破案革命》：**v3 已发布**（Release `coldcase_dna-v3`）——六轮逐镜复检 24/24 合格 + 字幕 ASR 精确对齐（简繁折叠/多配置择优/锚点内插三层修复，六章全覆盖）；教训沉淀见其 `review/审片复检-2026-09-16.md` |
 | [`交付/`](交付/) | 大文件成片一律发 GitHub Releases（pizzabomber / coldcase_dna 的 Release 页可直接下载），Git 里不再存 82–97 MB 的 mp4 |
 | [`新题目开工手册.md`](新题目开工手册.md) | **换题目做新片就照这份走** |
 | [`production/new_topic.py`](production/new_topic.py) | 开新题目的脚手架：复制流水线、生成骨架、把上一部片子的内容标成 TODO |
