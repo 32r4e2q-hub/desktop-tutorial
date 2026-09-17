@@ -1,0 +1,68 @@
+{
+  "duration": 180.0,
+  "bytes": 72725457,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "frames": 5400,
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "ea1f479302eb97c7cc7cb10617884bcc4c471d91a46400e1d36b5d59c70b9d42",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "id": "N01",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.7407407407407407
+    },
+    {
+      "id": "N02",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.4491525423728814
+    },
+    {
+      "id": "N03",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.2916666666666667
+    },
+    {
+      "id": "N04",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.41935483870967744
+    },
+    {
+      "id": "N05",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9897959183673469
+    },
+    {
+      "id": "N06",
+      "method": "ASR-assisted",
+      "character_match_coverage": 1.0
+    }
+  ],
+  "narration_voice_id": "voice-00",
+  "narration_tempo": 0.9835166170634921,
+  "editorial_segments": 31,
+  "source_clips": 23,
+  "archival_portrait": true,
+  "output": "尤纳炸弹客：林中的宣言_三分钟_初版.mp4",
+  "soundtrack_mix": {
+    "rms_dbfs": -20.17,
+    "peak_dbfs": -1.51,
+    "silent_fraction": 0.0,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -20.19,
+    "peak_dbfs": -1.48,
+    "silent_fraction": 0.0055,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
