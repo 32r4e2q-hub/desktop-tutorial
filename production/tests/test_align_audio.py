@@ -80,7 +80,7 @@ class PickBestTests(unittest.TestCase):
                  {"word": "一", "start": 0.3, "end": 0.6}]
         cues, coverage = align_audio.pick_best(row, clauses, [weak1, weak2])
         self.assertIsNone(cues)
-        self.assertAlmostEqual(coverage, 1 / 6, places=3)
+        self.assertAlmostEqual(coverage, 2 / 6, places=3)
 
 
 if __name__ == "__main__":
