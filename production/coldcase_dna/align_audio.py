@@ -3,10 +3,27 @@
 No audio is sent to an external transcription service. Model weights are downloaded
 on the runner. Low-coverage matches explicitly fall back to pause-aware timing.
 """
+import importlib.util
 from difflib import SequenceMatcher
 import os
 from pathlib import Path
 import re
+
+def _load_simpfold():
+    """加载上级目录的共享简繁折叠表（production/simpfold.py）。
+
+    缺文件就立刻失败而不是静默退回停顿估算——v2 的教训：whisper 繁体转写
+    把字符匹配率打到 0.03-0.75，四章字幕静默回落到停顿估算而失同步。
+    """
+    path=Path(__file__).resolve().parents[1]/'simpfold.py'
+    if not path.is_file():
+        raise RuntimeError(f'missing shared simpfold module: {path}')
+    spec=importlib.util.spec_from_file_location('simpfold',path)
+    mod=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+_SIMPFOLD=_load_simpfold()
 
 DIGITS = '零一二三四五六七八九'
 
@@ -23,6 +40,7 @@ def chinese_number(value):
 def normalize(text):
     text=re.sub(r'(\d{4})(?=年)',lambda m:''.join(DIGITS[int(c)] for c in m.group(1)),text)
     text=re.sub(r'\d+',lambda m:chinese_number(m.group(0)),text)
+    text=_SIMPFOLD.fold(text)
     return ''.join(re.findall(r'[\u3400-\u9fffA-Za-z]',text)).lower()
 
 
