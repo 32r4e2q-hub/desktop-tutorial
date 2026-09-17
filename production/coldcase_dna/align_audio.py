@@ -45,6 +45,12 @@ def normalize(text):
 
 
 def aligned_cues(row, clauses, words):
+    """词级时间戳 -> 分句字幕时间。
+
+    映射率 ≥0.6 才算可用；个别分句完全没命中锚点时，在最近的左右锚点之间
+    按字符位置线性内插，而不是像旧版那样整章放弃回落到停顿估算
+    （v2/v3 实证：估算在 N04/N06 错到字幕整体漂移几秒）。
+    """
     expected=normalize(row['text']);characters=[];times=[]
     for word in words:
         text=normalize(word['word'])
@@ -58,15 +64,30 @@ def aligned_cues(row, clauses, words):
     for block in SequenceMatcher(None,expected,recognized,autojunk=False).get_matching_blocks():
         for offset in range(block.size):mapping[block.a+offset]=times[block.b+offset]
     coverage=len(mapping)/max(1,len(expected))
-    if coverage<.75:return None,coverage
+    if coverage<.6:return None,coverage
+    matched=sorted(mapping)
+    def film_time(raw):
+        return row['start']+min(row['raw_duration'],max(0.0,raw))/row['tempo']
     cues=[];cursor=0;last_end=row['start']
     for clause in clauses:
-        count=len(normalize(clause));matches=[mapping[i] for i in range(cursor,cursor+count) if i in mapping]
-        if not matches:return None,coverage
-        a=min(t[0] for t in matches);b=max(t[1] for t in matches)
-        start=max(last_end,row['start']+max(0,a-.09)/row['tempo'])
-        end=row['start']+min(row['raw_duration'],b+.15)/row['tempo']
-        if end<=start:return None,coverage
+        count=len(normalize(clause));lo,hi=cursor,cursor+count
+        idx=[i for i in range(lo,hi) if i in mapping]
+        if idx:
+            a_raw=min(mapping[i][0] for i in idx);b_raw=max(mapping[i][1] for i in idx)
+        else:
+            prev_i=max((i for i in matched if i<lo),default=None)
+            next_i=min((i for i in matched if i>=hi),default=None)
+            left_raw=mapping[prev_i][1] if prev_i is not None else 0.0
+            right_raw=mapping[next_i][0] if next_i is not None else row['raw_duration']
+            span=max(1,len(matched))
+            left_i=prev_i if prev_i is not None else (matched[0]-1 if matched else 0)
+            right_i=next_i if next_i is not None else (matched[-1]+1 if matched else span)
+            frac_a=(lo-left_i)/max(1,right_i-left_i);frac_b=(hi-left_i)/max(1,right_i-left_i)
+            a_raw=left_raw+(right_raw-left_raw)*min(1.0,max(0.0,frac_a))
+            b_raw=left_raw+(right_raw-left_raw)*min(1.0,max(0.0,frac_b))
+            if b_raw<=a_raw:b_raw=min(row['raw_duration'],a_raw+0.6)
+        start=max(last_end,film_time(a_raw-.09))
+        end=max(start+.4,film_time(b_raw+.15))
         cues.append({'start':start,'end':end,'text':clause})
         last_end=end;cursor+=count
     return cues,coverage
@@ -79,12 +100,15 @@ def transcribe_on_runner(narration, work):
     os.environ.setdefault('HF_HUB_DOWNLOAD_TIMEOUT','90')
     try:
         from faster_whisper import WhisperModel
-        model=WhisperModel('base',device='cpu',compute_type='int8',cpu_threads=2,
+        # small 而不是 base：v3 实证 base 对 N05 的干净配音几乎转写不出可用文本
+        # （字符匹配率 0.03，small 同段 0.9+）；condition off 防提示词复述式幻觉。
+        model=WhisperModel('small',device='cpu',compute_type='int8',cpu_threads=2,
                            download_root=str(work/'model-cache'))
         results={}
         for row in narration:
             segments,_=model.transcribe(row['path'],language='zh',beam_size=5,word_timestamps=True,
-                                        vad_filter=True,initial_prompt=row['text'])
+                                        vad_filter=True,condition_on_previous_text=False,
+                                        initial_prompt=row['text'])
             words=[];text=[]
             for s in segments:
                 text.append(s.text)
