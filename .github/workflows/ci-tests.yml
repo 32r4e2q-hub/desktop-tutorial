@@ -24,6 +24,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          # 自托管 runner 上，仓库里那个 48 MB 的成片会让每次 clone 又慢又容易断
+          # （实测：55 MB 的浅克隆在 227 KB/s 的线路上跑了 10 分钟还没完，
+          # 而同一台机器下 215 MB 的 runner 安装包直接卡死在 0 字节）。
+          # 离线自检不需要任何 mp4（测试只读 production/**，没有任何用例打开成片），
+          # 所以用 partial clone + sparse-checkout 跳过 *.mp4：55 MB → 约 7 MB。
+          # 去掉 --no-cone 那个坑也踩过：cone 模式不认通配符，必须显式关掉。
+          filter: blob:none
+          sparse-checkout: |
+            /*
+            !*.mp4
+          sparse-checkout-cone-mode: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
