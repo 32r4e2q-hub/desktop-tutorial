@@ -1,9 +1,9 @@
 {
   "film": "work/unabomber/尤纳炸弹客：林中的宣言.mp4",
-  "film_bytes": 100974321,
-  "film_sha256": "6e2633392f38b828ae7c8ce1a2000fa4a601443c0e21d79a28ab998b5317cffa",
+  "film_bytes": 105762159,
+  "film_sha256": "3a66a3e4559308eadcbc415e9dd8e467edf3f9001d9cb9350ca1301e96954aad",
   "duration_s": 180.0,
-  "avg_bitrate_mbps": 4.488,
+  "avg_bitrate_mbps": 4.701,
   "sample_fps": 2.0,
   "sampled_frames": 360,
   "picture_rows_measured": [
@@ -59,18 +59,18 @@
       "name": "blocking",
       "desc": "8x8 块效应不超阈值（压缩伪影）",
       "measured": [
-        0.0848,
-        0.3586,
+        0.0797,
+        0.3593,
         2.0732
       ],
       "ok": true,
-      "note": "画面区内量；p50=0.085（上限 0.14）、p90=0.359（上限 0.38）、max=2.073；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+      "note": "画面区内量；p50=0.080（上限 0.14）、p90=0.359（上限 0.38）、max=2.073；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
     },
     {
       "name": "banding_reference",
       "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
       "measured": [
-        0.703
+        0.6992
       ],
       "ok": true,
       "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
@@ -79,27 +79,27 @@
       "name": "overexposed",
       "desc": "高光不削顶",
       "measured": [
-        0.02845,
+        0.02826,
         12
       ],
       "ok": true,
-      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.02845；占比 >2% 的帧数 12（上限 16）"
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.02826；占比 >2% 的帧数 12（上限 16）"
     },
     {
       "name": "underexposed_reference",
       "desc": "暗部死黑占比（参考量，不判定）",
       "measured": [
-        0.5194
+        0.432
       ],
       "ok": true,
-      "note": "≤6 灰阶占比 p95=0.519；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
+      "note": "≤6 灰阶占比 p95=0.432；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
     },
     {
       "name": "saturation",
       "desc": "饱和度不过冲、也不脱色",
       "measured": [
-        0.0537,
-        0.0743
+        0.054,
+        0.0771
       ],
       "ok": true,
       "note": "均值 0.054（要求 0.02..0.42）"
@@ -128,24 +128,24 @@
       "name": "orientation_purity",
       "desc": "强边缘轴向占比（畸变代理，仅对照）",
       "measured": [
-        0.7203
+        0.7204
       ],
       "ok": true,
       "note": "p5=0.720，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
     }
   ],
   "metrics": {
-    "blocking_mean": 0.1272,
-    "blocking_p50": 0.0848,
-    "blocking_p90": 0.3586,
-    "blocking_p95": 0.51,
+    "blocking_mean": 0.127,
+    "blocking_p50": 0.0797,
+    "blocking_p90": 0.3593,
+    "blocking_p95": 0.5056,
     "blocking_max": 2.0732,
-    "step_ratio_p95_reference": 0.703,
-    "saturation_mean": 0.0537,
-    "saturation_p95": 0.0743,
-    "overexposed_max": 0.02845,
-    "underexposed_p95": 0.5194,
-    "luma_mean": 61.73,
+    "step_ratio_p95_reference": 0.6992,
+    "saturation_mean": 0.054,
+    "saturation_p95": 0.0771,
+    "overexposed_max": 0.02826,
+    "underexposed_p95": 0.432,
+    "luma_mean": 59.11,
     "luma_max": 145.48,
     "flash_reversal_spikes": 0,
     "flash_spike_times_s": [],
@@ -153,7 +153,7 @@
       "S06": {
         "bottom": [
           59,
-          0.071
+          0.067
         ]
       },
       "S07": {
@@ -161,20 +161,14 @@
           59,
           0.462
         ]
-      },
-      "S26": {
-        "bottom": [
-          34,
-          0.25
-        ]
       }
     },
-    "axis_aligned_p5": 0.7203
+    "axis_aligned_p5": 0.7204
   },
   "per_segment": {
-    "S01": {
-      "kind": "agnes",
-      "frames": 16,
+    "S03": {
+      "kind": "graphic",
+      "frames": 14,
       "border": {
         "top": [
           0,
@@ -193,9 +187,34 @@
           0.0
         ]
       },
-      "blocking_p50": 0.071,
-      "blocking_max": 0.226,
-      "overexposed_max": 0.00455
+      "blocking_p50": -0.0426,
+      "blocking_max": 0.6589,
+      "overexposed_max": 0.00459
+    },
+    "S01": {
+      "kind": "agnes",
+      "frames": 11,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0801,
+      "blocking_max": 0.1289,
+      "overexposed_max": 0.00302
     },
     "S02": {
       "kind": "agnes",
@@ -218,38 +237,13 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1183,
-      "blocking_max": 0.6395,
-      "overexposed_max": 0.00303
-    },
-    "S03": {
-      "kind": "graphic",
-      "frames": 13,
-      "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
-      },
-      "blocking_p50": 0.0179,
-      "blocking_max": 0.5115,
-      "overexposed_max": 0.00376
+      "blocking_p50": 0.172,
+      "blocking_max": 0.3397,
+      "overexposed_max": 0.00271
     },
     "S04": {
       "kind": "agnes",
-      "frames": 14,
+      "frames": 27,
       "border": {
         "top": [
           0,
@@ -268,13 +262,13 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0291,
-      "blocking_max": 0.1309,
-      "overexposed_max": 0.00515
+      "blocking_p50": 0.0205,
+      "blocking_max": 0.0776,
+      "overexposed_max": 0.00439
     },
     "S05": {
       "kind": "agnes",
-      "frames": 16,
+      "frames": 18,
       "border": {
         "top": [
           0,
@@ -293,9 +287,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0595,
-      "blocking_max": 0.1575,
-      "overexposed_max": 0.00519
+      "blocking_p50": 0.0548,
+      "blocking_max": 0.2535,
+      "overexposed_max": 0.003
     },
     "S06": {
       "kind": "agnes",
@@ -307,7 +301,7 @@
         ],
         "bottom": [
           59,
-          0.071
+          0.067
         ],
         "left": [
           0,
@@ -318,9 +312,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.3509,
-      "blocking_max": 0.6318,
-      "overexposed_max": 0.00285
+      "blocking_p50": 0.3523,
+      "blocking_max": 0.6301,
+      "overexposed_max": 0.00328
     },
     "S07": {
       "kind": "agnes",
@@ -399,7 +393,7 @@
     },
     "S10": {
       "kind": "agnes",
-      "frames": 14,
+      "frames": 26,
       "border": {
         "top": [
           0,
@@ -418,13 +412,13 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1619,
-      "blocking_max": 0.5427,
-      "overexposed_max": 0.00475
+      "blocking_p50": 0.1444,
+      "blocking_max": 0.5782,
+      "overexposed_max": 0.0053
     },
-    "S11": {
+    "S14": {
       "kind": "graphic",
-      "frames": 12,
+      "frames": 13,
       "border": {
         "top": [
           0,
@@ -443,9 +437,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0736,
-      "blocking_max": 0.5099,
-      "overexposed_max": 0.00303
+      "blocking_p50": 0.2162,
+      "blocking_max": 0.6053,
+      "overexposed_max": 0.00296
     },
     "S13": {
       "kind": "agnes",
@@ -468,38 +462,13 @@
           0.0
         ]
       },
-      "blocking_p50": 0.3008,
-      "blocking_max": 0.6568,
-      "overexposed_max": 0.00301
-    },
-    "S14": {
-      "kind": "graphic",
-      "frames": 12,
-      "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
-      },
-      "blocking_p50": -0.1548,
-      "blocking_max": 0.5008,
-      "overexposed_max": 0.00531
+      "blocking_p50": 0.2716,
+      "blocking_max": 0.3408,
+      "overexposed_max": 0.0031
     },
     "S17": {
       "kind": "agnes",
-      "frames": 26,
+      "frames": 25,
       "border": {
         "top": [
           0,
@@ -518,9 +487,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2066,
-      "blocking_max": 0.6965,
-      "overexposed_max": 0.00531
+      "blocking_p50": 0.2157,
+      "blocking_max": 0.6969,
+      "overexposed_max": 0.0047
     },
     "S16": {
       "kind": "agnes",
@@ -543,9 +512,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.3067,
-      "blocking_max": 0.4269,
-      "overexposed_max": 0.00472
+      "blocking_p50": 0.2972,
+      "blocking_max": 0.4289,
+      "overexposed_max": 0.00471
     },
     "S18": {
       "kind": "graphic",
@@ -568,13 +537,13 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0203,
-      "blocking_max": 0.5518,
-      "overexposed_max": 0.00268
+      "blocking_p50": 0.0169,
+      "blocking_max": 0.5517,
+      "overexposed_max": 0.00267
     },
     "S19": {
       "kind": "agnes",
-      "frames": 12,
+      "frames": 23,
       "border": {
         "top": [
           0,
@@ -593,34 +562,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0425,
-      "blocking_max": 0.085,
-      "overexposed_max": 0.00507
-    },
-    "S25": {
-      "kind": "agnes",
-      "frames": 22,
-      "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
-      },
-      "blocking_p50": 0.0725,
-      "blocking_max": 0.2589,
-      "overexposed_max": 0.00477
+      "blocking_p50": 0.0302,
+      "blocking_max": 0.2325,
+      "overexposed_max": 0.00509
     },
     "S21": {
       "kind": "graphic",
@@ -643,9 +587,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.1254,
-      "blocking_max": 0.474,
-      "overexposed_max": 0.00475
+      "blocking_p50": -0.1238,
+      "blocking_max": 0.4669,
+      "overexposed_max": 0.00474
     },
     "S22": {
       "kind": "archive",
@@ -670,36 +614,11 @@
       },
       "blocking_p50": -0.0621,
       "blocking_max": 0.1245,
-      "overexposed_max": 0.02845
-    },
-    "S23": {
-      "kind": "agnes",
-      "frames": 4,
-      "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
-      },
-      "blocking_p50": 0.049,
-      "blocking_max": 0.072,
-      "overexposed_max": 0.00475
+      "overexposed_max": 0.02826
     },
     "S24": {
       "kind": "agnes",
-      "frames": 13,
+      "frames": 9,
       "border": {
         "top": [
           0,
@@ -718,11 +637,36 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2075,
-      "blocking_max": 0.3037,
-      "overexposed_max": 0.00473
+      "blocking_p50": 0.2459,
+      "blocking_max": 0.3291,
+      "overexposed_max": 0.00466
     },
-    "S26": {
+    "S25": {
+      "kind": "agnes",
+      "frames": 8,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.087,
+      "blocking_max": 0.1022,
+      "overexposed_max": 0.00466
+    },
+    "S23": {
       "kind": "agnes",
       "frames": 5,
       "border": {
@@ -731,8 +675,8 @@
           0.0
         ],
         "bottom": [
-          34,
-          0.25
+          0,
+          0.0
         ],
         "left": [
           0,
@@ -743,9 +687,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2728,
-      "blocking_max": 0.3729,
-      "overexposed_max": 0.00154
+      "blocking_p50": 0.0437,
+      "blocking_max": 0.0592,
+      "overexposed_max": 0.00245
     },
     "S27": {
       "kind": "agnes",
@@ -768,36 +712,11 @@
           0.0
         ]
       },
-      "blocking_p50": 0.041,
-      "blocking_max": 0.1195,
+      "blocking_p50": 0.0421,
+      "blocking_max": 0.1192,
       "overexposed_max": 0.00484
     },
     "S28": {
-      "kind": "agnes",
-      "frames": 16,
-      "border": {
-        "top": [
-          0,
-          0.0
-        ],
-        "bottom": [
-          0,
-          0.0
-        ],
-        "left": [
-          0,
-          0.0
-        ],
-        "right": [
-          0,
-          0.0
-        ]
-      },
-      "blocking_p50": 0.0549,
-      "blocking_max": 0.0911,
-      "overexposed_max": 0.00379
-    },
-    "S29": {
       "kind": "agnes",
       "frames": 13,
       "border": {
@@ -818,9 +737,34 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0843,
-      "blocking_max": 0.2212,
-      "overexposed_max": 0.00344
+      "blocking_p50": 0.0208,
+      "blocking_max": 0.0335,
+      "overexposed_max": 0.00379
+    },
+    "S29": {
+      "kind": "agnes",
+      "frames": 16,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0928,
+      "blocking_max": 0.2591,
+      "overexposed_max": 0.00343
     },
     "S30": {
       "kind": "agnes",
@@ -843,7 +787,7 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0672,
+      "blocking_p50": 0.0647,
       "blocking_max": 0.117,
       "overexposed_max": 0.00342
     },
@@ -868,9 +812,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0847,
-      "blocking_max": 0.212,
-      "overexposed_max": 0.00028
+      "blocking_p50": 0.0835,
+      "blocking_max": 0.214,
+      "overexposed_max": 0.00026
     }
   },
   "worst_blocking_frames": [
@@ -885,57 +829,50 @@
       "frame": 199,
       "t": 99.5,
       "segment": "S17",
-      "blocking": 0.6965,
-      "step_ratio": 0.6946
+      "blocking": 0.6969,
+      "step_ratio": 0.6948
     },
     {
-      "frame": 145,
-      "t": 72.5,
-      "segment": "S13",
-      "blocking": 0.6568,
-      "step_ratio": 0.6951
-    },
-    {
-      "frame": 20,
-      "t": 10.0,
-      "segment": "S02",
-      "blocking": 0.6395,
-      "step_ratio": 0.6945
+      "frame": 0,
+      "t": 0.0,
+      "segment": "S03",
+      "blocking": 0.6589,
+      "step_ratio": 0.6864
     },
     {
       "frame": 71,
       "t": 35.5,
       "segment": "S06",
-      "blocking": 0.6318,
-      "step_ratio": 0.5164
+      "blocking": 0.6301,
+      "step_ratio": 0.5163
     },
     {
-      "frame": 178,
-      "t": 89.0,
-      "segment": "S06",
-      "blocking": 0.6298,
-      "step_ratio": 0.5273
+      "frame": 135,
+      "t": 67.5,
+      "segment": "S14",
+      "blocking": 0.6053,
+      "step_ratio": 0.6799
     },
     {
       "frame": 74,
       "t": 37.0,
       "segment": "S06",
-      "blocking": 0.6023,
-      "step_ratio": 0.5407
+      "blocking": 0.6003,
+      "step_ratio": 0.5396
+    },
+    {
+      "frame": 157,
+      "t": 78.5,
+      "segment": "S10",
+      "blocking": 0.5782,
+      "step_ratio": 0.5271
     },
     {
       "frame": 206,
       "t": 103.0,
       "segment": "S18",
-      "blocking": 0.5518,
-      "step_ratio": 0.7004
-    },
-    {
-      "frame": 180,
-      "t": 90.0,
-      "segment": "S06",
-      "blocking": 0.5467,
-      "step_ratio": 0.551
+      "blocking": 0.5517,
+      "step_ratio": 0.6985
     },
     {
       "frame": 126,
@@ -945,6 +882,13 @@
       "step_ratio": 0.5441
     },
     {
+      "frame": 72,
+      "t": 36.0,
+      "segment": "S06",
+      "blocking": 0.5405,
+      "step_ratio": 0.5227
+    },
+    {
       "frame": 96,
       "t": 48.0,
       "segment": "S08",
@@ -952,11 +896,11 @@
       "step_ratio": 0.6885
     },
     {
-      "frame": 72,
-      "t": 36.0,
+      "frame": 75,
+      "t": 37.5,
       "segment": "S06",
-      "blocking": 0.5372,
-      "step_ratio": 0.5241
+      "blocking": 0.5293,
+      "step_ratio": 0.5153
     }
   ],
   "not_measured": [
