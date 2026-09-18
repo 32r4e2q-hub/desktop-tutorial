@@ -251,6 +251,24 @@ class WorkflowIntegrityTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 1)
         self.assertIn("没有这个项目", proc.stdout + proc.stderr)
 
+    def test_render_push_is_retried(self):
+        """成片的最后一次 git push 必须重试。
+
+        为什么：出片要跑几十到 90 分钟，成片与实测报告全靠最后这一次 push 回到分支。
+        2026-09-18 在自托管 runner 上实测到 git 连 github.com 偶发 133 秒超时
+        （日志原文 "133182 ms: Connection timed out"，actions/checkout 内置的 3 次
+        重试都没扛住），而当时的脚本只推一次——等于把整场渲染的成果交给运气。
+        """
+        script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        self.assertIn('git push origin "HEAD:$BRANCH"', script,
+                      "run_project.sh 里找不到推送那一行")
+        push_at = script.index('git push origin "HEAD:$BRANCH"')
+        self.assertRegex(script[:push_at][-500:], r"for attempt in",
+                         "推送没有被重试循环包住：网络抖一次就前功尽弃")
+        self.assertIn("push_ok", script, "推送失败没有被检查，失败了也不知道")
+        self.assertIn("exit 1", script[push_at:][:900],
+                      "五次都失败时必须非 0 退出，不能假装成功")
+
     def test_scripts_run_on_this_branch_exist_and_are_valid_shell(self):
         """只有没 pin ref 的工作流跑本分支代码，它们引用的脚本必须真的在这儿。"""
         checked = pinned = 0

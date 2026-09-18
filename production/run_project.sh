@@ -58,7 +58,20 @@ if git diff --cached --quiet; then
   echo "No changes to publish"
 else
   git commit -m "Deliver the $PROJECT cut with measured audio"
-  git push origin "HEAD:$BRANCH"
+  # 这一步必须扛住网络抖动：整场渲染（几十到 90 分钟）的成果全靠它推回去。
+  # 2026-09-18 实测：这台机器的网络上，git 连 github.com 会偶发 133 秒超时
+  # （"133182 ms: Connection timed out"），只推一次等于把成果交给运气。
+  push_ok=false
+  for attempt in 1 2 3 4 5; do
+    if git push origin "HEAD:$BRANCH"; then push_ok=true; break; fi
+    echo "推送失败（第 $attempt/5 次），等 20 秒重试……" >&2
+    sleep 20
+  done
+  if [ "$push_ok" != true ]; then
+    echo "成片与实测报告都已生成，但 5 次都没能推回 $BRANCH（网络问题）。" >&2
+    echo "成片在本次运行的 artifact 里，重跑一次即可；报告在 $DIR/delivery/。" >&2
+    exit 1
+  fi
   echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
 fi
 
