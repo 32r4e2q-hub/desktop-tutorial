@@ -1,0 +1,968 @@
+{
+  "film": "work/unabomber/尤纳炸弹客：林中的宣言.mp4",
+  "film_bytes": 67925452,
+  "film_sha256": "21fbf4847c06e6158b48a7f77a864d8a9b510e46eec3e4166298ae9110cd28a7",
+  "duration_s": 180.0,
+  "avg_bitrate_mbps": 3.019,
+  "sample_fps": 2.0,
+  "sampled_frames": 360,
+  "picture_rows_measured": [
+    140,
+    940
+  ],
+  "thresholds": {
+    "blocking_p50_max": 0.14,
+    "blocking_p90_max": 0.3,
+    "overexposed_fraction_max": 0.06,
+    "overexposed_frame_count_max": 0,
+    "underexposed_p95_reference": 0.8,
+    "saturation_mean_min": 0.02,
+    "saturation_mean_max": 0.42,
+    "flash_reversal_spikes_max": 0,
+    "flash_reversal_amp_min": 0.045,
+    "letterbox_min_frame_fraction": 0.8,
+    "border_pure_max": 4,
+    "border_pure_std": 1.5,
+    "designed_border_segments": [
+      "S03",
+      "S08",
+      "S11",
+      "S14",
+      "S18",
+      "S21",
+      "S22",
+      "END"
+    ],
+    "axis_aligned_fraction_min": 0.18
+  },
+  "checks": [
+    {
+      "name": "resolution",
+      "desc": "交付片为 1920x1080",
+      "measured": [
+        1920,
+        1080
+      ],
+      "ok": true,
+      "note": "1920x1080，要求 1920x1080"
+    },
+    {
+      "name": "decode_errors",
+      "desc": "全片完整解码无错误行",
+      "measured": [
+        0
+      ],
+      "ok": true,
+      "note": "ffmpeg -v error -xerror 全片解码，无 error/invalid/conceal 行"
+    },
+    {
+      "name": "blocking",
+      "desc": "8x8 块效应不超阈值（压缩伪影）",
+      "measured": [
+        0.0764,
+        0.3409,
+        2.2323
+      ],
+      "ok": false,
+      "note": "画面区内量；p50=0.076（上限 0.14）、p90=0.341（上限 0.3）、max=2.232；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+    },
+    {
+      "name": "banding_reference",
+      "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
+      "measured": [
+        0.7175
+      ],
+      "ok": true,
+      "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
+    },
+    {
+      "name": "overexposed",
+      "desc": "高光不削顶",
+      "measured": [
+        0.02925,
+        12
+      ],
+      "ok": false,
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.02925；占比 >2% 的帧数 12（上限 0）"
+    },
+    {
+      "name": "underexposed_reference",
+      "desc": "暗部死黑占比（参考量，不判定）",
+      "measured": [
+        0.519
+      ],
+      "ok": true,
+      "note": "≤6 灰阶占比 p95=0.519；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
+    },
+    {
+      "name": "saturation",
+      "desc": "饱和度不过冲、也不脱色",
+      "measured": [
+        0.0535,
+        0.0741
+      ],
+      "ok": true,
+      "note": "均值 0.054（要求 0.02..0.42）"
+    },
+    {
+      "name": "flash",
+      "desc": "段内无异常闪烁（单帧反向亮度尖峰，切点与淡变已排除）",
+      "measured": [
+        0,
+        [],
+        []
+      ],
+      "ok": true,
+      "note": "360 个采样帧里量到 0 次；幅度阈值 0.045；硬切台阶与淡入淡出不计入（那是剪辑）"
+    },
+    {
+      "name": "letterbox",
+      "desc": "设计外无额外遮幅/纯黑 mat",
+      "measured": [
+        {}
+      ],
+      "ok": true,
+      "note": "判据：整行 max≤4 且 σ≤1.5，且该段 ≥80% 的采样帧都有；白名单（设计内）['END', 'S03', 'S08', 'S11', 'S14', 'S18', 'S21', 'S22']；卡面段与淡入淡出帧不参与；违规段：无。偏暗但有内容的行不计入（上一版误把夜戏暗场当遮幅，已修）"
+    },
+    {
+      "name": "orientation_purity",
+      "desc": "强边缘轴向占比（畸变代理，仅对照）",
+      "measured": [
+        0.7256
+      ],
+      "ok": true,
+      "note": "p5=0.726，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
+    }
+  ],
+  "metrics": {
+    "blocking_mean": 0.124,
+    "blocking_p50": 0.0764,
+    "blocking_p90": 0.3409,
+    "blocking_p95": 0.5022,
+    "blocking_max": 2.2323,
+    "step_ratio_p95_reference": 0.7175,
+    "saturation_mean": 0.0535,
+    "saturation_p95": 0.0741,
+    "overexposed_max": 0.02925,
+    "underexposed_p95": 0.519,
+    "luma_mean": 61.76,
+    "luma_max": 145.45,
+    "flash_reversal_spikes": 0,
+    "flash_spike_times_s": [],
+    "letterbox_by_segment": {
+      "S06": {
+        "bottom": [
+          59,
+          0.067
+        ]
+      },
+      "S07": {
+        "bottom": [
+          59,
+          0.462
+        ]
+      },
+      "S26": {
+        "bottom": [
+          31,
+          0.25
+        ]
+      }
+    },
+    "axis_aligned_p5": 0.7256
+  },
+  "per_segment": {
+    "S01": {
+      "kind": "agnes",
+      "frames": 16,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0571,
+      "blocking_max": 0.2031,
+      "overexposed_max": 0.00445
+    },
+    "S02": {
+      "kind": "agnes",
+      "frames": 5,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.1117,
+      "blocking_max": 0.79,
+      "overexposed_max": 0.00299
+    },
+    "S03": {
+      "kind": "graphic",
+      "frames": 13,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0939,
+      "blocking_max": 0.5986,
+      "overexposed_max": 0.0036
+    },
+    "S04": {
+      "kind": "agnes",
+      "frames": 14,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0248,
+      "blocking_max": 0.1236,
+      "overexposed_max": 0.00499
+    },
+    "S05": {
+      "kind": "agnes",
+      "frames": 16,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0482,
+      "blocking_max": 0.0922,
+      "overexposed_max": 0.00515
+    },
+    "S06": {
+      "kind": "agnes",
+      "frames": 24,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          59,
+          0.067
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.335,
+      "blocking_max": 0.5788,
+      "overexposed_max": 0.00273
+    },
+    "S07": {
+      "kind": "agnes",
+      "frames": 13,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          59,
+          0.462
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.1898,
+      "blocking_max": 2.2323,
+      "overexposed_max": 0.0054
+    },
+    "S08": {
+      "kind": "graphic",
+      "frames": 13,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0726,
+      "blocking_max": 0.6435,
+      "overexposed_max": 0.004
+    },
+    "S09": {
+      "kind": "agnes",
+      "frames": 12,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.1402,
+      "blocking_max": 0.2452,
+      "overexposed_max": 0.00451
+    },
+    "S10": {
+      "kind": "agnes",
+      "frames": 14,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.1486,
+      "blocking_max": 0.5349,
+      "overexposed_max": 0.00469
+    },
+    "S11": {
+      "kind": "graphic",
+      "frames": 12,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0889,
+      "blocking_max": 0.5982,
+      "overexposed_max": 0.00295
+    },
+    "S13": {
+      "kind": "agnes",
+      "frames": 5,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.292,
+      "blocking_max": 0.8748,
+      "overexposed_max": 0.00291
+    },
+    "S14": {
+      "kind": "graphic",
+      "frames": 12,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": -0.164,
+      "blocking_max": 0.642,
+      "overexposed_max": 0.00526
+    },
+    "S17": {
+      "kind": "agnes",
+      "frames": 26,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.1776,
+      "blocking_max": 0.8812,
+      "overexposed_max": 0.00526
+    },
+    "S16": {
+      "kind": "agnes",
+      "frames": 5,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.2654,
+      "blocking_max": 0.3842,
+      "overexposed_max": 0.00456
+    },
+    "S18": {
+      "kind": "graphic",
+      "frames": 12,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0516,
+      "blocking_max": 0.67,
+      "overexposed_max": 0.00266
+    },
+    "S19": {
+      "kind": "agnes",
+      "frames": 12,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.041,
+      "blocking_max": 0.0788,
+      "overexposed_max": 0.00494
+    },
+    "S25": {
+      "kind": "agnes",
+      "frames": 22,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0582,
+      "blocking_max": 0.2598,
+      "overexposed_max": 0.00472
+    },
+    "S21": {
+      "kind": "graphic",
+      "frames": 12,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": -0.1265,
+      "blocking_max": 0.5733,
+      "overexposed_max": 0.00461
+    },
+    "S22": {
+      "kind": "archive",
+      "frames": 13,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": -0.0612,
+      "blocking_max": 0.106,
+      "overexposed_max": 0.02925
+    },
+    "S23": {
+      "kind": "agnes",
+      "frames": 4,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0505,
+      "blocking_max": 0.0663,
+      "overexposed_max": 0.00467
+    },
+    "S24": {
+      "kind": "agnes",
+      "frames": 13,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.2091,
+      "blocking_max": 0.2895,
+      "overexposed_max": 0.00468
+    },
+    "S26": {
+      "kind": "agnes",
+      "frames": 5,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          31,
+          0.25
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.2567,
+      "blocking_max": 0.3537,
+      "overexposed_max": 0.00155
+    },
+    "S27": {
+      "kind": "agnes",
+      "frames": 15,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0393,
+      "blocking_max": 0.0904,
+      "overexposed_max": 0.00465
+    },
+    "S28": {
+      "kind": "agnes",
+      "frames": 16,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0472,
+      "blocking_max": 0.0636,
+      "overexposed_max": 0.00369
+    },
+    "S29": {
+      "kind": "agnes",
+      "frames": 13,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0779,
+      "blocking_max": 0.2129,
+      "overexposed_max": 0.00344
+    },
+    "S30": {
+      "kind": "agnes",
+      "frames": 16,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.0694,
+      "blocking_max": 0.2329,
+      "overexposed_max": 0.00334
+    },
+    "END": {
+      "kind": "graphic",
+      "frames": 7,
+      "border": {
+        "top": [
+          0,
+          0.0
+        ],
+        "bottom": [
+          0,
+          0.0
+        ],
+        "left": [
+          0,
+          0.0
+        ],
+        "right": [
+          0,
+          0.0
+        ]
+      },
+      "blocking_p50": 0.1203,
+      "blocking_max": 0.2117,
+      "overexposed_max": 0.00029
+    }
+  },
+  "worst_blocking_frames": [
+    {
+      "frame": 89,
+      "t": 44.5,
+      "segment": "S07",
+      "blocking": 2.2323,
+      "step_ratio": 0.7204
+    },
+    {
+      "frame": 199,
+      "t": 99.5,
+      "segment": "S17",
+      "blocking": 0.8812,
+      "step_ratio": 0.7119
+    },
+    {
+      "frame": 145,
+      "t": 72.5,
+      "segment": "S13",
+      "blocking": 0.8748,
+      "step_ratio": 0.715
+    },
+    {
+      "frame": 20,
+      "t": 10.0,
+      "segment": "S02",
+      "blocking": 0.79,
+      "step_ratio": 0.7169
+    },
+    {
+      "frame": 206,
+      "t": 103.0,
+      "segment": "S18",
+      "blocking": 0.67,
+      "step_ratio": 0.7258
+    },
+    {
+      "frame": 96,
+      "t": 48.0,
+      "segment": "S08",
+      "blocking": 0.6435,
+      "step_ratio": 0.7224
+    },
+    {
+      "frame": 152,
+      "t": 76.0,
+      "segment": "S14",
+      "blocking": 0.642,
+      "step_ratio": 0.7126
+    },
+    {
+      "frame": 27,
+      "t": 13.5,
+      "segment": "S03",
+      "blocking": 0.5986,
+      "step_ratio": 0.715
+    },
+    {
+      "frame": 135,
+      "t": 67.5,
+      "segment": "S11",
+      "blocking": 0.5982,
+      "step_ratio": 0.7033
+    },
+    {
+      "frame": 74,
+      "t": 37.0,
+      "segment": "S06",
+      "blocking": 0.5788,
+      "step_ratio": 0.5484
+    },
+    {
+      "frame": 241,
+      "t": 120.5,
+      "segment": "S21",
+      "blocking": 0.5733,
+      "step_ratio": 0.7117
+    },
+    {
+      "frame": 178,
+      "t": 89.0,
+      "segment": "S06",
+      "blocking": 0.5655,
+      "step_ratio": 0.5332
+    }
+  ],
+  "not_measured": [
+    "单帧局部畸变（无原始未处理帧可比对，几何上无 ground truth）——由 review/ 的 68 帧全幅密扫表 + 定点裁放图逐格人工判读代替",
+    "色彩保真度绝对值（无参考母带；只量了饱和度分布）",
+    "AI 素材自身的解剖/结构错误 —— 属镜头抽卡闸门，不由本脚本负责",
+    "假轮廓判定（见模块注释第 3 条：现口径无法区分抖动与条带，只给参考量）"
+  ]
+}

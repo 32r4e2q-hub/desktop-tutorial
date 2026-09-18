@@ -1,0 +1,467 @@
+{
+  "film": "尤纳炸弹客：林中的宣言.mp4",
+  "project": "production/unabomber",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 30.44,
+        "script_chars": 108,
+        "heard_chars": 106,
+        "character_error_rate": 0.037,
+        "match_coverage": 0.963,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 50,
+            "kind": "delete",
+            "script": "百",
+            "heard": ""
+          },
+          {
+            "at": 52,
+            "kind": "delete",
+            "script": "十",
+            "heard": ""
+          },
+          {
+            "at": 61,
+            "kind": "replace",
+            "script": "西",
+            "heard": "希"
+          },
+          {
+            "at": 74,
+            "kind": "replace",
+            "script": "林",
+            "heard": "临"
+          }
+        ],
+        "transcript": "1978年到1996年联邦调查局经历了持续时间最长代价最高昂的追捕之一凶手不是街头暴徒而是智商高达167的哈佛数学天才希奥多卡钦斯基他隐居蒙大拿临间的简陋木屋把精心制作的邮包寄向全美大学与航空业科技界开始闻风丧胆"
+      },
+      {
+        "id": "N02",
+        "start": 31.52,
+        "end": 63.356,
+        "script_chars": 118,
+        "heard_chars": 117,
+        "character_error_rate": 0.0339,
+        "match_coverage": 0.9661,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 55,
+            "kind": "replace",
+            "script": "尤",
+            "heard": "油"
+          },
+          {
+            "at": 60,
+            "kind": "replace",
+            "script": "指",
+            "heard": "制"
+          },
+          {
+            "at": 109,
+            "kind": "delete",
+            "script": "百",
+            "heard": ""
+          },
+          {
+            "at": 111,
+            "kind": "replace",
+            "script": "十",
+            "heard": "零"
+          }
+        ],
+        "transcript": "17年间,他寄出或亲手放置了16枚装置3人死亡,近22人受伤联邦调查局联合烟酒枪械管理局与邮政稽查组成专案组代号油纳炸弹专制大学与航空目标,装置用随处可寻的废料制成几乎不留痕迹名单甚至来自图书馆的随机检索专案组一度扩充到150人仍找不到他"
+      },
+      {
+        "id": "N03",
+        "start": 64.436,
+        "end": 89.42,
+        "script_chars": 96,
+        "heard_chars": 96,
+        "character_error_rate": 0.3229,
+        "match_coverage": 0.6771,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "约",
+            "heard": "約"
+          },
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "万",
+            "heard": "萬"
+          },
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "长",
+            "heard": "長"
+          },
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "视",
+            "heard": "視"
+          },
+          {
+            "at": 25,
+            "kind": "replace",
+            "script": "张",
+            "heard": "張"
+          },
+          {
+            "at": 27,
+            "kind": "replace",
+            "script": "业",
+            "heard": "業"
+          }
+        ],
+        "transcript": "1995年他寄出約三萬五千字的長文要世人正視他的主張工業科技正在毀滅人類經過激烈爭論聯邦調查局局長與司法部長同意發表希望有讀者能認出作者華盛頓郵報刊出後線索如潮水湧來真正打開缺口的不是新的物證"
+      },
+      {
+        "id": "N04",
+        "start": 90.5,
+        "end": 116.238,
+        "script_chars": 93,
+        "heard_chars": 93,
+        "character_error_rate": 0.0323,
+        "match_coverage": 0.9677,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 37,
+            "kind": "replace",
+            "script": "再叠",
+            "heard": "在碟"
+          },
+          {
+            "at": 92,
+            "kind": "replace",
+            "script": "风",
+            "heard": "锋"
+          }
+        ],
+        "transcript": "他的弟弟戴维提供了哥哥的书信与文稿语言分析认定那些私信与宣言几乎出自同一人在碟上芝加哥成长伯克利任教盐湖城停留最终隐居蒙大拿搜查令的事实基础第一次被写实高科技追踪17年无果破局靠的是文锋"
+      },
+      {
+        "id": "N05",
+        "start": 117.318,
+        "end": 142.551,
+        "script_chars": 98,
+        "heard_chars": 98,
+        "character_error_rate": 0.0714,
+        "match_coverage": 0.9286,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "十",
+            "heard": "石"
+          },
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "尺",
+            "heard": "齿"
+          },
+          {
+            "at": 26,
+            "kind": "replace",
+            "script": "尺",
+            "heard": "齿"
+          },
+          {
+            "at": 82,
+            "kind": "replace",
+            "script": "字里",
+            "heard": "自立"
+          },
+          {
+            "at": 90,
+            "kind": "replace",
+            "script": "文",
+            "heard": "闻"
+          },
+          {
+            "at": 95,
+            "kind": "replace",
+            "script": "义",
+            "heard": "意"
+          }
+        ],
+        "transcript": "1996年4月3日,调查人员在林肯镇附近,石英齿乘14英齿的木屋里逮捕了他,屋内有大量零件,4万页手写笔记,以及一枚已准备寄出的装置。持续17年的恐慌结束了。破案的关键,是亲弟弟从自立行间认出独特闻风,选择大意灭亲。"
+      },
+      {
+        "id": "N06",
+        "start": 143.631,
+        "end": 174.0,
+        "script_chars": 104,
+        "heard_chars": 104,
+        "character_error_rate": 0.0481,
+        "match_coverage": 0.9519,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "度",
+            "heard": "渡"
+          },
+          {
+            "at": 23,
+            "kind": "replace",
+            "script": "余",
+            "heard": "鱼"
+          },
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "终极",
+            "heard": "中级"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "狼",
+            "heard": "郎"
+          }
+        ],
+        "transcript": "1998年1月他认罪此后在科罗拉多超级监狱渡过鱼生联邦调查局称他为中级独郎17年间最昂贵的追捕最后不是靠卫星或数据库而是一篇公开发表的宣言和一次家人的指认卡钦斯基证明最危险的有时不是街头而是一间与世隔绝的小屋"
+      }
+    ],
+    "max_cer": 0.3229,
+    "failing": [
+      "N03"
+    ]
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 30.44,
+        "script_chars": 108,
+        "heard_chars": 106,
+        "character_error_rate": 0.037,
+        "match_coverage": 0.963,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 50,
+            "kind": "delete",
+            "script": "百",
+            "heard": ""
+          },
+          {
+            "at": 52,
+            "kind": "delete",
+            "script": "十",
+            "heard": ""
+          },
+          {
+            "at": 61,
+            "kind": "replace",
+            "script": "西",
+            "heard": "希"
+          },
+          {
+            "at": 74,
+            "kind": "replace",
+            "script": "林",
+            "heard": "临"
+          }
+        ],
+        "transcript": "1978年到1996年联邦调查局经历了持续时间最长代价最高昂的追捕之一凶手不是街头暴徒而是智商高达167的哈佛数学天才希奥多卡钦斯基他隐居蒙大拿临间的简陋木屋把精心制作的邮包寄向全美大学与航空业科技界开始闻风丧胆"
+      },
+      {
+        "id": "N02",
+        "start": 31.52,
+        "end": 63.356,
+        "script_chars": 118,
+        "heard_chars": 117,
+        "character_error_rate": 0.0339,
+        "match_coverage": 0.9661,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 55,
+            "kind": "replace",
+            "script": "尤",
+            "heard": "油"
+          },
+          {
+            "at": 60,
+            "kind": "replace",
+            "script": "指",
+            "heard": "制"
+          },
+          {
+            "at": 109,
+            "kind": "delete",
+            "script": "百",
+            "heard": ""
+          },
+          {
+            "at": 111,
+            "kind": "replace",
+            "script": "十",
+            "heard": "零"
+          }
+        ],
+        "transcript": "17年间,他寄出或亲手放置了16枚装置3人死亡,近22人受伤联邦调查局联合烟酒枪械管理局与邮政稽查组成专案组代号油纳炸弹专制大学与航空目标装置用随处可寻的废料制成,几乎不留痕迹名单甚至来自图书馆的随机检索专案组一度扩充到150人仍找不到他"
+      },
+      {
+        "id": "N03",
+        "start": 64.436,
+        "end": 89.42,
+        "script_chars": 96,
+        "heard_chars": 96,
+        "character_error_rate": 0.0104,
+        "match_coverage": 0.9896,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 73,
+            "kind": "replace",
+            "script": "刊",
+            "heard": "看"
+          }
+        ],
+        "transcript": "1995年他寄出约三万五千字的长文要世人正视他的主张工业科技正在毁灭人类经过激烈争论联邦调查局局长与司法部长同意发表希望有读者能认出作者华盛顿邮报看出后线索如潮水涌来真正打开缺口的不是新的物证"
+      },
+      {
+        "id": "N04",
+        "start": 90.5,
+        "end": 116.238,
+        "script_chars": 93,
+        "heard_chars": 93,
+        "character_error_rate": 0.043,
+        "match_coverage": 0.957,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 37,
+            "kind": "replace",
+            "script": "再叠",
+            "heard": "在碟"
+          },
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "盐",
+            "heard": "延"
+          },
+          {
+            "at": 92,
+            "kind": "replace",
+            "script": "风",
+            "heard": "锋"
+          }
+        ],
+        "transcript": "他的弟弟戴维提供了哥哥的书信与文稿语言分析认定那些私信与宣言几乎出自同一人在碟上芝加哥成长伯克利任教延湖城停留最终隐居蒙大拿搜查令的事实基础第一次被写实高科技追踪17年无果破局靠的是文锋"
+      },
+      {
+        "id": "N05",
+        "start": 117.318,
+        "end": 142.551,
+        "script_chars": 98,
+        "heard_chars": 98,
+        "character_error_rate": 0.0918,
+        "match_coverage": 0.9082,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "十英",
+            "heard": "石鹰"
+          },
+          {
+            "at": 25,
+            "kind": "replace",
+            "script": "英",
+            "heard": "鹰"
+          },
+          {
+            "at": 82,
+            "kind": "replace",
+            "script": "字里行间",
+            "heard": "自理航监"
+          },
+          {
+            "at": 90,
+            "kind": "replace",
+            "script": "文",
+            "heard": "闻"
+          },
+          {
+            "at": 95,
+            "kind": "replace",
+            "script": "义",
+            "heard": "意"
+          }
+        ],
+        "transcript": "1996年4月3日调查人员在林肯镇附近石鹰尺乘14鹰尺的木屋里逮捕了他屋内有大量零件4万页手写笔记以及一枚已准备寄出的装置持续17年的恐慌结束了破案的关键是亲弟弟从自理航监认出独特闻风选择大意灭亲"
+      },
+      {
+        "id": "N06",
+        "start": 143.631,
+        "end": 174.0,
+        "script_chars": 104,
+        "heard_chars": 192,
+        "character_error_rate": 0.9038,
+        "match_coverage": 0.9423,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "度",
+            "heard": "渡"
+          },
+          {
+            "at": 23,
+            "kind": "replace",
+            "script": "余",
+            "heard": "鱼"
+          },
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "终极",
+            "heard": "中级"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "狼",
+            "heard": "郎"
+          },
+          {
+            "at": 103,
+            "kind": "replace",
+            "script": "屋",
+            "heard": "物此后在科罗拉多超级监狱渡过鱼生联邦调查局称他为中级监狱的小物他的手指是一部分的他认罪大致在科罗拉多超级监狱渡过鱼生赶快提我的了感到thankyou加入了科罗拉多超级监狱渡过鱼生"
+          }
+        ],
+        "transcript": "1998年1月 他认罪此后在科罗拉多超级监狱渡过鱼生联邦调查局称他为中级独郎17年间最昂贵的追捕最后不是靠卫星或数据库而是一篇公开发表的宣言和一次家人的指认卡钦斯基证明最危险的有时不是街头而是一间与世隔绝的小物此后在科罗拉多超级监狱渡过鱼生联邦调查局称他为中级监狱的小物他的手指是一部分的他认罪大致在科罗拉多超级监狱渡过鱼生赶快提我的了感到 Thank you加入了科罗拉多超级监狱渡过鱼生"
+      }
+    ],
+    "max_cer": 0.9038,
+    "failing": [
+      "N06"
+    ]
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+}

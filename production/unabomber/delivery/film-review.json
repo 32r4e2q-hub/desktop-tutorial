@@ -1,0 +1,578 @@
+{
+  "flags": [
+    "14 帧接近全黑",
+    "49 处画面 1 秒内几乎无变化：18 处复核为真静止（信息卡/档案照/片尾卡，设计如此），31 处复核有微动（16x16 阈值过严，不是冻结帧）"
+  ],
+  "video": {
+    "file": "尤纳炸弹客：林中的宣言.mp4",
+    "video_codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "decoded_frames": 5400,
+    "duration_seconds": 180.0,
+    "black_frame_luma_threshold": 12.0,
+    "black_frames": [
+      {
+        "second": 0.0,
+        "luma": 0.24
+      },
+      {
+        "second": 0.03,
+        "luma": 6.18
+      },
+      {
+        "second": 176.17,
+        "luma": 7.17
+      },
+      {
+        "second": 176.2,
+        "luma": 0.0
+      },
+      {
+        "second": 176.23,
+        "luma": 4.95
+      },
+      {
+        "second": 176.27,
+        "luma": 11.17
+      },
+      {
+        "second": 179.73,
+        "luma": 11.33
+      },
+      {
+        "second": 179.77,
+        "luma": 10.01
+      },
+      {
+        "second": 179.8,
+        "luma": 8.68
+      },
+      {
+        "second": 179.83,
+        "luma": 6.66
+      },
+      {
+        "second": 179.87,
+        "luma": 5.31
+      },
+      {
+        "second": 179.9,
+        "luma": 3.83
+      },
+      {
+        "second": 179.93,
+        "luma": 2.59
+      },
+      {
+        "second": 179.97,
+        "luma": 1.1
+      }
+    ],
+    "frozen_tolerance": 0.6,
+    "frozen_runs_over_one_second": [
+      {
+        "start_second": 0.63,
+        "end_second": 1.63,
+        "max_frame_delta": 0.449,
+        "triage_median_delta": 0.573,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 7.73,
+        "end_second": 8.73,
+        "max_frame_delta": 0.371,
+        "triage_median_delta": 0.261,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 10.33,
+        "end_second": 11.33,
+        "max_frame_delta": 0.512,
+        "triage_median_delta": 0.051,
+        "verdict": "static"
+      },
+      {
+        "start_second": 12.9,
+        "end_second": 13.9,
+        "max_frame_delta": 0.523,
+        "triage_median_delta": 0.045,
+        "verdict": "static"
+      },
+      {
+        "start_second": 18.27,
+        "end_second": 19.27,
+        "max_frame_delta": 0.582,
+        "triage_median_delta": 1.06,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 24.0,
+        "end_second": 25.0,
+        "max_frame_delta": 0.5,
+        "triage_median_delta": 0.592,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 30.4,
+        "end_second": 31.4,
+        "max_frame_delta": 0.559,
+        "triage_median_delta": 0.26,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 31.53,
+        "end_second": 32.53,
+        "max_frame_delta": 0.441,
+        "triage_median_delta": 0.32,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 32.6,
+        "end_second": 33.6,
+        "max_frame_delta": 0.398,
+        "triage_median_delta": 0.593,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 38.13,
+        "end_second": 39.13,
+        "max_frame_delta": 0.301,
+        "triage_median_delta": 0.282,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 44.73,
+        "end_second": 45.73,
+        "max_frame_delta": 0.258,
+        "triage_median_delta": 0.041,
+        "verdict": "static"
+      },
+      {
+        "start_second": 46.03,
+        "end_second": 47.03,
+        "max_frame_delta": 0.547,
+        "triage_median_delta": 0.077,
+        "verdict": "static"
+      },
+      {
+        "start_second": 47.93,
+        "end_second": 48.93,
+        "max_frame_delta": 0.547,
+        "triage_median_delta": 0.035,
+        "verdict": "static"
+      },
+      {
+        "start_second": 51.33,
+        "end_second": 52.33,
+        "max_frame_delta": 0.508,
+        "triage_median_delta": 0.646,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 55.2,
+        "end_second": 56.2,
+        "max_frame_delta": 0.508,
+        "triage_median_delta": 0.813,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 57.43,
+        "end_second": 58.43,
+        "max_frame_delta": 0.41,
+        "triage_median_delta": 0.69,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 58.5,
+        "end_second": 59.5,
+        "max_frame_delta": 0.598,
+        "triage_median_delta": 0.946,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 64.43,
+        "end_second": 65.43,
+        "max_frame_delta": 0.395,
+        "triage_median_delta": 0.056,
+        "verdict": "static"
+      },
+      {
+        "start_second": 65.63,
+        "end_second": 66.63,
+        "max_frame_delta": 0.332,
+        "triage_median_delta": 0.057,
+        "verdict": "static"
+      },
+      {
+        "start_second": 68.5,
+        "end_second": 69.5,
+        "max_frame_delta": 0.574,
+        "triage_median_delta": 0.068,
+        "verdict": "static"
+      },
+      {
+        "start_second": 72.57,
+        "end_second": 73.57,
+        "max_frame_delta": 0.27,
+        "triage_median_delta": 0.047,
+        "verdict": "static"
+      },
+      {
+        "start_second": 73.7,
+        "end_second": 74.7,
+        "max_frame_delta": 0.289,
+        "triage_median_delta": 0.054,
+        "verdict": "static"
+      },
+      {
+        "start_second": 75.47,
+        "end_second": 76.47,
+        "max_frame_delta": 0.484,
+        "triage_median_delta": 0.044,
+        "verdict": "static"
+      },
+      {
+        "start_second": 84.77,
+        "end_second": 85.77,
+        "max_frame_delta": 0.27,
+        "triage_median_delta": 0.317,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 85.93,
+        "end_second": 86.93,
+        "max_frame_delta": 0.402,
+        "triage_median_delta": 0.62,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 92.93,
+        "end_second": 93.93,
+        "max_frame_delta": 0.441,
+        "triage_median_delta": 0.372,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 99.67,
+        "end_second": 100.67,
+        "max_frame_delta": 0.367,
+        "triage_median_delta": 0.058,
+        "verdict": "static"
+      },
+      {
+        "start_second": 105.8,
+        "end_second": 106.8,
+        "max_frame_delta": 0.57,
+        "triage_median_delta": 1.211,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 111.87,
+        "end_second": 112.87,
+        "max_frame_delta": 0.207,
+        "triage_median_delta": 0.3,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 114.23,
+        "end_second": 115.23,
+        "max_frame_delta": 0.215,
+        "triage_median_delta": 0.348,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 116.23,
+        "end_second": 117.23,
+        "max_frame_delta": 0.285,
+        "triage_median_delta": 0.47,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 117.33,
+        "end_second": 118.33,
+        "max_frame_delta": 0.57,
+        "triage_median_delta": 0.054,
+        "verdict": "static"
+      },
+      {
+        "start_second": 119.8,
+        "end_second": 120.8,
+        "max_frame_delta": 0.539,
+        "triage_median_delta": 0.041,
+        "verdict": "static"
+      },
+      {
+        "start_second": 124.07,
+        "end_second": 125.07,
+        "max_frame_delta": 0.43,
+        "triage_median_delta": 0.029,
+        "verdict": "static"
+      },
+      {
+        "start_second": 125.77,
+        "end_second": 126.77,
+        "max_frame_delta": 0.422,
+        "triage_median_delta": 0.03,
+        "verdict": "static"
+      },
+      {
+        "start_second": 127.93,
+        "end_second": 128.93,
+        "max_frame_delta": 0.359,
+        "triage_median_delta": 0.032,
+        "verdict": "static"
+      },
+      {
+        "start_second": 130.07,
+        "end_second": 131.07,
+        "max_frame_delta": 0.539,
+        "triage_median_delta": 0.433,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 138.17,
+        "end_second": 139.17,
+        "max_frame_delta": 0.195,
+        "triage_median_delta": 0.299,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 140.4,
+        "end_second": 141.4,
+        "max_frame_delta": 0.422,
+        "triage_median_delta": 0.346,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 146.5,
+        "end_second": 147.5,
+        "max_frame_delta": 0.391,
+        "triage_median_delta": 0.524,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 151.0,
+        "end_second": 152.0,
+        "max_frame_delta": 0.379,
+        "triage_median_delta": 0.615,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 154.3,
+        "end_second": 155.3,
+        "max_frame_delta": 0.379,
+        "triage_median_delta": 0.448,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 157.17,
+        "end_second": 158.17,
+        "max_frame_delta": 0.41,
+        "triage_median_delta": 0.513,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 160.5,
+        "end_second": 161.5,
+        "max_frame_delta": 0.48,
+        "triage_median_delta": 0.451,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 161.93,
+        "end_second": 162.93,
+        "max_frame_delta": 0.539,
+        "triage_median_delta": 0.709,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 164.1,
+        "end_second": 165.1,
+        "max_frame_delta": 0.582,
+        "triage_median_delta": 0.67,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 170.73,
+        "end_second": 171.73,
+        "max_frame_delta": 0.539,
+        "triage_median_delta": 1.274,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 173.83,
+        "end_second": 174.83,
+        "max_frame_delta": 0.484,
+        "triage_median_delta": 1.148,
+        "verdict": "micro_motion"
+      },
+      {
+        "start_second": 176.4,
+        "end_second": 177.4,
+        "max_frame_delta": 0.125,
+        "triage_median_delta": 0.018,
+        "verdict": "static"
+      }
+    ],
+    "mean_luma": 59.95,
+    "min_luma": 0.24,
+    "max_luma": 143.72,
+    "sampled_frames": [
+      "t0000.00s.jpg",
+      "t0002.00s.jpg",
+      "t0004.00s.jpg",
+      "t0006.00s.jpg",
+      "t0008.00s.jpg",
+      "t0010.00s.jpg",
+      "t0012.00s.jpg",
+      "t0014.00s.jpg",
+      "t0016.00s.jpg",
+      "t0018.00s.jpg",
+      "t0020.00s.jpg",
+      "t0022.00s.jpg",
+      "t0024.00s.jpg",
+      "t0026.00s.jpg",
+      "t0028.00s.jpg",
+      "t0030.00s.jpg",
+      "t0032.00s.jpg",
+      "t0034.00s.jpg",
+      "t0036.00s.jpg",
+      "t0038.00s.jpg",
+      "t0040.00s.jpg",
+      "t0042.00s.jpg",
+      "t0044.00s.jpg",
+      "t0046.00s.jpg",
+      "t0048.00s.jpg",
+      "t0050.00s.jpg",
+      "t0052.00s.jpg",
+      "t0054.00s.jpg",
+      "t0056.00s.jpg",
+      "t0058.00s.jpg",
+      "t0060.00s.jpg",
+      "t0062.00s.jpg",
+      "t0064.00s.jpg",
+      "t0066.00s.jpg",
+      "t0068.00s.jpg",
+      "t0070.00s.jpg",
+      "t0072.00s.jpg",
+      "t0074.00s.jpg",
+      "t0076.00s.jpg",
+      "t0078.00s.jpg",
+      "t0080.00s.jpg",
+      "t0082.00s.jpg",
+      "t0084.00s.jpg",
+      "t0086.00s.jpg",
+      "t0088.00s.jpg",
+      "t0090.00s.jpg",
+      "t0092.00s.jpg",
+      "t0094.00s.jpg",
+      "t0096.00s.jpg",
+      "t0098.00s.jpg",
+      "t0100.00s.jpg",
+      "t0102.00s.jpg",
+      "t0104.00s.jpg",
+      "t0106.00s.jpg",
+      "t0108.00s.jpg",
+      "t0110.00s.jpg",
+      "t0112.00s.jpg",
+      "t0114.00s.jpg",
+      "t0116.00s.jpg",
+      "t0118.00s.jpg",
+      "t0120.00s.jpg",
+      "t0122.00s.jpg",
+      "t0124.00s.jpg",
+      "t0126.00s.jpg",
+      "t0128.00s.jpg",
+      "t0130.00s.jpg",
+      "t0132.00s.jpg",
+      "t0134.00s.jpg",
+      "t0136.00s.jpg",
+      "t0138.00s.jpg",
+      "t0140.00s.jpg",
+      "t0142.00s.jpg",
+      "t0144.00s.jpg",
+      "t0146.00s.jpg",
+      "t0148.00s.jpg",
+      "t0150.00s.jpg",
+      "t0152.00s.jpg",
+      "t0154.00s.jpg",
+      "t0156.00s.jpg",
+      "t0158.00s.jpg",
+      "t0160.00s.jpg",
+      "t0162.00s.jpg",
+      "t0164.00s.jpg",
+      "t0166.00s.jpg",
+      "t0168.00s.jpg",
+      "t0170.00s.jpg",
+      "t0172.00s.jpg",
+      "t0174.00s.jpg",
+      "t0176.00s.jpg",
+      "t0178.00s.jpg"
+    ],
+    "contact_sheets": [
+      "contact-sheet-01.png",
+      "contact-sheet-02.png",
+      "contact-sheet-03.png"
+    ]
+  },
+  "audio": {
+    "file": "尤纳炸弹客：林中的宣言.mp4",
+    "duration_seconds": 180.011,
+    "sample_rate": 48000,
+    "channels": 1,
+    "rms_dbfs": -20.19,
+    "peak_dbfs": -1.52,
+    "window_seconds": 1.0,
+    "window_count": 181,
+    "silent_windows": 1,
+    "silent_fraction": 0.0055,
+    "quietest_window_dbfs": -120.0,
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 30.44,
+        "rms_dbfs": -19.77,
+        "peak_dbfs": -1.7
+      },
+      {
+        "id": "N02",
+        "start": 31.52,
+        "end": 63.356,
+        "rms_dbfs": -19.95,
+        "peak_dbfs": -1.55
+      },
+      {
+        "id": "N03",
+        "start": 64.436,
+        "end": 89.42,
+        "rms_dbfs": -19.82,
+        "peak_dbfs": -1.9
+      },
+      {
+        "id": "N04",
+        "start": 90.5,
+        "end": 116.238,
+        "rms_dbfs": -19.93,
+        "peak_dbfs": -1.52
+      },
+      {
+        "id": "N05",
+        "start": 117.318,
+        "end": 142.551,
+        "rms_dbfs": -19.91,
+        "peak_dbfs": -1.53
+      },
+      {
+        "id": "N06",
+        "start": 143.631,
+        "end": 174.0,
+        "rms_dbfs": -20.02,
+        "peak_dbfs": -1.76
+      }
+    ]
+  },
+  "note": "自动判定只覆盖黑帧/冻结帧/静音/电平；构图、字幕错字、AI 画面畸变需人工看抽样帧。冻结帧报警都带 verdict：static=真静止（多为信息卡），micro_motion=复核有微动。"
+}
