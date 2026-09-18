@@ -20,6 +20,15 @@ jobs:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 15
     steps:
+      - name: 先让 git 走 HTTP/1.1（国内网络下 HTTP/2 会静默卡死）
+        # 2026-09-18 实测：HTTP/2 下 git 在 2.4 MB 处停住且不报错、git 进程还消失，
+        # 而 curl（HTTP/1.1）一切正常；把 http.version 设为 HTTP/1.1 后 ls-remote 秒回。
+        # lowSpeedLimit/Time 让以后再卡也会在 30 秒内自己失败并报错，而不是无声挂着。
+        run: |
+          git config --global http.version HTTP/1.1
+          git config --global http.lowSpeedLimit 1000
+          git config --global http.lowSpeedTime 30
+
       - name: Check out the branch
         uses: actions/checkout@v4
         with:
