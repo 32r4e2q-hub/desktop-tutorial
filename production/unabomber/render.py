@@ -43,12 +43,13 @@ RATE = 48000
 CUTS = {
     # Picture follows the spoken clause, not a uniform 6s grid.
     # Morphing Agnes clips stay on their single-scene head only.
-    'N01': [(0,'S03',''), (6.0,'S01',''), (11.5,'S02',''), (14.0,'S04',''), (22.0,'S05','')],
-    'N02': [(0,'S06',''), (6.5,'S07',''), (13.0,'S08',''), (19.5,'S09',''), (25.5,'S10','')],
-    'N03': [(0,'S14',''), (6.0,'S13',''), (8.6,'S10',''), (14.5,'S06',''), (20.0,'S17','')],
+    # Times are raw-narration seconds (make_edl divides by tempo).
+    'N01': [(0,'S03',''), (6.4,'S01',''), (11.5,'S02',''), (14.50,'S09',''), (18.4,'S04',''), (21.7,'S05','')],
+    'N02': [(0,'S08',''), (8.55,'S06',''), (14.3,'S11',''), (18.45,'S07',''), (22.9,'S10','')],
+    'N03': [(0,'S14',''), (9.1,'S10',''), (17.8,'S13',''), (21.40,'S17','')],
     'N04': [(0,'S16',''), (2.4,'S17',''), (9.0,'S18',''), (15.0,'S19',''), (21.0,'S04','')],
-    'N05': [(0,'S21',''), (6.0,'S22',''), (12.0,'S19',''), (17.5,'S24',''), (22.0,'S25','')],
-    'N06': [(0,'S23',''), (2.4,'S27',''), (10.0,'S28',''), (16.5,'S29',''), (24.0,'S30','')],
+    'N05': [(0,'S21',''), (6.5,'S22',''), (8.45,'S24',''), (17.25,'S19',''), (21.8,'S25','')],
+    'N06': [(0,'S23',''), (5.50,'S27',''), (10.0,'S28',''), (16.5,'S29',''), (24.0,'S30','')],
 }
 
 # QA contact sheets are 2 fps (0.5s/tile). Values are inclusive source windows
@@ -219,12 +220,23 @@ def audio_layout(chapters, audio_root, work, manifest):
 
 def caption_clauses(text):
     raw=re.findall(r'[^，。！？；：、]+[，。！？；：、]?',text)
+    keep=('一百六十七','邮政稽查','十英尺乘十四英尺','三万五千字','寄向全美')
     result=[]
     for part in raw:
-        while len(part)>18:
+        while len(part)>22:
             cut=16
+            for phrase in keep:
+                i=part.find(phrase)
+                if i!=-1 and i<=cut<i+len(phrase):
+                    cut=i if i>=8 else i+len(phrase)
+                    break
             if len(part)-cut<4:
                 cut=max(8,len(part)//2)
+            for phrase in keep:
+                i=part.find(phrase)
+                if i!=-1 and i<cut<i+len(phrase):
+                    cut=i if i>=8 else i+len(phrase)
+                    break
             result.append(part[:cut]);part=part[cut:]
         part=part.strip()
         if not part:
@@ -393,7 +405,10 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         available=b-a
         take=min(available,duration)
         factor=duration/take
-        if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+        # S23 is a locked aerial of the prison; holding it under the guilty-plea
+        # / Supermax line beats cutting away to the cabin mid-sentence.
+        limit=2.5 if sid=='S23' else 1.33
+        if factor>limit:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
             f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
