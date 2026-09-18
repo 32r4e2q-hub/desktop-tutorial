@@ -395,7 +395,7 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
     if sid=='S30':vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
     cmd+=['-vf',vf+',format=yuv420p']
     cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
-          '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
+          '-crf','18','-maxrate','6000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
 
 
@@ -469,7 +469,7 @@ def main():
     font_directory=find_font().parent
     vf=f"subtitles=filename='{subtitle.resolve().as_posix()}':fontsdir='{font_directory.as_posix()}'"
     run(['ffmpeg','-y','-v','error','-threads','2','-i',image_track,'-i',mixed,'-map','0:v:0','-map','1:a:0',
-         '-vf',vf,'-c:v','libx264','-preset','fast','-crf','21','-maxrate','4000k','-bufsize','8000k',
+         '-vf',vf,'-c:v','libx264','-preset','fast','-crf','18','-maxrate','6000k','-bufsize','8000k',
          '-pix_fmt','yuv420p','-r','30','-c:a','aac','-b:a','160k','-ar','48000','-t','180',
          '-movflags','+faststart',args.output])
     info=probe(args.output)

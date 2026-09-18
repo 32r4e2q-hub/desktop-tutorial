@@ -60,12 +60,29 @@ def chinese_number(value: int) -> str:
     return "".join(DIGITS[int(character)] for character in str(value))
 
 
+# Whisper's zh model often emits Taiwan traditional forms. Compare in simplified.
+_TRAD_TO_SIMP = str.maketrans({
+    "萬": "万", "與": "与", "業": "业", "長": "长", "張": "张", "視": "视",
+    "約": "约", "學": "学", "國": "国", "對": "对", "後": "后", "發": "发",
+    "經": "经", "來": "来", "時": "时", "現": "现", "說": "说", "為": "为",
+    "個": "个", "會": "会", "過": "过", "還": "还", "這": "这", "麼": "么",
+    "開": "开", "們": "们", "從": "从", "種": "种", "進": "进", "動": "动",
+    "點": "点", "實": "实", "當": "当", "總": "总", "樣": "样", "書": "书",
+    "條": "条", "無": "无", "電": "电", "報": "报", "將": "将", "卻": "却",
+    "並": "并", "論": "论", "調": "调", "查": "查", "聯": "联", "幫": "帮",
+    "滅": "灭", "類": "类", "劇": "剧", "爭": "争",
+    "讀": "读", "認": "认", "華": "华", "郵": "邮", "線": "线",
+    "湧": "涌", "擊": "击", "開": "开", "峽": "峡", "義": "义",
+})
+
+
 def normalize(text: str) -> str:
     """只保留汉字与字母、数字转汉字、统一小写：比对的是"念出来的字"，不是标点。"""
     import re
 
     text = re.sub(r"(\d{4})(?=年)", lambda m: "".join(DIGITS[int(c)] for c in m.group(1)), text)
     text = re.sub(r"\d+", lambda m: chinese_number(int(m.group(0))), text)
+    text = text.translate(_TRAD_TO_SIMP)
     return "".join(re.findall(r"[\u3400-\u9fffA-Za-z]", text)).lower()
 
 
