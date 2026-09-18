@@ -41,14 +41,14 @@ RATE = 48000
 # 骨架 CUTS：均匀 6 秒一切，只是起点。
 # 拿到真实配音后，必须按配音里的实际停顿重新对时间点（参考项目就是这么做的）。
 CUTS = {
-    # Reviewed against 2fps QA sheets: morphing Agnes clips are held only for
-    # their single-scene head, then the edit returns to a clean continuous shot.
-    'N01': [(0,'S01',''), (7.0,'S02',''), (9.4,'S03',''), (16.0,'S04',''), (23.0,'S05','')],
+    # Picture follows the spoken clause, not a uniform 6s grid.
+    # Morphing Agnes clips stay on their single-scene head only.
+    'N01': [(0,'S03',''), (6.0,'S01',''), (11.5,'S02',''), (14.0,'S04',''), (22.0,'S05','')],
     'N02': [(0,'S06',''), (6.5,'S07',''), (13.0,'S08',''), (19.5,'S09',''), (25.5,'S10','')],
-    'N03': [(0,'S11',''), (5.5,'S13',''), (8.0,'S14',''), (14.0,'S17',''), (20.0,'S06','')],
-    'N04': [(0,'S16',''), (2.4,'S17',''), (9.0,'S18',''), (15.0,'S19',''), (21.0,'S25','')],
-    'N05': [(0,'S21',''), (6.0,'S22',''), (12.0,'S23',''), (14.4,'S24',''), (20.5,'S25','')],
-    'N06': [(0,'S26',''), (2.4,'S27',''), (10.0,'S28',''), (18.0,'S29',''), (24.0,'S30','')],
+    'N03': [(0,'S14',''), (6.0,'S13',''), (8.6,'S10',''), (14.5,'S06',''), (20.0,'S17','')],
+    'N04': [(0,'S16',''), (2.4,'S17',''), (9.0,'S18',''), (15.0,'S19',''), (21.0,'S04','')],
+    'N05': [(0,'S21',''), (6.0,'S22',''), (12.0,'S19',''), (17.5,'S24',''), (22.0,'S25','')],
+    'N06': [(0,'S23',''), (2.4,'S27',''), (10.0,'S28',''), (16.5,'S29',''), (24.0,'S30','')],
 }
 
 # QA contact sheets are 2 fps (0.5s/tile). Values are inclusive source windows
@@ -222,8 +222,17 @@ def caption_clauses(text):
     result=[]
     for part in raw:
         while len(part)>18:
-            result.append(part[:16]);part=part[16:]
-        if part.strip():result.append(part.strip())
+            cut=16
+            if len(part)-cut<4:
+                cut=max(8,len(part)//2)
+            result.append(part[:cut]);part=part[cut:]
+        part=part.strip()
+        if not part:
+            continue
+        if result and len(part)<=2:
+            result[-1]+=part
+        else:
+            result.append(part)
     return result
 
 

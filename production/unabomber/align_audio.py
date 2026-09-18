@@ -40,7 +40,7 @@ def aligned_cues(row, clauses, words):
     for block in SequenceMatcher(None,expected,recognized,autojunk=False).get_matching_blocks():
         for offset in range(block.size):mapping[block.a+offset]=times[block.b+offset]
     coverage=len(mapping)/max(1,len(expected))
-    if coverage<.75:return None,coverage
+    if coverage<.35:return None,coverage
     cues=[];cursor=0;last_end=row['start']
     for clause in clauses:
         count=len(normalize(clause));matches=[mapping[i] for i in range(cursor,cursor+count) if i in mapping]
