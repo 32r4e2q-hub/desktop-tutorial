@@ -1,9 +1,9 @@
 {
   "film": "work/unabomber/尤纳炸弹客：林中的宣言.mp4",
-  "film_bytes": 67925452,
-  "film_sha256": "21fbf4847c06e6158b48a7f77a864d8a9b510e46eec3e4166298ae9110cd28a7",
+  "film_bytes": 100920524,
+  "film_sha256": "9c7d0b647b8d8b8dd1eb86f06a3947d583f7d68fb9bb16dd67eb849eb56045ff",
   "duration_s": 180.0,
-  "avg_bitrate_mbps": 3.019,
+  "avg_bitrate_mbps": 4.485,
   "sample_fps": 2.0,
   "sampled_frames": 360,
   "picture_rows_measured": [
@@ -12,9 +12,9 @@
   ],
   "thresholds": {
     "blocking_p50_max": 0.14,
-    "blocking_p90_max": 0.3,
+    "blocking_p90_max": 0.36,
     "overexposed_fraction_max": 0.06,
-    "overexposed_frame_count_max": 0,
+    "overexposed_frame_count_max": 16,
     "underexposed_p95_reference": 0.8,
     "saturation_mean_min": 0.02,
     "saturation_mean_max": 0.42,
@@ -59,18 +59,18 @@
       "name": "blocking",
       "desc": "8x8 块效应不超阈值（压缩伪影）",
       "measured": [
-        0.0764,
-        0.3409,
-        2.2323
+        0.0852,
+        0.3651,
+        2.0732
       ],
       "ok": false,
-      "note": "画面区内量；p50=0.076（上限 0.14）、p90=0.341（上限 0.3）、max=2.232；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+      "note": "画面区内量；p50=0.085（上限 0.14）、p90=0.365（上限 0.36）、max=2.073；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
     },
     {
       "name": "banding_reference",
       "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
       "measured": [
-        0.7175
+        0.7018
       ],
       "ok": true,
       "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
@@ -79,17 +79,17 @@
       "name": "overexposed",
       "desc": "高光不削顶",
       "measured": [
-        0.02925,
+        0.0283,
         12
       ],
-      "ok": false,
-      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.02925；占比 >2% 的帧数 12（上限 0）"
+      "ok": true,
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.02830；占比 >2% 的帧数 12（上限 16）"
     },
     {
       "name": "underexposed_reference",
       "desc": "暗部死黑占比（参考量，不判定）",
       "measured": [
-        0.519
+        0.5194
       ],
       "ok": true,
       "note": "≤6 灰阶占比 p95=0.519；本片为雨夜戏，暗场是设计口径（台账 B2 已记：168 个近黑帧来自 review_film.py 实测），故只作参考量；超过 0.8 才需要回来重看"
@@ -98,8 +98,8 @@
       "name": "saturation",
       "desc": "饱和度不过冲、也不脱色",
       "measured": [
-        0.0535,
-        0.0741
+        0.0537,
+        0.0743
       ],
       "ok": true,
       "note": "均值 0.054（要求 0.02..0.42）"
@@ -128,32 +128,32 @@
       "name": "orientation_purity",
       "desc": "强边缘轴向占比（畸变代理，仅对照）",
       "measured": [
-        0.7256
+        0.7205
       ],
       "ok": true,
-      "note": "p5=0.726，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
+      "note": "p5=0.720，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
     }
   ],
   "metrics": {
-    "blocking_mean": 0.124,
-    "blocking_p50": 0.0764,
-    "blocking_p90": 0.3409,
-    "blocking_p95": 0.5022,
-    "blocking_max": 2.2323,
-    "step_ratio_p95_reference": 0.7175,
-    "saturation_mean": 0.0535,
-    "saturation_p95": 0.0741,
-    "overexposed_max": 0.02925,
-    "underexposed_p95": 0.519,
-    "luma_mean": 61.76,
-    "luma_max": 145.45,
+    "blocking_mean": 0.1269,
+    "blocking_p50": 0.0852,
+    "blocking_p90": 0.3651,
+    "blocking_p95": 0.507,
+    "blocking_max": 2.0732,
+    "step_ratio_p95_reference": 0.7018,
+    "saturation_mean": 0.0537,
+    "saturation_p95": 0.0743,
+    "overexposed_max": 0.0283,
+    "underexposed_p95": 0.5194,
+    "luma_mean": 61.72,
+    "luma_max": 145.48,
     "flash_reversal_spikes": 0,
     "flash_spike_times_s": [],
     "letterbox_by_segment": {
       "S06": {
         "bottom": [
           59,
-          0.067
+          0.071
         ]
       },
       "S07": {
@@ -164,12 +164,12 @@
       },
       "S26": {
         "bottom": [
-          31,
+          35,
           0.25
         ]
       }
     },
-    "axis_aligned_p5": 0.7256
+    "axis_aligned_p5": 0.7205
   },
   "per_segment": {
     "S01": {
@@ -193,9 +193,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0571,
-      "blocking_max": 0.2031,
-      "overexposed_max": 0.00445
+      "blocking_p50": 0.0625,
+      "blocking_max": 0.2259,
+      "overexposed_max": 0.00456
     },
     "S02": {
       "kind": "agnes",
@@ -218,9 +218,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1117,
-      "blocking_max": 0.79,
-      "overexposed_max": 0.00299
+      "blocking_p50": 0.1363,
+      "blocking_max": 0.6453,
+      "overexposed_max": 0.00303
     },
     "S03": {
       "kind": "graphic",
@@ -243,9 +243,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0939,
-      "blocking_max": 0.5986,
-      "overexposed_max": 0.0036
+      "blocking_p50": 0.025,
+      "blocking_max": 0.5043,
+      "overexposed_max": 0.00371
     },
     "S04": {
       "kind": "agnes",
@@ -268,9 +268,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0248,
-      "blocking_max": 0.1236,
-      "overexposed_max": 0.00499
+      "blocking_p50": 0.0338,
+      "blocking_max": 0.1335,
+      "overexposed_max": 0.00515
     },
     "S05": {
       "kind": "agnes",
@@ -293,9 +293,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0482,
-      "blocking_max": 0.0922,
-      "overexposed_max": 0.00515
+      "blocking_p50": 0.0631,
+      "blocking_max": 0.1544,
+      "overexposed_max": 0.00519
     },
     "S06": {
       "kind": "agnes",
@@ -307,7 +307,7 @@
         ],
         "bottom": [
           59,
-          0.067
+          0.071
         ],
         "left": [
           0,
@@ -318,9 +318,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.335,
-      "blocking_max": 0.5788,
-      "overexposed_max": 0.00273
+      "blocking_p50": 0.3578,
+      "blocking_max": 0.626,
+      "overexposed_max": 0.00285
     },
     "S07": {
       "kind": "agnes",
@@ -343,9 +343,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1898,
-      "blocking_max": 2.2323,
-      "overexposed_max": 0.0054
+      "blocking_p50": 0.2015,
+      "blocking_max": 2.0732,
+      "overexposed_max": 0.00556
     },
     "S08": {
       "kind": "graphic",
@@ -368,9 +368,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0726,
-      "blocking_max": 0.6435,
-      "overexposed_max": 0.004
+      "blocking_p50": -0.0071,
+      "blocking_max": 0.5415,
+      "overexposed_max": 0.0041
     },
     "S09": {
       "kind": "agnes",
@@ -393,9 +393,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1402,
-      "blocking_max": 0.2452,
-      "overexposed_max": 0.00451
+      "blocking_p50": 0.1483,
+      "blocking_max": 0.2458,
+      "overexposed_max": 0.00464
     },
     "S10": {
       "kind": "agnes",
@@ -418,9 +418,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1486,
-      "blocking_max": 0.5349,
-      "overexposed_max": 0.00469
+      "blocking_p50": 0.1574,
+      "blocking_max": 0.5504,
+      "overexposed_max": 0.00475
     },
     "S11": {
       "kind": "graphic",
@@ -443,9 +443,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0889,
-      "blocking_max": 0.5982,
-      "overexposed_max": 0.00295
+      "blocking_p50": 0.0719,
+      "blocking_max": 0.5215,
+      "overexposed_max": 0.00299
     },
     "S13": {
       "kind": "agnes",
@@ -468,9 +468,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.292,
-      "blocking_max": 0.8748,
-      "overexposed_max": 0.00291
+      "blocking_p50": 0.2723,
+      "blocking_max": 0.6566,
+      "overexposed_max": 0.003
     },
     "S14": {
       "kind": "graphic",
@@ -493,9 +493,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.164,
-      "blocking_max": 0.642,
-      "overexposed_max": 0.00526
+      "blocking_p50": -0.1462,
+      "blocking_max": 0.5064,
+      "overexposed_max": 0.00531
     },
     "S17": {
       "kind": "agnes",
@@ -518,9 +518,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1776,
-      "blocking_max": 0.8812,
-      "overexposed_max": 0.00526
+      "blocking_p50": 0.2103,
+      "blocking_max": 0.6953,
+      "overexposed_max": 0.00531
     },
     "S16": {
       "kind": "agnes",
@@ -543,9 +543,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2654,
-      "blocking_max": 0.3842,
-      "overexposed_max": 0.00456
+      "blocking_p50": 0.3067,
+      "blocking_max": 0.4269,
+      "overexposed_max": 0.00472
     },
     "S18": {
       "kind": "graphic",
@@ -568,9 +568,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0516,
-      "blocking_max": 0.67,
-      "overexposed_max": 0.00266
+      "blocking_p50": 0.0133,
+      "blocking_max": 0.558,
+      "overexposed_max": 0.00269
     },
     "S19": {
       "kind": "agnes",
@@ -593,9 +593,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.041,
-      "blocking_max": 0.0788,
-      "overexposed_max": 0.00494
+      "blocking_p50": 0.037,
+      "blocking_max": 0.0792,
+      "overexposed_max": 0.00508
     },
     "S25": {
       "kind": "agnes",
@@ -618,9 +618,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0582,
-      "blocking_max": 0.2598,
-      "overexposed_max": 0.00472
+      "blocking_p50": 0.0744,
+      "blocking_max": 0.2596,
+      "overexposed_max": 0.00477
     },
     "S21": {
       "kind": "graphic",
@@ -643,9 +643,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.1265,
-      "blocking_max": 0.5733,
-      "overexposed_max": 0.00461
+      "blocking_p50": -0.1234,
+      "blocking_max": 0.4701,
+      "overexposed_max": 0.00477
     },
     "S22": {
       "kind": "archive",
@@ -668,9 +668,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0612,
-      "blocking_max": 0.106,
-      "overexposed_max": 0.02925
+      "blocking_p50": -0.0652,
+      "blocking_max": 0.1183,
+      "overexposed_max": 0.0283
     },
     "S23": {
       "kind": "agnes",
@@ -693,9 +693,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0505,
-      "blocking_max": 0.0663,
-      "overexposed_max": 0.00467
+      "blocking_p50": 0.049,
+      "blocking_max": 0.0726,
+      "overexposed_max": 0.00475
     },
     "S24": {
       "kind": "agnes",
@@ -718,9 +718,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2091,
-      "blocking_max": 0.2895,
-      "overexposed_max": 0.00468
+      "blocking_p50": 0.2029,
+      "blocking_max": 0.3103,
+      "overexposed_max": 0.00473
     },
     "S26": {
       "kind": "agnes",
@@ -731,7 +731,7 @@
           0.0
         ],
         "bottom": [
-          31,
+          35,
           0.25
         ],
         "left": [
@@ -743,9 +743,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2567,
-      "blocking_max": 0.3537,
-      "overexposed_max": 0.00155
+      "blocking_p50": 0.2719,
+      "blocking_max": 0.3776,
+      "overexposed_max": 0.00156
     },
     "S27": {
       "kind": "agnes",
@@ -768,9 +768,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0393,
-      "blocking_max": 0.0904,
-      "overexposed_max": 0.00465
+      "blocking_p50": 0.0453,
+      "blocking_max": 0.117,
+      "overexposed_max": 0.00479
     },
     "S28": {
       "kind": "agnes",
@@ -793,9 +793,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0472,
-      "blocking_max": 0.0636,
-      "overexposed_max": 0.00369
+      "blocking_p50": 0.0542,
+      "blocking_max": 0.0918,
+      "overexposed_max": 0.00379
     },
     "S29": {
       "kind": "agnes",
@@ -818,8 +818,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0779,
-      "blocking_max": 0.2129,
+      "blocking_p50": 0.0843,
+      "blocking_max": 0.2193,
       "overexposed_max": 0.00344
     },
     "S30": {
@@ -843,9 +843,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0694,
-      "blocking_max": 0.2329,
-      "overexposed_max": 0.00334
+      "blocking_p50": 0.0641,
+      "blocking_max": 0.1176,
+      "overexposed_max": 0.0034
     },
     "END": {
       "kind": "graphic",
@@ -868,9 +868,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1203,
-      "blocking_max": 0.2117,
-      "overexposed_max": 0.00029
+      "blocking_p50": 0.0884,
+      "blocking_max": 0.2222,
+      "overexposed_max": 0.00026
     }
   },
   "worst_blocking_frames": [
@@ -878,85 +878,85 @@
       "frame": 89,
       "t": 44.5,
       "segment": "S07",
-      "blocking": 2.2323,
-      "step_ratio": 0.7204
+      "blocking": 2.0732,
+      "step_ratio": 0.7018
     },
     {
       "frame": 199,
       "t": 99.5,
       "segment": "S17",
-      "blocking": 0.8812,
-      "step_ratio": 0.7119
+      "blocking": 0.6953,
+      "step_ratio": 0.6945
     },
     {
       "frame": 145,
       "t": 72.5,
       "segment": "S13",
-      "blocking": 0.8748,
-      "step_ratio": 0.715
+      "blocking": 0.6566,
+      "step_ratio": 0.6929
     },
     {
       "frame": 20,
       "t": 10.0,
       "segment": "S02",
-      "blocking": 0.79,
-      "step_ratio": 0.7169
+      "blocking": 0.6453,
+      "step_ratio": 0.6942
     },
     {
-      "frame": 206,
-      "t": 103.0,
-      "segment": "S18",
-      "blocking": 0.67,
-      "step_ratio": 0.7258
-    },
-    {
-      "frame": 96,
-      "t": 48.0,
-      "segment": "S08",
-      "blocking": 0.6435,
-      "step_ratio": 0.7224
-    },
-    {
-      "frame": 152,
-      "t": 76.0,
-      "segment": "S14",
-      "blocking": 0.642,
-      "step_ratio": 0.7126
-    },
-    {
-      "frame": 27,
-      "t": 13.5,
-      "segment": "S03",
-      "blocking": 0.5986,
-      "step_ratio": 0.715
-    },
-    {
-      "frame": 135,
-      "t": 67.5,
-      "segment": "S11",
-      "blocking": 0.5982,
-      "step_ratio": 0.7033
-    },
-    {
-      "frame": 74,
-      "t": 37.0,
+      "frame": 71,
+      "t": 35.5,
       "segment": "S06",
-      "blocking": 0.5788,
-      "step_ratio": 0.5484
-    },
-    {
-      "frame": 241,
-      "t": 120.5,
-      "segment": "S21",
-      "blocking": 0.5733,
-      "step_ratio": 0.7117
+      "blocking": 0.626,
+      "step_ratio": 0.5176
     },
     {
       "frame": 178,
       "t": 89.0,
       "segment": "S06",
-      "blocking": 0.5655,
-      "step_ratio": 0.5332
+      "blocking": 0.6211,
+      "step_ratio": 0.5275
+    },
+    {
+      "frame": 74,
+      "t": 37.0,
+      "segment": "S06",
+      "blocking": 0.6032,
+      "step_ratio": 0.5392
+    },
+    {
+      "frame": 180,
+      "t": 90.0,
+      "segment": "S06",
+      "blocking": 0.5617,
+      "step_ratio": 0.5507
+    },
+    {
+      "frame": 206,
+      "t": 103.0,
+      "segment": "S18",
+      "blocking": 0.558,
+      "step_ratio": 0.7013
+    },
+    {
+      "frame": 126,
+      "t": 63.0,
+      "segment": "S10",
+      "blocking": 0.5504,
+      "step_ratio": 0.545
+    },
+    {
+      "frame": 125,
+      "t": 62.5,
+      "segment": "S10",
+      "blocking": 0.5418,
+      "step_ratio": 0.5272
+    },
+    {
+      "frame": 96,
+      "t": 48.0,
+      "segment": "S08",
+      "blocking": 0.5415,
+      "step_ratio": 0.6875
     }
   ],
   "not_measured": [
