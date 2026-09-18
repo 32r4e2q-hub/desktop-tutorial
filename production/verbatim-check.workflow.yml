@@ -47,6 +47,9 @@ jobs:
       # 连不上 huggingface.co 时把仓库变量 HF_ENDPOINT 设成镜像（如 https://hf-mirror.com）。
       # 不设变量时就是官方地址，行为与切 runner 之前完全一样。
       HF_ENDPOINT: ${{ vars.HF_ENDPOINT || 'https://huggingface.co' }}
+      # 模型缓存目录。不设 = 落在本次运行的 work/ 里（每次都重下）；
+      # 自托管 runner 把它设成常驻目录（如 /home/you/.cache/whisper）就只下一次。
+      WHISPER_CACHE_DIR: ${{ vars.WHISPER_CACHE_DIR }}
     steps:
       - name: Check out the branch this was run from
         uses: actions/checkout@v4

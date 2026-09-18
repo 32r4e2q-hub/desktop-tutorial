@@ -80,9 +80,12 @@ GitHub 官方安全文档明确警告：**自托管 runner 几乎不应该用于
 
 ---
 
-## 2. 在那台常开的机器上装 runner（约 10 分钟）
+## 2A. 阶段一：**现在（仓库还公开）就能做**的准备 —— 安全，无任何风险
 
-### 2.1 先说系统：必须是 Linux，或者是 Windows 里的 WSL2
+这一段可以立刻做，不影响正在跑的出片，也不碰仓库设置。装完软件、备好依赖，
+转私有之后只需要 2 分钟注册。
+
+### 2A.1 系统必须是 Linux（或 Windows 里的 WSL2）
 
 这条不是偏好，是这套流水线的硬性要求：
 
@@ -91,10 +94,10 @@ GitHub 官方安全文档明确警告：**自托管 runner 几乎不应该用于
   找不到就直接拒绝渲染（`refusing to render missing glyphs`）；
 - 出片脚本是 `bash production/run_project.sh`。
 
-所以 **Windows 原生（PowerShell）跑不通**，请用 **WSL2 里的 Ubuntu**（推荐）或一台 Linux 机器。
+**Windows 原生（PowerShell）跑不通**，请用 **WSL2 里的 Ubuntu**（推荐）或一台 Linux 机器。
 macOS 能改，但字体路径要你自己调，性价比低。
 
-### 2.2 装依赖（WSL2/Ubuntu 里执行）
+### 2A.2 装系统依赖
 
 ```bash
 sudo apt-get update
@@ -103,13 +106,63 @@ ffmpeg -version | head -1                 # 有输出就行
 fc-list | grep -i "Noto.*CJK" | head -3   # 能看到中文字体就行
 ```
 
-### 2.3 注册 runner
+### 2A.3 把 whisper 模型先下好（**这一步最关键**）
+
+出片与听检都要转写，模型从 Hugging Face 下载。默认情况下模型落在**每次运行的 work 目录**里，
+等于每个 job 重下几百 MB——在你家的网络上，这一步最容易把出片卡死。
+
+所以把它指向一个常驻目录，只下一次：
+
+```bash
+mkdir -p ~/.cache/whisper
+# 国内网络直连不上 Hugging Face 就加镜像：
+export HF_ENDPOINT=https://hf-mirror.com
+export WHISPER_CACHE_DIR=~/.cache/whisper
+
+python3 -m pip install --user "faster-whisper>=1.1,<2"
+python3 - <<'PY'
+import os
+from faster_whisper import WhisperModel
+for size in ("base", "small"):          # base 用于对轨，small 用于逐字听检
+    print("下载", size)
+    WhisperModel(size, device="cpu", compute_type="int8",
+                 download_root=os.environ["WHISPER_CACHE_DIR"])
+print("好了：", os.environ["WHISPER_CACHE_DIR"])
+PY
+```
+
+跑完 `~/.cache/whisper` 里应该有模型文件（small 约 500 MB）。之后每次出片直接复用。
+
+### 2A.4 先把 runner 安装包放在手边（**先别注册**）
+
+```bash
+mkdir -p ~/actions-runner && cd ~/actions-runner
+curl -o runner.tar.gz -L \
+  https://github.com/actions/runner/releases/download/v2.337.0/actions-runner-linux-x64-2.337.0.tar.gz
+echo "70920811a4f8ad4328818682bca5c6469c1c942fab52448868071d0063816613  runner.tar.gz" | sha256sum -c -
+tar xzf runner.tar.gz
+```
+
+> 版本号是 2026-08-26 发布的 v2.337.0。之后可能更新；以
+> <https://github.com/32r4e2q-hub/desktop-tutorial/settings/actions/runners/new>
+> 页面上给出的命令为准（那个页面同时给出华氏校验和）。
+
+### ⚠️ 这里就是分界线
+
+**注册（`./config.sh`）必须等到仓库转成私有之后再做。** 原因见前面那一节：
+自托管 runner 挂在公开仓库上，任何 fork 的 PR 都能在你机器上执行任意代码，
+而本仓库的 `ci-tests.yml` 正好是 `on: pull_request` 触发的。
+软件先装好没关系，**别把 token 填进 `config.sh`**。
+
+---
+
+## 2B. 阶段二：**转私有之后**再注册（约 2 分钟）
 
 1. 打开 <https://github.com/32r4e2q-hub/desktop-tutorial/settings/actions/runners/new>
-2. 选 **Linux / x64**，页面上会生成一段**带版本号的一次性命令**——直接照抄那一段，
-   不要抄别人文章里的版本号（会过期），也不要把里面的 token 发给任何人
-3. 依次是：建目录 → 下载 → 解压 → `./config.sh --url ... --token ...`
-4. 最后别急着 `./run.sh`，改装成系统服务，这样关机重启后自动回来：
+2. 选 **Linux / x64**，页面上会生成一段**带一次性 token 的命令**——直接照抄那一段
+   （不要抄别人文章里的版本号，也**不要把 token 发给任何人**，包括不要发进任何聊天框）
+3. 在 2A.4 那个目录里执行 `./config.sh --url ... --token ...`，一路回车即可
+4. 别只跑 `./run.sh`，装成系统服务，这样重启后自动回来：
 
 ```bash
 sudo ./svc.sh install
@@ -117,9 +170,7 @@ sudo ./svc.sh start
 sudo ./svc.sh status      # 看到 active (running) 就成了
 ```
 
-5. 回到 Runners 页面，应该能看到这个 runner 是**绿色 Idle**
-
-> 想临时试一下可以用 `./run.sh` 前台跑，但关掉终端就没了，不适合出片。
+5. 回到 Runners 页面确认它是**绿色 Idle**
 
 ---
 
@@ -144,11 +195,15 @@ runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
 `self-hosted` 是每个自托管 runner 都有的标签，一个 runner 就够用。
 要精确指定某一台，就在注册时给它起个名字（比如 `home-rig`），这里填 `home-rig`。
 
-顺手可加的第二个变量（可选，见第 4 节第 1 条）：
+**再顺手加两个**（都是可选，但强烈建议——国内网络直接决定出片卡不卡）：
 
-| Name | Value |
-|---|---|
-| `HF_ENDPOINT` | `https://hf-mirror.com` |
+| Name | Value | 作用 |
+|---|---|---|
+| `WHISPER_CACHE_DIR` | `/home/你的用户名/.cache/whisper` | 模型只下一次，之后每个 job 复用（对应 2A.3 预下载的目录） |
+| `HF_ENDPOINT` | `https://hf-mirror.com` | 连不上 huggingface.co 时走镜像 |
+
+三个变量都**不设也不影响正确性**：不设就是"跑 GitHub 机器、模型每 job 重下、走官方地址"，
+行为和切 runner 之前完全一样。
 
 ---
 
@@ -200,8 +255,10 @@ Actions → **解说短片出片** → Run workflow → `project` 填 `dahlia`
 
 | 我想…… | 怎么做 |
 |---|---|
+| 现在（还公开）就想动起来 | 做 **2A** 那一段：装依赖、预下模型、下好安装包；**注册留到转私有之后** |
 | 内容不再被外人看到 | 转私有（第 1 节）——分支做不到这件事 |
-| 转私有后还能出片、还不限量 | 装自托管 runner（第 2 节）+ 设 `RUNNER_LABEL`（第 3 节） |
+| 转私有后还能出片、还不限量 | 注册自托管 runner（2B）+ 设 `RUNNER_LABEL`（第 3 节） |
+| 出片老卡在下模型 | 设 `WHISPER_CACHE_DIR` + 按 2A.3 预下载 |
 | 临时不够用，想借 GitHub 的机器 | 把 `RUNNER_LABEL` 变量删掉，全部工作流回到 `ubuntu-latest`（吃 2000 分钟额度） |
 | 只想让某几个工作流用自托管 | 别用仓库变量，直接在那个文件的 `runs-on:` 里写 `self-hosted`（会有测试提醒你这么干的目的） |
 | ASR 模型下不下来 | 设 `HF_ENDPOINT=https://hf-mirror.com` |
@@ -217,7 +274,9 @@ registration token 从 GitHub 页面复制、只填进 `./config.sh` 那一行�
 | 文件 | 改动 |
 |---|---|
 | `.github/workflows/*.yml`（9 个） | `runs-on` 统一改成 `${{ vars.RUNNER_LABEL \|\| 'ubuntu-latest' }}` |
-| `production/*.workflow.yml`（3 个模板） | 同上；`commentary-render` 与 `verbatim-check` 增加 `HF_ENDPOINT` 透传 |
+| `production/*.workflow.yml`（3 个模板） | 同上；`commentary-render` 与 `verbatim-check` 增加 `HF_ENDPOINT` / `WHISPER_CACHE_DIR` 透传 |
+| `production/verbatim_check.py`、`production/dahlia/align_audio.py` | 模型缓存目录支持 `WHISPER_CACHE_DIR` 覆盖（不设则与以前一致） |
+| `production/tests/test_verbatim_check.py` | 新增 `ModelCacheTests` 钉住缓存目录的两种行为 |
 | `production/dahlia/*.workflow.yml`、`production/dbcooper/*.workflow.yml`（5 个归档模板） | 同上，避免以后复制出去又写死 |
 | `production/tests/test_workflows.py` | 新增 `test_no_workflow_hardcodes_a_github_hosted_runner`：谁再写死 `ubuntu-latest` 就红 |
 

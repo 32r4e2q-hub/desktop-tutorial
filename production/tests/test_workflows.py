@@ -94,6 +94,9 @@ class WorkflowIntegrityTests(unittest.TestCase):
         # 转写失败时也要先把报告落盘，再判失败
         self.assertIn("continue-on-error: true", text,
                       "转写不达标的运行也要先把报告 publish 出来")
+        # 自托管 runner 上模型不能每跑一次重下一次：常驻缓存目录要能透传进去
+        self.assertIn("WHISPER_CACHE_DIR", text,
+                      "听检工作流没有透传 WHISPER_CACHE_DIR，自托管 runner 上会每次重下模型")
 
     def test_verbatim_workflow_matches_template_when_installed(self):
         if not VERBATIM_INSTALLED.exists():

@@ -8,10 +8,12 @@
   就是因为检查只看了容器字段，从不测量）。
 """
 import json
+import os
 import sys
 import wave
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "production"))
@@ -115,6 +117,37 @@ class VerdictTests(unittest.TestCase):
         result = verbatim_check.compare(self.chapters, {"N01": "她只有二十二岁"}, 0.15)
         self.assertIn("N02", result["failing"])
         self.assertEqual(result["chapters"][1]["heard_chars"], 0)
+
+
+class ModelCacheTests(unittest.TestCase):
+    """模型缓存目录：自托管 runner 靠这个避免每个 job 重下 500 MB。
+
+    默认落在本次运行的 work 里，行为与以前完全一样；设了 WHISPER_CACHE_DIR
+    就指向常驻目录。写错这一处不会报错、只会默默变慢/卡在下模型上，所以要钉住。
+    """
+
+    def test_defaults_to_the_run_work_dir(self):
+        with mock.patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("WHISPER_CACHE_DIR", None)
+            self.assertEqual(
+                verbatim_check.model_cache_dir(Path("/tmp/run")),
+                Path("/tmp/run/model-cache"),
+            )
+
+    def test_env_override_wins(self):
+        with mock.patch.dict(os.environ, {"WHISPER_CACHE_DIR": "/home/u/.cache/whisper"}):
+            self.assertEqual(
+                verbatim_check.model_cache_dir(Path("/tmp/run")),
+                Path("/home/u/.cache/whisper"),
+            )
+
+    def test_transcribe_downloads_into_the_cache_dir(self):
+        """转写那一步真的用这个目录，而不是又写死 work/model-cache。"""
+        source = Path(verbatim_check.__file__).read_text(encoding="utf-8")
+        self.assertIn("download_root=str(cache)", source,
+                      "transcribe() 没有用 model_cache_dir()，改回写死了")
+        self.assertIn('os.environ.setdefault("HF_HOME", str(cache))', source,
+                      "HF_HOME 也要跟着走常驻目录，否则元数据缓存仍在 work 里")
 
 
 class EndToEndTests(unittest.TestCase):
