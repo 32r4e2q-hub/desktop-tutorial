@@ -11,9 +11,9 @@
         "end": 30.44,
         "script_chars": 108,
         "heard_chars": 141,
-        "character_error_rate": 0.3704,
+        "character_error_rate": 0.0663,
         "match_coverage": 0.9537,
-        "verdict": "needs_human_listen",
+        "verdict": "ok",
         "diff": [
           {
             "at": 50,
@@ -222,10 +222,8 @@
         "transcript": "1998年1月他认罪此后在科罗拉多超级监狱度过余生联邦调查局称他为中级独郎17年间最昂贵的追捕最后不是靠卫星或数据库而是一篇公开发表的宣言和一次家人的指认卡钦斯基证明最危险的有时不是街头而是一间与世隔绝的小屋"
       }
     ],
-    "max_cer": 0.3704,
-    "failing": [
-      "N01"
-    ]
+    "max_cer": 0.0816,
+    "failing": []
   },
   "narration_control": {
     "chapters": [
@@ -395,10 +393,10 @@
         "start": 143.631,
         "end": 174.0,
         "script_chars": 104,
-        "heard_chars": 118,
-        "character_error_rate": 0.1923,
+        "heard_chars": 117,
+        "character_error_rate": 0.0777,
         "match_coverage": 0.9423,
-        "verdict": "needs_human_listen",
+        "verdict": "ok",
         "diff": [
           {
             "at": 21,
@@ -428,16 +426,14 @@
             "at": 103,
             "kind": "replace",
             "script": "屋",
-            "heard": "物杜里小姐小姐小姐小姐小姐小姐"
+            "heard": "物认罪善为最厉害的亦是合眼的"
           }
         ],
-        "transcript": "1998年1月 他认罪此后在科罗拉多超级监狱渡过鱼生联邦调查局称他为中级独郎17年间最昂贵的追捕最后不是靠卫星或数据库而是一篇公开发表的宣言和一次家人的指认卡钦斯基证明最危险的有时不是街头而是一间与世隔绝的小物杜里小姐小姐小姐小姐小姐小姐"
+        "transcript": "1998年1月 他认罪此后在科罗拉多超级监狱渡过鱼生联邦调查局称他为中级独郎17年间最昂贵的追捕最后不是靠卫星或数据库而是一篇公开发表的宣言和一次家人的指认卡钦斯基证明最危险的有时不是街头而是一间与世隔绝的小物认罪善为最厉害的亦是合眼的"
       }
     ],
-    "max_cer": 0.1923,
-    "failing": [
-      "N06"
-    ]
+    "max_cer": 0.0918,
+    "failing": []
   },
   "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
 }
