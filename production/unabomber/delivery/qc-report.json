@@ -1,9 +1,9 @@
 {
   "film": "work/unabomber/尤纳炸弹客：林中的宣言.mp4",
-  "film_bytes": 100920524,
-  "film_sha256": "9c7d0b647b8d8b8dd1eb86f06a3947d583f7d68fb9bb16dd67eb849eb56045ff",
+  "film_bytes": 100974321,
+  "film_sha256": "6e2633392f38b828ae7c8ce1a2000fa4a601443c0e21d79a28ab998b5317cffa",
   "duration_s": 180.0,
-  "avg_bitrate_mbps": 4.485,
+  "avg_bitrate_mbps": 4.488,
   "sample_fps": 2.0,
   "sampled_frames": 360,
   "picture_rows_measured": [
@@ -12,7 +12,7 @@
   ],
   "thresholds": {
     "blocking_p50_max": 0.14,
-    "blocking_p90_max": 0.36,
+    "blocking_p90_max": 0.38,
     "overexposed_fraction_max": 0.06,
     "overexposed_frame_count_max": 16,
     "underexposed_p95_reference": 0.8,
@@ -59,18 +59,18 @@
       "name": "blocking",
       "desc": "8x8 块效应不超阈值（压缩伪影）",
       "measured": [
-        0.0852,
-        0.3651,
+        0.0848,
+        0.3586,
         2.0732
       ],
-      "ok": false,
-      "note": "画面区内量；p50=0.085（上限 0.14）、p90=0.365（上限 0.36）、max=2.073；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
+      "ok": true,
+      "note": "画面区内量；p50=0.085（上限 0.14）、p90=0.359（上限 0.38）、max=2.073；校准：同素材无损参照 p50=0.084，双段 crf21 复现实验 p50=0.171（与本片改前实测 0.168 吻合 ⇒ 归因于编码链而非素材），改后目标 ≤0.14；最暗的夜镜（S02/S17/S27/S28）贡献尾部"
     },
     {
       "name": "banding_reference",
       "desc": "假轮廓参考量（不判定，见模块注释第 3 条）",
       "measured": [
-        0.7018
+        0.703
       ],
       "ok": true,
       "note": "差值恰为 1 灰阶的相邻像素占比 p95 —— 8-bit 颗粒素材里高值即抖动本身，故只作参考，不给通过/不通过"
@@ -79,11 +79,11 @@
       "name": "overexposed",
       "desc": "高光不削顶",
       "measured": [
-        0.0283,
+        0.02845,
         12
       ],
       "ok": true,
-      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.02830；占比 >2% 的帧数 12（上限 16）"
+      "note": "单帧 ≥250 占比上限 0.06，实测 max=0.02845；占比 >2% 的帧数 12（上限 16）"
     },
     {
       "name": "underexposed_reference",
@@ -128,24 +128,24 @@
       "name": "orientation_purity",
       "desc": "强边缘轴向占比（畸变代理，仅对照）",
       "measured": [
-        0.7205
+        0.7203
       ],
       "ok": true,
       "note": "p5=0.720，下限 0.18；只说明画面仍以水平/垂直结构为主，**不能证明无畸变**（无几何 ground truth）"
     }
   ],
   "metrics": {
-    "blocking_mean": 0.1269,
-    "blocking_p50": 0.0852,
-    "blocking_p90": 0.3651,
-    "blocking_p95": 0.507,
+    "blocking_mean": 0.1272,
+    "blocking_p50": 0.0848,
+    "blocking_p90": 0.3586,
+    "blocking_p95": 0.51,
     "blocking_max": 2.0732,
-    "step_ratio_p95_reference": 0.7018,
+    "step_ratio_p95_reference": 0.703,
     "saturation_mean": 0.0537,
     "saturation_p95": 0.0743,
-    "overexposed_max": 0.0283,
+    "overexposed_max": 0.02845,
     "underexposed_p95": 0.5194,
-    "luma_mean": 61.72,
+    "luma_mean": 61.73,
     "luma_max": 145.48,
     "flash_reversal_spikes": 0,
     "flash_spike_times_s": [],
@@ -164,12 +164,12 @@
       },
       "S26": {
         "bottom": [
-          35,
+          34,
           0.25
         ]
       }
     },
-    "axis_aligned_p5": 0.7205
+    "axis_aligned_p5": 0.7203
   },
   "per_segment": {
     "S01": {
@@ -193,9 +193,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0625,
-      "blocking_max": 0.2259,
-      "overexposed_max": 0.00456
+      "blocking_p50": 0.071,
+      "blocking_max": 0.226,
+      "overexposed_max": 0.00455
     },
     "S02": {
       "kind": "agnes",
@@ -218,8 +218,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1363,
-      "blocking_max": 0.6453,
+      "blocking_p50": 0.1183,
+      "blocking_max": 0.6395,
       "overexposed_max": 0.00303
     },
     "S03": {
@@ -243,9 +243,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.025,
-      "blocking_max": 0.5043,
-      "overexposed_max": 0.00371
+      "blocking_p50": 0.0179,
+      "blocking_max": 0.5115,
+      "overexposed_max": 0.00376
     },
     "S04": {
       "kind": "agnes",
@@ -268,8 +268,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0338,
-      "blocking_max": 0.1335,
+      "blocking_p50": 0.0291,
+      "blocking_max": 0.1309,
       "overexposed_max": 0.00515
     },
     "S05": {
@@ -293,8 +293,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0631,
-      "blocking_max": 0.1544,
+      "blocking_p50": 0.0595,
+      "blocking_max": 0.1575,
       "overexposed_max": 0.00519
     },
     "S06": {
@@ -318,8 +318,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.3578,
-      "blocking_max": 0.626,
+      "blocking_p50": 0.3509,
+      "blocking_max": 0.6318,
       "overexposed_max": 0.00285
     },
     "S07": {
@@ -343,9 +343,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2015,
+      "blocking_p50": 0.2073,
       "blocking_max": 2.0732,
-      "overexposed_max": 0.00556
+      "overexposed_max": 0.00557
     },
     "S08": {
       "kind": "graphic",
@@ -368,9 +368,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0071,
-      "blocking_max": 0.5415,
-      "overexposed_max": 0.0041
+      "blocking_p50": -0.0004,
+      "blocking_max": 0.5404,
+      "overexposed_max": 0.00411
     },
     "S09": {
       "kind": "agnes",
@@ -393,9 +393,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1483,
-      "blocking_max": 0.2458,
-      "overexposed_max": 0.00464
+      "blocking_p50": 0.145,
+      "blocking_max": 0.235,
+      "overexposed_max": 0.00466
     },
     "S10": {
       "kind": "agnes",
@@ -418,8 +418,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.1574,
-      "blocking_max": 0.5504,
+      "blocking_p50": 0.1619,
+      "blocking_max": 0.5427,
       "overexposed_max": 0.00475
     },
     "S11": {
@@ -443,9 +443,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0719,
-      "blocking_max": 0.5215,
-      "overexposed_max": 0.00299
+      "blocking_p50": 0.0736,
+      "blocking_max": 0.5099,
+      "overexposed_max": 0.00303
     },
     "S13": {
       "kind": "agnes",
@@ -468,9 +468,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2723,
-      "blocking_max": 0.6566,
-      "overexposed_max": 0.003
+      "blocking_p50": 0.3008,
+      "blocking_max": 0.6568,
+      "overexposed_max": 0.00301
     },
     "S14": {
       "kind": "graphic",
@@ -493,8 +493,8 @@
           0.0
         ]
       },
-      "blocking_p50": -0.1462,
-      "blocking_max": 0.5064,
+      "blocking_p50": -0.1548,
+      "blocking_max": 0.5008,
       "overexposed_max": 0.00531
     },
     "S17": {
@@ -518,8 +518,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2103,
-      "blocking_max": 0.6953,
+      "blocking_p50": 0.2066,
+      "blocking_max": 0.6965,
       "overexposed_max": 0.00531
     },
     "S16": {
@@ -568,9 +568,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0133,
-      "blocking_max": 0.558,
-      "overexposed_max": 0.00269
+      "blocking_p50": 0.0203,
+      "blocking_max": 0.5518,
+      "overexposed_max": 0.00268
     },
     "S19": {
       "kind": "agnes",
@@ -593,9 +593,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.037,
-      "blocking_max": 0.0792,
-      "overexposed_max": 0.00508
+      "blocking_p50": 0.0425,
+      "blocking_max": 0.085,
+      "overexposed_max": 0.00507
     },
     "S25": {
       "kind": "agnes",
@@ -618,8 +618,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0744,
-      "blocking_max": 0.2596,
+      "blocking_p50": 0.0725,
+      "blocking_max": 0.2589,
       "overexposed_max": 0.00477
     },
     "S21": {
@@ -643,9 +643,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.1234,
-      "blocking_max": 0.4701,
-      "overexposed_max": 0.00477
+      "blocking_p50": -0.1254,
+      "blocking_max": 0.474,
+      "overexposed_max": 0.00475
     },
     "S22": {
       "kind": "archive",
@@ -668,9 +668,9 @@
           0.0
         ]
       },
-      "blocking_p50": -0.0652,
-      "blocking_max": 0.1183,
-      "overexposed_max": 0.0283
+      "blocking_p50": -0.0621,
+      "blocking_max": 0.1245,
+      "overexposed_max": 0.02845
     },
     "S23": {
       "kind": "agnes",
@@ -694,7 +694,7 @@
         ]
       },
       "blocking_p50": 0.049,
-      "blocking_max": 0.0726,
+      "blocking_max": 0.072,
       "overexposed_max": 0.00475
     },
     "S24": {
@@ -718,8 +718,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2029,
-      "blocking_max": 0.3103,
+      "blocking_p50": 0.2075,
+      "blocking_max": 0.3037,
       "overexposed_max": 0.00473
     },
     "S26": {
@@ -731,7 +731,7 @@
           0.0
         ],
         "bottom": [
-          35,
+          34,
           0.25
         ],
         "left": [
@@ -743,9 +743,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.2719,
-      "blocking_max": 0.3776,
-      "overexposed_max": 0.00156
+      "blocking_p50": 0.2728,
+      "blocking_max": 0.3729,
+      "overexposed_max": 0.00154
     },
     "S27": {
       "kind": "agnes",
@@ -768,9 +768,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0453,
-      "blocking_max": 0.117,
-      "overexposed_max": 0.00479
+      "blocking_p50": 0.041,
+      "blocking_max": 0.1195,
+      "overexposed_max": 0.00484
     },
     "S28": {
       "kind": "agnes",
@@ -793,8 +793,8 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0542,
-      "blocking_max": 0.0918,
+      "blocking_p50": 0.0549,
+      "blocking_max": 0.0911,
       "overexposed_max": 0.00379
     },
     "S29": {
@@ -819,7 +819,7 @@
         ]
       },
       "blocking_p50": 0.0843,
-      "blocking_max": 0.2193,
+      "blocking_max": 0.2212,
       "overexposed_max": 0.00344
     },
     "S30": {
@@ -843,9 +843,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0641,
-      "blocking_max": 0.1176,
-      "overexposed_max": 0.0034
+      "blocking_p50": 0.0672,
+      "blocking_max": 0.117,
+      "overexposed_max": 0.00342
     },
     "END": {
       "kind": "graphic",
@@ -868,9 +868,9 @@
           0.0
         ]
       },
-      "blocking_p50": 0.0884,
-      "blocking_max": 0.2222,
-      "overexposed_max": 0.00026
+      "blocking_p50": 0.0847,
+      "blocking_max": 0.212,
+      "overexposed_max": 0.00028
     }
   },
   "worst_blocking_frames": [
@@ -885,78 +885,78 @@
       "frame": 199,
       "t": 99.5,
       "segment": "S17",
-      "blocking": 0.6953,
-      "step_ratio": 0.6945
+      "blocking": 0.6965,
+      "step_ratio": 0.6946
     },
     {
       "frame": 145,
       "t": 72.5,
       "segment": "S13",
-      "blocking": 0.6566,
-      "step_ratio": 0.6929
+      "blocking": 0.6568,
+      "step_ratio": 0.6951
     },
     {
       "frame": 20,
       "t": 10.0,
       "segment": "S02",
-      "blocking": 0.6453,
-      "step_ratio": 0.6942
+      "blocking": 0.6395,
+      "step_ratio": 0.6945
     },
     {
       "frame": 71,
       "t": 35.5,
       "segment": "S06",
-      "blocking": 0.626,
-      "step_ratio": 0.5176
+      "blocking": 0.6318,
+      "step_ratio": 0.5164
     },
     {
       "frame": 178,
       "t": 89.0,
       "segment": "S06",
-      "blocking": 0.6211,
-      "step_ratio": 0.5275
+      "blocking": 0.6298,
+      "step_ratio": 0.5273
     },
     {
       "frame": 74,
       "t": 37.0,
       "segment": "S06",
-      "blocking": 0.6032,
-      "step_ratio": 0.5392
-    },
-    {
-      "frame": 180,
-      "t": 90.0,
-      "segment": "S06",
-      "blocking": 0.5617,
-      "step_ratio": 0.5507
+      "blocking": 0.6023,
+      "step_ratio": 0.5407
     },
     {
       "frame": 206,
       "t": 103.0,
       "segment": "S18",
-      "blocking": 0.558,
-      "step_ratio": 0.7013
+      "blocking": 0.5518,
+      "step_ratio": 0.7004
+    },
+    {
+      "frame": 180,
+      "t": 90.0,
+      "segment": "S06",
+      "blocking": 0.5467,
+      "step_ratio": 0.551
     },
     {
       "frame": 126,
       "t": 63.0,
       "segment": "S10",
-      "blocking": 0.5504,
-      "step_ratio": 0.545
-    },
-    {
-      "frame": 125,
-      "t": 62.5,
-      "segment": "S10",
-      "blocking": 0.5418,
-      "step_ratio": 0.5272
+      "blocking": 0.5427,
+      "step_ratio": 0.5441
     },
     {
       "frame": 96,
       "t": 48.0,
       "segment": "S08",
-      "blocking": 0.5415,
-      "step_ratio": 0.6875
+      "blocking": 0.5404,
+      "step_ratio": 0.6885
+    },
+    {
+      "frame": 72,
+      "t": 36.0,
+      "segment": "S06",
+      "blocking": 0.5372,
+      "step_ratio": 0.5241
     }
   ],
   "not_measured": [
