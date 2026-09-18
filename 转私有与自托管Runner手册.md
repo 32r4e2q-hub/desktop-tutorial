@@ -201,6 +201,7 @@ runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
 |---|---|---|
 | `WHISPER_CACHE_DIR` | `/home/你的用户名/.cache/whisper` | 模型只下一次，之后每个 job 复用（对应 2A.3 预下载的目录） |
 | `HF_ENDPOINT` | `https://hf-mirror.com` | 连不上 huggingface.co 时走镜像 |
+| `HF_HUB_DISABLE_XET` | `1` | **用镜像时必须设**：HF 新的 Xet 存储会绕过 `HF_ENDPOINT` 直连 `cas-server.xethub.hf.co`，被 401 拒绝（实测报错 `CAS Client Error: ... 401 Unauthorized`），关掉它才走普通下载路径 |
 
 三个变量都**不设也不影响正确性**：不设就是"跑 GitHub 机器、模型每 job 重下、走官方地址"，
 行为和切 runner 之前完全一样。
@@ -224,29 +225,46 @@ Actions → **解说短片出片** → Run workflow → `project` 填 `dahlia`
 ## 5. 常见坑
 
 1. **HF 连不上，ASR / 逐字听检卡住**
-   模型要从 `huggingface.co` 下载，国内网络常常连不上。把仓库变量 `HF_ENDPOINT`
-   设成 `https://hf-mirror.com` 即可——`commentary-render.yml` 与 `verbatim-check.yml`
-   已经把这个变量透传进去了，不设就是官方地址。
+   模型要从 `huggingface.co` 下载，国内网络常常连不上。两个变量要**一起**设：
 
-2. **机器连不上 GitHub 本身**
+   ```bash
+   HF_ENDPOINT=https://hf-mirror.com
+   HF_HUB_DISABLE_XET=1
+   ```
+
+   只设镜像还不够：HF 新的 Xet 存储会绕过 `HF_ENDPOINT` 直连
+   `cas-server.xethub.hf.co`，返回 401。2026-09-18 在本机实测到的报错是
+   `RuntimeError: Task error: File reconstruction error: CAS Client Error: ... 401 Unauthorized`。
+   两个变量都已透传进 `commentary-render.yml` / `verbatim-check.yml`。
+
+2. **`pip install` 慢到像卡死**
+   GitHub 上装依赖走的是国外 PyPI。在本机（runner 那台机器）设一次国内镜像，
+   之后**每次出片装的 Python 依赖都会走它**：
+
+   ```bash
+   pip3 config --global set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+   ```
+   （实测不设的话速度只有 3.9 kB/s，一个 39 MB 的包要下一小时，直接超时失败。）
+
+3. **机器连不上 GitHub 本身**
    给 runner 配代理：在 runner 目录下建 `.env`，写 `HTTPS_PROXY=http://...` / `HTTP_PROXY=http://...`，
    然后 `sudo ./svc.sh stop && sudo ./svc.sh start`。
 
-3. **电脑休眠/关机时点了出片**
+4. **电脑休眠/关机时点了出片**
    任务会一直排队等着（直到超时）。自托管 runner 的代价就在这里：**机器得是开着的**。
 
-4. **磁盘**
+5. **磁盘**
    `work/` 下的中间产物、`work/*/model-cache` 的 whisper 模型（small 约 500 MB）、
    成片 48 MB 都会留在本机，记得偶尔清一下。
 
-5. **私有仓库的 artifact 存储也有额度**（Free 账号 500 MB）
+6. **私有仓库的 artifact 存储也有额度**（Free 账号 500 MB）
    出片工作流会把成片当 artifact 传一份（保留 30 天），而成片本来就 commit 回 `交付/` 了，
    等于存了两份。想省额度就把 `.github/workflows/commentary-render.yml` 里那步
    `retention-days: 30` 改小，或者整段 `Upload the finished film` 删掉
    （改完记得同步 `production/commentary-render.workflow.yml`，
    `production/tests/test_workflows.py` 会检查两份逐字节一致）。
 
-6. **别再把这个 runner 挂回公开仓库**
+7. **别再把这个 runner 挂回公开仓库**
    任何时候想把仓库改回公开，先去 Settings → Actions → Runners 把 runner 删掉。
 
 ---

@@ -37,6 +37,10 @@ jobs:
       # 连不上 huggingface.co 时把仓库变量 HF_ENDPOINT 设成镜像（如 https://hf-mirror.com）。
       # 不设变量时就是官方地址，行为与切 runner 之前完全一样。
       HF_ENDPOINT: ${{ vars.HF_ENDPOINT || 'https://huggingface.co' }}
+      # 必须设成 1（配合镜像用时）：HF 新的 Xet 存储会绕过 HF_ENDPOINT 直连
+      # cas-server.xethub.hf.co，被 401 拒绝 —— 实测报错
+      # "CAS Client Error: ... 401 Unauthorized"。关掉 Xet 才走普通下载路径。
+      HF_HUB_DISABLE_XET: ${{ vars.HF_HUB_DISABLE_XET || '1' }}
       # 模型缓存目录。不设 = 落在本次运行的 work/ 里（每次都重下）；
       # 自托管 runner 把它设成常驻目录（如 /home/you/.cache/whisper）就只下一次。
       WHISPER_CACHE_DIR: ${{ vars.WHISPER_CACHE_DIR }}

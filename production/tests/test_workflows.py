@@ -97,6 +97,10 @@ class WorkflowIntegrityTests(unittest.TestCase):
         # 自托管 runner 上模型不能每跑一次重下一次：常驻缓存目录要能透传进去
         self.assertIn("WHISPER_CACHE_DIR", text,
                       "听检工作流没有透传 WHISPER_CACHE_DIR，自托管 runner 上会每次重下模型")
+        # 用镜像时必须同时关掉 Xet，否则会绕过 HF_ENDPOINT 直连 cas-server.xethub.hf.co
+        # 并报 "CAS Client Error: ... 401 Unauthorized"（2026-09-18 实测）
+        self.assertIn("HF_HUB_DISABLE_XET", text,
+                      "听检工作流没有关掉 HF 的 Xet 存储：配镜像时会 401，模型下不下来")
 
     def test_verbatim_workflow_matches_template_when_installed(self):
         if not VERBATIM_INSTALLED.exists():
