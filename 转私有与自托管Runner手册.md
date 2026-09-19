@@ -257,12 +257,25 @@ Actions → **解说短片出片** → Run workflow → `project` 填 `dahlia`
    `work/` 下的中间产物、`work/*/model-cache` 的 whisper 模型（small 约 500 MB）、
    成片 48 MB 都会留在本机，记得偶尔清一下。
 
-6. **私有仓库的 artifact 存储也有额度**（Free 账号 500 MB）
-   出片工作流会把成片当 artifact 传一份（保留 30 天），而成片本来就 commit 回 `交付/` 了，
-   等于存了两份。想省额度就把 `.github/workflows/commentary-render.yml` 里那步
-   `retention-days: 30` 改小，或者整段 `Upload the finished film` 删掉
-   （改完记得同步 `production/commentary-render.workflow.yml`，
-   `production/tests/test_workflows.py` 会检查两份逐字节一致）。
+6. **私有仓库的 artifact 存储也有额度**（Free 账号 500 MB，与 Packages 共享）
+   出片工作流会把成片当 artifact 传一份（现已改为保留 7 天、失败不算失败）。
+   2026-09-18 实测：仓库里积了 **3.1 GB** 老 artifact（反复重渲染的成片副本），
+   出片跑到最后报 `Failed to CreateArtifact: Artifact storage quota has been hit`。
+
+   处理办法（按顺序）：
+
+   - 跑一次 **Actions → 清理旧 artifact**（本仓库自带的工作流，第一次填
+     `days=0`、`keep_newest=1`：每个名字只留最新的一个）；
+   - **注意重算延迟**：GitHub 对存储用量的重算是 6~12 小时（有人等到 24~72 小时），
+     删完不会立刻恢复上传；
+   - 把 Settings → Actions → General 的 **Artifact and log retention** 调成 7 天。
+     这个设置**只影响新上传的**，不会清理已有 artifact；
+   - 成片本来就 commit 回 `交付/`，artifact 只是顺手的下载入口——所以
+     `commentary-render.yml` 里那一步已经 `continue-on-error: true`，
+     配额满了也不会让一次成功的渲染显示成失败。
+
+   ⚠️ 删 artifact 前先确认成片有没有别处留存：有些项目的成片**只存在于 artifact 里**
+   （炸弹客那条分支就没把成片 commit 进 `交付/`），删了就找不回来了。
 
 7. **别再把这个 runner 挂回公开仓库**
    任何时候想把仓库改回公开，先去 Settings → Actions → Runners 把 runner 删掉。

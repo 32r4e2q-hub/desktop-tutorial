@@ -86,11 +86,17 @@ jobs:
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
 
       - name: Upload the finished film
+        # 成片本来就 commit 回 交付/ 了（见 run_project.sh 第 4/5 步），artifact 只是
+        # 顺手留个下载入口。转私有后 artifact 存储只有 500 MB，配额是**仓库级**的：
+        # 2026-09-18 仓库里积了 3.1 GB 老 artifact，出片跑到这一步报
+        # "Artifact storage quota has been hit"，把一次本来没问题的渲染判成了失败。
+        # 配额跟这次片子好不好毫无关系，所以这里失败不能算失败。
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.project }}-成片-${{ github.run_number }}
           path: work/${{ inputs.project }}/*.mp4
           if-no-files-found: warn
           compression-level: 0
-          retention-days: 30
+          retention-days: 7

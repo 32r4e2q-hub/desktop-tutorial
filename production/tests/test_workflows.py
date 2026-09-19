@@ -269,6 +269,25 @@ class WorkflowIntegrityTests(unittest.TestCase):
         self.assertIn("exit 1", script[push_at:][:900],
                       "五次都失败时必须非 0 退出，不能假装成功")
 
+    def test_artifact_cleanup_workflow_can_actually_delete(self):
+        """清理工作流必须声明 actions: write —— 没有它删除会 403，配额照样满。
+
+        2026-09-18：仓库积了 3.1 GB artifact（免费额度 500 MB），出片最后一步报
+        "Artifact storage quota has been hit"。代理自己的令牌没有 actions 权限
+        （实测 DELETE 403），但工作流自带的 GITHUB_TOKEN 只要在 permissions 里声明
+        actions: write 就能删。
+        """
+        path = WORKFLOWS_DIR / "cleanup-artifacts.yml"
+        self.assertTrue(path.exists(), "缺少 artifact 清理工作流")
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("actions: write", text, "没声明 actions: write，删除会 403")
+        self.assertIn("workflow_dispatch", text, "清理工作流要能手动触发")
+        # 上传那一步不能因为配额满就把整场出片判死
+        render = INSTALLED.read_text(encoding="utf-8")
+        upload_at = render.index("actions/upload-artifact")
+        self.assertIn("continue-on-error: true", render[:upload_at][-400:],
+                      "成片上传失败会把出片判死，但成片本来就 commit 回 交付/ 了")
+
     def test_scripts_run_on_this_branch_exist_and_are_valid_shell(self):
         """只有没 pin ref 的工作流跑本分支代码，它们引用的脚本必须真的在这儿。"""
         checked = pinned = 0
