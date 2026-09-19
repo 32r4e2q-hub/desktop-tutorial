@@ -6,6 +6,10 @@
 > **本仓库已经装好了。** 环境文件就在本仓库根目录的 `.devcontainer/`(`devcontainer.json` + `setup.sh`),
 > 所以下面的**第 1、2 步你已经不用做了**,直接跳到 **第 3 步:添加 API Key**。
 > 第 1、2 步的内容保留在下面,是为了以后你想把这套环境搬到别的仓库时照抄。
+>
+> 💡 **想要更简洁好操作、不敲命令的手机界面？**
+> 如果觉得在手机浏览器里操作 Codespaces 终端和虚拟键盘较为繁琐，可以参考我们整理的图形化替代方案：
+> 详见 [《界面简洁、手机好操作的 AI Agent 替代方案精选》](UI_ALTERNATIVES.md)（含 Bolt.new 极简建站、LobeChat 苹果质感 PWA、Chatbox App Store 直装等）。
 
 ## 工作原理
 
@@ -189,12 +193,14 @@ github.com → 右上角头像 → **Settings** → 左侧 **Codespaces** → **
 
 ### 第 4 步:启动
 
-1. 回到仓库页,**先把分支切到 `arena/01a0b521-desktop-tutorial`**(顶部分支下拉菜单),
-   再点绿色 **`<> Code`** → **Codespaces** 标签 → **Create codespace on arena/01a0b521-desktop-tutorial**
-   (在 `main` 上开没有效果:`.devcontainer/` 只在这个分支上)
-2. 等 1–2 分钟;装好时终端会显示 `✔ OpenCode 就绪` 和已配置的供应商
-3. 打开终端(顶部菜单 ☰ → Terminal → New Terminal),输入 `opencode` 回车
-4. 输入 `/models` 选模型 → 直接打字下任务
+1. 回到仓库页,点绿色 **`<> Code`** → **Codespaces** 标签 → **Create codespace on main**（或当前分支）
+2. 等 1–2 分钟，环境自动初始化完成；
+3. **打开极简触屏界面（手机推荐，无需敲命令）**：
+   - 在界面底部找到 **PORTS（端口）** 标签页；
+   - 找到 `4096` 端口（标签为 `OpenCode Web UI`），点击其右侧的**地球图标（Open in Browser）**；
+   - Safari 会在独立标签页中打开 OpenCode 官方 Web UI：图形化下拉选择模型、可视化查看代码改动、手机触摸键盘打字，体验就像 ChatGPT 网页一样清爽！
+4. **（备选）传统终端方式**：
+   - 如果想用终端：顶部菜单 ☰ → Terminal → New Terminal，输入 `opencode` 回车，`/models` 选模型直接下任务。
 
 ---
 

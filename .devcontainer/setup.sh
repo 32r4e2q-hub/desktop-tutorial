@@ -186,9 +186,30 @@ EOF
 echo "  配置文件位置: ~/.config/opencode/opencode.json"
 
 echo ""
-echo "=== [3/3] 完成 ==="
+echo "=== [3/3] 启动 Web 触屏界面与快捷命令 ==="
+cat > "$HOME/.local/bin/agent-web" << 'RUNNER'
+#!/usr/bin/env bash
+echo "正在启动 OpenCode Web UI (端口 4096)..."
+if command -v opencode >/dev/null 2>&1; then
+  opencode web --port 4096 --hostname 0.0.0.0
+elif [ -x "$HOME/.local/bin/opencode" ]; then
+  "$HOME/.local/bin/opencode" web --port 4096 --hostname 0.0.0.0
+else
+  echo "未找到 opencode 命令"
+fi
+RUNNER
+chmod +x "$HOME/.local/bin/agent-web"
+
+# 后台自动启动 OpenCode Web UI，无需在手机上敲终端命令
+pkill -f "opencode web" 2>/dev/null || true
+if [ -x "$HOME/.local/bin/opencode" ]; then
+  nohup "$HOME/.local/bin/opencode" web --port 4096 --hostname 0.0.0.0 > /tmp/opencode-web.log 2>&1 &
+  echo "  ✔ OpenCode 网页端已在后台启动 (端口 4096)"
+  echo "  📱 手机使用提示：点击 VS Code 底部 'PORTS (端口)' 标签页 ➔ 4096 端口右侧地球图标，即可在 Safari 中打开极简触屏界面！"
+fi
+
 if [ -n "$providers" ]; then
-  echo "在终端运行 opencode,然后用 /models 选模型,直接下任务。"
+  echo "  ✔ API 已就绪，可直接在 Web 界面下任务"
 else
   echo "!! 没检测到任何 API Key Secret。"
   echo "   去 github.com → Settings → Codespaces → Secrets 添加"
