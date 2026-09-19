@@ -1,5 +1,6 @@
 {
   "name": "agent-lab",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "postCreateCommand": "bash .devcontainer/setup.sh"
+  "waitFor": "onCreateCommand",
+  "postCreateCommand": "bash .devcontainer/setup.sh 2>&1 | tee /tmp/agent-lab-setup.log"
 }

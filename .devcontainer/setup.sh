@@ -3,7 +3,13 @@
 set -u
 
 echo "=== [1/3] 安装 OpenCode ==="
-curl -fsSL https://opencode.ai/install | bash || true
+# 加超时:装不上也要让容器起来,不能把用户卡在 "Setting up your codespace"
+if command -v timeout >/dev/null 2>&1; then
+  timeout 300 bash -c 'curl -fsSL --max-time 120 https://opencode.ai/install | bash' || \
+    echo "  !! 安装超时或失败,稍后可在终端手动重试(见末尾提示)"
+else
+  curl -fsSL --max-time 120 https://opencode.ai/install | bash || true
+fi
 
 # 确保 opencode 在 PATH 里(不管安装器把它放哪)
 OC_BIN="$(command -v opencode 2>/dev/null || true)"
