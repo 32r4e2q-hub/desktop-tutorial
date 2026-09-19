@@ -175,6 +175,37 @@ if [ -n "${GROQ_API_KEY:-}" ]; then
   echo "  + Groq 已配置"
 fi
 
+if [ -n "${DEEPSEEK_API_KEY:-}" ]; then
+  add_provider '"deepseek": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "DeepSeek",
+      "options": {
+        "baseURL": "https://api.deepseek.com",
+        "apiKey": "'"${DEEPSEEK_API_KEY}"'"
+      },
+      "models": {
+        "deepseek-chat": { "name": "DeepSeek V3" },
+        "deepseek-reasoner": { "name": "DeepSeek R1" }
+      }
+    }'
+  echo "  + DeepSeek 官方 API 已配置"
+fi
+
+if [ -n "${GEMINI_API_KEY:-}" ]; then
+  add_provider '"gemini": {
+      "npm": "@ai-sdk/google",
+      "name": "Google Gemini",
+      "options": {
+        "apiKey": "'"${GEMINI_API_KEY}"'"
+      },
+      "models": {
+        "gemini-2.0-flash": { "name": "Gemini 2.0 Flash" },
+        "gemini-1.5-flash": { "name": "Gemini 1.5 Flash" }
+      }
+    }'
+  echo "  + Google Gemini API 已配置"
+fi
+
 cat > "$HOME/.config/opencode/opencode.json" <<EOF
 {
   "\$schema": "https://opencode.ai/config.json",

@@ -163,6 +163,8 @@ github.com → 右上角头像 → **Settings** → 左侧 **Codespaces** → **
 | 你的 API | Secret 名称 | 值 |
 |---|---|---|
 | **OpenRouter** | **`OPENROUTER_API_KEY`** | 你的 key(`sk-or-v1-...`) |
+| **DeepSeek 官方** | **`DEEPSEEK_API_KEY`** | 你的 key(`sk-...`) |
+| **Google Gemini** | **`GEMINI_API_KEY`** | 你的 key(AI Studio 免费 Key) |
 | 硅基流动 | `SILICONFLOW_API_KEY` | 你的 key |
 | 日日新 | `SENSENOVA_API_KEY` | 你的 key |
 | Groq | `GROQ_API_KEY` | 你的 key |
