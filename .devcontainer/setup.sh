@@ -41,19 +41,84 @@ add_provider() {
 
 if [ -n "${OPENROUTER_API_KEY:-}" ]; then
   # OpenRouter 是 OpenCode 内置 provider:不要覆盖 npm / baseURL,
-  # 只补几个常用模型进选择器,其余模型由内置目录自动带出来。
-  add_provider '"openrouter": {
-      "options": {
-        "apiKey": "'"${OPENROUTER_API_KEY}"'"
-      },
-      "models": {
-        "deepseek/deepseek-chat-v3.1": { "name": "DeepSeek V3.1" },
+  # 只补模型进选择器,其余模型由内置目录自动带出来。
+  #
+  # 免费模型阵容经常变动,写死 slug 迟早 404。
+  # 所以这里在开机时用你的 key 查一次官方模型表,自动筛出当前所有 :free 模型。
+  # 查不到(离线/超时)就退回一份保守的静态清单。
+  OR_MODELS=""
+  if command -v python3 >/dev/null 2>&1; then
+    OR_MODELS="$(curl -fsSL --max-time 20 \
+        -H "Authorization: Bearer ${OPENROUTER_API_KEY}" \
+        https://openrouter.ai/api/v1/models 2>/dev/null \
+      | python3 -c '
+import json,sys
+try:
+    data=json.load(sys.stdin).get("data",[])
+except Exception:
+    sys.exit(1)
+free=[]
+for m in data:
+    mid=m.get("id","")
+    if not mid.endswith(":free"):
+        continue
+    p=m.get("pricing",{}) or {}
+    def z(k):
+        try: return float(p.get(k,0) or 0)==0.0
+        except (TypeError,ValueError): return False
+    if not (z("prompt") and z("completion")):
+        continue
+    ctx=m.get("context_length") or 0
+    free.append((ctx,mid,(m.get("name") or mid)))
+if not free:
+    sys.exit(1)
+# 上下文长的排前面,通常更适合 agent 干活
+free.sort(key=lambda t:-t[0])
+lines=[]
+for ctx,mid,name in free[:25]:
+    label=name.replace("(free)","").strip() or mid
+    if ctx:
+        label="%s [%dk]" % (label, ctx//1000)
+    lines.append("        %s: { \"name\": %s }" % (json.dumps(mid), json.dumps(label)))
+print(",\n".join(lines))
+' 2>/dev/null)"
+  fi
+
+  if [ -n "$OR_MODELS" ]; then
+    OR_COUNT="$(printf '%s\n' "$OR_MODELS" | grep -c ':free')"
+    echo "  + OpenRouter:已抓取 ${OR_COUNT} 个当前可用的 :free 模型"
+  else
+    OR_MODELS='        "deepseek/deepseek-chat-v3.1": { "name": "DeepSeek V3.1" },
         "qwen/qwen3-coder": { "name": "Qwen3 Coder" },
         "anthropic/claude-sonnet-4.5": { "name": "Claude Sonnet 4.5" },
-        "google/gemini-2.5-flash": { "name": "Gemini 2.5 Flash" }
+        "google/gemini-2.5-flash": { "name": "Gemini 2.5 Flash" }'
+    echo "  + OpenRouter:未能抓取免费模型列表(网络/额度),已退回静态清单"
+  fi
+
+  # 轮询/兜底:把抓到的免费模型编成 fallback 链,第一个 429 或挂了就自动换下一个。
+  # 注意这不增加额度(额度是账号级共享),只是让某个模型被挤爆时任务还能继续。
+  OR_ROUTE=""
+  if command -v python3 >/dev/null 2>&1; then
+    OR_ROUTE="$(printf '%s\n' "$OR_MODELS" | python3 -c '
+import sys,json,re
+ids=re.findall(r"^\s*\"([^\"]+)\"\s*:", sys.stdin.read(), re.M)
+print(json.dumps(ids[:6]) if ids else "")
+' 2>/dev/null)"
+  fi
+
+  OR_FIRST="$(printf '%s\n' "$OR_MODELS" | sed -n 's/^[[:space:]]*"\([^"]*\)".*/\1/p' | head -n1)"
+
+  add_provider '"openrouter": {
+      "options": {
+        "apiKey": "'"${OPENROUTER_API_KEY}"'",
+        "models": '"${OR_ROUTE:-[]}"',
+        "route": "fallback"
+      },
+      "models": {
+'"${OR_MODELS}"'
       }
     }'
-  echo "  + OpenRouter 已配置(内置 provider,/models 里能看到全部可用模型)"
+  echo "    (免费额度是账号级共享:未充值 50 次/天、充过 \$10 则 1000 次/天,均 20 次/分钟)"
 fi
 
 if [ -n "${SILICONFLOW_API_KEY:-}" ]; then

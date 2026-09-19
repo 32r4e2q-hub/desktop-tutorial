@@ -163,13 +163,27 @@ github.com → 右上角头像 → **Settings** → 左侧 **Codespaces** → **
 | 日日新 | `SENSENOVA_API_KEY` | 你的 key |
 | Groq | `GROQ_API_KEY` | 你的 key |
 
-> **用 OpenRouter 的说明**:OpenRouter 是 OpenCode 的内置供应商,所以 `/models` 里会直接列出
-> 你账号能用的**全部模型**,不止下面预置的这 4 个。想把某个模型固定到列表顶部,
-> 编辑 `~/.config/opencode/opencode.json` 的 `provider.openrouter.models` 加一行即可,
-> 模型 ID 用 OpenRouter 官网的 slug(形如 `厂商/模型名`,免费模型带 `:free` 后缀)。
->
-> 预置的 4 个:`deepseek/deepseek-chat-v3.1`、`qwen/qwen3-coder`、
-> `anthropic/claude-sonnet-4.5`、`google/gemini-2.5-flash`。
+### 用 OpenRouter 免费模型(:free)要知道的事
+
+开机时 `setup.sh` 会用你的 key 查一次 OpenRouter 官方模型表,
+**自动筛出当前所有 `:free` 模型**(按上下文长度排序,取前 25 个)写进配置,
+并编成 fallback 链——某个模型返回 429 或挂了会自动换下一个。
+免费阵容经常变动,这样就不会出现写死 slug 结果 404 的情况。
+
+⚠️ **但轮询不能突破额度,因为免费额度是"账号级"共享的**:
+
+| 条件 | 每天 | 每分钟 |
+|---|---|---|
+| 从没充过值 | **50 次** | 20 次 |
+| 一次性充过 $10(终身解锁,余额花光也保留) | **1000 次** | 20 次 |
+
+- 50 次是**所有免费模型加起来**的总数,不是每个模型 50 次;同账号多开 key 也不增加
+- **失败的请求照样扣额度**,所以别写疯狂重试的循环
+- agent 干一个任务不是一次请求:读文件、改代码、跑命令、看结果,一轮轻松十几次调用。
+  **50 次/天大概只够跑 1~2 个小任务**,想认真用建议一次性充 $10
+
+想手动固定某个模型:编辑 `~/.config/opencode/opencode.json` 的
+`provider.openrouter.models`,slug 用 OpenRouter 官网的格式(`厂商/模型名`,免费带 `:free`)。
 
 保存时"仓库访问"选 **All repositories**(或指定 `desktop-tutorial`)。
 
