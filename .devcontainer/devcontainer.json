@@ -1,0 +1,5 @@
+{
+  "name": "agent-lab",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "postCreateCommand": "bash .devcontainer/setup.sh"
+}
