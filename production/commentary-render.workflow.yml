@@ -30,9 +30,30 @@ concurrency:
 
 jobs:
   render:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 90
+    env:
+      # ASR 对轨要下 Hugging Face 模型。自托管 runner 跑在你自己家/公司的网络上，
+      # 连不上 huggingface.co 时把仓库变量 HF_ENDPOINT 设成镜像（如 https://hf-mirror.com）。
+      # 不设变量时就是官方地址，行为与切 runner 之前完全一样。
+      HF_ENDPOINT: ${{ vars.HF_ENDPOINT || 'https://huggingface.co' }}
+      # 必须设成 1（配合镜像用时）：HF 新的 Xet 存储会绕过 HF_ENDPOINT 直连
+      # cas-server.xethub.hf.co，被 401 拒绝 —— 实测报错
+      # "CAS Client Error: ... 401 Unauthorized"。关掉 Xet 才走普通下载路径。
+      HF_HUB_DISABLE_XET: ${{ vars.HF_HUB_DISABLE_XET || '1' }}
+      # 模型缓存目录。不设 = 落在本次运行的 work/ 里（每次都重下）；
+      # 自托管 runner 把它设成常驻目录（如 /home/you/.cache/whisper）就只下一次。
+      WHISPER_CACHE_DIR: ${{ vars.WHISPER_CACHE_DIR }}
     steps:
+      - name: 先让 git 走 HTTP/1.1（国内网络下 HTTP/2 会静默卡死）
+        # 2026-09-18 实测：HTTP/2 下 git 在 2.4 MB 处停住且不报错、git 进程还消失，
+        # 而 curl（HTTP/1.1）一切正常；把 http.version 设为 HTTP/1.1 后 ls-remote 秒回。
+        # lowSpeedLimit/Time 让以后再卡也会在 30 秒内自己失败并报错，而不是无声挂着。
+        run: |
+          git config --global http.version HTTP/1.1
+          git config --global http.lowSpeedLimit 1000
+          git config --global http.lowSpeedTime 30
+
       - name: Check out the branch this was run from
         uses: actions/checkout@v4
         with:
@@ -65,11 +86,17 @@ jobs:
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
 
       - name: Upload the finished film
+        # 成片本来就 commit 回 交付/ 了（见 run_project.sh 第 4/5 步），artifact 只是
+        # 顺手留个下载入口。转私有后 artifact 存储只有 500 MB，配额是**仓库级**的：
+        # 2026-09-18 仓库里积了 3.1 GB 老 artifact，出片跑到这一步报
+        # "Artifact storage quota has been hit"，把一次本来没问题的渲染判成了失败。
+        # 配额跟这次片子好不好毫无关系，所以这里失败不能算失败。
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.project }}-成片-${{ github.run_number }}
           path: work/${{ inputs.project }}/*.mp4
           if-no-files-found: warn
           compression-level: 0
-          retention-days: 30
+          retention-days: 7

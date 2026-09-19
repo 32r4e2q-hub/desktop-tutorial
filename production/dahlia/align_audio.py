@@ -56,13 +56,17 @@ def aligned_cues(row, clauses, words):
 
 def transcribe_on_runner(narration, work):
     work=Path(work)
-    os.environ.setdefault('HF_HOME',str(work/'model-cache'))
+    # WHISPER_CACHE_DIR 指向常驻目录时，模型只下一次（见 verbatim_check.model_cache_dir
+    # 与《转私有与自托管Runner手册.md》）；不设则与以前一样落在本次运行的 work 里。
+    cache=Path(os.environ.get('WHISPER_CACHE_DIR') or (work/'model-cache'))
+    cache.mkdir(parents=True,exist_ok=True)
+    os.environ.setdefault('HF_HOME',str(cache))
     os.environ.setdefault('HF_HUB_ETAG_TIMEOUT','15')
     os.environ.setdefault('HF_HUB_DOWNLOAD_TIMEOUT','90')
     try:
         from faster_whisper import WhisperModel
         model=WhisperModel('base',device='cpu',compute_type='int8',cpu_threads=2,
-                           download_root=str(work/'model-cache'))
+                           download_root=str(cache))
         results={}
         for row in narration:
             segments,_=model.transcribe(row['path'],language='zh',beam_size=5,word_timestamps=True,
