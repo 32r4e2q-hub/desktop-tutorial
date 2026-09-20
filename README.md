@@ -17,15 +17,23 @@
 | [`production/requirements.txt`](production/requirements.txt) | 跑流水线与测试的全部 Python 依赖（ffmpeg 与中文字体仍需系统装） |
 | [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml) | 每次 push 跑离线自检的工作流模板（需手动复制一次到 `.github/workflows/`） |
 | [`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md) | **要让仓库不再公开时读这份**：转私有的正确顺序、自托管 runner 怎么装、`RUNNER_LABEL` 开关 |
+| [`runner/`](runner/) | 本地出片机三件套：一键安装注册 `setup-runner.sh`、只读自检 `selfcheck.sh`、卸载 `uninstall-runner.sh` |
 | [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具（TTS 分块、EDL、渲染脚本），与上面的流水线并行存在 |
 
 ## 仓库可见性与 runner
 
-- **分支不是"隐藏"**：公开仓库的所有分支、提交与 **Actions 日志**对全世界可见，
-  把内容挪到分支只是不在首页展示。真要藏住只能转私有。
-- 转私有后 GitHub-hosted runner 走 **2000 分钟/月**的额度（出片一次 6~90 分钟），
+- **仓库现在是私有的**（2026-09-20 核对：`gh api repos/32r4e2q-hub/desktop-tutorial` → `"private": true`）。
+  提醒一句：分支不等于权限——公开仓库的所有分支、提交与 **Actions 日志**对全世界可见，
+  把内容挪到分支只是不在首页展示，真要藏住只能转私有。
+- 私有仓库的 GitHub-hosted runner 走 **2000 分钟/月**的额度（出片一次 6~90 分钟），
   自托管 runner **不计分钟**——所以这套流水线的机器由仓库变量 `RUNNER_LABEL` 决定：
   `runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}`。**不设这个变量时行为与以前完全一样。**
+- 🚀 **想把出片搬到你自己的机器上**：`bash runner/setup-runner.sh`（Linux / WSL2），
+  装完 `bash runner/selfcheck.sh` 自检。见 [`runner/README.md`](runner/README.md)，
+  原理与手工步骤见 [`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md)。
+  ⚠️ 注册 token 只有仓库主能取（代理的 GitHub App 没有 `administration` 权限，
+  实测 403），所以这一步**必须由你在自己的机器上完成**——也正因如此，
+  token 不需要交给任何人。
 - ⚠️ 自托管 runner **绝不能挂在公开仓库上**（fork PR 能在你机器上执行任意代码），
   所以顺序是**先转私有、再装 runner**。完整步骤见
   [`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md)。
@@ -47,9 +55,12 @@
 离线测试当时全绿却拦不住"贴错内容"，所以 `production/tests/test_workflows.py`
 继续守着工作流文件的形状与逐字节一致性，别把这两份文件改成"只改一份"的状态。
 
-**现在真正剩下的手动事项是仓库可见性**：要让项目不再公开，见
-[`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md)——
-先转私有、再装自托管 runner、最后设 `RUNNER_LABEL`，顺序不能换。
+**仓库可见性那件事已经做完了**（现在是 private）。**现在剩下的手动事项是装本地 runner**：
+见 [`runner/README.md`](runner/README.md) 的三分钟版，或
+[`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md) 的完整版——
+装自托管 runner → 设 `RUNNER_LABEL`，顺序不能换（反过来会有一段把你机器敞开的时间）。
+注册 token 与仓库变量**只有仓库主能操作**（代理的 GitHub App 缺 `administration` 权限，
+实测 `registration-token` 与 `actions/variables` 都是 403），所以这一步得由你跑脚本完成。
 自检查什么见 [`production/ci-tests.workflow.yml`](production/ci-tests.workflow.yml)：
 装依赖 → `pytest production/tests`（含工作流形状、混音复现、冻结帧阈值标定）。
 
