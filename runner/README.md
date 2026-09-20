@@ -1,26 +1,34 @@
 # 本地 runner（自托管出片机）· 三分钟上手
 
-> ### 🪟 用 Windows？先花一分钟做这两步（PowerShell 原生跑不了这套流水线）
+> ### 🪟 用 Windows？先花一分钟做这三步（PowerShell 原生跑不了这套流水线）
 >
-> 第 1 步：**PowerShell 里进 WSL**（提示符会从 `PS C:\...>` 变成 `user@主机名:~$`）
+> 第 1 步：**确认 WSL 里是 Ubuntu**（`wsl` 默认丢出来的可能是 Alpine：官方 runner
+> 只发 glibc 构建，出片脚本还写死 `apt` + `fonts-noto-cjk` —— musl 系的 Alpine 跑不通）：
 >
 > ```powershell
-> wsl                      # 从没装过 WSL：先跑 wsl --install -d Ubuntu，按提示重启一次
+> wsl --install -d Ubuntu    # 从没装过 WSL：先跑这句，按提示重启一次
+> wsl -d Ubuntu              # 已装过 WSL 就直接进 Ubuntu，别用裸 wsl（怕默认是别的发行版）
 > ```
 >
-> 第 2 步：**WSL 里装 gh、登录后 clone 仓库**（仓库是私有的，必须登录才能 clone）
+> 第 2 步：**WSL 里装 gh**（仓库是私有的，clone 前必须先有 gh）。下面每一行
+> **单独复制、单独回车**——整段一起粘会把换行揉成一团、跑出莫名其妙的错。
+> 已经装过 gh 就跳过这几行：
 >
 > ```bash
-> gh --version || { sudo apt-get update -qq && sudo apt-get install -y -qq curl
->   sudo mkdir -p -m 755 /etc/apt/keyrings
->   curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
->     | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
->   sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
->   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
->     | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
->   sudo apt-get update -qq && sudo apt-get install -y -qq gh; }
+> sudo apt-get update -qq
+> sudo apt-get install -y -qq curl
+> sudo mkdir -p -m 755 /etc/apt/keyrings
+> curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+> sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+> echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+> sudo apt-get update -qq
+> sudo apt-get install -y -qq gh
+> ```
 >
-> gh auth login            # 选 GitHub.com → HTTPS → Login with a web browser（按提示输入页面给你的 8 位码）
+> 第 3 步：**登录并 clone**（还是一行一条）：
+>
+> ```bash
+> gh auth login            # 选 GitHub.com → HTTPS → Login with a web browser（输入页面给的 8 位码）
 > gh repo clone 32r4e2q-hub/desktop-tutorial
 > cd desktop-tutorial
 > ```
@@ -42,7 +50,8 @@
 ## 一、在你自己的机器上跑一句
 
 机器要求是 **Linux 或 WSL2 里的 Ubuntu**（Windows 原生跑不了：出片脚本是 bash +
-`apt` + Linux 字体路径）。打开终端：
+`apt` + Linux 字体路径；**Alpine 之类的 musl 版也不行**——官方 runner 只有 glibc 构建，
+脚本一开头就会把它拦下）。打开终端：
 
 ```bash
 gh repo clone 32r4e2q-hub/desktop-tutorial      # 仓库是私有的，用 gh（已登录）才 clone 得下来

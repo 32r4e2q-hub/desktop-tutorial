@@ -132,6 +132,14 @@ case "$OS" in
       armv7l|armv8l) ARCH="arm" ;;
       *) die "认不出的 CPU 架构：$ARCH_RAW（只支持 x64 / arm64 / arm）" ;;
     esac
+    # 先验一遍 libc：GitHub 官方 runner 只发 glibc 构建，而且 production/dahlia/media.py
+    # 写死了 sudo apt-get install fonts-noto-cjk。Alpine 这类 musl 系装到一半才撞墙，
+    # 直接在这里拦下，别让人以为 `wsl` 默认丢出的 Alpine 也能跑。
+    if have ldd && ldd --version 2>&1 | grep -qi musl; then
+      die "这是 musl libc 的发行版（Alpine 之类）。GitHub 官方 runner 只有 glibc 构建，
+      且出片脚本写死了 apt / fonts-noto-cjk。请换 Ubuntu / Debian 系
+      （WSL 里 `wsl --install -d Ubuntu` 重来一次即可）。"
+    fi
     if grep -qi microsoft /proc/version 2>/dev/null; then
       IS_WSL=1; ok "Linux / WSL2（$ARCH）"
       # WSL2 默认没有 systemd，第 5 步会自己退回 nohup
@@ -260,12 +268,31 @@ fi
 if have fc-list && fc-list | grep -qi "Noto.*CJK"; then
   ok "中文字体在位（渲染中文不会拒绝出片）"
 elif [ "$OS" = Linux ]; then
-  warn "没找到 Noto CJK 中文字体：出片会在渲染那一步报 refusing to render missing glyphs"
+  # 坑：ffmpeg / git / python 都在时，上面整个 apt 分支被跳过，字体就从来没人装，
+  # 出片才在 render 那步报「refusing to render missing glyphs」。所以字体单独查、单独装。
+  if have apt-get; then
+    [ -n "$SUDO" ] || [ "$(id -u)" = 0 ] || die "没找到 Noto CJK 字体，需要 sudo 权限来装 fonts-noto-cjk"
+    $SUDO apt-get update -qq
+    $SUDO apt-get install -y -qq fonts-noto-cjk
+    if fc-list | grep -qi "Noto.*CJK"; then
+      ok "补装了 fonts-noto-cjk"
+    else
+      warn "字体装完 fc-list 还是没刷新到；出片前先跑 fc-cache -f，再跑 bash runner/selfcheck.sh 确认"
+    fi
+  else
+    warn "没找到 Noto CJK 中文字体：出片会在渲染那一步报 refusing to render missing glyphs"
+  fi
 fi
 
-if [ -n "$PYPI_MIRROR" ] && have pip3; then
-  pip3 config --global set global.index-url "$PYPI_MIRROR" >/dev/null 2>&1 \
-    && ok "pip 镜像已设为 $PYPI_MIRROR" || warn "pip 镜像没设成，继续用默认源"
+if [ -n "$PYPI_MIRROR" ]; then
+  if have pip3 && pip3 config --global set global.index-url "$PYPI_MIRROR" >/dev/null 2>&1; then
+    ok "pip 镜像已设为 $PYPI_MIRROR"
+  elif have python3 && python3 -m pip config --global set global.index-url "$PYPI_MIRROR" >/dev/null 2>&1; then
+    # 坑：只有 python3 -m pip 的机器上 pip3 命令不存在，--pypi-mirror 会静默收不到任何效果。
+    ok "pip 镜像已设为 $PYPI_MIRROR（走 python3 -m pip）"
+  else
+    warn "pip 镜像没设成，继续用默认源（这台机器上 pip3 / python3 -m pip 都不在 PATH）"
+  fi
 fi
 
 # ---------------------------------------------------------------- 3. runner 本体
@@ -366,6 +393,10 @@ TXT
 fi
 
 cd "$RUNNER_DIR"
+# 坑：目录里已有 .runner 且带旧注册时，config.sh 报 "already configured"（We could not
+# resolve…），而 --replace 在部分版本上不顶用。注册前先用 remove-token 摘掉旧注册。
+# token 只现场取这一次、用完 unset；remove-token 拿不到时才继续（真没旧注册也进这里）。
+./config.sh remove --token "$TOKEN" >/dev/null 2>&1 || true
 # --replace：同名 runner 已存在时覆盖重注册（脚本可反复跑）
 # --unattended：不交互；_work 放在 runner 目录里，清盘时整个目录删掉即可
 ./config.sh --url "https://github.com/$REPO" --token "$TOKEN" \
@@ -395,10 +426,20 @@ else
   else
     warn "这台机器没有 systemd（WSL2 默认就没开）—— 退回后台进程方式"
     warn "想要开机自启，在 /etc/wsl.conf 里加 [boot] systemd=true，然后 wsl --shutdown 再进"
-    pgrep -f "Runner.Listener" >/dev/null || nohup ./run.sh > run.log 2>&1 &
+    # 坑①：`a || b &` 的 `&` 作用于整个 `||` 列表，不是只挂到 `b`；而且缺 setsid 时脚本一
+    # 退出，runner 进程就跟着被带走。所以用 setsid 起、再 disown，让它真正活下来。
+    # 坑②：`pgrep -f Runner.Listener` 匹配到的是后台子进程命令行里的同名字样，属于假阳性，
+    # 会骗脚本打印"已在后台跑"。所以判据改成"run.sh 的 setsid 子进程还活着"。
+    if ! have setsid; then
+      die "这台机器没有 setsid（util-linux）。先装好：$SUDO apt-get install -y util-linux"
+    fi
+    if ! pgrep -f "(^|[ /])run\\.sh( |$)" >/dev/null; then
+      setsid ./run.sh > run.log 2>&1 < /dev/null &
+      disown || true
+    fi
     sleep 3
-    if pgrep -f "Runner.Listener" >/dev/null; then ok "runner 已在后台跑（日志：$RUNNER_DIR/run.log）"; else
-      warn "没看到 Runner.Listener 起来，看日志：tail -40 $RUNNER_DIR/run.log"
+    if pgrep -f "(^|[ /])run\\.sh( |$)" >/dev/null; then ok "runner 已在后台跑（日志：$RUNNER_DIR/run.log）"; else
+      warn "没看到 run.sh 起来，看日志：tail -40 $RUNNER_DIR/run.log"
     fi
   fi
 fi
@@ -409,9 +450,11 @@ step "确认 GitHub 那边看到了吗"
 
 ONLINE=0
 if [ "$GH_OK" = 1 ]; then
+  # 坑：gh api 没有 --arg 这个参数，写 `--jq --arg n "$RUNNER_NAME"` 每次查询都失败，
+  # 还白等 20×3 秒。把 runner 名字拼进 --jq 表达式：'.runners[] | select(.name=="名字")'。
+  RJQ=".runners[] | select(.name==\"$RUNNER_NAME\") | .status"
   for _ in $(seq 1 20); do
-    STATUS="$(gh api "repos/$REPO/actions/runners" --jq --arg n "$RUNNER_NAME" \
-              '.runners[] | select(.name==$n) | .status' 2>/dev/null | head -1 || echo "")"
+    STATUS="$(gh api "repos/$REPO/actions/runners" --jq "$RJQ" 2>/dev/null | head -1 || echo "")"
     [ "$STATUS" = "online" ] && { ONLINE=1; break; }
     sleep 3
   done

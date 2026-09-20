@@ -269,6 +269,28 @@ class WorkflowIntegrityTests(unittest.TestCase):
         self.assertIn("exit 1", script[push_at:][:900],
                       "五次都失败时必须非 0 退出，不能假装成功")
 
+    def test_run_project_disables_a_stale_sparse_checkout(self):
+        """提交成片前必须先把上一个 job 留在 _work 目录里的 sparse-checkout 关掉。
+
+        2026-09-20 实测：离线自检（ci-tests）用 sparse-checkout 跳过 *.mp4 省 48 MB，
+        它把 core.sparseCheckout 留在同一个 _work 目录的 .git/config 里；出片的三道闸门
+        （1080p / 180s / 音频）全过，却倒在第 4/5 步 commit——成片 add 不进索引，
+        一次成功的出片被 workflow 判成失败。所以 run_project.sh 必须先关掉这个残留，
+        而且必须出现在 `git add 成片` 之前。
+        """
+        script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        self.assertIn("core.sparseCheckout false", script,
+                      "run_project.sh 没有把残留的 sparse-checkout 关掉")
+        self.assertLess(
+            script.index("core.sparseCheckout false"),
+            script.index('git add -f "交付/'),
+            "关掉 sparse-checkout 必须发生在 git add 成片之前，否则成片还是进不了索引",
+        )
+        # 兜底要能对上 ci-tests 那边留下来的 sparse-checkout 形状（跳过 *.mp4）
+        ci = CI_TEMPLATE.read_text(encoding="utf-8")
+        self.assertIn("!*.mp4", ci,
+                      "离线自检模板不再用 sparse-checkout 跳过 *.mp4 了？上面的兜底要同步改")
+
     def test_artifact_cleanup_workflow_can_actually_delete(self):
         """清理工作流必须声明 actions: write —— 没有它删除会 403，配额照样满。
 

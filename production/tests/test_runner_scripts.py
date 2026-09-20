@@ -88,6 +88,94 @@ class RunnerScriptTests(unittest.TestCase):
         self.assertIn("fonts-noto-cjk", text, "中文字体缺失要给出那条 apt 命令")
         self.assertIn("repos/$REPO", text, "自检要顺手确认仓库仍是私有")
 
+    def test_setup_blocks_musl_and_explains_why(self):
+        """Alpine / musl 要直接拦下，别让它装到一半才撞墙。
+
+        `wsl` 默认丢出来的可能是 Alpine：GitHub 官方 runner 只发 glibc 构建，
+        出片脚本还写死了 sudo apt-get install fonts-noto-cjk，musl 系根本跑不通。
+        """
+        setup = SETUP.read_text(encoding="utf-8")
+        self.assertIn("musl", setup, "必须探测 musl libc")
+        self.assertIn("glibc", setup, "拦下的时候要说明原因（runner 只有 glibc 构建）")
+        # 拦截动作里要给出换回 Ubuntu / Debian 系的退路，而不是一句干巴巴的拒绝
+        self.assertRegex(setup, r"Ubuntu\s*/\s*Debian", "拦下 musl 时要给出换发行版的退路")
+
+    def test_setup_installs_cjk_fonts_independently_of_other_deps(self):
+        """中文字体要单独查、单独装，不能跟着 '依赖都在就整段跳过' 一起被跳过。
+
+        2026-09-20 实测：ffmpeg 等都在时，脚本整段跳过 apt，中文字体就从没被装过，
+        出片才在 render 那步报 'refusing to render missing glyphs'。
+        """
+        setup = SETUP.read_text(encoding="utf-8")
+        # 第二次检查必须脱离第一次装依赖的 apt 分支（ffmpeg / python 都在的时候也要查 font）
+        idx = setup.index("fc-list | grep -qi")
+        # 字体装的是 fonts-noto-cjk，而且是独立的一条安装
+        self.assertIn("fonts-noto-cjk", setup[idx:],
+                      "字体检查后面没有独立的一条 fonts-noto-cjk 安装")
+        # 有 apt-get 时才自动补装；没有（非 apt 发行版）得警告，不能让它默默过去
+        self.assertTrue(
+            ("apt-get install" in setup[idx:] and "refusing to render missing glyphs" in setup),
+            "字体缺失时要么 apt-get 补装，要么给出 refusing-to-render 的警告",
+        )
+
+    def test_setup_removes_a_stale_registration_before_configuring(self):
+        """目录里已有 .runner 时，注册前要先用 config.sh remove 摘掉旧注册。
+
+        2026-09-20 实测：旧注册挡路时 config.sh 报 'already configured'，
+        --replace 在部分版本上不顶用；先 remove 再注册才真的幂等。
+        """
+        setup = SETUP.read_text(encoding="utf-8")
+        self.assertIn("config.sh remove", setup, "注册前要先用 config.sh remove 摘掉旧注册")
+        remove_idx = setup.index("config.sh remove")
+        # remove 拿到的也是同一个现场 token
+        self.assertIn("--token", setup[remove_idx:remove_idx + 120],
+                      "remove 也要带现场取到的 token")
+        remove_line = next(ln for ln in setup.splitlines() if "config.sh remove" in ln)
+        self.assertIn('"$TOKEN"', remove_line, "remove 要用同一个 $TOKEN，别拼第二把")
+        # remove 要发生在真正的注册（--url）之前，顺序不能反
+        self.assertLess(remove_idx, setup.index("./config.sh --url"),
+                        "先摘旧注册、再注册，顺序反了等于白摘")
+
+    def test_setup_checks_online_status_without_gh_api_arg(self):
+        """gh api 没有 --arg 参数：写 `--jq --arg n "$RUNNER_NAME"` 每次查询都失败、白等。
+
+        名字必须拼进 --jq 表达式（select(.name==…)，双引号包住），而不是当参数传。
+        """
+        setup = SETUP.read_text(encoding="utf-8")
+        self.assertIn("--arg", setup, "注释里要留下这个坑，别让后人再写回去")
+        for ln in setup.splitlines():
+            if ln.lstrip().startswith("#"):
+                continue
+            if "gh api" in ln and "--arg" in ln:
+                self.fail(f"gh api 调用里不能带 --arg：{ln!r}")
+        # 名字拼进 --jq：先 assign 一个带 select(.name==…) 的表达式，再 --jq 引用它
+        self.assertIn("select(.name==", setup, "名字要拼进 --jq 的 select(.name==…)")
+        self.assertIn('--jq "$RJQ"', setup, "查询要引用拼好的 jq 表达式")
+
+    def test_setup_sets_pypi_mirror_even_without_a_pip3_command(self):
+        """--pypi-mirror 在只有 python3 -m pip 的机器上会静默失败（pip3 命令不存在），
+        必须退回 python3 -m pip 再试，而不是一声不吭地装成成功。"""
+        setup = SETUP.read_text(encoding="utf-8")
+        self.assertIn("python3 -m pip config", setup,
+                      "pip3 不存在时要退回 python3 -m pip config 设镜像")
+        self.assertIn("PYPI_MIRROR", setup)
+
+    def test_setup_keeps_the_background_runner_alive_via_setsid_disown(self):
+        """后台 runner 必须 setsid + disown 活着，且判据不能是假阳性。
+
+        2026-09-20 实测：`a || b &` 的 & 作用于整个 || 列表，且缺 setsid 时脚本一退出
+        进程就没了；而 pgrep -f 'Runner.Listener' 会命中后台子进程命令行的同名字样，
+        属于假阳性（runner 其实死了还在说"已在后台跑"）。
+        """
+        setup = SETUP.read_text(encoding="utf-8")
+        self.assertIn("setsid ./run.sh", setup, "后台启动必须走 setsid")
+        self.assertIn("disown", setup, "setsid 起的进程还要 disown，才不会被 shell 拖走")
+        # 判据必须改盯 run.sh，不能再用 Runner.Listener 那个假阳性写法
+        haystack = setup[setup.index("setsid ./run.sh"):]
+        self.assertNotIn("pgrep -f \"Runner.Listener\"", haystack,
+                         "后台存活的判据不能再用 Runner.Listener（假阳性）")
+        self.assertIn("run.sh", haystack, "存活判据至少要看 run.sh 这个进程名")
+
 
 if __name__ == "__main__":
     unittest.main()
