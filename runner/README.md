@@ -1,5 +1,35 @@
 # 本地 runner（自托管出片机）· 三分钟上手
 
+> ### 🪟 用 Windows？先花一分钟做这两步（PowerShell 原生跑不了这套流水线）
+>
+> 第 1 步：**PowerShell 里进 WSL**（提示符会从 `PS C:\...>` 变成 `user@主机名:~$`）
+>
+> ```powershell
+> wsl                      # 从没装过 WSL：先跑 wsl --install -d Ubuntu，按提示重启一次
+> ```
+>
+> 第 2 步：**WSL 里装 gh、登录后 clone 仓库**（仓库是私有的，必须登录才能 clone）
+>
+> ```bash
+> gh --version || { sudo apt-get update -qq && sudo apt-get install -y -qq curl
+>   sudo mkdir -p -m 755 /etc/apt/keyrings
+>   curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+>     | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+>   sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+>   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+>     | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+>   sudo apt-get update -qq && sudo apt-get install -y -qq gh; }
+>
+> gh auth login            # 选 GitHub.com → HTTPS → Login with a web browser（按提示输入页面给你的 8 位码）
+> gh repo clone 32r4e2q-hub/desktop-tutorial
+> cd desktop-tutorial
+> ```
+>
+> 然后直接跳到下面「一、在你自己的机器上跑一句」。
+> 注意：**仓库要 clone 到 WSL 的 Linux 家目录里**（`cd ~` 再 clone），
+> 别放在 `C:\Users\...` 下——`/mnt/c` 的磁盘 IO 慢好几倍，出片会明显变久。
+> 后面所有命令都在 WSL 里跑，不再回 PowerShell。
+
 这台文件夹里的东西只为一件事服务：**把出片从 GitHub 的机器上搬到你自己的机器上**。
 仓库已经转成私有了，所以不再有 2000 分钟/月的额度焦虑——自托管的分钟数不计费。
 
@@ -15,10 +45,13 @@
 `apt` + Linux 字体路径）。打开终端：
 
 ```bash
-git clone https://github.com/32r4e2q-hub/desktop-tutorial.git   # 已有就 git pull
-cd desktop-tutorial
+gh repo clone 32r4e2q-hub/desktop-tutorial      # 仓库是私有的，用 gh（已登录）才 clone 得下来
+cd desktop-tutorial                             # 已经有仓库就：git pull
 bash runner/setup-runner.sh
 ```
+
+> 脚本**不依赖仓库文件**：装在哪个目录、从哪个目录跑都行（仓库里、`~/` 下、甚至 PowerShell 里
+> `wsl bash runner/setup-runner.sh` 都行）。它自己会下 runner、装依赖、预下模型。
 
 脚本会按顺序做 6 件事，每一步都可以单独跳过：
 

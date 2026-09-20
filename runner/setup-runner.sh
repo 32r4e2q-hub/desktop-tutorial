@@ -147,10 +147,12 @@ case "$OS" in
     ask_yesno "    仍要继续吗？" n || die "那就在 Linux / WSL2 上再来一次"
     ;;
   MINGW*|MSYS*|CYGWIN*)
-    die "这是 Windows 原生 shell。出片脚本是 bash + apt + Linux 字体路径，跑不通。
-      请在 WSL2 的 Ubuntu 里重跑这个脚本：
-        wsl --install -d Ubuntu
-      然后在这个仓库目录下再执行一遍 bash runner/setup-runner.sh"
+    die "这是 Windows 原生 shell（Git Bash 之类）。出片脚本是 bash + apt + Linux 字体路径，跑不通。
+      请进 WSL2 的 Ubuntu 再跑这个脚本：
+        PowerShell 里：  wsl                      # 没装过就先 wsl --install -d Ubuntu（需重启一次）
+        WSL 提示符下：  gh repo clone $REPO && cd desktop-tutorial
+                        bash runner/setup-runner.sh
+      完整的 Windows 步骤见 runner/README.md 最上面一节。"
     ;;
   *) die "不支持的系统：$OS（需要 Linux / WSL2）" ;;
 esac
@@ -163,8 +165,35 @@ else
   ok "磁盘余量 ${FREE_GB} GB"
 fi
 
+# 脚本不依赖仓库文件：放哪个目录跑都行（~/ 下、仓库里、甚至从 PowerShell 里 wsl bash 进来都行）
+case "$PWD" in
+  /mnt/?/*)
+    warn "你现在在 Windows 盘符下（$PWD）。/mnt/c 的磁盘 IO 比 Linux 原生目录慢好几倍，
+      出片会明显变慢。建议把仓库放进 WSL 的 Linux 家目录：cd ~ && gh repo clone $REPO"
+    ;;
+esac
+
 GH_OK=0
 if have gh && gh auth status >/dev/null 2>&1; then GH_OK=1; fi
+
+if [ "$GH_OK" = 0 ] && [ "$DO_REGISTER" = 1 ]; then
+  warn "没找到可用的 gh（GitHub 命令行）—— 注册 token 就得手动去页面复制（第 5 步会提示你）"
+  if [ "$OS" = Linux ] && have apt-get; then
+    cat <<'TXT'
+      想让脚本全自动，先装一次 gh（WSL / Ubuntu / Debian；之后 gh auth login 一次即可）：
+        sudo apt-get update -qq && sudo apt-get install -y -qq curl
+        sudo mkdir -p -m 755 /etc/apt/keyrings
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+          | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+        sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+          | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+        sudo apt-get update -qq && sudo apt-get install -y -qq gh
+TXT
+  elif [ "$OS" = Darwin ] && have brew; then
+    echo "      想让脚本全自动，先装一次 gh：brew install gh && gh auth login"
+  fi
+fi
 
 # ---------------------------------------------------------------- 1. 私有闸门
 
