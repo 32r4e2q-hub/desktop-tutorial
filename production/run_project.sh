@@ -53,6 +53,11 @@ done
 
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+# 提交成片前，先把上一个 job 残留在同一个 _work 目录里的 sparse-checkout 关掉。
+# 离线自检（ci-tests）用 sparse-checkout 跳过 *.mp4 省 48 MB，它把 core.sparseCheckout
+# 留在了 .git/config：成片 add 不进索引，一次成功的出片被判失败 —— 2026-09-20 实测
+# 1080p/180s/音频三道闸门全过，却倒在第 4/5 步 commit 上，就是这个残留的锅。
+git config --local core.sparseCheckout false 2>/dev/null || true
 git add -f "交付/$(basename "$FILM")" "$DIR/delivery"
 if git diff --cached --quiet; then
   echo "No changes to publish"
