@@ -58,6 +58,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          # 主人网络 59 KiB/s，仓库里那个 48 MB 成片让每次 checkout 又慢又容易断。
+          # 和离线自检（ci-tests.yml）一样用 partial clone + sparse-checkout 跳过 *.mp4：
+          # 55 MB → 约 7 MB。出片要新生成成片，本来就只需要源码与脚本、不需要历史成片。
+          # 依赖 run_project.sh 里「提交成片前先关掉残留 core.sparseCheckout」的兜底
+          # （缺了它，成片会 add 不进索引 —— 这正是 2026-09-20 踩过的坑）。
+          filter: blob:none
+          sparse-checkout: |
+            /*
+            !*.mp4
+          sparse-checkout-cone-mode: false
 
       - name: Install media tools and CJK fonts
         run: |
