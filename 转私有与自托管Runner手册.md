@@ -45,6 +45,10 @@
 
 ## ⚠️ 顺序不能换：先转私有，再装 runner
 
+> **当前进度（2026-09-20 核对）**：`gh api repos/32r4e2q-hub/desktop-tutorial` 返回
+> `"private": true` —— **① 已经完成**，现在可以安全地装 runner 了。
+> 第 1 节保留着，是为了将来要把仓库改回公开时知道怎么反向操作。
+
 GitHub 官方安全文档明确警告：**自托管 runner 几乎不应该用于公开仓库**——
 任何人都能 fork 仓库、提一个 PR，让工作流在你自己的电脑上执行任意代码
 （本仓库的 `.github/workflows/ci-tests.yml` 正好是 `on: pull_request` 触发）。
@@ -52,14 +56,36 @@ GitHub 官方安全文档明确警告：**自托管 runner 几乎不应该用于
 所以：
 
 ```
-① 转私有  →  ② 装自托管 runner  →  ③ 设置 RUNNER_LABEL 变量  →  ④ 跑一次出片验证
+① 转私有 ✅已完成  →  ② 装自托管 runner  →  ③ 设置 RUNNER_LABEL 变量  →  ④ 跑一次出片验证
 ```
 
 顺序反了（先装 runner 后转私有），中间那段时间你的电脑对任何 fork PR 敞开。
 
+### 🚀 最短路径（第 2、3 节的一键版）
+
+234 行手册里真正要动手的只有下面几句——都写在 `runner/setup-runner.sh` 里了。
+**在你的 Linux / WSL2 机器上**（Windows 原生跑不了，见 2A.1）：
+
+```bash
+cd desktop-tutorial
+bash runner/setup-runner.sh                # 装依赖 → 下 runner → 预下模型 → 注册 → 装服务
+bash runner/selfcheck.sh                   # 只读自检：确认真的可以出片了
+```
+
+要连开关一起拨（gh 已登录且是仓库 admin）：`bash runner/setup-runner.sh --set-switch`。
+细节、选项、回滚见 [`runner/README.md`](runner/README.md)——本手册下面各节是**原理与手工步骤**，
+脚本干的就是这些事，出问题时照着某一节自己走一遍即可。
+
+> ⚠️ **注册这一步只能你自己做**：代理（GitHub App）对仓库没有 `administration` 权限，
+> 实测 `POST /repos/…/actions/runners/registration-token` 返回 403，
+> 写仓库变量同样是 403。所以**取 token、注册、设变量这三件事必须由你（仓库主）完成**，
+> 脚本在你自己的机器上替你跑这些命令。这同时意味着你不必把 token 交给任何人。
+
 ---
 
 ## 1. 转私有（网页操作，约 2 分钟）
+
+> 这一步 **2026-09-20 已确认完成**（仓库现为 private）。留着这一节是将来要改回公开时的反向说明。
 
 1. 打开 <https://github.com/32r4e2q-hub/desktop-tutorial/settings>
 2. 拉到页面**最底部**的 **Danger Zone**
@@ -133,6 +159,12 @@ PY
 
 跑完 `~/.cache/whisper` 里应该有模型文件（small 约 500 MB）。之后每次出片直接复用。
 
+### 2A.0 想省事就跑脚本
+
+上面 2A.1~2A.4 四段（系统要求、装依赖、预下模型、下安装包）已经全部写进
+`bash runner/setup-runner.sh --no-register`（只装软件、不注册）。
+手动做也行，照着下面走一遍大概 20 分钟，其中下模型最久。
+
 ### 2A.4 先把 runner 安装包放在手边（**先别注册**）
 
 ```bash
@@ -157,6 +189,10 @@ tar xzf runner.tar.gz
 ---
 
 ## 2B. 阶段二：**转私有之后**再注册（约 2 分钟）
+
+> 仓库已经是私有的了，所以这一段现在就能做。**推荐直接跑**
+> `bash runner/setup-runner.sh`（gh 没登录/不是 admin 时它会给你页面地址，
+> 让你自己复制 token 后不回显粘贴）。下面是手工版，脚本做的正是这几步。
 
 1. 打开 <https://github.com/32r4e2q-hub/desktop-tutorial/settings/actions/runners/new>
 2. 选 **Linux / x64**，页面上会生成一段**带一次性 token 的命令**——直接照抄那一段
@@ -286,7 +322,11 @@ Actions → **解说短片出片** → Run workflow → `project` 填 `dahlia`
 
 | 我想…… | 怎么做 |
 |---|---|
-| 现在（还公开）就想动起来 | 做 **2A** 那一段：装依赖、预下模型、下好安装包；**注册留到转私有之后** |
+| **一句话搞定（推荐）** | 在自己的 Linux/WSL2 上 `bash runner/setup-runner.sh`，再 `bash runner/selfcheck.sh` |
+| 只装软件、先不注册 | `bash runner/setup-runner.sh --no-register`（2A 的一键版） |
+| 卸掉 / 仓库要改回公开 | `bash runner/uninstall-runner.sh`（`--purge` 连目录一起删）——**改公开前必须先卸** |
+| 装完想确认能不能出片 | `bash runner/selfcheck.sh`，退出码 0 才行 |
+| 现在（还公开）就想动起来 | 做 **2A** 那一段：装依赖、预下模型、下好安装包；**注册留到转私有之后**（现已转私有） |
 | 内容不再被外人看到 | 转私有（第 1 节）——分支做不到这件事 |
 | 转私有后还能出片、还不限量 | 注册自托管 runner（2B）+ 设 `RUNNER_LABEL`（第 3 节） |
 | 出片老卡在下模型 | 设 `WHISPER_CACHE_DIR` + 按 2A.3 预下载 |
@@ -312,3 +352,15 @@ registration token 从 GitHub 页面复制、只填进 `./config.sh` 那一行�
 | `production/tests/test_workflows.py` | 新增 `test_no_workflow_hardcodes_a_github_hosted_runner`：谁再写死 `ubuntu-latest` 就红 |
 
 没设 `RUNNER_LABEL` 之前，这些改动**不改变任何行为**——可以放心先合进 main。
+
+---
+
+## 附二：`runner/` 目录里有什么
+
+| 文件 | 一句话 |
+|---|---|
+| [`runner/setup-runner.sh`](runner/setup-runner.sh) | 一键安装 + 注册 + 装服务；幂等，可反复跑；**仓库不是私有就拒绝注册** |
+| [`runner/selfcheck.sh`](runner/selfcheck.sh) | 只读自检（系统/依赖/字体/服务/模型/磁盘/仓库），**退出码 0** 才算能出片 |
+| [`runner/uninstall-runner.sh`](runner/uninstall-runner.sh) | 反注册 + 停服务，可选 `--purge` 删目录 |
+| [`runner/README.md`](runner/README.md) | 三分钟版最短路径（给不想读 200 行手册的时候） |
+| `production/tests/test_runner_scripts.py` | 离线守着这三条脚本：语法、变量名一致、**公开仓库不许注册**、token 不许被打印 |
