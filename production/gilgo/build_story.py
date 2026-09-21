@@ -8,7 +8,7 @@
 用法::
 
     python3 production/gilgo/build_story.py            # 写 story.json + audio/manifest.json 文本
-    python3 production/gilgo/build_story.py --script   # 只打印抖音脚本表（Markdown）
+    python3 production/gilgo/build_story.py --script   # 生成 抖音脚本.md（标题/爆点/四列分镜表/金句）
 """
 import json
 import sys
@@ -121,12 +121,12 @@ SHOTS = [
     ("S02", "agnes", "升降下摇 crane down",
      "「有老婆有孩子，模范爸爸」：长岛郊区独栋住宅，草坪、童车、家庭轿车，无人",
      "摇到车道，硬切邻里街景",
-     "Quiet Long Island suburban street at golden hour, a modest two-story wood-shingle house with a front porch, a child's bicycle on the lawn, a family sedan in the driveway, mature trees, two curbside trash cans at the end of the driveway; no people. Camera: one slow crane move down from tree height to street level, ending on the driveway.",
+     "Quiet Long Island suburban street at golden hour, a modest two-story wood-shingle house with a front porch, a child's bicycle on the lawn, a family sedan in the driveway, mature trees, two curbside trash cans at the end of the driveway; no people. Flat Long Island suburb: the horizon holds only trees, utility poles and low rooftops - no skyscrapers, no city skyline anywhere in the background. Camera: one slow crane move down from tree height to street level, ending on the driveway. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "鸟鸣、远处割草机"),
     ("S03", "agnes", "缓慢横摇 slow pan",
      "「三十年，没人怀疑过他」：正午的郊区街道，高个背影在车道上冲洗皮卡，远处邻居遛狗挥手",
      "邻居挥手时切披萨盒特写",
-     "Sunny midday on a sleepy Long Island suburban street: a very tall heavyset man seen from behind hoses down a dark pickup truck in his driveway, sprinklers on neighboring lawns, a neighbor couple walking a dog far down the sidewalk raising a hand in greeting, American flags on porches; no faces visible. Camera: one slow pan from the neighbors across the street to the man's back.",
+     "Sunny midday on a sleepy Long Island suburban street: a very tall heavyset man seen from behind hoses down a dark pickup truck in his driveway, sprinklers on neighboring lawns, a neighbor couple walking a dog far down the sidewalk raising a hand in greeting, American flags on porches; no faces visible. Flat Long Island suburb: the horizon holds only trees, utility poles and low rooftops - no skyscrapers, no city skyline anywhere in the background. Camera: one slow pan from the neighbors across the street to the man's back. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "洒水器、狗叫、远处招呼声；音乐第一次进"),
     ("S04", "agnes", "微距固定 macro static",
      "全片钩子：一只大手把油腻的披萨盒塞进街头垃圾桶（只拍手与袖口）",
@@ -152,7 +152,7 @@ SHOTS = [
     ("S08", "agnes", "缓慢推近 slow push-in",
      "「住的还是他小时候的房子」：同一栋房子的七十年代记忆版，褪色暖调，老式旅行车，草坪上的童车",
      "推近到门廊，硬切通勤站台",
-     "The same modest Long Island shingle house rendered as a faded 1970s memory: warm sun-bleached colors, a wood-paneled station wagon in the driveway, a child's tricycle on the lawn, a sprinkler ticking, film-grain softness; no people. Camera: one slow push-in from the street toward the front porch.",
+     "The same modest Long Island shingle house rendered as a faded 1970s memory: warm sun-bleached colors, a wood-paneled station wagon in the driveway, a child's tricycle on the lawn, a sprinkler ticking, film-grain softness; no people. Flat Long Island suburb: the horizon holds only trees, utility poles and low rooftops - no skyscrapers, no city skyline anywhere in the background. Camera: one slow push-in from the street toward the front porch. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "老式洒水器嘀嗒、胶片颗粒感的底噪"),
     ("S09", "agnes", "固定大全景 static wide",
      "白天坐火车进曼哈顿：长岛铁路站台清晨，一个高出人群一头的黑大衣背影",
@@ -177,7 +177,7 @@ SHOTS = [
     ("S13", "agnes", "微距推近 macro push-in",
      "伏笔二：架子底层落灰的旧米色电脑主机和外置硬盘，硬盘指示灯微微一闪",
      "指示灯闪动时切第三章",
-     "Macro shot on the bottom shelf of that dim basement: an old beige desktop computer tower and a dusty external hard drive under a bare bulb, cobwebs, a single tiny indicator light blinking faintly; no people, no readable labels. Camera: one very slow macro push-in toward the hard drive.",
+     "Macro shot on the bottom shelf of a windowless suburban basement: an old beige desktop computer tower and a dusty external hard drive on a metal shelf against a bare concrete-block wall, lit only by one bare bulb overhead, cobwebs, deep shadows, a single tiny indicator light blinking faintly; no window, no daylight, no people, no readable labels. Camera: one very slow macro push-in toward the hard drive. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "硬盘启动咔哒一声；「后面再说」处音乐悬停"),
     # ---------------- N03 作案手法（8 镜）----------------
     ("S14", "agnes", "俯拍缓推 overhead slow push",
@@ -188,12 +188,12 @@ SHOTS = [
     ("S15", "agnes", "固定大全景 static wide",
      "等老婆孩子出门：夜里小货车装着行李驶离车道，楼上亮着灯，地下室窗黑着",
      "车尾灯出画，切一次性手机",
-     "Night wide shot from across the street of the suburban house: a minivan with luggage in the back reverses out of the driveway and drives away, the upstairs windows warmly lit, the small ground-level basement window dark; no faces visible. Camera: locked-off wide from across the street; only the van moves.",
+     "Night wide shot from across the street of the suburban house: a minivan with luggage in the back reverses out of the driveway and drives away down the street, the upstairs windows warmly lit, the small ground-level basement window dark; no faces visible. Flat Long Island suburb: the horizon holds only trees, utility poles and low rooftops - no skyscrapers, no city skyline anywhere in the background. Camera: locked-off wide from across the street for the whole clip; only the van moves. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "引擎远去"),
     ("S16", "agnes", "俯拍固定 overhead static",
      "一次性手机：夜里车座上的廉价翻盖机，仪表盘微光，一只大手拿起",
      "翻盖机合上切只亮地下室窗的房子",
-     "Overhead close-up of a cheap prepaid flip phone lying on the passenger seat of a pickup truck at night, dashboard glow and rain on the windshield, a large man's hand reaches in and picks it up; no faces. Camera: locked-off overhead; only the hand moves.",
+     "Overhead close-up of a cheap prepaid flip phone lying on the worn passenger seat of a pickup truck at night, faint dashboard glow, a large man's hand reaches in, picks the phone up, flips it open and holds it in the frame; no faces, the windshield and the street stay out of frame. Camera: locked-off overhead on the seat for the whole clip; only the hand moves. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "雨点打车顶、翻盖机开合声；字幕高亮「一次性手机」"),
     ("S17", "agnes", "缓慢推近 slow push-in",
      "「地下室里发生了什么，只有他知道」：深夜的房子，只有地面那扇小小的地下室窗亮着",
@@ -395,7 +395,9 @@ def build():
 
 if __name__ == "__main__":
     if "--script" in sys.argv:
-        from script_table import render_table  # noqa: E402  (同目录)
-        print(render_table())
+        from script_table import render_document  # noqa: E402  (同目录)
+        out = HERE / "抖音脚本.md"
+        out.write_text(render_document())
+        print(f"抖音脚本.md 已写入（{len(out.read_text())} 字符）")
     else:
         build()
