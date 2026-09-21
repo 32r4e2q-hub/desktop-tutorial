@@ -16,6 +16,8 @@
 set -euo pipefail
 
 REPO="${REPO:-32r4e2q-hub/desktop-tutorial}"
+# 同目录的 watchdog.sh 要复制到 $HOME —— 别用 $(pwd)，从别处调用也要能找到
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RUNNER_DIR="${RUNNER_DIR:-$HOME/actions-runner}"
 RUNNER_NAME="${RUNNER_NAME:-$(hostname)}"
 LABELS="self-hosted,Linux,X64,render"
@@ -405,6 +407,47 @@ cd "$RUNNER_DIR"
 unset TOKEN
 ok "注册完成：$RUNNER_NAME（标签 $LABELS）"
 
+# ---------------------------------------------------------------- 看门狗
+
+install_watchdog() {
+  # 把 watchdog.sh 装到 $HOME（不需要 sudo），并尽量挂成 Windows 计划任务。
+  #
+  # 为什么需要（2026-09-20 实测）：没有 systemd 时 runner 靠后台进程跑，它会**静默死掉**：
+  #     run.log: 2026-09-20 02:51:15Z: Listening for Jobs
+  #              2026-09-20 07:57:46Z: Listening for Jobs      ← 中间空了 5 小时
+  # 这 5 小时里派发的出片任务全部卡在 "Waiting for a runner to pick up this job..."，
+  # 一条 3 分钟的出片能这么干等一整天，而人不会盯着看。
+  # WSL 太老（< 0.67.6）时没有 systemd 可用，保活只能靠 Windows 侧的计划任务。
+  local dest="$HOME/watchdog.sh" src="$SCRIPT_DIR/watchdog.sh"
+  local me; me="$(id -un)"
+
+  if [ -f "$src" ]; then
+    cp -f "$src" "$dest" && chmod +x "$dest"
+    ok "看门狗已放到 $dest"
+  else
+    warn "没找到 $src —— 看门狗没装（手动把仓库里的 runner/watchdog.sh 复制到 $dest 也行）"
+    return 0
+  fi
+
+  # SCHTASKS 只为离线测试留的口子（单测里塞个假的进去），正常不用设
+  local schtasks="${SCHTASKS:-/mnt/c/Windows/System32/schtasks.exe}"
+  local distro="${WSL_DISTRO_NAME:-}"
+  if [ -x "$schtasks" ] && [ -n "$distro" ]; then
+    # 同名任务再建一次会直接覆盖（/f），所以这条命令是幂等的。
+    if "$schtasks" /create /tn "runner-watchdog" /sc minute /mo 5 /f \
+         /tr "C:\\Windows\\System32\\wsl.exe -d $distro -u $me -- $dest" >/dev/null 2>&1; then
+      ok "已挂成 Windows 计划任务 runner-watchdog（每 5 分钟检查一次，登录后自动生效）"
+      "$schtasks" /run /tn "runner-watchdog" >/dev/null 2>&1 || true
+    else
+      warn "计划任务没建成，自己在 PowerShell 里来一条："
+      echo "        schtasks /create /tn \"runner-watchdog\" /sc minute /mo 5 /f /tr \"C:\\Windows\\System32\\wsl.exe -d $distro -u $me -- $dest\""
+    fi
+  else
+    warn "没看到 Windows 计划任务（不在 WSL 里？）。用 cron 也能保活："
+    echo "        (crontab -l 2>/dev/null; echo '*/5 * * * * $dest') | crontab -"
+  fi
+}
+
 # ---------------------------------------------------------------- 6. 装服务
 
 step "6/6 让它开机自己起来"
@@ -425,21 +468,31 @@ else
     ok "已装成 systemd 服务（重启后自动回来）"
   else
     warn "这台机器没有 systemd（WSL2 默认就没开）—— 退回后台进程方式"
-    warn "想要开机自启，在 /etc/wsl.conf 里加 [boot] systemd=true，然后 wsl --shutdown 再进"
+    # 别默认让人去开 systemd：这台机器的 WSL 太老，`wsl --version` 都不认（< 0.67.6），
+    # systemd 这条路根本走不通。真正能保活的是下面的看门狗。
+    warn "（systemd 只在 WSL ≥ 0.67.6 可用：PowerShell 里 wsl --version 看得到版本号才行）"
     # 坑①：`a || b &` 的 `&` 作用于整个 `||` 列表，不是只挂到 `b`；而且缺 setsid 时脚本一
     # 退出，runner 进程就跟着被带走。所以用 setsid 起、再 disown，让它真正活下来。
-    # 坑②：`pgrep -f Runner.Listener` 匹配到的是后台子进程命令行里的同名字样，属于假阳性，
-    # 会骗脚本打印"已在后台跑"。所以判据改成"run.sh 的 setsid 子进程还活着"。
+    # 坑②：存活判据必须盯监听器可执行文件本身：`pgrep -f 'bin/Runner\.Listener'`。
+    #   裸的 `Runner.Listener` 会被任何提到这个名字的进程命中（假阳性，"可在后台跑"是假的）；
+    #   盯 run.sh 则是假阴性 —— run.sh 已经把自己 exec 成了监听器，进程命令行里没有它，
+    #   于是每次都判成"没起来"、重复启动，撞上 `A session for this runner already exists`。
     if ! have setsid; then
       die "这台机器没有 setsid（util-linux）。先装好：$SUDO apt-get install -y util-linux"
     fi
-    if ! pgrep -f "(^|[ /])run\\.sh( |$)" >/dev/null; then
+    if ! pgrep -f 'bin/Runner\.Listener' >/dev/null; then
       setsid ./run.sh > run.log 2>&1 < /dev/null &
       disown || true
     fi
     sleep 3
-    if pgrep -f "(^|[ /])run\\.sh( |$)" >/dev/null; then ok "runner 已在后台跑（日志：$RUNNER_DIR/run.log）"; else
-      warn "没看到 run.sh 起来，看日志：tail -40 $RUNNER_DIR/run.log"
+    if pgrep -f 'bin/Runner\.Listener' >/dev/null; then
+      ok "runner 已在后台跑（日志：$RUNNER_DIR/run.log）"
+      # 后台方式会静默死掉（实测 2026-09-20：run.log 从 02:51 空到 07:57，
+      # 这 5 小时里派发的出片任务全卡在 "Waiting for a runner to pick up this job..."），
+      # 所以必须顺手装上每 5 分钟一次的看门狗。
+      install_watchdog
+    else
+      warn "没看到监听器起来，看日志：tail -40 $RUNNER_DIR/run.log"
     fi
   fi
 fi

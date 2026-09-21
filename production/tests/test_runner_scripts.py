@@ -23,6 +23,7 @@ RUNNER_DIR = ROOT / "runner"
 SETUP = RUNNER_DIR / "setup-runner.sh"
 SELFCHECK = RUNNER_DIR / "selfcheck.sh"
 UNINSTALL = RUNNER_DIR / "uninstall-runner.sh"
+WATCHDOG = RUNNER_DIR / "watchdog.sh"
 README = RUNNER_DIR / "README.md"
 MANUAL = ROOT / "转私有与自托管Runner手册.md"
 
@@ -170,11 +171,175 @@ class RunnerScriptTests(unittest.TestCase):
         setup = SETUP.read_text(encoding="utf-8")
         self.assertIn("setsid ./run.sh", setup, "后台启动必须走 setsid")
         self.assertIn("disown", setup, "setsid 起的进程还要 disown，才不会被 shell 拖走")
-        # 判据必须改盯 run.sh，不能再用 Runner.Listener 那个假阳性写法
+        # 判据要看监听器可执行文件本身（bin/Runner.Listener），两条都不行：
+        #   * 裸的 Runner.Listener —— 任何提到这个名字的进程都算命中（假阳性）；
+        #   * run.sh —— 它已经把自己 exec 成了监听器，机器上根本找不到这个名字（假阴性）。
         haystack = setup[setup.index("setsid ./run.sh"):]
         self.assertNotIn("pgrep -f \"Runner.Listener\"", haystack,
-                         "后台存活的判据不能再用 Runner.Listener（假阳性）")
-        self.assertIn("run.sh", haystack, "存活判据至少要看 run.sh 这个进程名")
+                         "后台存活的判据不能再用裸的 Runner.Listener（假阳性）")
+        self.assertIn(r"bin/Runner\.Listener", haystack,
+                      "存活判据要认准监听器可执行文件路径")
+    def test_watchdog_script_exists_and_is_valid_shell(self):
+        """看门狗要和另外三个脚本一样是合法 bash，并且能独立运行（--help 之外不该炸）。"""
+        self.assertTrue(WATCHDOG.exists(),
+                        "缺 runner/watchdog.sh：没有 systemd 的后台 runner 会静默死掉，没人拉它")
+        proc = subprocess.run(["bash", "-n", str(WATCHDOG)], capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 0, f"watchdog.sh 语法错误：{proc.stderr}")
+
+    def test_watchdog_does_not_match_itself_or_other_mere_mentions(self):
+        """存活判断必须认准 bin/Runner.Listener，不能用裸的 Runner.Listener。
+
+        ``pgrep -f`` 比的是整条命令行，任何**提到**这个名字的进程都算命中：
+        ``grep Runner.Listener``、包着看门狗的外层脚本、甚至看门狗自己的测试壳。
+        一旦误判成「还活着」，看门狗就什么都不做 —— 而它存在的唯一意义就是别误判。
+        真实进程的命令行一定含 bin/Runner.Listener（run.sh 里就是 ./bin/Runner.Listener run）。
+        """
+        text = WATCHDOG.read_text(encoding="utf-8")
+        code = "\n".join(line for line in text.splitlines()
+                         if not line.lstrip().startswith("#"))
+        self.assertIn(r"bin/Runner\.Listener", code, "存活判断没有认准监听器可执行文件路径")
+        self.assertNotIn("pgrep -f 'Runner.Listener'", code,
+                         "裸的 Runner.Listener 会被任何提到它的进程命中，导致看门狗永远不干活")
+        self.assertIn("pgrep -f \"$RUNNER_PATTERN\"", code, "存活判断要复用同一个模式变量")
+
+    def test_watchdog_detaches_the_runner_and_releases_the_lock(self):
+        """拉起监听器要 setsid（否则看门狗一退它就被带走），并且不能把 flock 的 fd 传下去。
+
+        实测踩过：flock 用的 fd 被 ``setsid ... &`` 继承，runner 活得越久锁被攥得越久，
+        之后每次看门狗都以为「上一次还在跑」而跳过 —— 看门狗自己把自己锁死了。
+        """
+        text = WATCHDOG.read_text(encoding="utf-8")
+        self.assertIn("setsid nohup ./run.sh", text)
+        self.assertIn("9>&-", text, "没有把 flock 的 fd 关掉，锁会被 runner 一直攥着")
+        self.assertIn("flock -n", text, "没有防重入：两次检查叠在一起会拉起两个监听器")
+
+    def test_watchdog_does_not_log_on_every_check(self):
+        """每次检查都写一行日志的话，一天 288 行会把真正的事故记录淹掉。
+
+        正常检查只更新心跳文件（.watchdog-heartbeat），只有真的动手了才写 watchdog.log。
+        """
+        text = WATCHDOG.read_text(encoding="utf-8")
+        self.assertIn(".watchdog-heartbeat", text, "没有心跳文件，事后无法确认看门狗还在跑")
+        verbose_line = [ln for ln in text.splitlines()
+                        if "runner 活着，不动它" in ln and ln.lstrip().startswith("[")]
+        self.assertTrue(verbose_line, "「活着」的分支不该无条件写日志，要藏在 WATCHDOG_VERBOSE 后面")
+        # 「还活着」这条路径上不许有无条件写日志的语句（日志只在真的动手之后才有）
+        slice_ = text[text.index("RUNNER_PATTERN="):text.index('log "runner 不在了')]
+        unconditional = [ln for ln in slice_.splitlines() if ln.strip().startswith("log ")]
+        self.assertEqual(unconditional, [],
+                         f"检查还活着的时候就写日志了：{unconditional}")
+
+    def test_watchdog_functionally_restarts_a_dead_listener(self):
+        """离线跑一遍真的看门狗：没注册不动、注册了没进程要拉起、已在跑要静默、掉线要拉回。"""
+        import os
+        import shutil
+        import tempfile
+        import time
+
+        sleep_bin = shutil.which("sleep")
+        if not sleep_bin:
+            self.skipTest("这个系统没有 sleep，跑不了功能测试")
+        pattern = r"bin/Runner\.Listener"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            (home / "bin").mkdir()
+            shutil.copy(sleep_bin, home / "bin" / "Runner.Listener")
+            (home / "run.sh").write_text(
+                '#!/bin/bash\nexec "$(dirname "$0")/bin/Runner.Listener" 600\n', encoding="utf-8")
+            (home / "run.sh").chmod(0o755)
+            env = {**os.environ, "RUNNER_DIR": str(home), "WATCHDOG_WAIT": "6"}
+
+            def listener_count():
+                out = subprocess.run(["pgrep", "-f", pattern], capture_output=True, text=True)
+                return len([x for x in out.stdout.split() if x])
+
+            def run_watchdog():
+                return subprocess.run(["bash", str(WATCHDOG)], capture_output=True, text=True, env=env)
+
+            def kill_listeners():
+                subprocess.run(["pkill", "-f", pattern], capture_output=True)
+                time.sleep(0.4)
+
+            kill_listeners()
+            try:
+                # ① 没注册：明确说不做，非 0 退出
+                proc = run_watchdog()
+                self.assertNotEqual(proc.returncode, 0, "没注册还返回 0，会让人以为保活已经生效")
+                self.assertIn("还没注册", proc.stdout)
+                self.assertEqual(listener_count(), 0, "没注册居然还去拉进程")
+
+                # ② 注册了、没有监听器：拉起
+                (home / ".runner").touch()
+                proc = run_watchdog()
+                self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+                self.assertIn("已重新上线", proc.stdout)
+                self.assertEqual(listener_count(), 1, "看门狗说拉起来了，实际没有进程")
+
+                # ③ 已经在跑：静默退出，日志不增行
+                before = len((home / "watchdog.log").read_text(encoding="utf-8").splitlines())
+                proc = run_watchdog()
+                self.assertEqual(proc.returncode, 0)
+                self.assertEqual(proc.stdout.strip(), "", "还活着就不该刷屏")
+                after = len((home / "watchdog.log").read_text(encoding="utf-8").splitlines())
+                self.assertEqual(after, before, "每次检查都写日志，会把事故记录淹掉")
+
+                # ④ 监听器被杀：重新拉起（这才是它存在的理由）
+                kill_listeners()
+                self.assertEqual(listener_count(), 0)
+                proc = run_watchdog()
+                self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+                self.assertEqual(listener_count(), 1, "掉线之后没拉回来")
+            finally:
+                kill_listeners()
+
+    def test_setup_installs_the_watchdog(self):
+        """setup-runner.sh 在没有 systemd 的分支里必须顺手把看门狗装上。
+
+        否则每台新机器都要人工记得挂一次计划任务 —— 而忘掉它的代价就是
+        「任务卡在 Waiting for a runner 一整天」这种最难排查的故障。
+        """
+        setup = SETUP.read_text(encoding="utf-8")
+        self.assertIn("install_watchdog()", setup, "setup-runner.sh 里没有装看门狗的函数")
+        self.assertIn("install_watchdog\n", setup, "定义归定义，没有在装服务那一步调用它")
+        self.assertIn("runner-watchdog", setup, "计划任务名要固定，重复安装才能覆盖成同一个")
+        self.assertIn("wsl.exe -d", setup, "计划任务要通过 wsl.exe 进到这台发行版里执行")
+        self.assertIn("schtasks", setup)
+        # 它得在「没有 systemd → 退回后台进程」的分支里被调用
+        background = setup.index("没有 systemd")
+        self.assertLess(background, setup.rindex("install_watchdog\n"),
+                        "看门狗只在 systemd 拿不到、退回后台进程时才需要")
+
+    def test_setup_watchdog_install_is_idempotent_and_reports_failure(self):
+        """装看门狗要幂等（/f 覆盖同一个任务），并且失败时给出可复制的手动命令。"""
+        setup = SETUP.read_text(encoding="utf-8")
+        self.assertIn("/f", setup, "计划任务没有 /f，第二次安装会因为重名而失败")
+        self.assertIn("SCHTASKS", setup, "schtasks 路径要能覆盖，否则没法离线测试")
+        self.assertIn("计划任务没建成", setup, "计划任务建失败必须明说并给出替代命令")
+
+    def test_setup_judges_the_listener_not_the_wrapper_shell(self):
+        """setup 判断"后台跑起来了没"要盯 bin/Runner.Listener，不能盯 run.sh。
+
+        2026-09-20 在真机上对比过：`pgrep -af 'bin/Runner\\.Listener'` 报的是
+        `/home/runner/actions-runner/bin/Runner.Listener run` —— run.sh 已经把
+        自己 exec 掉、命令行就是监听器本身，所以
+          * 盯 `run\\.sh`：机器上正常运行的那个进程根本不带这个名字 → 判成"没起来"
+            → 重复启动 → `A session for this runner already exists`；
+          * 盯裸的 `Runner.Listener`：任何提到这个名字的进程都算命中（假阳性）。
+        唯一可靠的判据是监听器可执行文件的路径。看门狗（watchdog.sh）用同一个判据，
+        两边必须一致，否则 setup 说"没起来"、看门狗说"还活着"。
+        """
+        setup = SETUP.read_text(encoding="utf-8")
+        watchdog = WATCHDOG.read_text(encoding="utf-8")
+        self.assertIn(r"bin/Runner\.Listener", setup, "setup 的存活判据没有认准监听器路径")
+        self.assertIn(r"bin/Runner\.Listener", watchdog, "看门狗的存活判据没有认准监听器路径")
+        code = "\n".join(line for line in setup.splitlines()
+                         if not line.lstrip().startswith("#"))
+        self.assertNotIn('(^|[ /])run\\.sh( |$)', code,
+                         "run.sh 已经被 exec 掉，盯它会把正常运行的 runner 判成'没起来'")
+        self.assertNotIn("pgrep -f \"Runner.Listener\"", code,
+                         "裸的 Runner.Listener 会被任何提到它的进程命中（假阳性）")
+
 
 
 if __name__ == "__main__":
