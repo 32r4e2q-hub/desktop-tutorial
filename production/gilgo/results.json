@@ -532,10 +532,10 @@
     },
     "S19": {
       "id": "S19",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "9c1bba1d2666f11626d878af911f628c712b418db604ae4b95cf10a5937d7066",
       "error": null,
-      "updated_at": "2026-09-21T09:54:54Z",
+      "updated_at": "2026-09-21T09:54:57Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzU3N2UzMDczZTQwODRiODZiNWFjNzY5NWJiOGI1Njhi",
       "task_id": "task_XLJSEKPoUEfBW8pCk4Xxhx2K4pQCrT78",
       "requested_seconds": 7.041666666666667,
@@ -543,7 +543,25 @@
       "bytes": 3915110,
       "sha256": "2577d6d8dc38e9af7fce36a14f42a663908959edbc23a6ffac9bf700ddbbaad4",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 3915110,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/gilgo/qa/S19.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S21": {
       "id": "S21",
@@ -610,6 +628,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-21T09:54:54Z",
+  "updated_at": "2026-09-21T09:54:57Z",
   "run_id": "35582138872"
 }
