@@ -6,8 +6,11 @@
 因此静音段数 ≥ 分句数。这里用动态规划从静音段里挑出一条单调路径，使每个分句
 的实际时长与"按字数摊开的期望时长"最接近（对数比的平方和最小）。
 
-输出 audio/clause-times.json（随仓库提交），render.py 的 CUTS 切点、抖音脚本.md 的分镜表都从这里取，
-delivery 里的 caption 对轨仍由 render.py 自己（ASR 或停顿估算）负责。
+输出 audio/clause-times.json（随仓库提交），render.py 的 CUTS 切点、抖音脚本.md 的分镜表、
+成片字幕（ASR 覆盖不足时）都从这里取。
+
+    python3 production/gilgo/clause_times.py               # 对时间，写 audio/clause-times.json
+    python3 production/gilgo/clause_times.py --check-cuts  # 核对 render.py 的 CUTS 是否都落在分句停顿窗内
 """
 import json, math, re, subprocess, sys
 from pathlib import Path
@@ -82,6 +85,30 @@ def align(text, x):
     return dur, rows
 
 
+def check_cuts(window=0.35, lead_max=0.0):
+    """核对 render.py 的 CUTS：除每章第一个切点外，每个切点都必须落在某个分句起点前的停顿窗里
+    [clause_start - window, clause_start + lead_max]。返回违规列表（空 = 全部通过）。"""
+    sys.path.insert(0, str(HERE))
+    import render  # noqa: E402  (同目录；只取 CUTS)
+    table = json.loads((HERE / 'audio' / 'clause-times.json').read_text())
+    problems = []
+    for cid, cuts in render.CUTS.items():
+        clauses = table[cid]['clauses']
+        for j, (cut, sid, _variant) in enumerate(cuts):
+            if j == 0:
+                if cut != 0:
+                    problems.append(f'{cid} {sid}: 每章第一个切点必须是 0（现在是 {cut}）')
+                continue
+            nearest = min(clauses, key=lambda c: abs(c['start'] - cut))
+            delta = cut - nearest['start']
+            ok = -window <= delta <= lead_max
+            print(f"{'OK ' if ok else 'BAD'} {cid} {sid:>4} cut={cut:6.2f}  分句「{nearest['text'][:12]}」起点 {nearest['start']:6.2f}  差 {delta:+.2f}")
+            if not ok:
+                problems.append(f'{cid} {sid}: 切点 {cut} 不在分句「{nearest["text"]}」起点 {nearest["start"]} 前的 '
+                                f'[{nearest["start"] - window:.2f}, {nearest["start"] + lead_max:.2f}] 窗内')
+    return problems
+
+
 def main(slug='gilgo'):
     story = json.loads((HERE / 'story.json').read_text())
     root = HERE.parents[1]
@@ -98,4 +125,11 @@ def main(slug='gilgo'):
 
 
 if __name__ == '__main__':
-    main()
+    if '--check-cuts' in sys.argv:
+        bad = check_cuts()
+        if bad:
+            print('\n'.join(bad), file=sys.stderr)
+            sys.exit(f'{len(bad)} 个切点不在停顿窗内，先改 render.py 的 CUTS 再出片')
+        print('CUTS 全部落在分句停顿窗内')
+    else:
+        main()

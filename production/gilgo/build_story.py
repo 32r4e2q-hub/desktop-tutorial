@@ -9,6 +9,7 @@
 
     python3 production/gilgo/build_story.py            # 写 story.json + audio/manifest.json 文本
     python3 production/gilgo/build_story.py --script   # 生成 抖音脚本.md（标题/爆点/四列分镜表/金句）
+    python3 production/gilgo/build_story.py --publish  # 生成 抖音发布文案.md（题目/介绍/提问读者一句话/话题）
 """
 import json
 import sys
@@ -399,5 +400,10 @@ if __name__ == "__main__":
         out = HERE / "抖音脚本.md"
         out.write_text(render_document())
         print(f"抖音脚本.md 已写入（{len(out.read_text())} 字符）")
+    elif "--publish" in sys.argv:
+        from script_table import publish_document  # noqa: E402  (同目录)
+        out = HERE / "抖音发布文案.md"
+        out.write_text(publish_document())
+        print(f"抖音发布文案.md 已写入（{len(out.read_text())} 字符）")
     else:
         build()

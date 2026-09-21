@@ -14,6 +14,7 @@
 | 文件 | 内容 |
 |---|---|
 | `抖音脚本.md` | 用户要的脚本：3 个标题、核心爆点、四列分镜表（时间轴 / 口播文案 / 画面描述 / 音效备注）、金句结尾 |
+| `抖音发布文案.md` | 发布用：题目三选一、抖音介绍、提问读者一句话、话题、金句（`build_story.py --publish`） |
 | `screenplay.md` | 事实边界 + 六段逐字解说稿 + 分镜与衔接表 + 信息卡文案 + 来源 |
 | `交付/吉尔戈海滩_披萨盒里的凶手_三分钟_带声音.mp4` | 成片（由出片工作流 commit 回分支） |
 | `delivery/` | 成片的 EDL、字幕（srt）、音频实测报告、接触表 |
@@ -37,8 +38,8 @@
 
 | 路径 | 作用 |
 |---|---|
-| `build_story.py` | 剧本源数据：CHAPTERS（六段解说）、SHOTS（45 镜）、STYLE_PREFIX / NEGATIVE_PROMPT、SOURCES、PRINCIPLES；`--script` 生成 `抖音脚本.md` |
-| `script_table.py` | 把 story.json + CUTS + 分句时间拼成四列分镜表（`抖音脚本.md` 的正文） |
+| `build_story.py` | 剧本源数据：CHAPTERS（六段解说）、SHOTS（45 镜）、STYLE_PREFIX / NEGATIVE_PROMPT、SOURCES、PRINCIPLES；`--script` 生成 `抖音脚本.md`，`--publish` 生成 `抖音发布文案.md` |
+| `script_table.py` | 把 story.json + CUTS + 分句时间拼成四列分镜表（`抖音脚本.md` 的正文）；标题 / 爆点 / 金句 / 介绍 / 提问 / 话题也在这里 |
 | `story.json` | 分镜计划：45 镜 × 4 秒规划网格、6 章 × 30 秒；Agnes 每镜请求 7 秒 |
 | `screenplay.md` | 解说稿 + 事实边界 + 分镜表 |
 | `audio/raw/N0x.mp3` | TTS 原始输出（voice-00） |
