@@ -197,6 +197,41 @@ def captions_for(row, samples):
     return cues
 
 
+CLAUSE_TIMES=Path(__file__).with_name('audio')/'clause-times.json'
+
+
+def captions_from_clause_times(row):
+    """clause_times.py 对出来的分句边界（能量包络 DP + 停顿吸附，audio/clause-times.json）。
+
+    与 N03 的 whisper 词级时间互相印证到 ±0.15 s；比 captions_for 的按字数比例估计准
+    （后者在 N05 里最多早了 1.8 s）。对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
+    if not CLAUSE_TIMES.exists():return None
+    entry=json.loads(CLAUSE_TIMES.read_text()).get(row['id'])
+    if not entry or abs(float(entry['duration'])-row['raw_duration'])>.06:return None
+    strip=lambda t:re.sub(r'[^\u3400-\u9fffA-Za-z0-9]','',t)
+    pieces=[(strip(c['text']),float(c['start']),float(c['end'])) for c in entry['clauses']]
+    spans=[];pointer=0
+    for text in caption_clauses(row['text']):
+        key=strip(text)
+        if not key:continue
+        consumed='';a=b=None
+        while pointer<len(pieces) and len(consumed)<len(key):
+            piece,start,end=pieces[pointer]
+            if not key.startswith(consumed+piece):return None
+            consumed+=piece;a=start if a is None else a;b=end;pointer+=1
+        if consumed!=key:return None
+        spans.append((text,a,b))
+    if pointer!=len(pieces):return None
+    cues=[];last_end=row['start']
+    for i,(text,a,b) in enumerate(spans):
+        start=max(last_end,row['start']+max(0,a-.09)/row['tempo'])
+        end=row['start']+min(row['raw_duration'],b+.15)/row['tempo']
+        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.09)/row['tempo'])
+        if end<=start:return None
+        cues.append({'start':start,'end':end,'text':text});last_end=end
+    return cues
+
+
 def make_edl(project, narration):
     by_id={s['id']:s for s in project['shots']};edl=[]
     for i,row in enumerate(narration):
@@ -386,8 +421,10 @@ def main():
         aligned=None;coverage=0.0
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        cues.extend(aligned if aligned else captions_for(row,samples))
-        alignment.append({'id':row['id'],'method':'ASR-assisted' if aligned else 'pause-aware estimate',
+        clause_timed=None if aligned else captions_from_clause_times(row)
+        cues.extend(aligned or clause_timed or captions_for(row,samples))
+        alignment.append({'id':row['id'],
+                          'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
                           'character_match_coverage':coverage})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl)
