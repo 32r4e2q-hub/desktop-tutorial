@@ -326,6 +326,7 @@ Actions → **解说短片出片** → Run workflow → `project` 填 `dahlia`
 | 只装软件、先不注册 | `bash runner/setup-runner.sh --no-register`（2A 的一键版） |
 | 卸掉 / 仓库要改回公开 | `bash runner/uninstall-runner.sh`（`--purge` 连目录一起删）——**改公开前必须先卸** |
 | 装完想确认能不能出片 | `bash runner/selfcheck.sh`，退出码 0 才行 |
+| runner 会半夜自己死 / 任务卡在 "Waiting for a runner" | 没有 systemd 时 `setup-runner.sh` 会自动装看门狗（`~/watchdog.sh` + Windows 计划任务 `runner-watchdog`，5 分钟一轮）；手动催：`~/watchdog.sh` |
 | 现在（还公开）就想动起来 | 做 **2A** 那一段：装依赖、预下模型、下好安装包；**注册留到转私有之后**（现已转私有） |
 | 内容不再被外人看到 | 转私有（第 1 节）——分支做不到这件事 |
 | 转私有后还能出片、还不限量 | 注册自托管 runner（2B）+ 设 `RUNNER_LABEL`（第 3 节） |
@@ -362,5 +363,6 @@ registration token 从 GitHub 页面复制、只填进 `./config.sh` 那一行�
 | [`runner/setup-runner.sh`](runner/setup-runner.sh) | 一键安装 + 注册 + 装服务；幂等，可反复跑；**仓库不是私有就拒绝注册** |
 | [`runner/selfcheck.sh`](runner/selfcheck.sh) | 只读自检（系统/依赖/字体/服务/模型/磁盘/仓库），**退出码 0** 才算能出片 |
 | [`runner/uninstall-runner.sh`](runner/uninstall-runner.sh) | 反注册 + 停服务，可选 `--purge` 删目录 |
+| [`runner/watchdog.sh`](runner/watchdog.sh) | 没有 systemd 时的保活：监听器不在就 `setsid nohup ./run.sh` 拉起来；`setup-runner.sh` 会装到 `~/` 并挂成 Windows 计划任务 |
 | [`runner/README.md`](runner/README.md) | 三分钟版最短路径（给不想读 200 行手册的时候） |
 | `production/tests/test_runner_scripts.py` | 离线守着这三条脚本：语法、变量名一致、**公开仓库不许注册**、token 不许被打印 |

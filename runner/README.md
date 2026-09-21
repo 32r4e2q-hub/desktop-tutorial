@@ -72,7 +72,7 @@ bash runner/setup-runner.sh
 | 3 | 下载 runner 安装包并**验校验和** | 已装过会自动跳过 |
 | 4 | 预下载 whisper 模型 base + small（~600 MB） | `--no-models` |
 | 5 | 注册到仓库（token 现场取，不落盘） | `--no-register` |
-| 6 | 装成 systemd 服务（开机自启） | `--no-service` |
+| 6 | 装成 systemd 服务；**没有 systemd 时**改成后台进程 + 装上**看门狗**（`~/watchdog.sh` + Windows 计划任务，5 分钟一轮） | `--no-service` |
 
 想连开关一起拨（gh 已登录且是仓库 admin）：
 
@@ -111,6 +111,7 @@ bash runner/selfcheck.sh     # 只读自检，不改任何东西；有 ✗ 就�
 |---|---|
 | 临时借 GitHub 的机器 | 删掉仓库变量 `RUNNER_LABEL`，一切回到 `ubuntu-latest` |
 | 机器休眠/关机时别排队 | 同上，或者把机器开着——自托管的代价就是"机器得醒着" |
+| runner 半夜自己死了（任务卡在 Waiting for a runner） | 看门狗每 5 分钟自动拉回来；手动催一次：`~/watchdog.sh` |
 | 彻底卸掉 | `bash runner/uninstall-runner.sh`（`--purge` 连目录一起删） |
 | 仓库要改回公开 | **先卸掉 runner 再改公开**，顺序不能反 |
 
@@ -135,3 +136,4 @@ gh 自动取不到时，脚本会给你确切的页面地址，让你自己复�
 | `setup-runner.sh` | 一键安装 + 注册 + 装服务（幂等，可反复跑） |
 | `selfcheck.sh` | 只读自检：系统 / 依赖 / 字体 / 服务 / 模型 / 磁盘 / 仓库，退出码 0 才可出片 |
 | `uninstall-runner.sh` | 反注册 + 停服务 + 可选删目录 |
+| `watchdog.sh` | 没有 systemd 时的保活：监听器不在就拉起来；`setup-runner.sh` 会装到 `~/` 并挂计划任务 |

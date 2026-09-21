@@ -101,6 +101,10 @@ jobs:
         # 2026-09-18 仓库里积了 3.1 GB 老 artifact，出片跑到这一步报
         # "Artifact storage quota has been hit"，把一次本来没问题的渲染判成了失败。
         # 配额跟这次片子好不好毫无关系，所以这里失败不能算失败。
+        # retention-days 因此只留 1 天：仓库里 交付/ 那份才是正主，artifact 只是
+        # 当次运行的下载入口。2026-09-21 实测仓库积了 1756 MB artifact（免费上限
+        # 500 MB），而单部成片 97-135 MB —— 留 7~30 天等于三四部片就把配额顶满，
+        # 后面每一次出片都在这一步报错。
         if: always()
         continue-on-error: true
         uses: actions/upload-artifact@v4
@@ -109,4 +113,4 @@ jobs:
           path: work/${{ inputs.project }}/*.mp4
           if-no-files-found: warn
           compression-level: 0
-          retention-days: 7
+          retention-days: 1

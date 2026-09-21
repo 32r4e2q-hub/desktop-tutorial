@@ -260,14 +260,38 @@ class WorkflowIntegrityTests(unittest.TestCase):
         重试都没扛住），而当时的脚本只推一次——等于把整场渲染的成果交给运气。
         """
         script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
-        self.assertIn('git push origin "HEAD:$BRANCH"', script,
-                      "run_project.sh 里找不到推送那一行")
-        push_at = script.index('git push origin "HEAD:$BRANCH"')
-        self.assertRegex(script[:push_at][-500:], r"for attempt in",
+        push_at = script.index('push origin "HEAD:$BRANCH"')
+        self.assertRegex(script[:push_at][-1200:], r"for attempt in",
                          "推送没有被重试循环包住：网络抖一次就前功尽弃")
         self.assertIn("push_ok", script, "推送失败没有被检查，失败了也不知道")
-        self.assertIn("exit 1", script[push_at:][:900],
-                      "五次都失败时必须非 0 退出，不能假装成功")
+        self.assertIn("exit 1", script[push_at:][:1200],
+                      "全部重试都失败时必须非 0 退出，不能假装成功")
+
+    def test_render_push_fails_fast_and_retries_many_times(self):
+        """推送要「快失败、多试」，不能「少试、慢失败」。
+
+        2026-09-20 在自托管 runner 上实测：脚本原来的写法是 5 次重试，但每一轮
+        git push 自己要卡满 300 秒才报错
+        （"Failed to connect to github.com port 443 after 299980 ms: Connection timed out"），
+        5 × (300 + 20) 秒 ≈ 25 分钟全用来等同一个连不上的 socket；于是一次渲染 180 秒、
+        音频三道闸门全过、成片也 add/commit 好了的出片被判成失败。
+        而同一分钟里 `curl https://github.com` 返回 200 / 2.2 秒 —— 链路是通的，
+        只是那几次连接不走运。
+        所以：先用 TCP 探针确认端口可达（不可达就跳过本轮，别把 300 秒交给 git 的
+        connect 超时），再给传输加低速放弃阈值，并把轮数从 5 提到 40。
+        """
+        script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        push_at = script.index('push origin "HEAD:$BRANCH"')
+        around = script[max(0, push_at - 1200): push_at + 1200]
+        self.assertIn("/dev/tcp/github.com/443", around,
+                      "推送前没有 TCP 探针，不可达时每轮仍要白等 git 自己的超时")
+        self.assertIn("timeout 4", around, "TCP 探针没有超时上限")
+        self.assertIn("lowSpeedLimit=1000", around,
+                      "没有低速放弃阈值，卡住的传输会一直占着这一轮")
+        self.assertIn("lowSpeedTime=30", around, "低速阈值没有时间上限")
+        self.assertRegex(around, r"seq 1 (?:[3-9]\d|\d{3,})",
+                         "重试轮数太少：单轮快失败才有意义多试，至少要 30 轮")
+        self.assertIn("sleep 15", around, "重试间隔应短（15 秒级），长间隔又变成慢失败")
 
     def test_run_project_disables_a_stale_sparse_checkout(self):
         """提交成片前必须先把上一个 job 留在 _work 目录里的 sparse-checkout 关掉。

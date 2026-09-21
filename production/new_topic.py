@@ -389,7 +389,7 @@ jobs:
           path: work/{slug}/*.mp4
           if-no-files-found: warn
           compression-level: 0
-          retention-days: 30
+          retention-days: 1
 """
 
 

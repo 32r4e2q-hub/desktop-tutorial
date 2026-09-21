@@ -60,7 +60,7 @@ jobs:
           path: output/阴曹使者_10分钟电影解说_720p.mp4
           if-no-files-found: error
           compression-level: 0
-          retention-days: 7
+          retention-days: 1
 
       - name: Upload download diagnostics on failure
         if: failure()
