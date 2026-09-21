@@ -31,7 +31,7 @@
 5. `generate.py --validate` → push `GEN_REQUEST`（`{"workers":2}`）→ Actions 生成 38 个镜头，`results.json` + `qa/` commit 回分支。
 6. 人工看 `qa/*.jpg`（露脸 / 畸变 / 伪文字），坏镜头 `{"workers":1,"only":"Sxx"}` 重生成或改 `render.py` 的 `WINDOWS` / `TIGHTER_CROPS`。
 7. push `RENDER_REQUEST` → Actions 出片（`production/run_project.sh gilgo`），成片与报告 commit 回分支。
-8. 复审成片（抽帧看字幕 / 标签 / 音画同步），`gh release create` + `RELEASE_UPLOAD_REQUEST` 上传下载链接。
+8. 复审成片（按 EDL 逐段抽帧看画面 / 字幕 / 标签，按分句边界前后 0.25 s 抽帧核对字幕切换），push `VERBATIM_REQUEST` 做逐字听检，`gh release create` + `RELEASE_UPLOAD_REQUEST` 上传下载链接。
 
 ## 目录
 
@@ -49,10 +49,10 @@
 | `tighten_pauses.py` / `clause_times.py` | 上面两步的脚本（本项目新增） |
 | `generate.py` | 生成 Agnes 素材（75 秒节流、断点续跑、`--prune-failed`）+ `--validate` 闸门；网格改成 45×4 |
 | `fetch_sources.py` | 按 `results.json` 的 SHA-256 回填素材，不重新生成 |
-| `render.py` | CUTS（每镜只用一次，有断言守着）、信息卡、字幕高亮词、逐镜标签、混音、成品复测 |
+| `render.py` | CUTS（每镜只用一次，有断言守着）、信息卡、字幕高亮词、逐镜标签、混音、成品复测；字幕时间三级来源：ASR 词级 → `audio/clause-times.json` 的 DP 分句边界 → 比例估计 |
 | `build_audio.py` / `align_audio.py` / `media.py` / `throttle.py` | 参考项目的公共实现（副本） |
 | `gilgo.workflow.yml` | `.github/workflows/gilgo-gen.yml` 的模板（逐字节相同） |
-| `GEN_REQUEST` / `RENDER_REQUEST` / `RELEASE_UPLOAD_REQUEST` | push 触发三条工作流的 marker 文件 |
+| `GEN_REQUEST` / `RENDER_REQUEST` / `VERBATIM_REQUEST` / `RELEASE_UPLOAD_REQUEST` | push 触发四条工作流的 marker 文件（生成 / 出片 / 逐字听检 / 上传 Release） |
 | `../run_project.sh` | **所有项目共用**的出片脚本：`bash production/run_project.sh gilgo` |
 
 ## 红线（继承自参考项目 + 本片追加）
