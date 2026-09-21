@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -264,7 +265,7 @@ class ScaffoldTests(unittest.TestCase):
         # 在一个独立副本上跑，不污染其它测试读取的骨架
         project = self.production / "buildtest"
         new_topic.scaffold("buildtest", TITLE, BRANCH, project, REFERENCE)
-        env = {"PYTHONDONTWRITEBYTECODE": "1", "PATH": "/usr/bin:/bin:/usr/local/bin"}
+        env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
         run = subprocess.run([sys.executable, "build_story.py"], cwd=project, capture_output=True, text=True, env=env)
         self.assertEqual(run.returncode, 0, run.stderr)
         self.assertIn("TODO", run.stderr, "骨架里的 TODO 必须被提醒")
