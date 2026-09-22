@@ -1125,7 +1125,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1175,12 +1175,12 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-09-22T10:48:32Z",
+  "updated_at": "2026-09-22T10:52:46Z",
   "run_id": "35717738969",
   "pipeline_error": "Extra data: line 69 column 2 (char 1907)",
   "delivery": {
     "duration": 180.0,
-    "bytes": 76394664,
+    "bytes": 74617242,
     "width": 1920,
     "height": 1080,
     "fps": 30.0,
@@ -1189,7 +1189,7 @@
     "audio_codec": "aac",
     "sample_rate": 48000,
     "audio_channels": 2,
-    "sha256": "1588d761a43f65e5e22ba8be4ed232f70912c8bd1887b2c97875979039d84a97",
+    "sha256": "b16e6a9d458866bea16351c83ae3a1303430865bd9e440262c79038b2752e303",
     "decoded_ok": true,
     "status": "audio_verified_cut",
     "visual_review": "pending",
@@ -1222,7 +1222,7 @@
       {
         "id": "N06",
         "method": "pause-aware estimate",
-        "character_match_coverage": 0.15492957746478872
+        "character_match_coverage": 0.04225352112676056
       }
     ],
     "narration_voice_id": "voice-01",
@@ -1246,6 +1246,6 @@
     },
     "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
     "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
-    "artifact_name": "shipman-agnes-4"
+    "artifact_name": "shipman-agnes-5"
   }
 }
