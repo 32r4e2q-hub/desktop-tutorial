@@ -359,7 +359,7 @@ def main():
     for i,entry in enumerate(edl):
         outputs.append(render_segment(entry,i,args.sources,work/'graphics',segments,args.width,args.height,checks))
         print(f'RENDER_SEGMENT {i+1}/{len(edl)} {entry["id"]}',flush=True)
-    concat=work/'concat.txt';concat.write_text(''.join(f"file '{p.resolve().as_posix()}'\\n" for p in outputs))
+    concat=work/'concat.txt';concat.write_text(''.join(f"file '{p.resolve().as_posix()}'\n" for p in outputs))
     image_track=work/'image-track.mp4'
     run(['ffmpeg','-y','-v','error','-f','concat','-safe','0','-i',concat,'-c','copy',image_track])
     sys.path.insert(0,str(ROOT/'电影解说工具包'))
