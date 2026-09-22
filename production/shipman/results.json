@@ -1027,10 +1027,10 @@
     },
     "S42": {
       "id": "S42",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "a1d9bb2201a3ef79a4ee469870a65dbcc4b6fac1dd805ed67bf8169927995f85",
       "error": null,
-      "updated_at": "2026-09-22T02:12:38Z",
+      "updated_at": "2026-09-22T02:12:40Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2I5YzUyYmFjYzk3YzRjODU4MTU5N2NlYjJhMWRjNjZk",
       "task_id": "task_h6b9J5jIqAaqvwDco6oXdANQGAdg3Md7",
       "requested_seconds": 7.041666666666667,
@@ -1038,7 +1038,25 @@
       "bytes": 2057449,
       "sha256": "4ef18d36ab2c198ea72ecd437d5c6760d6a9181b42082ac5ae776447f29e2237",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 2057449,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/shipman/qa/S42.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S43": {
       "id": "S43",
@@ -1101,6 +1119,6 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-09-22T02:12:38Z",
+  "updated_at": "2026-09-22T02:12:40Z",
   "run_id": "35674261596"
 }
