@@ -1,0 +1,69 @@
+{
+  "duration": 180.0,
+  "bytes": 76394664,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "frames": 5400,
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "1588d761a43f65e5e22ba8be4ed232f70912c8bd1887b2c97875979039d84a97",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "id": "N01",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.10344827586206896
+    },
+    {
+      "id": "N02",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.0423728813559322
+    },
+    {
+      "id": "N03",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.07758620689655173
+    },
+    {
+      "id": "N04",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.12598425196850394
+    },
+    {
+      "id": "N05",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9921875
+    },
+    {
+      "id": "N06",
+      "method": "pause-aware estimate",
+      "character_match_coverage": 0.15492957746478872
+    }
+  ],
+  "narration_voice_id": "voice-01",
+  "narration_tempo": 0.9766898561507935,
+  "editorial_segments": 46,
+  "source_clips": 34,
+  "archival_portrait": false,
+  "unique_shots_no_reuse": true,
+  "output": "天使医生：哈罗德·希普曼的250条人命_三分钟_初版.mp4",
+  "soundtrack_mix": {
+    "rms_dbfs": -20.39,
+    "peak_dbfs": -1.53,
+    "silent_fraction": 0.0056,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -20.41,
+    "peak_dbfs": -1.49,
+    "silent_fraction": 0.011,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
