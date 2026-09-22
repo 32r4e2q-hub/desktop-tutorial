@@ -15,13 +15,15 @@ import json
 import sys
 import time
 import urllib.request
+import subprocess
+import os
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from media import probe  # noqa: E402
 
-ATTEMPTS = 4
+ATTEMPTS = 12
 MIN_DURATION = 6.0
 MAX_DURATION = 20.0
 
@@ -34,27 +36,71 @@ def digest(path: Path) -> str:
     return handle.hexdigest()
 
 
+def download_urllib(url: str, destination: Path) -> None:
+    request = urllib.request.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 arena-shipman-refetch/1.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.9,zh-CN;q=0.8",
+    })
+    with urllib.request.urlopen(request, timeout=180) as response, destination.open("wb") as out:
+        while True:
+            block = response.read(1024 * 512)
+            if not block:
+                break
+            out.write(block)
+
+def download_curl(url: str, destination: Path) -> None:
+    # curl with retries, http1.1, insecure fallback, 180s timeout
+    cmd = [
+        "curl", "-L", "--fail", "--retry", "5", "--retry-delay", "5",
+        "--connect-timeout", "30", "--max-time", "300",
+        "--http1.1",
+        "-A", "Mozilla/5.0 (X11; Linux x86_64) arena-shipman-refetch/1.0",
+        "-o", str(destination),
+        url
+    ]
+    # Try with default, if fails try with --insecure
+    try:
+        subprocess.check_call(cmd, timeout=320)
+    except Exception:
+        cmd_insecure = cmd + ["--insecure"]
+        # Replace -o position? Actually --insecure before -o is okay
+        cmd2 = [
+            "curl", "-L", "--fail", "--retry", "5", "--retry-delay", "5",
+            "--connect-timeout", "30", "--max-time", "300",
+            "--http1.1", "--insecure",
+            "-A", "Mozilla/5.0 arena-shipman-refetch",
+            "-o", str(destination),
+            url
+        ]
+        subprocess.check_call(cmd2, timeout=320)
+
 def download(url: str, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = destination.with_suffix(destination.suffix + ".part")
     last_error = None
     for attempt in range(1, ATTEMPTS + 1):
+        temporary.unlink(missing_ok=True)
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "arena-shipman-refetch/1.0"})
-            with urllib.request.urlopen(request, timeout=120) as response, temporary.open("wb") as out:
-                while True:
-                    block = response.read(1024 * 256)
-                    if not block:
-                        break
-                    out.write(block)
+            # Alternate methods: odd attempts urllib, even curl
+            if attempt % 2 == 1:
+                print(f"  attempt {attempt}/{ATTEMPTS} urllib {url[:80]}...", flush=True)
+                download_urllib(url, temporary)
+            else:
+                print(f"  attempt {attempt}/{ATTEMPTS} curl {url[:80]}...", flush=True)
+                download_curl(url, temporary)
+            # Verify file not empty
+            if temporary.stat().st_size < 100000:
+                raise RuntimeError(f"downloaded file too small {temporary.stat().st_size}")
             temporary.replace(destination)
             return
-        except Exception as error:  # noqa: BLE001 - retried below
+        except Exception as error:
             last_error = error
+            print(f"  retry {attempt}/{ATTEMPTS} after {type(error).__name__}: {error}", flush=True)
             temporary.unlink(missing_ok=True)
             if attempt < ATTEMPTS:
-                print(f"  retry {attempt}/{ATTEMPTS - 1} after {type(error).__name__}: {error}", flush=True)
-                time.sleep(attempt * 5)
+                sleep_time = min(5 * attempt + (attempt//3)*10, 30)
+                time.sleep(sleep_time)
     raise RuntimeError(f"Download failed for {url}: {last_error}")
 
 
