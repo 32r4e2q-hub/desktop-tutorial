@@ -24,7 +24,7 @@ concurrency:
 jobs:
   generate:
     if: github.ref == 'refs/heads/arena/01a0c697-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
