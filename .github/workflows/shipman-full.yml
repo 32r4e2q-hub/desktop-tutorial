@@ -14,7 +14,7 @@ on:
         default: false
   push:
     branches:
-      - arena/01a0c697-desktop-tutorial
+      - arena/01a0c86a-desktop-tutorial
     paths:
       - production/shipman/FULL_REQUEST
 
@@ -22,19 +22,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: shipman-full-arena-01a0c697-desktop-tutorial
+  group: shipman-full-arena-01a0c86a-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   full:
-    if: github.ref == 'refs/heads/arena/01a0c697-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a0c86a-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 400
     steps:
       - name: Check out
         uses: actions/checkout@v4
         with:
-          ref: arena/01a0c697-desktop-tutorial
+          ref: arena/01a0c86a-desktop-tutorial
           fetch-depth: 1
 
       - name: Resolve payload
@@ -123,7 +123,7 @@ jobs:
           else
             git commit -m "Deliver the $PROJECT cut via full pipeline"
             for attempt in $(seq 1 20); do
-              if git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 push origin HEAD:arena/01a0c697-desktop-tutorial; then
+              if git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 push origin HEAD:arena/01a0c86a-desktop-tutorial; then
                 echo "PUBLISHED"; break
               fi
               sleep 10
@@ -153,4 +153,4 @@ jobs:
           git config user.email "arena@local"
           git add -f production/shipman/*diag.log || true
           git commit -m "shipman full pipeline diag $(date -u +%FT%TZ)" || true
-          git push origin HEAD:arena/01a0c697-desktop-tutorial || true
+          git push origin HEAD:arena/01a0c86a-desktop-tutorial || true

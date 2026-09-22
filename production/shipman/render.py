@@ -384,7 +384,7 @@ def main():
     run(['ffmpeg','-v','error','-threads','2','-i',args.output,'-map','0:v:0','-map','0:a:0','-f','null','-'])
     final_audio=measure(args.output,chapters=narration)
     final_audio['measured_on']='delivered mp4'
-    (work/'final-audio-report.json').write_text(json.dumps(final_audio,ensure_ascii=False,indent=2)+'\\n')
+    (work/'final-audio-report.json').write_text(json.dumps(final_audio,ensure_ascii=False,indent=2)+'\n')
     try:
         assert_audible(final_audio)
     except Exception as exc:
@@ -405,9 +405,9 @@ def main():
                                   ('rms_dbfs','peak_dbfs','silent_fraction','quietest_window_dbfs')},
                'audio_listening_review':'measured (level + per-chapter + silence gate); not a substitute for human word-level listening',
                'note':'Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.'}
-    (work/'technical-report.json').write_text(json.dumps(technical,ensure_ascii=False,indent=2)+'\\n')
-    (work/'edit-decision-list.json').write_text(json.dumps(edl,ensure_ascii=False,indent=2)+'\\n')
-    (work/'narration-timing.json').write_text(json.dumps(narration,ensure_ascii=False,indent=2)+'\\n')
+    (work/'technical-report.json').write_text(json.dumps(technical,ensure_ascii=False,indent=2)+'\n')
+    (work/'edit-decision-list.json').write_text(json.dumps(edl,ensure_ascii=False,indent=2)+'\n')
+    (work/'narration-timing.json').write_text(json.dumps(narration,ensure_ascii=False,indent=2)+'\n')
     print('RENDER_COMPLETE '+json.dumps(technical,ensure_ascii=False),flush=True)
 
 if __name__=='__main__':main()

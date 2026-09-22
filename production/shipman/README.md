@@ -4,7 +4,7 @@
 参考实现只被复制，没有被修改；本片的所有编辑都发生在这个目录里。
 
 - slug：`shipman`
-- 出片分支：`arena/01a0c697-desktop-tutorial`
+- 出片分支：`arena/01a0c86a-desktop-tutorial`
 
 ## 现在还不能出片（故意的）
 

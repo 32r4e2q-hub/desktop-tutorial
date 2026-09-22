@@ -14,7 +14,7 @@ on:
         default: ''
   push:
     branches:
-      - arena/01a0c697-desktop-tutorial
+      - arena/01a0c86a-desktop-tutorial
     paths:
       - production/shipman/RENDER_REQUEST
 
@@ -22,19 +22,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: shipman-render-arena-01a0c697-desktop-tutorial
+  group: shipman-render-arena-01a0c86a-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   render:
-    if: github.ref == 'refs/heads/arena/01a0c697-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/01a0c86a-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 90
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a0c697-desktop-tutorial
+          ref: arena/01a0c86a-desktop-tutorial
           fetch-depth: 1
           filter: blob:none
           sparse-checkout: |
@@ -63,7 +63,7 @@ jobs:
           PROJECT: shipman
           SKIP_ASR: ${{ inputs.skip_asr }}
           FILM_NAME: ${{ inputs.film_name }}
-          BRANCH: arena/01a0c697-desktop-tutorial
+          BRANCH: arena/01a0c86a-desktop-tutorial
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME"
 
       - name: Upload the finished film
