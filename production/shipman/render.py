@@ -247,7 +247,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     def clock(s):
         ms=round(s*1000);h,ms=divmod(ms,3600000);m,ms=divmod(ms,60000);sec,ms=divmod(ms,1000)
         return f'{h:02d}:{m:02d}:{sec:02d},{ms:03d}'
-    srt.write_text('\\n'.join(f"{i}\\n{clock(c['start'])} --> {clock(c['end'])}\\n{c['text']}\\n" for i,c in enumerate(cues,1)))
+    srt.write_text('\n'.join(f"{i}\n{clock(c['start'])} --> {clock(c['end'])}\n{c['text']}\n" for i,c in enumerate(cues,1)))
 
 def write_sfx(path,edl):
     rng=np.random.default_rng(1998001);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
