@@ -6,26 +6,23 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from media import probe
 
-ATTEMPTS = 20
+ATTEMPTS = 30
 MIN_DURATION = 6.0
 MAX_DURATION = 20.0
 
-def digest(path: Path) -> str:
+def digest(p: Path) -> str:
     h=hashlib.sha256()
-    with path.open("rb") as f:
+    with p.open("rb") as f:
         for b in iter(lambda: f.read(1024*1024), b""):
             h.update(b)
     return h.hexdigest()
 
 def download_urllib(url: str, dest: Path):
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
+    ctx = ssl._create_unverified_context()
     ctx.options |= ssl.OP_NO_TLSv1_3
     req = urllib.request.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "User-Agent": "Mozilla/5.0",
         "Accept": "*/*",
-        "Accept-Encoding": "identity",
         "Referer": "https://agnes-ai.cn/",
     })
     with urllib.request.urlopen(req, timeout=300, context=ctx) as r, dest.open("wb") as out:
@@ -36,21 +33,52 @@ def download_urllib(url: str, dest: Path):
             out.write(chunk)
 
 def download_curl(url: str, dest: Path):
-    variants = [
-        ["curl","-L","--fail","--retry","8","--retry-delay","3","--connect-timeout","20","--max-time","400","--http1.1","-k","-A","Mozilla/5.0","-o",str(dest),url],
-        ["curl","-L","--fail","--retry","8","--retry-delay","3","--connect-timeout","20","--max-time","400","--http1.1","--tlsv1.2","-k","-A","Mozilla/5.0","-o",str(dest),url],
-        ["wget","--no-check-certificate","--tries=8","--timeout=30","-O",str(dest),url],
+    cmds=[
+        ["curl","-L","--fail","--retry","10","--retry-delay","2","--connect-timeout","15","--max-time","500","--http1.1","-k","--tlsv1.2","-A","Mozilla/5.0","-o",str(dest),url],
+        ["curl","-L","--fail","--retry","10","--retry-delay","2","--connect-timeout","15","--max-time","500","--http1.1","-k","-A","Mozilla/5.0","-o",str(dest),url],
+        ["wget","--no-check-certificate","--tries=10","--timeout=30","-O",str(dest),url],
+        ["aria2c","--check-certificate=false","--max-tries=10","--retry-wait=3","--timeout=30","-o",str(dest),url],
+        ["ffmpeg","-y","-http_persistent","0","-i",url,"-c","copy",str(dest)],
     ]
     last=None
-    for cmd in variants:
+    for cmd in cmds:
         try:
-            subprocess.check_call(cmd, timeout=420)
+            # check if binary exists
+            if subprocess.call(["which", cmd[0]], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)!=0:
+                continue
+            subprocess.check_call(cmd, timeout=600)
+            if dest.exists() and dest.stat().st_size>100000:
+                return
+        except Exception as e:
+            last=e
+            if dest.exists():
+                dest.unlink(missing_ok=True)
+            continue
+    raise last or RuntimeError("all downloaders failed")
+
+def download_via_proxy(url: str, dest: Path):
+    # Try public proxies that might be in China or have better route
+    proxies=[
+        "https://gh-proxy.com/",
+        "https://ghproxy.net/",
+        "https://mirror.ghproxy.com/",
+        "https://corsproxy.io/?",
+    ]
+    last=None
+    for prefix in proxies:
+        try:
+            proxied = prefix + url if "?" not in prefix else prefix + url
+            print(f"    trying proxy {prefix[:30]}...", flush=True)
+            cmd=["curl","-L","--fail","--retry","3","--connect-timeout","10","--max-time","300","-k","-A","Mozilla/5.0","-o",str(dest),proxied]
+            subprocess.check_call(cmd, timeout=350)
             if dest.stat().st_size>100000:
                 return
         except Exception as e:
             last=e
+            if dest.exists():
+                dest.unlink(missing_ok=True)
             continue
-    raise last or RuntimeError("all curl variants failed")
+    raise last or RuntimeError("proxy failed")
 
 def download(url: str, dest: Path):
     dest.parent.mkdir(parents=True, exist_ok=True)
@@ -59,12 +87,21 @@ def download(url: str, dest: Path):
     for attempt in range(1, ATTEMPTS+1):
         tmp.unlink(missing_ok=True)
         try:
-            if attempt%2==1:
-                print(f"  attempt {attempt}/{ATTEMPTS} urllib custom SSL {url[:70]}", flush=True)
+            # Cycle through methods
+            mod = attempt % 4
+            if mod==1:
+                print(f"  attempt {attempt}/{ATTEMPTS} urllib {url[:60]}", flush=True)
                 download_urllib(url, tmp)
-            else:
-                print(f"  attempt {attempt}/{ATTEMPTS} curl variant {url[:70]}", flush=True)
+            elif mod==2:
+                print(f"  attempt {attempt}/{ATTEMPTS} curl/wget/ffmpeg {url[:60]}", flush=True)
                 download_curl(url, tmp)
+            elif mod==3:
+                print(f"  attempt {attempt}/{ATTEMPTS} proxy {url[:60]}", flush=True)
+                download_via_proxy(url, tmp)
+            else:
+                print(f"  attempt {attempt}/{ATTEMPTS} curl insecure {url[:60]}", flush=True)
+                cmd=["curl","-L","--fail","-k","--http1.1","--tlsv1.2","--connect-timeout","15","--max-time","500","-o",str(tmp),url]
+                subprocess.check_call(cmd, timeout=600)
             if tmp.stat().st_size<100000:
                 raise RuntimeError(f"too small {tmp.stat().st_size}")
             tmp.replace(dest)
@@ -73,7 +110,7 @@ def download(url: str, dest: Path):
             last=e
             print(f"  retry {attempt}/{ATTEMPTS} {type(e).__name__}: {e}", flush=True)
             tmp.unlink(missing_ok=True)
-            time.sleep(min(attempt*3, 20))
+            time.sleep(min(attempt*2, 15))
     raise RuntimeError(f"Download failed for {url}: {last}")
 
 def main():
