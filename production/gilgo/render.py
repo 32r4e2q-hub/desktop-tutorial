@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""《天使医生：哈罗德·希普曼的250条人命》确定性三分钟成片（云端 Actions 上跑）。
+"""《吉尔戈海滩：披萨盒里的凶手》确定性三分钟成片（云端 Actions 上跑）。
 
 只接受 results.json 里登记过、SHA-256 对得上的 Agnes 动画片段 + 六段收紧后的配音；
 缺任何一段都直接报错，绝不用静帧/幻灯片顶替。输出成片、EDL、字幕、音频测量报告和 QA 接触表。
-基于吉尔戈海滩项目（45镜×4秒网格）的无瑕疵流程。
 """
 import argparse
 import hashlib
@@ -30,52 +29,33 @@ INTRO = 0.6
 GAP = 1.08
 OUTRO = 6.0
 RATE = 48000
-
-# 45镜×4秒网格，Agnes每镜仍请求7秒，剪辑时取中间可用段
+# 切点 = 收紧后配音（audio/N0x.mp3）里的秒数，取自 clause_times.py 对出来的分句边界
+# （每个边界都落在 TTS 的 0.35 s 句间静音里，再加 0.15 s 让画面比新句子稍早一点点换）。
+# 45 个镜头按成片顺序编号，每个镜头只出现一次——用户要求"每个片段都是全新的镜头，不复用"。
 CUTS = {
-    'N01': [(0,'S01',''), (4,'S02',''), (8,'S03',''), (12,'S04',''), (16,'S05',''), (20,'S06',''), (24,'S07','')],
-    'N02': [(0,'S08',''), (4,'S09',''), (8,'S10',''), (12,'S11',''), (16,'S12',''), (20,'S13',''), (24,'S14',''), (28,'S15','')],
-    'N03': [(0,'S16',''), (4,'S17',''), (8,'S18',''), (12,'S19',''), (16,'S20',''), (20,'S21',''), (24,'S22','')],
-    'N04': [(0,'S23',''), (4,'S24',''), (8,'S25',''), (12,'S26',''), (16,'S27',''), (20,'S28',''), (24,'S29',''), (28,'S30','')],
-    'N05': [(0,'S31',''), (4,'S32',''), (8,'S33',''), (12,'S34',''), (16,'S35',''), (20,'S36',''), (24,'S37',''), (28,'S38','')],
-    'N06': [(0,'S39',''), (4,'S40',''), (8,'S41',''), (12,'S42',''), (16,'S43',''), (20,'S44',''), (24,'S45','')],
+    'N01': [(0,'S01',''), (4.7,'S02',''), (8.25,'S03',''), (10.95,'S04',''), (15.1,'S05',''), (20.8,'S06','')],
+    'N02': [(0,'S07',''), (3.95,'S08',''), (7.6,'S09',''), (9.7,'S10',''), (12.3,'S11',''), (14.8,'S12',''), (17.05,'S13','')],
+    'N03': [(0,'S14',''), (4.2,'S15',''), (7.9,'S16',''), (10.95,'S17',''), (14.4,'S18',''), (17.0,'S19',''), (21.7,'S20',''), (27.0,'S21','')],
+    'N04': [(0,'S22',''), (4.7,'S23',''), (7.45,'S24',''), (12.85,'S25',''), (19.0,'S26',''), (21.2,'S27',''), (24.55,'S28','')],
+    'N05': [(0,'S29',''), (3.7,'S30',''), (7.35,'S31',''), (9.4,'S32',''), (14.45,'S33',''), (18.95,'S34',''), (21.6,'S35',''), (25.3,'S36',''), (29.0,'S37','')],
+    'N06': [(0,'S38',''), (5.1,'S39',''), (8.45,'S40',''), (14.4,'S41',''), (17.4,'S42',''), (21.6,'S43',''), (24.2,'S44',''), (27.35,'S45','')],
 }
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
-WINDOWS = {
-    # 针对场景融合与伪文字镜头的精准安全时间窗（单位：秒，必须满足时长可用窗口，避免慢放超标）
-    'S03': (0.0, 3.6),    # 取前半段室内空椅与毛毯，规避后半段背景漂浮杂质
-    'S11': (0.0, 3.2),    # 取医生持笔签名动作前段，规避后半段虚构纸面伪文字
-    'S14': (2.8, 6.8),    # 规避开头街道过渡，只取药房储藏柜与登记簿
-    'S18': (0.0, 3.2),    # 规避中途切入实验室，保留海德镇暮色街道与诊所
-    'S21': (2.5, 6.7),    # 规避市政大楼跳变，保留空旷候诊室与长椅
-    'S23': (2.8, 6.8),    # 规避街道过渡，保留市长起居室与手袋桌台
-    'S24': (0.0, 3.6),    # 锁定律师办公桌与信封微距，避开背景杂乱
-    'S25': (0.0, 3.6),    # 锁定老式打字机键位微距特写
-    'S27': (2.8, 6.8),    # 避开中途咖啡厅误转场，锁定女律师案卷桌前
-    'S28': (0.0, 3.6),    # 锁定警署案卷与办案台
-    'S29': (0.0, 3.6),    # 锁定物证查扣箱与手册封面，避开内部伪文字
-    'S32': (2.8, 6.8),    # 锁定毒理学泥土分子图解，避开前段外景
-    'S34': (0.0, 3.2),    # 锁定墓园十字木标与冷雾，避开中途发光畸变
-    'S37': (2.8, 6.8),    # 锁定打字机铅字机械击打纸张，避开办公室大景
-    'S39': (2.8, 6.8),    # 锁定法庭法槌与被告席空景，避开中途换场
-    'S41': (2.8, 6.8),    # 锁定牢房高窗与铁窗阴影，避开前段法庭残余
-}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面
-TIGHTER_CROPS = {
-    # 推近画面裁去边缘漂浮与背景误画 (zoom, center_x, center_y)
-    'S03': (1.35, 0.55, 0.50),  # 推近1.35倍强制锁定起居室扶手椅与茶几
-    'S24': (1.40, 0.50, 0.50),  # 推近1.40倍锁定桌面遗嘱信封特写
-    'S28': (1.45, 0.50, 0.45),  # 推近1.45倍锁定警员办公台与案卷夹
-}  # 'S02': (1.2, 0.5, 0.45) 推近1.2倍，中心50%,45%
+WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
+TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
+
 
 def run(args, capture=False):
     return subprocess.run([str(x) for x in args], check=True, capture_output=capture, text=capture)
+
 
 def digest(path):
     h=hashlib.sha256()
     with Path(path).open('rb') as f:
         for block in iter(lambda:f.read(1024*1024), b''): h.update(block)
     return h.hexdigest()
+
 
 def find_font(serif=False):
     candidates = []
@@ -86,61 +66,70 @@ def find_font(serif=False):
         if p.exists(): return p
     raise RuntimeError('A Chinese Noto CJK font is required; refusing to render missing glyphs')
 
+
 def font(size, serif=False):
     path=find_font(serif)
     return ImageFont.truetype(str(path), size, index=2 if path.suffix=='.ttc' else 0)
+
 
 def centered(draw, text, y, size, color, x=960, serif=False):
     f=font(size,serif); box=draw.textbbox((0,0),text,font=f)
     draw.text((x-(box[2]-box[0])/2,y),text,font=f,fill=color)
 
+
 def card_image(sid, variant, directory):
     directory.mkdir(parents=True,exist_ok=True)
     dest=directory/f'{sid}-{variant or "base"}.jpg'
     if dest.exists():return dest
-    rng=np.random.default_rng(1998+int(sid[1:]) if sid.startswith("S") else 1998)
+    rng=np.random.default_rng(2023+int(sid[1:]) if sid.startswith("S") else 2023)
     y,x=np.mgrid[0:1080,0:1920]
     glow=np.clip(1-((x-940)/1200)**2-((y-510)/850)**2,0,1)
     grain=rng.normal(0,1.2,(1080,1920))
     bg=np.stack([22+glow*16+grain,25+glow*15+grain,24+glow*10+grain],axis=-1)
     im=Image.fromarray(np.uint8(np.clip(bg,0,255)),'RGB');d=ImageDraw.Draw(im)
     if sid=='END':
-        centered(d,'信任，是他最好的凶器',342,96,'#ede8db',serif=True)
-        centered(d,'天使医生 · 哈罗德·希普曼 · 1975—1998 · 250人',498,46,'#b7aa82')
-        centered(d,'最可怕的恶魔穿着白大褂',668,34,'#a6aaa0')
-        centered(d,'资料：Shipman Inquiry · BBC · Wikipedia · NCBI / 原创解说 · AI动画情景重现',895,21,'#7f897d')
+        centered(d,'是他太蠢，还是警察太耐心？',342,96,'#ede8db',serif=True)
+        centered(d,'吉尔戈海滩连环案 · 1993—2010 · 至少 8 名受害者',498,46,'#b7aa82')
+        centered(d,'你扔掉的每一样东西，都在替你说话。',668,34,'#a6aaa0')
+        centered(d,'资料：AP · CBS · CNN · Newsday · 纽约时报 · 萨福克县地检公开报道 / 原创解说 · AI动画情景重现',895,21,'#7f897d')
     else:
         d.rounded_rectangle((169,104,1751,954),radius=6,fill='#0d1210')
+        # Physical-paper palette connects the cards to the generated walnut desks and case folders.
         paper=np.stack([218+grain,212+grain,192+grain],axis=-1)
         patch=Image.fromarray(np.uint8(np.clip(paper[119:939,184:1736],0,255)),'RGB')
         im.paste(patch,(184,119));d=ImageDraw.Draw(im)
-        d.text((265,180),'案件档案  /  HYDE · 1975 — 2004',font=font(24),fill='#5d6456')
+        d.text((265,180),'案件档案  /  LONG ISLAND · 1993 — 2026',font=font(24),fill='#5d6456')
         d.line((265,236,1655,236),fill='#929781',width=2)
         headings={
-            'S05':('24年｜250条人命','年度最佳医生 · 海德镇','最信任他的人死得最快'),
-            'S10':('二乙酰吗啡 0.2g','抑制呼吸中枢｜5分钟','像睡着一样死去'),
-            'S15':('火化只需2个医生签字','第二人几乎不核查','吗啡用量自己说了算'),
-            'S22':('海德镇火化率','比全英平均高出 30%','殡仪馆：奇怪但没人敢说'),
-            'S26':('£386,000 全留给医生','打字机伪造｜漏洞百出','死者连打字机都不会用'),
-            'S30':('安吉拉·伍德拉夫 律师','“我妈从不用打字机”','遗嘱签名伪造'),
-            'S33':('体内吗啡 15倍致死量','15具尸体 全部超标','埋入组织数十年不分解'),
-            'S35':('兄弟牌打字机','就在诊所里','指纹全是他的'),
-            'S38':('吗啡在人体组织中','可保存数十年','科学不会说谎'),
-            'S40':('官方认定 250人遇害','英国史上杀人最多','15项谋杀罪名成立'),
-            'S45':('信任，是他最好的凶器','最可怕的恶魔穿着白大褂','你敢把命交给熟人医生吗？'),
+            # 镜头号 -> (大标题, 第一行, 第二行)；全部是公开报道里的事实，不写推测
+            'S05':('吉尔戈海滩连环案','纽约长岛 · 海洋公园大道沿线 · 1993 — 2010','至少 8 名受害者 · 多为在网上招揽客人的年轻女性'),
+            'S07':('雷克斯 · 赫曼','曼哈顿建筑合规咨询师 · 身高 1.93 米','长岛马萨皮夸公园 · 已婚 · 两个孩子 · 住在从小长大的房子里'),
+            'S20':('十七年','','至少 8 名受害者 · 最早 1993 年 · 最晚 2010 年'),
+            'S27':('转机','2022 年 3 月 14 日 · 目击证词：墨绿色雪佛兰「雪崩」皮卡','车辆数据库查到车主：雷克斯 · 赫曼'),
+            'S33':('99.96%','披萨边 DNA  ⇄  当年麻布上的一根男性毛发','可排除 99.96% 的北美人口 · 他排除不了'),
+            'S37':('作案清单','Word 文档 · 建于 2000 年 · 藏在地下室的硬盘里','问题栏：毛发 · DNA · 指纹        目标栏：小个子好'),
+            'S38':('作案清单 · 备忘','行动前要睡够，太累会出问题','写下这句话的人，第二天照常去上班'),
         }
-        if sid not in headings:
-            # fallback for unexpected graphic id
-            title,line1,line2=(f'信息卡 {sid}','资料摘要','示意图')
-        else:
-            title,line1,line2=headings[sid]
+        title,line1,line2=headings[sid]
         centered(d,title,302,108,'#2c3a32',serif=True)
-        centered(d,line1,486,49,'#475648')
+        if sid=='S20':
+            # 手绘时间轴：1993 到 2010 之间八个受害者年份的刻度（年份来自起诉书/认罪陈述）
+            x0,x1,y=420,1500,500
+            d.line((x0,y,x1,y),fill='#6f7a68',width=4)
+            for year in (1993,1996,2000,2003,2007,2009,2010,2010.35):
+                x=x0+(x1-x0)*(year-1993)/17
+                d.ellipse((x-9,y-9,x+9,y+9),fill='#8c3b2e')
+            for year,x in ((1993,x0),(2010,x1)):
+                centered(d,str(year),y+42,34,'#475648',x=x)
+            centered(d,'每个红点是一名受害者的遇害年份',y+96,26,'#75806c')
+        else:
+            centered(d,line1,486,49,'#475648')
         d.line((855,628,1065,628),fill='#958358',width=3)
         centered(d,line2,720,38,'#5c6656')
         d.text((265,875),'资料摘要与示意图 · 并非原始档案影像',font=font(21),fill='#75806c')
     im.save(dest,quality=93)
     return dest
+
 
 def audio_layout(chapters, audio_root, work, manifest):
     directory=work/'audio';directory.mkdir(parents=True,exist_ok=True)
@@ -167,6 +156,7 @@ def audio_layout(chapters, audio_root, work, manifest):
     if abs(rows[-1]['end']-(DURATION-OUTRO))>.001:raise RuntimeError('Narration layout mismatch')
     return rows,waves
 
+
 def caption_clauses(text):
     raw=re.findall(r'[^，。！？；：、]+[，。！？；：、]?',text)
     result=[]
@@ -176,7 +166,9 @@ def caption_clauses(text):
         if part.strip():result.append(part.strip())
     return result
 
+
 def captions_for(row, samples):
+    """Pause-aware proportional alignment, not a claim of word-level ASR accuracy."""
     clauses=caption_clauses(row['text']);hop=960
     pad=(-len(samples))%hop
     blocks=np.pad(samples,(0,pad)).reshape(-1,hop)
@@ -204,6 +196,42 @@ def captions_for(row, samples):
         cues.append({'start':row['start']+a/row['tempo'],'end':row['start']+b/row['tempo'],'text':text})
     return cues
 
+
+CLAUSE_TIMES=Path(__file__).with_name('audio')/'clause-times.json'
+
+
+def captions_from_clause_times(row):
+    """clause_times.py 对出来的分句边界（能量包络 DP + 停顿吸附，audio/clause-times.json）。
+
+    与 N03 的 whisper 词级时间互相印证到 ±0.15 s；比 captions_for 的按字数比例估计准
+    （后者在 N05 里最多早了 1.8 s）。对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
+    if not CLAUSE_TIMES.exists():return None
+    entry=json.loads(CLAUSE_TIMES.read_text()).get(row['id'])
+    if not entry or abs(float(entry['duration'])-row['raw_duration'])>.06:return None
+    strip=lambda t:re.sub(r'[^\u3400-\u9fffA-Za-z0-9]','',t)
+    pieces=[(strip(c['text']),float(c['start']),float(c['end'])) for c in entry['clauses']]
+    spans=[];pointer=0
+    for text in caption_clauses(row['text']):
+        key=strip(text)
+        if not key:continue
+        consumed='';a=b=None
+        while pointer<len(pieces) and len(consumed)<len(key):
+            piece,start,end=pieces[pointer]
+            if not key.startswith(consumed+piece):return None
+            consumed+=piece;a=start if a is None else a;b=end;pointer+=1
+        if consumed!=key:return None
+        spans.append((text,a,b))
+    if pointer!=len(pieces):return None
+    cues=[];last_end=row['start']
+    for i,(text,a,b) in enumerate(spans):
+        start=max(last_end,row['start']+max(0,a-.09)/row['tempo'])
+        end=row['start']+min(row['raw_duration'],b+.15)/row['tempo']
+        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.09)/row['tempo'])
+        if end<=start:return None
+        cues.append({'start':start,'end':end,'text':text});last_end=end
+    return cues
+
+
 def make_edl(project, narration):
     by_id={s['id']:s for s in project['shots']};edl=[]
     for i,row in enumerate(narration):
@@ -220,20 +248,27 @@ def make_edl(project, narration):
                 edl[-1]['end_frame']=b
             else:edl.append(record)
     edl.append({'id':'END','kind':'graphic','variant':'','start_frame':round(176.2*FPS),'end_frame':5400,
-                'narration_id':'N06','purpose':'金句收尾：信任是凶器'})
+                'narration_id':'N06','purpose':'片尾卡：把互动问题留在屏幕上，附资料来源'})
     if edl[0]['start_frame']!=0 or edl[-1]['end_frame']!=5400:raise RuntimeError('EDL duration is not 180s')
+    used=[e['id'] for e in edl if e['id']!='END']
+    if len(used)!=len(set(used)):raise RuntimeError('本片规定每个镜头只用一次，CUTS 里有重复镜头: '+
+                                                   ','.join(sorted({x for x in used if used.count(x)>1})))
+    if set(used)!=set(by_id):raise RuntimeError('CUTS 没有用到全部镜头: '+','.join(sorted(set(by_id)-set(used))))
     for left,right in zip(edl,edl[1:]):
         if left['end_frame']!=right['start_frame']:raise RuntimeError('EDL gap/overlap')
     for e in edl:
         if e['end_frame']<=e['start_frame']:raise RuntimeError('Empty editorial segment')
     return edl
 
+
 def ass_time(s):
     centis=round(s*100);h,centis=divmod(centis,360000);m,centis=divmod(centis,6000);sec,cs=divmod(centis,100)
     return f'{h}:{m:02d}:{sec:02d}.{cs:02d}'
 
+
 def safe_text(text):
     return text.replace('\\','/').replace('{','（').replace('}','）').replace('\n',' ')
+
 
 def write_subtitles(path,cues,edl):
     text='''[Script Info]
@@ -254,17 +289,20 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 '''
     for cue in cues:
         caption=safe_text(cue['text'])
-        for key in ['250人','0.2克','15倍','38万','哈罗德·希普曼','吗啡','打字机','信任']:
+        for key in ['披萨盒','三十年','雷克斯·赫曼','一米九三','一次性手机','十七年','至少八名受害者','全美震动',
+                    '雪佛兰雪崩皮卡','正是赫曼','等他扔垃圾','百分之九十九点九六','他不能','Word文档','作案清单',
+                    '小个子好','当庭认罪','终身监禁','没吃完的披萨边','都在替你说话','评论区聊聊']:
             if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
-        text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\\n"
+        text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
     for entry in edl:
         if entry['id']=='END':continue
-        label={'agnes':'AI动画情景重现 · 非新闻影像','archive':'档案照片 · 来源见 story.json 的 sources',
-               'graphic':'资料摘要与示意图'}[entry['kind']]
-        if entry['id'] in ('S05','S10','S15','S22','S26','S30','S33','S35','S38','S40','S45'):
-            label='资料卡 · 非原始档案影像'
-        text+=f"Dialogue: 0,{ass_time(entry['start_frame']/FPS)},{ass_time(entry['end_frame']/FPS)},Label,,0,0,0,,{label}\\n"
-    text+='Dialogue: 2,0:00:00.35,0:00:04.70,Title,,0,0,0,,{\\fad(500,550)}天使医生：哈罗德·希普曼的250条人命\\n'
+        label={'agnes':'AI动画情景重现 · 非新闻影像','archive':'档案照片',
+               'graphic':'资料摘要与示意图 · 非原始档案'}[entry['kind']]
+        label={'S22':'AI动画示意 · 非现场影像','S31':'AI动画示意 · 非取证影像','S32':'AI动画示意 · 非取证影像',
+               'S34':'AI动画示意 · 非执法影像','S35':'AI动画示意 · 非搜查影像','S36':'AI动画示意 · 非取证影像',
+               'S40':'AI动画示意 · 非庭审影像','S41':'AI动画示意 · 非监狱影像'}.get(entry['id'],label)
+        text+=f"Dialogue: 0,{ass_time(entry['start_frame']/FPS)},{ass_time(entry['end_frame']/FPS)},Label,,0,0,0,,{label}\n"
+    text+='Dialogue: 2,0:00:00.35,0:00:04.70,Title,,0,0,0,,{\\fad(500,550)}吉尔戈海滩\\N{\\fs41\\fsp6}披萨盒里的凶手\n'
     path.write_text(text)
     srt=path.with_suffix('.srt')
     def clock(s):
@@ -272,15 +310,13 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         return f'{h:02d}:{m:02d}:{sec:02d},{ms:03d}'
     srt.write_text('\n'.join(f"{i}\n{clock(c['start'])} --> {clock(c['end'])}\n{c['text']}\n" for i,c in enumerate(cues,1)))
 
+
 def write_sfx(path,edl):
-    rng=np.random.default_rng(1998001);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
+    rng=np.random.default_rng(20230126);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
     events=[]
-    for source,kind in [('S02','paper'),('S08','paper'),('S11','paper'),('S24','keys'),('S28','phone')]:
-        try:
-            first=next(e for e in edl if e['id']==source)
-            events.append((max(0,first['start_frame']/FPS-.18),kind))
-        except StopIteration:
-            continue
+    for source,kind in [('S04','paper'),('S21','phone'),('S24','paper'),('S26','keys'),('S31','paper'),('S40','press')]:
+        first=next(e for e in edl if e['id']==source)
+        events.append((max(0,first['start_frame']/FPS-.18),kind))
     for start,kind in events:
         duration={'paper':.7,'machine':1.1,'press':1.5,'phone':1.3,'keys':1.1}[kind]
         t=np.arange(round(duration*RATE))/RATE
@@ -300,18 +336,22 @@ def write_sfx(path,edl):
         f.setnchannels(2);f.setsampwidth(2);f.setframerate(RATE)
         f.writeframes(np.int16(np.clip(out,-1,1)*32767).tobytes())
 
+
 def render_segment(entry,index,sources,graphics,segments,width,height,checks):
     target=segments/f'{index:03d}.mp4';frames=entry['end_frame']-entry['start_frame'];duration=frames/FPS
     cmd=['ffmpeg','-y','-v','error','-threads','2'];sid=entry['id'];variant=entry['variant']
     if entry['kind'] in ('graphic','archive'):
+        if entry['kind']=='archive':raise RuntimeError('本片没有档案照片镜头：所有画面都是 Agnes 动画或信息卡')
         picture=card_image(sid,variant,graphics)
         cmd+=['-loop','1','-framerate',str(FPS),'-i',str(picture)]
+        # Restrained paper drift rather than a static slide or artificial fast transition.
         vf=f"scale={width}:{height},zoompan=z='min(1.025,1+0.00011*on)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s={width}x{height}:fps={FPS}"
     else:
         source=sources/(sid+'.mp4');info=checks[sid]
         length=info['duration'];a=.12;b=length-.12
+        # 本片的镜头时间窗：默认整段可用；看过 qa/ 接触表后若某镜头前/后段有畸变，在 WINDOWS 里收窄。
         if sid in WINDOWS:
-            wa,wb=WINDOWS[sid];a=max(a,wa if wa is not None else a);b=min(b,wb if wb is not None else b)
+            wa,wb=WINDOWS[sid];a=max(a,wa);b=min(b,wb if wb is not None else b)
         available=b-a
         take=min(available,duration)
         factor=duration/take
@@ -319,6 +359,7 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         tighter=''
         if sid in TIGHTER_CROPS:
+            # 轻微推近，裁掉画面边缘的问题区域（比例 1.15–1.3），中心点按 (cx,cy) 比例给
             zoom,cx,cy=TIGHTER_CROPS[sid]
             cw=math.floor(info['width']/zoom/2)*2;ch=math.floor(info['height']/zoom/2)*2
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
@@ -335,8 +376,17 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks):
           '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
 
+
 def mix_audio(narration,music,sfx,path,report_path=None):
+    """Build the soundtrack with the measured, deterministic mixer.
+
+    The previous single-graph ffmpeg mix (adelay/amix/sidechaincompress/
+    loudnorm) was never verified by measurement, so an inaudible result could
+    pass every delivery gate. ``build_audio`` mixes in numpy and refuses to
+    return a soundtrack it cannot measure as audible.
+    """
     return build_soundtrack(narration,music,sfx,path,duration=DURATION,report_path=report_path)
+
 
 def main():
     parser=argparse.ArgumentParser()
@@ -348,7 +398,7 @@ def main():
     parser.add_argument('--audio',type=Path,default=HERE/'audio')
     parser.add_argument('--width',type=int,default=1920)
     parser.add_argument('--height',type=int,default=1080)
-    parser.add_argument('--skip-asr',action='store_true')
+    parser.add_argument('--skip-asr',action='store_true',help='Use labeled pause-aware caption timing (for offline smoke tests)')
     args=parser.parse_args();work=args.work;work.mkdir(parents=True,exist_ok=True)
     project=json.loads(args.project.read_text());results=json.loads(args.results.read_text())
     if results.get('model')!='agnes-video-v2.0':raise RuntimeError('Only the requested Agnes model is allowed')
@@ -371,8 +421,10 @@ def main():
         aligned=None;coverage=0.0
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        cues.extend(aligned if aligned else captions_for(row,samples))
-        alignment.append({'id':row['id'],'method':'ASR-assisted' if aligned else 'pause-aware estimate',
+        clause_timed=None if aligned else captions_from_clause_times(row)
+        cues.extend(aligned or clause_timed or captions_for(row,samples))
+        alignment.append({'id':row['id'],
+                          'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
                           'character_match_coverage':coverage})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl)
@@ -405,6 +457,8 @@ def main():
             or info.get('width')!=args.width or info.get('height')!=args.height or abs(info.get('fps',0)-30)>.01):
         raise RuntimeError(f'Final technical validation failed: {info}')
     run(['ffmpeg','-v','error','-threads','2','-i',args.output,'-map','0:v:0','-map','0:a:0','-f','null','-'])
+    # Listening gate: the delivered MP4 must measure as audible, not merely
+    # carry an AAC stream. This is what the first cut never checked.
     final_audio=measure(args.output,chapters=narration)
     final_audio['measured_on']='delivered mp4'
     (work/'final-audio-report.json').write_text(json.dumps(final_audio,ensure_ascii=False,indent=2)+'\n')
@@ -426,11 +480,14 @@ def main():
                                  ('rms_dbfs','peak_dbfs','silent_fraction','target_rms_dbfs')},
                'delivered_audio':{k:final_audio[k] for k in
                                   ('rms_dbfs','peak_dbfs','silent_fraction','quietest_window_dbfs')},
-               'audio_listening_review':'measured (level + per-chapter + silence gate); not a substitute for human word-level listening',
-               'note':'Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.'}
+               'audio_listening_review':'measured (level + per-chapter + silence gate); '
+                                        'not a substitute for human word-level listening',
+               'note':'Audio is measured as audible on the delivered file; visual and '
+                      'word-level review are still pending, so this is not a final sign-off.'}
     (work/'technical-report.json').write_text(json.dumps(technical,ensure_ascii=False,indent=2)+'\n')
     (work/'edit-decision-list.json').write_text(json.dumps(edl,ensure_ascii=False,indent=2)+'\n')
     (work/'narration-timing.json').write_text(json.dumps(narration,ensure_ascii=False,indent=2)+'\n')
     print('RENDER_COMPLETE '+json.dumps(technical,ensure_ascii=False),flush=True)
+
 
 if __name__=='__main__':main()
