@@ -1,0 +1,156 @@
+name: Shipman · 一键生成+出片
+run-name: 希普曼 · 一键生成+出片 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON: {"only":"S01","workers":1}；空则全量'
+        type: string
+        default: '{"workers":2}'
+      skip_asr:
+        description: '跳过ASR'
+        type: boolean
+        default: false
+  push:
+    branches:
+      - arena/01a0c697-desktop-tutorial
+    paths:
+      - production/shipman/FULL_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shipman-full-arena-01a0c697-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  full:
+    if: github.ref == 'refs/heads/arena/01a0c697-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 400
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a0c697-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Resolve payload
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then
+            payload="$PAYLOAD_INPUT"
+          elif [ -f production/shipman/FULL_REQUEST ]; then
+            payload="$(tr -d '\n' < production/shipman/FULL_REQUEST)"
+          else
+            payload='{"workers":2}'
+          fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "Full payload: $payload"
+
+      - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk aria2
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16" || python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16"
+
+      - name: Validate
+        run: python3 production/shipman/generate.py --validate
+
+      - name: Prune failed
+        run: python3 production/shipman/generate.py --prune-failed || echo "no prune"
+
+      - name: Generate Agnes clips
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: python3 -u production/shipman/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log; exit ${PIPESTATUS[0]}
+
+      - name: Direct render from local sources (no COS fetch)
+        env:
+          SKIP_ASR: ${{ inputs.skip_asr }}
+        run: |
+          set -euo pipefail
+          PROJECT=shipman
+          DIR=production/$PROJECT
+          WORK=work/$PROJECT
+          TITLE=$(python3 -c "import json;print(json.load(open('$DIR/story.json'))['title'])")
+          SAFE=$(python3 -c "import re,sys;print(re.sub(r'[\\\\/:*?\"<>|]', '_', sys.argv[1]).strip() or 'untitled')" "$TITLE")
+          FILM="$WORK/${SAFE}.mp4"
+          echo "=== Direct render from $WORK/sources and $WORK/clips ==="
+          ls -lh $WORK/sources/ $WORK/clips/ | head -n 100
+          mkdir -p $WORK/clips
+          for f in $WORK/sources/*.mp4; do
+            [ -f "$f" ] && cp -n "$f" $WORK/clips/ || true
+          done
+          echo "=== Render ==="
+          python3 -u $DIR/render.py --sources $WORK/clips --work $WORK --output $FILM 2>&1 | tee /tmp/render.log; exit ${PIPESTATUS[0]}
+
+      - name: Publish film
+        run: |
+          set -euo pipefail
+          PROJECT=shipman
+          DIR=production/$PROJECT
+          WORK=work/$PROJECT
+          TITLE=$(python3 -c "import json;print(json.load(open('$DIR/story.json'))['title'])")
+          SAFE=$(python3 -c "import re,sys;print(re.sub(r'[\\\\/:*?\"<>|]', '_', sys.argv[1]).strip() or 'untitled')" "$TITLE")
+          FILM="$WORK/${SAFE}.mp4"
+          mkdir -p 交付 $DIR/delivery
+          cp "$FILM" "交付/$(basename "$FILM")"
+          for f in technical-report.json audio-report.json final-audio-report.json alignment-report.json caption-timing.json narration-timing.json edit-decision-list.json final-contact.jpg captions.srt; do
+            [ -f "$WORK/$f" ] && cp "$WORK/$f" "$DIR/delivery/" || echo "skip $f"
+          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local core.sparseCheckout false || true
+          git add -f "交付/$(basename "$FILM")" "$DIR/delivery"
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Deliver the $PROJECT cut via full pipeline"
+            for attempt in $(seq 1 20); do
+              if git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 push origin HEAD:arena/01a0c697-desktop-tutorial; then
+                echo "PUBLISHED"; break
+              fi
+              sleep 10
+            done
+          fi
+
+      - name: Upload film artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shipman-film-full-${{ github.run_number }}
+          path: |
+            work/shipman/*.mp4
+            production/shipman/delivery/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
+
+      - name: Ship logs on failure
+        if: failure()
+        run: |
+          cat /tmp/gen.log | tail -n 200 || true
+          cat /tmp/render.log | tail -n 500 || true
+          tail -c 200000 /tmp/gen.log > production/shipman/gen-diag.log || true
+          tail -c 200000 /tmp/render.log > production/shipman/render-diag.log || true
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/shipman/*diag.log || true
+          git commit -m "shipman full pipeline diag $(date -u +%FT%TZ)" || true
+          git push origin HEAD:arena/01a0c697-desktop-tutorial || true
