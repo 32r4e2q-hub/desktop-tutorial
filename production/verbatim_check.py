@@ -60,13 +60,38 @@ def chinese_number(value: int) -> str:
     return "".join(DIGITS[int(character)] for character in str(value))
 
 
+def to_simplified(text: str) -> str:
+    """繁体 → 简体。whisper 对普通话音频有时整段吐繁体（2026-09-21 吉尔戈 N05：頓/頭/薩/隨/進/蹤…），
+    逐字比对会把每个繁简对都记成一个错字（那一章 CER 0.31 → 转简体后 0.10）。
+    有 zhconv 就转，没有就原样返回——不让一个可选依赖把听检整个拖死。"""
+    try:
+        import zhconv  # type: ignore
+    except ImportError:
+        return text
+    return zhconv.convert(text, "zh-cn")
+
+
 def normalize(text: str) -> str:
-    """只保留汉字与字母、数字转汉字、统一小写：比对的是"念出来的字"，不是标点。"""
+    """只保留汉字与字母、数字转汉字、繁体转简体、统一小写：比对的是"念出来的字"，不是标点。"""
     import re
 
+    text = to_simplified(text)
     text = re.sub(r"(\d{4})(?=年)", lambda m: "".join(DIGITS[int(c)] for c in m.group(1)), text)
+    # 99.96% → 百分之九十九点九六；3.5 → 三点五（ASR 会把念出来的百分数/小数写回阿拉伯数字）
+    text = re.sub(r"(\d+(?:\.\d+)?)\s*%",
+                  lambda m: "百分之" + _spoken_number(m.group(1)), text)
+    text = re.sub(r"\d+\.\d+", lambda m: _spoken_number(m.group(0)), text)
     text = re.sub(r"\d+", lambda m: chinese_number(int(m.group(0))), text)
     return "".join(re.findall(r"[\u3400-\u9fffA-Za-z]", text)).lower()
+
+
+def _spoken_number(token: str) -> str:
+    """'99.96' → 九十九点九六；'42' → 四十二。"""
+    whole, _, frac = token.partition(".")
+    spoken = chinese_number(int(whole))
+    if frac:
+        spoken += "点" + "".join(DIGITS[int(c)] for c in frac)
+    return spoken
 
 
 def levenshtein(left: str, right: str) -> int:

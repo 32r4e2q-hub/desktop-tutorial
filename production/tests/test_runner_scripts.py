@@ -240,6 +240,13 @@ class RunnerScriptTests(unittest.TestCase):
         if not sleep_bin:
             self.skipTest("这个系统没有 sleep，跑不了功能测试")
         pattern = r"bin/Runner\.Listener"
+        # 这个测试会 pkill 所有匹配 bin/Runner.Listener 的进程。在 GitHub Actions 的 runner 上，
+        # 正在执行本作业的监听器就叫这个名字 —— 杀掉它等于把「离线自检」自己掐死
+        # （表现为 "Run the offline gate" 步骤 cancelled、整次运行 failure，2026-09-21 在
+        # arena/01a0c30d 分支上连续五次复现）。所以只在本机跑，Actions 上跳过。
+        if os.environ.get("GITHUB_ACTIONS") == "true" or subprocess.run(
+                ["pgrep", "-f", pattern], capture_output=True, text=True).stdout.strip():
+            self.skipTest("检测到真实的 Runner.Listener 或 GITHUB_ACTIONS 环境：pkill 会杀掉正在跑本作业的 runner")
 
         with tempfile.TemporaryDirectory() as tmp:
             home = Path(tmp)
