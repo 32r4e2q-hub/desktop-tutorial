@@ -464,13 +464,14 @@ SHOTS = [
     ("S34", "agnes", "仰视前飞 low forward glide",
      "中央刑事法院：波特兰石立面、石柱、台阶，穿假发披袍的人背影往上走，天阴",
      "跨过最高一级台阶时硬切庭内",
-     "A 1983 London crown court seen from the foot of its broad stone steps, framed low so that the"
-      "doorway and the colonnade fill the frame and the triangular pediment with its carved lettering"
-      "band stays outside the top edge of frame: four constables in dark coats and white helmets"
-      "walking a man between them up the steps, all seen from behind, and one figure in a flat cap"
-      "standing alone at the bottom of the steps with his back to camera; warm light behind the open"
-      "porch door, wet Portland stone, heavy grey sky; the stonework is bare - no inscription, no"
-      "carved letters, no signboard above the door, no numbers anywhere; no faces. Camera: one slow"
+     "A 1983 crown court in London seen only as a wall of Portland stone columns and a lit entrance:"
+      "the camera tilts up from the bottom of the steps so that four fluted columns, a deep plain stone"
+      "porch and the open warm-lit door fill the whole frame, and the top edge of frame cuts through"
+      "bare stone - there is no pediment, no triangular gable, no roofline and no carved inscription"
+      "band anywhere in shot; four constables in dark coats and white helmets walk a man between them"
+      "up the steps away from camera, and one figure in a flat cap stands at the foot of the steps with"
+      "his back to camera; wet pale stone, heavy grey light at the edges; the stonework is bare - no"
+      "lettering, no carved words, no numerals, no signboard above the door; no faces. Camera: one slow"
       "forward glide up the steps from a low angle. The entire clip stays in this single framing: no"
       "cut, no scene change, no camera relocation.",
      "石阶脚步、大衣摆动；字幕高亮「中央刑事法院」"),
@@ -685,7 +686,7 @@ SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 # 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
 # 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
 # 那会把全部 38 镜推倒重做。
-SEED_BUMP = {"S15": 41, "S34": 41, "S45": 41}
+SEED_BUMP = {"S15": 41, "S34": 83, "S45": 41}
 
 
 def presentation():
