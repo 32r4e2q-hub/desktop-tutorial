@@ -1,0 +1,69 @@
+{
+  "duration": 180.0,
+  "bytes": 66531161,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "frames": 5400,
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "8fef6d5e514716d7bdde58d87762d25f9c6c6c5015281655ec0058b8390d9b1a",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "id": "N01",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.034482758620689655
+    },
+    {
+      "id": "N02",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9609375
+    },
+    {
+      "id": "N03",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.4957983193277311
+    },
+    {
+      "id": "N04",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.16541353383458646
+    },
+    {
+      "id": "N05",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.6567164179104478
+    },
+    {
+      "id": "N06",
+      "method": "ASR-assisted",
+      "character_match_coverage": 1.0
+    }
+  ],
+  "narration_voice_id": "voice-00",
+  "narration_tempo": 1.073969494047619,
+  "editorial_segments": 46,
+  "source_clips": 38,
+  "archival_portrait": false,
+  "unique_shots_no_reuse": true,
+  "output": "克兰利花园23号_下水道里的十五个人_三分钟_带声音.mp4",
+  "soundtrack_mix": {
+    "rms_dbfs": -20.46,
+    "peak_dbfs": -1.51,
+    "silent_fraction": 0.0,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -20.49,
+    "peak_dbfs": -1.36,
+    "silent_fraction": 0.0055,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
