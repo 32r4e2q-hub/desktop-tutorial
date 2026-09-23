@@ -48,14 +48,46 @@ def _para_text(p) -> str:
 
 
 def _cell_text(tc) -> str:
-    parts = [_para_text(p) for p in tc.findall(f"{W}p")]
+    """一个单元格的所有文字（**不**把套在里面的表格卷进来）。"""
+    parts = [_para_text(p) for p in _paras(tc)]
     parts = [x for x in parts if x]
-    if not parts:  # 嵌套表格 / 非常规结构：兜底把所有文字抓出来
-        fallback = " ".join(
-            (n.text or "").strip() for n in tc.iter(W + "t") if (n.text or "").strip()
-        )
-        return fallback
     return "\n".join(parts)
+
+
+def _paras(tc):
+    """单元格里直属的段落；遇到 w:sdt 内容控件时往里掏一层，但不进嵌套表格。"""
+    direct = tc.findall(f"{W}p")
+    if direct:
+        return direct
+    out = []
+    for sdt in tc.findall(f"{W}sdt"):
+        content = sdt.find(f"{W}sdtContent")
+        if content is not None:
+            out.extend(content.findall(f"{W}p"))
+    return out
+
+
+def table_blocks(tbl) -> list[dict]:
+    """一张 w:tbl → 若干 block。Word 常见的「表格里套表格」（外层只是包装框）会拆出内层真表。"""
+    rows: list[list[str]] = []
+    nested = []
+    for tr in tbl.findall(f"{W}tr"):
+        row = []
+        for tc in tr.findall(f"{W}tc"):
+            row.append(_cell_text(tc))
+            nested.extend(tc.findall(f"{W}tbl"))  # 只取直属的嵌套表，更深的交给递归
+        rows.append(row)
+    rows = [r for r in rows if any(c.strip() for c in r)]
+    out: list[dict] = []
+    if rows:
+        out.append({"kind": "table", "rows": rows})
+    for sub in nested:
+        out.extend(table_blocks(sub))
+    if out:
+        return out
+    # 整张表既没有直属文字也没有可递归的嵌套表：兜底把所有文字拍平成段落
+    flat = " ".join(x.strip() for x in (t.text or "" for t in tbl.iter(W + "t")) if x.strip())
+    return [{"kind": "para", "text": flat}] if flat else []
 
 
 def docx_blocks(path: Path) -> list[dict]:
@@ -82,12 +114,7 @@ def docx_blocks(path: Path) -> list[dict]:
             if text:
                 blocks.append({"kind": "para", "text": text})
         elif el.tag == W + "tbl":
-            rows = []
-            for tr in el.findall(f"{W}tr"):
-                rows.append([_cell_text(tc) for tc in tr.findall(f"{W}tc")])
-            rows = [r for r in rows if any(c.strip() for c in r)]
-            if rows:
-                blocks.append({"kind": "table", "rows": rows})
+            blocks.extend(table_blocks(el))
     if not blocks:
         raise ExtractError("文档里既没有文字也没有表格（可能是空文档）")
     return blocks

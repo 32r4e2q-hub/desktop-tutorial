@@ -19,6 +19,7 @@ import tempfile
 import threading
 import unittest
 import urllib.error
+import urllib.parse
 import urllib.request
 import zipfile
 from http.server import ThreadingHTTPServer
@@ -143,6 +144,30 @@ class ExtractTest(unittest.TestCase):
         res = extract_tables.extract(png)
         self.assertIn("已原样存好", res["error"])
 
+    def test_nested_table_is_unwrapped(self):
+        """Word 里最常见的坑：外层一个 1×1 的框，真表格套在里面（用户的开工表就是这么排的）。"""
+        outer = self.dir / "套娃.docx"
+        inner_rows = "".join(
+            "<w:tr>" + "".join(f"<w:tc><w:p><w:r><w:t>{c}</w:t></w:r></w:p></w:tc>" for c in row) + "</w:tr>"
+            for row in [["时间轴", "口播"], ["0-5秒", "第一句"], ["5-20秒", "第二句"]]
+        )
+        body = (
+            "<w:p><w:r><w:t>详细脚本（表格形式）</w:t></w:r></w:p>"
+            # 外层 1×1 的框：一个空段落 + 一个真正套在单元格里的 <w:tbl>
+            f"<w:tbl><w:tr><w:tc><w:p><w:r><w:t></w:t></w:r></w:p><w:tbl>{inner_rows}</w:tbl>"
+            "</w:tc></w:tr></w:tbl>"
+        )
+        with zipfile.ZipFile(outer, "w") as z:
+            z.writestr("word/document.xml", DOC_XML_TMPL.format(BODY=body))
+        res = extract_tables.extract(outer)
+        self.assertEqual(res["error"], "")
+        tables = [b for b in res["blocks"] if b["kind"] == "table"]
+        self.assertEqual(len(tables), 1)                 # 包装框不该变成一张"表"
+        self.assertEqual(len(tables[0]["rows"]), 3)      # 内层 3 行
+        self.assertEqual(tables[0]["rows"][1], ["0-5秒", "第一句"])
+        self.assertEqual(res["n_rows"], 3)
+        self.assertIn("| 时间轴 | 口播 |", res["markdown"])
+
     def test_shipped_sample_still_parses(self):
         """仓库里那份示例表格是文档也是回归样本：解析不出来就说明抽取器退步了。"""
         res = extract_tables.extract(ROOT / "production" / "upload_box" / "sample_需求示例.docx")
@@ -265,6 +290,20 @@ class ServerTest(unittest.TestCase):
         self.assertEqual(code, 200)
         self.assertFalse((server.INBOX / "todelete.docx").exists())
         self.assertFalse((server.EXTRACTED / "todelete.md").exists())
+
+    def test_reparse_refreshes_existing_file(self):
+        """解析器改进后不必重新上传：/reparse 拿原件重跑。"""
+        with tempfile.TemporaryDirectory() as td:
+            docx = make_docx(Path(td) / "again.docx", table=[["a"], ["1"]])
+            self.post("/upload", _Multipart.build({}, [("file", "again.docx", docx.read_bytes())]),
+                      "multipart/form-data; boundary=BOUND")
+        (server.EXTRACTED / "again.md").write_text("旧的、错的", encoding="utf-8")
+        code, raw = self.post("/reparse?name=again.docx")
+        self.assertEqual(code, 200)
+        self.assertEqual(json.loads(raw)["n_tables"], 1)
+        self.assertIn("| a |", (server.EXTRACTED / "again.md").read_text(encoding="utf-8"))
+        code, raw = self.post("/reparse?name=" + urllib.parse.quote("不存在.docx"))
+        self.assertEqual(code, 404)
 
     def test_page_serves_and_oversize_is_rejected(self):
         code, raw = self.post_get("/")

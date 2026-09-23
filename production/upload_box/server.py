@@ -319,8 +319,31 @@ class Handler(BaseHTTPRequestHandler):
             self.handle_note()
         elif path == "/delete":
             self.handle_delete()
+        elif path.startswith("/reparse"):
+            self.handle_reparse()
         else:
             self.json({"error": "没有这个接口"}, 404)
+
+    def handle_reparse(self):
+        """解析器改进之后，把已收到的原件重跑一遍（原件一直在，不用重新上传）。"""
+        q = parse_qs(urlparse(self.path).query)
+        name = safe_name((q.get("name") or [""])[0])
+        self._drain()
+        if not name:
+            self.json({"error": "没给文件名"}, 400)
+            return
+        try:
+            target = inside_inbox(INBOX / name)
+        except PermissionError as exc:
+            self.json({"error": str(exc)}, 403)
+            return
+        if not target.is_file():
+            self.json({"error": "找不到这个文件"}, 404)
+            return
+        res = process(target)
+        log_line(f"重新解析 {name}")
+        self.json({"ok": True, "error": res["error"], "n_tables": res.get("n_tables", 0),
+                   "n_rows": res.get("n_rows", 0), "files": inbox_listing()})
 
     # ------------------ 实现 ------------------
     def handle_upload(self):
