@@ -155,21 +155,27 @@ SHOTS = [
     ("S02", "agnes", "下摇入井 tilt down",
      "检查井内部：手电光柱扫过砖砌管壁，管壁上挂着灰白的絮状堵塞物（不给可辨认的东西），戴手套的手拿着钩子",
      "光柱停在堵塞物上，切井口两个背影",
-     "Inside a brick Victorian sewer manhole at night, torch beam cutting through mist: curved soot-blackened brickwork, "
-     "grey saturated sludge and clinging fibrous blockage smeared along the crown of the pipe, a small pool of water at the invert, "
-     "a workman's gloved hand holding a hooked steel rod entering from the top of frame; only the hand and forearm are visible. "
-     "Confined brick tunnel fills the entire background: no street, no sky, no second location. "
-     "Camera: one slow tilt down the brick wall into the water. The entire clip stays in this single framing: no cut, "
-     "no scene change, no camera relocation.",
+     "Inside a brick Victorian sewer manhole at night, framed so the whole image is the shaft: a"
+      "curved soot-blackened brick ring wall, grey saturated sludge and clinging fibrous blockage"
+      "smeared along the crown of the pipe, a shallow pool of water at the invert, a workman's gloved"
+      "hand holding a hooked steel rod descending from the top edge of frame, one torch beam cutting"
+      "through the mist. Above the brick collar there is only black night and vapour - no street, no"
+      "buildings, no facades, no shopfront, no signage, no plaques, no windows, no street furniture, no"
+      "lettering and no numerals anywhere in frame. Camera: locked-off inside the shaft while the torch"
+      "beam sweeps. The entire clip stays in this single framing: no cut, no scene change, no camera"
+      "relocation.",
      "水滴回声、金属钩刮到管壁一声；解说「掏下来一大团」处给这一镜"),
     ("S03", "agnes", "低角度固定 static low angle",
      "工头到场：井口两个戴工帽的男人俯身往下看（只给背影与肩），路灯把他们的影子投到墙上",
      "其中一人转身走向路边电话，接 S04",
-     "Night-time kerbside view looking up at the open manhole cover of a north London street: two workmen in flat caps and "
-     "heavy coats crouch at the rim, seen only from behind and above the shoulders, torch beams crossing inside the pit, "
-     "their breath visible in cold air, a lamp-post throwing long shadows onto the brick wall of the house behind them; "
-     "no faces, no readable text anywhere. Camera: locked-off low angle from the drain cover upward. "
-     "The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "Night-time kerbside view at an open manhole on a north London pavement: two workmen in flat caps"
+      "and heavy coats crouch at the rim, seen only from behind and above the shoulders, torch beams"
+      "crossing inside the pit, their breath visible in the cold air, a single sodium lamp-post"
+      "throwing long shadows onto a bare windowless garden brick wall behind them. That wall is plain"
+      "unrendered brick with no plaques, no house numbers, no graffiti, no lettering, no posters, no"
+      "noticeboards and no utility boxes; no faces. Camera: locked-off from behind the two men, only"
+      "the torch beams and breath moving. The entire clip stays in this single framing: no cut, no"
+      "scene change, no camera relocation.",
      "呼吸声、井壁滴水；「先把工头叫下来一起看」"),
     ("S04", "agnes", "手持微晃 hand-held drift",
      "报警：夜里的公用电话亭/路边电话，一只手握着听筒，另一只手在笔记本上按着（纸面空白不可读）",
@@ -604,7 +610,7 @@ CARDS = {
             "1983 年开庭时 8 人至今无名；2006 年 1 月，第一个死者才对上名字"),
 }
 # 片头字幕卡（0.35–4.7 秒叠在第一镜上）：两行，第二行小字
-TITLE_CARD = ["下水道堵了，警察上了顶楼“, ”克兰利花园 23 号 · 一九八三年二月"]
+TITLE_CARD = ["下水道堵了，警察上了顶楼", "克兰利花园 23 号 · 一九八三年二月"]
 # 片尾卡（最后 3.8 秒）：大字提问 / 一行案件信息 / 一行金句 / 一行资料来源
 END_CARD = [
     "如果那些报案被认真处理，能少死几个人？",
@@ -614,11 +620,11 @@ END_CARD = [
 ]
 # 字幕里描黄的关键词（人名、数字、结论词）
 CAPTION_KEYWORDS = [
-    "丹尼斯·尼尔森“, ”十五个，或者十六个“, ”斯蒂芬·霍姆斯",
-    "一九八三年二月八号“, ”衣柜里的两个黑色塑料袋“, ”领带",
-    "就业中心当保安“, ”情侣纠纷",
-    "一九九四年十二月“, ”永远不用出去“, ”二〇〇六年",
-    "一具还是两具“, ”没人会去找的人“, ”十四岁“, ”对上号",
+    "丹尼斯·尼尔森", "十五个，或者十六个", "斯蒂芬·霍姆斯",
+    "一九八三年二月八号", "衣柜里的两个黑色塑料袋", "领带",
+    "就业中心当保安", "情侣纠纷",
+    "一九九四年十二月", "永远不用出去", "二〇〇六年",
+    "一具还是两具", "没人会去找的人", "十四岁", "对上号",
 ]
 # 逐镜标签覆盖：默认 agnes 镜头标「AI动画情景重现 · 非新闻影像」，法庭/监狱/取证/搜查镜头写得更具体
 LABEL_OVERRIDES = {
