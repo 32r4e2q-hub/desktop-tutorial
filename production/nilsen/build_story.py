@@ -673,6 +673,13 @@ GRID = 4           # 规划网格：每镜 4 秒，45 镜 = 180 秒
 AGNES_SECONDS = 7  # 每个 Agnes 镜头实际请求的时长（169 帧 @ 24 fps）
 SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 
+# 逐镜种子微调。2026-09-23 实测教训：S15 连着三版提示词都改了（禁门牌、禁海报、把地面框出去），
+# 生成回来**构图一模一样**、连它自己加的那块「147388 4X)61S」门牌都没变——因为 seed 是按镜头序号
+# 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
+# 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
+# 那会把全部 38 镜推倒重做。
+SEED_BUMP = {"S15": 41}
+
 
 def presentation():
     return {
@@ -712,7 +719,7 @@ def build():
             "prompt": body if kind == "agnes" else "",
             "purpose": purpose, "transition_out": transition,
             "graphic": body if kind == "graphic" else "",
-            "seed": SEED_BASE + i + 1,
+            "seed": SEED_BASE + i + 1 + SEED_BUMP.get(sid, 0),
             "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": "1080p", "frame_rate": 24,
             "camera": camera, "sfx_note": sfx,
         })
