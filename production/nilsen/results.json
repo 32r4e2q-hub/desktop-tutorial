@@ -176,36 +176,10 @@
     },
     "S08": {
       "id": "S08",
-      "status": "completed",
-      "request_hash": "87a423576a3d6eafeeea721611587beb3cb07a4e28f39088b927f35ef287a3a4",
+      "status": "submitting",
+      "request_hash": "1c5aa2e8a0dac5c15377467b5917bc3e25edad6035057a5f8db462a041579ab0",
       "error": null,
-      "updated_at": "2026-09-23T02:02:39Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2U0NTI4ZDBhOGIwYzRiMTZiN2EzMzJiYTBjNTkyZmI2",
-      "task_id": "task_7QwJhVLgEUm5a2jrCkB1962VISgcvgwL",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_e4528d0a8b0c4b16b7a332ba0c592fb6.mp4",
-      "bytes": 1878620,
-      "sha256": "46852e2e1b9a98595f97b47cde05fbc56870218e274b6bb31491cba09e1871a2",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 1878620,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/nilsen/qa/S08.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": false,
-      "visual_review": "pending"
+      "updated_at": "2026-09-23T03:06:20Z"
     },
     "S10": {
       "id": "S10",
@@ -1285,7 +1259,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-23T03:06:19Z",
+  "updated_at": "2026-09-23T03:06:20Z",
   "run_id": "35812917334",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/nilsen/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
@@ -1317,6 +1291,41 @@
           "audio_channels": 2,
           "decoded_ok": true,
           "contact_sheet": "production/nilsen/qa/S04.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": false,
+        "visual_review": "pending"
+      }
+    ],
+    "S08": [
+      {
+        "id": "S08",
+        "status": "completed",
+        "request_hash": "87a423576a3d6eafeeea721611587beb3cb07a4e28f39088b927f35ef287a3a4",
+        "error": null,
+        "updated_at": "2026-09-23T02:02:39Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2U0NTI4ZDBhOGIwYzRiMTZiN2EzMzJiYTBjNTkyZmI2",
+        "task_id": "task_7QwJhVLgEUm5a2jrCkB1962VISgcvgwL",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_e4528d0a8b0c4b16b7a332ba0c592fb6.mp4",
+        "bytes": 1878620,
+        "sha256": "46852e2e1b9a98595f97b47cde05fbc56870218e274b6bb31491cba09e1871a2",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 1878620,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/nilsen/qa/S08.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         },
