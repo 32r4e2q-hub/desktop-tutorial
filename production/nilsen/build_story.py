@@ -168,7 +168,7 @@ SHOTS = [
     ("S03", "agnes", "井下仰拍 static from below",
      "工头到场：从井下往上看的反打，两个戴工帽的男人俯身在井沿，井下只见两个纯黑剪影（无脸），一束手电光打进水里",
      "其中一人转身走向路边电话，接 S04",
-     "View from deep inside an open brick well at night, looking straight up: wet black brick ring walls fill all four sides of the frame, dark rippling water fills the bottom edge, and the black circle of the night sky fills the top; exactly two men in flat caps lean over the far rim side by side, seen from below as pure black silhouettes with no faces visible at any point, their faces staying in deep shadow; a single torch beam stabs down past the camera into the water; a coil of rope hangs over the near rim. Above the rim there is only black night sky - no buildings, no houses, no terraces, no streets, no walls of any kind, and nothing at all to write on: no graffiti, no lettering, no numbers, no signage, no markings on the brickwork. Camera: locked-off static from below. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "View from deep inside an open brick well at night, camera tilted up so the rim of the well is the top edge of the frame: wet black brick ring walls fill the left, right and bottom of the frame, dark rippling water gleams along the bottom edge, and exactly two men in flat caps lean in over the rim from above, their heads and shoulders intruding from the top edge as pure black silhouettes with no faces visible at any point; a single torch beam stabs down past the camera into the water; a coil of rope hangs over the near rim at the lower left. Nothing is visible above or beyond the rim - no sky, no buildings, no houses, no streets, no vehicles, no walls of any kind, and nothing at all to write on: no graffiti, no lettering, no numbers, no signage, no markings on the brickwork. Camera: locked-off static from below. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "呼吸声、井壁滴水；「先把工头叫下来一起看」"),
     ("S04", "agnes", "手持微晃 hand-held drift",
      "报警：夜里的公用电话亭/路边电话，一只手握着听筒，另一只手在笔记本上按着（纸面空白不可读）",
@@ -683,7 +683,7 @@ SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 # 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
 # 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
 # 那会把全部 38 镜推倒重做。
-SEED_BUMP = {"S15": 41, "S34": 217, "S45": 41, "S30": 307, "S03": 389}
+SEED_BUMP = {"S15": 41, "S34": 217, "S45": 41, "S30": 307, "S03": 451}
 
 
 def presentation():
