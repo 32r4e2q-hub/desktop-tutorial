@@ -235,10 +235,10 @@
     },
     "S10": {
       "id": "S10",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "c94e4152fc95380440ec18ad2b2d4d46988a254f79fcff5268bde7da3293bced",
       "error": null,
-      "updated_at": "2026-09-23T02:03:26Z",
+      "updated_at": "2026-09-23T02:03:29Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzgzNzI2YTg1ZGRkZjQyYTI5YWM2NzRkMDA1MTUwMjgw",
       "task_id": "task_pgA94eGC8NZfWMwfXs6zi64zEWgJsmfM",
       "requested_seconds": 7.041666666666667,
@@ -246,7 +246,25 @@
       "bytes": 4370502,
       "sha256": "9f4cf6432274b366536dbc64d65451b5ac54bbf82df5b3f3ef19754178045a22",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 4370502,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/nilsen/qa/S10.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S11": {
       "id": "S11",
@@ -313,6 +331,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-23T02:03:26Z",
+  "updated_at": "2026-09-23T02:03:29Z",
   "run_id": "35807652531"
 }
