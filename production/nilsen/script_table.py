@@ -113,7 +113,8 @@ def render_document():
            "每个镜头只出现一次）· 风格：无限科学式快节奏悬疑科普解说 + 2D 动画纪录片画面", "",
            "## 一、视频标题（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]
-    doc += ["", "## 二、核心爆点（一句话）", "", c.HOOK, "",
+    doc += ["", f"> 备用：若标题 1 因敏感词被限流，换「{c.TITLE1_ALT}」。", ""]
+    doc += ["## 二、核心爆点（一句话）", "", c.HOOK, "",
             "## 三、详细脚本（时间轴 / 口播文案 / 画面描述 / 音效备注）", "",
             "口播文案与成片配音**逐字一致**（`audio/manifest.json` 里有 SHA-256 收据）；"
             f"时间轴按收紧停顿后的真实配音时长算出，成片以 `production/{HERE.name}/delivery/edit-decision-list.json` 为准。", "",
@@ -136,7 +137,8 @@ def publish_document():
            "> 横版 16:9 · 180 秒 · 发布时从下面三个标题里选一个，介绍直接粘贴，提问放在评论区置顶。", "",
            "## 题目（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]
-    doc += ["", "## 抖音介绍（视频正文）", "", c.DESCRIPTION, "", " ".join(c.HASHTAGS), "",
+    doc += ["", f"> 备用：若标题 1 因敏感词被限流，换「{c.TITLE1_ALT}」。", ""]
+    doc += ["## 抖音介绍（视频正文）", "", c.DESCRIPTION, "", " ".join(c.HASHTAGS), "",
             "## 提问读者一句话（置顶评论 / 片尾卡）", "", c.QUESTION, "",
             "## 金句（可做封面文字）", ""]
     doc += [f"- {line}" for line in c.GOLDEN_LINES]
