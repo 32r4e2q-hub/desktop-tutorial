@@ -166,16 +166,18 @@ SHOTS = [
       "relocation.",
      "水滴回声、金属钩刮到管壁一声；解说「掏下来一大团」处给这一镜"),
     ("S03", "agnes", "低角度固定 static low angle",
-     "工头到场：井口两个戴工帽的男人俯身往下看（只给背影与肩），路灯把他们的影子投到墙上",
+     "工头到场：贴着井沿的低机位，两个戴工帽的男人俯身在井口，只给后背与肩，背后只有黑夜与一盏钠灯的光晕",
      "其中一人转身走向路边电话，接 S04",
-     "Night-time kerbside view at an open manhole on a north London pavement: two workmen in flat caps"
-      "and heavy coats crouch at the rim, seen only from behind and above the shoulders, torch beams"
-      "crossing inside the pit, their breath visible in the cold air, a single sodium lamp-post"
-      "throwing long shadows onto a bare windowless garden brick wall behind them. That wall is plain"
-      "unrendered brick with no plaques, no house numbers, no graffiti, no lettering, no posters, no"
-      "noticeboards and no utility boxes; no faces. Camera: locked-off from behind the two men, only"
-      "the torch beams and breath moving. The entire clip stays in this single framing: no cut, no"
-      "scene change, no camera relocation.",
+     "Very low camera at the lip of an open brick-lined excavation pit in a north London yard at"
+      "night: two men in flat caps and heavy dark coats crouch side by side at the far rim, seen only"
+      "from behind at shoulder height, their backs and the pit's wet brick rim filling the frame;"
+      "beyond them nothing but black night and the soft halo of one sodium lamp - no buildings, no"
+      "facade, no windows, no doors, no exterior stairs, no garden wall, no plaques, no house numbers,"
+      "no notices, no graffiti, no signage and no lettering of any kind anywhere in frame; a thin band"
+      "of steam drifting up off the pit and catching the lamp, a coil of rope and a spare torch head"
+      "resting on the rim beside them; no faces are visible at any point. Camera: locked-off static"
+      "from the low pit-level angle. The entire clip stays in this single framing: no cut, no scene"
+      "change, no camera relocation.",
      "呼吸声、井壁滴水；「先把工头叫下来一起看」"),
     ("S04", "agnes", "手持微晃 hand-held drift",
      "报警：夜里的公用电话亭/路边电话，一只手握着听筒，另一只手在笔记本上按着（纸面空白不可读）",
@@ -690,7 +692,7 @@ SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 # 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
 # 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
 # 那会把全部 38 镜推倒重做。
-SEED_BUMP = {"S15": 41, "S34": 217, "S45": 41, "S30": 307}
+SEED_BUMP = {"S15": 41, "S34": 217, "S45": 41, "S30": 307, "S03": 131}
 
 
 def presentation():
