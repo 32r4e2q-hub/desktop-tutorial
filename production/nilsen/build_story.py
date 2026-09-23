@@ -174,11 +174,14 @@ SHOTS = [
     ("S04", "agnes", "手持微晃 hand-held drift",
      "报警：夜里的公用电话亭/路边电话，一只手握着听筒，另一只手在笔记本上按着（纸面空白不可读）",
      "听筒挂回去的回音接顶楼楼道",
-     "A 1980s British street telephone box at night, fogged glass, amber interior light: a workman's hand holds the receiver to "
-     "out of frame, his other gloved hand presses a small blank notebook against the metal call box shelf, rain streaking the "
-     "glass, wet pavement and a red post box blurred behind; no faces, no legible writing on any surface. "
-     "Camera: one slow hand-held drift across the glass panel. The entire clip stays in this single framing: no cut, "
-     "no scene change, no camera relocation.",
+     "A 1980s British street telephone box at night, shot from inside the box looking out through the"
+      "open door: a workman's gloved hand holds the black receiver high against the frosted glass, his"
+      "other hand rests on the blank metal shelf with a folded unmarked paper on it, condensation on"
+      "the glass, rain threads outside, one warm interior lamp; the interior walls of the box and the"
+      "dark street beyond fill the entire frame - no signage, no numerals, no lettering, no post box,"
+      "no second location; only hands and a sleeve are visible, no faces. Camera: locked-off from"
+      "inside the box with a slight drift toward the receiver. The entire clip stays in this single"
+      "framing: no cut, no scene change, no camera relocation.",
      "投币、拨盘、远处警笛渐入；「再报警」"),
     ("S05", "graphic", "信息卡 static card",
      "案件名片：案名、地点、年代、规模（不依赖 AI 拼字）",
@@ -207,11 +210,14 @@ SHOTS = [
     ("S08", "agnes", "车内固定 static interior",
      "「十五个，或者十六个」：雨夜警车后座视角，前挡风湿扇摆动，窗外公寓门廊的灯还亮着，前排副驾一个瘦高男人的侧后剪影",
      "雨刷把街灯扫成一条光，接第二章档案卡",
-     "Back-seat point of view inside a 1980s British police car at night: rain on the windscreen, wipers mid-sweep, "
-     "the blurred amber glow of a residential street and a lit doorway through the glass, the damp shoulder and cap of a "
-     "uniformed officer in the front seat and the thin back of a man in a wet overcoat beside him, both facing away from camera; "
-     "interior lamp off, dashboard glow only; no faces, no legible markings on the car. Camera: locked-off from the rear seat. "
-     "The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "Back-seat point of view inside a 1980s British police car at night: through the rain-streaked"
+      "windscreen a blurred amber residential street and one lit doorway slide past, wipers mid-sweep;"
+      "in the front seats a uniformed driver with a peaked cap on the left and, to the right, a thin"
+      "man in a damp dark overcoat seen from behind and slightly to one side, head turned toward the"
+      "window, collar up, no face visible; interior roof light off, only dashboard glow; no legible"
+      "markings, badges or numbers on the doors or the dashboard. Camera: locked-off static from the"
+      "rear seat. The entire clip stays in this single framing: no cut, no scene change, no camera"
+      "relocation.",
      "雨刷、引擎怠速；「十五个，或者十六个」这句落在这一镜尾音"),
     # ---------------- N02 他是谁（7 镜）----------------
     ("S09", "graphic", "档案卡 static card",
@@ -249,31 +255,38 @@ SHOTS = [
     ("S13", "agnes", "横摇 slow pan",
      "军队食堂学的手艺：六十年代英军伙房，白搪瓷、铜锅、长条木工作台、墙上一排干净的厨具，一个白围裙背影在擦台面",
      "围裙带子在画面里被拉紧，切就业中心大厅",
-     "A 1960s British Army catering kitchen: long scrubbed wooden tables, stacked enamel mess trays, hanging copper pots, "
-     "a black-and-white tiled wall, a row of plain kitchen tools on hooks, flour dust floating in a high window's light; "
-     "a cook in a white apron and cap works at the far table with his back turned, wiping the surface with a cloth; "
-     "no meat, no carving, no blades held up, no faces; the tiled wall fills the background edge to edge. "
-     "Camera: one slow pan along the row of tables. The entire clip stays in this single framing: no cut, "
-     "no scene change, no camera relocation.",
+     "Interior only, four tiled walls: a 1960s British Army kitchen at the end of service, white-tiled"
+      "walls and a pale green dado filling the frame from edge to edge, long scrubbed steel tables"
+      "stacked with enamel mess trays, copper pots hanging on a rail, a row of plain wooden chopping"
+      "boards on hooks, an apron on a nail, flour dust floating in the light from one high window; a"
+      "cook in a white jacket and cap stands at the far table with his back to camera, wiping the"
+      "surface with a cloth; no courtyard, no open sky, no exterior stair, no television, no food, no"
+      "meat, no blade raised, no faces. Camera: one slow lateral track along the row of tables. The"
+      "entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "搪瓷磕碰、擦台面的布声"),
     ("S14", "agnes", "大全景固定 static wide",
      "就业中心的一把椅子：七十年代末劳工交易所大厅，木柜台、等号牌、长椅上背影排队，门边一个小保安亭里坐着一个人",
      "大厅灯一排排熄灭，切夜晚酒吧门口",
-     "Interior of a late-1970s British employment exchange: a long queue of men in flat caps and anoraks seen from behind on "
-     "wooden benches, frosted glass partitions, a number dispenser on a pillar, high ceilings and grey daylight through tall "
-     "windows; beside the entrance doors sits a small security guard's box with a uniformed man inside, back three-quarters to "
-     "camera, hands on the door release button; all faces turned away or out of frame; the frosted glass carries no legible "
-     "lettering. Camera: locked-off wide from the far end of the hall. The entire clip stays in this single framing: "
-     "no cut, no scene change, no camera relocation.",
+     "Interior of a late-1970s British employment exchange hall seen from the far end: rows of men in"
+      "flat caps and anoraks sitting on wooden benches with their backs to camera, a long glazed"
+      "partition of blank frosted panels, polished terrazzo floor reflecting high windows, and a"
+      "uniformed security guard standing inside a small open booth beside the entrance doors, seen from"
+      "behind with one hand resting on the door-release button; every panel, board and frame in the"
+      "hall is empty - no letters, no numbers, no notices, no signage of any kind; no faces. Camera:"
+      "locked-off wide from the far end, only the seated crowd shifts slightly. The entire clip stays"
+      "in this single framing: no cut, no scene change, no camera relocation.",
      "人声嗡嗡、门铃一声；字幕高亮「保安」"),
     ("S15", "agnes", "缓慢跟拍 slow follow",
      "苏荷的夜晚：湿石板上霓虹反光，两个男人背影推开一家酒吧的门，门里暖光溢出到街上",
      "门合上，画面暗下去，进第三章",
-     "A Soho side street at night in the early 1980s: narrow pavement, black taxi parked, amber and red pub signage glow "
-     "reflecting on wet stone (the signs carry no legible lettering), a heavy wooden door ajar with warm light spilling out; "
-     "two men walk away from camera toward the door, one slightly ahead with a hand raised toward the handle, both in long "
-     "coats; no faces, nobody else in the street. Camera: one slow follow move behind them, stopping as the door closes. "
-     "The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "A Soho side street at night in the early 1980s, framed on a bare doorway only: wet stone"
+      "pavement reflecting a single warm lamp above an open pub door, the doorway and the brick wall"
+      "either side filling the frame from edge to edge, no fascia board, no hanging sign, no poster, no"
+      "lettering anywhere; two men in long coats walk away from camera toward the light of the open"
+      "door, the taller one raising a hand to the handle; no parked vehicles, no written street"
+      "furniture, no faces. Camera: one slow follow move behind them, stopping as the door closes over"
+      "the light. The entire clip stays in this single framing: no cut, no scene change, no camera"
+      "relocation.",
      "门轴、室内笑声一瞬即断；「晚上，他去苏荷的酒吧找人」"),
     # ---------------- N03 手法与留置（8 镜）----------------
     ("S16", "agnes", "吧台特写推近 bar-top push-in",
