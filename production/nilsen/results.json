@@ -1225,10 +1225,10 @@
     },
     "S45": {
       "id": "S45",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "7b743dd33cad246f6962b6634c40061ee8e91b14a2f2bd314c2aa4c60aa9e10a",
-      "error": null,
-      "updated_at": "2026-09-23T06:30:49Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - no available server\",\"type\":null,\"param\":null,\"code\":\"503\"}} (request id: 20260923063051359406120k7ecMQ6L)",
+      "updated_at": "2026-09-23T06:30:53Z"
     }
   },
   "phase": "generating_sources",
@@ -1285,7 +1285,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-23T06:30:49Z",
+  "updated_at": "2026-09-23T06:30:53Z",
   "run_id": "35826621094",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/nilsen/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
