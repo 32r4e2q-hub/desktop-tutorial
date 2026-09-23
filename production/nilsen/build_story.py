@@ -464,15 +464,15 @@ SHOTS = [
     ("S34", "agnes", "仰视前飞 low forward glide",
      "开庭那天的人群：机位贴在人群背后，画幅被后脑勺与湿大衣肩线占满，法院的门只剩远处一团暖光——没有墙可刻字",
      "跨过最高一级台阶时硬切庭内",
-     "A 1983 court morning seen entirely from behind a small crowd climbing shallow stone steps: the"
-      "frame is filled by their backs and shoulders, flat caps, wet wool coats, one dark handbag and an"
-      "umbrella held slightly off-vertical; the camera sits close behind them and looks over their"
-      "shoulders, so that all it contains is their backs and, in the upper third, a soft blur of warm"
-      "doorway light and two distant silhouettes - no facade, no pediment, no plaque, no carved panel"
-      "and no stretch of wall remains inside the frame; wet grey stone steps, heavy morning light, no"
-      "rain; no faces, no lettering, no readable text of any kind anywhere in frame. Camera: one slow"
-      "push-in over their shoulders, the framing only tightens and never widens. The entire clip stays"
-      "in this single framing: no cut, no scene change, no camera relocation.",
+     "A 1983 courthouse crowd seen from directly behind at the foot of shallow stone steps: the frame"
+      "is filled edge to edge from the bottom to the top only by their wet dark coats, shoulders and"
+      "flat caps, a handbag strap and one umbrella held slightly off-vertical; the crowd shifts forward"
+      "half a step, shoulders rising and falling, and a soft warm glow from a doorway that stays"
+      "outside the frame lights the tops of their caps; there is no building, no facade, no doorway"
+      "shape, no street, no harbour, no sky, no signage, no plaque, no carved band, no lettering and no"
+      "numerals anywhere in frame; no faces. Camera: locked-off close behind the crowd, the framing"
+      "only tightens and never widens, so no wall can enter the shot. The entire clip stays in this"
+      "single framing: no cut, no scene change, no camera relocation.",
      "石阶脚步、大衣摆动；字幕高亮「中央刑事法院」"),
     ("S35", "agnes", "缓慢推近 slow push-in",
      "庭内：木质护墙板、旁听席的空椅、被告席的木栏杆后面一个瘦高背影坐着，法官席只给袍角",
@@ -685,7 +685,7 @@ SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 # 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
 # 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
 # 那会把全部 38 镜推倒重做。
-SEED_BUMP = {"S15": 41, "S34": 173, "S45": 41}
+SEED_BUMP = {"S15": 41, "S34": 217, "S45": 41}
 
 
 def presentation():
