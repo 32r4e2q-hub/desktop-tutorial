@@ -462,18 +462,18 @@ SHOTS = [
       "no cut, no scene change, no camera relocation.",
      "磁带转动的沙沙声；「说不准确切的人数」"),
     ("S34", "agnes", "仰视前飞 low forward glide",
-     "中央刑事法院：波特兰石立面、石柱、台阶，穿假发披袍的人背影往上走，天阴",
+     "法院外清晨的街：人群背影往一扇亮灯的侧门走，一把伞搁在湿石板上，两侧房子只给到屋檐为止",
      "跨过最高一级台阶时硬切庭内",
-     "A 1983 crown court in London seen only as a wall of Portland stone columns and a lit entrance:"
-      "the camera tilts up from the bottom of the steps so that four fluted columns, a deep plain stone"
-      "porch and the open warm-lit door fill the whole frame, and the top edge of frame cuts through"
-      "bare stone - there is no pediment, no triangular gable, no roofline and no carved inscription"
-      "band anywhere in shot; four constables in dark coats and white helmets walk a man between them"
-      "up the steps away from camera, and one figure in a flat cap stands at the foot of the steps with"
-      "his back to camera; wet pale stone, heavy grey light at the edges; the stonework is bare - no"
-      "lettering, no carved words, no numerals, no signboard above the door; no faces. Camera: one slow"
-      "forward glide up the steps from a low angle. The entire clip stays in this single framing: no"
-      "cut, no scene change, no camera relocation.",
+     "A narrow London street at dawn outside a court building, shot from behind a thin crowd walking"
+      "away from camera toward one tall lit doorway at the far end: men in flat caps and dark coats,"
+      "two women with handbags, an umbrella tipped against the wet paving, everyone seen from behind"
+      "only; the buildings on either side are plain brick and stone with no pediment, no columns, no"
+      "portico and no carved inscription band, and their upper floors are cut off by the top edge of"
+      "frame; a constable stands at the door with his back to camera; heavy grey dawn light, wet"
+      "asphalt, one warm lamp in the doorway; no notices, no lettering, no numerals, no signage"
+      "anywhere; no faces. Camera: one slow push-in along the crowd toward the lit door, the framing"
+      "only tightens and never widens. The entire clip stays in this single framing: no cut, no scene"
+      "change, no camera relocation.",
      "石阶脚步、大衣摆动；字幕高亮「中央刑事法院」"),
     ("S35", "agnes", "缓慢推近 slow push-in",
      "庭内：木质护墙板、旁听席的空椅、被告席的木栏杆后面一个瘦高背影坐着，法官席只给袍角",
@@ -686,7 +686,7 @@ SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 # 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
 # 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
 # 那会把全部 38 镜推倒重做。
-SEED_BUMP = {"S15": 41, "S34": 83, "S45": 41}
+SEED_BUMP = {"S15": 41, "S34": 127, "S45": 41}
 
 
 def presentation():
