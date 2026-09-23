@@ -70,10 +70,13 @@
     },
     "S03": {
       "id": "S03",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "request_hash": "40a0cf5655f765c59f46aa676743ea5565c8495b7a1eb0e27028ca82c31c91ea",
       "error": null,
-      "updated_at": "2026-09-23T11:17:36Z"
+      "updated_at": "2026-09-23T11:17:52Z",
+      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzViYmViODIxYmMxZTQ3N2JhMTc3MWNmZTBjYTVmZTIw",
+      "task_id": "task_WqBexuO3993LxqVpc32M3oy1KK4o7zQ6",
+      "requested_seconds": 7.041666666666667
     },
     "S04": {
       "id": "S04",
@@ -1285,7 +1288,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-23T11:17:36Z",
+  "updated_at": "2026-09-23T11:17:52Z",
   "run_id": "35853593898",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/nilsen/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
