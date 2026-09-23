@@ -961,10 +961,10 @@
     },
     "S34": {
       "id": "S34",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "297432f3acfc987a59ab0fd2c9e6fbc23f73c2969672ca82399d3aae393a0f35",
       "error": null,
-      "updated_at": "2026-09-23T07:18:42Z",
+      "updated_at": "2026-09-23T07:18:45Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzdlYTdhYzIxZWRlNjQ1MGQ5MzBiOGE3MWMzYzY2M2Y5",
       "task_id": "task_NckS0YBoHNXN6M4WJbgTsC3Ykmi7U7hL",
       "requested_seconds": 7.041666666666667,
@@ -972,7 +972,25 @@
       "bytes": 3104566,
       "sha256": "62aa17c1acd574b4e359e0846e330dba943fd190565ff2def3b9d9b7aca9c6fc",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 3104566,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/nilsen/qa/S34.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S35": {
       "id": "S35",
@@ -1293,7 +1311,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-23T07:18:42Z",
+  "updated_at": "2026-09-23T07:18:45Z",
   "run_id": "35830704562",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/nilsen/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/nilsen/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
