@@ -413,11 +413,15 @@ SHOTS = [
     ("S30", "agnes", "大远景固定 static wide",
      "当晚他自己下去清管道：路灯下顶楼那扇窗黑着，井口一个弯腰的人影，手电咬在嘴里，另一个影子从楼道门口看着",
      "井口的盖子被推回，画面黑，第五章从警局的灯开始",
-     "Night, small hours: a lone figure crouched at the open manhole under a sodium street lamp, a torch held between his teeth "
-     "throwing a shaky beam down the pit, the reflection of the lamp in wet tarmac, the top-floor window of the conversion dark "
-     "and unlit behind him, a second silhouette standing half-hidden in the building's doorway watching, both facing away; "
-     "the brick facade fills the background; no faces, no readable text. Camera: locked-off wide, only the torch beam moves. "
-     "The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "The small hours of a February night in 1983, one shared back courtyard of a north London"
+      "conversion seen from a single high angle: an open manhole set in wet tarmac under one sodium"
+      "lamp, a lone workman crouched at the pit with a torch beam raking down into the hole, and a"
+      "second dark silhouette standing in the ground-floor doorway watching; both facing away from"
+      "camera. The brick wall and the wet courtyard fill the whole frame; the lamp reflects on the"
+      "water but the buildings appear only once, with no mirrored duplicate row and no second view. No"
+      "plaques, no nameboards, no numbers, no lettering anywhere on the brickwork; no faces. Camera: a"
+      "slow high-angle drift along the courtyard. The entire clip stays in this single framing: no cut,"
+      "no scene change, no camera relocation.",
      "井盖摩擦一声、远处夜铃；「当晚他自己下去」"),
     # ---------------- N05 供词与庭审（8 镜）----------------
     ("S31", "agnes", "缓慢推近 slow push-in",
@@ -432,21 +436,26 @@ SHOTS = [
     ("S32", "agnes", "桌面平移 desk track",
      "警局：一九八〇年代刑警办公室的木桌，一只手把一叠空白表格按上印章，旁边座机、搪瓷杯、烟灰缸",
      "印章落下那一声接审讯室的录音机",
-     "A 1983 CID incident room corner: scarred wooden desk, stacks of blank paper forms, a heavy metal date stamp being pressed "
-     "down by a hand in a shirt sleeve, a black landline telephone with a coiled cord, a chipped enamel mug, an overflowing ash "
-     "tray, a filing cabinet behind and venetian blinds cutting the grey light into strips; all paper is blank or illegible, "
-     "no readable writing, no faces. Camera: one slow track across the desk to the filing cabinet. "
-     "The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "Interior only: a 1983 CID incident room corner, a scarred wooden desk filling the lower half of"
+      "the frame, neat stacks of completely blank paper forms, a heavy metal date stamp being pressed"
+      "down by one hand in a shirt sleeve, a black rotary telephone with a coiled cord, a chipped"
+      "enamel mug, a full glass ashtray and a grey steel filing cabinet behind. Bare painted brick and"
+      "a wooden dado, with no plaques, no room numbers, no pinned notices and no wall signage of any"
+      "kind; venetian blinds cut grey light into strips on the right wall only; every sheet of paper is"
+      "blank and illegible. No faces. Camera: one slow push-in along the desk toward the stamp. The"
+      "entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "印章「咚」、纸张翻动"),
     ("S33", "agnes", "缓慢环绕 slow arc",
      "整晚的审讯：小房间，金属桌，一台盘式录音机在转，两把椅子，一个背影双手抱着后颈，烟灰缸堆满",
      "录音机转盘的转动接法院石阶",
-     "A bare 1983 police interview room under a single ceiling light: a bolted metal table, a reel-to-reel tape recorder "
-     "turning slowly with two reels visible, an ashtray heaped with cigarette ends, a metal chair holding the back of a man in "
-     "an open-collar shirt with both hands clasped behind his neck, head down and turned away from camera; a second chair "
-     "empty, sound-proofed wall paneling filling the frame edge to edge, no window; no faces, no readable text. "
-     "Camera: one very slow arc around the table keeping the seated back in frame. The entire clip stays in this single "
-     "framing: no cut, no scene change, no camera relocation.",
+     "Interior only, four panelled walls filling the frame edge to edge: a bare 1983 police interview"
+      "room under a single ceiling light, a bolted metal table with a reel-to-reel tape recorder"
+      "turning slowly, a glass ashtray heaped with cigarette ends, a metal chair holding the back of a"
+      "man in an open-collar shirt with both hands clasped behind his neck and his head down, and a"
+      "second empty chair opposite. The room is windowless and sealed - no corridor, no street, no"
+      "exterior wall, no second room. No readable text on any surface. No faces. Camera: locked-off"
+      "wide from the corner, only the tape reels turning. The entire clip stays in this single framing:"
+      "no cut, no scene change, no camera relocation.",
      "磁带转动的沙沙声；「说不准确切的人数」"),
     ("S34", "agnes", "仰视前飞 low forward glide",
      "中央刑事法院：波特兰石立面、石柱、台阶，穿假发披袍的人背影往上走，天阴",
@@ -498,11 +507,14 @@ SHOTS = [
     ("S40", "agnes", "缓慢横摇 slow pan",
      "二十多年牢里：单人牢房窄床、小桌上一台老式打字机，纸是空白的，高窗一小块天",
      "摇到窗，风把纸吹起一角，切医院走廊",
-     "A spare maximum-security prison cell in the 1990s: a narrow made bed, a bolted wooden desk with an old portable "
-     "typewriter whose sheet of paper is blank, a high single window with a small square of grey sky, a chair pushed back, the "
-     "corner of the paper lifting slightly in the draught; no writing is legible anywhere, no faces, nobody in frame. "
-     "Camera: one slow pan from the bed to the window. The entire clip stays in this single framing: no cut, no scene change, "
-     "no camera relocation.",
+     "Interior only, one small cell: a 1990s maximum-security prison cell with a narrow made bed"
+      "against a painted wall, a bolted wooden desk holding an old portable typewriter with a blank"
+      "sheet feeding out, a chair pushed back, and one high barred window with a small square of grey"
+      "sky. Four walls and a concrete floor fill the entire frame from edge to edge - no corridor, no"
+      "exterior, no street, no harbour, no second room and no view of any other place. No writing"
+      "legible anywhere, nobody in frame, no faces. Camera: one very slow push-in from the door end"
+      "toward the desk. The entire clip stays in this single framing: no cut, no scene change, no"
+      "camera relocation.",
      "纸响、窗外风；「二〇一八年五月」"),
     ("S41", "agnes", "缓慢下摇 tilt down",
      "约克的监狱医院：清晨病房走廊，百叶窗把光切成一条条，一张空推床停在墙边——不写死亡，只给「空」",
@@ -530,12 +542,15 @@ SHOTS = [
     ("S44", "agnes", "横移档案柜 lateral track",
      "二十八年才对上名字：失踪人口档案室，一排排纸箱卷宗，一只手从架上抽出一册，翻开的是空白页；桌上一张失焦的老照片",
      "照片被灯影盖住，切现在的街道",
-     "A 1990s police records room: tall steel shelves stuffed with plain cardboard boxes of missing-persons files, no legible "
-     "labels, a single desk lamp, a hand in a shirt sleeve drawing one slim folder from the shelf and opening it to blank "
-     "pages, a small out-of-focus black-and-white photograph lying face-up on the desk beside it; grey daylight through a high "
-     "window with bars; the shelving fills the background edge to edge, no faces, no readable text. "
-     "Camera: one slow lateral track along the shelves ending on the opened folder. The entire clip stays in this single "
-     "framing: no cut, no scene change, no camera relocation.",
+     "Interior only, one windowless records room: tall steel shelving stacked with plain cardboard"
+      "archive boxes down both sides of a narrow aisle, a single desk lamp over a metal table, a hand"
+      "in a shirt sleeve drawing one slim folder from the shelf and opening it to blank pages, and a"
+      "small out-of-focus black-and-white photograph lying face-up on the table. The shelving and the"
+      "grey concrete wall fill the frame from edge to edge - no street, no row of houses, no second"
+      "room, no window onto anywhere else. No legible labels, numbers or lettering on any box, page or"
+      "photograph; no faces. Camera: locked-off at the end of the aisle with a slight push toward the"
+      "open folder. The entire clip stays in this single framing: no cut, no scene change, no camera"
+      "relocation.",
      "纸板抽出的一声、纸页翻动；字幕高亮「二〇〇六年」"),
     ("S45", "agnes", "缓慢后拉 slow pull-back",
      "现在的克兰利花园：夏末傍晚，普通住宅，孩子在楼下骑车，顶楼那扇窗没亮灯——日常得让人不舒服",
