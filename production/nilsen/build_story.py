@@ -464,11 +464,15 @@ SHOTS = [
     ("S34", "agnes", "仰视前飞 low forward glide",
      "中央刑事法院：波特兰石立面、石柱、台阶，穿假发披袍的人背影往上走，天阴",
      "跨过最高一级台阶时硬切庭内",
-     "The west front of a grand Portland stone criminal court in London under an overcast sky: fluted columns, a wide stone "
-     "staircase, iron railings, two barristers in black gowns and white wigs climbing the steps away from camera, a plain-clothes "
-     "man waiting at the bottom with his back turned; the stone facade fills the frame from edge to edge so no city skyline "
-     "appears; no faces, no banners, no readable inscriptions. Camera: one low slow forward glide up toward the steps. "
-     "The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "A 1983 London crown court seen from the foot of its broad stone steps, framed low so that the"
+      "doorway and the colonnade fill the frame and the triangular pediment with its carved lettering"
+      "band stays outside the top edge of frame: four constables in dark coats and white helmets"
+      "walking a man between them up the steps, all seen from behind, and one figure in a flat cap"
+      "standing alone at the bottom of the steps with his back to camera; warm light behind the open"
+      "porch door, wet Portland stone, heavy grey sky; the stonework is bare - no inscription, no"
+      "carved letters, no signboard above the door, no numbers anywhere; no faces. Camera: one slow"
+      "forward glide up the steps from a low angle. The entire clip stays in this single framing: no"
+      "cut, no scene change, no camera relocation.",
      "石阶脚步、大衣摆动；字幕高亮「中央刑事法院」"),
     ("S35", "agnes", "缓慢推近 slow push-in",
      "庭内：木质护墙板、旁听席的空椅、被告席的木栏杆后面一个瘦高背影坐着，法官席只给袍角",
@@ -559,12 +563,15 @@ SHOTS = [
     ("S45", "agnes", "缓慢后拉 slow pull-back",
      "现在的克兰利花园：夏末傍晚，普通住宅，孩子在楼下骑车，顶楼那扇窗没亮灯——日常得让人不舒服",
      "后拉到整条街，收在窗上，接片尾卡",
-     "A quiet north London residential street on a late summer evening, present day but with no modern branding: Victorian "
-     "brick conversions with bay windows, a plane tree, two children riding bicycles on the pavement seen from behind, "
-     "a washing line in a back garden, a car parked, the top-floor window of one house dark and curtained; warm low sun on "
-     "brick, the street and rooftops framed so no skyline or landmark appears; no faces, no readable text. "
-     "Camera: one slow pull-back from the dark top-floor window to the whole street. The entire clip stays in this single "
-     "framing: no cut, no scene change, no camera relocation.",
+     "A north London street on a late summer evening, present day with nothing modern or branded,"
+      "framed from first-floor height so that the pavement, the front doors and any parked car lie"
+      "outside the bottom edge of frame: two Victorian brick conversions with bay windows and curtained"
+      "sash windows filling the frame left and right, one plane tree between them catching the low sun,"
+      "a washing line with sheets in a back garden below, and one dark unlit top-floor window behind a"
+      "curtain near the centre; the brickwork carries no house numbers, no plaques, no lettering and no"
+      "signage of any kind; no people at street level, no faces. Camera: one very slow pull-back so the"
+      "dark top-floor window drifts toward the centre of frame. The entire clip stays in this single"
+      "framing: no cut, no scene change, no camera relocation.",
      "孩子笑声、远处割草机；最后 0.6 秒全部声音收干净"),
 ]
 
@@ -678,7 +685,7 @@ SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 # 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
 # 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
 # 那会把全部 38 镜推倒重做。
-SEED_BUMP = {"S15": 41}
+SEED_BUMP = {"S15": 41, "S34": 41, "S45": 41}
 
 
 def presentation():
