@@ -416,16 +416,15 @@ SHOTS = [
     ("S30", "agnes", "大远景固定 static wide",
      "当晚他自己下去清管道：路灯下顶楼那扇窗黑着，井口一个弯腰的人影，手电咬在嘴里，另一个影子从楼道门口看着",
      "井口的盖子被推回，画面黑，第五章从警局的灯开始",
-     "A shared back courtyard of a north London conversion in the small hours, filmed at eye level"
-      "from one end of the yard: a single row of brick tenement fronts with a door and a short flight"
-      "of stone steps to each door, wet asphalt under one sodium lamp, one manhole lid propped upright"
-      "in the middle of the yard, a lone workman crouched at the open pit with a torch beam raking down"
-      "into it, his back to camera, and a second figure standing in one lit doorway further along the"
-      "row, also facing away. The yard has one ground level only: no stacked or mirrored second row of"
-      "houses above or below, no elevated terrace, no reflection repeating the facades, no second"
-      "courtyard; no plaques, no numbers, no lettering on the brickwork, no faces. Camera: a slow"
-      "straight dolly along the yard. The entire clip stays in this single framing: no cut, no scene"
-      "change, no camera relocation.",
+     "Night, small hours, shot from low in a wet courtyard and tight on one crouched workman at an"
+      "open manhole: his back and one shoulder fill the right of the frame, a torch held between his"
+      "teeth throwing a shaky beam down into the round brick rim, a drain snake coiled on the wet"
+      "asphalt by his boots, a second man standing as an out-of-focus dark shape at the far left edge;"
+      "behind them there is only black night and the orange flare of one sodium lamp - no facade, no"
+      "brick wall, no windows, no doorway, no yard, no plaques, no house numbers, no signs, no"
+      "lettering and no numerals anywhere in frame; no faces. Camera: locked-off low angle, the framing"
+      "only tightens and never widens, so no wall can enter the shot. The entire clip stays in this"
+      "single framing: no cut, no scene change, no camera relocation.",
      "井盖摩擦一声、远处夜铃；「当晚他自己下去」"),
     # ---------------- N05 供词与庭审（8 镜）----------------
     ("S31", "agnes", "缓慢推近 slow push-in",
@@ -685,7 +684,7 @@ SEED_BASE = 20260923  # 需求表提交那天，让 seed 可追溯
 # 定死的，同一起点等于让模型把同一张画重画一遍。要"换个构图"就得动 seed，而不是再堆否定句。
 # 用法：某镜复审时如果发现"缺陷没跟着提示词变"，给它加个 bump（几十即可），别改 SEED_BASE 本身，
 # 那会把全部 38 镜推倒重做。
-SEED_BUMP = {"S15": 41, "S34": 217, "S45": 41}
+SEED_BUMP = {"S15": 41, "S34": 217, "S45": 41, "S30": 307}
 
 
 def presentation():
