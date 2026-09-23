@@ -104,6 +104,7 @@ python3 -m pytest production/tests -q                   # 离线自检（2026-09
 | 路径 | 内容 |
 |---|---|
 | [`新题目开工手册.md`](新题目开工手册.md) | 吉尔戈模式的开工手册：10 步 + 踩坑清单 + 文件地图 |
+| [`production/upload_box/`](production/upload_box/) | 上传台：浏览器拖进 Word/Excel 需求表 → 落 `incoming_uploads/` 并自动解析成正文（零依赖，手机端可用） |
 | [`production/new_topic.py`](production/new_topic.py) + [`production/templates/`](production/templates/) | 开新题目的脚手架与模板 |
 | [`production/verbatim_check.py`](production/verbatim_check.py) / [`review_film.py`](production/review_film.py) | 逐字听检；黑帧 / 冻结帧 / 电平 / 语速审片初筛 |
 | [`production/dahlia/`](production/dahlia/) | 上一部片子《黑色大丽花：消失的六天》（30 镜 × 6 秒、带档案照片）及其[审片记录](production/dahlia/review/)；成片 `交付/黑色大丽花_三分钟_带声音.mp4` |
