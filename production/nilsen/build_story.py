@@ -280,14 +280,16 @@ SHOTS = [
     ("S15", "agnes", "缓慢跟拍 slow follow",
      "苏荷的夜晚：湿石板上霓虹反光，两个男人背影推开一家酒吧的门，门里暖光溢出到街上",
      "门合上，画面暗下去，进第三章",
-     "A Soho side street at night in the early 1980s, framed on a bare doorway only: wet stone"
-      "pavement reflecting a single warm lamp above an open pub door, plain brick wall on either side"
-      "with nothing mounted on it - no posters, no notices, no nameboards, no fascia board, no hanging"
-      "sign, no lettering of any kind. Two men in long coats walk away from camera toward the light of"
-      "the open door, seen from behind, the taller one raising a hand to the handle; no vehicles, no"
-      "written street furniture, no faces. Camera: one slow follow move behind them, stopping as the"
-      "door closes over the light. The entire clip stays in this single framing: no cut, no scene"
-      "change, no camera relocation.",
+     "A Soho doorway at night in the early 1980s, framed tightly from the chest height of a man"
+      "walking in behind: the open pub door with warm light spilling out and the brick wall on either"
+      "side fill the whole frame, and the ground is out of frame at the bottom edge. Plain painted wood"
+      "and bare brick only - nothing is mounted anywhere: no posters, no notices, no plaques, no round"
+      "signs, no fascia board, no lettering. Two men in long dark coats are seen from behind, close,"
+      "filling the lower middle of the frame as they step through the doorway, the taller one reaching"
+      "up to hold the door; their heads and shoulders only, no faces, no wet pavement, no reflection,"
+      "no street, no vehicles. Camera: a short breath-held follow, ending as the door edge takes over"
+      "the frame. The entire clip stays in this single framing: no cut, no scene change, no camera"
+      "relocation, nothing new enters the wall.",
      "门轴、室内笑声一瞬即断；「晚上，他去苏荷的酒吧找人」"),
     # ---------------- N03 手法与留置（8 镜）----------------
     ("S16", "agnes", "吧台特写推近 bar-top push-in",
