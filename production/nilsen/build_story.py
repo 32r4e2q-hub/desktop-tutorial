@@ -174,14 +174,15 @@ SHOTS = [
     ("S04", "agnes", "手持微晃 hand-held drift",
      "报警：夜里的公用电话亭/路边电话，一只手握着听筒，另一只手在笔记本上按着（纸面空白不可读）",
      "听筒挂回去的回音接顶楼楼道",
-     "A 1980s British street telephone box at night, shot from inside the box looking out through the"
-      "open door: a workman's gloved hand holds the black receiver high against the frosted glass, his"
-      "other hand rests on the blank metal shelf with a folded unmarked paper on it, condensation on"
-      "the glass, rain threads outside, one warm interior lamp; the interior walls of the box and the"
-      "dark street beyond fill the entire frame - no signage, no numerals, no lettering, no post box,"
-      "no second location; only hands and a sleeve are visible, no faces. Camera: locked-off from"
-      "inside the box with a slight drift toward the receiver. The entire clip stays in this single"
-      "framing: no cut, no scene change, no camera relocation.",
+     "A 1980s British street telephone box at night, camera inside the box looking out through the"
+      "open doorway: the black receiver hangs on its cord near the top left, and only one gloved hand"
+      "and short forearm enters from the bottom edge of the frame to hold it - the forearm stays"
+      "attached to the lower frame edge and never grows longer, dark wool sleeve; a folded blank paper"
+      "and an enamel mug sit on the small metal shelf, rain and one lit terraced street are visible"
+      "beyond the glass, a single warm lamp inside the box. Nothing else is visible: no faces, no"
+      "numerals, no lettering, no signage, no second location, and no new object enters the frame after"
+      "the first second. Camera: nearly locked-off with a faint drift toward the receiver. The entire"
+      "clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "投币、拨盘、远处警笛渐入；「再报警」"),
     ("S05", "graphic", "信息卡 static card",
      "案件名片：案名、地点、年代、规模（不依赖 AI 拼字）",
@@ -280,13 +281,13 @@ SHOTS = [
      "苏荷的夜晚：湿石板上霓虹反光，两个男人背影推开一家酒吧的门，门里暖光溢出到街上",
      "门合上，画面暗下去，进第三章",
      "A Soho side street at night in the early 1980s, framed on a bare doorway only: wet stone"
-      "pavement reflecting a single warm lamp above an open pub door, the doorway and the brick wall"
-      "either side filling the frame from edge to edge, no fascia board, no hanging sign, no poster, no"
-      "lettering anywhere; two men in long coats walk away from camera toward the light of the open"
-      "door, the taller one raising a hand to the handle; no parked vehicles, no written street"
-      "furniture, no faces. Camera: one slow follow move behind them, stopping as the door closes over"
-      "the light. The entire clip stays in this single framing: no cut, no scene change, no camera"
-      "relocation.",
+      "pavement reflecting a single warm lamp above an open pub door, plain brick wall on either side"
+      "with nothing mounted on it - no posters, no notices, no nameboards, no fascia board, no hanging"
+      "sign, no lettering of any kind. Two men in long coats walk away from camera toward the light of"
+      "the open door, seen from behind, the taller one raising a hand to the handle; no vehicles, no"
+      "written street furniture, no faces. Camera: one slow follow move behind them, stopping as the"
+      "door closes over the light. The entire clip stays in this single framing: no cut, no scene"
+      "change, no camera relocation.",
      "门轴、室内笑声一瞬即断；「晚上，他去苏荷的酒吧找人」"),
     # ---------------- N03 手法与留置（8 镜）----------------
     ("S16", "agnes", "吧台特写推近 bar-top push-in",
@@ -413,15 +414,16 @@ SHOTS = [
     ("S30", "agnes", "大远景固定 static wide",
      "当晚他自己下去清管道：路灯下顶楼那扇窗黑着，井口一个弯腰的人影，手电咬在嘴里，另一个影子从楼道门口看着",
      "井口的盖子被推回，画面黑，第五章从警局的灯开始",
-     "The small hours of a February night in 1983, one shared back courtyard of a north London"
-      "conversion seen from a single high angle: an open manhole set in wet tarmac under one sodium"
-      "lamp, a lone workman crouched at the pit with a torch beam raking down into the hole, and a"
-      "second dark silhouette standing in the ground-floor doorway watching; both facing away from"
-      "camera. The brick wall and the wet courtyard fill the whole frame; the lamp reflects on the"
-      "water but the buildings appear only once, with no mirrored duplicate row and no second view. No"
-      "plaques, no nameboards, no numbers, no lettering anywhere on the brickwork; no faces. Camera: a"
-      "slow high-angle drift along the courtyard. The entire clip stays in this single framing: no cut,"
-      "no scene change, no camera relocation.",
+     "A shared back courtyard of a north London conversion in the small hours, filmed at eye level"
+      "from one end of the yard: a single row of brick tenement fronts with a door and a short flight"
+      "of stone steps to each door, wet asphalt under one sodium lamp, one manhole lid propped upright"
+      "in the middle of the yard, a lone workman crouched at the open pit with a torch beam raking down"
+      "into it, his back to camera, and a second figure standing in one lit doorway further along the"
+      "row, also facing away. The yard has one ground level only: no stacked or mirrored second row of"
+      "houses above or below, no elevated terrace, no reflection repeating the facades, no second"
+      "courtyard; no plaques, no numbers, no lettering on the brickwork, no faces. Camera: a slow"
+      "straight dolly along the yard. The entire clip stays in this single framing: no cut, no scene"
+      "change, no camera relocation.",
      "井盖摩擦一声、远处夜铃；「当晚他自己下去」"),
     # ---------------- N05 供词与庭审（8 镜）----------------
     ("S31", "agnes", "缓慢推近 slow push-in",
@@ -542,15 +544,15 @@ SHOTS = [
     ("S44", "agnes", "横移档案柜 lateral track",
      "二十八年才对上名字：失踪人口档案室，一排排纸箱卷宗，一只手从架上抽出一册，翻开的是空白页；桌上一张失焦的老照片",
      "照片被灯影盖住，切现在的街道",
-     "Interior only, one windowless records room: tall steel shelving stacked with plain cardboard"
-      "archive boxes down both sides of a narrow aisle, a single desk lamp over a metal table, a hand"
-      "in a shirt sleeve drawing one slim folder from the shelf and opening it to blank pages, and a"
-      "small out-of-focus black-and-white photograph lying face-up on the table. The shelving and the"
-      "grey concrete wall fill the frame from edge to edge - no street, no row of houses, no second"
-      "room, no window onto anywhere else. No legible labels, numbers or lettering on any box, page or"
-      "photograph; no faces. Camera: locked-off at the end of the aisle with a slight push toward the"
-      "open folder. The entire clip stays in this single framing: no cut, no scene change, no camera"
-      "relocation.",
+     "A windowless police records room: tall steel shelving stacked with plain cardboard archive boxes"
+      "lines both sides of a narrow aisle, a single desk lamp is clamped to a metal table, and the"
+      "aisle ends in a solid concrete wall; a hand in a dark sleeve draws one slim folder from the"
+      "shelf and opens it to blank pages, with a small out-of-focus black-and-white photograph lying"
+      "face-up on the table. The room is closed and grey - no windows, no street outside, no houses, no"
+      "lamps, no second room and no view of anywhere else; the shelving and the concrete wall fill the"
+      "frame from edge to edge. No legible labels, numbers or lettering on any box, page or photograph;"
+      "no faces. Camera: locked-off at the end of the aisle with a slight push toward the open folder."
+      "The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
      "纸板抽出的一声、纸页翻动；字幕高亮「二〇〇六年」"),
     ("S45", "agnes", "缓慢后拉 slow pull-back",
      "现在的克兰利花园：夏末傍晚，普通住宅，孩子在楼下骑车，顶楼那扇窗没亮灯——日常得让人不舒服",
