@@ -1,9 +1,9 @@
 {
-  "status": "approved_for_render",
-  "reviewed_at": "2026-09-24T04:30:00Z",
+  "status": "approved_for_delivery",
+  "reviewed_at": "2026-09-24T04:45:00Z",
   "reviewer": "Arena production agent",
   "model": "agnes-video-v2.0",
-  "scope": "38 Agnes sources; 2 fps contact sheets; post-regeneration S03 contact sheet",
+  "scope": "38 Agnes sources; 2 fps contact sheets; post-regeneration S03 contact sheet; delivered MP4 contact sheet and timed frame review",
   "passed_shots": [
     "S01",
     "S02",
@@ -57,14 +57,19 @@
     "no_readable_model_text": "pass",
     "no_identifiable_faces": "pass",
     "no_blood_corpse_or_assault_process": "pass",
-    "no_black_frames_or_unintended_freeze": "pass",
+    "no_black_frames_or_unintended_freeze": "pass (only intentional fade-in, S45→end-card fade, and final fade-out; no unintended mid-program black frame or freeze)",
     "controlled_lens_warp_only": "pass",
     "receipt_dimensions_and_full_decode": "pass"
   },
-  "final_mp4_still_pending": [
-    "rendered subtitle legibility",
-    "audio/EDL sync",
-    "final MP4 technical report",
-    "verbatim ASR report"
-  ]
+  "final_mp4_still_pending": [],
+  "final_mp4": {
+    "file": "交付/大卫·史密斯_无罪之后_三分钟_带声音.mp4",
+    "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
+    "automated_review": "production/review_film.py; 1920x1080, 30 fps, 5400 decoded frames, 180.0 s; no unexpected black frame; flagged holds manually classified as designed cards/slow motion",
+    "visual_review": "final-contact.jpg plus 18 frames sampled every 10 s and targeted end-card frames",
+    "caption_review": "pass; 56 px Noto Sans CJK SC, black outline, bottom safe margin, readable in sampled frames; persistent AI/non-news label visible",
+    "edit_review": "pass; cuts cover all 45 planned shots, EDL has no gaps/overlaps and no source reuse",
+    "content_safety_review": "pass; no identifiable real-person AI face, victim portrait/corpse/blood, or assault process",
+    "fade_note": "near-black samples are intentional opening/end transitions; the end-card question remains legible before the final fade"
+  }
 }

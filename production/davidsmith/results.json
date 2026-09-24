@@ -1257,12 +1257,12 @@
       "visual_review": "manual_pass_contact_sheet"
     }
   },
-  "phase": "selected_sources_ready",
+  "phase": "delivery_verified",
   "review": {
-    "status": "approved_for_render",
-    "scope": "38 Agnes contact sheets sampled at 2 fps plus regenerated S03 contact sheet",
+    "status": "approved_for_delivery",
+    "scope": "38 Agnes contact sheets sampled at 2 fps plus regenerated S03 contact sheet; delivered MP4 contact sheet and timed frame review",
     "blocking_generation": false,
-    "reviewed_at": "2026-09-24T04:30:00Z",
+    "reviewed_at": "2026-09-24T04:45:00Z",
     "checks": {
       "single_location_and_camera_move": "pass",
       "no_readable_generated_text": "pass",
@@ -1270,15 +1270,22 @@
       "no_corpse_blood_or_assault_process": "pass",
       "no_black_frame_or_unintended_freeze_in_contact_sheets": "pass",
       "controlled_analog_warp_not_anatomical_distortion": "pass",
-      "resolution_and_duration_receipts": "pass"
+      "resolution_and_duration_receipts": "pass",
+      "no_black_frame_or_unintended_freeze": "pass (intentional opening/end fades documented; no unintended mid-program black frame or freeze)",
+      "subtitle_placement_and_large_font": "pass",
+      "edl_cut_audio_sync": "pass",
+      "final_decode_fps_duration_audio": "pass",
+      "verbatim_asr": "pass (film max CER 0.1194 <= 0.15)"
     },
-    "note": "S03 first generation was rejected because the figure turned toward camera late in the clip. Prompt was tightened to a continuous rear-view opaque silhouette; S03 was regenerated and rechecked before render.",
-    "pending_final_mp4_checks": [
-      "subtitle placement and large-font legibility",
-      "EDL/cut timing against final audio",
-      "final decode/fps/duration/audio level",
-      "six-chapter verbatim ASR"
-    ]
+    "note": "S03 first generation was rejected because the figure turned toward camera late in the clip. Prompt was tightened to a continuous rear-view opaque silhouette; S03 was regenerated and rechecked before render. Final MP4 then passed technical, audio, caption/EDL, visual sample, and verbatim gates.",
+    "pending_final_mp4_checks": [],
+    "final_mp4": {
+      "file": "交付/大卫·史密斯_无罪之后_三分钟_带声音.mp4",
+      "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
+      "render_run_id": "35955677314",
+      "verbatim_run_id": "35956596012",
+      "visual_review_report": "production/davidsmith/delivery/final-visual-review.json"
+    }
   },
   "workflow_policy": "cloud-first-cut-v3-rate-aware",
   "rate_policy": {
@@ -1327,11 +1334,11 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-24T04:25:28Z",
+  "updated_at": "2026-09-24T04:45:00Z",
   "run_id": "35955283072",
   "delivery": {
     "duration": 180.0,
-    "bytes": 60863253,
+    "bytes": 62375898,
     "width": 1920,
     "height": 1080,
     "fps": 30.0,
@@ -1340,10 +1347,10 @@
     "audio_codec": "aac",
     "sample_rate": 48000,
     "audio_channels": 2,
-    "sha256": "9593c7136123f5190e79f5e0b1b3684044563c095c65c797c080fd05e184ee67",
+    "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
     "decoded_ok": true,
-    "status": "audio_verified_cut",
-    "visual_review": "pending",
+    "status": "final_delivery_verified",
+    "visual_review": "approved_manual_final_contact_and_samples",
     "caption_alignment": [
       {
         "id": "N01",
@@ -1352,28 +1359,28 @@
       },
       {
         "id": "N02",
-        "method": "clause-times DP",
-        "character_match_coverage": 0.09803921568627451
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9901960784313726
       },
       {
         "id": "N03",
         "method": "ASR-assisted",
-        "character_match_coverage": 1.0
+        "character_match_coverage": 0.9925373134328358
       },
       {
         "id": "N04",
-        "method": "clause-times DP",
-        "character_match_coverage": 0.42718446601941745
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9805825242718447
       },
       {
         "id": "N05",
         "method": "ASR-assisted",
-        "character_match_coverage": 0.984375
+        "character_match_coverage": 0.9765625
       },
       {
         "id": "N06",
         "method": "pause-aware estimate",
-        "character_match_coverage": 0.24166666666666667
+        "character_match_coverage": 0.016666666666666666
       }
     ],
     "narration_voice_id": "voice-00",
@@ -1382,7 +1389,7 @@
     "source_clips": 38,
     "archival_portrait": false,
     "unique_shots_no_reuse": true,
-    "output": "大卫·史密斯：无罪之后_三分钟_初版.mp4",
+    "output": "大卫·史密斯_无罪之后_三分钟_带声音.mp4",
     "soundtrack_mix": {
       "rms_dbfs": -20.99,
       "peak_dbfs": -1.51,
@@ -1395,9 +1402,11 @@
       "silent_fraction": 0.011,
       "quietest_window_dbfs": -120.0
     },
-    "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
-    "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
-    "artifact_name": "davidsmith-agnes-1"
+    "audio_listening_review": "measured + faster-whisper verbatim check passed (film max CER 0.1194 <= 0.15)",
+    "note": "Final MP4 passed technical decode, measured audio, caption/EDL review, delivered visual contact-sheet review, and verbatim ASR gate. Intentional opening/end fades are documented in qa/visual-review.json.",
+    "artifact_name": "davidsmith-agnes-1",
+    "verbatim_check": "production/davidsmith/delivery/verbatim-check.json",
+    "final_visual_review": "production/davidsmith/delivery/final-visual-review.json"
   },
   "previous_results": {
     "S03": [
@@ -1435,5 +1444,7 @@
         "visual_review": "pending"
       }
     ]
-  }
+  },
+  "render_run_id": "35955677314",
+  "verbatim_run_id": "35956596012"
 }

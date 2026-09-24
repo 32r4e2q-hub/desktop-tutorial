@@ -11,8 +11,8 @@
   "audio_channels": 2,
   "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
   "decoded_ok": true,
-  "status": "audio_verified_cut",
-  "visual_review": "pending",
+  "status": "final_delivery_verified",
+  "visual_review": "approved_manual_final_contact_and_samples",
   "caption_alignment": [
     {
       "id": "N01",
@@ -64,6 +64,8 @@
     "silent_fraction": 0.011,
     "quietest_window_dbfs": -120.0
   },
-  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
-  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+  "audio_listening_review": "measured + faster-whisper verbatim check passed (film max CER 0.1194 <= 0.15)",
+  "note": "Final MP4 passed technical decode, measured audio, caption/EDL review, delivered visual contact-sheet review, and verbatim ASR gate. Intentional opening/end fades are documented in qa/visual-review.json.",
+  "verbatim_check": "delivery/verbatim-check.json",
+  "final_visual_review": "qa/visual-review.json"
 }

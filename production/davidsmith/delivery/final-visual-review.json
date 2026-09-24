@@ -1,0 +1,34 @@
+{
+  "file": "交付/大卫·史密斯_无罪之后_三分钟_带声音.mp4",
+  "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
+  "reviewed_at": "2026-09-24T04:45:00Z",
+  "automated": {
+    "tool": "production/review_film.py",
+    "video": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30.0,
+      "decoded_frames": 5400,
+      "duration_seconds": 180.0
+    },
+    "audio": {
+      "duration_seconds": 180.011,
+      "rms_dbfs": -21.01,
+      "peak_dbfs": -1.51,
+      "silent_fraction": 0.011,
+      "quietest_window_dbfs": -120.0
+    },
+    "black_frame_findings": "13 near-black frames only at intentional opening/end transitions: 0.00–0.03 s, 176.17–176.27 s, and 179.77–179.97 s; no unexpected mid-program black frame",
+    "freeze_findings": "44 one-second threshold alerts; 30 designed holds/cards and 14 slow micro-motion clips after 64x64 triage; no unintended freeze found in final review"
+  },
+  "manual": {
+    "contact_sheet": "delivery/final-contact.jpg",
+    "sampled_frames": "18 frames at 10-second intervals plus targeted end-card frames",
+    "subtitle_legibility": "pass; large outlined Chinese captions remain within the safe area",
+    "visual_style_and_labels": "pass; consistent blue/amber 2D documentary treatment, controlled warp, and persistent AI animation/non-news label",
+    "shot_integrity": "pass; final EDL covers 45 unique shots with no gap/overlap or reuse",
+    "safety": "pass; no identifiable faces, victim portraits, corpses, blood, or assault depiction",
+    "end_card": "pass; question and source line readable before intentional fade-out"
+  },
+  "status": "approved_for_delivery"
+}
