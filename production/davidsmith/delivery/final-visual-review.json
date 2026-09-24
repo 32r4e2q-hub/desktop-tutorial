@@ -1,7 +1,7 @@
 {
   "file": "交付/大卫·史密斯_无罪之后_三分钟_带声音.mp4",
   "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
-  "reviewed_at": "2026-09-24T05:02:00Z",
+  "reviewed_at": "2026-09-24T07:14:34Z",
   "automated": {
     "tool": "production/review_film.py",
     "video": {
@@ -41,7 +41,8 @@
       "no_caption_overlap": true,
       "verdict": "pass"
     },
-    "distortion_review": "pass; all 38 source contact sheets, 46 delivered EDL midpoints, and 33 targeted final-render frames (S03 plus 10 hand/object shots) reviewed at full-size crops"
+    "distortion_review": "pass; four-round audit: 38 source contacts, 46 final EDL midpoints, 33 targeted final-render frames, and 1,679 10fps intra-segment temporal comparisons with peak-pair review",
+    "temporal_consistency": "pass; no internal hard cut or morphing spike; largest deltas were intentional fades/transitions or paper/hand motion"
   },
   "status": "approved_for_delivery",
   "distortion_audit": "delivery/distortion-review.json"

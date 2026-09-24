@@ -1,5 +1,5 @@
 {
-  "reviewed_at": "2026-09-24T05:02:00Z",
+  "reviewed_at": "2026-09-24T07:14:34Z",
   "scope": {
     "source_contacts": "38 Agnes contact sheets, 2 fps receipts, inspected as 7 pages plus full-size crops for high-risk hand shots",
     "delivered_film": "46 final EDL midpoint frames (45 unique shots + END card), plus prior 10-second samples and targeted end-card frames",
@@ -62,5 +62,40 @@
     "The delivered MP4 high-risk sample was checked after subtitle overlay and final lens treatment; no subtitle-induced crop or render-stage warp was found on the hands, silhouettes, or objects."
   ],
   "verdict": "pass_no_blocking_distortion",
-  "action": "No Agnes regeneration or re-render required; retained the final MP4 and recorded this targeted audit."
+  "action": "No Agnes regeneration or re-render required; retained the final MP4 and recorded this targeted audit.",
+  "multi_round_verification": [
+    {
+      "round": 1,
+      "name": "source_contact_sheet_review",
+      "scope": "38 Agnes source clips at 2 fps",
+      "result": "pass; no face reveal, fused anatomy, object melting, or scene discontinuity"
+    },
+    {
+      "round": 2,
+      "name": "final_edl_midpoint_review",
+      "scope": "46 final segments including END card",
+      "result": "pass; all planned shots present and stable after render warp/subtitle overlay"
+    },
+    {
+      "round": 3,
+      "name": "targeted_high_risk_full_size_review",
+      "scope": "33 final frames: S03 plus 10 hand/object shots, 3 positions each",
+      "result": "pass; no blocking hand, silhouette, limb, or hand-object fusion"
+    },
+    {
+      "round": 4,
+      "name": "temporal_consistency_review",
+      "scope": "10 fps upper-frame luma comparison, 1,679 intra-segment frame comparisons, plus manual review of the ten largest peaks",
+      "result": "pass; no internal hard cut or morphing spike; largest changes were intentional fade-in, end-card fade, paper/hand motion, and S45 transition"
+    }
+  ],
+  "independent_technical_recheck": {
+    "tool": "production/review_film.py run again after the distortion audit",
+    "decoded_frames": 5400,
+    "duration_seconds": 180.0,
+    "near_black_frames": 13,
+    "near_black_interpretation": "intentional opening/end transitions only",
+    "frozen_threshold_alerts": 44,
+    "freeze_triage": "30 designed holds/cards, 14 slow micro-motion clips; no unintended freeze"
+  }
 }

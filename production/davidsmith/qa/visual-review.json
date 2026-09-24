@@ -1,6 +1,6 @@
 {
   "status": "approved_for_delivery",
-  "reviewed_at": "2026-09-24T05:02:00Z",
+  "reviewed_at": "2026-09-24T07:14:34Z",
   "reviewer": "Arena production agent",
   "model": "agnes-video-v2.0",
   "scope": "38 Agnes sources; 2 fps contact sheets; post-regeneration S03 contact sheet; delivered MP4 contact sheet and timed frame review",
@@ -60,7 +60,7 @@
     "no_black_frames_or_unintended_freeze": "pass (only intentional fade-in, S45→end-card fade, and final fade-out; no unintended mid-program black frame or freeze)",
     "controlled_lens_warp_only": "pass",
     "receipt_dimensions_and_full_decode": "pass",
-    "distortion_audit": "pass; targeted review of all 38 source contacts, 46 final segment midpoints, and high-risk hand/S03 crops found no blocking distortion"
+    "distortion_audit": "pass; four rounds completed: 38 source contacts, 46 final midpoints, 33 targeted high-risk frames, and 1,679 temporal comparisons"
   },
   "final_mp4_still_pending": [],
   "final_mp4": {
@@ -72,6 +72,6 @@
     "edit_review": "pass; cuts cover all 45 planned shots, EDL has no gaps/overlaps and no source reuse",
     "content_safety_review": "pass; no identifiable real-person AI face, victim portrait/corpse/blood, or assault process",
     "fade_note": "near-black samples are intentional opening/end transitions; the end-card question remains legible before the final fade",
-    "distortion_review": "delivery/distortion-review.json; pass, including 33 targeted final-render frames; no regeneration required"
+    "distortion_review": "delivery/distortion-review.json; four-round pass, no regeneration required"
   }
 }
