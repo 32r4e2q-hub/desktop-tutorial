@@ -1262,7 +1262,7 @@
     "status": "approved_for_delivery",
     "scope": "38 Agnes contact sheets sampled at 2 fps plus regenerated S03 contact sheet; delivered MP4 contact sheet and timed frame review",
     "blocking_generation": false,
-    "reviewed_at": "2026-09-24T04:45:00Z",
+    "reviewed_at": "2026-09-24T04:47:37Z",
     "checks": {
       "single_location_and_camera_move": "pass",
       "no_readable_generated_text": "pass",
@@ -1275,7 +1275,8 @@
       "subtitle_placement_and_large_font": "pass",
       "edl_cut_audio_sync": "pass",
       "final_decode_fps_duration_audio": "pass",
-      "verbatim_asr": "pass (film max CER 0.1194 <= 0.15)"
+      "verbatim_asr": "pass (film max CER 0.1194 <= 0.15)",
+      "caption_midpoint_and_timing_audit": "pass (46 EDL segments, 79 non-overlapping cues, max 22 content chars)"
     },
     "note": "S03 first generation was rejected because the figure turned toward camera late in the clip. Prompt was tightened to a continuous rear-view opaque silhouette; S03 was regenerated and rechecked before render. Final MP4 then passed technical, audio, caption/EDL, visual sample, and verbatim gates.",
     "pending_final_mp4_checks": [],
@@ -1334,7 +1335,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-24T04:45:00Z",
+  "updated_at": "2026-09-24T04:47:37Z",
   "run_id": "35955283072",
   "delivery": {
     "duration": 180.0,

@@ -1,7 +1,7 @@
 {
   "file": "交付/大卫·史密斯_无罪之后_三分钟_带声音.mp4",
   "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
-  "reviewed_at": "2026-09-24T04:45:00Z",
+  "reviewed_at": "2026-09-24T04:47:37Z",
   "automated": {
     "tool": "production/review_film.py",
     "video": {
@@ -23,12 +23,24 @@
   },
   "manual": {
     "contact_sheet": "delivery/final-contact.jpg",
-    "sampled_frames": "18 frames at 10-second intervals plus targeted end-card frames",
+    "sampled_frames": "46 EDL segment midpoint frames (45 unique shots + END card), 18 frames at 10-second intervals, and targeted end-card frames",
     "subtitle_legibility": "pass; large outlined Chinese captions remain within the safe area",
     "visual_style_and_labels": "pass; consistent blue/amber 2D documentary treatment, controlled warp, and persistent AI animation/non-news label",
     "shot_integrity": "pass; final EDL covers 45 unique shots with no gap/overlap or reuse",
     "safety": "pass; no identifiable faces, victim portraits, corpses, blood, or assault depiction",
-    "end_card": "pass; question and source line readable before intentional fade-out"
+    "end_card": "pass; question and source line readable before intentional fade-out",
+    "shot_by_shot_midpoint_review": {
+      "sample_count": 46,
+      "verdict": "pass",
+      "checks": "all planned shots present; no identifiable face, victim depiction, blood, readable model-generated text, scene discontinuity, or anatomical warp found in the midpoint sheet"
+    },
+    "caption_timing_audit": {
+      "edl_segments": 46,
+      "caption_cues": 79,
+      "max_caption_content_chars": 22,
+      "no_caption_overlap": true,
+      "verdict": "pass"
+    }
   },
   "status": "approved_for_delivery"
 }

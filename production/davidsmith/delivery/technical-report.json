@@ -67,5 +67,12 @@
   "audio_listening_review": "measured + faster-whisper verbatim check passed (film max CER 0.1194 <= 0.15)",
   "note": "Final MP4 passed technical decode, measured audio, caption/EDL review, delivered visual contact-sheet review, and verbatim ASR gate. Intentional opening/end fades are documented in qa/visual-review.json.",
   "verbatim_check": "delivery/verbatim-check.json",
-  "final_visual_review": "qa/visual-review.json"
+  "final_visual_review": "qa/visual-review.json + delivery/final-visual-review.json; 46-segment midpoint review passed",
+  "caption_timing_audit": {
+    "edl_segments": 46,
+    "caption_cues": 79,
+    "max_caption_content_chars": 22,
+    "no_caption_overlap": true,
+    "status": "pass"
+  }
 }
