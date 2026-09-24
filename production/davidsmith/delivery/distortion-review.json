@@ -1,0 +1,64 @@
+{
+  "reviewed_at": "2026-09-24T05:02:00Z",
+  "scope": {
+    "source_contacts": "38 Agnes contact sheets, 2 fps receipts, inspected as 7 pages plus full-size crops for high-risk hand shots",
+    "delivered_film": "46 final EDL midpoint frames (45 unique shots + END card), plus prior 10-second samples and targeted end-card frames",
+    "render_warp": "controlled lenscorrection only; no uncontrolled geometric warp introduced by the render"
+  },
+  "high_risk_shots": {
+    "visible_hands": [
+      "S05",
+      "S10",
+      "S13",
+      "S17",
+      "S22",
+      "S30",
+      "S33",
+      "S34",
+      "S38",
+      "S40"
+    ],
+    "rear_or_obscured_figures": [
+      "S01",
+      "S02",
+      "S03",
+      "S08",
+      "S12",
+      "S14",
+      "S23",
+      "S28",
+      "S32",
+      "S41",
+      "S44"
+    ],
+    "perspective_or_object_motion": [
+      "S06",
+      "S07",
+      "S09",
+      "S11",
+      "S15",
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S24",
+      "S25",
+      "S26",
+      "S29",
+      "S35",
+      "S37",
+      "S39",
+      "S42",
+      "S45"
+    ]
+  },
+  "findings": [
+    "No identifiable face, face-like turn, fused limb, extra limb, or obvious cross-frame anatomical break was found in the inspected material.",
+    "Hand shots use simplified painterly anatomy; sampled motion shows ordinary stylized finger deformation, not a blocking hallucination. No obvious extra digit or hand-to-object fusion was found.",
+    "S03 remains a rear/opaque silhouette throughout the 2 fps receipt contact sheet; no readable face or profile likeness appears. The early oblique silhouette is still back/side shadow without facial detail.",
+    "Courthouse, corridor, truck, door, desk, book, phone, fingerprint ring, documents, bars, and table edges remain spatially stable. No melting architecture or object identity jump was found.",
+    "The final render adds only the documented controlled lens correction and uniform texture treatment; no edge bending or anatomy change beyond the source style was observed."
+  ],
+  "verdict": "pass_no_blocking_distortion",
+  "action": "No Agnes regeneration or re-render required; retained the final MP4 and recorded this targeted audit."
+}

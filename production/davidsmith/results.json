@@ -1262,7 +1262,7 @@
     "status": "approved_for_delivery",
     "scope": "38 Agnes contact sheets sampled at 2 fps plus regenerated S03 contact sheet; delivered MP4 contact sheet and timed frame review",
     "blocking_generation": false,
-    "reviewed_at": "2026-09-24T04:47:37Z",
+    "reviewed_at": "2026-09-24T05:02:00Z",
     "checks": {
       "single_location_and_camera_move": "pass",
       "no_readable_generated_text": "pass",
@@ -1276,7 +1276,8 @@
       "edl_cut_audio_sync": "pass",
       "final_decode_fps_duration_audio": "pass",
       "verbatim_asr": "pass (film max CER 0.1194 <= 0.15)",
-      "caption_midpoint_and_timing_audit": "pass (46 EDL segments, 79 non-overlapping cues, max 22 content chars)"
+      "caption_midpoint_and_timing_audit": "pass (46 EDL segments, 79 non-overlapping cues, max 22 content chars)",
+      "distortion_audit": "pass (all 38 source contacts, 46 final segment midpoints, and high-risk hand/S03 crops reviewed)"
     },
     "note": "S03 first generation was rejected because the figure turned toward camera late in the clip. Prompt was tightened to a continuous rear-view opaque silhouette; S03 was regenerated and rechecked before render. Final MP4 then passed technical, audio, caption/EDL, visual sample, and verbatim gates.",
     "pending_final_mp4_checks": [],
@@ -1285,7 +1286,8 @@
       "sha256": "7d0f1a7a2ba9c081f59bb3d23095806fb106912d9cf8f65d817db15c23de33c8",
       "render_run_id": "35955677314",
       "verbatim_run_id": "35956596012",
-      "visual_review_report": "production/davidsmith/delivery/final-visual-review.json"
+      "visual_review_report": "production/davidsmith/delivery/final-visual-review.json",
+      "distortion_review_report": "production/davidsmith/delivery/distortion-review.json"
     }
   },
   "workflow_policy": "cloud-first-cut-v3-rate-aware",
@@ -1335,7 +1337,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-24T04:47:37Z",
+  "updated_at": "2026-09-24T05:02:00Z",
   "run_id": "35955283072",
   "delivery": {
     "duration": 180.0,
