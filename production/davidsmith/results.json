@@ -1136,10 +1136,10 @@
     },
     "S42": {
       "id": "S42",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "3278cceff168c07272f0c2d81aef52a20fe7a163d731b928bb12398eea95655b",
       "error": null,
-      "updated_at": "2026-09-24T01:58:13Z",
+      "updated_at": "2026-09-24T01:58:15Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzQ0NWY0Y2U3ZWI5NzQzODJiNmMzMDZkOGY3YThmYTY2",
       "task_id": "task_Ne1dQtbUzHOu60tH0nANZBTb41HSb2AL",
       "requested_seconds": 7.041666666666667,
@@ -1147,7 +1147,25 @@
       "bytes": 1872080,
       "sha256": "2ae02bb83f0ad4657e19c60b1a186e12b2b9d34fcfecf6720d7b8eadf2628029",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 1872080,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/davidsmith/qa/S42.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "phase": "generating_sources",
@@ -1204,6 +1222,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-24T01:58:13Z",
+  "updated_at": "2026-09-24T01:58:15Z",
   "run_id": "35939430234"
 }
