@@ -359,7 +359,8 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
+            f'crop={width}:{height},setsar=1,fps={FPS},lenscorrection=k1=-0.018:k2=0.003,'
+            f'eq=saturation=0.92:contrast=1.025:brightness=-0.006,noise=alls=1.2:allf=t+u,'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         entry.update(source_in=a,source_out=a+take,time_stretch=factor)
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'

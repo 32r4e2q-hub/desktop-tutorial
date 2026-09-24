@@ -8,6 +8,7 @@ Video V2.0 动画镜头 + 7 张可控信息卡；所有中文文字都由后期�
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -144,7 +145,7 @@ SHOTS = [
     A("S02", "固定中景，人物停在门外", "史密斯无罪离场的荒诞感：背影停住，向身后抬手致意", "抬手动作匹配下一镜的回声",
       "Stylized 2D animated documentary scene outside a British courthouse on a grey afternoon, a very tall broad-shouldered man seen only from behind pauses on stone steps and lifts one hand toward the unseen courtroom, no face, no signage, no readable text. Camera: locked-off medium-wide shot with only the coat and distant umbrellas moving, hold on the raised hand, no cut, no scene change.", "鞋跟回声 + 短促吸气"),
     A("S03", "走廊横移", "把时间一下拉到六年后：监狱走廊的铁门和高大剪影", "铁门声做时间跳切",
-      "Stylized 2D animated documentary scene in a cold British prison corridor, a tall heavy male silhouette passes behind vertical bars carrying a small bedding bundle, only back and hands visible, no face and no text. Camera: one slow sideways tracking move parallel to the bars, hold the same corridor for the full clip, no cut, no scene change.", "铁门滑轨声 + 低沉撞击"),
+      "Stylized 2D animated documentary scene in a cold British prison corridor, one tall heavy male figure is a completely opaque dark silhouette seen from behind for the entire clip, carrying a small bedding bundle; his head and shoulders never rotate, no profile and no face can ever be visible, no text. Camera: one slow sideways tracking move parallel to the bars while staying behind the figure, hold the same corridor and the same rear view for the full clip, no turn, no cut, no scene change.", "铁门滑轨声 + 低沉撞击"),
     G("S04", "案件名片：把地点、年代、翻案钩子一次打出", "卡片右下角压入下一镜的纸张声", "大卫·史密斯案\n一九九一年—二零二三年 · 英国\n无罪之后，三十年后重审", "纸张展开 + 一记心跳"),
     A("S05", "法官手部特写，微微下摇", "用法槌、卷宗和空椅子建立“法庭判过一次”的主题", "卷宗合上切到下一张卡片",
       "Stylized 2D animated documentary close scene of a judge's hands placing a plain case file beside a wooden gavel on a crown court bench, only hands and objects, no readable writing, no faces. Camera: one slow downward tilt from the empty witness box to the gavel, hold on the closed file, no cut, no scene change.", "纸页翻动 + 法槌轻放"),
@@ -378,7 +379,8 @@ def build():
             raise AssertionError(f"音频章节不匹配：{clip['id']} / {chapter['id']}")
         clip["text"] = chapter["text"]
         clip["file"] = f"{chapter['id']}.mp3"
-        clip["sha256"] = ""
+        audio_path = HERE / "audio" / clip["file"]
+        clip["sha256"] = hashlib.sha256(audio_path.read_bytes()).hexdigest() if audio_path.is_file() else ""
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     kind_counts = {kind: sum(s["kind"] == kind for s in shots) for kind in ("agnes", "graphic")}
