@@ -1,0 +1,457 @@
+{
+  "film": "大卫·史密斯_无罪之后_三分钟_带声音.mp4",
+  "project": "production/davidsmith",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 27.27,
+        "script_chars": 102,
+        "heard_chars": 102,
+        "character_error_rate": 0.0196,
+        "match_coverage": 0.9804,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "狱",
+            "heard": "御"
+          },
+          {
+            "at": 90,
+            "kind": "replace",
+            "script": "案",
+            "heard": "栏"
+          }
+        ],
+        "transcript": "一个男人刚在法庭上被判无罪竟然还向陪审团道谢六年后他再次杀人三十年后一条改过的《一罪不二审法律》加上一句御中吹嘘把他重新送上被告席他就是英国的大卫史密斯今天一口气看懂这场迟到三十年的翻栏关键是旧证据被重新读懂"
+      },
+      {
+        "id": "N02",
+        "start": 28.35,
+        "end": 53.97,
+        "script_chars": 102,
+        "heard_chars": 102,
+        "character_error_rate": 0.0196,
+        "match_coverage": 0.9804,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 56,
+            "kind": "replace",
+            "script": "科",
+            "heard": "客"
+          },
+          {
+            "at": 84,
+            "kind": "replace",
+            "script": "见",
+            "heard": "界"
+          }
+        ],
+        "transcript": "史密斯是英國卡車司機身材高大外號大腳怪同事眼裡他只是個沉默的普通人但在這層外表下面是從年輕時就不斷升級的性暴力前客90年代他用假名鄧肯接近33歲的薩拉克拉姆表面是付費界面背後卻是一場沒人能及時阻止的危險"
+      },
+      {
+        "id": "N03",
+        "start": 55.05,
+        "end": 86.339,
+        "script_chars": 134,
+        "heard_chars": 141,
+        "character_error_rate": 0.1194,
+        "match_coverage": 0.9328,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 14,
+            "kind": "replace",
+            "script": "豪",
+            "heard": "昊"
+          },
+          {
+            "at": 57,
+            "kind": "replace",
+            "script": "阿曼达沃克",
+            "heard": "amandawalker"
+          },
+          {
+            "at": 68,
+            "kind": "replace",
+            "script": "里郡",
+            "heard": "利军"
+          },
+          {
+            "at": 72,
+            "kind": "replace",
+            "script": "利",
+            "heard": "里"
+          }
+        ],
+        "transcript": "1991年8月,克拉姆在倫敦南昊爾的公寓遇害警方發現現場留下的傷害方式後來被認為與另一宗案件高度相似6年後,21歲的Amanda Walker失蹤遺體在薩利軍威斯里附近被發現兩案都指向同一個模式用假名接觸,在相對封閉的空間裡實施暴力再把受害者帶離現場,藏匿或棄置可真正可怕的是第一次審判之後"
+      },
+      {
+        "id": "N04",
+        "start": 87.419,
+        "end": 112.251,
+        "script_chars": 103,
+        "heard_chars": 103,
+        "character_error_rate": 0.0583,
+        "match_coverage": 0.9417,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "姆",
+            "heard": "木"
+          },
+          {
+            "at": 34,
+            "kind": "replace",
+            "script": "链",
+            "heard": "连"
+          },
+          {
+            "at": 61,
+            "kind": "replace",
+            "script": "谢",
+            "heard": "歉"
+          },
+          {
+            "at": 74,
+            "kind": "replace",
+            "script": "再",
+            "heard": "在"
+          },
+          {
+            "at": 95,
+            "kind": "replace",
+            "script": "被判",
+            "heard": "背叛"
+          }
+        ],
+        "transcript": "1993年史密斯因克拉木案受審辩方抓住了現場指紋沒有及時解釋這一證據連瑕疵陪審團最終判他無罪史密斯走出法庭時甚至向陪審團道歉受害者母親當庭警告他還會在殺人6年後沃克案讓這句警告成了事實史密斯背叛謀殺終身監禁"
+      },
+      {
+        "id": "N05",
+        "start": 113.331,
+        "end": 144.476,
+        "script_chars": 128,
+        "heard_chars": 128,
+        "character_error_rate": 0.0469,
+        "match_coverage": 0.9531,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 3,
+            "kind": "replace",
+            "script": "狱",
+            "heard": "玉"
+          },
+          {
+            "at": 49,
+            "kind": "replace",
+            "script": "不",
+            "heard": "博"
+          },
+          {
+            "at": 55,
+            "kind": "replace",
+            "script": "窄",
+            "heard": "宅"
+          },
+          {
+            "at": 104,
+            "kind": "replace",
+            "script": "狱",
+            "heard": "玉"
+          },
+          {
+            "at": 109,
+            "kind": "replace",
+            "script": "沃克",
+            "heard": "卧客"
+          }
+        ],
+        "transcript": "但他在玉中又犯了一个致命错误向同仓犯人吹嘘自己当年已经逃过了英国后来通过2003年刑事司法法给一罪博二审开出极宅的例外只有出现新的令人信服的证据才可能重审2022年上诉法院推翻旧判决旧指纹被查明属于前屋主加上玉中吹嘘和卧客案的相似性30年前的证据链终于闭合"
+      },
+      {
+        "id": "N06",
+        "start": 145.556,
+        "end": 174.0,
+        "script_chars": 120,
+        "heard_chars": 120,
+        "character_error_rate": 0.0583,
+        "match_coverage": 0.9417,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 9,
+            "kind": "replace",
+            "script": "陪",
+            "heard": "配"
+          },
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "案",
+            "heard": "暗"
+          },
+          {
+            "at": 52,
+            "kind": "replace",
+            "script": "无期",
+            "heard": "吴七"
+          },
+          {
+            "at": 59,
+            "kind": "replace",
+            "script": "服",
+            "heard": "伏"
+          },
+          {
+            "at": 69,
+            "kind": "replace",
+            "script": "的",
+            "heard": "得"
+          },
+          {
+            "at": 86,
+            "kind": "replace",
+            "script": "窄",
+            "heard": "宅"
+          }
+        ],
+        "transcript": "2023年5月,重審配審團不到三小時就裁定史密斯謀殺克拉姆罪名成立他被判終身監禁,最低刑期27年而沃克暗的吳七刑他早已在伏遲到30年的正義靠得不是一句傳聞而是法律給證據留下的宅門以及兇手親口留下的回聲你覺得一罪不二審的例外應該更嚴格還是更勇敢"
+      }
+    ],
+    "max_cer": 0.1194,
+    "failing": []
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 27.27,
+        "script_chars": 102,
+        "heard_chars": 102,
+        "character_error_rate": 0.0294,
+        "match_coverage": 0.9706,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "狱",
+            "heard": "欲"
+          },
+          {
+            "at": 72,
+            "kind": "replace",
+            "script": "密",
+            "heard": "弥"
+          },
+          {
+            "at": 90,
+            "kind": "replace",
+            "script": "案",
+            "heard": "栏"
+          }
+        ],
+        "transcript": "一个男人刚在法庭上被判无罪竟然还向陪审团道谢六年后他再次杀人三十年后一条改过的一罪不二审法律加上一句欲中吹嘘把他重新送上被告席他就是英国的大卫史弥斯今天一口气看懂这场迟到三十年的翻栏关键是旧证据被重新读懂"
+      },
+      {
+        "id": "N02",
+        "start": 28.35,
+        "end": 53.97,
+        "script_chars": 102,
+        "heard_chars": 102,
+        "character_error_rate": 0.0098,
+        "match_coverage": 0.9902,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 56,
+            "kind": "replace",
+            "script": "科",
+            "heard": "客"
+          }
+        ],
+        "transcript": "史密斯是英國卡車司機身材高大外號大腳怪同事眼裡他只是個沉默的普通人但在這層外表下面是從年輕時就不斷升級的性暴力前客90年代他用假名鄧肯接近33歲的薩拉克拉姆表面是付費見面背後卻是一場沒人能及時阻止的危險"
+      },
+      {
+        "id": "N03",
+        "start": 55.05,
+        "end": 86.339,
+        "script_chars": 134,
+        "heard_chars": 135,
+        "character_error_rate": 0.0597,
+        "match_coverage": 0.9478,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 14,
+            "kind": "replace",
+            "script": "豪",
+            "heard": "昊"
+          },
+          {
+            "at": 62,
+            "kind": "insert",
+            "script": "",
+            "heard": "尔"
+          },
+          {
+            "at": 68,
+            "kind": "replace",
+            "script": "里郡",
+            "heard": "利菌"
+          },
+          {
+            "at": 72,
+            "kind": "replace",
+            "script": "利",
+            "heard": "里"
+          },
+          {
+            "at": 91,
+            "kind": "replace",
+            "script": "接触",
+            "heard": "截处"
+          },
+          {
+            "at": 119,
+            "kind": "replace",
+            "script": "置",
+            "heard": "制"
+          }
+        ],
+        "transcript": "1991年8月,克拉姆在倫敦南昊尔的公寓遇害警方发现现场留下的伤害方式后来被认为与另一宗案件高度相似6年后,21岁的阿曼达沃克尔失踪遗体在萨利菌威斯里附近被发现两案都指向同一个模式用假名截处,在相对封闭的空间里实施暴力再把受害者带离现场,藏匿或弃制可真正可怕的是第一次审判之后"
+      },
+      {
+        "id": "N04",
+        "start": 87.419,
+        "end": 112.251,
+        "script_chars": 103,
+        "heard_chars": 103,
+        "character_error_rate": 0.0777,
+        "match_coverage": 0.9223,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "姆",
+            "heard": "默"
+          },
+          {
+            "at": 34,
+            "kind": "replace",
+            "script": "链瑕疵",
+            "heard": "连辖词"
+          },
+          {
+            "at": 85,
+            "kind": "replace",
+            "script": "句",
+            "heard": "局"
+          },
+          {
+            "at": 95,
+            "kind": "replace",
+            "script": "被判",
+            "heard": "背叛"
+          },
+          {
+            "at": 102,
+            "kind": "replace",
+            "script": "禁",
+            "heard": "警"
+          }
+        ],
+        "transcript": "1993年史密斯因克拉默案受審辩方抓住了现场指纹没有及时解释这一证据连辖词陪审团最终判他无罪史密斯走出法庭时甚至向陪审团道谢受害者母亲当庭警告他还会再杀人6年后沃克案让这局警告成了事实史密斯背叛谋杀终身监警"
+      },
+      {
+        "id": "N05",
+        "start": 113.331,
+        "end": 144.476,
+        "script_chars": 128,
+        "heard_chars": 128,
+        "character_error_rate": 0.0547,
+        "match_coverage": 0.9453,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 3,
+            "kind": "replace",
+            "script": "狱",
+            "heard": "玉"
+          },
+          {
+            "at": 49,
+            "kind": "replace",
+            "script": "不",
+            "heard": "波"
+          },
+          {
+            "at": 55,
+            "kind": "replace",
+            "script": "窄",
+            "heard": "宰"
+          },
+          {
+            "at": 92,
+            "kind": "replace",
+            "script": "指纹",
+            "heard": "志文"
+          },
+          {
+            "at": 104,
+            "kind": "replace",
+            "script": "狱",
+            "heard": "玉"
+          },
+          {
+            "at": 111,
+            "kind": "replace",
+            "script": "案",
+            "heard": "安"
+          }
+        ],
+        "transcript": "但他在玉中又犯了一个致命错误向同仓犯人吹嘘自己当年已经逃过了英国后来通过2003年刑事司法法给一罪波二审开出极宰的例外只有出现新的令人信服的证据才可能重审2022年上诉法院推翻旧判决旧志文被查明属于前屋主加上玉中吹嘘和沃克安的相似性30年前的证据链终于闭合"
+      },
+      {
+        "id": "N06",
+        "start": 145.556,
+        "end": 174.0,
+        "script_chars": 120,
+        "heard_chars": 120,
+        "character_error_rate": 0.0167,
+        "match_coverage": 0.9833,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "案",
+            "heard": "暗"
+          },
+          {
+            "at": 59,
+            "kind": "replace",
+            "script": "服",
+            "heard": "府"
+          }
+        ],
+        "transcript": "2023年5月,重审陪审团不到三小时就裁定史密斯谋杀克拉姆罪名成立。他被判终身监禁,最低刑期27年,而沃克暗的无期刑他早已在府,迟到30年的正义,靠的不是一句传闻,而是法律给证据留下的窄门,以及凶手亲口留下的回声。你觉得,一罪不二审的例外,应该更严格,还是更勇敢?"
+      }
+    ],
+    "max_cer": 0.0777,
+    "failing": []
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+}
