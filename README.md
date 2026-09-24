@@ -99,6 +99,15 @@ python3 -m pip install -r production/requirements.txt   # 另需 ffmpeg 与中�
 python3 -m pytest production/tests -q                   # 离线自检（2026-09-21：119 passed）
 ```
 
+## 新项目：BTK《软盘里的名字》
+
+本分支同步制作《美国BTK连环杀手案》三分钟横版悬疑科普短片，按吉尔戈片的同一动画质感与质检链制作：[`production/btk/README.md`](production/btk/README.md)。
+
+- 已交付脚本：[`production/btk/抖音脚本.md`](production/btk/抖音脚本.md)（三标题、核心爆点、45镜四列表格、资料来源）。
+- 旁白已录制并对齐：六段、收紧后162.92秒；脚本735个汉字（不含标点），视频目标180秒，38段Agnes动画+7张信息卡。
+- 事实校正：女儿样本用于亲缘DNA分析，不称“直接完美匹配”；雷德判处十个连续终身监禁，不写成已经在狱中死亡。
+- Agnes素材与成片验收尚未完成；进度、接触表、畸变/伪文字/换场检查和音画同步听检记录在 [`production/btk/制作过程.md`](production/btk/制作过程.md)。
+
 ## 仓库里还有什么
 
 | 路径 | 内容 |
