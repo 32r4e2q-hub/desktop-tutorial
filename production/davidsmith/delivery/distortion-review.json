@@ -3,7 +3,8 @@
   "scope": {
     "source_contacts": "38 Agnes contact sheets, 2 fps receipts, inspected as 7 pages plus full-size crops for high-risk hand shots",
     "delivered_film": "46 final EDL midpoint frames (45 unique shots + END card), plus prior 10-second samples and targeted end-card frames",
-    "render_warp": "controlled lenscorrection only; no uncontrolled geometric warp introduced by the render"
+    "render_warp": "controlled lenscorrection only; no uncontrolled geometric warp introduced by the render",
+    "delivered_high_risk_frames": "33 final-render frames: 3 positions each for S03 plus the 10 hand/object shots S05, S10, S13, S17, S22, S30, S33, S34, S38, S40"
   },
   "high_risk_shots": {
     "visible_hands": [
@@ -57,7 +58,8 @@
     "Hand shots use simplified painterly anatomy; sampled motion shows ordinary stylized finger deformation, not a blocking hallucination. No obvious extra digit or hand-to-object fusion was found.",
     "S03 remains a rear/opaque silhouette throughout the 2 fps receipt contact sheet; no readable face or profile likeness appears. The early oblique silhouette is still back/side shadow without facial detail.",
     "Courthouse, corridor, truck, door, desk, book, phone, fingerprint ring, documents, bars, and table edges remain spatially stable. No melting architecture or object identity jump was found.",
-    "The final render adds only the documented controlled lens correction and uniform texture treatment; no edge bending or anatomy change beyond the source style was observed."
+    "The final render adds only the documented controlled lens correction and uniform texture treatment; no edge bending or anatomy change beyond the source style was observed.",
+    "The delivered MP4 high-risk sample was checked after subtitle overlay and final lens treatment; no subtitle-induced crop or render-stage warp was found on the hands, silhouettes, or objects."
   ],
   "verdict": "pass_no_blocking_distortion",
   "action": "No Agnes regeneration or re-render required; retained the final MP4 and recorded this targeted audit."
