@@ -1,0 +1,70 @@
+{
+  "status": "approved_for_render",
+  "reviewed_at": "2026-09-24T04:30:00Z",
+  "reviewer": "Arena production agent",
+  "model": "agnes-video-v2.0",
+  "scope": "38 Agnes sources; 2 fps contact sheets; post-regeneration S03 contact sheet",
+  "passed_shots": [
+    "S01",
+    "S02",
+    "S03",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S17",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S28",
+    "S29",
+    "S30",
+    "S32",
+    "S33",
+    "S34",
+    "S35",
+    "S37",
+    "S38",
+    "S39",
+    "S40",
+    "S41",
+    "S42",
+    "S44",
+    "S45"
+  ],
+  "rejected_and_regenerated": [
+    {
+      "id": "S03",
+      "reason": "later frames turned the prison figure toward camera, exposing a face-like front view",
+      "action": "tightened prompt to an opaque rear silhouette with no turn/profile and regenerated once",
+      "result": "pass"
+    }
+  ],
+  "checks": {
+    "single_scene_and_one_camera_move": "pass",
+    "no_readable_model_text": "pass",
+    "no_identifiable_faces": "pass",
+    "no_blood_corpse_or_assault_process": "pass",
+    "no_black_frames_or_unintended_freeze": "pass",
+    "controlled_lens_warp_only": "pass",
+    "receipt_dimensions_and_full_decode": "pass"
+  },
+  "final_mp4_still_pending": [
+    "rendered subtitle legibility",
+    "audio/EDL sync",
+    "final MP4 technical report",
+    "verbatim ASR report"
+  ]
+}
