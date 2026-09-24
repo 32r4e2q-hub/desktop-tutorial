@@ -1257,7 +1257,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1311,11 +1311,11 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-24T19:48:10Z",
+  "updated_at": "2026-09-24T19:51:49Z",
   "run_id": "36046127477",
   "delivery": {
     "duration": 180.0,
-    "bytes": 68700986,
+    "bytes": 67455145,
     "width": 1920,
     "height": 1080,
     "fps": 30.0,
@@ -1324,64 +1324,64 @@
     "audio_codec": "aac",
     "sample_rate": 48000,
     "audio_channels": 2,
-    "sha256": "0be81aca81d6417c7e3cab867c0136005990574d76cd99b6793a637dc2e13bfe",
+    "sha256": "33e199dfc389cc5a4743c64fea2897b6fae5b063dadb7a01ff5bc37b1e0eed45",
     "decoded_ok": true,
     "status": "audio_verified_cut",
     "visual_review": "pending",
     "caption_alignment": [
       {
         "id": "N01",
-        "method": "ASR-assisted",
-        "character_match_coverage": 0.98989898989899
+        "method": "clause-times DP",
+        "character_match_coverage": 0.0625
       },
       {
         "id": "N02",
         "method": "clause-times DP",
-        "character_match_coverage": 0.07692307692307693
+        "character_match_coverage": 0.08547008547008547
       },
       {
         "id": "N03",
         "method": "clause-times DP",
-        "character_match_coverage": 0.2898550724637681
+        "character_match_coverage": 0.12403100775193798
       },
       {
         "id": "N04",
-        "method": "pause-aware estimate",
-        "character_match_coverage": 0.28160919540229884
+        "method": "ASR-assisted",
+        "character_match_coverage": 1.0
       },
       {
         "id": "N05",
-        "method": "ASR-assisted",
-        "character_match_coverage": 0.9930555555555556
+        "method": "clause-times DP",
+        "character_match_coverage": 0.6811594202898551
       },
       {
         "id": "N06",
-        "method": "ASR-assisted",
-        "character_match_coverage": 0.9850746268656716
+        "method": "clause-times DP",
+        "character_match_coverage": 0.15671641791044777
       }
     ],
     "narration_voice_id": "voice-00",
-    "narration_tempo": 0.9697774057539681,
+    "narration_tempo": 0.9688066716269842,
     "editorial_segments": 46,
     "source_clips": 38,
     "archival_portrait": false,
     "unique_shots_no_reuse": true,
     "output": "BTK：软盘里的名字_三分钟_初版.mp4",
     "soundtrack_mix": {
-      "rms_dbfs": -20.97,
-      "peak_dbfs": -1.52,
-      "silent_fraction": 0.0056,
+      "rms_dbfs": -20.05,
+      "peak_dbfs": -1.5,
+      "silent_fraction": 0.0,
       "target_rms_dbfs": -20.0
     },
     "delivered_audio": {
-      "rms_dbfs": -21.0,
-      "peak_dbfs": -1.57,
-      "silent_fraction": 0.011,
+      "rms_dbfs": -20.07,
+      "peak_dbfs": -1.42,
+      "silent_fraction": 0.0055,
       "quietest_window_dbfs": -120.0
     },
     "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
     "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
-    "artifact_name": "btk-agnes-1"
+    "artifact_name": "btk-agnes-2"
   },
   "previous_results": {
     "S01": [
