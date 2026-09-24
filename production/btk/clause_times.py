@@ -42,69 +42,88 @@ def pauses(x, min_len=0.18):
 
 
 def align(text, x):
+    """Align text clause boundaries to real audio pauses with monotonic dynamic programming.
+
+    A few punctuation boundaries may have no detectable pause, or TTS may pause inside
+    a clause. Sequence alignment therefore permits merging text clauses and ignoring
+    extra pauses instead of inventing impossible timestamps.
+    """
     dur = len(x) / RATE
     lead, spans = pauses(x)
-    clauses = [c for c in re.split(PUNCT, text) if c]
-    w = np.array([max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c))) for c in clauses], float)
-    speech = dur - lead - 0.25 - sum(d for _, d in spans)
-    rate = speech / w.sum()                      # 秒/字
-    K = len(clauses); J = len(spans)
-    # Some TTS voices pause at sentence endings but not every comma. The original pause-only DP requires at least one detected silence per clause; without enough candidates its backtrace collapses every clause onto the full clip. In that case estimate clause boundaries from character-weighted speech time, then snap nearby boundaries to real pauses. Final subtitles prefer Whisper word timestamps in render.py whenever available.
-    if J < K - 1:
-        weights = [max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c))) for c in clauses]
-        trailing = 0.25
-        # This voice has sparse/uneven pauses (some commas have no silence at all),
-        # so distribute measured media time by normalized clause length instead of
-        # snapping a phrase onto an unrelated silence elsewhere in the recording.
-        rate = max(0.01, dur - lead) / sum(weights)
-        boundaries = [lead]
-        cumulative = 0
-        for k in range(K - 1):
-            cumulative += weights[k]
-            guess = lead + cumulative * rate
-            low = boundaries[-1] + 0.08
-            high = dur - 0.08 * (K - 1 - k)
-            boundaries.append(max(low, min(high, guess)))
-        boundaries.append(dur)
-        rows = []
-        for k, clause in enumerate(clauses):
-            a, b = boundaries[k], boundaries[k + 1]
-            rows.append({'i': k, 'start': round(a, 2), 'end': round(b, 2), 'text': clause,
-                         'chars_per_second': round(weights[k] / max(0.05, b - a), 2), 'estimated': True})
-        return dur, rows
-    starts = [lead] + [s + d for s, d in spans]  # 候选"分句开始时间"：片头 或 某个静音段结束
-    ends = [s for s, _ in spans] + [dur]         # 候选"分句结束时间"：某个静音段开始 或 片尾
-    INF = float('inf')
-    # dp[k][j]: 第 k 个分句结束在第 j 个候选结束点（j∈[0,J]），j=J 只允许 k=K-1
-    dp = [[INF] * (J + 1) for _ in range(K)]; back = [[-1] * (J + 1) for _ in range(K)]
+    clauses = [c.strip() for c in re.findall(r'[^，。！？；：、—]+[，。！？；：、—]*', text) if c.strip()]
+    weight = lambda c: max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c)))
+    weights = [weight(c) for c in clauses]
+    total_weight = max(1, sum(weights))
+    text_bounds = []
+    running = 0
+    for w in weights[:-1]:
+        running += w
+        text_bounds.append(running / total_weight)
 
-    def cost(k, a, b):
-        actual = b - a
-        expected = w[k] * rate
-        if actual <= 0.05: return INF
-        return math.log(actual / expected) ** 2
+    gap_total = sum(d for _, d in spans)
+    speech_total = max(0.1, dur - lead - gap_total)
+    pause_bounds = []
+    prior_gap = 0.0
+    for start, length in spans:
+        active_before = max(0.0, start - lead - prior_gap)
+        pause_bounds.append((start, length, min(1.0, active_before / speech_total)))
+        prior_gap += length
 
-    for j in range(J + 1):
-        if j == J and K > 1: continue
-        dp[0][j] = cost(0, starts[0], ends[j])
-    for k in range(1, K):
-        for j in range(k, J + 1):
-            if j == J and k != K - 1: continue
-            best = INF; bi = -1
-            for i in range(k - 1, j):
-                if dp[k - 1][i] == INF: continue
-                c = dp[k - 1][i] + cost(k, starts[i + 1], ends[j])
-                if c < best: best = c; bi = i
-            dp[k][j] = best; back[k][j] = bi
-    j = J; path = [None] * K
-    for k in range(K - 1, -1, -1):
-        path[k] = j; j = back[k][j]
+    # dp[i][j] consumes i text boundaries and j pause boundaries.
+    nt, na = len(text_bounds), len(pause_bounds)
+    inf = float('inf')
+    dp = [[inf] * (na + 1) for _ in range(nt + 1)]
+    back = [[None] * (na + 1) for _ in range(nt + 1)]
+    dp[0][0] = 0.0
+    skip_text, skip_pause = 0.055, 0.018
+    for i in range(nt + 1):
+        for j in range(na + 1):
+            here = dp[i][j]
+            if here == inf:
+                continue
+            if i < nt and here + skip_text < dp[i + 1][j]:
+                dp[i + 1][j] = here + skip_text
+                back[i + 1][j] = (i, j, 'text')
+            if j < na and here + skip_pause < dp[i][j + 1]:
+                dp[i][j + 1] = here + skip_pause
+                back[i][j + 1] = (i, j, 'pause')
+            if i < nt and j < na:
+                mismatch = text_bounds[i] - pause_bounds[j][2]
+                cost = here + 3.0 * mismatch * mismatch
+                if cost < dp[i + 1][j + 1]:
+                    dp[i + 1][j + 1] = cost
+                    back[i + 1][j + 1] = (i, j, 'match')
+    i, j = nt, na
+    matched = []
+    while i or j:
+        step = back[i][j]
+        if step is None:
+            break
+        pi, pj, action = step
+        if action == 'match':
+            matched.append((pi, pj))
+        i, j = pi, pj
+    matched.reverse()
+
     rows = []
-    for k in range(K):
-        a = starts[0] if k == 0 else starts[path[k - 1] + 1]
-        b = ends[path[k]]
-        rows.append({'i': k, 'start': round(a, 2), 'end': round(b, 2), 'text': clauses[k],
-                     'chars_per_second': round(w[k] / (b - a), 2)})
+    prev_text = -1
+    prev_pause = -1
+    for text_index, pause_index in matched:
+        group = ''.join(clauses[prev_text + 1:text_index + 1])
+        start = lead if prev_pause < 0 else pause_bounds[prev_pause][0] + pause_bounds[prev_pause][1]
+        end = pause_bounds[pause_index][0]
+        if group and end > start:
+            rows.append({'i': len(rows), 'start': round(start, 2), 'end': round(end, 2),
+                         'text': group, 'chars_per_second': round(weight(group) / (end - start), 2)})
+        prev_text, prev_pause = text_index, pause_index
+    group = ''.join(clauses[prev_text + 1:])
+    start = lead if prev_pause < 0 else pause_bounds[prev_pause][0] + pause_bounds[prev_pause][1]
+    if group and dur > start:
+        rows.append({'i': len(rows), 'start': round(start, 2), 'end': round(dur, 2),
+                     'text': group, 'chars_per_second': round(weight(group) / (dur - start), 2)})
+    if not rows:
+        rows = [{'i': 0, 'start': round(lead, 2), 'end': round(dur, 2),
+                 'text': ''.join(clauses), 'chars_per_second': round(total_weight / max(.1, dur - lead), 2)}]
     return dur, rows
 
 

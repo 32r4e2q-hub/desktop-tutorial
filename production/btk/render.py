@@ -43,12 +43,12 @@ TOTAL_FRAMES = round(DURATION * FPS)
 # 镜头按成片顺序编号，每个镜头只出现一次（make_edl 有断言守着）。
 # 脚手架给的是 4 秒均匀网格，只是起点；拿到配音后必须按 clause-times 重对。
 CUTS = {
-    'N01': [(0,'S01',''), (3.55,'S02',''), (7.49,'S03',''), (11.01,'S04',''), (14.74,'S05',''), (18.06,'S06','')],
-    'N02': [(0,'S07',''), (4.28,'S08',''), (7.7,'S09',''), (10.71,'S10',''), (14.26,'S11',''), (16.77,'S12',''), (21.31,'S13','')],
-    'N03': [(0,'S14',''), (4.47,'S15',''), (8.47,'S16',''), (12.69,'S17',''), (16.7,'S18',''), (20.49,'S19',''), (25.76,'S20','')],
-    'N04': [(0,'S21',''), (3.98,'S22',''), (8.91,'S23',''), (13.01,'S24',''), (17.71,'S25',''), (22.17,'S26',''), (26.74,'S27','')],
-    'N05': [(0,'S28',''), (3.02,'S29',''), (5,'S30',''), (11.35,'S31',''), (15.72,'S32',''), (17.7,'S33',''), (20.68,'S34',''), (25.25,'S35','')],
-    'N06': [(0,'S36',''), (3.57,'S37',''), (5.87,'S38',''), (9.21,'S39',''), (11.3,'S40',''), (14.22,'S41',''), (16.1,'S42',''), (18.81,'S43',''), (22.16,'S44',''), (24.87,'S45','')],
+    'N01': [(0.00,'S01',''), (3.30,'S02',''), (7.95,'S03',''), (10.84,'S04',''), (15.35,'S05',''), (19.50,'S06','')],
+    'N02': [(0.00,'S07',''), (4.18,'S08',''), (7.60,'S09',''), (10.74,'S10',''), (14.16,'S11',''), (17.14,'S12',''), (21.97,'S13','')],
+    'N03': [(0.00,'S14',''), (4.18,'S15',''), (7.64,'S16',''), (11.22,'S17',''), (16.35,'S18',''), (20.33,'S19',''), (23.38,'S20','')],
+    'N04': [(0.00,'S21',''), (4.84,'S22',''), (8.21,'S23',''), (13.56,'S24',''), (18.52,'S25',''), (21.16,'S26',''), (26.43,'S27','')],
+    'N05': [(0.00,'S28',''), (3.10,'S29',''), (5.16,'S30',''), (11.45,'S31',''), (15.47,'S32',''), (18.50,'S33',''), (21.47,'S34',''), (24.27,'S35','')],
+    'N06': [(0.00,'S36',''), (3.57,'S37',''), (5.88,'S38',''), (9.49,'S39',''), (11.39,'S40',''), (14.13,'S41',''), (16.13,'S42',''), (19.15,'S43',''), (22.39,'S44',''), (25.45,'S45','')],
 }
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
@@ -150,7 +150,7 @@ def audio_layout(chapters, audio_root, work, manifest):
 
 
 def caption_clauses(text):
-    raw=re.findall(r'[^，。！？；：、]+[，。！？；：、]?',text)
+    raw=re.findall(r'[^，。！？；：、—]+[，。！？；：、—]*',text)
     result=[]
     for part in raw:
         while len(part)>24:
@@ -193,34 +193,39 @@ CLAUSE_TIMES=Path(__file__).with_name('audio')/'clause-times.json'
 
 
 def captions_from_clause_times(row):
-    """clause_times.py 对出来的分句边界（能量包络 DP + 停顿吸附，audio/clause-times.json）。
-
-    与 N03 的 whisper 词级时间互相印证到 ±0.15 s；比 captions_for 的按字数比例估计准
-    （后者在 N05 里最多早了 1.8 s）。对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
-    if not CLAUSE_TIMES.exists():return None
-    entry=json.loads(CLAUSE_TIMES.read_text()).get(row['id'])
-    if not entry or abs(float(entry['duration'])-row['raw_duration'])>.06:return None
-    strip=lambda t:re.sub(r'[^\u3400-\u9fffA-Za-z0-9]','',t)
-    pieces=[(strip(c['text']),float(c['start']),float(c['end'])) for c in entry['clauses']]
-    spans=[];pointer=0
-    for text in caption_clauses(row['text']):
-        key=strip(text)
-        if not key:continue
-        consumed='';a=b=None
-        while pointer<len(pieces) and len(consumed)<len(key):
-            piece,start,end=pieces[pointer]
-            if not key.startswith(consumed+piece):return None
-            consumed+=piece;a=start if a is None else a;b=end;pointer+=1
-        if consumed!=key:return None
-        spans.append((text,a,b))
-    if pointer!=len(pieces):return None
-    cues=[];last_end=row['start']
-    for i,(text,a,b) in enumerate(spans):
-        start=max(last_end,row['start']+max(0,a-.09)/row['tempo'])
-        end=row['start']+min(row['raw_duration'],b+.15)/row['tempo']
-        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.09)/row['tempo'])
-        if end<=start:return None
-        cues.append({'start':start,'end':end,'text':text});last_end=end
+    """Use pause-aligned clause intervals; proportionally split clauses merged for sparse pauses."""
+    if not CLAUSE_TIMES.exists():
+        return None
+    entry = json.loads(CLAUSE_TIMES.read_text()).get(row['id'])
+    if not entry or abs(float(entry['duration']) - row['raw_duration']) > .06:
+        return None
+    strip = lambda t: re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', t)
+    spans = []
+    for clause in entry['clauses']:
+        parts = caption_clauses(clause['text'])
+        weights = [max(1, len(strip(part))) for part in parts]
+        total = sum(weights) or 1
+        cursor = float(clause['start'])
+        for index, (part, weight) in enumerate(zip(parts, weights)):
+            end = (float(clause['end']) if index == len(parts) - 1
+                   else float(clause['start']) + (float(clause['end']) - float(clause['start'])) * sum(weights[:index + 1]) / total)
+            spans.append((part, cursor, end))
+            cursor = end
+    expected = [strip(part) for part in caption_clauses(row['text']) if strip(part)]
+    actual = [strip(part) for part, _, _ in spans if strip(part)]
+    if actual != expected:
+        return None
+    cues = []
+    last_end = row['start']
+    for index, (text, start, end) in enumerate(spans):
+        cue_start = max(last_end, row['start'] + max(0, start - .09) / row['tempo'])
+        cue_end = row['start'] + min(row['raw_duration'], end + .15) / row['tempo']
+        if index + 1 < len(spans):
+            cue_end = min(cue_end, row['start'] + max(0, spans[index + 1][1] - .09) / row['tempo'])
+        if cue_end <= cue_start:
+            return None
+        cues.append({'start': cue_start, 'end': cue_end, 'text': text})
+        last_end = cue_end
     return cues
 
 
