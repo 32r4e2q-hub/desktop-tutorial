@@ -1257,7 +1257,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1311,6 +1311,76 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-24T16:17:06Z",
-  "run_id": "36015790076"
+  "updated_at": "2026-09-24T16:23:05Z",
+  "run_id": "36015790076",
+  "delivery": {
+    "duration": 180.0,
+    "bytes": 68700986,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "video_codec": "h264",
+    "frames": 5400,
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2,
+    "sha256": "0be81aca81d6417c7e3cab867c0136005990574d76cd99b6793a637dc2e13bfe",
+    "decoded_ok": true,
+    "status": "audio_verified_cut",
+    "visual_review": "pending",
+    "caption_alignment": [
+      {
+        "id": "N01",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.98989898989899
+      },
+      {
+        "id": "N02",
+        "method": "clause-times DP",
+        "character_match_coverage": 0.07692307692307693
+      },
+      {
+        "id": "N03",
+        "method": "clause-times DP",
+        "character_match_coverage": 0.2898550724637681
+      },
+      {
+        "id": "N04",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.28160919540229884
+      },
+      {
+        "id": "N05",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9930555555555556
+      },
+      {
+        "id": "N06",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9850746268656716
+      }
+    ],
+    "narration_voice_id": "voice-00",
+    "narration_tempo": 0.9697774057539681,
+    "editorial_segments": 46,
+    "source_clips": 38,
+    "archival_portrait": false,
+    "unique_shots_no_reuse": true,
+    "output": "BTK：软盘里的名字_三分钟_初版.mp4",
+    "soundtrack_mix": {
+      "rms_dbfs": -20.97,
+      "peak_dbfs": -1.52,
+      "silent_fraction": 0.0056,
+      "target_rms_dbfs": -20.0
+    },
+    "delivered_audio": {
+      "rms_dbfs": -21.0,
+      "peak_dbfs": -1.57,
+      "silent_fraction": 0.011,
+      "quietest_window_dbfs": -120.0
+    },
+    "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+    "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
+    "artifact_name": "btk-agnes-1"
+  }
 }
