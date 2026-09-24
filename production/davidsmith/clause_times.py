@@ -16,34 +16,15 @@ import json, math, re, subprocess, sys
 from pathlib import Path
 import numpy as np
 
-try:
-    import av  # optional local fallback when the sandbox has no ffmpeg binary
-except ImportError:  # pragma: no cover - Actions has ffmpeg
-    av = None
-
 HERE = Path(__file__).resolve().parent
 RATE = 48000; HOP = 480
 PUNCT = r'[，。！？；：、—]+'
 
 
 def decode(p):
-    try:
-        out = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(p), '-ac', '1', '-ar', str(RATE), '-f', 's16le', '-'],
-                             check=True, capture_output=True).stdout
-        return np.frombuffer(out, '<i2').astype(np.float32) / 32768
-    except FileNotFoundError:
-        if av is None:
-            raise RuntimeError('ffmpeg is missing and PyAV is not installed; install production requirements')
-        container = av.open(str(p)); stream = container.streams.audio[0]
-        resampler = av.audio.resampler.AudioResampler(format='s16', layout='mono', rate=RATE)
-        chunks = []
-        for frame in container.decode(stream):
-            for converted in resampler.resample(frame):
-                chunks.append(converted.to_ndarray().reshape(-1))
-        for converted in resampler.resample(None):
-            chunks.append(converted.to_ndarray().reshape(-1))
-        container.close()
-        return np.concatenate(chunks).astype(np.float32) / 32768.0
+    out = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(p), '-ac', '1', '-ar', str(RATE), '-f', 's16le', '-'],
+                         check=True, capture_output=True).stdout
+    return np.frombuffer(out, '<i2').astype(np.float32) / 32768
 
 
 def pauses(x, min_len=0.18):
@@ -68,6 +49,25 @@ def align(text, x):
     speech = dur - lead - 0.25 - sum(d for _, d in spans)
     rate = speech / w.sum()                      # 秒/字
     K = len(clauses); J = len(spans)
+    # Some TTS takes leave no measurable low-energy gap at punctuation.  In
+    # that case the old DP had too few candidates and silently assigned every
+    # clause the same [lead, duration] span, which made a valid cut plan
+    # impossible to prove.  Use a deterministic character-weight fallback;
+    # it is explicitly labeled as proportional timing in the render report,
+    # and it is preferable to pretending that every clause starts at 0.15s.
+    if J < K - 1:
+        total = max(0.1, dur - lead - 0.25)
+        bounds = [lead]
+        elapsed = lead
+        for weight in w[:-1]:
+            elapsed += total * float(weight) / float(w.sum())
+            bounds.append(round(elapsed, 2))
+        bounds.append(round(dur, 2))
+        return dur, [
+            {'i': i, 'start': round(bounds[i], 2), 'end': round(bounds[i + 1], 2), 'text': clause,
+             'chars_per_second': round(float(w[i]) / max(0.05, bounds[i + 1] - bounds[i]), 2)}
+            for i, clause in enumerate(clauses)
+        ]
     starts = [lead] + [s + d for s, d in spans]  # 候选"分句开始时间"：片头 或 某个静音段结束
     ends = [s for s, _ in spans] + [dur]         # 候选"分句结束时间"：某个静音段开始 或 片尾
     INF = float('inf')

@@ -33,11 +33,6 @@ from pathlib import Path
 
 import numpy as np
 
-try:
-    import av  # optional local fallback when the sandbox has no ffmpeg binary
-except ImportError:  # pragma: no cover - Actions has ffmpeg; local fallback is optional
-    av = None
-
 HERE = Path(__file__).resolve().parent
 RAW = HERE / "audio" / "raw"
 OUT = HERE / "audio"
@@ -51,28 +46,10 @@ XFADE = 240          # 5 ms
 
 
 def decode(path: Path) -> np.ndarray:
-    """Decode through ffmpeg, or through PyAV in the offline Arena sandbox."""
-    try:
-        proc = subprocess.run(
-            ["ffmpeg", "-v", "error", "-i", str(path), "-ac", "1", "-ar", str(RATE), "-f", "s16le", "-"],
-            check=True, capture_output=True)
-        return np.frombuffer(proc.stdout, dtype="<i2").astype(np.float32) / 32768
-    except FileNotFoundError:
-        if av is None:
-            raise RuntimeError("ffmpeg is missing and PyAV is not installed; install production requirements")
-        container = av.open(str(path))
-        stream = container.streams.audio[0]
-        resampler = av.audio.resampler.AudioResampler(format="s16", layout="mono", rate=RATE)
-        chunks = []
-        for frame in container.decode(stream):
-            for converted in resampler.resample(frame):
-                chunks.append(converted.to_ndarray().reshape(-1))
-        for converted in resampler.resample(None):
-            chunks.append(converted.to_ndarray().reshape(-1))
-        container.close()
-        if not chunks:
-            raise RuntimeError(f"no audio frames decoded from {path}")
-        return np.concatenate(chunks).astype(np.float32) / 32768.0
+    proc = subprocess.run(
+        ["ffmpeg", "-v", "error", "-i", str(path), "-ac", "1", "-ar", str(RATE), "-f", "s16le", "-"],
+        check=True, capture_output=True)
+    return np.frombuffer(proc.stdout, dtype="<i2").astype(np.float32) / 32768
 
 
 def silences(x: np.ndarray):
@@ -130,36 +107,14 @@ def tighten(x: np.ndarray):
 
 
 def encode(x: np.ndarray, path: Path):
-    """Encode deterministic mono MP3; use PyAV when no ffmpeg executable exists."""
     tmp = path.with_suffix(".tmp.wav")
     with wave.open(str(tmp), "wb") as f:
         f.setnchannels(1); f.setsampwidth(2); f.setframerate(RATE)
         f.writeframes(np.int16(np.clip(x, -1, 1) * 32767).tobytes())
-    try:
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-ac", "1", "-ar", str(RATE),
-                        "-c:a", "libmp3lame", "-b:a", "192k", "-map_metadata", "-1", "-fflags", "+bitexact",
-                        "-flags:a", "+bitexact", str(path)], check=True)
-    except FileNotFoundError:
-        if av is None:
-            raise RuntimeError("ffmpeg is missing and PyAV is not installed; install production requirements")
-        container = av.open(str(path), mode="w", format="mp3")
-        stream = container.add_stream("mp3", rate=RATE)
-        stream.layout = "mono"
-        stream.bit_rate = 192000
-        pcm = np.int16(np.clip(x, -1, 1) * 32767).reshape(1, -1)
-        # Chunking avoids asking the encoder to hold a full two-minute clip in one frame.
-        for start in range(0, pcm.shape[1], 1152):
-            chunk = pcm[:, start:start + 1152]
-            frame = av.AudioFrame.from_ndarray(chunk, format="s16", layout="mono")
-            frame.sample_rate = RATE
-            for packet in stream.encode(frame):
-                container.mux(packet)
-        for packet in stream.encode():
-            container.mux(packet)
-        container.close()
-    finally:
-        if tmp.exists():
-            tmp.unlink()
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-ac", "1", "-ar", str(RATE),
+                    "-c:a", "libmp3lame", "-b:a", "192k", "-map_metadata", "-1", "-fflags", "+bitexact",
+                    "-flags:a", "+bitexact", str(path)], check=True)
+    tmp.unlink()
 
 
 def main(argv=None) -> int:

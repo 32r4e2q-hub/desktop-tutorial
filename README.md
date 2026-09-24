@@ -17,6 +17,12 @@
 | 字幕 | 分句字幕、关键词描黄，切换点来自配音分句时间（`audio/clause-times.json`） |
 | 听检 | whisper small 逐章字错率 0.007–0.073（上限 0.15），报告 [`delivery/verbatim-check.json`](production/gilgo/delivery/verbatim-check.json) |
 
+## 新片：大卫·史密斯：无罪之后
+
+本分支新增一部按本项目方法制作的英国案件三分钟横版动画：
+[`production/davidsmith/抖音脚本.md`](production/davidsmith/抖音脚本.md)（786 字口播、45 镜、38 Agnes + 7 信息卡、字幕/音画同步闸门）和
+[`production/davidsmith/README.md`](production/davidsmith/README.md)。案件口径特别区分了二零零三年法律例外、二零二二年准许重审与二零二三年五月定罪，不把“一罪不二审”写成完全废除。
+
 ## 发布用
 
 - **题目（三选一）**

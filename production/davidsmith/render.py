@@ -43,13 +43,13 @@ TOTAL_FRAMES = round(DURATION * FPS)
 # 镜头按成片顺序编号，每个镜头只出现一次（make_edl 有断言守着）。
 # 脚手架给的是 4 秒均匀网格，只是起点；拿到配音后必须按 clause-times 重对。
 CUTS = {
-    # 每个切点都落在 audio/clause-times.json 的分句起点前约 0.15 秒；第一镜从 0 开始。
-    'N01': [(0,'S01',''), (3.74,'S02',''), (6.46,'S03',''), (8.53,'S04',''), (12.08,'S05',''), (13.58,'S06',''), (16.28,'S07',''), (17.24,'S08','')],
-    'N02': [(0,'S09',''), (4.31,'S10',''), (7.34,'S11',''), (10.67,'S12',''), (16.33,'S13',''), (21.29,'S14',''), (24.53,'S15','')],
-    'N03': [(0,'S16',''), (1.60,'S17',''), (6.14,'S18',''), (9.74,'S19',''), (11.98,'S20',''), (15.04,'S21',''), (17.02,'S22',''), (22.76,'S23','')],
-    'N04': [(0,'S24',''), (3.54,'S25',''), (7.40,'S26',''), (10.12,'S27',''), (12.48,'S28',''), (13.95,'S29',''), (16.64,'S30','')],
-    'N05': [(0,'S31',''), (3.81,'S32',''), (7.15,'S33',''), (10.17,'S34',''), (12.29,'S35',''), (15.65,'S36',''), (22.88,'S37',''), (27.33,'S38','')],
-    'N06': [(0,'S39',''), (1.66,'S40',''), (5.60,'S41',''), (8.95,'S42',''), (10.85,'S43',''), (14.47,'S44',''), (19.08,'S45','')],
+    # 切点来自 audio/clause-times.json：每次在新分句的停顿起点切，不在字中间切。
+    'N01': [(0,'S01',''), (3.23,'S02',''), (6.20,'S03',''), (8.73,'S04',''), (11.57,'S05',''), (15.68,'S06',''), (18.91,'S07',''), (22.03,'S08','')],
+    'N02': [(0,'S09',''), (3.90,'S10',''), (6.22,'S11',''), (9.86,'S12',''), (13.68,'S13',''), (18.74,'S14',''), (20.46,'S15','')],
+    'N03': [(0,'S16',''), (4.60,'S17',''), (7.61,'S18',''), (11.44,'S19',''), (16.53,'S20',''), (18.98,'S21',''), (22.84,'S22',''), (26.25,'S23','')],
+    'N04': [(0,'S24',''), (3.83,'S25',''), (8.42,'S26',''), (12.11,'S27',''), (15.80,'S28',''), (18.22,'S29',''), (20.77,'S30','')],
+    'N05': [(0,'S31',''), (5.03,'S32',''), (7.40,'S33',''), (10.79,'S34',''), (15.20,'S35',''), (18.05,'S36',''), (21.18,'S37',''), (23.65,'S38','')],
+    'N06': [(0,'S39',''), (7.07,'S40',''), (10.63,'S41',''), (14.98,'S42',''), (19.56,'S43',''), (22.88,'S44',''), (24.52,'S45','')],
 }
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
@@ -273,7 +273,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Caption,Noto Sans CJK SC,54,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,3.0,1.2,2,70,70,58,1
+Style: Caption,Noto Sans CJK SC,56,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,3.0,1.0,2,78,78,48,1
 Style: Label,Noto Sans CJK SC,23,&H60E9E4D4,&H000000FF,&H00262621,&H99000000,0,0,0,0,100,100,1,0,1,1,0,9,60,60,36,1
 Style: Title,Noto Serif CJK SC,102,&H00EBE8DE,&H000000FF,&H00141B17,&H99000000,0,0,0,0,100,100,4,0,1,1,2,7,104,104,205,1
 
@@ -359,8 +359,7 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},lenscorrection=k1=-0.018:k2=0.003,'
-            f'eq=saturation=0.92:contrast=1.025:brightness=-0.006,noise=alls=1.2:allf=t+u,'
+            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         entry.update(source_in=a,source_out=a+take,time_stretch=factor)
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'

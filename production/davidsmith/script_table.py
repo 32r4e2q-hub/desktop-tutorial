@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """把 story.json + render.py 的 CUTS + 配音分句时间，拼成抖音脚本的四列分镜表和发布文案。
 
-四列：时间轴 / 口播文案 / 画面描述（动画建议）/ 音效备注。
+四列：时间轴 / 口播文案 / 画面描述（动画建议）/ 音效/备注。
 - 时间轴：按 render.py 的排版常数（INTRO/GAP/OUTRO）和收紧后配音的实际时长算出的成片时间；
 - 口播文案：CHAPTERS 里的原句，按 CUTS 切点分到每个镜头下（分句时间来自 audio/clause-times.json）；
 - 画面描述：story.json 里每镜的 purpose + camera（中文），不重复抄英文提示词；
@@ -81,7 +81,7 @@ def render_table():
     rows, tempo = segments()
     story = json.loads((HERE / "story.json").read_text())
     chapter_names = {c["id"]: c["title"] for c in story["chapters"]}
-    out = ["| 时间轴 | 口播文案 | 画面描述（动画建议） | 音效备注 |", "|---|---|---|---|"]
+    out = ["| 时间轴 | 口播文案 | 画面描述（动画建议） | 音效/备注 |", "|---|---|---|---|"]
     seen = set()
     for r in rows:
         if r["chapter"] not in seen and r["id"] != "END":
@@ -114,7 +114,7 @@ def render_document():
            "## 一、视频标题（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]
     doc += ["", "## 二、核心爆点（一句话）", "", c.HOOK, "",
-            "## 三、详细脚本（时间轴 / 口播文案 / 画面描述 / 音效备注）", "",
+            "## 三、详细脚本（时间轴 / 口播文案 / 画面描述（动画建议） / 音效/备注）", "",
             "口播文案与成片配音**逐字一致**（`audio/manifest.json` 里有 SHA-256 收据）；"
             f"时间轴按收紧停顿后的真实配音时长算出，成片以 `production/{HERE.name}/delivery/edit-decision-list.json` 为准。", "",
             render_table(), "",
