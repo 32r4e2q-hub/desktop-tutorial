@@ -27,7 +27,7 @@ def decode(p):
     return np.frombuffer(out, '<i2').astype(np.float32) / 32768
 
 
-def pauses(x, min_len=0.18):
+def pauses(x, min_len=0.12):  # 本片音色停顿偏短（0.18 阈值下 N01/N04 的静音段少于分句数，DP 不可行），降到 0.12
     n = len(x) // HOP * HOP
     rms = np.sqrt((x[:n].reshape(-1, HOP) ** 2).mean(1)); quiet = rms < 0.01
     spans = []; s = None; lead = 0.0
