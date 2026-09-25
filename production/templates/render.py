@@ -407,14 +407,19 @@ def main():
     from align_audio import transcribe_on_runner, aligned_cues
     asr={} if args.skip_asr else transcribe_on_runner(narration,work)
     cues=[];alignment=[]
+    clause_methods={}
+    if CLAUSE_TIMES.exists():
+        clause_methods={key:value.get('method','unspecified') for key,value in json.loads(CLAUSE_TIMES.read_text()).items()}
     for row,samples in zip(narration,waves):
         aligned=None;coverage=0.0
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
         clause_timed=None if aligned else captions_from_clause_times(row)
         cues.extend(aligned or clause_timed or captions_for(row,samples))
-        alignment.append({'id':row['id'],
-                          'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
+        method=('ASR-assisted' if aligned else
+                'clause-times '+clause_methods.get(row['id'],'unspecified') if clause_timed else
+                'pause-aware estimate')
+        alignment.append({'id':row['id'],'method':method,
                           'character_match_coverage':coverage})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl,presentation)

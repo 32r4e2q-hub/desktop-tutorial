@@ -41,89 +41,89 @@ def pauses(x, min_len=0.18):
     return lead, spans
 
 
-def align(text, x):
-    """Align text clause boundaries to real audio pauses with monotonic dynamic programming.
+def align_fallback(clauses, weights, dur, lead, spans, samples):
+    """Robust fallback for expressive TTS tracks with too few long silences."""
+    rms = np.sqrt((samples[:len(samples)//HOP*HOP].reshape(-1, HOP) ** 2).mean(1))
+    boundaries = [lead]
+    total = float(weights.sum())
+    cumulative = 0.0
+    for k in range(len(clauses) - 1):
+        cumulative += weights[k]
+        target = lead + (dur - lead - 0.25) * cumulative / total
+        lower = boundaries[-1] + 0.18
+        upper = dur - 0.18 * (len(clauses) - 1 - k) - 0.20
+        lo = max(0, int(max(lower, target - 0.42) / 0.01))
+        hi = min(len(rms), int(min(upper, target + 0.42) / 0.01) + 1)
+        if hi <= lo:
+            chosen = max(lower, min(target, upper))
+        else:
+            candidates = np.arange(lo, hi)
+            scale = max(float(np.percentile(rms, 80)), 1e-4)
+            score = np.abs(candidates * 0.01 - target) / 0.42 + 0.7 * np.minimum(rms[candidates] / scale, 1.0)
+            chosen = float(candidates[int(np.argmin(score))]) * 0.01
+        nearby = [(a + d, abs((a + d) - target)) for a, d in spans
+                  if lower <= a + d <= upper and abs((a + d) - target) <= 0.42]
+        if nearby and min(nearby, key=lambda row: row[1])[1] < abs(chosen - target) + 0.08:
+            chosen = min(nearby, key=lambda row: row[1])[0]
+        boundaries.append(max(lower, min(chosen, upper)))
+    boundaries.append(dur)
+    rows = []
+    for k, clause in enumerate(clauses):
+        a, b = boundaries[k], boundaries[k + 1]
+        rows.append({'i': k, 'start': round(a, 2), 'end': round(b, 2), 'text': clause,
+                     'chars_per_second': round(weights[k] / max(0.05, b - a), 2)})
+    return dur, rows
 
-    A few punctuation boundaries may have no detectable pause, or TTS may pause inside
-    a clause. Sequence alignment therefore permits merging text clauses and ignoring
-    extra pauses instead of inventing impossible timestamps.
-    """
+
+def align(text, x):
     dur = len(x) / RATE
     lead, spans = pauses(x)
-    clauses = [c.strip() for c in re.findall(r'[^，。！？；：、—]+[，。！？；：、—]*', text) if c.strip()]
-    weight = lambda c: max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c)))
-    weights = [weight(c) for c in clauses]
-    total_weight = max(1, sum(weights))
-    text_bounds = []
-    running = 0
-    for w in weights[:-1]:
-        running += w
-        text_bounds.append(running / total_weight)
+    clauses = [c for c in re.split(PUNCT, text) if c]
+    w = np.array([max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c))) for c in clauses], float)
+    # If punctuation pauses are shorter than 180 ms, a pause-only DP has no valid
+    # path. Use transparent, energy-snapped proportional alignment instead.
+    if len(spans) < len(clauses) - 1:
+        return align_fallback(clauses, w, dur, lead, spans, x)
+    speech = dur - lead - 0.25 - sum(d for _, d in spans)
+    rate = speech / w.sum()                      # 秒/字
+    K = len(clauses); J = len(spans)
+    starts = [lead] + [s + d for s, d in spans]  # 候选"分句开始时间"：片头 或 某个静音段结束
+    ends = [s for s, _ in spans] + [dur]         # 候选"分句结束时间"：某个静音段开始 或 片尾
+    INF = float('inf')
+    # dp[k][j]: 第 k 个分句结束在第 j 个候选结束点（j∈[0,J]），j=J 只允许 k=K-1
+    dp = [[INF] * (J + 1) for _ in range(K)]; back = [[-1] * (J + 1) for _ in range(K)]
 
-    gap_total = sum(d for _, d in spans)
-    speech_total = max(0.1, dur - lead - gap_total)
-    pause_bounds = []
-    prior_gap = 0.0
-    for start, length in spans:
-        active_before = max(0.0, start - lead - prior_gap)
-        pause_bounds.append((start, length, min(1.0, active_before / speech_total)))
-        prior_gap += length
+    def cost(k, a, b):
+        actual = b - a
+        expected = w[k] * rate
+        if actual <= 0.05: return INF
+        return math.log(actual / expected) ** 2
 
-    # dp[i][j] consumes i text boundaries and j pause boundaries.
-    nt, na = len(text_bounds), len(pause_bounds)
-    inf = float('inf')
-    dp = [[inf] * (na + 1) for _ in range(nt + 1)]
-    back = [[None] * (na + 1) for _ in range(nt + 1)]
-    dp[0][0] = 0.0
-    skip_text, skip_pause = 0.055, 0.018
-    for i in range(nt + 1):
-        for j in range(na + 1):
-            here = dp[i][j]
-            if here == inf:
-                continue
-            if i < nt and here + skip_text < dp[i + 1][j]:
-                dp[i + 1][j] = here + skip_text
-                back[i + 1][j] = (i, j, 'text')
-            if j < na and here + skip_pause < dp[i][j + 1]:
-                dp[i][j + 1] = here + skip_pause
-                back[i][j + 1] = (i, j, 'pause')
-            if i < nt and j < na:
-                mismatch = text_bounds[i] - pause_bounds[j][2]
-                cost = here + 3.0 * mismatch * mismatch
-                if cost < dp[i + 1][j + 1]:
-                    dp[i + 1][j + 1] = cost
-                    back[i + 1][j + 1] = (i, j, 'match')
-    i, j = nt, na
-    matched = []
-    while i or j:
-        step = back[i][j]
-        if step is None:
-            break
-        pi, pj, action = step
-        if action == 'match':
-            matched.append((pi, pj))
-        i, j = pi, pj
-    matched.reverse()
-
+    for j in range(J + 1):
+        if j == J and K > 1: continue
+        dp[0][j] = cost(0, starts[0], ends[j])
+    for k in range(1, K):
+        for j in range(k, J + 1):
+            if j == J and k != K - 1: continue
+            best = INF; bi = -1
+            for i in range(k - 1, j):
+                if dp[k - 1][i] == INF: continue
+                c = dp[k - 1][i] + cost(k, starts[i + 1], ends[j])
+                if c < best: best = c; bi = i
+            dp[k][j] = best; back[k][j] = bi
+    if dp[K - 1][J] == INF:
+        return align_fallback(clauses, w, dur, lead, spans, x)
+    j = J; path = [None] * K
+    for k in range(K - 1, -1, -1):
+        path[k] = j; j = back[k][j]
+        if k and j < 0:
+            return align_fallback(clauses, w, dur, lead, spans, x)
     rows = []
-    prev_text = -1
-    prev_pause = -1
-    for text_index, pause_index in matched:
-        group = ''.join(clauses[prev_text + 1:text_index + 1])
-        start = lead if prev_pause < 0 else pause_bounds[prev_pause][0] + pause_bounds[prev_pause][1]
-        end = pause_bounds[pause_index][0]
-        if group and end > start:
-            rows.append({'i': len(rows), 'start': round(start, 2), 'end': round(end, 2),
-                         'text': group, 'chars_per_second': round(weight(group) / (end - start), 2)})
-        prev_text, prev_pause = text_index, pause_index
-    group = ''.join(clauses[prev_text + 1:])
-    start = lead if prev_pause < 0 else pause_bounds[prev_pause][0] + pause_bounds[prev_pause][1]
-    if group and dur > start:
-        rows.append({'i': len(rows), 'start': round(start, 2), 'end': round(dur, 2),
-                     'text': group, 'chars_per_second': round(weight(group) / (dur - start), 2)})
-    if not rows:
-        rows = [{'i': 0, 'start': round(lead, 2), 'end': round(dur, 2),
-                 'text': ''.join(clauses), 'chars_per_second': round(total_weight / max(.1, dur - lead), 2)}]
+    for k in range(K):
+        a = starts[0] if k == 0 else starts[path[k - 1] + 1]
+        b = ends[path[k]]
+        rows.append({'i': k, 'start': round(a, 2), 'end': round(b, 2), 'text': clauses[k],
+                     'chars_per_second': round(w[k] / (b - a), 2)})
     return dur, rows
 
 
@@ -157,7 +157,7 @@ def main(slug='btk'):
     result = {}
     for ch in story['chapters']:
         dur, rows = align(ch['text'], decode(HERE / 'audio' / (ch['id'] + '.mp3')))
-        result[ch['id']] = {'duration': round(dur, 3), 'clauses': rows}
+        result[ch['id']] = {'duration': round(dur, 3), 'method': ('proportional-energy-fallback' if len(pauses(decode(HERE / 'audio' / (ch['id'] + '.mp3')))[1]) < len(rows)-1 else 'pause-dp'), 'clauses': rows}
         print(ch['id'], f'dur {dur:.2f}')
         for r in rows:
             print(f"   {r['i']:2d} {r['start']:6.2f}-{r['end']:6.2f}  {r['chars_per_second']:4.1f}/s  {r['text']}")
