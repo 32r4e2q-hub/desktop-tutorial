@@ -70,36 +70,10 @@
     },
     "S03": {
       "id": "S03",
-      "status": "completed",
-      "request_hash": "7efe9f2e6a8263bc32cb3c12e409638625353d6072896f7009c157274dd7d9fa",
+      "status": "submitting",
+      "request_hash": "24a3bd5718ff40a3dfb71e24e01a49af335a5633ee9222c36be46e1eada511eb",
       "error": null,
-      "updated_at": "2026-09-25T12:53:25Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzhiNGRiM2UwOWUxZjRiZjVhYzU0Nzg3YzJiMTc5YmYw",
-      "task_id": "task_Jz4oVy5CXuEIiU57LCsQluXvUR5Z6SyM",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_8b4db3e09e1f4bf5ac54787c2b179bf0.mp4",
-      "bytes": 6221412,
-      "sha256": "75c49ee06e9426270914c809ee1b0405ccc1f83d246c563281c4e8bd1584a615",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 6221412,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/spector/qa/S03.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": false,
-      "visual_review": "pending"
+      "updated_at": "2026-09-25T14:15:22Z"
     },
     "S05": {
       "id": "S05",
@@ -1311,7 +1285,44 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-25T14:15:21Z",
+  "updated_at": "2026-09-25T14:15:22Z",
   "run_id": "36146172772",
-  "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/spector/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/edit/first-cut.mp4']' returned non-zero exit status 1."
+  "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/spector/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/edit/first-cut.mp4']' returned non-zero exit status 1.",
+  "previous_results": {
+    "S03": [
+      {
+        "id": "S03",
+        "status": "completed",
+        "request_hash": "7efe9f2e6a8263bc32cb3c12e409638625353d6072896f7009c157274dd7d9fa",
+        "error": null,
+        "updated_at": "2026-09-25T12:53:25Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzhiNGRiM2UwOWUxZjRiZjVhYzU0Nzg3YzJiMTc5YmYw",
+        "task_id": "task_Jz4oVy5CXuEIiU57LCsQluXvUR5Z6SyM",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_8b4db3e09e1f4bf5ac54787c2b179bf0.mp4",
+        "bytes": 6221412,
+        "sha256": "75c49ee06e9426270914c809ee1b0405ccc1f83d246c563281c4e8bd1584a615",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 6221412,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/spector/qa/S03.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": false,
+        "visual_review": "pending"
+      }
+    ]
+  }
 }
