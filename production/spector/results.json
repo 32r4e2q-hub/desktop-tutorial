@@ -1257,7 +1257,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "pipeline_failed",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1311,6 +1311,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-25T14:08:25Z",
-  "run_id": "36136387961"
+  "updated_at": "2026-09-25T14:08:26Z",
+  "run_id": "36136387961",
+  "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/spector/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/spector/edit/first-cut.mp4']' returned non-zero exit status 1."
 }
