@@ -58,7 +58,7 @@ def segments():
     end_card = (story.get("presentation") or {}).get("end_card") or ["", ""]
     rows.append({"id": "END", "kind": "graphic", "chapter": chapters[-1]["id"], "start": render.END_AT,
                  "end": render.DURATION, "text": "",
-                 "purpose": f"片尾卡：把互动问题「{end_card[0]}」留在屏幕上，附资料来源",
+                 "purpose": f"片尾卡（独立尾卡，不计入45镜）：把互动问题「{end_card[0]}」留在屏幕上，附资料来源",
                  "camera": "静态卡 + 淡出", "sfx": "音乐尾音，最后 0.8 秒渐隐", "graphic": ""})
     return rows, tempo
 
@@ -109,7 +109,7 @@ def render_document():
     speech_slot = render.DURATION - render.INTRO - render.OUTRO - render.GAP * (len(story["chapters"]) - 1)
     narration_seconds = sum(durations.values())
     doc = [f"# 抖音脚本 · {story['title']}", "",
-           f"> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（配音素材 {narration_seconds:.1f} 秒 / 口播槽位 {speech_slot:.0f} 秒 / 变速 {tempo:.3f}×；{total_chars} 字）· "
+           f"> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（配音素材 {narration_seconds:.1f} 秒 / 口播槽位 {speech_slot:.0f} 秒 / 变速 {tempo:.3f}×；{total_chars} 字，不含标点）· "
            f"{len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，每个镜头只出现一次）· "
            "风格：快节奏悬疑科普叙事 + 2D 动画纪录片画面（借鉴信息密度与悬念结构，不复刻具体表达）", "",
            "## 一、视频标题（三选一）", ""]
