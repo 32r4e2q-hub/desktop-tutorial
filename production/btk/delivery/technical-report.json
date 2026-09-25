@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 67455145,
+  "bytes": 69393353,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,59 +9,59 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "33e199dfc389cc5a4743c64fea2897b6fae5b063dadb7a01ff5bc37b1e0eed45",
+  "sha256": "99a5e604fc231494848bfa9257004f01693208992202fb7c02fa4178f9881785",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
   "caption_alignment": [
     {
       "id": "N01",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.0625
+      "method": "clause-times proportional-energy-fallback",
+      "character_match_coverage": 0.08035714285714286
     },
     {
       "id": "N02",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.08547008547008547
+      "method": "clause-times proportional-energy-fallback",
+      "character_match_coverage": 0.09401709401709402
     },
     {
       "id": "N03",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.12403100775193798
+      "method": "clause-times proportional-energy-fallback",
+      "character_match_coverage": 0.9202898550724637
     },
     {
       "id": "N04",
-      "method": "ASR-assisted",
-      "character_match_coverage": 1.0
+      "method": "clause-times proportional-energy-fallback",
+      "character_match_coverage": 0.14906832298136646
     },
     {
       "id": "N05",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.6811594202898551
+      "method": "clause-times proportional-energy-fallback",
+      "character_match_coverage": 0.8571428571428571
     },
     {
       "id": "N06",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.15671641791044777
+      "method": "clause-times pause-dp",
+      "character_match_coverage": 0.04132231404958678
     }
   ],
   "narration_voice_id": "voice-00",
-  "narration_tempo": 0.9688066716269842,
+  "narration_tempo": 0.9495899057539683,
   "editorial_segments": 46,
   "source_clips": 38,
   "archival_portrait": false,
   "unique_shots_no_reuse": true,
-  "output": "BTK：软盘里的名字_三分钟_初版.mp4",
+  "output": "BTK_软盘里的名字_三分钟_带声音.mp4",
   "soundtrack_mix": {
-    "rms_dbfs": -20.05,
-    "peak_dbfs": -1.5,
-    "silent_fraction": 0.0,
+    "rms_dbfs": -20.75,
+    "peak_dbfs": -1.51,
+    "silent_fraction": 0.0056,
     "target_rms_dbfs": -20.0
   },
   "delivered_audio": {
-    "rms_dbfs": -20.07,
-    "peak_dbfs": -1.42,
-    "silent_fraction": 0.0055,
+    "rms_dbfs": -20.78,
+    "peak_dbfs": -1.76,
+    "silent_fraction": 0.011,
     "quietest_window_dbfs": -120.0
   },
   "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
