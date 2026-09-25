@@ -1,0 +1,106 @@
+# BTK 全时长复审包：在分支上写/改 production/btk/REVIEW_REQUEST 并 push 触发。
+# runner 按 SHA-256 回执回填 38 段源素材（不重新生成、不耗额度），逐镜产出
+# 全时长均匀 16 帧、640×360 的抽帧条 + 运动指标（冻结/闪变/硬切），commit 回分支，
+# 供沙箱逐镜人工复审。沙箱连不上 Agnes CDN，也读不到 Actions 日志，Git 是唯一通道。
+name: BTK：软盘里的名字 · 复审包
+run-name: 复审包 · BTK：软盘里的名字 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/01a0d661-desktop-tutorial
+    paths:
+      - production/btk/REVIEW_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: btk-review-arena-01a0d661-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  review_pack:
+    if: github.ref == 'refs/heads/arena/01a0d661-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 90
+    steps:
+      - name: 先让 git 走 HTTP/1.1（国内网络下 HTTP/2 会静默卡死）
+        run: |
+          git config --global http.version HTTP/1.1
+          git config --global http.lowSpeedLimit 1000
+          git config --global http.lowSpeedTime 30
+
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/01a0d661-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<19" || \
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<19"
+
+      - name: 按 SHA-256 回执回填 38 段源素材（不重新生成、不消耗额度）
+        run: python3 -u production/btk/fetch_sources.py --dest work/btk/clips 2>&1 | tee /tmp/fetch.log; exit ${PIPESTATUS[0]}
+
+      - name: 生成全时长抽帧复审包与运动指标
+        run: python3 -u production/btk/review_pack.py --clips work/btk/clips --out production/btk/qa-full 2>&1 | tee /tmp/pack.log; exit ${PIPESTATUS[0]}
+
+      - name: Commit 复审包回分支
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local core.sparseCheckout false 2>/dev/null || true
+          git add -f production/btk/qa-full
+          if git diff --cached --quiet; then
+            echo "No changes to publish"
+          else
+            git commit -m "btk: full-duration review pack $(date -u +%FT%TZ)"
+            pushed=0
+            for attempt in $(seq 1 10); do
+              if git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 push origin "HEAD:${{ github.ref_name }}"; then pushed=1; break; fi
+              sleep 10
+            done
+            [ "$pushed" = "1" ] || { echo "::error::复审包推不回分支，看本次运行的 artifact"; exit 1; }
+          fi
+
+      - name: Ship failure log to branch (sandbox cannot read Actions logs)
+        if: failure()
+        run: |
+          { tail -c 100000 /tmp/fetch.log 2>/dev/null; tail -c 100000 /tmp/pack.log 2>/dev/null; } > production/btk/review-diag.log
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/btk/review-diag.log
+          git commit -m "btk: 复审包失败诊断 $(date -u +%FT%TZ)"
+          pushed=0
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${{ github.ref_name }}"; then pushed=1; break; fi
+            git fetch origin ${{ github.ref_name }} && git rebase FETCH_HEAD || break
+          done
+          [ "$pushed" = "1" ] || echo "::error::诊断日志推不回分支，看本次运行的 artifact"
+
+      - name: Save the review pack as a downloadable artifact
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: btk-review-${{ github.run_number }}
+          path: production/btk/qa-full/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 14
