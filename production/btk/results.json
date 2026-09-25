@@ -4,10 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "8b011647ddff15183b38129055f9b9bc5197aba2845ced988472cd5f8832e943",
       "error": null,
-      "updated_at": "2026-09-25T01:00:00Z",
+      "updated_at": "2026-09-25T01:00:02Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzUyMGRmMDZhNzQzZjRkZmQ4NmUwMmM3NmJlMWQxZTFh",
       "task_id": "task_eEIw93efN5WvPoDmWnUsfNnVHZWYarke",
       "requested_seconds": 7.041666666666667,
@@ -15,7 +15,25 @@
       "bytes": 1564106,
       "sha256": "06caf3600a4e1d48c050d30f3df1dabff603cb890240f1fb38540c3f21b7d0e8",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 1564106,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/btk/qa/S01.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S02": {
       "id": "S02",
@@ -1270,7 +1288,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-25T01:00:00Z",
+  "updated_at": "2026-09-25T01:00:02Z",
   "run_id": "36079705014",
   "delivery": {
     "duration": 180.0,
