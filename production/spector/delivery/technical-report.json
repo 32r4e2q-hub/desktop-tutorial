@@ -1,0 +1,69 @@
+{
+  "duration": 180.0,
+  "bytes": 57974584,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "frames": 5400,
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "ca36bd988fe41d0d717ee5c36cb1d3e98093cdc0449a460c01a7ee2db7a2cd9e",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "id": "N01",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9848484848484849
+    },
+    {
+      "id": "N02",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.8924731182795699
+    },
+    {
+      "id": "N03",
+      "method": "ASR-assisted",
+      "character_match_coverage": 1.0
+    },
+    {
+      "id": "N04",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.2711864406779661
+    },
+    {
+      "id": "N05",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.5347222222222222
+    },
+    {
+      "id": "N06",
+      "method": "ASR-assisted",
+      "character_match_coverage": 1.0
+    }
+  ],
+  "narration_voice_id": "voice-00",
+  "narration_tempo": 1.0366248759920633,
+  "editorial_segments": 46,
+  "source_clips": 38,
+  "archival_portrait": false,
+  "unique_shots_no_reuse": true,
+  "output": "声墙与一滴血_三分钟_带声音.mp4",
+  "soundtrack_mix": {
+    "rms_dbfs": -20.11,
+    "peak_dbfs": -1.57,
+    "silent_fraction": 0.0,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -20.13,
+    "peak_dbfs": -1.67,
+    "silent_fraction": 0.0055,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
