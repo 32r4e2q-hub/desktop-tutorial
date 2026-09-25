@@ -89,6 +89,17 @@ def centered(draw, text, y, size, color, x=960, serif=False):
     draw.text((x-(box[2]-box[0])/2,y),text,font=f,fill=color)
 
 
+def fit_size(draw, text, size, serif, max_width):
+    # 卡片文案超宽时自动降字号（片尾提问 24 字 × 96pt 会溢出 1920 画幅）
+    while size > 18:
+        f = font(size, serif)
+        box = draw.textbbox((0, 0), text, font=f)
+        if box[2] - box[0] <= max_width:
+            return size
+        size -= 2
+    return size
+
+
 def card_image(sid, variant, directory, presentation):
     directory.mkdir(parents=True,exist_ok=True)
     dest=directory/f'{sid}-{variant or "base"}.jpg'
@@ -104,7 +115,7 @@ def card_image(sid, variant, directory, presentation):
         if len(lines)<2:raise RuntimeError('片尾卡缺文案：在 build_story.py 的 END_CARD 里写 2–4 行')
         layout=[(342,96,'#ede8db',True),(498,46,'#b7aa82',False),(668,34,'#a6aaa0',False),(895,21,'#7f897d',False)]
         for line,(y,size,color,serif) in zip(lines,layout):
-            centered(d,line,y,size,color,serif=serif)
+            centered(d,line,y,fit_size(d,line,size,serif,1760),color,serif=serif)
     else:
         d.rounded_rectangle((169,104,1751,954),radius=6,fill='#0d1210')
         # Physical-paper palette connects the cards to the generated walnut desks and case folders.
@@ -116,10 +127,10 @@ def card_image(sid, variant, directory, presentation):
         cards=presentation.get('cards') or {}
         if sid not in cards:raise RuntimeError(f'信息卡 {sid} 没有文案：在 build_story.py 的 CARDS 里补 (大标题, 第一行, 第二行)')
         title,line1,line2=cards[sid]
-        centered(d,title,302,108,'#2c3a32',serif=True)
-        centered(d,line1,486,49,'#475648')
+        centered(d,title,302,fit_size(d,title,108,True,1440),'#2c3a32',serif=True)
+        centered(d,line1,486,fit_size(d,line1,49,False,1440),'#475648')
         d.line((855,628,1065,628),fill='#958358',width=3)
-        centered(d,line2,720,38,'#5c6656')
+        centered(d,line2,720,fit_size(d,line2,38,False,1440),'#5c6656')
         d.text((265,875),presentation.get('card_footer') or '资料摘要与示意图 · 并非原始档案影像',font=font(21),fill='#75806c')
     im.save(dest,quality=93)
     return dest
