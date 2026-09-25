@@ -317,7 +317,7 @@ SHOTS = [
     ("S34", "agnes", "顺流横移 drift with the flow",
      "全片物理高潮：淡蓝色燃气涡环自左向右滚过黑暗，迎面撞上右飞而来的深红液滴群——液滴被推开、减速、掉头",
      "涡环示意图收束进数字卡",
-     "Abstract fluid-dynamics visualization on a pure dark background: a glowing pale-blue ring vortex of gas rolls rapidly from left to right, rendered like scientific schlieren photography with delicate internal swirls; a cloud of tiny crimson droplets flying from right to left meets the ring and is visibly deflected, slowed, some droplets turned around and swept backward; thin white streamline arrows trace the flow, textbook-figure style; no people, no room, no weapon. Camera: one slow lateral drift with the flow. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "From the very first frame to the last frame: one single abstract fluid-dynamics visualization on a pure dark background, and nothing else ever appears on screen. A glowing pale-blue ring vortex of gas rolls slowly from left to right, rendered like scientific schlieren photography with delicate internal swirls; a cloud of tiny crimson droplets flying from right to left meets the ring and is visibly deflected, slowed, some droplets turned around and swept backward; thin white streamline arrows trace the flow, textbook-figure style. No people, no room, no recording studio, no courtroom, no corridor, no interior, no building, no window, no furniture, no weapon: pure dark background with the vortex and droplets for the entire duration. Camera: one slow lateral drift with the flow, held in this single framing from frame 0; no cut, no scene change, no camera relocation, no morph, no transition.",
      "呼啸的风洞感低频；液滴转向时的细碎音"),
     ("S35", "graphic", "静帧信息卡",
      "涡环数字卡：约一百米每秒 · 血雾可被整个掉头",
