@@ -158,7 +158,7 @@ SHOTS = [
     ("S03", "agnes", "横移 slow lateral drift",
      "钩子第三拍：深红墨滴沿抛物线飞行、轨迹线在空中汇聚——血点在「说话」",
      "汇聚点亮成案件名片卡",
-     "Abstract scientific visualization on a dark navy blueprint grid background: a handful of crimson ink droplets flying in slow graceful parabolic arcs from left to right, thin white trajectory lines tracing each path, all lines converging toward one small glowing point at the right, subtle streak motion blur, like a physics textbook diagram come to life; no room, no people, no objects, pure diagram. Camera: one slow lateral drift following the arcs. The entire clip stays in this single framing: no cut, no scene change, no camera relocation.",
+     "From the very first frame to the last frame: one single abstract physics diagram on a dark navy blueprint grid, and nothing else ever appears on screen. A few crimson ink droplets fly in slow graceful parabolic arcs from left to right across the grid; thin white trajectory lines trace each arc; all lines converge toward one small glowing white point at the right; subtle streak motion blur behind the droplets; the look of a physics textbook diagram come to life. No room, no recording studio, no building, no house exterior, no interior, no people, no hands, no furniture, no objects: pure diagram on grid for the entire duration. Camera: one slow lateral drift following the arcs, held in this single framing from frame 0; no cut, no scene change, no camera relocation, no morph, no transition.",
      "纸面书写般的沙沙声；汇聚点亮起时一记轻音"),
     ("S04", "graphic", "静帧信息卡",
      "案件名片：菲尔·斯佩克特案（2003 · 洛杉矶）",
