@@ -195,10 +195,10 @@
     },
     "S03": {
       "id": "S03",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "db1a95ca918684c70f03260dfb259feb565efb01ba1e3d2d6eadc04d1f0a7598",
       "error": null,
-      "updated_at": "2026-09-26T04:23:04Z",
+      "updated_at": "2026-09-26T04:23:13Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2I4NzkxYmU1ZTU5YTQ2ZTc5MjcxNGI3YjE0NDQ5ZTVh",
       "task_id": "task_CtMU4ZnTYgl9BsFaZGjU92ToMwV023bn",
       "requested_seconds": 7.041666666666667,
@@ -206,7 +206,81 @@
       "bytes": 3447428,
       "sha256": "23850909280f6579f6a2734ca6f656261d9a11b3b5110e89c7692a46196ce8b3",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 3447428,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/monalisa/qa/S03.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending",
+        "frame_qa": {
+          "version": 1,
+          "frames_analyzed": 169,
+          "opencv": true,
+          "auto_verdict": "review",
+          "events": [
+            {
+              "type": "freeze",
+              "start_frame": 0,
+              "end_frame": 20,
+              "peak_frame": 1,
+              "time": 0.042,
+              "severity": "medium",
+              "frames": 21,
+              "seconds": 0.88,
+              "min_mad": 0.112,
+              "mean_mad": 0.344,
+              "threshold": 0.6
+            }
+          ],
+          "faces": {
+            "checked": true,
+            "detector": "opencv haar frontalface_default, 640x360, minNeighbors=6",
+            "sampled_frames": 57,
+            "frames_with_faces": 27,
+            "max_faces": 3
+          },
+          "stats": {
+            "mad": {
+              "median": 5.598,
+              "max": 7.188
+            },
+            "tv": {
+              "median": 0.011,
+              "max": 0.023
+            },
+            "luma": {
+              "median": 100.124,
+              "max": 120.329
+            },
+            "flow": {
+              "median": 0.564,
+              "max": 0.741
+            },
+            "morph": {
+              "median": 9.666,
+              "max": 13.629
+            },
+            "sharp": {
+              "median": 1260.686,
+              "max": 1729.449
+            }
+          },
+          "dense_sheet": "production/monalisa/qa/S03-dense.jpg",
+          "flags_sheet": "production/monalisa/qa/S03-flags.jpg"
+        }
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S04": {
       "id": "S04",
@@ -395,6 +469,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-26T04:23:04Z",
+  "updated_at": "2026-09-26T04:23:13Z",
   "run_id": "36217124724"
 }
