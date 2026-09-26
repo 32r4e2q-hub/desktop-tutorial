@@ -251,14 +251,18 @@ SHOTS = [
      "A steam-filled railway platform at a French border station in 1911, framed along a long wooden inspection table from the very first frame to the last: customs officers in dark uniforms and kepis, seen from behind, open travellers' trunks and suitcases and lift out folded clothes and picture-sized parcels, a steam locomotive waiting behind; no faces, no readable signs. Camera: one slow lateral dolly along the inspection table." + HOLD,
      "蒸汽机车泄气声、箱扣弹开"),
     ("S23", "agnes", "过肩固定 over-the-shoulder static",
-     "「连毕加索都被叫去问话」：警局问询室，一个黑发年轻人的背影坐在桌前，对面警探的脸隐在台灯后的阴影里",
-     "烟雾接指纹微距",
-     "A 1911 Paris police interview office, framed over the shoulder of a seated young man from the very first frame to the last: the young man with short dark hair in a painter's jacket sits with his back to camera at a plain wooden desk, facing a detective whose face is lost in shadow behind a green-shaded lamp, cigarette smoke curling, a filing cabinet and a barred window; no visible faces. Camera: locked-off medium shot over the young man's shoulder." + HOLD,
+     "「连毕加索都被叫去问话」：警局问询室，一个黑发年轻人的背影坐在桌前，低机位下对面警探只露出马甲、双手和记录的本子",
+     "笔尖停下接指纹微距",
+     # v2（首版复审不过：前 3 s 对面椅子是空的，警探从烟雾里慢慢「凝」出来，到 5.5 s 头还是一团变形的黑烟；6 s 后毕加索转出鼻尖侧脸）
+     # → 两人从第一帧就坐好、谁也不出现不消失；低机位让画面上沿把警探切在肩膀以下；去掉烟
+     "A 1911 Paris police interview office, framed over the shoulder of a seated young man from the very first frame to the last: the young man with short dark hair in a painter's jacket sits with his back to the camera at a plain wooden desk, and a detective in a dark waistcoat sits across the desk facing him, writing in a notebook; the camera is low, at desk height, so the top edge of the frame cuts the detective off at the shoulders and only his waistcoat, hands and notebook are visible; both men are seated in place from the very first frame, nobody appears or disappears; a green-shaded desk lamp, a filing cabinet and a barred window behind; no smoke; no faces. Camera: locked-off medium shot over the young man's shoulder." + HOLD,
      "钢笔敲桌、低声问话（不可辨）"),
     ("S24", "agnes", "微距焦点转移 macro rack focus",
-     "「现场最硬的线索：玻璃罩上一枚清晰的拇指印」：戴手套的手把玻璃片斜对台灯，撒了粉的拇指印显出螺旋纹路",
+     "「现场最硬的线索：玻璃罩上一枚清晰的拇指印」：戴黑手套的手把一片方角旧玻璃斜对台灯，撒了粉的拇指印显出细密的弧形纹线",
      "指纹纹路接档案大厅",
-     "Macro close-up in a 1911 forensic office, framed on a pane of glass under a brass desk lamp from the very first frame to the last: a gloved hand tilts the glass and a single clear thumbprint dusted with grey powder appears on it, its whorl ridges catching the light; a soft brush and a magnifying glass lie blurred on the desk below; no faces. Camera: one slow macro rack focus from the brush to the thumbprint." + HOLD,
+     # v2（首版复审不过：玻璃是圆角厚边的透明板，像一只手机壳；指纹画成了带放射刺的螺旋徽章）
+     # → 方角、带缺口的旧玻璃；指纹写明「细而略不规则的弧形纹线，像真的指纹，不是图案」；背景钉成小实验室
+     "Macro close-up in a small 1911 police laboratory, framed from the very first frame to the last on a flat rectangular pane of old window glass with sharp square corners and one chipped edge, held up under a brass desk lamp: a hand in a black leather glove tilts the pane toward the light and a single thumbprint dusted with grey powder becomes visible on it - an oval of fine, slightly irregular curved ridge lines like a real fingerprint, not a symbol; a soft brush and a magnifying glass lie blurred on the dark wooden desk below, dark shelves out of focus behind; no faces. Camera: one slow macro rack focus from the brush to the thumbprint." + HOLD,
      "细刷扫粉的沙沙声；字幕高亮「拇指印」"),
     ("S25", "agnes", "缓慢后拉 slow pull-back",
      "「人称法国福尔摩斯的贝蒂荣，手握七十五万份档案」：巨大的档案大厅，顶到天花板的卡片柜，前景一个大胡子的背影",
