@@ -10,6 +10,10 @@ run-name: 上传 Release 资产 · ${{ github.ref_name }}
 #          tag=<release 标签>
 #          src=<分支内成片路径，可含中文>
 #          asset=<资产文件名，必须 ASCII，建议 片名-时长-分辨率.mp4>
+#          title=<可选：release 标题>
+#          notes=<可选：分支内的 release 说明 markdown 路径（规格 + SHA-256）>
+#      代理的 token 读不到本仓库 REST（404）时建不了壳：由本管道用 title/notes 建；
+#      壳已存在而 marker 给了 title/notes，则用 gh release edit 更新。
 #      push 即触发本管道；runner 从同一 commit 检出文件（git 对象校验保证
 #      字节一致）→ cp 成 ASCII 名 → gh release upload --clobber。
 #   3) 给用户两个链接：
@@ -69,7 +73,12 @@ jobs:
           echo "tag=$TAG"   >> "$GITHUB_OUTPUT"
           echo "src=$SRC"   >> "$GITHUB_OUTPUT"
           echo "asset=$ASSET" >> "$GITHUB_OUTPUT"
-          echo "tag=$TAG  src=$SRC  asset=$ASSET"
+          TITLE=$(grep -E '^title=' "${{ steps.marker.outputs.marker }}" | cut -d= -f2- || true)
+          NOTES=$(grep -E '^notes=' "${{ steps.marker.outputs.marker }}" | cut -d= -f2- || true)
+          if [ -n "$NOTES" ] && [ ! -f "$NOTES" ]; then echo "::error::notes 文件不在本分支: $NOTES"; exit 1; fi
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+          echo "notes=$NOTES" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG  src=$SRC  asset=$ASSET  title=$TITLE  notes=$NOTES"
       - name: 上传资产到 release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -77,12 +86,22 @@ jobs:
           TAG="${{ steps.m.outputs.tag }}"
           SRC="${{ steps.m.outputs.src }}"
           ASSET="${{ steps.m.outputs.asset }}"
+          TITLE="${{ steps.m.outputs.title }}"
+          NOTES="${{ steps.m.outputs.notes }}"
           test -f "$SRC" || { echo "::error::成片不在本分支: $SRC（须先 commit）"; exit 1; }
-          # release 不存在则兜底创建（正常流程里代理已建好壳并写好 notes）
+          # release 不存在则创建：marker 给了 title/notes 就用，否则兜底（正常流程里代理已建好壳并写好 notes）
           if ! gh release view "$TAG" >/dev/null 2>&1; then
-            echo "release $TAG 不存在，兜底创建"
-            gh release create "$TAG" --target "$GITHUB_REF_NAME" \
-              --title "Release $TAG" --notes "由 release-upload 管道兜底创建"
+            echo "release $TAG 不存在，创建"
+            if [ -n "$NOTES" ]; then
+              gh release create "$TAG" --target "$GITHUB_REF_NAME" \
+                --title "${TITLE:-Release $TAG}" --notes-file "$NOTES"
+            else
+              gh release create "$TAG" --target "$GITHUB_REF_NAME" \
+                --title "${TITLE:-Release $TAG}" --notes "由 release-upload 管道兜底创建"
+            fi
+          else
+            if [ -n "$TITLE" ]; then gh release edit "$TAG" --title "$TITLE"; fi
+            if [ -n "$NOTES" ]; then gh release edit "$TAG" --notes-file "$NOTES"; fi
           fi
           cp "$SRC" "/tmp/$ASSET"
           echo "sha256: $(sha256sum "/tmp/$ASSET" | cut -d' ' -f1)"
