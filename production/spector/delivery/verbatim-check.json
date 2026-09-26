@@ -1,0 +1,511 @@
+{
+  "film": "声墙与一滴血_三分钟_带声音.mp4",
+  "project": "production/spector",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 32.118,
+        "script_chars": 132,
+        "heard_chars": 132,
+        "character_error_rate": 0.0227,
+        "match_coverage": 0.9773,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "邸",
+            "heard": "底"
+          },
+          {
+            "at": 69,
+            "kind": "replace",
+            "script": "坛",
+            "heard": "弹"
+          },
+          {
+            "at": 78,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "十八个不到一毫米的血点怎么给人定罪?2003年凌晨,洛杉矶山上的城堡宅底一声枪响。女演员死在门厅,左轮手枪落在脚边,枪上没有指纹。宅子里的另一个人是乐弹活着的传奇。他说,是他自己把枪放进嘴里的。他把枪擦干净,门厅擦得一尘不染。可这些血点早已按流体力学的方程写好了真相。这就是菲尔斯佩克特案。"
+      },
+      {
+        "id": "N02",
+        "start": 33.198,
+        "end": 56.983,
+        "script_chars": 93,
+        "heard_chars": 93,
+        "character_error_rate": 0.1183,
+        "match_coverage": 0.8817,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "墙",
+            "heard": "强"
+          },
+          {
+            "at": 24,
+            "kind": "replace",
+            "script": "录砌",
+            "heard": "露气"
+          },
+          {
+            "at": 32,
+            "kind": "replace",
+            "script": "墙",
+            "heard": "强"
+          },
+          {
+            "at": 37,
+            "kind": "replace",
+            "script": "首",
+            "heard": "手"
+          },
+          {
+            "at": 40,
+            "kind": "replace",
+            "script": "披",
+            "heard": "皮"
+          },
+          {
+            "at": 42,
+            "kind": "replace",
+            "script": "士",
+            "heard": "是"
+          }
+        ],
+        "transcript": "這個男人是誰 菲爾斯佩克特 聲強 發明人把樂器一層層疊露 氣成一面聲音的強五年二十手熱單 皮頭是告別專輯 烈農的想像都出自他手另一邊 女演員拉娜.克拉克森 40歲當時在俱樂部工作 當晚兩人相識 他提出送他回家"
+      },
+      {
+        "id": "N03",
+        "start": 58.063,
+        "end": 80.207,
+        "script_chars": 90,
+        "heard_chars": 90,
+        "character_error_rate": 0.0667,
+        "match_coverage": 0.9333,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 5,
+            "kind": "replace",
+            "script": "邸",
+            "heard": "底"
+          },
+          {
+            "at": 24,
+            "kind": "replace",
+            "script": "可司机",
+            "heard": "克斯基"
+          },
+          {
+            "at": 29,
+            "kind": "replace",
+            "script": "报",
+            "heard": "爆"
+          },
+          {
+            "at": 70,
+            "kind": "replace",
+            "script": "检",
+            "heard": "捡"
+          }
+        ],
+        "transcript": "汽車開進宅底,他的版本是克拉克森自己開了槍。一場意外,克斯基已經爆了警。宅門打開時,第一句話是,我想,我害了一條命。警方在浴室找到一塊帶深紅痕跡的白布。他手上撿出射擊殘留物。多名女性還指證,曾被他威脅過。"
+      },
+      {
+        "id": "N04",
+        "start": 81.287,
+        "end": 109.482,
+        "script_chars": 118,
+        "heard_chars": 117,
+        "character_error_rate": 0.0932,
+        "match_coverage": 0.9068,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "弹道",
+            "heard": "但到"
+          },
+          {
+            "at": 32,
+            "kind": "replace",
+            "script": "坐",
+            "heard": "座"
+          },
+          {
+            "at": 42,
+            "kind": "replace",
+            "script": "脚",
+            "heard": "角"
+          },
+          {
+            "at": 46,
+            "kind": "replace",
+            "script": "验尸",
+            "heard": "演师"
+          },
+          {
+            "at": 81,
+            "kind": "replace",
+            "script": "雾糊",
+            "heard": "涡胡"
+          },
+          {
+            "at": 91,
+            "kind": "replace",
+            "script": "一",
+            "heard": "医"
+          }
+        ],
+        "transcript": "法医撕开了自杀的说法 但到向下倾斜 自己开枪枪口该是平的 甚至朝上 被后座力崩落的牙齿在楼梯角被发现演师官结论 他杀 但辩护手里也有牌 夹克上只有18个血点这么近的距离 人该被血涡胡满才对2007年医审 陪审团10比2流审 全暗卡在一个问题上 血滴到底往哪飞"
+      },
+      {
+        "id": "N05",
+        "start": 110.562,
+        "end": 146.169,
+        "script_chars": 144,
+        "heard_chars": 145,
+        "character_error_rate": 0.0486,
+        "match_coverage": 0.9583,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "角",
+            "heard": "脚"
+          },
+          {
+            "at": 60,
+            "kind": "replace",
+            "script": "百",
+            "heard": "零零"
+          },
+          {
+            "at": 65,
+            "kind": "replace",
+            "script": "涡",
+            "heard": "窝"
+          },
+          {
+            "at": 77,
+            "kind": "replace",
+            "script": "雾",
+            "heard": "物"
+          },
+          {
+            "at": 109,
+            "kind": "replace",
+            "script": "袖",
+            "heard": "嗅"
+          },
+          {
+            "at": 142,
+            "kind": "replace",
+            "script": "有",
+            "heard": "犹"
+          }
+        ],
+        "transcript": "硬核的部分来了,血滴砸在表面,宽除以长,就是撞击脚的正弦值,多条轨迹连线,汇聚到空中一点,开枪的位置。后来,流体力学算出,枪口燃气卷成约100米每秒的窝环,迎面撞上反向飞出的血物,把它推回去,甚至掉头,开枪的人可以干干净净。底牌,血太少,被这组方程撕碎,嗅口那18个点恰好落在物理认定的开枪者身上。2009年重审,陪审团裁定犹罪。"
+      },
+      {
+        "id": "N06",
+        "start": 147.249,
+        "end": 174.0,
+        "script_chars": 108,
+        "heard_chars": 108,
+        "character_error_rate": 0.0463,
+        "match_coverage": 0.9537,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 7,
+            "kind": "replace",
+            "script": "监禁",
+            "heard": "间进"
+          },
+          {
+            "at": 37,
+            "kind": "replace",
+            "script": "涡",
+            "heard": "窝"
+          },
+          {
+            "at": 63,
+            "kind": "replace",
+            "script": "生砌",
+            "heard": "声气"
+          }
+        ],
+        "transcript": "二級謀殺,19年間進至終身,2021年,81歲的斯佩克特在獄中去世。四個月後,那篇《窩環論文》發表,人不在了,物理。替這個案子寫完了最後一頁,他一聲氣起聲音的牆,最後卻擋不住一滴血說出真相。你相信有完美的犯罪,還是只有還沒追上的科學評論區聊聊?"
+      }
+    ],
+    "max_cer": 0.1183,
+    "failing": []
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 32.118,
+        "script_chars": 132,
+        "heard_chars": 132,
+        "character_error_rate": 0.0227,
+        "match_coverage": 0.9773,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "邸",
+            "heard": "底"
+          },
+          {
+            "at": 69,
+            "kind": "replace",
+            "script": "坛",
+            "heard": "弹"
+          },
+          {
+            "at": 78,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "十八个不到一毫米的血点怎么给人定罪2003年凌晨,洛杉矶山上的城堡宅底一声枪响女演员死在门厅,左轮手枪落在脚边,枪上没有指纹宅子里的另一个人是乐弹活着的传奇他说,是他自己把枪放进嘴里的他把枪擦干净,门厅擦得一尘不染可这些血点早已按流体力学的方程写好了真相这就是菲尔斯佩克特案"
+      },
+      {
+        "id": "N02",
+        "start": 33.198,
+        "end": 56.983,
+        "script_chars": 93,
+        "heard_chars": 93,
+        "character_error_rate": 0.1183,
+        "match_coverage": 0.8817,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 5,
+            "kind": "replace",
+            "script": "谁",
+            "heard": "水"
+          },
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "墙",
+            "heard": "强"
+          },
+          {
+            "at": 24,
+            "kind": "replace",
+            "script": "录砌",
+            "heard": "露气"
+          },
+          {
+            "at": 37,
+            "kind": "replace",
+            "script": "首",
+            "heard": "手"
+          },
+          {
+            "at": 40,
+            "kind": "replace",
+            "script": "披",
+            "heard": "皮"
+          },
+          {
+            "at": 42,
+            "kind": "replace",
+            "script": "士",
+            "heard": "是"
+          }
+        ],
+        "transcript": "這個男人是水 菲爾斯佩克特 聲強 發明人把樂器一層層疊露 氣成一面聲音的牆五年二十手熱單 皮頭是告別專輯 烈農的想像都出自他手另一邊 女演員拉娜.克拉克森 40歲當時在俱樂部工作 當晚兩人相識他提出送他回家"
+      },
+      {
+        "id": "N03",
+        "start": 58.063,
+        "end": 80.207,
+        "script_chars": 90,
+        "heard_chars": 90,
+        "character_error_rate": 0.0667,
+        "match_coverage": 0.9333,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 5,
+            "kind": "replace",
+            "script": "邸",
+            "heard": "底"
+          },
+          {
+            "at": 24,
+            "kind": "replace",
+            "script": "可司机",
+            "heard": "克斯基"
+          },
+          {
+            "at": 29,
+            "kind": "replace",
+            "script": "报",
+            "heard": "爆"
+          },
+          {
+            "at": 70,
+            "kind": "replace",
+            "script": "检",
+            "heard": "捡"
+          }
+        ],
+        "transcript": "汽車開進宅底,他的版本是克拉克森自己開了槍一場意外,克斯基已經爆了警宅門打開時,第一句話是我想,我害了一條命警方在浴室找到一塊帶深紅痕跡的白布他手上撿出射擊殘留物多名女性還指證,曾被他威脅過"
+      },
+      {
+        "id": "N04",
+        "start": 81.287,
+        "end": 109.482,
+        "script_chars": 118,
+        "heard_chars": 118,
+        "character_error_rate": 0.0763,
+        "match_coverage": 0.9237,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "弹道",
+            "heard": "但到"
+          },
+          {
+            "at": 32,
+            "kind": "replace",
+            "script": "坐",
+            "heard": "座"
+          },
+          {
+            "at": 42,
+            "kind": "replace",
+            "script": "脚",
+            "heard": "角"
+          },
+          {
+            "at": 46,
+            "kind": "replace",
+            "script": "验尸",
+            "heard": "演示"
+          },
+          {
+            "at": 81,
+            "kind": "replace",
+            "script": "雾糊",
+            "heard": "物湖"
+          },
+          {
+            "at": 102,
+            "kind": "replace",
+            "script": "案",
+            "heard": "暗"
+          }
+        ],
+        "transcript": "法醫撕開了自殺的說法但到向下傾斜 自己開槍槍口該是平的 甚至朝上被後座力崩落的牙齒在樓梯角被發現演示官結論 他殺但辯護手裡也有牌夾克上只有十八個血點這麼近的距離人該被血物湖滿才對2007年 一審陪審團10比2流審全暗卡在一個問題上血滴到底往哪兒飛"
+      },
+      {
+        "id": "N05",
+        "start": 110.562,
+        "end": 146.169,
+        "script_chars": 144,
+        "heard_chars": 145,
+        "character_error_rate": 0.0417,
+        "match_coverage": 0.9653,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 21,
+            "kind": "replace",
+            "script": "角",
+            "heard": "脚"
+          },
+          {
+            "at": 25,
+            "kind": "replace",
+            "script": "值",
+            "heard": "质"
+          },
+          {
+            "at": 60,
+            "kind": "replace",
+            "script": "百",
+            "heard": "零零"
+          },
+          {
+            "at": 65,
+            "kind": "replace",
+            "script": "涡",
+            "heard": "窝"
+          },
+          {
+            "at": 77,
+            "kind": "replace",
+            "script": "雾",
+            "heard": "物"
+          }
+        ],
+        "transcript": "硬核的部分来了,血滴砸在表面,宽除以长,就是撞击脚的正弦质,多条轨迹连线,汇聚到空中一点,开枪的位置。后来,流体力学算出,枪口燃气卷成约100米每秒的窝环,迎面撞上反向飞出的血物,把它推回去,甚至掉头,开枪的人可以干干净净,底牌,血太少,被这组方程撕碎。袖口那18个点恰好落在物理认定的开枪者身上。2009年重审,陪审团裁定有罪。"
+      },
+      {
+        "id": "N06",
+        "start": 147.249,
+        "end": 174.0,
+        "script_chars": 108,
+        "heard_chars": 108,
+        "character_error_rate": 0.0463,
+        "match_coverage": 0.9537,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 9,
+            "kind": "replace",
+            "script": "至",
+            "heard": "之"
+          },
+          {
+            "at": 37,
+            "kind": "replace",
+            "script": "涡",
+            "heard": "窝"
+          },
+          {
+            "at": 63,
+            "kind": "replace",
+            "script": "生砌",
+            "heard": "声气"
+          },
+          {
+            "at": 69,
+            "kind": "replace",
+            "script": "墙",
+            "heard": "强"
+          }
+        ],
+        "transcript": "二級謀殺,19年監禁之終身2021年,81歲的斯佩克特在獄中去世四個月後,那篇《窩環論文》發表人不在了,物理替這個案子寫完了最後一頁他一聲氣起聲音的強最後卻擋不住一滴血說出真相你相信有完美的犯罪還是只有還沒追上的科學評論區聊聊"
+      }
+    ],
+    "max_cer": 0.1183,
+    "failing": []
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+}
