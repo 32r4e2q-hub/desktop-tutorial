@@ -364,9 +364,11 @@ SHOTS = [
      "Overhead close-up on a rough wooden table in a small rented room in 1913, framed on the table top from the very first frame to the last: a folded letter lies closed with its plain blank back side facing up, a dip pen and a small glass ink bottle beside it, and a small pile of old gold and silver coins. A man's hand in a dark sleeve, his forearm entering from the right edge of the frame, slowly slides the coins toward the folded letter. No faces. Camera: one very slow overhead push-in that stops well above the table." + HOLD,
      "钱币叮当"),
     ("S42", "agnes", "微距横移 macro slide",
-     "「而那枚左手拇指印一比，分毫不差」：台灯下两张并排的指纹卡，放大镜从一张滑到另一张，手指沿着一模一样的纹路比划",
+     "「而那枚左手拇指印一比，分毫不差」：台灯下两张并排的白卡片，各一枚真实纹线的油墨拇指印、一模一样，镜头从一张滑到另一张",
      "纹路重合，接判决卡",
-     "Macro view on a desk in a 1913 identification bureau, framed on two cards lying side by side from the very first frame to the last: each card bears a single inked thumbprint with an identical whorl pattern, and a large magnifying glass slides from one to the other while a fingertip traces along matching ridge lines; warm lamp light; no writing on the cards, no faces. Camera: one slow macro slide across both prints." + HOLD,
+     # v2（首版复审不过：写了「whorl pattern」，两张卡上画成带花瓣的螺旋徽章，卡片还带花边——与 S24/S26 首版同病；
+     # 5 s 后右卡上冒出一块红斑又消失）→ 纹线逐项描述 + 点名「不是花、不是螺旋徽章」；素白无边卡片；去掉手和移动的放大镜
+     "Top-down macro close-up on a dark wooden desk under a brass lamp in a 1913 identification bureau, framed from the very first frame to the last on two plain white cards lying side by side, with no borders, no decorations and no writing. Each card carries one smudged oval of black inked fingerprint ridges: many fine, thin, slightly irregular curved lines running in parallel loops, like a real inked thumbprint - not a flower, not a spiral emblem, not a symbol - and the two prints are exactly the same. A plain round magnifying glass with a wooden handle lies flat on the desk beside the cards and never moves. Nothing in the frame moves. Camera: one slow macro slide from the left print to the right print." + HOLD,
      "放大镜落桌一声（sfx paper）；字幕高亮「分毫不差」"),
     ("S43", "graphic", "判决卡 static card",
      "结局卡：1914 年 1 月 4 日回到卢浮宫；判一年零十五天、上诉后服刑七个月；指纹与档案一致",
