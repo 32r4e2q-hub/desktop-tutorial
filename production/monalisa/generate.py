@@ -138,6 +138,20 @@ def main():
             raise RuntimeError('Publish only from this fixed Arena branch in Actions')
         git('config','user.name','github-actions[bot]')
         git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
+        # 过期触发守卫（2026-09-26 Actions 停摆后加）：停摆期间建的生成 run 可能一直 queued，恢复后会在不同并发组里
+        # 一起开跑 → 重复提交 Agnes、results.json 互相冲突。每个 run 都 checkout 分支最新头，所以守卫写在脚本里
+        # 对旧 run 同样生效：push 触发的 run 若触发它的 commit 里的 GEN_REQUEST 与最新头不同（之后又有新请求），直接退出。
+        if os.getenv('GITHUB_EVENT_NAME')=='push' and os.getenv('GITHUB_SHA'):
+            sha=os.environ['GITHUB_SHA'];rel='production/monalisa/GEN_REQUEST'
+            try:
+                try:git('cat-file','-e',sha+'^{commit}')
+                except subprocess.CalledProcessError:git('fetch','-q','--depth=1','origin',sha)
+                then=git('show',f'{sha}:{rel}').strip();now=(ROOT/rel).read_text().strip()
+                if then!=now:
+                    print(f'STALE_TRIGGER: triggered by {sha[:7]} whose GEN_REQUEST differs from the branch head; a newer request owns generation. Exiting without changes.',flush=True)
+                    return 0
+            except (subprocess.CalledProcessError,OSError) as exc:
+                print('STALE_TRIGGER check skipped: '+str(exc)[:200],flush=True)
     doc=read_json(RESULTS,{'project':project['title'],'model':agnes.DEFAULT_MODEL,'shots':{}})
     if args.prune_failed:
         # 只清理、不生成：出片工作流把它单独作为生成前的步骤。
