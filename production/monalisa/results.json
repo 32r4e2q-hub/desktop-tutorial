@@ -1160,10 +1160,10 @@
     },
     "S15": {
       "id": "S15",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "64e6418478eedbfc4c5d3909022b4d6a8ac75bd3b035828cf52d017e47b0b737",
       "error": null,
-      "updated_at": "2026-09-26T05:52:57Z",
+      "updated_at": "2026-09-26T05:53:05Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2MzYTUwYzg2NDU2YzRmOTViZTViNDE3ZWQ1NzU2NzQw",
       "task_id": "task_gJJTx5s5p9HWzP6R1gT3KVCrNI0wTy0A",
       "requested_seconds": 7.041666666666667,
@@ -1171,7 +1171,91 @@
       "bytes": 3238257,
       "sha256": "933452267eeb68c5d59fd01ca8040832ac8df06288dc77bf1fcb247f4fd2bdaa",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 3238257,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/monalisa/qa/S15.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending",
+        "frame_qa": {
+          "version": 2,
+          "frames_analyzed": 169,
+          "opencv": true,
+          "auto_verdict": "review",
+          "events": [
+            {
+              "type": "blur_dip",
+              "start_frame": 158,
+              "end_frame": 168,
+              "peak_frame": 167,
+              "time": 6.958,
+              "severity": "medium",
+              "sharp_ratio": 0.42
+            },
+            {
+              "type": "hold",
+              "start_frame": 158,
+              "end_frame": 168,
+              "peak_frame": 159,
+              "time": 6.625,
+              "severity": "info",
+              "frames": 11,
+              "seconds": 0.46,
+              "min_mad": 0.023,
+              "mean_mad": 0.081,
+              "resume_mad": 0.0,
+              "threshold": 0.6
+            }
+          ],
+          "faces": {
+            "checked": true,
+            "detector": "opencv haar frontalface_default, 640x360, minNeighbors=6",
+            "sampled_frames": 57,
+            "frames_with_faces": 7,
+            "max_faces": 1
+          },
+          "stats": {
+            "mad": {
+              "median": 3.412,
+              "max": 4.47
+            },
+            "tv": {
+              "median": 0.012,
+              "max": 0.032
+            },
+            "luma": {
+              "median": 78.746,
+              "max": 80.808
+            },
+            "flow": {
+              "median": 0.413,
+              "max": 0.623
+            },
+            "morph": {
+              "median": 11.564,
+              "max": 19.914
+            },
+            "sharp": {
+              "median": 745.75,
+              "max": 882.546
+            }
+          },
+          "dense_sheet": "production/monalisa/qa/S15-dense.jpg",
+          "flags_sheet": "production/monalisa/qa/S15-flags.jpg"
+        }
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S16": {
       "id": "S16",
@@ -3503,7 +3587,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-26T05:52:57Z",
+  "updated_at": "2026-09-26T05:53:05Z",
   "run_id": "36221444679",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/monalisa/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
