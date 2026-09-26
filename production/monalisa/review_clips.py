@@ -18,11 +18,26 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import screenplay_gen  # noqa: E402
+import clip_qa  # noqa: E402
 
 FPS_SRC = 24.0
 EDGE = 0.12
 MAX_SLOW = 1.33
-AVOID = {'hard_cut', 'flash', 'black', 'morph_spike', 'jump'}
+AVOID = {'hard_cut', 'flash', 'black', 'morph_spike', 'jump', 'oscillation'}
+
+
+def refresh_events(qa):
+    """runner 上旧版 clip_qa 写的 JSON：用存下来的逐帧数组按当前版本重算事件（不需要视频）。
+    闪白/闪黑的判别要用直方图，JSON 里没有——旧 JSON 里已有的 flash 事件原样保留。"""
+    fq = qa['frame_qa']
+    if fq.get('version', 1) >= clip_qa.VERSION:
+        return qa
+    m = {k: np.asarray(v, float) for k, v in fq['per_frame'].items()}
+    fresh = [e for e in clip_qa.find_events(m, FPS_SRC) if e['type'] not in ('hard_cut', 'flash')]
+    kept = [e for e in fq['events'] if e['type'] in ('hard_cut', 'flash')]
+    fq['events'] = sorted(kept + fresh, key=lambda e: (e['start_frame'], e['type']))
+    fq['events_recomputed_with'] = clip_qa.VERSION
+    return qa
 
 
 def motion_onset(mad, median):
@@ -93,7 +108,7 @@ def main():
         if 'frame_qa' not in qa:
             out.append({'id': e['id'], 'need': round(need, 2), 'no_frame_qa': qa.get('frame_qa_error')})
             continue
-        out.append(suggest(e, qa, need))
+        out.append(suggest(e, refresh_events(qa), need))
     print(f"{'镜头':4} {'需要':>5} {'起动':>5} {'停':>5} {'建议窗':>13} {'慢放':>5} {'窗内定格':>6} {'默认定格':>6} 事件 / 正脸")
     for r in out:
         if r.get('missing') or 'no_frame_qa' in r:

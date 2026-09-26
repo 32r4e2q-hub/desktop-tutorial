@@ -153,5 +153,49 @@ class ClipQATest(unittest.TestCase):
                 self.assertTrue((Path(tmp) / name).stat().st_size > 1000)
 
 
+class OscillationTest(unittest.TestCase):
+    """clip_qa v2：S20 首版开门后那种「一帧一颤」要被抓到；平滑运镜、起止缓入定格、单帧起步不能误报。"""
+
+    def series(self, osc_from=None, amp=0.6):
+        n = 169
+        t = np.arange(n)
+        mad = np.clip(3.0 * np.sin(np.pi * t / (n - 1)), 0.05, None)      # 缓入 → 匀速 → 缓出
+        mad[:12] = 0.05                                                    # 开头 0.5 s 定格（HOLD）
+        mad[9] = 2.4                                                       # 单帧突然起步（S02 那种）
+        flow = mad / 7.0
+        if osc_from is not None:
+            saw = np.array([(-1) ** k for k in range(n - osc_from)], float)
+            mad[osc_from:] += amp * saw
+            flow[osc_from:] += amp / 7.0 * saw
+        zeros = np.zeros(n)
+        return {"mad": mad, "tv": zeros + 0.01, "luma": zeros + 60.0, "flow": flow,
+                "morph": zeros + 8.0, "sharp": zeros + 900.0}
+
+    def test_sawtooth_is_flagged_where_it_starts(self):
+        clip_qa = load("clip_qa")
+        ev = [e for e in clip_qa.find_events(self.series(osc_from=120), 24.0) if e["type"] == "oscillation"]
+        self.assertEqual(len(ev), 1)
+        self.assertEqual(ev[0]["severity"], "high")
+        self.assertLessEqual(abs(ev[0]["start_frame"] - 120), 8)
+
+    def test_smooth_motion_and_holds_are_not(self):
+        clip_qa = load("clip_qa")
+        kinds = {e["type"] for e in clip_qa.find_events(self.series(), 24.0)}
+        self.assertNotIn("oscillation", kinds)
+
+    def test_real_clips_only_s20_v1(self):
+        """已回来的素材里，逐帧数组重算事件：只有 S20 首版（已判重生成）有颤帧。"""
+        clip_qa = load("clip_qa")
+        flagged = []
+        for path in sorted((PROJECT / "qa").glob("S*.json")):
+            qa = json.loads(path.read_text())
+            if "frame_qa" not in qa:
+                continue
+            m = {k: np.asarray(v, float) for k, v in qa["frame_qa"]["per_frame"].items()}
+            if any(e["type"] == "oscillation" for e in clip_qa.find_events(m, 24.0)):
+                flagged.append(path.stem)
+        self.assertTrue(set(flagged) <= {"S20"}, flagged)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -16,6 +16,8 @@ commit 回分支，沙箱里拿到后复审：
   morph      光流补偿残差：把后一帧按光流拉回前一帧后，16×16 块里残差的最大值。
              正常运动能被光流解释、残差小；物体「融化 / 变形 / 凭空长出来」解释不了，残差尖峰。
   sharp      拉普拉斯方差——突然糊掉
+  oscillation mad / flow 在 0.5 s 滑窗里去掉线性趋势后，按 (-1)^k 加权求和 = 2 帧周期（奈奎斯特频率）的
+             振幅（取中位数，单帧尖峰不算）。正常运镜≈0；画面「一帧一颤」会把它顶起来（S20 首版开门后 0.885）。
 人脸：OpenCV Haar 正脸检测，640×360 每 3 帧抽一帧。本片镜头都是背影 / 剪影 / 手部 / 远景，
 《蒙娜丽莎》正面永远不画清楚——检测到正脸不等于坏，但必须人工看一眼（露脸最容易畸变）。
 
@@ -34,7 +36,7 @@ try:
 except Exception:  # pragma: no cover - runner 上一定装了；本地没装时退化成纯 numpy 指标
     cv2 = None
 
-VERSION = 1
+VERSION = 2   # v2：加 oscillation（2 帧周期的颤帧 / 抖动）
 W, H = 320, 180           # 指标分辨率
 FW, FH = 640, 360         # 解码分辨率（人脸、图块都从这里缩）
 TILE = (352, 198)
@@ -108,6 +110,27 @@ def group_runs(frames, gap=1):
         else:
             runs.append([f, f])
     return runs
+
+
+OSC_W = 12          # 0.5 s 滑窗
+OSC_MAD = 0.15      # 前 19 条素材里正常镜头最高 0.14（S02 单帧起步）；S20 首版颤帧最高 0.885、连续 34 帧
+OSC_FLOW = 0.015
+OSC_MIN_FRAMES = 6
+
+
+def oscillation(series, w=OSC_W):
+    """每一帧附近 w 帧滑窗里，2 帧周期（奈奎斯特）锯齿的振幅。先去掉线性趋势（匀加速不算），再取
+    「相邻差 × (-1)^k」的**中位数**：真正的一帧一颤每一对相邻帧都在交替、中位数就是振幅；单独一帧的
+    尖峰（突然起步、一帧跳变）只影响 2 个差值，中位数≈0——那些由 jump / flash / freeze 负责。"""
+    x = np.asarray(series, float)
+    out = np.zeros(len(x))
+    alt = np.array([(-1) ** k for k in range(w - 1)], float)
+    t = np.arange(w)
+    for i in range(1, len(x) - w + 1):
+        seg = x[i:i + w]
+        r = seg - np.polyval(np.polyfit(t, seg, 1), t)
+        out[i + w // 2] = abs(float(np.median((r[:-1] - r[1:]) * alt))) / 2
+    return out
 
 
 def find_events(m, fps, hists=None):
@@ -188,6 +211,15 @@ def find_events(m, fps, hists=None):
         if b - a + 1 >= 3:
             p = min(range(a, b + 1), key=lambda t: sharp[t])
             add('blur_dip', a, b, p, 'medium', {'sharp_ratio': round(float(sharp[p] / max(med_sharp, 1e-6)), 2)})
+    # 颤帧：相邻帧差以 2 帧为周期忽大忽小。mad 与 flow 同时出现锯齿、且连续 ≥6 帧才算（单帧的起步 / 停步不算）。
+    osc_mad, osc_flow = oscillation(mad), oscillation(flow)
+    shaky = [t for t in range(n) if osc_mad[t] > OSC_MAD and osc_flow[t] > OSC_FLOW]
+    for a, b in group_runs(shaky, gap=2):
+        if b - a + 1 >= OSC_MIN_FRAMES:
+            p = max(range(a, b + 1), key=lambda t: osc_mad[t])
+            add('oscillation', max(1, a - OSC_W // 2), min(n - 1, b + OSC_W // 2 - 1), p, 'high',
+                {'mad_amplitude': round(float(osc_mad[p]), 3), 'flow_amplitude': round(float(osc_flow[p]), 4),
+                 'frames': int(b - a + 1)})
     events.sort(key=lambda e: (e['start_frame'], e['type']))
     return events
 

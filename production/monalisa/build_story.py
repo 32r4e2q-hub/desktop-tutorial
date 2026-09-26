@@ -179,10 +179,11 @@ SHOTS = [
      "玻璃反光接墙上的玻璃罩",
      "Close-up on a glazier's wooden workbench in a museum workshop lit by a tall window, 1911, framed on the bench top from the very first frame to the last: two pairs of hands in rolled-up white sleeves lower a large clean pane of glass into the front of a heavy wooden shadow-box frame, a putty knife and small brass screws on the bench, soft reflections sliding across the glass; no faces. Camera: locked-off macro with a gentle rack focus from the tools to the glass." + HOLD,
      "玻璃轻碰木框的清脆声；字幕高亮「玻璃罩」"),
-    ("S11", "agnes", "缓慢横移 slow lateral slide",
-     "「蒙娜丽莎那个罩子，他也参与过」：墙上一只沉重的玻璃罩，玻璃满是天窗白光看不清里面，一只白袖子的手用布擦玻璃",
+    ("S11", "agnes", "肩后缓推 over-shoulder push-in",
+     "「蒙娜丽莎那个罩子，他也参与过」：肩后视角，白大褂工人站在墙上的玻璃罩前，用布擦玻璃外侧；玻璃一片白光，看不清里面",
      "白光一闪接员工走廊",
-     "A museum gallery wall in 1911, framed on one heavy glass-fronted wooden case hanging on dark red damask from the very first frame to the last, seen at a steep oblique angle so the glass is filled with a bright white reflection of the skylight and nothing inside is visible; a workman's hand in a white sleeve wipes the glass with a folded cloth in slow circles; no faces. Camera: one slow lateral slide along the wall toward the case." + HOLD,
+     # v2（首版复审不过：手臂画进了玻璃罩里面、反光变成一整个庭院、罩子随斜角运镜转动）→ 人站在罩子前、肩后机位、罩子端正、反光只是一片白
+     "A museum gallery wall in 1911, framed from the very first frame to the last on one heavy wooden display case with a single flat glass front, hanging perfectly level on dark red damask; the glass is covered edge to edge by a flat milky-white glare, so nothing behind it can be seen. A workman in a white smock stands in the foreground between the camera and the case, seen from behind over his right shoulder, his head turned toward the glass, and wipes the outer surface of the glass with a folded cloth in slow circles; his hand and the cloth stay pressed against the front of the glass the whole time. No faces. Camera: locked-off medium shot from behind his shoulder with one very slow push-in; the case stays level and never tilts or turns." + HOLD,
      "布擦玻璃的吱吱声"),
     ("S12", "agnes", "缓慢上摇 slow tilt up",
      "「他看上去老实巴交，可这份活让他摸清了三件事」：昏暗的员工走廊，白大褂背影坐在木箱上啃面包，慢慢抬头望向尽头亮着的画廊门口",
@@ -190,9 +191,10 @@ SHOTS = [
      "A dim back-of-house service corridor inside a museum, 1911, plain plaster walls and stacked wooden crates, framed down the corridor from the very first frame to the last: a short workman in a white smock, seen from behind, sits on a crate eating bread from a paper wrapper, then slowly lifts his head toward a bright doorway at the far end that opens onto a gallery; no faces. Camera: one slow tilt up from his boots to the lit doorway beyond him." + HOLD,
      "音乐转暗，只剩低音；「三件事」处停半拍"),
     ("S13", "agnes", "微距横移 macro slide",
-     "「画只挂在四个铁钩上」：微距，墙上的黑色铁钩托住镀金画框的底边，再滑到下一个铁钩",
+     "「画只挂在四个铁钩上」：微距，墙上的黑色铁钩托住玻璃画箱的底边，玻璃一片白光，再滑到下一个铁钩",
      "滑到第二个铁钩切闭馆长廊",
-     "Extreme close-up on a museum wall in 1911, framed on the bottom edge of a heavy carved gilded frame from the very first frame to the last: a simple black iron hook driven into the wall holds the frame, and a second identical hook sits a little further along, old damask fabric texture behind, warm skylight; the painting itself stays out of frame above. Camera: one slow macro slide along the bottom edge of the frame from one hook to the next." + HOLD,
+     # v2（首版复审不过：画框里是空的、透出墙纸，像画已经丢了——那是 S01/S21 的意象）→ 改成与 S11/S17 同一只玻璃画箱，玻璃只有白光
+     "Extreme close-up on a museum wall of dark red damask in 1911, framed from the very first frame to the last on the lower edge of a heavy dark-wood picture case with a glass front that hangs on the wall; the glass fills the top part of the frame with a flat milky-white glare, so no picture and no wallpaper can be seen through it. A simple black iron hook driven into the wall supports the bottom edge of the case, and a second identical hook supports it a little further along. Camera: one slow macro slide along the bottom edge of the case from the first hook to the second." + HOLD,
      "金属轻响；字幕高亮「四个铁钩」"),
     ("S14", "agnes", "固定大全景 static wide",
      "「周一闭馆，馆里只剩工人；而工人，人人都穿白大褂」：空荡的长廊，几个一模一样的白大褂背影扛梯子、提水桶、拖地",
@@ -201,9 +203,10 @@ SHOTS = [
      "水桶、拖把、远处回声；字幕高亮「白大褂」"),
     # ---------------- N03 作案手法（7 镜）----------------
     ("S15", "agnes", "固定中景 static medium",
-     "「1911 年 8 月 21 日，星期一清早，佩鲁贾穿着白大褂混进馆里」：黎明，宫殿侧面的工人入口，几个白大褂背影鱼贯而入，最后一个是矮小的身影",
+     "「1911 年 8 月 21 日，星期一清早，佩鲁贾穿着白大褂混进馆里」：黎明，机位在工人身后正对宫殿侧门，几个白大褂背影走向敞开的门、鱼贯而入，最后一个是矮小的身影",
      "门里的灯光接方形大厅",
-     "Dawn at a plain side entrance of a vast classical stone palace on a quiet Paris street, 1911, framed on one heavy wooden service door standing open with lamplight inside from the very first frame to the last: a few workmen in white smocks and caps walk in one after another, all seen from behind, the last one a short, slight man; wet cobbles, blue morning shadow; no faces. Camera: locked-off medium wide from behind the workers." + HOLD,
+     # v2（首版复审不过：工人是从门里走出来、沿街走远，和「混了进去」方向相反，还有两张小侧脸）→ 机位正对门，所有人背对镜头朝门走进去
+     "Dawn on a quiet Paris street beside a vast classical stone palace, 1911, framed from the very first frame to the last straight on to one heavy wooden service door standing open in the middle of a plain stone wall, warm lamplight inside, wet cobbles and blue morning shadow in front of it. Three workmen in white smocks and caps walk away from the camera across the cobbles toward the door and step through it into the lamplight one after another, seen from behind the whole time, the last one a short, slight man; everyone moves only toward the door, and at the end only the empty lit doorway remains. No faces. Camera: locked-off eye-level medium wide from behind the workers, facing the door." + HOLD,
      "清晨钟声一下；日期字幕「1911.08.21」由后期添加"),
     ("S16", "agnes", "缓慢横摇 slow pan",
      "「方形大厅四下无人」：1911 年的方形大厅，画作从腰线挂到檐口，天窗倾泻晨光，空无一人",
@@ -211,14 +214,16 @@ SHOTS = [
      "The square grand salon of a museum in 1911, framed from its doorway from the very first frame to the last: walls of dark red damask hung densely with gilded-frame old-master paintings from waist height up to the cornice, a glass skylight ceiling pouring soft morning light onto an empty parquet floor, a single velvet bench in the middle; the paintings are dim, darkened landscapes too small to make out; no people. Camera: one slow pan across the room from left to right." + HOLD,
      "空旷房间的嗡鸣"),
     ("S17", "agnes", "低角度固定 low-angle static",
-     "「他把画从铁钩上摘下」：侧面低角度，一双白袖子的手把沉重的玻璃罩画框从墙上抬下，玻璃满是白光看不见画面",
+     "「他把画从铁钩上摘下」：侧面低角度，暗红锦缎墙上，一双白袖子的手把扁平沉重的玻璃罩画框从四个铁钩上抬下，玻璃一片白光看不见画面，墙上只剩铁钩",
      "画框落下，接楼梯间俯拍",
-     "Low-angle side view in a museum salon in 1911, framed on one section of damask wall from the very first frame to the last: two hands in white smock sleeves lift a heavy glass-fronted framed case off four iron hooks and lower it toward the floor; the glass front catches the white glare of the skylight so no image is visible, only reflections; the workman is cropped at the shoulders; no faces. Camera: locked-off low angle; only the hands and the case move." + HOLD,
+     # v2（首版复审不过：墙纸变成蓝金色，与 S01/S13/S16 的暗红锦缎同一面墙对不上；画箱画成了带脚的立式玻璃柜）→ 钉死暗红锦缎 + 扁平竖幅画箱
+     "Low-angle side view in a museum salon in 1911, framed from the very first frame to the last on one section of dark red damask wall with four black iron hooks: two hands in white smock sleeves lift a flat, heavy, upright wooden shadow-box frame with a glass front, taller than it is wide and only a hand deep, off the four hooks and lower it slowly toward the parquet floor, leaving the bare hooks on the red wall; the glass front is filled with a flat milky-white glare so no image is visible; the workman is cropped at the shoulders; no faces. Camera: locked-off low angle; only the hands and the case move." + HOLD,
      "铁钩刮过的金属声"),
     ("S18", "agnes", "俯拍固定 overhead static",
-     "「躲进员工楼梯间，拆掉玻璃罩和画框」：昏暗的石砌楼梯间平台，画框背面朝上，双手拧螺丝，玻璃罩靠在墙边",
+     "「躲进员工楼梯间，拆掉玻璃罩和画框」：昏暗的石砌楼梯间平台俯拍，白大褂工人背影跪在背面朝上的画框前拧螺丝，玻璃罩靠在墙边",
      "拆下的画框接白杨木板信息卡",
-     "Overhead view into a narrow, dim stone service stairwell in 1911, a single slit window of grey light, framed on the landing from the very first frame to the last: a pair of hands in white sleeves works a screwdriver around the back of a heavy gilded frame lying face-down on the stone floor, an empty glass case already leaning against the wall beside it; no faces, the front of any painting is never visible. Camera: locked-off overhead; only the hands move." + HOLD,
+     # v2（首版复审不过：两只白袖子从画框两侧伸出、画面里没有身体；小窗里一张写满涂画的纸像伪文字）→ 人整个在画面里、背对镜头跪着，窗只有灰光
+     "Overhead view into a narrow, dim stone service stairwell in 1911, framed on the landing from the very first frame to the last: a workman in a white smock and flat cap, his whole body in view and seen from above and behind, kneels on the stone floor at the near edge of a heavy gilded frame lying face-down, his back and cap toward the camera, and works a screwdriver along the back of the frame with both hands; an empty glass case leans against the wall beside it; a single small window lets in plain grey light, with nothing on the glass or in the window; no faces, the front of any painting is never visible. Camera: locked-off overhead; only his arms and hands move." + HOLD,
      "螺丝刀吱嘎、呼吸声；节奏加快"),
     ("S19", "graphic", "信息卡 static card",
      "白杨木板卡：蒙娜丽莎是画在白杨木板上的油画，77×53 厘米，卷不起来",
@@ -228,12 +233,16 @@ SHOTS = [
     ("S20", "agnes", "固定中景 static medium",
      "「可楼梯底下的门锁着！一个水管工路过，把他当成同事，顺手帮他开了门」：石楼梯底部没了门把手的木门，背着工具袋的水管工用钳子把门打开",
      "门外的日光接画家发现空墙",
-     "The bottom of a narrow stone service staircase in 1911, framed on a plain wooden door with a missing doorknob from the very first frame to the last: a man in a white smock hugging a flat white-wrapped bundle to his chest waits beside the door as an older plumber with a leather tool bag, seen from behind, fits a pair of pliers into the empty knob hole and swings the door open onto a bright courtyard; no faces. Camera: locked-off medium shot from behind both men." + HOLD,
+     # v2（首版复审不过：4.3 s 后镜头自己推近、两人转成侧脸 / 3/4 正脸——佩鲁贾的脸不能由 AI 画；门开后 5–7 s 整段颤帧）
+     # → 两人全程背对镜头、不回头，机位完全不动；门外是空的亮院子（院子里的小人是颤帧来源之一）
+     "The bottom of a narrow stone service staircase in 1911, framed from the very first frame to the last straight on to a plain wooden door with a missing doorknob, seen from behind two men who keep their backs to the camera the whole time and never turn their heads: on the left a man in a white smock hugging a flat white-wrapped bundle to his chest, on the right an older plumber in a flat cap and grey work clothes with a leather tool bag on his shoulder. The plumber fits a pair of pliers into the empty knob hole, turns it, and the door swings slowly open onto a bright, empty courtyard. No faces. Camera: completely locked-off medium wide from behind both men at eye level; no push-in, no camera movement at all." + HOLD,
      "门锁咔哒（sfx keys）；字幕高亮「水管工」"),
     ("S21", "agnes", "缓慢推近 slow push-in",
      "「直到第二天，来写生的画家才发现：墙上只剩四个铁钩」：前景画家的画架，背影放下画笔，远处墙上两幅暗画之间一块空当，四个铁钩",
      "推到空当，章节停顿",
-     "A museum salon the next morning in 1911, framed past a painter's easel toward the far wall from the very first frame to the last: the wooden easel with a half-finished canvas stands in the foreground, a painter in a long coat seen from behind lowers his brush, and beyond him on the damask wall between two dark gilded frames there is an empty gap with four bare iron hooks; soft skylight; no faces. Camera: one slow push-in past the easel toward the empty hooks." + HOLD,
+     # v2（首版复审不过：墙是浅蓝粉锦缎、墙上三个空画框、铁钩画在中间那个框里——像「画全丢了」，也对不上 S01 那面暗红墙）
+     # → 墙面描述逐字沿用已通过的 S01：暗红锦缎、两幅深色风景画之间一块空当、四个铁钩和一块浅色印子
+     "A museum salon the next morning in 1911, framed from the very first frame to the last past a painter's wooden easel toward one section of dark red damask wall: the easel with a half-finished canvas stands in the left foreground, a painter in a long dark coat stands beside it seen from behind with his brush lowered, and on the red wall ahead of him, between two large gilded frames holding dark, shadowy landscape paintings, there is an empty gap - only four bare black iron hooks and a slightly paler rectangle on the fabric where a small painting used to hang; soft skylight; no faces. Camera: one slow push-in past the easel toward the four empty hooks." + HOLD,
      "画笔落地一声，音乐骤停"),
     # ---------------- N04 破案关键（上）：左手与右手（7 镜）----------------
     ("S22", "agnes", "横移 lateral dolly",
