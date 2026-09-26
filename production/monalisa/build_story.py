@@ -272,7 +272,9 @@ SHOTS = [
     ("S26", "agnes", "俯拍固定 overhead static",
      "「佩鲁贾有前科，指纹就在里面，可就是没对上」：灯下双手一张张翻看指纹卡，放大镜扫过，又放到一边",
      "卡片越堆越高，接左右手信息卡",
-     "Overhead view of a desk under a lamp in a 1911 identification bureau, framed on the desk top from the very first frame to the last: a clerk's hands leaf through a tall stack of pale cards bearing only inked fingerprints, holding a magnifying glass over each one and then setting it aside, the discarded cards piling up; no writing on the cards, no faces. Camera: locked-off overhead; only the hands and cards move." + HOLD,
+     # v2（首版复审不过：机位成了远景，两只黑手套悬在桌上、没有手臂没有身体；卡片上印的是菱形箭头图标，不是指纹）
+     # → 真正的正俯拍特写，袖子和白衬衫袖口从画面下沿伸进来；卡片写明「一枚像真指纹的油墨纹，不是图案」
+     "Top-down close-up looking straight down onto a desk top under a lamp in a 1911 identification bureau, framed on the desk surface from the very first frame to the last: a clerk's two hands in dark sleeves with white shirt cuffs reach in from the bottom edge of the frame and leaf through a tall stack of pale cards, holding a magnifying glass over each card and then setting it aside onto a growing pile; each card carries only one smudged oval of inked fingerprint ridges, like a real fingerprint, not a symbol; no writing on the cards, no faces. Camera: locked-off, looking straight down; only the hands and cards move." + HOLD,
      "卡片翻动（sfx paper）"),
     ("S27", "graphic", "对比卡 static card",
      "左右手对比卡：玻璃上是左手拇指印，档案只按右手拇指分类",
@@ -282,7 +284,9 @@ SHOTS = [
     ("S28", "agnes", "固定大全景 static wide",
      "「更讽刺的是，警探上门问话时，就趴在藏画的那张桌子上写完了笔录」：巴黎出租屋，戴圆顶礼帽的警探背影伏在小木桌上写字，桌下一块深深的暗格阴影",
      "章节停顿后切烛光下写信",
-     "A cramped single rented room in working-class Paris, 1911, lit by one window, framed from the doorway from the very first frame to the last: a detective in a bowler hat and overcoat, seen from behind, leans over a small plain wooden table writing in a notebook, while the short tenant stands by a washbasin with his back to camera; under the table a deep shadow hides a boxed-in space; an iron bed and a trunk; no faces. Camera: locked-off wide from the doorway." + HOLD,
+     # v2（首版复审不过：只有一个人——戴圆顶礼帽的人弯腰在脸盆前，桌子空着；「趴在藏画的桌子上写笔录」这个讽刺没拍出来）
+     # → 去掉房客（两个人被合成了一个），警探的小臂和本子压在桌面上，桌子正下方阴影里一只木箱
+     "A cramped single rented room in working-class Paris, 1911, lit by one window, framed from the doorway from the very first frame to the last on a small plain wooden table in the middle of the room: a detective in a bowler hat and dark overcoat, seen from behind, leans on the table top with one forearm and writes in a notebook lying on the table; directly beneath the table a plain wooden trunk sits in deep shadow; an iron bed and a washbasin stand against the walls; no one else is in the room; no faces. Camera: locked-off wide from the doorway; only his writing hand moves." + HOLD,
      "铅笔沙沙声，音乐只剩一个持续低音"),
     # ---------------- N05 破案关键（下）：画板上的裂纹（9 镜）----------------
     ("S29", "agnes", "微距推近 macro push-in",
