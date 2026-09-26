@@ -309,10 +309,12 @@ SHOTS = [
      "走进门洞，接开箱俯拍",
      "Dusk on a narrow stone street in Florence, December 1913, framed down the street from the very first frame to the last: two gentlemen in dark overcoats and hats walk side by side away from camera toward the arched doorway of a modest hotel, warm lamplight from shopfronts with blank signboards, and the great terracotta dome of the cathedral rises softly at the end of the street; no faces, no readable signs. Camera: one slow follow from behind at walking pace." + HOLD,
      "石板路脚步、远处教堂钟声"),
-    ("S33", "agnes", "俯拍固定 overhead static",
-     "「他从箱子夹层里捧出一个红布包」：旅馆房间里打开的白木箱，上层是工具、衬衫和一把曼陀林，双手掀起假底，捧出红绸包着的扁平物件",
+    ("S33", "agnes", "肩后俯拍固定 over-shoulder high-angle locked-off",
+     "「他从箱子夹层里捧出一个红布包」：旅馆房间里打开的白木箱，假底板已经竖靠在箱壁上；跪在箱前的人（肩后视角，只见后脑、肩和手臂）把红绸包着的扁平物件从夹层里慢慢捧起",
      "红布一角接画板背面",
-     "Overhead view in a small hotel room in 1913, framed on an open white-painted wooden trunk on the floor beside an iron bed from the very first frame to the last: the trunk's top compartment holds tools, shirts and a mandolin; a man's hands lift out a thin false-bottom board, revealing a flat rectangular package wrapped in deep red silk, and raise it out carefully; no faces. Camera: locked-off overhead; only the hands move." + HOLD,
+     # v2（首版复审不过：整段 2 帧周期颤帧——oscillation 振幅 0.88、连续 127 帧，与 S20 首版同级；假底板在 f84→f90 凭空消失）
+     # → 假底板从第一帧就竖着、不再有「掀板」动作；人跪在画面里（规矩 4：手连着身体）；机位完全不动（规矩 6）；动作只写慢而稳
+     "A small hotel room in Florence in 1913, framed from the very first frame to the last in a high-angle view from just behind the right shoulder of a man in a dark jacket who kneels on the wooden floor at the near side of an open white-painted wooden trunk beside an iron bed; only the back of his head, his right shoulder and his two arms are visible, never his face. The trunk's upper tray, pushed to the far end, holds a few tools, folded shirts and a mandolin. From the very first frame the trunk's thin false-bottom board already stands upright, leaning against the inside wall of the trunk, and it stays there, unchanged, for the whole shot. In the shallow hidden compartment below lies one flat rectangular package wrapped in deep red silk; the man slides both hands under it and slowly, steadily lifts it up toward his chest. Every movement is slow and smooth. Camera: completely locked-off, no camera movement at all." + HOLD,
      "木板掀开的咯吱声、绸布摩擦（sfx paper）；字幕高亮「红布包」"),
     ("S34", "agnes", "缓慢推近 slow push-in",
      "「馆长把画翻过来：白杨木画板背面，卢浮宫的印章和编号全对得上」：窗边红绸上，古旧白杨木板的背面：木纹、顶端一道裂缝和蝴蝶形木楔、几枚模糊的圆形印记，戴手套的指尖点在印记上",
