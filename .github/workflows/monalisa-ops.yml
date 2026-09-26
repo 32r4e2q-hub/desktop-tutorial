@@ -27,7 +27,8 @@ permissions:
   actions: write
 
 concurrency:
-  group: monalisa-ops-arena-01a0dbbf-desktop-tutorial
+  # r2：停摆期间建的 ops run 可能一直 queued 占着旧组
+  group: monalisa-ops-r2-arena-01a0dbbf-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
@@ -71,6 +72,10 @@ jobs:
               echo '```'
             done
             to_cancel="$EXTRA"
+            # 停摆期间建的其他 ops run（不含本 run）一并取消，免得它们日后被捡起来再跑一遍
+            stale_ops=$(echo "$runs_json" | jq -r --arg me "$GITHUB_RUN_ID" '.workflow_runs[] | select((.path // "") | startswith(".github/workflows/monalisa-ops.yml")) | select(.status != "completed") | select((.id|tostring) != $me) | .id')
+            [ -n "$stale_ops" ] && echo && echo "未结束的旧 ops run（将取消）：$(echo $stale_ops)"
+            to_cancel="$to_cancel $stale_ops"
             if [ "$ACTION" = "cancel-stale-gen" ]; then
               newest=$(echo "$active" | tail -n 1)
               for id in $active; do [ "$id" != "$newest" ] && to_cancel="$to_cancel $id"; done

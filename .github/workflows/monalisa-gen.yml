@@ -29,7 +29,8 @@ permissions:
 # 换组让救援 run 立刻开跑：它一开跑就 commit results.json，旧 run 若醒来，下一次 checkpoint 必然 rebase 冲突而退出（不会写坏分支）；
 # S23/S24 已存的 task_id 由救援 run 接着轮询，不重复生成。
 concurrency:
-  group: monalisa-agnes-r2-arena-01a0dbbf-desktop-tutorial
+  # r3（08:35 UTC）：Actions 恢复后 r2 组里可能还挂着停摆期间建的 run（按 ubuntu-latest 建、一直 queued），会占住组
+  group: monalisa-agnes-r3-arena-01a0dbbf-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
