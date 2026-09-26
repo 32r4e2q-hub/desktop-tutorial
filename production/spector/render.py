@@ -435,7 +435,9 @@ def main():
         cues.extend(aligned or clause_timed or captions_for(row,samples))
         alignment.append({'id':row['id'],
                           'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
-                          'character_match_coverage':coverage})
+                          'character_match_coverage':coverage,
+                          'word_count':len(asr.get(row['id'],{}).get('words') or []),
+                          'recognized':(asr.get(row['id'],{}).get('recognized_text') or '')[:160]})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl,presentation)
     (work/'caption-timing.json').write_text(json.dumps(cues,ensure_ascii=False,indent=2))

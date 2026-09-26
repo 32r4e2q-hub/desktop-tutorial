@@ -80,8 +80,11 @@ def transcribe_on_runner(narration, work):
                            download_root=str(cache))
         results={}
         for row in narration:
+            # 不给 initial_prompt：small 模型带剧本 prompt 时，部分章节会回显/幻觉而非听写
+            # （spector v1/v2/v3 各有 3 章 coverage≈0 即此症；verbatim 无 prompt 同模型全章 CER≤0.12）。
+            # 繁体输出由 normalize→to_simplified(zhconv) 兜住。
             segments,_=model.transcribe(row['path'],language='zh',beam_size=5,word_timestamps=True,
-                                        vad_filter=True,initial_prompt=row['text'])
+                                        vad_filter=True)
             words=[];text=[]
             for s in segments:
                 text.append(s.text)
