@@ -345,17 +345,23 @@ SHOTS = [
     ("S39", "agnes", "高角度跟拍 high-angle follow",
      "「这画是拿破仑从意大利抢走的！」（佩鲁贾的说法）：1790 年代，意大利山路上满载木箱的马车队，骑兵护送",
      "车队远去，接达芬奇翻越阿尔卑斯",
-     "A dusty mountain road in northern Italy in the late 1790s, framed on the winding road from the very first frame to the last: a long convoy of horse-drawn wagons loaded with large wooden crates rolls away from camera escorted by cavalry in Napoleonic-era uniforms seen from behind, cypress trees and hills in hazy golden light; no faces. Camera: one slow high-angle drift following the convoy." + HOLD,
+     # v2（首版复审不过：1790 年代的乡间山路两旁立着一排路灯——全片 STYLE_PREFIX 里的「gas lamps」渗进了闪回镜头）
+     # → 路边写明只有矮石墙和柏树（规矩 7：闪回镜头要把那个年代「有什么」写全，年代不对的东西点名排除）
+     "A dusty unpaved mountain road in the northern Italian countryside in the late 1790s, framed on the winding road from the very first frame to the last: a long convoy of horse-drawn wagons loaded with large wooden crates rolls away from camera, escorted by cavalry riders in Napoleonic-era uniforms seen from behind; the roadside is lined only by low dry-stone walls, cypress trees and open hills in hazy golden light. This is the eighteenth century: there are no street lamps, no lamp posts and no lanterns anywhere along the road. No faces. Camera: one slow high-angle drift following the convoy." + HOLD,
      "马蹄、车轮碾石；标签「佩鲁贾的说法」由后期添加"),
     ("S40", "agnes", "侧向跟拍 lateral track",
      "「可历史当场打脸：这幅画是达芬奇自己带去法国的，比拿破仑出生早了两百多年」：16 世纪初的阿尔卑斯山口，白发长须的老人背影骑骡前行，助手牵着驮着画板的骡子",
      "山风接信与钱币",
-     "A high Alpine mountain pass in the early sixteenth century, snow patches and pale sky, framed on a narrow trail from the very first frame to the last: an old man with long white hair and a long beard in a dark Renaissance cloak and cap rides a mule away from camera, followed by two young assistants on foot leading a pack mule with flat wrapped panels strapped to its side; all seen from behind; no faces. Camera: one slow lateral tracking move alongside the small caravan." + HOLD,
+     # v2（首版复审不过：1516 年的阿尔卑斯骡道边立着亮着的路灯，随行者的衣帽也像 18–19 世纪）→ 同规矩 7：
+     # 骡道只有岩石与残雪、人物衣着写明文艺复兴式样，年代不对的东西点名排除
+     "A high Alpine mountain pass in the year 1516, bare grey rock, snow patches and a pale sky, framed on a narrow rocky mule trail from the very first frame to the last; nothing man-made is anywhere in sight except the trail itself. An old man with long white hair and a long white beard, in a dark Renaissance cloak and a soft black cap, rides a mule along the trail away from camera, followed by two young assistants in simple sixteenth-century tunics and hose on foot, leading a pack mule with flat wrapped wooden panels strapped to its side; all seen from behind, never their faces. This is the sixteenth century: there are no street lamps, no lamp posts, no lanterns and no buildings. Camera: one slow lateral tracking move alongside the small caravan." + HOLD,
      "山风、骡铃；字幕高亮「达芬奇」「拿破仑」"),
     ("S41", "agnes", "俯拍推近 overhead push-in",
-     "「何况他开口就要五十万，还写信跟父亲说要发大财」：粗木桌上写了一半的信、蘸水笔和一小堆旧金银币，一只手把钱币推向信纸",
+     "「何况他开口就要五十万，还写信跟父亲说要发大财」：粗木桌上一封折好的信（空白背面朝上）、蘸水笔与墨水瓶、一小堆旧金银币，一只手把钱币推向信",
      "钱币叮当接指纹比对",
-     "Overhead close-up on a rough wooden table in a small rented room in 1913, framed on the table top from the very first frame to the last: a half-written letter covered in illegible looping handwriting, a dip pen, and a small pile of old gold and silver coins, a man's hand slowly sliding the coins toward the letter; no faces, no readable text or numbers. Camera: one slow overhead push-in." + HOLD,
+     # v2（首版复审不过：写了「illegible looping handwriting」，模型照样画出一整页像字的草写伪文字，推近后占满画面）
+     # → 规矩 2：只写画面里有什么——信已经折好、空白的背面朝上，画面里根本没有字迹
+     "Overhead close-up on a rough wooden table in a small rented room in 1913, framed on the table top from the very first frame to the last: a folded letter lies closed with its plain blank back side facing up, a dip pen and a small glass ink bottle beside it, and a small pile of old gold and silver coins. A man's hand in a dark sleeve, his forearm entering from the right edge of the frame, slowly slides the coins toward the folded letter. No faces. Camera: one very slow overhead push-in that stops well above the table." + HOLD,
      "钱币叮当"),
     ("S42", "agnes", "微距横移 macro slide",
      "「而那枚左手拇指印一比，分毫不差」：台灯下两张并排的指纹卡，放大镜从一张滑到另一张，手指沿着一模一样的纹路比划",
