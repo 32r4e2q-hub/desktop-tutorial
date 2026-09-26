@@ -25,6 +25,11 @@
 07:08 换并发组的救援 run、07:35 新建的运维工作流（`monalisa-ops.yml`）都没有开跑。仓库是私有的，沙箱里的
 GitHub 凭据只通 git、REST 等于匿名，代理看不到原因。私有仓库最常见的是 **Actions 分钟数用完 / 付费上限为 0 /
 Actions 被停用**——请在仓库或账号的 Settings → Billing / Actions 里查看。
+08:03 重连 GitHub 之后再推一次（`ef063fa`，生成 + 运维两条），10 分钟仍无 job 启动——不是凭据问题。
+仓库自己的 `转私有与自托管Runner手册.md` 写明「私有 + GitHub-hosted：2000 分钟/月，用完就停」，而本月的出片 run
+很多（首轮一条就 90 分钟），06:01 正是额度耗尽的样子。三条出路：① 按 `runner/README.md` 在 Linux / WSL2 Ubuntu
+上 `bash runner/setup-runner.sh --set-switch` 装自托管 runner（不计分钟，手册里的下一步）；② Billing 里把
+Actions 付费上限调到 0 以上（剩余工作约 2 小时 Linux 分钟）；③ 等下个计费周期额度重置。
 
 恢复后的顺序（每一步都是改 marker 文件再 push；**要改动内容**，只有文件变化才会触发）：
 
