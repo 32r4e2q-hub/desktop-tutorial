@@ -469,11 +469,21 @@ def main():
         aligned=None;coverage=0.0
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        clause_timed=None if aligned else captions_from_clause_times(row)
-        cues.extend(aligned or clause_timed or captions_for(row,samples))
+        # 本片：字幕优先用 clause-times DP（边界落在实测的停顿/起音上），whisper 词级时间只做交叉核对。
+        # 2026-09-26 配音 ASR 探针：N06 里 whisper 的分句起点整体比真实起音早 0.35–0.5 s（波形逐帧核实，
+        # 「我是爱国」ASR 给 1.86 s，实际 2.29 s 才起音），走 ASR 对轨会让整章字幕抢跑。
+        clause_timed=captions_from_clause_times(row)
+        chosen=clause_timed or aligned or captions_for(row,samples)
+        cues.extend(chosen)
+        check=None
+        if clause_timed and aligned and len(aligned)==len(clause_timed):
+            deltas=[round(a['start']-c['start'],3) for a,c in zip(aligned,clause_timed)]
+            check={'asr_minus_dp_start_median':float(np.median(deltas)),
+                   'asr_minus_dp_start_max_abs':max(abs(d) for d in deltas),'per_cue':deltas}
         alignment.append({'id':row['id'],
-                          'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
+                          'method':'clause-times DP' if clause_timed else 'ASR-assisted' if aligned else 'pause-aware estimate',
                           'character_match_coverage':coverage,
+                          'asr_cross_check':check,
                           'word_count':len(asr.get(row['id'],{}).get('words') or []),
                           'recognized':(asr.get(row['id'],{}).get('recognized_text') or '')[:160]})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))

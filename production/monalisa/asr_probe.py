@@ -29,6 +29,27 @@ from clause_times import PUNCT  # noqa: E402
 
 MAX_CER = 0.15
 MAX_START_DELTA = 0.35
+MAX_SYLLABLE_ERROR = 0.05
+
+
+def syllables(text):
+    """不带声调的拼音音节（pypinyin 按词组选多音字读音）。ASR 在同音字里挑哪个字是它自己的事，
+    配音念对没念对看的是音节：卢浮宫/卢福宫、佩鲁贾/佩鲁甲 音节完全相同，油漆工/游戏宫 差一个音节。"""
+    from pypinyin import Style, lazy_pinyin
+    return [s for s in lazy_pinyin(vc.normalize(text), style=Style.NORMAL, errors='ignore') if s]
+
+
+def syllable_diff(expected_text, heard_text, limit=12):
+    from difflib import SequenceMatcher
+    exp, got = syllables(expected_text), syllables(heard_text)
+    norm = vc.normalize(expected_text)
+    rows = []
+    for tag, i1, i2, j1, j2 in SequenceMatcher(None, exp, got, autojunk=False).get_opcodes():
+        if tag != 'equal' and len(rows) < limit:
+            rows.append({'kind': tag, 'script': norm[i1:i2], 'script_pinyin': ' '.join(exp[i1:i2]),
+                         'heard_pinyin': ' '.join(got[j1:j2])})
+    rate = round(vc.levenshtein(exp, got) / max(1, len(exp)), 4)
+    return rate, rows
 
 
 def align_indices(expected, heard):
@@ -99,7 +120,7 @@ def clause_starts(script, words, dp_rows):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--model', default='small')
+    ap.add_argument('--model', default='small', help='逗号分隔可跑多个模型，如 small,medium；第一个是主报告')
     ap.add_argument('--work', type=Path, default=ROOT / 'work/monalisa/asr')
     ap.add_argument('--out', type=Path, default=HERE / 'audio' / 'asr-probe.json')
     args = ap.parse_args(argv)
@@ -111,7 +132,32 @@ def main(argv=None):
     cache = vc.model_cache_dir(args.work); cache.mkdir(parents=True, exist_ok=True)
     os.environ.setdefault('HF_HOME', str(cache))
     from faster_whisper import WhisperModel
-    model = WhisperModel(args.model, device='cpu', compute_type='int8', cpu_threads=4, download_root=str(cache))
+    models = [m.strip() for m in args.model.split(',') if m.strip()]
+    runs = {}
+    for name in models:
+        model = WhisperModel(name, device='cpu', compute_type='int8', cpu_threads=4, download_root=str(cache))
+        runs[name] = probe_model(model, name, story, receipts, dp_table)
+    main_name = models[0]
+    chapters = runs[main_name]
+    report = {'method': f'faster-whisper {"/".join(models)}，无 initial_prompt、无 VAD、word_timestamps；'
+                        '转写对象为收紧后的配音 audio/N0x.mp3（不是成片）；主报告 = ' + main_name,
+              'max_cer_allowed': MAX_CER, 'max_start_delta_allowed': MAX_START_DELTA,
+              'max_syllable_error_allowed': MAX_SYLLABLE_ERROR,
+              'max_cer': max(c['character_error_rate'] for c in chapters),
+              'max_syllable_error_rate': max(c['syllable_error_rate'] for c in chapters),
+              'failing': [c['id'] for c in chapters if c['verdict'] != 'ok'],
+              'clauses_off': {c['id']: c['clauses_off'] for c in chapters if c['clauses_off']},
+              'chapters': chapters,
+              'other_models': {name: [{k: c[k] for k in ('id', 'character_error_rate', 'syllable_error_rate',
+                                                         'verdict', 'diff', 'syllable_diff', 'transcript_simplified',
+                                                         'max_start_delta', 'clauses_off')} for c in rows]
+                               for name, rows in runs.items() if name != main_name}}
+    args.out.write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    print('written', args.out, '| failing', report['failing'], '| clauses_off', report['clauses_off'])
+    return 0
+
+
+def probe_model(model, name, story, receipts, dp_table):
     chapters = []
     for ch in story['chapters']:
         cid = ch['id']; path = HERE / 'audio' / f'{cid}.mp3'
@@ -127,32 +173,29 @@ def main(argv=None):
                 words.append({'word': w.word, 'start': round(w.start, 3), 'end': round(w.end, 3)})
         expected = vc.normalize(ch['text']); heard = vc.normalize(text)
         cer = vc.character_error_rate(expected, heard)
+        ser, sdiff = syllable_diff(ch['text'], text)
         clauses = clause_starts(ch['text'], words, dp_table[cid]['clauses'])
         deltas = [abs(c['delta']) for c in clauses if c.get('delta') is not None]
-        chapters.append({'id': cid, 'sha256': sha, 'script_chars': len(expected), 'heard_chars': len(heard),
-                         'character_error_rate': cer, 'match_coverage': vc.match_coverage(expected, heard),
-                         'verdict': 'ok' if cer <= MAX_CER else 'needs_human_listen',
-                         'diff': vc.diff_spans(expected, heard, limit=12), 'transcript': text,
+        verdict = ('ok' if cer <= MAX_CER else
+                   'homophones_only' if ser <= MAX_SYLLABLE_ERROR else 'needs_human_listen')
+        chapters.append({'id': cid, 'model': name, 'sha256': sha, 'script_chars': len(expected),
+                         'heard_chars': len(heard),
+                         'character_error_rate': cer, 'syllable_error_rate': ser,
+                         'match_coverage': vc.match_coverage(expected, heard),
+                         'verdict': verdict,
+                         'diff': vc.diff_spans(expected, heard, limit=12), 'syllable_diff': sdiff,
+                         'transcript': text,
                          'transcript_simplified': vc.to_simplified(text),
                          'clauses': clauses,
                          'max_start_delta': round(max(deltas), 3) if deltas else None,
                          'clauses_off': [c['i'] for c in clauses
                                          if c.get('delta') is not None and abs(c['delta']) > MAX_START_DELTA],
                          'words': words})
-        print(f"{cid}: CER {cer:.3f}  heard {len(heard)}/{len(expected)}  "
+        print(f"[{name}] {cid}: CER {cer:.3f}  音节错误率 {ser:.3f}  heard {len(heard)}/{len(expected)}  "
               f"max |ASR-DP| {chapters[-1]['max_start_delta']}  off {chapters[-1]['clauses_off']}", flush=True)
-        for d in chapters[-1]['diff']:
-            print('    diff', d, flush=True)
-    report = {'method': f'faster-whisper {args.model}，无 initial_prompt、无 VAD、word_timestamps；'
-                        '转写对象为收紧后的配音 audio/N0x.mp3（不是成片）',
-              'max_cer_allowed': MAX_CER, 'max_start_delta_allowed': MAX_START_DELTA,
-              'max_cer': max(c['character_error_rate'] for c in chapters),
-              'failing': [c['id'] for c in chapters if c['verdict'] != 'ok'],
-              'clauses_off': {c['id']: c['clauses_off'] for c in chapters if c['clauses_off']},
-              'chapters': chapters}
-    args.out.write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    print('written', args.out, '| failing', report['failing'], '| clauses_off', report['clauses_off'])
-    return 0
+        for d in sdiff:
+            print('    音节差异', d, flush=True)
+    return chapters
 
 
 if __name__ == '__main__':
