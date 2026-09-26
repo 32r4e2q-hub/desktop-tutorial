@@ -12,6 +12,27 @@
 - 画风：与吉尔戈同一套 STYLE_PREFIX（stylized 2D 手绘 graphic-novel、slate-blue / steel-grey），只换时代与地点
 - 成片：`交付/蒙娜丽莎失窃案_一枚左手拇指印_三分钟_带声音.mp4`
 
+## 当前进度（2026-09-26 07:50 UTC）
+
+| 环节 | 状态 |
+|---|---|
+| 事实核查、解说词、配音（voice-00）、分句对齐、45 镜切点、字幕时间 | ✅ 完成（配音 ASR 探针：medium 字错率 0.008–0.056，无漏字多字） |
+| `抖音脚本.md` / `抖音发布文案.md` / `screenplay.md` | ✅ 完成，按最新镜头描述重新生成 |
+| Agnes 素材逐镜复审 | 38 镜里 **23 镜通过**（成片用窗已写进 `render.py`）；15 镜在第四轮生成请求里：S11/S13/S17/S20/S21 的 v3，S23/S24/S26/S28/S33/S39–S42/S45 的 v2（S11/S13/S17/S21 的 v2 干净可用，留作后备） |
+| 出片、成片体检、逐字听检、release | ⏸ 等素材 |
+
+**阻塞：GitHub Actions 自 06:01 UTC 起不再启动任何 job。** 生成 run 36221444679 在 S23/S24 排队后静默；
+07:08 换并发组的救援 run、07:35 新建的运维工作流（`monalisa-ops.yml`）都没有开跑。仓库是私有的，沙箱里的
+GitHub 凭据只通 git、REST 等于匿名，代理看不到原因。私有仓库最常见的是 **Actions 分钟数用完 / 付费上限为 0 /
+Actions 被停用**——请在仓库或账号的 Settings → Billing / Actions 里查看。
+
+恢复后的顺序（每一步都是改 marker 文件再 push；**要改动内容**，只有文件变化才会触发）：
+
+1. `OPS_REQUEST` 写 `action=cancel-stale-gen` → 取消卡住的旧 run，报告写进 `ops-report.md`；
+2. `GEN_REQUEST` 改一下内容 → 生成这 15 镜（已完成的按哈希复用，S23/S24 已存的 task_id 接着轮询）；
+3. 逐镜复审 → 定 `WINDOWS` → `RENDER_REQUEST` → 本地 `film_qa.py` + `review_film.py` 看帧 →
+   `VERBATIM_REQUEST {"model":"medium"}` → `RELEASE_UPLOAD_REQUEST`（带 `title=` / `notes=`）。
+
 ## 交付物
 
 | 文件 | 内容 |
