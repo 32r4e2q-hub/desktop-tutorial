@@ -381,9 +381,11 @@ SHOTS = [
      "Macro shot framed through a clear pane of glass from the very first frame to the last: in the foreground a single thumbprint glows faintly on the glass, and behind it lies the surface of an old oil painting covered in a fine network of tiny cracks in dark golden varnish, lit by a low raking lamp; the painted area shows only soft dark background, no figure; no faces, no readable text. Camera: one slow focus pull from the thumbprint on the glass to the crackled paint behind it." + HOLD,
      "钢琴单音；金句字幕，字幕高亮「一枚指纹」"),
     ("S45", "agnes", "缓慢后拉 slow pull-back",
-     "「你觉得，他是爱国，还是爱钱？评论区聊聊」：1914 年 1 月卢浮宫方形大厅，人群背影涌向远处墙上那幅小小的画（远、模糊），镜头缓缓后退",
+     "「你觉得，他是爱国，还是爱钱？评论区聊聊」：1914 年 1 月卢浮宫方形大厅（与 S16 同一面暗红锦缎墙），人群背影涌向远处墙上那幅小小的画（远、模糊），镜头缓缓后退",
      "后退到门口，画面渐隐接片尾卡",
-     "The museum's square grand salon in January 1914 under winter skylight, framed from the middle of the room toward the far wall from the very first frame to the last: a dense crowd of visitors in hats and long coats, all seen from behind, presses toward the far wall where a small dark portrait in a gilded frame hangs again between larger paintings, too distant to show any detail, a uniformed guard standing beside it; no faces visible. Camera: one very slow pull-back away from the crowd toward the doorway." + HOLD,
+     # v2（首版复审不过：左上角一幅大肖像画、画中人脸清清楚楚，占前 2.75 s——需要 6.23 s，窗躲不开；
+     # 墙成了蓝灰色，对不上 S01/S16 那间暗红锦缎的方形大厅）→ 规矩 1：墙面描述逐字沿用已通过的 S16
+     "The square grand salon of a museum in January 1914, framed from the middle of the room toward the far wall from the very first frame to the last: walls of dark red damask hung densely with gilded-frame old-master paintings from waist height up to the cornice, a glass skylight ceiling pouring pale winter light onto the parquet floor; the paintings are dim, darkened landscapes too small to make out - no portraits and no painted faces anywhere. A dense crowd of visitors in hats and long winter coats fills the room, every one of them seen from behind, all facing the far wall, where one small dark painting in a gilded frame hangs again between the larger landscapes, too distant to show any detail, with a uniformed guard standing beside it, also seen from behind. No faces. Camera: one very slow pull-back away from the crowd toward the doorway." + HOLD,
      "人群低语、音乐回升；结尾停 1 秒引导评论，最后 0.8 秒音画渐隐"),
 ]
 
