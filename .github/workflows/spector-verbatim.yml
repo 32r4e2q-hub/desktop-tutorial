@@ -59,9 +59,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r production/requirements.txt
-          python -m pip install "faster-whisper>=1.1,<2" || \
-          python -m pip install --break-system-packages "faster-whisper>=1.1,<2"
+          python -m pip install -r production/requirements.txt "zhconv>=1.4"
+          python -m pip install "faster-whisper>=1.1,<2" "zhconv>=1.4" || \
+          python -m pip install --break-system-packages "faster-whisper>=1.1,<2" "zhconv>=1.4"
 
       - name: Transcribe the delivered film and compare it to the script
         id: check

@@ -20,7 +20,18 @@ def chinese_number(value):
     return ''.join(DIGITS[int(c)] for c in str(value))
 
 
+def to_simplified(text):
+    # 繁体→简体：whisper small 对普通话音频常整章吐繁体，逐字比对把每个繁简对都算失配，
+    # coverage 暴跌→字级对轨被拒、退回 DP（v2 N01 0.023 即此因）。有 zhconv 就转，没有原样返回。
+    try:
+        import zhconv
+    except ImportError:
+        return text
+    return zhconv.convert(text,'zh-cn')
+
+
 def normalize(text):
+    text=to_simplified(text)
     text=re.sub(r'(\d{4})(?=年)',lambda m:''.join(DIGITS[int(c)] for c in m.group(1)),text)
     text=re.sub(r'\d+',lambda m:chinese_number(m.group(0)),text)
     return ''.join(re.findall(r'[\u3400-\u9fffA-Za-z]',text)).lower()
