@@ -9,6 +9,7 @@
 import hashlib
 import importlib.util
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -183,19 +184,27 @@ class OscillationTest(unittest.TestCase):
         kinds = {e["type"] for e in clip_qa.find_events(self.series(), 24.0)}
         self.assertNotIn("oscillation", kinds)
 
-    def test_real_clips_only_s20_v1(self):
-        """已回来的素材里，逐帧数组重算事件：只有 S20 首版（已判重生成）有颤帧。"""
+    def test_real_clips_never_flag_an_approved_shot(self):
+        """真实素材校准：逐帧数组重算事件，**人工复审判「通过」的镜头一个都不许报颤帧**（误报）。
+        判了重生成的（S20、S33 首版）报出来是对的；重生成后 qa/Sxx.json 换成新素材，复审行也跟着改，
+        这条不变式始终成立。结论从 qa-review.md 的表里读，不在测试里写死镜头号。"""
         clip_qa = load("clip_qa")
+        verdicts = {}
+        for line in (PROJECT / "qa-review.md").read_text().splitlines():
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) >= 2 and re.fullmatch(r"S\d\d", cells[0]):
+                verdicts[cells[0]] = cells[1]
+        approved = {sid for sid, v in verdicts.items() if "通过" in v and "重生成" not in v}
+        self.assertGreaterEqual(len(approved), 10)
         flagged = []
         for path in sorted((PROJECT / "qa").glob("S*.json")):
             qa = json.loads(path.read_text())
-            if "frame_qa" not in qa:
+            if "frame_qa" not in qa or path.stem not in approved:
                 continue
             m = {k: np.asarray(v, float) for k, v in qa["frame_qa"]["per_frame"].items()}
             if any(e["type"] == "oscillation" for e in clip_qa.find_events(m, 24.0)):
                 flagged.append(path.stem)
-        self.assertTrue(set(flagged) <= {"S20"}, flagged)
-
+        self.assertEqual(flagged, [], "颤帧检测误报了人工判通过的镜头")
 
 if __name__ == "__main__":
     unittest.main()
