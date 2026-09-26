@@ -2,15 +2,19 @@
 #
 # 为什么要有它：仓库是私有的，沙箱里的 GitHub 凭据是 Arena 代理的占位 token——git 走代理有认证，
 # REST / GraphQL 到 api.github.com 却等于匿名，私有仓库一律 404，代理看不到 run、也取消不了 run。
-# runner 自己的 GITHUB_TOKEN（actions: write）能看能管，所以把「看状态 / 取消卡住的 run / 取日志尾」
-# 做成 marker 工作流，结果 commit 回分支的 production/monalisa/ops-report.md。
+# runner 自己的 GITHUB_TOKEN（actions: write）能看能管：production/monalisa/ops_report.py 列出本分支的 run、
+# 未结束生成 run 的 job/step、最近失败 job 的注解（额度 / "job was not started" 的提示就在这里），
+# 按请求取消卡住的 run，写 production/monalisa/ops-report.md 并 push；同时把精简版镜像到 OPS_REQUEST 里
+# 指定的 ntfy 话题（runner 推不上分支时，代理靠它读报告；只有 run 元数据和筛选、脱敏后的状态行）。
 #
-# 触发：改 production/monalisa/OPS_REQUEST 并 push。内容（每行一项，可省略）：
-#   action=report            只报告（默认）
-#   action=cancel-stale-gen  报告 + 只保留最新的一条未结束 monalisa-gen run，更早的全部取消，并取回被取消 job 的日志尾
-#   cancel=<run_id>[,<run_id>]  额外点名取消
+# 两个 job：ops-default 走 RUNNER_LABEL（未设则 GitHub-hosted），ops-self 直接走 self-hosted——
+# 装了本地 runner 却没设 RUNNER_LABEL 时，只有后者能跑起来，一眼就能分辨。
+# 不设并发组：某个 job 等不到 runner 时不会把后面的运维 run 堵住（下一次运维 run 会把它取消）。
 #
-# 2026-09-26：run 36221444679 在 06:01 UTC 后静默，并发组里排队的 run 只能干等它 350 分钟超时；本工作流为此而建。
+# 触发：改 production/monalisa/OPS_REQUEST 并 push。内容（每行 key=value，可省略）：
+#   action=report | cancel-stale-gen   （后者：只保留最新的未结束生成 run，其余生成 run 与其他运维 run 取消）
+#   cancel=<run_id>[,<run_id>]
+#   ntfy=<话题名>                       （报告镜像）
 
 name: 蒙娜丽莎 · 运维（查看 / 取消 run）
 run-name: 运维 · ${{ github.ref_name }}
@@ -25,14 +29,10 @@ on:
 permissions:
   contents: write
   actions: write
-
-concurrency:
-  # r2：停摆期间建的 ops run 可能一直 queued 占着旧组
-  group: monalisa-ops-r2-arena-01a0dbbf-desktop-tutorial
-  cancel-in-progress: false
+  checks: read
 
 jobs:
-  ops:
+  ops-default:
     if: github.ref == 'refs/heads/arena/01a0dbbf-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 15
@@ -40,80 +40,53 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: arena/01a0dbbf-desktop-tutorial
-      - name: 报告 / 取消 / 取日志尾
+      - name: 报告 / 取消 / 镜像
         env:
-          GH_TOKEN: ${{ github.token }}
-          BRANCH: arena/01a0dbbf-desktop-tutorial
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 production/monalisa/ops_report.py --job "${{ github.job }}"
+      - name: 报告推回分支（结果也镜像到 ntfy）
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          set -u
-          set +e   # 任何一步 API 失败都写进报告，不中断（默认 shell 是 bash -eo pipefail）
-          R="$GITHUB_REPOSITORY"
-          REQ=production/monalisa/OPS_REQUEST
-          OUT=production/monalisa/ops-report.md
-          ACTION=$(grep -E '^action=' "$REQ" | cut -d= -f2- | tr -d '[:space:]' || true)
-          EXTRA=$(grep -E '^cancel=' "$REQ" | cut -d= -f2- | tr ',' ' ' || true)
-          ACTION=${ACTION:-report}
-          runs_json=$(gh api "repos/$R/actions/runs?branch=$BRANCH&per_page=60")
-          {
-            echo "# 运维报告 · $(date -u +%FT%TZ) · ops run $GITHUB_RUN_ID · action=$ACTION"
-            echo
-            echo "## 本分支最近的 run（id / 工作流 / 状态 / 结论 / 创建 / 开始 / 更新 / 触发 commit）"
-            echo '```'
-            echo "$runs_json" | jq -r '.workflow_runs[] | [.id, .name, .status, (.conclusion // "-"), .created_at, (.run_started_at // "-"), .updated_at, .head_sha[0:7]] | @tsv'
-            echo '```'
-            active=$(echo "$runs_json" | jq -r '[.workflow_runs[] | select(((.path // "") | startswith(".github/workflows/monalisa-gen.yml")) or ((.name // "") | test("Agnes生成"))) | select(.status != "completed")] | sort_by(.created_at) | .[].id')
-            echo
-            echo "## 未结束的 monalisa-gen run：$(echo $active)"
-            for id in $active; do
-              echo
-              echo "### run $id 的 job / step"
-              echo '```'
-              gh api "repos/$R/actions/runs/$id/jobs" --jq '.jobs[] | "job \(.id) \(.name) status=\(.status) conclusion=\(.conclusion // "-") runner=\(.runner_name // "-") started=\(.started_at // "-")", (.steps[]? | "  step \(.number) \(.name): \(.status) \(.conclusion // "-") \(.started_at // "-")")' 2>&1 || true
-              echo '```'
-            done
-            to_cancel="$EXTRA"
-            # 停摆期间建的其他 ops run（不含本 run）一并取消，免得它们日后被捡起来再跑一遍
-            stale_ops=$(echo "$runs_json" | jq -r --arg me "$GITHUB_RUN_ID" '.workflow_runs[] | select((.path // "") | startswith(".github/workflows/monalisa-ops.yml")) | select(.status != "completed") | select((.id|tostring) != $me) | .id')
-            [ -n "$stale_ops" ] && echo && echo "未结束的旧 ops run（将取消）：$(echo $stale_ops)"
-            to_cancel="$to_cancel $stale_ops"
-            if [ "$ACTION" = "cancel-stale-gen" ]; then
-              newest=$(echo "$active" | tail -n 1)
-              for id in $active; do [ "$id" != "$newest" ] && to_cancel="$to_cancel $id"; done
-              echo
-              echo "保留最新的未结束 gen run：${newest:-（无）}"
-            fi
-            for id in $to_cancel; do
-              echo
-              echo "## 取消 run $id"
-              gh api -X POST "repos/$R/actions/runs/$id/cancel" >/dev/null 2>&1 && echo "cancel 已提交" || echo "cancel 失败"
-            done
-            if [ -n "$(echo $to_cancel)" ]; then
-              sleep 45
-              for id in $to_cancel; do
-                st=$(gh api "repos/$R/actions/runs/$id" --jq '.status + "/" + (.conclusion // "-")' 2>&1 || true)
-                echo
-                echo "## run $id 取消后：$st"
-                case "$st" in completed/*) ;; *)
-                  gh api -X POST "repos/$R/actions/runs/$id/force-cancel" >/dev/null 2>&1 && echo "force-cancel 已提交" || echo "force-cancel 失败"
-                  sleep 20 ;;
-                esac
-                for job in $(gh api "repos/$R/actions/runs/$id/jobs" --jq '.jobs[].id' 2>/dev/null); do
-                  echo
-                  echo "### job $job 日志尾（最后 150 行，含 PRODUCTION_STATUS / poll / 429）"
-                  echo '```'
-                  gh api "repos/$R/actions/jobs/$job/logs" 2>/dev/null | tail -n 150 | sed -E 's/(api[_-]?key|token|authorization)[^ ]*/\1=[redacted]/Ig' || echo "（日志暂不可取）"
-                  echo '```'
-                done
-              done
-            fi
-          } > "$OUT" 2>&1
-          cat "$OUT"
+          set +e
           git config user.name "arena-ops"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$OUT"
-          git commit -m "monalisa: 运维报告 $(date -u +%FT%TZ) action=$ACTION" || exit 0
+          git add production/monalisa/ops-report.md
+          git commit -q -m "monalisa: 运维报告（${{ github.job }}）$(date -u +%FT%TZ)" || { python3 production/monalisa/ops_report.py --job "${{ github.job }}" --post "nothing to commit"; exit 0; }
           for i in 1 2 3 4 5; do
-            if git push origin "HEAD:$BRANCH"; then exit 0; fi
-            git pull --rebase origin "$BRANCH" || { git rebase --abort; sleep 5; }
+            out=$(git push origin "HEAD:arena/01a0dbbf-desktop-tutorial" 2>&1) && { python3 production/monalisa/ops_report.py --job "${{ github.job }}" --post "push ok (attempt $i)"; exit 0; }
+            git pull -q --rebase origin arena/01a0dbbf-desktop-tutorial >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1
+            sleep 3
           done
+          python3 production/monalisa/ops_report.py --job "${{ github.job }}" --post "PUSH FAILED: $(echo "$out" | tail -n 6 | tr '\n' ' ' | cut -c1-600)"
+          exit 1
+  ops-self:
+    if: github.ref == 'refs/heads/arena/01a0dbbf-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'self-hosted' }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a0dbbf-desktop-tutorial
+      - name: 报告 / 取消 / 镜像
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 production/monalisa/ops_report.py --job "${{ github.job }}"
+      - name: 报告推回分支（结果也镜像到 ntfy）
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          git config user.name "arena-ops"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/monalisa/ops-report.md
+          git commit -q -m "monalisa: 运维报告（${{ github.job }}）$(date -u +%FT%TZ)" || { python3 production/monalisa/ops_report.py --job "${{ github.job }}" --post "nothing to commit"; exit 0; }
+          for i in 1 2 3 4 5; do
+            out=$(git push origin "HEAD:arena/01a0dbbf-desktop-tutorial" 2>&1) && { python3 production/monalisa/ops_report.py --job "${{ github.job }}" --post "push ok (attempt $i)"; exit 0; }
+            git pull -q --rebase origin arena/01a0dbbf-desktop-tutorial >/dev/null 2>&1 || git rebase --abort >/dev/null 2>&1
+            sleep 3
+          done
+          python3 production/monalisa/ops_report.py --job "${{ github.job }}" --post "PUSH FAILED: $(echo "$out" | tail -n 6 | tr '\n' ' ' | cut -c1-600)"
           exit 1
