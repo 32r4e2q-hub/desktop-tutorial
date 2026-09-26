@@ -1066,10 +1066,13 @@
     },
     "S15": {
       "id": "S15",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "request_hash": "64e6418478eedbfc4c5d3909022b4d6a8ac75bd3b035828cf52d017e47b0b737",
       "error": null,
-      "updated_at": "2026-09-26T05:48:07Z"
+      "updated_at": "2026-09-26T05:48:09Z",
+      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2MzYTUwYzg2NDU2YzRmOTViZTViNDE3ZWQ1NzU2NzQw",
+      "task_id": "task_gJJTx5s5p9HWzP6R1gT3KVCrNI0wTy0A",
+      "requested_seconds": 7.041666666666667
     },
     "S16": {
       "id": "S16",
@@ -3480,7 +3483,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-26T05:48:07Z",
+  "updated_at": "2026-09-26T05:48:09Z",
   "run_id": "36221444679",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/monalisa/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
