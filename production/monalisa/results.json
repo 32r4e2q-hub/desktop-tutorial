@@ -1669,10 +1669,10 @@
     },
     "S21": {
       "id": "S21",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "f6c4c2f53932c6a94e05e2b4272b88a1091d1b751ff421ee2ce5e0d0fc99e97a",
       "error": null,
-      "updated_at": "2026-09-26T06:01:11Z",
+      "updated_at": "2026-09-26T06:01:19Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzQ0OGYwOGYxY2YzMzRhMzU4M2YyYTkwMDNiMTBhNGFl",
       "task_id": "task_ZV5duyyfzVDLC7umLrYlybB6BerkRPa4",
       "requested_seconds": 7.041666666666667,
@@ -1680,7 +1680,96 @@
       "bytes": 3291476,
       "sha256": "79764e99727d7f2f1e04d046caf911f4e58182256151bac5999de859ccd0de68",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 3291476,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/monalisa/qa/S21.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending",
+        "frame_qa": {
+          "version": 2,
+          "frames_analyzed": 169,
+          "opencv": true,
+          "auto_verdict": "review",
+          "events": [
+            {
+              "type": "hold",
+              "start_frame": 0,
+              "end_frame": 31,
+              "peak_frame": 1,
+              "time": 0.042,
+              "severity": "info",
+              "frames": 32,
+              "seconds": 1.33,
+              "min_mad": 0.018,
+              "mean_mad": 0.117,
+              "resume_mad": 0.63,
+              "threshold": 0.6
+            },
+            {
+              "type": "hold",
+              "start_frame": 154,
+              "end_frame": 168,
+              "peak_frame": 155,
+              "time": 6.458,
+              "severity": "info",
+              "frames": 15,
+              "seconds": 0.62,
+              "min_mad": 0.032,
+              "mean_mad": 0.092,
+              "resume_mad": 0.0,
+              "threshold": 0.6
+            }
+          ],
+          "faces": {
+            "checked": true,
+            "detector": "opencv haar frontalface_default, 640x360, minNeighbors=6",
+            "sampled_frames": 57,
+            "frames_with_faces": 8,
+            "max_faces": 1
+          },
+          "stats": {
+            "mad": {
+              "median": 6.514,
+              "max": 9.143
+            },
+            "tv": {
+              "median": 0.013,
+              "max": 0.027
+            },
+            "luma": {
+              "median": 69.957,
+              "max": 80.131
+            },
+            "flow": {
+              "median": 0.78,
+              "max": 1.953
+            },
+            "morph": {
+              "median": 6.188,
+              "max": 17.508
+            },
+            "sharp": {
+              "median": 751.362,
+              "max": 1117.216
+            }
+          },
+          "dense_sheet": "production/monalisa/qa/S21-dense.jpg",
+          "flags_sheet": "production/monalisa/qa/S21-flags.jpg"
+        }
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S22": {
       "id": "S22",
@@ -3528,7 +3617,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-09-26T06:01:11Z",
+  "updated_at": "2026-09-26T06:01:19Z",
   "run_id": "36221444679",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/monalisa/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/monalisa/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
