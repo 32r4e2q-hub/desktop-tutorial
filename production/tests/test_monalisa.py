@@ -192,8 +192,9 @@ class OscillationTest(unittest.TestCase):
         verdicts = {}
         for line in (PROJECT / "qa-review.md").read_text().splitlines():
             cells = [c.strip() for c in line.strip().strip("|").split("|")]
-            if len(cells) >= 2 and re.fullmatch(r"S\d\d", cells[0]):
-                verdicts[cells[0]] = cells[1]
+            # 「S15 v2」这样的复审行覆盖同镜更早的行（表按时间顺序追加，qa/Sxx.json 总是最新一版素材）
+            if len(cells) >= 2 and re.fullmatch(r"S\d\d(?: v\d)?", cells[0]):
+                verdicts[cells[0][:3]] = cells[1]
         approved = {sid for sid, v in verdicts.items() if "通过" in v and "重生成" not in v}
         self.assertGreaterEqual(len(approved), 10)
         flagged = []
