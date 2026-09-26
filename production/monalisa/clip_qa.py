@@ -161,10 +161,18 @@ def find_events(m, fps, hists=None):
     for a, b in group_runs(still, gap=1):
         if b - a + 1 >= 4:
             seg = mad[a:b + 1]
-            add('freeze', a - 1, b, a, 'medium' if (a <= 2 or b >= n - 2) else 'high',
-                {'frames': int(b - a + 2), 'seconds': round((b - a + 2) / fps, 2),
-                 'min_mad': round(float(seg.min()), 3), 'mean_mad': round(float(seg.mean()), 3),
-                 'threshold': round(float(still_thr), 3)})
+            # 真正的「卡帧」：画面停住、恢复时一下子跳过去（恢复那一帧的帧差 > 3× 中位数）；
+            # Agnes 的运镜缓入 / 缓出是平滑起步或停在最后构图上——记为 hold（info），剪辑时由
+            # review_clips.py 把时间窗挪到起动帧之后即可，不算素材缺陷。
+            resume = float(mad[b + 1]) if b + 1 < n else 0.0
+            jolt = b + 1 < n and resume > max(2.5, 3 * med_mad)
+            detail = {'frames': int(b - a + 2), 'seconds': round((b - a + 2) / fps, 2),
+                      'min_mad': round(float(seg.min()), 3), 'mean_mad': round(float(seg.mean()), 3),
+                      'resume_mad': round(resume, 2), 'threshold': round(float(still_thr), 3)}
+            if jolt:
+                add('freeze', a - 1, b, a, 'medium' if a <= 2 else 'high', detail)
+            else:
+                add('hold', a - 1, b, a, 'info', detail)
     black = [t for t in range(n) if luma[t] < 12]
     for a, b in group_runs(black):
         add('black', a, b, a, 'high', {'luma': round(float(luma[a]), 1)})
@@ -263,8 +271,8 @@ def flags_sheet(frames, events, fps, out, sid):
         d.text((16, 30), f'{sid}: no automatic frame flags (still needs a human look at {sid}-dense.jpg)',
                fill=(220, 255, 220), font=f)
         img.save(out, quality=85); return
-    order = {'high': 0, 'medium': 1}
-    shown = sorted(events, key=lambda e: (order.get(e['severity'], 2), e['start_frame']))[:8]
+    order = {'high': 0, 'medium': 1, 'info': 2}
+    shown = sorted(events, key=lambda e: (order.get(e['severity'], 3), e['start_frame']))[:8]
     img = Image.new('RGB', (fw * 2, (fh + 30) * len(shown)), (0, 0, 0)); d = ImageDraw.Draw(img)
     for r, e in enumerate(shown):
         a = max(0, e['peak_frame'] - 1) if e['type'] != 'freeze' else e['start_frame']
@@ -289,7 +297,7 @@ def analyze(path, qa_dir, sid, fps=24.0):
     dense = qa_dir / f'{sid}-dense.jpg'; flags = qa_dir / f'{sid}-flags.jpg'
     dense_sheet(frames, m, events, fps, dense)
     flags_sheet(frames, events, fps, flags, sid)
-    review = bool(events) or (face.get('checked') and face['frames_with_faces'] > 0)
+    review = any(e['severity'] != 'info' for e in events) or (face.get('checked') and face['frames_with_faces'] > 0)
     stats = {k: {'median': round(float(np.median(v[1:] if k in ('mad', 'tv', 'flow', 'morph') else v)), 3),
                  'max': round(float(np.max(v)), 3)} for k, v in m.items()}
     summary = {'version': VERSION, 'frames_analyzed': int(len(frames)), 'opencv': bool(cv2 is not None),

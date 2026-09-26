@@ -80,18 +80,22 @@ def main():
     out += ['## 分镜与衔接', '',
             '每镜的时间是成片里的真实时间（由 `render.py` 的 CUTS 按配音分句停顿切出，不是 4 秒规划网格）。'
             f'Agnes 每镜请求 7 秒（169 帧 @ 24 fps），成片里用 {min(lens):.1f}–{max(lens):.1f} 秒，全片没有慢放。', '',
-            '| 镜头 | 成片时间 | 类型 | 运镜 | 叙事职责 | 衔接方式 |', '|---|---|---|---|---|---|']
+            '| 镜头 | 成片时间 | 类型 | 运镜 | 口播（成片里这一镜下的原句） | 画面 | 衔接方式 |', '|---|---|---|---|---|---|---|']
+    import re
+    import script_table
+    spoken = {r['id']: r['text'] for r in script_table.segments()[0]}
     kind_name = {'agnes': 'agnes 动画', 'graphic': '信息卡'}
     for e in edl:
         a, b = e['start_frame'] / render.FPS, e['end_frame'] / render.FPS
         if e['id'] == 'END':
-            out.append(f"| END | {mmss(a)}—{mmss(b)} | 片尾卡 | 静态 + 淡出 | {e['purpose']}"
+            out.append(f"| END | {mmss(a)}—{mmss(b)} | 片尾卡 | 静态 + 淡出 | （无口播） | {e['purpose']}"
                        f"：「{pres['end_card'][0]}」 | 全黑 |")
             continue
         s = shots[e['id']]
         camera = s.get('camera') or ('纸面缓慢漂移' if s['kind'] == 'graphic' else '')
+        picture = re.sub(r"^「[^」]*」：", "", s['purpose'])
         out.append(f"| {e['id']} | {mmss(a)}—{mmss(b)} | {kind_name.get(s['kind'], s['kind'])} | {camera} | "
-                   f"{s['purpose']} | {s.get('transition_out', '')} |")
+                   f"{spoken.get(e['id'], '')} | {picture} | {s.get('transition_out', '')} |")
     out += ['', '## 信息卡文案（后期用 Noto CJK 直接画，不交给视频模型拼字）', '']
     for sid, lines in pres['cards'].items():
         out.append(f"- **{sid}**：{' ／ '.join(lines)}")

@@ -63,6 +63,15 @@ jobs:
           python -m pip install "faster-whisper>=1.1,<2" "zhconv>=1.4" || \
           python -m pip install --break-system-packages "faster-whisper>=1.1,<2" "zhconv>=1.4"
 
+      - name: Pick the listening model (VERBATIM_REQUEST {"model":...}, default medium)
+        # 本片：出片前的配音 ASR 探针里，small 对专名（卢浮宫/佩鲁贾/蒙娜丽莎）大量同音误听，N02 的 CER 在
+        # 0.15–0.16 之间随机摆动（whisper 温度回退有随机性）——拿它当闸门等于掷硬币；medium 同一批配音
+        # CER 0.008–0.056、无声调音节错误率 0–2.6%。更准的听写员是更严的闸门，不是放水。
+        run: |
+          model="$(python3 -c "import json;print(json.load(open('production/monalisa/VERBATIM_REQUEST')).get('model','medium'))" 2>/dev/null || echo medium)"
+          echo "VERBATIM_MODEL=$model" >> "$GITHUB_ENV"
+          echo "listening model: $model"
+
       - name: Transcribe the delivered film and compare it to the script
         id: check
         continue-on-error: true        # 报告一定先落盘，再决定这次运行算不算失败
@@ -72,7 +81,7 @@ jobs:
             --project production/monalisa \
             --work work/monalisa/verbatim \
             --narration production/monalisa/audio \
-            --model small \
+            --model "$VERBATIM_MODEL" \
             --max-cer 0.15
 
       - name: Commit verbatim-check.json back to the branch
@@ -82,7 +91,7 @@ jobs:
           mkdir -p production/monalisa/delivery
           cp work/monalisa/verbatim/verbatim-check.json production/monalisa/delivery/verbatim-check.json
           git add -f production/monalisa/delivery/verbatim-check.json
-          git commit -m "听检: 蒙娜丽莎失窃案：一枚左手拇指印 逐字听检报告 (faster-whisper small)" || true
+          git commit -m "听检: 蒙娜丽莎失窃案：一枚左手拇指印 逐字听检报告 (faster-whisper $VERBATIM_MODEL)" || true
           pushed=0
           for attempt in 1 2 3 4 5 6; do
             if git push origin "HEAD:${{ github.ref_name }}"; then pushed=1; break; fi

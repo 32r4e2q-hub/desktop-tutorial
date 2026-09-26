@@ -81,14 +81,16 @@ def render_table():
     rows, tempo = segments()
     story = json.loads((HERE / "story.json").read_text())
     chapter_names = {c["id"]: c["title"] for c in story["chapters"]}
-    out = ["| 时间轴 | 口播文案 | 画面描述（动画建议） | 音效备注 |", "|---|---|---|---|"]
+    out = ["| 时间轴 | 口播文案 | 画面描述（动画建议） | 音效/备注 |", "|---|---|---|---|"]
     seen = set()
     for r in rows:
         if r["chapter"] not in seen and r["id"] != "END":
             seen.add(r["chapter"])
             out.append(f"| **{chapter_names[r['chapter']]}** | | | |")
         kind = "信息卡" if r["kind"] == "graphic" else "AI动画"
-        picture = f"【{r['id']} · {kind}】{r['purpose']}（运镜：{r['camera']}）"
+        # purpose 开头引的「…」是 4 秒规划网格时的口播；按分句切点重排后可能落在相邻一行，画面列只留画面
+        purpose = re.sub(r"^「[^」]*」：", "", r["purpose"])
+        picture = f"【{r['id']} · {kind}】{purpose}（运镜：{r['camera']}）"
         text = r["text"] if r["text"] else "（无口播，画面收尾）"
         out.append(f"| {clock(r['start'])}–{clock(r['end'])} | {text} | {picture} | {r['sfx']} |")
     return "\n".join(out)
@@ -103,18 +105,20 @@ def render_document():
     c = _content()
     rows, tempo = segments()
     story = json.loads((HERE / "story.json").read_text())
-    total_chars = sum(len(re.sub(r"[，。！？；：、—]", "", ch["text"])) for ch in story["chapters"])
+    total_chars = sum(len(re.sub(r"[，。！？；：、—·]", "", ch["text"])) for ch in story["chapters"])
     agnes = sum(s["kind"] == "agnes" for s in story["shots"])
     cards = sum(s["kind"] == "graphic" for s in story["shots"])
     end_card = (story.get("presentation") or {}).get("end_card") or ["", "", ""]
+    render = load()[0]
+    narration_span = render.DURATION - render.OUTRO - render.INTRO
     doc = [f"# 抖音脚本 · {story['title']}", "",
-           "> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（口播 ≈ 176 秒、"
-           f"{total_chars} 字）· {len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，"
+           "> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（口播 "
+           f"{narration_span:.1f} 秒、{total_chars} 字）· {len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，"
            "每个镜头只出现一次）· 风格：无限科学式快节奏悬疑科普解说 + 2D 动画纪录片画面", "",
            "## 一、视频标题（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]
     doc += ["", "## 二、核心爆点（一句话）", "", c.HOOK, "",
-            "## 三、详细脚本（时间轴 / 口播文案 / 画面描述 / 音效备注）", "",
+            "## 三、详细脚本（时间轴 / 口播文案 / 画面描述 / 音效/备注）", "",
             "口播文案与成片配音**逐字一致**（`audio/manifest.json` 里有 SHA-256 收据）；"
             f"时间轴按收紧停顿后的真实配音时长算出，成片以 `production/{HERE.name}/delivery/edit-decision-list.json` 为准。", "",
             render_table(), "",
@@ -132,6 +136,7 @@ def render_document():
 def publish_document():
     c = _content()
     story = json.loads((HERE / "story.json").read_text())
+    label = ((story.get("presentation") or {}).get("default_labels") or {}).get("agnes", "AI动画情景重现 · 非新闻影像")
     doc = [f"# 抖音发布文案 · {story['title']}", "",
            "> 横版 16:9 · 180 秒 · 发布时从下面三个标题里选一个，介绍直接粘贴，提问放在评论区置顶。", "",
            "## 题目（三选一）", ""]
@@ -142,7 +147,7 @@ def publish_document():
     doc += [f"- {line}" for line in c.GOLDEN_LINES]
     doc += ["", "## 发布前自查", "",
             "- 成片、字幕、脚本三处口播逐字一致（`generate.py --validate` + `delivery/verbatim-check.json`）",
-            "- 画面常驻「AI动画情景重现 · 非新闻影像」标签，介绍里也写明是动画情景重现",
+            f"- 画面常驻「{label}」标签，介绍里也写明是动画情景重现",
             "- 介绍里的每个事实都能在 `抖音脚本.md` 第六节的来源里找到", ""]
     return "\n".join(doc)
 
