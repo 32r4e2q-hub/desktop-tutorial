@@ -27,7 +27,7 @@ def decode(p):
     return np.frombuffer(out, '<i2').astype(np.float32) / 32768
 
 
-def pauses(x, min_len=0.12):  # 本片音色停顿偏短（0.18 阈值下 N01/N04 的静音段少于分句数，DP 不可行），降到 0.12
+def pauses(x, min_len=0.10):  # 男声 voice-01 停顿更短：0.12 时 N04/N05 静音段少于分句数 DP 退化；停顿普查后定 0.10（六章皆可行）
     n = len(x) // HOP * HOP
     rms = np.sqrt((x[:n].reshape(-1, HOP) ** 2).mean(1)); quiet = rms < 0.01
     spans = []; s = None; lead = 0.0
@@ -41,47 +41,56 @@ def pauses(x, min_len=0.12):  # 本片音色停顿偏短（0.18 阈值下 N01/N0
     return lead, spans
 
 
-def align(text, x):
+def align(text, x, min_len=0.30):
+    """分块 DP 混合对齐：≥min_len 的可靠停顿切出语音块，块间 DP 分配连续分句
+    （允许空块=句内戏剧停顿），块内按字数权重比例切分。
+    纯停顿 DP 在男声快语速段（N05 物理段）会把句内微停顿误当边界，产出 25 字/秒
+    这类不可能值——那正是字幕与声音错位的根源；比例切分保证单调且速度平滑。"""
     dur = len(x) / RATE
-    lead, spans = pauses(x)
+    lead, spans = pauses(x, min_len)
     clauses = [c for c in re.split(PUNCT, text) if c]
-    w = np.array([max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c))) for c in clauses], float)
-    speech = dur - lead - 0.25 - sum(d for _, d in spans)
-    rate = speech / w.sum()                      # 秒/字
-    K = len(clauses); J = len(spans)
-    starts = [lead] + [s + d for s, d in spans]  # 候选"分句开始时间"：片头 或 某个静音段结束
-    ends = [s for s, _ in spans] + [dur]         # 候选"分句结束时间"：某个静音段开始 或 片尾
+    w = [max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c))) for c in clauses]
+    blocks = []; prev = lead
+    for s0, d0 in spans:
+        if s0 > prev + 0.02: blocks.append((prev, s0))
+        prev = s0 + d0
+    if prev < dur - 0.05: blocks.append((prev, dur))
+    K, B = len(clauses), len(blocks)
+    rate = sum(b - a for a, b in blocks) / sum(w)      # 秒/字
+    EMPTY = 0.35
     INF = float('inf')
-    # dp[k][j]: 第 k 个分句结束在第 j 个候选结束点（j∈[0,J]），j=J 只允许 k=K-1
-    dp = [[INF] * (J + 1) for _ in range(K)]; back = [[-1] * (J + 1) for _ in range(K)]
-
-    def cost(k, a, b):
-        actual = b - a
-        expected = w[k] * rate
-        if actual <= 0.05: return INF
-        return math.log(actual / expected) ** 2
-
-    for j in range(J + 1):
-        if j == J and K > 1: continue
-        dp[0][j] = cost(0, starts[0], ends[j])
-    for k in range(1, K):
-        for j in range(k, J + 1):
-            if j == J and k != K - 1: continue
-            best = INF; bi = -1
-            for i in range(k - 1, j):
-                if dp[k - 1][i] == INF: continue
-                c = dp[k - 1][i] + cost(k, starts[i + 1], ends[j])
-                if c < best: best = c; bi = i
-            dp[k][j] = best; back[k][j] = bi
-    j = J; path = [None] * K
-    for k in range(K - 1, -1, -1):
-        path[k] = j; j = back[k][j]
-    rows = []
-    for k in range(K):
-        a = starts[0] if k == 0 else starts[path[k - 1] + 1]
-        b = ends[path[k]]
-        rows.append({'i': k, 'start': round(a, 2), 'end': round(b, 2), 'text': clauses[k],
-                     'chars_per_second': round(w[k] / (b - a), 2)})
+    dp = [[INF] * (K + 1) for _ in range(B + 1)]; back = [[-1] * (K + 1) for _ in range(B + 1)]
+    dp[0][0] = 0.0
+    import math
+    for b in range(1, B + 1):
+        a0, b0 = blocks[b - 1]; db = b0 - a0
+        for k in range(0, K + 1):
+            best = INF; bj = -1
+            for j in range(max(0, k - K), k + 1):
+                if dp[b - 1][j] == INF: continue
+                if j == k:
+                    c = EMPTY                       # 空块：停顿落在某个分句内部
+                else:
+                    expect = rate * sum(w[j:k])
+                    c = math.log(db / expect) ** 2
+                v = dp[b - 1][j] + c
+                if v < best: best = v; bj = j
+            dp[b][k] = best; back[b][k] = bj
+    if dp[B][K] == INF: raise RuntimeError('分块 DP 不可行')
+    assign = []; b, k = B, K
+    while b > 0:
+        j = back[b][k]; assign.append((b - 1, j, k)); b, k = b - 1, j
+    assign.reverse()
+    rows = []; idx = 0
+    for bi, j, k in assign:
+        a0, b0 = blocks[bi]; db = b0 - a0
+        if j == k: continue
+        sw = sum(w[j:k]); t = a0
+        for ci in range(j, k):
+            frac = w[ci] / sw
+            rows.append({'i': ci, 'start': round(t, 2), 'end': round(t + frac * db, 2),
+                         'text': clauses[ci], 'chars_per_second': round(w[ci] / max(0.05, frac * db), 2)})
+            t += frac * db
     return dur, rows
 
 

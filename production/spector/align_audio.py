@@ -65,7 +65,7 @@ def transcribe_on_runner(narration, work):
     os.environ.setdefault('HF_HUB_DOWNLOAD_TIMEOUT','90')
     try:
         from faster_whisper import WhisperModel
-        model=WhisperModel('base',device='cpu',compute_type='int8',cpu_threads=2,
+        model=WhisperModel('small',device='cpu',compute_type='int8',cpu_threads=4,
                            download_root=str(cache))
         results={}
         for row in narration:
