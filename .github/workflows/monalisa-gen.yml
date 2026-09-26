@@ -24,8 +24,12 @@ on:
 permissions:
   contents: write
 
+# 并发组 r2（2026-09-26 07:08 UTC）：run 36221444679 在 06:01 S23/S24 排队后静默一个多小时、不再 checkpoint，
+# 代理的 token 读不到本仓库 Actions REST、取消不了它，旧组里排队的 run 只能干等它 350 分钟超时。
+# 换组让救援 run 立刻开跑：它一开跑就 commit results.json，旧 run 若醒来，下一次 checkpoint 必然 rebase 冲突而退出（不会写坏分支）；
+# S23/S24 已存的 task_id 由救援 run 接着轮询，不重复生成。
 concurrency:
-  group: monalisa-agnes-arena-01a0dbbf-desktop-tutorial
+  group: monalisa-agnes-r2-arena-01a0dbbf-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
