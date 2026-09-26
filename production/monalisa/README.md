@@ -31,6 +31,10 @@ Actions 被停用**——请在仓库或账号的 Settings → Billing / Actions
 上 `bash runner/setup-runner.sh --set-switch` 装自托管 runner（不计分钟，手册里的下一步）；② Billing 里把
 Actions 付费上限调到 0 以上（剩余工作约 2 小时 Linux 分钟）；③ 等下个计费周期额度重置。
 
+09:16 更新：用户重连（08:00）并表示已处理（08:20）后，又触发了四次（含换并发组、含直接走 self-hosted 的运维 job、
+含不依赖 push 的 ntfy 报信通道），**仍然没有任何 runner 接 job**。已排好的 run 会在有 runner 时自动接上：运维 job 先取消
+旧 run 并报告，08:34 那条生成 run（当前请求）开始生成；更早的生成 run 被 `generate.py` 的过期触发守卫挡住、直接退出。
+
 恢复后的顺序（每一步都是改 marker 文件再 push；**要改动内容**，只有文件变化才会触发）：
 
 1. `OPS_REQUEST` 写 `action=cancel-stale-gen` → 取消卡住的旧 run，报告写进 `ops-report.md`；
