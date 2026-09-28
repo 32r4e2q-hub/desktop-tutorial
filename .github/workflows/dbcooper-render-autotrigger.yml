@@ -26,7 +26,7 @@ concurrency:
 jobs:
   render:
     if: github.ref == 'refs/heads/arena/01a08e48-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
@@ -66,4 +66,4 @@ jobs:
           path: work/dbcooper/*.mp4
           if-no-files-found: warn
           compression-level: 0
-          retention-days: 30
+          retention-days: 1

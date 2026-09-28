@@ -8,10 +8,12 @@
   就是因为检查只看了容器字段，从不测量）。
 """
 import json
+import os
 import sys
 import wave
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "production"))
@@ -36,6 +38,22 @@ class NormalizeTests(unittest.TestCase):
 
     def test_years_are_spelled_digit_by_digit(self):
         self.assertIn("一九四七", verbatim_check.normalize("1947年"))
+
+    def test_normalize_percent_and_decimal_read_the_way_people_say_them(self):
+        """99.96% 念作「百分之九十九点九六」，不能被拆成「九十九 九十六」。"""
+        self.assertEqual(verbatim_check.normalize("99.96%"), "百分之九十九点九六")
+        self.assertEqual(verbatim_check.normalize("排除99.96%的人"),
+                         verbatim_check.normalize("排除百分之九十九点九六的人"))
+        self.assertEqual(verbatim_check.normalize("3.5"), "三点五")
+
+    def test_normalize_folds_traditional_into_simplified_when_zhconv_is_present(self):
+        """whisper 有时整段吐繁体；繁简差异不是错字（2026-09-21 吉尔戈 N05：0.31 → 0.10）。"""
+        try:
+            import zhconv  # noqa: F401
+        except ImportError:
+            self.skipTest("没装 zhconv，繁简折叠退化为原样返回")
+        self.assertEqual(verbatim_check.normalize("跟蹤小組馬上撿走"),
+                         verbatim_check.normalize("跟踪小组马上捡走"))
 
 
 class ErrorRateTests(unittest.TestCase):
@@ -115,6 +133,37 @@ class VerdictTests(unittest.TestCase):
         result = verbatim_check.compare(self.chapters, {"N01": "她只有二十二岁"}, 0.15)
         self.assertIn("N02", result["failing"])
         self.assertEqual(result["chapters"][1]["heard_chars"], 0)
+
+
+class ModelCacheTests(unittest.TestCase):
+    """模型缓存目录：自托管 runner 靠这个避免每个 job 重下 500 MB。
+
+    默认落在本次运行的 work 里，行为与以前完全一样；设了 WHISPER_CACHE_DIR
+    就指向常驻目录。写错这一处不会报错、只会默默变慢/卡在下模型上，所以要钉住。
+    """
+
+    def test_defaults_to_the_run_work_dir(self):
+        with mock.patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("WHISPER_CACHE_DIR", None)
+            self.assertEqual(
+                verbatim_check.model_cache_dir(Path("/tmp/run")),
+                Path("/tmp/run/model-cache"),
+            )
+
+    def test_env_override_wins(self):
+        with mock.patch.dict(os.environ, {"WHISPER_CACHE_DIR": "/home/u/.cache/whisper"}):
+            self.assertEqual(
+                verbatim_check.model_cache_dir(Path("/tmp/run")),
+                Path("/home/u/.cache/whisper"),
+            )
+
+    def test_transcribe_downloads_into_the_cache_dir(self):
+        """转写那一步真的用这个目录，而不是又写死 work/model-cache。"""
+        source = Path(verbatim_check.__file__).read_text(encoding="utf-8")
+        self.assertIn("download_root=str(cache)", source,
+                      "transcribe() 没有用 model_cache_dir()，改回写死了")
+        self.assertIn('os.environ.setdefault("HF_HOME", str(cache))', source,
+                      "HF_HOME 也要跟着走常驻目录，否则元数据缓存仍在 work 里")
 
 
 class EndToEndTests(unittest.TestCase):

@@ -60,13 +60,38 @@ def chinese_number(value: int) -> str:
     return "".join(DIGITS[int(character)] for character in str(value))
 
 
+def to_simplified(text: str) -> str:
+    """繁体 → 简体。whisper 对普通话音频有时整段吐繁体（2026-09-21 吉尔戈 N05：頓/頭/薩/隨/進/蹤…），
+    逐字比对会把每个繁简对都记成一个错字（那一章 CER 0.31 → 转简体后 0.10）。
+    有 zhconv 就转，没有就原样返回——不让一个可选依赖把听检整个拖死。"""
+    try:
+        import zhconv  # type: ignore
+    except ImportError:
+        return text
+    return zhconv.convert(text, "zh-cn")
+
+
 def normalize(text: str) -> str:
-    """只保留汉字与字母、数字转汉字、统一小写：比对的是"念出来的字"，不是标点。"""
+    """只保留汉字与字母、数字转汉字、繁体转简体、统一小写：比对的是"念出来的字"，不是标点。"""
     import re
 
+    text = to_simplified(text)
     text = re.sub(r"(\d{4})(?=年)", lambda m: "".join(DIGITS[int(c)] for c in m.group(1)), text)
+    # 99.96% → 百分之九十九点九六；3.5 → 三点五（ASR 会把念出来的百分数/小数写回阿拉伯数字）
+    text = re.sub(r"(\d+(?:\.\d+)?)\s*%",
+                  lambda m: "百分之" + _spoken_number(m.group(1)), text)
+    text = re.sub(r"\d+\.\d+", lambda m: _spoken_number(m.group(0)), text)
     text = re.sub(r"\d+", lambda m: chinese_number(int(m.group(0))), text)
     return "".join(re.findall(r"[\u3400-\u9fffA-Za-z]", text)).lower()
+
+
+def _spoken_number(token: str) -> str:
+    """'99.96' → 九十九点九六；'42' → 四十二。"""
+    whole, _, frac = token.partition(".")
+    spoken = chinese_number(int(whole))
+    if frac:
+        spoken += "点" + "".join(DIGITS[int(c)] for c in frac)
+    return spoken
 
 
 def levenshtein(left: str, right: str) -> int:
@@ -179,11 +204,25 @@ def load_chapters(project: Path, timing: Path | None) -> list[dict]:
     return chapters
 
 
+def model_cache_dir(work: Path) -> Path:
+    """模型往哪儿下。默认落在本次运行的 work 里——**等于每次出片都要重下一遍**。
+
+    自托管 runner 可以设环境变量 ``WHISPER_CACHE_DIR`` 指向一个常驻目录
+    （例如 ``~/.cache/whisper``），small 模型（约 500 MB）就只下一次、之后每个 job
+    直接复用。家里的网络连 Hugging Face 本来就慢，让每个 job 重下 500 MB 是纯粹的浪费，
+    也最容易把出片卡在下载这一步上。
+    """
+    override = os.environ.get("WHISPER_CACHE_DIR")
+    return Path(override) if override else work / "model-cache"
+
+
 def transcribe(paths: dict[str, Path], model_size: str, language: str,
                work: Path) -> dict[str, str]:
     """转写。**刻意不给 initial_prompt**：模型不该事先知道剧本写了什么。"""
     work.mkdir(parents=True, exist_ok=True)
-    os.environ.setdefault("HF_HOME", str(work / "model-cache"))
+    cache = model_cache_dir(work)
+    cache.mkdir(parents=True, exist_ok=True)
+    os.environ.setdefault("HF_HOME", str(cache))
     os.environ.setdefault("HF_HUB_ETAG_TIMEOUT", "15")
     os.environ.setdefault("HF_HUB_DOWNLOAD_TIMEOUT", "90")
     try:
@@ -192,7 +231,7 @@ def transcribe(paths: dict[str, Path], model_size: str, language: str,
         raise VerdictError(f"faster-whisper 不可用，逐字听检没做成（不是通过）：{error}") from error
 
     model = WhisperModel(model_size, device="cpu", compute_type="int8", cpu_threads=4,
-                         download_root=str(work / "model-cache"))
+                         download_root=str(cache))
     transcripts: dict[str, str] = {}
     for cid, path in paths.items():
         segments, info = model.transcribe(str(path), language=language, beam_size=5,

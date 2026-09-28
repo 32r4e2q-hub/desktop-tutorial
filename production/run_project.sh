@@ -53,12 +53,48 @@ done
 
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+# 提交成片前，先把上一个 job 残留在同一个 _work 目录里的 sparse-checkout 关掉。
+# 离线自检（ci-tests）用 sparse-checkout 跳过 *.mp4 省 48 MB，它把 core.sparseCheckout
+# 留在了 .git/config：成片 add 不进索引，一次成功的出片被判失败 —— 2026-09-20 实测
+# 1080p/180s/音频三道闸门全过，却倒在第 4/5 步 commit 上，就是这个残留的锅。
+git config --local core.sparseCheckout false 2>/dev/null || true
 git add -f "交付/$(basename "$FILM")" "$DIR/delivery"
 if git diff --cached --quiet; then
   echo "No changes to publish"
 else
   git commit -m "Deliver the $PROJECT cut with measured audio"
-  git push origin "HEAD:$BRANCH"
+  # 这一步必须扛住网络抖动：整场渲染（几十到 90 分钟）的成果全靠它推回去。
+  # 2026-09-18 实测：这台机器的网络上，git 连 github.com 会偶发 133 秒超时
+  # （"133182 ms: Connection timed out"），只推一次等于把成果交给运气。
+  # 2026-09-20 实测：只推 5 次也不够 —— 5 次各自卡满 300 秒
+  # （"Failed to connect to github.com port 443 after 299980 ms: Connection timed out"），
+  # 25 分钟全用来等同一个连不上的 socket，一次渲染 180 秒、音频三道闸门全过、
+  # 成片也 add/commit 好了的出片被判成失败。而同一分钟里 `curl https://github.com`
+  # 返回 200 / 2.2 秒 —— 链路是通的，只是 git 那几次连接不走运。
+  # 结论：**快失败、多试**，比「少试、慢失败」强：
+  #   ① 先用 4 秒 TCP 探针确认 github.com:443 可达，不可达就跳过本轮，
+  #      不把 300 秒交给 git 自己的 connect 超时；
+  #   ② 推的时候加 lowSpeedLimit/lowSpeedTime：传输卡住 30 秒就让出这一轮；
+  #   ③ 最多 40 轮、每轮间隔 15 秒 —— 总时长可控（十分钟量级），胜率远高于 5 轮。
+  push_ok=false
+  for attempt in $(seq 1 40); do
+    if ! timeout 4 bash -c 'cat </dev/null >/dev/tcp/github.com/443' 2>/dev/null; then
+      echo "第 $attempt/40 轮：github.com:443 暂时不可达，等 15 秒" >&2
+      sleep 15
+      continue
+    fi
+    if git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 push origin "HEAD:$BRANCH"; then
+      push_ok=true
+      break
+    fi
+    echo "推送失败（第 $attempt/40 轮），等 15 秒重试……" >&2
+    sleep 15
+  done
+  if [ "$push_ok" != true ]; then
+    echo "成片与实测报告都已生成，但 40 轮都没能推回 $BRANCH（网络问题）。" >&2
+    echo "成片在本次运行的 artifact 里，重跑一次即可；报告在 $DIR/delivery/。" >&2
+    exit 1
+  fi
   echo "PUBLISHED_COMMIT $(git rev-parse HEAD)"
 fi
 

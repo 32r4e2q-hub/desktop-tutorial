@@ -17,13 +17,33 @@ concurrency:
 
 jobs:
   offline-tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 15
     steps:
+      - name: 先让 git 走 HTTP/1.1（国内网络下 HTTP/2 会静默卡死）
+        # 2026-09-18 实测：HTTP/2 下 git 在 2.4 MB 处停住且不报错、git 进程还消失，
+        # 而 curl（HTTP/1.1）一切正常；把 http.version 设为 HTTP/1.1 后 ls-remote 秒回。
+        # lowSpeedLimit/Time 让以后再卡也会在 30 秒内自己失败并报错，而不是无声挂着。
+        run: |
+          git config --global http.version HTTP/1.1
+          git config --global http.lowSpeedLimit 1000
+          git config --global http.lowSpeedTime 30
+
       - name: Check out the branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          # 自托管 runner 上，仓库里那个 48 MB 的成片会让每次 clone 又慢又容易断
+          # （实测：55 MB 的浅克隆在 227 KB/s 的线路上跑了 10 分钟还没完，
+          # 而同一台机器下 215 MB 的 runner 安装包直接卡死在 0 字节）。
+          # 离线自检不需要任何 mp4（测试只读 production/**，没有任何用例打开成片），
+          # 所以用 partial clone + sparse-checkout 跳过 *.mp4：55 MB → 约 7 MB。
+          # 去掉 --no-cone 那个坑也踩过：cone 模式不认通配符，必须显式关掉。
+          filter: blob:none
+          sparse-checkout: |
+            /*
+            !*.mp4
+          sparse-checkout-cone-mode: false
 
       - name: Set up Python
         uses: actions/setup-python@v5

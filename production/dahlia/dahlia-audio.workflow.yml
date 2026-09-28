@@ -19,7 +19,7 @@ concurrency:
 jobs:
   build:
     if: github.ref == 'refs/heads/arena/01a085be-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 90
     steps:
       - name: Check out this Arena production branch
@@ -86,4 +86,4 @@ jobs:
           path: work/dahlia/黑色大丽花_三分钟_带声音.mp4
           if-no-files-found: error
           compression-level: 0
-          retention-days: 30
+          retention-days: 1

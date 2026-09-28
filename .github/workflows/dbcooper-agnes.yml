@@ -19,7 +19,7 @@ concurrency:
 jobs:
   generate:
     if: github.ref == 'refs/heads/arena/01a08e48-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
@@ -48,4 +48,4 @@ jobs:
             production/dbcooper/qa/
           if-no-files-found: warn
           compression-level: 0
-          retention-days: 14
+          retention-days: 3

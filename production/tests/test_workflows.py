@@ -41,6 +41,10 @@ except ImportError:  # pragma: no cover - 取决于环境
 # 顶层键从行首开始，值可以为空（on: / jobs:）也可以跟在冒号后（name: 解说短片出片）
 TOP_LEVEL = re.compile(r"^(?P<key>[A-Za-z_][\w-]*):(?:[ \t].*)?$", re.MULTILINE)
 CHECKOUT_REF = re.compile(r"^\s+ref:\s*(\S+)", re.MULTILINE)
+RUNS_ON = re.compile(r"^\s*runs-on:\s*(?P<value>.+?)\s*$", re.MULTILINE)
+# 仓库转私有后，GitHub-hosted 的每一分钟都在烧额度（2000 分钟/月），自托管不计分钟。
+# 所以 runs-on 统一走这一个开关，见 转私有与自托管Runner手册.md。
+RUNNER_SWITCH = "vars.RUNNER_LABEL"
 
 
 def workflow_files() -> list[Path]:
@@ -90,6 +94,13 @@ class WorkflowIntegrityTests(unittest.TestCase):
         # 转写失败时也要先把报告落盘，再判失败
         self.assertIn("continue-on-error: true", text,
                       "转写不达标的运行也要先把报告 publish 出来")
+        # 自托管 runner 上模型不能每跑一次重下一次：常驻缓存目录要能透传进去
+        self.assertIn("WHISPER_CACHE_DIR", text,
+                      "听检工作流没有透传 WHISPER_CACHE_DIR，自托管 runner 上会每次重下模型")
+        # 用镜像时必须同时关掉 Xet，否则会绕过 HF_ENDPOINT 直连 cas-server.xethub.hf.co
+        # 并报 "CAS Client Error: ... 401 Unauthorized"（2026-09-18 实测）
+        self.assertIn("HF_HUB_DISABLE_XET", text,
+                      "听检工作流没有关掉 HF 的 Xet 存储：配镜像时会 401，模型下不下来")
 
     def test_verbatim_workflow_matches_template_when_installed(self):
         if not VERBATIM_INSTALLED.exists():
@@ -171,6 +182,30 @@ class WorkflowIntegrityTests(unittest.TestCase):
                     self.assertIn("runs-on", job, f"{path.name}:{job_name} 缺 runs-on")
                     self.assertIn("steps", job, f"{path.name}:{job_name} 缺 steps")
 
+    def test_no_workflow_hardcodes_a_github_hosted_runner(self):
+        """runs-on 必须走仓库变量开关，不能写死 ubuntu-latest。
+
+        仓库一旦转私有，GitHub-hosted 的每分钟都从 2000 分钟额度里扣；自托管 runner 不计分。
+        写死 ``ubuntu-latest`` 的话，切 runner 那天会漏掉这个工作流，继续偷偷烧额度
+        ——而且因为不报错，没人会发现。开关的形状只有一种：
+        ``runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}``，
+        没设变量时行为与切私有之前一模一样。
+        """
+        files = workflow_files() + sorted(ROOT.glob("production/**/*.workflow.yml"))
+        self.assertTrue(files, "仓库里一个工作流都没有？")
+        for path in files:
+            text = path.read_text(encoding="utf-8")
+            values = RUNS_ON.findall(text)
+            with self.subTest(workflow=path.name):
+                self.assertTrue(values, f"{path.name} 里一个 runs-on 都没有")
+                for value in values:
+                    self.assertIn(
+                        RUNNER_SWITCH, value,
+                        f"{path.name} 的 runs-on 写死了 {value!r}：转私有后这里会继续烧 "
+                        "GitHub-hosted 额度。改成 "
+                        "${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}",
+                    )
+
     def test_render_workflow_inputs_match_run_project_script(self):
         """工作流填的 slug 必须能喂给 run_project.sh，路径不能对不上。"""
         text = INSTALLED.read_text(encoding="utf-8")
@@ -215,6 +250,89 @@ class WorkflowIntegrityTests(unittest.TestCase):
                               cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 1)
         self.assertIn("没有这个项目", proc.stdout + proc.stderr)
+
+    def test_render_push_is_retried(self):
+        """成片的最后一次 git push 必须重试。
+
+        为什么：出片要跑几十到 90 分钟，成片与实测报告全靠最后这一次 push 回到分支。
+        2026-09-18 在自托管 runner 上实测到 git 连 github.com 偶发 133 秒超时
+        （日志原文 "133182 ms: Connection timed out"，actions/checkout 内置的 3 次
+        重试都没扛住），而当时的脚本只推一次——等于把整场渲染的成果交给运气。
+        """
+        script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        push_at = script.index('push origin "HEAD:$BRANCH"')
+        self.assertRegex(script[:push_at][-1200:], r"for attempt in",
+                         "推送没有被重试循环包住：网络抖一次就前功尽弃")
+        self.assertIn("push_ok", script, "推送失败没有被检查，失败了也不知道")
+        self.assertIn("exit 1", script[push_at:][:1200],
+                      "全部重试都失败时必须非 0 退出，不能假装成功")
+
+    def test_render_push_fails_fast_and_retries_many_times(self):
+        """推送要「快失败、多试」，不能「少试、慢失败」。
+
+        2026-09-20 在自托管 runner 上实测：脚本原来的写法是 5 次重试，但每一轮
+        git push 自己要卡满 300 秒才报错
+        （"Failed to connect to github.com port 443 after 299980 ms: Connection timed out"），
+        5 × (300 + 20) 秒 ≈ 25 分钟全用来等同一个连不上的 socket；于是一次渲染 180 秒、
+        音频三道闸门全过、成片也 add/commit 好了的出片被判成失败。
+        而同一分钟里 `curl https://github.com` 返回 200 / 2.2 秒 —— 链路是通的，
+        只是那几次连接不走运。
+        所以：先用 TCP 探针确认端口可达（不可达就跳过本轮，别把 300 秒交给 git 的
+        connect 超时），再给传输加低速放弃阈值，并把轮数从 5 提到 40。
+        """
+        script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        push_at = script.index('push origin "HEAD:$BRANCH"')
+        around = script[max(0, push_at - 1200): push_at + 1200]
+        self.assertIn("/dev/tcp/github.com/443", around,
+                      "推送前没有 TCP 探针，不可达时每轮仍要白等 git 自己的超时")
+        self.assertIn("timeout 4", around, "TCP 探针没有超时上限")
+        self.assertIn("lowSpeedLimit=1000", around,
+                      "没有低速放弃阈值，卡住的传输会一直占着这一轮")
+        self.assertIn("lowSpeedTime=30", around, "低速阈值没有时间上限")
+        self.assertRegex(around, r"seq 1 (?:[3-9]\d|\d{3,})",
+                         "重试轮数太少：单轮快失败才有意义多试，至少要 30 轮")
+        self.assertIn("sleep 15", around, "重试间隔应短（15 秒级），长间隔又变成慢失败")
+
+    def test_run_project_disables_a_stale_sparse_checkout(self):
+        """提交成片前必须先把上一个 job 留在 _work 目录里的 sparse-checkout 关掉。
+
+        2026-09-20 实测：离线自检（ci-tests）用 sparse-checkout 跳过 *.mp4 省 48 MB，
+        它把 core.sparseCheckout 留在同一个 _work 目录的 .git/config 里；出片的三道闸门
+        （1080p / 180s / 音频）全过，却倒在第 4/5 步 commit——成片 add 不进索引，
+        一次成功的出片被 workflow 判成失败。所以 run_project.sh 必须先关掉这个残留，
+        而且必须出现在 `git add 成片` 之前。
+        """
+        script = (ROOT / "production" / "run_project.sh").read_text(encoding="utf-8")
+        self.assertIn("core.sparseCheckout false", script,
+                      "run_project.sh 没有把残留的 sparse-checkout 关掉")
+        self.assertLess(
+            script.index("core.sparseCheckout false"),
+            script.index('git add -f "交付/'),
+            "关掉 sparse-checkout 必须发生在 git add 成片之前，否则成片还是进不了索引",
+        )
+        # 兜底要能对上 ci-tests 那边留下来的 sparse-checkout 形状（跳过 *.mp4）
+        ci = CI_TEMPLATE.read_text(encoding="utf-8")
+        self.assertIn("!*.mp4", ci,
+                      "离线自检模板不再用 sparse-checkout 跳过 *.mp4 了？上面的兜底要同步改")
+
+    def test_artifact_cleanup_workflow_can_actually_delete(self):
+        """清理工作流必须声明 actions: write —— 没有它删除会 403，配额照样满。
+
+        2026-09-18：仓库积了 3.1 GB artifact（免费额度 500 MB），出片最后一步报
+        "Artifact storage quota has been hit"。代理自己的令牌没有 actions 权限
+        （实测 DELETE 403），但工作流自带的 GITHUB_TOKEN 只要在 permissions 里声明
+        actions: write 就能删。
+        """
+        path = WORKFLOWS_DIR / "cleanup-artifacts.yml"
+        self.assertTrue(path.exists(), "缺少 artifact 清理工作流")
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("actions: write", text, "没声明 actions: write，删除会 403")
+        self.assertIn("workflow_dispatch", text, "清理工作流要能手动触发")
+        # 上传那一步不能因为配额满就把整场出片判死
+        render = INSTALLED.read_text(encoding="utf-8")
+        upload_at = render.index("actions/upload-artifact")
+        self.assertIn("continue-on-error: true", render[:upload_at][-400:],
+                      "成片上传失败会把出片判死，但成片本来就 commit 回 交付/ 了")
 
     def test_scripts_run_on_this_branch_exist_and_are_valid_shell(self):
         """只有没 pin ref 的工作流跑本分支代码，它们引用的脚本必须真的在这儿。"""
