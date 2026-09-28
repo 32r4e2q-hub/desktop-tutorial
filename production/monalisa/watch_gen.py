@@ -71,10 +71,15 @@ def main():
     ap.add_argument("--interval", type=int, default=60)
     ap.add_argument("--budget", type=int, default=6 * 3600)
     ap.add_argument("--once", action="store_true")
+    ap.add_argument("--kick-after", type=int, default=0,
+                    help="这么久还没开跑就重发一次 GEN_REQUEST（0=不重发）")
+    ap.add_argument("--max-kicks", type=int, default=3)
     args = ap.parse_args()
 
     started = time.monotonic()
     last = None
+    kicks = 0
+    last_kick = time.monotonic()
     while True:
         stamp = time.strftime("%H:%M:%S")
         proc = git("fetch", "origin", BRANCH)
@@ -90,6 +95,19 @@ def main():
             if line != last:
                 print(line, flush=True)
                 last = line
+            if phase is None and args.kick_after and time.monotonic() - last_kick > args.kick_after \
+                    and kicks < args.max_kicks and not args.once:
+                kicks += 1
+                last_kick = time.monotonic()
+                marker = HERE / "GEN_REQUEST"
+                marker.write_text(json.dumps({"workers": 2, "kick": kicks}) + "\n")
+                git("add", "--", str(marker.relative_to(ROOT)))
+                if git("diff", "--cached", "--quiet").returncode:
+                    git("commit", "-m",
+                        f"monalisa: 重发 GEN_REQUEST（第 {kicks} 次；runner 一上线就开工）",
+                        "--", str(marker.relative_to(ROOT)))
+                    pushed = git("push", "origin", f"HEAD:{BRANCH}").returncode == 0
+                    print(f"[{stamp}] KICK {kicks} 重发触发标记 {'成功' if pushed else '失败（推送被拒）'}", flush=True)
             if phase is None:
                 diag = show(DIAG)
                 if diag:
