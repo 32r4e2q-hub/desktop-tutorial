@@ -74,6 +74,8 @@ def main():
     ap.add_argument("--kick-after", type=int, default=0,
                     help="这么久还没开跑就重发一次 GEN_REQUEST（0=不重发）")
     ap.add_argument("--max-kicks", type=int, default=3)
+    ap.add_argument("--then-render", action="store_true",
+                    help="逐格扫描没有 fail 就自动写 RENDER_REQUEST 点火渲染（有人值守时可不开）")
     args = ap.parse_args()
 
     started = time.monotonic()
@@ -131,6 +133,21 @@ def main():
                            "scan_flags": [r["id"] for r in bad], "head": head}
                 (ROOT / "work/monalisa/gen-done.flag").write_text(json.dumps(summary, ensure_ascii=False, indent=2))
                 print("GEN_DONE " + json.dumps(summary, ensure_ascii=False), flush=True)
+                hard = [r for r in bad if r.get("verdict") == "fail"]
+                if args.then_render:
+                    if hard:
+                        print(f"AUTO_RENDER_SKIPPED 逐格扫描有 {len(hard)} 个 fail（{','.join(r['id'] for r in hard)}）→ 先重做这些镜头再渲染", flush=True)
+                    else:
+                        import datetime as _dt
+                        marker = HERE / "RENDER_REQUEST"
+                        marker.write_text("render " + _dt.datetime.now(_dt.timezone.utc)
+                                          .strftime("%Y-%m-%dT%H:%M:%SZ") + f" · 自动（逐格扫描 fail 0 / warn {len(bad)}）\n")
+                        git("add", "--", str(marker.relative_to(ROOT)))
+                        if git("diff", "--cached", "--quiet").returncode:
+                            git("commit", "-m", f"monalisa: 生成齐且逐格扫描无 fail → 自动点火渲染（warn {len(bad)} 个人工复核）",
+                                "--", str(marker.relative_to(ROOT)))
+                            print("AUTO_RENDER " + ("已推 RENDER_REQUEST" if git("push", "origin", f"HEAD:{BRANCH}").returncode == 0
+                                                    else "提交成功但推送失败"), flush=True)
                 return 0
             if phase in ("generation_incomplete", "pipeline_failed"):
                 diag = show(DIAG) or ""
