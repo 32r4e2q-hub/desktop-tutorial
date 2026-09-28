@@ -73,7 +73,7 @@ cells = [
         "    run('wget', '-q', '-O', BUNDLE, BUNDLE_URL)",
         "    print('下载完成：', os.path.getsize(BUNDLE), '字节')",
         "assert os.path.isfile(BUNDLE), '要么填 BUNDLE_URL，要么把 monalisa-film.tar.gz 拖进左边 Files 面板'",
-        "PROJ = '/content/monalisa-film',
+        "PROJ = '/content/monalisa-film',",
         "run('rm', '-rf', PROJ)",
         "run('tar', 'xzf', BUNDLE, '-C', '/content')",
         "run('git', 'init', '-q', '-b', BRANCH, PROJ)",
