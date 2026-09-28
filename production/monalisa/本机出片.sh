@@ -146,6 +146,22 @@ fi
 git config user.email >/dev/null 2>&1 || git config user.email "arena@local"
 
 if [ "$MODE" = "all" ] || [ "$MODE" = "gen" ]; then
+  # 配音是闸门一的校验对象（audio/manifest.json 里的 SHA-256 必须对得上 audio/N0x.mp3）。
+  # 原来那 6 段是沙箱自带的 TTS 合成的，那个端点你这边调不到；缺了就在这里用免费的
+  # edge-tts 重生，并按 render.py 的真实判据（0.86≤tempo≤1.10）自动配速，不让换音色把节奏搞散。
+  if ! $PY -u production/monalisa/generate.py --validate >/dev/null 2>&1; then
+    say "1.5/5 配音缺失或与 manifest 对不上 → edge-tts 重生 + 自动配速（免费，不需要任何 key）"
+    $PY -c 'import edge_tts' >/dev/null 2>&1 || for flags in "--user" "--break-system-packages" ""; do
+      $PY -m pip install -q $flags edge-tts >/dev/null 2>&1 && break
+    done
+    $PY -u production/monalisa/make_voice.py \
+      || die "配音重生失败。若 edge-tts 连不上微软端点，把最后 20 行发我，我改走别的免费音色。"
+    $PY -u production/monalisa/clause_times.py || die "分句对时失败（它只用 numpy+ffmpeg，不联网）：把报错发我。"
+    $PY -u production/monalisa/make_cuts.py   || die "切点重对失败：把报错发我。"
+    $PY -u production/monalisa/generate.py --validate || die "重生之后仍不匹配，把 --validate 的报错发我。"
+    say "配音就位，节奏已按实测重排"
+  fi
+
   if [ -z "${AGNES_API_KEY:-}" ]; then
     say "需要 Agnes API key"
     echo "（在 <https://platform.agnes.ai> 或你当初拿到 key 的地方复制；输入不回显，也不会写进文件）"
