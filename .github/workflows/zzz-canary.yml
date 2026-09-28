@@ -35,3 +35,5 @@ jobs:
           git add -f production/monalisa/CANARY_OK
           git commit -m "monalisa: Actions 探针回执 $(date -u +%FT%TZ)"
           git push origin HEAD:arena/01a0aa24-desktop-tutorial
+
+# 重测心跳 2026-09-28T06:43:22Z（若这次仍无回执，说明不是"没注册"的问题）
