@@ -61,12 +61,15 @@ say() { printf '\n\033[1m%s\033[0m\n' "$*"; }
 die() { printf '\n\033[31m✗ %s\033[0m\n' "$*"; exit 1; }
 
 say "0/5 体检环境（$REPO）"
-git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "这里不是 git 仓库。先在终端里执行：
-  git clone https://github.com/32r4e2q-hub/desktop-tutorial.git
-  cd desktop-tutorial"
+NOGIT=0
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  # 搬家包（无 .git）也能跑：素材与成片都留在本地，渲染直接调 render.py
+  NOGIT=1
+  echo "没有 git 仓库：进入离线模式（不 commit、不 push，成片留在 work/ 下自取）"
+fi
 
 # 分支必须对齐，否则渲染那一步会把成片 commit 到别处
-if [ "$MODE" != "dry" ]; then
+if [ "$MODE" != "dry" ] && [ "$NOGIT" = "0" ]; then
   git fetch origin "$BRANCH" >/dev/null 2>&1 || die "拉不动分支（网络或仓库权限）：origin/$BRANCH"
   CUR="$(git rev-parse --abbrev-ref HEAD)"
   if [ "$CUR" != "${BRANCH##*/}" ] && [ "$CUR" != "$BRANCH" ]; then
@@ -139,7 +142,7 @@ if [ "$MODE" = "dry" ]; then
 fi
 
 # 渲染与推回都要用 git 身份，先在本地设好（不碰全局配置）
-git config user.name  >/dev/null 2>&1 || git config user.name  "arena-local"
+[ "$NOGIT" = "1" ] || git config user.name  >/dev/null 2>&1 || git config user.name  "arena-local"
 git config user.email >/dev/null 2>&1 || git config user.email "arena@local"
 
 if [ "$MODE" = "all" ] || [ "$MODE" = "gen" ]; then
@@ -170,7 +173,19 @@ fi
 if [ "$MODE" = "all" ] || [ "$MODE" = "render" ]; then
   say "3/5 剪辑 + 混音 + 成品复测（闸门二、三）+ 4/5 把成片推回分支"
   BRANCH="$BRANCH" $PY -c "import json;d=json.load(open('production/monalisa/results.json'));print('已登记的镜头数：',len(d.get('shots',{})))" 2>/dev/null || true
-  BRANCH="$BRANCH" bash production/run_project.sh monalisa true || die "渲染或推回失败。成片可能已经生成在 work/monalisa/ 下，把报错最后 20 行发我。"
+  if [ "$NOGIT" = "1" ]; then
+    export PATH="$PWD/bin:$PATH"
+    $PY -u production/monalisa/render.py \
+      --sources work/monalisa/sources --work work/monalisa \
+      --output "work/monalisa/蒙娜丽莎_行李箱里的779号_三分钟_带声音.mp4" \
+      --results production/monalisa/results.json --skip-asr \
+      || die "渲染失败：把最后 20 行报错发我。"
+    FILM="work/monalisa/蒙娜丽莎_行李箱里的779号_三分钟_带声音.mp4"
+    $PY production/review_film.py --film "$FILM" --project production/monalisa --work work/monalisa/review || true
+    echo "成片在 $FILM（Colab 里从左侧「文件」面板下载即可）"
+  else
+    BRANCH="$BRANCH" bash production/run_project.sh monalisa true || die "渲染或推回失败。成片可能已经生成在 work/monalisa/ 下，把报错最后 20 行发我。"
+  fi
 fi
 
 say "5/5 跑完了：请回来说一句「本机跑完了」"
