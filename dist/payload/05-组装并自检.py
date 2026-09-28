@@ -1,6 +1,6 @@
 # 各段都报 ✓ 之后运行：整包校验 → 解出项目 → 用仓库自带的校验器自检
 import base64, hashlib, io, lzma, pathlib, tarfile
-N, WHOLE_SHA = 4, "57f9495af201"
+N, WHOLE_SHA = 4, "e414459776d6"
 blob = ''.join(''.join(pathlib.Path(f'/content/p{i}.b64').read_text().split()) for i in range(1, N + 1))
 raw = base64.b64decode(blob)                     # 这是 xz 压缩后的整包字节
 assert hashlib.sha256(raw).hexdigest()[:12] == WHOLE_SHA, "整包校验不过：有一段贴坏了，回面板重贴那一段"

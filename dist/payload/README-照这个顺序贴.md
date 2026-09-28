@@ -25,32 +25,35 @@
 那个会不同，但节奏由脚本按 `render.py` 的实测判据（0.86 ≤ tempo ≤ 1.10）自动配回去；
 批准的成片 tempo 是 1.0662，重生后一般落在 1.00~1.07。
 
-载荷：4 段 / 共 105020 字符 base64；整包 xz sha256 前 12 位 `57f9495af201`；
-文件 26 个：
+载荷：4 段 / 共 112336 字符 base64；整包 xz sha256 前 12 位 `e414459776d6`；
+文件 29 个：
 
-- `production/monalisa/story.json`
-- `production/monalisa/generate.py`
-- `production/monalisa/media.py`
-- `production/monalisa/throttle.py`
-- `production/monalisa/build_audio.py`
-- `production/monalisa/render.py`
-- `production/monalisa/slate_render.py`
-- `production/monalisa/make_cuts.py`
-- `production/monalisa/plan_cuts.py`
-- `production/monalisa/clause_times.py`
-- `production/monalisa/tighten_pauses.py`
-- `production/monalisa/make_voice.py`
-- `production/monalisa/scan_qa.py`
-- `production/monalisa/qa_rejects.py`
-- `production/monalisa/gen_status.py`
-- `production/monalisa/watch_gen.py`
-- `production/monalisa/本机出片.sh`
-- `production/monalisa/QA_REPORT.md`
-- `production/monalisa/GEN_REQUEST`
-- `production/agnes_video.py`
-- `production/verbatim_check.py`
-- `production/review_film.py`
-- `production/requirements.txt`
 - `.github/workflows/monalisa-gen.yml`
 - `.github/workflows/monalisa-render.yml`
 - `.github/workflows/monalisa-verbatim.yml`
+- `production/agnes_video.py`
+- `production/monalisa/GEN_REQUEST`
+- `production/monalisa/QA_REPORT.md`
+- `production/monalisa/build_audio.py`
+- `production/monalisa/clause_times.py`
+- `production/monalisa/gen_status.py`
+- `production/monalisa/generate.py`
+- `production/monalisa/make_cuts.py`
+- `production/monalisa/make_voice.py`
+- `production/monalisa/media.py`
+- `production/monalisa/plan_cuts.py`
+- `production/monalisa/qa_rejects.py`
+- `production/monalisa/render.py`
+- `production/monalisa/scan_qa.py`
+- `production/monalisa/screenplay.md`
+- `production/monalisa/slate_render.py`
+- `production/monalisa/story.json`
+- `production/monalisa/throttle.py`
+- `production/monalisa/tighten_pauses.py`
+- `production/monalisa/watch_gen.py`
+- `production/monalisa/watch_run.py`
+- `production/monalisa/本机出片.sh`
+- `production/requirements.txt`
+- `production/review_film.py`
+- `production/run_project.sh`
+- `production/verbatim_check.py`

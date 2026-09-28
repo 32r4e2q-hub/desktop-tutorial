@@ -1,7 +1,7 @@
 # 第 1 格：把 dist/payload/p1.b64 的**全部内容**粘进下面三引号之间，然后运行本格
 import hashlib
-EXPECT_CHARS = 26255
-EXPECT_SHA = "534eb568335c"
+EXPECT_CHARS = 28084
+EXPECT_SHA = "6a3c0ce10265"
 PART = """
 （把 p1.b64 整段粘到这里，替换本行）
 """
