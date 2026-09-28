@@ -10,7 +10,8 @@
 #   bash production/monalisa/本机出片.sh --dry        # 只体检环境，不联网、不消耗额度
 #   bash production/monalisa/本机出片.sh --gen-only   # 只生成素材（渲染留到以后）
 #   bash production/monalisa/本机出片.sh --render-only# 素材已在本地，只渲染
-#   bash production/monalisa/本机出片.sh --only S07,S12   # 只重做指定镜头（QC 打回时用）
+#   bash production/monalisa/本机出片.sh --only S07,S12    # 只重做指定镜头（QC 打回时用）
+#   bash production/monalisa/本机出片.sh --status          # 只看还剩几镜（不联网、随时可跑）
 #
 # 中断不要紧：results.json 记着每镜的 task_id 与 SHA-256，重跑本脚本会跳过已完成的镜头。
 set -uo pipefail
@@ -29,10 +30,32 @@ while [ $# -gt 0 ]; do
     --gen-only) MODE="gen" ;;
     --render-only) MODE="render" ;;
     --only) shift; ONLY="$1" ;;
-    *) echo "不认识参数 $1（可用：--dry --gen-only --render-only --only S07,S12）"; exit 1 ;;
+    --status) python3 production/monalisa/gen_status.py; exit 0 ;;
+    *) echo "不认识参数 $1（可用：--dry --gen-only --render-only --status --only S07,S12）"; exit 1 ;;
   esac
   shift
 done
+
+# Google Colab 的 /content 会在断线时被清空。这里把「素材 + 收据 + 成片」同步到
+# Google Drive，重连后原地续跑，不会白烧已经花掉的额度；本地电脑跑时这段自动跳过。
+DRIVE_STATE=""
+if [ -d /content/drive/MyDrive ]; then
+  DRIVE_STATE="/content/drive/MyDrive/monalisa-出片状态"
+  mkdir -p "$DRIVE_STATE/sources" "$DRIVE_STATE/qa"
+  [ -f production/monalisa/results.json ] || cp -n "$DRIVE_STATE/results.json" production/monalisa/ 2>/dev/null
+  mkdir -p work/monalisa/sources production/monalisa/qa
+  cp -u "$DRIVE_STATE"/sources/*.mp4 work/monalisa/sources/ 2>/dev/null
+  cp -u "$DRIVE_STATE"/qa/* production/monalisa/qa/ 2>/dev/null
+  sync_state() {
+    cp -f production/monalisa/results.json "$DRIVE_STATE/" 2>/dev/null
+    cp -fu work/monalisa/sources/*.mp4 "$DRIVE_STATE/sources/" 2>/dev/null
+    cp -fu production/monalisa/qa/* "$DRIVE_STATE/qa/" 2>/dev/null
+    cp -fu 交付/*.mp4 "$DRIVE_STATE/" 2>/dev/null
+    echo "（状态已同步到 Google Drive/monalisa-出片状态，断线不丢）"
+  }
+  trap sync_state EXIT
+  echo "检测到 Colab：已启用 Google Drive 状态同步"
+fi
 
 say() { printf '\n\033[1m%s\033[0m\n' "$*"; }
 die() { printf '\n\033[31m✗ %s\033[0m\n' "$*"; exit 1; }
@@ -123,6 +146,12 @@ if [ "$MODE" = "all" ] || [ "$MODE" = "gen" ]; then
   if [ -z "${AGNES_API_KEY:-}" ]; then
     say "需要 Agnes API key"
     echo "（在 <https://platform.agnes.ai> 或你当初拿到 key 的地方复制；输入不回显，也不会写进文件）"
+    if [ ! -t 0 ]; then
+      die "这里不是交互终端（Colab 就是这样，读不到你敲的 key）。请在前一个 python 格子里执行：
+  import os
+  os.environ['AGNES_API_KEY'] = 'sk-……'
+然后重跑本格。key 只活在这个运行时环境里，不写进任何文件、不进 git。"
+    fi
     read -rsp "AGNES_API_KEY= " AGNES_API_KEY; export AGNES_API_KEY; echo
     [ -n "$AGNES_API_KEY" ] || die "没输 key，退出。也可以先 export AGNES_API_KEY=... 再跑本脚本。"
   fi
