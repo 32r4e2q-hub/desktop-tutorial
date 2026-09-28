@@ -981,6 +981,8 @@ def build():
         seen.add(sid)
         if kind == "agnes":
             assert "Camera:" in body and len(body.split()) > 45, f"{sid} 提示词不够具体"
+            glued = [w for w in body.split() if len(w) > 17 and w.isalpha()]
+            assert not glued, f"{sid} 提示词出现粘连词 {glued}：多行字符串拼接处漏了空格"
         start = i * GRID
         shots.append({
             "id": sid, "kind": kind, "start": start, "duration": GRID,
