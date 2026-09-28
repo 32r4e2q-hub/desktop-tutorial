@@ -27,7 +27,9 @@ def decode(p):
     return np.frombuffer(out, '<i2').astype(np.float32) / 32768
 
 
-def pauses(x, min_len=0.18):
+def pauses(x, min_len=0.12):   # 本项目实测：voice-00 念 N03/N05 时逗号后只停 0.12–0.17s，
+    # 沿用参考片的 0.18 会让静音数少于分句数、DP 退化成整段；0.12 是能让六章全部对齐的最小地板
+    # （0.10 起会多检出朗读中的假停顿，见 制作过程.md 的标定表）。
     n = len(x) // HOP * HOP
     rms = np.sqrt((x[:n].reshape(-1, HOP) ** 2).mean(1)); quiet = rms < 0.01
     spans = []; s = None; lead = 0.0

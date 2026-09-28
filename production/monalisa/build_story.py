@@ -315,21 +315,22 @@ SHOTS = [
      "passes under it." + HOLD,
      "楼梯上脚步由近到远"),
     ("S22", "agnes", "桥上横移",
-     "他把画夹在胳膊底下走过塞纳河桥——名画第一次离开博物馆，比想象的安静",
-     "横移到桥栏尽头，切回出租屋",
+     "「然后把画裹进工作服，夹在胳膊底下」：晨雾里的塞纳河桥，一个夹着方块的白色背影走过，街上没人抬头",
+     "横移到桥栏尽头，切侧门口",
      "A Paris bridge over the Seine in morning mist, framed on the stone parapet from the first frame: a short man "
      "in a white workman's smock walks left to right carrying a bundled rectangular object under his arm, blurred "
      "washerwomen and carts at the far railing, unlit gas lamps, the flat grey river below, chimney smoke, no "
      "faces, nothing readable. Camera: one slow lateral tracking move keeping him centred." + HOLD,
-     "河水、车轮；旁白说到「替他开了门」时补一记门轴"),
-    ("S23", "agnes", "极缓推近",
-     "回到出租屋：掀开木箱，把画放进假底板下面——这个动作后面要回看两次",
-     "底板合上，切「第二天」的发现",
-     "Night in the small rented room, framed on the open travel trunk at the foot of the bed from the first "
-     "frame: two hands lift out a false wooden bottom, revealing a cloth-wrapped panel lying in the cavity, a "
-     "candle stub on the washstand, a chair back in the foreground, the wall behind bare, no face, no painted "
-     "surface shown, nothing readable. Camera: one very slow push-in toward the cavity." + HOLD,
-     "木底板落回的一声；音乐收干"),
+     "河水、车轮；这一段不配音乐"),
+    ("S23", "agnes", "街对面固定",
+     "「一个水管工以为他是同事，顺手替他开了门」：从街对面看那扇侧门，门开着，白色背影走进晨雾",
+     "门在画面里合上，切第二天的空墙",
+     "A street-level view across a wet cobbled lane toward a side door in a tall limestone museum wall, framed on "
+     "the door from the first frame: one workman in a cap stands holding the door open while a shorter workman in a "
+     "white smock seen from behind walks out past him carrying a cloth-wrapped bundle under his arm, river mist, a "
+     "passing cart blurred at the frame edge, no faces, no readable plaque. Camera: locked-off medium-wide from "
+     "across the lane; only the two figures and the closing door move." + HOLD,
+     "门轴「吱」一声后立刻安静；字幕高亮「替他开了门」"),
     # ---------------- N04 破案关键（上）（7 镜）----------------
     ("S24", "agnes", "缓慢横摇",
      "第二天：临摹的画家支好画架，一抬头——横摇到那堵空墙",
@@ -361,22 +362,22 @@ SHOTS = [
      "fingerprints at a trestle table, notice boards turned to the wall, ropes and a wooden bench, grey daylight "
      "through the glass vault, no faces, nothing readable. Camera: one slow handheld follow along the queue." + HOLD,
      "队列低语、印台拍击声，一下比一下慢"),
-    ("S28", "agnes", "缓慢横移",
-     "抓错人：预审办公室里两个剪影（毕加索与阿波利奈尔），警察在桌后写记录",
-     "横移到门，切勒阿弗尔港",
-     "A prefecture interrogation room at night, framed from the far end of the room on two seated men in bohemian "
-     "jackets seen only as silhouettes under a hanging lamp, an officer's back at a desk writing, a third figure "
-     "standing in shadow at the wall, cigarette smoke in the cone of light, bare plaster walls, no faces, nothing "
-     "readable. Camera: one slow lateral slide behind the desk." + HOLD,
-     "笔尖划纸；这一镜不留音乐"),
-    ("S29", "agnes", "横摇",
-     "封路搜船：勒阿弗尔港，箱子在码头上一件件被撬开",
-     "摇到一只与那口木箱同形状的箱子，切回巴黎",
+    ("S28", "agnes", "横摇",
+     "「接下来两周，警方封路、搜船」：勒阿弗尔港，箱子在码头上一件件被撬开",
+     "摇到一只与那口木箱同形状的箱子，切预审室",
      "A Norman dockside at dawn, framed on a gangway and stacked luggage from the first frame: sailors and police "
      "in caps prying open trunks and hatboxes on the quay, passengers queued with their backs turned, a liner's "
      "hull and funnels in mist behind, ropes, crates and a swaying derrick, wet planks, no faces, no readable "
      "ship name. Camera: one slow pan across the opened luggage." + HOLD,
      "海鸥、撬棍、风"),
+    ("S29", "agnes", "缓慢横移",
+     "「把毕加索和诗人阿波利奈尔抓去问话」：预审室里两个只成剪影的男人，警察在桌后写记录",
+     "横移到门，切回那间出租屋",
+     "A prefecture interrogation room at night, framed from the far end of the room on two seated men in bohemian "
+     "jackets seen only as silhouettes under a hanging lamp, an officer's back at a desk writing, a third figure "
+     "standing in shadow at the wall, cigarette smoke in the cone of light, bare plaster walls, no faces, nothing "
+     "readable. Camera: one slow lateral slide behind the desk." + HOLD,
+     "笔尖划纸；这一镜不留音乐"),
     ("S30", "agnes", "微距固定",
      "最荒诞的一幕：警员就靠在那张桌子上写完报告，画就在他脚下的阴影里",
      "镜头微微滑向阴影，切两年后",
@@ -411,8 +412,8 @@ SHOTS = [
      "一封信",
      "「五十万里拉」单独跳出"),
     ("S34", "agnes", "微距转焦",
-     "杰里在台灯下展读那封信（纸面朝下或失焦，画面里没有可读文字）",
-     "焦点移到窗外，切旅馆走廊",
+     "杰里和赶来的波吉在灯下一起看那封信（纸面失焦或朝下，画面里没有可读文字）",
+     "焦点移到窗外，切旅馆走廊；这一镜同时承接下一句「拉上馆长去旅馆」",
      "An antique dealer's office in Florence, framed on a desktop under a shaded lamp from the first frame: a "
      "man's hands in a dark waistcoat unfold a folded letter, a paper knife, a stub of sealing wax, a pocket "
      "watch chain and a photograph of a gallery room at the edge, the sheet kept blank-facing and out of focus "
@@ -453,56 +454,55 @@ SHOTS = [
      "两行并排；第二行出现时全部静音半秒"),
     # ---------------- N06 结局与金句（7 镜）----------------
     ("S39", "agnes", "手持跟拍",
-     "逮捕：两名便衣从他两侧架住胳膊，带下楼梯，帽子留在柱子上",
-     "下楼接法庭",
+     "开场先把「传说」摆出来：逮捕现场——两名便衣从两侧架住他带下楼梯，帽子留在柱子上",
+     "下楼接纤维示意",
      "A hotel stairwell landing framed on the turn of the stairs from the first frame: two plainclothes officers "
      "in caps take a short workman by the arms from either side and lead him down, all three seen from behind and "
      "above, his flat cap left on the newel post, a housekeeper's silhouette turned away in a doorway, lamplight "
      "on worn stone, no faces, no readable text, no violence beyond the grip. Camera: one handheld follow down the "
      "flight." + HOLD,
      "三双脚步下楼；音乐骤停"),
-    ("S40", "agnes", "缓慢横移",
-     "一九一四年佛洛伦萨开庭：法庭后排视角，被告席上一个矮壮的背影",
-     "横移到旁听席，切巡展",
-     "Wide shot from the back of a wood-panelled Florentine courtroom with no windows, framed from the first "
-     "frame: rows of spectators' backs in the foreground, a short heavyset man in a dark suit seen from behind "
-     "standing at the defence table between two advocates, the judges' raised bench and two draped flags ahead, "
-     "warm ceiling globes, dusty light, no recognisable faces, nobody turns toward camera, no buildings outside. "
-     "Camera: one very slow lateral slide behind the last row." + HOLD,
-     "法槌一声；日期由字幕给"),
-    ("S41", "graphic", "信息卡 static card",
-     "判决卡：一年零十五天、实际服刑约七个月；名画一九一四年一月回卢浮宫",
-     "卡片切巡展人群",
-     "判决与归还",
-     "「一年零十五天」与「七个月」并排，数字差做视觉钩子"),
-    ("S42", "agnes", "极缓拉镜头",
-     "回意大利的巡展：人群背影围着画架，观众看到的永远是「很多人」而不是一幅画",
-     "拉远到全景，接装箱",
-     "An Italian gallery hall during the painting's homecoming exhibition, framed from the rear of a packed crowd "
-     "from the first frame: hundreds of hats and shoulders seen from behind, a rope barrier, two guards' backs "
-     "beside an easel whose gilt frame is turned partly away from camera, tall windows, red walls, flower "
-     "arrangements, no faces, no painted surface visible, nothing readable. Camera: one slow pull-back through the "
-     "crowd." + HOLD,
-     "人群嗡鸣、皮鞋"),
-    ("S43", "agnes", "横移",
-     "一九一四年一月：稻草箱被抬上货车回巴黎——它回来了，但它已经不是原来那幅画了",
-     "箱子上车，接印刷厂",
+    ("S40", "agnes", "微距缓推",
+     "「一根藏在工作服里的白杨木纤维」：放大镜下的粗布纤维与几粒木屑——这是流传版本，画面必须标「示意图」",
+     "放大镜头摇焦到布纹，接登记本",
+     "A macro still life under a brass magnifier on a dark wooden table, framed from the first frame: coarse woven "
+     "cotton threads of a workman's smock spread on blotting paper beside a few pale wood shavings, the round lens "
+     "hovering above them, raking lamp light, shallow depth of field, an evidence tray out of focus at the edge, no "
+     "faces, no readable characters. Camera: one slow macro push-in through the magnifier with a slight focus "
+     "drift." + HOLD,
+     "只留低频嗡鸣；这一镜是「传说」，不是物证"),
+    ("S41", "agnes", "缓慢横摇",
+     "「真正出卖他的，是博物馆自己的登记本」：库房木架上一排排登记册，一双手翻开其中一本（纸面失焦）",
+     "横摇到合上的册子，切月台",
+     "A museum storeroom aisle between tall wooden shelving stacked with bound ledgers and flat portfolio cases, "
+     "framed down the aisle from the first frame: an archivist's hands pull one ledger down and open it on a shelf "
+     "edge, the pages out of focus and blank-facing, a rolling ladder, dust in a shaft of cold window light, no "
+     "faces, absolutely no legible writing. Camera: one slow lateral pan along the shelves." + HOLD,
+     "纸页翻动；钢琴进两个音"),
+    ("S42", "agnes", "横移",
+     "「名画一九一四年一月回到卢浮宫」：清晨月台，稻草箱被抬上货车，箱上只挂空白标签",
+     "箱子上车，切法庭",
      "A goods van at a station platform at dawn, framed on its open doors from the first frame: two officials in "
      "overcoats and a porter seen from behind lift a straw-packed wooden crate with blank unmarked tags up the van "
      "step, a lantern, frost on the planks, steam from locomotive wheels, low winter light, no faces, no readable "
      "marks. Camera: one slow lateral track past the van doors." + HOLD,
-     "蒸汽、木箱上踏板的一记重音"),
-    ("S44", "agnes", "缓慢横摇",
-     "一夜之间成名：印刷厂的滚筒吐出成堆明信片（画面里绝不出现可读报头或画正面）",
-     "摇到滚筒尽头，切今天的展厅",
-     "A printing-house floor in 1911 Paris, framed on a flatbed press and its stacks of blank card from the first "
-     "frame: an operator's arms feed sheets into the roller, a wooden type case with its sorts lying face-down, "
-     "towers of unprinted picture postcards, ink tins, belt-driven shafts, high dusty windows, a second worker's "
-     "back at a stacking table, no faces, no legible headline and no reproduction of any painting. Camera: one "
-     "slow pan along the press." + HOLD,
-     "机器声由弱到满，卡在第 45 镜前收掉"),
+     "蒸汽、木箱上踏板的记重音"),
+    ("S43", "agnes", "缓慢横移",
+     "「同年佛洛伦萨开庭，他说自己只是把画还给祖国」：法庭后排视角，被告席上一个矮壮的背影",
+     "横移到旁听席，接判决卡",
+     "Wide shot from the back of a wood-panelled Florentine courtroom with no windows, framed from the first "
+     "frame: rows of spectators' backs in the foreground, a short heavyset man in a dark suit seen from behind "
+     "standing at the defence table between two advocates, the judges' raised bench and two draped flags ahead, "
+     "warm ceiling globes, dusty light, no recognisable faces, nobody turns toward camera. Camera: one very slow "
+     "lateral slide behind the last row." + HOLD,
+     "法槌一声；日期由字幕给"),
+    ("S44", "graphic", "信息卡 static card",
+     "判决卡：一年零十五天、实际服刑约七个月；名画一九一四年一月回卢浮宫",
+     "卡片切今天的展厅",
+     "判决与归还",
+     "「一年零十五天」与「七个月」并排，数字差做视觉钩子"),
     ("S45", "agnes", "升镜头",
-     "结尾：今天的展厅，几百个人排着队看一堵墙的方向——镜头升起，最后停在人群上",
+     "「抬成了全世界最有名的画」+ 提问：今天的展厅，几百个人排着队看同一堵墙的方向——镜头升起，最后停在人群上",
      "升到全景后画面渐隐，接片尾卡",
      "The modern Louvre gallery where the painting hangs, framed low behind a dense queue of visitors' backs from "
      "the first frame: hundreds of heads and raised phones seen only from behind, barrier lanes, cold reflections "
@@ -537,7 +537,7 @@ CARDS = {
     "S38": ("流传与档案",
             "流传版本：工作服里一根白杨木纤维，与画板材质比对成功 —— 查无档案依据",
             "档案记录：乌菲兹馆长乔瓦尼·波吉核对画板背面的卢浮宫馆藏编号 INV 779，确认不是赝品"),
-    "S41": ("判决与归还",
+    "S44": ("判决与归还",
             "1914年 · 佛洛伦萨审判：判一年零十五天，实际服刑约七个月",
             "名画先在意大利巡展，1914年1月4日回到卢浮宫；此后它成为全球最有名的画"),
 }
@@ -562,12 +562,11 @@ LABEL_OVERRIDES = {
     "S15": "AI动画示意 · 非档案影像",
     "S26": "AI动画示意 · 非取证照片",
     "S27": "AI动画示意 · 非现场影像",
-    "S28": "AI动画示意 · 非庭审影像",
+    "S29": "AI动画示意 · 非审讯影像",
     "S39": "AI动画示意 · 非逮捕照片",
-    "S40": "AI动画示意 · 非庭审影像",
-    "S42": "AI动画示意 · 非历史照片",
-    "S43": "AI动画示意 · 非历史影像",
-    "S44": "AI动画示意 · 非历史照片",
+    "S40": "流传版本的示意图 · 非物证照片",
+    "S41": "AI动画示意 · 非档案影像",
+    "S43": "AI动画示意 · 非庭审影像",
     "S45": "AI动画示意 · 今日展厅情景重现",
 }
 
@@ -577,10 +576,10 @@ SFX_EVENTS = [
     ("S04", "press"),
     ("S15", "press"),
     ("S19", "paper"),
-    ("S23", "keys"),
+    ("S23", "paper"),
     ("S34", "paper"),
     ("S36", "keys"),
-    ("S44", "machine"),
+    ("S42", "keys"),
 ]
 
 # ---------------------------------------------------------------------------
