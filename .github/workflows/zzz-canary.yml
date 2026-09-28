@@ -1,0 +1,37 @@
+name: 探针 · Actions 是否真的在跑
+# 沙箱读不到本仓库的 Actions（bot token 对 API 全返回 404），所以用一个只 echo +
+# 往分支回写 canary 文件的最小工作流，判断「队列里到底有没有 runner 在执行 job」。
+# 用完就删（跟之前那个 zz-permission-probe 一样的路子）。
+on:
+  push:
+    branches:
+      - arena/01a0aa24-desktop-tutorial
+    paths:
+      - .github/workflows/zzz-canary.yml
+
+permissions:
+  contents: write
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a0aa24-desktop-tutorial
+          fetch-depth: 1
+      - name: Write canary back to branch
+        run: |
+          git config user.name "arena-canary"
+          git config user.email "arena@local"
+          mkdir -p production/monalisa
+          {
+            echo "canary $(date -u +%FT%TZ)"
+            echo "runner ${{ runner.name }}"
+            curl -s -o /dev/null -w "anon_repo_api_http=%{http_code}\n" \
+              https://api.github.com/repos/32r4e2q-hub/desktop-tutorial || true
+          } > production/monalisa/CANARY_OK
+          git add -f production/monalisa/CANARY_OK
+          git commit -m "monalisa: Actions 探针回执 $(date -u +%FT%TZ)"
+          git push origin HEAD:arena/01a0aa24-desktop-tutorial
