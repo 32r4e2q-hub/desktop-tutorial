@@ -299,7 +299,7 @@ def main() -> int:
     music = args.work / "score.wav"
     generate_horror_bgm(music, args.duration)
     effects = args.work / "effects.wav"
-    render.write_sfx(effects, edl)
+    render.write_sfx(effects, edl, project.get('presentation') or {})
 
     report = build_soundtrack(narration, music, effects, args.output,
                               duration=args.duration,

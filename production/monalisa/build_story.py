@@ -149,7 +149,7 @@ SHOTS = [
         "where a picture hung, herringbone parquet, dust drifting in a slanted "
         "shaft of morning light from a high window, no people anywhere, no "
         "painted surface visible. Camera: one extremely slow push-in toward the "
-        "four pegs." + HOLD,
+        "four pegs.<HOLD>" + HOLD,
         "低频垫底 + 展厅脚步回声；开口第一句无音乐",
     ),
     (
@@ -159,15 +159,15 @@ SHOTS = [
         "案发当天 07:00：四名维修工的白色背影从临河员工门进去，谁都没多"
         "看一眼",
         "背影进门，硬切展厅里的四颗钉子",
-        "The Louvre's quayside service entrance on a grey early morning in"
-        "1911, framed from the first frame on wet cobblestones and a plain "
-        "wooden door set in tall pale limestone: four workmen seen only from "
-        "behind in long white smocks and flat caps walk toward the doorway "
-        "carrying a glazier's wooden sash, a canvas tool roll and a putty tin,"
-        "river mist low along the ground, a horse cart blurred at the frame "
-        "edge, the blank limestone wall filling the background so that no "
-        "horizon and no skyline are visible, no faces, no readable signage."
-        "Camera: one slow lateral track keeping pace with them." + HOLD,
+        "The Louvre's quayside service entrance on a grey early morning in1911, "
+        "framed from the first frame on wet cobblestones and a plain wooden "
+        "door set in tall pale limestone: four workmen seen only from behind in "
+        "long white smocks and flat caps walk toward the doorway carrying a "
+        "glazier's wooden sash, a canvas tool roll and a putty tin,river mist "
+        "low along the ground, a horse cart blurred at the frame edge, the "
+        "blank limestone wall filling the background so that no horizon and no "
+        "skyline are visible, no faces, no readable signage.Camera: one slow "
+        "lateral track keeping pace with them.<HOLD>" + HOLD,
         "马蹄、河水、远处汽笛；音乐第一次进",
     ),
     (
@@ -182,7 +182,7 @@ SHOTS = [
         "smock walks away from camera down the centre of the parquet between "
         "walls stacked with gilt frames, tall windows throwing long light "
         "panels across the floor, dust motes, no visitors, no faces, nothing "
-        "readable. Camera: one steady follow behind him at walking pace." + HOLD,
+        "readable. Camera: one steady follow behind him at walking pace.<HOLD>" + HOLD,
         "脚步回声放大；这一步是全片的节奏点",
     ),
     (
@@ -199,7 +199,8 @@ SHOTS = [
         "lifting a plain wooden panel clear of the pegs, parquet floor and "
         "skylight, dust in the cold morning light, the figure only a fraction "
         "of the frame, no face, nothing readable. Camera: locked-off wide from "
-        "the far end of the hall, only the small figure and the panel move." + HOLD,
+        "the far end of the hall, only the small figure and the panel "
+        "move.<HOLD>" + HOLD,
         "音乐留一层低垫；远景里没有脚步，只有一声画板离钉的轻响",
     ),
     (
@@ -219,13 +220,13 @@ SHOTS = [
         "卢浮宫过了一整天才发现：从街对面看那扇侧门，白色背影已经走进晨雾",
         "门在画面里合上，切第二天的空墙",
         "A street-level view across a wet cobbled lane toward a side door in a "
-        "tall limestone museum wall, framed on the door from the first frame:"
-        "one workman in a cap stands holding the door open while a shorter "
-        "workman in a white smock seen from behind walks out past him carrying "
-        "a cloth-wrapped bundle under his arm, river mist, a passing cart "
-        "blurred at the frame edge, no faces, no readable plaque. Camera:"
-        "locked-off medium-wide from across the lane; only the two figures and "
-        "the closing door move." + HOLD,
+        "tall limestone museum wall, framed on the door from the first "
+        "frame:one workman in a cap stands holding the door open while a "
+        "shorter workman in a white smock seen from behind walks out past him "
+        "carrying a cloth-wrapped bundle under his arm, river mist, a passing "
+        "cart blurred at the frame edge, no faces, no readable plaque. "
+        "Camera:locked-off medium-wide from across the lane; only the two "
+        "figures and the closing door move.<HOLD>" + HOLD,
         "门轴「吱」一声后立刻安静；字幕高亮「替他开了门」",
     ),
     (
@@ -241,7 +242,7 @@ SHOTS = [
         "chimney smoke, river mist flattening the far bank, no crowds and no "
         "close figures, no modern buildings, nothing readable. Camera: one slow "
         "crane up revealing the museum's full length and the grey river behind "
-        "it." + HOLD,
+        "it.<HOLD>" + HOLD,
         "城市醒来：鸽子、汽笛；音乐抽掉一层",
     ),
     (
@@ -254,10 +255,10 @@ SHOTS = [
         "in bowler hats and long dresses, framed from behind the crowd at the "
         "far end of the gallery from the first frame: every figure seen from "
         "the back, everyone looking at other paintings, a small bare patch of "
-        "wall with four pegs visible in the middle distance above their heads,"
-        "warm dusty light, gilded frames floor to ceiling, no faces, nothing "
-        "readable. Camera: one very slow pull-back along the parquet behind the "
-        "crowd." + HOLD,
+        "wall with four pegs visible in the middle distance above their "
+        "heads,warm dusty light, gilded frames floor to ceiling, no faces, "
+        "nothing readable. Camera: one very slow pull-back along the parquet "
+        "behind the crowd.<HOLD>" + HOLD,
         "人群低语；说到「过了一整天」时全片第一次静音 0.4 秒",
     ),
     (
@@ -269,10 +270,10 @@ SHOTS = [
         "A narrow working-class boarding-house stairwell in Montmartre, framed "
         "from the first floor looking up the flight from the first frame: a "
         "short heavyset man in a flat cap and paint-dusted coat seen from "
-        "behind carries a step-ladder on his shoulder and a canvas tool roll,"
-        "peeling floral wallpaper, a brass gas jet at each landing, a "
-        "landlady's silhouette turned away in a doorway above, no faces,"
-        "nothing readable. Camera: one handheld follow two steps behind him." + HOLD,
+        "behind carries a step-ladder on his shoulder and a canvas tool "
+        "roll,peeling floral wallpaper, a brass gas jet at each landing, a "
+        "landlady's silhouette turned away in a doorway above, no faces,nothing "
+        "readable. Camera: one handheld follow two steps behind him.<HOLD>" + HOLD,
         "木楼梯吱呀、楼下手风琴很远",
     ),
     (
@@ -287,7 +288,7 @@ SHOTS = [
         "knife, a diamond cutter, a stiff brush, an open tin of linseed oil and "
         "a coil of cord at the frame edge, cold north light through a tall pane "
         "behind, wood shavings on the floor, no faces. Camera: one slow macro "
-        "focus pull from the putty knife to the hands." + HOLD,
+        "focus pull from the putty knife to the hands.<HOLD>" + HOLD,
         "油灰刀刮木头的声音；工坊环境声",
     ),
     (
@@ -308,10 +309,10 @@ SHOTS = [
         "The Salon Carré during the museum's glazing works, framed on tall "
         "wooden scaffolding erected under the hanging pictures from the first "
         "frame: three workmen's backs in white smocks on the planks fitting "
-        "glass shadow boxes over gilt frames, ropes and a pulley, a ladder,"
-        "canvas tarps on the parquet, cold daylight from high windows, the "
-        "whole wall of paintings soft behind them, no faces, nothing readable."
-        "Camera: one slow horizontal pan along the scaffolding." + HOLD,
+        "glass shadow boxes over gilt frames, ropes and a pulley, a "
+        "ladder,canvas tarps on the parquet, cold daylight from high windows, "
+        "the whole wall of paintings soft behind them, no faces, nothing "
+        "readable.Camera: one slow horizontal pan along the scaffolding.<HOLD>" + HOLD,
         "绳子摩擦、木梯挪动",
     ),
     (
@@ -320,13 +321,13 @@ SHOTS = [
         "高角度固定",
         "从阳台俯看：他一个人在那面墙前用折尺比划位置——他知道钉子在哪",
         "俯视接他的房间（同一栋楼的两副面孔）",
-        "High angle from a gallery balcony looking down into the Salon Carré,"
-        "framed on the parquet from the first frame: a single workman in a "
-        "white smock seen from above stands before one wall holding a folding "
+        "High angle from a gallery balcony looking down into the Salon "
+        "Carré,framed on the parquet from the first frame: a single workman in "
+        "a white smock seen from above stands before one wall holding a folding "
         "ruler, his shadow long across the floor, a step-ladder and tool box "
         "beside him, a few visitors far away with their backs turned, no "
-        "painted surface facing camera, no faces, nothing readable. Camera:"
-        "locked-off high angle; only the man and his shadow move." + HOLD,
+        "painted surface facing camera, no faces, nothing readable. "
+        "Camera:locked-off high angle; only the man and his shadow move.<HOLD>" + HOLD,
         "只有脚步声；这一镜不留音乐",
     ),
     (
@@ -341,7 +342,7 @@ SHOTS = [
         "ajar, a washstand with a chipped bowl, a mandolin leaning against the "
         "wall, pinned papers soft out of focus by the window, a single chair in "
         "the foreground, no people, nothing readable. Camera: one slow push-in "
-        "past the chair toward the trunk." + HOLD,
+        "past the chair toward the trunk.<HOLD>" + HOLD,
         "煤气灯嘶嘶；木箱一声轻响",
     ),
     (
@@ -357,22 +358,23 @@ SHOTS = [
         "set at an angle that shows only its shape, a row of tall cabinets "
         "behind, grey window light, no faces, absolutely no legible handwriting "
         "or print anywhere. Camera: locked-off medium shot with one slow rack "
-        "focus from the ink pad to the cabinets." + HOLD,
+        "focus from the ink pad to the cabinets.<HOLD>" + HOLD,
         "卡片摩擦、抽屉滑轨；字幕高亮「指纹」",
     ),
     (
         "S16",
         "agnes",
         "门缝低角度固定",
-        "星期天傍晚：他最后一个离开展厅，闪身躲进储物间（门外视角，光被门缝切窄）",
+        "星期天傍晚：他最后一个离开展厅，闪身躲进储物间（门外视角，光被门缝切"
+        "窄）",
         "门缝收窄到黑，接夜里的储物间",
         "A museum storeroom behind the Salon Carré at dusk, framed low on the "
         "doorway from the first frame: a workman in a white smock slips in "
         "sideways and pulls the door almost closed after him, stacks of "
         "unframed canvases, a rolled rug, a step-ladder and packing crates "
         "filling the room, the last bar of window light falling across his "
-        "boots before the door shuts, no faces, nothing readable. Camera:"
-        "locked-off low angle through the narrowing gap." + HOLD,
+        "boots before the door shuts, no faces, nothing readable. "
+        "Camera:locked-off low angle through the narrowing gap.<HOLD>" + HOLD,
         "门闩轻响；环境声突然被吸干",
     ),
     (
@@ -388,49 +390,34 @@ SHOTS = [
         "S18",
         "agnes",
         "门内低角度固定",
-        "他闪进展厅旁边的储物间，从里面把那扇木门闩拉上——门缝里最后漏进来一"
-        "线走廊的光",
+        "他闪进展厅旁边的储物间，从里面拉上铁门闩；镜头沉到角落，他靠着待修画"
+        "框坐下（同一间屋子，一次运镜）",
         "门缝的光被切断后切过夜那一镜",
         "Inside a dark museum storeroom framed on a tall wooden door from the "
         "first frame: a hand slides an iron bolt shut from the inside, a single "
-        "blade of corridor light between the planks narrowing to nothing,"
-        "stacks of unframed canvases and gilt frames in silhouette, a gas lamp "
-        "burning low on a shelf, dust motes, no face, nothing readable. Camera:"
-        "locked-off low angle inside the storeroom; only the bolt, the "
-        "narrowing light and the dust move." + HOLD,
+        "blade of corridor light between the planks narrowing to nothing,stacks "
+        "of unframed canvases and gilt frames in silhouette, a gas lamp burning "
+        "low on a shelf, dust motes, no face, nothing readable. "
+        "Camera:locked-off low angle inside the storeroom; only the bolt, the "
+        "narrowing light and the dust move.<HOLD>" + HOLD,
         "门闩一声金属摩擦；走廊光被切掉的同时把环境声也切掉半格",
     ),
     (
         "S19",
         "agnes",
-        "低位侧移",
-        "在一堆待修画框中间过了一夜：毯子、熄灭的煤气灯、半块面包",
-        "侧移到他坐起，切扣扣子",
-        "The same storeroom at night, framed low on the floor between crates "
-        "and stacked canvases from the first frame: a man in a white smock "
-        "asleep on a folded blanket with his arm under his head, a dead gas "
-        "mantle, one high window throwing a bar of moonlight across his shoes,"
-        "dust suspended, a bread crust on paper beside him, his face turned "
-        "away in shadow, nothing readable. Camera: one slow lateral move past "
-        "the canvases toward the sleeping figure." + HOLD,
-        "只有呼吸与远处的滴水；无音乐",
-    ),
-    (
-        "S20",
-        "agnes",
         "微距固定",
         "星期一早上：他把白工作服扣到最上面一颗——这件工作服就是他的全部伪装",
         "手抚平布料，接空走廊",
-        "Extreme close-up on a workman's chest and hands in a stone corridor,"
-        "framed from the first frame on the buttons of a long white smock: the "
-        "fingers fasten the top button and smooth the cloth flat, the fabric "
-        "creased and paint-flecked, a brass museum key on a cord at his wrist,"
-        "soft grey morning light, no face, no badge, nothing readable. Camera:"
-        "locked-off macro; only the hands move." + HOLD,
+        "Extreme close-up on a workman's chest and hands in a stone "
+        "corridor,framed from the first frame on the buttons of a long white "
+        "smock: the fingers fasten the top button and smooth the cloth flat, "
+        "the fabric creased and paint-flecked, a brass museum key on a cord at "
+        "his wrist,soft grey morning light, no face, no badge, nothing "
+        "readable. Camera:locked-off macro; only the hands move.<HOLD>" + HOLD,
         "布料摩擦；音乐进单音提琴",
     ),
     (
-        "S21",
+        "S20",
         "agnes",
         "低角度固定",
         "等展厅空了：一双手把画从四颗铁钉上取下——只拍手、袖口和画板背面",
@@ -442,11 +429,11 @@ SHOTS = [
         "bare edges facing camera, a screwdriver and a folded cloth on the "
         "parquet below, motes in the cold light, no face, no painted surface "
         "visible, nothing readable. Camera: locked-off low angle, only the "
-        "hands and the panel move." + HOLD,
+        "hands and the panel move.<HOLD>" + HOLD,
         "金属钉刮墙的短响；这一声做全片的第一记拍点",
     ),
     (
-        "S22",
+        "S21",
         "agnes",
         "缓慢横移",
         "隔壁「七米」楼梯间：卸下玻璃罩与画框，随手丢在学生习作中间",
@@ -455,11 +442,21 @@ SHOTS = [
         "balustrade, framed on the landing from the first frame: a figure in a "
         "white smock crouches as he levers a heavy gilt frame and a "
         "glass-covered shadow box off a wooden panel, the emptied frame and "
-        "glass already leaning against stacked student canvases in the corner,"
-        "pale high window light, plaster dust on the steps, no faces, no "
+        "glass already leaning against stacked student canvases in the "
+        "corner,pale high window light, plaster dust on the steps, no faces, no "
         "plaques, nothing readable. Camera: one slow lateral slide along the "
-        "landing." + HOLD,
+        "landing.<HOLD>" + HOLD,
         "木头刮地 + 玻璃轻碰一声",
+    ),
+    (
+        "S22",
+        "agnes",
+        "楼梯间拐角微移",
+        "他把画平放在膝上，用白工作服一层层裹起来，绳结打在拐角的阴影里",
+        "裹好画包后切侧门那一镜",
+        "In the same corner of the stone stairwell, framed tight on his lap from the first frame: the workman wraps the small panel in his white smock, folding the cloth over both faces of the panel and knotting a cord, a stack of discarded gilt frames and the removed protective glass leaning behind him, cold light from a high window, the cloth occupying most of the frame, no face shown, nothing readable anywhere in shot. Camera: slow lateral creep past the corner; only his hands, the cloth and the knot move, the background stays locked."
+        + HOLD,
+        "布料摩擦与绳结拉紧的一声；楼梯间回声，音乐抽掉一层",
     ),
     (
         "S23",
@@ -474,7 +471,7 @@ SHOTS = [
         "arm, while another workman in a cap holds the door ajar for him, unlit "
         "gas lamps outside, barrels and a cart blurred beyond, damp limestone "
         "walls filling both sides, no faces, nothing readable. Camera: one slow "
-        "over-the-shoulder follow toward the light." + HOLD,
+        "over-the-shoulder follow toward the light.<HOLD>" + HOLD,
         "门轴一声、街道环境声涌进来",
     ),
     (
@@ -487,8 +484,9 @@ SHOTS = [
         "from the first frame: a man in a paint-stained smock stands before an "
         "easel with his back to camera, brush raised, staring at a bare patch "
         "of wall with four pegs, a second visitor stopped beside him, gilded "
-        "frames all around and dust in the light, no faces, nothing readable."
-        "Camera: one slow horizontal pan from the easel to the empty wall." + HOLD,
+        "frames all around and dust in the light, no faces, nothing "
+        "readable.Camera: one slow horizontal pan from the easel to the empty "
+        "wall.<HOLD>" + HOLD,
         "画笔掉在地板上；音乐停半拍",
     ),
     (
@@ -510,9 +508,9 @@ SHOTS = [
         "first frame to the last: gloved fingers dust the corner of a detached "
         "gilt frame with carbon powder using a camel-hair puff, a magnifying "
         "hood on a stand, a sheet of clear gelatin lifting a single thumb "
-        "impression, blank cards stacked face-down, a brass lamp, no faces,"
-        "absolutely no legible writing. Camera: one slow macro focus pull from "
-        "the brush to the lifted print." + HOLD,
+        "impression, blank cards stacked face-down, a brass lamp, no "
+        "faces,absolutely no legible writing. Camera: one slow macro focus pull "
+        "from the brush to the lifted print.<HOLD>" + HOLD,
         "碳粉刷子的沙沙声",
     ),
     (
@@ -524,10 +522,10 @@ SHOTS = [
         "The Louvre's entrance hall in the week after the theft, framed on the "
         "closed inner doors from the first frame: a line of museum staff seen "
         "from behind waits along the wall while two officers in kepi caps take "
-        "fingerprints at a trestle table, notice boards turned to the wall,"
-        "ropes and a wooden bench, grey daylight through the glass vault, no "
-        "faces, nothing readable. Camera: one slow handheld follow along the "
-        "queue." + HOLD,
+        "fingerprints at a trestle table, notice boards turned to the "
+        "wall,ropes and a wooden bench, grey daylight through the glass vault, "
+        "no faces, nothing readable. Camera: one slow handheld follow along the "
+        "queue.<HOLD>" + HOLD,
         "队列低语、印台拍击声，一下比一下慢",
     ),
     (
@@ -541,7 +539,7 @@ SHOTS = [
         "and hatboxes on the quay, passengers queued with their backs turned, a "
         "liner's hull and funnels in mist behind, ropes, crates and a swaying "
         "derrick, wet planks, no faces, no readable ship name. Camera: one slow "
-        "pan across the opened luggage." + HOLD,
+        "pan across the opened luggage.<HOLD>" + HOLD,
         "海鸥、撬棍、风",
     ),
     (
@@ -553,10 +551,10 @@ SHOTS = [
         "横移到门，切回那间出租屋",
         "A prefecture interrogation room at night, framed from the far end of "
         "the room on two seated men in bohemian jackets seen only as "
-        "silhouettes under a hanging lamp, an officer's back at a desk writing,"
-        "a third figure standing in shadow at the wall, cigarette smoke in the "
-        "cone of light, bare plaster walls, no faces, nothing readable. Camera:"
-        "one slow lateral slide behind the desk." + HOLD,
+        "silhouettes under a hanging lamp, an officer's back at a desk "
+        "writing,a third figure standing in shadow at the wall, cigarette smoke "
+        "in the cone of light, bare plaster walls, no faces, nothing readable. "
+        "Camera:one slow lateral slide behind the desk.<HOLD>" + HOLD,
         "笔尖划纸；这一镜不留音乐",
     ),
     (
@@ -570,8 +568,9 @@ SHOTS = [
         "tabletop edge while he writes in a notebook, his knee and uniform "
         "sleeve in the foreground, and in the deep shadow beneath the table one "
         "corner of a cloth-wrapped panel just visible at the frame edge, a "
-        "chair leg, a candle flame, no faces, nothing readable. Camera:"
-        "locked-off low macro with a slight drift toward the shadow." + HOLD,
+        "chair leg, a candle flame, no faces, nothing readable. "
+        "Camera:locked-off low macro with a slight drift toward the "
+        "shadow.<HOLD>" + HOLD,
         "笔尖声；说到「写完了报告」时全部静音 0.3 秒",
     ),
     (
@@ -586,7 +585,7 @@ SHOTS = [
         "with his back to camera and head slightly bowed, hands loose between "
         "his knees, frost on the window, an unlit gas mantle, no face, no "
         "painted surface shown, nothing readable. Camera: one very slow push-in "
-        "past the chair." + HOLD,
+        "past the chair.<HOLD>" + HOLD,
         "窗缝的风；钢琴第一次进",
     ),
     (
@@ -597,11 +596,11 @@ SHOTS = [
         "车厢门合上，切信件卡",
         "A Paris station platform in late November, framed along the side of a "
         "wooden carriage from the first frame: a short man in a flat cap and "
-        "overcoat seen from behind carries an old travel trunk up a van step,"
-        "steam coiling around his boots, porters with their backs turned, lamp "
-        "light spilling on the planks, a signal box in fog, no faces, nothing "
-        "readable. Camera: one slow lateral track along the carriage as he "
-        "boards." + HOLD,
+        "overcoat seen from behind carries an old travel trunk up a van "
+        "step,steam coiling around his boots, porters with their backs turned, "
+        "lamp light spilling on the planks, a signal box in fog, no faces, "
+        "nothing readable. Camera: one slow lateral track along the carriage as "
+        "he boards.<HOLD>" + HOLD,
         "汽笛、车厢铁链",
     ),
     (
@@ -627,7 +626,7 @@ SHOTS = [
         "watch chain and a photograph of a gallery room at the edge, the sheet "
         "kept blank-facing and out of focus wherever writing would be, no "
         "readable characters anywhere, no faces. Camera: locked-off macro with "
-        "one slow focus pull from the hands to the window behind." + HOLD,
+        "one slow focus pull from the hands to the window behind.<HOLD>" + HOLD,
         "纸张展开；座钟摆声",
     ),
     (
@@ -641,8 +640,8 @@ SHOTS = [
         "dealer, an older director in a fur collar and a plainclothes "
         "inspector, all seen from the back and shoulder only, plaster walls, a "
         "wall gas bracket, a patterned runner carpet, a maid's silhouette "
-        "facing away at the near end, no faces, no readable door plate. Camera:"
-        "one steady over-the-shoulder follow." + HOLD,
+        "facing away at the near end, no faces, no readable door plate. "
+        "Camera:one steady over-the-shoulder follow.<HOLD>" + HOLD,
         "三种脚步错开；到门口全部停下",
     ),
     (
@@ -657,7 +656,7 @@ SHOTS = [
         "cavity, a suitcase lining, hats and shirts piled to one side, winter "
         "light through a shuttered window, no faces, no painted surface "
         "revealed, nothing readable. Camera: one very slow push-in toward the "
-        "cavity." + HOLD,
+        "cavity.<HOLD>" + HOLD,
         "底板木声；这一段只留呼吸",
     ),
     (
@@ -673,8 +672,9 @@ SHOTS = [
         "ghosts of removed labels at the corners, one worn stamped impression "
         "legible only as an abstract shape in the raking light, a director's "
         "sleeve and a dealer's waistcoat edge at the frame, no painted face "
-        "anywhere, absolutely no readable characters or numbers. Camera:"
-        "locked-off close shot with one slow focus pull along the wood grain." + HOLD,
+        "anywhere, absolutely no readable characters or numbers. "
+        "Camera:locked-off close shot with one slow focus pull along the wood "
+        "grain.<HOLD>" + HOLD,
         "钢琴单音一次；这里绝不给编号的画面文字",
     ),
     (
@@ -700,7 +700,7 @@ SHOTS = [
         "behind and above, his flat cap left on the newel post, a housekeeper's "
         "silhouette turned away in a doorway, lamplight on worn stone, no "
         "faces, no readable text, no violence beyond the grip. Camera: one "
-        "handheld follow down the flight." + HOLD,
+        "handheld follow down the flight.<HOLD>" + HOLD,
         "三双脚步下楼；音乐骤停",
     ),
     (
@@ -710,13 +710,13 @@ SHOTS = [
         "「一根藏在工作服里的白杨木纤维」：放大镜下的粗布纤维与几粒木屑——这"
         "是流传版本，画面必须标「示意图」",
         "放大镜头摇焦到布纹，接登记本",
-        "A macro still life under a brass magnifier on a dark wooden table,"
-        "framed from the first frame: coarse woven cotton threads of a "
+        "A macro still life under a brass magnifier on a dark wooden "
+        "table,framed from the first frame: coarse woven cotton threads of a "
         "workman's smock spread on blotting paper beside a few pale wood "
-        "shavings, the round lens hovering above them, raking lamp light,"
-        "shallow depth of field, an evidence tray out of focus at the edge, no "
-        "faces, no readable characters. Camera: one slow macro push-in through "
-        "the magnifier with a slight focus drift." + HOLD,
+        "shavings, the round lens hovering above them, raking lamp "
+        "light,shallow depth of field, an evidence tray out of focus at the "
+        "edge, no faces, no readable characters. Camera: one slow macro push-in "
+        "through the magnifier with a slight focus drift.<HOLD>" + HOLD,
         "只留低频嗡鸣；这一镜是「传说」，不是物证",
     ),
     (
@@ -731,7 +731,7 @@ SHOTS = [
         "first frame: an archivist's hands pull one ledger down and open it on "
         "a shelf edge, the pages out of focus and blank-facing, a rolling "
         "ladder, dust in a shaft of cold window light, no faces, absolutely no "
-        "legible writing. Camera: one slow lateral pan along the shelves." + HOLD,
+        "legible writing. Camera: one slow lateral pan along the shelves.<HOLD>" + HOLD,
         "纸页翻动；钢琴进两个音",
     ),
     (
@@ -746,7 +746,7 @@ SHOTS = [
         "from behind lift a straw-packed wooden crate with blank unmarked tags "
         "up the van step, a lantern, frost on the planks, steam from locomotive "
         "wheels, low winter light, no faces, no readable marks. Camera: one "
-        "slow lateral track past the van doors." + HOLD,
+        "slow lateral track past the van doors.<HOLD>" + HOLD,
         "蒸汽、木箱上踏板的记重音",
     ),
     (
@@ -759,10 +759,10 @@ SHOTS = [
         "Wide shot from the back of a wood-panelled Florentine courtroom with "
         "no windows, framed from the first frame: rows of spectators' backs in "
         "the foreground, a short heavyset man in a dark suit seen from behind "
-        "standing at the defence table between two advocates, the judges'"
-        "raised bench and two draped flags ahead, warm ceiling globes, dusty "
-        "light, no recognisable faces, nobody turns toward camera. Camera: one "
-        "very slow lateral slide behind the last row." + HOLD,
+        "standing at the defence table between two advocates, the judges'raised "
+        "bench and two draped flags ahead, warm ceiling globes, dusty light, no "
+        "recognisable faces, nobody turns toward camera. Camera: one very slow "
+        "lateral slide behind the last row.<HOLD>" + HOLD,
         "法槌一声；日期由字幕给",
     ),
     (
@@ -778,18 +778,20 @@ SHOTS = [
         "S45",
         "agnes",
         "升镜头",
-        "「抬成了全世界最有名的画」+ 提问：今天的展厅，几百个人排着队看同一"
-        "堵墙的方向——镜头升起，最后停在人群上",
+        "收尾提问：今天的展厅，几百个人排着队看同一堵墙的方向——是他太大意，"
+        "还是卢浮宫太自信",
         "升到全景后画面渐隐，接片尾卡",
         "The modern Louvre gallery where the painting hangs, framed low behind "
         "a dense queue of visitors' backs from the first frame: hundreds of "
         "heads and raised phones seen only from behind, barrier lanes, cold "
         "reflections on protective glass, a lone guard's back beside it, the "
         "artwork's face never entering the frame, nothing readable. Camera: one "
-        "slow crane up from the barrier to reveal the whole hall from above." + HOLD,
+        "slow crane up from the barrier to reveal the whole hall from "
+        "above.<HOLD>" + HOLD,
         "人声 + 钢琴尾音；结尾停 1 秒引导评论，最后 0.8 秒音画渐隐",
     ),
 ]
+
 
 
 
