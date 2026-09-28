@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -70,9 +71,15 @@ def main() -> int:
     ap.add_argument("--branch", default="main", help="新仓库的分支（默认 main）")
     ap.add_argument("--dest", default="/tmp/monalisa-move", help="暂存目录")
     ap.add_argument("--push", action="store_true")
-    ap.add_argument("--token", default="", help="可选：粘贴用的 token（只用于本次 URL，不写进任何文件）")
+    ap.add_argument("--token", default="", help="可选：粘贴用的 token（只用于本次 URL，不写进任何文件）"
+                    "；留空则读环境变量 GH_PUSH_TOKEN")
+    ap.add_argument("--username", default="x-access-token",
+                    help="token 对应的用户名，GitHub 对 fine-grained PAT 不校验（默认 x-access-token）")
+    ap.add_argument("--allow-nonempty", action="store_true",
+                    help="目标分支已有提交时仍然推送")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    args.token = args.token or os.environ.get("GH_PUSH_TOKEN", "")
 
     files = pick(tracked_files())
     total = sum((ROOT / f).stat().st_size for f in files)
@@ -122,18 +129,38 @@ def main() -> int:
         return 0
     url = f"https://github.com/{args.target}.git"
     if args.token:
-        url = f"https://x-access-token:{args.token}@github.com/{args.target}.git"
+        url = f"https://{args.username}:{args.token}@github.com/{args.target}.git"
+    anon = f"https://github.com/{args.target}.git"
     print("推送到 " + re.sub(r":[^@/]+@", ":***@", url))
+
+    def refs(u):
+        r = subprocess.run(["git", "-c", "credential.helper=", "ls-remote", u],
+                           capture_output=True, text=True, timeout=90)
+        return r.returncode, dict(reversed(ln.split("\t", 1)) for ln in r.stdout.splitlines() if "\t" in ln)
+
+    # 防呆：目标分支已有提交就别覆盖（除非 --allow-nonempty）
+    rc, remote = refs(anon)
+    if rc != 0:
+        print("!! 匿名读不到目标仓库：可能是 Private（正常，推送时用 token 即可）或仓库名不对")
+    elif remote.get(f"refs/heads/{args.branch}"):
+        print(f"!! 目标仓库 {args.branch} 分支已存在提交 {remote[f'refs/heads/{args.branch}'][:9]}"
+              "；本次是全新单提交，硬推会丢历史。确认要覆盖就加 --allow-nonempty")
+        if not args.allow_nonempty:
+            return 2
     for attempt in range(1, 4):
         r = subprocess.run(["git", "-c", "credential.helper=", "push", url, f"HEAD:refs/heads/{args.branch}"],
-                           cwd=src, capture_output=True, text=True)
+                           cwd=src, capture_output=True, text=True, timeout=900)
         if r.returncode == 0:
             print("PUSH_OK")
             break
         print(f"第 {attempt} 次失败：{r.stderr.strip()[-400:]}")
         if attempt == 3:
             return 1
-    return 0
+    rc, after = refs(anon)
+    local = subprocess.run(["git", "rev-parse", "HEAD"], cwd=src, capture_output=True, text=True).stdout.strip()
+    got = after.get(f"refs/heads/{args.branch}", "")
+    print("远端校验：" + ("OK " + got[:12] if got == local else f"不一致 远端={got[:12] or '无'} 本地={local[:12]}"))
+    return 0 if got == local else 3
 
 
 if __name__ == "__main__":

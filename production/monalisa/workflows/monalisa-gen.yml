@@ -7,6 +7,8 @@ run-name: 蒙娜丽莎：行李箱里的779号 · Agnes Video V2.0 生成 · ${{
 #   全量：{"workers":2}        补做个别镜头：{"workers":1,"only":"S07,S12"}
 # 沙箱连不上 Agnes API、也读不到 Actions 日志，所以素材与 results.json 由本工作流 commit 回分支。
 # 中途失败可断点续跑：再改一下 GEN_REQUEST 重新 push，已完成的镜头按 SHA-256 复用、不重新生成。
+# 自愈：每轮生成后自动跑 scan_qa 逐格校验，把 fail 的镜头用 only= 重做，最多 QA_ROUNDS 轮（默认 2）。
+# 结果不用登 Actions：QA 结论由本工作流 commit 回 production/monalisa/QA_REPORT.md，谁都能读。
 
 on:
   workflow_dispatch:
@@ -78,11 +80,62 @@ jobs:
       - name: Drop dead provider tasks so a re-run submits fresh ones
         run: python3 production/monalisa/generate.py --prune-failed
 
-      - name: Generate Agnes clips and checkpoint provenance
+      - name: Generate Agnes clips, scan QA sheets, re-make rejects
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
           PAYLOAD: ${{ env.PAYLOAD }}
-        run: python3 -u production/monalisa/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log; exit ${PIPESTATUS[0]}
+          ROUNDS: ${{ vars.QA_ROUNDS || '2' }}
+        run: |
+          set -uo pipefail
+          mkdir -p work/monalisa
+          base="${PAYLOAD:-}"
+          printf '%s' "$base" | python3 -c 'import json,sys;d=json.loads(sys.stdin.read());sys.exit(0 if isinstance(d,dict) else 1)' 2>/dev/null || base='{"workers":2}'
+          echo "本轮基准 payload：$base"
+          for round in $(seq 0 "${ROUNDS:-2}"); do
+            if [ "$round" = 0 ]; then
+              payload="$base"
+            else
+              python3 production/monalisa/qa_rejects.py > /tmp/rej.txt || true
+              bad=$(head -1 /tmp/rej.txt | tr -d '[:space:]')
+              if [ -z "$bad" ]; then echo "QA 全数放行，不必再补"; break; fi
+              echo "::warning::第 $round 轮自愈：重做 $bad"
+              payload=$(python3 -c 'import json,sys;d=json.loads(sys.argv[2]);d["only"]=sys.argv[1];d["workers"]=1;print(json.dumps(d,ensure_ascii=False))' "$bad" "$base")
+            fi
+            echo "── generate round $round payload=$payload"
+            python3 -u production/monalisa/generate.py --publish --payload "$payload" 2>&1 | tee -a /tmp/gen.log
+            rc=${PIPESTATUS[0]}
+            if [ "$rc" != 0 ]; then echo "::error::generate 第 $round 轮退出码 $rc（个别镜头可能只是 Agnes 排队超时，下一轮会自动重试）"; gen_fail=1; fi
+          done
+          python3 production/monalisa/scan_qa.py --out work/monalisa/qa-scan.md --json work/monalisa/qa-scan.json 2>&1 | tee -a /tmp/gen.log || true
+          python3 production/monalisa/qa_rejects.py --json work/monalisa/qa-rejects.json > work/monalisa/qa-rejects.txt 2>&1 || true
+          tail -1 work/monalisa/qa-rejects.txt
+          [ "${gen_fail:-0}" = 1 ] && echo "生成过程有非零退出，见 gen-diag.log"
+          if [ ! -s work/monalisa/qa-rejects.txt ] || ! grep -q REJECTS work/monalisa/qa-rejects.txt; then
+            echo "::error::qa_rejects.py 没跑出结论（依赖没装好，或 qa/ 是空的）"; exit 1
+          fi
+          if [ -n "$(head -1 work/monalisa/qa-rejects.txt | tr -d '[:space:]')" ]; then
+            echo "::error::仍有镜头不合格，逐条见 QA_REPORT.md"; exit 1
+          fi
+          echo "应生成的镜头全部放行"
+
+      - name: Ship QA report to branch (so it can be read without Actions access)
+        if: always()
+        run: |
+          set -uo pipefail
+          { echo "<!-- 由 monalisa-gen 工作流自动写入，$(date -u +%FT%TZ) run #${{ github.run_number }} -->"; \
+            cat work/monalisa/qa-scan.md 2>/dev/null || echo "（本轮没有 QA 扫描结果）"; \
+            echo; echo "## 待重做镜头"; \
+            cat work/monalisa/qa-rejects.txt 2>/dev/null; } > production/monalisa/QA_REPORT.md
+          git config user.name "arena-qa"
+          git config user.email "arena@local"
+          git add -f production/monalisa/QA_REPORT.md
+          git diff --cached --quiet && { echo "QA 报告无变化，不提交"; exit 0; }
+          git commit -m "monalisa: QA 报告（逐格扫描 + 自愈结果）run #${{ github.run_number }}"
+          for attempt in 1 2 3 4 5; do
+            git push origin "HEAD:${{ github.ref_name }}" && exit 0
+            git fetch origin "${{ github.ref_name }}" && git rebase FETCH_HEAD || break
+          done
+          echo "::warning::QA 报告推不回分支"
 
       - name: Ship failure log to branch (sandbox cannot read Actions logs)
         if: failure()
