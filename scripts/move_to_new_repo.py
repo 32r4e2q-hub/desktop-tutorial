@@ -57,6 +57,9 @@ def pick(files: list[str]) -> list[str]:
 def rewrite(text: str, target_repo: str, target_branch: str) -> str:
     text = text.replace(HERE_REPO, target_repo)
     text = text.replace(HERE_BRANCH, target_branch)
+    # 工作流里的 concurrency group 用的是"分支名消毒后的样子"（斜杠换横线），
+    # 上面那条替换不到它，这里补一刀，否则新仓库里还挂着旧会话的分组名。
+    text = text.replace(HERE_BRANCH.replace("/", "-"), target_branch.replace("/", "-"))
     # 工作流里的 if: github.ref == 'refs/heads/<旧分支>' 已被上一条覆盖；这里兜住只写分支短名的地方
     return text
 
