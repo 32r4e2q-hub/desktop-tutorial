@@ -40,10 +40,35 @@ def tracked_files() -> list[str]:
     return sorted(p for p in out.decode().split("\0") if p)
 
 
-def pick(files: list[str]) -> list[str]:
+SLIM_DROP_DIRS = ("production/gilgo/", "production/dahlia/", "production/dbcooper/",
+                  "production/tests/", "agent-lab/", "runner/", "交付/")
+
+
+def slim_ok(f: str, slug: str) -> bool:
+    """瘦身包：只留本项目跑得起来所需。
+
+    带：`production/<slug>/**`（含配音与项目自带的工作流副本）、`production/` 根下的脚本与
+    依赖清单、`.github/workflows/<slug>-*`、仓库根的文档与 `scripts/`。
+    不带：别的片子的素材与联络表、跨项目的 `production/tests`（它要读别的片子目录）、
+    别人的工作流（否则你新仓库里会凭空多出十几条不相干的流水线，CI 还会因为缺夹具变红）。
+    """
+    if f.startswith(SLIM_DROP_DIRS):
+        return False
+    if f.startswith(f"production/{slug}/"):
+        return True
+    if f.startswith("production/") and f.count("/") == 1:
+        return f.endswith((".py", ".sh", ".txt", ".md"))
+    if f.startswith(".github/workflows/"):
+        return Path(f).name.startswith(slug + "-")
+    return not f.startswith(("production/", ".github/"))
+
+
+def pick(files: list[str], slim: str = "") -> list[str]:
     keep = []
     for f in files:
         if f.startswith("node_modules/") or "/__pycache__/" in f or f.endswith(".pyc"):
+            continue
+        if slim and not slim_ok(f, slim):
             continue
         if f.endswith(".md") and (f.startswith("交付/") or "/交付/" in f):
             continue
@@ -79,11 +104,13 @@ def main() -> int:
                     help="目标分支已有提交时仍然推送")
     ap.add_argument("--force", action="store_true",
                     help="目标分支已存在时用 --force-with-lease 覆盖（Actions 回推的素材/质检提交会被丢掉，只在搬家当天用）")
+    ap.add_argument("--slim", default="", metavar="slug",
+                    help="瘦身模式：只搬该项目所需，例 --slim monalisa（别的片子素材、跨项目测试、别人的工作流都不带）")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
     args.token = args.token or os.environ.get("GH_PUSH_TOKEN", "")
 
-    files = pick(tracked_files())
+    files = pick(tracked_files(), args.slim)
     total = sum((ROOT / f).stat().st_size for f in files)
     print(f"将搬运 {len(files)} 个文件，共 {total/1024/1024:.1f} MB（跳过大媒体，保留 monalisa 配音）")
     src = Path(args.dest).resolve()
