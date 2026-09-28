@@ -183,8 +183,11 @@ def main() -> int:
         "each": [{"i": i + 1, "chars": len(c), "sha256_12": hashlib.sha256(c.encode()).hexdigest()[:12]}
                  for i, c in enumerate(chunks)],
     }, ensure_ascii=False, indent=2) + "\n")
+    import textwrap
     for i, c in enumerate(chunks):
-        (out / f"p{i + 1}.b64").write_text(c)
+        # 折成 76 列：单行 2.8 万字符在文件面板/编辑器里容易卡或漏显；贴过去的格子会把空白全剥掉，
+        # 所以折行只影响观感，不影响校验（EXPECT_CHARS 算的是剥完空白的长度）。
+        (out / f"p{i + 1}.b64").write_text("\n".join(textwrap.wrap(c, 76)) + "\n")
 
     total = sum(len(c) for c in chunks)
     print(f"# 载荷：{len(packed) / 1024:.1f} KB（xz）→ base64 {total / 1024:.1f} KB，分 {len(chunks)} 段，"
