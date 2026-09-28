@@ -77,6 +77,8 @@ def main() -> int:
                     help="token 对应的用户名，GitHub 对 fine-grained PAT 不校验（默认 x-access-token）")
     ap.add_argument("--allow-nonempty", action="store_true",
                     help="目标分支已有提交时仍然推送")
+    ap.add_argument("--force", action="store_true",
+                    help="目标分支已存在时用 --force-with-lease 覆盖（Actions 回推的素材/质检提交会被丢掉，只在搬家当天用）")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
     args.token = args.token or os.environ.get("GH_PUSH_TOKEN", "")
@@ -130,25 +132,43 @@ def main() -> int:
     url = f"https://github.com/{args.target}.git"
     if args.token:
         url = f"https://{args.username}:{args.token}@github.com/{args.target}.git"
+    # 演练/自托管时可以用整条 URL 覆盖（例如指向本地 bare 仓库），不影响正常用法
+    url = os.environ.get("GH_PUSH_URL", url)
     anon = f"https://github.com/{args.target}.git"
     print("推送到 " + re.sub(r":[^@/]+@", ":***@", url))
+    if args.force:
+        print("!! --force：目标分支上比本次提交新的内容会被丢掉")
 
     def refs(u):
         r = subprocess.run(["git", "-c", "credential.helper=", "ls-remote", u],
                            capture_output=True, text=True, timeout=90)
         return r.returncode, dict(reversed(ln.split("\t", 1)) for ln in r.stdout.splitlines() if "\t" in ln)
 
+    override = bool(os.environ.get("GH_PUSH_URL"))
+    def probe():
+        rc, got = 1, {}
+        for u in (url,) if override else dict.fromkeys((anon, url)):
+            rc, got = refs(u)
+            if rc == 0:
+                return rc, got
+        return rc, got
+
     # 防呆：目标分支已有提交就别覆盖（除非 --allow-nonempty）
-    rc, remote = refs(anon)
+    rc, remote = probe()
     if rc != 0:
-        print("!! 匿名读不到目标仓库：可能是 Private（正常，推送时用 token 即可）或仓库名不对")
+        print("!! 读不到目标仓库：多半是仓库名不对，或 token 没有 Contents: Read and write")
     elif remote.get(f"refs/heads/{args.branch}"):
         print(f"!! 目标仓库 {args.branch} 分支已存在提交 {remote[f'refs/heads/{args.branch}'][:9]}"
               "；本次是全新单提交，硬推会丢历史。确认要覆盖就加 --allow-nonempty")
-        if not args.allow_nonempty:
+        if not (args.allow_nonempty or args.force):
+            print("   （重新同步代码请加 --force，但要先确认 results.json / qa/ 已经不重要）")
             return 2
     for attempt in range(1, 4):
-        r = subprocess.run(["git", "-c", "credential.helper=", "push", url, f"HEAD:refs/heads/{args.branch}"],
+        cmd = ["git", "-c", "credential.helper=", "push"]
+        if args.force:
+            cmd.append("--force")   # 没有命名 remote，--force-with-lease 拿不到基准值，只能显式覆盖
+        cmd += [url, f"HEAD:refs/heads/{args.branch}"]
+        r = subprocess.run(cmd,
                            cwd=src, capture_output=True, text=True, timeout=900)
         if r.returncode == 0:
             print("PUSH_OK")
@@ -157,6 +177,10 @@ def main() -> int:
         if attempt == 3:
             return 1
     rc, after = refs(anon)
+    if not after.get(f"refs/heads/{args.branch}"):
+        rc2, got2 = refs(url)          # 匿名看不到（Private 或用了 GH_PUSH_URL 演练）就用带凭据的 URL 复查
+        if rc2 == 0:
+            after = got2
     local = subprocess.run(["git", "rev-parse", "HEAD"], cwd=src, capture_output=True, text=True).stdout.strip()
     got = after.get(f"refs/heads/{args.branch}", "")
     print("远端校验：" + ("OK " + got[:12] if got == local else f"不一致 远端={got[:12] or '无'} 本地={local[:12]}"))
