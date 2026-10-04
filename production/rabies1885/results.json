@@ -68,13 +68,6 @@
       "reused_existing_asset": false,
       "visual_review": "pending"
     },
-    "S04": {
-      "id": "S04",
-      "status": "failed",
-      "request_hash": "e9eaf18fe6010bd5b8f6d1ed3ac38a89fb4ee3fd006809e88aa10a653ab7f3c7",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Service busy: inference slot is in use.\\\",\\\"code\\\":\\\"503\\\"}}\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261004133402535443723jNcIlAkQ)",
-      "updated_at": "2026-10-04T13:34:07Z"
-    },
     "S03": {
       "id": "S03",
       "status": "completed",
@@ -338,13 +331,6 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending"
-    },
-    "S14": {
-      "id": "S14",
-      "status": "failed",
-      "request_hash": "fcc3f3f6b94243a17f4b4191389d5b7a157536b94c563cf2470b93590f47db81",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - no available server\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261004135127294998819cie70n7k)",
-      "updated_at": "2026-10-04T13:51:29Z"
     },
     "S15": {
       "id": "S15",
@@ -1271,7 +1257,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1325,8 +1311,8 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T15:07:15Z",
-  "run_id": "37205701825",
+  "updated_at": "2026-10-04T15:09:02Z",
+  "run_id": "37211876588",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
     "S01": [
