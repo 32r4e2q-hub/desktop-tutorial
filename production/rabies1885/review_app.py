@@ -19,6 +19,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 QA = HERE / "qa"
 REDO = HERE / "REDO.json"
+QC_REPORT = HERE / "qc.json"
 
 PAGE = """<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
@@ -49,6 +50,12 @@ img{width:100%;display:block;background:#000;cursor:zoom-in}
 .body{padding:10px 12px;font-size:13px;color:#cfc7b4}
 .body .purpose{color:var(--ink);margin-bottom:6px}
 .body .meta{color:var(--dim);font-size:12px;line-height:1.5}
+.badge{font-size:11px;padding:2px 7px;border-radius:4px;font-weight:600;letter-spacing:.05em}
+.badge.ok{background:#24301f;color:#8fbf7a}.badge.warn{background:#332a17;color:#d8b45c}
+.badge.fail{background:#3a1c17;color:#e08a72}
+.qc{border-top:1px solid var(--line);margin-top:8px;padding-top:7px;font-size:12px}
+.qc .nums{color:var(--dim)}
+.qc .why{color:#d8b45c;margin-top:4px;line-height:1.45}
 .foot{padding:9px 12px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
 .foot input{flex:1;background:#12110f;border:1px solid var(--line);border-radius:5px;color:var(--ink);
   padding:6px 9px;font-size:13px}
@@ -62,6 +69,7 @@ img{width:100%;display:block;background:#000;cursor:zoom-in}
   <h1>镜头复审 · 狂犬病疫苗：一百四十年前那场赌局</h1>
   <span class="count" id="count">加载中…</span>
   <button class="primary" id="save">保存标记</button>
+  <button id="filter">只看有问题的</button>
   <button id="copy">复制 only 列表</button>
   <span class="count">看什么：露脸 / 手指畸变 / 画面里的假文字 / 中途换场 / 血腥 / 风格跑偏</span>
 </header>
@@ -71,18 +79,41 @@ img{width:100%;display:block;background:#000;cursor:zoom-in}
 let shots = [];
 const saved = {};
 
+let onlyBad = false;
+
+function badge(s){
+  const v = (s.qc && s.qc.verdict) || '';
+  if (!v) return '';
+  const cls = v === 'PASS' ? 'ok' : (v === 'FAIL' ? 'fail' : 'warn');
+  return `<span class="badge ${cls}">${v}</span>`;
+}
+
+function qcLine(s){
+  const q = s.qc; if (!q || q.verdict === undefined) return '';
+  const nums = `亮度 ${q.brightness} · 反差 ${q.contrast} · 色温 ${q.warmth} · 颗粒 ${q.grain} · 运动 ${q.motion_median}`
+    + ` · 脸 ${q.faces_sure} · 手 ${q.hands}`;
+  const notes = [].concat(q.reasons || [], q.warnings || []);
+  return `<div class="qc"><div class="nums">${nums}</div>`
+    + (notes.length ? `<div class="why">${notes.join('；')}</div>` : '') + `</div>`;
+}
+
+function applyFilter(){
+  const bad = s => (s.qc && (s.qc.verdict === 'FAIL' || s.qc.verdict === 'WARN'));
+  const list = onlyBad ? shots.filter(bad) : shots;
+  document.getElementById('grid').innerHTML = list.map(card).join('');
+}
+
 function toast(msg){
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 1800);
 }
 
-function render(){
-  const grid = document.getElementById('grid');
-  grid.innerHTML = shots.map(s => `
+function card(s){ return `
     <div class="card ${saved[s.shot]?'bad':''}" data-shot="${s.shot}">
       <div class="head">
         <span class="sid">${s.shot}</span>
+        ${badge(s)}
         <span class="state ${s.status==='completed'?'done':''}">${s.status === 'completed'
           ? (s.frames ? s.width+'×'+s.height+' · '+s.frames+' 帧' : '已完成') : (s.status || '待生成')}</span>
       </div>
@@ -91,16 +122,22 @@ function render(){
       <div class="body">
         <div class="purpose">${s.purpose || ''}</div>
         <div class="meta">运镜：${s.camera || '—'}<br>转场：${s.transition || '—'}</div>
+        ${qcLine(s)}
       </div>
       <div class="foot">
         <input placeholder="标红原因（选填）：露脸 / 畸变 / 假文字 / 换场 / 血腥"
                value="${(saved[s.shot]||'')}" oninput="mark('${s.shot}', this.value)">
         <button class="danger" onclick="clearOne('${s.shot}')">清除</button>
       </div>
-    </div>`).join('');
+    </div>`; }
+
+function render(){
+  applyFilter();
   document.getElementById('count').textContent =
-    `共 ${shots.length} 镜 · 已标红 ${Object.keys(saved).length} 个`;
+    `共 ${shots.length} 镜 · 已标红 ${Object.keys(saved).length} 个`
+    + (qcDone ? ` · 检验 ${qcDone} 镜` : '');
 }
+let qcDone = 0;
 
 function mark(shot, reason){
   if (reason.trim()) saved[shot] = reason.trim();
@@ -119,10 +156,17 @@ function clearOne(shot){
 
 async function load(){
   const res = await fetch('/api/data'); shots = await res.json();
+  qcDone = shots.filter(s => s.qc && s.qc.verdict).length;
   const rs = await fetch('/api/redos'); const rj = await rs.json();
   for (const [k,v] of Object.entries(rj.redos || {})) saved[k] = v;
   render();
 }
+
+document.getElementById('filter').onclick = () => {
+  onlyBad = !onlyBad;
+  document.getElementById('filter').textContent = onlyBad ? '显示全部' : '只看有问题的';
+  render();
+};
 
 document.getElementById('save').onclick = async () => {
   const res = await fetch('/api/redos', {method:'POST',
