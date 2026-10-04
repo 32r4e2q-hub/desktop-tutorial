@@ -630,10 +630,10 @@
     },
     "S24": {
       "id": "S24",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "0757fece33229c1aab29ef9940fb8aa95f21b5f313685f424510c312df53bbb2",
       "error": null,
-      "updated_at": "2026-10-04T14:21:01Z",
+      "updated_at": "2026-10-04T14:21:03Z",
       "quota_retry": 1,
       "provider_retry_after_seconds": 93.0,
       "applied_cooldown_seconds": 93.0,
@@ -644,7 +644,25 @@
       "bytes": 1744790,
       "sha256": "c99687a6a48b6bc5817acb541a5f7f4c1298032681db5d1041d088087b42e3a4",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 1744790,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/rabies1885/qa/S24.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S25": {
       "id": "S25",
@@ -1242,7 +1260,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T14:21:01Z",
+  "updated_at": "2026-10-04T14:21:03Z",
   "run_id": "37205701825",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
