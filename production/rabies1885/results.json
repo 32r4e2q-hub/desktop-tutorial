@@ -169,10 +169,10 @@
     },
     "S06": {
       "id": "S06",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "ec5f4b31bb5bc104c01ed2b045a1520aafda0b3f7bec2c5079820f4a6417329a",
       "error": null,
-      "updated_at": "2026-10-04T08:43:04Z",
+      "updated_at": "2026-10-04T08:43:06Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzJmYzc5ZmFiMTNkNjQwZDA5MjE5YWMxYmI2NDkwNDUy",
       "task_id": "task_LdMDLfVKC5kZ6YVXT8AYoYzUNvMSXHGQ",
       "requested_seconds": 7.041666666666667,
@@ -180,7 +180,25 @@
       "bytes": 1345911,
       "sha256": "5f23369ec4a48fe17e59e202a27f41a1967955cd01e52586c0df7586b6aa8808",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 1345911,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/rabies1885/qa/S06.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S08": {
       "id": "S08",
@@ -247,6 +265,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T08:43:04Z",
+  "updated_at": "2026-10-04T08:43:06Z",
   "run_id": "37188956649"
 }
