@@ -1,0 +1,168 @@
+{
+  "source": {
+    "file": "reference.mp4",
+    "bytes": 68399318,
+    "mb": 65.2,
+    "analyzed_at": "2026-10-04 07:39:40",
+    "sha256": "1f405beff0e300f59629051b6e6282d97a6f23ca89f9da0efe038a5a4c849f16",
+    "ffmpeg": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/"
+  },
+  "container": {
+    "duration": 180.01,
+    "fps": 25.0,
+    "width": 1280,
+    "height": 720,
+    "orientation": "landscape",
+    "video_codec": "h264 (High) (avc1 / 0x31637661)",
+    "has_audio": true,
+    "audio_codec": "aac (LC) (mp4a / 0x6134706D)",
+    "audio_hz": 48000,
+    "estimated_frames": 4500
+  },
+  "sampling": {
+    "sampled_frames": 48,
+    "cut_detection_threshold": 0.24,
+    "cut_scale_width": 320,
+    "motion_pairs": 10
+  },
+  "color": {
+    "mean_luma": 92.3,
+    "luma_std": 17.0,
+    "mean_contrast": 67.5,
+    "mean_saturation": 107.6,
+    "warmth_r_minus_b": 27.6,
+    "tone_split": {
+      "shadow": 0.0,
+      "low_mid": 0.875,
+      "high_mid": 0.125,
+      "highlight": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#1a160d",
+        "rgb": [
+          26,
+          22,
+          13
+        ],
+        "share": 0.334
+      },
+      {
+        "hex": "#554e32",
+        "rgb": [
+          85,
+          78,
+          50
+        ],
+        "share": 0.258
+      },
+      {
+        "hex": "#87805e",
+        "rgb": [
+          135,
+          128,
+          94
+        ],
+        "share": 0.19
+      },
+      {
+        "hex": "#aeaa8c",
+        "rgb": [
+          174,
+          170,
+          140
+        ],
+        "share": 0.104
+      },
+      {
+        "hex": "#d3d0b2",
+        "rgb": [
+          211,
+          208,
+          178
+        ],
+        "share": 0.067
+      },
+      {
+        "hex": "#ebecd7",
+        "rgb": [
+          235,
+          236,
+          215
+        ],
+        "share": 0.048
+      }
+    ]
+  },
+  "texture": {
+    "mean_sharpness": 980.1,
+    "mean_grain": 13.21,
+    "dof_center_over_edge": 0.442,
+    "dof_frames_used": 47,
+    "dof_total_frames": 48,
+    "bottom_band_ratio": 2.04
+  },
+  "motion": {
+    "mean_interframe_diff": 0.0786,
+    "max_interframe_diff": 0.1678,
+    "samples": [
+      0.1256,
+      0.0918,
+      0.1678,
+      0.054,
+      0.0522,
+      0.0926,
+      0.0691,
+      0.0125,
+      0.0417,
+      0.0792
+    ]
+  },
+  "rhythm": {
+    "estimated_cuts": 33,
+    "estimated_median_shot_seconds": 5.77,
+    "estimated_mean_shot_seconds": 5.29,
+    "cut_times": [
+      3.04,
+      7.32,
+      12.0,
+      17.16,
+      24.0,
+      30.64,
+      36.0,
+      40.08,
+      44.36,
+      48.0,
+      53.0,
+      60.0,
+      66.16,
+      72.0,
+      78.08,
+      80.92,
+      84.0,
+      89.08,
+      96.0,
+      101.0,
+      108.0,
+      114.08,
+      120.0,
+      126.12,
+      132.0,
+      138.04,
+      144.0,
+      150.16,
+      156.0,
+      160.96,
+      165.0,
+      168.0,
+      174.32
+    ],
+    "partial": false
+  },
+  "artifacts": {
+    "contact_sheet": "contact-sheet.jpg",
+    "frames_dir": "frames",
+    "frames_kept": 48,
+    "reference_copy": "reference.mp4"
+  }
+}

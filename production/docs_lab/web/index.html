@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>资料与剧本工作台</title>
+<style>
+  :root{--bg:#0f1115;--panel:#171a21;--panel2:#1d212a;--line:#2a2f3a;--text:#e8eaf0;--dim:#9aa3b2;
+        --accent:#7fb3d5;--accent2:#e0a34a;--ok:#4caf7d;--bad:#e2685f;--warn:#d9b44a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:14px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  header{padding:18px 26px 12px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
+  header h1{margin:0;font-size:18px}
+  header p{margin:4px 0 0;color:var(--dim);font-size:12.5px}
+  .ws{margin-left:auto;display:flex;gap:8px;align-items:center}
+  input[type=text],select{background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+    color:var(--text);padding:7px 10px;font-size:13px}
+  .tabs{display:flex;gap:6px;padding:14px 26px 0}
+  .tabs button{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:9px 9px 0 0;
+    padding:8px 18px;cursor:pointer;font-size:13.5px}
+  .tabs button.on{background:var(--panel);color:var(--text);border-bottom-color:var(--panel)}
+  .wrap{padding:0 26px 60px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+  .card h2{margin:0 0 10px;font-size:14px;color:var(--accent)}
+  .card h3{margin:18px 0 8px;font-size:13.5px;color:var(--accent2)}
+  #docdrop,#scriptdrop{border:2px dashed #39404e;border-radius:14px;padding:30px 18px;text-align:center;
+    cursor:pointer;background:#14171d;transition:.15s}
+  #docdrop.over,#docdrop:hover,#scriptdrop.over,#scriptdrop:hover{border-color:var(--accent);background:#1b1f27}
+  #docdrop b,#scriptdrop b{display:block;margin:8px 0 4px;font-size:15px}
+  #docdrop span,#scriptdrop span{color:var(--dim);font-size:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #242932;vertical-align:top}
+  th{color:var(--dim);font-weight:500}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .chip{background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:4px 11px;font-size:12px;color:var(--dim)}
+  .ok{color:var(--ok)} .bad{color:var(--bad)} .warn{color:var(--warn)}
+  button.sm{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:7px;
+    padding:3px 9px;font-size:11.5px;cursor:pointer}
+  button.sm:hover{color:var(--bad);border-color:var(--bad)}
+  button.act{background:var(--accent);color:#0d1a24;border:none;border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer}
+  .md{font-size:13px;line-height:1.75;max-height:none}
+  .md h1{font-size:17px;margin:14px 0 8px}
+  .md h2{font-size:15px;margin:18px 0 8px;color:var(--accent)}
+  .md h3{font-size:13.5px;margin:14px 0 6px;color:var(--accent2)}
+  .md table{margin:8px 0 14px}
+  .md ul{padding-left:18px;margin:6px 0}
+  .md pre,.md code{background:#0b0d12;border:1px solid var(--line);border-radius:6px;padding:2px 5px;font-size:11.5px}
+  .md pre{padding:10px;overflow:auto;white-space:pre-wrap}
+  .md blockquote{border-left:3px solid var(--line);margin:8px 0;padding:4px 12px;color:var(--dim)}
+  .empty{color:var(--dim);font-size:13px;text-align:center;padding:24px 0}
+  .mini{font-size:11.5px;color:var(--dim)}
+  .hidden{display:none}
+  #status{font-size:12.5px;color:var(--dim);min-height:18px;margin-top:8px}
+  .err{color:var(--bad)!important}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>资料与剧本工作台</h1>
+    <p>资料拆成带出处的段落 → 抽事实底稿；剧本做字数 / 时长 / TTS 体检，并逐句回指资料。不替人判断真假。</p>
+  </div>
+  <div class="ws">
+    <label class="mini">工作区</label>
+    <select id="wsSel"></select>
+    <input type="text" id="wsNew" placeholder="新建工作区名" size="14" />
+    <button class="act" id="wsAdd">新建</button>
+  </div>
+</header>
+
+<div class="tabs">
+  <button id="tabDocs" class="on">① 资料</button>
+  <button id="tabScript">② 剧本</button>
+</div>
+
+<div class="wrap">
+<!-- 资料 -->
+<div id="paneDocs">
+  <div class="card">
+    <h2>上传资料（可多选）</h2>
+    <div id="docdrop"><div style="font-size:30px">📄</div><b>把 PDF / Word / Markdown / TXT / 网页存档拖到这里</b>
+      <span>或点击选择（可一次选多个）· 单文件上限 200 MB</span></div>
+    <input id="docfile" type="file" multiple class="hidden"
+           accept=".pdf,.docx,.md,.markdown,.txt,.html,.htm" />
+    <div id="docstatus"></div>
+  </div>
+
+  <div class="card">
+    <h2>已上传</h2>
+    <div id="doclist"></div>
+  </div>
+
+  <div class="card">
+    <h2>事实底稿 <span class="mini" id="fbstats"></span></h2>
+    <div class="md" id="fbmd"><div class="empty">上传资料后自动生成。</div></div>
+  </div>
+</div>
+
+<!-- 剧本 -->
+<div id="paneScript" class="hidden">
+  <div class="card">
+    <h2>上传解说词</h2>
+    <div id="scriptdrop"><div style="font-size:30px">🎙️</div><b>把写好的解说词（md / txt）拖到这里</b>
+      <span>六章之间用空行或 ## 标题分隔</span></div>
+    <input id="scriptfile" type="file" class="hidden" accept=".md,.markdown,.txt" />
+    <div id="scriptstatus"></div>
+  </div>
+
+  <div class="card" id="qaPane">
+    <h2>体检结果</h2>
+    <div id="qaBody"><div class="empty">左边传一份解说词。</div></div>
+  </div>
+</div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let ws = localStorage.getItem('docsWs') || 'default';
+
+/* ---------- 工作区 ---------- */
+async function loadWorkspaces(){
+  const r = await fetch('/api/workspaces').then(r => r.json());
+  const sel = $('#wsSel');
+  sel.innerHTML = r.workspaces.map(w =>
+    `<option value="${w.name}" ${w.name===ws?'selected':''}>${w.name}（${w.docs} 资料 / ${w.scripts} 剧本）</option>`).join('')
+    || `<option value="default">default</option>`;
+  if (![...sel.options].some(o => o.value === ws)) {
+    const o = document.createElement('option'); o.value = ws; o.textContent = ws + '（新）'; o.selected = true; sel.appendChild(o);
+  }
+  sel.onchange = () => { ws = sel.value; localStorage.setItem('docsWs', ws); reloadAll(); };
+}
+$('#wsAdd').onclick = async () => {
+  const name = ($('#wsNew').value || '').trim();
+  if (!name) return;
+  ws = name; $('#wsNew').value = ''; localStorage.setItem('docsWs', ws);
+  await loadWorkspaces(); reloadAll();
+};
+
+function reloadAll(){ loadDocs(); loadFactbase(); loadQA(); }
+
+/* ---------- Tab ---------- */
+$('#tabDocs').onclick = () => { $('#tabDocs').classList.add('on'); $('#tabScript').classList.remove('on');
+  $('#paneDocs').classList.remove('hidden'); $('#paneScript').classList.add('hidden'); };
+$('#tabScript').onclick = () => { $('#tabScript').classList.add('on'); $('#tabDocs').classList.remove('on');
+  $('#paneScript').classList.remove('hidden'); $('#paneDocs').classList.add('hidden'); };
+
+/* ---------- 资料上传 ---------- */
+const dd = $('#docdrop'), dfi = $('#docfile');
+dd.onclick = () => dfi.click();
+['dragenter','dragover'].forEach(e => dd.addEventListener(e, ev => { ev.preventDefault(); dd.classList.add('over'); }));
+['dragleave','drop'].forEach(e => dd.addEventListener(e, ev => { ev.preventDefault(); dd.classList.remove('over'); }));
+dd.addEventListener('drop', ev => { if (ev.dataTransfer.files.length) uploadDocs(ev.dataTransfer.files); });
+dfi.onchange = () => { if (dfi.files.length) uploadDocs(dfi.files); };
+
+async function uploadDocs(files){
+  $('#docstatus').className = ''; $('#docstatus').textContent = `正在上传 ${files.length} 个文件…`;
+  const fd = new FormData();
+  for (const f of files) fd.append('files', f);
+  try {
+    const res = await fetch(`/api/docs/${encodeURIComponent(ws)}`, {method:'POST', body: fd}).then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+    const bad = res.results.filter(r => !r.ok);
+    $('#docstatus').className = bad.length ? 'err' : '';
+    $('#docstatus').innerHTML = res.results.map(r => r.ok
+      ? `<span class="ok">✓</span> ${r.file}（${r.kind} · ${r.pages} 页 · ${r.paragraphs} 段 · ${r.chars} 字）`
+      : `<span class="bad">✗</span> ${r.file}：${r.error}`).join('<br>');
+    dfi.value = '';
+    await loadWorkspaces(); await loadDocs(); await loadFactbase();
+  } catch (e) { $('#docstatus').className = 'err'; $('#docstatus').textContent = '上传失败：' + e; }
+}
+
+async function loadDocs(){
+  const r = await fetch(`/api/docs/${encodeURIComponent(ws)}`).then(r => r.json());
+  if (!r.docs.length) { $('#doclist').innerHTML = '<div class="empty">这个工作区还没有资料。</div>'; return; }
+  $('#doclist').innerHTML = `<table><tr><th>文件</th><th>类型</th><th>页</th><th>段</th><th>字数</th><th>上传</th><th></th></tr>` +
+    r.docs.map(d => `<tr>
+      <td><a href="/media/${encodeURIComponent(ws)}/docs/${encodeURIComponent(d.file)}" target="_blank">${d.file}</a></td>
+      <td>${d.kind}</td><td>${d.pages ?? '—'}</td><td>${d.paragraph_count ?? '—'}</td><td>${d.chars ?? '—'}</td>
+      <td class="mini">${d.uploaded_at || ''}</td>
+      <td><button class="sm" data-del="${d.file}">删除</button></td></tr>`).join('') + '</table>';
+  $('#doclist').querySelectorAll('[data-del]').forEach(b => b.onclick = async () => {
+    await fetch(`/api/doc/${encodeURIComponent(ws)}/${encodeURIComponent(b.dataset.del)}`, {method:'DELETE'});
+    await loadWorkspaces(); await loadDocs(); await loadFactbase(); await loadQA();
+  });
+}
+
+async function loadFactbase(){
+  const r = await fetch(`/api/factbase/${encodeURIComponent(ws)}`).then(r => r.json());
+  if (!r.markdown) { $('#fbmd').innerHTML = '<div class="empty">还没有资料。</div>'; $('#fbstats').textContent=''; return; }
+  $('#fbmd').innerHTML = renderMd(r.markdown);
+  const s = r.sources ? r.sources.stats : null;
+  $('#fbstats').textContent = s ? `${s.docs} 份 · ${s.paragraphs} 段 · ${s.fact_candidates} 条候选事实 · ${s.timeline_entries} 条时间线 · ${s.uncertain_sentences} 句待标注不确定` : '';
+}
+
+/* ---------- 剧本 ---------- */
+const sd = $('#scriptdrop'), sfi = $('#scriptfile');
+sd.onclick = () => sfi.click();
+['dragenter','dragover'].forEach(e => sd.addEventListener(e, ev => { ev.preventDefault(); sd.classList.add('over'); }));
+['dragleave','drop'].forEach(e => sd.addEventListener(e, ev => { ev.preventDefault(); sd.classList.remove('over'); }));
+sd.addEventListener('drop', ev => { if (ev.dataTransfer.files.length) uploadScript(ev.dataTransfer.files[0]); });
+sfi.onchange = () => { if (sfi.files.length) uploadScript(sfi.files[0]); };
+
+async function uploadScript(file){
+  $('#scriptstatus').className=''; $('#scriptstatus').textContent = `正在体检 ${file.name}…`;
+  const fd = new FormData(); fd.append('file', file);
+  try {
+    const qa = await fetch(`/api/script/${encodeURIComponent(ws)}`, {method:'POST', body: fd}).then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+    $('#scriptstatus').textContent = `已体检：${qa.script}`;
+    sfi.value = '';
+    await loadWorkspaces(); renderQA(qa);
+  } catch (e) { $('#scriptstatus').className='err'; $('#scriptstatus').textContent = '失败：' + e; }
+}
+
+async function loadQA(){
+  const r = await fetch(`/api/script/${encodeURIComponent(ws)}`).then(r => r.json());
+  if (r.qa) renderQA(r.qa); else $('#qaBody').innerHTML = '<div class="empty">这个工作区还没有体检过的剧本。</div>';
+}
+
+function renderQA(qa){
+  const t = qa.totals, c = qa.citations, r = qa.risks;
+  const riskRows = r.high_risk.length
+    ? `<table><tr><th>词</th><th>所在句</th></tr>${r.high_risk.map(h => `<tr><td class="bad">${esc(h.word)}</td><td>${esc(h.sentence)}</td></tr>`).join('')}</table>`
+    : '<div class="mini">没有高风险措辞 ✅</div>';
+  const digitRows = r.digits.length
+    ? `<table><tr><th>数字</th><th>所在句</th></tr>${r.digits.map(h => `<tr><td class="warn">${esc(h.digit)}</td><td>${esc(h.sentence)}</td></tr>`).join('')}</table>`
+    : '<div class="mini">没有阿拉伯数字（都是中文读法）✅</div>';
+  const uncRows = r.uncertain.length
+    ? `<ul>${r.uncertain.slice(0, 20).map(h => `<li>「${esc(h.word)}」${esc(h.sentence)}</li>`).join('')}</ul>`
+    : '<div class="mini">没有不确定措辞</div>';
+
+  const rows = c.sentences.map(s => `<tr data-lv="${s.level}">
+      <td>${s.chapter}</td><td>${s.score}</td>
+      <td class="${s.level==='强'?'ok':(s.level==='弱'?'warn':'bad')}">${s.level}</td>
+      <td>${esc(s.text)}</td><td class="mini">${s.cite || '—'}</td><td class="mini">${esc(s.quote || '—')}</td></tr>`).join('');
+
+  $('#qaBody').innerHTML = `
+    <div class="chips">
+      <span class="chip">章数 <b>${t.chapters}</b>/6</span>
+      <span class="chip">字数 <b>${t.chars}</b>（760–800）</span>
+      <span class="chip">估时 <b>${t.estimated_seconds}</b> s / ${qa.reference.budget_seconds} s</span>
+      <span class="chip">预计镜头 <b>${t.planned_shots}</b></span>
+      <span class="chip">出处覆盖率 <b>${(c.coverage*100).toFixed(0)}%</b>（强 ${c.strong} / 弱 ${c.weak} / 无 ${c.missing}）</span>
+      <span class="chip">基准：${qa.reference.baseline}</span>
+    </div>
+    <ul>${qa.verdicts.map(v => `<li>${v}</li>`).join('')}</ul>
+
+    <h3>分章</h3>
+    <table><tr><th>章</th><th>标题</th><th>字数</th><th>估时(s)</th><th>预计镜头</th><th>句数</th></tr>
+      ${qa.chapters.map(ch => `<tr><td>${ch.index}</td><td>${esc(ch.title)}</td><td>${ch.chars}</td>
+        <td>${ch.seconds}</td><td>${ch.shots}</td><td>${ch.sentences}</td></tr>`).join('')}</table>
+
+    <h3>TTS 与措辞风险</h3>
+    ${riskRows}
+    <h3>数字读法</h3>
+    ${digitRows}
+    <h3>不确定措辞（片中要带标记，别写成结论）</h3>
+    ${uncRows}
+
+    <h3>逐句出处映射</h3>
+    <div style="margin-bottom:8px">
+      <select id="lvFilter">
+        <option value="all">全部（${c.sentences.length}）</option>
+        <option value="无">只看没出处的（${c.missing}）</option>
+        <option value="弱">只看弱匹配（${c.weak}）</option>
+        <option value="强">只看对得上的（${c.strong}）</option>
+      </select>
+      <span class="mini">相似度 ≥0.34 记「强」，<0.18 记「无」；相似不等于事实成立，只告诉你去哪一段核。</span>
+    </div>
+    <table><tr><th>章</th><th>分数</th><th>判定</th><th>句子</th><th>出处</th><th>资料原文</th></tr>${rows}</table>`;
+
+  $('#lvFilter').onchange = e => {
+    const v = e.target.value;
+    document.querySelectorAll('#qaBody tr[data-lv]').forEach(tr => {
+      tr.style.display = (v === 'all' || tr.dataset.lv === v) ? '' : 'none';
+    });
+  };
+}
+
+/* ---------- 迷你 markdown ---------- */
+function esc(s){ return String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function inline(s){ return esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>'); }
+function renderMd(text){
+  const lines = text.split('\n');
+  let out = '', inCode = false, inList = false, table = [];
+  const flush = () => {
+    if (!table.length) return;
+    const rows = table.filter(r => !/^\|[\s|:-]+\|$/.test(r));
+    out += '<table>' + rows.map((r, i) => {
+      const cells = r.split('|').slice(1, -1).map(c => `<${i?'td':'th'}>${inline(c.trim())}</${i?'td':'th'}>`).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('') + '</table>';
+    table = [];
+  };
+  for (const raw of lines) {
+    const line = raw.trimEnd();
+    if (line.startsWith('```')) { inCode ? out += '</pre>' : (flush(), out += '<pre>'); inCode = !inCode; continue; }
+    if (inCode) { out += esc(raw) + '\n'; continue; }
+    if (/^\s*\|/.test(line)) { table.push(line.trim()); continue; } else flush();
+    if (/^###\s/.test(line)) { out += `<h3>${inline(line.replace(/^###\s/,''))}</h3>`; continue; }
+    if (/^##\s/.test(line)) { out += `<h2>${inline(line.replace(/^##\s/,''))}</h2>`; continue; }
+    if (/^#\s/.test(line)) { out += `<h1>${inline(line.replace(/^#\s/,''))}</h1>`; continue; }
+    if (/^>\s?/.test(line)) { out += `<blockquote>${inline(line.replace(/^>\s?/,''))}</blockquote>`; continue; }
+    if (/^[-*]\s/.test(line)) { if (!inList) { out += '<ul>'; inList = true; } out += `<li>${inline(line.replace(/^[-*]\s/,''))}</li>`; continue; }
+    else if (inList) { out += '</ul>'; inList = false; }
+    if (!line.trim()) continue;
+    out += `<p>${inline(line)}</p>`;
+  }
+  if (inList) out += '</ul>';
+  flush(); if (inCode) out += '</pre>';
+  return out;
+}
+
+loadWorkspaces(); reloadAll();
+</script>
+</body>
+</html>

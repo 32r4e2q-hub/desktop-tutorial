@@ -1,0 +1,10 @@
+# 资料与剧本工作台（production/docs_lab/）自己的依赖。
+#
+#   python3 -m pip install --break-system-packages -r production/docs_lab/requirements.txt
+#   python3 production/docs_lab/app.py --port 8010
+#
+# Word（.docx）用标准库 zipfile + XML 读，不引 python-docx；下面只有三件是必需的。
+pypdf>=4,<7                  # PDF 文字层抽取（缺了就抽不了 PDF，其余格式照常）
+fastapi>=0.110               # 网页服务
+uvicorn>=0.27                # ASGI 服务器
+python-multipart>=0.0.9      # multipart 上传（缺了 /api/docs 会 400）

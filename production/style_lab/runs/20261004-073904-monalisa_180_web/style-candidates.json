@@ -1,0 +1,70 @@
+{
+  "placeholders": {
+    "setting": "[本片场景：地点 + 年代 + 关键道具，开工时替换]"
+  },
+  "words": {
+    "zh": {
+      "影调": "整体偏暗",
+      "反差": "强反差、硬光",
+      "饱和": "中等饱和",
+      "色温": "暖调（偏橙/黄）",
+      "锐度": "常规锐度",
+      "颗粒": "明显颗粒/强锐化",
+      "景深": "边缘比中心更锐：主体常靠边，或素材本身偏平",
+      "运动": "明显运动/手持感",
+      "节奏": "从容（4–8 秒）",
+      "主色": "近黑 #1a160d（33%）、棕褐 #554e32（26%）、橄榄 #87805e（19%）",
+      "底部字幕带": "画面底部疑似压了字幕条（底部边缘密度明显高于全画面）"
+    },
+    "en": {
+      "tone": "dim, moody exposure",
+      "contrast": "punchy high-contrast grade",
+      "saturation": "moderately saturated colour",
+      "temperature": "warm amber-tungsten colour temperature",
+      "sharpness": "clean crisp optics",
+      "grain": "visible fine 35mm film grain",
+      "dof": "flat even focus across the frame",
+      "motion": "handheld, energetic camera movement",
+      "palette": "near-black, sepia brown, olive"
+    },
+    "numbers": {
+      "luma": 92.3,
+      "contrast": 67.5,
+      "saturation": 107.6,
+      "warmth": 27.6,
+      "sharpness": 980.1,
+      "grain": 13.21,
+      "dof": 0.442,
+      "motion": 0.0786,
+      "median_shot": 5.77,
+      "fps": 25.0,
+      "orientation": "landscape"
+    }
+  },
+  "candidates": [
+    {
+      "id": "photoreal_silhouette",
+      "label": "超写实 3D· 人物只给背影/剪影/手部",
+      "摘要": "画面按参考片的调子做成实拍级 3D CGI：材质、光线、镜头运动都往实拍靠，但沿用手册护栏——真实人物不出清晰正脸，全片常驻「AI动画情景重现 · 非新闻影像」角标。推荐度最高：既吃满参考片的质感，又不碰内容红线。",
+      "风险": "无新增风险，与 production/gilgo 的护栏一致。",
+      "style_prefix": "Photorealistic 3D CGI cinematic recreation that reads like live-action photography, with physically plausible materials, global illumination and true-to-life scale, [本片场景：地点 + 年代 + 关键道具，开工时替换]: near-black, sepia brown, olive, dim, moody exposure, warm amber-tungsten colour temperature, punchy high-contrast grade, clean crisp optics, visible fine 35mm film grain, flat even focus across the frame, handheld, energetic camera movement; horizontal 16:9 cinematic composition, one single continuous smooth slow camera move per shot exactly as directed; every character is shown only from behind, in silhouette, or as hands and props - never a clear frontal face; no likeness of any real person;  absolutely no readable text, letters, numbers, logos, license plates or brand marks anywhere inside the frame; no gore, no blood, no corpse, no violence, no nudity. ",
+      "negative_prompt": "readable text, letters, numbers, words, signage writing, invented headlines, logos, brand marks, watermark, subtitles, on-screen caption, blood, gore, wound, corpse, body bag, body parts, autopsy, violence, assault, strangling, weapon attack, gun, firearm, nudity, erotic content, horror monster, ghost, jump scare, distorted anatomy, deformed hands, extra fingers, extra limbs, duplicated people, changing face, morphing objects, teleportation, jitter, flicker, whip pan, fast zoom, jump cut, split screen, collage, flat 2D illustration, hand-drawn cel shading, comic-book ink lines, graphic-novel texture, watercolour paper texture"
+    },
+    {
+      "id": "photoreal_faces",
+      "label": "超写实 3D· 允许清晰人脸",
+      "摘要": "同样按参考片做实拍级 3D，但允许画面出现清晰的普通人脸（仍然不是任何真实人物的肖像）。人物表情、眼神能大幅提升叙事密度，代价是畸变与「像真人新闻影像」的观感风险一起上升。",
+      "风险": "**违反手册护栏**（PRINCIPLES：真实人物只以背影、剪影、手出现）。若采用，必须改写 build_story.py 的 PRINCIPLES，并把「AI动画情景重现 · 非新闻影像」角标加粗常驻；涉受害者的镜头仍不出人像。",
+      "style_prefix": "Photorealistic 3D CGI cinematic recreation that reads like live-action photography, with physically plausible skin, materials, global illumination and true-to-life scale, [本片场景：地点 + 年代 + 关键道具，开工时替换]: near-black, sepia brown, olive, dim, moody exposure, warm amber-tungsten colour temperature, punchy high-contrast grade, clean crisp optics, visible fine 35mm film grain, flat even focus across the frame, handheld, energetic camera movement; horizontal 16:9 cinematic composition, one single continuous smooth slow camera move per shot exactly as directed; ordinary non-celebrity human faces are allowed when the story needs a face, but never a likeness of any real public figure or victim;  absolutely no readable text, letters, numbers, logos, license plates or brand marks anywhere inside the frame; no gore, no blood, no corpse, no violence, no nudity. ",
+      "negative_prompt": "readable text, letters, numbers, words, signage writing, invented headlines, logos, brand marks, watermark, subtitles, on-screen caption, blood, gore, wound, corpse, body bag, body parts, autopsy, violence, assault, strangling, weapon attack, gun, firearm, nudity, erotic content, horror monster, ghost, jump scare, distorted anatomy, deformed hands, extra fingers, extra limbs, duplicated people, changing face, morphing objects, teleportation, jitter, flicker, whip pan, fast zoom, jump cut, split screen, collage, flat 2D illustration, hand-drawn cel shading, comic-book ink lines, graphic-novel texture"
+    },
+    {
+      "id": "cinematic_3d",
+      "label": "写实 3D 动画电影质感",
+      "摘要": "偏 3D 动画长片：体积光、干净的材质、轻微风格化。比纯写实更好控——Agnes 生成人脸和手时畸变概率明显更低，复审重做的镜头数通常最少，代价是离参考片的「实拍感」差一档。",
+      "风险": "无新增风险；与参考片的写实度有落差，需要你确认接受。",
+      "style_prefix": "Stylized-realistic 3D animated feature look with soft volumetric light, clean physically based materials and gentle stylization, rendered like a high-end 3D animated film, [本片场景：地点 + 年代 + 关键道具，开工时替换]: near-black, sepia brown, olive, dim, moody exposure, warm amber-tungsten colour temperature, punchy high-contrast grade, clean crisp optics, visible fine 35mm film grain, flat even focus across the frame, handheld, energetic camera movement; horizontal 16:9 cinematic composition, one single continuous smooth slow camera move per shot exactly as directed; every character is shown only from behind, in silhouette, or as hands and props - never a clear frontal face; no likeness of any real person;  absolutely no readable text, letters, numbers, logos, license plates or brand marks anywhere inside the frame; no gore, no blood, no corpse, no violence, no nudity. ",
+      "negative_prompt": "readable text, letters, numbers, words, signage writing, invented headlines, logos, brand marks, watermark, subtitles, on-screen caption, blood, gore, wound, corpse, body bag, body parts, autopsy, violence, assault, strangling, weapon attack, gun, firearm, nudity, erotic content, horror monster, ghost, jump scare, distorted anatomy, deformed hands, extra fingers, extra limbs, duplicated people, changing face, morphing objects, teleportation, jitter, flicker, whip pan, fast zoom, jump cut, split screen, collage, flat 2D illustration, hand-drawn cel shading, comic-book ink lines, graphic-novel texture, uncanny photoreal skin, waxy plastic skin"
+    }
+  ]
+}

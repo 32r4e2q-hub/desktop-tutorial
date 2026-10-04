@@ -15,3 +15,6 @@ production/dahlia/media/
 # （报告、接触表、风格档案要留档，所以只忽略这两类）
 production/style_lab/runs/*/reference.*
 production/style_lab/runs/*/frames/
+
+# 资料与剧本工作台：上传的资料可能是私有的、有版权的，整个工作区都不进 git
+production/docs_lab/workspaces/
