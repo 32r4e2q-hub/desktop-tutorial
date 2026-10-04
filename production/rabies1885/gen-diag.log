@@ -1,34 +1,300 @@
 PRODUCTION_STATUS cloud generation started
+PRODUCTION_STATUS S01 submitting
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S02 submitting
+PRODUCTION_STATUS S02 waiting for a creation slot
+PRODUCTION_STATUS S01 queued
+[13:28:51] status=in_progress progress=30% (elapsed 0s)
+PRODUCTION_STATUS S02 queued
+[13:30:04] status=in_progress progress=30% (elapsed 0s)
+[13:32:14] status=completed progress=100% (elapsed 203s)
+PRODUCTION_STATUS S01 generated
+PRODUCTION_STATUS S01 media and QA ready
+PRODUCTION_STATUS S03 submitting
+PRODUCTION_STATUS S03 waiting for a creation slot
+PRODUCTION_STATUS S03 queued
+[13:32:26] status=in_progress progress=30% (elapsed 0s)
+[13:33:52] status=completed progress=100% (elapsed 228s)
+PRODUCTION_STATUS S02 generated
+PRODUCTION_STATUS S02 media and QA ready
+PRODUCTION_STATUS S04 submitting
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 failed
+PRODUCTION_STATUS S05 submitting
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 queued
+[13:35:23] status=in_progress progress=30% (elapsed 0s)
+[13:35:49] poll: HTTP 429: too many video status queries (request id: 20261004133549382471403EtP84MVV) (code=429) [1/12]
+[13:36:49] status=completed progress=100% (elapsed 263s)
+PRODUCTION_STATUS S03 generated
+PRODUCTION_STATUS S03 media and QA ready
 PRODUCTION_STATUS S06 submitting
 PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S24 submitting
-PRODUCTION_STATUS S24 waiting for a creation slot
 PRODUCTION_STATUS S06 queued
-[12:05:30] status=in_progress progress=30% (elapsed 0s)
-PRODUCTION_STATUS S24 queued
-[12:06:44] status=in_progress progress=30% (elapsed 0s)
-[12:07:37] poll: HTTP 429: too many video status queries (request id: 20261004120737423932196HujZSkZU) (code=429) [1/12]
-[12:08:38] status=completed progress=100% (elapsed 187s)
+[13:36:59] status=in_progress progress=30% (elapsed 0s)
+[13:41:03] status=completed progress=100% (elapsed 340s)
+PRODUCTION_STATUS S05 generated
+PRODUCTION_STATUS S05 media and QA ready
+PRODUCTION_STATUS S08 submitting
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 queued
+[13:41:13] status=in_progress progress=30% (elapsed 0s)
+[13:42:29] status=completed progress=100% (elapsed 330s)
 PRODUCTION_STATUS S06 generated
 PRODUCTION_STATUS S06 media and QA ready
-PRODUCTION_STATUS S30 submitting
-PRODUCTION_STATUS S30 waiting for a creation slot
-PRODUCTION_STATUS S30 failed
-PRODUCTION_STATUS S32 submitting
-PRODUCTION_STATUS S32 waiting for a creation slot
-[12:09:54] status=completed progress=100% (elapsed 189s)
+PRODUCTION_STATUS S09 submitting
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 queued
+[13:42:39] status=in_progress progress=30% (elapsed 0s)
+[13:45:02] status=completed progress=100% (elapsed 228s)
+PRODUCTION_STATUS S08 generated
+PRODUCTION_STATUS S08 media and QA ready
+PRODUCTION_STATUS S10 submitting
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 queued
+[13:45:11] status=in_progress progress=30% (elapsed 0s)
+[13:46:53] status=completed progress=100% (elapsed 254s)
+PRODUCTION_STATUS S09 generated
+PRODUCTION_STATUS S09 media and QA ready
+PRODUCTION_STATUS S11 submitting
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S11 queued
+[13:47:05] status=in_progress progress=30% (elapsed 0s)
+[13:49:00] status=completed progress=100% (elapsed 229s)
+PRODUCTION_STATUS S10 generated
+PRODUCTION_STATUS S10 media and QA ready
+PRODUCTION_STATUS S12 submitting
+PRODUCTION_STATUS S12 waiting for a creation slot
+PRODUCTION_STATUS S12 queued
+[13:49:15] status=in_progress progress=30% (elapsed 0s)
+[13:51:19] status=completed progress=100% (elapsed 254s)
+PRODUCTION_STATUS S11 generated
+PRODUCTION_STATUS S11 media and QA ready
+PRODUCTION_STATUS S14 submitting
+PRODUCTION_STATUS S14 waiting for a creation slot
+PRODUCTION_STATUS S14 failed
+PRODUCTION_STATUS S15 submitting
+PRODUCTION_STATUS S15 waiting for a creation slot
+PRODUCTION_STATUS S15 queued
+[13:52:48] status=in_progress progress=30% (elapsed 0s)
+[13:53:29] status=completed progress=100% (elapsed 254s)
+PRODUCTION_STATUS S12 generated
+PRODUCTION_STATUS S12 media and QA ready
+PRODUCTION_STATUS S16 submitting
+PRODUCTION_STATUS S16 waiting for a creation slot
+PRODUCTION_STATUS S16 provider cooldown
+PRODUCTION_STATUS S16 waiting for a creation slot
+PRODUCTION_STATUS S16 queued
+[13:55:46] status=in_progress progress=30% (elapsed 0s)
+[13:57:05] status=completed progress=100% (elapsed 257s)
+PRODUCTION_STATUS S15 generated
+PRODUCTION_STATUS S15 media and QA ready
+PRODUCTION_STATUS S17 submitting
+PRODUCTION_STATUS S17 waiting for a creation slot
+PRODUCTION_STATUS S17 provider cooldown
+PRODUCTION_STATUS S17 waiting for a creation slot
+PRODUCTION_STATUS S17 queued
+[13:58:49] status=in_progress progress=30% (elapsed 0s)
+[13:59:13] status=completed progress=100% (elapsed 206s)
+PRODUCTION_STATUS S16 generated
+PRODUCTION_STATUS S16 media and QA ready
+PRODUCTION_STATUS S18 submitting
+PRODUCTION_STATUS S18 waiting for a creation slot
+PRODUCTION_STATUS S18 provider cooldown
+PRODUCTION_STATUS S18 waiting for a creation slot
+PRODUCTION_STATUS S18 queued
+[14:01:50] status=in_progress progress=30% (elapsed 0s)
+[14:04:46] status=completed progress=100% (elapsed 358s)
+PRODUCTION_STATUS S17 generated
+PRODUCTION_STATUS S17 media and QA ready
+PRODUCTION_STATUS S19 submitting
+PRODUCTION_STATUS S19 waiting for a creation slot
+PRODUCTION_STATUS S19 queued
+[14:05:06] status=in_progress progress=30% (elapsed 0s)
+[14:05:38] status=completed progress=100% (elapsed 228s)
+PRODUCTION_STATUS S18 generated
+PRODUCTION_STATUS S18 media and QA ready
+PRODUCTION_STATUS S20 submitting
+PRODUCTION_STATUS S20 waiting for a creation slot
+PRODUCTION_STATUS S20 provider cooldown
+PRODUCTION_STATUS S20 waiting for a creation slot
+PRODUCTION_STATUS S20 queued
+[14:08:00] status=in_progress progress=30% (elapsed 0s)
+[14:08:48] status=completed progress=100% (elapsed 222s)
+PRODUCTION_STATUS S19 generated
+PRODUCTION_STATUS S19 media and QA ready
+PRODUCTION_STATUS S22 submitting
+PRODUCTION_STATUS S22 waiting for a creation slot
+PRODUCTION_STATUS S22 provider cooldown
+PRODUCTION_STATUS S22 waiting for a creation slot
+PRODUCTION_STATUS S22 queued
+[14:11:06] status=in_progress progress=30% (elapsed 0s)
+[14:11:25] status=completed progress=100% (elapsed 206s)
+PRODUCTION_STATUS S20 generated
+PRODUCTION_STATUS S20 media and QA ready
+PRODUCTION_STATUS S23 submitting
+PRODUCTION_STATUS S23 waiting for a creation slot
+PRODUCTION_STATUS S23 provider cooldown
+PRODUCTION_STATUS S23 waiting for a creation slot
+PRODUCTION_STATUS S23 queued
+[14:14:04] status=in_progress progress=30% (elapsed 0s)
+[14:14:28] status=completed progress=100% (elapsed 202s)
+[14:14:29] poll: HTTP 429: too many video status queries (request id: 20261004141429720894082ZmBTsZaG) (code=429) [1/12]
+PRODUCTION_STATUS S22 generated
+PRODUCTION_STATUS S22 media and QA ready
+PRODUCTION_STATUS S24 submitting
+PRODUCTION_STATUS S24 waiting for a creation slot
+PRODUCTION_STATUS S24 provider cooldown
+PRODUCTION_STATUS S24 waiting for a creation slot
+PRODUCTION_STATUS S24 queued
+[14:17:06] status=in_progress progress=30% (elapsed 0s)
+[14:17:55] status=completed progress=100% (elapsed 231s)
+PRODUCTION_STATUS S23 generated
+PRODUCTION_STATUS S23 media and QA ready
+PRODUCTION_STATUS S25 submitting
+PRODUCTION_STATUS S25 waiting for a creation slot
+PRODUCTION_STATUS S25 provider cooldown
+PRODUCTION_STATUS S25 waiting for a creation slot
+PRODUCTION_STATUS S25 queued
+[14:20:13] status=in_progress progress=30% (elapsed 0s)
+[14:20:57] status=completed progress=100% (elapsed 232s)
 PRODUCTION_STATUS S24 generated
 PRODUCTION_STATUS S24 media and QA ready
-PRODUCTION_STATUS S33 submitting
-PRODUCTION_STATUS S33 waiting for a creation slot
-PRODUCTION_STATUS S32 queued
-[12:10:03] status=in_progress progress=30% (elapsed 0s)
-PRODUCTION_STATUS S33 queued
-[12:11:19] status=in_progress progress=30% (elapsed 0s)
-[12:14:18] status=completed progress=100% (elapsed 254s)
-PRODUCTION_STATUS S32 generated
+PRODUCTION_STATUS S26 submitting
+PRODUCTION_STATUS S26 waiting for a creation slot
+PRODUCTION_STATUS S26 provider cooldown
+PRODUCTION_STATUS S26 waiting for a creation slot
+PRODUCTION_STATUS S26 queued
+[14:23:10] status=in_progress progress=30% (elapsed 0s)
+[14:24:51] status=completed progress=100% (elapsed 278s)
+PRODUCTION_STATUS S25 generated
+PRODUCTION_STATUS S25 media and QA ready
+PRODUCTION_STATUS S27 submitting
+PRODUCTION_STATUS S27 waiting for a creation slot
+PRODUCTION_STATUS S27 provider cooldown
+PRODUCTION_STATUS S27 waiting for a creation slot
+PRODUCTION_STATUS S27 queued
+[14:26:17] status=in_progress progress=30% (elapsed 0s)
+[14:26:40] status=completed progress=100% (elapsed 210s)
+PRODUCTION_STATUS S26 generated
+PRODUCTION_STATUS S26 media and QA ready
+PRODUCTION_STATUS S29 submitting
+PRODUCTION_STATUS S29 waiting for a creation slot
+PRODUCTION_STATUS S29 provider cooldown
+PRODUCTION_STATUS S29 waiting for a creation slot
+PRODUCTION_STATUS S29 queued
+[14:29:23] status=in_progress progress=30% (elapsed 0s)
+[14:29:43] status=completed progress=100% (elapsed 206s)
+PRODUCTION_STATUS S27 generated
+PRODUCTION_STATUS S27 media and QA ready
+PRODUCTION_STATUS S30 submitting
+PRODUCTION_STATUS S30 waiting for a creation slot
+PRODUCTION_STATUS S30 provider cooldown
+PRODUCTION_STATUS S30 waiting for a creation slot
+PRODUCTION_STATUS S30 queued
+[14:32:23] status=in_progress progress=30% (elapsed 0s)
+[14:33:10] status=completed progress=100% (elapsed 228s)
+PRODUCTION_STATUS S29 generated
+PRODUCTION_STATUS S29 media and QA ready
+PRODUCTION_STATUS S31 submitting
+PRODUCTION_STATUS S31 waiting for a creation slot
+PRODUCTION_STATUS S31 provider cooldown
+PRODUCTION_STATUS S31 waiting for a creation slot
+PRODUCTION_STATUS S31 queued
+[14:35:28] status=in_progress progress=30% (elapsed 0s)
+[14:35:47] status=completed progress=100% (elapsed 205s)
+PRODUCTION_STATUS S30 generated
+PRODUCTION_STATUS S30 media and QA ready
+S32: reusing completed provider result; no new generation request
 PRODUCTION_STATUS S32 media and QA ready
-[12:15:33] status=completed progress=100% (elapsed 254s)
-PRODUCTION_STATUS S33 generated
+S33: reusing completed provider result; no new generation request
 PRODUCTION_STATUS S33 media and QA ready
+PRODUCTION_STATUS S35 submitting
+PRODUCTION_STATUS S35 waiting for a creation slot
+PRODUCTION_STATUS S35 provider cooldown
+PRODUCTION_STATUS S35 waiting for a creation slot
+PRODUCTION_STATUS S35 queued
+[14:38:26] status=in_progress progress=30% (elapsed 0s)
+[14:39:17] poll: HTTP 429: too many video status queries (request id: 20261004143916951783391PFiLGeTe) (code=429) [1/12]
+[14:40:17] status=completed progress=100% (elapsed 289s)
+PRODUCTION_STATUS S31 generated
+PRODUCTION_STATUS S31 media and QA ready
+PRODUCTION_STATUS S36 submitting
+PRODUCTION_STATUS S36 waiting for a creation slot
+PRODUCTION_STATUS S36 provider cooldown
+PRODUCTION_STATUS S36 waiting for a creation slot
+PRODUCTION_STATUS S36 queued
+[14:41:44] status=in_progress progress=30% (elapsed 0s)
+[14:42:12] status=completed progress=100% (elapsed 226s)
+PRODUCTION_STATUS S35 generated
+PRODUCTION_STATUS S35 media and QA ready
+PRODUCTION_STATUS S37 submitting
+PRODUCTION_STATUS S37 waiting for a creation slot
+PRODUCTION_STATUS S37 provider cooldown
+PRODUCTION_STATUS S37 waiting for a creation slot
+PRODUCTION_STATUS S37 queued
+[14:44:46] status=in_progress progress=30% (elapsed 0s)
+[14:45:35] status=completed progress=100% (elapsed 232s)
+PRODUCTION_STATUS S36 generated
+PRODUCTION_STATUS S36 media and QA ready
+PRODUCTION_STATUS S39 submitting
+PRODUCTION_STATUS S39 waiting for a creation slot
+PRODUCTION_STATUS S39 provider cooldown
+PRODUCTION_STATUS S39 waiting for a creation slot
+PRODUCTION_STATUS S39 queued
+[14:47:49] status=in_progress progress=30% (elapsed 0s)
+[14:48:14] poll: HTTP 429: too many video status queries (request id: 20261004144814423316315U0mtnPpE) (code=429) [1/12]
+[14:49:15] status=completed progress=100% (elapsed 268s)
+PRODUCTION_STATUS S37 generated
+PRODUCTION_STATUS S37 media and QA ready
+PRODUCTION_STATUS S40 submitting
+PRODUCTION_STATUS S40 waiting for a creation slot
+PRODUCTION_STATUS S40 provider cooldown
+PRODUCTION_STATUS S40 waiting for a creation slot
+PRODUCTION_STATUS S40 queued
+[14:50:53] status=in_progress progress=30% (elapsed 0s)
+[14:51:41] status=completed progress=100% (elapsed 232s)
+[14:51:44] poll: HTTP 429: too many video status queries (request id: 2026100414514390011028698UyNsnI) (code=429) [1/12]
+PRODUCTION_STATUS S39 generated
+PRODUCTION_STATUS S39 media and QA ready
+PRODUCTION_STATUS S41 submitting
+PRODUCTION_STATUS S41 waiting for a creation slot
+PRODUCTION_STATUS S41 provider cooldown
+PRODUCTION_STATUS S41 waiting for a creation slot
+PRODUCTION_STATUS S41 queued
+[14:54:06] status=in_progress progress=30% (elapsed 0s)
+[14:55:17] status=completed progress=100% (elapsed 264s)
+PRODUCTION_STATUS S40 generated
+PRODUCTION_STATUS S40 media and QA ready
+PRODUCTION_STATUS S43 submitting
+PRODUCTION_STATUS S43 waiting for a creation slot
+PRODUCTION_STATUS S43 provider cooldown
+PRODUCTION_STATUS S43 waiting for a creation slot
+PRODUCTION_STATUS S43 queued
+[14:57:09] status=in_progress progress=30% (elapsed 0s)
+[14:57:54] status=completed progress=100% (elapsed 228s)
+PRODUCTION_STATUS S41 generated
+PRODUCTION_STATUS S41 media and QA ready
+PRODUCTION_STATUS S44 submitting
+PRODUCTION_STATUS S44 waiting for a creation slot
+PRODUCTION_STATUS S44 provider cooldown
+PRODUCTION_STATUS S44 waiting for a creation slot
+PRODUCTION_STATUS S44 queued
+[15:00:07] status=in_progress progress=30% (elapsed 0s)
+[15:00:56] status=completed progress=100% (elapsed 227s)
+PRODUCTION_STATUS S43 generated
+PRODUCTION_STATUS S43 media and QA ready
+PRODUCTION_STATUS S45 submitting
+PRODUCTION_STATUS S45 waiting for a creation slot
+PRODUCTION_STATUS S45 provider cooldown
+PRODUCTION_STATUS S45 waiting for a creation slot
+PRODUCTION_STATUS S45 queued
+[15:03:09] poll: HTTP 429: too many video status queries (request id: 20261004150309845361676YAmhXI0f) (code=429) [1/12]
+[15:04:10] status=in_progress progress=30% (elapsed 60s)
+[15:04:10] status=completed progress=100% (elapsed 243s)
+PRODUCTION_STATUS S44 generated
+PRODUCTION_STATUS S44 media and QA ready
+[15:07:08] status=completed progress=100% (elapsed 238s)
+PRODUCTION_STATUS S45 generated
+PRODUCTION_STATUS S45 media and QA ready
 PRODUCTION_STATUS generation incomplete
