@@ -43,6 +43,115 @@
     "hands": 14,
     "purpose": "「一道浅浅的血痕」：石槽里洗手的特写，只到手腕，不出现伤口"
   },
+  "S03": {
+    "shot": "S03",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "色温在警戒区外：47.8（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 62.8,
+    "contrast": 41.7,
+    "warmth": 47.8,
+    "grain": 8.96,
+    "motion_median": 38.51,
+    "motion_max": 54.75,
+    "skin_ratio": 0.477,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「恐水」：烛光下颤抖的手把一杯水推开"
+  },
+  "S04": {
+    "shot": "S04",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "肤色占比 51% 但没检出手或脸：暖调画面这个数会偏高，仅供参考"
+    ],
+    "frames": 14,
+    "brightness": 56.1,
+    "contrast": 38.1,
+    "warmth": 39.0,
+    "grain": 8.93,
+    "motion_median": 34.47,
+    "motion_max": 45.03,
+    "skin_ratio": 0.51,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「痉挛、窒息」：椅子上一个人影的剪影，双手抵着自己的喉咙，只有呼吸的起伏"
+  },
+  "S05": {
+    "shot": "S05",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "亮度在警戒区外：31.4（正常 45.0–125.0）",
+      "反差在警戒区外：28.1（正常 30.0–90.0）"
+    ],
+    "frames": 14,
+    "brightness": 31.4,
+    "contrast": 28.1,
+    "warmth": 39.3,
+    "grain": 5.85,
+    "motion_median": 12.88,
+    "motion_max": 13.4,
+    "skin_ratio": 0.095,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "史料记载的处置之一：火盆里的铁钳（烧灼伤口）"
+  },
+  "S06": {
+    "shot": "S06",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：19.9（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "反差在警戒区外：24.5（正常 30.0–90.0）",
+      "颗粒在警戒区外：3.8（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 19.9,
+    "contrast": 24.5,
+    "warmth": 14.9,
+    "grain": 3.79,
+    "motion_median": 8.92,
+    "motion_max": 10.83,
+    "skin_ratio": 0.078,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "绝望的另一面：阁楼里两张叠着的褥子，一束灰白的光（不出现人）"
+  },
+  "S08": {
+    "shot": "S08",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "亮度在警戒区外：41.2（正常 45.0–125.0）"
+    ],
+    "frames": 14,
+    "brightness": 41.2,
+    "contrast": 36.3,
+    "warmth": 26.4,
+    "grain": 7.5,
+    "motion_median": 16.94,
+    "motion_max": 17.27,
+    "skin_ratio": 0.187,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「一个连行医资格都没有的化学家」：实验室窗前一个穿深色外套的背影"
+  },
   "S09": {
     "shot": "S09",
     "verdict": "WARN",
@@ -64,6 +173,332 @@
     "haar_hits": 1,
     "hands": 1,
     "purpose": "实验室建立镜头：锌台面、黄铜显微镜、玻璃烧瓶、一盏油灯，无人"
+  },
+  "S10": {
+    "shot": "S10",
+    "verdict": "PASS",
+    "reasons": [],
+    "warnings": [],
+    "frames": 14,
+    "brightness": 58.5,
+    "contrast": 44.4,
+    "warmth": 44.3,
+    "grain": 6.66,
+    "motion_median": 16.74,
+    "motion_max": 19.87,
+    "skin_ratio": 0.388,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「病原体都看不见」：黄铜显微镜特写，只有镜筒与旋钮"
+  },
+  "S11": {
+    "shot": "S11",
+    "verdict": "PASS",
+    "reasons": [],
+    "warnings": [],
+    "frames": 14,
+    "brightness": 54.1,
+    "contrast": 40.1,
+    "warmth": 40.4,
+    "grain": 9.83,
+    "motion_median": 28.27,
+    "motion_max": 31.14,
+    "skin_ratio": 0.372,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "实验动物：石墙下一排木框兔笼，一只白兔坐在干草上"
+  },
+  "S12": {
+    "shot": "S12",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 1 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认"
+    ],
+    "frames": 14,
+    "brightness": 55.7,
+    "contrast": 39.7,
+    "warmth": 43.1,
+    "grain": 8.2,
+    "motion_median": 27.79,
+    "motion_max": 33.38,
+    "skin_ratio": 0.367,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 1,
+    "hands": 0,
+    "purpose": "核心道具：架子上排成一列的玻璃罐，罐里是干燥处理的脊髓"
+  },
+  "S14": {
+    "shot": "S14",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "画面里有手（10 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：49.4（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 76.1,
+    "contrast": 54.6,
+    "warmth": 49.4,
+    "grain": 5.82,
+    "motion_median": 13.51,
+    "motion_max": 14.86,
+    "skin_ratio": 0.533,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 10,
+    "purpose": "「传了三十九次以上」：两只手把一截脊髓从一个玻璃罐移到另一个"
+  },
+  "S15": {
+    "shot": "S15",
+    "verdict": "PASS",
+    "reasons": [],
+    "warnings": [],
+    "frames": 14,
+    "brightness": 52.9,
+    "contrast": 42.5,
+    "warmth": 43.3,
+    "grain": 9.32,
+    "motion_median": 23.63,
+    "motion_max": 24.31,
+    "skin_ratio": 0.38,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「在狗身上成了」：实验室地板上一只安静趴着的狗（活着、无伤）"
+  },
+  "S16": {
+    "shot": "S16",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "肤色占比 53% 但没检出手或脸：暖调画面这个数会偏高，仅供参考",
+      "色温在警戒区外：48.0（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 81.0,
+    "contrast": 58.5,
+    "warmth": 48.0,
+    "grain": 10.6,
+    "motion_median": 19.4,
+    "motion_max": 20.37,
+    "skin_ratio": 0.533,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "阿尔萨斯：夏日清晨的半木结构村庄街道，空无一人"
+  },
+  "S17": {
+    "shot": "S17",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "肤色占比 85% 但没检出手或脸：暖调画面这个数会偏高，仅供参考"
+    ],
+    "frames": 14,
+    "brightness": 96.8,
+    "contrast": 48.9,
+    "warmth": 44.4,
+    "grain": 10.8,
+    "motion_median": 42.73,
+    "motion_max": 63.22,
+    "skin_ratio": 0.85,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "出事之后：一条狗沿街道跑远的剪影（不重现撕咬）"
+  },
+  "S18": {
+    "shot": "S18",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "画面里有手（4 处检出）：手指是 AI 最容易畸变的部位，需人眼确认"
+    ],
+    "frames": 14,
+    "brightness": 57.7,
+    "contrast": 38.9,
+    "warmth": 40.7,
+    "grain": 7.66,
+    "motion_median": 23.06,
+    "motion_max": 30.13,
+    "skin_ratio": 0.481,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 4,
+    "purpose": "「被疯狗咬了十几处」：门槛上坐着的小小身影，小腿缠着布条（背影、不露脸）"
+  },
+  "S19": {
+    "shot": "S19",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "肤色占比 64% 但没检出手或脸：暖调画面这个数会偏高，仅供参考",
+      "色温在警戒区外：48.0（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 74.6,
+    "contrast": 42.5,
+    "warmth": 48.0,
+    "grain": 9.29,
+    "motion_median": 36.48,
+    "motion_max": 52.88,
+    "skin_ratio": 0.642,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「从阿尔萨斯带到他面前」：黎明乡路上，一大一小两个背影走远"
+  },
+  "S20": {
+    "shot": "S20",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "肤色占比 65% 但没检出手或脸：暖调画面这个数会偏高，仅供参考",
+      "反差在警戒区外：29.4（正常 30.0–90.0）",
+      "色温在警戒区外：47.9（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 70.7,
+    "contrast": 29.4,
+    "warmth": 47.9,
+    "grain": 6.85,
+    "motion_median": 17.69,
+    "motion_max": 19.72,
+    "skin_ratio": 0.652,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "抵达：巴黎一间机构厚重的木门与石阶，铜牌保持空白"
+  },
+  "S22": {
+    "shot": "S22",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "画面里有手（1 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "亮度在警戒区外：40.1（正常 45.0–125.0）"
+    ],
+    "frames": 14,
+    "brightness": 40.1,
+    "contrast": 46.5,
+    "warmth": 34.5,
+    "grain": 4.57,
+    "motion_median": 9.69,
+    "motion_max": 12.4,
+    "skin_ratio": 0.328,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 1,
+    "purpose": "「我极度焦虑」：夜里书桌上一只握着羽毛笔、微微发抖的手，纸上是空白"
+  },
+  "S23": {
+    "shot": "S23",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "画面里有手（5 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：45.3（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 83.5,
+    "contrast": 54.9,
+    "warmth": 45.3,
+    "grain": 7.07,
+    "motion_median": 20.73,
+    "motion_max": 24.55,
+    "skin_ratio": 0.538,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 5,
+    "purpose": "拿起注射器：一只手从木盒里取出一支玻璃注射器"
+  },
+  "S24": {
+    "shot": "S24",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "肤色占比 79% 但没检出手或脸：暖调画面这个数会偏高，仅供参考",
+      "Haar 级联在 2 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "色温在警戒区外：65.6（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 106.9,
+    "contrast": 57.2,
+    "warmth": 65.6,
+    "grain": 6.89,
+    "motion_median": 16.07,
+    "motion_max": 17.26,
+    "skin_ratio": 0.792,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 2,
+    "hands": 0,
+    "purpose": "倒计时：木桌上一张空白卡片，手指划过一道道抽象的划痕"
+  },
+  "S25": {
+    "shot": "S25",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：20.7（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "反差在警戒区外：19.0（正常 30.0–90.0）",
+      "颗粒在警戒区外：2.2（正常 4.5–20.0）",
+      "运动在警戒区外：6.4（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 20.7,
+    "contrast": 19.0,
+    "warmth": 27.6,
+    "grain": 2.18,
+    "motion_median": 6.37,
+    "motion_max": 7.31,
+    "skin_ratio": 0.043,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「一针比一针毒」：木架上排开的小玻璃瓶，从暗到亮"
+  },
+  "S26": {
+    "shot": "S26",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：18.8（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "反差在警戒区外：20.7（正常 30.0–90.0）",
+      "颗粒在警戒区外：2.7（正常 4.5–20.0）",
+      "运动在警戒区外：5.7（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 18.8,
+    "contrast": 20.7,
+    "warmth": 25.6,
+    "grain": 2.67,
+    "motion_median": 5.68,
+    "motion_max": 7.89,
+    "skin_ratio": 0.081,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "每天一针：前臂上方，一只手缓缓推下玻璃针管的活塞（不见脸、不见入针细节）"
   },
   "S27": {
     "shot": "S27",
@@ -90,6 +525,226 @@
     "hands": 0,
     "purpose": "「夜夜守着病床」：夜里的小病房，铁床、木椅、一盏油灯，只有火苗在动"
   },
+  "S29": {
+    "shot": "S29",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 1 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认"
+    ],
+    "frames": 14,
+    "brightness": 49.2,
+    "contrast": 50.9,
+    "warmth": 37.0,
+    "grain": 6.12,
+    "motion_median": 8.58,
+    "motion_max": 11.94,
+    "skin_ratio": 0.246,
+    "faces": 2,
+    "faces_sure": 0,
+    "haar_hits": 1,
+    "hands": 0,
+    "purpose": "「一天天好起来」：晨光里，床上小小的人影坐起来（逆光剪影，不露脸）"
+  },
+  "S30": {
+    "shot": "S30",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：16.8（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "画面里有手（1 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "反差在警戒区外：20.3（正常 30.0–90.0）",
+      "颗粒在警戒区外：2.7（正常 4.5–20.0）",
+      "运动在警戒区外：4.5（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 16.8,
+    "contrast": 20.3,
+    "warmth": 23.9,
+    "grain": 2.73,
+    "motion_median": 4.5,
+    "motion_max": 5.35,
+    "skin_ratio": 0.038,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 1,
+    "purpose": "康复：白墙上窗台的一杯水与缓慢移动的树影（与第三镜的水呼应）"
+  },
+  "S31": {
+    "shot": "S31",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：23.6（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "反差在警戒区外：22.4（正常 30.0–90.0）",
+      "颗粒在警戒区外：4.1（正常 4.5–20.0）",
+      "运动在警戒区外：5.9（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 23.6,
+    "contrast": 22.4,
+    "warmth": 29.4,
+    "grain": 4.14,
+    "motion_median": 5.94,
+    "motion_max": 8.28,
+    "skin_ratio": 0.079,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「消息传开」：巴黎一处庭院，穿深色外套的人群背影朝一个门口走去"
+  },
+  "S32": {
+    "shot": "S32",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：16.9（硬线 30.0–160.0）",
+      "反差越过硬线：16.5（硬线 18.0–120.0）"
+    ],
+    "warnings": [
+      "颗粒在警戒区外：3.3（正常 4.5–20.0）",
+      "运动在警戒区外：5.2（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 16.9,
+    "contrast": 16.5,
+    "warmth": 24.4,
+    "grain": 3.3,
+    "motion_median": 5.23,
+    "motion_max": 6.7,
+    "skin_ratio": 0.03,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「从英国、俄国、意大利、德国涌向巴黎」：蒸汽机车进站，月台边缘的人影"
+  },
+  "S33": {
+    "shot": "S33",
+    "verdict": "FAIL",
+    "reasons": [
+      "黑帧：最暗一格亮度 12.0",
+      "亮度越过硬线：12.9（硬线 30.0–160.0）",
+      "反差越过硬线：14.3（硬线 18.0–120.0）"
+    ],
+    "warnings": [
+      "颗粒在警戒区外：2.8（正常 4.5–20.0）",
+      "运动在警戒区外：4.0（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 12.9,
+    "contrast": 14.3,
+    "warmth": 18.6,
+    "grain": 2.81,
+    "motion_median": 4.05,
+    "motion_max": 5.15,
+    "skin_ratio": 0.024,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "排队等治疗：石廊里一排坐在长凳上的人，尽头一盏灯"
+  },
+  "S35": {
+    "shot": "S35",
+    "verdict": "FAIL",
+    "reasons": [
+      "黑帧：最暗一格亮度 3.3"
+    ],
+    "warnings": [
+      "亮度在警戒区外：32.1（正常 45.0–125.0）",
+      "反差在警戒区外：28.5（正常 30.0–90.0）"
+    ],
+    "frames": 14,
+    "brightness": 32.1,
+    "contrast": 28.5,
+    "warmth": 32.7,
+    "grain": 6.38,
+    "motion_median": 20.08,
+    "motion_max": 39.15,
+    "skin_ratio": 0.382,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「一八八八年十一月十四日研究所落成」：巴黎一座新落成的石砌门楼"
+  },
+  "S36": {
+    "shot": "S36",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 6 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "亮度在警戒区外：33.2（正常 45.0–125.0）"
+    ],
+    "frames": 14,
+    "brightness": 33.2,
+    "contrast": 30.6,
+    "warmth": 29.9,
+    "grain": 5.61,
+    "motion_median": 10.92,
+    "motion_max": 13.36,
+    "skin_ratio": 0.193,
+    "faces": 3,
+    "faces_sure": 0,
+    "haar_hits": 6,
+    "hands": 0,
+    "purpose": "后人的敬意：纪念石座前一束新鲜的花（石座不刻字、胸像不入画）"
+  },
+  "S37": {
+    "shot": "S37",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：18.9（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "反差在警戒区外：19.5（正常 30.0–90.0）",
+      "颗粒在警戒区外：3.1（正常 4.5–20.0）",
+      "运动在警戒区外：5.5（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 18.9,
+    "contrast": 19.5,
+    "warmth": 25.8,
+    "grain": 3.11,
+    "motion_median": 5.54,
+    "motion_max": 6.9,
+    "skin_ratio": 0.068,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "现代：洁净的疫苗生产线，不锈钢与传送带上排开的玻璃瓶"
+  },
+  "S39": {
+    "shot": "S39",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：19.5（硬线 30.0–160.0）",
+      "反差越过硬线：17.2（硬线 18.0–120.0）"
+    ],
+    "warnings": [
+      "画面里有手（2 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "颗粒在警戒区外：2.5（正常 4.5–20.0）",
+      "运动在警戒区外：5.7（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 19.5,
+    "contrast": 17.2,
+    "warmth": 27.2,
+    "grain": 2.5,
+    "motion_median": 5.67,
+    "motion_max": 7.9,
+    "skin_ratio": 0.06,
+    "faces": 2,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 2,
+    "purpose": "「被猫狗抓伤」：一只家猫走过木地板，尾巴轻摆（不出现抓挠动作）"
+  },
   "S40": {
     "shot": "S40",
     "verdict": "WARN",
@@ -111,6 +766,71 @@
     "haar_hits": 0,
     "hands": 8,
     "purpose": "「先冲洗伤口」：水龙头下冲洗的两只手"
+  },
+  "S41": {
+    "shot": "S41",
+    "verdict": "PASS",
+    "reasons": [],
+    "warnings": [],
+    "frames": 14,
+    "brightness": 51.3,
+    "contrast": 38.8,
+    "warmth": 36.8,
+    "grain": 7.99,
+    "motion_median": 33.86,
+    "motion_max": 48.07,
+    "skin_ratio": 0.415,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "去疾控中心：现代社区门诊的走廊，一排蓝色塑料椅，无人"
+  },
+  "S43": {
+    "shot": "S43",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：29.2（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "反差在警戒区外：26.1（正常 30.0–90.0）",
+      "颗粒在警戒区外：3.8（正常 4.5–20.0）",
+      "运动在警戒区外：4.8（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 29.2,
+    "contrast": 26.1,
+    "warmth": 36.6,
+    "grain": 3.79,
+    "motion_median": 4.76,
+    "motion_max": 5.53,
+    "skin_ratio": 0.125,
+    "faces": 2,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "「打完疫苗就回家」：上臂三角肌上方，一只戴手套的手持针管（不见脸）"
+  },
+  "S44": {
+    "shot": "S44",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 1 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认"
+    ],
+    "frames": 14,
+    "brightness": 46.9,
+    "contrast": 35.3,
+    "warmth": 23.2,
+    "grain": 6.77,
+    "motion_median": 28.31,
+    "motion_max": 37.48,
+    "skin_ratio": 0.378,
+    "faces": 1,
+    "faces_sure": 0,
+    "haar_hits": 1,
+    "hands": 0,
+    "purpose": "「平常得像顺手关灯」：傍晚居民楼，一盏盏窗灯亮起"
   },
   "S45": {
     "shot": "S45",
