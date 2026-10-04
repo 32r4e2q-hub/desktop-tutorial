@@ -224,6 +224,59 @@ def captions_from_clause_times(row):
     return cues
 
 
+MIN_CAPTION_SECONDS=1.0   # 短句（「恐水、」「治，」）按 ASR 边界只有 0.4–0.7 秒，来不及读
+CAPTION_GAP=0.05          # 相邻两条之间至少留 50 ms，避免叠字
+
+
+def merge_short_captions(cues,short=1.2,max_chars=20,max_seconds=4.0,max_gap=0.4):
+    """把连着出现的短句并成一条：「恐水、」「痉挛、」「窒息，」各 0.6 秒不如合成一条 2 秒。
+
+    判断用的是**原始**时长，不是并过之后的时长——否则并到一半自己变长了，
+    后面的短句就吞不进来了。只在间隔短、字数够、总时长够短时才并，
+    所以跨章之间那 1 秒静音天然把两章隔开。
+    """
+    visible=lambda t:re.sub(r'[^\u4e00-\u9fffA-Za-z0-9]','',t)
+    durs=[c['end']-c['start'] for c in cues]
+    out=[];i=0
+    while i<len(cues):
+        j=i;text=cues[i]['text']
+        while (durs[i]<short and j+1<len(cues) and durs[j+1]<short
+               and 0<=cues[j+1]['start']-cues[j]['end']<max_gap
+               and len(visible(text+cues[j+1]['text']))<=max_chars
+               and cues[j+1]['end']-cues[i]['start']<=max_seconds):
+            j+=1;text+=cues[j]['text']
+        out.append({'start':cues[i]['start'],'end':cues[j]['end'],'text':text})
+        i=j+1
+    return out
+
+
+def enforce_min_duration(cues,minimum=MIN_CAPTION_SECONDS,gap=CAPTION_GAP,borrow=0.3):
+    """把每条字幕撑到至少 ``minimum`` 秒，三次机会，每次都不许把邻居压垮：
+
+    1. 往后延，但不能压到下一条的起点；
+    2. 不够就往前借，但不能压到上一条的终点；
+    3. 还不够就让长邻居各让出最多 ``borrow`` 秒（长句少显示 0.3 秒无感，
+       短句从 0.4 秒变成 1 秒才读得完）。
+    """
+    for i,cue in enumerate(cues):
+        if cue['end']-cue['start']>=minimum:continue
+        limit=(cues[i+1]['start']-gap) if i+1<len(cues) else cue['end']+1.0
+        floor=(cues[i-1]['end']+gap) if i>0 else 0.0
+        end=min(limit,cue['start']+minimum)
+        start=max(floor,min(cue['start'],end-minimum))
+        shortfall=minimum-(end-start)
+        if shortfall>0 and i+1<len(cues):
+            room=(cues[i+1]['end']-cues[i+1]['start'])-0.4
+            take=min(shortfall,room,borrow)
+            if take>0:cues[i+1]['start']+=take;end+=take;shortfall-=take
+        if shortfall>0 and i>0:
+            room=(cues[i-1]['end']-cues[i-1]['start'])-0.4
+            take=min(shortfall,room,borrow)
+            if take>0:cues[i-1]['end']-=take;start-=take
+        cue['start'],cue['end']=start,max(end,start+0.2)
+    return cues
+
+
 def make_edl(project, narration):
     by_id={s['id']:s for s in project['shots']};edl=[]
     for i,row in enumerate(narration):
@@ -422,6 +475,7 @@ def main():
         alignment.append({'id':row['id'],
                           'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
                           'character_match_coverage':coverage})
+    cues=enforce_min_duration(merge_short_captions(cues))
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl,presentation)
     (work/'caption-timing.json').write_text(json.dumps(cues,ensure_ascii=False,indent=2))
