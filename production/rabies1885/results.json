@@ -1225,13 +1225,18 @@
     },
     "S45": {
       "id": "S45",
-      "status": "queued",
+      "status": "generated",
       "request_hash": "cdd458d17369a5328dcd8b5655618546b0d004e5d1c157c7dccc5715ca2c3c77",
       "error": null,
-      "updated_at": "2026-10-04T11:56:08Z",
+      "updated_at": "2026-10-04T12:00:01Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2RjMzU1MjE3YjI2NjQ5YmQ4ZjViOTE3ZGQ2Y2UxMWU4",
       "task_id": "task_uk0SflZQTBoLd9H1ARfbEfCvJAM8LRVl",
-      "requested_seconds": 7.041666666666667
+      "requested_seconds": 7.041666666666667,
+      "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_dc355217b26649bd8f5b917dd6ce11e8.mp4",
+      "bytes": 3985229,
+      "sha256": "24f773a569d654260c92c946b97ebdee7e889bcff5035b1e215ddd21fd02f108",
+      "reported_size": "1920x1088",
+      "reported_seconds": "7.0"
     }
   },
   "phase": "generating_sources",
@@ -1288,7 +1293,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T11:56:08Z",
+  "updated_at": "2026-10-04T12:00:01Z",
   "run_id": "37200352120",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
