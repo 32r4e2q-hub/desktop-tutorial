@@ -1177,10 +1177,13 @@
     },
     "S45": {
       "id": "S45",
-      "status": "waiting_create_slot",
+      "status": "rate_limited",
       "request_hash": "d1377dc6ff4c967a912e3a379856493373311ab2877a7a490d35390a8a883f20",
-      "error": null,
-      "updated_at": "2026-10-04T15:01:03Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 3 minutes. Try again after 15:03:05. (request id: 20261004150120516343823CudxXsZQ) (code=rate_limit_exceeded)",
+      "updated_at": "2026-10-04T15:01:20Z",
+      "quota_retry": 1,
+      "provider_retry_after_seconds": 106.0,
+      "applied_cooldown_seconds": 106.0
     },
     "S30": {
       "id": "S30",
@@ -1273,7 +1276,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T15:01:03Z",
+  "updated_at": "2026-10-04T15:01:20Z",
   "run_id": "37205701825",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
