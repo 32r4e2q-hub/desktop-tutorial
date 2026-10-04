@@ -279,10 +279,11 @@ SHOTS = [
     ('S15', 'agnes', '缓慢横移 slow lateral drift',
      '「一旦出事，等着他的就是身败名裂和牢狱之灾」：石墙上铁栅的阴影缓缓移动，无人',
      '阴影移过墙面，硬切村庄清晨',
-     'A blank stone wall in shadow with the hard black shadow of an iron bar gate sliding '
-     'slowly across it, a single high lamp throwing the pattern, dust in the air. Camera: one '
-     'slow lateral drift following the moving bars of shadow. No people, no prison uniform, no '
-     'readable text. Hold this single view: no cut, no scene change, no camera relocation.',
+     'A stone corridor wall clearly lit by a wall lamp, the hard shadow of an iron bar gate '
+     'sliding slowly across it, every stone and the mortar lines readable, dust in the beam. '
+     'Camera: one slow lateral drift following the moving bars of shadow. No people, no prison '
+     'uniform, no readable text. Hold this single view: no cut, no scene change, no camera '
+     'relocation.',
      '低频嗡鸣；一声闷响（合成）'),
 
     # ---------------- N03 约瑟夫（S16–S23，8 镜：7 动画 + 1 信息卡） ----------------
@@ -306,11 +307,11 @@ SHOTS = [
     ('S18', 'agnes', '缓慢下摇 slow tilt down',
      '「两天前被疯狗咬伤十几处。母亲只求他救一救」：门槛上的孩子背影，一只大人的手搭在他肩上，小腿缠着布条',
      '手收紧，硬切书桌',
-     'A small boy seated on a wooden doorstep seen strictly from behind, the hand of an adult '
-     'resting on his shoulder, a clean cloth bandage wrapped around one lower leg, a farmhouse '
-     'doorway behind. Camera: one slow tilt down from the shoulder to the bandaged leg. No '
-     'faces, no wounds, no blood, no torn cloth. Hold this single view: no cut, no scene '
-     'change, no camera relocation.',
+     'A small boy seated on a wooden doorstep seen strictly from behind in bright morning '
+     'daylight, the hand of an adult resting on his shoulder, a clean cloth bandage wrapped '
+     'around one lower leg, a sunlit farmhouse yard behind. Camera: one slow tilt down from '
+     'the shoulder to the bandaged leg. No faces, no wounds, no blood, no torn cloth. Hold '
+     'this single view: no cut, no scene change, no camera relocation.',
      '环境声：远处犬吠渐弱；弦乐低入'),
     ('S19', 'agnes', '缓慢横移 slow lateral drift',
      '「巴斯德后来写下：孩子的结局看起来无法避免」：夜里书桌上一只握着羽毛笔的手，纸上墨迹未干',
@@ -385,10 +386,11 @@ SHOTS = [
      '「他是在拿一个孩子的命跟死神抢时间，夜夜守着病床」：夜里的小病房，铁床、木椅、一盏油灯',
      '灯焰轻晃，硬切信息卡',
      'Interior of a small hospital room at night, an iron bed with a still blanket, a wooden '
-     'chair beside it, oil lamps spaced along the wall plus pale moonlight from a window, the '
-     'whole room readable, the only movement the lamp flame. Camera: one slow lateral drift '
-     'from the bed to the chair. No people in frame. Hold this single view: no cut, no scene '
-     'change, no camera relocation.',
+     'chair beside it, two oil lamps burning on a side table plus pale moonlight through a '
+     'window, the bed, chair, blanket and stone walls all clearly readable with visible '
+     'detail, warm but never dark, the only movement the lamp flame. Camera: one slow lateral '
+     'drift from the bed to the chair. No people in frame. Hold this single view: no cut, no '
+     'scene change, no camera relocation.',
      '火焰与夜虫声；无音乐'),
     ('S28', 'graphic', '静帧',
      '信息卡④：十天 · 十几针（两份来源针数略有出入，成片不写死）',
@@ -515,11 +517,12 @@ SHOTS = [
     ('S43', 'agnes', '缓慢跟拍 backward dolly',
      '「而是有人敢在深渊面前不退」：昏暗的石廊尽头，一个背影独自向前走，尽头有微光',
      '微光渐亮，硬切接种的手',
-     'Interior of a dim stone corridor, a single figure in a long dark coat seen only from '
-     'behind walking away from the camera toward a faint light at the far end, damp walls '
-     'either side, dust in the beam. Camera: one slow backward dolly tracking in front of the '
-     'figure. The figure never turns and no face is ever visible. Hold this single view: no '
-     'cut, no scene change, no camera relocation.',
+     'Interior of a long stone corridor in low evening light, the walls and floor clearly '
+     'readable, a warm lamp glowing at the far end, a single figure in a long dark coat seen '
+     'only from behind walking away from the camera toward that light, dust in the beam. '
+     'Camera: one slow backward dolly tracking in front of the figure. The figure never turns '
+     'and no face is ever visible. Hold this single view: no cut, no scene change, no camera '
+     'relocation.',
      '脚步声与低频弦乐；一记心跳（合成）'),
     ('S44', 'agnes', '极缓推近 very slow push in',
      '「那管针剂，到今天还在护着每一个被抓伤的人」：上臂三角肌上方，一只戴手套的手持针管（不见脸、不见入针）',
