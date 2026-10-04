@@ -206,8 +206,8 @@ SHOTS = [
      "绝望的另一面：阁楼里两张叠着的褥子，一束灰白的光（不出现人）",
      "光斑淡出，硬切信息卡",
      "A dim attic under a sloping roof, two folded straw mattresses stacked against a rough stone wall, "
-     "a single shaft of dusty pale light falling from a small window onto the floor, everything else in "
-     "near-darkness. Camera: one slow pull back revealing the empty room. No people, no text, nothing "
+     "pale daylight from the window filling the attic so the mattresses, the roof beams and the stone "
+     "wall all stay readable, the far corners in soft shadow with visible detail. Camera: one slow pull back revealing the empty room. No people, no text, nothing "
      "legible. Hold this single view for the full clip: no cut, no scene change, no camera relocation.",
      "低频嗡鸣，音乐收住"),
     ("S07", "graphic", "静帧",
@@ -357,8 +357,8 @@ SHOTS = [
     ("S24", "agnes", "缓慢推近 slow push in",
      "倒计时：木桌上一张空白卡片，手指划过一道道抽象的划痕",
      "手指出画，硬切针剂排列",
-     "Close on a wooden table in a dim room, a blank card with a row of short abstract pencil scratches "
-     "on it, an adult forefinger tracing them one by one, warm lamplight and heavy shadow. Camera: one "
+     "Close on a wooden table in a plainly lit room, a blank card with a row of short abstract pencil scratches "
+     "on it, an adult forefinger tracing them one by one, an oil lamp plus daylight from a window, soft shadow with visible detail. Camera: one "
      "slow push in on the card. The marks are abstract scratches only - no legible numbers, digits or "
      "letters; no face. Hold this single view: no cut, no scene change, no camera relocation.",
      "纸面摩擦声、滴答开始"),
@@ -404,7 +404,7 @@ SHOTS = [
      "康复：白墙上窗台的一杯水与缓慢移动的树影（与第三镜的水呼应）",
      "树影移动，硬切人群",
      "Close on a window ledge in a whitewashed hospital room, a glass of water standing beside the "
-     "frame, slow leaf shadows moving across the sill in warm morning light. Camera: completely locked "
+     "frame, slow leaf shadows moving across the sill in pale neutral morning light. Camera: completely locked "
      "off and static. No people, no text. Hold this single view for the full clip: no cut, no scene "
      "change, no camera relocation.",
      "鸟鸣；音乐渐起"),
@@ -422,7 +422,7 @@ SHOTS = [
      "「从英国、俄国、意大利、德国涌向巴黎」：蒸汽机车进站，月台边缘的人影",
      "蒸汽散开，硬切长队",
      "A steam locomotive arriving at a nineteenth century railway platform, thick steam filling the "
-     "frame, dark silhouettes of waiting people along the platform edge, low warm sunlight cutting "
+     "frame, dark silhouettes of waiting people along the platform edge, low pale morning sunlight cutting "
      "through the steam. Camera: one slow tilt up from the wheels to the steam. No faces, no legible "
      "text on the train or signs. Hold this single view: no cut, no scene change, no camera relocation.",
      "汽笛与蒸汽"),
@@ -430,8 +430,8 @@ SHOTS = [
      "排队等治疗：石廊里一排坐在长凳上的人，尽头一盏灯",
      "推到走廊尽头，硬切信息卡",
      "Interior of a long stone corridor in a Paris institution, a queue of people seated along a wooden "
-     "bench on one side, seen strictly from behind, one oil lamp burning at the far end, warm light "
-     "falling off into shadow. Camera: one slow forward dolly down the corridor. No faces, no readable "
+     "bench on one side, seen strictly from behind, oil lamps spaced along the wall plus pale daylight "
+     "from a high window, the whole corridor evenly readable from end to end. Camera: one slow forward dolly down the corridor. No faces, no readable "
      "notices on the walls. Hold this single view: no cut, no scene change, no camera relocation.",
      "低语与脚步"),
     ("S34", "graphic", "静帧",
