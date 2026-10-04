@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 76521817,
+  "bytes": 76455316,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,7 +9,7 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "ae91f1e86216e96936dfd153d962cc4df96d79fbfa35ee4bbc108808ad8f114b",
+  "sha256": "15fc03e0b91b8c96c00f2d9e7e02e9e520b5e247122fdc32206d3676f24b2950",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
@@ -17,7 +17,7 @@
     {
       "id": "N01",
       "method": "clause-times DP",
-      "character_match_coverage": 0.1206896551724138
+      "character_match_coverage": 0.13793103448275862
     },
     {
       "id": "N02",
@@ -31,8 +31,8 @@
     },
     {
       "id": "N04",
-      "method": "ASR-assisted",
-      "character_match_coverage": 0.9473684210526315
+      "method": "clause-times DP",
+      "character_match_coverage": 0.2631578947368421
     },
     {
       "id": "N05",
@@ -42,7 +42,7 @@
     {
       "id": "N06",
       "method": "pause-aware estimate",
-      "character_match_coverage": 0.06451612903225806
+      "character_match_coverage": 0.03225806451612903
     }
   ],
   "narration_voice_id": "voice-00",
