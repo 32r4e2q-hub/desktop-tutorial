@@ -1033,13 +1033,16 @@
     },
     "S40": {
       "id": "S40",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "request_hash": "f5b31e6257c6d63d8d9e0ee7336d1789a039d93715d46230b24408decc9a11f6",
       "error": null,
-      "updated_at": "2026-10-04T14:49:26Z",
+      "updated_at": "2026-10-04T14:50:51Z",
       "quota_retry": 1,
       "provider_retry_after_seconds": 84.0,
-      "applied_cooldown_seconds": 84.0
+      "applied_cooldown_seconds": 84.0,
+      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzc0NDRjZWEzZmQ4YTQzMTlhMWFiZDkwYmY4YmE3ZTBi",
+      "task_id": "task_rvDR9ik3TVWl1N9808zgxAPtYtqmKJHZ",
+      "requested_seconds": 7.041666666666667
     },
     "S41": {
       "id": "S41",
@@ -1264,7 +1267,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T14:49:26Z",
+  "updated_at": "2026-10-04T14:50:51Z",
   "run_id": "37205701825",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
