@@ -58,8 +58,14 @@ STYLE_PREFIX = (
     "clean crisp optics, visible fine 35mm film grain, natural cinematic depth with a softly "
     "falling-off background, handheld, energetic "
     "camera movement; horizontal 16:9 cinematic composition, one single continuous smooth slow camera "
-    "move per shot exactly as directed; every character is shown only from behind, in silhouette, or as "
-    "hands and props - never a clear frontal face; no likeness of any real person; absolutely no "
+    "move per shot exactly as directed; "
+    # 人物政策第一版写 "only from behind, in silhouette, or as hands - never a clear frontal face"，
+    # 自动检验在 11 镜里有 5 镜检出了正脸（S05 十四格全中、置信度 0.91），说明这句约束力不够。
+    # 改成把「背对镜头」写成唯一选项，并把五官逐项排除。
+    "every human figure is turned away from the camera: back of the head, shoulders, hands and props "
+    "only, no facial features anywhere in frame, no eyes, no nose, no mouth, no head turned toward the "
+    "lens, any visible head is an unlit silhouette or seen strictly from behind; "
+    "no likeness of any real person; absolutely no "
     "readable text, letters, numbers, logos, license plates or brand marks anywhere inside the frame; "
     "no gore, no blood, no corpse, no violence, no nudity. "
 )
@@ -69,7 +75,9 @@ STYLE_PREFIX = (
 NEGATIVE_PROMPT = (
     "readable text, letters, numbers, words, signage writing, invented headlines, logos, brand marks, "
     "watermark, subtitles, on-screen caption, photorealistic face, recognizable real person likeness, "
-    "frontal face close-up, eyes visible in detail, blood, gore, wound, corpse, body bag, body parts, "
+    "frontal face close-up, eyes visible in detail, face turned toward camera, profile of a face, "
+    "visible facial features, visible eyes, nose, mouth, teeth, smiling face, looking at camera, "
+    "blood, gore, wound, corpse, body bag, body parts, "
     "autopsy, violence, assault, strangling, weapon attack, gun, firearm, nudity, erotic content, horror "
     "monster, ghost, jump scare, distorted anatomy, deformed hands, extra fingers, extra limbs, "
     "duplicated people, changing face, morphing objects, teleportation, jitter, flicker, whip pan, fast "
