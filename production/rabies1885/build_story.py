@@ -156,374 +156,389 @@ CHAPTERS = [
 # 每一镜：(id, kind, 运镜, 叙事职责, 衔接方式, 英文提示词 或 信息卡说明, 音效/备注)
 # 45 镜按成片顺序编号 S01–S45，每镜只用一次；其中 7 张信息卡（S07 S13 S21 S28 S34 S38 S42）。
 SHOTS = [
-    # ---------------- N01 钩子与绝望（S01–S08，8 镜：7 动画 + 1 信息卡）----------------
-    ("S01", "agnes", "低机位缓慢横移 low lateral drift",
-     "0–5 秒钩子：黄昏村口石板路上一条狗的黑色剪影，只用剪影，不展示撕咬",
-     "狗的剪影化进黑暗，硬切水盆",
-     "A large dog standing alone on a wet cobblestone village street at dusk, seen from behind as a "
-     "completely black silhouette, low camera at pavement height, one warm window light far behind, "
-     "damp air and long shadows. Camera: one slow lateral drift to the right at knee height. The "
-     "background holds only a stone wall and darkness - no houses with readable signs, no people, no "
-     "visible teeth or aggression. The entire clip stays in this single framing: no cut, no scene "
-     "change, no camera relocation.",
-     "一声远处低沉的狗吠（合成）垫底；无音乐，只有环境声"),
-    ("S02", "agnes", "缓慢推近 slow push in",
-     "「一道浅浅的血痕」：石槽里洗手的特写，只到手腕，不出现伤口",
-     "水声桥，硬切厨房",
-     "Close on an adult man's hand and wrist rinsing slowly in a shallow stone water trough at dusk, "
-     "cool water and warm lamplight from the left, skin wet and clean, fine film grain. Camera: one very "
-     "slow push in toward the wrist. No wound, no blood, no redness, no face, no sleeve ornament with "
-     "writing; background is only dark stone. Hold this single view for the full clip: no cut, no scene "
-     "change, no camera relocation.",
-     "水声；心跳低频起"),
-    ("S03", "agnes", "缓慢推近 slow push in",
-     "「恐水」：烛光下颤抖的手把一杯水推开",
-     "杯子出画，硬切椅子剪影",
-     "Interior of a dim nineteenth century farmhouse kitchen at night, a single glass of water standing "
-     "on a rough wooden table, an adult hand trembling as it slowly pushes the glass away, candlelight "
-     "flickering and dust motes in the air. Camera: one slow push in on the glass. No face, no person "
-     "above the wrist, no readable objects; the background is dark timber and shadow. Hold this single "
-     "view: no cut, no scene change, no camera relocation.",
-     "烛火与呼吸声；音乐进入低沉弦乐"),
-    ("S04", "agnes", "固定机位 locked off",
-     "「痉挛、窒息」：椅子上一个人影的剪影，双手抵着自己的喉咙，只有呼吸的起伏",
-     "硬切火盆",
-     "Interior of a dark room at night, a seated human silhouette in a high-backed wooden chair, both "
-     "hands raised to their own throat, the only motion is shallow breathing, a single candle burning "
-     "behind the chair so the figure is pure black against the glow. Camera: completely locked off and "
-     "static. No face, no facial features, no detail of suffering, no blood. Hold this single view for "
-     "the full clip: no cut, no scene change, no camera relocation.",
-     "呼吸声放大；弦乐压低"),
-    ("S05", "agnes", "缓慢下摇 slow tilt down",
-     "史料记载的处置之一：火盆里的铁钳（烧灼伤口）",
-     "火星升起，硬切阁楼",
-     "Close on a stone hearth in a dark room, a pair of long iron tongs resting in glowing embers, "
-     "sparks drifting upward, warm orange light on the stone, heavy film grain. Camera: one slow tilt "
-     "down from the embers to the ash. No hands, no people, no instruments with markings or writing. "
-     "Hold this single view: no cut, no scene change, no camera relocation.",
-     "炭火噼啪"),
-    ("S06", "agnes", "缓慢拉远 slow pull back",
-     "绝望的另一面：阁楼里两张叠着的褥子，一束灰白的光（不出现人）",
-     "光斑淡出，硬切信息卡",
-     "A dim attic under a sloping roof, two folded straw mattresses stacked against a rough stone wall, "
-     "pale daylight from the window filling the attic so the mattresses, the roof beams and the stone "
-     "wall all stay readable, the far corners in soft shadow with visible detail. Camera: one slow pull back revealing the empty room. No people, no text, nothing "
-     "legible. Hold this single view for the full clip: no cut, no scene change, no camera relocation.",
-     "低频嗡鸣，音乐收住"),
-    ("S07", "graphic", "静帧",
-     "信息卡①：发病后病死率——把「百分之百」钉死在屏幕上",
-     "硬切实验室窗前的背影",
-     "信息卡：病死率（画面文字见 CARDS）",
-     ""),
-    ("S08", "agnes", "缓慢推近 slow push in",
-     "「一个连行医资格都没有的化学家」：实验室窗前一个穿深色外套的背影",
-     "背影不动，硬切实验室全景",
-     "Interior of a cramped nineteenth century Paris laboratory at dusk, a lone figure seen strictly "
-     "from behind in a long dark frock coat standing at a tall window, shoulders and back only, warm "
-     "grey light through the glass, dust in the air, workbench shapes in the foreground. Camera: one "
-     "slow push in toward the back. The figure never turns and no face is ever visible; no readable "
-     "papers or labels. Hold this single view: no cut, no scene change, no camera relocation.",
-     "环境声：远处马车"),
+    # ---------------- N01 钩子与绝望（S01–S08，8 镜：7 动画 + 1 信息卡） ----------------
+    ('S01', 'agnes', '低机位缓慢横移 low lateral drift',
+     '0–5 秒钩子：黄昏村口石板路上一条狗的黑色剪影，只用剪影，不展示撕咬',
+     '狗的剪影化进黑暗，硬切挂钟',
+     'A large dog standing alone on a wet cobblestone village street at dusk, seen from behind '
+     'as a completely black silhouette, low camera at pavement height, one warm window light '
+     'far behind, damp air and long shadows. Camera: one slow lateral drift to the right at '
+     'knee height. The background holds only a stone wall and darkness. The dog never '
+     'approaches the lens and shows no aggression or teeth. Hold this single view: no cut, no '
+     'scene change, no camera relocation.',
+     '一声远处低沉的狗吠（合成）垫底；无音乐，只有环境声'),
+    ('S02', 'agnes', '缓慢横移 slow lateral drift',
+     '「你就已经进入了倒计时」：墙上老式挂钟，钟摆在动，指针缓慢移动',
+     '钟摆声桥，硬切烛光下的手',
+     'Close on a nineteenth century wall clock in a dim farmhouse hallway, the pendulum '
+     'swinging, the hands just past six, warm lamplight on the wooden case and the pale dial, '
+     'dust in the beam. Camera: one slow lateral drift across the clock face. The dial carries '
+     'no readable numbers and no lettering of any kind. Hold this single view: no cut, no '
+     'scene change, no camera relocation.',
+     '钟摆滴答（合成）垫底；低频嗡鸣起'),
+    ('S03', 'agnes', '极缓推近 very slow push in',
+     '「恐水、痉挛、窒息」：烛光下一只颤抖的手把一杯水推开，烛火将熄',
+     '水杯碰桌声，硬切空床',
+     'Close on a trembling adult hand pushing a glass of water away across a wooden kitchen '
+     'table at night, a single candle beside it, the water surface shaking, the sleeve rolled '
+     'back. Camera: one very slow push in toward the glass. No face, no wound, no blood. Hold '
+     'this single view: no cut, no scene change, no camera relocation.',
+     '烛火与呼吸声；音乐进入低沉弦乐'),
+    ('S04', 'agnes', '缓慢下摇 slow tilt down',
+     '「在疫苗出现之前，狂犬病一旦发病」：昏暗房间里一张空床，晨光从窗缝进来，人已经不在',
+     '光斑不动，硬切火盆',
+     'Interior of a small dark bedroom at first light, an iron bed with a smooth undisturbed '
+     'blanket, a wooden chair beside it, a narrow wedge of daylight falling across the empty '
+     'pillow from a shuttered window. Camera: one slow tilt down from the window to the bed. '
+     'No person in frame at any point. Hold this single view: no cut, no scene change, no '
+     'camera relocation.',
+     '呼吸声收住；弦乐压低'),
+    ('S05', 'agnes', '缓慢下摇 slow tilt down',
+     '「史料里的抢救办法：烧灼伤口」：火盆里烧红的铁钳',
+     '火星上升，硬切阁楼',
+     'Close on a pair of long iron tongs resting in glowing embers inside a stone hearth, '
+     'sparks rising, the tong tips bright orange, a dark kitchen behind. Camera: one slow tilt '
+     'down from the rising sparks to the embers. No hands, no skin, no wound, no blood. Hold '
+     'this single view: no cut, no scene change, no camera relocation.',
+     '炭火噼啪声；无音乐'),
+    ('S06', 'agnes', '缓慢拉远 slow pull back',
+     '「甚至把病人闷死」：阁楼里两张叠着的褥子，一束灰白的光（不出现人）',
+     '光斑淡出，硬切信息卡',
+     'Pale daylight from a small window filling an attic under a sloping roof so two folded '
+     'straw mattresses stacked against a rough stone wall stay readable, dust in the light, '
+     'wooden roof beams overhead. Camera: one slow pull back from the mattresses revealing the '
+     'empty room. No people anywhere in frame. Hold this single view: no cut, no scene change, '
+     'no camera relocation.',
+     '低频嗡鸣，音乐收住'),
+    ('S07', 'graphic', '静帧',
+     '信息卡①：发病后病死率——把「百分之百」钉死在屏幕上',
+     '硬切巴黎屋顶',
+     '信息卡：病死率（画面文字见 CARDS）',
+     ''),
+    ('S08', 'agnes', '缓慢横移 slow lateral drift',
+     '「一个连行医资格都没有的化学家」：学院高窗前一个穿深色外套的背影，手里拿着一份卷起的文件',
+     '背影出画，硬切巴黎屋顶',
+     'A lone figure seen strictly from behind in a long dark frock coat standing at a tall '
+     'window at the end of a Paris school corridor, shoulders and back only, a rolled document '
+     'held at his side, grey daylight through the glass, dust in the air. Camera: one slow '
+     'lateral drift along the corridor past the figure. The figure never turns and no face is '
+     'ever visible. Hold this single view: no cut, no scene change, no camera relocation.',
+     '环境声：远处马车与脚步'),
 
-    # ---------------- N02 巴斯德与减毒（S09–S15，7 镜：6 动画 + 1 信息卡）----------------
-    ("S09", "agnes", "横向移动 lateral dolly",
-     "实验室建立镜头：锌台面、黄铜显微镜、玻璃烧瓶、一盏油灯，无人",
-     "横移落在一台显微镜上，硬切特写",
-     "Interior of a cramped nineteenth century Paris laboratory, a long zinc workbench crowded with "
-     "brass microscopes, glass flasks, a gas burner and a single lit oil lamp, warm amber light and "
-     "dusty air, dark stone walls. Camera: one smooth lateral dolly travelling left to right along the "
-     "bench at waist height. No people; no readable labels, letters or book titles anywhere. Hold this "
-     "single view: no cut, no scene change, no camera relocation.",
-     "玻璃轻碰声"),
-    ("S10", "agnes", "极缓推近 very slow push in",
-     "「病原体都看不见」：黄铜显微镜特写，只有镜筒与旋钮",
-     "硬切兔笼",
-     "Extreme close on a brass microscope standing on a wooden bench, only the barrel, focusing knobs "
-     "and the edge of the stage in frame, warm lamplight raking across the metal, dust motes drifting, "
-     "fine film grain. Camera: one very slow push in along the barrel. No hands, no glass slides with "
-     "writing, no text. Hold this single view for the full clip: no cut, no scene change, no camera "
-     "relocation.",
-     "金属反光，无声"),
-    ("S11", "agnes", "横向移动 lateral dolly",
-     "实验动物：石墙下一排木框兔笼，一只白兔坐在干草上",
-     "硬切玻璃罐架",
-     "Interior of a small laboratory animal room, a row of wooden and wire rabbit hutches along a cold "
-     "stone wall, straw scattered on the floor, one oil lamp hanging low, a single white rabbit sitting "
-     "calmly inside the nearest hutch seen through the wire. Camera: one slow lateral dolly along the "
-     "row of hutches. The animal is alive, calm and unharmed; no text, no tags with writing. Hold this "
-     "single view: no cut, no scene change, no camera relocation.",
-     "干草窸窣、兔笼轻响"),
-    ("S12", "agnes", "横向移动 lateral track",
-     "核心道具：架子上排成一列的玻璃罐，罐里是干燥处理的脊髓",
-     "玻璃反光，硬切信息卡",
-     "Close on a wooden shelf in a dark laboratory holding a row of tall glass jars, each jar containing "
-     "a single pale coiled cord suspended in clear fluid, warm light from the left making every jar "
-     "glow at the rim, heavy film grain. Camera: one slow lateral track across the row of jars at eye "
-     "level. No hands, no paper labels, no writing on the glass, no gore or anatomical detail. Hold "
-     "this single view: no cut, no scene change, no camera relocation.",
-     "玻璃碰撞、低频垫音"),
-    ("S13", "graphic", "静帧",
-     "信息卡②：路易·巴斯德 · 化学家，不是执业医生",
-     "硬切传代的手",
-     "信息卡：人物档案（画面文字见 CARDS）",
-     ""),
-    ("S14", "agnes", "缓慢推近 slow push in",
-     "「传了三十九次以上」：两只手把一截脊髓从一个玻璃罐移到另一个",
-     "硬切趴着的狗",
-     "Close on two adult hands in dark sleeves moving a slender pale cord with tweezers from one glass "
-     "jar into the next on a zinc bench, warm lamplight from the upper left, shallow focus, fine grain. "
-     "Camera: one slow push in on the hands. No faces, no readable labels on the jars, no gore; the "
-     "specimen stays abstract and clinical. Hold this single view: no cut, no scene change, no camera "
-     "relocation.",
-     "镊子轻响、玻璃声"),
-    ("S15", "agnes", "缓慢下摇 slow tilt down",
-     "「在狗身上成了」：实验室地板上一只安静趴着的狗（活着、无伤）",
-     "狗抬头，硬切阿尔萨斯村庄",
-     "Interior of the laboratory, a medium-sized dog lying calmly on the wooden floor beside a workbench "
-     "leg, seen from behind and slightly above, its head resting on its paws, warm lamplight pooling on "
-     "the boards. Camera: one slow tilt down from the bench edge to the dog. The dog is alive, calm and "
-     "completely unharmed - no injury, no blood, no muzzle straps with markings. Hold this single view: "
-     "no cut, no scene change, no camera relocation.",
-     "狗的呼吸声"),
+    # ---------------- N02 巴斯德与减毒（S09–S15，7 镜：6 动画 + 1 信息卡） ----------------
+    ('S09', 'agnes', '缓慢下摇 slow tilt down',
+     '「他叫路易·巴斯德」：一八八零年代巴黎的屋顶与烟囱轮廓，其中一间阁楼亮着灯',
+     '下摇到亮灯的窗，硬切实验室工作台',
+     'Exterior rooftops of eighteen eighties Paris at dusk, a long row of chimneys and slate '
+     'roofs receding into haze, one attic window glowing warm amber among the dark roofs. '
+     'Camera: one slow tilt down from the sky to that single lit window. No readable shop '
+     'signs, no advertising, no people. Hold this single view: no cut, no scene change, no '
+     'camera relocation.',
+     '城市远声；钢琴单音进入'),
+    ('S10', 'agnes', '缓慢推近 slow push in',
+     '「他在巴黎的实验室里跟这种病较劲」：锌台面、黄铜显微镜、玻璃烧瓶、一盏油灯，无人',
+     '灯焰轻晃，硬切兔笼',
+     'Interior of a cramped nineteenth century Paris laboratory, a long zinc workbench crowded '
+     'with a brass microscope, glass flasks and a lit oil lamp, warm light on the metal, no '
+     'people in frame. Camera: one slow push in along the bench toward the microscope. No '
+     'readable labels, no papers with writing, no charts. Hold this single view: no cut, no '
+     'scene change, no camera relocation.',
+     '环境声：液体轻响与火焰'),
+    ('S11', 'agnes', '横向移动 lateral dolly',
+     '「干燥，再接种到下一只兔子体内」：院子石墙下一排木框兔笼，一只白兔坐在干草上',
+     '兔子耳朵一动，硬切玻璃罐',
+     'A row of wooden rabbit hutches along a rough stone wall in a small courtyard, one white '
+     'rabbit sitting on clean straw in the open doorway of its hutch, morning light across the '
+     'yard. Camera: one slow lateral dolly along the row of hutches. The animals are calm and '
+     'unharmed; no procedures, no instruments, no blood. Hold this single view: no cut, no '
+     'scene change, no camera relocation.',
+     '院子环境声：鸟与远处车马'),
+    ('S12', 'agnes', '缓慢拉远 slow pull back',
+     '「毒性一点一点减弱」：储藏室木架上一排玻璃罐，罐里是干燥处理的脊髓，一头暗一头亮',
+     '罐子反光，硬切信息卡',
+     'Close on a wooden shelf in a small storeroom holding a row of tall glass jars, each jar '
+     'containing a pale dried cord coiled in clear fluid, the row fading from shadow at one '
+     'end to warm lamp light at the other. Camera: one slow pull back from a single jar to '
+     'reveal the whole row of jars. No readable labels or numbers on the jars. Hold this '
+     'single view: no cut, no scene change, no camera relocation.',
+     '低频环境声；弦乐渐起'),
+    ('S13', 'graphic', '静帧',
+     '信息卡②：路易·巴斯德 · 化学家，不是执业医生',
+     '硬切学院石廊',
+     '信息卡：路易·巴斯德（画面文字见 CARDS）',
+     ''),
+    ('S14', 'agnes', '缓慢跟拍 backward dolly',
+     '「更麻烦的是，他不是医生」：巴黎机构的石阶与木门前，一个穿深色外套的背影拿着卷起的文件走上去',
+     '脚步声桥，硬切铁栅阴影',
+     'A figure seen only from behind in a long dark frock coat climbing a flight of worn stone '
+     'steps toward a heavy wooden door of a Paris institution, a rolled document in one hand, '
+     'daylight from one side, the door blank and unmarked. Camera: one slow backward dolly '
+     'tracking in front of the figure as it climbs. No face at any point; no readable notices '
+     'or plaques. Hold this single view: no cut, no scene change, no camera relocation.',
+     '脚步声与远处人声；音乐收住'),
+    ('S15', 'agnes', '缓慢横移 slow lateral drift',
+     '「一旦出事，等着他的就是身败名裂和牢狱之灾」：石墙上铁栅的阴影缓缓移动，无人',
+     '阴影移过墙面，硬切村庄清晨',
+     'A blank stone wall in shadow with the hard black shadow of an iron bar gate sliding '
+     'slowly across it, a single high lamp throwing the pattern, dust in the air. Camera: one '
+     'slow lateral drift following the moving bars of shadow. No people, no prison uniform, no '
+     'readable text. Hold this single view: no cut, no scene change, no camera relocation.',
+     '低频嗡鸣；一声闷响（合成）'),
 
-    # ---------------- N03 男孩与抉择（S16–S23，8 镜：7 动画 + 1 信息卡）----------------
-    ("S16", "agnes", "向前推进 forward dolly",
-     "阿尔萨斯：夏日清晨的半木结构村庄街道，空无一人",
-     "推进到街角，硬切跑远的狗",
-     "Exterior of an Alsatian half-timbered village street on a summer morning, warm low sunlight and "
-     "long shadows across the cobblestones, a wooden cart against a plaster wall, flower boxes on "
-     "windowsills. Camera: one slow forward dolly down the centre of the empty street. No people, no "
-     "readable shop signs, no text. Hold this single view for the full clip: no cut, no scene change, "
-     "no camera relocation.",
-     "鸟鸣、远处教堂钟"),
-    ("S17", "agnes", "固定机位缓慢推近 static slow push in",
-     "出事之后：一条狗沿街道跑远的剪影（不重现撕咬）",
-     "狗出画，硬切门槛上的孩子",
-     "The same village street in hard morning sunlight, a dog running away from the camera down the "
-     "middle of the road, seen as a small dark silhouette with a long shadow, dust behind it. Camera: "
-     "locked off with one very slow push in. No people, no bite, no blood, no visible aggression, no "
-     "text. Hold this single view: no cut, no scene change, no camera relocation.",
-     "狗爪声远去，钟声收"),
-    ("S18", "agnes", "缓慢推近 slow push in",
-     "「被疯狗咬了十几处」：门槛上坐着的小小身影，小腿缠着布条（背影、不露脸）",
-     "孩子起身，硬切乡间路",
-     "A small child sitting on a wooden doorstep outside a half-timbered house, seen strictly from "
-     "behind and slightly above, a bandage wrapped around one bare lower leg, an adult hand resting on "
-     "the child's shoulder, warm morning light and long shadow. Camera: one slow push in from behind. "
-     "No face, no visible wound or blood, no readable cloth patterns. Hold this single view: no cut, no "
-     "scene change, no camera relocation.",
-     "安静；只剩风声与鸟"),
-    ("S19", "agnes", "跟拍 backward dolly",
-     "「从阿尔萨斯带到他面前」：黎明乡路上，一大一小两个背影走远",
-     "人影走远，硬切巴黎石门",
-     "A country road at dawn, an adult figure and a smaller child walking away from the camera seen "
-     "strictly from behind, dust rising behind their feet, flat grey-gold light, bare fields on both "
-     "sides. Camera: one slow dolly backward keeping pace ahead of them. No faces, they never turn; no "
-     "luggage with writing, no text. Hold this single view: no cut, no scene change, no camera "
-     "relocation.",
-     "脚步声、远处车轮"),
-    ("S20", "agnes", "缓慢推近 slow push in",
-     "抵达：巴黎一间机构厚重的木门与石阶，铜牌保持空白",
-     "推到门缝的光，硬切信息卡",
-     "Exterior of a stone institutional doorway in Paris in the morning, a heavy wooden door standing "
-     "slightly ajar with a wedge of warm light inside, worn stone steps, a blank unmarked brass plate "
-     "beside the door. Camera: one slow push in toward the doorway. No people, no legible letters or "
-     "inscriptions. Hold this single view for the full clip: no cut, no scene change, no camera "
-     "relocation.",
-     "门轴轻响"),
-    ("S21", "graphic", "静帧",
-     "信息卡③：一八八五年七月六日",
-     "硬切书桌前的手",
-     "信息卡：日期与人物（画面文字见 CARDS）",
-     ""),
-    ("S22", "agnes", "缓慢推近 slow push in",
-     "「我极度焦虑」：夜里书桌上一只握着羽毛笔、微微发抖的手，纸上是空白",
-     "笔尖悬停，硬切注射器",
-     "Close on a wooden desk at night, an older man's hand holding a quill pen above a blank sheet of "
-     "paper, the hand trembling slightly, a shaded oil lamp just at the edge of the frame, warm amber "
-     "light and deep shadow. Camera: one slow push in on the hand. No face, no readable writing on the "
-     "paper, no other people. Hold this single view: no cut, no scene change, no camera relocation.",
-     "笔尖触纸、钟摆声"),
-    ("S23", "agnes", "缓慢推近 slow push in",
-     "拿起注射器：一只手从木盒里取出一支玻璃注射器",
-     "金属反光，硬切划痕卡片",
-     "Close on a hand lifting a long glass syringe with a thin metal needle out of a dark wooden case, "
-     "lamplight glinting along the glass barrel, everything else in near-darkness, fine film grain. "
-     "Camera: one slow push in along the syringe. No face, no ampoule labels, no text, no blood. Hold "
-     "this single view: no cut, no scene change, no camera relocation.",
-     "金属与木盒轻响"),
+    # ---------------- N03 约瑟夫（S16–S23，8 镜：7 动画 + 1 信息卡） ----------------
+    ('S16', 'agnes', '向前推进 forward dolly',
+     '「一八八五年七月六日清晨」：夏日清晨的阿尔萨斯半木结构村庄街道，空无一人',
+     '推进到街道尽头，硬切乡路',
+     'An Alsatian half-timbered village street early on a summer morning, shutters closed, the '
+     'cobblestones still damp, nobody about, pale light and long shadows across the timbered '
+     'facades. Camera: one slow forward dolly down the empty street. No readable shop signs or '
+     'house numbers. Hold this single view: no cut, no scene change, no camera relocation.',
+     '清晨鸟声与远处牛铃'),
+    ('S17', 'agnes', '缓慢跟拍 follow behind',
+     '「一个九岁的男孩被母亲从阿尔萨斯带到他面前」：黎明乡路上，一大一小两个背影走远',
+     '背影走远，硬切门槛上的孩子',
+     'A rural road at dawn, a woman in a long dark skirt and a small boy in short trousers '
+     'walking away from the camera side by side, seen only from behind, hedgerows and fields '
+     'either side, pale morning mist. Camera: one slow dolly following behind the two figures. '
+     'Neither turns around and no face is ever visible. Hold this single view: no cut, no '
+     'scene change, no camera relocation.',
+     '脚步声与鸟声；钢琴单音'),
+    ('S18', 'agnes', '缓慢下摇 slow tilt down',
+     '「两天前被疯狗咬伤十几处。母亲只求他救一救」：门槛上的孩子背影，一只大人的手搭在他肩上，小腿缠着布条',
+     '手收紧，硬切书桌',
+     'A small boy seated on a wooden doorstep seen strictly from behind, the hand of an adult '
+     'resting on his shoulder, a clean cloth bandage wrapped around one lower leg, a farmhouse '
+     'doorway behind. Camera: one slow tilt down from the shoulder to the bandaged leg. No '
+     'faces, no wounds, no blood, no torn cloth. Hold this single view: no cut, no scene '
+     'change, no camera relocation.',
+     '环境声：远处犬吠渐弱；弦乐低入'),
+    ('S19', 'agnes', '缓慢横移 slow lateral drift',
+     '「巴斯德后来写下：孩子的结局看起来无法避免」：夜里书桌上一只握着羽毛笔的手，纸上墨迹未干',
+     '笔尖停住，硬切趴着的狗',
+     "Close on an older man's hand holding a quill pen above a sheet of paper on a wooden desk "
+     'at night, an inkwell and a single oil lamp beside it, fresh ink glistening on the page. '
+     'Camera: one slow lateral drift beside the writing hand. The paper shows only illegible '
+     'strokes - no readable words, letters or numbers. Hold this single view: no cut, no scene '
+     'change, no camera relocation.',
+     '笔尖沙沙与火焰；音乐收住'),
+    ('S20', 'agnes', '缓慢下摇 slow tilt down',
+     '「还是决定用在狗身上从未失败过的办法试一次」：动物房地板上一只安静趴着的狗，活着、无伤',
+     '狗抬起头，硬切信息卡',
+     'A calm brown dog lying on the wooden floor of a small animal room, awake and unharmed, a '
+     'low window casting daylight across the boards, a water bowl beside it. Camera: one slow '
+     'tilt down from the window to the dog. The dog is healthy and still; no procedure, no '
+     'instruments, no blood. Hold this single view: no cut, no scene change, no camera '
+     'relocation.',
+     '狗的呼吸声；一声轻吠（远）'),
+    ('S21', 'graphic', '静帧',
+     '信息卡③：一八八五年七月六日',
+     '硬切深夜窗前的背影',
+     '信息卡：一八八五年七月六日（画面文字见 CARDS）',
+     ''),
+    ('S22', 'agnes', '缓慢拉远 slow pull back',
+     '「治，一旦失败，所有的责难都会落在他一个人身上」：深夜窗前一个独自站立的背影，窗外全黑',
+     '背影不动，硬切取注射器的手',
+     'A lone figure seen strictly from behind standing at a tall dark window at night, '
+     'shoulders and back only, the glass reflecting nothing but blackness outside, one candle '
+     'burning on a table behind. Camera: one slow pull back from the figure into the room. The '
+     'figure never turns and no face is ever visible. Hold this single view: no cut, no scene '
+     'change, no camera relocation.',
+     '一声心跳（合成）；弦乐压低至无'),
+    ('S23', 'agnes', '极缓推近 very slow push in',
+     '「这位老人的手，抖着拿起了注射器」：一只手从木盒里取出一支玻璃注射器',
+     '玻璃反光，硬切倒计时卡片',
+     'Close on an older hand lifting a long glass syringe with a thin metal needle out of an '
+     'open dark wooden case, lamp light glinting along the glass barrel, the fingers trembling '
+     'slightly. Camera: one very slow push in along the syringe. No face, no ampoule labels, '
+     'no text, no blood. Hold this single view: no cut, no scene change, no camera relocation.',
+     '玻璃轻碰声；心跳继续'),
 
-    # ---------------- N04 最难熬的十天（S24–S30，7 镜：6 动画 + 1 信息卡）----------------
-    ("S24", "agnes", "缓慢推近 slow push in",
-     "倒计时：木桌上一张空白卡片，手指划过一道道抽象的划痕",
-     "手指出画，硬切针剂排列",
-     "Close on a wooden table in a plainly lit room, a blank card with a row of short abstract pencil scratches "
-     "on it, an adult forefinger tracing them one by one, an oil lamp plus daylight from a window, soft shadow with visible detail. Camera: one "
-     "slow push in on the card. The marks are abstract scratches only - no legible numbers, digits or "
-     "letters; no face. Hold this single view: no cut, no scene change, no camera relocation.",
-     "纸面摩擦声、滴答开始"),
-    ("S25", "agnes", "横向移动 lateral track",
-     "「一针比一针毒」：木架上排开的小玻璃瓶，从暗到亮",
-     "玻璃反光，硬切注射",
-     "Close on a row of small glass vials standing in a wooden rack in a dark laboratory, warm light "
-     "from the left turning each vial rim into a bright line, the vials growing slightly brighter from "
-     "left to right, dust and film grain. Camera: one slow lateral track along the row. No labels, no "
-     "writing, no hands. Hold this single view: no cut, no scene change, no camera relocation.",
-     "滴答声持续"),
-    ("S26", "agnes", "极缓推近 very slow push in",
-     "每天一针：前臂上方，一只手缓缓推下玻璃针管的活塞（不见脸、不见入针细节）",
-     "硬切夜里的病房",
-     "Close on an adult forearm in a dark sleeve lying on clean linen, a hand slowly pressing the "
-     "plunger of a glass syringe held just above the skin, warm lamplight, shallow focus, fine grain. "
-     "Camera: one very slow push in. No face, no blood, no needle penetration, no skin detail beyond "
-     "clean forearm. Hold this single view: no cut, no scene change, no camera relocation.",
-     "呼吸与滴答"),
-    ("S27", "agnes", "固定机位 locked off",
-     "「夜夜守着病床」：夜里的小病房，铁床、木椅、一盏油灯，只有火苗在动",
-     "火苗晃动，硬切信息卡",
-     "Interior of a small hospital room at night, an iron bed with a still blanket, a wooden chair "
-     "beside it, a single oil lamp burning on a small side table, whitewashed stone walls. Camera: "
-     "completely locked off. No people visible; the only motion is the lamp flame and drifting shadow. "
-     "Hold this single view for the full clip: no cut, no scene change, no camera relocation.",
-     "油灯的细微噼啪；音乐最弱"),
-    ("S28", "graphic", "静帧",
-     "信息卡④：十天 · 十几针（两份来源针数略有出入，成片不写死）",
-     "硬切晨光里的病床",
-     "信息卡：疗程（画面文字见 CARDS）",
-     ""),
-    ("S29", "agnes", "缓慢拉远 slow dolly back",
-     "「一天天好起来」：晨光里，床上小小的人影坐起来（逆光剪影，不露脸）",
-     "剪影坐直，硬切窗台",
-     "Interior of a small hospital room at morning, a small figure sitting up slowly in an iron bed, "
-     "seen strictly from the front but rendered as a dark silhouette against a bright window behind, "
-     "dust in the light, warm rim light on the blanket. Camera: one slow dolly back. No face, no facial "
-     "features, no expression detail. Hold this single view: no cut, no scene change, no camera "
-     "relocation.",
-     "音乐第一次转暖"),
-    ("S30", "agnes", "固定机位 locked off",
-     "康复：白墙上窗台的一杯水与缓慢移动的树影（与第三镜的水呼应）",
-     "树影移动，硬切人群",
-     "Close on a window ledge in a whitewashed hospital room, a glass of water standing beside the "
-     "frame, slow leaf shadows moving across the sill in pale neutral morning light. Camera: completely locked "
-     "off and static. No people, no text. Hold this single view for the full clip: no cut, no scene "
-     "change, no camera relocation.",
-     "鸟鸣；音乐渐起"),
+    # ---------------- N04 十天（S24–S30，7 镜：6 动画 + 1 信息卡） ----------------
+    ('S24', 'agnes', '极缓横移 very slow lateral drift',
+     '「接下来的十天，是这个实验室最难熬的十天」：木桌上一张卡片，手指一道道划过划痕',
+     '手指划过最后一道，硬切药瓶架',
+     'Close on a plain card on a wooden table in a plainly lit treatment room, a forefinger '
+     'tracing a row of short abstract pencil scratches one by one, an oil lamp plus daylight '
+     'from a window, soft shadow with visible detail. Camera: one very slow lateral drift '
+     'alongside the moving finger. The marks are abstract scratches only - no legible numbers, '
+     'digits or letters. Hold this single view: no cut, no scene change, no camera relocation.',
+     '纸面摩擦声；低频脉动'),
+    ('S25', 'agnes', '缓慢上摇 slow tilt up',
+     '「每天一针，一针比一针毒」：储藏室木架上排开的小玻璃瓶，从暗到亮',
+     '上摇到架子顶端，硬切推活塞的手',
+     'Close on a row of small glass vials standing in a wooden rack on a storeroom shelf, lit '
+     'so the row runs from shadow at one end to warm light at the other, pale fluid in each '
+     'vial. Camera: one slow tilt up along the row of vials. No readable labels, no numbers, '
+     'no text of any kind. Hold this single view: no cut, no scene change, no camera '
+     'relocation.',
+     '玻璃轻响；弦乐渐紧'),
+    ('S26', 'agnes', '极缓推近 very slow push in',
+     '「后面用的是毒性更强的制剂」：前臂上方，一只手缓缓推下玻璃针管的活塞（不见脸、不见入针）',
+     '活塞推到底，硬切病房',
+     'Close on an adult forearm in a dark sleeve lying on clean linen, a hand slowly pressing '
+     'the plunger of a small glass syringe held just above the forearm, no skin penetration '
+     'shown, warm lamp light on the glass. Camera: one very slow push in toward the plunger. '
+     'No face, no needle entering skin, no blood. Hold this single view: no cut, no scene '
+     'change, no camera relocation.',
+     '衣料摩擦与呼吸；音乐悬停'),
+    ('S27', 'agnes', '缓慢横移 slow lateral drift',
+     '「他是在拿一个孩子的命跟死神抢时间，夜夜守着病床」：夜里的小病房，铁床、木椅、一盏油灯',
+     '灯焰轻晃，硬切信息卡',
+     'Interior of a small hospital room at night, an iron bed with a still blanket, a wooden '
+     'chair beside it, oil lamps spaced along the wall plus pale moonlight from a window, the '
+     'whole room readable, the only movement the lamp flame. Camera: one slow lateral drift '
+     'from the bed to the chair. No people in frame. Hold this single view: no cut, no scene '
+     'change, no camera relocation.',
+     '火焰与夜虫声；无音乐'),
+    ('S28', 'graphic', '静帧',
+     '信息卡④：十天 · 十几针（两份来源针数略有出入，成片不写死）',
+     '硬切晨光里的病房',
+     '信息卡：十天 · 十几针（画面文字见 CARDS）',
+     ''),
+    ('S29', 'agnes', '缓慢拉远 slow dolly back',
+     '「可约瑟夫没有发病，一天天好起来」：晨光里，床上小小的人影慢慢坐起来',
+     '坐起来，硬切厨房喝水',
+     'Interior of a small hospital room at morning, a small figure sitting up slowly in an '
+     'iron bed, seen only as a backlit silhouette from behind, pale light through the window '
+     'behind. Camera: one slow dolly back from the bed. No face, no features, no readable '
+     'text. Hold this single view: no cut, no scene change, no camera relocation.',
+     '晨光里的鸟声；钢琴进入'),
+    ('S30', 'agnes', '缓慢推近 slow push in',
+     '「成了人类历史上第一个被狂犬病疫苗救下来的人」：农舍厨房里，一只小手端起木桌上的杯子喝水（呼应第三镜被推开的那杯水）',
+     '杯子放下，硬切庭院人群',
+     "Close on a small child's hand lifting a glass of water from a wooden farmhouse kitchen "
+     'table in morning light and drinking from it, a plain mug beside, the same table where a '
+     'candle burned in an earlier shot. Camera: one slow push in toward the glass. Only the '
+     'hand and the glass are in frame - no face, no features. Hold this single view: no cut, '
+     'no scene change, no camera relocation.',
+     '喝水声；音乐第一次完整地起来'),
 
-    # ---------------- N05 从巴黎到世界（S31–S38，8 镜：6 动画 + 2 信息卡）----------------
-    ("S31", "agnes", "横向移动 lateral dolly",
-     "「消息传开」：巴黎一处庭院，穿深色外套的人群背影朝一个门口走去",
-     "人群入画，硬切火车站",
-     "Exterior of a Paris courtyard in the eighteen eighties, a crowd of people in dark coats and hats "
-     "seen strictly from behind, walking together toward a lit doorway, overcast warm light, wet "
-     "cobblestones. Camera: one slow lateral dolly following the crowd. No faces, no readable signs, no "
-     "placards or banners. Hold this single view: no cut, no scene change, no camera relocation.",
-     "人群脚步与低语"),
-    ("S32", "agnes", "缓慢上摇 slow tilt up",
-     "「从英国、俄国、意大利、德国涌向巴黎」：蒸汽机车进站，月台边缘的人影",
-     "蒸汽散开，硬切长队",
-     "A steam locomotive arriving at a nineteenth century railway platform, thick steam filling the "
-     "frame, dark silhouettes of waiting people along the platform edge, low pale morning sunlight cutting "
-     "through the steam. Camera: one slow tilt up from the wheels to the steam. No faces, no legible "
-     "text on the train or signs. Hold this single view: no cut, no scene change, no camera relocation.",
-     "汽笛与蒸汽"),
-    ("S33", "agnes", "向前推进 forward dolly",
-     "排队等治疗：石廊里一排坐在长凳上的人，尽头一盏灯",
-     "推到走廊尽头，硬切信息卡",
-     "Interior of a long stone corridor in a Paris institution, a queue of people seated along a wooden "
-     "bench on one side, seen strictly from behind, oil lamps spaced along the wall plus pale daylight "
-     "from a high window, the whole corridor evenly readable from end to end. Camera: one slow forward dolly down the corridor. No faces, no readable "
-     "notices on the walls. Hold this single view: no cut, no scene change, no camera relocation.",
-     "低语与脚步"),
-    ("S34", "graphic", "静帧",
-     "信息卡⑤：两千五百人 → 近两万人 · 死亡率低于千分之五",
-     "硬切研究所门楼",
-     "信息卡：扩散的数字（画面文字见 CARDS）",
-     ""),
-    ("S35", "agnes", "缓慢推近 slow push in",
-     "「一八八八年十一月十四日研究所落成」：巴黎一座新落成的石砌门楼",
-     "推进拱门，硬切花束",
-     "Exterior of a newly completed stone institutional building in Paris, a tall arched gateway with "
-     "fresh pale mortar, scaffolding poles still stacked to one side, warm late afternoon light on the "
-     "limestone. Camera: one slow push in on the arch. No people, no legible inscription or plaque text. "
-     "Hold this single view: no cut, no scene change, no camera relocation.",
-     "风声、远处车马"),
-    ("S36", "agnes", "缓慢推近 slow push in",
-     "后人的敬意：纪念石座前一束新鲜的花（石座不刻字、胸像不入画）",
-     "花瓣微动，硬切现代生产线",
-     "Close on the weathered stone base of a memorial in a Paris courtyard, a small bouquet of fresh "
-     "flowers resting against the stone, rain-wet surface, soft warm light, fine film grain. Camera: one "
-     "slow push in on the flowers. The memorial itself stays out of frame; no legible inscription, no "
-     "face, no people. Hold this single view: no cut, no scene change, no camera relocation.",
-     "雨滴；音乐转宏大"),
-    ("S37", "agnes", "横向移动 lateral track",
-     "现代：洁净的疫苗生产线，不锈钢与传送带上排开的玻璃瓶",
-     "传送带移动，硬切信息卡",
-     "Interior of a bright modern vaccine production hall, stainless steel machinery and a long row of "
-     "filled glass vials moving along a conveyor behind protective glass, clean clinical light kept warm "
-     "in the grade, reflections on steel. Camera: one slow lateral track along the line. No people, no "
-     "readable labels or logos. Hold this single view: no cut, no scene change, no camera relocation.",
-     "机器低频运转"),
-    ("S38", "graphic", "静帧",
-     "信息卡⑥：今天仍在——全球每年数万人死于狂犬病，约四成是十五岁以下的孩子",
-     "硬切猫走过地板",
-     "信息卡：今天（画面文字见 CARDS）",
-     ""),
+    # ---------------- N05 扩散（S31–S38，8 镜：6 动画 + 2 信息卡） ----------------
+    ('S31', 'agnes', '缓慢下摇 slow tilt down',
+     '「消息传开，病人从英国、俄国、意大利…」：巴黎一处庭院，穿深色外套的人群背影朝一个门口走去',
+     '人群进门，硬切火车站台',
+     'Exterior of a Paris courtyard in the eighteen eighties, a crowd of people in dark coats '
+     'and hats walking away from the camera toward a single doorway, seen only from behind, '
+     'stone paving wet with rain. Camera: one slow tilt down from the facade to the moving '
+     'crowd. No faces, no readable signs or plaques. Hold this single view: no cut, no scene '
+     'change, no camera relocation.',
+     '人群脚步声与低语；弦乐渐强'),
+    ('S32', 'agnes', '缓慢上摇 slow tilt up',
+     '「德国涌向巴黎」：蒸汽机车进站，月台边缘的人影',
+     '蒸汽散开，硬切长队',
+     'A steam locomotive arriving at a nineteenth century railway platform, thick steam '
+     'filling the frame, dark silhouettes of waiting people along the platform edge, low pale '
+     'morning sunlight cutting through the steam. Camera: one slow tilt up from the wheels to '
+     'the steam. No faces, no legible text on the train or signs. Hold this single view: no '
+     'cut, no scene change, no camera relocation.',
+     '汽笛与蒸汽声；节奏加快'),
+    ('S33', 'agnes', '向前推进 forward dolly',
+     '「到一八八六年十一月，已有大约两千五百人接受这种治疗」：石廊里一排坐在长凳上的人，尽头一盏灯',
+     '推到走廊中段，硬切信息卡',
+     'Interior of a long stone corridor in a Paris institution, a queue of people seated along '
+     'a wooden bench on one side, seen strictly from behind, oil lamps spaced along the wall '
+     'plus pale daylight from a high window, the whole corridor evenly readable from end to '
+     'end. Camera: one slow forward dolly down the corridor. No faces, no readable notices on '
+     'the walls. Hold this single view: no cut, no scene change, no camera relocation.',
+     '低沉人声与脚步；音乐托住'),
+    ('S34', 'graphic', '静帧',
+     '信息卡⑤：两千五百人 → 近两万人 · 死亡率低于千分之五',
+     '硬切登记簿',
+     '信息卡：两千五百 → 近两万（画面文字见 CARDS）',
+     ''),
+    ('S35', 'agnes', '缓慢下摇 slow tilt down',
+     '「死亡率不到千分之五」：木桌上一本摊开的登记簿，纸页上是一道道对勾（不可读），旁边一支笔',
+     '笔放下，硬切研究所门楼',
+     'Close on an open register lying on a wooden desk in a plainly lit office, page after '
+     'page of short abstract tick marks in a column, a steel pen resting beside it, warm '
+     'daylight and lamp light together. Camera: one slow tilt down along the column of marks. '
+     'The marks are abstract only - no legible names, numbers, letters or headings. Hold this '
+     'single view: no cut, no scene change, no camera relocation.',
+     '纸页翻动声；音乐渐收'),
+    ('S36', 'agnes', '缓慢上摇 slow tilt up',
+     '「一八八八年十一月十四日，巴斯德研究所在巴黎落成」：新落成的石砌门楼',
+     '上摇到门楣，硬切生产线',
+     'Exterior of the newly finished stone gateway of the Institut Pasteur in Paris in '
+     'eighteen eighty eight, clean pale limestone, an open carriage entrance, a few figures in '
+     'dark coats passing by seen only from behind. Camera: one slow tilt up from the '
+     'flagstones to the top of the arch. No readable inscription, no plaque lettering, no '
+     'faces. Hold this single view: no cut, no scene change, no camera relocation.',
+     '城市环境声；一记轻鼓（合成）'),
+    ('S37', 'agnes', '横向移动 lateral track',
+     '「而直到今天，全球每年仍有数万人死于狂犬病」：现代疫苗生产线，不锈钢与传送带上排开的玻璃瓶',
+     '传送带移动，硬切信息卡',
+     'Interior of a clean modern vaccine filling line, stainless steel and a conveyor carrying '
+     'a row of small glass vials under bright neutral light, no workers visible in frame. '
+     'Camera: one slow lateral track alongside the moving conveyor. No readable labels or '
+     'brand marks on the vials or machinery. Hold this single view: no cut, no scene change, '
+     'no camera relocation.',
+     '机械轻响；音乐转冷'),
+    ('S38', 'graphic', '静帧',
+     '信息卡⑥：今天仍在——全球每年数万人死于狂犬病，约四成是十五岁以下的孩子',
+     '硬切家猫',
+     '信息卡：今天仍在（画面文字见 CARDS）',
+     ''),
 
-    # ---------------- N06 今天与金句（S39–S45，7 镜：6 动画 + 1 信息卡）----------------
-    ("S39", "agnes", "低机位缓慢移动 low slow dolly",
-     "「被猫狗抓伤」：一只家猫走过木地板，尾巴轻摆（不出现抓挠动作）",
-     "猫出画，硬切冲洗",
-     "Close on a domestic cat walking across a warm wooden floor away from the camera, its tail swaying, "
-     "neutral afternoon daylight through a window making long shadows, dust in the air, low camera near the floor. "
-     "Camera: one slow low dolly following a short distance. No people, no scratching, no blood, no "
-     "text. Hold this single view: no cut, no scene change, no camera relocation.",
-     "猫脚步、房间环境声"),
-    ("S40", "agnes", "缓慢推近 slow push in",
-     "「先冲洗伤口」：水龙头下冲洗的两只手",
-     "水声桥，硬切门诊走廊",
-     "Close on two adult hands under a running tap in a bright modern washroom, clear water streaming "
-     "over the wrists, neutral daylight, clean tiles, shallow focus. Camera: one slow push in. No face, no "
-     "blood, no wound, no readable product labels. Hold this single view: no cut, no scene change, no "
-     "camera relocation.",
-     "水流声"),
-    ("S41", "agnes", "向前推进 forward dolly",
-     "去疾控中心：现代社区门诊的走廊，一排蓝色塑料椅，无人",
-     "推到诊室门，硬切信息卡",
-     "Interior of a modern Chinese community clinic corridor, a row of simple blue plastic chairs along "
-     "a pale wall, a closed door with a frosted glass panel and no legible sign, clean daylight from a "
-     "window at the end. Camera: one slow forward dolly down the corridor. No people, no readable text, "
-     "no logos or posters. Hold this single view: no cut, no scene change, no camera relocation.",
-     "走廊环境声、远处叫号"),
-    ("S42", "graphic", "静帧",
-     "信息卡⑦：暴露后接种——五针法与四针法（二零二三年版规范）",
-     "硬切接种特写",
-     "信息卡：今天的接种程序（画面文字见 CARDS）",
-     ""),
-    ("S43", "agnes", "缓慢推近 slow push in",
-     "「打完疫苗就回家」：上臂三角肌上方，一只戴手套的手持针管（不见脸）",
-     "硬切傍晚的居民楼",
-     "Close on an adult upper arm in a short sleeve, a gloved hand holding a small modern syringe just "
-     "above the shoulder, clean neutral clinic light, shallow focus. Camera: one slow push in. No "
-     "faces, no blood, no needle penetration detail, no readable labels on the syringe. Hold this single "
-     "view: no cut, no scene change, no camera relocation.",
-     "轻微器械声"),
-    ("S44", "agnes", "缓慢上摇 slow tilt up",
-     "「平常得像顺手关灯」：傍晚居民楼，一盏盏窗灯亮起",
-     "灯光亮满，硬切旧注射器",
-     "Exterior of a modern residential neighbourhood at dusk, warm window lights switching on one by one "
-     "across a row of apartment buildings, cool blue sky above, a few bare trees. Camera: one slow tilt "
-     "up the facade. No people, no readable signs or banners. Hold this single view for the full clip: "
-     "no cut, no scene change, no camera relocation.",
-     "音乐转温暖宏大"),
-    ("S45", "agnes", "缓慢推近 slow push in",
-     "首尾呼应：现代诊室木桌上，一支旧玻璃注射器与一支现代疫苗瓶并排",
-     "画面停在两者之间，淡出到片尾卡",
-     "Close on an old long glass syringe with a thin metal needle lying beside a sealed modern vaccine "
-     "vial on a clean light wooden clinic desk, soft neutral window light from the left, soft shadow between "
-     "them, fine film grain. Camera: one slow push in toward the two objects. No readable labels, no "
-     "text, no people. Hold this single view for the full clip: no cut, no scene change, no camera "
-     "relocation.",
-     "音乐收尾；最后一句留白"),
+    # ---------------- N06 今天（S39–S45，7 镜：6 动画 + 1 信息卡） ----------------
+    ('S39', 'agnes', '低机位缓慢移动 low slow dolly',
+     '「今天，我们被猫狗抓伤」：一只家猫走过木地板，尾巴轻摆（不出现抓挠动作）',
+     '猫走出画，硬切接种台',
+     'Close on a domestic cat walking across a warm wooden floor away from the camera, its '
+     'tail swaying, neutral afternoon daylight through a window making long shadows, dust in '
+     'the air, low camera near the floor. Camera: one slow low dolly following the cat. The '
+     'cat is calm; no scratching, no wound, no blood. Hold this single view: no cut, no scene '
+     'change, no camera relocation.',
+     '室内安静的环境声；一声猫叫（远）'),
+    ('S40', 'agnes', '俯拍缓慢横移 slow overhead lateral drift',
+     '「能淡定地去疾控中心，按五针法或者四针法打完疫苗」：接种台面上一排现代疫苗瓶与一支一次性注射器，无人',
+     '硬切居民楼',
+     'Top-down close on a modern clinic treatment tray, a row of small vaccine vials and a '
+     'single sealed disposable syringe laid out on pale paper, cool neutral clinic light, '
+     'stainless steel edge of the tray. Camera: one slow overhead lateral drift along the '
+     'tray. No readable labels, no brand marks, no people. Hold this single view: no cut, no '
+     'scene change, no camera relocation.',
+     '空调低频与远处人声'),
+    ('S41', 'agnes', '缓慢上摇 slow tilt up',
+     '「平常得像顺手关灯」：傍晚居民楼，一盏盏窗灯亮起',
+     '灯亮满，硬切信息卡',
+     'Exterior of a modern residential neighbourhood at dusk, warm window lights switching on '
+     'one by one across a row of apartment buildings, cool blue sky above, a few bare trees. '
+     'Camera: one slow tilt up the facade as the lights come on. No readable signage, no '
+     'advertising, no people. Hold this single view: no cut, no scene change, no camera '
+     'relocation.',
+     '街区环境声；音乐温暖起来'),
+    ('S42', 'graphic', '静帧',
+     '信息卡⑦：暴露后接种——五针法与四针法（二零二三年版规范）',
+     '硬切昏暗石廊',
+     '信息卡：暴露后接种（画面文字见 CARDS）',
+     ''),
+    ('S43', 'agnes', '缓慢跟拍 backward dolly',
+     '「而是有人敢在深渊面前不退」：昏暗的石廊尽头，一个背影独自向前走，尽头有微光',
+     '微光渐亮，硬切接种的手',
+     'Interior of a dim stone corridor, a single figure in a long dark coat seen only from '
+     'behind walking away from the camera toward a faint light at the far end, damp walls '
+     'either side, dust in the beam. Camera: one slow backward dolly tracking in front of the '
+     'figure. The figure never turns and no face is ever visible. Hold this single view: no '
+     'cut, no scene change, no camera relocation.',
+     '脚步声与低频弦乐；一记心跳（合成）'),
+    ('S44', 'agnes', '极缓推近 very slow push in',
+     '「那管针剂，到今天还在护着每一个被抓伤的人」：上臂三角肌上方，一只戴手套的手持针管（不见脸、不见入针）',
+     '针管移开，硬切旧注射器',
+     'Close on an adult upper arm in a short sleeve, a gloved hand holding a small modern '
+     'syringe just above the shoulder, clean neutral clinic light, shallow focus. Camera: one '
+     'very slow push in toward the shoulder. No faces, no blood, no needle penetration detail, '
+     'no readable labels on the syringe. Hold this single view: no cut, no scene change, no '
+     'camera relocation.',
+     '轻呼吸声；音乐收成单音'),
+    ('S45', 'agnes', '缓慢拉远 slow pull back',
+     '「你上一次被小动物弄伤，是什么时候？」：现代诊室木桌上，一支旧玻璃注射器与一支现代疫苗瓶并排',
+     '拉远到整间诊室，淡出',
+     'Close on an old long glass syringe with a thin metal needle lying beside a sealed modern '
+     'vaccine vial on a clean light wooden clinic desk, soft neutral window light from the '
+     'left, soft shadow between them, fine film grain. Camera: one slow pull back from the two '
+     'objects to reveal the quiet room. No readable labels, no text, no people. Hold this '
+     'single view: no cut, no scene change, no camera relocation.',
+     '环境声淡出；最后一个钢琴音'),
 ]
 
 # ---------------------------------------------------------------------------
