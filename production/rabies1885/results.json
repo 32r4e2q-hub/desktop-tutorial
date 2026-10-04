@@ -806,10 +806,10 @@
     },
     "S30": {
       "id": "S30",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "9842c0fff753a37e979fdfa8236578699fcb6f7249ea7c64f2893de6e16fda66",
-      "error": null,
-      "updated_at": "2026-10-04T12:08:45Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Service busy: inference slot is in use.\\\",\\\"code\\\":\\\"503\\\"}}\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 202610041208468030290187tF5JPY4)",
+      "updated_at": "2026-10-04T12:08:48Z"
     },
     "S31": {
       "id": "S31",
@@ -1262,7 +1262,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T12:08:45Z",
+  "updated_at": "2026-10-04T12:08:48Z",
   "run_id": "37200868106",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
