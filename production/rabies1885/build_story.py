@@ -474,7 +474,7 @@ SHOTS = [
      "「被猫狗抓伤」：一只家猫走过木地板，尾巴轻摆（不出现抓挠动作）",
      "猫出画，硬切冲洗",
      "Close on a domestic cat walking across a warm wooden floor away from the camera, its tail swaying, "
-     "afternoon light through a window making long shadows, dust in the air, low camera near the floor. "
+     "neutral afternoon daylight through a window making long shadows, dust in the air, low camera near the floor. "
      "Camera: one slow low dolly following a short distance. No people, no scratching, no blood, no "
      "text. Hold this single view: no cut, no scene change, no camera relocation.",
      "猫脚步、房间环境声"),
@@ -482,7 +482,7 @@ SHOTS = [
      "「先冲洗伤口」：水龙头下冲洗的两只手",
      "水声桥，硬切门诊走廊",
      "Close on two adult hands under a running tap in a bright modern washroom, clear water streaming "
-     "over the wrists, warm daylight, clean tiles, shallow focus. Camera: one slow push in. No face, no "
+     "over the wrists, neutral daylight, clean tiles, shallow focus. Camera: one slow push in. No face, no "
      "blood, no wound, no readable product labels. Hold this single view: no cut, no scene change, no "
      "camera relocation.",
      "水流声"),
@@ -503,7 +503,7 @@ SHOTS = [
      "「打完疫苗就回家」：上臂三角肌上方，一只戴手套的手持针管（不见脸）",
      "硬切傍晚的居民楼",
      "Close on an adult upper arm in a short sleeve, a gloved hand holding a small modern syringe just "
-     "above the shoulder, clean clinic light, shallow focus, warm grade. Camera: one slow push in. No "
+     "above the shoulder, clean neutral clinic light, shallow focus. Camera: one slow push in. No "
      "faces, no blood, no needle penetration detail, no readable labels on the syringe. Hold this single "
      "view: no cut, no scene change, no camera relocation.",
      "轻微器械声"),
@@ -519,7 +519,7 @@ SHOTS = [
      "首尾呼应：现代诊室木桌上，一支旧玻璃注射器与一支现代疫苗瓶并排",
      "画面停在两者之间，淡出到片尾卡",
      "Close on an old long glass syringe with a thin metal needle lying beside a sealed modern vaccine "
-     "vial on a clean light wooden clinic desk, warm window light from the left, soft shadow between "
+     "vial on a clean light wooden clinic desk, soft neutral window light from the left, soft shadow between "
      "them, fine film grain. Camera: one slow push in toward the two objects. No readable labels, no "
      "text, no people. Hold this single view for the full clip: no cut, no scene change, no camera "
      "relocation.",
