@@ -453,16 +453,21 @@
     },
     "S18": {
       "id": "S18",
-      "status": "queued",
+      "status": "generated",
       "request_hash": "79b8345e032752b4e39c71eb1356f5118ebab86057f4684fa362741182930262",
       "error": null,
-      "updated_at": "2026-10-04T14:01:49Z",
+      "updated_at": "2026-10-04T14:05:42Z",
       "quota_retry": 1,
       "provider_retry_after_seconds": 105.0,
       "applied_cooldown_seconds": 105.0,
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2U5NzI0ZTkzYTAyYjQxY2RiOTgzY2U4NTUzODdlOGI1",
       "task_id": "task_VDkwqws3TvoRlfdBrJFLwVuCBNanGzai",
-      "requested_seconds": 7.041666666666667
+      "requested_seconds": 7.041666666666667,
+      "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_e9724e93a02b41cdb983ce855387e8b5.mp4",
+      "bytes": 1836613,
+      "sha256": "890363a6dc88941acdea4d4554b81a84696800018a6978e043dd379107b5d3a6",
+      "reported_size": "1920x1088",
+      "reported_seconds": "7.0"
     },
     "S19": {
       "id": "S19",
@@ -1222,7 +1227,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T14:05:05Z",
+  "updated_at": "2026-10-04T14:05:42Z",
   "run_id": "37205701825",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
