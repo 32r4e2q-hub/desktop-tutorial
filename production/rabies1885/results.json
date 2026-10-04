@@ -796,10 +796,10 @@
     },
     "S29": {
       "id": "S29",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "ae2765160276228386c2b3106bc1f21f9961189e1aba649ff8ad378c7ca7956b",
       "error": null,
-      "updated_at": "2026-10-04T11:14:31Z",
+      "updated_at": "2026-10-04T11:14:33Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzdhYmNhNmY1Njc2ZTQxMjdhYjE0YTcyYWExMDJjMmUz",
       "task_id": "task_LfXmEOpYZZKsJqp2efGngbNjeufWkkPM",
       "requested_seconds": 7.041666666666667,
@@ -807,7 +807,25 @@
       "bytes": 1840957,
       "sha256": "b2e1bf2e43621a9c1507a76538ee7d21259a59a794dec8618ad080264f6e331f",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 1840957,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/rabies1885/qa/S29.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S30": {
       "id": "S30",
@@ -1270,7 +1288,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T11:14:31Z",
+  "updated_at": "2026-10-04T11:14:33Z",
   "run_id": "37195434899",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
