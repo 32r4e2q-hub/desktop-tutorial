@@ -1004,36 +1004,10 @@
     },
     "S37": {
       "id": "S37",
-      "status": "completed",
-      "request_hash": "a2e120bea344ab8ce32fb85fef1ffbff297ea80ce1277632247f6cb24699eb04",
+      "status": "submitting",
+      "request_hash": "7195e766dccf9ade5fa3d177df28f093bdbdd9b357b32e5333e18bc200e180b3",
       "error": null,
-      "updated_at": "2026-10-04T09:38:39Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2E2ZDkyNGI5ZjI1NzQ4MmNhOWU2MDUwY2UyY2MxMjVi",
-      "task_id": "task_DjZCT3uXkfpibBeVchwkcUaLNlhdYmu3",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_a6d924b9f257482ca9e6050ce2cc125b.mp4",
-      "bytes": 1475693,
-      "sha256": "05d3d8e64548c0584e72dc9f23e2c82c4689fc0d637af6715da14c3d81ab4807",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 1475693,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/rabies1885/qa/S37.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": false,
-      "visual_review": "pending"
+      "updated_at": "2026-10-04T11:24:52Z"
     },
     "S39": {
       "id": "S39",
@@ -1288,7 +1262,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-04T11:24:51Z",
+  "updated_at": "2026-10-04T11:24:52Z",
   "run_id": "37195434899",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
@@ -2638,6 +2612,41 @@
           "audio_channels": 2,
           "decoded_ok": true,
           "contact_sheet": "production/rabies1885/qa/S36.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": false,
+        "visual_review": "pending"
+      }
+    ],
+    "S37": [
+      {
+        "id": "S37",
+        "status": "completed",
+        "request_hash": "a2e120bea344ab8ce32fb85fef1ffbff297ea80ce1277632247f6cb24699eb04",
+        "error": null,
+        "updated_at": "2026-10-04T09:38:39Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2E2ZDkyNGI5ZjI1NzQ4MmNhOWU2MDUwY2UyY2MxMjVi",
+        "task_id": "task_DjZCT3uXkfpibBeVchwkcUaLNlhdYmu3",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_a6d924b9f257482ca9e6050ce2cc125b.mp4",
+        "bytes": 1475693,
+        "sha256": "05d3d8e64548c0584e72dc9f23e2c82c4689fc0d637af6715da14c3d81ab4807",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 1475693,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/rabies1885/qa/S37.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         },
