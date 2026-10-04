@@ -1,0 +1,12 @@
+# 参考风格实验室（production/style_lab/）自己的依赖。
+#
+#   python3 -m pip install --break-system-packages -r production/style_lab/requirements.txt
+#   python3 production/style_lab/app.py --port 8000
+#
+# 流水线主依赖在 production/requirements.txt，这边只多加三件：网页服务 + 静态 ffmpeg。
+pillow>=10,<13               # 抽帧统计、接触表
+numpy>=1.26,<3               # 主色 k-means、拉普拉斯方差
+fastapi>=0.110               # 上传区网页服务
+uvicorn>=0.27                # ASGI 服务器（app.py 直接跑）
+python-multipart>=0.0.9      # multipart 上传（缺了 /api/upload 会 400）
+imageio-ffmpeg>=0.4.9        # 沙箱里装不了系统 ffmpeg 时的兜底：自带一份静态二进制

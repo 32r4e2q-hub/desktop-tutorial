@@ -10,3 +10,8 @@ work/
 production/dahlia/media/
 # the finished film is intentionally committed to this branch
 交付/*.mp3
+
+# 参考风格实验室：上传的参考片与抽帧是运行时产物，不进 git
+# （报告、接触表、风格档案要留档，所以只忽略这两类）
+production/style_lab/runs/*/reference.*
+production/style_lab/runs/*/frames/
