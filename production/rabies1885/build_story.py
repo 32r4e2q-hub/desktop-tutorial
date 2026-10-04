@@ -45,12 +45,18 @@ STYLE_PREFIX = (
     "Photorealistic 3D CGI cinematic recreation that reads like live-action photography, with "
     "physically plausible materials, global illumination and true-to-life scale, France between 1880 "
     "and 1895 and present-day China: a cramped Paris laboratory at the Ecole Normale Superieure with "
-    "brass microscopes, glass flasks, jars of dried rabbit spinal cords and a single oil lamp, an "
+    "brass microscopes, glass flasks, jars of dried rabbit spinal cords, oil lamps and window light, an "
     "Alsatian half-timbered village street, a Paris institutional stone gateway, a small hospital ward "
     "with an iron bed, the 1888 Institut Pasteur stone facade, and a clean modern community clinic with "
-    "stainless steel and vaccine vials: near-black, sepia brown, olive, dim, moody exposure, warm "
-    "amber-tungsten colour temperature, punchy high-contrast grade, clean crisp optics, visible fine "
-    "35mm film grain, natural cinematic depth with a softly falling-off background, handheld, energetic "
+    # 曝光是这一部最容易翻车的地方：第一版写 "near-black, sepia brown, olive, dim, moody exposure"，
+    # Agnes 把整帧压成接近全黑（实测亮度 15；已出片的吉尔戈 84、参考片 93）。所以不再写「暗」，
+    # 改成可执行的曝光口径：中间调 35–45%、暗部压深但留细节、每个内景至少两处光源。
+    "stainless steel and vaccine vials: correctly exposed like a film scan, mid-tones sitting around 35 to "
+    "45 percent luma, deep near-black shadows that still hold visible detail, sepia-brown and olive "
+    "midtones with cream highlights, punchy but never crushed contrast, warm amber-tungsten colour "
+    "temperature, every interior lit by at least two practical sources so the room stays readable, "
+    "clean crisp optics, visible fine 35mm film grain, natural cinematic depth with a softly "
+    "falling-off background, handheld, energetic "
     "camera movement; horizontal 16:9 cinematic composition, one single continuous smooth slow camera "
     "move per shot exactly as directed; every character is shown only from behind, in silhouette, or as "
     "hands and props - never a clear frontal face; no likeness of any real person; absolutely no "
@@ -68,7 +74,10 @@ NEGATIVE_PROMPT = (
     "monster, ghost, jump scare, distorted anatomy, deformed hands, extra fingers, extra limbs, "
     "duplicated people, changing face, morphing objects, teleportation, jitter, flicker, whip pan, fast "
     "zoom, jump cut, split screen, collage, flat 2D illustration, hand-drawn cel shading, comic-book ink "
-    "lines, graphic-novel texture, watercolour paper texture"
+    # 曝光两端一起挡：第一版压成了黑屏，所以「欠曝 / 死黑」必须进负面词
+    "lines, graphic-novel texture, watercolour paper texture, underexposed, crushed black shadows, "
+    "almost entirely black frame, black screen, silhouette-only objects, flat low contrast, "
+    "overexposed, washed out, static locked-off shot"
 )
 
 # 事实边界与红线：每一条都会印在 抖音脚本.md 的「发布前自查」里。
