@@ -386,11 +386,11 @@ SHOTS = [
      '「他是在拿一个孩子的命跟死神抢时间，夜夜守着病床」：夜里的小病房，铁床、木椅、一盏油灯',
      '灯焰轻晃，硬切信息卡',
      'Interior of a small hospital room at night, an iron bed with a still blanket, a wooden '
-     'chair beside it, two oil lamps burning on a side table plus pale moonlight through a '
-     'window, the bed, chair, blanket and stone walls all clearly readable with visible '
-     'detail, warm but never dark, the only movement the lamp flame. Camera: one slow lateral '
-     'drift from the bed to the chair. No people in frame. Hold this single view: no cut, no '
-     'scene change, no camera relocation.',
+     'chair beside it, three oil lamps burning on the side table and the wall plus pale '
+     'moonlight through a window, the whole room evenly lit and clearly readable, every object '
+     'holding visible detail, warm but never dark, the only movement the lamp flame. Camera: '
+     'one slow lateral drift from the bed to the chair. No people in frame. Hold this single '
+     'view: no cut, no scene change, no camera relocation.',
      '火焰与夜虫声；无音乐'),
     ('S28', 'graphic', '静帧',
      '信息卡④：十天 · 十几针（两份来源针数略有出入，成片不写死）',
@@ -517,12 +517,12 @@ SHOTS = [
     ('S43', 'agnes', '缓慢跟拍 backward dolly',
      '「而是有人敢在深渊面前不退」：昏暗的石廊尽头，一个背影独自向前走，尽头有微光',
      '微光渐亮，硬切接种的手',
-     'Interior of a long stone corridor in low evening light, the walls and floor clearly '
-     'readable, a warm lamp glowing at the far end, a single figure in a long dark coat seen '
-     'only from behind walking away from the camera toward that light, dust in the beam. '
-     'Camera: one slow backward dolly tracking in front of the figure. The figure never turns '
-     'and no face is ever visible. Hold this single view: no cut, no scene change, no camera '
-     'relocation.',
+     'Interior of a long stone corridor lit by a row of warm wall lamps along its whole '
+     'length, the stone walls and floor clearly readable from end to end, the far end '
+     'brightest, a single figure in a long dark coat seen only from behind walking away from '
+     'the camera toward that light, dust in the beam. Camera: one slow backward dolly tracking '
+     'in front of the figure. The figure never turns and no face is ever visible. Hold this '
+     'single view: no cut, no scene change, no camera relocation.',
      '脚步声与低频弦乐；一记心跳（合成）'),
     ('S44', 'agnes', '极缓推近 very slow push in',
      '「那管针剂，到今天还在护着每一个被抓伤的人」：上臂三角肌上方，一只戴手套的手持针管（不见脸、不见入针）',
