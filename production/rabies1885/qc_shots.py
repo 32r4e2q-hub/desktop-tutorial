@@ -14,7 +14,7 @@ Agnes 生成的镜头只回传接触表（``qa/Sxx.jpg``，4×4 网格、每秒 
 黑帧       任一格亮度 < 12（画面整个黑掉）
 冻结       相邻格差异 < 0.4 的占比 ≥ 50%（镜头是静止的，Agnes 镜头不该静止）
 中途换场   相邻格差异 > 5 倍中位差异（一镜之内场景跳变，AI 典型事故）
-露脸       BlazeFace 检出且框宽 > 画面 3%（本片规定真人只背影 / 剪影）
+露脸       BlazeFace 检出置信度 ≥ 0.75 且框宽 > 6%；多格持续出现或 ≥ 0.9 才算硬伤（单格转 WARN，并把区域裁到 qa/faces/ 给人眼看）
 手         MediaPipe Hands 检出——手是 AI 最容易畸变的部位，检出即需人眼确认
 手存疑     肤色占比高但检测器认不出手（可能畸变，需人眼确认）
 风格跑偏   亮度 / 反差 / 色温 / 颗粒 偏离参考片实测值（参考 ``style_lab`` 的量）
@@ -112,7 +112,8 @@ def detect(tile, face_detector, hand_detector, face_cascade):
         for det in result.detections:
             box = det.location_data.relative_bounding_box
             faces.append({"score": float(det.score[0]), "width": float(box.width),
-                          "height": float(box.height)})
+                          "height": float(box.height),
+                          "x": float(box.xmin), "y": float(box.ymin)})
     haar = []
     gray = cv2.cvtColor(tile, cv2.COLOR_BGR2GRAY)
     for (_, _, bw, _) in face_cascade.detectMultiScale(gray, 1.1, 5, minSize=(18, 18)):
@@ -132,6 +133,26 @@ def detect(tile, face_detector, hand_detector, face_cascade):
     return faces, haar, hands
 
 
+def crop_faces(sid, frames, faces, out=None):
+    """把疑似人脸的区域裁出来，供人眼复核（检测器会误报，裁剪图才是证据）。"""
+    out = out or (QA / "faces")
+    out.mkdir(parents=True, exist_ok=True)
+    saved = []
+    for f in faces:
+        tile = frames[f.get("tile", 0)]
+        h, w = tile.shape[:2]
+        x0 = max(int(f["x"] * w) - 6, 0); y0 = max(int(f["y"] * h) - 6, 0)
+        x1 = min(int((f["x"] + f["width"]) * w) + 6, w)
+        y1 = min(int((f["y"] + f["height"]) * h) + 6, h)
+        if x1 - x0 < 8 or y1 - y0 < 8:
+            continue
+        crop = cv2.resize(tile[y0:y1, x0:x1], (160, 160))
+        dest = out / f"{sid}-t{f.get('tile', 0):02d}-{f['score']:.2f}.jpg"
+        cv2.imwrite(str(dest), crop, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+        saved.append(str(dest))
+    return saved
+
+
 def motion(a, b):
     return float(np.abs(a["gray"] - b["gray"]).mean())
 
@@ -144,8 +165,10 @@ def analyse(sid: str, sheet: Path, detectors):
     face_detector, hand_detector, face_cascade = detectors
     stats = [metrics(t) for t in frames]
     faces_all, haar_all, hands_all = [], [], []
-    for tile in frames:
+    for idx, tile in enumerate(frames):
         f, hha, hs = detect(tile, face_detector, hand_detector, face_cascade)
+        for face in f:
+            face["tile"] = idx
         faces_all += f
         haar_all += hha
         hands_all += hs
@@ -170,16 +193,25 @@ def analyse(sid: str, sheet: Path, detectors):
         spikes = [d for d in diffs if d > CUT_FACTOR * med]
         if spikes:
             reasons.append(f"疑似中途换场：{len(spikes)} 处跳变（最大 {max(diffs):.1f} vs 中位 {med:.1f}）")
-    big_faces = [f for f in faces_all if f["score"] >= 0.6 and f["width"] >= 0.03]
-    if big_faces:
-        reasons.append(f"检出正脸：{len(big_faces)} 格（最高置信度 {max(f['score'] for f in big_faces):.2f}，"
-                       f"最大框宽 {max(f['width'] for f in big_faces)*100:.0f}%）")
+    # 阈值是校准出来的：按 0.6/3% 判，S01（画面里只有一条狗的剪影、没有任何人）也报了 6 格，
+    # 全是误报。改成 0.75/6%，并要求「多格持续出现」或「0.9 以上」才判 FAIL，单格转 WARN。
+    sure = [f for f in faces_all if f["score"] >= 0.75 and f["width"] >= 0.06]
+    strong = [f for f in sure if f["score"] >= 0.9]
+    if len(sure) >= 3 or strong:
+        reasons.append(f"检出正脸：{len(sure)} 格（最高置信度 {max(f['score'] for f in sure):.2f}，"
+                       f"最大框宽 {max(f['width'] for f in sure)*100:.0f}%）")
+        crop_faces(sid, frames, [f for f in faces_all if f["score"] >= 0.6])
+    elif sure:
+        warnings.append(f"疑似正脸：{len(sure)} 格（最高 {max(f['score'] for f in sure):.2f}）——"
+                        f"已裁到 qa/faces/，需人眼确认")
+        crop_faces(sid, frames, [f for f in faces_all if f["score"] >= 0.6])
     # —— 需要人眼 ——
     if hands_all:
         warnings.append(f"画面里有手（{len(hands_all)} 处检出）：手指是 AI 最容易畸变的部位，需人眼确认")
-    if skin > 0.18 and not hands_all and not big_faces:
-        warnings.append(f"肤色占比 {skin*100:.0f}% 但没检出手或脸：可能人物偏多，需人眼确认")
-    if haar_all and not big_faces:
+    # 暖调画面里这个数会虚高（木墙、琥珀灯光都落在肤色区间），所以阈值定在 0.5，只做提示
+    if skin > 0.5 and not hands_all and not sure:
+        warnings.append(f"肤色占比 {skin*100:.0f}% 但没检出手或脸：暖调画面这个数会偏高，仅供参考")
+    if haar_all and not sure:
         warnings.append(f"Haar 级联在 {len(haar_all)} 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认")
     for key, value in (("brightness", brightness), ("contrast", contrast),
                        ("warmth", warmth), ("grain", grain), ("motion", med)):
@@ -197,7 +229,7 @@ def analyse(sid: str, sheet: Path, detectors):
         "warmth": round(warmth, 1), "grain": round(grain, 2),
         "motion_median": round(med, 2), "motion_max": round(max(diffs), 2) if diffs else 0.0,
         "skin_ratio": round(skin, 3),
-        "faces": len(faces_all), "faces_sure": len(big_faces),
+        "faces": len(faces_all), "faces_sure": len(sure),
         "haar_hits": len(haar_all), "hands": len(hands_all),
     }
 

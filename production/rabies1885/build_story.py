@@ -53,8 +53,10 @@ STYLE_PREFIX = (
     # 改成可执行的曝光口径：中间调 35–45%、暗部压深但留细节、每个内景至少两处光源。
     "stainless steel and vaccine vials: correctly exposed like a film scan, mid-tones sitting around 35 to "
     "45 percent luma, deep near-black shadows that still hold visible detail, sepia-brown and olive "
-    "midtones with cream highlights, punchy but never crushed contrast, warm amber-tungsten colour "
-    "temperature, every interior lit by at least two practical sources so the room stays readable, "
+    "midtones with cream highlights, punchy but never crushed contrast, warm but natural colour "
+    # 第一版写 "warm amber-tungsten"，配上正确曝光后整片偏橙：实测色温 42–68，参考片只有 28。
+    "temperature with amber highlights on lit surfaces, neutral-to-warm midtones, no overall "
+    "orange cast, every interior lit by at least two practical sources so the room stays readable, "
     "clean crisp optics, visible fine 35mm film grain, natural cinematic depth with a softly "
     "falling-off background, handheld, energetic "
     "camera movement; horizontal 16:9 cinematic composition, one single continuous smooth slow camera "
@@ -610,6 +612,15 @@ QUESTION = "你上一次被小动物弄伤，是什么时候？去打疫苗了�
 
 HASHTAGS = ["#狂犬病", "#巴斯德", "#疫苗", "#科普", "#真实历史", "#冷知识", "#医学史"]
 
+# 曝光收尾：挂在每一镜的描述**之后**。全局 STYLE_PREFIX 在前面，会被逐镜描述里
+# 的 "single oil lamp" / "at night" / "dark room" 顶掉（S27 病房实测亮度只有 25.5，
+# 提示词自己写死了一盏油灯）。所以逐镜提示词的最后一句必须再压一次曝光口径。
+LIGHTING_SUFFIX = (
+    "Lit so the subject stays clearly readable: at least two practical light sources in the scene "
+    "(an oil lamp or candle plus a window, or a second lamp), visible detail in the shadows, "
+    "mid-tones around 35 to 45 percent luma, nothing crushed to black, no shot dominated by darkness."
+)
+
 GRID = 4           # 规划网格：每镜 4 秒，45 镜 = 180 秒
 AGNES_SECONDS = 7  # 每个 Agnes 镜头实际请求的时长（169 帧 @ 24 fps）
 SEED_BASE = 18850706  # 用第一针的日期，seed 可追溯
@@ -650,7 +661,7 @@ def build():
         shots.append({
             "id": sid, "kind": kind, "start": start, "duration": GRID,
             "narration_id": f"N{min(6, start // 30 + 1):02d}",
-            "prompt": body if kind == "agnes" else "",
+            "prompt": (body.strip() + " " + LIGHTING_SUFFIX) if kind == "agnes" else "",
             "purpose": purpose, "transition_out": transition,
             "graphic": body if kind == "graphic" else "",
             "seed": SEED_BASE + i + 1,
