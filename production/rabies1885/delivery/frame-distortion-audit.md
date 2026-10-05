@@ -1,7 +1,7 @@
 # 成片逐帧畸变 / 时序 QC
 
 - 成片：`狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4`
-- SHA-256：`465837c012b2461440c9c2eb4deca5076cdbb748e86569f806778c2c6016c013`
+- SHA-256：`a053524ef82801839e5e2a0d672f2aafda93a20c1828baebb01380244c4aed6f`
 - 视频：1920×1080 / 30.000 fps / 180.000 秒
 - 覆盖：解码并分析 **5400/5400 帧**；逐帧 MediaPipe 人脸/手检测；320x180 时序分析
 - 自动状态：**REVIEW**（机器结果，不等同于无任何视觉瑕疵）
@@ -13,52 +13,52 @@
 - 非计划黑帧：0
 - >1 秒近静止区段：0；其中非信息卡/片尾段：0
 - 帧差/光流/亮度突变待复核窗口：9
-- 人脸检测：逐帧总检测 270；达到复核阈值的候选 2
-- 手部检测：逐帧总检测 520；超出宽松几何边界的 landmark 事件 65
+- 人脸检测：逐帧总检测 268；达到复核阈值的候选 1
+- 手部检测：逐帧总检测 545；超出宽松几何边界的 landmark 事件 70
 
 ## 镜头统计
 
 | 镜头 | 类型 | 帧数 | 人脸检出 | 手检出 | 光流残差 P95 峰值 | 时序异常窗口 |
 |---|---:|---:|---:|---:|---:|---:|
 | S01 | agnes | 116 | 7 | 21 | 2.0265 | 0 |
-| S02 | agnes | 96 | 3 | 0 | 0.9006 | 0 |
+| S02 | agnes | 96 | 2 | 0 | 8.6403 | 1 |
 | S03 | agnes | 87 | 26 | 11 | 5.2674 | 1 |
 | S04 | agnes | 92 | 0 | 0 | 1.19 | 0 |
-| S05 | agnes | 126 | 0 | 1 | 10.2159 | 0 |
-| S06 | agnes | 90 | 5 | 0 | 1.1761 | 0 |
-| S07 | graphic | 87 | 15 | 0 | 127.4601 | 0 |
+| S05 | agnes | 126 | 0 | 1 | 10.2176 | 0 |
+| S06 | agnes | 90 | 4 | 0 | 1.1712 | 0 |
+| S07 | graphic | 87 | 15 | 0 | 151.5178 | 0 |
 | S08 | agnes | 125 | 0 | 0 | 1.3299 | 0 |
-| S09 | agnes | 120 | 0 | 0 | 1.0311 | 0 |
-| S10 | agnes | 159 | 47 | 60 | 1.4446 | 0 |
-| S11 | agnes | 155 | 30 | 0 | 1.6874 | 0 |
-| S12 | agnes | 85 | 2 | 0 | 2.0103 | 0 |
-| S13 | graphic | 153 | 0 | 0 | 173.5097 | 0 |
+| S09 | agnes | 120 | 0 | 0 | 1.0238 | 0 |
+| S10 | agnes | 159 | 47 | 68 | 1.4367 | 0 |
+| S11 | agnes | 155 | 28 | 0 | 1.702 | 0 |
+| S12 | agnes | 85 | 2 | 0 | 2.005 | 0 |
+| S13 | graphic | 153 | 0 | 0 | 221.9971 | 0 |
 | S14 | agnes | 137 | 5 | 2 | 2.1974 | 0 |
 | S15 | agnes | 167 | 0 | 0 | 1.0127 | 0 |
-| S16 | agnes | 75 | 0 | 0 | 1.4391 | 0 |
-| S17 | agnes | 165 | 0 | 3 | 0.8337 | 0 |
-| S18 | agnes | 127 | 8 | 117 | 2.1615 | 0 |
+| S16 | agnes | 75 | 0 | 0 | 1.4449 | 0 |
+| S17 | agnes | 165 | 0 | 16 | 0.8469 | 0 |
+| S18 | agnes | 127 | 8 | 116 | 2.1584 | 0 |
 | S19 | agnes | 134 | 8 | 0 | 1.9006 | 0 |
 | S20 | agnes | 167 | 0 | 0 | 0.6664 | 0 |
 | S21 | graphic | 78 | 0 | 0 | 141.6744 | 0 |
 | S22 | agnes | 141 | 0 | 0 | 1.7328 | 0 |
-| S23 | agnes | 124 | 5 | 8 | 2.9 | 0 |
-| S24 | agnes | 119 | 0 | 0 | 2.2913 | 0 |
-| S25 | agnes | 97 | 0 | 0 | 1.1169 | 0 |
-| S26 | agnes | 71 | 0 | 2 | 0.8956 | 0 |
-| S27 | agnes | 153 | 2 | 13 | 1.9543 | 0 |
-| S28 | graphic | 94 | 0 | 0 | 159.7559 | 0 |
-| S29 | agnes | 98 | 0 | 0 | 0.4103 | 0 |
-| S30 | agnes | 148 | 7 | 196 | 3.0666 | 0 |
-| S31 | agnes | 109 | 5 | 0 | 0.588 | 0 |
-| S32 | agnes | 101 | 1 | 2 | 2.3131 | 0 |
-| S33 | agnes | 75 | 0 | 0 | 1.1076 | 0 |
-| S34 | graphic | 122 | 0 | 0 | 172.5317 | 0 |
+| S23 | agnes | 124 | 5 | 12 | 2.9 | 0 |
+| S24 | agnes | 119 | 0 | 1 | 2.2928 | 0 |
+| S25 | agnes | 97 | 0 | 0 | 1.1176 | 0 |
+| S26 | agnes | 71 | 0 | 1 | 0.8946 | 0 |
+| S27 | agnes | 153 | 2 | 24 | 1.9356 | 0 |
+| S28 | graphic | 94 | 0 | 0 | 193.4261 | 0 |
+| S29 | agnes | 98 | 0 | 0 | 0.4104 | 0 |
+| S30 | agnes | 148 | 6 | 193 | 3.068 | 0 |
+| S31 | agnes | 109 | 5 | 0 | 0.5871 | 0 |
+| S32 | agnes | 101 | 1 | 0 | 2.3106 | 0 |
+| S33 | agnes | 75 | 0 | 0 | 1.0844 | 0 |
+| S34 | graphic | 122 | 0 | 0 | 197.2075 | 0 |
 | S35 | agnes | 132 | 0 | 0 | 0.8233 | 0 |
 | S36 | agnes | 65 | 3 | 0 | 0.5378 | 0 |
-| S37 | agnes | 123 | 0 | 0 | 3.974 | 4 |
-| S38 | graphic | 114 | 22 | 0 | 192.7697 | 1 |
-| S39 | agnes | 145 | 59 | 38 | 3.877 | 0 |
+| S37 | agnes | 123 | 0 | 0 | 3.9153 | 4 |
+| S38 | graphic | 114 | 23 | 0 | 219.3288 | 0 |
+| S39 | agnes | 145 | 61 | 33 | 3.8789 | 0 |
 | S40 | agnes | 54 | 0 | 0 | 0.974 | 0 |
 | S41 | agnes | 103 | 10 | 0 | 0.7918 | 0 |
 | S42 | graphic | 158 | 0 | 0 | 219.066 | 0 |
@@ -71,10 +71,11 @@
 
 - 全 45 镜 + 片尾画面中帧：`work/rabies1885/final-frame-audit/contacts/shot-midpoints.jpg`
 - 逐帧指标 CSV：`work/rabies1885/final-frame-audit/frame-metrics.csv`
-- 候选异常原始分辨率帧：`['work/rabies1885/final-frame-audit/suspect-frames/frame_00213_t007.100.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00214_t007.133.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00215_t007.167.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00216_t007.200.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00217_t007.233.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00218_t007.267.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00219_t007.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00220_t007.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04209_t140.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04210_t140.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04211_t140.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04212_t140.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04213_t140.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04239_t141.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04240_t141.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04241_t141.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04242_t141.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04243_t141.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04269_t142.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04270_t142.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04271_t142.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04272_t142.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04273_t142.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04299_t143.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04300_t143.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04301_t143.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04302_t143.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04303_t143.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04415_t147.167.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04416_t147.200.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04417_t147.233.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04418_t147.267.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04419_t147.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04420_t147.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04968_t165.600.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04969_t165.633.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04970_t165.667.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04971_t165.700.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04972_t165.733.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04973_t165.767.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04974_t165.800.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04975_t165.833.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04976_t165.867.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04977_t165.900.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04978_t165.933.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04979_t165.967.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04980_t166.000.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04981_t166.033.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04982_t166.067.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04983_t166.100.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04984_t166.133.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04985_t166.167.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04986_t166.200.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04987_t166.233.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04988_t166.267.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04989_t166.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04990_t166.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04991_t166.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04992_t166.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04993_t166.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04994_t166.467.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04995_t166.500.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04996_t166.533.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04997_t166.567.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04998_t166.600.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04999_t166.633.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_05000_t166.667.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_05001_t166.700.jpg']`
+- 候选异常原始分辨率帧：`['work/rabies1885/final-frame-audit/suspect-frames/frame_00193_t006.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00194_t006.467.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00195_t006.500.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00196_t006.533.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00197_t006.567.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00213_t007.100.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00214_t007.133.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00215_t007.167.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00216_t007.200.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00217_t007.233.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00218_t007.267.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00219_t007.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_00220_t007.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04209_t140.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04210_t140.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04211_t140.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04212_t140.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04213_t140.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04239_t141.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04240_t141.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04241_t141.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04242_t141.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04243_t141.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04269_t142.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04270_t142.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04271_t142.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04272_t142.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04273_t142.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04299_t143.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04300_t143.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04301_t143.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04302_t143.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04303_t143.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04968_t165.600.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04969_t165.633.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04970_t165.667.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04971_t165.700.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04972_t165.733.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04973_t165.767.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04974_t165.800.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04975_t165.833.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04976_t165.867.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04977_t165.900.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04978_t165.933.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04979_t165.967.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04980_t166.000.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04981_t166.033.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04982_t166.067.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04983_t166.100.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04984_t166.133.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04985_t166.167.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04986_t166.200.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04987_t166.233.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04988_t166.267.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04989_t166.300.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04990_t166.333.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04991_t166.367.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04992_t166.400.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04993_t166.433.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04994_t166.467.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04995_t166.500.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04996_t166.533.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04997_t166.567.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04998_t166.600.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_04999_t166.633.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_05000_t166.667.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_05001_t166.700.jpg', 'work/rabies1885/final-frame-audit/suspect-frames/frame_05002_t166.733.jpg']`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S01.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S03.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S10.jpg`
+- 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S17.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S18.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S23.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S27.jpg`
