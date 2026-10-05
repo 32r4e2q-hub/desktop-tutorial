@@ -54,7 +54,8 @@ CUTS = {
 # 看片后的镜头修正。S22 的源片后段让背影略微转向，故只取始终背对镜头、
 # 蓝灰夜景与烛光都可辨的前 4.3 秒；4.7 秒成片段仅作 1.12×平滑延时。
 WINDOWS = {'S22': (0.12, 4.3)}
-TIGHTER_CROPS = {}
+# S02 provider still exposed an unintended dial; retain only its lower pendulum compartment.
+TIGHTER_CROPS = {'S02': (3.4, 0.50, 0.80)}
 
 
 def run(args, capture=False):
