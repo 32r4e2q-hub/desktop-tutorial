@@ -230,7 +230,7 @@ SHOTS = [
      'facades. Camera: one slow forward dolly down the empty street. No readable shop signs or '
      'house numbers. Hold this single view: no cut, no scene change, no camera relocation.',
      '清晨鸟声与远处牛铃'),
-('S17', 'agnes', '缓慢跟拍 slow tracking', '「一个九岁的男孩被母亲从阿尔萨斯带到他面前」：乡路上，一大一小两个背影同行', '两人走向远处村庄，切门槛', 'A mother in a long dark skirt and her nine-year-old boy in short trousers walk away side by side along one quiet rural lane in Alsace at dawn, hedgerows and open fields on both sides. Camera: one slow rear tracking move following the same two figures. Both remain seen strictly from behind. Exactly two people; no crowd, no laboratory, no indoor corridor, no horses, no extra subjects, no face, no montage or scene transition.', '乡间清晨环境声；脚步'),
+('S17', 'agnes', '缓慢跟拍 slow tracking', '「一个九岁的男孩被母亲从阿尔萨斯带到他面前」：乡路上，母亲牵着一个男孩的手，严格只见两人背影', '两人走向远处村庄，切门槛', 'One 1885 Alsatian mother in one long dark skirt holds the hand of exactly one nine-year-old boy in short trousers as they walk away on one quiet rural lane at dawn. They are the only two people in the entire frame, with empty lane, hedgerows and open fields around them; there are no other children, siblings, adults, crowds or distant figures anywhere. Keep both figures separated and clearly readable from behind, the boy small beside his mother. Camera: one slow rear tracking move following these same two figures only. No face, no laboratory, no indoor corridor, no horses, no montage or scene transition.', '乡间清晨环境声；两人的脚步'),
 ('S18', 'agnes', '缓慢下摇 slow tilt down', '「两天前被一只据报患狂犬病的狗咬了十四处」：孩子背影、肩上停着一只成人的手、腿上干净绷带', '从肩缓缓落到绷带，切笔尖', 'Close shot from behind of a small nine-year-old Alsatian boy seated on the rough wooden step of a half-timber farmhouse in 1885. He wears a plain loose linen shirt and dark wool knee breeches in an 1880s rural style. His shoulder and back fill the upper frame; one clean white cloth bandage wraps his lower calf near the bottom. One adult woman’s hand rests gently on his shoulder; keep the woman outside the frame. Only the boy’s back and this one hand are visible. The hand stays still with five natural fingers. Soft overcast morning daylight with no visible sun source. Camera: one slow tilt down from shoulder to bandaged calf, continuous view.', '衣料轻响；音乐压低'),
 ('S19', 'agnes', '缓慢横移 slow lateral slide', '「巴斯德后来写下：孩子的结局看起来无法避免」：油灯下握羽毛笔的手与纸', '墨迹落在纸上，硬切动物房', 'Top-down macro close-up of one older adult right hand holding a quill above a blank sheet on a wooden desk at night; one inkpot and one oil lamp sit at the edge of frame. Crop from the wrist down so only the hand, quill and desktop are visible: no head, face, neck or torso. The hand has five natural distinct fingers and writes only a few abstract ink strokes, no readable words. Camera: one slow lateral slide across the paper. No cut or scene change.', '羽毛笔划纸声；音乐停半拍'),
     ('S20', 'agnes', '缓慢下摇 slow tilt down',
@@ -299,13 +299,16 @@ SHOTS = [
      'text. Hold this single view: no cut, no scene change, no camera relocation.',
      '晨光里的鸟声；钢琴进入'),
     ('S30', 'agnes', '缓慢推近 slow push in',
-     '「一个成功病例不能替代今天的临床试验」：农舍厨房里，一只小手端起木桌上的杯子喝水（呼应第三镜被推开的那杯水）',
+     '「一个成功病例不能替代今天的临床试验」：农舍厨房里，一只九岁孩子的小手端起木桌上的小玻璃杯喝水（呼应第三镜被推开的那杯水）',
      '杯子放下，硬切庭院人群',
-     "Close on a small child's hand lifting a glass of water from a wooden farmhouse kitchen "
-     'table in morning light and drinking from it, a plain mug beside, the same table where a '
-     'candle burned in an earlier shot. Camera: one slow push in toward the glass. Only the '
-     'hand and the glass are in frame - no face, no features. Hold this single view: no cut, '
-     'no scene change, no camera relocation.',
+     "Close on exactly one small nine-year-old child's right hand and wrist, in a loose 1885 "
+     'linen shirt cuff, gently lifting one small half-full glass tumbler of water from a wooden '
+     'farmhouse kitchen table in morning light. The child-sized hand and short wrist are visibly '
+     'small beside a plain ceramic mug, with the mug clearly much larger; no adult hand, adult '
+     'forearm or other person is present. The small fingers naturally wrap around the tumbler. '
+     'Show only the child hand, wrist, glass, mug and table: no face, no body, no features. '
+     'Camera: one slow push in toward the glass, one continuous view with no cut, scene change '
+     'or camera relocation.',
      '喝水声；音乐第一次完整地起来'),
 
     # ---------------- N05 扩散（S31–S38，8 镜：6 动画 + 2 信息卡） ----------------
