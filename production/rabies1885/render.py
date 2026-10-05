@@ -55,7 +55,12 @@ CUTS = {
 # 蓝灰夜景与烛光都可辨的前 4.3 秒；4.7 秒成片段仅作 1.12×平滑延时。
 WINDOWS = {'S22': (0.12, 4.3)}
 # S02 provider still exposed an unintended dial; retain only its lower pendulum compartment.
-TIGHTER_CROPS = {'S02': (3.4, 0.50, 0.80)}
+TIGHTER_CROPS = {
+    'S02': (3.4, 0.50, 0.80),
+    # Source S40 put illegible model scribbles on the left page despite the no-text prompt.
+    # Retain only the clean right-hand page and natural hand; no generated writing reaches the cut.
+    'S40': (2.0, 0.75, 0.32),
+}
 
 
 def run(args, capture=False):
