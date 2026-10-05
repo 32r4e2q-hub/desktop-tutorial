@@ -72,7 +72,6 @@ PRINCIPLES = [
     "患病的人不出现清晰面容，只用剪影、床、椅子、灯与门窗光暗示，不渲染痛苦表情",
     "每一句事实都能指到 SOURCES 里的一条公开来源；针数（十三针/十四剂）两份权威来源有出入，成片只说「十天、十几针」",
     "不写无法核实的心理活动与场景（如「整个巴黎都在盯着」）；巴斯德的犹豫用他自己有出处的原话",
-    "TTS 内容审核会拦「孩子必死 / 杀人犯」这一层措辞（2026-10-04 实测，N03 第一版被拦）；片中改写为「几乎没有生路」「所有的责难都会落在他一个人身上」——意思不变，不碰红线",
     "所有中文姓名、日期、字幕后期添加，不交给视频模型拼写",
     "同一地点保留光线、道具、运动方向；跨时空通过物件（注射器、玻璃罐、脊髓制剂）匹配衔接",
     "人工检视 qa/ 接触表，露脸、畸变、伪文字、中途换场的镜头用 {\"only\":\"Sxx\"} 重生成，不直接进成片",
@@ -80,60 +79,58 @@ PRINCIPLES = [
 
 SOURCES = [
     {"id": 1, "url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/00000572.htm",
-     "usage": "美国 CDC MMWR：1885-07-06 巴斯德与同事给 9 岁 Joseph Meister 注射第一剂，共 14 天逐日注射兔脊髓悬液；男孩两天前被疯狗咬伤；巴斯德原话（acute and harrowing anxiety）"},
+     "usage": "CDC MMWR：1885-07-06 巴斯德团队开始为 9 岁 Joseph Meister 施行暴露后治疗；男孩两天前被咬；这项研究建立在多年动物实验之上。"},
     {"id": 2, "url": "https://www.pasteur.fr/en/about-us/our-dna/history",
-     "usage": "巴斯德研究所官方史料：男孩来自阿尔萨斯、被咬十四处、十天内十三针毒力递增；1887 募捐、1888-11-14 研究所落成"},
-    {"id": 3, "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(02)09363-7/abstract",
-     "usage": "《柳叶刀》：疫苗取自病兔脊髓、用钾碱干燥减毒、传代三十九次以上；五个月后病人从英俄匈意德涌来"},
-    {"id": 4, "url": "https://www.who.int/news-room/fact-sheets/detail/rabies",
-     "usage": "WHO 实况报道：出现临床症状后病死率 100%；潜伏期通常 2–3 个月（1 周至 1 年）；恐水、怕风、狂躁型与麻痹型；全球每年数万人死亡、约四成为 15 岁以下儿童"},
-    {"id": 5, "url": "https://journals.sagepub.com/doi/pdf/10.1177/014107688908200813",
-     "usage": "《Pasteur and rabies: the British connection》：1886-11 约 2500 人接受治疗；到 1895 年巴斯德去世时近 2 万人，死亡率低于 0.5%"},
-    {"id": 6, "url": "https://a-z-animals.com/articles/this-deadly-disease-shaped-history-for-4000-yearsand-still-kills-today/",
-     "usage": "1884 年巴斯德团队报告原型疫苗已在狗身上成功；19 世纪处置手段（烧灼、Saint-Tügen 礼拜堂把病人闷在两张褥子之间）"},
-    {"id": 7, "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/F205B6F02CD8C7E9BD15F120B2977308/S0025727300040783a.pdf",
-     "usage": "《Medical History》1982 综述：19 世纪《柳叶刀》记载的狂犬病处置——烧灼、气管切开、箭毒、汞剂等"},
-    {"id": 8, "url": "https://www.ndcpa.gov.cn/jbkzzx/c100013/common/content/content_1706557615154524160.html",
-     "usage": "国家疾控局《狂犬病暴露预防处置工作规范（2023年版）》解读：5 针程序（0/3/7/14/28 天）与「2-1-1」4 针程序（当天 2 剂、第 7 与 21 天各 1 剂）；病死率几乎 100%、暴露后接种无禁忌症"},
-    {"id": 9, "url": "https://markloveshistory.com/tag/joseph-meister/",
-     "usage": "巴斯德不是执业医生，给人注射未经验证的制剂一旦失败可能面临起诉——支撑「连行医资格都没有」与「牢狱之灾」两句"},
+     "usage": "巴斯德研究所：迈斯特来自阿尔萨斯、被咬十四处、十天内十三针毒力递增；1887 募款、1888-11-14 研究所正式开放。"},
+    {"id": 3, "url": "https://www.pasteur.fr/en/about-us/final-years-1877-1887",
+     "usage": "巴斯德研究所：兔之间连续传代得到潜伏期稳定的固定病毒；将感染兔脊髓在干燥空气中悬挂后，毒力逐渐降低；巴斯德请格朗谢为迈斯特接种。"},
+    {"id": 4, "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3444995/",
+     "usage": "同行评审综述：先用充分干燥、毒力很低的感染兔脊髓材料，后续材料干燥时间缩短、毒力递增；早期神经组织疫苗的局限。"},
+    {"id": 5, "url": "https://www.who.int/news-room/fact-sheets/detail/rabies",
+     "usage": "WHO：出现临床症状后狂犬病几乎总是致命；全球每年数万人死亡，约四成是十五岁以下儿童。"},
+    {"id": 6, "url": "https://journals.sagepub.com/doi/pdf/10.1177/014107688908200813",
+     "usage": "历史综述：1886-11 约 2500 人接受治疗；到 1895 年巴斯德去世时近 2 万人。"},
+    {"id": 7, "url": "https://www.cdc.gov/rabies/hcp/clinical-overview/index.html",
+     "usage": "CDC 临床概览：症状出现前，恰当暴露后预防可避免疾病；处置包含伤口清洗、免疫球蛋白和疫苗，由专业人员评估。"},
+    {"id": 8, "url": "https://www.cdc.gov/rabies/about/index.html",
+     "usage": "CDC 公众页：潜在暴露后应立即用肥皂和流动水清洗，并紧急寻求专业医疗帮助；潜伏期可持续数周至数月。"},
 ]
 
 # 六段解说：(章节 id, 章节标题, 逐字解说词)。782 字，估时 175.7 秒（预算 176.1 秒）。
 CHAPTERS = [
-    ("N01", "黄金开头（0–5 秒：被咬一口就进入倒计时 → 病死率百分之百 → 改写它的是个化学家）",
-     "只要被疯狗咬上一口，哪怕只是一道血痕，你就已经进入了倒计时。恐水、痉挛、窒息，人会在清醒里走向终点。"
-     "在疫苗出现之前，狂犬病一旦发病，病死率几乎就是百分之百。史料里的抢救办法，是烧灼伤口，甚至把病人闷死。"
-     "而改写这个数字的，不是救世主，是一个连行医资格都没有的化学家。"),
-    ("N02", "巴斯德与减毒（一八八零年起 · 兔脊髓干燥传代三十九次 → 狗身上成功 → 同行质疑与牢狱风险）",
-     "他叫路易·巴斯德。从一八八零年起，他在巴黎的实验室里跟这种病较劲：把患病兔子的脊髓取出来、干燥，再接种到下一只兔子体内，"
-     "这样传了三十九次以上，毒性一点一点减弱。四年后，这个办法在狗身上成了。可同行质问他：病原体都看不见，你凭什么？"
-     "更麻烦的是，他不是医生。给人打一种没验证过的东西，一旦出事，等着他的就是身败名裂和牢狱之灾。"),
-    ("N03", "一八八五年七月六日（九岁男孩 · 十几处伤 · 母亲的恳求 · 巴斯德的原话与抉择）",
-     "一八八五年七月六日清晨，一个九岁的男孩被母亲从阿尔萨斯带到他面前。孩子叫约瑟夫，两天前被疯狗咬伤十几处。"
-     "母亲只求他救一救。巴斯德后来写下：孩子的结局看起来无法避免，我极度焦虑，还是决定用在狗身上从未失败过的办法试一次。"
-     "不治，孩子几乎没有生路；治，一旦失败，所有的责难都会落在他一个人身上。这位老人的手，抖着拿起了注射器。"),
-    ("N04", "最难熬的十天（每天一针 · 毒力递增 · 守着病床 → 孩子没有发病）",
-     "接下来的十天，是这个实验室最难熬的十天。每天一针，一针比一针毒——按记载，后面用的是毒性更强的制剂。"
-     "他是在拿一个孩子的命跟死神抢时间，夜夜守着病床。最后一针打完，他等着最坏的消息。"
-     "可约瑟夫没有发病，一天天好起来，成了人类历史上第一个被狂犬病疫苗救下来的人。"),
-    ("N05", "从巴黎到世界（病人涌来 → 两千五百人到近两万人 → 研究所落成 → 今天仍在）",
-     "消息传开，病人从英国、俄国、意大利、德国涌向巴黎。到一八八六年十一月，已有大约两千五百人接受这种治疗；"
-     "到一八九五年巴斯德去世时，接受过的人接近两万，死亡率不到千分之五。一八八八年十一月十四日，巴斯德研究所在巴黎落成。"
-     "而直到今天，全球每年仍有数万人死于狂犬病，其中约四成是十五岁以下的孩子。"),
-    ("N06", "结尾（今天打完疫苗就回家的平常 → 金句 → 提问读者）",
-     "今天，我们被猫狗抓伤，能淡定地去疾控中心，按五针法或者四针法打完疫苗回家——平常得像顺手关灯。"
-     "可一百四十年前，这是有人拿名声和一个孩子的命换来的。科学从来不是从天而降的幸运，而是有人敢在深渊面前不退。"
-     "那管针剂，到今天还在护着每一个被抓伤的人。你上一次被小动物弄伤，是什么时候？"),
+    ("N01", "黄金开头（症状出现后几乎无回头路 → 不是医生的巴斯德 → 九岁男孩）",
+     "狂犬病可怕在：症状一旦出现，几乎没有回头路。恐水等神经症状之后，患者可能走向死亡。"
+     "疫苗出现前，人们试过烧灼伤口，却没有可靠保护。改写这一切的，不是一位医生，而是一位化学家：路易·巴斯德。"
+     "可他即将面对的，不是一道理论题，而是一个九岁男孩。"),
+    ("N02", "巴斯德与减毒（先固定病毒，再以干燥减毒 → 动物实验给出希望）",
+     "从一八八零年起，巴斯德团队在巴黎研究狂犬病。他们先让病原在兔之间连续传代，得到潜伏期稳定的固定病毒；"
+     "再把感染兔的脊髓悬在干燥空气中，令毒力下降。随后，团队按由弱到强的次序给动物接种，狗的实验给了希望。"
+     "但病原肉眼看不见，巴斯德又不是执业医生。把尚无人体证据的方法用于人，后果无法预料。"),
+    ("N03", "一八八五年七月六日（迈斯特到巴黎 · 医生执行第一针 · 没有现代试验）",
+     "一八八五年七月六日，阿尔萨斯的约瑟夫·迈斯特被母亲带到巴黎；他九岁，两天前被一只据报患狂犬病的狗咬了十四处。"
+     "巴斯德写道，孩子的死亡看起来不可避免，自己是在极度焦虑中作出决定。他没有亲手注射：在医生支持下，"
+     "儿科医生雅克—约瑟夫·格朗谢执行第一针。没有随机对照，也没有今天的伦理审查。"),
+    ("N04", "十天，十几针（由弱到强 · 迈斯特没有发病 · 单例的边界）",
+     "随后十天，迈斯特接受十几次由弱到强的制剂；不同史料记为十三针或十四剂。原理简单也冒险："
+     "先给免疫系统时间，再让它迎向更强的病毒材料。迈斯特最终没有发病。但一个成功病例不能替代今天的临床试验；"
+     "它提示，暴露之后仍可能追上疾病。"),
+    ("N05", "从巴黎到研究所（两千五百人到近两万人 · 专门机构诞生）",
+     "消息传开，被动物咬伤的人从多国赶到巴黎。到一八八六年十一月，约两千五百人接受过这种治疗；"
+     "到巴斯德一八九五年去世时，人数接近两万。需求推动建立专门机构：一八八七年募款启动，"
+     "一八八八年十一月十四日，巴斯德研究所在巴黎正式开放。一次紧急救治，变成持续的公共卫生事业。"),
+    ("N06", "今天的暴露后预防（专业评估 · 清洗伤口 · 证据先于传奇）",
+     "今天，狂犬病仍会夺走数万人的生命，儿童承受的负担尤其重。但现代暴露后预防已不同："
+     "细胞培养疫苗、免疫球蛋白和规范评估，取代了干燥兔脊髓。遇到动物咬伤或抓伤，先用肥皂和流动水彻底清洗，"
+     "再尽快联系当地医生或公共卫生机构，由专业人员判断下一步。巴斯德留下的，是一个原则：证据要先于传奇，救治要快于病毒。"),
 ]
 
 # 每一镜：(id, kind, 运镜, 叙事职责, 衔接方式, 英文提示词 或 信息卡说明, 音效/备注)
 # 45 镜按成片顺序编号 S01–S45，每镜只用一次；其中 7 张信息卡（S07 S13 S21 S28 S34 S38 S42）。
 SHOTS = [
     # ---------------- N01 钩子与绝望（S01–S08，8 镜：7 动画 + 1 信息卡） ----------------
-('S01', 'agnes', '低机位缓慢横移 lateral drift', '「只要被疯狗咬上一口」：黄昏湿石板路上，一条狗的背影剪影，绝不出现其他场景', '狗停在路灯暗处，切钟摆', 'One single large dog standing alone on one wet cobblestone village street at dusk, seen from behind in a clean dark silhouette, low camera at pavement height; one warm window far in the background. The dog remains the only animal and the only moving subject. Camera: one slow lateral drift to the right. Keep the same street, dog, scale and composition for the entire clip. No laboratory, no bed, no horses, no people, no other locations, no montage, no scene change.', '低频心跳；远处犬吠一声'),
-('S02', 'agnes', '缓慢横移 slow lateral drift', '「你就已经进入了倒计时」：老式木钟下方的铜摆锤左右摆动，表盘完全不入镜', '摆锤掠过画面，硬切恐水', 'Close on only the lower glass compartment of one nineteenth-century wooden wall clock on a plain farmhouse wall: one circular brass pendulum bob swings slowly left and right inside the dark wooden case. The clock dial and clock face stay completely outside the frame and must never be visible. No numbers, letters, symbols, labels, writing, hands, people, animals, landscape, laboratory, bed, second location, montage or scene change. Camera: one slow lateral drift across the same pendulum compartment for the whole clip.', '钟摆与低频心跳'),
-('S03', 'agnes', '缓慢横移 slow lateral drift', '「恐水、痉挛、窒息」：烛光下，一只手把水杯推开，水面轻颤', '手离开杯子，硬切空床', 'Close-up of one natural adult hand beside one clear glass of water on a wooden kitchen table at night, one candle visible beside it. The hand approaches, pushes the glass away across the tabletop, releases it, and withdraws; the glass slides away and the water ripples. The hand never lifts or grips the glass. Camera: one slow lateral drift at tabletop height. Only one hand, one glass, one table and one candle; no face, no extra fingers, no other scene, no cut or transition.', '水面轻响；烛火噼啪'),
+('S01', 'agnes', '低机位缓慢横移 lateral drift', '「狂犬病的威胁」：黄昏湿石板路上，一条狗的背影剪影，绝不出现其他场景', '狗停在路灯暗处，切钟摆', 'One single large dog standing alone on one wet cobblestone village street at dusk, seen from behind in a clean dark silhouette, low camera at pavement height; one warm window far in the background. The dog remains the only animal and the only moving subject. Camera: one slow lateral drift to the right. Keep the same street, dog, scale and composition for the entire clip. No laboratory, no bed, no horses, no people, no other locations, no montage, no scene change.', '低频心跳；远处犬吠一声'),
+('S02', 'agnes', '缓慢横移 slow lateral drift', '「症状一旦出现，几乎没有回头路」：老式木钟下方的铜摆锤左右摆动，表盘完全不入镜', '摆锤掠过画面，硬切恐水', 'Close on only the lower glass compartment of one nineteenth-century wooden wall clock on a plain farmhouse wall: one circular brass pendulum bob swings slowly left and right inside the dark wooden case. The clock dial and clock face stay completely outside the frame and must never be visible. No numbers, letters, symbols, labels, writing, hands, people, animals, landscape, laboratory, bed, second location, montage or scene change. Camera: one slow lateral drift across the same pendulum compartment for the whole clip.', '钟摆与低频心跳'),
+('S03', 'agnes', '缓慢横移 slow lateral drift', '「恐水等神经症状」：烛光下，一只手把水杯推开，水面轻颤', '手离开杯子，硬切空床', 'Close-up of one natural adult hand beside one clear glass of water on a wooden kitchen table at night, one candle visible beside it. The hand approaches, pushes the glass away across the tabletop, releases it, and withdraws; the glass slides away and the water ripples. The hand never lifts or grips the glass. Camera: one slow lateral drift at tabletop height. Only one hand, one glass, one table and one candle; no face, no extra fingers, no other scene, no cut or transition.', '水面轻响；烛火噼啪'),
     ('S04', 'agnes', '缓慢下摇 slow tilt down',
      '「在疫苗出现之前，狂犬病一旦发病」：昏暗房间里一张空床，晨光从窗缝进来，人已经不在',
      '光斑不动，硬切火盆',
@@ -152,16 +149,12 @@ SHOTS = [
      'this single view: no cut, no scene change, no camera relocation.',
      '炭火噼啪声；无音乐'),
     ('S06', 'agnes', '缓慢拉远 slow pull back',
-     '「甚至把病人闷死」：阁楼里两张叠着的褥子，一束灰白的光（不出现人）',
+     '「却没有可靠保护」：木桌上无标签药瓶与冷却的火钳，表达旧方法的局限（不出现人）',
      '光斑淡出，硬切信息卡',
-     'Pale daylight from a small window filling an attic under a sloping roof so two folded '
-     'straw mattresses stacked against a rough stone wall stay readable, dust in the light, '
-     'wooden roof beams overhead. Camera: one slow pull back from the mattresses revealing the '
-     'empty room. No people anywhere in frame. Hold this single view: no cut, no scene change, '
-     'no camera relocation.',
+     'Pale daylight from a small attic window fills a rough nineteenth-century room. On a plain wooden table sit three unlabelled dark medicine bottles beside cooled iron tongs, all clearly visible and entirely non-graphic; stone wall and wooden roof beams remain in view. Camera: one slow pull back from the table to reveal the empty room. No people anywhere in frame, no readable labels, no cut, no scene change, no camera relocation.',
      '低频嗡鸣，音乐收住'),
     ('S07', 'graphic', '静帧',
-     '信息卡①：发病后病死率——把「百分之百」钉死在屏幕上',
+     '信息卡①：发病后病死率——明确「几乎百分之百」的事实边界',
      '硬切巴黎屋顶',
      '信息卡：病死率（画面文字见 CARDS）',
      ''),
@@ -187,7 +180,7 @@ SHOTS = [
      'scene change, no camera relocation.',
      '环境声：液体轻响与火焰'),
     ('S11', 'agnes', '横向移动 lateral dolly',
-     '「干燥，再接种到下一只兔子体内」：院子石墙下一排木框兔笼，一只白兔坐在干草上',
+     '「兔之间连续传代，得到固定病毒」：院子石墙下一排木框兔笼，一只白兔坐在干草上',
      '兔子耳朵一动，硬切玻璃罐',
      'A row of wooden rabbit hutches along a rough stone wall in a small courtyard, one white '
      'rabbit sitting on clean straw in the open doorway of its hutch, morning light across the '
@@ -196,7 +189,7 @@ SHOTS = [
      'scene change, no camera relocation.',
      '院子环境声：鸟与远处车马'),
     ('S12', 'agnes', '缓慢拉远 slow pull back',
-     '「毒性一点一点减弱」：储藏室木架上一排玻璃罐，罐里是干燥处理的脊髓，一头暗一头亮',
+     '「感染兔脊髓在干燥空气中毒力下降」：储藏室木架上一排玻璃罐，罐里是干燥处理的脊髓，一头暗一头亮',
      '罐子反光，硬切信息卡',
      'Close on a wooden shelf in a small storeroom holding a row of tall glass jars, each jar '
      'containing a pale dried cord coiled in clear fluid, the row fading from shadow at one '
@@ -219,7 +212,7 @@ SHOTS = [
      'or plaques. Hold this single view: no cut, no scene change, no camera relocation.',
      '脚步声与远处人声；音乐收住'),
     ('S15', 'agnes', '缓慢横移 slow lateral drift',
-     '「一旦出事，等着他的就是身败名裂和牢狱之灾」：石墙上铁栅的阴影缓缓移动，无人',
+     '「把尚无人体证据的方法用于人，后果无法预料」：石墙上铁栅的阴影缓缓移动，无人',
      '阴影移过墙面，硬切村庄清晨',
      'A stone corridor wall clearly lit by a wall lamp, the hard shadow of an iron bar gate '
      'sliding slowly across it, every stone and the mortar lines readable, dust in the beam. '
@@ -238,7 +231,7 @@ SHOTS = [
      'house numbers. Hold this single view: no cut, no scene change, no camera relocation.',
      '清晨鸟声与远处牛铃'),
 ('S17', 'agnes', '缓慢跟拍 slow tracking', '「一个九岁的男孩被母亲从阿尔萨斯带到他面前」：乡路上，一大一小两个背影同行', '两人走向远处村庄，切门槛', 'A mother in a long dark skirt and her nine-year-old boy in short trousers walk away side by side along one quiet rural lane in Alsace at dawn, hedgerows and open fields on both sides. Camera: one slow rear tracking move following the same two figures. Both remain seen strictly from behind. Exactly two people; no crowd, no laboratory, no indoor corridor, no horses, no extra subjects, no face, no montage or scene transition.', '乡间清晨环境声；脚步'),
-('S18', 'agnes', '缓慢下摇 slow tilt down', '「两天前被疯狗咬伤十几处。母亲只求他救一救」：孩子背影、肩上停着一只成人的手、腿上干净绷带', '从肩缓缓落到绷带，切笔尖', 'Close shot from behind of a small nine-year-old Alsatian boy seated on the rough wooden step of a half-timber farmhouse in 1885. He wears a plain loose linen shirt and dark wool knee breeches in an 1880s rural style. His shoulder and back fill the upper frame; one clean white cloth bandage wraps his lower calf near the bottom. One adult woman’s hand rests gently on his shoulder; keep the woman outside the frame. Only the boy’s back and this one hand are visible. The hand stays still with five natural fingers. Soft overcast morning daylight with no visible sun source. Camera: one slow tilt down from shoulder to bandaged calf, continuous view.', '衣料轻响；音乐压低'),
+('S18', 'agnes', '缓慢下摇 slow tilt down', '「两天前被一只据报患狂犬病的狗咬了十四处」：孩子背影、肩上停着一只成人的手、腿上干净绷带', '从肩缓缓落到绷带，切笔尖', 'Close shot from behind of a small nine-year-old Alsatian boy seated on the rough wooden step of a half-timber farmhouse in 1885. He wears a plain loose linen shirt and dark wool knee breeches in an 1880s rural style. His shoulder and back fill the upper frame; one clean white cloth bandage wraps his lower calf near the bottom. One adult woman’s hand rests gently on his shoulder; keep the woman outside the frame. Only the boy’s back and this one hand are visible. The hand stays still with five natural fingers. Soft overcast morning daylight with no visible sun source. Camera: one slow tilt down from shoulder to bandaged calf, continuous view.', '衣料轻响；音乐压低'),
 ('S19', 'agnes', '缓慢横移 slow lateral slide', '「巴斯德后来写下：孩子的结局看起来无法避免」：油灯下握羽毛笔的手与纸', '墨迹落在纸上，硬切动物房', 'Top-down macro close-up of one older adult right hand holding a quill above a blank sheet on a wooden desk at night; one inkpot and one oil lamp sit at the edge of frame. Crop from the wrist down so only the hand, quill and desktop are visible: no head, face, neck or torso. The hand has five natural distinct fingers and writes only a few abstract ink strokes, no readable words. Camera: one slow lateral slide across the paper. No cut or scene change.', '羽毛笔划纸声；音乐停半拍'),
     ('S20', 'agnes', '缓慢下摇 slow tilt down',
      '「还是决定用在狗身上从未失败过的办法试一次」：动物房地板上一只安静趴着的狗，活着、无伤',
@@ -254,12 +247,16 @@ SHOTS = [
      '硬切深夜窗前的背影',
      '信息卡：一八八五年七月六日（画面文字见 CARDS）',
      ''),
-('S22', 'agnes', '缓慢横移 slow lateral drift', '「治，一旦失败，所有的责难都会落在他一个人身上」：深夜窗前孤独的背影，窗外留有可辨的蓝灰夜色', '背影停住，切针盒', 'One lone adult figure in a dark coat stands still with their back to camera before one tall window at night. Outside the window, dim blue-grey moonlit clouds and faint distant rooftops remain visibly readable; they are not black. One low candle makes a warm rim light on the coat and a small warm pool on the wooden floor. The figure, window frame, room and floor must all remain visible with readable midtones; no black screen or crushed shadows. Camera: one slow lateral drift across the back silhouette and the window. This is one quiet room and one window only; no laboratory benches, microscopes, bottles, beds, or other location; no visible face, no scene change.', '低频弦乐；室内夜声'),
-('S23', 'agnes', '缓慢上摇 slow tilt up', '「这位老人的手，抖着拿起了注射器」：一只手从木盒里取出玻璃注射器', '针管出盒，硬切桌上划痕', 'Extreme close-up of one older adult hand from the wrist down lifting one long glass syringe with a thin metal needle out of one open dark wooden case on a desk. Keep the hand, case and complete syringe clearly in frame throughout; a small controlled tremor only. Five natural distinct fingers, no deformation. No head, face, full person, laboratory-wide view, other props, text or second scene. Camera: one gentle upward tilt following the syringe as it rises; one continuous take.', '木盒轻响；玻璃器具轻碰'),
+('S22', 'agnes', '缓慢横移 slow lateral drift', '「在医生支持下」：巴斯德与一位医生在油灯旁并肩商议，均只见背影', '两人停在桌前，切针盒', 'In one quiet 1885 consultation room at night, two adult figures in period dark coats stand side by side at a plain wooden table lit by one oil lamp. One is a physician in a modest dark frock coat; both are strictly seen from behind and lean slightly toward a blank paper on the table, as if consulting. Their faces, fingers, readable notes and medical procedure remain out of frame. The room, window and floor stay visible with readable midtones. Camera: one slow lateral drift across the two back silhouettes and the lamp. No laboratory benches, bottles, beds, injection, scene change or camera relocation.', '低频弦乐；室内夜声'),
+('S23', 'agnes', '缓慢上摇 slow tilt up',
+     '「格朗谢执行第一针」：一位医生的手从木盒里取出玻璃注射器，不展示注射',
+     '针管出盒，硬切桌上划痕',
+     'Extreme close-up of one physician’s adult hand from the wrist down lifting one long glass syringe with a thin metal needle out of one open dark wooden case on a desk. Keep the hand, case and complete syringe clearly in frame throughout; no tremor, no injection and no skin in frame. Five natural distinct fingers, no deformation. No head, face, full person, laboratory-wide view, other props, text or second scene. Camera: one gentle upward tilt following the syringe as it rises; one continuous take.',
+     '木盒轻响；玻璃器具轻碰'),
 
     # ---------------- N04 十天（S24–S30，7 镜：6 动画 + 1 信息卡） ----------------
     ('S24', 'agnes', '极缓横移 very slow lateral drift',
-     '「接下来的十天，是这个实验室最难熬的十天」：木桌上一张卡片，手指一道道划过划痕',
+     '「随后十天」：木桌上一张卡片，手指一道道划过划痕',
      '手指划过最后一道，硬切药瓶架',
      'Close on a plain card on a wooden table in a plainly lit treatment room, a forefinger '
      'tracing a row of short abstract pencil scratches one by one, an oil lamp plus daylight '
@@ -268,7 +265,7 @@ SHOTS = [
      'digits or letters. Hold this single view: no cut, no scene change, no camera relocation.',
      '纸面摩擦声；低频脉动'),
     ('S25', 'agnes', '缓慢上摇 slow tilt up',
-     '「每天一针，一针比一针毒」：储藏室木架上排开的小玻璃瓶，从暗到亮',
+     '「十几次由弱到强的制剂」：储藏室木架上排开的小玻璃瓶，从暗到亮',
      '上摇到架子顶端，硬切推活塞的手',
      'Close on a row of small glass vials standing on a deep stone window ledge in a plainly '
      'lit room, bright daylight from the window behind them, the row running from shadow at '
@@ -277,9 +274,9 @@ SHOTS = [
      'people, no readable text, no labels. Hold this single view: no cut, no scene change, no '
      'camera relocation.',
      '玻璃轻响；弦乐渐紧'),
-('S26', 'agnes', '缓慢横移 slow lateral drift', '「后面用的是毒性更强的制剂」：玻璃针管在前臂上方，拇指压下活塞，不见入针', '活塞压下但不入针，切夜间病房', 'Tight clinical close-up of one clean adult forearm resting on pale linen and one clearly visible old glass syringe with a metal needle held just above the skin. A natural adult hand slowly presses the syringe plunger; the needle remains visibly above the skin and never touches or enters it. Keep the complete barrel, plunger, needle, hand and forearm in frame. Only arm and hand are visible; no face, torso, laboratory equipment, bottles or extra props. Camera: one slow overhead lateral drift. No blood, no penetration, no scene change.', '布料轻响；轻微器械声'),
+('S26', 'agnes', '缓慢横移 slow lateral drift', '「史料计数为十三针或十四剂」：玻璃针管在前臂上方，拇指压下活塞，不见入针', '活塞压下但不入针，切夜间病房', 'Tight clinical close-up of one clean adult forearm resting on pale linen and one clearly visible old glass syringe with a metal needle held just above the skin. A natural adult hand slowly presses the syringe plunger; the needle remains visibly above the skin and never touches or enters it. Keep the complete barrel, plunger, needle, hand and forearm in frame. Only arm and hand are visible; no face, torso, laboratory equipment, bottles or extra props. Camera: one slow overhead lateral drift. No blood, no penetration, no scene change.', '布料轻响；轻微器械声'),
     ('S27', 'agnes', '缓慢横移 slow lateral drift',
-     '「他是在拿一个孩子的命跟死神抢时间，夜夜守着病床」：夜里的小病房，铁床、木椅、一盏油灯',
+     '「原理简单也冒险」：夜里的小病房，铁床、木椅、一盏油灯',
      '灯焰轻晃，硬切信息卡',
      'Interior of a small hospital room at night, an iron bed with a still blanket, a wooden '
      'chair beside it, three oil lamps burning on the side table and the wall plus pale '
@@ -294,7 +291,7 @@ SHOTS = [
      '信息卡：十天 · 十几针（画面文字见 CARDS）',
      ''),
     ('S29', 'agnes', '缓慢拉远 slow dolly back',
-     '「可约瑟夫没有发病，一天天好起来」：晨光里，床上小小的人影慢慢坐起来',
+     '「迈斯特最终没有发病」：晨光里，床上小小的人影慢慢坐起来',
      '坐起来，硬切厨房喝水',
      'Interior of a small hospital room at morning, a small figure sitting up slowly in an '
      'iron bed, seen only as a backlit silhouette from behind, pale light through the window '
@@ -302,7 +299,7 @@ SHOTS = [
      'text. Hold this single view: no cut, no scene change, no camera relocation.',
      '晨光里的鸟声；钢琴进入'),
     ('S30', 'agnes', '缓慢推近 slow push in',
-     '「成了人类历史上第一个被狂犬病疫苗救下来的人」：农舍厨房里，一只小手端起木桌上的杯子喝水（呼应第三镜被推开的那杯水）',
+     '「一个成功病例不能替代今天的临床试验」：农舍厨房里，一只小手端起木桌上的杯子喝水（呼应第三镜被推开的那杯水）',
      '杯子放下，硬切庭院人群',
      "Close on a small child's hand lifting a glass of water from a wooden farmhouse kitchen "
      'table in morning light and drinking from it, a plain mug beside, the same table where a '
@@ -324,12 +321,12 @@ SHOTS = [
      'the walls. Hold this single view: no cut, no scene change, no camera relocation.',
      '低沉人声与脚步；音乐托住'),
     ('S34', 'graphic', '静帧',
-     '信息卡⑤：两千五百人 → 近两万人 · 死亡率低于千分之五',
+     '信息卡⑤：两千五百人 → 近两万人 · 一八八六年至一八九五年',
      '硬切登记簿',
      '信息卡：两千五百 → 近两万（画面文字见 CARDS）',
      ''),
     ('S35', 'agnes', '缓慢下摇 slow tilt down',
-     '「死亡率不到千分之五」：木桌上一册闭合的无字登记簿，旁有一支笔；数字由前一张资料卡承担',
+     '「到一八九五年去世时，人数接近两万」：木桌上一册闭合的无字登记簿，旁有一支笔；数字由前一张资料卡承担',
      '镜头掠过空白封面，硬切研究所门楼',
      'Close on one closed dark leather registration ledger on a worn wooden desk, with one '
      'capped fountain pen and one small brass paperweight beside it. The ledger cover is '
@@ -339,7 +336,7 @@ SHOTS = [
      'no camera relocation.',
      '纸页翻动声；音乐渐收'),
     ('S36', 'agnes', '缓慢上摇 slow tilt up',
-     '「一八八八年十一月十四日，巴斯德研究所在巴黎落成」：新落成的石砌门楼',
+     '「需求推动建立专门机构」：新落成的石砌门楼',
      '上摇到门楣，硬切生产线',
      'Exterior of the newly finished stone gateway of the Institut Pasteur in Paris in '
      'eighteen eighty eight, clean pale limestone, an open carriage entrance, a few figures in '
@@ -347,58 +344,41 @@ SHOTS = [
      'flagstones to the top of the arch. No readable inscription, no plaque lettering, no '
      'faces. Hold this single view: no cut, no scene change, no camera relocation.',
      '城市环境声；一记轻鼓（合成）'),
-('S37', 'agnes', '横向移动 lateral track', '「而直到今天，全球每年仍有数万人死于狂犬病」：现代疫苗生产线上的玻璃瓶', '传送带移动，硬切信息卡', 'A clean 21st-century vaccine filling line: stainless-steel conveyor belt carrying one orderly row of small clear vaccine vials under bright neutral white factory lighting. Camera: one slow lateral track alongside the same moving conveyor. No workers, no faces, no historical laboratory, no wood, no oil lamps, no candles, no shelves of miscellaneous bottles, no readable labels or logos. One continuous modern factory shot, no scene change.', '机械轻响；音乐转冷'),
+('S37', 'agnes', '横向移动 lateral track', '「一八八七年募款启动」：十九世纪木桌上的捐款信封与空白登记簿，无人', '镜头掠过信封，硬切信息卡', 'In a quiet Paris office in 1887, a plain wooden table holds three sealed unmarked paper donation envelopes, a closed blank leather ledger and one capped fountain pen. Warm daylight falls across the table. Camera: one slow lateral track along these same objects. No people, no hands, no currency, no readable writing, numbers, seals, logos, laboratory equipment, modern objects, scene change or camera relocation.', '纸张轻响；音乐转暖'),
     ('S38', 'graphic', '静帧',
-     '信息卡⑥：今天仍在——全球每年数万人死于狂犬病，约四成是十五岁以下的孩子',
+     '信息卡⑥：从急诊到研究所——一八八七年募款启动，一八八八年正式开放',
      '硬切家猫',
      '信息卡：今天仍在（画面文字见 CARDS）',
      ''),
 
     # ---------------- N06 今天（S39–S45，7 镜：6 动画 + 1 信息卡） ----------------
     ('S39', 'agnes', '低机位缓慢移动 low slow dolly',
-     '「今天，我们被猫狗抓伤」：一只家猫走过木地板，尾巴轻摆（不出现抓挠动作）',
-     '猫走出画，硬切接种台',
-     'Close on a domestic cat walking across a warm wooden floor away from the camera, its '
-     'tail swaying, neutral afternoon daylight through a window making long shadows, dust in '
-     'the air, low camera near the floor. Camera: one slow low dolly following the cat. The '
-     'cat is calm; no scratching, no wound, no blood. Hold this single view: no cut, no scene '
-     'change, no camera relocation.',
-     '室内安静的环境声；一声猫叫（远）'),
+     '「狂犬病仍会夺走数万人的生命，儿童承受的负担尤其重」：现代校门外一名儿童牵着成人的手向前走，只见背影',
+     '两人走向明亮街道，硬切课桌',
+     'At a modern school entrance in soft morning daylight, one school-age child with a small plain backpack walks away from camera while holding one adult hand. Show both only from behind at a respectful distance; the scene is calm and ordinary, with no animals, illness, injury, clinic, readable signs or text. Camera: one slow low dolly following the same two figures for the whole shot. No face, no scene change or camera relocation.',
+     '清晨环境声；轻柔脚步'),
     ('S40', 'agnes', '俯拍缓慢横移 slow overhead lateral drift',
-     '「能淡定地去疾控中心，按五针法或者四针法打完疫苗」：接种台面上一排现代疫苗瓶与一支一次性注射器，无人',
-     '硬切居民楼',
-     'Top-down close on a modern clinic treatment tray, a row of small vaccine vials and a '
-     'single sealed disposable syringe laid out on pale paper, cool neutral clinic light, '
-     'stainless steel edge of the tray. Camera: one slow overhead lateral drift along the '
-     'tray. No readable labels, no brand marks, no people. Hold this single view: no cut, no '
-     'scene change, no camera relocation.',
-     '空调低频与远处人声'),
-('S41', 'agnes', '缓慢上摇 slow tilt up', '「平常得像顺手关灯」：傍晚现代居民楼，一盏盏窗灯亮起', '窗灯亮满，硬切信息卡', 'Exterior of one present-day residential apartment building at blue-hour dusk. Warm lights switch on one window at a time across the same modern facade, with cool blue sky and a few bare trees. Camera: one slow tilt up the facade. No interior, laboratory, historical stone buildings, horses, people, signs or advertisements. One continuous exterior shot; no cuts, no time jump, no background switch.', '街区环境声；音乐温暖起来'),
+     '「儿童承受的负担尤其重」：现代教室木桌上一只儿童的手放下铅笔，不出现面部或医疗情节',
+     '手离开画面，硬切诊室',
+     'Top-down close on one small child hand setting a plain pencil beside one open blank exercise book on a modern classroom desk in gentle daylight. Show only the hand, pencil, blank paper and desk; no face, injury, medicine, readable writing, numbers, logos or medical procedure. Camera: one slow overhead lateral drift across the same desk. One continuous calm scene with no cut or transition.',
+     '教室远处环境声；音乐停顿'),
+('S41', 'agnes', '缓慢上摇 slow tilt up', '「现代暴露后预防已不同」：现代诊所走廊通向明亮、无文字的诊室门口，无人', '镜头停在门口，硬切信息卡', 'In a clean modern outpatient clinic, one quiet neutral corridor leads to a single open examination-room doorway with soft daylight inside. No people, no patient, no needles, no medicine containers, no readable signs, labels, numbers or logos. Camera: one slow tilt up from the plain floor toward the bright doorway, maintaining readable balanced exposure. One continuous clinic corridor, no cut or scene change.', '诊所环境声；音乐转为平稳'),
     ('S42', 'graphic', '静帧',
-     '信息卡⑦：暴露后接种——五针法与四针法（二零二三年版规范）',
+     '信息卡⑦：现代暴露后预防——细胞培养疫苗、免疫球蛋白与专业评估',
      '硬切昏暗石廊',
-     '信息卡：暴露后接种（画面文字见 CARDS）',
+     '信息卡：现代暴露后预防（画面文字见 CARDS）',
      ''),
     ('S43', 'agnes', '缓慢跟拍 backward dolly',
-     '「而是有人敢在深渊面前不退」：昏暗的石廊尽头，一个背影独自向前走，尽头有微光',
-     '微光渐亮，硬切接种的手',
-     'Interior of a long stone corridor lit by a row of warm wall lamps along its whole '
-     'length, the stone walls and floor clearly readable from end to end, the far end '
-     'brightest, a single figure in a long dark coat seen only from behind walking away from '
-     'the camera toward that light, dust in the beam. Camera: one slow backward dolly tracking '
-     'in front of the figure. The figure never turns and no face is ever visible. Hold this '
-     'single view: no cut, no scene change, no camera relocation.',
-     '脚步声与低频弦乐；一记心跳（合成）'),
-    ('S44', 'agnes', '极缓推近 very slow push in',
-     '「那管针剂，到今天还在护着每一个被抓伤的人」：上臂三角肌上方，一只戴手套的手持针管（不见脸、不见入针）',
-     '针管移开，硬切旧注射器',
-     'Close on an adult upper arm in a short sleeve, a gloved hand holding a small modern '
-     'syringe just above the shoulder, clean neutral clinic light, shallow focus. Camera: one '
-     'very slow push in toward the shoulder. No faces, no blood, no needle penetration detail, '
-     'no readable labels on the syringe. Hold this single view: no cut, no scene change, no '
-     'camera relocation.',
-     '轻呼吸声；音乐收成单音'),
-('S45', 'agnes', '缓慢拉远 slow pull back', '「你上一次被小动物弄伤，是什么时候？」：诊室木桌上的旧玻璃注射器与现代疫苗瓶', '拉远到整间诊室，淡出', 'A quiet modern clinic still life: exactly two objects on a clean pale wooden desk, one old long glass syringe with a thin metal needle and one sealed modern vaccine vial standing beside it. Both objects remain clearly visible and unchanged. Camera: one very slow pull back from the two objects to reveal only the same empty clinic desk. No animals, horses, landscape, people, hands, beds, laboratory shelves or extra vials. No text or readable labels. One continuous scene, no montage or transition.', '环境声淡出；最后一个钢琴音'),
+     '「遇到动物咬伤或抓伤」：现代诊所门外，一名成人从背后走向无文字的入口，不展示伤口或动物攻击',
+     '背影停在入口，硬切洗手',
+     'Outside one modern clinic entrance in daylight, one adult in ordinary clothes is seen strictly from behind walking calmly toward a plain unmarked doorway. The person carries no objects. No animal, no injury, no blood, no emergency action, no readable signs, logos, numbers or text. Camera: one slow backward dolly in front of the person, one continuous exterior view with no face, cut or scene change.',
+     '平稳脚步声；音乐收束'),
+    ('S44', 'agnes', '固定近景 locked close-up',
+     '「先用肥皂和流动水彻底清洗」：现代洗手台上双手在流动水与泡沫下清洗，不出现伤口',
+     '水流收住，硬切旧注射器与现代疫苗瓶',
+     'Close on two clean adult hands washing under running water with soap foam at a modern sink in neutral daylight. Show only hands, water, soap and the plain sink; no wound, no blood, no face, no text, no labels and no medical procedure. Camera: locked close-up with gentle natural movement in the water. One continuous scene, no cut or transition.',
+     '清水声；音乐收成单音'),
+('S45', 'agnes', '缓慢拉远 slow pull back', '「专业人员判断下一步；证据要先于传奇」：诊室木桌上的旧玻璃注射器与现代疫苗瓶', '拉远到整间诊室，淡出', 'A quiet modern clinic still life: exactly two objects on a clean pale wooden desk, one old long glass syringe with a thin metal needle and one sealed modern vaccine vial standing beside it. Both objects remain clearly visible and unchanged. Camera: one very slow pull back from the two objects to reveal only the same empty clinic desk. No animals, horses, landscape, people, hands, beds, laboratory shelves or extra vials. No text or readable labels. One continuous scene, no montage or transition.', '环境声淡出；最后一个钢琴音'),
 ]
 
 # ---------------------------------------------------------------------------
@@ -408,28 +388,28 @@ CARD_HEADER = "狂犬病疫苗 · 一八八五"                                 
 CARD_FOOTER = "资料摘要与示意图 · 并非原始档案影像"                       # 每张信息卡左下角的小字
 
 CARDS = {
-    "S07": ("发病之后", "狂犬病 · 病死率", "出现临床症状后，病死率接近百分之百"),
-    "S13": ("路易·巴斯德", "化学家 · 不是执业医生", "一八八零年起研究狂犬病"),
-    "S21": ("一八八五年七月六日", "巴黎 · 高等师范学校实验室", "九岁的约瑟夫，被疯狗咬伤后第二天"),
-    "S28": ("十天 · 十几针", "每天一剂兔脊髓制剂", "毒力逐针增强（两份来源针数略有出入）"),
-    "S34": ("两千五百 → 近两万", "一八八六年十一月约两千五百人接受治疗", "到一八九五年近两万人 · 死亡率低于千分之五"),
-    "S38": ("今天仍在", "全球每年数万人死于狂犬病", "其中约四成是十五岁以下的孩子"),
-    "S42": ("暴露后接种", "五针法：第零、三、七、十四、二十八天", "四针法（二之一一）：当天两剂 · 第七、二十一天各一剂"),
+    "S07": ("发病之后", "狂犬病 · 病死率", "出现临床症状后，病死率几乎百分之百"),
+    "S13": ("路易·巴斯德", "化学家 · 不是执业医生", "先固定病原，再以干燥降低毒力"),
+    "S21": ("一八八五年七月六日", "巴黎 · 高等师范学校实验室", "九岁的约瑟夫，来自阿尔萨斯"),
+    "S28": ("十天 · 十几针", "材料按由弱到强的次序推进", "十三针 / 十四剂，史料计数有差异"),
+    "S34": ("两千五百 → 近两万", "一八八六年十一月约两千五百人接受治疗", "到一八九五年，人数接近两万"),
+    "S38": ("从急诊到研究所", "一八八七年：募款启动", "一八八八年：巴黎巴斯德研究所正式开放"),
+    "S42": ("现代暴露后预防", "细胞培养疫苗 · 免疫球蛋白 · 专业评估", "由当地医生或公共卫生机构按暴露情况判断"),
 }
 
 TITLE_CARD = ["狂犬病疫苗", "一百四十年前那场赌局"]
 
 END_CARD = [
-    "你上一次被小动物弄伤，是什么时候？",
-    "狂犬病疫苗 · 一八八五年七月六日 · 巴黎",
-    "科学从来不是从天而降的幸运，而是有人敢在深渊面前不退。",
-    "资料：WHO / 美国CDC / 巴斯德研究所 / 国家疾控局 · 原创解说 · AI动画情景重现",
+    "医学史最该被记住的，是勇气，还是验证勇气的证据？",
+    "狂犬病疫苗 · 巴黎 · 一八八五年",
+    "证据要先于传奇，救治要快于病毒。",
+    "资料：WHO / 美国 CDC / 巴斯德研究所 · 原创解说 · AI动画情景重现",
 ]
 
 CAPTION_KEYWORDS = [
-    "百分之百", "闷死", "化学家", "巴斯德", "三十九次", "狗身上", "牢狱之灾",
-    "一八八五年", "约瑟夫", "十几处", "杀人犯", "十天", "毒性更强", "第一个",
-    "两千五百", "两万", "千分之五", "数万人", "四成", "五针法", "四针法", "一百四十年前",
+    "症状出现", "化学家", "巴斯德", "固定病毒", "干燥", "不是执业医生",
+    "一八八五年", "约瑟夫", "十四处", "格朗谢", "十天", "十三针", "十四剂",
+    "两千五百", "两万", "数万人", "四成", "伤口清洗", "专业评估", "一百四十年前",
 ]
 
 # 医疗/接种镜头换更具体的标签，避免被当成真实医疗教学影像
@@ -454,7 +434,7 @@ SFX_EVENTS = [
     ("S23", "keys"),
     ("S26", "press"),
     ("S32", "machine"),
-    ("S37", "machine"),
+    ("S37", "paper"),
     ("S45", "keys"),
 ]
 
@@ -462,28 +442,26 @@ SFX_EVENTS = [
 # 发布文案（抖音脚本.md / 抖音发布文案.md 用）
 # ---------------------------------------------------------------------------
 TITLES = [
-    "被狗咬一口就必死：一百四十年前，有人拿一个孩子的命赌赢了",
-    "狂犬病发病后病死率百分之百，改写它的却是个没有行医证的化学家",
-    "他不是医生，却给九岁男孩打了人类第一针疫苗：十天，十几针",
+    "九岁男孩、十几针：巴斯德如何让暴露后预防成为可能",
+    "一八八五年巴黎：一个孩子如何改变狂犬病疫苗史",
+    "从兔脊髓到现代预防：巴斯德那场赌局，不能被浪漫化",
 ]
 
-HOOK = ("狂犬病一旦发病，病死率几乎百分之百。一八八五年，一个没有行医资格的化学家，"
-        "用十天、十几针，和一个九岁男孩的命，把人类从这百分之百里拽了出来。")
+HOOK = ("一八八五年，九岁的约瑟夫·迈斯特来到巴黎。巴斯德团队把只在动物中验证过的方法用于一次"
+        "严重暴露：十天、十几针，开启了暴露后预防的新可能。")
 
 GOLDEN_LINES = [
-    "科学从来不是从天而降的幸运，而是有人敢在深渊面前不退。",
-    "一百四十年前那管针剂，到今天还在护着每一个被猫狗抓伤的人。",
-    "你上一次被小动物弄伤，是什么时候？评论区聊聊。",
+    "证据要先于传奇，救治要快于病毒。",
+    "医学突破不是孤注一掷的神话，而是持续检验与修正的过程。",
+    "潜在暴露后：先清洗，再尽快求助专业机构。",
 ]
 
-DESCRIPTION = ("被疯狗咬一口，在疫苗出现之前几乎等于被判了死刑：狂犬病一旦发病，病死率接近百分之百。"
-               "一八八五年七月六日，化学家巴斯德做了一个没有先例的决定——把只在狗身上验证过的制剂，"
-               "打进一个九岁男孩的体内。十天、十几针，他赌上的是自己的名声和一个孩子的命。"
-               "今天我们去疾控中心打的那几针，就是从这里开始的。"
-               "画面全部为 AI 动画情景重现，非历史影像；事实来自 WHO、美国 CDC、巴斯德研究所、"
-               "《柳叶刀》与国家疾控局公开资料。")
+DESCRIPTION = ("一八八五年七月，九岁的约瑟夫·迈斯特被带到巴黎。巴斯德团队先以兔之间连续传代"
+               "获得稳定材料，再以干燥降低毒力；在医生参与下，迈斯特接受了十天、十几针的暴露后治疗。"
+               "本片复盘这场历史上的紧急决定，也说明它不能替代今天的循证医疗。遇到动物咬伤或抓伤，"
+               "请立即清洗，并尽快按当地医生或公共卫生机构的指引处理。画面均为 AI 动画情景重现，非历史影像。")
 
-QUESTION = "你上一次被小动物弄伤，是什么时候？去打疫苗了吗？"
+QUESTION = "医学史最该被记住的，是勇气，还是验证勇气的证据？"
 
 HASHTAGS = ["#狂犬病", "#巴斯德", "#疫苗", "#科普", "#真实历史", "#冷知识", "#医学史"]
 
@@ -584,16 +562,12 @@ def render_screenplay() -> str:
     lines += [f"- {p}" for p in story["principles"]]
     lines += [
         "",
-        "**关键取舍**（与用户上传文案对照后的改动，核对过程见 "
-        "`production/docs_lab/workspaces/rabies1885/`）：",
+        "**本版事实边界**：",
         "",
-        "- 删掉「血肉模糊的伤口特写」——画面踩血腥红线，TTS 也会拦，改成狗的剪影与事后绷带；",
-        "- 「活活烧死或闷死」改成「史料里记载的抢救办法，是烧灼伤口，甚至把病人闷死」——"
-        "烧死没有可靠出处，闷死有（《柳叶刀》十九世纪综述、Saint-Tügen 礼拜堂的记载）；",
-        "- 删掉「整个医学界都在嘲笑他」「整个巴黎都在盯着」这类无出处的渲染；",
-        "- 巴斯德的犹豫改用他自己有出处的原话（美国 CDC 转引），不编心理活动；",
-        "- 针数两份权威来源不一致（美国 CDC 十四剂 / 巴斯德研究所十三针），"
-        "成片只说「十天、十几针」，不写死数字。",
+        "- 兔之间连续传代用于得到潜伏期稳定的固定病毒；**降低毒力的是随后对感染兔脊髓的干燥处理**，两步不能倒置；",
+        "- 巴斯德不是执业医生；第一针由儿科医生雅克—约瑟夫·格朗谢执行，片中不把注射写成巴斯德亲手完成；",
+        "- 针数两份权威来源不一致（美国 CDC 十四剂 / 巴斯德研究所十三针），成片只说「十天、十几针」；",
+        "- 现代暴露后预防不展示地区特定剂次表；只给出「立即清洗、尽快由专业人员评估」的跨地区公共卫生提示。",
         "",
         "## 解说稿与时间线",
         "",
