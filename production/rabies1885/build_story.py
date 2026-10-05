@@ -30,32 +30,19 @@ MANIFEST = HERE / "audio" / "manifest.json"
 TITLE = "狂犬病疫苗：一百四十年前那场赌局"
 
 # ---------------------------------------------------------------------------
-# 画面风格：参考片（用户上传的 monalisa_180_web.mp4）量出来的调子 + 超写实 3D
-#
-# 调色/光线/颗粒/运动这些词来自 production/style_lab 的实测值：
-#   主色 近黑 #1a160d / 棕褐 #554e32 / 橄榄 #87805e · 平均亮度 92/255（暗调）
-#   色温 R−B +28（暖）· 帧内反差 68（强反差）· 颗粒残差 13.21（明显颗粒）
-#   帧间差 0.079（明显运动/手持感）
-# 唯一改动：参考片的景深指标是 0.44（边缘比中心锐），style_lab 自己判定为
-# "主体靠边或素材偏平"，不是真实的景深读数，所以这里换成自然的电影景深，
-# 不照抄 "flat even focus"。
-# 注意：style_prefix 参与全部 Agnes 镜头的 request_hash，开工后改一个字 = 38 镜全部重做。
+# 画面风格：借用用户参考片的电影质感，渲染为超写实 3D；不复制其中的场景内容。
+# 这里只保留精简的风格信号（自然暖中性、胶片颗粒、真实材质与景深），避免全局
+# 前缀吞没镜头语义。具体地点、人物、道具、光源和运镜均由每镜 shot prompt 决定。
+# 注意：style_prefix 参与全部 Agnes 镜头的 request_hash，改动会触发 38 镜重做。
 # ---------------------------------------------------------------------------
 STYLE_PREFIX = (
-    "Photorealistic 3D CGI cinematic recreation with the visual impression of carefully "
-    "photographed live action: physically plausible materials and scale, detailed natural "
-    "surfaces, realistic global illumination, fine 35mm film grain, crisp optics, gently "
-    "falling-off depth of field, restrained film halation, film-scan exposure, clean midtones, "
-    "deep but detailed shadows, punchy natural contrast, warm-but-natural highlights with "
-    "neutral-to-warm midtones, no overall orange cast. Horizontal 16:9 composition. Style-only "
-    "instruction: depict only the subject, setting, props and action specified by the "
-    "shot-specific prompt that follows; do not introduce content from another scene. One "
-    "continuous take in one location; no montage, no cut, no time jump, no transition, no new "
-    "subjects or set dressing. Use only the single smooth camera movement specified in the "
-    "shot; stable controlled motion, no handheld shake, no whip pan or unrequested zoom. Human "
-    "figures only from behind or as hands/silhouettes as the shot specifies; no visible facial "
-    "features, no likeness of real people; no readable text, letters, numbers, logos or marks; "
-    "no gore, blood, corpse, violence or nudity. "
+    "Photorealistic 3D CGI with live-action film texture: physically plausible materials and "
+    "scale, natural global illumination, realistic lenses, subtle 35mm grain, and gentle depth "
+    "of field. Cinematic warm-neutral palette, natural highlights, detailed shadows and "
+    "midtones, balanced exposure, no orange cast. Horizontal 16:9. This prefix sets visual "
+    "style only; depict exactly the subject, setting, props, and action in the shot prompt, "
+    "in one continuous take. People only from behind or as silhouettes or hands, with no "
+    "visible facial features; no readable text, real-person likeness, gore, or nudity. "
 )
 
 # 与 production/gilgo 的关键差别：那部是 2D 动画，负面词里有 "3D render look, plastic CGI"，
@@ -250,7 +237,7 @@ SHOTS = [
      'house numbers. Hold this single view: no cut, no scene change, no camera relocation.',
      '清晨鸟声与远处牛铃'),
 ('S17', 'agnes', '缓慢跟拍 slow tracking', '「一个九岁的男孩被母亲从阿尔萨斯带到他面前」：乡路上，一大一小两个背影同行', '两人走向远处村庄，切门槛', 'A mother in a long dark skirt and her nine-year-old boy in short trousers walk away side by side along one quiet rural lane in Alsace at dawn, hedgerows and open fields on both sides. Camera: one slow rear tracking move following the same two figures. Both remain seen strictly from behind. Exactly two people; no crowd, no laboratory, no indoor corridor, no horses, no extra subjects, no face, no montage or scene transition.', '乡间清晨环境声；脚步'),
-('S18', 'agnes', '缓慢下摇 slow tilt down', '「两天前被疯狗咬伤十几处。母亲只求他救一救」：孩子背影、肩上停着一只成人的手、腿上干净绷带', '从肩缓缓落到绷带，切笔尖', 'Medium close shot from directly behind of one small boy seated on a wooden doorstep in bright morning light. Show his back, one clean cloth bandage around his lower leg, and only one adult woman’s forearm and hand resting still on his left shoulder. Crop the adult above the shoulder: no head, neck, profile or face may enter frame. The resting hand is relaxed, anatomically natural with five distinct fingers, and does not move or wave. Camera: one very slow tilt down from the shoulder to the bandaged calf. One continuous view, no other people, no scene change, no morphing.', '衣料轻响；音乐压低'),
+('S18', 'agnes', '缓慢下摇 slow tilt down', '「两天前被疯狗咬伤十几处。母亲只求他救一救」：孩子背影、肩上停着一只成人的手、腿上干净绷带', '从肩缓缓落到绷带，切笔尖', 'Close shot from behind: a small boy sits on a wooden farmhouse doorstep in bright morning light. His shoulder and back fill the upper frame; one clean white cloth bandage is visible around his lower calf near the bottom of frame. One adult woman’s hand rests gently on his shoulder; keep the woman outside the frame. Only the boy’s back and this one hand are visible. The hand remains still with five natural fingers. Camera: one slow tilt down from shoulder to bandaged calf, continuous view.', '衣料轻响；音乐压低'),
 ('S19', 'agnes', '缓慢横移 slow lateral slide', '「巴斯德后来写下：孩子的结局看起来无法避免」：油灯下握羽毛笔的手与纸', '墨迹落在纸上，硬切动物房', 'Top-down macro close-up of one older adult right hand holding a quill above a blank sheet on a wooden desk at night; one inkpot and one oil lamp sit at the edge of frame. Crop from the wrist down so only the hand, quill and desktop are visible: no head, face, neck or torso. The hand has five natural distinct fingers and writes only a few abstract ink strokes, no readable words. Camera: one slow lateral slide across the paper. No cut or scene change.', '羽毛笔划纸声；音乐停半拍'),
     ('S20', 'agnes', '缓慢下摇 slow tilt down',
      '「还是决定用在狗身上从未失败过的办法试一次」：动物房地板上一只安静趴着的狗，活着、无伤',
@@ -508,6 +495,7 @@ LIGHTING_SUFFIX = (
 GRID = 4           # 规划网格：每镜 4 秒，45 镜 = 180 秒
 AGNES_SECONDS = 7  # 每个 Agnes 镜头实际请求的时长（169 帧 @ 24 fps）
 SEED_BASE = 18850706  # 用第一针的日期，seed 可追溯
+SEED_OVERRIDES = {"S18": 18850818}  # S18 需隔离重试，避免复用错误语义的随机种子
 
 
 def presentation():
@@ -548,7 +536,7 @@ def build():
             "prompt": (body.strip() + " " + LIGHTING_SUFFIX) if kind == "agnes" else "",
             "purpose": purpose, "transition_out": transition,
             "graphic": body if kind == "graphic" else "",
-            "seed": SEED_BASE + i + 1,
+            "seed": SEED_OVERRIDES.get(sid, SEED_BASE + i + 1),
             "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": "1080p", "frame_rate": 24,
             "camera": camera, "sfx_note": sfx,
         })
