@@ -1257,7 +1257,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1311,7 +1311,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-05T01:48:44Z",
+  "updated_at": "2026-10-05T01:55:26Z",
   "run_id": "37248035842",
   "pipeline_error": "Command '['/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/render-env/bin/python', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/rabies1885/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/rabies1885/edit/first-cut.mp4']' returned non-zero exit status 1.",
   "previous_results": {
@@ -6029,5 +6029,75 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "duration": 180.0,
+    "bytes": 71785159,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "video_codec": "h264",
+    "frames": 5400,
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2,
+    "sha256": "bd164d74af486d0dac45e7ef6e7694c2699a30e60176bb1cd48af982c834be6b",
+    "decoded_ok": true,
+    "status": "audio_verified_cut",
+    "visual_review": "pending",
+    "caption_alignment": [
+      {
+        "id": "N01",
+        "method": "clause-times DP",
+        "character_match_coverage": 0.11206896551724138
+      },
+      {
+        "id": "N02",
+        "method": "clause-times DP",
+        "character_match_coverage": 0.20422535211267606
+      },
+      {
+        "id": "N03",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9513888888888888
+      },
+      {
+        "id": "N04",
+        "method": "clause-times DP",
+        "character_match_coverage": 0.2631578947368421
+      },
+      {
+        "id": "N05",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9767441860465116
+      },
+      {
+        "id": "N06",
+        "method": "pause-aware estimate",
+        "character_match_coverage": 0.0
+      }
+    ],
+    "narration_voice_id": "voice-00",
+    "narration_tempo": 1.062172619047619,
+    "editorial_segments": 46,
+    "source_clips": 38,
+    "archival_portrait": false,
+    "unique_shots_no_reuse": true,
+    "output": "狂犬病疫苗：一百四十年前那场赌局_三分钟_初版.mp4",
+    "soundtrack_mix": {
+      "rms_dbfs": -20.48,
+      "peak_dbfs": -1.5,
+      "silent_fraction": 0.0,
+      "target_rms_dbfs": -20.0
+    },
+    "delivered_audio": {
+      "rms_dbfs": -20.5,
+      "peak_dbfs": -1.53,
+      "silent_fraction": 0.0055,
+      "quietest_window_dbfs": -120.0
+    },
+    "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+    "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
+    "artifact_name": "rabies1885-agnes-18"
   }
 }
