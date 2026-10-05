@@ -1,7 +1,7 @@
 # 成片逐帧畸变 / 时序 QC
 
 - 成片：`狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4`
-- SHA-256：`b4f9739a83de0fcc20b5a117eb680a0da10fa24630c4d8c611cb9ded0d5e8761`
+- SHA-256：`b802f3d7d57d377644c4b63cf33deb7c406aaaf6933df970a5d3103f4be2508e`
 - 视频：1920×1080 / 30.000 fps / 180.000 秒
 - 覆盖：解码并分析 **5400/5400 帧**；逐帧 MediaPipe 人脸/手检测；320x180 时序分析
 - 自动状态：**REVIEW**（机器结果，不等同于无任何视觉瑕疵）
@@ -14,7 +14,7 @@
 - >1 秒近静止区段：1；其中非信息卡/片尾段：0
 - 帧差/光流/亮度突变待复核窗口：8
 - 人脸检测：逐帧总检测 203；达到复核阈值的候选 1
-- 手部检测：逐帧总检测 1075；超出宽松几何边界的 landmark 事件 144
+- 手部检测：逐帧总检测 1094；超出宽松几何边界的 landmark 事件 168
 
 ## 镜头统计
 
@@ -28,17 +28,17 @@
 | S06 | agnes | 95 | 0 | 0 | 1.9674 | 0 |
 | S07 | graphic | 125 | 15 | 0 | 196.7075 | 0 |
 | S08 | agnes | 192 | 0 | 0 | 1.5463 | 0 |
-| S09 | agnes | 147 | 0 | 0 | 1.3679 | 0 |
-| S10 | agnes | 192 | 48 | 63 | 1.4447 | 0 |
-| S11 | agnes | 138 | 26 | 0 | 1.6672 | 0 |
-| S12 | agnes | 120 | 1 | 0 | 2.0118 | 0 |
+| S09 | agnes | 147 | 0 | 0 | 1.3749 | 0 |
+| S10 | agnes | 192 | 46 | 63 | 1.4288 | 0 |
+| S11 | agnes | 138 | 27 | 0 | 1.6835 | 0 |
+| S12 | agnes | 120 | 2 | 0 | 2.0093 | 0 |
 | S13 | graphic | 104 | 0 | 0 | 180.6624 | 0 |
 | S14 | agnes | 59 | 4 | 0 | 2.208 | 0 |
 | S15 | agnes | 167 | 0 | 0 | 1.0135 | 0 |
-| S16 | agnes | 57 | 0 | 0 | 1.4168 | 0 |
-| S17 | agnes | 110 | 0 | 0 | 0.8296 | 0 |
-| S18 | agnes | 119 | 6 | 116 | 2.1654 | 0 |
-| S19 | agnes | 70 | 1 | 0 | 1.1454 | 0 |
+| S16 | agnes | 57 | 0 | 0 | 1.4258 | 0 |
+| S17 | agnes | 110 | 0 | 6 | 0.8351 | 0 |
+| S18 | agnes | 119 | 6 | 116 | 2.1632 | 0 |
+| S19 | agnes | 70 | 1 | 29 | 1.1481 | 0 |
 | S20 | agnes | 78 | 0 | 0 | 0.6581 | 0 |
 | S21 | graphic | 76 | 0 | 0 | 124.2979 | 0 |
 | S22 | agnes | 88 | 0 | 0 | 0.4924 | 0 |
@@ -50,16 +50,16 @@
 | S28 | graphic | 141 | 6 | 0 | 216.8278 | 0 |
 | S29 | agnes | 63 | 0 | 0 | 0.4148 | 0 |
 | S30 | agnes | 270 | 43 | 320 | 3.0867 | 3 |
-| S31 | agnes | 31 | 3 | 0 | 0.1268 | 0 |
-| S32 | agnes | 94 | 1 | 0 | 2.167 | 0 |
-| S33 | agnes | 57 | 0 | 0 | 1.0875 | 0 |
-| S34 | graphic | 83 | 0 | 0 | 170.1822 | 0 |
+| S31 | agnes | 31 | 3 | 0 | 0.1265 | 0 |
+| S32 | agnes | 94 | 1 | 1 | 2.1754 | 0 |
+| S33 | agnes | 57 | 0 | 0 | 1.0827 | 0 |
+| S34 | graphic | 83 | 0 | 0 | 163.1708 | 0 |
 | S35 | agnes | 123 | 0 | 0 | 0.8224 | 0 |
 | S36 | agnes | 71 | 8 | 0 | 0.5448 | 0 |
 | S37 | agnes | 59 | 0 | 0 | 1.0111 | 0 |
 | S38 | graphic | 302 | 0 | 0 | 251.0183 | 0 |
-| S39 | agnes | 122 | 0 | 2 | 1.1136 | 0 |
-| S40 | agnes | 84 | 0 | 101 | 1.01 | 0 |
+| S39 | agnes | 122 | 0 | 2 | 1.115 | 0 |
+| S40 | agnes | 84 | 0 | 84 | 3.9656 | 0 |
 | S41 | agnes | 83 | 0 | 0 | 1.378 | 0 |
 | S42 | graphic | 204 | 0 | 0 | 196.6995 | 0 |
 | S43 | agnes | 66 | 0 | 61 | 2.1047 | 0 |
@@ -76,10 +76,13 @@
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S02.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S03.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S10.jpg`
+- 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S17.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S18.jpg`
+- 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S19.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S23.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S27.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S30.jpg`
+- 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S32.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S40.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S43.jpg`
 - 手部动态接触表：`work/rabies1885/final-frame-audit/contacts/hands-S44.jpg`
