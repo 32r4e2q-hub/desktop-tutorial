@@ -97,6 +97,11 @@ jobs:
           import av, cv2, mediapipe as mp, numpy as np
           assert cv2.__version__ == "4.10.0"
           assert mp.__version__ == "0.10.21"
+          face = mp.solutions.face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.45)
+          hands = mp.solutions.hands.Hands(static_image_mode=False, max_num_hands=4, model_complexity=0,
+                                           min_detection_confidence=0.45, min_tracking_confidence=0.4)
+          face.close()
+          hands.close()
           print("frame-QC runtime ready", av.__version__, cv2.__version__, mp.__version__, np.__version__)
           PY
 

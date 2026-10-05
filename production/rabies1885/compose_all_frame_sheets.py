@@ -86,10 +86,37 @@ def main() -> None:
                 raise RuntimeError(f"EDL segment {segments[seg_i]['id']} has no decoded frames")
     if frames_total != segments[-1]["end_frame"]:
         raise RuntimeError(f"Decoded {frames_total} frames, EDL expects {segments[-1]['end_frame']}")
+    manifest_path = args.out / "manifest.json"
     manifest = {"film": str(args.film), "frames_included": frames_total,
                 "sampling": "none; every decoded frame exactly once",
                 "cell_size": f"{CELL_W}x{CELL_H}", "sheets": saved}
-    (args.out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+
+    # Attach the atlas to the machine report so reviewers can reach all-frame evidence
+    # from one place. This explicitly remains pending until a person reviews it.
+    report_path = args.project / "delivery" / "frame-distortion-audit.json"
+    markdown_path = report_path.with_suffix(".md")
+    if report_path.is_file():
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        report.setdefault("visual_artifacts", {})["all_frame_contact_sheets"] = [x["file"] for x in saved]
+        report["visual_artifacts"]["all_frame_contact_sheet_manifest"] = str(manifest_path)
+        report["visual_review_status"] = "pending"
+        report.setdefault("method_notes", []).append(
+            "全帧可视接触表包含每个解码帧一次（无抽样），每格为 160x90 缩略图；它用于全片扫查，"
+            "不能代替异常帧原始分辨率复核，也不代表人工审核已完成。")
+        report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        if markdown_path.is_file():
+            lines = [
+                "", "## 全部输出帧的视觉接触表", "",
+                f"全片 {frames_total} 帧按时间顺序逐帧收录、没有抽样；{len(saved)} 张分镜头接触表，"
+                f"每格 {CELL_W}×{CELL_H} 像素。缩略图用于扫查，异常仍须查看原始分辨率。",
+                "", f"- 清单：`../qa/all-frames/manifest.json`", "",
+            ]
+            lines.extend(f"- [{item['shot']}](../qa/all-frames/{Path(item['file']).name})"
+                         for item in saved)
+            lines += ["", "人工逐帧视觉复核状态：**PENDING**。自动结果或缩略接触表都不等于无瑕疵。", ""]
+            with markdown_path.open("a", encoding="utf-8") as f:
+                f.write("\n".join(lines))
     print(f"COMPLETE {frames_total} frames in {len(saved)} ordered sheets", flush=True)
 
 if __name__ == "__main__":
