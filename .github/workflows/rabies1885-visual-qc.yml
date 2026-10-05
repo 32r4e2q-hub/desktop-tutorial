@@ -73,6 +73,22 @@ jobs:
           python3 production/rabies1885/compose_all_frame_sheets.py \
             --film "$film" --project production/rabies1885 \
             --out work/rabies1885/final-frame-audit/all-frames
+          python3 production/rabies1885/export_visual_review_candidates.py \
+            --film "$film" \
+            --audit production/rabies1885/delivery/frame-distortion-audit.json \
+            --out work/rabies1885/final-frame-audit/review-candidates
+
+      - name: Publish compact final-cut review evidence into the repository
+        run: |
+          set -euo pipefail
+          film='交付/狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4'
+          python3 production/rabies1885/publish_visual_review_bundle.py \
+            --film "$film" \
+            --audit production/rabies1885/delivery/frame-distortion-audit.json \
+            --all-frames work/rabies1885/final-frame-audit/all-frames \
+            --contacts work/rabies1885/final-frame-audit/contacts \
+            --candidates work/rabies1885/final-frame-audit/review-candidates \
+            --out production/rabies1885/qa/final-frame-review
 
       - name: Record automation evidence without claiming human approval
         run: |
@@ -115,7 +131,8 @@ jobs:
           git add production/rabies1885/delivery/frame-distortion-audit.json \
             production/rabies1885/delivery/frame-distortion-audit.md \
             production/rabies1885/delivery/visual-qc-summary.json \
-            production/rabies1885/delivery/visual-qc-shot-midpoints.jpg
+            production/rabies1885/delivery/visual-qc-shot-midpoints.jpg \
+            production/rabies1885/qa/final-frame-review
           if ! git diff --cached --quiet; then
             git commit -m 'rabies1885: audit every frame of delivered cut'
             pushed=0
