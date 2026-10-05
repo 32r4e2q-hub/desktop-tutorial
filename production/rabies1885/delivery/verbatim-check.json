@@ -1,0 +1,463 @@
+{
+  "film": "狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4",
+  "project": "production/rabies1885",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 26.231,
+        "script_chars": 116,
+        "heard_chars": 116,
+        "character_error_rate": 0.1034,
+        "match_coverage": 0.8966,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 3,
+            "kind": "replace",
+            "script": "疯",
+            "heard": "封"
+          },
+          {
+            "at": 27,
+            "kind": "replace",
+            "script": "恐",
+            "heard": "洪"
+          },
+          {
+            "at": 29,
+            "kind": "replace",
+            "script": "痉挛窒",
+            "heard": "精卵致"
+          },
+          {
+            "at": 68,
+            "kind": "replace",
+            "script": "史",
+            "heard": "食"
+          },
+          {
+            "at": 72,
+            "kind": "replace",
+            "script": "抢救",
+            "heard": "强求"
+          },
+          {
+            "at": 78,
+            "kind": "replace",
+            "script": "灼",
+            "heard": "着"
+          }
+        ],
+        "transcript": "只要被封狗咬上一口哪怕只是一道血痕你就已经进入了倒计时洪水 精卵 致息人会在清醒里走向终点在疫苗出现之前狂犬病一旦发病病死率几乎就是百分之百食料里的强求办法是烧着伤口甚至把病人焖死而感写这个数字的不是救世主是一个连行医资格都没有的话学家"
+      },
+      {
+        "id": "N02",
+        "start": 27.311,
+        "end": 58.766,
+        "script_chars": 142,
+        "heard_chars": 142,
+        "character_error_rate": 0.0141,
+        "match_coverage": 0.9859,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 138,
+            "kind": "replace",
+            "script": "牢狱",
+            "heard": "劳欲"
+          }
+        ],
+        "transcript": "他叫路易巴斯德从1880年起他在巴黎的实验室里跟这种病较劲把患病兔子的脊髓取出来干燥再接种到下一只兔子体内这样传了三十九次以上毒性一点一点减弱四年后这个办法在狗身上成了可同行质问他病原体都看不见你凭什么更麻烦的是他不是医生给人打一种没验证过的东西一旦出事等着他的就是身败名裂和劳欲之灾"
+      },
+      {
+        "id": "N03",
+        "start": 59.846,
+        "end": 92.468,
+        "script_chars": 144,
+        "heard_chars": 144,
+        "character_error_rate": 0.0417,
+        "match_coverage": 0.9583,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 28,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 41,
+            "kind": "replace",
+            "script": "疯",
+            "heard": "封"
+          },
+          {
+            "at": 52,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 101,
+            "kind": "replace",
+            "script": "治",
+            "heard": "至"
+          },
+          {
+            "at": 110,
+            "kind": "replace",
+            "script": "治",
+            "heard": "至"
+          },
+          {
+            "at": 124,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          }
+        ],
+        "transcript": "1885年7月6日清晨一个9岁的男孩被母亲从阿尔薩斯带到她面前孩子叫约瑟夫两天前被封狗咬伤十几处母亲只求她救一救巴斯德后来写下孩子的结局看起来无法避免我极度焦虑还是决定用在狗身上从未失败过的办法试一次不至孩子几乎没有生路至一旦失败所有的责难都会落在她一个人身上这位老人的手抖着拿起了注射器"
+      },
+      {
+        "id": "N04",
+        "start": 93.548,
+        "end": 118.459,
+        "script_chars": 114,
+        "heard_chars": 114,
+        "character_error_rate": 0.0439,
+        "match_coverage": 0.9561,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 30,
+            "kind": "replace",
+            "script": "载",
+            "heard": "在"
+          },
+          {
+            "at": 41,
+            "kind": "replace",
+            "script": "制剂他",
+            "heard": "致绩它"
+          },
+          {
+            "at": 71,
+            "kind": "replace",
+            "script": "他",
+            "heard": "它"
+          }
+        ],
+        "transcript": "接下来的10天是这个实验室最难熬的10天每天一针一针比一针毒按记在后面用的是毒性更强的致绩它是在拿一个孩子的命跟死神抢时间夜夜守着病床最后一针打完它等着最坏的消息可约瑟夫没有发病一天天好起来成了人类历史上第一个被狂犬病疫苗救下来的人"
+      },
+      {
+        "id": "N05",
+        "start": 119.539,
+        "end": 146.488,
+        "script_chars": 129,
+        "heard_chars": 129,
+        "character_error_rate": 0.0388,
+        "match_coverage": 0.969,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "两千",
+            "heard": "二"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "百",
+            "heard": "零零"
+          },
+          {
+            "at": 63,
+            "kind": "replace",
+            "script": "两",
+            "heard": "二"
+          }
+        ],
+        "transcript": "消息传开 病人从英国 俄国 意大利 德国 涌向巴黎到1886年11月 已有大约2500人接受这种治疗到1895年巴斯德去世时 接受过的人接近2万死亡率不到千分之五1888年11月14日 巴斯德研究所在巴黎落成而直到今天 全球每年仍有数万人死于狂犬病其中约4成是15岁以下的孩子"
+      },
+      {
+        "id": "N06",
+        "start": 147.568,
+        "end": 174.0,
+        "script_chars": 124,
+        "heard_chars": 124,
+        "character_error_rate": 0.0565,
+        "match_coverage": 0.9435,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "地",
+            "heard": "的"
+          },
+          {
+            "at": 20,
+            "kind": "replace",
+            "script": "针",
+            "heard": "真"
+          },
+          {
+            "at": 25,
+            "kind": "replace",
+            "script": "针",
+            "heard": "真"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "像",
+            "heard": "向"
+          },
+          {
+            "at": 90,
+            "kind": "replace",
+            "script": "那",
+            "heard": "哪"
+          },
+          {
+            "at": 92,
+            "kind": "replace",
+            "script": "针剂",
+            "heard": "真迹"
+          }
+        ],
+        "transcript": "今天我们被猫狗抓伤能淡定的去疾控中心按五真法或者四真法打完疫苗回家平常得向顺手关灯可一百四十年前这是有人拿名声和一个孩子的命换来的科学从来不是从天而降的幸运而是有人敢在深渊面前不退哪管真迹到今天还在护着每一个被抓伤的人你上一次被小动物弄伤是什么时候"
+      }
+    ],
+    "max_cer": 0.1034,
+    "failing": []
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 26.231,
+        "script_chars": 116,
+        "heard_chars": 116,
+        "character_error_rate": 0.1034,
+        "match_coverage": 0.8966,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 3,
+            "kind": "replace",
+            "script": "疯",
+            "heard": "封"
+          },
+          {
+            "at": 27,
+            "kind": "replace",
+            "script": "恐",
+            "heard": "洪"
+          },
+          {
+            "at": 29,
+            "kind": "replace",
+            "script": "痉挛",
+            "heard": "精卵"
+          },
+          {
+            "at": 68,
+            "kind": "replace",
+            "script": "史",
+            "heard": "食"
+          },
+          {
+            "at": 72,
+            "kind": "replace",
+            "script": "抢救",
+            "heard": "强求"
+          },
+          {
+            "at": 78,
+            "kind": "replace",
+            "script": "灼",
+            "heard": "着"
+          }
+        ],
+        "transcript": "只要被封狗咬上一口哪怕只是一道血痕你就已经进入了倒计时洪水精卵窒息人会在清醒里走向终点在疫苗出现之前狂犬病一旦发病病死率几乎就是百分之百食料里的强求办法是烧着伤口甚至把病人焖死而感谢这个数字的不是救世主是一个连行医资格都没有的话学家"
+      },
+      {
+        "id": "N02",
+        "start": 27.311,
+        "end": 58.766,
+        "script_chars": 142,
+        "heard_chars": 142,
+        "character_error_rate": 0.0211,
+        "match_coverage": 0.9789,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 42,
+            "kind": "replace",
+            "script": "再",
+            "heard": "在"
+          },
+          {
+            "at": 138,
+            "kind": "replace",
+            "script": "牢狱",
+            "heard": "老语"
+          }
+        ],
+        "transcript": "他叫路易巴斯德从1880年起他在巴黎的实验室里跟这种病较劲把患病兔子的脊髓取出来干燥在接种到下一只兔子体内这样传了三十九次以上毒性一点一点减弱四年后这个办法在狗身上成了可同行质问他病原体都看不见你凭什么更麻烦的是他不是医生给人打一种没验证过的东西一旦出事等着他的就是身败名裂和老语之灾"
+      },
+      {
+        "id": "N03",
+        "start": 59.846,
+        "end": 92.468,
+        "script_chars": 144,
+        "heard_chars": 144,
+        "character_error_rate": 0.0347,
+        "match_coverage": 0.9653,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 28,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 41,
+            "kind": "replace",
+            "script": "疯",
+            "heard": "封"
+          },
+          {
+            "at": 52,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 101,
+            "kind": "replace",
+            "script": "治",
+            "heard": "至"
+          },
+          {
+            "at": 110,
+            "kind": "replace",
+            "script": "治",
+            "heard": "至"
+          }
+        ],
+        "transcript": "1885年7月6日清晨一个9岁的男孩被母亲从阿尔薩斯带到她面前孩子叫约瑟夫两天前被封狗咬伤十几处母亲只求她救一救巴斯德后来写下孩子的结局看起来无法避免我极度焦虑还是决定用在狗身上从未失败过的办法试一次不至孩子几乎没有生路至一旦失败所有的责难都会落在他一个人身上这位老人的手抖着拿起了注射器"
+      },
+      {
+        "id": "N04",
+        "start": 93.548,
+        "end": 118.459,
+        "script_chars": 114,
+        "heard_chars": 114,
+        "character_error_rate": 0.0263,
+        "match_coverage": 0.9737,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 30,
+            "kind": "replace",
+            "script": "载",
+            "heard": "在"
+          },
+          {
+            "at": 41,
+            "kind": "replace",
+            "script": "制剂",
+            "heard": "致敬"
+          }
+        ],
+        "transcript": "接下来的10天是这个实验室最难熬的10天每天一针一针比一针毒按记在后面用的是毒性更强的致敬他是在拿一个孩子的命跟死神抢时间夜夜守着病床最后一针打完他等着最坏的消息可约瑟夫没有发病一天天好起来成了人类历史上第一个被狂犬病疫苗救下来的人"
+      },
+      {
+        "id": "N05",
+        "start": 119.539,
+        "end": 146.488,
+        "script_chars": 129,
+        "heard_chars": 129,
+        "character_error_rate": 0.0465,
+        "match_coverage": 0.9612,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "涌",
+            "heard": "永"
+          },
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "两千",
+            "heard": "二"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "百",
+            "heard": "零零"
+          },
+          {
+            "at": 63,
+            "kind": "replace",
+            "script": "两",
+            "heard": "二"
+          }
+        ],
+        "transcript": "消息传开病人从英国 俄国 意大利 德国 永向巴黎到1886年11月已有大约2500人接受这种治疗到1895年巴斯德去世时接受过的人接近2万死亡率不到千分之五1888年11月14日巴斯德研究所在巴黎落成而直到今天全球每年仍有数万人死于狂犬病其中约4成是15岁以下的孩子"
+      },
+      {
+        "id": "N06",
+        "start": 147.568,
+        "end": 174.0,
+        "script_chars": 124,
+        "heard_chars": 124,
+        "character_error_rate": 0.0403,
+        "match_coverage": 0.9597,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "地",
+            "heard": "的"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "像",
+            "heard": "向"
+          },
+          {
+            "at": 90,
+            "kind": "replace",
+            "script": "那",
+            "heard": "哪"
+          },
+          {
+            "at": 92,
+            "kind": "replace",
+            "script": "针剂",
+            "heard": "真迹"
+          }
+        ],
+        "transcript": "今天我们被猫狗抓伤能淡定的去疾控中心按五针法或者四针法打完疫苗回家平常得向顺手关灯可一百四十年前这是有人拿名声和一个孩子的命换来的科学从来不是从天而降的幸运而是有人敢在深渊面前不退哪管真迹到今天还在护着每一个被抓伤的人你上一次被小动物弄伤是什么时候"
+      }
+    ],
+    "max_cer": 0.1034,
+    "failing": []
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+}
