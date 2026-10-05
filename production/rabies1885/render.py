@@ -57,9 +57,6 @@ WINDOWS = {'S22': (0.12, 4.3)}
 # S02 provider still exposed an unintended dial; retain only its lower pendulum compartment.
 TIGHTER_CROPS = {
     'S02': (3.4, 0.50, 0.80),
-    # Source S40 put illegible model scribbles on the left page despite the no-text prompt.
-    # Retain only the clean right-hand page and natural hand; no generated writing reaches the cut.
-    'S40': (3.0, 0.55, 0.20),
 }
 
 
