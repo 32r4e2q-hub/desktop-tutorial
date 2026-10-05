@@ -329,13 +329,14 @@ SHOTS = [
      '信息卡：两千五百 → 近两万（画面文字见 CARDS）',
      ''),
     ('S35', 'agnes', '缓慢下摇 slow tilt down',
-     '「死亡率不到千分之五」：木桌上一本摊开的登记簿，纸页上是一道道对勾（不可读），旁边一支笔',
-     '笔放下，硬切研究所门楼',
-     'Close on a long sheet of pale paper pinned flat to a plaster wall in a plainly lit '
-     'office, column after column of short abstract tick marks running down it, the corner of '
-     'a wooden table visible at the bottom of the frame, nothing readable. Camera: one slow '
-     'tilt down the columns of marks. No people, no faces, no hands, no readable writing. Hold '
-     'this single view: no cut, no scene change, no camera relocation.',
+     '「死亡率不到千分之五」：木桌上一册闭合的无字登记簿，旁有一支笔；数字由前一张资料卡承担',
+     '镜头掠过空白封面，硬切研究所门楼',
+     'Close on one closed dark leather registration ledger on a worn wooden desk, with one '
+     'capped fountain pen and one small brass paperweight beside it. The ledger cover is '
+     'completely blank: no open pages, marks, letters, numbers, symbols, labels, or writing of '
+     'any kind. Camera: one slow tilt down across this same blank cover. No people, no faces, '
+     'no hands, no paper sheets, no wall text. Hold this single view: no cut, no scene change, '
+     'no camera relocation.',
      '纸页翻动声；音乐渐收'),
     ('S36', 'agnes', '缓慢上摇 slow tilt up',
      '「一八八八年十一月十四日，巴斯德研究所在巴黎落成」：新落成的石砌门楼',

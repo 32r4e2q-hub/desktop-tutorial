@@ -15,7 +15,7 @@
 
 ## 本次闭环
 
-工作流已固定到当前分支；模板副本在 `workflows/`，GitHub 生效副本在 `.github/workflows/`。
+工作流已固定到当前分支；模板副本在 `workflows/`，GitHub 生效副本在 `.github/workflows/`。除生成、出片、听检外，`rabies1885-visual-qc.yml` 专门逐帧扫描交付成片，并把完整视觉证据作为 Actions artifact。
 仅在完成每一步且证据齐全时进入下一步：
 
 1. **内容与音频闸门**
