@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 72095136,
+  "bytes": 68280926,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,59 +9,59 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "4098e8eeb49ba6b124ae9404b6b1e89b24a983b4cc99dc1290d21ec974455bdf",
+  "sha256": "b4f9739a83de0fcc20b5a117eb680a0da10fa24630c4d8c611cb9ded0d5e8761",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
   "caption_alignment": [
     {
       "id": "N01",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.13793103448275862
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9901960784313726
     },
     {
       "id": "N02",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.20422535211267606
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.984375
     },
     {
       "id": "N03",
       "method": "ASR-assisted",
-      "character_match_coverage": 0.9513888888888888
+      "character_match_coverage": 0.984
     },
     {
       "id": "N04",
       "method": "ASR-assisted",
-      "character_match_coverage": 0.9210526315789473
+      "character_match_coverage": 0.98
     },
     {
       "id": "N05",
       "method": "ASR-assisted",
-      "character_match_coverage": 0.9922480620155039
+      "character_match_coverage": 0.9830508474576272
     },
     {
       "id": "N06",
-      "method": "pause-aware estimate",
-      "character_match_coverage": 0.04032258064516129
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9924242424242424
     }
   ],
   "narration_voice_id": "voice-00",
-  "narration_tempo": 1.062172619047619,
+  "narration_tempo": 0.9545238095238094,
   "editorial_segments": 46,
   "source_clips": 38,
   "archival_portrait": false,
   "unique_shots_no_reuse": true,
   "output": "狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4",
   "soundtrack_mix": {
-    "rms_dbfs": -20.48,
-    "peak_dbfs": -1.5,
-    "silent_fraction": 0.0,
+    "rms_dbfs": -22.12,
+    "peak_dbfs": -1.51,
+    "silent_fraction": 0.0056,
     "target_rms_dbfs": -20.0
   },
   "delivered_audio": {
-    "rms_dbfs": -20.5,
-    "peak_dbfs": -1.53,
-    "silent_fraction": 0.0055,
+    "rms_dbfs": -22.15,
+    "peak_dbfs": -1.52,
+    "silent_fraction": 0.011,
     "quietest_window_dbfs": -120.0
   },
   "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
