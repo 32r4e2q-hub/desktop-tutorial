@@ -301,14 +301,18 @@ SHOTS = [
     ('S30', 'agnes', '缓慢推近 slow push in',
      '「一个成功病例不能替代今天的临床试验」：农舍厨房里，一只九岁孩子的小手端起木桌上的小玻璃杯喝水（呼应第三镜被推开的那杯水）',
      '杯子放下，硬切庭院人群',
-     "Close on exactly one small nine-year-old child's right hand and wrist, in a loose 1885 "
-     'linen shirt cuff, gently lifting one small half-full glass tumbler of water from a wooden '
-     'farmhouse kitchen table in morning light. The child-sized hand and short wrist are visibly '
-     'small beside a plain ceramic mug, with the mug clearly much larger; no adult hand, adult '
-     'forearm or other person is present. The small fingers naturally wrap around the tumbler. '
-     'Show only the child hand, wrist, glass, mug and table: no face, no body, no features. '
-     'Camera: one slow push in toward the glass, one continuous view with no cut, scene change '
-     'or camera relocation.',
+     "Close on exactly one clearly child-sized nine-year-old right hand and short wrist, in a loose 1885 "
+     'linen shirt cuff, beside one small half-full glass tumbler of water on a wooden farmhouse '
+     'kitchen table in morning light. Begin with the tumbler resting on the table. During the first '
+     'three seconds, the small hand visibly wraps all five natural fingers around the tumbler, lifts '
+     'it at least eight centimetres above the tabletop, holds it suspended for a moment, then sets '
+     'the same tumbler back down before the shot ends. The lifted base and its separated shadow '
+     'must be plainly visible, so the action cannot be mistaken for merely touching or sliding the '
+     'glass; water stays inside. The child hand and short wrist are unmistakably small beside a '
+     'plain ceramic mug that is clearly much larger. No adult hand, adult forearm or other person '
+     'is present. Show only the child hand, wrist, glass, mug and table: no face, no body, no '
+     'features. Camera stays locked at tabletop height throughout one continuous view with no cut, '
+     'scene change or camera relocation.',
      '喝水声；音乐第一次完整地起来'),
 
     # ---------------- N05 扩散（S31–S38，8 镜：6 动画 + 2 信息卡） ----------------
