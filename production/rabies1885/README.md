@@ -1,78 +1,68 @@
 # 狂犬病疫苗：一百四十年前那场赌局
 
-由 `production/new_topic.py` 从参考项目 `production/gilgo`（《吉尔戈海滩：披萨盒里的凶手》，已成片、已发布）
-开出来的新项目目录。参考实现只被复制，没有被修改；本片的所有编辑都发生在这个目录里。
-流程细节见仓库根目录的 `新题目开工手册.md`。
+三分钟横屏科普片的**当前可复现制作源**。本目录于 2026-10-05 从项目的历史制作分支接管到
+`arena/01a10a48-desktop-tutorial`，后续生成、出片、逐字听检和交付均只在此分支闭环。
 
-- slug：`rabies1885`　出片分支：`arena/01a105b7-desktop-tutorial`　成片文件名：`狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4`
-- 规格：1920×1080 / 30 fps / 180 秒；**45 镜 = 38 个 Agnes 动画镜头 + 7 张信息卡（比例可调），每个镜头只出现一次**
+- 成片规格：1920×1080 / 30 fps / 180 秒；45 镜（38 个 Agnes 动画镜头 + 7 张信息卡），每镜只使用一次。
+- 当前旁白：6 段共 863 字（含标点）；`story.json`、`audio/manifest.json` 与 `screenplay.md` 必须逐字同步。
+- 当前素材：`results.json` 记录 38 条已完成 Agnes 回执和 SHA-256；无档案素材。最新一轮全量素材完成于 2026-10-05。
+- 当前配音：`audio/N01.mp3`—`N06.mp3` 是收紧停顿后的渲染用音轨；原始输出在 `audio/raw/`。
+- 当前闸门：`python3 production/rabies1885/generate.py --validate` 已通过（时间线、45 镜、素材回执和配音哈希）。
 
-## 现在还不能出片（故意的）
+> **交付状态：等待本分支的新渲染闭环。** 本目录没有把历史候选 MP4、接触表或旧听检报告当作本次交付证据：
+> 它们早于当前这批素材和 863 字旁白，不能证明本版本成片正确。只有本分支触发的出片任务写回的
+> `交付/`、`delivery/`、技术报告、逐字听检报告和人工画面签收，才能解除此状态。
 
-`generate.py --validate` 现在**会失败**，因为解说词、提示词、配音都是空的。按下面顺序填完，它才会放行。
+## 本次闭环
 
-## 待办清单（吉尔戈模式）
+工作流已固定到当前分支；模板副本在 `workflows/`，GitHub 生效副本在 `.github/workflows/`。
+仅在完成每一步且证据齐全时进入下一步：
 
-1. **事实与红线** → `build_story.py` 的 `SOURCES` / `PRINCIPLES`，`screenplay.md` 的「事实边界」。每句话都要有公开来源。
-2. **解说稿** → `build_story.py` 的 `CHAPTERS`：六段合计 ≈ 760–800 字，数字写中文读法，每段末尾留钩子，不写血腥细节。
-3. **分镜** → `build_story.py` 的 `SHOTS`（45 个元组）：哪几镜是信息卡（`kind="graphic"`）由你定，信息卡文案写进 `CARDS`；
-   提示词先钉死唯一场景、再排除别的场景、最后加 HOLD 句。`TITLE_CARD` / `END_CARD` / `CAPTION_KEYWORDS` /
-   `LABEL_OVERRIDES` / `SFX_EVENTS` 也在这里。写完跑：
-
-   ```bash
-   python3 production/rabies1885/build_story.py          # 写 story.json + audio/manifest.json 的逐字文本
-   ```
-
-4. **配音** → 试音选定音色 → 六段 TTS 放 `audio/raw/N0x.mp3` → 收紧停顿、对分句时间、填 SHA-256：
+1. **内容与音频闸门**
 
    ```bash
-   python3 production/rabies1885/tighten_pauses.py       # raw/ -> audio/N0x.mp3，写 audio/tighten-report.json
-   python3 production/rabies1885/clause_times.py         # 写 audio/clause-times.json
-   sha256sum production/rabies1885/audio/N0*.mp3         # 填进 audio/manifest.json 的 sha256，voice_id 也要填
-   python3 production/rabies1885/generate.py --validate  # 闸门一
+   python3 production/rabies1885/build_story.py  # 仅当改了唯一内容源时；会重写 story/manifest 的文本
+   python3 production/rabies1885/generate.py --validate
+   python3 production/rabies1885/clause_times.py --check-cuts
    ```
 
-5. **生成素材** → 把 `workflows/rabies1885-gen.yml`、`rabies1885-render.yml`、`rabies1885-verbatim.yml` 复制到 `.github/workflows/`
-   （需要 workflows 写权限），然后写 `GEN_REQUEST`（`{"workers":2}`）并 push；`watch_run.py` 拉回 `results.json` 与 `qa/` 接触表。
-6. **复审** → 逐镜看 `qa/Sxx.jpg`（14 帧）：画的是不是这一镜的场景、7 秒内有没有换场、有没有脸/可读伪文字/遗体。
-   坏镜头只改它的 prompt，`GEN_REQUEST` 写 `{"workers":2,"only":"S03,S08"}` 重做，其余按 SHA-256 复用。
-7. **剪辑表** → `render.py` 的 `CUTS` 骨架是 4 秒均匀一切，**必须**按 `audio/clause-times.json` 重对
-   （切点落在分句起点前 0.15 s 左右），然后：
+   修改旁白后必须重新生成对应配音、收紧停顿、重算分句时间和 SHA-256；不能用旧音频或旧字幕凑合。
 
-   ```bash
-   python3 production/rabies1885/clause_times.py --check-cuts   # 每个切点都要在停顿窗内
-   ```
+2. **素材复核**
 
-8. **出片** → 写 `RENDER_REQUEST` 并 push；成片 commit 回 `交付/狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4`，报告在 `delivery/`。
-   复检：按 EDL 逐段抽帧看画面/字幕/标签；按分句起点前后 0.25 s 抽帧核对字幕切换。
-9. **听检** → 写 `VERBATIM_REQUEST` 并 push；`delivery/verbatim-check.json` 六章 CER 都要 ≤ 0.15。
-10. **发布** → `gh release create <tag>` + 写 `RELEASE_UPLOAD_REQUEST`（tag / src / asset）；
-    `build_story.py --script` 生成 `抖音脚本.md`，`build_story.py --publish` 生成 `抖音发布文案.md`。
+   `results.json` 的请求哈希和 `story.json` 必须匹配。逐镜查看 `qa/Sxx.jpg` / 全帧接触表（由本轮工作流产出）：
+   场景须符合分镜；不得有人脸、可读伪文字、畸形肢体、中途换场、黑帧或不当暴力。仅坏镜用
+   `GEN_REQUEST` 的 `{"workers":2,"only":"S03,S08"}` 重做，不能混入未验收的来源。
 
-## 目录
+3. **渲染与交付报告**
+
+   在当前分支创建或改写 `RENDER_REQUEST` 后 push。`rabies1885-render.yml` 会恢复素材，按实测配音渲染，
+   并将新 MP4、字幕、EDL、音频/技术报告写回 `交付/` 与 `delivery/`。报告必须对应新 MP4 的 SHA-256。
+
+4. **逐字听检与人工签收**
+
+   新成片写回后，创建或改写 `VERBATIM_REQUEST` 后 push。`delivery/verbatim-check.json` 中六段 CER 都必须
+   ≤ 0.15；再按 EDL 逐段检查画面与字幕、按切点前后 0.25 秒检查字幕切换。任何失败均回到对应步骤修复并重渲。
+
+## 文件职责
 
 | 路径 | 作用 |
 |---|---|
-| `build_story.py` | **唯一内容源**：解说词、45 镜、信息卡文案、片头/片尾卡、字幕高亮词、标签、音效事件、发布文案 |
-| `story.json` | 分镜计划：45 镜 × 4 秒、6 章 × 30 秒（由 build_story.py 写入，含 `presentation` 块） |
-| `screenplay.md` | 解说稿 + 事实边界 + 分镜表 |
-| `script_table.py` | 由 story.json + CUTS + 分句时间生成 `抖音脚本.md` / `抖音发布文案.md` |
-| `audio/raw/` → `audio/N0x.mp3` | TTS 原始输出 → 收紧停顿后的配音（manifest 的 SHA-256 记的是后者） |
-| `audio/manifest.json` / `clause-times.json` / `tighten-report.json` | 配音收据、分句时间、收紧报告 |
-| `tighten_pauses.py` / `clause_times.py` | 收紧停顿；分句对时间 + `--check-cuts` |
-| `generate.py` | 生成 Agnes 素材（75 秒节流、断点续跑、`--prune-failed`）+ `--validate` 闸门 |
-| `fetch_sources.py` / `watch_run.py` | 按 SHA-256 回填素材；从分支拉回 results/qa/delivery |
-| `render.py` | 剪辑引擎：CUTS（每镜只用一次，有断言）、信息卡、字幕（ASR → clause-times → 估算）、混音、成品复测 |
-| `build_audio.py` / `align_audio.py` / `media.py` / `throttle.py` | 公共实现（副本） |
-| `workflows/` | 三份 marker 触发的工作流（生成 / 出片 / 听检），复制到 `.github/workflows/` 才生效 |
-| `GEN_REQUEST` / `RENDER_REQUEST` / `VERBATIM_REQUEST` / `RELEASE_UPLOAD_REQUEST` | push 触发四条工作流的 marker 文件（按需创建） |
-| `../run_project.sh` | **所有项目共用**的出片脚本：`bash production/run_project.sh rabies1885` |
+| `build_story.py` | 唯一内容源：旁白、45 镜、信息卡、字幕关键词、发布文案和事实来源 |
+| `story.json` | 机器可读时间线和镜头计划；由内容源维护 |
+| `audio/manifest.json`、`audio/N0*.mp3`、`audio/clause-times.json` | 渲染用配音、哈希及分句时间 |
+| `results.json` | Agnes 请求、素材 URL、请求哈希与 SHA-256 回执 |
+| `generate.py` | 完整性闸门、增量 Agnes 生成和来源回执 |
+| `render.py` / `../run_project.sh` | 剪辑、字幕、混音、成片技术复测与写回 |
+| `workflows/` / `.github/workflows/` | marker 工作流模板 / GitHub 生效副本 |
+| `delivery/`、`qa/`、`交付/` | **仅**存放本分支最新出片后生成的审核证据与成片，不预置历史候选物 |
 
-## 红线（继承自参考项目，不要删）
+## 内容与安全底线
 
-- AI 画面一律标注「AI动画情景重现 · 非新闻影像」，不冒充真实影像；
-- 真实人物只以背影、剪影、手出现，不用 AI 生成的脸冒充本人；受害者不以人像出现；
-- 不展示遗体、血腥或侵害过程；未定论的事不写成结论；
-- 中文姓名、日期、字幕一律后期添加，不交给视频模型拼写；
-- 成片必须实测电平（`--validate` 之后还有 `render.py` 的成品复测），无声不许交付；
-- 每个镜头只出现一次，不复用（`render.py` 的 `make_edl` 有断言）。
+- 全部生成画面标注为「AI动画情景重现 · 非新闻影像」；不冒充历史新闻或档案。
+- 巴斯德、约瑟夫、母亲和医生只以背影、剪影或手部出现；不生成可识别的真实人物面孔。
+- 不展示遗体、伤口、血腥或侵害过程；中文文字和日期全部后期添加。
+- 十三针/十四剂在权威史料的计数不同，旁白只保留「十天、十几针」，不混用精确数字。
+- 本片是历史与公共卫生科普，不替代医疗建议；疑似狂犬病暴露应立即清洗伤口并向当地专业医疗机构咨询处置。
+
+`制作过程.md` 是接管前的历史工作日志，可能引用旧分支、旧字数或旧候选片；它不作为本版本的交付状态依据。
