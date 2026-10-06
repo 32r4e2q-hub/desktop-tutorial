@@ -63,7 +63,9 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
           ffmpeg -hide_banner -version | head -1
-          fc-list | grep -ci 'CJK' || true
+          count=$(fc-list | grep -ci 'CJK' || true)
+          echo "CJK 字体条目数：$count"
+          test "$count" -gt 0   # 字体装不上就红，免得排字闸门被静默跳过
 
       - name: Run the offline gate
         run: python -m pytest production/tests -q
