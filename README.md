@@ -75,7 +75,7 @@
 | `results.json` / `qa/` | 38 镜的生成回执、接触表 |
 | `render.py` / `clause_times.py` / `tighten_pauses.py` / `generate.py` … | 出片引擎（详见目录里的 README） |
 | `qc_shots.py` / `audit_frame_distortions.py` / … | 逐镜初筛与成片全帧审计 |
-| `delivery/` | 技术报告、EDL、字幕时间轴、混音与成品音频实测、逐字听检、全帧审计、[AI 辅助视觉复核](production/lamkorwan/delivery/AI辅助视觉复核-进行中.md) |
+| `delivery/` | 技术报告、EDL、字幕时间轴、混音与成品音频实测、逐字听检、全帧审计、[AI 辅助视觉复核](production/lamkorwan/delivery/AI辅助视觉复核-2026-10-06.md) |
 | `抖音脚本.md` / `抖音发布文案.md` | 交付给发布的脚本与文案（都由 `build_story.py` 生成，和成片同源） |
 
 ## 用同一套流程做下一部

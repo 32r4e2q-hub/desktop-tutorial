@@ -66,6 +66,25 @@ echo "verbatim $(date -u +%FT%TZ)" > production/lamkorwan/VERBATIM_REQUEST # 逐
 echo "visual-qc $(date -u +%FT%TZ)" > production/lamkorwan/VISUAL_QC_REQUEST # 全帧视觉 QC
 ```
 
-## 当前状态
+## 当前状态（已出片，只剩人工签收）
 
-见本文件顶部表格与 `delivery/` 目录里的最新报告；每一步的实测数字都写进 `制作过程.md`。
+> **终版成片已交付**：`交付/雨夜屠夫林过云_一卷菲林里的四条人命_三分钟_带声音.mp4`，
+> SHA-256 `fccfe41e20dcab0aa1cbd1d6ebf92daada943ae7979d785028239cb65d2641d6`
+> （1920×1080 / 30 fps / 180.0 秒 / 5400 帧 / 70,827,063 bytes）。
+> Release `lamkorwan-v1` 的资产已按这个 SHA 上传。**剩下最后一步：你完整看一遍。**
+
+| 闸门 | 状态 | 证据 / 下一步 |
+|---|---|---|
+| 事实、脚本、发布文案 | 已完成 | `build_story.py` 唯一内容源；逐句对照见 [`史实核对.md`](史实核对.md) |
+| 配音、分句和切点 | 已完成 | 6 段共 796 字；收紧后 174.34 秒；`clause_times.py --check-cuts` 全过 |
+| 结构与音频哈希 | 已完成 | `generate.py --validate`：180 秒计划、45 镜、38 Agnes / 7 信息卡、音频哈希一致 |
+| 镜头复审（生成期三轮） | 已完成 | S02 / S21 各重做两轮；记录见 `delivery/AI辅助视觉复核-2026-10-06.md` |
+| 首版成片复检 → 8 镜重做 | 已完成 | S08 / S12 / S15 / S17 / S25 / S30 / S34 / S35 换构图重做并重渲 |
+| 手机可读性提亮 | 已完成 | `render.py` 的 `GRADE`：暗部 22–28/255 → 51–55/255；黑帧 559 → 1（转场压黑） |
+| 结尾镜头匀速化 | 已完成 | S45 重新生成（原素材中段近静止 1 秒），新素材全程在动 |
+| 逐字听检 | 已完成 | 六章 CER 0.020–0.081（上限 0.15） |
+| 全帧视觉 QC | 已完成（自动） | 5400/5400 帧解码；冻结段 0；人脸候选 0；手部事件 12 处逐张看过 |
+| Release 资产 | 已完成 | `lamkorwan-v1` → `lamkorwan-rainy-night-butcher-3min-1080p.mp4` |
+| 人工语义视觉签收 | **等你完整看片** | `visual-qc-summary.json` 的 `human_semantic_visual_review` 仍写死为 `pending`（机器不替人签收） |
+
+每一步的实测数字与返工过程都写进 [`制作过程.md`](制作过程.md)。
