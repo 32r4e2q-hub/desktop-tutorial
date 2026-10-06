@@ -28,6 +28,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -317,8 +318,15 @@ def main(argv: list[str] | None = None) -> int:
             control = compare(chapters, transcribe(control_paths, args.model, args.language,
                                                    args.work), args.max_cer)
 
+    digest = hashlib.sha256()
+    with args.film.open("rb") as handle:
+        for block in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(block)
     report = {
         "film": args.film.name,
+        # 报告自带成片 SHA-256：换片后一眼能看出这份听检是不是对应该版本。
+        "film_sha256": digest.hexdigest(),
+        "film_bytes": args.film.stat().st_size,
         "project": str(args.project),
         "method": f"faster-whisper {args.model}，无 initial_prompt；转写对象为最终成片按章节切出的音频",
         "max_cer_allowed": args.max_cer,
