@@ -133,12 +133,13 @@ SHOTS = [
      "of water from the first frame to the last; no people, no boats, no bridge, no buildings, no skyline, no "
      "readable text; hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
      "暴雨、水面拍击、远处勘查人声"),
-    ("S02", "agnes", "贴地低机位在车后缓慢前推", "交代年代与城市：一九八二年的九龙", "雨幕遮挡 → 切",
-     "Rainy night street in 1982 Kowloon: wet asphalt mirrors tall neon shopfronts, a period-correct 1980s Hong "
-     "Kong taxi with a lit roof lamp drives slowly away from camera through shallow puddles; low camera close to "
-     "the road surface, pushing forward behind the taxi. Framed on this one street from the first frame to the "
-     "last; no people, no modern cars, no skyline, no readable letters, numbers or logos on any sign; hold on "
-     "this single view for the full clip, no cut, no scene change, no camera relocation.",
+    ("S02", "agnes", "贴地低机位沿路面缓慢前推", "交代年代与城市：一九八二年的雨夜街面", "雨幕遮挡 → 切",
+     "Rainy night in 1982 Hong Kong seen from a very low camera close to the asphalt: heavy rain bouncing off "
+     "the wet road surface, long smeared reflections of a few sodium street lamps, the tail lights of one distant "
+     "taxi receding into the rain; camera pushes forward very slowly along the road surface. Framed on this one "
+     "stretch of road surface from the first frame to the last; no shops, no shopfronts, no awnings, no neon "
+     "signs, no people, no readable text, letters or numbers anywhere, no buildings with signboards, no skyline; "
+     "hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
      "雨声、远处车流、霓虹电流声"),
     ("S03", "agnes", "俯拍缓慢推近木桌上的档案与地图", "警方在查，但线索是散的", "切",
      "Interior of a 1980s Hong Kong police office at night, walls on three sides: a bare bulb over a scarred "
@@ -255,13 +256,13 @@ SHOTS = [
      "the prints stay face-down and unreadable, no people, no body, no blood, no readable text; hold on this "
      "single view for the full clip, no cut, no scene change, no camera relocation.",
      "铁盒开启、纸页摩擦"),
-    ("S21", "agnes", "高空远角缓慢下摇，雨街上的警车灯", "警方在各查各的", "切",
-     "High, distant view down onto a rainy Hong Kong street at night in 1982: two period police cars with "
-     "flashing roof lights stopped behind a cordon of tape, uniformed officers standing as small dark figures far "
-     "below, rain visible in the cones of street light; camera tilts slowly downward. Framed on this one street "
-     "from the first frame to the last; every person stays a small silhouette with the face unseen, no victim, no "
-     "body, no readable text; hold on this single view for the full clip, no cut, no scene change, no camera "
-     "relocation.",
+    ("S21", "agnes", "近乎垂直的俯拍，缓慢下摇过雨街", "警方在各查各的", "切",
+     "High, almost vertical view down onto a rain-soaked 1982 Hong Kong street at night: two period police cars "
+     "with roof lights turning, stopped on the wide wet asphalt of a junction, faint cordon tape, long puddle "
+     "reflections of two street lamps, rain visible in the glow; camera tilts slowly downward. Framed on this one "
+     "stretch of wet road seen from above, the asphalt filling the frame, from the first frame to the last; no "
+     "shopfronts, no neon signs, no buildings with signboards, no pedestrians, no victim, no body, no readable "
+     "text or letters; hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
      "无线电杂音、雨声"),
     ("S22", "agnes", "微距缓慢横移过桌上的旧医学书与放大镜", "他学的是解剖", "切",
      "Interior of a 1980s Hong Kong room at night: a neat pile of old medical and anatomy textbooks with plain "
