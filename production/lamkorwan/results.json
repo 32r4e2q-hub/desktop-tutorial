@@ -367,10 +367,10 @@
     },
     "S15": {
       "id": "S15",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "fb9f49d2dd98769d0313da1975bba518e502889f6633b61f47be57c272c66d46",
       "error": null,
-      "updated_at": "2026-10-06T06:48:34Z",
+      "updated_at": "2026-10-06T06:48:37Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzU1YTY0OTZkNTA4NDRjYjY4Yzg0OWE1ZDk3NGRhMzQ0",
       "task_id": "task_fkwFM4YRbSmStZj9k7f1C0CJDL8RbEbH",
       "requested_seconds": 7.041666666666667,
@@ -378,7 +378,25 @@
       "bytes": 4215009,
       "sha256": "702d27e6371de3488bdf697893fae551bea758bd4e5da35c2529464c7c4013fd",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 4215009,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/lamkorwan/qa/S15.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S16": {
       "id": "S16",
@@ -445,6 +463,6 @@
     "S43",
     "S45"
   ],
-  "updated_at": "2026-10-06T06:48:34Z",
+  "updated_at": "2026-10-06T06:48:37Z",
   "run_id": "37423303508"
 }
