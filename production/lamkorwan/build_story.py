@@ -192,15 +192,17 @@ SHOTS = [
      "people, no lit interiors, no readable signs or flat numbers, no skyline; hold on this single view for the "
      "full clip, no cut, no scene change, no camera relocation.",
      "雨打铁窗、远处狗吠"),
-    ("S11", "agnes", "车内近景：双手握着方向盘，雨幕挡风玻璃", "夜班的士司机的日常", "切",
-     "Interior of a 1980s Hong Kong taxi at night, framed close on the driver's own viewpoint: the driver's two "
-     "hands in dark sleeves resting on the worn thin-rimmed steering wheel, the simple dark dashboard below them, "
-     "rain streaming down the windscreen in front; beyond the glass the night street is only out-of-focus blur "
-     "with two soft blurry light dots, nothing legible. The camera is inside the cab and stays there, drifting "
-     "very slowly sideways; the frame is filled by the hands, the wheel, the dashboard and the wet glass. Only "
-     "hands and objects are in frame - no face, no passenger, no mirror; no illuminated dials, no meter head, no "
-     "clock, no digital numbers, no badges, no signage, and no text, letters or numbers anywhere in the frame; "
-     "hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
+    ("S11", "agnes", "乘客席视角：方向盘上的双手与侧窗雨水", "夜班的士司机的日常", "切",
+     "Interior of a 1980s Hong Kong taxi at night, seen from the front passenger seat and framed low across the "
+     "cab: the driver's two hands in dark sleeves gripping the worn thin-rimmed steering wheel, his forearms and "
+     "torso ending at the chest, everything above the chest outside the top of the frame; a strip of dark "
+     "dashboard and the driver's side window with rain running down it fill the rest, with only a smear of "
+     "out-of-focus amber street light beyond the glass. The camera is inside the cab at seat height and drifts "
+     "very slowly sideways; the frame holds only hands, wheel, dashboard and wet glass. Nothing else is in frame "
+     "- no head, no face, no neck, no rear-view mirror or any mirror, no passenger, no illuminated dials, no "
+     "instrument cluster, no meter head, no clock, no radio, no badges, no signage, no stickers or papers, and no "
+     "text, letters or numbers anywhere in the frame; hold on this single view for the full clip, no cut, no "
+     "scene change, no camera relocation.",
      "怠速声、雨刷节奏"),
     ("S12", "agnes", "固定机位，远景中打伞的剪影走过", "深夜搭车的人（不出现受害者形象）", "雨幕覆盖",
      "Night in heavy rain, 1982 Hong Kong: an anonymous distant figure under a black umbrella walks away from "
