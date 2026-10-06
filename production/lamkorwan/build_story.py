@@ -344,15 +344,18 @@ SHOTS = [
     # ---------------- N05（8 镜：7 agnes + 1 卡）----------------
     ("S31", "graphic", "信息卡：八月十八日 · 搜查住所", "把搜查地点与证物写在屏幕上", "停留 1 秒 → 切",
      "搜查住所信息卡", "门铃一声"),
-    ("S32", "agnes", "店内视角：起雾的雨玻璃门，门外一个剪影推门", "他们等的，是他自己回来", "切",
-     "Interior of a small photo shop at night, shot from inside and looking at the front door: the heavily fogged "
-     "and rain-beaded glass door fills most of the frame, and through the fogged glass one dark male silhouette "
-     "outside presses the door open, the door swinging slowly inwards on its metal frame; warm interior light "
-     "reflects on the wet floor, everything beyond the glass is only fog and rain. The camera stays fixed inside "
-     "the shop; the glass is fogged enough that nothing outside is legible. No street visible, no shopfronts, no "
-     "neon, no shelves in front of the lens, no signage, no posters, and no text, letters or numbers anywhere in "
-     "the frame; the figure stays a silhouette with the face never visible; hold on this single view for the full "
-     "clip, no cut, no scene change, no camera relocation.",
+    ("S32", "agnes", "店员肩后：走向过曝的门洞，人影从雨里进来", "他们等的，是他自己回来", "切",
+     "Interior of a small old photo shop at night, seen over the shoulder of the unseen shopkeeper: the camera "
+     "sits low and close behind a shoulder in a dark shirt, looking towards the open shop doorway; the doorway is "
+     "a plain opening with a bare metal edge, blown out into a soft white glare by the street light and rain "
+     "outside, wet dark paving below it catching the glare; a black human silhouette - only an outline, the face "
+     "unlit and unreadable - steps in through the glowing doorway from the rain, walking away from the light into "
+     "the dim shop. The camera holds inside the shop, drifting very slightly forward; the frame holds only the "
+     "foreground shoulder, the empty floor, the doorway and the entering silhouette, nothing else. No display "
+     "shelves, no goods in front of the lens, no counter, no posters, no notices, no paper or paper labels on the "
+     "glass, no neon or lamps outside the doorway, no street detail beyond the glare, and no text, letters or "
+     "numbers anywhere in the frame; hold on this single view for the full clip, no cut, no scene change, no "
+     "camera relocation.",
      "门铃、雨声收小"),
     ("S33", "agnes", "俯拍缓慢推近柜台上推过来的相片袋", "他来取的，正是那卷菲林", "切",
      "Interior of a 1980s Hong Kong shop counter at night, seen from above: a paper photo envelope slides across "
