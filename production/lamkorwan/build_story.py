@@ -192,14 +192,16 @@ SHOTS = [
      "people, no lit interiors, no readable signs or flat numbers, no skyline; hold on this single view for the "
      "full clip, no cut, no scene change, no camera relocation.",
      "雨打铁窗、远处狗吠"),
-    ("S11", "agnes", "低角度缓慢横移，的士停在深夜路口", "夜班的士司机的日常", "切",
-     "A period-correct 1980s Hong Kong taxi waits alone at an empty rain-slicked crossroads late at night, roof "
-     "lamp glowing, wipers moving, exhaust vapour in the cold air; camera tracks slowly sideways across the "
-     "junction at a low angle. Framed on this one junction from the first frame to the last; the driver is only a "
-     "dark shape behind rain-blurred glass, no clear face, no pedestrians, no modern cars, no readable signs or "
-     "licence plates; hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
-     "怠速声、信号灯电流声"),
-    ("S12", "agnes", "固定机位，远景中打伞的剪影走过", "深夜搭车的人（不出现受害者形象）", "雨幕覆盖",
+    ("S11", "agnes", "贴地低机位沿湿路面横移，的士车头入画", "夜班的士司机的日常", "切",
+     "Extreme low angle at wheel height on a rain-drowned empty Hong Kong street at night in 1982: the whole "
+     "frame is wet asphalt, standing water, lane markings and rain splashing, with the front half of a period "
+     "taxi entering from the right edge - bonnet, one headlamp, the front wheel and the base of the windscreen "
+     "only, no plate visible; camera tracks slowly sideways along the ground as the car rolls through the "
+     "water. Framed on this one stretch of road surface from the first frame to the last; no shopfronts, no "
+     "signage, no windows, no pedestrians, no other vehicles, no readable text, letters, numbers or plates "
+     "anywhere in the frame; hold on this single view for the full clip, no cut, no scene change, no camera "
+     "relocation.",
+     "怠速声、信号灯电流声"),    ("S12", "agnes", "固定机位，远景中打伞的剪影走过", "深夜搭车的人（不出现受害者形象）", "雨幕覆盖",
      "Night in heavy rain, 1982 Hong Kong: an anonymous distant figure under a black umbrella walks away from "
      "camera along a wet pavement that runs beside a long blank concrete wall and a low iron railing, seen only "
      "as a silhouette under a single street lamp, the reflection trailing on the ground; camera stays fixed and "
@@ -337,14 +339,15 @@ SHOTS = [
     # ---------------- N05（8 镜：7 agnes + 1 卡）----------------
     ("S31", "graphic", "信息卡：八月十八日 · 搜查住所", "把搜查地点与证物写在屏幕上", "停留 1 秒 → 切",
      "搜查住所信息卡", "门铃一声"),
-    ("S32", "agnes", "固定机位：雨夜店门口，一个背影推门走入", "他们等的，是他自己回来", "切",
-     "Exterior of a small Hong Kong shop at night in the rain, fixed camera across the pavement: the glass door "
-     "swings open and a single dark male figure steps inside, seen only from behind, a closing umbrella in one "
-     "hand, warm interior light spilling onto the wet ground. Framed on this one doorway from the first frame to "
-     "the last; the face is never visible, no other people, no readable shop text; hold on this single view for "
-     "the full clip, no cut, no scene change, no camera relocation.",
-     "门铃、雨声收小"),
-    ("S33", "agnes", "俯拍缓慢推近柜台上推过来的相片袋", "他来取的，正是那卷菲林", "切",
+    ("S32", "agnes", "店内视角：雨幕玻璃门，一个背影走入", "他们等的，是他自己回来", "切",
+     "Shot from inside a small dark Hong Kong shop at night looking straight out through a rain-streaked glass "
+     "door: a single male figure in a dark coat steps in from the street, seen only as a backlit silhouette "
+     "from behind, a closed umbrella in one hand, warm interior light spilling across the wet threshold; camera "
+     "fixed, the figure walks into frame. Framed on this one doorway from the first frame to the last; the "
+     "street behind him is only rain and haze with no shopfronts, no neon, no signage, no posters, no other "
+     "people, and no readable text, letters or numbers anywhere in the frame; hold on this single view for the "
+     "full clip, no cut, no scene change, no camera relocation.",
+     "门铃、雨声收小"),    ("S33", "agnes", "俯拍缓慢推近柜台上推过来的相片袋", "他来取的，正是那卷菲林", "切",
      "Interior of a 1980s Hong Kong shop counter at night, seen from above: a paper photo envelope slides across "
      "the wooden counter towards a waiting hand, a counter bell and a receipt spike beside it; camera looks down "
      "and pushes in very slowly. Framed on this one counter from the first frame to the last; only hands are "
@@ -359,16 +362,17 @@ SHOTS = [
      "faces are visible, no violence, no lettering, numbers or signs anywhere, the albums and prints stay blank; "
      "hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
      "急促脚步、短促无线电"),
-    ("S35", "agnes", "雨夜街道缓慢横移过警车与背影", "同日，押他回土瓜湾", "切",
-     "Night in heavy rain, 1982: the rear quarter of a plain 1980s saloon car parked at the kerb, only the boot "
-     "lid, rear window and a roof-mounted light bar inside the frame, the body a plain grey primer with absolutely "
-     "no lettering, no stripe livery, no badges and no markings; rain bounces off the roof and boot, wet asphalt "
-     "carries long reflections, a single lamp glows behind the haze; camera drifts slowly sideways. Framed on "
-     "this one car rear and kerb from the first frame to the last; no people, no faces, no victim, no readable "
-     "text, letters or numbers anywhere in the frame; hold on this single view for the full clip, no cut, no "
-     "scene change, no camera relocation.",
-     "警车电台、雨刷"),
-    ("S36", "agnes", "跟随背影缓慢推近打开的铁闸门", "搜查土瓜湾贵州街的单位", "切",
+    ("S35", "agnes", "低机位缓慢横移，警车车头在雨里停下", "同日，押他回土瓜湾", "切",
+     "Night in heavy rain, 1982: a plain dark 1980s saloon car with a single roof light bar rolls slowly "
+     "towards camera and stops at the kerb, a low front three-quarter framing that shows only the bonnet, the "
+     "grille area softened by rain glow, two headlamps and the two front wheels - the bumper, the plate recess "
+     "and the whole tail of the car stay outside the frame; the body is bare dark paint with no lettering, no "
+     "livery, no badges, no markings; rain lashes the bonnet, wet asphalt carries long reflections, one street "
+     "lamp glows behind the haze; camera drifts slowly sideways. Framed on this one car front and kerb from the "
+     "first frame to the last; no people, no faces, no victim, no readable text, letters, numbers, badges or "
+     "licence plates anywhere in the frame; hold on this single view for the full clip, no cut, no scene "
+     "change, no camera relocation.",
+     "警车电台、雨刷"),    ("S36", "agnes", "跟随背影缓慢推近打开的铁闸门", "搜查土瓜湾贵州街的单位", "切",
      "Interior corridor of an old 1980s Hong Kong tenement at night: a narrow passage of painted concrete walls "
      "and iron gates, one gate standing open, two officers seen only from behind stepping through into a dim "
      "flat, a single bulb overhead; camera follows slowly forward behind them. Framed on this one corridor and "
