@@ -1,4 +1,4 @@
-"""脚手架测试（吉尔戈模式）：新题目目录能不能被真实地用起来。
+"""脚手架测试（狂犬病模式）：新题目目录能不能被真实地用起来。
 
 覆盖四件事：
 1. 复制出来的引擎副本、渲染模板、工作流里没有残留参考项目的路径 / 分支 / 片名 / 案件内容；
@@ -7,7 +7,7 @@
 3. 模板 ``render.py`` 的关键守卫真的在：CUTS 骨架覆盖全部镜头、每镜只用一次（复用会被 make_edl 拒绝）、
    信息卡 / 片尾卡从 ``story.json`` 的 ``presentation`` 取文案（缺文案就报错）；
    模板 ``build_story.py`` 能写出带 ``presentation`` 的 story.json，``--publish`` 不依赖配音就能出发布文案；
-4. 参考项目 ``production/gilgo`` 在脚手架运行前后一个字节都没变。
+4. 参考项目 ``production/rabies1885`` 在脚手架运行前后一个字节都没变。
 """
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ import new_topic  # noqa: E402
 SLUG = "scaffoldtest"
 TITLE = "测试题目：脚手架自检"
 BRANCH = "arena/scaffold-test-branch"
-REFERENCE = ROOT / "production/gilgo"
+REFERENCE = ROOT / "production/rabies1885"
 RUNS_ON = "runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}"
 
 
@@ -67,7 +67,8 @@ class ScaffoldTests(unittest.TestCase):
         cls.project_dir = cls.production / SLUG
         new_topic.scaffold(SLUG, TITLE, BRANCH, cls.project_dir, REFERENCE)
         cls.workflows = {
-            kind: cls.project_dir / "workflows" / f"{SLUG}-{kind}.yml" for kind in ("gen", "render", "verbatim")
+            kind: cls.project_dir / "workflows" / f"{SLUG}-{kind}.yml"
+            for kind in ("gen", "render", "verbatim", "visual-qc")
         }
 
     @classmethod
@@ -90,11 +91,11 @@ class ScaffoldTests(unittest.TestCase):
     def test_no_reference_identity_leaks_into_the_copy(self):
         leftovers = []
         # 只扫"复制出来的副本"：.py / .yml。story.json、README.md、screenplay.md 是新生成的文档，
-        # 里面**故意**保留"参考 production/gilgo"的出处说明；build_story.py 的文档字符串也允许
-        # 提一次样板出处，但案件内容、分支、成片名一个都不许出现。
-        forbidden = ("work/gilgo", new_topic.REFERENCE_BRANCH, "01a0c30d", new_topic.REFERENCE_FILM,
-                     "吉尔戈海滩：", "披萨盒", "赫曼", "heuermann", "gilgo-agnes", "gilgo-render",
-                     "gilgo-verbatim", "'gilgo: '", "long island")
+        # 里面**故意**保留"参考 production/rabies1885"的出处说明；build_story.py 的文档字符串也允许
+        # 提一次样板出处，但案情内容、分支、成片名一个都不许出现。
+        forbidden = ("work/rabies1885", new_topic.REFERENCE_BRANCH, "cb25986c", new_topic.REFERENCE_FILM,
+                     "狂犬病疫苗", "巴斯德", "迈斯特", "pasteur", "rabies1885-agnes", "rabies1885-render",
+                     "rabies1885-verbatim", "rabies1885-visual-qc", "'rabies1885: '")
         for path in sorted(self.project_dir.rglob("*")):
             if not path.is_file() or path.suffix not in (".py", ".yml"):
                 continue
@@ -103,11 +104,11 @@ class ScaffoldTests(unittest.TestCase):
             for token in forbidden:
                 if token.lower() in lowered:
                     leftovers.append(f"{path.name}:{token}")
-            if path.name != "build_story.py" and "gilgo" in lowered:
-                leftovers.append(f"{path.name}:gilgo")
+            if path.name != "build_story.py" and "rabies1885" in lowered:
+                leftovers.append(f"{path.name}:rabies1885")
         self.assertEqual(leftovers, [])
         story = json.loads((self.project_dir / "story.json").read_text())
-        self.assertEqual(story["_scaffold"]["reference"], "production/gilgo")
+        self.assertEqual(story["_scaffold"]["reference"], "production/rabies1885")
         self.assertEqual(story["presentation"], {})
 
     def test_branch_and_artifact_names_follow_the_new_project(self):
@@ -122,7 +123,7 @@ class ScaffoldTests(unittest.TestCase):
             text = path.read_text(encoding="utf-8")
             self.assertIn(f"refs/heads/{BRANCH}", text, kind)
             self.assertIn(f"production/{SLUG}/", text, kind)
-            self.assertNotIn("gilgo", text.lower(), kind)
+            self.assertNotIn("rabies1885", text.lower(), kind)
         gen = self.workflows["gen"].read_text(encoding="utf-8")
         self.assertIn(f"production/{SLUG}/GEN_REQUEST", gen)
         self.assertIn(f"python3 production/{SLUG}/generate.py --validate", gen)
@@ -133,6 +134,9 @@ class ScaffoldTests(unittest.TestCase):
         self.assertIn("bash production/run_project.sh", render)
         verbatim = self.workflows["verbatim"].read_text(encoding="utf-8")
         self.assertIn(f"production/{SLUG}/VERBATIM_REQUEST", verbatim)
+        visual_qc = self.workflows["visual-qc"].read_text(encoding="utf-8")
+        self.assertIn(f"production/{SLUG}/VISUAL_QC_REQUEST", visual_qc)
+        self.assertIn(f"production/{SLUG}/audit_frame_distortions.py", visual_qc)
 
     def test_workflows_parse_and_follow_repo_conventions(self):
         for kind, path in self.workflows.items():
