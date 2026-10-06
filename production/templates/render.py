@@ -76,7 +76,32 @@ def font(size, serif=False):
     return ImageFont.truetype(str(path), size, index=2 if path.suffix=='.ttc' else 0)
 
 
-def centered(draw, text, y, size, color, x=960, serif=False):
+# 卡片安全排字宽度：1920 宽的画面两侧各留 130 px；信息卡还要落在纸面 (184–1736) 之内。
+# 2026-10-06 实测：片尾卡问句「医学史最该被记住的，是勇气，还是验证勇气的证据？」按 96 px
+# 排出来约 2304 px 宽，两端各被裁掉约两个字（成片 174–180 s 可见）——自动审计只量帧间差异、
+# 黑帧和冻结，从不量文字有没有溢出画面，所以只有排字闸门或人眼能发现。
+CARD_TEXT_MAX_WIDTH = 1660
+CARD_PAPER_TEXT_MAX_WIDTH = 1500
+
+
+def text_width(draw, text, size, serif=False):
+    box=draw.textbbox((0,0),text,font=font(size,serif))
+    return box[2]-box[0]
+
+
+def fit_size(draw, text, size, max_width, serif=False, floor=20):
+    """把一行字缩到 max_width 以内；缩到 floor 仍放不下就报错，绝不画出被裁掉的文字。"""
+    width=text_width(draw,text,size,serif)
+    if width<=max_width:return size
+    guess=max(floor,int(size*max_width/width))
+    while guess>floor and text_width(draw,text,guess,serif)>max_width:guess-=1
+    if text_width(draw,text,guess,serif)>max_width:
+        raise RuntimeError(f'卡片文案一行放不下，缩到 {floor}px 仍然超出 {max_width}px：{text!r}')
+    return guess
+
+
+def centered(draw, text, y, size, color, x=960, serif=False, max_width=CARD_TEXT_MAX_WIDTH):
+    size=fit_size(draw,text,size,max_width,serif)
     f=font(size,serif); box=draw.textbbox((0,0),text,font=f)
     draw.text((x-(box[2]-box[0])/2,y),text,font=f,fill=color)
 
@@ -108,10 +133,10 @@ def card_image(sid, variant, directory, presentation):
         cards=presentation.get('cards') or {}
         if sid not in cards:raise RuntimeError(f'信息卡 {sid} 没有文案：在 build_story.py 的 CARDS 里补 (大标题, 第一行, 第二行)')
         title,line1,line2=cards[sid]
-        centered(d,title,302,108,'#2c3a32',serif=True)
-        centered(d,line1,486,49,'#475648')
+        centered(d,title,302,108,'#2c3a32',serif=True,max_width=CARD_PAPER_TEXT_MAX_WIDTH)
+        centered(d,line1,486,49,'#475648',max_width=CARD_PAPER_TEXT_MAX_WIDTH)
         d.line((855,628,1065,628),fill='#958358',width=3)
-        centered(d,line2,720,38,'#5c6656')
+        centered(d,line2,720,38,'#5c6656',max_width=CARD_PAPER_TEXT_MAX_WIDTH)
         d.text((265,875),presentation.get('card_footer') or '资料摘要与示意图 · 并非原始档案影像',font=font(21),fill='#75806c')
     im.save(dest,quality=93)
     return dest
