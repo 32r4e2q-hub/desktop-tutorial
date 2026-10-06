@@ -395,7 +395,9 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
         length=info['duration'];a=.12;b=length-.12
         # 本片的镜头时间窗：默认整段可用；看过 qa/ 接触表后若某镜头前/后段有畸变，在 WINDOWS 里收窄。
         if sid in WINDOWS:
-            wa,wb=WINDOWS[sid];a=max(a,wa);b=min(b,wb if wb is not None else b)
+            wa,wb=WINDOWS[sid]
+            if wa is not None:a=max(a,wa)
+            if wb is not None:b=min(b,wb)
         available=b-a
         take=min(available,duration)
         factor=duration/take
