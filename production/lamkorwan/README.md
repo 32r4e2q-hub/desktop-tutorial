@@ -69,8 +69,8 @@ echo "visual-qc $(date -u +%FT%TZ)" > production/lamkorwan/VISUAL_QC_REQUEST # �
 ## 当前状态（已出片，只剩人工签收）
 
 > **终版成片已交付**：`交付/雨夜屠夫林过云_一卷菲林里的四条人命_三分钟_带声音.mp4`，
-> SHA-256 `fccfe41e20dcab0aa1cbd1d6ebf92daada943ae7979d785028239cb65d2641d6`
-> （1920×1080 / 30 fps / 180.0 秒 / 5400 帧 / 70,827,063 bytes）。
+> SHA-256 `b57ad26f7d520bb1d5066daa9a257d9c87651e3f9c0b99b80fa736fae9d20804`
+> （1920×1080 / 30 fps / 180.0 秒 / 5400 帧 / 70,250,059 bytes；含第二轮复审后的五个重做镜头，最末一个改动是 S32 第六版）。
 > Release `lamkorwan-v1` 的资产已按这个 SHA 上传。**剩下最后一步：你完整看一遍。**
 
 | 闸门 | 状态 | 证据 / 下一步 |
