@@ -1,0 +1,78 @@
+{
+  "film_sha256": "4450dfcf793c97bdb3c1b43301f7f220bc5a35e100f10438c2df0ec65a572cfd",
+  "source_audit": "production/lamkorwan/delivery/frame-distortion-audit.json",
+  "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
+  "max_width": 960,
+  "frames": [
+    {
+      "frame": 2,
+      "seconds": 0.067,
+      "reasons": [
+        "temporal-S01-start"
+      ],
+      "file": "f00002_temporal-S01-start.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5,
+      "seconds": 0.167,
+      "reasons": [
+        "temporal-S01-middle"
+      ],
+      "file": "f00005_temporal-S01-middle.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 8,
+      "seconds": 0.267,
+      "reasons": [
+        "temporal-S01-end"
+      ],
+      "file": "f00008_temporal-S01-end.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 2888,
+      "seconds": 96.267,
+      "reasons": [
+        "hand-geometry-S27"
+      ],
+      "file": "f02888_hand-geometry-S27.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5288,
+      "seconds": 176.267,
+      "reasons": [
+        "temporal-END-start"
+      ],
+      "file": "f05288_temporal-END-start.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5290,
+      "seconds": 176.333,
+      "reasons": [
+        "temporal-END-middle"
+      ],
+      "file": "f05290_temporal-END-middle.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5292,
+      "seconds": 176.4,
+      "reasons": [
+        "temporal-END-end"
+      ],
+      "file": "f05292_temporal-END-end.jpg",
+      "width": 960,
+      "height": 540
+    }
+  ]
+}
