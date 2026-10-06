@@ -422,12 +422,14 @@ SHOTS = [
      "木槌回响、心跳声"),
     ("S44", "graphic", "信息卡：一九八四年八月 · 改判终身监禁", "把结局写在屏幕上", "停留 1 秒 → 切",
      "结局信息卡", "铁门关闭回响"),
-    ("S45", "agnes", "微距缓慢拉远：菲林盘与旧档案盒，雨夜房间", "收尾：那卷菲林", "缓慢黑场",
+    ("S45", "agnes", "微距匀速拉远：菲林盘与旧档案盒，雨夜房间", "收尾：那卷菲林", "缓慢黑场",
      "Interior of a dim 1980s Hong Kong room at night, walls on three sides: a 35mm film reel and a worn "
      "cardboard archive box on a table beside a rain-streaked window, a small lamp glowing, rain shadows moving "
-     "on the wall; camera starts tight on the film reel and pulls back very slowly. Framed on this one table and "
-     "window from the first frame to the last; no people, no readable text or labels, no skyline outside the "
-     "glass; hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
+     "on the wall; camera pulls back in one continuous, steady, constant-speed dolly out, moving the whole time "
+     "from the first frame to the last and never slowing, never pausing, never holding still. Framed on this one "
+     "table and window from the first frame to the last; no people, no readable text or labels, no skyline "
+     "outside the glass; hold on this single view for the full clip, no cut, no scene change, no camera "
+     "relocation.",
      "雨声渐弱，只剩胶片转动"),
 ]
 

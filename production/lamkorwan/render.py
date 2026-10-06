@@ -53,6 +53,12 @@ CUTS = {
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
 WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
+# 手机端可读性调色（2026-10-06 加）：Agnes 素材是刻意的低照度夜景，暗部实测只有 8–28/255，
+# 手机上几乎看不清，全帧 QC 也会把 luma<12 的帧判成「非计划黑帧」（实测 559 帧）。
+# 这里统一提亮 gamma 1.45 + brightness 0.012 + 轻微饱和/对比补偿：
+# 暗部抬到可读、夜景氛围保留；只作用于 Agnes 视频段，字幕由后面的 subtitles 滤镜单独烧录，
+# 仍是纯白带描边，不受影响。
+GRADE = 'eq=saturation=1.06:contrast=1.05:brightness=0.012:gamma=1.45'
 TIGHTER_CROPS = {  # 第一轮复审：推近裁掉画面边缘的可读招牌（(倍率, 中心x, 中心y)，比例 1.15–1.3）
     'S01': (1.18, 0.5, 0.55),
     'S07': (1.15, 0.5, 0.5),
@@ -399,7 +405,7 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
+            f'crop={width}:{height},setsar=1,fps={FPS},{GRADE},'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         entry.update(source_in=a,source_out=a+take,time_stretch=factor)
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
