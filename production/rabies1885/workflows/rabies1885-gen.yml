@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 rabies1885 / arena/01a10a48-desktop-tutorial / 01a10a48-desktop-tutorial / 狂犬病疫苗：一百四十年前那场赌局 / 狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 rabies1885 / arena/cb25986c-desktop-tutorial / cb25986c-desktop-tutorial / 狂犬病疫苗：一百四十年前那场赌局 / 狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-*.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
 name: 狂犬病疫苗：一百四十年前那场赌局 · Agnes生成
 run-name: 狂犬病疫苗：一百四十年前那场赌局 · Agnes Video V2.0 生成 · ${{ github.ref_name }}
@@ -17,7 +17,7 @@ on:
         default: '{"workers":2}'
   push:
     branches:
-      - arena/01a10a48-desktop-tutorial
+      - arena/cb25986c-desktop-tutorial
     paths:
       - production/rabies1885/GEN_REQUEST
 
@@ -25,19 +25,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: rabies1885-agnes-arena-01a10a48-desktop-tutorial
+  group: rabies1885-agnes-arena-cb25986c-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/01a10a48-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/cb25986c-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a10a48-desktop-tutorial
+          ref: arena/cb25986c-desktop-tutorial
           fetch-depth: 1
 
       - name: Resolve the generation payload

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - arena/01a10a48-desktop-tutorial
+      - arena/cb25986c-desktop-tutorial
     paths:
       - production/rabies1885/VISUAL_QC_REQUEST
 
@@ -16,19 +16,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: rabies1885-visual-qc-arena-01a10a48-desktop-tutorial
+  group: rabies1885-visual-qc-arena-cb25986c-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   audit:
-    if: github.ref == 'refs/heads/arena/01a10a48-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/cb25986c-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 120
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a10a48-desktop-tutorial
+          ref: arena/cb25986c-desktop-tutorial
           fetch-depth: 1
 
       - name: Set up Python

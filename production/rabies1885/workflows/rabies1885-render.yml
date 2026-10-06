@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 rabies1885 / arena/01a10a48-desktop-tutorial / 01a10a48-desktop-tutorial / 狂犬病疫苗：一百四十年前那场赌局 / 狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 rabies1885 / arena/cb25986c-desktop-tutorial / cb25986c-desktop-tutorial / 狂犬病疫苗：一百四十年前那场赌局 / 狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-*.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
 name: 狂犬病疫苗：一百四十年前那场赌局 · 出片
 run-name: 出片 · 狂犬病疫苗：一百四十年前那场赌局 · ${{ github.ref_name }}
@@ -19,7 +19,7 @@ on:
         default: '狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4'
   push:
     branches:
-      - arena/01a10a48-desktop-tutorial
+      - arena/cb25986c-desktop-tutorial
     paths:
       - production/rabies1885/RENDER_REQUEST
 
@@ -27,19 +27,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: rabies1885-render-arena-01a10a48-desktop-tutorial
+  group: rabies1885-render-arena-cb25986c-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   render:
-    if: github.ref == 'refs/heads/arena/01a10a48-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/cb25986c-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 120
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/01a10a48-desktop-tutorial
+          ref: arena/cb25986c-desktop-tutorial
           fetch-depth: 1
 
       - name: Install media tools and CJK fonts
@@ -77,7 +77,7 @@ jobs:
           PROJECT: rabies1885
           SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
           FILM_NAME: ${{ env.FILM_NAME }}
-          BRANCH: arena/01a10a48-desktop-tutorial
+          BRANCH: arena/cb25986c-desktop-tutorial
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log production/rabies1885/last-render.log; exit ${PIPESTATUS[0]}
 
       - name: Ship failure log to branch (sandbox cannot read Actions logs)

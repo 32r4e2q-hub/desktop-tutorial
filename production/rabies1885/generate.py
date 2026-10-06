@@ -24,7 +24,7 @@ import agnes_video as agnes
 from media import ensure_tools, inspect_clip, render_python
 from throttle import RequestGate, BudgetExhausted
 
-BRANCH='arena/01a10a48-desktop-tutorial'
+BRANCH='arena/cb25986c-desktop-tutorial'
 PLAN=Path(__file__).with_name('story.json')
 RESULTS=Path(__file__).with_name('results.json')
 LOCK=threading.RLock()
