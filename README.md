@@ -17,7 +17,7 @@
 | 声音 | 六段配音 796 字（TTS → 只剪静音收紧到 174.34 s，整体变速 1.038）+ 原创配乐 + 合成音效；成片实测 RMS −20.31 dBFS · 峰值 −1.51 dBFS · 静音占比 0.55 %（六章逐段 RMS −19.91 / −19.92 / −20.00 / −20.12 … dBFS） |
 | 字幕 | 分句字幕、关键词描黄；**字号 60 px**（模板默认 43，按「字幕要大一些」调大）、描边 3.2 |
 | 调色 | 手机端可读性提亮 `eq=gamma=1.45:brightness=0.012`：暗部由 22–28/255 抬到 51–55/255，夜景氛围保留（改动记在 `render.py` 的 `GRADE`） |
-| 听检 | whisper small 逐章字错率 0.020–0.072（上限 0.15），报告 [`delivery/verbatim-check.json`](production/lamkorwan/delivery/verbatim-check.json) |
+| 听检 | whisper small 逐章字错率 0.018–0.081（同一成片重复跑有小幅波动，上限 0.15），报告 [`delivery/verbatim-check.json`](production/lamkorwan/delivery/verbatim-check.json) |
 | 全帧 QC | 5400/5400 帧解码；冻结段 0；**人脸复核候选 0**；非计划黑帧 1（S45→片尾卡交接的转场压黑，已人工确认），报告 [`delivery/visual-qc-summary.json`](production/lamkorwan/delivery/visual-qc-summary.json) |
 
 ## 发布用

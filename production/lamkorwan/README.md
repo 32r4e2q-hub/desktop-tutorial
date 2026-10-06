@@ -82,7 +82,7 @@ echo "visual-qc $(date -u +%FT%TZ)" > production/lamkorwan/VISUAL_QC_REQUEST # �
 | 首版成片复检 → 8 镜重做 | 已完成 | S08 / S12 / S15 / S17 / S25 / S30 / S34 / S35 换构图重做并重渲 |
 | 手机可读性提亮 | 已完成 | `render.py` 的 `GRADE`：暗部 22–28/255 → 51–55/255；黑帧 559 → 1（转场压黑） |
 | 结尾镜头匀速化 | 已完成 | S45 重新生成（原素材中段近静止 1 秒），新素材全程在动 |
-| 逐字听检 | 已完成 | 六章 CER 0.020–0.081（上限 0.15） |
+| 逐字听检 | 已完成 | 六章 CER 0.018–0.081（同一成片重复跑有小幅波动，上限 0.15）；报告自带成片 `film_sha256` |
 | 全帧视觉 QC | 已完成（自动） | 5400/5400 帧解码；冻结段 0；人脸候选 0；手部事件 12 处逐张看过 |
 | Release 资产 | 已完成 | `lamkorwan-v1` → `lamkorwan-rainy-night-butcher-3min-1080p.mp4` |
 | 人工语义视觉签收 | **等你完整看片** | `visual-qc-summary.json` 的 `human_semantic_visual_review` 仍写死为 `pending`（机器不替人签收） |
