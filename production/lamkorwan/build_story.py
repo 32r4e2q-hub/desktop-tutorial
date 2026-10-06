@@ -257,14 +257,13 @@ SHOTS = [
      "the prints stay face-down and unreadable, no people, no body, no blood, no readable text; hold on this "
      "single view for the full clip, no cut, no scene change, no camera relocation.",
      "铁盒开启、纸页摩擦"),
-    ("S21", "agnes", "垂直俯拍路面，极缓慢下摇", "警方在各查各的", "切",
-     "Seen from directly overhead at night in 1982 Hong Kong: the whole frame is filled by rain-soaked asphalt "
-     "with white painted lane markings and painted arrows, rain rings spreading across shallow puddles; two "
-     "period police cars appear only as dark roofs at the edge of frame with a faint red and blue glow, and long "
-     "reflections of two street lamps stretch across the road. The camera looks vertically down and tilts very "
-     "slowly. Fill the entire frame with road surface, markings and rain; there are no buildings, no shopfronts, "
-     "no awnings, no neon, no signboards, no pedestrians, no readable text anywhere in the frame; hold on this "
-     "single view for the full clip, no cut, no scene change, no camera relocation.",
+    ("S21", "agnes", "室内缓慢横移过档案架与桌上的卷宗", "警方在各查各的", "切",
+     "Interior of a 1980s Hong Kong police records room at night, walls on three sides: tall steel shelves packed "
+     "with identical plain cardboard case folders, a wooden desk below them with two open folders, a folded "
+     "district map with small pins, a black rotary telephone and a tin mug under a single warm lamp; camera "
+     "tracks slowly sideways at desk height. Framed on this one records room from the first frame to the last; no "
+     "people, no windows, no view outside, the folders and map carry no readable text, letters or numbers; hold "
+     "on this single view for the full clip, no cut, no scene change, no camera relocation.",
      "无线电杂音、雨声"),
     ("S22", "agnes", "微距缓慢横移过桌上的旧医学书与放大镜", "他学的是解剖", "切",
      "Interior of a 1980s Hong Kong room at night: a neat pile of old medical and anatomy textbooks with plain "
