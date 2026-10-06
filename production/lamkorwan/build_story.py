@@ -220,12 +220,14 @@ SHOTS = [
      "车厢回响、窗外雨声"),
     ("S14", "graphic", "信息卡：六个月 · 四条人命（时间线）", "四个日期排成一条线", "停留 1 秒 → 切",
      "时间线信息卡", "打字机三下"),
-    ("S15", "agnes", "低机位缓慢横移，的士驶过水洼", "四个月里的四起命案", "切",
-     "Predawn, rain, 1982: seen from wheel height, the frame is filled by rain-soaked asphalt and one long puddle; "
-     "a period saloon car drives through the puddle and throws up a sheet of water across the frame, the tyre and "
-     "lower body the only parts of the car visible, a single street lamp glow reflected in the water; camera "
-     "tracks slowly sideways at wheel height. Fill the frame with road surface, puddle water, spray and lamp glow "
-     "only; there are no buildings, no shopfronts, no signs, no other traffic, no people, no readable text "
+    ("S15", "agnes", "贴地低机位横移，车胎碾过积水溅起水墙", "四个月里的四起命案", "切",
+     "Extreme low view at road level in heavy night rain in 1982 Hong Kong, the camera only knee-high above the "
+     "ground: the entire frame is filled by rain-soaked asphalt, standing black water, one worn painted lane line "
+     "and a swollen puddle; a period saloon car passes from left to right and its tyres throw a wide sheet of "
+     "spray through the frame, only the tyre, the sill and the lower door visible before the car leaves the frame; "
+     "the far background is nothing but dark rain haze with the soft glow of one distant street lamp smeared in "
+     "the water. Nothing else is in frame - no buildings, no shopfronts, no awnings, no neon, no street furniture, "
+     "no pedestrians, no other traffic, no signage of any language, and no text, letters, numbers or plates "
      "anywhere in the frame; hold on this single view for the full clip, no cut, no scene change, no camera "
      "relocation.",
      "水花、空旷街道回声"),
@@ -396,12 +398,16 @@ SHOTS = [
      "single view for the full clip, no cut, no scene change, no camera relocation.",
      "连续三次低沉鼓点"),
     # ---------------- N06（7 镜：5 agnes + 2 卡）----------------
-    ("S39", "agnes", "仰拍缓慢上摇法院石阶与柱廊", "一九八三年三月，高等法院开审", "切",
-     "Exterior of a colonial-era Hong Kong courthouse on an overcast rainy morning in 1983: wet granite steps, "
-     "stone columns, tall wooden doors and a distant press of dark umbrellas at the foot of the steps; camera "
-     "tilts slowly upward from the pavement. Framed on this one facade and stairway from the first frame to the "
-     "last; everyone stays a distant silhouette with no visible face, no readable text or signage; hold on this "
-     "single view for the full clip, no cut, no scene change, no camera relocation.",
+    ("S39", "agnes", "仰拍缓慢上摇法院石阶与拱廊", "一九八三年三月，高等法院开审", "切",
+     "Exterior of a British colonial courthouse in Hong Kong, 1983, on an overcast rainy morning: heavy grey "
+     "granite masonry, a deep arcade of round-headed arches along the ground floor, wide stone steps with a low "
+     "stone balustrade, tall dark wooden doors set in a stone archway, wet steps and pavement mirroring the flat "
+     "white sky, a row of open black umbrellas held by anonymous figures standing far below the steps and seen "
+     "only as distant silhouettes from behind; the camera starts low at the pavement and tilts slowly upward "
+     "along the facade. This is plain 1930s Hong Kong colonial granite architecture - no European palace, no "
+     "ornate French facade, no mansard roof, no statue-topped pediment, no dome, no flagpole, no columns in a "
+     "grand classical portico; no signage, no plaques, no posters, and no text, letters or numbers anywhere in "
+     "the frame; hold on this single view for the full clip, no cut, no scene change, no camera relocation.",
      "低沉钟声、雨声"),
     ("S40", "agnes", "法庭内缓慢横移过空着的被告席与陪审席", "争的是他到底有没有精神病", "切",
      "Interior of a 1980s Hong Kong courtroom, walls on three sides: dark wood panelling, an empty jury box with "
