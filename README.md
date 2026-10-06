@@ -14,7 +14,7 @@
 | 文件 | [`交付/雨夜屠夫林过云_一卷菲林里的四条人命_三分钟_带声音.mp4`](交付/雨夜屠夫林过云_一卷菲林里的四条人命_三分钟_带声音.mp4)（67.6 MB · 1920×1080 · 30 fps · 180.0 s · 5400 帧） |
 | 下载 | [Release lamkorwan-v1](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/lamkorwan-v1) → `lamkorwan-rainy-night-butcher-3min-1080p.mp4`（与 `交付/` 里的文件字节一致，SHA-256 `fccfe41e20dcab0aa1cbd1d6ebf92daada943ae7979d785028239cb65d2641d6`） |
 | 画面 | 45 个镜头 = **38 个 Agnes Video V2.0 写实 3D 动画镜头 + 7 张信息卡 + 片尾卡，每个镜头只出现一次**；全片常驻「AI动画情景重现 · 非新闻影像」标签 |
-| 声音 | 六段配音 796 字（TTS → 只剪静音收紧到 174.34 s，整体变速 1.038）+ 原创配乐 + 合成音效 |
+| 声音 | 六段配音 796 字（TTS → 只剪静音收紧到 174.34 s，整体变速 1.038）+ 原创配乐 + 合成音效；成片实测 RMS −20.31 dBFS · 峰值 −1.51 dBFS · 静音占比 0.55 %（六章逐段 RMS −19.91 / −19.92 / −20.00 / −20.12 … dBFS） |
 | 字幕 | 分句字幕、关键词描黄；**字号 60 px**（模板默认 43，按「字幕要大一些」调大）、描边 3.2 |
 | 调色 | 手机端可读性提亮 `eq=gamma=1.45:brightness=0.012`：暗部由 22–28/255 抬到 51–55/255，夜景氛围保留（改动记在 `render.py` 的 `GRADE`） |
 | 听检 | whisper small 逐章字错率 0.020–0.081（上限 0.15），报告 [`delivery/verbatim-check.json`](production/lamkorwan/delivery/verbatim-check.json) |
