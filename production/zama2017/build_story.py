@@ -157,11 +157,12 @@ SHOTS = [
      "低音撞击"),
     ("S03", "agnes", "缓慢跟拍（背影）", "两名警察走向那扇门",
      "接 AGNES：门内的箱子",
-     "A dim exterior corridor of the same apartment block in daytime: two plain-clothed police officers seen strictly "
-     "from behind walking toward a closed flat door at the far end, one holding a folded paper folder, worn concrete "
-     "floor, metal railing on the open side, the door completely plain with no number plate and no lettering, "
-     "neighbouring doors equally unmarked, no faces visible, no other people. Slow tracking shot following their backs "
-     "toward the door, " + HOLD,
+     "A dim exterior corridor of the same apartment block in daytime: two detectives in plain dark casual jackets with "
+     "completely blank solid backs, seen strictly from behind, walking toward a closed flat door at the far end, no "
+     "uniforms, no caps, no badges, no insignia, no lettering or emblem on any piece of clothing, one holding a "
+     "folded paper folder, worn concrete floor, metal railing on the open side, the door completely plain with no "
+     "number plate and no lettering, neighbouring doors equally unmarked, no faces visible, no other people. Slow "
+     "tracking shot following their backs toward the door, " + HOLD,
      "脚步 + 走廊回声"),
     ("S04", "agnes", "缓慢前推", "门一开：玄关里堆着的箱子",
      "接 AGNES：露脸镜头（C1 首次出现）",

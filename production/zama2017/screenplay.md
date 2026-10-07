@@ -120,7 +120,7 @@
 
 **S03**（seed 20170825）：
 
-> A dim exterior corridor of the same apartment block in daytime: two plain-clothed police officers seen strictly from behind walking toward a closed flat door at the far end, one holding a folded paper folder, worn concrete floor, metal railing on the open side, the door completely plain with no number plate and no lettering, neighbouring doors equally unmarked, no faces visible, no other people. Slow tracking shot following their backs toward the door, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A dim exterior corridor of the same apartment block in daytime: two detectives in plain dark casual jackets with completely blank solid backs, seen strictly from behind, walking toward a closed flat door at the far end, no uniforms, no caps, no badges, no insignia, no lettering or emblem on any piece of clothing, one holding a folded paper folder, worn concrete floor, metal railing on the open side, the door completely plain with no number plate and no lettering, neighbouring doors equally unmarked, no faces visible, no other people. Slow tracking shot following their backs toward the door, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S04**（seed 20170826）：
 
