@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 64221145,
+  "bytes": 65238858,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,7 +9,7 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "891666fd042ce682f7e573828823d902f0d33cfac893efea53926259119e6d5e",
+  "sha256": "ff6a9e732cf9d584c59e0038be0b49e594fa297b99839235a0eab756e3b143f0",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
@@ -17,17 +17,17 @@
     {
       "id": "N01",
       "method": "ASR-assisted",
-      "character_match_coverage": 0.9791666666666666
+      "character_match_coverage": 0.9782608695652174
     },
     {
       "id": "N02",
       "method": "ASR-assisted",
-      "character_match_coverage": 0.978494623655914
+      "character_match_coverage": 0.968421052631579
     },
     {
       "id": "N03",
-      "method": "ASR-assisted",
-      "character_match_coverage": 0.9666666666666667
+      "method": "clause-times DP",
+      "character_match_coverage": 0.72
     },
     {
       "id": "N04",
@@ -36,31 +36,31 @@
     },
     {
       "id": "N05",
-      "method": "ASR-assisted",
-      "character_match_coverage": 0.9754098360655737
+      "method": "clause-times DP",
+      "character_match_coverage": 0.2748091603053435
     },
     {
       "id": "N06",
-      "method": "ASR-assisted",
-      "character_match_coverage": 0.991304347826087
+      "method": "clause-times DP",
+      "character_match_coverage": 0.3225806451612903
     }
   ],
   "narration_voice_id": "voice-01",
-  "narration_tempo": 0.8955654761904762,
+  "narration_tempo": 0.952644469246032,
   "editorial_segments": 46,
   "source_clips": 38,
   "archival_portrait": false,
   "unique_shots_no_reuse": true,
   "output": "韩国雨衣杀手柳永哲_十个月，二十条人命_三分钟_带声音.mp4",
   "soundtrack_mix": {
-    "rms_dbfs": -20.0,
+    "rms_dbfs": -20.3,
     "peak_dbfs": -1.52,
     "silent_fraction": 0.0,
     "target_rms_dbfs": -20.0
   },
   "delivered_audio": {
-    "rms_dbfs": -20.02,
-    "peak_dbfs": -1.57,
+    "rms_dbfs": -20.32,
+    "peak_dbfs": -1.7,
     "silent_fraction": 0.0055,
     "quietest_window_dbfs": -120.0
   },
