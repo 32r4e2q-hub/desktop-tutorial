@@ -1257,7 +1257,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1311,6 +1311,76 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T03:53:38Z",
-  "run_id": "37562039570"
+  "updated_at": "2026-10-07T03:58:42Z",
+  "run_id": "37562039570",
+  "delivery": {
+    "duration": 180.0,
+    "bytes": 64953150,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "video_codec": "h264",
+    "frames": 5400,
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2,
+    "sha256": "2364517e499990ec17fd88e48dca91ec4572fc6fd40f9a21c907c6f8726d26b6",
+    "decoded_ok": true,
+    "status": "audio_verified_cut",
+    "visual_review": "pending",
+    "caption_alignment": [
+      {
+        "id": "N01",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.96875
+      },
+      {
+        "id": "N02",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.978494623655914
+      },
+      {
+        "id": "N03",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9916666666666667
+      },
+      {
+        "id": "N04",
+        "method": "clause-times DP",
+        "character_match_coverage": 0.12962962962962962
+      },
+      {
+        "id": "N05",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.9672131147540983
+      },
+      {
+        "id": "N06",
+        "method": "ASR-assisted",
+        "character_match_coverage": 0.991304347826087
+      }
+    ],
+    "narration_voice_id": "voice-01",
+    "narration_tempo": 0.8955654761904762,
+    "editorial_segments": 46,
+    "source_clips": 38,
+    "archival_portrait": false,
+    "unique_shots_no_reuse": true,
+    "output": "韩国雨衣杀手柳永哲：十个月，二十条人命_三分钟_初版.mp4",
+    "soundtrack_mix": {
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -1.52,
+      "silent_fraction": 0.0,
+      "target_rms_dbfs": -20.0
+    },
+    "delivered_audio": {
+      "rms_dbfs": -20.02,
+      "peak_dbfs": -1.57,
+      "silent_fraction": 0.0055,
+      "quietest_window_dbfs": -120.0
+    },
+    "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+    "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
+    "artifact_name": "raincoat2004-agnes-2"
+  }
 }
