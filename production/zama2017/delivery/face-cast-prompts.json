@@ -1,0 +1,104 @@
+{
+  "gate": "check-prompts",
+  "project": "production/zama2017",
+  "errors": [],
+  "warnings": [],
+  "characters": [
+    {
+      "id": "C1",
+      "name": "年轻男子（凶手 · 虚构匿名角色）",
+      "role": "suspect",
+      "face_token_chars": 350,
+      "portrait": "cast/C1.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C1.jpg",
+      "seed": 20170822
+    },
+    {
+      "id": "C2",
+      "name": "老刑警（虚构匿名角色）",
+      "role": "police",
+      "face_token_chars": 368,
+      "portrait": "cast/C2.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C2.jpg",
+      "seed": 20171030
+    },
+    {
+      "id": "C3",
+      "name": "年轻女警（网络搜查 · 虚构匿名角色）",
+      "role": "police",
+      "face_token_chars": 326,
+      "portrait": "cast/C3.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C3.jpg",
+      "seed": 20171031
+    },
+    {
+      "id": "C4",
+      "name": "哥哥（失踪女孩的哥哥 · 虚构匿名角色）",
+      "role": "witness",
+      "face_token_chars": 350,
+      "portrait": "cast/C4.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C4.jpg",
+      "seed": 20171024
+    }
+  ],
+  "face_shots": [
+    {
+      "shot": "S05",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 957
+    },
+    {
+      "shot": "S06",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1021
+    },
+    {
+      "shot": "S17",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 901
+    },
+    {
+      "shot": "S24",
+      "characters": [
+        "C4"
+      ],
+      "prompt_chars": 891
+    },
+    {
+      "shot": "S27",
+      "characters": [
+        "C3"
+      ],
+      "prompt_chars": 883
+    },
+    {
+      "shot": "S30",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1016
+    },
+    {
+      "shot": "S32",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 979
+    },
+    {
+      "shot": "S35",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1041
+    }
+  ],
+  "mode": "face",
+  "status": "PASS"
+}

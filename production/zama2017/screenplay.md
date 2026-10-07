@@ -1,0 +1,267 @@
+# 日本座间九人案：一间公寓里的九条人命
+
+三分钟横屏解说 · 成片目标 1920×1080 / 30 fps / 180 秒 · 45 镜（38 个 Agnes 写实 3D 动画镜头 + 7 张信息卡）· 露脸模式
+
+本文件与 `story.json` / `audio/manifest.json` 同源，叙述文字由 `build_story.py` 写入；逐句事实出处见 `史实核对.md`。
+
+## 事实边界
+
+- 全部 Agnes 镜头为写实 3D CGI 动画情景重现，画面常驻标注「AI动画情景重现 · 非新闻影像」，不冒充搜查、审讯、监控或证物照片
+- 不展示遗体、血腥或作案过程；杀害方式与遗体处理方式一律不写不拍；公寓搜查只出现箱子外观、工作人员背影与取证空镜
+- 凶手由一名虚构的年代角色扮演，是 AI 生成的匿名人物，**不是白石隆浩本人的容貌**，不做任何真实人物的肖像还原
+- 四名露脸角色（年轻男子 / 老刑警 / 年轻女警 / 哥哥）各有一张不同的脸；同一角色跨镜头逐字节复用同一条面容 token 并共用同一个 seed，
+- 由 production/face_cast.py 的 check-prompts（静态闸门）与 check-frames（画面闸门）检查，人眼对照接触表判决
+- 受害者不以具备可辨识面容的人像出现：年轻女性角色一律背影、剪影或远景，未成年人只以远景背影出现，不出现遗体、遗物特写之外的私密画面
+- 每一句事实都能指到 sources 里的一条公开报道；口径冲突处（失踪女孩的具体日期）只写「十月下旬」，不挑一个当结论
+- 所有中文姓名、日期、字幕后期添加，不交给视频模型拼写；画面内不出现任何可读文字、门牌或招牌（AI 街景必编字，靠构图排除）
+- 人工检视 qa/ 接触表与 delivery/face-cast/ 人脸接触表；换脸、畸变、伪文字、中途换场的镜头用 {"only":"Sxx"} 重生成，不直接进成片
+
+## 解说稿与时间线
+
+### N01　黄金开头：一扇门后面的九个人
+
+二零一七年十月三十日，日本神奈川县座间市，警察敲开了一间普通公寓的门。门一开，警察就意识到：这间十几平方米的小屋里，藏着九名失踪者的下落。而把警察带到这里的，是一名二十三岁女孩失踪前，留在社交媒体上的一条消息。
+
+### N02　人物档案：搬进公寓的二十七岁星探
+
+这间公寓的主人叫白石隆浩，一九九零年出生在座间，案发时二十七岁。他之前在东京街头做过拉人的星探，还因为这份工作被警察抓过。二零一七年八月二十二日，他搬进这间公寓：绿丘一栋旧公寓的二楼，月租只要一万九千日元。邻居们说，这个年轻人看起来普普通通。
+
+### N03　猎手：两个月，九个人
+
+搬进来之后，他在社交媒体上注册了好几个账号，专门找那些说自己活不下去的年轻人。他假装自己也一样绝望，说要陪对方一起走，把对方约到自己的公寓。从八月下旬到十月下旬，短短两个月，九个人走进这间公寓，再也没有出来：八名女性，一名男性，年龄从十五岁到二十六岁。其中那名男性，是来找女友的。
+
+### N04　转机：哥哥翻开的聊天记录
+
+转机来自八王子一名二十三岁的女孩。十月下旬她突然失踪，哥哥翻看她的社交账号，发现她失踪前一直在和一个陌生账号聊天。车站的监控还拍到，女孩曾和一名男子一起出现在车站。警方顺着这个账号设下埋伏，约对方在车站见面。十月三十日，警察一路跟着他，回到了座间市的那间公寓门口。
+
+### N05　开门：箱子、逮捕与认罪
+
+门一打开，警察就看到了堆在屋里的几个箱子。搜查很快确认，此前失踪的九个人，都在这间公寓里找到了下落。第二天，白石隆浩被警方逮捕。面对审讯，他承认了全部罪行，还承认这间公寓就是为了作案才租下的。警方靠遗留的银行卡和手机定位，再比对家属的脱氧核糖核酸，逐一确认了九人的身份。案件震惊了整个日本。
+
+### N06　结局：死刑、执行，和一句警告
+
+二零二零年十二月十五日，东京地方法院立川支部判处他死刑。他在法庭上认下全部罪名，又撤回上诉，死刑在二零二一年一月确定。二零二五年六月二十七日，死刑执行，这是日本时隔两年十一个月再次执行死刑。九条人命，两个月，一间公寓。网络对面的一句我陪你，可能是世上最危险的话。如果它发给了你，你能分辨出来吗？
+
+## 分镜（45 镜，每镜只用一次）
+
+| 镜头 | 规划时间 | 类型 | 运镜 | 叙事职责 | 衔接 | 音效/备注 |
+|---|---|---|---|---|---|---|
+| S01 | 000–004s | agnes | 缓慢前推 | 开场：座间市的旧公寓楼，秋日阴天，警灯光扫过墙面 | 接信息卡：案件名片 | 远处警笛 + 低频悬念音 |
+| S02 | 004–008s | graphic | 信息卡（静帧） | 名片：案件、时间、规模 | 接 AGNES：走廊里的警察背影 | 低音撞击 |
+| S03 | 008–012s | agnes | 缓慢跟拍（背影） | 两名警察走向那扇门 | 接 AGNES：门内的箱子 | 脚步 + 走廊回声 |
+| S04 | 012–016s | agnes | 缓慢前推 | 门一开：玄关里堆着的箱子 | 接 AGNES：露脸镜头（C1 首次出现） | 门轴声 + 静默 |
+| S05 | 016–020s | agnes | 缓慢前推（中景） | 屋主首次露面：站在昏暗屋里的年轻男子 | 接 AGNES：老刑警到场 | 静默 + 主题动机首次出现 |
+| S06 | 020–024s | agnes | 缓慢前推（中景） | 老刑警到场：案子被认真写下的一刻 | 接 AGNES：取证空镜 | 纸张摩擦（SFX paper） |
+| S07 | 024–028s | agnes | 俯视缓慢下移 | 取证：白手套、证物袋、镊子 | 接 AGNES：住宅区黄昏 | 手套与纸张摩擦（SFX paper） |
+| S08 | 028–032s | agnes | 缓慢横摇（高空） | 城市：亮着灯的住宅区，明天还会有 | 接 N02：座间的旧房子 | 风声 + 低频过渡 |
+| S09 | 032–036s | agnes | 缓慢前推 | 出身：座间市的旧房子 | 接 AGNES：车站通道人流 | 清晨鸟声 + 低音铺底 |
+| S10 | 036–040s | agnes | 缓慢跟拍（背影） | 星探：在车站人流里逆流站立的背影 | 接信息卡：凶手档案 | 人流脚步 + 远处广播闷响（无可辨话语） |
+| S11 | 040–044s | graphic | 信息卡（静帧） | 档案：出生 / 年龄 / 星探前科 | 接 AGNES：拘留走廊 | 纸张翻动（SFX paper） |
+| S12 | 044–048s | agnes | 缓慢前推 | 前科：拘留走廊与铁门 | 接 AGNES：搬家纸箱 | 铁门回声（SFX keys） |
+| S13 | 048–052s | agnes | 缓慢前推 | 搬家：八月二十二日，空房间里的纸箱 | 接 AGNES：十几平米的小屋 | 纸箱轻响 + 窗外蝉鸣 |
+| S14 | 052–056s | agnes | 缓慢横移 | 小屋内：十几平方米的全部家当 | 接 AGNES：走廊里的邻居 | 环境静默 + 远处生活声 |
+| S15 | 056–060s | agnes | 缓慢跟拍（背影） | 邻居视角：走廊日常，谁也没多想 | 接 N03：黑暗中亮起的手机 | 脚步 + 塑料袋轻响 |
+| S16 | 060–064s | agnes | 缓慢前推（特写） | 猎场（一）：黑暗中亮起的手机 | 接 AGNES：屏幕光下的脸（C1） | 手机震动（SFX phone） |
+| S17 | 064–068s | agnes | 缓慢前推（中景） | 猎场（二）：屏幕光照着的那张脸 | 接信息卡：猎手的手法 | 键盘轻响 + 低频下潜 |
+| S18 | 068–072s | graphic | 信息卡（静帧） | 口径：多个账号 / 两个月 / 九人 | 接 AGNES：月台上的背影 | 低音撞击 |
+| S19 | 072–076s | agnes | 缓慢跟拍（远景背影） | 走进公寓的人：只给背影，不给脸 | 接 AGNES：亮着一扇窗的公寓楼 | 风声 + 远处电车声 |
+| S20 | 076–080s | agnes | 缓慢前推 | 那栋楼：夜里只有一扇窗亮着 | 接 AGNES：半开的门 | 雨声 + 低频 |
+| S21 | 080–084s | agnes | 缓慢前推 | 半开的门：光从门缝里漏出来 | 接 AGNES：玄关的鞋 | 灯管电流声 + 静默 |
+| S22 | 084–088s | agnes | 缓慢下移（特写） | 遗物：玄关处散着的鞋（不出现人） | 接 AGNES：秋雨中的住宅街 | 静默 + 低音 |
+| S23 | 088–092s | agnes | 缓慢前推（低机位） | 秋雨：空无一人的住宅街 | 接 N04：深夜家中的哥哥 | 雨声 + 低频过渡 |
+| S24 | 092–096s | agnes | 缓慢前推（中景） | 转机（一）：深夜里翻看手机的哥哥 | 接信息卡：转机 | 静默 + 时钟滴答 |
+| S25 | 096–100s | graphic | 信息卡（静帧） | 转机：八王子 / 二十三岁 / 社交账号 | 接 AGNES：聊天记录特写 | 低音铺底 |
+| S26 | 100–104s | agnes | 缓慢前推（特写） | 证据：那段不能细看的聊天记录 | 接 AGNES：网络搜查的女警 | 手机滑动声（SFX phone） |
+| S27 | 104–108s | agnes | 缓慢前推（中景） | 转机（二）：顺着账号追下去的人 | 接 AGNES：搜查会议桌 | 键盘声 + 机房低鸣 |
+| S28 | 108–112s | agnes | 缓慢前推（特写） | 部署：会议桌上空白的资料 | 接 AGNES：车站设伏 | 纸页轻响（SFX paper） |
+| S29 | 112–116s | agnes | 缓慢横移（背影） | 设伏：月台上保持距离的两个人 | 接 AGNES：车站外的老刑警 | 风声 + 远处电车进站 |
+| S30 | 116–120s | agnes | 缓慢前推（中景） | 跟踪：车站外假装看报的老刑警 | 接 N05：敲门的手 | 人流声 + 低频 |
+| S31 | 120–124s | agnes | 缓慢前推（特写） | 敲门：落在门板上的手 | 接 AGNES：审讯室（C1 露脸） | 敲门声（SFX press）+ 静默 |
+| S32 | 124–128s | agnes | 缓慢前推（中景） | 审讯：他承认了全部罪行 | 接 AGNES：搬出的箱子 | 录音机按键 + 低频 |
+| S33 | 128–132s | agnes | 缓慢横移 | 搜查：从门口搬出的箱子 | 接 AGNES：记者群 | 快门 + 脚步 |
+| S34 | 132–136s | agnes | 缓慢前推（背影） | 舆论：围着的记者群（构图中不出现建筑） | 接 AGNES：审讯对质 | 快门连响（SFX press）+ 嘈杂人声 |
+| S35 | 136–140s | agnes | 缓慢前推（双人中景） | 对质：审讯桌的两边 | 接信息卡：关键日期 | 椅子挪动 + 低频 |
+| S36 | 140–144s | graphic | 信息卡（静帧） | 关键日期：十月三十日搜查 / 十月三十一日逮捕 | 接 AGNES：留置走廊 | 低音撞击 |
+| S37 | 144–148s | agnes | 缓慢跟拍（背影） | 带走：留置走廊里的三个背影 | 接 AGNES：街头的人群 | 脚步 + 铁门（SFX keys） |
+| S38 | 148–152s | agnes | 缓慢前推（背影） | 震惊：街头驻足的人群（构图中不出现店面） | 接 N06：法院外的清晨 | 人声嘈杂 + 低频 |
+| S39 | 152–156s | agnes | 缓慢前推 | 审判：法院外的清晨 | 接 AGNES：法庭内 | 脚步 + 人群低语 |
+| S40 | 156–160s | agnes | 缓慢前推（手部近景） | 判决：木槌落在没有字的判决书上 | 接信息卡：判决时间线 | 木槌轻落（SFX press）+ 纸张 |
+| S41 | 160–164s | graphic | 信息卡（静帧） | 判决：二〇二〇年十二月十五日死刑 / 二〇二一年一月确定 | 接 AGNES：监狱外墙 | 低音撞击 |
+| S42 | 164–168s | agnes | 缓慢后拉 | 执行：监狱的墙与暮色 | 接信息卡：执行 | 风声 + 远处铁门 |
+| S43 | 168–172s | graphic | 信息卡（静帧） | 执行：二〇二五年六月二十七日 / 时隔两年十一个月 | 接 AGNES：空房间 | 低音铺底 |
+| S44 | 172–176s | agnes | 缓慢前推 | 空了的房间：退租后的小屋，窗帘飘动 | 接 AGNES：黑暗中亮起的手机 | 风声 + 窗帘轻响 |
+| S45 | 176–180s | agnes | 缓慢前推（特写，微光） | 金句画面：黑暗中，一只手拿起亮起的手机 | 片尾卡叠在最后一秒上 | 手机亮起 + 片尾音乐 |
+
+## 画面上的文字
+
+- 片头卡：日本座间九人案：一间公寓里的九条人命 / 二〇一七 · 神奈川座间 · 九人遇害
+- 信息卡：
+  - S02　座间九人案｜日本 · 神奈川县座间市 二〇一七｜一间公寓 · 九人遇害
+  - S11　凶手档案｜一九九〇年生 · 座间 二十七岁｜街头星探 · 有前科
+  - S18　他把猎场搬到了网上｜多个社交账号 · 两个月｜九人走进公寓 · 没有出来
+  - S25　转机：一条聊天记录｜八王子 · 二十三岁女孩失踪｜哥哥翻看了她的社交账号
+  - S36　二〇一七年十月｜三十日 搜查 · 三十一日 逮捕｜九名失踪者 · 全部找到下落
+  - S41　判决｜二〇二〇年十二月十五日 死刑｜二〇二一年一月 死刑确定
+  - S43　执行｜二〇二五年六月二十七日 死刑执行｜时隔两年十一个月 · 九条人命
+- 片尾卡：
+  - 你能分辨出来吗？
+  - 座间九人案 · 二〇一七 · 九人遇害
+  - 那句我陪你，可能是世上最危险的话。
+  - 资料：BBC / 纽约时报 / 产经新闻 · 原创解说 · AI动画情景重现
+- 常驻标签：AI动画情景重现 · 非新闻影像（搜查 / 审讯 / 抓捕 / 法院 / 监狱镜头另有更具体的标签，见 `story.json` 的 `label_overrides`）
+
+## 逐镜提示词（英文，Agnes Video V2.0）
+
+每镜实际请求时会自动在前面拼上全片统一的 `style_prefix`（见 `story.json`），下面只列各镜自己的提示词。
+
+**S01**（seed 20170823）：
+
+> The exterior of an ageing two-storey wooden apartment block on a quiet residential street in Zama, Kanagawa, on an overcast autumn morning in 2017: weathered beige walls, an exterior steel staircase, small curtained windows, wet asphalt and fallen leaves in the foreground, the slow alternating wash of red and blue patrol light sweeping across the wall from an unseen source; no vehicle, no people, no signage, no lettering, no numbers anywhere. Slow push toward the staircase, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S03**（seed 20170825）：
+
+> A dim exterior corridor of the same apartment block in daytime: two plain-clothed police officers seen strictly from behind walking toward a closed flat door at the far end, one holding a folded paper folder, worn concrete floor, metal railing on the open side, the door completely plain with no number plate and no lettering, neighbouring doors equally unmarked, no faces visible, no other people. Slow tracking shot following their backs toward the door, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S04**（seed 20170826）：
+
+> Just inside the entrance of a small dim Japanese flat in daytime: three plain unmarked storage boxes stacked beside the entranceway, a pair of worn slippers on the concrete step, a bare bulb above, the narrow room beyond falling into shadow; the boxes are blank plastic with no labels, no printing and no lettering of any kind, no people, no blood, no other objects. Slow push from the doorway toward the stacked boxes, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S05**（seed 20170827，锁脸 C1，定妆照首帧）：
+
+> A medium shot inside the dim flat in daytime: an anonymous Japanese man of twenty-seven: a narrow rectangular face with a weak receding chin, flat pale cheeks, heavy-lidded narrow eyes set wide apart, thin sparse eyebrows, a small straight nose with a rounded tip, a full lower lip, dull black hair grown long over the ears and left unkempt, greyish tired skin; he wears a plain dark grey hoodie., standing motionless in the narrow room behind the stacked boxes, half-turned toward the doorway, arms hanging at his sides, flat daylight from the open door cutting across one side of his face while the other stays in shadow; behind him only a bare white wall and the dark rectangle of an inner doorway, no furniture with markings, no lettering, no numbers, no other person. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S06**（seed 20170828，锁脸 C2，定妆照首帧）：
+
+> A medium shot on the apartment exterior corridor in daytime: an anonymous Japanese man of fifty-two: a broad weathered square face with deep nasolabial folds, pouched under-eye bags, small deep-set watchful eyes, thick greying eyebrows, a broad flat nose with flared nostrils, a wide straight mouth, short iron-grey hair cropped high above the ears, sun-darkened rough skin; he wears a rumpled beige trench coat over a dark suit., standing at the railing with a folded paper folder held against his chest with both hands, rain-flecked shoulders, jaw set, gaze angled down the corridor away from the camera; the background is thrown far out of focus, only soft grey daylight, wet concrete and blurred railing, a smooth clean backdrop with not a single mark, notice, plate, letter or number anywhere; no vehicle, no other person in frame. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S07**（seed 20170829）：
+
+> A top-down close view of a plain evidence table under a work lamp: two white cotton gloves laid flat, two folded paper evidence bags, a small torch, a pair of tweezers, a measuring ruler lying face-down with no markings visible, all on a bare grey surface; no writing, no numbers, no labels, no photographs, no people, no blood. Slow overhead descent toward the table, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S08**（seed 20170830）：
+
+> A high wide view over a quiet suburban residential district in Zama at dusk in autumn 2017: rows of low houses and small apartment blocks with lit windows under low cloud, wet rooftops, telephone poles and wires crossing the middle distance, fallen leaves drifting in the air; no illuminated signage, no letters, no numbers, no vehicles, no people. Slow lateral pan across the rooftops, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S09**（seed 20170831）：
+
+> A small ageing detached house with weathered wooden walls in a quiet Zama neighbourhood in daytime: a low concrete-block wall, a rusted sliding gate half open, overgrown weeds along the fence, a laundry pole without laundry, a bare persimmon tree in the yard, soft overcast light; no nameplate, no lettering, no numbers, no vehicles, no people. Slow push toward the gate, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S10**（seed 20170832）：
+
+> A crowded underground passage of a Tokyo railway station at night in 2017: streams of commuters walking past in both directions, seen from behind and blurred by motion, a single young man in a dark hoodie standing still against the flow with his back to the camera, fluorescent light from above, tiled walls swept out of focus with no posters, no signs, no lettering and no numbers anywhere; no face visible. Slow tracking shot toward his still back through the crowd, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S12**（seed 20170834）：
+
+> A bare police detention corridor in Tokyo in 2017: grey painted walls, a heavy steel door with a small barred hatch, harsh fluorescent light, damp concrete floor, a wooden bench; every wall surface completely bare, no signs, no plates, no numbers, no notices and no lettering of any kind anywhere in the corridor, no people. Slow forward dolly down the empty corridor, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S13**（seed 20170835）：
+
+> An empty six-tatami room of a cheap Japanese flat in daylight: three sealed cardboard boxes, a rolled futon leaning on the bare white wall, a coiled rope, dusty sunlight through a curtainless window, scuffed wooden floor; the boxes are plain brown with no printing, no tape lettering and no labels, no people, no furniture. Slow push across the empty room toward the window, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S14**（seed 20170836）：
+
+> The interior of a cramped single-room flat in Zama in daylight: a low wooden table, a folded mattress, a small television with a dark blank screen, a plastic laundry basket, thin curtains half drawn over one window, pale afternoon light; every surface plain, the television screen empty black glass with no logo, no lettering, no numbers anywhere, no people. Slow lateral track across the room, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S15**（seed 20170837）：
+
+> A quiet exterior corridor of the apartment block in late afternoon: an elderly resident with a shopping bag walking away from the camera, seen strictly from behind, plain identical doors on one side with no number plates and no lettering, potted plants by a railing, long soft shadows; no faces visible, no other people, no signage. Slow tracking shot following the resident's back, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S16**（seed 20170838）：
+
+> A close view of a smartphone lying on a dark wooden desk at night, nobody in frame: the glowing screen shows only soft blurred blobs of pale light, no legible text, no icons with letters, no numbers, the phone shell plain black, a desk lamp pooling warm light on the wood beside it, the rest of the room in darkness; no hands, no people. Slow push in on the glowing screen, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S17**（seed 20170839，锁脸 C1）：
+
+> A medium shot in a dark room at night: an anonymous Japanese man of twenty-seven: a narrow rectangular face with a weak receding chin, flat pale cheeks, heavy-lidded narrow eyes set wide apart, thin sparse eyebrows, a small straight nose with a rounded tip, a full lower lip, dull black hair grown long over the ears and left unkempt, greyish tired skin; he wears a plain dark grey hoodie., seated at a small desk before a glowing monitor, the cold screen-light modelling his face from below, fingers resting on a plain black keyboard, eyes lowered toward the keys; the monitor faces away from the camera so nothing on it is visible, the wall behind bare and dark, no lettering, no numbers, no other person. Slow push in on his lit face, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S19**（seed 20170841）：
+
+> A young woman in a plain beige coat, seen strictly from behind at a long distance on a railway platform at dusk: her figure small in the frame, her face never visible, one hand holding a small bag, the empty tracks ahead, a bench, soft evening light; the platform signs are turned away and out of focus with no legible letters and no numbers, no vehicles, no other people. Slow tracking shot following her back along the platform, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S20**（seed 20170842）：
+
+> A distant view of the low-rise apartment block in Zama at night: a single window lit warm among dark ones, thin curtains drawn, rain falling through the cone of a wall lamp, wet ground and fallen leaves in the foreground; the windows are plain rectangles of light with nothing written or numbered on them, no signage, no lettering anywhere, no vehicles, no people. Slow push toward the single lit window, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S21**（seed 20170843）：
+
+> A dim apartment corridor at night: one flat door standing slightly ajar with a blade of warm light falling across the concrete floor, neighbouring doors closed and unmarked, a wall lamp humming above, deep shadow at both ends; no number plates, no lettering, no numbers, no people. Slow push toward the half-open door, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S22**（seed 20170844）：
+
+> A close view of a narrow flat entranceway at night: several pairs of plain shoes scattered on the concrete step, indoor slippers, a folded umbrella, a single bare bulb above, the inner room dark beyond; no people, no blood, no lettering, no labels. Slow downward move across the scattered shoes, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S23**（seed 20170845）：
+
+> A quiet suburban street in Zama in autumn rain in daytime: wet asphalt, low hedges, telephone poles, rain streaking the air, fallen leaves plastered on the pavement, grey sky; no shopfront, no signboard, no vehicle, no person, no lettering anywhere. Slow low-angle push forward along the empty road, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S24**（seed 20170846，锁脸 C4，定妆照首帧）：
+
+> A medium shot in a small dark living room late at night: an anonymous Japanese man of twenty-six: a round youthful face with full cheeks, uneasy darting eyes, thick straight youthful eyebrows, a rounded nose with a high bridge, pressed thin lips, short tousled black hair with a side fringe, light natural skin with a faint shaving rash along the jaw; he wears a faded blue denim jacket over a grey t-shirt., seated on the edge of a sofa, hunched over a smartphone held in both hands, the pale screen-light on his worried face, eyes fixed downward; behind him only a dark bookshelf and a curtained window, the phone screen angled away so nothing on it is legible, no lettering, no numbers, no other person. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S26**（seed 20170848）：
+
+> A close view of a hand holding a smartphone at night: the screen angled half away from the camera shows only blurred pale message bubbles with no legible text, no names, no numbers, the thumb resting beside the screen, lamplight on the hand, dark background; no face, no other person, no readable text anywhere. Slow push in on the hand and the glowing screen, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S27**（seed 20170849，锁脸 C3，定妆照首帧）：
+
+> A medium shot in a police cyber-crime office at night: an anonymous Japanese woman of twenty-nine: a small heart-shaped face with a pointed chin, large clear double-lidded eyes, neatly trimmed straight eyebrows, a petite upturned nose, a small closed mouth, glossy black hair tied back in a low ponytail, fair smooth skin; she wears a navy police uniform jacket over a white shirt., seated before two monitors, the cool screen-light on her face, one hand on a plain keyboard, head turned slightly as she studies the screens; the monitors face away from the camera so nothing on them is visible, desks and binders behind thrown out of focus with no labels, no lettering, no numbers, no other person. Slow push in on her, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S28**（seed 20170850）：
+
+> A close view of a meeting table in a police office at night: several documents lying face-down with blank backs to the camera, a man's hand resting on the pile, cold paper cups, a desk lamp, blurred grey wall behind; no readable text, no stamps, no labels, no faces, no other person. Slow push toward the hand and the blank papers, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S29**（seed 20170851）：
+
+> A railway platform in Zama in the daytime: two figures standing apart, both seen strictly from behind - a plain-clothed officer with his hands in his coat pockets and a young woman in a light coat holding a phone - an empty bench between them, the tracks stretching ahead, soft daylight; the platform signs are out of focus with no legible letters and no numbers, no train in frame, no faces visible, no other people. Slow lateral move across their backs, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S30**（seed 20170852，锁脸 C2）：
+
+> A medium shot outside a suburban railway station in daytime: an anonymous Japanese man of fifty-two: a broad weathered square face with deep nasolabial folds, pouched under-eye bags, small deep-set watchful eyes, thick greying eyebrows, a broad flat nose with flared nostrils, a wide straight mouth, short iron-grey hair cropped high above the ears, sun-darkened rough skin; he wears a rumpled beige trench coat over a dark suit., in plain clothes with his coat collar up, standing by a concrete pillar, pretending to read a folded blank newspaper while watching off to one side of the frame, commuters passing behind him, all seen from behind and thrown out of focus; the newspaper shows no headlines and no photographs, the station wall behind is out of focus with no signage and no lettering, no vehicle, no other face in frame. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S31**（seed 20170853）：
+
+> A close view of a plain flat door in an apartment corridor in daytime: a man's hand raised to knock, knuckles touching the wood, the door completely bare with no number plate and no lettering, worn concrete floor below, the corridor stretching out of focus behind; no face, no other person. Slow push toward the hand and the door, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S32**（seed 20170854，锁脸 C1）：
+
+> A medium shot inside a plain interrogation room at night: an anonymous Japanese man of twenty-seven: a narrow rectangular face with a weak receding chin, flat pale cheeks, heavy-lidded narrow eyes set wide apart, thin sparse eyebrows, a small straight nose with a rounded tip, a full lower lip, dull black hair grown long over the ears and left unkempt, greyish tired skin; he wears a plain dark grey hoodie., seated at a metal table, a dark hoodie folded on the chair behind him, hands flat on the table in front of him, head lifted and turned a little away from the lamp, a desk lamp behind the table throwing hard light across one side of his face, a cassette recorder and a paper cup on the table; grey concrete walls, no lettering, no numbers, no files with readable text, no other person. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S33**（seed 20170855）：
+
+> An apartment corridor in daytime: three investigators in dark work wear and white gloves carrying plain unmarked storage boxes out of an open flat door, all seen strictly from behind, the boxes blank with no labels and no lettering, camera flash blinking in the doorway, concrete floor and railing; no faces visible, no body, no blood, no numbers. Slow lateral move across the doorway and the workers, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S34**（seed 20170856）：
+
+> A tight crowd of reporters in Zama in 2017, photographed from behind: only the backs of heads and shoulders, raised microphones held low and one shoulder-mounted camera stripped of every marking, its body plain dark plastic with no logo, no channel number and no lettering anywhere, dry asphalt underfoot; beyond the crowd the frame holds only soft grey overcast daylight and the blurred emptiness of an open square - no building, no windows, no door, no glass, no reflection, no signage and no lettering anywhere; no faces visible. Slow push in over the shoulders, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S35**（seed 20170857，锁脸 C1）：
+
+> A two-shot at a metal table in a bare interrogation room at night: an older detective sits on the left, leaning forward with both hands flat on the table and his back and shoulders toward the camera so that his face is never visible; an anonymous Japanese man of twenty-seven: a narrow rectangular face with a weak receding chin, flat pale cheeks, heavy-lidded narrow eyes set wide apart, thin sparse eyebrows, a small straight nose with a rounded tip, a full lower lip, dull black hair grown long over the ears and left unkempt, greyish tired skin; he wears a plain dark grey hoodie. sits on the right with his forearms on the table and his head raised, lit hard by the desk lamp; between them several photographs lie face-down and unreadable, the wall behind is bare concrete, no lettering, no numbers, no readable text, no third person. Slow push in between the two of them, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S37**（seed 20170859）：
+
+> A police detention corridor at night: three figures walking away from the camera toward a heavy steel door - a young man in a dark hoodie flanked by two uniformed officers, all seen strictly from behind, the uniforms plain dark fabric with no badges, no lettering and no numbers, cold fluorescent light, wet-look concrete floor; the walls are completely bare with no notices and no lettering, no faces visible. Slow tracking shot following their backs down the corridor, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S38**（seed 20170860）：
+
+> A crowd of pedestrians waiting at a wide Tokyo crossing at dusk, all seen strictly from behind: heads and shoulders filling the lower frame, all gazing toward a large glowing screen far ahead that dissolves into soft unfocused light with no legible image and no lettering; on both sides only blurred trees and lamp posts, no shopfront, no signboard, no neon, no vehicles. Slow push in over the crowd toward the light, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S39**（seed 20170861）：
+
+> The exterior of a Japanese district courthouse on a cold grey morning in December: broad stone steps, a row of people whose backs are turned to the camera, a police officer's shoulder in the foreground, flagstones in soft flat light, the building's columns rising out of frame; the entrance is deep shadow with no emblem, no signage, no lettering, no numbers anywhere, no faces visible. Slow push in up the steps, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S40**（seed 20170862）：
+
+> A close side view of a courtroom bench in Japan in December: a judge's hands, seen without the face, resting on a blank document on the bench, a wooden gavel standing upright beside them, a fountain pen, a thick closed law book, dark wood panelling behind, warm light from above, no readable text anywhere, no insignia, no other person. Slow push in on the hands and the gavel, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S42**（seed 20170864）：
+
+> The outer wall of a detention centre in Japan on a grey evening: long grey concrete wall with coils of razor wire along the top, a tall steel gate, a single lamp on a pole, wet asphalt in the foreground, low cloud above, cold blue-grey light; the concrete wall is completely bare - smooth panels with no plates, no markings, no numbers and no lettering of any kind, the gate plain, no vehicles, no people. Slow pull back from the wall and the gate, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S44**（seed 20170866）：
+
+> An empty single-room flat in Zama in daylight, stripped after the tenant left: bare white walls, scuffed wooden floor, a curtainless window with thin curtains drifting in the draught, pale sunlight lying across the floorboards, nothing else in the room, no people, no lettering, no numbers. Slow push across the empty sunlit room toward the window, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+
+**S45**（seed 20170867）：
+
+> A close view in darkness: a young person's hand reaching for a smartphone lying on a bedside table, the screen lighting up with soft blurred light that shows no legible text, no names and no numbers, the fingers closing around the phone, the room around nearly black except a faint cold wash of moonlight from a curtained window outlining the table; no face, no other person, no readable text anywhere. Slow push in on the hand and the glowing phone, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.

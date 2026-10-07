@@ -1,0 +1,77 @@
+{
+  "mode": "face",
+  "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。改完跑：python3 production/face_cast.py check-prompts --project production/zama2017",
+  "_casting_note": "四个角色都是符合年代的虚构匿名人物（AI 生成），不是任何真实人物的容貌还原；受害者（含未成年人）不出现在画面里，也不给可辨识面容。",
+  "characters": [
+    {
+      "id": "C1",
+      "name": "年轻男子（凶手 · 虚构匿名角色）",
+      "role": "suspect",
+      "age": 27,
+      "gender": "male",
+      "face": "an anonymous Japanese man of twenty-seven: a narrow rectangular face with a weak receding chin, flat pale cheeks, heavy-lidded narrow eyes set wide apart, thin sparse eyebrows, a small straight nose with a rounded tip, a full lower lip, dull black hair grown long over the ears and left unkempt, greyish tired skin; he wears a plain dark grey hoodie.",
+      "portrait": "cast/C1.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C1.jpg",
+      "seed": 20170822
+    },
+    {
+      "id": "C2",
+      "name": "老刑警（虚构匿名角色）",
+      "role": "police",
+      "age": 52,
+      "gender": "male",
+      "face": "an anonymous Japanese man of fifty-two: a broad weathered square face with deep nasolabial folds, pouched under-eye bags, small deep-set watchful eyes, thick greying eyebrows, a broad flat nose with flared nostrils, a wide straight mouth, short iron-grey hair cropped high above the ears, sun-darkened rough skin; he wears a rumpled beige trench coat over a dark suit.",
+      "portrait": "cast/C2.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C2.jpg",
+      "seed": 20171030
+    },
+    {
+      "id": "C3",
+      "name": "年轻女警（网络搜查 · 虚构匿名角色）",
+      "role": "police",
+      "age": 29,
+      "gender": "female",
+      "face": "an anonymous Japanese woman of twenty-nine: a small heart-shaped face with a pointed chin, large clear double-lidded eyes, neatly trimmed straight eyebrows, a petite upturned nose, a small closed mouth, glossy black hair tied back in a low ponytail, fair smooth skin; she wears a navy police uniform jacket over a white shirt.",
+      "portrait": "cast/C3.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C3.jpg",
+      "seed": 20171031
+    },
+    {
+      "id": "C4",
+      "name": "哥哥（失踪女孩的哥哥 · 虚构匿名角色）",
+      "role": "witness",
+      "age": 26,
+      "gender": "male",
+      "face": "an anonymous Japanese man of twenty-six: a round youthful face with full cheeks, uneasy darting eyes, thick straight youthful eyebrows, a rounded nose with a high bridge, pressed thin lips, short tousled black hair with a side fringe, light natural skin with a faint shaving rash along the jaw; he wears a faded blue denim jacket over a grey t-shirt.",
+      "portrait": "cast/C4.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/a12ae3fa-desktop-tutorial/production/zama2017/cast/C4.jpg",
+      "seed": 20171024
+    }
+  ],
+  "shots": {
+    "S05": [
+      "C1"
+    ],
+    "S06": [
+      "C2"
+    ],
+    "S17": [
+      "C1"
+    ],
+    "S24": [
+      "C4"
+    ],
+    "S27": [
+      "C3"
+    ],
+    "S30": [
+      "C2"
+    ],
+    "S32": [
+      "C1"
+    ],
+    "S35": [
+      "C1"
+    ]
+  }
+}
