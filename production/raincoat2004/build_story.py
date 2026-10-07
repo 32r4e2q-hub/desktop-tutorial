@@ -149,8 +149,9 @@ SHOTS = [
      "接 AGNES：物证特写",
      "A medium shot in the front yard of the burnt house in the rain just after dawn: {C2}, holding a folded paper evidence "
      "bag against his chest with both hands, rain on his shoulders and hair, jaw set, gaze angled down and away from the "
-     "camera, breath faintly visible; behind him only the wet low wall and the dark house wall, no sign, no vehicle, no "
-     "lettering, no other person. Slow push in on him, " + HOLD,
+     "camera, breath faintly visible; the background is thrown far out of focus, only soft grey rain haze, wet darkness and "
+     "distant blur, a smooth clean backdrop with not a single mark, poster, notice, letter, number or sign anywhere; "
+     "no vehicle, no other person in frame. Slow push in on him, " + HOLD,
      "雨声 + 证物袋纸张声（SFX paper）"),
     ("S07", "agnes", "俯视缓慢下移", "取证：白手套、证物袋、放大镜",
      "接 AGNES：城市夜景（俯瞰）",
@@ -215,10 +216,10 @@ SHOTS = [
     # ---------------- N03（8 镜：7 agnes + 1 信息卡）----------------
     ("S16", "agnes", "缓慢前推（特写）", "手法（一）：一部被拿起的电话",
      "接 AGNES：公寓走廊",
-     "A close view of a hand lifting a small dark clamshell mobile phone of the early 2000s from a bare wooden desk at "
-     "night: the screen stays dark and unreadable, keys unlit, a flex cable and a cigarette lighter beside it, only a "
-     "desk lamp lighting the hand and the wood, no writing or numbers visible on the device or the desk, no other person. "
-     "Slow push in on the hand and the phone, " + HOLD,
+     "A close view of a small dark clamshell mobile phone of the early 2000s lying closed on a bare wooden desk at night, "
+     "nobody in frame: the phone is shut, its small outer screen dark, the shell completely plain and unmarked, no printed "
+     "brand or logo anywhere on it, a folded paper note lying face-down and unreadable beside it, a desk lamp pooling warm "
+     "light on the wood, the rest of the room falling into darkness; no hands, no people. Slow push in on the phone, " + HOLD,
      "老式手机按键声（SFX phone）"),
     ("S17", "agnes", "缓慢前推", "十一名女性走进的那栋楼",
      "接信息卡：目标改变",
@@ -364,9 +365,10 @@ SHOTS = [
     ("S38", "agnes", "缓慢前推（背影）", "舆论：镜头与麦克风围在警局门口",
      "接 N06：法院外的雨",
      "A tight crowd of reporters outside a police station in Seoul in July 2004, in the rain: only the backs of heads and "
-     "shoulders, raised microphones and two television cameras on shoulders, umbrellas, wet steps underfoot, the station "
-     "facade beyond blurred by rain and completely without signage, lettering, numbers or channel marks, no faces visible. "
-     "Slow push in over the shoulders toward the entrance, " + HOLD,
+     "shoulders, raised microphones held low and one shoulder-mounted camera stripped of every marking, its body plain dark "
+     "plastic with no logo, no channel number and no lettering anywhere, umbrellas, wet steps underfoot, the station facade "
+     "beyond blurred by rain and completely without signage, lettering or numbers, no faces visible. Slow push in over the "
+     "shoulders toward the entrance, " + HOLD,
      "快门连响（SFX press）+ 嘈杂人声"),
     ("S39", "agnes", "缓慢前推", "审判：法院外的雨",
      "接 AGNES：法庭内",
