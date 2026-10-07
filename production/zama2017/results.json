@@ -634,10 +634,10 @@
     },
     "S26": {
       "id": "S26",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "70c254b717e409c14ec29a6b6b737d3d5a1d922321190dc0834489487fec5914",
       "error": null,
-      "updated_at": "2026-10-07T14:11:08Z",
+      "updated_at": "2026-10-07T14:11:10Z",
       "quota_retry": 1,
       "provider_retry_after_seconds": 34.0,
       "applied_cooldown_seconds": 75,
@@ -648,7 +648,25 @@
       "bytes": 805533,
       "sha256": "76206c161ac2f39e83cf764172498be01e9119a45b63f221fb5565e60b5e936f",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 805533,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/zama2017/qa/S26.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S27": {
       "id": "S27",
@@ -1297,7 +1315,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T14:11:08Z",
+  "updated_at": "2026-10-07T14:11:10Z",
   "run_id": "37632899523",
   "previous_results": {
     "S03": [
