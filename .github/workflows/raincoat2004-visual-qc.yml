@@ -140,6 +140,7 @@ jobs:
           PY
 
       - name: Commit compact audit receipts back to the production branch
+        continue-on-error: true      # 收据另有 artifacts 整包 + 制作端口本地提交；这一步不再阻塞整轮审计
         run: |
           set -uo pipefail
           git config user.name 'github-actions[bot]'
@@ -153,6 +154,7 @@ jobs:
             exit 0
           fi
           git status --short | head -20
+          echo "shallow=$(git rev-parse --is-shallow-repository) head=$(git log -1 --oneline)"
           git commit -m 'raincoat2004: audit every frame of delivered cut'
           pushed=0
           for attempt in 1 2 3 4 5; do
@@ -160,7 +162,11 @@ jobs:
             git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
             sleep 5
           done
-          test "$pushed" = 1
+          # 2026-10-07：这一步连续三轮把整轮审计拖红（触发 push 与制作端口并发推送撞车，
+          # 浅克隆下 rebase 重试也救不回来）。审计收据本来就随 artifacts 整包上传，分支侧的
+          # 同名收据由制作端口在本地复现后提交，因此这里改为「尽力而为」：推不上去只报错，
+          # 不判整轮审计失败——第 5–9 步的量测结果才是这轮运行的证据。
+          [ "$pushed" = "1" ] || echo "::error::审计收据未能推回分支（artifacts 已上传；分支侧收据由制作端口提交）"
 
       - name: Upload full visual-review evidence
         if: always()
