@@ -101,23 +101,6 @@
       "reused_existing_asset": false,
       "visual_review": "pending"
     },
-    "S05": {
-      "id": "S05",
-      "status": "failed",
-      "request_hash": "84305b249d3efa785632614965695cfd3447bbac983820ae081077cd4ba3d845",
-      "error": "Request rejected (HTTP 400): {\"error\":{\"message\":\"***.BadRequestError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Download image URL failed: HTTPSConnectionPool(host='***.***.com', port=443): Read timed out. (read timeout=30)\\\",\\\"code\\\":\\\"400\\\"}}\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"400\"}} (request id: 2026100711171035782065aw7bw1KS)",
-      "updated_at": "2026-10-07T11:18:28Z"
-    },
-    "S06": {
-      "id": "S06",
-      "status": "failed",
-      "request_hash": "6094335d7adfe0e3852f6231b49aabbccf00eac532fafa979f9712917cf1b1b9",
-      "error": "Video task failed: ComfyUI internal error: inference not finished after 15 minutes (code=500)",
-      "updated_at": "2026-10-07T11:34:41Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzQ1MThkMWNhMmQ3YjQ4M2FiNDc5NDBlMGE0OTg1NzQ3",
-      "task_id": "task_TAYXss4ZktcIDOUEg6fUozHliKb8hfwJ",
-      "requested_seconds": 7.041666666666667
-    },
     "S07": {
       "id": "S07",
       "status": "completed",
@@ -1208,7 +1191,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1262,6 +1245,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T12:33:36Z",
-  "run_id": "37612286482"
+  "updated_at": "2026-10-07T12:56:08Z",
+  "run_id": "37624469357"
 }
