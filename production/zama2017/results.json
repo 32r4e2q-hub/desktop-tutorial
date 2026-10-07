@@ -904,10 +904,10 @@
     },
     "S34": {
       "id": "S34",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "d2b9716d92f61da8d4879d88b5390a0da376478507f66e77e66909e26c6a6b16",
       "error": null,
-      "updated_at": "2026-10-07T13:37:29Z",
+      "updated_at": "2026-10-07T13:37:32Z",
       "quota_retry": 1,
       "provider_retry_after_seconds": 106.0,
       "applied_cooldown_seconds": 106.0,
@@ -918,7 +918,25 @@
       "bytes": 2356973,
       "sha256": "49a0a33297e2f9a845406fdf8049022ec89198763b7f59c7a5882847f295af85",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 2356973,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/zama2017/qa/S34.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S35": {
       "id": "S35",
@@ -1285,7 +1303,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T13:37:29Z",
+  "updated_at": "2026-10-07T13:37:32Z",
   "run_id": "37625778444",
   "previous_results": {
     "S03": [
