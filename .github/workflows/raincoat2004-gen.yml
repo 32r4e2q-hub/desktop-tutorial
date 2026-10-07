@@ -15,6 +15,10 @@ on:
         description: 'JSON: {"only":"S01","workers":1}；空则读 GEN_REQUEST'
         type: string
         default: '{"workers":2}'
+      skip_validate:
+        description: '跳过 --validate（配音轨还没入库时用；GEN_REQUEST 里的 skip_validate=true 同效）'
+        type: boolean
+        default: false
   push:
     branches:
       - arena/ef74e893-desktop-tutorial
@@ -72,8 +76,20 @@ jobs:
           python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16" || \
           python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16"
 
+      - name: 角色脸一致性（露脸模式静态闸门）
+        run: python3 production/face_cast.py check-prompts --project production/raincoat2004
+
       - name: Validate the complete three-minute timeline
-        run: python3 production/raincoat2004/generate.py --validate
+        env:
+          SKIP_VALIDATE: ${{ inputs.skip_validate || 'false' }}
+        run: |
+          set -euo pipefail
+          payload="$(tr -d '\n' < production/raincoat2004/GEN_REQUEST 2>/dev/null || echo '{}')"
+          if [ "${SKIP_VALIDATE}" = "true" ] || printf '%s' "$payload" | grep -q '"skip_validate"[[:space:]]*:[[:space:]]*true'; then
+            echo "跳过 --validate：配音轨尚未入库，先出画面镜头（提示词 / 时间轴 / 角色谱已在本机闸门验过）"
+          else
+            python3 production/raincoat2004/generate.py --validate
+          fi
 
       - name: Drop dead provider tasks so a re-run submits fresh ones
         run: python3 production/raincoat2004/generate.py --prune-failed
