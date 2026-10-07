@@ -189,7 +189,8 @@ SHOTS = [
      "接 AGNES：会见室的离婚文件",
      "A bare prison corridor in South Korea in the early 2000s: grey painted walls, a row of iron bars along the left, "
      "harsh fluorescent light, a single guard standing far away with his back to the camera and no face visible, damp "
-     "concrete floor, no signs, no numbers, no lettering anywhere. Slow forward dolly down the empty corridor, " + HOLD,
+     "concrete floor; every wall surface completely bare, no signs, no plates, no numbers, no tags and no lettering of any "
+     "kind anywhere in the corridor. Slow forward dolly down the empty corridor, " + HOLD,
      "铁门回声（SFX keys）"),
     ("S13", "agnes", "缓慢前推（特写）", "家庭：一份没有读完的离婚文件",
      "接 AGNES：出狱",
@@ -224,8 +225,9 @@ SHOTS = [
     ("S17", "agnes", "缓慢前推", "十一名女性走进的那栋楼",
      "接信息卡：目标改变",
      "A narrow interior corridor of an officetel in Mapo-gu, Seoul, at night: identical doors along the left wall with no "
-     "numbering and no name plates, worn carpet, a single flickering fluorescent tube overhead, a plastic bin, a mop "
-     "leaning in the corner, no people, no lettering anywhere. Slow push down the empty corridor, " + HOLD,
+     "numbering and no name plates, worn carpet, a single flickering fluorescent tube overhead with no exit sign, a plastic "
+     "bin, a mop leaning in the corner, no people, every surface plain and unmarked - no plates, no numbers, no lettering "
+     "anywhere. Slow push down the empty corridor, " + HOLD,
      "灯管电流声 + 脚步不存在的静默"),
     ("S18", "graphic", "信息卡（静帧）", "口径：二〇〇四年三月起 / 十一名女性在其住所失踪",
      "接 AGNES：浴室门缝",
@@ -248,8 +250,9 @@ SHOTS = [
     ("S21", "agnes", "缓慢横移", "城市依旧：只有那栋楼的窗户知道",
      "接 AGNES：后山树林",
      "A distant wide view of a low-rise officetel block in western Seoul at night from across a wet road: three or four "
-     "windows lit, rain falling through the light, wet asphalt and a low wall in the foreground, no illuminated signs, no "
-     "letters, no numbers, no vehicles, no people. Slow lateral drift across the facade, " + HOLD,
+     "windows lit, rain falling through the light, wet asphalt and a low wall in the foreground; the windows are plain "
+     "rectangles of light with nothing written, printed or numbered on the glass and no sign, no banner and no lettering "
+     "anywhere, no vehicles, no people. Slow lateral drift across the facade, " + HOLD,
      "雨声 + 低频"),
     ("S22", "agnes", "缓慢前推", "藏：奉元寺后山的雨雾",
      "接 AGNES：泥土与落叶",
@@ -270,8 +273,9 @@ SHOTS = [
      "接信息卡：最初的判断",
      "A night-time desk in a small South Korean police office in 2004: a thick stack of missing-person files with rubber "
      "bands, a rotary telephone, a desk lamp with a green glass shade, a cold cup of coffee, an electric fan, rain on the "
-     "dark window behind, the papers blank and unreadable, no lettering, no numbers, no people, no uniforms. Slow push "
-     "in over the stack of files, " + HOLD,
+     "dark window behind; every sheet blank and unreadable, no printing, no stamps, no labels on the folders, the wall "
+     "completely bare with no notices, no calendar, no lettering and no numbers, no people, no uniforms. Slow push in "
+     "over the stack of files, " + HOLD,
      "日光灯嗡鸣 + 纸张（SFX paper）"),
     ("S25", "graphic", "信息卡（静帧）", "最初的判断：拐卖案件",
      "接 AGNES：后巷入口",
@@ -281,8 +285,9 @@ SHOTS = [
      "接 AGNES：老板露面",
      "A narrow back alley behind a low commercial building in Seoul at night: a bare bulb above a plain unmarked service "
      "door, drainage water running along the concrete, stacked crates, a bicycle leaning on the wall, rain falling "
-     "through the cone of light, no shopfront, no signboard, no neon, no lettering or numbers anywhere, no people, no "
-     "vehicles. Slow push toward the unmarked door, " + HOLD,
+     "through the cone of light; the concrete walls are plain and slightly out of focus with no stencil marks, no plates, "
+     "no shopfront, no signboard, no neon and no lettering or numbers anywhere, no people, no vehicles. Slow push "
+     "toward the unmarked door, " + HOLD,
      "雨声 + 塑料箱轻碰"),
     ("S27", "agnes", "缓慢前推（中景）", "转机：那个记号码的人",
      "接 AGNES：纸上的笔",
@@ -301,16 +306,18 @@ SHOTS = [
     ("S29", "agnes", "缓慢横移（背影）", "报警：老板带着人去了警局",
      "接 AGNES：凌晨的巷子",
      "The parlour owner and a uniformed police officer, both seen from behind and from the chest down to the knees, "
-     "standing in a doorway at night while rain falls beyond them in the street: the officer's hand on a notebook, the "
-     "owner's shoulders squared, no faces visible, no badges, no lettering, no numbers, no vehicles, no other people. "
-     "Slow lateral move across their backs and the rain beyond, " + HOLD,
+     "standing in a doorway at night while rain falls beyond them in the street: the officer's hand rests on a closed "
+     "blank notebook, the owner's shoulders squared, both see only from behind with no faces visible, the uniforms plain "
+     "dark fabric with no badges, no lettering and no numbers, the street beyond thrown out of focus with no legible "
+     "marks, no vehicles, no other people. Slow lateral move across their backs and the rain beyond, " + HOLD,
      "雨声 + 低声交谈（无对白，仅环境）"),
     ("S30", "agnes", "缓慢前推", "七月十五日凌晨：麻浦区的巷口",
      "接 N05：手电扫过湿墙",
      "A narrow alley mouth in Mapo-gu, Seoul, before dawn on a wet July night in 2004: an unmarked pale sedan standing "
      "with its headlights on, rain slanting through the beams, a low brick wall on the left, water running along the "
-     "kerb, no license plate visible, no lettering, no signage, no people in the frame. Slow push toward the alley mouth "
-     "and the light, " + HOLD,
+     "kerb; the car's front plate area is plain and blank with no plate and no numbers, the shop wall behind the car is "
+     "out of focus with no sign and no lettering, no signage anywhere, no people in the frame. Slow push toward the "
+     "alley mouth and the light, " + HOLD,
      "雨声 + 引擎怠速（SFX machine）"),
 
     # ---------------- N05（8 镜：7 agnes + 1 信息卡）----------------
@@ -318,8 +325,9 @@ SHOTS = [
      "接 AGNES：审讯室（C1 露脸）",
      "Three figures lit from behind by torch beams stand around a fourth in a narrow wet alley in Seoul before dawn: the "
      "three are plain-clothed and see only as silhouettes from behind, the fourth stands with his head lowered and his "
-     "back to the camera, shoulders slack, rain running off his jacket, wet brick wall filling the whole background, no "
-     "faces visible, no weapons raised, no violence, no lettering, no numbers. Slow push in on the group, " + HOLD,
+     "back to the camera, shoulders slack, rain running off his jacket, the wet brick wall behind them completely plain with "
+     "no stencilled marks, no plates, no numbers and no lettering anywhere; no faces visible, no weapons raised, no "
+     "violence. Slow push in on the group, " + HOLD,
      "雨声 + 手电开关"),
     ("S32", "agnes", "缓慢前推（中景）", "审讯：他说出了警方没掌握的案子",
      "接 AGNES：空椅子与手铐",
@@ -359,23 +367,25 @@ SHOTS = [
      "接 AGNES：警局门口的镜头",
      "A rain-soaked hillside behind an old temple on the edge of Seoul in the daytime: a line of white and blue plastic "
      "tape strung between pine trunks, three investigators in dark rain gear standing with their backs to the camera "
-     "among the trees, wet undergrowth, mist between the trunks, a steel bucket and a spade on the ground, no faces "
-     "visible, no body, no clothing, no lettering, no numbers. Slow lateral move across the tape line and the workers, " + HOLD,
+     "among the trees, wet undergrowth, mist between the trunks, a steel bucket and a spade on the ground, the tape "
+     "completely plain with no printing and no lettering; no faces visible, no body, no clothing, no numbers, nothing "
+     "written anywhere. Slow lateral move across the tape line and the workers, " + HOLD,
      "雨打树林 + 低频"),
     ("S38", "agnes", "缓慢前推（背影）", "舆论：镜头与麦克风围在警局门口",
      "接 N06：法院外的雨",
      "A tight crowd of reporters outside a police station in Seoul in July 2004, in the rain: only the backs of heads and "
      "shoulders, raised microphones held low and one shoulder-mounted camera stripped of every marking, its body plain dark "
-     "plastic with no logo, no channel number and no lettering anywhere, umbrellas, wet steps underfoot, the station facade "
-     "beyond blurred by rain and completely without signage, lettering or numbers, no faces visible. Slow push in over the "
-     "shoulders toward the entrance, " + HOLD,
+     "plastic with no logo, no channel number and no lettering anywhere, umbrellas, wet steps underfoot; the building "
+     "beyond is thrown far out of focus - plain dark glass and shadow with no numbers, no door plates, no notices and no "
+     "lettering of any kind, no faces visible. Slow push in over the shoulders toward the entrance, " + HOLD,
      "快门连响（SFX press）+ 嘈杂人声"),
     ("S39", "agnes", "缓慢前推", "审判：法院外的雨",
      "接 AGNES：法庭内",
      "The exterior of a South Korean courthouse on a cold rainy morning in December 2004: broad stone steps running with "
      "water, a row of umbrellas held by people whose backs are turned to the camera, a police officer's shoulder in the "
-     "foreground, wet flagstones reflecting grey light, the building's columns rising out of frame, no signage, no "
-     "lettering, no numbers, no faces visible. Slow push in up the steps, " + HOLD,
+     "foreground, wet flagstones reflecting grey light, the building's columns rising out of frame; the entrance is deep "
+     "shadow with no emblem, no signage, no lettering, no numbers anywhere, no faces visible. Slow push in up the "
+     "steps, " + HOLD,
      "雨声 + 人群低语"),
     ("S40", "agnes", "缓慢前推（手部近景）", "判决：木槌落在没有字的判决书上",
      "接信息卡：判决时间线",
@@ -392,8 +402,9 @@ SHOTS = [
      "接信息卡：案件之后",
      "The outer wall of a detention centre in South Korea on a rainy evening: long grey concrete wall with coils of razor "
      "wire along the top, a tall steel gate, a single lamp on a pole, wet asphalt in the foreground, low cloud above, "
-     "cold blue-grey light, no signage, no lettering, no numbers, no vehicles, no people. Slow pull back from the wall "
-     "and the gate, " + HOLD,
+     "cold blue-grey light; the concrete wall is completely bare - smooth panels with no plates, no markings, no "
+     "numbers and no lettering of any kind, the gate plain, no vehicles, no people. Slow pull back from the wall and "
+     "the gate, " + HOLD,
      "雨声 + 远处铁门"),
     ("S43", "graphic", "信息卡（静帧）", "案件之后：一九九七年起未再执行死刑 / 他仍在服刑",
      "接 AGNES：空走廊",
