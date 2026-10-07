@@ -69,6 +69,15 @@ jobs:
           print('verified delivered SHA-256', got)
           PY
 
+      - name: 角色脸画面闸门（露脸模式：逐镜检脸 + 每人一张人脸接触表 + 相似度分诊）
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python -m pip install -q "opencv-python-headless==4.10.0.84" || true
+          python3 production/face_cast.py check-frames --project production/raincoat2004 \
+            --film "交付/韩国雨衣杀手柳永哲_十个月，二十条人命_三分钟_带声音.mp4" \
+            --out production/raincoat2004/delivery
+
       - name: Decode and scan every output frame
         run: |
           set -euo pipefail
@@ -138,6 +147,8 @@ jobs:
           git add production/raincoat2004/delivery/frame-distortion-audit.json \
             production/raincoat2004/delivery/frame-distortion-audit.md \
             production/raincoat2004/delivery/visual-qc-summary.json \
+            production/raincoat2004/delivery/face-cast-report.json \
+            production/raincoat2004/delivery/face-cast/ \
             production/raincoat2004/delivery/visual-qc-shot-midpoints.jpg \
             production/raincoat2004/qa/final-frame-review
           if ! git diff --cached --quiet; then
