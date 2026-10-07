@@ -219,10 +219,10 @@
     },
     "S10": {
       "id": "S10",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "e701591d57d14f9997414951847757afc34796449da551119ec99d18a1606b6b",
       "error": null,
-      "updated_at": "2026-10-07T11:35:14Z",
+      "updated_at": "2026-10-07T11:35:17Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2EwYjY4ZGNkMjQzMjRmNjI4ZjljZmRhYjM0MzM5YTk0",
       "task_id": "task_XxlGGri30rNxXhv8KaiGc2gllNlb6n17",
       "requested_seconds": 7.041666666666667,
@@ -230,7 +230,25 @@
       "bytes": 3259445,
       "sha256": "84f40b546954ddbd2f95ed3b5b241fd32699718f799eca886553b69bb0dd0b4b",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 3259445,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/zama2017/qa/S10.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S12": {
       "id": "S12",
@@ -297,6 +315,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T11:35:14Z",
+  "updated_at": "2026-10-07T11:35:17Z",
   "run_id": "37612286482"
 }
