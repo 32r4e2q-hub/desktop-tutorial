@@ -809,10 +809,13 @@
     },
     "S32": {
       "id": "S32",
-      "status": "waiting_create_slot",
+      "status": "rate_limited",
       "request_hash": "ed7f2ca898e19a5b00e49c3a91bfe0d5cee963b252a7a8958c1272efa26b75b3",
-      "error": null,
-      "updated_at": "2026-10-07T13:26:18Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 3 minutes. Try again after 13:27:52. (request id: 20261007132620173134640KL9UvTEh) (code=rate_limit_exceeded)",
+      "updated_at": "2026-10-07T13:26:20Z",
+      "quota_retry": 1,
+      "provider_retry_after_seconds": 93.0,
+      "applied_cooldown_seconds": 93.0
     },
     "S33": {
       "id": "S33",
@@ -1265,7 +1268,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T13:26:18Z",
+  "updated_at": "2026-10-07T13:26:20Z",
   "run_id": "37625778444",
   "previous_results": {
     "S03": [
