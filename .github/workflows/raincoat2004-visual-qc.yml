@@ -141,26 +141,26 @@ jobs:
 
       - name: Commit compact audit receipts back to the production branch
         run: |
-          set -euo pipefail
+          set -uo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add production/raincoat2004/delivery/frame-distortion-audit.json \
-            production/raincoat2004/delivery/frame-distortion-audit.md \
-            production/raincoat2004/delivery/visual-qc-summary.json \
-            production/raincoat2004/delivery/face-cast-report.json \
-            production/raincoat2004/delivery/face-cast/ \
-            production/raincoat2004/delivery/visual-qc-shot-midpoints.jpg \
-            production/raincoat2004/qa/final-frame-review
-          if ! git diff --cached --quiet; then
-            git commit -m 'raincoat2004: audit every frame of delivered cut'
-            pushed=0
-            for attempt in 1 2 3 4 5; do
-              if git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
-              git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
-              sleep 5
-            done
-            test "$pushed" = 1
+          # 按目录整体 add：某一次审计可能没有产出 face-cast/ 或 midpoints 图（例如没检出人脸），
+          # 逐条列 pathspec 时只要缺一个文件，这条步骤就会以「pathspec did not match」失败，
+          # 把整轮审计结果全丢掉（2026-10-07 本片连续两轮都栽在这里）。
+          git add -A -- production/raincoat2004/delivery production/raincoat2004/qa
+          if git diff --cached --quiet; then
+            echo "没有新的审计收据需要提交"
+            exit 0
           fi
+          git status --short | head -20
+          git commit -m 'raincoat2004: audit every frame of delivered cut'
+          pushed=0
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
+            git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
+            sleep 5
+          done
+          test "$pushed" = 1
 
       - name: Upload full visual-review evidence
         if: always()
