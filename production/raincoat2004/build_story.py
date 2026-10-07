@@ -371,13 +371,14 @@ SHOTS = [
      "completely plain with no printing and no lettering; no faces visible, no body, no clothing, no numbers, nothing "
      "written anywhere. Slow lateral move across the tape line and the workers, " + HOLD,
      "雨打树林 + 低频"),
-    ("S38", "agnes", "缓慢前推（背影）", "舆论：镜头与麦克风围在警局门口",
+    ("S38", "agnes", "缓慢前推（背影）", "舆论：雨里围着的记者群（构图中不出现建筑）",
      "接 N06：法院外的雨",
-     "A tight crowd of reporters outside a police station in Seoul in July 2004, in the rain: only the backs of heads and "
+     "A tight crowd of reporters in the rain in Seoul in 2004, photographed from behind: only the backs of heads and "
      "shoulders, raised microphones held low and one shoulder-mounted camera stripped of every marking, its body plain dark "
-     "plastic with no logo, no channel number and no lettering anywhere, umbrellas, wet steps underfoot; the building "
-     "beyond is thrown far out of focus - plain dark glass and shadow with no numbers, no door plates, no notices and no "
-     "lettering of any kind, no faces visible. Slow push in over the shoulders toward the entrance, " + HOLD,
+     "plastic with no logo, no channel number and no lettering anywhere, umbrellas, wet steps underfoot; beyond the crowd "
+     "the frame holds only falling rain, wet asphalt and the soft grey darkness of a wet night - no building, no windows, "
+     "no door, no glass, no reflection, no signage and no lettering anywhere; no faces visible. Slow push in over the "
+     "shoulders into the rain, " + HOLD,
      "快门连响（SFX press）+ 嘈杂人声"),
     ("S39", "agnes", "缓慢前推", "审判：法院外的雨",
      "接 AGNES：法庭内",
