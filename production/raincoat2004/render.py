@@ -55,6 +55,18 @@ CUTS = {
 WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
 TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
 
+# 逐镜调色覆盖（2026-10-07，全帧审计之后加）。
+# 默认调色是克制的略压暗（saturation 0.92 / brightness −0.006），对雨夜没问题；
+# 但 S45（结尾空房间里挂着的雨衣）素材本身极暗：全帧审计量到该镜中位 luma 6.3、
+# 167.5–176.2 s 共 262 帧低于 luma 12，手机上会看成黑屏。按手册第 6 节（lamkorwan 的解法）
+# 单独用一个提亮的 eq 覆盖，保住夜景氛围、让手机端能看清墙面与雨衣。
+# S29（麻浦区巷口）中位 13.6，同样偏暗，给一档温和提亮。
+DEFAULT_GRADE = 'eq=saturation=0.92:contrast=1.025:brightness=-0.006'
+GRADE_OVERRIDES = {
+    'S45': 'eq=saturation=1.06:contrast=1.03:brightness=0.06:gamma=1.95',
+    'S29': 'eq=saturation=1.00:contrast=1.03:brightness=0.02:gamma=1.35',
+}
+
 
 def run(args, capture=False):
     return subprocess.run([str(x) for x in args], check=True, capture_output=capture, text=capture)
@@ -382,8 +394,9 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             cw=math.floor(info['width']/zoom/2)*2;ch=math.floor(info['height']/zoom/2)*2
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
+        grade=GRADE_OVERRIDES.get(sid,DEFAULT_GRADE)
         vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
+            f'crop={width}:{height},setsar=1,fps={FPS},{grade},'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         entry.update(source_in=a,source_out=a+take,time_stretch=factor)
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
