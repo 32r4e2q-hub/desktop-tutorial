@@ -63,8 +63,9 @@ TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在�
 # S29（麻浦区巷口）中位 13.6，同样偏暗，给一档温和提亮。
 DEFAULT_GRADE = 'eq=saturation=0.92:contrast=1.025:brightness=-0.006'
 GRADE_OVERRIDES = {
-    'S45': 'eq=saturation=1.06:contrast=1.03:brightness=0.06:gamma=1.95',
-    'S29': 'eq=saturation=1.00:contrast=1.03:brightness=0.02:gamma=1.35',
+    # 目标：中位 luma 落在全片水平（≈30），夜景氛围保住、雨衣与墙面可辨，不发灰。
+    'S45': 'eq=saturation=1.06:contrast=1.12:brightness=0.004:gamma=2.10',
+    'S29': 'eq=saturation=1.04:contrast=1.05:brightness=0.008:gamma=1.50',
 }
 
 
