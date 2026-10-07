@@ -19,8 +19,8 @@
 | `audio-report.json` / `final-audio-report.json` | 配音与混音测量（成品实测 RMS −20.32 dBFS / 峰值 −1.70 dBFS） | 制作批次（最终批次即本片） |
 | `caption-timing.json` / `captions.srt` | 字幕时间轴（60 px 版） | 制作批次 |
 | `alignment-report.json` / `narration-timing.json` | 分句对齐与旁白节奏 | 制作批次 |
-| `edit-decision-list.json` | 45 段 EDL（每镜入出点与用途） | 制作批次 |
-| `final-contact.jpg` | 45 段中点帧拼图 | 制作批次 |
+| `edit-decision-list.json` | 46 段 EDL（38 个 Agnes 镜头 + 7 张信息卡 + 片尾卡，每镜入出点与用途） | 制作批次 |
+| `final-contact.jpg` / `visual-qc-shot-midpoints.jpg` | 逐段中点帧拼图（46 段） | 制作批次 |
 | `AI辅助视觉复核-2026-10-07.md` | 出片后逐张看片的记录：全帧审计旗标分诊、三个角色跨镜一致性判决、伪文字与字幕抽帧复核 | 与本版 SHA 同批 |
 | `face-cast-prompts.json` | 静态闸门报告（生成之前的 token 一致性 / 撞脸检查） | 与 `cast.json` 同批 |
 
