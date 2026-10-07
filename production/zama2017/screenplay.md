@@ -55,7 +55,7 @@
 | S07 | 024–028s | agnes | 俯视缓慢下移 | 取证：白手套、证物袋、镊子 | 接 AGNES：住宅区黄昏 | 手套与纸张摩擦（SFX paper） |
 | S08 | 028–032s | agnes | 缓慢横摇（高空） | 城市：亮着灯的住宅区，明天还会有 | 接 N02：座间的旧房子 | 风声 + 低频过渡 |
 | S09 | 032–036s | agnes | 缓慢前推 | 出身：座间市的旧房子 | 接 AGNES：车站通道人流 | 清晨鸟声 + 低音铺底 |
-| S10 | 036–040s | agnes | 缓慢跟拍（背影） | 星探：在车站人流里逆流站立的背影 | 接信息卡：凶手档案 | 人流脚步 + 远处广播闷响（无可辨话语） |
+| S10 | 036–040s | agnes | 缓慢跟拍（背影） | 星探：在空站台上独自站立的背影 | 接信息卡：凶手档案 | 风声 + 远处电车进站 |
 | S11 | 040–044s | graphic | 信息卡（静帧） | 档案：出生 / 年龄 / 星探前科 | 接 AGNES：拘留走廊 | 纸张翻动（SFX paper） |
 | S12 | 044–048s | agnes | 缓慢前推 | 前科：拘留走廊与铁门 | 接 AGNES：搬家纸箱 | 铁门回声（SFX keys） |
 | S13 | 048–052s | agnes | 缓慢前推 | 搬家：八月二十二日，空房间里的纸箱 | 接 AGNES：十几平米的小屋 | 纸箱轻响 + 窗外蝉鸣 |
@@ -79,12 +79,12 @@
 | S31 | 120–124s | agnes | 缓慢前推（特写） | 敲门：落在门板上的手 | 接 AGNES：审讯室（C1 露脸） | 敲门声（SFX press）+ 静默 |
 | S32 | 124–128s | agnes | 缓慢前推（中景） | 审讯：他承认了全部罪行 | 接 AGNES：搬出的箱子 | 录音机按键 + 低频 |
 | S33 | 128–132s | agnes | 缓慢横移 | 搜查：从门口搬出的箱子 | 接 AGNES：记者群 | 快门 + 脚步 |
-| S34 | 132–136s | agnes | 缓慢前推（背影） | 舆论：围着的记者群（构图中不出现建筑） | 接 AGNES：审讯对质 | 快门连响（SFX press）+ 嘈杂人声 |
+| S34 | 132–136s | agnes | 缓慢前推（背影） | 舆论：警戒线后的闪光灯（构图中不出现机器） | 接 AGNES：审讯对质 | 快门连响（SFX press）+ 嘈杂人声 |
 | S35 | 136–140s | agnes | 缓慢前推（双人中景） | 对质：审讯桌的两边 | 接信息卡：关键日期 | 椅子挪动 + 低频 |
 | S36 | 140–144s | graphic | 信息卡（静帧） | 关键日期：十月三十日搜查 / 十月三十一日逮捕 | 接 AGNES：留置走廊 | 低音撞击 |
 | S37 | 144–148s | agnes | 缓慢跟拍（背影） | 带走：留置走廊里的三个背影 | 接 AGNES：街头的人群 | 脚步 + 铁门（SFX keys） |
 | S38 | 148–152s | agnes | 缓慢前推（背影） | 震惊：街头驻足的人群（构图中不出现店面） | 接 N06：法院外的清晨 | 人声嘈杂 + 低频 |
-| S39 | 152–156s | agnes | 缓慢前推 | 审判：法院外的清晨 | 接 AGNES：法庭内 | 脚步 + 人群低语 |
+| S39 | 152–156s | agnes | 缓慢前推 | 审判：雾气中的法院台阶 | 接 AGNES：法庭内 | 脚步 + 人群低语 |
 | S40 | 156–160s | agnes | 缓慢前推（手部近景） | 判决：木槌落在没有字的判决书上 | 接信息卡：判决时间线 | 木槌轻落（SFX press）+ 纸张 |
 | S41 | 160–164s | graphic | 信息卡（静帧） | 判决：二〇二〇年十二月十五日死刑 / 二〇二一年一月确定 | 接 AGNES：监狱外墙 | 低音撞击 |
 | S42 | 164–168s | agnes | 缓慢后拉 | 执行：监狱的墙与暮色 | 接信息卡：执行 | 风声 + 远处铁门 |
@@ -148,7 +148,7 @@
 
 **S10**（seed 20170832）：
 
-> A nearly empty underground passage of a Tokyo railway station at night in 2017: only three distant commuters far down the passage, all seen from behind and out of focus, a single young man in a dark hoodie standing still in the middle ground with his back to the camera, fluorescent light from above, tiled walls completely bare with no posters, no frames, no signs, no lettering and no numbers anywhere; no face visible. Slow tracking shot toward his still back, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> The far end of an empty overground railway platform at night in 2017: a single young man in a dark hoodie standing still with his back to the camera, open sky above with no roof, no gantry, no signs and no signboards anywhere, empty tracks ahead, a bench, dim platform lamps, soft night haze; no train, no faces, no other people, no lettering and no numbers anywhere. Slow tracking shot toward his still back, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S12**（seed 20170834）：
 
@@ -200,7 +200,7 @@
 
 **S26**（seed 20170848）：
 
-> A close view of a hand holding a smartphone at night: the screen deliberately overexposed to a pure soft white-blue glow with no interface of any kind visible - no message bubbles, no text rows, no names, no avatars, no icons, no status bar and no numbers, the thumb scrolling across the glowing glass, lamplight on the hand, dark background; no face, no other person. Slow push in on the hand and the glowing screen, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A close view of a hand holding a smartphone at night with the screen facing fully away from the camera: only the dark back glass of the phone is visible, reflecting the street lamp, a soft blue glow spilling from the screen side onto the thumb, the thumb resting on the dark glass, lamplight on the hand, dark background; no screen content visible at all, no text, no icons, no face, no other person. Slow push in on the hand and the dark phone, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S27**（seed 20170849，锁脸 C3，定妆照首帧）：
 
@@ -216,23 +216,23 @@
 
 **S30**（seed 20170852，锁脸 C2）：
 
-> A medium shot outside a suburban railway station in daytime: {C2}, in plain clothes with his coat collar up and his empty hands in his coat pockets, standing by a blank concrete pillar, watching off to one side of the frame; the station forecourt is nearly empty with one distant figure far behind him seen from behind and out of focus, the station wall blank concrete with no signs, no boards, no lettering and no numbers, no vehicle, no other face in frame. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A medium shot on an empty paved forecourt in daytime: {C2}, in plain clothes with his coat collar up and his empty hands in his coat pockets, standing beside a blank concrete pillar, watching off to one side of the frame; behind him only soft-focus empty sky and a distant row of dark trees, no station building in frame, no facade, no signs, no boards, no lettering and no numbers, one distant figure far behind him seen from behind and out of focus, no vehicle, no other face in frame. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S31**（seed 20170853）：
 
-> A close view of a plain flat door in an apartment corridor in daytime: a man's hand raised to knock, knuckles touching the wood, the door a flat slab of plain plywood showing only wood grain, with no peephole, no number plate, no knob plate, no hardware and no markings of any kind, worn concrete floor below, the corridor stretching out of focus behind; no face, no other person. Slow push toward the hand and the door, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A close view of a plain flat door of blank painted wood with a smooth matte finish in an apartment corridor in daytime: a man's hand raised to knock, knuckles touching the paint, the door surface completely blank with no grain pattern, no stamps, no peephole, no number plate, no hardware and no markings of any kind, worn concrete floor below, the corridor stretching out of focus behind; no face, no other person. Slow push toward the hand and the door, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S32**（seed 20170854，锁脸 C1）：
 
-> A medium shot inside a stripped interrogation room at night: {C1}, seated at a bare metal table, a dark hoodie folded on the chair behind him, hands flat on the table in front of him, head lifted and turned a little away from the lamp, a desk lamp behind the table throwing hard light across one side of his face, a cassette recorder and a paper cup as the only objects on the table; seamless bare grey concrete walls with no panels, no pinned papers, no marks, no lettering, no numbers, no other person. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A medium shot framed chest-up inside a dark interrogation room at night: {C1}, seated at a bare metal table, a dark hoodie folded on the chair behind him, hands flat on the table in front of him, head lifted, a desk lamp throwing hard light across one side of his face while the walls behind fall into deep shadow with no detail visible, a cassette recorder and a paper cup as the only objects on the table; no panels, no papers, no boards, no marks, no lettering, no numbers anywhere, no other person. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S33**（seed 20170855）：
 
-> An open-air exterior corridor of the apartment block in daytime with a steel railing overlooking the street: three investigators in completely plain dark work wear with no patches, no emblems, no badges and no reflective strips, wearing white gloves and carrying plain unmarked storage boxes out of an open flat door, all three facing away from the camera for the whole shot with only the backs of their heads visible, the boxes blank with no labels and no lettering, camera flash blinking in the doorway, concrete floor; no faces visible, no body, no blood, no numbers. Slow lateral move behind the workers across the doorway, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> An open-air exterior corridor of the apartment block in daytime with a steel railing overlooking the street: three investigators in completely plain dark work wear with no patches, no emblems, no badges and no reflective strips, wearing white gloves and carrying plain unmarked storage boxes, all three walking away from the camera for the whole shot with only the backs of their heads visible, nobody turning his head, the boxes blank with no labels and no lettering, camera flash blinking in the doorway, concrete floor; no faces visible, no body, no blood, no numbers. Slow lateral move behind the walking workers, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S34**（seed 20170856）：
 
-> A tight crowd of reporters in Zama in 2017, photographed from behind with the camera tilted slightly down: only the backs of heads and shoulders, microphones with plain black cube flags carrying no logos and no lettering, one shoulder-mounted camera that is a featureless dark box with its rear displays switched off and black, no model numbers, no timecode, no stickers and no logo anywhere, dry asphalt underfoot; beyond the crowd the frame holds only empty asphalt and soft grey overcast sky - no building, no windows, no door, no glass, no reflection, no signage and no lettering anywhere; no faces visible, nobody turning toward the camera. Slow push in over the shoulders, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A line of uniformed police officers in Zama in 2017, photographed strictly from behind: only the backs of heads and shoulders, arms outstretched holding back an unseen crowd beyond the frame, plain dark uniforms with no patches, no badges and no lettering, camera flashes blinking from the unseen crowd side, empty asphalt underfoot, soft grey overcast sky; no microphones, no cameras, no equipment in frame, no building, no signage and no lettering anywhere, no faces visible. Slow push in over the shoulders, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S35**（seed 20170857，锁脸 C1）：
 
@@ -248,7 +248,7 @@
 
 **S39**（seed 20170861）：
 
-> The exterior of a plain modern Japanese district courthouse on a cold grey morning in December: a modest grey concrete office block with rows of identical dark windows, no columns, no pediment, no emblem, a normal staircase rather than monumental steps, a row of people climbing with their backs to the camera, a police officer in a plain dark uniform with no shoulder patches, no badges and no emblems in the foreground, flagstones in soft flat light; the entrance is deep shadow with no signage, no lettering, no numbers anywhere, no faces visible. Slow push in up the steps, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A cold grey December morning: the backs of a row of people climbing a plain concrete staircase, the camera pointing down at the stairs so the frame holds only the steps, the climbing backs and white fog above, the courthouse entrance hidden in the fog with no facade visible, no columns, no pediment, no emblem, no signage, no lettering, no numbers, no officer in frame, no faces visible. Slow push in up the steps, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S40**（seed 20170862）：
 

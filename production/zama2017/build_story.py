@@ -213,14 +213,14 @@ SHOTS = [
      "nameplate, no plate, no lettering and no numbers anywhere, no vehicles, no people. Slow push "
      "toward the gate, " + HOLD,
      "清晨鸟声 + 低音铺底"),
-    ("S10", "agnes", "缓慢跟拍（背影）", "星探：在车站人流里逆流站立的背影",
+    ("S10", "agnes", "缓慢跟拍（背影）", "星探：在空站台上独自站立的背影",
      "接信息卡：凶手档案",
-     "A nearly empty underground passage of a Tokyo railway station at night in 2017: only three distant "
-     "commuters far down the passage, all seen from behind and out of focus, a single young man in a "
-     "dark hoodie standing still in the middle ground with his back to the camera, fluorescent light "
-     "from above, tiled walls completely bare with no posters, no frames, no signs, no lettering and no "
-     "numbers anywhere; no face visible. Slow tracking shot toward his still back, " + HOLD,
-     "人流脚步 + 远处广播闷响（无可辨话语）"),
+     "The far end of an empty overground railway platform at night in 2017: a single young man in a dark "
+     "hoodie standing still with his back to the camera, open sky above with no roof, no gantry, no "
+     "signs and no signboards anywhere, empty tracks ahead, a bench, dim platform lamps, soft night "
+     "haze; no train, no faces, no other people, no lettering and no numbers anywhere. Slow tracking "
+     "shot toward his still back, " + HOLD,
+     "风声 + 远处电车进站"),
     ("S11", "graphic", "信息卡（静帧）", "档案：出生 / 年龄 / 星探前科",
      "接 AGNES：拘留走廊",
      "凶手档案：出生地与年龄 / 星探前科",
@@ -322,11 +322,11 @@ SHOTS = [
      "低音铺底"),
     ("S26", "agnes", "缓慢前推（特写）", "证据：那段不能细看的聊天记录",
      "接 AGNES：网络搜查的女警",
-     "A close view of a hand holding a smartphone at night: the screen deliberately overexposed to a "
-     "pure soft white-blue glow with no interface of any kind visible - no message bubbles, no text "
-     "rows, no names, no avatars, no icons, no status bar and no numbers, the thumb scrolling across the "
-     "glowing glass, lamplight on the hand, dark background; no face, no other person. Slow push in on "
-     "the hand and the glowing screen, " + HOLD,
+     "A close view of a hand holding a smartphone at night with the screen facing fully away from the "
+     "camera: only the dark back glass of the phone is visible, reflecting the street lamp, a soft blue "
+     "glow spilling from the screen side onto the thumb, the thumb resting on the dark glass, lamplight "
+     "on the hand, dark background; no screen content visible at all, no text, no icons, no face, no "
+     "other person. Slow push in on the hand and the dark phone, " + HOLD,
      "手机滑动声（SFX phone）"),
     ("S27", "agnes", "缓慢前推（中景）", "转机（二）：顺着账号追下去的人",
      "接 AGNES：搜查会议桌",
@@ -353,51 +353,50 @@ SHOTS = [
      "风声 + 远处电车进站"),
     ("S30", "agnes", "缓慢前推（中景）", "跟踪：车站外假装看报的老刑警",
      "接 N05：敲门的手",
-     "A medium shot outside a suburban railway station in daytime: {C2}, in plain clothes with his coat "
-     "collar up and his empty hands in his coat pockets, standing by a blank concrete pillar, watching "
-     "off to one side of the frame; the station forecourt is nearly empty with one distant figure far "
-     "behind him seen from behind and out of focus, the station wall blank concrete with no signs, no "
-     "boards, no lettering and no numbers, no vehicle, no other face in frame. Slow push in on him, " + HOLD,
+     "A medium shot on an empty paved forecourt in daytime: {C2}, in plain clothes with his coat collar "
+     "up and his empty hands in his coat pockets, standing beside a blank concrete pillar, watching off "
+     "to one side of the frame; behind him only soft-focus empty sky and a distant row of dark trees, no "
+     "station building in frame, no facade, no signs, no boards, no lettering and no numbers, one "
+     "distant figure far behind him seen from behind and out of focus, no vehicle, no other face in "
+     "frame. Slow push in on him, " + HOLD,
      "人流声 + 低频"),
 
     # ---------------- N05（8 镜：7 agnes + 1 信息卡）----------------
     ("S31", "agnes", "缓慢前推（特写）", "敲门：落在门板上的手",
      "接 AGNES：审讯室（C1 露脸）",
-     "A close view of a plain flat door in an apartment corridor in daytime: a man's hand raised to "
-     "knock, knuckles touching the wood, the door a flat slab of plain plywood showing only wood grain, "
-     "with no peephole, no number plate, no knob plate, no hardware and no markings of any kind, worn "
-     "concrete floor below, the corridor stretching out of focus behind; no face, no other person. Slow "
-     "push toward the hand and the door, " + HOLD,
+     "A close view of a plain flat door of blank painted wood with a smooth matte finish in an apartment "
+     "corridor in daytime: a man's hand raised to knock, knuckles touching the paint, the door surface "
+     "completely blank with no grain pattern, no stamps, no peephole, no number plate, no hardware and "
+     "no markings of any kind, worn concrete floor below, the corridor stretching out of focus behind; "
+     "no face, no other person. Slow push toward the hand and the door, " + HOLD,
      "敲门声（SFX press）+ 静默"),
     ("S32", "agnes", "缓慢前推（中景）", "审讯：他承认了全部罪行",
      "接 AGNES：搬出的箱子",
-     "A medium shot inside a stripped interrogation room at night: {C1}, seated at a bare metal table, a "
-     "dark hoodie folded on the chair behind him, hands flat on the table in front of him, head lifted "
-     "and turned a little away from the lamp, a desk lamp behind the table throwing hard light across "
-     "one side of his face, a cassette recorder and a paper cup as the only objects on the table; "
-     "seamless bare grey concrete walls with no panels, no pinned papers, no marks, no lettering, no "
-     "numbers, no other person. Slow push in on him, " + HOLD,
+     "A medium shot framed chest-up inside a dark interrogation room at night: {C1}, seated at a bare "
+     "metal table, a dark hoodie folded on the chair behind him, hands flat on the table in front of "
+     "him, head lifted, a desk lamp throwing hard light across one side of his face while the walls "
+     "behind fall into deep shadow with no detail visible, a cassette recorder and a paper cup as the "
+     "only objects on the table; no panels, no papers, no boards, no marks, no lettering, no numbers "
+     "anywhere, no other person. Slow push in on him, " + HOLD,
      "录音机按键 + 低频"),
     ("S33", "agnes", "缓慢横移", "搜查：从门口搬出的箱子",
      "接 AGNES：记者群",
      "An open-air exterior corridor of the apartment block in daytime with a steel railing overlooking "
      "the street: three investigators in completely plain dark work wear with no patches, no emblems, no "
-     "badges and no reflective strips, wearing white gloves and carrying plain unmarked storage boxes "
-     "out of an open flat door, all three facing away from the camera for the whole shot with only the "
-     "backs of their heads visible, the boxes blank with no labels and no lettering, camera flash "
+     "badges and no reflective strips, wearing white gloves and carrying plain unmarked storage boxes, "
+     "all three walking away from the camera for the whole shot with only the backs of their heads "
+     "visible, nobody turning his head, the boxes blank with no labels and no lettering, camera flash "
      "blinking in the doorway, concrete floor; no faces visible, no body, no blood, no numbers. Slow "
-     "lateral move behind the workers across the doorway, " + HOLD,
+     "lateral move behind the walking workers, " + HOLD,
      "快门 + 脚步"),
-    ("S34", "agnes", "缓慢前推（背影）", "舆论：围着的记者群（构图中不出现建筑）",
+    ("S34", "agnes", "缓慢前推（背影）", "舆论：警戒线后的闪光灯（构图中不出现机器）",
      "接 AGNES：审讯对质",
-     "A tight crowd of reporters in Zama in 2017, photographed from behind with the camera tilted "
-     "slightly down: only the backs of heads and shoulders, microphones with plain black cube flags "
-     "carrying no logos and no lettering, one shoulder-mounted camera that is a featureless dark box "
-     "with its rear displays switched off and black, no model numbers, no timecode, no stickers and no "
-     "logo anywhere, dry asphalt underfoot; beyond the crowd the frame holds only empty asphalt and soft "
-     "grey overcast sky - no building, no windows, no door, no glass, no reflection, no signage and no "
-     "lettering anywhere; no faces visible, nobody turning toward the camera. Slow push in over the "
-     "shoulders, " + HOLD,
+     "A line of uniformed police officers in Zama in 2017, photographed strictly from behind: only the "
+     "backs of heads and shoulders, arms outstretched holding back an unseen crowd beyond the frame, "
+     "plain dark uniforms with no patches, no badges and no lettering, camera flashes blinking from the "
+     "unseen crowd side, empty asphalt underfoot, soft grey overcast sky; no microphones, no cameras, no "
+     "equipment in frame, no building, no signage and no lettering anywhere, no faces visible. Slow push "
+     "in over the shoulders, " + HOLD,
      "快门连响（SFX press）+ 嘈杂人声"),
     ("S35", "agnes", "缓慢前推（双人中景）", "对质：审讯桌的两边",
      "接信息卡：关键日期",
@@ -432,14 +431,13 @@ SHOTS = [
      "人声嘈杂 + 低频"),
 
     # ---------------- N06（7 镜：5 agnes + 2 信息卡）----------------
-    ("S39", "agnes", "缓慢前推", "审判：法院外的清晨",
+    ("S39", "agnes", "缓慢前推", "审判：雾气中的法院台阶",
      "接 AGNES：法庭内",
-     "The exterior of a plain modern Japanese district courthouse on a cold grey morning in December: a "
-     "modest grey concrete office block with rows of identical dark windows, no columns, no pediment, no "
-     "emblem, a normal staircase rather than monumental steps, a row of people climbing with their backs "
-     "to the camera, a police officer in a plain dark uniform with no shoulder patches, no badges and no "
-     "emblems in the foreground, flagstones in soft flat light; the entrance is deep shadow with no "
-     "signage, no lettering, no numbers anywhere, no faces visible. Slow push in up the steps, " + HOLD,
+     "A cold grey December morning: the backs of a row of people climbing a plain concrete staircase, "
+     "the camera pointing down at the stairs so the frame holds only the steps, the climbing backs and "
+     "white fog above, the courthouse entrance hidden in the fog with no facade visible, no columns, no "
+     "pediment, no emblem, no signage, no lettering, no numbers, no officer in frame, no faces visible. "
+     "Slow push in up the steps, " + HOLD,
      "脚步 + 人群低语"),
     ("S40", "agnes", "缓慢前推（手部近景）", "判决：木槌落在没有字的判决书上",
      "接信息卡：判决时间线",
