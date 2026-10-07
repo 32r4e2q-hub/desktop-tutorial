@@ -1037,36 +1037,10 @@
     },
     "S38": {
       "id": "S38",
-      "status": "completed",
-      "request_hash": "019ce8568fea009d78c47859f0098dbfb4bb6e11ee5cad04c9ebdee2c07fcd42",
+      "status": "submitting",
+      "request_hash": "8aae3eb1550665d43f0e75f83b96b904d096b8907ca7d17324f42a8e06683284",
       "error": null,
-      "updated_at": "2026-10-07T03:42:28Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzE2OWE1MjYxZTZiZjQ1Yjg5MDAwYjIzYzJjM2Q0NGNh",
-      "task_id": "task_vflbxZ0NdWtcLOyzfUfqUM3atSNqQY3H",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_169a5261e6bf45b89000b23c2c3d44ca.mp4",
-      "bytes": 3584212,
-      "sha256": "1ce2969176334df285a2b8c1ad677510bafc34130a41e369a409d9dd86cd0e22",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 3584212,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/raincoat2004/qa/S38.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": false,
-      "visual_review": "pending"
+      "updated_at": "2026-10-07T04:04:15Z"
     },
     "S39": {
       "id": "S39",
@@ -1288,7 +1262,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T04:04:13Z",
+  "updated_at": "2026-10-07T04:04:15Z",
   "run_id": "37569088359",
   "delivery": {
     "duration": 180.0,
@@ -1424,6 +1398,41 @@
           "audio_channels": 2,
           "decoded_ok": true,
           "contact_sheet": "production/raincoat2004/qa/S06.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": false,
+        "visual_review": "pending"
+      }
+    ],
+    "S38": [
+      {
+        "id": "S38",
+        "status": "completed",
+        "request_hash": "019ce8568fea009d78c47859f0098dbfb4bb6e11ee5cad04c9ebdee2c07fcd42",
+        "error": null,
+        "updated_at": "2026-10-07T03:42:28Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzE2OWE1MjYxZTZiZjQ1Yjg5MDAwYjIzYzJjM2Q0NGNh",
+        "task_id": "task_vflbxZ0NdWtcLOyzfUfqUM3atSNqQY3H",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_169a5261e6bf45b89000b23c2c3d44ca.mp4",
+        "bytes": 3584212,
+        "sha256": "1ce2969176334df285a2b8c1ad677510bafc34130a41e369a409d9dd86cd0e22",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 3584212,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/raincoat2004/qa/S38.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         },
