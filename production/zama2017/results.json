@@ -80,10 +80,10 @@
     },
     "S05": {
       "id": "S05",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "84305b249d3efa785632614965695cfd3447bbac983820ae081077cd4ba3d845",
-      "error": null,
-      "updated_at": "2026-10-07T11:17:08Z"
+      "error": "Request rejected (HTTP 400): {\"error\":{\"message\":\"***.BadRequestError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Download image URL failed: HTTPSConnectionPool(host='***.***.com', port=443): Read timed out. (read timeout=30)\\\",\\\"code\\\":\\\"400\\\"}}\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"400\"}} (request id: 2026100711171035782065aw7bw1KS)",
+      "updated_at": "2026-10-07T11:18:28Z"
     }
   },
   "phase": "generating_sources",
@@ -140,6 +140,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-07T11:17:08Z",
+  "updated_at": "2026-10-07T11:18:28Z",
   "run_id": "37612286482"
 }
