@@ -61,8 +61,8 @@ def inspect_clip(path, qa_dir, sid):
     qa_dir = Path(qa_dir); qa_dir.mkdir(parents=True, exist_ok=True)
     contact = qa_dir / f'{sid}.jpg'
     run(['ffmpeg', '-y', '-v', 'error', '-threads', '2', '-i', path,
-         '-vf', 'fps=2,scale=384:216:force_original_aspect_ratio=decrease,pad=384:216:(ow-iw)/2:(oh-ih)/2,tile=4x4',
-         '-frames:v', '1', '-q:v', '3', contact])
+         '-vf', 'fps=2,scale=768:432:force_original_aspect_ratio=decrease,pad=768:432:(ow-iw)/2:(oh-ih)/2,tile=4x4',
+         '-frames:v', '1', '-q:v', '2', contact])
     if not contact.exists():
         raise RuntimeError('QA contact sheet was not produced')
     info.update(decoded_ok=True, contact_sheet=f'production/zama2017/qa/{sid}.jpg',
