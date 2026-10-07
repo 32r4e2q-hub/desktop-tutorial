@@ -173,11 +173,12 @@ SHOTS = [
      "门轴声 + 静默"),
     ("S05", "agnes", "缓慢前推（中景）", "屋主首次露面：站在昏暗屋里的年轻男子",
      "接 AGNES：老刑警到场",
-     "A medium shot inside the dim flat in daytime: {C1}, standing motionless in the narrow room behind the stacked "
+     "A medium shot framed chest-up inside the dim flat in daytime: {C1}, standing motionless behind the stacked "
      "boxes, half-turned toward the doorway, arms hanging at his sides, flat daylight from the open door cutting "
-     "across one side of his face while the other stays in shadow; behind him only a bare white wall and the dark "
-     "rectangle of an inner doorway, no furniture with markings, no lettering, no numbers, no other person. Slow push "
-     "in on him, " + HOLD,
+     "across one side of his face while the other stays in shadow; the narrow visible background holds only a "
+     "seamless bare white wall and the dark rectangle of an inner doorway, no graffiti, no scribbles, no marks, no "
+     "posters, the doorframe bare painted wood, the boxes plain brown with no printing, no lettering, no numbers, "
+     "no other person. Slow push in on him, " + HOLD,
      "静默 + 主题动机首次出现"),
     ("S06", "agnes", "缓慢前推（中景）", "老刑警到场：案子被认真写下的一刻",
      "接 AGNES：取证空镜",
