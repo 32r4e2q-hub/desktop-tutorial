@@ -436,7 +436,7 @@ SHOTS = [
      "人声嘈杂 + 低频"),
 
     # ---------------- N06（7 镜：5 agnes + 2 信息卡）----------------
-    ("S39", "agnes", "缓慢前推", "审判：雾气中的台阶（构图中不出现建筑）",
+    ("S39", "agnes", "缓慢前推", "审判：雾气中登上台阶的人群",
      "接 AGNES：法庭内",
      "A cold grey morning in thick white fog: the backs of a row of people in dark winter coats climbing "
      "a plain concrete staircase, the frame holding only the steps, the climbing backs and the fog, no "
