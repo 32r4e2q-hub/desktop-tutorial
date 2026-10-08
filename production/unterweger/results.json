@@ -714,10 +714,10 @@
     },
     "S32": {
       "id": "S32",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "46f35f48aed3e9e9d7814c72780e3f97f7d276a0ef8d37ee1af2aa0c41048e4a",
-      "error": null,
-      "updated_at": "2026-10-08T13:56:05Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - no available server\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261008135607262567019NLfdgS3k)",
+      "updated_at": "2026-10-08T13:56:16Z"
     },
     "S33": {
       "id": "S33",
@@ -1236,7 +1236,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T13:56:05Z",
+  "updated_at": "2026-10-08T13:56:16Z",
   "run_id": "37785695751",
   "previous_results": {
     "S01": [
