@@ -84,7 +84,7 @@
 | S36 | 140–144s | graphic | 信息卡（静帧） | 关键日期：十月三十日搜查 / 十月三十一日逮捕 | 接 AGNES：留置走廊 | 低音撞击 |
 | S37 | 144–148s | agnes | 缓慢跟拍（背影） | 带走：留置走廊里的三个背影 | 接 AGNES：街头的人群 | 脚步 + 铁门（SFX keys） |
 | S38 | 148–152s | agnes | 缓慢前推（背影） | 震惊：街头驻足的人群（构图中不出现店面） | 接 N06：法院外的清晨 | 人声嘈杂 + 低频 |
-| S39 | 152–156s | agnes | 缓慢前推 | 审判：雾气中的法院台阶 | 接 AGNES：法庭内 | 脚步 + 人群低语 |
+| S39 | 152–156s | agnes | 缓慢前推 | 审判：雾气中的台阶（构图中不出现建筑） | 接 AGNES：法庭内 | 脚步 + 人群低语 |
 | S40 | 156–160s | agnes | 缓慢前推（手部近景） | 判决：木槌落在没有字的判决书上 | 接信息卡：判决时间线 | 木槌轻落（SFX press）+ 纸张 |
 | S41 | 160–164s | graphic | 信息卡（静帧） | 判决：二〇二〇年十二月十五日死刑 / 二〇二一年一月确定 | 接 AGNES：监狱外墙 | 低音撞击 |
 | S42 | 164–168s | agnes | 缓慢后拉 | 执行：监狱的墙与暮色 | 接信息卡：执行 | 风声 + 远处铁门 |
@@ -128,7 +128,7 @@
 
 **S05**（seed 20170827，锁脸 C1，定妆照首帧）：
 
-> A medium shot framed chest-up inside the dim flat in daytime: {C1}, standing motionless behind the stacked boxes, half-turned toward the doorway, arms hanging at his sides, flat daylight from the open door cutting across one side of his face while the other stays in shadow; the narrow visible background holds only a seamless bare white wall and the dark rectangle of an inner doorway, no graffiti, no scribbles, no marks, no posters, the doorframe bare painted wood, the boxes plain brown with no printing, no lettering, no numbers, no other person. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A medium shot framed chest-up inside a dim and otherwise completely empty flat in daytime: {C1}, standing motionless, half-turned toward the doorway, arms hanging at his sides, flat daylight from the open door cutting across one side of his face while the other stays in shadow; behind him only a seamless freshly-painted white wall and the dark rectangle of an inner doorway, the room holding no boxes, no furniture and no objects of any kind, no graffiti, no scribbles, no marks, no posters, the doorframe bare painted wood, no lettering, no numbers, no other person. Slow push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S06**（seed 20170828，锁脸 C2，定妆照首帧）：
 
@@ -172,11 +172,11 @@
 
 **S17**（seed 20170839，锁脸 C1）：
 
-> A medium shot in a dark room at night: an anonymous Japanese man of twenty-seven: a narrow rectangular face with a weak receding chin, flat pale cheeks, heavy-lidded narrow eyes set wide apart, thin sparse eyebrows, a small straight nose with a rounded tip, a full lower lip, dull black hair grown long over the ears and left unkempt, greyish tired skin; he wears a plain dark grey hoodie., seated at a small desk before a glowing monitor, the cold screen-light modelling his face from below, fingers resting on a plain black keyboard, eyes lowered toward the keys; the monitor faces away from the camera so nothing on it is visible, the wall behind bare and dark, no lettering, no numbers, no other person. Slow push in on his lit face, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A medium shot in a dark room at night: {C1}, seated at a small desk before a glowing monitor, the cold screen-light modelling his face from below, fingers resting on a plain black keyboard with blank unmarked keys, eyes lowered toward the keys; the monitor faces away from the camera so nothing on it is visible, the room behind him pitch black with no lights, no clock, no electronics and no shapes visible at all, no lettering, no numbers, no other person. Slow push in on his lit face, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S19**（seed 20170841）：
 
-> A young woman in a plain beige coat, seen strictly from behind at a long distance on a railway platform at dusk: her figure small in the frame, her face never visible, one hand holding a small bag, the empty tracks ahead, a bench, soft evening light; the platform signs are turned away and out of focus with no legible letters and no numbers, no vehicles, no other people. Slow tracking shot following her back along the platform, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A young woman in a plain beige coat, seen strictly from behind at a long distance on a railway platform at dusk: her figure small in the frame, her face never visible, one hand holding a small bag, the empty tracks ahead, a bench, a bare metal fence with no signs, no boards, no plates and nothing attached to it, soft evening light; no platform signs anywhere in frame, no lettering and no numbers, no vehicles, no other people. Slow tracking shot following her back along the platform, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S20**（seed 20170842）：
 
@@ -248,7 +248,7 @@
 
 **S39**（seed 20170861）：
 
-> A cold grey December morning: the backs of a row of people climbing a plain concrete staircase, the camera pointing down at the stairs so the frame holds only the steps, the climbing backs and white fog above, the courthouse entrance hidden in the fog with no facade visible, no columns, no pediment, no emblem, no signage, no lettering, no numbers, no officer in frame, no faces visible. Slow push in up the steps, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
+> A cold grey morning in thick white fog: the backs of a row of people in dark winter coats climbing a plain concrete staircase, the frame holding only the steps, the climbing backs and the fog, no building of any kind visible anywhere, no facade, no columns, no pediment, no emblem, no signage, no lettering, no numbers, no officer in frame, no faces visible. Slow push in up the steps, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip.
 
 **S40**（seed 20170862）：
 

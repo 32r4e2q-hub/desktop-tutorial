@@ -173,12 +173,13 @@ SHOTS = [
      "门轴声 + 静默"),
     ("S05", "agnes", "缓慢前推（中景）", "屋主首次露面：站在昏暗屋里的年轻男子",
      "接 AGNES：老刑警到场",
-     "A medium shot framed chest-up inside the dim flat in daytime: {C1}, standing motionless behind the stacked "
-     "boxes, half-turned toward the doorway, arms hanging at his sides, flat daylight from the open door cutting "
-     "across one side of his face while the other stays in shadow; the narrow visible background holds only a "
-     "seamless bare white wall and the dark rectangle of an inner doorway, no graffiti, no scribbles, no marks, no "
-     "posters, the doorframe bare painted wood, the boxes plain brown with no printing, no lettering, no numbers, "
-     "no other person. Slow push in on him, " + HOLD,
+     "A medium shot framed chest-up inside a dim and otherwise completely empty flat in daytime: {C1}, "
+     "standing motionless, half-turned toward the doorway, arms hanging at his sides, flat daylight from "
+     "the open door cutting across one side of his face while the other stays in shadow; behind him only "
+     "a seamless freshly-painted white wall and the dark rectangle of an inner doorway, the room holding "
+     "no boxes, no furniture and no objects of any kind, no graffiti, no scribbles, no marks, no "
+     "posters, the doorframe bare painted wood, no lettering, no numbers, no other person. Slow push in "
+     "on him, " + HOLD,
      "静默 + 主题动机首次出现"),
     ("S06", "agnes", "缓慢前推（中景）", "老刑警到场：案子被认真写下的一刻",
      "接 AGNES：取证空镜",
@@ -265,10 +266,12 @@ SHOTS = [
      "手机震动（SFX phone）"),
     ("S17", "agnes", "缓慢前推（中景）", "猎场（二）：屏幕光照着的那张脸",
      "接信息卡：猎手的手法",
-     "A medium shot in a dark room at night: {C1}, seated at a small desk before a glowing monitor, the cold "
-     "screen-light modelling his face from below, fingers resting on a plain black keyboard, eyes lowered toward the "
-     "keys; the monitor faces away from the camera so nothing on it is visible, the wall behind bare and dark, no "
-     "lettering, no numbers, no other person. Slow push in on his lit face, " + HOLD,
+     "A medium shot in a dark room at night: {C1}, seated at a small desk before a glowing monitor, the "
+     "cold screen-light modelling his face from below, fingers resting on a plain black keyboard with "
+     "blank unmarked keys, eyes lowered toward the keys; the monitor faces away from the camera so "
+     "nothing on it is visible, the room behind him pitch black with no lights, no clock, no electronics "
+     "and no shapes visible at all, no lettering, no numbers, no other person. Slow push in on his lit "
+     "face, " + HOLD,
      "键盘轻响 + 低频下潜"),
     ("S18", "graphic", "信息卡（静帧）", "口径：多个账号 / 两个月 / 九人",
      "接 AGNES：月台上的背影",
@@ -276,10 +279,12 @@ SHOTS = [
      "低音撞击"),
     ("S19", "agnes", "缓慢跟拍（远景背影）", "走进公寓的人：只给背影，不给脸",
      "接 AGNES：亮着一扇窗的公寓楼",
-     "A young woman in a plain beige coat, seen strictly from behind at a long distance on a railway platform at "
-     "dusk: her figure small in the frame, her face never visible, one hand holding a small bag, the empty tracks "
-     "ahead, a bench, soft evening light; the platform signs are turned away and out of focus with no legible letters "
-     "and no numbers, no vehicles, no other people. Slow tracking shot following her back along the platform, " + HOLD,
+     "A young woman in a plain beige coat, seen strictly from behind at a long distance on a railway "
+     "platform at dusk: her figure small in the frame, her face never visible, one hand holding a small "
+     "bag, the empty tracks ahead, a bench, a bare metal fence with no signs, no boards, no plates and "
+     "nothing attached to it, soft evening light; no platform signs anywhere in frame, no lettering and "
+     "no numbers, no vehicles, no other people. Slow tracking shot following her back along the "
+     "platform, " + HOLD,
      "风声 + 远处电车声"),
     ("S20", "agnes", "缓慢前推", "那栋楼：夜里只有一扇窗亮着",
      "接 AGNES：半开的门",
@@ -431,13 +436,12 @@ SHOTS = [
      "人声嘈杂 + 低频"),
 
     # ---------------- N06（7 镜：5 agnes + 2 信息卡）----------------
-    ("S39", "agnes", "缓慢前推", "审判：雾气中的法院台阶",
+    ("S39", "agnes", "缓慢前推", "审判：雾气中的台阶（构图中不出现建筑）",
      "接 AGNES：法庭内",
-     "A cold grey December morning: the backs of a row of people climbing a plain concrete staircase, "
-     "the camera pointing down at the stairs so the frame holds only the steps, the climbing backs and "
-     "white fog above, the courthouse entrance hidden in the fog with no facade visible, no columns, no "
-     "pediment, no emblem, no signage, no lettering, no numbers, no officer in frame, no faces visible. "
-     "Slow push in up the steps, " + HOLD,
+     "A cold grey morning in thick white fog: the backs of a row of people in dark winter coats climbing "
+     "a plain concrete staircase, the frame holding only the steps, the climbing backs and the fog, no "
+     "building of any kind visible anywhere, no facade, no columns, no pediment, no emblem, no signage, "
+     "no lettering, no numbers, no officer in frame, no faces visible. Slow push in up the steps, " + HOLD,
      "脚步 + 人群低语"),
     ("S40", "agnes", "缓慢前推（手部近景）", "判决：木槌落在没有字的判决书上",
      "接信息卡：判决时间线",
