@@ -167,13 +167,13 @@ SHOTS = [
      "演播室底噪 + 提问"),
     ("S05", "agnes", "缓慢跟拍（背影）", "监狱大门打开，一个人走向阳光",
      "接 AGNES：书桌与旧照片",
-     "A man in a dark coat, seen strictly from behind at a long distance, walking out through an open steel gate"
-     "between plain stone piers on an overcast winter morning: his figure small in the centre of the frame, face"
-     "never visible, one hand carrying a plain cardboard folder with no marking; the stone piers, the steel gate"
-     "and the long boundary wall are entirely plain with the surface is completely bare and featureless with no"
-     "plates, no numbers, no notices, no labels, no fixtures and no lettering of any kind, wet asphalt in the"
-     "foreground reflecting the pale sky, an empty paved forecourt beyond; no vehicles, no people, no signage, no"
-     "guard booth lettering. Slow tracking shot following his back away from the gate, no cut, no scene change, no"
+     "A man in a dark coat, seen strictly from behind at a middle distance, walking away from the camera across an"
+     "empty wet forecourt on a bright winter morning: his back fills the centre of the frame, face never visible,"
+     "one hand carrying a plain cardboard folder with no marking; the background beyond him is empty morning haze"
+     "and pale blank sky, and the gate structures are reduced to two plain out-of-focus stone piers at the extreme"
+     "left and right edges of the frame, cut stone with nothing mounted on them and no fixtures, no plaques, no"
+     "plates and no lettering; wet asphalt reflecting the pale sky in the foreground, no vehicles, no people, no"
+     "windows, no signage. Slow tracking shot following his back away from the gate, no cut, no scene change, no"
      "camera relocation, no second location, no extra people, no readable text anywhere in frame; hold on this"
      "single view for the full clip." + HOLD,
      "铁门轴声 + 脚步"),
@@ -236,16 +236,14 @@ SHOTS = [
      "钢笔划纸（SFX paper）"),
     ("S13", "agnes", "缓慢横移", "判决：法院的走廊与空着的被告席",
      "接 AGNES：监狱走廊",
-     "A high-ceilinged Austrian courthouse corridor in 1976: {C4}, standing in the middle distance with an open"
-     "folder held in both hands, his gaze down toward the pages, three paces from the camera and lit by cold"
-     "daylight from tall windows on the right; far down the corridor two figures are seen strictly from behind, a"
-     "uniformed usher beside the closed double doors and a man in a plain dark suit walking away from the camera,"
-     "their faces never visible, their clothing completely blank with no badges, no insignia, no lettering and no"
-     "numbers; the stone walls, window reveals, benches and door frames are the surface is completely bare and"
-     "featureless with no plates, no numbers, no notices, no labels, no fixtures and no lettering of any kind; no"
-     "other people, no vehicles. Slow lateral drift along the corridor, no cut, no scene change, no camera"
-     "relocation, no second location, no extra people, no readable text anywhere in frame; hold on this single"
-     "view for the full clip." + HOLD,
+     "A medium close-up in a high-ceilinged courthouse corridor in 1976: {C4} seen chest-up in the centre of the"
+     "frame, holding an open folder of blank pages in both hands, his gaze down toward it, cold daylight from a"
+     "tall window on the right modelling one side of his face; the background behind him is a smooth out-of-focus"
+     "dark wall with absolutely nothing mounted on it - no frames, no notices, no plaques, no boards, no doors -"
+     "and the far end of the corridor dissolves into a soft blur of shadow with no figures; no other people, no"
+     "lettering, no numbers anywhere in frame. Slow push in on him, no cut, no scene change, no camera relocation,"
+     "no second location, no extra people, no readable text anywhere in frame; hold on this single view for the"
+     "full clip." + HOLD,
      "法槌回响 + 走廊回声"),
     ("S14", "agnes", "缓慢后拉", "牢门一扇扇关上",
      "接 AGNES：牢房里的写字台",
@@ -332,14 +330,13 @@ SHOTS = [
      "夜场音乐低沉 + 玻璃杯轻碰"),
     ("S23", "agnes", "缓慢后拉（背影）", "一九九〇年五月：他走出监狱",
      "接 N04：黑色轿车与司机",
-     "A man in a light summer coat, seen strictly from behind at a middle distance, walking away from a plain"
-     "stone gatehouse toward a waiting empty street on a bright May morning in 1990: his figure centred, face"
-     "never visible, one hand carrying a plain cardboard folder with no marking; the gatehouse, the wall and the"
-     "pavement are the surface is completely bare and featureless with no plates, no numbers, no notices, no"
-     "labels, no fixtures and no lettering of any kind and the ground carries no painted figures, no lane markings"
-     "and no writing; no vehicles, no people, no signage, no house numbers on the plain facades beyond. Slow pull"
-     "back and up as he walks away, no cut, no scene change, no camera relocation, no second location, no extra"
-     "people, no readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
+     "A man in a light summer coat, seen strictly from behind at a middle distance, walking away from the camera"
+     "across an empty sunlit street: his back fills the centre of the frame, face never visible, one hand carrying"
+     "a plain cardboard folder with no marking; the background is morning haze and a flat sunlit wall of plain"
+     "plaster in soft focus behind him, with no windows, no doors, no numbers, no plates, no notices and no"
+     "lettering on it, and no vehicles and no people anywhere; long soft shadows on dry pavement, plain blank sky"
+     "above. Slow pull back and up as he walks away, no cut, no scene change, no camera relocation, no second"
+     "location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
      "铁门关闭 + 城市底噪"),
     ("S24", "graphic", "信息卡（静帧）", "口径：假释之后 / 同年十月起开始有人失踪",
      "接 AGNES：洛杉矶警探的桌子（C5 首次出现）",
@@ -355,15 +352,14 @@ SHOTS = [
      "电话拨号 + 打字机远响"),
     ("S26", "agnes", "缓慢横摇", "洛杉矶：雨夜里的警戒带",
      "接 AGNES：机场里的采访笔记",
-     "An empty side street in Los Angeles at night in 1991 under light rain: wet asphalt mirroring a single sodium"
-     "street light and the alternating red and blue wash of patrol lights from off-screen, a length of plain"
-     "barrier tape strung between two bare posts, weeds cracking the kerb, and a long blank concrete wall filling"
-     "the right of the frame with the surface is completely bare and featureless with no plates, no numbers, no"
-     "notices, no labels, no fixtures and no lettering of any kind and no graffiti, no posters, no notices and no"
-     "painted signs on it, the street lamp itself a plain unadorned pole with nothing attached to it; no"
-     "lettering, no numbers, no vehicles, no people, no bodies. Slow pan across the tape and the wet asphalt, no"
-     "cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere"
-     "in frame; hold on this single view for the full clip." + HOLD,
+     "An empty city street at night in the rain: a wet road running away toward a vanishing point of darkness, one"
+     "sodium street lamp high above throwing a cone of light, and in the foreground a length of plain"
+     "single-colour white barrier tape strung between two bare metal posts, the tape carrying no printing, no"
+     "pattern and no marking of any kind; everything beyond the lamp is a deep blue night with a blank dark wall"
+     "in shadow that carries nothing on it - no notices, no posters, no graffiti, no lettering; heavy rain visible"
+     "in the light cone, mirror reflections on the asphalt, no vehicles, no people. Slow pan across the tape and"
+     "the wet asphalt, no cut, no scene change, no camera relocation, no second location, no extra people, no"
+     "readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
      "雨声 + 远处警笛"),
     ("S27", "agnes", "缓慢前推（中景）", "他就在现场：机场候机厅里的回头",
      "接 AGNES：洛杉矶警探的线索板",
@@ -394,14 +390,14 @@ SHOTS = [
      "喷气引擎低鸣 + 风声"),
     ("S30", "agnes", "缓慢跟拍（背影）", "八月：他被押送着走出门",
      "接 N05：并案的桌面",
-     "A medium shot in a plain corridor in 1992: {C1}, walking toward the camera with his hands held together in"
-     "front of his waist, a dark jacket over his shoulders, his expression level and composed; two uniformed"
-     "officers flank him and are visible only from behind as dark blurred silhouettes at the edge of frame, their"
-     "uniforms completely plain and anonymous with no badges, no patches, no epaulettes, no insignia, no numbers"
-     "and no lettering whatsoever; the corridor walls are bare painted plaster with the surface is completely bare"
-     "and featureless with no plates, no numbers, no notices, no labels, no fixtures and no lettering of any kind;"
-     "slow tracking shot ahead of him, no cut, no scene change, no camera relocation, no second location, no extra"
-     "people, no readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
+     "A medium shot in a dark corridor at night: {C1}, walking slowly toward the camera in the centre of the frame"
+     "with his hands held together in front of his waist, a dark jacket over his shoulders, his face lit only by a"
+     "single overhead lamp while everything around him falls away into near-blackness; two escorts walk at his"
+     "sides and appear only as unlit black shapes at the very edges of the frame, their silhouettes featureless"
+     "with no uniform detail, no badges, no patches, no insignia, no numbers and no lettering catching any light"
+     "at all; the wall behind him is in deep shadow with nothing legible on it; slow tracking shot ahead of him,"
+     "no cut, no scene change, no camera relocation, no second location, no extra people, no readable text"
+     "anywhere in frame; hold on this single view for the full clip." + HOLD,
      "脚步回声 + 低频"),
 ]
 SHOTS += [
@@ -493,14 +489,14 @@ SHOTS += [
      "法槌（SFX press）"),
     ("S41", "agnes", "缓慢前推（中景）", "被告席上：最后一次露出的那张脸",
      "接 AGNES：清晨的空牢房",
-     "A medium shot inside an Austrian courtroom in June 1994: {C1} only to the chest, standing behind a plain"
+     "A medium close-up inside an Austrian courtroom in June 1994: {C1} only to the chest, standing behind a plain"
      "polished wooden rail in the dock with both hands resting flat on it, looking directly toward the camera with"
-     "a flat composed expression; the panelled wall behind him is bare and unbroken with the surface is completely"
-     "bare and featureless with no plates, no numbers, no notices, no labels, no fixtures and no lettering of any"
-     "kind and no plaques, no crests, no emblems and no numbers, the rows of the public gallery are visible only"
-     "as dark blurred shapes far behind, no identifiable faces, no other people in the foreground. Slow push in on"
-     "him, no cut, no scene change, no camera relocation, no second location, no extra people, no readable text"
-     "anywhere in frame; hold on this single view for the full clip." + HOLD,
+     "a flat composed expression; the background behind him is a single continuous panel of plain dark wood"
+     "filling the frame in soft focus, with absolutely nothing mounted on it - no plaques, no name plates, no"
+     "numbers, no handles, no crests and no emblems - and the public gallery is a dark blur at the very bottom of"
+     "the frame with no identifiable faces; no other people in the foreground. Slow push in on him, no cut, no"
+     "scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame;"
+     "hold on this single view for the full clip." + HOLD,
      "法庭静默 + 低频"),
     ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
      "接 AGNES：编辑部里合上的那本书",
@@ -513,12 +509,11 @@ SHOTS += [
      "铁窗风 + 静默"),
     ("S43", "agnes", "缓慢前推（中景）", "文学界的沉默：编辑部里合上的书",
      "接 AGNES：桌上合起的书",
-     "A medium shot in a book-lined publishing office in Vienna in 1994: {C3}, seated in his leather armchair with"
-     "a thick cloth-bound book closed on his knees and one hand resting flat on the cover, his head lowered, the"
-     "reading lamp still burning behind him; the spines on the shelves behind him are entirely blank and"
-     "unlettered with no titles, no names, no numbers and no gold tooling of any kind, and the wall behind is"
-     "plain with the surface is completely bare and featureless with no plates, no numbers, no notices, no labels,"
-     "no fixtures and no lettering of any kind; the room is otherwise empty, no windows in frame, no signage. Slow"
+     "A medium close-up in a book-lined study in Vienna in 1994: {C3}, seated in his leather armchair with a thick"
+     "closed cloth-bound book resting on his knees, one hand flat on the blank cover, his head lowered under the"
+     "reading lamp; the shelves behind him fall far out of focus so that the books read only as soft dark bands of"
+     "muted colour, with nothing legible on any spine, no titles, no lettering, no numbers and no gold tooling;"
+     "the room is otherwise empty and dim, no signage, no charts, no frames on the walls; no other people. Slow"
      "push in on him, no cut, no scene change, no camera relocation, no second location, no extra people, no"
      "readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
      "合书声（SFX paper） + 挂钟"),
