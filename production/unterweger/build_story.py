@@ -155,14 +155,13 @@ SHOTS = [
      "纸张与杯碟轻响"),
     ("S04", "agnes", "缓慢前推（中景）", "媒体在追捧他：女记者提问",
      "接 AGNES：监狱大门与走出的人",
-     "A medium shot inside a 1980s television studio in Vienna: {C2}, seated facing a microphone on a stand,"
-     "leaning slightly forward with a notebook open in one hand, the striped fabric of an empty guest armchair"
-     "visible at the edge of frame beside her; the background is a seamless featureless dark grey studio wall,"
-     "thrown far out of focus by shallow depth of field, carrying no lettering, no numbers, no marks and no"
-     "objects of any kind, the blurred shoulder of a camera operator seen strictly from behind at the edge of"
-     "frame with no face visible; no other people, no signage, no posters. Slow push in on her, no cut, no scene"
-     "change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold"
-     "on this single view for the full clip." + HOLD,
+     "A tight medium shot inside a 1980s television studio in Vienna, the frame filled corner to corner by the "
+     "subject and the equipment: {C2}, seated on a low stool facing a microphone on a stand, leaning slightly "
+     "forward with a notebook open in one hand; immediately behind her hangs a heavy dark charcoal wool curtain "
+     "whose deep folds fill the whole upper background and every edge of the frame, the fabric perfectly plain "
+     "in tone and texture, and a dark blurred boom microphone arm crosses the top corner; there is no wall, no "
+     "panel, no board, no paper and no surface carrying any mark, line or number anywhere in frame, and no other "
+     "person. Slow push in on her, " + HOLD,
      "演播室底噪 + 提问"),
     ("S05", "agnes", "缓慢跟拍（背影）", "监狱大门打开，一个人走向阳光",
      "接 AGNES：书桌与旧照片",
@@ -222,21 +221,21 @@ SHOTS = [
      "低音撞击"),
     ("S12", "agnes", "缓慢前推（中景）", "维也纳刑警办案（C4 首次出现）",
      "接 AGNES：法院走廊",
-     "A medium shot in a small Austrian police office at night in 1976: {C4}, seated at a steel desk with a "
-     "ballpoint pen in his hand, an open file of blank lined pages in front of him, his coat still on the back of "
-     "his chair, a green-shaded desk lamp pooling light on the desk; behind him only a bare painted wall and a "
-     "plain steel filing cabinet with no labels, no plates, no lettering, no numbers, no other people and no "
-     "windows. Slow push in on him, " + HOLD,
+     "A tight medium shot in a small Austrian police office at night in 1976, framed so that only the desk, the "
+     "lamp and the investigator are in view: {C4}, seated at a steel desk with a ballpoint pen in his hand, an "
+     "open file of blank lined pages in front of him, his coat still on the back of his chair, a green-shaded "
+     "desk lamp pooling light across the desk; behind him the room falls away into complete darkness with no "
+     "wall surface, no cabinet, no shelf and no object visible at all, and nothing in the frame carries any "
+     "lettering, tag or number; no other people. Slow push in on him, " + HOLD,
      "钢笔划纸（SFX paper）"),
     ("S13", "agnes", "缓慢横移", "判决：法院的走廊与空着的被告席",
      "接 AGNES：监狱走廊",
-     "A high-ceilinged Austrian courthouse corridor in 1976, entirely empty of people: tall bare windows throwing"
-     "cold daylight across a worn stone floor, dark wooden benches along the wall, a heavy double door standing"
-     "closed at the far end; photographed from a low angle so the walls above the bench line are bare and"
-     "featureless, with no notice boards, no framed documents, no plaques, no signs, no lettering and no numbers"
-     "anywhere in frame. Slow lateral drift along the corridor, no cut, no scene change, no camera relocation, no"
-     "second location, no extra people, no readable text anywhere in frame; hold on this single view for the full"
-     "clip." + HOLD,
+     "An Austrian courthouse corridor in 1976, entirely empty of people, photographed from a very low angle "
+     "close to the floor so that the frame is filled edge to edge by the receding row of dark wooden benches "
+     "and the worn stone floor: the bench backs and their plank shadow lines lead away toward a closed heavy "
+     "door at the far end, cold daylight falling across the floor; the upper walls, windows and doors are "
+     "completely outside the frame, and no surface in view carries any notice, plaque, lettering or number; "
+     "no people, no furniture other than the benches. Slow lateral drift low along the benches, " + HOLD,
      "法槌回响 + 走廊回声"),
     ("S14", "agnes", "缓慢后拉", "牢门一扇扇关上",
      "接 AGNES：牢房里的写字台",
@@ -258,15 +257,14 @@ SHOTS = [
      "打字机键声（SFX machine）"),
 
     # ---------------- N03（8 镜：7 agnes + 1 信息卡）----------------
-    ("S16", "agnes", "缓慢前推（中景）", "写作的人：牢房夜灯下的那张脸",
+    ("S16", "agnes", "缓慢前推（特写）", "写作的人：牢房夜灯下的那张脸",
      "接 AGNES：稿纸与钢笔",
-     "A medium shot inside a dim prison cell at night in 1985: {C1}, seated at a small table with his forearms"
-     "resting on a stack of blank pages, a cigarette burning in a tin ashtray beside a glass of water, a bare bulb"
-     "overhead modelling his face from above while the cell behind him falls into near blackness; the wall behind"
-     "him is featureless bare plaster with no numerals, no marks, no plates and no writing of any kind, and the"
-     "window edge in frame is plain and unmarked; no other people. Slow push in on his face, no cut, no scene"
-     "change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold"
-     "on this single view for the full clip." + HOLD,
+     "An intimate close shot inside a dim prison cell at night in 1985, framed so that only four things are in "
+     "view: {C1}, seated at a small table with his forearms resting on a stack of blank pages, a cigarette "
+     "burning in a tin ashtray beside a glass of water, and the corner of the rough wooden tabletop; the whole "
+     "background behind him is out of focus and out of frame, falling into unlit darkness with no wall, no "
+     "plaster, no window and no surface visible at all, and nothing in the frame carries any lettering, mark, "
+     "plate or number; no other people. Slow push in on his face, " + HOLD,
      "笔尖与纸 + 低频"),
     ("S17", "agnes", "缓慢横移（特写）", "书是怎么写出来的：桌上一摞稿纸",
      "接 AGNES：编辑读稿（C3 首次出现）",
@@ -305,26 +303,23 @@ SHOTS = [
      "翻稿声 + 老式挂钟"),
     ("S22", "agnes", "缓慢前推（中景）", "夜的另一面：酒吧里的女招待",
      "接 AGNES：监狱大门再次打开",
-     "A medium shot behind the counter of a small Viennese night bar in 1990: {C6}, leaning with both hands on the"
-     "counter, a damp cloth in one hand, a towel over her shoulder, looking off toward the door with a tired level"
-     "gaze; behind her only plain dark shelving holding rows of completely unmarked bottles with blank labels and"
-     "a warm pendant lamp; the wall she stands against is plain dark panelling with no poster, no notice, no"
-     "picture, no lettering and no numbers anywhere, no other people in frame. Slow push in on her, no cut, no"
-     "scene change, no camera relocation, no second location, no extra people, no readable text anywhere in frame;"
-     "hold on this single view for the full clip." + HOLD,
+     "A tight medium shot behind the counter of a small Viennese night bar in 1990, framed so that the counter "
+     "and her upper body fill the frame: {C6}, leaning with both hands on the counter, a damp cloth in one hand, "
+     "a towel over her shoulder, looking off toward the door with a tired level gaze; a single warm pendant "
+     "lamp hangs just above her, and everything behind her is thrown far out of focus into soft warm bokeh with "
+     "no shelf, no bottle, no cabinet and no wall surface readable anywhere; no labels, no lettering, no numbers, "
+     "no other people in frame. Slow push in on her, " + HOLD,
      "夜场音乐低沉 + 玻璃杯轻碰"),
     ("S23", "agnes", "缓慢后拉（背影）", "一九九〇年五月：他走出监狱",
      "接 N04：黑色轿车与司机",
-     "A man in a light summer coat, seen strictly from behind at a long distance, walking away from a plain stone"
-     "prison gate toward a waiting empty street on a bright May morning in 1990: his figure small in the frame,"
-     "one hand carrying a plain cardboard folder; the gate and the wall are blank stone with no inscription, no"
-     "plate, no number and no notice, photographed from a low distance so that the wall above the gate stays out"
-     "of frame; no vehicles, no people, no signage. Slow pull back and up as he walks away, no cut, no scene"
-     "change, no camera relocation, no second location, no extra people, no readable text anywhere in frame; hold"
-     "on this single view for the full clip." + HOLD,
+     "A man in a light summer coat, seen strictly from behind at a distance, walking away through the open "
+     "gateway of a plain stone prison on a bright May morning in 1990: the camera is low and inside the "
+     "gateway, so the frame is filled by the two stone doorposts on either side, the sunlit cobbled street "
+     "beyond and his back small in the bright opening with a plain cardboard folder in one hand; the lintel "
+     "above the gate and every wall surface are completely outside the frame, and nothing in view carries any "
+     "inscription, plate or number; no vehicles, no people, no signage. Slow pull back and up as he walks away, "
+     + HOLD,
      "铁门关闭 + 城市底噪"),
-
-    # ---------------- N04（7 镜：6 agnes + 1 信息卡）----------------
     ("S24", "graphic", "信息卡（静帧）", "口径：假释之后 / 同年十月起开始有人失踪",
      "接 AGNES：洛杉矶警探的桌子（C5 首次出现）",
      "一九九〇年五月：假释出狱 · 无附加条件；同年十月起，维也纳开始有人失踪（公开报道口径）",
@@ -407,14 +402,14 @@ SHOTS += [
      "no second location, no extra people, no readable text anywhere in frame; hold on this single view for the"
      "full clip." + HOLD,
      "打字机键声（SFX machine）"),
-    ("S34", "agnes", "缓慢前推（中景）", "逃亡途中：酒店房间里的那盏台灯",
+    ("S34", "agnes", "缓慢前推（特写）", "逃亡途中：酒店房间里的那盏台灯",
      "接 AGNES：林地的清晨",
-     "A medium shot in a modest hotel room at night in 1992: {C1}, seated on the edge of the bed with a telephone"
-     "handset held against his ear, a small suitcase lying open on the luggage rack beside him, his jacket hung"
-     "over the chair, the bedside lamp the only light source; the wallpaper, the curtains and the bed frame are"
-     "plain and unpatterned with no numerals, no floral ornament, no lettering and no printed marks anywhere, no"
-     "other people in frame. Slow push in on him, no cut, no scene change, no camera relocation, no second"
-     "location, no extra people, no readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
+     "An intimate close shot in a modest hotel room at night in 1992, framed so that only his head and shoulders, "
+     "the telephone and the edge of a plain unpatterned curtain are in view: {C1}, seated with a telephone "
+     "handset held against his ear, lit from one side by a bedside lamp that stands just outside the frame; the "
+     "wallpaper, the bed, the luggage rack and the far side of the room are all outside the frame, and the "
+     "curtain fabric is smooth, plain and free of any pattern, figure or mark; nothing in the frame carries "
+     "lettering, numbers or printed marks, and no other person is present. Slow push in on him, " + HOLD,
      "拨号音 + 窗外雨"),
     ("S35", "agnes", "缓慢横移（远景）", "林地的清晨：没有人的现场",
      "接 AGNES：迈阿密的羁押室",
