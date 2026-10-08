@@ -1,0 +1,132 @@
+{
+  "mode": "face",
+  "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。改完跑：python3 production/face_cast.py check-prompts --project production/unterweger",
+  "_casting_note": "六个角色都是符合年代的虚构匿名人物（AI 生成），不是任何真实人物的容貌还原：主角不是杰克·翁特维格本人的脸，刑警/警探/记者/编辑/主持人都不是真实个人的肖像。受害者不以任何人像出现，也不给可辨识面容；片中不出现遗体、血腥与作案过程。",
+  "characters": [
+    {
+      "id": "C1",
+      "name": "作家（本案核心人物 · 虚构匿名角色）",
+      "role": "suspect",
+      "age": 39,
+      "gender": "male",
+      "face": "an anonymous Austrian man of thirty-nine: a long narrow face with a high forehead and a sharply receding hairline, deep-set grey-blue eyes under heavy hooded lids, thin arched eyebrows, a long straight nose with a slightly hooked bridge, narrow lips with a sardonic upward curl at the left corner, short dark blond hair brushed back and thinning at the crown, pale weathered skin with faint marks on the right cheek; he wears a dark green corduroy jacket over a black turtleneck.",
+      "portrait": "cast/C1.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/39414314-desktop-tutorial/production/unterweger/cast/C1.jpg",
+      "seed": 19900523
+    },
+    {
+      "id": "C2",
+      "name": "女记者（奥地利电视台 · 虚构匿名角色）",
+      "role": "reporter",
+      "age": 34,
+      "gender": "female",
+      "face": "a female television reporter, an anonymous Austrian woman of thirty-four, with shoulder-length dark brown hair tucked behind both ears and a blunt fringe: a heart-shaped face with high cheekbones and a pointed chin, wide alert hazel eyes with straight dark lashes, level dark eyebrows, a short straight nose, a wide expressive mouth, warm olive skin; she wears small round glasses, a mustard-yellow blouse and a brown tweed blazer.",
+      "portrait": "cast/C2.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/39414314-desktop-tutorial/production/unterweger/cast/C2.jpg",
+      "seed": 19910611
+    },
+    {
+      "id": "C3",
+      "name": "出版社老编辑（文学界请愿者 · 虚构匿名角色）",
+      "role": "other",
+      "age": 62,
+      "gender": "male",
+      "face": "a veteran publishing editor, an anonymous Austrian man of sixty-two, thick silver hair combed back over the ears and no beard except a grey moustache: a broad square face with heavy jowls and a deeply lined forehead, small kindly eyes behind thick horn-rimmed spectacles, heavy white eyebrows, a large fleshy nose, a full mouth under the moustache, mottled ruddy skin; he wears a charcoal waistcoat over a white shirt with the sleeves rolled up.",
+      "portrait": "cast/C3.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/39414314-desktop-tutorial/production/unterweger/cast/C3.jpg",
+      "seed": 19830915
+    },
+    {
+      "id": "C4",
+      "name": "维也纳刑警（连环失踪案办案人 · 虚构匿名角色）",
+      "role": "police",
+      "age": 54,
+      "gender": "male",
+      "face": "a criminal investigator, an anonymous Austrian man of fifty-four, short iron-grey hair cropped close at the sides and clean-shaven: a long weathered face with hollow cheeks and a heavy prominent chin, tired deep-set eyes with sagging lower lids, sparse grey eyebrows, a long thin nose with a slightly broken bridge, a thin mouth pressed tight, leathery sun-darkened skin; he wears a rumpled grey herringbone overcoat over a dark tie and dark trousers.",
+      "portrait": "cast/C4.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/39414314-desktop-tutorial/production/unterweger/cast/C4.jpg",
+      "seed": 19920213
+    },
+    {
+      "id": "C5",
+      "name": "洛杉矶女警探（跨洲并案的另一端 · 虚构匿名角色）",
+      "role": "police",
+      "age": 41,
+      "gender": "female",
+      "face": "a homicide detective, an anonymous American woman of forty-one, straight shoulder-length auburn hair pulled back into a low twist: a square-jawed face with a strong chin and faint freckles across the nose, steady pale blue eyes with fine crow's feet, sandy eyebrows bleached lighter by the sun, a small upturned nose, a wide mouth with chapped lips, sun-flushed fair skin; she wears an open dark navy blazer over a white shirt.",
+      "portrait": "cast/C5.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/39414314-desktop-tutorial/production/unterweger/cast/C5.jpg",
+      "seed": 19910624
+    },
+    {
+      "id": "C6",
+      "name": "夜场女招待（维也纳夜里的目击者 · 虚构匿名角色）",
+      "role": "witness",
+      "age": 27,
+      "gender": "female",
+      "face": "a night-shift bar waitress, an anonymous young woman of twenty-seven, long wavy black hair falling loose over one shoulder: a round soft face with full cheeks and a small chin, large dark brown eyes with thick lashes and a weary gaze, softly arched eyebrows, a small flat nose, a small mouth painted dark red, pale powder-dry skin; she wears a plain black sleeveless dress with a thin silver necklace.",
+      "portrait": "cast/C6.jpg",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/39414314-desktop-tutorial/production/unterweger/cast/C6.jpg",
+      "seed": 19901020
+    }
+  ],
+  "shots": {
+    "S04": [
+      "C2"
+    ],
+    "S07": [
+      "C1"
+    ],
+    "S12": [
+      "C4"
+    ],
+    "S16": [
+      "C1"
+    ],
+    "S19": [
+      "C2"
+    ],
+    "S20": [
+      "C1"
+    ],
+    "S21": [
+      "C3"
+    ],
+    "S22": [
+      "C6"
+    ],
+    "S25": [
+      "C5"
+    ],
+    "S27": [
+      "C1"
+    ],
+    "S28": [
+      "C5"
+    ],
+    "S30": [
+      "C1"
+    ],
+    "S32": [
+      "C4"
+    ],
+    "S33": [
+      "C5"
+    ],
+    "S34": [
+      "C1"
+    ],
+    "S36": [
+      "C1"
+    ],
+    "S38": [
+      "C2"
+    ],
+    "S41": [
+      "C1"
+    ],
+    "S43": [
+      "C3"
+    ]
+  }
+}
