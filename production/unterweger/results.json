@@ -332,13 +332,6 @@
       "reused_existing_asset": false,
       "visual_review": "pending"
     },
-    "S13": {
-      "id": "S13",
-      "status": "failed",
-      "request_hash": "5deb5ef663c12a1b5fdb900066befd3c30eb68e51981005d927f9d7dc27933a9",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Service busy: inference slot is in use.\\\",\\\"code\\\":\\\"503\\\"}}\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261008142644855257742qZlDHCiT)",
-      "updated_at": "2026-10-08T14:26:50Z"
-    },
     "S14": {
       "id": "S14",
       "status": "completed",
@@ -668,13 +661,6 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending"
-    },
-    "S30": {
-      "id": "S30",
-      "status": "failed",
-      "request_hash": "2e49e603103612e1042124bfe0925c90faa5b34ef34d035f9ae2b99e0f64d259",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Service busy: inference slot is in use.\\\",\\\"code\\\":\\\"503\\\"}}\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261008143224897213364cCS4wBoA)",
-      "updated_at": "2026-10-08T14:32:36Z"
     },
     "S33": {
       "id": "S33",
@@ -1205,7 +1191,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1259,8 +1245,8 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T14:39:23Z",
-  "run_id": "37792195651",
+  "updated_at": "2026-10-08T14:43:43Z",
+  "run_id": "37794688659",
   "previous_results": {
     "S01": [
       {
