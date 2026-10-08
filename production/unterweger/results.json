@@ -827,13 +827,6 @@
       "reused_existing_asset": false,
       "visual_review": "pending"
     },
-    "S34": {
-      "id": "S34",
-      "status": "failed",
-      "request_hash": "564957b2b6d35e6ec86fcdef459ed61df49d39387b2ef0b28dbefa530116ad23",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Service busy: inference slot is in use.\\\",\\\"code\\\":\\\"503\\\"}}\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261008125048298799771XAOLy0AY)",
-      "updated_at": "2026-10-08T12:50:51Z"
-    },
     "S35": {
       "id": "S35",
       "status": "completed",
@@ -1231,7 +1224,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1285,8 +1278,8 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T13:01:49Z",
-  "run_id": "37778032454",
+  "updated_at": "2026-10-08T13:05:47Z",
+  "run_id": "37781565814",
   "previous_results": {
     "S01": [
       {
