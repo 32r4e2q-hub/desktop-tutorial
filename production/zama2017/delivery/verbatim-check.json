@@ -1,0 +1,369 @@
+{
+  "film": "日本座间九人案_一间公寓里的九条人命_三分钟_带声音.mp4",
+  "film_sha256": "72315da4506340f3abfce2984a67893c707f5bbdd0042306e55c839f6668de1f",
+  "film_bytes": 56645528,
+  "project": "production/zama2017",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 22.116,
+        "script_chars": 95,
+        "heard_chars": 95,
+        "character_error_rate": 0.0316,
+        "match_coverage": 0.9684,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "座间市",
+            "heard": "坐监视"
+          }
+        ],
+        "transcript": "2017年10月30日,日本神奈川县坐监视,警察敲开了一间普通公寓的门。门一开,警察就意识到,这间十几平方米的小屋里藏着九名失踪者的下落,而把警察带到这里的,是一名23岁女孩失踪前留在社交媒体上的一条消息。"
+      },
+      {
+        "id": "N02",
+        "start": 23.196,
+        "end": 49.4,
+        "script_chars": 110,
+        "heard_chars": 109,
+        "character_error_rate": 0.0727,
+        "match_coverage": 0.9273,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "隆",
+            "heard": "龙"
+          },
+          {
+            "at": 42,
+            "kind": "replace",
+            "script": "星",
+            "heard": "心"
+          },
+          {
+            "at": 75,
+            "kind": "replace",
+            "script": "丘一栋",
+            "heard": "秋移动"
+          },
+          {
+            "at": 88,
+            "kind": "replace",
+            "script": "一万",
+            "heard": "十"
+          },
+          {
+            "at": 91,
+            "kind": "replace",
+            "script": "千",
+            "heard": "零"
+          }
+        ],
+        "transcript": "这间公寓的主人叫白石龙浩1990年出生在座间案发时27岁他之前在东京街头做过拉人的心探还因为这份工作被警察抓过2017年8月22日他搬进这间公寓绿秋移动旧公寓的二楼月租只要19,000日元邻居们说这个年轻人看起来普普通通"
+      },
+      {
+        "id": "N03",
+        "start": 50.48,
+        "end": 79.191,
+        "script_chars": 125,
+        "heard_chars": 125,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "搬进来之后,他在社交媒体上注册了好几个账号专门找那些说自己活不下去的年轻人他假装自己也一样绝望说要陪对方一起走把对方约到自己的公寓从8月下旬到10月下旬短短两个月9个人走进这间公寓再也没有出来8名女性1名男性年龄从15岁到26岁其中那名男性是来找女友的"
+      },
+      {
+        "id": "N04",
+        "start": 80.271,
+        "end": 109.131,
+        "script_chars": 121,
+        "heard_chars": 121,
+        "character_error_rate": 0.0331,
+        "match_coverage": 0.9669,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 107,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 111,
+            "kind": "replace",
+            "script": "座间市",
+            "heard": "坐监室"
+          }
+        ],
+        "transcript": "转机来自八王子一名23岁的女孩10月下旬她突然失踪哥哥翻看她的社交账号发现她失踪前一直在和一个陌生账号聊天车站的监控还拍到女孩曾和一名男子一起出现在车站警方顺着这个账号设下埋伏约对方在车站见面10月30日警察一路跟着她回到了坐监室的那间公寓门口"
+      },
+      {
+        "id": "N05",
+        "start": 110.211,
+        "end": 141.112,
+        "script_chars": 131,
+        "heard_chars": 131,
+        "character_error_rate": 0.0687,
+        "match_coverage": 0.9313,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "隆浩",
+            "heard": "龙号"
+          },
+          {
+            "at": 80,
+            "kind": "replace",
+            "script": "作",
+            "heard": "做"
+          },
+          {
+            "at": 83,
+            "kind": "replace",
+            "script": "租",
+            "heard": "做"
+          },
+          {
+            "at": 100,
+            "kind": "replace",
+            "script": "再",
+            "heard": "在"
+          },
+          {
+            "at": 106,
+            "kind": "replace",
+            "script": "脱氧",
+            "heard": "拖养"
+          },
+          {
+            "at": 122,
+            "kind": "replace",
+            "script": "案件",
+            "heard": "暗箭"
+          }
+        ],
+        "transcript": "门一打开,警察就看到了堆在屋里的几个箱子,搜查很快确认,此前失踪的九个人都在这间公寓里找到了下落。第二天,白石龙号被警方逮捕,面对审讯,他承认了全部罪行,还承认这间公寓就是为了做案才做下的。警方靠遗留的银行卡和手机定位,在比对家属的拖养核糖核酸,逐一确认了九人的身份,暗箭震惊了整个日本。"
+      },
+      {
+        "id": "N06",
+        "start": 142.192,
+        "end": 174.0,
+        "script_chars": 132,
+        "heard_chars": 132,
+        "character_error_rate": 0.0227,
+        "match_coverage": 0.9773,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 31,
+            "kind": "replace",
+            "script": "认",
+            "heard": "任"
+          },
+          {
+            "at": 112,
+            "kind": "replace",
+            "script": "上",
+            "heard": "界"
+          },
+          {
+            "at": 120,
+            "kind": "replace",
+            "script": "它",
+            "heard": "他"
+          }
+        ],
+        "transcript": "2020年12月15日,东京地方法院立川支部判处他死刑。他在法庭上任下全部罪名,又撤回上诉,死刑在2021年1月确定。2025年6月27日,死刑执行。这是日本时隔两年11个月,再次执行死刑。九条人命,两个月,一间公寓。网络对面的一句我陪你,可能是世界最危险的话。如果他发给了你,你能分辨出来吗?"
+      }
+    ],
+    "max_cer": 0.0727,
+    "failing": []
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 22.116,
+        "script_chars": 95,
+        "heard_chars": 95,
+        "character_error_rate": 0.0316,
+        "match_coverage": 0.9684,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "座间市",
+            "heard": "坐监事"
+          }
+        ],
+        "transcript": "2017年10月30日日本神奈川县坐监事警察敲开了一间普通公寓的门门一开警察就意识到这间十几平方米的小屋里藏着九名失踪者的下落而把警察带到这里的是一名23岁女孩失踪前留在社交媒体上的一条消息"
+      },
+      {
+        "id": "N02",
+        "start": 23.196,
+        "end": 49.4,
+        "script_chars": 110,
+        "heard_chars": 109,
+        "character_error_rate": 0.0636,
+        "match_coverage": 0.9364,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "隆",
+            "heard": "龙"
+          },
+          {
+            "at": 75,
+            "kind": "replace",
+            "script": "丘一栋",
+            "heard": "秋移动"
+          },
+          {
+            "at": 88,
+            "kind": "replace",
+            "script": "一万",
+            "heard": "十"
+          },
+          {
+            "at": 91,
+            "kind": "replace",
+            "script": "千",
+            "heard": "零"
+          }
+        ],
+        "transcript": "这间公寓的主人叫白石龙浩1990年出生在座间案发时27岁他之前在东京街头做过拉人的星探还因为这份工作被警察抓过2017年8月22日他搬进这间公寓绿秋移动旧公寓的二楼月租只要19,000日元邻居们说这个年轻人看起来普普通通"
+      },
+      {
+        "id": "N03",
+        "start": 50.48,
+        "end": 79.191,
+        "script_chars": 125,
+        "heard_chars": 125,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "搬进来之后他在社交媒体上注册了好几个账号专门找那些说自己活不下去的年轻人他假装自己也一样绝望说要陪对方一起走把对方约到自己的公寓从8月下旬到10月下旬短短两个月九个人走进这间公寓再也没有出来八名女性一名男性年龄从15岁到26岁其中那名男性是来找女友的"
+      },
+      {
+        "id": "N04",
+        "start": 80.271,
+        "end": 109.131,
+        "script_chars": 121,
+        "heard_chars": 121,
+        "character_error_rate": 0.0331,
+        "match_coverage": 0.9669,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 107,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 111,
+            "kind": "replace",
+            "script": "座间市",
+            "heard": "坐监视"
+          }
+        ],
+        "transcript": "转机来自八王子一名23岁的女孩10月下旬她突然失踪哥哥翻看她的社交账号发现她失踪前一直在和一个陌生账号聊天车站的监控还拍到女孩曾和一名男子一起出现在车站警方顺着这个账号设下埋伏约对方在车站见面10月30日警察一路跟着她回到了坐监视的那间公寓门口"
+      },
+      {
+        "id": "N05",
+        "start": 110.211,
+        "end": 141.112,
+        "script_chars": 131,
+        "heard_chars": 131,
+        "character_error_rate": 0.0458,
+        "match_coverage": 0.9542,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "隆浩",
+            "heard": "龙号"
+          },
+          {
+            "at": 80,
+            "kind": "replace",
+            "script": "作",
+            "heard": "做"
+          },
+          {
+            "at": 100,
+            "kind": "replace",
+            "script": "再",
+            "heard": "在"
+          },
+          {
+            "at": 106,
+            "kind": "replace",
+            "script": "脱氧",
+            "heard": "拖养"
+          }
+        ],
+        "transcript": "门一打开,警察就看到了堆在屋里的几个箱子搜查很快确认,此前失踪的9个人都在这间公寓里找到了下落第二天,白石龙号被警方逮捕面对审讯,他承认了全部罪行还承认这间公寓就是为了做案才租下的警方靠遗留的银行卡和手机定位在比对家属的拖养核糖核酸,逐一确认了9人的身份案件震惊了整个日本"
+      },
+      {
+        "id": "N06",
+        "start": 142.192,
+        "end": 174.0,
+        "script_chars": 132,
+        "heard_chars": 209,
+        "character_error_rate": 0.6136,
+        "match_coverage": 0.9697,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 31,
+            "kind": "replace",
+            "script": "认",
+            "heard": "任"
+          },
+          {
+            "at": 81,
+            "kind": "replace",
+            "script": "再次",
+            "heard": "在此"
+          },
+          {
+            "at": 120,
+            "kind": "replace",
+            "script": "它",
+            "heard": "他"
+          },
+          {
+            "at": 132,
+            "kind": "insert",
+            "script": "",
+            "heard": "就算无法分辨我们要不国际在法庭那里就算不国际也不能出现什么事这件事我该怎么办我也应该出现了不过原来我们再来一切如果没有咱们要不还是赶紧回去咱们不要再这么说"
+          }
+        ],
+        "transcript": "2020年12月15日东京地方法院立川支部判处他死刑他在法庭上任下全部罪名又撤回上诉死刑在2021年1月确定2025年6月27日死刑执行这是日本时隔两年11个月在此执行死刑九条人命两个月一间公寓网络对面的一句我陪你可能是世上最危险的话如果他发给了你你能分辨出来吗就算无法分辨我们要不国际在法庭那里就算不国际也不能出现什么事这件事我该怎么办我也应该出现了不过原来我们再来一切如果没有咱们要不还是赶紧回去咱们不要再这么说"
+      }
+    ],
+    "max_cer": 0.6136,
+    "failing": [
+      "N06"
+    ]
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+}
