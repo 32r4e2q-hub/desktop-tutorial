@@ -1,0 +1,69 @@
+{
+  "duration": 180.0,
+  "bytes": 56645528,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "frames": 5400,
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "72315da4506340f3abfce2984a67893c707f5bbdd0042306e55c839f6668de1f",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "id": "N01",
+      "method": "ASR-assisted",
+      "character_match_coverage": 1.0
+    },
+    {
+      "id": "N02",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.2
+    },
+    {
+      "id": "N03",
+      "method": "ASR-assisted",
+      "character_match_coverage": 1.0
+    },
+    {
+      "id": "N04",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9834710743801653
+    },
+    {
+      "id": "N05",
+      "method": "clause-times DP",
+      "character_match_coverage": 0.5267175572519084
+    },
+    {
+      "id": "N06",
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9924242424242424
+    }
+  ],
+  "narration_voice_id": "voice-00",
+  "narration_tempo": 0.9411060267857143,
+  "editorial_segments": 46,
+  "source_clips": 38,
+  "archival_portrait": false,
+  "unique_shots_no_reuse": true,
+  "output": "日本座间九人案_一间公寓里的九条人命_三分钟_带声音.mp4",
+  "soundtrack_mix": {
+    "rms_dbfs": -20.47,
+    "peak_dbfs": -1.52,
+    "silent_fraction": 0.0056,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -20.51,
+    "peak_dbfs": -1.66,
+    "silent_fraction": 0.011,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
