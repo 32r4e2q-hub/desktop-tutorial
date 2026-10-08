@@ -671,10 +671,10 @@
     },
     "S26": {
       "id": "S26",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "ae3fed7de80187ab052fdc29f4e5cc0a8ebae5a93f17c6696ebc84cd6ef778c8",
       "error": null,
-      "updated_at": "2026-10-08T09:08:35Z",
+      "updated_at": "2026-10-08T09:08:38Z",
       "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2VmMGQ5OGZjNDhmZDRkYzZiMGMyMWI3OTk4YTJmYzZm",
       "task_id": "task_1bgl8FqnkTaPuaYlfB2AHMOiYEU7jmUs",
       "requested_seconds": 7.041666666666667,
@@ -682,7 +682,25 @@
       "bytes": 3457116,
       "sha256": "58453d5b1d5a4534e465231bc6e75a1761b62304889a7cb298a920a51ffdbb17",
       "reported_size": "1920x1088",
-      "reported_seconds": "7.0"
+      "reported_seconds": "7.0",
+      "inspection": {
+        "duration": 7.041667,
+        "bytes": 3457116,
+        "width": 1920,
+        "height": 1088,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 169,
+        "audio_codec": "aac",
+        "sample_rate": 48000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/unterweger/qa/S26.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S27": {
       "id": "S27",
@@ -749,6 +767,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T09:08:35Z",
+  "updated_at": "2026-10-08T09:08:38Z",
   "run_id": "37748872364"
 }
