@@ -403,36 +403,10 @@
     },
     "S17": {
       "id": "S17",
-      "status": "completed",
-      "request_hash": "05b5d2423b6a5a278ac82a4a24a95a5ec98f2647e473e5a82ef70611df7d9310",
+      "status": "submitting",
+      "request_hash": "391c536974a06cc106f74a1912c8649f11ec380e675809c0732deaf62f117129",
       "error": null,
-      "updated_at": "2026-10-07T14:05:03Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2ExNDY3NzlhZTgzYzRiNjJiYTA2NTBhMGM4MDE0MTk5",
-      "task_id": "task_E8IW3cGXq76xCCQaYYNs8yrCg1urqcC1",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_a146779ae83c4b62ba0650a0c8014199.mp4",
-      "bytes": 926259,
-      "sha256": "8dbbf84a2d5721d0459d5218adec79ee6d07e2fcaca3078645ab35ad820ffbe7",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 926259,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/zama2017/qa/S17.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": true,
-      "visual_review": "pending"
+      "updated_at": "2026-10-08T00:31:17Z"
     },
     "S19": {
       "id": "S19",
@@ -1312,7 +1286,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T00:31:16Z",
+  "updated_at": "2026-10-08T00:31:17Z",
   "run_id": "37705547426",
   "previous_results": {
     "S03": [
@@ -2184,6 +2158,41 @@
           "visual_review": "pending"
         },
         "reused_existing_asset": false,
+        "visual_review": "pending"
+      }
+    ],
+    "S17": [
+      {
+        "id": "S17",
+        "status": "completed",
+        "request_hash": "05b5d2423b6a5a278ac82a4a24a95a5ec98f2647e473e5a82ef70611df7d9310",
+        "error": null,
+        "updated_at": "2026-10-07T14:05:03Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvX2ExNDY3NzlhZTgzYzRiNjJiYTA2NTBhMGM4MDE0MTk5",
+        "task_id": "task_E8IW3cGXq76xCCQaYYNs8yrCg1urqcC1",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/video_a146779ae83c4b62ba0650a0c8014199.mp4",
+        "bytes": 926259,
+        "sha256": "8dbbf84a2d5721d0459d5218adec79ee6d07e2fcaca3078645ab35ad820ffbe7",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 926259,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/zama2017/qa/S17.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": true,
         "visual_review": "pending"
       }
     ]
