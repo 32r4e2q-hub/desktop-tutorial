@@ -1,0 +1,939 @@
+{
+  "S01": {
+    "shot": "S01",
+    "verdict": "FAIL",
+    "reasons": [
+      "色温越过硬线：-13.2（硬线 -5.0–70.0）"
+    ],
+    "warnings": [
+      "画面里有手（8 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "Haar 级联在 1 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "亮度在警戒区外：38.3（正常 45.0–125.0）"
+    ],
+    "frames": 14,
+    "brightness": 38.3,
+    "contrast": 40.5,
+    "warmth": -13.2,
+    "grain": 5.07,
+    "motion_median": 11.48,
+    "motion_max": 13.19,
+    "skin_ratio": 0.013,
+    "faces": 9,
+    "faces_sure": 0,
+    "haar_hits": 1,
+    "hands": 8,
+    "purpose": "开场：监狱门口的记者与闪光灯"
+  },
+  "S03": {
+    "shot": "S03",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "亮度在警戒区外：39.8（正常 45.0–125.0）",
+      "颗粒在警戒区外：3.8（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 39.8,
+    "contrast": 42.9,
+    "warmth": 25.7,
+    "grain": 3.82,
+    "motion_median": 12.7,
+    "motion_max": 14.88,
+    "skin_ratio": 0.21,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "名人现场：签书会的一角"
+  },
+  "S04": {
+    "shot": "S04",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.94，最大框宽 57%）"
+    ],
+    "warnings": [
+      "亮度在警戒区外：36.4（正常 45.0–125.0）",
+      "颗粒在警戒区外：3.3（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 36.4,
+    "contrast": 32.4,
+    "warmth": 12.6,
+    "grain": 3.29,
+    "motion_median": 16.28,
+    "motion_max": 20.21,
+    "skin_ratio": 0.26,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 12,
+    "hands": 0,
+    "purpose": "媒体在追捧他：女记者提问"
+  },
+  "S05": {
+    "shot": "S05",
+    "verdict": "FAIL",
+    "reasons": [
+      "色温越过硬线：-6.5（硬线 -5.0–70.0）"
+    ],
+    "warnings": [
+      "Haar 级联在 3 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认"
+    ],
+    "frames": 14,
+    "brightness": 86.9,
+    "contrast": 66.8,
+    "warmth": -6.5,
+    "grain": 6.83,
+    "motion_median": 18.57,
+    "motion_max": 22.34,
+    "skin_ratio": 0.009,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 3,
+    "hands": 0,
+    "purpose": "监狱大门打开，一个人走向阳光"
+  },
+  "S06": {
+    "shot": "S06",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 1 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认"
+    ],
+    "frames": 14,
+    "brightness": 64.5,
+    "contrast": 47.8,
+    "warmth": 15.9,
+    "grain": 4.9,
+    "motion_median": 14.18,
+    "motion_max": 17.27,
+    "skin_ratio": 0.468,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 1,
+    "hands": 0,
+    "purpose": "档案：旧照片与放大镜"
+  },
+  "S07": {
+    "shot": "S07",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.96，最大框宽 67%）"
+    ],
+    "warnings": [
+      "画面里有手（6 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "亮度在警戒区外：35.0（正常 45.0–125.0）",
+      "色温在警戒区外：6.4（正常 8.0–45.0）",
+      "颗粒在警戒区外：2.4（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 35.0,
+    "contrast": 37.4,
+    "warmth": 6.4,
+    "grain": 2.45,
+    "motion_median": 11.39,
+    "motion_max": 22.37,
+    "skin_ratio": 0.361,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 6,
+    "purpose": "主角首次露面：酒吧桌前的作家"
+  },
+  "S08": {
+    "shot": "S08",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 12 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "亮度在警戒区外：36.8（正常 45.0–125.0）",
+      "颗粒在警戒区外：4.3（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 36.8,
+    "contrast": 34.3,
+    "warmth": 10.0,
+    "grain": 4.35,
+    "motion_median": 8.11,
+    "motion_max": 9.21,
+    "skin_ratio": 0.114,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 12,
+    "hands": 0,
+    "purpose": "警方在拼图：线索板与红色串线"
+  },
+  "S09": {
+    "shot": "S09",
+    "verdict": "FAIL",
+    "reasons": [
+      "色温越过硬线：-20.0（硬线 -5.0–70.0）"
+    ],
+    "warnings": [
+      "Haar 级联在 2 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "亮度在警戒区外：36.5（正常 45.0–125.0）",
+      "反差在警戒区外：23.9（正常 30.0–90.0）",
+      "颗粒在警戒区外：3.8（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 36.5,
+    "contrast": 23.9,
+    "warmth": -20.0,
+    "grain": 3.76,
+    "motion_median": 11.31,
+    "motion_max": 12.73,
+    "skin_ratio": 0.01,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 2,
+    "hands": 0,
+    "purpose": "一九七四年冬：一条安静的街"
+  },
+  "S10": {
+    "shot": "S10",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：22.8（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "Haar 级联在 1 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "反差在警戒区外：21.0（正常 30.0–90.0）",
+      "色温在警戒区外：6.7（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.0（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 22.8,
+    "contrast": 21.0,
+    "warmth": 6.7,
+    "grain": 2.97,
+    "motion_median": 9.25,
+    "motion_max": 10.33,
+    "skin_ratio": 0.052,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 1,
+    "hands": 0,
+    "purpose": "空房间：一个再没有回来的夜晚"
+  },
+  "S12": {
+    "shot": "S12",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：12 格（最高置信度 0.90，最大框宽 47%）",
+      "亮度越过硬线：27.0（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "画面里有手（6 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：2.2（正常 8.0–45.0）",
+      "颗粒在警戒区外：4.2（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 27.0,
+    "contrast": 37.3,
+    "warmth": 2.2,
+    "grain": 4.2,
+    "motion_median": 15.02,
+    "motion_max": 19.49,
+    "skin_ratio": 0.121,
+    "faces": 13,
+    "faces_sure": 12,
+    "haar_hits": 20,
+    "hands": 6,
+    "purpose": "维也纳刑警办案（C4 首次出现）"
+  },
+  "S13": {
+    "shot": "S13",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 2 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "亮度在警戒区外：42.7（正常 45.0–125.0）",
+      "色温在警戒区外：-3.6（正常 8.0–45.0）",
+      "颗粒在警戒区外：4.4（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 42.7,
+    "contrast": 39.0,
+    "warmth": -3.6,
+    "grain": 4.45,
+    "motion_median": 13.02,
+    "motion_max": 14.68,
+    "skin_ratio": 0.0,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 2,
+    "hands": 0,
+    "purpose": "判决：法院的走廊与空着的被告席"
+  },
+  "S14": {
+    "shot": "S14",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 3 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "色温在警戒区外：-4.7（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.5（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 47.7,
+    "contrast": 37.5,
+    "warmth": -4.7,
+    "grain": 3.51,
+    "motion_median": 13.94,
+    "motion_max": 16.28,
+    "skin_ratio": 0.07,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 3,
+    "hands": 0,
+    "purpose": "牢门一扇扇关上"
+  },
+  "S15": {
+    "shot": "S15",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "色温在警戒区外：5.5（正常 8.0–45.0）",
+      "颗粒在警戒区外：4.2（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 63.0,
+    "contrast": 41.7,
+    "warmth": 5.5,
+    "grain": 4.24,
+    "motion_median": 13.58,
+    "motion_max": 17.0,
+    "skin_ratio": 0.012,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "牢房里的写字台：一支笔和一摞稿纸"
+  },
+  "S16": {
+    "shot": "S16",
+    "verdict": "FAIL",
+    "reasons": [
+      "黑帧：最暗一格亮度 11.2",
+      "检出正脸：14 格（最高置信度 0.94，最大框宽 25%）",
+      "亮度越过硬线：13.2（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "画面里有手（9 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "反差在警戒区外：26.2（正常 30.0–90.0）",
+      "色温在警戒区外：0.3（正常 8.0–45.0）",
+      "颗粒在警戒区外：2.5（正常 4.5–20.0）",
+      "运动在警戒区外：5.4（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 13.2,
+    "contrast": 26.2,
+    "warmth": 0.3,
+    "grain": 2.52,
+    "motion_median": 5.39,
+    "motion_max": 7.1,
+    "skin_ratio": 0.038,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 9,
+    "purpose": "写作的人：牢房夜灯下的那张脸"
+  },
+  "S17": {
+    "shot": "S17",
+    "verdict": "FAIL",
+    "reasons": [
+      "亮度越过硬线：29.8（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "颗粒在警戒区外：3.5（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 29.8,
+    "contrast": 38.3,
+    "warmth": 25.0,
+    "grain": 3.55,
+    "motion_median": 10.38,
+    "motion_max": 11.35,
+    "skin_ratio": 0.166,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "书是怎么写出来的：桌上一摞稿纸"
+  },
+  "S19": {
+    "shot": "S19",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.95，最大框宽 31%）"
+    ],
+    "warnings": [
+      "画面里有手（7 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "亮度在警戒区外：32.4（正常 45.0–125.0）",
+      "反差在警戒区外：26.9（正常 30.0–90.0）",
+      "色温在警戒区外：0.4（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.2（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 32.4,
+    "contrast": 26.9,
+    "warmth": 0.4,
+    "grain": 3.18,
+    "motion_median": 9.18,
+    "motion_max": 11.1,
+    "skin_ratio": 0.145,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 7,
+    "purpose": "他也上了电视：演播室里的女记者"
+  },
+  "S20": {
+    "shot": "S20",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：12 格（最高置信度 0.94，最大框宽 14%）",
+      "亮度越过硬线：21.6（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "画面里有手（16 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "反差在警戒区外：24.9（正常 30.0–90.0）",
+      "色温在警戒区外：0.0（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.1（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 21.6,
+    "contrast": 24.9,
+    "warmth": 0.0,
+    "grain": 3.06,
+    "motion_median": 10.85,
+    "motion_max": 12.36,
+    "skin_ratio": 0.032,
+    "faces": 15,
+    "faces_sure": 12,
+    "haar_hits": 115,
+    "hands": 16,
+    "purpose": "讲座现场：被当成\"改造成功\"的样本"
+  },
+  "S21": {
+    "shot": "S21",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：12 格（最高置信度 0.86，最大框宽 37%）"
+    ],
+    "warnings": [
+      "画面里有手（3 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：2.2（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 60.9,
+    "contrast": 53.9,
+    "warmth": 2.2,
+    "grain": 5.78,
+    "motion_median": 27.29,
+    "motion_max": 36.91,
+    "skin_ratio": 0.114,
+    "faces": 14,
+    "faces_sure": 12,
+    "haar_hits": 4,
+    "hands": 3,
+    "purpose": "文学界替他背书：老编辑读完那本书"
+  },
+  "S22": {
+    "shot": "S22",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.95，最大框宽 42%）",
+      "亮度越过硬线：22.2（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "画面里有手（15 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "颗粒在警戒区外：2.4（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 22.2,
+    "contrast": 37.9,
+    "warmth": 9.9,
+    "grain": 2.38,
+    "motion_median": 10.72,
+    "motion_max": 15.01,
+    "skin_ratio": 0.232,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 15,
+    "purpose": "夜的另一面：酒吧里的女招待"
+  },
+  "S23": {
+    "shot": "S23",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "亮度在警戒区外：141.7（正常 45.0–125.0）"
+    ],
+    "frames": 14,
+    "brightness": 141.7,
+    "contrast": 42.6,
+    "warmth": 14.9,
+    "grain": 5.08,
+    "motion_median": 12.98,
+    "motion_max": 16.68,
+    "skin_ratio": 0.016,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "一九九〇年五月：他走出监狱"
+  },
+  "S25": {
+    "shot": "S25",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.97，最大框宽 53%）"
+    ],
+    "warnings": [
+      "色温在警戒区外：7.1（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.6（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 52.2,
+    "contrast": 43.4,
+    "warmth": 7.1,
+    "grain": 3.59,
+    "motion_median": 21.62,
+    "motion_max": 29.23,
+    "skin_ratio": 0.284,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 15,
+    "hands": 0,
+    "purpose": "跨洲的案子：洛杉矶女警探的办公桌"
+  },
+  "S26": {
+    "shot": "S26",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "Haar 级联在 5 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "亮度在警戒区外：36.9（正常 45.0–125.0）",
+      "色温在警戒区外：-4.8（正常 8.0–45.0）",
+      "颗粒在警戒区外：4.2（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 36.9,
+    "contrast": 30.8,
+    "warmth": -4.8,
+    "grain": 4.17,
+    "motion_median": 13.77,
+    "motion_max": 16.18,
+    "skin_ratio": 0.019,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 5,
+    "hands": 0,
+    "purpose": "洛杉矶：雨夜里的警戒带"
+  },
+  "S27": {
+    "shot": "S27",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.97，最大框宽 28%）"
+    ],
+    "warnings": [
+      "画面里有手（6 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：1.2（正常 8.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 116.6,
+    "contrast": 71.9,
+    "warmth": 1.2,
+    "grain": 5.25,
+    "motion_median": 20.39,
+    "motion_max": 22.98,
+    "skin_ratio": 0.092,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 6,
+    "purpose": "他就在现场：机场候机厅里的回头"
+  },
+  "S28": {
+    "shot": "S28",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：13 格（最高置信度 0.92，最大框宽 35%）"
+    ],
+    "warnings": [
+      "画面里有手（7 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：2.9（正常 8.0–45.0）",
+      "颗粒在警戒区外：4.4（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 64.7,
+    "contrast": 52.9,
+    "warmth": 2.9,
+    "grain": 4.44,
+    "motion_median": 21.13,
+    "motion_max": 26.43,
+    "skin_ratio": 0.201,
+    "faces": 14,
+    "faces_sure": 13,
+    "haar_hits": 9,
+    "hands": 7,
+    "purpose": "另一头：证据板前站着的人"
+  },
+  "S29": {
+    "shot": "S29",
+    "verdict": "FAIL",
+    "reasons": [
+      "色温越过硬线：-15.9（硬线 -5.0–70.0）"
+    ],
+    "warnings": [
+      "Haar 级联在 8 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认",
+      "颗粒在警戒区外：4.3（正常 4.5–20.0）",
+      "运动在警戒区外：4.7（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 91.7,
+    "contrast": 56.2,
+    "warmth": -15.9,
+    "grain": 4.32,
+    "motion_median": 4.74,
+    "motion_max": 5.16,
+    "skin_ratio": 0.028,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 8,
+    "hands": 0,
+    "purpose": "飞越大西洋：停机坪上的机身"
+  },
+  "S30": {
+    "shot": "S30",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.97，最大框宽 19%）"
+    ],
+    "warnings": [
+      "画面里有手（9 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "亮度在警戒区外：38.5（正常 45.0–125.0）",
+      "色温在警戒区外：-3.7（正常 8.0–45.0）",
+      "颗粒在警戒区外：2.7（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 38.5,
+    "contrast": 35.0,
+    "warmth": -3.7,
+    "grain": 2.68,
+    "motion_median": 13.12,
+    "motion_max": 14.31,
+    "skin_ratio": 0.031,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 15,
+    "hands": 9,
+    "purpose": "八月：他被押送着走出门"
+  },
+  "S32": {
+    "shot": "S32",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：9 格（最高置信度 0.94，最大框宽 11%）"
+    ],
+    "warnings": [
+      "画面里有手（14 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "亮度在警戒区外：39.1（正常 45.0–125.0）",
+      "色温在警戒区外：-4.8（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.9（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 39.1,
+    "contrast": 38.3,
+    "warmth": -4.8,
+    "grain": 3.92,
+    "motion_median": 11.85,
+    "motion_max": 21.64,
+    "skin_ratio": 0.021,
+    "faces": 12,
+    "faces_sure": 9,
+    "haar_hits": 0,
+    "hands": 14,
+    "purpose": "维也纳刑警重新翻旧卷"
+  },
+  "S33": {
+    "shot": "S33",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.96，最大框宽 19%）"
+    ],
+    "warnings": [
+      "色温在警戒区外：-0.6（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.8（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 51.4,
+    "contrast": 44.2,
+    "warmth": -0.6,
+    "grain": 3.85,
+    "motion_median": 13.77,
+    "motion_max": 17.77,
+    "skin_ratio": 0.076,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 0,
+    "purpose": "跨洲并案的现场：打字机与证物袋"
+  },
+  "S34": {
+    "shot": "S34",
+    "verdict": "FAIL",
+    "reasons": [
+      "黑帧：最暗一格亮度 9.3",
+      "检出正脸：14 格（最高置信度 0.93，最大框宽 25%）",
+      "亮度越过硬线：10.3（硬线 30.0–160.0）",
+      "反差越过硬线：17.9（硬线 18.0–120.0）",
+      "颗粒越过硬线：1.7（硬线 2.0–30.0）"
+    ],
+    "warnings": [
+      "画面里有手（5 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：0.3（正常 8.0–45.0）",
+      "运动在警戒区外：3.0（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 10.3,
+    "contrast": 17.9,
+    "warmth": 0.3,
+    "grain": 1.65,
+    "motion_median": 2.99,
+    "motion_max": 3.78,
+    "skin_ratio": 0.016,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 5,
+    "purpose": "逃亡途中：酒店房间里的那盏台灯"
+  },
+  "S35": {
+    "shot": "S35",
+    "verdict": "FAIL",
+    "reasons": [
+      "色温越过硬线：-16.5（硬线 -5.0–70.0）"
+    ],
+    "warnings": [
+      "Haar 级联在 14 格里像人脸（BlazeFace 未确认）：可能是侧脸或雕像，需人眼确认"
+    ],
+    "frames": 14,
+    "brightness": 58.7,
+    "contrast": 42.1,
+    "warmth": -16.5,
+    "grain": 8.95,
+    "motion_median": 31.33,
+    "motion_max": 35.18,
+    "skin_ratio": 0.004,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 14,
+    "hands": 0,
+    "purpose": "林地的清晨：没有人的现场"
+  },
+  "S36": {
+    "shot": "S36",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.96，最大框宽 44%）"
+    ],
+    "warnings": [
+      "色温在警戒区外：-0.9（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.1（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 56.2,
+    "contrast": 31.6,
+    "warmth": -0.9,
+    "grain": 3.14,
+    "motion_median": 7.47,
+    "motion_max": 8.68,
+    "skin_ratio": 0.205,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 14,
+    "hands": 0,
+    "purpose": "迈阿密：羁押室里的那张脸"
+  },
+  "S38": {
+    "shot": "S38",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.97，最大框宽 31%）",
+      "亮度越过硬线：27.8（硬线 30.0–160.0）"
+    ],
+    "warnings": [
+      "画面里有手（28 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "色温在警戒区外：0.4（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.1（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 27.8,
+    "contrast": 31.6,
+    "warmth": 0.4,
+    "grain": 3.07,
+    "motion_median": 12.98,
+    "motion_max": 16.08,
+    "skin_ratio": 0.1,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 23,
+    "hands": 28,
+    "purpose": "夜里的编辑部：女记者打电话"
+  },
+  "S39": {
+    "shot": "S39",
+    "verdict": "FAIL",
+    "reasons": [
+      "色温越过硬线：-23.1（硬线 -5.0–70.0）"
+    ],
+    "warnings": [
+      "颗粒在警戒区外：4.0（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 57.8,
+    "contrast": 38.9,
+    "warmth": -23.1,
+    "grain": 4.01,
+    "motion_median": 15.78,
+    "motion_max": 18.01,
+    "skin_ratio": 0.017,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "格拉茨：开庭前的石头台阶"
+  },
+  "S41": {
+    "shot": "S41",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.96，最大框宽 20%）"
+    ],
+    "warnings": [
+      "画面里有手（2 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "亮度在警戒区外：33.3（正常 45.0–125.0）",
+      "反差在警戒区外：29.5（正常 30.0–90.0）",
+      "颗粒在警戒区外：3.0（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 33.3,
+    "contrast": 29.5,
+    "warmth": 13.0,
+    "grain": 2.96,
+    "motion_median": 9.77,
+    "motion_max": 10.49,
+    "skin_ratio": 0.047,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 31,
+    "hands": 2,
+    "purpose": "被告席上：最后一次露出的那张脸"
+  },
+  "S42": {
+    "shot": "S42",
+    "verdict": "WARN",
+    "reasons": [],
+    "warnings": [
+      "色温在警戒区外：-3.2（正常 8.0–45.0）",
+      "颗粒在警戒区外：3.0（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 54.2,
+    "contrast": 48.4,
+    "warmth": -3.2,
+    "grain": 3.01,
+    "motion_median": 7.54,
+    "motion_max": 9.81,
+    "skin_ratio": 0.03,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "宣判后的清晨：空牢房里的写字台"
+  },
+  "S43": {
+    "shot": "S43",
+    "verdict": "FAIL",
+    "reasons": [
+      "检出正脸：14 格（最高置信度 0.94，最大框宽 22%）"
+    ],
+    "warnings": [
+      "画面里有手（18 处检出）：手指是 AI 最容易畸变的部位，需人眼确认",
+      "亮度在警戒区外：43.7（正常 45.0–125.0）",
+      "色温在警戒区外：4.2（正常 8.0–45.0）",
+      "颗粒在警戒区外：4.3（正常 4.5–20.0）"
+    ],
+    "frames": 14,
+    "brightness": 43.7,
+    "contrast": 37.9,
+    "warmth": 4.2,
+    "grain": 4.26,
+    "motion_median": 14.42,
+    "motion_max": 17.12,
+    "skin_ratio": 0.054,
+    "faces": 14,
+    "faces_sure": 14,
+    "haar_hits": 12,
+    "hands": 18,
+    "purpose": "文学界的沉默：编辑部里合上的书"
+  },
+  "S44": {
+    "shot": "S44",
+    "verdict": "FAIL",
+    "reasons": [
+      "黑帧：最暗一格亮度 11.9",
+      "亮度越过硬线：17.1（硬线 30.0–160.0）",
+      "颗粒越过硬线：1.5（硬线 2.0–30.0）"
+    ],
+    "warnings": [
+      "反差在警戒区外：24.7（正常 30.0–90.0）",
+      "运动在警戒区外：4.3（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 17.1,
+    "contrast": 24.7,
+    "warmth": 15.0,
+    "grain": 1.49,
+    "motion_median": 4.28,
+    "motion_max": 5.64,
+    "skin_ratio": 0.098,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "桌上合起的书：一段被写出来的历史"
+  },
+  "S45": {
+    "shot": "S45",
+    "verdict": "FAIL",
+    "reasons": [
+      "黑帧：最暗一格亮度 2.8",
+      "亮度越过硬线：9.2（硬线 30.0–160.0）",
+      "反差越过硬线：11.0（硬线 18.0–120.0）",
+      "颗粒越过硬线：1.6（硬线 2.0–30.0）"
+    ],
+    "warnings": [
+      "色温在警戒区外：4.1（正常 8.0–45.0）",
+      "运动在警戒区外：3.7（正常 7.0–45.0）"
+    ],
+    "frames": 14,
+    "brightness": 9.2,
+    "contrast": 11.0,
+    "warmth": 4.1,
+    "grain": 1.63,
+    "motion_median": 3.7,
+    "motion_max": 7.48,
+    "skin_ratio": 0.029,
+    "faces": 0,
+    "faces_sure": 0,
+    "haar_hits": 0,
+    "hands": 0,
+    "purpose": "结尾：一扇终于关上的牢门"
+  }
+}
