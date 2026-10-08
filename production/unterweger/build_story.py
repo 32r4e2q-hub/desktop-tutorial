@@ -416,13 +416,13 @@ SHOTS += [
      "numbers, no signage, no vehicles, no people, no bodies, no blood. Slow lateral drift along the treeline, " +
      HOLD,
      "风穿过树林 + 低频"),
-    ("S36", "agnes", "缓慢前推（中景）", "迈阿密：羁押室里的那张脸",
+    ("S36", "agnes", "缓慢前推（特写）", "迈阿密：羁押室里的那张脸",
      "接信息卡：一九九二年二月",
-     "A tight medium shot in a plain holding room in Florida in February 1992: {C1}, seated on a fixed steel chair "
-     "with his forearms resting on his thighs and his head slightly lowered, wearing a plain grey sweatshirt, lit "
-     "by hard even daylight from above and in front while the room behind him falls into flat shadow with no wall "
-     "and no surface visible at all; nothing in the frame carries lettering, plates or numbers, there is no table "
-     "in frame and no other people. Slow push in on him, " + HOLD,
+     "An extreme close-up inside a plain holding room in Florida in February 1992: {C1}, framed from the collar to "
+     "just above the hairline, his head slightly lowered, the hard even daylight from above modelling the lines of "
+     "his face; the background is completely outside the frame, with no wall, no door, no window and no surface of "
+     "any kind visible at all, and nothing in the frame carries lettering, plates or numbers; no other people. "
+     "Very slow push in on his face, " + HOLD,
      "空调低鸣 + 静默"),
     ("S37", "graphic", "信息卡（静帧）", "口径：一九九二年二月二十七日 · 迈阿密",
      "接 AGNES：夜班新闻编辑部",
@@ -461,14 +461,14 @@ SHOTS += [
      "no cut, no scene change, no camera relocation, no second location, no extra people, no readable text"
      "anywhere in frame; hold on this single view for the full clip." + HOLD,
      "法庭静默 + 低频"),
-    ("S42", "agnes", "缓慢下移", "宣判后的清晨：空牢房里的写字台",
+    ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
      "接 AGNES：编辑部里合上的那本书",
-     "A low close view inside a single bare prison cell at grey dawn in June 1994, framed so that the frame is "
-     "filled by the steel tabletop and the worn floor beneath it: on the table a closed notebook, a pen laid "
-     "precisely parallel to its edge, a tin mug and the folded edge of a grey blanket at the right; cold flat "
-     "light falls across the table from a window that is entirely outside the frame, and the walls, window and "
-     "ceiling are all out of frame; no marks, no numbers and no lettering on any surface, no people in frame. "
-     "Slow descent toward the tabletop, " + HOLD,
+     "A low close shot level with a bare steel tabletop inside a single cell at grey dawn in June 1994, framed so "
+     "that the visible world is only the table surface and the objects lying on it: a closed notebook, a pen laid "
+     "precisely parallel to its edge, a tin mug and the folded corner of a grey blanket; the space above and behind "
+     "the table is entirely outside the frame, so no wall, window or ceiling is ever visible, and nothing on the "
+     "table surface carries any mark, number or lettering; no people in frame. Slow descent across the tabletop, "
+     + HOLD,
      "铁窗风 + 静默"),
     ("S43", "agnes", "缓慢前推（中景）", "文学界的沉默：编辑部里合上的书",
      "接 AGNES：桌上合起的书",
