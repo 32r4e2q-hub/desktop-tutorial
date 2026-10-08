@@ -596,20 +596,6 @@
       "reused_existing_asset": false,
       "visual_review": "pending"
     },
-    "S22": {
-      "id": "S22",
-      "status": "failed",
-      "request_hash": "bfafb1dd305d8b1f7da3918e9a4a3af0fccb43e0676ad56e941e6ec9c04fd1e5",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - no available server\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261008122226963135313JQOZgTrU)",
-      "updated_at": "2026-10-08T12:22:32Z"
-    },
-    "S23": {
-      "id": "S23",
-      "status": "failed",
-      "request_hash": "3eb7d7092a0db20493ec95f438711f5f13753424924656fda20c99ddae1d67fc",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Service busy: inference slot is in use.\\\",\\\"code\\\":\\\"503\\\"}}\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261008122341966608749fa2verWs)",
-      "updated_at": "2026-10-08T12:23:43Z"
-    },
     "S26": {
       "id": "S26",
       "status": "completed",
@@ -1205,7 +1191,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1259,8 +1245,8 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T12:28:53Z",
-  "run_id": "37774127753",
+  "updated_at": "2026-10-08T12:30:23Z",
+  "run_id": "37777222810",
   "previous_results": {
     "S01": [
       {
