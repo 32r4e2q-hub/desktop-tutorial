@@ -662,13 +662,6 @@
       "reused_existing_asset": false,
       "visual_review": "pending"
     },
-    "S25": {
-      "id": "S25",
-      "status": "failed",
-      "request_hash": "0837bba9a508efe84cae544931407fd32d27c38c8bdb1087100291156fd7c305",
-      "error": "Request rejected (HTTP 400): {\"error\":{\"message\":\"***.BadRequestError: OpenAIException - {\\\"error\\\":{\\\"message\\\":\\\"Download image URL failed: HTTPSConnectionPool(host='***.***.com', port=443): Read timed out. (read timeout=30)\\\",\\\"code\\\":\\\"400\\\"}}\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"400\"}} (request id: 202610080903354724262246Ow4MnIB)",
-      "updated_at": "2026-10-08T09:04:39Z"
-    },
     "S26": {
       "id": "S26",
       "status": "completed",
@@ -1231,7 +1224,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1285,6 +1278,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T09:41:38Z",
-  "run_id": "37748872364"
+  "updated_at": "2026-10-08T10:48:55Z",
+  "run_id": "37765797627"
 }
