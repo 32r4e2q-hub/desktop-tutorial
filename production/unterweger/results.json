@@ -827,36 +827,10 @@
     },
     "S39": {
       "id": "S39",
-      "status": "completed",
-      "request_hash": "d7e8d965be07cd7156746638339abb6821bcd81059349e8b8ea31125e6cec3ea",
+      "status": "submitting",
+      "request_hash": "62cb3e7729b49557a4ddb6ac9deb1bcfec467c5faadf7c60cff2d6473bdfbb1d",
       "error": null,
-      "updated_at": "2026-10-08T11:26:51Z",
-      "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzk5ZjVkMmU0ZmU5ZDQyZjc5ZmFlOGZhOWFkZjAwZTFh",
-      "task_id": "task_QwJRz0Xths70MZ7sMPBBecjnXV6pWmXE",
-      "requested_seconds": 7.041666666666667,
-      "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_99f5d2e4fe9d42f79fae8fa9adf00e1a.mp4",
-      "bytes": 2312585,
-      "sha256": "070dc78116ae2cdc0e8a2774016e3aebdf1221e1b685fc9a9083c02e22f2f58c",
-      "reported_size": "1920x1088",
-      "reported_seconds": "7.0",
-      "inspection": {
-        "duration": 7.041667,
-        "bytes": 2312585,
-        "width": 1920,
-        "height": 1088,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 169,
-        "audio_codec": "aac",
-        "sample_rate": 48000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/unterweger/qa/S39.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": false,
-      "visual_review": "pending"
+      "updated_at": "2026-10-08T14:00:52Z"
     },
     "S41": {
       "id": "S41",
@@ -1210,7 +1184,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-08T14:00:51Z",
+  "updated_at": "2026-10-08T14:00:52Z",
   "run_id": "37785695751",
   "previous_results": {
     "S01": [
@@ -2381,6 +2355,39 @@
         "inspection": {
           "duration": 7.041667,
           "bytes": 2043093,
+          "width": 1920,
+          "height": 1088,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 169,
+          "audio_codec": "aac",
+          "sample_rate": 48000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/unterweger/qa/S39.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": false,
+        "visual_review": "pending"
+      },
+      {
+        "id": "S39",
+        "status": "completed",
+        "request_hash": "d7e8d965be07cd7156746638339abb6821bcd81059349e8b8ea31125e6cec3ea",
+        "error": null,
+        "updated_at": "2026-10-08T11:26:51Z",
+        "video_id": "video_bGl0ZWxsbTpjdXN0b21fbGxtX3Byb3ZpZGVyOm9wZW5haTttb2RlbF9pZDphZ25lcy12aWRlby12Mi4wO3ZpZGVvX2lkOnZpZGVvXzk5ZjVkMmU0ZmU5ZDQyZjc5ZmFlOGZhOWFkZjAwZTFh",
+        "task_id": "task_QwJRz0Xths70MZ7sMPBBecjnXV6pWmXE",
+        "requested_seconds": 7.041666666666667,
+        "video_url": "https://cos-platform-outputs.agnes-ai.cn/videos/agnes-video-v2.0/video_99f5d2e4fe9d42f79fae8fa9adf00e1a.mp4",
+        "bytes": 2312585,
+        "sha256": "070dc78116ae2cdc0e8a2774016e3aebdf1221e1b685fc9a9083c02e22f2f58c",
+        "reported_size": "1920x1088",
+        "reported_seconds": "7.0",
+        "inspection": {
+          "duration": 7.041667,
+          "bytes": 2312585,
           "width": 1920,
           "height": 1088,
           "fps": 24.0,
