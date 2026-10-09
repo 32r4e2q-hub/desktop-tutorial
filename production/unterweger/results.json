@@ -728,13 +728,6 @@
       "reused_existing_asset": false,
       "visual_review": "pending"
     },
-    "S41": {
-      "id": "S41",
-      "status": "failed",
-      "request_hash": "3a6b21c7b355fb016e3b9e2289869d6244e766c9169078508c7dbb97d1c20a17",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: {\"error\":{\"message\":\"litellm.ServiceUnavailableError: ServiceUnavailableError: OpenAIException - no available server\",\"type\":\"internal_server_error\",\"param\":null,\"code\":\"503\"}} (request id: 20261009095644634785081vBHgUdVd)",
-      "updated_at": "2026-10-09T09:56:50Z"
-    },
     "S42": {
       "id": "S42",
       "status": "completed",
@@ -1234,7 +1227,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "generation_incomplete",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1288,8 +1281,8 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-09T09:56:51Z",
-  "run_id": "37914284340",
+  "updated_at": "2026-10-09T09:58:28Z",
+  "run_id": "37914573563",
   "previous_results": {
     "S01": [
       {
