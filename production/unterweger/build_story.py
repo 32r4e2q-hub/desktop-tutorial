@@ -493,8 +493,8 @@ SHOTS += [
      "aged, standing behind a plain wooden rail in the dock with both hands resting on it, wearing a dark suit and open "
      "white shirt; natural facial anatomy with normal proportions, realistic eyes, healthy natural skin texture; the face "
      "and features stay identical throughout the clip; he holds a steady gaze toward the camera and only slightly shifts "
-     "his weight; behind him is a single plain unbroken wood-panelled wall with no flags, no emblems, no sign, no plaque, "
-     "no clock, no lettering, no numerals and no numbers of any kind anywhere in frame; the audience is not visible at all; "
+     "his weight; behind him is a single plain solid dark plaster wall, completely blank and unbroken: no doors, no lockers, no cabinets, no panels, "
+     "no flags, no emblems, no sign, no plaque, no clock, no lettering, no numerals and no numbers of any kind anywhere in frame; the audience is not visible at all; "
      "no other people in frame. One continuous, gentle slow push in across the whole clip, " + HOLD,
      "法庭静默 + 低频"),
     ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
