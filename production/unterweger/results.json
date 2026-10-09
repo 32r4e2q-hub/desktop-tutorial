@@ -367,10 +367,10 @@
     },
     "S16": {
       "id": "S16",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "c1db122f7a104de9b4e7a4c149c6ec12187f93100f58d85c1454d364217638c0",
-      "error": null,
-      "updated_at": "2026-10-09T02:44:14Z"
+      "error": "Could not create video task after 1 attempts; last problem: network error: TimeoutError: The read operation timed out",
+      "updated_at": "2026-10-09T02:46:15Z"
     },
     "S17": {
       "id": "S17",
@@ -1262,7 +1262,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-09T02:44:16Z",
+  "updated_at": "2026-10-09T02:46:15Z",
   "run_id": "37875869261",
   "previous_results": {
     "S01": [
