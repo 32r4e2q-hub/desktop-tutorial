@@ -668,7 +668,7 @@ FACE_SHOTS = {
 }
 # 用定妆照做首帧（图生视频）的镜头：每个角色的首次露脸镜头，把这张脸钉在观众第一眼里。
 # 定妆照提交在仓库里，URL 取 cast.json 的 portrait_url（Agnes 只在服务器侧取图）。
-REFERENCE_SHOTS = {"S07": "C1", "S12": "C4", "S21": "C3", "S22": "C6", "S25": "C5"}
+REFERENCE_SHOTS = {"S07": "C1", "S41": "C1", "S12": "C4", "S21": "C3", "S22": "C6", "S25": "C5"}
 
 
 def faces():
