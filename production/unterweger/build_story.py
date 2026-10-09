@@ -486,13 +486,9 @@ SHOTS += [
      "接 AGNES：被告席上的那张脸",
      "判决：一九九四年六月二十八日 · 九项谋杀罪成立（六比二）",
      "法槌（SFX press）"),
-    ("S41", "agnes", "缓慢前推（极近特写）", "清晨的空房间：最后一件留下的外套",
-     "接 AGNES：清晨的空牢房",
-     "An extreme close-up, shallow depth of field, soft cold daylight from the left: a dark green velvet jacket lying "
-     "folded on a bare pale wooden table top, its fabric texture and buttons in sharp focus; the frame is filled only by "
-     "the jacket and the table surface, with no wall, no background shapes, no doors, no clocks, no lettering, no "
-     "numerals, no plaques, no people, no faces, no hands and no room visible at all; the far background is a soft "
-     "featureless blur of pale light. Slow push in on the jacket, " + HOLD,
+    ("S41", "graphic", "信息卡（静帧）", "判决之后：被告席上的那张脸，最后一次出现在公众面前",
+     "接 AGNES：清晨的空房间",
+     "一九九四年六月二十九日 · 判处终身监禁当晚，翁特维格在狱中自缢",
      "静默 + 低频"),
     ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
      "接 AGNES：编辑部里合上的那本书",
@@ -545,6 +541,7 @@ CARDS = {
     "S31": ("并案", "一九九〇至一九九一 · 维也纳 与 格拉茨", "相同的手法 · 相同的弃尸环境"),
     "S37": ("被捕", "一九九二年二月二十七日 · 迈阿密", "跨洲追捕 · 终点在一间公寓"),
     "S40": ("判决", "一九九四年六月二十八日 · 格拉茨", "九项谋杀罪成立 · 六比二"),
+    "S41": ("终局", "一九九四年六月二十九日 · 格拉茨", "判处终身监禁 · 当晚在狱中自缢"),
 }
 # 片头字幕卡（0.35–4.7 秒叠在第一镜上）：两行，第二行小字
 TITLE_CARD = ["杰克·翁特维格", "最成功的一次伪装 · 一九七四至一九九四 奥地利"]
