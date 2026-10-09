@@ -486,12 +486,13 @@ SHOTS += [
      "接 AGNES：被告席上的那张脸",
      "判决：一九九四年六月二十八日 · 九项谋杀罪成立（六比二）",
      "法槌（SFX press）"),
-    ("S41", "agnes", "缓慢前推（近景物件）", "清晨的空房间：最后一件留下的外套",
+    ("S41", "agnes", "缓慢前推（极近特写）", "清晨的空房间：最后一件留下的外套",
      "接 AGNES：清晨的空牢房",
-     "A close-up in a bare, quiet room at dawn, June 1994, soft cold daylight from a window on the left: a dark green "
-     "velvet jacket folded over the back of a plain wooden chair, its fabric texture and buttons in sharp focus; behind "
-     "it a plain, blank off-white wall, out of focus, with no shapes, no doors, no clocks, no lettering, no numerals and "
-     "no plaques; no people, no faces, no hands, no courtroom, nothing else in frame. Slow push in on the jacket, " + HOLD,
+     "An extreme close-up, shallow depth of field, soft cold daylight from the left: a dark green velvet jacket lying "
+     "folded on a bare pale wooden table top, its fabric texture and buttons in sharp focus; the frame is filled only by "
+     "the jacket and the table surface, with no wall, no background shapes, no doors, no clocks, no lettering, no "
+     "numerals, no plaques, no people, no faces, no hands and no room visible at all; the far background is a soft "
+     "featureless blur of pale light. Slow push in on the jacket, " + HOLD,
      "静默 + 低频"),
     ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
      "接 AGNES：编辑部里合上的那本书",
