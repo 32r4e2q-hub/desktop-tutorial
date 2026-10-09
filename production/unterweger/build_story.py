@@ -404,17 +404,10 @@ SHOTS += [
      "接 AGNES：档案柜前的维也纳刑警",
      "并案：一九九〇至一九九一 · 维也纳与格拉茨（公开报道口径）",
      "低音撞击"),
-    ("S32", "agnes", "缓慢下移（中景）", "维也纳刑警重新翻旧卷",
+    ("S32", "graphic", "信息卡（静帧）", "维也纳刑警重新翻旧卷：散落的案卷",
      "接 AGNES：洛杉矶的打字机",
-     "A medium shot in a records room in Vienna at night in 1992, the entire background a single featureless uniform colour with no wall decoration and no clock faces at all: {C4}, standing at an open steel drawer of a card"
-     "cabinet with one hand lifting out a thick folder of blank pages, dust hanging in the beam of a work lamp on"
-     "the desk beside him; every card, tab and file in the cabinet is entirely blank with no writing, no numbers"
-     "and no labels, the cabinet and the desk are plain with no plates and no markings, and the wall behind him is"
-     "bare painted plaster with the surface is completely bare and featureless with no plates, no numbers, no"
-     "notices, no labels, no fixtures and no lettering of any kind; no other people, no windows, no clocks. Slow"
-     "descent toward the drawer, no cut, no scene change, no camera relocation, no second location, no extra"
-     "people, no readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
-     "抽屉滑轨 + 纸张（SFX paper）"),
+     "一九九二年 · 维也纳 · 旧卷重翻",
+     "纸张翻动（SFX paper）"),
     ("S33", "agnes", "缓慢前推（中景）", "跨洲并案的现场：打字机与证物袋",
      "接 AGNES：夜里的酒店书桌",
      "A medium shot in a police office at night in 1992: {C5}, seated at a heavy manual typewriter with both hands"
@@ -541,6 +534,7 @@ CARDS = {
     "S31": ("并案", "一九九〇至一九九一 · 维也纳 与 格拉茨", "相同的手法 · 相同的弃尸环境"),
     "S37": ("被捕", "一九九二年二月二十七日 · 迈阿密", "跨洲追捕 · 终点在一间公寓"),
     "S40": ("判决", "一九九四年六月二十八日 · 格拉茨", "九项谋杀罪成立 · 六比二"),
+    "S32": ("旧卷重翻", "一九九二年 · 维也纳", "退休刑警的线索，把散落的旧案串了起来"),
     "S41": ("终局", "一九九四年六月二十九日 · 格拉茨", "判处终身监禁 · 当晚在狱中自缢"),
 }
 # 片头字幕卡（0.35–4.7 秒叠在第一镜上）：两行，第二行小字
@@ -652,7 +646,6 @@ FACE_SHOTS = {
     "S27": ["C1"],
     "S28": ["C5"],
     "S30": ["C1"],
-    "S32": ["C4"],
     "S33": ["C5"],
     "S34": ["C1"],
     "S36": ["C5"],
