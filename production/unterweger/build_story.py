@@ -488,14 +488,14 @@ SHOTS += [
      "法槌（SFX press）"),
     ("S41", "agnes", "缓慢前推（中景）", "被告席上：最后一次露出的那张脸",
      "接 AGNES：清晨的空牢房",
-     "A medium shot inside an Austrian courtroom in June 1994, evenly and brightly lit by overhead lights: {C1}, the same "
-     "man as in the reference portrait, a healthy mid-career face at his late thirties with full natural cheeks, calm "
-     "relaxed expression, not gaunt and not aged, standing behind a plain wooden rail in the dock with both hands resting "
-     "on it, wearing a dark suit and open white shirt; natural facial anatomy with normal proportions, realistic eyes, "
-     "healthy natural skin texture; the face and features stay identical throughout the clip; he holds a steady gaze "
-     "toward the camera and only slightly shifts his weight; the space behind him is a plain panelled wall with no flags, "
-     "no emblems, no lettering, no numbers and no notices, the rows of the audience visible only as softly lit blurred "
-     "shapes further back, no identifiable faces. One continuous, gentle slow push in across the whole clip, " + HOLD,
+     "A medium shot inside an Austrian courtroom in June 1994, evenly lit: {C1}, the same man as in the reference portrait, "
+     "a healthy mid-career face at his late thirties with full natural cheeks, calm relaxed expression, not gaunt and not "
+     "aged, standing behind a plain wooden rail in the dock with both hands resting on it, wearing a dark suit and open "
+     "white shirt; natural facial anatomy with normal proportions, realistic eyes, healthy natural skin texture; the face "
+     "and features stay identical throughout the clip; he holds a steady gaze toward the camera and only slightly shifts "
+     "his weight; behind him is a single plain unbroken wood-panelled wall with no flags, no emblems, no sign, no plaque, "
+     "no clock, no lettering, no numerals and no numbers of any kind anywhere in frame; the audience is not visible at all; "
+     "no other people in frame. One continuous, gentle slow push in across the whole clip, " + HOLD,
      "法庭静默 + 低频"),
     ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
      "接 AGNES：编辑部里合上的那本书",
