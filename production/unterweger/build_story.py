@@ -488,14 +488,12 @@ SHOTS += [
      "法槌（SFX press）"),
     ("S41", "agnes", "缓慢前推（中景）", "被告席上：最后一次露出的那张脸",
      "接 AGNES：清晨的空牢房",
-     "A medium shot inside an Austrian courtroom in June 1994, evenly lit: {C1}, the same man as in the reference portrait, "
-     "a healthy mid-career face at his late thirties with full natural cheeks, calm relaxed expression, not gaunt and not "
-     "aged, standing behind a plain wooden rail in the dock with both hands resting on it, wearing a dark suit and open "
-     "white shirt; natural facial anatomy with normal proportions, realistic eyes, healthy natural skin texture; the face "
-     "and features stay identical throughout the clip; he holds a steady gaze toward the camera and only slightly shifts "
-     "his weight; behind him is a single plain solid dark plaster wall, completely blank and unbroken: no doors, no lockers, no cabinets, no panels, "
-     "no flags, no emblems, no sign, no plaque, no clock, no lettering, no numerals and no numbers of any kind anywhere in frame; the audience is not visible at all; "
-     "no other people in frame. One continuous, gentle slow push in across the whole clip, " + HOLD,
+     "A medium shot from behind inside an Austrian courtroom in June 1994, evenly lit: a man in a dark suit seen from "
+     "behind, only the back of his head and shoulders visible, his face never shown, standing motionless behind a plain "
+     "wooden rail in the dock, facing away from the camera toward the empty bench; behind him is a single plain solid "
+     "dark wall, completely blank and unbroken: no doors, no lockers, no cabinets, no panels, no flags, no emblems, no "
+     "lettering, no numerals, no plaques and no clock; no audience visible, no other people in frame. Slow push in on "
+     "his back, " + HOLD,
      "法庭静默 + 低频"),
     ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
      "接 AGNES：编辑部里合上的那本书",
@@ -663,12 +661,11 @@ FACE_SHOTS = {
     "S34": ["C1"],
     "S36": ["C5"],
     "S38": ["C2"],
-    "S41": ["C1"],
     "S43": ["C3"],
 }
 # 用定妆照做首帧（图生视频）的镜头：每个角色的首次露脸镜头，把这张脸钉在观众第一眼里。
 # 定妆照提交在仓库里，URL 取 cast.json 的 portrait_url（Agnes 只在服务器侧取图）。
-REFERENCE_SHOTS = {"S07": "C1", "S41": "C1", "S12": "C4", "S21": "C3", "S22": "C6", "S25": "C5"}
+REFERENCE_SHOTS = {"S07": "C1", "S12": "C4", "S21": "C3", "S22": "C6", "S25": "C5"}
 
 
 def faces():
