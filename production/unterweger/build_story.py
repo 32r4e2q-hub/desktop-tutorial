@@ -291,7 +291,7 @@ SHOTS = [
      "低音撞击"),
     ("S19", "agnes", "缓慢前推（中景）", "他也上了电视：演播室里的女记者",
      "接 AGNES：讲座现场",
-     "A medium shot inside a television studio in Vienna in 1989: {C2}, standing beside a heavy studio camera whose "
+     "A medium shot inside a television studio in Vienna in 1989, the entire background a single featureless uniform dark colour with no wall decoration at all: {C2}, standing beside a heavy studio camera whose "
      "operator is visible only as a dark shoulder and back in the extreme foreground, her notebook raised as she "
      "turns slightly toward an off-screen guest; the backdrop is a seamless dark grey cyclorama with no logos, no "
      "lettering, no numbers, and the studio is otherwise empty. Slow push in on her, " + HOLD,
@@ -406,7 +406,7 @@ SHOTS += [
      "低音撞击"),
     ("S32", "agnes", "缓慢下移（中景）", "维也纳刑警重新翻旧卷",
      "接 AGNES：洛杉矶的打字机",
-     "A medium shot in a records room in Vienna at night in 1992: {C4}, standing at an open steel drawer of a card"
+     "A medium shot in a records room in Vienna at night in 1992, the entire background a single featureless uniform colour with no wall decoration and no clock faces at all: {C4}, standing at an open steel drawer of a card"
      "cabinet with one hand lifting out a thick folder of blank pages, dust hanging in the beam of a work lamp on"
      "the desk beside him; every card, tab and file in the cabinet is entirely blank with no writing, no numbers"
      "and no labels, the cabinet and the desk are plain with no plates and no markings, and the wall behind him is"
@@ -460,7 +460,7 @@ SHOTS += [
      "低音撞击"),
     ("S38", "agnes", "缓慢前推（中景）", "夜里的编辑部：女记者打电话",
      "接 N06：格拉茨的法院",
-     "A medium shot in a night newsroom in Vienna in 1992: {C2}, seated at a cluttered desk with a black telephone"
+     "A medium shot in a night newsroom in Vienna in 1992, the entire background a single featureless uniform dark colour with no wall decoration and no clock faces at all: {C2}, seated at a cluttered desk with a black telephone"
      "handset pressed to her ear and a pen in her other hand, the sleeves of her blouse pushed up, a bare desk"
      "lamp beside her and a dark window behind; the papers on the desk are all blank with no writing, no numbers,"
      "no printed text and no letterheads, the screen on the desk is switched off and dark, and the wall behind is"
