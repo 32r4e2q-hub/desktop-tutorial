@@ -267,15 +267,16 @@ SHOTS = [
      "打字机键声（SFX machine）"),
 
     # ---------------- N03（8 镜：7 agnes + 1 信息卡）----------------
-    ("S16", "agnes", "缓慢前推（特写）", "写作的人：牢房夜灯下的那张脸",
+    ("S16", "agnes", "缓慢前推（中景）", "写作的人：牢房夜灯下的那张脸",
      "接 AGNES：稿纸与钢笔",
-     "An intimate close shot inside a dim prison cell at night in 1985: {C1}, seated at a small table with his "
-     "forearms resting on a stack of blank pages, a cigarette burning in a tin ashtray beside a glass of water; "
-     "the lamp above him lights his face and hands while the entire room behind him falls into pure blackness, "
-     "with no wall, no window, no door and no surface of any kind visible; nothing in the frame carries lettering, "
-     "natural facial anatomy with normal proportions, realistic eyes and healthy natural skin texture; "
-     "marks or numbers, and no other person is present. Slow push in on his face, " + HOLD,
-     "笔尖与纸 + 低频"),
+     "A medium shot inside a prison cell at night in 1985, lit warmly: {C1}, seated at a small table with his forearms "
+     "resting on a stack of blank pages, a cigarette burning in a tin ashtray beside a glass of water, a warm tungsten "
+     "desk lamp lighting the table and his face clearly from the front and above, the cell walls behind him softly lit "
+     "in warm grey tones; natural facial anatomy with normal proportions, realistic eyes, healthy natural skin texture, "
+     "calm expression; he slowly turns a page and lifts his pen with a continuous natural hand movement; nothing in the "
+     "frame carries lettering, marks or numbers, and no other person is present. One continuous slow push in on him "
+     "across the whole clip, with a clearly visible camera movement, " + HOLD,
+     "笔尖与纸 + 翻页声（SFX paper）"),
     ("S17", "agnes", "缓慢横移（特写）", "书是怎么写出来的：桌上一摞稿纸",
      "接 AGNES：编辑读稿（C3 首次出现）",
      "A close view across a worn table in a prison cell at night: a thick stack of manuscript pages lying at a low "
@@ -487,15 +488,13 @@ SHOTS += [
      "法槌（SFX press）"),
     ("S41", "agnes", "缓慢前推（中景）", "被告席上：最后一次露出的那张脸",
      "接 AGNES：清晨的空牢房",
-     "A medium close-up in a darkened courtroom at night in June 1994: {C1} only to the chest, standing behind a"
-     "plain polished wooden rail in the dock with both hands resting flat on it, looking directly toward the"
-     "camera with a flat composed expression, lit only by a single hard overhead lamp while everything behind and"
-     "around him falls away into near-blackness - no visible wall, no panelling, no plaques, no emblems and"
-     "nothing legible anywhere; at the very bottom edge of the frame the public gallery appears only as unlit dark"
-     "natural facial anatomy with normal proportions, realistic eyes and healthy natural skin texture; "
-     "shapes with no identifiable faces; no other people and no objects in the foreground. Slow push in on him, no"
-     "cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere"
-     "in frame; hold on this single view for the full clip." + HOLD,
+     "A medium shot inside an Austrian courtroom in June 1994, lit evenly: {C1}, standing behind a plain wooden rail in "
+     "the dock with his hands resting on it, wearing a dark suit and open white shirt, his expression flat and composed; "
+     "natural facial anatomy with normal proportions, realistic eyes, healthy natural skin texture; he slowly shifts his "
+     "weight and lifts his gaze toward the camera; the space behind him is a plain panelled wall with no flags, no "
+     "emblems, no lettering, no numbers and no notices, the rows of the audience visible only as dark blurred shapes "
+     "further back, no identifiable faces. One continuous, clearly visible slow push in from medium toward medium close "
+     "across the whole clip, " + HOLD,
      "法庭静默 + 低频"),
     ("S42", "agnes", "缓慢下移（特写）", "宣判后的清晨：空牢房里的写字台",
      "接 AGNES：编辑部里合上的那本书",
