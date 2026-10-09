@@ -155,16 +155,13 @@ SHOTS = [
      "an unseen lamp, dark wood table, the room beyond falling away out of focus; no people, no hands, no readable "
      "text, no numbers, no logos anywhere. Slow lateral drift across the table, " + HOLD,
      "纸张与杯碟轻响"),
-    ("S04", "agnes", "缓慢前推（中景）", "媒体在追捧他：女记者提问",
-     "接 AGNES：监狱大门与走出的人",
-     "A tight medium shot inside a 1980s television studio in Vienna, the frame filled corner to corner by the "
-     "subject and the equipment: {C2}, seated on a low stool facing a microphone on a stand, leaning slightly "
-     "forward with a notebook open in one hand; immediately behind her hangs a heavy dark charcoal wool curtain "
-     "whose deep folds fill the whole upper background and every edge of the frame, the fabric perfectly plain "
-     "in tone and texture, and a dark blurred boom microphone arm crosses the top corner; there is no wall, no "
-     "panel, no board, no paper and no surface carrying any mark, line or number anywhere in frame, and no other "
-     "person. Slow push in on her, " + HOLD,
-     "演播室底噪 + 提问"),
+    ("S04", "agnes", "缓慢横移", "媒体在追捧他：空无一人的演播室",
+     "接 AGNES：女记者出场（C2 首次出现）",
+     "An empty television newsroom studio in Vienna in 1989 at night: a row of heavy studio cameras with their lenses "
+     "pointed at an empty set, a single glass water carafe on a low desk, a monitor showing only blank grey static "
+     "with no lettering, cables on the floor, a seamless dark backdrop; no people, no faces, no signage, no lettering, "
+     "no numbers, no logos anywhere in frame. Slow lateral drift along the cameras, " + HOLD,
+     "演播室底噪"),
     ("S05", "agnes", "缓慢跟拍（背影）", "监狱大门打开，一个人走向阳光",
      "接 AGNES：书桌与旧照片",
      "A man in a dark coat, seen strictly from behind at a middle distance, walking away from the camera across an"
@@ -276,6 +273,7 @@ SHOTS = [
      "forearms resting on a stack of blank pages, a cigarette burning in a tin ashtray beside a glass of water; "
      "the lamp above him lights his face and hands while the entire room behind him falls into pure blackness, "
      "with no wall, no window, no door and no surface of any kind visible; nothing in the frame carries lettering, "
+     "natural facial anatomy with normal proportions, realistic eyes and healthy natural skin texture; "
      "marks or numbers, and no other person is present. Slow push in on his face, " + HOLD,
      "笔尖与纸 + 低频"),
     ("S17", "agnes", "缓慢横移（特写）", "书是怎么写出来的：桌上一摞稿纸",
@@ -434,6 +432,7 @@ SHOTS += [
      "against his ear, lit from one side by a bedside lamp that stands just outside the frame; everything behind "
      "him, including the wall, the curtains and the far side of the room, falls into complete unlit darkness with "
      "no surface of any kind visible; nothing in the frame carries lettering, numbers or printed marks, and no "
+     "natural facial anatomy with normal proportions, realistic eyes and healthy natural skin texture; "
      "other person is present. Slow push in on him, " + HOLD,
      "拨号音 + 窗外雨"),
     ("S35", "agnes", "缓慢横移（远景）", "林地的清晨：没有人的现场",
@@ -493,6 +492,7 @@ SHOTS += [
      "camera with a flat composed expression, lit only by a single hard overhead lamp while everything behind and"
      "around him falls away into near-blackness - no visible wall, no panelling, no plaques, no emblems and"
      "nothing legible anywhere; at the very bottom edge of the frame the public gallery appears only as unlit dark"
+     "natural facial anatomy with normal proportions, realistic eyes and healthy natural skin texture; "
      "shapes with no identifiable faces; no other people and no objects in the foreground. Slow push in on him, no"
      "cut, no scene change, no camera relocation, no second location, no extra people, no readable text anywhere"
      "in frame; hold on this single view for the full clip." + HOLD,
@@ -529,7 +529,7 @@ SHOTS += [
      "slightly open at the far end with a blade of warm light escaping across the worn stone floor, the wall lamp"
      "above it the only light; the walls and doors are blank and unmarked with no numbers, no plates, no lettering"
      "and no fixtures, the corridor photographed wide and dim; no people, no furniture. Very slow pull back down"
-     "the corridor as the door settles shut, no cut, no scene change, no camera relocation, no second location, no"
+     "the corridor with the warm light steady and the frame evenly lit throughout, no fade, no darkening, no black frames, no cut, no scene change, no camera relocation, no second location, no"
      "extra people, no readable text anywhere in frame; hold on this single view for the full clip." + HOLD,
      "铁门关闭声 + 黑场"),
 ]
@@ -646,7 +646,6 @@ SEED_BASE = 19900523  # 假释出狱的日子（一九九〇年五月二十三�
 # 露脸镜头登记（镜头号 -> 角色 id）：只有这里登记的镜头允许出现面容 token，
 # 与 cast.json 的 shots 映射一一对应（face_cast.py check-prompts 两边都查）。
 FACE_SHOTS = {
-    "S04": ["C2"],
     "S07": ["C1"],
     "S12": ["C4"],
     "S13": ["C4"],
@@ -669,7 +668,7 @@ FACE_SHOTS = {
 }
 # 用定妆照做首帧（图生视频）的镜头：每个角色的首次露脸镜头，把这张脸钉在观众第一眼里。
 # 定妆照提交在仓库里，URL 取 cast.json 的 portrait_url（Agnes 只在服务器侧取图）。
-REFERENCE_SHOTS = {"S04": "C2", "S07": "C1", "S12": "C4", "S21": "C3", "S22": "C6", "S25": "C5"}
+REFERENCE_SHOTS = {"S07": "C1", "S12": "C4", "S21": "C3", "S22": "C6", "S25": "C5"}
 
 
 def faces():
