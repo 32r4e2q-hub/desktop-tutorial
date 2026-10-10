@@ -33,7 +33,7 @@
       "updated_at": "2026-10-10T04:32:52Z"
     }
   },
-  "phase": "generating_sources",
+  "phase": "pipeline_failed",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -87,6 +87,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T04:32:53Z",
-  "run_id": "38024372451"
+  "updated_at": "2026-10-10T04:32:54Z",
+  "run_id": "38024372451",
+  "pipeline_error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/6f5577f1-desktop-tutorial']' returned non-zero exit status 128."
 }
