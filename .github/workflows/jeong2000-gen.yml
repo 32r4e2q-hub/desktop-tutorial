@@ -1,0 +1,90 @@
+name: 郑斗英：十个月，九条人命 · CogVideoX生成
+run-name: 郑斗英案 · 智谱 CogVideoX-Flash 生成 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON: {"only":"S01","workers":1}；空则读 GEN_REQUEST'
+        type: string
+        default: ''
+  push:
+    branches: [arena/f5c619e4-desktop-tutorial]
+    paths: [production/jeong2000/GEN_REQUEST]
+
+permissions:
+  contents: write
+concurrency:
+  group: jeong2000-cogvideox-arena-f5c619e4-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/f5c619e4-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f5c619e4-desktop-tutorial
+          fetch-depth: 1
+      - name: Resolve generation payload
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then payload="$PAYLOAD_INPUT";
+          elif [ -f production/jeong2000/GEN_REQUEST ]; then payload="$(tr -d '\n' < production/jeong2000/GEN_REQUEST)";
+          else payload='{"workers":1}'; fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "Generation payload: $payload"
+      - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CogVideoX and inspection dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "zhipuai>=2.1" "requests>=2.31" "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<19"
+      - name: Validate complete three-minute plan
+        run: python3 production/jeong2000/generate.py --validate
+      - name: Generate 38 CogVideoX-Flash clips and checkpoint receipts
+        env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: |
+          set -o pipefail
+          python3 -u production/jeong2000/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
+      - name: Trigger render after a complete full generation
+        if: ${{ success() && !contains(env.PAYLOAD, 'only') }}
+        run: |
+          printf 'render after CogVideoX run %s\n' "$GITHUB_RUN_ID" > production/jeong2000/RENDER_REQUEST
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/jeong2000/RENDER_REQUEST
+          git commit -m "jeong2000: CogVideoX素材齐备，触发出片"
+          git push origin HEAD:arena/f5c619e4-desktop-tutorial
+      - name: Ship failure log to branch
+        if: failure()
+        run: |
+          tail -c 200000 /tmp/gen.log > production/jeong2000/gen-diag.log || true
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/jeong2000/gen-diag.log
+          git commit -m "jeong2000: CogVideoX 生成失败诊断 $(date -u +%FT%TZ)" || true
+          git push origin HEAD:arena/f5c619e4-desktop-tutorial || true
+      - name: Save generation evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: jeong2000-cogvideox-${{ github.run_number }}
+          path: |
+            production/jeong2000/results.json
+            production/jeong2000/qa/
+            production/jeong2000/gen-diag.log
+          if-no-files-found: warn
+          retention-days: 14
