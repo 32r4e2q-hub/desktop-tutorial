@@ -1,23 +1,8 @@
 {
   "project": "李春才：华城连环杀人案，DNA揭开了33年的秘密",
-  "model": "agnes-video-2.5",
-  "shots": {
-    "S01": {
-      "id": "S01",
-      "status": "waiting_create_slot",
-      "request_hash": "e4bc89265b87b21ab52b025d4e0fd22c48d9a7dcd25a498afca97a2517863fa9",
-      "error": null,
-      "updated_at": "2026-10-10T07:19:28Z"
-    },
-    "S06": {
-      "id": "S06",
-      "status": "submitting",
-      "request_hash": "c2eab3c0b6777ed868146b881a342703784477b0db18ae7598a7f85669cd2a5e",
-      "error": null,
-      "updated_at": "2026-10-10T07:19:29Z"
-    }
-  },
-  "phase": "quota_exhausted",
+  "model": "agnes-video-2.5-flash",
+  "shots": {},
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -32,8 +17,8 @@
     "key_rotation": false,
     "channel_cooldown_seconds": 300,
     "channel_error_limit": 2,
-    "wait_channel_minutes": 10.0,
-    "total_budget_minutes": 180.0
+    "wait_channel_minutes": 5.0,
+    "total_budget_minutes": 175.0
   },
   "required_generated_shots": [
     "S01",
@@ -75,7 +60,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T07:19:30Z",
-  "run_id": "38033901870",
-  "pipeline_error": "Agnes 账号额度已用尽：Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 202610100719295413281715oS4QGpi). Check AGNES_API_KEY.。请充值或换一把 AGNES_API_KEY 再触发一轮；已完成的镜头按 SHA-256 复用，不会重复扣费。"
+  "updated_at": "2026-10-10T07:27:42Z",
+  "run_id": "38034380459"
 }
