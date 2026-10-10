@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   generate:
@@ -65,7 +66,7 @@ jobs:
               prompt = "一只可爱的小猫咪在阳光下的花园里捉蝴蝶，草地，电影质感，超高清"
 
           if not api_key:
-              log("❌ 错误: 未检测到 ZHIPUAI_API_KEY (secrets.ZHIPUAI_API_KEY 为空或未配置成功)！")
+              log("❌ 错误: 未检测到 ZHIPUAI_API_KEY，请检查 GitHub Secret 配置！")
               save_log()
               sys.exit(1)
           else:
@@ -97,14 +98,14 @@ jobs:
                   result = client.videos.retrieve_videos_result(id=task_id)
                   status = result.task_status
                   elapsed = int(time.time() - start_time)
+                  log(f"[{elapsed}s] 状态: {status} | 原始响应: {result}")
 
                   if status == "SUCCESS":
                       video_url = result.video_result[0].url
                       log(f"\n🎉 视频生成成功！耗时: {elapsed} 秒")
                       log(f"🔗 官方下载链接 (30天有效):\n{video_url}\n")
                       
-                      # 下载视频保存为 artifact
-                      log("⬇️ 正在下载视频文件...")
+                      print("⬇️ 正在下载视频文件...")
                       res = requests.get(video_url, timeout=60)
                       with open("output_video.mp4", "wb") as f:
                           f.write(res.content)
@@ -112,33 +113,29 @@ jobs:
                       save_log()
                       break
                   elif status == "FAIL":
-                      log(f"\n❌ 生成失败: {result}")
+                      log(f"\n❌ 生成失败详细信息: {result}")
                       save_log()
                       sys.exit(1)
                   else:
-                      log(f"[{elapsed}s] 状态: {status} (排队或生成中)...")
-                      time.sleep(10)
+                      time.sleep(8)
               except Exception as err:
                   log(f"⚠️ 查询状态出现重试警告: {err}")
-                  time.sleep(10)
+                  time.sleep(8)
           EOF
 
-      - name: 报告日志到 Summary 和 Annotation
+      - name: 将结果发到 GitHub Issue
         if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -f run_output.log ]; then
-            cat run_output.log >> $GITHUB_STEP_SUMMARY
-            CLEAN_LOG=$(cat run_output.log | tr '\n' ' ' | head -c 500)
-            echo "::notice title=视频生成运行报告::$CLEAN_LOG"
+            gh issue create --title "视频生成运行报告 [$(date '+%H:%M:%S')]" --body-file run_output.log || true
           fi
 
-      - name: 上传视频文件至 Artifacts
+      - name: 上传日志产物
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cogvideox-flash-result
-          path: |
-            output_video.mp4
-            run_output.log
+          name: video-log
+          path: run_output.log
           if-no-files-found: warn
-          retention-days: 7
