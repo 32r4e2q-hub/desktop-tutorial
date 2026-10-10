@@ -2,11 +2,89 @@
   "model": "agnes-video-2.5",
   "base": "https://apihub.agnes-ai.com",
   "shot": "S01",
-  "probed_at": "2026-10-10T06:19:46Z",
+  "probed_at": "2026-10-10T06:24:54Z",
   "api_key_present": true,
   "attempts": [
     {
-      "shape": "size",
+      "shape": "size_frame_rate_duration",
+      "fields": [
+        "duration",
+        "frame_rate",
+        "model",
+        "negative_prompt",
+        "prompt",
+        "seed",
+        "size"
+      ],
+      "http_status": 400,
+      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 20261010062454818298333Zwqx2O6A)\",\"data\":null}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "size_duration",
+      "fields": [
+        "duration",
+        "model",
+        "negative_prompt",
+        "prompt",
+        "seed",
+        "size"
+      ],
+      "http_status": 400,
+      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 2026101006261599188121MwHdJ2rq)\",\"data\":null}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "size_frame_rate_seconds",
+      "fields": [
+        "frame_rate",
+        "model",
+        "negative_prompt",
+        "prompt",
+        "seconds",
+        "seed",
+        "size"
+      ],
+      "http_status": 400,
+      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 20261010062735384640703T3xi2pKS)\",\"data\":null}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "size_seconds",
+      "fields": [
+        "model",
+        "negative_prompt",
+        "prompt",
+        "seconds",
+        "seed",
+        "size"
+      ],
+      "http_status": 400,
+      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 202610100628556956802436SR5buNC)\",\"data\":null}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "size_aspect_ratio_duration",
+      "fields": [
+        "aspect_ratio",
+        "duration",
+        "model",
+        "negative_prompt",
+        "prompt",
+        "seed",
+        "size"
+      ],
+      "http_status": 400,
+      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 2026101006301655245227f1pbaz4N)\",\"data\":null}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "size_frame_rate_num_frames",
       "fields": [
         "frame_rate",
         "model",
@@ -17,113 +95,7 @@
         "size"
       ],
       "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"num_frames is a forbidden field (request id: 20261010061946861702646yf051bZu)\",\"data\":{\"param\":\"num_frames\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "aspect_ratio_resolution",
-      "fields": [
-        "aspect_ratio",
-        "frame_rate",
-        "model",
-        "negative_prompt",
-        "num_frames",
-        "prompt",
-        "resolution",
-        "seed"
-      ],
-      "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"resolution is not an allowed request field (request id: 20261010061955166362876AbDy2wd8)\",\"data\":{\"param\":\"resolution\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "resolution_only",
-      "fields": [
-        "frame_rate",
-        "model",
-        "negative_prompt",
-        "num_frames",
-        "prompt",
-        "resolution",
-        "seed"
-      ],
-      "http_status": 429,
-      "body_excerpt": "{\"error\":{\"message\":\"You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 202610100620034643471131sKaPNHQ)\",\"type\":\"AgnesAI_error\",\"param\":\"\",\"code\":\"rate_limit_exceeded\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "aspect_ratio_only",
-      "fields": [
-        "aspect_ratio",
-        "frame_rate",
-        "model",
-        "negative_prompt",
-        "num_frames",
-        "prompt",
-        "seed"
-      ],
-      "http_status": 429,
-      "body_excerpt": "{\"error\":{\"message\":\"You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20261010062011776931339kGWNbmqt)\",\"type\":\"AgnesAI_error\",\"param\":\"\",\"code\":\"rate_limit_exceeded\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "no_size_fields",
-      "fields": [
-        "frame_rate",
-        "model",
-        "negative_prompt",
-        "num_frames",
-        "prompt",
-        "seed"
-      ],
-      "http_status": 429,
-      "body_excerpt": "{\"error\":{\"message\":\"You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20261010062020726245747k9A4ph2)\",\"type\":\"AgnesAI_error\",\"param\":\"\",\"code\":\"rate_limit_exceeded\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "frames_as_duration",
-      "fields": [
-        "duration",
-        "model",
-        "negative_prompt",
-        "prompt",
-        "seed"
-      ],
-      "http_status": 429,
-      "body_excerpt": "{\"error\":{\"message\":\"You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20261010062028375474698ouHY55JJ)\",\"type\":\"AgnesAI_error\",\"param\":\"\",\"code\":\"rate_limit_exceeded\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "minimal",
-      "fields": [
-        "model",
-        "prompt"
-      ],
-      "http_status": 429,
-      "body_excerpt": "{\"error\":{\"message\":\"You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20261010062036657516825lUsMl6VO)\",\"type\":\"AgnesAI_error\",\"param\":\"\",\"code\":\"rate_limit_exceeded\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "legacy_width_height",
-      "fields": [
-        "frame_rate",
-        "height",
-        "model",
-        "negative_prompt",
-        "num_frames",
-        "prompt",
-        "seed",
-        "width"
-      ],
-      "http_status": 429,
-      "body_excerpt": "{\"error\":{\"message\":\"You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20261010062044947709407ad1IQBYB)\",\"type\":\"AgnesAI_error\",\"param\":\"\",\"code\":\"rate_limit_exceeded\"}}",
+      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"negative_prompt is not an allowed request field (request id: 20261010063136336893125c402g6fO)\",\"data\":{\"param\":\"negative_prompt\"}}",
       "video_id": null,
       "task_id": null
     }
