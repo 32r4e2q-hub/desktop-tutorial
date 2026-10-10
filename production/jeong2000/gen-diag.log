@@ -1,25 +1,29 @@
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   dce6f89..6a3f215  arena/f5c619e4-desktop-tutorial -> arena/f5c619e4-desktop-tutorial
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   6a3f215..9c41681  arena/f5c619e4-desktop-tutorial -> arena/f5c619e4-desktop-tutorial
+S19: submit throttled attempt 1, wait 20s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S19: submit throttled attempt 2, wait 25s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   9c41681..3d139f0  arena/f5c619e4-desktop-tutorial -> arena/f5c619e4-desktop-tutorial
+S19 [1/1] poll 1: PROCESSING
+S19 [1/1] poll 2: PROCESSING
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 187, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 192, in <module>
     if __name__=='__main__': raise SystemExit(main())
                                               ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 138, in main
-    checkpoint(doc,'CogVideoX cloud generation started',publish=args.publish)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 95, in checkpoint
-    git('commit','-m',f'jeong2000: {label}','--',*paths)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 81, in git
-    if check and result.returncode: raise RuntimeError(result.stdout+result.stderr)
-                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Author identity unknown
-
-*** Please tell me who you are.
-
-Run
-
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-
-to set your account's default identity.
-Omit --global to set the identity only in this repository.
-
-fatal: empty ident name (for <runner@runnervmmprz5.5y4rndj4vfnergvhfxv5ijxbfe.ex.internal.cloudapp.net>) not allowed
-
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 166, in main
+    result=client.videos.retrieve_videos_result(id=task_id); status=str(obj_get(result,'task_status','')).upper()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/api_resource/videos/videos.py", line 88, in retrieve_videos_result
+    return self._get(
+           ^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/core/_http_client.py", line 751, in get
+    return cast(ResponseT, self.request(cast_type, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/core/_http_client.py", line 495, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/core/_http_client.py", line 582, in _request
+    raise self._make_status_error(err.response) from None
+zhipuai.core._errors.APIRequestFailedError: Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。"},"contentFilter":[{"level":2,"role":"user"}]}
