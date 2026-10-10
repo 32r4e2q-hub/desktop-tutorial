@@ -1,7 +1,706 @@
 MODEL_OVERRIDE agnes-video-2.5-flash
+SIZE_OVERRIDE 720P
 PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
 PRODUCTION_STATUS cloud generation started
 PRODUCTION_STATUS S01 submitting
 PRODUCTION_STATUS S01 waiting for a creation slot
-PRODUCTION_STATUS S01 failed
-PRODUCTION_STATUS generation incomplete
+S03: reusing completed provider result; no new generation request
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S03 media and QA ready
+PRODUCTION_STATUS S04 submitting
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=98s budget=8400s
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=278s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=459s budget=8400s
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=639s budget=8400s
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=820s budget=8400s
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1000s budget=8400s
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1181s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1361s budget=8400s
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1542s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1722s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1903s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S01 queued
+[10:51:31] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=167s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+[10:57:16] status=in_progress progress=10% (elapsed 344s)
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=349s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+[11:00:18] status=completed progress=100% (elapsed 526s)
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=531s budget=8400s
+PRODUCTION_STATUS S01 generated
+PRODUCTION_STATUS S01 media and QA ready
+PRODUCTION_STATUS S05 submitting
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=711s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=892s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1072s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1253s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1433s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1614s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1794s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1975s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2155s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2336s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2516s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2697s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2878s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3058s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3239s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3419s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3599s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3780s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3961s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4141s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4322s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4502s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4683s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4863s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5044s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5224s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5405s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5585s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S04 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5766s budget=8400s
+PRODUCTION_STATUS S04 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S04 queued
+[12:30:35] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=167s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=348s budget=8400s
+[12:37:50] status=in_progress progress=10% (elapsed 435s)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+[12:39:21] status=completed progress=100% (elapsed 526s)
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=530s budget=8400s
+PRODUCTION_STATUS S04 generated
+PRODUCTION_STATUS S04 media and QA ready
+PRODUCTION_STATUS S06 submitting
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=711s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=892s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1073s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1254s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1434s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1615s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1796s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=1977s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2157s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2338s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2520s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2700s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=2881s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3062s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3243s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3424s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3605s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3785s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=3966s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4147s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4328s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4509s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4690s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=4875s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5051s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5232s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5413s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5594s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5775s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=5956s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=6136s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=6317s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=6498s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=6679s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=6860s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=7040s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=7221s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=7402s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=7582s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=7763s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=7944s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=8125s budget=8400s
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_WAIT round=2 waited=8306s budget=8400s
+PRODUCTION_STATUS S05 waiting for a creation slot
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S05 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
+S07: skipped, provider capacity exhausted
+S08: skipped, provider capacity exhausted
+S09: skipped, provider capacity exhausted
+S10: skipped, provider capacity exhausted
+S12: skipped, provider capacity exhausted
+PRODUCTION_STATUS S06 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 3)
+PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
+PRODUCTION_STATUS pipeline stopped
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 530, in create_paced
+    created=agnes.create_task(base,key,payload,retries=1,retry_delay=75)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/agnes_video.py", line 294, in create_task
+    raise Fatal(message)
+agnes_video.Fatal: Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610101451585254529675Ht12Emq)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 684, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 626, in main
+    outcomes=list(pool.map(generate,shots))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 592, in generate
+    created=create_paced(sid,payload)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 553, in create_paced
+    breaker.observe(sid,redacted,reason=reason,cooldown=cooldown)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 163, in observe
+    raise ProviderCapacity(
+ProviderCapacity: Agnes 网关连续 2 轮报告供应商视频排队已满：Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610101451585254529675Ht12Emq)；等待预算 140 分钟已用尽。这是供应商侧容量问题——请求本身没错，只能等它缓过来后再触发一轮。
