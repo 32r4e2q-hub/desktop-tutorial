@@ -81,7 +81,7 @@ FETCH S45 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101020254029af
 FETCH_COMPLETE {"downloaded": 38, "reused": 0, "clips": 38}
 === 3/5 剪辑 + 混音 + 成品复测（闸门二、三）===
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-[0;93m2026-10-10 12:44:26.362066006 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+[0;93m2026-10-10 12:48:40.912712195 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
 ASR_TIMING_READY N01
 ASR_TIMING_READY N02
 ASR_TIMING_READY N03
@@ -117,6 +117,21 @@ RENDER_SEGMENT 26/46 S26
 RENDER_SEGMENT 27/46 S27
 RENDER_SEGMENT 28/46 S28
 RENDER_SEGMENT 29/46 S29
+RENDER_SEGMENT 30/46 S30
+RENDER_SEGMENT 31/46 S31
+RENDER_SEGMENT 32/46 S32
+RENDER_SEGMENT 33/46 S33
+RENDER_SEGMENT 34/46 S34
+RENDER_SEGMENT 35/46 S35
+RENDER_SEGMENT 36/46 S36
+RENDER_SEGMENT 37/46 S37
+RENDER_SEGMENT 38/46 S38
+RENDER_SEGMENT 39/46 S39
+RENDER_SEGMENT 40/46 S40
+RENDER_SEGMENT 41/46 S41
+RENDER_SEGMENT 42/46 S42
+RENDER_SEGMENT 43/46 S43
+RENDER_SEGMENT 44/46 S44
 Traceback (most recent call last):
   File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/render.py", line 514, in <module>
     if __name__=='__main__':main()
@@ -127,4 +142,4 @@ Traceback (most recent call last):
   File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/render.py", line 376, in render_segment
     if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: S30/: requires excessive slow motion (1.51)
+RuntimeError: S45/: requires excessive slow motion (2.14)
