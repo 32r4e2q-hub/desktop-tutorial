@@ -111,9 +111,21 @@ def main() -> int:
                     created = agnes.create_task(base, key, payload, retries=1, retry_delay=0)
                     task = {k: created.get(k) for k in ("id", "video_id", "task_id", "status")}
                     lines.append("CREATE_OK %s %s" % (sid, json.dumps(task, ensure_ascii=False)))
+                    # 端到端：新接口的轮询端点与 URL 提取是否也走得通
+                    # （create 成功不等于 poll 成功，两者端点形状不同）
+                    video_id = created.get("video_id") or created.get("id")
+                    task_id = created.get("task_id") or created.get("id")
+                    lines.append("POLL_BEGIN %s video_id=%s task_id=%s" % (sid, video_id, task_id))
+                    final, url = agnes.poll_task(
+                        base, key, payload["model"], str(video_id), str(task_id or ""),
+                        interval=15, timeout=420, max_failures=8)
+                    lines.append("POLL_DONE %s status=%s url=%s bytes_hint=%s" % (
+                        sid, final.get("status"), (url or "")[:120],
+                        final.get("bytes") or final.get("size")))
                 except Exception as exc:
                     text = str(exc).replace(key, "[redacted]") if key else str(exc)
-                    lines.append("CREATE_FAIL %s %s" % (sid, text[:260]))
+                    tag = "POLL_FAIL" if "POLL_BEGIN" in "\n".join(lines) else "CREATE_FAIL"
+                    lines.append("%s %s %s" % (tag, sid, text[:260]))
 
     ok = [l.split()[1] for l in lines if l.startswith("CREATE_OK")]
     lines.append("WORKING_SHOTS %s" % json.dumps(ok, ensure_ascii=False))
