@@ -1,0 +1,296 @@
+{
+  "film": "郑斗英_十个月，九条人命_三分钟_带声音.mp4",
+  "film_sha256": "0b0ee6417a70d319613578c7cecbf6de6207834b72e894ca4132d964f0d8fd31",
+  "film_bytes": 58562416,
+  "project": "production/jeong2000",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 26.185,
+        "script_chars": 110,
+        "heard_chars": 111,
+        "character_error_rate": 0.0091,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          }
+        ],
+        "transcript": "20000年4月12日 韩国天安警方接到紧急报警一户住宅遭到抢劫 屋内女子可能被控制警员赶到后 抓住了试图离开的31岁男子郑斗英起初 这只像一次入室抢劫可当釜山警方赶来核对旧案 真相迅速失控他们抓到的是10个月里 连续夺走9条生命的人"
+      },
+      {
+        "id": "N02",
+        "start": 27.265,
+        "end": 54.625,
+        "script_chars": 117,
+        "heard_chars": 117,
+        "character_error_rate": 0.0342,
+        "match_coverage": 0.9658,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "服",
+            "heard": "复"
+          },
+          {
+            "at": 68,
+            "kind": "replace",
+            "script": "蔚",
+            "heard": "卫"
+          },
+          {
+            "at": 100,
+            "kind": "replace",
+            "script": "异",
+            "heard": "议"
+          },
+          {
+            "at": 109,
+            "kind": "replace",
+            "script": "它",
+            "heard": "他"
+          }
+        ],
+        "transcript": "郑斗英并非第一次因暴力犯罪入狱1986年18岁的他杀害一名巡邏人员复刑多年后又因盗窃反复进出监狱1999年3月再次获释后他把目标对准釜山 卫山等地的富裕住宅6月起不同城市陆续出现抢劫和命案地点分散 现场各议警方最初没有认定他们来自同一个人"
+      },
+      {
+        "id": "N03",
+        "start": 55.705,
+        "end": 85.567,
+        "script_chars": 126,
+        "heard_chars": 137,
+        "character_error_rate": 0.0873,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 126,
+            "kind": "insert",
+            "script": "",
+            "heard": "请不吝点赞订阅转发打赏"
+          }
+        ],
+        "transcript": "公开报道显示他的目的主要是钱财他常在白天寻找住宅进入后搜掠现金和贵重物品一旦被发现犯罪便升级为致命暴力受害者既有屋主也有在住宅里工作的人员到2000年春相关案件已造成9人死亡10人受伤警方掌握了幸存者描述与公开通缉线索却仍缺少把所有现场连成一线的关键证据请不吝点赞 订阅 转发 打赏"
+      },
+      {
+        "id": "N04",
+        "start": 86.647,
+        "end": 113.85,
+        "script_chars": 119,
+        "heard_chars": 119,
+        "character_error_rate": 0.0336,
+        "match_coverage": 0.9664,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 34,
+            "kind": "replace",
+            "script": "察觉异常",
+            "heard": "查决一场"
+          }
+        ],
+        "transcript": "4月12日 郑斗英进入天安一处住宅要求屋内女子联系丈夫送钱丈夫从电话中查决一场没有独自回家而是立即报警警方在住宅周围布控并安排人员带着准备好的钱进入郑斗英拿到钱走出房门时被守候的警员控制这场看似偶然的现场处置终于给持续10个月的调查打开突破口"
+      },
+      {
+        "id": "N05",
+        "start": 114.93,
+        "end": 142.791,
+        "script_chars": 116,
+        "heard_chars": 116,
+        "character_error_rate": 0.0259,
+        "match_coverage": 0.9741,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "供",
+            "heard": "共"
+          },
+          {
+            "at": 77,
+            "kind": "replace",
+            "script": "釜",
+            "heard": "府"
+          },
+          {
+            "at": 86,
+            "kind": "replace",
+            "script": "处",
+            "heard": "出"
+          }
+        ],
+        "transcript": "后续审讯和核查中郑斗英共述了多起案件韩国媒体统计从1999年6月到2000年4月他在多地涉及23起强盗杀人相关犯罪9人死亡10人受伤2000年7月21日府山地方法院一审判出死刑11月30日二审维持原判他放弃继续上诉死刑判决随后确定"
+      },
+      {
+        "id": "N06",
+        "start": 143.871,
+        "end": 174.0,
+        "script_chars": 136,
+        "heard_chars": 136,
+        "character_error_rate": 0.0147,
+        "match_coverage": 0.9853,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 35,
+            "kind": "replace",
+            "script": "越",
+            "heard": "跃"
+          },
+          {
+            "at": 86,
+            "kind": "replace",
+            "script": "注",
+            "heard": "助"
+          }
+        ],
+        "transcript": "案件并未从公众记忆中消失2016年8月关押在大田监狱的郑斗英试图逃脱他跃过三重围墙中的两道后触发警报在最后一道围墙前被控制后来又因逃跑未遂被加刑10个月9条生命不是凶手传奇的助脚而是9个再也无法回家的普通人真正该记住的是报警者的警觉幸存者的勇气以及那些不该被名字遮住的受害者"
+      }
+    ],
+    "max_cer": 0.0873,
+    "failing": []
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 26.185,
+        "script_chars": 110,
+        "heard_chars": 111,
+        "character_error_rate": 0.0091,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          }
+        ],
+        "transcript": "20000年4月12日韩国天安警方接到紧急报警一户住宅遭到抢劫屋内女子可能被控制警员赶到后抓住了试图离开的31岁男子郑斗英起初这只像一次入室抢劫可当釜山警方赶来核对旧案真相迅速失控他们抓到的是10个月里连续夺走9条生命的人"
+      },
+      {
+        "id": "N02",
+        "start": 27.265,
+        "end": 54.625,
+        "script_chars": 117,
+        "heard_chars": 117,
+        "character_error_rate": 0.0256,
+        "match_coverage": 0.9744,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 68,
+            "kind": "replace",
+            "script": "蔚",
+            "heard": "卫"
+          },
+          {
+            "at": 100,
+            "kind": "replace",
+            "script": "异",
+            "heard": "议"
+          },
+          {
+            "at": 109,
+            "kind": "replace",
+            "script": "它",
+            "heard": "他"
+          }
+        ],
+        "transcript": "郑斗英并非第一次因暴力犯罪入狱1986年18岁的他杀害一名巡邏人员服刑多年后又因盗窃反复进出监狱1999年3月再次获释后他把目标对准釜山 卫山等地的富裕住宅6月起不同城市陆续出现抢劫和命案地点分散 现场各议警方最初没有认定他们来自同一个人"
+      },
+      {
+        "id": "N03",
+        "start": 55.705,
+        "end": 85.567,
+        "script_chars": 126,
+        "heard_chars": 126,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "公开报道显示他的目的主要是钱财他常在白天寻找住宅进入后搜掠现金和贵重物品一旦被发现犯罪便升级为致命暴力受害者既有屋主也有在住宅里工作的人员到2000年春相关案件已造成9人死亡10人受伤警方掌握了幸存者描述与公开通缉线索却仍缺少把所有现场连成一线的关键证据"
+      },
+      {
+        "id": "N04",
+        "start": 86.647,
+        "end": 113.85,
+        "script_chars": 119,
+        "heard_chars": 119,
+        "character_error_rate": 0.0336,
+        "match_coverage": 0.9664,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 34,
+            "kind": "replace",
+            "script": "察觉异常",
+            "heard": "查决一场"
+          }
+        ],
+        "transcript": "4月12日 郑斗英进入天安一处住宅要求屋内女子联系丈夫送钱丈夫从电话中查决一场没有独自回家而是立即报警警方在住宅周围布控并安排人员带着准备好的钱进入郑斗英拿到钱走出房门时被守候的警员控制这场看似偶然的现场处置终于给持续10个月的调查打开突破口"
+      },
+      {
+        "id": "N05",
+        "start": 114.93,
+        "end": 142.791,
+        "script_chars": 116,
+        "heard_chars": 116,
+        "character_error_rate": 0.0086,
+        "match_coverage": 0.9914,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "供",
+            "heard": "共"
+          }
+        ],
+        "transcript": "后续审讯和核查中郑斗英共述了多起案件韩国媒体统计从1999年6月到2000年4月他在多地涉及23起强盗杀人相关犯罪9人死亡10人受伤2000年7月21日釜山地方法院一审判处死刑11月30日二审维持原判他放弃继续上诉死刑判决随后确定"
+      },
+      {
+        "id": "N06",
+        "start": 143.871,
+        "end": 174.0,
+        "script_chars": 136,
+        "heard_chars": 136,
+        "character_error_rate": 0.0147,
+        "match_coverage": 0.9853,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 35,
+            "kind": "replace",
+            "script": "越",
+            "heard": "跃"
+          },
+          {
+            "at": 86,
+            "kind": "replace",
+            "script": "注",
+            "heard": "助"
+          }
+        ],
+        "transcript": "案件并未从公众记忆中消失2016年8月关押在大田监狱的郑斗英试图逃脱他跃过三重围墙中的两道后触发警报在最后一道围墙前被控制后来又因逃跑未遂被加刑10个月9条生命不是凶手传奇的助脚而是9个再也无法回家的普通人真正该记住的是报警者的警觉幸存者的勇气以及那些不该被名字遮住的受害者"
+      }
+    ],
+    "max_cer": 0.0336,
+    "failing": []
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+}
