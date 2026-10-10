@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: arena/6f5577f1-desktop-tutorial
-          fetch-depth: 1
+          fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功（浅克隆会让重试路径失败）
 
       - name: Install media tools and CJK fonts
         run: |

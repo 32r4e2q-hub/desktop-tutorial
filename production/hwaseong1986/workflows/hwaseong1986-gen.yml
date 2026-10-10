@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: arena/6f5577f1-desktop-tutorial
-          fetch-depth: 1
+          fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功（浅克隆会让重试路径失败）
 
       - name: Resolve the generation payload
         env:
@@ -71,6 +71,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16" || \
           python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16"
+
+      - name: 角色脸一致性（静态闸门，露脸模式：token 逐字节一致 + 不撞脸）
+        run: python3 production/face_cast.py check-prompts --project production/hwaseong1986
 
       - name: Validate the complete three-minute timeline
         run: python3 production/hwaseong1986/generate.py --validate
