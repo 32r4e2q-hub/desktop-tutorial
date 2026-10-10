@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 58562416,
+  "bytes": 58520542,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,10 +9,10 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "0b0ee6417a70d319613578c7cecbf6de6207834b72e894ca4132d964f0d8fd31",
+  "sha256": "95f154a2db18754a9204189d93d3714a82e7d6f01c6c8fd0c9a8309b13b7d992",
   "decoded_ok": true,
-  "status": "final_approved",
-  "visual_review": "passed: 5400/5400 decoded; 1-second full-cut sheets and flagged frame/hand/freeze evidence manually reviewed",
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
   "caption_alignment": [
     {
       "id": "N01",
@@ -22,12 +22,12 @@
     {
       "id": "N02",
       "method": "clause-times DP",
-      "character_match_coverage": 0.7350427350427351
+      "character_match_coverage": 0.28205128205128205
     },
     {
       "id": "N03",
-      "method": "clause-times DP",
-      "character_match_coverage": 0.2619047619047619
+      "method": "ASR-assisted",
+      "character_match_coverage": 0.9920634920634921
     },
     {
       "id": "N04",
@@ -37,7 +37,7 @@
     {
       "id": "N05",
       "method": "clause-times DP",
-      "character_match_coverage": 0.3017241379310345
+      "character_match_coverage": 0.06896551724137931
     },
     {
       "id": "N06",
@@ -64,6 +64,6 @@
     "silent_fraction": 0.0055,
     "quietest_window_dbfs": -120.0
   },
-  "audio_listening_review": "passed via final-cut chapter ASR against script (max CER 0.0873, all 6 chapters below 0.15) plus level/silence gates",
-  "note": "Final cut passed technical, audio/verbatim, and semantic visual review; delivery is approved."
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
 }
