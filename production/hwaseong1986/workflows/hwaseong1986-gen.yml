@@ -119,34 +119,15 @@ jobs:
           if-no-files-found: warn
           compression-level: 0
           retention-days: 14
-      - name: 排队没排到就自动再投一轮（断点续跑，最多 12 轮）
-        # 实测（2026-10-10）供应商排队是间歇性的：23 次尝试成 1 次，S03 在 09:11 建成。
-        # 所以「等不到」不该等于「停下来等人」——只要还是排队满，就自己再投一轮接着跑；
-        # 每个镜头的断点都带 SHA-256，已经生成的素材会被复用，不会重花一分钱。
-        # 上限 12 轮：真出了别的问题（欠费、模型下线）时不会无限烧 runner。
+      - name: 排队没排到就自动再投一轮（循环直到全部生成；连续 3 轮零进展才停）
+        # 思路（2026-10-10 与用户确认）：已生成的镜头按 SHA-256 断点复用，
+        # 剩下的就是反复循环请求，直到 38 镜全部生成。
+        # 平台限制单个 job 最长约 6 小时，所以「循环」实现为一串自动接力的 run。
+        # 保护闸在 auto_resume.py：连续 3 轮一个镜头都没多 → 疑似供应商停摆，停下等人。
         if: always()
-        env:
-          RESUME_ROUNDS: "12"
         run: |
           set -uo pipefail
-          python3 - <<'PY'
-          import json, os, pathlib
-          req=pathlib.Path('production/hwaseong1986/GEN_REQUEST')
-          res=pathlib.Path('production/hwaseong1986/results.json')
-          if not req.is_file() or not res.is_file():
-              print('不重投：缺 GEN_REQUEST 或 results.json'); raise SystemExit(0)
-          phase=json.loads(res.read_text(encoding='utf-8')).get('phase')
-          if phase!='provider_capacity':
-              print('不重投：phase=%s' % phase); raise SystemExit(0)
-          payload=json.loads(req.read_text(encoding='utf-8'))
-          rounds=int(payload.get('round',1)); cap=int(os.environ['RESUME_ROUNDS'])
-          if rounds>=cap:
-              print('不重投：已自动投满 %d 轮，请人工看一眼再继续' % cap); raise SystemExit(0)
-          payload['round']=rounds+1
-          req.write_text(json.dumps(payload,ensure_ascii=False)+'\n',encoding='utf-8')
-          pathlib.Path(os.environ['RUNNER_TEMP']+'/auto_resume').write_text('1')
-          print('AUTO_RESUME round=%d' % (rounds+1))
-          PY
+          python3 production/hwaseong1986/auto_resume.py
           if [ -f "$RUNNER_TEMP/auto_resume" ]; then
             git config user.name "arena-agent"
             git config user.email "arena@local"
@@ -161,9 +142,12 @@ jobs:
               git fetch origin "${{ github.ref_name }}" && git rebase FETCH_HEAD || break
               sleep 3
             done
-            # 关键：用 GITHUB_TOKEN 做的 git push **不会触发新的 workflow run**
-            # （GitHub 防递归的平台规则，实测 14:53 那轮就是这么断档 27 分钟的）。
-            # 所以这里用 gh workflow run 显式自派发——dispatch 不受这条限制。
-            gh workflow run hwaseong1986-gen.yml --ref "${{ github.ref_name }}" \
-              && echo "已自派发新一轮：接着没做完的镜头跑"
+            # GITHUB_TOKEN 的 git push 不触发新 run（平台防递归），必须显式自派发。
+            for attempt in 1 2 3; do
+              if gh workflow run hwaseong1986-gen.yml --ref "${{ github.ref_name }}"; then
+                echo "已自派发新一轮：接着没做完的镜头跑"
+                break
+              fi
+              sleep 5
+            done
           fi
