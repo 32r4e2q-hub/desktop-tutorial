@@ -13,10 +13,10 @@
     },
     "S03": {
       "id": "S03",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "d12a54284bca3379d97ef475944c2c350cc68d9bc7e417a3908ae96cdf257500",
       "error": null,
-      "updated_at": "2026-10-10T09:22:49Z",
+      "updated_at": "2026-10-10T09:22:51Z",
       "channel_error_round": 1,
       "applied_cooldown_seconds": 300.0,
       "video_id": "task_WMnVVjdGjZl8EnpeDR6fISBYQc3xahrK",
@@ -26,7 +26,25 @@
       "bytes": 2317486,
       "sha256": "5b6e9dfdb97186222908ab93250ffa68c742b191781abebb781941697269faee",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration": 7.328,
+        "bytes": 2317486,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 175,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/hwaseong1986/qa/S03.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "phase": "generating_sources",
@@ -87,7 +105,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T09:22:49Z",
+  "updated_at": "2026-10-10T09:22:51Z",
   "run_id": "38036880428",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
