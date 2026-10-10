@@ -212,10 +212,10 @@
     },
     "S34": {
       "id": "S34",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "877e75bd6140e5b4b1043919d859f2fe7462c16c205ce13d99a3c945ac0c4cc2",
-      "error": null,
-      "updated_at": "2026-10-10T07:47:05Z"
+      "error": "Provider cooldown would exceed the generation budget; saved tasks can be resumed",
+      "updated_at": "2026-10-10T07:47:07Z"
     },
     "S35": {
       "id": "S35",
@@ -279,7 +279,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T07:47:06Z",
+  "updated_at": "2026-10-10T07:47:07Z",
   "run_id": "38025761445",
   "pipeline_error": "cannot access local variable 'push_provenance' where it is not associated with a value"
 }
