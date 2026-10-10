@@ -4,10 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "7b8965a1da2f493ab9c11dc2453cc46b49df3dbdbc3be71acaa7a1236061f290",
-      "error": null,
-      "updated_at": "2026-10-10T06:13:31Z"
+      "error": "Request rejected (HTTP 400): width is a forbidden field (request id: 20261010061333455154284KUwPbFSx)",
+      "updated_at": "2026-10-10T06:13:35Z"
     },
     "S06": {
       "id": "S06",
@@ -75,6 +75,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T06:13:34Z",
+  "updated_at": "2026-10-10T06:13:35Z",
   "run_id": "38030080168"
 }
