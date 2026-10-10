@@ -7,55 +7,43 @@
 - slug：`hwaseong1986`　出片分支：`arena/6f5577f1-desktop-tutorial`　成片文件名：`李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4`
 - 规格：1920×1080 / 30 fps / 180 秒；**45 镜 = 38 个 Agnes 动画镜头 + 7 张信息卡（比例可调），每个镜头只出现一次**
 
-## 现在还不能出片（故意的）
+## 制作状态（2026-10-10）
 
-`generate.py --validate` 现在**会失败**，因为解说词、提示词、配音都是空的。按下面顺序填完，它才会放行。
+| 步骤 | 状态 | 证据 |
+|---|---|---|
+| 选题与事实核查（10 条公开来源） | 已完成 | `build_story.py` 的 `SOURCES`、`史实核对.md` |
+| 解说稿（6 章 794 字） | 已完成 | `story.json` 的 `chapters[].text`，与 `screenplay.md`、`audio/manifest.json` 逐字一致 |
+| 分镜（45 镜 = 38 Agnes + 7 信息卡） | 已完成 | `story.json` 的 `shots`，`make_edl` 断言每镜只用一次 |
+| 露脸模式（5 角色 / 9 露脸镜 / 5 张定妆照首帧） | 已完成 | `cast.json` + `cast/*.png`，`face_cast.py check-prompts` PASS |
+| 配音（voice-00，收紧停顿 162.38s / 窗口 168s） | 已完成 | `audio/N0x.mp3`、`audio/tighten-report.json`、`audio/clause-times.json` |
+| 闸门一（计划与配音来源） | 已完成 | `generate.py --validate`：`VALID: 180-second plan; 45 shots; 38 Agnes sources; 7 graphics` |
+| 剪辑表 CUTS（按分句停顿重对） | 已完成 | `clause_times.py --check-cuts` 全部落在停顿窗内 |
+| 卡片排字闸门（本地 + CI） | 已完成 | `pytest production/tests/test_card_typography.py` 真画卡片量安全带，通过 |
+| 本地冒烟测试（假素材跑通整条 render.py） | 已完成 | 46 段 / 180.0s / 5400 帧 / 38 素材 / tempo 0.9666 / RMS −20.63 dBFS |
+| 生成 38 个 Agnes 镜头 | 进行中 | `GEN_REQUEST` 已 push，工作流「李春才…Agnes生成」运行中 |
+| 复审（逐镜接触表 + 人眼） | 待办 | `qa/Sxx.jpg` 拉回后开始 |
+| 出片（RENDER_REQUEST） | 待办 | 成片回 `交付/`，报告进 `delivery/` |
+| 听检（VERBATIM_REQUEST，CER ≤ 0.15） | 待办 | `delivery/verbatim-check.json` |
+| 全帧视觉 QC + 人工语义签收 | 待办 | `delivery/frame-distortion-audit.*`、`qa/final-frame-review/` |
+| 发布（Release + 抖音脚本/发布文案） | 待办 | `gh release` + `RELEASE_UPLOAD_REQUEST` |
 
-## 待办清单（狂犬病模式）
+## 剩余步骤（从生成素材开始）
 
-1. **事实与红线** → `build_story.py` 的 `SOURCES` / `PRINCIPLES`，`screenplay.md` 的「事实边界」。每句话都要有公开来源。
-2. **解说稿** → `build_story.py` 的 `CHAPTERS`：六段合计 ≈ 760–800 字，数字写中文读法，每段末尾留钩子，不写血腥细节。
-3. **分镜** → `build_story.py` 的 `SHOTS`（45 个元组）：哪几镜是信息卡（`kind="graphic"`）由你定，信息卡文案写进 `CARDS`；
-   提示词先钉死唯一场景、再排除别的场景、最后加 HOLD 句。`TITLE_CARD` / `END_CARD` / `CAPTION_KEYWORDS` /
-   `LABEL_OVERRIDES` / `SFX_EVENTS` 也在这里。写完跑：
-
-   ```bash
-   python3 production/hwaseong1986/build_story.py          # 写 story.json + audio/manifest.json 的逐字文本
-   ```
-
-4. **配音** → 试音选定音色 → 六段 TTS 放 `audio/raw/N0x.mp3` → 收紧停顿、对分句时间、填 SHA-256：
-
-   ```bash
-   python3 production/hwaseong1986/tighten_pauses.py       # raw/ -> audio/N0x.mp3，写 audio/tighten-report.json
-   python3 production/hwaseong1986/clause_times.py         # 写 audio/clause-times.json
-   sha256sum production/hwaseong1986/audio/N0*.mp3         # 填进 audio/manifest.json 的 sha256，voice_id 也要填
-   python3 production/hwaseong1986/generate.py --validate  # 闸门一
-   ```
-
-5. **生成素材** → 把 `workflows/` 下四份（`hwaseong1986-gen.yml` / `-render.yml` / `-verbatim.yml` / `-visual-qc.yml`）复制到
-   `.github/workflows/`（需要 workflows 写权限），然后写 `GEN_REQUEST`（`{"workers":2}`）并 push；
-   `watch_run.py` 拉回 `results.json` 与 `qa/` 接触表；逐镜初筛可跑 `qc_shots.py`（黑帧 / 冻结 / 中途换场 /
-   伪文字 / 人脸 / 手部几何），看完再用 `review_app.py` 把要重做的镜头勾成 `REDO.json`。
+5. **生成素材**（进行中）→ `watch_run.py` 拉回 `results.json` 与 `qa/` 接触表；逐镜初筛跑 `qc_shots.py`
+   （黑帧 / 冻结 / 中途换场 / 伪文字 / 人脸 / 手部几何），看完用 `review_app.py` 把要重做的镜头勾成 `REDO.json`。
+   免费视频额度 1 次/分钟、两个 worker 共享节流，38 镜排队约 48 分钟。
 6. **复审** → 逐镜看 `qa/Sxx.jpg`（14 帧）：画的是不是这一镜的场景、7 秒内有没有换场、有没有脸/可读伪文字/遗体。
    坏镜头只改它的 prompt，`GEN_REQUEST` 写 `{"workers":2,"only":"S03,S08"}` 重做，其余按 SHA-256 复用。
-7. **剪辑表** → `render.py` 的 `CUTS` 骨架是 4 秒均匀一切，**必须**按 `audio/clause-times.json` 重对
-   （切点落在分句起点前 0.15 s 左右），然后：
-
-   ```bash
-   python3 production/hwaseong1986/clause_times.py --check-cuts   # 每个切点都要在停顿窗内
-   ```
-
+   露脸镜头另外对照 `cast/*.png`：同一角色跨镜必须同一个人。
+7. **剪辑表** → 已完成（见上表），若改动配音需重跑 `clause_times.py --check-cuts`。
 8. **出片** → 写 `RENDER_REQUEST` 并 push；成片 commit 回 `交付/李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4`，报告在 `delivery/`。
    复检：按 EDL 逐段抽帧看画面/字幕/标签；按分句起点前后 0.25 s 抽帧核对字幕切换。
 9. **听检** → 写 `VERBATIM_REQUEST` 并 push；`delivery/verbatim-check.json` 六章 CER 都要 ≤ 0.15。
 10. **全帧视觉 QC** → 写 `VISUAL_QC_REQUEST` 并 push；工作流解码成片**每一帧**（5400/5400），
-    输出 `delivery/frame-distortion-audit.md`、`visual-qc-summary.json` 与 `qa/final-frame-review/`
-    （全帧接触表 + 手部动态表 + 原始分辨率候选帧）。自动结果是**分诊**，不是签收。
-11. **人工语义签收** → 逐张看完候选帧再决定：片尾卡与信息卡**有没有字被画面裁掉**
-    （自动审计不量这个！本部就是在这一步发现片尾卡问句两端缺字的）、人脸是不是误检、
-    手部是否畸变、有没有可读伪文字。确认无问题才动 Release；有问题回对应步骤修完重渲。
-    卡片排字有闸门守着：`production/tests/test_card_typography.py`（**通用**，自动扫 production/*/，
-    有 `presentation.end_card` 的项目都会被真画一遍卡片、量左右 100 px 安全带，不用照抄）。
+    输出 `delivery/frame-distortion-audit.md`、`visual-qc-summary.json` 与 `qa/final-frame-review/`。
+11. **人工语义签收** → 逐张看完候选帧再决定：片尾卡与信息卡**有没有字被画面裁掉**（自动审计不量这个）、
+    人脸是不是误检、手部是否畸变、有没有可读伪文字；露脸角色对照 `cast/*.png` 与 `delivery/face-cast/` 接触表。
+    确认无问题才动 Release；有问题回对应步骤修完重渲。
 12. **发布** → `gh release create <tag>` + 写 `RELEASE_UPLOAD_REQUEST`（tag / src / asset）；
     `build_story.py --script` 生成 `抖音脚本.md`，`build_story.py --publish` 生成 `抖音发布文案.md`。
 
