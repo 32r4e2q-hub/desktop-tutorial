@@ -1,13 +1,10 @@
-PROBE 2026-10-10T08:41:15Z
-base=https://apihub.agnes-ai.com key_present=True shots=['S01', 'S06']
+PROBE 2026-10-10T08:46:20Z
+base=https://apihub.agnes-ai.com key_present=True shots=['S06']
 MODELS http=200 count=11
 CATALOG ["agnes-2.5-pro-alpha", "agnes-video-2.5-flash", "agnes-3.0-flash", "agnes-image-2.1-flash", "agnes-video-2.5", "agnes-image-2.0-flash", "agnes-2.5-flash", "agnes-3.0-flash-max", "agnes-2.5-pro", "agnes-2.5-pro-beta", "agnes-image-2.5-flash"]
 PROJECT_MODEL agnes-video-2.5-flash
-PAYLOAD S01 {"model": "agnes-video-2.5-flash", "mode": "text", "seconds": "7", "size": "720P", "aspect_ratio": "16:9", "seed": 19860916}
-PAYLOAD_HAS_IMAGES S01 False
-CREATE_FAIL S01 Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261010084116103141849vZGwBX2Y)
 PAYLOAD S06 {"model": "agnes-video-2.5-flash", "mode": "reference", "seconds": "7", "size": "720P", "aspect_ratio": "16:9", "seed": 19880916}
 PAYLOAD_HAS_IMAGES S06 True
-CREATE_FAIL S06 Could not create video task after 1 attempts; last problem: HTTP 429: You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 202610100841363844928506q5ep8z
+CREATE_FAIL S06 Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610100846205779051875GVioTli)
 WORKING_SHOTS []
 VERDICT channel_not_ready
