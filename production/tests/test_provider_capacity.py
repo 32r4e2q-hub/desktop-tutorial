@@ -103,6 +103,21 @@ class ChannelUnavailableRecognitionTests(unittest.TestCase):
         self.assertTrue(issubclass(generate.ProviderCapacity, Exception))
 
 
+class QuotaRecognitionTests(unittest.TestCase):
+    def test_recognises_the_real_zero_balance_error(self):
+        self.assertTrue(generate.quota_exhausted(
+            "Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000"))
+
+    def test_channel_capacity_is_not_misread_as_quota(self):
+        self.assertFalse(generate.quota_exhausted(REAL_CHANNEL_ERROR))
+        self.assertTrue(generate.channel_unavailable(REAL_CHANNEL_ERROR))
+
+    def test_a_generic_403_is_not_quota(self):
+        """普通鉴权失败要照原样报出来（提示去查 key），不能被当成「去充值」。"""
+        self.assertFalse(generate.quota_exhausted(
+            "Authentication failed (HTTP 403): Invalid API key"))
+
+
 class ChannelBreakerTests(unittest.TestCase):
     def test_gives_up_after_the_error_limit_and_defers_the_shared_gate(self):
         gate = FakeGate()
@@ -232,6 +247,27 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
         doc = json.loads(self.results.read_text(encoding="utf-8"))
         self.assertEqual(doc["model"], generate.MODEL,
                          "results.json 的 model 要跟着当前模型走，否则 render.py 的模型闸门会拒绝出片")
+
+    def test_zero_balance_stops_the_whole_run_after_one_request(self):
+        """2026-10-10T07:00Z 实测：payload 改对之后撞上的最后一道墙是余额 ＄0.000000。
+
+        额度见底不是某一镜的问题，重试一万次也不会变好——所以一次请求就要停整轮，
+        而不是 38 个镜头各撞一次 403、把一整轮 runner 时间烧光。
+        """
+        def no_quota(base_url, api_key, payload, retries, retry_delay):
+            self.created.append(payload["prompt"][:20])
+            raise agnes_video.Fatal(
+                "Authentication failed (HTTP 403): Insufficient user quota, remaining: "
+                "＄0.000000 (request id: 20261010065941375220354tcOnQaCa). Check AGNES_API_KEY.")
+
+        with mock.patch.object(generate.agnes, "create_task", no_quota):
+            with self.assertRaises(generate.QuotaExhausted):
+                self.run_main({"workers": 1})
+        self.assertEqual(len(self.created), 1, "额度见底应该一次请求就停整轮")
+        doc = json.loads(self.results.read_text(encoding="utf-8"))
+        self.assertEqual(doc["phase"], "quota_exhausted")
+        self.assertIn("额度", doc["pipeline_error"])
+        self.assertIn("Insufficient user quota", doc["pipeline_error"])
 
     def test_a_stale_pipeline_error_is_dropped_on_a_clean_run(self):
         """所有镜头都因请求本身失败时 phase=generation_incomplete，不写 pipeline_error；

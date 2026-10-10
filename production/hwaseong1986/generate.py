@@ -56,9 +56,26 @@ class ProviderCapacity(RuntimeError):
     """供应商侧没有可用通道：不是请求错误，重试不会让它变好，只能等通道恢复。"""
 
 
+class QuotaExhausted(RuntimeError):
+    """账号额度/余额用尽：不是请求错误，重试一万次也不会变好，只能充值或换一把 key。"""
+
+
 def channel_unavailable(message):
     text=str(message or '').lower()
     return any(marker in text for marker in CHANNEL_UNAVAILABLE_MARKERS)
+
+
+# 2026-10-10T07:00Z 实测：payload 改对之后，创建请求越过了字段校验，撞上
+#   HTTP 403: Insufficient user quota, remaining: ＄0.000000
+# 这是账号余额见底，不是代码问题。旧路径把它当普通 Fatal 交给每个镜头各失败一次，
+# 38 镜就是 38 次无用请求 + 一整轮 runner 时间。
+QUOTA_MARKERS=('insufficient user quota','insufficient quota','insufficient balance',
+               'quota exceeded','余额不足','额度不足')
+
+
+def quota_exhausted(message):
+    text=str(message or '').lower()
+    return any(marker in text for marker in QUOTA_MARKERS)
 
 
 def now_stamp():
@@ -476,6 +493,12 @@ def main():
             except agnes.Fatal as exc:
                 text=str(exc)
                 redacted=(text.replace(key,'[redacted]') if key else text)[:600]
+                if quota_exhausted(text):
+                    ABORT.set()
+                    probe_provider()
+                    raise QuotaExhausted(
+                        'Agnes 账号额度已用尽：%s。请充值或换一把 AGNES_API_KEY 再触发一轮；'
+                        '已完成的镜头按 SHA-256 复用，不会重复扣费。'%redacted)
                 if channel_unavailable(text):
                     breaker.observe(sid,redacted)   # 放弃时抛 ProviderCapacity
                     continue
@@ -535,9 +558,9 @@ def main():
             checkpoint(sid+' generated',sid,status='generated',video_url=url,bytes=size,sha256=checksum,
                        reported_size=final.get('size'),reported_seconds=final.get('seconds'),error=None)
             return finish_asset(shot,receipt,dest,wanted_hash)
-        except ProviderCapacity:
-            # 「供应商没通道」是整轮的事，不是这一镜的事：吞掉它，phase 就会写成
-            # generation_incomplete，看起来像素材没做完，而不是通道没了。
+        except (ProviderCapacity,QuotaExhausted):
+            # 「供应商没通道」「账号没额度」都是整轮的事，不是这一镜的事：吞掉它，phase 就会
+            # 写成 generation_incomplete，看起来像素材没做完，而不是外部条件不具备。
             raise
         except Exception as exc:
             error=str(exc).replace(key,'[redacted]') if key else str(exc)
@@ -599,7 +622,9 @@ def main():
         error=str(exc).replace(key,'[redacted]') if key else str(exc)
         # 「供应商没通道」和「流水线自己有 bug」是两件事，phase 必须分开：
         # 混在一起，下一个人（或下一次的我）会去改根本没有坏的代码。
-        doc['phase']='provider_capacity' if isinstance(exc,ProviderCapacity) else 'pipeline_failed'
+        doc['phase']=('quota_exhausted' if isinstance(exc,QuotaExhausted)
+                      else 'provider_capacity' if isinstance(exc,ProviderCapacity)
+                      else 'pipeline_failed')
         doc['pipeline_error']=error[:800]
         checkpoint('pipeline stopped',files=[PROBE] if PROBE.is_file() else ())
         (export/'未完成说明.txt').write_text('制作未完成：'+error[:800]+'\n没有把测试图或静态图冒充Agnes成片。\n')
