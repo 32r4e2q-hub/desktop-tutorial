@@ -78,6 +78,23 @@ def quota_exhausted(message):
     return any(marker in text for marker in QUOTA_MARKERS)
 
 
+# 供应商侧「容量」类问题的两种文案，都需要**全片共享**的退避（不是每镜各自撞）：
+#   no available channel —— 该模型当前没有可用通道（2026-10-10：v2.0 被下线时就是它）
+#   video queue is full  —— 视频排队已满（2026-10-10T07:37Z 实测 agnes-video-2.5-flash 720P）
+CAPACITY_REASONS=(('no available channel','该模型当前没有可用通道'),
+                  ('video queue is full','供应商视频排队已满'),
+                  ('queue is full','供应商视频排队已满'))
+
+
+def capacity_problem(message):
+    """是容量问题就返回中文原因，不是就返回 None。"""
+    text=str(message or '').lower()
+    for marker,reason in CAPACITY_REASONS:
+        if marker in text:
+            return reason
+    return None
+
+
 def now_stamp():
     return time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
 
@@ -107,8 +124,8 @@ class ChannelBreaker:
         """有一次创建成功就说明通道回来了，连击计数清零（别把恢复后又数成第 4 轮）。"""
         self.state['consecutive']=0
 
-    def observe(self,sid,message):
-        """记一次通道不可用。返回 True = 冷却结束后可以再探；抛 ProviderCapacity = 整轮放弃。"""
+    def observe(self,sid,message,reason='供应商侧没有可用容量'):
+        """记一次容量问题。返回 True = 冷却结束后可以再探；抛 ProviderCapacity = 整轮放弃。"""
         self.state['consecutive']+=1
         self.state['attempts']+=1
         self.state['last_seen']=now_stamp()
@@ -118,7 +135,7 @@ class ChannelBreaker:
         # defer 是共享的：两个 worker 一起冷却，等于对整轮生成熔断。
         self.gate.defer(self.cooldown)
         self.record(sid=sid,round_no=round_no,cooldown=self.cooldown,error=message,
-                    outage=dict(self.state))
+                    reason=reason,outage=dict(self.state))
         if round_no<self.error_limit:
             return True
         waited=self.clock()-self.started
@@ -132,9 +149,9 @@ class ChannelBreaker:
         self.abort.set()
         self.probe()
         raise ProviderCapacity(
-            'Agnes 网关连续 %d 轮报告该模型没有可用通道：%s；等待预算 %.0f 分钟已用尽。'
-            '这是供应商侧容量问题——请求本身没错，重试不会变好，只能等通道恢复后再触发一轮。'
-            %(round_no,str(message)[:200],self.wait_budget/60.0))
+            'Agnes 网关连续 %d 轮报告%s：%s；等待预算 %.0f 分钟已用尽。'
+            '这是供应商侧容量问题——请求本身没错，只能等它缓过来后再触发一轮。'
+            %(round_no,reason,str(message)[:200],self.wait_budget/60.0))
 
 
 def read_json(path,default):
@@ -473,7 +490,7 @@ def main():
                    reused_existing_asset=reused,visual_review='pending')
         return True
 
-    def record_outage(sid,round_no,cooldown,error,outage):
+    def record_outage(sid,round_no,cooldown,error,outage,reason='供应商侧没有可用容量'):
         """把这次通道不可用写进 results.json（沙箱读不到 Actions 日志，只能靠它）。"""
         with LOCK:
             doc['provider_outage']={
@@ -481,7 +498,8 @@ def main():
                 'first_seen':outage['first_seen'],'last_seen':outage['last_seen'],
                 'create_attempts':outage['attempts'],'consecutive_rounds':round_no,
                 'cooldown_seconds':cooldown,'channel_error_limit':channel_error_limit,
-                'wait_channel_minutes':wait_channel_minutes,'last_error':error}
+                'wait_channel_minutes':wait_channel_minutes,'last_error':error,
+                'reason':reason}
         checkpoint(sid+' provider channel unavailable',sid,status='provider_unavailable',
                    channel_error_round=round_no,applied_cooldown_seconds=cooldown,error=error)
         checkpoint('provider channel unavailable (round %d)'%round_no)
@@ -520,10 +538,11 @@ def main():
                     raise QuotaExhausted(
                         'Agnes 账号额度已用尽：%s。请充值或换一把 AGNES_API_KEY 再触发一轮；'
                         '已完成的镜头按 SHA-256 复用，不会重复扣费。'%redacted)
-                if channel_unavailable(text):
-                    breaker.observe(sid,redacted)   # 放弃时抛 ProviderCapacity
+                reason=capacity_problem(text)
+                if reason:
+                    breaker.observe(sid,redacted,reason=reason)   # 放弃时抛 ProviderCapacity
                     continue
-                # 其他 5xx（502/504 之类）仍按原来的共享退避扛过去。
+                # 其他 5xx（502/504 之类）仍按原来的每镜退避扛过去。
                 if 'HTTP 5' not in text:
                     raise
                 fatal_attempts+=1

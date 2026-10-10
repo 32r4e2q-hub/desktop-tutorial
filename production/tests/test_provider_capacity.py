@@ -103,6 +103,23 @@ class ChannelUnavailableRecognitionTests(unittest.TestCase):
         self.assertTrue(issubclass(generate.ProviderCapacity, Exception))
 
 
+class CapacityRecognitionTests(unittest.TestCase):
+    """「排队满」和「没通道」都是容量问题，要走同一套共享退避，不是每镜各自撞 8 次。"""
+
+    def test_recognises_a_full_video_queue(self):
+        self.assertEqual(generate.capacity_problem(
+            "Could not create video task after 1 attempts; last problem: HTTP 503: "
+            "video queue is full, please retry later (request id: 2026...)"),
+            "供应商视频排队已满")
+
+    def test_still_recognises_a_missing_channel(self):
+        self.assertEqual(generate.capacity_problem(REAL_CHANNEL_ERROR), "该模型当前没有可用通道")
+
+    def test_a_plain_502_is_not_a_capacity_problem(self):
+        self.assertIsNone(generate.capacity_problem(
+            "Could not create video task after 1 attempts; last problem: HTTP 502: Bad Gateway"))
+
+
 class QuotaRecognitionTests(unittest.TestCase):
     def test_recognises_the_real_zero_balance_error(self):
         self.assertTrue(generate.quota_exhausted(
@@ -125,12 +142,13 @@ class ChannelBreakerTests(unittest.TestCase):
         breaker = generate.ChannelBreaker(
             gate, deadline=10 ** 9, error_limit=3, wait_minutes=0,
             clock=FakeClock(), record=lambda **values: records.append(values))
+        reason = generate.capacity_problem(REAL_CHANNEL_ERROR)
         for _ in range(2):
-            self.assertTrue(breaker.observe("S01", REAL_CHANNEL_ERROR))
+            self.assertTrue(breaker.observe("S01", REAL_CHANNEL_ERROR, reason=reason))
         self.assertEqual(len(gate.deferred), 2)
         self.assertTrue(all(seconds == generate.CHANNEL_COOLDOWN_SECONDS for seconds in gate.deferred))
         with self.assertRaises(generate.ProviderCapacity) as caught:
-            breaker.observe("S01", REAL_CHANNEL_ERROR)
+            breaker.observe("S01", REAL_CHANNEL_ERROR, reason=reason)
         # 放弃时必须说清楚是供应商侧容量问题，并带上供应商原文
         self.assertIn("没有可用通道", str(caught.exception))
         self.assertIn("No available channel", str(caught.exception))
@@ -277,6 +295,25 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
         self.assertEqual(doc["phase"], "quota_exhausted")
         self.assertIn("额度", doc["pipeline_error"])
         self.assertIn("Insufficient user quota", doc["pipeline_error"])
+
+    def test_a_full_queue_uses_the_shared_breaker_not_per_shot_retries(self):
+        """2026-10-10T07:37Z 实测：flash 档 720P 过了额度闸门，报的是
+        「video queue is full, please retry later」。这种要整轮共享退避 + 等待预算，
+        而不是让 38 个镜头各自撞 8 次。"""
+        def queue_full(base_url, api_key, payload, retries, retry_delay):
+            self.created.append(payload["prompt"][:20])
+            raise agnes_video.Fatal(
+                "Could not create video task after 1 attempts; last problem: HTTP 503: "
+                "video queue is full, please retry later (request id: 202610100737537410334449NJkN7tr)")
+
+        with mock.patch.object(generate.agnes, "create_task", queue_full):
+            with self.assertRaises(generate.ProviderCapacity):
+                self.run_main({"workers": 1, "channel_error_limit": 2, "wait_channel_minutes": 0})
+        self.assertEqual(len(self.created), 2)
+        doc = json.loads(self.results.read_text(encoding="utf-8"))
+        self.assertEqual(doc["phase"], "provider_capacity")
+        self.assertEqual(doc["provider_outage"]["reason"], "供应商视频排队已满")
+        self.assertIn("排队已满", doc["pipeline_error"])
 
     def test_a_stale_pipeline_error_is_dropped_on_a_clean_run(self):
         """所有镜头都因请求本身失败时 phase=generation_incomplete，不写 pipeline_error；
