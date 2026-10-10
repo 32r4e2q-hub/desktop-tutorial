@@ -2,7 +2,15 @@
   "project": "郑斗英：十个月，九条人命",
   "model": "cogvideox-flash",
   "provider": "Zhipu AI",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "status": "submitting",
+      "request_hash": "e6b462b46e1399bf6a4bbc04feffaa8556abe06482bce6611d6878d973003e29",
+      "error": null,
+      "updated_at": "2026-10-10T11:26:29Z"
+    }
+  },
   "workflow_policy": "cogvideox-flash-receipt-v1",
   "phase": "generating_sources",
   "required_generated_shots": [
@@ -45,6 +53,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T11:26:27Z",
+  "updated_at": "2026-10-10T11:26:29Z",
   "run_id": "38048362750"
 }
