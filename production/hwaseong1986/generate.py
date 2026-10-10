@@ -205,7 +205,7 @@ def main():
             if args.publish:
                 git('add','--',*paths)
                 if subprocess.run(['git','diff','--cached','--quiet','--',*paths],cwd=ROOT).returncode:
-                    git('commit','-m','rabies1885: '+label,'--',*paths)
+                    git('commit','-m','hwaseong1986: '+label,'--',*paths)
                     for attempt in range(3):
                         try:git('push','origin',BRANCH);break
                         except subprocess.CalledProcessError:
@@ -238,6 +238,21 @@ def main():
                 checkpoint(sid+' provider cooldown',sid,status='rate_limited',
                            quota_retry=attempt+1,provider_retry_after_seconds=exc.retry_after,
                            applied_cooldown_seconds=cooldown,error=str(exc).replace(key,'[redacted]')[:600])
+                gate.defer(cooldown)
+                if attempt==7:
+                    raise
+            except agnes.Fatal as exc:
+                # 供应商侧 5xx（502/503/504，实测 2026-10-10：「No available channel for model
+                # agnes-video-v2.0 under group default (distributor)」持续二十余分钟、38 镜全灭）
+                # 是**通道容量波动**，不是请求错误：与 429 同一套共享冷却退避（defer 对两个 worker
+                # 同时生效，等于熔断），扛过波动；超出尝试预算才失败，状态已落盘、可断点续跑。
+                text=str(exc)
+                if 'HTTP 5' not in text:
+                    raise
+                cooldown=max(min(300,75*(2**attempt)),120)
+                checkpoint(sid+' provider channel unavailable',sid,status='provider_unavailable',
+                           quota_retry=attempt+1,applied_cooldown_seconds=cooldown,
+                           error=text.replace(key,'[redacted]')[:600])
                 gate.defer(cooldown)
                 if attempt==7:
                     raise
@@ -326,14 +341,14 @@ def main():
             '此文件是技术检查通过的初版；视觉与听感仍需审核，不声称已逐帧或逐字验收。\n'
             'AI情景重现并非历史影像；未经证实的推测没有被写成事实。\n')
         doc['phase']='first_cut_ready'
-        doc['delivery']={**report,'artifact_name':'rabies1885-agnes-'+os.getenv('GITHUB_RUN_NUMBER','local')}
+        doc['delivery']={**report,'artifact_name':'hwaseong1986-agnes-'+os.getenv('GITHUB_RUN_NUMBER','local')}
         checkpoint('three-minute first cut ready',files=saved)
         summary=os.getenv('GITHUB_STEP_SUMMARY')
         if summary:
             with open(summary,'a') as f:
                 f.write(f'## 李春才：华城连环杀人案，DNA揭开了33年的秘密 · 三分钟初版\n\n{len(shots)}段Agnes素材已完成解码检查并剪辑，身份介绍另使用档案肖像。\n\n')
                 f.write(f'输出：**{final_name}**，180秒；视觉/听感仍待人工审核。\n\n')
-                f.write('成片在本次运行的 `rabies1885-agnes-*` artifact 中。大视频未提交到Git。\n')
+                f.write('成片在本次运行的 `hwaseong1986-agnes-*` artifact 中。大视频未提交到Git。\n')
         print('CLOUD_FIRST_CUT_READY '+final_name,flush=True);return 0
     except Exception as exc:
         error=str(exc).replace(key,'[redacted]') if key else str(exc)
