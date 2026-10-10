@@ -4,7 +4,7 @@ import time
 import requests
 import traceback
 
-print("=== 脚本启动 ===", flush=True)
+print("=== 视频生成自动化脚本启动 ===", flush=True)
 
 api_key = os.getenv("ZHIPUAI_API_KEY")
 prompt = os.getenv("INPUT_PROMPT")
@@ -15,34 +15,47 @@ if not prompt:
             prompt = f.read().strip()
 
 if not prompt:
-    prompt = "一只可爱的小猫咪在阳光下的花园里捉蝴蝶，草地，电影质感，超高清"
+    prompt = "一只可爱的小猫咪在阳光下的草地上打滚，高清，真实"
 
 if not api_key:
-    print("❌ 错误: 未检测到 ZHIPUAI_API_KEY！请确认在 GitHub 仓库 Settings -> Secrets 中添加了该密钥！", flush=True)
+    print("❌ 错误: 未检测到 ZHIPUAI_API_KEY！", flush=True)
     sys.exit(1)
 
 masked = api_key[:4] + "..." + api_key[-4:] if len(api_key) > 8 else "***"
 print(f"🔑 检测到 API_KEY: {masked}", flush=True)
 
-try:
-    from zhipuai import ZhipuAI
-    client = ZhipuAI(api_key=api_key)
-    print(f"🎬 正在向智谱提交任务，Prompt: {prompt}", flush=True)
-    
-    response = client.videos.generations(
-        model="cogvideox-flash",
-        prompt=prompt,
-        quality="speed"
-    )
-    print(f"原始提交响应: {response}", flush=True)
-    task_id = getattr(response, "id", None) or response.get("id")
-    print(f"✅ 任务提交成功！Task ID: {task_id}", flush=True)
-except Exception as e:
-    print(f"❌ 任务提交异常: {e}", flush=True)
-    traceback.print_exc()
+from zhipuai import ZhipuAI
+client = ZhipuAI(api_key=api_key)
+print(f"🎬 准备提交任务，Prompt: {prompt}", flush=True)
+
+task_id = None
+max_submit_retries = 8
+for attempt in range(1, max_submit_retries + 1):
+    try:
+        print(f"🔄 正在尝试提交任务 (第 {attempt}/{max_submit_retries} 次)...", flush=True)
+        response = client.videos.generations(
+            model="cogvideox-flash",
+            prompt=prompt,
+            quality="speed"
+        )
+        task_id = getattr(response, "id", None) or response.get("id")
+        print(f"✅ 任务提交成功！Task ID: {task_id}", flush=True)
+        break
+    except Exception as e:
+        err_msg = str(e)
+        if "1305" in err_msg or "429" in err_msg or "访问量过大" in err_msg:
+            print(f"⚠️ 触发智谱免费节点流控限流（1305 该模型当前访问量过大），等待 15 秒后重试提交...", flush=True)
+            time.sleep(15)
+        else:
+            print(f"❌ 任务提交异常: {e}", flush=True)
+            traceback.print_exc()
+            sys.exit(1)
+
+if not task_id:
+    print("❌ 多次重试仍遇智谱云端高峰期限流(1305)，请稍后再试！", flush=True)
     sys.exit(1)
 
-print("⏳ 正在轮询视频状态（约需 50~70 秒，每 8 秒查询一次）...", flush=True)
+print("⏳ 正在轮询视频生成状态（约需 50~70 秒，每 8 秒查询一次）...", flush=True)
 start_time = time.time()
 while True:
     try:
@@ -62,7 +75,7 @@ while True:
                 video_url = getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
             
             print(f"\n==========================================", flush=True)
-            print(f"🎉 视频生成成功！渲染总耗时: {elapsed} 秒", flush=True)
+            print(f"🎉 视频生成成功！总耗时: {elapsed} 秒", flush=True)
             print(f"🔗 视频直接下载地址（30天有效）:\n{video_url}", flush=True)
             print(f"==========================================\n", flush=True)
             
@@ -80,5 +93,4 @@ while True:
             time.sleep(8)
     except Exception as err:
         print(f"⚠️ 查询出现异常: {err}", flush=True)
-        traceback.print_exc()
         time.sleep(8)
