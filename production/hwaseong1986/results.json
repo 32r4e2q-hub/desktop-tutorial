@@ -263,10 +263,10 @@
     },
     "S45": {
       "id": "S45",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "a004de88a4e38ca8d320d10c902f0d55eca51e3d9d7a251c00f84aebc54dfdc2",
-      "error": null,
-      "updated_at": "2026-10-10T01:15:40Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261010011808282214123CCRicSrf) (code=model_not_found)",
+      "updated_at": "2026-10-10T01:18:08Z"
     }
   },
   "phase": "generating_sources",
@@ -323,6 +323,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T01:16:53Z",
+  "updated_at": "2026-10-10T01:18:08Z",
   "run_id": "38009369450"
 }
