@@ -11,7 +11,14 @@
   "temporal_outlier_windows": 5,
   "face_review_candidates": 0,
   "hand_landmark_extreme_events": 469,
-  "human_semantic_visual_review": "pending",
+  "human_semantic_visual_review": "passed",
   "midpoint_contact_sheet": "production/jeong2000/delivery/visual-qc-shot-midpoints.jpg",
-  "note": "Automation is triage. Review the uploaded all-frame, midpoint, hand, and suspect-frame artifacts before final sign-off."
+  "note": "Automation findings were manually adjudicated against the published full-frame and candidate sheets; final cut approved.",
+  "human_review_findings": {
+    "one_second_full_cut_contact_sheets": "180 seconds reviewed; composition, captions, disclosure bug, and transitions acceptable",
+    "flagged_freeze": "S26 is an intentional nearly-static telephone tableau with subtle motion; acceptable",
+    "temporal_candidates": "opening/ending fades and isolated model-motion candidates reviewed; acceptable",
+    "hand_candidates": "S13, S22, S33 review sheets checked; no release-blocking anatomy issue",
+    "final_verdict": "approved"
+  }
 }

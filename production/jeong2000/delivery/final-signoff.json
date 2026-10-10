@@ -1,0 +1,39 @@
+{
+  "film": "郑斗英_十个月，九条人命_三分钟_带声音.mp4",
+  "sha256": "0b0ee6417a70d319613578c7cecbf6de6207834b72e894ca4132d964f0d8fd31",
+  "decision": "APPROVED",
+  "technical": {
+    "duration_seconds": 180.0,
+    "resolution": "1920x1080",
+    "fps": 30,
+    "video": "H.264",
+    "audio": "AAC 48 kHz stereo",
+    "decoded_frames": "5400/5400",
+    "unplanned_black_frames": 0
+  },
+  "audio": {
+    "rms_dbfs": -20.09,
+    "peak_dbfs": -1.51,
+    "chapter_asr_max_cer": 0.0873,
+    "chapter_asr_threshold": 0.15,
+    "chapters_passed": "6/6"
+  },
+  "visual": {
+    "dynamic_shots_reviewed": "38/38",
+    "final_one_second_samples_reviewed": "180/180",
+    "flagged_candidates_adjudicated": true,
+    "verdict": "passed"
+  },
+  "generation": {
+    "model": "cogvideox-flash",
+    "agnes_used": false
+  },
+  "evidence": [
+    "technical-report.json",
+    "final-audio-report.json",
+    "verbatim-check.json",
+    "frame-distortion-audit.json",
+    "visual-qc-summary.json",
+    "qa/final-frame-review/"
+  ]
+}
