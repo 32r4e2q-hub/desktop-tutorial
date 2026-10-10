@@ -13,10 +13,10 @@
     },
     "S03": {
       "id": "S03",
-      "status": "provider_unavailable",
+      "status": "waiting_create_slot",
       "request_hash": "d12a54284bca3379d97ef475944c2c350cc68d9bc7e417a3908ae96cdf257500",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261010090129179901586uUgoesih)",
-      "updated_at": "2026-10-10T09:01:29Z",
+      "error": null,
+      "updated_at": "2026-10-10T09:01:32Z",
       "channel_error_round": 1,
       "applied_cooldown_seconds": 300.0
     }
@@ -79,7 +79,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T09:01:30Z",
+  "updated_at": "2026-10-10T09:01:32Z",
   "run_id": "38036880428",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
