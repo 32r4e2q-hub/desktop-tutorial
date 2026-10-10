@@ -1,0 +1,8 @@
+PROBE 2026-10-10T08:04:47Z
+base=https://apihub.agnes-ai.com model=agnes-video-v2.0 key_present=True
+MODELS http=200 count=11
+MODEL_IN_CATALOG False
+VIDEO_MODELS ["agnes-video-2.5-flash", "agnes-video-2.5"]
+CREATE_PAYLOAD_SHA256 571036d5ba71969a49ee61725d0ff100df1b0f5cc3049a2287ea2e960987b783
+CREATE_FAIL Could not create video task after 1 attempts; last problem: HTTP 503: No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261010080447716038436jeCMw0mq) (code=model_not_found)
+VERDICT model_missing_from_catalog (may need a model-name change)
