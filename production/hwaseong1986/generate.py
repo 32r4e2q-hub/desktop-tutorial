@@ -23,6 +23,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 import agnes_video as agnes
 from media import ensure_tools, inspect_clip, render_python
 from throttle import RequestGate, BudgetExhausted
+from model_policy import (MODEL,SIZE_TIER,ALLOWED_MODELS,SUPPORTED_SIZES,SUPPORTED_MODES)
 
 BRANCH='arena/3c6cd684-desktop-tutorial'
 CAST=Path(__file__).with_name('cast.json')
@@ -31,12 +32,10 @@ RESULTS=Path(__file__).with_name('results.json')
 PROBE=Path(__file__).with_name('delivery')/'provider-probe.json'
 LOCK=threading.RLock()
 
-# 2026-10-10T06:03Z 实测（收据在 delivery/provider-probe.json）：网关 GET /v1/models 返回 12 个模型，
-# 里面**已经没有 agnes-video-v2.0**，视频模型只剩 agnes-video-2.5 与 agnes-video-2.5-flash。
-# 所以那句 503「No available channel for model agnes-video-v2.0」不是通道波动，是模型被下线了——
-# 等多久都不会回来。本片改用后继模型 agnes-video-2.5；AGNES_VIDEO_MODEL 或 payload 的 model 可覆盖。
-MODEL=os.environ.get('AGNES_VIDEO_MODEL','agnes-video-2.5').strip() or 'agnes-video-2.5'
-
+# 模型与分辨率档位的**唯一出处**是 model_policy.py（generate.py 与 render.py 都从那里读）：
+# 仓库里每个项目都有一个 generate.py，让 render.py 去 import generate 会撞到别的项目那份
+# （实测 ImportError: cannot import name 'MODEL' from 'generate' → production/dahlia/generate.py，
+# 连带把 test_card_typography.py 弄红）；而且 render.py 是另一个进程，跨进程共享变量本来就不成立。
 # ---- 供应商容量熔断（2026-10-10 实测）----------------------------------------
 # 「No available channel for model agnes-video-v2.0 under group default (distributor)」
 # 是网关在说「这个模型现在一个可用通道都没有」，不是我们的请求写错了：
@@ -202,9 +201,6 @@ def shot_seed(shot):
 #   frame_rate、duration、resolution、negative_prompt，以及 size 传像素（1920x1080）。
 # 旧实现 production/agnes_video.py::build_payload() 正好把 width/height/num_frames/frame_rate
 # 全填上、还把 negative_prompt 当独立字段，所以换模型后一律 400 —— 这里按项目重写，不改共享实现。
-SIZE_TIER='1080P'          # story.json 的 resolution 是 1080p；新模型只认档位名
-SUPPORTED_SIZES=('720P','1080P','1K','2K')
-SUPPORTED_MODES=('text','keyframe','reference')
 # negative_prompt 不再是独立字段：红线（不出可读文字、不冒充真人、不展示遗体血腥）
 # 只能压进提示词正文，否则新模型上这些约束直接消失。
 PROMPT_GUARDRAILS=('Avoid: readable text, letters, signage or subtitles on screen; watermarks and logos; '

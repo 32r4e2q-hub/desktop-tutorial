@@ -31,6 +31,12 @@ generate = importlib.util.module_from_spec(_spec)
 sys.modules["hwaseong1986_generate"] = generate
 _spec.loader.exec_module(generate)
 
+_policy_spec = importlib.util.spec_from_file_location(
+    "hwaseong1986_model_policy", PROJECT_DIR / "model_policy.py")
+model_policy = importlib.util.module_from_spec(_policy_spec)
+sys.modules["hwaseong1986_model_policy"] = model_policy
+_policy_spec.loader.exec_module(model_policy)
+
 PROJECT = json.loads((PROJECT_DIR / "story.json").read_text(encoding="utf-8"))
 SHOTS = {s["id"]: s for s in PROJECT["shots"]}
 
@@ -46,11 +52,13 @@ def payload_of(shot_id: str) -> dict:
 class DocumentedRequestShapeTests(unittest.TestCase):
     def test_text_shot_uses_the_documented_fields(self):
         payload = payload_of("S01")
-        self.assertEqual(payload["model"], "agnes-video-2.5")
+        # 免费方案定型：flash 档（主档要余额，实测两把 key 都是 ＄0.000000）
+        self.assertEqual(payload["model"], "agnes-video-2.5-flash")
         self.assertEqual(payload["mode"], "text")
         self.assertIsInstance(payload["seconds"], str, "seconds 必须是字符串，传数字网关会 invalid_json")
         self.assertTrue(4 <= int(payload["seconds"]) <= 12, "文档只接受 4–12 秒")
         self.assertIn(payload["size"], ("720P", "1080P", "1K", "2K"), "size 是档位名，不是像素")
+        self.assertEqual(payload["size"], "720P", "flash 档只认 720P")
         self.assertEqual(payload["aspect_ratio"], "16:9")
         self.assertEqual(payload["n"], 1)
         self.assertTrue(payload["prompt"].strip())
@@ -76,6 +84,39 @@ class DocumentedRequestShapeTests(unittest.TestCase):
         for keyword in ("readable text", "corpse", "real person", "cartoon"):
             self.assertIn(keyword, prompt.lower())
         self.assertTrue(prompt.startswith(PROJECT["style_prefix"].strip()[:30]))
+
+
+def load_render():
+    """按文件路径加载本片的 render.py。
+
+    不能 `import render`：仓库里多个项目都有 render.py / generate.py，测试跑起来
+    sys.path 上先出现的是别的项目那份（实测会 import 到 production/dahlia/generate.py）。
+    """
+    spec = importlib.util.spec_from_file_location("hwaseong1986_render", PROJECT_DIR / "render.py")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["hwaseong1986_render"] = module
+    sys.path.insert(0, str(PROJECT_DIR))
+    spec.loader.exec_module(module)
+    return module
+
+
+class RenderGateAgreementTests(unittest.TestCase):
+    def test_render_gate_accepts_what_generate_produces(self):
+        """生成写进 results.json 的模型，必须过得了 render.py 的出片闸门。
+
+        两边都从 model_policy 读；不一致的话素材全生成完了才发现整片被拒
+        （旧代码写死 agnes-video-v2.0，报的还是看不懂的
+        「Only the requested Agnes model is allowed」）。
+        """
+        render = load_render()
+        self.assertEqual(render.ALLOWED_MODELS, model_policy.ALLOWED_MODELS)
+        self.assertIn(payload_of("S01")["model"], render.ALLOWED_MODELS)
+        self.assertIn(payload_of("S06")["model"], render.ALLOWED_MODELS)
+
+    def test_free_plan_is_the_default(self):
+        """用户定的方案：走免费档（主档要余额，两把 key 实测都是 ＄0.000000）。"""
+        self.assertEqual(model_policy.MODEL, "agnes-video-2.5-flash")
+        self.assertEqual(model_policy.SIZE_TIER, "720P")
 
 
 class ValidationGateTests(unittest.TestCase):

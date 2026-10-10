@@ -27,6 +27,9 @@ ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 from media import probe
 from build_audio import build_soundtrack, measure, assert_audible
+# 出片闸门认的模型白名单来自 model_policy.py（不是 generate.py：仓库里每个项目都有一个
+# generate.py，测试跑起来会 import 到别的项目那份，实测 ImportError 连带弄红排字闸门）。
+from model_policy import ALLOWED_MODELS, MODEL
 
 FPS = 30
 DURATION = 180.0
@@ -430,10 +433,12 @@ def main():
     presentation=project.get('presentation') or {}
     if not presentation.get('cards') and any(s['kind']=='graphic' for s in project['shots']):
         raise RuntimeError('story.json 缺 presentation.cards：先在 build_story.py 里写 CARDS 再跑 build()')
-    from generate import MODEL, request_hash
-    # 模型闸门跟着 generate.py 的 MODEL 走：供应商把 agnes-video-v2.0 下线后（2026-10-10 实测
-    # GET /v1/models 里已无此模型），写死旧名字会让改用后继模型的素材全部被拒。
-    if results.get('model')!=MODEL:raise RuntimeError('Only the requested Agnes model is allowed')
+    from generate import request_hash
+    # 素材是哪个模型生成的记在 results.json 里；只认白名单里的（本片默认 flash 免费档）。
+    # 用 payload/env 覆盖过模型来出片时，记得在出片工作流里也设 AGNES_VIDEO_MODEL。
+    if results.get('model') not in ALLOWED_MODELS:
+        raise RuntimeError('results.json 的模型 %r 不在本片白名单 %r 里（默认 %r）'
+                           %(results.get('model'),ALLOWED_MODELS,MODEL))
     audio_manifest=json.loads((args.audio/'manifest.json').read_text())
     checks={}
     for shot in project['shots']:
