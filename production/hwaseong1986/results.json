@@ -4,10 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "e4bc89265b87b21ab52b025d4e0fd22c48d9a7dcd25a498afca97a2517863fa9",
-      "error": null,
-      "updated_at": "2026-10-10T06:59:40Z"
+      "error": "Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 20261010065941375220354tcOnQaCa). Check AGNES_API_KEY.",
+      "updated_at": "2026-10-10T06:59:43Z"
     },
     "S06": {
       "id": "S06",
@@ -75,6 +75,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T06:59:42Z",
+  "updated_at": "2026-10-10T06:59:43Z",
   "run_id": "38032676639"
 }
