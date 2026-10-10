@@ -109,11 +109,24 @@ class CapacityRecognitionTests(unittest.TestCase):
     def test_recognises_a_full_video_queue(self):
         self.assertEqual(generate.capacity_problem(
             "Could not create video task after 1 attempts; last problem: HTTP 503: "
-            "video queue is full, please retry later (request id: 2026...)"),
+            "video queue is full, please retry later (request id: 2026...)")[0],
             "供应商视频排队已满")
 
     def test_still_recognises_a_missing_channel(self):
-        self.assertEqual(generate.capacity_problem(REAL_CHANNEL_ERROR), "该模型当前没有可用通道")
+        self.assertEqual(generate.capacity_problem(REAL_CHANNEL_ERROR)[0], "该模型当前没有可用通道")
+
+    def test_a_full_queue_cools_down_much_less_than_a_dead_channel(self):
+        """排队满是抽签（实测 23 次成 1 次），冷却太长就等于放弃产出；
+        模型下线才是等多久都没用，那种才配 300 秒。"""
+        self.assertLess(generate.QUEUE_COOLDOWN_SECONDS, generate.CHANNEL_COOLDOWN_SECONDS)
+        self.assertEqual(generate.capacity_problem("HTTP 503: video queue is full")[1],
+                         generate.QUEUE_COOLDOWN_SECONDS)
+        self.assertEqual(generate.capacity_problem(REAL_CHANNEL_ERROR)[1],
+                         generate.CHANNEL_COOLDOWN_SECONDS)
+
+    def test_a_full_queue_is_paced_within_the_free_rate_limit(self):
+        """缩短冷却也不能踩免费额度的 1 次/分钟。"""
+        self.assertGreaterEqual(generate.QUEUE_COOLDOWN_SECONDS, 75)
 
     def test_a_plain_502_is_not_a_capacity_problem(self):
         self.assertIsNone(generate.capacity_problem(
@@ -142,13 +155,14 @@ class ChannelBreakerTests(unittest.TestCase):
         breaker = generate.ChannelBreaker(
             gate, deadline=10 ** 9, error_limit=3, wait_minutes=0,
             clock=FakeClock(), record=lambda **values: records.append(values))
-        reason = generate.capacity_problem(REAL_CHANNEL_ERROR)
+        reason, cooldown = generate.capacity_problem(REAL_CHANNEL_ERROR)
         for _ in range(2):
-            self.assertTrue(breaker.observe("S01", REAL_CHANNEL_ERROR, reason=reason))
+            self.assertTrue(breaker.observe("S01", REAL_CHANNEL_ERROR, reason=reason,
+                                            cooldown=cooldown))
         self.assertEqual(len(gate.deferred), 2)
         self.assertTrue(all(seconds == generate.CHANNEL_COOLDOWN_SECONDS for seconds in gate.deferred))
         with self.assertRaises(generate.ProviderCapacity) as caught:
-            breaker.observe("S01", REAL_CHANNEL_ERROR, reason=reason)
+            breaker.observe("S01", REAL_CHANNEL_ERROR, reason=reason, cooldown=cooldown)
         # 放弃时必须说清楚是供应商侧容量问题，并带上供应商原文
         self.assertIn("没有可用通道", str(caught.exception))
         self.assertIn("No available channel", str(caught.exception))
@@ -171,6 +185,22 @@ class ChannelBreakerTests(unittest.TestCase):
         self.assertTrue(breaker.observe("S01", REAL_CHANNEL_ERROR))
         with self.assertRaises(generate.ProviderCapacity):
             breaker.observe("S01", REAL_CHANNEL_ERROR)
+
+    def test_progress_resets_the_wait_budget(self):
+        """等待预算是「多久没进展」，不是「跑了多久」。
+
+        实测排队是间歇性的（S03 在 09:11 建成，前后几十次都是 queue is full）；
+        按墙钟算会在还在出素材的时候把整轮掐死。
+        """
+        clock = FakeClock()
+        breaker = generate.ChannelBreaker(FakeGate(), deadline=10 ** 9, error_limit=1,
+                                          wait_minutes=10, clock=clock)
+        clock.advance(60)
+        self.assertTrue(breaker.observe("S01", REAL_CHANNEL_ERROR))   # 第 1 轮 → 进入等待
+        breaker.note_success()                                        # 有产出 → 时钟清零
+        clock.advance(9 * 60)                                         # 离最初起点已 10 分钟
+        self.assertTrue(breaker.observe("S02", REAL_CHANNEL_ERROR),
+                        "刚出过素材，就不该按最初的起点判超时")
 
     def test_a_successful_creation_resets_the_counter(self):
         """通道恢复过一次，就不该把后面的偶发波动数成第 4 轮而放弃整轮。"""

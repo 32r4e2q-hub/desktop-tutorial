@@ -117,3 +117,46 @@ jobs:
           if-no-files-found: warn
           compression-level: 0
           retention-days: 14
+      - name: 排队没排到就自动再投一轮（断点续跑，最多 12 轮）
+        # 实测（2026-10-10）供应商排队是间歇性的：23 次尝试成 1 次，S03 在 09:11 建成。
+        # 所以「等不到」不该等于「停下来等人」——只要还是排队满，就自己再投一轮接着跑；
+        # 每个镜头的断点都带 SHA-256，已经生成的素材会被复用，不会重花一分钱。
+        # 上限 12 轮：真出了别的问题（欠费、模型下线）时不会无限烧 runner。
+        if: always()
+        env:
+          RESUME_ROUNDS: "12"
+        run: |
+          set -uo pipefail
+          python3 - <<'PY'
+          import json, os, pathlib
+          req=pathlib.Path('production/hwaseong1986/GEN_REQUEST')
+          res=pathlib.Path('production/hwaseong1986/results.json')
+          if not req.is_file() or not res.is_file():
+              print('不重投：缺 GEN_REQUEST 或 results.json'); raise SystemExit(0)
+          phase=json.loads(res.read_text(encoding='utf-8')).get('phase')
+          if phase!='provider_capacity':
+              print('不重投：phase=%s' % phase); raise SystemExit(0)
+          payload=json.loads(req.read_text(encoding='utf-8'))
+          rounds=int(payload.get('round',1)); cap=int(os.environ['RESUME_ROUNDS'])
+          if rounds>=cap:
+              print('不重投：已自动投满 %d 轮，请人工看一眼再继续' % cap); raise SystemExit(0)
+          payload['round']=rounds+1
+          req.write_text(json.dumps(payload,ensure_ascii=False)+'\n',encoding='utf-8')
+          pathlib.Path(os.environ['RUNNER_TEMP']+'/auto_resume').write_text('1')
+          print('AUTO_RESUME round=%d' % (rounds+1))
+          PY
+          if [ -f "$RUNNER_TEMP/auto_resume" ]; then
+            git config user.name "arena-agent"
+            git config user.email "arena@local"
+            git add production/hwaseong1986/GEN_REQUEST
+            git commit -m "hwaseong1986: 排队没排到，自动再投一轮（断点续跑）"
+            for attempt in 1 2 3 4 5; do
+              if git push origin "HEAD:${{ github.ref_name }}"; then
+                echo "已重投：新一轮会接着没做完的镜头跑"
+                break
+              fi
+              echo "push 撞上了云端检查点，同步后重试 ($attempt)"
+              git fetch origin "${{ github.ref_name }}" && git rebase FETCH_HEAD || break
+              sleep 3
+            done
+          fi
