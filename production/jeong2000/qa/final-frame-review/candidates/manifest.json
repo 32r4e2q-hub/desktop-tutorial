@@ -1,5 +1,5 @@
 {
-  "film_sha256": "1223cadfae25462fe414aaa04d382372e2789f71aaa1d7ee736b28b43053fa6f",
+  "film_sha256": "0b1f5be395f594addf0bcb5ed8e80fc69809337cca5a119d6914849f4f91c21c",
   "source_audit": "production/jeong2000/delivery/frame-distortion-audit.json",
   "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
   "max_width": 960,
@@ -31,6 +31,18 @@
         "temporal-S01-end"
       ],
       "file": "f00008_temporal-S01-end.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 3541,
+      "seconds": 118.033,
+      "reasons": [
+        "temporal-S31-end",
+        "temporal-S31-middle",
+        "temporal-S31-start"
+      ],
+      "file": "f03541_temporal-S31-end.jpg",
       "width": 960,
       "height": 540
     },

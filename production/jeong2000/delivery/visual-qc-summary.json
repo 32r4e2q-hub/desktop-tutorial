@@ -1,25 +1,17 @@
 {
   "film": "郑斗英_十个月，九条人命_三分钟_带声音.mp4",
-  "sha256": "1223cadfae25462fe414aaa04d382372e2789f71aaa1d7ee736b28b43053fa6f",
-  "workflow_run": "https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38061078429",
+  "sha256": "0b1f5be395f594addf0bcb5ed8e80fc69809337cca5a119d6914849f4f91c21c",
+  "workflow_run": "https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38064289057",
   "all_decoded_frames_scanned": true,
   "decoded_frames": 5400,
   "expected_frames": 5400,
   "automated_status": "REVIEW",
   "unplanned_black_frames": 0,
   "non_graphic_freeze_runs": 0,
-  "temporal_outlier_windows": 3,
+  "temporal_outlier_windows": 4,
   "face_review_candidates": 0,
   "hand_landmark_extreme_events": 0,
-  "human_semantic_visual_review": "passed",
+  "human_semantic_visual_review": "pending",
   "midpoint_contact_sheet": "production/jeong2000/delivery/visual-qc-shot-midpoints.jpg",
-  "note": "5400/5400 frames decoded. All 46 full-frame sheets and flagged temporal candidates manually reviewed after the distortion rework; approved.",
-  "human_review_findings": {
-    "high_risk_replacements": "S06, S11, S13, S22, S25, S26, S28, S29, S33, S35 regenerated with safer static/empty compositions; S19 additionally regenerated as a hand-free still life",
-    "door_crossing": "removed: S11 is now an empty corridor; S06 has no visible person crossing a doorway",
-    "anatomy_and_morphing": "all dynamic-shot all-frame sheets reviewed; no release-blocking body/hand morphing remains",
-    "temporal_candidates": "S01 opening fade, S45-to-END transition and END fade; intentional",
-    "ai_corner_label": "removed from ASS overlays; CogVideoX platform corner mark cropped by a uniform 1.12x safe crop",
-    "final_verdict": "approved"
-  }
+  "note": "Automation is triage. Review the uploaded all-frame, midpoint, hand, and suspect-frame artifacts before final sign-off."
 }

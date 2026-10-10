@@ -1,7 +1,7 @@
 # 成片逐帧畸变 / 时序 QC
 
 - 成片：`郑斗英_十个月，九条人命_三分钟_带声音.mp4`
-- SHA-256：`1223cadfae25462fe414aaa04d382372e2789f71aaa1d7ee736b28b43053fa6f`
+- SHA-256：`0b1f5be395f594addf0bcb5ed8e80fc69809337cca5a119d6914849f4f91c21c`
 - 视频：1920×1080 / 30.000 fps / 180.000 秒
 - 覆盖：解码并分析 **5400/5400 帧**；逐帧 MediaPipe 人脸/手检测；320x180 时序分析
 - 自动状态：**REVIEW**（机器结果，不等同于无任何视觉瑕疵）
@@ -12,8 +12,8 @@
 - 亮度低于 12 的帧：13（片头/片尾淡入淡出需按时间线解释）
 - 非计划黑帧：0
 - >1 秒近静止区段：0；其中非信息卡/片尾段：0
-- 帧差/光流/亮度突变待复核窗口：3
-- 人脸检测：逐帧总检测 232；达到复核阈值的候选 0
+- 帧差/光流/亮度突变待复核窗口：4
+- 人脸检测：逐帧总检测 242；达到复核阈值的候选 0
 - 手部检测：逐帧总检测 0；超出宽松几何边界的 landmark 事件 0
 
 ## 镜头统计
@@ -31,8 +31,8 @@
 | S09 | cogvideo | 114 | 0 | 0 | 0.3582 | 0 |
 | S10 | graphic | 122 | 35 | 0 | 175.034 | 0 |
 | S11 | cogvideo | 106 | 0 | 0 | 0.2644 | 0 |
-| S12 | cogvideo | 144 | 0 | 0 | 0.1326 | 0 |
-| S13 | cogvideo | 84 | 0 | 0 | 0.1262 | 0 |
+| S12 | cogvideo | 144 | 0 | 0 | 0.1344 | 0 |
+| S13 | cogvideo | 84 | 2 | 0 | 0.2472 | 0 |
 | S14 | cogvideo | 151 | 0 | 0 | 0.1043 | 0 |
 | S15 | cogvideo | 132 | 0 | 0 | 0.1731 | 0 |
 | S16 | cogvideo | 112 | 0 | 0 | 0.3591 | 0 |
@@ -49,8 +49,8 @@
 | S27 | cogvideo | 117 | 0 | 0 | 0.0158 | 0 |
 | S28 | cogvideo | 128 | 0 | 0 | 0.1377 | 0 |
 | S29 | cogvideo | 162 | 13 | 0 | 0.1165 | 0 |
-| S30 | cogvideo | 148 | 0 | 0 | 1.693 | 0 |
-| S31 | graphic | 128 | 48 | 0 | 200.8082 | 0 |
+| S30 | cogvideo | 148 | 0 | 0 | 1.7253 | 0 |
+| S31 | graphic | 128 | 55 | 0 | 263.6932 | 1 |
 | S32 | cogvideo | 155 | 0 | 0 | 0.0949 | 0 |
 | S33 | cogvideo | 126 | 0 | 0 | 0.0983 | 0 |
 | S34 | cogvideo | 67 | 0 | 0 | 0.111 | 0 |
@@ -62,8 +62,8 @@
 | S40 | cogvideo | 94 | 0 | 0 | 0.1974 | 0 |
 | S41 | cogvideo | 96 | 0 | 0 | 0.0896 | 0 |
 | S42 | cogvideo | 171 | 0 | 0 | 0.5669 | 0 |
-| S43 | graphic | 179 | 15 | 0 | 188.8095 | 0 |
-| S44 | cogvideo | 142 | 0 | 0 | 0.1563 | 0 |
+| S43 | graphic | 179 | 16 | 0 | 187.225 | 0 |
+| S44 | cogvideo | 142 | 0 | 0 | 0.1623 | 0 |
 | S45 | cogvideo | 170 | 0 | 0 | 0.4347 | 1 |
 | END | graphic | 114 | 0 | 0 | 0.5692 | 1 |
 
@@ -71,7 +71,7 @@
 
 - 全 45 镜 + 片尾画面中帧：`work/jeong2000/final-frame-audit/contacts/shot-midpoints.jpg`
 - 逐帧指标 CSV：`work/jeong2000/final-frame-audit/frame-metrics.csv`
-- 候选异常原始分辨率帧：`['work/jeong2000/final-frame-audit/suspect-frames/frame_00000_t000.000.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00001_t000.033.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00002_t000.067.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00003_t000.100.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00004_t000.133.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00005_t000.167.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00006_t000.200.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00007_t000.233.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00008_t000.267.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00009_t000.300.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00010_t000.333.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05280_t176.000.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05281_t176.033.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05282_t176.067.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05283_t176.100.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05284_t176.133.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05285_t176.167.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05286_t176.200.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05287_t176.233.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05288_t176.267.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05289_t176.300.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05290_t176.333.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05291_t176.367.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05292_t176.400.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05293_t176.433.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05294_t176.467.jpg']`
+- 候选异常原始分辨率帧：`['work/jeong2000/final-frame-audit/suspect-frames/frame_00000_t000.000.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00001_t000.033.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00002_t000.067.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00003_t000.100.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00004_t000.133.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00005_t000.167.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00006_t000.200.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00007_t000.233.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00008_t000.267.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00009_t000.300.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_00010_t000.333.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_03539_t117.967.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_03540_t118.000.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_03541_t118.033.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_03542_t118.067.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_03543_t118.100.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05280_t176.000.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05281_t176.033.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05282_t176.067.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05283_t176.100.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05284_t176.133.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05285_t176.167.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05286_t176.200.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05287_t176.233.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05288_t176.267.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05289_t176.300.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05290_t176.333.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05291_t176.367.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05292_t176.400.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05293_t176.433.jpg', 'work/jeong2000/final-frame-audit/suspect-frames/frame_05294_t176.467.jpg']`
 
 ## 限制
 
