@@ -2,18 +2,24 @@ Traceback (most recent call last):
   File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 187, in <module>
     if __name__=='__main__': raise SystemExit(main())
                                               ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 133, in main
-    from zhipuai import ZhipuAI
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/__init__.py", line 2, in <module>
-    from ._client import ZhipuAI
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/_client.py", line 7, in <module>
-    from .core import _jwt_token
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/core/__init__.py", line 1, in <module>
-    from ._base_models import (
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/core/_base_models.py", line 23, in <module>
-    from ._utils import is_list, is_mapping, parse_date, parse_datetime, is_annotated_type, extract_type_arg, \
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/core/_utils/__init__.py", line 2, in <module>
-    from ._utils import (
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/zhipuai/core/_utils/_utils.py", line 21, in <module>
-    import sniffio
-ModuleNotFoundError: No module named 'sniffio'
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 138, in main
+    checkpoint(doc,'CogVideoX cloud generation started',publish=args.publish)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 95, in checkpoint
+    git('commit','-m',f'jeong2000: {label}','--',*paths)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jeong2000/generate.py", line 81, in git
+    if check and result.returncode: raise RuntimeError(result.stdout+result.stderr)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <runner@runnervmmprz5.5y4rndj4vfnergvhfxv5ijxbfe.ex.internal.cloudapp.net>) not allowed
+
