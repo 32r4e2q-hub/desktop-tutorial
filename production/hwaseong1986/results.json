@@ -254,10 +254,10 @@
     },
     "S42": {
       "id": "S42",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "64d8180c454f3fc4f35e1123be82d2dbc3058ce78e19fbb4f6627e004b8b0154",
-      "error": null,
-      "updated_at": "2026-10-10T07:47:21Z"
+      "error": "Provider cooldown would exceed the generation budget; saved tasks can be resumed",
+      "updated_at": "2026-10-10T07:47:22Z"
     }
   },
   "phase": "generating_sources",
@@ -314,7 +314,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T07:47:21Z",
+  "updated_at": "2026-10-10T07:47:22Z",
   "run_id": "38025761445",
   "pipeline_error": "cannot access local variable 'push_provenance' where it is not associated with a value"
 }
