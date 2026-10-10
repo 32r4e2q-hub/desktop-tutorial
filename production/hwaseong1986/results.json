@@ -11,10 +11,10 @@
     },
     "S03": {
       "id": "S03",
-      "status": "submitting",
+      "status": "failed",
       "request_hash": "82bf50b963cc60f2351e7e3cecdb35ab2c5e03026ea31292cc7985bfc7333c95",
-      "error": null,
-      "updated_at": "2026-10-10T04:32:45Z"
+      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/6f5577f1-desktop-tutorial']' returned non-zero exit status 128.",
+      "updated_at": "2026-10-10T04:32:46Z"
     }
   },
   "phase": "generating_sources",
@@ -71,6 +71,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T04:32:45Z",
+  "updated_at": "2026-10-10T04:32:46Z",
   "run_id": "38024372451"
 }
