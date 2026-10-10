@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""问出后继视频模型的 payload 形状：一次运行试完所有候选，把每个的 HTTP 状态与原文写回分支。
+"""问出后继视频模型的 payload 形状：先抄文档，再试候选，把证据写回分支。
 
 为什么需要它（2026-10-10 实测）：`agnes-video-v2.0` 被网关下线后换用 `agnes-video-2.5`，
 创建请求立刻报
@@ -8,21 +8,32 @@
 
 共享实现 `production/agnes_video.py::build_payload()` 总是把 `width` / `height` 填进 payload
 （由 aspect + resolution 换算而来），而新模型不收这两个字段。沙箱连不上 Agnes API，
-只能在 runner 上试；一个一个试要一轮 Actions（约 6 分钟）才有一个答案，所以这里一次试完。
+只能在 runner 上试；而供应商的校验一次只报**一个**字段，一个个试要一轮 Actions 才掉一层皮：
+
+    第 1 轮：width 被拒 → 换 size，报 num_frames 被拒；resolution 不是允许字段
+    第 2 轮：negative_prompt 不是允许字段；duration/seconds 传小数会让它
+             「Failed to read request body」（invalid_json），根本走不到字段校验
+
+所以本脚本先做**不花额度**的一步：抓 agnes-ai.com 的文档页，把请求体字段的原文摘回来；
+再按「最可能是对的」顺序试候选形状。400 不创建任务、不花额度；
+一旦某个候选返回 2xx 就停下（形状对了，任务留给正式生成那一轮去建）。
 
     AGNES_API_KEY=... python3 production/hwaseong1986/probe_payload_schema.py
 
-输出 `production/hwaseong1986/delivery/payload-schema-probe.json`，
-`winner` 就是 `generate.py::full_payload()` 该用的形状。400 不创建任务、不花额度；
-一旦某个候选返回 2xx 就停下（那说明形状对了，任务留给正式生成那一轮去建）。
+输出 `production/hwaseong1986/delivery/payload-schema-probe.json`：
+`winner` 是 `generate.py::full_payload()` 该用的形状，`docs` 是文档原文摘录。
 """
 from __future__ import annotations
 
+import html as html_module
 import json
 import os
 from pathlib import Path
+import re
 import sys
 import time
+import urllib.error
+import urllib.request
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -37,32 +48,109 @@ RECEIPT = HERE / "delivery" / "payload-schema-probe.json"
 # 「You've reached the API rate limit for free users」，后面 6 个候选全被 429 挡住、
 # 一个答案都没问到。间隔必须按分钟算。
 GAP_SECONDS = float(os.environ.get("AGNES_PROBE_GAP", "80"))
+DOCS_START = os.environ.get("AGNES_DOCS_URL", "https://agnes-ai.com/en/docs")
+BROWSER_UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+FIELD_WORDS = ("negative_prompt", "aspect_ratio", "frame_rate", "num_frames", "resolution",
+               "duration", "seconds", "size", "width", "height", "image", "seed", "prompt",
+               "model", "forbidden", "allowed", "request field", "parameter", "request body",
+               "seconds", "fps", "1080", "720")
+
+
+def fetch(url: str, api_key: str | None = None, timeout: float = 30.0):
+    """抓一个页面/端点，返回 (status, text)。抓不到也不抛——探针不能因为一个 404 就整轮丢掉。"""
+    headers = {"User-Agent": BROWSER_UA, "Accept": "text/html,application/json"}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+    request = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return response.status, response.read().decode("utf-8", "replace")
+    except urllib.error.HTTPError as exc:
+        return exc.code, exc.read().decode("utf-8", "replace")
+    except Exception as exc:
+        return None, f"{type(exc).__name__}: {exc}"
+
+
+def strip_html(text: str) -> str:
+    text = re.sub(r"(?is)<(script|style|noscript|svg).*?</\1>", " ", text)
+    text = re.sub(r"(?s)<[^>]+>", " ", text)
+    return re.sub(r"[ \t]+", " ", html_module.unescape(text))
+
+
+def relevant_lines(text: str, limit: int = 140) -> list:
+    """只留提到请求字段的行：整页 HTML 塞进收据会把仓库撑大，也把有用的句子淹掉。"""
+    kept = []
+    for raw in text.splitlines():
+        line = " ".join(raw.split())
+        if 3 < len(line) < 300 and any(word in line.lower() for word in FIELD_WORDS):
+            if line not in kept:
+                kept.append(line)
+        if len(kept) >= limit:
+            break
+    return kept
+
+
+def probe_docs(base_url: str, model: str, api_key: str) -> dict:
+    """不花额度的一步：把供应商文档里关于请求体字段的原文摘回来。"""
+    out: dict = {"start": DOCS_START, "pages": [], "endpoints": []}
+    status, body = fetch(DOCS_START)
+    out["start_status"] = status
+    links: list = []
+    if status == 200:
+        links = sorted({href for href in re.findall(r'href="([^"]+)"', body)
+                        if "docs" in href and "video" in href.lower()})
+        out["video_links"] = links[:25]
+        out["index_relevant"] = relevant_lines(strip_html(body), 60)
+    else:
+        out["start_error"] = body[:300]
+    for href in links[:4]:
+        url = href if href.startswith("http") else "https://agnes-ai.com" + href
+        page_status, text = fetch(url)
+        page = {"url": url, "http_status": page_status}
+        if page_status == 200:
+            page["relevant"] = relevant_lines(strip_html(text))
+        else:
+            page["error"] = " ".join(text.split())[:300]
+        out["pages"].append(page)
+        print(f"PROBE_DOC {url} -> {page_status} ({len(page.get('relevant', []))} lines)", flush=True)
+    # 网关自己也可能吐模型元数据 / OpenAPI
+    for path in (f"/v1/models/{model}", "/openapi.json", "/v1/videos/schema", "/docs"):
+        endpoint_status, text = fetch(base_url + path, api_key=api_key)
+        entry = {"url": base_url + path, "http_status": endpoint_status}
+        if endpoint_status == 200:
+            entry["excerpt"] = " ".join(text.split())[:2000]
+        else:
+            entry["excerpt"] = " ".join(text.split())[:300]
+        out["endpoints"].append(entry)
+        print(f"PROBE_ENDPOINT {path} -> {endpoint_status}", flush=True)
+    return out
 
 
 def candidates(base: dict) -> dict:
     """按「最可能是对的」排序；键名就是要写回 generate.py 的形状名。
 
-    第一轮探针已经问出三件事（收据 delivery/payload-schema-probe.json）：
-      * `size` 收 —— 那一发的报错跳到了 num_frames，说明 size 本身没被拒；
-      * `aspect_ratio` 收、`resolution` 不收（"resolution is not an allowed request field"）；
-      * `num_frames` 不收 —— 时长要换字段表达（duration / seconds 二选一，这一轮问出来）。
-    所以本轮候选都带 `size`，只在「时长字段叫什么」上做变化；最后留一个已知会 400 的对照组，
-    用来确认报错路径没变、也确认 429 不是把一切都挡住了。
+    前两轮探针问出来的（收据同一个文件的 git 历史里）：
+      收：`model` `prompt` `size` `aspect_ratio` `seed` `frame_rate`
+      不收：`width` `height` `num_frames` `resolution` `negative_prompt`
+      `duration`/`seconds` 传小数 → invalid_json「Failed to read request body」
+    所以这一轮全部**不带 negative_prompt**，时长只试整数秒，外加一个不带时长的候选
+    （让它用默认时长，先确认能建任务，再谈时长字段）。
     """
-    core = {k: v for k, v in base.items() if k not in ("width", "height", "num_frames", "frame_rate")}
+    core = {k: v for k, v in base.items()
+            if k not in ("width", "height", "num_frames", "frame_rate", "negative_prompt")}
     size = f"{base['width']}x{base['height']}"
-    seconds = round(base["num_frames"] / base["frame_rate"], 3)
+    seconds = int(round(base["num_frames"] / base["frame_rate"]))
     return {
-        "size_frame_rate_duration": {**core, "size": size, "frame_rate": base["frame_rate"],
-                                     "duration": seconds},
-        "size_duration": {**core, "size": size, "duration": seconds},
-        "size_frame_rate_seconds": {**core, "size": size, "frame_rate": base["frame_rate"],
-                                    "seconds": seconds},
-        "size_seconds": {**core, "size": size, "seconds": seconds},
-        "size_aspect_ratio_duration": {**core, "size": size, "aspect_ratio": "16:9",
-                                       "duration": seconds},
-        "size_frame_rate_num_frames": {**core, "size": size, "frame_rate": base["frame_rate"],
-                                       "num_frames": base["num_frames"]},
+        "size_frame_rate_duration_int": {**core, "size": size, "frame_rate": base["frame_rate"],
+                                         "duration": seconds},
+        "size_duration_int": {**core, "size": size, "duration": seconds},
+        "size_frame_rate_only": {**core, "size": size, "frame_rate": base["frame_rate"]},
+        "size_only": {**core, "size": size},
+        "size_aspect_ratio_duration_int": {**core, "size": size, "aspect_ratio": "16:9",
+                                           "duration": seconds},
+        "size_frame_rate_seconds_int": {**core, "size": size, "frame_rate": base["frame_rate"],
+                                        "seconds": seconds},
     }
 
 
@@ -78,42 +166,42 @@ def main() -> int:
     receipt = {"model": model, "base": base_url, "shot": shot["id"],
                "probed_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                "api_key_present": bool(key), "attempts": [], "winner": None}
+    receipt["docs"] = probe_docs(base_url, model, key or None)
+
     if not key:
         receipt["error"] = "AGNES_API_KEY is unavailable"
-        RECEIPT.parent.mkdir(parents=True, exist_ok=True)
-        RECEIPT.write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print("PROBE_NO_KEY")
-        return 1
-
-    for name, body in candidates(payload).items():
-        fields = sorted(body)
-        try:
-            code, response_body, text = agnes.http_json("POST", base_url + "/v1/videos", key, body, timeout=120)
-        except Exception as exc:  # 网络层失败也要记下来，别把整轮探针弄丢
-            code, response_body, text = None, None, f"{type(exc).__name__}: {exc}"
-        entry = {"shape": name, "fields": fields, "http_status": code,
-                 "body_excerpt": " ".join(str(text or "").split())[:1500]}
-        if isinstance(response_body, dict):
-            entry["video_id"] = response_body.get("video_id") or response_body.get("id")
-            entry["task_id"] = response_body.get("task_id")
-        if code == 429:
-            # 429 是限流，不是「这个形状不行」：等一个间隔原地重试一次，别把两者混为一谈。
-            print(f"PROBE_RATE_LIMITED {name}; waiting {GAP_SECONDS:g}s then retrying once", flush=True)
-            time.sleep(GAP_SECONDS)
-            entry["retried"] = True
+    else:
+        for name, body in candidates(payload).items():
+            entry = {"shape": name, "fields": sorted(body),
+                     "payload": {k: v for k, v in body.items() if k != "prompt"}}
             try:
                 code, response_body, text = agnes.http_json(
                     "POST", base_url + "/v1/videos", key, body, timeout=120)
-            except Exception as exc:
+            except Exception as exc:  # 网络层失败也要记下来
                 code, response_body, text = None, None, f"{type(exc).__name__}: {exc}"
             entry.update(http_status=code, body_excerpt=" ".join(str(text or "").split())[:1500])
-        receipt["attempts"].append(entry)
-        print(f"PROBE_SHAPE {name} -> HTTP {code}: {entry['body_excerpt'][:200]}", flush=True)
-        if code is not None and 200 <= code < 300:
-            receipt["winner"] = name
-            print(f"PROBE_WINNER {name}", flush=True)
-            break
-        time.sleep(GAP_SECONDS)
+            if isinstance(response_body, dict):
+                entry["video_id"] = response_body.get("video_id") or response_body.get("id")
+                entry["task_id"] = response_body.get("task_id")
+            if code == 429:
+                # 429 是限流，不是「这个形状不行」：等一个间隔原地重试一次。
+                print(f"PROBE_RATE_LIMITED {name}; waiting {GAP_SECONDS:g}s then retrying once",
+                      flush=True)
+                time.sleep(GAP_SECONDS)
+                entry["retried"] = True
+                try:
+                    code, response_body, text = agnes.http_json(
+                        "POST", base_url + "/v1/videos", key, body, timeout=120)
+                except Exception as exc:
+                    code, response_body, text = None, None, f"{type(exc).__name__}: {exc}"
+                entry.update(http_status=code, body_excerpt=" ".join(str(text or "").split())[:1500])
+            receipt["attempts"].append(entry)
+            print(f"PROBE_SHAPE {name} -> HTTP {code}: {entry['body_excerpt'][:200]}", flush=True)
+            if code is not None and 200 <= code < 300:
+                receipt["winner"] = name
+                print(f"PROBE_WINNER {name}", flush=True)
+                break
+            time.sleep(GAP_SECONDS)
 
     RECEIPT.parent.mkdir(parents=True, exist_ok=True)
     RECEIPT.write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
