@@ -1,0 +1,64 @@
+# 模板：production/new_topic.py 会把 hwaseong1986 / arena/3c6cd684-desktop-tutorial / 3c6cd684-desktop-tutorial 换成新项目的值。
+# 复制到 .github/workflows/ 后，push production/hwaseong1986/PROBE_REQUEST 即触发。
+name: 李春才：华城连环杀人案，DNA揭开了33年的秘密 · 供应商 payload 形状探针
+
+# 用途：换新视频模型后，创建请求的字段形状可能变（2026-10-10 实测 agnes-video-2.5 报
+# 「width is a forbidden field」）。本工作流一次试完所有候选形状，把每个的 HTTP 状态与原文
+# 写回 production/hwaseong1986/delivery/payload-schema-probe.json —— 沙箱连不上 Agnes API、
+# 也读不到 Actions 日志，收据必须落回分支才看得见。
+# 400 不创建任务、不花额度；只有某个候选返回 2xx 才会真的建一个任务。
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/3c6cd684-desktop-tutorial
+    paths:
+      - production/hwaseong1986/PROBE_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hwaseong1986-probe-arena-3c6cd684-desktop-tutorial
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/3c6cd684-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/3c6cd684-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Probe the provider payload schema
+        continue-on-error: true
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 -u production/hwaseong1986/probe_payload_schema.py
+
+      - name: Ship the receipt to the branch
+        if: always()
+        run: |
+          set -uo pipefail
+          test -f production/hwaseong1986/delivery/payload-schema-probe.json || {
+            echo "::error::探针没有写出收据"; exit 1; }
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/hwaseong1986/delivery/payload-schema-probe.json
+          git commit -m "hwaseong1986: payload 形状探针收据 $(date -u +%FT%TZ)"
+          pushed=0
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${{ github.ref_name }}"; then pushed=1; break; fi
+            git fetch origin ${{ github.ref_name }} && git rebase FETCH_HEAD || break
+          done
+          [ "$pushed" = "1" ] || echo "::error::收据推不回分支，看本次运行的日志"
