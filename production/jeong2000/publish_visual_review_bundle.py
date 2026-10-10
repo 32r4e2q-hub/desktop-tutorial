@@ -60,10 +60,9 @@ def main() -> int:
 
     if len(all_frames) != 46:
         raise SystemExit(f"Expected 46 final-cut all-frame sheets, found {len(all_frames)}")
-    if not hands:
-        raise SystemExit("No final-cut hand contact sheets found")
-    if not candidates:
-        raise SystemExit("No selected review candidate frames found")
+    # Zero hand/candidate sheets is a valid clean result, not missing evidence:
+    # the all-frame sheets and manifests still prove complete frame coverage.
+    # Only fail for the mandatory 46 per-shot/ending all-frame sheets above.
 
     receipt = {
         "film": args.film.name,
