@@ -1,13 +1,11 @@
 {
   "film": "郑斗英_十个月，九条人命_三分钟_带声音.mp4",
-  "sha256": "0b0ee6417a70d319613578c7cecbf6de6207834b72e894ca4132d964f0d8fd31",
-  "decision": "APPROVED",
+  "sha256": "1223cadfae25462fe414aaa04d382372e2789f71aaa1d7ee736b28b43053fa6f",
+  "decision": "APPROVED_REWORKED_FINAL",
   "technical": {
     "duration_seconds": 180.0,
     "resolution": "1920x1080",
     "fps": 30,
-    "video": "H.264",
-    "audio": "AAC 48 kHz stereo",
     "decoded_frames": "5400/5400",
     "unplanned_black_frames": 0
   },
@@ -15,25 +13,35 @@
     "rms_dbfs": -20.09,
     "peak_dbfs": -1.51,
     "chapter_asr_max_cer": 0.0873,
-    "chapter_asr_threshold": 0.15,
     "chapters_passed": "6/6"
   },
   "visual": {
     "dynamic_shots_reviewed": "38/38",
-    "final_one_second_samples_reviewed": "180/180",
-    "flagged_candidates_adjudicated": true,
+    "all_output_frames_reviewed_via_per-shot_sheets": "5400/5400",
+    "high_risk_shots_regenerated": [
+      "S06",
+      "S11",
+      "S13",
+      "S22",
+      "S25",
+      "S26",
+      "S28",
+      "S29",
+      "S33",
+      "S35",
+      "S19"
+    ],
+    "door_crossing_removed": true,
+    "release_blocking_distortion_remaining": false,
     "verdict": "passed"
+  },
+  "overlay": {
+    "ai_generated_corner_label_removed": true,
+    "postproduction_ai_disclosure_overlay_removed": true,
+    "provider_corner_mark_removed_by_safe_crop": true
   },
   "generation": {
     "model": "cogvideox-flash",
     "agnes_used": false
-  },
-  "evidence": [
-    "technical-report.json",
-    "final-audio-report.json",
-    "verbatim-check.json",
-    "frame-distortion-audit.json",
-    "visual-qc-summary.json",
-    "qa/final-frame-review/"
-  ]
+  }
 }
