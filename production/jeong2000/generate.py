@@ -124,6 +124,11 @@ def main():
         stale=[sid for sid,row in doc.get('shots',{}).items() if row.get('status')=='failed' and not row.get('video_url')]
         for sid in stale:doc['shots'].pop(sid,None)
         checkpoint(doc,'pruned failed tasks',publish=args.publish); print('PRUNED',stale); return 0
+    if args.publish:
+        if os.getenv('GITHUB_ACTIONS')!='true' or git('branch','--show-current')!=BRANCH:
+            raise RuntimeError('Publish only from the fixed Arena branch in Actions')
+        git('config','user.name','github-actions[bot]')
+        git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
     options=json.loads(args.payload or '{}'); only={x.strip() for x in str(options.get('only','')).split(',') if x.strip()}
     shots=[x for x in project['shots'] if x['kind']=='cogvideo']
     if only-{x['id'] for x in shots}: raise ValueError('Unknown/non-CogVideo shot: '+','.join(sorted(only)))
