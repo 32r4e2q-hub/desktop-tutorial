@@ -2,15 +2,6 @@
   "project": "李春才：华城连环杀人案，DNA揭开了33年的秘密",
   "model": "agnes-video-2.5-flash",
   "shots": {
-    "S01": {
-      "id": "S01",
-      "status": "waiting_create_slot",
-      "request_hash": "e880f2985e28dfeebe9a30ed260a302f3dc0b6cfce052ef0ac258b5035613e56",
-      "error": null,
-      "updated_at": "2026-10-10T10:12:54Z",
-      "channel_error_round": 1,
-      "applied_cooldown_seconds": 300.0
-    },
     "S03": {
       "id": "S03",
       "status": "completed",
@@ -45,15 +36,6 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending"
-    },
-    "S04": {
-      "id": "S04",
-      "status": "waiting_create_slot",
-      "request_hash": "e611470cf3cb26b200dd8c1befba2d4643406fa34054a0591b0d7741824fd606",
-      "error": null,
-      "updated_at": "2026-10-10T10:12:51Z",
-      "channel_error_round": 2,
-      "applied_cooldown_seconds": 300.0
     }
   },
   "phase": "generating_sources",
@@ -114,19 +96,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T10:12:54Z",
-  "run_id": "38036880428",
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "base": "https://apihub.agnes-ai.com",
-    "first_seen": "2026-10-10T08:11:25Z",
-    "last_seen": "2026-10-10T10:12:52Z",
-    "create_attempts": 25,
-    "consecutive_rounds": 1,
-    "cooldown_seconds": 300.0,
-    "channel_error_limit": 2,
-    "wait_channel_minutes": 140.0,
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261010101252142506072iTK5c7nw)",
-    "reason": "供应商视频排队已满"
-  }
+  "updated_at": "2026-10-10T10:18:19Z",
+  "run_id": "38044289657"
 }
