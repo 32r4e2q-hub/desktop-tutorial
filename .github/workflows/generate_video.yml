@@ -37,91 +37,7 @@ jobs:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
           INPUT_PROMPT: ${{ github.event.inputs.prompt }}
         run: |
-          python - << 'EOF'
-          import os
-          import sys
-          import time
-          import requests
-          import traceback
-          from zhipuai import ZhipuAI
-
-          log_lines = []
-          def log(msg):
-              print(msg)
-              log_lines.append(str(msg))
-
-          def save_log():
-              with open("run_output.log", "w", encoding="utf-8") as f:
-                  f.write("\n".join(log_lines))
-
-          api_key = os.getenv("ZHIPUAI_API_KEY")
-          prompt = os.getenv("INPUT_PROMPT")
-
-          if not prompt:
-              if os.path.exists("trigger_video.txt"):
-                  with open("trigger_video.txt", "r", encoding="utf-8") as f:
-                      prompt = f.read().strip()
-          
-          if not prompt:
-              prompt = "一只可爱的小猫咪在阳光下的花园里捉蝴蝶，草地，电影质感，超高清"
-
-          if not api_key:
-              log("❌ 错误: 未检测到 ZHIPUAI_API_KEY，请检查 GitHub Secret 配置！")
-              save_log()
-              sys.exit(1)
-          else:
-              masked = api_key[:4] + "..." + api_key[-4:] if len(api_key) > 8 else "***"
-              log(f"🔑 检测到 API_KEY: {masked}")
-
-          try:
-              client = ZhipuAI(api_key=api_key)
-              log(f"🎬 正在提交智谱 CogVideoX-Flash 任务...")
-              log(f"📝 提示词: {prompt}")
-
-              response = client.videos.generations(
-                  model="cogvideox-flash",
-                  prompt=prompt,
-                  quality="speed"
-              )
-              task_id = response.id
-              log(f"✅ 任务提交成功！Task ID: {task_id}")
-          except Exception as e:
-              log(f"❌ 任务提交异常: {e}")
-              log(traceback.format_exc())
-              save_log()
-              sys.exit(1)
-
-          log("⏳ 正在等待云端渲染完成（约需 50~70 秒）...")
-          start_time = time.time()
-          while True:
-              try:
-                  result = client.videos.retrieve_videos_result(id=task_id)
-                  status = result.task_status
-                  elapsed = int(time.time() - start_time)
-                  log(f"[{elapsed}s] 状态: {status} | 原始响应: {result}")
-
-                  if status == "SUCCESS":
-                      video_url = result.video_result[0].url
-                      log(f"\n🎉 视频生成成功！耗时: {elapsed} 秒")
-                      log(f"🔗 官方下载链接 (30天有效):\n{video_url}\n")
-                      
-                      print("⬇️ 正在下载视频文件...")
-                      res = requests.get(video_url, timeout=60)
-                      with open("output_video.mp4", "wb") as f:
-                          f.write(res.content)
-                      log("💾 已保存为 output_video.mp4")
-                      save_log()
-                      break
-                  elif status == "FAIL":
-                      log(f"\n❌ 生成失败详细信息: {result}")
-                      save_log()
-                      sys.exit(1)
-                  else:
-                      time.sleep(8)
-              except Exception as err:
-                  log(f"⚠️ 查询状态出现重试警告: {err}")
-                  time.sleep(8)
-          EOF
+          python scripts/run_cogvideox.py 2>&1 | tee run_output.log
 
       - name: 将结果发到 GitHub Issue
         if: always()
@@ -129,13 +45,16 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -f run_output.log ]; then
-            gh issue create --title "视频生成运行报告 [$(date '+%H:%M:%S')]" --body-file run_output.log || true
+            gh issue create --title "视频生成测试报告 [$(date '+%H:%M:%S')]" --body-file run_output.log || true
           fi
 
-      - name: 上传日志产物
+      - name: 上传视频与日志
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: video-log
-          path: run_output.log
+          name: video-output
+          path: |
+            run_output.log
+            output_video.mp4
           if-no-files-found: warn
+          retention-days: 7
