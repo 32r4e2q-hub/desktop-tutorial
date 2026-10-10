@@ -2,103 +2,258 @@
   "model": "agnes-video-2.5",
   "base": "https://apihub.agnes-ai.com",
   "shot": "S01",
-  "probed_at": "2026-10-10T06:24:54Z",
+  "probed_at": "2026-10-10T06:43:18Z",
   "api_key_present": true,
   "attempts": [
     {
-      "shape": "size_frame_rate_duration",
+      "shape": "size_frame_rate_duration_int",
       "fields": [
         "duration",
         "frame_rate",
         "model",
-        "negative_prompt",
         "prompt",
         "seed",
         "size"
       ],
+      "payload": {
+        "model": "agnes-video-2.5",
+        "seed": 19860916,
+        "size": "1920x1080",
+        "frame_rate": 24,
+        "duration": 7
+      },
       "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 20261010062454818298333Zwqx2O6A)\",\"data\":null}",
+      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"frame_rate is not an allowed request field (request id: 20261010064322778989255RWJ5ZlxG)\",\"data\":{\"param\":\"frame_rate\"}}",
       "video_id": null,
       "task_id": null
     },
     {
-      "shape": "size_duration",
+      "shape": "size_duration_int",
       "fields": [
         "duration",
         "model",
-        "negative_prompt",
         "prompt",
         "seed",
         "size"
       ],
+      "payload": {
+        "model": "agnes-video-2.5",
+        "seed": 19860916,
+        "size": "1920x1080",
+        "duration": 7
+      },
       "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 2026101006261599188121MwHdJ2rq)\",\"data\":null}",
+      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"duration is not an allowed request field (request id: 202610100644431337641075e4kd3Gq)\",\"data\":{\"param\":\"duration\"}}",
       "video_id": null,
       "task_id": null
     },
     {
-      "shape": "size_frame_rate_seconds",
+      "shape": "size_frame_rate_only",
       "fields": [
         "frame_rate",
         "model",
-        "negative_prompt",
         "prompt",
-        "seconds",
         "seed",
         "size"
       ],
+      "payload": {
+        "model": "agnes-video-2.5",
+        "seed": 19860916,
+        "size": "1920x1080",
+        "frame_rate": 24
+      },
       "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 20261010062735384640703T3xi2pKS)\",\"data\":null}",
+      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"frame_rate is not an allowed request field (request id: 20261010064603492526227CepU4khf)\",\"data\":{\"param\":\"frame_rate\"}}",
       "video_id": null,
       "task_id": null
     },
     {
-      "shape": "size_seconds",
+      "shape": "size_only",
       "fields": [
         "model",
-        "negative_prompt",
         "prompt",
-        "seconds",
         "seed",
         "size"
       ],
+      "payload": {
+        "model": "agnes-video-2.5",
+        "seed": 19860916,
+        "size": "1920x1080"
+      },
       "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 202610100628556956802436SR5buNC)\",\"data\":null}",
+      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"mode is required (request id: 20261010064723841055863WpcaHI2M)\",\"data\":{\"param\":\"mode\"}}",
       "video_id": null,
       "task_id": null
     },
     {
-      "shape": "size_aspect_ratio_duration",
+      "shape": "size_aspect_ratio_duration_int",
       "fields": [
         "aspect_ratio",
         "duration",
         "model",
-        "negative_prompt",
         "prompt",
         "seed",
         "size"
       ],
+      "payload": {
+        "model": "agnes-video-2.5",
+        "seed": 19860916,
+        "size": "1920x1080",
+        "aspect_ratio": "16:9",
+        "duration": 7
+      },
       "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 2026101006301655245227f1pbaz4N)\",\"data\":null}",
+      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"duration is not an allowed request field (request id: 20261010064844266424638U1zwZR7F)\",\"data\":{\"param\":\"duration\"}}",
       "video_id": null,
       "task_id": null
     },
     {
-      "shape": "size_frame_rate_num_frames",
+      "shape": "size_frame_rate_seconds_int",
       "fields": [
         "frame_rate",
         "model",
-        "negative_prompt",
-        "num_frames",
         "prompt",
+        "seconds",
         "seed",
         "size"
       ],
+      "payload": {
+        "model": "agnes-video-2.5",
+        "seed": 19860916,
+        "size": "1920x1080",
+        "frame_rate": 24,
+        "seconds": 7
+      },
       "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"negative_prompt is not an allowed request field (request id: 20261010063136336893125c402g6fO)\",\"data\":{\"param\":\"negative_prompt\"}}",
+      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 2026101006500462124120556Yhczkk)\",\"data\":null}",
       "video_id": null,
       "task_id": null
     }
   ],
-  "winner": null
+  "winner": null,
+  "docs": {
+    "start": "https://agnes-ai.com/en/docs",
+    "pages": [
+      {
+        "url": "https://agnes-ai.com/en/docs/agnes-video-25",
+        "http_status": 200,
+        "relevant": [
+          "Model ID agnes-video-2.5 Create Task POST /v1/videos Retrieve Task GET /agnesapi?video_id=<VIDEO_ID>&model_name=agnes-video-2.5 Pricing 720P: $0.025 / second ; 1080P and 1K: $0.040 / second ; 2K: $0.055 / second .",
+          "\"model\": \"agnes-video-2.5\",",
+          "\"prompt\": \"A futuristic city street after rain, neon lights reflected on the pavement, a silver sports car passing slowly, cinematic camera movement, natural ambient sound\",",
+          "\"seconds\": \"5\",",
+          "\"size\": \"720P\",",
+          "\"aspect_ratio\": \"16:9\"",
+          "curl -sS \"https://apihub.agnes-ai.com/agnesapi?video_id=VIDEO_ID&model_name=agnes-video-2.5\" \\",
+          "Use the query form with model_name for every mode. Poll every 1–2 seconds until status becomes completed or failed . When the task is complete, use url to play or download the video.",
+          "​ Common Request Parameters",
+          "​ Mode-specific Parameters",
+          "keyframe attempts to preserve the input image as the actual first or last frame, making it suitable for start/end composition control. reference treats media as a content, style, motion, or rhythm reference and may recompose or retime the result.",
+          "Parameter Type Required Description url string Yes Publicly accessible video URL. start_seconds number No Start reading the reference video at this offset. The default is 0 . require_audio boolean No Require the reference video to contain an audio track. The default is false .",
+          "Text-to-video First and Last Frames Image Reference Image and Audio References Video Reference curl -sS -X POST \" $AGNES_BASE_URL /videos\" \\",
+          "\"prompt\": \"At night, three cats march through a forest while playing tiny brass instruments. The camera tracks backward smoothly, moonlight passes through the leaves, with natural footsteps and instrument sounds.\",",
+          "\"aspect_ratio\": \"16:9\",",
+          "\"seed\": 1101",
+          "\"prompt\": \"The person turns naturally from the first-frame pose and walks toward the window. Keep clothing and hair motion realistic, slowly push the camera forward, and transition smoothly to the last-frame composition.\",",
+          "\"prompt\": \"Use the character and art style in <Picture 1> as reference. The character runs naturally through a flower field, maintaining a consistent appearance, filmed from a low tracking angle.\",",
+          "\"images\": [\"https://example.com/character.png\"]",
+          "\"prompt\": \"Use <Picture 1> as the visual subject and design the actions and camera cuts around the rhythm of <Audio 1>, keeping the sequence natural and coherent.\",",
+          "\"images\": [\"https://example.com/subject.png\"],",
+          "\"prompt\": \"Follow the subject motion and camera rhythm of <Video 1>, changing the setting to a moonlit bedroom while preserving coherent timing.\",",
+          "\"start_seconds\": 35,",
+          "<Picture N> , <Audio N> , and <Video N> are numbered independently, starting from 1 in their respective arrays. For example, refer to the second item in images as <Picture 2> .",
+          "\"model\" : \"agnes-video-2.5\" ,",
+          "\"seconds\" : \"5\" ,",
+          "\"size\" : \"720P\"",
+          "By video_id + model_name (Recommended) By video_id (text mode only) curl -sS \"https://apihub.agnes-ai.com/agnesapi?video_id=video_YOUR_VIDEO_ID&model_name=agnes-video-2.5\" \\",
+          "This form is valid only for tasks created with mode: \"text\" . Queries for keyframe and reference tasks must include model_name=agnes-video-2.5 .",
+          "\"seconds\" : \"4\" ,",
+          "\"size\" : \"720P\" ,",
+          "Treat status and url as the source of truth. The URL is ready for delivery only when status is completed . In production, set a maximum polling duration and use backoff for network timeouts and 429 responses.",
+          "Pass mode , aspect_ratio , and media fields through extra_body ; the SDK merges them into the top level of the request JSON.",
+          "model = \"agnes-video-2.5\" ,",
+          "prompt = \"Follow the motion and timing of <Video 1>, while changing the setting to a moonlit room.\" ,",
+          "seconds = \"5\" ,",
+          "size = \"720P\" ,",
+          "\"aspect_ratio\" : \"16:9\" ,",
+          "\"start_seconds\" : 0 ,",
+          "params = { \"video_id\" : video_id, \"model_name\" : \"agnes-video-2.5\" },",
+          "​ Video Size and Aspect Ratio",
+          "size Description 720P Standard resolution for faster generation and general-purpose content. 1080P High-definition output using the 1080P dimension mapping below. 1K Fixed 1024x1024 output. 2K Highest resolution tier for high-quality delivery.",
+          "​ Parameter Restrictions",
+          "The following parameters and request patterns are not supported and return 400 :",
+          "Passing media through input_reference or reference_url ; use first_frame , last_frame , images , audios , or videos according to the selected mode.",
+          "Sending non-configurable fields such as width , height , fps , num_frames , quality , or num_inference_steps .",
+          "Passing pixel dimensions such as 1280x720 directly in size , or a value other than \"720P\" , \"1080P\" , \"1K\" , or \"2K\" ; select the resolution tier with size and the frame shape with aspect_ratio .",
+          "Setting aspect_ratio to auto or a value outside the supported list.",
+          "​ Prompting Recommendations",
+          "For more consistent results, structure the prompt in this order:",
+          "Camera language : Specify push, pull, pan, tilt, tracking, fixed camera, or shot size.",
+          "Use the model ID agnes-video-2.5 .",
+          "For every mode, use GET /agnesapi?video_id=<VIDEO_ID>&model_name=agnes-video-2.5 until the status is completed or failed . A video_id query without model_name is valid only for mode: \"text\" .",
+          "Pass seconds as a string from \"4\" – \"12\" and set n to 1 .",
+          "Set size to \"720P\" , \"1080P\" , \"1K\" , or \"2K\" and use a supported aspect_ratio .",
+          "Agnes Video 2.5 is billed by output resolution and total billable duration. Total billable duration is the sum of output video duration and input video duration. The first 5 input images are free; each input image from the 6th onward costs $0.005 .",
+          "Output resolution List price 720P $0.025 / second 1080P $0.040 / second 1K $0.040 / second 2K $0.055 / second",
+          "Total video cost = output seconds × output resolution unit price",
+          "+ input video seconds × output resolution unit price",
+          "+ max(0, image count - free image allowance) × excess image unit price",
+          "For Agnes Video 2.5, the free image allowance is 5 and the excess image unit price is $0.005 / image .",
+          "The output resolution unit price is based on the requested size : 720P is $0.025 / second , 1080P and 1K are $0.040 / second , and 2K is $0.055 / second .",
+          "Points = output seconds × output resolution points rate",
+          "+ input video seconds × output resolution points rate",
+          "+ max(0, image count - free image allowance) × excess image points rate",
+          "Points use the same metering structure as currency billing. Refer to the Agnes AI platform for the points rate of each resolution tier and the excess-image points rate.",
+          "Suppose you generate an 8-second 720P video using a 3-second input video and 7 input images:"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "url": "https://apihub.agnes-ai.com/v1/models/agnes-video-2.5",
+        "http_status": 200,
+        "excerpt": "{\"error\":{\"message\":\"The model 'agnes-video-2.5' does not exist\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":\"model_not_found\"}}"
+      },
+      {
+        "url": "https://apihub.agnes-ai.com/openapi.json",
+        "http_status": 403,
+        "excerpt": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![e"
+      },
+      {
+        "url": "https://apihub.agnes-ai.com/v1/videos/schema",
+        "http_status": 400,
+        "excerpt": "{\"code\":\"task_not_exist\",\"message\":\"task not found (request id: 20261010064322290112819UPygL56n)\",\"data\":null}"
+      },
+      {
+        "url": "https://apihub.agnes-ai.com/docs",
+        "http_status": 403,
+        "excerpt": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![e"
+      }
+    ],
+    "start_status": 200,
+    "video_links": [
+      "/en/docs/agnes-video-25"
+    ],
+    "index_relevant": [
+      "Agnes AI API provides developers with unified, stable, and easy-to-integrate multimodal AI model services, supporting text, image, video, and multimodal generation and understanding capabilities.",
+      "Text-to-image generation and image editing",
+      "Image-to-video and video generation",
+      "3.2 Image Generation & Editing Supports generating high-definition images from text prompts, as well as editing, enhancing, and stylizing existing images. Applicable scenarios include:",
+      "Text-to-image generation",
+      "Image editing",
+      "Product image generation",
+      "Character image generation",
+      "Image-to-video generation",
+      "3.4 Multimodal Understanding & Creation Supports the combination of text, image, video, and reasoning capabilities, helping developers build smarter and more natural interactive experiences. Applicable scenarios include:",
+      "Image understanding",
+      "​ 3. Model Capabilities Overview",
+      "Agnes AI provides multiple types of model capabilities, including text models, image models, video models, and multimodal models.",
+      "The Agnes AI model suite includes text, image, video, and multimodal models designed for reasoning, creative generation, and production application scenarios.",
+      "These models help developers quickly integrate a complete AI capability stack, from content understanding and text generation to image generation, image editing, and video generation.",
+      "Model Name",
+      "Include the following parameter in the request header, replacing YOUR_API_KEY with your valid API Key:",
+      "AI image generation tools",
+      "For detailed model parameters, request examples, response formats, and error code descriptions, please refer to the corresponding model-specific integration documents. Quickstart Powered by This documentation is built and hosted on Mintlify, a developer documentation platform"
+    ]
+  }
 }
