@@ -82,7 +82,7 @@ _RAW = [
 ("S10","graphic","信息卡","人物与时间档案","接出狱走廊","人物档案","翻页"),
 ("S11","cogvideo","背后跟拍","多年后走出监狱","接普通街道","An empty bare institutional corridor leading to an already open outer gate and daylight, no people, no human silhouettes, no signs; slow forward dolly.","脚步"),
 ("S12","cogvideo","缓慢横移","一九九九年的釜山住宅","接门锁","A wealthy Busan residential interior in 1999, polished wood cabinet, beige curtains and period furniture, no people or readable objects; slow lateral track.","时钟"),
-("S13","cogvideo","微距推近","目标是现金财物","接空房","Close view of one plain empty wooden drawer already fully open in a late-1990s room, no people, no hands, no tools, no objects; gentle macro push.","抽屉声"),
+("S13","cogvideo","微距推近","目标是现金财物","接空房","Close view of a small closed dark-wood cash box resting alone at the center of a polished wooden table in a late-1990s Korean room, clearly visible rectangular box with brass latch, no drawer, no people, no hands, no tools, no papers, no writing; gentle macro push, hold the same object for the entire shot.","抽屉声"),
 ("S14","cogvideo","缓慢环绕","现场事后勘查","接地图","A non-graphic ransacked living room after an incident, open drawers and overturned chair, forensic officers only as distant backs, no bodies or blood; slow orbit.","相机快门"),
 ("S15","cogvideo","俯拍横移","各地案件彼此分散","接第三章街区","A bare dark-grey police table holding four small red evidence markers spaced far apart and three closed plain kraft folders, no map, no paper, no people, no hands, no writing; overhead lateral slide.","纸张翻动"),
 ("S16","cogvideo","高位横摇","富裕住宅成为目标","接数字卡","Daytime aerial-style wide view of late-1990s Korean detached homes, no signage, no people, no vehicles, restrained overcast atmosphere; slow pan.","环境底噪"),
