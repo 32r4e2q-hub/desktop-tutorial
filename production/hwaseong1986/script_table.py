@@ -107,9 +107,14 @@ def render_document():
     agnes = sum(s["kind"] == "agnes" for s in story["shots"])
     cards = sum(s["kind"] == "graphic" for s in story["shots"])
     end_card = (story.get("presentation") or {}).get("end_card") or ["", "", ""]
+    # 口播时长按 clause-times.json 实算（与 render.py 的 audio_layout 同一公式），不写死：
+    # 本片收紧停顿后 162.38 s，整体变速后口播约占 173 s。
+    ct = json.loads((HERE / "audio" / "clause-times.json").read_text(encoding="utf-8"))
+    durs = [ct[ch["id"]]["duration"] for ch in story["chapters"]]
+    spoken = sum(d / (sum(durs) / (180 - 0.6 - 6.0 - 5 * 1.08)) for d in durs) + 5 * 1.08
     doc = [f"# 抖音脚本 · {story['title']}", "",
-           "> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（口播 ≈ 176 秒、"
-           f"{total_chars} 字）· {len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，"
+           f"> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（口播 ≈ {spoken:.0f} 秒、"
+           f"{total_chars} 字不含标点）· {len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，"
            "每个镜头只出现一次）· 画面：写实 3D CGI 情景重现（Agnes Video V2.0 视频镜头）", "",
            "## 一、视频标题（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]
