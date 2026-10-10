@@ -1,1 +1,1 @@
-{"only": "S01,S06", "workers": 2, "channel_error_limit": 2, "wait_channel_minutes": 10, "note": "换用后继模型 agnes-video-2.5 后的双镜探针：S01 文生视频 + S06 定妆照图生视频，先验证模型/分辨率/首帧接线，再投全部 38 镜"}
+{"only": "S01,S06", "workers": 2, "channel_error_limit": 2, "wait_channel_minutes": 10, "note": "按官方文档重写 payload 后的双镜验证：S01=text 模式，S06=keyframe 模式+定妆照首帧；过了再投全部 38 镜"}

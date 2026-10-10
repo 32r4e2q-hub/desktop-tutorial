@@ -130,28 +130,24 @@ def probe_docs(base_url: str, model: str, api_key: str) -> dict:
 def candidates(base: dict) -> dict:
     """按「最可能是对的」排序；键名就是要写回 generate.py 的形状名。
 
-    前两轮探针问出来的（收据同一个文件的 git 历史里）：
-      收：`model` `prompt` `size` `aspect_ratio` `seed` `frame_rate`
-      不收：`width` `height` `num_frames` `resolution` `negative_prompt`
-      `duration`/`seconds` 传小数 → invalid_json「Failed to read request body」
-    所以这一轮全部**不带 negative_prompt**，时长只试整数秒，外加一个不带时长的候选
-    （让它用默认时长，先确认能建任务，再谈时长字段）。
+    第三轮已经从官方文档（收据 docs 段）拿到了权威答案，`generate.py::full_payload()`
+    现在直接按文档拼：seconds 是字符串、size 是档位、mode 必填、露脸镜头用 keyframe+first_frame。
+    这里保留几个「文档没写死、只能实测」的变体，万一某个字段仍被拒可以马上定位：
+    第一个候选就是 generate.py 当前真实在用的形状。
     """
-    core = {k: v for k, v in base.items()
-            if k not in ("width", "height", "num_frames", "frame_rate", "negative_prompt")}
-    size = f"{base['width']}x{base['height']}"
-    seconds = int(round(base["num_frames"] / base["frame_rate"]))
-    return {
-        "size_frame_rate_duration_int": {**core, "size": size, "frame_rate": base["frame_rate"],
-                                         "duration": seconds},
-        "size_duration_int": {**core, "size": size, "duration": seconds},
-        "size_frame_rate_only": {**core, "size": size, "frame_rate": base["frame_rate"]},
-        "size_only": {**core, "size": size},
-        "size_aspect_ratio_duration_int": {**core, "size": size, "aspect_ratio": "16:9",
-                                           "duration": seconds},
-        "size_frame_rate_seconds_int": {**core, "size": size, "frame_rate": base["frame_rate"],
-                                        "seconds": seconds},
-    }
+    current = dict(base)
+    variants = {"as_implemented": current}
+    first_frame = current.get("first_frame")
+    if current.get("mode") == "keyframe" and first_frame:
+        # 文档说 keyframe 保首/尾帧、reference 只当风格/内容参考；露脸镜头要的是前者，
+        # 这里备一个 reference 变体，万一 keyframe 被拒还有退路。
+        variants["reference_mode"] = {**{k: v for k, v in current.items() if k != "first_frame"},
+                                      "mode": "reference", "images": [first_frame]}
+    variants["no_seed"] = {k: v for k, v in current.items() if k != "seed"}
+    variants["no_n"] = {k: v for k, v in current.items() if k != "n"}
+    variants["tier_720p"] = {**current, "size": "720P"}
+    variants["seconds_5"] = {**current, "seconds": "5"}
+    return variants
 
 
 def main() -> int:

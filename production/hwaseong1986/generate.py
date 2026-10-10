@@ -159,15 +159,47 @@ def shot_seed(shot):
     return shot['seed']
 
 
+# agnes-video-2.5 的请求形状（2026-10-10 从 https://agnes-ai.com/en/docs/agnes-video-25 抄来，
+# 原文摘录留在 delivery/payload-schema-probe.json 的 docs 段）：
+#   model / prompt / seconds（**字符串** "4"–"12"）/ size（"720P"|"1080P"|"1K"|"2K"）
+#   / aspect_ratio（"16:9" 等，不能 auto）/ mode（**必填**：text|keyframe|reference）/ n=1 / seed
+#   媒体字段按模式给：first_frame / last_frame / images / audios / videos
+# 明确「传了就 400」的：width、height、fps、num_frames、quality、num_inference_steps、
+#   frame_rate、duration、resolution、negative_prompt，以及 size 传像素（1920x1080）。
+# 旧实现 production/agnes_video.py::build_payload() 正好把 width/height/num_frames/frame_rate
+# 全填上、还把 negative_prompt 当独立字段，所以换模型后一律 400 —— 这里按项目重写，不改共享实现。
+SIZE_TIER='1080P'          # story.json 的 resolution 是 1080p；新模型只认档位名
+SUPPORTED_SIZES=('720P','1080P','1K','2K')
+SUPPORTED_MODES=('text','keyframe','reference')
+# negative_prompt 不再是独立字段：红线（不出可读文字、不冒充真人、不展示遗体血腥）
+# 只能压进提示词正文，否则新模型上这些约束直接消失。
+PROMPT_GUARDRAILS=('Avoid: readable text, letters, signage or subtitles on screen; watermarks and logos; '
+                   'blood, wounds, corpses or body bags; the likeness of any identifiable real person; '
+                   'flat 2D cartoon or comic shading; duplicated identical faces or a face that morphs '
+                   'mid-shot; morphing objects, jitter, flicker, whip pans and jump cuts.')
+
+
+def compose_prompt(project,shot):
+    return (project['style_prefix']+shot['prompt']).strip()+' '+PROMPT_GUARDRAILS
+
+
 def full_payload(project,shot):
-    return agnes.build_payload(argparse.Namespace(
-        prompt=project['style_prefix']+shot['prompt'],negative_prompt=project['negative_prompt'],
-        # reference_image：该角色的定妆照 URL，作为图生视频的首帧（把这张脸钉死在第一眼）。
-        # 只在 build_story.py 的 REFERENCE_SHOTS 登记过的镜头上有值。
-        image=[shot['reference_image']] if shot.get('reference_image') else None,mode=None,
-        seed=shot_seed(shot),steps=None,seconds=shot['seconds'],num_frames=None,
-        frame_rate=shot['frame_rate'],aspect=shot['aspect'],resolution=shot['resolution'],
-        width=None,height=None,model=MODEL))
+    seconds=max(4,min(12,int(round(shot['seconds']))))
+    reference=shot.get('reference_image')
+    payload={'model':MODEL,
+             'prompt':compose_prompt(project,shot),
+             'seconds':str(seconds),           # 文档要求字符串；传数字会让网关 invalid_json
+             'size':SIZE_TIER,
+             'aspect_ratio':shot['aspect'],
+             # reference_image：该角色的定妆照 URL，用 keyframe 模式钉成真正的第一帧
+             # （把这张脸钉死在第一眼）。只在 build_story.py 的 REFERENCE_SHOTS 登记过的镜头上有值。
+             'mode':'keyframe' if reference else 'text',
+             'n':1,
+             'seed':shot_seed(shot)}
+    if reference:
+        payload['first_frame']=reference
+    return payload
+
 
 
 def request_hash(project,shot):
@@ -186,11 +218,25 @@ def validate(project):
         if shot['start']!=i*GRID_SECONDS or shot['duration']!=GRID_SECONDS:raise ValueError('Invalid planning timeline')
         if shot['kind']=='agnes':
             payload=full_payload(project,shot)
-            if not shot['prompt'].strip() or payload['model']!=MODEL or (payload['num_frames']-1)%8:
+            if not shot['prompt'].strip() or payload['model']!=MODEL:
                 raise ValueError('Invalid Agnes request')
+            # 新模型的硬约束，错一个就是 400，所以在闸门里先拦（文档《Parameter Restrictions》）
+            if payload['mode'] not in SUPPORTED_MODES:
+                raise ValueError(f'{shot["id"]}: mode 必须是 {SUPPORTED_MODES} 之一')
+            if not str(payload['seconds']).isdigit() or not 4<=int(payload['seconds'])<=12:
+                raise ValueError(f'{shot["id"]}: seconds 必须是 "4"–"12" 的字符串')
+            if payload['size'] not in SUPPORTED_SIZES:
+                raise ValueError(f'{shot["id"]}: size 只能是 {SUPPORTED_SIZES} 之一，不能传像素')
+            for banned in ('width','height','fps','num_frames','frame_rate','duration',
+                           'resolution','negative_prompt','quality','num_inference_steps'):
+                if banned in payload:
+                    raise ValueError(f'{shot["id"]}: {banned} 已被 agnes-video-2.5 拒绝，不要传')
             reference=shot.get('reference_image')
-            if reference and not str(reference).startswith('https://'):
-                raise ValueError(f'{shot["id"]}: reference_image 必须是公开 https 地址（Agnes 只在服务器侧取图）')
+            if reference:
+                if not str(reference).startswith('https://'):
+                    raise ValueError(f'{shot["id"]}: reference_image 必须是公开 https 地址（Agnes 只在服务器侧取图）')
+                if payload['mode']!='keyframe' or payload.get('first_frame')!=reference:
+                    raise ValueError(f'{shot["id"]}: 露脸镜头必须用 keyframe 模式并把定妆照作为 first_frame')
         elif shot['kind']=='archive':
             asset=(PLAN.parent/shot['archive_asset']).resolve()
             if not asset.is_relative_to(PLAN.parent) or not asset.is_file() or digest(asset)!=shot['archive_sha256']:
@@ -475,7 +521,7 @@ def main():
                 task_id=created.get('task_id') or created.get('id')
                 if not video_id:raise agnes.Fatal('No task identifier returned')
                 checkpoint(sid+' queued',sid,status='queued',video_id=str(video_id),task_id=str(task_id or ''),
-                           requested_seconds=payload['num_frames']/payload['frame_rate'])
+                           requested_seconds=float(payload['seconds']))
             else:print(sid+': resuming existing provider task',flush=True)
             remaining=generation_deadline-time.monotonic()
             if remaining<30:raise BudgetExhausted('Generation budget reached; task ID was saved for resumption')
