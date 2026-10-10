@@ -42,12 +42,11 @@ except Exception as e:
     traceback.print_exc()
     sys.exit(1)
 
-print("⏳ 正在轮询视频状态（每 8 秒查询一次）...", flush=True)
+print("⏳ 正在轮询视频状态（约需 50~70 秒，每 8 秒查询一次）...", flush=True)
 start_time = time.time()
 while True:
     try:
         result = client.videos.retrieve_videos_result(id=task_id)
-        print(f"原始查询响应: {result}", flush=True)
         status = getattr(result, "task_status", None)
         if status is None and isinstance(result, dict):
             status = result.get("task_status")
@@ -62,18 +61,20 @@ while True:
                 first = video_result[0]
                 video_url = getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
             
-            print(f"\n🎉 视频生成成功！耗时: {elapsed} 秒", flush=True)
-            print(f"🔗 官方下载链接 (30天有效):\n{video_url}\n", flush=True)
+            print(f"\n==========================================", flush=True)
+            print(f"🎉 视频生成成功！渲染总耗时: {elapsed} 秒", flush=True)
+            print(f"🔗 视频直接下载地址（30天有效）:\n{video_url}", flush=True)
+            print(f"==========================================\n", flush=True)
             
             if video_url:
-                print("⬇️ 正在下载视频文件...", flush=True)
+                print("⬇️ 正在下载视频文件保存到 output_video.mp4...", flush=True)
                 res = requests.get(video_url, timeout=120)
                 with open("output_video.mp4", "wb") as f:
                     f.write(res.content)
-                print(f"💾 视频已保存为 output_video.mp4 (大小: {len(res.content)} 字节)", flush=True)
+                print(f"💾 视频已保存为 output_video.mp4 (文件大小: {len(res.content)} 字节)", flush=True)
             break
         elif status == "FAIL":
-            print(f"\n❌ 生成失败详细信息: {result}", flush=True)
+            print(f"\n❌ 智谱云端渲染失败: {result}", flush=True)
             sys.exit(1)
         else:
             time.sleep(8)

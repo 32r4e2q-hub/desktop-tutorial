@@ -29,7 +29,8 @@ jobs:
 
       - name: 安装 Python 依赖
         run: |
-          pip install zhipuai requests
+          pip install --upgrade pip
+          pip install zhipuai sniffio httpx requests
 
       - name: 调用 CogVideoX-Flash 生成视频
         id: run_step
