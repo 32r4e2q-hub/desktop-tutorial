@@ -123,21 +123,22 @@ jobs:
                   time.sleep(10)
           EOF
 
-      - name: 提交运行日志回仓库
+      - name: 报告日志到 Summary 和 Annotation
         if: always()
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout arena/e36f999a-desktop-tutorial || git checkout -b arena/e36f999a-desktop-tutorial
-          git add run_output.log output_video.mp4 || true
-          git commit -m "chore: 记录视频生成运行日志与产物 [skip ci]" || true
-          git push origin arena/e36f999a-desktop-tutorial || true
+          if [ -f run_output.log ]; then
+            cat run_output.log >> $GITHUB_STEP_SUMMARY
+            CLEAN_LOG=$(cat run_output.log | tr '\n' ' ' | head -c 500)
+            echo "::notice title=视频生成运行报告::$CLEAN_LOG"
+          fi
 
       - name: 上传视频文件至 Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cogvideox-flash-result
-          path: output_video.mp4
+          path: |
+            output_video.mp4
+            run_output.log
           if-no-files-found: warn
           retention-days: 7
