@@ -17,7 +17,7 @@
       "updated_at": "2026-10-10T07:19:29Z"
     }
   },
-  "phase": "generating_sources",
+  "phase": "quota_exhausted",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -75,6 +75,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T07:19:29Z",
-  "run_id": "38033901870"
+  "updated_at": "2026-10-10T07:19:30Z",
+  "run_id": "38033901870",
+  "pipeline_error": "Agnes 账号额度已用尽：Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 202610100719295413281715oS4QGpi). Check AGNES_API_KEY.。请充值或换一把 AGNES_API_KEY 再触发一轮；已完成的镜头按 SHA-256 复用，不会重复扣费。"
 }
