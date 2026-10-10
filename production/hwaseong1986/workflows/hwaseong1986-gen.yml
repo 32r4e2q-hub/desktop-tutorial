@@ -23,6 +23,8 @@ on:
 
 permissions:
   contents: write
+  # actions: write 是为了收尾时能用 gh workflow run 自派发新一轮。
+  actions: write
 
 concurrency:
   group: hwaseong1986-agnes-arena-3c6cd684-desktop-tutorial
@@ -152,11 +154,16 @@ jobs:
             git commit -m "hwaseong1986: 排队没排到，自动再投一轮（断点续跑）"
             for attempt in 1 2 3 4 5; do
               if git push origin "HEAD:${{ github.ref_name }}"; then
-                echo "已重投：新一轮会接着没做完的镜头跑"
+                echo "round 已记账到分支"
                 break
               fi
               echo "push 撞上了云端检查点，同步后重试 ($attempt)"
               git fetch origin "${{ github.ref_name }}" && git rebase FETCH_HEAD || break
               sleep 3
             done
+            # 关键：用 GITHUB_TOKEN 做的 git push **不会触发新的 workflow run**
+            # （GitHub 防递归的平台规则，实测 14:53 那轮就是这么断档 27 分钟的）。
+            # 所以这里用 gh workflow run 显式自派发——dispatch 不受这条限制。
+            gh workflow run hwaseong1986-gen.yml --ref "${{ github.ref_name }}" \
+              && echo "已自派发新一轮：接着没做完的镜头跑"
           fi
