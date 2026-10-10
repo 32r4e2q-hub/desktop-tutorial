@@ -773,27 +773,10 @@
     },
     "S39": {
       "id": "S39",
-      "status": "completed",
-      "request_hash": "50e6871cac33def57b2eb6fb8f7c82a56abe9c922206940cc3ede6466b4c6d4b",
+      "status": "submitting",
+      "request_hash": "57be0fbb26ab39483b679c6b59dc035661ed45f18d22784f160465c90857dd5e",
       "error": null,
-      "updated_at": "2026-10-10T12:19:49Z",
-      "task_id": "20261010201840a9b0820698f5443c",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261010201940f71c0da01ba94259_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=7BGEpHGh%2FwlcEIGzEbaXXP6t0i4%3D&Expires=1791721182",
-      "sha256": "aeaae57400a3d915174b338dcd055b0f13fec4ec3691a39d0ef498d425f4a266",
-      "bytes": 1986177,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1986177,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/jeong2000/qa/S39.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-10T12:35:31Z"
     },
     "S40": {
       "id": "S40",
@@ -958,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T12:35:30Z",
+  "updated_at": "2026-10-10T12:35:31Z",
   "run_id": "38051986517",
   "previous_results": {
     "S08": [
@@ -1086,6 +1069,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/jeong2000/qa/S30.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S39": [
+      {
+        "id": "S39",
+        "status": "completed",
+        "request_hash": "50e6871cac33def57b2eb6fb8f7c82a56abe9c922206940cc3ede6466b4c6d4b",
+        "error": null,
+        "updated_at": "2026-10-10T12:19:49Z",
+        "task_id": "20261010201840a9b0820698f5443c",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261010201940f71c0da01ba94259_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=7BGEpHGh%2FwlcEIGzEbaXXP6t0i4%3D&Expires=1791721182",
+        "sha256": "aeaae57400a3d915174b338dcd055b0f13fec4ec3691a39d0ef498d425f4a266",
+        "bytes": 1986177,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1986177,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/jeong2000/qa/S39.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
