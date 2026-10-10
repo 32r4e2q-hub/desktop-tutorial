@@ -430,8 +430,10 @@ def main():
     presentation=project.get('presentation') or {}
     if not presentation.get('cards') and any(s['kind']=='graphic' for s in project['shots']):
         raise RuntimeError('story.json 缺 presentation.cards：先在 build_story.py 里写 CARDS 再跑 build()')
-    if results.get('model')!='agnes-video-v2.0':raise RuntimeError('Only the requested Agnes model is allowed')
-    from generate import request_hash
+    from generate import MODEL, request_hash
+    # 模型闸门跟着 generate.py 的 MODEL 走：供应商把 agnes-video-v2.0 下线后（2026-10-10 实测
+    # GET /v1/models 里已无此模型），写死旧名字会让改用后继模型的素材全部被拒。
+    if results.get('model')!=MODEL:raise RuntimeError('Only the requested Agnes model is allowed')
     audio_manifest=json.loads((args.audio/'manifest.json').read_text())
     checks={}
     for shot in project['shots']:

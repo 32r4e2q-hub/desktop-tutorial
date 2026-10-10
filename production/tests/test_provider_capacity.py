@@ -89,6 +89,11 @@ class ChannelUnavailableRecognitionTests(unittest.TestCase):
     def test_recognises_the_real_production_error(self):
         self.assertTrue(generate.channel_unavailable(REAL_CHANNEL_ERROR))
 
+    def test_recognises_it_whatever_the_model_name_is(self):
+        """下线的是 agnes-video-v2.0，但换成 2.5 之后同样的文案也要认得出来。"""
+        self.assertTrue(generate.channel_unavailable(
+            "HTTP 503: No available channel for model agnes-video-2.5 under group default (distributor)"))
+
     def test_a_plain_502_is_not_channel_capacity(self):
         """普通 5xx 仍然走原来的退避重试，不能被误判成「等通道」。"""
         self.assertFalse(generate.channel_unavailable(
@@ -161,8 +166,11 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
             self.created.append(payload["prompt"][:20])
             raise agnes_video.Fatal(REAL_CHANNEL_ERROR)
 
+        # 网关的模型清单：默认列出本片要的模型（换模型时不用改这份测试）。
+        self.gateway_models = [generate.MODEL]
+
         def fake_http_json(method, url, api_key, payload=None, timeout=60):
-            body = {"data": [{"id": agnes_video.DEFAULT_MODEL}]}
+            body = {"data": [{"id": name} for name in self.gateway_models]}
             return agnes_video.HttpResult(200, body, json.dumps(body))
 
         patches = [
@@ -206,6 +214,24 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
         probe = json.loads(self.probe.read_text(encoding="utf-8"))
         self.assertTrue(probe["target_model_listed"])
         self.assertEqual(probe["http_status"], 200)
+
+    def test_probe_records_that_the_model_is_not_on_the_gateway(self):
+        """2026-10-10 的真实故障：agnes-video-v2.0 被下线，网关只剩 2.5 系列。
+
+        那时连报 5 小时 503「No available channel」，谁都以为通道在波动；
+        收据里这一行 target_model_listed=false 才是真正的原因，必须一直留着。
+        """
+        # 清单里故意**不含**本片要用的模型 —— 这就是 v2.0 那天的处境
+        self.gateway_models = ["agnes-3.0-flash", "agnes-image-2.5-flash", "agnes-2.5-pro"]
+        with self.assertRaises(generate.ProviderCapacity):
+            self.run_main({"workers": 1, "channel_error_limit": 1, "wait_channel_minutes": 0})
+        probe = json.loads(self.probe.read_text(encoding="utf-8"))
+        self.assertFalse(probe["target_model_listed"])
+        self.assertEqual(probe["model"], generate.MODEL)
+        self.assertEqual(probe["http_status"], 200)
+        doc = json.loads(self.results.read_text(encoding="utf-8"))
+        self.assertEqual(doc["model"], generate.MODEL,
+                         "results.json 的 model 要跟着当前模型走，否则 render.py 的模型闸门会拒绝出片")
 
     def test_a_stale_pipeline_error_is_dropped_on_a_clean_run(self):
         """所有镜头都因请求本身失败时 phase=generation_incomplete，不写 pipeline_error；

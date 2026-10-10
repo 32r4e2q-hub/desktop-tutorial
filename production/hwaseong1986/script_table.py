@@ -21,6 +21,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
+from generate import MODEL  # noqa: E402  模型名的唯一出处（供应商下线旧模型时只改一处）
+
 
 def load():
     import render  # noqa: E402  (同目录；只取常数与 CUTS)
@@ -115,7 +117,7 @@ def render_document():
     doc = [f"# 抖音脚本 · {story['title']}", "",
            f"> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（口播 ≈ {spoken:.0f} 秒、"
            f"{total_chars} 字不含标点）· {len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，"
-           "每个镜头只出现一次）· 画面：写实 3D CGI 情景重现（Agnes Video V2.0 视频镜头）", "",
+           f"每个镜头只出现一次）· 画面：写实 3D CGI 情景重现（{MODEL} 视频镜头）", "",
            "## 一、视频标题（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]
     doc += ["", "## 二、核心爆点（一句话）", "", c.HOOK, "",

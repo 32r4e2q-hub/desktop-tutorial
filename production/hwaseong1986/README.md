@@ -20,7 +20,7 @@
 | 剪辑表 CUTS（按分句停顿重对） | 已完成 | `clause_times.py --check-cuts` 全部落在停顿窗内 |
 | 卡片排字闸门（本地 + CI） | 已完成 | `pytest production/tests/test_card_typography.py` 真画卡片量安全带，通过 |
 | 本地冒烟测试（假素材跑通整条 render.py） | 已完成 | 46 段 / 180.0s / 5400 帧 / 38 素材 / tempo 0.9666 / RMS −20.63 dBFS |
-| 生成 38 个 Agnes 镜头 | **被供应商通道卡住（0/38）** | 网关 503「No available channel for model agnes-video-v2.0」自 2026-10-10T00:30Z 起持续；诊断与对策见 `制作过程.md` 第 9 节、`results.json` 的 `provider_outage`、`delivery/provider-probe.json` |
+| 生成 38 个 Agnes 镜头 | **换模型后重投中（0/38）** | 根因：网关已下线 `agnes-video-v2.0`（探针 `target_model_listed=false`，见 `制作过程.md` 第 10 节）；本片改用 `agnes-video-2.5`，先跑 S01+S06 双镜探针再投全量 |
 | 复审（逐镜接触表 + 人眼） | 待办 | `qa/Sxx.jpg` 拉回后开始 |
 | 出片（RENDER_REQUEST） | 待办 | 成片回 `交付/`，报告进 `delivery/` |
 | 听检（VERBATIM_REQUEST，CER ≤ 0.15） | 待办 | `delivery/verbatim-check.json` |

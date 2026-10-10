@@ -1,7 +1,7 @@
 # 模板：production/new_topic.py 会把 hwaseong1986 / arena/3c6cd684-desktop-tutorial / 3c6cd684-desktop-tutorial / 李春才：华城连环杀人案，DNA揭开了33年的秘密 / 李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-*.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
 name: 李春才：华城连环杀人案，DNA揭开了33年的秘密 · Agnes生成
-run-name: 李春才：华城连环杀人案，DNA揭开了33年的秘密 · Agnes Video V2.0 生成 · ${{ github.ref_name }}
+run-name: 李春才：华城连环杀人案，DNA揭开了33年的秘密 · Agnes 生成 · ${{ github.ref_name }}
 
 # 触发方式：在分支上写 production/hwaseong1986/GEN_REQUEST（内容就是 JSON payload）并 push。
 #   全量：{"workers":2}        补做个别镜头：{"workers":1,"only":"S07,S12"}
@@ -26,7 +26,9 @@ permissions:
 
 concurrency:
   group: hwaseong1986-agnes-arena-3c6cd684-desktop-tutorial
-  cancel-in-progress: false
+  # 重新触发就是要取代上一轮：素材按 SHA-256 断点续跑，取消不会丢已完成的镜头，
+  # 而 cancel-in-progress: false 会让新一轮排在上一轮后面干等（实测要等满 2 小时等待预算）。
+  cancel-in-progress: true
 
 jobs:
   generate:

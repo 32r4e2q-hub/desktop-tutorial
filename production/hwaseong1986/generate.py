@@ -31,6 +31,12 @@ RESULTS=Path(__file__).with_name('results.json')
 PROBE=Path(__file__).with_name('delivery')/'provider-probe.json'
 LOCK=threading.RLock()
 
+# 2026-10-10T06:03Z 实测（收据在 delivery/provider-probe.json）：网关 GET /v1/models 返回 12 个模型，
+# 里面**已经没有 agnes-video-v2.0**，视频模型只剩 agnes-video-2.5 与 agnes-video-2.5-flash。
+# 所以那句 503「No available channel for model agnes-video-v2.0」不是通道波动，是模型被下线了——
+# 等多久都不会回来。本片改用后继模型 agnes-video-2.5；AGNES_VIDEO_MODEL 或 payload 的 model 可覆盖。
+MODEL=os.environ.get('AGNES_VIDEO_MODEL','agnes-video-2.5').strip() or 'agnes-video-2.5'
+
 # ---- 供应商容量熔断（2026-10-10 实测）----------------------------------------
 # 「No available channel for model agnes-video-v2.0 under group default (distributor)」
 # 是网关在说「这个模型现在一个可用通道都没有」，不是我们的请求写错了：
@@ -161,7 +167,7 @@ def full_payload(project,shot):
         image=[shot['reference_image']] if shot.get('reference_image') else None,mode=None,
         seed=shot_seed(shot),steps=None,seconds=shot['seconds'],num_frames=None,
         frame_rate=shot['frame_rate'],aspect=shot['aspect'],resolution=shot['resolution'],
-        width=None,height=None,model=agnes.DEFAULT_MODEL))
+        width=None,height=None,model=MODEL))
 
 
 def request_hash(project,shot):
@@ -180,7 +186,7 @@ def validate(project):
         if shot['start']!=i*GRID_SECONDS or shot['duration']!=GRID_SECONDS:raise ValueError('Invalid planning timeline')
         if shot['kind']=='agnes':
             payload=full_payload(project,shot)
-            if not shot['prompt'].strip() or payload['model']!='agnes-video-v2.0' or (payload['num_frames']-1)%8:
+            if not shot['prompt'].strip() or payload['model']!=MODEL or (payload['num_frames']-1)%8:
                 raise ValueError('Invalid Agnes request')
             reference=shot.get('reference_image')
             if reference and not str(reference).startswith('https://'):
@@ -241,6 +247,10 @@ def main():
         acount=sum(s['kind']=='archive' for s in project['shots'])
         print(f'VALID: 180-second plan; {len(project["shots"])} shots; {count} Agnes sources; {gcount} graphics; {acount} archival; narration hashes match');return 0
     options=json.loads(args.payload or '{}')
+    global MODEL
+    if str(options.get('model') or '').strip():
+        MODEL=str(options['model']).strip()
+        print('MODEL_OVERRIDE '+MODEL,flush=True)
     requested=options.get('only','')
     if not isinstance(requested,str):raise ValueError('only must be comma-separated IDs')
     only={s.strip() for s in requested.split(',') if s.strip()}
@@ -267,7 +277,8 @@ def main():
             raise RuntimeError('Publish only from this fixed Arena branch in Actions')
         git('config','user.name','github-actions[bot]')
         git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
-    doc=read_json(RESULTS,{'project':project['title'],'model':agnes.DEFAULT_MODEL,'shots':{}})
+    doc=read_json(RESULTS,{'project':project['title'],'model':MODEL,'shots':{}})
+    doc['model']=MODEL   # results.json 里留着旧模型名会让 render.py 的模型闸门直接拒绝出片
     if args.prune_failed:
         # 只清理、不生成：出片工作流把它单独作为生成前的步骤。
         # （它要是继续往下跑，就把"清理"变成了第二次全量生成，还会把失败当成自己的失败。）
@@ -343,7 +354,7 @@ def main():
         把「到底是我们的请求有问题，还是供应商没有通道」这件事变成仓库里的一张收据
         （``delivery/provider-probe.json``）。沙箱连不上 Agnes，只有 runner 能量。
         """
-        receipt={'model':agnes.DEFAULT_MODEL,'base':base,'probed_at':now_stamp(),
+        receipt={'model':MODEL,'base':base,'probed_at':now_stamp(),
                  'api_key_present':bool(key)}
         try:
             code,body,text=agnes.http_json('GET',base+'/v1/models',key,timeout=30)
@@ -354,7 +365,7 @@ def main():
             elif isinstance(data,dict):
                 ids=[str(k) for k in data]
             receipt.update(http_status=code,models=ids[:300],
-                           target_model_listed=agnes.DEFAULT_MODEL in ids,
+                           target_model_listed=MODEL in ids,
                            body_excerpt=' '.join((text or '').split())[:600])
         except Exception as exc:   # 网关没有这个端点也不影响生成，如实记下就行
             receipt['error']=str(exc)[:300]
@@ -382,7 +393,7 @@ def main():
         """把这次通道不可用写进 results.json（沙箱读不到 Actions 日志，只能靠它）。"""
         with LOCK:
             doc['provider_outage']={
-                'model':agnes.DEFAULT_MODEL,'base':base,
+                'model':MODEL,'base':base,
                 'first_seen':outage['first_seen'],'last_seen':outage['last_seen'],
                 'create_attempts':outage['attempts'],'consecutive_rounds':round_no,
                 'cooldown_seconds':cooldown,'channel_error_limit':channel_error_limit,
@@ -468,7 +479,7 @@ def main():
             else:print(sid+': resuming existing provider task',flush=True)
             remaining=generation_deadline-time.monotonic()
             if remaining<30:raise BudgetExhausted('Generation budget reached; task ID was saved for resumption')
-            final,url=agnes.poll_task(base,key,agnes.DEFAULT_MODEL,str(video_id),str(task_id) if task_id else None,
+            final,url=agnes.poll_task(base,key,MODEL,str(video_id),str(task_id) if task_id else None,
                                      interval=25,timeout=min(1500,remaining),max_failures=12,
                                      before_request=lambda:gate.wait_unblocked(generation_deadline),
                                      rate_limit_callback=gate.defer)
@@ -525,7 +536,7 @@ def main():
         shutil.copy2(ROOT/'production/hwaseong1986/screenplay.md',export/'剧本与来源.md')
         (export/'交付说明.txt').write_text(
             '李春才：华城连环杀人案，DNA揭开了33年的秘密\n180秒 / 1920×1080 / 30fps / 中文解说\n'
-            '使用 Agnes Video V2.0 生成镜头，配音来自用户选定的声音。\n'
+            '使用 Agnes '+MODEL+' 生成镜头，配音来自用户选定的声音。\n'
             '此文件是技术检查通过的初版；视觉与听感仍需审核，不声称已逐帧或逐字验收。\n'
             'AI情景重现并非历史影像；未经证实的推测没有被写成事实。\n')
         doc['phase']='first_cut_ready'
