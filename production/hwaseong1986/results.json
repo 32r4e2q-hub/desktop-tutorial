@@ -40,10 +40,12 @@
     },
     "S06": {
       "id": "S06",
-      "status": "waiting_create_slot",
+      "status": "provider_unavailable",
       "request_hash": "38ce80c6b52b9fc72ee94d0fd7905b8f61a680fd758fdc770d4f4fc22f705d0b",
-      "error": null,
-      "updated_at": "2026-10-10T07:06:54Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261010071855785163878pEi0DCtX) (code=model_not_found)",
+      "updated_at": "2026-10-10T07:18:55Z",
+      "quota_retry": 1,
+      "applied_cooldown_seconds": 120
     },
     "S07": {
       "id": "S07",
@@ -109,7 +111,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T07:16:55Z",
+  "updated_at": "2026-10-10T07:18:55Z",
   "run_id": "38025761445",
   "pipeline_error": "cannot access local variable 'push_provenance' where it is not associated with a value"
 }
