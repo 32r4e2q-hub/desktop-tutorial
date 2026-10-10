@@ -1,6 +1,9 @@
 name: AI 视频生成 (CogVideoX-Flash)
 
 on:
+  push:
+    paths:
+      - 'trigger_video.txt'
   workflow_dispatch:
     inputs:
       prompt:
@@ -15,7 +18,7 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - name: 检出当前分支
+      - name: 检出代码
         uses: actions/checkout@v4
 
       - name: 设置 Python 运行环境
@@ -30,7 +33,7 @@ jobs:
       - name: 调用 CogVideoX-Flash 生成视频
         env:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
-          PROMPT: ${{ github.event.inputs.prompt }}
+          INPUT_PROMPT: ${{ github.event.inputs.prompt }}
         run: |
           python - << 'EOF'
           import os
@@ -40,7 +43,15 @@ jobs:
           from zhipuai import ZhipuAI
 
           api_key = os.getenv("ZHIPUAI_API_KEY")
-          prompt = os.getenv("PROMPT")
+          prompt = os.getenv("INPUT_PROMPT")
+
+          if not prompt:
+              if os.path.exists("trigger_video.txt"):
+                  with open("trigger_video.txt", "r", encoding="utf-8") as f:
+                      prompt = f.read().strip()
+          
+          if not prompt:
+              prompt = "一只可爱的小猫咪在阳光下的花园里捉蝴蝶，草地，电影质感，超高清"
 
           if not api_key:
               print("❌ 错误: 未检测到 ZHIPUAI_API_KEY，请检查 GitHub Secret 配置！")
