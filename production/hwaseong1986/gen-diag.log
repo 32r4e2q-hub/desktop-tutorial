@@ -1,91 +1,21 @@
-PRODUCTION_STATUS cloud generation started
-PRODUCTION_STATUS S01 submitting
-PRODUCTION_STATUS S01 failed
-PRODUCTION_STATUS S04 submitting
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S05 submitting
-PRODUCTION_STATUS S04 failed
-PRODUCTION_STATUS pipeline stopped
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 210, in checkpoint
-    try:git('push','origin',BRANCH);break
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 129, in git
-    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 466, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 571, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/6f5577f1-desktop-tutorial']' returned non-zero exit status 1.
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 327, in main
+    ensure_tools();doc['phase']='generating_sources';checkpoint('cloud generation started')
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 209, in checkpoint
+    push_provenance()
+    ^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'push_provenance' where it is not associated with a value
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 280, in generate
-    checkpoint(sid+' submitting',sid,status='submitting',request_hash=wanted_hash,error=None)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 213, in checkpoint
-    git('pull','--rebase','origin',BRANCH)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 129, in git
-    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 466, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 571, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/6f5577f1-desktop-tutorial']' returned non-zero exit status 128.
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 210, in checkpoint
-    try:git('push','origin',BRANCH);break
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 129, in git
-    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 466, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 571, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/6f5577f1-desktop-tutorial']' returned non-zero exit status 1.
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 361, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 382, in <module>
     if __name__=='__main__':raise SystemExit(main())
                                              ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 308, in main
-    outcomes=list(pool.map(generate,shots))
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 619, in result_iterator
-    yield _result_or_cancel(fs.pop())
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 317, in _result_or_cancel
-    return fut.result(timeout)
-           ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 456, in result
-    return self.__get_result()
-           ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
-    raise self._exception
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/thread.py", line 58, in run
-    result = self.fn(*self.args, **self.kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 302, in generate
-    checkpoint(sid+' failed',sid,status='failed',error=error[:600])
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 213, in checkpoint
-    git('pull','--rebase','origin',BRANCH)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 129, in git
-    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 466, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 571, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/6f5577f1-desktop-tutorial']' returned non-zero exit status 128.
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 377, in main
+    checkpoint('pipeline stopped')
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 209, in checkpoint
+    push_provenance()
+    ^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'push_provenance' where it is not associated with a value
