@@ -27,13 +27,13 @@ jobs:
   probe:
     if: github.ref == 'refs/heads/arena/6f5577f1-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
           ref: arena/6f5577f1-desktop-tutorial
-          fetch-depth: 0
+          fetch-depth: 1  # 探针只推一个小文件，浅克隆就够
 
       - name: Set up Python
         uses: actions/setup-python@v5
