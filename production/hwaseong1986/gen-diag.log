@@ -1,21 +1,9 @@
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 327, in main
-    ensure_tools();doc['phase']='generating_sources';checkpoint('cloud generation started')
-                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 209, in checkpoint
-    push_provenance()
-    ^^^^^^^^^^^^^^^
-UnboundLocalError: cannot access local variable 'push_provenance' where it is not associated with a value
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 382, in <module>
-    if __name__=='__main__':raise SystemExit(main())
-                                             ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 377, in main
-    checkpoint('pipeline stopped')
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 209, in checkpoint
-    push_provenance()
-    ^^^^^^^^^^^^^^^
-UnboundLocalError: cannot access local variable 'push_provenance' where it is not associated with a value
+PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
+PRODUCTION_STATUS cloud generation started
+PRODUCTION_STATUS S01 submitting
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S06 submitting
+PRODUCTION_STATUS S06 waiting for a creation slot
+PRODUCTION_STATUS S01 failed
+PRODUCTION_STATUS S06 failed
+PRODUCTION_STATUS generation incomplete
