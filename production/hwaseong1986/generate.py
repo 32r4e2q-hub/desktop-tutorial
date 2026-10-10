@@ -209,30 +209,30 @@ def main():
                     push_provenance()
             print('PRODUCTION_STATUS '+label,flush=True)
 
-        def push_provenance():
-            """把 checkpoint 推回分支。
+    def push_provenance():
+        """把 checkpoint 推回分支。
 
-            实测 2026-10-10：GitHub 瞬时 5xx（api.github.com 连续 502）会让一次
-            ``git push`` 失败，原来的重试路径只 ``git pull --rebase`` 一次就 raise，
-            于是整轮生成被一次网络抖动杀死（run 38024372451，90 秒内 4 个镜头全灭）。
-            这里改成：先退避重试推送，推送被拒才 fetch+rebase；rebase 失败就 abort 再试，
-            最多 6 次仍失败才让生成诚实地停（素材已在 artifact 里，可断点续跑）。
-            """
-            for attempt in range(6):
+        实测 2026-10-10：GitHub 瞬时 5xx（api.github.com 连续 502）会让一次
+        ``git push`` 失败，原来的重试路径只 ``git pull --rebase`` 一次就 raise，
+        于是整轮生成被一次网络抖动杀死（run 38024372451，90 秒内 4 个镜头全灭）。
+        这里改成：先退避重试推送，推送被拒才 fetch+rebase；rebase 失败就 abort 再试，
+        最多 6 次仍失败才让生成诚实地停（素材已在 artifact 里，可断点续跑）。
+        """
+        for attempt in range(6):
+            try:
+                git('push','origin',BRANCH);return
+            except subprocess.CalledProcessError:
+                if attempt==5:raise
+                time.sleep(5*(attempt+1))
                 try:
-                    git('push','origin',BRANCH);return
+                    git('fetch','origin',BRANCH)
+                    git('rebase','FETCH_HEAD')
                 except subprocess.CalledProcessError:
-                    if attempt==5:raise
-                    time.sleep(5*(attempt+1))
-                    try:
-                        git('fetch','origin',BRANCH)
-                        git('rebase','FETCH_HEAD')
-                    except subprocess.CalledProcessError:
-                        subprocess.run(['git','rebase','--abort'],cwd=ROOT,
-                                       stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-                        try:git('fetch','origin',BRANCH)
-                        except subprocess.CalledProcessError:pass
-                    print('PROVENANCE_PUSH_RETRY attempt=%d'%(attempt+1),flush=True)
+                    subprocess.run(['git','rebase','--abort'],cwd=ROOT,
+                                   stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                    try:git('fetch','origin',BRANCH)
+                    except subprocess.CalledProcessError:pass
+                print('PROVENANCE_PUSH_RETRY attempt=%d'%(attempt+1),flush=True)
 
     def finish_asset(shot,old,dest,wanted_hash,reused=False):
         sid=shot['id']
