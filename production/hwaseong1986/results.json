@@ -126,7 +126,7 @@
       "applied_cooldown_seconds": 90.0
     }
   },
-  "phase": "generating_sources",
+  "phase": "provider_capacity",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -184,7 +184,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T14:53:30Z",
+  "updated_at": "2026-10-10T14:53:32Z",
   "run_id": "38044289657",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -198,5 +198,6 @@
     "wait_channel_minutes": 140.0,
     "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261010145328774323748K2k7daTY)",
     "reason": "供应商视频排队已满"
-  }
+  },
+  "pipeline_error": "Agnes 网关连续 2 轮报告供应商视频排队已满：Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610101451585254529675Ht12Emq)；等待预算 140 分钟已用尽。这是供应商侧容量问题——请求本身没错，只能等它缓过来后再触发一轮。"
 }
