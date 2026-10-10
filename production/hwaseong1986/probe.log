@@ -1,11 +1,8 @@
-PROBE 2026-10-10T08:08:26Z
-base=https://apihub.agnes-ai.com legacy_model=agnes-video-v2.0 key_present=True
+PROBE 2026-10-10T08:15:17Z
+base=https://apihub.agnes-ai.com legacy_model=agnes-video-v2.0 key_present=True targets=[["agnes-video-2.5-flash", "720P"]]
 MODELS http=200 count=11
-CATALOG ["agnes-2.5-pro-alpha", "agnes-video-2.5-flash", "agnes-3.0-flash", "agnes-image-2.1-flash", "agnes-video-2.5", "agnes-image-2.0-flash", "agnes-2.5-flash", "agnes-3.0-flash-max", "agnes-2.5-pro", "agnes-2.5-pro-beta", "agnes-image-2.5-flash"]
+CATALOG ["agnes-2.5-flash", "agnes-2.5-pro", "agnes-2.5-pro-alpha", "agnes-2.5-pro-beta", "agnes-3.0-flash", "agnes-3.0-flash-max", "agnes-image-2.0-flash", "agnes-image-2.1-flash", "agnes-image-2.5-flash", "agnes-video-2.5", "agnes-video-2.5-flash"]
 LEGACY_MODEL_IN_CATALOG False
-MODELS_RAW {"data": [{"id": "agnes-2.5-pro-alpha", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-video-2.5-flash", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-3.0-flash", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-image-2.1-flash", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-video-2.5", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-image-2.0-flash", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-2.5-flash", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-3.0-flash-max", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": []}, {"id": "agnes-2.5-pro", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-2.5-pro-beta", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}, {"id": "agnes-image-2.5-flash", "object": "model", "created": 1626777600, "owned_by": "custom", "supported_endpoint_types": ["openai"]}], "object": "list", "succ
-CREATE_FAIL agnes-video-2.5@720P Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 20261010080826567208373iD8yinf7). Check AGNES_API_KEY.
-CREATE_FAIL agnes-video-2.5@1080P Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 2026101008082698606667234DtDEV2). Check AGNES_API_KEY.
-CREATE_FAIL agnes-video-2.5-flash@720P Could not create video task after 1 attempts; last problem: HTTP 429: You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (re
+CREATE_FAIL agnes-video-2.5-flash@720P Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261010081517600811317natytgNv)
 WORKING_COMBOS []
-VERDICT catalog_lists_new_models_but_no_channel
+VERDICT no_working_combo
