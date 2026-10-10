@@ -1,8 +1,10 @@
 {
   "model": "agnes-video-2.5",
   "base": "https://apihub.agnes-ai.com",
-  "probed_at": "2026-10-10T06:59:36Z",
+  "probed_at": "2026-10-10T07:19:25Z",
   "api_key_present": true,
+  "api_key_sha256_12": "572fbfd202e8",
+  "api_key_last4": "gPkv",
   "http_status": 200,
   "models": [
     "agnes-2.5-pro-alpha",
@@ -18,5 +20,17 @@
     "agnes-image-2.5-flash"
   ],
   "target_model_listed": true,
-  "body_excerpt": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.1-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supporte"
+  "body_excerpt": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.1-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supporte",
+  "billing": [
+    {
+      "path": "/dashboard/billing/subscription",
+      "http_status": 403,
+      "excerpt": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]--> <head> <title>Attention Required! | Cloudflare</title> <meta charset=\"UTF-8\" /> <meta http-"
+    },
+    {
+      "path": "/dashboard/billing/usage",
+      "http_status": 403,
+      "excerpt": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]--> <head> <title>Attention Required! | Cloudflare</title> <meta charset=\"UTF-8\" /> <meta http-"
+    }
+  ]
 }
