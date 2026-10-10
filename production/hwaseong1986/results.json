@@ -18,10 +18,10 @@
     },
     "S04": {
       "id": "S04",
-      "status": "provider_unavailable",
+      "status": "failed",
       "request_hash": "4cdfcefe06da263e4bb3e0e3ec82d6ecd5f333164ad03bf4ef0dcb8f91314d9e",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261010043249575753434GLYUboHT) (code=model_not_found)",
-      "updated_at": "2026-10-10T04:32:51Z",
+      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/6f5577f1-desktop-tutorial']' returned non-zero exit status 128.",
+      "updated_at": "2026-10-10T04:32:53Z",
       "quota_retry": 1,
       "applied_cooldown_seconds": 120
     },
@@ -87,6 +87,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T04:32:52Z",
+  "updated_at": "2026-10-10T04:32:53Z",
   "run_id": "38024372451"
 }
