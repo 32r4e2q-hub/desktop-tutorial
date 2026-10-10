@@ -13,11 +13,11 @@
     },
     "S03": {
       "id": "S03",
-      "status": "waiting_create_slot",
+      "status": "provider_unavailable",
       "request_hash": "48ed04a7d09d1eeb8811e17aa854562b6d2c393afe475bc41cd211dd76184777",
-      "error": null,
-      "updated_at": "2026-10-10T09:38:34Z",
-      "quota_retry": 7,
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610100943344677147202ykD8ujt)",
+      "updated_at": "2026-10-10T09:43:34Z",
+      "quota_retry": 8,
       "applied_cooldown_seconds": 300
     }
   },
@@ -75,7 +75,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T09:38:34Z",
+  "updated_at": "2026-10-10T09:43:34Z",
   "run_id": "38039106781",
   "pipeline_error": "cannot access local variable 'push_provenance' where it is not associated with a value"
 }
