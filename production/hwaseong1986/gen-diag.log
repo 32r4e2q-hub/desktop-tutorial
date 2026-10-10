@@ -2,9 +2,43 @@ PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
 PRODUCTION_STATUS cloud generation started
 PRODUCTION_STATUS S01 submitting
 PRODUCTION_STATUS S01 waiting for a creation slot
+PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
 PRODUCTION_STATUS S06 submitting
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S01 failed
-PRODUCTION_STATUS S06 failed
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS generation incomplete
+PRODUCTION_STATUS pipeline stopped
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 496, in create_paced
+    created=agnes.create_task(base,key,payload,retries=1,retry_delay=75)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/agnes_video.py", line 282, in create_task
+    raise Fatal(f"Authentication failed (HTTP {code}): {detail}. Check AGNES_API_KEY.")
+agnes_video.Fatal: Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 202610100719295413281715oS4QGpi). Check AGNES_API_KEY.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 648, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 590, in main
+    outcomes=list(pool.map(generate,shots))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 556, in generate
+    created=create_paced(sid,payload)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/generate.py", line 513, in create_paced
+    raise QuotaExhausted(
+QuotaExhausted: Agnes 账号额度已用尽：Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 202610100719295413281715oS4QGpi). Check AGNES_API_KEY.。请充值或换一把 AGNES_API_KEY 再触发一轮；已完成的镜头按 SHA-256 复用，不会重复扣费。
