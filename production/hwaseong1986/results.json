@@ -11,10 +11,10 @@
     },
     "S06": {
       "id": "S06",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "c2eab3c0b6777ed868146b881a342703784477b0db18ae7598a7f85669cd2a5e",
-      "error": null,
-      "updated_at": "2026-10-10T06:59:42Z"
+      "error": "Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 202610100700563364919260dm3O9Lb). Check AGNES_API_KEY.",
+      "updated_at": "2026-10-10T07:00:57Z"
     }
   },
   "phase": "generating_sources",
@@ -75,6 +75,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T06:59:43Z",
+  "updated_at": "2026-10-10T07:00:57Z",
   "run_id": "38032676639"
 }
