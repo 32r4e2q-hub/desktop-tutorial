@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 58734858,
+  "bytes": 58707608,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,10 +9,10 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "1223cadfae25462fe414aaa04d382372e2789f71aaa1d7ee736b28b43053fa6f",
+  "sha256": "0b1f5be395f594addf0bcb5ed8e80fc69809337cca5a119d6914849f4f91c21c",
   "decoded_ok": true,
-  "status": "final_approved",
-  "visual_review": "passed: 5400/5400 decoded; all-frame sheets and flagged candidates manually reviewed after distortion rework",
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
   "caption_alignment": [
     {
       "id": "N01",
@@ -65,5 +65,5 @@
     "quietest_window_dbfs": -120.0
   },
   "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
-  "note": "Reworked final cut: high-risk motion shots replaced, S19 hand distortion removed, AI corner overlays/marks removed, audio/verbatim and visual review passed."
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
 }
