@@ -48,7 +48,15 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BASE_URL = "https://apihub.agnes-ai.com"
+# DEFAULT_MODEL 仍是旧接口（CLI 与脚手架项目的测试按它断言）。
+# 2026-10-10 起供应商目录里已经没有 agnes-video-v2.0：它对任何请求都返回
+# ``HTTP 503 No available channel ... (code=model_not_found)``。项目请在 story.json 的
+# ``model`` 字段里显式选 MODERN_VIDEO_MODELS 之一（见 build_modern_payload）。
 DEFAULT_MODEL = "agnes-video-v2.0"
+MODERN_VIDEO_MODELS = ("agnes-video-2.5", "agnes-video-2.5-flash")
+# 新接口的尺寸档；Flash 只支持 720P（文档：size must be 720P）
+SIZE_TIERS = {"480p": "720P", "720p": "720P", "1080p": "1080P", "1440p": "1K", "2160p": "2K"}
+MODERN_SECONDS_RANGE = (4, 12)
 MAX_FRAMES = 441  # API limit; num_frames must also satisfy 8n + 1
 USER_AGENT = "agnes-video-cli/1.0 (+https://github.com/32r4e2q-hub/desktop-tutorial)"
 
@@ -145,7 +153,77 @@ def frame_rate_type(value: str) -> float:
 
 # --------------------------------------------------------------------------- request payload
 
+def is_modern_video_model(model: str) -> bool:
+    """True = 用 Agnes Video 2.5 系列的新接口（mode/seconds/size/aspect_ratio）。"""
+    return model in MODERN_VIDEO_MODELS
+
+
+def build_modern_payload(args: argparse.Namespace) -> dict:
+    """Agnes Video 2.5 / 2.5 Flash 的新接口（OpenAI Videos 风格）。
+
+    与旧 v2.0 接口**不兼容**，官方文档明确列出禁止发送的字段：
+    width / height / fps / num_frames / quality / num_inference_steps（发了直接 400）。
+    时长是字符串 seconds（"4"-"12"），分辨率是尺寸档 size，参考媒体按 mode 分：
+    text（纯文本）/ keyframe（first_frame、last_frame）/ reference（images...）。
+    文档的参数表里没有 negative_prompt，所以这里**不发送**它——负面约束写进 prompt
+    本身（本项目每条 prompt 都带 "no readable text anywhere in frame"）。
+    """
+    seconds = str(int(round(float(args.seconds))))
+    if not (MODERN_SECONDS_RANGE[0] <= int(seconds) <= MODERN_SECONDS_RANGE[1]):
+        raise Fatal(f"seconds must be {MODERN_SECONDS_RANGE[0]}-{MODERN_SECONDS_RANGE[1]} "
+                    f"for {args.model}; got {seconds}")
+    tier = SIZE_TIERS.get(str(args.resolution).lower())
+    if tier is None:
+        raise Fatal(f"unknown resolution {args.resolution!r} for {args.model}; "
+                    f"known: {sorted(SIZE_TIERS)}")
+    if args.model.endswith("-flash") and tier != "720P":
+        raise Fatal(f"{args.model} only supports size=720P (got {tier}); "
+                    "use agnes-video-2.5 for 1080P/1K/2K")
+    images = [url.strip() for url in (args.image or []) if url and url.strip()]
+    for url in images:
+        if not url.startswith(("http://", "https://")):
+            raise Fatal(f"image must be a publicly reachable http(s) URL, got: {url[:80]}")
+    mode = args.mode or ("reference" if images else "text")
+    prompt = args.prompt.strip()
+    if not prompt:
+        raise Fatal("--prompt must not be empty")
+    payload: dict = {"model": args.model, "prompt": prompt, "mode": mode,
+                     "seconds": seconds, "size": tier,
+                     "aspect_ratio": args.aspect, "n": 1}
+    if args.seed is not None:
+        payload["seed"] = args.seed
+    if mode == "reference":
+        if not images:
+            raise Fatal("reference mode needs at least one image URL")
+        if len(images) > 5:
+            raise Fatal("reference mode supports at most 5 images")
+        payload["images"] = images
+    elif mode == "keyframes":
+        if not images:
+            raise Fatal("keyframe mode needs a first frame URL")
+        payload["first_frame"] = images[0]
+        if len(images) > 1:
+            payload["last_frame"] = images[1]
+        if len(images) > 2:
+            raise Fatal("keyframe mode accepts at most two frames")
+    elif mode == "text":
+        if images:
+            raise Fatal("text mode must not carry images")
+    else:
+        raise Fatal(f"unknown mode {mode!r}; use text, keyframe or reference")
+    return payload
+
+
+def payload_seconds(payload: dict) -> float:
+    """请求的秒数：新接口直接给 seconds，旧接口用 num_frames/frame_rate 算。"""
+    if is_modern_video_model(payload.get("model", "")):
+        return float(payload["seconds"])
+    return payload["num_frames"] / payload["frame_rate"]
+
+
 def build_payload(args: argparse.Namespace) -> dict:
+    if is_modern_video_model(args.model):
+        return build_modern_payload(args)
     if args.num_frames is not None:
         frames = args.num_frames
     else:
@@ -500,10 +578,14 @@ def main(argv: Optional[list] = None) -> int:
     try:
         payload = build_payload(args)
         log("request payload: " + json.dumps(payload, ensure_ascii=False))
-        log(
-            f"requested ~{payload['num_frames'] / payload['frame_rate']:.1f}s @ {payload['frame_rate']} fps, "
-            f"{payload['width']}x{payload['height']} (the API may snap the size to its nearest preset)"
-        )
+        if is_modern_video_model(payload["model"]):
+            log(f"requested {payload['seconds']}s, size tier {payload['size']}, "
+                f"mode {payload['mode']}, aspect {payload['aspect_ratio']}")
+        else:
+            log(
+                f"requested ~{payload['num_frames'] / payload['frame_rate']:.1f}s @ {payload['frame_rate']} fps, "
+                f"{payload['width']}x{payload['height']} (the API may snap the size to its nearest preset)"
+            )
         if args.dry_run:
             print(json.dumps(payload, ensure_ascii=False, indent=2))
             return 0

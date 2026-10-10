@@ -78,7 +78,7 @@ def full_payload(project,shot):
         image=[shot['reference_image']] if shot.get('reference_image') else None,mode=None,
         seed=shot_seed(shot),steps=None,seconds=shot['seconds'],num_frames=None,
         frame_rate=shot['frame_rate'],aspect=shot['aspect'],resolution=shot['resolution'],
-        width=None,height=None,model=agnes.DEFAULT_MODEL))
+        width=None,height=None,model=project.get('model') or agnes.DEFAULT_MODEL))
 
 
 def request_hash(project,shot):
@@ -97,7 +97,23 @@ def validate(project):
         if shot['start']!=i*GRID_SECONDS or shot['duration']!=GRID_SECONDS:raise ValueError('Invalid planning timeline')
         if shot['kind']=='agnes':
             payload=full_payload(project,shot)
-            if not shot['prompt'].strip() or payload['model']!='agnes-video-v2.0' or (payload['num_frames']-1)%8:
+            if not shot['prompt'].strip():
+                raise ValueError('Empty prompt: '+shot['id'])
+            if agnes.is_modern_video_model(payload['model']):
+                # 新接口（Agnes Video 2.5 系列）：mode/seconds/size/aspect_ratio，
+                # 且文档禁止 width/height/fps/num_frames/quality/num_inference_steps
+                if payload.get('mode') not in ('text','keyframe','reference'):
+                    raise ValueError('Invalid mode: '+shot['id'])
+                if not 4<=int(payload['seconds'])<=12:
+                    raise ValueError('seconds out of range: '+shot['id'])
+                if payload.get('size') not in ('720P','1080P','1K','2K'):
+                    raise ValueError('Invalid size tier: '+shot['id'])
+                if any(k in payload for k in ('width','height','frame_rate','num_frames','fps')):
+                    raise ValueError('Legacy field leaked into a 2.5 payload: '+shot['id'])
+                want_mode='reference' if shot.get('reference_image') else 'text'
+                if payload['mode']!=want_mode:
+                    raise ValueError('Mode mismatch: '+shot['id'])
+            elif payload['model']!='agnes-video-v2.0' or (payload['num_frames']-1)%8:
                 raise ValueError('Invalid Agnes request')
             reference=shot.get('reference_image')
             if reference and not str(reference).startswith('https://'):
@@ -304,7 +320,7 @@ def main():
                 task_id=created.get('task_id') or created.get('id')
                 if not video_id:raise agnes.Fatal('No task identifier returned')
                 checkpoint(sid+' queued',sid,status='queued',video_id=str(video_id),task_id=str(task_id or ''),
-                           requested_seconds=payload['num_frames']/payload['frame_rate'])
+                           requested_seconds=agnes.payload_seconds(payload))
             else:print(sid+': resuming existing provider task',flush=True)
             remaining=generation_deadline-time.monotonic()
             if remaining<30:raise BudgetExhausted('Generation budget reached; task ID was saved for resumption')

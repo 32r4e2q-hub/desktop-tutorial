@@ -106,6 +106,11 @@ def render_document():
     total_chars = sum(len(re.sub(r"[，。！？；：、—]", "", ch["text"])) for ch in story["chapters"])
     agnes = sum(s["kind"] == "agnes" for s in story["shots"])
     cards = sum(s["kind"] == "graphic" for s in story["shots"])
+    # 供应商接口以 story.json 的 model 为准（2026-10-10 起用 agnes-video-2.5-flash，
+    # 素材 720P，成片由 render.py 放大到 1920×1080）
+    model = story.get("model") or "agnes-video-v2.0"
+    tier_text = "/".join(sorted({str(s.get("resolution", "")).upper()
+                                 for s in story["shots"] if s["kind"] == "agnes"}))
     end_card = (story.get("presentation") or {}).get("end_card") or ["", "", ""]
     # 口播时长按 clause-times.json 实算（与 render.py 的 audio_layout 同一公式），不写死：
     # 本片收紧停顿后 162.38 s，整体变速后口播约占 173 s。
@@ -115,7 +120,8 @@ def render_document():
     doc = [f"# 抖音脚本 · {story['title']}", "",
            f"> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（口播 ≈ {spoken:.0f} 秒、"
            f"{total_chars} 字不含标点）· {len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，"
-           "每个镜头只出现一次）· 画面：写实 3D CGI 情景重现（Agnes Video V2.0 视频镜头）", "",
+           "每个镜头只出现一次）· 画面：写实 3D CGI 情景重现"
+           f"（Agnes {model} 视频镜头，素材 {tier_text}，成片放大到 1920×1080）", "",
            "## 一、视频标题（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]
     doc += ["", "## 二、核心爆点（一句话）", "", c.HOOK, "",

@@ -9,6 +9,7 @@ Run:  python3 production/tests/test_agnes_video.py
 """
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import subprocess
@@ -157,6 +158,98 @@ class FrameMathTests(unittest.TestCase):
             with self.assertRaises(Exception):
                 agnes_video.frames_type(bad)
         self.assertEqual(agnes_video.frames_type("441"), 441)
+
+
+class ModernPayloadTests(unittest.TestCase):
+    """Agnes Video 2.5 / 2.5 Flash 的新接口（2026-10-10：v2.0 已从供应商目录下线）。
+
+    新接口与旧接口不兼容：官方文档列出**禁止**发送的字段
+    （width/height/fps/num_frames/quality/num_inference_steps，发了直接 400），
+    时长是字符串 seconds，分辨率是尺寸档 size，参考媒体按 mode 分。
+    """
+
+    def args(self, **overrides):
+        base = dict(model="agnes-video-2.5-flash", prompt="  a village lane at dusk  ",
+                    negative_prompt="text", seed=7, steps=None, seconds=7,
+                    num_frames=None, frame_rate=24, width=None, height=None,
+                    aspect="16:9", resolution="720p", image=None, mode=None)
+        base.update(overrides)
+        return argparse.Namespace(**base)
+
+    def payload(self, **overrides):
+        return agnes_video.build_payload(self.args(**overrides))
+
+    def test_text_mode_shape_has_no_legacy_fields(self):
+        payload = self.payload()
+        self.assertEqual(payload["model"], "agnes-video-2.5-flash")
+        self.assertEqual(payload["prompt"], "a village lane at dusk")
+        self.assertEqual(payload["mode"], "text")
+        self.assertEqual(payload["seconds"], "7")          # 字符串，不是数字
+        self.assertEqual(payload["size"], "720P")
+        self.assertEqual(payload["aspect_ratio"], "16:9")
+        self.assertEqual(payload["n"], 1)
+        self.assertEqual(payload["seed"], 7)
+        for forbidden in ("width", "height", "frame_rate", "num_frames", "fps",
+                          "quality", "num_inference_steps", "negative_prompt",
+                          "image", "extra_body"):
+            self.assertNotIn(forbidden, payload, f"{forbidden} 会让 2.5 接口直接 400")
+
+    def test_single_image_becomes_reference_mode(self):
+        payload = self.payload(image=["https://example.test/cast/C1.png"])
+        self.assertEqual(payload["mode"], "reference")
+        self.assertEqual(payload["images"], ["https://example.test/cast/C1.png"])
+        self.assertNotIn("image", payload)
+        self.assertNotIn("first_frame", payload)
+
+    def test_two_images_become_keyframes(self):
+        payload = self.payload(image=["https://e.test/1.png", "https://e.test/2.png"],
+                               mode="keyframes")
+        self.assertEqual(payload["mode"], "keyframes")
+        self.assertEqual(payload["first_frame"], "https://e.test/1.png")
+        self.assertEqual(payload["last_frame"], "https://e.test/2.png")
+        self.assertNotIn("images", payload)
+
+    def test_flash_rejects_anything_above_720p(self):
+        with self.assertRaises(agnes_video.Fatal):
+            self.payload(resolution="1080p")
+
+    def test_paid_model_allows_1080p(self):
+        payload = self.payload(model="agnes-video-2.5", resolution="1080p")
+        self.assertEqual(payload["size"], "1080P")
+
+    def test_seconds_must_stay_inside_the_documented_range(self):
+        for bad in ("3", "13"):
+            with self.assertRaises(agnes_video.Fatal, msg=bad):
+                self.payload(seconds=float(bad))
+
+    def test_text_mode_refuses_images(self):
+        with self.assertRaises(agnes_video.Fatal):
+            self.payload(image=["https://e.test/1.png"], mode="text")
+
+    def test_reference_mode_needs_an_image(self):
+        with self.assertRaises(agnes_video.Fatal):
+            self.payload(mode="reference")
+
+    def test_image_must_be_public_https(self):
+        with self.assertRaises(agnes_video.Fatal):
+            self.payload(image=["file:///etc/passwd"])
+
+    def test_payload_seconds_reads_both_shapes(self):
+        self.assertEqual(agnes_video.payload_seconds(self.payload()), 7.0)
+        legacy = agnes_video.build_payload(argparse.Namespace(
+            model="agnes-video-v2.0", prompt="p", negative_prompt="", seed=None,
+            steps=None, seconds=5, num_frames=None, frame_rate=24, width=None,
+            height=None, aspect="16:9", resolution="720p", image=None, mode=None))
+        self.assertAlmostEqual(agnes_video.payload_seconds(legacy), 121 / 24)
+
+    def test_cli_dry_run_exposes_the_modern_shape(self):
+        payload = json.loads(run_cli("--dry-run", "--model", "agnes-video-2.5-flash",
+                                     "--prompt", "p", "--seconds", "6",
+                                     "--resolution", "720p").stdout)
+        self.assertEqual(payload["mode"], "text")
+        self.assertEqual(payload["seconds"], "6")
+        self.assertEqual(payload["size"], "720P")
+        self.assertNotIn("num_frames", payload)
 
 
 class DryRunPayloadTests(unittest.TestCase):

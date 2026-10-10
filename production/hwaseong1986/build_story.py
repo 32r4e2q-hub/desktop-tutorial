@@ -590,6 +590,23 @@ FACE_SHOTS = {
 # 定妆照提交在仓库里，URL 取 cast.json 的 portrait_url（Agnes 只在服务器侧取图）。
 REFERENCE_SHOTS = {"S06": "C2", "S12": "C1", "S16": "C3", "S27": "C4", "S40": "C5"}
 
+# ---- Agnes 供应商接口切换（2026-10-10 实测） --------------------------------
+# 旧模型 agnes-video-v2.0 已从供应商目录下线，任何请求都返回
+# 「HTTP 503 No available channel ... (code=model_not_found)」，八小时的生成全部失败。
+# 目录里只剩 agnes-video-2.5（付费，本 key 余额 $0 → 403）与 agnes-video-2.5-flash
+# （免费档）。所以本片用 flash：**新接口** mode/seconds/size/aspect_ratio，
+# 文档明确禁止 width/height/fps/num_frames；Flash 的 size 只能是 720P。
+# 出片仍是 1920×1080：render.py 的滤镜链是
+# scale=1920:1080:force_original_aspect_ratio=increase + crop，720P 源会被放大。
+# 若以后给 key 充值，把 VIDEO_MODEL 改成 agnes-video-2.5、VIDEO_RESOLUTION 改 1080p 即可。
+VIDEO_MODEL = "agnes-video-2.5-flash"
+VIDEO_RESOLUTION = "720p"
+# 新接口的 reference 模式要求提示词里用 <Picture N> 指认参考图（见 Agnes Video 2.5 文档）
+REFERENCE_PROMPT_PREFIX = (
+    "Use <Picture 1> as the exact visual reference for this lead character: same face, "
+    "same age, same hairstyle and same period clothing in every shot. "
+)
+
 
 def faces():
     """从 cast.json 读面容 token（唯一来源），保证提示词里逐字节一致。"""
@@ -625,6 +642,7 @@ def build():
     missing = sorted(cards_needed - set(CARDS))
     assert not missing, f"这些信息卡镜头在 CARDS 里没有文案：{missing}"
     story["title"] = TITLE
+    story["model"] = VIDEO_MODEL
     story["style_prefix"] = STYLE_PREFIX
     story["negative_prompt"] = NEGATIVE_PROMPT
     story["principles"] = PRINCIPLES
@@ -650,13 +668,16 @@ def build():
             "purpose": purpose, "transition_out": transition,
             "graphic": body if kind == "graphic" else "",
             "seed": SEED_BASE + i + 1,
-            "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": "1080p", "frame_rate": 24,
+            "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": VIDEO_RESOLUTION,
+            "frame_rate": 24,
             "camera": camera, "sfx_note": sfx,
         }
         if sid in FACE_SHOTS:
             shot["cast"] = FACE_SHOTS[sid]
         if sid in REFERENCE_SHOTS:
             shot["reference_image"] = url[REFERENCE_SHOTS[sid]]
+            prompt = REFERENCE_PROMPT_PREFIX + prompt
+            shot["prompt"] = prompt
         shots.append(shot)
     story["shots"] = shots
     story["presentation"] = presentation()

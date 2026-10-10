@@ -20,7 +20,7 @@
 | 剪辑表 CUTS（按分句停顿重对） | 已完成 | `clause_times.py --check-cuts` 全部落在停顿窗内 |
 | 卡片排字闸门（本地 + CI） | 已完成 | `pytest production/tests/test_card_typography.py` 真画卡片量安全带，通过 |
 | 本地冒烟测试（假素材跑通整条 render.py） | 已完成 | 46 段 / 180.0s / 5400 帧 / 38 素材 / tempo 0.9666 / RMS −20.63 dBFS |
-| 生成 38 个 Agnes 镜头 | 进行中 | `GEN_REQUEST` 已 push，工作流「李春才…Agnes生成」运行中 |
+| 生成 38 个 Agnes 镜头 | 进行中 | `GEN_REQUEST` 已 push；**供应商 2026-10-10 下线了 `agnes-video-v2.0`**，已切到 `agnes-video-2.5-flash` 新接口（素材 720P，成片放大到 1920×1080） |
 | 复审（逐镜接触表 + 人眼） | 待办 | `qa/Sxx.jpg` 拉回后开始 |
 | 出片（RENDER_REQUEST） | 待办 | 成片回 `交付/`，报告进 `delivery/` |
 | 听检（VERBATIM_REQUEST，CER ≤ 0.15） | 待办 | `delivery/verbatim-check.json` |

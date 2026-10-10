@@ -2,13 +2,7 @@
   "gate": "check-prompts",
   "project": "production/hwaseong1986",
   "errors": [],
-  "warnings": [
-    "角色 C1 声明了定妆照 cast/C1.png，但文件不存在（图生视频会取不到参考）",
-    "角色 C2 声明了定妆照 cast/C2.png，但文件不存在（图生视频会取不到参考）",
-    "角色 C3 声明了定妆照 cast/C3.png，但文件不存在（图生视频会取不到参考）",
-    "角色 C4 声明了定妆照 cast/C4.png，但文件不存在（图生视频会取不到参考）",
-    "角色 C5 声明了定妆照 cast/C5.png，但文件不存在（图生视频会取不到参考）"
-  ],
+  "warnings": [],
   "characters": [
     {
       "id": "C1",
@@ -62,21 +56,21 @@
       "characters": [
         "C2"
       ],
-      "prompt_chars": 945
+      "prompt_chars": 1092
     },
     {
       "shot": "S12",
       "characters": [
         "C1"
       ],
-      "prompt_chars": 1008
+      "prompt_chars": 1155
     },
     {
       "shot": "S16",
       "characters": [
         "C3"
       ],
-      "prompt_chars": 1034
+      "prompt_chars": 1181
     },
     {
       "shot": "S17",
@@ -104,7 +98,7 @@
       "characters": [
         "C4"
       ],
-      "prompt_chars": 977
+      "prompt_chars": 1124
     },
     {
       "shot": "S29",
@@ -118,7 +112,7 @@
       "characters": [
         "C5"
       ],
-      "prompt_chars": 919
+      "prompt_chars": 1066
     }
   ],
   "mode": "face",
