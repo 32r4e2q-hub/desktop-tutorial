@@ -418,7 +418,10 @@ def main():
         （``delivery/provider-probe.json``）。沙箱连不上 Agnes，只有 runner 能量。
         """
         receipt={'model':MODEL,'base':base,'probed_at':now_stamp(),
-                 'api_key_present':bool(key)}
+                 'api_key_present':bool(key),
+                 # 只留指纹，不留 key：换过 key 之后要能一眼看出跑的是哪一把
+                 'api_key_sha256_12':hashlib.sha256(key.encode()).hexdigest()[:12] if key else None,
+                 'api_key_last4':key[-4:] if key else None}
         try:
             code,body,text=agnes.http_json('GET',base+'/v1/models',key,timeout=30)
             ids=[]
@@ -432,6 +435,17 @@ def main():
                            body_excerpt=' '.join((text or '').split())[:600])
         except Exception as exc:   # 网关没有这个端点也不影响生成，如实记下就行
             receipt['error']=str(exc)[:300]
+        # 余额（不花额度）：2026-10-10 卡在 403「Insufficient user quota, remaining: ＄0.000000」，
+        # 而沙箱既连不上 Agnes、也读不到 Actions 日志 —— 只有把额度问出来写进收据，
+        # 才不用靠「投一轮看它红不红」来判断 key 有没有钱。
+        receipt['billing']=[]
+        for path in ('/dashboard/billing/subscription','/dashboard/billing/usage'):
+            try:
+                code,_body,text=agnes.http_json('GET',base+path,key,timeout=30)
+                receipt['billing'].append({'path':path,'http_status':code,
+                                           'excerpt':' '.join((text or '').split())[:400]})
+            except Exception as exc:
+                receipt['billing'].append({'path':path,'error':str(exc)[:200]})
         PROBE.parent.mkdir(parents=True,exist_ok=True)
         PROBE.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
         print('PROVIDER_PROBE '+json.dumps(

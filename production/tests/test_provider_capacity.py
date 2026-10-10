@@ -185,6 +185,9 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
         self.gateway_models = [generate.MODEL]
 
         def fake_http_json(method, url, api_key, payload=None, timeout=60):
+            if "/dashboard/billing/" in url:      # 余额端点：收据里要能看出 key 有没有钱
+                body = {"hard_limit_usd": 25.0} if url.endswith("subscription") else {"total_usage": 0}
+                return agnes_video.HttpResult(200, body, json.dumps(body))
             body = {"data": [{"id": name} for name in self.gateway_models]}
             return agnes_video.HttpResult(200, body, json.dumps(body))
 
@@ -229,6 +232,12 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
         probe = json.loads(self.probe.read_text(encoding="utf-8"))
         self.assertTrue(probe["target_model_listed"])
         self.assertEqual(probe["http_status"], 200)
+        # 换过 key 之后，靠指纹和余额判断跑的是哪一把、有没有钱（key 本身不进仓库）
+        self.assertEqual(probe["api_key_last4"], "-key")
+        self.assertEqual(len(probe["api_key_sha256_12"]), 12)
+        self.assertEqual([b["http_status"] for b in probe["billing"]], [200, 200])
+        self.assertIn("hard_limit_usd", probe["billing"][0]["excerpt"])
+        self.assertNotIn("test-key", json.dumps(probe), "收据里绝不能出现 key 原文")
 
     def test_probe_records_that_the_model_is_not_on_the_gateway(self):
         """2026-10-10 的真实故障：agnes-video-v2.0 被下线，网关只剩 2.5 系列。
