@@ -1,1 +1,1 @@
-{"workers": 2, "note": "第五轮：push_provenance 缩进已修；供应商通道仍 503，断点续跑重投全部 38 镜"}
+{"workers": 2, "channel_error_limit": 3, "wait_channel_minutes": 120, "generation_budget_minutes": 170, "note": "第六轮：通道不可用改为全片共享熔断（连续 3 轮即停）+ 最多等通道 120 分钟；供应商 503 自 2026-10-10T00:30Z 起持续"}

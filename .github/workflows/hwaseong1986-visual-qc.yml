@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 hwaseong1986 / arena/6f5577f1-desktop-tutorial / 6f5577f1-desktop-tutorial / 李春才：华城连环杀人案，DNA揭开了33年的秘密 / 李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 hwaseong1986 / arena/3c6cd684-desktop-tutorial / 3c6cd684-desktop-tutorial / 李春才：华城连环杀人案，DNA揭开了33年的秘密 / 李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-visual-qc.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
 #
 # 这一步解码成片的**每一帧**（参考实现的片子是 5400/5400），查黑帧 / 冻结 / 时序突变 /
@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - arena/6f5577f1-desktop-tutorial
+      - arena/3c6cd684-desktop-tutorial
     paths:
       - production/hwaseong1986/VISUAL_QC_REQUEST
 
@@ -23,19 +23,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: hwaseong1986-visual-qc-arena-6f5577f1-desktop-tutorial
+  group: hwaseong1986-visual-qc-arena-3c6cd684-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   audit:
-    if: github.ref == 'refs/heads/arena/6f5577f1-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/3c6cd684-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 120
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/6f5577f1-desktop-tutorial
+          ref: arena/3c6cd684-desktop-tutorial
           fetch-depth: 1
 
       - name: Set up Python

@@ -24,11 +24,94 @@ import agnes_video as agnes
 from media import ensure_tools, inspect_clip, render_python
 from throttle import RequestGate, BudgetExhausted
 
-BRANCH='arena/6f5577f1-desktop-tutorial'
+BRANCH='arena/3c6cd684-desktop-tutorial'
 CAST=Path(__file__).with_name('cast.json')
 PLAN=Path(__file__).with_name('story.json')
 RESULTS=Path(__file__).with_name('results.json')
+PROBE=Path(__file__).with_name('delivery')/'provider-probe.json'
 LOCK=threading.RLock()
+
+# ---- 供应商容量熔断（2026-10-10 实测）----------------------------------------
+# 「No available channel for model agnes-video-v2.0 under group default (distributor)」
+# 是网关在说「这个模型现在一个可用通道都没有」，不是我们的请求写错了：
+# 2026-10-10 00:30Z 起连续 5 小时、6 轮 Actions 运行、38 镜全部 503、0 镜成功，
+# 而同一把 key 同一个模型 2026-10-09T11:57Z 还成功出过片（run 37926988045）。
+# 旧策略把 503 当成普通退避：每镜试 8 次、冷却最长 300 秒 → 每镜烧掉约 50 分钟才失败，
+# 一整轮跑满 3 小时仍然一个素材都没有（run 38013901390）。
+# 现在按「全片共享」计数：连续 channel_error_limit 轮通道不可用就
+#   (a) 等待预算内：只等冷却结束再探（探测就是那一次创建请求，失败不占额度）；
+#   (b) 预算用尽：立刻诚实地停（phase=provider_capacity），不再烧满整个预算。
+CHANNEL_UNAVAILABLE_MARKERS=('no available channel',)
+CHANNEL_COOLDOWN_SECONDS=300
+ABORT=threading.Event()
+
+
+class ProviderCapacity(RuntimeError):
+    """供应商侧没有可用通道：不是请求错误，重试不会让它变好，只能等通道恢复。"""
+
+
+def channel_unavailable(message):
+    text=str(message or '').lower()
+    return any(marker in text for marker in CHANNEL_UNAVAILABLE_MARKERS)
+
+
+def now_stamp():
+    return time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
+
+
+class ChannelBreaker:
+    """「模型没有可用通道」时的共享策略：计数 → 全体冷却 → 等预算 → 放弃。
+
+    独立成类是为了能被离线测试真跑一遍（``production/tests/test_provider_capacity.py``）：
+    这段逻辑跑在 runner 上、要几十分钟才看得出结果，靠人眼盯 Actions 日志是盯不住的。
+    """
+
+    def __init__(self,gate,deadline,error_limit=3,wait_minutes=0.0,
+                 cooldown=CHANNEL_COOLDOWN_SECONDS,clock=None,record=None,probe=None,abort=None):
+        self.gate=gate
+        self.deadline=deadline
+        self.error_limit=max(1,int(error_limit))
+        self.wait_budget=max(0.0,float(wait_minutes))*60.0
+        self.cooldown=float(cooldown)
+        self.clock=clock or time.monotonic
+        self.record=record or (lambda **values:None)
+        self.probe=probe or (lambda:None)
+        self.abort=abort if abort is not None else threading.Event()
+        self.started=self.clock()
+        self.state={'consecutive':0,'attempts':0,'first_seen':None,'last_seen':None,'last_error':None}
+
+    def note_success(self):
+        """有一次创建成功就说明通道回来了，连击计数清零（别把恢复后又数成第 4 轮）。"""
+        self.state['consecutive']=0
+
+    def observe(self,sid,message):
+        """记一次通道不可用。返回 True = 冷却结束后可以再探；抛 ProviderCapacity = 整轮放弃。"""
+        self.state['consecutive']+=1
+        self.state['attempts']+=1
+        self.state['last_seen']=now_stamp()
+        self.state['first_seen']=self.state['first_seen'] or self.state['last_seen']
+        self.state['last_error']=message
+        round_no=self.state['consecutive']
+        # defer 是共享的：两个 worker 一起冷却，等于对整轮生成熔断。
+        self.gate.defer(self.cooldown)
+        self.record(sid=sid,round_no=round_no,cooldown=self.cooldown,error=message,
+                    outage=dict(self.state))
+        if round_no<self.error_limit:
+            return True
+        waited=self.clock()-self.started
+        if waited<self.wait_budget:
+            print('PROVIDER_WAIT round=%d waited=%.0fs budget=%.0fs'%(round_no,waited,self.wait_budget),
+                  flush=True)
+            self.state['consecutive']=0
+            # 冷却期只是等，不创建任务、不占额度；冷却结束再探一次。
+            self.gate.wait_unblocked(self.deadline)
+            return True
+        self.abort.set()
+        self.probe()
+        raise ProviderCapacity(
+            'Agnes 网关连续 %d 轮报告该模型没有可用通道：%s；等待预算 %.0f 分钟已用尽。'
+            '这是供应商侧容量问题——请求本身没错，重试不会变好，只能等通道恢复后再触发一轮。'
+            %(round_no,str(message)[:200],self.wait_budget/60.0))
 
 
 def read_json(path,default):
@@ -140,6 +223,9 @@ def main():
     parser.add_argument('--publish',action='store_true')
     parser.add_argument('--prune-failed',action='store_true',
                         help='只清理 results.json 里的死任务记录，清完就退出（不生成）')
+    parser.add_argument('--wait-for-channel',type=float,default=None,
+                        help='供应商报「没有可用通道」时，最多等多少分钟（0=立刻诚实失败）；'
+                             '覆盖 payload 里的 wait_channel_minutes')
     args=parser.parse_args()
     project=read_json(PLAN,{});validate(project)
     audio_manifest=read_json(PLAN.parent/'audio/manifest.json',{})
@@ -162,12 +248,20 @@ def main():
     if only-{s['id'] for s in shots}:raise ValueError('Unknown/non-Agnes shot ID')
     if only:shots=[s for s in shots if s['id'] in only]
     workers=min(2,max(1,int(options.get('workers',2))))
+    # 供应商通道不可用时的策略（见文件头的实测记录）。
+    channel_error_limit=max(1,int(options.get('channel_error_limit',3)))
+    wait_channel_minutes=max(0.0,float(options.get('wait_channel_minutes',0)))
+    if args.wait_for_channel is not None:
+        wait_channel_minutes=max(0.0,args.wait_for_channel)
+    generation_budget_minutes=max(30.0,float(options.get('generation_budget_minutes',170)))
     # Free video model creation is documented at 1 RPM. Two in-flight tasks do
     # not permit bursts of creation requests; they share this paced gate.
     gate=RequestGate(minimum_interval=75)
     # 38 个 Agnes 镜头、共享 75 秒创建间隔：光排队就要 ≈48 分钟，再加生成与下载，
     # 85 分钟（参考项目 24 镜的预算）不够；预算到点只会保存 task_id 等下次续跑，不会丢素材。
-    generation_deadline=time.monotonic()+170*60
+    # 「等通道」的时间也算在同一个 deadline 里，总和压在 320 分钟以内（工作流 timeout 350 分钟）。
+    total_budget_minutes=min(320.0,wait_channel_minutes+generation_budget_minutes)
+    generation_deadline=time.monotonic()+total_budget_minutes*60
     if args.publish:
         if os.getenv('GITHUB_ACTIONS')!='true' or git('branch','--show-current').strip()!=BRANCH:
             raise RuntimeError('Publish only from this fixed Arena branch in Actions')
@@ -182,11 +276,19 @@ def main():
         print('PRUNED_STALE '+json.dumps(stale),flush=True)
         return 0
     doc['phase']='preparing_sources'
+    # 上一轮留下的失败原因不属于这一轮：不删掉，results.json 会一直挂着旧错误，
+    # 让人以为修好的 bug 又复发（2026-10-10 的 push_provenance 就被误读了两次）。
+    doc.pop('pipeline_error',None)
+    doc.pop('provider_outage',None)
     doc['review']={'status':'pending','scope':'visual/audio quality','blocking_generation':False,
                    'note':'No automatic visual approval. Export is an unreviewed first cut.'}
-    doc['workflow_policy']='cloud-first-cut-v3-rate-aware'
+    doc['workflow_policy']='cloud-first-cut-v4-channel-aware'
     doc['rate_policy']={'minimum_creation_interval_seconds':75,'poll_interval_seconds':25,
-                        'shared_retry_after_cooldown':True,'key_rotation':False}
+                        'shared_retry_after_cooldown':True,'key_rotation':False,
+                        'channel_cooldown_seconds':CHANNEL_COOLDOWN_SECONDS,
+                        'channel_error_limit':channel_error_limit,
+                        'wait_channel_minutes':wait_channel_minutes,
+                        'total_budget_minutes':total_budget_minutes}
     doc['required_generated_shots']=[s['id'] for s in project['shots'] if s['kind']=='agnes']
     sources=ROOT/'work/hwaseong1986/sources';sources.mkdir(parents=True,exist_ok=True)
     export=ROOT/'work/hwaseong1986/clips';export.mkdir(parents=True,exist_ok=True)
@@ -234,6 +336,35 @@ def main():
                     except subprocess.CalledProcessError:pass
                 print('PROVENANCE_PUSH_RETRY attempt=%d'%(attempt+1),flush=True)
 
+    def probe_provider():
+        """问网关「这个模型现在有没有通道」。
+
+        ``GET /v1/models`` 不创建任务、不花视频额度，所以可以在开跑前和放弃前各量一次，
+        把「到底是我们的请求有问题，还是供应商没有通道」这件事变成仓库里的一张收据
+        （``delivery/provider-probe.json``）。沙箱连不上 Agnes，只有 runner 能量。
+        """
+        receipt={'model':agnes.DEFAULT_MODEL,'base':base,'probed_at':now_stamp(),
+                 'api_key_present':bool(key)}
+        try:
+            code,body,text=agnes.http_json('GET',base+'/v1/models',key,timeout=30)
+            ids=[]
+            data=body.get('data') if isinstance(body,dict) else None
+            if isinstance(data,list):
+                ids=[str(x.get('id')) for x in data if isinstance(x,dict) and x.get('id')]
+            elif isinstance(data,dict):
+                ids=[str(k) for k in data]
+            receipt.update(http_status=code,models=ids[:300],
+                           target_model_listed=agnes.DEFAULT_MODEL in ids,
+                           body_excerpt=' '.join((text or '').split())[:600])
+        except Exception as exc:   # 网关没有这个端点也不影响生成，如实记下就行
+            receipt['error']=str(exc)[:300]
+        PROBE.parent.mkdir(parents=True,exist_ok=True)
+        PROBE.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+        print('PROVIDER_PROBE '+json.dumps(
+            {k:receipt[k] for k in ('http_status','target_model_listed','error') if k in receipt},
+            ensure_ascii=False),flush=True)
+        return receipt
+
     def finish_asset(shot,old,dest,wanted_hash,reused=False):
         sid=shot['id']
         if not dest.exists() or digest(dest)!=old['sha256']:
@@ -247,40 +378,69 @@ def main():
                    reused_existing_asset=reused,visual_review='pending')
         return True
 
+    def record_outage(sid,round_no,cooldown,error,outage):
+        """把这次通道不可用写进 results.json（沙箱读不到 Actions 日志，只能靠它）。"""
+        with LOCK:
+            doc['provider_outage']={
+                'model':agnes.DEFAULT_MODEL,'base':base,
+                'first_seen':outage['first_seen'],'last_seen':outage['last_seen'],
+                'create_attempts':outage['attempts'],'consecutive_rounds':round_no,
+                'cooldown_seconds':cooldown,'channel_error_limit':channel_error_limit,
+                'wait_channel_minutes':wait_channel_minutes,'last_error':error}
+        checkpoint(sid+' provider channel unavailable',sid,status='provider_unavailable',
+                   channel_error_round=round_no,applied_cooldown_seconds=cooldown,error=error)
+        checkpoint('provider channel unavailable (round %d)'%round_no)
+
+    breaker=ChannelBreaker(gate,generation_deadline,error_limit=channel_error_limit,
+                           wait_minutes=wait_channel_minutes,record=record_outage,
+                           probe=probe_provider,abort=ABORT)
+
     def create_paced(sid,payload):
-        for attempt in range(8):
+        rate_attempts=0
+        fatal_attempts=0
+        while True:
+            if ABORT.is_set():
+                raise ProviderCapacity('Provider capacity already exhausted in this run')
             checkpoint(sid+' waiting for a creation slot',sid,status='waiting_create_slot',error=None)
             gate.acquire_creation(generation_deadline)
             try:
                 # Only this outer policy retries 429, so every attempt is paced.
-                return agnes.create_task(base,key,payload,retries=1,retry_delay=75)
+                created=agnes.create_task(base,key,payload,retries=1,retry_delay=75)
             except agnes.RateLimited as exc:
-                cooldown=max(min(300,75*(2**attempt)),exc.retry_after or 0)
+                rate_attempts+=1
+                if rate_attempts>8:
+                    raise
+                cooldown=max(min(300,75*(2**(rate_attempts-1))),exc.retry_after or 0)
                 checkpoint(sid+' provider cooldown',sid,status='rate_limited',
-                           quota_retry=attempt+1,provider_retry_after_seconds=exc.retry_after,
+                           quota_retry=rate_attempts,provider_retry_after_seconds=exc.retry_after,
                            applied_cooldown_seconds=cooldown,error=str(exc).replace(key,'[redacted]')[:600])
                 gate.defer(cooldown)
-                if attempt==7:
-                    raise
+                continue
             except agnes.Fatal as exc:
-                # 供应商侧 5xx（502/503/504，实测 2026-10-10：「No available channel for model
-                # agnes-video-v2.0 under group default (distributor)」持续二十余分钟、38 镜全灭）
-                # 是**通道容量波动**，不是请求错误：与 429 同一套共享冷却退避（defer 对两个 worker
-                # 同时生效，等于熔断），扛过波动；超出尝试预算才失败，状态已落盘、可断点续跑。
                 text=str(exc)
+                redacted=(text.replace(key,'[redacted]') if key else text)[:600]
+                if channel_unavailable(text):
+                    breaker.observe(sid,redacted)   # 放弃时抛 ProviderCapacity
+                    continue
+                # 其他 5xx（502/504 之类）仍按原来的共享退避扛过去。
                 if 'HTTP 5' not in text:
                     raise
-                cooldown=max(min(300,75*(2**attempt)),120)
-                checkpoint(sid+' provider channel unavailable',sid,status='provider_unavailable',
-                           quota_retry=attempt+1,applied_cooldown_seconds=cooldown,
-                           error=text.replace(key,'[redacted]')[:600])
-                gate.defer(cooldown)
-                if attempt==7:
+                fatal_attempts+=1
+                if fatal_attempts>8:
                     raise
-        raise RuntimeError('Creation retry budget exhausted')
+                cooldown=max(min(300,75*(2**(fatal_attempts-1))),120)
+                checkpoint(sid+' provider 5xx',sid,status='provider_unavailable',
+                           quota_retry=fatal_attempts,applied_cooldown_seconds=cooldown,error=redacted)
+                gate.defer(cooldown)
+                continue
+            breaker.note_success()
+            return created
 
     def generate(shot):
         sid=shot['id'];payload=full_payload(project,shot);wanted_hash=request_hash(project,shot)
+        if ABORT.is_set():
+            print(sid+': skipped, provider capacity exhausted',flush=True)
+            return False
         with LOCK:old=dict(doc['shots'].get(sid,{}))
         dest=sources/(sid+'.mp4')
         try:
@@ -318,13 +478,20 @@ def main():
             checkpoint(sid+' generated',sid,status='generated',video_url=url,bytes=size,sha256=checksum,
                        reported_size=final.get('size'),reported_seconds=final.get('seconds'),error=None)
             return finish_asset(shot,receipt,dest,wanted_hash)
+        except ProviderCapacity:
+            # 「供应商没通道」是整轮的事，不是这一镜的事：吞掉它，phase 就会写成
+            # generation_incomplete，看起来像素材没做完，而不是通道没了。
+            raise
         except Exception as exc:
             error=str(exc).replace(key,'[redacted]') if key else str(exc)
             checkpoint(sid+' failed',sid,status='failed',error=error[:600])
             return False
 
     try:
-        ensure_tools();doc['phase']='generating_sources';checkpoint('cloud generation started')
+        ensure_tools()
+        doc['phase']='generating_sources'
+        probe_provider()
+        checkpoint('cloud generation started',files=[PROBE] if PROBE.is_file() else ())
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
             outcomes=list(pool.map(generate,shots))
         if not all(outcomes):
@@ -373,8 +540,11 @@ def main():
         print('CLOUD_FIRST_CUT_READY '+final_name,flush=True);return 0
     except Exception as exc:
         error=str(exc).replace(key,'[redacted]') if key else str(exc)
-        doc['phase']='pipeline_failed';doc['pipeline_error']=error[:800]
-        checkpoint('pipeline stopped')
+        # 「供应商没通道」和「流水线自己有 bug」是两件事，phase 必须分开：
+        # 混在一起，下一个人（或下一次的我）会去改根本没有坏的代码。
+        doc['phase']='provider_capacity' if isinstance(exc,ProviderCapacity) else 'pipeline_failed'
+        doc['pipeline_error']=error[:800]
+        checkpoint('pipeline stopped',files=[PROBE] if PROBE.is_file() else ())
         (export/'未完成说明.txt').write_text('制作未完成：'+error[:800]+'\n没有把测试图或静态图冒充Agnes成片。\n')
         raise
 

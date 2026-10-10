@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 hwaseong1986 / arena/6f5577f1-desktop-tutorial / 6f5577f1-desktop-tutorial / 李春才：华城连环杀人案，DNA揭开了33年的秘密 / 李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 hwaseong1986 / arena/3c6cd684-desktop-tutorial / 3c6cd684-desktop-tutorial / 李春才：华城连环杀人案，DNA揭开了33年的秘密 / 李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-*.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
 name: 李春才：华城连环杀人案，DNA揭开了33年的秘密 · 出片
 run-name: 出片 · 李春才：华城连环杀人案，DNA揭开了33年的秘密 · ${{ github.ref_name }}
@@ -19,7 +19,7 @@ on:
         default: '李春才_华城连环杀人案，DNA揭开了33年的秘密_三分钟_带声音.mp4'
   push:
     branches:
-      - arena/6f5577f1-desktop-tutorial
+      - arena/3c6cd684-desktop-tutorial
     paths:
       - production/hwaseong1986/RENDER_REQUEST
 
@@ -27,19 +27,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: hwaseong1986-render-arena-6f5577f1-desktop-tutorial
+  group: hwaseong1986-render-arena-3c6cd684-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   render:
-    if: github.ref == 'refs/heads/arena/6f5577f1-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/3c6cd684-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 120
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/6f5577f1-desktop-tutorial
+          ref: arena/3c6cd684-desktop-tutorial
           fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功（浅克隆会让重试路径失败）
 
       - name: Install media tools and CJK fonts
@@ -77,7 +77,7 @@ jobs:
           PROJECT: hwaseong1986
           SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
           FILM_NAME: ${{ env.FILM_NAME }}
-          BRANCH: arena/6f5577f1-desktop-tutorial
+          BRANCH: arena/3c6cd684-desktop-tutorial
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log production/hwaseong1986/last-render.log; exit ${PIPESTATUS[0]}
 
       - name: Ship failure log to branch (sandbox cannot read Actions logs)
