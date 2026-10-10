@@ -11,8 +11,8 @@
   "audio_channels": 2,
   "sha256": "0b1f5be395f594addf0bcb5ed8e80fc69809337cca5a119d6914849f4f91c21c",
   "decoded_ok": true,
-  "status": "audio_verified_cut",
-  "visual_review": "pending",
+  "status": "final_approved",
+  "visual_review": "passed: 5400/5400 decoded; S13 and all-frame evidence manually reviewed",
   "caption_alignment": [
     {
       "id": "N01",
@@ -65,5 +65,5 @@
     "quietest_window_dbfs": -120.0
   },
   "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
-  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+  "note": "Final S13 cash-box revision passed visual, audio, and verbatim gates; AI corner labels remain removed."
 }

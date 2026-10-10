@@ -11,7 +11,14 @@
   "temporal_outlier_windows": 4,
   "face_review_candidates": 0,
   "hand_landmark_extreme_events": 0,
-  "human_semantic_visual_review": "pending",
+  "human_semantic_visual_review": "passed",
   "midpoint_contact_sheet": "production/jeong2000/delivery/visual-qc-shot-midpoints.jpg",
-  "note": "Automation is triage. Review the uploaded all-frame, midpoint, hand, and suspect-frame artifacts before final sign-off."
+  "note": "5400/5400 frames decoded; S13 cash-box replacement and all 46 full-frame sheets manually reviewed; approved.",
+  "human_review_findings": {
+    "S13": "stable closed cash-box still life across every used frame; no hands, people, morphing, or corner mark",
+    "door_crossing": "removed in prior rework; no doorway crossing remains",
+    "temporal_candidates": "planned opening fade, S31 card boundary, S45-to-END transition and END fade",
+    "ai_corner_label": "removed from overlays and provider mark cropped by 1.12x safe crop",
+    "final_verdict": "approved"
+  }
 }
