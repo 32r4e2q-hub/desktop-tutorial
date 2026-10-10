@@ -1,0 +1,126 @@
+{
+  "gate": "check-prompts",
+  "project": "production/hwaseong1986",
+  "errors": [],
+  "warnings": [
+    "角色 C1 声明了定妆照 cast/C1.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C2 声明了定妆照 cast/C2.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C3 声明了定妆照 cast/C3.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C4 声明了定妆照 cast/C4.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C5 声明了定妆照 cast/C5.png，但文件不存在（图生视频会取不到参考）"
+  ],
+  "characters": [
+    {
+      "id": "C1",
+      "name": "年轻男子（李春才 · 一九八六至一九九四年情景重现 · 虚构匿名角色）",
+      "role": "suspect",
+      "face_token_chars": 411,
+      "portrait": "cast/C1.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C1.png",
+      "seed": 19860915
+    },
+    {
+      "id": "C2",
+      "name": "年轻男子（尹成汝 · 一九八八年被错判者 · 虚构匿名角色）",
+      "role": "witness",
+      "face_token_chars": 374,
+      "portrait": "cast/C2.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C2.png",
+      "seed": 19880916
+    },
+    {
+      "id": "C3",
+      "name": "老刑警（华城案调查本部长 · 虚构匿名角色）",
+      "role": "police",
+      "face_token_chars": 379,
+      "portrait": "cast/C3.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C3.png",
+      "seed": 19861212
+    },
+    {
+      "id": "C4",
+      "name": "重查组警官（二〇一九年独立调查组 · 虚构匿名角色）",
+      "role": "police",
+      "face_token_chars": 358,
+      "portrait": "cast/C4.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C4.png",
+      "seed": 20190919
+    },
+    {
+      "id": "C5",
+      "name": "女法医（DNA 检测 · 虚构匿名角色）",
+      "role": "other",
+      "face_token_chars": 339,
+      "portrait": "cast/C5.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C5.png",
+      "seed": 20190801
+    }
+  ],
+  "face_shots": [
+    {
+      "shot": "S06",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 945
+    },
+    {
+      "shot": "S12",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1008
+    },
+    {
+      "shot": "S16",
+      "characters": [
+        "C3"
+      ],
+      "prompt_chars": 1034
+    },
+    {
+      "shot": "S17",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 967
+    },
+    {
+      "shot": "S22",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 979
+    },
+    {
+      "shot": "S24",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 998
+    },
+    {
+      "shot": "S27",
+      "characters": [
+        "C4"
+      ],
+      "prompt_chars": 977
+    },
+    {
+      "shot": "S29",
+      "characters": [
+        "C4"
+      ],
+      "prompt_chars": 932
+    },
+    {
+      "shot": "S40",
+      "characters": [
+        "C5"
+      ],
+      "prompt_chars": 919
+    }
+  ],
+  "mode": "face",
+  "status": "PASS"
+}

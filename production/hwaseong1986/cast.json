@@ -1,0 +1,73 @@
+{
+  "mode": "face",
+  "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。改完跑：python3 production/face_cast.py check-prompts --project production/hwaseong1986",
+  "_casting_note": "五个角色都是符合年代的虚构匿名人物（AI 生成），不是任何真实人物的容貌还原——李春才、尹成汝等真实人物均不以可辨识面容出现（李春才在一九八六至一九九四年的情景重现里由 C1 扮演，二〇一九年后的镜头只给背影）；受害者不出现在画面里，也不给可辨识面容。",
+  "characters": [
+    {
+      "id": "C1",
+      "name": "年轻男子（李春才 · 一九八六至一九九四年情景重现 · 虚构匿名角色）",
+      "role": "suspect",
+      "age": 26,
+      "gender": "male",
+      "face": "an anonymous South Korean man of twenty-six: a narrow lean face with a weak jawline and slightly hollow cheeks, small deep-set narrow eyes with a flat tired gaze, thin straight eyebrows, a small straight nose with a rounded tip, thin closed lips, short black hair neatly combed with a low side part, sallow skin with faint stubble along the jaw; he wears a plain dark grey work jacket over a faded collar shirt.",
+      "portrait": "cast/C1.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C1.png",
+      "seed": 19860915
+    },
+    {
+      "id": "C2",
+      "name": "年轻男子（尹成汝 · 一九八八年被错判者 · 虚构匿名角色）",
+      "role": "witness",
+      "age": 21,
+      "gender": "male",
+      "face": "an anonymous South Korean man of twenty-one: a youthful round face with soft full cheeks, wide frightened eyes, thick straight eyebrows, a short broad nose with a rounded tip, a small mouth with a weak lower lip, thick black hair with a heavy fringe over the forehead, light skin with faint acne along the jawline; he wears a faded blue worker's jacket over a white t-shirt.",
+      "portrait": "cast/C2.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C2.png",
+      "seed": 19880916
+    },
+    {
+      "id": "C3",
+      "name": "老刑警（华城案调查本部长 · 虚构匿名角色）",
+      "role": "police",
+      "age": 54,
+      "gender": "male",
+      "face": "an anonymous South Korean man of fifty-four: a broad weathered square face with deep nasolabial folds, heavy pouched under-eye bags, small deep-set watchful eyes, thick greying eyebrows, a broad flat nose with flared nostrils, a firm straight mouth, short iron-grey hair cropped high above the ears, sun-darkened rough skin; he wears a rumpled beige trench coat over a dark suit.",
+      "portrait": "cast/C3.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C3.png",
+      "seed": 19861212
+    },
+    {
+      "id": "C4",
+      "name": "重查组警官（二〇一九年独立调查组 · 虚构匿名角色）",
+      "role": "police",
+      "age": 48,
+      "gender": "male",
+      "face": "an anonymous South Korean man of forty-eight: a lean angular face with a strong square jaw, calm narrow eyes under a heavy brow, a straight nose with a high bridge, a thin unsmiling mouth, short black hair salted with grey and combed back from the temples, weathered olive skin; he wears a dark navy police uniform jacket with no insignia over a white shirt.",
+      "portrait": "cast/C4.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C4.png",
+      "seed": 20190919
+    },
+    {
+      "id": "C5",
+      "name": "女法医（DNA 检测 · 虚构匿名角色）",
+      "role": "other",
+      "age": 34,
+      "gender": "female",
+      "face": "an anonymous South Korean woman of thirty-four: an oval face with a high forehead, calm focused almond eyes behind thin rectangular glasses, neatly trimmed arched eyebrows, a straight medium nose, a small closed mouth, black hair pulled back into a tight low bun, pale even skin; she wears a white laboratory coat over a light blue blouse.",
+      "portrait": "cast/C5.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/6f5577f1-desktop-tutorial/production/hwaseong1986/cast/C5.png",
+      "seed": 20190801
+    }
+  ],
+  "shots": {
+    "S06": ["C2"],
+    "S12": ["C1"],
+    "S16": ["C3"],
+    "S17": ["C2"],
+    "S22": ["C2"],
+    "S24": ["C1"],
+    "S27": ["C4"],
+    "S29": ["C4"],
+    "S40": ["C5"]
+  }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>长文粘贴区</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: #f5f6f8;
+    display: flex; flex-direction: column;
+    padding: 16px; gap: 12px;
+  }
+  header { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+  h1 { font-size: 18px; margin: 0; }
+  .stats { color: #666; font-size: 13px; }
+  .spacer { flex: 1; }
+  button {
+    font-size: 15px; padding: 10px 22px; border: none; border-radius: 8px;
+    background: #2563eb; color: #fff; cursor: pointer;
+  }
+  button:hover { background: #1d4ed8; }
+  button:disabled { background: #93c5fd; cursor: wait; }
+  textarea {
+    flex: 1; width: 100%; resize: none; padding: 16px;
+    font-size: 15px; line-height: 1.7; font-family: "SF Mono", Consolas, "Courier New", monospace;
+    border: 1px solid #d1d5db; border-radius: 10px; background: #fff; color: #111;
+  }
+  textarea:focus { outline: 2px solid #2563eb; outline-offset: -1px; }
+  #status { font-size: 14px; min-height: 20px; }
+  #status.ok { color: #15803d; }
+  #status.err { color: #b91c1c; }
+  .hint { font-size: 12px; color: #888; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📋 长文粘贴区</h1>
+  <span class="stats" id="stats">0 字符 · 0 字（不含空格）· 0 行</span>
+  <span class="spacer"></span>
+  <span class="hint">Ctrl/Cmd + Enter 快速保存</span>
+  <button id="saveBtn">保存（交给 AI 读取）</button>
+</header>
+<textarea id="ta" placeholder="把长文粘贴到这里……&#10;&#10;粘贴完成后点击右上角「保存」，内容会写入仓库的 paste-area/pasted.txt，AI 随后即可读取。"></textarea>
+<div id="status"></div>
+
+<script>
+const ta = document.getElementById('ta');
+const stats = document.getElementById('stats');
+const btn = document.getElementById('saveBtn');
+const status = document.getElementById('status');
+
+function updateStats() {
+  const text = ta.value;
+  const chars = [...text].length;
+  const words = (text.replace(/\s/g, '')).length;
+  const lines = text ? text.split(/\r\n|\r|\n/).length : 0;
+  stats.textContent = `${chars} 字符 · ${words} 字（不含空格）· ${lines} 行`;
+}
+ta.addEventListener('input', updateStats);
+updateStats();
+
+async function save() {
+  const text = ta.value;
+  if (!text.trim()) {
+    status.className = 'err';
+    status.textContent = '还没有内容，先粘贴一些文字吧。';
+    return;
+  }
+  btn.disabled = true;
+  status.className = '';
+  status.textContent = '保存中……';
+  try {
+    const res = await fetch('/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      status.className = 'ok';
+      status.textContent = `✅ 已保存 ${data.chars} 个字符到 ${data.file}，AI 现在可以读取了。`;
+    } else {
+      throw new Error(data.error || '保存失败');
+    }
+  } catch (e) {
+    status.className = 'err';
+    status.textContent = '❌ ' + e.message;
+  } finally {
+    btn.disabled = false;
+  }
+}
+btn.addEventListener('click', save);
+ta.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') save();
+});
+</script>
+</body>
+</html>
