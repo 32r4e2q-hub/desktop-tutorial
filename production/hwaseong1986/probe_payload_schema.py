@@ -33,23 +33,36 @@ import agnes_video as agnes  # noqa: E402
 import generate  # noqa: E402
 
 RECEIPT = HERE / "delivery" / "payload-schema-probe.json"
-GAP_SECONDS = 8.0
+# 免费额度约 1 次/分钟：第一轮探针用 8 秒间隔连发，第三发就撞上
+# 「You've reached the API rate limit for free users」，后面 6 个候选全被 429 挡住、
+# 一个答案都没问到。间隔必须按分钟算。
+GAP_SECONDS = float(os.environ.get("AGNES_PROBE_GAP", "80"))
 
 
 def candidates(base: dict) -> dict:
-    """按「最可能是对的」排序；键名就是要写回 generate.py 的形状名。"""
-    no_wh = {k: v for k, v in base.items() if k not in ("width", "height")}
+    """按「最可能是对的」排序；键名就是要写回 generate.py 的形状名。
+
+    第一轮探针已经问出三件事（收据 delivery/payload-schema-probe.json）：
+      * `size` 收 —— 那一发的报错跳到了 num_frames，说明 size 本身没被拒；
+      * `aspect_ratio` 收、`resolution` 不收（"resolution is not an allowed request field"）；
+      * `num_frames` 不收 —— 时长要换字段表达（duration / seconds 二选一，这一轮问出来）。
+    所以本轮候选都带 `size`，只在「时长字段叫什么」上做变化；最后留一个已知会 400 的对照组，
+    用来确认报错路径没变、也确认 429 不是把一切都挡住了。
+    """
+    core = {k: v for k, v in base.items() if k not in ("width", "height", "num_frames", "frame_rate")}
+    size = f"{base['width']}x{base['height']}"
+    seconds = round(base["num_frames"] / base["frame_rate"], 3)
     return {
-        "size": {**no_wh, "size": f"{base['width']}x{base['height']}"},
-        "aspect_ratio_resolution": {**no_wh, "aspect_ratio": "16:9", "resolution": "1080p"},
-        "resolution_only": {**no_wh, "resolution": "1080p"},
-        "aspect_ratio_only": {**no_wh, "aspect_ratio": "16:9"},
-        "no_size_fields": no_wh,
-        "frames_as_duration": {**{k: v for k, v in no_wh.items()
-                                  if k not in ("num_frames", "frame_rate")},
-                               "duration": round(no_wh["num_frames"] / no_wh["frame_rate"], 3)},
-        "minimal": {k: base[k] for k in ("model", "prompt") if k in base},
-        "legacy_width_height": base,   # 对照组：已知会 400，用来确认报错路径没变
+        "size_frame_rate_duration": {**core, "size": size, "frame_rate": base["frame_rate"],
+                                     "duration": seconds},
+        "size_duration": {**core, "size": size, "duration": seconds},
+        "size_frame_rate_seconds": {**core, "size": size, "frame_rate": base["frame_rate"],
+                                    "seconds": seconds},
+        "size_seconds": {**core, "size": size, "seconds": seconds},
+        "size_aspect_ratio_duration": {**core, "size": size, "aspect_ratio": "16:9",
+                                       "duration": seconds},
+        "size_frame_rate_num_frames": {**core, "size": size, "frame_rate": base["frame_rate"],
+                                       "num_frames": base["num_frames"]},
     }
 
 
@@ -79,12 +92,23 @@ def main() -> int:
         except Exception as exc:  # 网络层失败也要记下来，别把整轮探针弄丢
             code, response_body, text = None, None, f"{type(exc).__name__}: {exc}"
         entry = {"shape": name, "fields": fields, "http_status": code,
-                 "body_excerpt": " ".join(str(text or "").split())[:500]}
+                 "body_excerpt": " ".join(str(text or "").split())[:1500]}
         if isinstance(response_body, dict):
             entry["video_id"] = response_body.get("video_id") or response_body.get("id")
             entry["task_id"] = response_body.get("task_id")
+        if code == 429:
+            # 429 是限流，不是「这个形状不行」：等一个间隔原地重试一次，别把两者混为一谈。
+            print(f"PROBE_RATE_LIMITED {name}; waiting {GAP_SECONDS:g}s then retrying once", flush=True)
+            time.sleep(GAP_SECONDS)
+            entry["retried"] = True
+            try:
+                code, response_body, text = agnes.http_json(
+                    "POST", base_url + "/v1/videos", key, body, timeout=120)
+            except Exception as exc:
+                code, response_body, text = None, None, f"{type(exc).__name__}: {exc}"
+            entry.update(http_status=code, body_excerpt=" ".join(str(text or "").split())[:1500])
         receipt["attempts"].append(entry)
-        print(f"PROBE_SHAPE {name} -> HTTP {code}: {entry['body_excerpt'][:160]}", flush=True)
+        print(f"PROBE_SHAPE {name} -> HTTP {code}: {entry['body_excerpt'][:200]}", flush=True)
         if code is not None and 200 <= code < 300:
             receipt["winner"] = name
             print(f"PROBE_WINNER {name}", flush=True)
