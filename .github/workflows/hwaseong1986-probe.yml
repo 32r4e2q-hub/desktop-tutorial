@@ -1,0 +1,63 @@
+name: 李春才：华城连环杀人案 · 供应商通道探针
+run-name: 通道探针 · ${{ github.ref_name }}
+
+# 触发方式：写 production/hwaseong1986/PROBE_REQUEST（内容随便）并 push。
+# 用途：沙箱连不上 Agnes，只能让 Actions 代问「通道通没通」。两分钟内回答：
+#   1) GET /v1/models 的目录里还有没有 agnes-video-v2.0（没有 = 要改模型名）
+#   2) 用真实 S06 payload 做一次创建请求（503 = 容量故障，继续等）
+# 结果写进 production/hwaseong1986/probe.log 并 commit 回分支。
+# 这是纯诊断：不碰 results.json / story.json，永不失败，也不生成任何正片素材。
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/6f5577f1-desktop-tutorial
+    paths:
+      - production/hwaseong1986/PROBE_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hwaseong1986-probe-arena-6f5577f1-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/6f5577f1-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 10
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/6f5577f1-desktop-tutorial
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 问供应商：模型目录 + 一次真实创建请求
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          set -uo pipefail
+          python3 -u production/hwaseong1986/probe_channel.py 2>&1 | tee production/hwaseong1986/probe.log
+          exit 0
+
+      - name: 把探针结果 commit 回分支（沙箱读不到 Actions 日志）
+        run: |
+          set -uo pipefail
+          git config user.name "arena-probe"
+          git config user.email "arena@local"
+          git add -f production/hwaseong1986/probe.log
+          git commit -m "hwaseong1986: 供应商通道探针 $(date -u +%FT%TZ)" || exit 0
+          pushed=0
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${{ github.ref_name }}"; then pushed=1; break; fi
+            git fetch origin ${{ github.ref_name }} && git rebase FETCH_HEAD || true
+          done
+          [ "$pushed" = "1" ] || echo "::warning::探针结果推不回分支，看本次运行的 artifact"
