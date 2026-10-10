@@ -1,0 +1,143 @@
+{
+  "film_sha256": "0b0ee6417a70d319613578c7cecbf6de6207834b72e894ca4132d964f0d8fd31",
+  "source_audit": "production/jeong2000/delivery/frame-distortion-audit.json",
+  "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
+  "max_width": 960,
+  "frames": [
+    {
+      "frame": 2,
+      "seconds": 0.067,
+      "reasons": [
+        "temporal-S01-start"
+      ],
+      "file": "f00002_temporal-S01-start.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5,
+      "seconds": 0.167,
+      "reasons": [
+        "temporal-S01-middle"
+      ],
+      "file": "f00005_temporal-S01-middle.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 8,
+      "seconds": 0.267,
+      "reasons": [
+        "temporal-S01-end"
+      ],
+      "file": "f00008_temporal-S01-end.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 1363,
+      "seconds": 45.433,
+      "reasons": [
+        "hand-geometry-S13"
+      ],
+      "file": "f01363_hand-geometry-S13.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 2178,
+      "seconds": 72.6,
+      "reasons": [
+        "temporal-S19-end",
+        "temporal-S19-middle",
+        "temporal-S19-start"
+      ],
+      "file": "f02178_temporal-S19-end.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 2182,
+      "seconds": 72.733,
+      "reasons": [
+        "temporal-S19-end",
+        "temporal-S19-middle",
+        "temporal-S19-start"
+      ],
+      "file": "f02182_temporal-S19-end.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 2403,
+      "seconds": 80.1,
+      "reasons": [
+        "hand-geometry-S22"
+      ],
+      "file": "f02403_hand-geometry-S22.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 3797,
+      "seconds": 126.567,
+      "reasons": [
+        "hand-geometry-S33"
+      ],
+      "file": "f03797_hand-geometry-S33.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5282,
+      "seconds": 176.067,
+      "reasons": [
+        "temporal-S45-middle",
+        "temporal-S45-start"
+      ],
+      "file": "f05282_temporal-S45-middle.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5283,
+      "seconds": 176.1,
+      "reasons": [
+        "temporal-S45-end"
+      ],
+      "file": "f05283_temporal-S45-end.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5288,
+      "seconds": 176.267,
+      "reasons": [
+        "temporal-END-start"
+      ],
+      "file": "f05288_temporal-END-start.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5290,
+      "seconds": 176.333,
+      "reasons": [
+        "temporal-END-middle"
+      ],
+      "file": "f05290_temporal-END-middle.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 5292,
+      "seconds": 176.4,
+      "reasons": [
+        "temporal-END-end"
+      ],
+      "file": "f05292_temporal-END-end.jpg",
+      "width": 960,
+      "height": 540
+    }
+  ]
+}
