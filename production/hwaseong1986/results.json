@@ -4,10 +4,12 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "waiting_create_slot",
+      "status": "provider_unavailable",
       "request_hash": "772360cef19f699f2cfb218c8b778dc1f1408ae7d58afa1c50d50eab95e1f9c9",
-      "error": null,
-      "updated_at": "2026-10-10T08:49:13Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261010084914814274385jCqlzN6m)",
+      "updated_at": "2026-10-10T08:49:16Z",
+      "quota_retry": 1,
+      "applied_cooldown_seconds": 120
     },
     "S03": {
       "id": "S03",
