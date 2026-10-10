@@ -88,7 +88,7 @@ _RAW = [
 ("S16","cogvideo","高位横摇","富裕住宅成为目标","接数字卡","Daytime aerial-style wide view of late-1990s Korean detached homes, no signage, no people, no vehicles, restrained overcast atmosphere; slow pan.","环境底噪"),
 ("S17","graphic","信息卡","十个月案件规模","接门厅空镜","案件规模","重音"),
 ("S18","cogvideo","缓慢前推","白天住宅门厅","接现金抽屉","A sunlit but empty upscale Korean home entrance in 1999, plain shoes and polished floor, all doors closed, no labels; slow cautious push.","钟表滴答"),
-("S19","cogvideo","俯拍推近","搜掠现金与贵重物品","接倒椅","Top-down view of one open jewellery box with a few generic unbranded objects and blank paper shapes already arranged in separate compartments, no people, no hands, no readable currency details; slow push.","金属轻响"),
+("S19","cogvideo","俯拍推近","搜掠现金与贵重物品","接倒椅","Top-down still life of one open wooden compartment box containing a few smooth stones and plain blank cards, all objects already arranged, no people, no hands, no writing; slow push.","金属轻响"),
 ("S20","cogvideo","缓慢横移","犯罪升级后的空现场","接幸存者陈述","An empty quiet dining room after police arrival, one chair tipped over, curtains still, no person, no blood, no weapon; slow lateral move.","音乐骤停"),
 ("S21","cogvideo","背后中景","幸存者提供描述","接画板","An anonymous survivor seen only from behind speaking to a seated detective in a neutral interview room, faces fully hidden, blank walls; slow dolly.","铅笔声"),
 ("S22","cogvideo","俯拍下移","通缉画像和线索","接多份卷宗","A completely blank sketch sheet, a plain shoe-outline card and three sealed evidence envelopes already arranged on an otherwise empty dark desk, no people, no hands, no readable marks; overhead descent.","纸张"),
