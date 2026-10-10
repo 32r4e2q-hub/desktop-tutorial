@@ -60,7 +60,8 @@ def main() -> int:
     parser.add_argument("--models", nargs="*", default=["agnes-video-2.5-flash"])
     parser.add_argument("--sizes", nargs="*", default=["720P"])
     parser.add_argument("--seconds", default="5")
-    opts = parser.parse_args(marker_args())
+    # parse_known_args：标记文件里写什么文字都不该让探针死掉（它是诊断工具）
+    opts, _unknown = parser.parse_known_args(marker_args())
 
     key = os.getenv("AGNES_API_KEY", "").strip()
     base = os.getenv("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).rstrip("/")

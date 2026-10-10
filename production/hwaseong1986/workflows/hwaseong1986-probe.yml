@@ -44,8 +44,9 @@ jobs:
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
         run: |
+          # 注意：GitHub 的 run: 默认带 set -e，探针失败也必须留下日志，所以这里显式容错
           set -uo pipefail
-          python3 -u production/hwaseong1986/probe_channel.py 2>&1 | tee production/hwaseong1986/probe.log
+          python3 -u production/hwaseong1986/probe_channel.py 2>&1 | tee production/hwaseong1986/probe.log || true
           exit 0
 
       - name: 把探针结果 commit 回分支（沙箱读不到 Actions 日志）
