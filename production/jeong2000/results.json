@@ -317,11 +317,27 @@
     },
     "S16": {
       "id": "S16",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "d550f9b5a3f6cab0ac23e3f216c577b75c900131d5e1e4f5dba9b9a8cb35a775",
       "error": null,
-      "updated_at": "2026-10-10T11:44:17Z",
-      "task_id": "202610101944168c1988a5665c4f92"
+      "updated_at": "2026-10-10T11:45:27Z",
+      "task_id": "202610101944168c1988a5665c4f92",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101019451042f19f8676654dbb_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=z6L%2F49B9cJX507myZkYRJ5DmjBM%3D&Expires=1791719113",
+      "sha256": "ea46dca23ff934f675133a83b085ac4b44dbe9b8fa1c33fc6a2b598309604624",
+      "bytes": 2162762,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 2162762,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/jeong2000/qa/S16.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v1",
@@ -366,6 +382,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-10T11:44:17Z",
+  "updated_at": "2026-10-10T11:45:27Z",
   "run_id": "38048362750"
 }
