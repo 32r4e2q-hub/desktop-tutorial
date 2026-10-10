@@ -53,7 +53,9 @@ CUTS = {
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
 WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
-TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
+# 智谱源片右下角带有平台标识；统一安全推近 1.12 倍裁掉四周，避免成片保留该标识。
+DEFAULT_COGVIDEO_CROP = (1.12, 0.5, 0.5)
+TIGHTER_CROPS = {}  # 单镜特殊覆盖：'S02': (1.2, 0.5, 0.45)
 
 
 def run(args, capture=False):
@@ -309,12 +311,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         for key in presentation.get('caption_keywords') or []:
             if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
         text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
-    for entry in edl:
-        if entry['id']=='END':continue
-        label={'cogvideo':'AI动画情景重现 · 非新闻影像','archive':'档案照片',
-               'graphic':'资料摘要与示意图 · 非原始档案'}[entry['kind']]
-        label=(presentation.get('label_overrides') or {}).get(entry['id'],label)
-        text+=f"Dialogue: 0,{ass_time(entry['start_frame']/FPS)},{ass_time(entry['end_frame']/FPS)},Label,,0,0,0,,{label}\n"
+    # 返修要求：画面不再叠加右上角/右下角的 AI 生成或情景重现标签。
     title_lines=[safe_text(x) for x in (presentation.get('title_card') or []) if x]
     if title_lines:
         first=title_lines[0];rest=('\\N{\\fs41\\fsp6}'+title_lines[1]) if len(title_lines)>1 else ''
@@ -376,9 +373,10 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
         if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         tighter=''
-        if sid in TIGHTER_CROPS:
-            # 轻微推近，裁掉画面边缘的问题区域（比例 1.15–1.3），中心点按 (cx,cy) 比例给
-            zoom,cx,cy=TIGHTER_CROPS[sid]
+        crop_spec=TIGHTER_CROPS.get(sid, DEFAULT_COGVIDEO_CROP)
+        if crop_spec:
+            # 统一安全推近裁掉平台角标；单镜可按 (zoom,cx,cy) 覆盖。
+            zoom,cx,cy=crop_spec
             cw=math.floor(info['width']/zoom/2)*2;ch=math.floor(info['height']/zoom/2)*2
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
