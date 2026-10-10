@@ -310,10 +310,17 @@ def main():
         acount=sum(s['kind']=='archive' for s in project['shots'])
         print(f'VALID: 180-second plan; {len(project["shots"])} shots; {count} Agnes sources; {gcount} graphics; {acount} archival; narration hashes match');return 0
     options=json.loads(args.payload or '{}')
-    global MODEL
+    global MODEL,SIZE_TIER
     if str(options.get('model') or '').strip():
         MODEL=str(options['model']).strip()
         print('MODEL_OVERRIDE '+MODEL,flush=True)
+    # 2026-10-10 实测：agnes-video-2.5-flash 只收 720P（「size must be one of 720P」），
+    # 主档 agnes-video-2.5 才认 1080P。换档时分辨率要跟着走，所以也做成可覆盖。
+    if str(options.get('size') or '').strip():
+        SIZE_TIER=str(options['size']).strip()
+        if SIZE_TIER not in SUPPORTED_SIZES:
+            raise ValueError('size 只能是 %s 之一'%(SUPPORTED_SIZES,))
+        print('SIZE_OVERRIDE '+SIZE_TIER,flush=True)
     requested=options.get('only','')
     if not isinstance(requested,str):raise ValueError('only must be comma-separated IDs')
     only={s.strip() for s in requested.split(',') if s.strip()}
