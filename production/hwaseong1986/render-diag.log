@@ -80,10 +80,29 @@ FETCH S45 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610111919008fdf
   OK S45 1502963 bytes / 5.11s
 FETCH_COMPLETE {"downloaded": 38, "reused": 0, "clips": 38}
 === 3/5 剪辑 + 混音 + 成品复测（闸门二、三）===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[0;93m2026-10-11 11:49:57.642018028 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+ASR_TIMING_READY N01
+ASR_TIMING_READY N02
+ASR_TIMING_READY N03
+ASR_TIMING_READY N04
+ASR_TIMING_READY N05
+ASR_TIMING_READY N06
+RENDER_SEGMENT 1/46 S01
+RENDER_SEGMENT 2/46 S02
+RENDER_SEGMENT 3/46 S03
+RENDER_SEGMENT 4/46 S04
+RENDER_SEGMENT 5/46 S05
+RENDER_SEGMENT 6/46 S06
+RENDER_SEGMENT 7/46 S07
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/render.py", line 529, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/render.py", line 534, in <module>
     if __name__=='__main__':main()
                             ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/render.py", line 449, in main
-    raise RuntimeError(f'Missing or unverified Agnes footage: {sid}; refusing to substitute an image/slideshow')
-RuntimeError: Missing or unverified Agnes footage: S01; refusing to substitute an image/slideshow
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/render.py", line 476, in main
+    outputs.append(render_segment(entry,i,args.sources,work/'graphics',segments,args.width,args.height,checks,presentation,last_shot))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/hwaseong1986/render.py", line 386, in render_segment
+    if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: S08/: requires excessive slow motion (1.57)
