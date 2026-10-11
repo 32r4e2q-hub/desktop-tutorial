@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Probe v2.0 and v2.5 with the same minimal request
+      - name: Probe v2.0 Flash and 2.5 Flash
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
         run: |
@@ -36,7 +36,7 @@ jobs:
           if [ -z "${AGNES_API_KEY:-}" ]; then
             printf 'AGNES_API_KEY is unavailable to this workflow\n' | tee work/agnes-model-probe/secret-error.log
           else
-            for model in agnes-video-v2.0; do
+            for model in agnes-video-v2.0-flash; do
               echo "=== $model ==="
               set +e
               timeout 900 python3 production/agnes_video.py \
@@ -57,16 +57,16 @@ jobs:
               tail -80 "work/agnes-model-probe/${model}.log"
             done
 
-            # 2.5 的供应商规范使用不带 v 的正式模型名和另一套参数形状。
-            model=agnes-video-2.5
-            echo "=== $model (canonical payload) ==="
+            # 2.5 Flash 沿用 2.5 的正式参数形状，仅支持 720P，当前供应商标价为免费。
+            model=agnes-video-2.5-flash
+            echo "=== $model (Flash payload) ==="
             set +e
           timeout 900 python3 - <<'PY' >"work/agnes-model-probe/${model}.log" 2>&1
           import os, sys
           from pathlib import Path
           sys.path.insert(0, 'production')
           import agnes_video as agnes
-          model='agnes-video-2.5'
+          model='agnes-video-2.5-flash'
           payload={
               'model':model,
               'prompt':'A locked-off cinematic shot of an empty quiet room, soft daylight, no people, no text, subtle curtain movement.',
@@ -83,7 +83,7 @@ jobs:
           if not video_id:
               raise agnes.Fatal(f'create response has no video id: {created}')
           final,url=agnes.poll_task(base,key,model,str(video_id),str(task_id) if task_id else None,5,780,24)
-          dest=Path('work/agnes-model-probe/agnes-video-2.5.mp4')
+          dest=Path('work/agnes-model-probe/agnes-video-2.5-flash.mp4')
           size=agnes.download(url,dest,retries=4,retry_delay=5)
           agnes.write_sidecar(dest,payload,created,final,url,size)
           print(dest)
@@ -106,7 +106,7 @@ jobs:
           from pathlib import Path
           root=Path('work/agnes-model-probe')
           rows=[]
-          for model in ('agnes-video-v2.0','agnes-video-2.5'):
+          for model in ('agnes-video-v2.0-flash','agnes-video-2.5-flash'):
               code=root/f'{model}.exit-code'; video=root/f'{model}.mp4'; side=root/f'{model}.json'; log=root/f'{model}.log'
               rc=int(code.read_text().strip()) if code.exists() else None
               rows.append({
