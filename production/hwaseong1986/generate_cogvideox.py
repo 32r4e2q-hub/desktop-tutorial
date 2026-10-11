@@ -51,6 +51,16 @@ ensure_tools, inspect_clip = _media.ensure_tools, _media.inspect_clip
 
 GRID_SECONDS = 6  # CogVideoX-Flash 免费档单条时长（实测收据为准，render 会按需裁切）
 
+# 定妆照探测（2026-10-11 用户要求露脸镜头钉住定妆照）：免费档 cogvideox-flash 此前
+# 只实测过纯文生视频三字段 payload（jeong2000 流水线）；SDK 里有 image_url 参数，
+# 但服务端收不收只有真实请求能证明。开轮前用第一个带定妆照的镜头发一发带
+# image_url 的探测请求：收下 → 带 reference_image 的镜头（S06/S12/S16/S27/S40）
+# 用定妆照做图生视频输入，同 Agnes keyframe 首帧的设计意图（把这张脸钉在观众
+# 第一眼）；拒绝 → 整轮退回纯文生视频（露脸镜头的 prompt 已内嵌各角色面容
+# 描述，跨镜一致靠 face token）。探测结果落 delivery/ref-image-probe.json。
+REF_IMAGE_OK = None  # None=未探测（默认纯文生）；True=收下定妆照；False=拒绝
+PROBE_TASKS = {}     # sid -> 探测已提交的 task_id；主循环直接复用，不浪费免费额度
+
 
 def read_json(path, default):
     return json.loads(path.read_text(encoding='utf-8')) if path.exists() else default
@@ -65,11 +75,50 @@ def digest(path):
 
 
 def full_payload(project, shot):
-    """CogVideoX-Flash 只收 model/prompt/quality；prompt 里必须带本片红线。"""
+    """CogVideoX-Flash 收 model/prompt/quality（+探测通过后带定妆照镜头加 image_url）。"""
     prompt = (project['style_prefix'] + shot['prompt'] + ' ' + PROMPT_GUARDRAILS).strip()
     if len(prompt) > 2600:
         prompt = prompt[:2600]
-    return {'model': MODEL, 'prompt': prompt, 'quality': 'speed'}
+    payload = {'model': MODEL, 'prompt': prompt, 'quality': 'speed'}
+    if REF_IMAGE_OK and shot.get('reference_image'):
+        payload['image_url'] = shot['reference_image']
+    return payload
+
+
+def probe_ref_image(client, project, record_path=None):
+    """用第一个定妆照镜头探测 flash 收不收 image_url；收下则记下 task id 供主循环复用。
+
+    必须在主循环算 request_hash 之前跑：REF_IMAGE_OK 决定带定妆照镜头的 payload
+    形状（进而决定请求哈希），先探测后哈希，整轮内哈希才稳定。
+    """
+    global REF_IMAGE_OK
+    shot = next((s for s in project.get('shots', []) if s.get('reference_image')), None)
+    record_path = Path(record_path) if record_path else HERE / 'delivery/ref-image-probe.json'
+    if shot is None:
+        REF_IMAGE_OK = False
+        record = {'supported': False, 'reason': 'no reference_image shot in story'}
+    else:
+        payload = full_payload(project, shot)  # 此刻 REF_IMAGE_OK 是 None → 纯三字段
+        payload['image_url'] = shot['reference_image']
+        record = {'shot': shot['id'], 'image_url': payload['image_url'],
+                  'payload_keys': sorted(payload)}
+        try:
+            response = client.videos.generations(**payload)
+            task_id = obj_get(response, 'id')
+            if not task_id:
+                raise RuntimeError('No task id: %r' % (response,))
+            REF_IMAGE_OK = True
+            PROBE_TASKS[shot['id']] = str(task_id)
+            record.update(supported=True, task_id=str(task_id))
+        except Exception as exc:
+            REF_IMAGE_OK = False
+            record.update(supported=False, error=str(exc)[:400])
+    print('REF_IMAGE_PROBE supported=%s shot=%s' % (REF_IMAGE_OK, record.get('shot')),
+          flush=True)
+    record_path.parent.mkdir(parents=True, exist_ok=True)
+    record_path.write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n',
+                           encoding='utf-8')
+    return record
 
 
 def request_hash(project, shot):
@@ -180,7 +229,7 @@ def main():
         doc['backup_agnes_shots'] = doc['shots']
         doc['shots'] = {}
         checkpoint(doc, 'Agnes 结果移入 backup_agnes_shots 备用', publish=args.publish)
-    doc.update(model=MODEL, provider='Zhipu AI', workflow_policy='cogvideox-flash-receipt-v1')
+    doc.update(model=MODEL, provider='Zhipu AI', workflow_policy='cogvideox-flash-receipt-v2-refprobe')
     if args.prune_failed:
         stale = [sid for sid, row in doc.get('shots', {}).items()
                  if row.get('status') == 'failed' and not row.get('video_url')]
@@ -206,6 +255,8 @@ def main():
         raise RuntimeError('ZHIPUAI_API_KEY is unavailable to this workflow')
     from zhipuai import ZhipuAI
     client = ZhipuAI(api_key=key)
+    # 先探测定妆照支持性，再进主循环（request_hash 依赖 REF_IMAGE_OK）。
+    probe_ref_image(client, project)
     sources = ROOT / 'work/hwaseong1986/sources'
     qa = HERE / 'qa'
     sources.mkdir(parents=True, exist_ok=True)
@@ -231,10 +282,14 @@ def main():
         if time.monotonic() > deadline:
             raise RuntimeError('Generation deadline reached; rerun resumes from receipts')
         payload = full_payload(project, shot)
-        task_id = None
+        task_id = PROBE_TASKS.pop(sid, None) if payload.get('image_url') else None
+        if task_id:
+            print('%s: reusing ref-image probe submission %s' % (sid, task_id), flush=True)
         checkpoint(doc, sid + ' submitting', sid, publish=args.publish,
                    status='submitting', request_hash=wanted, error=None)
         for attempt in range(1, 21):
+            if task_id:
+                break
             try:
                 response = client.videos.generations(**payload)
                 task_id = obj_get(response, 'id')
