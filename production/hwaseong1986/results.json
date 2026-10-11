@@ -1,6 +1,6 @@
 {
   "project": "李春才：华城连环杀人案，DNA揭开了33年的秘密",
-  "model": "agnes-video-2.5-flash",
+  "model": "cogvideox-flash",
   "shots": {
     "S01": {
       "id": "S01",
@@ -19,6 +19,13 @@
       "updated_at": "2026-10-11T04:02:59Z",
       "task_id": "20261011120151cc2ead00efae427f",
       "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610111202503244a878ea3a4157_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=K6G6JbDffHeU9D2gZHwZ2pJMJYo%3D&Expires=1791777772"
+    },
+    "S04": {
+      "id": "S04",
+      "status": "submitting",
+      "request_hash": "0122a62fe79c0fa413f5a35ebeff9f2ee6ea73f47509cde40a0af5c1997ed72c",
+      "error": null,
+      "updated_at": "2026-10-11T04:03:05Z"
     }
   },
   "phase": "generating_sources",
@@ -79,7 +86,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-11T04:02:59Z",
+  "updated_at": "2026-10-11T04:03:05Z",
   "run_id": "38108699866",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -205,7 +212,7 @@
       "status": "waiting_create_slot",
       "request_hash": "1543f98c1cd08ec427b66a183e9f14931a2313362becfd65a83ee05cd045a51e",
       "error": null,
-      "updated_at": "2026-10-11T04:02:25Z",
+      "updated_at": "2026-10-11T03:56:18Z",
       "channel_error_round": 1,
       "applied_cooldown_seconds": 90.0
     },
@@ -214,82 +221,10 @@
       "status": "waiting_create_slot",
       "request_hash": "9c650d71d60a3f3c75df7ed77be6a23429e076612c2ce3c558981845822b8a3a",
       "error": null,
-      "updated_at": "2026-10-11T04:02:16Z",
+      "updated_at": "2026-10-11T03:56:15Z",
       "channel_error_round": 2,
       "applied_cooldown_seconds": 90.0
     }
   },
-  "phase": "generating_sources",
-  "review": {
-    "status": "pending",
-    "scope": "visual/audio quality",
-    "blocking_generation": false,
-    "note": "No automatic visual approval. Export is an unreviewed first cut."
-  },
-  "workflow_policy": "cloud-first-cut-v4-channel-aware",
-  "rate_policy": {
-    "minimum_creation_interval_seconds": 75,
-    "poll_interval_seconds": 25,
-    "shared_retry_after_cooldown": true,
-    "key_rotation": false,
-    "channel_cooldown_seconds": 300,
-    "channel_error_limit": 2,
-    "wait_channel_minutes": 140.0,
-    "total_budget_minutes": 310.0
-  },
-  "required_generated_shots": [
-    "S01",
-    "S03",
-    "S04",
-    "S05",
-    "S06",
-    "S07",
-    "S08",
-    "S09",
-    "S10",
-    "S12",
-    "S13",
-    "S14",
-    "S15",
-    "S16",
-    "S17",
-    "S18",
-    "S20",
-    "S21",
-    "S22",
-    "S23",
-    "S24",
-    "S25",
-    "S27",
-    "S28",
-    "S29",
-    "S30",
-    "S31",
-    "S32",
-    "S34",
-    "S35",
-    "S36",
-    "S37",
-    "S38",
-    "S40",
-    "S42",
-    "S43",
-    "S44",
-    "S45"
-  ],
-  "updated_at": "2026-10-11T04:02:25Z",
-  "run_id": "38108699866",
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "base": "https://apihub.agnes-ai.com",
-    "first_seen": "2026-10-11T03:35:10Z",
-    "last_seen": "2026-10-11T04:02:17Z",
-    "create_attempts": 19,
-    "consecutive_rounds": 1,
-    "cooldown_seconds": 90.0,
-    "channel_error_limit": 2,
-    "wait_channel_minutes": 140.0,
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261011040216919825991FnNvrGV9)",
-    "reason": "供应商视频排队已满"
-  }
+  "provider": "Zhipu AI"
 }
