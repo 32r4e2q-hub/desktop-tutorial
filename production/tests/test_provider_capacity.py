@@ -362,5 +362,37 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
         self.assertNotIn("pipeline_error", doc)
 
 
+    def test_push_failure_during_generation_must_not_mask_capacity(self):
+        """第 4 轮日志实证（2026-10-11）：探针 workflow 途中 push 一个 commit 后，
+        本 runner 的 push 全被拒，checkpoint 抛出的 CalledProcessError 把
+        ProviderCapacity 掩盖成 rc=1，接力步骤按契约不接力 → 静默断档。
+        回归：记账全坏时，容量满仍必须以 42 收工、phase 仍落 provider_capacity。"""
+        import subprocess as _sp
+        _sp.run(["git", "init", "-q"], cwd=self.tmp, check=True)
+        _sp.run(["git", "symbolic-ref", "HEAD",
+                 "refs/heads/" + generate.BRANCH], cwd=self.tmp, check=True)
+        _sp.run(["git", "config", "user.name", "t"], cwd=self.tmp, check=True)
+        _sp.run(["git", "config", "user.email", "t@t"], cwd=self.tmp, check=True)
+
+        def broken_push(*a, **k):
+            raise _sp.CalledProcessError(1, ["git", "push"])
+
+        def queue_full(base_url, api_key, payload, retries, retry_delay):
+            raise agnes_video.Fatal(
+                "Could not create video task after 1 attempts; last problem: HTTP 503: "
+                "video queue is full, please retry later (request id: x)")
+
+        argv = ["generate.py", "--publish", "--payload", json.dumps(
+            {"workers": 1, "channel_error_limit": 2, "wait_channel_minutes": 0})]
+        with mock.patch.object(sys, "argv", argv), \
+             mock.patch.dict(os.environ, {"GITHUB_ACTIONS": "true"}), \
+             mock.patch.object(generate, "push_provenance", broken_push), \
+             mock.patch.object(generate.agnes, "create_task", queue_full):
+            self.assertEqual(generate.main(), 42,
+                             "push 全坏也不能掩盖容量满的退出码 42")
+        doc = json.loads(self.results.read_text(encoding="utf-8"))
+        self.assertEqual(doc["phase"], "provider_capacity")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

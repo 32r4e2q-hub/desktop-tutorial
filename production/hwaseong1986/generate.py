@@ -308,6 +308,39 @@ def git(*args):
     return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
 
 
+def push_provenance():
+    """把 checkpoint 推回分支；**永远不抛异常**。
+
+    两段血泪史：
+    - 2026-10-10：GitHub 瞬时 5xx 让一次 push 失败杀死整轮（run 38024372451）；
+    - 2026-10-11 第 4 轮日志实证：探针 workflow 途中 push 了一个 commit 后，本 runner
+      的 push 全被拒、rebase 也失败，checkpoint 抛出的 CalledProcessError 把真正的
+      ProviderCapacity 掩盖成「真 bug」→ 退出码 1 → 接力步骤按契约不接力 → 静默断档。
+    所以：推送被拒就 fetch+rebase，rebase 失败 abort 后 merge -X ours；
+    全失败就老实记下、继续生成——记账是尽力而为，生成才是本体。
+    """
+    for attempt in range(4):
+        try:
+            git('push','origin',BRANCH);return
+        except subprocess.CalledProcessError:
+            time.sleep(5*(attempt+1))
+            try:
+                git('fetch','origin',BRANCH)
+                git('rebase','FETCH_HEAD')
+            except subprocess.CalledProcessError:
+                subprocess.run(['git','rebase','--abort'],cwd=ROOT,
+                               stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                try:
+                    git('-c','user.name=arena-agent','-c','user.email=arena@local',
+                        'merge','-X','ours','--no-edit','FETCH_HEAD')
+                except subprocess.CalledProcessError:
+                    pass
+            print('PROVENANCE_PUSH_RETRY attempt=%d'%(attempt+1),flush=True)
+    print('PROVENANCE_PUSH_GIVEUP: 检查点留在本地，继续生成，收尾步骤会再推',flush=True)
+
+    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
+
+
 def cached_result_matches(old,wanted_hash):
     return (old.get('request_hash')==wanted_hash and bool(old.get('video_url'))
             and bool(old.get('sha256')) and bool(old.get('bytes')))
@@ -413,36 +446,16 @@ def main():
             RESULTS.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
             paths=[str(RESULTS.relative_to(ROOT))]+[str(Path(p).relative_to(ROOT)) for p in files]
             if args.publish:
-                git('add','--',*paths)
-                if subprocess.run(['git','diff','--cached','--quiet','--',*paths],cwd=ROOT).returncode:
-                    git('commit','-m','hwaseong1986: '+label,'--',*paths)
-                    push_provenance()
-            print('PRODUCTION_STATUS '+label,flush=True)
-
-    def push_provenance():
-        """把 checkpoint 推回分支。
-
-        实测 2026-10-10：GitHub 瞬时 5xx（api.github.com 连续 502）会让一次
-        ``git push`` 失败，原来的重试路径只 ``git pull --rebase`` 一次就 raise，
-        于是整轮生成被一次网络抖动杀死（run 38024372451，90 秒内 4 个镜头全灭）。
-        这里改成：先退避重试推送，推送被拒才 fetch+rebase；rebase 失败就 abort 再试，
-        最多 6 次仍失败才让生成诚实地停（素材已在 artifact 里，可断点续跑）。
-        """
-        for attempt in range(6):
-            try:
-                git('push','origin',BRANCH);return
-            except subprocess.CalledProcessError:
-                if attempt==5:raise
-                time.sleep(5*(attempt+1))
+                # 记账（add/commit/push）任何失败都只记日志、不抛——
+                # 第 4 轮日志实证：这里一抛，真因 ProviderCapacity 就被掩盖成 rc=1，接力停摆。
                 try:
-                    git('fetch','origin',BRANCH)
-                    git('rebase','FETCH_HEAD')
-                except subprocess.CalledProcessError:
-                    subprocess.run(['git','rebase','--abort'],cwd=ROOT,
-                                   stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-                    try:git('fetch','origin',BRANCH)
-                    except subprocess.CalledProcessError:pass
-                print('PROVENANCE_PUSH_RETRY attempt=%d'%(attempt+1),flush=True)
+                    git('add','--',*paths)
+                    if subprocess.run(['git','diff','--cached','--quiet','--',*paths],cwd=ROOT).returncode:
+                        git('commit','-m','hwaseong1986: '+label,'--',*paths)
+                        push_provenance()
+                except Exception as exc:
+                    print('CHECKPOINT_GIT_FAILED %s: %r'%(label,exc),flush=True)
+            print('PRODUCTION_STATUS '+label,flush=True)
 
     def probe_provider():
         """问网关「这个模型现在有没有通道」。
