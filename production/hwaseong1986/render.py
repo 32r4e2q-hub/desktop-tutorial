@@ -434,6 +434,10 @@ def main():
     if not presentation.get('cards') and any(s['kind']=='graphic' for s in project['shots']):
         raise RuntimeError('story.json 缺 presentation.cards：先在 build_story.py 里写 CARDS 再跑 build()')
     from generate import request_hash
+    # 2026-10-11：38 镜改走智谱后，完成收据有三种合法哈希——Agnes 旧收据 /
+    # 智谱纯文生 / 智谱带定妆照 image_url（5 个露脸镜实测走了图生视频）。
+    # 与 fetch_sources.py 共用同一组哈希函数（单一出处），防掉包严格性不变。
+    from fetch_sources import cogvideox_request_hashes
     # 素材是哪个模型生成的记在 results.json 里；只认白名单里的（本片默认 flash 免费档）。
     # 用 payload/env 覆盖过模型来出片时，记得在出片工作流里也设 AGNES_VIDEO_MODEL。
     if results.get('model') not in ALLOWED_MODELS:
@@ -444,9 +448,10 @@ def main():
     for shot in project['shots']:
         if shot['kind']!='agnes':continue
         sid=shot['id'];source=args.sources/(sid+'.mp4');receipt=results['shots'].get(sid,{})
-        if (receipt.get('status')!='completed' or receipt.get('request_hash')!=request_hash(project,shot)
+        wanted_hashes={request_hash(project,shot),*cogvideox_request_hashes(project,shot)}
+        if (receipt.get('status')!='completed' or receipt.get('request_hash') not in wanted_hashes
                 or not source.exists() or digest(source)!=receipt.get('sha256')):
-            raise RuntimeError(f'Missing or unverified Agnes footage: {sid}; refusing to substitute an image/slideshow')
+            raise RuntimeError(f'Missing or unverified generated footage: {sid}; refusing to substitute an image/slideshow')
         checks[sid]=probe(source)
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
     edl=make_edl(project,narration)
