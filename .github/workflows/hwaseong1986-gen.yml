@@ -34,7 +34,12 @@ concurrency:
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/3c6cd684-desktop-tutorial'
+    # 2026-10-11 总闸：用户拍板 38 镜全走智谱 CogVideoX-Flash 免费档
+    # （hwaseong1986-cogvideox-gen.yml）。Agnes 免费档持续超订，且其记账与智谱轮
+    # 争抢同一份 results.json，故停用本路线：job 整体跳过（含收尾接力步骤），
+    # 自动接力链就此终止。要恢复 Agnes 路线：把 if 改回
+    # github.ref == 'refs/heads/arena/3c6cd684-desktop-tutorial' 即可。
+    if: false
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
