@@ -1,16 +1,7 @@
 {
   "project": "李春才：华城连环杀人案，DNA揭开了33年的秘密",
-  "model": "cogvideox-flash",
+  "model": "agnes-video-2.5-flash",
   "shots": {
-    "S01": {
-      "id": "S01",
-      "status": "failed",
-      "request_hash": "fd30e76b928285ffb67248241caa5655da16d30eebc8f2e74e152e782574d43d",
-      "error": "S01: returned video is unsuitable: {'duration': 5.108108, 'bytes': 1355051, 'width': 1792, 'height': 1024, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
-      "updated_at": "2026-10-11T04:12:07Z",
-      "task_id": "2026101112110381e0e6acf9b0471a",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101112120030a2ced497174d9a_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=nMSzpA2yOjUJxzKme1FU0O8%2BPSU%3D&Expires=1791778322"
-    },
     "S03": {
       "id": "S03",
       "status": "failed",
@@ -28,7 +19,7 @@
     "blocking_generation": false,
     "note": "No automatic visual approval. Export is an unreviewed first cut."
   },
-  "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
+  "workflow_policy": "cloud-first-cut-v4-channel-aware",
   "rate_policy": {
     "minimum_creation_interval_seconds": 75,
     "poll_interval_seconds": 25,
@@ -85,42 +76,13 @@
     "model": "agnes-video-2.5-flash",
     "base": "https://apihub.agnes-ai.com",
     "first_seen": "2026-10-11T03:35:10Z",
-    "last_seen": "2026-10-11T04:03:47Z",
-    "create_attempts": 20,
+    "last_seen": "2026-10-11T04:12:49Z",
+    "create_attempts": 26,
     "consecutive_rounds": 2,
     "cooldown_seconds": 90.0,
     "channel_error_limit": 2,
     "wait_channel_minutes": 140.0,
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610110403471693617222YUknoRu)",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261011041249287707547l79ZEHVT)",
     "reason": "供应商视频排队已满"
-  },
-  "backup_agnes_shots": {
-    "S01": {
-      "id": "S01",
-      "status": "failed",
-      "request_hash": "fd30e76b928285ffb67248241caa5655da16d30eebc8f2e74e152e782574d43d",
-      "error": "S01: returned video is unsuitable: {'duration': 5.108108, 'bytes': 1419854, 'width': 1792, 'height': 1024, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
-      "updated_at": "2026-10-11T04:01:46Z",
-      "task_id": "20261011120041ab8bbe50150f490a",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101112014024876c0efe4f474a_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=AJsY%2BIiu8ERUBj27hoIrmqkXem8%3D&Expires=1791777702"
-    },
-    "S03": {
-      "id": "S03",
-      "status": "failed",
-      "request_hash": "d19eef02dce53f389540b53d4dac2b967e2c2539472685121179803998f1cb07",
-      "error": "S03: returned video is unsuitable: {'duration': 5.108108, 'bytes': 1055072, 'width': 1792, 'height': 1024, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
-      "updated_at": "2026-10-11T04:02:59Z",
-      "task_id": "20261011120151cc2ead00efae427f",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610111202503244a878ea3a4157_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=K6G6JbDffHeU9D2gZHwZ2pJMJYo%3D&Expires=1791777772"
-    },
-    "S04": {
-      "id": "S04",
-      "status": "queued",
-      "request_hash": "0122a62fe79c0fa413f5a35ebeff9f2ee6ea73f47509cde40a0af5c1997ed72c",
-      "error": null,
-      "updated_at": "2026-10-11T04:04:44Z",
-      "task_id": "202610111204443af4152452ef42f3"
-    }
-  },
-  "provider": "Zhipu AI"
+  }
 }
