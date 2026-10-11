@@ -36,7 +36,7 @@ jobs:
           if [ -z "${AGNES_API_KEY:-}" ]; then
             printf 'AGNES_API_KEY is unavailable to this workflow\n' | tee work/agnes-model-probe/secret-error.log
           else
-            for model in agnes-video-v2.0 agnes-video-v2.5; do
+            for model in agnes-video-v2.0; do
               echo "=== $model ==="
               set +e
               timeout 900 python3 production/agnes_video.py \
@@ -58,7 +58,6 @@ jobs:
             done
 
             # 2.5 的供应商规范使用不带 v 的正式模型名和另一套参数形状。
-            # 同时保留上面的 v2.5 别名探测，避免把“别名不可路由”误判为“2.5 不可用”。
             model=agnes-video-2.5
             echo "=== $model (canonical payload) ==="
             set +e
@@ -93,6 +92,10 @@ jobs:
             set -e
             printf '%s\n' "$rc" > "work/agnes-model-probe/${model}.exit-code"
             tail -80 "work/agnes-model-probe/${model}.log"
+            if [ "$rc" -ne 0 ]; then
+              message=$(tail -1 "work/agnes-model-probe/${model}.log" | tr '\n' ' ')
+              echo "::error title=${model} probe failed::${message}"
+            fi
           fi
 
       - name: Build machine-readable report
@@ -103,7 +106,7 @@ jobs:
           from pathlib import Path
           root=Path('work/agnes-model-probe')
           rows=[]
-          for model in ('agnes-video-v2.0','agnes-video-v2.5','agnes-video-2.5'):
+          for model in ('agnes-video-v2.0','agnes-video-2.5'):
               code=root/f'{model}.exit-code'; video=root/f'{model}.mp4'; side=root/f'{model}.json'; log=root/f'{model}.log'
               rc=int(code.read_text().strip()) if code.exists() else None
               rows.append({
