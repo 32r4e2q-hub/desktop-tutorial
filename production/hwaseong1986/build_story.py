@@ -191,11 +191,13 @@ SHOTS = [
      "仪器提示音 + 音乐短暂停顿"),
     ("S08", "agnes", "固定中景缓慢推进", "审讯：背对镜头的服刑人员",
      "接 N02：1986年的华城乡村",
-     "A plain modern interrogation room in 2019: a middle-aged man in a grey prison uniform sitting with his "
-     "back three-quarters to the camera on one side of a metal table, shoulders stiff, hands flat on the "
-     "tabletop, facing two investigators in dark jackets seen only from behind on the far side, one of them "
-     "sliding a thin file folder across the table; white walls, a ceiling camera, a glass of water, no signage, "
-     "no lettering. Fixed medium shot with a slow push in, " + HOLD,
+     "A plain modern interrogation room in 2019: a middle-aged East Asian Korean man with short black hair in "
+     "a grey prison uniform seen from behind at three-quarters, only the back of his head, his shoulder and "
+     "his stiff posture visible, hands flat on the tabletop; across the metal table two East Asian Korean "
+     "investigators in dark jackets seen strictly from behind, only their backs and shoulders visible, the "
+     "hand of one of them sliding a thin file folder across the table; no faces visible anywhere in frame; "
+     "white walls, a ceiling camera, a glass of water, no signage, no lettering. Fixed medium shot with a "
+     "slow push in, " + HOLD,
      "空调低鸣 + 时钟滴答"),
 
     # ---------------- N02（7 镜：6 agnes + 1 信息卡）----------------
