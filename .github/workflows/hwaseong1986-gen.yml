@@ -128,31 +128,42 @@ jobs:
         # 剩下的就是反复循环请求，直到 38 镜全部生成。
         # 平台限制单个 job 最长约 6 小时，所以「循环」实现为一串自动接力的 run。
         # 保护闸在 auto_resume.py：连续 3 轮一个镜头都没多 → 疑似供应商停摆，停下等人。
+        # 2026-10-11 再加：收尾无条件把诊断收据（rc/phase/决策/派发结果）commit 回分支——
+        # 沙箱读不到 Actions 日志，第 2、3 轮接力为什么没动只能靠这份收据查。
         if: always()
         run: |
           set -uo pipefail
           RC="$(cat "$RUNNER_TEMP/gen_rc" 2>/dev/null || true)"
-          python3 production/hwaseong1986/auto_resume.py --rc "${RC:-none}"
+          DIAG=production/hwaseong1986/delivery/resume-diag.log
+          {
+            echo "== resume diag $(date -u +%FT%TZ) run=$GITHUB_RUN_NUMBER"
+            echo "gen_rc=$RC"
+            echo "phase_on_disk=$(python3 -c 'import json;print(json.load(open("production/hwaseong1986/results.json")).get("phase"))' 2>/dev/null || echo unreadable)"
+            echo "gen_log_tail: $(tail -n 3 /tmp/gen.log 2>/dev/null | tr '\n' ' ')"
+          } > "$DIAG"
+          python3 production/hwaseong1986/auto_resume.py --rc "${RC:-none}" | tee -a "$DIAG"
           if [ -f "$RUNNER_TEMP/auto_resume" ]; then
-            git config user.name "arena-agent"
-            git config user.email "arena@local"
-            git add production/hwaseong1986/GEN_REQUEST
-            git commit -m "hwaseong1986: 排队没排到，自动再投一轮（断点续跑）"
-            for attempt in 1 2 3 4 5; do
-              if git push origin "HEAD:${{ github.ref_name }}"; then
-                echo "round 已记账到分支"
-                break
-              fi
-              echo "push 撞上了云端检查点，同步后重试 ($attempt)"
-              git fetch origin "${{ github.ref_name }}" && git rebase FETCH_HEAD || break
-              sleep 3
-            done
-            # GITHUB_TOKEN 的 git push 不触发新 run（平台防递归），必须显式自派发。
+            # 先派发再记账：就算 git 全死，接力也能继续（GITHUB_TOKEN push 不触发新 run）
             for attempt in 1 2 3; do
               if gh workflow run hwaseong1986-gen.yml --ref "${{ github.ref_name }}"; then
-                echo "已自派发新一轮：接着没做完的镜头跑"
+                echo "DISPATCH_OK attempt=$attempt" >> "$DIAG"
                 break
               fi
               sleep 5
             done
           fi
+          # 无论接不接力，诊断收据都 commit 回分支（这是沙箱唯一的眼睛）
+          git config user.name "arena-agent"
+          git config user.email "arena@local"
+          git add -f "$DIAG" production/hwaseong1986/GEN_REQUEST
+          if [ -f "$RUNNER_TEMP/auto_resume" ]; then NOTE="已派发接力"; else NOTE="未接力"; fi
+          git commit -m "hwaseong1986: 收尾诊断（$NOTE） $(date -u +%m-%dT%H:%MZ)" || echo "nothing to commit"
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${{ github.ref_name }}"; then
+              echo "diag 已记账到分支"
+              break
+            fi
+            echo "push 撞上了云端检查点，同步后重试 ($attempt)"
+            git fetch origin "${{ github.ref_name }}" && git rebase FETCH_HEAD || break
+            sleep 3
+          done
