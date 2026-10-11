@@ -148,27 +148,10 @@
     },
     "S08": {
       "id": "S08",
-      "status": "completed",
-      "request_hash": "3f26ad2148da4dbd544ee8c849663635fe4c569197ba5970c769dc0ec29fd6bf",
+      "status": "submitting",
+      "request_hash": "d36c4291aad53e57d7171368f48607cd6d80a3d6858d48828434487661e4e250",
       "error": null,
-      "updated_at": "2026-10-11T06:48:29Z",
-      "task_id": "202610111447214e357bc8ff5e43a9",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261011144820095ac235cd0146c3_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=c9vXD3BvO%2BiZSnorRQZWVl7%2BpzI%3D&Expires=1791787702",
-      "sha256": "31165a143f9bb8c6fa6059e1cb62fcfd62e18f336204b59d7d18241a90f72749",
-      "bytes": 872881,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 872881,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/hwaseong1986/qa/S08.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-11T13:46:32Z"
     },
     "S09": {
       "id": "S09",
@@ -973,7 +956,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-11T13:46:30Z",
+  "updated_at": "2026-10-11T13:46:32Z",
   "run_id": "38108699866",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -1087,6 +1070,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/hwaseong1986/qa/S29.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S08": [
+      {
+        "id": "S08",
+        "status": "completed",
+        "request_hash": "3f26ad2148da4dbd544ee8c849663635fe4c569197ba5970c769dc0ec29fd6bf",
+        "error": null,
+        "updated_at": "2026-10-11T06:48:29Z",
+        "task_id": "202610111447214e357bc8ff5e43a9",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261011144820095ac235cd0146c3_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=c9vXD3BvO%2BiZSnorRQZWVl7%2BpzI%3D&Expires=1791787702",
+        "sha256": "31165a143f9bb8c6fa6059e1cb62fcfd62e18f336204b59d7d18241a90f72749",
+        "bytes": 872881,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 872881,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/hwaseong1986/qa/S08.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
