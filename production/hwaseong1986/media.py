@@ -55,7 +55,10 @@ def probe(path):
 def inspect_clip(path, qa_dir, sid):
     ensure_tools()
     info = probe(path)
-    if not 6 <= info['duration'] <= 20 or info.get('width', 0) < 640 or info.get('fps', 0) <= 0:
+    # 2026-10-11：下限 6→4 对齐 jeong2000 实证窗口——CogVideoX-Flash 免费档实测
+    # 出片 5.108 s / 1792×1024 / 37 fps（收据见 results.json 失败行），6 秒下限会
+    # 把它整轮误杀；Agnes 片 6–12 s 不受影响，render.py 会裁切/重采样到 1080p30。
+    if not 4 <= info['duration'] <= 20 or info.get('width', 0) < 640 or info.get('fps', 0) <= 0:
         raise RuntimeError(f'{sid}: returned video is unsuitable: {info}')
     run(['ffmpeg', '-v', 'error', '-threads', '2', '-i', path, '-map', '0:v:0', '-f', 'null', '-'])
     qa_dir = Path(qa_dir); qa_dir.mkdir(parents=True, exist_ok=True)

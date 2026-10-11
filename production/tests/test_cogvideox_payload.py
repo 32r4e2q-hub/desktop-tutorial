@@ -131,5 +131,51 @@ class RefImageProbeTests(unittest.TestCase):
                             "其余 33 镜哈希不变，收据直接复用")
 
 
+class MediaWindowTests(unittest.TestCase):
+    """2026-10-11 教训：CogVideoX-Flash 实测出片 5.108 s，被 6 秒质检下限整轮误杀。
+
+    字典就是当天 results.json 失败行里的真实探测值；I/O 打桩（本地无 ffmpeg），
+    但质检窗口判断走的是 media.inspect_clip 的真实代码路径。
+    """
+
+    REAL_COGVIDEOX_INFO = {'duration': 5.108108, 'bytes': 1355051, 'width': 1792,
+                           'height': 1024, 'fps': 37.0, 'video_codec': 'h264',
+                           'frames': 189}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.media = load("hwaseong1986_media_window", HW / "media.py")
+
+    def inspect_with(self, info):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            clip = tmp / "S99.mp4"
+            clip.write_bytes(b"x")
+
+            def fake_run(cmd, *args, **kwargs):
+                if '-q:v' in [str(c) for c in cmd]:  # 接触表那一条：副作用产出文件
+                    pathlib.Path(cmd[-1]).write_bytes(b"jpg")
+
+            orig = (self.media.ensure_tools, self.media.probe, self.media.run)
+            self.media.ensure_tools = lambda: None
+            self.media.probe = lambda path: dict(info)
+            self.media.run = fake_run
+            try:
+                return self.media.inspect_clip(clip, tmp / "qa", "S99")
+            finally:
+                (self.media.ensure_tools, self.media.probe, self.media.run) = orig
+
+    def test_real_cogvideox_clip_passes_inspection(self):
+        info = self.inspect_with(self.REAL_COGVIDEOX_INFO)
+        self.assertTrue(info["decoded_ok"])
+        self.assertEqual(info["duration"], 5.108108)
+
+    def test_sub_four_second_clip_still_rejected(self):
+        bad = dict(self.REAL_COGVIDEOX_INFO, duration=3.9)
+        with self.assertRaises(RuntimeError):
+            self.inspect_with(bad)
+
+
 if __name__ == "__main__":
     unittest.main()
