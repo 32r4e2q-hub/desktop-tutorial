@@ -556,11 +556,27 @@
     },
     "S28": {
       "id": "S28",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "729d97a44306401162a37b9432f729d6fae9abe45189a80bb0e693f0ed46fc46",
       "error": null,
-      "updated_at": "2026-10-11T08:53:11Z",
-      "task_id": "202610111653104f08f2ae92874099"
+      "updated_at": "2026-10-11T08:54:52Z",
+      "task_id": "202610111653104f08f2ae92874099",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261011165410907e38ea42b24a73_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=8ZLvfsyevsJl3Cj%2Ba%2BdnuiV48E0%3D&Expires=1791795252",
+      "sha256": "bf448c49562085349aa3c5573b11a9aaf67fd61e3227758daa7c85651c6f2b95",
+      "bytes": 1997622,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1997622,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/hwaseong1986/qa/S28.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "phase": "generating_sources",
@@ -621,7 +637,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-11T08:53:11Z",
+  "updated_at": "2026-10-11T08:54:52Z",
   "run_id": "38108699866",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
