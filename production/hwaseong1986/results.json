@@ -94,11 +94,12 @@
     },
     "S13": {
       "id": "S13",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "82101a76ea61dc2e40dd4307f9159931a5484f1f00d4b8b43697f22e8e3af832",
-      "error": null,
-      "updated_at": "2026-10-11T04:27:33Z",
-      "task_id": "20261011122733af404b8fdd0f428a"
+      "error": "S13: returned video is unsuitable: {'duration': 5.108108, 'bytes': 2027592, 'width': 1792, 'height': 1024, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
+      "updated_at": "2026-10-11T04:29:18Z",
+      "task_id": "20261011122733af404b8fdd0f428a",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610111228402335614be671461f_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=BglurIoFNlqWxTkVqOqte4hjurk%3D&Expires=1791779323"
     }
   },
   "phase": "generating_sources",
@@ -159,7 +160,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-11T04:27:33Z",
+  "updated_at": "2026-10-11T04:29:18Z",
   "run_id": "38108699866",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
