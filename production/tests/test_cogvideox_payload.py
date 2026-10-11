@@ -189,7 +189,7 @@ class MediaWindowTests(unittest.TestCase):
 # 2026-10-11 视觉QC 发现 S27（文档伪韩文）/S29（横幅伪字）触碰文字红线，
 # prompt 已改、等重生成轮（only=S27,S29）更新收据。该轮跑完把集合清空，
 # 下面两条严格断言即自动恢复覆盖。
-PENDING_REGEN = {"S08"}  # 2026-10-11 第7轮：S08 欧美脸改全背影重生成，收据待更新；其余镜严格断言
+PENDING_REGEN = set()  # 2026-10-11 第7轮重生成完成，S08 收据已更新，恢复严格断言
 
 
 class FetchSourcesReceiptTests(unittest.TestCase):
