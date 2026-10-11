@@ -1,11 +1,46 @@
 {
   "project": "李春才：华城连环杀人案，DNA揭开了33年的秘密",
-  "model": "cogvideox-flash",
+  "model": "agnes-video-2.5-flash",
   "shots": {
+    "S03": {
+      "id": "S03",
+      "status": "completed",
+      "request_hash": "d12a54284bca3379d97ef475944c2c350cc68d9bc7e417a3908ae96cdf257500",
+      "error": null,
+      "updated_at": "2026-10-11T03:35:06Z",
+      "channel_error_round": 1,
+      "applied_cooldown_seconds": 300.0,
+      "video_id": "task_WMnVVjdGjZl8EnpeDR6fISBYQc3xahrK",
+      "task_id": "task_WMnVVjdGjZl8EnpeDR6fISBYQc3xahrK",
+      "requested_seconds": 7.0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_WMnVVjdGjZl8EnpeDR6fISBYQc3xahrK.mp4",
+      "bytes": 2317486,
+      "sha256": "5b6e9dfdb97186222908ab93250ffa68c742b191781abebb781941697269faee",
+      "reported_size": "720P",
+      "reported_seconds": "7",
+      "inspection": {
+        "duration": 7.328,
+        "bytes": 2317486,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 175,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/hwaseong1986/qa/S03.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": true,
+      "visual_review": "pending"
+    },
     "S01": {
       "id": "S01",
-      "status": "submitting",
-      "request_hash": "fd30e76b928285ffb67248241caa5655da16d30eebc8f2e74e152e782574d43d",
+      "status": "completed",
+      "request_hash": "e880f2985e28dfeebe9a30ed260a302f3dc0b6cfce052ef0ac258b5035613e56",
       "error": null,
       "updated_at": "2026-10-11T03:35:05Z",
       "channel_error_round": 1,
@@ -83,10 +118,10 @@
     },
     "S06": {
       "id": "S06",
-      "status": "waiting_create_slot",
+      "status": "provider_unavailable",
       "request_hash": "9c650d71d60a3f3c75df7ed77be6a23429e076612c2ce3c558981845822b8a3a",
-      "error": null,
-      "updated_at": "2026-10-11T04:05:26Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610110408183039506721HEYlqR1)",
+      "updated_at": "2026-10-11T04:08:25Z",
       "channel_error_round": 1,
       "applied_cooldown_seconds": 90.0
     }
@@ -98,7 +133,7 @@
     "blocking_generation": false,
     "note": "No automatic visual approval. Export is an unreviewed first cut."
   },
-  "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
+  "workflow_policy": "cloud-first-cut-v4-channel-aware",
   "rate_policy": {
     "minimum_creation_interval_seconds": 75,
     "poll_interval_seconds": 25,
@@ -149,48 +184,19 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-11T04:08:18Z",
+  "updated_at": "2026-10-11T04:08:25Z",
   "run_id": "38108699866",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "base": "https://apihub.agnes-ai.com",
     "first_seen": "2026-10-11T03:35:10Z",
-    "last_seen": "2026-10-11T04:03:47Z",
-    "create_attempts": 20,
-    "consecutive_rounds": 2,
+    "last_seen": "2026-10-11T04:08:18Z",
+    "create_attempts": 23,
+    "consecutive_rounds": 1,
     "cooldown_seconds": 90.0,
     "channel_error_limit": 2,
     "wait_channel_minutes": 140.0,
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610110403471693617222YUknoRu)",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610110408183039506721HEYlqR1)",
     "reason": "供应商视频排队已满"
-  },
-  "backup_agnes_shots": {
-    "S01": {
-      "id": "S01",
-      "status": "failed",
-      "request_hash": "fd30e76b928285ffb67248241caa5655da16d30eebc8f2e74e152e782574d43d",
-      "error": "S01: returned video is unsuitable: {'duration': 5.108108, 'bytes': 1419854, 'width': 1792, 'height': 1024, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
-      "updated_at": "2026-10-11T04:01:46Z",
-      "task_id": "20261011120041ab8bbe50150f490a",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101112014024876c0efe4f474a_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=AJsY%2BIiu8ERUBj27hoIrmqkXem8%3D&Expires=1791777702"
-    },
-    "S03": {
-      "id": "S03",
-      "status": "failed",
-      "request_hash": "d19eef02dce53f389540b53d4dac2b967e2c2539472685121179803998f1cb07",
-      "error": "S03: returned video is unsuitable: {'duration': 5.108108, 'bytes': 1055072, 'width': 1792, 'height': 1024, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
-      "updated_at": "2026-10-11T04:02:59Z",
-      "task_id": "20261011120151cc2ead00efae427f",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610111202503244a878ea3a4157_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=K6G6JbDffHeU9D2gZHwZ2pJMJYo%3D&Expires=1791777772"
-    },
-    "S04": {
-      "id": "S04",
-      "status": "queued",
-      "request_hash": "0122a62fe79c0fa413f5a35ebeff9f2ee6ea73f47509cde40a0af5c1997ed72c",
-      "error": null,
-      "updated_at": "2026-10-11T04:04:44Z",
-      "task_id": "202610111204443af4152452ef42f3"
-    }
-  },
-  "provider": "Zhipu AI"
+  }
 }
