@@ -21,12 +21,24 @@ import os
 # 本片定型走免费方案：flash + 720P，由 render.py 放大到 1920×1080 出片。
 FREE_MODEL = "agnes-video-2.5-flash"
 PAID_MODEL = "agnes-video-2.5"
+# 2026-10-11 用户拍板：38 镜全部改走智谱免费档（仓库 jeong2000 流水线实测一轮 3–4 分钟）；
+# Agnes 已出的 3 镜留作 backup_agnes_shots 备用。cogvideox-flash 是智谱免费档模型名。
+COGVIDEOX_MODEL = "cogvideox-flash"
 
 MODEL = os.environ.get("AGNES_VIDEO_MODEL", FREE_MODEL).strip() or FREE_MODEL
 SIZE_TIER = os.environ.get("AGNES_VIDEO_SIZE", "720P" if MODEL == FREE_MODEL else "1080P").strip()
 
-# 出片闸门认这两个：换档时不用改代码，但也不允许混进来一个没人审过的模型。
-ALLOWED_MODELS = (FREE_MODEL, PAID_MODEL)
+# 出片闸门认这三个：换档时不用改代码，但也不允许混进来一个没人审过的模型。
+ALLOWED_MODELS = (FREE_MODEL, PAID_MODEL, COGVIDEOX_MODEL)
+
+# 红线提示词（单一出处）。2026-10-11 从 generate.py 迁来：两条生成路线
+# （Agnes generate.py / 智谱 generate_cogvideox.py）都必须把同一段红线附进每次
+# 请求的提示词，而本模块正是为「每个项目一份同名文件会串味」而存在的共享点
+# （render.py 早已从这里取 ALLOWED_MODELS）。generate.py 保留再导出，对外名称不变。
+PROMPT_GUARDRAILS = ('Avoid: readable text, letters, signage or subtitles on screen; watermarks and logos; '
+                     'blood, wounds, corpses or body bags; the likeness of any identifiable real person; '
+                     'flat 2D cartoon or comic shading; duplicated identical faces or a face that morphs '
+                     'mid-shot; morphing objects, jitter, flicker, whip pans and jump cuts.')
 
 # 文档《Parameter Restrictions》：size 只能是档位名，传像素（1920x1080）会 400。
 SUPPORTED_SIZES = ("720P", "1080P", "1K", "2K")

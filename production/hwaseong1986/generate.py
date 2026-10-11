@@ -217,10 +217,9 @@ def shot_seed(shot):
 # 全填上、还把 negative_prompt 当独立字段，所以换模型后一律 400 —— 这里按项目重写，不改共享实现。
 # negative_prompt 不再是独立字段：红线（不出可读文字、不冒充真人、不展示遗体血腥）
 # 只能压进提示词正文，否则新模型上这些约束直接消失。
-PROMPT_GUARDRAILS=('Avoid: readable text, letters, signage or subtitles on screen; watermarks and logos; '
-                   'blood, wounds, corpses or body bags; the likeness of any identifiable real person; '
-                   'flat 2D cartoon or comic shading; duplicated identical faces or a face that morphs '
-                   'mid-shot; morphing objects, jitter, flicker, whip pans and jump cuts.')
+# 单一出处已迁至 model_policy.PROMPT_GUARDRAILS（两条生成路线共用；同时避开测试
+# 进程里各项目同名 generate.py 的 sys.modules 串味）。此处再导出，名称与语义不变。
+from model_policy import PROMPT_GUARDRAILS  # noqa: F401
 
 
 def compose_prompt(project,shot):
