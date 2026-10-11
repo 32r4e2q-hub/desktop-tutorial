@@ -1,0 +1,98 @@
+name: Agnes Video 模型可用性探测
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [arena/f5c619e4-desktop-tutorial]
+    paths:
+      - production/AGNES_MODEL_PROBE_REQUEST
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agnes-model-probe-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f5c619e4-desktop-tutorial
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Probe v2.0 and v2.5 with the same minimal request
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          set -u
+          mkdir -p work/agnes-model-probe
+          if [ -z "${AGNES_API_KEY:-}" ]; then
+            printf 'AGNES_API_KEY is unavailable to this workflow\n' | tee work/agnes-model-probe/secret-error.log
+          else
+            for model in agnes-video-v2.0 agnes-video-v2.5; do
+              echo "=== $model ==="
+              set +e
+              timeout 900 python3 production/agnes_video.py \
+                --model "$model" \
+                --prompt "A locked-off cinematic shot of an empty quiet room, soft daylight, no people, no text, subtle curtain movement." \
+                --negative-prompt "people, faces, hands, readable text, logo, watermark, scene change" \
+                --num-frames 81 \
+                --frame-rate 24 \
+                --aspect 16:9 \
+                --resolution 480p \
+                --poll-interval 5 \
+                --timeout 780 \
+                --output "work/agnes-model-probe/${model}.mp4" \
+                >"work/agnes-model-probe/${model}.log" 2>&1
+              rc=$?
+              set -e
+              printf '%s\n' "$rc" > "work/agnes-model-probe/${model}.exit-code"
+              tail -80 "work/agnes-model-probe/${model}.log"
+            done
+          fi
+
+      - name: Build machine-readable report
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('work/agnes-model-probe')
+          rows=[]
+          for model in ('agnes-video-v2.0','agnes-video-v2.5'):
+              code=root/f'{model}.exit-code'; video=root/f'{model}.mp4'; side=root/f'{model}.json'; log=root/f'{model}.log'
+              rc=int(code.read_text().strip()) if code.exists() else None
+              rows.append({
+                  'model':model,
+                  'usable':rc == 0 and video.is_file() and side.is_file(),
+                  'exit_code':rc,
+                  'video_bytes':video.stat().st_size if video.exists() else 0,
+                  'video_sha256':hashlib.sha256(video.read_bytes()).hexdigest() if video.exists() else None,
+                  'sidecar':json.loads(side.read_text()) if side.exists() else None,
+                  'log_tail':'\n'.join(log.read_text(errors='replace').splitlines()[-30:]) if log.exists() else None,
+              })
+          report={'secret_available':not (root/'secret-error.log').exists(),'results':rows}
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          with open(Path.home()/'step-summary.md','w') as f:
+              f.write('# Agnes 模型探测结果\n\n')
+              for row in rows:
+                  f.write(f"- `{row['model']}`：{'可用' if row['usable'] else '不可用或请求失败'}（exit={row['exit_code']}，bytes={row['video_bytes']}）\n")
+          PY
+          cat "$HOME/step-summary.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agnes-model-probe-${{ github.run_number }}
+          path: work/agnes-model-probe/
+          if-no-files-found: error
+          retention-days: 7
