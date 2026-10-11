@@ -186,6 +186,12 @@ class MediaWindowTests(unittest.TestCase):
             self.inspect_with(bad)
 
 
+# 2026-10-11 视觉QC 发现 S27（文档伪韩文）/S29（横幅伪字）触碰文字红线，
+# prompt 已改、等重生成轮（only=S27,S29）更新收据。该轮跑完把集合清空，
+# 下面两条严格断言即自动恢复覆盖。
+PENDING_REGEN = {"S27", "S29"}
+
+
 class FetchSourcesReceiptTests(unittest.TestCase):
     """fetch_sources 必须认智谱收据：旧代码只认 Agnes 哈希，render 会整批 MISSING。"""
 
@@ -212,6 +218,8 @@ class FetchSourcesReceiptTests(unittest.TestCase):
         done = [sid for sid, r in rows.items() if r.get("status") == "completed"]
         self.assertGreaterEqual(len(done), 38, "results.json 应已有 38 镜完成收据")
         for sid in done:
+            if sid in PENDING_REGEN:
+                continue  # 等重生成轮更新收据；见 PENDING_REGEN 注释
             shot = next(s for s in self.project["shots"] if s["id"] == sid)
             self.gen.REF_IMAGE_OK = None
             plain = self.gen.request_hash(self.project, shot)
@@ -222,13 +230,19 @@ class FetchSourcesReceiptTests(unittest.TestCase):
 
     def test_face_shots_are_pinned_to_their_portraits(self):
         # 2026-10-11 实测（results.json 收据）：第 4 轮起 flash 收下 image_url，
-        # 5 个定妆照镜头全部按图生视频出片——露脸钉在 cast/C1–C5.png 上。
+        # 定妆照镜头按图生视频出片——露脸钉在 cast/C1–C5.png 上。
         for sid in ("S06", "S12", "S16", "S27", "S40"):
+            if sid in PENDING_REGEN:
+                continue
             shot = next(s for s in self.project["shots"] if s["id"] == sid)
             self.gen.REF_IMAGE_OK = True
             self.assertEqual(self.results["shots"][sid]["request_hash"],
                              self.gen.request_hash(self.project, shot),
                              f"{sid} 的收据应是带定妆照（image_url）的图生视频版本")
+
+    def test_pending_regen_set_only_names_existing_dynamic_shots(self):
+        ids = {s["id"] for s in self.project["shots"] if s["kind"] != "graphic"}
+        self.assertTrue(PENDING_REGEN <= ids, "PENDING_REGEN 里不能有编造的镜头号")
 
 
 if __name__ == "__main__":

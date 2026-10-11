@@ -332,12 +332,15 @@ SHOTS = [
      "接 AGNES：2019年重查组（露脸 C4）",
      "人物档案：出生 / 罪名 / 服刑",
      "低音撞击"),
-    ("S27", "agnes", "从检测报告缓慢推向神情", "2019年：DNA报告对旧档（C4 首次露脸）",
+    ("S27", "agnes", "从监视器光缓慢推向神情", "2019年：DNA报告对旧档（C4 首次露脸）",
      "接 AGNES：俯拍调查桌",
+     # 2026-10-11 视觉QC 实证：旧版让模型画「手持 DNA 报告」，模型照画还渲染出
+     # 破碎韩文伪字——触碰「画面不得出现可读文字」红线。改成桌上无任何纸面物件，
+     # 模型没有可渲染文字的对象（监视器只许抽象波形，同 S40 已验证可行）。
      "A modern South Korean police office in 2019 at night: {C4}, in a dark navy uniform jacket, standing at a "
-     "desk with a printed DNA report held in both hands, comparing it line by line against a stack of yellowed "
-     "1980s case files spread beside a glowing monitor, his face lit from below by the screen light, jaw tight, "
-     "a second officer blurred behind him; no readable lettering on any document, no other faces to camera. "
+     "desk with both hands clasped in front of him above a glowing monitor showing an abstract blue DNA "
+     "waveform, no paper, no documents, no case files on the desk, his face lit from below by the screen light, "
+     "jaw tight, a second officer blurred behind him; no readable lettering anywhere, no other faces to camera. "
      "Slow push from the report up to his face, " + HOLD,
      "仪器提示音 + 悬疑音乐渐强"),
     ("S28", "agnes", "俯拍桌面缓慢扫过", "汇合：DNA、时间线与物证",
@@ -352,8 +355,10 @@ SHOTS = [
      "接 AGNES：拉远呈现调查桌面",
      "A police press conference room in Seoul in 2019: {C4}, standing at a plain lectern facing camera with "
      "both hands on its edge, expression grave, camera flashes blooming across the frame, rows of reporters "
-     "seen from behind with cameras and recorders raised in the foreground, a blue backdrop banner behind him "
-     "with no readable lettering; no other identifiable faces. Slow push from the press rows toward the "
+     # 2026-10-11 视觉QC 实证：旧版「蓝色背景横幅」被模型画成大号破碎伪字，触碰
+     # 文字红线；改纯色几何暗纹背景，无任何横幅/文字/徽标对象可渲染。
+     "seen from behind with cameras and recorders raised in the foreground, a plain deep-blue backdrop with a "
+     "subtle geometric pattern, no banner, no lettering, no logos; no other identifiable faces. Slow push from the press rows toward the "
      "lectern, " + HOLD,
      "相机快门声 + 新闻现场环境声"),
     ("S30", "agnes", "缓慢拉远呈现完整桌面", "十四起：摊开的全部卷宗",
