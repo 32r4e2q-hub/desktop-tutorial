@@ -154,3 +154,28 @@ class ValidationGateTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class RecoveryProbePayloadTests(unittest.TestCase):
+    """v2.0 恢复探针的两种请求形状必须长当年/现在的样子。"""
+
+    def setUp(self):
+        import importlib.util
+        import pathlib
+        here = pathlib.Path(__file__).resolve().parents[1] / "hwaseong1986"
+        spec = importlib.util.spec_from_file_location(
+            "hwaseong1986_probe_recovery", here / "probe_model_recovery.py")
+        self.mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.mod)
+
+    def test_legacy_shape_matches_the_old_v2_builder(self):
+        body = self.mod.legacy_payload("agnes-video-v2.0")
+        self.assertEqual(sorted(body), ["frame_rate", "height", "model",
+                                        "num_frames", "prompt", "width"])
+        self.assertEqual((body["width"], body["height"]), (1280, 720))
+
+    def test_current_shape_is_the_validated_free_tier_shape(self):
+        body = self.mod.current_payload("agnes-video-v2.0")
+        self.assertEqual(body["seconds"], "5", "seconds 必须是字符串")
+        self.assertEqual(body["size"], "720P")
+        self.assertIn("mode", body)

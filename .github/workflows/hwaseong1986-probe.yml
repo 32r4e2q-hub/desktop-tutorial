@@ -40,11 +40,34 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: 读 PROBE_REQUEST 里的目标模型（默认 v2.0 恢复探针）
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib
+          req = pathlib.Path('production/hwaseong1986/PROBE_REQUEST')
+          model = ''
+          if req.is_file():
+              try:
+                  model = str(json.loads(req.read_text(encoding='utf-8')).get('model', '') or '').strip()
+              except Exception:
+                  model = ''
+          if model:
+              with open(os.environ['GITHUB_ENV'], 'a') as f:
+                  f.write('AGNES_VIDEO_MODEL=%s\n' % model)
+              print('PROBE_TARGET', model)
+          PY
+
       - name: Probe the provider payload schema
         continue-on-error: true
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
         run: python3 -u production/hwaseong1986/probe_payload_schema.py
+
+      - name: 目标模型是否恢复专用探针（400/503 不花额度）
+        continue-on-error: true
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 -u production/hwaseong1986/probe_model_recovery.py
 
       - name: Ship the receipt to the branch
         if: always()
@@ -55,6 +78,7 @@ jobs:
           git config user.name "arena-diag"
           git config user.email "arena@local"
           git add -f production/hwaseong1986/delivery/payload-schema-probe.json
+          git add -f production/hwaseong1986/delivery/model-recovery-probe.json 2>/dev/null || true
           git commit -m "hwaseong1986: payload 形状探针收据 $(date -u +%FT%TZ)"
           pushed=0
           for attempt in 1 2 3 4 5; do
