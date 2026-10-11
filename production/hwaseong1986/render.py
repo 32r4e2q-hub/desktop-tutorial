@@ -368,6 +368,7 @@ def write_sfx(path,edl,presentation):
 def render_segment(entry,index,sources,graphics,segments,width,height,checks,presentation,last_shot):
     target=segments/f'{index:03d}.mp4';frames=entry['end_frame']-entry['start_frame'];duration=frames/FPS
     cmd=['ffmpeg','-y','-v','error','-threads','2'];sid=entry['id'];variant=entry['variant']
+    fc=None
     if entry['kind'] in ('graphic','archive'):
         if entry['kind']=='archive':raise RuntimeError('这条流水线不支持档案照片镜头：所有画面都是 Agnes 动画或信息卡（要用档案照片请照 production/dahlia 的 archive_image 加）')
         picture=card_image(sid,variant,graphics,presentation)
@@ -383,7 +384,6 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
         available=b-a
         take=min(available,duration)
         factor=duration/take
-        if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         tighter=''
         if sid in TIGHTER_CROPS:
@@ -393,14 +393,36 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
         grade=GRADE_OVERRIDES.get(sid,DEFAULT_GRADE)
-        vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},{grade},'
-            f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
-        entry.update(source_in=a,source_out=a+take,time_stretch=factor)
-    if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
-    if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
-    if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
-    cmd+=['-vf',vf+',format=yuv420p']
+        common=(tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
+                f'crop={width}:{height},setsar=1,fps={FPS},{grade},'
+                f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
+        fc=None
+        if factor>1.33:
+            # 2026-10-11：CogVideoX-Flash 定长 5.108s 素材，S08 槽 7.67s 要 1.57×
+            # 慢放、超质量红线。改用乒乓循环：正放整段 + 尾段倒放补差——不慢放、
+            # 不定帧，慢节奏情景重现镜头的标准做法（倒放对雾气/光影类画面无感）。
+            need=duration-available
+            if need>available:
+                raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s exceeds ping-pong capacity {2*available:.2f}s')
+            # 无需改 -t：duration>available 时 take 本就等于 available（正放整段）。
+            fc=('[0:v]split=2[fwd][rev0];'
+                f'[rev0]reverse,trim=duration={need:.6f},setpts=PTS-STARTPTS[rev];'
+                f'[fwd][rev]concat=n=2:v=1:a=0,setpts=PTS-STARTPTS,'+common+'[vbase]')
+            vf=None
+            entry.update(source_in=a,source_out=a+available,time_stretch=1.0,pingpong=True)
+        else:
+            vf=f'setpts=(PTS-STARTPTS)*{factor:.9f},'+common
+            entry.update(source_in=a,source_out=a+take,time_stretch=factor)
+    if fc is None:
+        if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
+        if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
+        if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
+        cmd+=['-vf',vf+',format=yuv420p']
+    else:
+        tail=''
+        if entry['start_frame']==0:tail+=',fade=t=in:st=0:d=0.25'
+        if sid==last_shot:tail+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
+        cmd+=['-filter_complex',fc.replace('[vbase]',tail+',format=yuv420p[v]'),'-map','[v]']
     cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
           '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
