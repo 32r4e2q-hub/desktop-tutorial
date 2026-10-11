@@ -89,7 +89,11 @@ jobs:
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
           PAYLOAD: ${{ env.PAYLOAD }}
-        run: python3 -u production/hwaseong1986/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log; exit ${PIPESTATUS[0]}
+        run: |
+          python3 -u production/hwaseong1986/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
+          rc=${PIPESTATUS[0]}
+          echo "$rc" > "$RUNNER_TEMP/gen_rc"   # 接力步骤靠退出码决策（42 容量满才接力）
+          exit "$rc"
 
       - name: Ship failure log to branch (sandbox cannot read Actions logs)
         if: failure()
@@ -127,7 +131,8 @@ jobs:
         if: always()
         run: |
           set -uo pipefail
-          python3 production/hwaseong1986/auto_resume.py
+          RC="$(cat "$RUNNER_TEMP/gen_rc" 2>/dev/null || true)"
+          python3 production/hwaseong1986/auto_resume.py --rc "${RC:-none}"
           if [ -f "$RUNNER_TEMP/auto_resume" ]; then
             git config user.name "arena-agent"
             git config user.email "arena@local"

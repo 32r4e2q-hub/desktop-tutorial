@@ -80,3 +80,25 @@ class AutoResumeTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class AutoResumeExitCodeTests(unittest.TestCase):
+    """退出码是接力步骤的命根子：push 全失败时只有它可靠。"""
+
+    def test_rc_42_resumes_even_when_the_phase_file_is_stale(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            req, res = write_pair(tmp, phase='generating_sources')
+            verdict, msg = auto_resume.decide(req, res, rc=42)
+            self.assertEqual(verdict, 'resume', msg)
+
+    def test_rc_43_quota_does_not_resume(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            req, res = write_pair(tmp)
+            verdict, _ = auto_resume.decide(req, res, rc=43)
+            self.assertEqual(verdict, 'skip')
+
+    def test_rc_1_real_bug_does_not_resume(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            req, res = write_pair(tmp)
+            verdict, _ = auto_resume.decide(req, res, rc=1)
+            self.assertEqual(verdict, 'skip')

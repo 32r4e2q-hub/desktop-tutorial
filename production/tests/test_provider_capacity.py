@@ -264,8 +264,9 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
     def test_run_stops_after_the_error_limit_instead_of_burning_the_budget(self):
         self.results.write_text(json.dumps(
             {"project": "x", "shots": {}, "pipeline_error": "stale from run 123"}), encoding="utf-8")
-        with self.assertRaises(generate.ProviderCapacity):
-            self.run_main({"workers": 1, "channel_error_limit": 3, "wait_channel_minutes": 0})
+        self.assertEqual(self.run_main(
+            {"workers": 1, "channel_error_limit": 3, "wait_channel_minutes": 0}), 42,
+            "容量满收工必须返回退出码 42（接力步骤的命根子）")
         # 核心：38 个镜头没有各自去撞 8 次——整轮只发了 error_limit 次创建请求
         self.assertEqual(len(self.created), 3)
         doc = json.loads(self.results.read_text(encoding="utf-8"))
@@ -295,8 +296,8 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
         """
         # 清单里故意**不含**本片要用的模型 —— 这就是 v2.0 那天的处境
         self.gateway_models = ["agnes-3.0-flash", "agnes-image-2.5-flash", "agnes-2.5-pro"]
-        with self.assertRaises(generate.ProviderCapacity):
-            self.run_main({"workers": 1, "channel_error_limit": 1, "wait_channel_minutes": 0})
+        self.assertEqual(self.run_main(
+            {"workers": 1, "channel_error_limit": 1, "wait_channel_minutes": 0}), 42)
         probe = json.loads(self.probe.read_text(encoding="utf-8"))
         self.assertFalse(probe["target_model_listed"])
         self.assertEqual(probe["model"], generate.MODEL)
@@ -318,8 +319,8 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
                 "＄0.000000 (request id: 20261010065941375220354tcOnQaCa). Check AGNES_API_KEY.")
 
         with mock.patch.object(generate.agnes, "create_task", no_quota):
-            with self.assertRaises(generate.QuotaExhausted):
-                self.run_main({"workers": 1})
+            self.assertEqual(self.run_main({"workers": 1}), 43,
+                               "额度耗尽必须返回退出码 43，接力步骤见 43 不接力")
         self.assertEqual(len(self.created), 1, "额度见底应该一次请求就停整轮")
         doc = json.loads(self.results.read_text(encoding="utf-8"))
         self.assertEqual(doc["phase"], "quota_exhausted")
@@ -337,8 +338,8 @@ class RunAbortsOnProviderCapacityTests(unittest.TestCase):
                 "video queue is full, please retry later (request id: 202610100737537410334449NJkN7tr)")
 
         with mock.patch.object(generate.agnes, "create_task", queue_full):
-            with self.assertRaises(generate.ProviderCapacity):
-                self.run_main({"workers": 1, "channel_error_limit": 2, "wait_channel_minutes": 0})
+            self.assertEqual(self.run_main(
+                {"workers": 1, "channel_error_limit": 2, "wait_channel_minutes": 0}), 42)
         self.assertEqual(len(self.created), 2)
         doc = json.loads(self.results.read_text(encoding="utf-8"))
         self.assertEqual(doc["phase"], "provider_capacity")

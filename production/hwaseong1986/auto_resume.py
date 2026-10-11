@@ -6,6 +6,11 @@
 - 保护闸：连续 ``STALE_STOP`` 轮一个镜头都没多 → 大概率供应商停摆/额度出问题，
   停下来等人看，避免空烧 runner（硬上限 ``CAP_ROUNDS`` 轮双保险）。
 
+判定「这一轮是不是排队满收工」有两路证据（2026-10-11 加固）：
+- results.json 的 phase == provider_capacity；
+- generate.py 的退出码 42（容量满）。退出码写在 runner 本地文件里，
+  git push 全失败也误不了事；43（额度耗尽）/1（真 bug）则不接力。
+
 本模块只读写 GEN_REQUEST / results.json 两个文件，不碰网络，便于单测。
 工作流收尾步骤调用它；返回 resume 时由 bash 负责 commit+push+自派发。
 """
@@ -18,18 +23,24 @@ CAP_ROUNDS = 40      # 绝对硬上限：真出怪事时不至于烧几十个小
 STALE_STOP = 3       # 连续这么多轮零进展就停（每轮空等约 140 分钟，3 轮≈7 小时无产出）
 
 
-def decide(req_path, res_path, cap_rounds=CAP_ROUNDS, stale_stop=STALE_STOP):
+def decide(req_path, res_path, rc=None, cap_rounds=CAP_ROUNDS, stale_stop=STALE_STOP):
     """返回 (verdict, msg)：verdict ∈ {resume, skip, stop}。
 
+    ``rc`` 是 generate.py 的退出码（42 容量满 / 43 额度耗尽 / 1 真 bug / None 未知）。
     resume 时会就地更新 GEN_REQUEST：round+1，并记录本轮起跑时的已完成数与连零轮数。
     """
     req = pathlib.Path(req_path)
     res = pathlib.Path(res_path)
     if not req.is_file() or not res.is_file():
         return 'skip', '缺 GEN_REQUEST 或 results.json'
+    if rc == 43:
+        return 'skip', '退出码 43：额度耗尽，接力也没用，等人处理'
+    if rc == 1:
+        return 'skip', '退出码 1：流水线真故障，等人修，不接力'
     doc = json.loads(res.read_text(encoding='utf-8'))
-    if doc.get('phase') != 'provider_capacity':
-        return 'skip', 'phase=%s（不是排队满，不续投）' % doc.get('phase')
+    capacity = doc.get('phase') == 'provider_capacity' or rc == 42
+    if not capacity:
+        return 'skip', 'phase=%s rc=%s（不是排队满，不续投）' % (doc.get('phase'), rc)
     payload = json.loads(req.read_text(encoding='utf-8'))
 
     rounds = int(payload.get('round', 1))
@@ -54,9 +65,16 @@ def decide(req_path, res_path, cap_rounds=CAP_ROUNDS, stale_stop=STALE_STOP):
     return 'resume', 'round=%d 已完成=%d 连零=%d' % (rounds + 1, done, stale)
 
 
-def main():
+def main(argv):
+    rc = None
+    if '--rc' in argv:
+        raw = argv[argv.index('--rc') + 1] if argv.index('--rc') + 1 < len(argv) else ''
+        try:
+            rc = int(raw)
+        except ValueError:
+            rc = None
     verdict, msg = decide('production/hwaseong1986/GEN_REQUEST',
-                          'production/hwaseong1986/results.json')
+                          'production/hwaseong1986/results.json', rc=rc)
     print('AUTO_RESUME %s: %s' % (verdict, msg))
     if verdict == 'resume':
         marker = pathlib.Path(os.environ.get('RUNNER_TEMP', '/tmp')) / 'auto_resume'
@@ -65,4 +83,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])

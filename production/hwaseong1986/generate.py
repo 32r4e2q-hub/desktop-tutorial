@@ -16,6 +16,7 @@ import subprocess
 import sys
 import threading
 import time
+import traceback
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'production'))
@@ -672,13 +673,23 @@ def main():
         error=str(exc).replace(key,'[redacted]') if key else str(exc)
         # 「供应商没通道」和「流水线自己有 bug」是两件事，phase 必须分开：
         # 混在一起，下一个人（或下一次的我）会去改根本没有坏的代码。
+        # 退出码是接力步骤的命根子（沙箱读不到 Actions 日志，git push 也可能失败）：
+        #   42 = 供应商容量满（可自动接力）  43 = 额度耗尽（停下等人）  1 = 真 bug（停下等人）
+        code=43 if isinstance(exc,QuotaExhausted) else 42 if isinstance(exc,ProviderCapacity) else 1
         doc['phase']=('quota_exhausted' if isinstance(exc,QuotaExhausted)
                       else 'provider_capacity' if isinstance(exc,ProviderCapacity)
                       else 'pipeline_failed')
         doc['pipeline_error']=error[:800]
-        checkpoint('pipeline stopped',files=[PROBE] if PROBE.is_file() else ())
-        (export/'未完成说明.txt').write_text('制作未完成：'+error[:800]+'\n没有把测试图或静态图冒充Agnes成片。\n')
-        raise
+        try:
+            # 先落盘（不走 git）：接力步骤在同一台机器上读 results.json，push 全失败也误不了事；
+            # checkpoint / 说明文件再尽力而为，失败也不影响退出码。
+            RESULTS.write_text(json.dumps(doc,ensure_ascii=False,indent=1)+'\n')
+            checkpoint('pipeline stopped',files=[PROBE] if PROBE.is_file() else ())
+            (export/'未完成说明.txt').write_text('制作未完成：'+error[:800]+'\n没有把测试图或静态图冒充Agnes成片。\n')
+        except Exception as inner:
+            print('DIAG WRITE FAILED: %r'%inner,flush=True)
+        traceback.print_exc()
+        return code
 
 
 if __name__=='__main__':raise SystemExit(main())
