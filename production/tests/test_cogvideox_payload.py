@@ -130,6 +130,15 @@ class RefImageProbeTests(unittest.TestCase):
         self.assertEqual(before_plain, self.gen.request_hash(self.project, self.plain_shot),
                             "其余 33 镜哈希不变，收据直接复用")
 
+    def test_transient_fail_recognizes_the_real_1234_network_error(self):
+        # 2026-10-11 S06 真实 FAIL 载荷（gen-diag-cogvideox.log）：供应商让重试，
+        # 引擎必须重投而不是整轮暴毙。
+        real = ("{'code': '1234', 'message': '网络错误，错误id："
+                "202610111232513d85762cfe62472d，请稍后重试'}")
+        self.assertTrue(self.gen.transient_fail(real))
+        self.assertFalse(self.gen.transient_fail('content policy violation'),
+                         "内容违规这类非瞬时 FAIL 必须仍然致命，不能空转重投")
+
 
 class MediaWindowTests(unittest.TestCase):
     """2026-10-11 教训：CogVideoX-Flash 实测出片 5.108 s，被 6 秒质检下限整轮误杀。

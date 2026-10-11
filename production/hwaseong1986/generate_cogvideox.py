@@ -209,6 +209,16 @@ def retryable(exc):
                                    'timed out', 'temporar', 'connection', '502', '503', '504'))
 
 
+def transient_fail(text):
+    """FAIL 里值得重投新任务的瞬时故障签名。
+
+    实证（2026-10-11 S06，gen-diag-cogvideox.log）：任务 PROCESSING 空转 24 分钟后
+    FAIL，错误码 1234「网络错误…请稍后重试」——供应商自己都让重试，不能当致命。
+    """
+    return any(m in str(text) for m in ('1234', '网络错误', '请稍后重试',
+                                        '1305', '429', '访问量过大'))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--payload', default='{}')
@@ -282,47 +292,71 @@ def main():
         if time.monotonic() > deadline:
             raise RuntimeError('Generation deadline reached; rerun resumes from receipts')
         payload = full_payload(project, shot)
-        task_id = PROBE_TASKS.pop(sid, None) if payload.get('image_url') else None
-        if task_id:
-            print('%s: reusing ref-image probe submission %s' % (sid, task_id), flush=True)
-        checkpoint(doc, sid + ' submitting', sid, publish=args.publish,
-                   status='submitting', request_hash=wanted, error=None)
-        for attempt in range(1, 21):
-            if task_id:
-                break
-            try:
-                response = client.videos.generations(**payload)
-                task_id = obj_get(response, 'id')
-                if not task_id:
-                    raise RuntimeError('No task id: %r' % (response,))
-                break
-            except Exception as exc:
-                if not retryable(exc) or attempt == 20:
-                    raise
-                wait = min(120, 15 + attempt * 5)
-                print('%s: submit throttled attempt %d, wait %ds: %s'
-                      % (sid, attempt, wait, str(exc)[:180]), flush=True)
-                time.sleep(wait)
-        checkpoint(doc, sid + ' queued', sid, publish=args.publish,
-                   status='queued', task_id=str(task_id), request_hash=wanted)
         result = None
-        for poll in range(1, 241):
-            try:
-                result = client.videos.retrieve_videos_result(id=task_id)
-                status = str(obj_get(result, 'task_status', '')).upper()
-                print('%s [%d/%d] poll %d: %s' % (sid, index, len(shots), poll, status), flush=True)
-                if status == 'SUCCESS':
+        last_error = None
+        # 每镜最多 3 次提交：FAIL（瞬时签名）或轮询超时都重投新任务；三连败才记
+        # failed 并继续下一镜——本轮不死，缺口由下一轮按收据补（2026-10-11 S06 教训）。
+        for submission in range(1, 4):
+            task_id = PROBE_TASKS.pop(sid, None) \
+                if (submission == 1 and payload.get('image_url')) else None
+            if task_id:
+                print('%s: reusing ref-image probe submission %s' % (sid, task_id), flush=True)
+            checkpoint(doc, sid + ' submitting', sid, publish=args.publish,
+                       status='submitting', request_hash=wanted, error=None)
+            for attempt in range(1, 21):
+                if task_id:
                     break
-                if status == 'FAIL':
-                    raise RuntimeError('Provider task failed: %r' % (result,))
-                time.sleep(10)
-            except Exception as exc:
-                if retryable(exc) and poll < 240:
-                    time.sleep(min(60, 10 + poll // 10))
-                    continue
-                raise
-        else:
-            raise RuntimeError('%s: polling timeout' % sid)
+                try:
+                    response = client.videos.generations(**payload)
+                    task_id = obj_get(response, 'id')
+                    if not task_id:
+                        raise RuntimeError('No task id: %r' % (response,))
+                    break
+                except Exception as exc:
+                    if not retryable(exc) or attempt == 20:
+                        raise
+                    wait = min(120, 15 + attempt * 5)
+                    print('%s: submit throttled attempt %d, wait %ds: %s'
+                          % (sid, attempt, wait, str(exc)[:180]), flush=True)
+                    time.sleep(wait)
+            checkpoint(doc, sid + ' queued', sid, publish=args.publish,
+                       status='queued', task_id=str(task_id), request_hash=wanted)
+            outcome = 'timeout'
+            for poll in range(1, 121):
+                try:
+                    polled = client.videos.retrieve_videos_result(id=task_id)
+                    status = str(obj_get(polled, 'task_status', '')).upper()
+                    print('%s [%d/%d] submission %d poll %d: %s'
+                          % (sid, index, len(shots), submission, poll, status), flush=True)
+                    if status == 'SUCCESS':
+                        result = polled
+                        outcome = 'success'
+                        break
+                    if status == 'FAIL':
+                        outcome = 'fail'
+                        last_error = str(obj_get(polled, 'error', '') or polled)[:600]
+                        break
+                    time.sleep(10)
+                except Exception as exc:
+                    if retryable(exc) and poll < 120:
+                        time.sleep(min(60, 10 + poll // 10))
+                        continue
+                    raise
+            if outcome == 'success':
+                break
+            if outcome == 'fail' and not transient_fail(last_error):
+                raise RuntimeError('%s: provider task failed (non-transient): %s'
+                                   % (sid, last_error))
+            print('%s: submission %d ended %s (%s); resubmitting'
+                  % (sid, submission, outcome, (last_error or 'polling timeout')[:200]),
+                  flush=True)
+            time.sleep(30)
+        if result is None:
+            checkpoint(doc, sid + ' failed after 3 submissions', sid, publish=args.publish,
+                       status='failed', request_hash=wanted,
+                       error=(last_error or 'polling timeout')[:600])
+            failures.append(sid)
+            continue
         video_result = obj_get(result, 'video_result') or []
         first = video_result[0] if video_result else None
         url = obj_get(first, 'url') if first else None
