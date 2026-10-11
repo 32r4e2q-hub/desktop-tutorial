@@ -4,10 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "failed",
+      "status": "submitting",
       "request_hash": "fd30e76b928285ffb67248241caa5655da16d30eebc8f2e74e152e782574d43d",
-      "error": "S01: returned video is unsuitable: {'duration': 5.108108, 'bytes': 1355051, 'width': 1792, 'height': 1024, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
-      "updated_at": "2026-10-11T04:12:07Z",
+      "error": null,
+      "updated_at": "2026-10-11T04:32:53Z",
       "task_id": "2026101112110381e0e6acf9b0471a",
       "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101112120030a2ced497174d9a_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=nMSzpA2yOjUJxzKme1FU0O8%2BPSU%3D&Expires=1791778322"
     },
@@ -168,7 +168,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-11T04:32:51Z",
+  "updated_at": "2026-10-11T04:32:53Z",
   "run_id": "38108699866",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
