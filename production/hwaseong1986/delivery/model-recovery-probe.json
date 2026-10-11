@@ -1,0 +1,54 @@
+{
+  "model": "agnes-video-v2.0",
+  "base": "https://apihub.agnes-ai.com",
+  "probed_at": "2026-10-11T03:02:57Z",
+  "api_key_present": true,
+  "listed": false,
+  "attempts": [
+    {
+      "shape": "legacy_v2_shape",
+      "fields": [
+        "frame_rate",
+        "height",
+        "model",
+        "num_frames",
+        "prompt",
+        "width"
+      ],
+      "http_status": 503,
+      "body_excerpt": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261011030258389631478cYWzT52n)\",\"type\":\"AgnesAI_error\"}}",
+      "video_id": null
+    },
+    {
+      "shape": "current_free_shape",
+      "fields": [
+        "aspect_ratio",
+        "mode",
+        "model",
+        "n",
+        "prompt",
+        "seconds",
+        "seed",
+        "size"
+      ],
+      "http_status": 503,
+      "body_excerpt": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261011030418693647277KAZ7HLss)\",\"type\":\"AgnesAI_error\"}}",
+      "video_id": null
+    }
+  ],
+  "listed_http_status": 200,
+  "model_count": 11,
+  "models": [
+    "agnes-2.5-pro-alpha",
+    "agnes-video-2.5-flash",
+    "agnes-3.0-flash",
+    "agnes-image-2.1-flash",
+    "agnes-video-2.5",
+    "agnes-image-2.0-flash",
+    "agnes-2.5-flash",
+    "agnes-3.0-flash-max",
+    "agnes-2.5-pro",
+    "agnes-2.5-pro-beta",
+    "agnes-image-2.5-flash"
+  ]
+}

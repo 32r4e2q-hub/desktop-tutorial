@@ -1,116 +1,65 @@
 {
-  "model": "agnes-video-2.5",
+  "model": "agnes-video-v2.0",
   "base": "https://apihub.agnes-ai.com",
   "shot": "S01",
-  "probed_at": "2026-10-10T06:43:18Z",
+  "probed_at": "2026-10-11T02:56:07Z",
   "api_key_present": true,
   "attempts": [
     {
-      "shape": "size_frame_rate_duration_int",
-      "fields": [
-        "duration",
-        "frame_rate",
-        "model",
-        "prompt",
-        "seed",
-        "size"
-      ],
-      "payload": {
-        "model": "agnes-video-2.5",
-        "seed": 19860916,
-        "size": "1920x1080",
-        "frame_rate": 24,
-        "duration": 7
-      },
-      "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"frame_rate is not an allowed request field (request id: 20261010064322778989255RWJ5ZlxG)\",\"data\":{\"param\":\"frame_rate\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "size_duration_int",
-      "fields": [
-        "duration",
-        "model",
-        "prompt",
-        "seed",
-        "size"
-      ],
-      "payload": {
-        "model": "agnes-video-2.5",
-        "seed": 19860916,
-        "size": "1920x1080",
-        "duration": 7
-      },
-      "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"duration is not an allowed request field (request id: 202610100644431337641075e4kd3Gq)\",\"data\":{\"param\":\"duration\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "size_frame_rate_only",
-      "fields": [
-        "frame_rate",
-        "model",
-        "prompt",
-        "seed",
-        "size"
-      ],
-      "payload": {
-        "model": "agnes-video-2.5",
-        "seed": 19860916,
-        "size": "1920x1080",
-        "frame_rate": 24
-      },
-      "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"frame_rate is not an allowed request field (request id: 20261010064603492526227CepU4khf)\",\"data\":{\"param\":\"frame_rate\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "size_only",
-      "fields": [
-        "model",
-        "prompt",
-        "seed",
-        "size"
-      ],
-      "payload": {
-        "model": "agnes-video-2.5",
-        "seed": 19860916,
-        "size": "1920x1080"
-      },
-      "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"mode is required (request id: 20261010064723841055863WpcaHI2M)\",\"data\":{\"param\":\"mode\"}}",
-      "video_id": null,
-      "task_id": null
-    },
-    {
-      "shape": "size_aspect_ratio_duration_int",
+      "shape": "as_implemented",
       "fields": [
         "aspect_ratio",
-        "duration",
+        "mode",
         "model",
+        "n",
         "prompt",
+        "seconds",
         "seed",
         "size"
       ],
       "payload": {
-        "model": "agnes-video-2.5",
-        "seed": 19860916,
-        "size": "1920x1080",
+        "model": "agnes-video-v2.0",
+        "seconds": "7",
+        "size": "1080P",
         "aspect_ratio": "16:9",
-        "duration": 7
+        "mode": "text",
+        "n": 1,
+        "seed": 19860916
       },
-      "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_request\",\"message\":\"duration is not an allowed request field (request id: 20261010064844266424638U1zwZR7F)\",\"data\":{\"param\":\"duration\"}}",
+      "http_status": 503,
+      "body_excerpt": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 202610110256163589372051mh1ocwH)\",\"type\":\"AgnesAI_error\"}}",
       "video_id": null,
       "task_id": null
     },
     {
-      "shape": "size_frame_rate_seconds_int",
+      "shape": "no_seed",
       "fields": [
-        "frame_rate",
+        "aspect_ratio",
+        "mode",
+        "model",
+        "n",
+        "prompt",
+        "seconds",
+        "size"
+      ],
+      "payload": {
+        "model": "agnes-video-v2.0",
+        "seconds": "7",
+        "size": "1080P",
+        "aspect_ratio": "16:9",
+        "mode": "text",
+        "n": 1
+      },
+      "http_status": 503,
+      "body_excerpt": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261011025736679886842sGkqKN1S)\",\"type\":\"AgnesAI_error\"}}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "no_n",
+      "fields": [
+        "aspect_ratio",
+        "mode",
         "model",
         "prompt",
         "seconds",
@@ -118,14 +67,67 @@
         "size"
       ],
       "payload": {
-        "model": "agnes-video-2.5",
-        "seed": 19860916,
-        "size": "1920x1080",
-        "frame_rate": 24,
-        "seconds": 7
+        "model": "agnes-video-v2.0",
+        "seconds": "7",
+        "size": "1080P",
+        "aspect_ratio": "16:9",
+        "mode": "text",
+        "seed": 19860916
       },
-      "http_status": 400,
-      "body_excerpt": "{\"code\":\"invalid_json\",\"message\":\"Failed to read request body (request id: 2026101006500462124120556Yhczkk)\",\"data\":null}",
+      "http_status": 503,
+      "body_excerpt": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261011025856983986196cAiTwtHl)\",\"type\":\"AgnesAI_error\"}}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "tier_720p",
+      "fields": [
+        "aspect_ratio",
+        "mode",
+        "model",
+        "n",
+        "prompt",
+        "seconds",
+        "seed",
+        "size"
+      ],
+      "payload": {
+        "model": "agnes-video-v2.0",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "text",
+        "n": 1,
+        "seed": 19860916
+      },
+      "http_status": 503,
+      "body_excerpt": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261011030017308929162bqmK0KI0)\",\"type\":\"AgnesAI_error\"}}",
+      "video_id": null,
+      "task_id": null
+    },
+    {
+      "shape": "seconds_5",
+      "fields": [
+        "aspect_ratio",
+        "mode",
+        "model",
+        "n",
+        "prompt",
+        "seconds",
+        "seed",
+        "size"
+      ],
+      "payload": {
+        "model": "agnes-video-v2.0",
+        "seconds": "5",
+        "size": "1080P",
+        "aspect_ratio": "16:9",
+        "mode": "text",
+        "n": 1,
+        "seed": 19860916
+      },
+      "http_status": 503,
+      "body_excerpt": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261011030137706663545zeTxHc4s)\",\"type\":\"AgnesAI_error\"}}",
       "video_id": null,
       "task_id": null
     }
@@ -210,9 +212,9 @@
     ],
     "endpoints": [
       {
-        "url": "https://apihub.agnes-ai.com/v1/models/agnes-video-2.5",
+        "url": "https://apihub.agnes-ai.com/v1/models/agnes-video-v2.0",
         "http_status": 200,
-        "excerpt": "{\"error\":{\"message\":\"The model 'agnes-video-2.5' does not exist\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":\"model_not_found\"}}"
+        "excerpt": "{\"error\":{\"message\":\"The model 'agnes-video-v2.0' does not exist\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":\"model_not_found\"}}"
       },
       {
         "url": "https://apihub.agnes-ai.com/openapi.json",
@@ -222,7 +224,7 @@
       {
         "url": "https://apihub.agnes-ai.com/v1/videos/schema",
         "http_status": 400,
-        "excerpt": "{\"code\":\"task_not_exist\",\"message\":\"task not found (request id: 20261010064322290112819UPygL56n)\",\"data\":null}"
+        "excerpt": "{\"code\":\"task_not_exist\",\"message\":\"task not found (request id: 202610110256151943810273I93g9dP)\",\"data\":null}"
       },
       {
         "url": "https://apihub.agnes-ai.com/docs",
