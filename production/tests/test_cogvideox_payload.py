@@ -186,5 +186,50 @@ class MediaWindowTests(unittest.TestCase):
             self.inspect_with(bad)
 
 
+class FetchSourcesReceiptTests(unittest.TestCase):
+    """fetch_sources 必须认智谱收据：旧代码只认 Agnes 哈希，render 会整批 MISSING。"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.gen = load("hwaseong1986_generate_cogvideox_fs", HW / "generate_cogvideox.py")
+        cls.agnes = load("hwaseong1986_generate_agnes_fs", HW / "generate.py")
+        cls.project = json.loads((HW / "story.json").read_text(encoding="utf-8"))
+        cls.results = json.loads((HW / "results.json").read_text(encoding="utf-8"))
+
+    def setUp(self):
+        self.gen.REF_IMAGE_OK = None
+
+    tearDown = setUp
+
+    def test_two_engines_hash_differently(self):
+        shot = next(s for s in self.project["shots"] if s["id"] == "S01")
+        self.assertNotEqual(self.agnes.request_hash(self.project, shot),
+                            self.gen.request_hash(self.project, shot),
+                            "两套 payload 形状不同，哈希必须不同（否则闸门形同虚设）")
+
+    def test_every_completed_receipt_matches_a_legal_engine_hash(self):
+        rows = self.results.get("shots", {})
+        done = [sid for sid, r in rows.items() if r.get("status") == "completed"]
+        self.assertGreaterEqual(len(done), 38, "results.json 应已有 38 镜完成收据")
+        for sid in done:
+            shot = next(s for s in self.project["shots"] if s["id"] == sid)
+            self.gen.REF_IMAGE_OK = None
+            plain = self.gen.request_hash(self.project, shot)
+            self.gen.REF_IMAGE_OK = True
+            with_portrait = self.gen.request_hash(self.project, shot)
+            self.assertIn(rows[sid]["request_hash"], (plain, with_portrait),
+                          f"{sid} 的收据哈希必须是智谱引擎算出来的合法版本")
+
+    def test_face_shots_are_pinned_to_their_portraits(self):
+        # 2026-10-11 实测（results.json 收据）：第 4 轮起 flash 收下 image_url，
+        # 5 个定妆照镜头全部按图生视频出片——露脸钉在 cast/C1–C5.png 上。
+        for sid in ("S06", "S12", "S16", "S27", "S40"):
+            shot = next(s for s in self.project["shots"] if s["id"] == sid)
+            self.gen.REF_IMAGE_OK = True
+            self.assertEqual(self.results["shots"][sid]["request_hash"],
+                             self.gen.request_hash(self.project, shot),
+                             f"{sid} 的收据应是带定妆照（image_url）的图生视频版本")
+
+
 if __name__ == "__main__":
     unittest.main()

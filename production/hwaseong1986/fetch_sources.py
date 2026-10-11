@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Restore the already-generated Agnes footage on a fresh runner.
+"""Restore the already-generated footage (Agnes 或智谱 CogVideoX-Flash) on a fresh runner.
 
 Generated clips are never committed to Git: they live on the provider CDN and in
 Actions artifacts. Every generation is recorded in ``results.json`` with its
@@ -20,9 +20,31 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from media import probe  # noqa: E402
+# 2026-10-11：本片 38 镜改走智谱 CogVideoX-Flash 后，收据里的 request_hash 是
+# generate_cogvideox 的 payload 哈希；且 5 个露脸镜（S06/S12/S16/S27/S40）实测
+# 被 flash 收下 image_url、以定妆照图生视频，其收据哈希是「带定妆照」版本。
+# 旧代码只认 Agnes 哈希，会把整批智谱收据判成 MISSING_RECEIPT、render 直接缺料。
+# 三种合法哈希都认（Agnes / 智谱纯文生 / 智谱带定妆照），防掉包的严格性不变。
+from generate import request_hash as agnes_request_hash  # noqa: E402
+import generate_cogvideox as _cog  # noqa: E402
+
+
+def cogvideox_request_hashes(project, shot):
+    """同一镜头的两种智谱哈希：纯文生 与 带定妆照（image_url）。"""
+    saved = _cog.REF_IMAGE_OK
+    try:
+        _cog.REF_IMAGE_OK = None
+        plain = _cog.request_hash(project, shot)
+        _cog.REF_IMAGE_OK = True
+        with_portrait = _cog.request_hash(project, shot)
+    finally:
+        _cog.REF_IMAGE_OK = saved
+    return plain, with_portrait
 
 ATTEMPTS = 4
-MIN_DURATION = 6.0
+# 4.0 与 media.inspect_clip / jeong2000 实证窗口对齐：CogVideoX-Flash 出片 5.108 s，
+# 旧值 6.0 按 Agnes（6–12 s）定的，会把智谱素材全部判成 unusable。
+MIN_DURATION = 4.0
 MAX_DURATION = 20.0
 
 
@@ -76,9 +98,11 @@ def main() -> int:
         sid = shot["id"]
         receipt = results.get("shots", {}).get(sid, {})
         destination = args.dest / f"{sid}.mp4"
-        wanted_hash = request_hash(project, shot)
+        wanted_hashes = {agnes_request_hash(project, shot),
+                         *cogvideox_request_hashes(project, shot)}
         url = receipt.get("video_url")
-        if receipt.get("status") != "completed" or not url or receipt.get("request_hash") != wanted_hash:
+        if receipt.get("status") != "completed" or not url \
+                or receipt.get("request_hash") not in wanted_hashes:
             report["missing"].append(sid)
             print(f"MISSING_RECEIPT {sid}: no verified generation to fetch", flush=True)
             continue
