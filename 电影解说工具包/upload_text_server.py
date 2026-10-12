@@ -9,9 +9,10 @@
 
 特点：
   * 支持拖拽 / 点击选择 / 直接粘贴三种方式
+  * 长文粘贴框：大输入框，草稿自动存在浏览器里（手滑刷新也不丢），Ctrl+Enter 直接保存
   * 自动识别编码（UTF-8、UTF-8 BOM、GBK/GB18030、Big5、UTF-16），
     统一另存为 UTF-8，Windows 记事本存的 txt 也不会乱码
-  * 上传后立即显示字数、行数、预计口播时长，方便卡抖音的时长
+  * 粘贴时实时显示字数、行数、预计口播时长，方便卡抖音的时长
   * 只接收纯文本类文件，单文件上限 20 MB，文件名做了安全清洗
 """
 from __future__ import annotations
@@ -44,7 +45,7 @@ PAGE = r"""<!doctype html>
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>上传抖音文案（txt）</title>
+<title>文字上传区 · 文案 / 长文视频脚本</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;padding:28px 14px 64px;background:radial-gradient(circle at 18% 0,#1d2942,#080c15 55%,#04060b);color:#f3f6ff;font:15px/1.7 system-ui,"Microsoft YaHei",sans-serif}
@@ -58,7 +59,7 @@ h2{margin:34px 0 12px;font-size:17px;color:#cfdcf5}
 .drop b{display:block;font-size:18px;margin-bottom:8px}
 .drop span{color:#93a3bd;font-size:13px}
 input[type=file]{display:none}
-textarea{width:100%;min-height:130px;margin-top:6px;padding:14px;border-radius:12px;border:1px solid #35435f;background:#101827;color:#eaf0ff;font:14px/1.7 inherit;resize:vertical}
+textarea{width:100%;min-height:min(58vh,560px);margin-top:6px;padding:16px;border-radius:12px;border:1px solid #35435f;background:#101827;color:#eaf0ff;font:14.5px/1.75 inherit;resize:vertical}
 textarea:focus{outline:none;border-color:#7fa8ff}
 button{padding:11px 20px;border:0;border-radius:10px;background:#5d87f7;color:#fff;font-weight:700;font-size:14px;cursor:pointer}
 button:hover{background:#6f95ff}
@@ -84,8 +85,8 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
 .muted{color:#7f8da6;font-size:13px}
 </style>
 <main>
-  <h1>上传抖音文案（txt）</h1>
-  <p class="lead">把文案 txt 拖进来就行，文件会存到仓库的 <em>抖音文案/</em> 文件夹，对话里的我马上就能读到 —— 不用再往聊天框里粘。</p>
+  <h1>文字上传区 · 文案 / 长文视频脚本</h1>
+  <p class="lead">把 txt 拖进来，或者直接把长文（几万字的视频脚本也行）粘到下面的框里 —— 内容原样存到仓库的 <em>抖音文案/</em> 文件夹，对话里的我马上就能读到，不用再往聊天框里挤。</p>
 
   <div class="drop" id="drop" tabindex="0" role="button">
     <b>拖拽 txt 文件到这里，或点击选择</b>
@@ -95,11 +96,13 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
   <div class="track"><div class="bar" id="bar"></div></div>
   <div id="status">等待上传</div>
 
-  <h2>或者：直接把文案粘贴到这里</h2>
-  <textarea id="ta" placeholder="从任何地方复制文案，Ctrl+V 粘进来，然后点下面的按钮…"></textarea>
+  <h2>或者：把长文直接粘贴到这里</h2>
+  <textarea id="ta" placeholder="从任何地方复制好的视频脚本 / 文案，Ctrl+V 粘进来（长文没问题，粘贴框会自动存草稿，不怕手滑刷新），然后点「保存这段文字」；按 Ctrl+Enter 也可以直接保存。"></textarea>
   <div class="bar-row">
     <button id="save">保存这段文字</button>
-    <span class="muted" id="taInfo">0 字</span>
+    <button class="ghost" id="clear">清空草稿</button>
+    <span class="muted" id="taInfo">0 字 · 0 行</span>
+    <span class="muted" id="draftInfo"></span>
   </div>
 
   <div id="card"></div>
@@ -108,8 +111,9 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
   <ul class="files" id="list"><li class="muted">正在读取…</li></ul>
 
   <div class="hint">
-    <b>上传完成后：</b>回到对话跟我说一句「文案传好了」，我就能开始按这份文案做抖音视频（分镜、配音稿、字幕、时长都按它来）。<br>
-    Word / PDF 请先在软件里「另存为 → 纯文本 txt」，或直接把文字粘贴到上面第二个框。
+    <b>保存完成后：</b>回到对话跟我说一句「脚本传好了」，我就去 <em>抖音文案/</em> 里读最新那份稿子，按它开工（分镜、口播稿、字幕、时长都按它来）。<br>
+    粘贴框里的草稿只存在你自己浏览器里，真正落到仓库靠的是「保存这段文字」这一步。<br>
+    Word / PDF 请先在软件里「另存为 → 纯文本 txt」，或直接把文字粘贴到上面的框。
   </div>
 </main>
 <script>
@@ -222,7 +226,61 @@ async function loadList() {
   } catch (err) { listEl.innerHTML = '<li class="err">列表读取失败</li>'; }
 }
 
-ta.addEventListener('input', () => { taInfo.textContent = ta.value.length + ' 字'; });
+const DRAFT_KEY = 'text-upload-draft-v1';
+
+function refreshTaInfo() {
+  const t = ta.value;
+  const chars = t.replace(/\s/g, '').length;
+  const lines = t ? t.split('\n').length : 0;
+  taInfo.textContent = t
+    ? `${chars} 字（含空白 ${t.length}） · ${lines} 行 · 预计口播 约 ${fmtTime(chars / 4.5)}`
+    : '0 字 · 0 行';
+}
+
+let draftTimer = null;
+function writeDraft(showNote) {
+  try {
+    if (ta.value) {
+      localStorage.setItem(DRAFT_KEY, ta.value);
+      if (showNote) draftInfoEl.textContent = '草稿已自动存在本机浏览器，刷新也能捡回来';
+    } else {
+      localStorage.removeItem(DRAFT_KEY);
+      draftInfoEl.textContent = '';
+    }
+  } catch (err) {
+    draftInfoEl.textContent = '（浏览器不允许自动存草稿，请别刷新页面）';
+  }
+}
+
+const draftInfoEl = document.getElementById('draftInfo');
+
+ta.addEventListener('input', () => {
+  refreshTaInfo();
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(() => writeDraft(true), 400);
+});
+ta.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); $('#save').click(); }
+});
+
+try {
+  const restored = localStorage.getItem(DRAFT_KEY) || '';
+  if (restored) { ta.value = restored; draftInfoEl.textContent = '已恢复上次没提交的草稿'; }
+} catch (err) { /* 无痕模式下忽略 */ }
+refreshTaInfo();
+
+$('#clear').onclick = () => {
+  if (ta.value && !confirm('清空粘贴框里的内容？（已经保存到仓库的文件不受影响）')) return;
+  ta.value = '';
+  try { localStorage.removeItem(DRAFT_KEY); } catch (err) {}
+  draftInfoEl.textContent = '';
+  refreshTaInfo();
+  say('已清空粘贴框');
+};
+
+window.addEventListener('beforeunload', e => {
+  if (ta.value.trim()) { e.preventDefault(); e.returnValue = ''; }
+});
 
 $('#save').onclick = async () => {
   const text = ta.value.trim();
@@ -234,8 +292,11 @@ $('#save').onclick = async () => {
     const j = await r.json();
     if (!r.ok) throw new Error(j.error || '保存失败');
     showCard(j);
-    say(`✓ 已保存 ${j.saved}（${j.chars} 字）`, 'ok');
-    ta.value = ''; taInfo.textContent = '0 字';
+    say(`✓ 已保存 ${j.saved}（${j.chars} 字 · ${j.lines} 行）· 回到对话说一句「脚本传好了」`, 'ok');
+    ta.value = '';
+    try { localStorage.removeItem(DRAFT_KEY); } catch (err) {}
+    draftInfoEl.textContent = '';
+    refreshTaInfo();
     await loadList();
   } catch (err) { say('保存失败：' + err.message, 'err'); }
   $('#save').disabled = false;
