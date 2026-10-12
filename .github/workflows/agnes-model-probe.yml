@@ -1,0 +1,78 @@
+name: Agnes 模型可用性探测
+
+# 沙箱连不上 apihub.agnes-ai.com、也读不到 Actions 日志，所以探测结果 commit 回分支。
+# 默认零成本：只发"空 prompt"的校验请求，靠报错内容判断模型名是否被接受，不会真的生成视频。
+on:
+  workflow_dispatch:
+    inputs:
+      spend:
+        description: 'true = 真的提交一条最小生成任务（会消耗额度）；false = 零成本校验探测'
+        type: boolean
+        default: false
+      video_models:
+        description: '要探测的视频模型，逗号分隔'
+        type: string
+        default: 'agnes-video-v2.0,agnes-video-2.5,agnes-video-v2.0-flash,agnes-video-2.5-flash'
+      text_models:
+        description: '要探测的文本模型，逗号分隔'
+        type: string
+        default: 'agnes-2.0-flash,agnes-2.5-flash'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: agnes-model-probe-e7353d26
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 25
+    steps:
+      - name: Check out this Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/e7353d26-desktop-tutorial
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run the model probe
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          set -uo pipefail
+          args=(--outdir production/agnes-probe --pause 7)
+          if [ "${{ inputs.spend }}" = "true" ]; then args+=(--spend); fi
+          python3 production/agnes_model_probe.py \
+            --video-models "${{ inputs.video_models }}" \
+            --text-models "${{ inputs.text_models }}" \
+            "${args[@]}"
+
+      - name: Commit the report back to the branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/agnes-probe
+          if git diff --cached --quiet; then
+            echo "no report change"
+          else
+            git commit -m "probe: Agnes 模型可用性探测 $(date -u +%FT%TZ)"
+            for attempt in 1 2 3; do
+              if git push origin HEAD:arena/e7353d26-desktop-tutorial; then break; fi
+              sleep 5
+              git pull --rebase origin arena/e7353d26-desktop-tutorial
+            done
+          fi
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agnes-model-probe-${{ github.run_number }}
+          path: production/agnes-probe/
+          if-no-files-found: warn
+          retention-days: 7
