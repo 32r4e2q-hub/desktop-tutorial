@@ -485,27 +485,10 @@
     },
     "S24": {
       "id": "S24",
-      "status": "completed",
-      "request_hash": "d41e59687b57d878174bf15b72e118c8b78f07f1dbc29b7dd02d38b782e5f3aa",
+      "status": "submitting",
+      "request_hash": "8f5f67db2d7c6f3d22dcc293a265bdb732de0da807d1aed4cbabe686a05c3b4b",
       "error": null,
-      "updated_at": "2026-10-12T15:35:59Z",
-      "task_id": "20261012233450414b9b1d3abf4e88",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610122335506e879a1325134410_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=oh0k6bAQdx4DIYmKm9CFHgYtEqg%3D&Expires=1791905752",
-      "sha256": "4b2639a0e0c4db5a0a9c65f06417228bc87bfc1adb46951cf07d91dfa84372ab",
-      "bytes": 3824970,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 3824970,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/frogboy1991/qa/S24.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-12T22:01:16Z"
     },
     "S25": {
       "id": "S25",
@@ -958,7 +941,7 @@
     "S43",
     "S45"
   ],
-  "updated_at": "2026-10-12T22:01:15Z",
+  "updated_at": "2026-10-12T22:01:16Z",
   "previous_results": {
     "S14": [
       {
@@ -999,6 +982,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/frogboy1991/qa/S22.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S24": [
+      {
+        "id": "S24",
+        "status": "completed",
+        "request_hash": "d41e59687b57d878174bf15b72e118c8b78f07f1dbc29b7dd02d38b782e5f3aa",
+        "error": null,
+        "updated_at": "2026-10-12T15:35:59Z",
+        "task_id": "20261012233450414b9b1d3abf4e88",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610122335506e879a1325134410_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=oh0k6bAQdx4DIYmKm9CFHgYtEqg%3D&Expires=1791905752",
+        "sha256": "4b2639a0e0c4db5a0a9c65f06417228bc87bfc1adb46951cf07d91dfa84372ab",
+        "bytes": 3824970,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 3824970,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/frogboy1991/qa/S24.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
