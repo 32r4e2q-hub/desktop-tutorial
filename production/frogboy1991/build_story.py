@@ -218,9 +218,9 @@ SHOTS = [
      "低音撞击"),
     ("S14", "agnes", "近景静物", "蝾螈卵：池水玻璃罐里的卵块",
      "接动态镜：空荡的操场秋千",
-     "Extreme close-up still life only: a clear glass jar of pond water on a white table, pale translucent salamander eggs "
-     "suspended among water plants, soft natural light. The whole frame is the jar and water; no street, no village, no "
-     "buildings, no background scene, no people, no readable text. Slow push-in on the jar, " + HOLD,
+     "Extreme close-up of a clear glass jar filled with pond water, standing on a plain white table; pale translucent "
+     "salamander eggs float among green water plants inside the jar, soft natural window light, plain white background, "
+     "shallow depth of field. " + HOLD,
      "轻微的水声"),
     ("S15", "agnes", "慢速摇镜", "空荡的操场：秋千在晃动",
      "接动态镜：夜里的山林搜索",
