@@ -267,11 +267,12 @@ SHOTS = [
      "接动态镜：卧龙山的四季",
      "时间卡：一九九一年三月 — 二〇〇二年九月 / 失踪之后的十一年半 / 寻找从未停止",
      "钟表滴答"),
-    ("S22", "agnes", "慢速环绕", "志愿者搜山：一排背影走进树林",
+    ("S22", "agnes", "慢推", "志愿者搜山：父亲走进树林，拨开草丛",
      "接动态镜：卧龙山的四季",
-     "A line of volunteers seen from behind, wearing plain jackets and caps, walks slowly through a dense pine forest on "
-     "a hillside, searching the undergrowth with long sticks; no faces visible, no readable text on clothing. Slow orbit "
-     "around the line of searchers, " + HOLD,
+     "A front-facing medium shot in a dense pine forest on a hillside in autumn: {C2}, a middle-aged Korean man in a plain "
+     "dark jacket and cap, walks slowly toward the camera, searching the undergrowth with a long wooden stick; his face is "
+     "clearly visible, calm and focused, looking down at the ground ahead. Soft background of tall pines and fallen leaves, "
+     "no other people, no readable text on clothing. Slow push-in toward him, " + HOLD,
      "落叶与脚步声 + 风声"),
     ("S23", "agnes", "慢推", "卧龙山的四季：春夏秋冬",
      "接动态镜：二〇〇二年的采橡子人",
@@ -281,12 +282,12 @@ SHOTS = [
      "风声 + 远处鸟鸣"),
 
     # ---------------- N04 十一年后的发现（S24–S30）----------------
-    ("S24", "agnes", "中景跟随", "二〇〇二年：一个采橡子的人，背影沿山路走去",
+    ("S24", "agnes", "中景跟随", "二〇〇二年：一个采橡子的人，正面走上山路",
      "接信息卡：二〇〇二年九月二十六日",
-     "An autumn morning in 2002 on the forest slope of Mount Waryong: a middle-aged man seen only from behind carries a "
-     "cloth bag full of acorns along a narrow hillside path; he stops, turns his head toward a patch of open rough ground "
-     "at the edge of an old fenced range; no remains visible, only dry grass and fallen leaves. Medium tracking shot from "
-     "behind, " + HOLD,
+     "A front-facing medium shot on a narrow forest path on Mount Waryong on an autumn morning in 2002: {C6}, a middle-aged "
+     "Korean man in a faded olive work jacket and knitted cap, carries a cloth bag full of acorns; he stops and looks off "
+     "toward a patch of open rough ground at the edge of an old fenced range, his expression uneasy. Only dry grass and fallen "
+     "leaves in the background; no remains, no other people, no readable text. Medium tracking shot, " + HOLD,
      "秋风 + 枯叶脚步声"),
     ("S25", "agnes", "中景跟随", "警车驶入山路，警员走向荒地（背影）",
      "接动态镜：警戒线与现场勘查",
@@ -294,12 +295,12 @@ SHOTS = [
      "two uniformed officers seen only from behind walk toward the rough ground with their caps on; no readable text on "
      "the vehicles, no remains visible. Medium tracking shot from behind, " + HOLD,
      "汽车引擎熄火 + 脚步声"),
-    ("S26", "agnes", "远景固定", "警戒线：穿防护服的勘查人员",
+    ("S26", "agnes", "远景固定", "警戒线：穿防护服的法医站在警戒线旁",
      "接信息卡：两种结论",
-     "Far view of a remote forest clearing on a hillside in autumn 2002: yellow police tape is strung between wooden "
-     "stakes around a rough patch of ground at the edge of an old army shooting range fence; several investigators in plain "
-     "white protective suits and gloves stand at a respectful distance with their backs to the camera; no remains, no "
-     "close-ups, no readable text. Static wide shot, " + HOLD,
+     "Medium wide view in a remote forest clearing on a hillside in autumn 2002: yellow police tape is strung between wooden "
+     "stakes around a rough patch of ground at the edge of an old army shooting range fence; {C4} stands in a plain white "
+     "protective suit and gloves, facing the camera at a respectful distance, looking toward the tape. No remains, no "
+     "close-ups of the ground, no other people, no readable text. Static shot, " + HOLD,
      "风声 + 远处的人声（不可辨识）"),
     ("S27", "graphic", "信息卡（静帧）", "结论卡：警方与法医的两种说法",
      "接动态镜：法医实验室",
@@ -511,6 +512,9 @@ FACE_SHOTS = {
     "S17": ["C2"],
     "S18": ["C1"],
     "S20": ["C1"],
+    "S22": ["C2"],
+    "S24": ["C6"],
+    "S26": ["C4"],
     "S28": ["C4"],
     "S30": ["C3"],
     "S33": ["C2"],
