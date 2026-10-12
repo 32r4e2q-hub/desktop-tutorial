@@ -437,11 +437,10 @@
     },
     "S22": {
       "id": "S22",
-      "status": "queued",
-      "request_hash": "4b4feeffc83b0ca070385a28d268dedd527544f7ee67a1de9c8100fe53208a35",
+      "status": "submitting",
+      "request_hash": "4fca1f42a3b64ee3f13d3964f38bf09d97234e5cbe425548b155ce808f063edb",
       "error": null,
-      "updated_at": "2026-10-12T02:15:26Z",
-      "task_id": "20261012101526650ac9fda2e54845"
+      "updated_at": "2026-10-12T02:27:54Z"
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -486,7 +485,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-12T02:27:53Z",
+  "updated_at": "2026-10-12T02:27:54Z",
   "previous_results": {
     "S22": [
       {
@@ -496,6 +495,14 @@
         "error": null,
         "updated_at": "2026-10-12T01:57:04Z",
         "task_id": "202610120957046c7cd94817a645e4"
+      },
+      {
+        "id": "S22",
+        "status": "queued",
+        "request_hash": "4b4feeffc83b0ca070385a28d268dedd527544f7ee67a1de9c8100fe53208a35",
+        "error": null,
+        "updated_at": "2026-10-12T02:15:26Z",
+        "task_id": "20261012101526650ac9fda2e54845"
       }
     ]
   }
