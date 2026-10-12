@@ -76,6 +76,7 @@ VERDICT_LABEL = {
     "MODEL_REFUSED": "模型不可用（被拒绝/已下线）",
     "NEEDS_PAYMENT": "需要付费或余额/配额不足",
     "RATE_LIMITED": "被限流（模型存在）",
+    "QUEUE_FULL": "模型可用，但队列/通道忙（稍后重试）",
     "AUTH_FAILED": "鉴权失败（key 无效）",
     "ENDPOINT_MISSING": "接口不存在（404）",
     "NETWORK_ERROR": "网络错误",
@@ -157,6 +158,9 @@ def classify(code: int, text: str) -> str:
         return "AUTH_FAILED"
     if any(word in lower for word in MODEL_REFUSED):
         return "MODEL_REFUSED"
+    if any(word in lower for word in ("queue is full", "queue full", "retry later", "try again later",
+                                      "busy", "no available channel")):
+        return "QUEUE_FULL"
     if code == 429:
         return "RATE_LIMITED"
     if 200 <= code < 300:
@@ -299,7 +303,7 @@ def probe_model_lists(base: str, key: str) -> list[dict]:
 
 # --------------------------------------------------------------------------- paid path
 def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: float,
-                poll_timeout: float = 600) -> list[dict]:
+                poll_timeout: float = 480) -> list[dict]:
     """Actually submit one minimal clip per model. Costs credits; opt-in only."""
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import agnes_video as agnes  # noqa: E402  (repo module, stdlib only)
@@ -315,7 +319,7 @@ def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: flo
         # 免费档视频创建是 1 RPM：先等满一分钟，429 之后也要等跨分钟再重试。
         time.sleep(max(60, pause))
         try:
-            created = agnes.create_task(base, key, payload, retries=4, retry_delay=max(75, pause))
+            created = agnes.create_task(base, key, payload, retries=6, retry_delay=max(90, pause))
             video_id = created.get("video_id") or created.get("id") or created.get("task_id")
             task_id = created.get("task_id") or created.get("id")
             row.update({"status": 200, "verdict": "ACCEPTED", "video_id": video_id, "task_id": task_id,
