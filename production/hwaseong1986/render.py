@@ -484,10 +484,13 @@ def main():
         aligned=None;coverage=0.0
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        clause_timed=None if aligned else captions_from_clause_times(row)
-        cues.extend(aligned or clause_timed or captions_for(row,samples))
+        clause_timed=captions_from_clause_times(row)
+        # 2026-10-11 实测验收：clause-times DP 边界与配音静音窗 0.00 s 同步（标点停顿是
+        # TTS 的天然真值锚），ASR 词级在短句上有 ±0.8 s 抖动（v4 里 N01「他叫李春才。」
+        # 早出 0.82 s）。故 DP 优先，ASR 词级退为 DP 不可用时的回退。
+        cues.extend(clause_timed or aligned or captions_for(row,samples))
         alignment.append({'id':row['id'],
-                          'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
+                          'method':'clause-times DP' if clause_timed else 'ASR-assisted' if aligned else 'pause-aware estimate',
                           'character_match_coverage':coverage})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl,presentation)
