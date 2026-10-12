@@ -149,12 +149,13 @@ def extract_message(body: Any, text: str) -> str:
 
 def classify(code: int, text: str) -> str:
     lower = text.lower()
+    # 配额/余额提示优先：Agnes 用 403 + insufficient_user_quota 表示"要钱"，不是 key 坏。
+    if code == 402 or any(word in lower for word in PAYMENT_WORDS):
+        return "NEEDS_PAYMENT"
     if code in (401, 403):
         return "AUTH_FAILED"
     if any(word in lower for word in MODEL_REFUSED):
         return "MODEL_REFUSED"
-    if code == 402 or any(word in lower for word in PAYMENT_WORDS):
-        return "NEEDS_PAYMENT"
     if code == 429:
         return "RATE_LIMITED"
     if 200 <= code < 300:
@@ -296,7 +297,8 @@ def probe_model_lists(base: str, key: str) -> list[dict]:
 
 
 # --------------------------------------------------------------------------- paid path
-def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: float) -> list[dict]:
+def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: float,
+                poll_timeout: float = 600) -> list[dict]:
     """Actually submit one minimal clip per model. Costs credits; opt-in only."""
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import agnes_video as agnes  # noqa: E402  (repo module, stdlib only)
@@ -317,7 +319,7 @@ def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: flo
                         "detail": "task accepted"})
             if video_id:
                 final, url = agnes.poll_task(base, key, model, str(video_id), str(task_id) if task_id else None,
-                                             10, 900, 12)
+                                             10, poll_timeout, 12)
                 row["video_url"] = url
                 row["final_status"] = (final or {}).get("status")
                 row["verdict"] = "ACCEPTED"
@@ -384,6 +386,7 @@ def main() -> int:
     parser.add_argument("--base-url", default=os.environ.get("AGNES_BASE_URL") or DEFAULT_BASE_URL)
     parser.add_argument("--outdir", default="work/agnes-model-probe")
     parser.add_argument("--pause", type=float, default=3.0, help="seconds between calls (free tier is 10 RPM)")
+    parser.add_argument("--poll-timeout", type=float, default=600, help="per-model poll budget in --spend mode")
     parser.add_argument("--text-pause", type=float, default=None,
                         help="seconds between text calls; defaults to --pause")
     parser.add_argument("--spend", action="store_true", help="submit one real minimal clip per video model (costs credits)")
@@ -417,7 +420,8 @@ def main() -> int:
     text_models = [m for m in args.text_models.split(",") if m.strip()]
 
     if args.spend:
-        report["results"] = spend_probe(args.base_url.rstrip("/"), key, video_models, outdir, args.pause)
+        report["results"] = spend_probe(args.base_url.rstrip("/"), key, video_models, outdir, args.pause,
+                                        args.poll_timeout)
     else:
         report["results"] = probe_video_models(args.base_url.rstrip("/"), key, video_models, args.pause)
     report["results"] += probe_text_models(args.base_url.rstrip("/"), key, text_models, text_pause)

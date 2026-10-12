@@ -35,7 +35,7 @@ concurrency:
 jobs:
   probe:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - name: Check out this Arena branch
         uses: actions/checkout@v4
