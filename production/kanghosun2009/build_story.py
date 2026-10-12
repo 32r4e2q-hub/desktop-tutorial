@@ -307,15 +307,16 @@ SHOTS = [
      "低音撞击"),
     ("S19", "agnes", "从街角缓慢横移", "夜班散场：三个人走在回家的方向",
      "接动态镜：斑马线上的购物袋",
-     "A South Korean commercial side street deep at night in 2007, after closing hours: every shopfront is "
-     "shuttered, no sign or display is lit and all signage is switched off and featureless, the only light "
-     "coming from a row of streetlamps and one open doorway spilling a warm pool onto the pavement; a woman in "
-     "a short coat and heels walks away from camera with a small handbag, and further down the same pavement "
-     "two other women in ordinary work clothes walk in the same direction at different distances, each with a "
-     "clearly different build, coat and hairstyle; no lettering, no hangul, no shop names, no glowing signs "
-     "anywhere. Slow lateral tracking move along the street following the walking woman past the lit "
-     "doorway, " + HOLD,
-     "店铺关门声 + 街道环境音"),
+     "A quiet residential lane in a South Korean suburb late at night in 2007, with no shops at all: low brick "
+     "and concrete walls with closed metal gates run along both sides and two-storey houses stand behind them, "
+     "bare trees and utility poles with unmarked cables above, one corner streetlamp providing the only light; "
+     "three women in ordinary work clothes walk away from the camera along the lane at different distances, "
+     "each with a clearly different build, coat, bag and hairstyle, all seen from behind, and one further "
+     "woman disappears through a gate at the far end; every wall, gate, pole and surface is completely "
+     "featureless - no shopfronts, no awnings, no signs, no banners, no house numbers, no nameplates, no "
+     "lettering and no illuminated boards of any kind. Slow lateral tracking move along the lane following "
+     "the nearest walking woman, " + HOLD,
+     "夜间环境音 + 低频弦乐"),
     ("S20", "agnes", "斑马线低机位缓慢跟移", "四十八岁的主妇，买完菜回家",
      "接动态镜：公交站里的女大学生",
      "A South Korean residential crossroads on a grey November afternoon in 2008: a woman in her late forties in "
@@ -514,13 +515,14 @@ SHOTS = [
      "谷仓回声 + 低频弦乐"),
     ("S44", "agnes", "清晨街道缓慢横移", "生活继续，名字不该被抹掉",
      "接动态镜：结尾的城镇远景",
-     "An ordinary South Korean neighbourhood street at seven in the morning seen from across the road: four or "
-     "five women of different ages in plain winter work coats walk away from the camera in both directions "
-     "along the far pavement, carrying a lunch bag, a folded umbrella and a tote, all seen from behind at a "
-     "distance so no face is visible and every person is unmasked; low-rise blocks and bare trees line the "
-     "street, a delivery scooter is parked at the kerb. Every shopfront shutter and wall is completely "
-     "featureless - no banners, no posters, no lettering, no hangul, no logos and no awnings with print - and "
-     "there are no masks or coverings on any face in the frame. Slow gentle lateral move along the road "
+     "An ordinary residential lane in a South Korean suburb at seven in the morning on a clear winter day, "
+     "with no shops at all: low walls and closed metal gates line both sides, thin frost lies on the pavement, "
+     "bare trees and a few parked bicycles stand along the kerb, and a small delivery scooter waits at the "
+     "corner; four women of different ages in plain winter coats walk away from the camera along the lane at "
+     "different distances, carrying a lunch bag, a folded umbrella and a tote bag, all seen from behind at a "
+     "distance so that no face is visible and nobody wears any mask or face covering; every wall, gate, pole "
+     "and surface is completely featureless - no shopfronts, no signs, no banners, no posters, no house "
+     "numbers, no nameplates and no lettering anywhere in the frame. Slow gentle lateral move along the lane "
      "following the group, " + HOLD,
      "清晨环境音 + 温和弦乐"),
     ("S45", "agnes", "远景缓慢拉远", "结尾：十个人，和一个还没关上的问号",
@@ -668,6 +670,22 @@ FACE_SHOTS = {
 # 用定妆照做首帧（图生视频）的镜头：每个角色的首次露脸镜头，把这张脸钉在观众第一眼里。
 # 定妆照提交在仓库里，URL 取 cast.json 的 portrait_url。
 REFERENCE_SHOTS = {"S04": "C2", "S05": "C3", "S12": "C1", "S14": "C4", "S39": "C5"}
+# 逐镜自定义首帧（图生视频的第一帧）：免费档文生视频没有人物记忆，跨镜会换脸；凡是
+# 需要露脸、且定妆照的布景与镜头布景不一致的，就用**同角色、同布景**的一帧图钉住脸。
+# 这些图与 cast.json 的 face token 用同一段文字描述生成，人物特征与定妆照一致；
+# 首次露脸镜头仍用 cast/<角色>.png（见 REFERENCE_SHOTS）。
+FIRST_FRAME = {
+    "S31": "cast/C1_interrogation_a.png",   # 审讯室：抱臂后靠
+    "S33": "cast/C1_interrogation_b.png",   # 审讯室：正面开口供述
+    "S37": "cast/C4_office.png",            # 检察厅办公室：翻卷宗
+}
+
+
+def first_frame_urls():
+    base = "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/"
+    return {sid: base + rel for sid, rel in FIRST_FRAME.items()}
+
+
 
 
 def faces():
@@ -700,6 +718,9 @@ def build():
     url = portrait_urls()
     for cid in {cid for ids in FACE_SHOTS.values() for cid in ids}:
         assert face.get(cid), f"cast.json 里没有角色 {cid} 的面容 token"
+    extra_frames = first_frame_urls()
+    missing_frames = [sid for sid in FIRST_FRAME if not (HERE / FIRST_FRAME[sid]).is_file()]
+    assert not missing_frames, f"这些自定义首帧图不存在：{missing_frames}"
     cards_needed = {sid for sid, kind, *_ in SHOTS if kind == "graphic"}
     missing = sorted(cards_needed - set(CARDS))
     assert not missing, f"这些信息卡镜头在 CARDS 里没有文案：{missing}"
@@ -736,6 +757,8 @@ def build():
             shot["cast"] = FACE_SHOTS[sid]
         if sid in REFERENCE_SHOTS:
             shot["reference_image"] = url[REFERENCE_SHOTS[sid]]
+        if sid in extra_frames:
+            shot["reference_image"] = extra_frames[sid]
         shots.append(shot)
     story["shots"] = shots
     story["presentation"] = presentation()
