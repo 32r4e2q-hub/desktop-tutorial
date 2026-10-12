@@ -365,9 +365,9 @@ SHOTS = [
      "渐远的脚步声 + 钢琴尾音"),
     ("S38", "agnes", "近景静物", "二〇一九年：旧衣物装入证物袋送去检验",
      "接信息卡：五个名字",
-     "Close-up still life on a clean steel table in a forensic laboratory: a child's red knit cap and a pair of small "
-     "sneakers, each sealed in a clear evidence bag, under soft cool light; no people, no blood, no readable text on the "
-     "bags. Slow push-in on the bags, " + HOLD,
+     "Extreme close-up still life only: a child's red knit cap sealed in a clear plastic evidence bag lies on a clean white "
+     "lab table, soft cool light, shallow depth of field. The whole frame is this single object, no street, no outdoor "
+     "scene, no children, no people, no hands, no blood, no readable text. Slow push-in on the bag, " + HOLD,
      "轻微的实验室环境音"),
     ("S39", "agnes", "中景固定", "老邻居在纪念碑前，低头默哀",
      "接动态镜：春天的树林，孩子们的背影",
