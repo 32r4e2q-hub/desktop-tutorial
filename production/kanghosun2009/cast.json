@@ -1,0 +1,100 @@
+{
+  "mode": "face",
+  "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。改完跑：python3 production/face_cast.py check-prompts --project production/kanghosun2009",
+  "_casting_note": "五个角色都是符合年代的虚构匿名人物（AI 生成），不是任何真实人物的容貌还原——姜浩顺本人、受害者、办案刑警一律不以其真实容貌出现；姜浩顺在情景重现里由 C1 这个虚构匿名角色扮演（提示词与片头标签都写明「非本人容貌」），受害者全程只以背影、物件或不露脸的生活场景出现，不给可辨识面容。",
+  "characters": [
+    {
+      "id": "C1",
+      "name": "三十九岁男子（姜浩顺 · 情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "suspect",
+      "age": 39,
+      "gender": "male",
+      "face": "an anonymous South Korean man of thirty-nine: a round, softly handsome face with smooth full cheeks and an easy unremarkable expression, medium brown eyes with a calm steady gaze and faint smile lines at the corners, straight dark eyebrows, a short straight nose with a rounded tip, a small mouth with even lips, black hair cut short and combed flat with a slight side part, clean-shaven skin with a faint shine; he wears a plain dark grey zip anorak over a dark crew-neck shirt.",
+      "portrait": "cast/C1.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C1.png",
+      "seed": 20081030
+    },
+    {
+      "id": "C2",
+      "name": "五十岁出头的老刑警（调查组 · 虚构匿名角色）",
+      "role": "police",
+      "age": 52,
+      "gender": "male",
+      "face": "an anonymous South Korean man of fifty-two: a broad square weather-beaten face with heavy jowls and deep nasolabial folds, small deep-set dark eyes with tired pouches beneath them, thick straight eyebrows going grey, a wide flat nose, a firm thin mouth, short iron-grey hair cropped high above the ears, rough sun-darkened skin with a two-day stubble; he wears a rumpled dark grey suit jacket over a checked shirt with the collar open.",
+      "portrait": "cast/C2.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C2.png",
+      "seed": 20061001
+    },
+    {
+      "id": "C3",
+      "name": "三十三岁女鉴定员（国科搜 · 虚构匿名角色）",
+      "role": "police",
+      "age": 33,
+      "gender": "female",
+      "face": "an anonymous South Korean woman of thirty-three: an oval face with a straight jaw and neat regular features, calm almond eyes behind thin steel-rimmed glasses, straight dark eyebrows, a small straight nose, unpainted lips held closed, black shoulder-length hair tied back in a low bun, clear even skin; she wears a navy police forensic vest over a white shirt with a plain lanyard around her neck.",
+      "portrait": "cast/C3.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C3.png",
+      "seed": 20090122
+    },
+    {
+      "id": "C4",
+      "name": "四十五岁检察官（虚构匿名角色）",
+      "role": "other",
+      "age": 45,
+      "gender": "male",
+      "face": "an anonymous South Korean man of forty-five: a long narrow face with prominent cheekbones and a high forehead, narrow serious eyes with visible crow's feet, straight eyebrows, a long straight nose, thin lips pressed flat, black hair cut short and neatly side-parted with a touch of grey at the temples, smooth pale skin; he wears a dark charcoal suit jacket, a white shirt and a plain dark tie.",
+      "portrait": "cast/C4.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C4.png",
+      "seed": 20090422
+    },
+    {
+      "id": "C5",
+      "name": "五十二岁法官（一审法庭 · 虚构匿名角色）",
+      "role": "other",
+      "age": 52,
+      "gender": "male",
+      "face": "an anonymous South Korean man of fifty-two: a full round face with soft cheeks and a heavy chin, small mild eyes with heavy lids, sparse straight eyebrows, a short broad nose, a wide mouth with thin lips, short grey-black hair brushed back from a high hairline, smooth pale skin with faint age spots; he wears black judicial robes over a white shirt with a plain dark collar band.",
+      "portrait": "cast/C5.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C5.png",
+      "seed": 20090723
+    }
+  ],
+  "shots": {
+    "S04": [
+      "C2"
+    ],
+    "S05": [
+      "C3"
+    ],
+    "S12": [
+      "C1"
+    ],
+    "S14": [
+      "C4"
+    ],
+    "S22": [
+      "C2"
+    ],
+    "S26": [
+      "C2"
+    ],
+    "S27": [
+      "C2"
+    ],
+    "S31": [
+      "C1"
+    ],
+    "S33": [
+      "C1"
+    ],
+    "S37": [
+      "C4"
+    ],
+    "S39": [
+      "C5"
+    ],
+    "S29": [
+      "C1"
+    ]
+  }
+}

@@ -1,0 +1,169 @@
+# 模板：production/new_topic.py 会把 kanghosun2009 / arena/22fb2ea1-desktop-tutorial / 22fb2ea1-desktop-tutorial / 姜浩顺：一滴袖口的血，十名女人 / 姜浩顺_一滴袖口的血，十名女人_三分钟_带声音.mp4 换成新项目的值，
+# 生成 production/<slug>/workflows/<slug>-*.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
+name: 姜浩顺：一滴袖口的血，十名女人 · Agnes生成
+run-name: 姜浩顺：一滴袖口的血，十名女人 · Agnes 生成 · ${{ github.ref_name }}
+
+# 触发方式：在分支上写 production/kanghosun2009/GEN_REQUEST（内容就是 JSON payload）并 push。
+#   全量：{"workers":2}        补做个别镜头：{"workers":1,"only":"S07,S12"}
+# 沙箱连不上 Agnes API、也读不到 Actions 日志，所以素材与 results.json 由本工作流 commit 回分支。
+# 中途失败可断点续跑：再改一下 GEN_REQUEST 重新 push，已完成的镜头按 SHA-256 复用、不重新生成。
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON: {"only":"S01","workers":1}；空则读 GEN_REQUEST'
+        type: string
+        default: '{"workers":2}'
+  push:
+    branches:
+      - arena/22fb2ea1-desktop-tutorial
+    paths:
+      - production/kanghosun2009/GEN_REQUEST
+
+permissions:
+  contents: write
+  # actions: write 是为了收尾时能用 gh workflow run 自派发新一轮。
+  actions: write
+
+concurrency:
+  group: kanghosun2009-agnes-arena-22fb2ea1-desktop-tutorial
+  # 重新触发就是要取代上一轮：素材按 SHA-256 断点续跑，取消不会丢已完成的镜头，
+  # 而 cancel-in-progress: false 会让新一轮排在上一轮后面干等（实测要等满 2 小时等待预算）。
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/22fb2ea1-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 350
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/22fb2ea1-desktop-tutorial
+          fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功（浅克隆会让重试路径失败）
+
+      - name: Resolve the generation payload
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then
+            payload="$PAYLOAD_INPUT"
+          elif [ -f production/kanghosun2009/GEN_REQUEST ]; then
+            payload="$(tr -d '\n' < production/kanghosun2009/GEN_REQUEST)"
+          else
+            payload='{"workers":2}'
+          fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "Generation payload: $payload"
+
+      - name: Install media tools and CJK fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install render dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16" || \
+          python -m pip install --break-system-packages "pillow>=10,<13" "numpy>=1.26,<3" "faster-whisper>=1.1,<2" "av>=12,<16"
+
+      - name: 角色脸一致性（静态闸门，露脸模式：token 逐字节一致 + 不撞脸）
+        run: python3 production/face_cast.py check-prompts --project production/kanghosun2009
+
+      - name: Validate the complete three-minute timeline
+        run: python3 production/kanghosun2009/generate.py --validate
+
+      - name: Drop dead provider tasks so a re-run submits fresh ones
+        run: python3 production/kanghosun2009/generate.py --prune-failed
+
+      - name: Generate Agnes clips and checkpoint provenance
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: |
+          python3 -u production/kanghosun2009/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
+          rc=${PIPESTATUS[0]}
+          echo "$rc" > "$RUNNER_TEMP/gen_rc"   # 接力步骤靠退出码决策（42 容量满才接力）
+          exit "$rc"
+
+      - name: Ship failure log to branch (sandbox cannot read Actions logs)
+        if: failure()
+        run: |
+          tail -c 200000 /tmp/gen.log > production/kanghosun2009/gen-diag.log
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/kanghosun2009/gen-diag.log
+          git commit -m "kanghosun2009: Agnes 生成失败诊断 $(date -u +%FT%TZ)"
+          pushed=0
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${{ github.ref_name }}"; then pushed=1; break; fi
+            git fetch origin ${{ github.ref_name }} && git rebase FETCH_HEAD || break
+          done
+          [ "$pushed" = "1" ] || echo "::error::诊断日志推不回分支，看本次运行的 artifact"
+
+      - name: Save video clips as downloadable artifacts
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: kanghosun2009-agnes-${{ github.run_number }}
+          path: |
+            work/kanghosun2009/clips/
+            production/kanghosun2009/results.json
+            production/kanghosun2009/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 14
+      - name: 排队没排到就自动再投一轮（循环直到全部生成；连续 3 轮零进展才停）
+        # 思路（2026-10-10 与用户确认）：已生成的镜头按 SHA-256 断点复用，
+        # 剩下的就是反复循环请求，直到 38 镜全部生成。
+        # 平台限制单个 job 最长约 6 小时，所以「循环」实现为一串自动接力的 run。
+        # 保护闸在 auto_resume.py：连续 3 轮一个镜头都没多 → 疑似供应商停摆，停下等人。
+        # 2026-10-11 再加：收尾无条件把诊断收据（rc/phase/决策/派发结果）commit 回分支——
+        # 沙箱读不到 Actions 日志，第 2、3 轮接力为什么没动只能靠这份收据查。
+        if: always()
+        run: |
+          set -uo pipefail
+          RC="$(cat "$RUNNER_TEMP/gen_rc" 2>/dev/null || true)"
+          DIAG=production/kanghosun2009/delivery/resume-diag.log
+          {
+            echo "== resume diag $(date -u +%FT%TZ) run=$GITHUB_RUN_NUMBER"
+            echo "gen_rc=$RC"
+            echo "phase_on_disk=$(python3 -c 'import json;print(json.load(open("production/kanghosun2009/results.json")).get("phase"))' 2>/dev/null || echo unreadable)"
+            echo "gen_log_tail: $(tail -n 3 /tmp/gen.log 2>/dev/null | tr '\n' ' ')"
+          } > "$DIAG"
+          python3 production/kanghosun2009/auto_resume.py --rc "${RC:-none}" | tee -a "$DIAG"
+          if [ -f "$RUNNER_TEMP/auto_resume" ]; then
+            # 先派发再记账：就算 git 全死，接力也能继续（GITHUB_TOKEN push 不触发新 run）
+            for attempt in 1 2 3; do
+              if gh workflow run kanghosun2009-gen.yml --ref "${{ github.ref_name }}"; then
+                echo "DISPATCH_OK attempt=$attempt" >> "$DIAG"
+                break
+              fi
+              sleep 5
+            done
+          fi
+          # 无论接不接力，诊断收据都 commit 回分支（这是沙箱唯一的眼睛）
+          git config user.name "arena-agent"
+          git config user.email "arena@local"
+          git add -f "$DIAG" production/kanghosun2009/GEN_REQUEST
+          if [ -f "$RUNNER_TEMP/auto_resume" ]; then NOTE="已派发接力"; else NOTE="未接力"; fi
+          git commit -m "kanghosun2009: 收尾诊断（$NOTE） $(date -u +%m-%dT%H:%MZ)" || echo "nothing to commit"
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${{ github.ref_name }}"; then
+              echo "diag 已记账到分支"
+              break
+            fi
+            echo "push 撞上了云端检查点，同步后重试 ($attempt)"
+            git fetch origin "${{ github.ref_name }}" && git rebase FETCH_HEAD || break
+            sleep 3
+          done

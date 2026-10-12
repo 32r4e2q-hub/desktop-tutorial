@@ -1,0 +1,147 @@
+{
+  "gate": "check-prompts",
+  "project": "production/kanghosun2009",
+  "errors": [],
+  "warnings": [
+    "角色 C1 声明了定妆照 cast/C1.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C2 声明了定妆照 cast/C2.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C3 声明了定妆照 cast/C3.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C4 声明了定妆照 cast/C4.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C5 声明了定妆照 cast/C5.png，但文件不存在（图生视频会取不到参考）"
+  ],
+  "characters": [
+    {
+      "id": "C1",
+      "name": "三十九岁男子（姜浩顺 · 情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "suspect",
+      "face_token_chars": 479,
+      "portrait": "cast/C1.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C1.png",
+      "seed": 20081030
+    },
+    {
+      "id": "C2",
+      "name": "五十岁出头的老刑警（调查组 · 虚构匿名角色）",
+      "role": "police",
+      "face_token_chars": 435,
+      "portrait": "cast/C2.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C2.png",
+      "seed": 20061001
+    },
+    {
+      "id": "C3",
+      "name": "三十三岁女鉴定员（国科搜 · 虚构匿名角色）",
+      "role": "police",
+      "face_token_chars": 397,
+      "portrait": "cast/C3.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C3.png",
+      "seed": 20090122
+    },
+    {
+      "id": "C4",
+      "name": "四十五岁检察官（虚构匿名角色）",
+      "role": "other",
+      "face_token_chars": 394,
+      "portrait": "cast/C4.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C4.png",
+      "seed": 20090422
+    },
+    {
+      "id": "C5",
+      "name": "五十二岁法官（一审法庭 · 虚构匿名角色）",
+      "role": "other",
+      "face_token_chars": 380,
+      "portrait": "cast/C5.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/22fb2ea1-desktop-tutorial/production/kanghosun2009/cast/C5.png",
+      "seed": 20090723
+    }
+  ],
+  "face_shots": [
+    {
+      "shot": "S04",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1034
+    },
+    {
+      "shot": "S05",
+      "characters": [
+        "C3"
+      ],
+      "prompt_chars": 1038
+    },
+    {
+      "shot": "S12",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1109
+    },
+    {
+      "shot": "S14",
+      "characters": [
+        "C4"
+      ],
+      "prompt_chars": 1006
+    },
+    {
+      "shot": "S22",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1067
+    },
+    {
+      "shot": "S26",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1114
+    },
+    {
+      "shot": "S27",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1093
+    },
+    {
+      "shot": "S29",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1125
+    },
+    {
+      "shot": "S31",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1131
+    },
+    {
+      "shot": "S33",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1117
+    },
+    {
+      "shot": "S37",
+      "characters": [
+        "C4"
+      ],
+      "prompt_chars": 1121
+    },
+    {
+      "shot": "S39",
+      "characters": [
+        "C5"
+      ],
+      "prompt_chars": 1030
+    }
+  ],
+  "mode": "face",
+  "status": "PASS"
+}
