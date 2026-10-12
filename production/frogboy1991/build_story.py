@@ -216,13 +216,11 @@ SHOTS = [
      "接动态镜：警局办公室",
      "搜索规模卡：三十五万人次 / 一九九一年三月 — 春天的山林 / 警察、军队与志愿者同时入山",
      "低音撞击"),
-    ("S14", "agnes", "中景推进", "夜里的办公室：桌上铺着一张地图",
+    ("S14", "agnes", "近景静物", "蝾螈卵：池水玻璃罐里的卵块",
      "接动态镜：空荡的操场秋千",
-     "A dim office room at night in 1991 Korea lit by a single desk lamp: a wooden desk with a large paper map of "
-     "a hilly region spread across it, a few small pencil marks on the map, an ashtray and a mug; a middle-aged man "
-     "{C3} with a short greying crew cut in a dark jacket and tie stands over the desk, face fully visible, quietly "
-     "tracing a line on the map with one finger; no readable text. Slow push-in toward the desk, " + HOLD,
-     "纸张翻动 + 远处的钟声"),
+     "Close-up still life on a wooden table beside a clear glass jar of pond water: a cluster of pale translucent salamander "
+     "eggs suspended among water plants, soft natural light; no people, no frogs, no readable text. Slow push-in on the jar, " + HOLD,
+     "轻微的水声"),
     ("S15", "agnes", "慢速摇镜", "空荡的操场：秋千在晃动",
      "接动态镜：夜里的山林搜索",
      "An empty elementary school playground at dusk in spring 1991: a pair of swings still moving gently in the wind, "
@@ -311,24 +309,23 @@ SHOTS = [
      "folders, her face fully visible, serious and thoughtful, she flips through a report; no readable text on folders. "
      "Medium shot, slow push-in, " + HOLD,
      "纸张翻动 + 实验室的嗡嗡声"),
-    ("S29", "agnes", "远景慢推", "旧靶场的铁丝网，荒草与松林",
+    ("S29", "agnes", "中景固定", "法医团队：灯箱前研读报告",
      "接动态镜：刑警在旧档案前",
-     "An old army shooting-range fence at the edge of a pine forest on a hillside, rusted wire mesh, wild grass and fallen "
-     "leaves, grey autumn light, no people, no readable signs. Slow push along the fence toward the forest, " + HOLD,
-     "风吹铁丝网的轻响"),
+     "Medium shot inside a quiet forensic analysis room: {C4}, a forensic analyst in a white lab coat, stands at a desk studying "
+     "printed reports under a lightbox showing an abstract grey film with no readable text; calm, focused expression; no remains, "
+     "no other people, no readable text. Static medium shot, " + HOLD,
+     "室内安静的环境音"),
     ("S30", "agnes", "中景固定", "刑警重新翻看旧档案",
      "接动态镜：一排搜索人员走进树林",
-     "A detective {C3} with a short greying crew cut and a dark jacket sits at a cluttered archive desk in a 2000s Korean "
-     "police office, slowly flipping through a stack of old case folders by lamplight; his face fully visible, weary and "
-     "determined, no readable text on the folders. Medium shot, slow push-in, " + HOLD,
-     "纸张翻动 + 远处的电话声"),
-
-    # ---------------- N05 遗骸与真相（S31–S38）----------------
-    ("S31", "agnes", "慢推", "卧龙山现在的景色：安静的树林",
+     "Medium shot in a dim archive office in 1990s Daegu: {C3}, a middle-aged Korean detective in a dark suit, sits at a wooden "
+     "desk reviewing a stack of old paper case files under a desk lamp; thoughtful expression; no readable text, no other "
+     "people. Static shot, " + HOLD,
+     "纸张翻动声"),
+    ("S31", "agnes", "近景静物", "DNA 鉴定：试管架",
      "接动态镜：五张剪影排成一排",
-     "The quiet pine forest of Mount Waryong in a calm autumn afternoon, sunlight through the trees, a small stone memorial "
-     "marker on a grassy knoll with no writing visible, no people. Slow push toward the memorial, " + HOLD,
-     "轻柔的钢琴 + 鸟鸣"),
+     "Close-up still life on a clean laboratory bench: a row of small sealed test tubes in a wooden rack under soft clean light, "
+     "shallow depth of field; no people, no remains, no readable text. Slow push-in along the rack, " + HOLD,
+     "实验室环境音"),
     ("S32", "agnes", "中景固定", "五个孩子的剪影站成一排",
      "接动态镜：空房间里的父母",
      "Five small children rendered only as dark silhouettes against a soft pale sky, standing in a row on a hilltop at "
@@ -363,12 +360,12 @@ SHOTS = [
      "sweater are distinguishable only by silhouette and clothing colour; no faces. Low camera following from behind, "
      + HOLD,
      "渐远的脚步声 + 钢琴尾音"),
-    ("S38", "agnes", "近景静物", "二〇一九年：旧衣物装入证物袋送去检验",
+    ("S38", "agnes", "中景固定", "二〇一九年：刑警手持证物袋重启调查",
      "接信息卡：五个名字",
-     "Extreme close-up still life only: a child's red knit cap sealed in a clear plastic evidence bag lies on a clean white "
-     "lab table, soft cool light, shallow depth of field. The whole frame is this single object, no street, no outdoor "
-     "scene, no children, no people, no hands, no blood, no readable text. Slow push-in on the bag, " + HOLD,
-     "轻微的实验室环境音"),
+     "Medium shot in a bright office in 2019: {C3}, a middle-aged Korean detective in a dark suit, stands at a table holding a "
+     "sealed clear evidence bag with a folded child's sweater, looking down at it with a serious expression; no blood, no "
+     "readable text. Static medium shot, " + HOLD,
+     "轻微的办公室环境音"),
     ("S39", "agnes", "中景固定", "老邻居在纪念碑前，低头默哀",
      "接动态镜：春天的树林，孩子们的背影",
      "An elderly Korean woman {C5} with a grey perm and a dark cardigan stands before a small stone memorial in a quiet "
@@ -504,7 +501,6 @@ FACE_SHOTS = {
     "S05": ["C5"],
     "S11": ["C1"],
     "S12": ["C2"],
-    "S14": ["C3"],
     "S17": ["C2"],
     "S20": ["C1"],
     "S22": ["C2"],
@@ -512,6 +508,8 @@ FACE_SHOTS = {
     "S26": ["C6"],
     "S28": ["C4"],
     "S30": ["C3"],
+    "S29": ["C4"],
+    "S38": ["C3"],
     "S33": ["C2"],
     "S35": ["C4"],
     "S39": ["C5"],
