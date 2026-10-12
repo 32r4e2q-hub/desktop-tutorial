@@ -339,16 +339,15 @@ SHOTS = [
      "the wet verge, a village lane and low hills behind, the timetable panel and leaflet completely blank. "
      "Slow medium push from across the road toward the waiting figure, " + HOLD,
      "冬风 + 远处公交车"),
-    ("S22", "agnes", "俯拍柜台缓慢横移", "派出所里，七张登记表",
+    ("S22", "agnes", "俯拍桌面缓慢横移", "派出所里，一张一张摆开的卷宗",
      "接信息卡：没有并案",
-     "A small South Korean police station reception counter in 2008, photographed from directly above: seven "
-     "identical pale buff sheets of paper lie side by side in a neat row on the green laminate counter top, each "
-     "held by a small plain metal clip at its top-left corner, and every sheet is completely blank; a black "
-     "office telephone, a round ink pad and a pen cup sit at the right edge of the counter, and a middle-aged "
-     "man in a rumpled grey suit jacket leans into the top of the frame with one flat palm pressed on the "
-     "counter beside the row, seen from above so only his forearm, shoulder and the top of his iron-grey hair "
-     "are in frame; bare counter top, no shelves, no cabinets, no bulletins, no charts. Slow overhead lateral "
-     "move along the row of seven sheets from the telephone to the man's hand, " + HOLD,
+     "A quiet small-town office counter in 2008 photographed from directly above: a green laminate counter top "
+     "with a black office telephone, a pen cup and a metal clip tray at its right edge, and two plain closed "
+     "manila folders lying on the clear surface; a man's forearm in a rumpled grey suit sleeve reaches in from "
+     "the top edge of the frame and sets a third closed folder down beside the others with one flat hand, a "
+     "chair back just visible at the bottom of the frame; the counter is otherwise empty and completely bare of "
+     "any writing, lettering or marks. Slow overhead lateral move along the counter from the telephone to the "
+     "folders and the resting hand, " + HOLD,
      "电话铃声 + 纸张翻动"),
     ("S23", "graphic", "信息卡（静帧）", "档案：八起失踪，没有并案",
      "接 N04：二〇〇九年一月的破局",
