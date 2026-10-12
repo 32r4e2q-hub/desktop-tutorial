@@ -68,6 +68,9 @@ REF_IMAGE_MODE = None
 # 第一眼）；拒绝 → 整轮退回纯文生视频（露脸镜头的 prompt 已内嵌各角色面容
 # 描述，跨镜一致靠 face token）。探测结果落 delivery/ref-image-probe.json。
 REF_IMAGE_OK = None  # None=未探测（默认纯文生）；True=收下定妆照；False=拒绝
+# 探测提交的重试次数：免费档 429/1305「该模型当前访问量过大」是常态，一次失败就判
+# unsupported 会让整轮悄悄退回纯文生（2026-10-12 实测：S14/S39 那一轮白等）。
+PROBE_ATTEMPTS = 8
 PROBE_TASKS = {}     # sid -> 探测已提交的 task_id；主循环直接复用，不浪费免费额度
 
 
@@ -119,17 +122,26 @@ def probe_ref_image(client, project, record_path=None):
         payload['image_url'] = shot['reference_image']
         record = {'shot': shot['id'], 'image_url': payload['image_url'],
                   'payload_keys': sorted(payload)}
-        try:
-            response = client.videos.generations(**payload)
-            task_id = obj_get(response, 'id')
-            if not task_id:
-                raise RuntimeError('No task id: %r' % (response,))
-            REF_IMAGE_OK = True
-            PROBE_TASKS[shot['id']] = str(task_id)
-            record.update(supported=True, task_id=str(task_id))
-        except Exception as exc:
-            REF_IMAGE_OK = False
-            record.update(supported=False, error=str(exc)[:400])
+        for attempt in range(1, PROBE_ATTEMPTS + 1):
+            try:
+                response = client.videos.generations(**payload)
+                task_id = obj_get(response, 'id')
+                if not task_id:
+                    raise RuntimeError('No task id: %r' % (response,))
+                REF_IMAGE_OK = True
+                PROBE_TASKS[shot['id']] = str(task_id)
+                record.update(supported=True, task_id=str(task_id), attempts=attempt)
+                break
+            except Exception as exc:
+                # 限流（429/1305）要重试；参数被真正拒收才判 unsupported。
+                if retryable(exc) and attempt < PROBE_ATTEMPTS:
+                    wait = min(60, 10 + attempt * 5)
+                    print('REF_IMAGE_PROBE throttled attempt %d/%d, wait %ds: %s'
+                          % (attempt, PROBE_ATTEMPTS, wait, str(exc)[:160]), flush=True)
+                    time.sleep(wait)
+                    continue
+                REF_IMAGE_OK = False
+                record.update(supported=False, error=str(exc)[:400], attempts=attempt)
     print('REF_IMAGE_PROBE supported=%s shot=%s' % (REF_IMAGE_OK, record.get('shot')),
           flush=True)
     record_path.parent.mkdir(parents=True, exist_ok=True)
