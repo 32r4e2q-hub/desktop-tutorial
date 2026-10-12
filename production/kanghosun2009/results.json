@@ -437,11 +437,10 @@
     },
     "S22": {
       "id": "S22",
-      "status": "failed",
-      "request_hash": "e44b0be2701c98c5684b9b807d9dd65e741fcbfee312edd0490dcb8536f3b5c2",
-      "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
-      "updated_at": "2026-10-12T07:22:43Z",
-      "task_id": "20261012152231a541efbc8d8f46eb"
+      "status": "submitting",
+      "request_hash": "d5736deab75ae9ea1f34a22efc9ae4d268e20d245e1f946c39735095f42e51c5",
+      "error": null,
+      "updated_at": "2026-10-12T07:37:40Z"
     },
     "S24": {
       "id": "S24",
@@ -942,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-12T07:37:39Z",
+  "updated_at": "2026-10-12T07:37:40Z",
   "previous_results": {
     "S22": [
       {
@@ -1000,6 +999,14 @@
         "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
         "updated_at": "2026-10-12T07:09:52Z",
         "task_id": "2026101215094028686847872546ec"
+      },
+      {
+        "id": "S22",
+        "status": "failed",
+        "request_hash": "e44b0be2701c98c5684b9b807d9dd65e741fcbfee312edd0490dcb8536f3b5c2",
+        "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
+        "updated_at": "2026-10-12T07:22:43Z",
+        "task_id": "20261012152231a541efbc8d8f46eb"
       }
     ],
     "S04": [
