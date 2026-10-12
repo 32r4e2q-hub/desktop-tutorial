@@ -339,16 +339,16 @@ SHOTS = [
      "the wet verge, a village lane and low hills behind, the timetable panel and leaflet completely blank. "
      "Slow medium push from across the road toward the waiting figure, " + HOLD,
      "冬风 + 远处公交车"),
-    ("S22", "agnes", "俯拍柜台缓慢横移", "派出所里，七张失踪登记表",
+    ("S22", "agnes", "俯拍柜台缓慢横移", "派出所里，七张登记表",
      "接信息卡：没有并案",
-     "A small South Korean police station reception counter in 2008, photographed from directly above: exactly "
-     "seven identical buff-coloured missing-person forms lie side by side in a neat row on the green laminate "
-     "counter top, each with a small blank photograph frame clipped to its top-left corner, every form and frame "
-     "completely blank; a rotary telephone, an ink pad and a pen cup sit at the right edge, and a middle-aged "
-     "detective in a rumpled grey suit jacket leans into the top of the frame with one flat palm pressed onto "
-     "the counter beside the row, seen from above so only his forearm, shoulder and the top of his iron-grey "
-     "hair are in frame; bare counter, no shelves, no bulletin boards, no cabinets. Slow overhead lateral move "
-     "along the row of seven forms from the telephone to the detective's hand, " + HOLD,
+     "A small South Korean police station reception counter in 2008, photographed from directly above: seven "
+     "identical pale buff sheets of paper lie side by side in a neat row on the green laminate counter top, each "
+     "held by a small plain metal clip at its top-left corner, and every sheet is completely blank; a black "
+     "office telephone, a round ink pad and a pen cup sit at the right edge of the counter, and a middle-aged "
+     "man in a rumpled grey suit jacket leans into the top of the frame with one flat palm pressed on the "
+     "counter beside the row, seen from above so only his forearm, shoulder and the top of his iron-grey hair "
+     "are in frame; bare counter top, no shelves, no cabinets, no bulletins, no charts. Slow overhead lateral "
+     "move along the row of seven sheets from the telephone to the man's hand, " + HOLD,
      "电话铃声 + 纸张翻动"),
     ("S23", "graphic", "信息卡（静帧）", "档案：八起失踪，没有并案",
      "接 N04：二〇〇九年一月的破局",
