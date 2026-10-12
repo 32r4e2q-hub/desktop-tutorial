@@ -492,11 +492,12 @@ SHOTS = [
      "接动态镜：法院外的等待",
      "A South Korean district courtroom on the morning of 22 April 2009: a judge of around fifty in black "
      "robes {C5} stands behind the high wooden bench, shown waist-up in the centre of the frame with his face "
-     "clearly visible, and delivers the sentence in continuous motion - he lifts a single blank sheet, reads a "
-     "line with his head bowed, raises his head and turns slightly toward the empty defendant's rail below, then "
-     "lowers the sheet and lays it flat on the bench while his mouth keeps moving; the panelled wall behind him "
-     "and the empty public benches lie in cold morning light, and every document, seal and wall plaque is blank. "
-     "Slow lateral move along the bench while he moves through the action, " + HOLD,
+     "clearly visible, and the take opens with him already mid-sentence and moving - he lifts one blank sheet "
+     "with both hands as he reads, rotates his whole torso to turn from the sheet toward the empty defendant's "
+     "rail below and back, then lays the sheet flat on the bench and straightens his shoulders, his mouth and "
+     "jaw moving throughout; the panelled wall behind him and the empty public benches lie in cold morning "
+     "light, and every document, seal and wall plaque is blank. Slow lateral move along the bench while he "
+     "moves through the action, " + HOLD,
      "法庭环境声 + 低沉重音"),
     ("S40", "agnes", "人群外缓慢横移", "七月二十三日：二审维持；他放弃上告",
      "接动态镜：拘留所的高墙",
