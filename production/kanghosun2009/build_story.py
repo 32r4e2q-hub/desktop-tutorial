@@ -285,8 +285,9 @@ SHOTS = [
     # ---------------- N03（8 镜：6 动态 + 2 信息卡）----------------
     ("S16", "agnes", "乡间公路远景缓慢前推", "江原道旌善：二十三岁的郡政府职员",
      "接动态镜：办公室的下午",
-     "A narrow mountain road in Jeongseon, Gangwon province, on a clear September morning in 2006: steep "
-     "pine-covered slopes rise on both sides, a low guard rail runs along the outer edge above a shallow valley "
+     "A narrow mountain road in Jeongseon, Gangwon province, on a clear late-summer morning in September 2006, "
+     "the foliage deep green and the ground bare of snow: steep pine-covered slopes rise on both sides, a low "
+     "guard rail runs along the outer edge above a shallow valley "
      "mist, and a young woman in office-casual clothes with a shoulder bag walks along the verge away from "
      "camera toward a distant bus shelter; a utility pole and a blank roadside marker stand in the foreground "
      "grass, the asphalt is empty of traffic. Slow distant push along the road toward the walking figure, " + HOLD,
@@ -383,12 +384,13 @@ SHOTS = [
      "余烬 + 低沉鼓点"),
     ("S29", "agnes", "从走廊远端缓慢推近", "同一天傍晚：他一个人走过那条走廊",
      "接动态镜：国科搜的那一点血",
-     "A bare corridor in a plain administrative building in January 2009, terrazzo floor and closed doors along "
-     "one side: a man of thirty-nine in a plain dark anorak {C1} walks alone toward the camera along the "
-     "corridor, his head level and his expression ordinary and unremarkable, hands empty and visible at "
-     "his sides, his eyes meeting the lens steadily; his shadow runs ahead of him on the floor and the "
-     "corridor is otherwise empty, every wall and door blank. Slow tracking push backwards ahead of the "
-     "walking man along the corridor, " + HOLD,
+     "A long bare corridor in a plain administrative building in January 2009, terrazzo floor and closed doors "
+     "along both walls: seen from behind, a man of thirty-nine, an anonymous South Korean man in a plain dark "
+     "zip anorak, walks away from the camera down the middle of the corridor with his hands empty at his sides "
+     "and his face turned away from the lens; the corridor stretches far ahead of him, his full figure small in "
+     "the middle distance while the floor, the walls and the closed doors fill the rest of the frame, every "
+     "surface blank and the corridor otherwise empty. Slow tracking push that follows him from behind along "
+     "the corridor, " + HOLD,
      "脚步声 + 铁门声"),
     ("S30", "agnes", "微距缓慢推近袖口", "一滴血，锁住整条证据链",
      "接 N05：六天的沉默",
@@ -415,11 +417,11 @@ SHOTS = [
      "低音撞击"),
     ("S33", "agnes", "从桌面缓慢上摇到他的脸", "第六天，他开口供述",
      "接动态镜：旌善山区的警车",
-     "The same plain South Korean interrogation room at night in January 2009: the man of thirty-nine in the "
-     "dark anorak {C1} sits upright at the metal table with both forearms on the surface and hands loosely "
-     "clasped, his head raised and his eyes open and calm as he speaks with an unhurried, matter-of-fact "
-     "manner, mouth slightly open mid-sentence; a cassette recorder turns between them, bare plaster walls "
-     "with no numerals. Slow tilt up from "
+     "A small plain South Korean interrogation room at night in January 2009, interior only: the man of "
+     "thirty-nine in the dark anorak {C1} sits upright at a bare metal table with both forearms on the surface "
+     "and hands loosely clasped, his head raised and his eyes open and calm as he speaks with an unhurried, "
+     "matter-of-fact manner, his mouth slightly open mid-sentence; the walls are bare plaster with no "
+     "numerals and no window anywhere. Slow tilt up from "
      "the table surface to his face and hold on his unhurried expression, " + HOLD,
      "录音机转动 + 低频弦乐"),
     ("S34", "agnes", "乡道上缓慢前推到警戒线", "他补上的那一件：旌善，二〇〇六年",
@@ -469,12 +471,12 @@ SHOTS = [
     # ---------------- N06（7 镜：6 动态 + 1 信息卡）----------------
     ("S39", "agnes", "从法官席缓慢横移到被告席", "二〇〇九年四月二十二日：死刑",
      "接动态镜：法院外的等待",
-     "A South Korean district courtroom on the morning of 22 April 2009: a judge of around fifty in dark robes "
-     "{C5} stands at the high bench reading from a single sheet held in both hands with his head slightly "
-     "bowed, a clerk at attention to his left and a seated defence lawyer in a dark suit looking down at a "
-     "closed folder to his right; the wooden panelling and public benches are bare and every document, seal and "
-     "wall plaque is blank. Slow lateral move along the bench from the judge to the empty defendant's rail "
-     "below, " + HOLD,
+     "A South Korean district courtroom on the morning of 22 April 2009: a judge of around fifty in black "
+     "robes {C5} stands behind the high wooden bench, shown waist-up in the centre of the frame with his face "
+     "clearly visible and lifted as he delivers the sentence, both hands resting on a single sheet on the "
+     "bench surface; the panelled wall behind him and the empty public benches below lie in cold morning "
+     "light, and every document, seal and wall plaque is blank. Slow lateral move along the bench from the "
+     "judge to the empty defendant's rail below, " + HOLD,
      "法庭环境声 + 低沉重音"),
     ("S40", "agnes", "人群外缓慢横移", "七月二十三日：二审维持；他放弃上告",
      "接动态镜：拘留所的高墙",
@@ -499,11 +501,13 @@ SHOTS = [
      "风声 + 远处金属门"),
     ("S43", "agnes", "微距缓慢横移到镐头", "牛棚里：不属于任何人的两份 DNA",
      "接动态镜：清晨的街道",
-     "A dim farm shed interior in South Korea photographed years after the fact: on a rough wooden pallet lie a "
-     "rusted pickaxe with a weathered handle, a coil of stiff rope and a folded tarpaulin under a single shaft "
-     "of light from a high vent, dust suspended in the beam; the packed-earth floor is scattered with straw and "
-     "a metal bucket stands at the edge of frame, cobwebs hang from the rafters, no surface carries readable "
-     "text or numbers. Slow macro dolly sideways from the coil of rope to the head of the pickaxe, " + HOLD,
+     "A dry farm shed interior in South Korea years after the fact, cold daylight falling from a high vent: a "
+     "still life of three objects laid out apart from each other on a rough wooden pallet, a rusted pickaxe "
+     "with a weathered handle, a coil of stiff rope and a folded grey tarpaulin, with dust suspended in the "
+     "light; the packed-earth floor around the pallet is swept bare and scattered with straw, a metal bucket "
+     "stands at the edge of frame, cobwebs hang from the rafters, no clothing and no figure lies anywhere in "
+     "the shed, and no surface carries readable text or numbers. Slow macro dolly sideways from the coil of "
+     "rope to the head of the pickaxe, " + HOLD,
      "谷仓回声 + 低频弦乐"),
     ("S44", "agnes", "清晨街道缓慢横移", "生活继续，名字不该被抹掉",
      "接动态镜：结尾的城镇远景",
@@ -650,7 +654,6 @@ FACE_SHOTS = {
     "S14": ["C4"],
     "S26": ["C2"],
     "S27": ["C2"],
-    "S29": ["C1"],
     "S31": ["C1"],
     "S33": ["C1"],
     "S37": ["C4"],
