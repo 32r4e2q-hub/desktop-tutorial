@@ -1,0 +1,103 @@
+{
+  "mode": "face",
+  "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。五名失踪儿童不在本表内，全片不给任何孩子面容 token。改完跑：python3 production/face_cast.py check-prompts --project production/frogboy1991",
+  "_casting_note": "五个角色都是符合年代的虚构匿名成年人（AI 生成），不是任何真实人物的容貌还原。五名失踪儿童（金永奎、赵浩延、金钟植、朴灿仁、禹哲元）全片不露正脸，只以背影、剪影、远景和服装物件出现，不给任何面容 token。",
+  "characters": [
+    {
+      "id": "C1",
+      "name": "母亲（虚构匿名角色，非真人容貌）",
+      "role": "witness",
+      "age": 41,
+      "gender": "female",
+      "face": "an anonymous South Korean woman of forty-one: a soft oval face with gentle full cheeks, kind dark eyes with faint lines at the corners, arched brows, a small straight nose, a calm mouth with natural pink lips, short permed dark-brown hair just above the shoulders with a few loose strands, warm light skin; she wears a plain cream cardigan over a floral blouse.",
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19910326
+    },
+    {
+      "id": "C2",
+      "name": "父亲（虚构匿名角色，非真人容貌）",
+      "role": "witness",
+      "age": 45,
+      "gender": "male",
+      "face": "an anonymous South Korean man of forty-five: a broad weathered face with deep forehead creases, tired brown eyes with heavy lids, thick dark eyebrows slightly greying, a wide flat nose, a firm mouth with downturned corners, short black hair combed back from a receding hairline, stubble along the jaw, tanned skin; he wears a dark zip jacket over a plain grey shirt.",
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19910327
+    },
+    {
+      "id": "C3",
+      "name": "刑警（虚构匿名角色，非真人容貌）",
+      "role": "police",
+      "age": 50,
+      "gender": "male",
+      "face": "an anonymous South Korean man of fifty: a square face with a heavy jaw and strong cheekbones, narrow determined eyes under low straight brows, a straight nose, thin lips pressed together, short greying crew-cut hair, clean-shaven skin with a few age lines; he wears a plain dark jacket over a white shirt with a slim tie.",
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19910328
+    },
+    {
+      "id": "C4",
+      "name": "法医与分析员（虚构匿名角色，非真人容貌）",
+      "role": "other",
+      "age": 38,
+      "gender": "female",
+      "face": "an anonymous South Korean woman of thirty-eight: an oval face with a straight jaw and neat regular features, calm focused almond eyes behind thin rimless glasses, straight dark eyebrows, a small straight nose, unpainted lips, black hair pulled back into a tidy low bun, clear even skin; she wears a white lab coat over a dark turtleneck.",
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19910329
+    },
+    {
+      "id": "C5",
+      "name": "老邻居（虚构匿名角色，非真人容貌）",
+      "role": "witness",
+      "age": 68,
+      "gender": "female",
+      "face": "an anonymous South Korean woman of sixty-eight: a round kind face with soft wrinkles around the eyes and mouth, gentle squinting dark eyes, thin greying eyebrows, a small round nose, a warm smile with few teeth showing, short grey permed hair, rosy cheeks; she wears a dark cardigan over a faded flowered blouse.",
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19910330
+    }
+  ],
+  "shots": {
+    "S05": [
+      "C5"
+    ],
+    "S11": [
+      "C1"
+    ],
+    "S12": [
+      "C2"
+    ],
+    "S14": [
+      "C3"
+    ],
+    "S17": [
+      "C2"
+    ],
+    "S18": [
+      "C1"
+    ],
+    "S20": [
+      "C1"
+    ],
+    "S28": [
+      "C4"
+    ],
+    "S30": [
+      "C3"
+    ],
+    "S33": [
+      "C2"
+    ],
+    "S35": [
+      "C4"
+    ],
+    "S39": [
+      "C5"
+    ],
+    "S42": [
+      "C1"
+    ]
+  }
+}
