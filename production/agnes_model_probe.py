@@ -312,8 +312,10 @@ def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: flo
         ) if not model.startswith("agnes-video-v2.0") else (
             v2_payload(model) | {"prompt": "A locked-off shot of an empty quiet room, soft daylight, no people, no text.", "num_frames": 81, "width": 832, "height": 448}
         )
+        # 免费档视频创建是 1 RPM：先等满一分钟，429 之后也要等跨分钟再重试。
+        time.sleep(max(60, pause))
         try:
-            created = agnes.create_task(base, key, payload, retries=3, retry_delay=5)
+            created = agnes.create_task(base, key, payload, retries=4, retry_delay=max(75, pause))
             video_id = created.get("video_id") or created.get("id") or created.get("task_id")
             task_id = created.get("task_id") or created.get("id")
             row.update({"status": 200, "verdict": "ACCEPTED", "video_id": video_id, "task_id": task_id,
