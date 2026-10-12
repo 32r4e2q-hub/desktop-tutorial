@@ -46,22 +46,48 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Resolve the probe configuration
+        run: |
+          set -euo pipefail
+          # push 触发时 inputs 上下文是空的，所以配置走 production/AGNES_MODEL_PROBE_REQUEST（JSON 一行，缺省用默认值）
+          python3 - <<'PY' | tee -a "$GITHUB_ENV"
+          import json, os
+          from pathlib import Path
+          defaults = {
+              "video_models": "agnes-video-v2.0,agnes-video-2.5,agnes-video-v2.0-flash,agnes-video-2.5-flash",
+              "text_models": "agnes-2.0-flash,agnes-2.5-flash",
+              "spend": False,
+              "pause": 70,
+              "text_pause": 8,
+          }
+          raw = Path('production/AGNES_MODEL_PROBE_REQUEST').read_text(errors='replace') if Path('production/AGNES_MODEL_PROBE_REQUEST').exists() else ''
+          for line in raw.splitlines():
+              line = line.strip()
+              if line.startswith('{'):
+                  try:
+                      defaults.update(json.loads(line))
+                  except ValueError:
+                      pass
+                  break
+          for key, value in (("PROBE_VIDEO_MODELS", defaults["video_models"]),
+                             ("PROBE_TEXT_MODELS", defaults["text_models"]),
+                             ("PROBE_SPEND", "true" if defaults["spend"] else "false"),
+                             ("PROBE_PAUSE", defaults["pause"]),
+                             ("PROBE_TEXT_PAUSE", defaults["text_pause"])):
+              print(f"{key}={value}")
+          PY
+
       - name: Run the model probe
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
         run: |
           set -uo pipefail
-          spend="${{ inputs.spend }}"
-          video="${{ inputs.video_models }}"
-          text="${{ inputs.text_models }}"
-          video="${video:-agnes-video-v2.0,agnes-video-2.5,agnes-video-v2.0-flash,agnes-video-2.5-flash}"
-          text="${text:-agnes-2.0-flash,agnes-2.5-flash}"
+          args=(--outdir production/agnes-probe --pause "$PROBE_PAUSE" --text-pause "$PROBE_TEXT_PAUSE")
+          if [ "$PROBE_SPEND" = "true" ]; then args+=(--spend); fi
           # 免费档视频创建是 1 RPM，视频之间必须留足 60s+；文本是 10 RPM，可以密一些。
-          args=(--outdir production/agnes-probe --pause 70 --text-pause 8)
-          if [ "$spend" = "true" ]; then args+=(--spend); fi
           python3 production/agnes_model_probe.py \
-            --video-models "$video" \
-            --text-models "$text" \
+            --video-models "$PROBE_VIDEO_MODELS" \
+            --text-models "$PROBE_TEXT_MODELS" \
             "${args[@]}"
 
       - name: Commit the report back to the branch
