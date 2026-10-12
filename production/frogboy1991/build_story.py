@@ -218,9 +218,9 @@ SHOTS = [
      "低音撞击"),
     ("S14", "agnes", "近景静物", "蝾螈卵：池水玻璃罐里的卵块",
      "接动态镜：空荡的操场秋千",
-     "Extreme close-up of a clear glass jar filled with pond water, standing on a plain white table; pale translucent "
-     "salamander eggs float among green water plants inside the jar, soft natural window light, plain white background, "
-     "shallow depth of field. " + HOLD,
+     "Extreme close-up still life only: a single clear glass jar of pond water with pale salamander eggs inside, placed on a "
+     "plain white table, soft diffused studio light, shallow depth of field. The whole frame is this one jar; the background "
+     "is plain white and out of focus. Slow push-in on the jar, " + HOLD,
      "轻微的水声"),
     ("S15", "agnes", "慢速摇镜", "空荡的操场：秋千在晃动",
      "接动态镜：夜里的山林搜索",
@@ -493,7 +493,6 @@ HASHTAGS = ["#悬疑", "#真实案件", "#韩国", "#青蛙少年", "#未解之�
 
 GRID = 4            # 规划网格：每镜 4 秒，45 镜 = 180 秒
 AGNES_SECONDS = 6   # 每个镜头实际请求的时长（智谱 CogVideoX-Flash 免费档单条约 5–6 秒，render 按需裁切）
-SEED_OVERRIDE = {"S14": 19911414}  # S14 换种子：原种子反复产出街景
 SEED_BASE = 19910326  # 失踪日（一九九一年三月二十六日），让 seed 可追溯
 
 # 露脸镜头登记（镜头号 -> 角色 id）：只有这里登记的镜头允许出现面容 token，
@@ -589,7 +588,7 @@ def build():
             "prompt": prompt if kind != "graphic" else "",
             "purpose": purpose, "transition_out": transition,
             "graphic": body if kind == "graphic" else "",
-            "seed": SEED_OVERRIDE.get(sid, SEED_BASE + i + 1),
+            "seed": SEED_BASE + i + 1,
             "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": "1080p", "frame_rate": 24,
             "camera": camera, "sfx_note": sfx,
         }
