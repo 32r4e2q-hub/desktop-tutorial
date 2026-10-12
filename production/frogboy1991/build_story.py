@@ -213,12 +213,12 @@ SHOTS = [
      "接动态镜：警局办公室",
      "搜索规模卡：三十五万人次 / 一九九一年三月 — 春天的山林 / 警察、军队与志愿者同时入山",
      "低音撞击"),
-    ("S14", "agnes", "中景推进", "警局：刑警看着地图，电话铃响",
+    ("S14", "agnes", "中景推进", "夜里的办公室：桌上铺着一张地图",
      "接动态镜：空荡的操场秋千",
-     "A 1991 Korean police station office at night, fluorescent light, an old wooden desk covered with a large paper map "
-     "of the Daegu hills with small pencil marks; a middle-aged detective {C3} with a short greying crew cut and a plain "
-     "shirt and tie stands over the map, his face fully visible, tired and focused, he traces a route on the map with one "
-     "finger and looks up thoughtfully; no readable text. Slow push-in toward the detective, " + HOLD,
+     "A dim office room at night in 1991 Korea lit by a single desk lamp: a wooden desk with a large paper map of "
+     "a hilly region spread across it, a few small pencil marks on the map, an ashtray and a mug; a middle-aged man "
+     "{C3} with a short greying crew cut in a dark jacket and tie stands over the desk, face fully visible, quietly "
+     "tracing a line on the map with one finger; no readable text. Slow push-in toward the desk, " + HOLD,
      "纸张翻动 + 远处的钟声"),
     ("S15", "agnes", "慢速摇镜", "空荡的操场：秋千在晃动",
      "接动态镜：夜里的山林搜索",
@@ -456,7 +456,7 @@ LABEL_OVERRIDES = {
 # 合成音效事件：(镜头号, 类型)，类型可选 paper / phone / keys / machine / press，落在该镜开始前 0.18 秒
 SFX_EVENTS = [
     ("S12", "phone"),
-    ("S14", "phone"),
+    ("S14", "paper"),
     ("S17", "paper"),
     ("S28", "paper"),
     ("S30", "paper"),
