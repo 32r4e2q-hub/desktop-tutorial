@@ -118,6 +118,18 @@ def probe_ref_image(client, project, record_path=None):
     record_path.parent.mkdir(parents=True, exist_ok=True)
     record_path.write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n',
                            encoding='utf-8')
+    # 探测结果是「免费档收不收定妆照」的收据，必须随分支走：
+    # 2026-10-12 本片实测 flash 拒收 image_url（REF_IMAGE_OK=False），
+    # 于是 38 镜全部走纯文生视频 —— 这条证据要能在仓库里查到。
+    try:
+        rel = str(record_path.relative_to(ROOT))
+        git('add', '--', rel)
+        if subprocess.run(['git', 'diff', '--cached', '--quiet', '--', rel],
+                          cwd=ROOT).returncode:
+            git('commit', '-m', 'kanghosun2009: 定妆照图生视频探测结果', '--', rel)
+            push_provenance()
+    except Exception as exc:
+        print('REF_IMAGE_PROBE_RECORD_GIT_FAILED %r' % (exc,), flush=True)
     return record
 
 
