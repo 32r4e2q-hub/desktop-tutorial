@@ -5,11 +5,27 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "cb3cd5dc3555a016ce9a964d8c1ee08b46ac177ca2aa9cb994ca3745d5f59e5c",
       "error": null,
-      "updated_at": "2026-10-12T13:04:48Z",
-      "task_id": "20261012210448b3391891e7084149"
+      "updated_at": "2026-10-12T13:06:06Z",
+      "task_id": "20261012210448b3391891e7084149",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261012210550da7701127e8c4155_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=%2F41lm9Ru8BfFuHqA8L2GqY9m7t0%3D&Expires=1791896753",
+      "sha256": "478f313701f88e792d32b4d909e53b44d525f927f08e452979d5911a9ebcb81f",
+      "bytes": 1688129,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1688129,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/frogboy1991/qa/S01.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -54,6 +70,6 @@
     "S43",
     "S45"
   ],
-  "updated_at": "2026-10-12T13:04:48Z",
+  "updated_at": "2026-10-12T13:06:06Z",
   "previous_results": {}
 }
