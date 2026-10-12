@@ -12,7 +12,7 @@ on:
         default: ''
   push:
     branches:
-      - arena/22fb2ea1-desktop-tutorial
+      - arena/aa851a5a-desktop-tutorial
     paths:
       - production/kanghosun2009/COGVIDEOX_GEN_REQUEST
 
@@ -20,20 +20,20 @@ permissions:
   contents: write
 
 concurrency:
-  group: kanghosun2009-cogvideox-arena-22fb2ea1-desktop-tutorial
+  group: kanghosun2009-cogvideox-arena-aa851a5a-desktop-tutorial
   # 长生成不排队等：断点续跑靠 SHA-256 收据，取消不丢已完成的镜头。
   cancel-in-progress: true
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/22fb2ea1-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/aa851a5a-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/22fb2ea1-desktop-tutorial
+          ref: arena/aa851a5a-desktop-tutorial
           fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功
 
       - name: Resolve generation payload
@@ -81,7 +81,7 @@ jobs:
           git config user.email "arena@local"
           git add -f production/kanghosun2009/gen-diag-cogvideox.log
           git commit -m "kanghosun2009: CogVideoX 生成失败诊断 $(date -u +%FT%TZ)" || true
-          git push origin HEAD:arena/22fb2ea1-desktop-tutorial || true
+          git push origin HEAD:arena/aa851a5a-desktop-tutorial || true
 
       - name: Save generation evidence
         if: always()

@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 kanghosun2009 / arena/22fb2ea1-desktop-tutorial / 22fb2ea1-desktop-tutorial / 姜浩顺：一滴袖口的血，十名女人 / 姜浩顺_一滴袖口的血，十名女人_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 kanghosun2009 / arena/aa851a5a-desktop-tutorial / aa851a5a-desktop-tutorial / 姜浩顺：一滴袖口的血，十名女人 / 姜浩顺_一滴袖口的血，十名女人_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-*.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
 name: 姜浩顺：一滴袖口的血，十名女人 · Agnes生成
 run-name: 姜浩顺：一滴袖口的血，十名女人 · Agnes 生成 · ${{ github.ref_name }}
@@ -17,7 +17,7 @@ on:
         default: '{"workers":2}'
   push:
     branches:
-      - arena/22fb2ea1-desktop-tutorial
+      - arena/aa851a5a-desktop-tutorial
     paths:
       - production/kanghosun2009/GEN_REQUEST
 
@@ -27,21 +27,21 @@ permissions:
   actions: write
 
 concurrency:
-  group: kanghosun2009-agnes-arena-22fb2ea1-desktop-tutorial
+  group: kanghosun2009-agnes-arena-aa851a5a-desktop-tutorial
   # 重新触发就是要取代上一轮：素材按 SHA-256 断点续跑，取消不会丢已完成的镜头，
   # 而 cancel-in-progress: false 会让新一轮排在上一轮后面干等（实测要等满 2 小时等待预算）。
   cancel-in-progress: true
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/22fb2ea1-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/aa851a5a-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/22fb2ea1-desktop-tutorial
+          ref: arena/aa851a5a-desktop-tutorial
           fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功（浅克隆会让重试路径失败）
 
       - name: Resolve the generation payload
