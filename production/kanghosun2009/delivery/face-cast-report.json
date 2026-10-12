@@ -4,7 +4,7 @@
   "film": "交付/姜浩顺_一滴袖口的血，十名女人_三分钟_带声音.mp4",
   "errors": [],
   "warnings": [
-    "角色 C2 跨镜头最低相似度 -0.37（<0.45）：可能出现了换脸，请对照接触表人工确认"
+    "角色 C2 跨镜头最低相似度 -0.40（<0.45）：可能出现了换脸，请对照接触表人工确认"
   ],
   "characters": {
     "C1": {
@@ -13,19 +13,19 @@
       "shots": [
         "S33"
       ],
-      "within_min": 0.907,
-      "within_median": 0.917
+      "within_min": 0.903,
+      "within_median": 0.921
     },
     "C2": {
       "contact_sheet": "delivery/face-cast/C2.jpg",
-      "crops": 8,
+      "crops": 9,
       "shots": [
         "S04",
         "S26",
         "S27"
       ],
-      "within_min": -0.369,
-      "within_median": -0.019
+      "within_min": -0.404,
+      "within_median": 0.191
     },
     "C3": {
       "contact_sheet": "delivery/face-cast/C3.jpg",
@@ -33,8 +33,8 @@
       "shots": [
         "S05"
       ],
-      "within_min": 0.733,
-      "within_median": 0.733
+      "within_min": 0.575,
+      "within_median": 0.575
     },
     "C5": {
       "contact_sheet": "delivery/face-cast/C5.jpg",
@@ -42,8 +42,8 @@
       "shots": [
         "S39"
       ],
-      "within_min": 0.494,
-      "within_median": 0.51
+      "within_min": 0.509,
+      "within_median": 0.52
     }
   },
   "cross_character": [
@@ -52,42 +52,42 @@
         "C1",
         "C2"
       ],
-      "max_similarity": 0.261
+      "max_similarity": 0.225
     },
     {
       "pair": [
         "C1",
         "C3"
       ],
-      "max_similarity": 0.341
+      "max_similarity": 0.369
     },
     {
       "pair": [
         "C1",
         "C5"
       ],
-      "max_similarity": 0.081
+      "max_similarity": 0.099
     },
     {
       "pair": [
         "C2",
         "C3"
       ],
-      "max_similarity": 0.45
+      "max_similarity": 0.447
     },
     {
       "pair": [
         "C2",
         "C5"
       ],
-      "max_similarity": 0.131
+      "max_similarity": 0.121
     },
     {
       "pair": [
         "C3",
         "C5"
       ],
-      "max_similarity": -0.148
+      "max_similarity": -0.083
     }
   ],
   "shots": [
@@ -98,36 +98,36 @@
       ],
       "frames": [
         {
-          "seconds": 11.958,
+          "seconds": 16.625,
           "faces": 1,
-          "score": 0.743,
+          "score": 0.844,
           "bbox": [
-            1127,
-            251,
-            184,
-            184
-          ]
-        },
-        {
-          "seconds": 13.15,
-          "faces": 1,
-          "score": 0.767,
-          "bbox": [
-            1134,
-            211,
+            1118,
+            255,
             179,
             179
           ]
         },
         {
-          "seconds": 14.342,
+          "seconds": 17.717,
           "faces": 1,
-          "score": 0.905,
+          "score": 0.822,
           "bbox": [
-            1224,
-            171,
-            200,
-            200
+            1145,
+            213,
+            189,
+            189
+          ]
+        },
+        {
+          "seconds": 18.808,
+          "faces": 1,
+          "score": 0.789,
+          "bbox": [
+            1176,
+            185,
+            182,
+            182
           ]
         }
       ]
@@ -139,29 +139,29 @@
       ],
       "frames": [
         {
-          "seconds": 16.625,
+          "seconds": 21.392,
           "faces": 1,
-          "score": 0.84,
+          "score": 0.856,
           "bbox": [
-            508,
-            253,
-            296,
-            296
+            509,
+            254,
+            293,
+            293
           ]
         },
         {
-          "seconds": 17.717,
+          "seconds": 22.883,
           "faces": 1,
-          "score": 0.796,
+          "score": 0.833,
           "bbox": [
-            537,
-            273,
-            266,
-            266
+            553,
+            283,
+            268,
+            268
           ]
         },
         {
-          "seconds": 18.808,
+          "seconds": 24.375,
           "faces": 0
         }
       ]
@@ -173,30 +173,37 @@
       ],
       "frames": [
         {
-          "seconds": 93.533,
+          "seconds": 86.633,
+          "faces": 1,
+          "score": 0.744,
+          "bbox": [
+            1248,
+            249,
+            186,
+            186
+          ]
+        },
+        {
+          "seconds": 87.533,
+          "faces": 1,
+          "score": 0.712,
+          "bbox": [
+            1227,
+            248,
+            186,
+            186
+          ]
+        },
+        {
+          "seconds": 88.433,
           "faces": 1,
           "score": 0.607,
           "bbox": [
-            1233,
-            251,
-            174,
-            174
+            1232,
+            254,
+            173,
+            173
           ]
-        },
-        {
-          "seconds": 94.7,
-          "faces": 1,
-          "score": 0.706,
-          "bbox": [
-            1227,
-            244,
-            188,
-            188
-          ]
-        },
-        {
-          "seconds": 95.867,
-          "faces": 0
         }
       ]
     },
@@ -207,36 +214,36 @@
       ],
       "frames": [
         {
-          "seconds": 98.017,
+          "seconds": 26.883,
           "faces": 1,
-          "score": 0.661,
+          "score": 0.652,
           "bbox": [
-            874,
-            619,
-            257,
-            257
+            878,
+            623,
+            250,
+            250
           ]
         },
         {
-          "seconds": 99.0,
+          "seconds": 27.9,
           "faces": 1,
-          "score": 0.757,
+          "score": 0.716,
           "bbox": [
-            865,
-            602,
-            363,
-            363
+            869,
+            605,
+            353,
+            353
           ]
         },
         {
-          "seconds": 99.983,
+          "seconds": 28.917,
           "faces": 1,
-          "score": 0.861,
+          "score": 0.74,
           "bbox": [
-            750,
-            412,
-            433,
-            433
+            730,
+            377,
+            476,
+            476
           ]
         }
       ]
@@ -248,36 +255,36 @@
       ],
       "frames": [
         {
-          "seconds": 121.642,
+          "seconds": 118.367,
           "faces": 1,
-          "score": 0.959,
+          "score": 0.957,
+          "bbox": [
+            659,
+            166,
+            373,
+            373
+          ]
+        },
+        {
+          "seconds": 119.467,
+          "faces": 1,
+          "score": 0.927,
           "bbox": [
             652,
-            164,
-            375,
-            375
+            148,
+            392,
+            392
           ]
         },
         {
-          "seconds": 122.617,
+          "seconds": 120.567,
           "faces": 1,
-          "score": 0.934,
+          "score": 0.911,
           "bbox": [
-            649,
-            150,
-            393,
-            393
-          ]
-        },
-        {
-          "seconds": 123.592,
-          "faces": 1,
-          "score": 0.918,
-          "bbox": [
-            655,
-            140,
-            387,
-            387
+            657,
+            139,
+            386,
+            386
           ]
         }
       ]
@@ -291,34 +298,34 @@
         {
           "seconds": 144.575,
           "faces": 1,
-          "score": 0.979,
+          "score": 0.976,
           "bbox": [
-            822,
-            238,
-            304,
-            304
+            824,
+            239,
+            301,
+            301
           ]
         },
         {
           "seconds": 146.183,
           "faces": 1,
-          "score": 0.932,
+          "score": 0.923,
           "bbox": [
-            740,
-            214,
-            302,
-            302
+            741,
+            217,
+            298,
+            298
           ]
         },
         {
           "seconds": 147.792,
           "faces": 1,
-          "score": 0.833,
+          "score": 0.78,
           "bbox": [
             850,
-            214,
-            310,
-            310
+            216,
+            308,
+            308
           ]
         }
       ]
