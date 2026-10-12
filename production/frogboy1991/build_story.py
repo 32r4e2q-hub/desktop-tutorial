@@ -217,9 +217,9 @@ SHOTS = [
      "接动态镜：空荡的操场秋千",
      "A 1991 Korean police station office at night, fluorescent light, an old wooden desk covered with a large paper map "
      "of the Daegu hills with small pencil marks; a middle-aged detective {C3} with a short greying crew cut and a plain "
-     "shirt and tie stands over the map, his face fully visible, tired and focused, he picks up a ringing telephone with "
-     "one hand; no readable text. Slow push-in toward the detective, " + HOLD,
-     "电话铃声 + 纸张翻动"),
+     "shirt and tie stands over the map, his face fully visible, tired and focused, he traces a route on the map with one "
+     "finger and looks up thoughtfully; no readable text. Slow push-in toward the detective, " + HOLD,
+     "纸张翻动 + 远处的钟声"),
     ("S15", "agnes", "慢速摇镜", "空荡的操场：秋千在晃动",
      "接动态镜：夜里的山林搜索",
      "An empty elementary school playground at dusk in spring 1991: a pair of swings still moving gently in the wind, "
