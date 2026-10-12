@@ -328,14 +328,13 @@ SHOTS = [
      "the wet verge, a village lane and low hills behind, the timetable panel and leaflet completely blank. "
      "Slow medium push from across the road toward the waiting figure, " + HOLD,
      "冬风 + 远处公交车"),
-    ("S22", "agnes", "俯拍桌面缓慢横移", "派出所里，一摞没有归到一起的卷宗",
+    ("S22", "agnes", "俯拍桌面缓慢横移", "派出所里，几摞没有归到一起的卷宗",
      "接信息卡：没有并案",
-     "A small South Korean police station counter in 2008 seen from a raised angle: seven plain buff cardboard "
-     "folders lie side by side in a neat row, each closed with a blank white label strip and a small blank "
-     "photograph frame clipped to its corner, and a middle-aged male detective {C2} leans over them in his "
-     "shirt sleeves with one palm flat on the counter, reading along the row with a tired set expression; a "
-     "a rotary telephone and an ink pad at the edge, every label and paper blank with no writing or numerals. "
-     "Slow overhead push across the row of folders toward the detective's hands, " + HOLD,
+     "A small South Korean police station counter in 2008 seen from a raised angle: several closed plain "
+     "cardboard folders lie in separate loose stacks spaced along the counter, and a middle-aged male "
+     "detective {C2} stands over them in his shirt sleeves with both palms flat on the counter, looking along "
+     "the row of stacks with a tired set expression; a rotary telephone and an ink pad sit at the edge, every "
+     "surface blank and unmarked. Slow overhead push across the separate stacks toward the detective's hands, " + HOLD,
      "电话铃声 + 纸张翻动"),
     ("S23", "graphic", "信息卡（静帧）", "档案：八起失踪，没有并案",
      "接 N04：二〇〇九年一月的破局",

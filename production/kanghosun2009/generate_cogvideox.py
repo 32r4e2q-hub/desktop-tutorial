@@ -221,6 +221,18 @@ def retryable(exc):
                                    'timed out', 'temporar', 'connection', '502', '503', '504'))
 
 
+def moderation_block(text):
+    """供应商内容审核拦截（1301 / 「敏感内容」）——不重投、不致命，跳过这一镜。
+
+    2026-10-12 本片实测：这个错误有两种到达方式，都要接住——
+      ① 轮询接口返回 task_status=FAIL（走 outcome=='fail' 分支）；
+      ② SDK 直接把 400 抛成 APIRequestFailedError（旧版会穿透 try/except 把整批掐掉，S22 就是这么
+         把第 1、2 轮各掐一次的）。被拦的是**这一镜的提示词**，改完提示词下一轮再投即可。
+    """
+    text = str(text)
+    return '1301' in text or '敏感内容' in text
+
+
 def transient_fail(text):
     """FAIL 里值得重投新任务的瞬时故障签名。
 
@@ -350,11 +362,22 @@ def main():
                         break
                     time.sleep(10)
                 except Exception as exc:
+                    if moderation_block(exc):
+                        blocker = 'content moderation (1301)'
+                        print('%s: %s; skipping to the next shot' % (sid, blocker), flush=True)
+                        checkpoint(doc, sid + ' blocked (' + blocker + ')', sid, publish=args.publish,
+                                   status='failed', request_hash=wanted, error=str(exc)[:600])
+                        failures.append(sid)
+                        result = None
+                        outcome = 'blocked'
+                        break
                     if retryable(exc) and poll < 120:
                         time.sleep(min(60, 10 + poll // 10))
                         continue
                     raise
             if outcome == 'success':
+                break
+            if outcome == 'blocked':
                 break
             if outcome == 'fail' and not transient_fail(last_error):
                 # 供应商内容审核（1301）、参数被拒等**单镜**故障：记 failed 后继续跑下一镜，
@@ -371,6 +394,8 @@ def main():
                   flush=True)
             time.sleep(30)
         if result is None:
+            if outcome == 'blocked':
+                continue
             checkpoint(doc, sid + ' failed after 3 submissions', sid, publish=args.publish,
                        status='failed', request_hash=wanted,
                        error=(last_error or 'polling timeout')[:600])
