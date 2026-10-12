@@ -2,7 +2,15 @@
   "project": "青蛙少年失踪案：一个没有回家的春天",
   "model": "cogvideox-flash",
   "provider": "Zhipu AI",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "status": "submitting",
+      "request_hash": "cb3cd5dc3555a016ce9a964d8c1ee08b46ac177ca2aa9cb994ca3745d5f59e5c",
+      "error": null,
+      "updated_at": "2026-10-12T12:58:47Z"
+    }
+  },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
   "phase": "generating_sources",
   "required_generated_shots": [
@@ -45,5 +53,6 @@
     "S43",
     "S45"
   ],
-  "updated_at": "2026-10-12T12:58:39Z"
+  "updated_at": "2026-10-12T12:58:47Z",
+  "previous_results": {}
 }
