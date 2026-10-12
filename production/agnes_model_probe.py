@@ -384,10 +384,13 @@ def main() -> int:
     parser.add_argument("--base-url", default=os.environ.get("AGNES_BASE_URL") or DEFAULT_BASE_URL)
     parser.add_argument("--outdir", default="work/agnes-model-probe")
     parser.add_argument("--pause", type=float, default=3.0, help="seconds between calls (free tier is 10 RPM)")
+    parser.add_argument("--text-pause", type=float, default=None,
+                        help="seconds between text calls; defaults to --pause")
     parser.add_argument("--spend", action="store_true", help="submit one real minimal clip per video model (costs credits)")
     parser.add_argument("--video-models", default=",".join(VIDEO_MODELS))
     parser.add_argument("--text-models", default=",".join(TEXT_MODELS))
     args = parser.parse_args()
+    text_pause = args.pause if args.text_pause is None else args.text_pause
 
     key = (os.environ.get("AGNES_API_KEY") or "").strip()
     outdir = Path(args.outdir)
@@ -417,7 +420,7 @@ def main() -> int:
         report["results"] = spend_probe(args.base_url.rstrip("/"), key, video_models, outdir, args.pause)
     else:
         report["results"] = probe_video_models(args.base_url.rstrip("/"), key, video_models, args.pause)
-    report["results"] += probe_text_models(args.base_url.rstrip("/"), key, text_models, args.pause)
+    report["results"] += probe_text_models(args.base_url.rstrip("/"), key, text_models, text_pause)
 
     (outdir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     (outdir / "report.md").write_text(render_markdown(report))
