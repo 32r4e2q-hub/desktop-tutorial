@@ -65,7 +65,7 @@ ENGINE_FILES = (
     "progress_app.py",
 )
 # production/templates/ 里"内容与引擎分离"的文件：占位符由本脚本替换。
-TEMPLATE_FILES = ("render.py", "build_story.py", "script_table.py")
+TEMPLATE_FILES = ("render.py", "build_story.py", "script_table.py", "clause_times.py")
 WORKFLOW_TEMPLATES = {
     "gen.workflow.yml": "{slug}-gen.yml",
     "render.workflow.yml": "{slug}-render.yml",
@@ -352,15 +352,16 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
    伪文字 / 人脸 / 手部几何），看完再用 `review_app.py` 把要重做的镜头勾成 `REDO.json`。
 6. **复审** → 逐镜看 `qa/Sxx.jpg`（14 帧）：画的是不是这一镜的场景、7 秒内有没有换场、有没有脸/可读伪文字/遗体。
    坏镜头只改它的 prompt，`GEN_REQUEST` 写 `{{"workers":2,"only":"S03,S08"}}` 重做，其余按 SHA-256 复用。
-7. **剪辑表** → `render.py` 的 `CUTS` 骨架是 4 秒均匀一切，**必须**按 `audio/clause-times.json` 重对
-   （切点落在分句起点前 0.15 s 左右），然后：
+7. **剪辑表（音画逐句咬合）** → `render.py` 的 `CUTS` 骨架是 4 秒均匀一切，**必须**对照 `audio/clause-times.json`
+   按**每一句口播的语义**排镜头（允许跨 S01..S45 编号调序，只要 45 镜各用一次；切点落在分句起点前 ≤0.35 s 停顿窗内），然后：
 
    ```bash
-   python3 production/{slug}/clause_times.py --check-cuts   # 每个切点都要在停顿窗内
+   python3 production/{slug}/clause_times.py --check-cuts   # 核对停顿窗 + 语速分布 + 打印 45 镜「画面职责 vs 口播分句」对照表
    ```
 
 8. **出片** → 写 `RENDER_REQUEST` 并 push；成片 commit 回 `交付/{film}`，报告在 `delivery/`。
-   复检：按 EDL 逐段抽帧看画面/字幕/标签；按分句起点前后 0.25 s 抽帧核对字幕切换。
+   字幕采用 **68 号大字幕**（描边 3.2、阴影 1.1、淡入淡出 20 ms），优先由 `clause-times DP`（`min_len=0.08s` 气口检测）
+   1:1 咬死配音停顿窗。复检：按 EDL 逐段抽帧看画面/字幕/标签是否与口播一致。
 9. **听检** → 写 `VERBATIM_REQUEST` 并 push；`delivery/verbatim-check.json` 六章 CER 都要 ≤ 0.15。
 10. **全帧视觉 QC** → 写 `VISUAL_QC_REQUEST` 并 push；工作流解码成片**每一帧**（5400/5400），
     输出 `delivery/frame-distortion-audit.md`、`visual-qc-summary.json` 与 `qa/final-frame-review/`

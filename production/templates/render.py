@@ -49,6 +49,10 @@ CUTS = {
 WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
 TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
 
+# 调色：默认略压暗；个别过暗的镜头在全帧审计之后按需单独覆盖（GRADE_OVERRIDES），不要动全局。
+DEFAULT_GRADE = 'eq=saturation=0.92:contrast=1.025:brightness=-0.006'
+GRADE_OVERRIDES = {}
+
 
 def run(args, capture=False):
     return subprocess.run([str(x) for x in args], check=True, capture_output=capture, text=capture)
@@ -169,7 +173,7 @@ def audio_layout(chapters, audio_root, work, manifest):
 
 
 def caption_clauses(text):
-    raw=re.findall(r'[^，。！？；：、]+[，。！？；：、]?',text)
+    raw=re.findall(r'[^，。！？；：、—]+[，。！？；：、—]*',text)
     result=[]
     for part in raw:
         while len(part)>24:
@@ -214,30 +218,37 @@ CLAUSE_TIMES=Path(__file__).with_name('audio')/'clause-times.json'
 def captions_from_clause_times(row):
     """clause_times.py 对出来的分句边界（能量包络 DP + 停顿吸附，audio/clause-times.json）。
 
-    与 N03 的 whisper 词级时间互相印证到 ±0.15 s；比 captions_for 的按字数比例估计准
-    （后者在 N05 里最多早了 1.8 s）。对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
+    与 whisper 词级时间互相印证到 ±0.15 s，且没有 ASR 在中文短句/数字上的 ±0.8 s 抖动；
+    对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
     if not CLAUSE_TIMES.exists():return None
     entry=json.loads(CLAUSE_TIMES.read_text()).get(row['id'])
     if not entry or abs(float(entry['duration'])-row['raw_duration'])>.06:return None
     strip=lambda t:re.sub(r'[^\u3400-\u9fffA-Za-z0-9]','',t)
     pieces=[(strip(c['text']),float(c['start']),float(c['end'])) for c in entry['clauses']]
-    spans=[];pointer=0
+    spans=[];pointer=0;offset=0
     for text in caption_clauses(row['text']):
         key=strip(text)
         if not key:continue
         consumed='';a=b=None
         while pointer<len(pieces) and len(consumed)<len(key):
             piece,start,end=pieces[pointer]
-            if not key.startswith(consumed+piece):return None
-            consumed+=piece;a=start if a is None else a;b=end;pointer+=1
+            remain=piece[offset:]
+            need=len(key)-len(consumed)
+            if not remain or not key.startswith(consumed+remain[:need]):return None
+            take=min(need,len(remain))
+            total=max(1,len(piece));a2=start+(end-start)*(offset/total);b2=start+(end-start)*((offset+take)/total)
+            a=a2 if a is None else a;b=b2
+            consumed+=remain[:take]
+            if take==len(remain):pointer+=1;offset=0
+            else:offset+=take
         if consumed!=key:return None
         spans.append((text,a,b))
     if pointer!=len(pieces):return None
     cues=[];last_end=row['start']
     for i,(text,a,b) in enumerate(spans):
-        start=max(last_end,row['start']+max(0,a-.09)/row['tempo'])
-        end=row['start']+min(row['raw_duration'],b+.15)/row['tempo']
-        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.09)/row['tempo'])
+        start=max(last_end,row['start']+max(0,a-.02)/row['tempo'])
+        end=row['start']+min(row['raw_duration'],b+.04)/row['tempo']
+        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.02)/row['tempo'])
         if end<=start:return None
         cues.append({'start':start,'end':end,'text':text});last_end=end
     return cues
@@ -291,7 +302,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Caption,Noto Sans CJK SC,43,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,2.3,0.8,2,80,80,42,1
+Style: Caption,Noto Sans CJK SC,68,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,3.2,1.1,2,60,60,52,1
 Style: Label,Noto Sans CJK SC,23,&H60E9E4D4,&H000000FF,&H00262621,&H99000000,0,0,0,0,100,100,1,0,1,1,0,9,60,60,36,1
 Style: Title,Noto Serif CJK SC,102,&H00EBE8DE,&H000000FF,&H00141B17,&H99000000,0,0,0,0,100,100,4,0,1,1,2,7,104,104,205,1
 
@@ -302,7 +313,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         caption=safe_text(cue['text'])
         for key in presentation.get('caption_keywords') or []:
             if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
-        text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
+        text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(20,20)}}{caption}\n"
     for entry in edl:
         if entry['id']=='END':continue
         label={'agnes':'AI动画情景重现 · 非新闻影像','archive':'档案照片',
@@ -352,6 +363,7 @@ def write_sfx(path,edl,presentation):
 def render_segment(entry,index,sources,graphics,segments,width,height,checks,presentation,last_shot):
     target=segments/f'{index:03d}.mp4';frames=entry['end_frame']-entry['start_frame'];duration=frames/FPS
     cmd=['ffmpeg','-y','-v','error','-threads','2'];sid=entry['id'];variant=entry['variant']
+    fc=None
     if entry['kind'] in ('graphic','archive'):
         if entry['kind']=='archive':raise RuntimeError('这条流水线不支持档案照片镜头：所有画面都是 Agnes 动画或信息卡（要用档案照片请照 production/dahlia 的 archive_image 加）')
         picture=card_image(sid,variant,graphics,presentation)
@@ -367,7 +379,6 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
         available=b-a
         take=min(available,duration)
         factor=duration/take
-        if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         tighter=''
         if sid in TIGHTER_CROPS:
@@ -376,14 +387,32 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             cw=math.floor(info['width']/zoom/2)*2;ch=math.floor(info['height']/zoom/2)*2
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
-        vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
-            f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
-        entry.update(source_in=a,source_out=a+take,time_stretch=factor)
-    if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
-    if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
-    if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
-    cmd+=['-vf',vf+',format=yuv420p']
+        grade=GRADE_OVERRIDES.get(sid,DEFAULT_GRADE)
+        common=(tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
+                f'crop={width}:{height},setsar=1,fps={FPS},{grade},'
+                f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
+        if factor>1.33:
+            need=duration-available
+            if need>available:
+                raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s exceeds ping-pong capacity {2*available:.2f}s')
+            fc=('[0:v]split=2[fwd][rev0];'
+                f'[rev0]reverse,trim=duration={need:.6f},setpts=PTS-STARTPTS[rev];'
+                f'[fwd][rev]concat=n=2:v=1:a=0,setpts=PTS-STARTPTS,'+common+'[vbase]')
+            vf=None
+            entry.update(source_in=a,source_out=a+available,time_stretch=1.0,pingpong=True)
+        else:
+            vf=f'setpts=(PTS-STARTPTS)*{factor:.9f},'+common
+            entry.update(source_in=a,source_out=a+take,time_stretch=factor)
+    if fc is None:
+        if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
+        if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
+        if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
+        cmd+=['-vf',vf+',format=yuv420p']
+    else:
+        tail=''
+        if entry['start_frame']==0:tail+=',fade=t=in:st=0:d=0.25'
+        if sid==last_shot:tail+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
+        cmd+=['-filter_complex',fc.replace('[vbase]',tail+',format=yuv420p[v]'),'-map','[v]']
     cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
           '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
@@ -430,16 +459,24 @@ def main():
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
     edl=make_edl(project,narration)
     from align_audio import transcribe_on_runner, aligned_cues
-    asr={} if args.skip_asr else transcribe_on_runner(narration,work)
+    clause_timed_map={row['id']:captions_from_clause_times(row) for row in narration}
+    asr={} if (args.skip_asr or all(clause_timed_map.values())) else transcribe_on_runner(narration,work)
+    prev_cov={}
+    prev_align=HERE/'delivery/alignment-report.json'
+    if prev_align.exists():
+        try:prev_cov={x['id']:float(x.get('character_match_coverage',1.0)) for x in json.loads(prev_align.read_text())}
+        except Exception:pass
     cues=[];alignment=[]
     for row,samples in zip(narration,waves):
-        aligned=None;coverage=0.0
+        aligned=None;coverage=prev_cov.get(row['id'],1.0)
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        clause_timed=None if aligned else captions_from_clause_times(row)
-        cues.extend(aligned or clause_timed or captions_for(row,samples))
+        clause_timed=clause_timed_map[row['id']]
+        # clause-times DP 边界与配音静音窗 0.00 s 同步（标点停顿是 TTS 的天然真值锚），
+        # ASR 词级在短句上有 ±0.8 s 抖动。故 DP 优先，ASR 词级退为 DP 不可用时的回退。
+        cues.extend(clause_timed or aligned or captions_for(row,samples))
         alignment.append({'id':row['id'],
-                          'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
+                          'method':'clause-times DP' if clause_timed else 'ASR-assisted' if aligned else 'pause-aware estimate',
                           'character_match_coverage':coverage})
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl,presentation)
