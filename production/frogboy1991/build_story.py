@@ -216,11 +216,9 @@ SHOTS = [
      "接动态镜：警局办公室",
      "搜索规模卡：三十五万人次 / 一九九一年三月 — 春天的山林 / 警察、军队与志愿者同时入山",
      "低音撞击"),
-    ("S14", "agnes", "近景静物", "蝾螈卵：池水玻璃罐里的卵块",
+    ("S14", "graphic", "信息卡（静帧）", "卡片：其实，他们是去找蝾螈卵",
      "接动态镜：空荡的操场秋千",
-     "Extreme close-up still life only: a single clear glass jar of pond water with pale salamander eggs inside, placed on a "
-     "plain white table, soft diffused studio light, shallow depth of field. The whole frame is this one jar; the background "
-     "is plain white and out of focus. Slow push-in on the jar, " + HOLD,
+     "其实，他们是去找蝾螈卵",
      "轻微的水声"),
     ("S15", "agnes", "慢速摇镜", "空荡的操场：秋千在晃动",
      "接动态镜：夜里的山林搜索",
@@ -261,9 +259,11 @@ SHOTS = [
      "screen which shows a blurred news broadcast with no readable text; a middle-aged Korean woman {C1} sits beside them "
      "on the sofa, her face fully visible, watching the screen with a tense expression. Static medium shot, " + HOLD,
      "电视新闻的播报声（不可辨识）+ 低沉氛围音"),
-    ("S21", "graphic", "信息卡（静帧）", "时间卡：一九九一至二〇〇二",
+    ("S21", "agnes", "慢推", "房间保持原样：书桌、校服、玩具",
      "接动态镜：卧龙山的四季",
-     "时间卡：一九九一年三月 — 二〇〇二年九月 / 失踪之后的十一年半 / 寻找从未停止",
+     "Slow push-in through a quiet child's bedroom in a Korean house in 1991, soft morning light through a window: a small "
+     "wooden desk with a pencil case, a school uniform folded on a chair, a toy car on a tatami mat; the room is empty and "
+     "tidy, no people, no readable text. " + HOLD,
      "钟表滴答"),
     ("S22", "agnes", "慢推", "志愿者搜山：父亲走进树林，拨开草丛",
      "接动态镜：卧龙山的四季",
@@ -413,7 +413,7 @@ CARD_FOOTER = "公开报道口径 · 并非原始档案影像"                  
 CARDS = {
     "S02": ("青蛙少年失踪案", "韩国大邱 · 一九九一年三月二十六日", "五名儿童失踪 · 十一年后遗骸被发现"),
     "S13": ("媒体的误读", "他们被说成是去找青蛙", "“青蛙少年”的名字由此而来"),
-    "S21": ("房间保持原样", "一九九一年三月 — 二〇〇二年九月", "失踪之后的十一年半 · 寻找从未停止"),
+    "S14": ("蝾螈卵", "其实，他们是去找蝾螈卵", "“青蛙少年”是一个误会"),
     "S27": ("两种说法", "警方一度认为是失温", "法医团队在颅骨上发现外力损伤，认定为他杀"),
     "S34": ("风雨改写了现场", "警方当年的判断与法医的结论并不相同", "案件仍未找到凶手"),
     "S40": ("五个名字", "金永奎 · 赵浩延 · 金钟植 · 朴灿仁 · 禹哲元", "失踪时年龄九至十三岁"),
