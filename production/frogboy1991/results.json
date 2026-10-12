@@ -301,11 +301,27 @@
     },
     "S16": {
       "id": "S16",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "5f59cb985a5c90e108c250bcaaf3b0e65769c2e57f37dde015450f503ef88644",
       "error": null,
-      "updated_at": "2026-10-12T14:49:41Z",
-      "task_id": "202610122249417c2966975ff142e4"
+      "updated_at": "2026-10-12T14:50:49Z",
+      "task_id": "202610122249417c2966975ff142e4",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261012225040c4b35e0f5db147d8_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=M0qGrFv9ykAO2uOwHpmFxPFnARA%3D&Expires=1791903042",
+      "sha256": "6a706d010035f7d875b3214e3cdcce61bba964ac1c65137e2bb5418f054640c0",
+      "bytes": 1257998,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1257998,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/frogboy1991/qa/S16.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -350,6 +366,6 @@
     "S43",
     "S45"
   ],
-  "updated_at": "2026-10-12T14:49:41Z",
+  "updated_at": "2026-10-12T14:50:49Z",
   "previous_results": {}
 }
