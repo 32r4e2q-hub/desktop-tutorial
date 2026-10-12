@@ -5,11 +5,27 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "8cf46e3185c5941c5fbc68796cea9b1b14c2d6539aa05cbbb51d85419ea6dbfd",
       "error": null,
-      "updated_at": "2026-10-12T01:17:52Z",
-      "task_id": "2026101209175286e1c2565a294ac7"
+      "updated_at": "2026-10-12T01:19:18Z",
+      "task_id": "2026101209175286e1c2565a294ac7",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261012091850a4221f72d2f14bab_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=G4Lum91ObEYlhe%2BCCtABv%2FlmA8E%3D&Expires=1791854331",
+      "sha256": "88cc0957814b8a58abc4da10ea5cda002f23d702832b4e89f575b3f029080d83",
+      "bytes": 1303357,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1303357,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/kanghosun2009/qa/S01.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -54,5 +70,5 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-12T01:17:52Z"
+  "updated_at": "2026-10-12T01:19:18Z"
 }
