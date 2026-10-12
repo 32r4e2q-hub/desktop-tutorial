@@ -248,13 +248,15 @@ SHOTS = [
      "wall; morning light through a lace curtain, a wall clock without numbers. No readable text anywhere. "
      "Slow lateral move from the laid table across to the turned picture frame, " + HOLD,
      "时钟滴答 + 低频弦乐"),
-    ("S12", "agnes", "从文件特写缓慢拉焦到侧影", "起火前一周的保单",
+    ("S12", "agnes", "过肩缓慢横移", "起火前一周的保单",
      "接动态镜：理赔金入账",
-     "A small South Korean insurance office in 2005: a thick stack of blank policy papers lies open on a "
-     "melamine desk beside a ballpoint pen, a desk calculator and a round stamp, and a man in a dark grey jacket "
-     "{C1} sits at the desk in three-quarter profile, one hand flat on the papers, his expression calm and "
-     "ordinary, a clerk's empty chair opposite; a frosted partition and a filing cabinet behind. Every document "
-     "is blank. Slow rack focus from the blank policy papers up to the seated man's profile, " + HOLD,
+     "A small South Korean insurance office in 2005, framed over the shoulder of the only person in it: a man "
+     "in a plain dark grey jacket sits with his back squarely to the camera at a melamine desk, one shoulder and "
+     "the back of his short black hair filling the left edge of the frame, while his right hand slides a thin "
+     "folded document across the desk toward a clerk's empty chair, under a shaded desk lamp; the desk surface "
+     "is clear apart from a rounded desk calculator seen edge-on, the document stays closed and turned away so "
+     "nothing on it can be read; a frosted glass partition and a filing cabinet stand behind, blank and bare. "
+     "Slow lateral move across the desk surface past the closed document towards the empty chair, " + HOLD,
      "计算器按键声 + 低频鼓点"),
     ("S13", "agnes", "从柜台缓慢横移", "理赔打进账户：柜台上的两张凭条",
      "接动态镜：三年后的法庭",
@@ -337,13 +339,16 @@ SHOTS = [
      "the wet verge, a village lane and low hills behind, the timetable panel and leaflet completely blank. "
      "Slow medium push from across the road toward the waiting figure, " + HOLD,
      "冬风 + 远处公交车"),
-    ("S22", "agnes", "从高窗光线缓慢下摇到托盘", "几摞卷宗，谁也不挨着谁",
+    ("S22", "agnes", "俯拍柜台缓慢横移", "派出所里，七张失踪登记表",
      "接信息卡：没有并案",
-     "A small institutional archive room in South Korea in 2008: three separate wire trays stand one behind "
-     "another on a long metal shelf beside a grey steel cabinet, each tray holding its own closed stack of "
-     "plain cardboard folders, the stacks visibly separate and never touching; dust drifts in a shaft of light "
-     "from a high window, and a wall of identical shelves recedes behind them, no people in frame, every "
-     "folder closed and blank. Slow downward tilt from the window light to the three trays, " + HOLD,
+     "A small South Korean police station reception counter in 2008, photographed from directly above: exactly "
+     "seven identical buff-coloured missing-person forms lie side by side in a neat row on the green laminate "
+     "counter top, each with a small blank photograph frame clipped to its top-left corner, every form and frame "
+     "completely blank; a rotary telephone, an ink pad and a pen cup sit at the right edge, and a middle-aged "
+     "detective in a rumpled grey suit jacket leans into the top of the frame with one flat palm pressed onto "
+     "the counter beside the row, seen from above so only his forearm, shoulder and the top of his iron-grey "
+     "hair are in frame; bare counter, no shelves, no bulletin boards, no cabinets. Slow overhead lateral move "
+     "along the row of seven forms from the telephone to the detective's hand, " + HOLD,
      "电话铃声 + 纸张翻动"),
     ("S23", "graphic", "信息卡（静帧）", "档案：八起失踪，没有并案",
      "接 N04：二〇〇九年一月的破局",
@@ -463,12 +468,14 @@ SHOTS = [
      "铁锹轻响 + 低沉弦乐"),
     ("S37", "agnes", "从地图缓慢横移到卷宗", "不是一宗案，是跨了三年的一串",
      "接动态镜：押解进法院",
-     "A South Korean prosecutor's office in February 2009 in the afternoon: a middle-aged male prosecutor in a "
-     "dark suit and tie {C4} stands behind his desk reading a thick bound file held open in both hands, while "
-     "two detectives sit opposite him going through separate stacks of buff folders spread across the desk; a "
-     "large wall map of the central Korean peninsula hangs behind him with eleven unmarked pins stuck into it, "
-     "a desk lamp and a cold cup of tea on the blotter, every file and map label blank. Slow lateral move across "
-     "the desk from the wall map to the prosecutor's hands and the open file, " + HOLD,
+     "A South Korean prosecutor's office in February 2009 in the afternoon, framed from behind the man at the "
+     "desk: a middle-aged prosecutor in a dark suit sits with his back to the camera at his desk, a thick bound "
+     "file held open in both hands in front of him, his shoulders and the back of his short dark hair filling "
+     "the centre of the frame while two detectives sit across from him seen from the same high back angle and "
+     "reaching through separate stacks of buff folders spread across the blotter; a large wall map of the "
+     "central Korean peninsula hangs on the wall with no pins and no lettering on it, a desk lamp burning on "
+     "the blotter, every folder closed or angled away and blank. Slow lateral move across the desk from the "
+     "wall map to the prosecutor's hands and the open file, " + HOLD,
      "翻页声 + 低频弦乐"),
     ("S38", "agnes", "背后跟拍缓慢推进", "二〇〇九年二月：杀人、纵火、保险诈骗",
      "接 N06：判决",
@@ -665,11 +672,9 @@ SEED_BASE = 20051030  # 安山火灾日（二〇〇五年十月三十日），�
 FACE_SHOTS = {
     "S04": ["C2"],
     "S05": ["C3"],
-    "S12": ["C1"],
     "S26": ["C2"],
     "S27": ["C2"],
     "S33": ["C1"],
-    "S37": ["C4"],
     "S39": ["C5"],
 }
 # 用定妆照做首帧（图生视频）的镜头：每个角色的首次露脸镜头，把这张脸钉在观众第一眼里。
