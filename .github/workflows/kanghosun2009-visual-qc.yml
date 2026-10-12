@@ -69,6 +69,12 @@ jobs:
           print('verified delivered SHA-256', got)
           PY
 
+      - name: Install ffmpeg for the face gate
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -1
+
       - name: 角色脸画面闸门（露脸模式：逐镜检脸 + 每人一张人脸接触表 + 相似度分诊）
         continue-on-error: true
         run: |
