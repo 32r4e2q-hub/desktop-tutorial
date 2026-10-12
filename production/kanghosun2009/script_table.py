@@ -21,7 +21,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from generate import MODEL  # noqa: E402  模型名的唯一出处（供应商下线旧模型时只改一处）
+from model_policy import COGVIDEOX_MODEL as MODEL  # noqa: E402  本片实际出图走智谱 CogVideoX-Flash 免费档
 
 
 def load():
@@ -116,7 +116,7 @@ def render_document():
     spoken = sum(d / (sum(durs) / (180 - 0.6 - 6.0 - 5 * 1.08)) for d in durs) + 5 * 1.08
     doc = [f"# 抖音脚本 · {story['title']}", "",
            f"> 横版 16:9 · 1920×1080 · 30fps · 成片 180 秒（口播 ≈ {spoken:.0f} 秒、"
-           f"{total_chars} 字不含标点）· {len(story['shots'])} 个镜头（{agnes} 个 Agnes AI 动画镜头 + {cards} 张信息卡，"
+           f"{total_chars} 字不含标点）· {len(story['shots'])} 个镜头（{agnes} 个 CogVideoX-Flash AI 动画镜头 + {cards} 张信息卡，"
            f"每个镜头只出现一次）· 画面：写实 3D CGI 情景重现（{MODEL} 视频镜头）", "",
            "## 一、视频标题（三选一）", ""]
     doc += [f"{i}. {t}" for i, t in enumerate(c.TITLES, 1)]

@@ -256,14 +256,15 @@ SHOTS = [
      "ordinary, a clerk's empty chair opposite; a frosted partition and a filing cabinet behind. Every document "
      "is blank. Slow rack focus from the blank policy papers up to the seated man's profile, " + HOLD,
      "计算器按键声 + 低频鼓点"),
-    ("S13", "agnes", "从柜台缓慢横移", "四亿八千万韩元的人寿理赔",
+    ("S13", "agnes", "从柜台缓慢横移", "理赔打进账户：柜台上的两张凭条",
      "接动态镜：三年后的法庭",
-     "A South Korean bank counter area in 2005: a clerk's hands slide a thick bundle of banded banknotes and a "
-     "slim closed passbook across the counter toward a man in a dark grey jacket whose torso and hands are "
-     "in frame while his head is cropped above the frame edge; a receipt spike, a stamp pad and a chained "
-     "customer pen sit on the counter, the wall behind the clerk is plain. No readable text, numbers or "
-     "currency marks anywhere. Slow lateral move across the counter from the clerk's hands to the notes and the "
-     "closed passbook, " + HOLD,
+     "A South Korean bank counter area in 2005 seen across the counter top: a clerk's hands in a pale shirt "
+     "cuff place two blank white transaction slips side by side on the polished stone counter and smooth them "
+     "flat with the palm, while a man in a dark grey jacket stands on the customer side with his hands resting "
+     "on the counter edge and his head cropped above the frame; a stamp pad, a receipt spike and a chained "
+     "customer pen sit to one side. The slips carry no print of any kind - no numbers, no currency symbols, "
+     "no seals, no money and no banknotes anywhere in the frame - and the counter and wall behind are bare. "
+     "Slow lateral move across the counter top from the clerk's hands to the two blank slips, " + HOLD,
      "纸张摩擦 + 低沉鼓点"),
     ("S14", "agnes", "从被告席缓慢横移至法官席", "三年后：法院认定，火是他放的",
      "接动态镜：放火之后的第十一个月",
@@ -304,14 +305,16 @@ SHOTS = [
      "接动态镜：夜晚的商业街",
      "案件档案：时间跨度 · 年龄区间 · 职业",
      "低音撞击"),
-    ("S19", "agnes", "从街角缓慢横移", "歌厅服务员、公司职员、主妇、学生",
+    ("S19", "agnes", "从街角缓慢横移", "夜班散场：三个人走在回家的方向",
      "接动态镜：斑马线上的购物袋",
-     "A South Korean commercial side street at night in 2007: low-rise buildings with lit windows and blank "
-     "glowing signboards, a woman in a short coat and heels stepping out of a glass doorway with a small "
-     "handbag, seen from behind and in silhouette against the light, and further along the pavement two other "
-     "women in ordinary work clothes walking away from camera at different distances, each with a different "
-     "build, coat and hairstyle; every sign and awning blank. Slow lateral tracking move along the street past "
-     "the doorway, " + HOLD,
+     "A South Korean commercial side street deep at night in 2007, after closing hours: every shopfront is "
+     "shuttered, no sign or display is lit and all signage is switched off and featureless, the only light "
+     "coming from a row of streetlamps and one open doorway spilling a warm pool onto the pavement; a woman in "
+     "a short coat and heels walks away from camera with a small handbag, and further down the same pavement "
+     "two other women in ordinary work clothes walk in the same direction at different distances, each with a "
+     "clearly different build, coat and hairstyle; no lettering, no hangul, no shop names, no glowing signs "
+     "anywhere. Slow lateral tracking move along the street following the walking woman past the lit "
+     "doorway, " + HOLD,
      "店铺关门声 + 街道环境音"),
     ("S20", "agnes", "斑马线低机位缓慢跟移", "四十八岁的主妇，买完菜回家",
      "接动态镜：公交站里的女大学生",
@@ -511,11 +514,14 @@ SHOTS = [
      "谷仓回声 + 低频弦乐"),
     ("S44", "agnes", "清晨街道缓慢横移", "生活继续，名字不该被抹掉",
      "接动态镜：结尾的城镇远景",
-     "An ordinary South Korean neighbourhood street at seven in the morning: women of different ages in work "
-     "coats walk away from camera along both pavements toward a bus stop and a subway entrance, one carrying a "
-     "lunch bag, another a folded umbrella, their faces not visible; a shopkeeper in an apron rolls up a "
-     "shutter, a delivery scooter waits at the kerb, morning light falls between low-rise blocks, every shop "
-     "sign and shutter blank. Slow gentle lateral move along the pavement following the walking women, " + HOLD,
+     "An ordinary South Korean neighbourhood street at seven in the morning seen from across the road: four or "
+     "five women of different ages in plain winter work coats walk away from the camera in both directions "
+     "along the far pavement, carrying a lunch bag, a folded umbrella and a tote, all seen from behind at a "
+     "distance so no face is visible and every person is unmasked; low-rise blocks and bare trees line the "
+     "street, a delivery scooter is parked at the kerb. Every shopfront shutter and wall is completely "
+     "featureless - no banners, no posters, no lettering, no hangul, no logos and no awnings with print - and "
+     "there are no masks or coverings on any face in the frame. Slow gentle lateral move along the road "
+     "following the group, " + HOLD,
      "清晨环境音 + 温和弦乐"),
     ("S45", "agnes", "远景缓慢拉远", "结尾：十个人，和一个还没关上的问号",
      "接片尾卡",
@@ -623,7 +629,7 @@ TITLES = [
 HOOK = ("二〇〇六到二〇〇八年，韩国京畿道西南部八名女性接连失踪遇害，年龄从十九岁到五十二岁，"
         "警方始终没有并案；二〇〇八年十二月十九日军浦保健所前一名女大学生被绑架，"
         "一台自动取款机的摄像头、一件夹克袖口上的一滴血，才把这条线连起来——凶手是姜浩顺，"
-        "他早在一九九五年就为保险金烧死过自己的妻子和岳母。")
+        "他早在二〇〇五年就为保险金烧死过自己的妻子和岳母。")
 GOLDEN_LINES = [
     "十个人是认定的数字；不确定的，还在那里。",
     "他提前烧掉了车，格式化了硬盘，却留下一滴不到一克的血。",
