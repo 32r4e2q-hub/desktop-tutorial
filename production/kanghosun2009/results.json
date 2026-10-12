@@ -461,11 +461,10 @@
     },
     "S24": {
       "id": "S24",
-      "status": "failed",
-      "request_hash": "aea525982091167ae2630fccda40ee4883aa49178468294a8b248cef948c7c2e",
-      "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
-      "updated_at": "2026-10-12T02:28:59Z",
-      "task_id": "202610121028378510897ffa644fb5"
+      "status": "submitting",
+      "request_hash": "c76ff90f7925e705e3600003da69dc05abab033003dbae31cc003c36c738cdd1",
+      "error": null,
+      "updated_at": "2026-10-12T04:29:12Z"
     },
     "S26": {
       "id": "S26",
@@ -926,7 +925,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-12T04:29:10Z",
+  "updated_at": "2026-10-12T04:29:12Z",
   "previous_results": {
     "S22": [
       {
@@ -1070,6 +1069,16 @@
         "error": null,
         "updated_at": "2026-10-12T04:12:24Z",
         "task_id": "202610121212244bf7e712495b4e3a"
+      }
+    ],
+    "S24": [
+      {
+        "id": "S24",
+        "status": "failed",
+        "request_hash": "aea525982091167ae2630fccda40ee4883aa49178468294a8b248cef948c7c2e",
+        "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
+        "updated_at": "2026-10-12T02:28:59Z",
+        "task_id": "202610121028378510897ffa644fb5"
       }
     ]
   }
