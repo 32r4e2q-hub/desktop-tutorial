@@ -269,27 +269,10 @@
     },
     "S14": {
       "id": "S14",
-      "status": "completed",
-      "request_hash": "b824c62092cdcb54c47502ca87e4047d529150709109d86d2b6db6893106b651",
+      "status": "submitting",
+      "request_hash": "c5bf511aca8345061d0da7a6e90967f0a18e41b6d7ca7902c7c2ebad0b71304f",
       "error": null,
-      "updated_at": "2026-10-12T16:25:22Z",
-      "task_id": "202610130024138a4c1765d33f49de",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610130025100afd5a27754f430b_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=WzT4FRwAG4p5Ip3yzDf%2BF3FTHSw%3D&Expires=1791908712",
-      "sha256": "e755c0a706fdbcbde1c2c201855f6ba4f0fd21e70974c6eed96fff0bcf8b2d5e",
-      "bytes": 1041787,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1041787,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/frogboy1991/qa/S14.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-12T23:29:57Z"
     },
     "S15": {
       "id": "S15",
@@ -958,7 +941,7 @@
     "S43",
     "S45"
   ],
-  "updated_at": "2026-10-12T23:29:56Z",
+  "updated_at": "2026-10-12T23:29:57Z",
   "previous_results": {
     "S14": [
       {
@@ -976,6 +959,30 @@
         "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
         "updated_at": "2026-10-12T16:17:47Z",
         "task_id": "20261013001734e4ae56f538114a16"
+      },
+      {
+        "id": "S14",
+        "status": "completed",
+        "request_hash": "b824c62092cdcb54c47502ca87e4047d529150709109d86d2b6db6893106b651",
+        "error": null,
+        "updated_at": "2026-10-12T16:25:22Z",
+        "task_id": "202610130024138a4c1765d33f49de",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610130025100afd5a27754f430b_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=WzT4FRwAG4p5Ip3yzDf%2BF3FTHSw%3D&Expires=1791908712",
+        "sha256": "e755c0a706fdbcbde1c2c201855f6ba4f0fd21e70974c6eed96fff0bcf8b2d5e",
+        "bytes": 1041787,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1041787,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/frogboy1991/qa/S14.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
       }
     ],
     "S22": [
