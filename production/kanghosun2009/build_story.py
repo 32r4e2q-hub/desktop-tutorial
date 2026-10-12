@@ -268,8 +268,12 @@ SHOTS = [
      "纸张摩擦 + 低沉鼓点"),
     ("S14", "agnes", "从被告席缓慢横移至法官席", "三年后：法院认定，火是他放的",
      "接动态镜：放火之后的第十一个月",
-     "A plain South Korean district courtroom in 2008: a middle-aged male prosecutor in a dark suit {C4} stands "
-     "at a bare lectern holding a thin folder and turning to address the bench, a wooden railing and empty "
+     # 只见背影：C4（检察官）在 S37 才露正脸，两三秒的镜头里同一张脸两次不如只给一次。
+     "A plain South Korean district courtroom in 2008: a middle-aged male prosecutor in a dark charcoal suit "
+     "jacket, a white shirt and a plain dark tie stands at a bare lectern with his back three-quarters to the "
+     "camera, reading from a thin folder held open in both hands, so only the back of his head, his shoulders "
+     "and the folder are ever clearly seen and his face stays turned away from the lens for the whole clip, "
+     "never turning to the camera; a wooden railing and empty "
      "public benches behind him, and above at the bench an empty high-backed chair and a single stack of blank "
      "documents; cold overhead fluorescents, bare walls, every paper and plaque blank. Slow lateral move along "
      "the railing from the standing prosecutor toward the empty bench, " + HOLD,
@@ -408,10 +412,13 @@ SHOTS = [
     # ---------------- N05（8 镜：7 动态 + 1 信息卡）----------------
     ("S31", "agnes", "固定中景缓慢推近录音机", "六天，他只反问：证据呢",
      "接信息卡：供述",
+     # 本镜主体是录音机，人只给背影：S33 的那张脸才是他。
      "A plain South Korean interrogation room in January 2009: a metal table with a water bottle, a paper cup, "
-     "an ashtray, a thin stack of blank forms and a cassette recorder sits between two chairs, one occupied by "
-     "a man of thirty-nine in a dark anorak {C1} leaning back with arms crossed and a level unreadable gaze, "
-     "the other by a middle-aged detective seen from behind, shoulders only; bare grey "
+     "an ashtray, a thin stack of blank forms and a cassette recorder sits between two chairs, the near chair "
+     "holding a man of thirty-nine in a dark anorak seen from behind and slightly to the side, so only the back "
+     "of his short black hair and his shoulders fill the left edge of the frame while his face stays turned "
+     "away from the lens for the whole clip, the far chair occupied by "
+     "a middle-aged detective also seen from behind, shoulders only; bare grey "
      "walls, a single high vent, a wall clock without numerals. Fixed "
      "medium shot with a very slow push toward the cassette recorder, " + HOLD,
      "时钟声 + 录音机轻响"),
@@ -659,10 +666,8 @@ FACE_SHOTS = {
     "S04": ["C2"],
     "S05": ["C3"],
     "S12": ["C1"],
-    "S14": ["C4"],
     "S26": ["C2"],
     "S27": ["C2"],
-    "S31": ["C1"],
     "S33": ["C1"],
     "S37": ["C4"],
     "S39": ["C5"],
@@ -673,13 +678,10 @@ REFERENCE_SHOTS = {}  # 历史位：曾把 cast/<角色>.png 肖像登记成首�
 # 原样当画面 → 肖像照会让整镜变成证件照（S04 是俯拍桌面、S14/S39 是法庭），所以不再用肖像。
 # 露脸镜头一律走下面 FIRST_FRAME：**同角色、同布景**的一帧图（与 cast.json 的 face token
 # 同一段文字生成，人物特征一致），钉住脸又不改布景。
-FIRST_FRAME = {
-    "S14": "cast/C4_court.png",             # 法庭：公诉人席宣读卷宗
-    "S31": "cast/C1_interrogation_a.png",   # 审讯室：抱臂后靠
-    "S33": "cast/C1_interrogation_b.png",   # 审讯室：正面开口供述
-    "S37": "cast/C4_office.png",            # 检察厅办公室：翻卷宗
-    "S39": "cast/C5_court.png",             # 法庭：法官席翻阅卷宗
-}
+FIRST_FRAME = {}  # 2026-10-12：免费档 image_url 队列实测严重拥堵（S14 连续两次 20 分钟轮询
+# 超时），而跨镜撞脸改用**构图**解决更确定：S14/S31 只见背影，C4 只在 S37 露脸、C5 只在 S39 露脸，
+# 于是全片每个可辨认的脸只出现一次，不再互相矛盾。cast/*_court.png、C1_interrogation_*.png 留在
+# 仓库里备用（通道探测见 delivery/ref-image-probe.json），这里不挂任何镜头。
 
 
 def first_frame_urls():
