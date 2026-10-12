@@ -328,13 +328,13 @@ SHOTS = [
      "the wet verge, a village lane and low hills behind, the timetable panel and leaflet completely blank. "
      "Slow medium push from across the road toward the waiting figure, " + HOLD,
      "冬风 + 远处公交车"),
-    ("S22", "agnes", "俯拍桌面缓慢横移", "派出所里，几摞没有归到一起的卷宗",
+    ("S22", "agnes", "从高窗光线缓慢下摇到托盘", "几摞卷宗，谁也不挨着谁",
      "接信息卡：没有并案",
-     "A small South Korean police station counter in 2008 seen from a raised angle: several closed plain "
-     "cardboard folders lie in separate loose stacks spaced along the counter, and a middle-aged male "
-     "detective {C2} stands over them in his shirt sleeves with both palms flat on the counter, looking along "
-     "the row of stacks with a tired set expression; a rotary telephone and an ink pad sit at the edge, every "
-     "surface blank and unmarked. Slow overhead push across the separate stacks toward the detective's hands, " + HOLD,
+     "A small institutional archive room in South Korea in 2008: three separate wire trays stand one behind "
+     "another on a long metal shelf beside a grey steel cabinet, each tray holding its own closed stack of "
+     "plain cardboard folders, the stacks visibly separate and never touching; dust drifts in a shaft of light "
+     "from a high window, and a wall of identical shelves recedes behind them, no people in frame, every "
+     "folder closed and blank. Slow downward tilt from the window light to the three trays, " + HOLD,
      "电话铃声 + 纸张翻动"),
     ("S23", "graphic", "信息卡（静帧）", "档案：八起失踪，没有并案",
      "接 N04：二〇〇九年一月的破局",
@@ -342,13 +342,13 @@ SHOTS = [
      "低音撞击"),
 
     # ---------------- N04（7 镜：6 动态 + 1 信息卡）----------------
-    ("S24", "agnes", "从警局远景缓慢推进", "二〇〇九年一月：监控把车拉了回来",
+    ("S24", "agnes", "从湿地面远景缓慢推进", "二〇〇九年一月：那辆车被重新拉回视线里",
      "接动态镜：深夜的监控室",
-     "A South Korean police station at night in January 2009 seen from across a wet forecourt: a row of parked "
-     "white patrol cars with their lights off, two officers in plain coats walking toward the entrance with "
-     "their backs to camera, and above them lit office windows where several figures lean over desks; rain "
-     "films the asphalt, a bare tree stands at the gate, the building facade carries no signage or lettering. "
-     "Slow wide push from the forecourt toward the lit windows of the building, " + HOLD,
+     "A plain municipal building in South Korea at night in January 2009 seen from across a wet forecourt: a row "
+     "of parked cars stands with their lights off, two figures in plain winter coats walk away from camera "
+     "toward a lit doorway, and above them several office windows are lit with figures moving behind the glass; "
+     "rain films the asphalt, a bare tree stands at the gate, and the building facade carries no signage or "
+     "lettering anywhere. Slow wide push from the forecourt toward the lit windows, " + HOLD,
      "夜雨 + 低频悬念音"),
     ("S25", "graphic", "信息卡（静帧）", "名片：二〇〇九年一月 · 一辆黑色轿车",
      "接动态镜：那辆车，和车主",
@@ -381,13 +381,14 @@ SHOTS = [
      "torch beam on the wreck. Nothing in frame carries readable text. Low tracking move past both burnt cars "
      "toward the investigators, " + HOLD,
      "余烬 + 低沉鼓点"),
-    ("S29", "agnes", "从走廊远端缓慢推近", "同一天傍晚：紧急逮捕",
+    ("S29", "agnes", "从走廊远端缓慢推近", "同一天傍晚：他一个人走过那条走廊",
      "接动态镜：国科搜的那一点血",
-     "A bare police station corridor in January 2009 with a terrazzo floor and doors along one side: a man of "
-     "thirty-nine in a plain dark anorak {C1} walks toward the camera flanked and slightly trailed by two "
-     "uniformed officers, his head level and his expression ordinary and unremarkable, hands empty and visible "
-     "at his sides, his eyes meeting the lens steadily; the corridor is otherwise empty and its walls, doors and "
-     "notice boards are blank. Slow tracking push backwards ahead of the walking trio along the corridor, " + HOLD,
+     "A bare corridor in a plain administrative building in January 2009, terrazzo floor and closed doors along "
+     "one side: a man of thirty-nine in a plain dark anorak {C1} walks alone toward the camera along the "
+     "corridor, his head level and his expression ordinary and unremarkable, hands empty and visible at "
+     "his sides, his eyes meeting the lens steadily; his long shadow runs ahead of him on the floor and the "
+     "corridor is otherwise empty, every wall and door blank. Slow tracking push backwards ahead of the "
+     "walking man along the corridor, " + HOLD,
      "脚步声 + 铁门声"),
     ("S30", "agnes", "微距缓慢推近袖口", "一滴血，锁住整条证据链",
      "接 N05：六天的沉默",
@@ -647,7 +648,6 @@ FACE_SHOTS = {
     "S05": ["C3"],
     "S12": ["C1"],
     "S14": ["C4"],
-    "S22": ["C2"],
     "S26": ["C2"],
     "S27": ["C2"],
     "S29": ["C1"],
