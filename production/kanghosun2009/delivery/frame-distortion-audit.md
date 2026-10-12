@@ -1,7 +1,7 @@
 # 成片逐帧畸变 / 时序 QC
 
 - 成片：`姜浩顺_一滴袖口的血，十名女人_三分钟_带声音.mp4`
-- SHA-256：`34fbc106bf331d36e8bf7f0c4cb1cb797688baea80e660bac07527f58a307a3c`
+- SHA-256：`37b338a9fa4159b080f3f6373b64237ecaaf2f2a977472c83c6642a0a890eb81`
 - 视频：1920×1080 / 30.000 fps / 180.000 秒
 - 覆盖：解码并分析 **5400/5400 帧**；逐帧 MediaPipe 人脸/手检测；320x180 时序分析
 - 自动状态：**REVIEW**（机器结果，不等同于无任何视觉瑕疵）
@@ -11,10 +11,10 @@
 - PTS 连续性异常：0
 - 亮度低于 12 的帧：13（片头/片尾淡入淡出需按时间线解释）
 - 非计划黑帧：0
-- >1 秒近静止区段：3；其中非信息卡/片尾段：3
-- 帧差/光流/亮度突变待复核窗口：22
-- 人脸检测：逐帧总检测 977；达到复核阈值的候选 565
-- 手部检测：逐帧总检测 892；超出宽松几何边界的 landmark 事件 105
+- >1 秒近静止区段：2；其中非信息卡/片尾段：2
+- 帧差/光流/亮度突变待复核窗口：21
+- 人脸检测：逐帧总检测 1061；达到复核阈值的候选 475
+- 手部检测：逐帧总检测 614；超出宽松几何边界的 landmark 事件 75
 
 ## 镜头统计
 
@@ -31,41 +31,41 @@
 | S09 | agnes | 160 | 0 | 0 | 1.469 | 0 |
 | S10 | graphic | 72 | 6 | 0 | 143.122 | 0 |
 | S11 | agnes | 120 | 0 | 0 | 0.3362 | 0 |
-| S12 | agnes | 113 | 25 | 35 | 20.6234 | 4 |
-| S13 | agnes | 115 | 2 | 177 | 9.5247 | 3 |
-| S14 | agnes | 56 | 56 | 0 | 0.9313 | 0 |
+| S12 | agnes | 113 | 164 | 0 | 0.2626 | 0 |
+| S13 | agnes | 115 | 0 | 0 | 0.2861 | 0 |
+| S14 | agnes | 56 | 38 | 14 | 0.8396 | 0 |
 | S15 | agnes | 133 | 0 | 0 | 0.6254 | 0 |
 | S16 | agnes | 68 | 0 | 0 | 0.1116 | 0 |
 | S17 | agnes | 114 | 0 | 52 | 0.5471 | 0 |
-| S18 | graphic | 132 | 37 | 0 | 289.0835 | 0 |
-| S19 | agnes | 82 | 0 | 0 | 3.1681 | 0 |
-| S20 | agnes | 130 | 0 | 9 | 0.5807 | 0 |
-| S21 | agnes | 133 | 0 | 0 | 0.1261 | 0 |
-| S22 | agnes | 85 | 0 | 0 | 0.4516 | 0 |
-| S23 | graphic | 161 | 44 | 0 | 285.3668 | 0 |
+| S18 | graphic | 132 | 37 | 0 | 263.2924 | 0 |
+| S19 | agnes | 82 | 0 | 0 | 0.9715 | 0 |
+| S20 | agnes | 130 | 0 | 12 | 0.5841 | 0 |
+| S21 | agnes | 133 | 0 | 0 | 0.1232 | 0 |
+| S22 | agnes | 85 | 0 | 35 | 4.9518 | 6 |
+| S23 | graphic | 161 | 44 | 0 | 234.8434 | 0 |
 | S24 | agnes | 108 | 0 | 0 | 0.0984 | 0 |
 | S25 | graphic | 91 | 49 | 0 | 225.3865 | 0 |
 | S26 | agnes | 140 | 0 | 7 | 1.6399 | 0 |
 | S27 | agnes | 118 | 118 | 47 | 3.4338 | 0 |
 | S28 | agnes | 139 | 0 | 0 | 0.2616 | 0 |
 | S29 | agnes | 128 | 0 | 0 | 1.2462 | 0 |
-| S30 | agnes | 126 | 0 | 0 | 3.4151 | 1 |
-| S31 | agnes | 96 | 0 | 0 | 0.1393 | 0 |
-| S32 | graphic | 102 | 0 | 0 | 185.1528 | 0 |
-| S33 | agnes | 117 | 117 | 0 | 0.1963 | 0 |
+| S30 | agnes | 126 | 0 | 0 | 3.4165 | 1 |
+| S31 | agnes | 96 | 0 | 0 | 0.1917 | 0 |
+| S32 | graphic | 102 | 0 | 0 | 184.4466 | 0 |
+| S33 | agnes | 117 | 117 | 0 | 0.2 | 0 |
 | S34 | agnes | 89 | 0 | 0 | 0.13 | 0 |
 | S35 | agnes | 123 | 0 | 0 | 0.1317 | 0 |
-| S36 | agnes | 90 | 0 | 0 | 0.089 | 0 |
-| S37 | agnes | 102 | 102 | 118 | 0.4839 | 0 |
+| S36 | agnes | 90 | 0 | 0 | 0.0895 | 0 |
+| S37 | agnes | 102 | 67 | 0 | 0.3011 | 0 |
 | S38 | agnes | 148 | 0 | 0 | 0.6168 | 0 |
 | S39 | agnes | 193 | 193 | 204 | 0.7175 | 0 |
 | S40 | agnes | 81 | 0 | 0 | 0.0678 | 0 |
 | S41 | graphic | 141 | 57 | 0 | 199.4203 | 0 |
-| S42 | agnes | 143 | 0 | 0 | 0.1675 | 0 |
-| S43 | agnes | 101 | 0 | 0 | 0.2353 | 0 |
-| S44 | agnes | 159 | 0 | 0 | 0.6324 | 0 |
-| S45 | agnes | 179 | 0 | 0 | 0.408 | 1 |
-| END | graphic | 114 | 0 | 0 | 0.4507 | 1 |
+| S42 | agnes | 143 | 0 | 0 | 0.1504 | 0 |
+| S43 | agnes | 101 | 0 | 0 | 0.2361 | 0 |
+| S44 | agnes | 159 | 0 | 0 | 0.3686 | 0 |
+| S45 | agnes | 179 | 0 | 0 | 0.4121 | 1 |
+| END | graphic | 114 | 0 | 0 | 0.453 | 1 |
 
 ## 复核文件
 
@@ -75,13 +75,12 @@
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S04.jpg`
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S05.jpg`
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S08.jpg`
-- 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S12.jpg`
-- 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S13.jpg`
+- 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S14.jpg`
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S17.jpg`
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S20.jpg`
+- 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S22.jpg`
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S26.jpg`
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S27.jpg`
-- 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S37.jpg`
 - 手部动态接触表：`work/kanghosun2009/final-frame-audit/contacts/hands-S39.jpg`
 
 ## 限制
