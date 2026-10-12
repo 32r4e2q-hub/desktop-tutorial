@@ -69,6 +69,21 @@ jobs:
           print('verified delivered SHA-256', got)
           PY
 
+      - name: Install ffmpeg for the face gate
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -1
+
+      - name: 角色脸画面闸门（露脸模式：逐镜检脸 + 每人一张人脸接触表 + 相似度分诊）
+        if: hashFiles('production/__SLUG__/cast.json') != ''
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 production/face_cast.py check-frames --project production/__SLUG__ \
+            --film "交付/__FILM__" \
+            --out production/__SLUG__/delivery
+
       - name: Decode and scan every output frame
         run: |
           set -euo pipefail
@@ -131,25 +146,25 @@ jobs:
           PY
 
       - name: Commit compact audit receipts back to the production branch
+        continue-on-error: true
         run: |
-          set -euo pipefail
+          set -uo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add production/__SLUG__/delivery/frame-distortion-audit.json \
-            production/__SLUG__/delivery/frame-distortion-audit.md \
-            production/__SLUG__/delivery/visual-qc-summary.json \
-            production/__SLUG__/delivery/visual-qc-shot-midpoints.jpg \
-            production/__SLUG__/qa/final-frame-review
-          if ! git diff --cached --quiet; then
-            git commit -m '__SLUG__: audit every frame of delivered cut'
-            pushed=0
-            for attempt in 1 2 3 4 5; do
-              if git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
-              git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
-              sleep 5
-            done
-            test "$pushed" = 1
+          git add -A -- production/__SLUG__/delivery production/__SLUG__/qa
+          if git diff --cached --quiet; then
+            echo '没有新的审计收据需要提交'
+            exit 0
           fi
+          git status --short | head -20
+          git commit -m '__SLUG__: audit every frame of delivered cut'
+          pushed=0
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
+            git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
+            sleep 5
+          done
+          test "$pushed" = 1
 
       - name: Upload full visual-review evidence
         if: always()

@@ -1,0 +1,338 @@
+{
+  "gate": "check-frames",
+  "project": "production/kanghosun2009",
+  "film": "交付/姜浩顺_一滴袖口的血，十名女人_三分钟_带声音.mp4",
+  "errors": [],
+  "warnings": [
+    "角色 C2 跨镜头最低相似度 -0.40（<0.45）：可能出现了换脸，请对照接触表人工确认"
+  ],
+  "characters": {
+    "C1": {
+      "contact_sheet": "delivery/face-cast/C1.jpg",
+      "crops": 3,
+      "shots": [
+        "S33"
+      ],
+      "within_min": 0.903,
+      "within_median": 0.921
+    },
+    "C2": {
+      "contact_sheet": "delivery/face-cast/C2.jpg",
+      "crops": 9,
+      "shots": [
+        "S04",
+        "S26",
+        "S27"
+      ],
+      "within_min": -0.404,
+      "within_median": 0.191
+    },
+    "C3": {
+      "contact_sheet": "delivery/face-cast/C3.jpg",
+      "crops": 2,
+      "shots": [
+        "S05"
+      ],
+      "within_min": 0.575,
+      "within_median": 0.575
+    },
+    "C5": {
+      "contact_sheet": "delivery/face-cast/C5.jpg",
+      "crops": 3,
+      "shots": [
+        "S39"
+      ],
+      "within_min": 0.509,
+      "within_median": 0.52
+    }
+  },
+  "cross_character": [
+    {
+      "pair": [
+        "C1",
+        "C2"
+      ],
+      "max_similarity": 0.225
+    },
+    {
+      "pair": [
+        "C1",
+        "C3"
+      ],
+      "max_similarity": 0.369
+    },
+    {
+      "pair": [
+        "C1",
+        "C5"
+      ],
+      "max_similarity": 0.099
+    },
+    {
+      "pair": [
+        "C2",
+        "C3"
+      ],
+      "max_similarity": 0.447
+    },
+    {
+      "pair": [
+        "C2",
+        "C5"
+      ],
+      "max_similarity": 0.121
+    },
+    {
+      "pair": [
+        "C3",
+        "C5"
+      ],
+      "max_similarity": -0.083
+    }
+  ],
+  "shots": [
+    {
+      "shot": "S04",
+      "characters": [
+        "C2"
+      ],
+      "frames": [
+        {
+          "seconds": 16.625,
+          "faces": 1,
+          "score": 0.844,
+          "bbox": [
+            1118,
+            255,
+            179,
+            179
+          ]
+        },
+        {
+          "seconds": 17.717,
+          "faces": 1,
+          "score": 0.822,
+          "bbox": [
+            1145,
+            213,
+            189,
+            189
+          ]
+        },
+        {
+          "seconds": 18.808,
+          "faces": 1,
+          "score": 0.789,
+          "bbox": [
+            1176,
+            185,
+            182,
+            182
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S05",
+      "characters": [
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 21.392,
+          "faces": 1,
+          "score": 0.856,
+          "bbox": [
+            509,
+            254,
+            293,
+            293
+          ]
+        },
+        {
+          "seconds": 22.883,
+          "faces": 1,
+          "score": 0.833,
+          "bbox": [
+            553,
+            283,
+            268,
+            268
+          ]
+        },
+        {
+          "seconds": 24.375,
+          "faces": 0
+        }
+      ]
+    },
+    {
+      "shot": "S26",
+      "characters": [
+        "C2"
+      ],
+      "frames": [
+        {
+          "seconds": 86.633,
+          "faces": 1,
+          "score": 0.744,
+          "bbox": [
+            1248,
+            249,
+            186,
+            186
+          ]
+        },
+        {
+          "seconds": 87.533,
+          "faces": 1,
+          "score": 0.712,
+          "bbox": [
+            1227,
+            248,
+            186,
+            186
+          ]
+        },
+        {
+          "seconds": 88.433,
+          "faces": 1,
+          "score": 0.607,
+          "bbox": [
+            1232,
+            254,
+            173,
+            173
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S27",
+      "characters": [
+        "C2"
+      ],
+      "frames": [
+        {
+          "seconds": 26.883,
+          "faces": 1,
+          "score": 0.652,
+          "bbox": [
+            878,
+            623,
+            250,
+            250
+          ]
+        },
+        {
+          "seconds": 27.9,
+          "faces": 1,
+          "score": 0.716,
+          "bbox": [
+            869,
+            605,
+            353,
+            353
+          ]
+        },
+        {
+          "seconds": 28.917,
+          "faces": 1,
+          "score": 0.74,
+          "bbox": [
+            730,
+            377,
+            476,
+            476
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S33",
+      "characters": [
+        "C1"
+      ],
+      "frames": [
+        {
+          "seconds": 118.367,
+          "faces": 1,
+          "score": 0.957,
+          "bbox": [
+            659,
+            166,
+            373,
+            373
+          ]
+        },
+        {
+          "seconds": 119.467,
+          "faces": 1,
+          "score": 0.927,
+          "bbox": [
+            652,
+            148,
+            392,
+            392
+          ]
+        },
+        {
+          "seconds": 120.567,
+          "faces": 1,
+          "score": 0.911,
+          "bbox": [
+            657,
+            139,
+            386,
+            386
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S39",
+      "characters": [
+        "C5"
+      ],
+      "frames": [
+        {
+          "seconds": 144.575,
+          "faces": 1,
+          "score": 0.976,
+          "bbox": [
+            824,
+            239,
+            301,
+            301
+          ]
+        },
+        {
+          "seconds": 146.183,
+          "faces": 1,
+          "score": 0.923,
+          "bbox": [
+            741,
+            217,
+            298,
+            298
+          ]
+        },
+        {
+          "seconds": 147.792,
+          "faces": 1,
+          "score": 0.78,
+          "bbox": [
+            850,
+            216,
+            308,
+            308
+          ]
+        }
+      ]
+    }
+  ],
+  "human_review": "pending",
+  "detector": "mediapipe",
+  "status": "REVIEW",
+  "note": "机器只做分诊：相似度对光照/角度很敏感，最终必须人眼看每个角色的接触表，确认「同一个人跨镜头还是他、不同角色一眼能分辨」。"
+}

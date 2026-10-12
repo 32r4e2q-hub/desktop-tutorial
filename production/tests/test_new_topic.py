@@ -222,6 +222,28 @@ class ScaffoldTests(unittest.TestCase):
         self.assertEqual(render.TOTAL_FRAMES, 5400)
         self.assertEqual(render.END_AT, 180.0 - render.END_CARD)
 
+    def test_subtitle_and_clause_alignment_defaults(self):
+        render = load_module("scaffold_render_subs", self.project_dir / "render.py")
+        clause_times = load_module("scaffold_clause_times", self.project_dir / "clause_times.py")
+        import inspect
+        sig = inspect.signature(clause_times.pauses)
+        self.assertEqual(sig.parameters["min_len"].default, 0.08,
+                         "clause_times.pauses 默认气口阈值应为 0.08s，防止漏检 0.09–0.17s 短气口")
+        self.assertTrue(hasattr(clause_times, "merge_to_fit"))
+        # 破折号必须切分，保证与 clause_times.PUNCT 一致
+        clauses = render.caption_clauses("职业各不相同——唯一的共同点，是独自走在回家的路上。")
+        self.assertEqual(clauses, ["职业各不相同——", "唯一的共同点，", "是独自走在回家的路上。"])
+        ass_out = self.tmp / "test_captions.ass"
+        render.write_subtitles(
+            ass_out,
+            [{"start": 1.0, "end": 2.5, "text": "这是一条六十八号大字幕。"}],
+            [{"id": "S01", "kind": "agnes", "start_frame": 0, "end_frame": 90}],
+            {"caption_keywords": ["六十八号"]},
+        )
+        ass_text = ass_out.read_text(encoding="utf-8")
+        self.assertIn("Style: Caption,Noto Sans CJK SC,68,", ass_text)
+        self.assertIn(r"{\q2\fad(20,20)}", ass_text)
+
     def test_make_edl_rejects_shot_reuse_and_accepts_the_skeleton(self):
         render = load_module("scaffold_render_edl", self.project_dir / "render.py")
         story = json.loads((self.project_dir / "story.json").read_text())
