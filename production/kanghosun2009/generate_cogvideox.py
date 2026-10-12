@@ -357,8 +357,15 @@ def main():
             if outcome == 'success':
                 break
             if outcome == 'fail' and not transient_fail(last_error):
-                raise RuntimeError('%s: provider task failed (non-transient): %s'
-                                   % (sid, last_error))
+                # 供应商内容审核（1301）、参数被拒等**单镜**故障：记 failed 后继续跑下一镜，
+                # 不让一镜的问题把整批 38 镜全掐掉（2026-10-12 本片 S22 实测：1301 触发后
+                # 旧版直接 raise，整轮 18/38 就此中断）。缺口由下一轮按收据补，或改完提示词再投。
+                blocker = 'content moderation' if '1301' in last_error else 'non-transient provider failure'
+                checkpoint(doc, sid + ' failed (' + blocker + ')', sid, publish=args.publish,
+                           status='failed', request_hash=wanted, error=last_error[:600])
+                failures.append(sid)
+                print('%s: %s; skipping to the next shot' % (sid, blocker), flush=True)
+                break
             print('%s: submission %d ended %s (%s); resubmitting'
                   % (sid, submission, outcome, (last_error or 'polling timeout')[:200]),
                   flush=True)

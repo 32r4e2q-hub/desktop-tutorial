@@ -328,13 +328,14 @@ SHOTS = [
      "the wet verge, a village lane and low hills behind, the timetable panel and leaflet completely blank. "
      "Slow medium push from across the road toward the waiting figure, " + HOLD,
      "冬风 + 远处公交车"),
-    ("S22", "agnes", "俯拍登记表缓慢横移", "派出所里，七张失踪登记表",
+    ("S22", "agnes", "俯拍桌面缓慢横移", "派出所里，一摞没有归到一起的卷宗",
      "接信息卡：没有并案",
-     "A small South Korean police station counter in 2008: seven buff missing-person forms lie side by side in a "
-     "row on the counter, each with a blank photograph frame clipped to the corner, and a middle-aged male "
-     "detective {C2} leans over them in his shirt sleeves with one palm flat on the counter, looking along the "
-     "row with a tired set expression; a rotary phone, an ink pad and a pen cup at the edge, every form and "
-     "notice blank. Slow overhead push across the row of forms toward the detective's hands, " + HOLD,
+     "A small South Korean police station counter in 2008 seen from a raised angle: seven plain buff cardboard "
+     "folders lie side by side in a neat row, each closed with a blank white label strip and a small blank "
+     "photograph frame clipped to its corner, and a middle-aged male detective {C2} leans over them in his "
+     "shirt sleeves with one palm flat on the counter, reading along the row with a tired set expression; a "
+     "a rotary telephone and an ink pad at the edge, every label and paper blank with no writing or numerals. "
+     "Slow overhead push across the row of folders toward the detective's hands, " + HOLD,
      "电话铃声 + 纸张翻动"),
     ("S23", "graphic", "信息卡（静帧）", "档案：八起失踪，没有并案",
      "接 N04：二〇〇九年一月的破局",
@@ -440,12 +441,12 @@ SHOTS = [
      "风声 + 相机快门"),
     ("S36", "agnes", "低机位缓慢横移过编号标记", "她终于被找到：二〇〇九年四月",
      "接动态镜：检察官办公室",
-     "A wooded hillside search site in Gangwon province in the spring of 2009 photographed respectfully from a "
-     "low angle: a line of small blank numbered markers is set into the leaf litter along a taped grid, two "
-     "investigators in plain overalls and gloves work on their knees with a fine sieve and a folded blue "
-     "tarpaulin, seen from behind and in silhouette so nothing of the remains is visible; bare branches, wet "
-     "earth and drifted leaves, every marker and tag blank. Slow low lateral move along the row of markers "
-     "toward the kneeling investigators, " + HOLD,
+     "A wooded hillside field survey site in Gangwon province in the spring of 2009 photographed respectfully "
+     "from a low angle: a line of small blank numbered marker stakes is set into the leaf litter along a taped "
+     "survey grid, two investigators in plain overalls and gloves kneel at the grid edge working a fine sieve "
+     "and folding a blue tarpaulin, seen from behind and in silhouette, nothing else visible on the ground; "
+     "bare branches, wet earth and fallen leaves, every stake and tag blank. Slow low lateral move along the "
+     "row of markers toward the kneeling investigators, " + HOLD,
      "铁锹轻响 + 低沉弦乐"),
     ("S37", "agnes", "从地图缓慢横移到卷宗", "不是一宗案，是跨了三年的一串",
      "接动态镜：押解进法院",
