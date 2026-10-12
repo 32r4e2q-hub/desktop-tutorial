@@ -1,5 +1,5 @@
 {
-  "film_sha256": "412538e65b974af9e5d52814685ec1f7de26e8437702eb5fd319e7ec1d1341fa",
+  "film_sha256": "619659a95197c19a000798db284aea6f507f42a57016c2f7f5a7de523df0a794",
   "source_audit": "production/hwaseong1986/delivery/frame-distortion-audit.json",
   "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
   "max_width": 960,
@@ -145,32 +145,12 @@
       "height": 540
     },
     {
-      "frame": 534,
-      "seconds": 17.8,
-      "reasons": [
-        "face-S06"
-      ],
-      "file": "f00534_face-S06.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 535,
-      "seconds": 17.833,
-      "reasons": [
-        "face-S06"
-      ],
-      "file": "f00535_face-S06.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 540,
-      "seconds": 18.0,
+      "frame": 538,
+      "seconds": 17.933,
       "reasons": [
         "hand-geometry-S06"
       ],
-      "file": "f00540_hand-geometry-S06.jpg",
+      "file": "f00538_hand-geometry-S06.jpg",
       "width": 960,
       "height": 540
     },
@@ -231,16 +211,6 @@
         "face-S06"
       ],
       "file": "f00548_face-S06.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 551,
-      "seconds": 18.367,
-      "reasons": [
-        "face-S06"
-      ],
-      "file": "f00551_face-S06.jpg",
       "width": 960,
       "height": 540
     },
@@ -448,22 +418,22 @@
       "height": 540
     },
     {
-      "frame": 635,
-      "seconds": 21.167,
+      "frame": 630,
+      "seconds": 21.0,
       "reasons": [
         "hand-geometry-S07"
       ],
-      "file": "f00635_hand-geometry-S07.jpg",
+      "file": "f00630_hand-geometry-S07.jpg",
       "width": 960,
       "height": 540
     },
     {
-      "frame": 837,
-      "seconds": 27.9,
+      "frame": 851,
+      "seconds": 28.367,
       "reasons": [
         "hand-geometry-S08"
       ],
-      "file": "f00837_hand-geometry-S08.jpg",
+      "file": "f00851_hand-geometry-S08.jpg",
       "width": 960,
       "height": 540
     },
@@ -1543,6 +1513,16 @@
       "height": 540
     },
     {
+      "frame": 1750,
+      "seconds": 58.333,
+      "reasons": [
+        "face-S16"
+      ],
+      "file": "f01750_face-S16.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 1751,
       "seconds": 58.367,
       "reasons": [
@@ -1619,6 +1599,16 @@
         "face-S16"
       ],
       "file": "f01761_face-S16.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 1762,
+      "seconds": 58.733,
+      "reasons": [
+        "face-S16"
+      ],
+      "file": "f01762_face-S16.jpg",
       "width": 960,
       "height": 540
     },
@@ -2446,8 +2436,7 @@
       "frame": 2302,
       "seconds": 76.733,
       "reasons": [
-        "face-S22",
-        "hand-geometry-S22"
+        "face-S22"
       ],
       "file": "f02302_face-S22.jpg",
       "width": 960,
@@ -2577,7 +2566,8 @@
       "frame": 2315,
       "seconds": 77.167,
       "reasons": [
-        "face-S22"
+        "face-S22",
+        "hand-geometry-S22"
       ],
       "file": "f02315_face-S22.jpg",
       "width": 960,
@@ -3614,22 +3604,22 @@
       "height": 540
     },
     {
-      "frame": 2505,
-      "seconds": 83.5,
+      "frame": 2518,
+      "seconds": 83.933,
       "reasons": [
         "hand-geometry-S23"
       ],
-      "file": "f02505_hand-geometry-S23.jpg",
+      "file": "f02518_hand-geometry-S23.jpg",
       "width": 960,
       "height": 540
     },
     {
-      "frame": 2628,
-      "seconds": 87.6,
+      "frame": 2742,
+      "seconds": 91.4,
       "reasons": [
         "hand-geometry-S24"
       ],
-      "file": "f02628_hand-geometry-S24.jpg",
+      "file": "f02742_hand-geometry-S24.jpg",
       "width": 960,
       "height": 540
     },
@@ -3768,12 +3758,12 @@
       "height": 540
     },
     {
-      "frame": 3014,
-      "seconds": 100.467,
+      "frame": 3015,
+      "seconds": 100.5,
       "reasons": [
         "hand-geometry-S27"
       ],
-      "file": "f03014_hand-geometry-S27.jpg",
+      "file": "f03015_hand-geometry-S27.jpg",
       "width": 960,
       "height": 540
     },
@@ -4554,7 +4544,8 @@
       "frame": 3314,
       "seconds": 110.467,
       "reasons": [
-        "face-S29"
+        "face-S29",
+        "hand-geometry-S29"
       ],
       "file": "f03314_face-S29.jpg",
       "width": 960,
@@ -4824,8 +4815,7 @@
       "frame": 3341,
       "seconds": 111.367,
       "reasons": [
-        "face-S29",
-        "hand-geometry-S29"
+        "face-S29"
       ],
       "file": "f03341_face-S29.jpg",
       "width": 960,
@@ -5369,7 +5359,10 @@
       "frame": 4579,
       "seconds": 152.633,
       "reasons": [
-        "face-S40"
+        "face-S40",
+        "temporal-S40-end",
+        "temporal-S40-middle",
+        "temporal-S40-start"
       ],
       "file": "f04579_face-S40.jpg",
       "width": 960,
