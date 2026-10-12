@@ -669,15 +669,16 @@ FACE_SHOTS = {
 }
 # 用定妆照做首帧（图生视频）的镜头：每个角色的首次露脸镜头，把这张脸钉在观众第一眼里。
 # 定妆照提交在仓库里，URL 取 cast.json 的 portrait_url。
-REFERENCE_SHOTS = {"S04": "C2", "S05": "C3", "S12": "C1", "S14": "C4", "S39": "C5"}
-# 逐镜自定义首帧（图生视频的第一帧）：免费档文生视频没有人物记忆，跨镜会换脸；凡是
-# 需要露脸、且定妆照的布景与镜头布景不一致的，就用**同角色、同布景**的一帧图钉住脸。
-# 这些图与 cast.json 的 face token 用同一段文字描述生成，人物特征与定妆照一致；
-# 首次露脸镜头仍用 cast/<角色>.png（见 REFERENCE_SHOTS）。
+REFERENCE_SHOTS = {}  # 历史位：曾把 cast/<角色>.png 肖像登记成首帧。图生视频会把第一帧
+# 原样当画面 → 肖像照会让整镜变成证件照（S04 是俯拍桌面、S14/S39 是法庭），所以不再用肖像。
+# 露脸镜头一律走下面 FIRST_FRAME：**同角色、同布景**的一帧图（与 cast.json 的 face token
+# 同一段文字生成，人物特征一致），钉住脸又不改布景。
 FIRST_FRAME = {
+    "S14": "cast/C4_court.png",             # 法庭：公诉人席宣读卷宗
     "S31": "cast/C1_interrogation_a.png",   # 审讯室：抱臂后靠
     "S33": "cast/C1_interrogation_b.png",   # 审讯室：正面开口供述
     "S37": "cast/C4_office.png",            # 检察厅办公室：翻卷宗
+    "S39": "cast/C5_court.png",             # 法庭：法官席翻阅卷宗
 }
 
 
@@ -780,7 +781,7 @@ def build():
     print(f"story.json 已写入：{len(shots)} 镜 = {kinds.count('agnes')} cogvideo + {kinds.count('graphic')} graphic，"
           f"解说 {chars} 字（含标点）")
     print("逐章字数：" + " / ".join(f"{c['id']} {len(c['text'])}" for c in story["chapters"]))
-    print(f"露脸镜头：{len(FACE_SHOTS)} 镜；定妆照首帧：{len(REFERENCE_SHOTS)} 镜")
+    print(f"露脸镜头：{len(FACE_SHOTS)} 镜；首帧图钉脸：{len(FIRST_FRAME)} 镜")
     todo = json.dumps(story, ensure_ascii=False).count("TODO")
     if todo:
         print(f"注意：还有 {todo} 处 TODO 没填，generate.py --validate 不会放行", file=sys.stderr)
