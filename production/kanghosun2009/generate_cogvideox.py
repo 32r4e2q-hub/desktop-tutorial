@@ -51,6 +51,15 @@ ensure_tools, inspect_clip = _media.ensure_tools, _media.inspect_clip
 
 GRID_SECONDS = 6  # CogVideoX-Flash 免费档单条时长（实测收据为准，render 会按需裁切）
 
+# 本轮要不要用定妆照（image_url）。None=照旧先探测（服务端收不收由真实请求说话）；
+# True/False=payload 里 ``{"ref_image": false}`` 强制，用于两种现实：
+#   * 免费档的 image_url 队列随负载波动极大 —— 2026-10-12 实测 02:00 探测 429 限流、
+#     03:00 探测 supported=true、04:00 带图任务排队 20 分钟以上全部轮询超时，一条
+#     带图收据要磨掉一小时；先把不带图的成品补齐、低峰再单独补带图版；
+#   * 出片链两侧都认两种哈希（render.py / fetch_sources.py 的 wanted_hashes），
+#     所以开关来回切换不会破坏已签收的素材。
+REF_IMAGE_MODE = None
+
 # 定妆照探测（2026-10-11 用户要求露脸镜头钉住定妆照）：免费档 cogvideox-flash 此前
 # 只实测过纯文生视频三字段 payload（jeong2000 流水线）；SDK 里有 image_url 参数，
 # 但服务端收不收只有真实请求能证明。开轮前用第一个带定妆照的镜头发一发带
@@ -92,6 +101,14 @@ def probe_ref_image(client, project, record_path=None):
     形状（进而决定请求哈希），先探测后哈希，整轮内哈希才稳定。
     """
     global REF_IMAGE_OK
+    if REF_IMAGE_MODE is not None:
+        # 强制模式：跳过探测（省一次真实请求），也**不覆盖**探测收据 ——
+        # delivery/ref-image-probe.json 是「服务端此刻收不收」的证据，不是本轮开关。
+        REF_IMAGE_OK = bool(REF_IMAGE_MODE)
+        print('REF_IMAGE_PROBE skipped: payload 指定 ref_image=%s（%s）'
+              % (REF_IMAGE_MODE, '带定妆照' if REF_IMAGE_OK else '纯文生'), flush=True)
+        return {'skipped': True, 'supported': REF_IMAGE_OK,
+                'reason': 'payload ref_image=%s' % REF_IMAGE_MODE}
     shot = next((s for s in project.get('shots', []) if s.get('reference_image')), None)
     record_path = Path(record_path) if record_path else HERE / 'delivery/ref-image-probe.json'
     if shot is None:
@@ -136,6 +153,44 @@ def probe_ref_image(client, project, record_path=None):
 def request_hash(project, shot):
     return hashlib.sha256(json.dumps(full_payload(project, shot), sort_keys=True,
                                      ensure_ascii=False).encode()).hexdigest()
+
+
+def parse_ref_image(value):
+    """payload 里的 ``ref_image`` 是什么就认什么：None=按探测，bool=直接，字符串=宽松解析。"""
+    if value is None or isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in ('1', 'true', 'yes', 'on')
+
+
+def usable_receipt(row, wanted):
+    """一条收据是否就是本轮要的那一镜：完成、哈希相同、视频 URL 与校验和都在。"""
+    return bool(isinstance(row, dict) and row.get('status') == 'completed'
+                and row.get('request_hash') == wanted and row.get('video_url')
+                and row.get('sha256'))
+
+
+def reuse_receipt(doc, sid, wanted):
+    """这一镜要不要重新生成：``current`` 现收据可用；``history`` 从历史收据恢复；``generate`` 得重投。
+
+    为什么要能从 ``previous_results`` 恢复：定妆照开关随服务端限流**每轮浮动**，同一镜
+    的纯文生版与带图版都可能已经有成品。2026-10-12 实测过一次：这轮探测 supported=true
+    → 带图哈希与旧收据不匹配 → 5 个露脸镜全部重投，其中 4 个卡在带图队列里超时，
+    把已经花掉的纯文生成品判成了缺料。有了历史恢复，开关怎么抖都不再重复花钱：
+    本轮要哪个版本，就先把那版找回来，找不到才生成。
+    """
+    shots = doc.setdefault('shots', {})
+    old = shots.get(sid) or {}
+    if usable_receipt(old, wanted):
+        return 'current'
+    history = doc.setdefault('previous_results', {})
+    revived = next((row for row in reversed(history.get(sid) or [])
+                    if usable_receipt(row, wanted)), None)
+    if revived is None:
+        return 'generate'
+    if old.get('status') or old.get('request_hash'):
+        history.setdefault(sid, []).append(old)
+    shots[sid] = dict(revived)
+    return 'history'
 
 
 def validate(project):
@@ -278,6 +333,11 @@ def main():
         git('config', 'user.name', 'github-actions[bot]')
         git('config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com')
     options = json.loads(args.payload or '{}')
+    global REF_IMAGE_MODE
+    raw_ref = options.get('ref_image')
+    if raw_ref is not None:
+        REF_IMAGE_MODE = parse_ref_image(raw_ref)
+        print('REF_IMAGE_MODE=%s (payload override)' % REF_IMAGE_MODE, flush=True)
     only = {x.strip() for x in str(options.get('only', '')).split(',') if x.strip()}
     shots = [x for x in project['shots'] if x.get('kind') in ('cogvideo', 'agnes')]
     if only - {x['id'] for x in shots}:
@@ -305,11 +365,15 @@ def main():
     for index, shot in enumerate(shots, 1):
         sid = shot['id']
         wanted = request_hash(project, shot)
-        old = doc.get('shots', {}).get(sid, {})
-        if old.get('status') == 'completed' and old.get('request_hash') == wanted \
-                and old.get('video_url') and old.get('sha256'):
+        disposition = reuse_receipt(doc, sid, wanted)
+        if disposition == 'current':
             print('%s: verified receipt already exists; no new generation' % sid, flush=True)
             continue
+        if disposition == 'history':
+            print('%s: stored receipt restored from previous_results (no new generation)'
+                  % sid, flush=True)
+            continue
+        old = doc.get('shots', {}).get(sid, {})
         if old and old.get('request_hash') != wanted:
             doc.setdefault('previous_results', {}).setdefault(sid, []).append(old)
             doc['shots'][sid] = {'id': sid}

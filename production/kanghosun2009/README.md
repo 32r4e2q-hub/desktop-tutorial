@@ -42,7 +42,7 @@
 | 字幕 | 分句字幕，切换点来自 `audio/clause-times.json`（DP 分句对时间，实测 0.00s 对齐）；关键词描黄；字号 60 px |
 | 切点 | `CUTS` 由 [`tools/plan_cuts.py`](tools/plan_cuts.py) 按分句停顿自动排出（DP 最小化与 4 秒网格的偏差，每镜 1.8–6.5s）；`clause_times.py --check-cuts` 全绿 |
 | 画面风格 | 写实 3D CGI 情景重现：二〇〇五至二〇〇九年的京畿道公寓区、雨夜公交站、警局、国科搜实验室、法庭、江原道山道与农家牛棚；全片常驻「AI动画情景重现 · 非新闻影像」 |
-| 露脸 | 5 个虚构匿名角色：C1 姜浩顺（情景重现替身，非本人容貌）/ C2 老刑警 / C3 女鉴定员 / C4 检察官 / C5 法官。每人一条 face token + 一个 seed，**同一角色跨镜头逐字节复用**；首次露脸镜头（S04 / S05 / S12 / S14 / S39）用定妆照做图生视频首帧 |
+| 露脸 | 5 个虚构匿名角色：C1 姜浩顺（情景重现替身，非本人容貌）/ C2 老刑警 / C3 女鉴定员 / C4 检察官 / C5 法官。每人一条 face token + 一个 seed，**同一角色跨镜头逐字节复用**；首次露脸镜头（S04 / S05 / S12 / S14 / S39）已备好定妆照，`{"ref_image":true}` 可改走图生视频首帧（免费档的 image_url 队列随负载波动，低峰补；见《制作过程》第 4 节） |
 | 事实依据 | 每条都指到 [`史实核对.md`](史实核对.md) 的来源（13 条公开报道） |
 | 生成成本 | 智谱 CogVideoX-Flash 免费档，**零费用**（每约 60 秒一镜，38 镜一轮约 45 分钟） |
 | 本地冒烟 | `tools/smoke_render.sh`（38 假镜 + 真实配音）：180.0s / 5400 帧 / 混音 −20.61 dBFS / `caption_alignment: clause-times DP` |
@@ -64,7 +64,7 @@
 | `cast.json` + `cast/*.png` | 角色谱与定妆照（露脸模式）：face token、seed、公开 URL、露脸镜头登记 |
 | `story.json` / `screenplay.md` | 时间轴、剧本与逐镜提示词（由 `build_story.py` 写出） |
 | `audio/` | 六段配音（`raw/` 原始 → `N0x.mp3` 收紧后）、`clause-times.json`、`manifest.json` |
-| `generate_cogvideox.py` | 智谱 CogVideoX-Flash 生成引擎（免费档；SHA-256 收据、断点续跑、定妆照探测、QA 接触表） |
+| `generate_cogvideox.py` | 智谱 CogVideoX-Flash 生成引擎（免费档；SHA-256 收据、断点续跑、定妆照探测与 `ref_image` 开关、历史收据复用、QA 接触表） |
 | `render.py` | 剪辑引擎；本片只改 `CUTS`（按分句停顿重对）与 `WINDOWS` / `TIGHTER_CROPS`（看片后的镜头修正） |
 | `results.json` / `qa/` | 每个镜头的回执（请求哈希、SHA-256、CDN 地址）与接触表 |
 | `delivery/` | 技术报告、EDL、字幕时间轴、混音实测、听检、全帧 QC、人脸接触表 |
