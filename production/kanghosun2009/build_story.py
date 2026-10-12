@@ -190,8 +190,10 @@ SHOTS = [
      "A night-time South Korean police investigation room in January 2009 lit by a single desk lamp: a large "
      "hand-drawn regional map is spread flat on the table and pinned with a dozen small red headed pins, "
      "surrounded by eight buff case folders fanned in a row, a mug and a ruler; a middle-aged male detective {C2} "
-     "leans in from the left with both hands on the table edge, studying the map. All paper is blank. "
-     "Slow overhead push down toward the map and the fanned folders, " + HOLD,
+     "stands at the table and works the case in continuous motion - he draws a pin out of the map and presses it "
+     "into a new spot, straightens and turns his head from the map to the fanned folders and back, then reaches "
+     "across to slide one folder open beside the map, his shoulders and jaw moving with tired concentration. All "
+     "paper is blank. Slow overhead push down toward the map and the folders while he keeps working, " + HOLD,
      "纸张翻动 + 低频悬念音"),
     ("S05", "agnes", "从监控屏幕缓慢拉出", "取款机前的假发与避孕套手指",
      "接动态镜：被烧毁的黑色轿车",
@@ -490,10 +492,11 @@ SHOTS = [
      "接动态镜：法院外的等待",
      "A South Korean district courtroom on the morning of 22 April 2009: a judge of around fifty in black "
      "robes {C5} stands behind the high wooden bench, shown waist-up in the centre of the frame with his face "
-     "clearly visible and lifted as he delivers the sentence, both hands resting on a single sheet on the "
-     "bench surface; the panelled wall behind him and the empty public benches below lie in cold morning "
-     "light, and every document, seal and wall plaque is blank. Slow lateral move along the bench from the "
-     "judge to the empty defendant's rail below, " + HOLD,
+     "clearly visible, and delivers the sentence in continuous motion - he lifts a single blank sheet, reads a "
+     "line with his head bowed, raises his head and turns slightly toward the empty defendant's rail below, then "
+     "lowers the sheet and lays it flat on the bench while his mouth keeps moving; the panelled wall behind him "
+     "and the empty public benches lie in cold morning light, and every document, seal and wall plaque is blank. "
+     "Slow lateral move along the bench while he moves through the action, " + HOLD,
      "法庭环境声 + 低沉重音"),
     ("S40", "agnes", "人群外缓慢横移", "七月二十三日：二审维持；他放弃上告",
      "接动态镜：拘留所的高墙",
