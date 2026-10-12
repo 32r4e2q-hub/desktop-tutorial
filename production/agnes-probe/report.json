@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T07:36:45Z",
+  "generated_at": "2026-10-12T07:44:53Z",
   "base_url": "https://apihub.agnes-ai.com",
   "secret_available": true,
   "spend": true,
@@ -9,16 +9,8 @@
       "kind": "video",
       "mode": "spend",
       "status": null,
-      "detail": "Could not create video task after 3 attempts; last problem: HTTP 429: You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20261012073702268266760X9RUKx3N) (code=rate_limit_exceeded)",
+      "detail": "Could not create video task after 4 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261012074920143444574nOg9ATlc)",
       "verdict": "UNKNOWN"
-    },
-    {
-      "model": "agnes-video-2.5",
-      "kind": "video",
-      "mode": "spend",
-      "status": null,
-      "detail": "Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 20261012073812552170801QYG7XCUa). Check AGNES_API_KEY.",
-      "verdict": "NEEDS_PAYMENT"
     }
   ],
   "model_lists": [
@@ -27,7 +19,7 @@
       "ok": true,
       "status": 200,
       "raw": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.1-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash-max\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-2.5-pro\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-2.5-pro-beta\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]}],\"object\":\"list\",\"success\":true}",
-      "elapsed_s": 0.5,
+      "elapsed_s": 0.49,
       "verdict": "ACCEPTED",
       "detail": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image",
       "model_names": [
@@ -54,7 +46,7 @@
       "ok": false,
       "status": 404,
       "raw": "{\"error\":{\"message\":\"Invalid URL (GET /v1/model/list)\",\"type\":\"invalid_request_error\",\"param\":\"\",\"code\":\"\"}}",
-      "elapsed_s": 0.37,
+      "elapsed_s": 0.28,
       "verdict": "MODEL_ACCEPTED",
       "detail": "Invalid URL (GET /v1/model/list) type=invalid_request_error",
       "model_names": []
@@ -64,7 +56,7 @@
       "ok": false,
       "status": 403,
       "raw": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n<title>Attention Required! | Cloudflare</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\" />\n<meta name=\"robots\" content=\"noindex, nofollow\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<link rel=\"stylesheet\" id=\"cf_styles-css\" href=\"/cdn-cgi/styles/cf.errors.css\" />\n<!--[if lt IE 9]><link rel=\"stylesheet\" id='cf_styles-ie-css' href=\"/cdn-cgi/styles/cf.errors.ie.css\" /><![endif]-->\n<style>body{margin:0;padding:0}</style>\n\n\n<!--[if gte IE 10]><!-->\n<script>\n  if (!navigator.cookieEnabled) {\n    window.addEventListener('DOMContentLoaded', function () {\n      var cookieEl = document.getElementById('cookie-alert');\n      cookieEl.style.display = 'block';\n    })\n  }\n</script>\n<!--<![endif]-->\n\n</head>\n<body>\n  <div id=\"cf-wrapper\">\n    <div class=\"cf-alert cf-alert-error cf-cookie-error\" id=\"cookie-alert\" data-translate=\"enable_cookies\">Please enable cookies.</div>\n    <div id=\"cf-error-details\" class=\"cf-error-details-wrapper\">\n      <div class=\"cf-wrapper cf-header cf-error-overview\">\n        <h1 data-translate=\"block_headline\">Sorry, you have been blocked</h1>\n        <h2 class=\"cf-subheadline\"><span data-translate=\"unable_to_access\">You are unable to access</span> agnes-ai.com</h2>\n      </div><!-- /.header -->\n\n      <div class=\"cf-section cf-highlight\">\n        <div class=\"cf-wrapper\">\n          <div class=\"cf-screenshot-container cf-screenshot-full\">\n            \n              <span class=\"cf-no-screenshot error\"></span>\n            \n          </div>\n        </div>\n      </div><!-- /.captcha-container -->\n\n      <div",
-      "elapsed_s": 0.06,
+      "elapsed_s": 0.03,
       "verdict": "AUTH_FAILED",
       "detail": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]--> <head> <title>Attention Required! | Cloudflare</title> <meta charset=\"UTF-8\" /> <meta http-"
     }

@@ -1,14 +1,13 @@
 # Agnes 模型可用性探测报告
 
-- 探测时间（UTC）：`2026-10-12T07:36:45Z`
+- 探测时间（UTC）：`2026-10-12T07:44:53Z`
 - 接口基址：`https://apihub.agnes-ai.com`
 - key 可用：`是`
 - 模式：`付费实测（真的提交生成任务）`
 
 | 模型 | 类型 | 判定 | HTTP | 说明 |
 | --- | --- | --- | --- | --- |
-| `agnes-video-2.5-flash` | video | 无法判定（需人工看原文） | - | Could not create video task after 3 attempts; last problem: HTTP 429: You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (re |
-| `agnes-video-2.5` | video | 需要付费或余额/配额不足 | - | Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 20261012073812552170801QYG7XCUa). Check AGNES_API_KEY. |
+| `agnes-video-2.5-flash` | video | 无法判定（需人工看原文） | - | Could not create video task after 4 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261012074920143444574nOg9ATlc) |
 
 ## 模型清单接口
 
@@ -39,16 +38,8 @@
     "kind": "video",
     "mode": "spend",
     "status": null,
-    "detail": "Could not create video task after 3 attempts; last problem: HTTP 429: You’ve reached the API rate limit for free users. Upgrade to a Token Plan to unlock higher limits and continue using the API without interruption. (request id: 20261012073702268266760X9RUKx3N) (code=rate_limit_exceeded)",
+    "detail": "Could not create video task after 4 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261012074920143444574nOg9ATlc)",
     "verdict": "UNKNOWN"
-  },
-  {
-    "model": "agnes-video-2.5",
-    "kind": "video",
-    "mode": "spend",
-    "status": null,
-    "detail": "Authentication failed (HTTP 403): Insufficient user quota, remaining: ＄0.000000 (request id: 20261012073812552170801QYG7XCUa). Check AGNES_API_KEY.",
-    "verdict": "NEEDS_PAYMENT"
   }
 ]
 ```
