@@ -17,7 +17,9 @@ permissions:
 
 jobs:
   generate:
-    runs-on: ubuntu-latest
+    # 走仓库变量开关：转私有/切自托管 runner 后，写死 ubuntu-latest 会继续烧 GitHub-hosted 额度
+    # （production/tests/test_workflows.py 守着这条规矩；2026-10-12 由 kanghosun2009 分支补上）。
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
