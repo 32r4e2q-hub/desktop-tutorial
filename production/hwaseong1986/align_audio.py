@@ -65,7 +65,9 @@ def transcribe_on_runner(narration, work):
     os.environ.setdefault('HF_HUB_DOWNLOAD_TIMEOUT','90')
     try:
         from faster_whisper import WhisperModel
-        model=WhisperModel('base',device='cpu',compute_type='int8',cpu_threads=2,
+        # 2026-10-11：base 中文识别太弱，N01/N05/N06 词级覆盖只有 0.3-0.5，
+        # 字幕被迫回退静音估计导致与口播错位；改与逐字听检同档的 small（runner 常驻缓存已有）。
+        model=WhisperModel('small',device='cpu',compute_type='int8',cpu_threads=2,
                            download_root=str(cache))
         results={}
         for row in narration:
