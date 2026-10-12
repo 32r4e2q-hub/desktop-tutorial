@@ -46,12 +46,12 @@ TOTAL_FRAMES = round(DURATION * FPS)
 # 镜头按成片顺序编号，每个镜头只出现一次（make_edl 有断言守着）。
 # 脚手架给的是 4 秒均匀网格，只是起点；拿到配音后必须按 clause-times 重对。
 CUTS = {
-    'N01': [(0.0,'S01',''), (4.25,'S02',''), (7.53,'S03',''), (9.89,'S04',''), (14.54,'S05',''), (18.8,'S06',''), (20.66,'S07',''), (24.58,'S08','')],
-    'N02': [(0.0,'S09',''), (5.2,'S10',''), (7.54,'S11',''), (11.44,'S12',''), (15.1,'S13',''), (18.83,'S14',''), (20.63,'S15','')],
-    'N03': [(0.0,'S16',''), (2.2,'S17',''), (5.88,'S18',''), (10.17,'S19',''), (12.84,'S20',''), (17.05,'S21',''), (21.37,'S22',''), (24.13,'S23','')],
-    'N04': [(0.0,'S24',''), (3.5,'S25',''), (6.46,'S26',''), (11.0,'S27',''), (14.82,'S28',''), (19.35,'S29',''), (23.5,'S30','')],
-    'N05': [(0.0,'S31',''), (3.11,'S32',''), (6.42,'S33',''), (10.21,'S34',''), (13.11,'S35',''), (17.11,'S36',''), (20.01,'S37',''), (23.33,'S38','')],
-    'N06': [(0.0,'S39',''), (6.26,'S40',''), (8.89,'S41',''), (13.46,'S42',''), (18.11,'S43',''), (21.39,'S44',''), (26.56,'S45','')],
+    'N01': [(0.0,'S01',''), (4.25,'S03',''), (7.53,'S08',''), (9.89,'S07',''), (14.54,'S04',''), (18.80,'S05',''), (24.58,'S27','')],
+    'N02': [(0.0,'S10',''), (2.82,'S09',''), (7.54,'S11',''), (11.44,'S12',''), (15.10,'S13',''), (20.63,'S14','')],
+    'N03': [(0.0,'S17',''), (2.20,'S15',''), (5.88,'S16',''), (11.52,'S21',''), (15.52,'S19',''), (18.56,'S18',''), (21.37,'S06',''), (24.13,'S20',''), (26.28,'S23','')],
+    'N04': [(0.0,'S26',''), (3.50,'S25',''), (6.46,'S28',''), (10.12,'S29',''), (12.67,'S24',''), (14.82,'S30',''), (20.36,'S22',''), (23.50,'S02','')],
+    'N05': [(0.0,'S31',''), (3.11,'S33',''), (7.40,'S32',''), (10.21,'S34',''), (13.11,'S35',''), (15.69,'S36',''), (17.11,'S38',''), (23.33,'S37','')],
+    'N06': [(0.0,'S39',''), (6.26,'S40',''), (12.27,'S41',''), (14.42,'S42',''), (19.87,'S43',''), (24.80,'S44',''), (28.66,'S45','')],
 }
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
@@ -185,7 +185,7 @@ def audio_layout(chapters, audio_root, work, manifest):
 
 
 def caption_clauses(text):
-    raw=re.findall(r'[^，。！？；：、]+[，。！？；：、]?',text)
+    raw=re.findall(r'[^，。！？；：、—]+[，。！？；：、—]*',text)
     result=[]
     for part in raw:
         while len(part)>24:
@@ -261,9 +261,9 @@ def captions_from_clause_times(row):
     if pointer!=len(pieces):return None
     cues=[];last_end=row['start']
     for i,(text,a,b) in enumerate(spans):
-        start=max(last_end,row['start']+max(0,a-.09)/row['tempo'])
-        end=row['start']+min(row['raw_duration'],b+.15)/row['tempo']
-        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.09)/row['tempo'])
+        start=max(last_end,row['start']+max(0,a-.02)/row['tempo'])
+        end=row['start']+min(row['raw_duration'],b+.04)/row['tempo']
+        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.02)/row['tempo'])
         if end<=start:return None
         cues.append({'start':start,'end':end,'text':text});last_end=end
     return cues
@@ -317,7 +317,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Caption,Noto Sans CJK SC,54,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,2.6,0.9,2,80,80,46,1
+Style: Caption,Noto Sans CJK SC,68,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,3.2,1.1,2,60,60,52,1
 Style: Label,Noto Sans CJK SC,23,&H60E9E4D4,&H000000FF,&H00262621,&H99000000,0,0,0,0,100,100,1,0,1,1,0,9,60,60,36,1
 Style: Title,Noto Serif CJK SC,102,&H00EBE8DE,&H000000FF,&H00141B17,&H99000000,0,0,0,0,100,100,4,0,1,1,2,7,104,104,205,1
 
@@ -328,7 +328,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         caption=safe_text(cue['text'])
         for key in presentation.get('caption_keywords') or []:
             if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
-        text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
+        text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(20,20)}}{caption}\n"
     for entry in edl:
         if entry['id']=='END':continue
         label={'agnes':'AI动画情景重现 · 非新闻影像','archive':'档案照片',
@@ -488,13 +488,19 @@ def main():
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
     edl=make_edl(project,narration)
     from align_audio import transcribe_on_runner, aligned_cues
-    asr={} if args.skip_asr else transcribe_on_runner(narration,work)
+    clause_timed_map={row['id']:captions_from_clause_times(row) for row in narration}
+    asr={} if (args.skip_asr or all(clause_timed_map.values())) else transcribe_on_runner(narration,work)
+    prev_cov={}
+    prev_align=HERE/'delivery/alignment-report.json'
+    if prev_align.exists():
+        try:prev_cov={x['id']:float(x.get('character_match_coverage',1.0)) for x in json.loads(prev_align.read_text())}
+        except Exception:pass
     cues=[];alignment=[]
     for row,samples in zip(narration,waves):
-        aligned=None;coverage=0.0
+        aligned=None;coverage=prev_cov.get(row['id'],1.0)
         if row['id'] in asr:
             aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        clause_timed=captions_from_clause_times(row)
+        clause_timed=clause_timed_map[row['id']]
         # 2026-10-11 实测验收：clause-times DP 边界与配音静音窗 0.00 s 同步（标点停顿是
         # TTS 的天然真值锚），ASR 词级在短句上有 ±0.8 s 抖动（v4 里 N01「他叫李春才。」
         # 早出 0.82 s）。故 DP 优先，ASR 词级退为 DP 不可用时的回退。

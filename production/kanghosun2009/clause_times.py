@@ -27,7 +27,7 @@ def decode(p):
     return np.frombuffer(out, '<i2').astype(np.float32) / 32768
 
 
-def pauses(x, min_len=0.18):
+def pauses(x, min_len=0.08):
     n = len(x) // HOP * HOP
     rms = np.sqrt((x[:n].reshape(-1, HOP) ** 2).mean(1)); quiet = rms < 0.01
     spans = []; s = None; lead = 0.0
