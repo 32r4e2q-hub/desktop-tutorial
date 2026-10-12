@@ -244,13 +244,12 @@ SHOTS = [
      "at a roadside police post, holding a folded flyer at his chest, eyes looking up toward the mountain, his face "
      "fully visible; the flyer is blank white, no readable text. Static medium shot, " + HOLD,
      "远处搜索的人声 + 风声"),
-    ("S18", "agnes", "慢速推进", "房间保持原样：书桌、校服、玩具",
+    ("S18", "agnes", "慢速推进", "搜山：手电光扫过松林，无人入镜",
      "接动态镜：时间流逝的城市",
-     "A small boy's bedroom in a Daegu apartment in 1991, kept exactly as it was: a wooden desk with a school notebook "
-     "closed on it, a folded navy school uniform hanging on a hook, a few plastic toys on a shelf, a small backpack on the "
-     "floor, a single lamp; a middle-aged Korean woman {C1} stands in the doorway with her hand on the frame, looking at "
-     "the room with quiet grief, her face fully visible; no readable text. Slow push into the room, " + HOLD,
-     "轻柔的钢琴 + 远处的电视声"),
+     "Night search in a dense pine forest on a hillside: beams of handheld flashlights sweep slowly through the dark trunks "
+     "and undergrowth, leaves stirring in the light; no people visible, only the moving beams and the forest. Slow push "
+     "forward along the beams, " + HOLD,
+     "风声 + 远处的呼喊（不可辨识）"),
     ("S19", "agnes", "延时摄影", "时间流逝：城市与季节变换",
      "接动态镜：电视新闻前的人群",
      "Time-lapse of Daegu across several seasons: the sun rising and setting over low-rise houses, the trees changing from "
@@ -282,28 +281,25 @@ SHOTS = [
      "风声 + 远处鸟鸣"),
 
     # ---------------- N04 十一年后的发现（S24–S30）----------------
-    ("S24", "agnes", "中景跟随", "二〇〇二年：一个采橡子的人，正面走上山路",
+    ("S24", "agnes", "中景固定", "一九九三年以后：母亲在家中厨房等待",
      "接信息卡：二〇〇二年九月二十六日",
-     "Front view, the camera faces the man directly: {C6}, a middle-aged Korean man in a faded olive work jacket and knitted "
-     "cap, walks toward the camera along a narrow forest path on an autumn morning in 2002, his whole face fully visible to "
-     "the lens and his body squarely facing forward (not in profile, not from behind); he carries a cloth bag full of acorns "
-     "in one hand, stops, and looks straight into the camera with an uneasy expression. Dry grass and fallen leaves in the "
-     "background; no remains, no other people, no readable text. Medium shot, " + HOLD,
-     "秋风 + 枯叶脚步声"),
+     "Medium shot inside a quiet family kitchen in Daegu in the years after 1993: {C1} sits at a kitchen table, hands folded, "
+     "looking toward a window with a calm, tired expression; a wall calendar and an empty chair are visible; no children, "
+     "no readable text. Static shot, " + HOLD,
+     "钟表滴答 + 远处的街声"),
     ("S25", "agnes", "中景跟随", "警车驶入山路，警员走向荒地（背影）",
      "接动态镜：警戒线与现场勘查",
      "A dirt forest road on a hillside in autumn 2002: a plain white police car and a van park at the edge of a clearing, "
      "two uniformed officers seen only from behind walk toward the rough ground with their caps on; no readable text on "
      "the vehicles, no remains visible. Medium tracking shot from behind, " + HOLD,
      "汽车引擎熄火 + 脚步声"),
-    ("S26", "agnes", "中景固定", "警戒线：穿防护服的法医站在警戒线旁",
+    ("S26", "agnes", "中景跟随", "二〇〇二年：采橡子的村民正面站在荒地边",
      "接信息卡：两种结论",
-     "Medium shot, the camera faces the forensic investigator directly from the front: {C4} stands in the foreground center "
-     "throughout the clip, facing the camera, in a plain white protective suit and gloves, looking at the lens with a "
-     "serious expression. Behind her, yellow police tape is strung between wooden stakes around a rough patch of ground at "
-     "the edge of an old army shooting range fence in an autumn forest clearing; no remains, no other people, no readable "
-     "text. Static shot, " + HOLD,
-     "风声 + 远处的人声（不可辨识）"),
+     "Front view, the camera faces the man directly: {C6}, a middle-aged Korean man in a faded olive work jacket and knitted "
+     "cap, stands at the edge of a rough clearing on a hillside in autumn 2002, a cloth bag of acorns on his shoulder; he "
+     "looks down toward the ground in front of him with a grave expression. No remains visible, no other people, no "
+     "readable text. Medium shot, " + HOLD,
+     "风声 + 枯叶声"),
     ("S27", "graphic", "信息卡（静帧）", "结论卡：警方与法医的两种说法",
      "接动态镜：法医实验室",
      "两种说法：警方一度认为是失温 / 法医团队在颅骨上发现外力损伤，认定为他杀 / 十一年后，现场已被风雨破坏",
@@ -367,14 +363,12 @@ SHOTS = [
      "sweater are distinguishable only by silhouette and clothing colour; no faces. Low camera following from behind, "
      + HOLD,
      "渐远的脚步声 + 钢琴尾音"),
-    ("S38", "agnes", "慢速摇镜", "秋天的空校园：落叶飘下",
+    ("S38", "agnes", "近景静物", "二〇一九年：旧衣物装入证物袋送去检验",
      "接信息卡：五个名字",
-     "An empty 1990s Korean elementary school courtyard in autumn, a few yellow leaves falling slowly from a tree onto "
-     "the swept concrete, a closed wooden classroom door, no people, no readable signs. Slow tilt up from the falling "
-     "leaves to the empty school building, " + HOLD,
-     "风吹落叶的沙沙声"),
-
-    # ---------------- N06 未解的谜团（S39–S45）----------------
+     "Close-up still life on a clean steel table in a forensic laboratory: a child's red knit cap and a pair of small "
+     "sneakers, each sealed in a clear evidence bag, under soft cool light; no people, no blood, no readable text on the "
+     "bags. Slow push-in on the bags, " + HOLD,
+     "轻微的实验室环境音"),
     ("S39", "agnes", "中景固定", "老邻居在纪念碑前，低头默哀",
      "接动态镜：春天的树林，孩子们的背影",
      "An elderly Korean woman {C5} with a grey perm and a dark cardigan stands before a small stone memorial in a quiet "
@@ -420,10 +414,10 @@ CARD_FOOTER = "公开报道口径 · 并非原始档案影像"                  
 # 信息卡文案：镜头号 -> (大标题, 第一行, 第二行)。只写公开报道里的事实，不写推测。
 CARDS = {
     "S02": ("青蛙少年失踪案", "韩国大邱 · 一九九一年三月二十六日", "五名儿童失踪 · 十一年后遗骸被发现"),
-    "S13": ("三十五万人次", "一九九一年 · 警察、军队与志愿者入山搜索", "这是韩国单一失踪案件中规模最大的搜索"),
-    "S21": ("时间卡", "一九九一年三月 — 二〇〇二年九月", "失踪之后的十一年半 · 寻找从未停止"),
+    "S13": ("媒体的误读", "他们被说成是去找青蛙", "“青蛙少年”的名字由此而来"),
+    "S21": ("房间保持原样", "一九九一年三月 — 二〇〇二年九月", "失踪之后的十一年半 · 寻找从未停止"),
     "S27": ("两种说法", "警方一度认为是失温", "法医团队在颅骨上发现外力损伤，认定为他杀"),
-    "S34": ("二〇〇六年三月二十五日", "公诉时效届满", "案件仍未找到凶手"),
+    "S34": ("风雨改写了现场", "警方当年的判断与法医的结论并不相同", "案件仍未找到凶手"),
     "S40": ("五个名字", "金永奎 · 赵浩延 · 金钟植 · 朴灿仁 · 禹哲元", "失踪时年龄九至十三岁"),
     "S44": ("结论", "一九九一年三月二十六日失踪", "二〇〇二年九月发现遗骸 · 案件至今未找到凶手"),
 }
@@ -512,11 +506,10 @@ FACE_SHOTS = {
     "S12": ["C2"],
     "S14": ["C3"],
     "S17": ["C2"],
-    "S18": ["C1"],
     "S20": ["C1"],
     "S22": ["C2"],
-    "S24": ["C6"],
-    "S26": ["C4"],
+    "S24": ["C1"],
+    "S26": ["C6"],
     "S28": ["C4"],
     "S30": ["C3"],
     "S33": ["C2"],
