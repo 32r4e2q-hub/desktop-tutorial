@@ -69,6 +69,14 @@ jobs:
           print('verified delivered SHA-256', got)
           PY
 
+      - name: 角色脸画面闸门（露脸模式：逐镜检脸 + 每人一张人脸接触表 + 相似度分诊）
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 production/face_cast.py check-frames --project production/kanghosun2009 \
+            --film "交付/姜浩顺_一滴袖口的血，十名女人_三分钟_带声音.mp4" \
+            --out production/kanghosun2009/delivery
+
       - name: Decode and scan every output frame
         run: |
           set -euo pipefail
@@ -131,25 +139,28 @@ jobs:
           PY
 
       - name: Commit compact audit receipts back to the production branch
+        continue-on-error: true      # 收据另有 artifacts 整包；这一步不再阻塞整轮审计
         run: |
-          set -euo pipefail
+          set -uo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add production/kanghosun2009/delivery/frame-distortion-audit.json \
-            production/kanghosun2009/delivery/frame-distortion-audit.md \
-            production/kanghosun2009/delivery/visual-qc-summary.json \
-            production/kanghosun2009/delivery/visual-qc-shot-midpoints.jpg \
-            production/kanghosun2009/qa/final-frame-review
-          if ! git diff --cached --quiet; then
-            git commit -m 'kanghosun2009: audit every frame of delivered cut'
-            pushed=0
-            for attempt in 1 2 3 4 5; do
-              if git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
-              git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
-              sleep 5
-            done
-            test "$pushed" = 1
+          # 按目录整体 add：某一次审计可能没有产出 face-cast/（检测器一个都没检出人脸时），
+          # 逐条列 pathspec 时只要缺一个文件，这条步骤就会以「pathspec did not match」失败，
+          # 把整轮审计结果全丢掉（raincoat2004 2026-10-07 连续两轮都栽在这里）。
+          git add -A -- production/kanghosun2009/delivery production/kanghosun2009/qa
+          if git diff --cached --quiet; then
+            echo '没有新的审计收据需要提交'
+            exit 0
           fi
+          git status --short | head -20
+          git commit -m 'kanghosun2009: audit every frame of delivered cut'
+          pushed=0
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
+            git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
+            sleep 5
+          done
+          test "$pushed" = 1
 
       - name: Upload full visual-review evidence
         if: always()
