@@ -493,6 +493,7 @@ HASHTAGS = ["#悬疑", "#真实案件", "#韩国", "#青蛙少年", "#未解之�
 
 GRID = 4            # 规划网格：每镜 4 秒，45 镜 = 180 秒
 AGNES_SECONDS = 6   # 每个镜头实际请求的时长（智谱 CogVideoX-Flash 免费档单条约 5–6 秒，render 按需裁切）
+SEED_OVERRIDE = {"S14": 19911414}  # S14 换种子：原种子反复产出街景
 SEED_BASE = 19910326  # 失踪日（一九九一年三月二十六日），让 seed 可追溯
 
 # 露脸镜头登记（镜头号 -> 角色 id）：只有这里登记的镜头允许出现面容 token，
@@ -588,7 +589,7 @@ def build():
             "prompt": prompt if kind != "graphic" else "",
             "purpose": purpose, "transition_out": transition,
             "graphic": body if kind == "graphic" else "",
-            "seed": SEED_BASE + i + 1,
+            "seed": SEED_OVERRIDE.get(sid, SEED_BASE + i + 1),
             "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": "1080p", "frame_rate": 24,
             "camera": camera, "sfx_note": sfx,
         }
