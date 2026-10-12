@@ -386,7 +386,7 @@ SHOTS = [
      "A bare corridor in a plain administrative building in January 2009, terrazzo floor and closed doors along "
      "one side: a man of thirty-nine in a plain dark anorak {C1} walks alone toward the camera along the "
      "corridor, his head level and his expression ordinary and unremarkable, hands empty and visible at "
-     "his sides, his eyes meeting the lens steadily; his long shadow runs ahead of him on the floor and the "
+     "his sides, his eyes meeting the lens steadily; his shadow runs ahead of him on the floor and the "
      "corridor is otherwise empty, every wall and door blank. Slow tracking push backwards ahead of the "
      "walking man along the corridor, " + HOLD,
      "脚步声 + 铁门声"),
