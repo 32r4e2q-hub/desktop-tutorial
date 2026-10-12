@@ -53,7 +53,10 @@ def _load(name: str):
 cog = _load("generate_cogvideox")
 fetch = _load("fetch_sources")
 STORY = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
-CAST_SHOT = next(s for s in STORY["shots"] if s.get("reference_image"))
+# 本片已经不用定妆照（露脸改用「每个可辨认的脸只出现一次」的构图策略），
+# 所以 CAST_SHOT 允许为 None：涉及「带图 payload」的两个用例会自己跳过，
+# 纯文生那条断言（开关不许改动纯文生镜头的哈希）依然要守。
+CAST_SHOT = next((s for s in STORY["shots"] if s.get("reference_image")), None)
 PLAIN_SHOT = next(s for s in STORY["shots"]
                   if s.get("kind") != "graphic" and not s.get("reference_image"))
 
@@ -81,6 +84,8 @@ class RefImageSwitchTests(unittest.TestCase):
         self.assertFalse(cog.REF_IMAGE_OK)
 
     def test_payload_shape_follows_the_switch(self):
+        if CAST_SHOT is None:
+            self.skipTest("本项目没有定妆照镜头；只守纯文生那条（见下一个用例）")
         cog.REF_IMAGE_MODE = False
         cog.probe_ref_image(None, STORY)
         plain = cog.full_payload(STORY, CAST_SHOT)
@@ -96,15 +101,18 @@ class RefImageSwitchTests(unittest.TestCase):
         self.assertNotIn("image_url", cog.full_payload(STORY, PLAIN_SHOT))
 
     def test_both_hash_flavours_are_accepted_by_the_render_gate(self):
+        # 开关不该改变纯文生镜头的哈希（否则 38 镜全被重投）——这条与有没有定妆照无关，先守。
+        self.assertEqual(fetch.cogvideox_request_hashes(STORY, PLAIN_SHOT),
+                         (cog.request_hash(STORY, PLAIN_SHOT),) * 2)
+        if CAST_SHOT is None:
+            self.skipTest("本项目没有定妆照镜头：两种哈希形状由别的项目守（hwaseong1986）")
         plain_hash, with_hash = fetch.cogvideox_request_hashes(STORY, CAST_SHOT)
         self.assertNotEqual(plain_hash, with_hash)
         cog.REF_IMAGE_MODE, cog.REF_IMAGE_OK = None, None
         self.assertEqual(cog.request_hash(STORY, CAST_SHOT), plain_hash)
         cog.REF_IMAGE_MODE, cog.REF_IMAGE_OK = None, True
         self.assertEqual(cog.request_hash(STORY, CAST_SHOT), with_hash)
-        # 开关不该改变纯文生镜头的哈希（否则 38 镜全被重投）。
-        self.assertEqual(fetch.cogvideox_request_hashes(STORY, PLAIN_SHOT),
-                         (cog.request_hash(STORY, PLAIN_SHOT),) * 2)
+
 
 
 class ReceiptReuseTests(unittest.TestCase):
