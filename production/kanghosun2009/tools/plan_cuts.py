@@ -30,7 +30,7 @@ RENDER = PROJ / "render.py"
 TABLES = PROJ / "audio" / "clause-times.json"
 
 TARGET = 4.0
-MIN_SHOT, MAX_SHOT = 2.2, 6.5
+MIN_SHOT, MAX_SHOT = 1.8, 6.5   # 章末最后一镜可以短一点（它顶到章末）
 MAX_TAIL = 8.0          # 章末最后一镜可以稍长（要留旁白收尾）
 
 

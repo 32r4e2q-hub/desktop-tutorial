@@ -46,12 +46,12 @@ TOTAL_FRAMES = round(DURATION * FPS)
 # 镜头按成片顺序编号，每个镜头只出现一次（make_edl 有断言守着）。
 # 脚手架给的是 4 秒均匀网格，只是起点；拿到配音后必须按 clause-times 重对。
 CUTS = {
-    'N01': [(0,'S01',''), (2.86,'S02',''), (5.71,'S03',''), (9.44,'S04',''), (12.92,'S05',''), (15.37,'S06',''), (18.41,'S07',''), (21.87,'S08','')],
-    'N02': [(0,'S09',''), (4.34,'S10',''), (7.64,'S11',''), (10.83,'S12',''), (13.88,'S13',''), (17.84,'S14',''), (21.57,'S15','')],
-    'N03': [(0,'S16',''), (1.98,'S17',''), (4.39,'S18',''), (6.88,'S19',''), (10.44,'S20',''), (14.62,'S21',''), (18.54,'S22',''), (22.65,'S23','')],
-    'N04': [(0,'S24',''), (4.79,'S25',''), (8.1,'S26',''), (12.01,'S27',''), (16.11,'S28',''), (20.49,'S29',''), (24.31,'S30','')],
-    'N05': [(0,'S31',''), (2.11,'S32',''), (6.19,'S33',''), (9.24,'S34',''), (12.61,'S35',''), (17.52,'S36',''), (21.08,'S37',''), (25.07,'S38','')],
-    'N06': [(0,'S39',''), (4.25,'S40',''), (9.5,'S41',''), (12.46,'S42',''), (15.42,'S43',''), (19.35,'S44',''), (22.45,'S45','')],
+    'N01': [(0.0,'S01',''), (4.25,'S02',''), (7.53,'S03',''), (9.89,'S04',''), (14.54,'S05',''), (18.8,'S06',''), (20.66,'S07',''), (24.58,'S08','')],
+    'N02': [(0.0,'S09',''), (5.2,'S10',''), (7.54,'S11',''), (11.44,'S12',''), (15.1,'S13',''), (18.83,'S14',''), (20.63,'S15','')],
+    'N03': [(0.0,'S16',''), (2.2,'S17',''), (5.88,'S18',''), (10.17,'S19',''), (12.84,'S20',''), (17.05,'S21',''), (21.37,'S22',''), (24.13,'S23','')],
+    'N04': [(0.0,'S24',''), (3.5,'S25',''), (6.46,'S26',''), (11.0,'S27',''), (14.82,'S28',''), (19.35,'S29',''), (23.5,'S30','')],
+    'N05': [(0.0,'S31',''), (3.11,'S32',''), (6.42,'S33',''), (10.21,'S34',''), (13.11,'S35',''), (17.11,'S36',''), (20.01,'S37',''), (23.33,'S38','')],
+    'N06': [(0.0,'S39',''), (6.26,'S40',''), (8.89,'S41',''), (13.46,'S42',''), (18.11,'S43',''), (21.39,'S44',''), (26.56,'S45','')],
 }
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
@@ -237,15 +237,25 @@ def captions_from_clause_times(row):
     if not entry or abs(float(entry['duration'])-row['raw_duration'])>.06:return None
     strip=lambda t:re.sub(r'[^\u3400-\u9fffA-Za-z0-9]','',t)
     pieces=[(strip(c['text']),float(c['start']),float(c['end'])) for c in entry['clauses']]
-    spans=[];pointer=0
+    spans=[];pointer=0;offset=0
     for text in caption_clauses(row['text']):
         key=strip(text)
         if not key:continue
         consumed='';a=b=None
         while pointer<len(pieces) and len(consumed)<len(key):
             piece,start,end=pieces[pointer]
-            if not key.startswith(consumed+piece):return None
-            consumed+=piece;a=start if a is None else a;b=end;pointer+=1
+            # clause_times 会把「朗读没有停顿的地方」合并成一段（merge_to_fit），
+            # 所以允许一条字幕只吃掉这一段的**一部分**：按字数在段内插值取时间，
+            # 显示仍然是短句，时间是几百毫秒级的近似（2026-10-12 本片实测采用）。
+            remain=piece[offset:]
+            need=len(key)-len(consumed)
+            if not remain or not key.startswith(consumed+remain[:need]):return None
+            take=min(need,len(remain))
+            total=max(1,len(piece));a2=start+(end-start)*(offset/total);b2=start+(end-start)*((offset+take)/total)
+            a=a2 if a is None else a;b=b2
+            consumed+=remain[:take]
+            if take==len(remain):pointer+=1;offset=0
+            else:offset+=take
         if consumed!=key:return None
         spans.append((text,a,b))
     if pointer!=len(pieces):return None

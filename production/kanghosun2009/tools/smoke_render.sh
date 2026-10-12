@@ -86,7 +86,13 @@ for shot in shots:
     ensure_ascii=False, indent=2) + '\n')
 
 # 假配音：每章 28.5 s 正弦音（够长、可测得出电平），manifest 的 SHA-256 与文件一致
+# 设 SMOKE_REAL_AUDIO=1 时改用仓库里真实的 N0x.mp3（那就不造假的），用来验证
+# 「clause-times 分句字幕」这条路径（假音和分句表对不上，会退回估算）。
+import os
 audio = proj / 'audio'
+if os.environ.get('SMOKE_REAL_AUDIO') == '1':
+    print('SMOKE_REAL_AUDIO=1：保留真实配音与 clause-times.json')
+    sys.exit(0)
 manifest = json.loads((audio / 'manifest.json').read_text())
 for clip in manifest['clips']:
     out = audio / clip['file']

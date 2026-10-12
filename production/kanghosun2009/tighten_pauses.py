@@ -117,6 +117,26 @@ def encode(x: np.ndarray, path: Path):
     tmp.unlink()
 
 
+def update_manifest() -> None:
+    """收紧后的 N0x.mp3 才是渲染/字幕/听检的输入，manifest 的 SHA-256 必须记它。"""
+    import hashlib
+    manifest_path = OUT / 'manifest.json'
+    if not manifest_path.exists():
+        return
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    changed = 0
+    for clip in manifest.get('clips', []):
+        path = OUT / clip['file']
+        if not path.exists():
+            continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if clip.get('sha256') != digest:
+            clip['sha256'] = digest
+            changed += 1
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print(f'audio/manifest.json 已更新 {changed} 条的 SHA-256（记的是收紧后的文件）')
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--report", action="store_true", help="只报告不写文件")
@@ -143,6 +163,7 @@ def main(argv=None) -> int:
                             "trail": TRAIL, "cap": CAP, "crossfade_samples": XFADE},
              "clips": summary, "total_raw_seconds": round(before, 3), "total_tight_seconds": round(after, 3),
              "tempo_after": round(after / usable, 4)}, ensure_ascii=False, indent=2) + "\n")
+        update_manifest()
     return 0
 
 

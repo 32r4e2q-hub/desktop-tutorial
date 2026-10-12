@@ -41,10 +41,32 @@ def pauses(x, min_len=0.18):
     return lead, spans
 
 
+def merge_to_fit(clauses, pauses_count, log=None):
+    """分句数超过「停顿窗数 + 1」时，合并相邻最短的两句。
+
+    为什么必须合并（2026-10-12 本片实测）：DP 的每个分句需要一个独立的停顿窗，
+    K 个分句至少需要 K-1 个停顿；本片 N01/N02/N06 的 TTS 在某些逗号处没有停顿
+    （一口气念完），K > J+1 时 DP 无解，早期版本的 align() 会退化成
+    「所有分句都 0.00–总长」的假数据。合并的语义是对的：朗读没停顿的地方，
+    本来就该算一个分句；字幕侧由 render.captions_from_clause_times 按字数
+    在合并段内插值，显示仍然是短句。
+    """
+    merged = list(clauses)
+    count = 0
+    while len(merged) > pauses_count + 1 and len(merged) > 1:
+        i = min(range(len(merged) - 1), key=lambda k: len(merged[k]) + len(merged[k + 1]))
+        merged[i:i + 2] = [merged[i] + '，' + merged[i + 1]]
+        count += 1
+    if count and log:
+        print(f'    合并 {count} 处没有停顿的短分句（{len(clauses)} -> {len(merged)}）')
+    return merged
+
+
 def align(text, x):
     dur = len(x) / RATE
     lead, spans = pauses(x)
     clauses = [c for c in re.split(PUNCT, text) if c]
+    clauses = merge_to_fit(clauses, len(spans))
     w = np.array([max(1, len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', c))) for c in clauses], float)
     speech = dur - lead - 0.25 - sum(d for _, d in spans)
     rate = speech / w.sum()                      # 秒/字
