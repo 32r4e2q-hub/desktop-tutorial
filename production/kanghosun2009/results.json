@@ -629,27 +629,10 @@
     },
     "S33": {
       "id": "S33",
-      "status": "completed",
-      "request_hash": "c7c8a97e3da1a386d677f1384cfdbe798dbe8916de0314a47fa4780e4b0ceb59",
+      "status": "submitting",
+      "request_hash": "d41d9d138cc89a2b3c3a8d3ae713d1ac6ff08e3458d5d3576cdefd313b50bd6f",
       "error": null,
-      "updated_at": "2026-10-12T02:41:10Z",
-      "task_id": "202610121039412e35024d25a541df",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261012104100cd24b6428edd4c20_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=hmqphziGuFQhhYotRnegrjn2XV0%3D&Expires=1791859262",
-      "sha256": "9d0dbcd6068f3a2894433e062b007bcc739bed010c65d6e190804c2da47b84fa",
-      "bytes": 1562742,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1562742,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/kanghosun2009/qa/S33.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-12T04:44:28Z"
     },
     "S34": {
       "id": "S34",
@@ -958,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-12T04:44:27Z",
+  "updated_at": "2026-10-12T04:44:28Z",
   "previous_results": {
     "S22": [
       {
@@ -1169,6 +1152,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/kanghosun2009/qa/S16.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S33": [
+      {
+        "id": "S33",
+        "status": "completed",
+        "request_hash": "c7c8a97e3da1a386d677f1384cfdbe798dbe8916de0314a47fa4780e4b0ceb59",
+        "error": null,
+        "updated_at": "2026-10-12T02:41:10Z",
+        "task_id": "202610121039412e35024d25a541df",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261012104100cd24b6428edd4c20_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=hmqphziGuFQhhYotRnegrjn2XV0%3D&Expires=1791859262",
+        "sha256": "9d0dbcd6068f3a2894433e062b007bcc739bed010c65d6e190804c2da47b84fa",
+        "bytes": 1562742,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1562742,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/kanghosun2009/qa/S33.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
