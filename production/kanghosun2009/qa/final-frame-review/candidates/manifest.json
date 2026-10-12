@@ -1,5 +1,5 @@
 {
-  "film_sha256": "979e27b6a5a397986167b9c92fd389c4944efa16e86d8e445c84250fd5f687b4",
+  "film_sha256": "bc74518c8b7ec323e17ed55657af352bd61b9497f4da9dc0e13a607520198c06",
   "source_audit": "production/kanghosun2009/delivery/frame-distortion-audit.json",
   "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
   "max_width": 960,
@@ -4001,7 +4001,8 @@
       "frame": 4338,
       "seconds": 144.6,
       "reasons": [
-        "face-S39"
+        "face-S39",
+        "hand-geometry-S39"
       ],
       "file": "f04338_face-S39.jpg",
       "width": 960,
