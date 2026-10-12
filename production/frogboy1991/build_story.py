@@ -284,10 +284,11 @@ SHOTS = [
     # ---------------- N04 十一年后的发现（S24–S30）----------------
     ("S24", "agnes", "中景跟随", "二〇〇二年：一个采橡子的人，正面走上山路",
      "接信息卡：二〇〇二年九月二十六日",
-     "A front-facing medium shot on a narrow forest path on Mount Waryong on an autumn morning in 2002: {C6}, a middle-aged "
-     "Korean man in a faded olive work jacket and knitted cap, carries a cloth bag full of acorns; he stops and looks off "
-     "toward a patch of open rough ground at the edge of an old fenced range, his expression uneasy. Only dry grass and fallen "
-     "leaves in the background; no remains, no other people, no readable text. Medium tracking shot, " + HOLD,
+     "Front view, the camera faces the man directly: {C6}, a middle-aged Korean man in a faded olive work jacket and knitted "
+     "cap, walks toward the camera along a narrow forest path on an autumn morning in 2002, his whole face fully visible to "
+     "the lens and his body squarely facing forward (not in profile, not from behind); he carries a cloth bag full of acorns "
+     "in one hand, stops, and looks straight into the camera with an uneasy expression. Dry grass and fallen leaves in the "
+     "background; no remains, no other people, no readable text. Medium shot, " + HOLD,
      "秋风 + 枯叶脚步声"),
     ("S25", "agnes", "中景跟随", "警车驶入山路，警员走向荒地（背影）",
      "接动态镜：警戒线与现场勘查",
@@ -295,12 +296,13 @@ SHOTS = [
      "two uniformed officers seen only from behind walk toward the rough ground with their caps on; no readable text on "
      "the vehicles, no remains visible. Medium tracking shot from behind, " + HOLD,
      "汽车引擎熄火 + 脚步声"),
-    ("S26", "agnes", "远景固定", "警戒线：穿防护服的法医站在警戒线旁",
+    ("S26", "agnes", "中景固定", "警戒线：穿防护服的法医站在警戒线旁",
      "接信息卡：两种结论",
-     "Medium wide view in a remote forest clearing on a hillside in autumn 2002: yellow police tape is strung between wooden "
-     "stakes around a rough patch of ground at the edge of an old army shooting range fence; {C4} stands in a plain white "
-     "protective suit and gloves, facing the camera at a respectful distance, looking toward the tape. No remains, no "
-     "close-ups of the ground, no other people, no readable text. Static shot, " + HOLD,
+     "Medium shot, the camera faces the forensic investigator directly from the front: {C4} stands in the foreground center "
+     "throughout the clip, facing the camera, in a plain white protective suit and gloves, looking at the lens with a "
+     "serious expression. Behind her, yellow police tape is strung between wooden stakes around a rough patch of ground at "
+     "the edge of an old army shooting range fence in an autumn forest clearing; no remains, no other people, no readable "
+     "text. Static shot, " + HOLD,
      "风声 + 远处的人声（不可辨识）"),
     ("S27", "graphic", "信息卡（静帧）", "结论卡：警方与法医的两种说法",
      "接动态镜：法医实验室",
