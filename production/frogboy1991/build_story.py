@@ -171,11 +171,9 @@ SHOTS = [
      "behind or from far away; a teacher stands out of focus in the gateway, back turned; the iron gate is open, the "
      "playground empty behind them, no readable signs. Static medium-wide shot, slight handheld drift, " + HOLD,
      "放学铃声 + 孩子们的喧闹"),
-    ("S07", "agnes", "低机位前推", "卧龙山脚下：春天的树林",
+    ("S07", "agnes", "中景固定", "家门口等待：母亲在门边张望",
      "接动态镜：山林里找东西的孩子",
-     "The foot of Mount Waryong in spring 1991: a sunlit path through young pine and oak trees, bright new leaves, "
-     "wildflowers at the roadside, a wooden trail sign with no writing; five small figures seen from behind walk up the "
-     "path in a loose line, growing smaller into the forest. Low camera pushing slowly up the path, " + HOLD,
+     "Medium shot at a village house gate at dusk in autumn: {C1}, a middle-aged Korean woman in a cream cardigan, stands at the gate facing the camera, looking down the lane with a hopeful, patient expression, a warm porch light glowing behind her. Soft evening light, shallow depth of field. " + HOLD,
      "树林里的鸟叫 + 风声"),
     ("S08", "agnes", "特写 → 拉远", "金钟植在石头边找小东西（背影）",
      "接信息卡：一九九一年的失踪人数与搜索",
@@ -227,12 +225,9 @@ SHOTS = [
      "风吹秋千的吱呀声"),
 
     # ---------------- N03 全国寻找（S16–S23）----------------
-    ("S16", "agnes", "俯拍下摇", "夜里：直升机与搜山的手电",
+    ("S16", "agnes", "中景固定", "夜里搜山：父亲举着手电等待消息",
      "接动态镜：父亲拿着传单",
-     "A night search operation on the wooded hills of Mount Waryong: a helicopter's searchlight sweeps across the dark "
-     "pine trees far away, dozens of small torch beams move through the undergrowth, figures seen only from a distance "
-     "with their backs to the camera; no readable text on uniforms or vehicles. Slow high-angle push down over the forest, "
-     + HOLD,
+     "Night search on a dark pine hillside: {C2}, a middle-aged Korean man in a dark jacket, stands facing the camera at the edge of a village road, holding a flashlight, looking toward the hills with a worried expression; the flashlight beam sweeps into the dark forest behind him. " + HOLD,
      "直升机轰鸣 + 风声"),
     ("S17", "agnes", "中景固定", "山口：父亲举着传单等待消息",
      "接动态镜：母亲整理房间",
@@ -246,11 +241,9 @@ SHOTS = [
      "and undergrowth, leaves stirring in the light; no people visible, only the moving beams and the forest. Slow push "
      "forward along the beams, " + HOLD,
      "风声 + 远处的呼喊（不可辨识）"),
-    ("S19", "agnes", "延时摄影", "时间流逝：城市与季节变换",
+    ("S19", "agnes", "慢推", "一九九一年的小店：报纸与收音机",
      "接动态镜：电视新闻前的人群",
-     "Time-lapse of Daegu across several seasons: the sun rising and setting over low-rise houses, the trees changing from "
-     "bare winter to green summer to red autumn, traffic passing on a 1990s road, no people's faces; the sequence "
-     "shows the passing of years. Time-lapse, steady wide framing, " + HOLD,
+     "Morning light in a small Korean village shop in 1991: a stack of folded newspapers and a wooden radio on a wooden table, dust motes in soft window light. Slow push-in across the table. " + HOLD,
      "钟表滴答 + 季节流逝的氛围音"),
     ("S20", "agnes", "中景固定", "电视新闻：一家人围坐看报道",
      "接动态镜：卧龙山的四季",
@@ -271,14 +264,10 @@ SHOTS = [
      "clearly visible, calm and focused, looking down at the ground ahead. Soft background of tall pines and fallen leaves, "
      "no other people, no readable text on clothing. Slow push-in toward him, " + HOLD,
      "落叶与脚步声 + 风声"),
-    ("S23", "agnes", "慢推", "卧龙山的四季：春夏秋冬",
+    ("S23", "agnes", "慢推", "一条小路通向晨雾中的松林",
      "接动态镜：二〇〇二年的采橡子人",
-     "Mount Waryong through the four seasons in a single continuous wide shot: spring blossoms, summer green, autumn red "
-     "leaves, winter frost on the hillside pines, the same forest slope throughout; no people, no readable signs. Slow "
-     "push across the seasonal forest, " + HOLD,
+     "A single narrow dirt path leads into a misty pine forest at dawn, soft light breaking through the trees; the path is quiet, with fallen leaves on the ground. Slow dolly forward along the path. " + HOLD,
      "风声 + 远处鸟鸣"),
-
-    # ---------------- N04 十一年后的发现（S24–S30）----------------
     ("S24", "agnes", "中景固定", "一九九三年以后：母亲在家中厨房等待",
      "接信息卡：二〇〇二年九月二十六日",
      "Medium shot inside a quiet family kitchen in Daegu in the years after 1993: {C1} sits at a kitchen table, hands folded, "
@@ -302,18 +291,13 @@ SHOTS = [
      "接动态镜：法医实验室",
      "两种说法：警方一度认为是失温 / 法医团队在颅骨上发现外力损伤，认定为他杀 / 十一年后，现场已被风雨破坏",
      "纸张翻动"),
-    ("S28", "agnes", "中景固定", "法医实验室：法医正脸看着资料",
+    ("S28", "agnes", "远景固定", "旧靶场：木制瞭望台与生锈的铁丝网",
      "接动态镜：旧靶场的铁丝网",
-     "A forensic laboratory in Daegu in 2002, plain white walls and steel shelving, a middle-aged female forensic scientist "
-     "{C4} with shoulder-length black hair in a tidy bun and a white lab coat stands at a steel table covered with paper "
-     "folders, her face fully visible, serious and thoughtful, she flips through a report; no readable text on folders. "
-     "Medium shot, slow push-in, " + HOLD,
+     "A weathered wooden watchtower and a rusted metal fence stand at the edge of an empty grassy shooting range on a hillside in autumn, soft light, quiet and still. Static wide shot. " + HOLD,
      "纸张翻动 + 实验室的嗡嗡声"),
-    ("S29", "agnes", "中景固定", "法医团队：灯箱前研读报告",
+    ("S29", "agnes", "慢推", "冬天的松林小路：积雪与霜冻",
      "接动态镜：刑警在旧档案前",
-     "Medium shot inside a quiet forensic analysis room: {C4}, a forensic analyst in a white lab coat, stands at a desk studying "
-     "printed reports under a lightbox showing an abstract grey film with no readable text; calm, focused expression; no remains, "
-     "no other people, no readable text. Static medium shot, " + HOLD,
+     "A snowy winter forest path lined with bare trees and frosty undergrowth, pale morning light, quiet and empty. Slow dolly forward along the path. " + HOLD,
      "室内安静的环境音"),
     ("S30", "agnes", "中景固定", "刑警重新翻看旧档案",
      "接动态镜：一排搜索人员走进树林",
@@ -342,11 +326,9 @@ SHOTS = [
      "接动态镜：DNA 实验室",
      "时效卡：二〇〇六年三月二十五日 / 公诉时效届满 / 案件仍未找到凶手",
      "纸张翻动"),
-    ("S35", "agnes", "中景固定", "国立科学搜查研究院：DNA 实验室",
+    ("S35", "agnes", "慢推", "雨后的林间空地：落叶与雾气",
      "接动态镜：夕阳下的卧龙山",
-     "A modern forensic DNA laboratory in Seoul, clean white benches, a row of sealed sample tubes in racks and a computer "
-     "screen showing abstract blue graphs with no readable text; a female analyst in a white coat {C4} works at the "
-     "bench, her face fully visible and focused, carefully pipetting a sample. Medium shot, slow push-in, " + HOLD,
+     "A forest clearing after rain: wet fallen leaves and scattered twigs on the ground, mist rising between the trees, soft light. Slow push across the clearing. " + HOLD,
      "仪器的低鸣声"),
     ("S36", "agnes", "远景固定", "夕阳下的卧龙山",
      "接动态镜：孩子们背影慢慢消失",
@@ -360,17 +342,13 @@ SHOTS = [
      "sweater are distinguishable only by silhouette and clothing colour; no faces. Low camera following from behind, "
      + HOLD,
      "渐远的脚步声 + 钢琴尾音"),
-    ("S38", "agnes", "中景固定", "二〇一九年：刑警手持证物袋重启调查",
+    ("S38", "agnes", "近景静物", "二〇一九年：桌上的旧案卷宗",
      "接信息卡：五个名字",
-     "Medium shot in a bright office in 2019: {C3}, a middle-aged Korean detective in a dark suit, stands at a table holding a "
-     "sealed clear evidence bag with a folded child's sweater, looking down at it with a serious expression; no blood, no "
-     "readable text. Static medium shot, " + HOLD,
+     "A closed beige case folder lies on a clean wooden desk under a warm desk lamp in a quiet office; the folder is the only object in frame. Slow push-in on the folder. " + HOLD,
      "轻微的办公室环境音"),
-    ("S39", "agnes", "中景固定", "老邻居在纪念碑前，低头默哀",
+    ("S39", "agnes", "中景固定", "二〇一九年：刑警翻开旧卷宗重启调查",
      "接动态镜：春天的树林，孩子们的背影",
-     "An elderly Korean woman {C5} with a grey perm and a dark cardigan stands before a small stone memorial in a quiet "
-     "pine forest, her hands folded at her waist, her head bowed, her face fully visible and sorrowful; the memorial "
-     "has no readable text. Medium shot, slow push-in, " + HOLD,
+     "Medium shot in a quiet office in 2019: {C3}, a middle-aged Korean detective in a dark suit, sits at a desk, opens a case folder and reads it with a serious, focused expression. Static medium shot. " + HOLD,
      "极轻的钢琴 + 林中的风声"),
     ("S40", "graphic", "信息卡（静帧）", "名字卡：五个名字",
      "接动态镜：春天的树林",
@@ -505,13 +483,11 @@ FACE_SHOTS = {
     "S22": ["C2"],
     "S24": ["C1"],
     "S26": ["C6"],
-    "S28": ["C4"],
     "S30": ["C3"],
-    "S29": ["C4"],
-    "S38": ["C3"],
+    "S07": ["C1"],
+    "S16": ["C2"],
+    "S39": ["C3"],
     "S33": ["C2"],
-    "S35": ["C4"],
-    "S39": ["C5"],
     "S42": ["C1"],
 }
 # 用定妆照做首帧（图生视频）的镜头：免费档 image_url 队列实测拥堵，本片不挂任何首帧图。
