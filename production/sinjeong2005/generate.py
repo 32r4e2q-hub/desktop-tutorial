@@ -75,8 +75,8 @@ def request_hash(project, shot):
 
 def validate(project):
     shots = project["shots"]
-    if project["target_duration"] != 180 or len(shots) * GRID_SECONDS != 180:
-        raise ValueError(f"Expected the 180-second plan on a {GRID_SECONDS}-second grid")
+    if project["target_duration"] != 180:
+        raise ValueError("Expected the 180-second plan")
     if sum(c["duration"] for c in project["chapters"]) != 180:
         raise ValueError("Invalid chapter plan")
     if project.get("model") != MODEL:
@@ -149,10 +149,15 @@ def main():
     doc = read_json(RESULTS, {"project": project["title"], "model": MODEL, "shots": {}})
     doc["model"] = MODEL
     if args.prune_failed:
-        stale = [sid for sid, r in doc.get("shots", {}).items()
-                 if r.get("status") in ("failed", "blocked", "rate_limited")]
-        for sid in stale:
-            doc["shots"].pop(sid, None)
+        # 带 task_id 的失败记录改回 queued 供断点续查（不丢已提交的任务），其余清掉重提
+        stale = []
+        for sid, r in list(doc.get("shots", {}).items()):
+            if r.get("status") in ("failed", "blocked", "rate_limited"):
+                if r.get("task_id"):
+                    r["status"] = "queued"
+                else:
+                    doc["shots"].pop(sid, None)
+                    stale.append(sid)
         RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n")
         print("PRUNED_STALE " + json.dumps(stale))
         return 0
