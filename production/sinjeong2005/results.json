@@ -4,10 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "df62c3d563ecd116c130cc1f1cee9e09da4e0dc375d9aa206733c44cf29a866f",
-      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-13T13:39:12Z",
+      "error": "S01: clip unusable: {'duration': 5.108108, 'bytes': 1868839, 'width': 1920, 'height': 1080, 'fps': 37.0, 'video_codec': 'h264', 'frames': 189}",
+      "updated_at": "2026-10-13T13:40:24Z",
       "task_id": "20261013213911f202bf6007974811",
       "used_params": {
         "quality": "speed",
@@ -17,7 +17,7 @@
       }
     }
   },
-  "updated_at": "2026-10-13T13:39:12Z",
+  "updated_at": "2026-10-13T13:40:24Z",
   "run_id": "38403729709",
   "phase": "generation_incomplete"
 }
