@@ -65,7 +65,7 @@ def payload_for(project, shot):
     return {"model": MODEL, "prompt": full_prompt(project, shot),
             "quality": os.getenv("ZHIPU_QUALITY", "speed"),
             "size": SIZE, "fps": FPS, "duration": DURATION,
-            "mode": "image_first_v1"}
+            "mode": "text_v2"}
 
 
 def request_hash(project, shot):
@@ -326,7 +326,8 @@ def main():
                     print(f"{sid}: 旧任务续查无果，改重新提交：{str(rexc)[:160]}", flush=True)
 
             checkpoint(sid + " submitting", sid, status="submitting", request_hash=wanted, error=None)
-            image_url = make_first_frame(shot)
+            # 实测图生队列 20+ 分钟且易失败，文生约 1 分钟：默认文生；IMAGE_FIRST=1 才走图生
+            image_url = make_first_frame(shot) if os.getenv("IMAGE_FIRST") == "1" else None
             if image_url:
                 checkpoint(sid + " first frame ready", sid, status="first_frame", image_url=image_url)
             task_id, used = submit(shot, image_url=image_url)
