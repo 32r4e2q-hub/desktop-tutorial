@@ -233,8 +233,9 @@ def main():
                     msg = str(exc)
                     if "1305" in msg or "429" in msg or "访问量过大" in msg:
                         print(f"{shot['id']}: 智谱限流 1305，第 {attempt} 次，等 30s", flush=True)
-                        checkpoint(shot["id"] + " rate limited", shot["id"], status="rate_limited",
-                                   error=msg.replace(api_key, "[redacted]")[:400])
+                        if attempt % 5 == 1:
+                            checkpoint(shot["id"] + " rate limited", shot["id"], status="rate_limited",
+                                       error=msg.replace(api_key, "[redacted]")[:400])
                         time.sleep(30)
                         continue
                     print(f"{shot['id']}: 本档提交失败，尝试下一档：{msg[:200]}", flush=True)
@@ -275,6 +276,50 @@ def main():
             if time.monotonic() > deadline:
                 checkpoint(sid + " pending (budget)", sid, status="pending", request_hash=wanted)
                 return False
+
+            def poll(task_id):
+                started = time.time()
+                while True:
+                    if time.time() - started > 3600:
+                        raise RuntimeError("轮询超时 60 分钟（任务可能仍在智谱排队，重跑会续查）")
+                    try:
+                        result = client.videos.retrieve_videos_result(id=task_id)
+                    except Exception as qexc:  # 查询限流不算失败
+                        print(f"{sid}: 查询异常，等 30s：{str(qexc)[:120]}", flush=True)
+                        time.sleep(30)
+                        continue
+                    status = getattr(result, "task_status", None) or (result.get("task_status") if isinstance(result, dict) else None)
+                    print(f"{sid}: [{int(time.time() - started)}s] {status}", flush=True)
+                    if status == "SUCCESS":
+                        vr = getattr(result, "video_result", None) or result.get("video_result")
+                        url = None
+                        if vr:
+                            first = vr[0]
+                            url = getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
+                        if not url:
+                            raise RuntimeError("SUCCESS 但无视频地址")
+                        return url
+                    if status == "FAIL":
+                        raise RuntimeError(f"智谱渲染失败：{result}")
+                    time.sleep(15)
+
+            def finish(url, label):
+                download(url, dest)
+                info = inspect_clip(dest, qa, sid)
+                checkpoint(sid + " " + label, sid, files=[qa / f"{sid}.jpg"],
+                           status="completed", request_hash=wanted, video_url=url,
+                           sha256=digest(dest), bytes=dest.stat().st_size,
+                           inspection=info, visual_review="pending", error=None)
+                return True
+
+            # 断点续查：上次已提交的任务先接着查，不重复花额度
+            if old.get("task_id") and old.get("request_hash") == wanted and old.get("status") in ("queued", "submitting", "first_frame", "failed"):
+                try:
+                    print(f"{sid}: 续查旧任务 {old['task_id']}", flush=True)
+                    return finish(poll(str(old["task_id"])), "completed (resumed)")
+                except Exception as rexc:
+                    print(f"{sid}: 旧任务续查无果，改重新提交：{str(rexc)[:160]}", flush=True)
+
             checkpoint(sid + " submitting", sid, status="submitting", request_hash=wanted, error=None)
             image_url = make_first_frame(shot)
             if image_url:
@@ -283,31 +328,7 @@ def main():
             checkpoint(sid + " queued", sid, status="queued", task_id=task_id,
                        used_params={k: used.get(k) for k in ("quality", "size", "fps", "duration")},
                        image_first=bool(used.get("image_url")))
-            started = time.time()
-            while True:
-                if time.time() - started > 1200:
-                    raise RuntimeError("轮询超时 20 分钟")
-                result = client.videos.retrieve_videos_result(id=task_id)
-                status = getattr(result, "task_status", None) or (result.get("task_status") if isinstance(result, dict) else None)
-                print(f"{sid}: [{int(time.time() - started)}s] {status}", flush=True)
-                if status == "SUCCESS":
-                    vr = getattr(result, "video_result", None) or result.get("video_result")
-                    url = None
-                    if vr:
-                        first = vr[0]
-                        url = getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
-                    if not url:
-                        raise RuntimeError("SUCCESS 但无视频地址")
-                    download(url, dest)
-                    info = inspect_clip(dest, qa, sid)
-                    checkpoint(sid + " completed", sid, files=[qa / f"{sid}.jpg"],
-                               status="completed", request_hash=wanted, video_url=url,
-                               sha256=digest(dest), bytes=dest.stat().st_size,
-                               inspection=info, visual_review="pending", error=None)
-                    return True
-                if status == "FAIL":
-                    raise RuntimeError(f"智谱渲染失败：{result}")
-                time.sleep(8)
+            return finish(poll(task_id), "completed")
         except Exception as exc:  # noqa: BLE001
             checkpoint(sid + " failed", sid, status="failed",
                        error=str(exc).replace(api_key, "[redacted]")[:600])
