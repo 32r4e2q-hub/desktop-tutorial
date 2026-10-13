@@ -262,10 +262,10 @@
     },
     "S11": {
       "id": "S11",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "bc4547afc9906f9638c70814721fff257cb798578af41e83504bf88332ae5231",
-      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-13T18:06:54Z",
+      "error": "轮询超时 60 分钟（任务可能仍在智谱排队，重跑会续查）",
+      "updated_at": "2026-10-13T19:07:15Z",
       "task_id": "20261014020654a1f35cdac7824af0",
       "used_params": {
         "quality": "speed",
@@ -276,7 +276,7 @@
       "image_first": false
     }
   },
-  "updated_at": "2026-10-13T18:06:54Z",
+  "updated_at": "2026-10-13T19:07:15Z",
   "run_id": "38420587891",
   "phase": "selected_sources_ready"
 }
