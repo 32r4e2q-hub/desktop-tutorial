@@ -219,10 +219,10 @@
     },
     "S09": {
       "id": "S09",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "6f440ceffac78f4d6c1ae8373df0207131a03f39be72444966f7992ac3d15f50",
-      "error": null,
-      "updated_at": "2026-10-13T17:03:22Z",
+      "error": "轮询超时 60 分钟（任务可能仍在智谱排队，重跑会续查）",
+      "updated_at": "2026-10-13T18:03:44Z",
       "task_id": "2026101401032258a796c57ed54dc1",
       "used_params": {
         "quality": "speed",
@@ -233,7 +233,7 @@
       "image_first": false
     }
   },
-  "updated_at": "2026-10-13T17:03:22Z",
+  "updated_at": "2026-10-13T18:03:44Z",
   "run_id": "38420587891",
   "phase": "selected_sources_ready"
 }
