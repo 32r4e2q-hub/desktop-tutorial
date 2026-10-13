@@ -4,13 +4,13 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "df62c3d563ecd116c130cc1f1cee9e09da4e0dc375d9aa206733c44cf29a866f",
-      "error": null,
-      "updated_at": "2026-10-13T13:18:23Z"
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "updated_at": "2026-10-13T13:18:32Z"
     }
   },
-  "updated_at": "2026-10-13T13:18:23Z",
+  "updated_at": "2026-10-13T13:18:32Z",
   "run_id": "38403729709",
   "phase": "generation_incomplete"
 }
