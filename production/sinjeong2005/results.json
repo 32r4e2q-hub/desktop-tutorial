@@ -33,10 +33,10 @@
     },
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "a80210cbe8c6314bf090299ff92aff2361bf5d375c46e3568c9b6e78a30d0464",
-      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-13T14:30:51Z",
+      "error": "智谱渲染失败：VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：202610132230507040a1caa8a54dc1，请稍后重试'})",
+      "updated_at": "2026-10-13T15:01:10Z",
       "image_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013222920ea7b9644e0634b37_watermark.png?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=iDXbYcPrLfrt750g8nEuUC8HJaY%3D&Expires=1792506569",
       "task_id": "202610132230507040a1caa8a54dc1",
       "used_params": {
@@ -48,7 +48,7 @@
       "image_first": true
     }
   },
-  "updated_at": "2026-10-13T14:30:51Z",
+  "updated_at": "2026-10-13T15:01:10Z",
   "run_id": "38413643595",
   "phase": "selected_sources_ready"
 }
