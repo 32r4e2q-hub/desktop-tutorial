@@ -191,13 +191,21 @@
     },
     "S08": {
       "id": "S08",
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "970c7354e5a8cae1583b8bcbb5feeff231d9d5dfcf7f73e7b7e93404eff8cdfa",
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-13T17:01:03Z"
+      "updated_at": "2026-10-13T17:02:12Z",
+      "task_id": "202610140102120bf377972be24541",
+      "used_params": {
+        "quality": "speed",
+        "size": "1920x1080",
+        "fps": 30,
+        "duration": 10
+      },
+      "image_first": false
     }
   },
-  "updated_at": "2026-10-13T17:01:03Z",
+  "updated_at": "2026-10-13T17:02:12Z",
   "run_id": "38420587891",
   "phase": "selected_sources_ready"
 }
