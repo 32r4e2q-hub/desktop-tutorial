@@ -188,8 +188,8 @@ def caption_clauses(text):
     raw=re.findall(r'[^，。！？；：、—]+[，。！？；：、—]*',text)
     result=[]
     for part in raw:
-        while len(part)>24:
-            result.append(part[:22]);part=part[22:]
+        while len(part)>28:
+            result.append(part[:26]);part=part[26:]
         if part.strip():result.append(part.strip())
     return result
 

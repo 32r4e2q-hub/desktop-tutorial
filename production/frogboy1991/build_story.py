@@ -198,13 +198,12 @@ SHOTS = [
      "path toward the dark trees, the orange sun low on the horizon, the figures growing smaller; no faces, no readable "
      "signs. Static wide shot, the children diminish into the forest, " + HOLD,
      "渐弱的说笑声 + 晚风"),
-    ("S11", "agnes", "慢推", "厨房：母亲看着挂钟，饭菜放凉",
+    ("S11", "agnes", "中景跟随", "三个孩子的背影：黄夹克的小领头走在前面",
      "接动态镜：街灯下的父亲",
-     "A modest 1990s Korean kitchen at night, a plain wooden table set with rice bowls and side dishes that have gone "
-     "cold, a wall clock showing a late hour; a middle-aged Korean woman {C1} with a short permed hairstyle and a "
-     "flowered apron stands at the window, turning to look at the clock with worried eyes, her face fully visible and "
-     "calm but anxious. Slow push-in toward her face, " + HOLD,
-     "挂钟滴答 + 远处狗叫"),
+     "Medium wide shot seen only from behind on a sunlit dirt path at the foot of a green autumn hillside: three boys walk "
+     "in a row, the boy in front wearing a bright yellow jacket leads the way, the others follow with school backpacks; "
+     "no faces visible, no readable text. Slow tracking shot following them, " + HOLD,
+     "脚步声 + 秋风"),
     ("S12", "agnes", "中景跟随", "街灯下：父亲奔跑，打电话找孩子",
      "接信息卡：三十五万人次",
      "A 1990s Daegu residential street at night under sodium street lamps, wet from light rain; a middle-aged Korean man "
@@ -500,7 +499,6 @@ SEED_BASE = 19910326  # 失踪日（一九九一年三月二十六日），让 s
 # 注意：五名儿童不在 cast.json 里，全片不给任何孩子面容 token。
 FACE_SHOTS = {
     "S05": ["C5"],
-    "S11": ["C1"],
     "S12": ["C2"],
     "S17": ["C2"],
     "S20": ["C1"],
