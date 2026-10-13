@@ -277,13 +277,13 @@
     },
     "S12": {
       "id": "S12",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "ac0a8373564768b3f6687c1d98a656f40b263e493a12ce1a6786b55f867d4d32",
-      "error": null,
-      "updated_at": "2026-10-13T19:07:17Z"
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "updated_at": "2026-10-13T19:07:26Z"
     }
   },
-  "updated_at": "2026-10-13T19:07:17Z",
+  "updated_at": "2026-10-13T19:07:26Z",
   "run_id": "38420587891",
   "phase": "selected_sources_ready"
 }
