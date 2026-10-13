@@ -4,14 +4,14 @@
   "shots": {
     "S02": {
       "id": "S02",
-      "status": "first_frame",
+      "status": "rate_limited",
       "request_hash": "763bd5269ae796cea1be7a0eb661366cdfecba8f3e8cb0e1db82de24cdf3dde4",
-      "error": null,
-      "updated_at": "2026-10-13T14:14:21Z",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "updated_at": "2026-10-13T14:14:29Z",
       "image_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013221413713cc30e379141ad_watermark.png?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=kE3G1dFi1lepnBVRdBTBWYVnwuQ%3D&Expires=1792505661"
     }
   },
-  "updated_at": "2026-10-13T14:14:21Z",
+  "updated_at": "2026-10-13T14:14:29Z",
   "run_id": "38411484552",
   "phase": "generation_incomplete"
 }
