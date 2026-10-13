@@ -234,10 +234,10 @@
     },
     "S10": {
       "id": "S10",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "7d15ae25282c24ce321b6819fda76049477e7590cd092ab0380880b78994c5f4",
-      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-13T18:05:04Z",
+      "error": null,
+      "updated_at": "2026-10-13T18:06:13Z",
       "task_id": "202610140205045533ed63477d4ffe",
       "used_params": {
         "quality": "speed",
@@ -245,10 +245,23 @@
         "fps": 30,
         "duration": 10
       },
-      "image_first": false
+      "image_first": false,
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610140206007854ad78fc174972_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=6pVqrrxcFE5mknqY3obl5xkcUys%3D&Expires=1792001162",
+      "sha256": "c9d3e66e8ff413dacc13a09ff3f4b202ad2bf19f0608d3a874de0fda9eef7224",
+      "bytes": 2536408,
+      "inspection": {
+        "duration": 5.108108,
+        "bytes": 2536408,
+        "width": 1920,
+        "height": 1080,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189
+      },
+      "visual_review": "pending"
     }
   },
-  "updated_at": "2026-10-13T18:05:04Z",
+  "updated_at": "2026-10-13T18:06:13Z",
   "run_id": "38420587891",
   "phase": "selected_sources_ready"
 }
