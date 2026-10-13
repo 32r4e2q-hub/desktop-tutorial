@@ -1,0 +1,866 @@
+{
+  "title": "新亭洞连环杀人案：凶手找到了，却已死去十年",
+  "target_duration": 180,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "model": "cogvideox-flash",
+  "branch": "arena/f3e80641-desktop-tutorial",
+  "style_prefix": "2005年前后韩国首尔新亭洞老住宅区，写实真人犯罪纪录片情景重现，电影质感，阴冷潮湿，低饱和灰蓝色调，真实演员表演，人物丰富、面部清晰、表情生动鲜活，单一场景连续镜头缓缓移动，画面无文字无字幕无水印无标志，不出现尸体、血腥和暴力动作。",
+  "negative_prompt": "readable text, subtitles, watermark, logo, corpse, blood, gore, violence, assault, nudity, frontal face of killer or victim, deformed hands, extra fingers, morphing, jump cut, split screen, cartoon, animation, 3D render look",
+  "principles": [
+    "全部镜头为智谱 CogVideoX-Flash 生成的 AI 真人情景重现，画面常驻标注「AI真人情景重现 · 非新闻影像」，不冒充监控、庭审或证物照片",
+    "风格跟随用户上传的参考片：真人年代剧表演、连续剧情场景、旁白贯穿、中英双语字幕、片头大标题压实景；不使用信息卡与片尾卡",
+    "不展示遗体、血腥或侵害过程；不重演作案经过",
+    "露脸模式（按用户要求，模仿参考片）：人物丰富、人人有脸、表情生动；每个人物一张不同的脸，同一人物跨镜头同一张脸——靠 cast.json 的面容描述逐字节复用 + face_cast.py 两道闸门（提示词静态检查、出片后逐镜裁脸比对）守着，换脸/撞脸的镜头只重做那一镜",
+    "全部角色为虚构匿名演员，不还原任何真实人物容貌：管理员角色不是真实嫌疑人的长相，受害者只以生前日常形象出现、不冒充本人",
+    "侦探、居民、科研人员等虚构表演者可以露脸，但不冒充任何真实人物本人",
+    "结局按 2025 年 11 月 21 日首尔警方公布的真实进展写：DNA 特定当年大楼管理员为凶手，其人已于 2015 年去世；不沿用上传文案里「至今未破」的旧说法",
+    "2006 年「流氓兔」逃脱事件与本案凶手无关（警方已澄清），片中按假线索处理，不写成同一凶手",
+    "每一句事实都能指到 sources；中文姓名、日期、字幕一律后期添加，不交给视频模型拼写"
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://www.hankookilbo.com/News/Read/A2025112018310000336",
+      "usage": "支撑：2025-11-21 首尔警方 DNA 特定大楼管理员 A 某；2013 列为悬案、2016 悬案组重启、2016/2020 两次再鉴定确认同一人；筛查约 23 万人、采集 1514 人 DNA；扩大到已故者 56 人；跑遍京畿南部 40 家医疗机构找到留存检体后比对一致；凶手 2015 年去世火化，案件将以无公诉权结案；2006 年 5 月流氓兔事件时 A 某已因另案入狱、非同一人"
+    },
+    {
+      "id": 2,
+      "url": "https://koreajoongangdaily.joins.com/news/2025-12-08/national/socialAffairs/A-bizarre-rabbit-sows-chaos-in-Sinjeongdong-serial-killing-investigation/2462842",
+      "usage": "支撑：2005-06-07 清晨环卫工在巷口发现米袋与露出的人手；第二名受害者 2005-11-20 被发现、裹在席垫里以绳索捆绑、前一晚出现在新亭站监控；38 人专案组；第二名受害者衣物上的霉菌指向地下空间；流氓兔贴纸来自 2006 年 5 月逃脱女子的证词"
+    },
+    {
+      "id": 3,
+      "url": "https://www.khan.co.kr/en/article/202511211953337",
+      "usage": "支撑：两名受害者均为勒颈窒息、头部套黑色塑料袋、分别裹米袋与席垫并以绳索捆绑；初期未检出可锁定身份的 DNA；2020 年从受害者衣物与绳索检出同一男性 DNA；凶手为受害者到访大楼的管理员、2006 年 2 月在同一大楼地下室另案被捕并服刑至 2009 年；警方名言「追到阴间也要查」"
+    },
+    {
+      "id": 4,
+      "url": "https://world.kbs.co.kr/service/news_view.htm?lang=e&Seq_Code=197599",
+      "usage": "支撑：2025-11-21 首尔警方简报确认凶手为案发时 60 多岁的大楼管理员、已于 2015 年去世；走访 40 家医疗机构取得 DNA 样本；以无公诉权结案"
+    }
+  ],
+  "cast_mode": "face",
+  "chapters": [
+    {
+      "id": "N01",
+      "title": "钩子：找了二十年的人，就守在那栋楼里",
+      "start": 0,
+      "duration": 30,
+      "text": "首尔最普通的一个住宅区，藏着一个找了二十年的凶手。他就守在受害者走进的那栋楼里，每天看着人群从眼前走过。二零二五年，警方终于叫出了他的身份。可那时，他已经死了整整十年。这就是新亭洞连环杀人案。"
+    },
+    {
+      "id": "N02",
+      "title": "第一起案件：巷口的米袋（2005 年 6 月）",
+      "start": 30,
+      "duration": 30,
+      "text": "二零零五年六月七日清晨，新亭洞住宅区的巷口，环卫工看见两只米袋绑在一起，袋口露出一只苍白的手。袋子里，是第一名受害者，一名二十多岁的女子。没有目击者，也没有拍下凶手的监控。第一起命案，就这样摆在首尔警方眼前。"
+    },
+    {
+      "id": "N03",
+      "title": "第二起案件：同一个人第二次出手（2005 年 11 月）",
+      "start": 60,
+      "duration": 30,
+      "text": "五个月后，十一月二十日，同一个社区又出现一个包裹，席垫裹着死者，绳索捆得死紧。死者是四十多岁的女子，前一晚还出现在新亭站的监控里，再也没有回家。两名受害者素不相识，死因相同，捆绑的手法也相同。警方终于意识到，这不是两起命案，是一个人第二次伸出了手。"
+    },
+    {
+      "id": "N04",
+      "title": "八年无果与流氓兔假线索（2006–2013）",
+      "start": 90,
+      "duration": 30,
+      "text": "三十八人的专案组，一查就是八年。可现场没留下能认出他的基因，模糊的画面也拼不出一张脸。二零零六年，另一名女子被挟持后逃生，只记得藏身处有一张流氓兔贴纸。所有人都以为，她逃出的是同一双手。直到多年以后警方才确认，那是另一个人留下的假线索。二零一三年，案件被列为悬案。"
+    },
+    {
+      "id": "N05",
+      "title": "转机：旧证物里的 DNA（2016–2020）",
+      "start": 120,
+      "duration": 30,
+      "text": "转机，来自二十年前的旧证物。二零一六年，悬案专案组重新接手。二零二零年，新的鉴定技术，从第一名受害者的衣物上，从第二起案件的绳索上，检出了同一个男人的基因。警方筛查二十三万多人，采集一千五百一十四人的样本，甚至远赴海外协查比对，活人里依然没有一个对得上。于是，他们把名单转向了死者。"
+    },
+    {
+      "id": "N06",
+      "title": "真凶：找到了，却等不到开庭（2025）",
+      "start": 150,
+      "duration": 30,
+      "text": "五十六名已故候选人中，浮出当年那栋楼的管理员A某。两名受害者都曾走进他看守的楼，二零零六年他又因另一起侵害被捕，却没人把他和两起命案连在一起。他已在二零一五年病逝火化，警方跑遍四十家医疗机构，才找到一份留存至今的检体。二零二五年十一月二十一日，基因比对的结果只有一个，对上了。凶手找到了，却等不到开庭那一天。警方说，杀人犯，要追到阴间为止。这句迟到二十年的回答，留给家属的，只有真相，没有审判。"
+    }
+  ],
+  "shots": [
+    {
+      "id": "S01",
+      "kind": "zhipu",
+      "start": 0,
+      "duration": 6,
+      "narration_id": "N01",
+      "prompt": "清晨的首尔老住宅区小巷，买菜的老人、上班的夫妻、背书包的孩子走过，每张脸各不相同、表情自然，镜头缓缓前推",
+      "purpose": "钩子：最普通的小区白天日常（居民群像，人脸各异）",
+      "transition_out": "硬切夜巷",
+      "graphic": "",
+      "cast": [],
+      "seed": 20050608,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "市声底噪"
+    },
+    {
+      "id": "S02",
+      "kind": "zhipu",
+      "start": 6,
+      "duration": 6,
+      "narration_id": "N01",
+      "prompt": "深夜同一条住宅区小巷，路灯昏黄，空无一人，只有野猫穿过，镜头缓慢横移",
+      "purpose": "钩子：同一条巷子的夜晚（空镜）",
+      "transition_out": "切管理员室",
+      "graphic": "",
+      "cast": [],
+      "seed": 20050609,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "夜风"
+    },
+    {
+      "id": "S03",
+      "kind": "zhipu",
+      "start": 12,
+      "duration": 6,
+      "narration_id": "N01",
+      "prompt": "老式大楼管理员室，六十三岁韩国大楼管理员：瘦长脸，颧骨突出，眼窝深陷，稀疏灰眉，高鼻梁，薄唇紧抿，花白平头，旧蓝灰色工作服腰间挂一串钥匙，神情阴郁寡言坐在窗边桌前，望着窗外来往人群，镜头缓缓推近他的脸",
+      "purpose": "钩子：守楼人望着人群（C7 管理员露脸）",
+      "transition_out": "切现代冷案室",
+      "graphic": "",
+      "cast": [
+        "C7"
+      ],
+      "seed": 20050610,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "固定缓推",
+      "sfx_note": "挂钟声"
+    },
+    {
+      "id": "S04",
+      "kind": "zhipu",
+      "start": 18,
+      "duration": 6,
+      "narration_id": "N01",
+      "prompt": "现代警察局冷案档案室，四十五岁韩国女刑警：利落方脸，剑眉，丹凤眼，鼻梁高直，淡妆红唇，黑色齐耳短发，深色西装配白衬衫，神情冷静坚定，左耳戴细圈耳环，目光锐利从铁柜深处抽出一盒落灰的旧卷宗，神情一凝，镜头缓慢横移",
+      "purpose": "钩子：2025 年卷宗被重新打开（C8 冷案组长露脸）",
+      "transition_out": "切夜巷收束",
+      "graphic": "",
+      "cast": [
+        "C8"
+      ],
+      "seed": 20050611,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "纸张声"
+    },
+    {
+      "id": "S05",
+      "kind": "zhipu",
+      "start": 24,
+      "duration": 6,
+      "narration_id": "N01",
+      "prompt": "夜色中的住宅区全景，窗灯一盏盏熄灭，只剩巷口一盏路灯，镜头缓慢拉远",
+      "purpose": "钩子收束：灯火渐熄的住宅区（片头标题压此镜）",
+      "transition_out": "切 2005 大楼大堂",
+      "graphic": "",
+      "cast": [],
+      "seed": 20050612,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢拉远",
+      "sfx_note": "低音持续"
+    },
+    {
+      "id": "S06",
+      "kind": "zhipu",
+      "start": 30,
+      "duration": 6,
+      "narration_id": "N02",
+      "prompt": "2005年一栋老大楼的大堂，二十六岁韩国女子：鹅蛋脸，杏眼，眉形柔和，鼻梁小巧，唇色自然，黑色长直发披肩，米白色针织衫配浅色风衣，神情清秀温和，右耳戴一枚小银耳钉抱着手提包走进来，柜台后的六十三岁韩国大楼管理员：瘦长脸，颧骨突出，眼窝深陷，稀疏灰眉，高鼻梁，薄唇紧抿，花白平头，旧蓝灰色工作服腰间挂一串钥匙，神情阴郁寡言抬头看了她一眼，镜头缓慢横移",
+      "purpose": "第一案前：年轻女子走进大楼（C4 与 C7 同框）",
+      "transition_out": "切清晨巷口",
+      "graphic": "",
+      "cast": [
+        "C4",
+        "C7"
+      ],
+      "seed": 20050613,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "大堂环境声"
+    },
+    {
+      "id": "S07",
+      "kind": "zhipu",
+      "start": 36,
+      "duration": 6,
+      "narration_id": "N02",
+      "prompt": "清晨住宅区巷口，六十一岁韩国环卫女工：圆脸，眼袋深，灰白短卷发，花白眉毛，鼻头圆润，嘴角纹深，橙色环卫马甲配灰色围巾，神情朴实警觉，左手背有一颗小痣推着清洁车缓行，忽然停住望向墙边，脸色发白，镜头缓缓前推，不拍墙边近景",
+      "purpose": "第一案：环卫工在巷口停住（C3 露脸）",
+      "transition_out": "切警戒线",
+      "graphic": "",
+      "cast": [
+        "C3"
+      ],
+      "seed": 20050614,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "清晨市声"
+    },
+    {
+      "id": "S08",
+      "kind": "zhipu",
+      "start": 42,
+      "duration": 6,
+      "narration_id": "N02",
+      "prompt": "警戒线外的老巷子，五十二岁韩国男刑警：宽阔国字脸，下颌厚重，额头三道深横纹，浓重铁灰眉毛，宽直鼻梁，嘴角微垂，铁灰色短发向后梳，深灰色大衣配起皱的白衬衫，神情沉稳锐利带着警员快步走来，环视现场后低声下令，镜头缓慢横移",
+      "purpose": "第一案：专案组长到场（C1 露脸）",
+      "transition_out": "切会议室",
+      "graphic": "",
+      "cast": [
+        "C1"
+      ],
+      "seed": 20050615,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "人群低语"
+    },
+    {
+      "id": "S09",
+      "kind": "zhipu",
+      "start": 48,
+      "duration": 6,
+      "narration_id": "N02",
+      "prompt": "老式警局会议室，五十二岁韩国男刑警：宽阔国字脸，下颌厚重，额头三道深横纹，浓重铁灰眉毛，宽直鼻梁，嘴角微垂，铁灰色短发向后梳，深灰色大衣配起皱的白衬衫，神情沉稳锐利指着摊开的地图说话，旁边的三十岁韩国男刑警：清瘦长脸，单眼皮眼睛明亮，眉毛整齐，鼻梁挺直，薄唇，黑色短发侧分，藏青色夹克配浅蓝衬衫，神情干练而急切皱眉摇头，镜头缓缓前推，纸面内容模糊不可读",
+      "purpose": "第一案：会议室里拼不出凶手（C1+C2 露脸）",
+      "transition_out": "切监控室",
+      "graphic": "",
+      "cast": [
+        "C1",
+        "C2"
+      ],
+      "seed": 20050616,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "纸张声"
+    },
+    {
+      "id": "S10",
+      "kind": "zhipu",
+      "start": 54,
+      "duration": 6,
+      "narration_id": "N02",
+      "prompt": "昏暗监控室里，三十岁韩国男刑警：清瘦长脸，单眼皮眼睛明亮，眉毛整齐，鼻梁挺直，薄唇，黑色短发侧分，藏青色夹克配浅蓝衬衫，神情干练而急切盯着满是雪花的老式监视器，屏幕微光映在他脸上，他揉了揉眉心，镜头缓缓推近",
+      "purpose": "第一案：监控什么都没拍到（C2 露脸）",
+      "transition_out": "切第二案车站夜景",
+      "graphic": "",
+      "cast": [
+        "C2"
+      ],
+      "seed": 20050617,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "固定缓推",
+      "sfx_note": "电流底噪"
+    },
+    {
+      "id": "S11",
+      "kind": "zhipu",
+      "start": 60,
+      "duration": 6,
+      "narration_id": "N03",
+      "prompt": "2005年的首尔地铁站出口夜景，四十四岁韩国女子：方圆脸，眼尾有细纹，浓眉，鼻翼略宽，嘴唇偏厚，深棕色短发烫卷，暗红色外套配黑长裤，神情干练中带着疲惫，左眉上方有一颗浅痣随人流走出车站，拢了拢外套往小巷走去，镜头缓慢横移",
+      "purpose": "第二案前：中年女子夜里出站（C5 露脸）",
+      "transition_out": "切清晨巷口发现",
+      "graphic": "",
+      "cast": [
+        "C5"
+      ],
+      "seed": 20050618,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "车站人声"
+    },
+    {
+      "id": "S12",
+      "kind": "zhipu",
+      "start": 66,
+      "duration": 6,
+      "narration_id": "N03",
+      "prompt": "清晨住宅区停车场边，四十六岁韩国小吃店主：圆胖脸，双颊饱满，小眼睛，粗眉毛，宽鼻子，黑色短寸头，深色围裙配格子衬衫，神情热心又慌张，笑起来眼角纹很深望见墙边的大包裹，停步后退，掏出老式手机报警，镜头缓缓前推，不拍包裹近景",
+      "purpose": "第二案：店主清晨发现异常（C6 露脸）",
+      "transition_out": "切第二现场封锁",
+      "graphic": "",
+      "cast": [
+        "C6"
+      ],
+      "seed": 20050619,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "清晨市声"
+    },
+    {
+      "id": "S13",
+      "kind": "zhipu",
+      "start": 72,
+      "duration": 6,
+      "narration_id": "N03",
+      "prompt": "第二次被封锁的住宅区巷子，五十二岁韩国男刑警：宽阔国字脸，下颌厚重，额头三道深横纹，浓重铁灰眉毛，宽直鼻梁，嘴角微垂，铁灰色短发向后梳，深灰色大衣配起皱的白衬衫，神情沉稳锐利站在警戒线内望着居民楼，神情比五个月前更沉，镜头缓慢横移",
+      "purpose": "第二案：同一社区再次封锁（C1 露脸）",
+      "transition_out": "切证物台绳结",
+      "graphic": "",
+      "cast": [
+        "C1"
+      ],
+      "seed": 20050620,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "人群低语"
+    },
+    {
+      "id": "S14",
+      "kind": "zhipu",
+      "start": 78,
+      "duration": 6,
+      "narration_id": "N03",
+      "prompt": "证物室台面上，戴手套的手缓缓转动一截打着繁复绳结的旧绳索，旁边放着席垫边角，镜头缓缓推近",
+      "purpose": "第二案：绳结成为共同签名（手部特写，无脸空镜）",
+      "transition_out": "切双案对照",
+      "graphic": "",
+      "cast": [],
+      "seed": 20050621,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "固定缓推",
+      "sfx_note": "手套摩擦声"
+    },
+    {
+      "id": "S15",
+      "kind": "zhipu",
+      "start": 84,
+      "duration": 6,
+      "narration_id": "N03",
+      "prompt": "警局办公室，墙上两张模糊的现场照片之间被拉起一根红线，五十二岁韩国男刑警：宽阔国字脸，下颌厚重，额头三道深横纹，浓重铁灰眉毛，宽直鼻梁，嘴角微垂，铁灰色短发向后梳，深灰色大衣配起皱的白衬衫，神情沉稳锐利与身旁的三十岁韩国男刑警：清瘦长脸，单眼皮眼睛明亮，眉毛整齐，鼻梁挺直，薄唇，黑色短发侧分，藏青色夹克配浅蓝衬衫，神情干练而急切对视一眼，都意识到了什么，镜头缓缓前推",
+      "purpose": "第二案：两案并作一案（C1+C2 露脸）",
+      "transition_out": "切专案组长夜",
+      "graphic": "",
+      "cast": [
+        "C1",
+        "C2"
+      ],
+      "seed": 20050622,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "低音"
+    },
+    {
+      "id": "S16",
+      "kind": "zhipu",
+      "start": 90,
+      "duration": 6,
+      "narration_id": "N04",
+      "prompt": "深夜专案组办公室，台灯下卷宗堆积如山，五十二岁韩国男刑警：宽阔国字脸，下颌厚重，额头三道深横纹，浓重铁灰眉毛，宽直鼻梁，嘴角微垂，铁灰色短发向后梳，深灰色大衣配起皱的白衬衫，神情沉稳锐利揉着眼睛继续翻页，对面的三十岁韩国男刑警：清瘦长脸，单眼皮眼睛明亮，眉毛整齐，鼻梁挺直，薄唇，黑色短发侧分，藏青色夹克配浅蓝衬衫，神情干练而急切趴在桌上睡着了，镜头缓缓推近",
+      "purpose": "僵局：专案组的长夜（C1+C2 露脸）",
+      "transition_out": "切老录像机",
+      "graphic": "",
+      "cast": [
+        "C1",
+        "C2"
+      ],
+      "seed": 20050623,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "固定缓推",
+      "sfx_note": "翻页声"
+    },
+    {
+      "id": "S17",
+      "kind": "zhipu",
+      "start": 96,
+      "duration": 6,
+      "narration_id": "N04",
+      "prompt": "老式录像机旁，三十岁韩国男刑警：清瘦长脸，单眼皮眼睛明亮，眉毛整齐，鼻梁挺直，薄唇，黑色短发侧分，藏青色夹克配浅蓝衬衫，神情干练而急切按下播放键，盯着雪花屏上模糊的人影，越看眉头越紧，镜头缓缓推近",
+      "purpose": "僵局：模糊监控拼不出脸（C2 露脸）",
+      "transition_out": "切楼梯间逃脱",
+      "graphic": "",
+      "cast": [
+        "C2"
+      ],
+      "seed": 20050624,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "磁带杂音"
+    },
+    {
+      "id": "S18",
+      "kind": "zhipu",
+      "start": 102,
+      "duration": 6,
+      "narration_id": "N04",
+      "prompt": "老式住宅楼楼梯间，二十七岁韩国女子：小圆脸，圆眼睛，眉尾下垂，鼻头小巧，唇色发白，黑色中长发微乱，浅灰色卫衣配牛仔裤，神情惊惶未定，眼圈微红，像刚哭过仓皇跑上楼，躲到鞋柜后面屏住呼吸，鞋柜旁贴着一张白色卡通贴纸，镜头缓慢横移",
+      "purpose": "流氓兔：逃脱者躲进楼梯间（C10 露脸）",
+      "transition_out": "切巷口走访",
+      "graphic": "",
+      "cast": [
+        "C10"
+      ],
+      "seed": 20050625,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "急促呼吸"
+    },
+    {
+      "id": "S19",
+      "kind": "zhipu",
+      "start": 108,
+      "duration": 6,
+      "narration_id": "N04",
+      "prompt": "住宅区巷口，三十岁韩国男刑警：清瘦长脸，单眼皮眼睛明亮，眉毛整齐，鼻梁挺直，薄唇，黑色短发侧分，藏青色夹克配浅蓝衬衫，神情干练而急切拿着笔记本挨个询问居民，居民们纷纷摇头，他在本子上划掉一行，镜头缓慢横移，纸面不可读",
+      "purpose": "流氓兔：走访居民（C2 露脸）",
+      "transition_out": "切档案封存",
+      "graphic": "",
+      "cast": [
+        "C2"
+      ],
+      "seed": 20050626,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "人群低语"
+    },
+    {
+      "id": "S20",
+      "kind": "zhipu",
+      "start": 114,
+      "duration": 6,
+      "narration_id": "N04",
+      "prompt": "昏暗档案室，五十二岁韩国男刑警：宽阔国字脸，下颌厚重，额头三道深横纹，浓重铁灰眉毛，宽直鼻梁，嘴角微垂，铁灰色短发向后梳，深灰色大衣配起皱的白衬衫，神情沉稳锐利把贴好封条的档案盒推入铁柜深处，手在柜门上停了几秒，才缓缓合上，镜头缓缓前推",
+      "purpose": "僵局收束：卷宗封存进铁柜（C1 露脸，2013）",
+      "transition_out": "切 2016 重启",
+      "graphic": "",
+      "cast": [
+        "C1"
+      ],
+      "seed": 20050627,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "铁柜声"
+    },
+    {
+      "id": "S21",
+      "kind": "zhipu",
+      "start": 120,
+      "duration": 6,
+      "narration_id": "N05",
+      "prompt": "白天的冷案组办公室，四十五岁韩国女刑警：利落方脸，剑眉，丹凤眼，鼻梁高直，淡妆红唇，黑色齐耳短发，深色西装配白衬衫，神情冷静坚定，左耳戴细圈耳环，目光锐利重新打开落灰的档案盒，阳光从百叶窗照在卷宗上，她抬头看向窗外，镜头缓慢横移",
+      "purpose": "转机：2016 年卷宗重见天日（C8 露脸）",
+      "transition_out": "切实验室取样",
+      "graphic": "",
+      "cast": [
+        "C8"
+      ],
+      "seed": 20050628,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "纸张声"
+    },
+    {
+      "id": "S22",
+      "kind": "zhipu",
+      "start": 126,
+      "duration": 6,
+      "narration_id": "N05",
+      "prompt": "法医实验室，三十五岁韩国女法医：清秀瓜子脸，细长眉眼，鼻梁秀挺，薄唇，黑色长发扎低马尾，白大褂配浅绿色手术服，神情专注细致，戴细框眼镜，神情沉静戴着手套，用镊子从旧衣物上夹取纤维样本放进试管，动作极轻，镜头缓缓推近",
+      "purpose": "转机：旧衣物重新取样（C9 露脸）",
+      "transition_out": "切测序仪",
+      "graphic": "",
+      "cast": [
+        "C9"
+      ],
+      "seed": 20050629,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "固定缓推",
+      "sfx_note": "仪器轻响"
+    },
+    {
+      "id": "S23",
+      "kind": "zhipu",
+      "start": 132,
+      "duration": 6,
+      "narration_id": "N05",
+      "prompt": "实验室里离心机与测序仪运转，试管在蓝光下旋转，三十五岁韩国女法医：清秀瓜子脸，细长眉眼，鼻梁秀挺，薄唇，黑色长发扎低马尾，白大褂配浅绿色手术服，神情专注细致，戴细框眼镜，神情沉静在旁盯着仪器记录，镜头缓慢横移，屏幕无文字数字",
+      "purpose": "转机：仪器里的答案（C9 露脸）",
+      "transition_out": "切全国走访",
+      "graphic": "",
+      "cast": [
+        "C9"
+      ],
+      "seed": 20050630,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "仪器嗡鸣"
+    },
+    {
+      "id": "S24",
+      "kind": "zhipu",
+      "start": 138,
+      "duration": 6,
+      "narration_id": "N05",
+      "prompt": "医院走廊，四十五岁韩国女刑警：利落方脸，剑眉，丹凤眼，鼻梁高直，淡妆红唇，黑色齐耳短发，深色西装配白衬衫，神情冷静坚定，左耳戴细圈耳环，目光锐利向护士站出示证件询问，抱着一摞名单继续走向下一间诊室，镜头缓缓前推，纸面不可读",
+      "purpose": "转机：二十三万人里找一个人（C8 露脸）",
+      "transition_out": "切深夜名单",
+      "graphic": "",
+      "cast": [
+        "C8"
+      ],
+      "seed": 20050631,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "脚步声"
+    },
+    {
+      "id": "S25",
+      "kind": "zhipu",
+      "start": 144,
+      "duration": 6,
+      "narration_id": "N05",
+      "prompt": "深夜办公室，四十五岁韩国女刑警：利落方脸，剑眉，丹凤眼，鼻梁高直，淡妆红唇，黑色齐耳短发，深色西装配白衬衫，神情冷静坚定，左耳戴细圈耳环，目光锐利在长名单上逐行划掉名字，划到最后一行停住笔，抬头望向窗外，镜头缓缓推近，纸面不可读",
+      "purpose": "转机：活人名单划到尽头（C8 露脸）",
+      "transition_out": "切地下室走廊",
+      "graphic": "",
+      "cast": [
+        "C8"
+      ],
+      "seed": 20050632,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "固定缓推",
+      "sfx_note": "笔尖声"
+    },
+    {
+      "id": "S26",
+      "kind": "zhipu",
+      "start": 150,
+      "duration": 6,
+      "narration_id": "N06",
+      "prompt": "老大楼地下储藏室走廊，六十三岁韩国大楼管理员：瘦长脸，颧骨突出，眼窝深陷，稀疏灰眉，高鼻梁，薄唇紧抿，花白平头，旧蓝灰色工作服腰间挂一串钥匙，神情阴郁寡言提着工具箱缓缓走过，昏黄灯光打在他脸上，镜头缓缓前推",
+      "purpose": "真凶：那栋楼的地下室（C7 露脸）",
+      "transition_out": "切 2006 走廊",
+      "graphic": "",
+      "cast": [
+        "C7"
+      ],
+      "seed": 20050633,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "脚步回声"
+    },
+    {
+      "id": "S27",
+      "kind": "zhipu",
+      "start": 156,
+      "duration": 6,
+      "narration_id": "N06",
+      "prompt": "老式警局走廊，两名警员带着六十三岁韩国大楼管理员：瘦长脸，颧骨突出，眼窝深陷，稀疏灰眉，高鼻梁，薄唇紧抿，花白平头，旧蓝灰色工作服腰间挂一串钥匙，神情阴郁寡言走过，他低着头，脸半隐在阴影里，镜头缓慢横移",
+      "purpose": "真凶：2006 年他曾被带走（C7 露脸）",
+      "transition_out": "切医院档案室",
+      "graphic": "",
+      "cast": [
+        "C7"
+      ],
+      "seed": 20050634,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢横移",
+      "sfx_note": "脚步声"
+    },
+    {
+      "id": "S28",
+      "kind": "zhipu",
+      "start": 162,
+      "duration": 6,
+      "narration_id": "N06",
+      "prompt": "医院病理档案室，四十五岁韩国女刑警：利落方脸，剑眉，丹凤眼，鼻梁高直，淡妆红唇，黑色齐耳短发，深色西装配白衬衫，神情冷静坚定，左耳戴细圈耳环，目光锐利戴着手套从抽屉中取出一小管封存的检体样本，在场的人都屏住呼吸，镜头缓缓推近",
+      "purpose": "真凶：一管留存十年的检体（C8 露脸）",
+      "transition_out": "切实验室比对",
+      "graphic": "",
+      "cast": [
+        "C8"
+      ],
+      "seed": 20050635,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢前推",
+      "sfx_note": "抽屉声"
+    },
+    {
+      "id": "S29",
+      "kind": "zhipu",
+      "start": 168,
+      "duration": 6,
+      "narration_id": "N06",
+      "prompt": "实验室监视器上两条基因曲线缓缓重合，画面无文字数字，四十五岁韩国女刑警：利落方脸，剑眉，丹凤眼，鼻梁高直，淡妆红唇，黑色齐耳短发，深色西装配白衬衫，神情冷静坚定，左耳戴细圈耳环，目光锐利眼眶泛红长出一口气，身旁的三十五岁韩国女法医：清秀瓜子脸，细长眉眼，鼻梁秀挺，薄唇，黑色长发扎低马尾，白大褂配浅绿色手术服，神情专注细致，戴细框眼镜，神情沉静轻轻点头，镜头缓缓推近",
+      "purpose": "真凶：DNA 对上了（C8+C9 露脸）",
+      "transition_out": "切清晨巷子收尾",
+      "graphic": "",
+      "cast": [
+        "C8",
+        "C9"
+      ],
+      "seed": 20050636,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "固定缓推",
+      "sfx_note": "仪器提示音"
+    },
+    {
+      "id": "S30",
+      "kind": "zhipu",
+      "start": 174,
+      "duration": 6,
+      "narration_id": "N06",
+      "prompt": "清晨阳光照进新亭洞小巷，居民买菜遛狗如常生活，四十五岁韩国女刑警：利落方脸，剑眉，丹凤眼，鼻梁高直，淡妆红唇，黑色齐耳短发，深色西装配白衬衫，神情冷静坚定，左耳戴细圈耳环，目光锐利望着那栋大楼片刻，转身走出巷子，镜头缓缓拉远",
+      "purpose": "收尾：巷子恢复日常，问题留给观众（C8 露脸）",
+      "transition_out": "淡出",
+      "graphic": "",
+      "cast": [
+        "C8"
+      ],
+      "seed": 20050637,
+      "seconds": 10,
+      "aspect": "16:9",
+      "resolution": "1920x1080",
+      "frame_rate": 30,
+      "camera": "缓慢拉远",
+      "sfx_note": "清晨市声"
+    }
+  ],
+  "presentation": {
+    "card_header": "",
+    "card_footer": "",
+    "cards": {},
+    "title_card": [
+      "新亭洞连环杀人案",
+      "凶手找到了 · 却已死去十年"
+    ],
+    "end_card": [],
+    "caption_keywords": [
+      "二十年",
+      "新亭洞连环杀人案",
+      "流氓兔",
+      "悬案",
+      "基因",
+      "二十三万多人",
+      "一千五百一十四人",
+      "死者",
+      "管理员A某",
+      "对上了",
+      "没有审判"
+    ],
+    "label_overrides": {},
+    "sfx_events": [
+      [
+        "S04",
+        "paper"
+      ],
+      [
+        "S09",
+        "paper"
+      ],
+      [
+        "S14",
+        "keys"
+      ],
+      [
+        "S16",
+        "paper"
+      ],
+      [
+        "S20",
+        "keys"
+      ],
+      [
+        "S28",
+        "paper"
+      ]
+    ],
+    "captions_en": {
+      "N01": [
+        "In an ordinary Seoul neighborhood",
+        "hid a killer sought for twenty years",
+        "He worked in the very building his victims entered",
+        "watching crowds pass every day",
+        "In 2025",
+        "police finally named him",
+        "But by then",
+        "he had been dead for ten years",
+        "This is the Sinjeong-dong serial murder case."
+      ],
+      "N02": [
+        "On the morning of June 7, 2005",
+        "in an alley in Sinjeong-dong",
+        "a street sweeper saw two rice sacks tied together",
+        "a pale hand showing at the opening",
+        "Inside",
+        "was the first victim",
+        "a woman in her twenties",
+        "There were no witnesses",
+        "and no camera had caught the killer",
+        "The first murder",
+        "was now before the Seoul police."
+      ],
+      "N03": [
+        "Five months later",
+        "on November 20",
+        "another bundle appeared in the same neighborhood",
+        "the body wrapped in a mat",
+        "bound tightly with rope",
+        "The victim was a woman in her forties",
+        "last seen on station cameras the night before",
+        "who never made it home",
+        "The two victims had never met",
+        "yet the cause of death was the same",
+        "and so was the binding",
+        "Police finally realized",
+        "this was not two separate cases",
+        "the same man had struck a second time."
+      ],
+      "N04": [
+        "A 38-officer task force",
+        "investigated for eight years",
+        "But the scene left no DNA that could name him",
+        "and grainy footage drew no face",
+        "In 2006",
+        "another woman escaped an abduction",
+        "remembering only a cartoon-rabbit sticker where she hid",
+        "Everyone believed",
+        "she had escaped the same hands",
+        "Only years later did police confirm",
+        "it was a false lead left by a different man",
+        "In 2013",
+        "the case went cold."
+      ],
+      "N05": [
+        "The break",
+        "came from twenty-year-old evidence",
+        "In 2016",
+        "a cold-case team took over the file",
+        "In 2020",
+        "new forensic technology",
+        "from the first victim's clothing",
+        "and from the rope in the second case",
+        "recovered one man's DNA",
+        "Police screened more than 230,000 people",
+        "collected samples from 1,514 of them",
+        "and even compared databases overseas",
+        "yet no living person matched",
+        "So",
+        "they turned their list to the dead."
+      ],
+      "N06": [
+        "Among 56 deceased candidates",
+        "emerged the building caretaker, Mr. A",
+        "Both victims had entered the building he kept",
+        "and in 2006 he was arrested for another assault",
+        "yet no one linked him to the two murders",
+        "He had died in 2015 and been cremated",
+        "so police searched forty medical facilities",
+        "until one stored sample was found",
+        "On November 21, 2025",
+        "the DNA result gave one answer",
+        "a match",
+        "The killer was found",
+        "but he will never stand trial",
+        "Police said",
+        "a murderer",
+        "must be tracked even into the afterlife",
+        "This answer, twenty years late",
+        "left the families",
+        "only the truth",
+        "and no trial."
+      ]
+    },
+    "model": "cogvideox-flash",
+    "style_note": "参考片式：真人实拍感年代剧情景重现 + 连续旁白 + 中英双语字幕；0 信息卡、0 片尾卡"
+  }
+}

@@ -95,7 +95,9 @@ def project_paths(project: Path) -> tuple[Path, Path, Path]:
 
 
 def agnes_shots(story: dict) -> dict[str, dict]:
-    return {shot["id"]: shot for shot in story.get("shots", []) if shot.get("kind") == "agnes"}
+    # kind=agnes（Agnes 镜头）或 zhipu（智谱 CogVideoX 镜头）都算 AI 生成镜头
+    return {shot["id"]: shot for shot in story.get("shots", [])
+            if shot.get("kind") in ("agnes", "zhipu")}
 
 
 def _token_bigrams(text: str) -> set[str]:
@@ -215,7 +217,7 @@ def check_prompts(project: Path) -> dict:
     for shot_id, declared in sorted(shots_map.items()):
         declared_ids = [str(x) for x in (declared or [])]
         if shot_id not in shots:
-            errors.append(f"cast.json 声明了镜头 {shot_id}，但 story.json 里没有这个 Agnes 镜头")
+            errors.append(f"cast.json 声明了镜头 {shot_id}，但 story.json 里没有这个生成镜头")
             continue
         if not declared_ids:
             errors.append(f"镜头 {shot_id} 的声明是空列表：删掉它，或写上角色 id")
@@ -231,9 +233,9 @@ def check_prompts(project: Path) -> dict:
                 errors.append(
                     f"镜头 {shot_id} 的提示词里没有角色 {cid} 的 face token（必须逐字节照抄）："
                     "跨镜头同一张脸靠的就是这段文字")
-            # 不许夹带别角色的 token
+            # 不许夹带未声明角色的 token（同镜已声明的多人同框不算夹带）
             for other in ids:
-                if other == cid:
+                if other == cid or other in declared_ids:
                     continue
                 other_face = (by_id[other].get("face") or "").strip()
                 if other_face and other_face in prompt:
