@@ -22,7 +22,7 @@ sys.path.insert(0, str(HERE))
 from media import probe  # noqa: E402
 
 ATTEMPTS = 4
-MIN_DURATION = 6.0
+MIN_DURATION = 4.0
 MAX_DURATION = 20.0
 
 

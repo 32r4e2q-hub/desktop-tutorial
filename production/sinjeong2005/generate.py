@@ -60,9 +60,12 @@ def full_prompt(project, shot):
 
 
 def payload_for(project, shot):
+    # 已实测：cogvideox-flash 用 quality="speed" 档可提交；图生视频（首帧图）才给 10 秒，
+    # 文生视频只有约 5 秒。所以每镜先 CogView 出首帧、再图生视频（mode 记进请求哈希）。
     return {"model": MODEL, "prompt": full_prompt(project, shot),
-            "quality": os.getenv("ZHIPU_QUALITY", "quality"),
-            "size": SIZE, "fps": FPS, "duration": DURATION}
+            "quality": os.getenv("ZHIPU_QUALITY", "speed"),
+            "size": SIZE, "fps": FPS, "duration": DURATION,
+            "mode": "image_first_v1"}
 
 
 def request_hash(project, shot):
@@ -102,7 +105,7 @@ def inspect_clip(path, qa_dir, sid):
     sys.path.insert(0, str(HERE))
     from media import probe
     info = probe(path)
-    if info["duration"] < 6 or info.get("width", 0) < 640:
+    if info["duration"] < 4.5 or info.get("width", 0) < 640:
         raise RuntimeError(f"{sid}: clip unusable: {info}")
     # 接触表：每秒 1 帧、缩到 320 宽、5×2 平铺（Actions 里有 ffmpeg）
     if shutil.which("ffmpeg"):
@@ -206,15 +209,19 @@ def main():
     from zhipuai import ZhipuAI
     client = ZhipuAI(api_key=api_key)
 
-    def submit(shot):
-        """提交一镜；1305/429 退避，参数不兼容时降档（quality→speed、1080p→720p）。"""
+    def submit(shot, image_url=None):
+        """提交一镜：1305/429 只原地退避等待（换参数解决不了限流）；真参数错才降一档。"""
         base = payload_for(project, shot)
-        variants = [base,
-                    {**base, "quality": "speed"},
-                    {**base, "quality": "speed", "size": "1280x720"}]
+        base.pop("mode", None)
+        if image_url:
+            base["image_url"] = image_url
+        variants = [base]
+        if image_url:
+            variants.append({k: v for k, v in base.items() if k != "image_url"})  # 图生失败退文生
+        variants.append({**base, "size": "1280x720"})
         last_error = None
         for variant in variants:
-            for attempt in range(1, 11):
+            for attempt in range(1, 41):
                 try:
                     resp = client.videos.generations(**variant)
                     task_id = getattr(resp, "id", None) or (resp.get("id") if isinstance(resp, dict) else None)
@@ -225,15 +232,27 @@ def main():
                     last_error = exc
                     msg = str(exc)
                     if "1305" in msg or "429" in msg or "访问量过大" in msg:
-                        wait = min(180, 20 * attempt)
-                        print(f"{shot['id']}: 智谱限流 1305，第 {attempt} 次，等待 {wait}s", flush=True)
+                        print(f"{shot['id']}: 智谱限流 1305，第 {attempt} 次，等 30s", flush=True)
                         checkpoint(shot["id"] + " rate limited", shot["id"], status="rate_limited",
                                    error=msg.replace(api_key, "[redacted]")[:400])
-                        time.sleep(wait)
+                        time.sleep(30)
                         continue
-                    print(f"{shot['id']}: 参数档失败，尝试降档：{msg[:200]}", flush=True)
-                    break  # 换下一档参数
+                    print(f"{shot['id']}: 本档提交失败，尝试下一档：{msg[:200]}", flush=True)
+                    break
         raise RuntimeError(f"提交失败：{last_error}")
+
+    def make_first_frame(shot):
+        """用 CogView-3-Flash（免费）按同一提示词出首帧图，返回图片 URL；失败返回 None 走文生。"""
+        try:
+            resp = client.images.generations(
+                model="cogview-3-flash", prompt=full_prompt(project, shot), size="1344x768")
+            data = getattr(resp, "data", None) or (resp.get("data") if isinstance(resp, dict) else None)
+            if data:
+                first = data[0]
+                return getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
+        except Exception as exc:  # noqa: BLE001
+            print(f"{shot['id']}: 首帧图生成失败，改走文生：{str(exc)[:200]}", flush=True)
+        return None
 
     def generate(shot):
         sid = shot["id"]
@@ -257,9 +276,13 @@ def main():
                 checkpoint(sid + " pending (budget)", sid, status="pending", request_hash=wanted)
                 return False
             checkpoint(sid + " submitting", sid, status="submitting", request_hash=wanted, error=None)
-            task_id, used = submit(shot)
+            image_url = make_first_frame(shot)
+            if image_url:
+                checkpoint(sid + " first frame ready", sid, status="first_frame", image_url=image_url)
+            task_id, used = submit(shot, image_url=image_url)
             checkpoint(sid + " queued", sid, status="queued", task_id=task_id,
-                       used_params={k: used[k] for k in ("quality", "size", "fps", "duration")})
+                       used_params={k: used.get(k) for k in ("quality", "size", "fps", "duration")},
+                       image_first=bool(used.get("image_url")))
             started = time.time()
             while True:
                 if time.time() - started > 1200:
