@@ -262,13 +262,13 @@
     },
     "S11": {
       "id": "S11",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "bc4547afc9906f9638c70814721fff257cb798578af41e83504bf88332ae5231",
-      "error": null,
-      "updated_at": "2026-10-13T18:06:14Z"
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "updated_at": "2026-10-13T18:06:22Z"
     }
   },
-  "updated_at": "2026-10-13T18:06:14Z",
+  "updated_at": "2026-10-13T18:06:22Z",
   "run_id": "38420587891",
   "phase": "selected_sources_ready"
 }
