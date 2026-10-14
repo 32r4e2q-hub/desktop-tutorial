@@ -777,10 +777,10 @@
     },
     "S27": {
       "id": "S27",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "04a44505560cb6252e9685415966944f38ebc81e98e50b2339c122829ad93193",
-      "updated_at": "2026-10-14T12:04:11Z",
-      "error": null,
+      "updated_at": "2026-10-14T12:34:22Z",
+      "error": "任务多次 FAIL：VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：2026101420041128c27f0e4e9a405d，请稍后重试'})",
       "task_id": "2026101420041128c27f0e4e9a405d",
       "used_params": {
         "quality": "speed",
@@ -1199,7 +1199,7 @@
       "resubmits": 2
     }
   },
-  "updated_at": "2026-10-14T12:33:40Z",
+  "updated_at": "2026-10-14T12:34:22Z",
   "run_id": "38527054416",
   "phase": "generation_incomplete"
 }
