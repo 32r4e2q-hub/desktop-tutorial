@@ -74,6 +74,7 @@ jobs:
 
       - name: Validate, restore footage, render with measured audio, publish reports
         env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
           PROJECT: sinjeong2005
           SKIP_ASR: ${{ inputs.skip_asr || 'false' }}
           FILM_NAME: ${{ env.FILM_NAME }}
