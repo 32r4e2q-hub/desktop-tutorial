@@ -1,5 +1,11 @@
 # 金大斗：一条牛仔裤，牵出十七条人命
 
+## 最新实测结果：PIXAZO要求绑卡，已暂停（2026-10-14 07:38 UTC）
+
+首个真实S01请求返回 **HTTP402 `card_required`**，请求未获受理，无任务编号、0/38完成；不是429限流。运行[38529522117](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38529522117)已结束failure并跳过续跑。密钥成功注入至请求，但402不能证明账户已获免费权益或全面鉴权成功。
+
+`pixazo-results.json` 为 paused_error，S01 blocked。没有后台生成循环正在运行，Agnes也已停止。不要盲目重跑/换key/充值/切付费型号。需用户在PIXAZO控制台核对激活、免费LTX权益与账单设置；确认后再恢复。恢复前仅可将明确402且无任务编号的blocked条目转pending，保留原HTTP回执；不得清除未知提交或已有任务编号。
+
 ## 最新切换：PIXAZO（2026-10-14，覆盖下方Agnes历史说明）
 
 用户已明确允许PIXAZO替代Agnes。Agnes控制开关已关闭；38个动画分镜、旁白和180秒时间轴沿用，plan中kind=agnes仅为历史字段，不代表实际来源。

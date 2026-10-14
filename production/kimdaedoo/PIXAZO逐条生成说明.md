@@ -27,3 +27,7 @@
 - 内容哈希命名MP4立即归档至私有仓库Release `kimdaedoo-pixazo-source-clips`。Actions14天artifact只是备份，不是唯一存储。
 - 恢复命令：`python production/kimdaedoo/fetch_sources.py --results production/kimdaedoo/pixazo-results.json --dest work/kimdaedoo/sources`，Release恢复需GH_TOKEN。
 - 所有素材完成不等于成片完成，之后仍需合成、字幕/声音复核与人工质检。
+
+## 首次真实调用结果（2026-10-14 07:38 UTC）
+
+工作流38529522117：S01 POST返回HTTP402 `card_required`，无request_id，0/38。队列paused_error，无自动续跑。不是限流，继续退避不能解决账户激活门槛。没有充值或修改支付设置。等待用户自行核对控制台激活与免费权益后恢复，保留本次回执。
