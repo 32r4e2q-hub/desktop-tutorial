@@ -704,13 +704,21 @@
     },
     "S40": {
       "id": "S40",
-      "status": "submitting",
+      "status": "queued",
       "request_hash": "9162b749cd367fff50ad4dd93c2468d75faf9d3a4e06600fd13568a96b476fa6",
-      "updated_at": "2026-10-14T02:24:42Z",
-      "error": null
+      "updated_at": "2026-10-14T02:25:23Z",
+      "error": null,
+      "task_id": "20261014102522c688771d9020433f",
+      "used_params": {
+        "quality": "speed",
+        "size": "1920x1080",
+        "fps": 30,
+        "duration": 10
+      },
+      "image_first": false
     }
   },
-  "updated_at": "2026-10-14T02:24:42Z",
+  "updated_at": "2026-10-14T02:25:23Z",
   "run_id": "38487898058",
   "phase": "generation_incomplete"
 }
