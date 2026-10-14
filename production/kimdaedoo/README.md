@@ -92,3 +92,7 @@ python3 -m pytest production/tests -q
 队列仅Agnes Flash，每次受理一个任务，全部API请求间隔至少75秒；队列满退避到15分钟。
 循环由GitHub执行，不依赖沙箱；单轮3小时到期通过显式workflow_dispatch接续，不靠机器人push递归触发。
 循环授权不等于零费用证明，收费/额度/鉴权/提交状态不明时暂停。所有动画来源完成后仍需整片合成和人工QC。
+
+### 自动接续实测通过
+
+首轮 https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38516436524 已成功结束，并实际启动workflow_dispatch轮 https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38516706194 。这不是仅部署了代码：第二轮已运行队列步骤。当前仍是0/38、队列满，在GitHub继续退避重试；最新状态以results.json为准。循环配置Drive备份：https://drive.google.com/file/d/1722h77bvcidAytl-ak2ulmCi_njKgLzR/view 。

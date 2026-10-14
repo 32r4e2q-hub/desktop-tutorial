@@ -5,5 +5,5 @@
   "evidence_url": null,
   "expires_at": null,
   "canary_review_passed": false,
-  "note": "Only account pricing/quota evidence can open this guard. Model-list, invalid-prompt rejection and queue-full errors cannot establish zero billing. This local guard is not a provider-enforced spending cap. No generation submitted."
+  "note": "The older paid-execution gate stays closed: zero billing is not verified. User separately authorized the paced Flash-only queue in LOOP_REQUEST.json; it stops on payment/quota/auth errors and never switches providers/models. This local guard cannot impose a server-side spending cap."
 }
