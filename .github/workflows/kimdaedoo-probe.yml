@@ -1,0 +1,42 @@
+name: 金大斗案 · Agnes模型校验（不生成不付费）
+on:
+  push:
+    branches: [arena/09864331-desktop-tutorial]
+    paths: [production/kimdaedoo/PROBE_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: kimdaedoo-model-validation
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/09864331-desktop-tutorial
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate model names without generating footage
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 -u production/kimdaedoo/probe_models.py
+      - name: Save honest probe result outside the sandbox
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/kimdaedoo/probe/
+          if ! git diff --cached --quiet; then
+            git commit -m 'kimdaedoo: checkpoint Agnes validation result'
+            for attempt in 1 2 3; do
+              if git push origin HEAD:arena/09864331-desktop-tutorial; then exit 0; fi
+              git fetch origin arena/09864331-desktop-tutorial
+              git rebase FETCH_HEAD
+            done
+            exit 1
+          fi
