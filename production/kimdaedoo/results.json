@@ -6,10 +6,10 @@
       "model": "agnes-video-2.5-flash",
       "provider": "Agnes",
       "request_hash": "2ddbc02a2ee098e9d1d7d274de4cf493227fc040e7f632b0d758439ed7631d43",
-      "status": "poll_retry",
+      "status": "generated",
       "http": 200,
-      "detail": "{\"completed_at\":null,\"created_at\":1792016525,\"error\":null,\"expires_at\":null,\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"internal_progress\":0,\"internal_status\":\"pending\",\"object\":\"video\",\"progress\":10,\"quality\":\"standard\",\"remixed_from_video_id\":null,\"seconds\":\"6\",\"size\":\"720P\",\"started_at\":1792016",
-      "attempt_count": 17,
+      "detail": "{\"completed_at\":1792016927,\"created_at\":1792016525,\"error\":null,\"expires_at\":null,\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"internal_status\":\"pending\",\"object\":\"video\",\"progress\":100,\"quality\":\"standard\",\"remixed_from_video_id\":\"\",\"seconds\":\"6\",\"size\":\"720P\",\"started_at\":1792016749,\"status\":\"com",
+      "attempt_count": 18,
       "recent_responses": [
         {
           "at": 1791955508.742413,
@@ -112,6 +112,12 @@
           "http": 200,
           "kind": "ok",
           "detail": "{\"completed_at\":null,\"created_at\":1792016525,\"error\":null,\"expires_at\":null,\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"internal_progress\":0,\"internal_status\":\"pending\",\"object\":\"video\",\"progress\":10,\"quality\":\"standard\",\"remixed_from_video_id\":null,\"seconds\":\"6\",\"size\":\"720P\",\"started_at\":1792016"
+        },
+        {
+          "at": 1792016997.9537575,
+          "http": 200,
+          "kind": "ok",
+          "detail": "{\"completed_at\":1792016927,\"created_at\":1792016525,\"error\":null,\"expires_at\":null,\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"internal_status\":\"pending\",\"object\":\"video\",\"progress\":100,\"quality\":\"standard\",\"remixed_from_video_id\":\"\",\"seconds\":\"6\",\"size\":\"720P\",\"started_at\":1792016749,\"status\":\"com"
         }
       ],
       "created": {
@@ -131,25 +137,25 @@
       "task_id": "task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f",
       "accepted_at": 1792016526.05426,
       "accepted_count": 1,
-      "last_provider_state": "in_progress",
+      "last_provider_state": "completed",
       "last_poll": {
-        "completed_at": null,
+        "completed_at": 1792016927,
         "created_at": 1792016525,
         "error": null,
         "expires_at": null,
         "id": "task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f",
-        "internal_progress": 0,
         "internal_status": "pending",
         "object": "video",
-        "progress": 10,
+        "progress": 100,
         "quality": "standard",
-        "remixed_from_video_id": null,
+        "remixed_from_video_id": "",
         "seconds": "6",
         "size": "720P",
         "started_at": 1792016749,
-        "status": "in_progress",
-        "url": null
-      }
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f.mp4"
+      },
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f.mp4"
     }
   },
   "review": "pending",
@@ -211,9 +217,9 @@
   },
   "phase": "generating",
   "loop_status": "running",
-  "updated_at": "2026-10-14T22:29:56.370693+00:00",
+  "updated_at": "2026-10-14T22:29:57.953809+00:00",
   "completed_count": 0,
-  "next_request_at": 1792017071.3705928,
+  "next_request_at": 1792017072.9537609,
   "retry_streak": 0,
   "last_backoff_seconds": 900
 }
