@@ -1,663 +1,697 @@
 VALID: 180s plan; 40 Zhipu shots; prompts ≤512 chars; chapters ok
 PRODUCTION_STATUS zhipu generation started
-PRODUCTION_STATUS S01 submitting
-S01: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S01 rate limited
-S01: 智谱限流 1305，第 2 次，等 30s
-S01: 智谱限流 1305，第 3 次，等 30s
-S01: 智谱限流 1305，第 4 次，等 30s
-S01: 智谱限流 1305，第 5 次，等 30s
-S01: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S01 rate limited
-S01: 智谱限流 1305，第 7 次，等 30s
-S01: 智谱限流 1305，第 8 次，等 30s
-S01: 智谱限流 1305，第 9 次，等 30s
-S01: 智谱限流 1305，第 10 次，等 30s
-S01: 智谱限流 1305，第 11 次，等 30s
-PRODUCTION_STATUS S01 rate limited
-S01: 智谱限流 1305，第 12 次，等 30s
-S01: 智谱限流 1305，第 13 次，等 30s
-S01: 智谱限流 1305，第 14 次，等 30s
-PRODUCTION_STATUS S01 queued
-S01: [0s] PROCESSING
-S01: [15s] PROCESSING
-S01: [31s] PROCESSING
-S01: [46s] PROCESSING
-S01: [62s] SUCCESS
-PRODUCTION_STATUS S01 completed
-PRODUCTION_STATUS S02 submitting
-S02: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S02 rate limited
-S02: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S02 queued
-S02: [0s] PROCESSING
-S02: [15s] PROCESSING
-S02: [31s] PROCESSING
-S02: [47s] PROCESSING
-S02: [62s] SUCCESS
-PRODUCTION_STATUS S02 completed
+PRODUCTION_STATUS S33 reused
+PRODUCTION_STATUS S34 reused
+流水线：已完成 2，在队 0，待提交 27
 PRODUCTION_STATUS S03 submitting
 S03: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S03 rate limited
 S03: 智谱限流 1305，第 2 次，等 30s
 S03: 智谱限流 1305，第 3 次，等 30s
 S03: 智谱限流 1305，第 4 次，等 30s
 PRODUCTION_STATUS S03 queued
-S03: [0s] PROCESSING
-S03: [15s] PROCESSING
-S03: [31s] PROCESSING
-S03: [46s] PROCESSING
-S03: [62s] SUCCESS
-PRODUCTION_STATUS S03 completed
 PRODUCTION_STATUS S04 submitting
 S04: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S04 rate limited
 S04: 智谱限流 1305，第 2 次，等 30s
+S04: 智谱限流 1305，第 3 次，等 30s
 PRODUCTION_STATUS S04 queued
-S04: [0s] PROCESSING
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S04: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-PRODUCTION_STATUS S04 failed
-PRODUCTION_STATUS S05 submitting
-PRODUCTION_STATUS S05 queued
-S05: [0s] PROCESSING
-S05: [15s] PROCESSING
-S05: [31s] PROCESSING
-S05: [46s] PROCESSING
-S05: [62s] SUCCESS
-PRODUCTION_STATUS S05 completed
 PRODUCTION_STATUS S06 submitting
 PRODUCTION_STATUS S06 queued
-S06: [0s] PROCESSING
-S06: [15s] PROCESSING
-S06: [31s] PROCESSING
-S06: [46s] PROCESSING
-S06: [62s] SUCCESS
-PRODUCTION_STATUS S06 completed
-PRODUCTION_STATUS S07 submitting
-PRODUCTION_STATUS S07 queued
-S07: [0s] PROCESSING
-S07: [16s] PROCESSING
-S07: [31s] PROCESSING
-S07: [47s] PROCESSING
-S07: [63s] SUCCESS
-PRODUCTION_STATUS S07 completed
-PRODUCTION_STATUS S08 submitting
-S08: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 2 次，等 30s
-S08: 智谱限流 1305，第 3 次，等 30s
-S08: 智谱限流 1305，第 4 次，等 30s
-S08: 智谱限流 1305，第 5 次，等 30s
-S08: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 7 次，等 30s
-S08: 智谱限流 1305，第 8 次，等 30s
-S08: 智谱限流 1305，第 9 次，等 30s
-S08: 智谱限流 1305，第 10 次，等 30s
-S08: 智谱限流 1305，第 11 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 12 次，等 30s
-S08: 智谱限流 1305，第 13 次，等 30s
-S08: 智谱限流 1305，第 14 次，等 30s
-S08: 智谱限流 1305，第 15 次，等 30s
-S08: 智谱限流 1305，第 16 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 17 次，等 30s
-S08: 智谱限流 1305，第 18 次，等 30s
-S08: 智谱限流 1305，第 19 次，等 30s
-S08: 智谱限流 1305，第 20 次，等 30s
-S08: 智谱限流 1305，第 21 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 22 次，等 30s
-S08: 智谱限流 1305，第 23 次，等 30s
-S08: 智谱限流 1305，第 24 次，等 30s
-S08: 智谱限流 1305，第 25 次，等 30s
-S08: 智谱限流 1305，第 26 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 27 次，等 30s
-S08: 智谱限流 1305，第 28 次，等 30s
-S08: 智谱限流 1305，第 29 次，等 30s
-S08: 智谱限流 1305，第 30 次，等 30s
-S08: 智谱限流 1305，第 31 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 32 次，等 30s
-S08: 智谱限流 1305，第 33 次，等 30s
-S08: 智谱限流 1305，第 34 次，等 30s
-S08: 智谱限流 1305，第 35 次，等 30s
-S08: 智谱限流 1305，第 36 次，等 30s
-PRODUCTION_STATUS S08 rate limited
-S08: 智谱限流 1305，第 37 次，等 30s
-PRODUCTION_STATUS S08 queued
-S08: [0s] PROCESSING
-S08: [15s] PROCESSING
-S08: [31s] PROCESSING
-S08: [46s] PROCESSING
-S08: [62s] SUCCESS
-PRODUCTION_STATUS S08 completed
 PRODUCTION_STATUS S09 submitting
+S09: 智谱限流 1305，第 1 次，等 30s
+S09: 智谱限流 1305，第 2 次，等 30s
 PRODUCTION_STATUS S09 queued
-S09: [0s] PROCESSING
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S09: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-PRODUCTION_STATUS S09 failed
-PRODUCTION_STATUS S10 submitting
-S10: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S10 rate limited
-S10: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S10 queued
-S10: [0s] PROCESSING
-S10: [15s] PROCESSING
-S10: [31s] PROCESSING
-S10: [47s] PROCESSING
-S10: [63s] SUCCESS
-PRODUCTION_STATUS S10 completed
 PRODUCTION_STATUS S11 submitting
 S11: 智谱限流 1305，第 1 次，等 30s
+S11: 智谱限流 1305，第 2 次，等 30s
+S11: 智谱限流 1305，第 3 次，等 30s
+S11: 智谱限流 1305，第 4 次，等 30s
+S11: 智谱限流 1305，第 5 次，等 30s
+S11: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S11 rate limited
-PRODUCTION_STATUS S11 queued
-S11: [0s] PROCESSING
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S11: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-PRODUCTION_STATUS S11 failed
 PRODUCTION_STATUS S12 submitting
 S12: 智谱限流 1305，第 1 次，等 30s
+S12: 智谱限流 1305，第 2 次，等 30s
+S12: 智谱限流 1305，第 3 次，等 30s
+S12: 智谱限流 1305，第 4 次，等 30s
+S12: 智谱限流 1305，第 5 次，等 30s
+S12: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S12 rate limited
+PRODUCTION_STATUS S13 submitting
+S13: 智谱限流 1305，第 1 次，等 30s
+S13: 智谱限流 1305，第 2 次，等 30s
+S13: 智谱限流 1305，第 3 次，等 30s
+S13: 智谱限流 1305，第 4 次，等 30s
+S13: 智谱限流 1305，第 5 次，等 30s
+S13: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S13 rate limited
+PRODUCTION_STATUS S16 submitting
+S16: 智谱限流 1305，第 1 次，等 30s
+S16: 智谱限流 1305，第 2 次，等 30s
+S16: 智谱限流 1305，第 3 次，等 30s
+S16: 智谱限流 1305，第 4 次，等 30s
+S16: 智谱限流 1305，第 5 次，等 30s
+S16: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S16 rate limited
+PRODUCTION_STATUS S19 submitting
+S19: 智谱限流 1305，第 1 次，等 30s
+S19: 智谱限流 1305，第 2 次，等 30s
+S19: 智谱限流 1305，第 3 次，等 30s
+S19: 智谱限流 1305，第 4 次，等 30s
+S19: 智谱限流 1305，第 5 次，等 30s
+S19: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S19 rate limited
+PRODUCTION_STATUS S20 submitting
+S20: 智谱限流 1305，第 1 次，等 30s
+S20: 智谱限流 1305，第 2 次，等 30s
+S20: 智谱限流 1305，第 3 次，等 30s
+S20: 智谱限流 1305，第 4 次，等 30s
+S20: 智谱限流 1305，第 5 次，等 30s
+S20: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S20 rate limited
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+S21: 智谱限流 1305，第 4 次，等 30s
+S21: 智谱限流 1305，第 5 次，等 30s
+PRODUCTION_STATUS S21 queued
+PRODUCTION_STATUS S23 submitting
+S23: 智谱限流 1305，第 1 次，等 30s
+S23: 智谱限流 1305，第 2 次，等 30s
+S23: 智谱限流 1305，第 3 次，等 30s
+S23: 智谱限流 1305，第 4 次，等 30s
+S23: 智谱限流 1305，第 5 次，等 30s
+S23: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S23 rate limited
+PRODUCTION_STATUS S24 submitting
+S24: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S24 queued
+PRODUCTION_STATUS S25 submitting
+S25: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S25 queued
+PRODUCTION_STATUS S26 submitting
+S26: 智谱限流 1305，第 1 次，等 30s
+S26: 智谱限流 1305，第 2 次，等 30s
+S26: 智谱限流 1305，第 3 次，等 30s
+S26: 智谱限流 1305，第 4 次，等 30s
+S26: 智谱限流 1305，第 5 次，等 30s
+S26: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S26 rate limited
+PRODUCTION_STATUS S27 submitting
+S27: 智谱限流 1305，第 1 次，等 30s
+S27: 智谱限流 1305，第 2 次，等 30s
+S27: 智谱限流 1305，第 3 次，等 30s
+S27: 智谱限流 1305，第 4 次，等 30s
+S27: 智谱限流 1305，第 5 次，等 30s
+S27: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S27 rate limited
+PRODUCTION_STATUS S28 submitting
+S28: 智谱限流 1305，第 1 次，等 30s
+S28: 智谱限流 1305，第 2 次，等 30s
+S28: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S28 queued
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+S29: 智谱限流 1305，第 3 次，等 30s
+S29: 智谱限流 1305，第 4 次，等 30s
+S29: 智谱限流 1305，第 5 次，等 30s
+S29: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S29 rate limited
+PRODUCTION_STATUS S30 submitting
+S30: 智谱限流 1305，第 1 次，等 30s
+S30: 智谱限流 1305，第 2 次，等 30s
+S30: 智谱限流 1305，第 3 次，等 30s
+S30: 智谱限流 1305，第 4 次，等 30s
+S30: 智谱限流 1305，第 5 次，等 30s
+S30: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S30 rate limited
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+PRODUCTION_STATUS S31 queued
+PRODUCTION_STATUS S32 submitting
+S32: 智谱限流 1305，第 1 次，等 30s
+S32: 智谱限流 1305，第 2 次，等 30s
+S32: 智谱限流 1305，第 3 次，等 30s
+S32: 智谱限流 1305，第 4 次，等 30s
+S32: 智谱限流 1305，第 5 次，等 30s
+S32: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S32 rate limited
+PRODUCTION_STATUS S35 submitting
+S35: 智谱限流 1305，第 1 次，等 30s
+S35: 智谱限流 1305，第 2 次，等 30s
+S35: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S35 queued
+PRODUCTION_STATUS S36 submitting
+S36: 智谱限流 1305，第 1 次，等 30s
+S36: 智谱限流 1305，第 2 次，等 30s
+S36: 智谱限流 1305，第 3 次，等 30s
+S36: 智谱限流 1305，第 4 次，等 30s
+S36: 智谱限流 1305，第 5 次，等 30s
+S36: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S36 rate limited
+PRODUCTION_STATUS S37 submitting
+S37: 智谱限流 1305，第 1 次，等 30s
+S37: 智谱限流 1305，第 2 次，等 30s
+S37: 智谱限流 1305，第 3 次，等 30s
+S37: 智谱限流 1305，第 4 次，等 30s
+S37: 智谱限流 1305，第 5 次，等 30s
+S37: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S37 rate limited
+PRODUCTION_STATUS S38 submitting
+S38: 智谱限流 1305，第 1 次，等 30s
+S38: 智谱限流 1305，第 2 次，等 30s
+S38: 智谱限流 1305，第 3 次，等 30s
+S38: 智谱限流 1305，第 4 次，等 30s
+S38: 智谱限流 1305，第 5 次，等 30s
+S38: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S38 rate limited
+PRODUCTION_STATUS S39 submitting
+S39: 智谱限流 1305，第 1 次，等 30s
+S39: 智谱限流 1305，第 2 次，等 30s
+S39: 智谱限流 1305，第 3 次，等 30s
+S39: 智谱限流 1305，第 4 次，等 30s
+S39: 智谱限流 1305，第 5 次，等 30s
+S39: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S39 rate limited
+PRODUCTION_STATUS S40 submitting
+S40: 智谱限流 1305，第 1 次，等 30s
+S40: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S40 queued
+S03: SUCCESS
+PRODUCTION_STATUS S03 completed
+S04: FAIL
+PRODUCTION_STATUS S04 task failed, requeue
+S06: FAIL
+PRODUCTION_STATUS S06 task failed, requeue
+S09: FAIL
+PRODUCTION_STATUS S09 task failed, requeue
+S21: FAIL
+PRODUCTION_STATUS S21 task failed, requeue
+S24: SUCCESS
+PRODUCTION_STATUS S24 completed
+S25: FAIL
+PRODUCTION_STATUS S25 task failed, requeue
+S28: FAIL
+PRODUCTION_STATUS S28 task failed, requeue
+S31: PROCESSING
+S35: PROCESSING
+S40: PROCESSING
+PRODUCTION_STATUS heartbeat done=4 queued=3 submit=22
+PRODUCTION_STATUS S11 submitting
+S11: 智谱限流 1305，第 1 次，等 30s
+S11: 智谱限流 1305，第 2 次，等 30s
+S11: 智谱限流 1305，第 3 次，等 30s
+S11: 智谱限流 1305，第 4 次，等 30s
+S11: 智谱限流 1305，第 5 次，等 30s
+S11: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S11 rate limited
+PRODUCTION_STATUS S12 submitting
+S12: 智谱限流 1305，第 1 次，等 30s
+S12: 智谱限流 1305，第 2 次，等 30s
+S12: 智谱限流 1305，第 3 次，等 30s
+S12: 智谱限流 1305，第 4 次，等 30s
+S12: 智谱限流 1305，第 5 次，等 30s
+S12: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S12 rate limited
+PRODUCTION_STATUS S13 submitting
+S13: 智谱限流 1305，第 1 次，等 30s
+S13: 智谱限流 1305，第 2 次，等 30s
+S13: 智谱限流 1305，第 3 次，等 30s
+S13: 智谱限流 1305，第 4 次，等 30s
+PRODUCTION_STATUS S13 queued
+PRODUCTION_STATUS S16 submitting
+S16: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S16 queued
+PRODUCTION_STATUS S19 submitting
+S19: 智谱限流 1305，第 1 次，等 30s
+S19: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S19 queued
+PRODUCTION_STATUS S20 submitting
+S20: 智谱限流 1305，第 1 次，等 30s
+S20: 智谱限流 1305，第 2 次，等 30s
+S20: 智谱限流 1305，第 3 次，等 30s
+S20: 智谱限流 1305，第 4 次，等 30s
+S20: 智谱限流 1305，第 5 次，等 30s
+S20: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S20 rate limited
+PRODUCTION_STATUS S23 submitting
+S23: 智谱限流 1305，第 1 次，等 30s
+S23: 智谱限流 1305，第 2 次，等 30s
+S23: 智谱限流 1305，第 3 次，等 30s
+S23: 智谱限流 1305，第 4 次，等 30s
+S23: 智谱限流 1305，第 5 次，等 30s
+S23: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S23 rate limited
+PRODUCTION_STATUS S26 submitting
+S26: 智谱限流 1305，第 1 次，等 30s
+S26: 智谱限流 1305，第 2 次，等 30s
+S26: 智谱限流 1305，第 3 次，等 30s
+S26: 智谱限流 1305，第 4 次，等 30s
+S26: 智谱限流 1305，第 5 次，等 30s
+S26: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S26 rate limited
+PRODUCTION_STATUS S27 submitting
+S27: 智谱限流 1305，第 1 次，等 30s
+S27: 智谱限流 1305，第 2 次，等 30s
+S27: 智谱限流 1305，第 3 次，等 30s
+S27: 智谱限流 1305，第 4 次，等 30s
+S27: 智谱限流 1305，第 5 次，等 30s
+S27: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S27 rate limited
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+S29: 智谱限流 1305，第 3 次，等 30s
+S29: 智谱限流 1305，第 4 次，等 30s
+S29: 智谱限流 1305，第 5 次，等 30s
+S29: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S29 rate limited
+PRODUCTION_STATUS S30 submitting
+S30: 智谱限流 1305，第 1 次，等 30s
+S30: 智谱限流 1305，第 2 次，等 30s
+S30: 智谱限流 1305，第 3 次，等 30s
+S30: 智谱限流 1305，第 4 次，等 30s
+S30: 智谱限流 1305，第 5 次，等 30s
+PRODUCTION_STATUS S30 queued
+PRODUCTION_STATUS S32 submitting
+S32: 智谱限流 1305，第 1 次，等 30s
+S32: 智谱限流 1305，第 2 次，等 30s
+S32: 智谱限流 1305，第 3 次，等 30s
+S32: 智谱限流 1305，第 4 次，等 30s
+S32: 智谱限流 1305，第 5 次，等 30s
+S32: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S32 rate limited
+PRODUCTION_STATUS S36 submitting
+S36: 智谱限流 1305，第 1 次，等 30s
+S36: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S36 queued
+PRODUCTION_STATUS S37 submitting
+S37: 智谱限流 1305，第 1 次，等 30s
+S37: 智谱限流 1305，第 2 次，等 30s
+S37: 智谱限流 1305，第 3 次，等 30s
+S37: 智谱限流 1305，第 4 次，等 30s
+S37: 智谱限流 1305，第 5 次，等 30s
+S37: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S37 rate limited
+PRODUCTION_STATUS S38 submitting
+PRODUCTION_STATUS S38 queued
+PRODUCTION_STATUS S39 submitting
+PRODUCTION_STATUS S39 queued
+PRODUCTION_STATUS S04 submitting
+S04: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S04 queued
+PRODUCTION_STATUS S06 submitting
+S06: 智谱限流 1305，第 1 次，等 30s
+S06: 智谱限流 1305，第 2 次，等 30s
+S06: 智谱限流 1305，第 3 次，等 30s
+S06: 智谱限流 1305，第 4 次，等 30s
+S06: 智谱限流 1305，第 5 次，等 30s
+S06: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S06 rate limited
+PRODUCTION_STATUS S09 submitting
+PRODUCTION_STATUS S09 queued
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+S21: 智谱限流 1305，第 4 次，等 30s
+S21: 智谱限流 1305，第 5 次，等 30s
+S21: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S21 rate limited
+PRODUCTION_STATUS S25 submitting
+S25: 智谱限流 1305，第 1 次，等 30s
+S25: 智谱限流 1305，第 2 次，等 30s
+S25: 智谱限流 1305，第 3 次，等 30s
+S25: 智谱限流 1305，第 4 次，等 30s
+S25: 智谱限流 1305，第 5 次，等 30s
+S25: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S25 rate limited
+PRODUCTION_STATUS S28 submitting
+S28: 智谱限流 1305，第 1 次，等 30s
+S28: 智谱限流 1305，第 2 次，等 30s
+S28: 智谱限流 1305，第 3 次，等 30s
+S28: 智谱限流 1305，第 4 次，等 30s
+S28: 智谱限流 1305，第 5 次，等 30s
+S28: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S28 rate limited
+S31: FAIL
+PRODUCTION_STATUS S31 task failed, requeue
+S35: FAIL
+PRODUCTION_STATUS S35 task failed, requeue
+S40: FAIL
+PRODUCTION_STATUS S40 task failed, requeue
+S13: FAIL
+PRODUCTION_STATUS S13 task failed, requeue
+S16: SUCCESS
+PRODUCTION_STATUS S16 completed
+S19: FAIL
+PRODUCTION_STATUS S19 task failed, requeue
+S30: SUCCESS
+PRODUCTION_STATUS S30 completed
+S36: PROCESSING
+S38: SUCCESS
+PRODUCTION_STATUS S38 completed
+S39: PROCESSING
+S04: SUCCESS
+PRODUCTION_STATUS S04 completed
+S09: PROCESSING
+PRODUCTION_STATUS heartbeat done=8 queued=3 submit=18
+PRODUCTION_STATUS S11 submitting
+S11: 智谱限流 1305，第 1 次，等 30s
+S11: 智谱限流 1305，第 2 次，等 30s
+S11: 智谱限流 1305，第 3 次，等 30s
+S11: 智谱限流 1305，第 4 次，等 30s
+S11: 智谱限流 1305，第 5 次，等 30s
+S11: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S11 rate limited
+PRODUCTION_STATUS S12 submitting
+S12: 智谱限流 1305，第 1 次，等 30s
+S12: 智谱限流 1305，第 2 次，等 30s
 PRODUCTION_STATUS S12 queued
-S12: [0s] PROCESSING
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-S12: 查询异常，等 30s：Error code: 400, with error text {"task_status":"FAIL","error":{"code":"1301","message":"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入
-PRODUCTION_STATUS S12 failed
-PRODUCTION_STATUS S13 pending (budget)
-PRODUCTION_STATUS S14 pending (budget)
-PRODUCTION_STATUS S15 pending (budget)
-PRODUCTION_STATUS S16 pending (budget)
-PRODUCTION_STATUS S17 pending (budget)
-PRODUCTION_STATUS S18 pending (budget)
-PRODUCTION_STATUS S19 pending (budget)
-PRODUCTION_STATUS S20 pending (budget)
-PRODUCTION_STATUS S21 pending (budget)
-PRODUCTION_STATUS S22 pending (budget)
+PRODUCTION_STATUS S20 submitting
+S20: 智谱限流 1305，第 1 次，等 30s
+S20: 智谱限流 1305，第 2 次，等 30s
+S20: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S20 queued
+PRODUCTION_STATUS S23 submitting
+S23: 智谱限流 1305，第 1 次，等 30s
+S23: 智谱限流 1305，第 2 次，等 30s
+S23: 智谱限流 1305，第 3 次，等 30s
+S23: 智谱限流 1305，第 4 次，等 30s
+S23: 智谱限流 1305，第 5 次，等 30s
+S23: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S23 rate limited
+PRODUCTION_STATUS S26 submitting
+PRODUCTION_STATUS S26 queued
+PRODUCTION_STATUS S27 submitting
+S27: 智谱限流 1305，第 1 次，等 30s
+S27: 智谱限流 1305，第 2 次，等 30s
+S27: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S27 queued
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+S29: 智谱限流 1305，第 3 次，等 30s
+S29: 智谱限流 1305，第 4 次，等 30s
+S29: 智谱限流 1305，第 5 次，等 30s
+S29: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S29 rate limited
+PRODUCTION_STATUS S32 submitting
+S32: 智谱限流 1305，第 1 次，等 30s
+S32: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S32 queued
+PRODUCTION_STATUS S37 submitting
+S37: 智谱限流 1305，第 1 次，等 30s
+S37: 智谱限流 1305，第 2 次，等 30s
+S37: 智谱限流 1305，第 3 次，等 30s
+S37: 智谱限流 1305，第 4 次，等 30s
+S37: 智谱限流 1305，第 5 次，等 30s
+S37: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S37 rate limited
+PRODUCTION_STATUS S06 submitting
+S06: 智谱限流 1305，第 1 次，等 30s
+S06: 智谱限流 1305，第 2 次，等 30s
+S06: 智谱限流 1305，第 3 次，等 30s
+S06: 智谱限流 1305，第 4 次，等 30s
+S06: 智谱限流 1305，第 5 次，等 30s
+S06: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S06 rate limited
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+S21: 智谱限流 1305，第 4 次，等 30s
+S21: 智谱限流 1305，第 5 次，等 30s
+S21: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S21 rate limited
+PRODUCTION_STATUS S25 submitting
+S25: 智谱限流 1305，第 1 次，等 30s
+S25: 智谱限流 1305，第 2 次，等 30s
+S25: 智谱限流 1305，第 3 次，等 30s
+S25: 智谱限流 1305，第 4 次，等 30s
+S25: 智谱限流 1305，第 5 次，等 30s
+S25: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S25 rate limited
+PRODUCTION_STATUS S28 submitting
+S28: 智谱限流 1305，第 1 次，等 30s
+S28: 智谱限流 1305，第 2 次，等 30s
+S28: 智谱限流 1305，第 3 次，等 30s
+S28: 智谱限流 1305，第 4 次，等 30s
+S28: 智谱限流 1305，第 5 次，等 30s
+S28: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S28 rate limited
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
+PRODUCTION_STATUS S35 submitting
+S35: 智谱限流 1305，第 1 次，等 30s
+S35: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S35 queued
+PRODUCTION_STATUS S40 submitting
+S40: 智谱限流 1305，第 1 次，等 30s
+S40: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S40 queued
+PRODUCTION_STATUS S13 submitting
+S13: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S13 queued
+PRODUCTION_STATUS S19 submitting
+S19: 智谱限流 1305，第 1 次，等 30s
+S19: 智谱限流 1305，第 2 次，等 30s
+S19: 智谱限流 1305，第 3 次，等 30s
+S19: 智谱限流 1305，第 4 次，等 30s
+S19: 智谱限流 1305，第 5 次，等 30s
+S19: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S19 rate limited
+S36: FAIL
+PRODUCTION_STATUS S36 task failed, requeue
+S39: FAIL
+PRODUCTION_STATUS S39 task failed, requeue
+S09: FAIL
+PRODUCTION_STATUS S09 task failed, requeue
+S12: SUCCESS
+PRODUCTION_STATUS S12 completed
+S20: FAIL
+PRODUCTION_STATUS S20 task failed, requeue
+S26: SUCCESS
+PRODUCTION_STATUS S26 completed
+S27: FAIL
+PRODUCTION_STATUS S27 task failed, requeue
+S32: PROCESSING
+S35: PROCESSING
+S40: PROCESSING
+S13: PROCESSING
+PRODUCTION_STATUS heartbeat done=10 queued=4 submit=15
+PRODUCTION_STATUS S11 submitting
+S11: 智谱限流 1305，第 1 次，等 30s
+S11: 智谱限流 1305，第 2 次，等 30s
+S11: 智谱限流 1305，第 3 次，等 30s
+S11: 智谱限流 1305，第 4 次，等 30s
+S11: 智谱限流 1305，第 5 次，等 30s
+S11: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S11 rate limited
+PRODUCTION_STATUS S23 submitting
+S23: 智谱限流 1305，第 1 次，等 30s
+S23: 智谱限流 1305，第 2 次，等 30s
+S23: 智谱限流 1305，第 3 次，等 30s
+S23: 智谱限流 1305，第 4 次，等 30s
+S23: 智谱限流 1305，第 5 次，等 30s
+S23: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S23 rate limited
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+S29: 智谱限流 1305，第 3 次，等 30s
+S29: 智谱限流 1305，第 4 次，等 30s
+S29: 智谱限流 1305，第 5 次，等 30s
+S29: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S29 rate limited
+PRODUCTION_STATUS S37 submitting
+S37: 智谱限流 1305，第 1 次，等 30s
+S37: 智谱限流 1305，第 2 次，等 30s
+S37: 智谱限流 1305，第 3 次，等 30s
+S37: 智谱限流 1305，第 4 次，等 30s
+S37: 智谱限流 1305，第 5 次，等 30s
+S37: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S37 rate limited
+PRODUCTION_STATUS S06 submitting
+S06: 智谱限流 1305，第 1 次，等 30s
+S06: 智谱限流 1305，第 2 次，等 30s
+S06: 智谱限流 1305，第 3 次，等 30s
+S06: 智谱限流 1305，第 4 次，等 30s
+S06: 智谱限流 1305，第 5 次，等 30s
+S06: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S06 rate limited
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S21 queued
+PRODUCTION_STATUS S25 submitting
+S25: 智谱限流 1305，第 1 次，等 30s
+S25: 智谱限流 1305，第 2 次，等 30s
+S25: 智谱限流 1305，第 3 次，等 30s
+S25: 智谱限流 1305，第 4 次，等 30s
+S25: 智谱限流 1305，第 5 次，等 30s
+S25: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S25 rate limited
+PRODUCTION_STATUS S28 submitting
+S28: 智谱限流 1305，第 1 次，等 30s
+S28: 智谱限流 1305，第 2 次，等 30s
+S28: 智谱限流 1305，第 3 次，等 30s
+S28: 智谱限流 1305，第 4 次，等 30s
+S28: 智谱限流 1305，第 5 次，等 30s
+S28: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S28 rate limited
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
+PRODUCTION_STATUS S19 submitting
+S19: 智谱限流 1305，第 1 次，等 30s
+S19: 智谱限流 1305，第 2 次，等 30s
+S19: 智谱限流 1305，第 3 次，等 30s
+S19: 智谱限流 1305，第 4 次，等 30s
+S19: 智谱限流 1305，第 5 次，等 30s
+S19: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S19 rate limited
+PRODUCTION_STATUS S36 submitting
+PRODUCTION_STATUS S36 queued
+PRODUCTION_STATUS S39 submitting
+S39: 智谱限流 1305，第 1 次，等 30s
+S39: 智谱限流 1305，第 2 次，等 30s
+S39: 智谱限流 1305，第 3 次，等 30s
+S39: 智谱限流 1305，第 4 次，等 30s
+S39: 智谱限流 1305，第 5 次，等 30s
+S39: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S39 rate limited
+PRODUCTION_STATUS S09 submitting
+S09: 智谱限流 1305，第 1 次，等 30s
+S09: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S09 queued
+PRODUCTION_STATUS S20 submitting
+S20: 智谱限流 1305，第 1 次，等 30s
+S20: 智谱限流 1305，第 2 次，等 30s
+S20: 智谱限流 1305，第 3 次，等 30s
+S20: 智谱限流 1305，第 4 次，等 30s
+S20: 智谱限流 1305，第 5 次，等 30s
+S20: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S20 rate limited
+PRODUCTION_STATUS S27 submitting
+S27: 智谱限流 1305，第 1 次，等 30s
+S27: 智谱限流 1305，第 2 次，等 30s
+S27: 智谱限流 1305，第 3 次，等 30s
+S27: 智谱限流 1305，第 4 次，等 30s
+S27: 智谱限流 1305，第 5 次，等 30s
+S27: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S27 rate limited
+S32: FAIL
+PRODUCTION_STATUS S32 task failed, requeue
+S35: FAIL
+PRODUCTION_STATUS S35 task failed, requeue
+S40: FAIL
+PRODUCTION_STATUS S40 task failed, requeue
+S13: FAIL
+PRODUCTION_STATUS S13 task failed, requeue
+S21: PROCESSING
+S36: PROCESSING
+S09: PROCESSING
+PRODUCTION_STATUS heartbeat done=10 queued=3 submit=16
+PRODUCTION_STATUS S11 submitting
+PRODUCTION_STATUS S11 queued
+PRODUCTION_STATUS S23 submitting
+S23: 智谱限流 1305，第 1 次，等 30s
+S23: 智谱限流 1305，第 2 次，等 30s
+S23: 智谱限流 1305，第 3 次，等 30s
+S23: 智谱限流 1305，第 4 次，等 30s
+S23: 智谱限流 1305，第 5 次，等 30s
+S23: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S23 rate limited
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+S29: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S29 queued
+PRODUCTION_STATUS S37 submitting
+S37: 智谱限流 1305，第 1 次，等 30s
+S37: 智谱限流 1305，第 2 次，等 30s
+S37: 智谱限流 1305，第 3 次，等 30s
+S37: 智谱限流 1305，第 4 次，等 30s
+S37: 智谱限流 1305，第 5 次，等 30s
+S37: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S37 rate limited
+PRODUCTION_STATUS S06 submitting
+S06: 智谱限流 1305，第 1 次，等 30s
+S06: 智谱限流 1305，第 2 次，等 30s
+S06: 智谱限流 1305，第 3 次，等 30s
+S06: 智谱限流 1305，第 4 次，等 30s
+S06: 智谱限流 1305，第 5 次，等 30s
+S06: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S06 rate limited
+PRODUCTION_STATUS S25 submitting
+S25: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S25 queued
+PRODUCTION_STATUS S28 submitting
+S28: 智谱限流 1305，第 1 次，等 30s
+S28: 智谱限流 1305，第 2 次，等 30s
+S28: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S28 queued
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
+PRODUCTION_STATUS S19 submitting
+S19: 智谱限流 1305，第 1 次，等 30s
+S19: 智谱限流 1305，第 2 次，等 30s
+S19: 智谱限流 1305，第 3 次，等 30s
+S19: 智谱限流 1305，第 4 次，等 30s
+S19: 智谱限流 1305，第 5 次，等 30s
+S19: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S19 rate limited
+S21: FAIL
+PRODUCTION_STATUS S21 task failed, requeue
+S36: FAIL
+PRODUCTION_STATUS S36 task failed, requeue
+S09: FAIL
+PRODUCTION_STATUS S09 failed
+S11: SUCCESS
+PRODUCTION_STATUS S11 completed
+S29: PROCESSING
+S25: SUCCESS
+PRODUCTION_STATUS S25 completed
+S28: PROCESSING
+PRODUCTION_STATUS heartbeat done=12 queued=2 submit=14
 PRODUCTION_STATUS S23 pending (budget)
-PRODUCTION_STATUS S24 pending (budget)
-PRODUCTION_STATUS S25 pending (budget)
-PRODUCTION_STATUS S26 pending (budget)
-PRODUCTION_STATUS S27 pending (budget)
-PRODUCTION_STATUS S28 pending (budget)
-PRODUCTION_STATUS S29 pending (budget)
-PRODUCTION_STATUS S30 pending (budget)
-PRODUCTION_STATUS S31 pending (budget)
-PRODUCTION_STATUS S32 pending (budget)
-PRODUCTION_STATUS S33 pending (budget)
-PRODUCTION_STATUS S34 pending (budget)
-PRODUCTION_STATUS S35 pending (budget)
-PRODUCTION_STATUS S36 pending (budget)
 PRODUCTION_STATUS S37 pending (budget)
-PRODUCTION_STATUS S38 pending (budget)
+PRODUCTION_STATUS S06 pending (budget)
+PRODUCTION_STATUS S31 pending (budget)
+PRODUCTION_STATUS S19 pending (budget)
 PRODUCTION_STATUS S39 pending (budget)
+PRODUCTION_STATUS S20 pending (budget)
+PRODUCTION_STATUS S27 pending (budget)
+PRODUCTION_STATUS S32 pending (budget)
+PRODUCTION_STATUS S35 pending (budget)
 PRODUCTION_STATUS S40 pending (budget)
-PRODUCTION_STATUS generation incomplete
+PRODUCTION_STATUS S13 pending (budget)
+PRODUCTION_STATUS S21 pending (budget)
+PRODUCTION_STATUS S36 pending (budget)
+PRODUCTION_STATUS S29 queued (budget)
+PRODUCTION_STATUS S28 queued (budget)
+PRODUCTION_STATUS generation incomplete: S06,S09,S13,S19,S20,S21,S23,S27,S28,S29,S31,S32,S35,S36,S37,S39,S40
