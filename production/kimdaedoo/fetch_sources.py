@@ -70,7 +70,11 @@ def main() -> int:
 
     project = json.loads(args.project.read_text(encoding="utf-8"))
     results = json.loads(args.results.read_text(encoding="utf-8"))
-    from generate import request_hash  # noqa: E402 - imports the Agnes client config
+    if results.get('provider') == 'Pixazo':
+        sys.path.insert(0, str(HERE.parent))
+        from pixazo_video import request_hash
+    else:
+        from generate import request_hash
 
     needed = [shot for shot in project["shots"] if shot["kind"] == "agnes"]
     report = {"requested": len(needed), "downloaded": [], "reused": [], "missing": []}
