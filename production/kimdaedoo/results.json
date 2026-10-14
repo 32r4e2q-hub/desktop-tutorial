@@ -9,7 +9,7 @@
       "status": "poll_retry",
       "http": 200,
       "detail": "{\"completed_at\":null,\"created_at\":1792016525,\"error\":null,\"expires_at\":null,\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"internal_progress\":0,\"internal_status\":\"pending\",\"object\":\"video\",\"progress\":10,\"quality\":\"standard\",\"remixed_from_video_id\":null,\"seconds\":\"6\",\"size\":\"720P\",\"started_at\":1792016",
-      "attempt_count": 15,
+      "attempt_count": 16,
       "recent_responses": [
         {
           "at": 1791955508.742413,
@@ -97,6 +97,12 @@
         },
         {
           "at": 1792016768.2839487,
+          "http": 200,
+          "kind": "ok",
+          "detail": "{\"completed_at\":null,\"created_at\":1792016525,\"error\":null,\"expires_at\":null,\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"internal_progress\":0,\"internal_status\":\"pending\",\"object\":\"video\",\"progress\":10,\"quality\":\"standard\",\"remixed_from_video_id\":null,\"seconds\":\"6\",\"size\":\"720P\",\"started_at\":1792016"
+        },
+        {
+          "at": 1792016844.8243082,
           "http": 200,
           "kind": "ok",
           "detail": "{\"completed_at\":null,\"created_at\":1792016525,\"error\":null,\"expires_at\":null,\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"internal_progress\":0,\"internal_status\":\"pending\",\"object\":\"video\",\"progress\":10,\"quality\":\"standard\",\"remixed_from_video_id\":null,\"seconds\":\"6\",\"size\":\"720P\",\"started_at\":1792016"
@@ -199,9 +205,9 @@
   },
   "phase": "generating",
   "loop_status": "running",
-  "updated_at": "2026-10-14T22:27:23.284274+00:00",
+  "updated_at": "2026-10-14T22:27:24.824361+00:00",
   "completed_count": 0,
-  "next_request_at": 1792016918.28413,
+  "next_request_at": 1792016919.8243108,
   "retry_streak": 0,
   "last_backoff_seconds": 900
 }
