@@ -1,6 +1,14 @@
 {
   "model": "agnes-video-2.5-flash",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "model": "agnes-video-2.5-flash",
+      "provider": "Agnes",
+      "request_hash": "2ddbc02a2ee098e9d1d7d274de4cf493227fc040e7f632b0d758439ed7631d43",
+      "status": "submitting"
+    }
+  },
   "review": "pending",
   "provider": "Agnes",
   "required_generated_shots": [
@@ -60,5 +68,7 @@
   },
   "phase": "generating",
   "loop_status": "running",
-  "updated_at": "2026-10-14T05:25:05.624005+00:00"
+  "updated_at": "2026-10-14T05:25:07.452964+00:00",
+  "completed_count": 0,
+  "next_request_at": 1791955582.4528956
 }
