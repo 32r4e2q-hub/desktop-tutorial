@@ -22,7 +22,7 @@
     }
   },
   "completed_count": 0,
-  "loop_status": "running",
+  "loop_status": "paused_error",
   "review": "pending",
   "billing_verified_free": false,
   "required_generated_shots": [
@@ -80,7 +80,8 @@
     "key_rotation": false,
     "paid_model_fallback": false
   },
-  "phase": "generating",
-  "updated_at": "2026-10-14T07:38:15.944164+00:00",
-  "next_request_at": 1791963570.9441562
+  "phase": "paused",
+  "updated_at": "2026-10-14T07:38:17.021031+00:00",
+  "next_request_at": 1791963570.9441562,
+  "pause_reason": "S01: payment_or_quota; HTTP 402. No other model/provider, no top-up."
 }
