@@ -807,10 +807,10 @@
     },
     "S28": {
       "id": "S28",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "789cd776248dd6229b046cc78759deb6abd4090d951f46a7903069bc0f569525",
-      "updated_at": "2026-10-14T10:55:04Z",
-      "error": null,
+      "updated_at": "2026-10-14T10:58:49Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "task_id": null,
       "used_params": {
         "quality": "speed",
@@ -1199,7 +1199,7 @@
       "resubmits": 2
     }
   },
-  "updated_at": "2026-10-14T10:55:04Z",
+  "updated_at": "2026-10-14T10:58:49Z",
   "run_id": "38527054416",
   "phase": "generation_incomplete"
 }
