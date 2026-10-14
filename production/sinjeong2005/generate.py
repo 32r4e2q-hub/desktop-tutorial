@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """智谱 CogVideoX-Flash 生成引擎（本片不用 Agnes）。
 
-读 story.json 的 30 镜，逐镜调用智谱视频生成 API（仓库 Secrets 里的
+读 story.json 的 40 镜，调用智谱视频生成 API（仓库 Secrets 里的
 ZHIPUAI_API_KEY，只在 GitHub Actions 里存在，沙箱读不到）：
 提交 → 轮询 → 下载到 work/sinjeong2005/sources/Sxx.mp4 → ffprobe 检验 →
 qa/Sxx.jpg 接触表 → results.json 回执（SHA-256 + 请求哈希，断点续跑靠它）。
@@ -11,13 +11,14 @@ qa/Sxx.jpg 接触表 → results.json 回执（SHA-256 + 请求哈希，断点�
     python3 production/sinjeong2005/generate.py --payload '{"only":"S03,S08"}'   # 只补做
     python3 production/sinjeong2005/generate.py --prune-failed                    # 清死记录
 
-免费节点限流（错误码 1305 / 429）按仓库既有脚本的策略退避重试；
-顺序提交（一镜完成再下一镜），避免并发把免费额度打爆。
+调度方式（2026-10-14 改）：流水线式——先快速探活旧任务，能收的先收；
+缺任务的逐个提交（限流 1305/429 就先跳过、稍后再试），然后多任务轮流
+轮询收割。智谱免费档单任务排队可达几十分钟，串行一镜一镜等会把整轮
+预算耗在少数镜头上；流水线让供应商队列自己并行。
 """
 from __future__ import annotations
 
 import argparse
-import concurrent.futures  # noqa: F401  （与旧接口保持兼容，实际顺序执行）
 import hashlib
 import json
 import os
@@ -60,8 +61,8 @@ def full_prompt(project, shot):
 
 
 def payload_for(project, shot):
-    # 已实测：cogvideox-flash 用 quality="speed" 档可提交；图生视频（首帧图）才给 10 秒，
-    # 文生视频只有约 5 秒。所以每镜先 CogView 出首帧、再图生视频（mode 记进请求哈希）。
+    # 已实测：cogvideox-flash 用 quality="speed" 档可提交；生成时长固定约 5.1 秒，
+    # 文生与图生相同。默认文生（mode 记进请求哈希，提示词或参数变了就自动重做）。
     return {"model": MODEL, "prompt": full_prompt(project, shot),
             "quality": os.getenv("ZHIPU_QUALITY", "speed"),
             "size": SIZE, "fps": FPS, "duration": DURATION,
@@ -169,6 +170,7 @@ def main():
         raise ValueError("Unknown shot ID in only")
     if only:
         shots = [s for s in shots if s["id"] in only]
+    shot_by_id = {s["id"]: s for s in shots}
 
     if args.publish:
         if os.getenv("GITHUB_ACTIONS") != "true" or git("branch", "--show-current").strip() != BRANCH:
@@ -214,19 +216,44 @@ def main():
     from zhipuai import ZhipuAI
     client = ZhipuAI(api_key=api_key)
 
-    def submit(shot, image_url=None):
-        """提交一镜：1305/429 只原地退避等待（换参数解决不了限流）；真参数错才降一档。"""
+    def retrieve(task_id):
+        """查一次任务状态；查询异常（多为限流）重试几次后按仍在处理处理。"""
+        last = None
+        for attempt in range(3):
+            try:
+                result = client.videos.retrieve_videos_result(id=task_id)
+                status = getattr(result, "task_status", None) or (result.get("task_status") if isinstance(result, dict) else None)
+                url = None
+                if status == "SUCCESS":
+                    vr = getattr(result, "video_result", None) or result.get("video_result")
+                    if vr:
+                        first = vr[0]
+                        url = getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
+                return status, url, result
+            except Exception as exc:  # noqa: BLE001
+                last = exc
+                time.sleep(20)
+        print(f"查询异常（按处理中处理）：{str(last)[:120]}", flush=True)
+        return "PROCESSING", None, None
+
+    def finish(sid, url, label):
+        dest = sources / f"{sid}.mp4"
+        download(url, dest)
+        info = inspect_clip(dest, qa, sid)
+        checkpoint(sid + " " + label, sid, files=[qa / f"{sid}.jpg"],
+                   status="completed", request_hash=request_hash(project, shot_by_id[sid]),
+                   video_url=url, sha256=digest(dest), bytes=dest.stat().st_size,
+                   inspection=info, visual_review="pending", error=None)
+        return True
+
+    def submit_one(shot, max_attempts=6):
+        """提交一镜。限流就抛 RateLimited 让主循环稍后再试；真参数错降档到 720p。"""
         base = payload_for(project, shot)
         base.pop("mode", None)
-        if image_url:
-            base["image_url"] = image_url
-        variants = [base]
-        if image_url:
-            variants.append({k: v for k, v in base.items() if k != "image_url"})  # 图生失败退文生
-        variants.append({**base, "size": "1280x720"})
+        variants = [base, {**base, "size": "1280x720"}]
         last_error = None
         for variant in variants:
-            for attempt in range(1, 41):
+            for attempt in range(1, max_attempts + 1):
                 try:
                     resp = client.videos.generations(**variant)
                     task_id = getattr(resp, "id", None) or (resp.get("id") if isinstance(resp, dict) else None)
@@ -238,113 +265,138 @@ def main():
                     msg = str(exc)
                     if "1305" in msg or "429" in msg or "访问量过大" in msg:
                         print(f"{shot['id']}: 智谱限流 1305，第 {attempt} 次，等 30s", flush=True)
-                        if attempt % 5 == 1:
-                            checkpoint(shot["id"] + " rate limited", shot["id"], status="rate_limited",
-                                       error=msg.replace(api_key, "[redacted]")[:400])
                         time.sleep(30)
                         continue
                     print(f"{shot['id']}: 本档提交失败，尝试下一档：{msg[:200]}", flush=True)
                     break
+            else:
+                # 本档尝试全被限流打回：降档也没用，直接抛给主循环稍后再试
+                raise RuntimeError(f"提交失败：{last_error}")
         raise RuntimeError(f"提交失败：{last_error}")
 
-    def make_first_frame(shot):
-        """用 CogView-3-Flash（免费）按同一提示词出首帧图，返回图片 URL；失败返回 None 走文生。"""
-        try:
-            resp = client.images.generations(
-                model="cogview-3-flash", prompt=full_prompt(project, shot), size="1344x768")
-            data = getattr(resp, "data", None) or (resp.get("data") if isinstance(resp, dict) else None)
-            if data:
-                first = data[0]
-                return getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
-        except Exception as exc:  # noqa: BLE001
-            print(f"{shot['id']}: 首帧图生成失败，改走文生：{str(exc)[:200]}", flush=True)
-        return None
+    class RateLimited(Exception):
+        pass
 
-    def generate(shot):
+    checkpoint("zhipu generation started")
+
+    # ---- 阶段 0：复用已完成的（按回执链接+哈希校验），其次收集旧任务 ----
+    done = set()
+    outstanding = {}   # sid -> task_id（已提交、待收割）
+    needs_submit = []  # 待提交（或待重提）的 sid
+    for shot in shots:
         sid = shot["id"]
         wanted = request_hash(project, shot)
         old = dict(doc["shots"].get(sid, {}))
-        dest = sources / f"{sid}.mp4"
-        try:
-            # 断点续跑：回执在且下载到的文件哈希一致就复用，不花新额度
-            if old.get("status") == "completed" and old.get("request_hash") == wanted and old.get("video_url"):
-                try:
-                    download(old["video_url"], dest)
-                    if digest(dest) == old["sha256"]:
-                        info = inspect_clip(dest, qa, sid)
-                        checkpoint(sid + " reused", sid, files=[qa / f"{sid}.jpg"],
-                                   status="completed", request_hash=wanted, inspection=info,
-                                   reused_existing_asset=True, error=None)
-                        return True
-                except Exception:
-                    print(f"{sid}: 旧链接失效，重新生成", flush=True)
+        if old.get("status") == "completed" and old.get("request_hash") == wanted and old.get("video_url"):
+            try:
+                dest = sources / f"{sid}.mp4"
+                download(old["video_url"], dest)
+                if digest(dest) == old["sha256"]:
+                    info = inspect_clip(dest, qa, sid)
+                    checkpoint(sid + " reused", sid, files=[qa / f"{sid}.jpg"],
+                               status="completed", request_hash=wanted, inspection=info,
+                               reused_existing_asset=True, error=None)
+                    done.add(sid)
+                    continue
+            except Exception:
+                print(f"{sid}: 旧链接失效，重新生成", flush=True)
+        if old.get("task_id") and old.get("request_hash") == wanted and old.get("status") in (
+                "queued", "submitting", "first_frame", "failed", "rate_limited", "pending"):
+            outstanding[sid] = str(old["task_id"])
+        else:
+            needs_submit.append(sid)
+
+    # ---- 阶段 1：快速探活旧任务，能收的先收，死了的排队重提 ----
+    for sid in list(outstanding):
+        status, url, raw = retrieve(outstanding[sid])
+        print(f"{sid}: 旧任务状态 {status}", flush=True)
+        if status == "SUCCESS" and url:
+            try:
+                finish(sid, url, "completed (resumed)")
+                done.add(sid)
+                del outstanding[sid]
+            except Exception as exc:  # noqa: BLE001
+                print(f"{sid}: 收割失败，下轮再试：{str(exc)[:160]}", flush=True)
+        elif status == "FAIL":
+            row = doc["shots"].get(sid, {})
+            if int(row.get("resubmits", 0)) < 2:
+                checkpoint(sid + " task failed, requeue", sid, status="pending",
+                           task_id=None, resubmits=int(row.get("resubmits", 0)) + 1,
+                           error=f"旧任务 FAIL：{str(raw)[:200]}")
+                needs_submit.append(sid)
+            else:
+                checkpoint(sid + " failed", sid, status="failed",
+                           error=f"旧任务多次 FAIL：{str(raw)[:200]}")
+            del outstanding[sid]
+
+    print(f"流水线：已完成 {len(done)}，在队 {len(outstanding)}，待提交 {len(needs_submit)}", flush=True)
+
+    # ---- 阶段 2：提交与收割交替推进，直到全部完成或预算耗尽 ----
+    while (needs_submit or outstanding) and time.monotonic() < deadline:
+        # 提交一轮：每镜最多试几次，限流就留到下一轮
+        for sid in list(needs_submit):
             if time.monotonic() > deadline:
-                checkpoint(sid + " pending (budget)", sid, status="pending", request_hash=wanted)
-                return False
-
-            def poll(task_id):
-                started = time.time()
-                while True:
-                    if time.time() - started > 3600:
-                        raise RuntimeError("轮询超时 60 分钟（任务可能仍在智谱排队，重跑会续查）")
-                    try:
-                        result = client.videos.retrieve_videos_result(id=task_id)
-                    except Exception as qexc:  # 查询限流不算失败
-                        print(f"{sid}: 查询异常，等 30s：{str(qexc)[:120]}", flush=True)
-                        time.sleep(30)
-                        continue
-                    status = getattr(result, "task_status", None) or (result.get("task_status") if isinstance(result, dict) else None)
-                    print(f"{sid}: [{int(time.time() - started)}s] {status}", flush=True)
-                    if status == "SUCCESS":
-                        vr = getattr(result, "video_result", None) or result.get("video_result")
-                        url = None
-                        if vr:
-                            first = vr[0]
-                            url = getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
-                        if not url:
-                            raise RuntimeError("SUCCESS 但无视频地址")
-                        return url
-                    if status == "FAIL":
-                        raise RuntimeError(f"智谱渲染失败：{result}")
-                    time.sleep(15)
-
-            def finish(url, label):
-                download(url, dest)
-                info = inspect_clip(dest, qa, sid)
-                checkpoint(sid + " " + label, sid, files=[qa / f"{sid}.jpg"],
-                           status="completed", request_hash=wanted, video_url=url,
-                           sha256=digest(dest), bytes=dest.stat().st_size,
-                           inspection=info, visual_review="pending", error=None)
-                return True
-
-            # 断点续查：上次已提交的任务先接着查，不重复花额度
-            if old.get("task_id") and old.get("request_hash") == wanted and old.get("status") in ("queued", "submitting", "first_frame", "failed"):
-                try:
-                    print(f"{sid}: 续查旧任务 {old['task_id']}", flush=True)
-                    return finish(poll(str(old["task_id"])), "completed (resumed)")
-                except Exception as rexc:
-                    print(f"{sid}: 旧任务续查无果，改重新提交：{str(rexc)[:160]}", flush=True)
-
-            checkpoint(sid + " submitting", sid, status="submitting", request_hash=wanted, error=None)
-            # 实测图生队列 20+ 分钟且易失败，文生约 1 分钟：默认文生；IMAGE_FIRST=1 才走图生
-            image_url = make_first_frame(shot) if os.getenv("IMAGE_FIRST") == "1" else None
-            if image_url:
-                checkpoint(sid + " first frame ready", sid, status="first_frame", image_url=image_url)
-            task_id, used = submit(shot, image_url=image_url)
+                break
+            shot = shot_by_id[sid]
+            checkpoint(sid + " submitting", sid, status="submitting",
+                       request_hash=request_hash(project, shot), error=None)
+            try:
+                task_id, used = submit_one(shot)
+            except RuntimeError as exc:
+                msg = str(exc)
+                if "1305" in msg or "429" in msg or "访问量过大" in msg:
+                    checkpoint(sid + " rate limited", sid, status="rate_limited",
+                               error=msg.replace(api_key, "[redacted]")[:400])
+                    continue  # 留在 needs_submit，下一轮再提交
+                checkpoint(sid + " failed", sid, status="failed",
+                           error=msg.replace(api_key, "[redacted]")[:600])
+                needs_submit.remove(sid)
+                continue
             checkpoint(sid + " queued", sid, status="queued", task_id=task_id,
                        used_params={k: used.get(k) for k in ("quality", "size", "fps", "duration")},
-                       image_first=bool(used.get("image_url")))
-            return finish(poll(task_id), "completed")
-        except Exception as exc:  # noqa: BLE001
-            checkpoint(sid + " failed", sid, status="failed",
-                       error=str(exc).replace(api_key, "[redacted]")[:600])
-            return False
+                       image_first=False)
+            outstanding[sid] = task_id
+            needs_submit.remove(sid)
+        # 收割一轮
+        for sid in list(outstanding):
+            status, url, raw = retrieve(outstanding[sid])
+            print(f"{sid}: {status}", flush=True)
+            if status == "SUCCESS" and url:
+                try:
+                    finish(sid, url, "completed")
+                    done.add(sid)
+                except Exception as exc:  # noqa: BLE001
+                    print(f"{sid}: 收割失败，下轮再试：{str(exc)[:160]}", flush=True)
+                    continue
+                del outstanding[sid]
+            elif status == "FAIL":
+                row = doc["shots"].get(sid, {})
+                if int(row.get("resubmits", 0)) < 2:
+                    checkpoint(sid + " task failed, requeue", sid, status="pending",
+                               task_id=None, resubmits=int(row.get("resubmits", 0)) + 1,
+                               error=f"任务 FAIL：{str(raw)[:200]}")
+                    needs_submit.append(sid)
+                else:
+                    checkpoint(sid + " failed", sid, status="failed",
+                               error=f"任务多次 FAIL：{str(raw)[:200]}")
+                del outstanding[sid]
+        if needs_submit or outstanding:
+            time.sleep(20)
 
-    checkpoint("zhipu generation started")
-    outcomes = [generate(shot) for shot in shots]  # 顺序执行，保护免费额度
-    if not all(outcomes):
+    # ---- 收尾：未完成的保留任务号与状态，下一轮接着收 ----
+    for sid in needs_submit:
+        row = doc["shots"].get(sid, {})
+        if row.get("status") not in ("failed",):
+            checkpoint(sid + " pending (budget)", sid, status="pending",
+                       request_hash=request_hash(project, shot_by_id[sid]))
+    for sid, task_id in outstanding.items():
+        checkpoint(sid + " queued (budget)", sid, status="queued", task_id=task_id,
+                   request_hash=request_hash(project, shot_by_id[sid]))
+
+    missing = [s["id"] for s in shots if s["id"] not in done]
+    if missing:
         doc["phase"] = "generation_incomplete"
-        checkpoint("generation incomplete")
+        checkpoint("generation incomplete: " + ",".join(missing))
         return 1
     doc["phase"] = "selected_sources_ready" if only else "sources_ready"
     checkpoint("all requested sources ready")
