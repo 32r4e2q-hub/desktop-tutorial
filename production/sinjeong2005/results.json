@@ -584,10 +584,18 @@
     },
     "S32": {
       "id": "S32",
-      "status": "submitting",
+      "status": "queued",
       "request_hash": "1aaf74062fe3eeea1f73955dbadef7c5656d82ea69eaa99a5b9c59b54d46424e",
-      "updated_at": "2026-10-14T02:17:55Z",
-      "error": null
+      "updated_at": "2026-10-14T02:18:33Z",
+      "error": null,
+      "task_id": "20261014101833b711596e53a04968",
+      "used_params": {
+        "quality": "speed",
+        "size": "1920x1080",
+        "fps": 30,
+        "duration": 10
+      },
+      "image_first": false
     },
     "S33": {
       "id": "S33",
@@ -638,7 +646,7 @@
       "updated_at": "2026-10-13T20:08:52Z"
     }
   },
-  "updated_at": "2026-10-14T02:17:55Z",
+  "updated_at": "2026-10-14T02:18:33Z",
   "run_id": "38487898058",
   "phase": "generation_incomplete"
 }
