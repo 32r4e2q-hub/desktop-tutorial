@@ -62,6 +62,8 @@ def main():
         save()
         return 1
     report['model_list'] = request('/v1/models', key)
+    if report['model_list']['http'] == 200:
+        report['model_list']['verdict'] = 'model_list_received_not_pricing_evidence'
     save()
     for i, model in enumerate(MODELS):
         if i:
