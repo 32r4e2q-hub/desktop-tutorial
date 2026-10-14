@@ -6,10 +6,10 @@
       "model": "agnes-video-2.5-flash",
       "provider": "Agnes",
       "request_hash": "2ddbc02a2ee098e9d1d7d274de4cf493227fc040e7f632b0d758439ed7631d43",
-      "status": "submitting",
-      "http": 503,
-      "detail": "video queue is full, please retry later (request id: 20261014072519172739484MpKTH65e)",
-      "attempt_count": 11,
+      "status": "queued",
+      "http": 200,
+      "detail": "{\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"video_id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"task_id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"object\":\"video\",\"model\":\"agnes-video-2.5-flash\",\"status\":\"queued\",\"progress\":0,\"created_at\":1792016525,\"seconds\":\"6\",\"size\":\"720P\",\"quality\":\"standard\"}",
+      "attempt_count": 12,
       "recent_responses": [
         {
           "at": 1791955508.742413,
@@ -76,8 +76,31 @@
           "http": 503,
           "kind": "queue_full",
           "detail": "video queue is full, please retry later (request id: 20261014072519172739484MpKTH65e)"
+        },
+        {
+          "at": 1792016526.0542188,
+          "http": 200,
+          "kind": "ok",
+          "detail": "{\"id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"video_id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"task_id\":\"task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f\",\"object\":\"video\",\"model\":\"agnes-video-2.5-flash\",\"status\":\"queued\",\"progress\":0,\"created_at\":1792016525,\"seconds\":\"6\",\"size\":\"720P\",\"quality\":\"standard\"}"
         }
-      ]
+      ],
+      "created": {
+        "id": "task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f",
+        "video_id": "task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f",
+        "task_id": "task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f",
+        "object": "video",
+        "model": "agnes-video-2.5-flash",
+        "status": "queued",
+        "progress": 0,
+        "created_at": 1792016525,
+        "seconds": "6",
+        "size": "720P",
+        "quality": "standard"
+      },
+      "video_id": "task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f",
+      "task_id": "task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f",
+      "accepted_at": 1792016526.05426,
+      "accepted_count": 1
     }
   },
   "review": "pending",
@@ -139,9 +162,9 @@
   },
   "phase": "generating",
   "loop_status": "running",
-  "updated_at": "2026-10-14T22:22:04.416632+00:00",
+  "updated_at": "2026-10-14T22:22:06.054265+00:00",
   "completed_count": 0,
-  "next_request_at": 1792016599.4165788,
-  "retry_streak": 11,
+  "next_request_at": 1792016601.0542219,
+  "retry_streak": 0,
   "last_backoff_seconds": 900
 }
