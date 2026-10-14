@@ -2,87 +2,22 @@
 === 1/5 校验计划与配音来源（闸门一）===
 VALID: 180s plan; 40 Zhipu shots; prompts ≤512 chars; chapters ok
 === 2/5 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）===
-FETCH S01 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa9489d_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=PF5p2D627QJbfxQAm4w4eHuGXko%3D&Expires=1791991632
-  urllib attempt 1 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 1 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
-  urllib attempt 2 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 2 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
-  urllib attempt 3 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 3 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
-  urllib attempt 4 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 4 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
-  urllib attempt 5 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 5 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
-  urllib attempt 6 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 6 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
-  async-result keys: ['choices', 'created', 'id', 'model', 'request_id', 'task_status', 'usage', 'video_result'] status=SUCCESS
-DEAD_LINK S01: stored URL expired (regeneration required)
-FETCH S02 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232930ff70b2b6c04e4788_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=wBUnphA1G8WV8yG9B%2FbsrxsBdY4%3D&Expires=1791991772
-  urllib attempt 1 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 1 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S02.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232930ff70b2b6c04e47
-  urllib attempt 2 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 2 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S02.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232930ff70b2b6c04e47
-  urllib attempt 3 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 3 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S02.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232930ff70b2b6c04e47
-  urllib attempt 4 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 4 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S02.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232930ff70b2b6c04e47
-  urllib attempt 5 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 5 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S02.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232930ff70b2b6c04e47
-  urllib attempt 6 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 6 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S02.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232930ff70b2b6c04e47
-  async-result keys: ['choices', 'created', 'id', 'model', 'request_id', 'task_status', 'usage', 'video_result'] status=SUCCESS
-DEAD_LINK S02: stored URL expired (regeneration required)
+FETCH S01 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015013620dceb0026e7f14e8b_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=kbNaV8nu3nI2En7s3YYv%2BlrWmdA%3D&Expires=1792085782
+  OK S01 2909086 bytes / 5.11s
+FETCH S02 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015013700de3d26e15c964a6a_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=x3Rem6ufVqZ2pmm0Su5BoJT6EXw%3D&Expires=1792085822
+  OK S02 1131495 bytes / 5.11s
 FETCH S03 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014133530689394b70b70489e_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=6um0SKQmBltwCsOCo2ey3q9GvLQ%3D&Expires=1792042532
   OK S03 1538890 bytes / 5.11s
 FETCH S04 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014153720656aeed14b5d46d5_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=mLL0TWhJH9OuzCb192UY%2FiCtC2w%3D&Expires=1792049843
   OK S04 1945631 bytes / 5.11s
-FETCH S05 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014003620b378d9d89589431f_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=PnKgW5hG7ms1TQCO0fsFXmC0fKA%3D&Expires=1791995782
-  urllib attempt 1 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 1 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S05.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014003620b378d9d8958943
-  urllib attempt 2 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 2 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S05.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014003620b378d9d8958943
-  urllib attempt 3 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 3 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S05.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014003620b378d9d8958943
-  urllib attempt 4 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 4 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S05.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014003620b378d9d8958943
-  urllib attempt 5 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 5 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S05.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014003620b378d9d8958943
-  urllib attempt 6 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 6 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S05.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014003620b378d9d8958943
-  async-result keys: ['choices', 'created', 'id', 'model', 'request_id', 'task_status', 'usage', 'video_result'] status=SUCCESS
-DEAD_LINK S05: stored URL expired (regeneration required)
+FETCH S05 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015013750934301fbe95f4b19_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=ucW3wa%2FDN8%2B2NyWH7H7Y7Ez%2F%2Fi8%3D&Expires=1792085873
+  OK S05 1522806 bytes / 5.11s
 FETCH S06 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610142206404c04da8b332a47c4_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=8bgSNjVF7cwzw7Mme%2B1p3WmnBwY%3D&Expires=1792073203
   OK S06 2173621 bytes / 5.11s
-FETCH S07 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101400384051f95ff264f84483_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=YJPRDfw21XHtWtNPfsRlo5g5Ymg%3D&Expires=1791995922
-  urllib attempt 1 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 1 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S07.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101400384051f95ff264f844
-  urllib attempt 2 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 2 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S07.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101400384051f95ff264f844
-  urllib attempt 3 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 3 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S07.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101400384051f95ff264f844
-  urllib attempt 4 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 4 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S07.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101400384051f95ff264f844
-  urllib attempt 5 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 5 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S07.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101400384051f95ff264f844
-  urllib attempt 6 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 6 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S07.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101400384051f95ff264f844
-  async-result keys: ['choices', 'created', 'id', 'model', 'request_id', 'task_status', 'usage', 'video_result'] status=SUCCESS
-DEAD_LINK S07: stored URL expired (regeneration required)
-FETCH S08 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014010310ddb971f817344049_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=sHnAuzUjtWMbbpLkRrEhK7j77Mw%3D&Expires=1791997393
-  urllib attempt 1 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 1 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S08.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014010310ddb971f8173440
-  urllib attempt 2 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 2 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S08.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014010310ddb971f8173440
-  urllib attempt 3 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 3 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S08.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014010310ddb971f8173440
-  urllib attempt 4 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 4 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S08.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014010310ddb971f8173440
-  urllib attempt 5 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 5 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S08.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014010310ddb971f8173440
-  urllib attempt 6 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
-  curl attempt 6 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S08.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014010310ddb971f8173440
-  async-result keys: ['choices', 'created', 'id', 'model', 'request_id', 'task_status', 'usage', 'video_result'] status=SUCCESS
-DEAD_LINK S08: stored URL expired (regeneration required)
+FETCH S07 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015013910d4d75ae5cc8b4cfe_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=Fgg1Fq%2FnpjELg8vQIvh7Z1SK4B4%3D&Expires=1792085954
+  OK S07 2031613 bytes / 5.11s
+FETCH S08 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015013520d5664dc23f1b4fa9_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=V8rQSahiu1s1HgnqfHlwSggKlQM%3D&Expires=1792085722
+  OK S08 1644378 bytes / 5.11s
 FETCH S09 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101420481004e29af431f34c64_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=pBXfy8ztDwEDu%2BdvEK%2Bpr%2FFiOJI%3D&Expires=1792068492
   OK S09 1916702 bytes / 5.11s
 FETCH S10 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610140206007854ad78fc174972_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=6pVqrrxcFE5mknqY3obl5xkcUys%3D&Expires=1792001162
@@ -147,10 +82,28 @@ FETCH S39 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014192550cc86
   OK S39 2189771 bytes / 5.11s
 FETCH S40 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610141855504065548b5b244765_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=%2BcdTgBMuokvV9KikCCWNSZzC1aI%3D&Expires=1792061753
   OK S40 2586615 bytes / 5.11s
+FETCH_COMPLETE {"downloaded": 40, "reused": 0, "clips": 40}
+=== 3/5 剪辑 + 混音 + 成品复测（闸门二、三）===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[0;93m2026-10-14 17:47:53.457693345 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+ASR_TIMING_READY N01
+ASR_TIMING_READY N02
+ASR_TIMING_READY N03
+ASR_TIMING_READY N04
+ASR_TIMING_READY N05
+ASR_TIMING_READY N06
+RENDER_SEGMENT 1/40 S01
+RENDER_SEGMENT 2/40 S02
+RENDER_SEGMENT 3/40 S03
+RENDER_SEGMENT 4/40 S04
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 162, in <module>
-    raise SystemExit(main())
-                     ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 151, in main
-    raise RuntimeError("Clips without a verified generation (regeneration required): "
-RuntimeError: Clips without a verified generation (regeneration required): S01, S02, S05, S07, S08
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/render.py", line 522, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/render.py", line 464, in main
+    outputs.append(render_segment(entry,i,args.sources,work/'graphics',segments,args.width,args.height,checks,presentation,last_shot))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/render.py", line 384, in render_segment
+    if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: S05/: requires excessive slow motion (2.28)
