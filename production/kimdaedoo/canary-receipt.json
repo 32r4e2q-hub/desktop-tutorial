@@ -17,7 +17,12 @@
   "batch_started": false,
   "authorization": "User asked to access Agnes through the API secret stored in GitHub; single Flash availability trial only",
   "review": "pending",
-  "attempts": [],
-  "status": "submitting",
-  "updated_at": "2026-10-14T05:03:00.282756+00:00"
+  "attempts": [
+    {
+      "http": 503,
+      "detail": "video queue is full, please retry later (request id: 20261014050301559657591MuTIKcHu)"
+    }
+  ],
+  "status": "rejected",
+  "updated_at": "2026-10-14T05:03:01.684556+00:00"
 }
