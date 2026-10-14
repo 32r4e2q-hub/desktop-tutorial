@@ -1057,10 +1057,10 @@
     },
     "S36": {
       "id": "S36",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "399a8f959546e4cc7aa946259081495200daee66059fef6bef857cb69ca8bd4b",
-      "updated_at": "2026-10-14T13:03:29Z",
-      "error": null,
+      "updated_at": "2026-10-14T13:07:16Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "task_id": null,
       "used_params": {
         "quality": "speed",
@@ -1207,7 +1207,7 @@
       "reused_existing_asset": true
     }
   },
-  "updated_at": "2026-10-14T13:03:29Z",
+  "updated_at": "2026-10-14T13:07:16Z",
   "run_id": "38565913672",
   "phase": "generation_incomplete"
 }
