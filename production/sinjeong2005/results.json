@@ -705,10 +705,10 @@
     },
     "S25": {
       "id": "S25",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "256c43c29537fb8646391ea6cddf196c0557305504a07885e385940de3c92255",
-      "updated_at": "2026-10-14T07:44:12Z",
-      "error": null,
+      "updated_at": "2026-10-14T07:47:57Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "task_id": null,
       "used_params": {
         "quality": "speed",
@@ -1173,7 +1173,7 @@
       "anchor_role": "C8"
     }
   },
-  "updated_at": "2026-10-14T07:44:12Z",
+  "updated_at": "2026-10-14T07:47:57Z",
   "run_id": "38517066811",
   "phase": "sources_ready"
 }
