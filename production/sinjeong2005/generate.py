@@ -98,7 +98,7 @@ def validate(project):
 
 
 def git(*args):
-    return subprocess.run(["git", *args], cwd=ROOT, check=True,
+    return subprocess.run(["git", *args], cwd=ROOT, check=True, timeout=180,
                           capture_output=True, text=True).stdout
 
 
@@ -216,12 +216,15 @@ def main():
     from zhipuai import ZhipuAI
     client = ZhipuAI(api_key=api_key)
 
+    import concurrent.futures
+
     def retrieve(task_id):
-        """查一次任务状态；查询异常（多为限流）重试几次后按仍在处理处理。"""
+        """查一次任务状态；90 秒限时，超时/异常一律按仍在处理，绝不堵住收割。"""
         last = None
-        for attempt in range(3):
+        for attempt in range(2):
+            pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
             try:
-                result = client.videos.retrieve_videos_result(id=task_id)
+                result = pool.submit(client.videos.retrieve_videos_result, id=task_id).result(timeout=90)
                 status = getattr(result, "task_status", None) or (result.get("task_status") if isinstance(result, dict) else None)
                 url = None
                 if status == "SUCCESS":
@@ -232,7 +235,9 @@ def main():
                 return status, url, result
             except Exception as exc:  # noqa: BLE001
                 last = exc
-                time.sleep(20)
+                time.sleep(10)
+            finally:
+                pool.shutdown(wait=False, cancel_futures=True)
         print(f"查询异常（按处理中处理）：{str(last)[:120]}", flush=True)
         return "PROCESSING", None, None
 
@@ -330,6 +335,7 @@ def main():
             del outstanding[sid]
 
     print(f"流水线：已完成 {len(done)}，在队 {len(outstanding)}，待提交 {len(needs_submit)}", flush=True)
+    last_heartbeat = time.monotonic()
 
     # ---- 阶段 2：提交与收割交替推进，直到全部完成或预算耗尽 ----
     while (needs_submit or outstanding) and time.monotonic() < deadline:
@@ -380,6 +386,9 @@ def main():
                     checkpoint(sid + " failed", sid, status="failed",
                                error=f"任务多次 FAIL：{str(raw)[:200]}")
                 del outstanding[sid]
+        if time.monotonic() - last_heartbeat > 600:
+            last_heartbeat = time.monotonic()
+            checkpoint(f"heartbeat done={len(done)} queued={len(outstanding)} submit={len(needs_submit)}")
         if needs_submit or outstanding:
             time.sleep(20)
 
