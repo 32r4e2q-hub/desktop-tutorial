@@ -1,0 +1,32 @@
+{
+  "at_utc": "2026-10-14T02:42:46.267169+00:00",
+  "mode": "invalid-prompt validation only; never submits usable video",
+  "billing_verified_free": false,
+  "generation_started": false,
+  "models": [
+    {
+      "model": "agnes-video-v2.0",
+      "http": 503,
+      "verdict": "model_unavailable",
+      "detail": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261014024246801888357bDO5804x)\",\"type\":\"AgnesAI_error\"}}"
+    },
+    {
+      "model": "agnes-video-2.5",
+      "http": 400,
+      "verdict": "validation_rejected_free_generation_unverified",
+      "detail": "{\"code\":\"invalid_request\",\"message\":\"prompt is required (request id: 20261014024402114958512itmHED2U)\",\"data\":null}"
+    },
+    {
+      "model": "agnes-video-2.5-flash",
+      "http": 400,
+      "verdict": "validation_rejected_free_generation_unverified",
+      "detail": "{\"code\":\"invalid_request\",\"message\":\"prompt is required (request id: 20261014024517500631233HjAinGyF)\",\"data\":null}"
+    }
+  ],
+  "model_list": {
+    "http": 200,
+    "verdict": "unexpected_acceptance_stop",
+    "detail": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.1-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-2.5-pro-beta\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]}],\"object\":\"list\",\"success\":true}"
+  },
+  "blocked": "Validation cannot establish zero-cost generation; no actual clips requested"
+}
