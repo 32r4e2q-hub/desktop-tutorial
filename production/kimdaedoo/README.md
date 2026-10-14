@@ -2,6 +2,8 @@
 
 ## 最新指令：恢复Agnes排队生成（覆盖下方历史状态）
 
+**恢复实测：S01已被Agnes正式受理，HTTP200，任务号 `task_tCsi4v9iRvfFJhlQG2ScAUzOFb01qc5f`；2026-10-14 22:23 UTC查询为pending，仍0/38完成。首轮38647029100成功完成并自动续跑到[38647382943](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38647382943)，已确认in_progress。受理不等于素材完成或免费计费已验证。**
+
 用户要求“用Agnes 排队生成”。已重新启用 `LOOP_REQUEST.json`，停用 `PIXAZO_REQUEST.json`。生产实时账本恢复为 `results.json`；旧的PIXAZO 402记录保留，不清空或伪造成功。按单任务、共享75秒请求间隔、队列满最多每15分钟重试、3小时Actions时段接续执行。是否运行/受理以最新Actions及账本为准；免费计费仍未验证，无收费型号回退。
 
 ## 最新实测结果：PIXAZO要求绑卡，已暂停（2026-10-14 07:38 UTC）
