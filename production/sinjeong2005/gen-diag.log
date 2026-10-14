@@ -1,41 +1,30 @@
 VALID: 180s plan; 40 Zhipu shots; prompts ≤512 chars; chapters ok
 PRODUCTION_STATUS zhipu generation started
+PRODUCTION_STATUS S03 reused
+PRODUCTION_STATUS S04 reused
+PRODUCTION_STATUS S11 reused
+PRODUCTION_STATUS S12 reused
+PRODUCTION_STATUS S16 reused
+PRODUCTION_STATUS S24 reused
+PRODUCTION_STATUS S25 reused
+PRODUCTION_STATUS S26 reused
+PRODUCTION_STATUS S30 reused
 PRODUCTION_STATUS S33 reused
 PRODUCTION_STATUS S34 reused
-流水线：已完成 2，在队 0，待提交 27
-PRODUCTION_STATUS S03 submitting
-S03: 智谱限流 1305，第 1 次，等 30s
-S03: 智谱限流 1305，第 2 次，等 30s
-S03: 智谱限流 1305，第 3 次，等 30s
-S03: 智谱限流 1305，第 4 次，等 30s
-PRODUCTION_STATUS S03 queued
-PRODUCTION_STATUS S04 submitting
-S04: 智谱限流 1305，第 1 次，等 30s
-S04: 智谱限流 1305，第 2 次，等 30s
-S04: 智谱限流 1305，第 3 次，等 30s
-PRODUCTION_STATUS S04 queued
+PRODUCTION_STATUS S38 reused
+S09: 旧任务状态 FAIL
+PRODUCTION_STATUS S09 failed
+S23: 旧任务状态 SUCCESS
+PRODUCTION_STATUS S23 completed (resumed)
+S28: 旧任务状态 PROCESSING
+S29: 旧任务状态 PROCESSING
+S37: 旧任务状态 SUCCESS
+PRODUCTION_STATUS S37 completed (resumed)
+流水线：已完成 14，在队 2，待提交 12
 PRODUCTION_STATUS S06 submitting
+S06: 智谱限流 1305，第 1 次，等 30s
+S06: 智谱限流 1305，第 2 次，等 30s
 PRODUCTION_STATUS S06 queued
-PRODUCTION_STATUS S09 submitting
-S09: 智谱限流 1305，第 1 次，等 30s
-S09: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S09 queued
-PRODUCTION_STATUS S11 submitting
-S11: 智谱限流 1305，第 1 次，等 30s
-S11: 智谱限流 1305，第 2 次，等 30s
-S11: 智谱限流 1305，第 3 次，等 30s
-S11: 智谱限流 1305，第 4 次，等 30s
-S11: 智谱限流 1305，第 5 次，等 30s
-S11: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S11 rate limited
-PRODUCTION_STATUS S12 submitting
-S12: 智谱限流 1305，第 1 次，等 30s
-S12: 智谱限流 1305，第 2 次，等 30s
-S12: 智谱限流 1305，第 3 次，等 30s
-S12: 智谱限流 1305，第 4 次，等 30s
-S12: 智谱限流 1305，第 5 次，等 30s
-S12: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S12 rate limited
 PRODUCTION_STATUS S13 submitting
 S13: 智谱限流 1305，第 1 次，等 30s
 S13: 智谱限流 1305，第 2 次，等 30s
@@ -44,192 +33,10 @@ S13: 智谱限流 1305，第 4 次，等 30s
 S13: 智谱限流 1305，第 5 次，等 30s
 S13: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S13 rate limited
-PRODUCTION_STATUS S16 submitting
-S16: 智谱限流 1305，第 1 次，等 30s
-S16: 智谱限流 1305，第 2 次，等 30s
-S16: 智谱限流 1305，第 3 次，等 30s
-S16: 智谱限流 1305，第 4 次，等 30s
-S16: 智谱限流 1305，第 5 次，等 30s
-S16: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S16 rate limited
 PRODUCTION_STATUS S19 submitting
 S19: 智谱限流 1305，第 1 次，等 30s
 S19: 智谱限流 1305，第 2 次，等 30s
 S19: 智谱限流 1305，第 3 次，等 30s
-S19: 智谱限流 1305，第 4 次，等 30s
-S19: 智谱限流 1305，第 5 次，等 30s
-S19: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S19 rate limited
-PRODUCTION_STATUS S20 submitting
-S20: 智谱限流 1305，第 1 次，等 30s
-S20: 智谱限流 1305，第 2 次，等 30s
-S20: 智谱限流 1305，第 3 次，等 30s
-S20: 智谱限流 1305，第 4 次，等 30s
-S20: 智谱限流 1305，第 5 次，等 30s
-S20: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S20 rate limited
-PRODUCTION_STATUS S21 submitting
-S21: 智谱限流 1305，第 1 次，等 30s
-S21: 智谱限流 1305，第 2 次，等 30s
-S21: 智谱限流 1305，第 3 次，等 30s
-S21: 智谱限流 1305，第 4 次，等 30s
-S21: 智谱限流 1305，第 5 次，等 30s
-PRODUCTION_STATUS S21 queued
-PRODUCTION_STATUS S23 submitting
-S23: 智谱限流 1305，第 1 次，等 30s
-S23: 智谱限流 1305，第 2 次，等 30s
-S23: 智谱限流 1305，第 3 次，等 30s
-S23: 智谱限流 1305，第 4 次，等 30s
-S23: 智谱限流 1305，第 5 次，等 30s
-S23: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S23 rate limited
-PRODUCTION_STATUS S24 submitting
-S24: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S24 queued
-PRODUCTION_STATUS S25 submitting
-S25: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S25 queued
-PRODUCTION_STATUS S26 submitting
-S26: 智谱限流 1305，第 1 次，等 30s
-S26: 智谱限流 1305，第 2 次，等 30s
-S26: 智谱限流 1305，第 3 次，等 30s
-S26: 智谱限流 1305，第 4 次，等 30s
-S26: 智谱限流 1305，第 5 次，等 30s
-S26: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S26 rate limited
-PRODUCTION_STATUS S27 submitting
-S27: 智谱限流 1305，第 1 次，等 30s
-S27: 智谱限流 1305，第 2 次，等 30s
-S27: 智谱限流 1305，第 3 次，等 30s
-S27: 智谱限流 1305，第 4 次，等 30s
-S27: 智谱限流 1305，第 5 次，等 30s
-S27: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S27 rate limited
-PRODUCTION_STATUS S28 submitting
-S28: 智谱限流 1305，第 1 次，等 30s
-S28: 智谱限流 1305，第 2 次，等 30s
-S28: 智谱限流 1305，第 3 次，等 30s
-PRODUCTION_STATUS S28 queued
-PRODUCTION_STATUS S29 submitting
-S29: 智谱限流 1305，第 1 次，等 30s
-S29: 智谱限流 1305，第 2 次，等 30s
-S29: 智谱限流 1305，第 3 次，等 30s
-S29: 智谱限流 1305，第 4 次，等 30s
-S29: 智谱限流 1305，第 5 次，等 30s
-S29: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S29 rate limited
-PRODUCTION_STATUS S30 submitting
-S30: 智谱限流 1305，第 1 次，等 30s
-S30: 智谱限流 1305，第 2 次，等 30s
-S30: 智谱限流 1305，第 3 次，等 30s
-S30: 智谱限流 1305，第 4 次，等 30s
-S30: 智谱限流 1305，第 5 次，等 30s
-S30: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S30 rate limited
-PRODUCTION_STATUS S31 submitting
-S31: 智谱限流 1305，第 1 次，等 30s
-S31: 智谱限流 1305，第 2 次，等 30s
-S31: 智谱限流 1305，第 3 次，等 30s
-S31: 智谱限流 1305，第 4 次，等 30s
-S31: 智谱限流 1305，第 5 次，等 30s
-PRODUCTION_STATUS S31 queued
-PRODUCTION_STATUS S32 submitting
-S32: 智谱限流 1305，第 1 次，等 30s
-S32: 智谱限流 1305，第 2 次，等 30s
-S32: 智谱限流 1305，第 3 次，等 30s
-S32: 智谱限流 1305，第 4 次，等 30s
-S32: 智谱限流 1305，第 5 次，等 30s
-S32: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S32 rate limited
-PRODUCTION_STATUS S35 submitting
-S35: 智谱限流 1305，第 1 次，等 30s
-S35: 智谱限流 1305，第 2 次，等 30s
-S35: 智谱限流 1305，第 3 次，等 30s
-PRODUCTION_STATUS S35 queued
-PRODUCTION_STATUS S36 submitting
-S36: 智谱限流 1305，第 1 次，等 30s
-S36: 智谱限流 1305，第 2 次，等 30s
-S36: 智谱限流 1305，第 3 次，等 30s
-S36: 智谱限流 1305，第 4 次，等 30s
-S36: 智谱限流 1305，第 5 次，等 30s
-S36: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S36 rate limited
-PRODUCTION_STATUS S37 submitting
-S37: 智谱限流 1305，第 1 次，等 30s
-S37: 智谱限流 1305，第 2 次，等 30s
-S37: 智谱限流 1305，第 3 次，等 30s
-S37: 智谱限流 1305，第 4 次，等 30s
-S37: 智谱限流 1305，第 5 次，等 30s
-S37: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S37 rate limited
-PRODUCTION_STATUS S38 submitting
-S38: 智谱限流 1305，第 1 次，等 30s
-S38: 智谱限流 1305，第 2 次，等 30s
-S38: 智谱限流 1305，第 3 次，等 30s
-S38: 智谱限流 1305，第 4 次，等 30s
-S38: 智谱限流 1305，第 5 次，等 30s
-S38: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S38 rate limited
-PRODUCTION_STATUS S39 submitting
-S39: 智谱限流 1305，第 1 次，等 30s
-S39: 智谱限流 1305，第 2 次，等 30s
-S39: 智谱限流 1305，第 3 次，等 30s
-S39: 智谱限流 1305，第 4 次，等 30s
-S39: 智谱限流 1305，第 5 次，等 30s
-S39: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S39 rate limited
-PRODUCTION_STATUS S40 submitting
-S40: 智谱限流 1305，第 1 次，等 30s
-S40: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S40 queued
-S03: SUCCESS
-PRODUCTION_STATUS S03 completed
-S04: FAIL
-PRODUCTION_STATUS S04 task failed, requeue
-S06: FAIL
-PRODUCTION_STATUS S06 task failed, requeue
-S09: FAIL
-PRODUCTION_STATUS S09 task failed, requeue
-S21: FAIL
-PRODUCTION_STATUS S21 task failed, requeue
-S24: SUCCESS
-PRODUCTION_STATUS S24 completed
-S25: FAIL
-PRODUCTION_STATUS S25 task failed, requeue
-S28: FAIL
-PRODUCTION_STATUS S28 task failed, requeue
-S31: PROCESSING
-S35: PROCESSING
-S40: PROCESSING
-PRODUCTION_STATUS heartbeat done=4 queued=3 submit=22
-PRODUCTION_STATUS S11 submitting
-S11: 智谱限流 1305，第 1 次，等 30s
-S11: 智谱限流 1305，第 2 次，等 30s
-S11: 智谱限流 1305，第 3 次，等 30s
-S11: 智谱限流 1305，第 4 次，等 30s
-S11: 智谱限流 1305，第 5 次，等 30s
-S11: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S11 rate limited
-PRODUCTION_STATUS S12 submitting
-S12: 智谱限流 1305，第 1 次，等 30s
-S12: 智谱限流 1305，第 2 次，等 30s
-S12: 智谱限流 1305，第 3 次，等 30s
-S12: 智谱限流 1305，第 4 次，等 30s
-S12: 智谱限流 1305，第 5 次，等 30s
-S12: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S12 rate limited
-PRODUCTION_STATUS S13 submitting
-S13: 智谱限流 1305，第 1 次，等 30s
-S13: 智谱限流 1305，第 2 次，等 30s
-S13: 智谱限流 1305，第 3 次，等 30s
-S13: 智谱限流 1305，第 4 次，等 30s
-PRODUCTION_STATUS S13 queued
-PRODUCTION_STATUS S16 submitting
-S16: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S16 queued
-PRODUCTION_STATUS S19 submitting
-S19: 智谱限流 1305，第 1 次，等 30s
-S19: 智谱限流 1305，第 2 次，等 30s
 PRODUCTION_STATUS S19 queued
 PRODUCTION_STATUS S20 submitting
 S20: 智谱限流 1305，第 1 次，等 30s
@@ -239,22 +46,14 @@ S20: 智谱限流 1305，第 4 次，等 30s
 S20: 智谱限流 1305，第 5 次，等 30s
 S20: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S20 rate limited
-PRODUCTION_STATUS S23 submitting
-S23: 智谱限流 1305，第 1 次，等 30s
-S23: 智谱限流 1305，第 2 次，等 30s
-S23: 智谱限流 1305，第 3 次，等 30s
-S23: 智谱限流 1305，第 4 次，等 30s
-S23: 智谱限流 1305，第 5 次，等 30s
-S23: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S23 rate limited
-PRODUCTION_STATUS S26 submitting
-S26: 智谱限流 1305，第 1 次，等 30s
-S26: 智谱限流 1305，第 2 次，等 30s
-S26: 智谱限流 1305，第 3 次，等 30s
-S26: 智谱限流 1305，第 4 次，等 30s
-S26: 智谱限流 1305，第 5 次，等 30s
-S26: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S26 rate limited
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+S21: 智谱限流 1305，第 4 次，等 30s
+S21: 智谱限流 1305，第 5 次，等 30s
+S21: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S21 rate limited
 PRODUCTION_STATUS S27 submitting
 S27: 智谱限流 1305，第 1 次，等 30s
 S27: 智谱限流 1305，第 2 次，等 30s
@@ -263,325 +62,60 @@ S27: 智谱限流 1305，第 4 次，等 30s
 S27: 智谱限流 1305，第 5 次，等 30s
 S27: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S27 rate limited
-PRODUCTION_STATUS S29 submitting
-S29: 智谱限流 1305，第 1 次，等 30s
-S29: 智谱限流 1305，第 2 次，等 30s
-S29: 智谱限流 1305，第 3 次，等 30s
-S29: 智谱限流 1305，第 4 次，等 30s
-S29: 智谱限流 1305，第 5 次，等 30s
-S29: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S29 rate limited
-PRODUCTION_STATUS S30 submitting
-S30: 智谱限流 1305，第 1 次，等 30s
-S30: 智谱限流 1305，第 2 次，等 30s
-S30: 智谱限流 1305，第 3 次，等 30s
-S30: 智谱限流 1305，第 4 次，等 30s
-S30: 智谱限流 1305，第 5 次，等 30s
-PRODUCTION_STATUS S30 queued
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
 PRODUCTION_STATUS S32 submitting
 S32: 智谱限流 1305，第 1 次，等 30s
 S32: 智谱限流 1305，第 2 次，等 30s
 S32: 智谱限流 1305，第 3 次，等 30s
-S32: 智谱限流 1305，第 4 次，等 30s
-S32: 智谱限流 1305，第 5 次，等 30s
-S32: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S32 rate limited
-PRODUCTION_STATUS S36 submitting
-S36: 智谱限流 1305，第 1 次，等 30s
-S36: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S36 queued
-PRODUCTION_STATUS S37 submitting
-S37: 智谱限流 1305，第 1 次，等 30s
-S37: 智谱限流 1305，第 2 次，等 30s
-S37: 智谱限流 1305，第 3 次，等 30s
-S37: 智谱限流 1305，第 4 次，等 30s
-S37: 智谱限流 1305，第 5 次，等 30s
-S37: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S37 rate limited
-PRODUCTION_STATUS S38 submitting
-PRODUCTION_STATUS S38 queued
-PRODUCTION_STATUS S39 submitting
-PRODUCTION_STATUS S39 queued
-PRODUCTION_STATUS S04 submitting
-S04: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S04 queued
-PRODUCTION_STATUS S06 submitting
-S06: 智谱限流 1305，第 1 次，等 30s
-S06: 智谱限流 1305，第 2 次，等 30s
-S06: 智谱限流 1305，第 3 次，等 30s
-S06: 智谱限流 1305，第 4 次，等 30s
-S06: 智谱限流 1305，第 5 次，等 30s
-S06: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S06 rate limited
-PRODUCTION_STATUS S09 submitting
-PRODUCTION_STATUS S09 queued
-PRODUCTION_STATUS S21 submitting
-S21: 智谱限流 1305，第 1 次，等 30s
-S21: 智谱限流 1305，第 2 次，等 30s
-S21: 智谱限流 1305，第 3 次，等 30s
-S21: 智谱限流 1305，第 4 次，等 30s
-S21: 智谱限流 1305，第 5 次，等 30s
-S21: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S21 rate limited
-PRODUCTION_STATUS S25 submitting
-S25: 智谱限流 1305，第 1 次，等 30s
-S25: 智谱限流 1305，第 2 次，等 30s
-S25: 智谱限流 1305，第 3 次，等 30s
-S25: 智谱限流 1305，第 4 次，等 30s
-S25: 智谱限流 1305，第 5 次，等 30s
-S25: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S25 rate limited
-PRODUCTION_STATUS S28 submitting
-S28: 智谱限流 1305，第 1 次，等 30s
-S28: 智谱限流 1305，第 2 次，等 30s
-S28: 智谱限流 1305，第 3 次，等 30s
-S28: 智谱限流 1305，第 4 次，等 30s
-S28: 智谱限流 1305，第 5 次，等 30s
-S28: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S28 rate limited
-S31: FAIL
-PRODUCTION_STATUS S31 task failed, requeue
-S35: FAIL
-PRODUCTION_STATUS S35 task failed, requeue
-S40: FAIL
-PRODUCTION_STATUS S40 task failed, requeue
-S13: FAIL
-PRODUCTION_STATUS S13 task failed, requeue
-S16: SUCCESS
-PRODUCTION_STATUS S16 completed
-S19: FAIL
-PRODUCTION_STATUS S19 task failed, requeue
-S30: SUCCESS
-PRODUCTION_STATUS S30 completed
-S36: PROCESSING
-S38: SUCCESS
-PRODUCTION_STATUS S38 completed
-S39: PROCESSING
-S04: SUCCESS
-PRODUCTION_STATUS S04 completed
-S09: PROCESSING
-PRODUCTION_STATUS heartbeat done=8 queued=3 submit=18
-PRODUCTION_STATUS S11 submitting
-S11: 智谱限流 1305，第 1 次，等 30s
-S11: 智谱限流 1305，第 2 次，等 30s
-S11: 智谱限流 1305，第 3 次，等 30s
-S11: 智谱限流 1305，第 4 次，等 30s
-S11: 智谱限流 1305，第 5 次，等 30s
-S11: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S11 rate limited
-PRODUCTION_STATUS S12 submitting
-S12: 智谱限流 1305，第 1 次，等 30s
-S12: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S12 queued
-PRODUCTION_STATUS S20 submitting
-S20: 智谱限流 1305，第 1 次，等 30s
-S20: 智谱限流 1305，第 2 次，等 30s
-S20: 智谱限流 1305，第 3 次，等 30s
-PRODUCTION_STATUS S20 queued
-PRODUCTION_STATUS S23 submitting
-S23: 智谱限流 1305，第 1 次，等 30s
-S23: 智谱限流 1305，第 2 次，等 30s
-S23: 智谱限流 1305，第 3 次，等 30s
-S23: 智谱限流 1305，第 4 次，等 30s
-S23: 智谱限流 1305，第 5 次，等 30s
-S23: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S23 rate limited
-PRODUCTION_STATUS S26 submitting
-PRODUCTION_STATUS S26 queued
-PRODUCTION_STATUS S27 submitting
-S27: 智谱限流 1305，第 1 次，等 30s
-S27: 智谱限流 1305，第 2 次，等 30s
-S27: 智谱限流 1305，第 3 次，等 30s
-PRODUCTION_STATUS S27 queued
-PRODUCTION_STATUS S29 submitting
-S29: 智谱限流 1305，第 1 次，等 30s
-S29: 智谱限流 1305，第 2 次，等 30s
-S29: 智谱限流 1305，第 3 次，等 30s
-S29: 智谱限流 1305，第 4 次，等 30s
-S29: 智谱限流 1305，第 5 次，等 30s
-S29: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S29 rate limited
-PRODUCTION_STATUS S32 submitting
-S32: 智谱限流 1305，第 1 次，等 30s
-S32: 智谱限流 1305，第 2 次，等 30s
 PRODUCTION_STATUS S32 queued
-PRODUCTION_STATUS S37 submitting
-S37: 智谱限流 1305，第 1 次，等 30s
-S37: 智谱限流 1305，第 2 次，等 30s
-S37: 智谱限流 1305，第 3 次，等 30s
-S37: 智谱限流 1305，第 4 次，等 30s
-S37: 智谱限流 1305，第 5 次，等 30s
-S37: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S37 rate limited
-PRODUCTION_STATUS S06 submitting
-S06: 智谱限流 1305，第 1 次，等 30s
-S06: 智谱限流 1305，第 2 次，等 30s
-S06: 智谱限流 1305，第 3 次，等 30s
-S06: 智谱限流 1305，第 4 次，等 30s
-S06: 智谱限流 1305，第 5 次，等 30s
-S06: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S06 rate limited
-PRODUCTION_STATUS S21 submitting
-S21: 智谱限流 1305，第 1 次，等 30s
-S21: 智谱限流 1305，第 2 次，等 30s
-S21: 智谱限流 1305，第 3 次，等 30s
-S21: 智谱限流 1305，第 4 次，等 30s
-S21: 智谱限流 1305，第 5 次，等 30s
-S21: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S21 rate limited
-PRODUCTION_STATUS S25 submitting
-S25: 智谱限流 1305，第 1 次，等 30s
-S25: 智谱限流 1305，第 2 次，等 30s
-S25: 智谱限流 1305，第 3 次，等 30s
-S25: 智谱限流 1305，第 4 次，等 30s
-S25: 智谱限流 1305，第 5 次，等 30s
-S25: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S25 rate limited
-PRODUCTION_STATUS S28 submitting
-S28: 智谱限流 1305，第 1 次，等 30s
-S28: 智谱限流 1305，第 2 次，等 30s
-S28: 智谱限流 1305，第 3 次，等 30s
-S28: 智谱限流 1305，第 4 次，等 30s
-S28: 智谱限流 1305，第 5 次，等 30s
-S28: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S28 rate limited
-PRODUCTION_STATUS S31 submitting
-S31: 智谱限流 1305，第 1 次，等 30s
-S31: 智谱限流 1305，第 2 次，等 30s
-S31: 智谱限流 1305，第 3 次，等 30s
-S31: 智谱限流 1305，第 4 次，等 30s
-S31: 智谱限流 1305，第 5 次，等 30s
-S31: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S31 rate limited
 PRODUCTION_STATUS S35 submitting
 S35: 智谱限流 1305，第 1 次，等 30s
 S35: 智谱限流 1305，第 2 次，等 30s
 PRODUCTION_STATUS S35 queued
-PRODUCTION_STATUS S40 submitting
-S40: 智谱限流 1305，第 1 次，等 30s
-S40: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S40 queued
-PRODUCTION_STATUS S13 submitting
-S13: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S13 queued
-PRODUCTION_STATUS S19 submitting
-S19: 智谱限流 1305，第 1 次，等 30s
-S19: 智谱限流 1305，第 2 次，等 30s
-S19: 智谱限流 1305，第 3 次，等 30s
-S19: 智谱限流 1305，第 4 次，等 30s
-S19: 智谱限流 1305，第 5 次，等 30s
-S19: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S19 rate limited
-S36: FAIL
-PRODUCTION_STATUS S36 task failed, requeue
-S39: FAIL
-PRODUCTION_STATUS S39 task failed, requeue
-S09: FAIL
-PRODUCTION_STATUS S09 task failed, requeue
-S12: SUCCESS
-PRODUCTION_STATUS S12 completed
-S20: FAIL
-PRODUCTION_STATUS S20 task failed, requeue
-S26: SUCCESS
-PRODUCTION_STATUS S26 completed
-S27: FAIL
-PRODUCTION_STATUS S27 task failed, requeue
-S32: PROCESSING
-S35: PROCESSING
-S40: PROCESSING
-S13: PROCESSING
-PRODUCTION_STATUS heartbeat done=10 queued=4 submit=15
-PRODUCTION_STATUS S11 submitting
-S11: 智谱限流 1305，第 1 次，等 30s
-S11: 智谱限流 1305，第 2 次，等 30s
-S11: 智谱限流 1305，第 3 次，等 30s
-S11: 智谱限流 1305，第 4 次，等 30s
-S11: 智谱限流 1305，第 5 次，等 30s
-S11: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S11 rate limited
-PRODUCTION_STATUS S23 submitting
-S23: 智谱限流 1305，第 1 次，等 30s
-S23: 智谱限流 1305，第 2 次，等 30s
-S23: 智谱限流 1305，第 3 次，等 30s
-S23: 智谱限流 1305，第 4 次，等 30s
-S23: 智谱限流 1305，第 5 次，等 30s
-S23: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S23 rate limited
-PRODUCTION_STATUS S29 submitting
-S29: 智谱限流 1305，第 1 次，等 30s
-S29: 智谱限流 1305，第 2 次，等 30s
-S29: 智谱限流 1305，第 3 次，等 30s
-S29: 智谱限流 1305，第 4 次，等 30s
-S29: 智谱限流 1305，第 5 次，等 30s
-S29: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S29 rate limited
-PRODUCTION_STATUS S37 submitting
-S37: 智谱限流 1305，第 1 次，等 30s
-S37: 智谱限流 1305，第 2 次，等 30s
-S37: 智谱限流 1305，第 3 次，等 30s
-S37: 智谱限流 1305，第 4 次，等 30s
-S37: 智谱限流 1305，第 5 次，等 30s
-S37: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S37 rate limited
-PRODUCTION_STATUS S06 submitting
-S06: 智谱限流 1305，第 1 次，等 30s
-S06: 智谱限流 1305，第 2 次，等 30s
-S06: 智谱限流 1305，第 3 次，等 30s
-S06: 智谱限流 1305，第 4 次，等 30s
-S06: 智谱限流 1305，第 5 次，等 30s
-S06: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S06 rate limited
-PRODUCTION_STATUS S21 submitting
-S21: 智谱限流 1305，第 1 次，等 30s
-S21: 智谱限流 1305，第 2 次，等 30s
-S21: 智谱限流 1305，第 3 次，等 30s
-PRODUCTION_STATUS S21 queued
-PRODUCTION_STATUS S25 submitting
-S25: 智谱限流 1305，第 1 次，等 30s
-S25: 智谱限流 1305，第 2 次，等 30s
-S25: 智谱限流 1305，第 3 次，等 30s
-S25: 智谱限流 1305，第 4 次，等 30s
-S25: 智谱限流 1305，第 5 次，等 30s
-S25: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S25 rate limited
-PRODUCTION_STATUS S28 submitting
-S28: 智谱限流 1305，第 1 次，等 30s
-S28: 智谱限流 1305，第 2 次，等 30s
-S28: 智谱限流 1305，第 3 次，等 30s
-S28: 智谱限流 1305，第 4 次，等 30s
-S28: 智谱限流 1305，第 5 次，等 30s
-S28: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S28 rate limited
-PRODUCTION_STATUS S31 submitting
-S31: 智谱限流 1305，第 1 次，等 30s
-S31: 智谱限流 1305，第 2 次，等 30s
-S31: 智谱限流 1305，第 3 次，等 30s
-S31: 智谱限流 1305，第 4 次，等 30s
-S31: 智谱限流 1305，第 5 次，等 30s
-S31: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S31 rate limited
-PRODUCTION_STATUS S19 submitting
-S19: 智谱限流 1305，第 1 次，等 30s
-S19: 智谱限流 1305，第 2 次，等 30s
-S19: 智谱限流 1305，第 3 次，等 30s
-S19: 智谱限流 1305，第 4 次，等 30s
-S19: 智谱限流 1305，第 5 次，等 30s
-S19: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S19 rate limited
 PRODUCTION_STATUS S36 submitting
-PRODUCTION_STATUS S36 queued
+S36: 智谱限流 1305，第 1 次，等 30s
+S36: 智谱限流 1305，第 2 次，等 30s
+S36: 智谱限流 1305，第 3 次，等 30s
+S36: 智谱限流 1305，第 4 次，等 30s
+S36: 智谱限流 1305，第 5 次，等 30s
+S36: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S36 rate limited
 PRODUCTION_STATUS S39 submitting
 S39: 智谱限流 1305，第 1 次，等 30s
 S39: 智谱限流 1305，第 2 次，等 30s
-S39: 智谱限流 1305，第 3 次，等 30s
-S39: 智谱限流 1305，第 4 次，等 30s
-S39: 智谱限流 1305，第 5 次，等 30s
-S39: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S39 rate limited
-PRODUCTION_STATUS S09 submitting
-S09: 智谱限流 1305，第 1 次，等 30s
-S09: 智谱限流 1305，第 2 次，等 30s
-PRODUCTION_STATUS S09 queued
+PRODUCTION_STATUS S39 queued
+PRODUCTION_STATUS S40 submitting
+S40: 智谱限流 1305，第 1 次，等 30s
+S40: 智谱限流 1305，第 2 次，等 30s
+S40: 智谱限流 1305，第 3 次，等 30s
+S40: 智谱限流 1305，第 4 次，等 30s
+S40: 智谱限流 1305，第 5 次，等 30s
+S40: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S40 rate limited
+S28: FAIL
+PRODUCTION_STATUS S28 task failed, requeue
+S29: FAIL
+PRODUCTION_STATUS S29 task failed, requeue
+S06: FAIL
+PRODUCTION_STATUS S06 task failed, requeue
+S19: PROCESSING
+S32: SUCCESS
+PRODUCTION_STATUS S32 completed
+S35: PROCESSING
+S39: PROCESSING
+PRODUCTION_STATUS heartbeat done=15 queued=3 submit=10
+PRODUCTION_STATUS S13 submitting
+S13: 智谱限流 1305，第 1 次，等 30s
+S13: 智谱限流 1305，第 2 次，等 30s
+S13: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S13 queued
 PRODUCTION_STATUS S20 submitting
 S20: 智谱限流 1305，第 1 次，等 30s
 S20: 智谱限流 1305，第 2 次，等 30s
@@ -590,6 +124,14 @@ S20: 智谱限流 1305，第 4 次，等 30s
 S20: 智谱限流 1305，第 5 次，等 30s
 S20: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S20 rate limited
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+S21: 智谱限流 1305，第 4 次，等 30s
+S21: 智谱限流 1305，第 5 次，等 30s
+S21: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S21 rate limited
 PRODUCTION_STATUS S27 submitting
 S27: 智谱限流 1305，第 1 次，等 30s
 S27: 智谱限流 1305，第 2 次，等 30s
@@ -598,57 +140,136 @@ S27: 智谱限流 1305，第 4 次，等 30s
 S27: 智谱限流 1305，第 5 次，等 30s
 S27: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S27 rate limited
-S32: FAIL
-PRODUCTION_STATUS S32 task failed, requeue
-S35: FAIL
-PRODUCTION_STATUS S35 task failed, requeue
-S40: FAIL
-PRODUCTION_STATUS S40 task failed, requeue
-S13: FAIL
-PRODUCTION_STATUS S13 task failed, requeue
-S21: PROCESSING
-S36: PROCESSING
-S09: PROCESSING
-PRODUCTION_STATUS heartbeat done=10 queued=3 submit=16
-PRODUCTION_STATUS S11 submitting
-PRODUCTION_STATUS S11 queued
-PRODUCTION_STATUS S23 submitting
-S23: 智谱限流 1305，第 1 次，等 30s
-S23: 智谱限流 1305，第 2 次，等 30s
-S23: 智谱限流 1305，第 3 次，等 30s
-S23: 智谱限流 1305，第 4 次，等 30s
-S23: 智谱限流 1305，第 5 次，等 30s
-S23: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S23 rate limited
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+PRODUCTION_STATUS S31 queued
+PRODUCTION_STATUS S36 submitting
+S36: 智谱限流 1305，第 1 次，等 30s
+S36: 智谱限流 1305，第 2 次，等 30s
+S36: 智谱限流 1305，第 3 次，等 30s
+S36: 智谱限流 1305，第 4 次，等 30s
+S36: 智谱限流 1305，第 5 次，等 30s
+S36: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S36 rate limited
+PRODUCTION_STATUS S40 submitting
+S40: 智谱限流 1305，第 1 次，等 30s
+S40: 智谱限流 1305，第 2 次，等 30s
+S40: 智谱限流 1305，第 3 次，等 30s
+S40: 智谱限流 1305，第 4 次，等 30s
+PRODUCTION_STATUS S40 queued
+PRODUCTION_STATUS S28 submitting
+S28: 智谱限流 1305，第 1 次，等 30s
+S28: 智谱限流 1305，第 2 次，等 30s
+S28: 智谱限流 1305，第 3 次，等 30s
+S28: 智谱限流 1305，第 4 次，等 30s
+S28: 智谱限流 1305，第 5 次，等 30s
+S28: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S28 rate limited
 PRODUCTION_STATUS S29 submitting
 S29: 智谱限流 1305，第 1 次，等 30s
 S29: 智谱限流 1305，第 2 次，等 30s
-S29: 智谱限流 1305，第 3 次，等 30s
 PRODUCTION_STATUS S29 queued
-PRODUCTION_STATUS S37 submitting
-S37: 智谱限流 1305，第 1 次，等 30s
-S37: 智谱限流 1305，第 2 次，等 30s
-S37: 智谱限流 1305，第 3 次，等 30s
-S37: 智谱限流 1305，第 4 次，等 30s
-S37: 智谱限流 1305，第 5 次，等 30s
-S37: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S37 rate limited
 PRODUCTION_STATUS S06 submitting
 S06: 智谱限流 1305，第 1 次，等 30s
 S06: 智谱限流 1305，第 2 次，等 30s
 S06: 智谱限流 1305，第 3 次，等 30s
 S06: 智谱限流 1305，第 4 次，等 30s
-S06: 智谱限流 1305，第 5 次，等 30s
-S06: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S06 rate limited
-PRODUCTION_STATUS S25 submitting
-S25: 智谱限流 1305，第 1 次，等 30s
-PRODUCTION_STATUS S25 queued
+PRODUCTION_STATUS S06 queued
+S19: FAIL
+PRODUCTION_STATUS S19 task failed, requeue
+S35: FAIL
+PRODUCTION_STATUS S35 failed
+S39: FAIL
+PRODUCTION_STATUS S39 task failed, requeue
+S13: PROCESSING
+S31: PROCESSING
+S40: SUCCESS
+PRODUCTION_STATUS S40 completed
+S29: PROCESSING
+S06: PROCESSING
+PRODUCTION_STATUS heartbeat done=16 queued=4 submit=7
+PRODUCTION_STATUS S20 submitting
+S20: 智谱限流 1305，第 1 次，等 30s
+S20: 智谱限流 1305，第 2 次，等 30s
+S20: 智谱限流 1305，第 3 次，等 30s
+S20: 智谱限流 1305，第 4 次，等 30s
+S20: 智谱限流 1305，第 5 次，等 30s
+S20: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S20 rate limited
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+S21: 智谱限流 1305，第 4 次，等 30s
+S21: 智谱限流 1305，第 5 次，等 30s
+S21: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S21 rate limited
+PRODUCTION_STATUS S27 submitting
+S27: 智谱限流 1305，第 1 次，等 30s
+S27: 智谱限流 1305，第 2 次，等 30s
+S27: 智谱限流 1305，第 3 次，等 30s
+S27: 智谱限流 1305，第 4 次，等 30s
+S27: 智谱限流 1305，第 5 次，等 30s
+S27: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S27 rate limited
+PRODUCTION_STATUS S36 submitting
+S36: 智谱限流 1305，第 1 次，等 30s
+S36: 智谱限流 1305，第 2 次，等 30s
+S36: 智谱限流 1305，第 3 次，等 30s
+S36: 智谱限流 1305，第 4 次，等 30s
+S36: 智谱限流 1305，第 5 次，等 30s
+S36: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S36 rate limited
 PRODUCTION_STATUS S28 submitting
 S28: 智谱限流 1305，第 1 次，等 30s
 S28: 智谱限流 1305，第 2 次，等 30s
-S28: 智谱限流 1305，第 3 次，等 30s
 PRODUCTION_STATUS S28 queued
+PRODUCTION_STATUS S19 submitting
+S19: 智谱限流 1305，第 1 次，等 30s
+S19: 智谱限流 1305，第 2 次，等 30s
+S19: 智谱限流 1305，第 3 次，等 30s
+S19: 智谱限流 1305，第 4 次，等 30s
+S19: 智谱限流 1305，第 5 次，等 30s
+PRODUCTION_STATUS S19 queued
+PRODUCTION_STATUS S39 submitting
+S39: 智谱限流 1305，第 1 次，等 30s
+S39: 智谱限流 1305，第 2 次，等 30s
+S39: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S39 queued
+S13: FAIL
+PRODUCTION_STATUS S13 failed
+S31: FAIL
+PRODUCTION_STATUS S31 task failed, requeue
+S29: PROCESSING
+S06: PROCESSING
+S28: SUCCESS
+PRODUCTION_STATUS S28 completed
+S19: SUCCESS
+PRODUCTION_STATUS S19 completed
+S39: PROCESSING
+PRODUCTION_STATUS heartbeat done=18 queued=3 submit=5
+PRODUCTION_STATUS S20 submitting
+S20: 智谱限流 1305，第 1 次，等 30s
+S20: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S20 queued
+PRODUCTION_STATUS S21 submitting
+S21: 智谱限流 1305，第 1 次，等 30s
+S21: 智谱限流 1305，第 2 次，等 30s
+S21: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S21 queued
+PRODUCTION_STATUS S27 submitting
+S27: 智谱限流 1305，第 1 次，等 30s
+S27: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S27 queued
+PRODUCTION_STATUS S36 submitting
+S36: 智谱限流 1305，第 1 次，等 30s
+S36: 智谱限流 1305，第 2 次，等 30s
+S36: 智谱限流 1305，第 3 次，等 30s
+PRODUCTION_STATUS S36 queued
 PRODUCTION_STATUS S31 submitting
 S31: 智谱限流 1305，第 1 次，等 30s
 S31: 智谱限流 1305，第 2 次，等 30s
@@ -657,41 +278,344 @@ S31: 智谱限流 1305，第 4 次，等 30s
 S31: 智谱限流 1305，第 5 次，等 30s
 S31: 智谱限流 1305，第 6 次，等 30s
 PRODUCTION_STATUS S31 rate limited
-PRODUCTION_STATUS S19 submitting
-S19: 智谱限流 1305，第 1 次，等 30s
-S19: 智谱限流 1305，第 2 次，等 30s
-S19: 智谱限流 1305，第 3 次，等 30s
-S19: 智谱限流 1305，第 4 次，等 30s
-S19: 智谱限流 1305，第 5 次，等 30s
-S19: 智谱限流 1305，第 6 次，等 30s
-PRODUCTION_STATUS S19 rate limited
-S21: FAIL
-PRODUCTION_STATUS S21 task failed, requeue
-S36: FAIL
-PRODUCTION_STATUS S36 task failed, requeue
-S09: FAIL
-PRODUCTION_STATUS S09 failed
-S11: SUCCESS
-PRODUCTION_STATUS S11 completed
+S29: FAIL
+PRODUCTION_STATUS S29 task failed, requeue
+S06: FAIL
+PRODUCTION_STATUS S06 failed
+S39: SUCCESS
+PRODUCTION_STATUS S39 completed
+S20: PROCESSING
+S21: SUCCESS
+PRODUCTION_STATUS S21 completed
+S27: PROCESSING
+S36: PROCESSING
+PRODUCTION_STATUS heartbeat done=20 queued=3 submit=2
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+S29: 智谱限流 1305，第 3 次，等 30s
+S29: 智谱限流 1305，第 4 次，等 30s
+S29: 智谱限流 1305，第 5 次，等 30s
+S29: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S29 rate limited
+S20: PROCESSING
+S27: PROCESSING
+S36: PROCESSING
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+S29: 智谱限流 1305，第 3 次，等 30s
+S29: 智谱限流 1305，第 4 次，等 30s
+S29: 智谱限流 1305，第 5 次，等 30s
+S29: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S29 rate limited
+S20: PROCESSING
+S27: PROCESSING
+S36: PROCESSING
+PRODUCTION_STATUS heartbeat done=20 queued=3 submit=2
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
+PRODUCTION_STATUS S29 submitting
+S29: 智谱限流 1305，第 1 次，等 30s
+S29: 智谱限流 1305，第 2 次，等 30s
+PRODUCTION_STATUS S29 queued
+S20: FAIL
+PRODUCTION_STATUS S20 task failed, requeue
+S27: PROCESSING
+S36: PROCESSING
 S29: PROCESSING
-S25: SUCCESS
-PRODUCTION_STATUS S25 completed
-S28: PROCESSING
-PRODUCTION_STATUS heartbeat done=12 queued=2 submit=14
-PRODUCTION_STATUS S23 pending (budget)
-PRODUCTION_STATUS S37 pending (budget)
-PRODUCTION_STATUS S06 pending (budget)
-PRODUCTION_STATUS S31 pending (budget)
-PRODUCTION_STATUS S19 pending (budget)
-PRODUCTION_STATUS S39 pending (budget)
-PRODUCTION_STATUS S20 pending (budget)
-PRODUCTION_STATUS S27 pending (budget)
-PRODUCTION_STATUS S32 pending (budget)
-PRODUCTION_STATUS S35 pending (budget)
-PRODUCTION_STATUS S40 pending (budget)
-PRODUCTION_STATUS S13 pending (budget)
-PRODUCTION_STATUS S21 pending (budget)
-PRODUCTION_STATUS S36 pending (budget)
-PRODUCTION_STATUS S29 queued (budget)
-PRODUCTION_STATUS S28 queued (budget)
-PRODUCTION_STATUS generation incomplete: S06,S09,S13,S19,S20,S21,S23,S27,S28,S29,S31,S32,S35,S36,S37,S39,S40
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+S31: 智谱限流 1305，第 2 次，等 30s
+S31: 智谱限流 1305，第 3 次，等 30s
+S31: 智谱限流 1305，第 4 次，等 30s
+S31: 智谱限流 1305，第 5 次，等 30s
+S31: 智谱限流 1305，第 6 次，等 30s
+PRODUCTION_STATUS S31 rate limited
+PRODUCTION_STATUS S20 submitting
+S20: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S20 queued
+S27: FAIL
+PRODUCTION_STATUS S27 task failed, requeue
+S36: FAIL
+PRODUCTION_STATUS S36 failed
+S29: PROCESSING
+S20: PROCESSING
+PRODUCTION_STATUS heartbeat done=20 queued=2 submit=2
+PRODUCTION_STATUS S31 submitting
+S31: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S31 queued
+PRODUCTION_STATUS S27 submitting
+S27: 智谱限流 1305，第 1 次，等 30s
+PRODUCTION_STATUS S27 queued
+S29: PROCESSING
+S20: SUCCESS
+PRODUCTION_STATUS S20 completed
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+PRODUCTION_STATUS heartbeat done=21 queued=3 submit=0
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+PRODUCTION_STATUS heartbeat done=21 queued=3 submit=0
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S29: FAIL
+PRODUCTION_STATUS S29 failed
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+S31: PROCESSING
+S27: PROCESSING
+PRODUCTION_STATUS heartbeat done=21 queued=2 submit=0
+S31: PROCESSING
+S27: PROCESSING
+S31: FAIL
+PRODUCTION_STATUS S31 failed
+S27: PROCESSING
+S27: PROCESSING
+S27: FAIL
+PRODUCTION_STATUS S27 failed
+PRODUCTION_STATUS generation incomplete: S06,S09,S13,S27,S29,S31,S35,S36
