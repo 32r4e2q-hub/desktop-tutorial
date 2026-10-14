@@ -344,7 +344,7 @@ def main():
                 print(f"{sid}: 收割失败，下轮再试：{str(exc)[:160]}", flush=True)
         elif status == "FAIL":
             row = doc["shots"].get(sid, {})
-            if int(row.get("resubmits", 0)) < 2:
+            if int(row.get("resubmits", 0)) < 10:
                 checkpoint(sid + " task failed, requeue", sid, status="pending",
                            task_id=None, resubmits=int(row.get("resubmits", 0)) + 1,
                            error=f"旧任务 FAIL：{str(raw)[:200]}")
@@ -399,7 +399,7 @@ def main():
                 del outstanding[sid]
             elif status == "FAIL":
                 row = doc["shots"].get(sid, {})
-                if int(row.get("resubmits", 0)) < 2:
+                if int(row.get("resubmits", 0)) < 10:
                     checkpoint(sid + " task failed, requeue", sid, status="pending",
                                task_id=None, resubmits=int(row.get("resubmits", 0)) + 1,
                                error=f"任务 FAIL：{str(raw)[:200]}")
