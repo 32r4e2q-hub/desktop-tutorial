@@ -1052,10 +1052,10 @@
     },
     "S36": {
       "id": "S36",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "399a8f959546e4cc7aa946259081495200daee66059fef6bef857cb69ca8bd4b",
-      "updated_at": "2026-10-14T11:32:11Z",
-      "error": null,
+      "updated_at": "2026-10-14T12:02:23Z",
+      "error": "任务多次 FAIL：VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261014193211ab3b7bcb06dd4698，请稍后重试'})",
       "task_id": "20261014193211ab3b7bcb06dd4698",
       "used_params": {
         "quality": "speed",
@@ -1199,7 +1199,7 @@
       "resubmits": 2
     }
   },
-  "updated_at": "2026-10-14T12:02:22Z",
+  "updated_at": "2026-10-14T12:02:23Z",
   "run_id": "38527054416",
   "phase": "generation_incomplete"
 }
