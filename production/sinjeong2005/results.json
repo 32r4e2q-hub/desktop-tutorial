@@ -299,10 +299,18 @@
     },
     "S13": {
       "id": "S13",
-      "status": "submitting",
+      "status": "queued",
       "request_hash": "4fdf6efab4aa0954316d598f422c4c164afc6327dc88e938f4a2b9869460661f",
-      "updated_at": "2026-10-14T02:05:32Z",
-      "error": null
+      "updated_at": "2026-10-14T02:06:12Z",
+      "error": null,
+      "task_id": "20261014100612b26c98a624cf4495",
+      "used_params": {
+        "quality": "speed",
+        "size": "1920x1080",
+        "fps": 30,
+        "duration": 10
+      },
+      "image_first": false
     },
     "S14": {
       "id": "S14",
@@ -467,7 +475,7 @@
       "updated_at": "2026-10-13T20:08:52Z"
     }
   },
-  "updated_at": "2026-10-14T02:05:32Z",
+  "updated_at": "2026-10-14T02:06:12Z",
   "run_id": "38487898058",
   "phase": "generation_incomplete"
 }
