@@ -1,0 +1,20 @@
+{
+  "reviewed_at": "2026-10-15",
+  "reviewer": "arena-agent (frame sampling + per-shot qa strips)",
+  "file": "交付/新亭洞连环杀人案_凶手找到了，却已死去十年_三分钟_带声音.mp4",
+  "sha256": "f96ec2e20325fd646784be53c39ed7ec0595f0af7ff9d3e9af84bdf30be57a4e",
+  "checks": {
+    "spec": "180.0s, 1920x1080, 30fps, h264 + aac 48kHz stereo",
+    "title_card": "片头大标题压实景（新亭洞连环杀人案 / 凶手找到了，却已死去十年）",
+    "bilingual_captions": "中文字幕 + 英文小字，全片抽查在位",
+    "ai_label": "右上角常驻「AI真人情景重现 · 非新闻影像」，右下角保留智谱「AI生成」标识",
+    "face_consistency": "逐镜抽查 qa 帧带：C1/C2/C3/C7/C8/C9 跨镜同一张脸；初检发现 S23(C2)、S37(C8) 人脸漂移，已用角色人像锚点重做并复验通过；S10 链接过期已重做",
+    "content_safety": "无遗体/血腥画面；证物封存镜为白布担架远景，处理克制",
+    "known_tolerances": [
+      "约151s处字幕「警方跑遍四十家医疗机构」比对应镜头早约2秒（5秒素材慢放配平所致，画面仍为组长查档案，主题一致）",
+      "N04/N05 的 ASR 字符对齐值偏低系识别噪声（与既往已交付项目同量级）；字幕由配音分句时间确定性生成"
+    ],
+    "not_done": "逐词听审未做（无可用 ASR），建议发布前人工听一遍"
+  },
+  "verdict": "可交付"
+}
