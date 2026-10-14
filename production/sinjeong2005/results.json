@@ -344,10 +344,18 @@
     },
     "S16": {
       "id": "S16",
-      "status": "submitting",
+      "status": "queued",
       "request_hash": "3db14a7fc5c2d99aecfceadb6d5556722b860a4823cfd0d105b776c76bf2ca90",
-      "updated_at": "2026-10-14T02:07:43Z",
-      "error": null
+      "updated_at": "2026-10-14T02:08:24Z",
+      "error": null,
+      "task_id": "20261014100823c121240531254d76",
+      "used_params": {
+        "quality": "speed",
+        "size": "1920x1080",
+        "fps": 30,
+        "duration": 10
+      },
+      "image_first": false
     },
     "S17": {
       "id": "S17",
@@ -494,7 +502,7 @@
       "updated_at": "2026-10-13T20:08:52Z"
     }
   },
-  "updated_at": "2026-10-14T02:07:43Z",
+  "updated_at": "2026-10-14T02:08:24Z",
   "run_id": "38487898058",
   "phase": "generation_incomplete"
 }
