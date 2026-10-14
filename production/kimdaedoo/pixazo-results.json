@@ -7,7 +7,18 @@
       "model": "ltx-video-free",
       "provider": "Pixazo",
       "request_hash": "6e29a74012685b85c9938b45ae525be2e32a1e79f5d1d61e17897d1771c2ceb7",
-      "status": "submitting"
+      "status": "blocked",
+      "http": 402,
+      "detail": "card_required",
+      "attempt_count": 1,
+      "recent_responses": [
+        {
+          "at": 1791963495.944153,
+          "http": 402,
+          "kind": "payment_or_quota",
+          "detail": "card_required"
+        }
+      ]
     }
   },
   "completed_count": 0,
@@ -70,6 +81,6 @@
     "paid_model_fallback": false
   },
   "phase": "generating",
-  "updated_at": "2026-10-14T07:38:13.228269+00:00",
-  "next_request_at": 1791963568.2281854
+  "updated_at": "2026-10-14T07:38:15.944164+00:00",
+  "next_request_at": 1791963570.9441562
 }
