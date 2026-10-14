@@ -903,9 +903,9 @@
     },
     "S31": {
       "id": "S31",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "d24e7183f1c6bc27f967bc5b37ff67d7a1ba6891965026b5c53a3e2e2048be05",
-      "updated_at": "2026-10-14T12:37:37Z",
+      "updated_at": "2026-10-14T12:40:51Z",
       "error": "旧任务多次 FAIL：VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261014200325e8edd14631e44af3，请稍后重试'})",
       "task_id": "20261014200325e8edd14631e44af3",
       "used_params": {
@@ -1207,7 +1207,7 @@
       "reused_existing_asset": true
     }
   },
-  "updated_at": "2026-10-14T12:40:49Z",
+  "updated_at": "2026-10-14T12:40:51Z",
   "run_id": "38564939729",
   "phase": "generation_incomplete"
 }
