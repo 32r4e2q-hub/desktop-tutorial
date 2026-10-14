@@ -1,7 +1,15 @@
 {
   "model": "ltx-video-free",
   "provider": "Pixazo",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "model": "ltx-video-free",
+      "provider": "Pixazo",
+      "request_hash": "6e29a74012685b85c9938b45ae525be2e32a1e79f5d1d61e17897d1771c2ceb7",
+      "status": "submitting"
+    }
+  },
   "completed_count": 0,
   "loop_status": "running",
   "review": "pending",
@@ -62,5 +70,6 @@
     "paid_model_fallback": false
   },
   "phase": "generating",
-  "updated_at": "2026-10-14T07:38:10.949925+00:00"
+  "updated_at": "2026-10-14T07:38:13.228269+00:00",
+  "next_request_at": 1791963568.2281854
 }
