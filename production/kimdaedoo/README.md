@@ -81,3 +81,7 @@ python3 -m pytest production/tests -q
 不要求用户提供或粘贴密钥，通过已有`AGNES_API_KEY` Actions Secret访问。
 试片属于实际出片可用性测试，费用仍不能凭成功任务推断为零；批量计费闸门保持关闭。
 真实响应与任务ID保存`canary-receipt.json`并回写固定分支；视频不入Git，先存Actions artifact。
+
+### 单镜实测最终结果（2026-10-14 05:03–05:09 UTC）
+
+通过GitHub现有AGNES_API_KEY，对2.5-flash发送有效4秒720P横屏请求，三次均HTTP503 `video queue is full, please retry later`。有效请求已尝试3次，但受理任务数0，没有任务ID或视频。不是缺密钥、不是空prompt校验，也不能当免费出片成功证明。工作流已结束（非仍在后台等待）。恢复时重新修改CANARY_REQUEST并push当前固定分支即可再尝试；如果已有受理/模糊任务，必须核对而不能重提。原始请求ID与响应保存在canary-receipt.json，运行 https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38514492545 。五项试片辅助测试通过，新增代码的GitHub离线自检也成功。
