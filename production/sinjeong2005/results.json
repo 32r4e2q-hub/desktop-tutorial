@@ -363,10 +363,10 @@
     },
     "S13": {
       "id": "S13",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "500bf936e99e104fe4b346d6b787cb733c95d9f3f28f448f2a4ca9898cfc655e",
-      "updated_at": "2026-10-14T09:58:43Z",
-      "error": null,
+      "updated_at": "2026-10-14T10:02:28Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "task_id": null,
       "used_params": {
         "quality": "speed",
@@ -1198,7 +1198,7 @@
       "resubmits": 2
     }
   },
-  "updated_at": "2026-10-14T09:58:43Z",
+  "updated_at": "2026-10-14T10:02:28Z",
   "run_id": "38527054416",
   "phase": "generation_incomplete"
 }
