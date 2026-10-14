@@ -1,0 +1,30 @@
+{
+  "purpose": "同一参考人像跨两条镜头的脸一致性测试",
+  "character": "C7",
+  "shots": [
+    "S33",
+    "S34"
+  ],
+  "created_at": "2026-10-14T05:14:50Z",
+  "tasks": {
+    "S33": {
+      "task_id": "202610141316228889ab2cda6b496d",
+      "status": "SUCCESS",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014131710d61742c7d98b4d52_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=uI6u4ne8Du%2FoTJqR5S78OBpVGqo%3D&Expires=1792041433",
+      "bytes": 2046380,
+      "sha256": "4bf4f27efcb3edb1d02f2f84399fb9c25c0d300768cad864fce99babcc3b6884"
+    },
+    "S34": {
+      "task_id": "202610141316239a9c705113544fda",
+      "status": "SUCCESS",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610141317100984a96a879e4103_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=0c6tvvvPNxXF7EyjmixHdocYTaY%3D&Expires=1792041432",
+      "bytes": 2117466,
+      "sha256": "dfc6b483cf88c4885ae7b2fef16ab462acfc4fc491f63a7976f5500b59701345"
+    }
+  },
+  "manual_review": "pending",
+  "portrait_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610141314519a4ec3dfa0104459_watermark.png?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=E1Tsdan0HDjdAE0smjPiaCjPt2Y%3D&Expires=1792559701",
+  "portrait_sha256": "fdeaa372d3a9f4a39715daa3c5038cece5b5482b1715d56de18a729a08279f5f",
+  "finished_at": "2026-10-14T05:17:33Z",
+  "status": "PASS_TO_REVIEW"
+}
