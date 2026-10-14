@@ -834,9 +834,9 @@
     },
     "S30": {
       "id": "S30",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "810f08ae9de47acf3b9d9922a0c2babe7d88472684a4bcd1d28c46e3cbef90f8",
-      "updated_at": "2026-10-14T04:58:34Z",
+      "updated_at": "2026-10-14T05:03:40Z",
       "error": null,
       "task_id": "202610141258342ab18681ca744583",
       "used_params": {
@@ -845,7 +845,20 @@
         "fps": 30,
         "duration": 10
       },
-      "image_first": false
+      "image_first": false,
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610141259303171c2b5215648ca_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=jCnZFi6xdxw2vOuVhWohN16CFG8%3D&Expires=1792040373",
+      "sha256": "ea057f9de1baabf5ddface0f560d1ab5e725f855bc6865dd53233c29ef03e122",
+      "bytes": 1727698,
+      "inspection": {
+        "duration": 5.108108,
+        "bytes": 1727698,
+        "width": 1920,
+        "height": 1080,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189
+      },
+      "visual_review": "pending"
     },
     "S31": {
       "id": "S31",
@@ -1054,7 +1067,7 @@
       "image_first": false
     }
   },
-  "updated_at": "2026-10-14T05:03:36Z",
+  "updated_at": "2026-10-14T05:03:40Z",
   "run_id": "38512755193",
   "phase": "generation_incomplete"
 }
