@@ -1047,10 +1047,10 @@
     },
     "S37": {
       "id": "S37",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "b42867770eb2e2477c160dd01da4ef8c7932a98d4bf3547bae2ee795fc563fca",
-      "updated_at": "2026-10-14T06:38:55Z",
-      "error": null,
+      "updated_at": "2026-10-14T06:42:42Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
       "task_id": "20261014130131d8273225c8d7442e",
       "used_params": {
         "quality": "speed",
@@ -1159,7 +1159,7 @@
       "visual_review": "pending"
     }
   },
-  "updated_at": "2026-10-14T06:38:55Z",
+  "updated_at": "2026-10-14T06:42:42Z",
   "run_id": "38517066811",
   "phase": "sources_ready"
 }
