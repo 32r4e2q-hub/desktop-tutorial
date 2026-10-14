@@ -1,0 +1,65 @@
+name: 新亭洞连环杀人案 · 演员参考人像
+run-name: CogView 演员参考人像 · ${{ github.ref_name }}
+
+on:
+  push:
+    branches:
+      - arena/f3e80641-desktop-tutorial
+    paths:
+      - production/sinjeong2005/PORTRAIT_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sinjeong2005-portrait-prep-arena-f3e80641-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  portraits:
+    if: github.ref == 'refs/heads/arena/f3e80641-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 40
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/f3e80641-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Set up Python and Zhipu SDK
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Zhipu SDK
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install zhipuai sniffio httpx requests
+
+      - name: Generate cast reference portraits with CogView
+        env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+        run: python3 -u production/sinjeong2005/prepare_portraits.py
+
+      - name: Save portrait sheets and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f production/sinjeong2005/qa/portrait-anchors/
+          git commit -m "sinjeong2005: CogView 角色参考人像" || exit 0
+          for attempt in 1 2 3; do
+            if git push origin arena/f3e80641-desktop-tutorial; then break; fi
+            git pull --rebase origin arena/f3e80641-desktop-tutorial
+          done
+
+      - name: Upload portraits for review
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: sinjeong2005-portrait-anchors-${{ github.run_number }}
+          path: production/sinjeong2005/qa/portrait-anchors/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 14
