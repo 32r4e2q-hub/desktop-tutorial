@@ -3,16 +3,25 @@
 VALID: 180s plan; 40 Zhipu shots; prompts ≤512 chars; chapters ok
 === 2/5 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）===
 FETCH S01 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa9489d_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=PF5p2D627QJbfxQAm4w4eHuGXko%3D&Expires=1791991632
-  retry 1/3 after HTTPError: HTTP Error 401: Unauthorized
-  retry 2/3 after HTTPError: HTTP Error 401: Unauthorized
-  retry 3/3 after HTTPError: HTTP Error 401: Unauthorized
+  urllib attempt 1 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
+  curl attempt 1 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
+  urllib attempt 2 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
+  curl attempt 2 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
+  urllib attempt 3 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
+  curl attempt 3 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
+  urllib attempt 4 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
+  curl attempt 4 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
+  urllib attempt 5 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
+  curl attempt 5 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
+  urllib attempt 6 failed: HTTP Error 401: Unauthorized {"RetCode":-148660, "ErrMsg":"request expired"}
+  curl attempt 6 failed: Command '['curl', '-fL', '--retry', '2', '-A', 'arena-sinjeong2005/1.0', '-o', 'work/sinjeong2005/clips/S01.mp4.part', 'https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa948
   async-result keys: ['choices', 'created', 'id', 'model', 'request_id', 'task_status', 'usage', 'video_result'] status=SUCCESS
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 142, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 159, in <module>
     raise SystemExit(main())
                      ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 111, in main
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 128, in main
     download(url, destination)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 59, in download
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/fetch_sources.py", line 76, in download
     raise RuntimeError(f"Download failed for {url}: {last_error}")
 RuntimeError: Download failed for https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261013232710c68973e9cfa9489d_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=PF5p2D627QJbfxQAm4w4eHuGXko%3D&Expires=1791991632: HTTP Error 401: Unauthorized
