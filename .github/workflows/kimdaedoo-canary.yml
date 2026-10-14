@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: kimdaedoo-single-agnes-canary
+  group: kimdaedoo-agnes-api
   cancel-in-progress: false
 jobs:
   canary:

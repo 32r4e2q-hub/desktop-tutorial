@@ -13,6 +13,9 @@ import argparse
 import hashlib
 import json
 import sys
+import os
+import subprocess
+import tempfile
 import time
 import urllib.request
 from pathlib import Path
@@ -72,6 +75,7 @@ def main() -> int:
     needed = [shot for shot in project["shots"] if shot["kind"] == "agnes"]
     report = {"requested": len(needed), "downloaded": [], "reused": [], "missing": []}
 
+    args.dest.mkdir(parents=True, exist_ok=True)
     for shot in needed:
         sid = shot["id"]
         receipt = results.get("shots", {}).get(sid, {})
@@ -86,7 +90,17 @@ def main() -> int:
             report["reused"].append(sid)
             continue
         print(f"FETCH {sid} {url}", flush=True)
-        download(url, destination)
+        storage = receipt.get('storage') or {}
+        if storage.get('release') and storage.get('asset'):
+            # Private source clips live in a durable GitHub Release, not only
+            # an expiring provider URL/artifact. gh uses the runner's GH_TOKEN.
+            with tempfile.TemporaryDirectory(prefix='release-', dir=args.dest) as tmp:
+                subprocess.run(['gh', 'release', 'download', storage['release'],
+                                '--pattern', storage['asset'], '--dir', tmp,
+                                '--repo', os.environ.get('GITHUB_REPOSITORY', '32r4e2q-hub/desktop-tutorial')], check=True)
+                (Path(tmp)/storage['asset']).replace(destination)
+        else:
+            download(url, destination)
         found = digest(destination)
         if found != receipt["sha256"]:
             raise RuntimeError(f"{sid}: downloaded bytes do not match the recorded SHA-256 "

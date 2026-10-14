@@ -1,0 +1,81 @@
+name: 金大斗案 · Agnes免费档节流循环
+on:
+  push:
+    branches: [arena/09864331-desktop-tutorial]
+    paths: [production/kimdaedoo/LOOP_REQUEST.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: kimdaedoo-agnes-api
+  cancel-in-progress: false
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/09864331-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/09864331-desktop-tutorial
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install media measurement tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Paced single-worker queue with persistent provider task IDs
+        id: queue
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          # The first short slice verifies the handoff, not just the API loop.
+          if [ "$EVENT_NAME" = push ]; then budget=120; else budget=10800; fi
+          python3 -u production/kimdaedoo/loop.py --publish --budget-seconds "$budget"
+      - name: Preserve receipts and any local clips for troubleshooting
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: kimdaedoo-queue-${{ github.run_id }}
+          path: |
+            production/kimdaedoo/results.json
+            work/kimdaedoo/sources/*.mp4
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 0
+      - name: Continue on the same branch before the runner timeout
+        if: success() && steps.queue.outputs.continue == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # A GITHUB_TOKEN git push does NOT normally trigger another workflow.
+          # workflow_dispatch is the documented exception; explicit API dispatch
+          # is required. A failure here is a real failure, never reported as live.
+          workflow_id=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq '.workflow_id')
+          if gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow_id/dispatches" -f ref=arena/09864331-desktop-tutorial; then
+            echo 'Continuation dispatch accepted for the fixed production branch.'
+          else
+            python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('production/kimdaedoo/results.json')
+          d=json.loads(p.read_text())
+          d['loop_status']='continuation_dispatch_failed'
+          d['pause_reason']='GitHub denied continuation; no automatic background loop is running. Re-enable via LOOP_REQUEST push after fixing Actions permissions.'
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          PY
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add production/kimdaedoo/results.json
+            git commit -m 'kimdaedoo: continuation dispatch blocked'
+            git push origin arena/09864331-desktop-tutorial
+            exit 1
+          fi

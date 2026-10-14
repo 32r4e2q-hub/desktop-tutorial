@@ -85,3 +85,10 @@ python3 -m pytest production/tests -q
 ### 单镜实测最终结果（2026-10-14 05:03–05:09 UTC）
 
 通过GitHub现有AGNES_API_KEY，对2.5-flash发送有效4秒720P横屏请求，三次均HTTP503 `video queue is full, please retry later`。有效请求已尝试3次，但受理任务数0，没有任务ID或视频。不是缺密钥、不是空prompt校验，也不能当免费出片成功证明。工作流已结束（非仍在后台等待）。恢复时重新修改CANARY_REQUEST并push当前固定分支即可再尝试；如果已有受理/模糊任务，必须核对而不能重提。原始请求ID与响应保存在canary-receipt.json，运行 https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38514492545 。五项试片辅助测试通过，新增代码的GitHub离线自检也成功。
+
+### 用户授权的连续节流队列
+
+已新增`loop.py`、`LOOP_REQUEST.json`和`kimdaedoo-loop.yml`。频率、退避、防重复提交、跨Actions接续与停止方法见[访问频率与循环续跑.md](访问频率与循环续跑.md)。
+队列仅Agnes Flash，每次受理一个任务，全部API请求间隔至少75秒；队列满退避到15分钟。
+循环由GitHub执行，不依赖沙箱；单轮3小时到期通过显式workflow_dispatch接续，不靠机器人push递归触发。
+循环授权不等于零费用证明，收费/额度/鉴权/提交状态不明时暂停。所有动画来源完成后仍需整片合成和人工QC。
