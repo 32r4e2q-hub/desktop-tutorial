@@ -60,17 +60,19 @@ def download(url: str, destination: Path) -> None:
 
 
 def fresh_url(task_id: str) -> str | None:
-    """签名链接失效时，用任务 ID 向智谱换一条新链接（需要 ZHIPUAI_API_KEY）。"""
+    """签名链接失效时，用任务 ID 向智谱换一条新链接（原生 REST，无需 SDK）。"""
     key = os.getenv("ZHIPUAI_API_KEY", "").strip()
     if not key or not task_id:
         return None
     try:
-        from zhipuai import ZhipuAI
-        result = ZhipuAI(api_key=key).videos.retrieve_videos_result(id=task_id)
-        vr = getattr(result, "video_result", None) or (result.get("video_result") if isinstance(result, dict) else None)
+        request = urllib.request.Request(
+            f"https://open.bigmodel.cn/api/paas/v4/async-result/{task_id}",
+            headers={"Authorization": f"Bearer {key}"})
+        with urllib.request.urlopen(request, timeout=60) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        vr = payload.get("video_result") or []
         if vr:
-            first = vr[0]
-            return getattr(first, "url", None) or (first.get("url") if isinstance(first, dict) else None)
+            return vr[0].get("url")
     except Exception as error:  # noqa: BLE001
         print(f"  fresh-url lookup failed: {str(error)[:160]}", flush=True)
     return None
