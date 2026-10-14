@@ -1026,10 +1026,10 @@
     },
     "S35": {
       "id": "S35",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "ff9cea914f3046090fbdc7a1f17a4bec68f91c459d282fd3a4c2deca1d7e0280",
-      "updated_at": "2026-10-14T12:59:40Z",
-      "error": null,
+      "updated_at": "2026-10-14T13:03:28Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
       "task_id": null,
       "used_params": {
         "quality": "speed",
@@ -1207,7 +1207,7 @@
       "reused_existing_asset": true
     }
   },
-  "updated_at": "2026-10-14T12:59:40Z",
+  "updated_at": "2026-10-14T13:03:28Z",
   "run_id": "38565913672",
   "phase": "generation_incomplete"
 }
