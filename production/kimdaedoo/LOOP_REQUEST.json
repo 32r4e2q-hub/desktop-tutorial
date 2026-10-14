@@ -1,8 +1,8 @@
 {
-  "enabled": false,
+  "enabled": true,
   "model": "agnes-video-2.5-flash",
   "free_flash_loop_authorized": true,
-  "authorization": "2026-10-14 用户要求根据Agnes免费限制控制频率、循环到所有视频生成完成",
+  "authorization": "用户最新指令：用Agnes排队生成；恢复串行Flash队列，直到38镜素材完成。",
   "paid_fallback_allowed": false,
   "zero_cost_verified": false,
   "stop_on_quota_or_payment": true,
@@ -10,5 +10,5 @@
   "max_in_flight_tasks": 1,
   "initial_slice_seconds": 120,
   "continuation_slice_seconds": 10800,
-  "note": "用户授权切换PIXAZO，停止Agnes避免双队列。"
+  "note": "恢复Agnes，保留原任务/限流断点；仅Flash，不切收费型号，不充值，费用/鉴权/未知提交结果暂停。免费计费尚未验证。"
 }

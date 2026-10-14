@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "model": "ltx-video-free",
   "free_ltx_loop_authorized": true,
   "authorization": "2026-10-14 用户授权使用仓库PIXAZO密钥，遵守限流逐条生成，替代Agnes",
@@ -7,5 +7,5 @@
   "zero_cost_verified": false,
   "request_minimum_interval_seconds": 75,
   "max_in_flight_tasks": 1,
-  "note": "Only /ltx-video/v1/text-to-video. Free variant in official catalog; generic free overview contradicts model catalog. Stop on 402/quota/auth/ambiguous POST. No purchase or top-up. 75s is our conservative ceiling, NOT an asserted official account quota."
+  "note": "用户要求改回Agnes，PIXAZO停用；保留HTTP402 card_required历史，不再请求。"
 }
