@@ -72,3 +72,12 @@ python3 -m pytest production/tests -q
 ### 旁白完成检查点
 
 六章统一为本会话选定voice-00；六段合计168.74秒。`audio/tighten-report.json`保存实测，`audio/clause-times.json`保存停顿分句，manifest保存请求原文与SHA。配音已生成不代表视频完成；当前视频数仍为0。
+
+### GitHub API试片（用户后续明确要求）
+
+用户要求直接使用GitHub里的Agnes API访问，已新增单镜试片工作流。
+`canary.py`只试Agnes 2.5-flash、S01、4秒、720P、16:9，至多接收一个任务；
+队列满/429允许两次分钟级退避，未知提交错误不盲重试，付费/余额/鉴权错误停止。
+不要求用户提供或粘贴密钥，通过已有`AGNES_API_KEY` Actions Secret访问。
+试片属于实际出片可用性测试，费用仍不能凭成功任务推断为零；批量计费闸门保持关闭。
+真实响应与任务ID保存`canary-receipt.json`并回写固定分支；视频不入Git，先存Actions artifact。

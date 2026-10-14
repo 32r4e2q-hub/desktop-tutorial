@@ -1,0 +1,41 @@
+name: 金大斗案 · Agnes Flash单镜试片
+on:
+  push:
+    branches: [arena/09864331-desktop-tutorial]
+    paths: [production/kimdaedoo/CANARY_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: kimdaedoo-single-agnes-canary
+  cancel-in-progress: false
+jobs:
+  canary:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/09864331-desktop-tutorial
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install technical video measurement tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Try only one 4-second Agnes Flash clip via existing secret
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 -u production/kimdaedoo/canary.py
+      - name: Preserve the clip without committing video bytes to Git
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kimdaedoo-agnes-flash-canary-${{ github.run_number }}
+          path: |
+            work/kimdaedoo/canary/S01-4s.mp4
+            production/kimdaedoo/canary-receipt.json
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 0
