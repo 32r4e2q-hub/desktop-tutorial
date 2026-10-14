@@ -60,13 +60,29 @@ def full_prompt(project, shot):
     return (project.get("style_prefix", "") + shot["prompt"]).strip()
 
 
+def shot_anchor_url(shot):
+    """返回本镜头复用的角色参考人像 URL；无映射时走普通文生。"""
+    anchors = read_json(HERE / "portrait_anchors.json", {})
+    key = (anchors.get("shots") or {}).get(shot["id"])
+    if not key:
+        return None
+    entry = (anchors.get("portraits") or {}).get(key)
+    if isinstance(entry, dict):
+        return entry.get("url")
+    return entry if isinstance(entry, str) and entry.startswith("https://") else None
+
+
 def payload_for(project, shot):
-    # 已实测：cogvideox-flash 用 quality="speed" 档可提交；生成时长固定约 5.1 秒，
-    # 文生与图生相同。默认文生（mode 记进请求哈希，提示词或参数变了就自动重做）。
-    return {"model": MODEL, "prompt": full_prompt(project, shot),
-            "quality": os.getenv("ZHIPU_QUALITY", "speed"),
-            "size": SIZE, "fps": FPS, "duration": DURATION,
-            "mode": "text_v2"}
+    # cogvideox-flash 实测固定约 5.1 秒；重复出场角色可以用同一张参考人像图生，
+    # 保持演员脸部连续。锚点 URL 和模式都进入哈希，任何参考图变化都会触发对应镜头重做。
+    anchor = shot_anchor_url(shot)
+    payload = {"model": MODEL, "prompt": full_prompt(project, shot),
+               "quality": os.getenv("ZHIPU_QUALITY", "speed"),
+               "size": SIZE, "fps": FPS, "duration": DURATION,
+               "mode": "image_v1" if anchor else "text_v2"}
+    if anchor:
+        payload["image_url"] = anchor
+    return payload
 
 
 def request_hash(project, shot):
@@ -364,7 +380,9 @@ def main():
                 continue
             checkpoint(sid + " queued", sid, status="queued", task_id=task_id,
                        used_params={k: used.get(k) for k in ("quality", "size", "fps", "duration")},
-                       image_first=False)
+                       image_first=bool(used.get("image_url")),
+                       anchor_role=(json.loads((HERE / "portrait_anchors.json").read_text()).get("shots", {}).get(sid)
+                                    if used.get("image_url") else None))
             outstanding[sid] = task_id
             needs_submit.remove(sid)
         # 收割一轮
