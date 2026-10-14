@@ -899,10 +899,10 @@
     },
     "S32": {
       "id": "S32",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "6d37bd10252e6c746f3eaa20201e9b2deab96b475d1b81a4480dd88b2133b701",
-      "updated_at": "2026-10-14T06:29:24Z",
-      "error": null,
+      "updated_at": "2026-10-14T06:33:09Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "task_id": "202610141300040cdbbe620d0d45f1",
       "used_params": {
         "quality": "speed",
@@ -1158,7 +1158,7 @@
       "visual_review": "pending"
     }
   },
-  "updated_at": "2026-10-14T06:29:24Z",
+  "updated_at": "2026-10-14T06:33:09Z",
   "run_id": "38517066811",
   "phase": "sources_ready"
 }
