@@ -22,7 +22,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from media import probe  # noqa: E402
 
-ATTEMPTS = 4
+ATTEMPTS = 6
 MIN_DURATION = 4.0
 MAX_DURATION = 20.0
 
@@ -41,7 +41,7 @@ def download(url: str, destination: Path) -> None:
     last_error = None
     for attempt in range(1, ATTEMPTS + 1):
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "arena-sinjeong2005-refetch/1.0"})
+            request = urllib.request.Request(url, headers={"User-Agent": "arena-sinjeong2005/1.0"})
             with urllib.request.urlopen(request, timeout=120) as response, temporary.open("wb") as out:
                 while True:
                     block = response.read(1024 * 256)
@@ -52,9 +52,26 @@ def download(url: str, destination: Path) -> None:
             return
         except Exception as error:  # noqa: BLE001 - retried below
             last_error = error
+            body = ""
+            try:
+                body = error.read().decode("utf-8", "replace")[:200]  # type: ignore[attr-defined]
+            except Exception:
+                pass
             temporary.unlink(missing_ok=True)
+            print(f"  urllib attempt {attempt} failed: {error} {body}", flush=True)
+            # curl 兜底（TLS/HTTP2 指纹与 urllib 不同，CDN 偶尔只放行其一）
+            try:
+                import subprocess
+                subprocess.run(["curl", "-fL", "--retry", "2", "-A", "arena-sinjeong2005/1.0",
+                                "-o", str(temporary), url],
+                               check=True, timeout=180, capture_output=True, text=True)
+                temporary.replace(destination)
+                print("  curl fallback OK", flush=True)
+                return
+            except Exception as curl_error:  # noqa: BLE001
+                print(f"  curl attempt {attempt} failed: {str(curl_error)[:200]}", flush=True)
+                temporary.unlink(missing_ok=True)
             if attempt < ATTEMPTS:
-                print(f"  retry {attempt}/{ATTEMPTS - 1} after {type(error).__name__}: {error}", flush=True)
                 time.sleep(attempt * 5)
     raise RuntimeError(f"Download failed for {url}: {last_error}")
 
