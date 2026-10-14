@@ -341,7 +341,12 @@ def main():
                 done.add(sid)
                 del outstanding[sid]
             except Exception as exc:  # noqa: BLE001
-                print(f"{sid}: 收割失败，下轮再试：{str(exc)[:160]}", flush=True)
+                print(f"{sid}: 收割失败（多半是签名链接过期），改重新提交：{str(exc)[:160]}", flush=True)
+                checkpoint(sid + " task failed, requeue", sid, status="pending",
+                           task_id=None, resubmits=int(doc["shots"].get(sid, {}).get("resubmits", 0)) + 1,
+                           error=f"旧链接下载失败：{str(exc)[:200]}")
+                needs_submit.append(sid)
+                del outstanding[sid]
         elif status == "FAIL":
             row = doc["shots"].get(sid, {})
             if int(row.get("resubmits", 0)) < 10:

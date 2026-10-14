@@ -128,10 +128,13 @@ def main() -> int:
             download(url, destination)
         except RuntimeError:
             alt = fresh_url(str(receipt.get("task_id") or ""))
-            if not alt or alt == url:
-                raise
-            print(f"  stored link dead; retrying with fresh link for {sid}", flush=True)
-            download(alt, destination)
+            if alt and alt != url:
+                print(f"  stored link dead; retrying with fresh link for {sid}", flush=True)
+                download(alt, destination)
+            else:
+                report["missing"].append(sid)
+                print(f"DEAD_LINK {sid}: stored URL expired (regeneration required)", flush=True)
+                continue
         found = digest(destination)
         if found != receipt["sha256"]:
             raise RuntimeError(f"{sid}: downloaded bytes do not match the recorded SHA-256 "
