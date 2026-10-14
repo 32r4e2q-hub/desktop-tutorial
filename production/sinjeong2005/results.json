@@ -280,11 +280,11 @@
     },
     "S10": {
       "id": "S10",
-      "status": "completed",
+      "status": "pending",
       "request_hash": "7d15ae25282c24ce321b6819fda76049477e7590cd092ab0380880b78994c5f4",
-      "error": null,
+      "error": "成片链接过期(401)，强制重做",
       "updated_at": "2026-10-14T04:44:16Z",
-      "task_id": "202610140205045533ed63477d4ffe",
+      "task_id": null,
       "used_params": {
         "quality": "speed",
         "size": "1920x1080",
@@ -305,7 +305,8 @@
         "frames": 189
       },
       "visual_review": "pending",
-      "reused_existing_asset": true
+      "reused_existing_asset": true,
+      "resubmits": 0
     },
     "S11": {
       "id": "S11",
