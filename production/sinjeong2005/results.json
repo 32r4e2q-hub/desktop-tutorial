@@ -564,10 +564,10 @@
     },
     "S20": {
       "id": "S20",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "0aa65e19677626b953204e8b73d493da0487fa58d9cd9228add479438ee8e2e8",
-      "updated_at": "2026-10-14T09:22:21Z",
-      "error": null,
+      "updated_at": "2026-10-14T09:26:07Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "task_id": null,
       "used_params": {
         "quality": "speed",
@@ -1187,7 +1187,7 @@
       "resubmits": 1
     }
   },
-  "updated_at": "2026-10-14T09:22:21Z",
+  "updated_at": "2026-10-14T09:26:07Z",
   "run_id": "38517066811",
   "phase": "sources_ready"
 }
