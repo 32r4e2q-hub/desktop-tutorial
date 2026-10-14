@@ -85,7 +85,7 @@ FETCH S40 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610141855504065
 FETCH_COMPLETE {"downloaded": 40, "reused": 0, "clips": 40}
 === 3/5 剪辑 + 混音 + 成品复测（闸门二、三）===
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-[0;93m2026-10-14 17:47:53.457693345 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+[0;93m2026-10-14 17:54:39.412444707 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
 ASR_TIMING_READY N01
 ASR_TIMING_READY N02
 ASR_TIMING_READY N03
@@ -106,4 +106,4 @@ Traceback (most recent call last):
   File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sinjeong2005/render.py", line 384, in render_segment
     if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: S05/: requires excessive slow motion (2.28)
+RuntimeError: S05/: requires excessive slow motion (1.39)
