@@ -280,7 +280,7 @@ def check_prompts(project: Path) -> dict:
 # --------------------------------------------------------------------------- 画面闸门
 
 def _shot_windows(project: Path, story: dict) -> dict[str, tuple[float, float]]:
-    """每个 Agnes 镜头的成片时间窗（秒）：优先用真实 EDL，缺失时退回计划时间。"""
+    """每个 AI 视频镜头的成片时间窗（秒）：优先用真实 EDL，缺失时退回计划时间。"""
     fps = float(story.get("fps") or 30)
     edl_file = project / "delivery" / "edit-decision-list.json"
     windows: dict[str, tuple[float, float]] = {}
@@ -288,7 +288,7 @@ def _shot_windows(project: Path, story: dict) -> dict[str, tuple[float, float]]:
         edl = load_json(edl_file)
         if isinstance(edl, list):
             for segment in edl:
-                if str(segment.get("kind")) != "agnes" or "start_frame" not in segment:
+                if str(segment.get("kind")) not in ("agnes", "zhipu") or "start_frame" not in segment:
                     continue
                 windows[str(segment["id"])] = (
                     float(segment["start_frame"]) / fps,
@@ -297,7 +297,7 @@ def _shot_windows(project: Path, story: dict) -> dict[str, tuple[float, float]]:
     if windows:
         return windows
     for shot in story.get("shots", []):
-        if shot.get("kind") != "agnes":
+        if shot.get("kind") not in ("agnes", "zhipu"):
             continue
         start = float(shot.get("start") or 0)
         duration = float(shot.get("duration") or 4)
@@ -488,15 +488,26 @@ def check_frames(project: Path, film: Path, out_dir: Path, samples: int = 3,
                 if not boxes:
                     shot_entry["frames"].append({"seconds": round(stamp, 3), "faces": 0})
                     continue
-                boxes.sort(key=lambda box: box[2] * box[3], reverse=True)
-                x, y, w, h, score = boxes[0]
+                # 单人镜头取最大脸；多人同框时按画面从左到右与提示词/ cast.json 声明顺序配对，
+                # 不再把同一张最大脸复制给镜头里的每个角色（那会制造虚假的撞脸结果）。
+                if len(declared) <= 1:
+                    boxes.sort(key=lambda box: box[2] * box[3], reverse=True)
+                    assigned = [(declared[0], boxes[0])] if declared else []
+                else:
+                    boxes.sort(key=lambda box: box[0])
+                    assigned = [(cid, boxes[i]) for i, cid in enumerate(declared[:len(boxes)])]
+                    if len(boxes) < len(declared):
+                        warnings.append(
+                            f"镜头 {shot_id} 声明 {len(declared)} 个角色，但只检到 {len(boxes)} 张脸；"
+                            "按画面从左到右配对，缺失角色需人工检查")
                 shot_entry["frames"].append({
-                    "seconds": round(stamp, 3), "faces": len(boxes), "score": round(score, 3),
-                    "bbox": [x, y, w, h],
+                    "seconds": round(stamp, 3), "faces": len(boxes),
+                    "boxes": [[x, y, w, h, round(score, 3)] for x, y, w, h, score in boxes],
                 })
-                for cid in declared:
+                for cid, box in assigned:
                     if cid not in by_id:
                         continue
+                    x, y, w, h, score = box
                     crop_path = work / cid / f"{shot_id}-{index}.jpg"
                     crop_path.parent.mkdir(parents=True, exist_ok=True)
                     try:
