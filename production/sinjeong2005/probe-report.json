@@ -1,152 +1,111 @@
 {
-  "checked_at": "2026-10-14T04:34:19Z",
+  "checked_at": "2026-10-14T09:48:23Z",
   "tasks": {
-    "S04": {
-      "row_status": "queued",
-      "task_id": "202610140510402e9f14f1c4984b22",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"}}"
+    "S06": {
+      "row_status": "rate_limited",
+      "task_id": null,
+      "hash_match": true
     },
     "S09": {
       "row_status": "queued",
-      "task_id": "202610140711236b15e342ffd147f1",
+      "task_id": "2026101417222061e92bb7c4b74069",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"}}"
+      "task_status": "PROCESSING"
     },
     "S11": {
       "row_status": "queued",
-      "task_id": "202610140913093d9356d380f44d24",
+      "task_id": "202610141730257106116d351542a0",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
-    },
-    "S12": {
-      "row_status": "queued",
-      "task_id": "202610140308002b96d601144841fa",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "task_status": "SUCCESS"
     },
     "S13": {
-      "row_status": "queued",
-      "task_id": "20261014100612b26c98a624cf4495",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
-    },
-    "S16": {
-      "row_status": "queued",
-      "task_id": "20261014100823c121240531254d76",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "pending",
+      "task_id": null,
+      "hash_match": true
     },
     "S19": {
-      "row_status": "queued",
-      "task_id": "202610141010402b207c4688ee48ca",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "rate_limited",
+      "task_id": null,
+      "hash_match": true
     },
     "S20": {
-      "row_status": "queued",
-      "task_id": "20261014101050e75875b4ff454fda",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "rate_limited",
+      "task_id": null,
+      "hash_match": true
     },
     "S21": {
       "row_status": "queued",
-      "task_id": "20261014101100a63ed0e877dd4593",
+      "task_id": "20261014170152a2f91ac7cbdb491f",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "task_status": "FAIL",
+      "raw": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261014170152a2f91ac7cbdb491f，请稍后重试'})"
     },
     "S23": {
-      "row_status": "queued",
-      "task_id": "202610141012334c0af0d4a2614ad6",
+      "row_status": "rate_limited",
+      "task_id": "2026101412561100d4c072af234686",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
-    },
-    "S24": {
-      "row_status": "queued",
-      "task_id": "20261014101242a2848382ae464ab2",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "task_status": "SUCCESS"
     },
     "S25": {
       "row_status": "queued",
-      "task_id": "202610141015147dcbb1dae1244711",
+      "task_id": "20261014174433efe32d9a65024148",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
-    },
-    "S26": {
-      "row_status": "queued",
-      "task_id": "20261014101520fb3fb15b30a547b0",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "task_status": "SUCCESS"
     },
     "S27": {
-      "row_status": "queued",
-      "task_id": "202610141015232a0a51b2a4c64905",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "rate_limited",
+      "task_id": null,
+      "hash_match": true
     },
-    "S30": {
+    "S28": {
       "row_status": "queued",
-      "task_id": "2026101410174325aa2e90a42e459b",
+      "task_id": "2026101417463568d41c957e2047b3",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "task_status": "PROCESSING"
+    },
+    "S29": {
+      "row_status": "queued",
+      "task_id": "2026101417361105e567d28b574763",
+      "hash_match": true,
+      "task_status": "PROCESSING"
     },
     "S31": {
-      "row_status": "queued",
-      "task_id": "202610141017533a550c9961e244a3",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "submitting",
+      "task_id": null,
+      "hash_match": true
     },
     "S32": {
-      "row_status": "queued",
-      "task_id": "20261014101833b711596e53a04968",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "pending",
+      "task_id": null,
+      "hash_match": true
+    },
+    "S35": {
+      "row_status": "pending",
+      "task_id": null,
+      "hash_match": true
     },
     "S36": {
       "row_status": "queued",
-      "task_id": "20261014102003a6de562b78d84a00",
+      "task_id": "20261014171711dc2de7d06ca04b6f",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "task_status": "FAIL",
+      "raw": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261014171711dc2de7d06ca04b6f，请稍后重试'})"
     },
     "S37": {
-      "row_status": "queued",
-      "task_id": "2026101410205045b0fa3bdb034589",
+      "row_status": "rate_limited",
+      "task_id": "20261014130131d8273225c8d7442e",
       "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "task_status": "SUCCESS"
     },
     "S39": {
-      "row_status": "queued",
-      "task_id": "20261014102441959a49b0352446a0",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "rate_limited",
+      "task_id": null,
+      "hash_match": true
     },
     "S40": {
-      "row_status": "queued",
-      "task_id": "20261014102522c688771d9020433f",
-      "hash_match": true,
-      "task_status": "QUERY_ERROR",
-      "raw": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}"
+      "row_status": "pending",
+      "task_id": null,
+      "hash_match": true
     }
   }
 }
