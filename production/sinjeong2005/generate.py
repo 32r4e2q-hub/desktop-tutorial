@@ -238,7 +238,11 @@ def main():
                 time.sleep(10)
             finally:
                 pool.shutdown(wait=False, cancel_futures=True)
-        print(f"查询异常（按处理中处理）：{str(last)[:120]}", flush=True)
+        msg = str(last)
+        if '"task_status":"FAIL"' in msg or '"code":"1301"' in msg or "1301" in msg:
+            print(f"查询返回失败状态（1301 等）：{msg[:160]}", flush=True)
+            return "FAIL", None, msg
+        print(f"查询异常（按处理中处理）：{msg[:120]}", flush=True)
         return "PROCESSING", None, None
 
     def finish(sid, url, label):

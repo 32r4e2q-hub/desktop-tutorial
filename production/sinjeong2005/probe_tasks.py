@@ -49,7 +49,10 @@ def main():
                 if status not in ("PROCESSING", "SUCCESS"):
                     entry["raw"] = str(raw)[:500]
             except Exception as exc:  # noqa: BLE001
-                entry["task_status"] = "QUERY_ERROR"
+                if '"task_status":"FAIL"' in str(exc) or "1301" in str(exc):
+                    entry["task_status"] = "FAIL"
+                else:
+                    entry["task_status"] = "QUERY_ERROR"
                 entry["raw"] = str(exc)[:300]
         print(sid, json.dumps(entry, ensure_ascii=False), flush=True)
         report["tasks"][sid] = entry

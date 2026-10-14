@@ -2,22 +2,24 @@
   "gate": "check-prompts",
   "project": "production/sinjeong2005",
   "errors": [],
-  "warnings": [],
+  "warnings": [
+    "角色 C2 的 face token 偏短（59 字），建议 ≥60 字：脸型/眉眼/鼻口/发型/年龄各写一句"
+  ],
   "characters": [
     {
       "id": "C1",
-      "name": "专案组长（2005·虚构刑警）",
+      "name": "专案组长（2005·虚构调查员）",
       "role": "police",
-      "face_token_chars": 74,
+      "face_token_chars": 73,
       "portrait": null,
       "portrait_url": null,
       "seed": null
     },
     {
       "id": "C2",
-      "name": "年轻刑警（2005·虚构刑警）",
+      "name": "年轻调查员（2005·虚构调查员）",
       "role": "police",
-      "face_token_chars": 60,
+      "face_token_chars": 59,
       "portrait": null,
       "portrait_url": null,
       "seed": null
@@ -69,9 +71,9 @@
     },
     {
       "id": "C8",
-      "name": "冷案组长（2016–2025·虚构刑警）",
+      "name": "冷案组长（2016–2025·虚构调查员）",
       "role": "police",
-      "face_token_chars": 67,
+      "face_token_chars": 66,
       "portrait": null,
       "portrait_url": null,
       "seed": null
@@ -108,7 +110,7 @@
       "characters": [
         "C8"
       ],
-      "prompt_chars": 105
+      "prompt_chars": 106
     },
     {
       "shot": "S06",
@@ -137,7 +139,7 @@
       "characters": [
         "C1"
       ],
-      "prompt_chars": 108
+      "prompt_chars": 109
     },
     {
       "shot": "S11",
@@ -145,14 +147,14 @@
         "C1",
         "C2"
       ],
-      "prompt_chars": 176
+      "prompt_chars": 174
     },
     {
       "shot": "S12",
       "characters": [
         "C2"
       ],
-      "prompt_chars": 103
+      "prompt_chars": 104
     },
     {
       "shot": "S13",
@@ -180,7 +182,7 @@
       "characters": [
         "C1"
       ],
-      "prompt_chars": 115
+      "prompt_chars": 118
     },
     {
       "shot": "S19",
@@ -188,7 +190,7 @@
         "C1",
         "C2"
       ],
-      "prompt_chars": 184
+      "prompt_chars": 180
     },
     {
       "shot": "S20",
@@ -196,14 +198,14 @@
         "C1",
         "C2"
       ],
-      "prompt_chars": 179
+      "prompt_chars": 176
     },
     {
       "shot": "S21",
       "characters": [
         "C2"
       ],
-      "prompt_chars": 98
+      "prompt_chars": 97
     },
     {
       "shot": "S22",
@@ -217,35 +219,35 @@
       "characters": [
         "C2"
       ],
-      "prompt_chars": 108
+      "prompt_chars": 107
     },
     {
       "shot": "S24",
       "characters": [
         "C2"
       ],
-      "prompt_chars": 99
+      "prompt_chars": 98
     },
     {
       "shot": "S25",
       "characters": [
         "C1"
       ],
-      "prompt_chars": 118
+      "prompt_chars": 119
     },
     {
       "shot": "S26",
       "characters": [
         "C8"
       ],
-      "prompt_chars": 114
+      "prompt_chars": 111
     },
     {
       "shot": "S27",
       "characters": [
         "C8"
       ],
-      "prompt_chars": 123
+      "prompt_chars": 120
     },
     {
       "shot": "S28",
@@ -266,7 +268,7 @@
       "characters": [
         "C8"
       ],
-      "prompt_chars": 111
+      "prompt_chars": 110
     },
     {
       "shot": "S31",
@@ -280,7 +282,7 @@
       "characters": [
         "C8"
       ],
-      "prompt_chars": 114
+      "prompt_chars": 113
     },
     {
       "shot": "S33",
@@ -308,14 +310,14 @@
       "characters": [
         "C8"
       ],
-      "prompt_chars": 120
+      "prompt_chars": 114
     },
     {
       "shot": "S37",
       "characters": [
         "C8"
       ],
-      "prompt_chars": 112
+      "prompt_chars": 109
     },
     {
       "shot": "S38",
@@ -330,14 +332,14 @@
         "C8",
         "C9"
       ],
-      "prompt_chars": 183
+      "prompt_chars": 179
     },
     {
       "shot": "S40",
       "characters": [
         "C8"
       ],
-      "prompt_chars": 112
+      "prompt_chars": 111
     }
   ],
   "mode": "face",
