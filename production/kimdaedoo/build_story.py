@@ -52,53 +52,164 @@ CHAPTERS = [
 ]
 # 每章8/7/8/7/8/7镜；每个模型镜头请求6秒720P，最终1080p为合成放大，不宣称原生1080p。
 # 英文提示词只描述单场景，不要求生成文字或在一个请求里做多个转场。
-SHOT_ROWS = [
- ('柜台上的裤子','缓慢推近','Close view of folded faded blue jeans with a small muted dark stain on a wood counter. A hand places the jeans down; fabric settles; shop interior fills background.'),
- ('普通洗衣店','沿柜台横移','Interior of a modest laundromat. Blank hanging garments sway gently behind a wooden counter; a period washing drum turns slowly.'),
- ('老板停下手中的活','侧后方推进','Back view of the shopkeeper in beige shirt and dark apron inspecting folded jeans on the counter, pausing with one hand on the fabric.'),
- ('嫌疑人保持普通外表','固定中景','Rear three-quarter view of the slim brown-jacketed man at the counter, shifting weight slightly; his head remains turned away.'),
- ('拨出一个电话','电话近景推进','Close-up of a hand lifting the handset of a black rotary telephone on a wooden shelf; the rotary dial returns slowly.'),
- ('警员接警','肩后缓慢推近','Rear view of an investigator in charcoal coat answering a period desk telephone, picking up a pencil beside a blank paper pad.'),
- ('警方开始记录','俯拍横移','Hands carefully placing a blank evidence envelope beside folded jeans on an office desk, with a pencil resting on an unmarked pad.'),
- ('案件名片','graphic',['一条牛仔裤','韩国 · 一九七五年','五十五天，十七人遇害']),
- ('乡村清晨','低机位推进','Exterior of a modest South Jeolla rural home. Wind moves laundry in a quiet courtyard; the doorway remains empty.'),
- ('生活被打断后的房间','室内横移','Empty period household room with a slightly open drawer, plain wood furniture and a lamp shade swaying gently. No people or harm.'),
- ('调查住宅环境','背后跟拍','Rear view of a charcoal-coated investigator walking slowly through a quiet rural courtyard, stopping at an empty doorway.'),
- ('小店生活','货架横移','Inside a modest 1970s village shop, blank unlabeled tins on wooden shelves. Sunlight shifts softly, with no people and no signs.'),
- ('不同地方的路途','月台固定广角','A period passenger train slowly leaves a modest railway platform. Back-view commuters wait at a safe distance, sign-free framing.'),
- ('首尔普通住宅街','缓慢前移','A modest Seoul residential lane with period parked cars and muted winter coats on distant back-view pedestrians; only walls and doorways visible.'),
- ('时间与规模','graphic',['五十五天','一九七五年八月至十月','多地命案 · 十七人遇害']),
- ('纸质档案时代','案卷俯拍','An investigator opens blank brown file folders across an office desk. A period typewriter and rotary phone remain still in the background.'),
- ('有限的调查工具','桌面滑轨','Close view of a film camera, pencil and plain folders on a period police desk. A hand moves the camera aside.'),
- ('寻找联系','肩后推进','Rear view of an investigator comparing two blank folders under a tungsten desk lamp, slowly turning one page.'),
- ('回到洗衣店','柜台侧向推近','The folded blue jeans rest on the same wood counter; the shopkeeper rear silhouette enters frame and stops short of touching them.'),
- ('观察而非冒险','侧后方中景','Rear view of the shopkeeper in beige shirt and dark apron setting down his work and turning towards the telephone shelf.'),
- ('让专业人员处理','手部固定近景','A shopkeeper hand rests on the black telephone receiver; he lifts it once and holds it, no dialing text visible.'),
- ('物证被保存','俯拍推进','An investigator with gloves places folded denim into a plain brown evidence envelope on a wooden table. Hands move slowly and carefully.'),
- ('转折不是神迹','graphic',['普通人的警觉','发现异常 → 报告警方','不是独自侦查，也不是冒险追问']),
- ('嫌疑人被带走的示意','中远景缓慢拉远','Back view of a brown-jacketed man walking beside an investigator towards a parked 1970s police car, calm escorted movement, no struggle.'),
- ('询问室','肩后固定镜头','Period interview room, the brown-jacketed man sits facing away at a wood table, investigator seen only from behind with a folder.'),
- ('笔录与案卷','笔尖近景推进','Close view of an investigator hand turning a blank page and placing a pencil beside it; anonymous shoulders in the background.'),
- ('逐案核对','俯拍横移','Two gloved hands arrange blank evidence folders in a tidy row on the police desk, one folder per motion.'),
- ('不同地区的卷宗','桌面缓慢拉远','A desk filled with separate blank brown folders under a warm lamp, a hand bringing one more folder into the row.'),
- ('不能只凭供述','侧后方推进','Two investigators seen from behind compare plain files at one wooden desk, one points to a page without visible writing.'),
- ('调查结论','graphic',['线索终于串联','五十五天 · 十七人遇害','不是数字，是失去亲人的家庭']),
- ('司法程序','法庭后方慢推','Wide rear view of a 1970s Korean courtroom, officials behind wooden desks and a defendant rear silhouette. Restrained, no visible writing.'),
- ('审阅材料','桌面推进','Hands of a court official open a plain folder beside a wood desk lamp, slowly turning one page, no legible documents.'),
- ('严肃的裁判空间','固定广角','Empty wooden courtroom benches and the judge desk in soft daylight, gentle dust particles drifting in a light beam.'),
- ('被告席的背影','远景缓慢拉远','Brown-jacketed man seated facing away in the defendant area of a period courtroom, shoulders still, no dramatic expression.'),
- ('监狱外墙','缓慢前移','Exterior of a period Seoul prison wall in winter, snow drifting softly beside a heavy closed iron gate. No execution imagery.'),
- ('刑罚结局','graphic',['司法结局','金大斗被判死刑','一九七六年十二月被执行']),
- ('一扇门关闭','固定镜头','An empty prison corridor ending in a heavy iron door slowly closing. No prisoners or harm; plain walls fill the background.'),
- ('困境不等于免责','graphic',['背景不能免责','贫困与挫折不是伤害他人的理由','不为犯罪者制造传奇']),
- ('空下来的餐桌','室内温和横移','Empty modest Korean household dining table set with plain ceramic bowls; curtains shift gently, warm daylight on an unused chair.'),
- ('没有等到归人的门口','门槛缓慢推进','Two pairs of plain shoes at the threshold of a quiet rural home, a soft breeze stirs a hanging cloth, no people.'),
- ('回到普通柜台','柜台缓慢拉远','Same modest laundromat counter after closing time, dark apron folded on a stool, hanging shirts moving slightly.'),
- ('一个电话的重量','电话近景','Black rotary telephone rests on a plain wood shelf, soft morning light moving across the receiver; only the shelf in view.'),
- ('案卷合上','俯拍推进','An investigator hand closes a plain brown folder gently on the wooden office desk, and removes the hand from frame.'),
- ('生活应当继续','低机位前移','A quiet Korean residential courtyard in warm morning light, distant adults seen only from behind walking normally, leaves moving gently.'),
- ('尊重与提醒','graphic',['记住那些空下来的座位','金大斗案 · 韩国，一九七五年','遇到可疑情况，别冒险，交给警方']),
-]
+SHOT_ROWS = [('柜台上的裤子',
+  '缓慢推近',
+  'Close view of folded faded blue jeans with a small muted dark stain on a wood counter. A hand places the '
+  'jeans down; fabric settles; shop interior fills background.'),
+ ('普通洗衣店',
+  '沿柜台横移',
+  'Interior of a modest laundromat. Blank hanging garments sway gently behind a wooden counter; a period '
+  'washing drum turns slowly.'),
+ ('老板停下手中的活',
+  '侧后方推进',
+  'Back view of the shopkeeper in beige shirt and dark apron inspecting folded jeans on the counter, pausing '
+  'with one hand on the fabric.'),
+ ('嫌疑人保持普通外表',
+  '固定中景',
+  'Rear three-quarter view of the slim brown-jacketed man at the counter, shifting weight slightly; his head '
+  'remains turned away.'),
+ ('拨出一个电话',
+  '电话近景推进',
+  'Close-up of a hand lifting the handset of a black rotary telephone on a wooden shelf; the rotary dial '
+  'returns slowly.'),
+ ('警员接警',
+  '肩后缓慢推近',
+  'Rear view of an investigator in charcoal coat answering a period desk telephone, picking up a pencil '
+  'beside a blank paper pad.'),
+ ('警方开始记录',
+  '俯拍横移',
+  'Hands carefully placing a blank evidence envelope beside folded jeans on an office desk, with a pencil '
+  'resting on an unmarked pad.'),
+ ('案件名片', 'graphic', ['一条牛仔裤', '韩国 · 一九七五年', '五十五天，十七人遇害']),
+ ('乡村清晨',
+  '低机位推进',
+  'Exterior of a modest South Jeolla rural home. Wind moves laundry in a quiet courtyard; the doorway '
+  'remains empty.'),
+ ('生活被打断后的房间',
+  '室内横移',
+  'Empty period household room with a slightly open drawer, plain wood furniture and a lamp shade swaying '
+  'gently. No people or harm.'),
+ ('调查住宅环境',
+  '背后跟拍',
+  'Rear view of a charcoal-coated investigator walking slowly through a quiet rural courtyard, stopping at '
+  'an empty doorway.'),
+ ('小店生活',
+  '货架横移',
+  'Inside a modest 1970s village shop, blank unlabeled tins on wooden shelves. Sunlight shifts softly, with '
+  'no people and no signs.'),
+ ('不同地方的路途',
+  '月台固定广角',
+  'A period passenger train slowly leaves a modest railway platform. Back-view commuters wait at a safe '
+  'distance, sign-free framing.'),
+ ('首尔普通住宅街',
+  '缓慢前移',
+  'A modest Seoul residential lane with period parked cars and muted winter coats on distant back-view '
+  'pedestrians; only walls and doorways visible.'),
+ ('时间与规模', 'graphic', ['五十五天', '一九七五年八月至十月', '多地命案 · 十七人遇害']),
+ ('纸质档案时代',
+  '案卷俯拍',
+  'An investigator opens blank brown file folders across an office desk. A period typewriter and rotary '
+  'phone remain still in the background.'),
+ ('回到洗衣店',
+  '柜台侧向推近',
+  'The folded blue jeans rest on the same wood counter; the shopkeeper rear silhouette enters frame and '
+  'stops short of touching them.'),
+ ('观察而非冒险',
+  '侧后方中景',
+  'Rear view of the shopkeeper in beige shirt and dark apron setting down his work and turning towards the '
+  'telephone shelf.'),
+ ('让专业人员处理',
+  '手部固定近景',
+  'A shopkeeper hand rests on the black telephone receiver; he lifts it once and holds it, no dialing text '
+  'visible.'),
+ ('物证被保存',
+  '俯拍推进',
+  'An investigator with gloves places folded denim into a plain brown evidence envelope on a wooden table. '
+  'Hands move slowly and carefully.'),
+ ('嫌疑人被带走的示意',
+  '中远景缓慢拉远',
+  'Back view of a brown-jacketed man walking beside an investigator towards a parked 1970s police car, calm '
+  'escorted movement, no struggle.'),
+ ('不同地区的卷宗',
+  '桌面缓慢拉远',
+  'A desk filled with separate blank brown folders under a warm lamp, a hand bringing one more folder into '
+  'the row.'),
+ ('转折不是神迹', 'graphic', ['普通人的警觉', '发现异常 → 报告警方', '不是独自侦查，也不是冒险追问']),
+ ('嫌疑人被带走的示意',
+  '中远景缓慢拉远',
+  'Back view of a brown-jacketed man walking beside an investigator towards a parked 1970s police car, calm '
+  'escorted movement, no struggle.'),
+ ('询问室',
+  '肩后固定镜头',
+  'Period interview room, the brown-jacketed man sits facing away at a wood table, investigator seen only '
+  'from behind with a folder.'),
+ ('笔录与案卷',
+  '笔尖近景推进',
+  'Close view of an investigator hand turning a blank page and placing a pencil beside it; anonymous '
+  'shoulders in the background.'),
+ ('逐案核对',
+  '俯拍横移',
+  'Two gloved hands arrange blank evidence folders in a tidy row on the police desk, one folder per motion.'),
+ ('不同地区的卷宗',
+  '桌面缓慢拉远',
+  'A desk filled with separate blank brown folders under a warm lamp, a hand bringing one more folder into '
+  'the row.'),
+ ('不能只凭供述',
+  '侧后方推进',
+  'Two investigators seen from behind compare plain files at one wooden desk, one points to a page without '
+  'visible writing.'),
+ ('调查结论', 'graphic', ['线索终于串联', '五十五天 · 十七人遇害', '不是数字，是失去亲人的家庭']),
+ ('司法程序',
+  '法庭后方慢推',
+  'Wide rear view of a 1970s Korean courtroom, officials behind wooden desks and a defendant rear '
+  'silhouette. Restrained, no visible writing.'),
+ ('审阅材料',
+  '桌面推进',
+  'Hands of a court official open a plain folder beside a wood desk lamp, slowly turning one page, no '
+  'legible documents.'),
+ ('刑罚结局', 'graphic', ['司法结局', '金大斗被判死刑', '一九七六年十二月被执行']),
+ ('一扇门关闭',
+  '固定镜头',
+  'An empty prison corridor ending in a heavy iron door slowly closing. No prisoners or harm; plain walls '
+  'fill the background.'),
+ ('空下来的餐桌',
+  '室内温和横移',
+  'Empty modest Korean household dining table set with plain ceramic bowls; curtains shift gently, warm '
+  'daylight on an unused chair.'),
+ ('普通人的生活背景',
+  '背后缓慢跟拍',
+  'Back view of an anonymous 1970s Korean worker in a plain jacket walking slowly along a modest city '
+  'street. Shops are framed without signs, no factory danger or violence.'),
+ ('严肃的裁判空间',
+  '固定广角',
+  'Empty wooden courtroom benches and the judge desk in soft daylight, gentle dust particles drifting in a '
+  'light beam.'),
+ ('困境不等于免责', 'graphic', ['背景不能免责', '贫困与挫折不是伤害他人的理由', '不为犯罪者制造传奇']),
+ ('回到普通柜台',
+  '柜台缓慢拉远',
+  'Same modest laundromat counter after closing time, dark apron folded on a stool, hanging shirts moving '
+  'slightly.'),
+ ('观察而非冒险',
+  '侧后方中景',
+  'Rear view of the shopkeeper in beige shirt and dark apron setting down his work and turning towards the '
+  'telephone shelf.'),
+ ('回到洗衣店',
+  '柜台侧向推近',
+  'The folded blue jeans rest on the same wood counter; the shopkeeper rear silhouette enters frame and '
+  'stops short of touching them.'),
+ ('案卷合上',
+  '俯拍推进',
+  'An investigator hand closes a plain brown folder gently on the wooden office desk, and removes the hand '
+  'from frame.'),
+ ('空下来的餐桌',
+  '室内温和横移',
+  'Empty modest Korean household dining table set with plain ceramic bowls; curtains shift gently, warm '
+  'daylight on an unused chair.'),
+ ('生活应当继续',
+  '低机位前移',
+  'A quiet Korean residential courtyard in warm morning light, distant adults seen only from behind walking '
+  'normally, leaves moving gently.'),
+ ('尊重与提醒', 'graphic', ['记住那些空下来的座位', '金大斗案 · 韩国，一九七五年', '遇到可疑情况，别冒险，交给警方'])]
 TITLES = [TITLE,'他想洗掉裤子上的痕迹，却留下了十七条人命的线索','五十五天、十七人：破案转折藏在一家洗衣店']
 HOOK = '他想洗掉的，恰恰是警方需要的线索。'
 QUESTION = '你遇到可疑情况，会怎么安全地处理？'
@@ -156,6 +267,10 @@ def build():
     (HERE/'screenplay.md').write_text('\n'.join(lines)+'\n')
     (HERE/'抖音脚本.md').write_text('\n'.join(lines)+'\n')
     (HERE/'抖音发布文案.md').write_text('# 标题备选\n'+'\n'.join('- '+s for s in TITLES)+'\n\n'+DESCRIPTION+'\n\n'+' '.join(HASHTAGS)+'\n')
+    if (HERE/'audio/clause-times.json').exists() and (HERE/'audio/tighten-report.json').exists():
+        from script_table import render_document, publish_document
+        (HERE/'抖音脚本.md').write_text(render_document())
+        (HERE/'抖音发布文案.md').write_text(publish_document())
     print(f'45镜：{sum(s["kind"]=="agnes" for s in shots)} Agnes + {len(cards)}信息卡；旁白{sum(len(c["text"]) for c in chapters)}字（含标点）')
 
 if __name__ == '__main__':

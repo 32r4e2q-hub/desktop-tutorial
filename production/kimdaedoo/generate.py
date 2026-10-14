@@ -174,7 +174,8 @@ def main():
     project=json.loads((HERE/'story.json').read_text())
     validate(project,args.require_audio)
     if not args.execute:
-        print('PLAN VALID: 180s grid / 38 Agnes + 7 cards; video, audio, billing and final CUTS not yet approved')
+        print('PLAN VALID: 180s grid / 38 Agnes + 7 cards; audio hashes checked' if args.require_audio else 'PLAN VALID: 180s grid / 38 Agnes + 7 cards; no audio check requested')
+        print('This is not video generation, a billing confirmation or final QC approval')
         return
     policy=json.loads((HERE/'billing-policy.json').read_text())
     billing_gate(policy)
