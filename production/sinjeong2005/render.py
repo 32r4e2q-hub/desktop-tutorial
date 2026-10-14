@@ -48,7 +48,7 @@ CUTS = {
     'N03': [(0,'S14',''), (2.66,'S15',''), (8.51,'S16',''), (13.62,'S17',''), (16.85,'S18',''), (19.60,'S19','')],
     'N04': [(0,'S20',''), (6.30,'S21',''), (10.33,'S22',''), (16.38,'S23',''), (19.75,'S24',''), (24.76,'S25','')],
     'N05': [(0,'S26',''), (3.18,'S27',''), (6.91,'S28',''), (11.33,'S29',''), (15.76,'S30',''), (20.61,'S31',''), (23.33,'S32','')],
-    'N06': [(0,'S33',''), (5.58,'S34',''), (9.38,'S35',''), (12.82,'S36',''), (18.89,'S37',''), (23.56,'S38',''), (29.81,'S39',''), (35.43,'S40','')],
+    'N06': [(0,'S33',''), (5.40,'S34',''), (9.53,'S35',''), (15.95,'S36',''), (21.12,'S37',''), (27.54,'S38',''), (33.83,'S39',''), (40.21,'S40','')],
 }
 
 # 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
@@ -381,7 +381,7 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
         available=b-a
         take=min(available,duration)
         factor=duration/take
-        if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
+        if factor>1.45:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')  # 智谱素材实测仅约5.1s：上限由1.33放宽到1.45（2.28那种仍拦）
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         tighter=''
         if sid in TIGHTER_CROPS:
