@@ -1,0 +1,63 @@
+name: 新亭洞连环杀人案 · 人脸锚定小测
+run-name: C7 同一参考人像跨镜头测试 · ${{ github.ref_name }}
+
+on:
+  push:
+    branches:
+      - arena/f3e80641-desktop-tutorial
+    paths:
+      - production/sinjeong2005/ANCHOR_TEST_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sinjeong2005-anchor-test-arena-f3e80641-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  anchor-test:
+    if: github.ref == 'refs/heads/arena/f3e80641-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 180
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/f3e80641-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install ffmpeg and Python dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --upgrade pip
+          python -m pip install zhipuai sniffio httpx requests
+
+      - name: Generate two clips from one shared portrait
+        env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+        run: python3 -u production/sinjeong2005/anchor_test.py 2>&1 | tee /tmp/anchor-test.log; exit ${PIPESTATUS[0]}
+
+      - name: Save contact sheets and report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f production/sinjeong2005/qa/anchor-test/
+          git commit -m "sinjeong2005: C7 人脸锚定测试回执" || exit 0
+          for attempt in 1 2 3; do
+            if git push origin arena/f3e80641-desktop-tutorial; then break; fi
+            git pull --rebase origin arena/f3e80641-desktop-tutorial
+          done
+
+      - name: Upload test media
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: sinjeong2005-anchor-test-${{ github.run_number }}
+          path: production/sinjeong2005/qa/anchor-test/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 14
