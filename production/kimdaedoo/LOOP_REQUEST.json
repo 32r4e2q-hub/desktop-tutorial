@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "model": "agnes-video-2.5-flash",
   "free_flash_loop_authorized": true,
   "authorization": "2026-10-14 用户要求根据Agnes免费限制控制频率、循环到所有视频生成完成",
@@ -10,5 +10,5 @@
   "max_in_flight_tasks": 1,
   "initial_slice_seconds": 120,
   "continuation_slice_seconds": 10800,
-  "note": "Free-tier candidate only; 503 queue-full is not proof of free billing. GitHub Actions minutes are separate from Agnes quota. Disable enabled to stop."
+  "note": "用户授权切换PIXAZO，停止Agnes避免双队列。"
 }
