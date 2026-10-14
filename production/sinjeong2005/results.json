@@ -1000,11 +1000,11 @@
     },
     "S35": {
       "id": "S35",
-      "status": "queued",
+      "status": "pending",
       "request_hash": "ff9cea914f3046090fbdc7a1f17a4bec68f91c459d282fd3a4c2deca1d7e0280",
-      "updated_at": "2026-10-14T06:35:07Z",
-      "error": null,
-      "task_id": "20261014143507c6b9ee46f07f4acb",
+      "updated_at": "2026-10-14T07:51:47Z",
+      "error": "任务 FAIL：VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261014143507c6b9ee46f07f4acb，请稍后重试'})",
+      "task_id": null,
       "used_params": {
         "quality": "speed",
         "size": "1920x1080",
@@ -1026,7 +1026,8 @@
       },
       "visual_review": "pending",
       "reused_existing_asset": true,
-      "anchor_role": "C7"
+      "anchor_role": "C7",
+      "resubmits": 1
     },
     "S36": {
       "id": "S36",
@@ -1174,7 +1175,7 @@
       "anchor_role": "C8"
     }
   },
-  "updated_at": "2026-10-14T07:51:46Z",
+  "updated_at": "2026-10-14T07:51:47Z",
   "run_id": "38517066811",
   "phase": "sources_ready"
 }
