@@ -434,10 +434,18 @@
     },
     "S22": {
       "id": "S22",
-      "status": "submitting",
+      "status": "queued",
       "request_hash": "8ceae634e5d62aee85cb73eeb421cc760a192ce2cc64f43c0769805b0a0d5c52",
-      "updated_at": "2026-10-14T02:11:02Z",
-      "error": null
+      "updated_at": "2026-10-14T02:11:10Z",
+      "error": null,
+      "task_id": "20261014101110f77028194f974122",
+      "used_params": {
+        "quality": "speed",
+        "size": "1920x1080",
+        "fps": 30,
+        "duration": 10
+      },
+      "image_first": false
     },
     "S23": {
       "id": "S23",
@@ -548,7 +556,7 @@
       "updated_at": "2026-10-13T20:08:52Z"
     }
   },
-  "updated_at": "2026-10-14T02:11:02Z",
+  "updated_at": "2026-10-14T02:11:10Z",
   "run_id": "38487898058",
   "phase": "generation_incomplete"
 }
