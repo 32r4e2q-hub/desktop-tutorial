@@ -70,6 +70,7 @@ def fresh_url(task_id: str) -> str | None:
             headers={"Authorization": f"Bearer {key}"})
         with urllib.request.urlopen(request, timeout=60) as response:
             payload = json.loads(response.read().decode("utf-8"))
+        print(f"  async-result keys: {sorted(payload.keys())} status={payload.get('task_status')}", flush=True)
         vr = payload.get("video_result") or []
         if vr:
             return vr[0].get("url")
