@@ -243,17 +243,27 @@
     },
     "S07": {
       "id": "S07",
-      "status": "queued",
+      "status": "failed",
       "task_id": "202610151736100716147f1d9b40a0",
       "request_hash": "a4f2f23ca0c725f2fce18efd77fe96cbc01ef25549d7e956eb42957462c92034",
-      "error": null,
+      "error": "Provider task failed with code 1234: 网络错误，错误id：202610151736100716147f1d9b40a0，请稍后重试",
       "character_ids": [
         "father"
       ],
       "face_visible": true,
       "reference_image": "references/father-lee.jpg",
       "reference_sha256": "a08c5f3f5d9c39510e2346f74288c5cd7271efdcb212eee0a6389c85356aff6b",
-      "updated_at": "2026-10-15T09:36:10Z"
+      "updated_at": "2026-10-15T10:06:21Z",
+      "task_attempt": 1,
+      "task_failures": [
+        {
+          "task_id": "202610151736100716147f1d9b40a0",
+          "code": "1234",
+          "message": "网络错误，错误id：202610151736100716147f1d9b40a0，请稍后重试",
+          "raw_error": "{'code': '1234', 'message': '网络错误，错误id：202610151736100716147f1d9b40a0，请稍后重试'}",
+          "attempt": 1
+        }
+      ]
     }
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
@@ -299,7 +309,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T09:36:10Z",
+  "updated_at": "2026-10-15T10:06:21Z",
   "run_id": "38713402442",
   "previous_results": {
     "S12": [
