@@ -1,0 +1,237 @@
+name: 李亨浩案《四十四天的电话》· 智谱三分钟动画
+run-name: 李亨浩案制作 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_tts:
+        description: '强制重新生成六章智谱 GLM-TTS 旁白'
+        required: false
+        type: boolean
+        default: false
+      visual_qc:
+        description: '渲染后运行逐帧视觉质量审计'
+        required: false
+        type: boolean
+        default: true
+  push:
+    branches:
+      - arena/04ec3850-desktop-tutorial
+    paths:
+      - production/lee_hyung_ho1991/RUN_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lee-hyung-ho1991-arena-04ec3850-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  produce:
+    if: github.ref == 'refs/heads/arena/04ec3850-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 350
+    steps:
+      - name: Check out the fixed Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/04ec3850-desktop-tutorial
+          fetch-depth: 0
+
+      - name: Install media tools and fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          ffmpeg -hide_banner -version | head -1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Zhipu and deterministic render / QC dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "zhipuai>=2.1,<3" "numpy==1.26.4" "pillow>=10,<13" \
+            "av>=12,<16" "opencv-python-headless==4.10.0.84" \
+            "absl-py>=2,<3" "attrs>=19.1" "flatbuffers>=2" "protobuf>=4.25.3,<5"
+          python -m pip install --no-deps "mediapipe==0.10.21"
+          python - <<'PY'
+          import importlib.metadata as metadata
+          import av, cv2, mediapipe as mp, numpy as np, PIL, zhipuai
+          assert cv2.__version__ == '4.10.0'
+          assert mp.__version__ == '0.10.21'
+          print('runtime ready', 'av', av.__version__, 'opencv', cv2.__version__,
+                'mediapipe', mp.__version__, 'numpy', np.__version__,
+                'zhipuai', metadata.version('zhipuai'))
+          PY
+
+      - name: Build the checked screenplay and resolve this run
+        env:
+          DISPATCH_FORCE_TTS: ${{ inputs.force_tts }}
+        run: |
+          set -euo pipefail
+          python production/lee_hyung_ho1991/build_story.py
+          python - <<'PY' >> "$GITHUB_ENV"
+          import json, os
+          from pathlib import Path
+          request = json.loads(Path('production/lee_hyung_ho1991/RUN_REQUEST').read_text())
+          dispatch_force = os.getenv('DISPATCH_FORCE_TTS', '').lower() == 'true'
+          if isinstance(request, dict) and 'payload' in request:
+              payload = request.get('payload') or {}
+              force = bool(request.get('force_tts', False)) or dispatch_force
+          else:
+              payload = request
+              force = dispatch_force
+          if payload.get('only'):
+              raise SystemExit('This workflow renders a complete film; remove the only-shot filter from RUN_REQUEST.')
+          print('PAYLOAD=' + json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
+          print('FORCE_TTS=' + ('true' if force else 'false'))
+          PY
+          echo "Resolved video payload and TTS/cache policy."
+
+      - name: Generate or reuse verified GLM-TTS narration and cut timings
+        env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ "$FORCE_TTS" = "true" ]; then
+            python -u production/lee_hyung_ho1991/prepare_tts.py --force --publish 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+          else
+            python -u production/lee_hyung_ho1991/prepare_tts.py --publish 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+          fi
+
+      - name: Validate all 45 shots and narration provenance
+        run: python production/lee_hyung_ho1991/generate.py --validate
+
+      - name: Generate 38 animated clips with Zhipu CogVideoX-Flash
+        env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+        run: |
+          set -euo pipefail
+          python -u production/lee_hyung_ho1991/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+
+      - name: Restore SHA-verified clips from Zhipu receipts
+        run: |
+          python production/lee_hyung_ho1991/fetch_sources.py \
+            --dest work/lee_hyung_ho1991/sources 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+
+      - name: Render the 180-second film with measured audio and subtitles
+        run: |
+          set -euo pipefail
+          python -u production/lee_hyung_ho1991/render.py \
+            --sources work/lee_hyung_ho1991/sources \
+            --work work/lee_hyung_ho1991/render \
+            --output 'work/lee_hyung_ho1991/李亨浩_四十四天的电话_三分钟.mp4' \
+            --skip-asr 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+
+      - name: Publish compact render receipts and contact sheet to the branch
+        run: |
+          set -euo pipefail
+          project='production/lee_hyung_ho1991'
+          delivery="$project/delivery"
+          mkdir -p "$delivery" "$project/qa"
+          cp work/lee_hyung_ho1991/render/edit-decision-list.json "$delivery/"
+          cp work/lee_hyung_ho1991/render/technical-report.json "$delivery/"
+          cp work/lee_hyung_ho1991/render/audio-report.json "$delivery/"
+          cp work/lee_hyung_ho1991/render/final-audio-report.json "$delivery/"
+          cp work/lee_hyung_ho1991/render/alignment-report.json "$delivery/"
+          cp work/lee_hyung_ho1991/render/final-contact.jpg "$project/qa/final-contact.jpg"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$delivery" "$project/qa/final-contact.jpg"
+          if ! git diff --cached --quiet; then
+            git commit -m 'lee_hyung_ho1991: publish verified render reports'
+            git push origin arena/04ec3850-desktop-tutorial
+          fi
+
+      - name: Audit every delivered frame and create a visual review summary
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.visual_qc }}
+        run: |
+          set -euo pipefail
+          film='work/lee_hyung_ho1991/李亨浩_四十四天的电话_三分钟.mp4'
+          python -u production/lee_hyung_ho1991/audit_frame_distortions.py \
+            --film "$film" \
+            --project production/lee_hyung_ho1991 \
+            --out work/lee_hyung_ho1991/frame-distortion-audit.json \
+            --work work/lee_hyung_ho1991/frame-audit 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('work/lee_hyung_ho1991/frame-distortion-audit.json').read_text())
+          checks = report['checks']
+          summary = {
+              'status': report['status'],
+              'video': report['video'],
+              'checks': {
+                  'pts_issues': len(checks['pts_issues']),
+                  'unplanned_black_frames': checks['unplanned_black_frame_count'],
+                  'non_graphic_freeze_runs': len(checks['non_graphic_freeze_runs']),
+                  'temporal_outlier_windows': len(checks['temporal_outlier_windows']),
+                  'face_review_candidates': len(checks['face_review_candidates']),
+                  'hand_geometry_events': len(checks['hand_landmark_extreme_events']),
+              },
+              'shot_summary': report['shot_summary'],
+              'human_visual_review': 'pending; automated screening is triage, not sign-off',
+          }
+          out = Path('production/lee_hyung_ho1991/delivery/visual-qc-summary.json')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
+          Path('production/lee_hyung_ho1991/delivery/frame-distortion-audit.md').write_text(
+              Path('work/lee_hyung_ho1991/frame-distortion-audit.md').read_text())
+          print('VISUAL_QC_SUMMARY', json.dumps(summary['checks'], ensure_ascii=False))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/lee_hyung_ho1991/delivery/visual-qc-summary.json \
+            production/lee_hyung_ho1991/delivery/frame-distortion-audit.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'lee_hyung_ho1991: record automated frame QC'
+            git push origin arena/04ec3850-desktop-tutorial
+          fi
+
+      - name: Preserve failure diagnostics without exposing secrets
+        if: failure()
+        run: |
+          set -euo pipefail
+          project='production/lee_hyung_ho1991'
+          if [ -f /tmp/lee-hyung-ho-production.log ]; then
+            tail -c 200000 /tmp/lee-hyung-ho-production.log > "$project/last-run.log"
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add "$project/last-run.log"
+            if ! git diff --cached --quiet; then
+              git commit -m 'lee_hyung_ho1991: preserve production diagnostics'
+              git push origin arena/04ec3850-desktop-tutorial || {
+                git fetch origin arena/04ec3850-desktop-tutorial
+                git rebase FETCH_HEAD
+                git push origin arena/04ec3850-desktop-tutorial
+              }
+            fi
+          fi
+
+      - name: Upload the film and review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lee-hyung-ho-film-${{ github.run_number }}
+          path: |
+            work/lee_hyung_ho1991/李亨浩_四十四天的电话_三分钟.mp4
+            work/lee_hyung_ho1991/render/final-contact.jpg
+            work/lee_hyung_ho1991/render/captions.srt
+            work/lee_hyung_ho1991/render/technical-report.json
+            work/lee_hyung_ho1991/render/audio-report.json
+            work/lee_hyung_ho1991/render/final-audio-report.json
+            work/lee_hyung_ho1991/render/edit-decision-list.json
+            work/lee_hyung_ho1991/frame-distortion-audit.json
+            work/lee_hyung_ho1991/frame-distortion-audit.md
+            work/lee_hyung_ho1991/frame-audit/contacts/shot-midpoints.jpg
+            work/lee_hyung_ho1991/frame-audit/suspect-frames/
+            production/lee_hyung_ho1991/results.json
+            production/lee_hyung_ho1991/qa/
+            production/lee_hyung_ho1991/delivery/
+            production/lee_hyung_ho1991/last-run.log
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 30
