@@ -50,10 +50,10 @@
     },
     "S12": {
       "id": "S12",
-      "status": "retrying",
+      "status": "submitting",
       "request_hash": "577bd6743cbe8a8fa5d9fd4d8f27c9c65d8679e76338858d6b08965047645563",
-      "error": "Provider task failed with code 1234: 网络错误，错误id：202610151207264f49cb49a3244e28，请稍后重试",
-      "task_attempt": 1,
+      "error": null,
+      "task_attempt": 2,
       "task_failures": [
         {
           "task_id": "202610151207264f49cb49a3244e28",
@@ -68,7 +68,7 @@
       "face_visible": true,
       "reference_image": "references/father-lee.jpg",
       "reference_sha256": "a08c5f3f5d9c39510e2346f74288c5cd7271efdcb212eee0a6389c85356aff6b",
-      "updated_at": "2026-10-15T04:37:35Z",
+      "updated_at": "2026-10-15T04:37:51Z",
       "task_id": "202610151207264f49cb49a3244e28"
     }
   },
@@ -115,6 +115,6 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T04:37:35Z",
+  "updated_at": "2026-10-15T04:37:51Z",
   "run_id": "38676720658"
 }
