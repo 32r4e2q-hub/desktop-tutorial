@@ -10,14 +10,10 @@ MODEL = "cogvideox-flash"
 BRANCH = "arena/04ec3850-desktop-tutorial"
 
 STYLE_PREFIX = (
-    "Photoreal cinematic 3D CGI documentary reenactment, Seoul, South Korea, winter 1991; "
-    "period-accurate 1990s Korean streets, telephones, interiors and vehicles; horizontal 16:9; "
-    "cold blue-grey palette, restrained tungsten practical light, volumetric winter haze, subtle 35mm grain, "
-    "measured investigative-noir tone. One location, one continuous slow camera move, no cuts. "
-    "All people are anonymous fictional reenactment performers, never a real person's likeness; "
-    "the child is only a distant silhouette or seen from behind, with no identifiable face. "
-    "No readable text, letters, numbers, signs, logos, license plates, subtitles or watermarks in-frame. "
-    "No assault, injury, blood, corpse or graphic violence. "
+    "3D CGI documentary reenactment, Seoul winter 1991; period-correct Korean streets, phones and interiors, "
+    "cinematic 16:9, cold blue-grey with restrained tungsten and film grain; one slow continuous move, no cuts. "
+    "Fictional cast only: use each reference to keep repeated IDs' face, hair and wardrobe identical; different IDs "
+    "must look distinct. No real-person likeness, text, logos or graphic violence. "
 )
 
 CHAPTERS = [
@@ -77,46 +73,91 @@ CHAPTERS = [
     },
 ]
 
+CHARACTERS = {
+    "father": {
+        "name": "FATHER-01",
+        "role": "父亲（虚构情景演员）",
+        "reference_image": "references/father-lee.jpg",
+        "prompt": "FATHER-01: same fictional late-30s Korean man; narrow oval face, straight brows, tiny mole below left eye, neat side-parted black hair, navy coat and pale-blue shirt. Keep this exact face and outfit.",
+    },
+    "mother": {
+        "name": "MOTHER-01",
+        "role": "母亲（虚构情景演员）",
+        "reference_image": "references/mother-lee.jpg",
+        "prompt": "MOTHER-01: same fictional late-30s Korean woman; heart-shaped face, almond eyes, tiny mark by right jaw, shoulder-length wavy black hair, burgundy cardigan. Keep this exact face and outfit.",
+    },
+    "child": {
+        "name": "CHILD-01",
+        "role": "儿童（虚构情景演员，非真人复原）",
+        "reference_image": "references/child-lee.jpg",
+        "prompt": "CHILD-01: same fictional nine-year-old Korean boy; round cheeks, short side-parted black hair, right-cheek dimple, blue-white tracksuit. Keep this face; never resemble the real victim.",
+    },
+    "detective_park": {
+        "name": "DETECTIVE-PARK-01",
+        "role": "朴警探（虚构情景演员）",
+        "reference_image": "references/detectives-park-choi.jpg",
+        "prompt": "DETECTIVE-PARK-01: same fictional late-40s Korean man; broad square jaw, thick brows, swept-back black hair grey at the temples, charcoal coat. Preserve his distinct face.",
+    },
+    "detective_choi": {
+        "name": "DETECTIVE-CHOI-01",
+        "role": "崔警探（虚构情景演员）",
+        "reference_image": "references/detectives-park-choi.jpg",
+        "prompt": "DETECTIVE-CHOI-01: same fictional late-30s Korean woman; slim oval face, glasses, chin-length black bob, olive trench. Clearly different from Park; preserve her face.",
+    },
+    "caller_unknown": {
+        "name": "CALLER-UNKNOWN",
+        "role": "身份未明的来电者（面容不呈现）",
+        "reference_image": "",
+        "prompt": "CALLER-UNKNOWN: an unidentified adult shown only as the same distant, hooded silhouette; keep the face fully hidden and do not imply an identified suspect.",
+    },
+    "bank_visitor_unknown": {
+        "name": "BANK-VISITOR-UNKNOWN",
+        "role": "身份未明的取款者（面容不呈现）",
+        "reference_image": "",
+        "prompt": "BANK-VISITOR-UNKNOWN: a separate unidentified adult, seen only from behind with face fully hidden; do not equate this person with the caller.",
+    },
+}
+
 # id, chapter, visual, purpose, camera, optional post-production card
 SHOTS = [
     ("S01", "N01", "A 1991 Korean rotary telephone trembling on a wooden table in a dim family living room, its indicator lamp glows softly; slow push toward the handset.", "深夜电话响起", "slow push-in", None),
     ("S02", "N01", "A winter 1991 Seoul apartment playground at dusk, an empty metal swing moving gently under a yellow streetlamp; wide lateral pan through thin fog.", "狎鸥亭冬夜空荡的游乐场", "slow lateral pan", None),
     ("S03", "N01", "案件资料卡：日期与地点", "失踪日期与地点", "post-production card", "graphic"),
-    ("S04", "N01", "A small child in a blue-and-white 1991 tracksuit seen only from behind, very distant beside the playground swing; slow pull back, face never visible.", "远景中的孩子，不呈现可辨识面容", "slow pull-back", None),
-    ("S05", "N01", "An anonymous middle-aged father in a dark 1990s jacket searching an empty apartment playground, shown only from behind beneath winter trees; gentle tracking shot.", "父亲在游乐场寻找孩子", "gentle tracking", None),
+    ("S04", "N01", "CHILD-01 plays quietly beside the playground swing in a blue-and-white 1991 tracksuit; a gentle side profile briefly reveals his fictional reference face at medium distance, then the camera slowly pulls back.", "虚构儿童侧影与空荡游乐场", "slow pull-back", None),
+    ("S05", "N01", "FATHER-01 searches the empty apartment playground beneath winter trees, his navy coat and the same side-profile face visible as he turns toward the empty swing; gentle tracking shot.", "父亲在游乐场寻找孩子", "gentle tracking", None),
     ("S06", "N01", "A beige 1990s telephone beside a small desk clock in a dark Seoul apartment at night; the phone begins to ring, warm lamp against cold window light.", "家中电话再次响起", "slow push-in", None),
-    ("S07", "N01", "Close view of anonymous adult hands lifting a beige telephone receiver, shallow depth of field, late-night tungsten light; one restrained camera drift.", "父亲接起勒索电话", "slow drift", None),
-    ("S08", "N01", "An empty child's bedroom in a 1991 Seoul apartment, folded blue jacket and a toy on the bed, curtain moving in the winter draft; quiet slow pan.", "空荡的儿童房", "slow pan", None),
+    ("S07", "N01", "FATHER-01 lifts a beige telephone receiver in a dim 1991 living room; medium over-shoulder framing includes his same three-quarter reference face, navy sleeve and the warm lamp, with one restrained camera drift.", "父亲接起勒索电话", "slow drift", None),
+    ("S08", "N01", "MOTHER-01 stands in the child's quiet 1991 bedroom, holding his folded blue jacket beside the empty bed; her same reference face is seen in soft profile as the curtain moves in the winter draft, quiet slow pan.", "母亲在空荡的儿童房守候", "slow pan", None),
 
     ("S09", "N02", "A 1991 Seoul street telephone booth in light rain at night, reflections passing across the glass while the booth remains empty; slow dolly toward it.", "不断变换的街头来电", "slow dolly", None),
     ("S10", "N02", "案件资料卡：首轮赎金与车载电话要求", "七千万韩元与车载电话", "post-production card", "graphic"),
-    ("S11", "N02", "Anonymous adult hand writing a note beside a landline, the paper is deliberately blank and no text is legible; close slow push, restrained tension.", "家人记录交接指令", "slow push-in", None),
-    ("S12", "N02", "Inside a period-correct 1991 sedan, an anonymous father drives through Seoul at night with a bulky car telephone beside him; camera watches from the passenger seat.", "父亲开车往返首尔", "slow passenger-seat drift", None),
+    ("S11", "N02", "MOTHER-01 writes the changing instructions on a deliberately blank note beside the landline; show her same reference face, burgundy sleeve and tense writing hand in one close, slow push, no legible text.", "母亲记录不断变化的交接指令", "slow push-in", None),
+    ("S12", "N02", "FATHER-01 drives a period-correct 1991 sedan through Seoul at night, his exact reference face in three-quarter view, navy coat and bulky car telephone beside him; camera watches from the passenger seat.", "父亲开车往返首尔", "slow passenger-seat drift", None),
     ("S13", "N02", "A quiet Seoul intersection with a public phone booth, wet pavement and distant headlights reflected in shop windows; one continuous slow pan, no readable signs.", "反复变化的地点", "slow pan", None),
-    ("S14", "N02", "A dark anonymous figure seen only as a distant coat silhouette behind rain-streaked phone-booth glass, one gloved hand holding the receiver; slow, subtle push.", "未知来电者的匿名背影", "slow push-in", None),
+    ("S14", "N02", "CALLER-UNKNOWN appears only as the same distant hooded silhouette behind rain-streaked phone-booth glass, face fully hidden, one gloved hand holding the receiver; slow, subtle push.", "身份未明来电者的匿名背影", "slow push-in", None),
     ("S15", "N02", "A plain sealed envelope resting on a wet stone ledge beneath a streetlamp, no money or writing visible; slow close-up with winter rain in the background.", "赎金交接留下的空白", "slow close-up", None),
 
-    ("S16", "N03", "Two anonymous Korean detectives in a 1991 unmarked sedan listening to a compact cassette recorder, faces obscured by darkness, streetlights sliding across the windshield.", "警方监听与布控", "slow windshield drift", None),
+    ("S16", "N03", "The two reference detectives sit in a 1991 unmarked sedan listening to a cassette recorder; their distinct faces catch sliding streetlight through the windshield.", "两名警探监听与布控", "slow windshield drift", None),
     ("S17", "N03", "案件资料卡：六十多通勒索电话", "来电数量", "post-production card", "graphic"),
-    ("S18", "N03", "An anonymous father carrying a closed plain bag toward a distant empty meeting point at night, viewed from behind across a rain-dark street; no handover shown.", "父亲按指令前往交接地点", "slow tracking", None),
-    ("S19", "N03", "A plain unmarked police car waits behind rain-speckled glass on a Seoul side street, two distant silhouettes watching without movement; restrained slow push.", "警方等待交接信号", "slow push-in", None),
+    ("S18", "N03", "FATHER-01 carries a closed plain bag toward a distant empty meeting point at night; begin on his same reference profile before following him from behind across a rain-dark street; no handover shown.", "父亲按指令前往交接地点", "slow tracking", None),
+    ("S19", "N03", "The same two reference detectives wait in their unmarked police car behind rain-speckled glass; their different profiles catch streetlight in a restrained slow push.", "警方等待交接信号", "slow push-in", None),
     ("S20", "N03", "A quiet empty curb at the opposite side of a 1991 Seoul intersection, an unmarked sedan waits in the distance while headlights pass; slow pan suggests a missed position.", "联络错位后的空守地点", "slow pan", None),
-    ("S21", "N03", "An anonymous figure seen from behind leaving a dim bank lobby with a small paper envelope, all forms blank and no identifiable face; slow lateral track.", "银行线索仍无法确认身份", "slow lateral track", None),
-    ("S22", "N03", "A detective's desk with an unmarked cassette, blank bank slips and a paper city map, hands aligning clues under a green desk lamp; slow overhead drift.", "录音、账户与地图线索", "slow overhead drift", None),
-    ("S23", "N03", "The anonymous father sits alone in the dim family living room beside a silent telephone, shoulders lowered, shown from behind; a long still camera push.", "一次次等待后的沉默", "slow push-in", None),
+    ("S21", "N03", "BANK-VISITOR-UNKNOWN, a separate unidentified adult, leaves the dim bank lobby seen only from behind with a small paper envelope; face hidden, blank forms, never imply this is the caller; slow lateral track.", "取款者身份仍无法确认", "slow lateral track", None),
+    ("S22", "N03", "A detective's hands align an unmarked cassette, blank bank slips and a paper city map beneath a green desk lamp; charcoal sleeves, slow overhead drift, no face shown.", "警探整理录音、账户与地图线索", "slow overhead drift", None),
+    ("S23", "N03", "FATHER-01 sits alone beside the silent telephone, shoulders lowered; his same three-quarter reference face and navy coat are visible in the dim family living room as the camera slowly pushes in.", "一次次等待后的沉默", "slow push-in", None),
 
     ("S24", "N04", "案件资料卡：发现日期与排水沟", "发现日期", "post-production card", "graphic"),
     ("S25", "N04", "Dawn beside a drainage channel in the Jamsil area, distant municipal workers stop and call for help; no body or graphic detail, cold mist and a slow pull back.", "发现地点的远景，不展示遗体", "slow pull-back", None),
-    ("S26", "N04", "Police tape moves gently in the wind beside a concrete drainage path, anonymous detectives stand with heads bowed at a respectful distance; slow sideways drift.", "警戒线外的哀伤", "slow sideways drift", None),
-    ("S27", "N04", "An anonymous father waits in a quiet police-station corridor, seen from behind beneath fluorescent lights, hands clasped; slow approach with no visible faces.", "家属等待消息", "slow approach", None),
+    ("S26", "N04", "The same two reference detectives stand beside police tape, their different faces softly lit and heads bowed; respectful distance, no body shown, slow sideways drift.", "两名警探在警戒线外", "slow sideways drift", None),
+    ("S27", "N04", "FATHER-01 waits in a quiet police-station corridor beneath fluorescent lights, hands clasped; show his same reference face in a tired three-quarter profile as the camera slowly approaches.", "父亲等待消息", "slow approach", None),
     ("S28", "N04", "Gloved hands review a closed, unmarked medical file on a desk, a small diagram is completely blurred and non-graphic; restrained overhead camera drift.", "法医材料以非图像化方式呈现", "slow overhead drift", None),
     ("S29", "N04", "A small untouched lunch bowl on a family table beside a child's folded sleeve, soft winter window light, no person or readable text; slow close-up.", "以日常物件呈现失去的日常", "slow close-up", None),
     ("S30", "N04", "案件资料卡：死因与死亡时间的不确定性", "法医结论", "post-production card", "graphic"),
 
     ("S31", "N05", "A police artist's blank suspect-sketch sheet on a desk, only an indistinct empty outline with no facial features; a hand turns the page slowly.", "警方公开画像线索", "slow page turn", None),
-    ("S32", "N05", "An anonymous investigator carefully places an old cassette beside a blank evidence folder in a 1990s archive room, dust in a narrow beam of light; slow push-in.", "重新检查旧录音与卷宗", "slow push-in", None),
-    ("S33", "N05", "Close view of anonymous hands comparing blank bank slips and a ledger with all writing out of focus; muted 1990s office light, no visible names or numbers.", "核对汇款记录", "slow close-up", None),
-    ("S34", "N05", "An anonymous older detective and a family member sit across a small interview-room table, both shown only from behind, a closed folder between them; still, respectful framing.", "多年调查仍未确认身份", "slow drift", None),
+    ("S32", "N05", "A detective's hand places an old cassette beside a blank evidence folder in the 1990s archive room; only the charcoal sleeve and hand are visible in a narrow beam of dust-lit light, slow push-in.", "重新检查旧录音与卷宗", "slow push-in", None),
+    ("S33", "N05", "Close view of a detective's charcoal-sleeved hands comparing blank bank slips and a ledger; all writing is out of focus, no face, names or numbers.", "核对汇款记录", "slow close-up", None),
+    ("S34", "N05", "FATHER-01 sits across from an older detective in a quiet interview room; the father's same reference face is visible while the detective is seen only from behind, a closed folder between them, quiet respectful framing.", "父亲与警探多年后仍未确认身份", "slow drift", None),
     ("S35", "N05", "A dusty archive shelf with a single closed case box and analog cassette, thin sunlight across the labels which remain unreadable; slow dolly past.", "未能破解的旧案卷宗", "slow dolly", None),
     ("S36", "N05", "Blank calendar pages turn slowly beside an old analog clock, visual passage from early 1990s to mid-2000s without legible dates; cinematic time-lapse kept within one view.", "时间走向追诉时效届满", "slow time-lapse", None),
     ("S37", "N05", "案件资料卡：追诉时效届满", "二〇〇六年追诉时效", "post-production card", "graphic"),
@@ -124,12 +165,37 @@ SHOTS = [
     ("S38", "N06", "A dark Seoul cinema auditorium in 2007, projector beam crossing rows of anonymous audience silhouettes, the screen shows only soft abstract light, no film footage or text.", "案件进入公众记忆", "slow aisle push", None),
     ("S39", "N06", "An old analog cassette being digitized on a modern audio workstation, reels turning beside a plain computer monitor with no readable interface; slow close-up.", "二〇一九年旧录音数字化", "slow close-up", None),
     ("S40", "N06", "A neutral green audio waveform moving across a dark monitor in a quiet police lab, no voice or text is shown; slow camera drift through reflected light.", "重新分析声纹", "slow drift", None),
-    ("S41", "N06", "An older anonymous father's hands hold a small family photograph turned away from camera, the image itself out of focus, warm window light in a quiet room.", "家属仍在等待真相", "slow close-up", None),
+    ("S41", "N06", "FATHER-01's hands in the same navy wool sleeves hold a small family photograph turned away from camera; the image is out of focus, his face is not shown, warm window light in a quiet room.", "家属仍在等待真相", "slow close-up", None),
     ("S42", "N06", "A modern Seoul evening crowd passes through a subway plaza, no single person singled out, anonymous figures blurred by gentle motion; slow elevated pan.", "凶手身份仍未确认", "slow elevated pan", None),
     ("S43", "N06", "An empty metal swing at a Seoul playground at dawn with one small white flower resting on the seat, pale winter light and a gentle breeze; slow pull back.", "以空秋千纪念亨浩", "slow pull-back", None),
-    ("S44", "N06", "A quiet family living room at blue hour, an old telephone sits beside a turned-away, out-of-focus family photograph, the lamp slowly dims; long restrained push.", "电话与记忆留下的回声", "slow push-in", None),
+    ("S44", "N06", "MOTHER-01 sits by the silent old telephone at blue hour; her exact reference face and burgundy cardigan appear in profile beside a turned-away, out-of-focus family photograph as the lamp dims, long restrained push.", "母亲与电话留下的回声", "slow push-in", None),
     ("S45", "N06", "案件资料卡：未侦破状态与后续录音调查", "案件仍未侦破", "post-production card", "graphic"),
 ]
+
+SHOT_CHARACTERS = {
+    "S04": ["child"],
+    "S05": ["father"], "S07": ["father"], "S08": ["mother"], "S11": ["mother"],
+    "S12": ["father"], "S14": ["caller_unknown"],
+    "S16": ["detective_park", "detective_choi"], "S18": ["father"],
+    "S19": ["detective_park", "detective_choi"], "S21": ["bank_visitor_unknown"],
+    "S23": ["father"],
+    "S26": ["detective_park", "detective_choi"], "S27": ["father"],
+    "S34": ["father"], "S41": ["father"], "S44": ["mother"],
+}
+
+SHOT_REFERENCE_OVERRIDES = {
+    "S16": "references/detectives-park-choi.jpg",
+    "S19": "references/detectives-park-choi.jpg",
+    "S26": "references/detectives-park-choi.jpg",
+    "S41": "",  # hands/photograph only; intentionally no face-reference frame
+}
+
+SHOT_FACE_VISIBLE = {
+    "S04": True, "S05": True, "S07": True, "S08": True, "S11": True,
+    "S12": True, "S14": False, "S16": True, "S18": True, "S19": True,
+    "S21": False, "S23": True, "S26": True, "S27": True, "S34": True,
+    "S41": False, "S44": True,
+}
 
 CARD_COPY = {
     "S03": ["一九九一年一月二十九日", "首尔狎鸥亭 · 九岁李亨浩失踪", "深夜来电索要七千万韩元"],
@@ -197,7 +263,7 @@ PRESENTATION = {
 
 PRINCIPLES = [
     "本片是三分钟、1920×1080、16:9 的3D CGI情景重现；AI生成画面不是案件原始影像。",
-    "生成服务仅用智谱 GLM-TTS（旁白，chuichui 音色）与 CogVideoX-Flash；不调用 Agnes 或其他生成式影像/语音 API。",
+    "所有视频镜头只由智谱 CogVideoX-Flash 生成；旁白使用独立的 Microsoft Edge TTS（zh-CN-YunyangNeural），不使用 GLM-TTS，也不调用 Agnes。",
     "李亨浩是儿童受害者：不还原真人面容、不呈现绑架或死亡过程，不展示遗体、血腥或可复制的犯罪方法。",
     "来电者身份不明：不猜测嫌疑人、不模拟其真实声音、不把推测写成定论；所有人物均为匿名化虚构情景演员。",
     "上传稿中的1.5亿韩元、57次电话、失踪第46天等与主要报道口径不符；本片按来源修正为首轮7000万韩元、60多通、3月13日发现（常见口径为第44天）。",
@@ -213,13 +279,25 @@ def build() -> dict:
     shots = []
     chapter_index = {row["id"]: i for i, row in enumerate(CHAPTERS)}
     for i, (sid, narration_id, prompt, purpose, camera, graphic) in enumerate(SHOTS):
+        character_ids = SHOT_CHARACTERS.get(sid, []) if not graphic else []
+        continuity = " ".join(CHARACTERS[cid]["prompt"] for cid in character_ids)
+        visual_prompt = "" if graphic else " ".join(part for part in (continuity, prompt, f"Camera: {camera}.") if part)
+        if sid in SHOT_REFERENCE_OVERRIDES:
+            reference_image = SHOT_REFERENCE_OVERRIDES[sid]
+        elif len(character_ids) == 1:
+            reference_image = CHARACTERS[character_ids[0]]["reference_image"]
+        else:
+            reference_image = ""
         row = {
             "id": sid,
             "kind": "graphic" if graphic else "cogvideo",
             "start": i * 4,
             "duration": 4,
             "narration_id": narration_id,
-            "prompt": "" if graphic else prompt + f" Camera: {camera}.",
+            "prompt": visual_prompt,
+            "character_ids": character_ids,
+            "face_visible": SHOT_FACE_VISIBLE.get(sid, False) if not graphic else False,
+            "reference_image": reference_image,
             "purpose": purpose,
             "transition_out": "以缓慢运动转入下一镜",
             "graphic": graphic or "",
@@ -256,10 +334,12 @@ def build() -> dict:
         "style_prefix": STYLE_PREFIX,
         "negative_prompt": (
             "readable text, letters, numbers, Korean characters, logos, subtitles, watermarks, "
-            "recognizable face, realistic likeness, child close-up, blood, gore, corpse, injury, assault, "
-            "weapon, perpetrator identity, duplicated person, extra limbs, malformed hands, flicker, jump cut, "
-            "scene change, split screen, collage, anime, cartoon, plastic toy, vertical video"
+            "real-person likeness, identity drift, face morphing, merged identities, duplicated faces, "
+            "inconsistent hair or wardrobe for a repeated character, blood, gore, corpse, injury, assault, "
+            "weapon, perpetrator identification, extra limbs, malformed hands, flicker, jump cut, scene change, "
+            "split screen, collage, anime, cartoon, plastic toy, vertical video"
         ),
+        "characters": CHARACTERS,
         "principles": PRINCIPLES,
         "chapters": chapters,
         "shots": shots,
@@ -268,7 +348,7 @@ def build() -> dict:
         "_scaffold": {
             "note": "Adapted from the verified Zheng Dooyoung production workflow; all Lee Hyung-ho facts researched independently.",
             "timeline": "45 shots / 180 seconds; 38 CogVideoX-Flash clips + 7 post-production graphics; six narration chapters.",
-            "voice": "Zhipu GLM-TTS system voice chuichui; chapter audio kept in audio/ with checksums.",
+            "voice": "Microsoft Edge TTS neural voice zh-CN-YunyangNeural; chapter audio kept in audio/ with SHA-256 checksums.",
         },
     }
     return story
@@ -285,6 +365,24 @@ def validate(story: dict) -> None:
     assert set(story["presentation"]["cards"]) == {"S03", "S10", "S17", "S24", "S30", "S37", "S45"}
     assert all("TODO" not in s["prompt"] for s in shots)
     assert all(len(story["style_prefix"] + s["prompt"]) <= 1000 for s in shots if s["kind"] == "cogvideo")
+    for character in story["characters"].values():
+        image = character.get("reference_image")
+        if image:
+            assert (HERE / image).is_file(), f"missing character reference: {image}"
+    for shot in shots:
+        if shot["kind"] != "cogvideo":
+            continue
+        assert set(shot["character_ids"]) <= set(story["characters"]), shot["id"]
+        image = shot.get("reference_image")
+        if image:
+            assert (HERE / image).is_file(), f"{shot['id']}: missing shot reference {image}"
+            expected_images = {story["characters"][cid].get("reference_image") for cid in shot["character_ids"]}
+            expected_images.discard("")
+            assert not expected_images or expected_images == {image}, f"{shot['id']}: identity reference does not match the cast bible"
+        if shot["face_visible"] and shot["character_ids"]:
+            assert image, f"{shot['id']}: face-visible recurring character requires the canonical reference"
+        if len(shot["character_ids"]) > 1:
+            assert image, f"{shot['id']}: multi-person shot needs a shared reference image"
     assert len(story["presentation"]["end_card"]) == 4
 
 

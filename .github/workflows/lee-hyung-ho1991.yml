@@ -1,11 +1,16 @@
-name: 李亨浩案《四十四天的电话》· 智谱三分钟动画
+name: 李亨浩案《四十四天的电话》· CogVideoX 动画
 run-name: 李亨浩案制作 · ${{ github.ref_name }}
 
 on:
   workflow_dispatch:
     inputs:
+      cogvideo_smoke:
+        description: '先用 CogVideoX 生成 3 个身份参考测试镜头，不生成旁白/整片'
+        required: false
+        type: boolean
+        default: false
       force_tts:
-        description: '强制重新生成六章智谱 GLM-TTS 旁白'
+        description: '强制重新生成六章 Edge TTS 旁白'
         required: false
         type: boolean
         default: false
@@ -50,28 +55,30 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Zhipu and deterministic render / QC dependencies
+      - name: Install CogVideoX, Edge TTS and render / QC dependencies
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
-          python -m pip install "zhipuai>=2.1,<3" "sniffio>=1.3,<2" "numpy==1.26.4" \
-            "pillow>=10,<13" "av>=12,<16" "opencv-python-headless==4.10.0.84" \
+          python -m pip install "zhipuai>=2.1,<3" "sniffio>=1.3,<2" "edge-tts>=7.2,<8" \
+            "numpy==1.26.4" "pillow>=10,<13" "av>=12,<16" "opencv-python-headless==4.10.0.84" \
             "matplotlib>=3.8,<4" "absl-py>=2,<3" "attrs>=19.1" \
             "flatbuffers>=2" "protobuf>=4.25.3,<5" 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
           python -m pip install --no-deps "mediapipe==0.10.21" 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
           python - <<'PY' 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
           import importlib.metadata as metadata
-          import av, cv2, mediapipe as mp, numpy as np, PIL, zhipuai
+          import av, cv2, edge_tts, mediapipe as mp, numpy as np, PIL, zhipuai
           assert cv2.__version__ == '4.10.0'
           assert mp.__version__ == '0.10.21'
           print('runtime ready', 'av', av.__version__, 'opencv', cv2.__version__,
                 'mediapipe', mp.__version__, 'numpy', np.__version__,
-                'zhipuai', metadata.version('zhipuai'))
+                'edge-tts', metadata.version('edge-tts'), 'zhipuai', metadata.version('zhipuai'))
           PY
 
       - name: Build the checked screenplay and resolve this run
+        id: resolve
         env:
           DISPATCH_FORCE_TTS: ${{ inputs.force_tts }}
+          DISPATCH_COGVIDEO_SMOKE: ${{ inputs.cogvideo_smoke }}
         run: |
           set -euo pipefail
           python production/lee_hyung_ho1991/build_story.py
@@ -80,22 +87,48 @@ jobs:
           from pathlib import Path
           request = json.loads(Path('production/lee_hyung_ho1991/RUN_REQUEST').read_text())
           dispatch_force = os.getenv('DISPATCH_FORCE_TTS', '').lower() == 'true'
+          smoke = os.getenv('DISPATCH_COGVIDEO_SMOKE', '').lower() == 'true'
           if isinstance(request, dict) and 'payload' in request:
               payload = request.get('payload') or {}
               force = bool(request.get('force_tts', False)) or dispatch_force
           else:
               payload = request
               force = dispatch_force
-          if payload.get('only'):
-              raise SystemExit('This workflow renders a complete film; remove the only-shot filter from RUN_REQUEST.')
+          if smoke:
+              payload = {'only': 'S05,S12,S16'}
+          elif payload.get('only'):
+              raise SystemExit('Only-shot requests are allowed through the cogvideo_smoke workflow input.')
           print('PAYLOAD=' + json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
           print('FORCE_TTS=' + ('true' if force else 'false'))
+          print('SMOKE_TEST=' + ('true' if smoke else 'false'))
           PY
-          echo "Resolved video payload and TTS/cache policy."
+          echo "Resolved CogVideoX payload, Edge TTS/cache policy, and smoke-test flag."
 
-      - name: Generate or reuse verified GLM-TTS narration and cut timings
+      - name: Validate the 45-shot CogVideoX plan and character references
+        run: python production/lee_hyung_ho1991/generate.py --validate
+
+      - name: Generate animated clips with Zhipu CogVideoX-Flash only
         env:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+        run: |
+          set -euo pipefail
+          python -u production/lee_hyung_ho1991/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+
+      - name: Restore SHA-verified CogVideoX clips from provider receipts
+        if: ${{ env.SMOKE_TEST != 'true' }}
+        run: |
+          python production/lee_hyung_ho1991/fetch_sources.py \
+            --dest work/lee_hyung_ho1991/sources 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+
+      - name: Build cross-shot character identity review sheets
+        if: ${{ env.SMOKE_TEST != 'true' }}
+        run: |
+          python production/lee_hyung_ho1991/character_consistency_audit.py \
+            --sources work/lee_hyung_ho1991/sources \
+            --out work/lee_hyung_ho1991/character-consistency 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+
+      - name: Generate or reuse verified Edge TTS narration and cut timings
+        if: ${{ env.SMOKE_TEST != 'true' }}
         run: |
           set -euo pipefail
           if [ "$FORCE_TTS" = "true" ]; then
@@ -104,22 +137,12 @@ jobs:
             python -u production/lee_hyung_ho1991/prepare_tts.py --publish 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
           fi
 
-      - name: Validate all 45 shots and narration provenance
-        run: python production/lee_hyung_ho1991/generate.py --validate
-
-      - name: Generate 38 animated clips with Zhipu CogVideoX-Flash
-        env:
-          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
-        run: |
-          set -euo pipefail
-          python -u production/lee_hyung_ho1991/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
-
-      - name: Restore SHA-verified clips from Zhipu receipts
-        run: |
-          python production/lee_hyung_ho1991/fetch_sources.py \
-            --dest work/lee_hyung_ho1991/sources 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+      - name: Validate all shots and narration provenance
+        if: ${{ env.SMOKE_TEST != 'true' }}
+        run: python production/lee_hyung_ho1991/generate.py --validate --require-audio
 
       - name: Render the 180-second film with measured audio and subtitles
+        if: ${{ env.SMOKE_TEST != 'true' }}
         run: |
           set -euo pipefail
           python -u production/lee_hyung_ho1991/render.py \
@@ -129,6 +152,7 @@ jobs:
             --skip-asr 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
 
       - name: Publish compact render receipts and contact sheet to the branch
+        if: ${{ env.SMOKE_TEST != 'true' }}
         run: |
           set -euo pipefail
           project='production/lee_hyung_ho1991'
@@ -140,20 +164,23 @@ jobs:
           cp work/lee_hyung_ho1991/render/final-audio-report.json "$delivery/"
           cp work/lee_hyung_ho1991/render/alignment-report.json "$delivery/"
           cp work/lee_hyung_ho1991/render/final-contact.jpg "$project/qa/final-contact.jpg"
+          mkdir -p "$project/qa/character-consistency"
+          cp work/lee_hyung_ho1991/character-consistency/*.jpg "$project/qa/character-consistency/"
+          cp work/lee_hyung_ho1991/character-consistency/summary.json "$delivery/character-consistency.json"
           if [ -f "$project/last-run.log" ]; then
             rm "$project/last-run.log"
             git add -u "$project/last-run.log"
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add "$delivery" "$project/qa/final-contact.jpg"
+          git add "$delivery" "$project/qa/final-contact.jpg" "$project/qa/character-consistency"
           if ! git diff --cached --quiet; then
-            git commit -m 'lee_hyung_ho1991: publish verified render reports'
+            git commit -m 'lee_hyung_ho1991: publish verified render and identity review receipts'
             git push origin arena/04ec3850-desktop-tutorial
           fi
 
       - name: Audit every delivered frame and create a visual review summary
-        if: ${{ github.event_name != 'workflow_dispatch' || inputs.visual_qc }}
+        if: ${{ env.SMOKE_TEST != 'true' && (github.event_name != 'workflow_dispatch' || inputs.visual_qc) }}
         run: |
           set -euo pipefail
           film='work/lee_hyung_ho1991/李亨浩_四十四天的电话_三分钟.mp4'
@@ -179,6 +206,7 @@ jobs:
                   'hand_geometry_events': len(checks['hand_landmark_extreme_events']),
               },
               'shot_summary': report['shot_summary'],
+              'character_identity_review': 'reference image hashes and the contact sheets are included; generation is probabilistic, so final semantic approval remains visual',
               'human_visual_review': 'pending; automated screening is triage, not sign-off',
           }
           out = Path('production/lee_hyung_ho1991/delivery/visual-qc-summary.json')
@@ -217,13 +245,16 @@ jobs:
             fi
           fi
 
-      - name: Upload the film and review evidence
+      - name: Upload the film, CogVideoX smoke clips and review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lee-hyung-ho-film-${{ github.run_number }}
+          name: lee-hyung-ho-production-${{ github.run_number }}
           path: |
             work/lee_hyung_ho1991/李亨浩_四十四天的电话_三分钟.mp4
+            work/lee_hyung_ho1991/sources/S05.mp4
+            work/lee_hyung_ho1991/sources/S12.mp4
+            work/lee_hyung_ho1991/sources/S16.mp4
             work/lee_hyung_ho1991/render/final-contact.jpg
             work/lee_hyung_ho1991/render/captions.srt
             work/lee_hyung_ho1991/render/technical-report.json

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """李亨浩案三分钟成片渲染器。
 
-只接受 results.json 中登记且 SHA-256 可验证的 CogVideoX-Flash 片段，以及 GLM-TTS 章节旁白；
+只接受 results.json 中登记且 SHA-256 可验证的 CogVideoX-Flash 片段，以及 Edge TTS 章节旁白；
 任何缺失或校验不符都直接失败，不以静帧或幻灯片替代动画镜头。输出 16:9 成片、EDL、字幕、
 音频测量报告和质检接触表。所有镜头文案、信息卡、片头片尾与资料来源从 story.json 读取。
 """

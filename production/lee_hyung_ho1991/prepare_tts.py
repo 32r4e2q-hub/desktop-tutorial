@@ -1,27 +1,24 @@
 #!/usr/bin/env python3
-"""Synthesize, tighten, time and provenance-check the six Zhipu GLM-TTS chapters."""
+"""Generate, tighten, time and provenance-check Mandarin narration with Edge TTS."""
 from __future__ import annotations
 
 import argparse
-import base64
 import hashlib
 import json
 import os
 import subprocess
 import sys
 import time
-import urllib.error
-import urllib.request
 from pathlib import Path
 from typing import Any
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 BRANCH = "arena/04ec3850-desktop-tutorial"
-ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/audio/speech"
-MODEL = "glm-tts"
-VOICE = "chuichui"
-FORMAT = "wav"
+PROVIDER = "Microsoft Edge TTS"
+MODEL = "edge-tts"
+VOICE = "zh-CN-YunyangNeural"
+FORMAT = "mp3"
 INITIAL_SPEED = 1.0
 MIN_TEMPO, MAX_TEMPO = 0.86, 1.10
 
@@ -38,73 +35,38 @@ def read_json(path: Path, default: Any) -> Any:
     return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else default
 
 
-def decode_response(body: bytes, content_type: str) -> bytes:
-    """Accept the documented streamed audio response and common JSON/base64 wrappers."""
-    if "json" not in content_type.lower():
-        return body
-    payload = json.loads(body.decode("utf-8"))
-    if isinstance(payload, dict):
-        for key in ("audio", "data", "audio_base64", "base64"):
-            value = payload.get(key)
-            if isinstance(value, str):
-                if value.startswith("data:") and "," in value:
-                    value = value.split(",", 1)[1]
-                return base64.b64decode(value)
-        url = payload.get("url")
-        if isinstance(url, str) and url.startswith("https://"):
-            with urllib.request.urlopen(urllib.request.Request(
-                    url, headers={"User-Agent": "arena-lee-hyung-ho1991-glm-tts/1.0"}), timeout=180) as response:
-                return response.read()
-        error = payload.get("error") or payload.get("message") or payload
-        raise RuntimeError(f"GLM-TTS returned JSON without audio: {str(error)[:500]}")
-    raise RuntimeError("GLM-TTS returned an unexpected JSON response")
+def edge_rate(speed: float) -> str:
+    """Edge TTS accepts signed percentages such as +0% or -5%."""
+    percent = round((speed - 1.0) * 100)
+    return f"{percent:+d}%"
 
 
-def synthesize(text: str, key: str, speed: float, destination: Path) -> None:
-    payload = {
-        "model": MODEL,
-        "input": text,
-        "voice": VOICE,
-        "response_format": FORMAT,
-        "speed": round(speed, 3),
-        "volume": 1.0,
-    }
-    data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
-    request = urllib.request.Request(
-        ENDPOINT,
-        data=data,
-        method="POST",
-        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
-                 "Accept": "audio/mpeg, application/octet-stream, application/json"},
-    )
-    last_error: Exception | None = None
-    for attempt in range(1, 6):
+def synthesize(text: str, speed: float, destination: Path) -> None:
+    """Create MP3 using Microsoft Edge's Chinese neural voice; no Zhipu TTS or Agnes."""
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    command = [
+        sys.executable, "-m", "edge_tts",
+        "--voice", VOICE,
+        "--rate", edge_rate(speed),
+        "--text", text,
+        "--write-media", str(destination),
+        "--no-progress",
+    ]
+    last_error = "unknown Edge TTS error"
+    for attempt in range(1, 4):
         try:
-            with urllib.request.urlopen(request, timeout=240) as response:
-                audio = decode_response(response.read(), response.headers.get("Content-Type", ""))
-            if len(audio) < 1024:
-                raise RuntimeError(f"GLM-TTS returned an implausibly small audio body ({len(audio)} bytes)")
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_bytes(audio)
-            return
-        except urllib.error.HTTPError as exc:
-            body = exc.read().decode("utf-8", "replace")[:1000]
-            if any(token in body for token in ("1113", "余额不足", "无可用资源包")):
-                raise RuntimeError(
-                    "Zhipu GLM-TTS quota is exhausted (code 1113). No alternative provider will be used; "
-                    "add an available Zhipu resource package, then rerun this workflow."
-                ) from exc
-            last_error = RuntimeError(f"HTTP {exc.code}: {body}")
-            if exc.code not in (408, 425, 429, 500, 502, 503, 504) or attempt == 5:
-                raise last_error from exc
-        except (urllib.error.URLError, TimeoutError, OSError, RuntimeError) as exc:
-            last_error = exc
-            if attempt == 5:
-                break
-        wait = min(45, attempt * 7)
-        print(f"TTS_RETRY attempt={attempt}/5 wait={wait}s error={type(last_error).__name__}: {str(last_error)[:180]}", flush=True)
-        time.sleep(wait)
-    raise RuntimeError(f"GLM-TTS failed after retries: {last_error}")
+            result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=240)
+            if result.returncode == 0 and destination.is_file() and destination.stat().st_size >= 1024:
+                return
+            last_error = (result.stderr or result.stdout or f"exit code {result.returncode}")[-1200:]
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            last_error = f"{type(exc).__name__}: {exc}"
+        destination.unlink(missing_ok=True)
+        if attempt < 3:
+            wait = attempt * 5
+            print(f"EDGE_TTS_RETRY attempt={attempt}/3 wait={wait}s error={last_error[:200]}", flush=True)
+            time.sleep(wait)
+    raise RuntimeError(f"Microsoft Edge TTS failed after 3 attempts: {last_error}")
 
 
 def run_tool(name: str) -> None:
@@ -114,7 +76,8 @@ def run_tool(name: str) -> None:
 
 def cached_audio_is_valid(story: dict) -> bool:
     manifest = read_json(HERE / "audio" / "manifest.json", {})
-    if manifest.get("provider") != "Zhipu AI" or manifest.get("model") != MODEL or manifest.get("voice_id") != VOICE:
+    if (manifest.get("provider") != PROVIDER or manifest.get("model") != MODEL
+            or manifest.get("voice_id") != VOICE):
         return False
     rows = {row.get("id"): row for row in manifest.get("clips", [])}
     for chapter in story["chapters"]:
@@ -126,14 +89,12 @@ def cached_audio_is_valid(story: dict) -> bool:
             return False
     timing = read_json(HERE / "audio" / "clause-times.json", {})
     cuts = read_json(HERE / "audio" / "cuts.json", {})
-    if set(timing) != {chapter["id"] for chapter in story["chapters"]}:
-        return False
-    if set(cuts) != {chapter["id"] for chapter in story["chapters"]}:
+    chapter_ids = {chapter["id"] for chapter in story["chapters"]}
+    if set(timing) != chapter_ids or set(cuts) != chapter_ids:
         return False
     for chapter in story["chapters"]:
         expected_ids = [shot["id"] for shot in story["shots"] if shot["narration_id"] == chapter["id"]]
-        actual_ids = [row[1] for row in cuts[chapter["id"]]]
-        if actual_ids != expected_ids:
+        if [row[1] for row in cuts[chapter["id"]]] != expected_ids:
             return False
     return True
 
@@ -158,18 +119,18 @@ def publish_audio() -> None:
     ]
     paths.extend(str(path.relative_to(ROOT)) for path in sorted((HERE / "audio").glob("N0*.mp3")))
     raw_dir = HERE / "audio" / "raw"
-    paths.extend(str(path.relative_to(ROOT)) for pattern in ("N0*.wav", "N0*.mp3")
+    paths.extend(str(path.relative_to(ROOT)) for pattern in ("N0*.mp3", "N0*.wav")
                  for path in sorted(raw_dir.glob(pattern)))
     git("add", "--", *paths)
     changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode != 0
     if not changed:
         print("TTS_AUDIO_ALREADY_PUBLISHED", flush=True)
         return
-    git("commit", "-m", "lee_hyung_ho1991: add verified GLM-TTS narration and timings", "--", *paths)
+    git("commit", "-m", "lee_hyung_ho1991: add verified Edge TTS narration and timings", "--", *paths)
     for attempt in range(5):
         result = subprocess.run(["git", "push", "origin", BRANCH], cwd=ROOT, text=True, capture_output=True, timeout=180)
         if result.returncode == 0:
-            print("TTS_AUDIO_PUBLISHED", flush=True)
+            print("EDGE_TTS_AUDIO_PUBLISHED", flush=True)
             return
         print(f"TTS_AUDIO_PUSH_RETRY {attempt + 1}: {result.stderr[-500:]}", flush=True)
         git("fetch", "origin", BRANCH)
@@ -184,25 +145,20 @@ def prepare(force: bool = False) -> dict:
         raise RuntimeError("story.json must contain the six fact-checked narration chapters")
     for chapter in story["chapters"]:
         if len(chapter["text"]) > 1024:
-            raise RuntimeError(f"{chapter['id']}: GLM-TTS input exceeds 1024 characters")
+            raise RuntimeError(f"{chapter['id']}: narration chapter exceeds 1024 characters")
     if not force and cached_audio_is_valid(story):
-        print("TTS_CACHE_HIT: existing audio bytes and narration text hashes match", flush=True)
+        print("TTS_CACHE_HIT: narration bytes, voice and text hashes match", flush=True)
         return read_json(HERE / "audio" / "manifest.json", {})
-
-    key = os.getenv("ZHIPUAI_API_KEY", "").strip()
-    if not key:
-        raise RuntimeError("ZHIPUAI_API_KEY is unavailable; configure the repository Actions secret")
 
     raw_dir = HERE / "audio" / "raw"
     raw_dir.mkdir(parents=True, exist_ok=True)
     speed = INITIAL_SPEED
     tighten = {}
-    # GLM-TTS speed can vary by chapter. Calibrate once against the renderer's ±10% gate.
     for calibration in range(3):
-        print(f"TTS_SYNTHESIS voice={VOICE} speed={speed:.2f} pass={calibration + 1}", flush=True)
+        print(f"EDGE_TTS_SYNTHESIS voice={VOICE} rate={edge_rate(speed)} pass={calibration + 1}", flush=True)
         for chapter in story["chapters"]:
             destination = raw_dir / f"{chapter['id']}.{FORMAT}"
-            synthesize(chapter["text"], key, speed, destination)
+            synthesize(chapter["text"], speed, destination)
             print(f"TTS_CHAPTER_READY {chapter['id']} bytes={destination.stat().st_size}", flush=True)
         run_tool("tighten_pauses.py")
         tighten = read_json(HERE / "audio" / "tighten-report.json", {})
@@ -212,13 +168,13 @@ def prepare(force: bool = False) -> dict:
         if calibration == 2:
             raise RuntimeError(
                 f"Narration would need {tempo:.3f} tempo, outside {MIN_TEMPO:.2f}-{MAX_TEMPO:.2f}; "
-                "inspect tighten-report.json and adjust the TTS speed or pause cap."
+                "inspect tighten-report.json and adjust TTS rate or pause cap."
             )
         new_speed = max(0.88, min(1.10, speed * tempo)) if tempo > 0 else speed
         if abs(new_speed - speed) < 0.015:
             new_speed = min(1.10, speed + 0.05) if tempo > MAX_TEMPO else max(0.88, speed - 0.05)
         speed = new_speed
-        print(f"TTS_CALIBRATE tempo={tempo:.3f}; retrying all chapters at speed={speed:.2f}", flush=True)
+        print(f"TTS_CALIBRATE tempo={tempo:.3f}; retrying at rate={edge_rate(speed)}", flush=True)
 
     clips = []
     for chapter in story["chapters"]:
@@ -235,11 +191,10 @@ def prepare(force: bool = False) -> dict:
             "raw_bytes": raw.stat().st_size,
         })
     manifest = {
-        "provider": "Zhipu AI",
+        "provider": PROVIDER,
         "model": MODEL,
-        "endpoint": ENDPOINT,
         "voice_id": VOICE,
-        "voice_description": "Chinese documentary narration voice selected by the production agent",
+        "voice_description": "Mandarin Chinese male neural narration, selected by the production agent",
         "speed": speed,
         "response_format": FORMAT,
         "chapters": len(clips),
@@ -247,22 +202,22 @@ def prepare(force: bool = False) -> dict:
         "total_tight_seconds": tighten.get("total_tight_seconds"),
         "tempo_after": tighten.get("tempo_after"),
         "text_integrity": "Each manifest text exactly matches the corresponding story.json chapter.",
-        "audio_integrity": "SHA-256 recorded for raw GLM-TTS MP3 and pause-tightened narration MP3.",
+        "audio_integrity": "SHA-256 recorded for raw Edge TTS MP3 and pause-tightened narration MP3.",
     }
     (HERE / "audio" / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     run_tool("clause_times.py")
     run_tool("plan_cuts.py")
     subprocess.run([sys.executable, str(HERE / "clause_times.py"), "--check-cuts"], cwd=ROOT, check=True)
-    manifest["timing"] = "audio/clause-times.json; per-chapter method is recorded, and cuts use measured or pause-aware estimated clause boundaries."
+    manifest["timing"] = "audio/clause-times.json; pause-aware measured or estimated clause boundaries drive cuts and subtitles."
     (HERE / "audio" / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"TTS_READY voice={VOICE} speed={speed:.2f} tempo={manifest['tempo_after']} chapters={len(clips)}", flush=True)
+    print(f"TTS_READY provider={PROVIDER} voice={VOICE} rate={edge_rate(speed)} tempo={manifest['tempo_after']} chapters={len(clips)}", flush=True)
     return manifest
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--force", action="store_true", help="Regenerate even if the verified audio cache is complete")
-    parser.add_argument("--publish", action="store_true", help="Commit only verified narration/timing files to the fixed Arena branch")
+    parser.add_argument("--publish", action="store_true", help="Commit verified narration/timing files to the fixed Arena branch")
     args = parser.parse_args()
     prepare(force=args.force)
     if args.publish:

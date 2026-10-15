@@ -7,6 +7,7 @@ outside Git and are restored from their verified Zhipu CDN receipts for renderin
 """
 from __future__ import annotations
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -35,14 +36,29 @@ def digest(path):
     return h.hexdigest()
 
 def full_payload(project,shot):
-    # CogVideoX-Flash currently accepts model/prompt/quality. Keep one stable,
-    # bounded prompt so request_hash is reproducible and retries are idempotent.
+    # CogVideoX-Flash receives the deterministic character reference as an
+    # image-to-video start frame, not as a different video-generation provider.
     prompt=(project['style_prefix']+shot['prompt']).strip()
     if len(prompt)>2600: prompt=prompt[:2600]
-    return {'model':MODEL,'prompt':prompt,'quality':'speed'}
+    payload={'model':MODEL,'prompt':prompt,'quality':'quality','with_audio':False}
+    reference=shot.get('reference_image')
+    if reference:
+        path=HERE/reference
+        if not path.is_file(): raise FileNotFoundError(f"Missing identity reference for {shot['id']}: {path}")
+        mime='image/jpeg' if path.suffix.lower() in ('.jpg','.jpeg') else 'image/png'
+        encoded=base64.b64encode(path.read_bytes()).decode('ascii')
+        payload['image_url']=f'data:{mime};base64,{encoded}'
+    return payload
 
 def request_hash(project,shot):
-    return hashlib.sha256(json.dumps(full_payload(project,shot),sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+    payload=full_payload(project,shot)
+    if 'image_url' in payload:
+        payload['reference_image_sha256']=hashlib.sha256(payload.pop('image_url').encode('ascii')).hexdigest()
+    return hashlib.sha256(json.dumps(payload,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+
+def reference_sha256(shot):
+    reference=shot.get('reference_image')
+    return digest(HERE/reference) if reference else None
 
 def validate(project):
     shots=project.get('shots') or []
@@ -50,13 +66,29 @@ def validate(project):
         raise ValueError('Expected 45-shot, 180-second plan')
     if project.get('model')!=MODEL: raise ValueError(f'Project model must be {MODEL}')
     if len({x['id'] for x in shots})!=45: raise ValueError('Duplicate shot IDs')
+    characters=project.get('characters') or {}
     for i,shot in enumerate(shots):
         if shot['id']!=f'S{i+1:02d}' or shot['start']!=i*4 or shot['duration']!=4:
             raise ValueError(f'Invalid timeline at {shot.get("id")}')
         if shot['kind']=='cogvideo':
             if not shot.get('prompt','').strip() or 'TODO' in shot['prompt']:
                 raise ValueError(f'{shot["id"]}: missing prompt')
-            if full_payload(project,shot)['model']!=MODEL: raise ValueError('Wrong provider model')
+            unknown=set(shot.get('character_ids',[]))-set(characters)
+            if unknown: raise ValueError(f'{shot["id"]}: unknown character IDs {sorted(unknown)}')
+            reference=shot.get('reference_image','')
+            if reference and not (HERE/reference).is_file():
+                raise ValueError(f'{shot["id"]}: missing identity reference image {reference}')
+            expected={characters[cid].get('reference_image','') for cid in shot.get('character_ids',[])}
+            expected.discard('')
+            if reference and expected and expected!={reference}:
+                raise ValueError(f'{shot["id"]}: reference image differs from the canonical character bible')
+            if shot.get('face_visible') and shot.get('character_ids') and not reference:
+                raise ValueError(f'{shot["id"]}: face-visible recurring identity lacks its canonical reference')
+            if len(shot.get('character_ids',[]))>1 and not reference:
+                raise ValueError(f'{shot["id"]}: multi-person shot requires a shared identity reference')
+            payload=full_payload(project,shot)
+            if payload['model']!=MODEL or payload.get('with_audio') is not False:
+                raise ValueError('Wrong CogVideoX provider/audio policy')
         elif shot['kind']=='graphic':
             if not shot.get('graphic','').strip(): raise ValueError(f'{shot["id"]}: empty graphic')
         else: raise ValueError(f'{shot["id"]}: unsupported kind {shot["kind"]}')
@@ -117,12 +149,15 @@ def retryable(exc):
     return any(x in text for x in ('1305','429','访问量过大','rate','timeout','timed out','temporar','connection','502','503','504'))
 
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('--payload',default='{}'); ap.add_argument('--validate',action='store_true'); ap.add_argument('--publish',action='store_true'); ap.add_argument('--prune-failed',action='store_true'); args=ap.parse_args()
-    project=read_json(PLAN,{}); validate(project); validate_audio(project)
+    ap=argparse.ArgumentParser(); ap.add_argument('--payload',default='{}'); ap.add_argument('--validate',action='store_true'); ap.add_argument('--require-audio',action='store_true'); ap.add_argument('--publish',action='store_true'); ap.add_argument('--prune-failed',action='store_true'); args=ap.parse_args()
+    project=read_json(PLAN,{}); validate(project)
+    if args.require_audio: validate_audio(project)
     if args.validate:
-        print('VALID: 180-second plan; 45 shots; 38 CogVideoX-Flash sources; 7 graphics; narration hashes match'); return 0
+        audio_note='; narration hashes match' if args.require_audio else '; narration is a separate workflow stage'
+        print('VALID: 180-second plan; 45 shots; 38 CogVideoX-Flash sources; 7 graphics; identity references ready'+audio_note); return 0
     doc=read_json(RESULTS,{'project':project['title'],'model':MODEL,'provider':'Zhipu AI','shots':{}})
-    doc.update(model=MODEL,provider='Zhipu AI',workflow_policy='lee-hyung-ho-cogvideox-receipt-v1')
+    doc.update(model=MODEL,provider='Zhipu AI',workflow_policy='lee-hyung-ho-cogvideox-reference-v2',
+               identity_policy='image-to-video input is pinned by per-shot reference SHA-256; same visible role reuses the same reference asset; visual continuity still requires contact-sheet review')
     if args.prune_failed:
         stale=[sid for sid,row in doc.get('shots',{}).items() if row.get('status')=='failed' and not row.get('video_url')]
         for sid in stale:doc['shots'].pop(sid,None)
@@ -153,7 +188,10 @@ def main():
             doc.setdefault('previous_results',{}).setdefault(sid,[]).append(old); doc['shots'][sid]={'id':sid}
         if time.monotonic()>deadline: raise RuntimeError('Generation deadline reached; rerun resumes from receipts')
         payload=full_payload(project,shot); task_id=None
-        checkpoint(doc,f'{sid} submitting',sid,publish=args.publish,status='submitting',request_hash=wanted,error=None)
+        identity_meta={'character_ids':shot.get('character_ids',[]),'face_visible':shot.get('face_visible',False),
+                       'reference_image':shot.get('reference_image') or None,
+                       'reference_sha256':reference_sha256(shot)}
+        checkpoint(doc,f'{sid} submitting',sid,publish=args.publish,status='submitting',request_hash=wanted,error=None,**identity_meta)
         for attempt in range(1,21):
             try:
                 response=client.videos.generations(**payload); task_id=obj_get(response,'id')
@@ -162,7 +200,7 @@ def main():
             except Exception as exc:
                 if not retryable(exc) or attempt==20: raise
                 wait=min(120,15+attempt*5); print(f'{sid}: submit throttled attempt {attempt}, wait {wait}s: {str(exc)[:180]}',flush=True); time.sleep(wait)
-        checkpoint(doc,f'{sid} queued',sid,publish=args.publish,status='queued',task_id=str(task_id),request_hash=wanted)
+        checkpoint(doc,f'{sid} queued',sid,publish=args.publish,status='queued',task_id=str(task_id),request_hash=wanted,**identity_meta)
         result=None
         for poll in range(1,241):
             try:
@@ -181,9 +219,9 @@ def main():
         try:
             info=inspect_clip(dest,qa,sid)
         except Exception as exc:
-            checkpoint(doc,f'{sid} failed inspection',sid,publish=args.publish,status='failed',request_hash=wanted,task_id=str(task_id),video_url=url,error=str(exc)[:600]); failures.append(sid); continue
+            checkpoint(doc,f'{sid} failed inspection',sid,publish=args.publish,status='failed',request_hash=wanted,task_id=str(task_id),video_url=url,error=str(exc)[:600],**identity_meta); failures.append(sid); continue
         files=[qa/f'{sid}.jpg',qa/f'{sid}.json']
-        checkpoint(doc,f'{sid} media and QA ready',sid,files=files,publish=args.publish,status='completed',request_hash=wanted,task_id=str(task_id),video_url=url,sha256=checksum,bytes=dest.stat().st_size,media=info,error=None)
+        checkpoint(doc,f'{sid} media and QA ready',sid,files=files,publish=args.publish,status='completed',request_hash=wanted,task_id=str(task_id),video_url=url,sha256=checksum,bytes=dest.stat().st_size,media=info,error=None,**identity_meta)
     complete=[sid for sid,row in doc.get('shots',{}).items() if row.get('status')=='completed']
     missing=sorted(set(doc['required_generated_shots'])-set(complete))
     doc['phase']='selected_sources_ready' if only and not failures else 'sources_ready' if not missing else 'generation_incomplete'
