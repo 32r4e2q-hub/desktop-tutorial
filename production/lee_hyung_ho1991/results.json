@@ -329,18 +329,26 @@
     },
     "S11": {
       "id": "S11",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "da9bef26d6eccaffff369b2a2ac9297e594331902edff1e8130f13d72eeb64d0",
-      "error": null,
+      "error": "Provider task failed with code 1234: 网络错误，错误id：202610151810281240e8e11ebd4dd6，请稍后重试",
       "task_attempt": 1,
-      "task_failures": [],
+      "task_failures": [
+        {
+          "task_id": "202610151810281240e8e11ebd4dd6",
+          "code": "1234",
+          "message": "网络错误，错误id：202610151810281240e8e11ebd4dd6，请稍后重试",
+          "raw_error": "{'code': '1234', 'message': '网络错误，错误id：202610151810281240e8e11ebd4dd6，请稍后重试'}",
+          "attempt": 1
+        }
+      ],
       "character_ids": [
         "mother"
       ],
       "face_visible": true,
       "reference_image": "references/mother-lee.jpg",
       "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
-      "updated_at": "2026-10-15T10:10:28Z",
+      "updated_at": "2026-10-15T10:40:40Z",
       "task_id": "202610151810281240e8e11ebd4dd6"
     }
   },
@@ -387,7 +395,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T10:10:28Z",
+  "updated_at": "2026-10-15T10:40:40Z",
   "run_id": "38713402442",
   "previous_results": {
     "S12": [
