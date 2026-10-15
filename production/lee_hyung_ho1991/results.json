@@ -644,11 +644,19 @@
     },
     "S26": {
       "id": "S26",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "a074e144548d1128dfb6df8bcf13358a6b63c3ae7e4f4da349614ac85f427e24",
-      "error": null,
+      "error": "Provider task failed with code 1234: 网络错误，错误id：20261015201550dc4b0a69fd20484d，请稍后重试",
       "task_attempt": 1,
-      "task_failures": [],
+      "task_failures": [
+        {
+          "task_id": "20261015201550dc4b0a69fd20484d",
+          "code": "1234",
+          "message": "网络错误，错误id：20261015201550dc4b0a69fd20484d，请稍后重试",
+          "raw_error": "{'code': '1234', 'message': '网络错误，错误id：20261015201550dc4b0a69fd20484d，请稍后重试'}",
+          "attempt": 1
+        }
+      ],
       "character_ids": [
         "detective_park",
         "detective_choi"
@@ -656,7 +664,7 @@
       "face_visible": true,
       "reference_image": "references/detectives-park-choi.jpg",
       "reference_sha256": "598e3d073ac9cb6736306e7767bd12f27555560eef194750e861e02f0d12544a",
-      "updated_at": "2026-10-15T12:15:50Z",
+      "updated_at": "2026-10-15T12:46:07Z",
       "task_id": "20261015201550dc4b0a69fd20484d"
     }
   },
@@ -703,7 +711,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T12:15:50Z",
+  "updated_at": "2026-10-15T12:46:07Z",
   "run_id": "38713402442",
   "previous_results": {
     "S12": [
