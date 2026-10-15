@@ -61,7 +61,15 @@ def full_prompt(project, shot):
 
 
 def shot_anchor_url(shot):
-    """返回本镜头复用的角色参考人像 URL；无映射时走普通文生。"""
+    """首帧锚优先级：场景首帧（人物在环境中）> 角色定妆照 > 文生。
+
+    定妆照当首帧会把视频锁成静态双人/单人人像（观众反馈不像正常剧情片），
+    双人剧情镜改用 CogView 场景剧照做首帧：构图是剧情画面，脸靠剧照延续。
+    """
+    scene = read_json(HERE / "scene_anchors.json", {})
+    entry = (scene.get("shots") or {}).get(shot["id"])
+    if isinstance(entry, dict) and entry.get("url"):
+        return entry["url"]
     anchors = read_json(HERE / "portrait_anchors.json", {})
     key = (anchors.get("shots") or {}).get(shot["id"])
     if not key:
