@@ -613,10 +613,10 @@
     },
     "S21": {
       "id": "S21",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "27998ee0dde92080429bb222fac4f3d11aec626be637a5ce0e94e0c85d177a03",
-      "updated_at": "2026-10-15T00:30:26Z",
-      "error": null,
+      "updated_at": "2026-10-15T00:34:12Z",
+      "error": "提交失败：Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "task_id": null,
       "used_params": {
         "quality": "speed",
@@ -1227,7 +1227,7 @@
       "reused_existing_asset": true
     }
   },
-  "updated_at": "2026-10-15T00:30:26Z",
+  "updated_at": "2026-10-15T00:34:12Z",
   "run_id": "38660120066",
   "phase": "selected_sources_ready"
 }
