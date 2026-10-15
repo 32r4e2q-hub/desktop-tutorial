@@ -462,18 +462,18 @@
     },
     "S16": {
       "id": "S16",
-      "status": "submitting",
+      "status": "queued",
       "request_hash": "eaec81dc26f767adf030f3ef14b3784a154dc5010dc32deb10b8fc4be4118707",
-      "updated_at": "2026-10-15T00:28:26Z",
+      "updated_at": "2026-10-15T00:30:21Z",
       "error": null,
-      "task_id": null,
+      "task_id": "202610150830212e68c3b867e64454",
       "used_params": {
         "quality": "speed",
         "size": "1920x1080",
         "fps": 30,
         "duration": 10
       },
-      "image_first": true,
+      "image_first": false,
       "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261014150400b086811be9484df8_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=cQmja%2F03VqWundLcVDWQyuqC3eA%3D&Expires=1792047843",
       "sha256": "b45b824ca2d9852291ccc70601a061294f28edcc3ec49399d20aa1a58b3801fc",
       "bytes": 2037529,
@@ -487,7 +487,7 @@
         "frames": 189
       },
       "visual_review": "pending",
-      "anchor_role": "C1C2",
+      "anchor_role": null,
       "reused_existing_asset": true,
       "resubmits": 0
     },
@@ -1227,7 +1227,7 @@
       "reused_existing_asset": true
     }
   },
-  "updated_at": "2026-10-15T00:28:26Z",
+  "updated_at": "2026-10-15T00:30:21Z",
   "run_id": "38660120066",
   "phase": "selected_sources_ready"
 }
