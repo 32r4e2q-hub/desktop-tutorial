@@ -1214,18 +1214,18 @@
     },
     "S44": {
       "id": "S44",
-      "status": "failed",
-      "task_id": "20261016000830af68d1ebeb8f496e",
+      "status": "queued",
+      "task_id": "202610160642194dbfd99d25654d72",
       "request_hash": "77add3f0facd2ee399a4bf4b598a79f8edb4b50de35d2529923f83071ac458c3",
-      "error": "1234 网络错误，错误id：20261016000830af68d1ebeb8f496e，请稍后重试",
-      "task_attempt": 2,
+      "error": null,
+      "task_attempt": 1,
       "character_ids": [
         "mother"
       ],
       "face_visible": true,
       "reference_image": "references/mother-lee.jpg",
       "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
-      "updated_at": "2026-10-15T16:38:50Z",
+      "updated_at": "2026-10-15T22:42:20Z",
       "task_failures": [
         {
           "task_id": "20261015233051dd7dcd623b634571",
@@ -1285,7 +1285,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T22:42:17Z",
+  "updated_at": "2026-10-15T22:42:20Z",
   "run_id": "38818452473",
   "previous_results": {
     "S12": [
@@ -1409,5 +1409,11 @@
         ]
       }
     ]
+  },
+  "queue_policy": {
+    "window": 2,
+    "max_task_attempts": 3,
+    "cooldown_seconds": 90,
+    "budget": 12600
   }
 }
