@@ -189,10 +189,10 @@
     },
     "S04": {
       "id": "S04",
-      "status": "retrying",
+      "status": "submitting",
       "request_hash": "ed11a254bc56110309168aecaaf42c251135b7c5b8acf2737ee7d14296b30b32",
-      "error": "Provider task failed with code 1234: 网络错误，错误id：20261015145552eac120caae6b42bc，请稍后重试",
-      "task_attempt": 1,
+      "error": null,
+      "task_attempt": 2,
       "task_failures": [
         {
           "task_id": "20261015145552eac120caae6b42bc",
@@ -208,7 +208,7 @@
       "face_visible": true,
       "reference_image": "references/child-lee.jpg",
       "reference_sha256": "d3556ab79e5051199318b3d220ccb4de61f02992812fa8a2a208737685754f1c",
-      "updated_at": "2026-10-15T07:26:08Z",
+      "updated_at": "2026-10-15T07:26:24Z",
       "task_id": "20261015145552eac120caae6b42bc"
     }
   },
@@ -255,7 +255,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T07:26:08Z",
+  "updated_at": "2026-10-15T07:26:24Z",
   "run_id": "38693740886",
   "previous_results": {
     "S12": [
