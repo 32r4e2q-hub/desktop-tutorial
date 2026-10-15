@@ -1,0 +1,27 @@
+{
+  "workflow_run_id": "38688782244",
+  "status": "AGENT_VISUAL_TRIAGE_PASS_HUMAN_SIGNOFF_PENDING",
+  "scope": "Three CogVideoX-Flash identity smoke clips only; not a review of the full film",
+  "reviewed_qa_sheets": [
+    "qa/S05.jpg",
+    "qa/S12.jpg",
+    "qa/S16.jpg"
+  ],
+  "findings": {
+    "S05": {
+      "face_visible": true,
+      "observation": "Father reference face and navy outfit remain visually stable in the visible frames; snowy playground action reads clearly."
+    },
+    "S12": {
+      "face_visible": true,
+      "observation": "The father face and outfit match the S05/reference design across the visible frames.",
+      "scene_note": "Output reads primarily as a nighttime street-side phone call; a sedan/car-phone interior is not clearly framed despite the prompt."
+    },
+    "S16": {
+      "face_visible": true,
+      "observation": "Park and Choi remain visually distinct: Park has the broader jaw and graying swept hair; Choi has a short bob and glasses. Their faces and wardrobe are stable across the sampled frames."
+    }
+  },
+  "identity_summary": "The three smoke sheets support proceeding to full production with the current reference anchors. This is a visual triage, not a guarantee of per-frame identity or a human sign-off.",
+  "human_visual_review": "pending"
+}
