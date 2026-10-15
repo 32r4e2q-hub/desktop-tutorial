@@ -267,7 +267,7 @@
     },
     "S08": {
       "id": "S08",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "efffbe0a921d18a5f09c1c1d24ce9cec3ae50cc17dfae49566dc0e87c55cc517",
       "error": null,
       "task_attempt": 1,
@@ -278,8 +278,24 @@
       "face_visible": true,
       "reference_image": "references/mother-lee.jpg",
       "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
-      "updated_at": "2026-10-15T10:07:04Z",
-      "task_id": "20261015180704a5b4a96e4c4d45f3"
+      "updated_at": "2026-10-15T10:08:02Z",
+      "task_id": "20261015180704a5b4a96e4c4d45f3",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151807509beb5c73473c44c4_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=T%2FJGQG21itEjkkvnFh6ocxah7CE%3D&Expires=1792145272",
+      "sha256": "483141de4926ed8a69fb21e3ba3a0a10a0318f6dfaaeb6c82be2df8a951e1079",
+      "bytes": 1696419,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1696419,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/lee_hyung_ho1991/qa/S08.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
@@ -325,7 +341,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T10:07:04Z",
+  "updated_at": "2026-10-15T10:08:02Z",
   "run_id": "38713402442",
   "previous_results": {
     "S12": [
