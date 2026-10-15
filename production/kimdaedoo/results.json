@@ -182,7 +182,7 @@
       "model": "agnes-video-2.5-flash",
       "provider": "Agnes",
       "request_hash": "61ef90e86e69c82d081e689fd15525503d5eee6219d4e38e43ec349e5251e863",
-      "status": "retry_wait",
+      "status": "submitting",
       "http": 503,
       "detail": "video queue is full, please retry later (request id: 202610150430567124327306eMkddNe)",
       "attempt_count": 27,
@@ -411,9 +411,9 @@
   },
   "phase": "waiting_for_agnes",
   "loop_status": "running",
-  "updated_at": "2026-10-15T04:30:56.845683+00:00",
+  "updated_at": "2026-10-15T04:45:56.845954+00:00",
   "completed_count": 1,
-  "next_request_at": 1792039556.8456767,
+  "next_request_at": 1792039631.8458593,
   "retry_streak": 27,
   "last_backoff_seconds": 900
 }
