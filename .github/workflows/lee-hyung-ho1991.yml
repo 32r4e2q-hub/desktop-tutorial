@@ -87,7 +87,9 @@ jobs:
           from pathlib import Path
           request = json.loads(Path('production/lee_hyung_ho1991/RUN_REQUEST').read_text())
           dispatch_force = os.getenv('DISPATCH_FORCE_TTS', '').lower() == 'true'
-          smoke = os.getenv('DISPATCH_COGVIDEO_SMOKE', '').lower() == 'true'
+          dispatch_smoke = os.getenv('DISPATCH_COGVIDEO_SMOKE', '').lower() == 'true'
+          request_smoke = bool(request.get('cogvideo_smoke', False)) if isinstance(request, dict) else False
+          smoke = dispatch_smoke or request_smoke
           if isinstance(request, dict) and 'payload' in request:
               payload = request.get('payload') or {}
               force = bool(request.get('force_tts', False)) or dispatch_force
@@ -97,7 +99,7 @@ jobs:
           if smoke:
               payload = {'only': 'S05,S12,S16'}
           elif payload.get('only'):
-              raise SystemExit('Only-shot requests are allowed through the cogvideo_smoke workflow input.')
+              raise SystemExit('Only-shot requests are allowed through the cogvideo_smoke request flag or workflow input.')
           print('PAYLOAD=' + json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
           print('FORCE_TTS=' + ('true' if force else 'false'))
           print('SMOKE_TEST=' + ('true' if smoke else 'false'))
