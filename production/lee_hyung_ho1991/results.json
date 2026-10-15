@@ -353,7 +353,7 @@
     },
     "S13": {
       "id": "S13",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "3d0d5cbb0b650631204860acd631d0ff596fe656a5633f0133edbc3ec3653f67",
       "error": null,
       "task_attempt": 1,
@@ -362,8 +362,24 @@
       "face_visible": false,
       "reference_image": null,
       "reference_sha256": null,
-      "updated_at": "2026-10-15T10:41:31Z",
-      "task_id": "20261015184131875bd5c050064f61"
+      "updated_at": "2026-10-15T10:43:07Z",
+      "task_id": "20261015184131875bd5c050064f61",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015184230f552e21d73454061_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=5ummwEY18ft%2FpK8dKW5aKa0hAWo%3D&Expires=1792147354",
+      "sha256": "1f5a519fd0e026a29554f83887e2ffca8846fb7bceccc2b0b544399eb679aa93",
+      "bytes": 1223627,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1223627,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/lee_hyung_ho1991/qa/S13.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
@@ -409,7 +425,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T10:41:31Z",
+  "updated_at": "2026-10-15T10:43:07Z",
   "run_id": "38713402442",
   "previous_results": {
     "S12": [
