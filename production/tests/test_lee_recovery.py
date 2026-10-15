@@ -16,7 +16,7 @@ class RecoveryTests(unittest.TestCase):
         self.assertIsNone(g.resumable_task(row, 'changed'))
         self.assertIsNone(g.resumable_task(dict(row, status='failed'), 'abc'))
 
-    def simulate(self, states, rows=None, budget=35):
+    def simulate(self, states, rows=None, budget=35, **policy):
         client=Mock(); doc={'shots':rows or {}}; clock=[0]; submitted=[]; polled=[]; live=set(); peak=[0]
         def submit(**payload):
             task=payload['sid'];submitted.append(task);live.add(task);peak[0]=max(peak[0],len(live));return {'id':task}
@@ -33,7 +33,7 @@ class RecoveryTests(unittest.TestCase):
         client.videos.generations.side_effect=submit;client.videos.retrieve_videos_result.side_effect=poll
         shots=[{'id':k} for k in states]
         with patch.object(g,'request_hash',return_value='hash'),patch.object(g,'full_payload',side_effect=lambda p,s:{'sid':s['id']}),patch.object(g,'reference_sha256',return_value=None),patch.object(g,'checkpoint',side_effect=checkpoint),patch.object(g,'collect_clip',side_effect=collect),patch.object(g.time,'monotonic',side_effect=lambda:clock[0]),patch.object(g.time,'sleep',side_effect=lambda sec:clock.__setitem__(0,clock[0]+sec)):
-            missing=g.run_queue(client,{},shots,doc,Path('/tmp'),Path('/tmp'),False,window=3,budget=budget)
+            missing=g.run_queue(client,{},shots,doc,Path('/tmp'),Path('/tmp'),False,budget=budget,**dict({'window':3,'cooldown_seconds':0},**policy))
         return doc,submitted,polled,peak[0],missing
 
     def test_slow_first_task_does_not_block_success_or_refill(self):
@@ -72,6 +72,36 @@ class RecoveryTests(unittest.TestCase):
         with patch.object(g,'read_json',return_value=bad):
             with self.assertRaises(ValueError):
                 g.merge_recovered_receipts(project,{'shots':{}})
+
+    def test_residual_policy_caps_retries_and_concurrency(self):
+        _,submitted,_,peak,missing=self.simulate({'bad':'FAIL','good':'SUCCESS'},window=2,max_task_attempts=3)
+        self.assertEqual(submitted.count('bad'),3)
+        self.assertLessEqual(peak,2)
+        self.assertEqual(missing,['bad'])
+
+    def test_cooldown_prevents_immediate_resubmission(self):
+        _,submitted,_,_,_=self.simulate({'bad':'FAIL'},cooldown_seconds=90)
+        self.assertEqual(submitted.count('bad'),1)
+
+    def test_invalid_queue_policy_is_rejected(self):
+        for policy in ({'window':100},{'max_task_attempts':0},{'budget_minutes':999},{'window':True}):
+            with self.assertRaises(ValueError):
+                g.queue_policy(policy)
+        self.assertEqual(g.queue_policy({'budget_minutes':210})['budget'],12600)
+
+    def test_partial_restore_allows_missing_receipts_but_final_restore_does_not(self):
+        import json, tempfile
+        spec=importlib.util.spec_from_file_location('lee_fetch', PATH.with_name('fetch_sources.py'))
+        fetch=importlib.util.module_from_spec(spec);spec.loader.exec_module(fetch)
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'plan.json').write_text(json.dumps({'shots':[{'id':'S01','kind':'cogvideo'}]}))
+            (root/'results.json').write_text('{"shots":{}}')
+            argv=['fetch','--project',str(root/'plan.json'),'--results',str(root/'results.json'),'--dest',str(root/'sources')]
+            with patch.dict('sys.modules',{'generate':g}), patch.object(g,'request_hash',return_value='hash'), patch('sys.argv',argv+['--allow-incomplete']):
+                self.assertEqual(fetch.main(),0)
+            with patch.dict('sys.modules',{'generate':g}), patch.object(g,'request_hash',return_value='hash'), patch('sys.argv',argv):
+                with self.assertRaises(RuntimeError):
+                    fetch.main()
 
     def test_quota_is_not_retried(self):
         self.assertFalse(g.retryable(RuntimeError('1113 余额不足')))

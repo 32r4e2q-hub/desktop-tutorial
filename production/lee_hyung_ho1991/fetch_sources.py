@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 import time
 import urllib.request
@@ -63,6 +64,7 @@ def main() -> int:
     parser.add_argument("--project", type=Path, default=HERE / "story.json")
     parser.add_argument("--results", type=Path, default=HERE / "results.json")
     parser.add_argument("--dest", type=Path, required=True, help="Directory for Sxx.mp4 clips")
+    parser.add_argument("--allow-incomplete", action="store_true", help="Preflight: fetch available verified receipts; missing receipts are allowed, broken downloads are not")
     args = parser.parse_args()
 
     project = json.loads(args.project.read_text(encoding="utf-8"))
@@ -72,6 +74,7 @@ def main() -> int:
     needed = [shot for shot in project["shots"] if shot["kind"] == "cogvideo"]
     report = {"requested": len(needed), "downloaded": [], "reused": [], "missing": []}
 
+    refreshed = False
     for shot in needed:
         sid = shot["id"]
         receipt = results.get("shots", {}).get(sid, {})
@@ -86,7 +89,26 @@ def main() -> int:
             report["reused"].append(sid)
             continue
         print(f"FETCH {sid} {url}", flush=True)
-        download(url, destination)
+        try:
+            download(url, destination)
+        except RuntimeError:
+            # CDN links are signed and expire; query the SAME successful task,
+            # never pay for a replacement of already verified footage.
+            key = os.getenv('ZHIPUAI_API_KEY', '').strip()
+            if not key or not receipt.get('task_id'):
+                raise
+            from zhipuai import ZhipuAI
+            from generate import obj_get
+            client = ZhipuAI(api_key=key, timeout=60.0, max_retries=0)
+            result = client.videos.retrieve_videos_result(id=receipt['task_id'])
+            videos = obj_get(result, 'video_result') or []
+            fresh_url = obj_get(videos[0], 'url') if videos else None
+            if str(obj_get(result, 'task_status', '')).upper() != 'SUCCESS' or not fresh_url:
+                raise RuntimeError(f'{sid}: existing task cannot restore its successful source; not regenerating it')
+            print(f'REFRESH_URL {sid}: querying original successful task, SHA-256 remains mandatory', flush=True)
+            download(fresh_url, destination)
+            receipt['video_url'] = fresh_url
+            refreshed = True
         found = digest(destination)
         if found != receipt["sha256"]:
             raise RuntimeError(f"{sid}: downloaded bytes do not match the recorded SHA-256 "
@@ -99,14 +121,16 @@ def main() -> int:
                                      "size": f"{info.get('width')}x{info.get('height')}"})
         print(f"  OK {sid} {destination.stat().st_size} bytes / {info['duration']:.2f}s", flush=True)
 
-    if report["missing"]:
+    if refreshed:
+        args.results.write_text(json.dumps(results, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    if report["missing"] and not args.allow_incomplete:
         raise RuntimeError("Clips without a verified generation (regeneration required): "
                            + ", ".join(report["missing"]))
-    if len(report["downloaded"]) + len(report["reused"]) != len(needed):
+    if len(report["downloaded"]) + len(report["reused"]) != len(needed) - (len(report["missing"]) if args.allow_incomplete else 0):
         raise RuntimeError("Not all CogVideoX clips were restored: " + json.dumps(report, ensure_ascii=False))
     print("FETCH_COMPLETE " + json.dumps({"downloaded": len(report["downloaded"]),
                                           "reused": len(report["reused"]),
-                                          "clips": len(needed)}, ensure_ascii=False), flush=True)
+                                          "clips": len(needed), "missing": len(report["missing"])}, ensure_ascii=False), flush=True)
     return 0
 
 

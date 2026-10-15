@@ -110,6 +110,22 @@ jobs:
       - name: Validate the 45-shot CogVideoX plan and character references
         run: python production/lee_hyung_ho1991/generate.py --validate
 
+      - name: Restore previously archived source clips
+        uses: actions/cache/restore@v4
+        with:
+          path: work/lee_hyung_ho1991/sources
+          key: lee-cogvideo-sources-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            lee-cogvideo-sources-${{ github.ref_name }}-
+
+      - name: Secure existing footage before spending more generation quota
+        env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+        run: |
+          set -euo pipefail
+          python -u production/lee_hyung_ho1991/fetch_sources.py \
+            --dest work/lee_hyung_ho1991/sources --allow-incomplete 2>&1 | tee -a /tmp/lee-hyung-ho-production.log
+
       - name: Generate animated clips with Zhipu CogVideoX-Flash only
         env:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
@@ -248,6 +264,13 @@ jobs:
             fi
           fi
 
+      - name: Preserve source clips even if generation or render fails
+        if: ${{ always() && hashFiles('work/lee_hyung_ho1991/sources/*.mp4') != '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: work/lee_hyung_ho1991/sources
+          key: lee-cogvideo-sources-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+
       - name: Upload the film, CogVideoX smoke clips and review evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -255,9 +278,7 @@ jobs:
           name: lee-hyung-ho-production-${{ github.run_number }}
           path: |
             work/lee_hyung_ho1991/李亨浩_四十四天的电话_三分钟.mp4
-            work/lee_hyung_ho1991/sources/S05.mp4
-            work/lee_hyung_ho1991/sources/S12.mp4
-            work/lee_hyung_ho1991/sources/S16.mp4
+            work/lee_hyung_ho1991/sources/*.mp4
             work/lee_hyung_ho1991/render/final-contact.jpg
             work/lee_hyung_ho1991/render/captions.srt
             work/lee_hyung_ho1991/render/technical-report.json

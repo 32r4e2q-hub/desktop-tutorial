@@ -196,15 +196,15 @@ def collect_clip(doc, shot, sources, qa, publish):
 
 
 def run_queue(client, project, shots, doc, sources, qa, publish,
-              window=3, budget=330*60):
-    """One writer, bounded cloud concurrency, fair polling, two attempts/run max.
+              window=3, budget=240*60, max_task_attempts=2, cooldown_seconds=60):
+    """One writer, bounded cloud concurrency, fair polling and capped retries.
 
     PROCESSING never frees a slot or triggers duplicate work. All existing task
     IDs are polled, even if they exceed the window during recovery. Time budget
     expiry preserves those IDs for the next run. Download retries reuse URLs.
     """
     deadline = time.monotonic() + budget
-    attempts = {}; download_attempts = {}; next_poll = {}; pending = []
+    attempts = {}; download_attempts = {}; next_poll = {}; retry_at = {}; pending = []
     active = {}; hashes = {s['id']: request_hash(project, s) for s in shots}
     for shot in shots:
         sid = shot['id']; row = doc.get('shots', {}).get(sid, {})
@@ -254,7 +254,8 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
                     active.pop(sid)
                     if any(token in detail for token in ('1113', '余额不足', '无可用资源包')):
                         raise RuntimeError('Provider quota exhausted; stopped without retrying')
-                    if attempts.get(sid, 1) < 2 and (not code and not message or retryable(RuntimeError(detail))):
+                    if attempts.get(sid, 1) < max_task_attempts and (not code and not message or retryable(RuntimeError(detail))):
+                        retry_at[sid] = time.monotonic() + cooldown_seconds
                         pending.append(shot)  # one retry, after untouched work
                     continue
                 if status != 'SUCCESS':
@@ -280,7 +281,10 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
                 continue
             active.pop(sid)
         while pending and len(active) < window and time.monotonic() >= submit_after and time.monotonic() < deadline:
-            shot = pending[0]; sid = shot['id']
+            eligible = [s for s in pending if time.monotonic() >= retry_at.get(s['id'], 0)]
+            if not eligible:
+                break
+            shot = eligible[0]; sid = shot['id']
             try:
                 response = client.videos.generations(**full_payload(project, shot))
             except Exception as exc:
@@ -293,7 +297,7 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
             task_id = obj_get(response, 'id')
             if not task_id:
                 raise RuntimeError(f'{sid}: provider did not return a task ID')
-            pending.pop(0); attempts[sid] = attempts.get(sid, 0) + 1
+            pending.remove(shot); attempts[sid] = attempts.get(sid, 0) + 1
             checkpoint(doc, f'{sid} queued', sid, publish=publish,
                        status='queued', task_id=str(task_id), request_hash=hashes[sid], error=None,
                        task_attempt=attempts[sid], character_ids=shot.get('character_ids', []),
@@ -304,6 +308,19 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
         if pending or active:
             time.sleep(min(2, max(0, deadline-time.monotonic())))
     return [s['id'] for s in shots if not receipt_ready(doc.get('shots', {}).get(s['id'], {}), hashes[s['id']])]
+
+
+def queue_policy(options):
+    bounds = {'window': (1, 3, 3), 'max_task_attempts': (1, 3, 2),
+              'budget_minutes': (1, 240, 240), 'cooldown_seconds': (0, 300, 60)}
+    policy = {}
+    for key, (low, high, default) in bounds.items():
+        value = options.get(key, default)
+        if type(value) is not int or not low <= value <= high:
+            raise ValueError(f'{key} must be an integer between {low} and {high}')
+        policy[key] = value
+    policy['budget'] = policy.pop('budget_minutes') * 60
+    return policy
 
 
 def main():
@@ -326,6 +343,7 @@ def main():
         git('config','user.name','github-actions[bot]')
         git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
     options=json.loads(args.payload or '{}'); only={x.strip() for x in str(options.get('only','')).split(',') if x.strip()}
+    policy=queue_policy(options)
     shots=[x for x in project['shots'] if x['kind']=='cogvideo']
     if only-{x['id'] for x in shots}: raise ValueError('Unknown/non-CogVideo shot: '+','.join(sorted(only)))
     if only:shots=[x for x in shots if x['id'] in only]
@@ -341,7 +359,9 @@ def main():
     doc['phase']='generating_sources'
     doc['required_generated_shots']=[x['id'] for x in project['shots'] if x['kind']=='cogvideo']
     checkpoint(doc,'fair queue generation started',publish=args.publish)
-    failures=run_queue(client,project,shots,doc,sources,qa,args.publish)
+    doc['queue_policy']=policy
+    print('QUEUE_POLICY',json.dumps(policy),flush=True)
+    failures=run_queue(client,project,shots,doc,sources,qa,args.publish,**policy)
     complete=[sid for sid,row in doc.get('shots',{}).items() if row.get('status')=='completed']
     missing=sorted(set(doc['required_generated_shots'])-set(complete))
     doc['phase']='selected_sources_ready' if only and not failures else 'sources_ready' if not missing else 'generation_incomplete'
