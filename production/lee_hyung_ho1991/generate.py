@@ -149,6 +149,14 @@ def retryable(exc):
     return any(x in text for x in ('1234','网络错误','network error','1305','429','访问量过大',
                                    'rate','timeout','timed out','temporar','connection','502','503','504'))
 
+def resumable_queued_task(row,request_hash,failure_count):
+    """Return an unfinished provider task only when its input fingerprint matches."""
+    if (row.get('status')!='queued' or row.get('request_hash')!=request_hash or not row.get('task_id')):
+        return None,None,failure_count
+    task_attempt=int(row.get('task_attempt') or (failure_count+1))
+    attempt_offset=max(failure_count,task_attempt-1)
+    return str(row['task_id']),attempt_offset+1,attempt_offset
+
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--payload',default='{}'); ap.add_argument('--validate',action='store_true'); ap.add_argument('--require-audio',action='store_true'); ap.add_argument('--publish',action='store_true'); ap.add_argument('--prune-failed',action='store_true'); args=ap.parse_args()
     project=read_json(PLAN,{}); validate(project)
@@ -192,27 +200,40 @@ def main():
         identity_meta={'character_ids':shot.get('character_ids',[]),'face_visible':shot.get('face_visible',False),
                        'reference_image':shot.get('reference_image') or None,
                        'reference_sha256':reference_sha256(shot)}
-        failure_history=list(doc.get('shots',{}).get(sid,{}).get('task_failures',[]))
-        attempt_offset=len(failure_history)
+        previous_row=doc.get('shots',{}).get(sid,{})
+        failure_history=list(previous_row.get('task_failures',[]))
+        pending_task_id,pending_task_attempt,attempt_offset=resumable_queued_task(
+            previous_row,wanted,len(failure_history))
+        # A workflow can be cancelled after submitting a Zhipu task but before it
+        # finishes polling. Resume that exact task instead of paying to submit a
+        # duplicate; only a matching request hash makes the provider receipt safe.
+        if pending_task_id:
+            print(f'{sid}: found queued CogVideoX task {pending_task_id}; resuming poll',flush=True)
         task_id=None; result=None; completed_task=False; max_task_attempts=3
         for attempt_index in range(1,max_task_attempts+1):
             task_attempt=attempt_offset+attempt_index
-            checkpoint(doc,f'{sid} submitting attempt {task_attempt}',sid,publish=args.publish,
-                       status='submitting',request_hash=wanted,error=None,task_attempt=task_attempt,
-                       task_failures=failure_history,**identity_meta)
-            for submit_attempt in range(1,21):
-                try:
-                    response=client.videos.generations(**payload); task_id=obj_get(response,'id')
-                    if not task_id: raise RuntimeError(f'No task id: {response}')
-                    break
-                except Exception as exc:
-                    if not retryable(exc) or submit_attempt==20: raise
-                    wait=min(120,15+submit_attempt*5)
-                    print(f'{sid}: submit throttled attempt {submit_attempt}, wait {wait}s: {str(exc)[:180]}',flush=True)
-                    time.sleep(wait)
-            checkpoint(doc,f'{sid} queued attempt {task_attempt}',sid,publish=args.publish,
-                       status='queued',task_id=str(task_id),request_hash=wanted,task_attempt=task_attempt,
-                       task_failures=failure_history,**identity_meta)
+            if pending_task_id and task_attempt==pending_task_attempt:
+                task_id=pending_task_id; pending_task_id=None
+                checkpoint(doc,f'{sid} resumed queued attempt {task_attempt}',sid,publish=args.publish,
+                           status='queued',task_id=str(task_id),request_hash=wanted,error=None,
+                           task_attempt=task_attempt,task_failures=failure_history,**identity_meta)
+            else:
+                checkpoint(doc,f'{sid} submitting attempt {task_attempt}',sid,publish=args.publish,
+                           status='submitting',task_id=None,request_hash=wanted,error=None,task_attempt=task_attempt,
+                           task_failures=failure_history,**identity_meta)
+                for submit_attempt in range(1,21):
+                    try:
+                        response=client.videos.generations(**payload); task_id=obj_get(response,'id')
+                        if not task_id: raise RuntimeError(f'No task id: {response}')
+                        break
+                    except Exception as exc:
+                        if not retryable(exc) or submit_attempt==20: raise
+                        wait=min(120,15+submit_attempt*5)
+                        print(f'{sid}: submit throttled attempt {submit_attempt}, wait {wait}s: {str(exc)[:180]}',flush=True)
+                        time.sleep(wait)
+                checkpoint(doc,f'{sid} queued attempt {task_attempt}',sid,publish=args.publish,
+                           status='queued',task_id=str(task_id),request_hash=wanted,task_attempt=task_attempt,
+                           task_failures=failure_history,**identity_meta)
             status=''
             for poll in range(1,241):
                 try:

@@ -29,7 +29,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: lee-hyung-ho1991-arena-04ec3850-desktop-tutorial
+  # Keep production runs isolated by branch: another Arena session's job
+  # must not cancel a slow CogVideoX generation on this fixed branch.
+  group: lee-hyung-ho1991-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
