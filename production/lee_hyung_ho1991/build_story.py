@@ -88,9 +88,9 @@ CHARACTERS = {
     },
     "child": {
         "name": "CHILD-01",
-        "role": "儿童（虚构情景演员，非真人复原）",
-        "reference_image": "references/child-lee.jpg",
-        "prompt": "CHILD-01: same fictional nine-year-old Korean boy; round cheeks, short side-parted black hair, right-cheek dimple, blue-white tracksuit. Keep this face; never resemble the real victim.",
+        "role": "儿童（虚构动画角色，非真人复原）",
+        "reference_image": "references/child-lee-stylized.png",
+        "prompt": "CHILD-01: a wholly fictional, clearly animated Korean boy, about nine; round cheeks, short side-parted black hair, a small right-cheek dimple, blue-and-white 1991 tracksuit. Match this reference face and outfit; no real-person likeness.",
     },
     "detective_park": {
         "name": "DETECTIVE-PARK-01",
@@ -123,7 +123,7 @@ SHOTS = [
     ("S01", "N01", "A 1991 Korean rotary telephone trembling on a wooden table in a dim family living room, its indicator lamp glows softly; slow push toward the handset.", "深夜电话响起", "slow push-in", None),
     ("S02", "N01", "A winter 1991 Seoul apartment playground at dusk, an empty metal swing moving gently under a yellow streetlamp; wide lateral pan through thin fog.", "狎鸥亭冬夜空荡的游乐场", "slow lateral pan", None),
     ("S03", "N01", "案件资料卡：日期与地点", "失踪日期与地点", "post-production card", "graphic"),
-    ("S04", "N01", "CHILD-01 plays quietly beside the playground swing in a blue-and-white 1991 tracksuit; a gentle side profile briefly reveals his fictional reference face at medium distance, then the camera slowly pulls back.", "虚构儿童侧影与空荡游乐场", "slow pull-back", None),
+    ("S04", "N01", "CHILD-01 plays quietly beside an empty playground swing in a blue-and-white period tracksuit; briefly show his same fictional reference face in a calm side profile, then slowly pull back. Peaceful scene, no danger or harm.", "虚构儿童侧影与空荡游乐场", "slow pull-back", None),
     ("S05", "N01", "FATHER-01 searches the empty apartment playground beneath winter trees, his navy coat and the same side-profile face visible as he turns toward the empty swing; gentle tracking shot.", "父亲在游乐场寻找孩子", "gentle tracking", None),
     ("S06", "N01", "A beige 1990s telephone beside a small desk clock in a dark Seoul apartment at night; the phone begins to ring, warm lamp against cold window light.", "家中电话再次响起", "slow push-in", None),
     ("S07", "N01", "FATHER-01 lifts a beige telephone receiver in a dim 1991 living room; medium over-shoulder framing includes his same three-quarter reference face, navy sleeve and the warm lamp, with one restrained camera drift.", "父亲接起勒索电话", "slow drift", None),
