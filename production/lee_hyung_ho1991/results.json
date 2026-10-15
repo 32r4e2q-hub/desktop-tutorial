@@ -1232,7 +1232,7 @@
     },
     "S44": {
       "id": "S44",
-      "status": "generated",
+      "status": "completed",
       "task_id": "20261016074801f46a4d59591c40e0",
       "request_hash": "77add3f0facd2ee399a4bf4b598a79f8edb4b50de35d2529923f83071ac458c3",
       "error": null,
@@ -1243,7 +1243,7 @@
       "face_visible": true,
       "reference_image": "references/mother-lee.jpg",
       "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
-      "updated_at": "2026-10-15T23:48:59Z",
+      "updated_at": "2026-10-15T23:49:04Z",
       "task_failures": [
         {
           "task_id": "20261015233051dd7dcd623b634571",
@@ -1264,7 +1264,22 @@
           "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：202610160642194dbfd99d25654d72，请稍后重试'})"
         }
       ],
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261016074850fe704fae408942cb_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=QzUJZyiqYH0xMXD2bQ%2BnT64Vyn0%3D&Expires=1792194532"
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261016074850fe704fae408942cb_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=QzUJZyiqYH0xMXD2bQ%2BnT64Vyn0%3D&Expires=1792194532",
+      "sha256": "35367eafcbfe4183e7bf3aa04124f1e65cdd6ae3ca050ed592686ea3b15c6ef8",
+      "bytes": 1594504,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1594504,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/lee_hyung_ho1991/qa/S44.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
@@ -1310,7 +1325,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T23:48:59Z",
+  "updated_at": "2026-10-15T23:49:04Z",
   "run_id": "38818452473",
   "previous_results": {
     "S12": [
