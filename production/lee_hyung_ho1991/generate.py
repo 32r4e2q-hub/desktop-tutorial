@@ -146,7 +146,8 @@ def retryable(exc):
     text=str(exc).lower()
     if any(x in text for x in ('1113','余额不足','无可用资源包')):
         return False
-    return any(x in text for x in ('1305','429','访问量过大','rate','timeout','timed out','temporar','connection','502','503','504'))
+    return any(x in text for x in ('1234','网络错误','network error','1305','429','访问量过大',
+                                   'rate','timeout','timed out','temporar','connection','502','503','504'))
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--payload',default='{}'); ap.add_argument('--validate',action='store_true'); ap.add_argument('--require-audio',action='store_true'); ap.add_argument('--publish',action='store_true'); ap.add_argument('--prune-failed',action='store_true'); args=ap.parse_args()
@@ -191,28 +192,67 @@ def main():
         identity_meta={'character_ids':shot.get('character_ids',[]),'face_visible':shot.get('face_visible',False),
                        'reference_image':shot.get('reference_image') or None,
                        'reference_sha256':reference_sha256(shot)}
-        checkpoint(doc,f'{sid} submitting',sid,publish=args.publish,status='submitting',request_hash=wanted,error=None,**identity_meta)
-        for attempt in range(1,21):
-            try:
-                response=client.videos.generations(**payload); task_id=obj_get(response,'id')
-                if not task_id: raise RuntimeError(f'No task id: {response}')
+        failure_history=list(doc.get('shots',{}).get(sid,{}).get('task_failures',[]))
+        task_id=None; result=None; completed_task=False; max_task_attempts=2
+        for task_attempt in range(1,max_task_attempts+1):
+            checkpoint(doc,f'{sid} submitting attempt {task_attempt}',sid,publish=args.publish,
+                       status='submitting',request_hash=wanted,error=None,task_attempt=task_attempt,
+                       task_failures=failure_history,**identity_meta)
+            for submit_attempt in range(1,21):
+                try:
+                    response=client.videos.generations(**payload); task_id=obj_get(response,'id')
+                    if not task_id: raise RuntimeError(f'No task id: {response}')
+                    break
+                except Exception as exc:
+                    if not retryable(exc) or submit_attempt==20: raise
+                    wait=min(120,15+submit_attempt*5)
+                    print(f'{sid}: submit throttled attempt {submit_attempt}, wait {wait}s: {str(exc)[:180]}',flush=True)
+                    time.sleep(wait)
+            checkpoint(doc,f'{sid} queued attempt {task_attempt}',sid,publish=args.publish,
+                       status='queued',task_id=str(task_id),request_hash=wanted,task_attempt=task_attempt,
+                       task_failures=failure_history,**identity_meta)
+            status=''
+            for poll in range(1,241):
+                try:
+                    result=client.videos.retrieve_videos_result(id=task_id)
+                    status=str(obj_get(result,'task_status','')).upper()
+                    print(f'{sid} [{index}/{len(shots)}] attempt {task_attempt} poll {poll}: {status}',flush=True)
+                    if status=='SUCCESS':
+                        completed_task=True
+                        break
+                    if status=='FAIL':
+                        error=obj_get(result,'error',{}) or {}
+                        code=str(obj_get(error,'code',''))
+                        message=str(obj_get(error,'message',''))
+                        detail=f'Provider task failed with code {code}: {message}'
+                        failure_history.append({'task_id':str(task_id),'code':code,'message':message,
+                                                'attempt':task_attempt})
+                        if retryable(RuntimeError(code+' '+message)) and task_attempt<max_task_attempts:
+                            print(f'{sid}: transient CogVideoX task failure; submitting one fresh task',flush=True)
+                            checkpoint(doc,f'{sid} transient provider failure; retrying',sid,publish=args.publish,
+                                       status='retrying',task_id=str(task_id),request_hash=wanted,
+                                       task_attempt=task_attempt,task_failures=failure_history,error=detail,
+                                       **identity_meta)
+                            time.sleep(15*task_attempt)
+                            break
+                        checkpoint(doc,f'{sid} provider task failed',sid,publish=args.publish,status='failed',
+                                   task_id=str(task_id),request_hash=wanted,task_attempt=task_attempt,
+                                   task_failures=failure_history,error=detail,**identity_meta)
+                        raise RuntimeError('Provider task failed; see the checkpointed error details')
+                    time.sleep(10)
+                except Exception as exc:
+                    if retryable(exc) and poll<240:
+                        time.sleep(min(60,10+poll//10)); continue
+                    raise
+            else:
+                raise RuntimeError(f'{sid}: polling timeout for task {task_id}')
+            if completed_task:
                 break
-            except Exception as exc:
-                if not retryable(exc) or attempt==20: raise
-                wait=min(120,15+attempt*5); print(f'{sid}: submit throttled attempt {attempt}, wait {wait}s: {str(exc)[:180]}',flush=True); time.sleep(wait)
-        checkpoint(doc,f'{sid} queued',sid,publish=args.publish,status='queued',task_id=str(task_id),request_hash=wanted,**identity_meta)
-        result=None
-        for poll in range(1,241):
-            try:
-                result=client.videos.retrieve_videos_result(id=task_id); status=str(obj_get(result,'task_status','')).upper()
-                print(f'{sid} [{index}/{len(shots)}] poll {poll}: {status}',flush=True)
-                if status=='SUCCESS':break
-                if status=='FAIL': raise RuntimeError(f'Provider task failed: {result}')
-                time.sleep(10)
-            except Exception as exc:
-                if retryable(exc) and poll<240: time.sleep(min(60,10+poll//10)); continue
-                raise
-        else: raise RuntimeError(f'{sid}: polling timeout')
+            if status=='FAIL' and task_attempt<max_task_attempts and retryable(
+                    RuntimeError(str(failure_history[-1].get('code',''))+' '+str(failure_history[-1].get('message','')))):
+                continue
+        if not completed_task:
+            raise RuntimeError(f'{sid}: no CogVideoX task succeeded after {max_task_attempts} attempts')
         video_result=obj_get(result,'video_result') or []; first=video_result[0] if video_result else None; url=obj_get(first,'url') if first else None
         if not url: raise RuntimeError(f'{sid}: SUCCESS without video URL: {result}')
         dest=sources/f'{sid}.mp4'; download(url,dest); checksum=digest(dest)

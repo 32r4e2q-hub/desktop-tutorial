@@ -45,8 +45,8 @@ python production/lee_hyung_ho1991/render.py \
   --skip-asr
 ```
 
-GitHub Actions 可先用 `cogvideo_smoke` 做 3 镜身份参考试生成（父亲两镜、双警探一镜）；通过后再在固定分支运行完整制作。大视频留在 Actions artifact / `work/`，不提交进 Git；`results.json` 保存每镜 CogVideoX 任务 ID、角色 ID、参考图哈希、请求哈希、视频哈希和媒体检查结果。
+GitHub Actions 可先用 `cogvideo_smoke` 做 3 镜身份参考试生成（父亲两镜、双警探一镜）；通过后再在固定分支运行完整制作。大视频留在 Actions artifact / `work/`，不提交进 Git；`results.json` 保存每镜 CogVideoX 任务 ID、角色 ID、参考图哈希、请求哈希、视频哈希和媒体检查结果。智谱任务若以 `1234` 网络错误等可重试状态终止，会保留失败任务记录并最多另建一次任务重试；额度错误不会重试。
 
-## 当前状态
+## 质量门槛
 
-先前因 GLM-TTS 配额错误停住；按最新要求已改为 Edge TTS，并把视频生成置于旁白之前。当前工作区包含身份参考图及新的图生视频流程配置；接下来先跑 CogVideoX 小样确认接口和身份参考输入，再生成 38 个动态镜头。没有通过接触表检查的镜头不会标成视觉连续性已通过。
+参考图哈希证明输入来源一致，不等于模型生成的人脸已视觉通过。每个生成镜头仍需检查 QA 帧或跨镜接触表；未完成人工视觉核对时，不标成身份连续性已通过。

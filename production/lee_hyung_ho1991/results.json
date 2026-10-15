@@ -5,9 +5,17 @@
   "shots": {
     "S05": {
       "id": "S05",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "5404f624182e6a166553b0a67074088a408adb1ebbb56392586114c8dfedc3f0",
-      "error": null,
+      "error": "Provider task failed with code 1234: 网络错误，错误id：20261015105845bb275b317d294ded，请稍后重试",
+      "task_failures": [
+        {
+          "task_id": "20261015105845bb275b317d294ded",
+          "code": "1234",
+          "message": "网络错误，错误id：20261015105845bb275b317d294ded，请稍后重试",
+          "attempt": 1
+        }
+      ],
       "character_ids": [
         "father"
       ],
