@@ -189,41 +189,18 @@
     },
     "S04": {
       "id": "S04",
-      "status": "failed",
-      "request_hash": "ed11a254bc56110309168aecaaf42c251135b7c5b8acf2737ee7d14296b30b32",
-      "error": "Provider task failed with code 1234: 网络错误，错误id：20261015160250a2bab0aec7eb42c0，请稍后重试",
-      "task_attempt": 3,
-      "task_failures": [
-        {
-          "task_id": "20261015145552eac120caae6b42bc",
-          "code": "1234",
-          "message": "网络错误，错误id：20261015145552eac120caae6b42bc，请稍后重试",
-          "raw_error": "{'code': '1234', 'message': '网络错误，错误id：20261015145552eac120caae6b42bc，请稍后重试'}",
-          "attempt": 1
-        },
-        {
-          "task_id": "2026101515280593409cdb94e34c0b",
-          "code": "1234",
-          "message": "网络错误，错误id：2026101515280593409cdb94e34c0b，请稍后重试",
-          "raw_error": "{'code': '1234', 'message': '网络错误，错误id：2026101515280593409cdb94e34c0b，请稍后重试'}",
-          "attempt": 2
-        },
-        {
-          "task_id": "20261015160250a2bab0aec7eb42c0",
-          "code": "1234",
-          "message": "网络错误，错误id：20261015160250a2bab0aec7eb42c0，请稍后重试",
-          "raw_error": "{'code': '1234', 'message': '网络错误，错误id：20261015160250a2bab0aec7eb42c0，请稍后重试'}",
-          "attempt": 3
-        }
-      ],
+      "status": "submitting",
+      "request_hash": "618f196d69ef95c6ff318d4de73ffcd7fa0bf2f5ab57ee6f08f1dc5b8ec5268d",
+      "error": null,
+      "task_attempt": 1,
+      "task_failures": [],
       "character_ids": [
         "child"
       ],
       "face_visible": true,
-      "reference_image": "references/child-lee.jpg",
-      "reference_sha256": "d3556ab79e5051199318b3d220ccb4de61f02992812fa8a2a208737685754f1c",
-      "updated_at": "2026-10-15T08:33:10Z",
-      "task_id": "20261015160250a2bab0aec7eb42c0"
+      "reference_image": "references/child-lee-stylized.png",
+      "reference_sha256": "a450b90db504960db93b4f99a6cb91d7262afd1d8e3b1045b6165d0b4df07b16",
+      "updated_at": "2026-10-15T08:41:02Z"
     }
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
@@ -269,7 +246,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T08:41:00Z",
+  "updated_at": "2026-10-15T08:41:02Z",
   "run_id": "38706872443",
   "previous_results": {
     "S12": [
@@ -301,6 +278,46 @@
         "reference_sha256": "a08c5f3f5d9c39510e2346f74288c5cd7271efdcb212eee0a6389c85356aff6b",
         "updated_at": "2026-10-15T05:08:37Z",
         "task_id": "202610151238207d46779522a54e74"
+      }
+    ],
+    "S04": [
+      {
+        "id": "S04",
+        "status": "failed",
+        "request_hash": "ed11a254bc56110309168aecaaf42c251135b7c5b8acf2737ee7d14296b30b32",
+        "error": "Provider task failed with code 1234: 网络错误，错误id：20261015160250a2bab0aec7eb42c0，请稍后重试",
+        "task_attempt": 3,
+        "task_failures": [
+          {
+            "task_id": "20261015145552eac120caae6b42bc",
+            "code": "1234",
+            "message": "网络错误，错误id：20261015145552eac120caae6b42bc，请稍后重试",
+            "raw_error": "{'code': '1234', 'message': '网络错误，错误id：20261015145552eac120caae6b42bc，请稍后重试'}",
+            "attempt": 1
+          },
+          {
+            "task_id": "2026101515280593409cdb94e34c0b",
+            "code": "1234",
+            "message": "网络错误，错误id：2026101515280593409cdb94e34c0b，请稍后重试",
+            "raw_error": "{'code': '1234', 'message': '网络错误，错误id：2026101515280593409cdb94e34c0b，请稍后重试'}",
+            "attempt": 2
+          },
+          {
+            "task_id": "20261015160250a2bab0aec7eb42c0",
+            "code": "1234",
+            "message": "网络错误，错误id：20261015160250a2bab0aec7eb42c0，请稍后重试",
+            "raw_error": "{'code': '1234', 'message': '网络错误，错误id：20261015160250a2bab0aec7eb42c0，请稍后重试'}",
+            "attempt": 3
+          }
+        ],
+        "character_ids": [
+          "child"
+        ],
+        "face_visible": true,
+        "reference_image": "references/child-lee.jpg",
+        "reference_sha256": "d3556ab79e5051199318b3d220ccb4de61f02992812fa8a2a208737685754f1c",
+        "updated_at": "2026-10-15T08:33:10Z",
+        "task_id": "20261015160250a2bab0aec7eb42c0"
       }
     ]
   }
