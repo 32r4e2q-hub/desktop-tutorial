@@ -2,7 +2,21 @@
   "project": "李亨浩案：四十四天的电话",
   "model": "cogvideox-flash",
   "provider": "Zhipu AI",
-  "shots": {},
+  "shots": {
+    "S05": {
+      "id": "S05",
+      "status": "submitting",
+      "request_hash": "5404f624182e6a166553b0a67074088a408adb1ebbb56392586114c8dfedc3f0",
+      "error": null,
+      "character_ids": [
+        "father"
+      ],
+      "face_visible": true,
+      "reference_image": "references/father-lee.jpg",
+      "reference_sha256": "a08c5f3f5d9c39510e2346f74288c5cd7271efdcb212eee0a6389c85356aff6b",
+      "updated_at": "2026-10-15T02:53:37Z"
+    }
+  },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
   "identity_policy": "image-to-video input is pinned by per-shot reference SHA-256; same visible role reuses the same reference asset; visual continuity still requires contact-sheet review",
   "phase": "generating_sources",
@@ -46,6 +60,6 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T02:53:34Z",
+  "updated_at": "2026-10-15T02:53:37Z",
   "run_id": "38673080740"
 }
