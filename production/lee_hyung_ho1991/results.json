@@ -5,7 +5,7 @@
   "shots": {
     "S05": {
       "id": "S05",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "5404f624182e6a166553b0a67074088a408adb1ebbb56392586114c8dfedc3f0",
       "error": null,
       "task_failures": [
@@ -28,9 +28,25 @@
       "face_visible": true,
       "reference_image": "references/father-lee.jpg",
       "reference_sha256": "a08c5f3f5d9c39510e2346f74288c5cd7271efdcb212eee0a6389c85356aff6b",
-      "updated_at": "2026-10-15T04:06:25Z",
+      "updated_at": "2026-10-15T04:07:23Z",
       "task_id": "202610151206255edf9794d8f84ed1",
-      "task_attempt": 2
+      "task_attempt": 2,
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015120710fba97e97311345f7_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=uPJFzKdP%2BYs3sV1R8kfS%2Fukghak%3D&Expires=1792123633",
+      "sha256": "3b6995b134a0f93292bf589e629ea3db75a098a7be1e643e8fa5551b2ad06a97",
+      "bytes": 2679167,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 2679167,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/lee_hyung_ho1991/qa/S05.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
@@ -76,6 +92,6 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T04:06:25Z",
+  "updated_at": "2026-10-15T04:07:23Z",
   "run_id": "38676720658"
 }
