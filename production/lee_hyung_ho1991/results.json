@@ -82,7 +82,7 @@
     },
     "S16": {
       "id": "S16",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "52541160e10b6dbfc6064a301c9cef393d8babda67cf5b52163eadac2b16f157",
       "error": null,
       "task_attempt": 2,
@@ -101,8 +101,24 @@
       "face_visible": true,
       "reference_image": "references/detectives-park-choi.jpg",
       "reference_sha256": "598e3d073ac9cb6736306e7767bd12f27555560eef194750e861e02f0d12544a",
-      "updated_at": "2026-10-15T06:31:23Z",
-      "task_id": "20261015143122e5c3a1c9c1c04cf1"
+      "updated_at": "2026-10-15T06:32:23Z",
+      "task_id": "20261015143122e5c3a1c9c1c04cf1",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015143210c3476cf1dd1d4b65_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=gF8gtfvgOxDlXniO5Ikr4sGWu8s%3D&Expires=1792132334",
+      "sha256": "e243632bc3780884bd732774201b224beb045e3c0945a90f036bb89087fd74cf",
+      "bytes": 2484140,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 2484140,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/lee_hyung_ho1991/qa/S16.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
@@ -148,7 +164,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T06:31:23Z",
+  "updated_at": "2026-10-15T06:32:23Z",
   "run_id": "38688782244",
   "previous_results": {
     "S12": [
