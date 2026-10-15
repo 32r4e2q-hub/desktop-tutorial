@@ -189,9 +189,9 @@
     },
     "S04": {
       "id": "S04",
-      "status": "queued",
+      "status": "retrying",
       "request_hash": "618f196d69ef95c6ff318d4de73ffcd7fa0bf2f5ab57ee6f08f1dc5b8ec5268d",
-      "error": null,
+      "error": "Provider task failed with code 1234: 网络错误，错误id：2026101517154396f6fd5b28de44cc，请稍后重试",
       "task_attempt": 2,
       "task_failures": [
         {
@@ -200,6 +200,13 @@
           "message": "网络错误，错误id：202610151641044ac45f734e294871，请稍后重试",
           "raw_error": "{'code': '1234', 'message': '网络错误，错误id：202610151641044ac45f734e294871，请稍后重试'}",
           "attempt": 1
+        },
+        {
+          "task_id": "2026101517154396f6fd5b28de44cc",
+          "code": "1234",
+          "message": "网络错误，错误id：2026101517154396f6fd5b28de44cc，请稍后重试",
+          "raw_error": "{'code': '1234', 'message': '网络错误，错误id：2026101517154396f6fd5b28de44cc，请稍后重试'}",
+          "attempt": 2
         }
       ],
       "character_ids": [
@@ -208,7 +215,7 @@
       "face_visible": true,
       "reference_image": "references/child-lee-stylized.png",
       "reference_sha256": "a450b90db504960db93b4f99a6cb91d7262afd1d8e3b1045b6165d0b4df07b16",
-      "updated_at": "2026-10-15T09:38:29Z",
+      "updated_at": "2026-10-15T09:45:53Z",
       "task_id": "2026101517154396f6fd5b28de44cc"
     }
   },
@@ -255,7 +262,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T09:38:29Z",
+  "updated_at": "2026-10-15T09:45:53Z",
   "run_id": "38714085264",
   "previous_results": {
     "S12": [
