@@ -29,8 +29,10 @@ permissions:
   contents: write
 
 concurrency:
-  group: lee-hyung-ho1991-arena-1f36798e-desktop-tutorial
-  cancel-in-progress: false
+  # Shared with the legacy producer: native Actions concurrency prevents
+  # two branches submitting the same cloud tasks during the handover.
+  group: lee-hyung-ho1991-arena-04ec3850-desktop-tutorial
+  cancel-in-progress: true
 
 jobs:
   produce:
