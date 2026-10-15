@@ -223,13 +223,18 @@ def main():
                         completed_task=True
                         break
                     if status=='FAIL':
-                        error=obj_get(result,'error',{}) or {}
+                        error_value=obj_get(result,'error',None)
+                        raw_error=repr(error_value if error_value is not None else result)[:1600]
+                        error=error_value or {}
                         code=str(obj_get(error,'code',''))
                         message=str(obj_get(error,'message',''))
-                        detail=f'Provider task failed with code {code}: {message}'
+                        failure_text=code+' '+message+' '+raw_error
+                        quota_failure=any(token in failure_text for token in ('1113','余额不足','无可用资源包'))
+                        transient_failure=not quota_failure and (not code and not message or retryable(RuntimeError(failure_text)))
+                        detail=f'Provider task failed with code {code or "unknown"}: {message or raw_error}'
                         failure_history.append({'task_id':str(task_id),'code':code,'message':message,
-                                                'attempt':task_attempt})
-                        if retryable(RuntimeError(code+' '+message)) and attempt_index<max_task_attempts:
+                                                'raw_error':raw_error,'attempt':task_attempt})
+                        if transient_failure and attempt_index<max_task_attempts:
                             print(f'{sid}: transient CogVideoX task failure; submitting a fresh task',flush=True)
                             checkpoint(doc,f'{sid} transient provider failure; retrying',sid,publish=args.publish,
                                        status='retrying',task_id=str(task_id),request_hash=wanted,
