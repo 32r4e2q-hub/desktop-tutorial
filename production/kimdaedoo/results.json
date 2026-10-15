@@ -182,17 +182,11 @@
       "model": "agnes-video-2.5-flash",
       "provider": "Agnes",
       "request_hash": "61ef90e86e69c82d081e689fd15525503d5eee6219d4e38e43ec349e5251e863",
-      "status": "submitting",
+      "status": "retry_wait",
       "http": 503,
-      "detail": "video queue is full, please retry later (request id: 202610150631089208159640Kl99HVW)",
-      "attempt_count": 35,
+      "detail": "video queue is full, please retry later (request id: 20261015064611196092148Kw83nc1z)",
+      "attempt_count": 36,
       "recent_responses": [
-        {
-          "at": 1792019722.2641525,
-          "http": 503,
-          "kind": "queue_full",
-          "detail": "video queue is full, please retry later (request id: 20261014231522143766912iDaXpYik)"
-        },
         {
           "at": 1792020623.9923666,
           "http": 503,
@@ -366,6 +360,12 @@
           "http": 503,
           "kind": "queue_full",
           "detail": "video queue is full, please retry later (request id: 202610150631089208159640Kl99HVW)"
+        },
+        {
+          "at": 1792046771.3336074,
+          "http": 503,
+          "kind": "queue_full",
+          "detail": "video queue is full, please retry later (request id: 20261015064611196092148Kw83nc1z)"
         }
       ]
     }
@@ -429,9 +429,9 @@
   },
   "phase": "waiting_for_agnes",
   "loop_status": "running",
-  "updated_at": "2026-10-15T06:46:09.054325+00:00",
+  "updated_at": "2026-10-15T06:46:11.333621+00:00",
   "completed_count": 1,
-  "next_request_at": 1792046844.0542455,
-  "retry_streak": 35,
+  "next_request_at": 1792047671.3336165,
+  "retry_streak": 36,
   "last_backoff_seconds": 900
 }
