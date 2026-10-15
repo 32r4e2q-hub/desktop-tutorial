@@ -10,13 +10,12 @@
   剪口都在静音里，再加 5 ms 交叉淡化，不会有咔哒声；
 - 输出 48 kHz 单声道 192 kbps mp3，同样的输入永远得到同样的字节。
 
-原始 TTS 文件保留在 `audio/raw/`，`audio/N0x.mp3` 是收紧后的版本，
-`audio/manifest.json` 里的 SHA-256 记的是收紧后的文件——渲染、字幕对轨、
-逐字听检全部以它为准。
+原始 GLM-TTS WAV/MP3 文件保留在 `audio/raw/`，`audio/N0x.mp3` 是收紧后的版本，
+`audio/manifest.json` 记录两者的 SHA-256——渲染和字幕对轨以收紧后的版本为准。
 
 用法::
 
-    python3 production/lee_hyung_ho1991/tighten_pauses.py            # raw/ -> audio/，并打印每段前后时长
+    python3 production/lee_hyung_ho1991/tighten_pauses.py            # audio/raw/*.wav 或 *.mp3 -> audio/*.mp3
     python3 production/lee_hyung_ho1991/tighten_pauses.py --report   # 只报告，不写文件
 """
 from __future__ import annotations
@@ -122,7 +121,8 @@ def main(argv=None) -> int:
         raise SystemExit(f"缺少原始配音目录 {RAW}（把 TTS 原文件放进去再跑）")
     summary = []
     before = after = 0.0
-    for raw in sorted(RAW.glob("N0*.mp3")):
+    raw_files = sorted([*RAW.glob("N0*.wav"), *RAW.glob("N0*.mp3")])
+    for raw in raw_files:
         x = decode(raw)
         y, cuts = tighten(x)
         before += len(x) / RATE; after += len(y) / RATE
@@ -131,7 +131,7 @@ def main(argv=None) -> int:
                         "seconds_removed": round((len(x) - len(y)) / RATE, 3)})
         print(f"{raw.stem}: {len(x)/RATE:6.2f}s -> {len(y)/RATE:6.2f}s  ({len(cuts)} 处停顿收紧)")
         if not args.report:
-            encode(y, OUT / raw.name)
+            encode(y, OUT / f"{raw.stem}.mp3")
     usable = 180 - 0.6 - 6.0 - 1.08 * 5
     print(f"合计 {before:.2f}s -> {after:.2f}s；render.py 可用 {usable:.1f}s，变速比 {after/usable:.3f}（允许 0.86–1.10）")
     if not args.report:

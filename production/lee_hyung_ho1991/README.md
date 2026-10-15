@@ -15,7 +15,7 @@
 
 - `build_story.py`：剧本、分镜、片卡与史料清单的单一来源；可重建 `story.json`。
 - `story.json`：智谱视频生成与渲染共用的 45 镜制作计划。
-- `prepare_tts.py`：调用 GLM-TTS，写入原始/收紧后的 MP3、SHA-256 清单，并自动计算旁白切点。
+- `prepare_tts.py`：调用 GLM-TTS，写入原始 WAV 与收紧后的 MP3、SHA-256 清单，并自动计算旁白切点。
 - `generate.py`：智谱 CogVideoX-Flash 生成与分镜回执检查；每个镜头的任务 ID、请求哈希和成片 SHA-256 逐步记录到当前 Arena 分支。
 - `fetch_sources.py`：从回执中的智谱 CDN 地址恢复源片，并校验 SHA-256。
 - `render.py`、`build_audio.py`：确定性组装 3 分钟成片、字幕、片头片尾卡、配乐与混音报告。

@@ -140,6 +140,10 @@ jobs:
           cp work/lee_hyung_ho1991/render/final-audio-report.json "$delivery/"
           cp work/lee_hyung_ho1991/render/alignment-report.json "$delivery/"
           cp work/lee_hyung_ho1991/render/final-contact.jpg "$project/qa/final-contact.jpg"
+          if [ -f "$project/last-run.log" ]; then
+            rm "$project/last-run.log"
+            git add -u "$project/last-run.log"
+          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$delivery" "$project/qa/final-contact.jpg"

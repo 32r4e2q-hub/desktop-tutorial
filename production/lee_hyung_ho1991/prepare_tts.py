@@ -21,7 +21,7 @@ BRANCH = "arena/04ec3850-desktop-tutorial"
 ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/audio/speech"
 MODEL = "glm-tts"
 VOICE = "chuichui"
-FORMAT = "mp3"
+FORMAT = "wav"
 INITIAL_SPEED = 1.0
 MIN_TEMPO, MAX_TEMPO = 0.86, 1.10
 
@@ -152,7 +152,9 @@ def publish_audio() -> None:
         "production/lee_hyung_ho1991/audio/cuts.json",
     ]
     paths.extend(str(path.relative_to(ROOT)) for path in sorted((HERE / "audio").glob("N0*.mp3")))
-    paths.extend(str(path.relative_to(ROOT)) for path in sorted((HERE / "audio" / "raw").glob("N0*.mp3")))
+    raw_dir = HERE / "audio" / "raw"
+    paths.extend(str(path.relative_to(ROOT)) for pattern in ("N0*.wav", "N0*.mp3")
+                 for path in sorted(raw_dir.glob(pattern)))
     git("add", "--", *paths)
     changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode != 0
     if not changed:
@@ -194,7 +196,7 @@ def prepare(force: bool = False) -> dict:
     for calibration in range(3):
         print(f"TTS_SYNTHESIS voice={VOICE} speed={speed:.2f} pass={calibration + 1}", flush=True)
         for chapter in story["chapters"]:
-            destination = raw_dir / f"{chapter['id']}.mp3"
+            destination = raw_dir / f"{chapter['id']}.{FORMAT}"
             synthesize(chapter["text"], key, speed, destination)
             print(f"TTS_CHAPTER_READY {chapter['id']} bytes={destination.stat().st_size}", flush=True)
         run_tool("tighten_pauses.py")
@@ -216,7 +218,7 @@ def prepare(force: bool = False) -> dict:
     clips = []
     for chapter in story["chapters"]:
         clean = HERE / "audio" / f"{chapter['id']}.mp3"
-        raw = raw_dir / f"{chapter['id']}.mp3"
+        raw = raw_dir / f"{chapter['id']}.{FORMAT}"
         clips.append({
             "id": chapter["id"],
             "file": clean.name,
