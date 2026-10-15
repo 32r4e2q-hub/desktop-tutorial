@@ -24,7 +24,7 @@
 
 ## 云端运行
 
-仓库 Actions 需要已有的 `ZHIPUAI_API_KEY` Secret。流程只在固定分支 `arena/04ec3850-desktop-tutorial` 发布。
+仓库 Actions 需要已有的 `ZHIPUAI_API_KEY` Secret，以及 GLM-TTS 与 CogVideoX-Flash 对应的可用智谱余额/资源包。流程只在固定分支 `arena/04ec3850-desktop-tutorial` 发布；遇到智谱 `1113` 配额错误会停止，不会改用其他服务。
 
 ```bash
 python production/lee_hyung_ho1991/build_story.py
@@ -42,6 +42,6 @@ python production/lee_hyung_ho1991/render.py \
 
 仓库内 `.github/workflows/lee-hyung-ho1991.yml` 提供完整 Action：TTS 缓存校验、视频断点续跑、渲染、音频/画面报告、逐帧自动 QC 与最终视频 artifact。视频源片保存在 `work/`，不会提交进 Git；`results.json` 中保存每条源片的可复核回执。
 
-## 状态
+## 状态（2026-10-15）
 
-剧本、事实核对和工作流适配已经准备；调用 API、生成音视频、成片和人工视觉复核由 Action 实际执行后再记录，未跑出的产物不会标成完成。
+[第三次工作流运行](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38667246069) 已到达智谱 GLM-TTS，但因 HTTP 429 / 错误码 `1113`（账户余额不足或无可用资源包）停止。请求已从 MP3 改为 WAV；因配额错误，WAV 是否实际生成尚未验证。未生成旁白音频，也未调用 CogVideoX-Flash，成片及人工视觉复核均未完成。配额恢复后，在 GitHub Actions 手动运行“李亨浩案制作”，或递增 `RUN_REQUEST` 的 `revision` 触发重跑；流程不会回退到其他生成服务。

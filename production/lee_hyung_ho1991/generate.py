@@ -112,6 +112,8 @@ def download(url,dest):
 
 def retryable(exc):
     text=str(exc).lower()
+    if any(x in text for x in ('1113','余额不足','无可用资源包')):
+        return False
     return any(x in text for x in ('1305','429','访问量过大','rate','timeout','timed out','temporar','connection','502','503','504'))
 
 def main():

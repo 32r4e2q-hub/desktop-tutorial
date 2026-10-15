@@ -89,6 +89,11 @@ def synthesize(text: str, key: str, speed: float, destination: Path) -> None:
             return
         except urllib.error.HTTPError as exc:
             body = exc.read().decode("utf-8", "replace")[:1000]
+            if any(token in body for token in ("1113", "余额不足", "无可用资源包")):
+                raise RuntimeError(
+                    "Zhipu GLM-TTS quota is exhausted (code 1113). No alternative provider will be used; "
+                    "add an available Zhipu resource package, then rerun this workflow."
+                ) from exc
             last_error = RuntimeError(f"HTTP {exc.code}: {body}")
             if exc.code not in (408, 425, 429, 500, 502, 503, 504) or attempt == 5:
                 raise last_error from exc
