@@ -45,7 +45,7 @@ python production/lee_hyung_ho1991/render.py \
   --skip-asr
 ```
 
-GitHub Actions 可先用 `cogvideo_smoke` 做 3 镜身份参考试生成（父亲两镜、双警探一镜）；通过后再在固定分支运行完整制作。大视频留在 Actions artifact / `work/`，不提交进 Git；`results.json` 保存每镜 CogVideoX 任务 ID、角色 ID、参考图哈希、请求哈希、视频哈希和媒体检查结果。智谱任务若以 `1234` 网络错误等可重试状态终止，会保留失败任务记录并最多另建一次任务重试；额度错误不会重试。
+GitHub Actions 可先用 `cogvideo_smoke` 做 3 镜身份参考试生成（父亲两镜、双警探一镜）；通过后再在固定分支运行完整制作。大视频留在 Actions artifact / `work/`，不提交进 Git；`results.json` 保存每镜 CogVideoX 任务 ID、角色 ID、参考图哈希、请求哈希、视频哈希和媒体检查结果。智谱任务若以 `1234` 网络错误等可重试状态终止，会保留失败任务记录；每次工作流对单镜最多提交 3 个任务（初次加 2 次重试），额度错误不会重试。
 
 ## 质量门槛
 

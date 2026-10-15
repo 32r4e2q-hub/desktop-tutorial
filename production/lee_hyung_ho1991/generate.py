@@ -193,8 +193,10 @@ def main():
                        'reference_image':shot.get('reference_image') or None,
                        'reference_sha256':reference_sha256(shot)}
         failure_history=list(doc.get('shots',{}).get(sid,{}).get('task_failures',[]))
-        task_id=None; result=None; completed_task=False; max_task_attempts=2
-        for task_attempt in range(1,max_task_attempts+1):
+        attempt_offset=len(failure_history)
+        task_id=None; result=None; completed_task=False; max_task_attempts=3
+        for attempt_index in range(1,max_task_attempts+1):
+            task_attempt=attempt_offset+attempt_index
             checkpoint(doc,f'{sid} submitting attempt {task_attempt}',sid,publish=args.publish,
                        status='submitting',request_hash=wanted,error=None,task_attempt=task_attempt,
                        task_failures=failure_history,**identity_meta)
@@ -227,8 +229,8 @@ def main():
                         detail=f'Provider task failed with code {code}: {message}'
                         failure_history.append({'task_id':str(task_id),'code':code,'message':message,
                                                 'attempt':task_attempt})
-                        if retryable(RuntimeError(code+' '+message)) and task_attempt<max_task_attempts:
-                            print(f'{sid}: transient CogVideoX task failure; submitting one fresh task',flush=True)
+                        if retryable(RuntimeError(code+' '+message)) and attempt_index<max_task_attempts:
+                            print(f'{sid}: transient CogVideoX task failure; submitting a fresh task',flush=True)
                             checkpoint(doc,f'{sid} transient provider failure; retrying',sid,publish=args.publish,
                                        status='retrying',task_id=str(task_id),request_hash=wanted,
                                        task_attempt=task_attempt,task_failures=failure_history,error=detail,
@@ -248,7 +250,7 @@ def main():
                 raise RuntimeError(f'{sid}: polling timeout for task {task_id}')
             if completed_task:
                 break
-            if status=='FAIL' and task_attempt<max_task_attempts and retryable(
+            if status=='FAIL' and attempt_index<max_task_attempts and retryable(
                     RuntimeError(str(failure_history[-1].get('code',''))+' '+str(failure_history[-1].get('message','')))):
                 continue
         if not completed_task:
