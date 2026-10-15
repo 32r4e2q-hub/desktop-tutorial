@@ -501,7 +501,7 @@
     },
     "S18": {
       "id": "S18",
-      "status": "queued",
+      "status": "generated",
       "task_id": "202610160753204fafb15b27f24386",
       "request_hash": "b8fa9bc6174128f18fdc5bd2a0be27f8c9556aa441a697f5562e996cf86c9ea5",
       "error": null,
@@ -511,7 +511,7 @@
       "face_visible": true,
       "reference_image": "references/father-lee.jpg",
       "reference_sha256": "a08c5f3f5d9c39510e2346f74288c5cd7271efdcb212eee0a6389c85356aff6b",
-      "updated_at": "2026-10-15T23:53:20Z",
+      "updated_at": "2026-10-15T23:54:17Z",
       "task_attempt": 2,
       "task_failures": [
         {
@@ -539,7 +539,8 @@
           "message": "网络错误，错误id：2026101607123021c031d1807e4c5f，请稍后重试",
           "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：2026101607123021c031d1807e4c5f，请稍后重试'})"
         }
-      ]
+      ],
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261016075410c4c512e0d6a24596_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=OafM9FZFGiTu%2BD2gfyJjhsU0AcQ%3D&Expires=1792194853"
     },
     "S19": {
       "id": "S19",
@@ -1325,7 +1326,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-15T23:53:20Z",
+  "updated_at": "2026-10-15T23:54:17Z",
   "run_id": "38818452473",
   "previous_results": {
     "S12": [
