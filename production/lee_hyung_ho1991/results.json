@@ -593,7 +593,17 @@
       }
     },
     "S25": {
-      "id": "S25"
+      "id": "S25",
+      "status": "queued",
+      "task_id": "20261016142703b06b6da323044c5d",
+      "request_hash": "5f23bf9570f01ca21dda034ecbc65d3c7d497aa09079d1795388da3f6c80e054",
+      "error": null,
+      "task_attempt": 1,
+      "character_ids": [],
+      "face_visible": false,
+      "reference_image": null,
+      "reference_sha256": null,
+      "updated_at": "2026-10-16T06:27:03Z"
     },
     "S26": {
       "id": "S26",
@@ -977,7 +987,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T06:25:00Z",
+  "updated_at": "2026-10-16T06:27:03Z",
   "run_id": "38859742716",
   "previous_results": {
     "S12": [
@@ -2214,6 +2224,21 @@
       "shot": "S07",
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T06:25:00Z"
+    },
+    {
+      "shot": "S14",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T06:25:32Z"
+    },
+    {
+      "shot": "S20",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T06:26:02Z"
+    },
+    {
+      "shot": "S22",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T06:26:33Z"
     }
   ]
 }
