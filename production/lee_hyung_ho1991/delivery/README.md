@@ -1,5 +1,7 @@
 # 李亨浩案《四十四天的电话》技术成片交付
 
+> **2026-10-16 独立补审：不通过成片验收。** 已核对全部46段抽帧及全部检测候选接触图，发现画面与解说不对应、信息卡迟到、S41角色/风格断裂。音轨18窗中17窗通过定位门限，字幕与逐字听检仍有待确认项。工具执行成功不代表质量合格；已发布MP4未修改。详见[审片补查报告](../review-2026-10-16/审片补查报告.md)和[结构化结论](../review-2026-10-16/review-verdict.json)。
+
 - 已发布审片版：https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/lee-hyung-ho1991-review-v1
 - 独立 MP4 下载：https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/lee-hyung-ho1991-review-v1/lee-hyung-ho-3min-1080p-review.mp4
 
