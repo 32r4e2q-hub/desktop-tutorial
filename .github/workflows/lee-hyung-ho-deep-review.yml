@@ -67,6 +67,8 @@ jobs:
           git add production/lee_hyung_ho1991/review-2026-10-16
           if ! git diff --cached --quiet; then
             git commit -m 'review: preserve independent final-film transcripts, sync measurements and visual evidence'
+            git fetch origin arena/1f36798e-desktop-tutorial
+            git rebase FETCH_HEAD
             git push origin arena/1f36798e-desktop-tutorial
           fi
       - name: Upload review evidence
