@@ -1,0 +1,84 @@
+name: 李亨浩案 · 独立逐字与画面内容复核
+on:
+  push:
+    branches: [arena/1f36798e-desktop-tutorial]
+    paths: [production/lee_hyung_ho1991/DEEP_REVIEW_REQUEST]
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: lee-hyung-ho-deep-review
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/1f36798e-desktop-tutorial
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            production
+            .github
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install independent decoding and recognition tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          python -m pip install 'numpy>=1.26,<3' 'pillow>=10,<13' 'av>=12,<19' 'scipy>=1.12,<2' 'faster-whisper>=1.1,<2' 'zhconv>=1.4,<2'
+      - name: Restore exact published movie and original frame-level audit
+        uses: actions/download-artifact@v4
+        with:
+          name: lee-hyung-ho-production-19
+          run-id: 38843664095
+          github-token: ${{ github.token }}
+          path: work/original-cut
+      - name: Collect all-shot and all-candidate visual evidence
+        id: visual
+        continue-on-error: true
+        run: python -u production/lee_hyung_ho1991/deep_review.py --artifact work/original-cut --mode visual
+      - name: Independently compare final audio, script, chapter placement and subtitles
+        id: audio
+        continue-on-error: true
+        env:
+          HF_HUB_DISABLE_XET: '1'
+          HF_HUB_ETAG_TIMEOUT: '30'
+          HF_HUB_DOWNLOAD_TIMEOUT: '120'
+        run: python -u production/lee_hyung_ho1991/deep_review.py --artifact work/original-cut --mode audio
+      - name: Persist evidence without changing verdict thresholds or the published video
+        if: always()
+        env:
+          VISUAL_OUTCOME: ${{ steps.visual.outcome }}
+          AUDIO_OUTCOME: ${{ steps.audio.outcome }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path('production/lee_hyung_ho1991/review-2026-10-16')
+          p.mkdir(exist_ok=True)
+          (p/'execution-status.json').write_text(json.dumps({'source_run':38843664095,'film_sha256':'5946ef6151344badf20081bd26b8315c73c7e43f6fba5e25965e5c28cad274d1','visual_evidence_step':os.getenv('VISUAL_OUTCOME'),'audio_review_step':os.getenv('AUDIO_OUTCOME'),'human_or_agent_semantic_verdict':'pending'},indent=2)+'\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/lee_hyung_ho1991/review-2026-10-16
+          if ! git diff --cached --quiet; then
+            git commit -m 'review: preserve independent final-film transcripts, sync measurements and visual evidence'
+            git push origin arena/1f36798e-desktop-tutorial
+          fi
+      - name: Upload review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lee-hyung-ho-independent-review
+          path: production/lee_hyung_ho1991/review-2026-10-16
+          retention-days: 30
+      - name: Fail explicitly if any requested check could not execute
+        if: always()
+        env:
+          VISUAL_OUTCOME: ${{ steps.visual.outcome }}
+          AUDIO_OUTCOME: ${{ steps.audio.outcome }}
+        run: test "$VISUAL_OUTCOME" = success && test "$AUDIO_OUTCOME" = success
