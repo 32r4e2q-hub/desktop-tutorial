@@ -1211,7 +1211,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T10:19:37Z",
+  "updated_at": "2026-10-16T10:19:40Z",
   "run_id": "38884163418",
   "previous_results": {
     "S12": [
@@ -1395,6 +1395,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S07"
       },
       {
         "id": "S07"
@@ -1622,6 +1625,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S20"
       },
       {
         "id": "S20"
@@ -2126,6 +2132,9 @@
       },
       {
         "id": "S40"
+      },
+      {
+        "id": "S40"
       }
     ],
     "S41": [
@@ -2159,6 +2168,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S41"
       },
       {
         "id": "S41"
@@ -3043,6 +3055,12 @@
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T10:13:16Z",
       "retry_after_seconds": 300
+    },
+    {
+      "shot": "S07",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T10:19:40Z",
+      "retry_after_seconds": 30
     }
   ]
 }
