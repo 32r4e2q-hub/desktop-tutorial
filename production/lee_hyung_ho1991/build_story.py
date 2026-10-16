@@ -131,7 +131,7 @@ SHOTS = [
 
     ("S09", "N02", "A 1991 Seoul street telephone booth in light rain at night, reflections passing across the glass while the booth remains empty; slow dolly toward it.", "不断变换的街头来电", "slow dolly", None),
     ("S10", "N02", "案件资料卡：首轮赎金与车载电话要求", "七千万韩元与车载电话", "post-production card", "graphic"),
-    ("S11", "N02", "MOTHER-01 sits at a wooden table beside a stationary landline telephone and an unmarked notebook. She holds a pen still above the page, pausing to listen before taking notes. Keep the reference face and burgundy cardigan. One steady medium shot, subtle breathing only, fixed camera, no readable text.", "母亲记录不断变化的交接指令", "locked-off", None),
+    ("S11", "N02", "A slow cinematic dolly across a 1991 home desk: an ivory corded telephone, an open unmarked notebook and a ballpoint pen resting on the paper. A gentle draft lifts the edge of one page. Warm desk-lamp lighting, realistic 3D CGI materials, one continuous shot. Objects only, no people, no faces, no readable text.", "用电话旁的笔记本表现家人记录交接指令", "slow lateral dolly", None),
     ("S12", "N02", "FATHER-01 waits at the wheel of a parked period-correct 1991 Seoul sedan at night, one hand near a car telephone; his canonical reference face stays clearly visible in three-quarter view, same navy coat and pale-blue shirt. Streetlights reflect softly across the window; one slow passenger-seat push-in.", "父亲深夜在车中等待下一通电话", "slow passenger-seat push-in", None),
     ("S13", "N02", "A quiet Seoul intersection with a public phone booth, wet pavement and distant headlights reflected in shop windows; one continuous slow pan, no readable signs.", "反复变化的地点", "slow pan", None),
     ("S14", "N02", "CALLER-UNKNOWN appears only as the same distant hooded silhouette behind rain-streaked phone-booth glass, face fully hidden, one gloved hand holding the receiver; slow, subtle push.", "身份未明来电者的匿名背影", "slow push-in", None),
@@ -174,7 +174,7 @@ SHOTS = [
 
 SHOT_CHARACTERS = {
     "S04": ["child"],
-    "S05": ["father"], "S07": ["father"], "S08": ["mother"], "S11": ["mother"],
+    "S05": ["father"], "S07": ["father"], "S08": ["mother"],
     "S12": ["father"], "S14": ["caller_unknown"],
     "S16": ["detective_park", "detective_choi"], "S18": ["father"],
     "S19": ["detective_park", "detective_choi"], "S21": ["bank_visitor_unknown"],
@@ -191,7 +191,7 @@ SHOT_REFERENCE_OVERRIDES = {
 }
 
 SHOT_FACE_VISIBLE = {
-    "S04": True, "S05": True, "S07": True, "S08": True, "S11": True,
+    "S04": True, "S05": True, "S07": True, "S08": True, "S11": False,
     "S12": True, "S14": False, "S16": True, "S18": True, "S19": True,
     "S21": False, "S23": True, "S26": True, "S27": True, "S34": True,
     "S41": False, "S44": True,
