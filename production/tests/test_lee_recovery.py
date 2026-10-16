@@ -16,8 +16,8 @@ class RecoveryTests(unittest.TestCase):
         self.assertIsNone(g.resumable_task(row, 'changed'))
         self.assertIsNone(g.resumable_task(dict(row, status='failed'), 'abc'))
 
-    def simulate(self, states, rows=None, budget=35, submit_errors=None, **policy):
-        client=Mock(); doc={'shots':rows or {}}; clock=[0]; submitted=[]; polled=[]; live=set(); peak=[0]
+    def simulate(self, states, rows=None, budget=35, submit_errors=None, saved_doc=None, **policy):
+        client=Mock(); doc=saved_doc if saved_doc is not None else {'shots':rows or {}}; clock=[0]; submitted=[]; polled=[]; live=set(); peak=[0]
         def submit(**payload):
             task=payload['sid'];submitted.append(task)
             if task in (submit_errors or {}):raise RuntimeError(submit_errors[task])
@@ -34,7 +34,7 @@ class RecoveryTests(unittest.TestCase):
             doc['shots'][shot['id']].update(status='completed',sha256='verified')
         client.videos.generations.side_effect=submit;client.videos.retrieve_videos_result.side_effect=poll
         shots=[{'id':k} for k in states]
-        with patch.object(g,'request_hash',return_value='hash'),patch.object(g,'full_payload',side_effect=lambda p,s:{'sid':s['id']}),patch.object(g,'reference_sha256',return_value=None),patch.object(g,'checkpoint',side_effect=checkpoint),patch.object(g,'collect_clip',side_effect=collect),patch.object(g.time,'monotonic',side_effect=lambda:clock[0]),patch.object(g.time,'sleep',side_effect=lambda sec:clock.__setitem__(0,clock[0]+sec)):
+        with patch.object(g,'request_hash',return_value='hash'),patch.object(g,'full_payload',side_effect=lambda p,s:{'sid':s['id']}),patch.object(g,'reference_sha256',return_value=None),patch.object(g,'checkpoint',side_effect=checkpoint),patch.object(g,'collect_clip',side_effect=collect),patch.object(g.time,'time',side_effect=lambda:clock[0]),patch.object(g.time,'monotonic',side_effect=lambda:clock[0]),patch.object(g.time,'sleep',side_effect=lambda sec:clock.__setitem__(0,clock[0]+sec)):
             missing=g.run_queue(client,{},shots,doc,Path('/tmp'),Path('/tmp'),False,budget=budget,**dict({'window':3,'cooldown_seconds':0},**policy))
         return doc,submitted,polled,peak[0],missing
 
@@ -78,6 +78,39 @@ class RecoveryTests(unittest.TestCase):
     def test_auth_and_safety_failures_override_transient_words(self):
         for message in ('401 unauthorized network error','403 forbidden timeout','1301 审核拒绝 network error'):
             self.assertFalse(g.retryable(RuntimeError(message)))
+
+    def test_fixed_interval_campaign_round_robin_and_cap(self):
+        states={s:'SUCCESS' for s in ('S07','S40','S41')}
+        doc,submitted,_,_,missing=self.simulate(states,budget=1000,
+            submit_errors={s:'429 1305 busy' for s in states},window=1,
+            submission_interval_seconds=75,max_submission_attempts_per_shot=2,retry_campaign='test')
+        self.assertEqual(submitted,['S07','S40','S41']*2)
+        self.assertEqual(missing,list(states))
+        self.assertEqual([r['retry_after_seconds'] for r in doc['submission_backoffs']],[75]*6)
+        self.assertEqual([r['attempts'] for r in doc['submission_campaigns']['test']['requests'].values()],[2]*3)
+
+    def test_campaign_restart_preserves_counter_and_round_robin(self):
+        states={s:'SUCCESS' for s in ('S07','S40','S41')}
+        saved={'shots':{},'submission_campaigns':{'test':{'requests':{'S07':{'attempts':1,'request_hash':'hash'}},'last_submitted_sid':'S07','last_submission_at':0}}}
+        doc,submitted,_,_,_=self.simulate(states,budget=151,saved_doc=saved,
+            submit_errors={s:'429 1305 busy' for s in states},window=1,
+            submission_interval_seconds=75,max_submission_attempts_per_shot=2,retry_campaign='test')
+        self.assertEqual(submitted,['S40','S41'])
+        self.assertEqual(doc['submission_campaigns']['test']['requests']['S07']['attempts'],1)
+
+    def test_campaign_at_cap_never_submits_again(self):
+        saved={'shots':{},'submission_campaigns':{'test':{'requests':{'S07':{'attempts':100,'request_hash':'hash'}}}}}
+        _,submitted,_,_,missing=self.simulate({'S07':'SUCCESS'},saved_doc=saved,
+            submission_interval_seconds=75,max_submission_attempts_per_shot=100,retry_campaign='test')
+        self.assertEqual(submitted,[])
+        self.assertEqual(missing,['S07'])
+
+    def test_campaign_success_exits_retry_queue(self):
+        doc,submitted,_,_,missing=self.simulate({'S07':'SUCCESS'},budget=400,
+            submission_interval_seconds=75,max_submission_attempts_per_shot=100,retry_campaign='test')
+        self.assertEqual(submitted,['S07'])
+        self.assertEqual(missing,[])
+        self.assertEqual(doc['shots']['S07']['status'],'completed')
 
     def test_resume_does_not_submit_duplicate(self):
         row={'status':'queued','task_id':'existing','request_hash':'hash'}

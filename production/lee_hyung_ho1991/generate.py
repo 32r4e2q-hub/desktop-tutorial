@@ -196,13 +196,23 @@ def collect_clip(doc, shot, sources, qa, publish):
 
 
 def run_queue(client, project, shots, doc, sources, qa, publish,
-              window=3, budget=240*60, max_task_attempts=2, cooldown_seconds=60):
+              window=3, budget=240*60, max_task_attempts=2, cooldown_seconds=60,
+              submission_interval_seconds=0, max_submission_attempts_per_shot=0, retry_campaign=""):
     """One writer, bounded cloud concurrency, fair polling and capped retries.
 
     PROCESSING never frees a slot or triggers duplicate work. All existing task
     IDs are polled, even if they exceed the window during recovery. Time budget
     expiry preserves those IDs for the next run. Download retries reuse URLs.
     """
+    campaign = None
+    if max_submission_attempts_per_shot:
+        if not retry_campaign or not submission_interval_seconds:
+            raise ValueError('A capped submission campaign requires a name and fixed interval')
+        campaign = doc.setdefault('submission_campaigns', {}).setdefault(retry_campaign, {'requests': {}})
+    def submission_count(sid):
+        return campaign['requests'].get(sid, {}).get('attempts', 0) if campaign is not None else 0
+    def capped(sid):
+        return campaign is not None and submission_count(sid) >= max_submission_attempts_per_shot
     deadline = time.monotonic() + budget
     attempts = {}; download_attempts = {}; next_poll = {}; retry_at = {}; pending = []
     active = {}; hashes = {s['id']: request_hash(project, s) for s in shots}
@@ -222,11 +232,19 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
         if resumable_task(row, hashes[sid]) or (row.get('status') == 'generated' and row.get('video_url')):
             active[sid] = shot
             attempts[sid] += 1
-        else:
+        elif not capped(sid):
             pending.append(shot)
     # Untouched work before previously failed shots.
     pending.sort(key=lambda s: len(doc.get('shots', {}).get(s['id'], {}).get('task_failures', [])))
+    if campaign is not None and campaign.get('last_submitted_sid'):
+        order = [s['id'] for s in shots]
+        if campaign['last_submitted_sid'] in order:
+            pivot = order.index(campaign['last_submitted_sid']) + 1
+            rotated = order[pivot:] + order[:pivot]
+            pending.sort(key=lambda s: rotated.index(s['id']))
     submit_after = 0
+    if campaign is not None and 'last_submission_at' in campaign:
+        submit_after = time.monotonic() + max(0, submission_interval_seconds - (time.time() - campaign['last_submission_at']))
     consecutive_rejections = 0
     while (pending or active) and time.monotonic() < deadline:
         # Poll EVERY live task before filling slots; no 30-minute per-shot loop.
@@ -262,7 +280,8 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
                         raise RuntimeError('Provider quota exhausted; stopped without retrying')
                     if attempts.get(sid, 1) < max_task_attempts and (not code and not message or retryable(RuntimeError(detail))):
                         retry_at[sid] = time.monotonic() + cooldown_seconds
-                        pending.append(shot)  # one retry, after untouched work
+                        if not capped(sid):
+                            pending.append(shot)  # retry after untouched work
                     continue
                 if status != 'SUCCESS':
                     next_poll[sid] = time.monotonic() + 10
@@ -291,6 +310,18 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
             if not eligible:
                 break
             shot = eligible[0]; sid = shot['id']
+            if campaign is not None:
+                record = campaign['requests'].setdefault(sid, {'request_hash': hashes[sid], 'attempts': 0})
+                if record['request_hash'] != hashes[sid]:
+                    raise RuntimeError('Campaign request changed; refuse to reset counters: ' + sid)
+                record['attempts'] += 1
+                campaign['last_submission_at'] = time.time()
+                campaign['last_submitted_sid'] = sid
+                # Reserve durably before calling the provider. A crash can consume one
+                # reservation, but never silently resets or exceeds the request cap.
+                checkpoint(doc, f'{sid} submission reserved {record["attempts"]}/{max_submission_attempts_per_shot}', publish=publish)
+            if submission_interval_seconds:
+                submit_after = time.monotonic() + submission_interval_seconds
             try:
                 response = client.videos.generations(**full_payload(project, shot))
             except Exception as exc:
@@ -299,12 +330,14 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
                 # Back off submissions, but keep collecting other active tasks.
                 detail=str(exc)[:180]
                 consecutive_rejections += 1
-                delay = min(300, 30 * 2 ** min(consecutive_rejections - 1, 4))
+                delay = submission_interval_seconds or min(300, 30 * 2 ** min(consecutive_rejections - 1, 4))
                 print(f'Submission paused {delay}s ({sid}): {detail}', flush=True)
                 history=doc.setdefault('submission_backoffs',[])
                 history.append({'shot':sid,'error':detail,'at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'retry_after_seconds':delay})
                 # A synchronous provider rejection must not pin the entire queue to one prompt.
-                pending.remove(shot);pending.append(shot)
+                pending.remove(shot)
+                if not capped(sid):
+                    pending.append(shot)
                 if len(history)==1 or len(history)%5==0:
                     checkpoint(doc,'provider submission backoff; task IDs retained',publish=publish)
                 submit_after = time.monotonic() + delay
@@ -322,19 +355,30 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
                        reference_sha256=reference_sha256(shot))
             active[sid] = shot
         if pending or active:
-            time.sleep(min(2, max(0, deadline-time.monotonic())))
+            now = time.monotonic()
+            sleep_for = min(2, max(0, deadline-now))
+            if pending and not active and submit_after > now:
+                sleep_for = min(sleep_for, submit_after-now)
+            time.sleep(sleep_for)
     return [s['id'] for s in shots if not receipt_ready(doc.get('shots', {}).get(s['id'], {}), hashes[s['id']])]
 
 
 def queue_policy(options):
-    bounds = {'window': (1, 3, 3), 'max_task_attempts': (1, 10, 2),
-              'budget_minutes': (1, 240, 240), 'cooldown_seconds': (0, 300, 60)}
+    bounds = {'window': (1, 3, 3), 'max_task_attempts': (1, 100, 2),
+              'budget_minutes': (1, 240, 240), 'cooldown_seconds': (0, 300, 60),
+              'submission_interval_seconds': (0, 300, 0), 'max_submission_attempts_per_shot': (0, 100, 0)}
     policy = {}
     for key, (low, high, default) in bounds.items():
         value = options.get(key, default)
         if type(value) is not int or not low <= value <= high:
             raise ValueError(f'{key} must be an integer between {low} and {high}')
         policy[key] = value
+    campaign = options.get('retry_campaign', '')
+    if not isinstance(campaign, str) or len(campaign) > 120:
+        raise ValueError('Invalid retry_campaign')
+    policy['retry_campaign'] = campaign
+    if policy['max_submission_attempts_per_shot'] and (not campaign or not policy['submission_interval_seconds']):
+        raise ValueError('A capped campaign requires a name and fixed interval')
     policy['budget'] = policy.pop('budget_minutes') * 60
     return policy
 
