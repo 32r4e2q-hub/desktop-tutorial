@@ -48,7 +48,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          film="$(cat film-path.txt)"
+          cp "$(cat film-path.txt)" lee-hyung-ho-3min-1080p-review.mp4
+          film=lee-hyung-ho-3min-1080p-review.mp4
           gh release create lee-hyung-ho1991-review-v1 "$film#李亨浩案《四十四天的电话》三分钟审片版" review-notice.md \
             --repo '${{ github.repository }}' --target '${{ github.sha }}' \
             --prerelease --title '李亨浩案《四十四天的电话》· 三分钟技术成片（待人工审片）' \

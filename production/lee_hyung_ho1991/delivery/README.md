@@ -1,5 +1,8 @@
 # 李亨浩案《四十四天的电话》技术成片交付
 
+- 已发布审片版：https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/lee-hyung-ho1991-review-v1
+- 独立 MP4 下载：https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/lee-hyung-ho1991-review-v1/lee-hyung-ho-3min-1080p-review.mp4
+
 - 成功制作任务：https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38843664095
 - 原始交付包：https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38843664095/artifacts/12021904661
 - 包名：`lee-hyung-ho-production-19`，包含影片、源片、字幕和机器质检证据。
