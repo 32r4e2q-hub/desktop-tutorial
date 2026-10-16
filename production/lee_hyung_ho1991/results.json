@@ -1237,7 +1237,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T12:54:09Z",
+  "updated_at": "2026-10-16T12:54:10Z",
   "run_id": "38903575139",
   "previous_results": {
     "S12": [
@@ -1421,6 +1421,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S07"
       },
       {
         "id": "S07"
@@ -2161,6 +2164,9 @@
       },
       {
         "id": "S40"
+      },
+      {
+        "id": "S40"
       }
     ],
     "S41": [
@@ -2194,6 +2200,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S41"
       },
       {
         "id": "S41"
@@ -2309,9 +2318,12 @@
   },
   "queue_policy": {
     "window": 1,
-    "max_task_attempts": 10,
-    "cooldown_seconds": 60,
-    "budget": 10800
+    "max_task_attempts": 100,
+    "cooldown_seconds": 75,
+    "submission_interval_seconds": 75,
+    "max_submission_attempts_per_shot": 100,
+    "retry_campaign": "last-three-75s-100-v1",
+    "budget": 13500
   },
   "submission_backoffs": [
     {
@@ -3298,5 +3310,17 @@
       "at": "2026-10-16T12:51:32Z",
       "retry_after_seconds": 300
     }
-  ]
+  ],
+  "submission_campaigns": {
+    "last-three-75s-100-v1": {
+      "requests": {
+        "S07": {
+          "request_hash": "c8f3f9410eb6869750daafda63e7268d7fef408b2b9df00fc12acb35896b6b05",
+          "attempts": 1
+        }
+      },
+      "last_submission_at": 1792155250.9891422,
+      "last_submitted_sid": "S07"
+    }
+  }
 }
