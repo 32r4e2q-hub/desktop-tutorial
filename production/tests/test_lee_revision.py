@@ -41,3 +41,24 @@ def test_only_replacement_payload_hashes_change():
             assert ('image_url' in payload)==bool(s.get('reference_image'))
             assert 'FIRST frame' in s['prompt']
             assert 'No transitions or dissolves' in payload['prompt']
+
+def test_final_caption_overrides_survive_regeneration():
+    _,cues=build()
+    by_text={c['text']:c for c in cues}
+    overrides=json.loads((HERE/'revision-2/caption-final-overrides.json').read_text())
+    assert len(overrides)==3
+    for text,change in overrides.items():
+        assert by_text[text]['start']==pytest.approx(change['start'])
+
+def test_caption_words_still_match_all_six_narration_scripts():
+    import re
+    _,cues=build()
+    story=json.loads((HERE/'story.json').read_text())
+    normalize=lambda text:''.join(re.findall(r'[\u4e00-\u9fffA-Za-z0-9]',text))
+    assert normalize(''.join(c['text'] for c in cues))==normalize(''.join(c['text'] for c in story['chapters']))
+
+def test_final_street_clip_does_not_include_source_dissolve():
+    rows,_=build();shots={r['id']:r for r in rows}
+    assert shots['S42']['source_window']==[.12,3.8]
+    assert shots['S42']['end_frame']==shots['S43']['start_frame']==4794
+    assert (shots['S42']['end_frame']-shots['S42']['start_frame'])/30/(3.8-.12)<1.33

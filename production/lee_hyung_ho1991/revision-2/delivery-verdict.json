@@ -1,0 +1,74 @@
+{
+  "film_sha256": "b212bbb1fd5893088047474bc446d5b3a66036eccb07fec40c8515eb50ca188b",
+  "delivery_status": "released_with_disclosed_review_limits",
+  "release_url": "https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/lee-hyung-ho1991-improved-v2-final",
+  "download_url": "https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/lee-hyung-ho1991-improved-v2-final/lee-hyung-ho-3min-1080p-v2.mp4",
+  "release_asset_id": 648952562,
+  "release_asset_digest_matches": true,
+  "bytes": 63361630,
+  "duration_seconds": 180,
+  "technical": {
+    "complete_decode": true,
+    "frames": 5400,
+    "unplanned_black_frames": 0,
+    "pts_issues": 0,
+    "freezes_over_one_second": 0
+  },
+  "visual_review": {
+    "method": "Agent image inspection of 46-shot/4-sample contact sheets, all 43 temporal-event sheets, 9 face-candidate sheets and 7 extreme-hand-candidate sheets; final changed shots S26/S36/S42 and subtitle-bearing S11/S44/S45 reinspected after final export. Not continuous human playback or human inspection of all 5400 full-resolution frames.",
+    "pages": {
+      "shots": 10,
+      "events": 8,
+      "face-candidates": 9,
+      "hand-candidates": 7
+    },
+    "confirmed_new_blocking_anatomy_defects": 0,
+    "confirmed_fixes": [
+      "S26 generated tape lettering softened in the correct diagonal region",
+      "S36 tight clock crop excludes the ghost-like upper-body crowd",
+      "S42 source dissolve omitted; S43 begins at 159.8 seconds",
+      "3 confirmed caption start errors corrected in final file"
+    ],
+    "limitation": "Contact-sheet and detector coverage cannot guarantee zero transient AI artifacts."
+  },
+  "audio_review": {
+    "waveform_windows_passed": 18,
+    "maximum_absolute_lag_seconds": 0.0005,
+    "lip_sync_claimed": false,
+    "small_model_all_six_chapters": "review/verbatim-check.json",
+    "medium_control_N01_N03_N06": "review/medium-asr-control.json",
+    "medium_reuse_basis": "audio-identity.json proves identical AAC packets in final and intermediate films",
+    "selected_CER": {
+      "N01": 0.0342,
+      "N02": 0.0513,
+      "N03": 0.06,
+      "N04": 0.0654,
+      "N05": 0.0673,
+      "N06": 0.0719
+    },
+    "original_narration_and_caption_wording_identical": true,
+    "human_word_by_word_listening_claimed": false,
+    "limitation": "ASR contains proper-name/homophone disagreements; threshold success does not certify every spoken character."
+  },
+  "captions": {
+    "confirmed_timing_errors_remaining_under_ASR_gate": 0,
+    "low_confidence_ASR_cues": 8,
+    "low_confidence_texts": [
+      "首尔狎鸥亭。",
+      "一次交接中，",
+      "取钱者脱身。",
+      "父亲回到家，",
+      "希望一次次被递来，",
+      "又一次次被抽走。",
+      "韩国当时适用的追诉时效届满，",
+      "案件依旧未侦破。"
+    ],
+    "limitation": "Eight low-match cues retain source pause-based timing. They are not certified word-level matches; low confidence is not proof of a timing error."
+  },
+  "tests": {
+    "passed": 171,
+    "subtests_passed": 185,
+    "skipped": 0
+  },
+  "raw_report_note": "technical-report.json records renderer-time pending review; this later scoped review supersedes its visual pending field, not its explicit human-listening limitation."
+}
