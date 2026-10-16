@@ -313,12 +313,35 @@ def discovered_video_models(model_lists: list[dict]) -> list[str]:
     return names
 
 
+RETRYABLE_HINTS = (
+    "queue is full", "queue full", "retry later", "try again", "busy", "timed out", "timeout",
+    "network error", "http 429", "rate limit", "rate_limit", "http 500", "http 502", "http 503",
+    "http 504",
+)
+
+
+def retryable(message: str) -> bool:
+    """A failed submission worth repeating later; NOT a dead model or an empty wallet."""
+    lower = message.lower()
+    if "cannot succeed" in lower or "insufficient" in lower or "authentication failed" in lower:
+        return False
+    return any(word in lower for word in RETRYABLE_HINTS)
+
+
 def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: float,
-                poll_timeout: float = 480) -> list[dict]:
-    """Actually submit one minimal clip per model. Costs credits; opt-in only."""
+                poll_timeout: float = 480, retries: int = 6,
+                retry_delay: float = 0.0) -> list[dict]:
+    """Actually submit one minimal clip per model. Costs credits; opt-in only.
+
+    Each attempt is spaced by ``retry_delay`` seconds (>=60, because the free video pool is
+    1 RPM) and the attempt history is written to the report: "queue is full at 15:03, 15:06,
+    15:09 ..." is evidence, while "could not create a task" is not.
+    """
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import agnes_video as agnes  # noqa: E402  (repo module, stdlib only)
 
+    spacing = max(60.0, pause, retry_delay)
+    attempt_limit = max(1, retries)
     rows = []
     for model in models:
         row: dict[str, Any] = {"model": model, "kind": "video", "mode": "spend"}
@@ -327,25 +350,37 @@ def spend_probe(base: str, key: str, models: list[str], outdir: Path, pause: flo
         ) if not model.startswith("agnes-video-v2.0") else (
             v2_payload(model) | {"prompt": "A locked-off shot of an empty quiet room, soft daylight, no people, no text.", "num_frames": 81, "width": 832, "height": 448}
         )
-        # 免费档视频创建是 1 RPM：先等满一分钟，429 之后也要等跨分钟再重试。
-        time.sleep(max(60, pause))
-        try:
-            created = agnes.create_task(base, key, payload, retries=6, retry_delay=max(90, pause))
+        time.sleep(spacing)  # 免费档视频创建是 1 RPM，先等满一分钟再发
+        attempts: list[dict[str, Any]] = []
+        for attempt in range(1, attempt_limit + 1):
+            stamp = time.strftime("%H:%M:%SZ", time.gmtime())
+            try:
+                created = agnes.create_task(base, key, payload, retries=1, retry_delay=0)
+            except Exception as exc:  # noqa: BLE001 - record whatever came back, keep probing
+                message = str(exc)
+                attempts.append({"attempt": attempt, "at": stamp, "error": message[:400]})
+                print(f"[spend] {model} attempt {attempt}/{attempt_limit} at {stamp}: {message[:160]}")
+                if not retryable(message) or attempt == attempt_limit:
+                    row.update({
+                        "status": None,
+                        "attempts": attempts,
+                        "verdict": classify(400, message),
+                        "detail": f"连续 {attempt} 次提交均失败；最后一次（{stamp}）：{message}"[:700],
+                    })
+                    break
+                time.sleep(spacing)
+                continue
             video_id = created.get("video_id") or created.get("id") or created.get("task_id")
             task_id = created.get("task_id") or created.get("id")
             row.update({"status": 200, "verdict": "ACCEPTED", "video_id": video_id, "task_id": task_id,
-                        "detail": "task accepted"})
+                        "attempts": attempts, "accepted_on_attempt": attempt, "accepted_at": stamp,
+                        "detail": f"第 {attempt} 次提交被受理"})
             if video_id:
                 final, url = agnes.poll_task(base, key, model, str(video_id), str(task_id) if task_id else None,
                                              10, poll_timeout, 12)
                 row["video_url"] = url
                 row["final_status"] = (final or {}).get("status")
-                row["verdict"] = "ACCEPTED"
-        except agnes.Fatal as exc:
-            message = str(exc)
-            row.update({"status": None, "detail": message, "verdict": classify(400, message)})
-        except Exception as exc:  # noqa: BLE001 - report whatever happened, keep probing
-            row.update({"status": None, "detail": f"{type(exc).__name__}: {exc}", "verdict": "UNKNOWN"})
+            break
         rows.append(row)
         time.sleep(pause)
     return rows
@@ -405,6 +440,11 @@ def main() -> int:
     parser.add_argument("--outdir", default="work/agnes-model-probe")
     parser.add_argument("--pause", type=float, default=3.0, help="seconds between calls (free tier is 10 RPM)")
     parser.add_argument("--poll-timeout", type=float, default=600, help="per-model poll budget in --spend mode")
+    parser.add_argument("--spend-retries", type=int, default=6,
+                        help="create-task attempts per model in --spend mode; raise it to sit through a "
+                             "\"video queue is full\" window instead of sampling one moment of it")
+    parser.add_argument("--spend-retry-delay", type=float, default=0.0,
+                        help="seconds between create attempts in --spend mode; 0 = max(90, --pause)")
     parser.add_argument("--text-pause", type=float, default=None,
                         help="seconds between text calls; defaults to --pause")
     parser.add_argument("--spend", action="store_true", help="submit one real minimal clip per video model (costs credits)")
@@ -458,7 +498,7 @@ def main() -> int:
         results += probe_video_models(args.base_url.rstrip("/"), key, validate_models, args.pause)
     if spend_models:
         results += spend_probe(args.base_url.rstrip("/"), key, spend_models, outdir, args.pause,
-                               args.poll_timeout)
+                               args.poll_timeout, args.spend_retries, args.spend_retry_delay)
     report["results"] = results
     report["results"] += probe_text_models(args.base_url.rstrip("/"), key, text_models, text_pause)
 

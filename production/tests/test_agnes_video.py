@@ -36,6 +36,7 @@ class MockAgnes(BaseHTTPRequestHandler):
     poll_script: list = []  # queue of (status_code, body) for the poll endpoint
     requests: list = []
     create_failures = 0  # how many 503s to return before accepting the task
+    fatal_create_error = None  # (code, message) that a client must never retry
     primary_404 = False  # make /agnesapi 404 so the client must use /v1/videos/<task_id>
 
     def log_message(self, *_args):  # keep test output clean
@@ -76,6 +77,9 @@ class MockAgnes(BaseHTTPRequestHandler):
             return self._send(401, {"error": {"message": "invalid api key", "code": "unauthorized"}})
         if self.path != "/v1/videos":
             return self._send(404, {"error": "not found"})
+        if type(self).fatal_create_error is not None:
+            code, message = type(self).fatal_create_error
+            return self._send(code, {"error": {"message": message, "code": "model_not_found"}})
         if type(self).create_failures > 0:
             type(self).create_failures -= 1
             return self._send(503, {"error": {"message": "service busy"}})
@@ -225,6 +229,7 @@ class EndToEndTests(unittest.TestCase):
         MockAgnes.poll_script = []
         MockAgnes.requests = []
         MockAgnes.create_failures = 0
+        MockAgnes.fatal_create_error = None
         MockAgnes.primary_404 = False
         self.tmp = tempfile.TemporaryDirectory()
         self.out = Path(self.tmp.name) / "clip.mp4"
@@ -282,6 +287,23 @@ class EndToEndTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("Authentication failed", result.stderr)
         self.assertEqual(len([r for r in MockAgnes.requests if r[0] == "POST"]), 1)  # no pointless retries
+
+    def test_retired_model_fails_fast(self):
+        # 2026-09-25 起 agnes-video-v2.0 下线：网关用 503 + "No available channel" 回答。
+        # 这种 5xx 重试 6 次也还是同一个结果，只会白等 9 分钟，必须一次就放弃。
+        MockAgnes.fatal_create_error = (503, "No available channel for model agnes-video-v2.0 under group default")
+        result = run_cli("--prompt", "x", "--output", str(self.out), base_url=self.base_url)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("cannot succeed", result.stderr)
+        self.assertEqual(len([r for r in MockAgnes.requests if r[0] == "POST"]), 1)  # 不许重试
+
+    def test_queue_full_is_still_retried(self):
+        # 正好相反：503 "video queue is full" 是平台侧拥堵，属于可重试错误。
+        MockAgnes.create_failures = 2
+        MockAgnes.poll_script = [(200, "COMPLETED")]
+        result = run_cli("--prompt", "x", "--output", str(self.out), base_url=self.base_url)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(len([r for r in MockAgnes.requests if r[0] == "POST"]), 3)  # 两次 503 + 一次成功
 
     def test_missing_api_key(self):
         result = run_cli("--prompt", "x", "--output", str(self.out), base_url=self.base_url, api_key=None)
