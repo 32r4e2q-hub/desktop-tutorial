@@ -1,69 +1,27 @@
 {
-  "generated_at": "2026-10-16T07:09:44Z",
+  "generated_at": "2026-10-16T07:30:46Z",
   "base_url": "https://apihub.agnes-ai.com",
   "secret_available": true,
   "spend": true,
   "results": [
-    {
-      "model": "agnes-video-v2.0",
-      "kind": "video",
-      "v2-shape": {
-        "ok": false,
-        "status": 503,
-        "raw": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261016070946372017293YsJv6zuq)\",\"type\":\"AgnesAI_error\"}}",
-        "elapsed_s": 0.32,
-        "verdict": "MODEL_REFUSED",
-        "detail": "No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261016070946372017293YsJv6zuq) code=model_not_found type=AgnesAI_error"
-      },
-      "2.5-shape": {
-        "ok": false,
-        "status": 503,
-        "raw": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261016071056655021475VjbfZ89V)\",\"type\":\"AgnesAI_error\"}}",
-        "elapsed_s": 0.28,
-        "verdict": "MODEL_REFUSED",
-        "detail": "No available channel for model agnes-video-v2.0 under group default (distributor) (request id: 20261016071056655021475VjbfZ89V) code=model_not_found type=AgnesAI_error"
-      },
-      "verdict": "MODEL_REFUSED"
-    },
-    {
-      "model": "agnes-video-v2.0-flash",
-      "kind": "video",
-      "v2-shape": {
-        "ok": false,
-        "status": 503,
-        "raw": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0-flash under group default (distributor) (request id: 20261016071206933979572ObDM7ZT2)\",\"type\":\"AgnesAI_error\"}}",
-        "elapsed_s": 0.28,
-        "verdict": "MODEL_REFUSED",
-        "detail": "No available channel for model agnes-video-v2.0-flash under group default (distributor) (request id: 20261016071206933979572ObDM7ZT2) code=model_not_found type=AgnesAI_error"
-      },
-      "2.5-shape": {
-        "ok": false,
-        "status": 503,
-        "raw": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"No available channel for model agnes-video-v2.0-flash under group default (distributor) (request id: 20261016071317251739160cOzLWvy8)\",\"type\":\"AgnesAI_error\"}}",
-        "elapsed_s": 0.32,
-        "verdict": "MODEL_REFUSED",
-        "detail": "No available channel for model agnes-video-v2.0-flash under group default (distributor) (request id: 20261016071317251739160cOzLWvy8) code=model_not_found type=AgnesAI_error"
-      },
-      "verdict": "MODEL_REFUSED"
-    },
     {
       "model": "agnes-video-2.5",
       "kind": "video",
       "v2-shape": {
         "ok": false,
         "status": 400,
-        "raw": "{\"code\":\"invalid_request\",\"message\":\"prompt is required (request id: 20261016071427555940113JDmTihP5)\",\"data\":null}",
-        "elapsed_s": 0.31,
+        "raw": "{\"code\":\"invalid_request\",\"message\":\"prompt is required (request id: 20261016073047605586671zn6ieM72)\",\"data\":null}",
+        "elapsed_s": 0.3,
         "verdict": "MODEL_ACCEPTED",
-        "detail": "prompt is required (request id: 20261016071427555940113JDmTihP5)"
+        "detail": "prompt is required (request id: 20261016073047605586671zn6ieM72)"
       },
       "2.5-shape": {
         "ok": false,
         "status": 400,
-        "raw": "{\"code\":\"invalid_request\",\"message\":\"prompt is required (request id: 202610160715378765543999ReSt06V)\",\"data\":null}",
-        "elapsed_s": 0.3,
+        "raw": "{\"code\":\"invalid_request\",\"message\":\"prompt is required (request id: 202610160731578952292516jfBWSiG)\",\"data\":null}",
+        "elapsed_s": 0.29,
         "verdict": "MODEL_ACCEPTED",
-        "detail": "prompt is required (request id: 202610160715378765543999ReSt06V)"
+        "detail": "prompt is required (request id: 202610160731578952292516jfBWSiG)"
       },
       "verdict": "MODEL_ACCEPTED"
     },
@@ -71,55 +29,37 @@
       "model": "agnes-video-2.5-flash",
       "kind": "video",
       "mode": "spend",
-      "status": null,
-      "detail": "Could not create video task after 6 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261016072329681588445FOeBCV8h)",
-      "verdict": "QUEUE_FULL"
-    },
-    {
-      "model": "agnes-2.5-flash",
-      "kind": "text",
+      "status": 200,
+      "verdict": "ACCEPTED",
+      "video_id": "task_7dSNNBCUzfnQQygImVbcQaMhG8Bfy0UT",
+      "task_id": "task_7dSNNBCUzfnQQygImVbcQaMhG8Bfy0UT",
       "attempts": [
         {
-          "ok": true,
-          "status": 200,
-          "raw": "{\"id\":\"9e3c25b763cf484e8b04671961cf4376\",\"created\":1792135480,\"model\":\"agnes-2.5-flash\",\"object\":\"chat.completion\",\"choices\":[{\"finish_reason\":\"length\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"reasoning_content\":\"The user is asking me to reply with\"},\"provider_specific_fields\":{\"matched_stop\":null}}],\"usage\":{\"completion_tokens\":8,\"prompt_tokens\":291,\"total_tokens\":299,\"completion_tokens_details\":{\"reasoning_tokens\":8,\"text_tokens\":0},\"prompt_tokens_details\":{\"cached_tokens\":256}},\"metadata\":{\"weight_version\":\"default\"}}",
-          "elapsed_s": 0.7,
-          "verdict": "ACCEPTED",
-          "detail": "{\"id\":\"9e3c25b763cf484e8b04671961cf4376\",\"created\":1792135480,\"model\":\"agnes-2.5-flash\",\"object\":\"chat.completion\",\"choices\":[{\"finish_reason\":\"length\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"reasoning_content\":\"The user is asking me to reply with\"},\"provider_specific_fields\":{\"matched_stop\":null}}],\"usage\":{\"completion_tokens\":8,\"prompt_tokens\":291,\"total_tokens\":299,\"completion_tok",
-          "path": "/v1/chat/completions",
-          "reply": "",
-          "reported_model": "agnes-2.5-flash",
-          "usage": {
-            "completion_tokens": 8,
-            "prompt_tokens": 291,
-            "total_tokens": 299,
-            "completion_tokens_details": {
-              "reasoning_tokens": 8,
-              "text_tokens": 0
-            },
-            "prompt_tokens_details": {
-              "cached_tokens": 256
-            }
-          }
+          "attempt": 1,
+          "at": "07:36:08Z",
+          "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261016073608902431585a98PNgqf)"
+        },
+        {
+          "attempt": 2,
+          "at": "07:39:09Z",
+          "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261016073909202038344BKDHnvH8)"
+        },
+        {
+          "attempt": 3,
+          "at": "07:42:09Z",
+          "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261016074209563203093fZQN4T9r)"
+        },
+        {
+          "attempt": 4,
+          "at": "07:45:09Z",
+          "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610160745098707801813qEakoYA)"
         }
       ],
-      "verdict": "ACCEPTED",
-      "status": 200,
-      "detail": "{\"id\":\"9e3c25b763cf484e8b04671961cf4376\",\"created\":1792135480,\"model\":\"agnes-2.5-flash\",\"object\":\"chat.completion\",\"choices\":[{\"finish_reason\":\"length\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"reasoning_content\":\"The user is asking me to reply with\"},\"provider_specific_fields\":{\"matched_stop\":null}}],\"usage\":{\"completion_tokens\":8,\"prompt_tokens\":291,\"total_tokens\":299,\"completion_tok",
-      "reported_model": "agnes-2.5-flash",
-      "reply": "",
-      "usage": {
-        "completion_tokens": 8,
-        "prompt_tokens": 291,
-        "total_tokens": 299,
-        "completion_tokens_details": {
-          "reasoning_tokens": 8,
-          "text_tokens": 0
-        },
-        "prompt_tokens_details": {
-          "cached_tokens": 256
-        }
-      }
+      "accepted_on_attempt": 5,
+      "accepted_at": "07:48:09Z",
+      "detail": "第 5 次提交被受理",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_7dSNNBCUzfnQQygImVbcQaMhG8Bfy0UT.mp4",
+      "final_status": "completed"
     }
   ],
   "model_lists": [
@@ -128,7 +68,7 @@
       "ok": true,
       "status": 200,
       "raw": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.1-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-pro\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-2.5-pro-beta\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]}],\"object\":\"list\",\"success\":true}",
-      "elapsed_s": 0.41,
+      "elapsed_s": 0.28,
       "verdict": "ACCEPTED",
       "detail": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-image",
       "model_names": [
@@ -154,7 +94,7 @@
       "ok": false,
       "status": 404,
       "raw": "{\"error\":{\"message\":\"Invalid URL (GET /v1/model/list)\",\"type\":\"invalid_request_error\",\"param\":\"\",\"code\":\"\"}}",
-      "elapsed_s": 1.03,
+      "elapsed_s": 1.01,
       "verdict": "MODEL_ACCEPTED",
       "detail": "Invalid URL (GET /v1/model/list) type=invalid_request_error",
       "model_names": []
@@ -164,15 +104,13 @@
       "ok": false,
       "status": 403,
       "raw": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n<title>Attention Required! | Cloudflare</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\" />\n<meta name=\"robots\" content=\"noindex, nofollow\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<link rel=\"stylesheet\" id=\"cf_styles-css\" href=\"/cdn-cgi/styles/cf.errors.css\" />\n<!--[if lt IE 9]><link rel=\"stylesheet\" id='cf_styles-ie-css' href=\"/cdn-cgi/styles/cf.errors.ie.css\" /><![endif]-->\n<style>body{margin:0;padding:0}</style>\n\n\n<!--[if gte IE 10]><!-->\n<script>\n  if (!navigator.cookieEnabled) {\n    window.addEventListener('DOMContentLoaded', function () {\n      var cookieEl = document.getElementById('cookie-alert');\n      cookieEl.style.display = 'block';\n    })\n  }\n</script>\n<!--<![endif]-->\n\n</head>\n<body>\n  <div id=\"cf-wrapper\">\n    <div class=\"cf-alert cf-alert-error cf-cookie-error\" id=\"cookie-alert\" data-translate=\"enable_cookies\">Please enable cookies.</div>\n    <div id=\"cf-error-details\" class=\"cf-error-details-wrapper\">\n      <div class=\"cf-wrapper cf-header cf-error-overview\">\n        <h1 data-translate=\"block_headline\">Sorry, you have been blocked</h1>\n        <h2 class=\"cf-subheadline\"><span data-translate=\"unable_to_access\">You are unable to access</span> agnes-ai.com</h2>\n      </div><!-- /.header -->\n\n      <div class=\"cf-section cf-highlight\">\n        <div class=\"cf-wrapper\">\n          <div class=\"cf-screenshot-container cf-screenshot-full\">\n            \n              <span class=\"cf-no-screenshot error\"></span>\n            \n          </div>\n        </div>\n      </div><!-- /.captcha-container -->\n\n      <div",
-      "elapsed_s": 0.07,
+      "elapsed_s": 0.06,
       "verdict": "AUTH_FAILED",
       "detail": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]--> <head> <title>Attention Required! | Cloudflare</title> <meta charset=\"UTF-8\" /> <meta http-"
     }
   ],
   "probed_video_models": [
-    "agnes-video-v2.0",
-    "agnes-video-v2.0-flash",
-    "agnes-video-2.5",
-    "agnes-video-2.5-flash"
+    "agnes-video-2.5-flash",
+    "agnes-video-2.5"
   ]
 }
