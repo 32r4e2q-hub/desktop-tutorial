@@ -51,13 +51,6 @@ jobs:
           sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
           pip install 'numpy==1.26.4' 'pillow>=10,<13' 'av>=12,<16' 'scipy>=1.12,<2' 'faster-whisper>=1.1,<2' 'zhconv>=1.4,<2' 'opencv-python-headless==4.10.0.84' 'matplotlib>=3.8,<4' 'absl-py>=2,<3' 'attrs>=19.1' 'flatbuffers>=2' 'protobuf>=4.25.3,<5'
           pip install --no-deps 'mediapipe==0.10.21'
-      - name: Restore original verified sources without more generation
-        uses: actions/download-artifact@v4
-        with:
-          name: lee-hyung-ho-production-19
-          run-id: 38843664095
-          github-token: ${{ github.token }}
-          path: work/original
       - name: Restore visually approved replacement clips
         uses: actions/download-artifact@v4
         with:
@@ -71,7 +64,7 @@ jobs:
           import hashlib,json,shutil
           from pathlib import Path
           p=Path('production/lee_hyung_ho1991');dest=Path('work/lee_hyung_ho1991/sources');dest.mkdir(parents=True,exist_ok=True)
-          for srcroot in ['work/original','work/replacement']:
+          for srcroot in ['work/replacement']:
               for src in Path(srcroot).rglob('S??.mp4'):shutil.copy2(src,dest/src.name)
           doc=json.loads((p/'results.json').read_text())
           for shot in json.loads((p/'story.json').read_text())['shots']:
@@ -85,6 +78,7 @@ jobs:
           cp work/revision-render/{technical-report,edit-decision-list,final-audio-report,audio-report,alignment-report,caption-timing}.json production/lee_hyung_ho1991/revision-2/
           cp work/revision-render/technical-report.json production/lee_hyung_ho1991/delivery/
           cp work/revision-render/edit-decision-list.json production/lee_hyung_ho1991/delivery/
+          cp work/revision-render/final-contact.jpg production/lee_hyung_ho1991/revision-2/
       - name: Scan every newly rendered frame for technical and visual candidates
         run: |
           python -u production/lee_hyung_ho1991/audit_frame_distortions.py --film work/lee-hyung-ho-3min-1080p-v2.mp4 --out production/lee_hyung_ho1991/revision-2/frame-distortion-audit.json --work work/revision-frame-audit
