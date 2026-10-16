@@ -547,7 +547,17 @@
       "id": "S20"
     },
     "S21": {
-      "id": "S21"
+      "id": "S21",
+      "status": "queued",
+      "task_id": "20261016135851e906100c996547d2",
+      "request_hash": "46fdd73d9b3c08f3d379c275f4dcfc0a564da729bfa7522dba340fffc2b1314c",
+      "error": null,
+      "task_attempt": 1,
+      "character_ids": [],
+      "face_visible": false,
+      "reference_image": null,
+      "reference_sha256": null,
+      "updated_at": "2026-10-16T05:58:52Z"
     },
     "S22": {
       "id": "S22"
@@ -873,7 +883,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T05:57:49Z",
+  "updated_at": "2026-10-16T05:58:52Z",
   "run_id": "38858345778",
   "previous_results": {
     "S12": [
@@ -1182,6 +1192,9 @@
       },
       {
         "id": "S14"
+      },
+      {
+        "id": "S14"
       }
     ],
     "S20": [
@@ -1214,6 +1227,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S20"
       },
       {
         "id": "S20"
@@ -1254,6 +1270,9 @@
       },
       {
         "id": "S21"
+      },
+      {
+        "id": "S21"
       }
     ],
     "S22": [
@@ -1284,6 +1303,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S22"
       },
       {
         "id": "S22"
@@ -1322,6 +1344,9 @@
       },
       {
         "id": "S25"
+      },
+      {
+        "id": "S25"
       }
     ],
     "S28": [
@@ -1354,6 +1379,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S28"
       },
       {
         "id": "S28"
@@ -1392,6 +1420,9 @@
       },
       {
         "id": "S29"
+      },
+      {
+        "id": "S29"
       }
     ],
     "S31": [
@@ -1424,6 +1455,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S31"
       },
       {
         "id": "S31"
@@ -1461,6 +1495,9 @@
       },
       {
         "id": "S32"
+      },
+      {
+        "id": "S32"
       }
     ],
     "S33": [
@@ -1492,6 +1529,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S33"
       },
       {
         "id": "S33"
@@ -1529,6 +1569,9 @@
       },
       {
         "id": "S35"
+      },
+      {
+        "id": "S35"
       }
     ],
     "S38": [
@@ -1560,6 +1603,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S38"
       },
       {
         "id": "S38"
@@ -1597,6 +1643,9 @@
       },
       {
         "id": "S39"
+      },
+      {
+        "id": "S39"
       }
     ],
     "S40": [
@@ -1628,6 +1677,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S40"
       },
       {
         "id": "S40"
@@ -1667,6 +1719,9 @@
       },
       {
         "id": "S41"
+      },
+      {
+        "id": "S41"
       }
     ],
     "S43": [
@@ -1698,6 +1753,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S43"
       },
       {
         "id": "S43"
@@ -1747,6 +1805,9 @@
       },
       {
         "id": "S26"
+      },
+      {
+        "id": "S26"
       }
     ]
   },
@@ -1761,6 +1822,16 @@
       "shot": "S14",
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T05:56:27Z"
+    },
+    {
+      "shot": "S14",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T05:57:51Z"
+    },
+    {
+      "shot": "S20",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T05:58:21Z"
     }
   ]
 }
