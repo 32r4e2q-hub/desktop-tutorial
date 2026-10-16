@@ -1,0 +1,56 @@
+name: 李亨浩案 · 解说疑点二次独立识别
+on:
+  push:
+    branches: [arena/1f36798e-desktop-tutorial]
+    paths: [production/lee_hyung_ho1991/SECOND_ASR_REQUEST]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  secondary:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+      HF_HUB_DISABLE_XET: '1'
+      HF_HUB_DOWNLOAD_TIMEOUT: '120'
+    steps:
+      - name: Await completed revised movie and primary review
+        run: |
+          for attempt in $(seq 1 120); do
+            status=$(gh api repos/${{ github.repository }}/actions/runs/38980432999 --jq .status)
+            if [ "$status" = completed ]; then break; fi
+            sleep 15
+          done
+          test "$status" = completed
+          result=$(gh api repos/${{ github.repository }}/actions/runs/38980432999 --jq .conclusion)
+          test "$result" = success
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/1f36798e-desktop-tutorial
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install independent recognition tools and restore released film
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          pip install 'numpy==1.26.4' 'faster-whisper>=1.1,<2' 'zhconv>=1.4,<2'
+          mkdir -p work
+          gh release download lee-hyung-ho1991-improved-v2 --repo '${{ github.repository }}' --pattern 'lee-hyung-ho-3min-1080p-v2.mp4' --dir work
+      - name: Independently recheck final-mix and clean narration ambiguities
+        run: python -u production/lee_hyung_ho1991/secondary_asr.py --film work/lee-hyung-ho-3min-1080p-v2.mp4
+      - name: Preserve secondary evidence
+        if: always()
+        run: |
+          if [ ! -f production/lee_hyung_ho1991/revision-2/review/medium-asr-control.json ]; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/lee_hyung_ho1991/revision-2/review/medium-asr-control.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'review: preserve second independent ASR of final-film narration ambiguities'
+            git fetch origin arena/1f36798e-desktop-tutorial
+            git rebase FETCH_HEAD
+            git push origin arena/1f36798e-desktop-tutorial
+          fi
