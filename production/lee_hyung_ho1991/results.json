@@ -243,7 +243,17 @@
       "recovered_from_branch": "arena/04ec3850-desktop-tutorial"
     },
     "S06": {
-      "id": "S06"
+      "id": "S06",
+      "status": "queued",
+      "task_id": "202610161423564f4175ef676a44ee",
+      "request_hash": "623cb0e8e2035cd4a39154076eb7c2c0b5658ddaf54042034289494421702ef8",
+      "error": null,
+      "task_attempt": 1,
+      "character_ids": [],
+      "face_visible": false,
+      "reference_image": "references/v2-car-phone.png",
+      "reference_sha256": "9c1ac2d73d2a4e19326969b4da966f42cf114d41ec55a69d3b99b74d667c728c",
+      "updated_at": "2026-10-16T06:23:58Z"
     },
     "S07": {
       "id": "S07"
@@ -951,7 +961,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T06:22:24Z",
+  "updated_at": "2026-10-16T06:23:58Z",
   "run_id": "38859742716",
   "previous_results": {
     "S12": [
@@ -2168,6 +2178,21 @@
       "shot": "S33",
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T06:19:40Z"
+    },
+    {
+      "shot": "S40",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T06:22:25Z"
+    },
+    {
+      "shot": "S41",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T06:22:55Z"
+    },
+    {
+      "shot": "S43",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T06:23:26Z"
     }
   ]
 }
