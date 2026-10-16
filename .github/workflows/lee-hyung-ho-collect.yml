@@ -1,0 +1,98 @@
+name: 李亨浩案 · 恢复全部已生成素材
+on:
+  push:
+    branches: [arena/1f36798e-desktop-tutorial]
+    paths: [production/lee_hyung_ho1991/COLLECT_REQUEST]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  collect:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/1f36798e-desktop-tutorial
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install inspection tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - uses: actions/download-artifact@v4
+        with:
+          name: lee-hyung-ho-production-19
+          run-id: 38843664095
+          github-token: ${{ github.token }}
+          path: work/cache/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: lee-revision-sources
+          run-id: 38858345778
+          github-token: ${{ github.token }}
+          path: work/cache/a
+      - uses: actions/download-artifact@v4
+        with:
+          name: lee-revision-sources
+          run-id: 38859742716
+          github-token: ${{ github.token }}
+          path: work/cache/b
+      - uses: actions/download-artifact@v4
+        with:
+          name: lee-revision-sources
+          run-id: 38866233887
+          github-token: ${{ github.token }}
+          path: work/cache/c
+      - uses: actions/download-artifact@v4
+        with:
+          name: lee-revision-sources-continuation
+          run-id: 38884163418
+          github-token: ${{ github.token }}
+          path: work/cache/d
+      - uses: actions/download-artifact@v4
+        with:
+          name: lee-last-three-batch-one
+          run-id: 38903575139
+          github-token: ${{ github.token }}
+          path: work/cache/e
+      - uses: actions/download-artifact@v4
+        with:
+          name: lee-last-three-batch-two
+          run-id: 38903575139
+          github-token: ${{ github.token }}
+          path: work/cache/f
+      - name: Recover only files matching every current SHA-256
+        run: python production/lee_hyung_ho1991/collect_sources.py --cache-root work/cache --dest work/lee_hyung_ho1991/sources --report production/lee_hyung_ho1991/revision-2/source-collection-report.json
+      - name: Export all replacement contact sheets from recovered bytes
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          p=Path('production/lee_hyung_ho1991')
+          for sid in json.loads((p/'REVISION_REQUEST').read_text())['only'].split(','):
+              subprocess.run(['ffmpeg','-v','error','-y','-i',str(Path('work/lee_hyung_ho1991/sources')/(sid+'.mp4')),'-vf','fps=3,scale=480:270,tile=4x4','-frames:v','1','-q:v','3',str(p/'revision-2'/('recovered-'+sid+'.jpg'))],check=True)
+          PY
+      - name: Preserve actual source-recovery evidence
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/lee_hyung_ho1991/revision-2
+          if ! git diff --cached --quiet; then
+            git commit -m 'revision: preserve hash-verified recovery and actual replacement contacts'
+            git fetch origin arena/1f36798e-desktop-tutorial
+            git rebase FETCH_HEAD
+            git push origin arena/1f36798e-desktop-tutorial
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lee-revision-sources
+          path: |
+            work/lee_hyung_ho1991/sources/*.mp4
+            production/lee_hyung_ho1991/revision-2/
+          compression-level: 0
+          retention-days: 30
