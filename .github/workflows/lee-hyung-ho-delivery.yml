@@ -1,0 +1,55 @@
+name: 李亨浩案 · 发布已校验审片版
+on:
+  push:
+    branches: [arena/1f36798e-desktop-tutorial]
+    paths: [production/lee_hyung_ho1991/PUBLISH_REQUEST]
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: lee-hyung-ho-review-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 15
+    steps:
+      - name: Require the successful completed render
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$(gh api repos/${{ github.repository }}/actions/runs/38843664095 --jq .conclusion)" = success
+      - name: Restore the completed film without regenerating or rendering
+        uses: actions/download-artifact@v4
+        with:
+          name: lee-hyung-ho-production-19
+          run-id: 38843664095
+          github-token: ${{ github.token }}
+          path: delivery
+      - name: Verify the exact rendered bytes and prepare review notice
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          films=list(Path('delivery').rglob('李亨浩_四十四天的电话_三分钟.mp4'))
+          assert len(films)==1,films
+          film=films[0]
+          h=hashlib.sha256()
+          with film.open('rb') as f:
+              for chunk in iter(lambda:f.read(1024*1024),b''):
+                  h.update(chunk)
+          assert h.hexdigest()=='5946ef6151344badf20081bd26b8315c73c7e43f6fba5e25965e5c28cad274d1'
+          Path('film-path.txt').write_text(str(film))
+          Path('review-notice.md').write_text('三分钟、1920×1080、30 fps、5400 帧，含中文配音、字幕、配乐和音效。38 个动画源镜头齐全，已解码并自动扫描全部 5400 帧。无 PTS 异常、无非计划黑帧。\n\n注意：这是技术成片/审片版，不是完成人工审片的无瑕疵终版。自动审计为 REVIEW，仍有 2 个近静止区段、56 个时序候选窗口及人脸/手部检测候选需复核；未做逐字人工听检。候选数不是确认的缺陷数。\n\nSHA-256：5946ef6151344badf20081bd26b8315c73c7e43f6fba5e25965e5c28cad274d1\n\n完整素材与机器报告：https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/38843664095\n',encoding='utf-8')
+          PY
+      - name: Publish a clearly labelled prerelease, not a final quality sign-off
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          film="$(cat film-path.txt)"
+          gh release create lee-hyung-ho1991-review-v1 "$film#李亨浩案《四十四天的电话》三分钟审片版" review-notice.md \
+            --repo '${{ github.repository }}' --target '${{ github.sha }}' \
+            --prerelease --title '李亨浩案《四十四天的电话》· 三分钟技术成片（待人工审片）' \
+            --notes-file review-notice.md
