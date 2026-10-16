@@ -873,7 +873,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T05:56:22Z",
+  "updated_at": "2026-10-16T05:56:27Z",
   "run_id": "38858231368",
   "previous_results": {
     "S12": [
@@ -1179,6 +1179,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S14"
       }
     ],
     "S20": [
@@ -1211,6 +1214,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S20"
       }
     ],
     "S21": [
@@ -1245,6 +1251,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S21"
       }
     ],
     "S22": [
@@ -1275,6 +1284,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S22"
       }
     ],
     "S25": [
@@ -1307,6 +1319,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S25"
       }
     ],
     "S28": [
@@ -1339,6 +1354,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S28"
       }
     ],
     "S29": [
@@ -1371,6 +1389,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S29"
       }
     ],
     "S31": [
@@ -1403,6 +1424,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S31"
       }
     ],
     "S32": [
@@ -1434,6 +1458,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S32"
       }
     ],
     "S33": [
@@ -1465,6 +1492,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S33"
       }
     ],
     "S35": [
@@ -1496,6 +1526,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S35"
       }
     ],
     "S38": [
@@ -1527,6 +1560,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S38"
       }
     ],
     "S39": [
@@ -1558,6 +1594,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S39"
       }
     ],
     "S40": [
@@ -1589,6 +1628,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S40"
       }
     ],
     "S41": [
@@ -1622,6 +1664,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S41"
       }
     ],
     "S43": [
@@ -1653,6 +1698,9 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S43"
       }
     ],
     "S26": [
@@ -1696,13 +1744,23 @@
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
+      },
+      {
+        "id": "S26"
       }
     ]
   },
   "queue_policy": {
-    "window": 3,
+    "window": 1,
     "max_task_attempts": 2,
     "cooldown_seconds": 45,
     "budget": 2700
-  }
+  },
+  "submission_backoffs": [
+    {
+      "shot": "S14",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T05:56:27Z"
+    }
+  ]
 }
