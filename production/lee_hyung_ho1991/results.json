@@ -369,32 +369,16 @@
     },
     "S11": {
       "id": "S11",
-      "status": "failed",
-      "task_id": "202610160950097cc5bd6852134303",
-      "request_hash": "c05231e0617eadc5903f1dbc01ab9d08bd8aed757ba9c2da57f8ddc13968abe7",
-      "error": "1234 网络错误，错误id：202610160950097cc5bd6852134303，请稍后重试",
-      "task_attempt": 2,
-      "character_ids": [
-        "mother"
-      ],
-      "face_visible": true,
-      "reference_image": "references/mother-lee.jpg",
-      "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
-      "updated_at": "2026-10-16T02:20:16Z",
-      "task_failures": [
-        {
-          "task_id": "20261016090602631f0b3707df435e",
-          "code": "1234",
-          "message": "网络错误，错误id：20261016090602631f0b3707df435e，请稍后重试",
-          "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261016090602631f0b3707df435e，请稍后重试'})"
-        },
-        {
-          "task_id": "202610160950097cc5bd6852134303",
-          "code": "1234",
-          "message": "网络错误，错误id：202610160950097cc5bd6852134303，请稍后重试",
-          "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：202610160950097cc5bd6852134303，请稍后重试'})"
-        }
-      ]
+      "status": "queued",
+      "task_id": "202610161050326ac70fca56dd402e",
+      "request_hash": "ad51c4aaa6af05ee47f00bb05dbd4888fd77a836f7dd061e7c9103cf4eb1e089",
+      "error": null,
+      "task_attempt": 1,
+      "character_ids": [],
+      "face_visible": false,
+      "reference_image": null,
+      "reference_sha256": null,
+      "updated_at": "2026-10-16T02:50:32Z"
     },
     "S13": {
       "id": "S13",
@@ -1344,7 +1328,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T02:44:18Z",
+  "updated_at": "2026-10-16T02:50:32Z",
   "run_id": "38841726499",
   "previous_results": {
     "S12": [
@@ -1522,6 +1506,35 @@
         "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
         "updated_at": "2026-10-16T00:52:03Z",
         "task_id": "20261016082150d6ab0c720c254383"
+      },
+      {
+        "id": "S11",
+        "status": "failed",
+        "task_id": "202610160950097cc5bd6852134303",
+        "request_hash": "c05231e0617eadc5903f1dbc01ab9d08bd8aed757ba9c2da57f8ddc13968abe7",
+        "error": "1234 网络错误，错误id：202610160950097cc5bd6852134303，请稍后重试",
+        "task_attempt": 2,
+        "character_ids": [
+          "mother"
+        ],
+        "face_visible": true,
+        "reference_image": "references/mother-lee.jpg",
+        "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
+        "updated_at": "2026-10-16T02:20:16Z",
+        "task_failures": [
+          {
+            "task_id": "20261016090602631f0b3707df435e",
+            "code": "1234",
+            "message": "网络错误，错误id：20261016090602631f0b3707df435e，请稍后重试",
+            "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261016090602631f0b3707df435e，请稍后重试'})"
+          },
+          {
+            "task_id": "202610160950097cc5bd6852134303",
+            "code": "1234",
+            "message": "网络错误，错误id：202610160950097cc5bd6852134303，请稍后重试",
+            "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：202610160950097cc5bd6852134303，请稍后重试'})"
+          }
+        ]
       }
     ]
   },
@@ -1529,6 +1542,6 @@
     "window": 1,
     "max_task_attempts": 2,
     "cooldown_seconds": 120,
-    "budget": 6000
+    "budget": 5400
   }
 }
