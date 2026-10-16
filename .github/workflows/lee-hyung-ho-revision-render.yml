@@ -1,0 +1,134 @@
+name: 李亨浩案 · 改进成片v2与独立复核
+on:
+  push:
+    branches: [arena/1f36798e-desktop-tutorial]
+    paths: [production/lee_hyung_ho1991/RENDER_REVISION_REQUEST]
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: lee-hyung-ho-revision-render
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 55
+    env:
+      HF_HUB_DISABLE_XET: '1'
+      HF_HUB_ETAG_TIMEOUT: '30'
+      HF_HUB_DOWNLOAD_TIMEOUT: '120'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/1f36798e-desktop-tutorial
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            production
+            .github
+            电影解说工具包
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Resolve approved replacement source artifact
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path('production/lee_hyung_ho1991')
+          request=json.loads((p/'RENDER_REVISION_REQUEST').read_text())
+          approval=json.loads((p/'revision-2/source-review.json').read_text())
+          receipts=json.loads((p/'results.json').read_text())['shots']
+          selected=json.loads((p/'REVISION_REQUEST').read_text())['only'].split(',')
+          assert approval['source_run']==request['source_run']
+          for sid in selected:
+              assert approval['approved_sha256'][sid]==receipts[sid]['sha256'],sid
+          with open(os.environ['GITHUB_ENV'],'a') as f:f.write('SOURCE_RUN='+str(request['source_run'])+'\n')
+          PY
+      - name: Install render and exhaustive review tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          pip install 'numpy==1.26.4' 'pillow>=10,<13' 'av>=12,<16' 'scipy>=1.12,<2' 'faster-whisper>=1.1,<2' 'zhconv>=1.4,<2' 'opencv-python-headless==4.10.0.84' 'matplotlib>=3.8,<4' 'absl-py>=2,<3' 'attrs>=19.1' 'flatbuffers>=2' 'protobuf>=4.25.3,<5'
+          pip install --no-deps 'mediapipe==0.10.21'
+      - name: Restore original verified sources without more generation
+        uses: actions/download-artifact@v4
+        with:
+          name: lee-hyung-ho-production-19
+          run-id: 38843664095
+          github-token: ${{ github.token }}
+          path: work/original
+      - name: Restore visually approved replacement clips
+        uses: actions/download-artifact@v4
+        with:
+          name: lee-revision-sources
+          run-id: ${{ env.SOURCE_RUN }}
+          github-token: ${{ github.token }}
+          path: work/replacement
+      - name: Assemble exact sources and revised edit
+        run: |
+          python - <<'PY'
+          import hashlib,json,shutil
+          from pathlib import Path
+          p=Path('production/lee_hyung_ho1991');dest=Path('work/lee_hyung_ho1991/sources');dest.mkdir(parents=True,exist_ok=True)
+          for srcroot in ['work/original','work/replacement']:
+              for src in Path(srcroot).rglob('S??.mp4'):shutil.copy2(src,dest/src.name)
+          doc=json.loads((p/'results.json').read_text())
+          for shot in json.loads((p/'story.json').read_text())['shots']:
+              if shot['kind']=='cogvideo':
+                  sid=shot['id'];assert hashlib.sha256((dest/(sid+'.mp4')).read_bytes()).hexdigest()==doc['shots'][sid]['sha256'],sid
+          PY
+          python production/lee_hyung_ho1991/revise_edit.py
+      - name: Render improved 180-second 1080p film
+        run: |
+          python -u production/lee_hyung_ho1991/render.py --sources work/lee_hyung_ho1991/sources --work work/revision-render --output work/lee-hyung-ho-3min-1080p-v2.mp4 --skip-asr --edit-plan production/lee_hyung_ho1991/revision-2/edit-plan.json --caption-plan production/lee_hyung_ho1991/revision-2/caption-plan.json
+          cp work/revision-render/{technical-report,edit-decision-list,final-audio-report,audio-report,alignment-report,caption-timing}.json production/lee_hyung_ho1991/revision-2/
+          cp work/revision-render/technical-report.json production/lee_hyung_ho1991/delivery/
+          cp work/revision-render/edit-decision-list.json production/lee_hyung_ho1991/delivery/
+      - name: Scan every newly rendered frame for technical and visual candidates
+        run: |
+          python -u production/lee_hyung_ho1991/audit_frame_distortions.py --film work/lee-hyung-ho-3min-1080p-v2.mp4 --out production/lee_hyung_ho1991/revision-2/frame-distortion-audit.json --work work/revision-frame-audit
+          python -u production/lee_hyung_ho1991/review_revision.py --film work/lee-hyung-ho-3min-1080p-v2.mp4 --mode visual
+      - name: Independently recheck final voice, captions and script
+        run: python -u production/lee_hyung_ho1991/review_revision.py --film work/lee-hyung-ho-3min-1080p-v2.mp4 --mode audio
+      - name: Validate technical delivery and write truthful release notes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('production/lee_hyung_ho1991/revision-2')
+          t=json.loads((p/'technical-report.json').read_text());a=json.loads((p/'frame-distortion-audit.json').read_text())
+          assert t['frames']==5400 and t['width']==1920 and t['height']==1080 and t['decoded_ok']
+          assert not a['checks']['pts_issues'] and a['checks']['unplanned_black_frame_count']==0
+          assert (p/'review/verbatim-check.json').exists() and (p/'review/caption-sync.json').exists()
+          (p/'release-notes.md').write_text('李亨浩案《四十四天的电话》改进成片v2。180秒，1920×1080，30fps，含完整中文解说、字幕、配乐。\n\n本版针对上一版问题定点补做19个动画源镜头；按实际解说时间重排信息卡；去掉不合格角色与过渡；根据独立识别调整字幕；补回片尾问题。所有画面为AI情景重现，文书与画像为示意，不是新闻影像或原始档案。\n\n已重新完整解码、全帧自动扫描及独立语音识别。自动检测候选不等于确认畸变；尚未宣称人工逐帧和逐字听检全项通过。详细证据见本分支 production/lee_hyung_ho1991/revision-2/。\n\nSHA-256：'+t['sha256']+'\n')
+          PY
+      - name: Publish the improved movie as a separately versioned delivery
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create lee-hyung-ho1991-improved-v2 work/lee-hyung-ho-3min-1080p-v2.mp4 --repo '${{ github.repository }}' --target '${{ github.sha }}' --prerelease --title '李亨浩案《四十四天的电话》· 改进成片 v2' --notes-file production/lee_hyung_ho1991/revision-2/release-notes.md
+      - name: Preserve new review evidence without overwriting historical v1 reports
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/lee_hyung_ho1991/revision-2
+          if ! git diff --cached --quiet; then
+            git commit -m 'revision: preserve actual v2 render and independent review evidence'
+            git restore production/lee_hyung_ho1991/delivery
+            git fetch origin arena/1f36798e-desktop-tutorial
+            git rebase FETCH_HEAD
+            git push origin arena/1f36798e-desktop-tutorial
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lee-hyung-ho-improved-v2
+          path: |
+            work/lee-hyung-ho-3min-1080p-v2.mp4
+            production/lee_hyung_ho1991/revision-2/
+            work/revision-render/captions.ass
+            work/revision-frame-audit/contacts/
+          compression-level: 0
+          retention-days: 30

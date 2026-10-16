@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 # Each source occurs once; order follows the spoken events, not source generation order.
-CUTS=[(0,'S03'),(4.2,'S04'),(7.6,'S05'),(9.6,'S01'),(11.5,'S07'),
+CUTS=[(0,'S03'),(4.2,'S04'),(7.2,'S02'),(8.1,'S05'),(10.1,'S01'),(11.5,'S07'),
       (15.2,'S10'),(19.2,'S06'),(23.6,'S08'),(29.971,'S09'),(33.2,'S15'),
       (35.2,'S33'),(39.0,'S13'),(41.1,'S11'),(43.4,'S12'),(49.8,'S17'),(54.0,'S14'),
       (59.018,'S16'),(61.7,'S20'),(65.2,'S18'),(68.8,'S19'),(71.0,'S21'),
@@ -18,8 +18,7 @@ def build():
     rows=[]
     for i,(start,sid) in enumerate(CUTS):
         end=CUTS[i+1][0] if i+1<len(CUTS) else 180.0
-        row={'id':sid,'start_frame':round(start*30),'end_frame':round(end*30),
-             'narration_id':next((c['id'] for c in reversed(json.loads((HERE/'delivery/final-audio-report.json').read_text()).get('chapters',[])) if c.get('start',999)<=start),'N01')}
+        row={'id':sid,'start_frame':round(start*30),'end_frame':round(end*30)}
         if sid=='S04':row['source_window']=[.12,3.2]
         if sid=='S18':row['source_window']=[1.2,None]
         if sid=='S13':row['source_window']=[1.8,4.8]

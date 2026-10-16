@@ -324,6 +324,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         for key in presentation.get('caption_keywords') or []:
             if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
         text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
+    for row in edl:
+        label=presentation.get('scene_labels',{}).get(row['id'])
+        if label:
+            text+=f"Dialogue: 2,{ass_time(row['start_frame']/FPS)},{ass_time(row['end_frame']/FPS)},Label,,0,0,0,,{{\\an7\\pos(96,100)\\fs36\\c&H00E9E4D4&}}{safe_text(label)}\n"
     disclosure=safe_text(presentation.get('disclosure_label') or 'AI动画情景重现 · 非新闻影像')
     text+=f'Dialogue: 3,0:00:00.00,{ass_time(DURATION)},Label,,0,0,0,,{{\\fad(250,250)}}{disclosure}\n'
     title_lines=[safe_text(x) for x in (presentation.get('title_card') or []) if x]
@@ -345,7 +349,7 @@ def write_sfx(path,edl,presentation):
         if kind not in ('paper','machine','press','phone','keys'):raise RuntimeError(f'未知音效类型 {kind}（可用：paper/machine/press/phone/keys）')
         first=next((e for e in edl if e['id']==source),None)
         if first is None:raise RuntimeError(f'音效事件指向不存在的镜头 {source}')
-        events.append((max(0,first['start_frame']/FPS-.18),kind))
+        events.append((first['start_frame']/FPS,kind))
     for start,kind in events:
         duration={'paper':.7,'machine':1.1,'press':1.5,'phone':1.3,'keys':1.1}[kind]
         t=np.arange(round(duration*RATE))/RATE

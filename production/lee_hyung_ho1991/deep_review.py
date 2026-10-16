@@ -155,7 +155,7 @@ def waveform_sync(film, out, chapters, tempo):
     write(out/'waveform-sync.json',{'film_sha256':EXPECTED,'method':'Independent final-mix vs atempo-retimed clean narration, 3 windows/chapter, +/-0.5s normalized waveform correlation. This measures placement, not lip sync.', 'chapters':rows,'pass':all(r['pass'] for r in rows)})
 
 
-def audio(film,out):
+def audio(film,out,caption_plan=None,edl_path=None):
     from faster_whisper import WhisperModel
     from verbatim_check import load_chapters, write_wav, decode_audio, compare
     import render
@@ -189,7 +189,8 @@ def audio(film,out):
         for block in SequenceMatcher(None,expected,heard,autojunk=False).get_matching_blocks():
             for i in range(block.size):mapping[block.a+i]=block.b+i
         row={**ch,'tempo':tempo,'raw_duration':clause[cid]['duration']}
-        cues=render.captions_from_clause_times(row)
+        cues=([c for c in read(caption_plan) if ch['start']-.2<=c['start']<ch['end']]
+              if caption_plan else render.captions_from_clause_times(row))
         if not cues:raise RuntimeError(f'{cid}: cannot reconstruct exact caption cues')
         pointer=0
         for cue in cues:
@@ -206,7 +207,7 @@ def audio(film,out):
             else:item['verdict']='insufficient_asr_match'
             caption_rows.append(item)
     # Attach actual words spoken during every picture segment, for manual semantic review.
-    edl=read(HERE/'delivery/edit-decision-list.json');allwords=[w for words in word_rows.values() for w in words]
+    edl=read(edl_path or HERE/'delivery/edit-decision-list.json');allwords=[w for words in word_rows.values() for w in words]
     shot_audio=[]
     for row in edl:
         start=row['start_frame']/30;end=row['end_frame']/30
