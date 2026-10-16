@@ -12,7 +12,7 @@ CUTS=[(0,'S03'),(4.2,'S04'),(7.2,'S02'),(8.1,'S05'),(10.1,'S01'),(11.5,'S07'),
       (96.8,'S30'),(103.3,'S28'),(106.7,'S27'),(109.0,'S29'),(112.537,'S31'),
       (114.7,'S32'),(116.8,'S35'),(119.2,'S34'),(124.0,'S37'),(130.2,'S36'),
       (132.9,'S41'),(138.898,'S38'),(145.3,'S39'),(148.7,'S40'),(155.0,'S42'),
-      (161.3,'S43'),(164.2,'S44'),(170.5,'S45'),(176.2,'END')]
+      (159.8,'S43'),(164.2,'S44'),(170.5,'S45'),(176.2,'END')]
 
 def build():
     rows=[]
@@ -22,6 +22,7 @@ def build():
         if sid=='S04':row['source_window']=[.12,3.2]
         if sid=='S18':row['source_window']=[1.2,None]
         if sid=='S13':row['source_window']=[1.8,4.8]
+        if sid=='S42':row['source_window']=[.12,3.8]
         rows.append(row)
     # Actual chapter timing is stored independently in the review's ASR comparison.
     chapters=json.loads((HERE/'review-2026-10-16/verbatim-check.json').read_text())['film_pass']['chapters']
@@ -35,6 +36,11 @@ def build():
             a=max(0,c['asr_start']-.04);b=min(180,c['asr_end']+.08)
             adjusted.append(c['text'])
         cues.append({'start':a,'end':b,'text':c['text']})
+    final_overrides=HERE/'revision-2/caption-final-overrides.json'
+    overrides=json.loads(final_overrides.read_text()) if final_overrides.exists() else {}
+    for cue in cues:
+        if cue['text'] in overrides:
+            cue.update({k:v for k,v in overrides[cue['text']].items() if k in ('start','end')})
     for i in range(len(cues)-1):
         if cues[i]['end']>cues[i+1]['start']:
             boundary=(cues[i]['end']+cues[i+1]['start'])/2

@@ -79,6 +79,21 @@ jobs:
           cp work/revision-render/technical-report.json production/lee_hyung_ho1991/delivery/
           cp work/revision-render/edit-decision-list.json production/lee_hyung_ho1991/delivery/
           cp work/revision-render/final-contact.jpg production/lee_hyung_ho1991/revision-2/
+      - name: Verify soundtrack identity with independently rechecked intermediate film
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download lee-hyung-ho1991-improved-v2 --repo '${{ github.repository }}' --pattern 'lee-hyung-ho-3min-1080p-v2.mp4' --dir work/intermediate
+          python - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          old=Path('work/intermediate/lee-hyung-ho-3min-1080p-v2.mp4');new=Path('work/lee-hyung-ho-3min-1080p-v2.mp4')
+          def audio_sha(p):
+              return subprocess.check_output(['ffmpeg','-v','error','-i',str(p),'-map','0:a:0','-c','copy','-f','hash','-hash','sha256','-'],text=True).strip().split('=')[-1]
+          before=audio_sha(old);after=audio_sha(new)
+          assert before==after,'Final soundtrack changed; secondary ASR may not be reused'
+          Path('production/lee_hyung_ho1991/revision-2/audio-identity.json').write_text(json.dumps({'intermediate_film_sha256':hashlib.sha256(old.read_bytes()).hexdigest(),'final_film_sha256':hashlib.sha256(new.read_bytes()).hexdigest(),'aac_packet_sha256':after,'identical_soundtrack':True},indent=2)+'\n')
+          PY
       - name: Scan every newly rendered frame for technical and visual candidates
         run: |
           python -u production/lee_hyung_ho1991/audit_frame_distortions.py --film work/lee-hyung-ho-3min-1080p-v2.mp4 --out production/lee_hyung_ho1991/revision-2/frame-distortion-audit.json --work work/revision-frame-audit
@@ -101,7 +116,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create lee-hyung-ho1991-improved-v2 work/lee-hyung-ho-3min-1080p-v2.mp4 --repo '${{ github.repository }}' --target '${{ github.sha }}' --prerelease --title '李亨浩案《四十四天的电话》· 改进成片 v2' --notes-file production/lee_hyung_ho1991/revision-2/release-notes.md
+          gh release create lee-hyung-ho1991-improved-v2-final work/lee-hyung-ho-3min-1080p-v2.mp4 --repo '${{ github.repository }}' --target '${{ github.sha }}' --prerelease --title '李亨浩案《四十四天的电话》· 改进成片 v2' --notes-file production/lee_hyung_ho1991/revision-2/release-notes.md
       - name: Preserve new review evidence without overwriting historical v1 reports
         if: always()
         run: |

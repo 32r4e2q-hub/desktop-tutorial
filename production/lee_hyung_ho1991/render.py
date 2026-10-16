@@ -47,7 +47,7 @@ else:
 WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
 # CogVideoX 源片角落可能带有平台标识；轻微安全裁切后在成片持续标注 AI 情景重现。
 DEFAULT_COGVIDEO_CROP = (1.12, 0.5, 0.5)
-TIGHTER_CROPS = {}  # 单镜特殊覆盖：'S02': (1.2, 0.5, 0.45)
+TIGHTER_CROPS = {'S36': (3.2, 0.17, 0.84)}  # 单镜特殊覆盖：'S02': (1.2, 0.5, 0.45)
 
 
 def run(args, capture=False):
@@ -407,7 +407,7 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
     if sid=='S26':
         # Generated tape lettering is not evidence: keep the cordon but make its tiny
         # synthetic lettering deliberately out of focus, rather than implying legibility.
-        vf+=" ,split[tape_base][tape_blur];[tape_blur]boxblur=10:1[tape_soft];[tape_base][tape_soft]blend=all_expr='if(between(Y/H,0.42+0.012*T-0.28*X/W,0.49+0.012*T-0.28*X/W),B,A)'"
+        vf+=" ,split[tape_base][tape_blur];[tape_blur]boxblur=12:1[tape_soft];[tape_base][tape_soft]blend=all_expr='if(between(Y/H,0.51-0.30*X/W,0.58-0.30*X/W),B,A)'"
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
     if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
     if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
