@@ -1,5 +1,5 @@
 {
-  "film_sha256": "ec3331e20f20d6214a02a1b26f2baca250d427e4326cf53ab0bb801ae3e5caf1",
+  "film_sha256": "b212bbb1fd5893088047474bc446d5b3a66036eccb07fec40c8515eb50ca188b",
   "edl": [
     {
       "id": "S03",
@@ -859,42 +859,46 @@
     {
       "id": "S42",
       "start_frame": 4650,
-      "end_frame": 4839,
+      "end_frame": 4794,
+      "source_window": [
+        0.12,
+        3.8
+      ],
       "narration_id": "N06",
       "kind": "cogvideo",
       "variant": "",
       "purpose": "凶手身份仍未确认",
       "source_in": 0.12,
-      "source_out": 4.9881079999999995,
-      "time_stretch": 1.2941372705782206,
+      "source_out": 3.8,
+      "time_stretch": 1.3043478260869565,
       "sample_frames": [
-        4665,
-        4716,
-        4772,
-        4823
+        4661,
+        4700,
+        4743,
+        4782
       ],
       "start": 155.0,
-      "end": 161.3,
+      "end": 159.8,
       "chapter_script": "二〇〇七年，案件被拍成电影《那家伙的声音》，让那段来电再次进入公众记忆。二〇一九年，警方将旧录音带数字化并重新分析声纹，希望找到新线索。多年过去，声纹仍没有指向已确认的凶手。截至二〇二六年，案件依旧未侦破。今天留下的不是凶手的传奇，而是一个九岁孩子被夺走的日常，以及仍在等待真相的家人。三十五年后，真相还可能从哪里出现？"
     },
     {
       "id": "S43",
-      "start_frame": 4839,
+      "start_frame": 4794,
       "end_frame": 4926,
       "narration_id": "N06",
       "kind": "cogvideo",
       "variant": "",
       "purpose": "空荡游乐场的秋千",
       "source_in": 0.12,
-      "source_out": 3.02,
+      "source_out": 4.5200000000000005,
       "time_stretch": 1.0,
       "sample_frames": [
-        4846,
-        4869,
-        4895,
-        4918
+        4804,
+        4840,
+        4879,
+        4915
       ],
-      "start": 161.3,
+      "start": 159.8,
       "end": 164.2,
       "chapter_script": "二〇〇七年，案件被拍成电影《那家伙的声音》，让那段来电再次进入公众记忆。二〇一九年，警方将旧录音带数字化并重新分析声纹，希望找到新线索。多年过去，声纹仍没有指向已确认的凶手。截至二〇二六年，案件依旧未侦破。今天留下的不是凶手的传奇，而是一个九岁孩子被夺走的日常，以及仍在等待真相的家人。三十五年后，真相还可能从哪里出现？"
     },
@@ -2854,157 +2858,133 @@
     {
       "kind": "temporal_outlier_windows",
       "event": {
-        "start_frame": 5249,
-        "end_frame": 5249,
-        "start_seconds": 174.967,
-        "end_seconds": 175.0,
+        "start_frame": 5210,
+        "end_frame": 5213,
+        "start_seconds": 173.667,
+        "end_seconds": 173.8,
         "shot": "S45",
         "flags": [
           "local_motion_residual_spike",
           "optical_flow_spike"
         ],
         "peak_values": {
-          "flow_p95": 70.6839,
-          "flow_residual_p95": 70.6839
+          "flow_p95": 70.9958,
+          "flow_residual_p95": 70.9958
+        },
+        "flagged_frame_count": 2,
+        "details": [
+          {
+            "frame": 5210,
+            "seconds": 173.667,
+            "shot": "S45",
+            "kind": "graphic",
+            "flag": "local_motion_residual_spike",
+            "metric": "flow_residual_p95",
+            "value": 64.5067,
+            "threshold": 62.0733,
+            "shot_median": 13.1792,
+            "shot_mad": 6.5957
+          },
+          {
+            "frame": 5210,
+            "seconds": 173.667,
+            "shot": "S45",
+            "kind": "graphic",
+            "flag": "optical_flow_spike",
+            "metric": "flow_p95",
+            "value": 64.5062,
+            "threshold": 62.1501,
+            "shot_median": 13.1884,
+            "shot_mad": 6.6048
+          },
+          {
+            "frame": 5213,
+            "seconds": 173.767,
+            "shot": "S45",
+            "kind": "graphic",
+            "flag": "local_motion_residual_spike",
+            "metric": "flow_residual_p95",
+            "value": 70.9958,
+            "threshold": 62.0733,
+            "shot_median": 13.1792,
+            "shot_mad": 6.5957
+          },
+          {
+            "frame": 5213,
+            "seconds": 173.767,
+            "shot": "S45",
+            "kind": "graphic",
+            "flag": "optical_flow_spike",
+            "metric": "flow_p95",
+            "value": 70.9958,
+            "threshold": 62.1501,
+            "shot_median": 13.1884,
+            "shot_mad": 6.6048
+          }
+        ]
+      },
+      "sample_frames": [
+        5208,
+        5212,
+        5215
+      ]
+    },
+    {
+      "kind": "temporal_outlier_windows",
+      "event": {
+        "start_frame": 5254,
+        "end_frame": 5254,
+        "start_seconds": 175.133,
+        "end_seconds": 175.167,
+        "shot": "S45",
+        "flags": [
+          "local_motion_residual_spike",
+          "optical_flow_spike"
+        ],
+        "peak_values": {
+          "flow_p95": 62.1763,
+          "flow_residual_p95": 62.1763
         },
         "flagged_frame_count": 1,
         "details": [
           {
-            "frame": 5249,
-            "seconds": 174.967,
+            "frame": 5254,
+            "seconds": 175.133,
             "shot": "S45",
             "kind": "graphic",
             "flag": "local_motion_residual_spike",
             "metric": "flow_residual_p95",
-            "value": 70.6839,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
+            "value": 62.1763,
+            "threshold": 62.0733,
+            "shot_median": 13.1792,
+            "shot_mad": 6.5957
           },
           {
-            "frame": 5249,
-            "seconds": 174.967,
+            "frame": 5254,
+            "seconds": 175.133,
             "shot": "S45",
             "kind": "graphic",
             "flag": "optical_flow_spike",
             "metric": "flow_p95",
-            "value": 70.6839,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
+            "value": 62.1763,
+            "threshold": 62.1501,
+            "shot_median": 13.1884,
+            "shot_mad": 6.6048
           }
         ]
       },
       "sample_frames": [
-        5247,
-        5249,
-        5251
+        5252,
+        5254,
+        5256
       ]
     },
     {
       "kind": "temporal_outlier_windows",
       "event": {
-        "start_frame": 5261,
-        "end_frame": 5264,
-        "start_seconds": 175.367,
-        "end_seconds": 175.5,
-        "shot": "S45",
-        "flags": [
-          "local_motion_residual_spike",
-          "optical_flow_spike"
-        ],
-        "peak_values": {
-          "flow_p95": 72.5205,
-          "flow_residual_p95": 72.5206
-        },
-        "flagged_frame_count": 3,
-        "details": [
-          {
-            "frame": 5261,
-            "seconds": 175.367,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "local_motion_residual_spike",
-            "metric": "flow_residual_p95",
-            "value": 67.3167,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
-          },
-          {
-            "frame": 5261,
-            "seconds": 175.367,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "optical_flow_spike",
-            "metric": "flow_p95",
-            "value": 67.316,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
-          },
-          {
-            "frame": 5263,
-            "seconds": 175.433,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "local_motion_residual_spike",
-            "metric": "flow_residual_p95",
-            "value": 69.6087,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
-          },
-          {
-            "frame": 5263,
-            "seconds": 175.433,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "optical_flow_spike",
-            "metric": "flow_p95",
-            "value": 69.6084,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
-          },
-          {
-            "frame": 5264,
-            "seconds": 175.467,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "local_motion_residual_spike",
-            "metric": "flow_residual_p95",
-            "value": 72.5206,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
-          },
-          {
-            "frame": 5264,
-            "seconds": 175.467,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "optical_flow_spike",
-            "metric": "flow_p95",
-            "value": 72.5205,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
-          }
-        ]
-      },
-      "sample_frames": [
-        5259,
-        5262,
-        5266
-      ]
-    },
-    {
-      "kind": "temporal_outlier_windows",
-      "event": {
-        "start_frame": 5278,
+        "start_frame": 5282,
         "end_frame": 5283,
-        "start_seconds": 175.933,
+        "start_seconds": 176.067,
         "end_seconds": 176.133,
         "shot": "S45",
         "flags": [
@@ -3014,72 +2994,24 @@
           "optical_flow_spike"
         ],
         "peak_values": {
-          "abs_luma_step": 28.7401,
-          "flow_p95": 87.3824,
-          "flow_residual_p95": 87.3823,
-          "pair_diff": 31.395
+          "abs_luma_step": 28.7242,
+          "flow_p95": 101.9614,
+          "flow_residual_p95": 101.9614,
+          "pair_diff": 31.381
         },
-        "flagged_frame_count": 4,
+        "flagged_frame_count": 2,
         "details": [
           {
-            "frame": 5278,
-            "seconds": 175.933,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "local_motion_residual_spike",
-            "metric": "flow_residual_p95",
-            "value": 67.5066,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
-          },
-          {
-            "frame": 5278,
-            "seconds": 175.933,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "optical_flow_spike",
-            "metric": "flow_p95",
-            "value": 67.4957,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
-          },
-          {
-            "frame": 5279,
-            "seconds": 175.967,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "local_motion_residual_spike",
-            "metric": "flow_residual_p95",
-            "value": 66.8719,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
-          },
-          {
-            "frame": 5279,
-            "seconds": 175.967,
-            "shot": "S45",
-            "kind": "graphic",
-            "flag": "optical_flow_spike",
-            "metric": "flow_p95",
-            "value": 66.8719,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
-          },
-          {
             "frame": 5282,
             "seconds": 176.067,
             "shot": "S45",
             "kind": "graphic",
             "flag": "frame_difference_spike",
             "metric": "pair_diff",
-            "value": 30.6847,
+            "value": 30.6989,
             "threshold": 4.0,
-            "shot_median": 0.0671,
-            "shot_mad": 0.0381
+            "shot_median": 0.0688,
+            "shot_mad": 0.0399
           },
           {
             "frame": 5282,
@@ -3088,10 +3020,10 @@
             "kind": "graphic",
             "flag": "local_motion_residual_spike",
             "metric": "flow_residual_p95",
-            "value": 81.6332,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
+            "value": 101.9614,
+            "threshold": 62.0733,
+            "shot_median": 13.1792,
+            "shot_mad": 6.5957
           },
           {
             "frame": 5282,
@@ -3100,10 +3032,10 @@
             "kind": "graphic",
             "flag": "optical_flow_spike",
             "metric": "flow_p95",
-            "value": 81.6332,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
+            "value": 101.9614,
+            "threshold": 62.1501,
+            "shot_median": 13.1884,
+            "shot_mad": 6.6048
           },
           {
             "frame": 5282,
@@ -3112,10 +3044,10 @@
             "kind": "graphic",
             "flag": "abrupt_luma_change",
             "metric": "abs_luma_step",
-            "value": 28.088,
+            "value": 28.1061,
             "threshold": 8.0,
-            "shot_median": 0.0472,
-            "shot_mad": 0.031
+            "shot_median": 0.0476,
+            "shot_mad": 0.0307
           },
           {
             "frame": 5283,
@@ -3124,10 +3056,10 @@
             "kind": "graphic",
             "flag": "frame_difference_spike",
             "metric": "pair_diff",
-            "value": 31.395,
+            "value": 31.381,
             "threshold": 4.0,
-            "shot_median": 0.0671,
-            "shot_mad": 0.0381
+            "shot_median": 0.0688,
+            "shot_mad": 0.0399
           },
           {
             "frame": 5283,
@@ -3136,10 +3068,10 @@
             "kind": "graphic",
             "flag": "local_motion_residual_spike",
             "metric": "flow_residual_p95",
-            "value": 87.3823,
-            "threshold": 65.8981,
-            "shot_median": 14.7239,
-            "shot_mad": 6.9033
+            "value": 63.926,
+            "threshold": 62.0733,
+            "shot_median": 13.1792,
+            "shot_mad": 6.5957
           },
           {
             "frame": 5283,
@@ -3148,10 +3080,10 @@
             "kind": "graphic",
             "flag": "optical_flow_spike",
             "metric": "flow_p95",
-            "value": 87.3824,
-            "threshold": 65.8967,
-            "shot_median": 14.7237,
-            "shot_mad": 6.9031
+            "value": 63.926,
+            "threshold": 62.1501,
+            "shot_median": 13.1884,
+            "shot_mad": 6.6048
           },
           {
             "frame": 5283,
@@ -3160,16 +3092,16 @@
             "kind": "graphic",
             "flag": "abrupt_luma_change",
             "metric": "abs_luma_step",
-            "value": 28.7401,
+            "value": 28.7242,
             "threshold": 8.0,
-            "shot_median": 0.0472,
-            "shot_mad": 0.031
+            "shot_median": 0.0476,
+            "shot_mad": 0.0307
           }
         ]
       },
       "sample_frames": [
-        5276,
         5280,
+        5282,
         5285
       ]
     },

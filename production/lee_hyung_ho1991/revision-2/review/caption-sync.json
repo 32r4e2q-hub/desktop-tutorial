@@ -1,5 +1,5 @@
 {
-  "film_sha256": "ec3331e20f20d6214a02a1b26f2baca250d427e4326cf53ab0bb801ae3e5caf1",
+  "film_sha256": "b212bbb1fd5893088047474bc446d5b3a66036eccb07fec40c8515eb50ca188b",
   "method": "Exact renderer cue reconstruction vs independent ASR word timestamps; >350ms start or >500ms end flagged. ASR timestamps remain estimates; flags are not a human listening verdict.",
   "captions": [
     {
@@ -191,16 +191,16 @@
       "verdict": "within_review_tolerance"
     },
     {
-      "start": 41.321,
+      "start": 40.921,
       "end": 42.400999999999996,
       "text": "记下每个地址、",
       "chapter": "N02",
       "asr_match_coverage": 1.0,
       "asr_start": 40.861,
       "asr_end": 42.381,
-      "start_delta": 0.46,
+      "start_delta": 0.06,
       "end_delta": 0.02,
-      "verdict": "review_timing"
+      "verdict": "within_review_tolerance"
     },
     {
       "start": 42.400999999999996,
@@ -752,27 +752,27 @@
     },
     {
       "start": 161.148,
-      "end": 163.86800000000002,
+      "end": 163.92800000000003,
       "text": "今天留下的不是凶手的传奇，",
       "chapter": "N06",
       "asr_match_coverage": 1.0,
       "asr_start": 161.488,
       "asr_end": 163.828,
       "start_delta": -0.34,
-      "end_delta": 0.04,
+      "end_delta": 0.1,
       "verdict": "within_review_tolerance"
     },
     {
-      "start": 163.86800000000002,
+      "start": 164.268,
       "end": 167.228,
       "text": "而是一个九岁孩子被夺走的日常，",
       "chapter": "N06",
       "asr_match_coverage": 1.0,
       "asr_start": 164.308,
       "asr_end": 167.208,
-      "start_delta": -0.44,
+      "start_delta": -0.04,
       "end_delta": 0.02,
-      "verdict": "review_timing"
+      "verdict": "within_review_tolerance"
     },
     {
       "start": 167.228,
@@ -788,27 +788,27 @@
     },
     {
       "start": 170.30800000000002,
-      "end": 171.448,
+      "end": 171.508,
       "text": "三十五年后，",
       "chapter": "N06",
       "asr_match_coverage": 1.0,
       "asr_start": 170.508,
       "asr_end": 171.428,
       "start_delta": -0.2,
-      "end_delta": 0.02,
+      "end_delta": 0.08,
       "verdict": "within_review_tolerance"
     },
     {
-      "start": 171.448,
+      "start": 171.788,
       "end": 173.828,
       "text": "真相还可能从哪里出现？",
       "chapter": "N06",
       "asr_match_coverage": 1.0,
       "asr_start": 171.828,
       "asr_end": 173.748,
-      "start_delta": -0.38,
+      "start_delta": -0.04,
       "end_delta": 0.08,
-      "verdict": "review_timing"
+      "verdict": "within_review_tolerance"
     }
   ],
   "flagged": [
@@ -819,18 +819,6 @@
       "chapter": "N01",
       "asr_match_coverage": 0.4,
       "verdict": "insufficient_asr_match"
-    },
-    {
-      "start": 41.321,
-      "end": 42.400999999999996,
-      "text": "记下每个地址、",
-      "chapter": "N02",
-      "asr_match_coverage": 1.0,
-      "asr_start": 40.861,
-      "asr_end": 42.381,
-      "start_delta": 0.46,
-      "end_delta": 0.02,
-      "verdict": "review_timing"
     },
     {
       "start": 65.0706923076923,
@@ -887,30 +875,6 @@
       "chapter": "N06",
       "asr_match_coverage": 0.5714,
       "verdict": "insufficient_asr_match"
-    },
-    {
-      "start": 163.86800000000002,
-      "end": 167.228,
-      "text": "而是一个九岁孩子被夺走的日常，",
-      "chapter": "N06",
-      "asr_match_coverage": 1.0,
-      "asr_start": 164.308,
-      "asr_end": 167.208,
-      "start_delta": -0.44,
-      "end_delta": 0.02,
-      "verdict": "review_timing"
-    },
-    {
-      "start": 171.448,
-      "end": 173.828,
-      "text": "真相还可能从哪里出现？",
-      "chapter": "N06",
-      "asr_match_coverage": 1.0,
-      "asr_start": 171.828,
-      "asr_end": 173.748,
-      "start_delta": -0.38,
-      "end_delta": 0.08,
-      "verdict": "review_timing"
     }
   ]
 }

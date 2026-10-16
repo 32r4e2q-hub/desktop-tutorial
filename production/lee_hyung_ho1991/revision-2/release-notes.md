@@ -4,4 +4,4 @@
 
 已重新完整解码、全帧自动扫描及独立语音识别。自动检测候选不等于确认畸变；尚未宣称人工逐帧和逐字听检全项通过。详细证据见本分支 production/lee_hyung_ho1991/revision-2/。
 
-SHA-256：ec3331e20f20d6214a02a1b26f2baca250d427e4326cf53ab0bb801ae3e5caf1
+SHA-256：b212bbb1fd5893088047474bc446d5b3a66036eccb07fec40c8515eb50ca188b
