@@ -1040,7 +1040,7 @@
   },
   "workflow_policy": "lee-hyung-ho-cogvideox-reference-v2",
   "identity_policy": "image-to-video input is pinned by per-shot reference SHA-256; same visible role reuses the same reference asset; visual continuity still requires contact-sheet review",
-  "phase": "generating_sources",
+  "phase": "generation_incomplete",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1081,7 +1081,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T06:57:40Z",
+  "updated_at": "2026-10-16T06:58:14Z",
   "run_id": "38859742716",
   "previous_results": {
     "S12": [
@@ -2593,6 +2593,11 @@
       "shot": "S41",
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T06:57:40Z"
+    },
+    {
+      "shot": "S43",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T06:58:12Z"
     }
   ]
 }
