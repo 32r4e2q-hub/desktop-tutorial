@@ -7,7 +7,7 @@ permissions:
   contents: write
   actions: write
 concurrency:
-  group: lee-hyung-ho-revision-sources-observable
+  group: lee-hyung-ho-revision-sources-pinned-assets
   cancel-in-progress: true
 jobs:
   sources:
@@ -18,7 +18,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          for predecessor in 38858231368 38857954471; do
+          for predecessor in 38858345778; do
             status=$(gh api repos/${{ github.repository }}/actions/runs/$predecessor --jq .status)
             if [ "$status" != completed ]; then
               gh api -X POST repos/${{ github.repository }}/actions/runs/$predecessor/cancel

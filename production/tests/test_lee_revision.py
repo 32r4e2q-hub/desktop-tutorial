@@ -38,6 +38,6 @@ def test_only_replacement_payload_hashes_change():
     for s in p['shots']:
         if s['id'] in ids:
             payload=generate.full_payload(p,s)
-            assert 'image_url' not in payload
+            assert ('image_url' in payload)==bool(s.get('reference_image'))
             assert 'FIRST frame' in s['prompt']
             assert 'No transitions or dissolves' in payload['prompt']
