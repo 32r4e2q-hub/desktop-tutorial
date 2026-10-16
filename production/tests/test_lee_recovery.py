@@ -63,7 +63,8 @@ class RecoveryTests(unittest.TestCase):
         project=g.read_json(g.PLAN,{})
         doc={'shots':{}}
         g.merge_recovered_receipts(project,doc)
-        self.assertEqual(set(doc['shots']),{'S04','S07'})
+        self.assertEqual(set(doc['shots']),{'S04'})
+        self.assertNotIn('S07',doc['shots'])  # retired payload must not override the replacement
         original=dict(doc['shots']['S04'])
         doc['shots']['S04']['marker']='keep'
         g.merge_recovered_receipts(project,doc)

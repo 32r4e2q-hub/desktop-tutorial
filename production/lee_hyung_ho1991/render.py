@@ -272,6 +272,27 @@ def make_edl(project, narration):
     return edl
 
 
+def load_edit_plan(path, project):
+    """A reviewed, frame-exact revision may reorder shots across chapter boundaries."""
+    entries=json.loads(Path(path).read_text())
+    expected={shot['id'] for shot in project['shots']}|{'END'}
+    ids=[row['id'] for row in entries]
+    if len(ids)!=len(set(ids)) or set(ids)!=expected:
+        raise ValueError('Revision must use each declared shot exactly once')
+    by_id={shot['id']:shot for shot in project['shots']}
+    cursor=0
+    for row in entries:
+        if row['start_frame']!=cursor or row['end_frame']<=cursor:
+            raise ValueError('Revision has a gap, overlap or empty segment')
+        shot=by_id.get(row['id'])
+        row.update(kind=shot['kind'] if shot else 'graphic',variant='',
+                   purpose=shot['purpose'] if shot else '互动问题与来源片尾')
+        cursor=row['end_frame']
+    if cursor!=TOTAL_FRAMES or ids[-1]!='END':
+        raise ValueError('Revision must end at 5400 frames with END')
+    return entries
+
+
 def ass_time(s):
     centis=round(s*100);h,centis=divmod(centis,360000);m,centis=divmod(centis,6000);sec,cs=divmod(centis,100)
     return f'{h}:{m:02d}:{sec:02d}.{cs:02d}'
@@ -358,8 +379,10 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
         source=sources/(sid+'.mp4');info=checks[sid]
         length=info['duration'];a=.12;b=length-.12
         # 本片的镜头时间窗：默认整段可用；看过 qa/ 接触表后若某镜头前/后段有畸变，在 WINDOWS 里收窄。
-        if sid in WINDOWS:
-            wa,wb=WINDOWS[sid];a=max(a,wa);b=min(b,wb if wb is not None else b)
+        window=entry.get('source_window',WINDOWS.get(sid))
+        if window:
+            wa,wb=window;a=max(a,wa);b=min(b,wb if wb is not None else b)
+        if b<=a:raise RuntimeError(f'{sid}: empty source window')
         available=b-a
         take=min(available,duration)
         factor=duration/take
@@ -407,6 +430,8 @@ def main():
     parser.add_argument('--audio',type=Path,default=HERE/'audio')
     parser.add_argument('--width',type=int,default=1920)
     parser.add_argument('--height',type=int,default=1080)
+    parser.add_argument('--edit-plan',type=Path)
+    parser.add_argument('--caption-plan',type=Path)
     parser.add_argument('--skip-asr',action='store_true',help='Use labeled pause-aware caption timing (for offline smoke tests)')
     args=parser.parse_args();work=args.work;work.mkdir(parents=True,exist_ok=True)
     project=json.loads(args.project.read_text());results=json.loads(args.results.read_text())
@@ -425,7 +450,7 @@ def main():
             raise RuntimeError(f'Missing or unverified CogVideoX footage: {sid}; refusing to substitute an image/slideshow')
         checks[sid]=probe(source)
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
-    edl=make_edl(project,narration)
+    edl=load_edit_plan(args.edit_plan,project) if args.edit_plan else make_edl(project,narration)
     from align_audio import transcribe_on_runner, aligned_cues
     asr={} if args.skip_asr else transcribe_on_runner(narration,work)
     cues=[];alignment=[]
@@ -440,6 +465,14 @@ def main():
         alignment.append({'id':row['id'],
                           'method':'ASR-assisted' if aligned else f'clause-times {chapter_timing_method}' if clause_timed else 'pause-aware estimate',
                           'character_match_coverage':coverage})
+    if args.caption_plan:
+        cues=json.loads(args.caption_plan.read_text())
+        if not cues or any(c['end']<=c['start'] or c['start']<0 or c['end']>DURATION for c in cues):
+            raise ValueError('Invalid reviewed caption plan')
+        if any(a['end']>b['start']+.001 for a,b in zip(cues,cues[1:])):
+            raise ValueError('Reviewed captions overlap')
+        alignment=[{'method':'independent final-mix ASR correction; low-coverage cues retain pause timing',
+                    'caption_plan':str(args.caption_plan),'human_listening':'not_claimed'}]
     (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
     subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl,presentation)
     (work/'caption-timing.json').write_text(json.dumps(cues,ensure_ascii=False,indent=2))

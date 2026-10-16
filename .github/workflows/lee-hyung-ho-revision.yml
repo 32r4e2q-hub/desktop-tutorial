@@ -52,6 +52,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p production/lee_hyung_ho1991/revision-2
           git add production/lee_hyung_ho1991/results.json production/lee_hyung_ho1991/qa production/lee_hyung_ho1991/revision-2
           if ! git diff --cached --quiet; then
             git commit -m 'revision: preserve bounded targeted generation receipts and replacement clip evidence'
