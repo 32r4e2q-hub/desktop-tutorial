@@ -1237,7 +1237,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T11:13:35Z",
+  "updated_at": "2026-10-16T11:15:09Z",
   "run_id": "38884163418",
   "previous_results": {
     "S12": [
@@ -3159,6 +3159,24 @@
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T11:07:24Z",
       "retry_after_seconds": 300
+    },
+    {
+      "shot": "S40",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T11:13:37Z",
+      "retry_after_seconds": 30
+    },
+    {
+      "shot": "S41",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T11:14:07Z",
+      "retry_after_seconds": 60
+    },
+    {
+      "shot": "S07",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T11:15:09Z",
+      "retry_after_seconds": 120
     }
   ]
 }
