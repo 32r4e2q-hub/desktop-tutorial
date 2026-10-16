@@ -261,6 +261,16 @@ def find_video_url(body: dict) -> Optional[str]:
 
 # --------------------------------------------------------------------------- API calls
 
+# Failures that will never succeed on retry: the model is gone, or the account cannot pay.
+# Everything else (429, "queue is full", transient 5xx) stays retryable on purpose.
+NON_RETRYABLE = (
+    "no available channel", "model_not_found", "model not found", "unknown model",
+    "unsupported model", "not support model", "invalid model", "model does not exist",
+    "has been retired", "no longer available", "insufficient_user_quota",
+    "insufficient user quota", "insufficient balance",
+)
+
+
 def create_task(base_url: str, api_key: str, payload: dict, retries: int, retry_delay: float) -> dict:
     url = f"{base_url}/v1/videos"
     delay = retry_delay
@@ -282,6 +292,9 @@ def create_task(base_url: str, api_key: str, payload: dict, retries: int, retry_
                 raise Fatal(f"Authentication failed (HTTP {code}): {detail}. Check AGNES_API_KEY.")
             if code in (400, 404, 405, 413, 422):
                 raise Fatal(f"Request rejected (HTTP {code}): {detail}")
+            if any(word in detail.lower() for word in NON_RETRYABLE):
+                # A 5xx whose body says the model is gone (or the account owes money) is not transient.
+                raise Fatal(f"Request cannot succeed, not retrying (HTTP {code}): {detail}")
             if code == 429 or code >= 500:
                 rate_limited = code == 429
                 problem = f"HTTP {code}: {detail}"

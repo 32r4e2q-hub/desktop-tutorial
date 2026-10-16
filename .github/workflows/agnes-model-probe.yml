@@ -1,0 +1,124 @@
+name: Agnes 模型可用性探测
+
+# 沙箱连不上 apihub.agnes-ai.com、也读不到 Actions 日志，所以探测结果 commit 回分支。
+# 默认零成本：只发"空 prompt"的校验请求，靠报错内容判断模型名是否被接受，不会真的生成视频。
+#
+# 触发方式：在本分支改 production/AGNES_MODEL_PROBE_REQUEST 并 push（workflow_dispatch
+# 需要 Actions 写权限，当前集成令牌没有，所以实际都走 push）。
+on:
+  push:
+    branches: [arena/929dc8b6-desktop-tutorial]
+    paths:
+      - production/AGNES_MODEL_PROBE_REQUEST
+  workflow_dispatch:
+    inputs:
+      spend:
+        description: 'true = 真的提交一条最小生成任务（会消耗额度）；false = 零成本校验探测'
+        type: boolean
+        default: false
+      video_models:
+        description: '要探测的视频模型，逗号分隔'
+        type: string
+        default: 'agnes-video-v2.0,agnes-video-2.5,agnes-video-v2.0-flash,agnes-video-2.5-flash'
+      text_models:
+        description: '要探测的文本模型，逗号分隔'
+        type: string
+        default: 'agnes-2.0-flash,agnes-2.5-flash'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: agnes-model-probe-929dc8b6
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 60
+    steps:
+      - name: Check out this Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/929dc8b6-desktop-tutorial
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve the probe configuration
+        run: |
+          set -euo pipefail
+          # push 触发时 inputs 上下文是空的，所以配置走 production/AGNES_MODEL_PROBE_REQUEST（JSON 一行，缺省用默认值）
+          python3 - <<'PY' | tee -a "$GITHUB_ENV"
+          import json, os
+          from pathlib import Path
+          defaults = {
+              "video_models": "agnes-video-v2.0,agnes-video-2.5,agnes-video-v2.0-flash,agnes-video-2.5-flash",
+              "spend_models": "",
+              "auto_video": True,
+              "text_models": "agnes-2.0-flash,agnes-2.5-flash",
+              "spend": False,
+              "pause": 70,
+              "text_pause": 8,
+          }
+          raw = Path('production/AGNES_MODEL_PROBE_REQUEST').read_text(errors='replace') if Path('production/AGNES_MODEL_PROBE_REQUEST').exists() else ''
+          for line in raw.splitlines():
+              line = line.strip()
+              if line.startswith('{'):
+                  try:
+                      defaults.update(json.loads(line))
+                  except ValueError:
+                      pass
+                  break
+          for key, value in (("PROBE_VIDEO_MODELS", defaults["video_models"]),
+                             ("PROBE_SPEND_MODELS", defaults["spend_models"]),
+                             ("PROBE_AUTO_VIDEO", "true" if defaults["auto_video"] else "false"),
+                             ("PROBE_TEXT_MODELS", defaults["text_models"]),
+                             ("PROBE_SPEND", "true" if defaults["spend"] else "false"),
+                             ("PROBE_PAUSE", defaults["pause"]),
+                             ("PROBE_TEXT_PAUSE", defaults["text_pause"])):
+              print(f"{key}={value}")
+          PY
+
+      - name: Run the model probe
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          set -uo pipefail
+          args=(--outdir production/agnes-probe --pause "$PROBE_PAUSE" --text-pause "$PROBE_TEXT_PAUSE"
+                --poll-timeout 480)
+          if [ "$PROBE_SPEND" = "true" ]; then args+=(--spend); fi
+          if [ -n "$PROBE_SPEND_MODELS" ]; then args+=(--spend-models "$PROBE_SPEND_MODELS"); fi
+          if [ "$PROBE_AUTO_VIDEO" != "true" ]; then args+=(--no-auto-video); fi
+          # 免费档视频创建是 1 RPM，视频之间必须留足 60s+；文本是 10 RPM，可以密一些。
+          python3 production/agnes_model_probe.py \
+            --video-models "$PROBE_VIDEO_MODELS" \
+            --text-models "$PROBE_TEXT_MODELS" \
+            "${args[@]}"
+
+      - name: Commit the report back to the branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/agnes-probe
+          if git diff --cached --quiet; then
+            echo "no report change"
+          else
+            git commit -m "probe: Agnes 模型可用性探测 $(date -u +%FT%TZ)"
+            for attempt in 1 2 3; do
+              if git push origin HEAD:arena/929dc8b6-desktop-tutorial; then break; fi
+              sleep 5
+              git pull --rebase origin arena/929dc8b6-desktop-tutorial
+            done
+          fi
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agnes-model-probe-${{ github.run_number }}
+          path: production/agnes-probe/
+          if-no-files-found: warn
+          retention-days: 7

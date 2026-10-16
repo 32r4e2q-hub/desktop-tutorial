@@ -1,0 +1,7 @@
+probe round 7 at 2026-10-16 — 用户要确认「2.0 video flash 与 2.5 video flash 哪个能免费生成视频，还有没有别的免费视频模型」
+
+本轮策略：
+- 零成本校验 agnes-video-v2.0 / agnes-video-v2.0-flash / agnes-video-2.5（只看模型名是否还存在、是否要钱）
+- 只对 agnes-video-2.5-flash 真的花额度提交任务（免费档唯一候选），看 10/12 那次「队列满」是否恢复
+- auto_video=true：把 /v1/models 里所有 video 模型都自动纳入探测，防止漏掉新上线的免费模型
+{"video_models":"agnes-video-v2.0,agnes-video-v2.0-flash,agnes-video-2.5,agnes-video-2.5-flash","spend_models":"agnes-video-2.5-flash","auto_video":true,"text_models":"agnes-2.5-flash","spend":true,"pause":70,"text_pause":8}
