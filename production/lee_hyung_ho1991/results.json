@@ -819,7 +819,17 @@
       }
     },
     "S31": {
-      "id": "S31"
+      "id": "S31",
+      "status": "queued",
+      "task_id": "2026101617354664b4b1758c444b93",
+      "request_hash": "f803ef027da74cd12324642eedb832eda10109dfd5c89b412ac7e6314500852f",
+      "error": null,
+      "task_attempt": 1,
+      "character_ids": [],
+      "face_visible": false,
+      "reference_image": null,
+      "reference_sha256": null,
+      "updated_at": "2026-10-16T09:35:47Z"
     },
     "S32": {
       "id": "S32",
@@ -1159,7 +1169,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T09:35:15Z",
+  "updated_at": "2026-10-16T09:35:47Z",
   "run_id": "38866233887",
   "previous_results": {
     "S12": [
@@ -2907,6 +2917,12 @@
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T09:29:01Z",
       "retry_after_seconds": 300
+    },
+    {
+      "shot": "S20",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T09:35:16Z",
+      "retry_after_seconds": 30
     }
   ]
 }
