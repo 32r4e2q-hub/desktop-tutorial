@@ -369,10 +369,10 @@
     },
     "S11": {
       "id": "S11",
-      "status": "queued",
+      "status": "failed",
       "task_id": "20261016090602631f0b3707df435e",
       "request_hash": "c05231e0617eadc5903f1dbc01ab9d08bd8aed757ba9c2da57f8ddc13968abe7",
-      "error": null,
+      "error": "1234 网络错误，错误id：20261016090602631f0b3707df435e，请稍后重试",
       "task_attempt": 1,
       "character_ids": [
         "mother"
@@ -380,7 +380,15 @@
       "face_visible": true,
       "reference_image": "references/mother-lee.jpg",
       "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
-      "updated_at": "2026-10-16T01:06:03Z"
+      "updated_at": "2026-10-16T01:36:18Z",
+      "task_failures": [
+        {
+          "task_id": "20261016090602631f0b3707df435e",
+          "code": "1234",
+          "message": "网络错误，错误id：20261016090602631f0b3707df435e，请稍后重试",
+          "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261016090602631f0b3707df435e，请稍后重试'})"
+        }
+      ]
     },
     "S13": {
       "id": "S13",
@@ -1330,7 +1338,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T01:06:03Z",
+  "updated_at": "2026-10-16T01:36:18Z",
   "run_id": "38833005438",
   "previous_results": {
     "S12": [
