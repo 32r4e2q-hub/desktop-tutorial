@@ -1,0 +1,112 @@
+{
+  "provider": "Zhipu AI",
+  "model": "cogvideox-flash",
+  "identity_policy": "one stable reference image per recurring visible identity; base64 image-to-video input; distinct IDs use distinct reference designs",
+  "human_visual_review": "required; contact sheets are evidence, not an automated guarantee",
+  "characters": {
+    "bank_visitor_unknown": {
+      "name": "BANK-VISITOR-UNKNOWN",
+      "role": "身份未明的取款者（面容不呈现）",
+      "reference_image": null,
+      "reference_sha256": null,
+      "shots": [
+        "S21"
+      ],
+      "reference_hash_consistent_for_visible_faces": true,
+      "reference_mismatches": [],
+      "contact_sheet": "bank_visitor_unknown.jpg",
+      "visual_identity_review": "pending human review"
+    },
+    "caller_unknown": {
+      "name": "CALLER-UNKNOWN",
+      "role": "身份未明的来电者（面容不呈现）",
+      "reference_image": null,
+      "reference_sha256": null,
+      "shots": [
+        "S14"
+      ],
+      "reference_hash_consistent_for_visible_faces": true,
+      "reference_mismatches": [],
+      "contact_sheet": "caller_unknown.jpg",
+      "visual_identity_review": "pending human review"
+    },
+    "child": {
+      "name": "CHILD-01",
+      "role": "儿童（虚构动画角色，非真人复原）",
+      "reference_image": "references/child-lee-stylized.png",
+      "reference_sha256": "a450b90db504960db93b4f99a6cb91d7262afd1d8e3b1045b6165d0b4df07b16",
+      "shots": [
+        "S04"
+      ],
+      "reference_hash_consistent_for_visible_faces": true,
+      "reference_mismatches": [],
+      "contact_sheet": "child.jpg",
+      "visual_identity_review": "pending human review"
+    },
+    "detective_choi": {
+      "name": "DETECTIVE-CHOI-01",
+      "role": "崔警探（虚构情景演员）",
+      "reference_image": "references/detectives-park-choi.jpg",
+      "reference_sha256": "598e3d073ac9cb6736306e7767bd12f27555560eef194750e861e02f0d12544a",
+      "shots": [
+        "S16",
+        "S19",
+        "S26"
+      ],
+      "reference_hash_consistent_for_visible_faces": true,
+      "reference_mismatches": [],
+      "contact_sheet": "detective_choi.jpg",
+      "visual_identity_review": "pending human review"
+    },
+    "detective_park": {
+      "name": "DETECTIVE-PARK-01",
+      "role": "朴警探（虚构情景演员）",
+      "reference_image": "references/detectives-park-choi.jpg",
+      "reference_sha256": "598e3d073ac9cb6736306e7767bd12f27555560eef194750e861e02f0d12544a",
+      "shots": [
+        "S16",
+        "S19",
+        "S26"
+      ],
+      "reference_hash_consistent_for_visible_faces": true,
+      "reference_mismatches": [],
+      "contact_sheet": "detective_park.jpg",
+      "visual_identity_review": "pending human review"
+    },
+    "father": {
+      "name": "FATHER-01",
+      "role": "父亲（虚构情景演员）",
+      "reference_image": "references/father-lee.jpg",
+      "reference_sha256": "a08c5f3f5d9c39510e2346f74288c5cd7271efdcb212eee0a6389c85356aff6b",
+      "shots": [
+        "S05",
+        "S07",
+        "S12",
+        "S18",
+        "S23",
+        "S27",
+        "S34",
+        "S41"
+      ],
+      "reference_hash_consistent_for_visible_faces": true,
+      "reference_mismatches": [],
+      "contact_sheet": "father.jpg",
+      "visual_identity_review": "pending human review"
+    },
+    "mother": {
+      "name": "MOTHER-01",
+      "role": "母亲（虚构情景演员）",
+      "reference_image": "references/mother-lee.jpg",
+      "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
+      "shots": [
+        "S08",
+        "S44"
+      ],
+      "reference_hash_consistent_for_visible_faces": true,
+      "reference_mismatches": [],
+      "contact_sheet": "mother.jpg",
+      "visual_identity_review": "pending human review"
+    }
+  },
+  "status": "PASS_REFERENCE_PROVENANCE"
+}
