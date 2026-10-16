@@ -1,0 +1,244 @@
+{
+  "film_sha256": "ec3331e20f20d6214a02a1b26f2baca250d427e4326cf53ab0bb801ae3e5caf1",
+  "method": "Independent faster-whisper medium, no initial_prompt, no script supplied to recognizer; N01/N03/N06 selected because small-model names/wording were ambiguous. ASR disagreement is not itself proof of a spoken error.",
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 28.891,
+        "script_chars": 117,
+        "heard_chars": 119,
+        "character_error_rate": 0.0342,
+        "match_coverage": 0.9829,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "狎",
+            "heard": "霞"
+          },
+          {
+            "at": 65,
+            "kind": "replace",
+            "script": "千",
+            "heard": "零零零"
+          }
+        ],
+        "transcript": "1991年1月29日首爾霞鷗亭9歲的李亨浩在公寓旁的遊樂場玩耍傍晚卻沒有回家深夜11點父親接到電話來電者聲稱孩子在他手上並索要7000萬韓元還要求一輛裝有車載電話的車沒有鏡頭能替這家人把時間倒回去從這個夜晚開始電話鈴聲成了他們唯一的線索"
+      },
+      {
+        "id": "N03",
+        "start": 59.018,
+        "end": 84.671,
+        "script_chars": 100,
+        "heard_chars": 100,
+        "character_error_rate": 0.06,
+        "match_coverage": 0.94,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 24,
+            "kind": "replace",
+            "script": "一次",
+            "heard": "疑似"
+          },
+          {
+            "at": 52,
+            "kind": "replace",
+            "script": "柜员",
+            "heard": "贵人"
+          },
+          {
+            "at": 57,
+            "kind": "replace",
+            "script": "没",
+            "heard": "未"
+          },
+          {
+            "at": 83,
+            "kind": "replace",
+            "script": "铃",
+            "heard": "聆"
+          }
+        ],
+        "transcript": "警方与家属尝试布控,盯守交钱地点,核查账户与银行线索。疑似交接中,警员因联络错位,守错位置,取钱者脱身。后来,存款记录与贵人描述,仍未能确认身份。每次行动结束,父亲回到家,等待的仍只有下一次聆响,希望一次次被递来,又一次次被抽走。"
+      },
+      {
+        "id": "N06",
+        "start": 138.898,
+        "end": 174.0,
+        "script_chars": 139,
+        "heard_chars": 143,
+        "character_error_rate": 0.0719,
+        "match_coverage": 0.9568,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零零"
+          },
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "那",
+            "heard": "大"
+          },
+          {
+            "at": 30,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "旧",
+            "heard": "就"
+          },
+          {
+            "at": 49,
+            "kind": "replace",
+            "script": "纹",
+            "heard": "文"
+          },
+          {
+            "at": 62,
+            "kind": "replace",
+            "script": "纹",
+            "heard": "文"
+          }
+        ],
+        "transcript": "2007年,案件被拍成电影《大家伙的声音》,让《那段来电》再次进入公众记忆。2019年,警方将就录音带数字化并重新分析声文,希望找到新线索。多年过去,声文仍没有指向已确认的凶手。截至2026年,案件依旧未挣脱。今天留下的不是兇手的传奇,而是一个9岁孩子被夺走的日常,以及仍在等待真相的家人。35年后,真相还可能从哪里出现?"
+      }
+    ],
+    "max_cer": 0.0719,
+    "failing": []
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.6,
+        "end": 28.891,
+        "script_chars": 117,
+        "heard_chars": 119,
+        "character_error_rate": 0.0427,
+        "match_coverage": 0.9744,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "狎",
+            "heard": "峡"
+          },
+          {
+            "at": 20,
+            "kind": "replace",
+            "script": "亨",
+            "heard": "恒"
+          },
+          {
+            "at": 65,
+            "kind": "replace",
+            "script": "千",
+            "heard": "零零零"
+          }
+        ],
+        "transcript": "1991年1月29日,首爾峽鷗亭9歲的李恆浩在公寓旁的遊樂場玩耍傍晚卻沒有回家深夜11點,父親接到電話來電者聲稱孩子在他手上並索要7000萬韓元還要求一輛裝有車載電話的車沒有鏡頭能替這家人把時間倒回去從這個夜晚開始,電話鈴聲成了他們唯一的線索"
+      },
+      {
+        "id": "N03",
+        "start": 59.018,
+        "end": 84.671,
+        "script_chars": 100,
+        "heard_chars": 100,
+        "character_error_rate": 0.05,
+        "match_coverage": 0.95,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 24,
+            "kind": "replace",
+            "script": "一次",
+            "heard": "疑似"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "守",
+            "heard": "手"
+          },
+          {
+            "at": 57,
+            "kind": "replace",
+            "script": "没",
+            "heard": "未"
+          },
+          {
+            "at": 83,
+            "kind": "replace",
+            "script": "铃",
+            "heard": "灵"
+          }
+        ],
+        "transcript": "警方与家属尝试布控盯守交钱地点核查账户与银行线索疑似交接中警员因联络错位手错位置取钱者脱身后来存款记录与柜员描述仍未能确认身份每次行动结束父亲回到家等待的仍只有下一次灵响希望一次次被递来又一次次被抽走"
+      },
+      {
+        "id": "N06",
+        "start": 138.898,
+        "end": 174.0,
+        "script_chars": 139,
+        "heard_chars": 143,
+        "character_error_rate": 0.0791,
+        "match_coverage": 0.9496,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零零"
+          },
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "那",
+            "heard": "大"
+          },
+          {
+            "at": 30,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 36,
+            "kind": "replace",
+            "script": "旧",
+            "heard": "就"
+          },
+          {
+            "at": 49,
+            "kind": "replace",
+            "script": "纹",
+            "heard": "文"
+          },
+          {
+            "at": 62,
+            "kind": "replace",
+            "script": "纹",
+            "heard": "文"
+          }
+        ],
+        "transcript": "2007年,案件被拍成电影大家伙的声音,让那段来电再次进入公众记忆。2019年,警方将就录音带数字化并重新分析声文,希望找到新线索。多年过去,声文仍没有指向已确认的凶手。截至2026年,案件依旧被挣脱。今天留下的不是凶手的传奇,而是一个9岁孩子被夺走的日常,以及仍在等待真相的家人。35年后,真相还可能从哪里出现?"
+      }
+    ],
+    "max_cer": 0.0791,
+    "failing": []
+  }
+}
