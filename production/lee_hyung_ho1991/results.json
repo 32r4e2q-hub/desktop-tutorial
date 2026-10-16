@@ -369,10 +369,10 @@
     },
     "S11": {
       "id": "S11",
-      "status": "failed",
+      "status": "queued",
       "request_hash": "da9bef26d6eccaffff369b2a2ac9297e594331902edff1e8130f13d72eeb64d0",
-      "error": "1234 网络错误，错误id：2026101607483420a557ee99e347b7，请稍后重试",
-      "task_attempt": 2,
+      "error": null,
+      "task_attempt": 3,
       "task_failures": [
         {
           "task_id": "202610151810281240e8e11ebd4dd6",
@@ -412,8 +412,8 @@
       "face_visible": true,
       "reference_image": "references/mother-lee.jpg",
       "reference_sha256": "3057507e9d74dd0df78d9f5ce021d0a9e124c281fc974fafdd200a9adb01981b",
-      "updated_at": "2026-10-16T00:18:46Z",
-      "task_id": "2026101607483420a557ee99e347b7"
+      "updated_at": "2026-10-16T00:21:51Z",
+      "task_id": "20261016082150d6ab0c720c254383"
     },
     "S13": {
       "id": "S13",
@@ -1363,7 +1363,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T00:18:46Z",
+  "updated_at": "2026-10-16T00:21:51Z",
   "run_id": "38818452473",
   "previous_results": {
     "S12": [
