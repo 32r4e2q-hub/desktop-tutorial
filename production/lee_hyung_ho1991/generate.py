@@ -38,7 +38,7 @@ def digest(path):
 def full_payload(project,shot):
     # CogVideoX-Flash receives the deterministic character reference as an
     # image-to-video start frame, not as a different video-generation provider.
-    prompt=(project['style_prefix']+shot['prompt']).strip()
+    prompt=(shot.get('style_prefix', project['style_prefix'])+shot['prompt']).strip()
     if len(prompt)>2600: prompt=prompt[:2600]
     payload={'model':MODEL,'prompt':prompt,'quality':'quality','with_audio':False}
     reference=shot.get('reference_image')

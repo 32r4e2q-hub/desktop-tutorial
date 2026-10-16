@@ -1,0 +1,71 @@
+name: 李亨浩案 · 定点返工动画素材
+on:
+  push:
+    branches: [arena/1f36798e-desktop-tutorial]
+    paths: [production/lee_hyung_ho1991/REVISION_REQUEST]
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: lee-hyung-ho-revision-sources
+  cancel-in-progress: false
+jobs:
+  sources:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/1f36798e-desktop-tutorial
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            production
+            .github
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install production tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          pip install 'numpy>=1.26,<3' 'pillow>=10,<13' 'zhipuai>=2.1,<3' 'sniffio>=1.3,<2'
+      - name: Generate only the explicitly rejected source shots
+        env:
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+        run: |
+          payload=$(python -c "import json; print(json.dumps(json.load(open('production/lee_hyung_ho1991/REVISION_REQUEST'))))")
+          python -u production/lee_hyung_ho1991/generate.py --payload "$payload"
+      - name: Export the entire replacement clips for semantic review
+        run: |
+          mkdir -p production/lee_hyung_ho1991/revision-2
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          p=Path('production/lee_hyung_ho1991')
+          for sid in json.loads((p/'REVISION_REQUEST').read_text())['only'].split(','):
+              src=Path('work/lee_hyung_ho1991/sources')/(sid+'.mp4')
+              subprocess.run(['ffmpeg','-v','error','-y','-i',str(src),'-vf','fps=2,scale=480:270,tile=4x3','-frames:v','1','-q:v','3',str(p/'revision-2'/('source-'+sid+'.jpg'))],check=True)
+          PY
+      - name: Preserve receipts even if provider generation was incomplete
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/lee_hyung_ho1991/results.json production/lee_hyung_ho1991/qa production/lee_hyung_ho1991/revision-2
+          if ! git diff --cached --quiet; then
+            git commit -m 'revision: preserve bounded targeted generation receipts and replacement clip evidence'
+            git fetch origin arena/1f36798e-desktop-tutorial
+            git rebase FETCH_HEAD
+            git push origin arena/1f36798e-desktop-tutorial
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lee-revision-sources
+          path: |
+            work/lee_hyung_ho1991/sources/*.mp4
+            production/lee_hyung_ho1991/results.json
+            production/lee_hyung_ho1991/revision-2/
+          retention-days: 30
+          compression-level: 0
