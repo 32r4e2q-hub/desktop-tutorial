@@ -3,7 +3,8 @@ from pathlib import Path
 import pytest
 HERE=Path(__file__).resolve().parents[1]/'lee_hyung_ho1991'
 sys.path.insert(0,str(HERE))
-import render
+spec=importlib.util.spec_from_file_location("lee_revision_render",HERE/"render.py")
+render=importlib.util.module_from_spec(spec);spec.loader.exec_module(render)
 from revise_edit import build
 
 def test_revised_cut_covers_180_seconds_and_all_sources_once():
@@ -26,7 +27,8 @@ def test_invalid_revision_gap_is_rejected(tmp_path):
     with pytest.raises(ValueError,match='gap'):render.load_edit_plan(f,json.loads((HERE/'story.json').read_text()))
 
 def test_only_replacement_payload_hashes_change():
-    import generate
+    spec=importlib.util.spec_from_file_location("lee_revision_generate",HERE/"generate.py")
+    generate=importlib.util.module_from_spec(spec);spec.loader.exec_module(generate)
     p=json.loads((HERE/'story.json').read_text())
     ids=set(json.loads((HERE/'REVISION_REQUEST').read_text())['only'].split(','))
     receipts=json.loads((HERE/'results.json').read_text())['shots']
