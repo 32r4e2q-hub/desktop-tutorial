@@ -5,9 +5,9 @@ on:
     paths: [production/lee_hyung_ho1991/REVISION_REQUEST]
 permissions:
   contents: write
-  actions: read
+  actions: write
 concurrency:
-  group: lee-hyung-ho-revision-sources
+  group: lee-hyung-ho-revision-sources-observable
   cancel-in-progress: true
 jobs:
   sources:
@@ -17,7 +17,14 @@ jobs:
       - name: Await predecessor receipt preservation before resuming task IDs
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh run watch 38857954471 --repo '${{ github.repository }}' --interval 10
+        run: |
+          for predecessor in 38858231368 38857954471; do
+            status=$(gh api repos/${{ github.repository }}/actions/runs/$predecessor --jq .status)
+            if [ "$status" != completed ]; then
+              gh api -X POST repos/${{ github.repository }}/actions/runs/$predecessor/cancel
+            fi
+            gh run watch "$predecessor" --repo '${{ github.repository }}' --interval 10
+          done
       - uses: actions/checkout@v4
         with:
           ref: arena/1f36798e-desktop-tutorial
