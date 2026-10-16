@@ -131,7 +131,11 @@ def waveform_sync(film, out, chapters, tempo):
     samples=decode(film);rate=8000;rows=[]
     for ch in chapters:
         dry=out/f'{ch["id"]}-retimed.wav'
-        subprocess.run(['ffmpeg','-v','error','-y','-i',str(HERE/'audio'/f'{ch["id"]}.mp3'),'-af',f'atempo={tempo}', '-ac','1','-ar',str(rate),str(dry)],check=True)
+        decoded=out/f'{ch["id"]}-decoded48.wav'
+        # Production retimes decoded 48k PCM, not the original 24k MP3.
+        # WSOLA at different input rates changes waveform phase; compare like-for-like.
+        subprocess.run(['ffmpeg','-v','error','-y','-i',str(HERE/'audio'/f'{ch["id"]}.mp3'),'-ac','1','-ar','48000','-c:a','pcm_s16le',str(decoded)],check=True)
+        subprocess.run(['ffmpeg','-v','error','-y','-i',str(decoded),'-af',f'atempo={tempo:.9f},highpass=f=70,lowpass=f=11000', '-ac','1','-ar',str(rate),str(dry)],check=True)
         reference=decode(dry);windows=[]
         for fraction in (.2,.5,.8):
             begin=int((len(reference)-rate*2)*fraction)
@@ -147,6 +151,7 @@ def waveform_sync(film, out, chapters, tempo):
             windows.append({'at':round(center/rate,4),'lag_seconds':round(lag,5),'normalized_correlation':round(float(ncc[idx]),5)})
         rows.append({'id':ch['id'],'windows':windows,'pass':bool(windows) and all(abs(w['lag_seconds'])<=.1 and w['normalized_correlation']>=.75 for w in windows)})
         dry.unlink()
+        decoded.unlink(missing_ok=True)
     write(out/'waveform-sync.json',{'film_sha256':EXPECTED,'method':'Independent final-mix vs atempo-retimed clean narration, 3 windows/chapter, +/-0.5s normalized waveform correlation. This measures placement, not lip sync.', 'chapters':rows,'pass':all(r['pass'] for r in rows)})
 
 
@@ -213,7 +218,7 @@ def audio(film,out):
 
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--artifact',type=Path,required=True);ap.add_argument('--mode',choices=('visual','audio'),required=True);args=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('--artifact',type=Path,required=True);ap.add_argument('--mode',choices=('visual','audio','sync'),required=True);args=ap.parse_args()
     films=list(args.artifact.rglob('李亨浩_四十四天的电话_三分钟.mp4'))
     assert len(films)==1,films
     film=films[0];h=hashlib.sha256()
@@ -223,6 +228,9 @@ def main():
     out=HERE/'review-2026-10-16';out.mkdir(exist_ok=True)
     if args.mode=='visual':
         visual(film,args.artifact,out)
+    elif args.mode=='sync':
+        from verbatim_check import load_chapters
+        waveform_sync(film,out,load_chapters(HERE,None),read(HERE/'delivery/technical-report.json')['narration_tempo'])
     else:
         audio(film,out)
 
