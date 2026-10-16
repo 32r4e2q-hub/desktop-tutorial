@@ -17,7 +17,7 @@ jobs:
       - name: Await predecessor receipt preservation before resuming task IDs
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh run watch 38856607630 --repo '${{ github.repository }}' --interval 10
+        run: gh run watch 38857954471 --repo '${{ github.repository }}' --interval 10
       - uses: actions/checkout@v4
         with:
           ref: arena/1f36798e-desktop-tutorial

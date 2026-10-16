@@ -291,7 +291,14 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
                 if not retryable(exc):
                     raise
                 # Back off submissions, but keep collecting other active tasks.
-                print(f'Submission paused 30s: {str(exc)[:180]}', flush=True)
+                detail=str(exc)[:180]
+                print(f'Submission paused 30s ({sid}): {detail}', flush=True)
+                history=doc.setdefault('submission_backoffs',[])
+                history.append({'shot':sid,'error':detail,'at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
+                # A synchronous provider rejection must not pin the entire queue to one prompt.
+                pending.remove(shot);pending.append(shot)
+                if len(history)==1 or len(history)%5==0:
+                    checkpoint(doc,'provider submission backoff; task IDs retained',publish=publish)
                 submit_after = time.monotonic() + 30
                 break
             task_id = obj_get(response, 'id')
