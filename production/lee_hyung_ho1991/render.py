@@ -404,6 +404,10 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
             f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         entry.update(source_in=a,source_out=a+take,time_stretch=factor)
+    if sid=='S26':
+        # Generated tape lettering is not evidence: keep the cordon but make its tiny
+        # synthetic lettering deliberately out of focus, rather than implying legibility.
+        vf+=" ,split[tape_base][tape_blur];[tape_blur]boxblur=10:1[tape_soft];[tape_base][tape_soft]blend=all_expr='if(between(Y/H,0.42+0.012*T-0.28*X/W,0.49+0.012*T-0.28*X/W),B,A)'"
     if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
     if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
     if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
