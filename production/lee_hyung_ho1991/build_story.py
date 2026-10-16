@@ -131,7 +131,7 @@ SHOTS = [
 
     ("S09", "N02", "A 1991 Seoul street telephone booth in light rain at night, reflections passing across the glass while the booth remains empty; slow dolly toward it.", "不断变换的街头来电", "slow dolly", None),
     ("S10", "N02", "案件资料卡：首轮赎金与车载电话要求", "七千万韩元与车载电话", "post-production card", "graphic"),
-    ("S11", "N02", "MOTHER-01 writes the changing instructions on a deliberately blank note beside the landline; show her same reference face, burgundy sleeve and tense writing hand in one close, slow push, no legible text.", "母亲记录不断变化的交接指令", "slow push-in", None),
+    ("S11", "N02", "MOTHER-01 sits at a wooden table beside a stationary landline telephone and an unmarked notebook. She holds a pen still above the page, pausing to listen before taking notes. Keep the reference face and burgundy cardigan. One steady medium shot, subtle breathing only, fixed camera, no readable text.", "母亲记录不断变化的交接指令", "locked-off", None),
     ("S12", "N02", "FATHER-01 waits at the wheel of a parked period-correct 1991 Seoul sedan at night, one hand near a car telephone; his canonical reference face stays clearly visible in three-quarter view, same navy coat and pale-blue shirt. Streetlights reflect softly across the window; one slow passenger-seat push-in.", "父亲深夜在车中等待下一通电话", "slow passenger-seat push-in", None),
     ("S13", "N02", "A quiet Seoul intersection with a public phone booth, wet pavement and distant headlights reflected in shop windows; one continuous slow pan, no readable signs.", "反复变化的地点", "slow pan", None),
     ("S14", "N02", "CALLER-UNKNOWN appears only as the same distant hooded silhouette behind rain-streaked phone-booth glass, face fully hidden, one gloved hand holding the receiver; slow, subtle push.", "身份未明来电者的匿名背影", "slow push-in", None),
