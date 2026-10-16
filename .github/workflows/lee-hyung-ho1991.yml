@@ -54,6 +54,7 @@ jobs:
           sparse-checkout: |
             production
             .github
+            电影解说工具包
 
       - name: Install media tools and fonts
         run: |
@@ -84,6 +85,15 @@ jobs:
                 'mediapipe', mp.__version__, 'numpy', np.__version__,
                 'edge-tts', metadata.version('edge-tts'), 'zhipuai', metadata.version('zhipuai'))
           PY
+
+      - name: Check shared soundtrack dependency before rendering
+        run: |
+          python - <<'PYCODE'
+          import sys
+          sys.path.insert(0, '电影解说工具包')
+          from generate_horror_bgm import generate_horror_bgm
+          assert callable(generate_horror_bgm)
+          PYCODE
 
       - name: Build the checked screenplay and resolve this run
         id: resolve
