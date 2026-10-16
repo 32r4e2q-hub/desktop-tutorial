@@ -1263,7 +1263,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T13:12:11Z",
+  "updated_at": "2026-10-16T13:13:29Z",
   "run_id": "38903575139",
   "previous_results": {
     "S12": [
@@ -3413,6 +3413,12 @@
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
       "at": "2026-10-16T13:10:56Z",
       "retry_after_seconds": 75
+    },
+    {
+      "shot": "S07",
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "at": "2026-10-16T13:12:14Z",
+      "retry_after_seconds": 75
     }
   ],
   "submission_campaigns": {
@@ -3428,11 +3434,11 @@
         },
         "S41": {
           "request_hash": "44df51bad76882a08415e0292f20a36a078c898fc95214b5212026635db2ac30",
-          "attempts": 6
+          "attempts": 7
         }
       },
-      "last_submission_at": 1792156331.9447377,
-      "last_submitted_sid": "S07"
+      "last_submission_at": 1792156409.7700744,
+      "last_submitted_sid": "S41"
     }
   }
 }
