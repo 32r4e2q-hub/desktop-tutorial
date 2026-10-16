@@ -16,10 +16,12 @@ class RecoveryTests(unittest.TestCase):
         self.assertIsNone(g.resumable_task(row, 'changed'))
         self.assertIsNone(g.resumable_task(dict(row, status='failed'), 'abc'))
 
-    def simulate(self, states, rows=None, budget=35, **policy):
+    def simulate(self, states, rows=None, budget=35, submit_errors=None, **policy):
         client=Mock(); doc={'shots':rows or {}}; clock=[0]; submitted=[]; polled=[]; live=set(); peak=[0]
         def submit(**payload):
-            task=payload['sid'];submitted.append(task);live.add(task);peak[0]=max(peak[0],len(live));return {'id':task}
+            task=payload['sid'];submitted.append(task)
+            if task in (submit_errors or {}):raise RuntimeError(submit_errors[task])
+            live.add(task);peak[0]=max(peak[0],len(live));return {'id':task}
         def poll(id):
             polled.append(id)
             status=states[id]
@@ -42,6 +44,14 @@ class RecoveryTests(unittest.TestCase):
         self.assertEqual(doc['shots']['fourth']['status'],'completed')
         self.assertLessEqual(peak,3)
         self.assertIn('slow',polled)
+
+    def test_synchronous_1305_does_not_starve_other_prompts(self):
+        doc,submitted,_,_,missing=self.simulate({'bad':'SUCCESS','good':'SUCCESS'},budget=65,
+                                               submit_errors={'bad':'429 1305 model busy'},window=1)
+        self.assertEqual(missing,['bad'])
+        self.assertEqual(doc['shots']['good']['status'],'completed')
+        self.assertEqual(submitted[:2],['bad','good'])
+        self.assertEqual(doc['submission_backoffs'][0]['shot'],'bad')
 
     def test_resume_does_not_submit_duplicate(self):
         row={'status':'queued','task_id':'existing','request_hash':'hash'}
