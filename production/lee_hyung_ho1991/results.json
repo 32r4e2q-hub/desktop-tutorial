@@ -273,22 +273,28 @@
     },
     "S07": {
       "id": "S07",
-      "status": "queued",
+      "status": "failed",
       "task_id": "202610162225000c6baa87a9334785",
       "request_hash": "c8f3f9410eb6869750daafda63e7268d7fef408b2b9df00fc12acb35896b6b05",
-      "error": null,
+      "error": "1234 网络错误，错误id：202610162225000c6baa87a9334785，请稍后重试",
       "task_attempt": 2,
       "character_ids": [],
       "face_visible": false,
       "reference_image": "references/v2-desk-phone.png",
       "reference_sha256": "00e293e4fd2f7652f0f71798da28e695c48123b382dbccf5f46d4ccc5511b8d3",
-      "updated_at": "2026-10-16T14:25:01Z",
+      "updated_at": "2026-10-16T14:55:15Z",
       "task_failures": [
         {
           "task_id": "20261016215057adea18d7caee4f6c",
           "code": "1234",
           "message": "网络错误，错误id：20261016215057adea18d7caee4f6c，请稍后重试",
           "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：20261016215057adea18d7caee4f6c，请稍后重试'})"
+        },
+        {
+          "task_id": "202610162225000c6baa87a9334785",
+          "code": "1234",
+          "message": "网络错误，错误id：202610162225000c6baa87a9334785，请稍后重试",
+          "raw_error": "VideoObject(id=None, model=None, video_result=None, task_status='FAIL', request_id=None, error={'code': '1234', 'message': '网络错误，错误id：202610162225000c6baa87a9334785，请稍后重试'})"
         }
       ]
     },
@@ -1307,7 +1313,7 @@
     "S43",
     "S44"
   ],
-  "updated_at": "2026-10-16T14:25:01Z",
+  "updated_at": "2026-10-16T14:55:15Z",
   "run_id": "38903575139",
   "previous_results": {
     "S12": [
