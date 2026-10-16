@@ -39,11 +39,21 @@ jobs:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
+      - name: Keep checkout bounded on slow connections
+        run: |
+          git config --global http.version HTTP/1.1
+          git config --global http.lowSpeedLimit 1000
+          git config --global http.lowSpeedTime 30
+
       - name: Check out the fixed Arena production branch
         uses: actions/checkout@v4
         with:
           ref: arena/1f36798e-desktop-tutorial
-          fetch-depth: 0
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            production
+            .github
 
       - name: Install media tools and fonts
         run: |
