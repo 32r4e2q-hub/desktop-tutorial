@@ -6,6 +6,7 @@
 #
 pillow>=10,<13           # 绘图：信息卡、字幕烧录、审片对照表
 numpy>=1.26,<3           # 混音（build_audio.py）与电平测量
+scipy>=1.12,<2           # 独立波形定位与合成偏移控制测试
 av>=12,<19               # PyAV：production/review_film.py 审片时解码成片
 pyyaml>=6,<7             # 工作流完整解析；不装也能跑，只是少跑 1 个用例
 pytest>=7,<10            # 只用于跑 production/tests
