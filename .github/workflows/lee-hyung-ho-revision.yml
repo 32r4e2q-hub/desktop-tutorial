@@ -12,7 +12,7 @@ concurrency:
 jobs:
   sources:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
-    timeout-minutes: 65
+    timeout-minutes: 220
     steps:
       - name: Await predecessor receipt preservation before resuming task IDs
         env:
@@ -48,8 +48,10 @@ jobs:
           payload=$(python -c "import json; print(json.dumps(json.load(open('production/lee_hyung_ho1991/REVISION_REQUEST'))))")
           python -u production/lee_hyung_ho1991/generate.py --publish --payload "$payload"
       - name: Restore all completed receipts including predecessor clips
-        run: python production/lee_hyung_ho1991/fetch_sources.py --dest work/lee_hyung_ho1991/sources
+        if: ${{ !cancelled() }}
+        run: python production/lee_hyung_ho1991/fetch_sources.py --allow-incomplete --dest work/lee_hyung_ho1991/sources
       - name: Export the entire replacement clips for semantic review
+        if: ${{ !cancelled() }}
         run: |
           mkdir -p production/lee_hyung_ho1991/revision-2
           python - <<'PY'
@@ -58,6 +60,8 @@ jobs:
           p=Path('production/lee_hyung_ho1991')
           for sid in json.loads((p/'REVISION_REQUEST').read_text())['only'].split(','):
               src=Path('work/lee_hyung_ho1991/sources')/(sid+'.mp4')
+              if not src.exists():
+                  continue
               subprocess.run(['ffmpeg','-v','error','-y','-i',str(src),'-vf','fps=2,scale=480:270,tile=4x3','-frames:v','1','-q:v','3',str(p/'revision-2'/('source-'+sid+'.jpg'))],check=True)
           PY
       - name: Preserve receipts even if provider generation was incomplete

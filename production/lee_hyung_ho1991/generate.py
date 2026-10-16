@@ -144,7 +144,7 @@ def download(url,dest):
 
 def retryable(exc):
     text=str(exc).lower()
-    if any(x in text for x in ('1113','余额不足','无可用资源包')):
+    if any(x in text for x in ('1113','余额不足','无可用资源包','401','403','1301','审核拒绝','unauthorized','forbidden','invalid api key')):
         return False
     return any(x in text for x in ('1234','网络错误','network error','1302','1303','1305','429','访问量过大',
                                    'rate','timeout','timed out','temporar','connection','502','503','504'))
@@ -214,14 +214,20 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
             row = doc['shots'][sid]
         if receipt_ready(row, hashes[sid]):
             continue
+        attempts[sid] = len(row.get('task_failures', []))
+        if row.get('status') == 'failed':
+            detail = row.get('error', '')
+            if (detail and not retryable(RuntimeError(detail))) or attempts[sid] >= max_task_attempts:
+                continue  # Explicitly paused; do not reset failures on a new runner.
         if resumable_task(row, hashes[sid]) or (row.get('status') == 'generated' and row.get('video_url')):
             active[sid] = shot
-            attempts[sid] = 1
+            attempts[sid] += 1
         else:
             pending.append(shot)
     # Untouched work before previously failed shots.
     pending.sort(key=lambda s: len(doc.get('shots', {}).get(s['id'], {}).get('task_failures', [])))
     submit_after = 0
+    consecutive_rejections = 0
     while (pending or active) and time.monotonic() < deadline:
         # Poll EVERY live task before filling slots; no 30-minute per-shot loop.
         for sid, shot in list(active.items()):
@@ -292,18 +298,21 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
                     raise
                 # Back off submissions, but keep collecting other active tasks.
                 detail=str(exc)[:180]
-                print(f'Submission paused 30s ({sid}): {detail}', flush=True)
+                consecutive_rejections += 1
+                delay = min(300, 30 * 2 ** min(consecutive_rejections - 1, 4))
+                print(f'Submission paused {delay}s ({sid}): {detail}', flush=True)
                 history=doc.setdefault('submission_backoffs',[])
-                history.append({'shot':sid,'error':detail,'at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
+                history.append({'shot':sid,'error':detail,'at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'retry_after_seconds':delay})
                 # A synchronous provider rejection must not pin the entire queue to one prompt.
                 pending.remove(shot);pending.append(shot)
                 if len(history)==1 or len(history)%5==0:
                     checkpoint(doc,'provider submission backoff; task IDs retained',publish=publish)
-                submit_after = time.monotonic() + 30
+                submit_after = time.monotonic() + delay
                 break
             task_id = obj_get(response, 'id')
             if not task_id:
                 raise RuntimeError(f'{sid}: provider did not return a task ID')
+            consecutive_rejections = 0
             pending.remove(shot); attempts[sid] = attempts.get(sid, 0) + 1
             checkpoint(doc, f'{sid} queued', sid, publish=publish,
                        status='queued', task_id=str(task_id), request_hash=hashes[sid], error=None,
@@ -318,7 +327,7 @@ def run_queue(client, project, shots, doc, sources, qa, publish,
 
 
 def queue_policy(options):
-    bounds = {'window': (1, 3, 3), 'max_task_attempts': (1, 3, 2),
+    bounds = {'window': (1, 3, 3), 'max_task_attempts': (1, 10, 2),
               'budget_minutes': (1, 240, 240), 'cooldown_seconds': (0, 300, 60)}
     policy = {}
     for key, (low, high, default) in bounds.items():

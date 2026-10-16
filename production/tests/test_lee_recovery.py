@@ -53,6 +53,32 @@ class RecoveryTests(unittest.TestCase):
         self.assertEqual(submitted[:2],['bad','good'])
         self.assertEqual(doc['submission_backoffs'][0]['shot'],'bad')
 
+    def test_permanent_failed_receipt_stays_paused_after_restart(self):
+        row={'status':'failed','request_hash':'hash','error':'1301 审核拒绝','task_failures':[{}]}
+        _,submitted,_,_,missing=self.simulate({'bad':'SUCCESS'},{'bad':row})
+        self.assertEqual(submitted,[])
+        self.assertEqual(missing,['bad'])
+
+    def test_retry_limit_survives_restart(self):
+        row={'status':'failed','request_hash':'hash','error':'1234 network error','task_failures':[{},{}]}
+        _,submitted,_,_,missing=self.simulate({'bad':'SUCCESS'},{'bad':row},max_task_attempts=2)
+        self.assertEqual(submitted,[])
+        self.assertEqual(missing,['bad'])
+
+    def test_retryable_failed_receipt_can_resume_with_remaining_allowance(self):
+        row={'status':'failed','request_hash':'hash','error':'1234 network error','task_failures':[{}]}
+        _,submitted,_,_,missing=self.simulate({'bad':'SUCCESS'},{'bad':row},max_task_attempts=3)
+        self.assertEqual(submitted,['bad'])
+        self.assertEqual(missing,[])
+
+    def test_busy_submissions_back_off_progressively(self):
+        doc,_,_,_,_=self.simulate({'bad':'SUCCESS'},budget=500,submit_errors={'bad':'429 1305 busy'})
+        self.assertEqual([r['retry_after_seconds'] for r in doc['submission_backoffs']],[30,60,120,240,300])
+
+    def test_auth_and_safety_failures_override_transient_words(self):
+        for message in ('401 unauthorized network error','403 forbidden timeout','1301 审核拒绝 network error'):
+            self.assertFalse(g.retryable(RuntimeError(message)))
+
     def test_resume_does_not_submit_duplicate(self):
         row={'status':'queued','task_id':'existing','request_hash':'hash'}
         doc,submitted,_,_,missing=self.simulate({'existing':'SUCCESS'}, {'existing':row})
