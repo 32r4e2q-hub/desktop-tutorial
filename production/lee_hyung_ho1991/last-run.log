@@ -24,7 +24,7 @@ Collecting flatbuffers>=2
 Collecting protobuf<5,>=4.25.3
   Downloading protobuf-4.25.9-cp37-abi3-manylinux2014_x86_64.whl.metadata (541 bytes)
 Collecting cachetools>=4.2.2 (from zhipuai<3,>=2.1)
-  Downloading cachetools-7.2.1-py3-none-any.whl.metadata (5.5 kB)
+  Downloading cachetools-7.2.2-py3-none-any.whl.metadata (5.5 kB)
 Collecting httpx>=0.23.0 (from zhipuai<3,>=2.1)
   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
 Collecting pydantic<3.0,>=1.9.0 (from zhipuai<3,>=2.1)
@@ -82,26 +82,26 @@ Collecting h11>=0.16 (from httpcore==1.*->httpx>=0.23.0->zhipuai<3,>=2.1)
 Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib<4,>=3.8)
   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
 Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.3 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.3/18.3 MB 293.5 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.3/18.3 MB 110.7 MB/s  0:00:00
 Downloading opencv_python_headless-4.10.0.84-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (49.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 49.9/49.9 MB 210.2 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 49.9/49.9 MB 64.2 MB/s  0:00:00
 Downloading zhipuai-2.1.5.20250825-py3-none-any.whl (119 kB)
 Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
 Downloading edge_tts-7.3.1-py3-none-any.whl (38 kB)
 Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 335.1 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 29.2 MB/s  0:00:00
 Downloading av-15.1.0-cp311-cp311-manylinux_2_28_x86_64.whl (39.6 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 39.6/39.6 MB 253.0 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 39.6/39.6 MB 42.3 MB/s  0:00:00
 Downloading matplotlib-3.11.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 335.6 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 28.5 MB/s  0:00:00
 Downloading absl_py-2.5.1-py3-none-any.whl (137 kB)
 Downloading protobuf-4.25.9-cp37-abi3-manylinux2014_x86_64.whl (295 kB)
 Downloading aiohttp-3.14.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 201.4 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 8.0 MB/s  0:00:00
 Downloading multidict-7.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (480 kB)
 Downloading pydantic-2.14.1-py3-none-any.whl (488 kB)
 Downloading pydantic_core-2.50.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 293.7 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 13.7 MB/s  0:00:00
 Downloading PyJWT-2.8.0-py3-none-any.whl (22 kB)
 Downloading tabulate-0.10.0-py3-none-any.whl (39 kB)
 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
@@ -111,19 +111,19 @@ Downloading flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
 Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
 Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
-Downloading cachetools-7.2.1-py3-none-any.whl (17 kB)
+Downloading cachetools-7.2.2-py3-none-any.whl (17 kB)
 Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
 Downloading contourpy-1.3.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (355 kB)
 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
 Downloading fonttools-4.67.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.5 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 322.7 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 167.9 MB/s  0:00:00
 Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
 Downloading idna-3.20-py3-none-any.whl (69 kB)
 Downloading kiwisolver-1.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 251.1 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 164.9 MB/s  0:00:00
 Downloading packaging-26.3-py3-none-any.whl (129 kB)
 Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (235 kB)
 Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
@@ -133,1905 +133,1219 @@ Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
 Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
 Installing collected packages: flatbuffers, typing-extensions, tabulate, sniffio, six, pyparsing, pyjwt, protobuf, propcache, pillow, packaging, numpy, multidict, kiwisolver, idna, h11, frozenlist, fonttools, cycler, certifi, cachetools, av, attrs, annotated-types, aiohappyeyeballs, absl-py, yarl, typing-inspection, python-dateutil, pydantic-core, opencv-python-headless, httpcore, contourpy, anyio, aiosignal, pydantic, matplotlib, httpx, aiohttp, zhipuai, edge-tts
 
-Successfully installed absl-py-2.5.1 aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 annotated-types-0.8.0 anyio-4.15.1 attrs-26.1.0 av-15.1.0 cachetools-7.2.1 certifi-2026.7.22 contourpy-1.3.3 cycler-0.12.1 edge-tts-7.3.1 flatbuffers-25.12.19 fonttools-4.67.0 frozenlist-1.8.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 kiwisolver-1.5.1 matplotlib-3.11.2 multidict-7.1.0 numpy-1.26.4 opencv-python-headless-4.10.0.84 packaging-26.3 pillow-12.3.0 propcache-0.5.4 protobuf-4.25.9 pydantic-2.14.1 pydantic-core-2.50.1 pyjwt-2.8.0 pyparsing-3.3.3 python-dateutil-2.9.0.post0 six-1.17.0 sniffio-1.3.1 tabulate-0.10.0 typing-extensions-4.16.0 typing-inspection-0.4.4 yarl-1.25.1 zhipuai-2.1.5.20250825
+Successfully installed absl-py-2.5.1 aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 annotated-types-0.8.0 anyio-4.15.1 attrs-26.1.0 av-15.1.0 cachetools-7.2.2 certifi-2026.7.22 contourpy-1.3.3 cycler-0.12.1 edge-tts-7.3.1 flatbuffers-25.12.19 fonttools-4.67.0 frozenlist-1.8.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 kiwisolver-1.5.1 matplotlib-3.11.2 multidict-7.1.0 numpy-1.26.4 opencv-python-headless-4.10.0.84 packaging-26.3 pillow-12.3.0 propcache-0.5.4 protobuf-4.25.9 pydantic-2.14.1 pydantic-core-2.50.1 pyjwt-2.8.0 pyparsing-3.3.3 python-dateutil-2.9.0.post0 six-1.17.0 sniffio-1.3.1 tabulate-0.10.0 typing-extensions-4.16.0 typing-inspection-0.4.4 yarl-1.25.1 zhipuai-2.1.5.20250825
 Collecting mediapipe==0.10.21
   Downloading mediapipe-0.10.21-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (9.7 kB)
 Downloading mediapipe-0.10.21-cp311-cp311-manylinux_2_28_x86_64.whl (35.6 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.6/35.6 MB 62.6 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.6/35.6 MB 81.2 MB/s  0:00:00
 Installing collected packages: mediapipe
 Successfully installed mediapipe-0.10.21
 runtime ready av 15.1.0 opencv 4.10.0 mediapipe 0.10.21 numpy 1.26.4 edge-tts 7.3.1 zhipuai 2.1.5.20250825
-S04: recovered matching successful receipt; video bytes must pass SHA-256 on restore
-S07: recovered matching successful receipt; video bytes must pass SHA-256 on restore
+FETCH S01 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101514484007f8b596a5164480_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=9xf3g6oK46tM7VQdGfUkaZE4wQ0%3D&Expires=1792133323
+  OK S01 1367575 bytes / 5.11s
+FETCH S02 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015145130c79e6ab9f20b4fc8_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=B0yxtcfoZxqo%2BJp2LXa3TwMvNOM%3D&Expires=1792133492
+  OK S02 1265911 bytes / 5.11s
+FETCH S04 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151820408df43f448a244694_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=WpwtFQLCezUnvso%2Bx0MZSbdojkk%3D&Expires=1792146043
+  OK S04 2136704 bytes / 5.11s
+FETCH S05 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015120710fba97e97311345f7_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=uPJFzKdP%2BYs3sV1R8kfS%2Fukghak%3D&Expires=1792123633
+  OK S05 2679167 bytes / 5.11s
+FETCH S06 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015173550905b8ab4371e43c1_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=X8afMp3wj58bHjGqRLOW96ar3ZY%3D&Expires=1792143351
+  OK S06 1067629 bytes / 5.11s
+FETCH S07 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015183409d538744a2c6f4270_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=ms8uWbsGsEcCscXU5f9gcZnYbgI%3D&Expires=1792146852
+  OK S07 1749054 bytes / 5.11s
+FETCH S08 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151807509beb5c73473c44c4_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=T%2FJGQG21itEjkkvnFh6ocxah7CE%3D&Expires=1792145272
+  OK S08 1696419 bytes / 5.11s
+FETCH S09 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015180940ee1e9b9cab2e41bc_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=tCNySyF2%2FC3KjPSRVDrvcAKTXUw%3D&Expires=1792145382
+  OK S09 1385421 bytes / 5.11s
+MISSING_RECEIPT S11: no verified generation to fetch
+FETCH S12 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151353000079ac4d3d0440d4_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=xAUHhtF5KebkERGExncjdZ7JSAI%3D&Expires=1792129983
+  OK S12 2107342 bytes / 5.11s
+FETCH S13 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015184230f552e21d73454061_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=5ummwEY18ft%2FpK8dKW5aKa0hAWo%3D&Expires=1792147354
+  OK S13 1223627 bytes / 5.11s
+FETCH S14 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101518491068f541de9e3a4672_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=T%2BC7VgNcUfwWMSJ6Bh%2FvtXPJ3uQ%3D&Expires=1792147752
+  OK S14 1774091 bytes / 5.11s
+FETCH S15 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151850305a6131e9190645cd_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=Oj49UB4xjD%2BHYXsaDsZvL4wvR00%3D&Expires=1792147833
+  OK S15 1928557 bytes / 5.11s
+FETCH S16 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015143210c3476cf1dd1d4b65_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=gF8gtfvgOxDlXniO5Ikr4sGWu8s%3D&Expires=1792132334
+  OK S16 2484140 bytes / 5.11s
+MISSING_RECEIPT S18: no verified generation to fetch
+FETCH S19 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151923307bdf4a0fa9bd4cb5_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=AB%2Bj0UdC3%2BGOGKRcHpKo337scnQ%3D&Expires=1792149812
+  OK S19 2122040 bytes / 5.11s
+FETCH S20 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151932405c9f7e6fa24c4194_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=VldXjtHkYs8DP1KdNnRfKeyVcBk%3D&Expires=1792150363
+  OK S20 1403528 bytes / 5.11s
+FETCH S21 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151941209d77affd4bfb4c00_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=jtmUl1Bb0j0oBvBkqOiyS7hdIRE%3D&Expires=1792150882
+  OK S21 1106859 bytes / 5.11s
+FETCH S22 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610151943007e649b5355724739_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=3muG6CawcY%2F7P%2BhD0fdkj1FWTxg%3D&Expires=1792150984
+  OK S22 2296948 bytes / 5.11s
+FETCH S23 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261016000200b2e8ac21d61e4300_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=VK7ye4lxTGwy9mtL9QdxKi8ZMqg%3D&Expires=1792166522
+  OK S23 1398686 bytes / 5.11s
+FETCH S25 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015201430e1e5137196544d58_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=zeErBVE%2B30rNtRFeJ%2F9Sws8ibdw%3D&Expires=1792152873
+  OK S25 1572921 bytes / 5.11s
+FETCH S26 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101600031037148e003a8644b6_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=rz3WYqox3ZyHeR%2BtycxCFKwdQ%2FE%3D&Expires=1792166593
+  OK S26 1833392 bytes / 5.11s
+MISSING_RECEIPT S27: no verified generation to fetch
+FETCH S28 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152118003e3ad9e90ac84892_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=jqg%2Bk%2BQyGvIgdALivLZSH3vx9gw%3D&Expires=1792156682
+  OK S28 1803911 bytes / 5.11s
+FETCH S29 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015212020c041d0b816954308_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=J41B6Fo7PTMw0RHnWsdYsjUhO80%3D&Expires=1792156822
+  OK S29 2015273 bytes / 5.11s
+FETCH S31 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152133007b7d010f1322440d_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=pDqFltQ5K40Df%2FQcKXuvd%2BUIv1A%3D&Expires=1792157583
+  OK S31 1742216 bytes / 5.11s
+FETCH S32 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152133005c73ce669bd44347_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=C7bXQSJUwIzIEfSgrffqYu0S2As%3D&Expires=1792157583
+  OK S32 1235881 bytes / 5.11s
+FETCH S33 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015213640f20b186bae1b4b4f_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=XUwK0i4q8hyc%2FY1F9nydlMSUqBw%3D&Expires=1792157802
+  OK S33 1479920 bytes / 5.11s
+FETCH S34 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152155207541e3a3fd2e41a6_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=KGAbjpnkXib9C4Nl3xUxw010M00%3D&Expires=1792158923
+  OK S34 1543931 bytes / 5.11s
+FETCH S35 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152221002b29e7f285e74612_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=IKWdXt2A5jnr9UCK%2FSMhoRWIOMw%3D&Expires=1792160462
+  OK S35 1443086 bytes / 5.11s
+FETCH S36 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015222410e9b2ab52b9024384_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=cudL4NAN2g21MxXJC0yg%2B5FQSec%3D&Expires=1792160651
+  OK S36 1096822 bytes / 5.11s
+FETCH S38 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015223650084079fe64d143b0_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=8tIs%2FY5fOE2PvbG4NV2Pr17KiW0%3D&Expires=1792161413
+  OK S38 1873549 bytes / 5.11s
+FETCH S39 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152237596f67d068322e496c_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=bZ2kk%2FvTPug%2BEx6MqZ6xOWaZlC4%3D&Expires=1792161482
+  OK S39 1680508 bytes / 5.11s
+FETCH S40 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152250208744ca50f7244a46_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=763fjp72dIIhsxMaWN4HBJlbfRE%3D&Expires=1792162223
+  OK S40 1798345 bytes / 5.11s
+FETCH S41 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610152309105c83f82ef8804456_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=ESU4lPFZkuLYsTspObV6LQsKp5k%3D&Expires=1792163352
+  OK S41 1372101 bytes / 5.11s
+FETCH S42 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101523155003f915910bf44fc3_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=su51FoT7vhV8nuR8tEJfMeianKs%3D&Expires=1792163752
+  OK S42 1740104 bytes / 5.11s
+FETCH S43 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261015232000ebb8353e0789440d_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=O5IINpuMAjWLthSgD02%2FGstYQv4%3D&Expires=1792164002
+  OK S43 1961722 bytes / 5.11s
+MISSING_RECEIPT S44: no verified generation to fetch
+FETCH_COMPLETE {"downloaded": 34, "reused": 0, "clips": 38, "missing": 4}
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   a15e07367..fc05a1189  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+   9618146db..cbe1e6f5a  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+QUEUE_POLICY {"window": 2, "max_task_attempts": 3, "cooldown_seconds": 90, "budget": 12600}
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   fc05a1189..45ee764ad  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+   cbe1e6f5a..256eabebf  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   45ee764ad..80204d823  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S31: PROCESSING; live=2 pending=16
-S32: PROCESSING; live=2 pending=16
-S31: PROCESSING; live=2 pending=16
-S32: PROCESSING; live=2 pending=16
-S31: PROCESSING; live=2 pending=16
-S32: PROCESSING; live=2 pending=16
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S31: PROCESSING; live=2 pending=16
-S32: PROCESSING; live=2 pending=16
-S31: PROCESSING; live=2 pending=16
-S32: PROCESSING; live=2 pending=16
-S31: PROCESSING; live=2 pending=16
-S32: PROCESSING; live=2 pending=16
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S31: SUCCESS; live=2 pending=16
+   256eabebf..2a384bfda  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: FAIL; live=2 pending=2
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   80204d823..25b7d3d1d  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+   2a384bfda..f708d5494  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S11: PROCESSING; live=1 pending=3
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   25b7d3d1d..118e2f766  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S32: SUCCESS; live=1 pending=16
+   f708d5494..425f58c4b  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S18: PROCESSING; live=2 pending=2
+S11: FAIL; live=2 pending=2
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   118e2f766..d98beb836  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+   425f58c4b..d720b3d19  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   d98beb836..d52919799  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   d52919799..1575c305f  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S33: PROCESSING; live=1 pending=15
-S33: PROCESSING; live=1 pending=15
-S33: PROCESSING; live=1 pending=15
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S33: PROCESSING; live=1 pending=15
-S33: PROCESSING; live=1 pending=15
-S33: PROCESSING; live=1 pending=15
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S33: SUCCESS; live=1 pending=15
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   1575c305f..8cb8788ff  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   8cb8788ff..6876381d7  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   6876381d7..a55aec166  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S34: PROCESSING; live=1 pending=14
-S34: PROCESSING; live=1 pending=14
-S34: PROCESSING; live=1 pending=14
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S34: PROCESSING; live=1 pending=14
-S34: PROCESSING; live=1 pending=14
-S34: SUCCESS; live=1 pending=14
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   a55aec166..4d00c6020  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   4d00c6020..216284806  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   216284806..4bb83ed7e  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S35: PROCESSING; live=1 pending=13
-S35: PROCESSING; live=1 pending=13
-S35: PROCESSING; live=1 pending=13
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S35: PROCESSING; live=1 pending=13
-S35: PROCESSING; live=1 pending=13
-S35: PROCESSING; live=1 pending=13
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S35: SUCCESS; live=1 pending=13
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   4bb83ed7e..93cf43f21  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   93cf43f21..8a20a71a0  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   8a20a71a0..f0ac9eb80  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S36: PROCESSING; live=1 pending=12
-S36: PROCESSING; live=1 pending=12
-S36: PROCESSING; live=1 pending=12
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S36: PROCESSING; live=1 pending=12
-S36: PROCESSING; live=1 pending=12
-S36: PROCESSING; live=1 pending=12
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S36: SUCCESS; live=1 pending=12
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   f0ac9eb80..c81eaf5d9  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   c81eaf5d9..4d2bf32fa  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   4d2bf32fa..a5680e685  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S38: PROCESSING; live=1 pending=11
-S38: PROCESSING; live=1 pending=11
-S38: PROCESSING; live=1 pending=11
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S38: PROCESSING; live=1 pending=11
-S38: PROCESSING; live=1 pending=11
-S38: PROCESSING; live=1 pending=11
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   a5680e685..aa6f15b5e  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S38: SUCCESS; live=2 pending=10
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   aa6f15b5e..52518d4ba  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   52518d4ba..2dd2253d4  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S39: PROCESSING; live=1 pending=10
-S39: PROCESSING; live=1 pending=10
-S39: PROCESSING; live=1 pending=10
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S39: PROCESSING; live=1 pending=10
-S39: PROCESSING; live=1 pending=10
-S39: SUCCESS; live=1 pending=10
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   2dd2253d4..0fbd61518  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   0fbd61518..7af85e1fa  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   7af85e1fa..027cf8b37  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S40: PROCESSING; live=1 pending=9
-S40: PROCESSING; live=1 pending=9
-S40: PROCESSING; live=1 pending=9
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S40: PROCESSING; live=1 pending=9
-S40: PROCESSING; live=1 pending=9
-S40: PROCESSING; live=1 pending=9
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S40: SUCCESS; live=1 pending=9
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   027cf8b37..21b541dd9  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   21b541dd9..a9e098dab  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   a9e098dab..b0a274c5e  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S41: PROCESSING; live=1 pending=8
-S41: PROCESSING; live=1 pending=8
-S41: PROCESSING; live=1 pending=8
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S41: PROCESSING; live=1 pending=8
-S41: PROCESSING; live=1 pending=8
-S41: PROCESSING; live=1 pending=8
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S41: SUCCESS; live=1 pending=8
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   b0a274c5e..8c3c44fd9  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   8c3c44fd9..781cb4f2f  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   781cb4f2f..8072a7f28  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S42: PROCESSING; live=1 pending=7
-S42: PROCESSING; live=1 pending=7
-S42: PROCESSING; live=1 pending=7
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S42: PROCESSING; live=1 pending=7
-S42: PROCESSING; live=1 pending=7
-S42: PROCESSING; live=1 pending=7
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S42: SUCCESS; live=1 pending=7
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   8072a7f28..1614080c1  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   1614080c1..4b550e77c  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   4b550e77c..e3d176e9e  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S43: PROCESSING; live=1 pending=6
-S43: PROCESSING; live=1 pending=6
-S43: PROCESSING; live=1 pending=6
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S43: PROCESSING; live=1 pending=6
-S43: PROCESSING; live=1 pending=6
-S43: PROCESSING; live=1 pending=6
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S43: SUCCESS; live=1 pending=6
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   e3d176e9e..c92ff9b44  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   c92ff9b44..b21f5a4a3  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   b21f5a4a3..1e2607075  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-S44: PROCESSING; live=1 pending=5
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   1e2607075..7284a1c94  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=4
-S11: PROCESSING; live=2 pending=4
-S44: PROCESSING; live=2 pending=4
-S11: PROCESSING; live=2 pending=4
-S44: PROCESSING; live=2 pending=4
-S11: PROCESSING; live=2 pending=4
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=4
-S11: PROCESSING; live=2 pending=4
-S44: PROCESSING; live=2 pending=4
-S11: PROCESSING; live=2 pending=4
-S44: PROCESSING; live=2 pending=4
-S11: PROCESSING; live=2 pending=4
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   7284a1c94..b0e67e066  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S44: FAIL; live=3 pending=3
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   b0e67e066..02782a3d5  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S11: PROCESSING; live=2 pending=4
-S18: PROCESSING; live=2 pending=4
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   02782a3d5..8adeb8c29  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S23: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S23: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S23: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S23: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S23: PROCESSING; live=3 pending=3
-S11: PROCESSING; live=3 pending=3
-S18: PROCESSING; live=3 pending=3
-S23: SUCCESS; live=3 pending=3
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   8adeb8c29..b2a23fcfb  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   b2a23fcfb..f7fd21e31  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   f7fd21e31..ba4bbe09d  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S11: PROCESSING; live=3 pending=2
-S18: PROCESSING; live=3 pending=2
-S26: PROCESSING; live=3 pending=2
-S11: PROCESSING; live=3 pending=2
-S18: PROCESSING; live=3 pending=2
-S26: PROCESSING; live=3 pending=2
-S11: PROCESSING; live=3 pending=2
-S18: PROCESSING; live=3 pending=2
-S26: PROCESSING; live=3 pending=2
-S11: PROCESSING; live=3 pending=2
-S18: PROCESSING; live=3 pending=2
-S26: PROCESSING; live=3 pending=2
-S11: PROCESSING; live=3 pending=2
-S18: PROCESSING; live=3 pending=2
-S26: PROCESSING; live=3 pending=2
-S11: PROCESSING; live=3 pending=2
-S18: PROCESSING; live=3 pending=2
-S26: PROCESSING; live=3 pending=2
-S11: PROCESSING; live=3 pending=2
-S18: PROCESSING; live=3 pending=2
-S26: SUCCESS; live=3 pending=2
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   ba4bbe09d..b92bee59f  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   b92bee59f..bba0ff723  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   bba0ff723..cd7f1bcac  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S11: FAIL; live=3 pending=1
-To https://github.com/32r4e2q-hub/desktop-tutorial
-   cd7f1bcac..77193fb76  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+   d720b3d19..40126c493  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
 S18: PROCESSING; live=2 pending=2
 S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: PROCESSING; live=2 pending=2
+S27: PROCESSING; live=2 pending=2
+S18: FAIL; live=2 pending=2
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   77193fb76..cde7fee92  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S44: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S18: FAIL; live=3 pending=1
+   40126c493..353caf54a  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S27: FAIL; live=1 pending=3
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   cde7fee92..9bd3cf5d4  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S27: PROCESSING; live=2 pending=2
+   353caf54a..33cd9bacc  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
-S44: PROCESSING; live=2 pending=2
-S27: PROCESSING; live=2 pending=2
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   9bd3cf5d4..b3899823a  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S27: FAIL; live=3 pending=1
+   33cd9bacc..f7a9e49b0  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S44: PROCESSING; live=1 pending=3
+S44: PROCESSING; live=1 pending=3
+S44: PROCESSING; live=1 pending=3
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   b3899823a..5920e8331  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+   f7a9e49b0..e69d748d3  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: PROCESSING; live=2 pending=2
+S11: PROCESSING; live=2 pending=2
+S44: SUCCESS; live=2 pending=2
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   5920e8331..bee1fc7b5  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: PROCESSING; live=3 pending=1
-S11: PROCESSING; live=3 pending=1
-S18: PROCESSING; live=3 pending=1
-S44: FAIL; live=3 pending=1
+   e69d748d3..8be9339fb  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   bee1fc7b5..257c6b7ae  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+   8be9339fb..8cbd6f784  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
-S11: PROCESSING; live=2 pending=1
-S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
+S11: PROCESSING; live=1 pending=2
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   257c6b7ae..c53c5565c  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: PROCESSING; live=3 pending=0
-S18: PROCESSING; live=3 pending=0
-S27: PROCESSING; live=3 pending=0
-S11: FAIL; live=3 pending=0
+   8cbd6f784..907107245  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=2 pending=1
+S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=2 pending=1
+S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=2 pending=1
+S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=2 pending=1
+S18: PROCESSING; live=2 pending=1
+S11: PROCESSING; live=2 pending=1
+S18: SUCCESS; live=2 pending=1
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   c53c5565c..1cd8baae0  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: PROCESSING; live=2 pending=0
-S27: PROCESSING; live=2 pending=0
-S18: FAIL; live=2 pending=0
+   907107245..6fd088e25  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   1cd8baae0..6aee424b2  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: PROCESSING; live=1 pending=0
-S27: FAIL; live=1 pending=0
+   6fd088e25..ad3d3b850  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
+S11: PROCESSING; live=1 pending=1
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   6aee424b2..5a72e0e2a  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+   ad3d3b850..f74dd5ed2  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S11: PROCESSING; live=2 pending=0
+S27: PROCESSING; live=2 pending=0
+S11: PROCESSING; live=2 pending=0
+S27: PROCESSING; live=2 pending=0
+S11: PROCESSING; live=2 pending=0
+S27: PROCESSING; live=2 pending=0
+S11: PROCESSING; live=2 pending=0
+S27: PROCESSING; live=2 pending=0
+S11: PROCESSING; live=2 pending=0
+S27: PROCESSING; live=2 pending=0
+S11: PROCESSING; live=2 pending=0
+S27: PROCESSING; live=2 pending=0
+S11: PROCESSING; live=2 pending=0
+S27: PROCESSING; live=2 pending=0
+S11: PROCESSING; live=2 pending=0
+S27: SUCCESS; live=2 pending=0
 To https://github.com/32r4e2q-hub/desktop-tutorial
-   5a72e0e2a..df6dd582d  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+   f74dd5ed2..e43993244  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   e43993244..c8ee31dd9  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: FAIL; live=1 pending=0
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   c8ee31dd9..dad687ceb  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+Submission paused 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   dad687ceb..93170683d  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: PROCESSING; live=1 pending=0
+S11: FAIL; live=1 pending=0
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   93170683d..0433520fd  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
+To https://github.com/32r4e2q-hub/desktop-tutorial
+   0433520fd..82a49ff3e  arena/1f36798e-desktop-tutorial -> arena/1f36798e-desktop-tutorial
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/lee_hyung_ho1991/generate.py", line 353, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/lee_hyung_ho1991/generate.py", line 373, in <module>
     if __name__=='__main__': raise SystemExit(main())
                                               ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/lee_hyung_ho1991/generate.py", line 350, in main
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/lee_hyung_ho1991/generate.py", line 370, in main
     raise RuntimeError('CogVideoX generation incomplete: '+','.join(failures or missing))
-RuntimeError: CogVideoX generation incomplete: S44,S11,S18,S27
+RuntimeError: CogVideoX generation incomplete: S11
