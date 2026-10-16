@@ -8,12 +8,16 @@ permissions:
   actions: read
 concurrency:
   group: lee-hyung-ho-revision-sources
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   sources:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 65
     steps:
+      - name: Await predecessor receipt preservation before resuming task IDs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run watch 38856607630 --repo '${{ github.repository }}' --interval 10
       - uses: actions/checkout@v4
         with:
           ref: arena/1f36798e-desktop-tutorial
@@ -36,6 +40,8 @@ jobs:
         run: |
           payload=$(python -c "import json; print(json.dumps(json.load(open('production/lee_hyung_ho1991/REVISION_REQUEST'))))")
           python -u production/lee_hyung_ho1991/generate.py --publish --payload "$payload"
+      - name: Restore all completed receipts including predecessor clips
+        run: python production/lee_hyung_ho1991/fetch_sources.py --dest work/lee_hyung_ho1991/sources
       - name: Export the entire replacement clips for semantic review
         run: |
           mkdir -p production/lee_hyung_ho1991/revision-2
