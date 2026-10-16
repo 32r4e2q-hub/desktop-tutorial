@@ -1,0 +1,45 @@
+{
+  "duration": 180.0,
+  "bytes": 64062378,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "frames": 5400,
+  "audio_codec": "aac",
+  "sample_rate": 48000,
+  "audio_channels": 2,
+  "sha256": "ec3331e20f20d6214a02a1b26f2baca250d427e4326cf53ab0bb801ae3e5caf1",
+  "decoded_ok": true,
+  "status": "audio_verified_cut",
+  "visual_review": "pending",
+  "caption_alignment": [
+    {
+      "method": "independent final-mix ASR correction; low-coverage cues retain pause timing",
+      "caption_plan": "production/lee_hyung_ho1991/revision-2/caption-plan.json",
+      "human_listening": "not_claimed"
+    }
+  ],
+  "narration_voice_id": "zh-CN-YunyangNeural",
+  "narration_tempo": 0.9285714285714286,
+  "editorial_segments": 46,
+  "source_clips": 38,
+  "archival_portrait": false,
+  "unique_shots_no_reuse": true,
+  "output": "lee-hyung-ho-3min-1080p-v2.mp4",
+  "disclosure_label": "AI动画情景重现 · 非新闻影像",
+  "soundtrack_mix": {
+    "rms_dbfs": -26.79,
+    "peak_dbfs": -1.5,
+    "silent_fraction": 0.0056,
+    "target_rms_dbfs": -20.0
+  },
+  "delivered_audio": {
+    "rms_dbfs": -26.86,
+    "peak_dbfs": -1.34,
+    "silent_fraction": 0.011,
+    "quietest_window_dbfs": -120.0
+  },
+  "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+}
