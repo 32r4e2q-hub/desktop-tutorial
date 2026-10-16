@@ -103,6 +103,20 @@ class RecoveryTests(unittest.TestCase):
                 with self.assertRaises(RuntimeError):
                     fetch.main()
 
+    def test_tts_negative_rate_is_one_cli_argument(self):
+        import tempfile, subprocess
+        spec=importlib.util.spec_from_file_location('lee_tts',PATH.with_name('prepare_tts.py'))
+        tts=importlib.util.module_from_spec(spec);spec.loader.exec_module(tts)
+        with tempfile.TemporaryDirectory() as tmp:
+            destination=Path(tmp)/'N01.mp3'
+            def fake_run(command,**kwargs):
+                self.assertIn('--rate=-12%',command)
+                self.assertNotIn('--rate',command)
+                destination.write_bytes(b'x'*2048)
+                return subprocess.CompletedProcess(command,0,'','')
+            with patch.object(tts.subprocess,'run',side_effect=fake_run):
+                tts.synthesize('测试',0.88,destination)
+
     def test_quota_is_not_retried(self):
         self.assertFalse(g.retryable(RuntimeError('1113 余额不足')))
         self.assertTrue(g.retryable(RuntimeError('1234 网络错误')))

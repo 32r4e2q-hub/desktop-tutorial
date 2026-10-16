@@ -47,7 +47,7 @@ def synthesize(text: str, speed: float, destination: Path) -> None:
     command = [
         sys.executable, "-m", "edge_tts",
         "--voice", VOICE,
-        "--rate", edge_rate(speed),
+        f"--rate={edge_rate(speed)}",  # bind negative percentages to the option for argparse
         "--text", text,
         "--write-media", str(destination),
         "--no-progress",
