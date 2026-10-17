@@ -171,5 +171,60 @@ class StoryTests(unittest.TestCase):
         generate.validate(self.story)
 
 
+class AutoResumeTests(unittest.TestCase):
+    """排队满要能自动接力，但连续零产出必须停。"""
+
+    def setUp(self):
+        import tempfile
+        self.tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self.tmp.name)
+        self.req = self.dir / "GEN_REQUEST"
+        self.res = self.dir / "results.json"
+        self.req.write_text('{"round":1}\n', encoding="utf-8")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def write_results(self, phase, completed):
+        shots = {f"S{i:02d}": {"status": "completed" if i < completed else "provider_unavailable"}
+                 for i in range(1, 31)}
+        self.res.write_text(json.dumps({"phase": phase, "shots": shots}), encoding="utf-8")
+
+    def test_queue_full_resumes(self):
+        auto_resume = load("auto_resume")
+        self.write_results("provider_capacity", 0)
+        verdict, msg = auto_resume.decide(self.req, self.res, rc=42)
+        self.assertEqual(verdict, "resume")
+        self.assertEqual(json.loads(self.req.read_text())["round"], 2)
+
+    def test_quota_exhausted_does_not_resume(self):
+        auto_resume = load("auto_resume")
+        self.write_results("quota_exhausted", 0)
+        self.assertEqual(auto_resume.decide(self.req, self.res, rc=43)[0], "skip")
+
+    def test_bug_does_not_resume(self):
+        auto_resume = load("auto_resume")
+        self.write_results("pipeline_failed", 0)
+        self.assertEqual(auto_resume.decide(self.req, self.res, rc=1)[0], "skip")
+
+    def test_three_stale_rounds_stop(self):
+        auto_resume = load("auto_resume")
+        self.write_results("provider_capacity", 0)
+        self.req.write_text(json.dumps({"round": 4, "round_started_completed": 0, "stale_rounds": 2}),
+                            encoding="utf-8")
+        verdict, msg = auto_resume.decide(self.req, self.res, rc=42)
+        self.assertEqual(verdict, "stop")
+        self.assertIn("零进展", msg)
+
+    def test_progress_resets_the_stale_counter(self):
+        auto_resume = load("auto_resume")
+        self.write_results("provider_capacity", 5)   # 这轮多了 5 镜
+        self.req.write_text(json.dumps({"round": 4, "round_started_completed": 0, "stale_rounds": 2}),
+                            encoding="utf-8")
+        verdict, _ = auto_resume.decide(self.req, self.res, rc=42)
+        self.assertEqual(verdict, "resume")
+        self.assertEqual(json.loads(self.req.read_text())["stale_rounds"], 0)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

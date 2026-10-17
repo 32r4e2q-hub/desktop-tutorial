@@ -69,16 +69,22 @@ jobs:
         run: python3 production/jmsjung/generate.py --validate --clips-only
 
       - name: Generate 30 Agnes clips (queue-full retry every 180s)
+        id: gen
+        continue-on-error: true
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
           PAYLOAD: ${{ env.PAYLOAD }}
         run: |
           set -o pipefail
+          set +e
           python3 -u production/jmsjung/generate.py --publish --clips-only --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
-          exit ${PIPESTATUS[0]}
+          rc=${PIPESTATUS[0]}
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          # 退出码 42 = 排队满（可接力） 43 = 额度耗尽  1 = 真 bug；由下面的接力步骤决定
+          exit 0
 
       - name: Ship failure log to branch (sandbox cannot read Actions logs)
-        if: failure()
+        if: steps.gen.outputs.rc != '0'
         run: |
           tail -c 200000 /tmp/gen.log > production/jmsjung/gen-diag.log || true
           git config user.name "arena-diag"
@@ -86,6 +92,32 @@ jobs:
           git add -f production/jmsjung/gen-diag.log
           git commit -m "jmsjung: 生成失败诊断 $(date -u +%FT%TZ)" || true
           git push origin HEAD:arena/929dc8b6-desktop-tutorial || true
+
+      - name: Decide whether to resume (free queue is a lottery)
+        id: resume
+        if: always()
+        run: |
+          set -euo pipefail
+          python3 production/jmsjung/auto_resume.py --rc "${{ steps.gen.outputs.rc }}"
+
+      - name: Push the resume marker to trigger the next round
+        if: steps.resume.outputs.resume == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "arena-auto-resume"
+          git config user.email "arena@local"
+          git add production/jmsjung/GEN_REQUEST
+          git commit -m "jmsjung: 排队满，自动接力下一轮 $(date -u +%FT%TZ)"
+          for attempt in 1 2 3; do
+            git push origin HEAD:arena/929dc8b6-desktop-tutorial && break || {
+              sleep 5; git pull --rebase origin arena/929dc8b6-desktop-tutorial || true; }
+          done
+
+      - name: Fail the run when nothing will resume it
+        if: steps.gen.outputs.rc != '0' && steps.resume.outputs.resume != 'true'
+        run: |
+          echo "生成未完成，且不会自动接力（rc=${{ steps.gen.outputs.rc }}）" >&2
+          exit 1
 
       - name: Save generation evidence
         if: always()
