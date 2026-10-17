@@ -1,0 +1,84 @@
+CLIPS_ONLY: 跳过配音哈希闸门，只生成视频片段
+PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
+PRODUCTION_STATUS cloud generation started
+PRODUCTION_STATUS S01 submitting
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S02 submitting
+PRODUCTION_STATUS S02 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 1)
+PRODUCTION_STATUS S01 waiting for a creation slot
+PRODUCTION_STATUS S02 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 2)
+PRODUCTION_STATUS S02 waiting for a creation slot
+PRODUCTION_STATUS S01 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 3)
+PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
+S03: skipped, provider capacity exhausted
+S04: skipped, provider capacity exhausted
+S05: skipped, provider capacity exhausted
+S06: skipped, provider capacity exhausted
+S07: skipped, provider capacity exhausted
+S08: skipped, provider capacity exhausted
+S09: skipped, provider capacity exhausted
+S10: skipped, provider capacity exhausted
+S11: skipped, provider capacity exhausted
+S12: skipped, provider capacity exhausted
+S13: skipped, provider capacity exhausted
+S14: skipped, provider capacity exhausted
+S15: skipped, provider capacity exhausted
+S16: skipped, provider capacity exhausted
+S17: skipped, provider capacity exhausted
+S18: skipped, provider capacity exhausted
+S19: skipped, provider capacity exhausted
+S20: skipped, provider capacity exhausted
+S21: skipped, provider capacity exhausted
+S22: skipped, provider capacity exhausted
+S23: skipped, provider capacity exhausted
+S24: skipped, provider capacity exhausted
+S25: skipped, provider capacity exhausted
+S26: skipped, provider capacity exhausted
+S27: skipped, provider capacity exhausted
+S28: skipped, provider capacity exhausted
+S29: skipped, provider capacity exhausted
+S30: skipped, provider capacity exhausted
+PRODUCTION_STATUS S02 provider channel unavailable
+PRODUCTION_STATUS provider channel unavailable (round 4)
+PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
+PRODUCTION_STATUS pipeline stopped
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jmsjung/generate.py", line 550, in create_paced
+    created=agnes.create_task(base,key,payload,retries=1,retry_delay=75)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/agnes_video.py", line 307, in create_task
+    raise Fatal(message)
+agnes_video.Fatal: Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610171133245235903288PCoDKva)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jmsjung/generate.py", line 646, in main
+    outcomes=list(pool.map(generate,shots))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jmsjung/generate.py", line 612, in generate
+    created=create_paced(sid,payload)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jmsjung/generate.py", line 573, in create_paced
+    breaker.observe(sid,redacted,reason=reason,cooldown=cooldown)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jmsjung/generate.py", line 165, in observe
+    raise ProviderCapacity(
+ProviderCapacity: Agnes 网关连续 3 轮报告供应商视频排队已满：Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610171133245235903288PCoDKva)；等待预算 0 分钟已用尽。这是供应商侧容量问题——请求本身没错，只能等它缓过来后再触发一轮。
