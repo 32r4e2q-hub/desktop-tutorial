@@ -12,7 +12,7 @@ on:
         default: ''
   push:
     branches:
-      - arena/23c822b6-desktop-tutorial
+      - arena/44a8fff6-desktop-tutorial
     paths:
       - production/kitakyushu2002/COGVIDEOX_GEN_REQUEST
 
@@ -20,20 +20,20 @@ permissions:
   contents: write
 
 concurrency:
-  group: kitakyushu2002-cogvideox-arena-23c822b6-desktop-tutorial
+  group: kitakyushu2002-cogvideox-arena-44a8fff6-desktop-tutorial
   # 长生成不排队等：断点续跑靠 SHA-256 收据，取消不丢已完成的镜头。
   cancel-in-progress: true
 
 jobs:
   generate:
-    if: github.ref == 'refs/heads/arena/23c822b6-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/44a8fff6-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/23c822b6-desktop-tutorial
+          ref: arena/44a8fff6-desktop-tutorial
           fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功
 
       - name: Resolve generation payload
@@ -81,7 +81,7 @@ jobs:
           git config user.email "arena@local"
           git add -f production/kitakyushu2002/gen-diag-cogvideox.log
           git commit -m "kitakyushu2002: CogVideoX 生成失败诊断 $(date -u +%FT%TZ)" || true
-          git push origin HEAD:arena/23c822b6-desktop-tutorial || true
+          git push origin HEAD:arena/44a8fff6-desktop-tutorial || true
 
       - name: Save generation evidence
         if: always()

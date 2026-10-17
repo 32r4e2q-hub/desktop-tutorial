@@ -242,7 +242,8 @@ SHOTS = [
      "低音撞击"),
     ("S11", "agnes", "从明亮的窗缓慢推向室内阴影", "日常的交谈，阴影一点点覆盖两人",
      "接动态镜：桌面上的账单",
-     "The same tidy living room, later: the man sits at the low table speaking calmly, framed over the "
+     "Inside one tidy Japanese living room in the afternoon, the whole shot staying indoors from the "
+     "first frame to the last with no exterior and no transition: the man sits at the low table speaking calmly, framed over the "
      "shoulder of the woman who listens facing away from camera, so only her back and the back of her head "
      "are visible while he sits across the table in half-shadow, his face turned aside into the shade and "
      "never clearly visible; bright afternoon sun falls through a lace curtain at the left of frame while the "
@@ -435,7 +436,8 @@ SHOTS += [
      "法庭环境声 + 纸张翻动声"),
     ("S34", "agnes", "中景缓慢推近至紧握的双手", "被告席：绪方低着头",
      "接动态镜：松永抬起头",
-     "The same courtroom, closer: at the defendants' rail a thin Japanese woman of forty-three {C2} sits "
+     "Inside a wood-panelled Japanese courtroom, the whole shot staying indoors at the defendants' rail "
+     "from the first frame to the last with no exterior, no building facade and no transition: a thin Japanese woman of forty-three {C2} sits "
      "shown chest-up behind the wooden rail, her hollow careworn face clearly visible, head bowed and eyes "
      "down, her hands folded tightly on the desk in front of her, one thumb slowly rubbing the back of the "
      "other hand; she does not look up; the courtroom behind her is still and out of focus, all papers and "
@@ -443,7 +445,8 @@ SHOTS += [
      "低沉弦乐 + 远处翻页声"),
     ("S35", "agnes", "侧面缓慢推进，停在平静的脸上", "被告席：松永抬起头，表情没有变化",
      "接动态镜：法官翻开判决书",
-     "The defendants' rail, the other seat: the lean Japanese man of forty {C1} sits shown chest-up behind "
+     "Inside a wood-panelled Japanese courtroom at the defendants' rail, the whole shot staying indoors "
+     "from the first frame to the last with no exterior, no building facade and no transition: the lean Japanese man of forty {C1} sits shown chest-up behind "
      "the rail, and he slowly raises his head to face forward — his faint composed polite smile unchanged, "
      "his level gaze steady and unhurried, blinking once, hands resting open and still on the desk; the "
      "overhead light is cold, the empty public benches soft behind him, every surface blank. Slow lateral "
@@ -503,7 +506,8 @@ SHOTS += [
      "一声轻微门响，随后接近静音"),
     ("S43", "agnes", "从空桌缓慢拉回黑暗", "更空的房间：连最后一只坐垫也拿走了",
      "接动态镜：结尾的城市清晨",
-     "The dining corner of the apartment once more, deep in the last light of day: the low table stands "
+     "Inside the dining corner of a small Japanese apartment, the whole shot staying indoors in this one "
+     "room from the first frame to the last with no exterior, no street, no snow and no transition, deep in the last light of day: the low table stands "
      "square and empty, the cushion seats gone from around it, the shelf bare where the turned-down "
      "photograph stood; the room is almost empty now, the light failing at the window. Slow pull back from "
      "the empty table into the darkening room until the table is small in the frame, " + HOLD,
@@ -658,7 +662,7 @@ FIRST_FRAME = {}       # 同上：跨镜脸一致性靠面容 token + seed，最
 
 
 def first_frame_urls():
-    base = "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/23c822b6-desktop-tutorial/production/kitakyushu2002/"
+    base = "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/44a8fff6-desktop-tutorial/production/kitakyushu2002/"
     return {sid: base + rel for sid, rel in FIRST_FRAME.items()}
 
 

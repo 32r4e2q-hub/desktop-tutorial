@@ -31,7 +31,7 @@ ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 PLAN = HERE / 'story.json'
 RESULTS = HERE / 'results.json'
-BRANCH = 'arena/23c822b6-desktop-tutorial'
+BRANCH = 'arena/44a8fff6-desktop-tutorial'
 sys.path.insert(0, str(HERE))
 
 from model_policy import COGVIDEOX_MODEL as MODEL, PROMPT_GUARDRAILS  # noqa: E402  红线单一出处

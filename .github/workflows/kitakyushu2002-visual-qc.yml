@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 kitakyushu2002 / arena/23c822b6-desktop-tutorial / 23c822b6-desktop-tutorial / 北九州监禁案：逃出魔窟的少女，七条人命背后的秘密 / 北九州监禁案_逃出魔窟的少女，七条人命背后的秘密_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 kitakyushu2002 / arena/44a8fff6-desktop-tutorial / 44a8fff6-desktop-tutorial / 北九州监禁案：逃出魔窟的少女，七条人命背后的秘密 / 北九州监禁案_逃出魔窟的少女，七条人命背后的秘密_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-visual-qc.yml；复制到 .github/workflows/ 后即可用 marker 文件 push 触发。
 #
 # 这一步解码成片的**每一帧**（参考实现的片子是 5400/5400），查黑帧 / 冻结 / 时序突变 /
@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - arena/23c822b6-desktop-tutorial
+      - arena/44a8fff6-desktop-tutorial
     paths:
       - production/kitakyushu2002/VISUAL_QC_REQUEST
 
@@ -23,19 +23,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: kitakyushu2002-visual-qc-arena-23c822b6-desktop-tutorial
+  group: kitakyushu2002-visual-qc-arena-44a8fff6-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   audit:
-    if: github.ref == 'refs/heads/arena/23c822b6-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/44a8fff6-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 120
     steps:
       - name: Check out this Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/23c822b6-desktop-tutorial
+          ref: arena/44a8fff6-desktop-tutorial
           fetch-depth: 1
 
       - name: Set up Python

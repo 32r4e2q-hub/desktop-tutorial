@@ -26,7 +26,7 @@ from media import ensure_tools, inspect_clip, render_python
 from throttle import RequestGate, BudgetExhausted
 from model_policy import (MODEL,SIZE_TIER,ALLOWED_MODELS,SUPPORTED_SIZES,SUPPORTED_MODES)
 
-BRANCH='arena/23c822b6-desktop-tutorial'
+BRANCH='arena/44a8fff6-desktop-tutorial'
 CAST=Path(__file__).with_name('cast.json')
 PLAN=Path(__file__).with_name('story.json')
 RESULTS=Path(__file__).with_name('results.json')
