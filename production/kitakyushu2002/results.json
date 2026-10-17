@@ -317,11 +317,27 @@
     },
     "S16": {
       "id": "S16",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "8c6aa2d0bce148a880799fe89349b5159abff51f86a377c03b51b2f74474c2e5",
       "error": null,
-      "updated_at": "2026-10-17T02:54:24Z",
-      "task_id": "20261017105424e5f97a3681884a52"
+      "updated_at": "2026-10-17T02:55:31Z",
+      "task_id": "20261017105424e5f97a3681884a52",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261017105520670f161d814b418e_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=BbZovYepWvp4CurEkxOsoSzKMRo%3D&Expires=1792292122",
+      "sha256": "cec3b117a381786cf2f04fbb5384f5bd080c32f19fc880d48dea5762c780d6bf",
+      "bytes": 1736866,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1736866,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/kitakyushu2002/qa/S16.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -366,6 +382,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-17T02:54:24Z",
+  "updated_at": "2026-10-17T02:55:31Z",
   "previous_results": {}
 }
