@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T14:26:28Z",
-  "spend": false,
+  "generated_at": "2026-10-17T14:29:01Z",
+  "spend": true,
   "found_keys": [
     {
       "secret_name": "VIDU_API_KEY",
@@ -25,14 +25,6 @@
         "length": 56
       },
       "hosts": {
-        "https://api.vidu.cn": {
-          "credits_http": 401,
-          "credits_remaining": null,
-          "packages": [],
-          "raw": "{\"code\":401,\"reason\":\"Unauthorized\",\"message\":\"unauthorized\",\"metadata\":{\"trace_id\":\"baf6a2bcda02d1bcfe2e92cfe87b37a8\"}}",
-          "error": null,
-          "verdict": "KEY_INVALID_OR_FORBIDDEN"
-        },
         "https://api.vidu.com": {
           "credits_http": 200,
           "credits_remaining": null,
@@ -40,7 +32,14 @@
           "raw": "{\"packages\":[],\"remains\":[],\"queue_count\":0,\"general_remains\":[],\"exclusive_remains\":[]}",
           "error": null,
           "verdict": "KEY_OK",
-          "spend": "skipped (加 --spend 才会真提交一条 4 秒 360p 任务)"
+          "spend": {
+            "ok": false,
+            "status": 400,
+            "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"dcde9721c6bb1fbd721099276de057aa\"}}",
+            "elapsed_s": 0.79,
+            "host": "https://api.vidu.com",
+            "task_id": null
+          }
         }
       }
     }
