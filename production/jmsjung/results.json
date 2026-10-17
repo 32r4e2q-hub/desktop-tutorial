@@ -4,15 +4,20 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "generated",
       "request_hash": "e1a24f9443c79fe382114190a22f5a23abacbc530080367c85c518b528011dd8",
       "error": null,
-      "updated_at": "2026-10-17T15:15:41Z",
+      "updated_at": "2026-10-17T15:25:59Z",
       "channel_error_round": 28,
       "applied_cooldown_seconds": 300.0,
       "video_id": "task_BDK4808n9TRhrafmpZtD4JEv11INfTJJ",
       "task_id": "task_BDK4808n9TRhrafmpZtD4JEv11INfTJJ",
-      "requested_seconds": 6.0
+      "requested_seconds": 6.0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_BDK4808n9TRhrafmpZtD4JEv11INfTJJ.mp4",
+      "bytes": 2240938,
+      "sha256": "8820ec86305f05ac73ee6b2f65b89218273220f636c1955e5257cdcf6eefbed4",
+      "reported_size": "720P",
+      "reported_seconds": "6"
     },
     "S02": {
       "id": "S02",
@@ -75,7 +80,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-17T15:25:58Z",
+  "updated_at": "2026-10-17T15:25:59Z",
   "run_id": "39037939402",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
