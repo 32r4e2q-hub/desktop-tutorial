@@ -2,7 +2,15 @@
   "project": "北九州监禁案：逃出魔窟的少女，七条人命背后的秘密",
   "model": "cogvideox-flash",
   "provider": "Zhipu AI",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "status": "submitting",
+      "request_hash": "e4369be648b21722b1310db1144f39d4414c4c5749170a183fb9ffc01bdcebdd",
+      "error": null,
+      "updated_at": "2026-10-17T02:18:44Z"
+    }
+  },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
   "phase": "generating_sources",
   "required_generated_shots": [
@@ -45,5 +53,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-17T02:18:43Z"
+  "updated_at": "2026-10-17T02:18:44Z",
+  "previous_results": {}
 }
