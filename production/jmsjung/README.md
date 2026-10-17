@@ -56,3 +56,25 @@ echo '{"only":"S07"}' > production/jmsjung/GEN_REQUEST
 | 排队满冷却 | 90 秒 | **180 秒**（按用户指定 & 本仓库实测） |
 | 生成路线 | 智谱 CogVideoX-Flash | **Agnes `agnes-video-2.5-flash`** |
 | 本阶段产出 | 成片 + 全帧 QC | **视频片段**（`--clips-only`，不做 TTS/剪辑） |
+
+## 失败记录：2026-10-17 11:36Z（run 39028605641）
+
+第一轮跑 11 分 33 秒就停了，**0 镜、0 秒素材**。原因不是模型下线，也不是 key 有问题，是**我移植模板时留下的一个判错**：
+
+- 模板的 `ChannelBreaker` 把「`503 video queue is full`」和「`503 no available channel`」当成同一类，
+  共用 `error_limit=3`：连续 3 轮容量报错就放弃整轮。
+- 但这两件事性质完全相反：
+  - `no available channel` = 模型没有通道，**永久**，等多久都不会好；
+  - `queue is full` = 免费池排队满，**每一次请求都是一次抽签**。
+- 按 2026-10-16 本仓库探针的真实时间线（07:36 / 07:39 / 07:42 / 07:45 全满，07:48 受理），
+  旧熔断器会在**第 3 次（07:42）**就放弃——**那次最终成功的运行也会被它掐死**。
+
+修法：`capacity_problem()` 现在返回「性质」，`ChannelBreaker.observe(kind=...)` 分两条路：
+
+| 性质 | 策略 |
+|---|---|
+| `channel`（没有可用通道） | 照旧：连续 3 轮 → 冷却 300 秒 → 放弃 |
+| `queue`（排队满） | **不熔断**：每 180 秒抽一次，直到墙钟预算 `queue_wait_minutes`（默认 110 分钟）用完 |
+
+回归测试：`production/tests/test_jmsjung.py::QueueLotteryTests`——用 10-16 的真实时间线，
+断言「第 5 次必须能走到」，另有一条断言「没有通道仍要 3 轮就放弃」。

@@ -89,17 +89,24 @@ def quota_exhausted(message):
 # 供应商侧「容量」类问题的两种文案，都需要**全片共享**的退避（不是每镜各自撞）：
 #   no available channel —— 该模型当前没有可用通道（2026-10-10：v2.0 被下线时就是它）
 #   video queue is full  —— 视频排队已满（2026-10-10T07:37Z 实测 agnes-video-2.5-flash 720P）
-CAPACITY_REASONS=(('no available channel','该模型当前没有可用通道',CHANNEL_COOLDOWN_SECONDS),
-                  ('video queue is full','供应商视频排队已满',QUEUE_COOLDOWN_SECONDS),
-                  ('queue is full','供应商视频排队已满',QUEUE_COOLDOWN_SECONDS))
+# 第三种元素是「性质」：
+#   channel = 这个模型没有可用通道（永久性，等到天荒地老也不会变好，只能等平台恢复）
+#   queue   = 视频排队满（间歇性，**每一次请求都是一次抽签**，抽久了就会中）
+# 两者必须分开计数：2026-10-16 本仓库探针实测，queue full 连续 4 次、第 5 次（12 分钟后）成交；
+# 如果按 channel 的 error_limit=3 熔断，那次**已经成功的运行也会被提前掐死**。
+CAPACITY_REASONS=(('no available channel','该模型当前没有可用通道',CHANNEL_COOLDOWN_SECONDS,'channel'),
+                  ('video queue is full','供应商视频排队已满',QUEUE_COOLDOWN_SECONDS,'queue'),
+                  ('queue is full','供应商视频排队已满',QUEUE_COOLDOWN_SECONDS,'queue'))
+# 排队满最多抽多久（墙钟）。超过就诚实停，等工作流接力或人工再触发。
+QUEUE_WAIT_MINUTES=110
 
 
 def capacity_problem(message):
-    """是容量问题就返回 (中文原因, 该冷却多少秒)，不是就返回 None。"""
+    """是容量问题就返回 (中文原因, 该冷却多少秒, 性质)，不是就返回 None。"""
     text=str(message or '').lower()
-    for marker,reason,cooldown in CAPACITY_REASONS:
+    for marker,reason,cooldown,kind in CAPACITY_REASONS:
         if marker in text:
-            return reason,cooldown
+            return reason,cooldown,kind
     return None
 
 
@@ -114,7 +121,7 @@ class ChannelBreaker:
     这段逻辑跑在 runner 上、要几十分钟才看得出结果，靠人眼盯 Actions 日志是盯不住的。
     """
 
-    def __init__(self,gate,deadline,error_limit=3,wait_minutes=0.0,
+    def __init__(self,gate,deadline,error_limit=3,wait_minutes=0.0,queue_wait_minutes=QUEUE_WAIT_MINUTES,
                  cooldown=CHANNEL_COOLDOWN_SECONDS,clock=None,record=None,probe=None,abort=None):
         self.gate=gate
         self.deadline=deadline
@@ -126,7 +133,10 @@ class ChannelBreaker:
         self.probe=probe or (lambda:None)
         self.abort=abort if abort is not None else threading.Event()
         self.started=self.clock()
-        self.state={'consecutive':0,'attempts':0,'first_seen':None,'last_seen':None,'last_error':None}
+        self.queue_budget=max(0.0,float(queue_wait_minutes))*60.0
+        self.queue_started=None
+        self.state={'consecutive':0,'attempts':0,'first_seen':None,'last_seen':None,'last_error':None,
+                    'queue_attempts':0}
 
     def note_success(self):
         """有一次创建成功就说明供应商缓过来了：连击计数清零，**等待时钟也清零**。
@@ -135,10 +145,18 @@ class ChannelBreaker:
         （S03 在 09:11 建成，前后几十次都是 queue is full），按墙钟算会在还有产出时把整轮掐死。
         """
         self.state['consecutive']=0
+        self.state['queue_attempts']=0
+        self.queue_started=None
         self.started=self.clock()
 
-    def observe(self,sid,message,reason='供应商侧没有可用容量',cooldown=None):
-        """记一次容量问题。返回 True = 冷却结束后可以再探；抛 ProviderCapacity = 整轮放弃。"""
+    def observe(self,sid,message,reason='供应商侧没有可用容量',cooldown=None,kind='channel'):
+        """记一次容量问题。返回 True = 冷却结束后可以再探；抛 ProviderCapacity = 整轮放弃。
+
+        ``kind='queue'`` 走另一套算法：排队满是抽签，只要还没抽到就一直抽，
+        唯一的上限是墙钟 ``queue_wait_minutes``（以及整轮的 generation deadline）。
+        """
+        if kind=='queue':
+            return self.observe_queue(sid,message,reason,cooldown)
         self.state['consecutive']+=1
         self.state['attempts']+=1
         self.state['last_seen']=now_stamp()
@@ -166,6 +184,30 @@ class ChannelBreaker:
             'Agnes 网关连续 %d 轮报告%s：%s；等待预算 %.0f 分钟已用尽。'
             '这是供应商侧容量问题——请求本身没错，只能等它缓过来后再触发一轮。'
             %(round_no,reason,str(message)[:200],self.wait_budget/60.0))
+
+    def observe_queue(self,sid,message,reason='供应商视频排队已满',cooldown=None):
+        """排队满：不熔断，只记抽签次数；超过墙钟预算才放弃。"""
+        self.state['attempts']+=1
+        self.state['queue_attempts']+=1
+        self.state['last_seen']=now_stamp()
+        self.state['first_seen']=self.state['first_seen'] or self.state['last_seen']
+        self.state['last_error']=message
+        if self.queue_started is None:
+            self.queue_started=self.clock()
+        self.gate.defer(self.cooldown if cooldown is None else float(cooldown))
+        self.record(sid=sid,round_no=self.state['queue_attempts'],cooldown=self.cooldown,error=message,
+                    reason=reason,outage=dict(self.state))
+        waited=self.clock()-self.queue_started
+        if waited<self.queue_budget and self.clock()<self.deadline:
+            print('QUEUE_LOTTERY attempt=%d waited=%.0fs budget=%.0fs'%(self.state['queue_attempts'],waited,self.queue_budget),
+                  flush=True)
+            return True
+        self.abort.set()
+        self.probe()
+        raise ProviderCapacity(
+            'Agnes 视频排队已连续 %.0f 分钟没开闸（抽签 %d 次）：%s。'
+            '这是供应商侧容量问题——请求本身没错，稍后再触发一轮会从断点继续。'
+            %(waited/60.0,self.state['queue_attempts'],str(message)[:200]))
 
 
 def read_json(path,default):
@@ -400,6 +442,7 @@ def main():
     if args.wait_for_channel is not None:
         wait_channel_minutes=max(0.0,args.wait_for_channel)
     generation_budget_minutes=max(30.0,float(options.get('generation_budget_minutes',170)))
+    queue_wait_minutes=max(0.0,float(options.get('queue_wait_minutes',QUEUE_WAIT_MINUTES)))
     # Free video model creation is documented at 1 RPM. Two in-flight tasks do
     # not permit bursts of creation requests; they share this paced gate.
     gate=RequestGate(minimum_interval=75)
@@ -434,6 +477,7 @@ def main():
                         'shared_retry_after_cooldown':True,'key_rotation':False,
                         'channel_cooldown_seconds':CHANNEL_COOLDOWN_SECONDS,
                         'channel_error_limit':channel_error_limit,
+                        'queue_wait_minutes':queue_wait_minutes,
                         'wait_channel_minutes':wait_channel_minutes,
                         'total_budget_minutes':total_budget_minutes}
     doc['required_generated_shots']=[s['id'] for s in project['shots'] if s['kind']=='agnes']
@@ -534,8 +578,8 @@ def main():
         checkpoint('provider channel unavailable (round %d)'%round_no)
 
     breaker=ChannelBreaker(gate,generation_deadline,error_limit=channel_error_limit,
-                           wait_minutes=wait_channel_minutes,record=record_outage,
-                           probe=probe_provider,abort=ABORT)
+                           wait_minutes=wait_channel_minutes,queue_wait_minutes=queue_wait_minutes,
+                           record=record_outage,probe=probe_provider,abort=ABORT)
 
     def create_paced(sid,payload):
         rate_attempts=0
@@ -569,8 +613,8 @@ def main():
                         '已完成的镜头按 SHA-256 复用，不会重复扣费。'%redacted)
                 capacity=capacity_problem(text)
                 if capacity:
-                    reason,cooldown=capacity
-                    breaker.observe(sid,redacted,reason=reason,cooldown=cooldown)
+                    reason,cooldown,kind=capacity
+                    breaker.observe(sid,redacted,reason=reason,cooldown=cooldown,kind=kind)
                     continue   # 放弃时 observe 会抛 ProviderCapacity
                 # 其他 5xx（502/504 之类）仍按原来的每镜退避扛过去。
                 if 'HTTP 5' not in text:
