@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-10-17T14:26:28Z",
+  "spend": false,
+  "found_keys": [
+    {
+      "secret_name": "VIDU_API_KEY",
+      "sha256_12": "6db7d1e6206c",
+      "last4": "ZS1N",
+      "length": 56
+    }
+  ],
+  "missing": [
+    "VIDU_KEY",
+    "VIDU_TOKEN",
+    "VIDU_APIKEY",
+    "VIDU_CN_API_KEY",
+    "VIDU_AI_API_KEY"
+  ],
+  "probes": [
+    {
+      "secret_name": "VIDU_API_KEY",
+      "fingerprint": {
+        "sha256_12": "6db7d1e6206c",
+        "last4": "ZS1N",
+        "length": 56
+      },
+      "hosts": {
+        "https://api.vidu.cn": {
+          "credits_http": 401,
+          "credits_remaining": null,
+          "packages": [],
+          "raw": "{\"code\":401,\"reason\":\"Unauthorized\",\"message\":\"unauthorized\",\"metadata\":{\"trace_id\":\"baf6a2bcda02d1bcfe2e92cfe87b37a8\"}}",
+          "error": null,
+          "verdict": "KEY_INVALID_OR_FORBIDDEN"
+        },
+        "https://api.vidu.com": {
+          "credits_http": 200,
+          "credits_remaining": null,
+          "packages": [],
+          "raw": "{\"packages\":[],\"remains\":[],\"queue_count\":0,\"general_remains\":[],\"exclusive_remains\":[]}",
+          "error": null,
+          "verdict": "KEY_OK",
+          "spend": "skipped (加 --spend 才会真提交一条 4 秒 360p 任务)"
+        }
+      }
+    }
+  ],
+  "verdict": "KEY_OK"
+}
