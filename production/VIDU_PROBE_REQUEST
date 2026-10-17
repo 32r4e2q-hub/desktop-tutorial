@@ -1,7 +1,4 @@
-Vidu 探针 第 3 轮（2026-10-17）：参数矩阵。
-第 2 轮：api.vidu.com 上 viduq1 + 360p 被 FieldInvalid 挡回（resolution is invalid），
-根本没走到计费环节，所以还不知道有没有额度。
-本轮按 viduq1/viduq2/viduq3-turbo × 540p/720p 逐个试，参数错就换下一组（不花积分），
-只有在被受理后才真正计费。credits 返回 remains=[] packages=[] general_remains=[]，
-预期大概率是「额度不足」，那样也能拿到明确的错误码。
-{"spend":true,"host":"https://api.vidu.com"}
+Vidu 探针 第 4 轮：测国内站 key（VIDU_CN_API_KEY / api.vidu.cn）。
+前置：需要仓库 secret 里存在 VIDU_CN_API_KEY。没有就只会报告 NO_KEY，不会浪费额度。
+步骤：先查积分（零成本），再用参数矩阵真提交一条最小任务。
+{"spend":true,"host":"https://api.vidu.cn"}
