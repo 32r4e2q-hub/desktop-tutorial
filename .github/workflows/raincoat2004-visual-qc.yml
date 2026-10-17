@@ -153,7 +153,7 @@ jobs:
             echo "没有新的审计收据需要提交"
             exit 0
           fi
-          git status --short | head -20
+          git status --short | head -20 || true  # pipefail 下防 SIGPIPE(141) 在 commit 前假成功退出（kitakyushu2002 教训）
           echo "shallow=$(git rev-parse --is-shallow-repository) head=$(git log -1 --oneline)"
           git commit -m 'raincoat2004: audit every frame of delivered cut'
           pushed=0

@@ -351,6 +351,15 @@ def main():
         REF_IMAGE_MODE = parse_ref_image(raw_ref)
         print('REF_IMAGE_MODE=%s (payload override)' % REF_IMAGE_MODE, flush=True)
     only = {x.strip() for x in str(options.get('only', '')).split(',') if x.strip()}
+    # force：同一提示词也要真重抽的镜头（逗号分隔，或 true 表示对 only 全部生效）。
+    # 为什么需要它：默认按 request_hash 复用收据，同提示词写 {"only":"S35"} 只会命中旧收据、
+    # 一镜都不会重投（kitakyushu2002 的 S35 在 2026-10-17 白跑过一轮，才改提示词凑哈希）。
+    # 被 force 的旧收据会先进 previous_results，真重抽翻车了还能从历史收据恢复。
+    raw_force = options.get('force')
+    if raw_force is True:
+        force = set(only)
+    else:
+        force = {x.strip() for x in str(raw_force or '').split(',') if x.strip()}
     shots = [x for x in project['shots'] if x.get('kind') in ('cogvideo', 'agnes')]
     if only - {x['id'] for x in shots}:
         raise ValueError('Unknown/non-dynamic shot: ' + ','.join(sorted(only)))
@@ -378,6 +387,13 @@ def main():
         sid = shot['id']
         wanted = request_hash(project, shot)
         disposition = reuse_receipt(doc, sid, wanted)
+        if disposition != 'generate' and sid in force:
+            old = doc.get('shots', {}).get(sid, {})
+            if old.get('status') or old.get('request_hash'):
+                doc.setdefault('previous_results', {}).setdefault(sid, []).append(old)
+            doc['shots'][sid] = {'id': sid}
+            disposition = 'generate'
+            print('%s: FORCE re-generation requested; previous receipt archived to previous_results' % sid, flush=True)
         if disposition == 'current':
             print('%s: verified receipt already exists; no new generation' % sid, flush=True)
             continue
