@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T14:31:53Z",
+  "generated_at": "2026-10-17T14:56:31Z",
   "spend": true,
   "found_keys": [
     {
@@ -7,13 +7,18 @@
       "sha256_12": "6db7d1e6206c",
       "last4": "ZS1N",
       "length": 56
+    },
+    {
+      "secret_name": "VIDU_CN_API_KEY",
+      "sha256_12": "1b263ae6e799",
+      "last4": "4nwG",
+      "length": 56
     }
   ],
   "missing": [
     "VIDU_KEY",
     "VIDU_TOKEN",
     "VIDU_APIKEY",
-    "VIDU_CN_API_KEY",
     "VIDU_AI_API_KEY"
   ],
   "probes": [
@@ -25,7 +30,25 @@
         "length": 56
       },
       "hosts": {
-        "https://api.vidu.com": {
+        "https://api.vidu.cn": {
+          "credits_http": 401,
+          "credits_remaining": null,
+          "packages": [],
+          "raw": "{\"code\":401,\"reason\":\"Unauthorized\",\"message\":\"unauthorized\",\"metadata\":{\"trace_id\":\"14c19edcf036b42355250928294817cb\"}}",
+          "error": null,
+          "verdict": "KEY_INVALID_OR_FORBIDDEN"
+        }
+      }
+    },
+    {
+      "secret_name": "VIDU_CN_API_KEY",
+      "fingerprint": {
+        "sha256_12": "1b263ae6e799",
+        "last4": "4nwG",
+        "length": 56
+      },
+      "hosts": {
+        "https://api.vidu.cn": {
           "credits_http": 200,
           "credits_remaining": null,
           "packages": [],
@@ -33,29 +56,29 @@
           "error": null,
           "verdict": "KEY_OK",
           "spend": {
-            "host": "https://api.vidu.com",
+            "host": "https://api.vidu.cn",
             "attempts": [
               {
                 "model": "viduq1",
                 "resolution": "540p",
                 "status": 400,
-                "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"00c64b3554fee42b021355e5fc58253a\"}}"
+                "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"c669e5329a1677fcf7e7ebbfbcb4ec1a\"}}"
               },
               {
                 "model": "viduq1",
                 "resolution": "720p",
                 "status": 400,
-                "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"04b6154a836c5463a8177d11f5dcec47\"}}"
+                "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"c39130b9197a99e2dcb5d364ce4f4f78\"}}"
               },
               {
                 "model": "viduq2",
                 "resolution": "720p",
                 "status": 400,
-                "raw": "{\"code\":400,\"reason\":\"CreditInsufficient\",\"message\":\"insufficient credits\",\"metadata\":{\"trace_id\":\"70bbe3ae66469a37b714b04c43942afa\"}}"
+                "raw": "{\"code\":400,\"reason\":\"CreditInsufficient\",\"message\":\"insufficient credits\",\"metadata\":{\"trace_id\":\"802961edaa9c3fdbe99575e2b9e01c9a\"}}"
               }
             ],
             "status": 400,
-            "raw": "{\"code\":400,\"reason\":\"CreditInsufficient\",\"message\":\"insufficient credits\",\"metadata\":{\"trace_id\":\"70bbe3ae66469a37b714b04c43942afa\"}}",
+            "raw": "{\"code\":400,\"reason\":\"CreditInsufficient\",\"message\":\"insufficient credits\",\"metadata\":{\"trace_id\":\"802961edaa9c3fdbe99575e2b9e01c9a\"}}",
             "stopped_on": "unexpected_error"
           }
         }
