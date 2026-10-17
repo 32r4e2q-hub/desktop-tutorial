@@ -158,7 +158,7 @@ jobs:
             echo '没有新的审计收据需要提交'
             exit 0
           fi
-          git status --short | head -20
+          git status --short | head -20 || true
           git commit -m 'kitakyushu2002: audit every frame of delivered cut'
           pushed=0
           for attempt in 1 2 3 4 5; do
