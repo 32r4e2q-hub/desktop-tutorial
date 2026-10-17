@@ -113,27 +113,68 @@ def check_credits(host: str, key: str) -> dict:
     return record
 
 
+# 参数矩阵：国际站与国内站的合法取值不完全一样（360p 在国际站对 viduq1 是 FieldInvalid），
+# 所以不猜文档，直接逐个试到被受理为止。每个候选都是一条最小任务，真被受理才会花积分。
+def candidate_payloads() -> list[dict]:
+    prompt = MINIMAL_PROMPT
+    rows = []
+    for model, resolution, duration in (
+        ("viduq1", "540p", "4"),
+        ("viduq1", "720p", "4"),
+        ("viduq2", "720p", "4"),
+        ("viduq3-turbo", "540p", "4"),
+        ("viduq3-turbo", "720p", "4"),
+    ):
+        rows.append({
+            "model": model,
+            "style": "general",
+            "prompt": prompt,
+            "duration": duration,
+            "seed": "0",
+            "aspect_ratio": "16:9",
+            "resolution": resolution,
+            "movement_amplitude": "auto",
+        })
+    return rows
+
+
+# 这些错误意味着「参数不对，换一组再试」；其余的（尤其额度/鉴权）要立刻停。
+PARAM_ERROR_HINTS = ("resolution is invalid", "fieldinvalid", "duration is invalid",
+                     "invalid model", "model is invalid", "aspect_ratio is invalid")
+
+
 def submit_minimal(host: str, key: str) -> dict:
-    payload = {
-        "model": "viduq1",
-        "style": "general",
-        "prompt": MINIMAL_PROMPT,
-        "duration": "4",
-        "seed": "0",
-        "aspect_ratio": "16:9",
-        "resolution": "360p",
-        "movement_amplitude": "auto",
-    }
-    record = request("POST", f"{host}/ent/v2/text2video", key, payload)
+    """按参数矩阵逐个试，返回第一条被受理的任务；参数错误就换下一组。"""
+    attempts: list[dict] = []
+    record: dict = {"host": host, "attempts": attempts}
     task_id = None
-    if isinstance(record.get("body"), dict):
-        task_id = record["body"].get("task_id") or record["body"].get("id")
-    record.update(host=host, task_id=task_id, payload=payload)
-    record.pop("body", None)
-    if not task_id:
+    accepted_payload = None
+    for payload in candidate_payloads():
+        result = request("POST", f"{host}/ent/v2/text2video", key, payload)
+        raw = str(result.get("raw") or "")
+        attempts.append({
+            "model": payload["model"], "resolution": payload["resolution"],
+            "status": result.get("status"), "raw": raw[:300],
+        })
+        if result.get("status") is not None and 200 <= result["status"] < 300:
+            body = result.get("body") or {}
+            task_id = body.get("task_id") or body.get("id")
+            accepted_payload = payload
+            record.update(status=result["status"], task_id=task_id, accepted_payload=payload)
+            break
+        if result.get("status") in (401, 402, 403):
+            record.update(status=result["status"], raw=raw, stopped_on="auth_or_credit")
+            return record
+        if any(hint in raw.lower() for hint in PARAM_ERROR_HINTS):
+            continue           # 参数不合法：换下一组，不消耗额度
+        record.update(status=result.get("status"), raw=raw, stopped_on="unexpected_error")
         return record
-    # 轮询到出片（4 秒 360p 通常 10–60 秒）
-    deadline = time.monotonic() + 240
+    if not task_id:
+        record.update(status=None, stopped_on="no_payload_accepted")
+        return record
+
+    # 轮询到出片
+    deadline = time.monotonic() + 300
     while time.monotonic() < deadline:
         poll = request("GET", f"{host}/ent/v2/tasks/{urllib.parse.quote(str(task_id))}/creations", key)
         body = poll.get("body") or {}
@@ -146,9 +187,9 @@ def submit_minimal(host: str, key: str) -> dict:
             if creations and isinstance(creations, list):
                 record["video_url"] = creations[0].get("url")
             record["err_code"] = body.get("err_code")
+            record["failure_reason"] = body.get("err_reason") or body.get("message")
             break
         time.sleep(5)
-    record.pop("body", None)
     return record
 
 
