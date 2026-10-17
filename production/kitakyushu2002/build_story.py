@@ -446,7 +446,7 @@ SHOTS += [
     ("S35", "agnes", "侧面缓慢推进，停在平静的脸上", "被告席：松永抬起头，表情没有变化",
      "接动态镜：法官翻开判决书",
      "Inside a wood-panelled Japanese courtroom at the defendants' rail, the whole shot staying indoors "
-     "from the first frame to the last with no exterior, no building facade and no transition: the lean Japanese man of forty {C1} sits shown chest-up behind "
+     "from the first frame to the last with no exterior, no building facade and no transition: the lean Japanese man visibly in his early forties with smooth unlined skin — not elderly, no deep wrinkles, no grey hair — {C1} sits shown chest-up behind "
      "the rail, and he slowly raises his head to face forward — his faint composed polite smile unchanged, "
      "his level gaze steady and unhurried, blinking once, hands resting open and still on the desk; the "
      "overhead light is cold, the empty public benches soft behind him, every surface blank. Slow lateral "
