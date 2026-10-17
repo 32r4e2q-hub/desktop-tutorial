@@ -135,11 +135,13 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add production/__SLUG__/delivery/frame-distortion-audit.json \
-            production/__SLUG__/delivery/frame-distortion-audit.md \
-            production/__SLUG__/delivery/visual-qc-summary.json \
-            production/__SLUG__/delivery/visual-qc-shot-midpoints.jpg \
-            production/__SLUG__/qa/final-frame-review
+          # 按目录整体 add：某轮审计可能没产出 face-cast/ 等子目录，逐条列 pathspec
+          # 只要缺一个就会整步失败、把整轮证据丢掉（raincoat2004 栽过两轮）。
+          # git status 那行必须带 || true：pipefail 下 head 先关会让 git 吃 SIGPIPE(141)、
+          # 在 commit 之前退出，步骤又常设 continue-on-error，就会「绿了但没落盘」
+          # （kitakyushu2002 v1/v2 两轮 QC 收据因此没推回分支，2026-10-17 修）。
+          git add -A -- production/__SLUG__/delivery production/__SLUG__/qa
+          git status --short | head -20 || true
           if ! git diff --cached --quiet; then
             git commit -m '__SLUG__: audit every frame of delivered cut'
             pushed=0

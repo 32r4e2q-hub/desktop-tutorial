@@ -334,6 +334,32 @@ class WorkflowIntegrityTests(unittest.TestCase):
         self.assertIn("continue-on-error: true", render[:upload_at][-400:],
                       "成片上传失败会把出片判死，但成片本来就 commit 回 交付/ 了")
 
+    def test_no_sigpipe_prone_git_status_head_in_workflows(self):
+        """`git status --short | head -N` 必须带 `|| true`，守 kitakyushu2002 的 141 假成功。
+
+        2026-10-17 实测：visual-qc 的收据提交步里 `set -o pipefail` + `git status | head -20`，
+        待提交文件超过 20 行时 head 先关、git 吃 SIGPIPE(141)，脚本在 commit 之前退出；
+        该步又设了 continue-on-error，整轮显示成功、审计收据却永远推不回分支（连栽两轮）。
+        所以扫全部工作流文件（.github、项目 workflows/ 副本、templates/），
+        凡是这行没带容错的一律红——新项目从模板生出来也躲不掉。
+        """
+        candidates = list(WORKFLOWS_DIR.glob("*.yml")) + list(WORKFLOWS_DIR.glob("*.yaml"))
+        candidates += sorted((ROOT / "production" / "templates").glob("*.yml"))
+        candidates += sorted(ROOT.glob("production/*/workflows/*.yml"))
+        checked = 0
+        for path in candidates:
+            for line in path.read_text(encoding="utf-8").splitlines():
+                stripped = line.strip()
+                if not stripped.startswith("git status") or "| head" not in stripped:
+                    continue
+                if stripped.startswith("#"):
+                    continue
+                checked += 1
+                with self.subTest(workflow=str(path.relative_to(ROOT)), line=stripped):
+                    self.assertIn("|| true", stripped,
+                                  "git status | head 在 pipefail 下会 SIGPIPE(141) 假成功，必须带 || true")
+        self.assertGreaterEqual(checked, 1, "没有扫到任何 git status | head 行，正则/路径可能失配")
+
     def test_scripts_run_on_this_branch_exist_and_are_valid_shell(self):
         """只有没 pin ref 的工作流跑本分支代码，它们引用的脚本必须真的在这儿。"""
         checked = pinned = 0
