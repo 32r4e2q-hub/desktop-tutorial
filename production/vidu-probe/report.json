@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T14:29:01Z",
+  "generated_at": "2026-10-17T14:31:53Z",
   "spend": true,
   "found_keys": [
     {
@@ -33,12 +33,30 @@
           "error": null,
           "verdict": "KEY_OK",
           "spend": {
-            "ok": false,
-            "status": 400,
-            "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"dcde9721c6bb1fbd721099276de057aa\"}}",
-            "elapsed_s": 0.79,
             "host": "https://api.vidu.com",
-            "task_id": null
+            "attempts": [
+              {
+                "model": "viduq1",
+                "resolution": "540p",
+                "status": 400,
+                "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"00c64b3554fee42b021355e5fc58253a\"}}"
+              },
+              {
+                "model": "viduq1",
+                "resolution": "720p",
+                "status": 400,
+                "raw": "{\"code\":400,\"reason\":\"FieldInvalid\",\"message\":\"resolution is invalid\",\"metadata\":{\"fields\":\"resolution\",\"trace_id\":\"04b6154a836c5463a8177d11f5dcec47\"}}"
+              },
+              {
+                "model": "viduq2",
+                "resolution": "720p",
+                "status": 400,
+                "raw": "{\"code\":400,\"reason\":\"CreditInsufficient\",\"message\":\"insufficient credits\",\"metadata\":{\"trace_id\":\"70bbe3ae66469a37b714b04c43942afa\"}}"
+              }
+            ],
+            "status": 400,
+            "raw": "{\"code\":400,\"reason\":\"CreditInsufficient\",\"message\":\"insufficient credits\",\"metadata\":{\"trace_id\":\"70bbe3ae66469a37b714b04c43942afa\"}}",
+            "stopped_on": "unexpected_error"
           }
         }
       }
