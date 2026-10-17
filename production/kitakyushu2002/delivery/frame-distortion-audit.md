@@ -1,7 +1,7 @@
 # 成片逐帧畸变 / 时序 QC
 
 - 成片：`北九州监禁案_逃出魔窟的少女，七条人命背后的秘密_三分钟_带声音.mp4`
-- SHA-256：`4b21f6d6477a1f3f37c1892bc9610ab0d357a3d5626dc1a882932fe0c6856d92`
+- SHA-256：`435ff39b05aad74d5bae55f030e0a1c4bbf58732b745c589d548cff3ecf66005`
 - 视频：1920×1080 / 30.000 fps / 180.000 秒
 - 覆盖：解码并分析 **5400/5400 帧**；逐帧 MediaPipe 人脸/手检测；320x180 时序分析
 - 自动状态：**REVIEW**（机器结果，不等同于无任何视觉瑕疵）
@@ -14,7 +14,7 @@
 - >1 秒近静止区段：6；其中非信息卡/片尾段：6
 - 帧差/光流/亮度突变待复核窗口：14
 - 人脸检测：逐帧总检测 940；达到复核阈值的候选 687
-- 手部检测：逐帧总检测 949；超出宽松几何边界的 landmark 事件 123
+- 手部检测：逐帧总检测 976；超出宽松几何边界的 landmark 事件 121
 
 ## 镜头统计
 
@@ -54,8 +54,8 @@
 | S32 | graphic | 103 | 21 | 0 | 255.5656 | 3 |
 | S33 | agnes | 75 | 75 | 0 | 0.0855 | 0 |
 | S34 | agnes | 161 | 161 | 227 | 1.6736 | 0 |
-| S35 | agnes | 106 | 106 | 0 | 0.2865 | 0 |
-| S36 | agnes | 110 | 110 | 181 | 2.979 | 2 |
+| S35 | agnes | 106 | 106 | 32 | 0.2575 | 0 |
+| S36 | agnes | 110 | 110 | 176 | 2.9854 | 2 |
 | S37 | agnes | 26 | 0 | 0 | 0.1068 | 0 |
 | S38 | graphic | 123 | 19 | 0 | 194.3723 | 0 |
 | S39 | agnes | 180 | 0 | 0 | 0.2311 | 0 |
@@ -79,6 +79,7 @@
 - 手部动态接触表：`work/kitakyushu2002/final-frame-audit/contacts/hands-S21.jpg`
 - 手部动态接触表：`work/kitakyushu2002/final-frame-audit/contacts/hands-S27.jpg`
 - 手部动态接触表：`work/kitakyushu2002/final-frame-audit/contacts/hands-S34.jpg`
+- 手部动态接触表：`work/kitakyushu2002/final-frame-audit/contacts/hands-S35.jpg`
 - 手部动态接触表：`work/kitakyushu2002/final-frame-audit/contacts/hands-S36.jpg`
 
 ## 限制

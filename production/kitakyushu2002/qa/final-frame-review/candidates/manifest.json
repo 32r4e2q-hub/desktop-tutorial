@@ -1,5 +1,5 @@
 {
-  "film_sha256": "4b21f6d6477a1f3f37c1892bc9610ab0d357a3d5626dc1a882932fe0c6856d92",
+  "film_sha256": "435ff39b05aad74d5bae55f030e0a1c4bbf58732b745c589d548cff3ecf66005",
   "source_audit": "production/kitakyushu2002/delivery/frame-distortion-audit.json",
   "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
   "max_width": 960,
@@ -4692,7 +4692,8 @@
       "frame": 3927,
       "seconds": 130.9,
       "reasons": [
-        "face-S34"
+        "face-S34",
+        "hand-geometry-S34"
       ],
       "file": "f03927_face-S34.jpg",
       "width": 960,
@@ -4762,8 +4763,7 @@
       "frame": 3934,
       "seconds": 131.133,
       "reasons": [
-        "face-S34",
-        "hand-geometry-S34"
+        "face-S34"
       ],
       "file": "f03934_face-S34.jpg",
       "width": 960,
@@ -6849,8 +6849,7 @@
       "frame": 4142,
       "seconds": 138.067,
       "reasons": [
-        "face-S36",
-        "hand-geometry-S36"
+        "face-S36"
       ],
       "file": "f04142_face-S36.jpg",
       "width": 960,
