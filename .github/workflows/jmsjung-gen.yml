@@ -1,0 +1,102 @@
+# JMS 郑明析案：30 镜 × 6 秒 = 180 秒，全部走 Agnes 免费档 agnes-video-2.5-flash（720P）。
+# 引擎 production/jmsjung/generate.py，模板来自仓库里的北九州项目（production/kitakyushu2002）。
+#
+# 为什么要上 Actions：沙箱连不上 apihub.agnes-ai.com，只有 runner 能连、也只有 runner 拿到
+# AGNES_API_KEY。生成结果（results.json + qa 接触表）由 checkpoint 自动 commit 回本分支，
+# 大视频只进 artifact，不进 Git。
+name: JMS郑明析案 · Agnes 生成
+run-name: JMS · Agnes 2.5-flash · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON: {"only":"S01"} / {"workers":2}；留空则按 GEN_REQUEST 全量 30 镜'
+        type: string
+        default: ''
+  push:
+    branches:
+      - arena/929dc8b6-desktop-tutorial
+    paths:
+      - production/jmsjung/GEN_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jmsjung-gen-arena-929dc8b6-desktop-tutorial
+  # 断点续跑靠 results.json 里的 SHA-256 收据，取消不会丢已完成的镜头。
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/929dc8b6-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 350
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/929dc8b6-desktop-tutorial
+          fetch-depth: 0
+
+      - name: Resolve generation payload
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then payload="$PAYLOAD_INPUT";
+          elif [ -f production/jmsjung/GEN_REQUEST ]; then payload="$(tr -d '\n' < production/jmsjung/GEN_REQUEST)";
+          else payload='{}'; fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "Generation payload: $payload"
+
+      - name: Install ffmpeg (clip inspection)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install inspection dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<19"
+
+      - name: Validate the 30 × 6-second timeline
+        run: python3 production/jmsjung/generate.py --validate --clips-only
+
+      - name: Generate 30 Agnes clips (queue-full retry every 180s)
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: |
+          set -o pipefail
+          python3 -u production/jmsjung/generate.py --publish --clips-only --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Ship failure log to branch (sandbox cannot read Actions logs)
+        if: failure()
+        run: |
+          tail -c 200000 /tmp/gen.log > production/jmsjung/gen-diag.log || true
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/jmsjung/gen-diag.log
+          git commit -m "jmsjung: 生成失败诊断 $(date -u +%FT%TZ)" || true
+          git push origin HEAD:arena/929dc8b6-desktop-tutorial || true
+
+      - name: Save generation evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmsjung-agnes-${{ github.run_number }}
+          path: |
+            production/jmsjung/results.json
+            production/jmsjung/qa/
+            production/jmsjung/gen-diag.log
+            work/jmsjung/clips/
+          if-no-files-found: warn
+          retention-days: 14
