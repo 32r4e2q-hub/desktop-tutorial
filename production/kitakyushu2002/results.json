@@ -677,27 +677,10 @@
     },
     "S34": {
       "id": "S34",
-      "status": "completed",
-      "request_hash": "679f9e4dd57e4dc14b933090c840afc0ecb869af9d8a2b139473afffccd32a6e",
+      "status": "submitting",
+      "request_hash": "70380c1bf71169ce16540292a079b36c51e3191124708ff561f6b1b5c8010c2a",
       "error": null,
-      "updated_at": "2026-10-17T03:31:13Z",
-      "task_id": "202610171130058e65f5bf09c6404b",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610171131004baf1f7e7cbb47c7_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=Fl5tyh1Bh31fa9Ex3TyGLxwGTqs%3D&Expires=1792294263",
-      "sha256": "f3a9a73defbd5a48c4c6da52b5a6c75a75e1940a5983e46916ad8204b0c832fd",
-      "bytes": 1428722,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1428722,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/kitakyushu2002/qa/S34.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-17T04:13:52Z"
     },
     "S35": {
       "id": "S35",
@@ -958,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-17T04:13:51Z",
+  "updated_at": "2026-10-17T04:13:52Z",
   "previous_results": {
     "S11": [
       {
@@ -981,6 +964,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/kitakyushu2002/qa/S11.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S34": [
+      {
+        "id": "S34",
+        "status": "completed",
+        "request_hash": "679f9e4dd57e4dc14b933090c840afc0ecb869af9d8a2b139473afffccd32a6e",
+        "error": null,
+        "updated_at": "2026-10-17T03:31:13Z",
+        "task_id": "202610171130058e65f5bf09c6404b",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610171131004baf1f7e7cbb47c7_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=Fl5tyh1Bh31fa9Ex3TyGLxwGTqs%3D&Expires=1792294263",
+        "sha256": "f3a9a73defbd5a48c4c6da52b5a6c75a75e1940a5983e46916ad8204b0c832fd",
+        "bytes": 1428722,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1428722,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/kitakyushu2002/qa/S34.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
