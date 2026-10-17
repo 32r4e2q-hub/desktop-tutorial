@@ -1,0 +1,108 @@
+# Vidu key 可用性探针。
+#
+# 为什么需要它：沙箱连不上外网 API，GitHub secret 的名字也读不到（API 403），
+# 所以「仓库里到底有没有 Vidu key」只能在 runner 上回答。
+# workflow 把候选 secret 名逐个映射成环境变量：不存在的 secret 会解析成空字符串，
+# 探针据此报告「有/没有」；有值也只打印指纹（sha256 前 12 位 + 末 4 位），绝不打印 key。
+#
+# 触发：改 production/VIDU_PROBE_REQUEST 再 push（本仓库集成令牌不能 workflow_dispatch）。
+name: Vidu key 可用性探测
+run-name: Vidu 探针 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      spend:
+        description: 'true = 真提交一条 4 秒 360p 任务（会消耗积分）；false = 只查积分'
+        type: boolean
+        default: false
+  push:
+    branches:
+      - arena/929dc8b6-desktop-tutorial
+    paths:
+      - production/VIDU_PROBE_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vidu-probe-929dc8b6
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/929dc8b6-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    steps:
+      - name: Check out this Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/929dc8b6-desktop-tutorial
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve probe options
+        run: |
+          set -euo pipefail
+          # push 触发时 inputs 是空的，选项走 production/VIDU_PROBE_REQUEST 里那行 JSON
+          python3 - <<'PY' | tee -a "$GITHUB_ENV"
+          import json, os
+          from pathlib import Path
+          defaults = {"spend": False, "host": ""}
+          raw = Path('production/VIDU_PROBE_REQUEST').read_text(errors='replace') if Path('production/VIDU_PROBE_REQUEST').exists() else ''
+          for line in raw.splitlines():
+              line = line.strip()
+              if line.startswith('{'):
+                  try:
+                      defaults.update(json.loads(line))
+                  except ValueError:
+                      pass
+                  break
+          print('PROBE_SPEND=' + ('true' if defaults['spend'] else 'false'))
+          print('PROBE_HOST=' + str(defaults.get('host') or ''))
+          PY
+
+      - name: Run the Vidu probe
+        env:
+          # 候选 secret 名；没配的会解析成空字符串，探针会如实报告「缺失」
+          VPROBE_VIDU_API_KEY: ${{ secrets.VIDU_API_KEY }}
+          VPROBE_VIDU_KEY: ${{ secrets.VIDU_KEY }}
+          VPROBE_VIDU_TOKEN: ${{ secrets.VIDU_TOKEN }}
+          VPROBE_VIDU_APIKEY: ${{ secrets.VIDU_APIKEY }}
+          VPROBE_VIDU_CN_API_KEY: ${{ secrets.VIDU_CN_API_KEY }}
+          VPROBE_VIDU_AI_API_KEY: ${{ secrets.VIDU_AI_API_KEY }}
+        run: |
+          set -uo pipefail
+          args=(--outdir production/vidu-probe)
+          if [ "$PROBE_SPEND" = "true" ]; then args+=(--spend); fi
+          if [ -n "${PROBE_HOST:-}" ]; then args+=(--host "$PROBE_HOST"); fi
+          python3 production/vidu_probe.py "${args[@]}"
+
+      - name: Commit the report back to the branch
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/vidu-probe || true
+          if git diff --cached --quiet; then
+            echo "no report change"
+          else
+            git commit -m "vidu-probe: $(date -u +%FT%TZ)" || true
+            for attempt in 1 2 3; do
+              git push origin HEAD:arena/929dc8b6-desktop-tutorial && break || {
+                sleep 5; git pull --rebase origin arena/929dc8b6-desktop-tutorial || true; }
+            done
+          fi
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vidu-probe-${{ github.run_number }}
+          path: production/vidu-probe/
+          if-no-files-found: warn
+          retention-days: 14
