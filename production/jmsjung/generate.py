@@ -110,6 +110,48 @@ def capacity_problem(message):
     return None
 
 
+# 一轮跑完、还有镜头没成时，判断「这轮为什么没跑完」用的一组文案：
+# 命中任意一条 = 失败归因于免费池（排队抽签/冷却把预算顶穿），下一轮能从断点接着抽；
+# 都不命中 = 流水线自己的错误（400 参数、下载校验、缺 key……），必须停下等人修。
+# 2026-10-17 run 39037939402 的血泪：57 次抽签只中 S01，预算用尽后其余 29 镜的
+# 「Provider cooldown would exceed the generation budget」被当成普通失败（rc=1、
+# phase=generation_incomplete），auto_resume 按「真 bug 不接力」的契约停摆——
+# 而它明明只是「免费池还没开闸」，本该 rc=42 自动接力。
+CAPACITY_ROUND_END_MARKERS=(
+    'video queue is full',
+    'queue is full',
+    'no available channel',
+    'provider cooldown would exceed the generation budget',
+    'generation budget reached; task id was saved',
+    'provider capacity already exhausted',
+)
+
+
+def capacity_related_error(error):
+    """某个镜头的失败文案能否归因于供应商免费池（→ 下一轮可从断点接力）？"""
+    text=str(error or '').lower()
+    return any(marker in text for marker in CAPACITY_ROUND_END_MARKERS)
+
+
+def classify_incomplete_round(shots,required,provider_pressure):
+    """一轮没跑完时，判定该轮的出口：返回 (退出码, phase, 真 bug 镜头列表)。
+
+    shots = results.json 里的 {sid: row}；required = 本轮应生成的镜头 ID 列表；
+    provider_pressure = 本轮 breaker 记到的容量事件次数（排队抽签 + 通道不可用）。
+
+    规则：**只有**「本轮确实撞过免费池（pressure>0）且没有任何镜头的失败文案落在
+    容量文案之外」才判 42/provider_capacity（可自动接力）。只要有一个镜头的报错
+    对不上容量文案，就退回 1/generation_incomplete —— 宁可停一轮等人看，
+    也不把 400 参数错误伪装成「供应商没货」。
+    """
+    bug_evidence=sorted(sid for sid,row in shots.items()
+                        if row.get('status')!='completed' and row.get('error')
+                        and not capacity_related_error(row['error']))
+    if int(provider_pressure or 0)>0 and not bug_evidence:
+        return 42,'provider_capacity',[]
+    return 1,'generation_incomplete',bug_evidence
+
+
 def now_stamp():
     return time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
 
@@ -167,7 +209,7 @@ class ChannelBreaker:
         # defer 是共享的：两个 worker 一起冷却，等于对整轮生成熔断。
         self.gate.defer(wait)
         self.record(sid=sid,round_no=round_no,cooldown=wait,error=message,
-                    reason=reason,outage=dict(self.state))
+                    reason=reason,outage=dict(self.state),kind='channel')
         if round_no<self.error_limit:
             return True
         waited=self.clock()-self.started
@@ -194,9 +236,10 @@ class ChannelBreaker:
         self.state['last_error']=message
         if self.queue_started is None:
             self.queue_started=self.clock()
-        self.gate.defer(self.cooldown if cooldown is None else float(cooldown))
-        self.record(sid=sid,round_no=self.state['queue_attempts'],cooldown=self.cooldown,error=message,
-                    reason=reason,outage=dict(self.state))
+        wait=self.cooldown if cooldown is None else float(cooldown)
+        self.gate.defer(wait)
+        self.record(sid=sid,round_no=self.state['queue_attempts'],cooldown=wait,error=message,
+                    reason=reason,outage=dict(self.state),kind='queue')
         waited=self.clock()-self.queue_started
         if waited<self.queue_budget and self.clock()<self.deadline:
             print('QUEUE_LOTTERY attempt=%d waited=%.0fs budget=%.0fs'%(self.state['queue_attempts'],waited,self.queue_budget),
@@ -563,8 +606,13 @@ def main():
                    reused_existing_asset=reused,visual_review='pending')
         return True
 
-    def record_outage(sid,round_no,cooldown,error,outage,reason='供应商侧没有可用容量'):
-        """把这次通道不可用写进 results.json（沙箱读不到 Actions 日志，只能靠它）。"""
+    def record_outage(sid,round_no,cooldown,error,outage,reason='供应商侧没有可用容量',kind='channel'):
+        """把这次容量事件写进 results.json（沙箱读不到 Actions 日志，只能靠它）。
+
+        kind 必须跟实际文案走：排队满和通道没了是两种事，标签写错会把排障引偏
+        （2026-10-17 run 39037939402 里 57 次全是排队满，标签却全写「channel
+        unavailable」，让人白查了一个不存在的通道故障）。
+        """
         with LOCK:
             doc['provider_outage']={
                 'model':MODEL,'base':base,
@@ -572,10 +620,16 @@ def main():
                 'create_attempts':outage['attempts'],'consecutive_rounds':round_no,
                 'cooldown_seconds':cooldown,'channel_error_limit':channel_error_limit,
                 'wait_channel_minutes':wait_channel_minutes,'last_error':error,
-                'reason':reason}
-        checkpoint(sid+' provider channel unavailable',sid,status='provider_unavailable',
+                'reason':reason,'kind':kind}
+        if kind=='queue':
+            shot_label='video queue is full (抽签 %d)'%round_no
+            round_label='排队满，180 秒后再抽（第 %d 次）'%round_no
+        else:
+            shot_label='provider channel unavailable'
+            round_label='provider channel unavailable (round %d)'%round_no
+        checkpoint(sid+' '+shot_label,sid,status='provider_unavailable',
                    channel_error_round=round_no,applied_cooldown_seconds=cooldown,error=error)
-        checkpoint('provider channel unavailable (round %d)'%round_no)
+        checkpoint(round_label)
 
     breaker=ChannelBreaker(gate,generation_deadline,error_limit=channel_error_limit,
                            wait_minutes=wait_channel_minutes,queue_wait_minutes=queue_wait_minutes,
@@ -689,7 +743,24 @@ def main():
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
             outcomes=list(pool.map(generate,shots))
         if not all(outcomes):
-            doc['phase']='generation_incomplete';checkpoint('generation incomplete')
+            # 这轮为什么没跑完？两件事必须分开（判定规则与理由见 classify_incomplete_round）：
+            #   免费池还没开闸（容量）→ phase=provider_capacity、退出码 42，接力步骤接着抽；
+            #   流水线自己有错（真 bug）→ phase=generation_incomplete、退出码 1，停下等人修。
+            completed=sum(1 for row in doc['shots'].values() if row.get('status')=='completed')
+            pending_count=len(doc['required_generated_shots'])-completed
+            code,phase,bug_evidence=classify_incomplete_round(
+                doc['shots'],doc['required_generated_shots'],breaker.state.get('attempts') or 0)
+            if code==42:
+                doc['phase']=phase
+                doc['pipeline_error']=('免费池到轮末仍未开闸：本轮容量事件 %d 次，已完成 %d 镜，未成 %d 镜；下一轮从断点继续。'
+                                       %(int(breaker.state.get('attempts') or 0),completed,pending_count))
+                checkpoint('provider capacity: queue still full at round end')
+                (export/'未完成说明.txt').write_text('免费池到轮末仍未开闸，%d 镜未成（详见 production/jmsjung/results.json）；下一轮将从断点继续抽签。\n'%pending_count)
+                for p in sources.glob('*.mp4'):shutil.copy2(p,export/p.name)
+                return 42
+            doc['phase']=phase;checkpoint('generation incomplete')
+            if bug_evidence:
+                doc['pipeline_error']='有镜头的失败无法归因于供应商免费池，先查这些镜头的 error 字段：'+','.join(bug_evidence)
             (export/'未完成说明.txt').write_text('生成尚未完成，未导出成片。请查看 production/jmsjung/results.json。\n')
             for p in sources.glob('*.mp4'):shutil.copy2(p,export/p.name)
             return 1

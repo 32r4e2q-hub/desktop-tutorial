@@ -78,3 +78,29 @@ echo '{"only":"S07"}' > production/jmsjung/GEN_REQUEST
 
 回归测试：`production/tests/test_jmsjung.py::QueueLotteryTests`——用 10-16 的真实时间线，
 断言「第 5 次必须能走到」，另有一条断言「没有通道仍要 3 轮就放弃」。
+
+## 失败记录：2026-10-17 16:42Z（run 39037939402）——接力链断在「误判真 bug」
+
+第 2 轮跑了 2 小时 56 分，**57 次抽签抽中了 S01**（15:15 建任务、15:26 出片，
+720P/6.6 秒/24fps，本片第一个真实镜头）。但收工时其余 29 镜的失败文案是
+`Provider cooldown would exceed the generation budget`——**排队冷却把生成预算顶穿了**，
+是「免费池还没开闸」，却被旧代码当成普通失败：`phase=generation_incomplete`、退出码 1。
+`auto_resume` 按「退出码 1 = 真 bug，不接力」的契约停摆，自动接力链就此断裂。
+
+顺带发现一个排障陷阱：`record_outage` 对排队满也写「provider channel unavailable」
+标签，57 次全是排队满，日志却像通道故障——这次把标签改回实际性质
+（`video queue is full (抽签 N)`）。
+
+修法：`classify_incomplete_round()` 把「轮末没跑完」分成两出口——
+
+| 情形 | 判定 |
+|---|---|
+| 本轮撞过免费池（breaker 容量事件 > 0）**且**没有镜头的报错落在容量文案之外 | `provider_capacity` + 退出码 **42** → 自动接力 |
+| 有一个镜头的报错对不上容量文案（400、下载校验、缺 key……） | `generation_incomplete` + 退出码 **1** → 停下等人修 |
+
+宁可停一轮，也不把真 bug 伪装成「供应商没货」；反过来，「还在排队」也绝不再
+伪装成 bug 把接力链掐死。
+
+回归测试：`production/tests/test_jmsjung.py::RoundEndClassificationTests`——
+含一条用 run 39037939402 真实收尾数据（S01 成 + 29 镜冷却顶穿 + 57 次容量事件）
+的复现用例，断言必须判 42/provider_capacity。

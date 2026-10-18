@@ -130,6 +130,71 @@ class CapacityClassificationTests(unittest.TestCase):
         self.assertEqual(generate.capacity_problem("video queue is full")[1], 180)
 
 
+class RoundEndClassificationTests(unittest.TestCase):
+    """一轮跑完还有镜头没成：「免费池没开闸」必须判成容量（rc=42 接力），不能伪装成真 bug。
+
+    2026-10-17 run 39037939402 实测：57 次抽签只中 S01，预算用尽后其余 29 镜的失败文案是
+    ``Provider cooldown would exceed the generation budget; saved tasks can be resumed``。
+    旧代码把它当普通失败 → rc=1、phase=generation_incomplete → auto_resume 按契约停摆，
+    自动接力链就此断裂。这组用例就是钉住「冷却顶穿预算 = 容量，不是 bug」。
+    """
+
+    def test_cooldown_overrun_counts_as_capacity(self):
+        self.assertTrue(generate.capacity_related_error(
+            "Provider cooldown would exceed the generation budget; saved tasks can be resumed"))
+
+    def test_queue_full_counts_as_capacity(self):
+        self.assertTrue(generate.capacity_related_error(
+            "Could not create video task after 1 attempts; last problem: HTTP 503: "
+            "video queue is full, please retry later"))
+
+    def test_channel_unavailable_counts_as_capacity(self):
+        self.assertTrue(generate.capacity_related_error(
+            "No available channel for model agnes-video-2.5-flash under group default"))
+
+    def test_saved_task_budget_note_counts_as_capacity(self):
+        self.assertTrue(generate.capacity_related_error(
+            "Generation budget reached; task ID was saved for resumption"))
+
+    def test_real_bugs_are_not_capacity(self):
+        self.assertFalse(generate.capacity_related_error("HTTP 400: size must be one of 720P"))
+        self.assertFalse(generate.capacity_related_error("Downloaded file does not match its receipt: S07"))
+        self.assertFalse(generate.capacity_related_error("AGNES_API_KEY is unavailable to this workflow"))
+        self.assertFalse(generate.capacity_related_error(None))
+        self.assertFalse(generate.capacity_related_error(""))
+
+    def test_run_39037939402_replay_is_provider_capacity(self):
+        """按 run 39037939402 的真实收尾数据复现：S01 成、其余 29 镜全是
+        「冷却顶穿预算」，breaker 记了 57 次容量事件 → 必须判 42/provider_capacity。"""
+        overrun = "Provider cooldown would exceed the generation budget; saved tasks can be resumed"
+        shots = {"S01": {"id": "S01", "status": "completed", "error": None}}
+        for i in range(2, 31):
+            shots["S%02d" % i] = {"id": "S%02d" % i, "status": "failed", "error": overrun}
+        required = ["S%02d" % i for i in range(1, 31)]
+        code, phase, bugs = generate.classify_incomplete_round(shots, required, 57)
+        self.assertEqual(code, 42)
+        self.assertEqual(phase, "provider_capacity")
+        self.assertEqual(bugs, [])
+
+    def test_one_real_bug_still_stops_the_round(self):
+        """混进一个 400 参数错误就必须按真 bug 停，不能拿容量当遮羞布。"""
+        overrun = "Provider cooldown would exceed the generation budget; saved tasks can be resumed"
+        shots = {"S01": {"id": "S01", "status": "completed", "error": None},
+                 "S02": {"id": "S02", "status": "failed", "error": overrun},
+                 "S03": {"id": "S03", "status": "failed", "error": "HTTP 400: size must be one of 720P"}}
+        code, phase, bugs = generate.classify_incomplete_round(shots, ["S01", "S02", "S03"], 12)
+        self.assertEqual(code, 1)
+        self.assertEqual(phase, "generation_incomplete")
+        self.assertEqual(bugs, ["S03"])
+
+    def test_no_capacity_pressure_is_not_capacity(self):
+        """一轮里一次容量事件都没有，却还有镜头没成 → 不是供应商的问题。"""
+        shots = {"S01": {"id": "S01", "status": "failed", "error": "Downloaded file does not match its receipt: S01"}}
+        code, phase, bugs = generate.classify_incomplete_round(shots, ["S01"], 0)
+        self.assertEqual(code, 1)
+        self.assertEqual(bugs, ["S01"])
+
+
 class StoryTests(unittest.TestCase):
     """story.json 必须和上传的脚本对得上：30 镜 × 6 秒 = 180 秒。"""
 
