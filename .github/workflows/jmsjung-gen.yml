@@ -22,11 +22,18 @@ on:
 
 permissions:
   contents: write
+  # 接力要用 GITHUB_TOKEN 显式 dispatch 下一轮：
+  # **GITHUB_TOKEN 的 push 不会触发新的 workflow run**（GitHub 防自激回路的规则），
+  # 2026-10-18 第 3 轮实测：auto_resume 推了 GEN_REQUEST（commit 943103f）却没起新 run，
+  # 接力链静默断掉。dispatch 走的是 workflow API，不受这条规则限制。
+  actions: write
 
 concurrency:
   group: jmsjung-gen-arena-929dc8b6-desktop-tutorial
   # 断点续跑靠 results.json 里的 SHA-256 收据，取消不会丢已完成的镜头。
-  cancel-in-progress: true
+  # queued（不取消在跑的）：自 dispatch 的下一轮会排队等本轮收尾，
+  # 不会在 artifact 上传途中把本轮掐掉。
+  cancel-in-progress: false
 
 jobs:
   generate:
@@ -100,18 +107,40 @@ jobs:
           set -euo pipefail
           python3 production/jmsjung/auto_resume.py --rc "${{ steps.gen.outputs.rc }}"
 
-      - name: Push the resume marker to trigger the next round
+      - name: Relay the next round (dispatch, because GITHUB_TOKEN pushes don't trigger runs)
         if: steps.resume.outputs.resume == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git config user.name "arena-auto-resume"
           git config user.email "arena@local"
+          # 1) GEN_REQUEST 照常回写：留档 + 下一轮 dispatch 的 payload 来源。
           git add production/jmsjung/GEN_REQUEST
           git commit -m "jmsjung: 排队满，自动接力下一轮 $(date -u +%FT%TZ)"
           for attempt in 1 2 3; do
             git push origin HEAD:arena/929dc8b6-desktop-tutorial && break || {
               sleep 5; git pull --rebase origin arena/929dc8b6-desktop-tutorial || true; }
           done
+          # 2) 真正的接力：显式 workflow_dispatch 开下一轮。
+          #    新 run 按 concurrency 排队，等本轮收尾后才起跑，不会掐掉本轮的 artifact。
+          #    dispatch 失败就落一张收据 + 红掉本轮——宁可红着等人看，不许静默断链。
+          payload=$(tr -d '\n' < production/jmsjung/GEN_REQUEST)
+          echo "DISPATCH payload: $payload"
+          set +e
+          out=$(gh workflow run jmsjung-gen.yml --ref arena/929dc8b6-desktop-tutorial -f payload="$payload" 2>&1)
+          rc=$?
+          set -e
+          if [ $rc -eq 0 ]; then
+            echo "DISPATCH_OK $out"
+          else
+            echo "$out" > production/jmsjung/dispatch-fail.txt
+            echo "DISPATCH_FAILED: $out"
+            git add production/jmsjung/dispatch-fail.txt
+            git commit -m "jmsjung: 接力 dispatch 失败 $(date -u +%FT%TZ)" || true
+            git push origin HEAD:arena/929dc8b6-desktop-tutorial || true
+            exit 1
+          fi
 
       - name: Fail the run when nothing will resume it
         if: steps.gen.outputs.rc != '0' && steps.resume.outputs.resume != 'true'
