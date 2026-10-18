@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-10-18T15:25:55Z",
+  "target_model": "agnes-video-2.5-flash",
+  "spend": true,
+  "cn_key": null,
+  "intl_key": {
+    "sha256_12": "3c1a065df259",
+    "last4": "bflr",
+    "length": 51
+  },
+  "checks": [
+    {
+      "kind": "host_alive",
+      "host": "https://apihub.agnes-ai.cn",
+      "alive": true,
+      "error": null
+    },
+    {
+      "kind": "host_alive",
+      "host": "https://api.agnes-ai.cn",
+      "alive": true,
+      "error": null
+    },
+    {
+      "host": "https://apihub.agnes-ai.cn",
+      "http_status": 200,
+      "target_model_listed": true,
+      "models": [
+        "agnes-2.5-pro-alpha",
+        "agnes-video-2.5-flash",
+        "agnes-3.0-flash",
+        "agnes-image-2.1-flash",
+        "agnes-video-2.5",
+        "agnes-image-2.0-flash",
+        "agnes-2.5-flash",
+        "agnes-3.0-pro",
+        "agnes-2.5-pro-beta",
+        "agnes-image-2.5-flash"
+      ],
+      "body_excerpt": "{\"data\":[{\"id\":\"agnes-2.5-pro-alpha\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-video-2.5-flash\",\"object\":\"model\",\"created\":1626777600,\"owned_by\":\"custom\",\"supported_endpoint_types\":[\"openai\"]},{\"id\":\"agnes-3.0-flash\",\"object\":\"model",
+      "error": null,
+      "key": "INTL"
+    },
+    {
+      "host": "https://api.agnes-ai.cn",
+      "http_status": 401,
+      "target_model_listed": false,
+      "models": [],
+      "body_excerpt": "{\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20261018152556455698716AvmNrud5)\",\"type\":\"AgnesAI_error\"}}",
+      "error": null,
+      "key": "INTL"
+    }
+  ],
+  "creation": null,
+  "conclusion": "仓库里还没有国内站 key（未配置 AGNES_CN_API_KEY/AGNES_CN_KEY/AGNES_CN_TOKEN）。本轮只测了域名可达性与国际 key 互通性。 国际 key 打国内域名：['200', '401']（居然互通）。"
+}
