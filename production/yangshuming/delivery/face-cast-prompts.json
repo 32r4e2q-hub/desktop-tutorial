@@ -1,0 +1,81 @@
+{
+  "gate": "check-prompts",
+  "project": "production/yangshuming",
+  "errors": [],
+  "warnings": [],
+  "characters": [
+    {
+      "id": "C1",
+      "name": "三十八岁男子（杨树明 · 情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "suspect",
+      "face_token_chars": 381,
+      "portrait": null,
+      "portrait_url": null,
+      "seed": 19660302
+    },
+    {
+      "id": "C2",
+      "name": "五十五岁老刑警（阳泉矿区 · 虚构匿名角色）",
+      "role": "police",
+      "face_token_chars": 384,
+      "portrait": null,
+      "portrait_url": null,
+      "seed": 19510302
+    },
+    {
+      "id": "C3",
+      "name": "六十岁法官（阳泉市中级人民法院 · 虚构匿名角色）",
+      "role": "other",
+      "face_token_chars": 356,
+      "portrait": null,
+      "portrait_url": null,
+      "seed": 19460302
+    }
+  ],
+  "face_shots": [
+    {
+      "shot": "S11",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1107
+    },
+    {
+      "shot": "S14",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1111
+    },
+    {
+      "shot": "S20",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1068
+    },
+    {
+      "shot": "S25",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1073
+    },
+    {
+      "shot": "S27",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 1143
+    },
+    {
+      "shot": "S34",
+      "characters": [
+        "C3"
+      ],
+      "prompt_chars": 1112
+    }
+  ],
+  "mode": "face",
+  "status": "PASS"
+}
