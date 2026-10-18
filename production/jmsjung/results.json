@@ -39,11 +39,11 @@
     },
     "S02": {
       "id": "S02",
-      "status": "waiting_create_slot",
+      "status": "provider_unavailable",
       "request_hash": "127b481f4043d7c8374f908c1a38bb3c17b490243393bac93fd6963cbbb53e7a",
-      "error": null,
-      "updated_at": "2026-10-18T11:33:14Z",
-      "channel_error_round": 3,
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261018113413206422881aY35BmUI)",
+      "updated_at": "2026-10-18T11:34:13Z",
+      "channel_error_round": 4,
       "applied_cooldown_seconds": 61.0
     },
     "S03": {
@@ -299,19 +299,19 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-18T11:33:14Z",
+  "updated_at": "2026-10-18T11:34:13Z",
   "run_id": "39116959378",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "base": "https://apihub.agnes-ai.com",
     "first_seen": "2026-10-18T09:53:05Z",
-    "last_seen": "2026-10-18T11:33:12Z",
-    "create_attempts": 98,
-    "consecutive_rounds": 3,
+    "last_seen": "2026-10-18T11:34:13Z",
+    "create_attempts": 99,
+    "consecutive_rounds": 4,
     "cooldown_seconds": 61.0,
     "channel_error_limit": 3,
     "wait_channel_minutes": 0.0,
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261018113311923156835fNv3Uv4P)",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261018113413206422881aY35BmUI)",
     "reason": "供应商视频排队已满",
     "kind": "queue"
   }
