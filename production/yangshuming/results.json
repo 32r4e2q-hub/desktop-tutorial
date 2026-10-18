@@ -101,27 +101,10 @@
     },
     "S06": {
       "id": "S06",
-      "status": "completed",
-      "request_hash": "5cf6188874ca96054b19d0216c8025671027d85c054295ddd911cc7240840bd5",
+      "status": "submitting",
+      "request_hash": "840afa8f6e6271b7323e02c75cabcefc97ceaf75339481d0ff8903796b6155ad",
       "error": null,
-      "updated_at": "2026-10-18T02:09:53Z",
-      "task_id": "20261018100843570bd4f3085b4d7b",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101810094049433b78567c42ee_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=5MBgOay3iTE4MkkEXYMYDXResFI%3D&Expires=1792375782",
-      "sha256": "f6461ac0d42de1ce65c4171376355b06263c0c0b27edace78bcf3d5f2b764844",
-      "bytes": 2066110,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 2066110,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/yangshuming/qa/S06.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-18T02:52:52Z"
     },
     "S07": {
       "id": "S07",
@@ -413,7 +396,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-18T02:52:51Z",
+  "updated_at": "2026-10-18T02:52:52Z",
   "previous_results": {
     "S05": [
       {
@@ -457,6 +440,30 @@
         "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
         "updated_at": "2026-10-18T01:53:40Z",
         "task_id": "202610180953284f2bd72236374389"
+      },
+      {
+        "id": "S06",
+        "status": "completed",
+        "request_hash": "5cf6188874ca96054b19d0216c8025671027d85c054295ddd911cc7240840bd5",
+        "error": null,
+        "updated_at": "2026-10-18T02:09:53Z",
+        "task_id": "20261018100843570bd4f3085b4d7b",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/2026101810094049433b78567c42ee_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=5MBgOay3iTE4MkkEXYMYDXResFI%3D&Expires=1792375782",
+        "sha256": "f6461ac0d42de1ce65c4171376355b06263c0c0b27edace78bcf3d5f2b764844",
+        "bytes": 2066110,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 2066110,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/yangshuming/qa/S06.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
       }
     ],
     "S07": [
