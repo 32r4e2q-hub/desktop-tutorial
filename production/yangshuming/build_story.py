@@ -239,8 +239,7 @@ SHOTS = [
      "with a square table, an enamel mug, a folded work jacket on a chair, patterned curtains and a "
      "wall lamp casting warm light, the whole shot staying indoors from the first frame to the last "
      "with no exterior, no building facade and no transition: the Chinese man {C1}, wearing a plain "
-     "grey-blue work jacket, stands by the table shown from the waist up, calmly folding the jacket, "
-     "his ordinary face visible in soft lamplight; a slow tilt up from his hands on the jacket to his "
+     "grey-blue work jacket, stands by the table shown from the waist up, calmly folding the jacket, his lean youthful face clearly visible in soft lamplight; a slow tilt up from his hands on the jacket to his "
      "calm impassive face, " + HOLD,
      "室内钟表声、远处工业机器声"),
     ("S12", "agnes", "从背后跟拍女工走远", "二〇〇一年：女工下班后失踪",
