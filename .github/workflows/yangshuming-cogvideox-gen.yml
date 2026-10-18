@@ -61,6 +61,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install "zhipuai>=2.1" "requests>=2.31" "sniffio>=1.3" "httpx>=0.27" "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<19"
 
+      - name: 角色脸一致性（静态闸门）
+        run: python3 production/face_cast.py check-prompts --project production/yangshuming
+
       - name: Validate the complete three-minute timeline
         run: python3 production/yangshuming/generate_cogvideox.py --validate
 
