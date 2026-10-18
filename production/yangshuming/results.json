@@ -845,11 +845,27 @@
     },
     "S45": {
       "id": "S45",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "4079ebd7849928d33ac511456ed1fc0930c492f2a122d35e7fc996f12067eb9b",
       "error": null,
-      "updated_at": "2026-10-18T03:48:30Z",
-      "task_id": "20261018114830b128a1a4456f4f33"
+      "updated_at": "2026-10-18T03:49:27Z",
+      "task_id": "20261018114830b128a1a4456f4f33",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261018114920760036e9af744d7e_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=P7PiWPOUSRhds0xHP49DMlWYIEU%3D&Expires=1792381762",
+      "sha256": "44d3b8a2723b40147d1cd8b117ef9f7950c6b186be031a847d2bed9e808f9029",
+      "bytes": 1649247,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1649247,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/yangshuming/qa/S45.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -894,7 +910,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-18T03:48:30Z",
+  "updated_at": "2026-10-18T03:49:27Z",
   "previous_results": {
     "S05": [
       {
