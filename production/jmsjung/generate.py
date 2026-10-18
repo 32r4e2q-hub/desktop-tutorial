@@ -54,9 +54,11 @@ CHANNEL_UNAVAILABLE_MARKERS=('no available channel',)
 #   「video queue is full」= 排队满，**每一次请求都是一次抽签**——实测 23 次尝试成 1 次
 #     （S03 于 09:11:30 建成、09:22:49 出片）。
 #     2026-10-16 本仓库探针实测：间隔 60 秒重试 6 次全灭；间隔 180 秒，第 5 次受理并出片。
-#     所以本片按用户要求固定 180 秒试探一次——宁可慢，也不要被一串 60 秒的空抽签骗成"没戏"。
+#     2026-10-17 起按用户要求固定 180 秒试探一次；2026-10-18 用户改为 **61 秒**——
+#     贴着免费池 1 RPM（60 秒下限）的门槛（throttle.py 硬校验 minimum>=60），
+#     抽得更密：110 分钟预算内从 ~36 次涨到 ~108 次抽签。
 CHANNEL_COOLDOWN_SECONDS=300
-QUEUE_COOLDOWN_SECONDS=180
+QUEUE_COOLDOWN_SECONDS=61
 ABORT=threading.Event()
 
 
@@ -488,7 +490,9 @@ def main():
     queue_wait_minutes=max(0.0,float(options.get('queue_wait_minutes',QUEUE_WAIT_MINUTES)))
     # Free video model creation is documented at 1 RPM. Two in-flight tasks do
     # not permit bursts of creation requests; they share this paced gate.
-    gate=RequestGate(minimum_interval=75)
+    # 免费池创建限速 1 RPM（60 秒下限，throttle 硬校验）。用户 2026-10-18 指定
+    # 61 秒一访：排队抽签和正常创建共用这道门，间隔 61 秒贴着下限不越线。
+    gate=RequestGate(minimum_interval=61)
     # 38 个 Agnes 镜头、共享 75 秒创建间隔：光排队就要 ≈48 分钟，再加生成与下载，
     # 85 分钟（参考项目 24 镜的预算）不够；预算到点只会保存 task_id 等下次续跑，不会丢素材。
     # 「等通道」的时间也算在同一个 deadline 里，总和压在 320 分钟以内（工作流 timeout 350 分钟）。
@@ -623,7 +627,7 @@ def main():
                 'reason':reason,'kind':kind}
         if kind=='queue':
             shot_label='video queue is full (抽签 %d)'%round_no
-            round_label='排队满，180 秒后再抽（第 %d 次）'%round_no
+            round_label='排队满，%d 秒后再抽（第 %d 次）'%(int(cooldown),round_no)
         else:
             shot_label='provider channel unavailable'
             round_label='provider channel unavailable (round %d)'%round_no

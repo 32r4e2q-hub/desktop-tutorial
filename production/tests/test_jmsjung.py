@@ -124,10 +124,11 @@ class CapacityClassificationTests(unittest.TestCase):
             generate.capacity_problem("No available channel for model agnes-video-2.5-flash")[2], "channel")
         self.assertIsNone(generate.capacity_problem("HTTP 400: prompt is required"))
 
-    def test_queue_cooldown_is_180_seconds(self):
-        """用户指定的「180 秒试探一次」。"""
-        self.assertEqual(generate.QUEUE_COOLDOWN_SECONDS, 180)
-        self.assertEqual(generate.capacity_problem("video queue is full")[1], 180)
+    def test_queue_cooldown_is_61_seconds(self):
+        """用户 2026-10-18 指定「61 秒一访」：贴着免费池 1 RPM 的 60 秒下限。"""
+        self.assertEqual(generate.QUEUE_COOLDOWN_SECONDS, 61)
+        self.assertEqual(generate.capacity_problem("video queue is full")[1], 61)
+        self.assertGreaterEqual(generate.QUEUE_COOLDOWN_SECONDS, 60, "不得低于 1 RPM 下限")
 
 
 class RoundEndClassificationTests(unittest.TestCase):
