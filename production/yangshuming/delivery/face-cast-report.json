@@ -5,8 +5,7 @@
   "errors": [],
   "warnings": [
     "镜头 S20 声明了 C1 要露脸，但抽帧里没检到人脸：要么构图没露出来，要么检测器在暗光/侧脸下失效——请人工看一眼",
-    "角色 C1 跨镜头最低相似度 0.18（<0.45）：可能出现了换脸，请对照接触表人工确认",
-    "角色 C2 跨镜头最低相似度 -0.18（<0.45）：可能出现了换脸，请对照接触表人工确认"
+    "角色 C1 跨镜头最低相似度 0.18（<0.45）：可能出现了换脸，请对照接触表人工确认"
   ],
   "characters": {
     "C1": {
@@ -21,13 +20,12 @@
     },
     "C2": {
       "contact_sheet": "delivery/face-cast/C2.jpg",
-      "crops": 6,
+      "crops": 3,
       "shots": [
-        "S14",
         "S27"
       ],
-      "within_min": -0.18,
-      "within_median": 0.069
+      "within_min": 0.691,
+      "within_median": 0.843
     },
     "C3": {
       "contact_sheet": "delivery/face-cast/C3.jpg",
@@ -45,7 +43,7 @@
         "C1",
         "C2"
       ],
-      "max_similarity": 0.572
+      "max_similarity": 0.286
     },
     {
       "pair": [
@@ -105,47 +103,6 @@
       ]
     },
     {
-      "shot": "S14",
-      "characters": [
-        "C2"
-      ],
-      "frames": [
-        {
-          "seconds": 52.617,
-          "faces": 1,
-          "score": 0.864,
-          "bbox": [
-            833,
-            377,
-            105,
-            105
-          ]
-        },
-        {
-          "seconds": 53.4,
-          "faces": 1,
-          "score": 0.842,
-          "bbox": [
-            824,
-            359,
-            119,
-            119
-          ]
-        },
-        {
-          "seconds": 54.183,
-          "faces": 1,
-          "score": 0.674,
-          "bbox": [
-            805,
-            334,
-            131,
-            131
-          ]
-        }
-      ]
-    },
-    {
       "shot": "S20",
       "characters": [
         "C1"
@@ -196,7 +153,7 @@
         {
           "seconds": 96.408,
           "faces": 1,
-          "score": 0.883,
+          "score": 0.888,
           "bbox": [
             768,
             377,

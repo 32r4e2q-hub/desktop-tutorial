@@ -1,7 +1,7 @@
 # 成片逐帧畸变 / 时序 QC
 
 - 成片：`红衣杀手杨树明_14年，9名女性遇害，警方如何撕开他的伪装？_三分钟_带声音.mp4`
-- SHA-256：`f26c9f55a97a9f4f82b8b55a5c0c755843bd73cfa03d60c81b0e4afd5f417ab7`
+- SHA-256：`222e92833da8d536b799dbaaebcaa09d00055c664a1e7c0bd732b4ae42d78817`
 - 视频：1920×1080 / 30.000 fps / 180.000 秒
 - 覆盖：解码并分析 **5400/5400 帧**；逐帧 MediaPipe 人脸/手检测；320x180 时序分析
 - 自动状态：**REVIEW**（机器结果，不等同于无任何视觉瑕疵）
@@ -11,10 +11,10 @@
 - PTS 连续性异常：0
 - 亮度低于 12 的帧：13（片头/片尾淡入淡出需按时间线解释）
 - 非计划黑帧：0
-- >1 秒近静止区段：4；其中非信息卡/片尾段：4
-- 帧差/光流/亮度突变待复核窗口：7
-- 人脸检测：逐帧总检测 711；达到复核阈值的候选 251
-- 手部检测：逐帧总检测 755；超出宽松几何边界的 landmark 事件 151
+- >1 秒近静止区段：3；其中非信息卡/片尾段：3
+- 帧差/光流/亮度突变待复核窗口：3
+- 人脸检测：逐帧总检测 728；达到复核阈值的候选 251
+- 手部检测：逐帧总检测 486；超出宽松几何边界的 landmark 事件 45
 
 ## 镜头统计
 
@@ -25,15 +25,15 @@
 | S03 | agnes | 120 | 0 | 0 | 1.5994 | 0 |
 | S04 | agnes | 108 | 0 | 0 | 0.8158 | 0 |
 | S05 | agnes | 112 | 0 | 0 | 0.0881 | 0 |
-| S06 | agnes | 122 | 0 | 0 | 0.4285 | 2 |
+| S06 | agnes | 122 | 0 | 0 | 0.0652 | 0 |
 | S07 | agnes | 77 | 0 | 0 | 0.0479 | 0 |
 | S08 | agnes | 122 | 0 | 0 | 0.0662 | 0 |
 | S09 | agnes | 176 | 0 | 0 | 1.0324 | 0 |
 | S10 | graphic | 138 | 0 | 0 | 164.0082 | 0 |
 | S11 | agnes | 106 | 106 | 154 | 1.2277 | 0 |
 | S12 | agnes | 112 | 0 | 0 | 0.5649 | 0 |
-| S13 | agnes | 153 | 0 | 0 | 0.1761 | 0 |
-| S14 | agnes | 94 | 11 | 0 | 1.1671 | 0 |
+| S13 | agnes | 153 | 0 | 0 | 0.1774 | 0 |
+| S14 | agnes | 94 | 0 | 0 | 0.1409 | 0 |
 | S15 | agnes | 144 | 136 | 0 | 0.3108 | 0 |
 | S16 | agnes | 104 | 0 | 0 | 0.3672 | 0 |
 | S17 | graphic | 139 | 2 | 0 | 210.3294 | 0 |
@@ -45,9 +45,9 @@
 | S23 | agnes | 106 | 0 | 0 | 0.7302 | 0 |
 | S24 | agnes | 134 | 0 | 0 | 1.5338 | 0 |
 | S25 | agnes | 83 | 83 | 162 | 1.3232 | 0 |
-| S26 | agnes | 65 | 0 | 55 | 8.9124 | 1 |
-| S27 | agnes | 118 | 118 | 158 | 2.3046 | 0 |
-| S28 | agnes | 105 | 0 | 210 | 0.0815 | 0 |
+| S26 | agnes | 65 | 28 | 0 | 0.2679 | 0 |
+| S27 | agnes | 118 | 118 | 154 | 2.3046 | 0 |
+| S28 | agnes | 105 | 0 | 0 | 0.2607 | 0 |
 | S29 | agnes | 123 | 0 | 16 | 0.2271 | 0 |
 | S30 | graphic | 154 | 0 | 0 | 184.5729 | 0 |
 | S31 | agnes | 162 | 0 | 0 | 0.3254 | 0 |
@@ -56,12 +56,12 @@
 | S34 | agnes | 122 | 122 | 0 | 0.2717 | 0 |
 | S35 | agnes | 92 | 0 | 0 | 0.3115 | 0 |
 | S36 | agnes | 73 | 0 | 0 | 0.3826 | 0 |
-| S37 | agnes | 116 | 0 | 0 | 0.0776 | 0 |
+| S37 | agnes | 116 | 0 | 0 | 0.0752 | 0 |
 | S38 | graphic | 133 | 0 | 0 | 198.5583 | 0 |
 | S39 | agnes | 134 | 0 | 0 | 0.8482 | 0 |
 | S40 | graphic | 106 | 9 | 0 | 200.8552 | 0 |
-| S41 | agnes | 140 | 0 | 0 | 0.8215 | 1 |
-| S42 | agnes | 87 | 0 | 0 | 0.1401 | 0 |
+| S41 | agnes | 140 | 0 | 0 | 0.0459 | 0 |
+| S42 | agnes | 87 | 0 | 0 | 0.1393 | 0 |
 | S43 | agnes | 130 | 0 | 0 | 0.4748 | 0 |
 | S44 | agnes | 110 | 0 | 0 | 0.2061 | 0 |
 | S45 | agnes | 155 | 0 | 0 | 0.9058 | 1 |
@@ -71,12 +71,10 @@
 
 - 全 45 镜 + 片尾画面中帧：`work/yangshuming/final-frame-audit/contacts/shot-midpoints.jpg`
 - 逐帧指标 CSV：`work/yangshuming/final-frame-audit/frame-metrics.csv`
-- 候选异常原始分辨率帧：`['work/yangshuming/final-frame-audit/suspect-frames/frame_00000_t000.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00001_t000.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00002_t000.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00003_t000.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00004_t000.133.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00005_t000.167.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00006_t000.200.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00007_t000.233.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00008_t000.267.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00009_t000.300.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00010_t000.333.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00657_t021.900.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00658_t021.933.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00659_t021.967.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00660_t022.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00661_t022.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00662_t022.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00663_t022.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00664_t022.133.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00665_t022.167.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00666_t022.200.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00667_t022.233.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00668_t022.267.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00669_t022.300.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00670_t022.333.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01194_t039.800.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01195_t039.833.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01196_t039.867.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01197_t039.900.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01198_t039.933.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01199_t039.967.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01200_t040.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01201_t040.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01202_t040.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01203_t040.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01204_t040.133.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01215_t040.500.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01216_t040.533.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01217_t040.567.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01218_t040.600.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01219_t040.633.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01220_t040.667.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01221_t040.700.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01222_t040.733.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_02930_t097.667.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_02931_t097.700.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_02932_t097.733.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_02933_t097.767.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_02934_t097.800.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04792_t159.733.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04793_t159.767.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04794_t159.800.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04795_t159.833.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04796_t159.867.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04797_t159.900.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04798_t159.933.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04799_t159.967.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04800_t160.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04801_t160.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04802_t160.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_04803_t160.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05280_t176.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05281_t176.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05282_t176.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05283_t176.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05284_t176.133.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05285_t176.167.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05286_t176.200.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05287_t176.233.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05288_t176.267.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05289_t176.300.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05290_t176.333.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05291_t176.367.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05292_t176.400.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05293_t176.433.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05294_t176.467.jpg']`
+- 候选异常原始分辨率帧：`['work/yangshuming/final-frame-audit/suspect-frames/frame_00000_t000.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00001_t000.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00002_t000.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00003_t000.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00004_t000.133.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00005_t000.167.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00006_t000.200.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00007_t000.233.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00008_t000.267.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00009_t000.300.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_00010_t000.333.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01194_t039.800.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01195_t039.833.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01196_t039.867.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01197_t039.900.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01198_t039.933.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01199_t039.967.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01200_t040.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01201_t040.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01202_t040.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01203_t040.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01204_t040.133.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01215_t040.500.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01216_t040.533.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01217_t040.567.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01218_t040.600.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01219_t040.633.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01220_t040.667.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01221_t040.700.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01222_t040.733.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01223_t040.767.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01224_t040.800.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01225_t040.833.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01226_t040.867.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01227_t040.900.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01228_t040.933.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01237_t041.233.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01238_t041.267.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01239_t041.300.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01240_t041.333.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01241_t041.367.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01242_t041.400.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01243_t041.433.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01244_t041.467.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01245_t041.500.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01246_t041.533.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01247_t041.567.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01248_t041.600.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01249_t041.633.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01250_t041.667.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_01251_t041.700.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05280_t176.000.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05281_t176.033.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05282_t176.067.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05283_t176.100.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05284_t176.133.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05285_t176.167.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05286_t176.200.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05287_t176.233.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05288_t176.267.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05289_t176.300.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05290_t176.333.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05291_t176.367.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05292_t176.400.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05293_t176.433.jpg', 'work/yangshuming/final-frame-audit/suspect-frames/frame_05294_t176.467.jpg']`
 - 手部动态接触表：`work/yangshuming/final-frame-audit/contacts/hands-S11.jpg`
 - 手部动态接触表：`work/yangshuming/final-frame-audit/contacts/hands-S25.jpg`
-- 手部动态接触表：`work/yangshuming/final-frame-audit/contacts/hands-S26.jpg`
 - 手部动态接触表：`work/yangshuming/final-frame-audit/contacts/hands-S27.jpg`
-- 手部动态接触表：`work/yangshuming/final-frame-audit/contacts/hands-S28.jpg`
 
 ## 限制
 
