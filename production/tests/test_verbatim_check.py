@@ -210,7 +210,7 @@ class EndToEndTests(unittest.TestCase):
     def _run(self, transcripts):
         original = verbatim_check.transcribe
 
-        def fake(paths, model_size, language, work):
+        def fake(paths, model_size, language, work, **kwargs):
             self.assertEqual(model_size, "small")
             self.assertNotIn("initial_prompt", "".join(paths))   # 只是占位断言
             return {cid: transcripts.get(cid, "") for cid in paths}

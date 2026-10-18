@@ -218,8 +218,13 @@ def model_cache_dir(work: Path) -> Path:
 
 
 def transcribe(paths: dict[str, Path], model_size: str, language: str,
-               work: Path) -> dict[str, str]:
-    """转写。**刻意不给 initial_prompt**：模型不该事先知道剧本写了什么。"""
+               work: Path, condition_on_previous_text: bool = True) -> dict[str, str]:
+    """转写。**刻意不给 initial_prompt**：模型不该事先知道剧本写了什么。
+
+    ``condition_on_previous_text=False`` 是针对 whisper 复读循环幻觉（解码器在
+    内容说完后顺着上文生成「有家庭有家庭……」这类无限重复）的标准修法：关掉续写
+    条件后每段独立解码，替换/删字这类真差异照样能测出来。默认保持旧行为，由
+    ``--no-condition-on-previous`` 显式开启。"""
     work.mkdir(parents=True, exist_ok=True)
     cache = model_cache_dir(work)
     cache.mkdir(parents=True, exist_ok=True)
@@ -236,7 +241,8 @@ def transcribe(paths: dict[str, Path], model_size: str, language: str,
     transcripts: dict[str, str] = {}
     for cid, path in paths.items():
         segments, info = model.transcribe(str(path), language=language, beam_size=5,
-                                          vad_filter=True)
+                                          vad_filter=True,
+                                          condition_on_previous_text=condition_on_previous_text)
         text = "".join(segment.text for segment in segments)
         transcripts[cid] = text
         print(f"TRANSCRIBED {cid}: {len(text)} chars / "
@@ -283,6 +289,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-cer", type=float, default=DEFAULT_MAX_CER,
                         help=f"字错率上限，超过就要求人工听（默认 {DEFAULT_MAX_CER}）")
     parser.add_argument("--report", type=Path, default=None)
+    parser.add_argument("--no-condition-on-previous", action="store_true",
+                        help="关闭 whisper 的续写条件，杜绝复读循环幻觉（内容说完后的"
+                             "无限重复 token）；替换/删字类真实差异不受影响")
     args = parser.parse_args(argv)
 
     if not args.film.is_file():
@@ -303,7 +312,9 @@ def main(argv: list[str] | None = None) -> int:
         )
     print(f"SLICES {len(film_paths)} 段，开始转写（模型 {args.model}，不给提示词）", flush=True)
     film_result = compare(chapters, transcribe(film_paths, args.model, args.language,
-                                               args.work), args.max_cer)
+                                               args.work,
+                                               condition_on_previous_text=not args.no_condition_on_previous),
+                          args.max_cer)
 
     control = None
     if args.narration:
@@ -316,7 +327,9 @@ def main(argv: list[str] | None = None) -> int:
                     break
         if control_paths:
             control = compare(chapters, transcribe(control_paths, args.model, args.language,
-                                                   args.work), args.max_cer)
+                                                   args.work,
+                                                   condition_on_previous_text=not args.no_condition_on_previous),
+                              args.max_cer)
 
     digest = hashlib.sha256()
     with args.film.open("rb") as handle:
@@ -328,7 +341,9 @@ def main(argv: list[str] | None = None) -> int:
         "film_sha256": digest.hexdigest(),
         "film_bytes": args.film.stat().st_size,
         "project": str(args.project),
-        "method": f"faster-whisper {args.model}，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+        "method": f"faster-whisper {args.model}，无 initial_prompt，"
+                  f"condition_on_previous_text={'off' if args.no_condition_on_previous else 'on'}；"
+                  f"转写对象为最终成片按章节切出的音频",
         "max_cer_allowed": args.max_cer,
         "film_pass": film_result,
         "narration_control": control,

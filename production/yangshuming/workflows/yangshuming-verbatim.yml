@@ -73,6 +73,7 @@ jobs:
             --work work/yangshuming/verbatim \
             --narration production/yangshuming/audio \
             --model small \
+            --no-condition-on-previous \
             --max-cer 0.15
 
       - name: Commit verbatim-check.json back to the branch
