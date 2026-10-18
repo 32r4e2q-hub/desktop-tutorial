@@ -3,12 +3,24 @@
   "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。改完跑：python3 production/face_cast.py check-prompts --project production/yangshuming",
   "_casting_note": "三个角色都是符合年代的虚构匿名人物（AI 生成），不是任何真实人物的容貌还原——杨树明、办案刑警、法官一律不以其真实容貌出现；杨树明在情景重现里由 C1 虚构匿名角色扮演（提示词与片内标签都写明「非本人容貌」）；九名受害者全程只以背影、物件、空椅或聚合数字出现，不给可辨识面容、不写真实姓名；押解镜头一律背影。本片不走定妆照图生视频（免费档 image_url 队列拥堵），跨镜一致性靠面容 token + seed，最终由 face_cast 画面闸门和人眼复核按「同形象」口径签收。",
   "shots": {
-    "S11": ["C1"],
-    "S14": ["C2"],
-    "S20": ["C1"],
-    "S25": ["C1"],
-    "S27": ["C2"],
-    "S34": ["C3"]
+    "S11": [
+      "C1"
+    ],
+    "S14": [
+      "C2"
+    ],
+    "S20": [
+      "C1"
+    ],
+    "S25": [
+      "C1"
+    ],
+    "S27": [
+      "C2"
+    ],
+    "S34": [
+      "C3"
+    ]
   },
   "characters": [
     {
@@ -26,7 +38,7 @@
       "role": "police",
       "age": 55,
       "gender": "male",
-      "face": "an anonymous Chinese police detective of around fifty-five with a broad square weathered face, deep nasolabial folds and heavy brow ridges, small deep-set tired dark eyes with pouches beneath, a wide flat nose, a firm wide mouth, short salt-and-pepper hair cropped close at the sides, olive skin lined by years outdoors, visibly a veteran officer in his mid-fifties — alert, not frail",
+      "face": "an anonymous Chinese veteran detective of around fifty-five with a broad square weathered face, deep nasolabial folds and heavy brow ridges, small deep-set tired dark eyes with pouches beneath, a wide flat nose, a firm wide mouth, short salt-and-pepper hair cropped close at the sides, olive skin lined by years outdoors, visibly a veteran officer in his mid-fifties — alert, not frail",
       "seed": 19510302
     },
     {

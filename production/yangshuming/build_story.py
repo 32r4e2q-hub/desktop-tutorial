@@ -38,19 +38,18 @@ TITLE = "红衣杀手杨树明：14年，9名女性遇害，警方如何撕开�
 # 全片统一的画面风格前缀（英文）。写实 3D CGI 情景重现（不是 2D、不是图片轮播）。
 # 注意：style_prefix 参与全部镜头的 request_hash，开工后改一个字 = 38 镜全部重做。
 STYLE_PREFIX = (
-    "Photorealistic cinematic 3D animated reenactment, high-end CGI feature-film render with volumetric "
+    "Photorealistic cinematic 3D animated shot, high-end CGI feature-film render with volumetric "
     "light, shallow depth of field and subtle 35mm film grain, set in a northern Chinese coal-mining "
-    "district of Shanxi between 1992 and 2006: soot-dark brick workers' apartment blocks and concrete "
-    "lanes in a mining compound, a plain workers' club, dim sodium street lamps, coal-dust haze and "
-    "distant headframes and slag heaps, cramped 1990s offices with enamel mugs and paper ledgers, plain "
-    "2000s Chinese police rooms and a solemn wood-panelled courthouse, early-spring snow residue, cold "
-    "autumn dusk and harsh northern winters, overcast afternoons and long blue nights, restrained "
-    "desaturated cold blue-grey grading with strong chiaroscuro, slow-burn true-crime documentary mood, "
-    "never stylised, never a drawing, never a cartoon; horizontal 16:9 widescreen composition; "
-    "characters act with clear full-body movement in medium and wide shots rather than close-ups - a "
-    "face is shown only where a shot names one of the cast characters, never a recognisable real "
-    "person; absolutely no readable text, letters, numbers, logos or brand marks anywhere in frame; "
-    "one single continuous smooth camera move per shot exactly as directed. "
+    "town across the 1990s and early 2000s: soot-dark brick apartment blocks and concrete lanes in a "
+    "mining compound, a plain communal hall, dim sodium street lamps, coal haze and distant headframes "
+    "and slag heaps, cramped period offices with enamel mugs and paper ledgers, plain government "
+    "offices and a solemn wood-panelled hall, early-spring snow residue, cold autumn dusk and harsh "
+    "northern winters, overcast afternoons and long blue nights, restrained desaturated cold blue-grey "
+    "grading with strong chiaroscuro, sober documentary mood, never stylised, never a drawing, never "
+    "a cartoon; horizontal 16:9 widescreen composition; characters act with clear full-body movement "
+    "in medium and wide shots rather than close-ups; absolutely no readable text, letters, numbers, "
+    "logos or brand marks anywhere in frame; one single continuous smooth camera move per shot "
+    "exactly as directed. "
 )
 
 NEGATIVE_PROMPT = (
@@ -159,241 +158,244 @@ HOLD = ("no cut, no scene change, no camera relocation, no extra people, "
 
 SHOTS = [
     # ---------------- N01 红衣之下（S01-S08：7 动态 + 1 信息卡）----------------
-    ("S01", "agnes", "高空俯冲推进至俱乐部外街道", "钩子：一九九二年，阳泉矿区之夜",
+    ("S01", "agnes", "高空俯冲推进至俱乐部门口街道", "钩子：一九九二年，阳泉矿区之夜",
      "接信息卡：案件名片",
-     "A wide cinematic establishing shot of a northern Chinese coal-mining district at night in March "
-     "1992: soot-dark brick workers' apartment blocks and a plain concrete workers' club with a bare "
+     "A wide cinematic establishing shot of a northern Chinese coal-mining district at night in the "
+     "early 1990s: soot-dark brick apartment blocks and a plain concrete communal hall with a bare "
      "entrance, dim sodium street lamps, light snow residue on the ground, coal headframes and slag "
      "heaps silhouetted against a cold sky, one small red cloth caught by the wind tumbling across the "
      "empty street, no people visible anywhere; the camera starts high above the district and slowly "
-     "swoops down and forward toward the deserted club entrance, " + HOLD,
+     "swoops down and forward toward the empty hall entrance, " + HOLD,
      "寒风、远处工业机器低鸣、沉重低音"),
     ("S02", "graphic", "—", "信息卡：案件名片（时间/地点/规模）", "接第一案勘查",
      "案件档案卡", "低沉鼓点"),
     ("S03", "agnes", "远景推近至地面标记", "第一案：警方清晨勘查（尊重性、非血腥）",
      "接恐惧蔓延",
-     "A wide respectful crime-scene view on a cold March dawn of 1992 at a cordoned corner of a bare "
-     "concrete square in a northern Chinese mining compound, no shopfronts and no vehicles anywhere: "
-     "two uniformed Chinese police officers in plain 1990s green-grey uniforms stand at a respectful "
-     "distance beside a plain cloth-covered shape kept far away and small in frame, one officer "
-     "crouching to place small numbered markers on the ground, another writing on a clipboard, their "
-     "faces turned away from the camera the whole time, bare trees and snow residue around; a slow "
-     "steady push-in from the wide view that settles on the officer's hands placing the markers, " + HOLD,
+     "A wide restrained dawn investigation view on a cold early-spring morning in the early 1990s at "
+     "a corner of a bare concrete square in a northern Chinese mining compound marked off by a plain "
+     "rope barrier, no shopfronts and no vehicles anywhere: two Chinese officers in plain green-grey "
+     "uniforms work at a respectful distance from the camera, one officer crouching to place small "
+     "numbered markers on the ground, another writing on a clipboard, their faces turned away from "
+     "the camera the whole time, bare trees and snow residue around; a slow steady push-in from the "
+     "wide view that settles on the officer's hands placing the markers, " + HOLD,
      "脚步声、翻动记录本、低沉弦乐"),
     ("S04", "agnes", "横向跟拍下班人群，逐渐拉远", "恐惧扩散：马家坪居民的不安",
      "接红衣意象",
-     "A workers' residential compound in a northern Chinese mining district at dusk in the early 1990s: "
-     "a narrow concrete path between two rows of soot-dark brick apartment blocks, three women in plain "
+     "A residential compound in a northern Chinese mining district at dusk in the early 1990s: a "
+     "narrow concrete path between two rows of soot-dark brick apartment blocks, three women in plain "
      "padded coats walking home from a shift seen only from behind, a bicycle leaning on a wall, coal "
-     "dust in the cold air, warm dim light in a few windows, no shops, no vehicles and no signs anywhere; "
-     "a slow lateral tracking move following the walking figures from behind and gradually widening to "
-     "reveal the grey sprawling compound, " + HOLD,
+     "dust in the cold air, warm dim light in a few windows, no shops, no vehicles and no signs "
+     "anywhere; a slow lateral tracking move following the walking figures from behind and gradually "
+     "widening to reveal the grey sprawling compound, " + HOLD,
      "自行车铃声、远处谈话声、压迫感渐强的音乐"),
     ("S05", "agnes", "红衣特写，缓慢横移", "红衣传闻：符号而非猎奇",
      "接地图案头",
-     "Close view of a plain red cotton-padded coat hanging on a wire clothesline outside a modest 1990s "
-     "Chinese apartment window, wind gently moving the fabric, soot-dark brick wall and a cold overcast "
+     "Close view of a plain red cotton-padded coat hanging on a wire clothesline outside a modest "
+     "brick apartment window, wind gently moving the fabric, soot-dark brick wall and a cold overcast "
      "sky behind, a coal-mining headframe far in the misty background, no people and no text anywhere; "
      "the camera drifts slowly sideways past the coat then eases back to frame it alone against the "
      "bleak skyline, " + HOLD,
      "风吹布料声、铅笔划过纸面"),
     ("S06", "agnes", "俯拍案头地图，缓慢推近标记簇", "案头资料：地图与图钉（调查伏笔）",
      "接时间跳跃",
-     "Directly overhead view of a wooden desk in a plain 1990s Chinese police office at night: a large "
-     "hand-drawn district map pinned flat with small coloured map pins, blank paper file folders fanned "
-     "open, a pencil, reading glasses and an enamel mug, one desk lamp casting a warm pool of light in "
-     "the dark room, a pair of hands entering frame to move one pin, no faces visible and no readable "
-     "writing on any paper; a slow top-down drift across the map toward the cluster of pins, " + HOLD,
+     "Directly overhead view of a wooden desk in a plain Chinese investigation office at night in the "
+     "1990s: a large hand-drawn district map pinned flat with small coloured map pins, blank paper "
+     "file folders fanned open, a pencil, reading glasses and an enamel mug, one desk lamp casting a "
+     "warm pool of light in the dark room, a pair of hands entering frame to move one pin, no faces "
+     "visible and no readable writing on any paper; a slow top-down drift across the map toward the "
+     "cluster of pins, " + HOLD,
      "纸张摩擦、铅笔划线声"),
     ("S07", "agnes", "固定机位时间流逝", "时间跳跃：季节轮换，案子未破",
      "接旧日历",
      "A fixed wide shot of one soot-dark brick apartment building and its bare concrete courtyard in a "
      "northern Chinese mining compound passing slowly through the seasons: light snow on the ground "
      "melting into wet spring pavement, then dry autumn dust, then snow again, weak sunlight sliding "
-     "across the brick facade, two tiny anonymous residents passing far below, no close faces, no signs; "
-     "the camera stays completely still in one wide composition while the light and weather slowly "
-     "change across the courtyard, " + HOLD,
+     "across the brick facade, two tiny anonymous residents passing far below, no close faces, no "
+     "signs; the camera stays completely still in one wide composition while the light and weather "
+     "slowly change across the courtyard, " + HOLD,
      "钟表滴答、风声渐强"),
     ("S08", "agnes", "缓慢推近翻动的日历", "章末悬念：翻过去的，是一页页时间",
      "接第二章日常",
-     "Close view of a cheap paper wall calendar hanging on a whitewashed wall in a plain 1990s Chinese "
-     "home, its blank grid pages flipping softly one after another in a draught, a small enamel clock "
-     "beside it, warm dim indoor lamp light from one side, no people and no readable printing; a very "
-     "slow push toward the flipping calendar pages and the clock, " + HOLD,
+     "Close view of a cheap paper wall calendar hanging on a whitewashed wall in a plain home in the "
+     "1990s, its blank grid pages flipping softly one after another in a draught, a small enamel "
+     "clock beside it, warm dim indoor lamp light from one side, no people and no readable printing; "
+     "a very slow push toward the flipping calendar pages and the clock, " + HOLD,
      "翻页声、时钟滴答"),
 
     # ---------------- N02 凶手没有消失（S09-S15：6 动态 + 1 信息卡）----------------
     ("S09", "agnes", "跟随下班工人，转向幽暗巷口", "日常表象：平静之下的不安",
      "接红衣传闻卡",
      "Early evening in a northern Chinese mining compound in the early 2000s: workers in plain padded "
-     "jackets walking home through a concrete courtyard, old bicycles parked in a row, a woman pausing "
-     "at the mouth of a dim narrow alley between two brick blocks and glancing down it, all faces away "
-     "from camera or in shadow, no shops, no vehicles and no signage anywhere; a slow follow move behind "
-     "the walking workers that drifts toward the dark alley mouth, " + HOLD,
+     "jackets walking home through a concrete courtyard, old bicycles parked in a row, a woman "
+     "pausing at the mouth of a dim narrow alley between two brick blocks and glancing down it, all "
+     "faces away from camera or in shadow, no shops, no vehicles and no signage anywhere; a slow "
+     "follow move behind the walking workers that drifts toward the dark alley mouth, " + HOLD,
      "自行车链条声、远处犬吠、微弱风声"),
     ("S10", "graphic", "—", "信息卡：「红衣杀手」称呼的由来与事实边界", "接凶手另一面",
      "红衣传闻卡", "风吹布料声"),
     ("S11", "agnes", "从工装细节缓慢抬升至侧脸", "凶手的另一面：表象平静的 C1（替身）",
      "接二〇〇一年案件",
-     "Inside a modest 1990s northern Chinese mining apartment at evening — a small plain room with a "
-     "square table, an enamel mug, a folded work jacket on a chair, patterned curtains and a wall lamp "
-     "casting warm light, the whole shot staying indoors from the first frame to the last with no "
-     "exterior, no building facade and no transition: the fictionalized Chinese man {C1}, wearing a "
-     "plain grey-blue work jacket, stands by the table shown from the waist up, calmly folding the "
-     "jacket, his ordinary face visible in soft lamplight; a slow tilt up from his hands on the jacket "
-     "to his calm impassive face, " + HOLD,
+     "Inside a modest northern Chinese mining apartment at evening in the 1990s — a small plain room "
+     "with a square table, an enamel mug, a folded work jacket on a chair, patterned curtains and a "
+     "wall lamp casting warm light, the whole shot staying indoors from the first frame to the last "
+     "with no exterior, no building facade and no transition: the Chinese man {C1}, wearing a plain "
+     "grey-blue work jacket, stands by the table shown from the waist up, calmly folding the jacket, "
+     "his ordinary face visible in soft lamplight; a slow tilt up from his hands on the jacket to his "
+     "calm impassive face, " + HOLD,
      "室内钟表声、远处工业机器声"),
-    ("S12", "agnes", "从背后跟拍女工走远", "二〇〇一年：女工下车后失踪",
+    ("S12", "agnes", "从背后跟拍女工走远", "二〇〇一年：女工下班后失踪",
      "接警戒线远景",
      "A cold overcast afternoon at a plain roadside bus stop pole on the edge of a northern Chinese "
-     "mining district in 2001: an ordinary woman in a dark winter coat and shoulder bag walks away from "
-     "camera down a wet concrete road, a plain grey bus receding far into the distance behind her, "
-     "industrial silhouettes and slag heaps on the horizon, no readable lettering anywhere and her face "
-     "never visible; the camera follows her from behind for a few slow steps, then holds as the bus "
-     "shrinks down the road, " + HOLD,
+     "mining district in the early 2000s: an ordinary woman in a dark winter coat and shoulder bag "
+     "walks away from camera down a wet concrete road, a plain grey bus receding far into the distance "
+     "behind her, industrial silhouettes and slag heaps on the horizon, no readable lettering anywhere "
+     "and her face never visible; the camera follows her from behind for a few slow steps, then holds "
+     "as the bus shrinks down the road, " + HOLD,
      "公交车远去声、刹车声，随后低沉静默"),
-    ("S13", "agnes", "沿警戒线横移", "非血腥现场：只有警戒线与背影",
+    ("S13", "agnes", "沿警戒绳横移", "非血腥现场：只有界绳与背影",
      "接警方压力",
      "A wide respectful view of a residential corner in a northern Chinese mining compound at dusk: a "
-     "plain blue-and-white police cordon tape strung between two poles across a concrete path, two "
-     "officers in dark uniforms standing beyond it seen only as distant silhouettes from behind, an "
-     "empty courtyard, bare trees and distant brick blocks, no bodies, no close faces and no readable "
-     "text; a slow lateral drift along the cordon line that keeps the officers small and distant, " + HOLD,
+     "plain rope barrier strung between two poles across a concrete path, two officers in dark "
+     "uniforms standing beyond it seen only as distant silhouettes from behind, an empty courtyard, "
+     "bare trees and distant brick blocks, no bodies, no close faces and no readable text; a slow "
+     "lateral drift along the barrier line that keeps the figures small and distant, " + HOLD,
      "风声、远处对讲机杂音"),
     ("S14", "agnes", "俯拍资料桌，拉远至满墙资料", "警方压力：C2 与堆积如山的旧案",
      "接最后一次袭击",
-     "Inside a cramped Chinese police investigation room in 2004 — fluorescent tubes overhead, a wall "
-     "map with pins, stacked blank paper folders and ledgers covering two desks, enamel mugs, an old "
-     "telephone, the whole shot staying indoors from the first frame to the last with no exterior, no "
-     "building facade and no transition: the veteran detective {C2} stands over a desk in a plain dark "
-     "jacket shown chest-up, his tired weathered face clearly visible as he studies the papers, a second "
-     "officer's turned back in the background; a slow push across the cluttered desk toward the "
+     "Inside a cramped Chinese investigation office in the mid-2000s — fluorescent tubes overhead, a "
+     "wall map with pins, stacked blank paper folders and ledgers covering two desks, enamel mugs, an "
+     "old telephone, the whole shot staying indoors from the first frame to the last with no exterior, "
+     "no building facade and no transition: the veteran detective {C2} stands over a desk in a plain "
+     "dark jacket shown chest-up, his tired weathered face clearly visible as he studies the papers, a "
+     "second officer's turned back in the background; a slow push across the cluttered desk toward the "
      "detective's tired face, " + HOLD,
      "翻页声、电话铃声、笔尖敲桌"),
     ("S15", "agnes", "跟随夜巡队前行", "二〇〇四年冬天：巡防加压",
      "接第三章专案组",
      "A cold wet November night on a narrow residential lane in a northern Chinese mining compound in "
-     "2004: two uniformed patrol officers in dark winter coats walking slowly away from camera along the "
-     "wet concrete lane, street-lamp reflections shimmering in puddles, soot-dark brick blocks on both "
-     "sides and coal silhouettes beyond, no signage anywhere; a slow steady tracking move following the "
-     "patrol from behind as their torch beams sweep the walls, " + HOLD,
+     "the mid-2000s: two uniformed patrol officers in dark winter coats walking slowly away from "
+     "camera along the wet concrete lane, street-lamp reflections shimmering in puddles, soot-dark "
+     "brick blocks on both sides and coal silhouettes beyond, no signage anywhere; a slow steady "
+     "tracking move following the patrol from behind as their torch beams sweep the walls, " + HOLD,
      "靴子踩过湿地、对讲机杂音、低音弦乐"),
 
     # ---------------- N03 线索收拢（S16-S23：7 动态 + 1 信息卡）----------------
     ("S16", "agnes", "从门口推进办公室，停在长桌", "专案组重新集结（二〇〇五）",
      "接十四年卡",
-     "Inside a plain temporary task-force office in a Chinese police building in 2005 — a long table "
-     "covered with blank folders and pinned papers, a large district map on the wall with coloured pins, "
-     "a thermos and enamel mugs, fluorescent light, the whole shot staying indoors from the first frame "
-     "to the last with no exterior, no building facade and no transition: four detectives in plain "
-     "clothes stand around the table arranging papers, every face either turned away or in shallow "
-     "shadow, one figure gesturing at the map; a slow push from the doorway toward the map wall, " + HOLD,
+     "Inside a plain temporary task-force office in a Chinese government building in the mid-2000s — "
+     "a long table covered with blank folders and pinned papers, a large district map on the wall "
+     "with coloured pins, a thermos and enamel mugs, fluorescent light, the whole shot staying indoors "
+     "from the first frame to the last with no exterior, no building facade and no transition: four "
+     "investigators in plain clothes stand around the table arranging papers, every face either "
+     "turned away or in shallow shadow, one figure gesturing at the map; a slow push from the doorway "
+     "toward the map wall, " + HOLD,
      "椅子移动声、纸张声、低沉鼓点"),
     ("S17", "graphic", "—", "信息卡：一年又一年（十四年悬案）", "接地图红点",
      "十四年卡", "时钟滴答"),
     ("S18", "agnes", "俯拍缓慢推近标记密集区", "地图上的红点：空间关联浮现",
      "接档案海",
      "Directly overhead flat-lay view of a large hand-drawn district map spread on a wooden table in a "
-     "Chinese police office, small red and black map pins clustered in one area, thin string connecting "
-     "several pins, blank paper slips with pencil ticks, two hands entering frame with a pencil tracing "
-     "a line between the pins, no faces and no readable writing; a very slow top-down creep toward the "
-     "densest cluster of pins, " + HOLD,
+     "Chinese investigation office, small red and black map pins clustered in one area, thin string "
+     "connecting several pins, blank paper slips with pencil ticks, two hands entering frame with a "
+     "pencil tracing a line between the pins, no faces and no readable writing; a very slow top-down "
+     "creep toward the densest cluster of pins, " + HOLD,
      "铅笔划线声、纸张摩擦声"),
     ("S19", "agnes", "横移档案堆至核对的双手", "海量排查：一轮轮缩小的范围",
      "接重点对象远观",
-     "A Chinese police records room in 2005: towering stacks of blank paper folders and household-"
-     "registration ledgers on a wooden desk and against a wall of filing cabinets, a desk lamp, a pair "
-     "of hands leafing quickly through blank pages, another pair of hands comparing two small paper "
-     "slips, no faces in frame and no readable writing; a slow lateral slide across the mountains of "
-     "folders toward the working hands, " + HOLD,
+     "A Chinese records room in the mid-2000s: towering stacks of blank paper folders and ledgers on "
+     "a wooden desk and against a wall of filing cabinets, a desk lamp, a pair of hands leafing "
+     "quickly through blank pages, another pair of hands comparing two small paper slips, no faces in "
+     "frame and no readable writing; a slow lateral slide across the mountains of folders toward the "
+     "working hands, " + HOLD,
      "文件翻动声、钢笔书写声、时钟滴答"),
     ("S20", "agnes", "长焦隔街观察，缓慢收紧", "普通人中的嫌疑人：C1 被远远注视",
      "接走访敲门",
-     "Across a quiet concrete courtyard in a northern Chinese mining compound in 2005, seen through a "
-     "long lens: the fictionalized Chinese man {C1} in a plain grey-blue work jacket walks slowly home "
-     "alone between two soot-dark brick blocks, ordinary and unremarkable, his calm face briefly visible "
-     "in three-quarter view; in the foreground shadows at the far side of the courtyard, two men in dark "
-     "coats stand partially hidden by a wall, watching him from a distance with their backs to the "
-     "camera; a steady long-lens shot that slowly tightens on the walking man, " + HOLD,
+     "Across a quiet concrete courtyard in a northern Chinese mining compound in the mid-2000s, seen "
+     "through a long lens: the Chinese man {C1} in a plain grey-blue work jacket walks slowly home "
+     "alone between two soot-dark brick blocks, ordinary and unremarkable, his calm face briefly "
+     "visible in three-quarter view; in the foreground shadows at the far side of the courtyard, two "
+     "men in dark coats stand partially hidden by a wall, watching him from a distance with their "
+     "backs to the camera; a steady long-lens shot that slowly tightens on the walking man, " + HOLD,
      "远处车辆声、脚步声、轻微低频"),
     ("S21", "agnes", "沿走廊推向敲门的走访员", "排查走访：一遍遍的敲门",
      "接心理测试",
-     "A narrow corridor inside a soot-dark brick apartment block in a mining compound in 2005: two "
-     "plain-clothes detectives stand at a closed wooden door, one holding a notebook, the other raising "
-     "a hand to knock, closed doors stretching down the dim corridor, one bare bulb overhead, all faces "
-     "away or in profile shadow, no readable notices on any door; a slow push down the corridor toward "
-     "the two figures at the door, " + HOLD,
+     "A narrow corridor inside a soot-dark brick apartment block in a mining compound in the "
+     "mid-2000s: two plain-clothes investigators stand at a closed wooden door, one holding a "
+     "notebook, the other raising a hand to knock, closed doors stretching down the dim corridor, one "
+     "bare bulb overhead, all faces away or in profile shadow, no readable notices on any door; a slow "
+     "push down the corridor toward the two figures at the door, " + HOLD,
      "敲门声、走廊回声"),
     ("S22", "agnes", "横移仪器刻度至走纸", "心理测试：侦查措施之一（不作定罪依据）",
      "接线索汇聚",
-     "Inside a plain Chinese police testing room in 2005 — a small table with an old polygraph-style "
-     "instrument with dials and coiled rubber tubes, blank chart paper feeding from a roller, a desk "
-     "lamp, an empty chair with a jacket hung on it, the whole shot staying indoors with no exterior and "
-     "no transition: a pair of hands adjusts a dial and guides the chart paper while the operator and "
+     "Inside a plain Chinese testing room in the mid-2000s — a small table with an old instrument "
+     "with dials and coiled rubber tubes, blank chart paper feeding from a roller, a desk lamp, an "
+     "empty chair with a jacket hung on it, the whole shot staying indoors with no exterior and no "
+     "transition: a pair of hands adjusts a dial and guides the chart paper while the operator and "
      "the seated figure appear only as hands and torsos, no faces; a slow close drift across the "
      "instrument's dials toward the chart roller, " + HOLD,
      "仪器低鸣、纸带走动声"),
     ("S23", "agnes", "推近线索板中心", "章末悬念：线索在灯下汇合",
      "接第四章传唤",
-     "A dark Chinese police office late at night lit only by one desk lamp: a corkboard on the wall hung "
-     "with blank paper slips and small photographs covered by blank sleeves, pinned in a web of "
-     "connecting string, one hand pinning one more slip at the centre, dust drifting through the lamp "
-     "beam, no faces and no readable writing; a slow push toward the centre of the board as the shadows "
-     "deepen, " + HOLD,
+     "A dark Chinese investigation office late at night lit only by one desk lamp: a corkboard on the "
+     "wall hung with blank paper slips and small photographs covered by blank sleeves, pinned in a "
+     "web of connecting string, one hand pinning one more slip at the centre, dust drifting through "
+     "the lamp beam, no faces and no readable writing; a slow push toward the centre of the board as "
+     "the shadows deepen, " + HOLD,
      "图钉按入声、低音鼓点渐快"),
 
     # ---------------- N04 沉默被打破（S24-S30：6 动态 + 1 信息卡）----------------
     ("S24", "agnes", "走廊侧向跟拍，停在开启的门", "二〇〇六年三月：传唤到案",
      "接对峙",
-     "A plain Chinese police station corridor in March 2006 — grey-green walls, closed wooden office "
-     "doors, a row of empty chairs, weak daylight from high windows, the whole shot staying indoors from "
-     "the first frame to the last with no exterior, no building facade and no transition: two middle-"
-     "aged Chinese men in ordinary jackets walk separately down the corridor escorted by plain-clothes "
-     "officers, all faces turned away or in shadow, one door opening at the far end; a slow lateral "
-     "tracking move along the corridor that settles on the opening door, " + HOLD,
+     "A plain corridor inside a Chinese government office building in the mid-2000s — grey-green "
+     "walls, closed wooden office doors, a row of empty chairs, weak daylight from high windows, the "
+     "whole shot staying indoors from the first frame to the last with no exterior, no building "
+     "facade and no transition: two middle-aged Chinese men in ordinary jackets walk separately down "
+     "the corridor escorted by plain-clothes officers, all faces turned away or in shadow, one door "
+     "opening at the far end; a slow lateral tracking move along the corridor that settles on the "
+     "opening door, " + HOLD,
      "脚步声、门锁声、空调低鸣"),
     ("S25", "agnes", "固定中景缓慢推进", "漫长的对峙：C1 的镇定",
      "接裂缝（手部）",
-     "Inside a small plain Chinese police interview room in 2006 — a simple table, two chairs, pale "
+     "Inside a small plain Chinese interview room in the mid-2000s — a simple table, two chairs, pale "
      "green walls, one overhead lamp, a blank paper file on the table, the whole shot staying indoors "
      "from the first frame to the last with no exterior, no building facade and no transition: the "
-     "fictionalized Chinese man {C1} in a plain grey-blue work jacket sits upright at the table shown "
-     "chest-up, hands resting calmly on the surface, his ordinary face composed and unreadable, two "
-     "detectives seen only from behind across from him; a very slow push toward his calm face, " + HOLD,
+     "Chinese man {C1} in a plain grey-blue work jacket sits upright at the table shown chest-up, "
+     "hands resting calmly on the surface, his ordinary face composed and unreadable, two "
+     "investigators seen only from behind across from him; a very slow push toward his calm face, " + HOLD,
      "钟表滴答声、纸张翻动声"),
     ("S26", "agnes", "文件落桌与手指特写交替", "防线的裂缝：手先出卖了镇定",
      "接供述",
-     "Inside a Chinese police interview room in 2006 — close view of a plain table under harsh overhead "
-     "light: a detective's hand places a thick blank paper file squarely on the table, and across it a "
-     "suspect's hands slowly tighten against each other, one thumb pressing white, a jacket sleeve "
-     "trembling slightly, only hands and forearms in frame, no faces and no readable writing; a slow "
-     "drift between the resting file and the tense interlocked fingers, " + HOLD,
+     "Inside a Chinese interview room in the mid-2000s — close view of a plain table under harsh "
+     "overhead light: an investigator's hand places a thick blank paper file squarely on the table, "
+     "and across it the seated man's hands slowly tighten against each other, one thumb pressing "
+     "white, a jacket sleeve trembling slightly, only hands and forearms in frame, no faces and no "
+     "readable writing; a slow drift between the resting file and the tense interlocked fingers, " + HOLD,
      "纸张落桌声、低音鼓点渐快"),
     ("S27", "agnes", "笔尖特写抬升至凝重神情", "供述开始：C2 记录，音乐短暂停顿",
      "接交代细节",
-     "Inside a Chinese police interview room in 2006 at night — a plain table under one hanging lamp, an "
-     "open blank notebook and a pen in the foreground, the whole shot staying indoors from the first "
-     "frame to the last with no exterior, no building facade and no transition: across the table the "
-     "veteran detective {C2} listens with his head slightly bowed, his tired weathered face clearly "
-     "visible in the lamplight, writing slowly in the notebook; the suspect sits opposite as a dark "
-     "out-of-focus shoulder silhouette at the edge of frame, no face visible on him; a slow tilt up from "
-     "the pen nib to the detective's grave listening face, " + HOLD,
+     "Inside a Chinese interview room in the mid-2000s at night — a plain table under one hanging "
+     "lamp, an open blank notebook and a pen in the foreground, the whole shot staying indoors from "
+     "the first frame to the last with no exterior, no building facade and no transition: across the "
+     "table the veteran detective {C2} listens with his head slightly bowed, his tired weathered face "
+     "clearly visible in the lamplight, writing slowly in the notebook; the seated man sits opposite "
+     "as a dark out-of-focus shoulder silhouette at the edge of frame, no face visible on him; a slow "
+     "tilt up from the pen nib to the detective's grave listening face, " + HOLD,
      "笔尖划纸声、室内钟表声"),
     ("S28", "agnes", "俯视交代记录，缓慢漂移", "案情逐一厘清（不呈现具体供述内容）",
      "接时间线板",
-     "Inside a Chinese police interview room in 2006: overhead view of a plain wooden table where a pair "
-     "of hands writes steadily in a blank notebook, another pair of hands rests open and still on the "
-     "table beside a cup of tea, a tape-recorder-style device with turning spools sits at the table "
-     "edge, only hands and forearms visible, no faces and no readable writing; a slow overhead drift "
-     "that ends framing the still open hands, " + HOLD,
+     "Inside a Chinese interview room in the mid-2000s: overhead view of a plain wooden table where a "
+     "pair of hands writes steadily in a blank notebook, another pair of hands rests open and still on "
+     "the table beside a cup of tea, a tape-recorder-style device with turning spools sits at the "
+     "table edge, only hands and forearms visible, no faces and no readable writing; a slow overhead "
+     "drift that ends framing the still open hands, " + HOLD,
      "磁带转动声、时钟滴答"),
     ("S29", "agnes", "拉远呈现完整时间线", "案件规模浮现：十二个标记",
      "接案件规模卡",
-     "A wide view of a completed investigation board in a Chinese police office in 2006: a long wall "
-     "board carrying a horizontal timeline strip with twelve small blank paper markers pinned along it "
-     "and small photographs covered by blank sleeves, three detectives standing before it seen only from "
-     "behind, silent and still, fluorescent light, no readable writing anywhere; a slow pull back from "
-     "one marker that reveals the full line of twelve, " + HOLD,
+     "A wide view of a completed investigation board in a Chinese government office in the "
+     "mid-2000s: a long wall board carrying a horizontal timeline strip with twelve small blank paper "
+     "markers pinned along it and small photographs covered by blank sleeves, three investigators "
+     "standing before it seen only from behind, silent and still, fluorescent light, no readable "
+     "writing anywhere; a slow pull back from one marker that reveals the full line of twelve, " + HOLD,
      "沉重鼓点、短暂静默"),
     ("S30", "graphic", "—", "信息卡：十二起案件 · 九死三伤", "接第五章告破",
      "案件规模卡", "低音收束"),
@@ -401,7 +403,7 @@ SHOTS = [
     # ---------------- N05 判决与代价（S31-S38：6 动态 + 2 信息卡）----------------
     ("S31", "agnes", "从记者席推进至发布台", "警方宣布告破（背影与远景）",
      "接二〇〇六年卡",
-     "A plain Chinese police briefing room in April 2006 — a simple wooden podium against a blank pale "
+     "A plain Chinese briefing room in the mid-2000s — a simple wooden podium against a blank pale "
      "wall with no emblem or lettering, two uniformed officers standing behind it seen chest-up with "
      "their faces kept in shallow shadow and slightly turned away, rows of seated reporters seen only "
      "from behind, period-appropriate shoulder cameras and notebooks raised; a slow push from the "
@@ -411,44 +413,45 @@ SHOTS = [
      "二〇〇六年卡", "快门声余韵"),
     ("S33", "agnes", "侧后方跟拍押解队伍", "进入司法程序（只给背影）",
      "接法庭",
-     "A secure interior corridor of a Chinese detention facility in 2006 — grey walls, a heavy steel "
-     "door at the far end, weak overhead light, the whole shot staying indoors from the first frame to "
-     "the last with no exterior and no transition: a man in a plain dark jacket walks away from camera "
-     "down the corridor with his hands held low, escorted by two tall officers in dark uniforms seen "
-     "from behind, no faces visible at any moment and no readable text; a slow steady tracking shot "
-     "following the three figures toward the heavy steel door, " + HOLD,
+     "A secure interior corridor of a concrete facility in the mid-2000s — grey walls, a heavy steel "
+     "door at the far end, weak overhead light, the whole shot staying indoors from the first frame "
+     "to the last with no exterior and no transition: a man in a plain dark jacket walks away from "
+     "camera down the corridor with his hands held low, escorted by two tall officers in dark "
+     "uniforms seen from behind, no faces visible at any moment and no readable text; a slow steady "
+     "tracking shot following the three figures toward the heavy steel door, " + HOLD,
      "脚步声、铁门声、沉稳弦乐"),
     ("S34", "agnes", "沿审判台横移至法官", "庭审：C3（法官，虚构角色）",
      "接证据文件",
-     "Inside a wood-panelled Chinese intermediate courtroom in 2006 — the high judge's bench under a "
+     "Inside a wood-panelled Chinese courtroom in the mid-2000s — the high judge's bench under a "
      "solemn backdrop kept completely blank with no emblem and no lettering, the whole shot staying "
-     "indoors from the first frame to the last with no exterior, no building facade and no transition: "
-     "the judge {C3} in black robes sits behind the bench shown chest-up, his dignified face clearly "
-     "visible and grave, flanked by two assessors seen only as dark blurred shoulders; far below, the "
-     "defendant sits in a wooden dock as a small out-of-focus back-of-head silhouette; a slow lateral "
-     "drift along the bench toward the judge's grave face, " + HOLD,
+     "indoors from the first frame to the last with no exterior, no building facade and no "
+     "transition: the judge {C3} in black robes sits behind the bench shown chest-up, his dignified "
+     "face clearly visible and grave, flanked by two assessors seen only as dark blurred shoulders; "
+     "far below, the defendant sits in a wooden dock as a small out-of-focus back-of-head silhouette; "
+     "a slow lateral drift along the bench toward the judge's grave face, " + HOLD,
      "法庭回声、衣料摩擦"),
     ("S35", "agnes", "横移证据卷宗至静置的双手", "法庭上的证据（无可读文字）",
      "接法院外景",
-     "Close view inside a Chinese courtroom in 2006: a row of neatly stacked blank paper case files and "
-     "a pair of white cotton gloves on a polished wooden desk, a microphone stem rising at the edge, "
-     "warm wood grain and solemn light, a lawyer's hands resting silently beside the files, no faces and "
-     "no readable writing; a slow lateral glide along the row of files toward the resting hands, " + HOLD,
+     "Close view inside a Chinese courtroom in the mid-2000s: a row of neatly stacked blank paper "
+     "case files and a pair of white cotton gloves on a polished wooden desk, a microphone stem "
+     "rising at the edge, warm wood grain and solemn light, a lawyer's hands resting silently beside "
+     "the files, no faces and no readable writing; a slow lateral glide along the row of files toward "
+     "the resting hands, " + HOLD,
      "纸张翻动声、寂静"),
-    ("S36", "agnes", "判决书意象拉远至法院台阶", "一审判决：死刑（八月十日）",
-     "接冬日法院",
-     "Wide exterior of a solemn Chinese intermediate court building under a flat grey sky in 2006: plain "
-     "stone steps, square columns, a wide empty forecourt, two officials in dark coats carrying blank "
-     "paper folders walking down the steps seen small in frame, bare winter trees at the edges, no "
-     "readable inscriptions or signage anywhere; a very slow pull-back and slight downward tilt from the "
-     "steps until the building fills the top of frame, " + HOLD,
+    ("S36", "agnes", "法院台阶拉远至外景", "一审判决：死刑（八月十日）",
+     "接冬日广场",
+     "Wide exterior of a solemn stone government building with wide steps under a flat grey sky in "
+     "the mid-2000s: plain stone steps, square columns, a wide empty forecourt, two officials in dark "
+     "coats carrying blank paper folders walking down the steps seen small in frame, bare winter "
+     "trees at the edges, no readable inscriptions or signage anywhere; a very slow pull-back and "
+     "slight downward tilt from the steps until the building fills the top of frame, " + HOLD,
      "低沉钟声、风声"),
     ("S37", "agnes", "缓慢升高拉远空旷广场", "十一月二十一日：一个时代的终点（空镜）",
      "接判决时间线卡",
-     "A quiet wide view of a Chinese courthouse forecourt on a cold late-November morning in 2006 — "
-     "empty stone plaza, bare trees moving in the wind, one street lamp, flat white sky, a single "
-     "distant figure walking away, no faces and no readable text; an extremely slow crane rise that "
-     "widens the empty plaza until the walking figure becomes tiny, " + HOLD,
+     "A quiet wide view of a stone forecourt on a cold late-autumn morning in the mid-2000s — empty "
+     "stone plaza, bare trees moving in the wind, one street lamp, flat white sky, a single distant "
+     "figure walking away, no faces and no readable text; an extremely slow crane rise that widens "
+     "the empty plaza until the walking figure becomes tiny, " + HOLD,
      "冷风声、音乐低沉收束"),
     ("S38", "graphic", "—", "信息卡：判决时间线（一审死刑 / 执行死刑）", "接第六章矿区日常",
      "判决时间线卡", "钟声余韵"),
@@ -456,51 +459,51 @@ SHOTS = [
     # ---------------- N06 留下来的（S39-S45：6 动态 + 1 信息卡）----------------
     ("S39", "agnes", "平稳横移街道，停在亮灯的窗户", "矿区恢复日常",
      "接受害者致意卡",
-     "Dawn on a quiet residential street in a northern Chinese mining compound after the case closed: a "
-     "worker raising a plain metal shutter with no lettering, an old bicycle passing, soft cold morning "
-     "light on wet concrete, soot-dark brick blocks and a distant headframe, a few anonymous residents "
-     "far away and no signage anywhere; a slow lateral drift along the street that ends on one window "
-     "glowing warm in a brick facade, " + HOLD,
+     "Dawn on a quiet residential street in a northern Chinese mining compound in the years that "
+     "followed: a worker raising a plain metal shutter with no lettering, an old bicycle passing, "
+     "soft cold morning light on wet concrete, soot-dark brick blocks and a distant headframe, a few "
+     "anonymous residents far away and no signage anywhere; a slow lateral drift along the street "
+     "that ends on one window glowing warm in a brick facade, " + HOLD,
      "清晨城市声、远处工厂声"),
     ("S40", "graphic", "—", "信息卡：九名遇害女性致意（不出现人像）", "接遗物静物",
      "受害者致意卡", "轻柔钢琴音"),
     ("S41", "agnes", "缓慢扫过遗物，停在空椅", "受害者不只是数字",
      "接侦查档案",
-     "A quiet reverent still-life in soft natural window light inside a modest northern Chinese home: a "
-     "neatly folded dark padded coat on a wooden chair, a small cheap hair clip beside it, a framed "
-     "family photograph standing on a sideboard with the photo turned away from camera, a half-finished "
-     "ball of dark knitting wool, an empty wooden chair pulled slightly back, no people and no readable "
-     "writing; a slow slide across the objects that finally rests on the empty chair, " + HOLD,
+     "A quiet reverent still-life in soft natural window light inside a modest northern Chinese home: "
+     "a neatly folded dark padded coat on a wooden chair, a small cheap hair clip beside it, a framed "
+     "family photograph standing on a sideboard with the photo turned away from camera, a half-"
+     "finished ball of dark knitting wool, an empty wooden chair pulled slightly back, no people and "
+     "no readable writing; a slow slide across the objects that finally rests on the empty chair, " + HOLD,
      "轻柔钢琴音、微弱风声"),
     ("S42", "agnes", "从满桌档案缓慢拉远", "十四年的调查：走访与档案",
      "接红衣与窗",
-     "A now-empty Chinese police office at night: an old desk covered with closed blank case folders and "
-     "tied paper bundles, a green-shaded desk lamp still lit, a half-drunk cup of tea, chairs pushed in, "
-     "a dim pin map on the background wall, no people and no readable writing; a slow pull-back from the "
-     "lamp-lit desk into the quiet dark room, " + HOLD,
+     "A now-empty Chinese investigation office at night: an old desk covered with closed blank case "
+     "folders and tied paper bundles, a green-shaded desk lamp still lit, a half-drunk cup of tea, "
+     "chairs pushed in, a dim pin map on the background wall, no people and no readable writing; a "
+     "slow pull-back from the lamp-lit desk into the quiet dark room, " + HOLD,
      "纸张摩擦声、时钟滴答"),
     ("S43", "agnes", "推近红衣，拉焦至窗外", "回到红衣：符号之下是真实的人",
      "接矿区夜灯",
      "A plain red cotton-padded coat hanging quietly beside a curtained window in a modest northern "
      "Chinese home in winter, warm low sun touching the fabric while outside the window the blurred "
-     "industrial skyline and grey brick blocks stay distant and cold, no people and no readable text; a "
-     "very slow push toward the red fabric, then a gentle rack focus from the coat to the cold street "
-     "beyond the window, " + HOLD,
+     "industrial skyline and grey brick blocks stay distant and cold, no people and no readable text; "
+     "a very slow push toward the red fabric, then a gentle rack focus from the coat to the cold "
+     "street beyond the window, " + HOLD,
      "风吹窗帘声、音乐渐弱"),
     ("S44", "agnes", "缓慢升高，锁定一扇亮窗", "夜色中的一盏灯（情绪缓冲）",
      "接结尾航拍",
      "Night over a northern Chinese mining compound: a wide view of soot-dark brick apartment blocks, "
-     "most windows dark, one single window glowing warm yellow, faint smoke drifting from a chimney, a "
-     "distant headframe silhouette, light snow beginning to fall, no people and no readable text; a slow "
-     "rising drift that keeps the one lit window centred while the compound darkens around it, " + HOLD,
+     "most windows dark, one single window glowing warm yellow, faint smoke drifting from a chimney, "
+     "a distant headframe silhouette, light snow beginning to fall, no people and no readable text; a "
+     "slow rising drift that keeps the one lit window centred while the compound darkens around it, " + HOLD,
      "风声、远处汽笛"),
     ("S45", "agnes", "航拍缓慢升高拉远，淡出", "结尾钩子：追凶留下的应该是记忆",
      "接片尾卡",
      "A desaturated dusk aerial view of a northern Chinese mining district: grey brick blocks and "
-     "concrete lanes shrinking below, one street lamp glowing amber over an empty road, slag heaps and "
-     "headframes fading into blue haze on the horizon, no people and no readable text; one extremely "
-     "slow smooth rise and pull-back as the district grows small and quiet, holding the single amber "
-     "streetlight, " + HOLD,
+     "concrete lanes shrinking below, one street lamp glowing amber over an empty road, slag heaps "
+     "and headframes fading into blue haze on the horizon, no people and no readable text; one "
+     "extremely slow smooth rise and pull-back as the district grows small and quiet, holding the "
+     "single amber streetlight, " + HOLD,
      "一声低沉鼓点，随后渐静"),
 ]
 
