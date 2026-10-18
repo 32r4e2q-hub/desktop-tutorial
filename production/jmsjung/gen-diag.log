@@ -2,632 +2,255 @@ CLIPS_ONLY: 跳过配音哈希闸门，只生成视频片段
 PROVIDER_PROBE {"http_status": 200, "target_model_listed": true}
 PRODUCTION_STATUS cloud generation started
 S01: reusing completed provider result; no new generation request
-PRODUCTION_STATUS S02 submitting
-PRODUCTION_STATUS S02 waiting for a creation slot
+S02: reusing completed provider result; no new generation request
+PRODUCTION_STATUS S02 media and QA ready
 PRODUCTION_STATUS S01 media and QA ready
 S03: reusing completed provider result; no new generation request
-PRODUCTION_STATUS S02 video queue is full (抽签 1)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
-QUEUE_LOTTERY attempt=1 waited=3s budget=6600s
-PRODUCTION_STATUS S03 media and QA ready
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S04 submitting
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S04 video queue is full (抽签 2)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 2 次）
-QUEUE_LOTTERY attempt=2 waited=64s budget=6600s
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 3)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 3 次）
-QUEUE_LOTTERY attempt=3 waited=125s budget=6600s
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 4)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 4 次）
-QUEUE_LOTTERY attempt=4 waited=186s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 5)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
-QUEUE_LOTTERY attempt=5 waited=247s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 6)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
-QUEUE_LOTTERY attempt=6 waited=309s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 7)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
-QUEUE_LOTTERY attempt=7 waited=370s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S04 video queue is full (抽签 8)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
-QUEUE_LOTTERY attempt=8 waited=431s budget=6600s
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 9)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
-QUEUE_LOTTERY attempt=9 waited=493s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 10)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
-QUEUE_LOTTERY attempt=10 waited=554s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S04 video queue is full (抽签 11)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 11 次）
-QUEUE_LOTTERY attempt=11 waited=615s budget=6600s
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 12)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 12 次）
-QUEUE_LOTTERY attempt=12 waited=676s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 13)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 13 次）
-QUEUE_LOTTERY attempt=13 waited=737s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S04 video queue is full (抽签 14)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 14 次）
-QUEUE_LOTTERY attempt=14 waited=799s budget=6600s
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 15)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
-QUEUE_LOTTERY attempt=15 waited=860s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 16)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 16 次）
-QUEUE_LOTTERY attempt=16 waited=921s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 17)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 17 次）
-QUEUE_LOTTERY attempt=17 waited=983s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S04 video queue is full (抽签 18)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 18 次）
-QUEUE_LOTTERY attempt=18 waited=1044s budget=6600s
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 19)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 19 次）
-QUEUE_LOTTERY attempt=19 waited=1105s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S04 video queue is full (抽签 20)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 20 次）
-QUEUE_LOTTERY attempt=20 waited=1166s budget=6600s
-PRODUCTION_STATUS S04 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 21)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 21 次）
-QUEUE_LOTTERY attempt=21 waited=1228s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S04 queued
-[15:09:07] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S02 video queue is full (抽签 1)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
-QUEUE_LOTTERY attempt=1 waited=2s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 2)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 2 次）
-QUEUE_LOTTERY attempt=2 waited=64s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 3)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 3 次）
-QUEUE_LOTTERY attempt=3 waited=125s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 4)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 4 次）
-QUEUE_LOTTERY attempt=4 waited=186s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 5)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
-QUEUE_LOTTERY attempt=5 waited=247s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 6)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
-QUEUE_LOTTERY attempt=6 waited=308s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 7)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
-QUEUE_LOTTERY attempt=7 waited=370s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-[15:17:15] status=in_progress progress=10% (elapsed 488s)
-PRODUCTION_STATUS S02 video queue is full (抽签 8)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
-QUEUE_LOTTERY attempt=8 waited=431s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 9)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
-QUEUE_LOTTERY attempt=9 waited=492s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 10)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
-QUEUE_LOTTERY attempt=10 waited=554s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-[15:20:20] status=completed progress=100% (elapsed 673s)
-PRODUCTION_STATUS S02 video queue is full (抽签 11)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 11 次）
-QUEUE_LOTTERY attempt=11 waited=615s budget=6600s
-PRODUCTION_STATUS S04 generated
-PRODUCTION_STATUS S02 waiting for a creation slot
+S04: reusing completed provider result; no new generation request
 PRODUCTION_STATUS S04 media and QA ready
-PRODUCTION_STATUS S05 submitting
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 12)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 12 次）
-QUEUE_LOTTERY attempt=12 waited=676s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 13)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 13 次）
-QUEUE_LOTTERY attempt=13 waited=737s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 14)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 14 次）
-QUEUE_LOTTERY attempt=14 waited=799s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 15)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
-QUEUE_LOTTERY attempt=15 waited=860s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S02 video queue is full (抽签 16)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 16 次）
-QUEUE_LOTTERY attempt=16 waited=927s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S05 video queue is full (抽签 17)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 17 次）
-QUEUE_LOTTERY attempt=17 waited=988s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 18)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 18 次）
-QUEUE_LOTTERY attempt=18 waited=1044s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 19)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 19 次）
-QUEUE_LOTTERY attempt=19 waited=1105s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 20)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 20 次）
-QUEUE_LOTTERY attempt=20 waited=1166s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 21)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 21 次）
-QUEUE_LOTTERY attempt=21 waited=1228s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 22)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 22 次）
-QUEUE_LOTTERY attempt=22 waited=1289s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 23)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 23 次）
-QUEUE_LOTTERY attempt=23 waited=1350s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 24)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 24 次）
-QUEUE_LOTTERY attempt=24 waited=1412s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 25)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 25 次）
-QUEUE_LOTTERY attempt=25 waited=1473s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 26)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 26 次）
-QUEUE_LOTTERY attempt=26 waited=1534s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 27)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 27 次）
-QUEUE_LOTTERY attempt=27 waited=1595s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 28)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 28 次）
-QUEUE_LOTTERY attempt=28 waited=1656s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 29)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 29 次）
-QUEUE_LOTTERY attempt=29 waited=1718s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 30)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 30 次）
-QUEUE_LOTTERY attempt=30 waited=1779s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S05 video queue is full (抽签 31)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 31 次）
-QUEUE_LOTTERY attempt=31 waited=1841s budget=6600s
-PRODUCTION_STATUS S05 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 32)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 32 次）
-QUEUE_LOTTERY attempt=32 waited=1902s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 33)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 33 次）
-QUEUE_LOTTERY attempt=33 waited=1963s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S05 queued
-[15:43:50] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S02 video queue is full (抽签 1)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
-QUEUE_LOTTERY attempt=1 waited=2s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 2)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 2 次）
-QUEUE_LOTTERY attempt=2 waited=63s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 3)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 3 次）
-QUEUE_LOTTERY attempt=3 waited=125s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 4)
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 4 次）
-QUEUE_LOTTERY attempt=4 waited=193s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 5)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
-QUEUE_LOTTERY attempt=5 waited=247s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 6)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
-QUEUE_LOTTERY attempt=6 waited=308s budget=6600s
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S02 waiting for a creation slot
-[15:50:57] status=in_progress progress=10% (elapsed 427s)
-PRODUCTION_STATUS S02 video queue is full (抽签 7)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
-QUEUE_LOTTERY attempt=7 waited=370s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 8)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
-QUEUE_LOTTERY attempt=8 waited=431s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 9)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
-QUEUE_LOTTERY attempt=9 waited=492s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-[15:54:01] status=completed progress=100% (elapsed 611s)
-PRODUCTION_STATUS S02 video queue is full (抽签 10)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
-QUEUE_LOTTERY attempt=10 waited=554s budget=6600s
-PRODUCTION_STATUS S05 generated
-PRODUCTION_STATUS S02 waiting for a creation slot
+PRODUCTION_STATUS S03 media and QA ready
+S05: reusing completed provider result; no new generation request
+S06: reusing completed provider result; no new generation request
 PRODUCTION_STATUS S05 media and QA ready
-PRODUCTION_STATUS S06 submitting
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 11)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 11 次）
-QUEUE_LOTTERY attempt=11 waited=615s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 12)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 12 次）
-QUEUE_LOTTERY attempt=12 waited=677s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 13)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 13 次）
-QUEUE_LOTTERY attempt=13 waited=738s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 14)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 14 次）
-QUEUE_LOTTERY attempt=14 waited=799s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 15)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
-QUEUE_LOTTERY attempt=15 waited=860s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 16)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 16 次）
-QUEUE_LOTTERY attempt=16 waited=922s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 17)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 17 次）
-QUEUE_LOTTERY attempt=17 waited=983s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 18)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 18 次）
-QUEUE_LOTTERY attempt=18 waited=1044s budget=6600s
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 19)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 19 次）
-QUEUE_LOTTERY attempt=19 waited=1106s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 20)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 20 次）
-QUEUE_LOTTERY attempt=20 waited=1167s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 21)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 21 次）
-QUEUE_LOTTERY attempt=21 waited=1228s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 22)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 22 次）
-QUEUE_LOTTERY attempt=22 waited=1290s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 23)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 23 次）
-QUEUE_LOTTERY attempt=23 waited=1351s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 24)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 24 次）
-QUEUE_LOTTERY attempt=24 waited=1412s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 25)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 25 次）
-QUEUE_LOTTERY attempt=25 waited=1473s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 26)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 26 次）
-QUEUE_LOTTERY attempt=26 waited=1535s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 27)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 27 次）
-QUEUE_LOTTERY attempt=27 waited=1597s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 28)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 28 次）
-QUEUE_LOTTERY attempt=28 waited=1658s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 29)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 29 次）
-QUEUE_LOTTERY attempt=29 waited=1719s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 30)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 30 次）
-QUEUE_LOTTERY attempt=30 waited=1781s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 31)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 31 次）
-QUEUE_LOTTERY attempt=31 waited=1842s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 32)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 32 次）
-QUEUE_LOTTERY attempt=32 waited=1903s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 33)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 33 次）
-QUEUE_LOTTERY attempt=33 waited=1964s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 34)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 34 次）
-QUEUE_LOTTERY attempt=34 waited=2026s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 35)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 35 次）
-QUEUE_LOTTERY attempt=35 waited=2087s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 36)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 36 次）
-QUEUE_LOTTERY attempt=36 waited=2148s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 37)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 37 次）
-QUEUE_LOTTERY attempt=37 waited=2210s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 38)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 38 次）
-QUEUE_LOTTERY attempt=38 waited=2271s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 39)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 39 次）
-QUEUE_LOTTERY attempt=39 waited=2332s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 40)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 40 次）
-QUEUE_LOTTERY attempt=40 waited=2394s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 41)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 41 次）
-QUEUE_LOTTERY attempt=41 waited=2455s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 42)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 42 次）
-QUEUE_LOTTERY attempt=42 waited=2517s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 43)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 43 次）
-QUEUE_LOTTERY attempt=43 waited=2578s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 44)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 44 次）
-QUEUE_LOTTERY attempt=44 waited=2639s budget=6600s
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 45)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 45 次）
-QUEUE_LOTTERY attempt=45 waited=2700s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 46)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 46 次）
-QUEUE_LOTTERY attempt=46 waited=2762s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 47)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 47 次）
-QUEUE_LOTTERY attempt=47 waited=2823s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 48)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 48 次）
-QUEUE_LOTTERY attempt=48 waited=2884s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 49)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 49 次）
-QUEUE_LOTTERY attempt=49 waited=2946s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 50)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 50 次）
-QUEUE_LOTTERY attempt=50 waited=3007s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 51)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 51 次）
-QUEUE_LOTTERY attempt=51 waited=3068s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 52)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 52 次）
-QUEUE_LOTTERY attempt=52 waited=3129s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 53)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 53 次）
-QUEUE_LOTTERY attempt=53 waited=3191s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 54)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 54 次）
-QUEUE_LOTTERY attempt=54 waited=3252s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 55)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 55 次）
-QUEUE_LOTTERY attempt=55 waited=3313s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 video queue is full (抽签 56)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 56 次）
-QUEUE_LOTTERY attempt=56 waited=3375s budget=6600s
-PRODUCTION_STATUS S02 waiting for a creation slot
-PRODUCTION_STATUS S02 queued
-[16:42:05] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S06 video queue is full (抽签 1)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
-QUEUE_LOTTERY attempt=1 waited=2s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 2)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 2 次）
-QUEUE_LOTTERY attempt=2 waited=64s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 3)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 3 次）
-QUEUE_LOTTERY attempt=3 waited=125s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 4)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 4 次）
-QUEUE_LOTTERY attempt=4 waited=186s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 5)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
-QUEUE_LOTTERY attempt=5 waited=247s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 6)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
-QUEUE_LOTTERY attempt=6 waited=309s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-[16:49:12] status=in_progress progress=10% (elapsed 427s)
-PRODUCTION_STATUS S06 video queue is full (抽签 7)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
-QUEUE_LOTTERY attempt=7 waited=370s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 8)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
-QUEUE_LOTTERY attempt=8 waited=431s budget=6600s
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 9)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
-QUEUE_LOTTERY attempt=9 waited=493s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-[16:52:16] status=completed progress=100% (elapsed 611s)
-PRODUCTION_STATUS S06 video queue is full (抽签 10)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
-QUEUE_LOTTERY attempt=10 waited=554s budget=6600s
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S02 generated
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S02 media and QA ready
+PRODUCTION_STATUS S06 media and QA ready
 PRODUCTION_STATUS S07 submitting
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 11)
+PRODUCTION_STATUS S08 submitting
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 1)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
+QUEUE_LOTTERY attempt=1 waited=4s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 2)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 2 次）
+QUEUE_LOTTERY attempt=2 waited=63s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 3)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 3 次）
+QUEUE_LOTTERY attempt=3 waited=125s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 4)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 4 次）
+QUEUE_LOTTERY attempt=4 waited=187s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 5)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
+QUEUE_LOTTERY attempt=5 waited=249s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 6)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
+QUEUE_LOTTERY attempt=6 waited=310s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 7)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
+QUEUE_LOTTERY attempt=7 waited=371s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 8)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
+QUEUE_LOTTERY attempt=8 waited=433s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 9)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
+QUEUE_LOTTERY attempt=9 waited=494s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 10)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
+QUEUE_LOTTERY attempt=10 waited=555s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 11)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 11 次）
-QUEUE_LOTTERY attempt=11 waited=615s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 12)
+QUEUE_LOTTERY attempt=11 waited=617s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 12)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 12 次）
-QUEUE_LOTTERY attempt=12 waited=676s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 13)
+QUEUE_LOTTERY attempt=12 waited=678s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 13)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 13 次）
-QUEUE_LOTTERY attempt=13 waited=738s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 14)
+QUEUE_LOTTERY attempt=13 waited=739s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 14)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 14 次）
-QUEUE_LOTTERY attempt=14 waited=799s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 15)
+QUEUE_LOTTERY attempt=14 waited=801s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 15)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
-QUEUE_LOTTERY attempt=15 waited=860s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 16)
+QUEUE_LOTTERY attempt=15 waited=863s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 16)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 16 次）
-QUEUE_LOTTERY attempt=16 waited=922s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 17)
+QUEUE_LOTTERY attempt=16 waited=924s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 17)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 17 次）
-QUEUE_LOTTERY attempt=17 waited=983s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 18)
+QUEUE_LOTTERY attempt=17 waited=985s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 18)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 18 次）
-QUEUE_LOTTERY attempt=18 waited=1044s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 19)
+QUEUE_LOTTERY attempt=18 waited=1046s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 19)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 19 次）
-QUEUE_LOTTERY attempt=19 waited=1105s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 20)
+QUEUE_LOTTERY attempt=19 waited=1108s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 20)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 20 次）
-QUEUE_LOTTERY attempt=20 waited=1167s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
+QUEUE_LOTTERY attempt=20 waited=1169s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
 PRODUCTION_STATUS S07 video queue is full (抽签 21)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 21 次）
-QUEUE_LOTTERY attempt=21 waited=1228s budget=6600s
+QUEUE_LOTTERY attempt=21 waited=1230s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 22)
+PRODUCTION_STATUS S08 video queue is full (抽签 22)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 22 次）
-QUEUE_LOTTERY attempt=22 waited=1289s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
+QUEUE_LOTTERY attempt=22 waited=1292s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
 PRODUCTION_STATUS S07 video queue is full (抽签 23)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 23 次）
-QUEUE_LOTTERY attempt=23 waited=1351s budget=6600s
+QUEUE_LOTTERY attempt=23 waited=1353s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 24)
+PRODUCTION_STATUS S07 video queue is full (抽签 24)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 24 次）
-QUEUE_LOTTERY attempt=24 waited=1412s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 25)
+QUEUE_LOTTERY attempt=24 waited=1414s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 25)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 25 次）
-QUEUE_LOTTERY attempt=25 waited=1473s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 26)
+QUEUE_LOTTERY attempt=25 waited=1476s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 26)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 26 次）
-QUEUE_LOTTERY attempt=26 waited=1534s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 27)
+QUEUE_LOTTERY attempt=26 waited=1537s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 27)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 27 次）
-QUEUE_LOTTERY attempt=27 waited=1596s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 28)
+QUEUE_LOTTERY attempt=27 waited=1598s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 28)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 28 次）
-QUEUE_LOTTERY attempt=28 waited=1657s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
+QUEUE_LOTTERY attempt=28 waited=1659s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
 PRODUCTION_STATUS S07 video queue is full (抽签 29)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 29 次）
-QUEUE_LOTTERY attempt=29 waited=1718s budget=6600s
+QUEUE_LOTTERY attempt=29 waited=1721s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 30)
+PRODUCTION_STATUS S07 video queue is full (抽签 30)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 30 次）
-QUEUE_LOTTERY attempt=30 waited=1780s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 31)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 31 次）
-QUEUE_LOTTERY attempt=31 waited=1841s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 32)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 32 次）
-QUEUE_LOTTERY attempt=32 waited=1902s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S06 video queue is full (抽签 33)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 33 次）
-QUEUE_LOTTERY attempt=33 waited=1964s budget=6600s
-PRODUCTION_STATUS S06 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 34)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 34 次）
-QUEUE_LOTTERY attempt=34 waited=2025s budget=6600s
+QUEUE_LOTTERY attempt=30 waited=1782s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 31)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 31 次）
+QUEUE_LOTTERY attempt=31 waited=1844s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 32)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 32 次）
+QUEUE_LOTTERY attempt=32 waited=1905s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 33)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 33 次）
+QUEUE_LOTTERY attempt=33 waited=1966s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 34)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 34 次）
+QUEUE_LOTTERY attempt=34 waited=2027s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
 PRODUCTION_STATUS S07 video queue is full (抽签 35)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 35 次）
-QUEUE_LOTTERY attempt=35 waited=2086s budget=6600s
+QUEUE_LOTTERY attempt=35 waited=2089s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 36)
+PRODUCTION_STATUS S08 video queue is full (抽签 36)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 36 次）
-QUEUE_LOTTERY attempt=36 waited=2147s budget=6600s
+QUEUE_LOTTERY attempt=36 waited=2150s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 37)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 37 次）
+QUEUE_LOTTERY attempt=37 waited=2212s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 38)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 38 次）
+QUEUE_LOTTERY attempt=38 waited=2273s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 39)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 39 次）
+QUEUE_LOTTERY attempt=39 waited=2334s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 40)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 40 次）
+QUEUE_LOTTERY attempt=40 waited=2395s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 41)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 41 次）
+QUEUE_LOTTERY attempt=41 waited=2457s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 queued
-[17:19:52] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S08 video queue is full (抽签 42)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 42 次）
+QUEUE_LOTTERY attempt=42 waited=2518s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 43)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 43 次）
+QUEUE_LOTTERY attempt=43 waited=2579s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 44)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 44 次）
+QUEUE_LOTTERY attempt=44 waited=2641s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 45)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 45 次）
+QUEUE_LOTTERY attempt=45 waited=2702s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 46)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 46 次）
+QUEUE_LOTTERY attempt=46 waited=2763s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 47)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 47 次）
+QUEUE_LOTTERY attempt=47 waited=2825s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 48)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 48 次）
+QUEUE_LOTTERY attempt=48 waited=2886s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 49)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 49 次）
+QUEUE_LOTTERY attempt=49 waited=2947s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 50)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 50 次）
+QUEUE_LOTTERY attempt=50 waited=3009s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 51)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 51 次）
+QUEUE_LOTTERY attempt=51 waited=3070s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 52)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 52 次）
+QUEUE_LOTTERY attempt=52 waited=3132s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 53)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 53 次）
+QUEUE_LOTTERY attempt=53 waited=3193s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 54)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 54 次）
+QUEUE_LOTTERY attempt=54 waited=3254s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 video queue is full (抽签 55)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 55 次）
+QUEUE_LOTTERY attempt=55 waited=3317s budget=6600s
+PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 56)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 56 次）
+QUEUE_LOTTERY attempt=56 waited=3378s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 57)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 57 次）
+QUEUE_LOTTERY attempt=57 waited=3439s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 58)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 58 次）
+QUEUE_LOTTERY attempt=58 waited=3500s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S08 queued
+[18:41:01] status=pending progress=0% (elapsed 0s)
 PRODUCTION_STATUS S07 video queue is full (抽签 1)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
 QUEUE_LOTTERY attempt=1 waited=2s budget=6600s
@@ -648,126 +271,484 @@ PRODUCTION_STATUS S07 video queue is full (抽签 5)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
 QUEUE_LOTTERY attempt=5 waited=247s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-[17:25:58] status=in_progress progress=10% (elapsed 366s)
 PRODUCTION_STATUS S07 video queue is full (抽签 6)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
 QUEUE_LOTTERY attempt=6 waited=309s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
+[18:48:08] status=in_progress progress=10% (elapsed 427s)
 PRODUCTION_STATUS S07 video queue is full (抽签 7)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
 QUEUE_LOTTERY attempt=7 waited=370s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
 PRODUCTION_STATUS S07 video queue is full (抽签 8)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
-QUEUE_LOTTERY attempt=8 waited=431s budget=6600s
+QUEUE_LOTTERY attempt=8 waited=432s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-[17:29:02] status=completed progress=100% (elapsed 550s)
+[18:50:11] status=completed progress=100% (elapsed 549s)
 PRODUCTION_STATUS S07 video queue is full (抽签 9)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
-QUEUE_LOTTERY attempt=9 waited=493s budget=6600s
-PRODUCTION_STATUS S06 generated
+QUEUE_LOTTERY attempt=9 waited=492s budget=6600s
+PRODUCTION_STATUS S08 generated
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S06 media and QA ready
-PRODUCTION_STATUS S08 submitting
-PRODUCTION_STATUS S08 waiting for a creation slot
+PRODUCTION_STATUS S08 media and QA ready
+PRODUCTION_STATUS S09 submitting
+PRODUCTION_STATUS S09 waiting for a creation slot
 PRODUCTION_STATUS S07 video queue is full (抽签 10)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
 QUEUE_LOTTERY attempt=10 waited=554s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 11)
+PRODUCTION_STATUS S09 video queue is full (抽签 11)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 11 次）
 QUEUE_LOTTERY attempt=11 waited=615s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 12)
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 12)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 12 次）
 QUEUE_LOTTERY attempt=12 waited=677s budget=6600s
-PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S08 video queue is full (抽签 13)
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 13)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 13 次）
 QUEUE_LOTTERY attempt=13 waited=738s budget=6600s
-PRODUCTION_STATUS S08 waiting for a creation slot
-PRODUCTION_STATUS S08 video queue is full (抽签 14)
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 14)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 14 次）
 QUEUE_LOTTERY attempt=14 waited=799s budget=6600s
-PRODUCTION_STATUS S08 waiting for a creation slot
-PRODUCTION_STATUS S07 video queue is full (抽签 15)
-PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
-QUEUE_LOTTERY attempt=15 waited=860s budget=6600s
 PRODUCTION_STATUS S07 waiting for a creation slot
-PRODUCTION_STATUS S08 video queue is full (抽签 16)
+PRODUCTION_STATUS S09 video queue is full (抽签 15)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
+QUEUE_LOTTERY attempt=15 waited=861s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 16)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 16 次）
 QUEUE_LOTTERY attempt=16 waited=922s budget=6600s
-PRODUCTION_STATUS S08 waiting for a creation slot
-PRODUCTION_STATUS S07 failed
-PRODUCTION_STATUS S08 video queue is full (抽签 17)
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 17)
 PRODUCTION_STATUS 排队满，61 秒后再抽（第 17 次）
 QUEUE_LOTTERY attempt=17 waited=984s budget=6600s
-PRODUCTION_STATUS S09 submitting
 PRODUCTION_STATUS S09 waiting for a creation slot
-PRODUCTION_STATUS S08 waiting for a creation slot
-PRODUCTION_STATUS S09 failed
-PRODUCTION_STATUS S08 failed
+PRODUCTION_STATUS S07 video queue is full (抽签 18)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 18 次）
+QUEUE_LOTTERY attempt=18 waited=1045s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 19)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 19 次）
+QUEUE_LOTTERY attempt=19 waited=1105s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 20)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 20 次）
+QUEUE_LOTTERY attempt=20 waited=1168s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 video queue is full (抽签 21)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 21 次）
+QUEUE_LOTTERY attempt=21 waited=1229s budget=6600s
+PRODUCTION_STATUS S07 waiting for a creation slot
+PRODUCTION_STATUS S07 queued
+[19:03:30] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S09 video queue is full (抽签 1)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
+QUEUE_LOTTERY attempt=1 waited=2s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 2)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 2 次）
+QUEUE_LOTTERY attempt=2 waited=64s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 3)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 3 次）
+QUEUE_LOTTERY attempt=3 waited=125s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 4)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 4 次）
+QUEUE_LOTTERY attempt=4 waited=187s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 5)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
+QUEUE_LOTTERY attempt=5 waited=248s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+[19:09:37] status=in_progress progress=10% (elapsed 367s)
+PRODUCTION_STATUS S09 video queue is full (抽签 6)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
+QUEUE_LOTTERY attempt=6 waited=309s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+[19:10:38] status=completed progress=100% (elapsed 428s)
+PRODUCTION_STATUS S09 video queue is full (抽签 7)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
+QUEUE_LOTTERY attempt=7 waited=371s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S07 generated
+PRODUCTION_STATUS S07 media and QA ready
 PRODUCTION_STATUS S10 submitting
 PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 8)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
+QUEUE_LOTTERY attempt=8 waited=432s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 9)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
+QUEUE_LOTTERY attempt=9 waited=493s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 10)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
+QUEUE_LOTTERY attempt=10 waited=555s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 11)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 11 次）
+QUEUE_LOTTERY attempt=11 waited=617s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 12)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 12 次）
+QUEUE_LOTTERY attempt=12 waited=679s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 13)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 13 次）
+QUEUE_LOTTERY attempt=13 waited=740s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 14)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 14 次）
+QUEUE_LOTTERY attempt=14 waited=801s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 15)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
+QUEUE_LOTTERY attempt=15 waited=863s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 16)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 16 次）
+QUEUE_LOTTERY attempt=16 waited=924s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 17)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 17 次）
+QUEUE_LOTTERY attempt=17 waited=985s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 18)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 18 次）
+QUEUE_LOTTERY attempt=18 waited=1047s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 19)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 19 次）
+QUEUE_LOTTERY attempt=19 waited=1109s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 20)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 20 次）
+QUEUE_LOTTERY attempt=20 waited=1170s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 21)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 21 次）
+QUEUE_LOTTERY attempt=21 waited=1231s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 22)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 22 次）
+QUEUE_LOTTERY attempt=22 waited=1293s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 23)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 23 次）
+QUEUE_LOTTERY attempt=23 waited=1354s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 24)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 24 次）
+QUEUE_LOTTERY attempt=24 waited=1415s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 25)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 25 次）
+QUEUE_LOTTERY attempt=25 waited=1477s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 26)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 26 次）
+QUEUE_LOTTERY attempt=26 waited=1538s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 27)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 27 次）
+QUEUE_LOTTERY attempt=27 waited=1599s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 28)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 28 次）
+QUEUE_LOTTERY attempt=28 waited=1660s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 29)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 29 次）
+QUEUE_LOTTERY attempt=29 waited=1722s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 30)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 30 次）
+QUEUE_LOTTERY attempt=30 waited=1783s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 31)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 31 次）
+QUEUE_LOTTERY attempt=31 waited=1844s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 32)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 32 次）
+QUEUE_LOTTERY attempt=32 waited=1906s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 33)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 33 次）
+QUEUE_LOTTERY attempt=33 waited=1968s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 34)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 34 次）
+QUEUE_LOTTERY attempt=34 waited=2029s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 35)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 35 次）
+QUEUE_LOTTERY attempt=35 waited=2091s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 36)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 36 次）
+QUEUE_LOTTERY attempt=36 waited=2152s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 37)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 37 次）
+QUEUE_LOTTERY attempt=37 waited=2214s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 38)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 38 次）
+QUEUE_LOTTERY attempt=38 waited=2275s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 39)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 39 次）
+QUEUE_LOTTERY attempt=39 waited=2336s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 40)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 40 次）
+QUEUE_LOTTERY attempt=40 waited=2397s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 41)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 41 次）
+QUEUE_LOTTERY attempt=41 waited=2460s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 42)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 42 次）
+QUEUE_LOTTERY attempt=42 waited=2521s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 43)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 43 次）
+QUEUE_LOTTERY attempt=43 waited=2582s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 44)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 44 次）
+QUEUE_LOTTERY attempt=44 waited=2644s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 45)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 45 次）
+QUEUE_LOTTERY attempt=45 waited=2705s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 46)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 46 次）
+QUEUE_LOTTERY attempt=46 waited=2767s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 47)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 47 次）
+QUEUE_LOTTERY attempt=47 waited=2828s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 48)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 48 次）
+QUEUE_LOTTERY attempt=48 waited=2890s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 49)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 49 次）
+QUEUE_LOTTERY attempt=49 waited=2952s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 50)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 50 次）
+QUEUE_LOTTERY attempt=50 waited=3013s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 51)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 51 次）
+QUEUE_LOTTERY attempt=51 waited=3075s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 52)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 52 次）
+QUEUE_LOTTERY attempt=52 waited=3136s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 53)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 53 次）
+QUEUE_LOTTERY attempt=53 waited=3197s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 54)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 54 次）
+QUEUE_LOTTERY attempt=54 waited=3259s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 55)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 55 次）
+QUEUE_LOTTERY attempt=55 waited=3319s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 56)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 56 次）
+QUEUE_LOTTERY attempt=56 waited=3381s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 57)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 57 次）
+QUEUE_LOTTERY attempt=57 waited=3443s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 video queue is full (抽签 58)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 58 次）
+QUEUE_LOTTERY attempt=58 waited=3504s budget=6600s
+PRODUCTION_STATUS S10 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 59)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 59 次）
+QUEUE_LOTTERY attempt=59 waited=3565s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 60)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 60 次）
+QUEUE_LOTTERY attempt=60 waited=3627s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 61)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 61 次）
+QUEUE_LOTTERY attempt=61 waited=3688s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 queued
+[20:06:58] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S09 video queue is full (抽签 1)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 1 次）
+QUEUE_LOTTERY attempt=1 waited=2s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 2)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 2 次）
+QUEUE_LOTTERY attempt=2 waited=63s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 3)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 3 次）
+QUEUE_LOTTERY attempt=3 waited=125s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 4)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 4 次）
+QUEUE_LOTTERY attempt=4 waited=186s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 5)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 5 次）
+QUEUE_LOTTERY attempt=5 waited=247s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+[20:13:04] status=in_progress progress=10% (elapsed 366s)
+PRODUCTION_STATUS S09 video queue is full (抽签 6)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 6 次）
+QUEUE_LOTTERY attempt=6 waited=309s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 7)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 7 次）
+QUEUE_LOTTERY attempt=7 waited=371s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+[20:15:08] status=completed progress=100% (elapsed 490s)
+PRODUCTION_STATUS S09 video queue is full (抽签 8)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 8 次）
+QUEUE_LOTTERY attempt=8 waited=432s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S10 generated
+PRODUCTION_STATUS S10 media and QA ready
 PRODUCTION_STATUS S11 submitting
 PRODUCTION_STATUS S11 waiting for a creation slot
-PRODUCTION_STATUS S10 failed
-PRODUCTION_STATUS S11 failed
+PRODUCTION_STATUS S09 video queue is full (抽签 9)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 9 次）
+QUEUE_LOTTERY attempt=9 waited=493s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 10)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 10 次）
+QUEUE_LOTTERY attempt=10 waited=555s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S11 video queue is full (抽签 11)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 11 次）
+QUEUE_LOTTERY attempt=11 waited=617s budget=6600s
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 12)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 12 次）
+QUEUE_LOTTERY attempt=12 waited=678s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S11 video queue is full (抽签 13)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 13 次）
+QUEUE_LOTTERY attempt=13 waited=739s budget=6600s
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S11 video queue is full (抽签 14)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 14 次）
+QUEUE_LOTTERY attempt=14 waited=801s budget=6600s
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S11 video queue is full (抽签 15)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 15 次）
+QUEUE_LOTTERY attempt=15 waited=863s budget=6600s
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S11 video queue is full (抽签 16)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 16 次）
+QUEUE_LOTTERY attempt=16 waited=924s budget=6600s
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 17)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 17 次）
+QUEUE_LOTTERY attempt=17 waited=985s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S11 video queue is full (抽签 18)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 18 次）
+QUEUE_LOTTERY attempt=18 waited=1047s budget=6600s
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S11 video queue is full (抽签 19)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 19 次）
+QUEUE_LOTTERY attempt=19 waited=1109s budget=6600s
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 20)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 20 次）
+QUEUE_LOTTERY attempt=20 waited=1171s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 21)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 21 次）
+QUEUE_LOTTERY attempt=21 waited=1232s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 video queue is full (抽签 22)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 22 次）
+QUEUE_LOTTERY attempt=22 waited=1293s budget=6600s
+PRODUCTION_STATUS S09 waiting for a creation slot
+PRODUCTION_STATUS S09 failed
+PRODUCTION_STATUS S11 video queue is full (抽签 23)
+PRODUCTION_STATUS 排队满，61 秒后再抽（第 23 次）
+QUEUE_LOTTERY attempt=23 waited=1355s budget=6600s
 PRODUCTION_STATUS S12 submitting
 PRODUCTION_STATUS S12 waiting for a creation slot
+PRODUCTION_STATUS S11 waiting for a creation slot
+PRODUCTION_STATUS S12 failed
+PRODUCTION_STATUS S11 failed
 PRODUCTION_STATUS S13 submitting
 PRODUCTION_STATUS S13 waiting for a creation slot
-PRODUCTION_STATUS S12 failed
-PRODUCTION_STATUS S13 failed
 PRODUCTION_STATUS S14 submitting
 PRODUCTION_STATUS S14 waiting for a creation slot
+PRODUCTION_STATUS S13 failed
+PRODUCTION_STATUS S14 failed
 PRODUCTION_STATUS S15 submitting
 PRODUCTION_STATUS S15 waiting for a creation slot
-PRODUCTION_STATUS S14 failed
 PRODUCTION_STATUS S15 failed
-PRODUCTION_STATUS S17 submitting
-PRODUCTION_STATUS S17 waiting for a creation slot
 PRODUCTION_STATUS S16 submitting
 PRODUCTION_STATUS S16 waiting for a creation slot
-PRODUCTION_STATUS S17 failed
 PRODUCTION_STATUS S16 failed
+PRODUCTION_STATUS S17 submitting
+PRODUCTION_STATUS S17 waiting for a creation slot
+PRODUCTION_STATUS S17 failed
 PRODUCTION_STATUS S18 submitting
 PRODUCTION_STATUS S18 waiting for a creation slot
+PRODUCTION_STATUS S18 failed
 PRODUCTION_STATUS S19 submitting
 PRODUCTION_STATUS S19 waiting for a creation slot
-PRODUCTION_STATUS S18 failed
 PRODUCTION_STATUS S19 failed
-PRODUCTION_STATUS S21 submitting
-PRODUCTION_STATUS S21 waiting for a creation slot
 PRODUCTION_STATUS S20 submitting
 PRODUCTION_STATUS S20 waiting for a creation slot
-PRODUCTION_STATUS S21 failed
 PRODUCTION_STATUS S20 failed
+PRODUCTION_STATUS S21 submitting
+PRODUCTION_STATUS S21 waiting for a creation slot
+PRODUCTION_STATUS S21 failed
 PRODUCTION_STATUS S22 submitting
 PRODUCTION_STATUS S22 waiting for a creation slot
 PRODUCTION_STATUS S23 submitting
 PRODUCTION_STATUS S23 waiting for a creation slot
-PRODUCTION_STATUS S22 failed
 PRODUCTION_STATUS S23 failed
+PRODUCTION_STATUS S22 failed
 PRODUCTION_STATUS S24 submitting
 PRODUCTION_STATUS S24 waiting for a creation slot
 PRODUCTION_STATUS S25 submitting
 PRODUCTION_STATUS S25 waiting for a creation slot
 PRODUCTION_STATUS S24 failed
 PRODUCTION_STATUS S25 failed
+PRODUCTION_STATUS S26 submitting
+PRODUCTION_STATUS S26 waiting for a creation slot
 PRODUCTION_STATUS S27 submitting
 PRODUCTION_STATUS S27 waiting for a creation slot
-PRODUCTION_STATUS S26 submitting
-PROVENANCE_PUSH_RETRY attempt=1
-PRODUCTION_STATUS S26 waiting for a creation slot
-PRODUCTION_STATUS S27 failed
 PRODUCTION_STATUS S26 failed
+PRODUCTION_STATUS S27 failed
 PRODUCTION_STATUS S28 submitting
 PRODUCTION_STATUS S28 waiting for a creation slot
 PRODUCTION_STATUS S29 submitting
 PRODUCTION_STATUS S29 waiting for a creation slot
-PRODUCTION_STATUS S28 failed
 PRODUCTION_STATUS S29 failed
+PRODUCTION_STATUS S28 failed
 PRODUCTION_STATUS S30 submitting
 PRODUCTION_STATUS S30 waiting for a creation slot
 PRODUCTION_STATUS S30 failed
