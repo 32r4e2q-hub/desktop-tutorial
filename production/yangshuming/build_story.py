@@ -259,16 +259,16 @@ SHOTS = [
      "bare trees and distant brick blocks, no bodies, no close faces and no readable text; a slow "
      "lateral drift along the barrier line that keeps the figures small and distant, " + HOLD,
      "风声、远处对讲机杂音"),
-    ("S14", "agnes", "俯拍资料桌，拉远至满墙资料", "警方压力：C2 与堆积如山的旧案",
-     "接最后一次袭击",
-     "Inside a cramped Chinese investigation office in the mid-2000s — fluorescent tubes overhead, a "
-     "wall map with pins, stacked blank paper folders and ledgers covering two desks, enamel mugs, an "
-     "old telephone, the whole shot staying indoors from the first frame to the last with no exterior, "
-     "no building facade and no transition: the veteran detective {C2} stands over a desk in a plain "
-     "dark jacket shown chest-up, his tired weathered face clearly visible as he studies the papers, a "
-     "second officer's turned back in the background; a slow push across the cluttered desk toward the "
-     "detective's tired face, " + HOLD,
-     "翻页声、电话铃声、笔尖敲桌"),
+    ("S14", "agnes", "旧案卷宗与资料墙的缓慢横移", "警方压力：堆积如山的旧案",
+     "接巡防加压",
+     "Inside a cramped old working room in a northern Chinese town in the mid-2000s: "
+     "two worn wooden desks covered in stacks of closed blank paper folders, a simple wall "
+     "map with pins, enamel mugs, and an old black telephone. Cold fluorescent light overhead "
+     "contrasts with a small warm desk lamp. The room is completely empty, absolutely no "
+     "people, no faces, no hands or body parts in the frame. A slow lateral camera move "
+     "across the solid stationary folder stacks toward the map, staying inside the room "
+     "throughout, no readable writing, " + HOLD,
+     "电话铃声、沉闷低频"),
     ("S15", "agnes", "跟随夜巡队前行", "二〇〇四年冬天：巡防加压",
      "接第三章专案组",
      "A cold wet November night on a narrow residential lane in a northern Chinese mining compound in "
@@ -607,7 +607,6 @@ FACE_SHOTS = {
     "S11": ["C1"],
     "S20": ["C1"],
     "S25": ["C1"],
-    "S14": ["C2"],
     "S27": ["C2"],
     "S34": ["C3"],
 }
