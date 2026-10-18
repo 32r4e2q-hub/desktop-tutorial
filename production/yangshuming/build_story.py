@@ -282,13 +282,7 @@ SHOTS = [
     # ---------------- N03 线索收拢（S16-S23：7 动态 + 1 信息卡）----------------
     ("S16", "agnes", "从门口推进办公室，停在长桌", "专案组重新集结（二〇〇五）",
      "接十四年卡",
-     "Inside a plain temporary task-force office in a Chinese government building in the mid-2000s — "
-     "a long table covered with blank folders and pinned papers, a large district map on the wall "
-     "with coloured pins, a thermos and enamel mugs, fluorescent light, the whole shot staying indoors "
-     "from the first frame to the last with no exterior, no building facade and no transition: four "
-     "investigators in plain clothes stand around the table arranging papers, every face either "
-     "turned away or in shallow shadow, one figure gesturing at the map; a slow push from the doorway "
-     "toward the map wall, " + HOLD,
+     "Inside a plain shared working room in a Chinese government building in the mid-2000s — a long table covered with blank folders and pinned papers, a large district map on the wall with coloured pins, a thermos and enamel mugs, daylight from tall windows, the whole shot staying indoors from the first frame to the last with no exterior, no building facade and no transition: four men in plain clothes gather around the table sorting papers and passing folders, seen mostly from behind or in profile, one figure pointing at the map; a slow push from the doorway toward the map wall,  " + HOLD,
      "椅子移动声、纸张声、低沉鼓点"),
     ("S17", "graphic", "—", "信息卡：一年又一年（十四年悬案）", "接地图红点",
      "十四年卡", "时钟滴答"),
@@ -349,9 +343,7 @@ SHOTS = [
      "A plain corridor inside a Chinese government office building in the mid-2000s — grey-green "
      "walls, closed wooden office doors, a row of empty chairs, weak daylight from high windows, the "
      "whole shot staying indoors from the first frame to the last with no exterior, no building "
-     "facade and no transition: two middle-aged Chinese men in ordinary jackets walk separately down "
-     "the corridor escorted by plain-clothes officers, all faces turned away or in shadow, one door "
-     "opening at the far end; a slow lateral tracking move along the corridor that settles on the "
+     "facade and no transition: two middle-aged Chinese men in ordinary jackets walk separately down the corridor walked along by two tall men in dark jackets, all faces turned away or in shadow, one door opening at the far end; a slow lateral tracking move along the corridor that settles on the "
      "opening door, " + HOLD,
      "脚步声、门锁声、空调低鸣"),
     ("S25", "agnes", "固定中景缓慢推进", "漫长的对峙：C1 的镇定",
@@ -392,10 +384,7 @@ SHOTS = [
     ("S29", "agnes", "拉远呈现完整时间线", "案件规模浮现：十二个标记",
      "接案件规模卡",
      "A wide view of a completed investigation board in a Chinese government office in the "
-     "mid-2000s: a long wall board carrying a horizontal timeline strip with twelve small blank paper "
-     "markers pinned along it and small photographs covered by blank sleeves, three investigators "
-     "standing before it seen only from behind, silent and still, fluorescent light, no readable "
-     "writing anywhere; a slow pull back from one marker that reveals the full line of twelve, " + HOLD,
+     "mid-2000s: a long wall board carrying a horizontal timeline strip with twelve small blank paper markers pinned along it and thin string linking several points, three men in plain clothes standing before it seen only from behind, silent and still, soft daylight from side windows, no readable writing anywhere; a slow pull back from one marker that reveals the full line of twelve, " + HOLD,
      "沉重鼓点、短暂静默"),
     ("S30", "graphic", "—", "信息卡：十二起案件 · 九死三伤", "接第五章告破",
      "案件规模卡", "低音收束"),
