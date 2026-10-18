@@ -1,0 +1,107 @@
+# Agnes 国内站探针。
+#
+# 为什么需要它（2026-10-18）：官方文档只公布国际站 API Base URL（apihub.agnes-ai.com），
+# 国内站（agnes-ai.cn）的 API 域名、key 互通性、免费池是否独立都只能实测。
+# 沙箱连不上 agnes 域名，只有 runner 能连、也只有 runner 拿得到 secret。
+#
+# 安全红线：key 只经 GitHub secret → 环境变量进探针；报告只留指纹（sha256 前 12 位
+# + 末 4 位 + 长度），绝不落盘 key 本体。
+#
+# 触发：改 production/AGNES_CN_PROBE_REQUEST 再 push（本仓库集成令牌不能 workflow_dispatch）。
+name: Agnes 国内站探测
+run-name: Agnes CN 探针 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      spend:
+        description: 'true = CN key 有效时真提交一条 4 秒 720P 任务（消耗国内免费池 4 秒）；false = 只查模型列表'
+        type: boolean
+        default: true
+  push:
+    branches:
+      - arena/929dc8b6-desktop-tutorial
+    paths:
+      - production/AGNES_CN_PROBE_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: agnes-cn-probe-929dc8b6
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/929dc8b6-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    steps:
+      - name: Check out this Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/929dc8b6-desktop-tutorial
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve probe options
+        run: |
+          set -euo pipefail
+          # push 触发时 inputs 是空的，选项走 production/AGNES_CN_PROBE_REQUEST 里那行 JSON
+          python3 - <<'PY' | tee -a "$GITHUB_ENV"
+          import json
+          from pathlib import Path
+          defaults = {"spend": True}
+          raw = Path('production/AGNES_CN_PROBE_REQUEST').read_text(errors='replace') if Path('production/AGNES_CN_PROBE_REQUEST').exists() else ''
+          for line in raw.splitlines():
+              line = line.strip()
+              if line.startswith('{'):
+                  try:
+                      defaults.update(json.loads(line))
+                  except ValueError:
+                      pass
+                  break
+          print('PROBE_SPEND=' + ('true' if defaults['spend'] else 'false'))
+          PY
+
+      - name: Run the Agnes CN probe
+        env:
+          # 候选 secret 名；没配的会解析成空字符串，探针会如实报告「缺失」
+          PROBE_AGNES_CN_API_KEY: ${{ secrets.AGNES_CN_API_KEY }}
+          PROBE_AGNES_CN_KEY: ${{ secrets.AGNES_CN_KEY }}
+          PROBE_AGNES_CN_TOKEN: ${{ secrets.AGNES_CN_TOKEN }}
+          # 国际站 key：用于「国际 key 打国内域名」的互通性对照
+          PROBE_INTL_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          set -uo pipefail
+          args=(--outdir production/agnes-cn-probe)
+          if [ "$PROBE_SPEND" = "true" ]; then args+=(--spend); fi
+          python3 production/agnes_cn_probe.py "${args[@]}"
+
+      - name: Commit the report back to the branch
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/agnes-cn-probe || true
+          if git diff --cached --quiet; then
+            echo "no report change"
+          else
+            git commit -m "agnes-cn-probe: $(date -u +%FT%TZ)" || true
+            for attempt in 1 2 3; do
+              git push origin HEAD:arena/929dc8b6-desktop-tutorial && break || {
+                sleep 5; git pull --rebase origin arena/929dc8b6-desktop-tutorial || true; }
+            done
+          fi
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agnes-cn-probe-${{ github.run_number }}
+          path: production/agnes-cn-probe/
+          if-no-files-found: warn
+          retention-days: 14
