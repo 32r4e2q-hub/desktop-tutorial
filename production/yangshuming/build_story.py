@@ -354,13 +354,14 @@ SHOTS = [
      "hands resting calmly on the surface, his ordinary face composed and unreadable, two "
      "investigators seen only from behind across from him; a very slow push toward his calm face, " + HOLD,
      "钟表滴答声、纸张翻动声"),
-    ("S26", "agnes", "文件落桌与手指特写交替", "防线的裂缝：手先出卖了镇定",
+    ("S26", "agnes", "低机位文件细节缓推", "防线的裂缝：线索一寸寸拼合",
      "接供述",
-     "Inside a Chinese interview room in the mid-2000s — close view of a plain table under harsh "
-     "overhead light: an investigator's hand places a thick blank paper file squarely on the table, "
-     "and across it the seated man's hands slowly tighten against each other, one thumb pressing "
-     "white, a jacket sleeve trembling slightly, only hands and forearms in frame, no faces and no "
-     "readable writing; a slow drift between the resting file and the tense interlocked fingers, " + HOLD,
+     "A cinematic close view of a thick closed blank paper folder resting on a plain dark wooden "
+     "table in a modest mid-2000s room, with several separate sheets aligned beside it and a "
+     "metal paper clip. A single overhead lamp casts a firm pool of light and a soft shadow. "
+     "The room is completely empty of people: no person, no hands, no arms, no faces, no body "
+     "parts anywhere in the image. A gentle continuous camera push toward the folder, paper "
+     "edges stay solid and straight, no moving objects, no readable writing, " + HOLD,
      "纸张落桌声、低音鼓点渐快"),
     ("S27", "agnes", "笔尖特写抬升至凝重神情", "供述开始：C2 记录，音乐短暂停顿",
      "接交代细节",
@@ -372,13 +373,14 @@ SHOTS = [
      "as a dark out-of-focus shoulder silhouette at the edge of frame, no face visible on him; a slow "
      "tilt up from the pen nib to the detective's grave listening face, " + HOLD,
      "笔尖划纸声、室内钟表声"),
-    ("S28", "agnes", "俯视交代记录，缓慢漂移", "案情逐一厘清（不呈现具体供述内容）",
+    ("S28", "agnes", "俯视空桌记录本，缓慢漂移", "案情逐一厘清（不呈现具体供述内容）",
      "接时间线板",
-     "Inside a Chinese interview room in the mid-2000s: overhead view of a plain wooden table where a "
-     "pair of hands writes steadily in a blank notebook, another pair of hands rests open and still on "
-     "the table beside a cup of tea, a tape-recorder-style device with turning spools sits at the "
-     "table edge, only hands and forearms visible, no faces and no readable writing; a slow overhead "
-     "drift that ends framing the still open hands, " + HOLD,
+     "An overhead cinematic view of an open blank notebook lying flat on a plain wooden table "
+     "in a modest mid-2000s room. A black pen rests on the table beside the notebook, a cup of "
+     "tea stands at the far corner, and a small vintage tape recorder stands beside it with "
+     "two slowly turning round reels. The room is empty, absolutely no people, no hands, no "
+     "arms, no faces, no body parts anywhere. Gentle slow overhead camera drift toward the "
+     "notebook. All objects keep their original solid shapes; no readable writing, " + HOLD,
      "磁带转动声、时钟滴答"),
     ("S29", "agnes", "拉远呈现完整时间线", "案件规模浮现：十二个标记",
      "接案件规模卡",
