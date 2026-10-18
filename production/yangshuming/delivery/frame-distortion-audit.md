@@ -133,4 +133,4 @@
 - [S45](../qa/final-frame-review/all-frames/S45-all-frames.jpg)
 - [END](../qa/final-frame-review/all-frames/END-all-frames.jpg)
 
-人工逐帧视觉复核状态：**PENDING**。自动结果或缩略接触表都不等于无瑕疵。
+制作代理重点视觉复核：**接受（有记录限制）**，详见 [STRICT_REVIEW.md](STRICT_REVIEW.md)。未声称真人已逐张检查全部原始分辨率帧；自动 REVIEW 与原始旗标保留。

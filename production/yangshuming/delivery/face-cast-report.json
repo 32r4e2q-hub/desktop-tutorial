@@ -249,5 +249,24 @@
   "human_review": "pending",
   "detector": "mediapipe",
   "status": "REVIEW",
-  "note": "机器只做分诊：相似度对光照/角度很敏感，最终必须人眼看每个角色的接触表，确认「同一个人跨镜头还是他、不同角色一眼能分辨」。"
+  "note": "机器只做分诊：相似度对光照/角度很敏感，最终必须人眼看每个角色的接触表，确认「同一个人跨镜头还是他、不同角色一眼能分辨」。",
+  "agent_visual_review": {
+    "reviewer": "Arena production agent (not a human reviewer)",
+    "date": "2026-10-18",
+    "status": "accepted_with_documented_limitations",
+    "report": "production/yangshuming/delivery/STRICT_REVIEW.md",
+    "film_sha256": "222e92833da8d536b799dbaaebcaa09d00055c664a1e7c0bd732b4ae42d78817",
+    "revised_shots": [
+      "S06",
+      "S14",
+      "S26",
+      "S28",
+      "S41"
+    ],
+    "remaining_limitations": [
+      "C1 cross-shot face similarity 0.18; no actor-level identity guarantee",
+      "S20 too distant to verify face",
+      "automated anatomy detection and contact-sheet review cannot prove absence of all visual defects"
+    ]
+  }
 }

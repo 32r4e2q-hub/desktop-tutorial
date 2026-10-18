@@ -12,7 +12,7 @@
   "sha256": "222e92833da8d536b799dbaaebcaa09d00055c664a1e7c0bd732b4ae42d78817",
   "decoded_ok": true,
   "status": "audio_verified_cut",
-  "visual_review": "pending",
+  "visual_review": "agent_accepted_with_documented_limitations",
   "caption_alignment": [
     {
       "id": "N01",
@@ -65,5 +65,24 @@
     "quietest_window_dbfs": -120.0
   },
   "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
-  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+  "note": "Revised film: full-frame automated QC and verbatim ASR rerun; production-agent visual acceptance and limits in STRICT_REVIEW.md. No human approval is claimed.",
+  "agent_visual_review": {
+    "reviewer": "Arena production agent (not a human reviewer)",
+    "date": "2026-10-18",
+    "status": "accepted_with_documented_limitations",
+    "report": "production/yangshuming/delivery/STRICT_REVIEW.md",
+    "film_sha256": "222e92833da8d536b799dbaaebcaa09d00055c664a1e7c0bd732b4ae42d78817",
+    "revised_shots": [
+      "S06",
+      "S14",
+      "S26",
+      "S28",
+      "S41"
+    ],
+    "remaining_limitations": [
+      "C1 cross-shot face similarity 0.18; no actor-level identity guarantee",
+      "S20 too distant to verify face",
+      "automated anatomy detection and contact-sheet review cannot prove absence of all visual defects"
+    ]
+  }
 }

@@ -1,0 +1,91 @@
+{
+  "status": "pass",
+  "previous_film_sha256": "f26c9f55a97a9f4f82b8b55a5c0c755843bd73cfa03d60c81b0e4afd5f417ab7",
+  "film_sha256": "222e92833da8d536b799dbaaebcaa09d00055c664a1e7c0bd732b4ae42d78817",
+  "regenerated_shots": [
+    "S14",
+    "S26",
+    "S28"
+  ],
+  "source_window_changes": [
+    "S06",
+    "S14",
+    "S41"
+  ],
+  "editorial_timing_entries_compared": 46,
+  "all_cut_frames_unchanged": true,
+  "subtitles_byte_identical": true,
+  "narration_script_unchanged": true,
+  "decoded_audio_format": "pcm_s16le, original 48000 Hz stereo",
+  "decoded_audio_sha256_before": "61f68b79cde9494c5c4309f43b5f8276e2e6d52a9ced585b581317a7f8a7f1f8",
+  "decoded_audio_sha256_after": "61f68b79cde9494c5c4309f43b5f8276e2e6d52a9ced585b581317a7f8a7f1f8",
+  "decoded_audio_byte_identical": true,
+  "scope": "Continuity regression checks only. Does not replace full-frame or semantic visual review.",
+  "unchanged_visual_regions": {
+    "method": "all corresponding decoded frames, 320x180 grayscale mean absolute pixel difference; 8-bit range 0-255",
+    "excluded_revised_shots": [
+      "S06",
+      "S14",
+      "S26",
+      "S28",
+      "S41"
+    ],
+    "compared_frames": 4874,
+    "mean_mae": 0.010073740201391537,
+    "p99_mae": 0.28119930475950156,
+    "max_mae": 0.5026562213897705,
+    "worst_frames": [
+      {
+        "frame": 4290,
+        "shot": "S37",
+        "mae": 0.5026562213897705
+      },
+      {
+        "frame": 4289,
+        "shot": "S37",
+        "mae": 0.496111124753952
+      },
+      {
+        "frame": 4288,
+        "shot": "S37",
+        "mae": 0.49298611283302307
+      },
+      {
+        "frame": 4287,
+        "shot": "S37",
+        "mae": 0.4907118082046509
+      },
+      {
+        "frame": 4286,
+        "shot": "S37",
+        "mae": 0.4642013907432556
+      },
+      {
+        "frame": 4285,
+        "shot": "S37",
+        "mae": 0.46416667103767395
+      },
+      {
+        "frame": 4284,
+        "shot": "S37",
+        "mae": 0.4562152922153473
+      },
+      {
+        "frame": 4283,
+        "shot": "S37",
+        "mae": 0.4504687488079071
+      },
+      {
+        "frame": 4280,
+        "shot": "S37",
+        "mae": 0.44734373688697815
+      },
+      {
+        "frame": 4282,
+        "shot": "S37",
+        "mae": 0.4459548592567444
+      }
+    ],
+    "interpretation": "Small compression differences are expected after re-encoding; this is a regression comparison, not an anatomy detector."
+  }
+}
