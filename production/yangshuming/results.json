@@ -149,10 +149,10 @@
     },
     "S22": {
       "id": "S22",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "fecd03b6b222f351f12823535a259c8956da1d3e0fd964759d500bbe96ba5223",
-      "error": null,
-      "updated_at": "2026-10-18T01:58:36Z",
+      "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
+      "updated_at": "2026-10-18T01:58:59Z",
       "task_id": "202610180958369a5eba7b92594c94"
     }
   },
@@ -198,6 +198,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-18T01:58:36Z",
+  "updated_at": "2026-10-18T01:58:59Z",
   "previous_results": {}
 }
