@@ -1,1 +1,1 @@
-{"workers": 2, "queue_wait_minutes": 110, "generation_budget_minutes": 170, "wait_channel_minutes": 0, "round": 4, "round_started_completed": 1, "stale_rounds": 1, "note": "重触发：GITHUB_TOKEN 的 push 不触发 run（第 3 轮接力断链实证 943103f），接力已改为显式 dispatch；本字段仅为触发 push，其余为 auto_resume 原值"}
+{"workers": 2, "queue_wait_minutes": 110, "generation_budget_minutes": 170, "wait_channel_minutes": 0, "round": 4, "round_started_completed": 1, "stale_rounds": 1, "note": "用户 2026-10-18 指定排队间隔 180s→61s（f8625a5）；本轮起按 61 秒一访，110 分钟预算内约 108 次抽签。记账值为 auto_resume 原值"}
