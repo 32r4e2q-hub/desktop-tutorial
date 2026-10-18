@@ -35,7 +35,7 @@ ALLOWED_MODELS = (FREE_MODEL, PAID_MODEL, COGVIDEOX_MODEL)
 # （Agnes generate.py / 智谱 generate_cogvideox.py）都必须把同一段红线附进每次
 # 请求的提示词，而本模块正是为「每个项目一份同名文件会串味」而存在的共享点
 # （render.py 早已从这里取 ALLOWED_MODELS）。generate.py 保留再导出，对外名称不变。
-PROMPT_GUARDRAILS = ('Avoid: readable text, letters, signage or subtitles on screen; watermarks and logos; '
+PROMPT_GUARDRAILS = ('PROBE_DISABLED_Avoid: readable text, letters, signage or subtitles on screen; watermarks and logos; '
                      'blood, wounds, corpses or body bags; the likeness of any identifiable real person; '
                      'flat 2D cartoon or comic shading; duplicated identical faces or a face that morphs '
                      'mid-shot; morphing objects, jitter, flicker, whip pans and jump cuts.')
