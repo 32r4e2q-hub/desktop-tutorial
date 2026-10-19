@@ -1,5 +1,5 @@
 {
-  "film_sha256": "00426caa748782b92d569b5d5e7a958c12088b0a7c92d96eca72836f58131382",
+  "film_sha256": "4d678475a31d3181e3202b84c00a5213f451113e058e49499da9be2ee36b1e61",
   "source_audit": "production/hugejiletu/delivery/frame-distortion-audit.json",
   "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
   "max_width": 960,
@@ -145,32 +145,12 @@
       "height": 540
     },
     {
-      "frame": 378,
-      "seconds": 12.6,
-      "reasons": [
-        "face-S04"
-      ],
-      "file": "f00378_face-S04.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 379,
-      "seconds": 12.633,
-      "reasons": [
-        "face-S04"
-      ],
-      "file": "f00379_face-S04.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 431,
-      "seconds": 14.367,
+      "frame": 430,
+      "seconds": 14.333,
       "reasons": [
         "hand-geometry-S05"
       ],
-      "file": "f00431_hand-geometry-S05.jpg",
+      "file": "f00430_hand-geometry-S05.jpg",
       "width": 960,
       "height": 540
     },
@@ -530,8 +510,7 @@
       "frame": 2178,
       "seconds": 72.6,
       "reasons": [
-        "face-S19",
-        "hand-geometry-S19"
+        "face-S19"
       ],
       "file": "f02178_face-S19.jpg",
       "width": 960,
@@ -581,7 +560,8 @@
       "frame": 2183,
       "seconds": 72.767,
       "reasons": [
-        "face-S19"
+        "face-S19",
+        "hand-geometry-S19"
       ],
       "file": "f02183_face-S19.jpg",
       "width": 960,
@@ -2127,8 +2107,7 @@
       "frame": 2394,
       "seconds": 79.8,
       "reasons": [
-        "face-S21",
-        "hand-geometry-S21"
+        "face-S21"
       ],
       "file": "f02394_face-S21.jpg",
       "width": 960,
@@ -2986,6 +2965,16 @@
       "height": 540
     },
     {
+      "frame": 2489,
+      "seconds": 82.967,
+      "reasons": [
+        "face-S22"
+      ],
+      "file": "f02489_face-S22.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 2492,
       "seconds": 83.067,
       "reasons": [
@@ -3166,6 +3155,16 @@
       "height": 540
     },
     {
+      "frame": 2510,
+      "seconds": 83.667,
+      "reasons": [
+        "face-S22"
+      ],
+      "file": "f02510_face-S22.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 2511,
       "seconds": 83.7,
       "reasons": [
@@ -3242,16 +3241,6 @@
         "face-S22"
       ],
       "file": "f02518_face-S22.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2520,
-      "seconds": 84.0,
-      "reasons": [
-        "face-S22"
-      ],
-      "file": "f02520_face-S22.jpg",
       "width": 960,
       "height": 540
     },
@@ -4416,38 +4405,14 @@
       "height": 540
     },
     {
-      "frame": 4049,
-      "seconds": 134.967,
+      "frame": 3745,
+      "seconds": 124.833,
       "reasons": [
-        "temporal-S36-end",
-        "temporal-S36-middle",
-        "temporal-S36-start"
+        "temporal-S32-end",
+        "temporal-S32-middle",
+        "temporal-S32-start"
       ],
-      "file": "f04049_temporal-S36-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4054,
-      "seconds": 135.133,
-      "reasons": [
-        "temporal-S36-end",
-        "temporal-S36-middle",
-        "temporal-S36-start"
-      ],
-      "file": "f04054_temporal-S36-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4058,
-      "seconds": 135.267,
-      "reasons": [
-        "temporal-S36-end",
-        "temporal-S36-middle",
-        "temporal-S36-start"
-      ],
-      "file": "f04058_temporal-S36-end.jpg",
+      "file": "f03745_temporal-S32-end.jpg",
       "width": 960,
       "height": 540
     },
