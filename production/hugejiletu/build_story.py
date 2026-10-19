@@ -161,16 +161,18 @@ SHOTS = [
      "手电开关 + 远处低频 + 低声交谈"),
     ("S04", "agnes", "越过报案人肩头，缓推值班人员面部", "岗亭里：他主动报案，登记本摊开",
      "接动态镜：办公室",
-     "Inside a small roadside booth at night in a northern Chinese city in the 1990s: a fifty-year-old "
-     "uniformed official ({C1}) sits behind a worn wooden desk with a thick handwritten logbook open in "
-     "front of him, a green enamel tea mug and a black rotary telephone beside it; the eighteen-year-old "
-     "man stands with his back to the camera, shoulders tense, one hand on the desk edge; fluorescent "
-     "tube light, a wall clock, no readable text on any paper. Slow push from the doorway over the young "
-     "man's shoulder toward the official's face, " + HOLD,
+     "A single continuous interior scene, one small room only, no exterior view and no transition: a "
+     "fifty-year-old uniformed official ({C1}) sits behind a worn wooden desk inside a cramped roadside "
+     "booth at night in the 1990s, a thick handwritten logbook open in front of him, a green enamel tea "
+     "mug and a black rotary telephone beside it; the eighteen-year-old man stands facing the desk with "
+     "his back to the camera, shoulders tense, one hand on the desk edge; fluorescent tube light, a wall "
+     "clock, a small curtained window, no readable text on any paper. Slow push in from behind the young "
+     "man's shoulder toward the official's face, keeping the desk and both figures in frame the whole "
+     "time, " + HOLD,
      "翻页声 + 门响 + 急促呼吸"),
     ("S05", "agnes", "沿墙极慢横移，始终只给背影", "办公室：他被留下，一遍遍问话",
      "接动态镜：材料与日历",
-     "A dim plain office room in a northern Chinese municipal building in the 1990s: the eighteen-year-old "
+     "A single continuous interior scene, one plain office room only, no exterior view and no transition: in the 1990s, the eighteen-year-old "
      "man sits on a wooden stool at a scarred table, seen from behind and slightly to the side so his face "
      "stays invisible, both hands clasped on the table, a single bare bulb hanging above, the rest of the "
      "room falling into shadow, a door with a small window behind him; cold grey walls, no objects with "
@@ -179,7 +181,7 @@ SHOTS = [
      "时钟滴答 + 低频弦乐"),
     ("S06", "agnes", "快速横移扫过材料，收在日历", "案件以惊人的速度推进",
      "接动态镜：木饰厅堂",
-     "A cluttered municipal office desk in harsh fluorescent light in the 1990s: a thick stack of paper "
+     "A single continuous interior scene, one office desk only, no exterior view and no transition: a cluttered municipal office desk in harsh fluorescent light in the 1990s, a thick stack of paper "
      "folders, a heavy manual typewriter, a brass date stamp, and a wall calendar whose pages turn from "
      "one month to the next in a slow breeze from a window; a hand rests on the folder, a cigarette "
      "smoulders in a tin ashtray. Rapid but smooth lateral sweep across the desk ending on the calendar, "
@@ -187,7 +189,7 @@ SHOTS = [
      "打字机声 + 翻页声 + 音乐骤紧"),
     ("S07", "agnes", "自高台缓慢下移，收在青年背影", "一审：他被判死刑",
      "接动态镜：落章",
-     "A solemn wood-panelled hall in the 1990s: a young man in a plain dark jacket stands alone inside a "
+     "A single continuous interior scene, one wood-panelled hall only, no exterior view and no transition: in the 1990s, a young man in a plain dark jacket stands alone inside a "
      "low railed enclosure seen from behind, two uniformed attendants stand at a distance, a high wooden "
      "bench rises at the far end under a tall ceiling, rows of wooden benches empty in the foreground, "
      "cold daylight through tall windows; restrained and still, no readable text anywhere. Slow move "
@@ -253,11 +255,13 @@ SHOTS = [
     # ---------------- N03 九年后（S16-S23：7 动态 + 1 信息卡）----------------
     ("S16", "agnes", "自门口缓推向桌面", "2005 年：系列案件侦破",
      "接信息卡：赵志红落网",
-     "A busy municipal investigation office in a northern Chinese city in the mid-2000s: several "
-     "investigators in plain clothes stand around a large table covered with paper folders and "
-     "photographs, a wall map of a northern region behind them, two bulky CRT monitors on side desks, "
-     "fluorescent lights, cigarette smoke in the air, blinds half drawn; no readable text on any "
-     "document, screen or map label. Slow push in from the doorway toward the table, " + HOLD,
+     "A quiet municipal office room in a northern Chinese city in the mid-2000s, seen past two "
+     "investigators in plain shirts who stand at a long table and lean over open paper folders and "
+     "photographs, their faces turned away toward the table so no more than two people are visible in "
+     "frame; a plain unmarked board on the wall behind them, one bulky CRT monitor on a side desk, "
+     "fluorescent light, cigarette smoke in the air, blinds half drawn; no readable text on any "
+     "document, screen or board. Slow push in over their shoulders toward the folders on the table, "
+     + HOLD,
      "电话铃 + 文件翻动 + 低音鼓点"),
     ("S17", "graphic", "信息卡（静帧）", "2005 年 10 月：赵志红落网",
      "接动态镜：走廊",
