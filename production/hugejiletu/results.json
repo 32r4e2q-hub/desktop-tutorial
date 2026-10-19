@@ -653,27 +653,10 @@
     },
     "S31": {
       "id": "S31",
-      "status": "completed",
-      "request_hash": "1f53456a4ed97f21e51ca8c098002c0486c02ad8b26a026a3ae030fe68eb786b",
+      "status": "submitting",
+      "request_hash": "5e5bfe4f7826187d1b97145b6f393d61caf141950dac9f6e1aea71373beb1710",
       "error": null,
-      "updated_at": "2026-10-19T04:26:00Z",
-      "task_id": "2026101912245195898be9f8084cf1",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610191225502dcef2aa0f3545f8_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=IVik0lQW1A94hToNQQ%2Bidq%2BDflU%3D&Expires=1792470352",
-      "sha256": "e30924a2e8f70f1e94b5eef2cc2759e4e51c9468200ba9ccec5eb38eff9c9006",
-      "bytes": 1582779,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1582779,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/hugejiletu/qa/S31.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-19T07:28:41Z"
     },
     "S34": {
       "id": "S34",
@@ -958,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-19T07:28:39Z",
+  "updated_at": "2026-10-19T07:28:41Z",
   "previous_results": {
     "S01": [
       {
@@ -1510,6 +1493,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/hugejiletu/qa/S41.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S31": [
+      {
+        "id": "S31",
+        "status": "completed",
+        "request_hash": "1f53456a4ed97f21e51ca8c098002c0486c02ad8b26a026a3ae030fe68eb786b",
+        "error": null,
+        "updated_at": "2026-10-19T04:26:00Z",
+        "task_id": "2026101912245195898be9f8084cf1",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610191225502dcef2aa0f3545f8_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=IVik0lQW1A94hToNQQ%2Bidq%2BDflU%3D&Expires=1792470352",
+        "sha256": "e30924a2e8f70f1e94b5eef2cc2759e4e51c9468200ba9ccec5eb38eff9c9006",
+        "bytes": 1582779,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1582779,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/hugejiletu/qa/S31.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
