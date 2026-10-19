@@ -221,27 +221,10 @@
     },
     "S12": {
       "id": "S12",
-      "status": "completed",
-      "request_hash": "34e91e20900fdc3e5915d33f0c4dbd7ec3cc2399dbd4630fb10662ed519466a6",
+      "status": "submitting",
+      "request_hash": "0658fa6ec57b559605e595dee5590ef20b675c3b813ffcbbcd5bda60f3420283",
       "error": null,
-      "updated_at": "2026-10-19T03:39:30Z",
-      "task_id": "20261019113820fa5c4c1dfb5142cc",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610191139198a67f01f1b894274_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=TFhDp7YJRHzWo%2BXM0eWqvrpqCVA%3D&Expires=1792467563",
-      "sha256": "40e73e42e5d6c559400890c26e3b29ea1744ef89d4b6c2376494d1d4536c781a",
-      "bytes": 1691569,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1691569,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/hugejiletu/qa/S12.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-19T06:31:17Z"
     },
     "S13": {
       "id": "S13",
@@ -958,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-19T06:31:16Z",
+  "updated_at": "2026-10-19T06:31:17Z",
   "previous_results": {
     "S01": [
       {
@@ -1136,6 +1119,30 @@
         "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
         "updated_at": "2026-10-19T02:26:46Z",
         "task_id": "20261019102634a06d51cdca2a4e2c"
+      },
+      {
+        "id": "S12",
+        "status": "completed",
+        "request_hash": "34e91e20900fdc3e5915d33f0c4dbd7ec3cc2399dbd4630fb10662ed519466a6",
+        "error": null,
+        "updated_at": "2026-10-19T03:39:30Z",
+        "task_id": "20261019113820fa5c4c1dfb5142cc",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610191139198a67f01f1b894274_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=TFhDp7YJRHzWo%2BXM0eWqvrpqCVA%3D&Expires=1792467563",
+        "sha256": "40e73e42e5d6c559400890c26e3b29ea1744ef89d4b6c2376494d1d4536c781a",
+        "bytes": 1691569,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1691569,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/hugejiletu/qa/S12.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
       }
     ],
     "S14": [
