@@ -340,10 +340,12 @@ SHOTS = [
      "翻页声 + 低沉弦乐"),
     ("S27", "agnes", "自显微镜推向手持玻片", "血型：只能证明类型，不能锁定",
      "接动态镜：审查人员",
-     "A single continuous interior close-up scene, one clean laboratory bench only, no exterior view and "
-     "no transition: a binocular microscope, a sealed paper envelope, a glass slide lifted to the light by "
-     "a gloved hand, a report folder lying closed, cold white overhead light, nothing biological visible, "
-     "no readable text. Slow push in from the microscope to the slide in the gloved hand, " + HOLD,
+     "A tabletop macro close-up that fills the whole frame, dark seamless background, nothing else in "
+     "shot and no surroundings of any kind: on a bare grey worktop lie a small metal microscope, a sealed "
+     "plain paper envelope and a closed cardboard folder, and a hand in a white cotton glove lifts a bare "
+     "glass slide toward the lens; cold white top light, dust in the air, nothing biological visible, no "
+     "readable text. Slow push in from the microscope across the worktop to the slide in the gloved hand, "
+     + HOLD,
      "仪器轻鸣 + 纸张声"),
     ("S28", "agnes", "从身后缓慢绕行", "证据之间无法相互印证",
      "接动态镜：阅卷",
@@ -433,12 +435,12 @@ SHOTS = [
      "低音撞击"),
     ("S41", "agnes", "俯拍绕行，两份卷宗互不接触", "两起案件，两份结论",
      "接动态镜：记者回望",
-     "Directly overhead top-down close-up of one desk surface that fills the entire frame, no buildings, "
-     "no streets, no landscape and no exterior view anywhere: two thick paper folders lie apart from each "
-     "other with a clear gap between them, one closed and tied with string, the other open with blank "
-     "pages, an official's hand rests beside them without touching, a desk lamp throws a pool of warm "
-     "light, everything else in shadow; no readable text. Slow circular drift around the two folders, "
-     + HOLD,
+     "A tabletop flat-lay that fills the whole frame from edge to edge, seen from straight above against "
+     "a dark seamless background, nothing else in shot and no surroundings of any kind: two thick plain "
+     "paper folders lie apart with a clear gap between them, one closed and tied with string, the other "
+     "open with blank pages, and a hand rests on the table beside them without touching either; a warm "
+     "pool of lamplight falls on the folders, the corners of the frame sink into shadow, no readable text. "
+     "Very slow circular drift around the two folders, " + HOLD,
      "纸张轻放 + 低沉弦乐"),
     ("S42", "agnes", "自窗上倒影缓慢拉远到桌面", "十年追踪：案件没有被时间掩埋",
      "接动态镜：空厅堂",
