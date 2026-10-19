@@ -1,0 +1,61 @@
+{
+  "mode": "face",
+  "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。改完跑：python3 production/face_cast.py check-prompts --project production/hugejiletu",
+  "_casting_note": "五个角色都是符合年代的虚构匿名人物（AI 生成），不是任何真实人物的容貌还原：呼格吉勒图本人、他的父母、赵志红、记者汤计一律不以其真实容貌出现。呼格吉勒图全片只给背影、剪影与手；父母只给背影、侧影与手；赵志红只给背影；记者由 C3 虚构替身扮演并注明非本人容貌；办案民警 C1 / C2、检察官 C4、法官 C5 均为虚构匿名角色。",
+  "characters": [
+    {
+      "id": "C1",
+      "name": "五十岁民警（1996 年治安岗亭 · 虚构匿名角色）",
+      "role": "police",
+      "age": 50,
+      "gender": "male",
+      "face": "an anonymous Chinese policeman of fifty in 1996: a broad square face weathered by northern winters with deep nasolabial folds, small deep-set dark eyes with tired pouches, thick straight black eyebrows, a wide flat nose, a thin firm mouth, short black hair cropped close above the ears with grey at the temples, rough sallow skin; he wears an olive-green 1990s Chinese police uniform jacket with a plain collar and no insignia.",
+      "seed": 19960410
+    },
+    {
+      "id": "C2",
+      "name": "四十五岁专案刑警（2005 年 · 虚构匿名角色）",
+      "role": "police",
+      "age": 45,
+      "gender": "male",
+      "face": "an anonymous Chinese detective of forty-five in 2005: a lean angular face with high cheekbones and hollow cheeks, narrow watchful dark eyes beneath straight thin eyebrows, a long straight nose, a wide thin-lipped mouth, black hair cut short and flat with a receding hairline, pale tired skin with faint stubble; he wears a plain dark blue zip jacket over a grey shirt with no tie.",
+      "seed": 20051001
+    },
+    {
+      "id": "C3",
+      "name": "四十八岁记者（新华社 · 情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "other",
+      "age": 48,
+      "gender": "male",
+      "face": "an anonymous Chinese journalist of forty-eight: a long gentle face with a high forehead and soft jaw, calm narrow eyes behind thin dark-rimmed glasses, straight black eyebrows, a straight nose, a small closed mouth, black hair parted to the side and greying at the temples, pale composed skin; he wears a plain grey jacket over a dark sweater.",
+      "seed": 20051002
+    },
+    {
+      "id": "C4",
+      "name": "四十二岁检察官（2014 年 · 虚构匿名角色）",
+      "role": "other",
+      "age": 42,
+      "gender": "female",
+      "face": "an anonymous Chinese woman prosecutor of forty-two in 2014: a composed oval face with clear cheekbones and a firm chin, steady dark eyes beneath neatly shaped black eyebrows, a straight nose, a small serious mouth, black hair pulled back into a low bun with a side part, fair skin; she wears a dark navy prosecutor's uniform jacket with a white shirt and a small plain badge.",
+      "seed": 20141119
+    },
+    {
+      "id": "C5",
+      "name": "五十八岁法官（2014 年 · 虚构匿名角色）",
+      "role": "other",
+      "age": 58,
+      "gender": "male",
+      "face": "an anonymous Chinese judge of fifty-eight in 2014: a full dignified face with soft cheeks and a heavy chin, mild deep-set eyes with heavy lids, sparse grey eyebrows, a short broad nose, a wide mouth with thin lips, short grey-black hair combed back from a high forehead, weathered pale skin; he wears black judicial robes over a white shirt with a plain dark collar band.",
+      "seed": 20141215
+    }
+  ],
+  "shots": {
+    "S04": ["C1"],
+    "S19": ["C2"],
+    "S21": ["C3"],
+    "S22": ["C3"],
+    "S29": ["C4"],
+    "S33": ["C5"],
+    "S42": ["C3"]
+  }
+}
