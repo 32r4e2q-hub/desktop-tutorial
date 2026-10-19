@@ -301,18 +301,20 @@ SHOTS = [
      "键盘声 + 夜晚环境声"),
     ("S22", "agnes", "自笔记本到面部缓慢横移", "一个个电话，一次次追问",
      "接动态镜：日历翻过九年",
-     "The same Chinese newsroom later that night: the journalist ({C3}) holds the telephone receiver to "
-     "his ear, pen in his other hand hovering over a notebook, a wall behind him covered with newspaper "
-     "clippings whose headlines are all unreadable, a cold cup of tea, the desk lamp the only warm light "
-     "in the room. Slow lateral move from the notebook to his face, " + HOLD,
+     "A single continuous interior scene, one small quiet office room only, no exterior view and no "
+     "transition: a man in his forties ({C3}) sits at a cluttered desk late at night with a black rotary "
+     "telephone receiver held to his ear, a pen in his other hand hovering over an open notebook, a wall "
+     "behind him covered with paper clippings whose lines are all unreadable, a cold cup of tea, the desk "
+     "lamp the only warm light in the room. Slow lateral move from the notebook to his face, " + HOLD,
      "电话听筒声 + 笔尖声"),
     ("S23", "agnes", "固定机位拍日历，末段推向积灰卷宗", "九年过去：2005 → 2014",
      "接动态镜：父母整理材料",
-     "A wall calendar in a plain office turning from one year to the next as seasons pass in a slow "
-     "time-lapse: the pages lift and fall, sunlight and shadow sweep across the wall, dust hangs in the "
-     "beam, a stack of old paper folders sits on the desk below growing visibly dustier; no readable "
-     "numerals or characters on the calendar or folders. Static camera with slow push in on the dusty "
-     "stack at the end, " + HOLD,
+     "A single continuous interior scene, one office wall and the desk beneath it only, no exterior "
+     "view, no window onto a street and no transition: a plain wall calendar turns from one year to the "
+     "next as seasons pass in a slow time-lapse, its pages lifting and falling, light and shadow sweeping "
+     "across the plaster, dust hanging in the beam, a stack of old paper folders on the desk below growing "
+     "visibly dustier; no readable numerals or characters anywhere. Static camera with a slow push in on "
+     "the dusty stack at the end, " + HOLD,
      "翻页声 + 时间流逝的低鸣"),
 
     # ---------------- N04 证据重新审查（S24-S30：6 动态 + 1 信息卡）----------------
@@ -338,10 +340,10 @@ SHOTS = [
      "翻页声 + 低沉弦乐"),
     ("S27", "agnes", "自显微镜推向手持玻片", "血型：只能证明类型，不能锁定",
      "接动态镜：审查人员",
-     "A clean laboratory bench in a plain institutional building: a binocular microscope, a sealed paper "
-     "envelope, a glass slide held up to the light by a gloved hand, a report folder lying closed, cold "
-     "white light, nothing biological visible, no readable text. Slow push in from the microscope to the "
-     "slide in the gloved hand, " + HOLD,
+     "A single continuous interior close-up scene, one clean laboratory bench only, no exterior view and "
+     "no transition: a binocular microscope, a sealed paper envelope, a glass slide lifted to the light by "
+     "a gloved hand, a report folder lying closed, cold white overhead light, nothing biological visible, "
+     "no readable text. Slow push in from the microscope to the slide in the gloved hand, " + HOLD,
      "仪器轻鸣 + 纸张声"),
     ("S28", "agnes", "从身后缓慢绕行", "证据之间无法相互印证",
      "接动态镜：阅卷",
@@ -431,10 +433,11 @@ SHOTS = [
      "低音撞击"),
     ("S41", "agnes", "俯拍绕行，两份卷宗互不接触", "两起案件，两份结论",
      "接动态镜：记者回望",
-     "Top-down close-up of a large desk in a plain office: two thick paper folders lie apart from each "
+     "Directly overhead top-down close-up of one desk surface that fills the entire frame, no buildings, "
+     "no streets, no landscape and no exterior view anywhere: two thick paper folders lie apart from each "
      "other with a clear gap between them, one closed and tied with string, the other open with blank "
      "pages, an official's hand rests beside them without touching, a desk lamp throws a pool of warm "
-     "light, everything else in shadow; no readable text. Slow circular move around the two folders, "
+     "light, everything else in shadow; no readable text. Slow circular drift around the two folders, "
      + HOLD,
      "纸张轻放 + 低沉弦乐"),
     ("S42", "agnes", "自窗上倒影缓慢拉远到桌面", "十年追踪：案件没有被时间掩埋",
