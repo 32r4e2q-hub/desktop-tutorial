@@ -59,7 +59,7 @@ DESK_STYLE = (
     "absolutely no readable text, letters, numbers, logos or brand marks anywhere in frame; one single "
     "continuous smooth camera move per shot exactly as directed. "
 )
-STYLE_OVERRIDES = {"S27": DESK_STYLE, "S31": DESK_STYLE, "S37": DESK_STYLE, "S41": DESK_STYLE}
+STYLE_OVERRIDES = {"S27": DESK_STYLE, "S31": DESK_STYLE, "S36": DESK_STYLE, "S37": DESK_STYLE, "S41": DESK_STYLE}
 
 
 NEGATIVE_PROMPT = (
@@ -420,13 +420,14 @@ SHOTS = [
      "them, cold winter light through the window. Slow push in from the document in the man's hands "
      "toward the photograph, " + HOLD,
      "轻微抽泣 + 低沉钢琴"),
-    ("S36", "agnes", "自文件缓慢拉远到照片", "国家赔偿：205 万余元",
-     "接动态镜：照片与白花",
-     "Close-up of an official document lying open on a wooden table in a Chinese home, a red seal visible "
-     "but no readable characters, an elderly woman's hand resting at the edge of the paper, a cup of tea "
-     "and a framed photograph nearby, soft winter daylight. Slow pull back from the document to the "
-     "photograph, " + HOLD,
-     "纸张轻响 + 钢琴延续"),
+    ("S36", "agnes", "桌面俯拍，缓慢掠过文件与茶杯", "国家赔偿：205 万余元",
+     "接静物镜：白菊与倒扣相框",
+     "A single continuous interior still-life, one plain wooden desk top filling the frame, no room "
+     "beyond and no transition: an open typed document lies flat on the desk with a soft red round seal "
+     "at one corner, a dark enamel teacup stands beside it, and a thin band of cold winter daylight falls "
+     "across the paper; no framed photograph, no portrait, no face, no people, no hands and no readable "
+     "characters anywhere. Very slow lateral drift across the document toward the teacup, " + HOLD,
+     "纸张轻响 + 低音弦乐"),
     ("S37", "agnes", "窗台静物，缓慢推进", "失去的十八岁，无法补偿",
      "接信息卡：赔偿构成",
      "A single continuous interior still-life, one windowsill only, no room beyond and no transition: a "
