@@ -702,10 +702,10 @@
     },
     "S21": {
       "id": "S21",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "868841cbd884fba91336e229caa9477759449fd59212bc3fc90e6bb2ec639c7a",
       "error": null,
-      "updated_at": "2026-10-19T18:49:58Z",
+      "updated_at": "2026-10-19T18:50:01Z",
       "channel_error_round": 50,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_NRtWoNaZJsvrVrg4f98eGruVSPGVHdea",
@@ -715,7 +715,25 @@
       "bytes": 2302757,
       "sha256": "d3cdfc5c1d21d438626dbefe82ce7dc727060451b616053006932e757028a9c5",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 2302757,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kitakyushu2002/qa/S21.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S22": {
       "id": "S22",
@@ -974,6 +992,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-19T18:50:00Z",
+  "updated_at": "2026-10-19T18:50:01Z",
   "run_id": "39304943310"
 }
