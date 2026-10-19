@@ -303,7 +303,7 @@ SHOTS = [
      "接动态镜：日历翻过九年",
      "The same Chinese newsroom later that night: the journalist ({C3}) holds the telephone receiver to "
      "his ear, pen in his other hand hovering over a notebook, a wall behind him covered with newspaper "
-     "pinned papers whose lines are all unreadable, a cold cup of tea, the desk lamp the only warm light "
+     "clippings whose headlines are all unreadable, a cold cup of tea, the desk lamp the only warm light "
      "in the room. Slow lateral move from the notebook to his face, " + HOLD,
      "电话听筒声 + 笔尖声"),
     ("S23", "agnes", "固定机位拍日历，末段推向积灰卷宗", "九年过去：2005 → 2014",
