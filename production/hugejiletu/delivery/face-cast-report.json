@@ -1,0 +1,407 @@
+{
+  "gate": "check-frames",
+  "project": "production/hugejiletu",
+  "film": "交付/呼格吉勒图案_18岁报案人被判死刑_18年后还他清白_三分钟_带声音.mp4",
+  "errors": [],
+  "warnings": [
+    "角色 C3 跨镜头最低相似度 -0.18（<0.45）：可能出现了换脸，请对照接触表人工确认"
+  ],
+  "characters": {
+    "C1": {
+      "contact_sheet": "delivery/face-cast/C1.jpg",
+      "crops": 3,
+      "shots": [
+        "S04"
+      ],
+      "within_min": 0.61,
+      "within_median": 0.722
+    },
+    "C2": {
+      "contact_sheet": "delivery/face-cast/C2.jpg",
+      "crops": 3,
+      "shots": [
+        "S19"
+      ],
+      "within_min": 0.763,
+      "within_median": 0.848
+    },
+    "C3": {
+      "contact_sheet": "delivery/face-cast/C3.jpg",
+      "crops": 9,
+      "shots": [
+        "S21",
+        "S22",
+        "S42"
+      ],
+      "within_min": -0.181,
+      "within_median": 0.196
+    },
+    "C4": {
+      "contact_sheet": "delivery/face-cast/C4.jpg",
+      "crops": 3,
+      "shots": [
+        "S29"
+      ],
+      "within_min": 0.659,
+      "within_median": 0.726
+    },
+    "C5": {
+      "contact_sheet": "delivery/face-cast/C5.jpg",
+      "crops": 1,
+      "shots": [
+        "S33"
+      ]
+    }
+  },
+  "cross_character": [
+    {
+      "pair": [
+        "C1",
+        "C2"
+      ],
+      "max_similarity": 0.363
+    },
+    {
+      "pair": [
+        "C1",
+        "C3"
+      ],
+      "max_similarity": 0.437
+    },
+    {
+      "pair": [
+        "C1",
+        "C4"
+      ],
+      "max_similarity": 0.476
+    },
+    {
+      "pair": [
+        "C1",
+        "C5"
+      ],
+      "max_similarity": 0.02
+    },
+    {
+      "pair": [
+        "C2",
+        "C3"
+      ],
+      "max_similarity": 0.419
+    },
+    {
+      "pair": [
+        "C2",
+        "C4"
+      ],
+      "max_similarity": 0.064
+    },
+    {
+      "pair": [
+        "C2",
+        "C5"
+      ],
+      "max_similarity": 0.246
+    },
+    {
+      "pair": [
+        "C3",
+        "C4"
+      ],
+      "max_similarity": 0.293
+    },
+    {
+      "pair": [
+        "C3",
+        "C5"
+      ],
+      "max_similarity": -0.103
+    },
+    {
+      "pair": [
+        "C4",
+        "C5"
+      ],
+      "max_similarity": -0.115
+    }
+  ],
+  "shots": [
+    {
+      "shot": "S04",
+      "characters": [
+        "C1"
+      ],
+      "frames": [
+        {
+          "seconds": 10.958,
+          "faces": 1,
+          "score": 0.747,
+          "bbox": [
+            524,
+            241,
+            278,
+            278
+          ]
+        },
+        {
+          "seconds": 11.717,
+          "faces": 1,
+          "score": 0.774,
+          "bbox": [
+            527,
+            240,
+            270,
+            270
+          ]
+        },
+        {
+          "seconds": 12.475,
+          "faces": 1,
+          "score": 0.927,
+          "bbox": [
+            549,
+            267,
+            253,
+            253
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S19",
+      "characters": [
+        "C2"
+      ],
+      "frames": [
+        {
+          "seconds": 72.225,
+          "faces": 1,
+          "score": 0.838,
+          "bbox": [
+            715,
+            209,
+            305,
+            305
+          ]
+        },
+        {
+          "seconds": 72.95,
+          "faces": 1,
+          "score": 0.949,
+          "bbox": [
+            710,
+            218,
+            330,
+            330
+          ]
+        },
+        {
+          "seconds": 73.675,
+          "faces": 1,
+          "score": 0.953,
+          "bbox": [
+            709,
+            225,
+            354,
+            354
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S21",
+      "characters": [
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 77.408,
+          "faces": 1,
+          "score": 0.93,
+          "bbox": [
+            909,
+            192,
+            305,
+            305
+          ]
+        },
+        {
+          "seconds": 78.383,
+          "faces": 1,
+          "score": 0.945,
+          "bbox": [
+            908,
+            191,
+            300,
+            300
+          ]
+        },
+        {
+          "seconds": 79.358,
+          "faces": 1,
+          "score": 0.94,
+          "bbox": [
+            906,
+            188,
+            305,
+            305
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S22",
+      "characters": [
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 81.292,
+          "faces": 1,
+          "score": 0.665,
+          "bbox": [
+            484,
+            319,
+            245,
+            245
+          ]
+        },
+        {
+          "seconds": 82.25,
+          "faces": 1,
+          "score": 0.634,
+          "bbox": [
+            495,
+            352,
+            214,
+            214
+          ]
+        },
+        {
+          "seconds": 83.208,
+          "faces": 1,
+          "score": 0.779,
+          "bbox": [
+            488,
+            305,
+            232,
+            232
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S29",
+      "characters": [
+        "C4"
+      ],
+      "frames": [
+        {
+          "seconds": 110.833,
+          "faces": 1,
+          "score": 0.87,
+          "bbox": [
+            808,
+            239,
+            366,
+            366
+          ]
+        },
+        {
+          "seconds": 111.8,
+          "faces": 1,
+          "score": 0.814,
+          "bbox": [
+            776,
+            253,
+            389,
+            389
+          ]
+        },
+        {
+          "seconds": 112.767,
+          "faces": 1,
+          "score": 0.957,
+          "bbox": [
+            661,
+            257,
+            357,
+            357
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S33",
+      "characters": [
+        "C5"
+      ],
+      "frames": [
+        {
+          "seconds": 125.675,
+          "faces": 1,
+          "score": 0.616,
+          "bbox": [
+            1161,
+            415,
+            90,
+            90
+          ]
+        },
+        {
+          "seconds": 126.25,
+          "faces": 0
+        },
+        {
+          "seconds": 126.825,
+          "faces": 0
+        }
+      ]
+    },
+    {
+      "shot": "S42",
+      "characters": [
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 159.967,
+          "faces": 1,
+          "score": 0.939,
+          "bbox": [
+            871,
+            138,
+            367,
+            367
+          ]
+        },
+        {
+          "seconds": 160.933,
+          "faces": 1,
+          "score": 0.886,
+          "bbox": [
+            875,
+            156,
+            306,
+            306
+          ]
+        },
+        {
+          "seconds": 161.9,
+          "faces": 1,
+          "score": 0.92,
+          "bbox": [
+            889,
+            176,
+            236,
+            236
+          ]
+        }
+      ]
+    }
+  ],
+  "human_review": "pending",
+  "detector": "mediapipe",
+  "status": "REVIEW",
+  "note": "机器只做分诊：相似度对光照/角度很敏感，最终必须人眼看每个角色的接触表，确认「同一个人跨镜头还是他、不同角色一眼能分辨」。"
+}
