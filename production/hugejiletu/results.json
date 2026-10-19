@@ -5,11 +5,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "failed",
-      "request_hash": "494ecc1e69b57bd2220ac718af8fcf1c6d89a3832dc9b793e1fcc1ccc9857726",
-      "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
-      "updated_at": "2026-10-19T02:14:22Z",
-      "task_id": "2026101910141487089d9b9f0b47a1"
+      "status": "submitting",
+      "request_hash": "ef9cb54b9f92d9ff90153bb1b7ea6efaa2eff61da9e650b3eea7a9119b85d350",
+      "error": null,
+      "updated_at": "2026-10-19T02:43:17Z"
     },
     "S03": {
       "id": "S03",
@@ -189,6 +188,17 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-19T02:43:15Z",
-  "previous_results": {}
+  "updated_at": "2026-10-19T02:43:17Z",
+  "previous_results": {
+    "S01": [
+      {
+        "id": "S01",
+        "status": "failed",
+        "request_hash": "494ecc1e69b57bd2220ac718af8fcf1c6d89a3832dc9b793e1fcc1ccc9857726",
+        "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"user\"}]}",
+        "updated_at": "2026-10-19T02:14:22Z",
+        "task_id": "2026101910141487089d9b9f0b47a1"
+      }
+    ]
+  }
 }
