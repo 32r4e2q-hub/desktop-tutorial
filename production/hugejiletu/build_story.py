@@ -450,12 +450,12 @@ SHOTS = [
      "低音撞击"),
     ("S41", "agnes", "桌面俯拍，绕两份卷宗缓慢移动", "两起案件，两份结论",
      "接动态镜：记者回望",
-     "A single continuous interior scene, one office wall and the desk beneath it only, no exterior view, "
-     "no window onto a street and no transition: on a bare wooden desk lie two thick plain paper folders "
-     "set apart from each other with a clear gap between them, one closed and tied with string, the other "
-     "open with blank pages, and a hand rests on the desk beside them without touching either; a warm "
-     "pool of lamplight falls on the folders, the wall behind is plain and unmarked, no readable text "
-     "anywhere. Slow top-down arc around the two folders, " + HOLD,
+     "An overhead close-up of a bare desk surface filling the frame: exactly two thick cardboard folders "
+     "lie side by side with a clear gap between them, both fully in view, the left one closed and tied "
+     "with string, the right one open with blank pages, and a hand rests on the desk edge without "
+     "touching either; soft warm light falls from off-screen left, the right side of the frame in cool "
+     "shadow, no lamp and no other object on the desk, no readable text anywhere. Very slow circular "
+     "drift around the two folders, " + HOLD,
      "纸张轻放 + 低沉弦乐"),
     ("S42", "agnes", "自窗上倒影缓慢拉远到桌面", "十年追踪：案件没有被时间掩埋",
      "接动态镜：空厅堂",
