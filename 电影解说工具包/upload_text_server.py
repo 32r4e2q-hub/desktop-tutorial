@@ -44,7 +44,7 @@ PAGE = r"""<!doctype html>
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>上传抖音文案（txt）</title>
+<title>文案上传区 · 粘贴或拖入</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;padding:28px 14px 64px;background:radial-gradient(circle at 18% 0,#1d2942,#080c15 55%,#04060b);color:#f3f6ff;font:15px/1.7 system-ui,"Microsoft YaHei",sans-serif}
@@ -58,7 +58,7 @@ h2{margin:34px 0 12px;font-size:17px;color:#cfdcf5}
 .drop b{display:block;font-size:18px;margin-bottom:8px}
 .drop span{color:#93a3bd;font-size:13px}
 input[type=file]{display:none}
-textarea{width:100%;min-height:130px;margin-top:6px;padding:14px;border-radius:12px;border:1px solid #35435f;background:#101827;color:#eaf0ff;font:14px/1.7 inherit;resize:vertical}
+textarea{width:100%;min-height:220px;margin-top:6px;padding:14px;border-radius:12px;border:1px solid #35435f;background:#101827;color:#eaf0ff;font:14px/1.7 inherit;resize:vertical}
 textarea:focus{outline:none;border-color:#7fa8ff}
 button{padding:11px 20px;border:0;border-radius:10px;background:#5d87f7;color:#fff;font-weight:700;font-size:14px;cursor:pointer}
 button:hover{background:#6f95ff}
@@ -84,9 +84,17 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
 .muted{color:#7f8da6;font-size:13px}
 </style>
 <main>
-  <h1>上传抖音文案（txt）</h1>
-  <p class="lead">把文案 txt 拖进来就行，文件会存到仓库的 <em>抖音文案/</em> 文件夹，对话里的我马上就能读到 —— 不用再往聊天框里粘。</p>
+  <h1>文案上传区</h1>
+  <p class="lead">把文案直接粘到下面的框里，点「保存这段文字」；文件会存到仓库的 <em>抖音文案/</em>，对话里的我马上就能读到。</p>
 
+  <h2>粘贴文案</h2>
+  <textarea id="ta" placeholder="从任何地方复制文案，Ctrl+V（手机长按）粘到这里…"></textarea>
+  <div class="bar-row">
+    <button id="save">保存这段文字</button>
+    <span class="muted" id="taInfo">0 字</span>
+  </div>
+
+  <h2>或者：上传 txt 文件</h2>
   <div class="drop" id="drop" tabindex="0" role="button">
     <b>拖拽 txt 文件到这里，或点击选择</b>
     <span>支持 .txt .md .json .csv .srt 等纯文本，可多选，单个最大 20 MB</span>
@@ -94,13 +102,6 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
   </div>
   <div class="track"><div class="bar" id="bar"></div></div>
   <div id="status">等待上传</div>
-
-  <h2>或者：直接把文案粘贴到这里</h2>
-  <textarea id="ta" placeholder="从任何地方复制文案，Ctrl+V 粘进来，然后点下面的按钮…"></textarea>
-  <div class="bar-row">
-    <button id="save">保存这段文字</button>
-    <span class="muted" id="taInfo">0 字</span>
-  </div>
 
   <div id="card"></div>
 
@@ -222,7 +223,11 @@ async function loadList() {
   } catch (err) { listEl.innerHTML = '<li class="err">列表读取失败</li>'; }
 }
 
-ta.addEventListener('input', () => { taInfo.textContent = ta.value.length + ' 字'; });
+const fmtDur = s => { s = Math.round(s); const m = Math.floor(s / 60); return m ? `${m} 分 ${s % 60} 秒` : `${s} 秒`; };
+ta.addEventListener('input', () => {
+  const n = ta.value.replace(/\s/g, '').length;
+  taInfo.textContent = n ? `${n} 字 · 预计口播 约 ${fmtDur(n / 4.5)}` : '0 字';
+});
 
 $('#save').onclick = async () => {
   const text = ta.value.trim();
