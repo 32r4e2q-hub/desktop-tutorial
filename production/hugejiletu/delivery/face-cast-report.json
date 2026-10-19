@@ -4,7 +4,8 @@
   "film": "交付/呼格吉勒图案_18岁报案人被判死刑_18年后还他清白_三分钟_带声音.mp4",
   "errors": [],
   "warnings": [
-    "角色 C3 跨镜头最低相似度 -0.18（<0.45）：可能出现了换脸，请对照接触表人工确认"
+    "镜头 S33 声明了 C5 要露脸，但抽帧里没检到人脸：要么构图没露出来，要么检测器在暗光/侧脸下失效——请人工看一眼",
+    "角色 C3 跨镜头最低相似度 -0.19（<0.45）：可能出现了换脸，请对照接触表人工确认"
   ],
   "characters": {
     "C1": {
@@ -13,8 +14,8 @@
       "shots": [
         "S04"
       ],
-      "within_min": 0.61,
-      "within_median": 0.722
+      "within_min": 0.574,
+      "within_median": 0.672
     },
     "C2": {
       "contact_sheet": "delivery/face-cast/C2.jpg",
@@ -22,8 +23,8 @@
       "shots": [
         "S19"
       ],
-      "within_min": 0.763,
-      "within_median": 0.848
+      "within_min": 0.699,
+      "within_median": 0.748
     },
     "C3": {
       "contact_sheet": "delivery/face-cast/C3.jpg",
@@ -33,8 +34,8 @@
         "S22",
         "S42"
       ],
-      "within_min": -0.181,
-      "within_median": 0.196
+      "within_min": -0.194,
+      "within_median": 0.142
     },
     "C4": {
       "contact_sheet": "delivery/face-cast/C4.jpg",
@@ -42,15 +43,8 @@
       "shots": [
         "S29"
       ],
-      "within_min": 0.659,
-      "within_median": 0.726
-    },
-    "C5": {
-      "contact_sheet": "delivery/face-cast/C5.jpg",
-      "crops": 1,
-      "shots": [
-        "S33"
-      ]
+      "within_min": 0.695,
+      "within_median": 0.766
     }
   },
   "cross_character": [
@@ -59,70 +53,42 @@
         "C1",
         "C2"
       ],
-      "max_similarity": 0.363
+      "max_similarity": 0.395
     },
     {
       "pair": [
         "C1",
         "C3"
       ],
-      "max_similarity": 0.437
+      "max_similarity": 0.449
     },
     {
       "pair": [
         "C1",
         "C4"
       ],
-      "max_similarity": 0.476
-    },
-    {
-      "pair": [
-        "C1",
-        "C5"
-      ],
-      "max_similarity": 0.02
+      "max_similarity": 0.47
     },
     {
       "pair": [
         "C2",
         "C3"
       ],
-      "max_similarity": 0.419
+      "max_similarity": 0.404
     },
     {
       "pair": [
         "C2",
         "C4"
       ],
-      "max_similarity": 0.064
-    },
-    {
-      "pair": [
-        "C2",
-        "C5"
-      ],
-      "max_similarity": 0.246
+      "max_similarity": 0.051
     },
     {
       "pair": [
         "C3",
         "C4"
       ],
-      "max_similarity": 0.293
-    },
-    {
-      "pair": [
-        "C3",
-        "C5"
-      ],
-      "max_similarity": -0.103
-    },
-    {
-      "pair": [
-        "C4",
-        "C5"
-      ],
-      "max_similarity": -0.115
+      "max_similarity": 0.311
     }
   ],
   "shots": [
@@ -133,36 +99,36 @@
       ],
       "frames": [
         {
-          "seconds": 10.958,
+          "seconds": 12.3,
           "faces": 1,
-          "score": 0.747,
+          "score": 0.769,
           "bbox": [
             524,
-            241,
-            278,
-            278
+            236,
+            275,
+            275
           ]
         },
         {
-          "seconds": 11.717,
+          "seconds": 13.3,
           "faces": 1,
-          "score": 0.774,
+          "score": 0.878,
           "bbox": [
-            527,
-            240,
-            270,
-            270
+            541,
+            259,
+            257,
+            257
           ]
         },
         {
-          "seconds": 12.475,
+          "seconds": 14.3,
           "faces": 1,
-          "score": 0.927,
+          "score": 0.843,
           "bbox": [
-            549,
-            267,
-            253,
-            253
+            540,
+            271,
+            258,
+            258
           ]
         }
       ]
@@ -174,36 +140,36 @@
       ],
       "frames": [
         {
-          "seconds": 72.225,
+          "seconds": 66.475,
           "faces": 1,
-          "score": 0.838,
+          "score": 0.797,
           "bbox": [
-            715,
-            209,
-            305,
-            305
+            711,
+            204,
+            314,
+            314
           ]
         },
         {
-          "seconds": 72.95,
+          "seconds": 67.283,
           "faces": 1,
-          "score": 0.949,
+          "score": 0.95,
           "bbox": [
-            710,
-            218,
-            330,
-            330
+            718,
+            225,
+            333,
+            333
           ]
         },
         {
-          "seconds": 73.675,
+          "seconds": 68.092,
           "faces": 1,
-          "score": 0.953,
+          "score": 0.895,
           "bbox": [
             709,
-            225,
-            354,
-            354
+            229,
+            356,
+            356
           ]
         }
       ]
@@ -215,36 +181,36 @@
       ],
       "frames": [
         {
-          "seconds": 77.408,
+          "seconds": 75.942,
           "faces": 1,
-          "score": 0.93,
+          "score": 0.933,
           "bbox": [
-            909,
-            192,
-            305,
-            305
+            907,
+            188,
+            304,
+            304
           ]
         },
         {
-          "seconds": 78.383,
+          "seconds": 76.917,
           "faces": 1,
-          "score": 0.945,
-          "bbox": [
-            908,
-            191,
-            300,
-            300
-          ]
-        },
-        {
-          "seconds": 79.358,
-          "faces": 1,
-          "score": 0.94,
+          "score": 0.938,
           "bbox": [
             906,
-            188,
+            190,
+            302,
+            302
+          ]
+        },
+        {
+          "seconds": 77.892,
+          "faces": 1,
+          "score": 0.938,
+          "bbox": [
+            905,
+            187,
             305,
-            305
+            306
           ]
         }
       ]
@@ -256,36 +222,36 @@
       ],
       "frames": [
         {
-          "seconds": 81.292,
+          "seconds": 80.042,
           "faces": 1,
-          "score": 0.665,
+          "score": 0.672,
           "bbox": [
-            484,
-            319,
-            245,
-            245
+            489,
+            347,
+            226,
+            226
           ]
         },
         {
-          "seconds": 82.25,
+          "seconds": 81.217,
           "faces": 1,
-          "score": 0.634,
+          "score": 0.684,
           "bbox": [
-            495,
-            352,
-            214,
-            214
-          ]
-        },
-        {
-          "seconds": 83.208,
-          "faces": 1,
-          "score": 0.779,
-          "bbox": [
-            488,
+            487,
             305,
-            232,
-            232
+            244,
+            244
+          ]
+        },
+        {
+          "seconds": 82.392,
+          "faces": 1,
+          "score": 0.804,
+          "bbox": [
+            437,
+            250,
+            266,
+            266
           ]
         }
       ]
@@ -297,36 +263,36 @@
       ],
       "frames": [
         {
-          "seconds": 110.833,
-          "faces": 1,
-          "score": 0.87,
-          "bbox": [
-            808,
-            239,
-            366,
-            366
-          ]
-        },
-        {
-          "seconds": 111.8,
+          "seconds": 104.642,
           "faces": 1,
           "score": 0.814,
           "bbox": [
-            776,
-            253,
-            389,
-            389
+            805,
+            237,
+            370,
+            370
           ]
         },
         {
-          "seconds": 112.767,
+          "seconds": 105.55,
           "faces": 1,
-          "score": 0.957,
+          "score": 0.774,
           "bbox": [
-            661,
-            257,
-            357,
-            357
+            786,
+            255,
+            384,
+            384
+          ]
+        },
+        {
+          "seconds": 106.458,
+          "faces": 1,
+          "score": 0.909,
+          "bbox": [
+            678,
+            256,
+            367,
+            367
           ]
         }
       ]
@@ -338,22 +304,15 @@
       ],
       "frames": [
         {
-          "seconds": 125.675,
-          "faces": 1,
-          "score": 0.616,
-          "bbox": [
-            1161,
-            415,
-            90,
-            90
-          ]
-        },
-        {
-          "seconds": 126.25,
+          "seconds": 119.75,
           "faces": 0
         },
         {
-          "seconds": 126.825,
+          "seconds": 120.667,
+          "faces": 0
+        },
+        {
+          "seconds": 121.583,
           "faces": 0
         }
       ]
@@ -365,36 +324,36 @@
       ],
       "frames": [
         {
-          "seconds": 159.967,
+          "seconds": 155.492,
           "faces": 1,
-          "score": 0.939,
+          "score": 0.951,
           "bbox": [
-            871,
-            138,
-            367,
-            367
+            877,
+            136,
+            355,
+            354
           ]
         },
         {
-          "seconds": 160.933,
+          "seconds": 156.65,
           "faces": 1,
-          "score": 0.886,
+          "score": 0.847,
           "bbox": [
-            875,
-            156,
-            306,
-            306
+            883,
+            166,
+            277,
+            277
           ]
         },
         {
-          "seconds": 161.9,
+          "seconds": 157.808,
           "faces": 1,
-          "score": 0.92,
+          "score": 0.808,
           "bbox": [
-            889,
-            176,
-            236,
-            236
+            884,
+            179,
+            214,
+            214
           ]
         }
       ]
