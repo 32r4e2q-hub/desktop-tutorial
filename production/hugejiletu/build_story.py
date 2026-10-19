@@ -358,12 +358,11 @@ SHOTS = [
      "翻页声 + 低沉弦乐"),
     ("S27", "agnes", "桌面特写缓慢横移过物证", "血型：只能证明类型，不能锁定",
      "接动态镜：审查人员",
-     "A single continuous interior scene, one office wall and the desk beneath it only, no exterior view, "
-     "no window onto a street and no transition: a bare pale desk holds a small metal microscope, a "
-     "sealed plain paper envelope and a closed folder, a hand in a white cotton glove turns a glass slide "
-     "between its fingers in the lamplight, cold white overhead light on the wall behind, nothing "
-     "biological visible and no readable text anywhere. Slow lateral move across the desk from the "
-     "microscope to the slide in the gloved hand, " + HOLD,
+     "A tabletop still-life that fills the whole frame, dark seamless background, nothing else in shot: "
+     "on a bare grey worktop stand a small metal microscope, a sealed plain paper envelope and a bare "
+     "glass slide propped upright against a small block; cold white top light, dust in the air, nothing "
+     "biological visible, no hands, no people and no readable text at any moment. Very slow push in from "
+     "the microscope across the worktop toward the slide, " + HOLD,
      "仪器轻鸣 + 纸张声"),
     ("S28", "agnes", "从身后缓慢绕行", "证据之间无法相互印证",
      "接动态镜：阅卷",
@@ -388,13 +387,14 @@ SHOTS = [
      "风声 + 脚步声 + 沉稳弦乐"),
 
     # ---------------- N05 十八年后无罪（S31-S38：6 动态 + 2 信息卡）----------------
-    ("S31", "agnes", "双手特写，缓慢推近", "再审决定书送达",
-     "接信息卡：宣判无罪",
-     "A doorway of a modest Chinese family flat in winter in the 2010s: an official's gloved hands hand a "
-     "sealed paper envelope to an elderly man's hands, both pairs of hands in the foreground, the "
-     "corridor behind in soft focus, cold daylight; no faces, no readable text on the envelope. Slow "
-     "push in on the hands as the envelope changes hands, " + HOLD,
-     "门铃 + 纸张轻响"),
+    ("S31", "agnes", "门槛边的静物，缓慢推进", "再审决定书送达",
+     "接信息卡：2014-12-15",
+     "A single continuous interior scene, one doorway and the small wooden table beside it only, no "
+     "exterior view and no transition: a sealed plain paper envelope lies on the worn wooden table beside "
+     "a plain white teacup, a folded newspaper without readable text underneath, the open doorway behind "
+     "softly out of focus with cold daylight and a bare wall, no people and no hands in frame at any "
+     "moment. Very slow push in on the envelope, " + HOLD,
+     "纸张轻放 + 低音弦乐"),
     ("S32", "graphic", "信息卡（静帧）", "2014-12-15：宣告无罪",
      "接动态镜：木饰厅堂内",
      "信息卡：日期 / 法院 / 结论",
@@ -427,13 +427,15 @@ SHOTS = [
      "and a framed photograph nearby, soft winter daylight. Slow pull back from the document to the "
      "photograph, " + HOLD,
      "纸张轻响 + 钢琴延续"),
-    ("S37", "agnes", "缓慢推近白花与相框边缘", "失去的十八岁，无法补偿",
+    ("S37", "agnes", "静物：花与倒扣的相框", "失去的十八岁，无法补偿",
      "接信息卡：赔偿构成",
-     "A quiet Chinese home in winter: a framed photograph of a young man stands on a wooden sideboard "
-     "beside a single white chrysanthemum in a glass, the photograph angled slightly away from the camera "
-     "so the face is soft and not clearly recognisable, warm afternoon light through the window, dust in "
-     "the air. Slow push in until the flower and the edge of the frame fill the shot, " + HOLD,
-     "室内安静 + 柔和钢琴"),
+     "A single continuous interior still-life scene, one wooden sideboard only, no exterior view and no "
+     "transition: a single white chrysanthemum in a small glass of water stands on the sideboard, and "
+     "beside it a small wooden photo frame lies face-down with only its plain back and brass stand "
+     "visible, a thin film of dust on the frame back; no face, no photograph, no person and no readable "
+     "text anywhere, warm afternoon light through lace curtains, dust in the air. Very slow push in on "
+     "the flower and the edge of the frame, " + HOLD,
+     "室内静音 + 单音钢琴"),
     ("S38", "graphic", "信息卡（静帧）", "赔偿构成：三笔钱",
      "接动态镜：2019 年复核",
      "信息卡：死亡赔偿金与丧葬费 / 羁押 60 日 / 精神损害抚慰金",
