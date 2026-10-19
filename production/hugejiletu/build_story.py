@@ -33,20 +33,18 @@ CAST = HERE / "cast.json"
 TITLE = "呼格吉勒图案：18岁报案人被判死刑，18年后还他清白"
 
 STYLE_PREFIX = (
-    "Photorealistic cinematic 3D animated reenactment, high-end CGI feature-film render with volumetric "
-    "light, shallow depth of field and subtle 35mm film grain, set in Hohhot, Inner Mongolia, China, "
-    "between 1996 and 2019: a grey 1990s textile-mill workers' residential compound with brick dormitory "
-    "blocks, bicycle sheds and a small brick public toilet building, cold northern streets under sodium "
-    "lamps, a plain 1990s Chinese police security booth and police station with paper files and CRT "
-    "monitors, an austere Chinese courtroom with wooden benches and a high judge's bench, modest family "
-    "flats with enamel cups, floral curtains and framed photographs, overcast northern daylight, dry snow "
-    "and thin coal-smoke haze, restrained desaturated blue-grey grading with warm lamplight only in family "
-    "scenes, slow-burn true-crime documentary mood, never stylised, never a drawing, never a cartoon; "
-    "horizontal 16:9 widescreen composition; characters act with clear full-body movement in medium and "
-    "wide shots rather than close-ups - a face is shown only where a shot names one of the cast "
-    "characters, never a recognisable real person, and the young man at the centre of the story is never "
-    "shown frontally; absolutely no readable text, letters, numbers, Chinese characters, logos or brand "
-    "marks anywhere in frame; one single continuous smooth camera move per shot exactly as directed. "
+    "Photorealistic cinematic 3D animated shot, high-end CGI feature-film render with volumetric "
+    "light, shallow depth of field and subtle 35mm film grain, set in a northern Chinese city across "
+    "the 1990s and the 2010s: grey brick workers' housing blocks and concrete lanes inside a mill "
+    "compound, a small brick public washroom building at the edge of the compound, dim sodium street "
+    "lamps, bare poplar trees, light snow residue, plain municipal offices with enamel mugs and paper "
+    "folders, a solemn wood-panelled hall with rows of wooden benches, modest family flats with floral "
+    "curtains and framed photographs, overcast northern daylight and long blue nights, restrained "
+    "desaturated blue-grey grading with warm lamplight only in the family scenes, sober documentary "
+    "mood, never stylised, never a drawing, never a cartoon; horizontal 16:9 widescreen composition; "
+    "characters act with clear full-body movement in medium and wide shots rather than close-ups; "
+    "absolutely no readable text, letters, numbers, logos or brand marks anywhere in frame; one single "
+    "continuous smooth camera move per shot exactly as directed. "
 )
 
 NEGATIVE_PROMPT = (
@@ -138,153 +136,155 @@ HOLD = ("no cut, no scene change, no camera relocation, no extra people, "
 
 SHOTS = [
     # ---------------- N01 报案的人（S01-S08：7 动态 + 1 信息卡）----------------
-    ("S01", "agnes", "低机位跟拍，自后向前推进", "钩子：1996 年深夜，十八岁的青年跑向岗亭报案",
+    ("S01", "agnes", "低机位跟拍，自后向前推进", "钩子：深夜，十八岁的青年跑向路边岗亭",
      "接信息卡：案件名片",
-     "A cold night in April 1996 outside a grey workers' residential compound in Hohhot: a slim eighteen-"
-     "year-old Chinese man in a cheap dark zip jacket and cloth shoes runs along a narrow lane between "
-     "brick dormitory blocks toward a small lit police security booth, seen only from behind, his breath "
-     "visible in the cold air, bare poplar branches overhead, one sodium lamp buzzing above a bicycle "
-     "shed, the lane otherwise empty. Low camera at knee height tracking his hurried steps from behind as "
-     "the booth's light grows larger, " + HOLD,
+     "A cold night in early spring in a northern Chinese city in the 1990s: a slim eighteen-year-old man "
+     "in a cheap dark zip jacket and cloth shoes runs along a narrow lane between grey brick dormitory "
+     "blocks toward a small lit roadside booth, seen only from behind, his breath visible in the cold "
+     "air, bare poplar branches overhead, one sodium lamp buzzing above a bicycle shed, the lane "
+     "otherwise empty. Low camera at knee height tracking his hurried steps from behind as the booth's "
+     "light grows larger, " + HOLD,
      "急促脚步 + 风声 + 低沉心跳"),
     ("S02", "graphic", "信息卡（静帧）", "名片：案名 / 地点与年代 / 一句话结局",
-     "接动态镜：案发的公共厕所外",
+     "接动态镜：公共厕所外",
      "案件名片：案名 / 地点与年代 / 一句话结局",
      "低音撞击"),
-    ("S03", "agnes", "从暗处缓慢推向警戒线", "案发现场外围：手电、警戒线、没有遗体",
-     "接动态镜：岗亭内报案",
-     "Night outside a small brick public toilet building at the edge of the residential compound: two "
-     "police officers in dark 1990s Chinese uniforms stand behind a rope barrier with flashlights, their "
-     "beams sweeping the brick wall and the concrete path, a few residents in padded coats keep a "
-     "respectful distance at the far end of the lane, the doorway itself is dark and empty and no body is "
-     "visible anywhere; frost on the ground, cold blue shadows. Slow push in from the dark courtyard "
-     "toward the barrier, stopping outside it, " + HOLD,
-     "手电开关 + 远处警笛 + 低声交谈"),
-    ("S04", "agnes", "越过报案人肩头，缓推民警面部", "岗亭里：他主动报案，登记本摊开",
-     "接动态镜：询问室",
-     "Inside a small 1990s Chinese neighborhood police security booth at night: a fifty-year-old officer "
-     "({C1}) sits behind a worn wooden desk with a thick handwritten logbook open in front of him, a green "
-     "enamel tea mug and a black rotary telephone beside it; the eighteen-year-old young man stands with "
-     "his back to the camera, shoulders tense, one hand on the desk edge; fluorescent tube light, a wall "
-     "clock, no readable text on any paper. Slow push from the doorway over the young man's shoulder "
-     "toward the officer's face, " + HOLD,
+    ("S03", "agnes", "从暗处缓慢推向绳栏", "现场外围：手电、绳栏、没有遗体",
+     "接动态镜：岗亭内",
+     "Night at the edge of a grey housing compound in a northern Chinese city in the 1990s, outside a "
+     "small brick public washroom building: two officials in plain dark uniforms stand behind a simple "
+     "rope barrier with flashlights, their beams sweeping the brick wall and the concrete path, a few "
+     "residents in padded coats keep a respectful distance at the far end of the lane, the doorway "
+     "itself is dark and empty, frost on the ground, cold blue shadows. Slow push in from the dark "
+     "courtyard toward the barrier, stopping outside it, " + HOLD,
+     "手电开关 + 远处低频 + 低声交谈"),
+    ("S04", "agnes", "越过报案人肩头，缓推值班人员面部", "岗亭里：他主动报案，登记本摊开",
+     "接动态镜：办公室",
+     "Inside a small roadside booth at night in a northern Chinese city in the 1990s: a fifty-year-old "
+     "uniformed official ({C1}) sits behind a worn wooden desk with a thick handwritten logbook open in "
+     "front of him, a green enamel tea mug and a black rotary telephone beside it; the eighteen-year-old "
+     "man stands with his back to the camera, shoulders tense, one hand on the desk edge; fluorescent "
+     "tube light, a wall clock, no readable text on any paper. Slow push from the doorway over the young "
+     "man's shoulder toward the official's face, " + HOLD,
      "翻页声 + 门响 + 急促呼吸"),
-    ("S05", "agnes", "沿墙极慢横移，始终只给背影", "询问室：他被留下，一遍遍问话",
-     "接动态镜：卷宗与日历",
-     "A dim interview room in a 1990s Chinese police station: the eighteen-year-old young man sits on a "
-     "plain wooden stool at a scarred table, seen from behind and slightly to the side so his face stays "
-     "invisible, both hands clasped on the table, a single bare bulb hanging above, the rest of the room "
-     "falling into shadow, a door with a small window behind him; cold grey walls, no objects with "
+    ("S05", "agnes", "沿墙极慢横移，始终只给背影", "办公室：他被留下，一遍遍问话",
+     "接动态镜：材料与日历",
+     "A dim plain office room in a northern Chinese municipal building in the 1990s: the eighteen-year-old "
+     "man sits on a wooden stool at a scarred table, seen from behind and slightly to the side so his face "
+     "stays invisible, both hands clasped on the table, a single bare bulb hanging above, the rest of the "
+     "room falling into shadow, a door with a small window behind him; cold grey walls, no objects with "
      "lettering. Very slow lateral creeping move around the room, keeping him in the corner of frame, "
      + HOLD,
      "时钟滴答 + 低频弦乐"),
-    ("S06", "agnes", "快速横移扫过卷宗，收在日历", "案件以惊人的速度推进",
-     "接动态镜：1996 年法庭",
-     "A cluttered 1990s Chinese police office desk in harsh fluorescent light: a thick stack of paper case "
-     "files, a heavy manual typewriter, a brass date stamp, and a wall calendar whose pages turn from "
-     "April to May 1996 in a slow breeze from a window; an officer's hand rests on the file, a cigarette "
+    ("S06", "agnes", "快速横移扫过材料，收在日历", "案件以惊人的速度推进",
+     "接动态镜：木饰厅堂",
+     "A cluttered municipal office desk in harsh fluorescent light in the 1990s: a thick stack of paper "
+     "folders, a heavy manual typewriter, a brass date stamp, and a wall calendar whose pages turn from "
+     "one month to the next in a slow breeze from a window; a hand rests on the folder, a cigarette "
      "smoulders in a tin ashtray. Rapid but smooth lateral sweep across the desk ending on the calendar, "
      + HOLD,
      "打字机声 + 翻页声 + 音乐骤紧"),
-    ("S07", "agnes", "自法官席缓慢下移，收在被告背影", "1996 年一审：他被判死刑",
+    ("S07", "agnes", "自高台缓慢下移，收在青年背影", "一审：他被判死刑",
      "接动态镜：落章",
-     "A Chinese courtroom in 1996: a young man in a plain dark jacket stands alone in the defendant's dock "
-     "seen from behind, two bailiffs in dark uniforms stand at a distance, the judge's bench rises at the "
-     "far end under a high ceiling, wooden benches empty in the foreground, cold daylight through tall "
-     "windows; solemn, still, no readable text anywhere. Slow move from the high bench down toward the "
-     "empty benches, ending on the defendant's back, " + HOLD,
-     "低沉钟声 + 法庭回声"),
-    ("S08", "agnes", "极近特写，印章落下", "判决落下：五月十七日",
-     "接动态镜：法院外景",
-     "Extreme close-up of a heavy red official stamp coming down onto a document on a wooden desk in "
-     "1996, a hand in a dark sleeve pressing it firmly, dust motes in a shaft of cold window light, the "
-     "paper deliberately blank of any readable characters, the stamp itself plain and unmarked. Slow push "
-     "in as the stamp lands, " + HOLD,
+     "A solemn wood-panelled hall in the 1990s: a young man in a plain dark jacket stands alone inside a "
+     "low railed enclosure seen from behind, two uniformed attendants stand at a distance, a high wooden "
+     "bench rises at the far end under a tall ceiling, rows of wooden benches empty in the foreground, "
+     "cold daylight through tall windows; restrained and still, no readable text anywhere. Slow move "
+     "from the high bench down toward the empty benches, ending on the young man's back, " + HOLD,
+     "低沉钟声 + 厅堂回声"),
+    ("S08", "agnes", "极近特写，印章落下", "决定落下：五月十七日",
+     "接动态镜：楼前台阶",
+     "Extreme close-up of a heavy red official seal coming down onto a document on a wooden desk in the "
+     "1990s, a hand in a dark sleeve pressing it firmly, dust motes in a shaft of cold window light, the "
+     "paper deliberately blank of any readable characters, the seal itself plain and unmarked. Slow push "
+     "in as the seal lands, " + HOLD,
      "落章闷响 + 静默一拍"),
 
     # ---------------- N02 六十二天（S09-S15：6 动态 + 1 信息卡）----------------
     ("S09", "agnes", "自台阶缓慢上移", "二审：维持原判",
      "接信息卡：62 天时间线",
-     "Exterior of a plain 1990s Chinese intermediate people's court building in Hohhot on an overcast "
-     "spring morning: grey stone steps, tall glass doors, a bare flagpole, a few people in dark coats "
+     "Exterior of a plain municipal building of grey stone in a northern Chinese city on an overcast "
+     "spring morning in the 1990s: wide steps, tall doors, a bare flagpole, a few people in dark coats "
      "walking up the steps, leafless trees along the pavement; no signage or lettering anywhere. Slow "
-     "rise from the steps toward the entrance doors, " + HOLD,
+     "rise from the steps toward the doors, " + HOLD,
      "风声 + 脚步声 + 沉稳弦乐"),
     ("S10", "graphic", "信息卡（静帧）", "时间线：4·9 到 6·10，只有 62 天",
      "接动态镜：翻动上诉状",
      "时间线：案发 / 一审 / 二审 / 执行，共 62 天",
      "低音鼓点"),
     ("S11", "agnes", "自纸面缓慢推向台灯", "上诉：他说自己没有杀人动机",
-     "接动态镜：高院走廊",
-     "Close-up of hands turning the pages of a typed legal appeal document at a wooden desk, a fountain "
-     "pen resting beside it, a green shaded desk lamp casting a warm pool of light, the typed characters "
-     "deliberately blurred and unreadable; the hands are those of the young man's mother, sleeves of a "
-     "plain grey cardigan. Slow push in across the paper toward the pen, " + HOLD,
+     "接动态镜：走廊",
+     "Close-up of hands turning the pages of a typed document at a wooden desk, a fountain pen resting "
+     "beside it, a green shaded desk lamp casting a warm pool of light, the typed characters deliberately "
+     "blurred and unreadable; the hands belong to the young man's mother, sleeves of a plain grey "
+     "cardigan. Slow push in across the paper toward the pen, " + HOLD,
      "纸张摩擦 + 轻微叹息"),
-    ("S12", "agnes", "跟随书记员背影，缓慢推进", "卷宗合上：维持原判",
-     "接动态镜：看守所走廊",
-     "A long empty corridor in a 1990s Chinese high court building: polished terrazzo floor, closed wooden "
-     "doors along one side, a clerk in a dark uniform walking away from camera carrying a thick file "
-     "folder, cold daylight from tall windows, dust in the air. Slow tracking move following the clerk "
-     "from behind, " + HOLD,
+    ("S12", "agnes", "跟随背影，缓慢推进", "材料合上：维持原判",
+     "接动态镜：空走廊",
+     "A long empty corridor in a plain municipal building: polished terrazzo floor, closed wooden doors "
+     "along one side, a clerk in a dark uniform walking away from camera carrying a thick folder, cold "
+     "daylight from tall windows, dust in the air. Slow tracking move following the clerk from behind, "
+     + HOLD,
      "文件夹合拢 + 脚步回声"),
-    ("S13", "agnes", "极慢后退，走廊沉入阴影", "6 月 10 日：执行（不展示过程）",
+    ("S13", "agnes", "极慢后退，走廊沉入阴影", "六月十日：执行（不展示过程）",
      "接动态镜：父母家中",
-     "A cold concrete corridor inside a Chinese detention facility in 1996, seen from a distance: heavy "
-     "steel doors along the wall, a single overhead bulb, the far end sinking into shadow, absolutely no "
-     "people and nothing happening; the shot is restrained and symbolic, no execution, no violence, no "
-     "gore. Very slow pull back as the corridor darkens, " + HOLD,
+     "A cold concrete corridor inside a plain institutional building, seen from a distance: heavy steel "
+     "doors along the wall, a single overhead bulb, the far end sinking into shadow, absolutely no people "
+     "and nothing happening; restrained and symbolic. Very slow pull back as the corridor darkens, "
+     + HOLD,
      "沉重脚步 + 门锁声 + 静默"),
     ("S14", "agnes", "自照片缓慢拉远", "父母：他们不相信儿子是凶手",
      "接动态镜：申诉材料",
-     "A modest 1990s Chinese family flat in the evening: an elderly couple sit at a worn wooden table, seen "
-     "from behind and three-quarter angles so their faces stay in shadow, a framed black-and-white "
-     "photograph of a young man stands on the table between them, two enamel cups, a wall clock, floral "
-     "curtains drawn; cold blue evening light through the window, a single warm bulb above. Slow pull back "
-     "from the photograph to the silent room, " + HOLD,
+     "A modest Chinese family flat in the evening in the 1990s: an elderly couple sit at a worn wooden "
+     "table, seen from behind and three-quarter angles so their faces stay in shadow, a framed "
+     "black-and-white photograph of a young man stands on the table between them, two enamel cups, a wall "
+     "clock, floral curtains drawn; cold blue evening light through the window, a single warm bulb above. "
+     "Slow pull back from the photograph to the silent room, " + HOLD,
      "时钟滴答 + 低沉钢琴"),
     ("S15", "agnes", "自手心缓慢横移过材料堆", "申诉：一年又一年",
-     "接动态镜：2005 年警局",
-     "Close-up of an elderly woman's hands stacking handwritten appeal letters and official documents on a "
-     "wooden table, the paper edges worn soft, a pair of reading glasses and a ballpoint pen nearby, thin "
-     "winter daylight, a clock ticking somewhere off frame; the documents carry no readable characters. "
-     "Slow lateral move across the growing stack of paper, " + HOLD,
+     "接动态镜：2005 年办公室",
+     "Close-up of an elderly woman's hands stacking handwritten letters and official papers on a wooden "
+     "table, the paper edges worn soft, a pair of reading glasses and a ballpoint pen nearby, thin winter "
+     "daylight, a clock ticking somewhere off frame; the documents carry no readable characters. Slow "
+     "lateral move across the growing stack of paper, " + HOLD,
      "纸张轻响 + 钟摆声"),
 
     # ---------------- N03 九年后（S16-S23：7 动态 + 1 信息卡）----------------
     ("S16", "agnes", "自门口缓推向桌面", "2005 年：系列案件侦破",
      "接信息卡：赵志红落网",
-     "A busy Chinese police investigation office in 2005: several detectives in plain clothes stand around "
-     "a large table covered with case files and photographs, a wall map of the Inner Mongolia region behind "
-     "them, two bulky CRT monitors on side desks, fluorescent lights, cigarette smoke in the air, blinds "
-     "half drawn; no readable text on any document, screen or map label. Slow push in from the doorway "
-     "toward the table, " + HOLD,
+     "A busy municipal investigation office in a northern Chinese city in the mid-2000s: several "
+     "investigators in plain clothes stand around a large table covered with paper folders and "
+     "photographs, a wall map of a northern region behind them, two bulky CRT monitors on side desks, "
+     "fluorescent lights, cigarette smoke in the air, blinds half drawn; no readable text on any "
+     "document, screen or map label. Slow push in from the doorway toward the table, " + HOLD,
      "电话铃 + 文件翻动 + 低音鼓点"),
     ("S17", "graphic", "信息卡（静帧）", "2005 年 10 月：赵志红落网",
-     "接动态镜：押解",
+     "接动态镜：走廊",
      "名片：时间 / 人物 / 一句供述",
      "门锁声"),
-    ("S18", "agnes", "肩后跟拍，推向询问室门", "押解：只给背影",
+    ("S18", "agnes", "肩后跟拍，推向前方房门", "押解：只给背影",
      "接动态镜：询问室",
-     "A corridor in a Chinese police station in 2005: two plainclothes officers walk beside a handcuffed "
-     "adult male suspect seen only from behind, his head lowered, his face never visible, passing a row of "
-     "closed doors toward an interview room at the far end; cold fluorescent light, worn green paint on "
-     "the walls, no lettering. Slow tracking shot from behind at shoulder height, " + HOLD,
+     "A corridor in a plain municipal building in the mid-2000s: two officials in plain clothes walk "
+     "beside an adult man in plain clothes seen only from behind, his head lowered, his face never "
+     "visible, his hands held in front of him, passing a row of closed doors toward a room at the far "
+     "end; cold fluorescent light, worn green paint on the walls, no lettering. Slow tracking shot from "
+     "behind at shoulder height, " + HOLD,
      "脚步声 + 门锁声 + 室内低鸣"),
-    ("S19", "agnes", "越过嫌疑人肩头，推至刑警面部", "审讯：他说那起命案是他做的",
-     "接动态镜：两份卷宗",
-     "Inside a Chinese police interview room in 2005: a middle-aged detective ({C2}) sits across a scarred "
-     "table writing in a notebook, his face lit from above, while the suspect's handcuffed hands rest on "
-     "the table in the foreground with his face out of frame; an old cardboard case file lies open beside "
-     "the notebook, an ashtray, a cup of tea; grey walls, no readable text. Slow push in past the "
-     "suspect's shoulder toward the detective's face as his pen stops moving, " + HOLD,
+    ("S19", "agnes", "越过嫌疑人肩头，推至调查人员面部", "询问：他说那起命案是他做的",
+     "接动态镜：两份文件夹",
+     "Inside a plain interview room in a northern Chinese city in the mid-2000s: a middle-aged "
+     "investigator ({C2}) sits across a scarred table writing in a notebook, his face lit from above, "
+     "while the other man's hands rest on the table in the foreground with his face out of frame; an old "
+     "cardboard folder lies open beside the notebook, an ashtray, a cup of tea; grey walls, no readable "
+     "text. Slow push in past the foreground shoulder toward the investigator's face as his pen stops "
+     "moving, " + HOLD,
      "笔尖划纸 + 音乐骤停"),
-    ("S20", "agnes", "俯拍，两份卷宗之间缓慢移动", "1996 与 2005：两本案卷并排",
+    ("S20", "agnes", "俯拍，两份文件夹之间缓慢移动", "旧案与新案：两本卷宗并排",
      "接动态镜：记者办公室",
-     "Overhead close-up of a metal desk in a Chinese police office: two thick case folders lie side by "
-     "side, one faded and worn with a plain tab, the other newer with a plain tab, a detective's hand "
-     "places a third sheet between them, a desk lamp throws warm light, the tabs and pages deliberately "
-     "blank of any lettering. Slow top-down push in and slight rotation between the two folders, " + HOLD,
+     "Overhead close-up of a metal desk in a plain office: two thick paper folders lie side by side, one "
+     "faded and worn with a plain tab, the other newer with a plain tab, a hand places a third sheet "
+     "between them, a desk lamp throws warm light, the tabs and pages deliberately blank of any "
+     "lettering. Slow top-down push in and slight rotation between the two folders, " + HOLD,
      "纸张摩擦 + 低沉鼓点"),
     ("S21", "agnes", "自桌面缓慢抬升至记者面部", "记者汤计：持续追踪",
      "接动态镜：深夜打电话",
@@ -294,29 +294,30 @@ SHOTS = [
      "content, blinds closed behind him. Slow push in from the desk surface toward his tired, focused "
      "face, " + HOLD,
      "键盘声 + 夜晚环境声"),
-    ("S22", "agnes", " notebooks 到面部缓慢横移", "一个个电话，一次次追问",
+    ("S22", "agnes", "自笔记本到面部缓慢横移", "一个个电话，一次次追问",
      "接动态镜：日历翻过九年",
-     "The same Chinese newsroom later that night: the journalist ({C3}) holds the telephone receiver to his "
-     "ear, pen in his other hand hovering over a notebook, a wall behind him covered with newspaper "
+     "The same Chinese newsroom later that night: the journalist ({C3}) holds the telephone receiver to "
+     "his ear, pen in his other hand hovering over a notebook, a wall behind him covered with newspaper "
      "clippings whose headlines are all unreadable, a cold cup of tea, the desk lamp the only warm light "
      "in the room. Slow lateral move from the notebook to his face, " + HOLD,
      "电话听筒声 + 笔尖声"),
     ("S23", "agnes", "固定机位拍日历，末段推向积灰卷宗", "九年过去：2005 → 2014",
      "接动态镜：父母整理材料",
-     "A wall calendar in a Chinese office turning from 2005 to 2014 as seasons pass in a slow time-lapse: "
-     "the pages lift and fall, sunlight and shadow sweep across the wall, dust hangs in the beam, a stack "
-     "of old case files sits on the desk below growing visibly dustier; no readable numerals or characters "
-     "on the calendar or files. Static camera with slow push in on the dusty stack at the end, " + HOLD,
+     "A wall calendar in a plain office turning from one year to the next as seasons pass in a slow "
+     "time-lapse: the pages lift and fall, sunlight and shadow sweep across the wall, dust hangs in the "
+     "beam, a stack of old paper folders sits on the desk below growing visibly dustier; no readable "
+     "numerals or characters on the calendar or folders. Static camera with slow push in on the dusty "
+     "stack at the end, " + HOLD,
      "翻页声 + 时间流逝的低鸣"),
 
     # ---------------- N04 证据重新审查（S24-S30：6 动态 + 1 信息卡）----------------
     ("S24", "agnes", "自双手缓慢拉远至整间屋子", "父母还在等",
      "接信息卡：再审核对证据",
-     "A modest Chinese family flat in 2014: an elderly couple sit side by side at a wooden table covered "
-     "with appeal letters and legal documents, seen from behind and the side so their faces are not clearly "
-     "visible, the woman's hand resting on the man's arm, a framed photograph of a young man on the "
-     "sideboard, weak winter daylight through net curtains. Slow pull back from their hands to the whole "
-     "quiet room, " + HOLD,
+     "A modest Chinese family flat in the 2010s: an elderly couple sit side by side at a wooden table "
+     "covered with handwritten letters and official papers, seen from behind and the side so their faces "
+     "are not clearly visible, the woman's hand resting on the man's arm, a framed photograph of a young "
+     "man on the sideboard, weak winter daylight through net curtains. Slow pull back from their hands to "
+     "the whole quiet room, " + HOLD,
      "纸张摩擦 + 轻微抽泣"),
     ("S25", "graphic", "信息卡（静帧）", "再审核对：四处对不上",
      "接动态镜：两份材料并置",
@@ -324,99 +325,100 @@ SHOTS = [
      "低音鼓点"),
     ("S26", "agnes", "自一份文件缓慢横移到另一份", "供述与尸检报告对不上",
      "接动态镜：显微镜",
-     "A close-up of two documents laid side by side on a grey table in a Chinese judicial review office: a "
-     "typed forensic report and an old handwritten interrogation record, both marked with plain coloured "
-     "sticky tabs, a reviewer's hands in white cotton gloves turning one page toward the other, a "
-     "magnifying glass resting nearby, all characters deliberately blurred and unreadable. Slow lateral "
-     "move from one document to the other, " + HOLD,
+     "A close-up of two documents laid side by side on a grey table in a plain review office: a typed "
+     "report and an old handwritten record, both marked with plain coloured sticky tabs, a reviewer's "
+     "hands in white cotton gloves turning one page toward the other, a magnifying glass resting nearby, "
+     "all characters deliberately blurred and unreadable. Slow lateral move from one document to the "
+     "other, " + HOLD,
      "翻页声 + 低沉弦乐"),
-    ("S27", "agnes", "自显微镜推向手持玻片", "血型：只能证明类型，不能锁定凶手",
+    ("S27", "agnes", "自显微镜推向手持玻片", "血型：只能证明类型，不能锁定",
      "接动态镜：审查人员",
-     "A clean forensic laboratory bench in a Chinese judicial facility: a binocular microscope, a sealed "
-     "paper evidence envelope, a glass slide held up to the light by a gloved hand, a laboratory report "
-     "folder lying closed, cold white light, no biological material visible, no readable text. Slow push "
-     "in from the microscope to the slide in the gloved hand, " + HOLD,
+     "A clean laboratory bench in a plain institutional building: a binocular microscope, a sealed paper "
+     "envelope, a glass slide held up to the light by a gloved hand, a report folder lying closed, cold "
+     "white light, nothing biological visible, no readable text. Slow push in from the microscope to the "
+     "slide in the gloved hand, " + HOLD,
      "仪器轻鸣 + 纸张声"),
-    ("S28", "agnes", "从审查人员身后缓慢绕行", "证据之间无法相互印证",
-     "接动态镜：检察官阅卷",
-     "Two middle-aged Chinese legal reviewers in plain shirts stand at a long table covered with case files, "
+    ("S28", "agnes", "从身后缓慢绕行", "证据之间无法相互印证",
+     "接动态镜：阅卷",
+     "Two middle-aged Chinese reviewers in plain shirts stand at a long table covered with paper folders, "
      "one pointing at a page while the other leans in, both seen from behind and the side so their faces "
      "stay unclear; grey daylight through a tall window, a thermos and enamel cups at the edge of the "
      "table, no readable text on the documents. Slow arc around the table from behind them, " + HOLD,
      "低语声 + 纸张翻动"),
-    ("S29", "agnes", "自卷宗推至检察官面部", "检察机关：原判事实不清、证据不足",
-     "接动态镜：高院外景",
-     "A Chinese prosecutor's office in 2014: a prosecutor in his forties ({C4}) sits behind a desk with a "
-     "very thick historical case file open before him, reading carefully, a green shaded lamp, bookshelves "
-     "behind him, cold winter light at the window; no readable text on the file or the shelves. Slow push "
-     "in from the file across the desk to his thoughtful face, " + HOLD,
+    ("S29", "agnes", "自文件夹推至审查人员面部", "检察机关：原判事实不清、证据不足",
+     "接动态镜：楼前台阶",
+     "A plain Chinese office in the 2010s: a woman in a dark navy uniform jacket ({C4}) sits behind a desk "
+     "with a very thick paper folder open before her, reading carefully, a green shaded lamp, bookshelves "
+     "behind her, cold winter light at the window; no readable text on the folder or the shelves. Slow "
+     "push in from the folder across the desk to her thoughtful face, " + HOLD,
      "翻页声 + 室内钟表"),
     ("S30", "agnes", "自台阶缓慢上移", "2014 年 11 月：决定再审",
      "接动态镜：送达到家",
-     "Exterior of a Chinese high court building in Hohhot in late autumn 2014: grey stone facade, wide "
-     "steps, a few officials in dark coats carrying document folders walking toward the entrance, leafless "
-     "trees, cold pale sunlight, no signage or lettering. Slow rise from the steps toward the doors, "
-     + HOLD,
+     "Exterior of a plain municipal building of grey stone in a northern Chinese city in late autumn in "
+     "the 2010s: wide steps, a few officials in dark coats carrying paper folders walking toward the "
+     "entrance, leafless trees, cold pale sunlight, no signage or lettering. Slow rise from the steps "
+     "toward the doors, " + HOLD,
      "风声 + 脚步声 + 沉稳弦乐"),
 
     # ---------------- N05 十八年后无罪（S31-S38：6 动态 + 2 信息卡）----------------
     ("S31", "agnes", "双手特写，缓慢推近", "再审决定书送达",
      "接信息卡：宣判无罪",
-     "A doorway of a modest Chinese family flat in winter 2014: a court official's gloved hands hand a "
-     "sealed document envelope to an elderly man's hands, both pairs of hands in the foreground, the "
-     "corridor behind in soft focus, cold daylight; no faces, no readable text on the envelope. Slow push "
-     "in on the hands as the envelope changes hands, " + HOLD,
+     "A doorway of a modest Chinese family flat in winter in the 2010s: an official's gloved hands hand a "
+     "sealed paper envelope to an elderly man's hands, both pairs of hands in the foreground, the "
+     "corridor behind in soft focus, cold daylight; no faces, no readable text on the envelope. Slow "
+     "push in on the hands as the envelope changes hands, " + HOLD,
      "门铃 + 纸张轻响"),
     ("S32", "graphic", "信息卡（静帧）", "2014-12-15：宣告无罪",
-     "接动态镜：法庭内",
+     "接动态镜：木饰厅堂内",
      "信息卡：日期 / 法院 / 结论",
      "低沉钟声"),
-    ("S33", "agnes", "沿审判席缓慢推向法官侧脸", "法庭：宣读再审判决",
-     "接动态镜：空被告席",
-     "A Chinese courtroom in December 2014: a judge in black robes ({C5}) stands at the high bench reading "
-     "from a written judgment, seen from the side and slightly below, the court clerk and two lawyers "
-     "seated at their tables in the foreground, wooden panelling, cold daylight from high windows, all "
-     "documents face down or blank. Slow push in along the bench toward the judge's profile, " + HOLD,
-     "翻页声 + 法庭静默"),
-    ("S34", "agnes", "极慢推近空椅子", "空着的被告席",
+    ("S33", "agnes", "沿高台缓慢推向侧脸", "宣判：宣读再审判决",
+     "接动态镜：空椅子",
+     "A solemn wood-panelled hall in the 2010s: a figure in black robes ({C5}) stands at a high wooden "
+     "bench reading from a written document, seen from the side and slightly below, a clerk and two "
+     "lawyers seated at tables in the foreground, wooden panelling, cold daylight from high windows, all "
+     "documents face down or blank. Slow push in along the bench toward the reader's profile, " + HOLD,
+     "翻页声 + 厅堂静默"),
+    ("S34", "agnes", "极慢推近空椅子", "空着的座位",
      "接动态镜：父母听到结果",
-     "An empty defendant's chair in a Chinese courtroom, a single pale beam of daylight falling across the "
-     "wooden seat, the courtroom around it in deep shadow, dust motes drifting in the light, no people "
-     "anywhere, no readable text. Very slow push in on the empty chair, " + HOLD,
+     "An empty chair beside a low wooden railing in a solemn wood-panelled hall, a single pale beam of "
+     "daylight falling across the seat, the hall around it in deep shadow, dust motes drifting in the "
+     "light, no people anywhere, no readable text. Very slow push in on the empty chair, " + HOLD,
      "一秒静默 + 低频弦乐"),
     ("S35", "agnes", "自文件推向照片", "十八年，一纸迟到的清白",
      "接动态镜：赔偿决定书",
-     "An elderly Chinese couple sitting on a worn sofa in a modest flat, seen from behind and three-quarter "
-     "angles so their faces are not clear: the woman's hand pressed to her mouth, the man holding a folded "
-     "document in both hands, a framed photograph of a young man on the table before them, cold winter "
-     "light through the window. Slow push in from the document in the man's hands toward the photograph, "
-     + HOLD,
+     "An elderly Chinese couple sitting on a worn sofa in a modest flat in the 2010s, seen from behind and "
+     "three-quarter angles so their faces are not clear: the woman's hand pressed to her mouth, the man "
+     "holding a folded document in both hands, a framed photograph of a young man on the table before "
+     "them, cold winter light through the window. Slow push in from the document in the man's hands "
+     "toward the photograph, " + HOLD,
      "轻微抽泣 + 低沉钢琴"),
     ("S36", "agnes", "自文件缓慢拉远到照片", "国家赔偿：205 万余元",
      "接动态镜：照片与白花",
-     "Close-up of a legal compensation decision document lying open on a wooden table in a Chinese home, an "
-     "official seal visible but no readable characters, an elderly woman's hand resting at the edge of the "
-     "paper, a cup of tea and a framed photograph nearby, soft winter daylight. Slow pull back from the "
-     "document to the photograph, " + HOLD,
+     "Close-up of an official document lying open on a wooden table in a Chinese home, a red seal visible "
+     "but no readable characters, an elderly woman's hand resting at the edge of the paper, a cup of tea "
+     "and a framed photograph nearby, soft winter daylight. Slow pull back from the document to the "
+     "photograph, " + HOLD,
      "纸张轻响 + 钢琴延续"),
     ("S37", "agnes", "缓慢推近白花与相框边缘", "失去的十八岁，无法补偿",
      "接信息卡：赔偿构成",
-     "A quiet Chinese home in winter: a framed photograph of a young man stands on a wooden sideboard beside "
-     "a single white chrysanthemum in a glass, the photograph angled slightly away from the camera so the "
-     "face is soft and not clearly recognisable, warm afternoon light through the window, dust in the air. "
-     "Slow push in until the flower and the edge of the frame fill the shot, " + HOLD,
+     "A quiet Chinese home in winter: a framed photograph of a young man stands on a wooden sideboard "
+     "beside a single white chrysanthemum in a glass, the photograph angled slightly away from the camera "
+     "so the face is soft and not clearly recognisable, warm afternoon light through the window, dust in "
+     "the air. Slow push in until the flower and the edge of the frame fill the shot, " + HOLD,
      "室内安静 + 柔和钢琴"),
     ("S38", "graphic", "信息卡（静帧）", "赔偿构成：三笔钱",
-     "接动态镜：2019 年最高法",
+     "接动态镜：2019 年复核",
      "信息卡：死亡赔偿金与丧葬费 / 羁押 60 日 / 精神损害抚慰金",
      "低音收束"),
 
     # ---------------- N06 真正的反转（S39-S45：6 动态 + 1 信息卡）----------------
     ("S39", "agnes", "自台阶缓慢上移到立柱", "2019 年：最高人民法院复核",
      "接信息卡：一条边界",
-     "A cold winter morning outside a solemn Chinese supreme court building in Beijing: grey stone columns, "
-     "wide steps, bare trees, a single flagpole, a few figures in dark coats walking past at a distance; no "
-     "signage or lettering, overcast sky. Slow rise from the steps to the columns, " + HOLD,
+     "A cold winter morning outside a solemn grey stone institutional building with tall columns in a "
+     "northern Chinese city: wide steps, bare trees, a single flagpole, a few figures in dark coats "
+     "walking past at a distance; no signage or lettering, overcast sky. Slow rise from the steps to the "
+     "columns, " + HOLD,
      "寒风 + 低沉弦乐"),
     ("S40", "graphic", "信息卡（静帧）", "边界：无罪依据是证据不足，不是「真凶认罪」",
      "接动态镜：两份独立卷宗",
@@ -424,30 +426,32 @@ SHOTS = [
      "低音撞击"),
     ("S41", "agnes", "俯拍绕行，两份卷宗互不接触", "两起案件，两份结论",
      "接动态镜：记者回望",
-     "Top-down close-up of a large desk in a Chinese legal office: two thick case folders lie apart from "
-     "each other with a clear gap between them, one closed and tied with string, the other open with blank "
-     "pages, a judge's hand rests beside them without touching, a desk lamp throws a pool of warm light, "
-     "everything else in shadow; no readable text. Slow circular move around the two folders, " + HOLD,
+     "Top-down close-up of a large desk in a plain office: two thick paper folders lie apart from each "
+     "other with a clear gap between them, one closed and tied with string, the other open with blank "
+     "pages, an official's hand rests beside them without touching, a desk lamp throws a pool of warm "
+     "light, everything else in shadow; no readable text. Slow circular move around the two folders, "
+     + HOLD,
      "纸张轻放 + 低沉弦乐"),
     ("S42", "agnes", "自窗上倒影缓慢拉远到桌面", "十年追踪：案件没有被时间掩埋",
-     "接动态镜：空法庭",
-     "A Chinese newsroom at dawn in 2019: a journalist now in his fifties ({C3}) stands at a window looking "
-     "out at a pale winter sky, his desk behind him covered with old newspaper clippings and notebooks, the "
-     "room lit only by the cold dawn light and one desk lamp, no readable text. Slow pull back from his "
-     "reflection in the window to the cluttered desk, " + HOLD,
+     "接动态镜：空厅堂",
+     "A Chinese newsroom at dawn in the 2010s: a journalist now in his fifties ({C3}) stands at a window "
+     "looking out at a pale winter sky, his desk behind him covered with old newspaper clippings and "
+     "notebooks, the room lit only by the cold dawn light and one desk lamp, no readable text. Slow pull "
+     "back from his reflection in the window to the cluttered desk, " + HOLD,
      "清晨环境声 + 钢琴"),
     ("S43", "agnes", "极慢沿过道后退", "结尾：一把空椅子",
      "接动态镜：城市远景",
-     "An empty Chinese courtroom at the end of the day: rows of wooden benches, the judge's high bench, and "
-     "a single beam of natural light falling across an empty defendant's chair, dust drifting in the beam, "
-     "everything else sinking into shadow; no people, no readable text. Very slow pull back down the aisle, "
-     + HOLD,
+     "An empty wood-panelled hall at the end of the day: rows of wooden benches, a high wooden bench at "
+     "the far end, and a single beam of natural light falling across an empty chair, dust drifting in "
+     "the beam, everything else sinking into shadow; no people, no readable text. Very slow pull back "
+     "down the aisle, " + HOLD,
      "静默 + 一声低音"),
-    ("S44", "agnes", "极慢航拍拉升", "呼和浩特的清晨",
+    ("S44", "agnes", "极慢航拍拉升", "清晨的城市",
      "接动态镜：白花静物",
-     "A wide aerial view of Hohhot at dawn in winter: low grey residential blocks, bare trees, a few "
-     "chimneys with thin smoke, distant hills under a pale sky, streets almost empty, a thin layer of snow "
-     "on the rooftops; no readable text or signage. Very slow aerial pull back and rise, " + HOLD,
+     "A wide aerial view of a northern Chinese city at dawn in winter: low grey residential blocks, bare "
+     "trees, a few chimneys with thin smoke, distant hills under a pale sky, streets almost empty, a thin "
+     "layer of snow on the rooftops; no readable text or signage. Very slow aerial pull back and rise, "
+     + HOLD,
      "弦乐渐强后收束"),
     ("S45", "agnes", "静物横移，从白花到相框", "最后的致意：一枝白花",
      "接片尾卡",
