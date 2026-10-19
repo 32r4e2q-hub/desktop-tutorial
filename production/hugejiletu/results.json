@@ -413,11 +413,10 @@
     },
     "S21": {
       "id": "S21",
-      "status": "failed",
-      "request_hash": "38b409ba05ae66d7b8622857ac5c8d4a1ed5b5232f4149c92b4e3442199c20c4",
-      "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"assistant\"}]}",
-      "updated_at": "2026-10-19T04:10:25Z",
-      "task_id": "2026101912093149a3d5c0a88b4e01"
+      "status": "submitting",
+      "request_hash": "a13fdf2510b260911d97bc4d199574a5bc3adb82a3f2c98eb0984bd5930896df",
+      "error": null,
+      "updated_at": "2026-10-19T05:09:25Z"
     },
     "S33": {
       "id": "S33",
@@ -942,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-19T05:09:18Z",
+  "updated_at": "2026-10-19T05:09:25Z",
   "previous_results": {
     "S01": [
       {
@@ -1169,6 +1168,14 @@
         "request_hash": "55ca24fa0ebd0fce476475abccdf04d677245513544047f9fe180de3c34ebd2d",
         "error": null,
         "updated_at": "2026-10-19T02:37:23Z"
+      },
+      {
+        "id": "S21",
+        "status": "failed",
+        "request_hash": "38b409ba05ae66d7b8622857ac5c8d4a1ed5b5232f4149c92b4e3442199c20c4",
+        "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"assistant\"}]}",
+        "updated_at": "2026-10-19T04:10:25Z",
+        "task_id": "2026101912093149a3d5c0a88b4e01"
       }
     ]
   }
