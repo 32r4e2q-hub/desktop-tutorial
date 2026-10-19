@@ -293,17 +293,17 @@ SHOTS = [
      "纸张摩擦 + 低沉鼓点"),
     ("S21", "agnes", "自桌面缓慢抬升至记者面部", "记者汤计：持续追踪",
      "接动态镜：深夜打电话",
-     "A small Chinese newsroom at night in the mid-2000s: a journalist in his forties ({C3}) sits at a "
-     "cluttered desk under a green desk lamp, a black rotary telephone at his elbow, stacks of old "
-     "newspapers and handwritten notes around him, a computer monitor glowing softly with no readable "
-     "content, blinds closed behind him. Slow push in from the desk surface toward his tired, focused "
-     "face, " + HOLD,
+     "A single continuous interior scene, one small quiet office room at night in the mid-2000s, no "
+     "exterior view and no transition: a man in his forties ({C3}) sits at a cluttered desk under a green "
+     "desk lamp, a black rotary telephone at his elbow, stacks of plain paper and handwritten notebooks "
+     "around him, a computer monitor glowing softly with no readable content, blinds closed behind him. "
+     "Slow push in from the desk surface toward his tired, focused face, " + HOLD,
      "键盘声 + 夜晚环境声"),
     ("S22", "agnes", "自笔记本到面部缓慢横移", "一个个电话，一次次追问",
      "接动态镜：日历翻过九年",
      "The same Chinese newsroom later that night: the journalist ({C3}) holds the telephone receiver to "
      "his ear, pen in his other hand hovering over a notebook, a wall behind him covered with newspaper "
-     "clippings whose headlines are all unreadable, a cold cup of tea, the desk lamp the only warm light "
+     "pinned papers whose lines are all unreadable, a cold cup of tea, the desk lamp the only warm light "
      "in the room. Slow lateral move from the notebook to his face, " + HOLD,
      "电话听筒声 + 笔尖声"),
     ("S23", "agnes", "固定机位拍日历，末段推向积灰卷宗", "九年过去：2005 → 2014",
