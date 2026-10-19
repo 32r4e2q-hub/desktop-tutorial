@@ -189,7 +189,7 @@ SHOTS = [
      "打字机声 + 翻页声 + 音乐骤紧"),
     ("S07", "agnes", "自高台缓慢下移，收在青年背影", "一审：他被判死刑",
      "接动态镜：落章",
-     "A single continuous interior scene, one wood-panelled hall only, no exterior view and no transition: in the 1990s, a young man in a plain dark jacket stands alone inside a "
+     "A solemn wood-panelled hall in the 1990s: a young man in a plain dark jacket stands alone inside a "
      "low railed enclosure seen from behind, two uniformed attendants stand at a distance, a high wooden "
      "bench rises at the far end under a tall ceiling, rows of wooden benches empty in the foreground, "
      "cold daylight through tall windows; restrained and still, no readable text anywhere. Slow move "
