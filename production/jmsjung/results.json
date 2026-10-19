@@ -918,7 +918,7 @@
       "updated_at": "2026-10-19T18:43:25Z"
     }
   },
-  "phase": "provider_capacity",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -969,21 +969,6 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-19T18:43:37Z",
-  "run_id": "39280283654",
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "base": "https://apihub.agnes-ai.com",
-    "first_seen": "2026-10-19T15:54:37Z",
-    "last_seen": "2026-10-19T18:43:11Z",
-    "create_attempts": 163,
-    "consecutive_rounds": 3,
-    "cooldown_seconds": 61.0,
-    "channel_error_limit": 3,
-    "wait_channel_minutes": 0.0,
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261019184311187330201BUl6YkEe)",
-    "reason": "供应商视频排队已满",
-    "kind": "queue"
-  },
-  "pipeline_error": "免费池到轮末仍未开闸：本轮容量事件 163 次，已完成 25 镜，未成 5 镜；下一轮从断点继续。"
+  "updated_at": "2026-10-19T18:49:11Z",
+  "run_id": "39304943310"
 }
