@@ -2,7 +2,15 @@
   "project": "呼格吉勒图案：18岁报案人被判死刑，18年后还他清白",
   "model": "cogvideox-flash",
   "provider": "Zhipu AI",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "status": "submitting",
+      "request_hash": "494ecc1e69b57bd2220ac718af8fcf1c6d89a3832dc9b793e1fcc1ccc9857726",
+      "error": null,
+      "updated_at": "2026-10-19T02:08:12Z"
+    }
+  },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
   "phase": "generating_sources",
   "required_generated_shots": [
@@ -45,5 +53,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-19T02:08:11Z"
+  "updated_at": "2026-10-19T02:08:12Z",
+  "previous_results": {}
 }
