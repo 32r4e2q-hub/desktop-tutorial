@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T15:25:55Z",
+  "generated_at": "2026-10-19T09:32:40Z",
   "target_model": "agnes-video-2.5-flash",
   "spend": true,
   "cn_key": null,
@@ -46,11 +46,22 @@
       "http_status": 401,
       "target_model_listed": false,
       "models": [],
-      "body_excerpt": "{\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20261018152556455698716AvmNrud5)\",\"type\":\"AgnesAI_error\"}}",
+      "body_excerpt": "{\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20261019093241764526323CdUXUonV)\",\"type\":\"AgnesAI_error\"}}",
       "error": null,
       "key": "INTL"
     }
   ],
-  "creation": null,
-  "conclusion": "仓库里还没有国内站 key（未配置 AGNES_CN_API_KEY/AGNES_CN_KEY/AGNES_CN_TOKEN）。本轮只测了域名可达性与国际 key 互通性。 国际 key 打国内域名：['200', '401']（居然互通）。"
+  "creation": {
+    "host": "https://apihub.agnes-ai.cn",
+    "http_status": null,
+    "accepted": false,
+    "video_id": null,
+    "task_id": null,
+    "final_status": null,
+    "video_url": null,
+    "body_excerpt": null,
+    "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261019093242249211274DBe95X8S)",
+    "key_used": "INTL"
+  },
+  "conclusion": "仓库里还没有国内站 key（未配置 AGNES_CN_API_KEY/AGNES_CN_KEY/AGNES_CN_TOKEN）。本轮只测了域名可达性与国际 key 互通性。 国际 key 打国内域名：['200', '401']（居然互通）。 国内域名上的免费池同样满（503 queue is full）——两站大概率同一个池子，或国内池同样挤。"
 }

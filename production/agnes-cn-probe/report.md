@@ -1,6 +1,6 @@
 # Agnes 国内站探针结果
 
-- 时间（UTC）：`2026-10-18T15:25:55Z`
+- 时间（UTC）：`2026-10-19T09:32:40Z`
 - 目标模型：`agnes-video-2.5-flash`
 - 真提交任务：`否`
 
@@ -15,8 +15,8 @@
 | - | https://apihub.agnes-ai.cn | 可达性=True | - |  |
 | - | https://api.agnes-ai.cn | 可达性=True | - |  |
 | INTL | https://apihub.agnes-ai.cn | 200 | True | {"data":[{"id":"agnes-2.5-pro-alpha","object":"model","created":1626777600,"owned_by":"custom","supported_endpoint_types |
-| INTL | https://api.agnes-ai.cn | 401 | False | {"error":{"code":"","message":"无效的令牌 (request id: 20261018152556455698716AvmNrud5)","type":"AgnesAI_error"}} |
+| INTL | https://api.agnes-ai.cn | 401 | False | {"error":{"code":"","message":"无效的令牌 (request id: 20261019093241764526323CdUXUonV)","type":"AgnesAI_error"}} |
 
 ## 结论
 
-仓库里还没有国内站 key（未配置 AGNES_CN_API_KEY/AGNES_CN_KEY/AGNES_CN_TOKEN）。本轮只测了域名可达性与国际 key 互通性。 国际 key 打国内域名：['200', '401']（居然互通）。
+仓库里还没有国内站 key（未配置 AGNES_CN_API_KEY/AGNES_CN_KEY/AGNES_CN_TOKEN）。本轮只测了域名可达性与国际 key 互通性。 国际 key 打国内域名：['200', '401']（居然互通）。 国内域名上的免费池同样满（503 queue is full）——两站大概率同一个池子，或国内池同样挤。
