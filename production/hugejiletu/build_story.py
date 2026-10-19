@@ -59,7 +59,7 @@ DESK_STYLE = (
     "absolutely no readable text, letters, numbers, logos or brand marks anywhere in frame; one single "
     "continuous smooth camera move per shot exactly as directed. "
 )
-STYLE_OVERRIDES = {"S41": DESK_STYLE}
+STYLE_OVERRIDES = {"S41": DESK_STYLE, "S31": DESK_STYLE, "S37": DESK_STYLE}
 
 
 NEGATIVE_PROMPT = (
@@ -387,13 +387,13 @@ SHOTS = [
      "风声 + 脚步声 + 沉稳弦乐"),
 
     # ---------------- N05 十八年后无罪（S31-S38：6 动态 + 2 信息卡）----------------
-    ("S31", "agnes", "门槛边的静物，缓慢推进", "再审决定书送达",
+    ("S31", "agnes", "桌面俯拍静物，缓慢推进", "再审决定书送达",
      "接信息卡：2014-12-15",
-     "A single continuous interior scene, one doorway and the small wooden table beside it only, no "
-     "exterior view and no transition: a sealed plain paper envelope lies on the worn wooden table beside "
-     "a plain white teacup, a folded newspaper without readable text underneath, the open doorway behind "
-     "softly out of focus with cold daylight and a bare wall, no people and no hands in frame at any "
-     "moment. Very slow push in on the envelope, " + HOLD,
+     "A single continuous interior still-life, one plain wooden tabletop filling the frame from edge to "
+     "edge, no doorway, no room beyond, no window, no exterior view and no transition: one sealed plain "
+     "white paper envelope lies alone in the centre of the table beside a plain white enamel teacup, a "
+     "thin band of cold daylight falling across the wood, dust in the air; no people, no hands, no arms "
+     "and no readable text at any moment. Very slow push in on the envelope, " + HOLD,
      "纸张轻放 + 低音弦乐"),
     ("S32", "graphic", "信息卡（静帧）", "2014-12-15：宣告无罪",
      "接动态镜：木饰厅堂内",
@@ -427,14 +427,13 @@ SHOTS = [
      "and a framed photograph nearby, soft winter daylight. Slow pull back from the document to the "
      "photograph, " + HOLD,
      "纸张轻响 + 钢琴延续"),
-    ("S37", "agnes", "静物：花与倒扣的相框", "失去的十八岁，无法补偿",
+    ("S37", "agnes", "窗台静物，缓慢推进", "失去的十八岁，无法补偿",
      "接信息卡：赔偿构成",
-     "A single continuous interior still-life scene, one wooden sideboard only, no exterior view and no "
-     "transition: a single white chrysanthemum in a small glass of water stands on the sideboard, and "
-     "beside it a small wooden photo frame lies face-down with only its plain back and brass stand "
-     "visible, a thin film of dust on the frame back; no face, no photograph, no person and no readable "
-     "text anywhere, warm afternoon light through lace curtains, dust in the air. Very slow push in on "
-     "the flower and the edge of the frame, " + HOLD,
+     "A single continuous interior still-life, one windowsill only, no room beyond and no transition: a "
+     "single white chrysanthemum stands in a small clear glass of water on the wooden sill, its petals "
+     "bright against the soft blurred light of lace curtains behind, a thin film of dust on the wood; "
+     "nothing else on the sill, no photograph, no portrait, no frame, no face, no person and no readable "
+     "text anywhere. Very slow push in until the flower fills the frame, " + HOLD,
      "室内静音 + 单音钢琴"),
     ("S38", "graphic", "信息卡（静帧）", "赔偿构成：三笔钱",
      "接动态镜：2019 年复核",
