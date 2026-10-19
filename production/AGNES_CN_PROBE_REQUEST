@@ -1,5 +1,6 @@
-Agnes 国内站探针。
-前置：需要仓库 secret 里存在 AGNES_CN_API_KEY（用户 2026-10-18 直给的国内站 key，仅指纹入报告）。
-没有 CN key 也能跑：测域名可达性 + 国际 key 打国内域名的互通性。
-步骤：候选国内域名 × key 矩阵查 /v1/models；CN key 有效且模型在列时，提交一条 4 秒 720P 最小任务测国内池。
+Agnes 国内站探针 第 2 轮。
+第 0 轮发现：国际 key 在 apihub.agnes-ai.cn 有效且模型在列（api.agnes-ai.cn 为 401 假域名）。
+本轮重点：用国际 key 对 apihub.agnes-ai.cn 提交一条 4 秒 720P 最小任务，
+测国内域名的免费池是否独立（受理=有缝，503=与外网同池/同样满）。
+国内 key（AGNES_CN_API_KEY）如已配置会一并参与矩阵，未配置不阻塞。
 {"spend":true}

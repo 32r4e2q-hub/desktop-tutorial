@@ -174,16 +174,28 @@ def main():
             report["checks"].append(row)
             print("MODELS INTL key @ %s -> %s" % (host, row["http_status"]), flush=True)
 
-    # 3) 最小创建请求（只有 CN key 在某个国内域名上有效且模型在列才做）
+    # 3) 最小创建请求（池子满不满的直接测量）
+    #    优先 CN key @ 国内域名；2026-10-18 第 0 轮发现国际 key 在 apihub.agnes-ai.cn
+    #    同样有效，所以 CN key 缺席时也用国际 key 打国内域名——这才能回答
+    #    「国内域名的免费池是不是另一个池子」。
     best = None
+    best_key = None
     for row in report["checks"]:
         if row.get("kind") == "host_alive":
             continue
         if row.get("key") == "CN" and row.get("http_status") == 200 and row["target_model_listed"]:
-            best = row
+            best, best_key = row, cn_key
             break
+    if best is None:
+        for row in report["checks"]:
+            if row.get("kind") == "host_alive":
+                continue
+            if row.get("key") == "INTL" and row.get("http_status") == 200 and row["target_model_listed"]:
+                best, best_key = row, intl_key
+                break
     if best and args.spend:
-        report["creation"] = creation_probe(best["host"], cn_key)
+        report["creation"] = creation_probe(best["host"], best_key)
+        report["creation"]["key_used"] = "CN" if best_key is cn_key else "INTL"
         print("CREATION @ %s -> accepted=%s final=%s"
               % (best["host"], report["creation"]["accepted"],
                  report["creation"]["final_status"]), flush=True)
@@ -216,9 +228,13 @@ def main():
     if report["creation"] and report["creation"].get("error"):
         text = report["creation"]["error"]
         if "queue is full" in text.lower():
-            lines.append("国内免费池同样满（503 queue is full）——两个站大概率同一个池子，或国内池同样挤。")
+            lines.append("国内域名上的免费池同样满（503 queue is full）——两站大概率同一个池子，或国内池同样挤。")
         elif "no available channel" in text.lower():
             lines.append("国内域名上该模型没有可用通道。")
+    if report["creation"] and report["creation"].get("accepted"):
+        lines.append("国内域名（%s）的池子有缝：最小任务已受理%s——可作为第二抽签池并行使用。"
+                     % (report["creation"]["host"],
+                        "且已出片" if report["creation"].get("final_status") == "completed" else ""))
     report["conclusion"] = " ".join(lines)
 
     (outdir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -246,7 +262,8 @@ def main():
     if report["creation"] and report["creation"].get("accepted"):
         c = report["creation"]
         md += ["", "## 最小创建请求", "",
-               "- 域名：`%s`　受理：`%s`　video_id: `%s`" % (c["host"], c["accepted"], c["video_id"]),
+               "- 域名：`%s`　用 key：`%s`　受理：`%s`　video_id: `%s`"
+               % (c["host"], c.get("key_used", "?"), c["accepted"], c["video_id"]),
                "- 最终状态: `%s`　视频: %s" % (c["final_status"], c.get("video_url") or "（无/未完成）"),
                "- 原始响应: `%s`" % (c.get("body_excerpt") or c.get("error") or "")]
     md += ["", "## 结论", "", report["conclusion"] or "（无）", ""]
