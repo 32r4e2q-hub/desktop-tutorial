@@ -912,10 +912,10 @@
     },
     "S27": {
       "id": "S27",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "f471914203088b24d2768ec02b2b4618f6f12d82b1174384a8fc6388c2b17d2b",
       "error": null,
-      "updated_at": "2026-10-19T18:59:28Z",
+      "updated_at": "2026-10-19T18:59:37Z",
       "channel_error_round": 4,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_xF26CdMqLPDgZoAh83Q2NuHEKJM0qeBm",
@@ -925,7 +925,25 @@
       "bytes": 1597091,
       "sha256": "6df06ac8b5b623168264ab14884343e3316cae588a0d676aecbf3b2c3ff55675",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 1597091,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kitakyushu2002/qa/S27.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S28": {
       "id": "S28",
@@ -1002,7 +1020,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-19T18:59:29Z",
+  "updated_at": "2026-10-19T18:59:37Z",
   "run_id": "39304943310",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
