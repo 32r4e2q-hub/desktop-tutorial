@@ -338,14 +338,14 @@ SHOTS = [
      "all characters deliberately blurred and unreadable. Slow lateral move from one document to the "
      "other, " + HOLD,
      "翻页声 + 低沉弦乐"),
-    ("S27", "agnes", "自显微镜推向手持玻片", "血型：只能证明类型，不能锁定",
+    ("S27", "agnes", "桌面特写缓慢横移过物证", "血型：只能证明类型，不能锁定",
      "接动态镜：审查人员",
-     "A tabletop macro close-up that fills the whole frame, dark seamless background, nothing else in "
-     "shot and no surroundings of any kind: on a bare grey worktop lie a small metal microscope, a sealed "
-     "plain paper envelope and a closed cardboard folder, and a hand in a white cotton glove lifts a bare "
-     "glass slide toward the lens; cold white top light, dust in the air, nothing biological visible, no "
-     "readable text. Slow push in from the microscope across the worktop to the slide in the gloved hand, "
-     + HOLD,
+     "A single continuous interior scene, one office wall and the desk beneath it only, no exterior view, "
+     "no window onto a street and no transition: a bare pale desk holds a small metal microscope, a "
+     "sealed plain paper envelope and a closed folder, a hand in a white cotton glove turns a glass slide "
+     "between its fingers in the lamplight, cold white overhead light on the wall behind, nothing "
+     "biological visible and no readable text anywhere. Slow lateral move across the desk from the "
+     "microscope to the slide in the gloved hand, " + HOLD,
      "仪器轻鸣 + 纸张声"),
     ("S28", "agnes", "从身后缓慢绕行", "证据之间无法相互印证",
      "接动态镜：阅卷",
@@ -433,14 +433,14 @@ SHOTS = [
      "接动态镜：两份独立卷宗",
      "信息卡：最高法复核未确认赵志红为该案真凶 / 无罪依据是原判事实不清、证据不足",
      "低音撞击"),
-    ("S41", "agnes", "俯拍绕行，两份卷宗互不接触", "两起案件，两份结论",
+    ("S41", "agnes", "桌面俯拍，绕两份卷宗缓慢移动", "两起案件，两份结论",
      "接动态镜：记者回望",
-     "A tabletop flat-lay that fills the whole frame from edge to edge, seen from straight above against "
-     "a dark seamless background, nothing else in shot and no surroundings of any kind: two thick plain "
-     "paper folders lie apart with a clear gap between them, one closed and tied with string, the other "
-     "open with blank pages, and a hand rests on the table beside them without touching either; a warm "
-     "pool of lamplight falls on the folders, the corners of the frame sink into shadow, no readable text. "
-     "Very slow circular drift around the two folders, " + HOLD,
+     "A single continuous interior scene, one office wall and the desk beneath it only, no exterior view, "
+     "no window onto a street and no transition: on a bare wooden desk lie two thick plain paper folders "
+     "set apart from each other with a clear gap between them, one closed and tied with string, the other "
+     "open with blank pages, and a hand rests on the desk beside them without touching either; a warm "
+     "pool of lamplight falls on the folders, the wall behind is plain and unmarked, no readable text "
+     "anywhere. Slow top-down arc around the two folders, " + HOLD,
      "纸张轻放 + 低沉弦乐"),
     ("S42", "agnes", "自窗上倒影缓慢拉远到桌面", "十年追踪：案件没有被时间掩埋",
      "接动态镜：空厅堂",
