@@ -59,7 +59,7 @@ DESK_STYLE = (
     "absolutely no readable text, letters, numbers, logos or brand marks anywhere in frame; one single "
     "continuous smooth camera move per shot exactly as directed. "
 )
-STYLE_OVERRIDES = {"S41": DESK_STYLE, "S31": DESK_STYLE, "S37": DESK_STYLE}
+STYLE_OVERRIDES = {"S27": DESK_STYLE, "S31": DESK_STYLE, "S37": DESK_STYLE, "S41": DESK_STYLE}
 
 
 NEGATIVE_PROMPT = (
@@ -389,11 +389,11 @@ SHOTS = [
     # ---------------- N05 十八年后无罪（S31-S38：6 动态 + 2 信息卡）----------------
     ("S31", "agnes", "桌面俯拍静物，缓慢推进", "再审决定书送达",
      "接信息卡：2014-12-15",
-     "A single continuous interior still-life, one plain wooden tabletop filling the frame from edge to "
-     "edge, no doorway, no room beyond, no window, no exterior view and no transition: one sealed plain "
-     "white paper envelope lies alone in the centre of the table beside a plain white enamel teacup, a "
-     "thin band of cold daylight falling across the wood, dust in the air; no people, no hands, no arms "
-     "and no readable text at any moment. Very slow push in on the envelope, " + HOLD,
+     "A very simple tabletop still-life seen from just above, one plain desk surface filling the frame, "
+     "dark blur behind it, no window, no corridor, no exterior view: a single sealed blank white envelope "
+     "lies alone at the centre of the desk, one small white porcelain cup stands to its right, and a soft "
+     "cold light falls across the desk from the upper left; no hands, no arms, no people, no chairs and no "
+     "readable text at any moment. Very slow push in on the envelope, " + HOLD,
      "纸张轻放 + 低音弦乐"),
     ("S32", "graphic", "信息卡（静帧）", "2014-12-15：宣告无罪",
      "接动态镜：木饰厅堂内",
