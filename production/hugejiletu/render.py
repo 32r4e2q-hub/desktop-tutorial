@@ -340,8 +340,13 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         text+=f"Dialogue: 0,{ass_time(entry['start_frame']/FPS)},{ass_time(entry['end_frame']/FPS)},Label,,0,0,0,,{label}\n"
     title_lines=[safe_text(x) for x in (presentation.get('title_card') or []) if x]
     if title_lines:
+        # 2026-10-19：开片标题原先烧到 4.70 s，正好压在 2.63 s 起的 S02 名片上，
+        # 同一标题在画面里出现两遍（接触表复审抓到的「双重曝光」）。
+        # 标题层改成在第一张信息卡出现前 0.10 s 收尾，标题只由名片承担。
+        first_card=next((e['start_frame']/FPS for e in edl if e['kind']=='graphic'),4.70)
+        title_end=max(1.9,min(4.70,first_card-0.10))
         first=title_lines[0];rest=('\\N{\\fs41\\fsp6}'+title_lines[1]) if len(title_lines)>1 else ''
-        text+=f'Dialogue: 2,0:00:00.35,0:00:04.70,Title,,0,0,0,,{{\\fad(500,550)}}{first}{rest}\n'
+        text+=f'Dialogue: 2,0:00:00.35,{ass_time(title_end)},Title,,0,0,0,,{{\\fad(400,260)}}{first}{rest}\n'
     path.write_text(text)
     srt=path.with_suffix('.srt')
     def clock(s):
