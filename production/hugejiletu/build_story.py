@@ -47,6 +47,21 @@ STYLE_PREFIX = (
     "continuous smooth camera move per shot exactly as directed. "
 )
 
+# 少数「桌面微距」镜头：全局 STYLE_PREFIX 里全是厂区街景，模型会照着画外景
+# （S27/S41 连抽三次都是雪地街道）。这两镜改用只描述室内的前缀，其余镜头不受影响
+# ——payload 只在这两个镜头上变，其他 completed 镜的 request_hash 不变。
+DESK_STYLE = (
+    "Photorealistic cinematic 3D animated interior close shot, high-end CGI feature-film render with "
+    "volumetric light, shallow depth of field and subtle 35mm film grain, on a bare wooden desk in a "
+    "plain office room against a plain plaster wall with no window in frame: warm desk-lamp pool of "
+    "light and cold fill from the left, restrained desaturated blue-grey grading, sober documentary "
+    "mood, never stylised, never a drawing, never a cartoon; horizontal 16:9 widescreen composition; "
+    "absolutely no readable text, letters, numbers, logos or brand marks anywhere in frame; one single "
+    "continuous smooth camera move per shot exactly as directed. "
+)
+STYLE_OVERRIDES = {"S41": DESK_STYLE}
+
+
 NEGATIVE_PROMPT = (
     "readable text, letters, numbers, Chinese characters, words, signage writing, invented headlines, "
     "neon lettering, logos, brand marks, watermark, subtitles, on-screen caption, recognisable real person "
@@ -658,6 +673,8 @@ def build():
             "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": "1080p", "frame_rate": 24,
             "camera": camera, "sfx_note": sfx,
         }
+        if sid in STYLE_OVERRIDES:
+            shot["style_prefix"] = STYLE_OVERRIDES[sid]
         if sid in FACE_SHOTS:
             shot["cast"] = FACE_SHOTS[sid]
         if sid in REFERENCE_SHOTS:
