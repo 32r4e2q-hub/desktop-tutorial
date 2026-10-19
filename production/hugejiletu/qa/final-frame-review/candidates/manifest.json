@@ -1,5 +1,5 @@
 {
-  "film_sha256": "bb11dc2139882ef53fd9e04bfb326790efbc77a111f30c5ef278226fef9e4f6e",
+  "film_sha256": "00426caa748782b92d569b5d5e7a958c12088b0a7c92d96eca72836f58131382",
   "source_audit": "production/hugejiletu/delivery/frame-distortion-audit.json",
   "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
   "max_width": 960,
@@ -145,12 +145,32 @@
       "height": 540
     },
     {
-      "frame": 430,
-      "seconds": 14.333,
+      "frame": 378,
+      "seconds": 12.6,
+      "reasons": [
+        "face-S04"
+      ],
+      "file": "f00378_face-S04.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 379,
+      "seconds": 12.633,
+      "reasons": [
+        "face-S04"
+      ],
+      "file": "f00379_face-S04.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 431,
+      "seconds": 14.367,
       "reasons": [
         "hand-geometry-S05"
       ],
-      "file": "f00430_hand-geometry-S05.jpg",
+      "file": "f00431_hand-geometry-S05.jpg",
       "width": 960,
       "height": 540
     },
@@ -510,7 +530,8 @@
       "frame": 2178,
       "seconds": 72.6,
       "reasons": [
-        "face-S19"
+        "face-S19",
+        "hand-geometry-S19"
       ],
       "file": "f02178_face-S19.jpg",
       "width": 960,
@@ -560,8 +581,7 @@
       "frame": 2183,
       "seconds": 72.767,
       "reasons": [
-        "face-S19",
-        "hand-geometry-S19"
+        "face-S19"
       ],
       "file": "f02183_face-S19.jpg",
       "width": 960,
@@ -2107,7 +2127,8 @@
       "frame": 2394,
       "seconds": 79.8,
       "reasons": [
-        "face-S21"
+        "face-S21",
+        "hand-geometry-S21"
       ],
       "file": "f02394_face-S21.jpg",
       "width": 960,
@@ -2965,16 +2986,6 @@
       "height": 540
     },
     {
-      "frame": 2489,
-      "seconds": 82.967,
-      "reasons": [
-        "face-S22"
-      ],
-      "file": "f02489_face-S22.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 2492,
       "seconds": 83.067,
       "reasons": [
@@ -3155,16 +3166,6 @@
       "height": 540
     },
     {
-      "frame": 2510,
-      "seconds": 83.667,
-      "reasons": [
-        "face-S22"
-      ],
-      "file": "f02510_face-S22.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 2511,
       "seconds": 83.7,
       "reasons": [
@@ -3245,62 +3246,12 @@
       "height": 540
     },
     {
-      "frame": 3072,
-      "seconds": 102.4,
+      "frame": 2520,
+      "seconds": 84.0,
       "reasons": [
-        "temporal-S27-end",
-        "temporal-S27-middle",
-        "temporal-S27-start"
+        "face-S22"
       ],
-      "file": "f03072_temporal-S27-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3076,
-      "seconds": 102.533,
-      "reasons": [
-        "temporal-S27-end",
-        "temporal-S27-middle",
-        "temporal-S27-start"
-      ],
-      "file": "f03076_temporal-S27-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3080,
-      "seconds": 102.667,
-      "reasons": [
-        "temporal-S27-end",
-        "temporal-S27-middle",
-        "temporal-S27-start"
-      ],
-      "file": "f03080_temporal-S27-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3084,
-      "seconds": 102.8,
-      "reasons": [
-        "temporal-S27-end",
-        "temporal-S27-middle",
-        "temporal-S27-start"
-      ],
-      "file": "f03084_temporal-S27-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3089,
-      "seconds": 102.967,
-      "reasons": [
-        "temporal-S27-end",
-        "temporal-S27-middle",
-        "temporal-S27-start"
-      ],
-      "file": "f03089_temporal-S27-end.jpg",
+      "file": "f02520_face-S22.jpg",
       "width": 960,
       "height": 540
     },
@@ -4461,84 +4412,6 @@
         "face-S29"
       ],
       "file": "f03411_face-S29.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3536,
-      "seconds": 117.867,
-      "reasons": [
-        "temporal-S31-start"
-      ],
-      "file": "f03536_temporal-S31-start.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3538,
-      "seconds": 117.933,
-      "reasons": [
-        "temporal-S31-middle"
-      ],
-      "file": "f03538_temporal-S31-middle.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3541,
-      "seconds": 118.033,
-      "reasons": [
-        "temporal-S31-end"
-      ],
-      "file": "f03541_temporal-S31-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3545,
-      "seconds": 118.167,
-      "reasons": [
-        "temporal-S31-end",
-        "temporal-S31-middle",
-        "temporal-S31-start"
-      ],
-      "file": "f03545_temporal-S31-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3550,
-      "seconds": 118.333,
-      "reasons": [
-        "temporal-S31-end",
-        "temporal-S31-middle",
-        "temporal-S31-start"
-      ],
-      "file": "f03550_temporal-S31-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3554,
-      "seconds": 118.467,
-      "reasons": [
-        "temporal-S31-end",
-        "temporal-S31-middle",
-        "temporal-S31-start"
-      ],
-      "file": "f03554_temporal-S31-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3745,
-      "seconds": 124.833,
-      "reasons": [
-        "temporal-S32-end",
-        "temporal-S32-middle",
-        "temporal-S32-start"
-      ],
-      "file": "f03745_temporal-S32-end.jpg",
       "width": 960,
       "height": 540
     },
