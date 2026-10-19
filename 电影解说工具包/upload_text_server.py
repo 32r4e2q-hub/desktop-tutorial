@@ -109,6 +109,9 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
   <ul class="files" id="list"><li class="muted">正在读取…</li></ul>
 
   <div class="hint">
+    <b>手机打开 403 / 打不开？</b>预览链接必须先经 Arena 会话授权（走 Arena 里的预览窗口），
+    把链接复制到手机浏览器单独打开会被拦。真打不开就别折腾：点「复制全文」，直接把文案贴到对话里发给我，
+    我一样能存进 <em>抖音文案/</em>。草稿会自动暂存在本机，刷新不丢。<br><br>
     <b>上传完成后：</b>回到对话跟我说一句「文案传好了」，我就能开始按这份文案做抖音视频（分镜、配音稿、字幕、时长都按它来）。<br>
     Word / PDF 请先在软件里「另存为 → 纯文本 txt」，或直接把文字粘贴到上面第二个框。
   </div>
@@ -224,10 +227,52 @@ async function loadList() {
 }
 
 const fmtDur = s => { s = Math.round(s); const m = Math.floor(s / 60); return m ? `${m} 分 ${s % 60} 秒` : `${s} 秒`; };
-ta.addEventListener('input', () => {
+const DRAFT_KEY = 'wenan_draft_v1';
+let draftTimer = 0;
+
+function refreshInfo() {
   const n = ta.value.replace(/\s/g, '').length;
   taInfo.textContent = n ? `${n} 字 · 预计口播 约 ${fmtDur(n / 4.5)}` : '0 字';
+}
+
+function saveDraft() {
+  try { localStorage.setItem(DRAFT_KEY, ta.value); } catch (e) {}
+}
+
+ta.addEventListener('input', () => {
+  refreshInfo();
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(saveDraft, 400);
 });
+ta.addEventListener('blur', saveDraft);
+
+// 页面一打开就把上次没保存的草稿放回来，换手机/断网都不会丢字
+try {
+  const draft = localStorage.getItem(DRAFT_KEY);
+  if (draft) { ta.value = draft; }
+} catch (e) {}
+refreshInfo();
+
+function offerCopy(text, note) {
+  cardEl.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div><b class="warn">保存到仓库失败，文字还在</b>
+          <div class="muted">${note || ''} 先点「复制全文」，把文案直接贴到对话里发给我，我手动存进 抖音文案/。</div></div>
+        <div><button class="ghost" id="copy2">复制全文</button></div>
+      </div>
+      <pre class="pv" id="pv2"></pre>
+    </div>`;
+  $('#pv2').textContent = text.length > 4000 ? text.slice(0, 4000) + '\n\n……（预览到此为止，复制的是完整全文）' : text;
+  $('#copy2').onclick = async () => {
+    try { await navigator.clipboard.writeText(text); $('#copy2').textContent = '已复制 ✓'; }
+    catch (e) {
+      const r = document.createRange(); r.selectNodeContents($('#pv2'));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      $('#copy2').textContent = '已选中，请长按复制';
+    }
+  };
+}
 
 $('#save').onclick = async () => {
   const text = ta.value.trim();
@@ -240,9 +285,15 @@ $('#save').onclick = async () => {
     if (!r.ok) throw new Error(j.error || '保存失败');
     showCard(j);
     say(`✓ 已保存 ${j.saved}（${j.chars} 字）`, 'ok');
-    ta.value = ''; taInfo.textContent = '0 字';
+    ta.value = '';
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+    refreshInfo();
     await loadList();
-  } catch (err) { say('保存失败：' + err.message, 'err'); }
+  } catch (err) {
+    say('保存失败：' + err.message, 'err');
+    offerCopy(text, err.message);
+    saveDraft();
+  }
   $('#save').disabled = false;
 };
 
