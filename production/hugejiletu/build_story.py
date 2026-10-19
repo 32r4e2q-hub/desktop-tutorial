@@ -238,19 +238,22 @@ SHOTS = [
      "cardigan. Slow push in across the paper toward the pen, " + HOLD,
      "纸张摩擦 + 轻微叹息"),
     ("S12", "agnes", "跟随背影，缓慢推进", "材料合上：维持原判",
-     "接动态镜：空走廊",
-     "A long empty corridor in a plain municipal building: polished terrazzo floor, closed wooden doors "
-     "along one side, a clerk in a dark uniform walking away from camera carrying a thick folder, cold "
-     "daylight from tall windows, dust in the air. Slow tracking move following the clerk from behind, "
+     "接信息卡：六十二天",
+     "A single continuous interior scene, one corridor in a plain municipal building only, no exterior "
+     "view and no transition: pale plaster walls, a bare terrazzo floor, only two closed wooden doors on "
+     "the right wall, cold daylight falling from a window at the far end; a clerk in a dark uniform walks "
+     "away from camera down the middle of the corridor with a thick folder under one arm, his back to us, "
+     "no one else in the corridor, nothing passing the lens. Slow tracking move following him from "
+     "behind, " + HOLD,
+     "脚步声 + 纸张合拢"),
+    ("S13", "agnes", "极慢后退，灯一点点暗下去", "六月十日：执行（不展示过程）",
+     "接动态镜：墙上的日历",
+     "A single continuous interior scene, one short plain corridor only, no exterior view and no "
+     "transition: bare painted walls with no doors and no barred openings, a heavy closed wooden door at "
+     "the far end, a single dim bulb overhead, the floor bare concrete swept clean, absolutely no people "
+     "and nothing happening; the far end sinks into shadow. Very slow pull back as the light dims, "
      + HOLD,
-     "文件夹合拢 + 脚步回声"),
-    ("S13", "agnes", "极慢后退，走廊沉入阴影", "六月十日：执行（不展示过程）",
-     "接动态镜：父母家中",
-     "A cold concrete corridor inside a plain institutional building, seen from a distance: heavy steel "
-     "doors along the wall, a single overhead bulb, the far end sinking into shadow, absolutely no people "
-     "and nothing happening; restrained and symbolic. Very slow pull back as the corridor darkens, "
-     + HOLD,
-     "沉重脚步 + 门锁声 + 静默"),
+     "低频嗡鸣 + 电流轻响"),
     ("S14", "agnes", "自照片缓慢拉远", "父母：他们不相信儿子是凶手",
      "接动态镜：申诉材料",
      "A modest Chinese family flat in the evening in the 1990s: an elderly couple sit at a worn wooden "
