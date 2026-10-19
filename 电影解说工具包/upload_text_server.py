@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""抖音文案（txt）上传服务器。
+"""脚本 / 文案上传服务器。
 
-浏览器里把 txt 拖进上传区，文件就直接落到仓库的 `抖音文案/` 文件夹，
-对话里的我立刻就能读到，不用再往聊天框里粘一大段字。
+浏览器里把脚本文件拖进上传区，或直接把文字粘进来，内容就直接落到仓库的
+`抖音文案/` 文件夹，对话里的我立刻就能读到，不用再往聊天框里粘一大段字。
 
 用法：
     python 电影解说工具包/upload_text_server.py [端口]     # 默认 8801
 
 特点：
-  * 支持拖拽 / 点击选择 / 直接粘贴三种方式
+  * 支持拖拽 / 点击选择 / 直接粘贴三种方式，粘贴时可以给稿子起名字
   * 自动识别编码（UTF-8、UTF-8 BOM、GBK/GB18030、Big5、UTF-16），
     统一另存为 UTF-8，Windows 记事本存的 txt 也不会乱码
+  * Word 的 .docx 可以直接传，服务器自动抽出正文存成 txt（.doc/.pdf 请另存或粘贴）
   * 上传后立即显示字数、行数、预计口播时长，方便卡抖音的时长
-  * 只接收纯文本类文件，单文件上限 20 MB，文件名做了安全清洗
+  * 单文件上限 20 MB，文件名做了安全清洗
 """
 from __future__ import annotations
 
@@ -23,8 +24,10 @@ import sys
 import threading
 import time
 import urllib.parse
+import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 DOC_DIR = ROOT / "抖音文案"          # 上传进来的文案都放这里（仓库内，会随工作区保存）
@@ -32,7 +35,7 @@ LOG = DOC_DIR / "上传记录.jsonl"
 MAX_BYTES = 20 * 1024 * 1024          # 单个文件上限 20 MB
 ALLOWED_SUFFIX = {
     ".txt", ".text", ".md", ".markdown", ".json",
-    ".csv", ".srt", ".vtt", ".log", ".yml", ".yaml",
+    ".csv", ".srt", ".vtt", ".log", ".yml", ".yaml", ".docx",
 }
 # 中文口播速度约每秒 4.5 字，用来估算成片时长
 CHARS_PER_SECOND = 4.5
@@ -44,7 +47,7 @@ PAGE = r"""<!doctype html>
 <html lang="zh-CN">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>上传抖音文案（txt）</title>
+<title>脚本 / 文档上传区</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;padding:28px 14px 64px;background:radial-gradient(circle at 18% 0,#1d2942,#080c15 55%,#04060b);color:#f3f6ff;font:15px/1.7 system-ui,"Microsoft YaHei",sans-serif}
@@ -58,7 +61,9 @@ h2{margin:34px 0 12px;font-size:17px;color:#cfdcf5}
 .drop b{display:block;font-size:18px;margin-bottom:8px}
 .drop span{color:#93a3bd;font-size:13px}
 input[type=file]{display:none}
-textarea{width:100%;min-height:130px;margin-top:6px;padding:14px;border-radius:12px;border:1px solid #35435f;background:#101827;color:#eaf0ff;font:14px/1.7 inherit;resize:vertical}
+input[type=text]{width:100%;margin-top:6px;padding:12px 14px;border-radius:11px;border:1px solid #35435f;background:#101827;color:#eaf0ff;font:14px/1.7 inherit}
+input[type=text]:focus{outline:none;border-color:#7fa8ff}
+textarea{width:100%;min-height:220px;margin-top:8px;padding:14px;border-radius:12px;border:1px solid #35435f;background:#101827;color:#eaf0ff;font:14px/1.75 inherit;resize:vertical}
 textarea:focus{outline:none;border-color:#7fa8ff}
 button{padding:11px 20px;border:0;border-radius:10px;background:#5d87f7;color:#fff;font-weight:700;font-size:14px;cursor:pointer}
 button:hover{background:#6f95ff}
@@ -84,19 +89,20 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
 .muted{color:#7f8da6;font-size:13px}
 </style>
 <main>
-  <h1>上传抖音文案（txt）</h1>
-  <p class="lead">把文案 txt 拖进来就行，文件会存到仓库的 <em>抖音文案/</em> 文件夹，对话里的我马上就能读到 —— 不用再往聊天框里粘。</p>
+  <h1>脚本 / 文档上传区</h1>
+  <p class="lead">把脚本文件拖进来，或直接粘进来，内容会存到仓库的 <em>抖音文案/</em> 文件夹，对话里的我马上就能读到 —— 不用再往聊天框里粘一大段字。</p>
 
   <div class="drop" id="drop" tabindex="0" role="button">
-    <b>拖拽 txt 文件到这里，或点击选择</b>
-    <span>支持 .txt .md .json .csv .srt 等纯文本，可多选，单个最大 20 MB</span>
-    <input id="file" type="file" multiple accept=".txt,.text,.md,.markdown,.json,.csv,.srt,.vtt,.log,.yml,.yaml,text/plain">
+    <b>拖拽脚本文件到这里，或点击选择</b>
+    <span>.txt .md .json .csv .srt，以及 Word 的 .docx（自动抽出正文），可多选，单个最大 20 MB</span>
+    <input id="file" type="file" multiple accept=".txt,.text,.md,.markdown,.json,.csv,.srt,.vtt,.log,.yml,.yaml,.docx,text/plain">
   </div>
   <div class="track"><div class="bar" id="bar"></div></div>
   <div id="status">等待上传</div>
 
-  <h2>或者：直接把文案粘贴到这里</h2>
-  <textarea id="ta" placeholder="从任何地方复制文案，Ctrl+V 粘进来，然后点下面的按钮…"></textarea>
+  <h2>或者：直接把脚本粘贴到这里</h2>
+  <input id="taName" type="text" placeholder="给这份稿子起个名字（可不填，默认用「粘贴的脚本_时间戳」）" maxlength="80">
+  <textarea id="ta" placeholder="从任何地方复制脚本，Ctrl+V 粘进来，然后点下面的按钮…"></textarea>
   <div class="bar-row">
     <button id="save">保存这段文字</button>
     <span class="muted" id="taInfo">0 字</span>
@@ -108,14 +114,14 @@ pre.pv{margin:0;max-height:280px;overflow:auto;padding:14px;background:#0a101c;b
   <ul class="files" id="list"><li class="muted">正在读取…</li></ul>
 
   <div class="hint">
-    <b>上传完成后：</b>回到对话跟我说一句「文案传好了」，我就能开始按这份文案做抖音视频（分镜、配音稿、字幕、时长都按它来）。<br>
-    Word / PDF 请先在软件里「另存为 → 纯文本 txt」，或直接把文字粘贴到上面第二个框。
+    <b>上传完成后：</b>回到对话跟我说一句「脚本传好了」，我就能读到 <code>抖音文案/</code> 里最新的稿子，按它继续往下做。<br>
+    PDF / .doc（老版 Word）请先在软件里「另存为 → txt 或 docx」，或直接把文字粘贴到上面的框里。
   </div>
 </main>
 <script>
 const $ = s => document.querySelector(s);
 const drop = $('#drop'), fileInput = $('#file'), bar = $('#bar'), statusEl = $('#status');
-const listEl = $('#list'), cardEl = $('#card'), ta = $('#ta'), taInfo = $('#taInfo');
+const listEl = $('#list'), cardEl = $('#card'), ta = $('#ta'), taInfo = $('#taInfo'), taName = $('#taName');
 
 const fmtSize = n => n < 1024 ? n + ' B' : (n >= 1048576 ? (n / 1048576).toFixed(2) + ' MB' : (n / 1024).toFixed(1) + ' KB');
 const fmtTime = s => { s = Math.round(s); const m = Math.floor(s / 60); return m ? `${m} 分 ${s % 60} 秒` : `${s} 秒`; };
@@ -129,7 +135,7 @@ function showCard(info) {
     <div class="card">
       <div class="hd">
         <div><b class="ok">✓ 已保存：${info.saved}</b>
-          <div class="muted">编码 ${info.encoding} · ${fmtSize(info.bytes)} · ${chars} 字 · ${lines} 行
+          <div class="muted">${info.encoding === 'docx' ? '由 Word 抽出正文' : '编码 ' + info.encoding} · ${fmtSize(info.bytes)} · ${chars} 字 · ${lines} 行
           · 预计口播 约 ${fmtTime(chars / 4.5)}</div></div>
         <div><button class="ghost" id="copy">复制全文</button></div>
       </div>
@@ -165,6 +171,15 @@ async function handleFiles(files) {
   fileInput.disabled = true;
   let done = 0;
   for (const f of list) {
+    const lower = f.name.toLowerCase();
+    if (lower.endsWith('.pdf') || lower.endsWith('.doc')) {
+      say(`× ${f.name}：浏览器读不了这个格式，请另存为 txt / docx，或直接把文字粘到下面的框里`, 'err');
+      continue;
+    }
+    if (lower.endsWith('.docx') && f.size > 10 * 1048576) {
+      say(`× ${f.name}：docx 超过 10 MB，多半是插了很多图，请把正文复制粘贴到下面的框里`, 'err');
+      continue;
+    }
     try {
       say(`正在上传 ${f.name} …`);
       const info = await uploadFile(f);
@@ -179,7 +194,7 @@ async function handleFiles(files) {
   }
   fileInput.disabled = false;
   fileInput.value = '';
-  if (done) say(`✓ 全部完成（${done}/${list.length}）· 回到对话说一句「文案传好了」即可`, 'ok');
+  if (done) say(`✓ 全部完成（${done}/${list.length}）· 回到对话说一句「脚本传好了」即可`, 'ok');
 }
 
 function bindDrop() {
@@ -204,12 +219,16 @@ async function loadList() {
   try {
     const j = await (await fetch('/list')).json();
     if (!j.files.length) { listEl.innerHTML = '<li class="muted">还没有收到任何文件</li>'; return; }
-    listEl.innerHTML = j.files.map(f => `
+    listEl.innerHTML = j.files.map(f => {
+      const fromWord = f.encoding === 'docx';
+      const oddEnc = f.encoding && !fromWord && !f.encoding.startsWith('utf-8');
+      return `
       <li>
-        <span class="nm">${f.saved}${f.encoding && !f.encoding.startsWith('utf-8') ? `<span class="tag">原编码 ${f.encoding}</span>` : ''}</span>
+        <span class="nm">${f.saved}${fromWord ? '<span class="tag">Word 正文</span>' : ''}${oddEnc ? `<span class="tag">原编码 ${f.encoding}</span>` : ''}</span>
         <span class="mt">${f.chars} 字 · ${fmtSize(f.bytes)} · ${f.time}</span>
         <button class="ghost" data-view="${encodeURIComponent(f.saved)}">查看</button>
-      </li>`).join('');
+      </li>`;
+    }).join('');
     listEl.querySelectorAll('[data-view]').forEach(btn => btn.onclick = async () => {
       try {
         const r = await fetch('/view?name=' + btn.dataset.view);
@@ -223,6 +242,10 @@ async function loadList() {
 }
 
 ta.addEventListener('input', () => { taInfo.textContent = ta.value.length + ' 字'; });
+// Ctrl / ⌘ + Enter 直接保存，省得去点按钮
+ta.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); $('#save').click(); }
+});
 
 $('#save').onclick = async () => {
   const text = ta.value.trim();
@@ -230,12 +253,14 @@ $('#save').onclick = async () => {
   $('#save').disabled = true;
   try {
     say('正在保存粘贴的内容…');
-    const r = await fetch('/paste', { method: 'POST', body: text, headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+    const name = taName.value.trim();
+    const url = '/paste' + (name ? '?name=' + encodeURIComponent(name) : '');
+    const r = await fetch(url, { method: 'POST', body: text, headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
     const j = await r.json();
     if (!r.ok) throw new Error(j.error || '保存失败');
     showCard(j);
     say(`✓ 已保存 ${j.saved}（${j.chars} 字）`, 'ok');
-    ta.value = ''; taInfo.textContent = '0 字';
+    ta.value = ''; taInfo.textContent = '0 字'; taName.value = '';
     await loadList();
   } catch (err) { say('保存失败：' + err.message, 'err'); }
   $('#save').disabled = false;
@@ -278,6 +303,64 @@ def safe_name(value: str, fallback: str = "文案.txt") -> str:
     return value[:120] or fallback
 
 
+def safe_stem(value: str, fallback: str = "粘贴的脚本") -> str:
+    """给「自己起名」的稿子用：去掉路径分隔符和扩展名，只留一个干净的名字。"""
+    stem = os.path.splitext(safe_name(value, fallback))[0].strip(" .")
+    return stem[:80] or fallback
+
+
+def docx_to_text(raw: bytes) -> str:
+    """从 .docx 里抽出正文：按段落换行，表格按行用制表符连起来。不依赖第三方库。"""
+    import io
+
+    try:
+        archive = zipfile.ZipFile(io.BytesIO(raw))
+        xml = archive.read("word/document.xml")
+    except (zipfile.BadZipFile, KeyError) as exc:
+        raise ValueError("这个 .docx 打不开（可能已损坏，或是改了后缀的 .doc），"
+                         "请用 Word / WPS 另存为 docx 或 txt 再传") from exc
+    namespace = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+    try:
+        root = ElementTree.fromstring(xml)
+    except ElementTree.ParseError as exc:
+        raise ValueError("这个 .docx 的正文读不出来，请另存为 txt 再传") from exc
+
+    def paragraph_text(element) -> str:
+        pieces: list[str] = []
+        for node in element.iter():
+            if node.tag == namespace + "t" and node.text:
+                pieces.append(node.text)
+            elif node.tag == namespace + "tab":
+                pieces.append("\t")
+            elif node.tag in (namespace + "br", namespace + "cr"):
+                pieces.append("\n")
+        return "".join(pieces)
+
+    def walk(node) -> list[str]:
+        """按文档顺序走一遍；表格里的段落只由表格分支处理，不会被抽两遍。"""
+        out: list[str] = []
+        for child in node:
+            if child.tag == namespace + "p":
+                out.append(paragraph_text(child))
+            elif child.tag == namespace + "tbl":
+                for row in child.iter(namespace + "tr"):
+                    cells = []
+                    for cell in row.iter(namespace + "tc"):
+                        cells.append(" ".join(paragraph_text(p) for p in cell.iter(namespace + "p")).strip())
+                    if any(cells):
+                        out.append("\t".join(cells))
+            else:
+                out.extend(walk(child))
+        return out
+
+    blocks = walk(root)
+    text = "\n".join(blocks)
+    text = re.sub(r"\n{3,}", "\n\n", text).strip()
+    if not text:
+        raise ValueError("这个 .docx 里没有可读的文字（可能整篇都是图片），请把文字复制粘贴到下面的框里")
+    return text
+
+
 def unique_path(name: str) -> Path:
     """加时间戳前缀，重名自动加序号，绝不覆盖旧稿。"""
     stamp = time.strftime("%Y%m%d-%H%M%S")
@@ -291,25 +374,31 @@ def unique_path(name: str) -> Path:
     return candidate
 
 
-def save_text(raw: bytes, name: str, source: str) -> dict:
+def save_text(raw: bytes, name: str, source: str, stem: str | None = None) -> dict:
     if len(raw) > MAX_BYTES:
         raise ValueError(f"文件太大（上限 {MAX_BYTES // 1024 // 1024} MB）")
     if not raw.strip():
         raise ValueError("内容为空")
-    text, encoding = decode_any(raw)
-    if looks_binary(text):
-        raise ValueError("这看起来是二进制文件，不是纯文本，请另存为 txt 再传")
     suffix = os.path.splitext(name)[1].lower() or ".txt"
     if suffix not in ALLOWED_SUFFIX:
-        raise ValueError(f"只接收纯文本文件（不支持 {suffix}）")
+        raise ValueError(f"这个格式不支持（{suffix or '无扩展名'}）："
+                         "请传 txt / md / docx，或把文字直接粘贴到框里")
+    if suffix == ".docx":
+        text, encoding = docx_to_text(raw), "docx"
+        suffix = ".txt"                      # 抽出来的正文按 txt 存，方便直接读
+    else:
+        text, encoding = decode_any(raw)
+        if looks_binary(text):
+            raise ValueError("这看起来是二进制文件，不是纯文本，请另存为 txt 再传")
     text = text.replace("\r\n", "\n").replace("\r", "\n")
-    target = unique_path(os.path.splitext(name)[0] + suffix)
+    base_name = os.path.splitext(safe_name(name))[0] if stem is None else safe_stem(stem)
+    target = unique_path(base_name + suffix)
     target.write_text(text, encoding="utf-8", newline="\n")
     info = {
         "saved": target.name,
         "chars": sum(1 for ch in text if not ch.isspace()),
         "total_chars": len(text),
-        "lines": text.count("\n") + 1,
+        "lines": len(text.rstrip("\n").split("\n")) if text.strip() else 0,
         "bytes": len(raw),
         "encoding": encoding,
         "source": source,
@@ -348,7 +437,7 @@ def read_saved(name: str) -> dict:
         "saved": name,
         "text": text,
         "chars": meta.get("chars", sum(1 for ch in text if not ch.isspace())),
-        "lines": meta.get("lines", text.count("\n") + 1),
+        "lines": meta.get("lines", len(text.rstrip("\n").split("\n"))),
         "bytes": meta.get("bytes", target.stat().st_size),
         "encoding": meta.get("encoding", "utf-8"),
         "time": meta.get("time", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(target.stat().st_mtime))),
@@ -418,7 +507,9 @@ class Handler(BaseHTTPRequestHandler):
             elif parsed.path == "/paste":
                 raw = self.read_body()
                 stamp = time.strftime("%Y%m%d-%H%M%S")
-                self.json_response(200, save_text(raw, f"粘贴的文案_{stamp}.txt", "粘贴"))
+                wanted = query.get("name", [""])[0]
+                stem = safe_stem(wanted) if wanted.strip() else f"粘贴的脚本_{stamp}"
+                self.json_response(200, save_text(raw, "粘贴的脚本.txt", "粘贴", stem=stem))
             else:
                 self.json_response(404, {"error": "地址无效"})
         except Exception as exc:
