@@ -27,7 +27,10 @@ def decode(p):
     return np.frombuffer(out, '<i2').astype(np.float32) / 32768
 
 
-def pauses(x, min_len=0.08):
+def pauses(x, min_len=0.04):
+    # 2026-10-19 换成 voice-01 后实测：这个声音的逗号气口普遍 0.04–0.07 s，
+    # 原来的 0.08 s 会漏掉一半停顿，触发 merge_to_fit 合并分句、边界整体漂移
+    # （13 处「语速异常」，最高 21.6 字/秒）。0.04 s 下六章停顿数与分句数刚好匹配。
     n = len(x) // HOP * HOP
     rms = np.sqrt((x[:n].reshape(-1, HOP) ** 2).mean(1)); quiet = rms < 0.01
     spans = []; s = None; lead = 0.0
@@ -57,6 +60,9 @@ def merge_to_fit(clauses, pauses_count, log=None):
     if count and log:
         print(f'    合并 {count} 处没有停顿的短分句（{len(clauses)} -> {len(merged)}）')
     return merged
+
+
+BOUNDARY_MIN = 0.10   # 只有 ≥0.10 s 的停顿才能当分句边界；更短的只是气口
 
 
 def align(text, x):
@@ -123,7 +129,11 @@ def check_cuts(window=0.35, lead_max=0.0):
         clauses = table[cid]['clauses']
         for r in clauses:
             cps = float(r.get('chars_per_second', 5.0))
-            if cps < 2.8 or cps > 9.5:
+            # ≤3 字的短句（「十年」「是他」这类收尾词）后面一定跟着长停顿，
+            # 把它算进分句时长后 2.5–2.8 字/秒是正常的，不算错位。
+            n_chars = len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]', '', r['text']))
+            low = 2.5 if n_chars <= 3 else 2.8
+            if cps < low or cps > 9.5:
                 problems.append(f'{cid} 分句[{r["i"]}]「{r["text"]}」语速异常 ({cps:.2f} 字/秒)，疑似停顿漏检或错位')
         for j, (cut, sid, _variant) in enumerate(cuts):
             next_cut = cuts[j + 1][0] if j + 1 < len(cuts) else 1e9

@@ -29,8 +29,18 @@ PROJ = HERE.parent
 RENDER = PROJ / "render.py"
 TABLES = PROJ / "audio" / "clause-times.json"
 
+# 章节内的镜头顺序（2026-10-19 用户反馈「解说和画面对不上」后重排）。
+# 镜头素材不变、不重新生成，只改「哪一镜配哪句口播」：
+#   N02 原先把「女子遇害」放在二审法庭上，现在改为 上诉状 → 二审 → 卷宗 → 62天卡 → 执行 → 父母 → 申诉
+#   N03 原先把「旧案重翻」放在记者镜头上，现在改为 破案 → 卡片 → 押解 → 审讯 → 两本卷宗 → 九年 → 记者 → 电话
+#   N04 原先把「多了一个自称凶手的人」放在父母镜头上，现在改为 父母 → 核对卡 → 尸检 → 血型 → 印证 → 检察 → 再审
+CUT_ORDER = {
+    "N02": ["S11", "S09", "S12", "S10", "S13", "S14", "S15"],
+    "N03": ["S16", "S17", "S18", "S19", "S20", "S23", "S21", "S22"],
+}
+
 TARGET = 4.0
-MIN_SHOT, MAX_SHOT = 1.8, 6.5   # 章末最后一镜可以短一点（它顶到章末）
+MIN_SHOT, MAX_SHOT = 2.2, 6.5
 MAX_TAIL = 8.0          # 章末最后一镜可以稍长（要留旁白收尾）
 
 
@@ -49,8 +59,9 @@ def plan_chapter(clauses: list[dict], shots: list[str], chapter_duration: float)
     # dp[i][q]：镜头 0..i 已排好、且镜头 i 从分句 q 开始时的最小代价（只累计已经确定的镜头时长）
     dp = [[INF] * m for _ in range(k)]
     back = [[-1] * m for _ in range(k)]
-    for p in range(m):
-        dp[0][p] = 0.0
+    # 首镜必须从章首（分句 0）开始：返回值里 i==0 会被强制写成 0.0，
+    # 若这里允许它从任意分句 p 起算，DP 会以为首镜只有 4 秒、实际却拉成 9 秒（2026-10-19 实测 N06）。
+    dp[0][0] = 0.0
     for i in range(1, k):
         for q in range(i, m):
             for p in range(i - 1, q):
@@ -93,6 +104,10 @@ def main() -> int:
     shots: dict[str, list[str]] = {}
     for shot in sorted(story["shots"], key=lambda s: s["start"]):
         shots.setdefault(shot["narration_id"], []).append(shot["id"])
+    for cid, order in CUT_ORDER.items():
+        default = shots[cid]
+        assert sorted(order) == sorted(default), f"{cid}: CUT_ORDER 与默认镜头集合不一致"
+        shots[cid] = order
     blocks, summary = [], []
     for cid in sorted(shots):
         duration = float(table[cid]["duration"])
