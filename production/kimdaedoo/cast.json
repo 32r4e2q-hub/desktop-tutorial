@@ -1,0 +1,43 @@
+{
+  "mode": "face",
+  "characters": [
+    {
+      "id": "C1",
+      "name": "金大斗（虚构重建形象，非真实肖像）",
+      "role": "suspect",
+      "seed": 19750813,
+      "face": "a lean 26-year-old Korean man with a gaunt angular face, sunken cheeks, narrow tired eyes, thin lips, short black side-parted hair, a small scar through his left eyebrow, wearing a worn dark-brown jacket over a faded white shirt and dark trousers"
+    },
+    {
+      "id": "C2",
+      "name": "洗衣店老板娘（普通市民）",
+      "role": "witness",
+      "seed": 19751008,
+      "face": "a 50-year-old Korean woman with a round weathered face, deep laugh lines, short tightly permed grey-black hair, thin arched eyebrows, wearing a faded floral apron over a grey work dress"
+    }
+  ],
+  "shots": {
+    "S01": [
+      "C2"
+    ],
+    "S06": [
+      "C1"
+    ],
+    "S16": [
+      "C2"
+    ],
+    "S17": [
+      "C2"
+    ],
+    "S19": [
+      "C1"
+    ],
+    "S20": [
+      "C1"
+    ],
+    "S23": [
+      "C1"
+    ]
+  },
+  "notes": "C1 是虚构重建形象，不对应真实照片；C2 是普通市民。face token 逐字节复用于每一个露脸镜头，未登记的镜头只拍背影/远景/手。"
+}

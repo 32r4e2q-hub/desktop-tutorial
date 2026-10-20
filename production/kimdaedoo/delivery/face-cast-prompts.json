@@ -1,0 +1,79 @@
+{
+  "gate": "check-prompts",
+  "project": "production/kimdaedoo",
+  "errors": [],
+  "warnings": [],
+  "characters": [
+    {
+      "id": "C1",
+      "name": "金大斗（虚构重建形象，非真实肖像）",
+      "role": "suspect",
+      "face_token_chars": 246,
+      "portrait": null,
+      "portrait_url": null,
+      "seed": 19750813
+    },
+    {
+      "id": "C2",
+      "name": "洗衣店老板娘（普通市民）",
+      "role": "witness",
+      "face_token_chars": 185,
+      "portrait": null,
+      "portrait_url": null,
+      "seed": 19751008
+    }
+  ],
+  "face_shots": [
+    {
+      "shot": "S01",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 624
+    },
+    {
+      "shot": "S06",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 650
+    },
+    {
+      "shot": "S16",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 563
+    },
+    {
+      "shot": "S17",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 517
+    },
+    {
+      "shot": "S19",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 653
+    },
+    {
+      "shot": "S20",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 730
+    },
+    {
+      "shot": "S23",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 607
+    }
+  ],
+  "mode": "face",
+  "status": "PASS"
+}

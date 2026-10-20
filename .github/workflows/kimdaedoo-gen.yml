@@ -1,0 +1,187 @@
+# 金大斗案 · Agnes 逐镜生成（30 镜 × 6 秒 = 180 秒）
+#
+# 引擎：production/kimdaedoo/generate.py（模板来自 JMS 郑明析案 / 北九州项目）
+# 模型：agnes-video-2.5-flash（免费档，720P）
+# 节奏：创建请求 61 秒一次；免费池 video queue is full 时也按 61 秒抽签，
+#       110 分钟没开闸就以退出码 42 收工，由 auto_resume 自动接力下一轮。
+#
+# 为什么在 Actions 跑：沙箱连不上 apihub.agnes-ai.com，也只有 runner 拿到 AGNES_API_KEY。
+# 生成结果（results.json + qa 接触表）checkpoint 自动 commit 回本分支；
+# 大视频只进 artifact，不进 Git。
+name: 金大斗案 · Agnes 生成
+run-name: 金大斗 · Agnes 2.5-flash · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON: {"only":"S01"} / {"workers":2}；留空则读 GEN_REQUEST'
+        type: string
+        default: ''
+  push:
+    branches:
+      - arena/b726ea5e-desktop-tutorial
+    paths:
+      - production/kimdaedoo/GEN_REQUEST
+      - production/kimdaedoo/generate.py
+      - production/kimdaedoo/story.json
+      - .github/workflows/kimdaedoo-gen.yml
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: kimdaedoo-gen-arena-b726ea5e
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/b726ea5e-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 350
+    steps:
+      - name: Check out the production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/b726ea5e-desktop-tutorial
+          fetch-depth: 0
+
+      - name: Resolve generation payload
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then payload="$PAYLOAD_INPUT";
+          elif [ -f production/kimdaedoo/GEN_REQUEST ]; then payload="$(tr -d '\n' < production/kimdaedoo/GEN_REQUEST)";
+          else payload='{}'; fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "Generation payload: $payload"
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install inspection dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pillow>=10,<13" "numpy>=1.26,<3" "av>=12,<19"
+
+      - name: Build story.json from the uploaded script (source of truth)
+        run: |
+          set -euo pipefail
+          cp production/kimdaedoo/story.json /tmp/story.before.json
+          cp production/kimdaedoo/cast.json /tmp/cast.before.json
+          python3 production/kimdaedoo/build_story.py
+          diff -u /tmp/story.before.json production/kimdaedoo/story.json
+          diff -u /tmp/cast.before.json production/kimdaedoo/cast.json
+
+      - name: Static face gate (byte-exact face tokens)
+        run: python3 production/face_cast.py check-prompts --project production/kimdaedoo
+
+      - name: Strict prompt gate (no gore / text / modern tech / multi-scene)
+        run: python3 production/kimdaedoo/audit_prompts.py
+
+      - name: Validate the 30 × 6-second timeline and Agnes payload
+        run: python3 production/kimdaedoo/generate.py --validate --clips-only
+
+      - name: Generate 30 Agnes clips (queue-full lottery every 61s)
+        id: gen
+        continue-on-error: true
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: |
+          set -o pipefail
+          set +e
+          python3 -u production/kimdaedoo/generate.py --publish --clips-only --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
+          rc=${PIPESTATUS[0]}
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          # 42 = 免费池排队满（可接力） 43 = 额度耗尽 1 = 真 bug
+          exit 0
+
+      - name: Ship failure log to the branch
+        if: steps.gen.outputs.rc != '0'
+        run: |
+          tail -c 200000 /tmp/gen.log > production/kimdaedoo/gen-diag.log || true
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/kimdaedoo/gen-diag.log
+          git commit -m "kimdaedoo: 生成失败诊断 $(date -u +%FT%TZ)" || true
+          git push origin HEAD:arena/b726ea5e-desktop-tutorial || true
+
+      - name: Decide whether to resume (free queue is a lottery)
+        id: resume
+        if: always()
+        run: python3 production/kimdaedoo/auto_resume.py --rc "${{ steps.gen.outputs.rc }}"
+
+      - name: Relay the next generation round
+        if: steps.resume.outputs.resume == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "arena-auto-resume"
+          git config user.email "arena@local"
+          git add production/kimdaedoo/GEN_REQUEST
+          git commit -m "kimdaedoo: 排队满，自动接力下一轮 $(date -u +%FT%TZ)" || true
+          for attempt in 1 2 3; do
+            git push origin HEAD:arena/b726ea5e-desktop-tutorial && break || {
+              sleep 5; git pull --rebase origin arena/b726ea5e-desktop-tutorial || true; }
+          done
+          payload=$(tr -d '\n' < production/kimdaedoo/GEN_REQUEST)
+          echo "DISPATCH payload: $payload"
+          set +e
+          out=$(gh workflow run kimdaedoo-gen.yml --ref arena/b726ea5e-desktop-tutorial -f payload="$payload" 2>&1)
+          rc=$?
+          set -e
+          if [ $rc -eq 0 ]; then
+            echo "DISPATCH_OK $out"
+          else
+            echo "$out" > production/kimdaedoo/dispatch-fail.txt
+            echo "DISPATCH_FAILED: $out"
+            git add production/kimdaedoo/dispatch-fail.txt
+            git commit -m "kimdaedoo: 接力 dispatch 失败 $(date -u +%FT%TZ)" || true
+            git push origin HEAD:arena/b726ea5e-desktop-tutorial || true
+            exit 1
+          fi
+
+      - name: Trigger final assembly when all 30 clips are ready
+        if: steps.gen.outputs.rc == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          done=$(python3 -c "import json; print(sum(1 for v in json.load(open('production/kimdaedoo/results.json'))['shots'].values() if v.get('status')=='completed'))")
+          echo "completed shots: $done/30"
+          if [ "$done" != "30" ]; then echo "not all clips ready; skip final"; exit 0; fi
+          echo "All 30 clips ready; dispatching final assembly."
+          gh workflow run kimdaedoo-final.yml --ref arena/b726ea5e-desktop-tutorial
+
+      - name: Fail when nothing will resume
+        if: steps.gen.outputs.rc != '0' && steps.resume.outputs.resume != 'true'
+        run: |
+          echo "生成未完成，且不会自动接力（rc=${{ steps.gen.outputs.rc }}）" >&2
+          exit 1
+
+      - name: Save generation evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: kimdaedoo-agnes-${{ github.run_number }}
+          path: |
+            production/kimdaedoo/results.json
+            production/kimdaedoo/qa/
+            production/kimdaedoo/gen-diag.log
+            production/kimdaedoo/delivery/prompt-audit.json
+            production/kimdaedoo/delivery/face-cast-prompts.json
+            work/kimdaedoo/clips/
+          if-no-files-found: warn
+          retention-days: 14
