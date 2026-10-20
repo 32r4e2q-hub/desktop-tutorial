@@ -228,17 +228,16 @@ SHOTS = [
      "anywhere in view, only panic and empty space opening in the middle of the street. Slight handheld shake that settles into stillness as the street empties, " + HOLD,
      "短促闷响两三下 + 人群脚步 + 低频冲击"),
 
-    ("S06", "agnes", "轻微手持，中景跟拍穿过人群的民警",
-     "十分钟后：两名民警穿过人群，走向巷口",
+    ("S06", "agnes", "低机位跟随背影，缓慢推进",
+     "童家桥：两名便衣走进巷口，远处一个人影",
      "接动态镜：墙上的照片与地图",
-     "Early evening on the same street after rain: a simple rope barrier stretches between two posts "
-     "across the pavement, its cord beaded with water, while blue and red light pulses across the wet "
-     "asphalt and the tiled wall from an unmarked car at the far end; small numbered yellow markers stand "
-     "at intervals on the ground, an investigator in a plain dark jacket crouches at the edge with his "
-     "back to the camera, and the street behind is empty except for one distant bus; the pavement is "
-     "clear apart from the barrier and the investigators. Slow low lateral move along the barrier cord with the lights pulsing across the frame, "
-     + HOLD,
-     "远处警笛 + 无线电杂音 + 水滴"),
+     "Just after dawn in an old hillside neighbourhood: two men in plain dark jackets walk side by side "
+     "into a narrow stone-paved lane, seen from behind and slightly below, their shoulders squared, one "
+     "of them half-turning to look ahead; far down the lane a lone figure in a dark coat stands still, "
+     "small in the mist, and low morning light comes over the tiled roofs behind them; potted plants, a "
+     "bicycle and a coiled hose sit against the walls, and the lane is otherwise empty. Slow low tracking "
+     "move behind the two men as they walk in, " + HOLD,
+     "清晨鸟鸣 + 两人的脚步 + 远处市声"),
 
     ("S07", "agnes", "沿照片墙缓慢横移，最后停在一张照片前",
      "专案组：一面墙，把三座城市钉在一起",
@@ -376,7 +375,7 @@ SHOTS = [
      "纸张翻动 + 低声讨论 + 笔尖标注"),
 
     ("S21", "agnes", "微距横移，扫过物品编号",
-     "比对：封袋、放大镜与检验记录",
+     "证物：封袋、放大镜与检验记录",
      "接信息卡：物证比对",
      "Extreme close-up across a white laboratory bench: several small sealed paper envelopes stand in a row "
      "on a sheet of white paper beside a pair of tweezers, a magnifier lamp tilted over a glass slide, an "
@@ -385,7 +384,7 @@ SHOTS = [
      "item in turn, " + HOLD,
      "封袋轻响 + 仪器提示音 + 低音"),
 
-    ("S22", "graphic", "信息卡（静帧）", "档案：物证比对",
+    ("S22", "graphic", "信息卡（静帧）", "档案：南京 · 二〇一二年一月六日",
      "接动态镜：长途车站",
      "案件档案：物证比对",
      "低音撞击"),
@@ -620,7 +619,7 @@ CARDS = {
     "S02": ("苏湘渝系列持枪抢劫杀人案", "重庆 · 长沙 · 南京 · 二〇〇四至二〇一二", "十起案件 · 十人死亡 · 六人受伤"),
     "S09": ("二〇〇四年四月二十二日", "重庆 · 银行门口 · 一死一伤", "七万元现金被抢走 · 系列案的起点"),
     "S16": ("并案侦查", "苏 · 湘 · 渝 三地案件串并", "公安部挂牌督办 · A级通缉令"),
-    "S22": ("物证比对", "弹壳 · 弹道 · 指纹 · DNA", "不同城市的案件 · 指向同一个人"),
+    "S22": ("二〇一二年一月六日 · 南京", "下关区 · 银行门口 · 一名提款人", "二十万现金被抢走 · 跨省流窜"),
     "S25": ("二〇一二年八月十日", "重庆沙坪坝凤鸣山 · 一死两伤", "铁路民警朱彦超在盘查中牺牲"),
     "S33": ("比对：两个城市，一条线索", "长沙警方 · 体貌特征", "江苏警方 · DNA 比中"),
     "S40": ("八年 · 十起案件", "十人死亡 · 六人受伤", "二〇〇四至二〇一二 · 重庆 长沙 南京"),
