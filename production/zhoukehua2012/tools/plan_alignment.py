@@ -28,6 +28,10 @@ RENDER = PROJ / "render.py"
 CLAUSES = PROJ / "audio" / "clause-times.json"
 ALIGN = PROJ / "alignment.json"
 
+LEAD = 0.05             # 切点比口播分句起点早 50 ms：分句起点是「开口」的时刻，
+                        # 成片按 1/30 s 对齐到帧，若正好落在起点上会被四舍五入到字里，
+                        # 耳朵听到的就是话被剪断。提前 50 ms 落进停顿里，check-cuts 的
+                        # [-0.35, 0] 窗也认。
 MIN_SHOT = 1.4          # 允许的短镜（信息插入/快切），低于这个值就是排错了
 MAX_SHOT = 8.5          # 单镜上限；超过说明分句太少或落点排错
 
@@ -53,7 +57,7 @@ def plan(table, align, chapters):
             if not 0 <= index < len(clauses):
                 problems.append(f"{cid} {shot}: 分句序号 {index} 超出 0–{len(clauses) - 1}")
                 continue
-            start = 0.0 if not cuts else float(clauses[index]["start"])
+            start = 0.0 if not cuts else max(0.0, float(clauses[index]["start"]) - LEAD)
             cuts.append((round(start, 2), shot))
         if not cuts:
             continue

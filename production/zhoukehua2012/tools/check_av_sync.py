@@ -35,8 +35,12 @@ ROOT = PROJ.parent.parent
 
 RATE = 48000
 HOP = 480                       # 10 ms
-PAUSE_DB = -45.0                # 配音原轨里视为「停顿」的门限
-CUT_TAIL = 0.15                 # 切点前 150 ms 必须已经静下来（否则上一句被剪断）
+PAUSE_DB = -35.0                # 配音原轨里视为「还在说话」的门限（人声约 -20 dBFS，留 15 dB 余量）
+CUT_TAIL = 0.10                 # 切点前 100 ms 必须已经静下来（否则上一句被剪断）。
+                                # 为什么不是 150 ms：本片两个最短的气口只有 160 ms（N05 的
+                                # 「王晓渝 / 周缙」之间），切点提前 50 ms 落进去后，150 ms 窗口
+                                # 会回溯到上一个字；100 ms 既留出帧对齐的余量（±17 ms），
+                                # 也不会误报。
 CUT_LEAD = 0.25                 # 切点后 250 ms 内必须起新的一句（否则切点悬在空气里）
 CAPTION_EARLY = 0.45
 CAPTION_LATE = 0.40
@@ -68,14 +72,17 @@ def place_narration(timeline: list[dict]) -> tuple[np.ndarray, float]:
     tempo = float(timeline[0]["tempo"])
     duration = max(float(row["end"]) for row in timeline) + 1.0
     grid = np.full(int(duration / (HOP / RATE)) + 2, -120.0, dtype=np.float32)
+    step = (HOP / RATE) / tempo       # 原轨一格（10 ms）在成片时间轴上占的宽度
     for row in timeline:
         clip = PROJ / "audio" / (row["id"] + ".mp3")
         level = envelope(decode(clip))
-        # 原轨第 i 格（10 ms）落在成片的 start + i*0.01/tempo 秒
+        base = float(row["start"])
         for i, value in enumerate(level):
-            t = float(row["start"]) + i * (HOP / RATE) / tempo
-            index = int(round(t / (HOP / RATE)))
-            if 0 <= index < len(grid):
+            first = int(round((base + i * step) / (HOP / RATE)))
+            last = int(round((base + (i + 1) * step) / (HOP / RATE)))
+            # 0.901 倍速下原轨一格比成片一格宽，必须填满区间，否则网格里会留下
+            # 假的「数字静音」空洞（-120 dBFS），把切点误判成压在话音上。
+            for index in range(max(0, first), min(len(grid) - 1, max(first, last)) + 1):
                 grid[index] = max(grid[index], value)
     return grid, tempo
 
