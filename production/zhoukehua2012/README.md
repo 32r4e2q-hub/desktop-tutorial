@@ -101,5 +101,6 @@ bash production/run_project.sh zhoukehua2012               # 出片（Actions �
 | 角色脸闸门 | SKIP by design（`cast.json` 声明 `mode=silhouette`，全片不做肖像还原） |
 | 人工语义复核 | [AI 辅助复核记录](delivery/AI辅助视觉复核-2026-10-20.md)；发布前请用户本人看片签收 |
 | 交付文件 | 68,234,966 B · 180.0 s · 1920×1080 · 30 fps · SHA-256 `6048abc9…` |
+| Release | [zhoukehua2012-v2](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/zhoukehua2012-v2)（资产 SHA-256 与 `交付/` 一致） |
 
 全过程与 1301 的实测处理见 [`制作过程.md`](制作过程.md)。
