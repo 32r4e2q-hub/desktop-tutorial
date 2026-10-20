@@ -111,12 +111,12 @@ RENDER_SEGMENT 28/46 S29
 RENDER_SEGMENT 29/46 S28
 RENDER_SEGMENT 30/46 S30
 RENDER_SEGMENT 31/46 S32
-RENDER_SEGMENT 32/46 S31
-RENDER_SEGMENT 33/46 S33
-RENDER_SEGMENT 34/46 S34
-RENDER_SEGMENT 35/46 S35
-RENDER_SEGMENT 36/46 S36
-RENDER_SEGMENT 37/46 S37
+RENDER_SEGMENT 32/46 S33
+RENDER_SEGMENT 33/46 S34
+RENDER_SEGMENT 34/46 S35
+RENDER_SEGMENT 35/46 S36
+RENDER_SEGMENT 36/46 S37
+RENDER_SEGMENT 37/46 S31
 RENDER_SEGMENT 38/46 S38
 RENDER_SEGMENT 39/46 S40
 RENDER_SEGMENT 40/46 S41
@@ -129,10 +129,10 @@ RENDER_SEGMENT 46/46 END
 Generated original thriller music loop: work/zhoukehua2012/score.wav (180.00s)
 SOUNDTRACK_MEASURED {"rms_dbfs": -20.51, "peak_dbfs": -1.52, "silent_fraction": 0.0}
 FINAL_AUDIO_MEASURED {"rms_dbfs": -20.53, "peak_dbfs": -1.57, "silent_fraction": 0.011, "quietest_window_dbfs": -120.0}
-RENDER_COMPLETE {"duration": 180.0, "bytes": 68514236, "width": 1920, "height": 1080, "fps": 30.0, "video_codec": "h264", "frames": 5400, "audio_codec": "aac", "sample_rate": 48000, "audio_channels": 2, "sha256": "5a590b6c47c8d54bdabb45334f82a3621191341bd8ee9ac7818fae9727ca7ef0", "decoded_ok": true, "status": "audio_verified_cut", "visual_review": "pending", "caption_alignment": [{"id": "N01", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N02", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N03", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N04", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N05", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N06", "method": "clause-times DP", "character_match_coverage": 1.0}], "narration_voice_id": "voice-00", "narration_tempo": 0.901390625, "editorial_segments": 46, "source_clips": 38, "archival_portrait": false, "unique_shots_no_reuse": true, "output": "周克华案_逃亡八年，最后四天_三分钟_带声音.mp4", "soundtrack_mix": {"rms_dbfs": -20.51, "peak_dbfs": -1.52, "silent_fraction": 0.0, "target_rms_dbfs": -20.0}, "delivered_audio": {"rms_dbfs": -20.53, "peak_dbfs": -1.57, "silent_fraction": 0.011, "quietest_window_dbfs": -120.0}, "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening", "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."}
+RENDER_COMPLETE {"duration": 180.0, "bytes": 68385207, "width": 1920, "height": 1080, "fps": 30.0, "video_codec": "h264", "frames": 5400, "audio_codec": "aac", "sample_rate": 48000, "audio_channels": 2, "sha256": "dafa18ec2e49a5a6e29e755a1b57aebc3bc95b06114bd330cbb471d04963478b", "decoded_ok": true, "status": "audio_verified_cut", "visual_review": "pending", "caption_alignment": [{"id": "N01", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N02", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N03", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N04", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N05", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N06", "method": "clause-times DP", "character_match_coverage": 1.0}], "narration_voice_id": "voice-00", "narration_tempo": 0.901390625, "editorial_segments": 46, "source_clips": 38, "archival_portrait": false, "unique_shots_no_reuse": true, "output": "周克华案_逃亡八年，最后四天_三分钟_带声音.mp4", "soundtrack_mix": {"rms_dbfs": -20.51, "peak_dbfs": -1.52, "silent_fraction": 0.0, "target_rms_dbfs": -20.0}, "delivered_audio": {"rms_dbfs": -20.53, "peak_dbfs": -1.57, "silent_fraction": 0.011, "quietest_window_dbfs": -120.0}, "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening", "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."}
 === 4/5 把成片与实测报告 commit 回 arena/a2b4456e-desktop-tutorial ===
-[arena/a2b4456e-desktop-tutorial 74884a842] Deliver the zhoukehua2012 cut with measured audio
- 6 files changed, 72 insertions(+), 74 deletions(-)
+[arena/a2b4456e-desktop-tutorial 10f5cff90] Deliver the zhoukehua2012 cut with measured audio
+ 4 files changed, 26 insertions(+), 26 deletions(-)
 To https://github.com/32r4e2q-hub/desktop-tutorial
  ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
 error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
