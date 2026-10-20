@@ -1,7 +1,7 @@
 {
   "film": "周克华案_逃亡八年，最后四天_三分钟_带声音.mp4",
-  "film_sha256": "7a131df165a5d2bbb4aa609636e7409168ba3d80dff360646e68d3ba663da6d1",
-  "film_bytes": 67107053,
+  "film_sha256": "3f829683c731dafe882800375187fe582a4e09286e153ac1d3fca4cc17537fba",
+  "film_bytes": 67968537,
   "project": "production/zhoukehua2012",
   "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
   "max_cer_allowed": 0.15,
@@ -10,7 +10,7 @@
       {
         "id": "N01",
         "start": 0.6,
-        "end": 26.557,
+        "end": 25.55,
         "script_chars": 96,
         "heard_chars": 97,
         "character_error_rate": 0.0417,
@@ -46,13 +46,13 @@
       },
       {
         "id": "N02",
-        "start": 27.637,
-        "end": 56.953,
-        "script_chars": 99,
-        "heard_chars": 103,
-        "character_error_rate": 0.0606,
-        "match_coverage": 0.9798,
-        "verdict": "ok",
+        "start": 26.63,
+        "end": 60.323,
+        "script_chars": 115,
+        "heard_chars": 123,
+        "character_error_rate": 0.1565,
+        "match_coverage": 0.913,
+        "verdict": "needs_human_listen",
         "diff": [
           {
             "at": 5,
@@ -61,36 +61,48 @@
             "heard": "零零"
           },
           {
+            "at": 47,
+            "kind": "replace",
+            "script": "又",
+            "heard": "有"
+          },
+          {
+            "at": 63,
+            "kind": "replace",
+            "script": "中",
+            "heard": "种"
+          },
+          {
             "at": 66,
             "kind": "insert",
             "script": "",
             "heard": "零零"
           },
           {
-            "at": 81,
+            "at": 68,
             "kind": "replace",
-            "script": "一支",
-            "heard": "以致"
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 72,
+            "kind": "replace",
+            "script": "持",
+            "heard": "吃"
           }
         ],
-        "transcript": "故事要从2004年4月22日说起重庆两名女子刚从银行取完钱枪声突然响起一死一伤七万元被抢走一年后又一对夫妻在银行门口遇袭一名路人中枪2009年3月重庆石桥铺执勤哨兵遇害以致自动步枪被抢走这就是系列案的起点"
+        "transcript": "故事要从2004年4月22日说起重庆两名女子刚从银行取完钱枪声突然响起一死一伤七万元被抢走一年后有一对夫妻在银行门口遇袭一名路人种枪2005年她因非法吃枪入狱2008年初遇2009年3月重庆石桥铺直秦少兵遇害一只自动步枪被抢走这就是系列案的起点"
       },
       {
         "id": "N03",
-        "start": 58.033,
-        "end": 86.316,
-        "script_chars": 105,
-        "heard_chars": 108,
-        "character_error_rate": 0.1333,
-        "match_coverage": 0.9048,
+        "start": 61.403,
+        "end": 89.592,
+        "script_chars": 104,
+        "heard_chars": 107,
+        "character_error_rate": 0.1058,
+        "match_coverage": 0.9327,
         "verdict": "ok",
         "diff": [
-          {
-            "at": 0,
-            "kind": "replace",
-            "script": "专案",
-            "heard": "传"
-          },
           {
             "at": 14,
             "kind": "replace",
@@ -98,16 +110,22 @@
             "heard": "义"
           },
           {
-            "at": 16,
+            "at": 21,
             "kind": "replace",
-            "script": "挑",
-            "heard": "跳"
+            "script": "取",
+            "heard": "区"
+          },
+          {
+            "at": 29,
+            "kind": "replace",
+            "script": "密集",
+            "heard": "秘籍"
           },
           {
             "at": 34,
             "kind": "replace",
-            "script": "作",
-            "heard": "做"
+            "script": "作案",
+            "heard": "转"
           },
           {
             "at": 42,
@@ -122,12 +140,12 @@
             "heard": "零"
           }
         ],
-        "transcript": "传组发现这些案子不像临时起义只跳刚从银行取款的人只走人流密集的老街做案后立刻消失2009年到2011年长沙接连发生枪击2012年1月6日南京下官区一家银行门口一名提款人当场身亡二十万现金被抢俗乡于3D第一次连成一条线"
+        "transcript": "专案组发现这些案子不像临时起义只挑刚从银行区款的人只走人流秘籍的老街转后立刻消失2009年到2011年长沙接连发生枪击2012年1月6日南京下官区一家银行门口一名提款人当场身亡二十万现金被抢三座城市第一次连成一条线"
       },
       {
         "id": "N04",
-        "start": 87.396,
-        "end": 117.336,
+        "start": 90.672,
+        "end": 119.45,
         "script_chars": 109,
         "heard_chars": 110,
         "character_error_rate": 0.0642,
@@ -141,16 +159,22 @@
             "heard": "零"
           },
           {
-            "at": 20,
+            "at": 19,
             "kind": "replace",
-            "script": "坝凤鸣",
-            "heard": "坊奉明"
+            "script": "坪",
+            "heard": "平"
+          },
+          {
+            "at": 49,
+            "kind": "replace",
+            "script": "逃往",
+            "heard": "掏网"
           },
           {
             "at": 58,
             "kind": "replace",
             "script": "彦",
-            "heard": "雁"
+            "heard": "焱"
           },
           {
             "at": 79,
@@ -162,15 +186,15 @@
             "at": 92,
             "kind": "replace",
             "script": "卡",
-            "heard": "假"
+            "heard": "抢"
           }
         ],
-        "transcript": "2012年8月10日上午9点37分重庆沙坪坊奉明山中国银行储蓄所门前再次响起枪声一人不幸身亡 两人受伤逃往途中 铁路民警朱雁超上前盘查遭到袭击 不幸牺牲当天 重庆全城布空通往山外的每一条路都被设假上万警力进山搜捕这一次他没能走远"
+        "transcript": "2012年8月10日上午9点37分重庆沙平坝凤鸣山中国银行储蓄所门前再次响起枪声一人不幸身亡两人受伤掏网途中铁路民警朱焱超上前盘查遭到袭击不幸牺牲当天重庆全城布空通往山外的每一条路都被设抢上万警力进山搜捕这一次他没能走远"
       },
       {
         "id": "N05",
-        "start": 118.416,
-        "end": 143.715,
+        "start": 120.53,
+        "end": 144.848,
         "script_chars": 100,
         "heard_chars": 100,
         "character_error_rate": 0.08,
@@ -199,7 +223,7 @@
             "at": 48,
             "kind": "replace",
             "script": "缙",
-            "heard": "进"
+            "heard": "晋"
           },
           {
             "at": 50,
@@ -214,11 +238,11 @@
             "heard": "货"
           }
         ],
-        "transcript": "转机来自两座城市长沙警方拿到了他的体貌特征江苏警方比重了他的DNA8月14日清晨便一名警王小鱼周进在同家桥发现了他察觉被跟踪后他突然转身两名民警随即上前处置6点50分周克华当场身亡随身的物品全部被起货"
+        "transcript": "转机来自两座城市长沙警方拿到了他的体貌特征江苏警方比重了他的DNA8月14日清晨便一名警王小鱼周晋在同家桥发现了他察觉被跟踪后他突然转身两名民警随即上前处置6点50分周克华当场身亡随身的物品全部被起货"
       },
       {
         "id": "N06",
-        "start": 144.795,
+        "start": 145.928,
         "end": 174.0,
         "script_chars": 108,
         "heard_chars": 108,
@@ -229,15 +253,17 @@
         "transcript": "八年 十起案件 十人死亡 六人受伤數字背後 是一個個原本普通的日子有人只是去取一筆錢有人只是站在哨位上有人只是路過追捕結束了但那些沒能回家的人不會回來十年之後再看這仍然是一道關於公共安全的傷口這不是傳奇是一段必須被記住的代價"
       }
     ],
-    "max_cer": 0.1333,
-    "failing": []
+    "max_cer": 0.1565,
+    "failing": [
+      "N02"
+    ]
   },
   "narration_control": {
     "chapters": [
       {
         "id": "N01",
         "start": 0.6,
-        "end": 26.557,
+        "end": 25.55,
         "script_chars": 96,
         "heard_chars": 97,
         "character_error_rate": 0.0417,
@@ -273,12 +299,12 @@
       },
       {
         "id": "N02",
-        "start": 27.637,
-        "end": 56.953,
-        "script_chars": 99,
-        "heard_chars": 103,
-        "character_error_rate": 0.0606,
-        "match_coverage": 0.9798,
+        "start": 26.63,
+        "end": 60.323,
+        "script_chars": 115,
+        "heard_chars": 123,
+        "character_error_rate": 0.1217,
+        "match_coverage": 0.9478,
         "verdict": "ok",
         "diff": [
           {
@@ -288,36 +314,48 @@
             "heard": "零零"
           },
           {
+            "at": 47,
+            "kind": "replace",
+            "script": "又",
+            "heard": "有"
+          },
+          {
             "at": 66,
             "kind": "insert",
             "script": "",
             "heard": "零零"
           },
           {
-            "at": 81,
+            "at": 68,
             "kind": "replace",
-            "script": "一支",
-            "heard": "以致"
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 77,
+            "kind": "insert",
+            "script": "",
+            "heard": "零零"
+          },
+          {
+            "at": 79,
+            "kind": "replace",
+            "script": "出狱",
+            "heard": "初遇"
           }
         ],
-        "transcript": "故事要从2004年4月22日说起重庆两名女子刚从银行取完钱枪声突然响起一死一伤七万元被抢走一年后又一对夫妻在银行门口遇袭一名路人中枪2009年3月重庆石桥铺执勤哨兵遇害以致自动步枪被抢走这就是系列案的起点"
+        "transcript": "故事要从2004年4月22日说起重庆两名女子刚从银行取完钱枪声突然响起一死一伤七万元被抢走一年后有一对夫妻在银行门口遇袭一名路人中枪2005年她因非法持枪入狱2008年初遇2009年3月重庆石桥铺直勤哨兵遇害一只自动步枪被抢走这就是系列案的起点"
       },
       {
         "id": "N03",
-        "start": 58.033,
-        "end": 86.316,
-        "script_chars": 105,
+        "start": 61.403,
+        "end": 89.592,
+        "script_chars": 104,
         "heard_chars": 108,
-        "character_error_rate": 0.1333,
-        "match_coverage": 0.9048,
+        "character_error_rate": 0.0769,
+        "match_coverage": 0.9615,
         "verdict": "ok",
         "diff": [
-          {
-            "at": 1,
-            "kind": "delete",
-            "script": "案",
-            "heard": ""
-          },
           {
             "at": 14,
             "kind": "replace",
@@ -334,27 +372,33 @@
             "at": 21,
             "kind": "replace",
             "script": "取",
-            "heard": "局"
-          },
-          {
-            "at": 34,
-            "kind": "replace",
-            "script": "作",
-            "heard": "坐"
+            "heard": "区"
           },
           {
             "at": 42,
             "kind": "insert",
             "script": "",
             "heard": "零零"
+          },
+          {
+            "at": 46,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 58,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
           }
         ],
-        "transcript": "专组发现这些案子不像临时起义只跳刚从银行局款的人只走人流密集的老街坐案后立刻消失2009年到2011年长沙接连发生枪击2012年1月6日南京下官区一家银行门口一名提款人当场身亡20万现金被抢俗乡于3D第一次连成一条线"
+        "transcript": "专案组发现这些案子不像临时起义只跳刚从银行区款的人只走人流密集的老街作案后立刻消失2009年到2011年长沙接连发生枪击2012年1月6日南京下官区一家银行门口一名提款人当场身亡20万现金被抢三座城市第一次连成一条线"
       },
       {
         "id": "N04",
-        "start": 87.396,
-        "end": 117.336,
+        "start": 90.672,
+        "end": 119.45,
         "script_chars": 109,
         "heard_chars": 110,
         "character_error_rate": 0.055,
@@ -402,8 +446,8 @@
       },
       {
         "id": "N05",
-        "start": 118.416,
-        "end": 143.715,
+        "start": 120.53,
+        "end": 144.848,
         "script_chars": 100,
         "heard_chars": 100,
         "character_error_rate": 0.08,
@@ -451,7 +495,7 @@
       },
       {
         "id": "N06",
-        "start": 144.795,
+        "start": 145.928,
         "end": 174.0,
         "script_chars": 108,
         "heard_chars": 108,
@@ -475,7 +519,7 @@
         "transcript": "八年 十起案件 十人死亡 六人受伤数字背后 是一个个原本普通的日子有人只是去取一笔钱有人只是站在稍位上有人只是路过 追补结束了但那些没能回家的人不会回来十年之后再看这仍然是一道关于公共安全的伤口这不是传奇是一段必须被记住的代价"
       }
     ],
-    "max_cer": 0.1333,
+    "max_cer": 0.1217,
     "failing": []
   },
   "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
