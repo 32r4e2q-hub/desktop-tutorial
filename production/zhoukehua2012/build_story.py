@@ -168,12 +168,12 @@ SHOTS = [
     ("S01", "agnes", "高空俯拍缓慢下压，最后落到卷宗",
      "钩子：一张地图，三座城市依次亮起",
      "接信息卡：案件名片",
-     "An overhead view of a dark wooden desk at night in a plain office: a large folded paper map of "
-     "central China lies open, three small areas of it faintly catching warm lamplight while the rest "
-     "stays in deep shadow, beside it a stack of dog-eared paper folders, a rubber stamp, a pair of "
-     "reading glasses and a cold cup of tea; dust drifts in the single desk-lamp beam and the room "
-     "beyond the light is almost black. Very slow overhead push-in that drifts down toward the open map "
-     "and settles on the folders, " + HOLD,
+     "An overhead view of a dark wooden desk at night in a plain office: an old folded street map lies "
+     "open under a single desk lamp, three small areas of it circled faintly in pencil while the rest "
+     "stays in deep shadow, beside it a stack of paper folders, a pair of reading glasses and a cold "
+     "cup of tea; dust drifts in the single desk-lamp beam and the room beyond the light is almost "
+     "black. Very slow overhead push-in that drifts down toward the open map and settles on the "
+     "folders, " + HOLD,
      "低沉鼓点 + 纸张翻动 + 远处心跳"),
 
     ("S02", "graphic", "信息卡（静帧）", "名片：案名 / 三座城市 / 八年",
@@ -238,9 +238,9 @@ SHOTS = [
     ("S08", "agnes", "地图俯拍，镜头沿连线快速移动",
      "三座城市：一条线把案卷连起来",
      "接 N02：二〇〇四年的老街",
-     "A dim briefing room seen from directly above: a large printed map of central China is spread across a "
-     "table under a low hanging lamp, three cities marked by small red pins joined by thin red thread, a "
-     "ruler, a magnifier and a closed notebook resting at the edges of the map; the corners of the room "
+     "A dim briefing room seen from directly above: a large printed city map is spread across a table under "
+     "a low hanging lamp, three small red pins joined by thin red thread, a ruler, a magnifier and a "
+     "closed notebook resting at the edges of the map; the corners of the room "
      "fall away into shadow and the paper texture is visible under the light. Slow aerial glide along the "
      "thread from the western pin eastward to the last pin, then a gentle settle, " + HOLD,
      "地图标记声 + 低频脉冲 + 节奏加快"),
