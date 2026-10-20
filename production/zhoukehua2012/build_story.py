@@ -284,8 +284,10 @@ SHOTS = [
      "二〇〇五年：又一对夫妻在银行门口",
      "接动态镜：桌面上的封袋与手套",
      "A cool overcast view across a quiet road in spring 2005, framed so the bank branch itself fills the "
-     "left half of the picture: a plain tiled bank front with tall glass doors, a shallow canopy and a step, "
-     "no lettering anywhere; a middle-aged couple come out through the doors together, one carrying a bag, "
+     "left half of the picture: a plain pale concrete front with tall glass doors, a shallow canopy, a wide "
+     "step and a bare unmarked wall above the doors; the wall carries no signboard, no logo, no red band, no "
+     "poster and no writing of any kind, only clean grey panels; a middle-aged couple come out through the "
+     "doors together, one carrying a bag, "
      "seen small and from behind at a distance; a bus shelter and bare street trees stand at the right, a "
      "parked taxi waits at the kerb, everything grey and quiet. Very slow long-lens push-in across the road "
      "toward those glass doors, staying at a distance the whole time, nobody turning to the camera, " + HOLD,
