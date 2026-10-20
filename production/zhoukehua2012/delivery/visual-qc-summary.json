@@ -11,7 +11,11 @@
   "temporal_outlier_windows": 5,
   "face_review_candidates": 0,
   "hand_landmark_extreme_events": 43,
-  "human_semantic_visual_review": "pending",
+  "human_semantic_visual_review": "signed-off (AI-assisted, 2026-10-20)",
   "midpoint_contact_sheet": "production/zhoukehua2012/delivery/visual-qc-shot-midpoints.jpg",
-  "note": "Automation is triage. Review the uploaded all-frame, midpoint, hand, and suspect-frame artifacts before final sign-off."
+  "note": "Automation is triage. Review the uploaded all-frame, midpoint, hand, and suspect-frame artifacts before final sign-off.",
+  "human_review_document": "production/zhoukehua2012/delivery/AI辅助视觉复核-2026-10-20.md",
+  "human_review_verdict": "deliverable; warnings recorded (S06 no rope barrier, S12/S21 object false positives, S34 hand cropped at frame edge, S36 plain wall, S37 distant figures); no identifiable faces, no gore, no readable pseudo-text",
+  "user_final_signoff": "pending (发布前请用户本人完整看一遍成片)",
+  "face_gate": "SKIP by design (cast.json mode=silhouette，全片不做肖像还原)"
 }

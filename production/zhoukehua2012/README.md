@@ -82,6 +82,8 @@ bash production/run_project.sh zhoukehua2012               # 出片（Actions �
 | 出片与混音 | RMS −20.11 dBFS · 峰值 −1.53 · 静音 0.55 % |
 | 逐字听检 | 六章 CER 0.000–0.133，全部 ok |
 | 全帧 QC | 5400/5400 帧 · 非计划黑帧 0 · 人脸候选 0 |
+| 角色脸闸门 | SKIP by design（`cast.json` 声明 `mode=silhouette`，全片不做肖像还原） |
+| 人工语义复核 | [AI 辅助复核记录](delivery/AI辅助视觉复核-2026-10-20.md)；发布前请用户本人看片签收 |
 | Release | [zhoukehua2012-v1](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/zhoukehua2012-v1) |
 
 全过程与 1301 的实测处理见 [`制作过程.md`](制作过程.md)。

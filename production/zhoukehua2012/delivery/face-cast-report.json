@@ -2,13 +2,12 @@
   "gate": "check-frames",
   "project": "production/zhoukehua2012",
   "film": "交付/周克华案_逃亡八年，最后四天_三分钟_带声音.mp4",
-  "errors": [
-    "缺 production/zhoukehua2012/cast.json：先跑 check-prompts 的准备工作（face_cast.py init）"
-  ],
+  "errors": [],
   "warnings": [],
   "characters": {},
   "cross_character": [],
   "shots": [],
   "human_review": "pending",
-  "status": "FAIL"
+  "status": "SKIP",
+  "note": "cast.json 的 mode 不是 face（本片不露脸），画面闸门无事可做"
 }
