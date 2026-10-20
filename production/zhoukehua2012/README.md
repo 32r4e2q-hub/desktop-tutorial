@@ -88,7 +88,7 @@ bash production/run_project.sh zhoukehua2012               # 出片（Actions �
    （否则会命中旧收据、一镜都不重投）；
 4. 若同一镜连续两轮被拦，换构图（俯拍桌面 / 空镜 / 静物）而不是继续换形容词。
 
-## 闸门总表（交付版 SHA `6048abc9…`）
+## 闸门总表（交付版 SHA `760c7241…`）
 
 | 闸门 | 结果 |
 |---|---|
@@ -100,7 +100,8 @@ bash production/run_project.sh zhoukehua2012               # 出片（Actions �
 | 全帧 QC | 5400/5400 帧 · 非计划黑帧 0 · 人脸候选 0 · 手部越界 0 |
 | 角色脸闸门 | SKIP by design（`cast.json` 声明 `mode=silhouette`，全片不做肖像还原） |
 | 人工语义复核 | [AI 辅助复核记录](delivery/AI辅助视觉复核-2026-10-20.md)；发布前请用户本人看片签收 |
-| 交付文件 | 68,234,966 B · 180.0 s · 1920×1080 · 30 fps · SHA-256 `6048abc9…` |
-| Release | [zhoukehua2012-v2](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/zhoukehua2012-v2)（资产 SHA-256 与 `交付/` 一致） |
+| 动作合理性 | PASS（0 乒乓倒放 / 0 位移反向，`delivery/motion-report.json`） |
+| 交付文件 | 68,048,299 B · 180.0 s · 1920×1080 · 30 fps · SHA-256 `760c7241…` |
+| Release | [zhoukehua2012-v3](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/zhoukehua2012-v3)（资产 SHA-256 与 `交付/` 一致） |
 
 全过程与 1301 的实测处理见 [`制作过程.md`](制作过程.md)。
