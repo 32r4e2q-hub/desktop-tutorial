@@ -211,11 +211,14 @@ SHOTS = [
     ("S04", "agnes", "街道中景缓慢推进，人群自然流动",
      "银行门口：一个再普通不过的上午",
      "接动态镜：街面突然的骚动",
-     "Street level outside a plain bank branch with a tiled facade and a glass door on a summer morning: "
-     "commuters walk past carrying bags, a woman waits with a shopping trolley, a man in a short-sleeve "
-     "shirt counts change at a roadside stall, scooters idle at the kerb and an air-conditioner drips onto "
-     "the pavement; heat shimmer softens the far end of the street, everybody ordinary, nobody looking at "
-     "the camera. Slow forward dolly at walking pace along the pavement toward the entrance, " + HOLD,
+     "Street level outside a bank branch on a summer morning: the wall above the entrance is bare pale "
+     "tile with a plain blue panel and a blank white fascia board, the plate-glass doors are clean and "
+     "empty of any marking, and the whole facade carries no writing at all. Commuters walk past carrying "
+     "bags, a woman waits with a shopping trolley, a man in a short-sleeve shirt counts change at a "
+     "roadside stall, scooters idle at the kerb and an air-conditioner drips onto the pavement; awnings "
+     "and shopfronts further down the street are angled away from the lens and softly out of focus, "
+     "everybody ordinary, nobody looking at the camera. Slow forward dolly at walking pace along the "
+     "pavement toward the entrance, " + HOLD,
      "市声 + 摩托怠速 + 蝉鸣"),
 
     ("S05", "agnes", "轻微手持，中远景突然静止",
