@@ -397,23 +397,13 @@ SHOTS = [
      "蝉鸣突然压低 + 低频冲击 + 一声闷响"),
 
     ("S25", "graphic", "信息卡（静帧）", "档案：八月十日",
-     "接动态镜：铁路边的巡查",
+     "接动态镜：布控的车灯",
      "案件档案：八月十日",
      "低音撞击"),
 
-    ("S26", "agnes", "沿铁路线跟随背影，缓慢推进",
-     "铁路边：他正沿线路巡查",
-     "接动态镜：穿过山城的车",
-     "Morning beside a railway line on the edge of a Chinese city in August: ballast, sleepers and a "
-     "single track run away from the camera toward industrial sheds and a distant freight yard, tall weeds "
-     "push through the fence, and overhead wires hum; a railway worker in a dark blue uniform walks away "
-     "from the camera along the maintenance path beside the track, seen only from behind, his cap and "
-     "shoulders small against the wide bright morning. Slow push-in following him along the path, " + HOLD,
-     "铁轨环境声 + 远处列车 + 音乐降至低音"),
-
-    ("S27", "agnes", "跟车镜头，穿过窄坡街道",
+    ("S26", "agnes", "跟车镜头，穿过窄坡街道",
      "布控：车灯穿过山城的窄坡",
-     "接动态镜：夜里的山林",
+     "接动态镜：铁路边的巡查",
      "An unmarked car with a rooftop light bar flashing moves up a steep, narrow street in a hillside city, "
      "seen from a following low angle: hillside apartment blocks press in on both sides with laundry "
      "hanging over the road, a corner shop's awning juts into the street, scooters pull over to let the "
@@ -421,6 +411,16 @@ SHOTS = [
      "a shoulder from behind. Slow tracking shot behind and slightly below the car as it climbs the slope, "
      + HOLD,
      "警笛由远及近 + 对讲机 + 节奏加快"),
+
+    ("S27", "agnes", "沿铁路线跟随背影，缓慢推进",
+     "铁路边：朱彦超正沿线路巡查",
+     "接动态镜：夜里的山林",
+     "Morning beside a railway line on the edge of a Chinese city in August: ballast, sleepers and a "
+     "single track run away from the camera toward industrial sheds and a distant freight yard, tall weeds "
+     "push through the fence, and overhead wires hum; a railway worker in a dark blue uniform walks away "
+     "from the camera along the maintenance path beside the track, seen only from behind, his cap and "
+     "shoulders small against the wide bright morning. Slow push-in following him along the path, " + HOLD,
+     "铁轨环境声 + 远处列车 + 音乐降至低音"),
 
     ("S28", "agnes", "林间仰拍，手电光束扫过树梢",
      "夜里：山林中的搜索",
@@ -444,7 +444,7 @@ SHOTS = [
 
     ("S30", "agnes", "巷口固定机位，缓慢推入晨雾",
      "八月十四日，清晨六点四十",
-     "接 N05：巷口的身影",
+     "接 N05：两座城市送来的线索",
      "A narrow alley in a hillside neighbourhood at first light in August: old residential buildings four "
      "storeys high press in on both sides, a single street lamp still burns at the alley mouth while the "
      "sky above turns from grey to pale, damp concrete and a low step, potted plants along a windowsill, a "
@@ -453,9 +453,34 @@ SHOTS = [
      "清晨鸟鸣 + 脚步 + 克制低音"),
 
     # ---------------- N05 收网（S31-S38：7 动态 + 1 信息卡）----------------
-    ("S31", "agnes", "长焦远观，缓慢横移",
-     "巷口：远处出现一个身影",
+    ("S31", "agnes", "俯拍桌面，缓慢横移",
+     "转机：两座城市送来的物证",
+     "接动态镜：实验室里的比对",
+     "Directly above a steel table in a plain evidence room: three sealed paper envelopes of different "
+     "sizes lie in a row on white paper, each tagged with a blank card, a set of small numbered markers "
+     "arranged in a neat grid, a ruler and a pair of white gloves at the edge of the frame; the lighting is "
+     "flat and clinical and the arrangement is methodical, with no readable writing on any tag. Slow "
+     "overhead lateral move across the row of envelopes, " + HOLD,
+     "纸张轻响 + 封袋摩擦 + 低音"),
+
+    ("S32", "agnes", "实验室侧拍，缓慢推近记录",
+     "比对：体貌特征与DNA",
      "接信息卡：收网时间",
+     "Inside a laboratory office in the early 2010s: a technician in a white coat sits at a bench with her "
+     "back and shoulder to the camera, comparing a card under a magnifier lamp while a monitor glows with "
+     "blurred charts and a printed report lies open beside the keyboard; a sealed cabinet stands against "
+     "the wall and the room is quiet and orderly. Slow push-in from the doorway toward the lit bench, "
+     + HOLD,
+     "仪器风扇 + 键盘轻响 + 低音铺底"),
+
+    ("S33", "graphic", "信息卡（静帧）", "档案：六时四十分 / 六时五十分",
+     "接动态镜：巷口的身影",
+     "案件档案：六时四十分 / 六时五十分",
+     "低音撞击"),
+
+    ("S34", "agnes", "长焦远观，缓慢横移",
+     "巷口：远处出现一个身影",
+     "接动态镜：巷内跟拍",
      "A long-lens view down an alley at dawn: in the far distance a lone man in a dark jacket walks away "
      "along the lane, small and slightly out of focus, while in the near foreground two investigators in "
      "plain dark jackets stand at a corner with their backs to the camera, one of them raising a hand "
@@ -464,13 +489,8 @@ SHOTS = [
      "foreground pair and the distant figure in frame, " + HOLD,
      "轻微脚步 + 衣料摩擦 + 心跳般低频"),
 
-    ("S32", "graphic", "信息卡（静帧）", "档案：六时四十分 / 六时五十分",
-     "接动态镜：巷子拐角",
-     "案件档案：六时四十分 / 六时五十分",
-     "低音撞击"),
-
-    ("S33", "agnes", "巷内跟拍，拐角处突然停住",
-     "拐角：远处的人影突然回身",
+    ("S35", "agnes", "巷内跟拍，拐角处突然停住",
+     "跟上去：他们加快脚步",
      "接动态镜：墙面的闪光",
      "Inside a narrow alley at dawn: two investigators in plain dark jackets move along the wall toward a "
      "corner, seen from behind and from the side, their steps quickening; ahead of them, at the corner "
@@ -479,7 +499,7 @@ SHOTS = [
      "silhouette turns, " + HOLD,
      "急促脚步 + 布料摩擦 + 音乐骤然压低"),
 
-    ("S34", "agnes", "低机位贴墙，只拍墙面与地面",
+    ("S36", "agnes", "低机位贴墙，只拍墙面与地面",
      "交火：只有墙上的闪光与地面的反光",
      "接动态镜：空巷与绳栏",
      "Ground-level view of a plastered alley wall at dawn, seen from very low and very close: two brief "
@@ -490,35 +510,15 @@ SHOTS = [
      + HOLD,
      "短促闷响 + 墙面回声 + 突然静音"),
 
-    ("S35", "agnes", "空巷缓慢拉远，灯光映在湿地面",
+    ("S37", "agnes", "空巷缓慢拉远，灯光映在湿地面",
      "结束后：空巷、绳栏、湿地面",
-     "接动态镜：桌面上的封袋",
+     "接动态镜：通报会",
      "A wide, respectful view of a sealed alley minutes after the confrontation: a simple rope barrier "
      "crosses the foreground, two cars stand at the far end with their rooftop light bars turning, blue and "
      "red washing over the wet asphalt and the alley walls, uniformed officials in the middle distance turn "
      "their backs and secure the area, and pale dawn light rises above the rooftops; the alley is clear "
      "apart from the barrier and the officials. Very slow pull-back along the barrier cord, " + HOLD,
      "远处警笛 + 无线电杂音 + 低沉收束"),
-
-    ("S36", "agnes", "俯拍证物桌，缓慢横移",
-     "现场缴获：封袋、编号与登记表",
-     "接动态镜：检验记录",
-     "Directly above a steel table in a plain evidence room: three sealed paper envelopes of different "
-     "sizes lie in a row on white paper, each tagged with a blank card, a set of small numbered markers "
-     "arranged in a neat grid, a ruler and a pair of white gloves at the edge of the frame; the lighting is "
-     "flat and clinical and the arrangement is methodical, with no readable writing on any tag. Slow "
-     "overhead lateral move across the row of envelopes, " + HOLD,
-     "纸张轻响 + 封袋摩擦 + 低音"),
-
-    ("S37", "agnes", "实验室侧拍，缓慢推近记录",
-     "身份确认：比对记录",
-     "接动态镜：通报会",
-     "Inside a laboratory office in the early 2010s: a technician in a white coat sits at a bench with her "
-     "back and shoulder to the camera, comparing a card under a magnifier lamp while a monitor glows with "
-     "blurred charts and a printed report lies open beside the keyboard; a sealed cabinet stands against "
-     "the wall and the room is quiet and orderly. Slow push-in from the doorway toward the lit bench, "
-     + HOLD,
-     "仪器风扇 + 键盘轻响 + 低音铺底"),
 
     ("S38", "agnes", "从记者席缓慢推向发布台",
      "通报：案件告破",
@@ -604,7 +604,7 @@ CARDS = {
     "S16": ("并案侦查", "苏 · 湘 · 渝 三地案件串并", "公安部挂牌督办 · A级通缉令"),
     "S22": ("物证比对", "弹壳 · 弹道 · 指纹 · DNA", "不同城市的案件 · 指向同一个人"),
     "S25": ("二〇一二年八月十日", "重庆沙坪坝凤鸣山 · 一死两伤", "铁路民警朱彦超在盘查中牺牲"),
-    "S32": ("八月十四日 · 童家桥", "六时四十分 · 便衣发现踪迹", "六时五十分 · 被当场击毙"),
+    "S33": ("八月十四日 · 童家桥", "六时四十分 · 便衣发现踪迹", "六时五十分 · 被当场击毙"),
     "S40": ("八年 · 十起案件", "十人死亡 · 六人受伤", "二〇〇四至二〇一二 · 重庆 长沙 南京"),
 }
 # 片头字幕卡（0.35–4.7 秒叠在第一镜上）：两行，第二行小字
@@ -651,12 +651,12 @@ LABEL_OVERRIDES = {
     "S28": "AI动画情景重现 · 非搜捕实景",
     "S29": "AI动画情景重现 · 非指挥现场原件",
     "S30": "AI动画情景重现 · 非案发影像",
-    "S31": "AI动画情景重现 · 非本人容貌",
-    "S33": "AI动画情景重现 · 非现场影像",
-    "S34": "AI动画示意 · 非现场影像 · 无伤害细节",
+    "S31": "AI动画示意 · 非证物原件",
+    "S32": "AI动画示意 · 非鉴定文书原件",
+    "S34": "AI动画情景重现 · 非本人容貌",
     "S35": "AI动画情景重现 · 非现场影像",
-    "S36": "AI动画示意 · 非证物原件",
-    "S37": "AI动画示意 · 非鉴定文书原件",
+    "S36": "AI动画示意 · 非现场影像 · 无伤害细节",
+    "S37": "AI动画情景重现 · 非现场影像",
     "S38": "AI动画示意 · 非发布会实况",
     "S41": "AI动画情景重现 · 非受害家庭影像",
     "S42": "AI动画情景重现 · 非牺牲民警本人影像",
@@ -672,8 +672,8 @@ SFX_EVENTS = [
     ("S23", "phone"),
     ("S28", "phone"),
     ("S29", "paper"),
-    ("S36", "keys"),
-    ("S37", "machine"),
+    ("S31", "keys"),
+    ("S32", "machine"),
     ("S38", "press"),
     ("S42", "press"),
 ]
