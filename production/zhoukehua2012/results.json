@@ -677,27 +677,10 @@
     },
     "S35": {
       "id": "S35",
-      "status": "completed",
-      "request_hash": "140a0e8936489333c148e437852b851523d1534fd97be7348b4ec4cb16b64383",
+      "status": "submitting",
+      "request_hash": "d58daeac95d2eaf435beb49c991f879432948682a2d89452c86f441c7c256d1c",
       "error": null,
-      "updated_at": "2026-10-20T01:15:20Z",
-      "task_id": "2026102009141217d690402fc74856",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200915107291e5f41950444c_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=QCUeLhQxJbrSfjdVrLB6acOWdLI%3D&Expires=1792545312",
-      "sha256": "366e89fcf3093f4f6e0baa424d99a6fd6f5c15f3ddc543f777a6a1aa2f1a89fc",
-      "bytes": 1237908,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1237908,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/zhoukehua2012/qa/S35.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-20T11:30:40Z"
     },
     "S36": {
       "id": "S36",
@@ -958,7 +941,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-20T11:30:39Z",
+  "updated_at": "2026-10-20T11:30:40Z",
   "previous_results": {
     "S01": [
       {
@@ -1181,6 +1164,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/zhoukehua2012/qa/S21.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S35": [
+      {
+        "id": "S35",
+        "status": "completed",
+        "request_hash": "140a0e8936489333c148e437852b851523d1534fd97be7348b4ec4cb16b64383",
+        "error": null,
+        "updated_at": "2026-10-20T01:15:20Z",
+        "task_id": "2026102009141217d690402fc74856",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200915107291e5f41950444c_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=QCUeLhQxJbrSfjdVrLB6acOWdLI%3D&Expires=1792545312",
+        "sha256": "366e89fcf3093f4f6e0baa424d99a6fd6f5c15f3ddc543f777a6a1aa2f1a89fc",
+        "bytes": 1237908,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1237908,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/zhoukehua2012/qa/S35.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
