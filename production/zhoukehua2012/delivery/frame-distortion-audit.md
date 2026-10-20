@@ -1,7 +1,7 @@
 # 成片逐帧畸变 / 时序 QC
 
 - 成片：`周克华案_逃亡八年，最后四天_三分钟_带声音.mp4`
-- SHA-256：`6048abc95ea4f54d6736978b780cee94567594eab06f3edd8d975a8946d9200e`
+- SHA-256：`760c724165f71c3705081593342936ec6fcbe58f2550a840536581024c82fc8d`
 - 视频：1920×1080 / 30.000 fps / 180.000 秒
 - 覆盖：解码并分析 **5400/5400 帧**；逐帧 MediaPipe 人脸/手检测；320x180 时序分析
 - 自动状态：**REVIEW**（机器结果，不等同于无任何视觉瑕疵）
@@ -12,66 +12,66 @@
 - 亮度低于 12 的帧：16（片头/片尾淡入淡出需按时间线解释）
 - 非计划黑帧：0
 - >1 秒近静止区段：2；其中非信息卡/片尾段：2
-- 帧差/光流/亮度突变待复核窗口：3
-- 人脸检测：逐帧总检测 167；达到复核阈值的候选 0
-- 手部检测：逐帧总检测 0；超出宽松几何边界的 landmark 事件 0
+- 帧差/光流/亮度突变待复核窗口：2
+- 人脸检测：逐帧总检测 110；达到复核阈值的候选 0
+- 手部检测：逐帧总检测 1；超出宽松几何边界的 landmark 事件 1
 
 ## 镜头统计
 
 | 镜头 | 类型 | 帧数 | 人脸检出 | 手检出 | 光流残差 P95 峰值 | 时序异常窗口 |
 |---|---:|---:|---:|---:|---:|---:|
 | S01 | agnes | 92 | 0 | 0 | 0.6487 | 1 |
-| S03 | agnes | 90 | 0 | 0 | 0.2118 | 0 |
+| S03 | agnes | 90 | 0 | 0 | 0.2071 | 0 |
 | S06 | agnes | 132 | 0 | 0 | 1.6667 | 0 |
-| S02 | graphic | 118 | 0 | 0 | 61.2576 | 0 |
+| S02 | graphic | 118 | 0 | 0 | 64.2582 | 0 |
 | S05 | agnes | 97 | 0 | 0 | 0.9287 | 0 |
-| S07 | agnes | 111 | 0 | 0 | 0.112 | 0 |
-| S08 | agnes | 159 | 0 | 0 | 0.2668 | 0 |
-| S09 | graphic | 155 | 0 | 0 | 98.2072 | 0 |
-| S10 | agnes | 205 | 0 | 0 | 0.4394 | 0 |
-| S12 | agnes | 49 | 49 | 0 | 0.5775 | 0 |
+| S07 | agnes | 111 | 0 | 0 | 0.1106 | 0 |
+| S08 | agnes | 159 | 0 | 0 | 0.1641 | 0 |
+| S09 | graphic | 155 | 0 | 0 | 113.3289 | 0 |
+| S10 | agnes | 205 | 0 | 0 | 0.2427 | 0 |
+| S12 | agnes | 49 | 44 | 0 | 0.2673 | 0 |
 | S11 | agnes | 157 | 0 | 0 | 0.6761 | 0 |
 | S13 | agnes | 112 | 0 | 0 | 0.7035 | 0 |
-| S14 | agnes | 150 | 0 | 0 | 1.2643 | 0 |
-| S15 | agnes | 215 | 0 | 0 | 0.3983 | 0 |
-| S20 | agnes | 134 | 0 | 0 | 0.1196 | 0 |
-| S17 | agnes | 152 | 0 | 0 | 0.7155 | 0 |
-| S23 | agnes | 68 | 0 | 0 | 0.0526 | 0 |
-| S18 | agnes | 135 | 0 | 0 | 0.2549 | 0 |
-| S19 | agnes | 142 | 0 | 0 | 0.2933 | 0 |
-| S22 | graphic | 63 | 1 | 0 | 55.9709 | 0 |
-| S21 | agnes | 53 | 53 | 0 | 0.0951 | 0 |
-| S16 | graphic | 131 | 58 | 0 | 217.9606 | 0 |
-| S24 | agnes | 113 | 0 | 0 | 2.3701 | 0 |
-| S04 | agnes | 174 | 0 | 0 | 0.3304 | 0 |
-| S25 | graphic | 78 | 0 | 0 | 178.0515 | 0 |
-| S26 | agnes | 123 | 0 | 0 | 0.3273 | 0 |
-| S27 | agnes | 92 | 0 | 0 | 0.5246 | 0 |
-| S29 | agnes | 60 | 0 | 0 | 0.0665 | 0 |
-| S28 | agnes | 157 | 1 | 0 | 0.1676 | 0 |
-| S30 | agnes | 99 | 0 | 0 | 0.0959 | 0 |
-| S32 | agnes | 166 | 0 | 0 | 0.5823 | 0 |
-| S33 | graphic | 83 | 0 | 0 | 65.3485 | 0 |
-| S34 | agnes | 168 | 0 | 0 | 0.2975 | 0 |
-| S35 | agnes | 84 | 0 | 0 | 2.7748 | 1 |
-| S36 | agnes | 70 | 0 | 0 | 0.1097 | 0 |
-| S37 | agnes | 92 | 0 | 0 | 0.1176 | 0 |
-| S31 | agnes | 99 | 5 | 0 | 0.2304 | 0 |
-| S38 | agnes | 156 | 0 | 0 | 0.1543 | 0 |
-| S40 | graphic | 122 | 0 | 0 | 208.855 | 0 |
-| S41 | agnes | 115 | 0 | 0 | 0.1166 | 0 |
-| S43 | agnes | 88 | 0 | 0 | 0.7467 | 0 |
-| S42 | agnes | 85 | 0 | 0 | 0.0966 | 0 |
+| S14 | agnes | 150 | 0 | 0 | 1.2613 | 0 |
+| S15 | agnes | 215 | 0 | 0 | 0.3236 | 0 |
+| S20 | agnes | 134 | 0 | 0 | 0.1193 | 0 |
+| S17 | agnes | 152 | 0 | 0 | 0.7117 | 0 |
+| S23 | agnes | 68 | 0 | 0 | 0.0511 | 0 |
+| S18 | agnes | 135 | 0 | 0 | 0.261 | 0 |
+| S19 | agnes | 142 | 0 | 0 | 0.2907 | 0 |
+| S22 | graphic | 63 | 1 | 0 | 65.5565 | 0 |
+| S21 | agnes | 53 | 1 | 0 | 0.4851 | 0 |
+| S16 | graphic | 131 | 58 | 0 | 180.1497 | 0 |
+| S24 | agnes | 113 | 0 | 0 | 2.3709 | 0 |
+| S04 | agnes | 174 | 0 | 1 | 0.3318 | 0 |
+| S25 | graphic | 78 | 0 | 0 | 160.4097 | 0 |
+| S26 | agnes | 39 | 0 | 0 | 0.1276 | 0 |
+| S27 | agnes | 176 | 0 | 0 | 0.4621 | 0 |
+| S29 | agnes | 60 | 0 | 0 | 0.0694 | 0 |
+| S28 | agnes | 157 | 1 | 0 | 0.1693 | 0 |
+| S30 | agnes | 99 | 0 | 0 | 0.0931 | 0 |
+| S32 | agnes | 166 | 0 | 0 | 0.5941 | 0 |
+| S33 | graphic | 83 | 0 | 0 | 62.0863 | 0 |
+| S34 | agnes | 168 | 0 | 0 | 0.2995 | 0 |
+| S35 | agnes | 84 | 0 | 0 | 1.137 | 0 |
+| S36 | agnes | 70 | 0 | 0 | 0.6137 | 0 |
+| S37 | agnes | 92 | 0 | 0 | 0.1134 | 0 |
+| S31 | agnes | 99 | 5 | 0 | 0.2382 | 0 |
+| S38 | agnes | 156 | 0 | 0 | 0.1579 | 0 |
+| S40 | graphic | 122 | 0 | 0 | 200.8118 | 0 |
+| S43 | agnes | 156 | 0 | 0 | 0.8255 | 0 |
+| S42 | agnes | 47 | 0 | 0 | 0.0678 | 0 |
+| S41 | agnes | 85 | 0 | 0 | 0.1072 | 0 |
 | S39 | agnes | 52 | 0 | 0 | 0.352 | 0 |
-| S44 | agnes | 143 | 0 | 0 | 0.187 | 0 |
-| S45 | agnes | 147 | 0 | 0 | 0.4576 | 1 |
+| S44 | agnes | 143 | 0 | 0 | 0.1888 | 0 |
+| S45 | agnes | 147 | 0 | 0 | 0.4773 | 1 |
 | END | graphic | 114 | 0 | 0 | 0.3478 | 0 |
 
 ## 复核文件
 
 - 全 45 镜 + 片尾画面中帧：`work/zhoukehua2012/final-frame-audit/contacts/shot-midpoints.jpg`
 - 逐帧指标 CSV：`work/zhoukehua2012/final-frame-audit/frame-metrics.csv`
-- 候选异常原始分辨率帧：`['work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00000_t000.000.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00001_t000.033.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00002_t000.067.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00003_t000.100.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00004_t000.133.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00005_t000.167.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00006_t000.200.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00007_t000.233.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00008_t000.267.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00009_t000.300.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00010_t000.333.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_04037_t134.567.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_04038_t134.600.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_04039_t134.633.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_04040_t134.667.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_04041_t134.700.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05269_t175.633.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05270_t175.667.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05271_t175.700.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05272_t175.733.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05273_t175.767.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05274_t175.800.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05275_t175.833.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05276_t175.867.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05277_t175.900.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05278_t175.933.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05279_t175.967.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05280_t176.000.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05281_t176.033.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05282_t176.067.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05283_t176.100.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05284_t176.133.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05285_t176.167.jpg']`
+- 候选异常原始分辨率帧：`['work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00000_t000.000.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00001_t000.033.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00002_t000.067.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00003_t000.100.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00004_t000.133.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00005_t000.167.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00006_t000.200.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00007_t000.233.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00008_t000.267.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00009_t000.300.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_00010_t000.333.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_02976_t099.200.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_02977_t099.233.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_02978_t099.267.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_02979_t099.300.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_02980_t099.333.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05269_t175.633.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05270_t175.667.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05271_t175.700.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05272_t175.733.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05273_t175.767.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05274_t175.800.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05275_t175.833.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05276_t175.867.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05277_t175.900.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05278_t175.933.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05279_t175.967.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05280_t176.000.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05281_t176.033.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05282_t176.067.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05283_t176.100.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05284_t176.133.jpg', 'work/zhoukehua2012/final-frame-audit/suspect-frames/frame_05285_t176.167.jpg']`
 
 ## 限制
 
@@ -122,9 +122,9 @@
 - [S31](../qa/final-frame-review/all-frames/S31-all-frames.jpg)
 - [S38](../qa/final-frame-review/all-frames/S38-all-frames.jpg)
 - [S40](../qa/final-frame-review/all-frames/S40-all-frames.jpg)
-- [S41](../qa/final-frame-review/all-frames/S41-all-frames.jpg)
 - [S43](../qa/final-frame-review/all-frames/S43-all-frames.jpg)
 - [S42](../qa/final-frame-review/all-frames/S42-all-frames.jpg)
+- [S41](../qa/final-frame-review/all-frames/S41-all-frames.jpg)
 - [S39](../qa/final-frame-review/all-frames/S39-all-frames.jpg)
 - [S44](../qa/final-frame-review/all-frames/S44-all-frames.jpg)
 - [S45](../qa/final-frame-review/all-frames/S45-all-frames.jpg)

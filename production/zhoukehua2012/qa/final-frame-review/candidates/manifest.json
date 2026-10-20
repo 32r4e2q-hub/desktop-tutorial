@@ -1,5 +1,5 @@
 {
-  "film_sha256": "6048abc95ea4f54d6736978b780cee94567594eab06f3edd8d975a8946d9200e",
+  "film_sha256": "760c724165f71c3705081593342936ec6fcbe58f2550a840536581024c82fc8d",
   "source_audit": "production/zhoukehua2012/delivery/frame-distortion-audit.json",
   "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
   "max_width": 960,
@@ -35,14 +35,12 @@
       "height": 540
     },
     {
-      "frame": 4039,
-      "seconds": 134.633,
+      "frame": 2978,
+      "seconds": 99.267,
       "reasons": [
-        "temporal-S35-end",
-        "temporal-S35-middle",
-        "temporal-S35-start"
+        "hand-geometry-S04"
       ],
-      "file": "f04039_temporal-S35-end.jpg",
+      "file": "f02978_hand-geometry-S04.jpg",
       "width": 960,
       "height": 540
     },
