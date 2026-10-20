@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/jmsjung/qa_clips.py", line 171, in <module>
+    metrics[sid].update(face_stability(DL / (sid + '.mp4')))
+                        ^^^^^^^^^^^^^^
+NameError: name 'face_stability' is not defined
