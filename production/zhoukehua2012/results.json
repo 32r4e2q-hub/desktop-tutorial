@@ -269,27 +269,10 @@
     },
     "S13": {
       "id": "S13",
-      "status": "completed",
-      "request_hash": "a8db91c255488fb2ea2e8d7f2ea275e3da3b57ab47aa9aa79a3b7ec46b61f414",
+      "status": "submitting",
+      "request_hash": "8d0a3cd20e96bcd1021e5b0d1ad354c9602cb2b80957c143222f2b2fb97cc5cf",
       "error": null,
-      "updated_at": "2026-10-20T00:45:37Z",
-      "task_id": "202610200844381423d3a9450a4a32",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200845305cca3a4048ed4b0c_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=%2B5mufHYU%2FZgB15VW6dEM01OfMAY%3D&Expires=1792543532",
-      "sha256": "efbe3c3eebe66d3789baddc5232f014e8da9d12fd9bad4d23859e02b7005f193",
-      "bytes": 1582940,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1582940,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/zhoukehua2012/qa/S13.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-20T13:58:33Z"
     },
     "S14": {
       "id": "S14",
@@ -959,7 +942,7 @@
     "S45",
     "S46"
   ],
-  "updated_at": "2026-10-20T13:58:31Z",
+  "updated_at": "2026-10-20T13:58:33Z",
   "previous_results": {
     "S01": [
       {
@@ -1258,6 +1241,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/zhoukehua2012/qa/S11.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S13": [
+      {
+        "id": "S13",
+        "status": "completed",
+        "request_hash": "a8db91c255488fb2ea2e8d7f2ea275e3da3b57ab47aa9aa79a3b7ec46b61f414",
+        "error": null,
+        "updated_at": "2026-10-20T00:45:37Z",
+        "task_id": "202610200844381423d3a9450a4a32",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200845305cca3a4048ed4b0c_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=%2B5mufHYU%2FZgB15VW6dEM01OfMAY%3D&Expires=1792543532",
+        "sha256": "efbe3c3eebe66d3789baddc5232f014e8da9d12fd9bad4d23859e02b7005f193",
+        "bytes": 1582940,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1582940,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/zhoukehua2012/qa/S13.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
