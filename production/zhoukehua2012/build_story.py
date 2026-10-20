@@ -283,11 +283,12 @@ SHOTS = [
     ("S11", "agnes", "长焦远景，隔着街道观察",
      "二〇〇五年：又一对夫妻在银行门口",
      "接动态镜：桌面上的封袋与手套",
-     "A wide, cool, overcast view across a road in spring 2005: a middle-aged couple walk out of a bank "
-     "branch with a bag between them, seen small and from behind at a distance, while a passer-by crosses "
-     "the frame in the foreground; a bus shelter, a parked taxi and a row of street trees fill the middle "
-     "distance, everything grey and quiet. Very slow long-lens push-in across the traffic toward the bank "
-     "entrance, staying at a distance the whole time, " + HOLD,
+     "A cool overcast view across a quiet road in spring 2005, framed so the bank branch itself fills the "
+     "left half of the picture: a plain tiled bank front with tall glass doors, a shallow canopy and a step, "
+     "no lettering anywhere; a middle-aged couple come out through the doors together, one carrying a bag, "
+     "seen small and from behind at a distance; a bus shelter and bare street trees stand at the right, a "
+     "parked taxi waits at the kerb, everything grey and quiet. Very slow long-lens push-in across the road "
+     "toward those glass doors, staying at a distance the whole time, nobody turning to the camera, " + HOLD,
      "公交车驶过 + 风声 + 低沉鼓点"),
 
     ("S12", "agnes", "俯拍桌面，缓慢推近",
@@ -306,8 +307,9 @@ SHOTS = [
      "A long, bare institutional corridor: pale green painted walls, a row of closed steel doors along one "
      "side, a caged ceiling light every few metres throwing hard pools of light on the concrete floor, a "
      "barred window at the far end; a single figure in a loose uniform walks away from the camera down the "
-     "corridor, seen only from behind, his shadow lengthening toward the lens. Very slow push-in along the "
-     "corridor following the figure, " + HOLD,
+     "corridor, seen only from behind, getting smaller as he goes, his shadow stretching back toward the "
+     "lens; the camera itself stays locked off and does not move, and no one walks toward the camera. "
+     "Static composition, only the figure moves away, " + HOLD,
      "铁门关闭 + 脚步回声 + 低音铺底"),
 
     ("S14", "agnes", "夜色中跟随背影走进人群",
@@ -474,12 +476,12 @@ SHOTS = [
     ("S31", "agnes", "俯拍桌面，缓慢横移",
      "转机：两座城市送来的物证",
      "接动态镜：实验室里的比对",
-     "Directly above a grey steel table in a plain evidence room: three sealed kraft-paper evidence "
-     "envelopes of different sizes lie in a neat row on a large sheet of clean white paper, each tied with "
-     "thin twine and slipped under a small blank card; a folded white cotton cloth and a glass slide rest "
-     "beside them, and the rest of the table is bare, matte and unmarked. The light comes from a single "
-     "diffused overhead fixture, soft and even, with no blown highlights and no glare on the paper. Slow "
-     "overhead lateral move across the row of envelopes, " + HOLD,
+     "A low three-quarter view across a steel evidence bench in a plain room, lit by cool daylight from a "
+     "side window: a sealed kraft envelope, a clear evidence bag holding a folded cloth, a pair of pale "
+     "latex gloves laid flat, a magnifying glass, a small brass key and a printed inventory sheet with "
+     "blank lines, arranged loosely along the bench instead of in a row; a shallow metal tray sits at the "
+     "back, and no lettering is readable anywhere. Slow lateral truck at bench height, shallow depth of "
+     "field, side light raking across the paper, " + HOLD,
      "纸张轻响 + 封袋摩擦 + 低音"),
 
     ("S32", "agnes", "实验室侧拍，缓慢推近记录",
@@ -511,11 +513,11 @@ SHOTS = [
     ("S35", "agnes", "巷内跟拍，前方身影骤然停步转身",
      "察觉：前面的身影停住并转身",
      "接动态镜：墙面的闪光",
-     "Dawn in a narrow alley: ahead of the camera a man in a dark jacket, walking away, suddenly stops "
-     "mid-step and turns his upper body back toward the lens, head coming round last, his shape a dark "
-     "silhouette against the pale end of the lane so no face is readable; in the near foreground two blurred "
-     "figures in plain jackets keep closing the distance along the wall. Handheld follow that settles as he "
-     "turns, camera steady, " + HOLD,
+     "Dawn in a narrow alley, camera locked off low to the ground: in the near foreground two plain-clothes "
+     "officers stand with their backs to the lens, still and waiting; twenty metres ahead a lone man in a "
+     "dark jacket stops mid-stride and turns his head and shoulders back toward them, his shape a dark "
+     "silhouette against the pale end of the lane so no face is readable; nobody else is in the lane and "
+     "nobody walks toward the camera. Static composition with only that one small movement, " + HOLD,
      "急促脚步 + 布料摩擦 + 音乐骤然压低"),
 
     ("S36", "agnes", "巷内跟拍，两名便衣并肩上前",
@@ -611,8 +613,19 @@ SHOTS = [
      "into bright haze and the room is otherwise empty and swept. Slow lateral move along the windowsill "
      "from the glasses to the white flower, " + HOLD,
      "微弱晨风 + 一声远处车流 + 弦乐收束"),
-]
 
+    ("S46", "agnes", "固定机位，缓慢推近岗亭窗台", 
+     "哨位：天没亮时，一个人站在岗亭旁",
+     "接动态镜：清晨的街道",
+     "Before dawn at the gate of a walled compound: a small white sentry box stands beside the barrier, its "
+     "door ajar and a dim bulb burning above it; on the window ledge a folded dark cap and a steel thermos "
+     "sit side by side, and a pair of worn shoes waits on the step; the barrier arm is down, the wet concrete "
+     "reflects the bulb, and the road beyond is empty and pale. A uniformed guard stands at the far side of "
+     "the box with his back to the camera, perfectly still, seen small against the dark wall; no weapon is "
+     "visible and nobody walks through the frame. Very slow push-in toward the lit ledge, locked-off camera, "
+     + HOLD,
+     "清晨风声 + 远处犬吠 + 极低持续音"),
+]
 CARD_HEADER = "案件档案  /  中国 · 二〇〇四至二〇一二"          # 每张信息卡左上角的小字
 CARD_FOOTER = "公开报道口径 · 并非原始档案影像"                # 每张信息卡左下角的小字
 # 信息卡文案：镜头号 -> (大标题, 第一行, 第二行)。只写公开报道里的事实，不写推测。
@@ -766,7 +779,9 @@ def presentation():
 
 def build():
     story = json.loads(PLAN.read_text())
-    assert len(SHOTS) * GRID == 180, f"{len(SHOTS)} 镜 × {GRID} 秒 ≠ 180 秒"
+    # 4 秒是规划网格，不是硬约束：成片时长由解说决定，镜头数可以比 180/4 多一两镜
+    # （2026-10-20 加 S46「哨位」后是 46 镜）。
+    assert 150 <= len(SHOTS) * GRID <= 200, f"{len(SHOTS)} 镜 × {GRID} 秒 超出规划容差"
     assert len(story["chapters"]) == len(CHAPTERS) == 6
     assert len({sid for sid, *_ in SHOTS}) == len(SHOTS), "镜头号重复"
     face = faces()

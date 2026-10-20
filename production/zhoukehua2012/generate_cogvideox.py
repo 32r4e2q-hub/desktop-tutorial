@@ -211,8 +211,9 @@ def validate(project):
     shots = project.get('shots') or []
     dynamic = [s for s in shots if s.get('kind') in ('cogvideo', 'agnes')]
     graphics = [s for s in shots if s.get('kind') == 'graphic']
-    if len(shots) != 45 or len(dynamic) != 38 or len(graphics) != 7:
-        raise ValueError('Expected 45 shots = 38 dynamic + 7 graphics, got %d/%d/%d'
+    # 镜数不是硬编码：动态镜数与信息卡数分开校验，允许后续加镜（S46 哨位 → 39 动态）。
+    if not (44 <= len(shots) <= 48) or len(graphics) != 7 or len(dynamic) != len(shots) - len(graphics):
+        raise ValueError('Expected 44-48 shots with 7 graphics, got %d/%d/%d'
                          % (len(shots), len(dynamic), len(graphics)))
     for s in dynamic:
         if full_payload(project, s)['model'] != MODEL:

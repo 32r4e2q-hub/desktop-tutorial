@@ -254,8 +254,11 @@ GRID_SECONDS=4   # 本片 45 镜 × 4 秒规划网格（参考项目是 30 × 6�
 
 def validate(project):
     shots=project['shots']
-    if project['target_duration']!=180 or len(shots)*GRID_SECONDS!=180:
-        raise ValueError(f'Expected the reviewed 180-second plan on a {GRID_SECONDS}-second grid')
+    # 4 秒只是规划的节奏网格；成片长度由解说与 EDL 决定，镜数允许 44-48 镜
+    # （2026-10-20 加 S46「哨位」后 46 镜；EDL 仍严格 180.0s，由 check_av_sync 与
+    #  technical-report 的 duration/frames 兜底）。
+    if project['target_duration']!=180 or not (44<=len(shots)<=48):
+        raise ValueError(f'Expected the reviewed 180-second plan ({len(shots)} shots on a {GRID_SECONDS}-second grid)')
     if len({s['id'] for s in shots})!=len(shots):raise ValueError('Duplicate shot IDs')
     for i,shot in enumerate(shots):
         if shot['start']!=i*GRID_SECONDS or shot['duration']!=GRID_SECONDS:raise ValueError('Invalid planning timeline')
