@@ -430,13 +430,13 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             entry.update(source_in=a,source_out=a+take,time_stretch=factor)
     if fc is None:
         if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
-        if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
-        if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
+        if sid=='END':vf+=f',fade=t=in:st=0:d=0.5,fade=t=out:st={duration-.8:.6f}:d=0.8'
+        if sid==last_shot:vf+=f',fade=t=out:st={duration-.55:.6f}:d=0.55'
         cmd+=['-vf',vf+',format=yuv420p']
     else:
         tail=''
         if entry['start_frame']==0:tail+=',fade=t=in:st=0:d=0.25'
-        if sid==last_shot:tail+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
+        if sid==last_shot:tail+=f',fade=t=out:st={duration-.55:.6f}:d=0.55'
         cmd+=['-filter_complex',fc.replace('[vbase]',tail+',format=yuv420p[v]'),'-map','[v]']
     cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
           '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
