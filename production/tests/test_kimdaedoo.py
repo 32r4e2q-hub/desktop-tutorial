@@ -153,8 +153,9 @@ def test_prompt_audit_gate_passes():
 
 
 def test_face_cast_static_gate_passes():
-    result = subprocess.run([sys.executable, str(ROOT / "production" / "face_cast.py"),
-                             "check-prompts", "--project", str(PROJECT)],
+    # 用相对路径跑：face_cast 会把 project 原样写进报告，绝对路径会让仓库每次都变脏。
+    result = subprocess.run([sys.executable, "production/face_cast.py",
+                             "check-prompts", "--project", "production/kimdaedoo"],
                             capture_output=True, text=True, cwd=ROOT)
     assert result.returncode == 0, result.stdout + result.stderr
 
