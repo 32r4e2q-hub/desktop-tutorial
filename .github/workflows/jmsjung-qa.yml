@@ -33,7 +33,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
-          pip install --quiet opencv-python-headless numpy
+          pip install --quiet "opencv-python-headless==4.10.0.84" numpy
 
       - name: 逐帧畸变检查
         run: python3 production/jmsjung/qa_clips.py

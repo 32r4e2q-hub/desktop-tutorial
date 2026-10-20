@@ -95,9 +95,11 @@ def analyze(path):
     diffs = np.abs(np.diff(luma_means))
     med_diff = float(np.median(diffs)) or 1e-6
     max_diff = float(diffs.max())
+    sharp_arr = np.array(sharp)
     return {
         'frames': n,
-        'sharp_min': round(float(np.min(sharp)), 1),
+        'min_sharp_at_s': round(int(np.argmin(sharp_arr)) / 24.0, 2),
+        'sharp_min': round(float(sharp_arr.min()), 1),
         'sharp_med': round(float(np.median(sharp)), 1),
         'sharp_ratio': round(float(np.min(sharp) / (float(np.median(sharp)) or 1e-6)), 3),
         'flicker_med': round(med_diff, 3),
