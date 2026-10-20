@@ -35,6 +35,13 @@ LEAD = 0.05             # 切点比口播分句起点早 50 ms：分句起点是
 MIN_SHOT = 1.4          # 允许的短镜（信息插入/快切），低于这个值就是排错了
 MAX_SHOT = 8.5          # 单镜上限；超过说明分句太少或落点排错
 
+# 成片层面的硬约束：CogVideoX-Flash 素材 5.108 s，掐头去尾后只剩 4.87 s，
+# render.py 的乒乓循环最多撑到 2×4.87 = 9.74 s；章末那一镜还要多吃一个 1.08 s 的章间空档。
+# 2026-10-20 实测：S15 排到 8.31 s（+空档+变速 = 10.30 s）直接被出片闸门拦下。
+TEMPO_LIMIT = 0.9014    # 本片配音整体变速比的下限（render.audio_layout 的实测值）
+GAP = 1.08
+MAX_SLOT_SECONDS = 9.6  # 成片时间轴上单镜的上限（留 0.14 s 余量）
+
 
 def load():
     table = json.loads(CLAUSES.read_text(encoding="utf-8"))
@@ -72,8 +79,14 @@ def plan(table, align, chapters):
                 problems.append(f"{cid} {shot}: 只有 {length:.2f}s（< {MIN_SHOT}s）")
             elif length > MAX_SHOT:
                 problems.append(f"{cid} {shot}: 长达 {length:.2f}s（> {MAX_SHOT}s）")
-        totals.append((cid, [round((cuts[i + 1][0] if i + 1 < len(cuts) else span_end) - cuts[i][0], 2)
-                             for i in range(len(cuts))]))
+        lengths = [round((cuts[i + 1][0] if i + 1 < len(cuts) else span_end) - cuts[i][0], 2)
+                   for i in range(len(cuts))]
+        totals.append((cid, lengths))
+        for i, ((start, shot), length) in enumerate(zip(cuts, lengths)):
+            slot = length / TEMPO_LIMIT + (GAP if i == len(cuts) - 1 else 0.0)
+            if slot > MAX_SLOT_SECONDS:
+                problems.append(f"{cid} {shot}: 成片里要占 {slot:.2f}s（含章末空档），超过素材乒乓上限 "
+                                f"{MAX_SLOT_SECONDS}s —— 把这一镜往前挪一个分句或缩短取用")
         out[cid] = cuts
     return out, problems, totals
 
