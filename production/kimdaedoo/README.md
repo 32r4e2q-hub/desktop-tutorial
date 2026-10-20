@@ -77,6 +77,8 @@ echo '{"only":"S07"}' > production/kimdaedoo/GEN_REQUEST
 
 - `results.json`：每镜状态、video_url、字节数、SHA-256、解码检查
 - `qa/Sxx.jpg` + `qa/Sxx.json`：每镜 14 帧接触表（人工查畸变、换脸、伪文字）
+- 脚本与分镜表：[`抖音脚本.md`](抖音脚本.md)（30 镜完整旁白 + 完整提示词 + 六幕结构）
+- 发布文案：[`抖音发布文案.md`](抖音发布文案.md)
 - 大视频不进 Git：只在 Actions artifact `kimdaedoo-agnes-<run>` 的 `work/kimdaedoo/clips/`
 - 成片：Release `kimdaedoo-v1-*` + artifact `kimdaedoo-final`
 
