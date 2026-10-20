@@ -63,8 +63,22 @@ DESK_STYLE = (
 )
 # 2026-10-20 复审：S36/S37 是室外巷子，套 DESK_STYLE（「室内办公室」前缀）会把墙画成室内白墙、
 # 把空巷画成走廊 —— 移出覆盖表，回到全局的街景前缀。
+# 贴地近景专用前缀。2026-10-20 实测：S36 用全局街景前缀会被画成「屋顶俯瞰的雾中街道」，
+# 因为前缀里全是山城街景与轻轨高架，模型会先铺一个大景。这镜要的是墙脚与湿地，
+# 所以单独给它一段「画面被墙与地面填满、没有天空、没有街区远景」的前缀。
+GROUND_STYLE = (
+    "Photorealistic cinematic 3D animated extreme close-up, high-end CGI feature-film render with "
+    "volumetric light, shallow depth of field and subtle 35mm film grain, shot at knee height in a narrow "
+    "rain-soaked alley before dawn: the frame is filled entirely by the base of a plastered wall and the "
+    "wet concrete paving in front of it - no sky, no rooftops, no skyline, no street view, no wide shot; "
+    "restrained desaturated blue-grey grading, sober documentary mood, never stylised, never a drawing, "
+    "never a cartoon; horizontal 16:9 widescreen composition; absolutely no readable text, letters, "
+    "numbers, logos or brand marks anywhere in frame; one single continuous smooth camera move exactly "
+    "as directed. "
+)
+
 STYLE_OVERRIDES = {"S01": DESK_STYLE, "S07": DESK_STYLE, "S08": DESK_STYLE, "S12": DESK_STYLE,
-                   "S20": DESK_STYLE, "S21": DESK_STYLE, "S29": DESK_STYLE,
+                   "S20": DESK_STYLE, "S21": DESK_STYLE, "S29": DESK_STYLE, "S36": GROUND_STYLE,
                    "S38": DESK_STYLE, "S41": DESK_STYLE, "S42": DESK_STYLE, "S45": DESK_STYLE}
 
 NEGATIVE_PROMPT = (
@@ -505,13 +519,12 @@ SHOTS = [
     ("S36", "agnes", "低机位贴墙，只拍墙面与地面",
      "交火：只有墙上的闪光与地面的反光",
      "接动态镜：空巷与绳栏",
-     "Ground-level view along the base of a plastered alley wall at dawn, seen from very low and very "
-     "close: a rusted iron drainpipe runs down the wall, a small barred ventilation window sits above the "
-     "skirting, hairline cracks and peeling paint catch the light, and wet concrete with a shallow puddle "
-     "spreads in front of the wall while thin mist drifts past; two brief flashes of light wash across the "
-     "wall and the puddle, hard-edged and momentary, scattering brightness through the mist and throwing "
-     "the texture of the plaster into relief, and after the flashes the wall returns to grey with dust "
-     "drifting in the light. Static low camera with only the light moving across the frame, "
+     "Knee-height close-up in a narrow alley, the lens almost touching the wall: the left half of the "
+     "frame is the grey plaster wall with a rusted iron drainpipe, peeling paint and hairline cracks, "
+     "the right half is wet concrete paving with a shallow puddle reflecting the dawn sky; thin mist "
+     "drifts low across the ground. Two brief flashes of light sweep across the wall and flare in the "
+     "puddle, hard-edged and momentary, then the alley returns to grey with dust drifting. Static low "
+     "camera, only the light moving across the frame, "
      + HOLD,
      "短促闷响 + 墙面回声 + 突然静音"),
 
