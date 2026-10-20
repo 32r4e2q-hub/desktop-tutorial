@@ -80,6 +80,15 @@ jobs:
           BRANCH: arena/a2b4456e-desktop-tutorial
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log production/zhoukehua2012/last-render.log; exit ${PIPESTATUS[0]}
 
+      - name: 动作合理性闸门（倒放 / 走过去又走回来）
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet "opencv-python-headless==4.10.0.84" "numpy>=1.26,<3" || \
+            python -m pip install --break-system-packages --quiet "opencv-python-headless==4.10.0.84" "numpy>=1.26,<3"
+          python3 production/zhoukehua2012/tools/check_motion.py \
+            --film "交付/周克华案_逃亡八年，最后四天_三分钟_带声音.mp4" \
+            --out production/zhoukehua2012/delivery/motion-report.json
+
       - name: Ship failure log to branch (sandbox cannot read Actions logs)
         if: failure()
         run: |
