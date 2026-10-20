@@ -54,11 +54,26 @@
 
 ```bash
 python3 production/zhoukehua2012/build_story.py            # 重写 story.json
+python3 production/zhoukehua2012/build_story.py --script   # 重写 抖音脚本.md
+python3 production/zhoukehua2012/build_story.py --publish  # 重写 抖音发布文案.md
 python3 production/zhoukehua2012/generate.py --validate    # 闸门一
 python3 production/zhoukehua2012/generate_cogvideox.py --validate
+python3 production/zhoukehua2012/tools/plan_alignment.py   # 按 alignment.json 重写 CUTS
+python3 production/zhoukehua2012/tools/render_screenplay.py # 重排 screenplay.md 的解说与分镜
 python3 production/zhoukehua2012/clause_times.py --check-cuts
+python3 production/zhoukehua2012/tools/check_av_sync.py    # 音画同步闸门（量成片）
 bash production/run_project.sh zhoukehua2012               # 出片（Actions 上由 RENDER_REQUEST 触发）
 ```
+
+### 音画同步是怎么保证的（不是「我按计划排的」）
+
+1. `alignment.json` 逐条写死「这一镜在说什么」——`[镜头号, 分句序号]`，切点从分句起点取，
+   `tools/plan_alignment.py` 写成 `render.py` 的 `CUTS`（提前 50 ms，帧对齐后仍在气口里）。
+2. `clause_times.py --check-cuts` 核对切点都落在 `[分句起点-0.35s, 分句起点]` 的停顿窗内，
+   并把「画面职责 / 口播分句」并排打出来，人眼一眼能看出这镜讲的是不是这件事。
+3. `tools/check_av_sync.py` 拿**成片**和**配音原轨**对：每个切点前 100 ms 是否已经静下来、
+   每条字幕是否与人声起点对齐（上限 ±0.30 s）、人声在混音里是否比停顿段高出至少 2.5 dB。
+   结果写 `delivery/av-sync-report.json`。
 
 ## 1301（供应商内容审核拦截）怎么处理
 
