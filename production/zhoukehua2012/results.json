@@ -5,11 +5,27 @@
   "shots": {
     "S05": {
       "id": "S05",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "a15ca5f1625b8e58e183fee5b82cedab096edf8d048aabc0e824b750418eb98e",
       "error": null,
-      "updated_at": "2026-10-20T00:20:18Z",
-      "task_id": "20261020082018fcaf9f09c2584b64"
+      "updated_at": "2026-10-20T00:21:28Z",
+      "task_id": "20261020082018fcaf9f09c2584b64",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200821103003d6ee4a5447b0_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=XWW%2Fj3m5uqh5MBCzqhYTw0%2B1HX0%3D&Expires=1792542073",
+      "sha256": "168cf301696b1116df5fee9764ae4762a34b93219322c2f6112be1783bb04334",
+      "bytes": 2357766,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 2357766,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/zhoukehua2012/qa/S05.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -54,6 +70,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-20T00:20:18Z",
+  "updated_at": "2026-10-20T00:21:28Z",
   "previous_results": {}
 }
