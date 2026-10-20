@@ -1,0 +1,56 @@
+name: JMS Final Assembly
+
+# 最终装配：30 镜素材 + 解说配音 + 字幕 + 音画对位 → 成片（Release 交付）。
+# 触发：push production/jmsjung/FINAL_REQUEST（无需任何 secret：
+# 素材走公开 CDN 校验 sha256，配音用 edge-tts 免费服务）。
+
+on:
+  push:
+    branches: [arena/929dc8b6-desktop-tutorial]
+    paths:
+      - production/jmsjung/FINAL_REQUEST
+      - production/jmsjung/finalize.py
+      - .github/workflows/jmsjung-final.yml
+      - production/jmsjung/story.json
+      - production/jmsjung/results.json
+
+concurrency:
+  group: jmsjung-final
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  final:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 安装工具链（ffmpeg / Noto CJK / edge-tts）
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk zip
+          pip install --quiet edge-tts
+          ffmpeg -version | head -1
+          fc-list | grep -i "noto sans cjk sc" | head -1
+
+      - name: 装配成片（下载校验→配音→对位→字幕→QC→Release）
+        run: python3 production/jmsjung/finalize.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: 上传 artifact（成片 + 字幕 + 报告 + 逐镜 TTS）
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmsjung-final
+          path: work/jmsjung-final/
+          if-no-files-found: ignore
