@@ -88,20 +88,20 @@ bash production/run_project.sh zhoukehua2012               # 出片（Actions �
    （否则会命中旧收据、一镜都不重投）；
 4. 若同一镜连续两轮被拦，换构图（俯拍桌面 / 空镜 / 静物）而不是继续换形容词。
 
-## 闸门总表（交付版 SHA `760c7241…`）
+## 闸门总表（交付版 SHA `eb0c1a97…`）
 
 | 闸门 | 结果 |
 |---|---|
-| 计划 / 配音来源 validate | PASS（45 镜 = 38 动态 + 7 信息卡；六段配音 SHA-256 对得上） |
-| 切点 check-cuts | PASS（45/45 落在分句停顿窗内，差 −0.05 s） |
+| 计划 / 配音来源 validate | PASS（46 镜 = 39 动态 + 7 信息卡；六段配音 SHA-256 对得上） |
+| 切点 check-cuts | PASS（46/46 落在分句停顿窗内，差 −0.05 s） |
 | 出片与混音 | RMS −20.53 dBFS · 峰值 −1.57 · 静音 1.1 %（片尾收黑） |
 | 音画同步 `check_av_sync.py` | PASS（44/44 切点在停顿；字幕中位 0.019 s / P95 0.035 s / 最大 0.154 s；对比 13.31 dB） |
-| 逐字听检 | PASS（六章 CER 0.042 / 0.130 / 0.077 / 0.064 / 0.080 / 0.000） |
-| 全帧 QC | 5400/5400 帧 · 非计划黑帧 0 · 人脸候选 0 · 手部越界 0 |
+| 逐字听检 | PASS（六章 CER 0.042 / 0.148 / 0.077 / 0.064 / 0.080 / 0.009） |
+| 全帧 QC | 5400/5400 帧 · 非计划黑帧 0 · 人脸候选 0 · 手部越界 0 · 近静止 1 处（S34 设计内）· 时序 2 处（片头/片尾淡变） |
 | 角色脸闸门 | SKIP by design（`cast.json` 声明 `mode=silhouette`，全片不做肖像还原） |
 | 人工语义复核 | [AI 辅助复核记录](delivery/AI辅助视觉复核-2026-10-20.md)；发布前请用户本人看片签收 |
 | 动作合理性 | PASS（0 乒乓倒放 / 0 位移反向，`delivery/motion-report.json`） |
-| 交付文件 | 68,048,299 B · 180.0 s · 1920×1080 · 30 fps · SHA-256 `760c7241…` |
-| Release | [zhoukehua2012-v3](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/zhoukehua2012-v3)（资产 SHA-256 与 `交付/` 一致） |
+| 交付文件 | 66,742,095 B · 180.0 s · 1920×1080 · 30 fps · SHA-256 `eb0c1a97…` |
+| Release | [zhoukehua2012-v4](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/zhoukehua2012-v4)（资产 SHA-256 与 `交付/` 一致） |
 
 全过程与 1301 的实测处理见 [`制作过程.md`](制作过程.md)。
