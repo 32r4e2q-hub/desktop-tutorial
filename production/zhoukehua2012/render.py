@@ -57,7 +57,13 @@ CUTS = {
 # 看片后的镜头修正（2026-10-17 复审 qa/*.jpg 后填写：三镜尾段有溶解换场，收尾避开；
 # S08 原取用到 4.99 s、溶解约在 4.0 s 起；S24 约 3.5 s 起；S42 约 3.0 s 起。收窄后
 # 拉伸倍率分别为 1.27 / 1.17 / 1.05，都在 1.33 乒乓红线以内。）
-WINDOWS = {'S08': (0.0, 4.0), 'S24': (0.0, 3.4), 'S42': (0.0, 3.0)}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
+WINDOWS = {'S08': (0.0, 4.0), 'S24': (0.0, 3.4), 'S42': (0.0, 3.0)}
+
+# 极慢推近（呼吸感）：某些生成素材本身就是近静止画面（S46 哨位：哨兵站定不动）。
+# 3 秒的完全静止会被观众当成「画面卡住」，逐帧 QC 也会记成 freeze。给它一个
+# 从 1.00 到 zoom 的匀速极轻推近（3 秒 6% ≈ 0.6 px/帧），肉眼是「镜头在呼吸」，
+# 而不是「照片」。只对白名单里的镜头生效，别动其它镜头。
+DRIFT = {'S46': 1.06}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
 TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
 
 # 调色：默认略压暗（沿用 raincoat2004 的刻度）；个别过暗的镜头在全帧审计之后
@@ -420,6 +426,11 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
             raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s needs {factor:.2f}x slow-mo '
                                f'(> {SLO_MO_MAX}x). 回去改这一镜的落点或取用窗，不要用倒放补时长。')
         vf=f'setpts=(PTS-STARTPTS)*{factor:.9f},'+common
+        if sid in DRIFT:
+            z=DRIFT[sid]; d=max(duration,0.01)
+            vf+=(f",scale=w='iw*(1+{z-1:.4f}*min(t/{d:.4f},1))':"
+                 f"h='ih*(1+{z-1:.4f}*min(t/{d:.4f},1))':eval=frame,"
+                 f"crop={width}:{height}")
         entry.update(source_in=a,source_out=a+take,time_stretch=factor)
     if fc is None:
         if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
