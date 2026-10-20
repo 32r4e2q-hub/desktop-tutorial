@@ -80,6 +80,14 @@ jobs:
           BRANCH: arena/a2b4456e-desktop-tutorial
         run: bash production/run_project.sh "$PROJECT" "$SKIP_ASR" "$FILM_NAME" 2>&1 | tee /tmp/rend.log production/zhoukehua2012/last-render.log; exit ${PIPESTATUS[0]}
 
+      - name: 音画同步闸门（切点落在停顿 / 字幕跟人声 / 配音没被压掉）
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet "numpy>=1.26,<3" || \
+            python -m pip install --break-system-packages --quiet "numpy>=1.26,<3"
+          python3 production/zhoukehua2012/tools/check_av_sync.py \
+            --film "交付/周克华案_逃亡八年，最后四天_三分钟_带声音.mp4"
+
       - name: 动作合理性闸门（倒放 / 走过去又走回来）
         run: |
           set -euo pipefail
