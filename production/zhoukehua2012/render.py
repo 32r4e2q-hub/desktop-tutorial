@@ -338,7 +338,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         label=(presentation.get('label_overrides') or {}).get(entry['id'],label)
         text+=f"Dialogue: 0,{ass_time(entry['start_frame']/FPS)},{ass_time(entry['end_frame']/FPS)},Label,,0,0,0,,{label}\n"
     title_lines=[safe_text(x) for x in (presentation.get('title_card') or []) if x]
-    if title_lines:
+    # 片头卡只在第一镜上叠：若第一镜前 4.7 秒里就有信息卡（本片 S02 在 2.26 s 起），
+    # 大字标题会压住信息卡正文（2026-10-20 本片 v1 实测），此时干脆不叠，交给信息卡自己说。
+    title_blocked=any(e['kind']=='graphic' and e['start_frame']/FPS<4.70 for e in edl)
+    if title_lines and not title_blocked:
         first=title_lines[0];rest=('\\N{\\fs41\\fsp6}'+title_lines[1]) if len(title_lines)>1 else ''
         text+=f'Dialogue: 2,0:00:00.35,0:00:04.70,Title,,0,0,0,,{{\\fad(500,550)}}{first}{rest}\n'
     path.write_text(text)
