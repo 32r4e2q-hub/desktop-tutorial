@@ -319,12 +319,15 @@
     },
     "S11": {
       "id": "S11",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "request_hash": "c797cd0ff8f8ecc39e3a4aa3cc85845017aced085e8983c4d53678e3ae47e7c5",
       "error": null,
-      "updated_at": "2026-10-20T20:47:53Z",
+      "updated_at": "2026-10-20T20:49:50Z",
       "channel_error_round": 45,
-      "applied_cooldown_seconds": 61.0
+      "applied_cooldown_seconds": 61.0,
+      "video_id": "task_Aeq6nJPoa2JfZSfMExV7RWzRwu3Tsod7",
+      "task_id": "task_Aeq6nJPoa2JfZSfMExV7RWzRwu3Tsod7",
+      "requested_seconds": 6.0
     },
     "S10": {
       "id": "S10",
@@ -520,7 +523,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-20T20:48:51Z",
+  "updated_at": "2026-10-20T20:49:50Z",
   "run_id": "39494390764",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
