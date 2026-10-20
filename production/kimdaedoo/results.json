@@ -328,10 +328,10 @@
     },
     "S10": {
       "id": "S10",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "89070eed36d382ffacd3c150c9d2a81bf9311da56d4d3e4f082ffed7aa94895b",
-      "error": null,
-      "updated_at": "2026-10-20T20:42:08Z",
+      "error": "Provider cooldown would exceed the generation budget; saved tasks can be resumed",
+      "updated_at": "2026-10-20T20:42:10Z",
       "channel_error_round": 46,
       "applied_cooldown_seconds": 61.0
     },
@@ -520,7 +520,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-20T20:42:09Z",
+  "updated_at": "2026-10-20T20:42:10Z",
   "run_id": "39469296322",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
