@@ -34,36 +34,13 @@ DL.mkdir(exist_ok=True)
 
 log = lambda *a: print('[frame-qc]', *a, flush=True)
 
-# ---- 人脸检测模型（opencv DNN 小模型，github raw；显式下载，失败不致命）----
-FACE_BASE = 'https://raw.githubusercontent.com/opencv/opencv/master/data/dnn/face_detector'
-net = None
-face_skip_reason = ''
-for _fname, _url in (('deploy.prototxt', FACE_BASE + '/deploy.prototxt'),
-                     ('res10.caffemodel',
-                      FACE_BASE + '/res10_300x300_ssd_iter_140000.caffemodel')):
-    dest = OUT / _fname
-    if not dest.exists() or dest.stat().st_size == 0:
-        for attempt in range(3):
-            try:
-                req = urllib.request.Request(_url, headers={'User-Agent': 'jmsjung-frame-qc/1.0'})
-                with urllib.request.urlopen(req, timeout=120) as r, open(dest, 'wb') as f:
-                    f.write(r.read())
-                if dest.stat().st_size > 100:
-                    break
-            except Exception as e:
-                log(f'  模型 {_fname} 第{attempt+1}次下载失败: {e}')
-                time.sleep(3)
-        if not dest.exists() or dest.stat().st_size <= 100:
-            net = None
-            face_skip_reason = f'模型 {_fname} 下载失败'
-            break
-if net is None and not face_skip_reason:
-    try:
-        net = cv2.dnn.readNetFromCaffe(str(OUT / 'deploy.prototxt'),
-                                       str(OUT / 'res10.caffemodel'))
-    except Exception as e:
-        net = None
-        face_skip_reason = f'模型加载失败: {e}'
+# ---- 人脸检测：OpenCV 自带 Haar 级联（随 pip 包分发，零网络依赖）----
+import cv2.data  # noqa: E402
+_casc_path = os.path.join(cv2.data.haarcascades, 'haarcascade_frontalface_default.xml')
+net = cv2.CascadeClassifier(_casc_path)
+if net.empty():
+    net = None
+face_skip_reason = '' if net is not None else f'Haar 级联不可用: {_casc_path}'
 if net is None:
     log(f'  人脸检测跳过（{face_skip_reason}），其余 3 项指标照跑')
 
@@ -120,8 +97,7 @@ def analyze(path):
         'tear_max': round(tear_max, 2),
     }
 
-def face_stability(path):
-    """每 2 帧跑 DNN 人脸检测，追踪主脸（最大框）归一化中心 x 位移。"""
+    """每 2 帧跑 Haar 人脸检测，追踪主脸（最大框）归一化中心 x 位移。"""
     if net is None:
         return {'face_rate': None, 'face_jitter': None, 'face_frames': 0,
                 'note': face_skip_reason}
@@ -133,15 +109,13 @@ def face_stability(path):
             break
         if i % 2 == 0:
             small = cv2.resize(frame, (480, 270))
-            blob = cv2.dnn.blobFromImage(small, 1.0, (300, 300), (104.0, 177.0, 123.0))
-            net.setInput(blob)
-            det = net.forward()
+            gray = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
+            faces = net.detectMultiScale(gray, 1.15, 5, minSize=(40, 40))
             total += 1
-            boxes = [det[0][j] for j in range(det.shape[1]) if det[0][j][2] > 0.5]
-            if boxes:
-                b = max(boxes, key=lambda x: x[3] * x[2])
+            if len(faces):
                 detected += 1
-                centers.append((b[1] + b[3] / 2) / 300.0)
+                (x, y, w, h) = max(faces, key=lambda b: b[2] * b[3])
+                centers.append((x + w / 2) / 480.0)  # 归一化 x 中心
         i += 1
     cap.release()
     jitter = 0.0
