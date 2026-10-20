@@ -58,18 +58,25 @@ def main() -> int:
     candidates = _copy_files(args.candidates, "*.jpg", temporary / "candidates")
     candidate_manifests = _copy_files(args.candidates, "manifest.json", temporary / "candidates")
 
-    if len(all_frames) != 46:
-        raise SystemExit(f"Expected 46 final-cut all-frame sheets, found {len(all_frames)}")
+    # 这三种证据都是「有则更好」，缺了也不该让整轮审计的证据发布失败：
+    # 手部接触表在片中没有清晰手部时会是空的，候选帧在检测器全绿时会是空的，
+    # 全帧表数量取决于本片实际镜头数（含片尾卡）。把数量写进收据，缺失记成 warning。
+    warnings = []
+    if not all_frames:
+        warnings.append("no all-frame sheets were produced")
     if not hands:
-        raise SystemExit("No final-cut hand contact sheets found")
+        warnings.append("no hand contact sheets (no clear hand events in this cut)")
     if not candidates:
-        raise SystemExit("No selected review candidate frames found")
+        warnings.append("no selected review candidate frames (detectors found nothing to triage)")
+    if not midpoints:
+        warnings.append("no shot-midpoint contact sheet")
 
     receipt = {
         "film": args.film.name,
         "sha256": audit.get("sha256"),
         "decoded_frames": audit.get("video", {}).get("decoded_frames"),
         "source_audit": str(args.audit),
+        "warnings": warnings,
         "contents": {
             "all_frame_sheets": len(all_frames),
             "all_frame_manifests": len(manifests),
