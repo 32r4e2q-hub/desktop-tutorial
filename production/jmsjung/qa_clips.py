@@ -106,6 +106,7 @@ def analyze(path):
         'tear_max': round(tear_max, 2),
     }
 
+def face_stability(path):
     """每 2 帧跑 Haar 人脸检测，追踪主脸（最大框）归一化中心 x 位移。"""
     if net is None:
         return {'face_rate': None, 'face_jitter': None, 'face_frames': 0,
