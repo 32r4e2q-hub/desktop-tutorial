@@ -87,7 +87,16 @@ else
       push_ok=true
       break
     fi
-    echo "推送失败（第 $attempt/40 轮），等 15 秒重试……" >&2
+    # 2026-10-20：以前只重试、不重建基线，一旦远端被别的提交（文档、闸门、别的 job）
+    # 抢先推上去，每一轮都是 "! [rejected] (fetch first)"，40 轮全废、成片白渲染。
+    # 现在失败后先把远端拉下来 rebase 再试：只要不是同一文件冲突，最终一定能推上去。
+    echo "推送失败（第 $attempt/40 轮），拉取远端并 rebase 重试……" >&2
+    if git fetch origin "$BRANCH" && git rebase FETCH_HEAD; then
+      :
+    else
+      git rebase --abort 2>/dev/null || true
+      echo "  rebase 失败（可能有冲突），保留本地提交，继续重试" >&2
+    fi
     sleep 15
   done
   if [ "$push_ok" != true ]; then
