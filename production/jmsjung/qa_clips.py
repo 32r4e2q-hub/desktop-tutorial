@@ -34,10 +34,38 @@ DL.mkdir(exist_ok=True)
 
 log = lambda *a: print('[frame-qc]', *a, flush=True)
 
-# ---- 人脸检测模型（opencv DNN 小模型，github raw）----
-FACE_PROTO = 'https://raw.githubusercontent.com/opencv/opencv/4.x/data/dnn/face_detector/deploy.prototxt'
-FACE_CAFFE = 'https://raw.githubusercontent.com/opencv/opencv/4.x/data/dnn/face_detector/res10_300x300_ssd_iter_140000.caffemodel'
-net = cv2.dnn.readNetFromCaffe(FACE_PROTO, FACE_CAFFE)
+# ---- 人脸检测模型（opencv DNN 小模型，github raw；显式下载，失败不致命）----
+FACE_BASE = 'https://raw.githubusercontent.com/opencv/opencv/master/data/dnn/face_detector'
+net = None
+face_skip_reason = ''
+for _fname, _url in (('deploy.prototxt', FACE_BASE + '/deploy.prototxt'),
+                     ('res10.caffemodel',
+                      FACE_BASE + '/res10_300x300_ssd_iter_140000.caffemodel')):
+    dest = OUT / _fname
+    if not dest.exists() or dest.stat().st_size == 0:
+        for attempt in range(3):
+            try:
+                req = urllib.request.Request(_url, headers={'User-Agent': 'jmsjung-frame-qc/1.0'})
+                with urllib.request.urlopen(req, timeout=120) as r, open(dest, 'wb') as f:
+                    f.write(r.read())
+                if dest.stat().st_size > 100:
+                    break
+            except Exception as e:
+                log(f'  模型 {_fname} 第{attempt+1}次下载失败: {e}')
+                time.sleep(3)
+        if not dest.exists() or dest.stat().st_size <= 100:
+            net = None
+            face_skip_reason = f'模型 {_fname} 下载失败'
+            break
+if net is None and not face_skip_reason:
+    try:
+        net = cv2.dnn.readNetFromCaffe(str(OUT / 'deploy.prototxt'),
+                                       str(OUT / 'res10.caffemodel'))
+    except Exception as e:
+        net = None
+        face_skip_reason = f'模型加载失败: {e}'
+if net is None:
+    log(f'  人脸检测跳过（{face_skip_reason}），其余 3 项指标照跑')
 
 def fetch(url, dest, want):
     for attempt in range(3):
@@ -94,6 +122,9 @@ def analyze(path):
 
 def face_stability(path):
     """每 2 帧跑 DNN 人脸检测，追踪主脸（最大框）归一化中心 x 位移。"""
+    if net is None:
+        return {'face_rate': None, 'face_jitter': None, 'face_frames': 0,
+                'note': face_skip_reason}
     cap = cv2.VideoCapture(str(path))
     centers, detected, total, i = [], 0, 0, 0
     while True:
@@ -129,34 +160,39 @@ def flags_of(r):
         f.append('F2 闪烁')
     if r['tear_max'] > 12:
         f.append('F3 结构突变')
-    if r['face_jitter'] > 0.012:
+    if r.get('face_jitter') is not None and r['face_jitter'] > 0.012:
         f.append('F4 脸部不稳')
     return f
 
 # ---- 主流程 ----
-log('1/4 下载 30 镜 + sha256 逐字节校验 …')
-for sid in IDS:
-    row = RESULTS['shots'][sid]
-    fetch(row['video_url'], DL / (sid + '.mp4'), row['sha256'])
-    log(f'  {sid} OK')
+try:
+    log('1/4 下载 30 镜 + sha256 逐字节校验 …')
+    for sid in IDS:
+        row = RESULTS['shots'][sid]
+        fetch(row['video_url'], DL / (sid + '.mp4'), row['sha256'])
+        log(f'  {sid} OK')
 
-log('2/4 逐帧分析（亮度/锐度/结构）…')
-t0 = time.time()
-metrics = {}
-for sid in IDS:
-    metrics[sid] = analyze(DL / (sid + '.mp4'))
-    m = metrics[sid]
-    log(f'  {sid} sharp_ratio={m["sharp_ratio"]} flicker_max={m["flicker_max"]} '
-        f'tear_max={m["tear_max"]}')
-log(f'  完成 {time.time()-t0:.0f}s')
+    log('2/4 逐帧分析（亮度/锐度/结构）…')
+    t0 = time.time()
+    metrics = {}
+    for sid in IDS:
+        metrics[sid] = analyze(DL / (sid + '.mp4'))
+        m = metrics[sid]
+        log(f'  {sid} sharp_ratio={m["sharp_ratio"]} flicker_max={m["flicker_max"]} '
+            f'tear_max={m["tear_max"]}')
+    log(f'  完成 {time.time()-t0:.0f}s')
 
-log('3/4 人脸稳定性检测（DNN，每 2 帧）…')
-t0 = time.time()
-for sid in IDS:
-    metrics[sid].update(face_stability(DL / (sid + '.mp4')))
-    m = metrics[sid]
-    log(f'  {sid} face_rate={m["face_rate"]} face_jitter={m["face_jitter"]}')
-log(f'  完成 {time.time()-t0:.0f}s')
+    log('3/4 人脸稳定性检测（DNN，每 2 帧）…')
+    t0 = time.time()
+    for sid in IDS:
+        metrics[sid].update(face_stability(DL / (sid + '.mp4')))
+        m = metrics[sid]
+        log(f'  {sid} face_rate={m["face_rate"]} face_jitter={m["face_jitter"]}')
+    log(f'  完成 {time.time()-t0:.0f}s')
+except Exception as exc:
+    import traceback
+    (OUT / 'FATAL.txt').write_text(traceback.format_exc())
+    raise
 
 log('4/4 汇总报告 …')
 rows = []
@@ -168,6 +204,7 @@ for sid in IDS:
 flagged = [r['id'] for r in rows if r['flags']]
 report = {
     'generated_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+    'face_check_skipped': face_skip_reason or None,
     'method': ('逐帧解码 320x180：Laplacian 锐度、帧间亮度跳变、帧间网格结构差；'
                'DNN 人脸检测（每 2 帧，300x300）追踪主脸中心位移'),
     'thresholds': {'F1': 'sharp_ratio<0.35', 'F2': 'flicker_max>6.0 或 flicker_ratio>12',
