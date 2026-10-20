@@ -74,10 +74,10 @@
     },
     "S03": {
       "id": "S03",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "bfd3efbdd839bbf237282ce0a0eb1ac810ff782669411f28aaba65ab9dcb9797",
       "error": null,
-      "updated_at": "2026-10-20T14:36:28Z",
+      "updated_at": "2026-10-20T14:36:30Z",
       "channel_error_round": 38,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_Jq1wLvkBHQe5E06eG8tEZK40312PcXtZ",
@@ -87,7 +87,25 @@
       "bytes": 2076351,
       "sha256": "5af7d4896427db527521cf1a61d9341d569f4a91ef9285676c5d5073003d2a99",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 2076351,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kimdaedoo/qa/S03.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S04": {
       "id": "S04",
@@ -153,7 +171,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-20T14:36:28Z",
+  "updated_at": "2026-10-20T14:36:30Z",
   "run_id": "39418901603",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
