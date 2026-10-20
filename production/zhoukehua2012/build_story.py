@@ -61,10 +61,11 @@ DESK_STYLE = (
     "cartoon; horizontal 16:9 widescreen composition; absolutely no readable text, letters, numbers, "
     "logos or brand marks anywhere in frame; one single continuous smooth camera move exactly as directed. "
 )
+# 2026-10-20 复审：S36/S37 是室外巷子，套 DESK_STYLE（「室内办公室」前缀）会把墙画成室内白墙、
+# 把空巷画成走廊 —— 移出覆盖表，回到全局的街景前缀。
 STYLE_OVERRIDES = {"S01": DESK_STYLE, "S07": DESK_STYLE, "S08": DESK_STYLE, "S12": DESK_STYLE,
-                   "S20": DESK_STYLE, "S21": DESK_STYLE, "S29": DESK_STYLE, "S36": DESK_STYLE,
-                   "S37": DESK_STYLE, "S38": DESK_STYLE, "S41": DESK_STYLE, "S42": DESK_STYLE,
-                   "S45": DESK_STYLE}
+                   "S20": DESK_STYLE, "S21": DESK_STYLE, "S29": DESK_STYLE,
+                   "S38": DESK_STYLE, "S41": DESK_STYLE, "S42": DESK_STYLE, "S45": DESK_STYLE}
 
 NEGATIVE_PROMPT = (
     "readable text, letters, numbers, words, signage writing, invented headlines, neon lettering, logos, "
@@ -140,12 +141,13 @@ CHAPTERS = [
      "十分钟后，枪声响起。八年里，这个名字反复出现在三座城市的案卷上。八年追捕，为什么会在最后四天突然收网？"),
     ("N02", "案件起点：二〇〇四年的银行门口",
      "故事要从二〇〇四年四月二十二日说起。重庆，两名女子刚从银行取完钱，枪声突然响起，一死一伤，"
-     "七万元被抢走。一年后，又一对夫妻在银行门口遇袭，一名路人中枪。二〇〇九年三月，重庆石桥铺，"
+     "七万元被抢走。一年后，又一对夫妻在银行门口遇袭，一名路人中枪。"
+     "二〇〇五年，他因非法持枪入狱，二〇〇八年出狱。二〇〇九年三月，重庆石桥铺，"
      "执勤哨兵遇害，一支自动步枪被抢走。这就是系列案的起点。"),
     ("N03", "跨省流窜：长沙与南京",
      "专案组发现，这些案子不像临时起意：只挑刚从银行取款的人，只走人流密集的老街，作案后立刻消失。"
      "二〇〇九年到二〇一一年，长沙接连发生枪击；二〇一二年一月六日，南京下关区一家银行门口，"
-     "一名提款人当场身亡，二十万现金被抢。苏湘渝三地，第一次连成一条线。"),
+     "一名提款人当场身亡，二十万现金被抢。三座城市，第一次连成一条线。"),
     ("N04", "八月十日：枪声再起，全城搜捕",
      "二〇一二年八月十日，上午九点三十七分，重庆沙坪坝凤鸣山，中国银行储蓄所门前再次响起枪声："
      "一人不幸身亡，两人受伤。逃往途中，铁路民警朱彦超上前盘查，遭到袭击，不幸牺牲。"
@@ -212,8 +214,8 @@ SHOTS = [
      "anywhere in view, only panic and empty space opening in the middle of the street. Slight handheld shake that settles into stillness as the street empties, " + HOLD,
      "短促闷响两三下 + 人群脚步 + 低频冲击"),
 
-    ("S06", "agnes", "低机位沿绳栏缓慢横移",
-     "傍晚：绳栏拉起，湿地映着闪灯",
+    ("S06", "agnes", "轻微手持，中景跟拍四散的人群",
+     "枪声响起：街面人群四散，两名民警跑向巷口",
      "接动态镜：墙上的照片与地图",
      "Early evening on the same street after rain: a simple rope barrier stretches between two posts "
      "across the pavement, its cord beaded with water, while blue and red light pulses across the wet "
@@ -456,10 +458,11 @@ SHOTS = [
     ("S31", "agnes", "俯拍桌面，缓慢横移",
      "转机：两座城市送来的物证",
      "接动态镜：实验室里的比对",
-     "Directly above a steel table in a plain evidence room: three sealed paper envelopes of different "
-     "sizes lie in a row on white paper, each tagged with a blank card, a set of small numbered markers "
-     "arranged in a neat grid, a ruler and a pair of white gloves at the edge of the frame; the lighting is "
-     "flat and clinical and the arrangement is methodical, with no readable writing on any tag. Slow "
+     "Directly above a grey steel table in a plain evidence room: three sealed kraft-paper evidence "
+     "envelopes of different sizes lie in a neat row on a large sheet of clean white paper, each tied with "
+     "thin twine and slipped under a small blank card; a folded white cotton cloth and a glass slide rest "
+     "beside them, and the rest of the table is bare, matte and unmarked. The light comes from a single "
+     "diffused overhead fixture, soft and even, with no blown highlights and no glare on the paper. Slow "
      "overhead lateral move across the row of envelopes, " + HOLD,
      "纸张轻响 + 封袋摩擦 + 低音"),
 
@@ -502,11 +505,13 @@ SHOTS = [
     ("S36", "agnes", "低机位贴墙，只拍墙面与地面",
      "交火：只有墙上的闪光与地面的反光",
      "接动态镜：空巷与绳栏",
-     "Ground-level view of a plastered alley wall at dawn, seen from very low and very close: two brief "
-     "flashes of light wash across the wall and the wet concrete in front of it, hard-edged and momentary, "
-     "scattering brightness through the mist and throwing the texture of the plaster into relief; the alley "
-     "beyond is empty, no people, no objects, no injuries, and after the flashes the wall returns to grey "
-     "with dust drifting in the light. Static low camera with only the light moving across the frame, "
+     "Ground-level view along the base of a plastered alley wall at dawn, seen from very low and very "
+     "close: a rusted iron drainpipe runs down the wall, a small barred ventilation window sits above the "
+     "skirting, hairline cracks and peeling paint catch the light, and wet concrete with a shallow puddle "
+     "spreads in front of the wall while thin mist drifts past; two brief flashes of light wash across the "
+     "wall and the puddle, hard-edged and momentary, scattering brightness through the mist and throwing "
+     "the texture of the plaster into relief, and after the flashes the wall returns to grey with dust "
+     "drifting in the light. Static low camera with only the light moving across the frame, "
      + HOLD,
      "短促闷响 + 墙面回声 + 突然静音"),
 
@@ -604,7 +609,7 @@ CARDS = {
     "S16": ("并案侦查", "苏 · 湘 · 渝 三地案件串并", "公安部挂牌督办 · A级通缉令"),
     "S22": ("物证比对", "弹壳 · 弹道 · 指纹 · DNA", "不同城市的案件 · 指向同一个人"),
     "S25": ("二〇一二年八月十日", "重庆沙坪坝凤鸣山 · 一死两伤", "铁路民警朱彦超在盘查中牺牲"),
-    "S33": ("八月十四日 · 童家桥", "六时四十分 · 便衣发现踪迹", "六时五十分 · 被当场击毙"),
+    "S33": ("比对：两个城市，一条线索", "长沙警方 · 体貌特征", "江苏警方 · DNA 比中"),
     "S40": ("八年 · 十起案件", "十人死亡 · 六人受伤", "二〇〇四至二〇一二 · 重庆 长沙 南京"),
 }
 # 片头字幕卡（0.35–4.7 秒叠在第一镜上）：两行，第二行小字
@@ -620,7 +625,7 @@ END_CARD = [
 CAPTION_KEYWORDS = [
     "周克华", "童家桥", "沙坪坝", "便衣", "八年", "最后四天", "六点四十", "六点五十", "十分钟",
     "二〇〇四年", "银行", "七万元", "一死一伤", "哨兵", "自动步枪", "石桥铺", "长沙", "南京",
-    "下关区", "二十万", "苏湘渝", "三地", "二〇一二年八月十日", "凤鸣山", "朱彦超", "铁路民警",
+    "下关区", "二十万", "三座城市", "二〇一二年八月十日", "凤鸣山", "朱彦超", "铁路民警",
     "上万警力", "歌乐山", "体貌特征", "DNA", "王晓渝", "周缙", "当场击毙", "两支手枪", "六十二发",
     "十起案件", "十人死亡", "六人受伤", "代价", "不是传奇", "没能回家",
 ]
