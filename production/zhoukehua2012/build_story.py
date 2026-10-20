@@ -228,8 +228,8 @@ SHOTS = [
      "anywhere in view, only panic and empty space opening in the middle of the street. Slight handheld shake that settles into stillness as the street empties, " + HOLD,
      "短促闷响两三下 + 人群脚步 + 低频冲击"),
 
-    ("S06", "agnes", "轻微手持，中景跟拍四散的人群",
-     "枪声响起：街面人群四散，两名民警跑向巷口",
+    ("S06", "agnes", "轻微手持，中景跟拍穿过人群的民警",
+     "十分钟后：两名民警穿过人群，走向巷口",
      "接动态镜：墙上的照片与地图",
      "Early evening on the same street after rain: a simple rope barrier stretches between two posts "
      "across the pavement, its cord beaded with water, while blue and red light pulses across the wet "
@@ -289,7 +289,7 @@ SHOTS = [
      "公交车驶过 + 风声 + 低沉鼓点"),
 
     ("S12", "agnes", "俯拍桌面，缓慢推近",
-     "二〇〇五年：一只封好的纸袋，成为卷宗里的记录",
+     "证物：被抢走的钱，封进一只纸袋",
      "接动态镜：走廊尽头",
      "Directly above a plain wooden table in a small office: a sealed brown paper envelope tied with string "
      "lies beside a pair of white cotton gloves, an open ledger with unreadable entries, an ink pad and a "
