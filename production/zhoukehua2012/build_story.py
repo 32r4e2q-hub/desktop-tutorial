@@ -293,11 +293,11 @@ SHOTS = [
     ("S12", "agnes", "俯拍桌面，缓慢推近",
      "证物：被抢走的钱，封进一只纸袋",
      "接动态镜：走廊尽头",
-     "Directly above a plain wooden table in a small office: a sealed brown paper envelope tied with string "
-     "lies beside a pair of white cotton gloves, an open ledger with unreadable entries, an ink pad and a "
-     "folder tied with tape; two pairs of hands in dark cuffs arrange the items and one finger rests on the "
-     "envelope's seal, the room lit by a single fluorescent tube. Slow overhead push-in that ends close on "
-     "the sealed envelope, " + HOLD,
+     "Directly above a plain wooden table in a small office: a thick brown paper evidence envelope tied with "
+     "string, its mouth pulled open just enough to show two banded bundles of banknotes inside; beside it a "
+     "pair of white cotton gloves, a folded evidence bag and an ink pad, and no printed lettering anywhere in "
+     "the frame; the room is lit by a single overhead lamp. Slow overhead push-in that ends close on the open "
+     "envelope and the banded banknotes, camera steady, " + HOLD,
      "纸袋轻响 + 盖章声 + 低音持续"),
 
     ("S13", "agnes", "走廊纵深构图，人影走远",
@@ -378,13 +378,13 @@ SHOTS = [
      "纸张翻动 + 低声讨论 + 笔尖标注"),
 
     ("S21", "agnes", "微距横移，扫过物品编号",
-     "证物：封袋、放大镜与检验记录",
+     "证物：二十万现金与检验记录",
      "接信息卡：物证比对",
-     "Extreme close-up across a white laboratory bench: several small sealed paper envelopes stand in a row "
-     "on a sheet of white paper beside a pair of tweezers, a magnifier lamp tilted over a glass slide, an "
-     "open logbook with blurred handwriting, and a flat folder holding a card; gloved fingers enter the "
-     "frame at the edge and turn an envelope under the light. Slow macro lateral move that passes each "
-     "item in turn, " + HOLD,
+     "Overhead macro across a white laboratory bench: three thick bundles of banknotes, each sealed inside a "
+     "clear evidence bag, lie in a row on plain white paper beside a magnifier on a folding arm, a pair of "
+     "tweezers and a closed logbook; the plastic of the bags catches the lamp with a soft sheen and there is "
+     "no printed lettering anywhere in the frame. Slow macro lateral move that passes each bundle in turn, "
+     "camera level, " + HOLD,
      "封袋轻响 + 仪器提示音 + 低音"),
 
     ("S22", "graphic", "信息卡（静帧）", "档案：南京 · 二〇一二年一月六日",
@@ -508,27 +508,25 @@ SHOTS = [
      "foreground pair and the distant figure in frame, " + HOLD,
      "轻微脚步 + 衣料摩擦 + 心跳般低频"),
 
-    ("S35", "agnes", "巷内跟拍，拐角处突然停住",
-     "跟上去：他们加快脚步",
+    ("S35", "agnes", "巷内跟拍，前方身影骤然停步转身",
+     "察觉：前面的身影停住并转身",
      "接动态镜：墙面的闪光",
-     "Inside a narrow alley at dawn: two investigators in plain dark jackets move along the wall toward a "
-     "corner, seen from behind and from the side, their steps quickening; ahead of them, at the corner "
-     "where the lane turns, a dark silhouette stops and turns abruptly, framed against the pale end of the "
-     "alley so only a black shape is visible, one arm rising. Handheld follow that stops dead as the "
-     "silhouette turns, " + HOLD,
+     "Dawn in a narrow alley: ahead of the camera a man in a dark jacket, walking away, suddenly stops "
+     "mid-step and turns his upper body back toward the lens, head coming round last, his shape a dark "
+     "silhouette against the pale end of the lane so no face is readable; in the near foreground two blurred "
+     "figures in plain jackets keep closing the distance along the wall. Handheld follow that settles as he "
+     "turns, camera steady, " + HOLD,
      "急促脚步 + 布料摩擦 + 音乐骤然压低"),
 
-    ("S36", "agnes", "低机位贴墙，只拍墙面与地面",
-     "交火：只有墙上的闪光与地面的反光",
+    ("S36", "agnes", "巷内跟拍，两名便衣并肩上前",
+     "两名民警上前处置：两个背影走向巷底",
      "接动态镜：空巷与绳栏",
-     "Knee-height close-up in a narrow alley, the lens almost touching the wall: the left half of the "
-     "frame is the grey plaster wall with a rusted iron drainpipe, peeling paint and hairline cracks, "
-     "the right half is wet concrete paving with a shallow puddle reflecting the dawn sky; thin mist "
-     "drifts low across the ground. Two brief flashes of light sweep across the wall and flare in the "
-     "puddle, hard-edged and momentary, then the alley returns to grey with dust drifting. Static low "
-     "camera, only the light moving across the frame, "
-     + HOLD,
-     "短促闷响 + 墙面回声 + 突然静音"),
+     "Two men in plain dark jackets, seen from behind and a little to the side, walk quickly away from the "
+     "camera down a narrow dawn alley toward a lone figure standing at the far end; their shoulders are "
+     "squared, their pace deliberate and unhurried, and their hands are empty and loose at their sides; thin "
+     "mist softens the end of the lane and the wet paving reflects the pale sky. Handheld follow at walking "
+     "pace, camera steady, " + HOLD,
+     "急促脚步 + 衣料摩擦 + 低音推进"),
 
     ("S37", "agnes", "空巷缓慢拉远，灯光映在湿地面",
      "结束后：空巷、绳栏、湿地面",

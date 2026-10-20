@@ -49,7 +49,7 @@ CUTS = {
     'N01': [(0.00,'S01',''), (2.21,'S03',''), (4.93,'S06',''), (8.88,'S02',''), (12.43,'S05',''), (15.34,'S07',''), (18.69,'S08','')],
     'N02': [(0.00,'S09',''), (4.67,'S10',''), (10.81,'S12',''), (12.30,'S11',''), (17.00,'S13',''), (20.36,'S14',''), (24.87,'S15','')],
     'N03': [(0.00,'S20',''), (4.02,'S17',''), (8.59,'S23',''), (10.64,'S18',''), (14.69,'S19',''), (18.96,'S22',''), (20.84,'S21',''), (22.43,'S16','')],
-    'N04': [(0.00,'S24',''), (3.39,'S04',''), (8.61,'S25',''), (10.96,'S26',''), (14.67,'S27',''), (17.43,'S29',''), (19.21,'S28',''), (23.93,'S30','')],
+    'N04': [(0.00,'S24',''), (3.39,'S04',''), (8.61,'S25',''), (10.96,'S26',''), (12.14,'S27',''), (17.43,'S29',''), (19.21,'S28',''), (23.93,'S30','')],
     'N05': [(0.00,'S32',''), (5.00,'S33',''), (7.48,'S34',''), (12.54,'S35',''), (15.07,'S36',''), (17.15,'S37',''), (19.93,'S31','')],
     'N06': [(0.00,'S38',''), (4.68,'S40',''), (8.36,'S41',''), (11.81,'S43',''), (14.46,'S42',''), (17.02,'S39',''), (18.58,'S44',''), (22.88,'S45','')],
 }
@@ -412,22 +412,15 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
                 f'crop={width}:{height},setsar=1,fps={FPS},{grade},'
                 f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         fc=None
-        if factor>1.33:
-            # 2026-10-11：CogVideoX-Flash 定长 5.108s 素材，S08 槽 7.67s 要 1.57×
-            # 慢放、超质量红线。改用乒乓循环：正放整段 + 尾段倒放补差——不慢放、
-            # 不定帧，慢节奏情景重现镜头的标准做法（倒放对雾气/光影类画面无感）。
-            need=duration-available
-            if need>available:
-                raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s exceeds ping-pong capacity {2*available:.2f}s')
-            # 无需改 -t：duration>available 时 take 本就等于 available（正放整段）。
-            fc=('[0:v]split=2[fwd][rev0];'
-                f'[rev0]reverse,trim=duration={need:.6f},setpts=PTS-STARTPTS[rev];'
-                f'[fwd][rev]concat=n=2:v=1:a=0,setpts=PTS-STARTPTS,'+common+'[vbase]')
-            vf=None
-            entry.update(source_in=a,source_out=a+available,time_stretch=1.0,pingpong=True)
-        else:
-            vf=f'setpts=(PTS-STARTPTS)*{factor:.9f},'+common
-            entry.update(source_in=a,source_out=a+take,time_stretch=factor)
+        # 2026-10-20：取消「乒乓倒放」。以前槽位超过 1.33× 会用正放+倒放补时长，
+        # 对雾气/光影类空镜没事，但画面里一旦有人在走，倒放就等于「走过去又走回来」，
+        # 观众一眼能看出来。现在只允许轻度慢放，超过 SLO_MO_MAX 直接报错、逼着改落点。
+        SLO_MO_MAX=1.60
+        if factor>SLO_MO_MAX:
+            raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s needs {factor:.2f}x slow-mo '
+                               f'(> {SLO_MO_MAX}x). 回去改这一镜的落点或取用窗，不要用倒放补时长。')
+        vf=f'setpts=(PTS-STARTPTS)*{factor:.9f},'+common
+        entry.update(source_in=a,source_out=a+take,time_stretch=factor)
     if fc is None:
         if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
         if sid=='END':vf+=f',fade=t=in:st=0:d=0.5,fade=t=out:st={duration-.8:.6f}:d=0.8'
