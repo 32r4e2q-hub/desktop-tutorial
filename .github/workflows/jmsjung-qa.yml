@@ -1,0 +1,50 @@
+name: JMS Frame QC
+
+# 帧级畸变检查：30 条素材逐帧解码 + DNN 人脸稳定性，独立于最终装配并行跑。
+# 触发：push production/jmsjung/QC_REQUEST。产物：分支内 frame-qc-report.* + artifact。
+
+on:
+  push:
+    branches: [arena/929dc8b6-desktop-tutorial]
+    paths:
+      - production/jmsjung/QC_REQUEST
+      - production/jmsjung/qa_clips.py
+      - .github/workflows/jmsjung-qa.yml
+
+concurrency:
+  group: jmsjung-frame-qc
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  qc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 安装工具链
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          pip install --quiet opencv-python-headless numpy
+
+      - name: 逐帧畸变检查
+        run: python3 production/jmsjung/qa_clips.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: 上传 artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmsjung-frame-qc
+          path: work/jmsjung-qc/
+          if-no-files-found: ignore
