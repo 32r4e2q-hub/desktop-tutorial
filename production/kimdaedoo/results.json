@@ -239,10 +239,10 @@
     },
     "S18": {
       "id": "S18",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "c57707cc04cbecdcfcd0ef996c18222f53c863d8091c15bcaefcd00f8ab91e4f",
-      "error": null,
-      "updated_at": "2026-10-20T14:53:01Z"
+      "error": "Provider cooldown would exceed the generation budget; saved tasks can be resumed",
+      "updated_at": "2026-10-20T14:53:03Z"
     }
   },
   "phase": "generating_sources",
@@ -296,7 +296,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-20T14:53:01Z",
+  "updated_at": "2026-10-20T14:53:03Z",
   "run_id": "39418901603",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
