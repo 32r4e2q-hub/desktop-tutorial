@@ -10,8 +10,8 @@ FETCH S04 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200837005233
   OK S04 3041332 bytes / 5.11s
 FETCH S05 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200821103003d6ee4a5447b0_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=XWW%2Fj3m5uqh5MBCzqhYTw0%2B1HX0%3D&Expires=1792542073
   OK S05 2357766 bytes / 5.11s
-FETCH S06 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200822301802b606c4074801_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=fIvkUT%2FcywyK6fKtfgz3BO6ogbU%3D&Expires=1792542153
-  OK S06 1653657 bytes / 5.11s
+FETCH S06 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610201319301022db62a9d24e07_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=AicHBPzRUguBmf8Xtnhv9M5E5Rw%3D&Expires=1792559972
+  OK S06 1520380 bytes / 5.11s
 FETCH S07 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200838506be184c5120945f3_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=0eAYDFPeEXiG7H7%2Fn7qxGrcXDAs%3D&Expires=1792543132
   OK S07 1626716 bytes / 5.11s
 FETCH S08 https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610200942409ea456e4a26d4213_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=zse%2B6BRsYkLymisSxPV8%2BEutwPo%3D&Expires=1792546962
@@ -83,24 +83,415 @@ FETCH_COMPLETE {"downloaded": 38, "reused": 0, "clips": 38}
 RENDER_SEGMENT 1/46 S01
 RENDER_SEGMENT 2/46 S03
 RENDER_SEGMENT 3/46 S06
-RENDER_SEGMENT 4/46 S04
-RENDER_SEGMENT 5/46 S02
-RENDER_SEGMENT 6/46 S05
-RENDER_SEGMENT 7/46 S07
-RENDER_SEGMENT 8/46 S08
-RENDER_SEGMENT 9/46 S09
-RENDER_SEGMENT 10/46 S10
-RENDER_SEGMENT 11/46 S12
-RENDER_SEGMENT 12/46 S11
-RENDER_SEGMENT 13/46 S13
-RENDER_SEGMENT 14/46 S14
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/zhoukehua2012/render.py", line 583, in <module>
-    if __name__=='__main__':main()
-                            ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/zhoukehua2012/render.py", line 522, in main
-    outputs.append(render_segment(entry,i,args.sources,work/'graphics',segments,args.width,args.height,checks,presentation,last_shot))
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/zhoukehua2012/render.py", line 421, in render_segment
-    raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s exceeds ping-pong capacity {2*available:.2f}s')
-RuntimeError: S15/: slot 10.30s exceeds ping-pong capacity 9.74s
+RENDER_SEGMENT 4/46 S02
+RENDER_SEGMENT 5/46 S05
+RENDER_SEGMENT 6/46 S07
+RENDER_SEGMENT 7/46 S08
+RENDER_SEGMENT 8/46 S09
+RENDER_SEGMENT 9/46 S10
+RENDER_SEGMENT 10/46 S12
+RENDER_SEGMENT 11/46 S11
+RENDER_SEGMENT 12/46 S13
+RENDER_SEGMENT 13/46 S14
+RENDER_SEGMENT 14/46 S15
+RENDER_SEGMENT 15/46 S20
+RENDER_SEGMENT 16/46 S17
+RENDER_SEGMENT 17/46 S23
+RENDER_SEGMENT 18/46 S18
+RENDER_SEGMENT 19/46 S19
+RENDER_SEGMENT 20/46 S22
+RENDER_SEGMENT 21/46 S21
+RENDER_SEGMENT 22/46 S16
+RENDER_SEGMENT 23/46 S24
+RENDER_SEGMENT 24/46 S04
+RENDER_SEGMENT 25/46 S25
+RENDER_SEGMENT 26/46 S26
+RENDER_SEGMENT 27/46 S27
+RENDER_SEGMENT 28/46 S29
+RENDER_SEGMENT 29/46 S28
+RENDER_SEGMENT 30/46 S30
+RENDER_SEGMENT 31/46 S32
+RENDER_SEGMENT 32/46 S31
+RENDER_SEGMENT 33/46 S33
+RENDER_SEGMENT 34/46 S34
+RENDER_SEGMENT 35/46 S35
+RENDER_SEGMENT 36/46 S36
+RENDER_SEGMENT 37/46 S37
+RENDER_SEGMENT 38/46 S38
+RENDER_SEGMENT 39/46 S40
+RENDER_SEGMENT 40/46 S41
+RENDER_SEGMENT 41/46 S43
+RENDER_SEGMENT 42/46 S42
+RENDER_SEGMENT 43/46 S39
+RENDER_SEGMENT 44/46 S44
+RENDER_SEGMENT 45/46 S45
+RENDER_SEGMENT 46/46 END
+Generated original thriller music loop: work/zhoukehua2012/score.wav (180.00s)
+SOUNDTRACK_MEASURED {"rms_dbfs": -20.51, "peak_dbfs": -1.52, "silent_fraction": 0.0}
+FINAL_AUDIO_MEASURED {"rms_dbfs": -20.53, "peak_dbfs": -1.57, "silent_fraction": 0.011, "quietest_window_dbfs": -120.0}
+RENDER_COMPLETE {"duration": 180.0, "bytes": 68514236, "width": 1920, "height": 1080, "fps": 30.0, "video_codec": "h264", "frames": 5400, "audio_codec": "aac", "sample_rate": 48000, "audio_channels": 2, "sha256": "5a590b6c47c8d54bdabb45334f82a3621191341bd8ee9ac7818fae9727ca7ef0", "decoded_ok": true, "status": "audio_verified_cut", "visual_review": "pending", "caption_alignment": [{"id": "N01", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N02", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N03", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N04", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N05", "method": "clause-times DP", "character_match_coverage": 1.0}, {"id": "N06", "method": "clause-times DP", "character_match_coverage": 1.0}], "narration_voice_id": "voice-00", "narration_tempo": 0.901390625, "editorial_segments": 46, "source_clips": 38, "archival_portrait": false, "unique_shots_no_reuse": true, "output": "周克华案_逃亡八年，最后四天_三分钟_带声音.mp4", "soundtrack_mix": {"rms_dbfs": -20.51, "peak_dbfs": -1.52, "silent_fraction": 0.0, "target_rms_dbfs": -20.0}, "delivered_audio": {"rms_dbfs": -20.53, "peak_dbfs": -1.57, "silent_fraction": 0.011, "quietest_window_dbfs": -120.0}, "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening", "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."}
+=== 4/5 把成片与实测报告 commit 回 arena/a2b4456e-desktop-tutorial ===
+[arena/a2b4456e-desktop-tutorial 74884a842] Deliver the zhoukehua2012 cut with measured audio
+ 6 files changed, 72 insertions(+), 74 deletions(-)
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 1/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 2/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 3/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 4/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 5/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 6/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 7/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 8/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 9/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 10/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 11/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 12/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 13/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 14/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 15/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 16/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 17/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 18/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 19/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 20/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 21/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 22/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 23/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 24/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 25/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 26/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 27/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 28/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 29/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 30/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 31/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 32/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 33/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 34/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 35/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 36/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 37/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 38/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 39/40 轮），等 15 秒重试……
+To https://github.com/32r4e2q-hub/desktop-tutorial
+ ! [rejected]            HEAD -> arena/a2b4456e-desktop-tutorial (fetch first)
+error: failed to push some refs to 'https://github.com/32r4e2q-hub/desktop-tutorial'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+推送失败（第 40/40 轮），等 15 秒重试……
+成片与实测报告都已生成，但 40 轮都没能推回 arena/a2b4456e-desktop-tutorial（网络问题）。
+成片在本次运行的 artifact 里，重跑一次即可；报告在 production/zhoukehua2012/delivery/。
