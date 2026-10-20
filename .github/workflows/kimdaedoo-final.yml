@@ -9,10 +9,10 @@ on:
   push:
     branches: [arena/b726ea5e-desktop-tutorial]
     paths:
+      # 只在明确请求时出片：results.json 每轮回写，不能作为触发条件，
+      # 否则每一轮生成都会拉起一次“素材不全”的出片。
       - production/kimdaedoo/FINAL_REQUEST
       - production/kimdaedoo/finalize.py
-      - production/kimdaedoo/story.json
-      - production/kimdaedoo/results.json
       - .github/workflows/kimdaedoo-final.yml
 
 permissions:
