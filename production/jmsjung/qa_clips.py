@@ -35,13 +35,22 @@ DL.mkdir(exist_ok=True)
 log = lambda *a: print('[frame-qc]', *a, flush=True)
 
 # ---- 人脸检测：OpenCV 自带 Haar 级联（随 pip 包分发，零网络依赖）----
-import cv2.data  # noqa: E402
-_casc_path = os.path.join(cv2.data.haarcascades, 'haarcascade_frontalface_default.xml')
-net = cv2.CascadeClassifier(_casc_path)
-if net.empty():
+net = None
+face_skip_reason = ''
+log('cv2 version:', cv2.__version__)
+try:
+    import cv2.data  # noqa: E402
+    _casc_path = os.path.join(cv2.data.haarcascades,
+                              'haarcascade_frontalface_default.xml')
+    log('Haar path:', _casc_path, 'exists:', os.path.exists(_casc_path))
+    _c = cv2.CascadeClassifier(_casc_path)
+    if _c.empty():
+        raise RuntimeError('empty classifier')
+    net = _c
+    log('Haar 加载成功')
+except Exception as e:
     net = None
-face_skip_reason = '' if net is not None else f'Haar 级联不可用: {_casc_path}'
-if net is None:
+    face_skip_reason = f'Haar 不可用: {type(e).__name__}: {e}'
     log(f'  人脸检测跳过（{face_skip_reason}），其余 3 项指标照跑')
 
 def fetch(url, dest, want):
@@ -166,6 +175,29 @@ try:
 except Exception as exc:
     import traceback
     (OUT / 'FATAL.txt').write_text(traceback.format_exc())
+    _tok = os.environ.get('GITHUB_TOKEN')
+    _repo = os.environ.get('GITHUB_REPOSITORY')
+    if _tok and _repo:
+        try:
+            import shutil as _sh
+            _deliv = ROOT / 'delivery' / 'final'
+            _deliv.mkdir(exist_ok=True)
+            _sh.copy2(OUT / 'FATAL.txt', _deliv / f'FATAL-{int(time.time())}.txt')
+            _sh = None
+            for _c in (['git', 'config', 'user.name', 'jmsjung-frame-qc'],
+                       ['git', 'config', 'user.email', 'jmsjung-frame-qc@users.noreply.github.com']):
+                subprocess.run(_c, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.run(['git', 'add', 'production/jmsjung/delivery/final/'],
+                           check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.run(['git', 'commit', '-q', '-m',
+                            'jmsjung: 帧级 QC FATAL 收据'],
+                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            _remote = f'https://x-access-token:{_tok}@github.com/{_repo}.git'
+            subprocess.run(['git', 'push', '-q', _remote,
+                            'HEAD:arena/929dc8b6-desktop-tutorial'],
+                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except Exception:
+            pass
     raise
 
 log('4/4 汇总报告 …')
