@@ -354,15 +354,20 @@
     },
     "S10": {
       "id": "S10",
-      "status": "queued",
+      "status": "generated",
       "request_hash": "89070eed36d382ffacd3c150c9d2a81bf9311da56d4d3e4f082ffed7aa94895b",
       "error": null,
-      "updated_at": "2026-10-20T21:11:16Z",
+      "updated_at": "2026-10-20T21:20:55Z",
       "channel_error_round": 7,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_WGmJAGGo5uoc6L7ClKLTOECDkaqZ7fXU",
       "task_id": "task_WGmJAGGo5uoc6L7ClKLTOECDkaqZ7fXU",
-      "requested_seconds": 6.0
+      "requested_seconds": 6.0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_WGmJAGGo5uoc6L7ClKLTOECDkaqZ7fXU.mp4",
+      "bytes": 2054109,
+      "sha256": "46cbc3f252d196f79b2cd286df23e012918a4b200ffe8385cb4af013fcd36df4",
+      "reported_size": "720P",
+      "reported_seconds": "6"
     },
     "S12": {
       "id": "S12",
@@ -577,7 +582,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-20T21:20:54Z",
+  "updated_at": "2026-10-20T21:20:55Z",
   "run_id": "39494390764",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
