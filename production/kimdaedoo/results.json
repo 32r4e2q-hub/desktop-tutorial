@@ -422,10 +422,10 @@
     },
     "S13": {
       "id": "S13",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "a1720d2787c3f2373ad18cbb6e99833281b06b2bf15141666cdfb6268f4955f3",
       "error": null,
-      "updated_at": "2026-10-20T23:03:05Z",
+      "updated_at": "2026-10-20T23:03:07Z",
       "channel_error_round": 61,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_Hg66SCKhhqBpStY8I8NCP7IoldSXVEu4",
@@ -435,7 +435,25 @@
       "bytes": 2144324,
       "sha256": "967f7945f1c87127dc335729888804d68bcdff7fb1f22245f0f269b517c42422",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 2144324,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kimdaedoo/qa/S13.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S14": {
       "id": "S14",
@@ -638,7 +656,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-20T23:03:06Z",
+  "updated_at": "2026-10-20T23:03:07Z",
   "run_id": "39494390764",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
