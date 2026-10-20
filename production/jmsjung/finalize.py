@@ -41,10 +41,14 @@ for d in (OUT, DL, TTS):
     d.mkdir(parents=True, exist_ok=True)
 
 # ---- 装配修正表：slot -> 实际使用的素材文件（对应 results 里的镜号）----
-# 根因：S21（最高法院外景）与 S22（时间线蒙太奇）两个 Agnes 任务的返回产物互串
-# （story.json prompt 映射本身无误，已核对 source-script.txt）。
-# 两素材与对方解说完全吻合，换回原位即完美对位，无需重生成。
-FIXUPS = {'S21': 'S22', 'S22': 'S21'}
+# ⚠️ 2026-10-20 修正：初版误设 {'S21':'S22','S22':'S21'}。
+# 根因：夜里工作流生成的 qa/S21.jpg、qa/S22.jpg、qa/S27.jpg、qa/S28.jpg 四张
+# 接触表在同轮完成的镜头对之间互相串了文件（QA 写表 bug），导致目检时误判
+# "生成侧产物互串"。以最终成片采样帧为地面真值核实：
+#   S21.mp4 = 最高法院外景（S21 prompt 渲染）、S22.mp4 = 时间线蒙太奇（S22 prompt 渲染），
+#   S27.mp4 = 椅子排（S27 prompt）、S28.mp4 = 空法庭（S28 prompt）——文件映射本就正确。
+# 故 FIXUPS 置空；逐槽位中点帧抽检表（final-per-slot.jpg）为权威目检依据。
+FIXUPS = {}
 
 # ---- 逐镜调色（只针对目检确认异常的镜头，其余保持生成原样）----
 # S04 目检结论：整体曝光偏低（全片最暗镜头），轻微提亮+饱和，避免细节糊死。
@@ -350,6 +354,13 @@ sh(['ffmpeg', '-y', '-v', 'error', '-i', str(final_mp4),
     '-vf', f"select='not(mod(n,{step}))',scale=480:270,tile=4x4",
     '-frames:v', '1', str(OUT / 'final-contact.jpg')])
 
+# 逐槽位中点帧抽检表（30 帧：每个镜头窗口正中间抽 1 帧）——权威目检依据
+mid_expr = '+'.join('eq(n,%d)' % round((sl['slot_start'] + sl['slot_dur'] / 2) * FPS)
+                    for sl in slots)
+sh(['ffmpeg', '-y', '-v', 'error', '-i', str(final_mp4),
+    '-vf', f"select='{mid_expr}',scale=426:240,tile=6x5",
+    '-frames:v', '1', str(OUT / 'final-per-slot.jpg')])
+
 # 逐镜 TTS 打包（供用户试听音色）
 tts_zip = OUT / 'narration-per-shot.zip'
 sh(['zip', '-q', '-j', str(tts_zip)] + [str(TTS / (s['id'] + '.wav')) for s in SHOTS])
@@ -358,7 +369,8 @@ sh(['zip', '-q', '-j', str(tts_zip)] + [str(TTS / (s['id'] + '.wav')) for s in S
 log('7/7 提交报告 + 发布 Release …')
 deliv = ROOT / 'delivery' / 'final'
 deliv.mkdir(exist_ok=True)
-for f in ('alignment-report.json', 'captions.srt', 'final-contact.jpg'):
+for f in ('alignment-report.json', 'captions.srt', 'final-contact.jpg',
+          'final-per-slot.jpg'):
     shutil.copy2(OUT / f, deliv / f)
 sh(['git', 'config', 'user.name', 'jmsjung-final'])
 sh(['git', 'config', 'user.email', 'jmsjung-final@users.noreply.github.com'])
@@ -375,7 +387,8 @@ if tok and repo:
     tag = f'jmsjung-final-{ts}'
     note = (f'# JMS 郑明析案 · 成片\n\n'
             f'- 时长 **{int(TOTAL_S//60)}分{TOTAL_S%60:.0f}秒**（完整保留 1366 字解说词；180 秒规格与之物理矛盾，见报告 duration_note）\n'
-            f'- 30 镜 agnes-video-2.5-flash 720P，S21/S22 生成侧产物互串已在装配时换回原位\n'
+            f'- 30 镜 agnes-video-2.5-flash 720P；逐槽位中点帧抽检表 final-per-slot.jpg 为权威目检依据'
+            f'（夜里生成的 qa/S21/S22/S27/S28 四张接触表存在同轮串表 bug，已弃用）\n'
             f'- 配音：edge-tts {VOICE}（中文男声·旁白），平均语速 {qc["avg_speech_rate_cpm"]} 字/分钟\n'
             f'- 字幕烧录 + 片头片尾标题卡 + 响度归一（-16 LUFS）\n'
             f'- 逐镜音画对位表与 QC 结果见 alignment-report.json')
