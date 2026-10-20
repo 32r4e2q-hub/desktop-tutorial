@@ -12,22 +12,25 @@
     "time_stretch": 1.0
   },
   {
-    "id": "S02",
+    "id": "S03",
     "variant": "",
-    "kind": "graphic",
+    "kind": "agnes",
     "start_frame": 92,
     "end_frame": 182,
     "narration_id": "N01",
-    "purpose": "名片：案名 / 三座城市 / 八年"
+    "purpose": "清晨：山城还没完全醒来",
+    "source_in": 0.12,
+    "source_out": 3.12,
+    "time_stretch": 1.0
   },
   {
-    "id": "S03",
+    "id": "S06",
     "variant": "",
     "kind": "agnes",
     "start_frame": 182,
     "end_frame": 314,
     "narration_id": "N01",
-    "purpose": "清晨：山城还没完全醒来",
+    "purpose": "十分钟后：两名民警穿过人群，走向巷口",
     "source_in": 0.12,
     "source_out": 4.5200000000000005,
     "time_stretch": 1.0
@@ -45,25 +48,22 @@
     "time_stretch": 1.0
   },
   {
-    "id": "S05",
+    "id": "S02",
     "variant": "",
-    "kind": "agnes",
+    "kind": "graphic",
     "start_frame": 391,
     "end_frame": 465,
     "narration_id": "N01",
-    "purpose": "骚动：人群四散，不见伤害",
-    "source_in": 0.12,
-    "source_out": 2.586666666666667,
-    "time_stretch": 1.0
+    "purpose": "名片：案名 / 三座城市 / 八年"
   },
   {
-    "id": "S06",
+    "id": "S05",
     "variant": "",
     "kind": "agnes",
     "start_frame": 465,
     "end_frame": 529,
     "narration_id": "N01",
-    "purpose": "枪声响起：街面人群四散，两名民警跑向巷口",
+    "purpose": "骚动：人群四散，不见伤害",
     "source_in": 0.12,
     "source_out": 2.2533333333333334,
     "time_stretch": 1.0
@@ -107,23 +107,24 @@
     "variant": "",
     "kind": "agnes",
     "start_frame": 954,
-    "end_frame": 1119,
+    "end_frame": 1159,
     "narration_id": "N02",
     "purpose": "二〇〇四年：两个背影走向银行",
     "source_in": 0.12,
     "source_out": 4.9881079999999995,
-    "time_stretch": 1.1298023790762244
+    "time_stretch": 1.0,
+    "pingpong": true
   },
   {
     "id": "S12",
     "variant": "",
     "kind": "agnes",
-    "start_frame": 1119,
+    "start_frame": 1159,
     "end_frame": 1208,
     "narration_id": "N02",
-    "purpose": "二〇〇五年：一只封好的纸袋，成为卷宗里的记录",
+    "purpose": "证物：被抢走的钱，封进一只纸袋",
     "source_in": 0.12,
-    "source_out": 3.086666666666667,
+    "source_out": 1.7533333333333334,
     "time_stretch": 1.0
   },
   {
@@ -192,23 +193,23 @@
     "variant": "",
     "kind": "agnes",
     "start_frame": 1976,
-    "end_frame": 2056,
+    "end_frame": 2128,
     "narration_id": "N03",
     "purpose": "老街：人流密集的银行门口",
     "source_in": 0.12,
-    "source_out": 2.7866666666666666,
-    "time_stretch": 1.0
+    "source_out": 4.9881079999999995,
+    "time_stretch": 1.0407876461793097
   },
   {
     "id": "S23",
     "variant": "",
     "kind": "agnes",
-    "start_frame": 2056,
+    "start_frame": 2128,
     "end_frame": 2196,
     "narration_id": "N03",
     "purpose": "布控：车站与出城路口",
     "source_in": 0.12,
-    "source_out": 4.786666666666667,
+    "source_out": 2.3866666666666667,
     "time_stretch": 1.0
   },
   {
@@ -348,13 +349,13 @@
     "time_stretch": 1.122955091930308
   },
   {
-    "id": "S31",
+    "id": "S39",
     "variant": "",
     "kind": "agnes",
     "start_frame": 3616,
     "end_frame": 3695,
     "narration_id": "N05",
-    "purpose": "转机：两座城市送来的物证",
+    "purpose": "黄昏：城市继续运转",
     "source_in": 0.12,
     "source_out": 2.7533333333333334,
     "time_stretch": 1.0
@@ -429,13 +430,13 @@
     "time_stretch": 1.0
   },
   {
-    "id": "S39",
+    "id": "S31",
     "variant": "",
     "kind": "agnes",
     "start_frame": 4279,
     "end_frame": 4378,
     "narration_id": "N05",
-    "purpose": "黄昏：城市继续运转",
+    "purpose": "转机：两座城市送来的物证",
     "source_in": 0.12,
     "source_out": 3.42,
     "time_stretch": 1.0
