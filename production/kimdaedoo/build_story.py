@@ -131,9 +131,9 @@ ROWS = [
         narration="可很快，南部多地接连出事，恐惧开始蔓延，村民夜不敢眠。",
         prompt=(
             "Dusk in a small 1975 South Korean village: a narrow dirt lane, low tile-roof houses, a family-run "
-            "shop with a plain wooden sign, no lettering, a few residents in period clothing speaking in low voices "
-            "outside, one woman holding a folded newspaper. Worried faces kept in soft shadow, no readable "
-            "text. Slow dolly forward, cold gray light, growing unease."
+            "shop with a bare wooden shutter, no signboards, no banners, no posters, no paper notices; a few "
+            "residents in period clothing speak in low voices outside, faces kept in soft shadow. Slow dolly "
+            "forward, cold gray light, growing unease."
         ),
         cast=[],
     ),
@@ -154,8 +154,9 @@ ROWS = [
         prompt=(
             "High-angle view of a 1975 Korean railway platform just after a train departs. Two men in worn "
             "coats walk away from each other, one toward a crowded city exit, the other into a quieter "
-            "passage; steam, porters with carts, period signage with no readable letters, overcast light. "
-            "Slow crane rise until only the lean man in the dark-brown jacket remains in frame, seen from behind."
+            "passage; steam, porters pushing wooden handcarts, bare steel platform gantries with no signboards "
+            "or station signs, overcast light. Slow crane rise until only the lean man in the dark-brown jacket "
+            "remains in frame, seen from behind."
         ),
         cast=[],
     ),
@@ -204,9 +205,10 @@ ROWS = [
         narration="偏僻、缺少防护的住宅，成了他反复下手的目标。",
         prompt=(
             "Interior of a ransacked 1975 Korean rural home after a burglary: an open wooden storage chest, a "
-            "few coins and a folded banknote on the floor, an overturned stool, a torn paper window, an empty "
-            "doorway, investigators' long shadows at the threshold. No bodies, no blood, no victims. Slow pan "
-            "from the chest to the door, cold gray light, silence."
+            "few coins and a folded banknote on the floor, an overturned stool, a torn paper window with no "
+            "lettering, an empty doorway, investigators' long shadows at the threshold. Bare plaster walls with "
+            "no wall hangings, no posters, no calligraphy, no framed pictures. No bodies, no blood, no victims. "
+            "Slow pan from the chest to the door, cold gray light, silence."
         ),
         cast=[],
     ),
