@@ -72,3 +72,16 @@ bash production/run_project.sh zhoukehua2012               # 出片（Actions �
 3. 用 `{"only":"Sxx"}` 只重投这几镜；同一提示词想真重抽要带 `{"only":"Sxx","force":"Sxx"}`
    （否则会命中旧收据、一镜都不重投）；
 4. 若同一镜连续两轮被拦，换构图（俯拍桌面 / 空镜 / 静物）而不是继续换形容词。
+
+## 闸门总表（交付版 SHA `7a131df1…`）
+
+| 闸门 | 结果 |
+|---|---|
+| 计划 / 配音来源 validate | PASS（45 镜 = 38 动态 + 7 信息卡；六段配音 SHA-256 对得上） |
+| 切点 check-cuts | PASS（45/45 差 0.00） |
+| 出片与混音 | RMS −20.11 dBFS · 峰值 −1.53 · 静音 0.55 % |
+| 逐字听检 | 六章 CER 0.000–0.133，全部 ok |
+| 全帧 QC | 5400/5400 帧 · 非计划黑帧 0 · 人脸候选 0 |
+| Release | [zhoukehua2012-v1](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/zhoukehua2012-v1) |
+
+全过程与 1301 的实测处理见 [`制作过程.md`](制作过程.md)。
