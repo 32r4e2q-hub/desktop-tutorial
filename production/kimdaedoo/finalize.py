@@ -108,6 +108,28 @@ def find_cjk_font() -> str:
     return str(found[0])
 
 
+# ---------------------------------------------------------------- 0 素材新鲜度（防旧提示词素材混进成片）
+def stale_shots() -> list[str]:
+    """story.json 改过、但 results.json 里还是旧 request_hash 的镜头。
+
+    2026-10-21 实测：提示词重写后，旧一轮生成仍可能先把 30/30 凑齐并触发 final，
+    结果把上一版（有伪文字）的素材装进成片。素材的 request_hash 与当前
+    story.json 算出来的不一致时，说明这条片子是旧提示词的产物，必须停下重新生成。
+    """
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("kimdaedoo_generate", HERE / "generate.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    stale = []
+    for shot in SHOTS:
+        row = RESULTS["shots"].get(shot["id"]) or {}
+        recorded = row.get("request_hash")
+        if recorded and recorded != module.request_hash(STORY, shot):
+            stale.append(shot["id"])
+    return stale
+
+
 # ---------------------------------------------------------------- 1 下载 + 校验
 def download(sid: str) -> Path:
     row = RESULTS["shots"].get(sid) or {}
@@ -437,6 +459,10 @@ def write_delivery(final: Path, report: dict, srt: Path, contact: Path, per_slot
 
 
 def main() -> int:
+    stale = stale_shots()
+    if stale:
+        die("FATAL: 以下镜头的素材来自旧提示词，必须先重新生成：" + " ".join(stale))
+
     log("1/7 下载 30 镜并校验 SHA-256 …")
     for shot in SHOTS:
         download(shot["id"])

@@ -224,3 +224,13 @@ def test_generator_branch_constant_matches_workflow():
     assert "BRANCH='arena/b726ea5e-desktop-tutorial'" in text
     assert "QUEUE_COOLDOWN_SECONDS=61" in text
     assert "gate=RequestGate(minimum_interval=61)" in text
+
+
+def test_finalize_refuses_stale_prompt_clips():
+    """提示词改过之后，旧素材不能混进成片：finalize 必须比对 request_hash。"""
+    text = (PROJECT / "finalize.py").read_text(encoding="utf-8")
+    assert "def stale_shots()" in text
+    assert "request_hash" in text
+    assert "素材来自旧提示词" in text
+    # 必须在下载之前拦下，否则会先花时间拉 30 条旧片
+    assert text.index("stale_shots()") < text.index("下载 30 镜并校验")
