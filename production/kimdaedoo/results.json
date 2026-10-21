@@ -188,10 +188,10 @@
     },
     "S07": {
       "id": "S07",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "caf564d83c2fccadd289212f9600272000d64a7c83d4515e4dad81e07b865cc0",
       "error": null,
-      "updated_at": "2026-10-21T02:38:30Z",
+      "updated_at": "2026-10-21T02:38:32Z",
       "channel_error_round": 51,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_SHUOKCgddepXpBeA1gPQV1Rl1kEz1pL3",
@@ -201,7 +201,25 @@
       "bytes": 5847040,
       "sha256": "24598c2882ca0dd44dd4a33df2353c8eeb50ff30a88a1ef3958c93e7a6806b58",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 5847040,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kimdaedoo/qa/S07.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S08": {
       "id": "S08",
@@ -614,7 +632,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T02:38:30Z",
+  "updated_at": "2026-10-21T02:38:32Z",
   "run_id": "39527882584",
   "previous_results": {
     "S05": [
