@@ -555,7 +555,7 @@
       "updated_at": "2026-10-20T23:37:30Z"
     }
   },
-  "phase": "generating_sources",
+  "phase": "provider_capacity",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -606,7 +606,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T01:32:03Z",
+  "updated_at": "2026-10-21T01:32:04Z",
   "run_id": "39516244233",
   "previous_results": {
     "S05": [
@@ -697,5 +697,6 @@
     "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261021013201789422817aB8z69Nn)",
     "reason": "供应商视频排队已满",
     "kind": "queue"
-  }
+  },
+  "pipeline_error": "Agnes 视频排队已连续 110 分钟没开闸（抽签 109 次）：Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261021013100556094614tOO8jphM)。这是供应商侧容量问题——请求本身没错，稍后再触发一轮会从断点继续。"
 }
