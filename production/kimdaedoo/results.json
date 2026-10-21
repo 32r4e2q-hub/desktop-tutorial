@@ -645,10 +645,10 @@
     },
     "S28": {
       "id": "S28",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "b617391180ca5de6d5f0b7f012a129e27200d69221eb101537f7f8b955497515",
-      "error": null,
-      "updated_at": "2026-10-21T04:24:31Z"
+      "error": "Provider cooldown would exceed the generation budget; saved tasks can be resumed",
+      "updated_at": "2026-10-21T04:24:33Z"
     },
     "S29": {
       "id": "S29",
@@ -716,7 +716,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T04:24:32Z",
+  "updated_at": "2026-10-21T04:24:33Z",
   "run_id": "39527882584",
   "previous_results": {
     "S05": [
