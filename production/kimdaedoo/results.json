@@ -573,38 +573,10 @@
     },
     "S18": {
       "id": "S18",
-      "status": "completed",
-      "request_hash": "c57707cc04cbecdcfcd0ef996c18222f53c863d8091c15bcaefcd00f8ab91e4f",
+      "status": "submitting",
+      "request_hash": "29e8234b81d49183a78ec455eac927f98f49f204a4499918aa45097dae1882a4",
       "error": null,
-      "updated_at": "2026-10-21T13:06:33Z",
-      "channel_error_round": 1,
-      "applied_cooldown_seconds": 61.0,
-      "video_id": "task_0Xy2I6N0aO1qA2Qwxvj5cQ1LbZXMQpNn",
-      "task_id": "task_0Xy2I6N0aO1qA2Qwxvj5cQ1LbZXMQpNn",
-      "requested_seconds": 6.0,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_0Xy2I6N0aO1qA2Qwxvj5cQ1LbZXMQpNn.mp4",
-      "bytes": 3519953,
-      "sha256": "1e265944a7233d06070b467ec8106c7bcc207d64e4958739a3dbac2bdb2de371",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration": 6.592,
-        "bytes": 3519953,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "video_codec": "h264",
-        "frames": 158,
-        "audio_codec": "aac",
-        "sample_rate": 32000,
-        "audio_channels": 2,
-        "decoded_ok": true,
-        "contact_sheet": "production/kimdaedoo/qa/S18.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": true,
-      "visual_review": "pending"
+      "updated_at": "2026-10-21T17:28:25Z"
     },
     "S19": {
       "id": "S19",
@@ -1078,7 +1050,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T17:28:24Z",
+  "updated_at": "2026-10-21T17:28:25Z",
   "run_id": "39639581243",
   "previous_results": {
     "S05": [
@@ -1255,6 +1227,43 @@
           "audio_channels": 2,
           "decoded_ok": true,
           "contact_sheet": "production/kimdaedoo/qa/S15.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": true,
+        "visual_review": "pending"
+      }
+    ],
+    "S18": [
+      {
+        "id": "S18",
+        "status": "completed",
+        "request_hash": "c57707cc04cbecdcfcd0ef996c18222f53c863d8091c15bcaefcd00f8ab91e4f",
+        "error": null,
+        "updated_at": "2026-10-21T13:06:33Z",
+        "channel_error_round": 1,
+        "applied_cooldown_seconds": 61.0,
+        "video_id": "task_0Xy2I6N0aO1qA2Qwxvj5cQ1LbZXMQpNn",
+        "task_id": "task_0Xy2I6N0aO1qA2Qwxvj5cQ1LbZXMQpNn",
+        "requested_seconds": 6.0,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_0Xy2I6N0aO1qA2Qwxvj5cQ1LbZXMQpNn.mp4",
+        "bytes": 3519953,
+        "sha256": "1e265944a7233d06070b467ec8106c7bcc207d64e4958739a3dbac2bdb2de371",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration": 6.592,
+          "bytes": 3519953,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "video_codec": "h264",
+          "frames": 158,
+          "audio_codec": "aac",
+          "sample_rate": 32000,
+          "audio_channels": 2,
+          "decoded_ok": true,
+          "contact_sheet": "production/kimdaedoo/qa/S18.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         },
