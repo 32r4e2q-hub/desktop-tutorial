@@ -152,11 +152,11 @@ ROWS = [
     dict(
         narration="不久两人分道扬镳，他独自北上，手法越来越熟练。",
         prompt=(
-            "High-angle view of a 1975 Korean railway platform just after a train departs. Two men in worn "
-            "coats walk away from each other, one toward a crowded city exit, the other into a quieter "
-            "passage; steam, porters pushing wooden handcarts, bare steel platform gantries with no signboards "
-            "or station signs, overcast light. Slow crane rise until only the lean man in the dark-brown jacket "
-            "remains in frame, seen from behind."
+            "High-angle view of a cinder path beside a railway line in 1975 South Korea, just after a train has "
+            "passed; two men in worn coats walk away from each other along the path, one toward a distant cluster "
+            "of low houses, the other toward a bare wooden fence. Steam drifts over the rails, dry grass and "
+            "gravel, no buildings with signs, no lettering anywhere. Slow crane rise until only the lean man in "
+            "the dark-brown jacket remains in frame, seen from behind."
         ),
         cast=[],
     ),
@@ -236,10 +236,11 @@ ROWS = [
     dict(
         narration="10月，调查人员走进首尔一条窄街，停在洗衣店前。",
         prompt=(
-            "Autumn 1975, Seoul. " + DETECTIVE + " walks along a narrow street of low brick houses and small "
-            "storefronts, fallen leaves underfoot, hands in pockets. The camera follows from behind at shoulder "
-            "height; he slows and stops in front of a small laundry shop with a plain wooden sign. Overcast "
-            "light, distant traffic, slow cinematic tracking."
+            "Autumn 1975, Seoul. " + DETECTIVE + " walks along a narrow alley of low tile-roof houses with plain "
+            "plaster walls, closed wooden doors and bare brick gateposts, fallen leaves underfoot, hands in "
+            "pockets. The camera follows from behind at shoulder height; he slows and stops in front of a small "
+            "laundry with a bare wooden shutter and a few shirts hanging under the eaves, no signboards, no glass "
+            "storefronts, no air-conditioning units. Overcast light, distant traffic, slow cinematic tracking."
         ),
         cast=[],
     ),
@@ -267,10 +268,11 @@ ROWS = [
     dict(
         narration="便衣在店外布控，从清晨等到下午，等那个送衣的人。",
         prompt=(
-            "Street outside the laundry shop, autumn afternoon 1975. " + DETECTIVE + " waits with a second "
-            "plainclothes detective by a shuttered storefront across the street, collars turned up, watching the laundry "
-            "door in the reflection of a window; passersby in period clothing, an old bicycle, fallen leaves. "
-            "No tactical poses, no weapons. Slow lateral camera move behind them, muted gray light, patient tension."
+            "Alley outside the laundry, autumn afternoon 1975. " + DETECTIVE + " waits with a second plainclothes "
+            "detective under the eave of a closed wooden shopfront, collars turned up, watching the laundry door "
+            "across the alley; plain plaster walls, no signboards, no posters, no glass shopfronts, no "
+            "air-conditioning units; passersby in period clothing, an old bicycle, fallen leaves. No tactical "
+            "poses, no weapons. Slow lateral camera move behind them, muted gray light, patient tension."
         ),
         cast=[],
     ),
@@ -279,7 +281,8 @@ ROWS = [
         prompt=(
             "Late afternoon inside the 1975 Seoul laundry shop: {{C1}} steps through the door, a blank paper "
             "claim ticket in his hand, worn dark-brown jacket damp at the shoulders; two plainclothes detectives "
-            "close in calmly from either side, the shopkeeper frozen behind the counter. No weapons, no struggle. "
+            "close in calmly from either side, the shopkeeper frozen behind a plain wooden counter, blank frosted "
+            "glass panels behind them with no lettering or gold characters. No weapons, no struggle. "
             "The camera follows his feet, then tilts up to his face as he realizes, warm dim light, restrained "
             "cinematic tension."
         ),
@@ -308,10 +311,11 @@ ROWS = [
     dict(
         narration="全罗南道、京畿道、首尔，原本孤立的案件被串成一条线。",
         prompt=(
-            "1975 Seoul street at midday: a wooden newspaper stand stacked with folded papers seen edge-on, a seller in a flat cap "
-            "arranging them, commuters in period coats glancing at the folded papers, their faces somber. The image has the "
-            "grain and contrast of 1970s black-and-white press photography but is rendered in realistic 3D. No "
-            "readable headlines, no sensational images, slow push-in past the reader's shoulders, cold daylight."
+            "1975 Seoul, a wide sidewalk at midday: low-rise Korean brick buildings and a tiled roof behind, a "
+            "wooden newsstand stacked with papers folded face-down so no print is visible, a Korean seller in a "
+            "flat cap arranging them, Korean commuters in 1970s Korean coats and hats walking past. The image has "
+            "the grain and contrast of 1970s black-and-white press photography but is rendered in realistic 3D. "
+            "No readable headlines, no shop signs, cold daylight, slow push-in past the seller's shoulder."
         ),
         cast=[],
     ),
@@ -359,10 +363,12 @@ ROWS = [
     dict(
         narration="空下的座位、没人再穿的鞋，都是无法逆转的现实。",
         prompt=(
-            "Cinematic still life on a 1975 Korean police desk: a pair of blue jeans sealed in a plain paper "
-            "evidence bag, a black rotary telephone, a hand-drawn map, a stack of closed case files, a fountain pen, "
-            "warm desk lamp against a dark room. Slow pull-back to reveal the full investigation table, no readable "
-            "text, no gore, the quiet weight of evidence."
+            "Cinematic still life on a 1975 Korean police desk: a pair of blue jeans sealed in a plain brown "
+            "paper evidence bag with a blank label, a black rotary telephone, a hand-drawn map folded so no "
+            "marking shows, a stack of closed case files with blank covers, a capped fountain pen, warm desk lamp "
+            "against a dark room. Every paper surface is blank or folded face-down, no handwriting, no printed "
+            "labels, no lettering anywhere. Slow pull-back to reveal the full investigation table, no gore, the "
+            "quiet weight of evidence."
         ),
         cast=[],
     ),
@@ -389,10 +395,11 @@ ROWS = [
     dict(
         narration="请记住那17条生命，而不只是凶手，他们也曾有明天。",
         prompt=(
-            "Dawn after rain in 1975 Seoul: the small laundry shop at the end of an empty street, an old woman in "
-            "a grey work dress pulls down the wooden shutters, mist lifting over the cobblestones, a single "
-            "bicycle leans against the wall, pale amber light. Slow pull-back until the street and the shop become "
-            "small, fade to black, restrained and somber, no text."
+            "Dawn after rain in 1975 Seoul: an empty alley of low tile-roof houses and shut wooden shopfronts, "
+            "plain plaster and brick walls with no signs or banners, an old woman in a grey work dress pulls down "
+            "a bare wooden shutter at the end of the lane, mist lifting over the cobblestones, a single bicycle "
+            "leans against the wall, pale amber light. Slow pull-back until the alley becomes small, fade to "
+            "black, restrained and somber."
         ),
         cast=[],
     ),
