@@ -681,10 +681,10 @@
     },
     "S21": {
       "id": "S21",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "fd3a0d998acf585f6a7b8f37ea97476e948cc138c72deae6160cffc48da8991f",
       "error": null,
-      "updated_at": "2026-10-21T07:23:58Z",
+      "updated_at": "2026-10-21T07:24:00Z",
       "channel_error_round": 41,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_JDQKjidTcCFdgarYZaua01IFvssLijy5",
@@ -694,7 +694,25 @@
       "bytes": 2246679,
       "sha256": "54ef1492ced11c5f60990308538e956ac7fe8afb929e36451636d685b5e28fd9",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 2246679,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kimdaedoo/qa/S21.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S22": {
       "id": "S22",
@@ -811,7 +829,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T07:23:58Z",
+  "updated_at": "2026-10-21T07:24:00Z",
   "run_id": "39560878664",
   "previous_results": {
     "S05": [
