@@ -917,7 +917,7 @@
       "updated_at": "2026-10-21T10:09:18Z"
     }
   },
-  "phase": "generating_sources",
+  "phase": "provider_capacity",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -968,7 +968,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T10:09:18Z",
+  "updated_at": "2026-10-21T10:09:19Z",
   "run_id": "39560878664",
   "previous_results": {
     "S05": [
@@ -1094,5 +1094,6 @@
     "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261021100904991719289rHKtXlrs)",
     "reason": "供应商视频排队已满",
     "kind": "queue"
-  }
+  },
+  "pipeline_error": "免费池到轮末仍未开闸：本轮容量事件 161 次，已完成 25 镜，未成 5 镜；下一轮从断点继续。"
 }
