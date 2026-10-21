@@ -1053,7 +1053,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "clips_ready",
+  "phase": "generating_sources",
   "review": {
     "status": "pending",
     "scope": "visual/audio quality",
@@ -1104,8 +1104,8 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T15:03:23Z",
-  "run_id": "39604369495",
+  "updated_at": "2026-10-21T15:06:30Z",
+  "run_id": "39615088552",
   "previous_results": {
     "S05": [
       {
@@ -1216,19 +1216,5 @@
         "visual_review": "pending"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "base": "https://apihub.agnes-ai.com",
-    "first_seen": "2026-10-21T13:06:55Z",
-    "last_seen": "2026-10-21T14:48:14Z",
-    "create_attempts": 99,
-    "consecutive_rounds": 58,
-    "cooldown_seconds": 61.0,
-    "channel_error_limit": 3,
-    "wait_channel_minutes": 0.0,
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261021144814342591191iEmkPyfW)",
-    "reason": "供应商视频排队已满",
-    "kind": "queue"
   }
 }
