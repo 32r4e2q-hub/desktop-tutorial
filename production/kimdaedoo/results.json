@@ -993,12 +993,15 @@
     },
     "S30": {
       "id": "S30",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "request_hash": "08a949db826a194b37d6263a9bf7046cca1ead16559a03567b1372ee8e1ca1d9",
       "error": null,
-      "updated_at": "2026-10-21T13:47:52Z",
+      "updated_at": "2026-10-21T13:48:50Z",
       "channel_error_round": 41,
-      "applied_cooldown_seconds": 61.0
+      "applied_cooldown_seconds": 61.0,
+      "video_id": "task_1Qhi75B1qqmZYhRdWxM2H4gn7J5R1E9U",
+      "task_id": "task_1Qhi75B1qqmZYhRdWxM2H4gn7J5R1E9U",
+      "requested_seconds": 6.0
     }
   },
   "phase": "generating_sources",
@@ -1052,7 +1055,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-21T13:47:52Z",
+  "updated_at": "2026-10-21T13:48:50Z",
   "run_id": "39604369495",
   "previous_results": {
     "S05": [
