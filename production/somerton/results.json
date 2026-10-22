@@ -128,10 +128,10 @@
     },
     "S13": {
       "id": "S13",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "822a0372044f8252de5c1c786595b6386083b42af273f8a00ba4b93778575655",
-      "error": null,
-      "updated_at": "2026-10-22T13:20:59Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 500: Model agnes-video-v2.0 is temporarily unavailable. Please try again later (request id: 202610221324417103281290fvdPv4B) (code=get_channel_failed)",
+      "updated_at": "2026-10-22T13:24:41Z"
     },
     "S14": {
       "id": "S14",
@@ -160,6 +160,6 @@
     "retry_after_respected": true,
     "key_rotation": false
   },
-  "updated_at": "2026-10-22T13:23:28Z",
+  "updated_at": "2026-10-22T13:24:41Z",
   "run_id": "39784083444"
 }
