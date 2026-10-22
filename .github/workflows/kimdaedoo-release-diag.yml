@@ -3,6 +3,11 @@
 name: 金大斗案 · Release 诊断
 on:
   workflow_dispatch:
+  push:
+    branches: [arena/b726ea5e-desktop-tutorial]
+    paths:
+      - production/kimdaedoo/DIAG_REQUEST
+      - .github/workflows/kimdaedoo-release-diag.yml
 
 permissions:
   contents: write
