@@ -233,10 +233,10 @@
     },
     "S28": {
       "id": "S28",
-      "status": "waiting_create_slot",
+      "status": "failed",
       "request_hash": "b863285b388315d3b88f4ed75ff4dd3a65ea9740779d8f619af4dde2ca3886fb",
-      "error": null,
-      "updated_at": "2026-10-22T13:39:44Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 500: Model agnes-video-v2.0 is temporarily unavailable. Please try again later (request id: 20261022134056730712910Hf8Prjk2) (code=get_channel_failed)",
+      "updated_at": "2026-10-22T13:40:56Z"
     }
   },
   "review": {
@@ -251,6 +251,6 @@
     "retry_after_respected": true,
     "key_rotation": false
   },
-  "updated_at": "2026-10-22T13:39:44Z",
+  "updated_at": "2026-10-22T13:40:56Z",
   "run_id": "39784083444"
 }
