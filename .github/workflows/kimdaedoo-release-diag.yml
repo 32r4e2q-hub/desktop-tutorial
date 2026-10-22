@@ -1,5 +1,5 @@
 # 一次性诊断：为什么出片工作流的 `gh release create` 会在 0 秒内失败。
-# 不 checkout（仓库很大，clone 一次要几分钟），直接用 gh api 把结果写回分支。
+# 浅克隆 + 稀疏检出（仓库很大，全量 clone 要几分钟且会被取消）。
 name: 金大斗案 · Release 诊断
 on:
   workflow_dispatch:
@@ -17,28 +17,35 @@ jobs:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 10
     steps:
-      - name: Probe token + releases API
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/b726ea5e-desktop-tutorial
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            .github
+            production/kimdaedoo/delivery
+      - name: Probe token + releases API inside a real repo
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
-          PATH_OUT=/tmp/diag.md
           TAG="diag-${GITHUB_RUN_ID}"
           {
             echo "# Release 诊断 $(date -u +%FT%TZ)"
             echo
-            echo '## gh --version'; gh --version 2>&1 || true
-            echo; echo '## gh auth status'; gh auth status 2>&1 || true
-            echo; echo '## 仓库权限'; gh api "repos/$GITHUB_REPOSITORY" --jq '{full_name,private,permissions}' 2>&1 || echo "EXIT=$?"
+            echo '## 仓库权限（token 视角）'
+            gh api "repos/$GITHUB_REPOSITORY" --jq '{full_name,private,permissions}' 2>&1 || echo "EXIT=$?"
+            echo; echo '## remote'; git remote -v
             echo; echo '## gh release create（临时 tag）'
             gh release create "$TAG" --target "$GITHUB_REF_NAME" --title "diag $GITHUB_RUN_ID" --notes "diag" 2>&1 || echo "CREATE_EXIT=$?"
             echo; echo '## gh release view'
             gh release view "$TAG" --json tagName,isDraft,url 2>&1 || echo "VIEW_EXIT=$?"
             echo; echo '## 清理'
             gh release delete "$TAG" --yes --cleanup-tag 2>&1 || echo "CLEANUP_EXIT=$?"
-          } > "$PATH_OUT" 2>&1
-          cat "$PATH_OUT"
-          B64=$(base64 -w0 "$PATH_OUT")
+          } > /tmp/diag.md 2>&1
+          cat /tmp/diag.md
+          B64=$(base64 -w0 /tmp/diag.md)
           SHA=$(gh api "repos/$GITHUB_REPOSITORY/contents/production/kimdaedoo/delivery/release-diag.md?ref=$GITHUB_REF_NAME" --jq .sha 2>/dev/null || true)
           if [ -n "${SHA:-}" ]; then SHA_ARG=(-f "sha=$SHA"); else SHA_ARG=(); fi
           gh api -X PUT "repos/$GITHUB_REPOSITORY/contents/production/kimdaedoo/delivery/release-diag.md" \
