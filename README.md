@@ -124,6 +124,7 @@ python3 -m pytest production/tests -q                   # 离线自检
 | [`新题目开工手册.md`](新题目开工手册.md) | 开工手册：12 步 + 闸门表 + 踩坑清单 + 文件地图 |
 | [`production/new_topic.py`](production/new_topic.py) + [`production/templates/`](production/templates/) | 开新题目的脚手架与模板（四份工作流模板：生成 / 出片 / 听检 / 全帧 QC） |
 | [`production/verbatim_check.py`](production/verbatim_check.py) / [`review_film.py`](production/review_film.py) | 逐字听检；黑帧 / 冻结帧 / 电平 / 语速审片初筛 |
+| [`production/somerton/`](production/somerton/README.md) | 《塔玛姆·舒德：索马顿海滩无名男尸》新建项目：29镜故事板、选定男声旁白、参考图、Agnes 生成/渲染工作流；**Agnes 镜头与成片仍待生成** |
 | [`production/rabies1885/`](production/rabies1885/) | 上一部《狂犬病疫苗：一百四十年前那场赌局》（45 镜、写实动画）及其[制作过程](production/rabies1885/制作过程.md)；成片 `交付/狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4` |
 | [`production/gilgo/`](production/gilgo/) | 更早的参考实现《吉尔戈海滩：披萨盒里的凶手》（38+7 镜、手绘 2D 风） |
 | [`production/dahlia/`](production/dahlia/) | 更早的《黑色大丽花：消失的六天》（30 镜 × 6 秒、带档案照片） |

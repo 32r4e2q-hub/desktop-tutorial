@@ -1,0 +1,816 @@
+{
+  "title": "塔玛姆·舒德：索马顿海滩无名男尸",
+  "film_name": "塔玛姆·舒德_索马顿海滩无名男尸_三分钟_初版.mp4",
+  "target_duration": 180,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "model": "agnes-video-v2.0",
+  "branch": "arena/f29814ef-desktop-tutorial",
+  "style_prefix": "【STYLE】Cinematic-quality 3D animated short film, restrained film-noir atmosphere, 1940s vintage 35mm film texture, dark amber and deep teal contrast, strong chiaroscuro with volumetric light, coastal dawn mist, richly detailed realistic CGI materials, horizontal 16:9 widescreen composition, cinematic lens and shallow depth of field, subtle film grain, quiet investigative suspense rather than horror. Every clip is real continuous animation with visible natural movement (waves, wind, hands, people, particles or camera parallax); never a still image with a push-in. Period-correct 1940s Adelaide objects unless the shot explicitly takes place in 2022. Subject placed on a third line, use the full horizontal width, keep the lower 15 percent visually quiet for subtitles. ",
+  "negative_prompt": "【NEGATIVE】readable text, subtitles, captions, watermark, logo, blood, gore, wound, corpse close-up, body detail, exposed remains, deformed hands, extra fingers, extra limbs, facial collapse, distorted anatomy, modern object in a 1940s scene, modern clothing in a 1940s scene, low resolution, flicker, style drift, vertical framing, portrait composition, black bars, frozen frame, slideshow, still image with artificial zoom, sudden scene change, unmotivated cut, jump scare, ghost, supernatural imagery, exaggerated violence.",
+  "characters": {
+    "somerton_man": "【角色设定｜索马顿男子】A fictionalized, non-identifiable European-Australian man, about 40–45, strong build, short brown hair combed back; light-brown double-breasted suit, white shirt, tie, knitted sweater, polished shoes, no hat, an unlit cigarette tucked behind the right ear. The deceased is shown ONLY seated upright as a distant silhouette, from behind, or in half-shadow; calm and dignified, never a face reveal, never a body close-up, no injury. ",
+    "police_detective": "【角色设定｜警察与探员】Australian police officers and detectives in historically plausible 1940s uniforms or wool overcoats with soft felt hats; restrained, procedural gestures, faces kept in profile, shadow, or background, no modern equipment. ",
+    "coroner": "【角色设定｜验尸官】A focused middle-aged coroner in a period-appropriate white coat, round glasses and gloves; show only a side silhouette or gloved hands, never a corpse or any bodily detail. ",
+    "bystanders": "【角色设定｜路人与车站旅客】Australian men and women in modest 1940s casual clothes, walking naturally at dawn or crossing the station concourse; no modern accessories, faces indistinct and not individually recognizable. ",
+    "station_clerk": "【角色设定｜车站工作人员】A 1940s Adelaide railway cloakroom clerk in a plain waistcoat and shirtsleeves, seen from the side or hands only; calm procedural gestures, no modern uniform or equipment. ",
+    "nurse": "【角色设定｜护士】A fictionalized woman about 30, shown only as a wary silhouette, curled hair and a light-colored 1940s nurse uniform; face remains unreadable and in half-shadow. ",
+    "modern_researcher": "【角色设定｜现代研究者】2022-era forensic researchers in clean white lab coats, cool-white laboratory lighting, calm careful movements, anonymous and non-identifiable faces; contemporary scientific equipment only in this modern scene. ",
+    "anonymous_theorists": "【角色设定｜传闻中的匿名人物】Anonymous 1940s silhouettes in period coats and hats, faces fully obscured; they are visual metaphors for unproven theories, not portraits or claims about real people. ",
+    "fictional_engineer": "【角色设定｜虚构工程师意象】A wholly fictional, non-likeness young Melbourne electrical engineer in 1930s clothing, glasses, seen in profile or half-shadow at a workbench; not a verified portrait of Carl Webb and not a reconstruction of a known photograph. "
+  },
+  "principles": [
+    "全片29个镜头均由Agnes Video V2.0生成连续运动的3D动画片段，禁止静态图加推拉代替。",
+    "人物出现时生成器先拼接对应角色设定；所有提示词以STYLE开头、以NEGATIVE结尾，并同时单独传negative_prompt。",
+    "不出现尸体特写、血腥或伤口；逝者只以坐姿剪影、背影或半阴影表现。",
+    "所有字幕均由后期准确叠加；仅S14纸面显示Tamam Shud，片尾叠加中文片名；封面单独叠加‘他是谁?’，片内镜头不加开场字卡。",
+    "每镜4至9秒，16:9；主体放在三分线上，充分利用横向宽度，底部15%留给字幕。",
+    "研究者身份说法明确标注为2022年研究团队主张；截至2026年10月22日复核，能找到的最新直接警方状态为2026年7月：调查复杂且仍在进行，不称为官方确认。",
+    "毒杀、间谍、情杀、护士关联等只作为未经证实的猜想呈现，不能包装成事实。",
+    "研究者使用的是石膏面模中保存的头发；不可写成从尸体/头皮直接取发。"
+  ],
+  "chapters": [
+    {
+      "id": "N01",
+      "title": "黄金钩子",
+      "start": 0,
+      "duration": 10,
+      "text": "一九四八年，澳大利亚索马顿海滩，一个男人靠着海堤坐着。他死了，却无人知道他是谁。"
+    },
+    {
+      "id": "N02",
+      "title": "清晨发现",
+      "start": 10,
+      "duration": 25,
+      "text": "十二月一日清晨，路人在索马顿海滩发现了他。他西装笔挺，领带整齐，身上没有证件，也没有明显外伤。前一晚，有人看见他靠在海堤边一动不动，以为他只是睡着了。警方想查清他的身份，却找不到入口。"
+    },
+    {
+      "id": "N03",
+      "title": "身份被抹去",
+      "start": 35,
+      "duration": 20,
+      "text": "所有衣物标签几乎都被剪掉。警方把指纹和牙齿记录送去比对，仍没有匹配。验尸官发现内脏充血，怀疑可能中毒；常见毒物却查不出来。死因从此成了问号。"
+    },
+    {
+      "id": "N04",
+      "title": "火车站行李箱",
+      "start": 55,
+      "duration": 20,
+      "text": "一九四九年一月，阿德莱德火车站发现一只旧皮箱，警方怀疑属于他。箱里有衣物、剃须用品和橙线，线头与裤子的修补处相合。衣物上只剩下“基恩”这个姓氏，却无人报失踪。"
+    },
+    {
+      "id": "N05",
+      "title": "Tamam Shud",
+      "start": 75,
+      "duration": 25,
+      "text": "随后复查时，验尸官在他裤子的暗袋里发现一张卷起的小纸片。上面印着两个波斯语词：Tamam Shud，意思是“结束了”。纸片来自诗集《鲁拜集》的末页。警方后来找到那本缺页的书，撕痕严丝合缝。"
+    },
+    {
+      "id": "N06",
+      "title": "密码与护士",
+      "start": 100,
+      "duration": 25,
+      "text": "诗集封底还有一串潦草字母，几十年来无人能可靠破解。旁边的电话号码，指向附近一位护士。她对警方说，不认识这个人，也不知道自己的号码为何会出现在诗集里。线索似乎指向某个人，却没有结论。"
+    },
+    {
+      "id": "N07",
+      "title": "种种猜想",
+      "start": 125,
+      "duration": 25,
+      "text": "于是，间谍、情杀、毒杀后抛尸的猜想越传越远。冷战刚刚开始，纸条像暗号，毒物又查不出来，故事不断长出新版本。但传闻不是证据；没有公开证据能证明其中任何一种。"
+    },
+    {
+      "id": "N08",
+      "title": "DNA线索",
+      "start": 150,
+      "duration": 22,
+      "text": "二〇二二年，教授德里克·艾伯特与家谱专家科琳·菲茨帕特里克，用石膏面模里的头发做DNA家谱比对，指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。研究者称把握超九成九；警方仍未正式确认。"
+    },
+    {
+      "id": "N09",
+      "title": "回响",
+      "start": 172,
+      "duration": 8,
+      "text": "死因和密码，依旧没有答案。你觉得，他是谁？在评论区说说看。"
+    }
+  ],
+  "shots": [
+    {
+      "id": "S01",
+      "kind": "agnes",
+      "start": 0,
+      "duration": 5,
+      "narration_id": "N01",
+      "camera": "低空航拍缓慢前推",
+      "characters": [
+        "somerton_man"
+      ],
+      "prompt": "Before sunrise on Somerton Beach, Adelaide, 1948. A vast empty beach, gray stone seawall on the left third, open dark sea and low stars across the right two-thirds. A small seated man silhouette against the wall slowly emerges through moving coastal fog; waves advance and retreat. Camera: one low aerial glide forward, very slow, ending with the seated silhouette still small and distant. No body detail, no readable text.",
+      "purpose": "Before sunrise on Somerton Beach, Adelaide, 1948",
+      "seed": 19481201,
+      "seconds": 5,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S02",
+      "kind": "agnes",
+      "start": 5,
+      "duration": 5,
+      "narration_id": "N01",
+      "camera": "中近景侧面缓慢横移",
+      "characters": [
+        "somerton_man"
+      ],
+      "prompt": "At pre-dawn blue hour, a dignified side-rear medium view of the same seated man at the seawall: neat light-brown double-breasted suit, tie, knitted sweater, polished shoes, an unlit cigarette behind his right ear. Sea wind gently moves his jacket hem; first warm light creeps across one shoulder while his face stays entirely in half-shadow. Camera: slow lateral track, subtle breathing-like steadiness. No face reveal.",
+      "purpose": "At pre-dawn blue hour, a dignified side-rear medium view of the same seated man at the seawall: neat light-brown double-breasted suit, tie, knitted sweater, polished shoes, an unlit cigarette behind his right ear",
+      "seed": 19481202,
+      "seconds": 5,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S03",
+      "kind": "agnes",
+      "start": 10,
+      "duration": 7,
+      "narration_id": "N02",
+      "camera": "全景横向跟随路人",
+      "characters": [
+        "bystanders",
+        "somerton_man"
+      ],
+      "prompt": "Golden sunrise on Somerton Beach, 1948. A few distant walkers in period clothes stroll along the waterline, notice the seated silhouette by the seawall, stop, exchange a worried glance, and one slowly approaches while the others remain back. Camera: wide shot, gentle lateral follow, then a small measured drift closer. Keep the man small and seated, no body detail.",
+      "purpose": "Golden sunrise on Somerton Beach, 1948",
+      "seed": 19481203,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S04",
+      "kind": "agnes",
+      "start": 17,
+      "duration": 7,
+      "narration_id": "N02",
+      "camera": "斜俯拍跟随探员脚步",
+      "characters": [
+        "police_detective",
+        "bystanders"
+      ],
+      "prompt": "A period police car and a 1940s Ford stand at the edge of Somerton Beach. Australian detectives in period uniform and wool coats walk down the sand toward the seawall; footprints form a clear line, seabirds lift and wheel across the mist. Camera: high diagonal overhead tracking shot following the officers' measured steps; no close-up of the seated man, no modern vehicles.",
+      "purpose": "A period police car and a 1940s Ford stand at the edge of Somerton Beach",
+      "seed": 19481204,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S05",
+      "kind": "agnes",
+      "start": 24,
+      "duration": 6,
+      "narration_id": "N02",
+      "camera": "远景缓慢推进，回忆式轻晃",
+      "characters": [
+        "somerton_man",
+        "bystanders"
+      ],
+      "prompt": "Flashback to the previous night: cold blue light under a 1940s streetlamp beside the seawall. The same man is only a distant half-shadow, seated and leaning against the wall; one arm slowly lifts and settles. A couple in period clothes glance over from far away, assume he is asleep, then turn and walk out of frame. Soft memory-like diffusion and a restrained handheld drift; no face, no injury, no body close-up.",
+      "purpose": "Flashback to the previous night: cold blue light under a 1940s streetlamp beside the seawall",
+      "seed": 19481205,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S06",
+      "kind": "agnes",
+      "start": 30,
+      "duration": 5,
+      "narration_id": "N02",
+      "camera": "俯拍定位，逐件跟随手部动作",
+      "characters": [
+        "police_detective"
+      ],
+      "prompt": "Top-down view of a worn wooden evidence table in a 1940s police room. Gloved hands place a second-class train ticket, a narrow comb and a cigarette packet on the table one at a time; each item lands with a small natural bounce. Camera holds overhead with a slight tracking adjustment as each object enters. All paper is blank or illegible, no readable text or serial numbers.",
+      "purpose": "Top-down view of a worn wooden evidence table in a 1940s police room",
+      "seed": 19481206,
+      "seconds": 5,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S07",
+      "kind": "agnes",
+      "start": 35,
+      "duration": 7,
+      "narration_id": "N03",
+      "camera": "微距慢动作，缓慢下移",
+      "characters": [
+        "police_detective"
+      ],
+      "prompt": "Extreme close-up of gloved hands and vintage scissors carefully cutting a small clothing label from a shirt collar; tiny fabric threads and the label drift down in slow motion. The image gradually drains from muted color to monochrome, leaving only the collar seam and cut stitches. Camera: controlled macro tilt downward, no face, no body, no readable label.",
+      "purpose": "Extreme close-up of gloved hands and vintage scissors carefully cutting a small clothing label from a shirt collar; tiny fabric threads and the label drift down in slow motion",
+      "seed": 19481207,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S08",
+      "kind": "agnes",
+      "start": 42,
+      "duration": 7,
+      "narration_id": "N03",
+      "camera": "横向滑轨穿过档案柜",
+      "characters": [
+        "police_detective"
+      ],
+      "prompt": "Inside a cold 1940s Australian police archive, tall steel filing cabinets recede into depth. A detective flips through old fingerprint cards at a desk; a rubber stamp marks each blank card with a red X shape, with no legible words or names. Camera: smooth lateral dolly past cabinets, ending on the unanswered stack. Period paper and desk lamp, no modern objects.",
+      "purpose": "Inside a cold 1940s Australian police archive, tall steel filing cabinets recede into depth",
+      "seed": 19481208,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S09",
+      "kind": "agnes",
+      "start": 49,
+      "duration": 6,
+      "narration_id": "N03",
+      "camera": "缓慢推近试管，冷白光",
+      "characters": [
+        "coroner"
+      ],
+      "prompt": "Restrained 1940s examination room, no remains visible. Under a white surgical lamp, the coroner appears only as a side silhouette beside a steel table holding a magnifying glass, glass vessels and test tubes. One clear liquid briefly changes hue under the light, then returns clear, a visual metaphor for an inconclusive poison test. Camera: slow push toward the glass, no bodily detail.",
+      "purpose": "Restrained 1940s examination room, no remains visible",
+      "seed": 19481209,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S10",
+      "kind": "agnes",
+      "start": 55,
+      "duration": 7,
+      "narration_id": "N04",
+      "camera": "从拱顶下降到柜台",
+      "characters": [
+        "bystanders",
+        "police_detective"
+      ],
+      "prompt": "Adelaide railway station in 1949: a grand vaulted hall with steam drifting through angled morning sunlight, wooden luggage cloakroom counter, travelers in period coats crossing in both directions. A detective moves through the crowd toward the counter. Camera: sweeping crane-down from the high arch to the wooden desk, one continuous move; no readable signs.",
+      "purpose": "Adelaide railway station in 1949: a grand vaulted hall with steam drifting through angled morning sunlight, wooden luggage cloakroom counter, travelers in period coats crossing in both directions",
+      "seed": 19481210,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S11",
+      "kind": "agnes",
+      "start": 62,
+      "duration": 7,
+      "narration_id": "N04",
+      "camera": "特写俯拍，逐件显露",
+      "characters": [
+        "police_detective",
+        "station_clerk"
+      ],
+      "prompt": "Behind the wooden station counter, a clerk hands a detective a worn dark-brown leather suitcase. The detective sets it down and opens it; inside, a brush, a spool of orange thread and neatly folded clothing are revealed in sequence. Camera: close overhead arc around the opening case, smooth continuous movement. No logos, no readable tags.",
+      "purpose": "Behind the wooden station counter, a clerk hands a detective a worn dark-brown leather suitcase",
+      "seed": 19481211,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S12",
+      "kind": "agnes",
+      "start": 69,
+      "duration": 6,
+      "narration_id": "N04",
+      "camera": "缓慢推近衣物标签处",
+      "characters": [
+        "police_detective"
+      ],
+      "prompt": "Macro view of folded 1940s clothing inside an open suitcase. Several seams show cleanly cut-out label tabs; a detective's hand lifts one fabric edge and turns it toward the light, revealing only empty stitch marks and a tiny partial cloth remnant with no legible writing. Camera: slow macro push, shallow depth of field; no readable text.",
+      "purpose": "Macro view of folded 1940s clothing inside an open suitcase",
+      "seed": 19481212,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S13",
+      "kind": "agnes",
+      "start": 75,
+      "duration": 7,
+      "narration_id": "N05",
+      "camera": "微距缓慢推进，慢动作展开",
+      "characters": [
+        "coroner"
+      ],
+      "prompt": "In the softly lit examination room, the coroner's gloved hand carefully opens a hidden watch pocket sewn inside folded trousers and lifts out a tiny rolled paper scrap with tweezers. The paper slowly unfurls beneath a warm lamp; no human body is shown. Camera: macro close-up, gentle push and shallow focus, paper fibers moving naturally.",
+      "purpose": "In the softly lit examination room, the coroner's gloved hand carefully opens a hidden watch pocket sewn inside folded trousers and lifts out a tiny rolled paper scrap with tweezers",
+      "seed": 19481213,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S14",
+      "kind": "agnes",
+      "start": 82,
+      "duration": 7,
+      "narration_id": "N05",
+      "camera": "缓慢推近纸面，金色显影",
+      "characters": [],
+      "prompt": "Extreme close-up of aged cream paper against a nearly black background. A blank center area is illuminated by a warm golden beam; delicate antique Persian-style border motifs slowly bloom outward along the paper edges as fine dust drifts. Leave the center clean and flat for a precise post-production overlay of the only permitted readable phrase, Tamam Shud. Camera: very slow macro push; no other letters.",
+      "purpose": "Extreme close-up of aged cream paper against a nearly black background",
+      "seed": 19481214,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S15",
+      "kind": "agnes",
+      "start": 89,
+      "duration": 6,
+      "narration_id": "N05",
+      "camera": "从书页特写缓慢拉远",
+      "characters": [],
+      "prompt": "An old Rubaiyat poetry book lies open on a dark desk; the final page is missing, its ragged torn edge clearly visible. Pages flutter in a gentle draft and fine gold dust rises; behind the book, a subtle Persian-inspired starfield and a faint goblet-shaped light reflection appear as poetic visual metaphor, not literal evidence. Camera: slow pullback to reveal the whole desk, one continuous move. No readable writing.",
+      "purpose": "An old Rubaiyat poetry book lies open on a dark desk; the final page is missing, its ragged torn edge clearly visible",
+      "seed": 19481215,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S16",
+      "kind": "agnes",
+      "start": 95,
+      "duration": 5,
+      "narration_id": "N05",
+      "camera": "桌面特写，纸片贴合慢动作",
+      "characters": [
+        "police_detective",
+        "bystanders"
+      ],
+      "prompt": "At a 1940s police counter, a concerned man in a period suit places an old poetry book on the desk. A detective aligns the small paper fragment against the torn final page; the irregular edges fit exactly, and a brief warm glint travels across the seam. Camera: close tabletop shot with a gentle rack focus from hands to matching tear, no readable writing.",
+      "purpose": "At a 1940s police counter, a concerned man in a period suit places an old poetry book on the desk",
+      "seed": 19481216,
+      "seconds": 5,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S17",
+      "kind": "agnes",
+      "start": 100,
+      "duration": 7,
+      "narration_id": "N06",
+      "camera": "微距缓慢横移",
+      "characters": [],
+      "prompt": "Extreme close-up of the back cover of an old poetry book. Several rows of pencil marks are visible but remain deliberately illegible; a narrow beam of light sweeps across them, and the abstract marks detach into faint star-like points that connect in a slow constellation pattern. Camera: macro lateral drift. No readable letters, numbers or words.",
+      "purpose": "Extreme close-up of the back cover of an old poetry book",
+      "seed": 19481217,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S18",
+      "kind": "agnes",
+      "start": 107,
+      "duration": 7,
+      "narration_id": "N06",
+      "camera": "围绕黑板缓慢环绕，延时",
+      "characters": [
+        "police_detective"
+      ],
+      "prompt": "A dim 1940s analysis room. Several detectives appear only as silhouettes around a blackboard covered with illegible cipher-like marks; one erases and rewrites abstract symbols while paper scraps accumulate. A wall clock's hands move rapidly in a time-lapse as dust crosses the light. Camera: slow circular orbit around the room, steady and continuous; no legible code.",
+      "purpose": "A dim 1940s analysis room",
+      "seed": 19481218,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S19",
+      "kind": "agnes",
+      "start": 114,
+      "duration": 6,
+      "narration_id": "N06",
+      "camera": "穿越式镜头：书页到电话线再到房屋",
+      "characters": [],
+      "prompt": "On the blank margin of a poetry book, faint abstract ink strokes glow without forming readable numbers. The camera glides down toward an old rotary telephone; its cord becomes a luminous line that flows across a stylized 1940s Adelaide street map and reaches a small period house, where a single window lamp turns on. Seamless forward travel, no readable digits or signage.",
+      "purpose": "On the blank margin of a poetry book, faint abstract ink strokes glow without forming readable numbers",
+      "seed": 19481219,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S20",
+      "kind": "agnes",
+      "start": 120,
+      "duration": 5,
+      "narration_id": "N06",
+      "camera": "低角度中景缓慢推近",
+      "characters": [
+        "nurse",
+        "police_detective"
+      ],
+      "prompt": "At the entrance of a modest 1940s Adelaide house, a wary nurse with curled hair in a light uniform faces a detective in a wool coat and soft felt hat. She gently shakes her head; porch light stretches both shadows across the path, then the wooden door slowly closes between them. Camera: low medium shot, controlled slow push; faces stay in shadow.",
+      "purpose": "At the entrance of a modest 1940s Adelaide house, a wary nurse with curled hair in a light uniform faces a detective in a wool coat and soft felt hat",
+      "seed": 19481220,
+      "seconds": 5,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S21",
+      "kind": "agnes",
+      "start": 125,
+      "duration": 8,
+      "narration_id": "N07",
+      "camera": "旧报纸拼贴式快速推进",
+      "characters": [
+        "anonymous_theorists"
+      ],
+      "prompt": "A stream of aged monochrome newspaper sheets sweeps past the lens in a dynamic 1940s newsroom-like space. Headline areas are blurred into unreadable blocks; abstract archival-style photos and red color fields hint at a Cold War atmosphere while anonymous shadow profiles cross behind the pages. Camera: brisk but smooth editorial forward movement, no readable text or real headline.",
+      "purpose": "A stream of aged monochrome newspaper sheets sweeps past the lens in a dynamic 1940s newsroom-like space",
+      "seed": 19481221,
+      "seconds": 8,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S22",
+      "kind": "agnes",
+      "start": 133,
+      "duration": 8,
+      "narration_id": "N07",
+      "camera": "低机位摇镜",
+      "characters": [
+        "anonymous_theorists"
+      ],
+      "prompt": "Night harbor under dense sea fog. Two anonymous men in period coats and hats quietly pass a closed briefcase between them; faces remain hidden. A distant warship silhouette shifts slowly beyond the mist as waves ripple across the foreground. Camera: low-angle pan from the passing case toward the ship. Clearly an imagined rumor illustration, not a documented event; no weapons, no readable text.",
+      "purpose": "Night harbor under dense sea fog",
+      "seed": 19481222,
+      "seconds": 8,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S23",
+      "kind": "agnes",
+      "start": 141,
+      "duration": 9,
+      "narration_id": "N07",
+      "camera": "横向滑动，逐幅擦除",
+      "characters": [
+        "anonymous_theorists"
+      ],
+      "prompt": "Three ornate sepia picture frames stand side by side on a dark gallery wall, each a subtly animated illustrated hypothesis: an anonymous spy silhouette, a solitary figure beside a letter, and a sealed glass vial on a desk. An abstract red brushstroke appears on each frame's glass, then a passing light erases all three marks until only empty frames remain. Camera: smooth lateral slide; no corpse, no injury, no readable words.",
+      "purpose": "Three ornate sepia picture frames stand side by side on a dark gallery wall, each a subtly animated illustrated hypothesis: an anonymous spy silhouette, a solitary figure beside a letter, and a sealed glass vial on a desk",
+      "seed": 19481223,
+      "seconds": 9,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S24",
+      "kind": "agnes",
+      "start": 150,
+      "duration": 7,
+      "narration_id": "N08",
+      "camera": "浅景深缓慢环绕",
+      "characters": [
+        "modern_researcher"
+      ],
+      "prompt": "A 2022 university genetics laboratory under cool white light. An anonymous researcher in a white coat carefully places a tiny hair sample recovered from a plaster death mask into a scientific instrument; on a monitor, a luminous DNA double helix rotates slowly with no labels or readable data. Camera: shallow-focus slow orbit around the gloved hands and instrument, contemporary equipment only.",
+      "purpose": "A 2022 university genetics laboratory under cool white light",
+      "seed": 19481224,
+      "seconds": 7,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S25",
+      "kind": "agnes",
+      "start": 157,
+      "duration": 6,
+      "narration_id": "N08",
+      "camera": "从树根拉升至树冠",
+      "characters": [],
+      "prompt": "In a dark abstract visualization space, an immense illuminated family tree grows from a single root into hundreds of branching nodes. The camera cranes upward from the trunk through glowing branches; one final distant node lights softly, suggesting a genealogical lead rather than a definitive legal finding. Continuous particle motion, dark teal and muted gold, no readable names or text.",
+      "purpose": "In a dark abstract visualization space, an immense illuminated family tree grows from a single root into hundreds of branching nodes",
+      "seed": 19481225,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S26",
+      "kind": "agnes",
+      "start": 163,
+      "duration": 5,
+      "narration_id": "N08",
+      "camera": "中景缓慢推近",
+      "characters": [
+        "fictional_engineer"
+      ],
+      "prompt": "A fictional, non-photographic 1930s Melbourne workroom. A young engineer with glasses sits at a desk among electrical instruments, wire coils and small components; outside the window, period trams and low-rise streets pass softly out of focus. The man is only in profile and half-shadow, explicitly an illustrative composite and not a real portrait. Camera: restrained medium push, no readable labels.",
+      "purpose": "A fictional, non-photographic 1930s Melbourne workroom",
+      "seed": 19481226,
+      "seconds": 5,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S27",
+      "kind": "agnes",
+      "start": 168,
+      "duration": 4,
+      "narration_id": "N08",
+      "camera": "分屏双向缓慢推近",
+      "characters": [
+        "police_detective",
+        "modern_researcher"
+      ],
+      "prompt": "A clean vertical split-screen with two independently moving halves: left, a 1940s police file folder opens slightly as a small abstract red glow appears beside it; right, an anonymous modern researcher in a white coat stands by the Somerton seawall, looking toward the sea as wind moves the coat. Both panels have subtle real motion. Camera: gentle synchronized push-in, no readable file text.",
+      "purpose": "A clean vertical split-screen with two independently moving halves: left, a 1940s police file folder opens slightly as a small abstract red glow appears beside it; right, an anonymous modern researcher in a white coat stands by the Somerton seawall, looking toward the sea as wind moves the coat",
+      "seed": 19481227,
+      "seconds": 4,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S28",
+      "kind": "agnes",
+      "start": 172,
+      "duration": 4,
+      "narration_id": "N09",
+      "camera": "低机位缓慢拉远",
+      "characters": [],
+      "prompt": "At golden-red dusk on Somerton Beach, the gray stone seawall is empty. An old poetry book lies open on the sand and its pages turn softly in the sea breeze; small waves shimmer in the background. Camera: low-angle slow pullback, revealing more of the empty shoreline and fading light. No person, no readable text.",
+      "purpose": "At golden-red dusk on Somerton Beach, the gray stone seawall is empty",
+      "seed": 19481228,
+      "seconds": 4,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    },
+    {
+      "id": "S29",
+      "kind": "agnes",
+      "start": 176,
+      "duration": 4,
+      "narration_id": "N09",
+      "camera": "固定机位，金色粒子持续流动",
+      "characters": [],
+      "prompt": "A near-black cinematic end background with a subtle cloud of fine gold particles swirling and drifting continuously from left to right; a faint amber glow breathes in and out at the center. Camera remains locked and stable while the particles keep real motion. Leave clean central negative space for post-production Chinese title and subtitle; no generated letters or symbols.",
+      "purpose": "A near-black cinematic end background with a subtle cloud of fine gold particles swirling and drifting continuously from left to right; a faint amber glow breathes in and out at the center",
+      "seed": 19481229,
+      "seconds": 4,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "SRSA-archive",
+      "title": "South Australian State Records: ‘But what poison?’ Mystery of the Somerton Man",
+      "url": "https://archives.sa.gov.au/finding-information/discover-our-collection/stories-from-the-archive/but-what-poison-mystery-of-the-somerton-man",
+      "supports": "1948发现与调查、衣物标记、指纹与毒物检查、尸检/验尸庭审、Tamam/Taman Shud纸片。"
+    },
+    {
+      "id": "ABC-2018",
+      "title": "ABC News: Unlocking the secrets of the Somerton Man",
+      "url": "https://www.abc.net.au/news/2018-12-01/will-the-mystery-of-the-somerton-man-ever-be-solved/10420794",
+      "supports": "1949年1月阿德莱德火车站发现被认为与男子有关的皮箱；Rubaiyat与‘Tamam Shud’线索。"
+    },
+    {
+      "id": "ABC-2022-claim",
+      "title": "ABC News: Somerton Man identified as Melbourne electrical engineer, researcher says",
+      "url": "https://www.abc.net.au/news/2022-07-26/somerton-man-identified-melbourne-born-engineer-researcher-says/101272182",
+      "supports": "研究者Derek Abbott与Colleen Fitzpatrick于2022年提出身份为Carl ‘Charles’ Webb；出生年份、墨尔本与工程师身份。"
+    },
+    {
+      "id": "ABC-2022-police",
+      "title": "ABC News: Somerton Man Charles Webb's true identity revealed in family photographs and divorce papers",
+      "url": "https://www.abc.net.au/news/2022-11-21/somerton-manfamily-photographs-revealed-/101643524",
+      "supports": "研究者使用石膏死亡面模中保存的头发做DNA家谱研究；警方当时表示仍需独立DNA工作并由Coroner最终确认。"
+    },
+    {
+      "id": "ABC-2026-status",
+      "title": "ABC News: SA Police report to coroner into Somerton Man case complete ‘very soon’",
+      "url": "https://www.abc.net.au/news/2026-07-06/sa-police-report-coroner-into-somerton-man-case-very-soon/106869302",
+      "supports": "截至2026年7月，研究者称DNA线索高度指向Webb；南澳警方回应称验尸官调查复杂且仍在进行，尚未正式确认。"
+    },
+    {
+      "id": "Abbott-inquest",
+      "title": "Derek Abbott: The Taman Shud Case Coronial Inquest (transcription of 1949 inquest materials)",
+      "url": "https://www.eleceng.adelaide.edu.au/personal/dabbott/wiki/index.php/The_Taman_Shud_Case_Coronial_Inquest",
+      "supports": "1949年验尸庭材料转录，包含衣物标签、检验常见毒物与证物描述；该页面为研究者整理的档案转录。"
+    }
+  ],
+  "presentation": {
+    "cover": {
+      "layout": "16:9; man silhouette on right; left side reserved for title",
+      "text": "他是谁?",
+      "subtext": "塔玛姆·舒德 · 索马顿海滩无名男尸",
+      "style": "金色粗体字、深色描边；画面由S01海滩动态镜头抽帧并水平翻转，非静态图替代视频"
+    },
+    "end_title": "塔玛姆·舒德",
+    "end_subtitle": "索马顿海滩无名男尸",
+    "voice_pauses": {
+      "N03": {
+        "after_text": "所有衣物标签几乎都被剪掉。",
+        "seconds": 0.5
+      },
+      "N09": {
+        "after_text": "死因和密码，依旧没有答案。",
+        "seconds": 0.5
+      }
+    },
+    "highlight_keywords": [
+      "他是谁",
+      "没有证件",
+      "没有匹配",
+      "标签",
+      "中毒",
+      "橙线",
+      "基恩",
+      "Tamam Shud",
+      "结束了",
+      "无人能可靠破解",
+      "护士",
+      "传闻不是证据",
+      "卡尔·查尔斯·韦伯",
+      "超九成九",
+      "警方仍未正式确认",
+      "死因",
+      "密码",
+      "无解"
+    ],
+    "subtitle_style": {
+      "font_size_px": 58,
+      "outline_px": 3,
+      "safe_bottom_margin_px": 72,
+      "alignment": "bottom-center",
+      "normal_color": "white",
+      "highlight_color": "gold",
+      "highlight_scale": 1.2
+    },
+    "sound_events": [
+      {
+        "at": 0,
+        "name": "低沉大提琴单音渐强 + 海浪",
+        "kind": "music_sfx"
+      },
+      {
+        "at": 8,
+        "name": "远处钟响",
+        "kind": "sfx"
+      },
+      {
+        "at": 10,
+        "name": "晨风与海鸥",
+        "kind": "sfx"
+      },
+      {
+        "at": 24,
+        "name": "冷蓝夜风与回忆氛围",
+        "kind": "sfx"
+      },
+      {
+        "at": 30,
+        "name": "物品轻放与清脆金属叮声",
+        "kind": "sfx"
+      },
+      {
+        "at": 35,
+        "name": "剪刀声、低音钢琴与秒针节拍",
+        "kind": "sfx_music"
+      },
+      {
+        "at": 55,
+        "name": "蒸汽火车与钢琴点奏",
+        "kind": "sfx_music"
+      },
+      {
+        "at": 75,
+        "name": "波斯弦乐与手鼓式脉冲",
+        "kind": "music_sfx"
+      },
+      {
+        "at": 100,
+        "name": "老式电话拨号与电子点奏",
+        "kind": "sfx_music"
+      },
+      {
+        "at": 125,
+        "name": "冷战铜管和低鼓，段尾留白",
+        "kind": "music_sfx"
+      },
+      {
+        "at": 150,
+        "name": "冷峻电子脉冲渐亮",
+        "kind": "music_sfx"
+      },
+      {
+        "at": 172,
+        "name": "大提琴单音收尾，海浪渐弱，最后一秒静音",
+        "kind": "music_sfx"
+      }
+    ],
+    "douyin_title": "一个没人认识的男人，口袋里只有两个字：结束了",
+    "hashtags": [
+      "#未解之谜",
+      "#索马顿海滩",
+      "#塔玛姆舒德",
+      "#悬疑",
+      "#3D动画"
+    ]
+  },
+  "reference_images": [
+    {
+      "file": "reference/01-somerton-man-character.png",
+      "description": "虚构角色造型定稿；非真实肖像"
+    },
+    {
+      "file": "reference/02-somerton-beach-environment.png",
+      "description": "海滩场景定稿；无名男子仅为远景坐姿剪影"
+    },
+    {
+      "file": "reference/03-evidence-world.png",
+      "description": "证物室与道具色彩定稿；非原始证物照片"
+    }
+  ]
+}
