@@ -35,10 +35,13 @@ def decide(req_path, res_path, rc=None, cap_rounds=CAP_ROUNDS, stale_stop=STALE_
         return 'skip', '缺 GEN_REQUEST 或 results.json'
     if rc == 43:
         return 'skip', '退出码 43：额度耗尽，接力也没用，等人处理'
-    if rc == 1:
-        return 'skip', '退出码 1：流水线真故障，等人修，不接力'
     doc = json.loads(res.read_text(encoding='utf-8'))
     capacity = doc.get('phase') == 'provider_capacity' or rc == 42
+    # phase 是生成器自己盖的容量熔断章，比退出码更权威：2026-10-22 实况是
+    # 工作流 set -e 把 rc 捕获行吞掉、接力步读到兜底 rc=1，结果把 provider_capacity
+    # 的一轮误判成真故障没接力。所以先看 phase，再让 rc=1 说真故障。
+    if rc == 1 and not capacity:
+        return 'skip', '退出码 1：流水线真故障，等人修，不接力'
     if not capacity:
         return 'skip', 'phase=%s rc=%s（不是排队满，不续投）' % (doc.get('phase'), rc)
     payload = json.loads(req.read_text(encoding='utf-8'))

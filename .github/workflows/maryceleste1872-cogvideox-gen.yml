@@ -72,6 +72,7 @@ jobs:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
           PAYLOAD: ${{ env.PAYLOAD }}
         run: |
+          set +e
           set -o pipefail
           python3 -u production/maryceleste1872/generate_cogvideox.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
           rc=${PIPESTATUS[0]}
