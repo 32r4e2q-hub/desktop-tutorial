@@ -1019,9 +1019,9 @@
     },
     "S30": {
       "id": "S30",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "3edc5f0acfb5b5408b568a7d47097f7259f77ca3418cace9d66acf07acdda747",
-      "updated_at": "2026-10-22T05:48:08Z",
+      "updated_at": "2026-10-22T05:48:10Z",
       "error": null,
       "channel_error_round": 58,
       "applied_cooldown_seconds": 61.0,
@@ -1032,7 +1032,25 @@
       "bytes": 3039224,
       "sha256": "4bf59afdb4d440f4ae918390de1cd3d2031e4c1929b61ce29980b95c6199756e",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 3039224,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kimdaedoo/qa/S30.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "phase": "generating_sources",
@@ -1086,7 +1104,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-22T05:48:08Z",
+  "updated_at": "2026-10-22T05:48:10Z",
   "run_id": "39722933447",
   "previous_results": {
     "S05": [
