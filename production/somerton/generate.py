@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Generate the 29 Somerton shots with Agnes Video V2.0, then render the 180s first cut.
+"""Generate the 29 Somerton shots with Agnes Video 2.5 Flash, then render the 180s first cut.
 
+The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
+size/aspect_ratio/mode/n); clips are normalized and upscaled to the 1920x1080 delivery master.
 All generated footage is downloaded to ignored ``work/``. Only JSON provenance and small
-contact sheets are checkpointed into the fixed Arena branch. The film is never substituted
-with reference stills if an Agnes shot is missing.
+contact sheets are checkpointed into the fixed Arena branch. No still-image substitute is used.
 """
 from __future__ import annotations
 
@@ -26,14 +27,49 @@ import agnes_video as agnes  # noqa: E402
 from throttle import BudgetExhausted, RequestGate  # noqa: E402
 
 BRANCH = "arena/dc7c8423-desktop-tutorial"
+MODEL = "agnes-video-2.5-flash"
+SOURCE_SIZE = "720P"
+SUPPORTED_MODES = {"text", "keyframe", "reference"}
+ALLOWED_PAYLOAD_FIELDS = {
+    "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed",
+}
+FORBIDDEN_PAYLOAD_FIELDS = {
+    "width", "height", "fps", "num_frames", "frame_rate", "duration", "resolution",
+    "negative_prompt", "quality", "num_inference_steps",
+}
+CAPACITY_FAILURE_POLICIES = (
+    ("video queue is full", 90, 24),
+    ("queue is full", 90, 24),
+    ("no available channel", 300, 3),
+    ("get_channel_failed", 300, 3),
+    ("temporarily unavailable", 300, 3),
+)
 HERE = Path(__file__).resolve().parent
 PLAN = HERE / "story.json"
 RESULTS = HERE / "results.json"
 LOCK = threading.RLock()
+CAPACITY_LOCK = threading.Lock()
+CAPACITY_ABORT = threading.Event()
+CAPACITY_STATE = {"consecutive": 0, "last_error": None}
 
 
 def read_json(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
+
+
+class ProviderCapacity(RuntimeError):
+    """Agnes rejected creation because its model channel or video queue is unavailable."""
+
+
+def capacity_failure_policy(message: str):
+    """Return (marker, cooldown, consecutive limit) for known transient provider-capacity errors."""
+    text = str(message or "").lower()
+    for marker, cooldown, limit in CAPACITY_FAILURE_POLICIES:
+        if marker in text:
+            return marker, cooldown, limit
+    if "http 5" in text:
+        return "provider 5xx", 120, 3
+    return None
 
 
 def digest(path: Path) -> str:
@@ -55,22 +91,22 @@ def full_prompt(project: dict, shot: dict) -> str:
 
 
 def full_payload(project: dict, shot: dict) -> dict:
-    return agnes.build_payload(argparse.Namespace(
-        prompt=full_prompt(project, shot),
-        negative_prompt=project["negative_prompt"],
-        image=None,
-        mode=None,
-        seed=shot["seed"],
-        steps=None,
-        seconds=shot["seconds"],
-        num_frames=None,
-        frame_rate=shot["frame_rate"],
-        aspect=shot["aspect"],
-        resolution=shot["resolution"],
-        width=None,
-        height=None,
-        model=project["model"],
-    ))
+    """2.5 Flash schema copied from the repo's tested Agnes 2.5 implementation.
+
+    Important: this endpoint rejects width/height/fps/num_frames/frame_rate/resolution and a
+    separate negative_prompt field. Negative constraints therefore remain appended to prompt.
+    """
+    seconds = str(max(4, min(12, int(shot["duration"]))))
+    return {
+        "model": project["model"],
+        "prompt": full_prompt(project, shot),
+        "seconds": seconds,
+        "size": project.get("source_size", SOURCE_SIZE),
+        "aspect_ratio": shot["aspect"],
+        "mode": "text",
+        "n": 1,
+        "seed": int(shot["seed"]),
+    }
 
 
 def request_hash(project: dict, shot: dict) -> str:
@@ -84,8 +120,8 @@ def validate(project: dict) -> None:
         raise ValueError("Expected 29 shots and an exact 180-second film")
     if (project.get("width"), project.get("height"), project.get("fps")) != (1920, 1080, 30):
         raise ValueError("Output must be 1920x1080 at 30fps")
-    if project.get("model") != "agnes-video-v2.0":
-        raise ValueError("The required video model is Agnes Video V2.0")
+    if project.get("model") != MODEL or project.get("source_size") != SOURCE_SIZE:
+        raise ValueError("The required source model/size is Agnes Video 2.5 Flash at 720P")
     if not project.get("style_prefix", "").startswith("【STYLE】"):
         raise ValueError("STYLE must be the first text in every prompt")
     if not project.get("negative_prompt", "").startswith("【NEGATIVE】"):
@@ -100,8 +136,9 @@ def validate(project: dict) -> None:
             raise ValueError(f"Invalid or non-contiguous timeline at {shot.get('id')}")
         if shot.get("kind") != "agnes" or not shot.get("prompt", "").strip():
             raise ValueError(f"Every shot must be a real Agnes video clip: {shot.get('id')}")
-        if shot.get("seconds") != duration or shot.get("aspect") != "16:9":
-            raise ValueError(f"Invalid duration/aspect at {shot['id']}")
+        if shot.get("seconds") != duration or shot.get("aspect") != "16:9" \
+                or shot.get("source_size") != SOURCE_SIZE:
+            raise ValueError(f"Invalid duration/aspect/source size at {shot['id']}")
         for role in shot.get("characters", []):
             if role not in project["characters"]:
                 raise ValueError(f"Missing character setting {role} in {shot['id']}")
@@ -111,8 +148,20 @@ def validate(project: dict) -> None:
         if shot["narration_id"] not in {c["id"] for c in project["chapters"]}:
             raise ValueError(f"Unknown narration chapter in {shot['id']}")
         payload = full_payload(project, shot)
-        if payload["model"] != "agnes-video-v2.0" or (payload["num_frames"] - 1) % 8:
-            raise ValueError(f"Invalid Agnes Video request for {shot['id']}")
+        if set(payload) != ALLOWED_PAYLOAD_FIELDS:
+            raise ValueError(f"Unexpected 2.5 Flash payload fields for {shot['id']}: {sorted(payload)}")
+        if payload.get("model") != MODEL:
+            raise ValueError(f"Wrong Agnes model for {shot['id']}")
+        if not isinstance(payload.get("seconds"), str) or not payload["seconds"].isdigit() \
+                or int(payload["seconds"]) != duration:
+            raise ValueError(f"2.5 Flash seconds must be the duration string for {shot['id']}")
+        if payload.get("size") != SOURCE_SIZE or payload.get("aspect_ratio") != "16:9" \
+                or payload.get("mode") not in SUPPORTED_MODES or payload.get("n") != 1:
+            raise ValueError(f"Invalid 2.5 Flash size/aspect/mode/count for {shot['id']}")
+        if FORBIDDEN_PAYLOAD_FIELDS.intersection(payload):
+            raise ValueError(f"2.5 Flash rejects fields: {sorted(FORBIDDEN_PAYLOAD_FIELDS.intersection(payload))}")
+        if payload["prompt"] != prompt:
+            raise ValueError(f"2.5 Flash prompt must carry STYLE and NEGATIVE inline for {shot['id']}")
         cursor += duration
     if cursor != 180:
         raise ValueError(f"Timeline is {cursor}s, not 180s")
@@ -191,18 +240,25 @@ def main() -> int:
     project = read_json(PLAN, {})
     validate(project)
     if args.validate:
-        print("VALID: 180 seconds, 29 Agnes Video V2.0 clips, 16:9, nine TTS chapters and approved references")
+        print("VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), final 16:9 1080P, nine TTS chapters and approved references")
         return 0
 
+    CAPACITY_ABORT.clear()
+    with CAPACITY_LOCK:
+        CAPACITY_STATE.update(consecutive=0, last_error=None)
     options = json.loads(args.payload or "{}")
     requested = options.get("only", "")
     if not isinstance(requested, str):
         raise ValueError("payload.only must be a comma-separated string of shot IDs")
     only = {part.strip() for part in requested.split(",") if part.strip()}
+    canary_then_full = options.get("canary_then_full") is True
     by_id = {shot["id"]: shot for shot in project["shots"]}
     if only - set(by_id):
         raise ValueError("Unknown Agnes shot(s): " + ", ".join(sorted(only - set(by_id))))
-    selected = [shot for shot in project["shots"] if not only or shot["id"] in only]
+    if canary_then_full and only != {"S01"}:
+        raise ValueError("canary_then_full requires only=S01")
+    selected = ([by_id["S01"]] if canary_then_full else
+                [shot for shot in project["shots"] if not only or shot["id"] in only])
     workers = min(2, max(1, int(options.get("workers", 2))))
     gate = RequestGate(minimum_interval=75)
     deadline = time.monotonic() + 320 * 60
@@ -213,10 +269,15 @@ def main() -> int:
         git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
 
     doc = read_json(RESULTS, {"project": project["title"], "model": project["model"], "shots": {}})
+    doc["model"] = MODEL
+    doc["source_size"] = SOURCE_SIZE
     doc["required_generated_shots"] = [shot["id"] for shot in project["shots"]]
-    doc["workflow_policy"] = "agnes-v2.0-180s-29shots-rate-aware"
+    doc["workflow_policy"] = "agnes-video-2.5-flash-720p-upscale-180s-29shots"
     doc["rate_policy"] = {"minimum_creation_interval_seconds": 75, "workers_max": 2,
-                          "retry_after_respected": True, "key_rotation": False}
+                          "retry_after_respected": True, "key_rotation": False,
+                          "queue_full_cooldown_seconds": 90, "queue_full_consecutive_limit": 24,
+                          "channel_unavailable_cooldown_seconds": 300,
+                          "channel_unavailable_consecutive_limit": 3}
     doc["review"] = {"status": "pending", "visual_review_required": True,
                      "note": "A decoded clip and contact sheet are not a human visual sign-off."}
     base = os.getenv("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).rstrip("/")
@@ -270,24 +331,72 @@ def main() -> int:
         return True
 
     def paced_create(sid: str, payload: dict):
-        for attempt in range(8):
+        rate_attempts = 0
+        while True:
+            if CAPACITY_ABORT.is_set():
+                raise ProviderCapacity("Agnes provider capacity was exhausted earlier in this run")
             checkpoint(sid + " waiting for Agnes create slot", sid, status="waiting_create_slot", error=None)
             gate.acquire_creation(deadline)
             try:
-                return agnes.create_task(base, key, payload, retries=1, retry_delay=75)
+                created = agnes.create_task(base, key, payload, retries=1, retry_delay=75)
             except agnes.RateLimited as exc:
-                cooldown = max(min(300, 75 * (2 ** attempt)), exc.retry_after or 0)
-                checkpoint(sid + " provider cooldown", sid, status="rate_limited",
-                           quota_retry=attempt + 1, provider_retry_after_seconds=exc.retry_after,
+                rate_attempts += 1
+                if rate_attempts >= 8:
+                    raise
+                cooldown = max(min(300, 75 * (2 ** (rate_attempts - 1))), exc.retry_after or 0)
+                checkpoint(sid + " provider rate limit", sid, status="rate_limited",
+                           quota_retry=rate_attempts, provider_retry_after_seconds=exc.retry_after,
                            applied_cooldown_seconds=cooldown,
                            error=str(exc).replace(key, "[redacted]")[:500])
                 gate.defer(cooldown)
-                if attempt == 7:
+                continue
+            except agnes.Fatal as exc:
+                message = str(exc)
+                policy = capacity_failure_policy(message)
+                if not policy:
                     raise
-        raise RuntimeError("Agnes create retry budget exhausted")
+                marker, cooldown, limit = policy
+                redacted = message.replace(key, "[redacted]")[:600]
+                with CAPACITY_LOCK:
+                    CAPACITY_STATE["consecutive"] += 1
+                    CAPACITY_STATE["last_error"] = redacted
+                    consecutive = CAPACITY_STATE["consecutive"]
+                    exhausted = consecutive >= limit
+                    if exhausted:
+                        CAPACITY_ABORT.set()
+                with LOCK:
+                    doc["provider_outage"] = {
+                        "model": MODEL,
+                        "reason": marker,
+                        "consecutive_capacity_failures": consecutive,
+                        "cooldown_seconds": cooldown,
+                        "last_error": redacted,
+                    }
+                checkpoint(sid + (" provider capacity exhausted" if exhausted else " provider cooldown"),
+                           sid, status="provider_unavailable" if exhausted else "provider_cooldown",
+                           capacity_error=marker, capacity_retry=consecutive,
+                           applied_cooldown_seconds=0 if exhausted else cooldown, error=redacted)
+                if exhausted:
+                    raise ProviderCapacity(
+                        f"Agnes {MODEL} capacity remained unavailable after {consecutive} consecutive "
+                        f"create failures ({marker}); no more shots will submit requests."
+                    ) from exc
+                gate.defer(cooldown)
+                continue
+            else:
+                with CAPACITY_LOCK:
+                    CAPACITY_STATE["consecutive"] = 0
+                    CAPACITY_STATE["last_error"] = None
+                    CAPACITY_ABORT.clear()
+                with LOCK:
+                    doc.pop("provider_outage", None)
+                return created
 
     def generate_one(shot: dict) -> bool:
         sid = shot["id"]
+        if CAPACITY_ABORT.is_set():
+            print(sid + ": skipped while Agnes provider capacity is unavailable", flush=True)
+            return False
         payload = full_payload(project, shot)
         wanted_hash = request_hash(project, shot)
         with LOCK:
@@ -318,14 +427,15 @@ def main() -> int:
                 if not video_id:
                     raise agnes.Fatal("Agnes returned no task identifier")
                 checkpoint(sid + " queued", sid, status="queued", video_id=str(video_id),
-                           task_id=str(task_id or ""), requested_seconds=payload["num_frames"] / payload["frame_rate"])
+                           task_id=str(task_id or ""), requested_seconds=float(payload["seconds"]),
+                           requested_size=payload["size"])
             else:
                 print(sid + ": resuming saved Agnes task", flush=True)
             remaining = deadline - time.monotonic()
             if remaining < 30:
                 raise BudgetExhausted("Generation budget reached; saved task can be resumed")
             final, url = agnes.poll_task(
-                base, key, agnes.DEFAULT_MODEL, str(video_id), str(task_id) if task_id else None,
+                base, key, MODEL, str(video_id), str(task_id) if task_id else None,
                 interval=25, timeout=min(1500, remaining), max_failures=12,
                 before_request=lambda: gate.wait_unblocked(deadline), rate_limit_callback=gate.defer,
             )
@@ -335,6 +445,10 @@ def main() -> int:
                        bytes=size, sha256=receipt["sha256"], reported_size=final.get("size"),
                        reported_seconds=final.get("seconds"), error=None)
             return finish(shot, receipt, wanted_hash)
+        except ProviderCapacity as exc:
+            checkpoint(sid + " provider unavailable", sid, status="provider_unavailable",
+                       error=str(exc).replace(key, "[redacted]")[:600])
+            return False
         except Exception as exc:  # a checkpoint survives worker/API timeouts; reruns can resume.
             error = str(exc).replace(key, "[redacted]") if key else str(exc)
             checkpoint(sid + " failed", sid, status="failed", error=error[:600])
@@ -348,13 +462,28 @@ def main() -> int:
         raise RuntimeError("ffmpeg and ffprobe are required on the Actions runner") from exc
 
     checkpoint("Agnes generation started")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        outcomes = list(pool.map(generate_one, selected))
+    if canary_then_full:
+        # The fixed-branch push event probes one shot first. Continue to all remaining footage
+        # in this same process (and shared 75s request gate) only if S01 really completes.
+        canary_ok = generate_one(by_id["S01"])
+        if canary_ok:
+            checkpoint("S01 canary passed; continuing full 29-shot production", "S01",
+                       canary_status="passed")
+            selected = [shot for shot in project["shots"] if shot["id"] != "S01"]
+            only = set()
+            with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+                outcomes = list(pool.map(generate_one, selected))
+        else:
+            outcomes = [False]
+    else:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+            outcomes = list(pool.map(generate_one, selected))
     if not all(outcomes):
-        doc["phase"] = "generation_incomplete"
-        checkpoint("generation incomplete")
+        doc["phase"] = "provider_capacity" if CAPACITY_ABORT.is_set() else "generation_incomplete"
+        checkpoint("provider capacity unavailable" if CAPACITY_ABORT.is_set() else "generation incomplete")
+        reason = "Agnes模型通道/排队暂不可用" if CAPACITY_ABORT.is_set() else "Agnes镜头尚未全部完成"
         (exports / "未完成说明.txt").write_text(
-            "Agnes镜头尚未全部完成；没有用参考图或静态帧替代视频。请查看 results.json 后断点续跑。\n",
+            reason + "；没有用参考图或静态帧替代视频。请查看 results.json 后断点续跑。\n",
             encoding="utf-8",
         )
         return 1
@@ -382,7 +511,7 @@ def main() -> int:
     if summary:
         with open(summary, "a", encoding="utf-8") as stream:
             stream.write("## 塔玛姆·舒德：索马顿海滩无名男尸\n\n")
-            stream.write("29个Agnes Video V2.0动态镜头；1920×1080；16:9；30fps；180秒。\n\n")
+            stream.write("29个Agnes Video 2.5 Flash动态镜头（720P源片后期放大）；1920×1080；16:9；30fps；180秒。\n\n")
             stream.write("初版已渲染。逐镜接触表和成片仍需人工视觉/听觉复核。\n")
     return 0
 

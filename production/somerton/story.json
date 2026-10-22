@@ -5,7 +5,8 @@
   "width": 1920,
   "height": 1080,
   "fps": 30,
-  "model": "agnes-video-v2.0",
+  "model": "agnes-video-2.5-flash",
+  "source_size": "720P",
   "branch": "arena/dc7c8423-desktop-tutorial",
   "style_prefix": "【STYLE】Cinematic-quality 3D animated short film, restrained film-noir atmosphere, 1940s vintage 35mm film texture, dark amber and deep teal contrast, strong chiaroscuro with volumetric light, coastal dawn mist, richly detailed realistic CGI materials, horizontal 16:9 widescreen composition, cinematic lens and shallow depth of field, subtle film grain, quiet investigative suspense rather than horror. Every clip is real continuous animation with visible natural movement (waves, wind, hands, people, particles or camera parallax); never a still image with a push-in. Period-correct 1940s Adelaide objects unless the shot explicitly takes place in 2022. Subject placed on a third line, use the full horizontal width, keep the lower 15 percent visually quiet for subtitles. ",
   "negative_prompt": "【NEGATIVE】readable text, subtitles, captions, watermark, logo, blood, gore, wound, corpse close-up, body detail, exposed remains, deformed hands, extra fingers, extra limbs, facial collapse, distorted anatomy, modern object in a 1940s scene, modern clothing in a 1940s scene, low resolution, flicker, style drift, vertical framing, portrait composition, black bars, frozen frame, slideshow, still image with artificial zoom, sudden scene change, unmotivated cut, jump scare, ghost, supernatural imagery, exaggerated violence.",
@@ -21,8 +22,8 @@
     "fictional_engineer": "【角色设定｜虚构工程师意象】A wholly fictional, non-likeness young Melbourne electrical engineer in 1930s clothing, glasses, seen in profile or half-shadow at a workbench; not a verified portrait of Carl Webb and not a reconstruction of a known photograph. "
   },
   "principles": [
-    "全片29个镜头均由Agnes Video V2.0生成连续运动的3D动画片段，禁止静态图加推拉代替。",
-    "人物出现时生成器先拼接对应角色设定；所有提示词以STYLE开头、以NEGATIVE结尾，并同时单独传negative_prompt。",
+    "全片29个镜头均由Agnes Video 2.5 Flash生成连续运动的3D动画片段，禁止静态图加推拉代替；生成源片720P，后期放大到1920×1080。",
+    "人物出现时生成器先拼接对应角色设定；所有提示词以STYLE开头、以NEGATIVE结尾；2.5 Flash不接受negative_prompt独立字段，因此红线嵌入提示词正文。",
     "不出现尸体特写、血腥或伤口；逝者只以坐姿剪影、背影或半阴影表现。",
     "所有字幕均由后期准确叠加；仅S14纸面显示Tamam Shud，片尾叠加中文片名；封面单独叠加‘他是谁?’，片内镜头不加开场字卡。",
     "每镜4至9秒，16:9；主体放在三分线上，充分利用横向宽度，底部15%留给字幕。",
@@ -111,8 +112,7 @@
       "seed": 19481201,
       "seconds": 5,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -130,8 +130,7 @@
       "seed": 19481202,
       "seconds": 5,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -150,8 +149,7 @@
       "seed": 19481203,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -170,8 +168,7 @@
       "seed": 19481204,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -190,8 +187,7 @@
       "seed": 19481205,
       "seconds": 6,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -209,8 +205,7 @@
       "seed": 19481206,
       "seconds": 5,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -228,8 +223,7 @@
       "seed": 19481207,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -247,8 +241,7 @@
       "seed": 19481208,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -266,8 +259,7 @@
       "seed": 19481209,
       "seconds": 6,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -286,8 +278,7 @@
       "seed": 19481210,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -306,8 +297,7 @@
       "seed": 19481211,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -325,8 +315,7 @@
       "seed": 19481212,
       "seconds": 6,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -344,8 +333,7 @@
       "seed": 19481213,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -361,8 +349,7 @@
       "seed": 19481214,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -378,8 +365,7 @@
       "seed": 19481215,
       "seconds": 6,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -398,8 +384,7 @@
       "seed": 19481216,
       "seconds": 5,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -415,8 +400,7 @@
       "seed": 19481217,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -434,8 +418,7 @@
       "seed": 19481218,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -451,8 +434,7 @@
       "seed": 19481219,
       "seconds": 6,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -471,8 +453,7 @@
       "seed": 19481220,
       "seconds": 5,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -490,8 +471,7 @@
       "seed": 19481221,
       "seconds": 8,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -509,8 +489,7 @@
       "seed": 19481222,
       "seconds": 8,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -528,8 +507,7 @@
       "seed": 19481223,
       "seconds": 9,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -547,8 +525,7 @@
       "seed": 19481224,
       "seconds": 7,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -564,8 +541,7 @@
       "seed": 19481225,
       "seconds": 6,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -583,8 +559,7 @@
       "seed": 19481226,
       "seconds": 5,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -603,8 +578,7 @@
       "seed": 19481227,
       "seconds": 4,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -620,8 +594,7 @@
       "seed": 19481228,
       "seconds": 4,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     },
     {
@@ -637,8 +610,7 @@
       "seed": 19481229,
       "seconds": 4,
       "aspect": "16:9",
-      "resolution": "1080p",
-      "frame_rate": 24,
+      "source_size": "720P",
       "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。"
     }
   ],

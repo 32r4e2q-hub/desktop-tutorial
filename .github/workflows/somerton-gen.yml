@@ -1,7 +1,14 @@
 name: 塔玛姆·舒德 · Agnes动画生成与三分钟出片
-run-name: 塔玛姆·舒德 · 29条Agnes动态镜头 → 180秒成片
+run-name: ${{ github.event_name == 'push' && '塔玛姆·舒德 · Agnes Video 2.5 Flash S01 canary → 全量生成' || '塔玛姆·舒德 · Agnes Video 2.5 Flash 全量生成与三分钟成片' }}
 
 on:
+  # A workflow-file update on the fixed branch probes S01, then continues full production only if it succeeds.
+  # Results/QA checkpoint pushes do not touch this path, so they cannot create a rerun loop.
+  push:
+    branches:
+      - arena/dc7c8423-desktop-tutorial
+    paths:
+      - .github/workflows/somerton-gen.yml
   workflow_dispatch:
     inputs:
       payload:
@@ -39,10 +46,10 @@ jobs:
       - name: Validate all prompts, voice clips and the 180-second timeline
         run: python3 production/somerton/generate.py --validate
 
-      - name: Generate 29 real Agnes Video V2.0 motion clips and render the first cut
+      - name: Generate 29 real Agnes Video 2.5 Flash 720P motion clips and render the 1080P first cut
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
-          PAYLOAD: ${{ inputs.payload }}
+          PAYLOAD: ${{ github.event_name == 'workflow_dispatch' && inputs.payload || '{"only":"S01","workers":1,"canary_then_full":true}' }}
         run: python3 -u production/somerton/generate.py --publish --payload "$PAYLOAD"
 
       - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets

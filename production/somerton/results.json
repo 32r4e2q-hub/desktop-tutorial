@@ -1,24 +1,48 @@
 {
   "project": "塔玛姆·舒德：索马顿海滩无名男尸",
-  "model": "agnes-video-v2.0",
+  "model": "agnes-video-2.5-flash",
+  "source_size": "720P",
   "branch": "arena/dc7c8423-desktop-tutorial",
-  "phase": "storyboard_voice_and_references_ready_pending_agnes",
+  "phase": "ready_for_agnes_2_5_flash_canary",
   "target_duration_seconds": 180,
   "format": {
     "width": 1920,
     "height": 1080,
     "fps": 30,
-    "aspect": "16:9"
+    "aspect": "16:9",
+    "source_size": "720P",
+    "post_upscale": true
   },
   "required_generated_shots": [
     "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10",
     "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20",
     "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29"
   ],
+  "workflow_policy": "agnes-video-2.5-flash-720p-upscale-180s-29shots",
+  "rate_policy": {
+    "minimum_creation_interval_seconds": 75,
+    "workers_max": 2,
+    "retry_after_respected": true,
+    "key_rotation": false,
+    "queue_full_cooldown_seconds": 90,
+    "queue_full_consecutive_limit": 24,
+    "channel_unavailable_cooldown_seconds": 300,
+    "channel_unavailable_consecutive_limit": 3
+  },
+  "previous_attempt": {
+    "run_id": "39784083444",
+    "run_number": 41,
+    "model": "agnes-video-v2.0",
+    "status": "failure",
+    "completed_shots": 0,
+    "failed_shots": 29,
+    "error": "HTTP 500 get_channel_failed: Agnes Video V2.0 was temporarily unavailable; no final video produced.",
+    "reusable_for_current_model": false
+  },
   "shots": {},
   "review": {
     "status": "pending",
     "visual_review_required": true,
-    "note": "Agnes has not been called yet; references and decoded footage are not a human visual sign-off."
+    "note": "No Agnes Video 2.5 Flash canary has run yet; do not claim footage or a final cut exists."
   }
 }

@@ -3,7 +3,7 @@
 
 运行 ``python3 production/somerton/build_story.py`` 会生成 story.json、screenplay.md、
 音频清单、抖音脚本与发布文案。每镜通过 generate.py 自动拼接 STYLE、对应角色设定与
-NEGATIVE；所有 29 镜均为 Agnes Video V2.0 连续运动片段。
+NEGATIVE；29 镜均调用 Agnes Video 2.5 Flash 动态生成，720P 源片后期放大到 1080P。
 """
 from __future__ import annotations
 
@@ -299,8 +299,7 @@ def build() -> dict:
             "seed": 19481201 + index,
             "seconds": duration,
             "aspect": "16:9",
-            "resolution": "1080p",
-            "frame_rate": 24,
+            "source_size": "720P",
             "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。",
         })
     return {
@@ -310,14 +309,15 @@ def build() -> dict:
         "width": 1920,
         "height": 1080,
         "fps": 30,
-        "model": "agnes-video-v2.0",
+        "model": "agnes-video-2.5-flash",
+        "source_size": "720P",
         "branch": "arena/dc7c8423-desktop-tutorial",
         "style_prefix": STYLE_PREFIX,
         "negative_prompt": NEGATIVE_PROMPT,
         "characters": CHARACTERS,
         "principles": [
-            "全片29个镜头均由Agnes Video V2.0生成连续运动的3D动画片段，禁止静态图加推拉代替。",
-            "人物出现时生成器先拼接对应角色设定；所有提示词以STYLE开头、以NEGATIVE结尾，并同时单独传negative_prompt。",
+            "全片29个镜头均由Agnes Video 2.5 Flash生成连续运动的3D动画片段，禁止静态图加推拉代替；生成源片720P，后期放大到1920×1080。",
+            "人物出现时生成器先拼接对应角色设定；所有提示词以STYLE开头、以NEGATIVE结尾；2.5 Flash不接受negative_prompt独立字段，因此红线嵌入提示词正文。",
             "不出现尸体特写、血腥或伤口；逝者只以坐姿剪影、背影或半阴影表现。",
             "所有字幕均由后期准确叠加；仅S14纸面显示Tamam Shud，片尾叠加中文片名；封面单独叠加‘他是谁?’，片内镜头不加开场字卡。",
             "每镜4至9秒，16:9；主体放在三分线上，充分利用横向宽度，底部15%留给字幕。",
@@ -341,7 +341,7 @@ def write_screenplay(story: dict) -> None:
     lines = [
         f"# {story['title']}",
         "",
-        "三分钟横屏悬疑短片 · 1920×1080 · 30fps · 180秒 · 29个Agnes动态镜头",
+        "三分钟横屏悬疑短片 · Agnes Video 2.5 Flash 720P源片后期放大至1920×1080 · 30fps · 180秒 · 29个动态镜头",
         "",
         "> 画面为AI动画情景重现，不是历史影像或真实证物；人物与场景先定稿参考图，再按镜头逐条生成。",
         "",
@@ -422,7 +422,7 @@ def write_release_copy(story: dict) -> None:
         f"# {TITLE}\n\n"
         f"**核心钩子：** {pres['cover']['text']}\n\n"
         f"**发布标题：** {pres['douyin_title']}\n\n"
-        "**时长：** 180秒；1920×1080；横屏16:9；29条Agnes V2.0动态片段。\n\n"
+        "**时长：** 180秒；横屏16:9；29条Agnes Video 2.5 Flash动态片段（720P源片后期放大至1920×1080）。\n\n"
         "| 镜头 | 时间 | 旁白/章节 | 画面提示词 | 运镜 | 音效 |\n|---|---|---|---|---|---|\n"
         + "\n".join(
             f"| {s['id']} | {s['start']}–{s['start']+s['duration']}秒 | {s['narration_id']} | {s['purpose']} | {s['camera']} | 依章节声音设计 |"
@@ -439,7 +439,7 @@ def main() -> None:
     write_screenplay(story)
     write_manifest(story)
     write_release_copy(story)
-    print(f"WROTE {HERE/'story.json'} — {len(story['shots'])} Agnes shots, 180s, 16:9")
+    print(f"WROTE {HERE/'story.json'} — {len(story['shots'])} Agnes Video 2.5 Flash shots, 720P sources, 180s, 16:9")
 
 
 if __name__ == "__main__":

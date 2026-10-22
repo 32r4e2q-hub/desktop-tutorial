@@ -3,7 +3,15 @@ import json
 import unittest
 from pathlib import Path
 
-from production.somerton.generate import full_prompt, validate
+from production.somerton.generate import (
+    FORBIDDEN_PAYLOAD_FIELDS,
+    MODEL,
+    SOURCE_SIZE,
+    capacity_failure_policy,
+    full_payload,
+    full_prompt,
+    validate,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / "production" / "somerton"
@@ -21,6 +29,34 @@ class SomertonPlanTests(unittest.TestCase):
         self.assertEqual((self.story["width"], self.story["height"], self.story["fps"]), (1920, 1080, 30))
         self.assertTrue(all(s["kind"] == "agnes" for s in self.story["shots"]))
         self.assertTrue(all(4 <= s["duration"] <= 9 for s in self.story["shots"]))
+
+    def test_25_flash_payload_uses_only_the_supported_720p_schema(self):
+        expected_fields = {"model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed"}
+        self.assertEqual(self.story["model"], MODEL)
+        self.assertEqual(self.story["source_size"], SOURCE_SIZE)
+        for shot in self.story["shots"]:
+            with self.subTest(shot=shot["id"]):
+                payload = full_payload(self.story, shot)
+                self.assertEqual(set(payload), expected_fields)
+                self.assertEqual(payload["model"], "agnes-video-2.5-flash")
+                self.assertEqual(payload["seconds"], str(shot["duration"]))
+                self.assertEqual(payload["size"], "720P")
+                self.assertEqual(payload["aspect_ratio"], "16:9")
+                self.assertEqual(payload["mode"], "text")
+                self.assertEqual(payload["n"], 1)
+                self.assertFalse(FORBIDDEN_PAYLOAD_FIELDS.intersection(payload))
+
+    def test_provider_capacity_errors_get_bounded_shared_backoff(self):
+        self.assertEqual(
+            capacity_failure_policy("HTTP 500: video queue is full"),
+            ("video queue is full", 90, 24),
+        )
+        self.assertEqual(
+            capacity_failure_policy("get_channel_failed: no available channel"),
+            ("no available channel", 300, 3),
+        )
+        self.assertEqual(capacity_failure_policy("HTTP 502: bad gateway"), ("provider 5xx", 120, 3))
+        self.assertIsNone(capacity_failure_policy("HTTP 400: invalid aspect_ratio"))
 
     def test_every_prompt_gets_style_characters_and_negative(self):
         for shot in self.story["shots"]:

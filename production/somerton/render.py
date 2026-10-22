@@ -15,9 +15,9 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-sys.path.insert(0, str(HERE))
-from build_audio import build_soundtrack  # noqa: E402
-from generate import digest, request_hash  # noqa: E402
+sys.path.insert(0, str(ROOT))
+from production.somerton.build_audio import build_soundtrack  # noqa: E402
+from production.somerton.generate import MODEL, SOURCE_SIZE, digest, request_hash  # noqa: E402
 
 FPS = 30
 DURATION = 180
@@ -58,8 +58,8 @@ def media_summary(path: Path) -> dict:
 
 def verify_sources(story: dict, sources: Path) -> dict:
     results = json.loads((HERE / "results.json").read_text(encoding="utf-8"))
-    if results.get("model") != "agnes-video-v2.0":
-        raise RuntimeError("Only Agnes Video V2.0 clips are accepted")
+    if results.get("model") != MODEL or results.get("source_size") != SOURCE_SIZE:
+        raise RuntimeError("Only verified Agnes Video 2.5 Flash 720P sources are accepted")
     if set(results.get("required_generated_shots", [])) != {shot["id"] for shot in story["shots"]}:
         raise RuntimeError("Provenance does not list every required Agnes shot")
     rows = results.get("shots", {})
@@ -306,7 +306,9 @@ def main() -> int:
         "captions_ass": str(ass_path),
         "captions_srt": str(srt_path),
         "cover": str(cover),
-        "source_model": "agnes-video-v2.0",
+        "source_model": MODEL,
+        "source_resolution": SOURCE_SIZE,
+        "final_resolution": "1920x1080 (upscaled in post)",
         "all_29_generated_shots_verified_by_sha256": True,
         "note": "Generated footage and the composited title/captions are AI-produced reenactment, not historical footage or original evidence.",
     }
