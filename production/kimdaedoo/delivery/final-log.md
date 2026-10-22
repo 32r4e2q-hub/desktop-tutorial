@@ -1,4 +1,4 @@
-# 出片日志（success，2026-10-22T08:27:13Z）
+# 出片日志（success，2026-10-22T08:34:54Z）
 
 ```
 [finalize] 1/7 下载 30 镜并校验 SHA-256 …
@@ -130,7 +130,7 @@ Generated original thriller music loop: /home/runner/work/desktop-tutorial/deskt
 [finalize]   BGM bgm.wav 31.8 MB / 180s
 [finalize] 5/7 合成成片 …
 [finalize] $ ffmpeg -y -v warning -stats -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/bgm.wav -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S01.wav -i /home/runner/work/desktop-tutorial/de
-[finalize]   合成完成 361s → 126.4 MB
+[finalize]   合成完成 214s → 126.3 MB
 [finalize] 6/7 程序化 QC …
 [finalize] $ ffprobe -v error -show_streams -show_format -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4 -vf select='not(mod(n,337))',scale=480:270,tile=4x4 -frames:v 1 /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-fina
@@ -141,6 +141,5 @@ Generated original thriller music loop: /home/runner/work/desktop-tutorial/deskt
 [finalize] $ git add production/kimdaedoo/delivery/final/
 [finalize] $ git commit -q -m kimdaedoo: 180 秒成片交付（报告 + 字幕 + 抽检表）
 [finalize] $ git push origin HEAD:arena/b726ea5e-desktop-tutorial
-[finalize]   报告推送失败（不影响 artifact）： Command '['git', 'push', 'origin', 'HEAD:arena/b726ea5e-desktop-tutorial']' returned non-zero exit status 1.
-[finalize] DONE final=/home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4 dur=180.0s size=126.4MB
+[finalize] DONE final=/home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4 dur=180.0s size=126.3MB
 ```
