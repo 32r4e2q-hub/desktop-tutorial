@@ -1,4 +1,4 @@
-# 出片日志（success，2026-10-22T08:34:54Z）
+# 出片日志（success，2026-10-22T09:00:26Z）
 
 ```
 [finalize] 1/7 下载 30 镜并校验 SHA-256 …
@@ -35,102 +35,102 @@
 [finalize] 2/7 edge-tts 逐镜配音（zh-CN-YunjianNeural, pitch -4Hz）…
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S01.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S01.wav
-[finalize]   S01 4.20s @ +12%
+[finalize]   S01 4.70s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S02.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S02.wav
-[finalize]   S02 2.83s @ +12%
+[finalize]   S02 3.18s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S03.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S03.wav
-[finalize]   S03 3.74s @ +12%
+[finalize]   S03 4.18s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S04.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S04.wav
-[finalize]   S04 3.25s @ +12%
+[finalize]   S04 3.64s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S05.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S05.wav
-[finalize]   S05 3.37s @ +12%
+[finalize]   S05 3.77s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S06.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S06.wav
-[finalize]   S06 3.83s @ +12%
+[finalize]   S06 4.28s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S07.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S07.wav
-[finalize]   S07 3.32s @ +12%
+[finalize]   S07 3.72s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S08.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S08.wav
-[finalize]   S08 2.95s @ +12%
+[finalize]   S08 3.30s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S09.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S09.wav
-[finalize]   S09 3.77s @ +12%
+[finalize]   S09 4.23s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S10.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S10.wav
-[finalize]   S10 4.02s @ +12%
+[finalize]   S10 4.49s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S11.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S11.wav
-[finalize]   S11 3.91s @ +12%
+[finalize]   S11 4.37s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S12.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S12.wav
-[finalize]   S12 3.66s @ +12%
+[finalize]   S12 4.10s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S13.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S13.wav
-[finalize]   S13 3.04s @ +12%
+[finalize]   S13 3.41s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S14.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S14.wav
-[finalize]   S14 3.67s @ +12%
+[finalize]   S14 4.11s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S15.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S15.wav
-[finalize]   S15 3.62s @ +12%
+[finalize]   S15 4.04s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S16.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S16.wav
-[finalize]   S16 3.50s @ +12%
+[finalize]   S16 3.90s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S17.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S17.wav
-[finalize]   S17 3.35s @ +12%
+[finalize]   S17 3.76s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S18.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S18.wav
-[finalize]   S18 3.84s @ +12%
+[finalize]   S18 4.29s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S19.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S19.wav
-[finalize]   S19 4.09s @ +12%
+[finalize]   S19 4.58s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S20.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S20.wav
-[finalize]   S20 3.51s @ +12%
+[finalize]   S20 3.93s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S21.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S21.wav
-[finalize]   S21 4.00s @ +12%
+[finalize]   S21 4.48s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S22.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S22.wav
-[finalize]   S22 4.05s @ +12%
+[finalize]   S22 4.54s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S23.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S23.wav
-[finalize]   S23 3.33s @ +12%
+[finalize]   S23 3.72s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S24.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S24.wav
-[finalize]   S24 3.72s @ +12%
+[finalize]   S24 4.16s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S25.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S25.wav
-[finalize]   S25 4.20s @ +12%
+[finalize]   S25 4.69s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S26.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S26.wav
-[finalize]   S26 3.32s @ +12%
+[finalize]   S26 3.71s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S27.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S27.wav
-[finalize]   S27 3.82s @ +12%
+[finalize]   S27 4.27s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S28.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S28.wav
-[finalize]   S28 3.85s @ +12%
+[finalize]   S28 4.30s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S29.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S29.wav
-[finalize]   S29 3.57s @ +12%
+[finalize]   S29 3.98s @ +0%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S30.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S30.wav
-[finalize]   S30 4.05s @ +12%
-[finalize]   解说总时长 109.4s；成片 180s；平均 305 字/分钟
+[finalize]   S30 4.54s @ +0%
+[finalize]   解说总时长 122.4s；成片 180s；平均 273 字/分钟
 [finalize] 3/7 生成字幕 …
 [finalize] 4/7 生成原创悬疑 BGM …
 Generated original thriller music loop: /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/bgm.wav (180.00s)
 [finalize]   BGM bgm.wav 31.8 MB / 180s
 [finalize] 5/7 合成成片 …
 [finalize] $ ffmpeg -y -v warning -stats -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/bgm.wav -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S01.wav -i /home/runner/work/desktop-tutorial/de
-[finalize]   合成完成 214s → 126.3 MB
+[finalize]   合成完成 218s → 126.4 MB
 [finalize] 6/7 程序化 QC …
 [finalize] $ ffprobe -v error -show_streams -show_format -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4 -vf select='not(mod(n,337))',scale=480:270,tile=4x4 -frames:v 1 /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-fina
@@ -141,5 +141,5 @@ Generated original thriller music loop: /home/runner/work/desktop-tutorial/deskt
 [finalize] $ git add production/kimdaedoo/delivery/final/
 [finalize] $ git commit -q -m kimdaedoo: 180 秒成片交付（报告 + 字幕 + 抽检表）
 [finalize] $ git push origin HEAD:arena/b726ea5e-desktop-tutorial
-[finalize] DONE final=/home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4 dur=180.0s size=126.3MB
+[finalize] DONE final=/home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/final.mp4 dur=180.0s size=126.4MB
 ```
