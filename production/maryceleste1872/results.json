@@ -2,7 +2,15 @@
   "project": "玛丽·赛勒斯特号：海上最大的未解之谜",
   "model": "cogvideox-flash",
   "provider": "Zhipu AI",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "status": "submitting",
+      "request_hash": "e19ca92250cbd159c022cb3424b1043526939c814d63b9f2d146df0321aaca0b",
+      "error": null,
+      "updated_at": "2026-10-22T03:58:10Z"
+    }
+  },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
   "phase": "generating_sources",
   "required_generated_shots": [
@@ -38,5 +46,6 @@
     "S27",
     "S28"
   ],
-  "updated_at": "2026-10-22T03:58:08Z"
+  "updated_at": "2026-10-22T03:58:10Z",
+  "previous_results": {}
 }
