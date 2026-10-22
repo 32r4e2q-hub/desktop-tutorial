@@ -18,6 +18,9 @@ on:
 
 permissions:
   contents: write
+  # actions:write 是给接力步的 gh workflow run 自派发用的：GITHUB_TOKEN 推的 commit
+  # 不会触发 on: push（防递归），workflow_dispatch 是官方例外，才能真正接力。
+  actions: write
 
 concurrency:
   group: maryceleste1872-cogvideox-arena-63ceeca2-desktop-tutorial
@@ -103,11 +106,14 @@ jobs:
           retention-days: 14
 
       # 容量满（429/1305）自动接力：generate_cogvideox 熔断退出 42，这里按收据记账后
-      # 改写 COGVIDEOX_GEN_REQUEST（round+1）并推送——push 碰到 marker 就会再触发一轮，
-      # 直到出齐、真故障（rc=1/43）或连续 STALE_STOP 轮零进展。2026-10-22 接线：
-      # 之前 S01 十九连拒 26 分钟后 rc=1 崩掉，没有任何接力，整批原地踏步。
+      # 改写 COGVIDEOX_GEN_REQUEST（round+1）并推送——注意 bot 用 GITHUB_TOKEN 推的 commit
+      # **不会**触发 on: push（GitHub 防递归），所以真正起下一轮的是 gh workflow run 自派发
+      # （workflow_dispatch 是官方例外）。2026-10-22 接线：之前 S01 十九连拒 26 分钟后
+      # rc=1 崩掉没人接力；第一次接力后 push 又没触发，补自派发才闭环。
       - name: 容量满自动接力续投（auto_resume）
         if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
           rc="$(cat /tmp/gen.rc 2>/dev/null || echo 1)"
@@ -123,17 +129,25 @@ jobs:
           git pull --rebase origin arena/63ceeca2-desktop-tutorial || true
           git add production/maryceleste1872/COGVIDEOX_GEN_REQUEST
           if git diff --cached --quiet -- production/maryceleste1872/COGVIDEOX_GEN_REQUEST; then
-            echo "marker unchanged; nothing to relay"
-            exit 0
+            echo "marker unchanged; skip bookkeeping commit"
+          else
+            git commit -m "maryceleste1872: 容量满接力续投 round记账 $(date -u +%FT%TZ)" -- production/maryceleste1872/COGVIDEOX_GEN_REQUEST
+            for attempt in 1 2 3 4 5; do
+              if git push origin HEAD:arena/63ceeca2-desktop-tutorial; then
+                break
+              fi
+              echo "relay push retry $attempt"
+              sleep $((attempt * 10))
+              git pull --rebase origin arena/63ceeca2-desktop-tutorial || true
+            done
           fi
-          git commit -m "maryceleste1872: 容量满接力续投 round记账 $(date -u +%FT%TZ)" -- production/maryceleste1872/COGVIDEOX_GEN_REQUEST
-          for attempt in 1 2 3 4 5; do
-            if git push origin HEAD:arena/63ceeca2-desktop-tutorial; then
+          for attempt in 1 2 3; do
+            if gh workflow run maryceleste1872-cogvideox-gen.yml --ref arena/63ceeca2-desktop-tutorial -f payload=''; then
+              echo "RELAY_DISPATCHED"
               exit 0
             fi
-            echo "relay push retry $attempt"
+            echo "dispatch retry $attempt"
             sleep $((attempt * 10))
-            git pull --rebase origin arena/63ceeca2-desktop-tutorial || true
           done
-          echo "relay push failed after retries"
+          echo "relay dispatch failed after retries"
           exit 1
