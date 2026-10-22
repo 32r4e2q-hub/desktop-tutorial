@@ -1,0 +1,56 @@
+{
+ "mode": "face",
+ "_comment": "露脸模式规则：① 每个角色一条不同的 face token（≥60 字符，逐字节复用）；② 同一角色的所有镜头都照抄它；③ 不同角色的 token 不许雷同。改完跑：python3 production/face_cast.py check-prompts --project production/maryceleste1872",
+ "_casting_note": "四个角色都是符合一八七二年年代的虚构匿名人物（AI 生成），不是任何真实人物的容貌还原——布里格斯船长、莎拉、苏菲亚、摩尔豪斯船长均以虚构角色出演（片内标签写明「虚构角色 · 非本人容貌」）；七名船员与上帝的恩典号水手全程只以背影、剪影出现。定妆照 cast/C1–C4.png 与场景定稿 cast/ship-*.png、cast/scene-*.png 为用户要求的『角色与场景定稿参考图』；智谱免费档 flash 实测拒收 image_url（北九州 2026-10-12 收据），视频生成为纯文生，跨镜一致性靠逐字节复用 token + 同一 seed，最终由 face_cast 画面闸门与人眼复核。",
+ "characters": [
+  {
+   "id": "C1",
+   "name": "布里格斯船长（情景重现 · 虚构匿名角色，非本人容貌）",
+   "role": "captain",
+   "age": 40,
+   "gender": "male",
+   "portrait": "cast/C1.png",
+   "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C1.png",
+   "seed": 18721107,
+   "face": "a white American sea captain in his early forties — not elderly, no grey hair — with a broad forehead, steady grey-blue eyes under strong brows, a straight nose and a dense dark-brown full beard and moustache covering his jaw, wearing a deep navy double-breasted woollen captain's greatcoat with brass buttons and a black peaked captain's hat, his expression calm, dignified and quietly alert"
+  },
+  {
+   "id": "C2",
+   "name": "莎拉（船长妻子 · 情景重现 · 虚构匿名角色，非本人容貌）",
+   "role": "wife",
+   "age": 30,
+   "gender": "female",
+   "portrait": "cast/C2.png",
+   "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C2.png",
+   "seed": 18721108,
+   "face": "a gentle white American woman of about thirty with an oval face, soft brown eyes carrying a worried warmth, a small straight nose and chestnut-brown hair pinned up neatly under a dark grey woollen shawl, wearing a light beige high-necked Victorian long dress with narrow cuffs, her expression tender yet uneasy"
+  },
+  {
+   "id": "C3",
+   "name": "苏菲亚（两岁女儿 · 情景重现 · 虚构匿名角色，非本人容貌）",
+   "role": "daughter",
+   "age": 2,
+   "gender": "female",
+   "portrait": "cast/C3.png",
+   "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C3.png",
+   "seed": 18721109,
+   "face": "a two-year-old white little girl with round rosy cheeks, big curious hazel eyes, a small button nose and golden ringlet curls framing her face, wearing a little red woollen coat over a cream dress, clutching a worn old cloth bunny rabbit toy with floppy ears"
+  },
+  {
+   "id": "C4",
+   "name": "摩尔豪斯船长（上帝的恩典号 · 情景重现 · 虚构匿名角色，非本人容貌）",
+   "role": "captain",
+   "age": 52,
+   "gender": "male",
+   "portrait": "cast/C4.png",
+   "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C4.png",
+   "seed": 18721204,
+   "face": "a white American sea captain in his early fifties with a square weathered face, deep crow's feet around keen blue eyes, a short iron-grey beard trimmed close to the jaw, wearing a rounded black hard felt hat and a black waterproof canvas sea coat over a knotted neckerchief, his expression tense and curious"
+  }
+ ],
+ "shots": {
+  "S04": ["C1", "C2", "C3"],
+  "S07A": ["C4"],
+  "S24": ["C1", "C2", "C3"]
+ }
+}

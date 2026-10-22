@@ -1,0 +1,906 @@
+{
+  "title": "玛丽·赛勒斯特号：海上最大的未解之谜",
+  "film_name": "玛丽赛勒斯特号_海上最大的未解之谜_三分钟_带声音.mp4",
+  "target_duration": 180,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "model": "cogvideox-flash",
+  "branch": "arena/63ceeca2-desktop-tutorial",
+  "style_prefix": "Cinematic 3D animation with Pixar-grade feature-animation rendering blended with a dark fairy-tale mood: realistic lighting, volumetric fog and haze, physically simulated open-ocean water, cold blue seas and skies in strong contrast with the warm golden glow of oil lamps, high contrast, richly detailed frames with layered saturated colour, 16:9 widescreen compositions with the main subject on the rule-of-thirds lines and the full width of frame used, cinematic lens language, shallow depth of field and filmic motion with natural motion blur. Photorealistic CGI historical reenactment at sea in 1872: wooden sailing ships, rope rigging, canvas sails, oil lamps, weathered wood and brass; period clothing only; never a drawing, never a flat cartoon, never a still image with a zoom; real movement in every shot, one single continuous smooth camera move per shot exactly as directed; absolutely no readable text, letters, numbers, logos or brand marks anywhere in frame. ",
+  "negative_prompt": "readable text, letters, numbers, words, signage writing, subtitles, captions, watermarks, logos, brand marks, modern objects, modern ships, motorboats, cars, electricity pylons, low resolution, blurriness, flicker, sudden style changes, vertical framing, letterboxing, pillarboxing, black bars, malformed fingers, extra limbs, duplicated limbs, deformed faces, face morphing mid-shot, the likeness of any identifiable real person, blood, gore, wounds, corpses, flat 2D cartoon, cel-shaded illustration, comic panel, morphing objects, jitter, whip pans, jump cuts, split screen, slideshow, ken-burns still",
+  "principles": [
+    "全部动态镜头为写实 3D CGI 动画情景重现，画面常驻标注「AI动画情景重现 · 非新闻影像」，不冒充新闻、档案、证物或现场影像",
+    "一八七二年的历史人物（布里格斯船长一家、摩尔豪斯船长与船员）由符合年代的虚构匿名角色扮演，不做真实人物肖像还原；片内标签写明「虚构角色 · 非本人容貌」",
+    "七名船员与上帝的恩典号水手全程只以背影、剪影出现，不给可辨识面容",
+    "不展示遗体、血腥或伤害过程：十人消失只通过空镜头、物件与气氛表现（空荡甲板、停摆的船舵、倒扣的小鞋、断裂的绳头）；海盗与海怪只出现在「猜想」段落并标注「AI动画猜想示意」",
+    "四个露脸角色各有一张不同的脸；同一角色跨镜头逐字节复用同一条面容 token 并共用同一个 seed，由 production/face_cast.py 两道闸门检查，人眼对照接触表判决",
+    "每一句事实都能指到 sources 里的公开来源；口径冲突处（日志最后日期的两种记法、爆燃实验的具体人名等）只写多源一致的写法，不挑一个当结论",
+    "所有中文姓名、日期、字幕后期添加，不交给视频模型拼写；画面内不出现任何可读文字",
+    "人工检视 qa/ 接触表；换脸、畸变、伪文字、中途换场的镜头用 {\"only\":\"Sxx\"} 重生成，不直接进成片",
+    "「酒精蒸汽爆燃」只写作最合理的猜想之一，成片明确说「没有人能证明」，不写成定论"
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://en.wikipedia.org/wiki/Mary_Celeste",
+      "usage": "支撑：一八七二年十一月七日自纽约启航前往意大利热那亚；船长本杰明·布里格斯与妻子、两岁女儿及七名船员共十人；载约一千七百桶变性酒精；十二月四日被发现时人去船空，货物、给养与船员私人物品基本原样；救生艇失踪；日志最后条目停在十天前"
+    },
+    {
+      "id": 2,
+      "url": "https://en.wikipedia.org/wiki/Dei_Gratia_(brigantine)",
+      "usage": "支撑：发现者为双桅船「上帝的恩典号」（Dei Gratia），摩尔豪斯船长指挥；在亚速尔群岛附近发现漂航的玛丽·赛勒斯特号；水手乘小艇靠帮登船查看"
+    },
+    {
+      "id": 3,
+      "url": "https://www.britannica.com/topic/Mary-Celeste",
+      "usage": "支撑：案件作为『海上最大未解之谜』的通行表述；船体当时几乎完好、无明显打斗痕迹；船货（工业酒精）与给养俱在"
+    },
+    {
+      "id": 4,
+      "url": "https://www.smithsonianmag.com/history/mary-celeste-ghost-ship-180976734/",
+      "usage": "支撑：酒精蒸汽假说——现代实验演示密闭货舱内酒精蒸汽可发生几乎没有火光的爆燃、冲开舱盖而几乎不留痕迹；该假说是目前最广为接受的解释但无直接证据"
+    },
+    {
+      "id": 5,
+      "url": "https://zh.wikipedia.org/wiki/%E7%8E%9B%E4%B8%BD%C2%B7%E5%A1%9E%E5%8B%92%E6%96%AF%E7%89%B9%E5%8F%B7",
+      "usage": "支撑（中文通行译名）：玛丽·赛勒斯特号、上帝的恩典号、亚速尔群岛等译名口径；『幽灵船』叙事在中文世界的通行说法"
+    }
+  ],
+  "chapter_windows": {
+    "N01": [
+      0.0,
+      10.0
+    ],
+    "N02": [
+      10.0,
+      30.0
+    ],
+    "N03": [
+      30.0,
+      55.0
+    ],
+    "N04": [
+      55.0,
+      90.0
+    ],
+    "N05": [
+      90.0,
+      110.0
+    ],
+    "N06": [
+      110.0,
+      135.0
+    ],
+    "N07": [
+      135.0,
+      164.0
+    ],
+    "N08": [
+      164.0,
+      177.0
+    ]
+  },
+  "end_card_seconds": 3.0,
+  "chapters": [
+    {
+      "id": "N01",
+      "title": "黄金钩子：十个人，全都消失了",
+      "start": 0.0,
+      "duration": 10.0,
+      "text": "一八七二年，大西洋上漂着一艘船。船上的东西几乎原封不动，可是十个人，全都消失了。"
+    },
+    {
+      "id": "N02",
+      "title": "启航：纽约到热那亚",
+      "start": 10.0,
+      "duration": 20.0,
+      "text": "十一月七日，玛丽·赛勒斯特号从纽约出发，前往意大利热那亚。船长布里格斯经验丰富，船上载着他的妻子、两岁的女儿，还有七名船员，货物是一千七百多桶工业酒精。"
+    },
+    {
+      "id": "N03",
+      "title": "发现幽灵船",
+      "start": 30.0,
+      "duration": 25.0,
+      "text": "一个月后，十二月四日，在亚速尔群岛附近，另一艘船「上帝的恩典号」发现了它。它的帆破破烂烂，航向混乱，喊了半天，没有人回应。水手们划着小艇靠近，爬上甲板，一个人都没有。"
+    },
+    {
+      "id": "N04",
+      "title": "船上的诡异细节",
+      "start": 55.0,
+      "duration": 35.0,
+      "text": "船体几乎完好，食物和淡水够吃半年，船员的行李和私人物品都在。可是，救生艇不见了，航海仪器不见了，最后一篇日志停在十天前。没有明确的打斗痕迹，没有求救信号。他们是自己离开的，还是被什么带走的？"
+    },
+    {
+      "id": "N05",
+      "title": "猜想一：海盗与叛变",
+      "start": 90.0,
+      "duration": 20.0,
+      "text": "有人说是海盗，可是值钱的货物一件没少。有人说是船员叛变，可是船长威望很高，现场也没有争斗痕迹。"
+    },
+    {
+      "id": "N06",
+      "title": "猜想二：海怪与天灾",
+      "start": 110.0,
+      "duration": 25.0,
+      "text": "有人说是巨型乌贼，有人说是海上龙卷风和海底地震。听起来很刺激，可是，船本身几乎完好，不像遭遇过毁灭性的灾难。"
+    },
+    {
+      "id": "N07",
+      "title": "最合理的解释",
+      "start": 135.0,
+      "duration": 29.0,
+      "text": "近年来，科学家做了实验：酒精蒸汽可以发生一次几乎没有火光的爆燃，冲开舱盖，却不留下多少痕迹。船长害怕大船随时再次爆炸，命令所有人立刻登上救生艇，并用一根长绳把小艇拴在大船后面。可是，一阵风浪袭来，绳子断了。"
+    },
+    {
+      "id": "N08",
+      "title": "结尾：没有人能证明",
+      "start": 164.0,
+      "duration": 13.0,
+      "text": "大船带着满帆继续前行，而救生艇，再也没人见到。这个解释最合理，但没有人能证明。你觉得，他们到底遇到了什么？"
+    }
+  ],
+  "shots": [
+    {
+      "id": "S01",
+      "kind": "agnes",
+      "start": 0.0,
+      "duration": 5.0,
+      "narration_id": "N01",
+      "prompt": "On the open Atlantic at night, a vast dark blue-black ocean under heavy fog: the huge ghostly silhouette of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging drifts slowly into view from the far right depth of frame, her torn sails flickering in the wind; the camera rushes in fast from a great distance low over the water straight toward the ship, parting the fog as it goes, decelerating at the end to hang just off the bow; the deck above is visibly empty except for one swinging oil lamp. Fast forward dolly-in over the water toward the drifting ship, easing to a stop at the end, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "钩子：黑夜浓雾中，幽灵船剪影漂来，镜头高速冲向它",
+      "transition_out": "接镜头2：越过船舷滑入甲板",
+      "graphic": "",
+      "seed": 18721205,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "远景快推，末尾减速",
+      "sfx_note": "海浪声 + 远处一声船钟 + 低沉大提琴渐强"
+    },
+    {
+      "id": "S02",
+      "kind": "agnes",
+      "start": 5.0,
+      "duration": 5.0,
+      "narration_id": "N01",
+      "prompt": "On the deck of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging at night, the whole shot staying on this one deck from the first frame to the last with no exterior and no transition: the camera slides in low over the rail and tracks left along the long empty deck, past a swinging oil lamp casting warm golden pools, past a toppled wooden barrel rolling slightly with the roll of the ship, to a lone wooden ship's wheel slowly turning by itself; cold blue moonlight filters through the fog and waves slap the hull below. Low-angle handheld-feeling lateral tracking shot along the deck, moving left with a slight sway, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "甲板长镜头：油灯、倾倒木桶、孤零零转动的船舵",
+      "transition_out": "接镜头3：一八七二年纽约港清晨",
+      "graphic": "",
+      "seed": 18721206,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "低角度横向跟移，轻微手持晃动",
+      "sfx_note": "海浪拍打 + 木头吱呀 + 幽蓝月光氛围"
+    },
+    {
+      "id": "S03",
+      "kind": "agnes",
+      "start": 10.0,
+      "duration": 6.0,
+      "narration_id": "N02",
+      "prompt": "The New York harbour at sunrise in November 1872 seen from high above: golden dawn light cuts through thin mist over a forest of wooden masts, steam drifts from a distant paddle steamer, wooden piers run into the water, and dock workers in period clothes use hand cranes to hoist large wooden barrels; berthed at the centre-right pier, the Mary Celeste, an 1870s two-masted brigantine about thirty metres long with a bright well-kept white hull, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts carrying full clean white sails bellying with wind, her white hull glowing in the low sun. Aerial shot slowly panning left to right while descending, settling toward the gleaming ship, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "一八七二年纽约港清晨全景，定在白色船身",
+      "transition_out": "接镜头4：船长一家登船",
+      "graphic": "",
+      "seed": 18721207,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "航拍左→右缓慢横摇并下降",
+      "sfx_note": "海鸥 + 码头嘈杂 + 温暖弦乐"
+    },
+    {
+      "id": "S04",
+      "kind": "agnes",
+      "start": 16.0,
+      "duration": 6.0,
+      "narration_id": "N02",
+      "prompt": "On a wooden pier and gangway in the New York harbour at sunrise in 1872, warm golden dawn light and thin mist, the wide harbour behind: a white American sea captain in his early forties — not elderly, no grey hair — with a broad forehead, steady grey-blue eyes under strong brows, a straight nose and a dense dark-brown full beard and moustache covering his jaw, wearing a deep navy double-breasted woollen captain's greatcoat with brass buttons and a black peaked captain's hat, his expression calm, dignified and quietly alert walks slowly up the gangway onto the ship with a gentle white American woman of about thirty with an oval face, soft brown eyes carrying a worried warmth, a small straight nose and chestnut-brown hair pinned up neatly under a dark grey woollen shawl, wearing a light beige high-necked Victorian long dress with narrow cuffs, her expression tender yet uneasy on his arm and a two-year-old white little girl with round rosy cheeks, big curious hazel eyes, a small button nose and golden ringlet curls framing her face, wearing a little red woollen coat over a cream dress, clutching a worn old cloth bunny rabbit toy with floppy ears a step ahead; the little girl turns back toward the camera and waves happily, her old cloth bunny swinging from her other hand, while a white American sea captain in his early forties — not elderly, no grey hair — with a broad forehead, steady grey-blue eyes under strong brows, a straight nose and a dense dark-brown full beard and moustache covering his jaw, wearing a deep navy double-breasted woollen captain's greatcoat with brass buttons and a black peaked captain's hat, his expression calm, dignified and quietly alert rests one proud hand on her small shoulder; all three act in continuous natural movement. Medium side-tracking shot following the family up the gangway, then pushing slowly in toward the smiling little girl, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "船长携妻女登舷梯，小女孩回头挥手，布偶兔子晃动",
+      "transition_out": "接镜头5a：货舱里的酒精桶",
+      "graphic": "",
+      "seed": 18721208,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "中景侧面跟拍，逐渐推近至小女孩",
+      "sfx_note": "舷梯脚步 + 港口环境声 + 温暖弦乐",
+      "cast": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "id": "S05A",
+      "kind": "agnes",
+      "start": 22.0,
+      "duration": 4.0,
+      "narration_id": "N02",
+      "prompt": "Below decks in the cargo hold of an 1870s sailing ship, the whole shot staying inside this one hold from the first frame to the last: rows upon rows of neatly stacked wooden barrels stretch into the depth of the hold, one hanging oil lamp sways gently and lights the curved barrel staves, which carry only blank painted bands with no letters or numbers; the ship's roll makes the lamplight drift across the rows. Low-angle camera moving slowly forward between the rows of barrels toward the depth of the hold, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头5前半：货舱一排排酒精桶，油灯照亮木桶",
+      "transition_out": "接镜头5b：甲板升帆",
+      "graphic": "",
+      "seed": 18721209,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "货舱内低角度前移",
+      "sfx_note": "船体吱呀 + 油灯轻响 + 低频弦乐"
+    },
+    {
+      "id": "S05B",
+      "kind": "agnes",
+      "start": 26.0,
+      "duration": 4.0,
+      "narration_id": "N02",
+      "prompt": "On the open deck of the Mary Celeste, an 1870s two-masted brigantine about thirty metres long with a bright well-kept white hull, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts carrying full clean white sails bellying with wind in bright morning light: seven rough merchant seamen in coarse wool sweaters and waterproof canvas jackets, shown mostly as backs and silhouettes, haul in unison on the rigging lines along both sides of the deck, and a great clean white canvas sail slowly rises and fills with wind above them against a pale blue sky. Rising crane shot from deck level tilting up along the lines to the swelling sail, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头5后半：七名船员拉缆绳，帆布缓缓升起",
+      "transition_out": "接镜头6：望远镜视野里的幽灵船",
+      "graphic": "",
+      "seed": 18721210,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "升降镜头仰拍帆面升起",
+      "sfx_note": "缆绳摩擦 + 海鸥 + 弦乐渐起"
+    },
+    {
+      "id": "S06",
+      "kind": "agnes",
+      "start": 30.0,
+      "duration": 6.0,
+      "narration_id": "N03",
+      "prompt": "Point of view through a brass ship's telescope held at sea: the circular field of view shows a wide grey horizon of choppy cold water where a lone sailing ship wallows far away, her sails torn and her heading confused as she drifts in a slow circle, under a heavy grey overcast sky; the telescope view shakes slightly in the observer's hands and zooms in a little. Handheld telescope point-of-view with a slow zoom toward the distant distressed ship, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头6：圆视野里歪歪扭扭的幽灵船",
+      "transition_out": "接镜头7a：摩尔豪斯船长喊话",
+      "graphic": "",
+      "seed": 18721211,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "望远镜视角，轻微抖动缓慢变焦",
+      "sfx_note": "风声 + 海浪变冷 + 紧张低音弦乐"
+    },
+    {
+      "id": "S07A",
+      "kind": "agnes",
+      "start": 36.0,
+      "duration": 3.5,
+      "narration_id": "N03",
+      "prompt": "On the deck of the Dei Gratia, an 1870s merchant sailing ship slightly larger than a brigantine with a plain black hull, two masts with full white sails and a working merchant deck of rope coils and a wooden helm under a grey windy sky, the whole shot staying on this deck from the first frame to the last with no exterior and no transition: a white American sea captain in his early fifties with a square weathered face, deep crow's feet around keen blue eyes, a short iron-grey beard trimmed close to the jaw, wearing a rounded black hard felt hat and a black waterproof canvas sea coat over a knotted neckerchief, his expression tense and curious stands at the left of frame raising one hand to call out toward the far distance, his black canvas coat flapping hard in the wind, while four tense curious sailors in black waterproof canvas suits crowd at the rail all looking toward a small distant wallowing ship at the right edge of the horizon; everyone holds their gaze in the same direction. Medium shot drifting slowly sideways along the rail from the calling captain to the staring sailors, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头7前半：摩尔豪斯船长举手喊话，水手望向幽灵船",
+      "transition_out": "接镜头7b：放下小艇",
+      "graphic": "",
+      "seed": 18721212,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "中景横移",
+      "sfx_note": "风声 + 喊话回声 + 低音弦乐",
+      "cast": [
+        "C4"
+      ]
+    },
+    {
+      "id": "S07B",
+      "kind": "agnes",
+      "start": 39.5,
+      "duration": 3.5,
+      "narration_id": "N03",
+      "prompt": "Beside the black hull of an 1870s merchant sailing ship on open grey sea: two sailors in black canvas gear manhandle a small wooden clinker boat over the side, ropes paying out through a block, the little boat dropping toward the choppy water with a splash of spray, all against the dark planked hull and grey swell. Low camera at sea level looking slightly up at the hull as the small boat is lowered into the water, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头7后半：两个水手把小艇放入海中",
+      "transition_out": "接镜头8：小艇靠帮仰拍",
+      "graphic": "",
+      "seed": 18721213,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "海面低机位",
+      "sfx_note": "绳索滑轮 + 落水水花 + 海浪"
+    },
+    {
+      "id": "S08",
+      "kind": "agnes",
+      "start": 43.0,
+      "duration": 6.0,
+      "narration_id": "N03",
+      "prompt": "At sea level right beside the towering hull of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging in grey afternoon swell: a small wooden boat rides the waves below, a sailor in black canvas gear stands and grips the rope ladder over the rail, looking up at the huge salt-streaked hull rising and falling above him with the swell, and a burst of spray flies across the low lens; the empty rail high above has nobody looking back. Extreme low-angle shot looking up the hull from the small boat, rocking with the waves, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头8：小艇贴着船舷，水手抓绳梯仰望高高的船身",
+      "transition_out": "接镜头9：登船环顾空甲板",
+      "graphic": "",
+      "seed": 18721214,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "低机位仰拍，海浪溅到镜头",
+      "sfx_note": "木头呻吟 + 海浪溅射 + 心跳低频"
+    },
+    {
+      "id": "S09",
+      "kind": "agnes",
+      "start": 49.0,
+      "duration": 6.0,
+      "narration_id": "N03",
+      "prompt": "On the deck of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging in cold blue-grey daylight at first-person height: the camera stands at the centre of the long empty deck and turns slowly around: slack ropes hang from the pin rails, the brass ship's bell swings silently in the wind, a wooden barrel rolls slowly across the planks and bumps against the rail, and not one person is anywhere on deck. Slow first-person pan turning all the way around the empty deck, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头9：空荡甲板、垂落绳索、轻响的船钟、滚动的水桶",
+      "transition_out": "接镜头10：船长室",
+      "graphic": "",
+      "seed": 18721215,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "第一人称缓慢转头360度",
+      "sfx_note": "船钟轻响 + 风声 + 极静氛围"
+    },
+    {
+      "id": "S10",
+      "kind": "agnes",
+      "start": 55.0,
+      "duration": 6.0,
+      "narration_id": "N04",
+      "prompt": "Inside the captain's cabin of an 1870s sailing ship at night, the whole shot staying indoors from the first frame to the last with no exterior and no transition: a narrow bunk lies rumpled and unmade, the stern window is boarded over with planks, one oil lamp swings on its chain from the ceiling and sweeps its warm light across the room, a nautical chart lies spread on the table with only blank inked coastlines and no lettering, and a small blurred framed family portrait hangs on the wood-panelled wall. Slow push from the doorway across the cabin, ending focused on the chart on the table, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头10：船长室，凌乱床铺、封窗、摇晃油灯、航海图、全家小画像",
+      "transition_out": "接镜头11：厨房",
+      "graphic": "",
+      "seed": 18721216,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "缓慢前推，聚焦桌上地图",
+      "sfx_note": "油灯摇晃 + 一声『叮』 + 诡异单音钢琴"
+    },
+    {
+      "id": "S11",
+      "kind": "agnes",
+      "start": 61.0,
+      "duration": 6.0,
+      "narration_id": "N04",
+      "prompt": "Inside the ship's galley of an 1870s sailing ship by day, the whole shot staying in this one room from the first frame to the last: a black iron stove has gone cold, a stack of tin plates and pans sits neatly on a shelf, and on the scrubbed table one full bowl of stew stands untouched with a spoon beside it while pale sea light shimmers through the small window onto the table. Slow camera orbit around the table and the stove through the small galley, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头11：厨房，冷灶、整齐锅碗、没动过的食物",
+      "transition_out": "接镜头12：小女孩的小床",
+      "graphic": "",
+      "seed": 18721217,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "缓慢环绕一圈",
+      "sfx_note": "锅碗轻响 + 一声『叮』 + 心跳低频"
+    },
+    {
+      "id": "S12",
+      "kind": "agnes",
+      "start": 67.0,
+      "duration": 6.0,
+      "narration_id": "N04",
+      "prompt": "Inside a small sleeping berth of an 1870s sailing ship, pale daylight slanting through a round porthole, dust motes drifting in the beam: a child's narrow bunk is neatly made, a little red woollen coat hangs folded over the bed rail, a worn old cloth bunny rabbit lies on the pillow, and one tiny leather shoe sits alone on the wooden floor; the blade of light moves slowly with the ship's roll. Close-up shot slowly tilting down from the red coat to the cloth bunny on the pillow, shallow depth of field, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头12：小床、红外套、布偶兔子、一只小鞋、舷窗斜光",
+      "transition_out": "接镜头13：被拆散的抽水泵",
+      "graphic": "",
+      "seed": 18721218,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "特写缓慢下移至布偶，浅景深",
+      "sfx_note": "极静 + 一声『叮』 + 钢琴单音"
+    },
+    {
+      "id": "S13",
+      "kind": "agnes",
+      "start": 73.0,
+      "duration": 7.0,
+      "narration_id": "N04",
+      "prompt": "On the deck of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging on a grey-blue open sea, seen from above: a brass bilge pump has been taken apart into its pieces and laid out across the planks, an open wooden toolbox spills hand tools with plain unmarked handles, and one wooden barrel has rolled against the bulwark rail; nothing else moves but the slow roll of the deck. Overhead shot descending slowly to deck level and pushing toward the dismantled pump parts, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头13：甲板上拆成零件的抽水泵、打开的工具箱、滚到舷边的木桶",
+      "transition_out": "接镜头14：空掉的救生艇绳架",
+      "graphic": "",
+      "seed": 18721219,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "俯拍转平视，缓慢推近",
+      "sfx_note": "工具轻响 + 一声『叮』 + 低频脉冲"
+    },
+    {
+      "id": "S14",
+      "kind": "agnes",
+      "start": 80.0,
+      "duration": 6.0,
+      "narration_id": "N04",
+      "prompt": "At the stern of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging under a pale windy sky, seen from the deck: the empty wooden davit cranes where a lifeboat once hung stand bare, frayed snapped rope ends sway and tap in the wind above the rail, and beyond the taffrail the grey horizon is completely empty. Low-angle shot looking up at the swaying broken ropes against the sky, the ship's roll swaying the frame, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头14：船尾空绳架、断绳头垂向海面、空无一物的海平线",
+      "transition_out": "接镜头15：航海日志特写",
+      "graphic": "",
+      "seed": 18721220,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "低角度仰拍，风吹绳子",
+      "sfx_note": "风声 + 绳头敲击 + 一声『叮』"
+    },
+    {
+      "id": "S15",
+      "kind": "agnes",
+      "start": 86.0,
+      "duration": 4.0,
+      "narration_id": "N04",
+      "prompt": "Extreme close-up of a ship's logbook lying open on a wooden table under a warm swaying oil lamp: the last pages carry lines of faded brown ink handwriting in an old cursive hand, far too small and blurred to read, and the writing simply stops halfway down a page with the dry pen lying beside it; the page corners lift slightly in a draught. Macro shot drifting slowly down the open page to where the writing stops, slight tilt of the lens downward, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头15：航海日志最后一页（停在十一月二十五日），纸张翻动",
+      "transition_out": "接镜头16：猜想一的海盗幻象",
+      "graphic": "",
+      "seed": 18721221,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "大特写，镜头轻微下压",
+      "sfx_note": "纸张翻动 + 一声『叮』 + 骤停"
+    },
+    {
+      "id": "S16",
+      "kind": "agnes",
+      "start": 90.0,
+      "duration": 7.0,
+      "narration_id": "N05",
+      "prompt": "A nightmare imagining at night on the deck of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging, lit like a fever dream with a deep red danger glow: out of the fog at the left of frame a shadowy pirate sailing ship bears down with a dark flag at its mast, and three gaunt pirate silhouettes with raised curved cutlasses lean over the rail, their torchlight throwing huge shaking shadows across the sails; no contact and no violence resolved, everything smoky and half-seen. Fast shaky push-in toward the looming pirate ship, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头16：猜想幻象——黑旗海盗船逼近，火把影子晃动",
+      "transition_out": "接镜头17：幻象冷却打叉",
+      "graphic": "",
+      "seed": 18721222,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "快速推近，抖动，红色危险滤镜",
+      "sfx_note": "鼓点加快 + 铜管短促 + 火焰噼啪"
+    },
+    {
+      "id": "S17",
+      "kind": "agnes",
+      "start": 97.0,
+      "duration": 6.0,
+      "narration_id": "N05",
+      "prompt": "On the deck of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging at dawn, the whole image cooling to pale grey like a myth dissolving: the shadowy pirate ship fades away into the mist and is gone, while the cargo stays perfectly untouched — closed wooden crates, tied kegs, and a small open chest of gold coins and silver plate sitting in plain view on the planks; pale grey light grows across the deck. Slow pull-back from the untouched chest to the wide quiet deck as the last shadow dissolves, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头17：幻象冷却成灰，货物与金银原封不动，红色大叉盖上",
+      "transition_out": "接镜头18a：船员争吵剪影",
+      "graphic": "",
+      "seed": 18721223,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "慢速拉远，红色×从中心放大",
+      "sfx_note": "『嘭』一声后骤静 + 低频余音"
+    },
+    {
+      "id": "S18A",
+      "kind": "agnes",
+      "start": 103.0,
+      "duration": 3.5,
+      "narration_id": "N05",
+      "prompt": "Inside a dark ship's stateroom at night lit only by one guttering candle on the table: the black silhouettes of a captain and several crewmen lean at each other around the table in tense argument, their huge shadows jumping and sliding across the wood-panelled bulkhead behind them, faces never visible, hands jabbing the air. Static medium shot watching the arguing silhouettes and their jumping wall shadows, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头18前半：船员围着船长争吵的剪影，影子投在舱壁",
+      "transition_out": "接镜头18b：握手缓和再打叉",
+      "graphic": "",
+      "seed": 18721224,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "中景，烛光影子晃动",
+      "sfx_note": "低沉鼓点 + 影子晃动氛围"
+    },
+    {
+      "id": "S18B",
+      "kind": "agnes",
+      "start": 106.5,
+      "duration": 3.5,
+      "narration_id": "N05",
+      "prompt": "Inside a dark wooden ship's stateroom at night, lit by warm steady candlelight: two men in sea clothes calmly shake hands across the table while the crewmen behind them stand relaxed with shoulders dropping, all faces kept soft-focused and turned into the warm shadow; the candle flame steadies. Stable medium shot holding on the calm handshake as the group settles, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头18后半：气氛缓和，船长与船员冷静握手，再度打上叉",
+      "transition_out": "接镜头19：猜想二的海怪幻象",
+      "graphic": "",
+      "seed": 18721225,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "中景稳定镜头",
+      "sfx_note": "骤静 + 一声低沉打击"
+    },
+    {
+      "id": "S19",
+      "kind": "agnes",
+      "start": 110.0,
+      "duration": 8.0,
+      "narration_id": "N06",
+      "prompt": "A legendary imagining on the open Atlantic in heavy swell, treated like a yellowed antique sea-monster illustration come alive: colossal deep-sea squid tentacles erupt from the water at both sides of frame and curl around the hull and masts of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging, the planks groaning, spray exploding upward in slow sheets, the whole ship canted in the waves; dramatic and monstrous but nothing bloody. Big sweeping camera diving and swaying with the waves around the stricken ship, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头19：巨型乌贼触手缠船（传说插画感）",
+      "transition_out": "接镜头20：水龙卷",
+      "graphic": "",
+      "seed": 18721226,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "大幅度俯冲，配合海浪晃动，泛黄传说质感",
+      "sfx_note": "宏大管弦乐 + 海怪低吼 + 木板吱呀"
+    },
+    {
+      "id": "S20",
+      "kind": "agnes",
+      "start": 118.0,
+      "duration": 9.0,
+      "narration_id": "N06",
+      "prompt": "On a wide stormy sea under black rotating storm clouds: a huge black water spout tornado rises from the ocean surface and leans across the horizon, lightning flickering inside the clouds, and far below at the foot of the storm a small sailing ship rides enormous waves, pitching hard; rain streaks the whole frame; the scene slowly loses colour like an antique scroll painting fading. Wide high aerial shot slowly pulling back and up from the storm and the tiny ship, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头20：黑色水龙卷、风暴云、雷电、巨浪中的船",
+      "transition_out": "接镜头21：风平浪静的幽灵船",
+      "graphic": "",
+      "seed": 18721227,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "航拍广角缓慢拉远，末尾像古画卷褪色",
+      "sfx_note": "雷声 + 风暴呼啸 + 骤然安静"
+    },
+    {
+      "id": "S21",
+      "kind": "agnes",
+      "start": 127.0,
+      "duration": 8.0,
+      "narration_id": "N06",
+      "prompt": "On the open Atlantic at dawn after the storm, calm and quiet: the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging lies almost motionless on a glassy windless sea, her hull nearly intact and her torn sails hanging slack, and one wide ray of morning sun breaks through the clouds and falls on the pale sails; the water is quiet, the sky pale blue-grey, nothing moves but the slow swell. Slow quiet push-in toward the still ship across the mirrored water, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头21：回到平静幽灵船，晨光穿过云层照在船帆上",
+      "transition_out": "接镜头22：货舱剖面蒸汽",
+      "graphic": "",
+      "seed": 18721228,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "缓慢推近，安静而压抑",
+      "sfx_note": "风平浪静 + 骤然安静 + 压抑低频"
+    },
+    {
+      "id": "S22",
+      "kind": "agnes",
+      "start": 135.0,
+      "duration": 6.0,
+      "narration_id": "N07",
+      "prompt": "A clean scientific cutaway side view of the cargo hold of an 1870s sailing ship in motion, as if the hull were sliced open like a museum model: inside the rows of wooden barrels, clear alcohol seeps from loosened barrel seams and dribbles onto the planking, pale blue-white vapour spreads and pools among the barrels, glowing particles drifting in the volumetric haze while the ship's roll sloshes the liquid. Slow lateral move along the cross-section through the vapour-filled hold, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头22：货舱剖面——酒精渗出、淡蓝蒸汽弥漫（科学可视化）",
+      "transition_out": "接镜头23：舱盖被气浪掀开",
+      "graphic": "",
+      "seed": 18721229,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "横向剖面缓慢移动，体积雾",
+      "sfx_note": "悬疑钢琴 + 低频脉冲渐强 + 液体滴落"
+    },
+    {
+      "id": "S23",
+      "kind": "agnes",
+      "start": 141.0,
+      "duration": 6.0,
+      "narration_id": "N07",
+      "prompt": "On the deck of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging in grey daylight at the moment of a silent pressure blast: the heavy cargo hatch cover bursts open and flies upward on a blast of white vapour and shockwave air — no flame and no fireball at all — dust and grit blast outward, three distant crew figures stagger back from the hatch with arms raised, and the brass bilge pump topples over across the planks. Dramatic slow-motion orbiting shot around the erupting hatch as the white shockwave expands, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头23：舱盖被白色气浪掀开（无火焰），人被震退",
+      "transition_out": "接镜头24：放救生艇",
+      "graphic": "",
+      "seed": 18721230,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "瞬间慢动作，环绕镜头，冲击波扩散",
+      "sfx_note": "一声沉闷『咚』+ 耳鸣 + 气浪"
+    },
+    {
+      "id": "S24",
+      "kind": "agnes",
+      "start": 147.0,
+      "duration": 7.0,
+      "narration_id": "N07",
+      "prompt": "On the deck of the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging in rising wind and grey light: a white American sea captain in his early forties — not elderly, no grey hair — with a broad forehead, steady grey-blue eyes under strong brows, a straight nose and a dense dark-brown full beard and moustache covering his jaw, wearing a deep navy double-breasted woollen captain's greatcoat with brass buttons and a black peaked captain's hat, his expression calm, dignified and quietly alert stands near the rail shouting urgent commands and pointing seaward with a firm arm while crewmen in wool sweaters heave on the falls to lower a small wooden boat; a gentle white American woman of about thirty with an oval face, soft brown eyes carrying a worried warmth, a small straight nose and chestnut-brown hair pinned up neatly under a dark grey woollen shawl, wearing a light beige high-necked Victorian long dress with narrow cuffs, her expression tender yet uneasy hurries past clutching a two-year-old white little girl with round rosy cheeks, big curious hazel eyes, a small button nose and golden ringlet curls framing her face, wearing a little red woollen coat over a cream dress, clutching a worn old cloth bunny rabbit toy with floppy ears tight against her shoulder, the little girl's face buried against her mother's shawl, and a long rope is knotted from the ship's rail to the bow of the boat as it swings down toward the water. Handheld deck tracking shot following the captain's commands and the mother and child to the rail, ending low at the boat in the water, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头24：船长指挥、家人登救生艇、长绳系住小艇",
+      "transition_out": "接镜头25：绳子断开",
+      "graphic": "",
+      "seed": 18721231,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "甲板手持跟拍转海面低机位",
+      "sfx_note": "喊话 + 海浪 + 缆绳绷紧",
+      "cast": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "id": "S25",
+      "kind": "agnes",
+      "start": 154.0,
+      "duration": 5.5,
+      "narration_id": "N07",
+      "prompt": "Open sea in a black squall: a small wooden boat and a larger sailing ship strain apart at opposite edges of frame, a long rope stretched taut between them skimming the wave tops — then the rope snaps at the middle, the broken end whips back spraying water droplets in slow motion, and the wind shoulders the big ship away across the waves. Slow-motion close view on the snapping rope, then pulling back wide to the separating ships, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头25：巨浪中绳子绷到极限『啪』地断开，两船分离",
+      "transition_out": "接镜头26：小艇在巨浪间远去",
+      "graphic": "",
+      "seed": 18721232,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "慢动作特写绳断，随后拉远",
+      "sfx_note": "绳断脆响 + 风暴 + 音乐骤停"
+    },
+    {
+      "id": "S26",
+      "kind": "agnes",
+      "start": 159.5,
+      "duration": 4.5,
+      "narration_id": "N07",
+      "prompt": "High above a dark stormy sea at dusk, looking down: a tiny open wooden boat with a handful of blurred bundled figures rides between enormous grey waves, a woman's shawl-wrapped silhouette hunching over a small bundle; a final huge wave rises and slides across the frame, swallowing the view of the boat entirely as darkness falls. Slow aerial crane rising higher as the small boat shrinks and the last wave rolls over the frame, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头26：小艇越来越小，母亲用披肩裹紧女儿，浪吞没画面",
+      "transition_out": "接镜头27：黎明金红海平线",
+      "graphic": "",
+      "seed": 18721233,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "航拍缓慢拉升，海面一片黑暗",
+      "sfx_note": "海浪渐弱 + 大提琴单音 + 风声"
+    },
+    {
+      "id": "S27",
+      "kind": "agnes",
+      "start": 164.0,
+      "duration": 6.5,
+      "narration_id": "N08",
+      "prompt": "On the open Atlantic at sunrise, wide and calm: the Mary Celeste ghost ship, an 1870s two-masted brigantine about thirty metres long with a weathered white hull streaked by salt and sea corrosion, a dark red sheer line along the gunwale, a dark brown wooden deck, a brass ship's bell and two tall masts; several sails torn and fluttering, ropes slack and trailing, the ship looking aged and eerie, one oil lamp swinging sails alone along a gold-and-red glowing horizon, some sails refilled with wind, her deck completely empty, one small oil lamp still burning faintly at the stern rail; three seagulls cross the warm sky and the sea lies like hammered copper. Very wide shot slowly pulling back and away from the sailing ship, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头27：黎明，幽灵船独自航行在金红色海平线上，油灯微亮",
+      "transition_out": "接镜头28：水面的布偶兔子",
+      "graphic": "",
+      "seed": 18721234,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "远景缓慢拉远，海鸥飞过",
+      "sfx_note": "海鸥 + 海浪渐弱 + 大提琴收尾"
+    },
+    {
+      "id": "S28",
+      "kind": "agnes",
+      "start": 170.5,
+      "duration": 6.5,
+      "narration_id": "N08",
+      "prompt": "At the surface of the open sea at sunrise, camera almost in the water: a worn old cloth bunny rabbit toy floats on the gentle swell, slowly turning in a small ring of ripples, wet and heavy; the rising sun breaks over the horizon and lights the toy's face in gold just as it begins to slip under the surface. Water-level close-up of the floating toy, the camera sinking slowly with it, no cut, no scene change, no camera relocation, no extra people, no modern objects, no readable text in frame; hold on this single view for the full clip.",
+      "purpose": "镜头28：布偶兔子漂在水面缓缓旋转，下沉前被朝阳照亮",
+      "transition_out": "接片尾卡",
+      "graphic": "",
+      "seed": 18721235,
+      "seconds": 6,
+      "aspect": "16:9",
+      "resolution": "1080p",
+      "frame_rate": 24,
+      "camera": "水面平视特写，缓慢下沉",
+      "sfx_note": "水声 + 最后一秒静音 + 大提琴余音"
+    }
+  ],
+  "presentation": {
+    "card_header": "海上未解之谜  /  大西洋 · 一八七二",
+    "card_footer": "公开资料整理 · 并非原始档案影像",
+    "cards": {},
+    "title_card": [
+      "十个人，凭空消失",
+      "1872 · 大西洋 · 玛丽·赛勒斯特号"
+    ],
+    "end_card": [
+      "玛丽·赛勒斯特号",
+      "海上最大的未解之谜",
+      "你觉得是什么？评论区告诉我",
+      "资料：维基百科 / 大英百科 / 史密森尼 · 原创解说 · AI动画情景重现"
+    ],
+    "chapter_banners": {
+      "N02": "1872年11月7日 · 纽约 → 热那亚",
+      "N03": "12月4日 · 亚速尔群岛附近",
+      "N04": "食物够吃半年 · 财物都在 · 人不见了",
+      "N05": "猜想一：海盗？× 叛变？×",
+      "N06": "猜想二：海怪？龙卷风？地震？",
+      "N07": "最合理的猜想：酒精蒸汽爆燃"
+    },
+    "big_marks": [
+      {
+        "shot": "S17",
+        "text": "×",
+        "at": 1.4,
+        "dur": 2.6,
+        "style": "xred"
+      },
+      {
+        "shot": "S18B",
+        "text": "×",
+        "at": 1.6,
+        "dur": 2.4,
+        "style": "xred"
+      }
+    ],
+    "caption_keywords": [
+      "一八七二年",
+      "十个人",
+      "全都消失",
+      "十一月七日",
+      "纽约",
+      "热那亚",
+      "布里格斯",
+      "两岁",
+      "七名船员",
+      "一千七百多桶",
+      "工业酒精",
+      "一个月后",
+      "十二月四日",
+      "亚速尔群岛",
+      "上帝的恩典号",
+      "一个人都没有",
+      "完好",
+      "半年",
+      "救生艇",
+      "航海仪器",
+      "十天前",
+      "打斗痕迹",
+      "求救信号",
+      "海盗",
+      "叛变",
+      "威望",
+      "巨型乌贼",
+      "龙卷风",
+      "地震",
+      "酒精蒸汽",
+      "爆燃",
+      "长绳",
+      "绳子断了",
+      "再也没人见到",
+      "没有人能证明"
+    ],
+    "label_overrides": {
+      "S01": "AI动画情景重现 · 非新闻影像",
+      "S02": "AI动画情景重现 · 非新闻影像",
+      "S03": "AI动画情景重现 · 非实景影像",
+      "S04": "AI动画情景重现 · 虚构角色 · 非本人容貌",
+      "S05A": "AI动画情景重现 · 非档案影像",
+      "S05B": "AI动画情景重现 · 非实景影像",
+      "S06": "AI动画情景重现 · 望远镜视角示意",
+      "S07A": "AI动画情景重现 · 虚构角色 · 非本人容貌",
+      "S07B": "AI动画情景重现 · 非现场影像",
+      "S08": "AI动画情景重现 · 非现场影像",
+      "S09": "AI动画情景重现 · 非新闻影像",
+      "S10": "AI动画情景重现 · 非案发房间影像",
+      "S11": "AI动画情景重现 · 非案发房间影像",
+      "S12": "AI动画情景重现 · 非遗物影像",
+      "S13": "AI动画情景重现 · 非证物影像",
+      "S14": "AI动画情景重现 · 非现场影像",
+      "S15": "AI动画情景重现 · 日志最后一页 1872年11月25日",
+      "S16": "AI动画猜想示意 · 非史实影像",
+      "S17": "AI动画猜想示意 · 非史实影像",
+      "S18A": "AI动画猜想示意 · 非史实影像",
+      "S18B": "AI动画猜想示意 · 非史实影像",
+      "S19": "AI动画猜想示意 · 非史实影像",
+      "S20": "AI动画猜想示意 · 非史实影像",
+      "S21": "AI动画情景重现 · 非新闻影像",
+      "S22": "AI动画科学示意 · 非史实影像",
+      "S23": "AI动画科学示意 · 非史实影像",
+      "S24": "AI动画情景重现 · 虚构角色 · 非本人容貌",
+      "S25": "AI动画情景重现 · 非现场影像",
+      "S26": "AI动画情景重现 · 非现场影像",
+      "S27": "AI动画情景重现 · 非新闻影像",
+      "S28": "AI动画情景重现 · 非新闻影像"
+    },
+    "sfx_events": [
+      [
+        "S01",
+        "bell"
+      ],
+      [
+        "S02",
+        "creak"
+      ],
+      [
+        "S03",
+        "gull"
+      ],
+      [
+        "S05B",
+        "creak"
+      ],
+      [
+        "S06",
+        "wind"
+      ],
+      [
+        "S08",
+        "wave"
+      ],
+      [
+        "S09",
+        "bell"
+      ],
+      [
+        "S10",
+        "ding"
+      ],
+      [
+        "S11",
+        "ding"
+      ],
+      [
+        "S12",
+        "ding"
+      ],
+      [
+        "S13",
+        "ding"
+      ],
+      [
+        "S14",
+        "ding"
+      ],
+      [
+        "S15",
+        "ding"
+      ],
+      [
+        "S16",
+        "wind"
+      ],
+      [
+        "S17",
+        "boom"
+      ],
+      [
+        "S23",
+        "boom"
+      ],
+      [
+        "S25",
+        "snap"
+      ],
+      [
+        "S27",
+        "gull"
+      ],
+      [
+        "S28",
+        "wave"
+      ]
+    ]
+  },
+  "_scaffold": {
+    "note": "内容由 build_story.py 一次性写入；29 镜用户脚本 = 31 个 CogVideoX 动态镜头（镜头5/7/18 内部硬切拆分）+ 片尾标题卡 3 秒；每镜只用一次；露脸模式：面容 token 只在 cast.json 写一份，build_story.py 用占位符注入；视频模型走智谱 CogVideoX-Flash 免费档（generate_cogvideox.py）；解说词与 screenplay.md、audio/manifest.json 三处逐字一致由 generate.py --validate 守着。"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "gate": "check-prompts",
+  "project": "production/maryceleste1872",
+  "errors": [],
+  "warnings": [
+    "角色 C1 的 role='captain' 不在建议清单 ('suspect', 'victim', 'witness', 'police', 'reporter', 'narrator', 'other') 里（只是提示）",
+    "角色 C1 声明了定妆照 cast/C1.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C2 的 role='wife' 不在建议清单 ('suspect', 'victim', 'witness', 'police', 'reporter', 'narrator', 'other') 里（只是提示）",
+    "角色 C2 声明了定妆照 cast/C2.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C3 的 role='daughter' 不在建议清单 ('suspect', 'victim', 'witness', 'police', 'reporter', 'narrator', 'other') 里（只是提示）",
+    "角色 C3 声明了定妆照 cast/C3.png，但文件不存在（图生视频会取不到参考）",
+    "角色 C4 的 role='captain' 不在建议清单 ('suspect', 'victim', 'witness', 'police', 'reporter', 'narrator', 'other') 里（只是提示）",
+    "角色 C4 声明了定妆照 cast/C4.png，但文件不存在（图生视频会取不到参考）"
+  ],
+  "characters": [
+    {
+      "id": "C1",
+      "name": "布里格斯船长（情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "captain",
+      "face_token_chars": 392,
+      "portrait": "cast/C1.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C1.png",
+      "seed": 18721107
+    },
+    {
+      "id": "C2",
+      "name": "莎拉（船长妻子 · 情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "wife",
+      "face_token_chars": 310,
+      "portrait": "cast/C2.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C2.png",
+      "seed": 18721108
+    },
+    {
+      "id": "C3",
+      "name": "苏菲亚（两岁女儿 · 情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "daughter",
+      "face_token_chars": 258,
+      "portrait": "cast/C3.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C3.png",
+      "seed": 18721109
+    },
+    {
+      "id": "C4",
+      "name": "摩尔豪斯船长（上帝的恩典号 · 情景重现 · 虚构匿名角色，非本人容貌）",
+      "role": "captain",
+      "face_token_chars": 307,
+      "portrait": "cast/C4.png",
+      "portrait_url": "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/63ceeca2-desktop-tutorial/production/maryceleste1872/cast/C4.png",
+      "seed": 18721204
+    }
+  ],
+  "face_shots": [
+    {
+      "shot": "S04",
+      "characters": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "prompt_chars": 2049
+    },
+    {
+      "shot": "S07A",
+      "characters": [
+        "C4"
+      ],
+      "prompt_chars": 1252
+    },
+    {
+      "shot": "S24",
+      "characters": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "prompt_chars": 2049
+    }
+  ],
+  "mode": "face",
+  "status": "PASS"
+}
