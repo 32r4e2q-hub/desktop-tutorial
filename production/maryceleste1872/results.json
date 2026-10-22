@@ -77,27 +77,10 @@
     },
     "S04": {
       "id": "S04",
-      "status": "completed",
-      "request_hash": "4bc28181054a7e461eb310b3174b1b3663fa19bf49147b4ed12f1419d18dc67a",
+      "status": "submitting",
+      "request_hash": "c26a26da34898c1fb259a51e0cd9ee1452449ebf284446c7ea32904a898fb034",
       "error": null,
-      "updated_at": "2026-10-22T07:22:00Z",
-      "task_id": "202610221520526eed26c2f4d543ba",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261022152150429493dacee74c9f_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=LpZl285h6t%2B3je3JGNvRIl6zz1A%3D&Expires=1792740112",
-      "sha256": "b65777410a8519183d4e62c57b4e3c193c63e5314349f7c7294f5bc7b8265c6c",
-      "bytes": 2026453,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 2026453,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/maryceleste1872/qa/S04.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-22T23:38:54Z"
     },
     "S05A": {
       "id": "S05A",
@@ -783,6 +766,33 @@
     "S27",
     "S28"
   ],
-  "updated_at": "2026-10-22T23:38:52Z",
-  "previous_results": {}
+  "updated_at": "2026-10-22T23:38:54Z",
+  "previous_results": {
+    "S04": [
+      {
+        "id": "S04",
+        "status": "completed",
+        "request_hash": "4bc28181054a7e461eb310b3174b1b3663fa19bf49147b4ed12f1419d18dc67a",
+        "error": null,
+        "updated_at": "2026-10-22T07:22:00Z",
+        "task_id": "202610221520526eed26c2f4d543ba",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261022152150429493dacee74c9f_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=LpZl285h6t%2B3je3JGNvRIl6zz1A%3D&Expires=1792740112",
+        "sha256": "b65777410a8519183d4e62c57b4e3c193c63e5314349f7c7294f5bc7b8265c6c",
+        "bytes": 2026453,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 2026453,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/maryceleste1872/qa/S04.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ]
+  }
 }
