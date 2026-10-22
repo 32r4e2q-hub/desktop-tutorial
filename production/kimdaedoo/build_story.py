@@ -99,7 +99,7 @@ ROWS = [
         cast=["C2"],
     ),
     dict(
-        narration="天亮前的乡下，稻田、土路、一辆旧客车，人家散得很开。",
+        narration="天亮前的乡下，稻田和土路，几户人家散得很开，四面没有邻居。",
         prompt=(
             "Wide aerial view of rural South Korea in 1975 at dawn: isolated tile-roof farmhouses among "
             "brown rice fields, narrow dirt roads, distant blue hills, one 1970s Korean bus moving along a road, "
@@ -181,7 +181,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="他闯进去的，都是这样的人家：老人、孩子、一桌热饭。",
+        narration="他闯进去的，都是这样的人家：老人、孩子，还有一桌热饭。",
         prompt=(
             "Warm late afternoon in a modest 1975 Korean family home: an elderly woman in a grey hanbok-style "
             "jacket, seen from behind, ladles soup at a low table; children's schoolbooks and a pencil case on "
@@ -192,7 +192,7 @@ ROWS = [
     ),
     # 第三幕：55 天的犯罪浪潮
     dict(
-        narration="55天，9起案件，17人死亡，3人重伤。",
+        narration="短短55天，9起案件，17人死亡，还有3人重伤。",
         prompt=(
             "Extreme close-up of a thick 1975 Korean desk calendar seen from the side on a wooden police desk, "
             "loose pages lifting in a draft, dates out of focus, a stack of closed case folders beside it, an ink "
@@ -256,7 +256,7 @@ ROWS = [
         cast=["C2"],
     ),
     dict(
-        narration="老板娘越看越不对，把裤子包好，拿起电话报了警。",
+        narration="老板娘越看越不对，把裤子叠好包起来，拿起电话报了警。",
         prompt=(
             "Same 1975 Seoul laundry shop, closer: {{C2}} presses a black rotary telephone to her ear, the "
             "stained jeans folded in plain paper on the counter, her free hand flat on the paper, eyes toward "
@@ -351,7 +351,7 @@ ROWS = [
     ),
     # 第六幕：真正应该留下的记忆
     dict(
-        narration="可对这个家来说，判决不是结束，空着的椅子一直都在。",
+        narration="可对这个家来说，判决不是结束，那把空着的椅子一直都在。",
         prompt=(
             "Quiet 1975 Korean family dining room in winter: an empty wooden chair at a low table, untouched bowls "
             "and chopsticks, a faded family photograph face-down on a shelf, a child's sock on the floor, soft gray "
@@ -383,7 +383,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="这样的清晨本该一直继续，报案早一点，就够了。",
+        narration="这样的清晨本该一直继续下去，报案早一点，就够了。",
         prompt=(
             "Morning in a 1975 Seoul neighborhood: an elderly woman waters a small vegetable garden, two children "
             "in school uniforms walk away down the lane, seen from behind, a shopkeeper opens wooden shutters, "
@@ -393,7 +393,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="请记住那17个人。他们被害之前，也都有过明天。",
+        narration="请记住那17个人。他们被害之前，也都有自己的明天。",
         prompt=(
             "Dawn after rain in 1975 Seoul: an empty alley of low tile-roof houses and shut wooden shopfronts, "
             "plain plaster and brick walls with no signs or banners, an old woman in a grey work dress pulls down "

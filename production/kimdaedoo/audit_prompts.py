@@ -184,8 +184,8 @@ def main(argv: list[str] | None = None) -> int:
         # 16 字 ≈ 3.8 秒、27 字 ≈ 6.4 秒，所以投放区间定在 16–30 字。
         chars = len(re.sub(r"[，。、；：“”《》（）\s]", "", narration))
         total_chars += chars
-        if not 16 <= chars <= 30:
-            errors.append(f"{sid}: 旁白 {chars} 字，超出 16–30 字（要铺满 6 秒镜头的安全区间）")
+        if not 20 <= chars <= 32:
+            errors.append(f"{sid}: 旁白 {chars} 字，超出 20–32 字（要铺满 6 秒镜头的安全区间）")
 
         # ---- payload 红线 ----
         payload = payload_for(shot)
@@ -208,8 +208,8 @@ def main(argv: list[str] | None = None) -> int:
     # 2026-10-22 CI 实测：Yunjian 在 +0% 约 3.49 字/秒，每镜 6 秒窗口放不下 20 字以上的句子
     # （原稿 666 字、平均 22 字/镜，S01 念了 8.59 秒）。旁白按每镜 ≤22 字重写后共 556 字，
     # 约 185 字/分钟——这是慢节奏悬疑旁白的正常密度，不是漏写。
-    if not 620 <= total_chars <= 760:
-        errors.append(f"180 秒版旁白共 {total_chars} 字，应在 620–760 字（每镜 21–25 字，铺满 180 秒）")
+    if not 650 <= total_chars <= 800:
+        errors.append(f"180 秒版旁白共 {total_chars} 字，应在 650–800 字（每镜 22–27 字，铺满 180 秒）")
     joined = "".join(s.get("narration", "") for s in shots)
     for must in ("55天", "17", "9起", "3人重伤", "1975", "1976", "27岁", "牛仔裤"):
         if must not in joined:

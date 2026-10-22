@@ -69,12 +69,13 @@ def test_narration_fits_into_six_seconds_per_shot():
     for shot in STORY["shots"]:
         chars = clean_len(shot["narration"])
         # 用户硬要求「有片段就有解说」：每镜 6 秒都要被旁白铺满。
-        # +0% 约 0.24 秒/字 → 16 字≈3.8 秒（靠放慢补），30 字≈7.2 秒（必须提速），
-        # 所以投放区间 16–30 字；低于 16 字就会出现明显静默。
-        assert 16 <= chars <= 30, f"{shot['id']} 旁白 {chars} 字"
+        # 2026-10-22 CI 实测（双向对位日志）：20 字的句子即使放到 -18% 也只有 4.78 秒，
+        # 会触发「有画面没解说」的硬闸；而 30 字以上要提速到 +18% 才塞得下。
+        # 所以投放区间收窄到 20–32 字，让 5.30–5.85 秒的对位在自然语速附近就能达成。
+        assert 20 <= chars <= 32, f"{shot['id']} 旁白 {chars} 字"
         total += chars
-    # 658 字 ≈ 5.3 秒/镜，180 秒里几乎不留空
-    assert 620 <= total <= 760, total
+    # 677 字 ≈ 5.4 秒/镜，180 秒里几乎不留空
+    assert 650 <= total <= 800, total
 
 
 def test_key_facts_survive_condensing():
@@ -152,7 +153,7 @@ def test_prompt_audit_gate_passes():
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads((PROJECT / "delivery" / "prompt-audit.json").read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
-    assert report["narration_chars"] == 658
+    assert report["narration_chars"] == 677
 
 
 def test_face_cast_static_gate_passes():
