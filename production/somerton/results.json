@@ -11,14 +11,49 @@
     "aspect": "16:9"
   },
   "required_generated_shots": [
-    "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10",
-    "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20",
-    "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29"
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
   ],
   "shots": {},
   "review": {
     "status": "pending",
     "visual_review_required": true,
-    "note": "Agnes has not been called yet; references and decoded footage are not a human visual sign-off."
-  }
+    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+  },
+  "workflow_policy": "agnes-v2.0-180s-29shots-rate-aware",
+  "rate_policy": {
+    "minimum_creation_interval_seconds": 75,
+    "workers_max": 2,
+    "retry_after_respected": true,
+    "key_rotation": false
+  },
+  "updated_at": "2026-10-22T13:08:21Z",
+  "run_id": "39784083444"
 }
