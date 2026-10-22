@@ -13,19 +13,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: somerton-agnes-arena-f29814ef-desktop-tutorial
+  group: somerton-agnes-arena-dc7c8423-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   produce:
-    if: github.ref == 'refs/heads/arena/f29814ef-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out the fixed Arena production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/f29814ef-desktop-tutorial
+          ref: arena/dc7c8423-desktop-tutorial
           fetch-depth: 1
 
       - name: Install FFmpeg, Chinese fonts and offline render dependencies

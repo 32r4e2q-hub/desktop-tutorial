@@ -311,7 +311,7 @@ def build() -> dict:
         "height": 1080,
         "fps": 30,
         "model": "agnes-video-v2.0",
-        "branch": "arena/f29814ef-desktop-tutorial",
+        "branch": "arena/dc7c8423-desktop-tutorial",
         "style_prefix": STYLE_PREFIX,
         "negative_prompt": NEGATIVE_PROMPT,
         "characters": CHARACTERS,

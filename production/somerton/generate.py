@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import agnes_video as agnes  # noqa: E402
 from throttle import BudgetExhausted, RequestGate  # noqa: E402
 
-BRANCH = "arena/f29814ef-desktop-tutorial"
+BRANCH = "arena/dc7c8423-desktop-tutorial"
 HERE = Path(__file__).resolve().parent
 PLAN = HERE / "story.json"
 RESULTS = HERE / "results.json"
