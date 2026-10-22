@@ -155,6 +155,17 @@ S07/S15/S18/S19/S22/S27/S30）。原因是改稿时恰好还有一轮旧提示�
 
 ## 失败记录
 
+- 2026-10-22 05:50Z：30 镜全部出齐后自动出片，跑到第 4/7 步失败——`make_bgm` 这个函数
+  **从来没有定义过**（`finalize.py` 里只写了调用）。结果是下载完 30 条素材、跑完 30 条配音，
+  64 秒后 NameError 死掉，Release 没发出去。已补上真正的 `make_bgm()`（接
+  `电影解说工具包/generate_horror_bgm.py`），并做三件防止复发的事：
+  ① `production/requirements.txt` 加 `pyflakes`，测试里新增
+  `test_pipeline_has_no_undefined_names`——只要 `production/kimdaedoo/*.py` 有 undefined name 就红；
+  ② 出片工作流把 ffmpeg/TTS 全过程 `tee` 成 `final.log`，并在 `always()` 里把尾 160 行
+  提交回分支（`delivery/final-log.md`）——沙箱读不到 Actions 日志，失败原因必须自己搬回来；
+  ③ 顺手修掉 `generate.py` 里 `push_provenance()` 收尾处的另一个 `args` 未定义（只在四次 push
+  全失败后才会踩到，踩到就会把「接力」误判成真 bug）。
+
 - 2026-10-21 21:02Z – 2026-10-22 01:40Z：流水线自己停了 4.5 小时。原因不是崩溃，而是保护闸：
   免费池连续 110 分钟满额（抽签 109 次），这是第 3 个「零产出」轮，`auto_resume.py` 按
   `STALE_STOP=3` 判定「疑似供应商停摆」→ 不再接力。问题是当时只剩 S15/S18/S19/S22/S27/S30 六镜，

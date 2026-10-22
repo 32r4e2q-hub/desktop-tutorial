@@ -462,8 +462,7 @@ def push_provenance():
                     pass
             print('PROVENANCE_PUSH_RETRY attempt=%d'%(attempt+1),flush=True)
     print('PROVENANCE_PUSH_GIVEUP: 检查点留在本地，继续生成，收尾步骤会再推',flush=True)
-
-    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
+    return None
 
 
 def cached_result_matches(old,wanted_hash):

@@ -46,10 +46,40 @@ jobs:
           fc-list | grep -i "noto sans cjk sc" | head -1
 
       - name: Assemble the 180-second film
-        run: python3 production/kimdaedoo/finalize.py
+        id: assemble
+        run: |
+          set -o pipefail
+          python3 production/kimdaedoo/finalize.py 2>&1 | tee final.log
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+
+      # 沙箱读不到 Actions 日志（GitHub 的日志存储对我们是 EOF），失败原因必须自己搬回分支，
+      # 否则只能靠猜。2026-10-22 就是这样白跑了一轮（make_bgm 未定义）。
+      - name: Ship the assembly log to the branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          [ -f final.log ] || { echo "no final.log"; exit 0; }
+          mkdir -p production/kimdaedoo/delivery
+          {
+            echo "# 出片日志（${{ job.status }}，$(date -u +%FT%TZ)）"
+            echo
+            echo '```'
+            tail -n 160 final.log
+            echo '```'
+          } > production/kimdaedoo/delivery/final-log.md
+          git config user.name "arena-final"
+          git config user.email "arena@local"
+          git add production/kimdaedoo/delivery/final-log.md
+          git commit -q -m "kimdaedoo: 出片日志 ${{ job.status }} $(date -u +%FT%TZ)" || exit 0
+          for attempt in 1 2 3; do
+            git push origin HEAD:arena/b726ea5e-desktop-tutorial && break || {
+              sleep 5; git pull --rebase origin arena/b726ea5e-desktop-tutorial || true; }
+          done
+          exit 0
 
       - name: Publish GitHub Release
         env:

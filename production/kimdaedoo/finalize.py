@@ -27,13 +27,12 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import importlib.util
 import json
-import math
 import os
 import re
 import shutil
 import subprocess
-import sys
 import time
 import urllib.request
 from pathlib import Path
@@ -116,8 +115,6 @@ def stale_shots() -> list[str]:
     结果把上一版（有伪文字）的素材装进成片。素材的 request_hash 与当前
     story.json 算出来的不一致时，说明这条片子是旧提示词的产物，必须停下重新生成。
     """
-    import importlib.util
-
     spec = importlib.util.spec_from_file_location("kimdaedoo_generate", HERE / "generate.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -307,6 +304,25 @@ def build_subtitles(timeline: list[dict]) -> tuple[Path, Path]:
     ass_path = OUT / "overlay.ass"
     ass_path.write_text(ASS_HEADER + "\n".join(ass_events) + "\n", encoding="utf-8")
     return srt_path, ass_path
+
+
+def make_bgm(duration: float) -> Path:
+    """生成原创悬疑 BGM（程序合成，无版权问题）。
+
+    2026-10-22 实测：这里原本是 `make_bgm(TOTAL_S)` 却从来没有定义过这个函数——
+    出片在下载 30 镜、跑完 30 条配音之后，才在第 4/7 步抛 NameError 死掉，
+    一次白跑 64 秒。现在真正接上 `电影解说工具包/generate_horror_bgm.py`。
+    """
+    module_path = ROOT / "电影解说工具包" / "generate_horror_bgm.py"
+    if not module_path.is_file():
+        die(f"找不到 BGM 生成器：{module_path}")
+    spec = importlib.util.spec_from_file_location("kimdaedoo_bgm", module_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    output = OUT / "bgm.wav"
+    module.generate_horror_bgm(output, duration)
+    log(f"  BGM {output.name} {output.stat().st_size / 1e6:.1f} MB / {duration:.0f}s")
+    return output
 
 
 def render(timeline: list[dict], ass: Path, bgm: Path) -> Path:

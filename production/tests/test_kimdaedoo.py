@@ -280,3 +280,18 @@ def test_auto_resume_survives_an_overnight_outage():
         req.write_text(json.dumps({"round": 1, "round_started_completed": 24, "stale_rounds": 5}))
         verdict, _ = ar.decide(req, res, rc=42)
         assert verdict == "resume"
+
+
+def test_pipeline_has_no_undefined_names():
+    """跑到一半才炸的 NameError 是最贵的失败。
+
+    2026-10-22：出片下载完 30 镜、跑完 30 条配音，第 4/7 步才因 `make_bgm` 从未定义而
+    NameError 死掉。pyflakes 的 undefined name 能在按 play 之前就把这类错抓出来。
+    """
+    pytest.importorskip("pyflakes")
+    files = sorted(str(path) for path in PROJECT.glob("*.py"))
+    out = subprocess.run([sys.executable, "-m", "pyflakes", *files],
+                         capture_output=True, text=True)
+    undefined = [line for line in (out.stdout + out.stderr).splitlines()
+                 if "undefined name" in line]
+    assert not undefined, "未定义的名字：\n" + "\n".join(undefined)
