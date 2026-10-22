@@ -68,10 +68,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "downloaded",
+      "status": "completed",
       "request_hash": "8024357330703cbf3f61a8e29de32224dfeab61d883d07f84d33bd2e72b2ca13",
       "error": null,
-      "updated_at": "2026-10-22T23:20:16Z",
+      "updated_at": "2026-10-22T23:20:18Z",
       "capacity_error": "video queue is full",
       "capacity_retry": 8,
       "applied_cooldown_seconds": 90,
@@ -83,7 +83,19 @@
       "bytes": 1419218,
       "sha256": "4c8f05d343becc8636ed2db4051ec7a2e074feb7ec89e1d98f50e0a6c538e570",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1419218,
+        "decoded_ok": true,
+        "contact_sheet": "production/somerton/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "review": {
@@ -91,6 +103,6 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-22T23:20:16Z",
+  "updated_at": "2026-10-22T23:20:18Z",
   "run_id": "39868841984"
 }
