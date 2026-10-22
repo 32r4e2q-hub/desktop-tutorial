@@ -5,11 +5,27 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "e19ca92250cbd159c022cb3424b1043526939c814d63b9f2d146df0321aaca0b",
       "error": null,
-      "updated_at": "2026-10-22T06:20:56Z",
-      "task_id": "20261022142056bc4b8f00949041e2"
+      "updated_at": "2026-10-22T06:22:00Z",
+      "task_id": "20261022142056bc4b8f00949041e2",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261022142150b2122f38a7374d5f_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=tet0pPC%2FQ1VeM6loE2tJvheBx7Q%3D&Expires=1792736513",
+      "sha256": "33cd3919a544fb491e1b55f27e4e6b8436d5c046d68e2acd3283b1ec1d9b2001",
+      "bytes": 2017916,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 2017916,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/maryceleste1872/qa/S01.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -47,6 +63,6 @@
     "S27",
     "S28"
   ],
-  "updated_at": "2026-10-22T06:20:56Z",
+  "updated_at": "2026-10-22T06:22:00Z",
   "previous_results": {}
 }
