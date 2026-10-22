@@ -68,10 +68,12 @@ def test_narration_fits_into_six_seconds_per_shot():
     total = 0
     for shot in STORY["shots"]:
         chars = clean_len(shot["narration"])
-        assert 14 <= chars <= 34, f"{shot['id']} 旁白 {chars} 字"
+        # 2026-10-22 CI 实测：Yunjian +0% ≈ 3.49 字/秒，每镜 6 秒、上限 5.85 秒，
+        # 基准 +12% 时单镜最多约 22 字；超过就必然撑破镜头窗（S01 曾 30 字念了 8.59 秒）。
+        assert 12 <= chars <= 22, f"{shot['id']} 旁白 {chars} 字"
         total += chars
-    # 180 秒 × 3.3–4.0 字/秒
-    assert 600 <= total <= 720, total
+    # 30 镜 × 6 秒 = 180 秒；556 字 ≈ 185 字/分钟，留出呼吸感（慢节奏悬疑旁白）
+    assert 500 <= total <= 620, total
 
 
 def test_key_facts_survive_condensing():
@@ -149,7 +151,7 @@ def test_prompt_audit_gate_passes():
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads((PROJECT / "delivery" / "prompt-audit.json").read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
-    assert report["narration_chars"] == 666
+    assert report["narration_chars"] == 556
 
 
 def test_face_cast_static_gate_passes():

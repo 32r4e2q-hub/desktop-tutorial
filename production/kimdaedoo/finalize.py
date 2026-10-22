@@ -53,8 +53,12 @@ for folder in (OUT, CLIPS, TTS):
 
 VOICE = "zh-CN-YunjianNeural"      # 中文男声·小说演播，低沉、克制，适合悬疑
 PITCH = "-4Hz"                      # 再压低一点，不靠怪腔怪调制造气氛
-BASE_RATE = "+0%"
-MAX_LINE_S = 5.72                   # 每镜 6 秒，留 0.28 秒呼吸
+# 语速基准：2026-10-22 CI 实测 Yunjian 在 +0% 时约 3.49 字/秒（30 字念了 8.59 秒），
+# 而每镜只有 6 秒——按原稿 666 字、每行 20–30 字的密度，多快的 atempo 都塞不进去
+# （S01 提到 +25% 仍 6.89 秒）。所以两头一起改：旁白压到每行 ≤21 字（30 镜共 556 字），
+# 基准语速抬到 +12%（约 3.9 字/秒，仍是深沉的叙述口吻，不是赶场）。
+BASE_RATE = "+12%"
+MAX_LINE_S = 5.85                   # 每镜 6 秒，留 0.15 秒起播留白
 LEAD_S = 0.15                       # 旁白相对镜头起点
 W, H, FPS = 1920, 1080, 30
 TOTAL_S = 180.0
@@ -194,7 +198,7 @@ def synth_shot(shot: dict, rate: str) -> Path:
 def fit_speech(shot: dict) -> tuple[Path, float, str]:
     """先按基准语速合成；超过 5.72 秒才逐档提速。绝不剪字。"""
     sid = shot["id"]
-    rates = [BASE_RATE, "+5%", "+10%", "+15%", "+20%", "+25%"]
+    rates = [BASE_RATE, "+18%", "+24%", "+30%", "+36%", "+42%"]
     last = None
     for rate in rates:
         wav = synth_shot(shot, rate)
@@ -206,7 +210,7 @@ def fit_speech(shot: dict) -> tuple[Path, float, str]:
     wav, duration, rate = last
     # 极端情况才用 atempo；只压 1.0–1.18 倍，避免音色变形。
     target = MAX_LINE_S
-    tempo = min(1.18, max(1.0, duration / target))
+    tempo = min(1.30, max(1.0, duration / target))
     fixed = TTS / f"{sid}.fit.wav"
     sh(["ffmpeg", "-y", "-v", "error", "-i", str(wav), "-filter:a", f"atempo={tempo:.4f}",
         "-ar", "48000", "-ac", "2", str(fixed)])

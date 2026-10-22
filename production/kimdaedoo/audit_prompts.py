@@ -202,8 +202,11 @@ def main(argv: list[str] | None = None) -> int:
                 errors.append(f"{sid}: payload 里不应出现 {banned}")
 
     # ---- 全片级检查 ----
-    if not 600 <= total_chars <= 720:
-        errors.append(f"180 秒版旁白共 {total_chars} 字，应在 600–720 字（约 3.3–4.0 字/秒）")
+    # 2026-10-22 CI 实测：Yunjian 在 +0% 约 3.49 字/秒，每镜 6 秒窗口放不下 20 字以上的句子
+    # （原稿 666 字、平均 22 字/镜，S01 念了 8.59 秒）。旁白按每镜 ≤22 字重写后共 556 字，
+    # 约 185 字/分钟——这是慢节奏悬疑旁白的正常密度，不是漏写。
+    if not 500 <= total_chars <= 620:
+        errors.append(f"180 秒版旁白共 {total_chars} 字，应在 500–620 字（每镜 ≤22 字）")
     joined = "".join(s.get("narration", "") for s in shots)
     for must in ("55天", "17", "9起", "3人重伤", "1975", "1976", "27岁", "牛仔裤"):
         if must not in joined:
