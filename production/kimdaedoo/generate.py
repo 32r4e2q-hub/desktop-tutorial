@@ -399,6 +399,36 @@ def prune_stale(doc):
     return stale
 
 
+def invalidate_revised_shots(doc,project):
+    """把「提示词已经改过」的成片记录退回未完成，开跑前先算清楚还差几镜。
+
+    2026-10-21 实测的坑：改完 7 镜提示词后，重置只发生在**轮到那一镜**的时候；
+    两个 worker 卡在排队最前面的 S15/S18 抽签 110 分钟，后面的 S19/S22/S27/S30
+    根本没轮到，results.json 里仍挂着旧的 completed —— 于是「30 镜全齐」的判断是虚高，
+    出片工作流会被拉起来才发现素材是旧稿（`finalize.py` 的素材新鲜度闸门兜住了，
+    但那是一次白跑）。这里用当前 story.json 重算 request_hash，把对不上的成品挪进
+    previous_results（留痕、CDN 地址不丢），状态置 pending_revision。
+
+    返回被退回的镜头 ID 列表（已按 id 排序），便于日志里一眼看出这轮要重做哪些。
+    """
+    shots=doc.setdefault('shots',{})
+    revised=[]
+    for shot in project['shots']:
+        if shot.get('kind')!='agnes':
+            continue
+        sid=shot['id'];row=shots.get(sid) or {}
+        if row.get('status')!='completed':
+            continue
+        wanted=request_hash(project,shot)
+        if row.get('request_hash')==wanted:
+            continue
+        doc.setdefault('previous_results',{}).setdefault(sid,[]).append(row)
+        shots[sid]={'id':sid,'status':'pending_revision','request_hash':wanted,
+                    'updated_at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())}
+        revised.append(sid)
+    return sorted(revised,key=lambda sid:int(sid[1:]))
+
+
 def git(*args):
     return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=90)
 
@@ -536,6 +566,9 @@ def main():
                         'wait_channel_minutes':wait_channel_minutes,
                         'total_budget_minutes':total_budget_minutes}
     doc['required_generated_shots']=[s['id'] for s in project['shots'] if s['kind']=='agnes']
+    revised=invalidate_revised_shots(doc,project)
+    if revised:
+        print('INVALIDATED_REVISED '+json.dumps(revised,ensure_ascii=False),flush=True)
     sources=ROOT/'work/kimdaedoo/sources';sources.mkdir(parents=True,exist_ok=True)
     export=ROOT/'work/kimdaedoo/clips';export.mkdir(parents=True,exist_ok=True)
     qa=ROOT/'production/kimdaedoo/qa';qa.mkdir(parents=True,exist_ok=True)
@@ -709,7 +742,8 @@ def main():
                 return finish_asset(shot,old,dest,wanted_hash,reused=True)
             if old.get('request_hash')!=wanted_hash:
                 with LOCK:
-                    if old:doc.setdefault('previous_results',{}).setdefault(sid,[]).append(old)
+                    if old and old.get('status')!='pending_revision':
+                        doc.setdefault('previous_results',{}).setdefault(sid,[]).append(old)
                     doc['shots'][sid]={'id':sid}
                 old={}
             if not key:

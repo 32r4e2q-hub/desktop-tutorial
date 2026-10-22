@@ -20,7 +20,11 @@ import pathlib
 import sys
 
 CAP_ROUNDS = 40      # 绝对硬上限
-STALE_STOP = 3       # 连续这么多轮零进展就停（每轮约 110 分钟排队预算）
+# 连续这么多轮零进展就停（每轮约 110 分钟排队预算）。
+# 2026-10-21 21:02Z 实测：3 轮 ≈5.5 小时零产出就自动停了，可当时只差 S15/S18/S19/S22/S27/S30
+# 六镜，免费池在凌晨又开闸——流水线白白空转了 4 个多小时没人接手。改成 6 轮（≈11 小时），
+# 宁可多抽几轮（公共仓库 runner 不额外计费），也不要让整条线在半夜里静默停摆。
+STALE_STOP = 6
 
 
 def decide(req_path, res_path, rc=None, cap_rounds=CAP_ROUNDS, stale_stop=STALE_STOP):

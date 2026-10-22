@@ -155,6 +155,16 @@ S07/S15/S18/S19/S22/S27/S30）。原因是改稿时恰好还有一轮旧提示�
 
 ## 失败记录
 
+- 2026-10-21 21:02Z – 2026-10-22 01:40Z：流水线自己停了 4.5 小时。原因不是崩溃，而是保护闸：
+  免费池连续 110 分钟满额（抽签 109 次），这是第 3 个「零产出」轮，`auto_resume.py` 按
+  `STALE_STOP=3` 判定「疑似供应商停摆」→ 不再接力。问题是当时只剩 S15/S18/S19/S22/S27/S30 六镜，
+  停摆的代价远大于多抽几轮（公共仓库 runner 不额外计费）。已做三处修正：
+  ① `STALE_STOP` 3 → 6（≈11 小时才停）；
+  ② `generate.py` 新增 `invalidate_revised_shots()`：开跑前就按当前 `story.json` 重算 `request_hash`，
+     把改过提示词的旧成品退回 `pending_revision`——上一轮因为两个 worker 卡在 S15/S18 抽签，
+     后面的 S19/S22/S27/S30 根本没轮到重置，完成数是虚高的 28/30；
+  ③ 手工重启一轮（`GEN_REQUEST` round 归 1、连零归 0、`round_started_completed=24`）。
+
 - 2026-10-21 14:15Z：push `finalize.py` 触发了一次出片（该文件在工作流的触发路径里），
   运行 `39615257962` 在“Assemble the 180-second film”一步立刻失败、没有生成 Release——
   这正是新闸门要的行为：当时 results.json 里 S07/S15/S18/S19/S22/S27/S30 还是旧提示词的素材，

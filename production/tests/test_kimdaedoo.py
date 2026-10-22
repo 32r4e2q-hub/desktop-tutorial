@@ -234,3 +234,49 @@ def test_finalize_refuses_stale_prompt_clips():
     assert "素材来自旧提示词" in text
     # 必须在下载之前拦下，否则会先花时间拉 30 条旧片
     assert text.index("stale_shots()") < text.index("下载 30 镜并校验")
+
+
+def test_revised_shots_are_invalidated_before_generation():
+    """改过提示词的镜头必须在开跑前就退回未完成（否则完成数虚高，出片会白跑一趟）。"""
+    gen = load_module("kd_generate_inv", PROJECT / "generate.py")
+    project = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+    shot = project["shots"][0]
+    good = gen.request_hash(project, shot)
+    doc = {"shots": {
+        shot["id"]: {"id": shot["id"], "status": "completed", "request_hash": good,
+                     "video_url": "https://example/x.mp4", "sha256": "0" * 64, "bytes": 1},
+        "S02": {"id": "S02", "status": "completed", "request_hash": "deadbeef",
+                "video_url": "https://example/old.mp4", "sha256": "1" * 64, "bytes": 2},
+    }}
+    revised = gen.invalidate_revised_shots(doc, project)
+    assert revised == ["S02"]
+    assert doc["shots"]["S02"]["status"] == "pending_revision"
+    assert doc["shots"]["S02"]["request_hash"] == gen.request_hash(project, project["shots"][1])
+    assert doc["previous_results"]["S02"][0]["video_url"] == "https://example/old.mp4"
+    assert doc["shots"][shot["id"]]["status"] == "completed"  # 没改过的镜头不能动
+
+
+def test_auto_resume_survives_an_overnight_outage():
+    """3 轮零产出就停会在半夜静默断档（2026-10-21 实测停了 4 小时），至少要能扛 6 轮。"""
+    ar = load_module("kd_auto_resume", PROJECT / "auto_resume.py")
+    assert ar.STALE_STOP >= 6
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        req = Path(tmp) / "GEN_REQUEST"
+        res = Path(tmp) / "results.json"
+        res.write_text(json.dumps({"phase": "provider_capacity",
+                                   "shots": {f"S{i:02d}": {"status": "completed"} for i in range(1, 25)}}))
+        # 已经连零 3 轮：旧阈值（3）会在这里停，新阈值必须继续接力
+        req.write_text(json.dumps({"round": 1, "round_started_completed": 24, "stale_rounds": 3}))
+        verdict, _ = ar.decide(req, res, rc=42)
+        assert verdict == "resume"
+        # 已经连零 5 轮：这一轮再零就是第 6 次，停下等人看
+        req.write_text(json.dumps({"round": 1, "round_started_completed": 24, "stale_rounds": 5}))
+        verdict, _ = ar.decide(req, res, rc=42)
+        assert verdict == "stop"
+        # 有产出就把连零清零，不管之前几轮
+        res.write_text(json.dumps({"phase": "provider_capacity",
+                                   "shots": {f"S{i:02d}": {"status": "completed"} for i in range(1, 26)}}))
+        req.write_text(json.dumps({"round": 1, "round_started_completed": 24, "stale_rounds": 5}))
+        verdict, _ = ar.decide(req, res, rc=42)
+        assert verdict == "resume"
