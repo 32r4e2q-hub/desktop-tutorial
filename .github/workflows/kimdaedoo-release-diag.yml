@@ -1,0 +1,50 @@
+# 一次性诊断：为什么出片工作流的 `gh release create` 会在 0 秒内失败。
+# 沙箱读不到 Actions 日志，所以把 gh 的输出写进分支文件再看。
+name: 金大斗案 · Release 诊断
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diag:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/b726ea5e-desktop-tutorial
+          fetch-depth: 0
+      - name: Diagnose gh release permissions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          {
+            echo "# Release 诊断 $(date -u +%FT%TZ)"
+            echo
+            echo '## gh --version'
+            gh --version 2>&1 || true
+            echo
+            echo '## gh auth status'
+            gh auth status 2>&1 || true
+            echo
+            echo '## token 权限（/repos API）'
+            gh api "repos/$GITHUB_REPOSITORY" --jq '{full_name, private, permissions}' 2>&1 || true
+            echo
+            echo '## gh release create（临时 tag）'
+            gh release create "diag-${GITHUB_RUN_ID}" --target "$GITHUB_REF_NAME" \
+              --title "diag ${GITHUB_RUN_ID}" --notes "diag" 2>&1 || echo "EXIT=$?"
+            echo
+            echo '## 清理'
+            gh release delete "diag-${GITHUB_RUN_ID}" --yes --cleanup-tag 2>&1 || echo "CLEANUP_EXIT=$?"
+          } > /tmp/diag.md
+          mkdir -p production/kimdaedoo/delivery
+          cp /tmp/diag.md production/kimdaedoo/delivery/release-diag.md
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add production/kimdaedoo/delivery/release-diag.md
+          git commit -q -m "kimdaedoo: release 诊断 $(date -u +%FT%TZ)" || exit 0
+          git push origin HEAD:arena/b726ea5e-desktop-tutorial || true
+          cat /tmp/diag.md
