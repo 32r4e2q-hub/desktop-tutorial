@@ -1,4 +1,4 @@
-# 出片日志（failure，2026-10-22T10:12:33Z）
+# 出片日志（failure，2026-10-22T10:16:55Z）
 
 ```
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S14.wav
@@ -23,8 +23,8 @@
 [finalize]   S16 -6% 仍 5.13s，继续对位
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S16.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S16.wav
-[finalize]   S16 对位 5.49s @ -12%
-[finalize]   S16 5.49s @ -12%
+[finalize]   S16 对位 5.48s @ -12%
+[finalize]   S16 5.48s @ -12%
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S17.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S17.wav
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S17.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
@@ -114,7 +114,7 @@
 [finalize]   S26 -6% 仍 4.52s，继续对位
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S26.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S26.wav
-[finalize]   S26 -12% 仍 4.83s，继续对位
+[finalize]   S26 -12% 仍 4.82s，继续对位
 [finalize] $ ffmpeg -y -v error -i /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S26.raw.mp3 -af silenceremove=start_periods=1:start_silence=0.02:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_silence=0
 [finalize] $ ffprobe -v error -show_entries format=duration -of json /home/runner/work/desktop-tutorial/desktop-tutorial/work/kimdaedoo-final/tts/S26.wav
 [finalize]   S26 -18% 仍 5.16s，继续对位
