@@ -74,7 +74,9 @@ jobs:
         run: |
           set -o pipefail
           python3 -u production/maryceleste1872/generate_cogvideox.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
-          exit ${PIPESTATUS[0]}
+          rc=${PIPESTATUS[0]}
+          echo "$rc" > /tmp/gen.rc
+          exit "$rc"
 
       - name: Ship failure log to branch (sandbox cannot read Actions logs)
         if: failure()
@@ -98,3 +100,39 @@ jobs:
             production/maryceleste1872/gen-diag-cogvideox.log
           if-no-files-found: warn
           retention-days: 14
+
+      # 容量满（429/1305）自动接力：generate_cogvideox 熔断退出 42，这里按收据记账后
+      # 改写 COGVIDEOX_GEN_REQUEST（round+1）并推送——push 碰到 marker 就会再触发一轮，
+      # 直到出齐、真故障（rc=1/43）或连续 STALE_STOP 轮零进展。2026-10-22 接线：
+      # 之前 S01 十九连拒 26 分钟后 rc=1 崩掉，没有任何接力，整批原地踏步。
+      - name: 容量满自动接力续投（auto_resume）
+        if: ${{ !cancelled() }}
+        run: |
+          set -uo pipefail
+          rc="$(cat /tmp/gen.rc 2>/dev/null || echo 1)"
+          echo "generation exit code: $rc"
+          rm -f "$RUNNER_TEMP/auto_resume"
+          python3 production/maryceleste1872/auto_resume.py --rc "$rc" --stale-stop 10
+          if [ ! -f "$RUNNER_TEMP/auto_resume" ]; then
+            echo "no relay needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin arena/63ceeca2-desktop-tutorial || true
+          git add production/maryceleste1872/COGVIDEOX_GEN_REQUEST
+          if git diff --cached --quiet -- production/maryceleste1872/COGVIDEOX_GEN_REQUEST; then
+            echo "marker unchanged; nothing to relay"
+            exit 0
+          fi
+          git commit -m "maryceleste1872: 容量满接力续投 round记账 $(date -u +%FT%TZ)" -- production/maryceleste1872/COGVIDEOX_GEN_REQUEST
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:arena/63ceeca2-desktop-tutorial; then
+              exit 0
+            fi
+            echo "relay push retry $attempt"
+            sleep $((attempt * 10))
+            git pull --rebase origin arena/63ceeca2-desktop-tutorial || true
+          done
+          echo "relay push failed after retries"
+          exit 1

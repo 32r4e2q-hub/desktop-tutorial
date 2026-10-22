@@ -411,7 +411,12 @@ def main():
             doc.setdefault('previous_results', {}).setdefault(sid, []).append(old)
             doc['shots'][sid] = {'id': sid}
         if time.monotonic() > deadline:
-            raise RuntimeError('Generation deadline reached; rerun resumes from receipts')
+            # 本轮预算烧完：按收据续跑是设计内动作，走 42 让 auto_resume 接力，不当真故障。
+            doc['phase'] = 'provider_capacity'
+            checkpoint(doc, 'generation deadline reached; exiting 42 for auto_resume relay',
+                       publish=args.publish)
+            print('CAPACITY_OUTAGE round budget exhausted at %s; exiting 42' % sid, flush=True)
+            return 42
         payload = full_payload(project, shot)
         result = None
         last_error = None
@@ -424,7 +429,7 @@ def main():
                 print('%s: reusing ref-image probe submission %s' % (sid, task_id), flush=True)
             checkpoint(doc, sid + ' submitting', sid, publish=args.publish,
                        status='submitting', request_hash=wanted, error=None)
-            for attempt in range(1, 21):
+            for attempt in range(1, 26):
                 if task_id:
                     break
                 try:
@@ -434,9 +439,21 @@ def main():
                         raise RuntimeError('No task id: %r' % (response,))
                     break
                 except Exception as exc:
-                    if not retryable(exc) or attempt == 20:
+                    if not retryable(exc):
                         raise
-                    wait = min(120, 15 + attempt * 5)
+                    if attempt == 25:
+                        # 连投 ~33 分钟全是 429/1305「访问量过大」＝供应商容量熔断：
+                        # 后面 30 镜投进去也是同样下场，别再空烧 runner。记 provider_capacity
+                        # 后 exit 42，由 auto_resume 接力续投，断点收据保证不重复生成。
+                        # （2026-10-22 S01 实测：19 连拒 26 分钟后崩溃 rc=1，被判真故障没人接力。）
+                        doc['phase'] = 'provider_capacity'
+                        checkpoint(doc, sid + ' provider capacity outage (429/1305); exiting 42',
+                                   sid, publish=args.publish, status='failed',
+                                   request_hash=wanted, error=str(exc)[:600])
+                        print('CAPACITY_OUTAGE at %s after %d submit attempts: %s'
+                              % (sid, attempt, str(exc)[:180]), flush=True)
+                        return 42
+                    wait = min(150, 15 + attempt * 5)
                     print('%s: submit throttled attempt %d, wait %ds: %s'
                           % (sid, attempt, wait, str(exc)[:180]), flush=True)
                     time.sleep(wait)

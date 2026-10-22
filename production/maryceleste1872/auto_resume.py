@@ -73,8 +73,17 @@ def main(argv):
             rc = int(raw)
         except ValueError:
             rc = None
-    verdict, msg = decide('production/maryceleste1872/GEN_REQUEST',
-                          'production/maryceleste1872/results.json', rc=rc)
+    stale_stop = STALE_STOP
+    if '--stale-stop' in argv:
+        raw = argv[argv.index('--stale-stop') + 1] if argv.index('--stale-stop') + 1 < len(argv) else ''
+        try:
+            stale_stop = int(raw)
+        except ValueError:
+            pass
+    # 本片的触发 marker 是 COGVIDEOX_GEN_REQUEST（不是 Agnes 管线的 GEN_REQUEST）。
+    verdict, msg = decide('production/maryceleste1872/COGVIDEOX_GEN_REQUEST',
+                          'production/maryceleste1872/results.json', rc=rc,
+                          stale_stop=stale_stop)
     print('AUTO_RESUME %s: %s' % (verdict, msg))
     if verdict == 'resume':
         marker = pathlib.Path(os.environ.get('RUNNER_TEMP', '/tmp')) / 'auto_resume'
