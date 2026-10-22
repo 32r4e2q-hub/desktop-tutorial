@@ -70,6 +70,13 @@ jobs:
             echo '```'
             tail -n 160 final.log
             echo '```'
+            if [ -f release.log ]; then
+              echo
+              echo '## Release 步骤输出'
+              echo '```'
+              tail -n 40 release.log
+              echo '```'
+            fi
           } > production/kimdaedoo/delivery/final-log.md
           git config user.name "arena-final"
           git config user.email "arena@local"
@@ -85,17 +92,32 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set -euo pipefail
-          tag="kimdaedoo-v1-${GITHUB_RUN_NUMBER}"
-          gh release create "$tag" \
-            work/kimdaedoo-final/final.mp4 \
-            work/kimdaedoo-final/captions.srt \
-            work/kimdaedoo-final/technical-report.json \
-            work/kimdaedoo-final/final-contact.jpg \
-            work/kimdaedoo-final/final-per-slot.jpg \
-            production/kimdaedoo/delivery/final/narration-180s.txt \
-            --title "金大斗案 · 55天17条人命｜180秒成片" \
-            --notes-file production/kimdaedoo/delivery/final/release-notes.md
+          set -o pipefail
+          {
+            set -euo pipefail
+            tag="kimdaedoo-v1-${GITHUB_RUN_NUMBER}"
+            # 交付清单逐个确认存在再上传：2026-10-22 这一行曾指向 work/ 下的
+            # technical-report.json，而它其实只写在 delivery/final/ 里，于是
+            # gh release create 因为“文件不存在”在 0 秒内失败，成片没能发布。
+            for f in work/kimdaedoo-final/final.mp4 \
+                     work/kimdaedoo-final/captions.srt \
+                     production/kimdaedoo/delivery/final/technical-report.json \
+                     work/kimdaedoo-final/final-contact.jpg \
+                     work/kimdaedoo-final/final-per-slot.jpg \
+                     production/kimdaedoo/delivery/final/narration-180s.txt \
+                     production/kimdaedoo/delivery/final/release-notes.md; do
+              test -f "$f" || { echo "缺少交付文件：$f"; ls -la work/kimdaedoo-final || true; exit 1; }
+            done
+            gh release create "$tag" \
+              work/kimdaedoo-final/final.mp4 \
+              work/kimdaedoo-final/captions.srt \
+              production/kimdaedoo/delivery/final/technical-report.json \
+              work/kimdaedoo-final/final-contact.jpg \
+              work/kimdaedoo-final/final-per-slot.jpg \
+              production/kimdaedoo/delivery/final/narration-180s.txt \
+              --title "金大斗案 · 55天17条人命｜180秒成片" \
+              --notes-file production/kimdaedoo/delivery/final/release-notes.md
+          } 2>&1 | tee release.log
 
       - name: Upload artifact (video + reports)
         if: always()
