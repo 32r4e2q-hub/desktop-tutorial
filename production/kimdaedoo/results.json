@@ -573,10 +573,10 @@
     },
     "S18": {
       "id": "S18",
-      "status": "generated",
+      "status": "completed",
       "request_hash": "29e8234b81d49183a78ec455eac927f98f49f204a4499918aa45097dae1882a4",
       "error": null,
-      "updated_at": "2026-10-22T01:56:27Z",
+      "updated_at": "2026-10-22T01:56:29Z",
       "channel_error_round": 110,
       "applied_cooldown_seconds": 61.0,
       "video_id": "task_jkCPKTNZlNDDAQKtqxnG2UFVsqp70lAV",
@@ -586,7 +586,25 @@
       "bytes": 2138008,
       "sha256": "42e2f3b8e52fb008deca2d44664c6f45c8406937df08bc8d12a3a25a753c427f",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration": 6.592,
+        "bytes": 2138008,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "video_codec": "h264",
+        "frames": 158,
+        "audio_codec": "aac",
+        "sample_rate": 32000,
+        "audio_channels": 2,
+        "decoded_ok": true,
+        "contact_sheet": "production/kimdaedoo/qa/S18.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S19": {
       "id": "S19",
@@ -944,7 +962,7 @@
     "S29",
     "S30"
   ],
-  "updated_at": "2026-10-22T01:56:28Z",
+  "updated_at": "2026-10-22T01:56:29Z",
   "run_id": "39707026911",
   "previous_results": {
     "S05": [
