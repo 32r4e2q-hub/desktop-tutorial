@@ -102,8 +102,8 @@
       "id": "S02",
       "status": "provider_unavailable",
       "request_hash": "1be23ea562ef13c621180c213686cc84664533cfc89eed79cd47894afeee5f81",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610222355226512329811EQGtHhV)",
-      "updated_at": "2026-10-22T23:55:22Z",
+      "error": "Agnes agnes-video-2.5-flash capacity remained unavailable after 24 consecutive create failures (video queue is full); no more shots will submit requests.",
+      "updated_at": "2026-10-22T23:55:23Z",
       "capacity_error": "video queue is full",
       "capacity_retry": 24,
       "applied_cooldown_seconds": 0
@@ -114,7 +114,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-22T23:55:22Z",
+  "updated_at": "2026-10-22T23:55:23Z",
   "run_id": "39868841984",
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
