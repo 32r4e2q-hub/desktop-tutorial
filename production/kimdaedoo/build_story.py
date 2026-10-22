@@ -88,7 +88,7 @@ CHARACTERS = [
 ROWS = [
     # 第一幕：55 天，17 条生命
     dict(
-        narration="1975年，韩国。55天，17条人命。",
+        narration="1975年，首尔雨夜。洗衣店柜台上，一条牛仔裤膝盖处有块暗红。",
         prompt=(
             "Night, heavy rain sliding down the window of a small 1975 Korean laundry shop. A pair of worn "
             "blue denim jeans lies on the wooden counter, a faint dark reddish smudge near one knee. "
@@ -99,7 +99,7 @@ ROWS = [
         cast=["C2"],
     ),
     dict(
-        narration="破案的线索，竟是一条送洗的牛仔裤。",
+        narration="天亮前的乡下，稻田、土路、一辆旧客车，人家散得很开。",
         prompt=(
             "Wide aerial view of rural South Korea in 1975 at dawn: isolated tile-roof farmhouses among "
             "brown rice fields, narrow dirt roads, distant blue hills, one 1970s Korean bus moving along a road, "
@@ -109,7 +109,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="8月13日，全罗南道一处偏僻农舍，第一起血案。",
+        narration="8月13日清晨，全罗南道。这扇木门半掩着，院子里没有人。",
         prompt=(
             "Dawn exterior of a modest 1975 Korean rural home: weathered wooden gate half open, packed-earth "
             "yard, worn stone step, a faded door curtain moving in the wind, an empty wooden bench. No people, "
@@ -118,7 +118,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="警方起初只当成一起孤立的入室案，没有并案。",
+        narration="赶来的警探蹲在门口做记录，只当它是一起孤立的入室案。",
         prompt=(
             "Overcast morning outside the same rural house. " + DETECTIVE + " crouches by the wooden doorway, "
             "writing in a small notebook; a period camera and blank paper evidence tags rest on the ground. "
@@ -128,7 +128,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="可很快，南部多地接连出事，村里夜不敢眠。",
+        narration="可没过多久，附近村子接连出事，人们开始压低声音说话。",
         prompt=(
             "Dusk in a small 1975 South Korean village: a narrow dirt lane, low tile-roof houses, a family-run "
             "shop with a bare wooden shutter, no signboards, no banners, no posters, no paper notices; a few "
@@ -139,7 +139,7 @@ ROWS = [
     ),
     # 第二幕：跨地区，调查失去方向
     dict(
-        narration="逃亡途中，金大斗在火车上遇到旧识，两人同行。",
+        narration="逃亡路上，他在火车上遇到一个旧识，两人就搭上了话。",
         prompt=(
             "Interior of a crowded 1975 South Korean passenger train, late afternoon. {{C1}} sits by the "
             "vibrating window, a worn cloth bundle on his lap, eyes fixed outside; a second man in a patched "
@@ -150,7 +150,7 @@ ROWS = [
         cast=["C1"],
     ),
     dict(
-        narration="分道扬镳后，他独自北上，手法越来越熟练。",
+        narration="下车后两人分开，一个往村里走，一个沿铁路继续往北。",
         prompt=(
             "High-angle view of a cinder path beside a railway line in 1975 South Korea, just after a train has "
             "passed; two men in worn coats walk away from each other along the path, one toward a distant cluster "
@@ -161,7 +161,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="首尔也出现了受害者，案发地越来越散。",
+        narration="首尔也出了事。警车停在巷口，老人扫着门前一层落叶。",
         prompt=(
             "Late afternoon in a 1975 Seoul residential neighborhood: narrow unpaved alley, low brick-and-wood "
             "houses, laundry hanging under eaves, a child's bicycle against a wall, a distant period police jeep at "
@@ -171,7 +171,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="各地案卷散落在纸质档案里，没人看见同一条线。",
+        narration="各地的案卷堆在档案柜里，两个警探对着卷宗皱着眉。",
         prompt=(
             "Interior of a 1975 South Korean police office at night: tall wooden filing cabinets, stacks of "
             "closed paper case folders on desks, black rotary telephones, green desk lamps. " + DETECTIVE +
@@ -181,7 +181,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="他闯进的，都是普通人家：老人、成人、孩子。",
+        narration="他闯进去的，都是这样的人家：老人、孩子、一桌热饭。",
         prompt=(
             "Warm late afternoon in a modest 1975 Korean family home: an elderly woman in a grey hanbok-style "
             "jacket, seen from behind, ladles soup at a low table; children's schoolbooks and a pencil case on "
@@ -202,7 +202,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="偏僻、缺少防护的住宅，成了他反复下手的目标。",
+        narration="门锁老旧，窗户一捅就破，这样的屋子他进了不止一次。",
         prompt=(
             "Interior of a ransacked 1975 Korean rural home after a burglary: an open wooden storage chest, a "
             "few coins and a folded banknote on the floor, an overturned stool, a torn paper window with no "
@@ -213,7 +213,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="一起案子里，老人和年幼的孙辈一同遇害。",
+        narration="屋里剩下一只小书包，和一件叠好的开衫，再没人来拿。",
         prompt=(
             "Quiet, respectful view of a 1975 Korean rural home after a violent crime: a small child's canvas "
             "schoolbag beside an empty wooden chair, a grandmother's folded cardigan on the seat, pale winter "
@@ -223,7 +223,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="警方终于开始追问：这些案子会不会是同一个人？",
+        narration="警探把案发地点一个个标在地图上，问：会是同一个人吗？",
         prompt=(
             "Overhead shot of a 1975 South Korean police investigation room: a large paper map of southern Korea "
             "and Seoul on a wooden table, several case folders spread open, loose papers held at an angle, a black rotary "
@@ -234,7 +234,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="10月，警探走进首尔一条窄街，停在洗衣店前。",
+        narration="10月，他走进首尔一条窄巷，在一家洗衣店门口停下。",
         prompt=(
             "Autumn 1975, Seoul. " + DETECTIVE + " walks along a narrow alley of low tile-roof houses with plain "
             "plaster walls, closed wooden doors and bare brick gateposts, fallen leaves underfoot, hands in "
@@ -246,7 +246,7 @@ ROWS = [
     ),
     # 第四幕：一条牛仔裤改变调查方向
     dict(
-        narration="10月8日，沾着暗红斑痕的牛仔裤被送进店里。",
+        narration="10月8日，一条沾着暗红印子的牛仔裤，被送进了这家店。",
         prompt=(
             "Interior of a small 1975 Seoul laundry shop near Cheongnyangni Station: steam, hanging shirts, an "
             "old drum washing machine. {{C2}} stands at the wooden counter, holding up a pair of blue jeans to "
@@ -256,7 +256,7 @@ ROWS = [
         cast=["C2"],
     ),
     dict(
-        narration="老板娘越看越不对，没有犹豫，拿起电话报警。",
+        narration="老板娘越看越不对，把裤子包好，拿起电话报了警。",
         prompt=(
             "Same 1975 Seoul laundry shop, closer: {{C2}} presses a black rotary telephone to her ear, the "
             "stained jeans folded in plain paper on the counter, her free hand flat on the paper, eyes toward "
@@ -266,7 +266,7 @@ ROWS = [
         cast=["C2"],
     ),
     dict(
-        narration="便衣在店外布控，从清晨等到下午，等送衣的人。",
+        narration="便衣守在巷子对面，从清晨等到下午，等送衣的人回来。",
         prompt=(
             "Alley outside the laundry, autumn afternoon 1975. " + DETECTIVE + " waits with a second plainclothes "
             "detective under the eave of a closed wooden shopfront, collars turned up, watching the laundry door "
@@ -277,7 +277,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="下午，金大斗回店取裤子，当场被控制，未反抗。",
+        narration="下午他拿着取衣单进门，还没开口就被按住，没有反抗。",
         prompt=(
             "Late afternoon inside the 1975 Seoul laundry shop: {{C1}} steps through the door, a blank paper "
             "claim ticket in his hand, worn dark-brown jacket damp at the shoulders; two plainclothes detectives "
@@ -289,7 +289,7 @@ ROWS = [
         cast=["C1"],
     ),
     dict(
-        narration="他先说是打架留下的血迹，可这说法很快站不住。",
+        narration="他先说那是打架蹭上的血，可这句话很快就站不住脚。",
         prompt=(
             "1975 South Korean police interview room at night: {{C1}} sits at a scarred wooden table, hands "
             "folded, a paper evidence bag with the blue jeans sealed on the table between him and " + DETECTIVE +
@@ -299,7 +299,7 @@ ROWS = [
     ),
     # 第五幕：口供、审判与结局
     dict(
-        narration="审讯深入，他把一桩桩案子交代出来，跨度55天。",
+        narration="审讯越问越深，他一桩一桩交代，前后整整跨了55天。",
         prompt=(
             "Overhead view of a 1975 Korean police desk: several paper case files laid side by side, a hand-drawn "
             "map of South Jeolla, Gyeonggi and Seoul, a pencil moving from one location to the next, a black "
@@ -309,7 +309,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="全罗南道、京畿道、首尔，孤立的案子被串成一条线。",
+        narration="报纸开始登这件事，人们围在报摊前，沉默地看完标题。",
         prompt=(
             "1975 Seoul, a wide sidewalk at midday: low-rise Korean brick buildings and a tiled roof behind, a "
             "wooden newsstand stacked with papers folded face-down so no print is visible, a Korean seller in a "
@@ -320,7 +320,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="他归咎于出狱后的困境，可困境不是杀人的理由。",
+        narration="他说是出狱后活不下去。可活不下去，不是杀人的理由。",
         prompt=(
             "1975 Korean police holding room, late night: {{C1}} sits alone on a wooden bench, elbows on knees, "
             "worn dark-brown jacket open, his face tired and guarded, neutral gray-green walls, a bare bulb, a tin "
@@ -330,7 +330,7 @@ ROWS = [
         cast=["C1"],
     ),
     dict(
-        narration="1976年3月，二审维持死刑，他放弃上诉。",
+        narration="1976年3月，二审维持死刑。他放弃上诉，判决就此确定。",
         prompt=(
             "1976 South Korean courtroom: judges in dark robes seated at an elevated wooden bench, a defendant "
             "in a plain dark suit standing with his back to camera, lawyers and court staff in period clothing, "
@@ -340,7 +340,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="12月28日，金大斗被执行死刑，年仅27岁。",
+        narration="同年12月28日，金大斗被执行死刑，年仅27岁。",
         prompt=(
             "A 1976 South Korean prison corridor at dawn: heavy iron doors on both sides, pale winter light "
             "falling through high barred windows, a guard's footsteps receding, an empty chair and a folded "
@@ -351,7 +351,7 @@ ROWS = [
     ),
     # 第六幕：真正应该留下的记忆
     dict(
-        narration="可判决结束，不等于受害者家庭的痛苦结束。",
+        narration="可对这个家来说，判决不是结束，空着的椅子一直都在。",
         prompt=(
             "Quiet 1975 Korean family dining room in winter: an empty wooden chair at a low table, untouched bowls "
             "and chopsticks, a faded family photograph face-down on a shelf, a child's sock on the floor, soft gray "
@@ -361,7 +361,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="空下的座位、没人再穿的鞋，都是无法逆转的现实。",
+        narration="案卷会归档，物证会装箱，那条裤子还封在证物袋里。",
         prompt=(
             "Cinematic still life on a 1975 Korean police desk: a pair of blue jeans sealed in a plain brown "
             "paper evidence bag with a blank label, a black rotary telephone, a hand-drawn map folded so no "
@@ -373,7 +373,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="真正让案件转向的，是普通人的警觉和一句报警。",
+        narration="真正让案子转向的，不是神探，是一个普通人打的电话。",
         prompt=(
             "View through the window of a moving 1975 Korean train: rural rice fields and low hills slide past, "
             "then fade into the reflection of a dense Seoul street with low buildings and pedestrians. The "
@@ -383,7 +383,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="及时报案与跨区协作，本可以更早阻止下一场。",
+        narration="这样的清晨本该一直继续，报案早一点，就够了。",
         prompt=(
             "Morning in a 1975 Seoul neighborhood: an elderly woman waters a small vegetable garden, two children "
             "in school uniforms walk away down the lane, seen from behind, a shopkeeper opens wooden shutters, "
@@ -393,7 +393,7 @@ ROWS = [
         cast=[],
     ),
     dict(
-        narration="记住那17条生命，而不只是凶手，他们也曾有明天。",
+        narration="请记住那17个人。他们被害之前，也都有过明天。",
         prompt=(
             "Dawn after rain in 1975 Seoul: an empty alley of low tile-roof houses and shut wooden shopfronts, "
             "plain plaster and brick walls with no signs or banners, an old woman in a grey work dress pulls down "

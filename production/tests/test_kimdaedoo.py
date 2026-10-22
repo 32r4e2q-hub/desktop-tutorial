@@ -68,12 +68,13 @@ def test_narration_fits_into_six_seconds_per_shot():
     total = 0
     for shot in STORY["shots"]:
         chars = clean_len(shot["narration"])
-        # 2026-10-22 CI 实测：Yunjian +0% ≈ 3.49 字/秒，每镜 6 秒、上限 5.85 秒，
-        # 基准 +12% 时单镜最多约 22 字；超过就必然撑破镜头窗（S01 曾 30 字念了 8.59 秒）。
-        assert 12 <= chars <= 22, f"{shot['id']} 旁白 {chars} 字"
+        # 用户硬要求「有片段就有解说」：每镜 6 秒都要被旁白铺满。
+        # +0% 约 0.24 秒/字 → 16 字≈3.8 秒（靠放慢补），30 字≈7.2 秒（必须提速），
+        # 所以投放区间 16–30 字；低于 16 字就会出现明显静默。
+        assert 16 <= chars <= 30, f"{shot['id']} 旁白 {chars} 字"
         total += chars
-    # 30 镜 × 6 秒 = 180 秒；556 字 ≈ 185 字/分钟，留出呼吸感（慢节奏悬疑旁白）
-    assert 500 <= total <= 620, total
+    # 658 字 ≈ 5.3 秒/镜，180 秒里几乎不留空
+    assert 620 <= total <= 760, total
 
 
 def test_key_facts_survive_condensing():
@@ -151,7 +152,7 @@ def test_prompt_audit_gate_passes():
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads((PROJECT / "delivery" / "prompt-audit.json").read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
-    assert report["narration_chars"] == 556
+    assert report["narration_chars"] == 658
 
 
 def test_face_cast_static_gate_passes():
@@ -297,3 +298,22 @@ def test_pipeline_has_no_undefined_names():
     undefined = [line for line in (out.stdout + out.stderr).splitlines()
                  if "undefined name" in line]
     assert not undefined, "未定义的名字：\n" + "\n".join(undefined)
+
+
+def test_narration_covers_every_clip():
+    """每镜都要有解说：双向对位（短了放慢、长了提速）+ 覆盖闸门。
+
+    用户 2026-10-22 明确要求「有片段就有解说」「解说跟片段内容完全一致」，
+    所以不能只防“超长”，还要防“太短留白”，并且把覆盖写进 QC。
+    """
+    text = (PROJECT / "finalize.py").read_text(encoding="utf-8")
+    assert "MIN_LINE_S" in text and "MAX_LINE_S" in text
+    assert "SLOW_RATES" in text and "FAST_RATES" in text
+    assert "COVERAGE_SHORT" in text
+    assert "narration_coverage_pct" in text
+    assert "min_shot_tts_s" in text
+    # 硬闸：低于 5 秒直接停，不带病出片
+    assert "旁白不足 5 秒" in text
+    # 按标定语速（0.24 秒/字）估算：平均每镜必须 ≥5 秒，否则一定有画面没解说
+    chars = sum(clean_len(s["narration"]) for s in STORY["shots"])
+    assert chars / 30 * 0.24 >= 5.0, chars

@@ -179,10 +179,13 @@ def main(argv: list[str] | None = None) -> int:
             errors.append(f"{sid}: cast.json 声明了露脸，但 story.cast 是空的")
 
         # ---- 旁白长度 ----
+        # 2026-10-22 用户要求「有片段就有解说」：每镜 6 秒都要被旁白铺满，
+        # 不能只念两三秒就留一大段静默。按 +0% 约 0.24 秒/字估算，
+        # 16 字 ≈ 3.8 秒、27 字 ≈ 6.4 秒，所以投放区间定在 16–30 字。
         chars = len(re.sub(r"[，。、；：“”《》（）\s]", "", narration))
         total_chars += chars
-        if not 14 <= chars <= 34:
-            errors.append(f"{sid}: 旁白 {chars} 字，超出 14–34 字（6 秒镜头的安全区间）")
+        if not 16 <= chars <= 30:
+            errors.append(f"{sid}: 旁白 {chars} 字，超出 16–30 字（要铺满 6 秒镜头的安全区间）")
 
         # ---- payload 红线 ----
         payload = payload_for(shot)
@@ -205,8 +208,8 @@ def main(argv: list[str] | None = None) -> int:
     # 2026-10-22 CI 实测：Yunjian 在 +0% 约 3.49 字/秒，每镜 6 秒窗口放不下 20 字以上的句子
     # （原稿 666 字、平均 22 字/镜，S01 念了 8.59 秒）。旁白按每镜 ≤22 字重写后共 556 字，
     # 约 185 字/分钟——这是慢节奏悬疑旁白的正常密度，不是漏写。
-    if not 500 <= total_chars <= 620:
-        errors.append(f"180 秒版旁白共 {total_chars} 字，应在 500–620 字（每镜 ≤22 字）")
+    if not 620 <= total_chars <= 760:
+        errors.append(f"180 秒版旁白共 {total_chars} 字，应在 620–760 字（每镜 21–25 字，铺满 180 秒）")
     joined = "".join(s.get("narration", "") for s in shots)
     for must in ("55天", "17", "9起", "3人重伤", "1975", "1976", "27岁", "牛仔裤"):
         if must not in joined:

@@ -53,13 +53,15 @@ for folder in (OUT, CLIPS, TTS):
 
 VOICE = "zh-CN-YunjianNeural"      # 中文男声·小说演播，低沉、克制，适合悬疑
 PITCH = "-4Hz"                      # 再压低一点，不靠怪腔怪调制造气氛
-# 语速基准：2026-10-22 CI 实测 Yunjian 在 +0% 时约 3.49 字/秒（30 字念了 8.59 秒），
-# 而每镜只有 6 秒——按原稿 666 字、每行 20–30 字的密度，多快的 atempo 都塞不进去
-# （S01 提到 +25% 仍 6.89 秒）。所以先把旁白压到每行 ≤21 字（30 镜共 556 字），
-# 基准语速就回到 +0%：实测 556 字只需 109 秒（+12% 时），回到 +0% 约 122 秒/180 秒，
-# 留白更多、语速更慢，才符合“悬疑、低沉”的要求；实在超长才逐档提速。
+# 语速标定（2026-10-22 CI 实测，Yunjian +0%）：约 0.24 秒/字，标点会额外拖长。
+# 用户的硬要求是「有片段就有解说」：每镜 6 秒都要被旁白铺满，不能念两三秒留一大段静默；
+# 同时也绝不能顶出镜头窗。所以每镜做**双向对位**——太短就把语速放慢（-6%/-12%），
+# 太长就提速（+6%…+30%），最后才用 atempo 兜底，绝不剪字。
 BASE_RATE = "+0%"
-MAX_LINE_S = 5.85                   # 每镜 6 秒，留 0.15 秒起播留白
+MIN_LINE_S = 5.30                   # 铺满镜头：旁白至少 5.30 秒（起播留白 0.15 秒）
+MAX_LINE_S = 5.85                   # 不能顶出窗口：最多 5.85 秒
+SLOW_RATES = ["-6%", "-12%", "-18%"]
+FAST_RATES = ["+6%", "+12%", "+18%", "+24%", "+30%"]
 LEAD_S = 0.15                       # 旁白相对镜头起点
 W, H, FPS = 1920, 1080, 30
 TOTAL_S = 180.0
@@ -197,18 +199,28 @@ def synth_shot(shot: dict, rate: str) -> Path:
 
 
 def fit_speech(shot: dict) -> tuple[Path, float, str]:
-    """先按基准语速合成；超过 5.72 秒才逐档提速。绝不剪字。"""
+    """把每镜旁白对到 [5.30, 5.85] 秒：短了就放慢，长了就提速，绝不剪字。"""
     sid = shot["id"]
-    rates = [BASE_RATE, "+6%", "+12%", "+18%", "+24%", "+30%"]
-    last = None
-    for rate in rates:
+    wav = synth_shot(shot, BASE_RATE)
+    duration = ffprobe_duration(wav)
+    if MIN_LINE_S <= duration <= MAX_LINE_S:
+        return wav, duration, BASE_RATE
+    best = (wav, duration, BASE_RATE)
+    ladder = FAST_RATES if duration > MAX_LINE_S else SLOW_RATES
+    for rate in ladder:
         wav = synth_shot(shot, rate)
         duration = ffprobe_duration(wav)
-        if duration <= MAX_LINE_S:
+        if abs(duration - (MIN_LINE_S + MAX_LINE_S) / 2) < abs(best[1] - (MIN_LINE_S + MAX_LINE_S) / 2):
+            best = (wav, duration, rate)
+        if MIN_LINE_S <= duration <= MAX_LINE_S:
+            log(f"  {sid} 对位 {duration:.2f}s @ {rate}")
             return wav, duration, rate
-        last = (wav, duration, rate)
-        log(f"  {sid} {rate} 仍 {duration:.2f}s，再提速")
-    wav, duration, rate = last
+        log(f"  {sid} {rate} 仍 {duration:.2f}s，继续对位")
+    wav, duration, rate = best
+    if duration < MIN_LINE_S:
+        # 已经放到最慢还偏短：如实记下（说明这句字数不够，不是剪辑问题）
+        log(f"  {sid} COVERAGE_SHORT {duration:.2f}s @ {rate}（建议加字）")
+        return wav, duration, rate
     # 极端情况才用 atempo；只压 1.0–1.18 倍，避免音色变形。
     target = MAX_LINE_S
     tempo = min(1.30, max(1.0, duration / target))
@@ -413,9 +425,14 @@ def qc(final: Path, timeline: list[dict], tts_total: float) -> dict:
         "true_peak_dbfs": peak,
         "tts_total_s": round(tts_total, 3),
         "narration_chars": sum(len(re.sub(r"[，。、；：“”《》（）\s]", "", s["narration"])) for s in SHOTS),
+        # 覆盖：每镜旁白时长 / 6 秒；用户要求「有片段就有解说」，所以这里要看得到每镜的数
+        "narration_coverage_pct": round(tts_total / TOTAL_S * 100, 1),
+        "per_shot_tts_s": [t["tts_s"] for t in timeline],
+        "min_shot_tts_s": min(t["tts_s"] for t in timeline),
     }
     qc_data["passed"] = (
         qc_data["duration_ok"]
+        and qc_data["min_shot_tts_s"] >= 5.0
         and qc_data["decode_errors"] == 0
         and qc_data["width"] == W
         and qc_data["height"] == H
@@ -511,7 +528,15 @@ def main() -> int:
             "slot_duration": 6,
         })
         log(f"  {shot['id']} {duration:.2f}s @ {used_rate}")
-    log(f"  解说总时长 {tts_total:.1f}s；成片 {TOTAL_S:.0f}s；"
+    # 「有片段就有解说」的硬闸：每镜旁白必须铺到 5 秒以上；
+    # 5.0–5.3 秒记 warning（可能有一瞬留白），低于 5.0 秒直接停，不带病出片。
+    coverage_gaps = [t for t in timeline if t["tts_s"] < MIN_LINE_S - 0.02]
+    hard_gaps = [t["id"] for t in timeline if t["tts_s"] < 5.0]
+    if hard_gaps:
+        die("以下镜头旁白不足 5 秒，等于有画面没解说：" + " ".join(hard_gaps))
+    if coverage_gaps:
+        log("  COVERAGE_WARN " + " ".join(f"{t['id']}={t['tts_s']:.2f}s" for t in coverage_gaps))
+    log(f"  解说总时长 {tts_total:.1f}s / {TOTAL_S:.0f}s（覆盖 {tts_total / TOTAL_S * 100:.0f}%）；"
         f"平均 {report_rate(tts_total):.0f} 字/分钟")
 
     log("3/7 生成字幕 …")
