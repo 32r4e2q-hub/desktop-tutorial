@@ -81,14 +81,11 @@ def download(url: str, destination: Path) -> None:
 
 
 def refresh_video_url(task_id: str):
-    """2026-10-23：智谱 CDN 签名 URL 会过期（401）。用 SDK 对已完成的 task_id 重新查询，
-    平台重签出新临时 URL 就换用；SHA-256 收据校验保证换到的字节就是原片。"""
+    """2026-10-23：智谱 CDN 签名 URL 会过期（401）。直接打 REST 异步结果端点
+    （GET /api/paas/v4/async-result/{id}，与 generate_cogvideox 的 SDK 轮询同源），
+    平台重签出新临时 URL 就换用；SHA-256 收据校验保证换到的字节就是原片。
+    用标准库 urllib，不依赖 zhipuai SDK（CI 环境 import 行为不可靠，实测）。"""
     import os
-    try:
-        from zhipuai import ZhipuAI
-    except ImportError:
-        print(f"  refresh skipped ({task_id}): zhipuai SDK not installed", flush=True)
-        return None
     key = os.environ.get("ZHIPUAI_API_KEY")
     if not key:
         print(f"  refresh skipped ({task_id}): ZHIPUAI_API_KEY not set", flush=True)
@@ -99,16 +96,25 @@ def refresh_video_url(task_id: str):
             return obj.get(name, default)
         return getattr(obj, name, default)
 
+    request = urllib.request.Request(
+        f"https://open.bigmodel.cn/api/paas/v4/async-result/{task_id}",
+        headers={"Authorization": f"Bearer {key}"})
     try:
-        polled = ZhipuAI(api_key=key).videos.retrieve_videos_result(id=task_id)
-        status = str(field(polled, "task_status", "")).upper()
+        with urllib.request.urlopen(request, timeout=30) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        node = payload.get("data") if isinstance(payload, dict) else None
+        node = node if isinstance(node, dict) else payload
+        status = str(field(node, "task_status", "")).upper()
         if status != "SUCCESS":
             print(f"  refresh ({task_id}): task_status={status or 'unknown'}", flush=True)
             return None
-        entries = field(polled, "video_result") or []
+        entries = field(node, "video_result") or []
         first = entries[0] if entries else None
         url = field(first, "url") if first is not None else None
-        return str(url) if url else None
+        if url:
+            return str(url)
+        print(f"  refresh ({task_id}): no url in video_result", flush=True)
+        return None
     except Exception as error:
         print(f"  refresh ({task_id}) failed: {type(error).__name__}: {error}", flush=True)
         return None
