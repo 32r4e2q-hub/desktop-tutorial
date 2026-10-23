@@ -253,11 +253,11 @@
     },
     "S07": {
       "id": "S07",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "request_hash": "dcf35782abb7af6183d00dc3709ba8fabb9e8188d078276dc97e01d55c91f616",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610231051318912807094QNtc1j2)",
-      "updated_at": "2026-10-23T10:51:31Z",
-      "create_attempts": 160,
+      "error": null,
+      "updated_at": "2026-10-23T10:51:33Z",
+      "create_attempts": 161,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -325,17 +325,22 @@
     },
     "S10": {
       "id": "S10",
-      "status": "queued",
+      "status": "downloaded",
       "request_hash": "74bc293766aaa3ed7127a2df34b84f90a86a63f0049e3fa4a90c2d7d49651090",
       "error": null,
-      "updated_at": "2026-10-23T10:36:12Z",
+      "updated_at": "2026-10-23T10:51:34Z",
       "create_attempts": 21,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61,
       "video_id": "task_G5XnrGJ5GuvWdCGYOyVgpwC9xxkvb91B",
       "task_id": "task_G5XnrGJ5GuvWdCGYOyVgpwC9xxkvb91B",
       "requested_seconds": 7.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_G5XnrGJ5GuvWdCGYOyVgpwC9xxkvb91B.mp4",
+      "bytes": 4037906,
+      "sha256": "87eb5329140f74449955456852f51407df5b14acc8da9f70de08c8178c990cce",
+      "reported_size": "720P",
+      "reported_seconds": "7"
     }
   },
   "review": {
@@ -343,7 +348,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T10:51:31Z",
+  "updated_at": "2026-10-23T10:51:34Z",
   "run_id": "39901826698",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
