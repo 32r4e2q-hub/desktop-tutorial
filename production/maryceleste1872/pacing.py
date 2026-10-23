@@ -41,6 +41,8 @@ SIL_RMS = 0.004        # 真静音核心阈值（辅音/送气不会误判）
 BLOCK = 480            # 10ms
 XFADE = 192            # 4ms 接缝淡接（静音区，防爆点）
 BLOCK_MERGE = 0.045    # 语音块合并阈值（TTS 微洞 <45ms 不算断句）
+PAD_HEAD = int(0.03 * RATE)   # 章首纯静音垫：fade_edges(20ms) 必须落在静音里
+PAD_TAIL = int(0.08 * RATE)   # 章尾纯静音垫：fade_edges(60ms) 同理
 
 TEMPO_MIN, TEMPO_MAX = 0.78, 1.15  # 与 render.chapter_layout 一致
 
@@ -264,6 +266,10 @@ def main() -> None:
             cursor = hi
         out.append(samples[cursor:])
         merged = np.concatenate(out) if out else samples
+        # 首尾纯静音垫（30ms/80ms）：build_soundtrack 的 fade_edges(20/60ms)
+        # 必须落在静音里，绝不软化字头字尾（v3.2 排查13）。
+        merged = np.concatenate([np.zeros(PAD_HEAD, dtype=np.float32), merged,
+                                 np.zeros(PAD_TAIL, dtype=np.float32)])
 
         def shift_before(pos):
             return sum(d for o0, o1, d in op_deltas if o1 <= pos)
@@ -371,6 +377,8 @@ def main() -> None:
         prev_end_f = 0.0
         chapter_rows = []
         for row, ns, ne in placed:
+            ns += PAD_HEAD          # 与波形首垫对齐
+            ne += PAD_HEAD
             gap_before = (ns / RATE) - prev_end_f if prev_end_f > 0 else 0.0
             chars = len(re.sub(r'[^A-Za-z0-9\u3400-\u9fff]', '', row['text']))
             chapter_rows.append({
