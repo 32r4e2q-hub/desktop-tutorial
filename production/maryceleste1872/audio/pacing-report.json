@@ -1,285 +1,149 @@
 {
-  "lead": 0.35,
-  "tail_min": 0.55,
-  "rate": 48000,
-  "clips": [
+  "note": "v3.2 gap-remap pacing (no word cuts, click-free splices); layer pauses from story punctuation; rows pinned to real speech; fill via chapter_layout atempo",
+  "gap_targets": {
+    "period": 0.55,
+    "exclaim": 0.6,
+    "question": 0.75,
+    "comma": 0.22,
+    "semi": 0.28,
+    "hook_extra": 0.15
+  },
+  "intra_hole_max": 0.08,
+  "sil_rms": 0.004,
+  "tempo_window": [
+    0.78,
+    1.15
+  ],
+  "chapters": [
     {
-      "id": "N01",
-      "window": [
-        0.0,
-        10.0
-      ],
-      "speech_seconds": 6.215,
-      "gap_tier_seconds": [
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        0.28
-      ],
-      "gap_marks": [
-        "，",
-        "。",
-        "，",
-        "，",
-        "，"
-      ],
+      "chapter": "N01",
       "clauses": 6,
-      "file_seconds": 9.1,
-      "sha256": "ca86a0a8b3a3d6e38ca5572cca6f9312dd62ac64b61cd3ea668843f0b4a803c4"
+      "input_len": 7.335,
+      "output_len": 7.505,
+      "gaps_remapmed": 3,
+      "intra_holes_tightened": 0,
+      "gap_extra": 0.0,
+      "implied_tempo": 0.8247
     },
     {
-      "id": "N02",
-      "window": [
-        10.0,
-        30.0
-      ],
-      "speech_seconds": 12.755,
-      "gap_tier_seconds": [
-        0.28,
-        1.236,
-        0.28,
-        1.236,
-        0.28,
-        1.236,
-        0.28,
-        1.236,
-        0.28
-      ],
-      "gap_marks": [
-        "，",
-        "。",
-        "，",
-        "。",
-        "，",
-        "。",
-        "，",
-        "。",
-        "，"
-      ],
+      "chapter": "N02",
       "clauses": 10,
-      "file_seconds": 19.1,
-      "sha256": "e2bbe525266beb96404a746773cf7d059070f056863c9cebf7397309af4fa300"
+      "input_len": 16.28,
+      "output_len": 16.49,
+      "gaps_remapmed": 8,
+      "intra_holes_tightened": 1,
+      "gap_extra": 0.0,
+      "implied_tempo": 0.8634
     },
     {
-      "id": "N03",
-      "window": [
-        30.0,
-        55.0
-      ],
-      "speech_seconds": 16.435,
-      "gap_tier_seconds": [
-        0.28,
-        0.28,
-        1.356,
-        0.28,
-        0.28,
-        0.28,
-        1.356,
-        0.28,
-        1.356,
-        0.28,
-        1.356,
-        0.28
-      ],
-      "gap_marks": [
-        "，",
-        "，",
-        "。",
-        "，",
-        "，",
-        "，",
-        "。",
-        "，",
-        "。",
-        "，",
-        "。",
-        "，"
-      ],
+      "chapter": "N03",
       "clauses": 13,
-      "file_seconds": 24.1,
-      "sha256": "975d48f38dbd17ea54ceef1e56616217932208b8f86e98760495fb6b69fc7566"
+      "input_len": 19.66,
+      "output_len": 19.35,
+      "gaps_remapmed": 6,
+      "intra_holes_tightened": 3,
+      "gap_extra": 0.0,
+      "implied_tempo": 0.8029
     },
     {
-      "id": "N04",
-      "window": [
-        55.0,
-        90.0
-      ],
-      "speech_seconds": 21.965,
-      "gap_tier_seconds": [
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        0.28,
-        1.6,
-        0.28,
-        1.6,
-        0.28
-      ],
-      "gap_marks": [
-        "，",
-        "。",
-        "，",
-        "，",
-        "。",
-        "，",
-        "，",
-        "。",
-        "，",
-        "，",
-        "，",
-        "。",
-        "，",
-        "。",
-        "，"
-      ],
+      "chapter": "N04",
       "clauses": 16,
-      "file_seconds": 34.1,
-      "sha256": "dbddeafb5a3cf67b8b741f4aa9ad9dea1676931d619143c8304bbfe24d420c10"
+      "input_len": 27.747,
+      "output_len": 28.238,
+      "gaps_remapmed": 15,
+      "intra_holes_tightened": 2,
+      "gap_extra": 0.0,
+      "implied_tempo": 0.8281
     },
     {
-      "id": "N05",
-      "window": [
-        90.0,
-        110.0
-      ],
-      "speech_seconds": 13.325,
-      "gap_tier_seconds": [
-        0.875,
-        0.28,
-        0.875,
-        0.28,
-        0.875,
-        0.875,
-        0.28,
-        0.28,
-        0.875,
-        0.28
-      ],
-      "gap_marks": [
-        "。",
-        "，",
-        "。",
-        "，",
-        "。",
-        "。",
-        "，",
-        "，",
-        "。",
-        "，"
-      ],
+      "chapter": "N05",
       "clauses": 11,
-      "file_seconds": 19.1,
-      "sha256": "f4970d014b6caea2abb7ab1d81d24fe13c1f99278972cc857064337e23a32763"
+      "input_len": 16.302,
+      "output_len": 17.582,
+      "gaps_remapmed": 10,
+      "intra_holes_tightened": 1,
+      "gap_extra": 0.0,
+      "implied_tempo": 0.9205
     },
     {
-      "id": "N06",
-      "window": [
-        110.0,
-        135.0
-      ],
-      "speech_seconds": 14.985,
-      "gap_tier_seconds": [
-        0.28,
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        0.28,
-        0.28
-      ],
-      "gap_marks": [
-        "，",
-        "，",
-        "。",
-        "，",
-        "，",
-        "。",
-        "，",
-        "，",
-        "，",
-        "，"
-      ],
+      "chapter": "N06",
       "clauses": 11,
-      "file_seconds": 24.1,
-      "sha256": "6ee3bc106e559033f56601e97be80327faa36285b2b314140b55ce413c53f885"
+      "input_len": 18.3,
+      "output_len": 19.282,
+      "gaps_remapmed": 8,
+      "intra_holes_tightened": 2,
+      "gap_extra": 0.127,
+      "implied_tempo": 0.8001
     },
     {
-      "id": "N07",
-      "window": [
-        135.0,
-        164.0
-      ],
-      "speech_seconds": 19.755,
-      "gap_tier_seconds": [
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        0.28,
-        1.6,
-        0.28,
-        0.28,
-        0.28,
-        0.28,
-        0.28,
-        0.28
-      ],
-      "gap_marks": [
-        "，",
-        "。",
-        "，",
-        "，",
-        "，",
-        "。",
-        "：",
-        "，",
-        "，",
-        "，",
-        "，",
-        "，"
-      ],
+      "chapter": "N07",
       "clauses": 13,
-      "file_seconds": 28.1,
-      "sha256": "9f4dc3a93a3bd4f177b509751251c862d6f818d8c3a1b56e60d98737f35a0f96"
+      "input_len": 23.35,
+      "output_len": 23.58,
+      "gaps_remapmed": 10,
+      "intra_holes_tightened": 0,
+      "gap_extra": 0.0,
+      "implied_tempo": 0.8391
     },
     {
-      "id": "N08",
-      "window": [
-        164.0,
-        177.0
-      ],
-      "speech_seconds": 8.005,
-      "gap_tier_seconds": [
-        0.28,
-        0.28,
-        1.487,
-        0.28,
-        1.487,
-        0.28
-      ],
-      "gap_marks": [
-        "，",
-        "，",
-        "。",
-        "，",
-        "。",
-        "，"
-      ],
+      "chapter": "N08",
       "clauses": 7,
-      "file_seconds": 12.1,
-      "sha256": "ce1737368b8d510f881702adca9b2df485dfed3e2a40a787c43125661fd6d558"
+      "input_len": 9.815,
+      "output_len": 10.325,
+      "gaps_remapmed": 5,
+      "intra_holes_tightened": 1,
+      "gap_extra": 0.0,
+      "implied_tempo": 0.8533
     }
-  ]
+  ],
+  "tempo": {
+    "N01": {
+      "file_len": 7.505,
+      "budget": 9.1,
+      "implied_tempo": 0.8247,
+      "extra": 0.0
+    },
+    "N02": {
+      "file_len": 16.49,
+      "budget": 19.1,
+      "implied_tempo": 0.8634,
+      "extra": 0.0
+    },
+    "N03": {
+      "file_len": 19.35,
+      "budget": 24.1,
+      "implied_tempo": 0.8029,
+      "extra": 0.0
+    },
+    "N04": {
+      "file_len": 28.238,
+      "budget": 34.1,
+      "implied_tempo": 0.8281,
+      "extra": 0.0
+    },
+    "N05": {
+      "file_len": 17.582,
+      "budget": 19.1,
+      "implied_tempo": 0.9205,
+      "extra": 0.0
+    },
+    "N06": {
+      "file_len": 19.282,
+      "budget": 24.1,
+      "implied_tempo": 0.8001,
+      "extra": 0.127
+    },
+    "N07": {
+      "file_len": 23.58,
+      "budget": 28.1,
+      "implied_tempo": 0.8391,
+      "extra": 0.0
+    },
+    "N08": {
+      "file_len": 10.325,
+      "budget": 12.1,
+      "implied_tempo": 0.8533,
+      "extra": 0.0
+    }
+  }
 }

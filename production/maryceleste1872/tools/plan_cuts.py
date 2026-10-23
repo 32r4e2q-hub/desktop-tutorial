@@ -67,7 +67,9 @@ def plan_chapter(clauses: list[dict], shot_groups: list[tuple[str, list[int]]]):
         lead = min(0.32, max(0.12, gap * 0.5))
         cut = float(first["start"]) - lead
         prev_end = float(clauses[idxs[0] - 1]["end"])
-        cut = round(max(cut, prev_end + 0.06), 2)
+        # 行界连续（无间隙）时 prev_end==start：切点夹进 [prev_end+0.02, start]，
+        # 贴字界切、绝不深过话音（check-cuts 的 lead_max=0 同口径）。
+        cut = round(min(max(cut, prev_end + 0.02), float(first["start"])), 2)
         rows.append((cut, sid))
     return rows
 
