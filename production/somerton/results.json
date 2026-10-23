@@ -3,7 +3,7 @@
   "model": "agnes-video-2.5-flash",
   "source_size": "720P",
   "branch": "arena/dc7c8423-desktop-tutorial",
-  "phase": "provider_capacity",
+  "phase": "retry_pending",
   "target_duration_seconds": 180,
   "format": {
     "width": 1920,
@@ -46,14 +46,12 @@
   ],
   "workflow_policy": "agnes-video-2.5-flash-720p-upscale-180s-29shots",
   "rate_policy": {
-    "minimum_creation_interval_seconds": 75,
+    "minimum_creation_interval_seconds": 61,
     "workers_max": 2,
     "retry_after_respected": true,
     "key_rotation": false,
-    "queue_full_cooldown_seconds": 90,
-    "queue_full_consecutive_limit": 24,
-    "channel_unavailable_cooldown_seconds": 300,
-    "channel_unavailable_consecutive_limit": 3
+    "capacity_retry_interval_seconds": 61,
+    "capacity_retries_unbounded": true
   },
   "previous_attempt": {
     "run_id": "39784083444",
@@ -116,7 +114,7 @@
   },
   "updated_at": "2026-10-22T23:55:24Z",
   "run_id": "39868841984",
-  "provider_outage": {
+  "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
     "consecutive_capacity_failures": 24,

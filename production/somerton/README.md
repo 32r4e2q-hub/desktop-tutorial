@@ -10,11 +10,11 @@
 | 分镜 / 事实边界 / Agnes提示词 | ✅ 29镜、时长连续 180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `story.json`、`build_story.py` |
 | 中文旁白 | ✅ 9 段；用户试听选择的成熟低沉悬疑男声 `voice-00`；SHA-256 已登记 | `audio/N01-N09.mp3`、`audio/manifest.json` |
 | 本地规则校验 | ✅ `python3 production/somerton/generate.py --validate` | `generate.py` |
-| Agnes视频素材 | ⏳ 待 GitHub Actions 调用 Agnes API；仓库执行环境不能直连该接口 | Actions 工作流见下文 |
+| Agnes视频素材 | 🟡 上次Run #2 已验证 S01（5.184秒、1280×720）；S02 遇到 24 次 503 排队满后停止。现已改为 61 秒无限重试，下一次工作流会复用 S01 并继续其余镜头 | `results.json`、Actions 工作流 |
 | 最终渲染、字幕、配乐、音效、封面 | ⏳ 29镜生成成功后自动执行 | `render.py`、`build_audio.py` |
 | 人工逐镜审片 / 成片听检 | ⏳ 初版产出后必须复核，不能把技术解码通过当成视觉签收 | `qa/`、Actions artifact |
 
-> 我在当前仓库没有找到名字为“金大斗案”的项目目录；这里沿用仓库已有的 Agnes cloud-first 出片骨架与成熟制作闸门，内容和镜头均按本次索马顿案件脚本新建，不改动其他作品。
+> 仓库目录与代码检索未找到字面名为“金大斗案”的 Agnes 项目；也没有把 `dbcooper` 擅自当成同一项目。按你明确给出的参数，Somerton 独立采用 61 秒共享创建间隔与无次数上限的临时错误重试。
 
 ## 先看定稿参考图
 
@@ -27,7 +27,7 @@
 ## 生成与出片
 
 1. 固定分支上的工作流文件更新会自动运行 S01 canary；若它成功，同一工作流、同一节流器会接着生成其余镜头并渲染成片；若失败则停止并记录原因。之后也可手动运行 **「塔玛姆·舒德 · Agnes动画生成与三分钟出片」**。
-2. 手动完整制作的默认输入为 `{"workers":2}`；29 镜按至少 75 秒间隔提交，预计至少约 36 分钟（不含模型生成和渲染）。Agnes 2.5 Flash 排队满时共享冷却 90 秒；模型通道连续不可用时有限等待并以 `provider_capacity` 明确停机，不会对每镜盲目重试。单镜测试可填 `{"only":"S01","workers":1}`；失败后重跑按请求哈希复用已完成镜头并续接已保存任务。
+2. 手动完整制作的默认输入为 `{"workers":2}`；Agnes 创建请求全局至少间隔 61 秒，29 镜的理论最低请求间隔约 28 分钟（不含模型生成和渲染）。遇到排队满、无可用通道、临时网络/5xx 或 429 时，自动至少等待 61 秒（优先服从更长的 `Retry-After`）再重试，不设重试次数上限；直到该镜创建成功后才进入下一步。请求格式错误、鉴权失败或额度不足等不可重试问题会明确报错，避免无意义空转。完整素材由 SHA-256 断点续跑；单镜测试可填 `{"only":"S01","workers":1}`。
 3. 工作流要求仓库已配置 `AGNES_API_KEY` secret。密钥仅注入 Actions 环境变量，不写入仓库或日志。
 4. 请求遵循 Agnes 2.5 Flash schema：`model=agnes-video-2.5-flash`、`seconds` 为数字字符串、`size=720P`、`aspect_ratio=16:9`、`mode=text`、`n=1`；负面约束附在提示词内，不发送独立 `negative_prompt` 或宽高/帧率字段。全部素材生成后，工作流严格校验 29 条 Agnes 收据与 SHA-256，再将720P源片放大并渲染为180秒成片：
    - 白字黑边、底部安全区内的逐句字幕；关键词加大并金色高亮；
@@ -54,7 +54,7 @@ Agnes 生成与 `render.py` 必须在有 `AGNES_API_KEY`、FFmpeg、Noto CJK 字
 | `build_story.py` / `story.json` | 唯一内容源：STYLE、NEGATIVE、角色设定、9段旁白、29条镜头提示词、研究事实边界、字幕高亮词和音效设计 |
 | `screenplay.md` | 完整旁白、逐镜时间轴、来源与后期规范 |
 | `audio/` | 9段用户选定男声 TTS、逐字稿与 SHA-256 清单 |
-| `generate.py` / `throttle.py` | Agnes Video 2.5 Flash 720P payload、75秒创建节流、断点续跑、素材收据与解码检查 |
+| `generate.py` / `throttle.py` | Agnes Video 2.5 Flash 720P payload、61秒无限循环重试、断点续跑、素材收据与解码检查 |
 | `render.py` | 29镜拼接、同步字幕、S14文字与片尾叠加、封面、技术报告 |
 | `build_audio.py` | 旁白限速与停顿、分句字幕对时、原创音乐/音效合成、响度及峰值闸门 |
 | `reference/` | 三张预制参考图 |

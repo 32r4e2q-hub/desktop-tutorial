@@ -4,14 +4,18 @@ import unittest
 from pathlib import Path
 
 from production.somerton.generate import (
+    agnes,
     FORBIDDEN_PAYLOAD_FIELDS,
     MODEL,
     SOURCE_SIZE,
-    capacity_failure_policy,
+    REQUEST_INTERVAL_SECONDS,
     full_payload,
     full_prompt,
+    retry_create_until_accepted,
+    retryable_create_error,
     validate,
 )
+from production.somerton.throttle import RequestGate
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / "production" / "somerton"
@@ -46,17 +50,120 @@ class SomertonPlanTests(unittest.TestCase):
                 self.assertEqual(payload["n"], 1)
                 self.assertFalse(FORBIDDEN_PAYLOAD_FIELDS.intersection(payload))
 
-    def test_provider_capacity_errors_get_bounded_shared_backoff(self):
-        self.assertEqual(
-            capacity_failure_policy("HTTP 500: video queue is full"),
-            ("video queue is full", 90, 24),
+    def test_transient_create_errors_retry_forever_at_61_second_intervals(self):
+        self.assertEqual(REQUEST_INTERVAL_SECONDS, 61)
+        self.assertEqual(RequestGate().interval, 61.0)
+        for message, marker in (
+            ("HTTP 503: video queue is full", "video queue is full"),
+            ("get_channel_failed: no available channel", "no available channel"),
+            ("HTTP 502: bad gateway", "provider 5xx"),
+            ("network error: connection reset", "network error"),
+        ):
+            with self.subTest(message=message):
+                self.assertEqual(retryable_create_error(message), marker)
+        self.assertIsNone(retryable_create_error("HTTP 400: invalid aspect_ratio"))
+        self.assertIsNone(retryable_create_error("HTTP 403: insufficient user quota"))
+
+    def test_create_loop_exceeds_old_limit_until_provider_accepts(self):
+        class FakeGate:
+            def __init__(self):
+                self.cooldowns = []
+
+            def defer(self, seconds):
+                self.cooldowns.append(seconds)
+
+        gate = FakeGate()
+        attempts = 0
+        retries = []
+
+        def create():
+            nonlocal attempts
+            attempts += 1
+            if attempts <= 27:
+                raise agnes.Fatal(
+                    "Could not create video task; last problem: HTTP 503: video queue is full"
+                )
+            return {"video_id": "accepted-after-28-attempts"}
+
+        result = retry_create_until_accepted(
+            create, gate, REQUEST_INTERVAL_SECONDS, lambda *details: retries.append(details)
         )
+        self.assertEqual(result["video_id"], "accepted-after-28-attempts")
+        self.assertEqual(attempts, 28)
+        self.assertEqual(len(retries), 27)
+        self.assertEqual(gate.cooldowns, [61] * 27)
+
+    def test_create_loop_does_not_retry_invalid_request(self):
+        class FakeGate:
+            def __init__(self):
+                self.cooldowns = []
+
+            def defer(self, seconds):
+                self.cooldowns.append(seconds)
+
+        gate = FakeGate()
+        attempts = 0
+
+        def create():
+            nonlocal attempts
+            attempts += 1
+            raise agnes.Fatal("HTTP 400: invalid aspect_ratio")
+
+        with self.assertRaises(agnes.Fatal):
+            retry_create_until_accepted(create, gate, REQUEST_INTERVAL_SECONDS, lambda *_: None)
+        self.assertEqual(attempts, 1)
+        self.assertEqual(gate.cooldowns, [])
+
+    def test_create_loop_honors_longer_server_retry_after(self):
+        class FakeGate:
+            def __init__(self):
+                self.cooldowns = []
+
+            def defer(self, seconds):
+                self.cooldowns.append(seconds)
+
+        gate = FakeGate()
+        attempts = 0
+
+        def create():
+            nonlocal attempts
+            attempts += 1
+            if attempts == 1:
+                raise agnes.RateLimited("HTTP 429", retry_after=90)
+            return {"video_id": "after-retry-after"}
+
         self.assertEqual(
-            capacity_failure_policy("get_channel_failed: no available channel"),
-            ("no available channel", 300, 3),
+            retry_create_until_accepted(create, gate, REQUEST_INTERVAL_SECONDS, lambda *_: None)["video_id"],
+            "after-retry-after",
         )
-        self.assertEqual(capacity_failure_policy("HTTP 502: bad gateway"), ("provider 5xx", 120, 3))
-        self.assertIsNone(capacity_failure_policy("HTTP 400: invalid aspect_ratio"))
+        self.assertEqual(gate.cooldowns, [90])
+
+    def test_create_loop_honors_retry_after_on_5xx(self):
+        class FakeGate:
+            def __init__(self):
+                self.cooldowns = []
+
+            def defer(self, seconds):
+                self.cooldowns.append(seconds)
+
+        gate = FakeGate()
+        attempts = 0
+
+        def create():
+            nonlocal attempts
+            attempts += 1
+            if attempts == 1:
+                raise agnes.Fatal(
+                    "Could not create video task; last problem: HTTP 503: overloaded",
+                    retry_after=120,
+                )
+            return {"video_id": "after-5xx-retry-after"}
+
+        self.assertEqual(
+            retry_create_until_accepted(create, gate, REQUEST_INTERVAL_SECONDS, lambda *_: None)["video_id"],
+            "after-5xx-retry-after",
+        )
+        self.assertEqual(gate.cooldowns, [120])
 
     def test_every_prompt_gets_style_characters_and_negative(self):
         for shot in self.story["shots"]:

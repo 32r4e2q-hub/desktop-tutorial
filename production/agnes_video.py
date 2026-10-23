@@ -66,7 +66,10 @@ FAILED_STATES = {"failed", "failure", "error", "cancelled", "canceled", "expired
 
 
 class Fatal(Exception):
-    """Unrecoverable error: report and exit 1."""
+    """Unrecoverable API error; transient responses may preserve Retry-After for the caller."""
+    def __init__(self, message, retry_after=None):
+        super().__init__(message)
+        self.retry_after = retry_after
 
 
 class TransientError(Exception):
@@ -76,8 +79,7 @@ class TransientError(Exception):
 class RateLimited(Fatal):
     """A rejected request, not a created task. Preserve the server's cooldown."""
     def __init__(self, message, retry_after=None):
-        super().__init__(message)
-        self.retry_after = retry_after
+        super().__init__(message, retry_after=retry_after)
 
 
 def parse_retry_after(value, now=None):
@@ -282,7 +284,7 @@ def create_task(base_url: str, api_key: str, payload: dict, retries: int, retry_
                 raise Fatal(f"Authentication failed (HTTP {code}): {detail}. Check AGNES_API_KEY.")
             if code in (400, 404, 405, 413, 422):
                 raise Fatal(f"Request rejected (HTTP {code}): {detail}")
-            if code == 429 or code >= 500:
+            if code in (408, 425, 429) or code >= 500:
                 rate_limited = code == 429
                 problem = f"HTTP {code}: {detail}"
             else:
@@ -291,7 +293,7 @@ def create_task(base_url: str, api_key: str, payload: dict, retries: int, retry_
             message = f"Could not create video task after {retries} attempts; last problem: {problem}"
             if rate_limited:
                 raise RateLimited(message, retry_after)
-            raise Fatal(message)
+            raise Fatal(message, retry_after=retry_after)
         wait = max(delay, retry_after or 0)
         log(f"create task: {problem}; retry {attempt}/{retries - 1} in {wait:g}s")
         time.sleep(wait)

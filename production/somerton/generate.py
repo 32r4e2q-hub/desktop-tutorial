@@ -2,7 +2,8 @@
 """Generate the 29 Somerton shots with Agnes Video 2.5 Flash, then render the 180s first cut.
 
 The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
-size/aspect_ratio/mode/n); clips are normalized and upscaled to the 1920x1080 delivery master.
+size/aspect_ratio/mode/n); transient create failures retry every 61 seconds until accepted.
+Clips are normalized and upscaled to the 1920x1080 delivery master.
 All generated footage is downloaded to ignored ``work/``. Only JSON provenance and small
 contact sheets are checkpointed into the fixed Arena branch. No still-image substitute is used.
 """
@@ -24,11 +25,12 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "production"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import agnes_video as agnes  # noqa: E402
-from throttle import BudgetExhausted, RequestGate  # noqa: E402
+from throttle import RequestGate  # noqa: E402
 
 BRANCH = "arena/dc7c8423-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
+REQUEST_INTERVAL_SECONDS = 61
 SUPPORTED_MODES = {"text", "keyframe", "reference"}
 ALLOWED_PAYLOAD_FIELDS = {
     "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed",
@@ -37,39 +39,51 @@ FORBIDDEN_PAYLOAD_FIELDS = {
     "width", "height", "fps", "num_frames", "frame_rate", "duration", "resolution",
     "negative_prompt", "quality", "num_inference_steps",
 }
-CAPACITY_FAILURE_POLICIES = (
-    ("video queue is full", 90, 24),
-    ("queue is full", 90, 24),
-    ("no available channel", 300, 3),
-    ("get_channel_failed", 300, 3),
-    ("temporarily unavailable", 300, 3),
+RETRYABLE_CREATE_MARKERS = (
+    "video queue is full", "queue is full", "no available channel", "get_channel_failed",
+    "temporarily unavailable", "network error",
 )
 HERE = Path(__file__).resolve().parent
 PLAN = HERE / "story.json"
 RESULTS = HERE / "results.json"
 LOCK = threading.RLock()
-CAPACITY_LOCK = threading.Lock()
-CAPACITY_ABORT = threading.Event()
-CAPACITY_STATE = {"consecutive": 0, "last_error": None}
 
 
 def read_json(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
 
 
-class ProviderCapacity(RuntimeError):
-    """Agnes rejected creation because its model channel or video queue is unavailable."""
-
-
-def capacity_failure_policy(message: str):
-    """Return (marker, cooldown, consecutive limit) for known transient provider-capacity errors."""
+def retryable_create_error(message: str):
+    """Return the matched transient provider marker, or None for a fatal request error."""
     text = str(message or "").lower()
-    for marker, cooldown, limit in CAPACITY_FAILURE_POLICIES:
+    if "http 408" in text or "http 425" in text:
+        return "provider request timeout"
+    for marker in RETRYABLE_CREATE_MARKERS:
         if marker in text:
-            return marker, cooldown, limit
+            return marker
     if "http 5" in text:
-        return "provider 5xx", 120, 3
+        return "provider 5xx"
     return None
+
+
+def retry_create_until_accepted(create_call, gate, interval: int, on_retry):
+    """Retry transient create failures indefinitely, respecting Retry-After and the shared gate."""
+    attempts = 0
+    while True:
+        attempts += 1
+        try:
+            return create_call()
+        except agnes.RateLimited as exc:
+            cooldown = max(interval, exc.retry_after or 0)
+            on_retry(attempts, "HTTP 429", str(exc), cooldown)
+            gate.defer(cooldown)
+        except agnes.Fatal as exc:
+            marker = retryable_create_error(str(exc))
+            if not marker:
+                raise
+            cooldown = max(interval, getattr(exc, "retry_after", None) or 0)
+            on_retry(attempts, marker, str(exc), cooldown)
+            gate.defer(cooldown)
 
 
 def digest(path: Path) -> str:
@@ -243,9 +257,6 @@ def main() -> int:
         print("VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), final 16:9 1080P, nine TTS chapters and approved references")
         return 0
 
-    CAPACITY_ABORT.clear()
-    with CAPACITY_LOCK:
-        CAPACITY_STATE.update(consecutive=0, last_error=None)
     options = json.loads(args.payload or "{}")
     requested = options.get("only", "")
     if not isinstance(requested, str):
@@ -260,8 +271,10 @@ def main() -> int:
     selected = ([by_id["S01"]] if canary_then_full else
                 [shot for shot in project["shots"] if not only or shot["id"] in only])
     workers = min(2, max(1, int(options.get("workers", 2))))
-    gate = RequestGate(minimum_interval=75)
-    deadline = time.monotonic() + 320 * 60
+    gate = RequestGate(minimum_interval=REQUEST_INTERVAL_SECONDS)
+    # The retry loop is intentionally unbounded; the Actions job timeout is the outer safety cap.
+    # Every create attempt is still checkpointed, and a restarted run resumes completed/task IDs.
+    deadline = float("inf")
     if args.publish:
         if os.getenv("GITHUB_ACTIONS") != "true" or git("branch", "--show-current").strip() != BRANCH:
             raise RuntimeError("Publishing is restricted to the fixed Arena branch in GitHub Actions")
@@ -271,13 +284,14 @@ def main() -> int:
     doc = read_json(RESULTS, {"project": project["title"], "model": project["model"], "shots": {}})
     doc["model"] = MODEL
     doc["source_size"] = SOURCE_SIZE
+    doc.pop("provider_outage", None)
+    doc["phase"] = "generating_sources"
     doc["required_generated_shots"] = [shot["id"] for shot in project["shots"]]
     doc["workflow_policy"] = "agnes-video-2.5-flash-720p-upscale-180s-29shots"
-    doc["rate_policy"] = {"minimum_creation_interval_seconds": 75, "workers_max": 2,
-                          "retry_after_respected": True, "key_rotation": False,
-                          "queue_full_cooldown_seconds": 90, "queue_full_consecutive_limit": 24,
-                          "channel_unavailable_cooldown_seconds": 300,
-                          "channel_unavailable_consecutive_limit": 3}
+    doc["rate_policy"] = {"minimum_creation_interval_seconds": REQUEST_INTERVAL_SECONDS,
+                          "workers_max": 2, "retry_after_respected": True,
+                          "key_rotation": False, "capacity_retry_interval_seconds": REQUEST_INTERVAL_SECONDS,
+                          "capacity_retries_unbounded": True}
     doc["review"] = {"status": "pending", "visual_review_required": True,
                      "note": "A decoded clip and contact sheet are not a human visual sign-off."}
     base = os.getenv("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).rstrip("/")
@@ -290,7 +304,7 @@ def main() -> int:
     exports = ROOT / "work" / "somerton" / "clips"
     exports.mkdir(parents=True, exist_ok=True)
 
-    def checkpoint(label: str, shot_id: str | None = None, files=(), **values):
+    def checkpoint(label: str, shot_id: str | None = None, files=(), publish=True, **values):
         with LOCK:
             if shot_id:
                 row = doc.setdefault("shots", {}).setdefault(shot_id, {"id": shot_id})
@@ -299,7 +313,7 @@ def main() -> int:
             doc["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             doc["run_id"] = os.getenv("GITHUB_RUN_ID")
             RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-            if args.publish:
+            if args.publish and publish:
                 paths = [str(RESULTS.relative_to(ROOT))]
                 paths.extend(str(Path(path).resolve().relative_to(ROOT)) for path in files)
                 git("add", "--", *paths)
@@ -331,72 +345,57 @@ def main() -> int:
         return True
 
     def paced_create(sid: str, payload: dict):
-        rate_attempts = 0
-        while True:
-            if CAPACITY_ABORT.is_set():
-                raise ProviderCapacity("Agnes provider capacity was exhausted earlier in this run")
-            checkpoint(sid + " waiting for Agnes create slot", sid, status="waiting_create_slot", error=None)
+        """Keep submitting a shot until Agnes accepts it; transient failures never exhaust a cap."""
+        attempts = 0
+
+        def create():
+            nonlocal attempts
+            attempts += 1
+            checkpoint(sid + " waiting for Agnes create slot", sid, publish=False,
+                       status="waiting_create_slot", create_attempts=attempts, error=None)
             gate.acquire_creation(deadline)
-            try:
-                created = agnes.create_task(base, key, payload, retries=1, retry_delay=75)
-            except agnes.RateLimited as exc:
-                rate_attempts += 1
-                if rate_attempts >= 8:
-                    raise
-                cooldown = max(min(300, 75 * (2 ** (rate_attempts - 1))), exc.retry_after or 0)
-                checkpoint(sid + " provider rate limit", sid, status="rate_limited",
-                           quota_retry=rate_attempts, provider_retry_after_seconds=exc.retry_after,
-                           applied_cooldown_seconds=cooldown,
-                           error=str(exc).replace(key, "[redacted]")[:500])
-                gate.defer(cooldown)
-                continue
-            except agnes.Fatal as exc:
-                message = str(exc)
-                policy = capacity_failure_policy(message)
-                if not policy:
-                    raise
-                marker, cooldown, limit = policy
-                redacted = message.replace(key, "[redacted]")[:600]
-                with CAPACITY_LOCK:
-                    CAPACITY_STATE["consecutive"] += 1
-                    CAPACITY_STATE["last_error"] = redacted
-                    consecutive = CAPACITY_STATE["consecutive"]
-                    exhausted = consecutive >= limit
-                    if exhausted:
-                        CAPACITY_ABORT.set()
-                with LOCK:
-                    doc["provider_outage"] = {
-                        "model": MODEL,
-                        "reason": marker,
-                        "consecutive_capacity_failures": consecutive,
-                        "cooldown_seconds": cooldown,
-                        "last_error": redacted,
-                    }
-                checkpoint(sid + (" provider capacity exhausted" if exhausted else " provider cooldown"),
-                           sid, status="provider_unavailable" if exhausted else "provider_cooldown",
-                           capacity_error=marker, capacity_retry=consecutive,
-                           applied_cooldown_seconds=0 if exhausted else cooldown, error=redacted)
-                if exhausted:
-                    raise ProviderCapacity(
-                        f"Agnes {MODEL} capacity remained unavailable after {consecutive} consecutive "
-                        f"create failures ({marker}); no more shots will submit requests."
-                    ) from exc
-                gate.defer(cooldown)
-                continue
-            else:
-                with CAPACITY_LOCK:
-                    CAPACITY_STATE["consecutive"] = 0
-                    CAPACITY_STATE["last_error"] = None
-                    CAPACITY_ABORT.clear()
-                with LOCK:
-                    doc.pop("provider_outage", None)
-                return created
+            return agnes.create_task(base, key, payload, retries=1, retry_delay=1)
+
+        def record_retry(attempt, marker, message, cooldown):
+            redacted = str(message).replace(key, "[redacted]")[:600]
+            with LOCK:
+                doc["provider_outage"] = {
+                    "model": MODEL,
+                    "reason": marker,
+                    "last_error": redacted,
+                    "create_attempts": attempt,
+                    "retry_interval_seconds": cooldown,
+                    "last_seen": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                }
+            checkpoint(sid + " provider busy; retrying", sid,
+                       publish=(attempt == 1 or attempt % 10 == 0),
+                       status="rate_limited" if marker == "HTTP 429" else "provider_cooldown",
+                       capacity_error=marker, create_attempts=attempt,
+                       applied_cooldown_seconds=cooldown, error=redacted)
+            print(f"{sid}: {marker}; retrying create in {cooldown:g}s (attempt {attempt})", flush=True)
+
+        created = retry_create_until_accepted(create, gate, REQUEST_INTERVAL_SECONDS, record_retry)
+        with LOCK:
+            doc.pop("provider_outage", None)
+        return created
+
+    def reset_shot_for_retry(sid: str, wanted_hash: str, dest: Path, error: str) -> None:
+        with LOCK:
+            row = dict(doc.setdefault("shots", {}).get(sid, {"id": sid}))
+            if row:
+                doc.setdefault("previous_results", {}).setdefault(sid, []).append(row)
+            doc["shots"][sid] = {"id": sid, "request_hash": wanted_hash}
+        dest.unlink(missing_ok=True)
+        (qa_dir / f"{sid}.jpg").unlink(missing_ok=True)
+        (qa_dir / f"{sid}.json").unlink(missing_ok=True)
+        (exports / dest.name).unlink(missing_ok=True)
+        checkpoint(sid + " asset/task failed; retrying", sid, status="retrying_create",
+                   request_hash=wanted_hash, video_id=None, task_id=None, video_url=None,
+                   sha256=None, bytes=None, error=error[:600])
+        gate.defer(REQUEST_INTERVAL_SECONDS)
 
     def generate_one(shot: dict) -> bool:
         sid = shot["id"]
-        if CAPACITY_ABORT.is_set():
-            print(sid + ": skipped while Agnes provider capacity is unavailable", flush=True)
-            return False
         payload = full_payload(project, shot)
         wanted_hash = request_hash(project, shot)
         with LOCK:
@@ -406,50 +405,85 @@ def main() -> int:
             if (old.get("request_hash") == wanted_hash and old.get("video_url")
                     and old.get("sha256") and old.get("bytes")):
                 print(sid + ": reusing matching Agnes result", flush=True)
-                return finish(shot, old, wanted_hash, reused=True)
-            if old.get("request_hash") != wanted_hash:
+                try:
+                    return finish(shot, old, wanted_hash, reused=True)
+                except (agnes.Fatal, OSError, RuntimeError, subprocess.CalledProcessError) as exc:
+                    reset_shot_for_retry(sid, wanted_hash, dest, str(exc))
+                    old = {"id": sid, "request_hash": wanted_hash, "status": "retrying_create"}
+            stale_without_saved_task = (
+                old.get("status") not in {"completed", "retrying_create"}
+                and not old.get("video_url") and not old.get("video_id")
+            )
+            if old and (old.get("request_hash") != wanted_hash or stale_without_saved_task):
                 with LOCK:
-                    if old:
-                        doc.setdefault("previous_results", {}).setdefault(sid, []).append(old)
-                    doc["shots"][sid] = {"id": sid}
-                old = {}
+                    doc.setdefault("previous_results", {}).setdefault(sid, []).append(old)
+                    doc["shots"][sid] = {"id": sid, "request_hash": wanted_hash}
+                old = {"id": sid, "request_hash": wanted_hash, "status": "retrying_create"}
             if not key:
                 checkpoint(sid + " blocked", sid, status="blocked", request_hash=wanted_hash,
                            error="AGNES_API_KEY is unavailable to this workflow")
                 return False
 
             video_id, task_id = old.get("video_id"), old.get("task_id")
-            if not video_id:
-                checkpoint(sid + " submitting", sid, status="submitting", request_hash=wanted_hash, error=None)
-                created = paced_create(sid, payload)
-                video_id = created.get("video_id") or created.get("id") or created.get("task_id")
-                task_id = created.get("task_id") or created.get("id")
-                if not video_id:
-                    raise agnes.Fatal("Agnes returned no task identifier")
-                checkpoint(sid + " queued", sid, status="queued", video_id=str(video_id),
-                           task_id=str(task_id or ""), requested_seconds=float(payload["seconds"]),
-                           requested_size=payload["size"])
-            else:
-                print(sid + ": resuming saved Agnes task", flush=True)
-            remaining = deadline - time.monotonic()
-            if remaining < 30:
-                raise BudgetExhausted("Generation budget reached; saved task can be resumed")
-            final, url = agnes.poll_task(
-                base, key, MODEL, str(video_id), str(task_id) if task_id else None,
-                interval=25, timeout=min(1500, remaining), max_failures=12,
-                before_request=lambda: gate.wait_unblocked(deadline), rate_limit_callback=gate.defer,
-            )
-            size = agnes.download(url, dest, retries=3, retry_delay=5)
-            receipt = {"video_url": url, "bytes": size, "sha256": digest(dest), "request_hash": wanted_hash}
-            checkpoint(sid + " Agnes task completed", sid, status="downloaded", video_url=url,
-                       bytes=size, sha256=receipt["sha256"], reported_size=final.get("size"),
-                       reported_seconds=final.get("seconds"), error=None)
-            return finish(shot, receipt, wanted_hash)
-        except ProviderCapacity as exc:
-            checkpoint(sid + " provider unavailable", sid, status="provider_unavailable",
-                       error=str(exc).replace(key, "[redacted]")[:600])
-            return False
-        except Exception as exc:  # a checkpoint survives worker/API timeouts; reruns can resume.
+            poll_retries = 0
+            while True:
+                try:
+                    if not video_id:
+                        checkpoint(sid + " submitting", sid, status="submitting",
+                                   request_hash=wanted_hash, error=None)
+                        created = paced_create(sid, payload)
+                        video_id = created.get("video_id") or created.get("id") or created.get("task_id")
+                        task_id = created.get("task_id") or created.get("id")
+                        if not video_id:
+                            raise agnes.Fatal("Agnes returned no task identifier")
+                        video_id, task_id = str(video_id), str(task_id or "")
+                        checkpoint(sid + " queued", sid, status="queued", video_id=video_id,
+                                   task_id=task_id, requested_seconds=float(payload["seconds"]),
+                                   requested_size=payload["size"])
+                    else:
+                        print(sid + ": resuming saved Agnes task", flush=True)
+                    remaining = deadline - time.monotonic()
+                    final, url = agnes.poll_task(
+                        base, key, MODEL, str(video_id), str(task_id) if task_id else None,
+                        interval=25, timeout=min(1500, remaining), max_failures=12,
+                        before_request=lambda: gate.wait_unblocked(deadline), rate_limit_callback=gate.defer,
+                    )
+                    size = agnes.download(url, dest, retries=3, retry_delay=5)
+                    receipt = {"video_url": url, "bytes": size, "sha256": digest(dest),
+                               "request_hash": wanted_hash}
+                    checkpoint(sid + " Agnes task completed", sid, status="downloaded", video_url=url,
+                               bytes=size, sha256=receipt["sha256"], reported_size=final.get("size"),
+                               reported_seconds=final.get("seconds"), error=None)
+                    try:
+                        return finish(shot, receipt, wanted_hash)
+                    except (agnes.Fatal, OSError, RuntimeError, subprocess.CalledProcessError) as exc:
+                        reset_shot_for_retry(sid, wanted_hash, dest, str(exc))
+                        video_id = task_id = None
+                        continue
+                except agnes.Fatal as exc:
+                    message = str(exc)
+                    lowered = message.lower()
+                    if "video task failed" in lowered or "task failed" in lowered:
+                        reset_shot_for_retry(sid, wanted_hash, dest, message)
+                        video_id = task_id = None
+                        continue
+                    transient_poll = (
+                        retryable_create_error(message) is not None
+                        or "timed out after" in lowered
+                        or "gave up after" in lowered
+                        or "could not download" in lowered
+                    )
+                    if not transient_poll:
+                        raise
+                    poll_retries += 1
+                    cooldown = REQUEST_INTERVAL_SECONDS
+                    checkpoint(sid + " poll/download transient error; retrying", sid,
+                               status="poll_retry", poll_retries=poll_retries,
+                               applied_cooldown_seconds=cooldown,
+                               error=message.replace(key, "[redacted]")[:600])
+                    gate.defer(cooldown)
+                    continue
+        except Exception as exc:  # a checkpoint survives fatal/API timeouts; reruns can resume.
             error = str(exc).replace(key, "[redacted]") if key else str(exc)
             checkpoint(sid + " failed", sid, status="failed", error=error[:600])
             return False
@@ -464,7 +498,7 @@ def main() -> int:
     checkpoint("Agnes generation started")
     if canary_then_full:
         # The fixed-branch push event probes one shot first. Continue to all remaining footage
-        # in this same process (and shared 75s request gate) only if S01 really completes.
+        # in this same process (and shared 61s request gate) only if S01 really completes.
         canary_ok = generate_one(by_id["S01"])
         if canary_ok:
             checkpoint("S01 canary passed; continuing full 29-shot production", "S01",
@@ -479,11 +513,10 @@ def main() -> int:
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
             outcomes = list(pool.map(generate_one, selected))
     if not all(outcomes):
-        doc["phase"] = "provider_capacity" if CAPACITY_ABORT.is_set() else "generation_incomplete"
-        checkpoint("provider capacity unavailable" if CAPACITY_ABORT.is_set() else "generation incomplete")
-        reason = "Agnes模型通道/排队暂不可用" if CAPACITY_ABORT.is_set() else "Agnes镜头尚未全部完成"
+        doc["phase"] = "generation_incomplete"
+        checkpoint("generation incomplete")
         (exports / "未完成说明.txt").write_text(
-            reason + "；没有用参考图或静态帧替代视频。请查看 results.json 后断点续跑。\n",
+            "Agnes镜头尚未全部完成；没有用参考图或静态帧替代视频。请查看 results.json 后修复致命错误再断点续跑。\n",
             encoding="utf-8",
         )
         return 1
