@@ -99,3 +99,18 @@
 
 交付判词:卡顿(拼接爆点+均摊停顿+大洞)已灭;丢字吞音(词边三刀)已灭且逐字听检同向证明;
 解说词与片段等长(窗内铺满率 94-98%,成片逐窗吻合)。
+
+## 七、双检回执（film 063a79de）
+
+- **逐字听检**（run 39975198137，faster-whisper small）：N04 .050 / N05 .043 / N06 .050 /
+  N07 .039 / N08 .023 / N02 .139 / N03 .114 全 ok；N01 .156 微超 0.15 闸，差异全为同音字
+  （西洋→夕阳 / 漂着→飘了 / 灯→等）。对比 v3.1：N03 .193→.114、N02 .153→.139、N01 .188→.156。
+- **全帧视觉QC**（run 39974725371，success）：5400/5400 帧全解码扫描；人脸闸过；
+  unplanned_black_frames 43（全落段界，与 v3.1 同构，画面层未动）；freeze_runs 3（氛围慢镜）；
+  自动化分诊 REVIEW=待人工终审（流水线口径，不代签人工验收）。
+
+## 八、发布
+
+- tag `maryceleste1872-v3.2`，asset `maryceleste1872-v3.2-180s-1080p.mp4`
+- 78,779,169 B；sha256 `063a79deb38d899ace39d753b0cf44a7d6d3bd143b7f430ece49016bdfbeda8f`
+- 下载链 302 验通：`https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/maryceleste1872-v3.2/maryceleste1872-v3.2-180s-1080p.mp4`
