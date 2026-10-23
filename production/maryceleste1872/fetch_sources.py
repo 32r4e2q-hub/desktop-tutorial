@@ -80,6 +80,40 @@ def download(url: str, destination: Path) -> None:
     raise RuntimeError(f"Download failed for {url}: {last_error}")
 
 
+def refresh_video_url(task_id: str):
+    """2026-10-23：智谱 CDN 签名 URL 会过期（401）。用 SDK 对已完成的 task_id 重新查询，
+    平台重签出新临时 URL 就换用；SHA-256 收据校验保证换到的字节就是原片。"""
+    import os
+    try:
+        from zhipuai import ZhipuAI
+    except ImportError:
+        print(f"  refresh skipped ({task_id}): zhipuai SDK not installed", flush=True)
+        return None
+    key = os.environ.get("ZHIPUAI_API_KEY")
+    if not key:
+        print(f"  refresh skipped ({task_id}): ZHIPUAI_API_KEY not set", flush=True)
+        return None
+
+    def field(obj, name, default=None):
+        if isinstance(obj, dict):
+            return obj.get(name, default)
+        return getattr(obj, name, default)
+
+    try:
+        polled = ZhipuAI(api_key=key).videos.retrieve_videos_result(id=task_id)
+        status = str(field(polled, "task_status", "")).upper()
+        if status != "SUCCESS":
+            print(f"  refresh ({task_id}): task_status={status or 'unknown'}", flush=True)
+            return None
+        entries = field(polled, "video_result") or []
+        first = entries[0] if entries else None
+        url = field(first, "url") if first is not None else None
+        return str(url) if url else None
+    except Exception as error:
+        print(f"  refresh ({task_id}) failed: {type(error).__name__}: {error}", flush=True)
+        return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project", type=Path, default=HERE / "story.json")
@@ -110,7 +144,28 @@ def main() -> int:
             report["reused"].append(sid)
             continue
         print(f"FETCH {sid} {url}", flush=True)
-        download(url, destination)
+        try:
+            download(url, destination)
+        except Exception as error:
+            # URL 签名过期(401)是常态（2026-10-23 实测 15 小时后过期）：先按 task_id
+            # 换新签名 URL，换不到再失败。换到的字节仍走 SHA-256 收据校验，防掉包口径不变。
+            task_id = receipt.get("task_id")
+            if not task_id:
+                raise
+            print(f"  URL unusable ({error}); refreshing signed URL via task {task_id}", flush=True)
+            fresh = refresh_video_url(task_id)
+            if not fresh:
+                raise
+            print(f"REFRESH {sid} {fresh}", flush=True)
+            download(fresh, destination)
+            try:
+                doc = json.loads(args.results.read_text(encoding="utf-8"))
+                doc.setdefault("shots", {}).setdefault(sid, {})["video_url"] = fresh
+                args.results.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n",
+                                        encoding="utf-8")
+                print(f"  results.json 已更新 {sid} 的 video_url", flush=True)
+            except Exception as persist_error:
+                print(f"  results.json 更新失败（不影响取片）: {persist_error}", flush=True)
         found = digest(destination)
         if found != receipt["sha256"]:
             raise RuntimeError(f"{sid}: downloaded bytes do not match the recorded SHA-256 "
