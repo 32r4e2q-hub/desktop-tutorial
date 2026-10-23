@@ -18,6 +18,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: somerton-agnes-arena-dc7c8423-desktop-tutorial
@@ -47,10 +48,94 @@ jobs:
         run: python3 production/somerton/generate.py --validate
 
       - name: Generate all Agnes Video 2.5 Flash clips with 61s retries, then render the 1080P first cut
+        id: generate
+        continue-on-error: true
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
           PAYLOAD: ${{ github.event_name == 'workflow_dispatch' && inputs.payload || '{"only":"S01","workers":2,"canary_then_full":true}' }}
-        run: python3 -u production/somerton/generate.py --publish --payload "$PAYLOAD"
+        run: |
+          set +e
+          timeout --signal=TERM --kill-after=30s 330m \
+            python3 -u production/somerton/generate.py --publish --payload "$PAYLOAD"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
+
+      - name: Dispatch an automatic continuation if the generation time budget expires
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+
+          code_text = os.environ.get("GENERATOR_EXIT_CODE", "")
+          try:
+              exit_code = int(code_text)
+          except ValueError:
+              raise SystemExit("Generator step did not publish an exit code; refusing an automatic retry.")
+          with Path("production/somerton/results.json").open(encoding="utf-8") as stream:
+              result = json.load(stream)
+          phase = result.get("phase")
+          if exit_code == 0:
+              if phase in {"first_cut_ready", "selected_sources_ready"}:
+                  print(f"Generation completed successfully (phase={phase}).")
+                  raise SystemExit(0)
+              raise SystemExit(f"Generator exited 0 with unexpected phase={phase!r}; not dispatching.")
+          if exit_code != 124:
+              raise SystemExit(f"Generator failed with exit code {exit_code}; not auto-dispatching a fatal failure.")
+          if str(result.get("run_id")) != os.environ.get("GITHUB_RUN_ID"):
+              raise SystemExit("Checkpoint belongs to a different run; refusing an automatic retry.")
+          if phase == "first_cut_ready" and result.get("delivery"):
+              print("The 180-second first cut was completed before the time guard fired.")
+              raise SystemExit(0)
+          if phase not in {"generating_sources", "rendering_first_cut"}:
+              raise SystemExit(f"Timed out in phase={phase!r}; not auto-dispatching an unsafe state.")
+          terminal = {
+              shot_id: row.get("status")
+              for shot_id, row in result.get("shots", {}).items()
+              if row.get("status") in {"failed", "blocked"}
+          }
+          if terminal:
+              raise SystemExit(f"Fatal shot states prevent auto-dispatch: {terminal}")
+          required = result.get("required_generated_shots", [])
+          if phase == "rendering_first_cut" and any(
+              result.get("shots", {}).get(shot_id, {}).get("status") != "completed"
+              for shot_id in required
+          ):
+              raise SystemExit("Render phase has incomplete sources; refusing an automatic retry.")
+
+          repository = os.environ["GITHUB_REPOSITORY"]
+          ref = os.environ["GITHUB_REF_NAME"]
+          payload = json.dumps({"workers": 2}, separators=(",", ":"))
+          request_body = json.dumps({
+              "ref": ref,
+              "inputs": {"payload": payload},
+          }).encode("utf-8")
+          request = urllib.request.Request(
+              f"https://api.github.com/repos/{repository}/actions/workflows/somerton-gen.yml/dispatches",
+              data=request_body,
+              method="POST",
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                  "X-GitHub-Api-Version": "2022-11-28",
+                  "Content-Type": "application/json",
+              },
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  print(f"Continuation dispatched for {ref} (HTTP {response.status}); unfinished clips will resume.")
+          except urllib.error.HTTPError as error:
+              detail = error.read().decode("utf-8", "replace")[:1000]
+              raise SystemExit(f"Continuation dispatch failed (HTTP {error.code}): {detail}")
+          PY
 
       - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
         if: always()
