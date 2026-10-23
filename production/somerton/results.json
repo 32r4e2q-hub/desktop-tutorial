@@ -654,23 +654,27 @@
     },
     "S20": {
       "id": "S20",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "request_hash": "913fbf7f85c3c1af5ef9c891df755ee95e79c54b042e50cceb4e987e1b9bfabb",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023233732550787115ORYQ9jpD)",
-      "updated_at": "2026-10-23T23:37:32Z",
-      "create_attempts": 10,
+      "error": null,
+      "updated_at": "2026-10-23T23:37:33Z",
+      "create_attempts": 11,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
     "S21": {
       "id": "S21",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "request_hash": "0ec7ff52e975e243a356c58d93ae7ff90f6c58584d6c665425adf661e97b98df",
       "error": null,
-      "updated_at": "2026-10-23T23:36:31Z",
+      "updated_at": "2026-10-23T23:38:35Z",
       "create_attempts": 3,
       "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "applied_cooldown_seconds": 61,
+      "video_id": "task_Hss5FcZAV4uGYqGjNZ0P5e2rcCMbjJSx",
+      "task_id": "task_Hss5FcZAV4uGYqGjNZ0P5e2rcCMbjJSx",
+      "requested_seconds": 8.0,
+      "requested_size": "720P"
     }
   },
   "review": {
@@ -678,7 +682,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T23:37:32Z",
+  "updated_at": "2026-10-23T23:38:35Z",
   "run_id": "40039467742",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -770,13 +774,5 @@
         "applied_cooldown_seconds": 61
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023233732550787115ORYQ9jpD)",
-    "create_attempts": 10,
-    "retry_interval_seconds": 61,
-    "last_seen": "2026-10-23T23:37:32Z"
   }
 }
