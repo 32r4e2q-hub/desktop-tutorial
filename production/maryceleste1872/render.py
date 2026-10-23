@@ -56,19 +56,19 @@ CHAPTER_WINDOWS = {
 # 镜头按成片顺序编号，每个镜头只出现一次（make_edl 有断言守着）。
 # 脚手架给的是 4 秒均匀网格，只是起点；拿到配音后必须按 clause-times 重对。
 CUTS = {
-    'N01': [(0.0,'S01',''), (3.68,'S02','')],
-    'N02': [(0.0,'S03',''), (7.2,'S04',''), (10.2,'S05A',''), (14.07,'S05B','')],
-    'N03': [(0.0,'S06',''), (2.93,'S07A',''), (5.95,'S07B',''), (12.74,'S08',''), (17.66,'S09','')],
-    'N04': [(0.0,'S10',''), (6.32,'S11',''), (11.67,'S12',''), (17.87,'S13',''), (24.94,'S14',''), (29.19,'S15','')],
-    'N05': [(0.0,'S16',''), (6.99,'S17',''), (11.53,'S18A',''), (15.83,'S18B','')],
-    'N06': [(0.0,'S19',''), (9.58,'S20',''), (16.63,'S21','')],
-    'N07': [(0.0,'S22',''), (8.34,'S23',''), (13.2,'S24',''), (19.55,'S25',''), (24.34,'S26','')],
-    'N08': [(0.0,'S27',''), (5.9,'S28','')],
+    'N01': [(0.0,'S01',''), (3.6,'S02','')],
+    'N02': [(0.0,'S03',''), (6.82,'S04',''), (13.62,'S05B',''), (15.79,'S05A','')],
+    'N03': [(0.0,'S06',''), (6.01,'S07A',''), (12.42,'S07B',''), (18.12,'S08',''), (22.6,'S09','')],
+    'N04': [(0.0,'S10',''), (2.82,'S11',''), (6.81,'S12',''), (11.22,'S13',''), (17.55,'S15',''), (25.26,'S14','')],
+    'N05': [(0.0,'S16',''), (8.06,'S17',''), (12.32,'S18A',''), (16.65,'S18B','')],
+    'N06': [(0.0,'S19',''), (4.69,'S20',''), (16.45,'S21','')],
+    'N07': [(0.0,'S22',''), (8.17,'S23',''), (12.79,'S24',''), (20.15,'S25',''), (24.7,'S26','')],
+    'N08': [(0.0,'S27',''), (4.87,'S28','')],
 }
 
 # 看片后的镜头修正（2026-10-17 复审 qa/*.jpg 后填写：三镜尾段有溶解换场，收尾避开；
-# S08 原取用到 4.99 s、溶解约在 4.0 s 起；S24 约 3.5 s 起；S42 约 3.0 s 起。收窄后
-# 拉伸倍率分别为 1.27 / 1.17 / 1.05，都在 1.33 乒乓红线以内。）
+# S08 原取用到 4.99 s、溶解约在 4.0 s 起；S24 约 3.5 s 起；S42 约 3.0 s 起。
+# 2026-10-23 起慢槽一律「纯放慢 + 运动补偿插帧」，不再有乒乓循环。）
 WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
 TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
 
@@ -512,19 +512,17 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
                 f'crop={width}:{height},setsar=1,fps={FPS},{grade},{vignette}'
                 f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         fc=None
-        if factor>1.33:
-            # 2026-10-11：CogVideoX-Flash 定长 5.108s 素材，S08 槽 7.67s 要 1.57×
-            # 慢放、超质量红线。改用乒乓循环：正放整段 + 尾段倒放补差——不慢放、
-            # 不定帧，慢节奏情景重现镜头的标准做法（倒放对雾气/光影类画面无感）。
-            need=duration-available
-            if need>available:
-                raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s exceeds ping-pong capacity {2*available:.2f}s')
-            # 无需改 -t：duration>available 时 take 本就等于 available（正放整段）。
-            fc=('[0:v]split=2[fwd][rev0];'
-                f'[rev0]reverse,trim=duration={need:.6f},setpts=PTS-STARTPTS[rev];'
-                f'[fwd][rev]concat=n=2:v=1:a=0,setpts=PTS-STARTPTS,'+common+'[vbase]')
+        if factor>1.12:
+            # 2026-10-23：用户反馈「很多画面先前进又后退」——乒乓循环（正放+倒放
+            # 补差）全面退役。慢槽改纯放慢 + minterpolate 运动补偿插帧补顺：方向
+            # 永远向前、不倒放；≤2.6× 的慢放对雾气/海浪/光影类情景重现反而更对味。
+            if factor>2.6:
+                raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s exceeds slow-mo capacity {2.6*available:.2f}s')
+            fc=(f'[0:v]setpts=(PTS-STARTPTS)*{factor:.9f},'
+                f'minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:vsbmc=1,'
+                +common+'[vbase]')
             vf=None
-            entry.update(source_in=a,source_out=a+available,time_stretch=1.0,pingpong=True)
+            entry.update(source_in=a,source_out=a+take,time_stretch=factor)
         else:
             vf=f'setpts=(PTS-STARTPTS)*{factor:.9f},'+common
             entry.update(source_in=a,source_out=a+take,time_stretch=factor)
