@@ -99,20 +99,22 @@
     "S02": {
       "id": "S02",
       "request_hash": "1be23ea562ef13c621180c213686cc84664533cfc89eed79cd47894afeee5f81",
-      "status": "provider_cooldown",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023002220926227169JdOZOZGF)",
-      "updated_at": "2026-10-23T00:22:21Z",
-      "create_attempts": 1,
+      "status": "waiting_create_slot",
+      "error": null,
+      "updated_at": "2026-10-23T00:22:22Z",
+      "create_attempts": 2,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
     "S03": {
       "id": "S03",
-      "status": "waiting_create_slot",
+      "status": "provider_cooldown",
       "request_hash": "3c072ad835698ea3898126c602fa08782ab7ae45a68ff60365640ac65c70d60e",
-      "error": null,
-      "updated_at": "2026-10-23T00:22:20Z",
-      "create_attempts": 1
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610230023232611583242MmqpTRM)",
+      "updated_at": "2026-10-23T00:23:23Z",
+      "create_attempts": 1,
+      "capacity_error": "video queue is full",
+      "applied_cooldown_seconds": 61
     }
   },
   "review": {
@@ -120,7 +122,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T00:22:21Z",
+  "updated_at": "2026-10-23T00:23:23Z",
   "run_id": "39877596166",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -146,9 +148,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023002220926227169JdOZOZGF)",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610230023232611583242MmqpTRM)",
     "create_attempts": 1,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-23T00:22:21Z"
+    "last_seen": "2026-10-23T00:23:23Z"
   }
 }
