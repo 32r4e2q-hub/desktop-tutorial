@@ -1,7 +1,7 @@
 {
   "film": "玛丽赛勒斯特号_海上最大的未解之谜_三分钟_带声音.mp4",
-  "film_sha256": "3363842810ec22667788ec363d7ef3f63255ed5ba2c6e8b901b7fa538e7b9e19",
-  "film_bytes": 79128608,
+  "film_sha256": "df47da0a4085f4af85a35ed59ef2b27cc7730938a4f1c0e1e77f727356c2025a",
+  "film_bytes": 78911620,
   "project": "production/maryceleste1872",
   "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
   "max_cer_allowed": 0.15,
@@ -12,19 +12,25 @@
         "start": 0.35,
         "end": 9.45,
         "script_chars": 32,
-        "heard_chars": 32,
-        "character_error_rate": 0.0625,
-        "match_coverage": 0.9375,
+        "heard_chars": 31,
+        "character_error_rate": 0.0938,
+        "match_coverage": 0.9062,
         "verdict": "ok",
         "diff": [
           {
             "at": 9,
             "kind": "replace",
             "script": "漂着",
-            "heard": "飘了"
+            "heard": "飘的"
+          },
+          {
+            "at": 14,
+            "kind": "delete",
+            "script": "灯",
+            "heard": ""
           }
         ],
-        "transcript": "1872年,大西洋上飘了一艘船燈火未熄,早餐未涼可是十個人全都消失了"
+        "transcript": "1872年大西洋上飘的一艘船火未熄 早餐未涼可是十個人全都消失了"
       },
       {
         "id": "N02",
@@ -32,9 +38,9 @@
         "end": 29.45,
         "script_chars": 72,
         "heard_chars": 72,
-        "character_error_rate": 0.1389,
-        "match_coverage": 0.875,
-        "verdict": "ok",
+        "character_error_rate": 0.1667,
+        "match_coverage": 0.8472,
+        "verdict": "needs_human_listen",
         "diff": [
           {
             "at": 12,
@@ -73,7 +79,7 @@
             "heard": ""
           }
         ],
-        "transcript": "11月7日 紐約天剛亮瑪麗塞勒斯特號啟航是向義大利熱內亞船長布里格斯帶上妻子和兩歲的女兒七名船員各就各位繁瑣繃緊貨倉裡1700多桶工業酒精靜靜堆著"
+        "transcript": "11月7日,紐約天剛亮瑪麗塞勒斯特號啟航,是向義大利熱內亞船長布里格斯,帶上妻子和兩歲的女兒七名船員各就各位,繁瑣繃緊貨倉裡,1700多桶工業酒精,進京堆著"
       },
       {
         "id": "N03",
@@ -81,33 +87,27 @@
         "end": 54.45,
         "script_chars": 88,
         "heard_chars": 96,
-        "character_error_rate": 0.2159,
-        "match_coverage": 0.875,
+        "character_error_rate": 0.2614,
+        "match_coverage": 0.8295,
         "verdict": "needs_human_listen",
         "diff": [
           {
-            "at": 7,
-            "kind": "insert",
-            "script": "",
-            "heard": "二月"
-          },
-          {
-            "at": 10,
+            "at": 9,
             "kind": "replace",
-            "script": "速",
-            "heard": "苏"
-          },
-          {
-            "at": 12,
-            "kind": "insert",
-            "script": "",
-            "heard": "顿"
+            "script": "亚速尔",
+            "heard": "yasurge"
           },
           {
             "at": 18,
             "kind": "replace",
-            "script": "艘船",
-            "heard": "身周传"
+            "script": "艘",
+            "heard": "丝周"
+          },
+          {
+            "at": 23,
+            "kind": "replace",
+            "script": "恩典",
+            "heard": "n点"
           },
           {
             "at": 29,
@@ -120,18 +120,24 @@
             "kind": "replace",
             "script": "它",
             "heard": "他"
+          },
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "帆",
+            "heard": "反弹"
           }
         ],
-        "transcript": "一個月後12月2月4日亞蘇爾頓群島附近另一身周傳上帝的恩典號發現了他可他的翻山破破爛爛航向歪歪扭扭扭向喝醉了酒摩爾豪斯船船長連含幾聲海上一片死字跡水手們放下小艇貼著船先爬上去甲板上一個人都沒有"
+        "transcript": "一個月後 12 月 4 日 Yasurge 群島附近另一絲周船上帝的 N 點號發現了他可他的反彈破破爛爛航向歪歪扭扭扭向喝醉了酒摩爾豪斯船班長連喊幾聲 還上一片四季水手們放下小艇 貼著船先爬上去甲板上 一個人都沒有"
       },
       {
         "id": "N04",
         "start": 55.35,
         "end": 89.45,
         "script_chars": 121,
-        "heard_chars": 121,
-        "character_error_rate": 0.0579,
-        "match_coverage": 0.9421,
+        "heard_chars": 123,
+        "character_error_rate": 0.0826,
+        "match_coverage": 0.9339,
         "verdict": "ok",
         "diff": [
           {
@@ -153,6 +159,12 @@
             "heard": "遗弃"
           },
           {
+            "at": 75,
+            "kind": "insert",
+            "script": "",
+            "heard": "遍一"
+          },
+          {
             "at": 77,
             "kind": "replace",
             "script": "志",
@@ -163,15 +175,308 @@
             "kind": "replace",
             "script": "迹",
             "heard": "记"
-          },
-          {
-            "at": 92,
-            "kind": "replace",
-            "script": "页",
-            "heard": "夜"
           }
         ],
-        "transcript": "船体几乎完好食物和淡水够吃半年船员的行李都在小女孩的红外套和不偶兔子还留在小船上可是救生艇不见了航海遗弃也不见了只留下拆开的抽水泵和敞开的工具箱最后一篇日纸停在十天前笔记平平稳稳断在半夜没有打斗痕迹没有求救信号他们是自己离开的还是被什么带走的"
+        "transcript": "船体几乎完好,食物和淡水够吃半年船员的行李都在,小女孩的红外套和不偶兔子,还留在小船上可是救生艇不见了,航海遗弃也不见了,只留下拆开的抽水泵和敞开的工具箱最后一遍一篇日纸停在10天前,笔记平平稳稳,断在半夜没有打斗痕迹,没有求救信号他们是自己离开的,还是为什么带走的"
+      },
+      {
+        "id": "N05",
+        "start": 90.35,
+        "end": 109.45,
+        "script_chars": 70,
+        "heard_chars": 70,
+        "character_error_rate": 0.0429,
+        "match_coverage": 0.9571,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 9,
+            "kind": "replace",
+            "script": "旗",
+            "heard": "漆"
+          },
+          {
+            "at": 14,
+            "kind": "replace",
+            "script": "映",
+            "heard": "阴"
+          },
+          {
+            "at": 47,
+            "kind": "replace",
+            "script": "服",
+            "heard": "扶"
+          }
+        ],
+        "transcript": "有人说是海盗干的黑漆升起 刀光阴着火把可值钱的货物 一件没少有人说是船员叛变可船长威望极高 水手们都扶他现场也没有半点争斗的痕迹两个猜想 两处说不通"
+      },
+      {
+        "id": "N06",
+        "start": 110.35,
+        "end": 134.45,
+        "script_chars": 80,
+        "heard_chars": 81,
+        "character_error_rate": 0.0625,
+        "match_coverage": 0.95,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "乌",
+            "heard": "巫"
+          },
+          {
+            "at": 59,
+            "kind": "replace",
+            "script": "桅杆",
+            "heard": "为干"
+          },
+          {
+            "at": 64,
+            "kind": "replace",
+            "script": "帆",
+            "heard": "发安"
+          }
+        ],
+        "transcript": "有人说是巨型巫贼,从深海伸出触手把船拖进地狱有人说是海上龙卷风,或者海底地震,一夜之间掀翻了它听起来够刺激,可是船本身几乎完好,为干还在船发安还在,不像遭遇过任何毁灭性的灾难"
+      },
+      {
+        "id": "N07",
+        "start": 135.35,
+        "end": 163.45,
+        "script_chars": 103,
+        "heard_chars": 103,
+        "character_error_rate": 0.0388,
+        "match_coverage": 0.9612,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "近年",
+            "heard": "纪念"
+          },
+          {
+            "at": 85,
+            "kind": "replace",
+            "script": "拴",
+            "heard": "栓"
+          },
+          {
+            "at": 97,
+            "kind": "replace",
+            "script": "袭",
+            "heard": "洗"
+          }
+        ],
+        "transcript": "纪念来 科学家做过实验密闭舱室里 酒精蒸汽能引发一次几乎没有火光的爆燃冲开舱盖 却不留下多少痕迹这或许能解释一切船长以为大船随时会再炸命令所有人立刻登上救生艇再用一根长绳 把小艇栓在大船后面可是一阵风浪洗来 绳子断了"
+      },
+      {
+        "id": "N08",
+        "start": 164.35,
+        "end": 176.45,
+        "script_chars": 44,
+        "heard_chars": 44,
+        "character_error_rate": 0.0455,
+        "match_coverage": 0.9545,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "救生",
+            "heard": "舅声"
+          }
+        ],
+        "transcript": "大船张满帆继续前行而舅声艇再也没人见到这解释最合理却没有人能证明你觉得他们到底遇到了什么"
+      }
+    ],
+    "max_cer": 0.2614,
+    "failing": [
+      "N02",
+      "N03"
+    ]
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0.35,
+        "end": 9.45,
+        "script_chars": 32,
+        "heard_chars": 32,
+        "character_error_rate": 0.1875,
+        "match_coverage": 0.8125,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "西洋",
+            "heard": "夕阳"
+          },
+          {
+            "at": 9,
+            "kind": "replace",
+            "script": "漂着",
+            "heard": "飘了"
+          },
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "未熄",
+            "heard": "威懈"
+          }
+        ],
+        "transcript": "1872年大夕阳上飘了一艘船灯火威懈,早餐未凉,可是十个人全都消失了"
+      },
+      {
+        "id": "N02",
+        "start": 10.35,
+        "end": 29.45,
+        "script_chars": 72,
+        "heard_chars": 72,
+        "character_error_rate": 0.1528,
+        "match_coverage": 0.8611,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "赛",
+            "heard": "塞"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "驶向",
+            "heard": "十项"
+          },
+          {
+            "at": 25,
+            "kind": "replace",
+            "script": "那",
+            "heard": "内"
+          },
+          {
+            "at": 51,
+            "kind": "replace",
+            "script": "帆索",
+            "heard": "繁琐"
+          },
+          {
+            "at": 56,
+            "kind": "replace",
+            "script": "舱",
+            "heard": "仓"
+          },
+          {
+            "at": 59,
+            "kind": "delete",
+            "script": "千",
+            "heard": ""
+          }
+        ],
+        "transcript": "11月7日,紐約天剛亮瑪麗塞勒斯特號啟航,十項義大利熱內亞船長布里格斯,帶上妻子和兩歲的女兒七名船員各就各位,繁瑣繃緊貨倉裡,1700多桶工業酒精,靜靜堆著"
+      },
+      {
+        "id": "N03",
+        "start": 30.35,
+        "end": 54.45,
+        "script_chars": 88,
+        "heard_chars": 92,
+        "character_error_rate": 0.1932,
+        "match_coverage": 0.8523,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "速",
+            "heard": "苏"
+          },
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "艘",
+            "heard": "丝都"
+          },
+          {
+            "at": 23,
+            "kind": "replace",
+            "script": "恩典",
+            "heard": "n点"
+          },
+          {
+            "at": 29,
+            "kind": "replace",
+            "script": "它",
+            "heard": "他"
+          },
+          {
+            "at": 31,
+            "kind": "replace",
+            "script": "它",
+            "heard": "他"
+          },
+          {
+            "at": 33,
+            "kind": "replace",
+            "script": "帆",
+            "heard": "方案"
+          }
+        ],
+        "transcript": "一個月後 12 月 4 日亞蘇爾群島附近另一絲都船上帝的 N 點號發現了他可他的方案破破爛爛航向歪歪扭扭向喝醉了酒摩爾豪絲船班長連喊幾聲還上一片死字記水手們放下小艇貼著船先爬上去甲板上一個人都沒有"
+      },
+      {
+        "id": "N04",
+        "start": 55.35,
+        "end": 89.45,
+        "script_chars": 121,
+        "heard_chars": 119,
+        "character_error_rate": 0.0744,
+        "match_coverage": 0.9256,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 30,
+            "kind": "replace",
+            "script": "布",
+            "heard": "不"
+          },
+          {
+            "at": 38,
+            "kind": "replace",
+            "script": "床",
+            "heard": "船"
+          },
+          {
+            "at": 50,
+            "kind": "replace",
+            "script": "仪器",
+            "heard": "遗弃"
+          },
+          {
+            "at": 72,
+            "kind": "delete",
+            "script": "最后",
+            "heard": ""
+          },
+          {
+            "at": 77,
+            "kind": "replace",
+            "script": "志",
+            "heard": "纸"
+          },
+          {
+            "at": 84,
+            "kind": "replace",
+            "script": "迹",
+            "heard": "记"
+          }
+        ],
+        "transcript": "船体几乎完好,食物和淡水够吃半年。船员的行李都在,小女孩的红外套和不偶兔子,还留在小船上。可是救生艇不见了,航海遗弃也不见了,只留下拆开的抽水泵和敞开的工具箱。一篇日纸停在10天前,笔记平平稳稳,断在半夜。没有打斗痕迹,没有求救信号。他们是自己离开的,还是被什么带走的?"
       },
       {
         "id": "N05",
@@ -210,8 +515,8 @@
         "end": 134.45,
         "script_chars": 80,
         "heard_chars": 81,
-        "character_error_rate": 0.0875,
-        "match_coverage": 0.925,
+        "character_error_rate": 0.0625,
+        "match_coverage": 0.95,
         "verdict": "ok",
         "diff": [
           {
@@ -221,25 +526,19 @@
             "heard": "巫"
           },
           {
-            "at": 29,
-            "kind": "replace",
-            "script": "风",
-            "heard": "锋"
-          },
-          {
             "at": 59,
             "kind": "replace",
             "script": "桅杆",
-            "heard": "维根"
+            "heard": "为干"
           },
           {
             "at": 64,
             "kind": "replace",
-            "script": "帆还",
-            "heard": "发安海"
+            "script": "帆",
+            "heard": "发安"
           }
         ],
-        "transcript": "有人说是巨型巫贼从深海伸出触手把船拖进地狱有人说是海上龙卷锋或者海底地震一夜之间掀翻了它听起来够刺激可是船本身几乎完好维根还在船发安海在不像遭遇过任何毁灭性的灾难"
+        "transcript": "有人说是巨型巫贼,从深海伸出触手,把船拖进地狱。有人说是海上龙卷风,或者海底地震,一夜之间掀翻了它。听起来够刺激,可是船本身几乎完好,为干还在,船发安还在,不像遭遇过任何毁灭性的灾难。"
       },
       {
         "id": "N07",
@@ -247,36 +546,24 @@
         "end": 163.45,
         "script_chars": 103,
         "heard_chars": 103,
-        "character_error_rate": 0.0485,
-        "match_coverage": 0.9515,
+        "character_error_rate": 0.0194,
+        "match_coverage": 0.9806,
         "verdict": "ok",
         "diff": [
-          {
-            "at": 12,
-            "kind": "replace",
-            "script": "舱室",
-            "heard": "苍式"
-          },
-          {
-            "at": 18,
-            "kind": "replace",
-            "script": "汽",
-            "heard": "气"
-          },
-          {
-            "at": 35,
-            "kind": "replace",
-            "script": "舱",
-            "heard": "苍"
-          },
           {
             "at": 85,
             "kind": "replace",
             "script": "拴",
-            "heard": "摔"
+            "heard": "栓"
+          },
+          {
+            "at": 97,
+            "kind": "replace",
+            "script": "袭",
+            "heard": "溪"
           }
         ],
-        "transcript": "近年來,科學家做過實驗密閉蒼式裡,酒精蒸氣能引發一次幾乎沒有火光的爆燃衝開蒼蓋,卻不留下多少痕跡這或許能解釋一切船長以為大船隨時會再炸命令所有人立刻登上救生艇再用一根長繩,把小艇摔在大船後面可是一陣風浪襲來,繩子斷了"
+        "transcript": "近年来,科学家做过实验密闭舱室里,酒精蒸汽能引发一次几乎没有火光的爆燃冲开舱盖,却不留下多少痕迹这或许能解释一切船长以为大船随时会再炸命令所有人立刻登上救生艇再用一根长绳把小艇栓在大船后面可是一阵风浪溪来绳子断了"
       },
       {
         "id": "N08",
@@ -291,318 +578,9 @@
         "transcript": "大船张满帆继续前行而救生艇再也没人见到这解释最合理却没有人能证明你觉得他们到底遇到了什么"
       }
     ],
-    "max_cer": 0.2159,
+    "max_cer": 0.1932,
     "failing": [
-      "N03"
-    ]
-  },
-  "narration_control": {
-    "chapters": [
-      {
-        "id": "N01",
-        "start": 0.35,
-        "end": 9.45,
-        "script_chars": 32,
-        "heard_chars": 32,
-        "character_error_rate": 0.125,
-        "match_coverage": 0.875,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 9,
-            "kind": "replace",
-            "script": "漂着",
-            "heard": "飘了"
-          },
-          {
-            "at": 16,
-            "kind": "replace",
-            "script": "未熄",
-            "heard": "威胁"
-          }
-        ],
-        "transcript": "1872年,大西洋上飘了一艘船燈火威脅早餐未涼可是10個人全都消失了"
-      },
-      {
-        "id": "N02",
-        "start": 10.35,
-        "end": 29.45,
-        "script_chars": 72,
-        "heard_chars": 72,
-        "character_error_rate": 0.1944,
-        "match_coverage": 0.8194,
-        "verdict": "needs_human_listen",
-        "diff": [
-          {
-            "at": 12,
-            "kind": "replace",
-            "script": "赛勒",
-            "heard": "塞拉"
-          },
-          {
-            "at": 19,
-            "kind": "replace",
-            "script": "驶向",
-            "heard": "实相"
-          },
-          {
-            "at": 24,
-            "kind": "replace",
-            "script": "热那",
-            "heard": "瑞内"
-          },
-          {
-            "at": 33,
-            "kind": "replace",
-            "script": "带",
-            "heard": "戴"
-          },
-          {
-            "at": 51,
-            "kind": "replace",
-            "script": "帆索",
-            "heard": "繁琐"
-          },
-          {
-            "at": 56,
-            "kind": "replace",
-            "script": "舱",
-            "heard": "仓"
-          }
-        ],
-        "transcript": "11月7日,紐約天剛亮,瑪麗塞拉斯特號啟航,實相義大利-瑞內亞,船長布里格斯,戴上妻子和兩歲的女兒。七名船員各就各位,繁瑣繃緊。貨倉裡,1700多桶工業酒精,靜靜堆著。"
-      },
-      {
-        "id": "N03",
-        "start": 30.35,
-        "end": 54.45,
-        "script_chars": 88,
-        "heard_chars": 91,
-        "character_error_rate": 0.1818,
-        "match_coverage": 0.8636,
-        "verdict": "needs_human_listen",
-        "diff": [
-          {
-            "at": 10,
-            "kind": "replace",
-            "script": "速",
-            "heard": "苏"
-          },
-          {
-            "at": 18,
-            "kind": "replace",
-            "script": "艘",
-            "heard": "周"
-          },
-          {
-            "at": 23,
-            "kind": "replace",
-            "script": "恩典",
-            "heard": "n"
-          },
-          {
-            "at": 29,
-            "kind": "replace",
-            "script": "它",
-            "heard": "他"
-          },
-          {
-            "at": 31,
-            "kind": "replace",
-            "script": "它",
-            "heard": "他"
-          },
-          {
-            "at": 33,
-            "kind": "replace",
-            "script": "帆",
-            "heard": "翻船"
-          }
-        ],
-        "transcript": "一個月後12月4日亞蘇爾群島附近另一週船上帝的N.號發現了他可他的翻船破破爛爛航向歪歪扭扭扭向喝醉了酒摩爾豪斯船船長連含幾聲海上一片死字劑水手們放下小艇貼著船先爬上去甲板上一個人都沒有"
-      },
-      {
-        "id": "N04",
-        "start": 55.35,
-        "end": 89.45,
-        "script_chars": 121,
-        "heard_chars": 122,
-        "character_error_rate": 0.0579,
-        "match_coverage": 0.9504,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 38,
-            "kind": "replace",
-            "script": "床",
-            "heard": "船"
-          },
-          {
-            "at": 50,
-            "kind": "replace",
-            "script": "仪器",
-            "heard": "遗弃"
-          },
-          {
-            "at": 77,
-            "kind": "replace",
-            "script": "志",
-            "heard": "子"
-          },
-          {
-            "at": 81,
-            "kind": "insert",
-            "script": "",
-            "heard": "四"
-          },
-          {
-            "at": 84,
-            "kind": "replace",
-            "script": "迹",
-            "heard": "记"
-          },
-          {
-            "at": 92,
-            "kind": "replace",
-            "script": "页",
-            "heard": "夜"
-          }
-        ],
-        "transcript": "船体几乎完好食物和淡水够吃半年船员的行李都在小女孩的红外套和布偶兔子还留在小船上可是救生艇不见了航海遗弃也不见了只留下拆开的抽水泵和敞开的工具箱最后一篇日子停在十四天前笔记平平稳稳断在半夜没有打斗痕迹没有求救信号他们是自己离开的还是被什么带走的"
-      },
-      {
-        "id": "N05",
-        "start": 90.35,
-        "end": 109.45,
-        "script_chars": 70,
-        "heard_chars": 70,
-        "character_error_rate": 0.0429,
-        "match_coverage": 0.9571,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 9,
-            "kind": "replace",
-            "script": "旗",
-            "heard": "漆"
-          },
-          {
-            "at": 14,
-            "kind": "replace",
-            "script": "映",
-            "heard": "阴"
-          },
-          {
-            "at": 47,
-            "kind": "replace",
-            "script": "服",
-            "heard": "扶"
-          }
-        ],
-        "transcript": "有人说是海盗干的黑漆升起刀光阴着火把可值钱的货物一件没少有人说是船员叛变可船长威望极高水手们都扶他现场也没有半点争斗的痕迹两个猜想两处说不通"
-      },
-      {
-        "id": "N06",
-        "start": 110.35,
-        "end": 134.45,
-        "script_chars": 80,
-        "heard_chars": 80,
-        "character_error_rate": 0.05,
-        "match_coverage": 0.95,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 6,
-            "kind": "replace",
-            "script": "乌",
-            "heard": "巫"
-          },
-          {
-            "at": 40,
-            "kind": "replace",
-            "script": "掀",
-            "heard": "先"
-          },
-          {
-            "at": 59,
-            "kind": "replace",
-            "script": "桅",
-            "heard": "维"
-          },
-          {
-            "at": 64,
-            "kind": "replace",
-            "script": "帆",
-            "heard": "船"
-          }
-        ],
-        "transcript": "有人说是巨型巫贼,从深海伸出触手把船拖进地狱,有人说是海上龙卷风,或者海底地震,一夜之间先翻了它,听起来够刺激,可是船本身几乎完好,维杆还在,船船还在,不像遭遇过任何毁灭性的灾难。"
-      },
-      {
-        "id": "N07",
-        "start": 135.35,
-        "end": 163.45,
-        "script_chars": 103,
-        "heard_chars": 103,
-        "character_error_rate": 0.0388,
-        "match_coverage": 0.9612,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 13,
-            "kind": "replace",
-            "script": "室",
-            "heard": "势"
-          },
-          {
-            "at": 18,
-            "kind": "replace",
-            "script": "汽",
-            "heard": "气"
-          },
-          {
-            "at": 85,
-            "kind": "replace",
-            "script": "拴",
-            "heard": "刷"
-          },
-          {
-            "at": 97,
-            "kind": "replace",
-            "script": "袭",
-            "heard": "溪"
-          }
-        ],
-        "transcript": "近年來,科學家做過實驗密閉艙勢裡,酒精蒸氣能引發一次幾乎沒有火光的爆燃衝開艙蓋,卻不留下多少痕跡這或許能解釋一切船長以為大船隨時會再炸命令所有人立刻登上救生艇再用一根長繩把小艇刷在大船後面可是一陣風浪溪來,繩子斷了"
-      },
-      {
-        "id": "N08",
-        "start": 164.35,
-        "end": 176.45,
-        "script_chars": 44,
-        "heard_chars": 45,
-        "character_error_rate": 0.0455,
-        "match_coverage": 0.9773,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 10,
-            "kind": "replace",
-            "script": "救",
-            "heard": "纠"
-          },
-          {
-            "at": 33,
-            "kind": "insert",
-            "script": "",
-            "heard": "就"
-          }
-        ],
-        "transcript": "大船张满帆继续前行而纠生艇再也没人见到这解释最合理却没有人能证明你就觉得他们到底遇到了什么"
-      }
-    ],
-    "max_cer": 0.1944,
-    "failing": [
+      "N01",
       "N02",
       "N03"
     ]
