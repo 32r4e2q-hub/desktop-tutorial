@@ -1,7 +1,7 @@
 {
   "film": "玛丽赛勒斯特号_海上最大的未解之谜_三分钟_带声音.mp4",
-  "film_sha256": "3358c1c755601781c13d6a284c0e02f3cffda5cd7c1cca6eabffca50eb216b18",
-  "film_bytes": 87439286,
+  "film_sha256": "f53890834891b7f089d1899250706e6c4713d957d6947cb34028eb7a5a97d523",
+  "film_bytes": 82606774,
   "project": "production/maryceleste1872",
   "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
   "max_cer_allowed": 0.15,
@@ -13,8 +13,8 @@
         "end": 9.45,
         "script_chars": 35,
         "heard_chars": 35,
-        "character_error_rate": 0.0857,
-        "match_coverage": 0.9143,
+        "character_error_rate": 0.1143,
+        "match_coverage": 0.8857,
         "verdict": "ok",
         "diff": [
           {
@@ -26,11 +26,11 @@
           {
             "at": 9,
             "kind": "replace",
-            "script": "漂",
-            "heard": "飘"
+            "script": "漂着",
+            "heard": "飘的"
           }
         ],
-        "transcript": "1872年大夕阳上飘着一艘船船上的东西几乎原封不动可是十个人全都消失了"
+        "transcript": "1872年,大夕阳上飘的一艘船船上的东西几乎原封不动可是十个人全都消失了"
       },
       {
         "id": "N02",
@@ -38,8 +38,8 @@
         "end": 29.45,
         "script_chars": 67,
         "heard_chars": 67,
-        "character_error_rate": 0.0746,
-        "match_coverage": 0.9403,
+        "character_error_rate": 0.0896,
+        "match_coverage": 0.9254,
         "verdict": "ok",
         "diff": [
           {
@@ -47,6 +47,12 @@
             "kind": "replace",
             "script": "赛",
             "heard": "塞"
+          },
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "号",
+            "heard": "好"
           },
           {
             "at": 23,
@@ -67,7 +73,7 @@
             "heard": "零零"
           }
         ],
-        "transcript": "11月7日,瑪麗塞勒斯特号从纽约出发,前往意大利热纳亚,船长布里格斯经验丰富,船上载着他的妻子两岁的女儿,还有七名船员,货物是1700多桶工业酒精。"
+        "transcript": "11月7日瑪麗塞勒斯特好從紐約出發前往意大利熱納亞船長布里格斯經驗豐富船上載著他的妻子兩歲的女兒還有七名船員貨物是1700多桶工業酒精"
       },
       {
         "id": "N03",
@@ -75,14 +81,14 @@
         "end": 54.45,
         "script_chars": 70,
         "heard_chars": 71,
-        "character_error_rate": 0.1143,
-        "match_coverage": 0.9,
+        "character_error_rate": 0.1,
+        "match_coverage": 0.9143,
         "verdict": "ok",
         "diff": [
           {
             "at": 4,
-            "kind": "replace",
-            "script": "十",
+            "kind": "insert",
+            "script": "",
             "heard": "是"
           },
           {
@@ -98,10 +104,10 @@
             "heard": "他他"
           },
           {
-            "at": 33,
+            "at": 51,
             "kind": "replace",
-            "script": "帆",
-            "heard": "翻铺"
+            "script": "水",
+            "heard": "随"
           },
           {
             "at": 54,
@@ -110,50 +116,32 @@
             "heard": "花著"
           }
         ],
-        "transcript": "一個月後 是2月4日 在亞蘇爾群島附近另一艘船上帝的恩典號發現了他他的翻舖破破爛爛 航向混亂喊了半天 沒有人回應水手們花著小艇靠近 爬上甲板一個人都沒有"
+        "transcript": "一個月後是 12 月 4 日在亞蘇爾群島附近另一艘船上帝的恩典號發現了他他的帆破破爛爛航向混亂喊了半天沒有人回應隨手們花著小艇靠近爬上甲板一個人都沒有"
       },
       {
         "id": "N04",
         "start": 55.35,
         "end": 89.45,
         "script_chars": 84,
-        "heard_chars": 87,
-        "character_error_rate": 0.0952,
-        "match_coverage": 0.9405,
+        "heard_chars": 84,
+        "character_error_rate": 0.0357,
+        "match_coverage": 0.9643,
         "verdict": "ok",
         "diff": [
-          {
-            "at": 32,
-            "kind": "insert",
-            "script": "",
-            "heard": "并"
-          },
           {
             "at": 37,
             "kind": "replace",
             "script": "仪器",
-            "heard": "遗弃并"
+            "heard": "遗弃"
           },
           {
             "at": 45,
             "kind": "replace",
             "script": "篇",
             "heard": "片"
-          },
-          {
-            "at": 47,
-            "kind": "replace",
-            "script": "志",
-            "heard": "治"
-          },
-          {
-            "at": 61,
-            "kind": "replace",
-            "script": "迹",
-            "heard": "等级"
           }
         ],
-        "transcript": "船体几乎完好食物和淡水够吃半年船员的行李和私人物品都在可是救生艇并不见了航海遗弃并不见了最后一片日治停在10天前没有明确的打斗痕等级没有求救信号他们是自己离开的还是被什么带走的"
+        "transcript": "船体几乎完好食物和淡水够吃半年船员的行李和私人物品都在可是救生艇不见了航海遗弃不见了最后一片日志停在十天前没有明确的打斗痕迹没有求救信号他们是自己离开的还是被什么带走的"
       },
       {
         "id": "N05",
@@ -161,26 +149,19 @@
         "end": 109.45,
         "script_chars": 42,
         "heard_chars": 42,
-        "character_error_rate": 0.0476,
-        "match_coverage": 0.9524,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
         "verdict": "ok",
-        "diff": [
-          {
-            "at": 13,
-            "kind": "replace",
-            "script": "一件",
-            "heard": "意见"
-          }
-        ],
-        "transcript": "有人说是海盗可是值钱的货物意见没少有人说是船员叛变可是船长威望很高现场也没有争斗痕迹"
+        "diff": [],
+        "transcript": "有人说是海盗可是值钱的货物一件没少有人说是船员叛变可是船长威望很高现场也没有争斗痕迹"
       },
       {
         "id": "N06",
         "start": 110.35,
         "end": 134.45,
         "script_chars": 48,
-        "heard_chars": 48,
-        "character_error_rate": 0.0208,
+        "heard_chars": 49,
+        "character_error_rate": 0.0417,
         "match_coverage": 0.9792,
         "verdict": "ok",
         "diff": [
@@ -189,9 +170,15 @@
             "kind": "replace",
             "script": "乌",
             "heard": "巫"
+          },
+          {
+            "at": 32,
+            "kind": "insert",
+            "script": "",
+            "heard": "本"
           }
         ],
-        "transcript": "有人说是巨型巫贼有人说是海上龙卷风和海底地震听起来很刺激可是船本身几乎完好不像遭遇过毁灭性的灾难"
+        "transcript": "有人说是巨型巫贼有人说是海上龙卷风和海底地震听起来很刺激可是船本本身几乎完好不像遭遇过毁灭性的灾难"
       },
       {
         "id": "N07",
@@ -216,29 +203,41 @@
             "heard": "栓"
           }
         ],
-        "transcript": "近年来 科学家做了实验酒精蒸汽可以发生一次几乎没有火光的爆燃冲开仓盖 却不留下多少痕迹船长害怕大船随时再次爆炸命令所有人立刻登上救生艇并用一根长绳把小艇栓在大船后面可是 一阵风浪袭来 绳子断了"
+        "transcript": "近年来,科学家做了实验酒精蒸汽可以发生一次几乎没有火光的爆燃冲开仓盖,却不留下多少痕迹船长害怕大船随时再次爆炸命令所有人立刻登上救生艇并用一根长绳把小艇栓在大船后面可是一阵风浪袭来绳子断了"
       },
       {
         "id": "N08",
         "start": 164.35,
         "end": 176.45,
         "script_chars": 46,
-        "heard_chars": 46,
-        "character_error_rate": 0.0217,
-        "match_coverage": 0.9783,
+        "heard_chars": 47,
+        "character_error_rate": 0.1304,
+        "match_coverage": 0.8913,
         "verdict": "ok",
         "diff": [
           {
             "at": 2,
             "kind": "replace",
             "script": "带",
-            "heard": "待"
+            "heard": "戴"
+          },
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "救生艇",
+            "heard": "舅舅声听"
+          },
+          {
+            "at": 37,
+            "kind": "replace",
+            "script": "他",
+            "heard": "它"
           }
         ],
-        "transcript": "大船待着满帆 继续前行而救生艇 再也没人见到这个解释最合理 但没有人能证明你觉得 他们到底遇到了什么"
+        "transcript": "大船戴着满帆 继续前行而舅舅声听 再也没人见到这个解释最合理 但没有人能证明你觉得 它们到底遇到了什么"
       }
     ],
-    "max_cer": 0.1143,
+    "max_cer": 0.1304,
     "failing": []
   },
   "narration_control": {
@@ -249,8 +248,8 @@
         "end": 9.45,
         "script_chars": 35,
         "heard_chars": 35,
-        "character_error_rate": 0.0857,
-        "match_coverage": 0.9143,
+        "character_error_rate": 0.1143,
+        "match_coverage": 0.8857,
         "verdict": "ok",
         "diff": [
           {
@@ -262,11 +261,11 @@
           {
             "at": 9,
             "kind": "replace",
-            "script": "漂",
-            "heard": "飘"
+            "script": "漂着",
+            "heard": "飘的"
           }
         ],
-        "transcript": "1872年,大夕阳上飘着一艘船船上的东西几乎原封不动可是十个人全都消失了"
+        "transcript": "1872年,大夕阳上飘的一艘船船上的东西几乎原封不动可是十个人全都消失了"
       },
       {
         "id": "N02",
@@ -274,8 +273,8 @@
         "end": 29.45,
         "script_chars": 67,
         "heard_chars": 67,
-        "character_error_rate": 0.0746,
-        "match_coverage": 0.9403,
+        "character_error_rate": 0.0896,
+        "match_coverage": 0.9254,
         "verdict": "ok",
         "diff": [
           {
@@ -291,6 +290,12 @@
             "heard": "纳"
           },
           {
+            "at": 43,
+            "kind": "replace",
+            "script": "两",
+            "heard": "二"
+          },
+          {
             "at": 58,
             "kind": "delete",
             "script": "千",
@@ -303,16 +308,16 @@
             "heard": "零零"
           }
         ],
-        "transcript": "11月7日,瑪麗塞勒斯特号从纽约出发,前往意大利热纳亚,船长布里格斯经验丰富,船上载着他的妻子两岁的女儿,还有七名船员,货物是1700多桶工业酒精。"
+        "transcript": "11月7日,瑪麗塞勒斯特号从纽约出发,前往意大利热纳亚,船长布里格斯经验丰富,船上载着他的妻子,2岁的女儿,还有7名船员,货物是1700多桶工业酒精。"
       },
       {
         "id": "N03",
         "start": 30.35,
         "end": 54.45,
         "script_chars": 70,
-        "heard_chars": 72,
-        "character_error_rate": 0.1429,
-        "match_coverage": 0.8857,
+        "heard_chars": 71,
+        "character_error_rate": 0.0714,
+        "match_coverage": 0.9429,
         "verdict": "ok",
         "diff": [
           {
@@ -325,71 +330,53 @@
             "at": 30,
             "kind": "replace",
             "script": "它它",
-            "heard": "她她"
+            "heard": "他他"
           },
           {
-            "at": 33,
-            "kind": "replace",
-            "script": "帆破破",
-            "heard": "发言人颇颇"
+            "at": 46,
+            "kind": "insert",
+            "script": "",
+            "heard": "天"
           },
           {
-            "at": 54,
+            "at": 51,
             "kind": "replace",
-            "script": "划着",
-            "heard": "花的"
+            "script": "水",
+            "heard": "随"
           }
         ],
-        "transcript": "一个月后,12月4日,在亚苏尔群岛附近,另一艘船上帝的恩典号发现了她,她的发言人颇颇烂烂,航向混乱,喊了半天,没有人回应,水手们花的小艇靠近,爬上甲板,一个人都没有。"
+        "transcript": "一个月后,12月4日,在亚苏尔群岛附近,另一艘船上帝的恩典号发现了他,他的帆破破烂烂,航向混乱,喊了半天,天,没有人回应,随手们划着小艇靠近,爬上甲板,一个人都没有。"
       },
       {
         "id": "N04",
         "start": 55.35,
         "end": 89.45,
         "script_chars": 84,
-        "heard_chars": 86,
-        "character_error_rate": 0.1071,
-        "match_coverage": 0.9167,
+        "heard_chars": 84,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
         "verdict": "ok",
         "diff": [
-          {
-            "at": 1,
-            "kind": "replace",
-            "script": "体",
-            "heard": "艇"
-          },
-          {
-            "at": 11,
-            "kind": "replace",
-            "script": "够",
-            "heard": "勾"
-          },
-          {
-            "at": 29,
-            "kind": "replace",
-            "script": "救",
-            "heard": "旧"
-          },
-          {
-            "at": 32,
-            "kind": "insert",
-            "script": "",
-            "heard": "并"
-          },
           {
             "at": 37,
             "kind": "replace",
             "script": "仪器",
-            "heard": "遗弃并"
+            "heard": "遗弃"
           },
           {
             "at": 45,
             "kind": "replace",
             "script": "篇",
             "heard": "片"
+          },
+          {
+            "at": 47,
+            "kind": "replace",
+            "script": "志",
+            "heard": "之"
           }
         ],
-        "transcript": "船艇几乎完好食物和淡水勾吃半年船員的行李和私人物品都在可是舊生艇並不見了航海遺棄並不見了最後一片日治停在十天前沒有明確的打鬥痕跡沒有求救信號他們是自己離開的還是被什麼帶走的"
+        "transcript": "船体几乎完好食物和淡水够吃半年船员的行李和私人物品都在可是救生艇不见了航海遗弃不见了最后一片日之停在十天前没有明确的打斗痕迹没有求救信号他们是自己离开的还是被什么带走的"
       },
       {
         "id": "N05",
@@ -397,26 +384,26 @@
         "end": 109.45,
         "script_chars": 42,
         "heard_chars": 42,
-        "character_error_rate": 0.0476,
-        "match_coverage": 0.9524,
+        "character_error_rate": 0.0238,
+        "match_coverage": 0.9762,
         "verdict": "ok",
         "diff": [
           {
-            "at": 13,
+            "at": 29,
             "kind": "replace",
-            "script": "一件",
-            "heard": "意见"
+            "script": "威",
+            "heard": "危"
           }
         ],
-        "transcript": "有人说是海盗可是值钱的货物意见没少有人说是船员叛变可是船长威望很高现场也没有争斗痕迹"
+        "transcript": "有人说是海盗,可是值钱的货物一件没少。有人说是船员叛变,可是船长危望很高,现场也没有争斗痕迹。"
       },
       {
         "id": "N06",
         "start": 110.35,
         "end": 134.45,
         "script_chars": 48,
-        "heard_chars": 48,
-        "character_error_rate": 0.0208,
+        "heard_chars": 49,
+        "character_error_rate": 0.0417,
         "match_coverage": 0.9792,
         "verdict": "ok",
         "diff": [
@@ -425,9 +412,15 @@
             "kind": "replace",
             "script": "乌",
             "heard": "巫"
+          },
+          {
+            "at": 32,
+            "kind": "insert",
+            "script": "",
+            "heard": "本"
           }
         ],
-        "transcript": "有人说是巨型巫贼有人说是海上龙卷风和海底地震听起来很刺激可是船本身几乎完好不像遭遇过毁灭性的灾难"
+        "transcript": "有人说是巨型巫贼有人说是海上龙卷风和海底地震听起来很刺激可是船本本身几乎完好不像遭遇过毁灭性的灾难"
       },
       {
         "id": "N07",
@@ -435,8 +428,8 @@
         "end": 163.45,
         "script_chars": 92,
         "heard_chars": 92,
-        "character_error_rate": 0.0435,
-        "match_coverage": 0.9565,
+        "character_error_rate": 0.0326,
+        "match_coverage": 0.9674,
         "verdict": "ok",
         "diff": [
           {
@@ -456,15 +449,9 @@
             "kind": "replace",
             "script": "拴",
             "heard": "栓"
-          },
-          {
-            "at": 86,
-            "kind": "replace",
-            "script": "袭",
-            "heard": "西"
           }
         ],
-        "transcript": "近年来,科学家做了实验,酒精蒸汽可以发生一次几乎没有火光的爆燃,充开仓盖,却不留下多少痕迹。船长害怕大船随时再次爆炸,命令所有人立刻登上救生艇,并用一根长绳把小艇栓在大船后面,可是一阵风浪西来,绳子断了。"
+        "transcript": "近年来,科学家做了实验,酒精蒸汽可以发生一次几乎没有火光的爆燃,充开仓盖,却不留下多少痕迹。船长害怕大船随时再次爆炸,命令所有人立刻登上救生艇,并用一根长绳把小艇栓在大船后面,可是一阵风浪袭来,绳子断了。"
       },
       {
         "id": "N08",
@@ -489,10 +476,10 @@
             "heard": "它"
           }
         ],
-        "transcript": "搭船带着满帆 继续前行而救生艇 再也没人见到这个解释最合理但没有人能证明你觉得 它们到底遇到了什么"
+        "transcript": "搭船 带着满帆 继续前行而救生艇 再也没人见到这个解释最合理 但没有人能证明你觉得 它们到底遇到了什么"
       }
     ],
-    "max_cer": 0.1429,
+    "max_cer": 0.1143,
     "failing": []
   },
   "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
