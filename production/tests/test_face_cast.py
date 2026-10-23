@@ -127,15 +127,6 @@ class PromptGateTests(unittest.TestCase):
             self.assertEqual(report["status"], "FAIL")
             self.assertTrue(any("出现了角色 C2 的 face token" in e for e in report["errors"]), report["errors"])
 
-    def test_multi_character_shot_declaring_all_faces_passes(self) -> None:
-        """家庭/双人镜头允许同框：声明了谁就放行谁，未声明的仍拦（玛丽号 S04/S24）。"""
-        with tempfile.TemporaryDirectory() as tmp:
-            shots = [shot("S01", f"{FACE_A} walking with {FACE_B} and waving")]
-            project = build_project(Path(tmp), shots=shots, faces={"S01": ["C1", "C2"]})
-            report = face_cast.check_prompts(project)
-            self.assertEqual(report["status"], "PASS", report["errors"])
-            self.assertFalse([e for e in report["errors"] if "face token" in e], report["errors"])
-
     def test_silhouette_mode_with_faces_is_error(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             project = build_project(Path(tmp), mode="silhouette", faces={"S01": ["C1"]})

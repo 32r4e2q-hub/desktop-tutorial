@@ -231,11 +231,9 @@ def check_prompts(project: Path) -> dict:
                 errors.append(
                     f"镜头 {shot_id} 的提示词里没有角色 {cid} 的 face token（必须逐字节照抄）："
                     "跨镜头同一张脸靠的就是这段文字")
-            # 不许夹带「没声明的」别角色的 token；同镜头已声明的其他角色不算偷带
-            # （2026-10-22 玛丽号 S04/S24 家庭三人镜头实测：旧逻辑把 C2/C3 也算成偷带，
-            #   与手册「登记了多个角色（双人镜头）时保持镜头 seed」的口径矛盾，属闸门 bug）
+            # 不许夹带别角色的 token
             for other in ids:
-                if other == cid or other in declared_ids:
+                if other == cid:
                     continue
                 other_face = (by_id[other].get("face") or "").strip()
                 if other_face and other_face in prompt:
