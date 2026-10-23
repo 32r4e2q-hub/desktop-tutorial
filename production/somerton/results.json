@@ -99,10 +99,10 @@
     "S02": {
       "id": "S02",
       "request_hash": "1be23ea562ef13c621180c213686cc84664533cfc89eed79cd47894afeee5f81",
-      "status": "waiting_create_slot",
-      "error": null,
-      "updated_at": "2026-10-23T07:09:35Z",
-      "create_attempts": 24,
+      "status": "provider_cooldown",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 2026102307265811447939hRGDdh75)",
+      "updated_at": "2026-10-23T07:26:58Z",
+      "create_attempts": 30,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -232,11 +232,11 @@
     },
     "S07": {
       "id": "S07",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "request_hash": "dcf35782abb7af6183d00dc3709ba8fabb9e8188d078276dc97e01d55c91f616",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023071138340950757CWelmZSQ)",
-      "updated_at": "2026-10-23T07:11:38Z",
-      "create_attempts": 20,
+      "error": null,
+      "updated_at": "2026-10-23T07:25:56Z",
+      "create_attempts": 29,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     }
@@ -246,7 +246,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T07:11:38Z",
+  "updated_at": "2026-10-23T07:26:58Z",
   "run_id": "39901826698",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -294,9 +294,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023071138340950757CWelmZSQ)",
-    "create_attempts": 20,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 2026102307265811447939hRGDdh75)",
+    "create_attempts": 30,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-23T07:11:38Z"
+    "last_seen": "2026-10-23T07:26:58Z"
   }
 }
