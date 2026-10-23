@@ -77,10 +77,10 @@
     },
     "S04": {
       "id": "S04",
-      "status": "submitting",
+      "status": "failed",
       "request_hash": "c26a26da34898c1fb259a51e0cd9ee1452449ebf284446c7ea32904a898fb034",
-      "error": null,
-      "updated_at": "2026-10-22T23:38:54Z"
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "updated_at": "2026-10-23T00:12:54Z"
     },
     "S05A": {
       "id": "S05A",
@@ -732,7 +732,7 @@
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
-  "phase": "generating_sources",
+  "phase": "provider_capacity",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -766,7 +766,7 @@
     "S27",
     "S28"
   ],
-  "updated_at": "2026-10-22T23:38:54Z",
+  "updated_at": "2026-10-23T00:12:54Z",
   "previous_results": {
     "S04": [
       {
