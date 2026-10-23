@@ -154,6 +154,7 @@ def main() -> int:
         # 成片 image-track 切出，字节与 v2.1 交付画面一致，信任链=git，不再做收据比对）
         archive = HERE / "sources" / f"{sid}.mp4"
         if archive.exists():
+            destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(archive, destination)
             info = probe(destination)
             report["reused"].append(sid)
