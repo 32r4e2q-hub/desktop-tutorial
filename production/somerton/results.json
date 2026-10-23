@@ -625,10 +625,10 @@
     },
     "S19": {
       "id": "S19",
-      "status": "downloaded",
+      "status": "completed",
       "request_hash": "9ae2f841e86bd6b3499540601db9ddb6c05f1cf1b631bff894168860d761a451",
       "error": null,
-      "updated_at": "2026-10-23T23:31:25Z",
+      "updated_at": "2026-10-23T23:31:27Z",
       "create_attempts": 1,
       "video_id": "task_dnhrIqEpRcVn3GP2SplYHLe2yyIu84nL",
       "task_id": "task_dnhrIqEpRcVn3GP2SplYHLe2yyIu84nL",
@@ -638,7 +638,19 @@
       "bytes": 2917781,
       "sha256": "7339ecbf5259a11da88550c822e5a05bfcb64cf9b7fdb9adb618f636344e9237",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2917781,
+        "decoded_ok": true,
+        "contact_sheet": "production/somerton/qa/S19.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S20": {
       "id": "S20",
@@ -656,7 +668,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T23:31:25Z",
+  "updated_at": "2026-10-23T23:31:27Z",
   "run_id": "40039467742",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
