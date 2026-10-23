@@ -58,8 +58,19 @@ def main() -> int:
     candidates = _copy_files(args.candidates, "*.jpg", temporary / "candidates")
     candidate_manifests = _copy_files(args.candidates, "manifest.json", temporary / "candidates")
 
-    if len(all_frames) != 46:
-        raise SystemExit(f"Expected 46 final-cut all-frame sheets, found {len(all_frames)}")
+    # 每段一张全帧表，段数因项目而异（本片 31 镜+片尾卡）；模板里写死的 46
+    # 是老项目的段数，2026-10-23 在本片视觉 QC 上把发布步卡死过一次。
+    # 正确出处是 compose_all_frame_sheets 写的 manifest.json 的 sheets 清单。
+    manifest_doc = {}
+    manifest_path = args.all_frames / "manifest.json"
+    if manifest_path.is_file():
+        manifest_doc = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected = len(manifest_doc.get("sheets") or [])
+    if not all_frames:
+        raise SystemExit("No final-cut all-frame sheets found")
+    if expected and len(all_frames) != expected:
+        raise SystemExit(
+            f"Expected {expected} final-cut all-frame sheets per manifest, found {len(all_frames)}")
     if not hands:
         raise SystemExit("No final-cut hand contact sheets found")
     if not candidates:
