@@ -446,13 +446,10 @@
     },
     "S14": {
       "id": "S14",
-      "status": "waiting_create_slot",
       "request_hash": "8bccac761213339da021617b23e1db298f828df3e23db893247ffe13f34f03d7",
+      "status": "submitting",
       "error": null,
-      "updated_at": "2026-10-23T17:48:01Z",
-      "create_attempts": 38,
-      "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "updated_at": "2026-10-23T17:54:46Z"
     }
   },
   "review": {
@@ -460,7 +457,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T17:54:45Z",
+  "updated_at": "2026-10-23T17:54:46Z",
   "run_id": "39998745665",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -536,6 +533,18 @@
         "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 202610231749026918782712j7a8Xgq)",
         "updated_at": "2026-10-23T17:49:02Z",
         "create_attempts": 130,
+        "capacity_error": "video queue is full",
+        "applied_cooldown_seconds": 61
+      }
+    ],
+    "S14": [
+      {
+        "id": "S14",
+        "status": "waiting_create_slot",
+        "request_hash": "8bccac761213339da021617b23e1db298f828df3e23db893247ffe13f34f03d7",
+        "error": null,
+        "updated_at": "2026-10-23T17:48:01Z",
+        "create_attempts": 38,
         "capacity_error": "video queue is full",
         "applied_cooldown_seconds": 61
       }
