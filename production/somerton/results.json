@@ -253,27 +253,32 @@
     },
     "S07": {
       "id": "S07",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "request_hash": "dcf35782abb7af6183d00dc3709ba8fabb9e8188d078276dc97e01d55c91f616",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023091218834364592qL1PyFyO)",
-      "updated_at": "2026-10-23T09:12:18Z",
-      "create_attempts": 90,
+      "error": null,
+      "updated_at": "2026-10-23T09:17:26Z",
+      "create_attempts": 96,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
     "S08": {
       "id": "S08",
-      "status": "queued",
+      "status": "downloaded",
       "request_hash": "0ef46e3c83eb4f587849415258e881d452fd204c75cea3d25ed77f94d46f176d",
       "error": null,
-      "updated_at": "2026-10-23T09:06:11Z",
+      "updated_at": "2026-10-23T09:17:27Z",
       "create_attempts": 7,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61,
       "video_id": "task_kb8saN5FiDPNNSeLu5MPXM5yhmCw2VtP",
       "task_id": "task_kb8saN5FiDPNNSeLu5MPXM5yhmCw2VtP",
       "requested_seconds": 7.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_kb8saN5FiDPNNSeLu5MPXM5yhmCw2VtP.mp4",
+      "bytes": 2127791,
+      "sha256": "c7e79beca3e129fdcfed2f00bd4beb4ba38b7fd3eba5e725852239719c9cabe4",
+      "reported_size": "720P",
+      "reported_seconds": "7"
     }
   },
   "review": {
@@ -281,7 +286,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T09:12:18Z",
+  "updated_at": "2026-10-23T09:17:27Z",
   "run_id": "39901826698",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -329,9 +334,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023091218834364592qL1PyFyO)",
-    "create_attempts": 90,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023091726733941598HJiooXW)",
+    "create_attempts": 95,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-23T09:12:18Z"
+    "last_seen": "2026-10-23T09:17:26Z"
   }
 }
