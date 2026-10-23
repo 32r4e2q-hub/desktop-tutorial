@@ -502,25 +502,32 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
     else:
         source=sources/(sid+'.mp4');info=checks[sid]
         length=info['duration'];a=.12;b=length-.12
+        # 2026-10-23 素材救援：sources/ 入仓的镜头是从成片 image-track 切出的预处理素材
+        # （调色/暗角/收紧裁切/慢放均已烙入）：整段取用、不二次处理，槽位靠 setpts 适配。
+        pre_graded=(HERE/'sources'/f'{sid}.mp4').exists()
+        if pre_graded:
+            a=0.0;b=length
         # 本片的镜头时间窗：默认整段可用；看过 qa/ 接触表后若某镜头前/后段有畸变，在 WINDOWS 里收窄。
-        if sid in WINDOWS:
+        if sid in WINDOWS and not pre_graded:
             wa,wb=WINDOWS[sid];a=max(a,wa);b=min(b,wb if wb is not None else b)
         available=b-a
-        take=min(available,duration)
+        take=available if pre_graded else min(available,duration)
         factor=duration/take
         cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
         tighter=''
-        if sid in TIGHTER_CROPS:
+        if sid in TIGHTER_CROPS and not pre_graded:
             # 轻微推近，裁掉画面边缘的问题区域（比例 1.15–1.3），中心点按 (cx,cy) 比例给
             zoom,cx,cy=TIGHTER_CROPS[sid]
             cw=math.floor(info['width']/zoom/2)*2;ch=math.floor(info['height']/zoom/2)*2
             x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
             tighter=f'crop={cw}:{ch}:{x0}:{y0},'
-        grade=GRADE_OVERRIDES.get(sid,DEFAULT_GRADE)
-        vignette=f'vignette=angle={VIGNETTE_SHOTS[sid]},' if sid in VIGNETTE_SHOTS else ''
+        grade='' if pre_graded else GRADE_OVERRIDES.get(sid,DEFAULT_GRADE)
+        vignette='' if pre_graded else (f'vignette=angle={VIGNETTE_SHOTS[sid]},' if sid in VIGNETTE_SHOTS else '')
+        tint=','.join(p for p in (grade,vignette.rstrip(',')) if p)
         common=(tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-                f'crop={width}:{height},setsar=1,fps={FPS},{grade},{vignette}'
-                f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
+                f'crop={width}:{height},setsar=1,fps={FPS}'
+                + (','+tint if tint else '')
+                + f',tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         fc=None
         if factor>1.12:
             # 2026-10-23：用户反馈「很多画面先前进又后退」——乒乓循环（正放+倒放

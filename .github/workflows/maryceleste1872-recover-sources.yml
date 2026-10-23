@@ -1,0 +1,44 @@
+name: 玛丽·赛勒斯特号：素材恢复（成片 image-track 切源入仓）
+run-name: 素材恢复 · 玛丽·赛勒斯特号：海上最大的未解之谜
+
+on:
+  push:
+    paths: [production/maryceleste1872/RECOVER_SOURCES_REQUEST]
+
+permissions:
+  contents: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      BRANCH: arena/63ceeca2-desktop-tutorial
+    steps:
+      - name: Check out this Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+          fetch-depth: 2
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Recover sources from the v2.1 delivery artifact
+        run: python3 production/maryceleste1872/recover_sources.py 2>&1 | tee /tmp/recover.log
+        continue-on-error: false
+
+      - name: Ship failure log to branch (sandbox cannot read Actions logs)
+        if: failure()
+        run: |
+          tail -c 200000 /tmp/recover.log > production/maryceleste1872/recover-diag.log || true
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/maryceleste1872/recover-diag.log
+          git commit -m "maryceleste1872: 素材恢复失败诊断 $(date -u +%FT%TZ)" || true
+          git push origin HEAD:arena/63ceeca2-desktop-tutorial || true

@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import sys
 import time
 import urllib.request
@@ -148,6 +149,15 @@ def main() -> int:
             continue
         if destination.exists() and digest(destination) == receipt["sha256"]:
             report["reused"].append(sid)
+            continue
+        # 2026-10-23 起优先用入仓素材（CDN URL 会过期；sources/ 由素材恢复工作流从
+        # 成片 image-track 切出，字节与 v2.1 交付画面一致，信任链=git，不再做收据比对）
+        archive = HERE / "sources" / f"{sid}.mp4"
+        if archive.exists():
+            shutil.copyfile(archive, destination)
+            info = probe(destination)
+            report["reused"].append(sid)
+            print(f"ARCHIVED {sid} <- {archive} ({destination.stat().st_size} bytes)", flush=True)
             continue
         print(f"FETCH {sid} {url}", flush=True)
         try:
