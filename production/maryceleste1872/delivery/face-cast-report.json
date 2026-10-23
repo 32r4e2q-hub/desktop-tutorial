@@ -1,0 +1,203 @@
+{
+  "gate": "check-frames",
+  "project": "production/maryceleste1872",
+  "film": "交付/玛丽赛勒斯特号_海上最大的未解之谜_三分钟_带声音.mp4",
+  "errors": [],
+  "warnings": [
+    "镜头 S24 声明了 C1,C2,C3 要露脸，但抽帧里没检到人脸：要么构图没露出来，要么检测器在暗光/侧脸下失效——请人工看一眼",
+    "角色 C1 跨镜头最低相似度 -0.25（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C2 跨镜头最低相似度 -0.25（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C3 跨镜头最低相似度 -0.25（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C4 跨镜头最低相似度 -0.01（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C1 与 C2 的跨角色最高相似度 1.00（>0.8）：可能撞脸，观众会分不清，请对照两张接触表确认",
+    "角色 C1 与 C3 的跨角色最高相似度 1.00（>0.8）：可能撞脸，观众会分不清，请对照两张接触表确认",
+    "角色 C2 与 C3 的跨角色最高相似度 1.00（>0.8）：可能撞脸，观众会分不清，请对照两张接触表确认"
+  ],
+  "characters": {
+    "C1": {
+      "contact_sheet": "delivery/face-cast/C1.jpg",
+      "crops": 3,
+      "shots": [
+        "S04"
+      ],
+      "within_min": -0.254,
+      "within_median": 0.095
+    },
+    "C2": {
+      "contact_sheet": "delivery/face-cast/C2.jpg",
+      "crops": 3,
+      "shots": [
+        "S04"
+      ],
+      "within_min": -0.254,
+      "within_median": 0.095
+    },
+    "C3": {
+      "contact_sheet": "delivery/face-cast/C3.jpg",
+      "crops": 3,
+      "shots": [
+        "S04"
+      ],
+      "within_min": -0.254,
+      "within_median": 0.095
+    },
+    "C4": {
+      "contact_sheet": "delivery/face-cast/C4.jpg",
+      "crops": 2,
+      "shots": [
+        "S07A"
+      ],
+      "within_min": -0.014,
+      "within_median": -0.014
+    }
+  },
+  "cross_character": [
+    {
+      "pair": [
+        "C1",
+        "C2"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "pair": [
+        "C1",
+        "C3"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "pair": [
+        "C1",
+        "C4"
+      ],
+      "max_similarity": 0.383
+    },
+    {
+      "pair": [
+        "C2",
+        "C3"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "pair": [
+        "C2",
+        "C4"
+      ],
+      "max_similarity": 0.383
+    },
+    {
+      "pair": [
+        "C3",
+        "C4"
+      ],
+      "max_similarity": 0.383
+    }
+  ],
+  "shots": [
+    {
+      "shot": "S04",
+      "characters": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 18.283,
+          "faces": 2,
+          "score": 0.768,
+          "bbox": [
+            449,
+            292,
+            143,
+            143
+          ]
+        },
+        {
+          "seconds": 19.033,
+          "faces": 3,
+          "score": 0.694,
+          "bbox": [
+            898,
+            84,
+            218,
+            218
+          ]
+        },
+        {
+          "seconds": 19.783,
+          "faces": 3,
+          "score": 0.657,
+          "bbox": [
+            941,
+            114,
+            206,
+            206
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S07A",
+      "characters": [
+        "C4"
+      ],
+      "frames": [
+        {
+          "seconds": 34.025,
+          "faces": 1,
+          "score": 0.684,
+          "bbox": [
+            337,
+            328,
+            117,
+            117
+          ]
+        },
+        {
+          "seconds": 34.783,
+          "faces": 0
+        },
+        {
+          "seconds": 35.542,
+          "faces": 1,
+          "score": 0.669,
+          "bbox": [
+            311,
+            289,
+            115,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S24",
+      "characters": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 150.125,
+          "faces": 0
+        },
+        {
+          "seconds": 151.717,
+          "faces": 0
+        },
+        {
+          "seconds": 153.308,
+          "faces": 0
+        }
+      ]
+    }
+  ],
+  "human_review": "pending",
+  "detector": "mediapipe",
+  "status": "REVIEW",
+  "note": "机器只做分诊：相似度对光照/角度很敏感，最终必须人眼看每个角色的接触表，确认「同一个人跨镜头还是他、不同角色一眼能分辨」。"
+}
