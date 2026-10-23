@@ -532,21 +532,21 @@
     },
     "S16": {
       "id": "S16",
-      "status": "waiting_create_slot",
+      "status": "provider_cooldown",
       "request_hash": "e32ed590ffb42fc8862f425829f02145ba3f56609ff373f1c935e750199c7ff4",
-      "error": null,
-      "updated_at": "2026-10-23T22:37:50Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 2026102322435939468327207eGtmwv)",
+      "updated_at": "2026-10-23T22:43:59Z",
       "create_attempts": 80,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
     "S17": {
       "id": "S17",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "request_hash": "4de9b382534cd800c4b3712b247ced98619b704db268133598524e8185332d4c",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023224155586781575kegCF5tg)",
-      "updated_at": "2026-10-23T22:41:55Z",
-      "create_attempts": 20,
+      "error": null,
+      "updated_at": "2026-10-23T22:42:58Z",
+      "create_attempts": 22,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     }
@@ -556,7 +556,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-23T22:41:55Z",
+  "updated_at": "2026-10-23T22:43:59Z",
   "run_id": "39998745665",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -652,9 +652,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261023224155586781575kegCF5tg)",
-    "create_attempts": 20,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 2026102322435939468327207eGtmwv)",
+    "create_attempts": 80,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-23T22:41:55Z"
+    "last_seen": "2026-10-23T22:43:59Z"
   }
 }
