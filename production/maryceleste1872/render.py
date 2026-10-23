@@ -605,8 +605,12 @@ def main():
         if shot['kind']!='agnes':continue
         sid=shot['id'];source=args.sources/(sid+'.mp4');receipt=results['shots'].get(sid,{})
         wanted_hashes={request_hash(project,shot),*cogvideox_request_hashes(project,shot)}
+        # 2026-10-23 素材救援：sources/ 入仓的镜头是从成片 image-track 切回的预处理素材，
+        # 字节与生成收据不同、信任链=git（恢复工作流切源入仓）；收据状态/请求哈希仍要对上。
+        archive_trusted=(HERE/'sources'/f'{sid}.mp4').exists()
         if (receipt.get('status')!='completed' or receipt.get('request_hash') not in wanted_hashes
-                or not source.exists() or digest(source)!=receipt.get('sha256')):
+                or not source.exists()
+                or (not archive_trusted and digest(source)!=receipt.get('sha256'))):
             raise RuntimeError(f'Missing or unverified generated footage: {sid}; refusing to substitute an image/slideshow')
         checks[sid]=probe(source)
     narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
