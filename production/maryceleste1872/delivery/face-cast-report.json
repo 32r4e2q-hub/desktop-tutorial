@@ -5,9 +5,9 @@
   "errors": [],
   "warnings": [
     "镜头 S24 声明了 C1,C2,C3 要露脸，但抽帧里没检到人脸：要么构图没露出来，要么检测器在暗光/侧脸下失效——请人工看一眼",
-    "角色 C1 跨镜头最低相似度 0.02（<0.45）：可能出现了换脸，请对照接触表人工确认",
-    "角色 C2 跨镜头最低相似度 0.02（<0.45）：可能出现了换脸，请对照接触表人工确认",
-    "角色 C3 跨镜头最低相似度 0.02（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C1 跨镜头最低相似度 0.03（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C2 跨镜头最低相似度 0.03（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C3 跨镜头最低相似度 0.03（<0.45）：可能出现了换脸，请对照接触表人工确认",
     "角色 C1 与 C2 的跨角色最高相似度 1.00（>0.8）：可能撞脸，观众会分不清，请对照两张接触表确认",
     "角色 C1 与 C3 的跨角色最高相似度 1.00（>0.8）：可能撞脸，观众会分不清，请对照两张接触表确认",
     "角色 C2 与 C3 的跨角色最高相似度 1.00（>0.8）：可能撞脸，观众会分不清，请对照两张接触表确认"
@@ -19,8 +19,8 @@
       "shots": [
         "S04"
       ],
-      "within_min": 0.017,
-      "within_median": 0.218
+      "within_min": 0.027,
+      "within_median": 0.184
     },
     "C2": {
       "contact_sheet": "delivery/face-cast/C2.jpg",
@@ -28,8 +28,8 @@
       "shots": [
         "S04"
       ],
-      "within_min": 0.017,
-      "within_median": 0.218
+      "within_min": 0.027,
+      "within_median": 0.184
     },
     "C3": {
       "contact_sheet": "delivery/face-cast/C3.jpg",
@@ -37,8 +37,8 @@
       "shots": [
         "S04"
       ],
-      "within_min": 0.017,
-      "within_median": 0.218
+      "within_min": 0.027,
+      "within_median": 0.184
     },
     "C4": {
       "contact_sheet": "delivery/face-cast/C4.jpg",
@@ -46,8 +46,8 @@
       "shots": [
         "S07A"
       ],
-      "within_min": 0.676,
-      "within_median": 0.676
+      "within_min": 0.67,
+      "within_median": 0.67
     }
   },
   "cross_character": [
@@ -70,7 +70,7 @@
         "C1",
         "C4"
       ],
-      "max_similarity": 0.422
+      "max_similarity": 0.506
     },
     {
       "pair": [
@@ -84,14 +84,14 @@
         "C2",
         "C4"
       ],
-      "max_similarity": 0.422
+      "max_similarity": 0.506
     },
     {
       "pair": [
         "C3",
         "C4"
       ],
-      "max_similarity": 0.422
+      "max_similarity": 0.506
     }
   ],
   "shots": [
@@ -104,36 +104,36 @@
       ],
       "frames": [
         {
-          "seconds": 18.842,
+          "seconds": 19.125,
           "faces": 3,
-          "score": 0.692,
+          "score": 0.66,
           "bbox": [
-            931,
-            109,
-            219,
-            219
+            930,
+            113,
+            214,
+            214
           ]
         },
         {
-          "seconds": 19.85,
+          "seconds": 20.15,
           "faces": 3,
-          "score": 0.654,
+          "score": 0.668,
           "bbox": [
-            943,
-            114,
-            201,
-            201
+            942,
+            113,
+            202,
+            202
           ]
         },
         {
-          "seconds": 20.858,
-          "faces": 2,
-          "score": 0.901,
+          "seconds": 21.175,
+          "faces": 1,
+          "score": 0.924,
           "bbox": [
-            501,
-            311,
-            144,
-            143
+            499,
+            313,
+            146,
+            146
           ]
         }
       ]
@@ -145,29 +145,29 @@
       ],
       "frames": [
         {
-          "seconds": 37.725,
+          "seconds": 37.833,
           "faces": 0
         },
         {
-          "seconds": 40.583,
+          "seconds": 40.6,
           "faces": 1,
-          "score": 0.73,
+          "score": 0.758,
           "bbox": [
-            300,
+            302,
             285,
             129,
             129
           ]
         },
         {
-          "seconds": 43.442,
+          "seconds": 43.367,
           "faces": 1,
-          "score": 0.805,
+          "score": 0.817,
           "bbox": [
-            244,
-            283,
-            131,
-            131
+            239,
+            279,
+            136,
+            136
           ]
         }
       ]
@@ -181,15 +181,15 @@
       ],
       "frames": [
         {
-          "seconds": 149.475,
+          "seconds": 149.542,
           "faces": 0
         },
         {
-          "seconds": 151.65,
+          "seconds": 151.35,
           "faces": 0
         },
         {
-          "seconds": 153.825,
+          "seconds": 153.158,
           "faces": 0
         }
       ]
