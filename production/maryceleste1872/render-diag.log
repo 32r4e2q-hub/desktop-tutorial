@@ -2,13 +2,43 @@
 === 1/5 校验计划与配音来源（闸门一）===
 VALID: 180-second plan; 31 shots; 31 Agnes sources; 0 graphics; 0 archival; narration hashes match
 === 2/5 按 SHA-256 回填已生成素材（不重新生成、不消耗额度）===
+ARCHIVED S01 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S01.mp4 (2282078 bytes)
+ARCHIVED S02 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S02.mp4 (3979308 bytes)
+ARCHIVED S03 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S03.mp4 (4125737 bytes)
+ARCHIVED S04 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S04.mp4 (3452736 bytes)
+ARCHIVED S05A <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S05A.mp4 (1847056 bytes)
+ARCHIVED S05B <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S05B.mp4 (1840932 bytes)
+ARCHIVED S06 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S06.mp4 (2357431 bytes)
+ARCHIVED S07A <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S07A.mp4 (4158670 bytes)
+ARCHIVED S07B <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S07B.mp4 (4728893 bytes)
+ARCHIVED S08 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S08.mp4 (3760352 bytes)
+ARCHIVED S09 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S09.mp4 (1689744 bytes)
+ARCHIVED S10 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S10.mp4 (879186 bytes)
+ARCHIVED S11 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S11.mp4 (2203631 bytes)
+ARCHIVED S12 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S12.mp4 (2186345 bytes)
+ARCHIVED S13 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S13.mp4 (4990292 bytes)
+ARCHIVED S14 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S14.mp4 (3847130 bytes)
+ARCHIVED S15 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S15.mp4 (4371779 bytes)
+ARCHIVED S16 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S16.mp4 (4599235 bytes)
+ARCHIVED S17 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S17.mp4 (2393982 bytes)
+ARCHIVED S18A <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S18A.mp4 (2202847 bytes)
+ARCHIVED S18B <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S18B.mp4 (1678592 bytes)
+ARCHIVED S19 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S19.mp4 (3716723 bytes)
+ARCHIVED S20 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S20.mp4 (6027015 bytes)
+ARCHIVED S21 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S21.mp4 (3863231 bytes)
+ARCHIVED S22 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S22.mp4 (5643520 bytes)
+ARCHIVED S23 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S23.mp4 (3779321 bytes)
+ARCHIVED S24 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S24.mp4 (5761632 bytes)
+ARCHIVED S25 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S25.mp4 (2640428 bytes)
+ARCHIVED S26 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S26.mp4 (3145069 bytes)
+ARCHIVED S27 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S27.mp4 (4108229 bytes)
+ARCHIVED S28 <- /home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/sources/S28.mp4 (5622740 bytes)
+FETCH_COMPLETE {"downloaded": 0, "reused": 31, "clips": 31}
+=== 3/5 剪辑 + 混音 + 成品复测（闸门二、三）===
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/fetch_sources.py", line 209, in <module>
-    raise SystemExit(main())
-                     ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/fetch_sources.py", line 157, in main
-    shutil.copyfile(archive, destination)
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/shutil.py", line 258, in copyfile
-    with open(dst, 'wb') as fdst:
-         ^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'work/maryceleste1872/clips/S01.mp4'
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/render.py", line 708, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/maryceleste1872/render.py", line 610, in main
+    raise RuntimeError(f'Missing or unverified generated footage: {sid}; refusing to substitute an image/slideshow')
+RuntimeError: Missing or unverified generated footage: S01; refusing to substitute an image/slideshow
