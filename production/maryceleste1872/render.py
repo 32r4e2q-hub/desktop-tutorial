@@ -474,6 +474,16 @@ def write_sfx(path,edl,presentation):
         signal*=np.minimum(np.clip(t/.06,0,1),np.clip((duration-t)/.18,0,1))
         i=round(start*RATE);n=min(len(signal),len(out)-i)
         out[i:i+n,0]+=signal[:n]*.93;out[i:i+n,1]+=signal[:n]*1.07
+    # 2026-10-23：整轴海风底床。v2 新配音句间停顿更疏（N05/N06 呼吸达 2.3–3.4 s），
+    # 静音占比 2.2% 顶破 2% 闸门；压一层持续海浪+风声垫底（约 −41 dBFS，旁白/BGM
+    # 之下），既保住悬疑呼吸感，又不违反「爆燃处 BGM 静音 1 秒」（静的是 BGM，
+    # 床是环境声）。自此全片无死寂窗。
+    n=len(out);tt=np.arange(n)/RATE
+    brown=np.cumsum(rng.normal(0,1,n));brown-=brown.mean();brown/= (np.abs(brown).max()+1e-9)
+    swell=.55+.45*np.sin(2*np.pi*tt/8.7)
+    wind=np.convolve(rng.normal(0,1,n),np.ones(40)/40,'same');wind/=(np.abs(wind).max()+1e-9)
+    bed=(.028*swell*brown+.014*wind).astype(np.float32)
+    out[:,0]+=bed*.96;out[:,1]+=bed*1.04
     with wave.open(str(path),'wb') as f:
         f.setnchannels(2);f.setsampwidth(2);f.setframerate(RATE)
         f.writeframes(np.int16(np.clip(out,-1,1)*32767).tobytes())
