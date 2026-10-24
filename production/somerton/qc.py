@@ -202,6 +202,14 @@ def ocr_words(image: Image.Image, temp_path: Path) -> list[dict]:
     return words
 
 
+def unapproved_ocr_words(shot_id: str, words: list[dict]) -> list[dict]:
+    if shot_id != "S14":
+        return words
+    approved = {"tamam", "shud", "tamamshud"}
+    return [word for word in words
+            if re.sub(r"[^a-z]+", "", word["token"].casefold()) not in approved]
+
+
 def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) -> dict:
     """OCR sampled source frames and the final cut, excluding post-produced subtitle/title zones."""
     if not shutil.which("tesseract"):
@@ -225,7 +233,7 @@ def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) 
                     continue
                 tile = tile.resize((tile.width * 3, tile.height * 3), Image.Resampling.LANCZOS)
                 source_cells_scanned += 1
-                words = ocr_words(tile, temp_path)
+                words = unapproved_ocr_words(sid, ocr_words(tile, temp_path))
                 if words:
                     source_findings.append({"shot": sid, "sample_cell": row * 3 + col + 1, "words": words})
 
@@ -233,20 +241,20 @@ def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) 
     final_frames_scanned = 0
     for sample in samples:
         sid = sample["id"]
-        if sid in {"S14", "S29"}:  # the only approved post-produced in-frame text locations
+        if sid == "S29":  # approved post-produced closing title occupies the final frame
             continue
         image = Image.open(sample["frame"]).convert("RGB")
         # Burned-in subtitles occupy the bottom safe-area; OCR the image-bearing region only.
         image = image.crop((0, 0, image.width, int(image.height * 0.85)))
         final_frames_scanned += 1
-        words = ocr_words(image, temp_path)
+        words = unapproved_ocr_words(sid, ocr_words(image, temp_path))
         if words:
             final_findings.append({"shot": sid, "time_seconds": sample["time_seconds"], "words": words})
     return {
         "available": True, "languages": "eng+chi_sim", "source_cells_scanned": source_cells_scanned,
         "final_frames_scanned": final_frames_scanned, "source_findings": source_findings,
         "final_findings": final_findings,
-        "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and approved S14/S29 post-title zones were excluded from final-frame OCR.",
+        "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band, approved Tamam Shud words in S14, and the post-produced S29 closing-title frame are excluded from findings.",
     }
 
 

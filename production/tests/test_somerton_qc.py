@@ -39,9 +39,18 @@ class SomertonOcrTests(unittest.TestCase):
                  patch.object(qc, "ocr_words", return_value=[]) as ocr:
                 report = qc.scan_unapproved_text(Path(temp_dir), samples, Path(temp_dir) / "ocr")
         self.assertTrue(report["available"])
-        self.assertEqual(report["final_frames_scanned"], 1)
-        self.assertEqual(ocr.call_count, 1)
-        self.assertEqual(ocr.call_args.args[0].size, (100, 85))
+        self.assertEqual(report["final_frames_scanned"], 2)
+        self.assertEqual(ocr.call_count, 2)
+        self.assertTrue(all(call.args[0].size == (100, 85) for call in ocr.call_args_list))
+
+    def test_only_s14_tamam_shud_words_are_allowlisted(self):
+        words = [
+            {"token": "Tamam", "confidence": 90.0},
+            {"token": "Shud", "confidence": 91.0},
+            {"token": "LUGGAGE", "confidence": 88.0},
+        ]
+        self.assertEqual(qc.unapproved_ocr_words("S14", words), [words[2]])
+        self.assertEqual(qc.unapproved_ocr_words("S10", words), words)
 
 
 if __name__ == "__main__":

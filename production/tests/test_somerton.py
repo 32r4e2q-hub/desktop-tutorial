@@ -11,6 +11,8 @@ from production.somerton.generate import (
     REQUEST_INTERVAL_SECONDS,
     full_payload,
     full_prompt,
+    prepare_prompt_changes,
+    request_hash,
     retry_create_until_accepted,
     retryable_create_error,
     validate,
@@ -186,6 +188,23 @@ class SomertonPlanTests(unittest.TestCase):
             with self.subTest(shot=sid):
                 prompt = rows[sid]["prompt"].lower()
                 self.assertTrue(any(marker in prompt for marker in markers), prompt)
+
+    def test_changed_prompt_rows_are_checkpointed_before_workers_start(self):
+        shots = {shot["id"]: shot for shot in self.story["shots"]}
+        old_s07 = {"id": "S07", "request_hash": "old-prompt", "status": "completed",
+                   "reused_existing_asset": True, "video_url": "old-url"}
+        matching_s08 = {"id": "S08", "request_hash": request_hash(self.story, shots["S08"]),
+                        "status": "completed", "reused_existing_asset": True}
+        results = {"shots": {"S07": old_s07.copy(), "S08": matching_s08.copy()}}
+
+        changed = prepare_prompt_changes(self.story, results, [shots["S07"], shots["S08"]])
+
+        self.assertEqual(changed, ["S07"])
+        self.assertEqual(results["previous_results"]["S07"], [old_s07])
+        self.assertEqual(results["shots"]["S07"]["request_hash"], request_hash(self.story, shots["S07"]))
+        self.assertEqual(results["shots"]["S07"]["status"], "retrying_create")
+        self.assertFalse(results["shots"]["S07"]["reused_existing_asset"])
+        self.assertEqual(results["shots"]["S08"], matching_s08)
 
     def test_audio_manifest_is_exact_and_hashed(self):
         manifest = json.loads((PROJECT / "audio" / "manifest.json").read_text(encoding="utf-8"))

@@ -128,6 +128,28 @@ def request_hash(project: dict, shot: dict) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def prepare_prompt_changes(project: dict, results: dict, shots: list[dict]) -> list[str]:
+    """Checkpoint changed requests before workers start, so stale rows cannot look reused."""
+    rows = results.setdefault("shots", {})
+    history = results.setdefault("previous_results", {})
+    changed = []
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    for shot in shots:
+        sid = shot["id"]
+        wanted_hash = request_hash(project, shot)
+        old = dict(rows.get(sid, {}))
+        if old.get("request_hash") == wanted_hash:
+            continue
+        if old:
+            history.setdefault(sid, []).append(old)
+        rows[sid] = {
+            "id": sid, "request_hash": wanted_hash, "status": "retrying_create",
+            "reused_existing_asset": False, "updated_at": now,
+        }
+        changed.append(sid)
+    return changed
+
+
 def validate(project: dict) -> None:
     shots = project.get("shots", [])
     if project.get("target_duration") != 180 or len(shots) != 29:
@@ -329,6 +351,11 @@ def main() -> int:
                             git("pull", "--rebase", "origin", BRANCH)
             print("PRODUCTION_STATUS " + label, flush=True)
 
+    def prepare_selected(shots: list[dict]) -> None:
+        changes = prepare_prompt_changes(project, doc, shots)
+        if changes:
+            checkpoint("queued prompt-refresh shots: " + ",".join(changes))
+
     def finish(shot: dict, receipt: dict, wanted_hash: str, reused: bool = False) -> bool:
         sid = shot["id"]
         dest = sources / f"{sid}.mp4"
@@ -505,11 +532,13 @@ def main() -> int:
                        canary_status="passed")
             selected = [shot for shot in project["shots"] if shot["id"] != "S01"]
             only = set()
+            prepare_selected(selected)
             with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
                 outcomes = list(pool.map(generate_one, selected))
         else:
             outcomes = [False]
     else:
+        prepare_selected(selected)
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
             outcomes = list(pool.map(generate_one, selected))
     if not all(outcomes):
