@@ -1,0 +1,18 @@
+{
+  "shots": {
+    "C1-A": {
+      "payload_sha256": "77240eae6b3373414fd1b58ebc46261ae22410f69a748c87e835bd5ac3bcf9f0",
+      "reference_sha256": "45b70bbee238625d6f64239a81f542543ad5f0e4ea0704a4b647fe80231eda1c",
+      "status": "pending",
+      "model": "cogvideox-flash",
+      "input_mode": "reference_image"
+    }
+  },
+  "reference_sha256": "45b70bbee238625d6f64239a81f542543ad5f0e4ea0704a4b647fe80231eda1c",
+  "reference_path": "references/盖西.jpg",
+  "status": "capacity_unavailable",
+  "same_actor_verified": false,
+  "experiment": "one canonical reference image, two independent animated clips",
+  "limitations": "Successful generation is not proof of stable identity; inspect beginning/middle/end and compare across clips.",
+  "error": "Zhipu rejected request: /videos/generations, HTTP 429, code=1305"
+}
