@@ -751,7 +751,7 @@
       "status": "completed",
       "request_hash": "aa25220d91a572758d3e9b70f7d09e27034efd099094b1f7c916c68263956365",
       "error": null,
-      "updated_at": "2026-10-24T03:58:19Z",
+      "updated_at": "2026-10-24T04:57:24Z",
       "create_attempts": 114,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61,
@@ -775,16 +775,16 @@
         "contact_sheet": "production/somerton/qa/S23.jpg",
         "visual_review": "pending"
       },
-      "reused_existing_asset": false,
+      "reused_existing_asset": true,
       "visual_review": "pending"
     },
     "S24": {
       "id": "S24",
       "request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30",
-      "status": "provider_cooldown",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024045723266494520jidQrw9t)",
-      "updated_at": "2026-10-24T04:57:23Z",
-      "create_attempts": 1,
+      "status": "waiting_create_slot",
+      "error": null,
+      "updated_at": "2026-10-24T04:57:24Z",
+      "create_attempts": 2,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -804,7 +804,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-24T04:57:23Z",
+  "updated_at": "2026-10-24T04:57:24Z",
   "run_id": "40064246900",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
