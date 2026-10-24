@@ -114,12 +114,22 @@ def references(state):
     folder.mkdir(exist_ok=True)
     for name, description in {**PLAN['characters'], **REFERENCE_SCENES}.items():
         path = folder / (name + '.jpg')
-        prompt = PLAN['style'] + '角色与场景参考图，单一完整画面，非拼贴。' + description + '【NEGATIVE】' + PLAN['negative']
+        corrections = {
+            '母亲': '唯一主体是一位40岁左右的女性母亲，明确女性面容，棕色卷发，深色女式外套，神情焦急而坚强。禁止男性、胡须、男性面容。',
+            '少年': '画面中必须有且只有一位穿1970年代夹克、牛仔裤、运动鞋、背着书包的少年，完整背对镜头，绝不展示正脸；人物占画面高度一半，站在右三分线上。禁止空景。',
+            '法官与陪审团': '唯一前景主体是穿黑色法袍坐在高处审判席的严肃法官，旁边陪审团穿1970年代正式服饰；法官不能是穿普通西装的站立男子。',
+            '盖西': '唯一主体是体型明显偏胖、圆脸、浅棕色短发的中年白人男性，穿深色西装，亲切微笑，半边脸在阴影；不是瘦长脸，不留胡须。',
+            '地下空间': '几乎全黑的抽象地下空间，唯一可见的是一束手电光和缓慢漂浮尘埃。绝不显示房间陈设、桌椅、窗户、门、家具或任何人体。',
+        }
+        prompt = (PLAN['style'] + '角色与场景参考图，单一完整画面，非拼贴，不要黑边。'
+                  + '【参考对象：' + name + '】' + corrections.get(name, description)
+                  + '所有人物为风格化3D虚构形象，非真实肖像。画面中不出现文字。'
+                  + '【NEGATIVE】' + PLAN['negative'])
         digest = hashlib.sha256(prompt.encode()).hexdigest()
         if path.exists() and refs.get(name, {}).get('prompt_sha256') == digest:
             continue
         print('Generating free reference: ' + name, flush=True)
-        data = post('/images/generations', {'model':'cogview-3-flash', 'prompt':prompt, 'size':'1344x768'})
+        data = post('/images/generations', {'model':'cogview-3-flash', 'prompt':prompt, 'size':'1344x768', 'watermark_enabled':False})
         item = data.get('data', [{}])[0]
         if item.get('url'):
             download(item['url'], path)
