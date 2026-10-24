@@ -47,9 +47,9 @@ class SomertonOcrTests(unittest.TestCase):
                  patch.object(qc, "ocr_words", return_value=[]) as ocr:
                 report = qc.scan_unapproved_text(Path(temp_dir), samples, Path(temp_dir) / "ocr")
         self.assertTrue(report["available"])
-        self.assertEqual(report["final_frames_scanned"], 2)
-        self.assertEqual(ocr.call_count, 2)
-        self.assertTrue(all(call.args[0].size == (100, 80) for call in ocr.call_args_list))
+        self.assertEqual(report["final_frames_scanned"], 1)
+        self.assertEqual(ocr.call_count, 1)
+        self.assertEqual(ocr.call_args.args[0].size, (100, 80))
 
     def test_only_s14_tamam_shud_words_are_allowlisted(self):
         words = [

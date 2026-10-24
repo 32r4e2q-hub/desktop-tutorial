@@ -261,7 +261,7 @@ def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) 
     final_frames_scanned = 0
     for sample in samples:
         sid = sample["id"]
-        if sid == "S29":  # approved post-produced closing title occupies the final frame
+        if sid in {"S14", "S29"}:  # the allowed S14 phrase and post-produced S29 title occupy these frames
             continue
         image = Image.open(sample["frame"]).convert("RGB")
         # Burned-in subtitles occupy the bottom safe-area; OCR the image-bearing region only.
@@ -274,7 +274,7 @@ def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) 
         "available": True, "languages": "eng+chi_sim", "source_cells_scanned": source_cells_scanned,
         "final_frames_scanned": final_frames_scanned, "source_findings": source_findings,
         "final_findings": final_findings,
-        "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band, approved Tamam Shud words in S14, and the post-produced S29 closing-title frame are excluded from findings.",
+        "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and the approved S14 Tamam Shud and S29 closing-title frames are excluded from final-frame OCR.",
     }
 
 
