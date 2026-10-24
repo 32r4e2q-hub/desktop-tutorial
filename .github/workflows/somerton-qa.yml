@@ -1,0 +1,111 @@
+name: Somerton First-Cut QC and QA
+run-name: Somerton QC · artifact ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40085920189' }}
+
+on:
+  push:
+    branches:
+      - arena/dc7c8423-desktop-tutorial
+    paths:
+      - .github/workflows/somerton-qa.yml
+      - production/somerton/qc.py
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 'Successful production Actions run ID to inspect'
+        required: true
+        type: string
+        default: '40085920189'
+      artifact_name:
+        description: 'Artifact name from that run'
+        required: true
+        type: string
+        default: 'somerton-3min-agnes-9'
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: somerton-qc-arena-dc7c8423-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  qc:
+    if: github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ARTIFACT_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40085920189' }}
+      ARTIFACT_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.artifact_name || 'somerton-3min-agnes-9' }}
+      TARGET_BRANCH: arena/dc7c8423-desktop-tutorial
+    steps:
+      - name: Check out the fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/dc7c8423-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install media-QC dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg python3-numpy python3-pil fonts-dejavu-core
+
+      - name: Download the selected production artifact from its original run
+        id: download
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          run-id: ${{ env.ARTIFACT_RUN_ID }}
+          github-token: ${{ github.token }}
+          path: qa-input
+
+      - name: Check QC script syntax
+        run: python3 -m py_compile production/somerton/qc.py
+
+      - name: Run source, media, timing, subtitle and audio QC
+        id: qc_run
+        continue-on-error: true
+        run: >-
+          python3 -u production/somerton/qc.py
+          --artifact-root qa-input
+          --output-dir qa-output
+          --expected-run-id "$ARTIFACT_RUN_ID"
+
+      - name: Publish machine-readable report and final-frame sheet to the fixed branch
+        if: always()
+        run: |
+          if [ -f qa-output/automated-qc.json ]; then
+            mkdir -p production/somerton/qa
+            cp qa-output/automated-qc.json "production/somerton/qa/automated-qc-run${ARTIFACT_RUN_ID}.json"
+            if [ -f qa-output/final-film-midpoints.jpg ]; then
+              cp qa-output/final-film-midpoints.jpg "production/somerton/qa/final-film-midpoints-run${ARTIFACT_RUN_ID}.jpg"
+            fi
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "production/somerton/qa/automated-qc-run${ARTIFACT_RUN_ID}.json"
+            if [ -f "production/somerton/qa/final-film-midpoints-run${ARTIFACT_RUN_ID}.jpg" ]; then
+              git add "production/somerton/qa/final-film-midpoints-run${ARTIFACT_RUN_ID}.jpg"
+            fi
+            if ! git diff --cached --quiet; then
+              git commit -m "somerton: publish automated QC report for run ${ARTIFACT_RUN_ID}"
+              git fetch origin "$TARGET_BRANCH"
+              git pull --rebase origin "$TARGET_BRANCH"
+              git push origin "HEAD:${TARGET_BRANCH}"
+            fi
+          else
+            echo "No QC JSON was produced; retaining the failure details in the Actions log."
+          fi
+
+      - name: Upload detailed QC logs and extracted samples
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: somerton-qc-${{ env.ARTIFACT_RUN_ID }}
+          path: qa-output/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 14
+
+      - name: Fail the workflow when critical automated checks failed
+        if: always() && steps.qc_run.outcome != 'success'
+        run: exit 1
