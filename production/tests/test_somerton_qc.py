@@ -22,8 +22,16 @@ class SomertonOcrTests(unittest.TestCase):
             temp_path = Path(temp_dir) / "ocr-temp.png"
             with patch.object(qc.subprocess, "run", return_value=completed):
                 words = qc.ocr_words(Image.new("RGB", (64, 32), "white"), temp_path)
-        self.assertEqual(words, [{"token": "TAMAN", "confidence": 91.3}, {"token": "A", "confidence": 80.0}])
+        self.assertEqual(words, [{"token": "TAMAN", "confidence": 91.3}])
         self.assertFalse(temp_path.exists())
+
+    def test_ocr_token_filter_keeps_confident_words_and_multidigit_marks(self):
+        self.assertTrue(qc.plausible_ocr_token("LUGGAGE", 80.0))
+        self.assertTrue(qc.plausible_ocr_token("19", 95.0))
+        self.assertTrue(qc.plausible_ocr_token("案卷", 75.0))
+        self.assertFalse(qc.plausible_ocr_token("WwW.", 46.4))
+        self.assertFalse(qc.plausible_ocr_token("A", 99.0))
+        self.assertFalse(qc.plausible_ocr_token("一", 99.0))
 
     def test_final_ocr_excludes_subtitle_band_and_approved_title_shots(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -41,7 +49,7 @@ class SomertonOcrTests(unittest.TestCase):
         self.assertTrue(report["available"])
         self.assertEqual(report["final_frames_scanned"], 2)
         self.assertEqual(ocr.call_count, 2)
-        self.assertTrue(all(call.args[0].size == (100, 85) for call in ocr.call_args_list))
+        self.assertTrue(all(call.args[0].size == (100, 80) for call in ocr.call_args_list))
 
     def test_only_s14_tamam_shud_words_are_allowlisted(self):
         words = [

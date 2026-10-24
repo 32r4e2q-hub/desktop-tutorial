@@ -180,6 +180,26 @@ def run_ffmpeg_scan(video: Path) -> dict:
     }
 
 
+def plausible_ocr_token(token: str, confidence: float) -> bool:
+    ascii_token = re.sub(r"[^A-Za-z0-9]", "", token)
+    cjk_token = "".join(ch for ch in token if 0x3400 <= ord(ch) <= 0x9FFF)
+    if len(ascii_token) > 40 or len(cjk_token) > 40:
+        return False
+    if cjk_token and not ascii_token:
+        if cjk_token == "一":  # a frequent false positive on horizontal lines and ruled paper
+            return False
+        return (len(cjk_token) >= 2 and confidence >= 72) or (len(cjk_token) == 1 and confidence >= 96)
+    if len(ascii_token) >= 4:
+        return confidence >= 65
+    if len(ascii_token) == 3:
+        return confidence >= 75
+    if len(ascii_token) == 2:
+        return confidence >= 90 and (not ascii_token.isalpha() or ascii_token.isupper())
+    if len(ascii_token) == 1:
+        return confidence >= 97 and ascii_token.isdigit()
+    return False
+
+
 def ocr_words(image: Image.Image, temp_path: Path) -> list[dict]:
     """Return only plausible OCR tokens; this is a flagging aid, never a visual sign-off."""
     image.convert("RGB").save(temp_path)
@@ -197,7 +217,7 @@ def ocr_words(image: Image.Image, temp_path: Path) -> list[dict]:
             confidence = float(row.get("conf", -1))
         except ValueError:
             continue
-        if token and ((len(token) >= 2 and confidence >= 45) or (len(token) == 1 and confidence >= 75)):
+        if token and plausible_ocr_token(token, confidence):
             words.append({"token": token, "confidence": round(confidence, 1)})
     return words
 
@@ -245,7 +265,7 @@ def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) 
             continue
         image = Image.open(sample["frame"]).convert("RGB")
         # Burned-in subtitles occupy the bottom safe-area; OCR the image-bearing region only.
-        image = image.crop((0, 0, image.width, int(image.height * 0.85)))
+        image = image.crop((0, 0, image.width, int(image.height * 0.80)))
         final_frames_scanned += 1
         words = unapproved_ocr_words(sid, ocr_words(image, temp_path))
         if words:
