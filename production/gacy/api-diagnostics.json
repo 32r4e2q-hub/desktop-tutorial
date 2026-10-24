@@ -78,5 +78,16 @@
     "attempt": 1,
     "video_input": "text",
     "contains_no_headers_keys_or_image_data": true
+  },
+  {
+    "utc": "2026-10-24T03:11:19Z",
+    "resource": "/async-result",
+    "model": "cogvideox-flash",
+    "http_status": 400,
+    "error_code": "1301",
+    "attempt": 1,
+    "video_input": "text",
+    "contains_no_headers_keys_or_image_data": true,
+    "provider_message": "系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。"
   }
 ]
