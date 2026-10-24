@@ -201,11 +201,27 @@
     },
     "S11": {
       "id": "S11",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "ac2e20f62e28ac7f5e144b216327de3cb68fb8a9156c965cfb88479f3149f555",
       "error": null,
-      "updated_at": "2026-10-24T09:28:41Z",
-      "task_id": "2026102417284101191fc0cb0349e0"
+      "updated_at": "2026-10-24T09:29:51Z",
+      "task_id": "2026102417284101191fc0cb0349e0",
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261024172940e6d258176fa14876_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=2enj7177760azWGecpqUu12aV64%3D&Expires=1792920582",
+      "sha256": "66b461b4cae05b3fb1ca2789fc291e2668d21938b497924f6e64dadb7129fa15",
+      "bytes": 1668983,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1668983,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/gacy1978/qa/S11.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -250,6 +266,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-24T09:28:41Z",
+  "updated_at": "2026-10-24T09:29:51Z",
   "previous_results": {}
 }
