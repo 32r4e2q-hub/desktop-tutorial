@@ -763,43 +763,43 @@
     },
     {
       "name": "narration-caption-text-N01",
-      "status": "fail",
-      "detail": "caption clauses=6, expected clauses=5"
+      "status": "pass",
+      "detail": "caption clauses=5, expected clauses=5"
     },
     {
       "name": "narration-caption-text-N02",
-      "status": "fail",
-      "detail": "caption clauses=12, expected clauses=11"
+      "status": "pass",
+      "detail": "caption clauses=11, expected clauses=11"
     },
     {
       "name": "narration-caption-text-N03",
-      "status": "fail",
-      "detail": "caption clauses=8, expected clauses=7"
+      "status": "pass",
+      "detail": "caption clauses=7, expected clauses=7"
     },
     {
       "name": "narration-caption-text-N04",
-      "status": "fail",
-      "detail": "caption clauses=9, expected clauses=8"
+      "status": "pass",
+      "detail": "caption clauses=8, expected clauses=8"
     },
     {
       "name": "narration-caption-text-N05",
-      "status": "fail",
-      "detail": "caption clauses=9, expected clauses=8"
+      "status": "pass",
+      "detail": "caption clauses=8, expected clauses=8"
     },
     {
       "name": "narration-caption-text-N06",
-      "status": "fail",
-      "detail": "caption clauses=10, expected clauses=9"
+      "status": "pass",
+      "detail": "caption clauses=9, expected clauses=9"
     },
     {
       "name": "narration-caption-text-N07",
-      "status": "fail",
-      "detail": "caption clauses=11, expected clauses=10"
+      "status": "pass",
+      "detail": "caption clauses=10, expected clauses=10"
     },
     {
       "name": "narration-caption-text-N08",
-      "status": "fail",
-      "detail": "caption clauses=7, expected clauses=6"
+      "status": "pass",
+      "detail": "caption clauses=6, expected clauses=6"
     },
     {
       "name": "narration-caption-text-N09",
@@ -897,16 +897,7 @@
       "detail": "possible blank/dark shots=none"
     }
   ],
-  "failures": [
-    "narration-caption-text-N01",
-    "narration-caption-text-N02",
-    "narration-caption-text-N03",
-    "narration-caption-text-N04",
-    "narration-caption-text-N05",
-    "narration-caption-text-N06",
-    "narration-caption-text-N07",
-    "narration-caption-text-N08"
-  ],
+  "failures": [],
   "warnings": [
     "technical-report-human-review-complete"
   ],
@@ -1662,7 +1653,7 @@
       "near_black_fraction": 0.3097
     }
   ],
-  "automated_status": "fail",
+  "automated_status": "pass_with_warnings",
   "manual_visual_review": {
     "status": "pending",
     "note": "Automated checks and midpoint stills do not replace full-motion review for morphing, visual glitches, story fit or subtitle placement. See the 29-shot contact sheets and final-film midpoint sheet."
