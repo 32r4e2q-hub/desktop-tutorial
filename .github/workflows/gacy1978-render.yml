@@ -25,6 +25,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: gacy1978-render-arena-3c0c229a-desktop-tutorial
@@ -105,3 +106,14 @@ jobs:
           if-no-files-found: warn
           compression-level: 0
           retention-days: 30
+
+      - name: Dispatch independent verbatim and exhaustive visual QC on the first cut
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh workflow run gacy1978-verbatim.yml --ref arena/3c0c229a-desktop-tutorial
+          gh workflow run gacy1978-visual-qc.yml --ref arena/3c0c229a-desktop-tutorial
+          echo 'First cut only: ASR, frame/face triage and human semantic review must pass before final approval.' >> "$GITHUB_STEP_SUMMARY"

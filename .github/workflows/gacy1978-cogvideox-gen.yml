@@ -18,11 +18,12 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: gacy1978-cogvideox-arena-3c0c229a-desktop-tutorial
   # 长生成不排队等：断点续跑靠 SHA-256 收据，取消不丢已完成的镜头。
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   generate:
@@ -67,17 +68,22 @@ jobs:
           python3 production/gacy1978/generate.py --validate
           python3 production/face_cast.py check-prompts --project production/gacy1978
 
-      - name: Generate 38 CogVideoX-Flash clips and checkpoint receipts
+      - name: Generate missing free clips with bounded backoff
+        id: generate
+        continue-on-error: true
         env:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
           PAYLOAD: ${{ env.PAYLOAD }}
         run: |
+          set +e
           set -o pipefail
           python3 -u production/gacy1978/generate_cogvideox.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
-          exit ${PIPESTATUS[0]}
+          code=${PIPESTATUS[0]}
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
 
       - name: Ship failure log to branch (sandbox cannot read Actions logs)
-        if: failure()
+        if: ${{ !cancelled() && steps.generate.outputs.code != '' && steps.generate.outputs.code != '0' }}
         run: |
           tail -c 200000 /tmp/gen.log > production/gacy1978/gen-diag-cogvideox.log || true
           git config user.name "arena-diag"
@@ -85,6 +91,27 @@ jobs:
           git add -f production/gacy1978/gen-diag-cogvideox.log
           git commit -m "gacy1978: CogVideoX 生成失败诊断 $(date -u +%FT%TZ)" || true
           git push origin HEAD:arena/3c0c229a-desktop-tutorial || true
+
+      - name: Decide receipt-based continuation and durably publish it
+        id: control
+        if: ${{ !cancelled() && steps.generate.outputs.code != '' }}
+        env:
+          PAYLOAD: ${{ env.PAYLOAD }}
+          CODE: ${{ steps.generate.outputs.code }}
+        run: |
+          set -euo pipefail
+          python3 production/gacy1978/loop_control.py --rc "$CODE" --payload "$PAYLOAD"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/gacy1978/loop-state.json production/gacy1978/results.json production/gacy1978/qa
+          if ! git diff --cached --quiet; then git commit -m "gacy1978: persist loop decision and all receipts"; fi
+          pushed=false
+          for attempt in 1 2 3 4; do
+            if git push origin arena/3c0c229a-desktop-tutorial; then pushed=true; break; fi
+            git fetch origin arena/3c0c229a-desktop-tutorial
+            git rebase FETCH_HEAD
+          done
+          test "$pushed" = true
 
       - name: Save generation evidence
         if: always()
@@ -98,3 +125,31 @@ jobs:
             production/gacy1978/gen-diag-cogvideox.log
           if-no-files-found: warn
           retention-days: 14
+
+      # Official dispatch is the final step, and concurrency queues rather than cancelling its parent.
+      - name: Continue missing clips or advance to first-cut rendering
+        if: ${{ !cancelled() && steps.control.outputs.action != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ACTION: ${{ steps.control.outputs.action }}
+          NEXT_PAYLOAD: ${{ steps.control.outputs.payload }}
+          CODE: ${{ steps.generate.outputs.code }}
+        run: |
+          set -euo pipefail
+          case "$ACTION" in
+            resume)
+              sleep 120
+              gh workflow run gacy1978-cogvideox-gen.yml --ref arena/3c0c229a-desktop-tutorial -f "payload=$NEXT_PAYLOAD"
+              echo 'Next free-generation round dispatched; receipts are not a completed film.' >> "$GITHUB_STEP_SUMMARY"
+              ;;
+            render)
+              gh workflow run gacy1978-render.yml --ref arena/3c0c229a-desktop-tutorial
+              echo '38 source receipts ready; first-cut render dispatched. Visual approval is still pending.' >> "$GITHUB_STEP_SUMMARY"
+              ;;
+            stop)
+              echo 'Loop stopped: see production/gacy1978/loop-state.json. No automatic moderation/auth retries.' >> "$GITHUB_STEP_SUMMARY"
+              test "$CODE" = 0
+              ;;
+            *) exit 1 ;;
+          esac

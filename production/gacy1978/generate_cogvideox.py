@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import json
 import os
+import random
 import subprocess
 import sys
 import time
@@ -275,7 +276,9 @@ def download(url, dest):
 
 def retryable(exc):
     text = str(exc).lower()
-    return any(x in text for x in ('1305', '429', '访问量过大', 'rate', 'timeout',
+    if moderation_block(exc) or any(x in text for x in ('error code: 401', 'error code: 403', 'insufficient', 'invalid api key', 'quota exhausted')):
+        return False
+    return any(x in text for x in ('1305', '429', '访问量过大', 'rate limit', 'timeout',
                                    'timed out', 'temporar', 'connection', '502', '503', '504'))
 
 
@@ -360,7 +363,7 @@ def main():
     if not key:
         raise RuntimeError('ZHIPUAI_API_KEY is unavailable to this workflow')
     from zhipuai import ZhipuAI
-    client = ZhipuAI(api_key=key)
+    client = ZhipuAI(api_key=key, max_retries=0, timeout=60)
     # 先探测定妆照支持性，再进主循环（request_hash 依赖 REF_IMAGE_OK）。
     probe_ref_image(client, project)
     sources = ROOT / 'work/gacy1978/sources'
@@ -368,7 +371,7 @@ def main():
     sources.mkdir(parents=True, exist_ok=True)
     qa.mkdir(parents=True, exist_ok=True)
     ensure_tools()
-    deadline = time.monotonic() + 330 * 60
+    deadline = time.monotonic() + min(300, max(1, float(options.get('round_minutes', 25)))) * 60
     doc['phase'] = 'generating_sources'
     doc['required_generated_shots'] = [x['id'] for x in project['shots']
                                        if x.get('kind') in ('cogvideo', 'agnes')]
@@ -396,8 +399,10 @@ def main():
         if old and old.get('request_hash') != wanted:
             doc.setdefault('previous_results', {}).setdefault(sid, []).append(old)
             doc['shots'][sid] = {'id': sid}
-        if time.monotonic() > deadline:
-            raise RuntimeError('Generation deadline reached; rerun resumes from receipts')
+        if time.monotonic() > deadline or (HERE / 'LOOP_STOP').exists():
+            doc['phase'] = 'generation_incomplete'
+            checkpoint(doc, 'round time budget reached or stop requested', publish=args.publish)
+            return 42
         payload = full_payload(project, shot)
         result = None
         last_error = None
@@ -406,11 +411,18 @@ def main():
         for submission in range(1, 4):
             task_id = PROBE_TASKS.pop(sid, None) \
                 if (submission == 1 and payload.get('image_url')) else None
+            if submission == 1 and old.get('request_hash') == wanted and old.get('task_id') and old.get('status') in ('queued', 'polling'):
+                task_id = old['task_id']  # Resume accepted tasks before considering another POST.
             if task_id:
-                print('%s: reusing ref-image probe submission %s' % (sid, task_id), flush=True)
+                print('%s: reusing accepted task %s' % (sid, task_id), flush=True)
             checkpoint(doc, sid + ' submitting', sid, publish=args.publish,
                        status='submitting', request_hash=wanted, error=None)
             for attempt in range(1, 21):
+                if time.monotonic() > deadline or (HERE / 'LOOP_STOP').exists():
+                    doc['phase'] = 'provider_capacity'
+                    checkpoint(doc, sid + ' round budget exhausted', sid, publish=args.publish,
+                               status='queued' if task_id else 'retry_wait', task_id=task_id, request_hash=wanted)
+                    return 42
                 if task_id:
                     break
                 try:
@@ -420,9 +432,16 @@ def main():
                         raise RuntimeError('No task id: %r' % (response,))
                     break
                 except Exception as exc:
-                    if not retryable(exc) or attempt == 20:
+                    if not retryable(exc):
                         raise
-                    wait = min(120, 15 + attempt * 5)
+                    doc['phase'] = 'provider_capacity'
+                    wait = min(300, 30 * 2 ** min(attempt - 1, 4)) + random.randint(0, 15)
+                    checkpoint(doc, sid + ' provider busy; deferred retry', sid, publish=args.publish,
+                               status='retry_wait', task_id=None, request_hash=wanted, error=str(exc)[:600],
+                               retry_attempt=attempt, retry_after_seconds=wait)
+                    if attempt == 20:
+                        return 42
+                    doc['phase'] = 'generating_sources'
                     print('%s: submit throttled attempt %d, wait %ds: %s'
                           % (sid, attempt, wait, str(exc)[:180]), flush=True)
                     time.sleep(wait)
@@ -430,6 +449,10 @@ def main():
                        status='queued', task_id=str(task_id), request_hash=wanted)
             outcome = 'timeout'
             for poll in range(1, 121):
+                if time.monotonic() > deadline or (HERE / 'LOOP_STOP').exists():
+                    doc['phase'] = 'generation_incomplete'
+                    checkpoint(doc, sid + ' pending task preserved for next round', publish=args.publish)
+                    return 42
                 try:
                     polled = client.videos.retrieve_videos_result(id=task_id)
                     status = str(obj_get(polled, 'task_status', '')).upper()
@@ -458,6 +481,10 @@ def main():
                         time.sleep(min(60, 10 + poll // 10))
                         continue
                     raise
+            if outcome == 'timeout':
+                doc['phase'] = 'generation_incomplete'
+                checkpoint(doc, sid + ' poll window ended; keep accepted task', publish=args.publish)
+                return 42
             if outcome == 'success':
                 break
             if outcome == 'blocked':
@@ -511,9 +538,27 @@ def main():
         'sources_ready' if not missing else 'generation_incomplete'
     checkpoint(doc, 'CogVideoX generation pass finished (missing=%d failed=%d)'
                % (len(missing), len(failures)), publish=args.publish)
-    print('COMPLETE %d requested clips; model=%s' % (len(shots), MODEL), flush=True)
-    return 0
+    blockers = [sid for sid in missing if doc['shots'].get(sid, {}).get('status') == 'failed'
+                and not transient_fail(doc['shots'][sid].get('error', ''))]
+    if blockers:
+        doc['phase'] = 'blocked_requires_review'
+        checkpoint(doc, 'non-retryable shots require review: ' + ','.join(blockers), publish=args.publish)
+    print('VERIFIED %d/38 clips; missing=%d; model=%s' % (len(complete), len(missing), MODEL), flush=True)
+    return 44 if blockers else 42 if missing else 0
+
+
+def run():
+    try:
+        return main()
+    except Exception as exc:
+        if retryable(exc) or moderation_block(exc):
+            doc = read_json(RESULTS, {'shots': {}})
+            doc['phase'] = 'blocked_requires_review' if moderation_block(exc) else 'provider_capacity'
+            doc['last_error'] = str(exc)[:600]
+            checkpoint(doc, doc['phase'], publish='--publish' in sys.argv)
+            return 44 if moderation_block(exc) else 42
+        raise
 
 
 if __name__ == '__main__':
-    raise SystemExit(main())
+    raise SystemExit(run())
