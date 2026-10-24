@@ -13,6 +13,7 @@ import math
 import os
 import re
 import subprocess
+import sys
 import time
 import wave
 from pathlib import Path
@@ -237,10 +238,10 @@ def make_video_client():
     return ZhipuAI(api_key=os.environ['ZHIPUAI_API_KEY'], max_retries=0, timeout=60)
 
 
-def await_video(task_id):
+def await_video(task_id, timeout_seconds=1800):
     # Use the same SDK retrieval protocol as the user's successful connectivity test.
     client = make_video_client()
-    deadline = time.monotonic() + 1800
+    deadline = time.monotonic() + timeout_seconds
     errors = 0
     attempts = 0
     while time.monotonic() < deadline:
@@ -639,6 +640,10 @@ def make_cover():
 
 
 def render():
+    from identity_gate import write_report
+    identity_report = write_report(HERE)
+    if not identity_report['publishable']:
+        raise RuntimeError('Cross-shot identity has not passed the evidence-bound review gate; no finished film will be rendered')
     make_cover()
     make_ending()
     normalized=WORK/'normalized';normalized.mkdir(exist_ok=True)
@@ -667,13 +672,16 @@ def render():
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['references','video','audio','render','probe','all'],default='all');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['references','video','audio','render','probe','identity','all'],default='all');args=parser.parse_args()
     WORK.mkdir(parents=True,exist_ok=True);OUT.mkdir(exist_ok=True)
     state=json.loads(STATE.read_text()) if STATE.exists() else {}
     state['video_policy']={'effective_input':'text','reason':'Mary Celeste proven three-field SDK route; user-authorized non-graphic visual redesign','identity_lock':False,'visual_revision':VISUAL_PLAN['revision']}
     save(HERE/'run-status.json',{'status':'running','stage':args.stage,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
     try:
         if args.stage in ('references','all'): references(state)
+        if args.stage == 'identity':
+            from identity_probe import run_probe
+            run_probe(sys.modules[__name__])
         if args.stage == 'probe': generate_videos(state, limit=1)
         if args.stage in ('video','all'): generate_videos(state)
         if args.stage in ('audio','all'): make_audio()
