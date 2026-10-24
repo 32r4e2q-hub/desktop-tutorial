@@ -899,7 +899,7 @@
     {
       "name": "ocr-unapproved-scene-text",
       "status": "warn",
-      "detail": "possible text detections: 109 source contact-sheet cells, 20 final midpoints; inspect listed tokens visually"
+      "detail": "possible text detections: 109 source contact-sheet cells, 21 final midpoints; inspect listed tokens visually"
     }
   ],
   "failures": [],
@@ -1663,7 +1663,7 @@
     "available": true,
     "languages": "eng+chi_sim",
     "source_cells_scanned": 185,
-    "final_frames_scanned": 27,
+    "final_frames_scanned": 28,
     "source_findings": [
       {
         "shot": "S01",
@@ -4268,6 +4268,32 @@
         ]
       },
       {
+        "shot": "S14",
+        "time_seconds": 85.5,
+        "words": [
+          {
+            "token": "\\¥",
+            "confidence": 65.9
+          },
+          {
+            "token": "Tanmnanmn",
+            "confidence": 69.0
+          },
+          {
+            "token": "S",
+            "confidence": 79.2
+          },
+          {
+            "token": "ud",
+            "confidence": 86.5
+          },
+          {
+            "token": "vt",
+            "confidence": 61.8
+          }
+        ]
+      },
+      {
         "shot": "S17",
         "time_seconds": 103.5,
         "words": [
@@ -4470,7 +4496,7 @@
         ]
       }
     ],
-    "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and approved S14/S29 post-title zones were excluded from final-frame OCR."
+    "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band, approved Tamam Shud words in S14, and the post-produced S29 closing-title frame are excluded from findings."
   },
   "automated_status": "pass_with_warnings",
   "manual_visual_review": {
