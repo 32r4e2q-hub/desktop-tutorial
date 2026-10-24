@@ -935,10 +935,10 @@
     },
     "S29": {
       "id": "S29",
-      "status": "downloaded",
+      "status": "completed",
       "request_hash": "f1fb5e202111baf6879fd58107a25f1066b431661aac8077c9774b3fe818abd4",
       "error": null,
-      "updated_at": "2026-10-24T14:13:42Z",
+      "updated_at": "2026-10-24T14:13:44Z",
       "create_attempts": 53,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61,
@@ -950,7 +950,19 @@
       "bytes": 1157609,
       "sha256": "de70b0409855ec120b361e836a5d35e22115f35423b1f56ac13d7a9d65c10471",
       "reported_size": "720P",
-      "reported_seconds": "4"
+      "reported_seconds": "4",
+      "inspection": {
+        "duration_seconds": 4.48,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1157609,
+        "decoded_ok": true,
+        "contact_sheet": "production/somerton/qa/S29.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "review": {
@@ -958,7 +970,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-24T14:13:42Z",
+  "updated_at": "2026-10-24T14:13:44Z",
   "run_id": "40085920189",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
