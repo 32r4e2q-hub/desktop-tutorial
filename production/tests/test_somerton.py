@@ -178,6 +178,15 @@ class SomertonPlanTests(unittest.TestCase):
                     self.assertLess(prompt.index(normalized), prompt.index(shot["prompt"]))
                 self.assertIn(shot["prompt"], prompt)
 
+    def test_high_risk_props_have_explicit_strict_no_text_prompts(self):
+        rows = {shot["id"]: shot for shot in self.story["shots"]}
+        high_risk = {"S04", "S06", "S07", "S10", "S12", "S15", "S17", "S18", "S19", "S21", "S26", "S27"}
+        markers = ("no text", "text-free", "no letters", "no lettering", "no writing", "no symbols", "no marks")
+        for sid in high_risk:
+            with self.subTest(shot=sid):
+                prompt = rows[sid]["prompt"].lower()
+                self.assertTrue(any(marker in prompt for marker in markers), prompt)
+
     def test_audio_manifest_is_exact_and_hashed(self):
         manifest = json.loads((PROJECT / "audio" / "manifest.json").read_text(encoding="utf-8"))
         records = {row["id"]: row for row in manifest["clips"]}

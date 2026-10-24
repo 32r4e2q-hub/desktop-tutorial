@@ -64,30 +64,30 @@
 | S01 | 00:00—00:05 | 5 | N01 | 低空航拍缓慢前推 | Before sunrise on Somerton Beach, Adelaide, 1948 |
 | S02 | 00:05—00:10 | 5 | N01 | 中近景侧面缓慢横移 | At pre-dawn blue hour, a dignified side-rear medium view of the same seated man at the seawall: neat light-brown double-breasted suit, tie, knitted sweater, polished shoes, an unlit cigarette behind his right ear |
 | S03 | 00:10—00:17 | 7 | N02 | 全景横向跟随路人 | Golden sunrise on Somerton Beach, 1948 |
-| S04 | 00:17—00:24 | 7 | N02 | 斜俯拍跟随探员脚步 | A period police car and a 1940s Ford stand at the edge of Somerton Beach |
+| S04 | 00:17—00:24 | 7 | N02 | 斜俯拍跟随探员脚步 | An unmarked 1940s police car and a second period Ford stand at the edge of Somerton Beach |
 | S05 | 00:24—00:30 | 6 | N02 | 远景缓慢推进，回忆式轻晃 | Flashback to the previous night: cold blue light under a 1940s streetlamp beside the seawall |
 | S06 | 00:30—00:35 | 5 | N02 | 俯拍定位，逐件跟随手部动作 | Top-down view of a worn wooden evidence table in a 1940s police room |
-| S07 | 00:35—00:42 | 7 | N03 | 微距慢动作，缓慢下移 | Extreme close-up of gloved hands and vintage scissors carefully cutting a small clothing label from a shirt collar; tiny fabric threads and the label drift down in slow motion |
+| S07 | 00:35—00:42 | 7 | N03 | 微距慢动作，缓慢下移 | Extreme close-up of gloved hands and vintage scissors cutting away a tiny, completely blank white cloth tab from a 1940s shirt collar; it has a featureless surface with no print, stitching, lines or marks |
 | S08 | 00:42—00:49 | 7 | N03 | 横向滑轨穿过档案柜 | Inside a cold 1940s Australian police archive, tall steel filing cabinets recede into depth |
 | S09 | 00:49—00:55 | 6 | N03 | 缓慢推近试管，冷白光 | Restrained 1940s examination room, no remains visible |
-| S10 | 00:55—01:02 | 7 | N04 | 从拱顶下降到柜台 | Adelaide railway station in 1949: a grand vaulted hall with steam drifting through angled morning sunlight, wooden luggage cloakroom counter, travelers in period coats crossing in both directions |
+| S10 | 00:55—01:02 | 7 | N04 | 从拱顶下降到柜台 | Adelaide railway station in 1949: a grand vaulted hall with steam drifting through angled morning sunlight, a plain wooden luggage counter and travelers in period coats crossing in both directions |
 | S11 | 01:02—01:09 | 7 | N04 | 特写俯拍，逐件显露 | Behind the wooden station counter, a clerk hands a detective a worn dark-brown leather suitcase |
 | S12 | 01:09—01:15 | 6 | N04 | 缓慢推近衣物标签处 | Macro view of folded 1940s clothing inside an open suitcase |
 | S13 | 01:15—01:22 | 7 | N05 | 微距缓慢推进，慢动作展开 | In the softly lit examination room, the coroner's gloved hand carefully opens a hidden watch pocket sewn inside folded trousers and lifts out a tiny rolled paper scrap with tweezers |
 | S14 | 01:22—01:29 | 7 | N05 | 缓慢推近纸面，金色显影 | Extreme close-up of aged cream paper against a nearly black background |
-| S15 | 01:29—01:35 | 6 | N05 | 从书页特写缓慢拉远 | An old Rubaiyat poetry book lies open on a dark desk; the final page is missing, its ragged torn edge clearly visible |
+| S15 | 01:29—01:35 | 6 | N05 | 从书页特写缓慢拉远 | An old, unmarked poetry volume lies open on a dark desk; the final leaf is missing and its ragged torn edge is clearly visible |
 | S16 | 01:35—01:40 | 5 | N05 | 桌面特写，纸片贴合慢动作 | At a 1940s police counter, a concerned man in a period suit places an old poetry book on the desk |
-| S17 | 01:40—01:47 | 7 | N06 | 微距缓慢横移 | Extreme close-up of the back cover of an old poetry book |
+| S17 | 01:40—01:47 | 7 | N06 | 微距缓慢横移 | Extreme close-up of the completely blank, unmarked back cover of an old poetry book; there is no writing, ink, pencil, engraving or printed texture |
 | S18 | 01:47—01:54 | 7 | N06 | 围绕黑板缓慢环绕，延时 | A dim 1940s analysis room |
-| S19 | 01:54—02:00 | 6 | N06 | 穿越式镜头：书页到电话线再到房屋 | On the blank margin of a poetry book, faint abstract ink strokes glow without forming readable numbers |
+| S19 | 01:54—02:00 | 6 | N06 | 穿越式镜头：书页到电话线再到房屋 | Begin on a completely blank, unmarked ivory page beside an old rotary telephone |
 | S20 | 02:00—02:05 | 5 | N06 | 低角度中景缓慢推近 | At the entrance of a modest 1940s Adelaide house, a wary nurse with curled hair in a light uniform faces a detective in a wool coat and soft felt hat |
-| S21 | 02:05—02:13 | 8 | N07 | 旧报纸拼贴式快速推进 | A stream of aged monochrome newspaper sheets sweeps past the lens in a dynamic 1940s newsroom-like space |
+| S21 | 02:05—02:13 | 8 | N07 | 旧报纸拼贴式快速推进 | A dynamic 1940s newsroom with anonymous shadow profiles moving behind a fast stream of completely blank, unprinted newsprint sheets |
 | S22 | 02:13—02:21 | 8 | N07 | 低机位摇镜 | Night harbor under dense sea fog |
 | S23 | 02:21—02:30 | 9 | N07 | 横向滑动，逐幅擦除 | Three ornate sepia picture frames stand side by side on a dark gallery wall, each a subtly animated illustrated hypothesis: an anonymous spy silhouette, a solitary figure beside a letter, and a sealed glass vial on a desk |
 | S24 | 02:30—02:37 | 7 | N08 | 浅景深缓慢环绕 | A 2022 university genetics laboratory under cool white light |
 | S25 | 02:37—02:43 | 6 | N08 | 从树根拉升至树冠 | In a dark abstract visualization space, an immense illuminated family tree grows from a single root into hundreds of branching nodes |
-| S26 | 02:43—02:48 | 5 | N08 | 中景缓慢推近 | A fictional, non-photographic 1930s Melbourne workroom |
-| S27 | 02:48—02:52 | 4 | N08 | 分屏双向缓慢推近 | A clean vertical split-screen with two independently moving halves: left, a 1940s police file folder opens slightly as a small abstract red glow appears beside it; right, an anonymous modern researcher in a white coat stands by the Somerton seawall, looking toward the sea as wind moves the coat |
+| S26 | 02:43—02:48 | 5 | N08 | 中景缓慢推近 | A fictional, non-photographic 1930s Melbourne workroom, framed entirely from inside |
+| S27 | 02:48—02:52 | 4 | N08 | 分屏双向缓慢推近 | One clean vertical split-screen, divided exactly down the center and held continuously from the first frame through the last; both halves must remain visible at the same time, with no cut, alternating full-screen scene, wipe, dissolve or transition |
 | S28 | 02:52—02:56 | 4 | N09 | 低机位缓慢拉远 | At golden-red dusk on Somerton Beach, the gray stone seawall is empty |
 | S29 | 02:56—03:00 | 4 | N09 | 固定机位，金色粒子持续流动 | A near-black cinematic end background with a subtle cloud of fine gold particles swirling and drifting continuously from left to right; a faint amber glow breathes in and out at the center |
 
