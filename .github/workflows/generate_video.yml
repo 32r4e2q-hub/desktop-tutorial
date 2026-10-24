@@ -52,6 +52,10 @@ jobs:
             test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
             case "$stage" in references|identity|recover|probe|video|audio|render|all) ;; *) exit 2;; esac
           fi
+          if [[ "$GITHUB_REF_NAME" == arena/3c0c229a-desktop-tutorial ]] && [[ -f production/gacy/LEGACY_DISABLED ]] && [[ "$mode" == gacy ]]; then
+            echo '旧盖西双镜实验已停用；请使用gacy1978北九州模板入口。'
+            mode=legacy-disabled
+          fi
           echo "mode=$mode" >> "$GITHUB_OUTPUT"
           echo "stage=$stage" >> "$GITHUB_OUTPUT"
 

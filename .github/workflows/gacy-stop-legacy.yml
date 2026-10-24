@@ -1,0 +1,31 @@
+name: 停止盖西旧实验工作流
+on:
+  push:
+    branches: [arena/3c0c229a-desktop-tutorial]
+    paths: [production/gacy/CANCEL_LEGACY_REQUEST]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: cogvideo-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  stop:
+    if: github.ref == 'refs/heads/arena/3c0c229a-desktop-tutorial'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取消本分支的旧生成与接力（不影响其他项目分支）
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for status in in_progress queued waiting; do
+            ids=$(gh api "repos/$REPO/actions/workflows/generate_video.yml/runs?branch=arena%2F3c0c229a-desktop-tutorial&status=$status&per_page=100" --jq '.workflow_runs[].id')
+            for id in $ids; do
+              gh run cancel "$id" --repo "$REPO"
+            done
+          done
+          echo '旧工作流取消请求已执行；新项目使用独立北九州模板入口。' >> "$GITHUB_STEP_SUMMARY"
