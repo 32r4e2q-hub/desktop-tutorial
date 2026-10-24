@@ -783,8 +783,8 @@
       "request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30",
       "status": "waiting_create_slot",
       "error": null,
-      "updated_at": "2026-10-24T05:25:01Z",
-      "create_attempts": 11,
+      "updated_at": "2026-10-24T05:41:21Z",
+      "create_attempts": 17,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -792,9 +792,9 @@
       "id": "S25",
       "request_hash": "b0623ded573496f75541cd23812ebebc73b87b9c068f0eca4b7969f355cce668",
       "status": "provider_cooldown",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024052703390802562ZtEwvaVt)",
-      "updated_at": "2026-10-24T05:27:03Z",
-      "create_attempts": 20,
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024054324230911986nnbvUNJI)",
+      "updated_at": "2026-10-24T05:43:24Z",
+      "create_attempts": 30,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     }
@@ -804,7 +804,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-24T05:27:03Z",
+  "updated_at": "2026-10-24T05:43:24Z",
   "run_id": "40064246900",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -924,9 +924,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024052703390802562ZtEwvaVt)",
-    "create_attempts": 20,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024054324230911986nnbvUNJI)",
+    "create_attempts": 30,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-24T05:27:03Z"
+    "last_seen": "2026-10-24T05:43:24Z"
   }
 }
