@@ -75,7 +75,16 @@
     }
   },
   "reference_status": "generated_baseline_not_human_approved",
-  "shots": {},
+  "shots": {
+    "S01": {
+      "payload_sha256": "58c8b1491b4121e67ee33eb609a97fe53c5f7bf8e1bb0eacc1fd4c8509ab948c",
+      "model": "cogvideox-flash",
+      "reference": "S01.jpg",
+      "status": "submitted",
+      "input_mode": "text",
+      "task_id": "20261024110330d8b53920bdd54229"
+    }
+  },
   "keyframes": {
     "S01": {
       "model": "cogview-3-flash",
@@ -84,5 +93,15 @@
       "status": "generated_requires_scene_and_character_review",
       "identity_conditioning": "text descriptions only; multi-reference identity lock not verified"
     }
+  },
+  "video_policy": {
+    "effective_input": "text",
+    "reason": "reference input repeatedly rejected for capacity; using same full scene/character prompt",
+    "reference_failure": {
+      "http_status": 429,
+      "code": "1305"
+    },
+    "identity_lock": false,
+    "static_image_animation_fallback": false
   }
 }
