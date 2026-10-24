@@ -8,10 +8,12 @@ human tasks; a labeled midpoint sheet is emitted for that pass.
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import math
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -120,8 +122,8 @@ def draw_midpoint_sheet(video: Path, story: dict, output: Path, sample_dir: Path
         frame = sample_dir / f"{shot['id']}.jpg"
         subprocess.run([
             "ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-ss", f"{sample_time:.3f}",
-            "-i", str(video), "-map", "0:v:0", "-frames:v", "1", "-vf", "scale=360:203",
-            "-q:v", "4", str(frame),
+            "-i", str(video), "-map", "0:v:0", "-frames:v", "1", "-vf", "scale=1920:1080",
+            "-q:v", "3", str(frame),
         ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         image = Image.open(frame).convert("RGB")
         stat = ImageStat.Stat(image.convert("L"))
@@ -149,6 +151,7 @@ def draw_midpoint_sheet(video: Path, story: dict, output: Path, sample_dir: Path
         draw.text((x, y + 5), f"{row['id']} | {shot['start']}-{end:g}s | {row['narration_id']}",
                   font=font, fill=(255, 222, 145))
         frame = Image.open(row["frame"]).convert("RGB")
+        frame.thumbnail((360, 203), Image.Resampling.LANCZOS)
         sheet.paste(frame, (x, y + header))
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output, quality=90)
@@ -174,6 +177,76 @@ def run_ffmpeg_scan(video: Path) -> dict:
         "freeze_starts": [float(x) for x in freeze_starts],
         "freeze_durations": [float(x) for x in freeze_durations],
         "freeze_ends": [float(x) for x in freeze_ends],
+    }
+
+
+def ocr_words(image: Image.Image, temp_path: Path) -> list[dict]:
+    """Return only plausible OCR tokens; this is a flagging aid, never a visual sign-off."""
+    image.convert("RGB").save(temp_path)
+    proc = subprocess.run([
+        "tesseract", str(temp_path), "stdout", "-l", "eng+chi_sim", "--psm", "11", "tsv",
+    ], capture_output=True, text=True, timeout=45)
+    temp_path.unlink(missing_ok=True)
+    if proc.returncode:
+        raise RuntimeError("Tesseract failed: " + proc.stderr[-1000:])
+    words = []
+    rows = csv.DictReader(proc.stdout.splitlines(), delimiter="\t")
+    for row in rows:
+        token = (row.get("text") or "").strip()
+        try:
+            confidence = float(row.get("conf", -1))
+        except ValueError:
+            continue
+        if token and ((len(token) >= 2 and confidence >= 45) or (len(token) == 1 and confidence >= 75)):
+            words.append({"token": token, "confidence": round(confidence, 1)})
+    return words
+
+
+def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) -> dict:
+    """OCR sampled source frames and the final cut, excluding post-produced subtitle/title zones."""
+    if not shutil.which("tesseract"):
+        return {"available": False, "reason": "tesseract executable not installed", "findings": []}
+    output_dir.mkdir(parents=True, exist_ok=True)
+    temp_path = output_dir / "ocr-temp.png"
+    source_findings = []
+    source_cells_scanned = 0
+    for sample in samples:
+        sid = sample["id"]
+        sheet_path = find_file(artifact, f"production/somerton/qa/{sid}.jpg", f"{sid}.jpg")
+        if sheet_path is None:
+            continue
+        sheet = Image.open(sheet_path).convert("RGB")
+        cell_w, cell_h = sheet.width // 3, sheet.height // 3
+        for row in range(3):
+            for col in range(3):
+                tile = sheet.crop((col * cell_w, row * cell_h, (col + 1) * cell_w, (row + 1) * cell_h))
+                gray = np.asarray(tile.convert("L"))
+                if float(np.mean(gray)) < 14 or float(np.std(gray)) < 4:
+                    continue
+                tile = tile.resize((tile.width * 3, tile.height * 3), Image.Resampling.LANCZOS)
+                source_cells_scanned += 1
+                words = ocr_words(tile, temp_path)
+                if words:
+                    source_findings.append({"shot": sid, "sample_cell": row * 3 + col + 1, "words": words})
+
+    final_findings = []
+    final_frames_scanned = 0
+    for sample in samples:
+        sid = sample["id"]
+        if sid in {"S14", "S29"}:  # the only approved post-produced in-frame text locations
+            continue
+        image = Image.open(sample["frame"]).convert("RGB")
+        # Burned-in subtitles occupy the bottom safe-area; OCR the image-bearing region only.
+        image = image.crop((0, 0, image.width, int(image.height * 0.85)))
+        final_frames_scanned += 1
+        words = ocr_words(image, temp_path)
+        if words:
+            final_findings.append({"shot": sid, "time_seconds": sample["time_seconds"], "words": words})
+    return {
+        "available": True, "languages": "eng+chi_sim", "source_cells_scanned": source_cells_scanned,
+        "final_frames_scanned": final_frames_scanned, "source_findings": source_findings,
+        "final_findings": final_findings,
+        "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and approved S14/S29 post-title zones were excluded from final-frame OCR.",
     }
 
 
@@ -220,7 +293,7 @@ def main() -> int:
     artifact = args.artifact_root.resolve()
     out = args.output_dir.resolve()
     out.mkdir(parents=True, exist_ok=True)
-    report = {"schema_version": 1, "checks": [], "failures": [], "warnings": [],
+    report = {"schema_version": 2, "checks": [], "failures": [], "warnings": [],
               "artifact_root": str(artifact), "expected_run_id": args.expected_run_id}
     story = load_json(HERE / "story.json")
 
@@ -447,6 +520,17 @@ def main() -> int:
                             if row["near_black_fraction"] > 0.90 and row["luma_stddev"] < 8]
         add_check(report, "shot-midpoint-nonblank", not blank_candidates,
                   f"possible blank/dark shots={blank_candidates or 'none'}", severity="warning")
+        text_scan = scan_unapproved_text(artifact, samples, out / "ocr-review")
+        report["ocr_text_scan"] = text_scan
+        if not text_scan.get("available"):
+            add_check(report, "ocr-unapproved-scene-text", False,
+                      text_scan.get("reason", "OCR unavailable"), severity="warning")
+        else:
+            source_hits = len(text_scan["source_findings"])
+            final_hits = len(text_scan["final_findings"])
+            add_check(report, "ocr-unapproved-scene-text", source_hits == 0 and final_hits == 0,
+                      f"possible text detections: {source_hits} source contact-sheet cells, {final_hits} final midpoints; inspect listed tokens visually",
+                      severity="warning")
     except Exception as exc:
         add_check(report, "media-analysis", False, f"{type(exc).__name__}: {exc}")
 
@@ -467,6 +551,8 @@ def main() -> int:
                  f"{sum(c['status']=='fail' for c in report['checks'])} failures.",
                  f"- Completed shots: {len(completed)}/29.",
                  f"- Final video: {delivery.get('film')}",
+                 f"- Possible OCR text hits: {len(report.get('ocr_text_scan', {}).get('source_findings', []))} source cells, "
+                 f"{len(report.get('ocr_text_scan', {}).get('final_findings', []))} final frames.",
                  "- Manual full-motion visual/audio review remains required.", ""]
         summary.write_text("\n".join(lines), encoding="utf-8")
     print(json.dumps({"automated_status": report["automated_status"],

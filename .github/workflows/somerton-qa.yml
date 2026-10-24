@@ -48,7 +48,7 @@ jobs:
       - name: Install media-QC dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg python3-numpy python3-pil fonts-dejavu-core
+          sudo apt-get install -y -qq ffmpeg python3-numpy python3-pil fonts-dejavu-core tesseract-ocr tesseract-ocr-chi-sim
 
       - name: Download the selected production artifact from its original run
         id: download
@@ -59,8 +59,10 @@ jobs:
           github-token: ${{ github.token }}
           path: qa-input
 
-      - name: Check QC script syntax
-        run: python3 -m py_compile production/somerton/qc.py
+      - name: Check QC script syntax and OCR unit tests
+        run: |
+          python3 -m py_compile production/somerton/qc.py production/tests/test_somerton_qc.py
+          python3 -m unittest production.tests.test_somerton_qc -v
 
       - name: Run source, media, timing, subtitle and audio QC
         id: qc_run
