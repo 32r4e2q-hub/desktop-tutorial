@@ -748,10 +748,10 @@
     },
     "S23": {
       "id": "S23",
-      "status": "poll_retry",
+      "status": "downloaded",
       "request_hash": "aa25220d91a572758d3e9b70f7d09e27034efd099094b1f7c916c68263956365",
-      "error": "Timed out after 1500s waiting for video_id=task_K3sQAmahECN15zm1yw8OgBv1E4WIvZZ7 (last: status=in_progress progress=10%)",
-      "updated_at": "2026-10-24T03:54:10Z",
+      "error": null,
+      "updated_at": "2026-10-24T03:58:17Z",
       "create_attempts": 114,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61,
@@ -759,15 +759,20 @@
       "task_id": "task_K3sQAmahECN15zm1yw8OgBv1E4WIvZZ7",
       "requested_seconds": 9.0,
       "requested_size": "720P",
-      "poll_retries": 1
+      "poll_retries": 1,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_K3sQAmahECN15zm1yw8OgBv1E4WIvZZ7.mp4",
+      "bytes": 1779463,
+      "sha256": "0e7a3c11c47368475eb2413742a1a5ae4edb629546d4d55f00c16308930c6ad0",
+      "reported_size": "720P",
+      "reported_seconds": "9"
     },
     "S24": {
       "id": "S24",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024035816281848383RHAPGw36)",
-      "updated_at": "2026-10-24T03:58:16Z",
-      "create_attempts": 60,
+      "error": null,
+      "updated_at": "2026-10-24T03:58:17Z",
+      "create_attempts": 61,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     }
@@ -777,7 +782,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-24T03:58:16Z",
+  "updated_at": "2026-10-24T03:58:17Z",
   "run_id": "40039467742",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
