@@ -51,33 +51,55 @@ def seconds(path):
     return float(probe(path)['format']['duration'])
 
 
-def post(resource, payload):
+DIAGNOSTICS = HERE / 'api-diagnostics.json'
+
+
+class ProviderError(RuntimeError):
+    def __init__(self, resource, status, code, exhausted=False):
+        self.resource, self.status, self.code = resource, status, code
+        self.transient = status == 429 or status >= 500 or code in ('1302', '1305')
+        prefix = 'Zhipu retry budget exhausted' if exhausted else 'Zhipu rejected request'
+        super().__init__(f'{prefix}: {resource}, HTTP {status}, code={code or "unknown"}')
+
+
+def record_api_attempt(resource, payload, status, code, attempt):
+    entries = json.loads(DIAGNOSTICS.read_text()) if DIAGNOSTICS.exists() else []
+    entries.append({'utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+        'resource': resource, 'model': payload.get('model'), 'http_status': status,
+        'error_code': code, 'attempt': attempt,
+        'video_input': 'reference_image' if 'image_url' in payload else 'text',
+        'contains_no_headers_keys_or_image_data': True})
+    save(DIAGNOSTICS, entries[-100:])
+
+
+def post(resource, payload, attempts=8):
     key = os.environ.get('ZHIPUAI_API_KEY')
     if not key:
         raise RuntimeError('ZHIPUAI_API_KEY is not injected')
-    for attempt in range(8):
+    for attempt in range(attempts):
         try:
             response = requests.post(API + resource, json=payload,
                 headers={'Authorization': 'Bearer ' + key}, timeout=(30, 180))
         except requests.RequestException:
-            if attempt == 7:
-                raise RuntimeError('Zhipu connection failed after bounded retries') from None
-            time.sleep(min(30 * (attempt + 1), 120))
-            continue
+            # A timed-out POST may have been accepted: do not blindly create duplicates.
+            record_api_attempt(resource, payload, 0, 'transport_outcome_unknown', attempt+1)
+            raise RuntimeError('Zhipu POST transport failed; acceptance unknown, no blind resubmit') from None
         try:
             data = response.json()
         except ValueError:
             raise RuntimeError(f'Zhipu returned non-JSON HTTP {response.status_code}') from None
-        code = str(data.get('error', {}).get('code', ''))
+        code = re.sub(r'[^a-zA-Z0-9_-]', '', str(data.get('error', {}).get('code', '')))[:32]
+        record_api_attempt(resource, payload, response.status_code, code, attempt+1)
         if response.status_code == 429 or code in ('1302', '1305') or response.status_code >= 500:
-            print(f'Temporary Zhipu error {response.status_code}/{code}, retry {attempt+1}/8', flush=True)
+            print(f'Temporary Zhipu error {response.status_code}/{code}, retry {attempt+1}/{attempts}', flush=True)
+            if attempt + 1 == attempts:
+                raise ProviderError(resource, response.status_code, code, exhausted=True)
             time.sleep(min(30 * (attempt + 1), 120))
             continue
         if not response.ok or 'error' in data:
-            # Do not print request headers, keys, or opaque service responses.
-            raise RuntimeError(f'Zhipu rejected {resource}: HTTP {response.status_code}, code={code}')
+            raise ProviderError(resource, response.status_code, code)
         return data
-    raise RuntimeError('Zhipu retry budget exhausted')
+    raise RuntimeError('Invalid retry configuration')
 
 
 def download(url, path):
@@ -246,15 +268,37 @@ def shot_keyframe(shot, state):
     return path
 
 
-def generate_videos(state):
+def submit_video(payload, state):
+    """Prefer reference animation; on explicit capacity rejection try the proven text-video route.
+    No fallback on auth, balance, moderation, invalid fields, or unknown POST outcomes.
+    """
+    try:
+        return post('/videos/generations', payload, attempts=2 if 'image_url' in payload else 8), payload
+    except ProviderError as exc:
+        if 'image_url' not in payload or not exc.transient:
+            raise
+        text_payload = {k:v for k,v in payload.items() if k != 'image_url'}
+        state['video_policy'] = {'effective_input':'text',
+            'reason':'reference input repeatedly rejected for capacity; using same full scene/character prompt',
+            'reference_failure':{'http_status':exc.status,'code':exc.code},
+            'identity_lock':False,'static_image_animation_fallback':False}
+        save(STATE,state)
+        print('Reference-video capacity rejection: trying free text-to-video with unchanged scene/character prompt; identity conditioning is not retained.',flush=True)
+        return post('/videos/generations',text_payload),text_payload
+
+
+def generate_videos(state, limit=None):
     receipts = state.setdefault('shots', {})
-    for index, shot in enumerate(PLAN['shots'][:-1], 1):
+    selected = PLAN['shots'][:-1] if limit is None else PLAN['shots'][:limit]
+    for index, shot in enumerate(selected, 1):
         sid = shot['id']
         target = WORK / 'clips' / (sid + '.mp4')
         reference = shot_keyframe(shot, state)
         image_url = 'data:image/jpeg;base64,' + base64.b64encode(reference.read_bytes()).decode()
         payload = {'model':'cogvideox-flash','quality':'speed',
                    'prompt':shot['prompt'],'image_url':image_url}
+        if state.get('video_policy',{}).get('effective_input') == 'text':
+            payload.pop('image_url')
         wanted_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
         receipt = receipts.get(sid, {})
         if receipt.get('payload_sha256') != wanted_hash:
@@ -264,11 +308,15 @@ def generate_videos(state):
         if target.exists() and receipt.get('status') == 'downloaded' and receipt.get('sha256') == hashlib.sha256(target.read_bytes()).hexdigest():
             continue
         if not receipt.get('task_id'):
-            print('Submitting ' + sid + ' with reference image', flush=True)
-            response = post('/videos/generations', payload)
+            receipt['input_mode'] = 'reference_image' if 'image_url' in payload else 'text'
+            save(STATE,state)
+            print('Submitting ' + sid + ' input=' + receipt['input_mode'], flush=True)
+            response, actual_payload = submit_video(payload,state)
             if not response.get('id'):
                 raise RuntimeError('Video submit returned no task ID')
-            receipt.update(task_id=response['id'], status='submitted')
+            receipt.update(task_id=response['id'], status='submitted',
+                input_mode='reference_image' if 'image_url' in actual_payload else 'text',
+                payload_sha256=hashlib.sha256(json.dumps(actual_payload,sort_keys=True).encode()).hexdigest())
             save(STATE, state)
         url = await_video(receipt['task_id'])
         download(url, target)
@@ -530,12 +578,13 @@ def render():
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['references','video','audio','render','all'],default='all');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['references','video','audio','render','probe','all'],default='all');args=parser.parse_args()
     WORK.mkdir(parents=True,exist_ok=True);OUT.mkdir(exist_ok=True)
     state=json.loads(STATE.read_text()) if STATE.exists() else {}
     save(HERE/'run-status.json',{'status':'running','stage':args.stage,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
     try:
         if args.stage in ('references','all'): references(state)
+        if args.stage == 'probe': generate_videos(state, limit=1)
         if args.stage in ('video','all'): generate_videos(state)
         if args.stage in ('audio','all'): make_audio()
         if args.stage in ('render','all'): render()

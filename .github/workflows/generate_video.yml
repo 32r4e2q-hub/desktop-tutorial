@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       prompt:
-        description: '普通测试提示词；盖西制作使用 __GACY__:references / video / audio / render / all'
+        description: '普通测试提示词；盖西制作使用 __GACY__:references / probe / video / audio / render / all'
         required: true
         default: '阳光明媚的森林，一只小松鼠在树枝上吃坚果，高清真实，电影质感'
 
@@ -49,7 +49,7 @@ jobs:
           fi
           if [[ "$mode" == gacy ]]; then
             test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
-            case "$stage" in references|video|audio|render|all) ;; *) exit 2;; esac
+            case "$stage" in references|probe|video|audio|render|all) ;; *) exit 2;; esac
           fi
           echo "mode=$mode" >> "$GITHUB_OUTPUT"
           echo "stage=$stage" >> "$GITHUB_OUTPUT"
@@ -117,7 +117,7 @@ jobs:
           test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
           git config user.name 'Arena production runner'
           git config user.email 'arena@local'
-          for path in production/gacy/references production/gacy/keyframes production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json; do
+          for path in production/gacy/references production/gacy/keyframes production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json production/gacy/api-diagnostics.json; do
             if [ -e "$path" ]; then git add "$path"; fi
           done
           if [ -d work/gacy/delivery ]; then
@@ -153,6 +153,7 @@ jobs:
             production/gacy/qa/
             production/gacy/receipts.json
             production/gacy/run-status.json
+            production/gacy/api-diagnostics.json
             work/gacy/delivery/
           if-no-files-found: warn
           retention-days: 14
