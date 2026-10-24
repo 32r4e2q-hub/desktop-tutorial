@@ -1,0 +1,29 @@
+name: 盖西新版 · 停止旧节奏并重新续跑
+on:
+  push:
+    branches: [arena/3c0c229a-desktop-tutorial]
+    paths: [production/gacy1978/RESTART_REQUEST]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+# Entering this exact generation group cancels its old active run before this job starts.
+# The dispatched generator has cancel-in-progress:false and waits for this job to finish.
+concurrency:
+  group: gacy1978-cogvideox-arena-3c0c229a-desktop-tutorial
+  cancel-in-progress: true
+jobs:
+  restart:
+    if: github.ref == 'refs/heads/arena/3c0c229a-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 10
+    steps:
+      - name: Restart missing clips with the updated linear retry code
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh workflow run gacy1978-cogvideox-gen.yml --ref arena/3c0c229a-desktop-tutorial \
+            -f 'payload={"ref_image":false,"auto_resume":true,"round":1,"round_minutes":25}'
+          echo 'Old cadence cancelled by concurrency; fresh generation dispatched on the same branch, preserving receipts and accepted task IDs.' >> "$GITHUB_STEP_SUMMARY"

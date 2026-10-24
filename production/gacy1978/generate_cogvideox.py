@@ -12,11 +12,11 @@ import argparse
 import hashlib
 import json
 import os
-import random
 import subprocess
 import sys
 import time
 import urllib.request
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -274,6 +274,24 @@ def download(url, dest):
             time.sleep(10 * (attempt + 1))
 
 
+
+def retry_delay(attempt, exc=None):
+    """User-selected cadence: 20, 25, 30... seconds; respect an explicit server Retry-After."""
+    delay = 20 + 5 * (attempt - 1)
+    response = getattr(exc, 'response', None)
+    headers = getattr(response, 'headers', {}) or {}
+    hint = headers.get('Retry-After') or headers.get('retry-after')
+    if hint:
+        try:
+            delay = max(delay, float(hint))
+        except (TypeError, ValueError):
+            try:
+                delay = max(delay, parsedate_to_datetime(hint).timestamp() - time.time())
+            except (TypeError, ValueError, OverflowError):
+                pass
+    return delay
+
+
 def retryable(exc):
     text = str(exc).lower()
     if moderation_block(exc) or any(x in text for x in ('error code: 401', 'error code: 403', 'insufficient', 'invalid api key', 'quota exhausted')):
@@ -437,7 +455,7 @@ def main():
                     if not retryable(exc):
                         raise
                     doc['phase'] = 'provider_capacity'
-                    wait = min(300, 30 * 2 ** min(attempt - 1, 4)) + random.randint(0, 15)
+                    wait = retry_delay(attempt, exc)
                     checkpoint(doc, sid + ' provider busy; deferred retry', sid, publish=args.publish,
                                status='retry_wait', task_id=None, request_hash=wanted, error=str(exc)[:600],
                                retry_attempt=attempt, retry_after_seconds=wait)

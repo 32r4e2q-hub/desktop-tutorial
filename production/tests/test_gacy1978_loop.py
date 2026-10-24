@@ -26,6 +26,12 @@ class LoopTests(unittest.TestCase):
         self.modules=patch.dict(sys.modules,{'generate_cogvideox':engine});self.modules.start()
         self.addCleanup(self.modules.stop)
 
+    def test_linear_retry_cadence_and_no_extra_relay_sleep(self):
+        self.assertEqual([engine.retry_delay(n) for n in range(1,21)], list(range(20,116,5)))
+        hint=types.SimpleNamespace(response=types.SimpleNamespace(headers={'Retry-After':'40'}))
+        self.assertEqual(engine.retry_delay(1,hint),40)
+        self.assertNotIn('sleep 120',(PROJECT/'workflows/gacy1978-cogvideox-gen.yml').read_text())
+
     def test_capacity_dispatches_next_round(self):
         action,opts,_=control.decide(self.story,self.results,self.options,42)
         self.assertEqual(action,'resume');self.assertEqual(opts['round'],2)

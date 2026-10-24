@@ -139,7 +139,6 @@ jobs:
           set -euo pipefail
           case "$ACTION" in
             resume)
-              sleep 120
               gh workflow run gacy1978-cogvideox-gen.yml --ref arena/3c0c229a-desktop-tutorial -f "payload=$NEXT_PAYLOAD"
               echo 'Next free-generation round dispatched; receipts are not a completed film.' >> "$GITHUB_STEP_SUMMARY"
               ;;
