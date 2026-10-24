@@ -3,7 +3,7 @@
   "model": "agnes-video-2.5-flash",
   "source_size": "720P",
   "branch": "arena/dc7c8423-desktop-tutorial",
-  "phase": "rendering_first_cut",
+  "phase": "first_cut_ready",
   "target_duration_seconds": 180,
   "format": {
     "width": 1920,
@@ -968,9 +968,9 @@
   "review": {
     "status": "pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "First cut rendered; a human must inspect all 29 contact sheets and final playback."
   },
-  "updated_at": "2026-10-24T14:13:45Z",
+  "updated_at": "2026-10-24T14:21:03Z",
   "run_id": "40085920189",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -1110,5 +1110,13 @@
         "applied_cooldown_seconds": 61
       }
     ]
+  },
+  "delivery": {
+    "film": "work/somerton/clips/塔玛姆·舒德_索马顿海滩无名男尸_三分钟_初版.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "cover": "work/somerton/clips/塔玛姆·舒德_封面.jpg"
   }
 }
