@@ -3,16 +3,17 @@
     "C1-A": {
       "payload_sha256": "77240eae6b3373414fd1b58ebc46261ae22410f69a748c87e835bd5ac3bcf9f0",
       "reference_sha256": "45b70bbee238625d6f64239a81f542543ad5f0e4ea0704a4b647fe80231eda1c",
-      "status": "pending",
+      "status": "submitted",
       "model": "cogvideox-flash",
-      "input_mode": "reference_image"
+      "input_mode": "reference_image",
+      "task_id": "202610241227313be524cb93d34cab"
     }
   },
   "reference_sha256": "45b70bbee238625d6f64239a81f542543ad5f0e4ea0704a4b647fe80231eda1c",
   "reference_path": "references/盖西.jpg",
-  "status": "capacity_unavailable",
+  "status": "incomplete_requires_diagnosis",
   "same_actor_verified": false,
   "experiment": "one canonical reference image, two independent animated clips",
   "limitations": "Successful generation is not proof of stable identity; inspect beginning/middle/end and compare across clips.",
-  "error": "Zhipu rejected request: /videos/generations, HTTP 429, code=1305"
+  "error": "Video polling timed out; task ID retained for resume"
 }
