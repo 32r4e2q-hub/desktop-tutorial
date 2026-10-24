@@ -812,20 +812,20 @@
     "S25": {
       "id": "S25",
       "request_hash": "b0623ded573496f75541cd23812ebebc73b87b9c068f0eca4b7969f355cce668",
-      "status": "waiting_create_slot",
-      "error": null,
-      "updated_at": "2026-10-24T06:14:04Z",
-      "create_attempts": 57,
+      "status": "provider_cooldown",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024062215297782344vEZtZZdl)",
+      "updated_at": "2026-10-24T06:22:15Z",
+      "create_attempts": 60,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
     "S26": {
       "id": "S26",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "request_hash": "8dec38f8a9bb4d0b5aafb8d8e2c3d5d1016fa5d97ffaa8578af3c3c383085ebd",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024061505601819931SlvvcZbK)",
-      "updated_at": "2026-10-24T06:15:05Z",
-      "create_attempts": 1,
+      "error": null,
+      "updated_at": "2026-10-24T06:21:14Z",
+      "create_attempts": 5,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     }
@@ -835,7 +835,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-24T06:15:05Z",
+  "updated_at": "2026-10-24T06:22:15Z",
   "run_id": "40064246900",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -955,9 +955,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024061505601819931SlvvcZbK)",
-    "create_attempts": 1,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024062215297782344vEZtZZdl)",
+    "create_attempts": 60,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-24T06:15:05Z"
+    "last_seen": "2026-10-24T06:22:15Z"
   }
 }
