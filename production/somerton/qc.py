@@ -346,8 +346,11 @@ def main() -> int:
                       for i in range(len(cues) - 1))
         add_check(report, "subtitle-order-and-overlap", ordered, f"{len(cues)} cues")
         for chapter in chapters:
-            chapter_cues = [cue for cue in cues if float(chapter["start"]) - 0.02 <= float(cue["start"])
-                            < float(chapter["start"]) + float(chapter["duration"]) + 0.02]
+            chapter_start = float(chapter["start"])
+            chapter_end = chapter_start + float(chapter["duration"])
+            # Assign by cue start to exactly one chapter; a small end tolerance here
+            # incorrectly pulls the next chapter's first subtitle into this chapter.
+            chapter_cues = [cue for cue in cues if chapter_start <= float(cue["start"]) < chapter_end]
             expected_clauses = clauses(chapter["text"])
             actual_text = [cue["text"] for cue in chapter_cues]
             good = actual_text == expected_clauses and all(
