@@ -1,6 +1,6 @@
 {
   "status": "failed",
   "stage": "probe",
-  "error": "Video polling failed; persisted task ID can be resumed",
+  "error": "Video polling failed: HTTP 400, code=sdk_query_error; existing task ID retained, no resubmission",
   "no_static_fallback": true
 }
