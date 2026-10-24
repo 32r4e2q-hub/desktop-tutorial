@@ -23,6 +23,9 @@ from PIL import Image, ImageDraw, ImageFont, ImageStat
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+sys.path.insert(0, str(ROOT))
+from production.somerton.generate import request_hash  # noqa: E402
+
 FPS = 30
 DURATION = 180.0
 EXPECTED_SHOTS = 29
@@ -343,9 +346,19 @@ def main() -> int:
     add_check(report, "all-29-source-receipts", len(expected_ids) == EXPECTED_SHOTS and len(completed) == EXPECTED_SHOTS,
               f"{len(completed)}/{EXPECTED_SHOTS} completed receipts")
     source_qc = []
+    prompt_hash_validation = []
     for shot in shots:
         sid = shot["id"]
         record = rows.get(sid, {})
+        expected_hash = request_hash(story, shot)
+        actual_hash = record.get("request_hash")
+        hash_matches = actual_hash == expected_hash
+        prompt_hash_validation.append({
+            "shot": sid, "matches_current_story": hash_matches,
+            "expected_request_hash": expected_hash, "actual_request_hash": actual_hash,
+        })
+        add_check(report, f"source-prompt-hash-{sid}", hash_matches,
+                  f"expected={expected_hash[:12]} actual={str(actual_hash)[:12]}", severity="warning")
         source = find_file(artifact, f"work/somerton/clips/{sid}.mp4", f"{sid}.mp4")
         sheet = find_file(artifact, f"production/somerton/qa/{sid}.jpg", f"{sid}.jpg")
         if source is None:
@@ -370,6 +383,7 @@ def main() -> int:
                               "duration_seconds": round(source_duration, 3), "contact_sheet_present": sheet_ok})
         except Exception as exc:
             add_check(report, f"source-clip-{sid}", False, f"{type(exc).__name__}: {exc}")
+    report["prompt_hash_validation"] = prompt_hash_validation
     report["source_clip_qc"] = source_qc
     add_check(report, "delivery-metadata", results.get("delivery", {}).get("duration_seconds") == DURATION
               and results.get("delivery", {}).get("width") == 1920
