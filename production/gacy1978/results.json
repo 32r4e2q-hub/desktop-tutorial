@@ -922,10 +922,10 @@
       "status": "retry_wait",
       "request_hash": "b8d1a70ab6d8b74abbb888189466385d4d8e291d6d26562b1261e9a9cf509d3d",
       "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-24T20:36:19Z",
+      "updated_at": "2026-10-24T20:36:45Z",
       "task_id": null,
-      "retry_attempt": 2,
-      "retry_after_seconds": 25
+      "retry_attempt": 3,
+      "retry_after_seconds": 30
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -970,6 +970,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-24T20:36:19Z",
+  "updated_at": "2026-10-24T20:36:45Z",
   "previous_results": {}
 }
