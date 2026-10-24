@@ -156,3 +156,34 @@ def test_pending_budget_exhaustion_not_stale_running(tmp_path,monkeypatch):
     record=json.loads((tmp_path/'identity-probe/retry-status.json').read_text())
     assert record['status']=='awaiting_provider' and record['task_id']=='same-id'
     assert not record['new_submission_allowed']
+
+
+def test_only_confirmed_1234_failure_gets_replacement_task(tmp_path,monkeypatch):
+    (tmp_path/'references').mkdir();Image.new('RGB',(320,180)).save(tmp_path/'references/盖西.jpg')
+    monkeypatch.setattr(engine,'HERE',tmp_path);monkeypatch.setattr(engine,'WORK',tmp_path/'work')
+    monkeypatch.setattr(probe,'PROMPTS',probe.PROMPTS[:1])
+    submit=Mock(side_effect=[{'id':'old-failed-task'},{'id':'new-replacement-task'}])
+    monkeypatch.setattr(probe,'submit',submit)
+    lookup=Mock(side_effect=[engine.VideoTaskFailedError({'code':'1234','message':'network'}),
+        engine.VideoPendingError('new-replacement-task','PROCESSING',1200),
+        engine.VideoPendingError('new-replacement-task','PROCESSING',1200)])
+    monkeypatch.setattr(engine,'await_video',lookup)
+    with pytest.raises(engine.VideoTaskFailedError):probe.run_probe(engine)
+    with pytest.raises(engine.VideoPendingError):probe.run_probe(engine)
+    with pytest.raises(engine.VideoPendingError):probe.run_probe(engine)
+    assert submit.call_count==2
+    record=json.loads((tmp_path/'identity-probe/receipts.json').read_text())
+    assert record['previous_results']['C1-A'][0]['task_id']=='old-failed-task'
+    assert record['shots']['C1-A']['task_id']=='new-replacement-task'
+    assert record['shots']['C1-A']['status']=='awaiting_provider'
+
+
+def test_unknown_terminal_failure_is_not_blindly_replaced(tmp_path,monkeypatch):
+    (tmp_path/'references').mkdir();Image.new('RGB',(320,180)).save(tmp_path/'references/盖西.jpg')
+    monkeypatch.setattr(engine,'HERE',tmp_path);monkeypatch.setattr(engine,'WORK',tmp_path/'work')
+    monkeypatch.setattr(probe,'PROMPTS',probe.PROMPTS[:1])
+    submit=Mock(return_value={'id':'unknown-failure-task'});monkeypatch.setattr(probe,'submit',submit)
+    monkeypatch.setattr(engine,'await_video',Mock(side_effect=engine.VideoTaskFailedError({'code':'unknown'})))
+    with pytest.raises(engine.VideoTaskFailedError):probe.run_probe(engine)
+    with pytest.raises(engine.VideoTaskFailedError):probe.run_probe(engine)
+    assert submit.call_count==1
