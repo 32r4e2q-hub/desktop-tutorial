@@ -329,14 +329,17 @@
     },
     "S16": {
       "id": "S16",
-      "status": "submitting",
+      "status": "retry_wait",
       "request_hash": "b0eed63ddc6067d9ceda75e4270dcd4d10ad896c8983ece28ae83cc0a5650b18",
-      "error": null,
-      "updated_at": "2026-10-24T13:08:08Z"
+      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
+      "updated_at": "2026-10-24T13:08:09Z",
+      "task_id": null,
+      "retry_attempt": 1,
+      "retry_after_seconds": 20
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
-  "phase": "generating_sources",
+  "phase": "provider_capacity",
   "required_generated_shots": [
     "S01",
     "S03",
@@ -377,6 +380,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-24T13:08:08Z",
+  "updated_at": "2026-10-24T13:08:09Z",
   "previous_results": {}
 }
