@@ -66,7 +66,23 @@
       "sha256": "c09e78c6f3a53c53b4d453e82d5e38aa1bc87dead37731252e3695f49e7d8e18",
       "status": "rendered_requires_visual_review",
       "seed": 19781221
+    },
+    "封面底图": {
+      "model": "cogview-3-flash",
+      "prompt_sha256": "1a65cf9e772d99ef0974cbff641c09fa7cd9a46c2131de55512b3d32f176c9b7",
+      "sha256": "4922ee636d88c2794e40b0775bd329f1d6f9024f8ae22d914a13fd4456e412f5",
+      "status": "generated_requires_visual_review"
     }
   },
-  "reference_status": "generated_baseline_not_human_approved"
+  "reference_status": "generated_baseline_not_human_approved",
+  "shots": {},
+  "keyframes": {
+    "S01": {
+      "model": "cogview-3-flash",
+      "prompt_sha256": "1cccc6aff985049802eb6d7f445109a0cad521c9b4b3dae04c7efd2a539b6937",
+      "sha256": "2f582bb31347a75462d4965023fe5afe504ff365a2479aea6611d41525af0fa1",
+      "status": "generated_requires_scene_and_character_review",
+      "identity_conditioning": "text descriptions only; multi-reference identity lock not verified"
+    }
+  }
 }
