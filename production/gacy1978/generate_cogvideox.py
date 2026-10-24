@@ -2,7 +2,7 @@
 """智谱免费CogVideoX-Flash：北九州模板引擎的独立项目移植。
 
 保留模板的三字段SDK请求、请求哈希、断点收据、素材检验和接触表。
-本片是干净项目：没有已生成片段、历史Agnes收据或已通过的视觉QC。
+本片独立保存实际生成收据并按请求哈希复用；不继承其他影片的媒体或QC结论。
 模板历次故障的注释仅解释原引擎设计，不是本片的运行记录。
 实际生成只从固定Arena分支的Actions执行；不启用旧gacy实验接力。
 """
@@ -295,6 +295,8 @@ def moderation_block(text):
 
 
 def transient_fail(text):
+    if moderation_block(text):
+        return False
     """FAIL 里值得重投新任务的瞬时故障签名。
 
     实证（2026-10-11 S06，gen-diag-cogvideox.log）：任务 PROCESSING 空转 24 分钟后

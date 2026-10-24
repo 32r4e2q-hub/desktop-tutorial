@@ -36,6 +36,7 @@ class LoopTests(unittest.TestCase):
         for msg in ('Error code: 401 invalid api key','Error code: 403 Insufficient quota','1301 敏感内容'):
             self.assertFalse(engine.retryable(RuntimeError(msg)))
         self.assertTrue(engine.retryable(RuntimeError('Error code: 429 1305 访问量过大')))
+        self.assertFalse(engine.transient_fail('1301 敏感内容 请稍后重试'))
 
     def test_stop_partial_force_and_budget(self):
         self.assertEqual(control.decide(self.story,self.results,self.options,42,True)[0],'stop')
