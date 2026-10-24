@@ -202,22 +202,34 @@ def references(state):
     save(STATE, state)
 
 
+def make_video_client():
+    from zhipuai import ZhipuAI
+    return ZhipuAI(api_key=os.environ['ZHIPUAI_API_KEY'], max_retries=0, timeout=60)
+
+
 def await_video(task_id):
-    key = os.environ['ZHIPUAI_API_KEY']
+    # Use the same SDK retrieval protocol as the user's successful connectivity test.
+    client = make_video_client()
     deadline = time.monotonic() + 1800
     errors = 0
+    attempts = 0
     while time.monotonic() < deadline:
+        attempts += 1
         try:
-            r = requests.get(API + '/async-result/' + task_id,
-                             headers={'Authorization':'Bearer ' + key}, timeout=60)
-            r.raise_for_status()
-            data = r.json()
+            result = client.videos.retrieve_videos_result(id=task_id)
+            data = result if isinstance(result, dict) else result.model_dump()
             errors = 0
-        except (requests.RequestException, ValueError):
+        except Exception as exc:
             errors += 1
-            if errors >= 8:
-                raise RuntimeError('Video polling failed; persisted task ID can be resumed') from None
-            time.sleep(20)
+            status = getattr(exc, 'status_code', 0) or 0
+            body = getattr(exc, 'body', {})
+            error = body.get('error', {}) if isinstance(body, dict) else {}
+            code = re.sub(r'[^a-zA-Z0-9_-]', '', str(error.get('code', 'sdk_query_error')))[:32]
+            record_api_attempt('/async-result', {'model':'cogvideox-flash'}, status, code, attempts)
+            if status in (400,401,403,404) or errors >= 12:
+                raise RuntimeError(f'Video polling failed: HTTP {status}, code={code}; existing task ID retained, no resubmission') from None
+            print(f'Temporary video lookup error HTTP {status}, code={code}; retrying existing task only', flush=True)
+            time.sleep(min(20 * errors, 60))
             continue
         status = data.get('task_status')
         print(f'Video task {task_id}: {status}', flush=True)

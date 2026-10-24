@@ -91,6 +91,19 @@ jobs:
         run: |
           set -euo pipefail
           python -u production/gacy/pipeline.py --stage "$STAGE" 2>&1 | tee run_output.log
+          if [[ "$STAGE" == probe ]]; then
+            # Publish the recovered first clip's receipt before proceeding with the rest.
+            git config user.name 'Arena production runner'
+            git config user.email 'arena@local'
+            for path in production/gacy/receipts.json production/gacy/api-diagnostics.json production/gacy/run-status.json production/gacy/qa; do
+              if [ -e "$path" ]; then git add "$path"; fi
+            done
+            if ! git diff --cached --quiet; then
+              git commit -m 'gacy: first animated clip recovered; continue remaining production'
+              git push origin arena/3c0c229a-desktop-tutorial
+            fi
+            python -u production/gacy/pipeline.py --stage all 2>&1 | tee -a run_output.log
+          fi
 
       - name: 普通单镜连通性测试
         if: steps.mode.outputs.mode == 'test'

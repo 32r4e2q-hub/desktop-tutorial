@@ -174,3 +174,27 @@ def test_retry_failure_preserves_last_code(monkeypatch):
         p.post('/videos/generations',{'model':'cogvideox-flash'},attempts=2)
     report=json.loads(p.DIAGNOSTICS.read_text())
     assert len(report)==2 and report[-1]['error_code']=='1305'
+
+
+def test_poll_uses_existing_id_and_official_sdk(monkeypatch):
+    client=Mock()
+    client.videos.retrieve_videos_result.return_value={'task_status':'SUCCESS','video_result':[{'url':'https://example.invalid/video.mp4'}]}
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    submit=Mock()
+    monkeypatch.setattr(p,'post',submit)
+    assert p.await_video('existing-task')=='https://example.invalid/video.mp4'
+    client.videos.retrieve_videos_result.assert_called_once_with(id='existing-task')
+    submit.assert_not_called()
+
+
+def test_poll_preserves_query_error_details_without_resubmit(monkeypatch):
+    class Error(Exception):
+        status_code=401
+        body={'error':{'code':'1000'}}
+    client=Mock()
+    client.videos.retrieve_videos_result.side_effect=Error()
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    with pytest.raises(RuntimeError,match='HTTP 401, code=1000'):
+        p.await_video('existing-task')
+    assert client.videos.retrieve_videos_result.call_count==1
+    assert json.loads(p.DIAGNOSTICS.read_text())[-1]['resource']=='/async-result'
