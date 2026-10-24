@@ -77,15 +77,12 @@
   "reference_status": "generated_baseline_not_human_approved",
   "shots": {
     "S01": {
-      "payload_sha256": "58c8b1491b4121e67ee33eb609a97fe53c5f7bf8e1bb0eacc1fd4c8509ab948c",
+      "payload_sha256": "5cd092a926caa29cfa317e80e6e6b0fb2e36a73544ba58c4fcc8fba9776b9b38",
       "model": "cogvideox-flash",
-      "reference": "S01.jpg",
-      "status": "blocked_by_provider_moderation",
-      "input_mode": "text",
-      "task_id": "20261024110330d8b53920bdd54229",
-      "error_code": "1301",
-      "requires_review": true,
-      "no_automatic_resubmit": true
+      "visual_revision": "non_graphic_visual_revision_2",
+      "status": "pending",
+      "reference_conditioning": false,
+      "input_mode": "text"
     }
   },
   "keyframes": {
@@ -99,12 +96,23 @@
   },
   "video_policy": {
     "effective_input": "text",
-    "reason": "reference input repeatedly rejected for capacity; using same full scene/character prompt",
-    "reference_failure": {
-      "http_status": 429,
-      "code": "1305"
-    },
+    "reason": "Mary Celeste proven three-field SDK route; user-authorized non-graphic visual redesign",
     "identity_lock": false,
-    "static_image_animation_fallback": false
+    "visual_revision": "non_graphic_visual_revision_2"
+  },
+  "previous_results": {
+    "S01": [
+      {
+        "payload_sha256": "58c8b1491b4121e67ee33eb609a97fe53c5f7bf8e1bb0eacc1fd4c8509ab948c",
+        "model": "cogvideox-flash",
+        "reference": "S01.jpg",
+        "status": "blocked_by_provider_moderation",
+        "input_mode": "text",
+        "task_id": "20261024110330d8b53920bdd54229",
+        "error_code": "1301",
+        "requires_review": true,
+        "no_automatic_resubmit": true
+      }
+    ]
   }
 }
