@@ -91,6 +91,37 @@ for shot in s['shots']:
         for x in self.story['sources']:
             self.assertNotIn('pending',x['verification'])
 
+    def test_requested_chapter_gaps_and_enlarged_keyword_captions(self):
+        code = r'''import sys,json,tempfile
+from pathlib import Path
+sys.path.insert(0,sys.argv[1])
+import render
+p=Path(sys.argv[1]);story=json.load(open(p/'story.json'))
+report=json.load(open(p/'audio/tighten-report.json'))
+tempo=report['total_tight_seconds']/168
+start=render.INTRO;rows=[]
+for clip in report['clips']:
+ end=start+clip['tight_seconds']/tempo
+ rows.append({'start':start,'end':end});start=end+render.GAP
+windows=render.planned_blackouts(rows)
+assert len(windows)==5 and all(x['end_frame']-x['start_frame']==9 for x in windows)
+with tempfile.TemporaryDirectory() as tmp:
+ path=Path(tmp)/'captions.ass'
+ render.write_subtitles(path,[{'start':1,'end':2,'text':'三十三条生命'}],
+   [{'id':'S02','kind':'graphic','start_frame':0,'end_frame':120}],story['presentation'])
+ text=path.read_text()
+ assert r'\fs82\c&H0076DDF2&' in text
+ assert r'\fs68\c&H00FFFFFF&' in text
+'''
+        result=subprocess.run([sys.executable,'-c',code,str(PROJECT)],capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+
+    def test_preliminary_mix_report_never_claims_final_film_qc(self):
+        report=json.loads((PROJECT/'audio/mix-preview-report.json').read_text())
+        self.assertIn('not delivered film QC',report['status'])
+        self.assertEqual(report['final_silence_seconds'],1.0)
+        self.assertAlmostEqual(report['bgm_relative_to_voice_db_speech_active'],-18,places=2)
+
     def test_sfx_events_are_supported(self):
         self.assertTrue(all(kind in ('paper','machine','press','phone','keys')
                             for _,kind in self.story['presentation']['sfx_events']))

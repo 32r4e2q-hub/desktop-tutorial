@@ -230,8 +230,8 @@ CLAUSE_TIMES=Path(__file__).with_name('audio')/'clause-times.json'
 def captions_from_clause_times(row):
     """clause_times.py 对出来的分句边界（能量包络 DP + 停顿吸附，audio/clause-times.json）。
 
-    与 N03 的 whisper 词级时间互相印证到 ±0.15 s；比 captions_for 的按字数比例估计准
-    （后者在 N05 里最多早了 1.8 s）。对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
+    模板采用停顿分句时间；本片尚待独立逐字听检。
+    对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
     if not CLAUSE_TIMES.exists():return None
     entry=json.loads(CLAUSE_TIMES.read_text()).get(row['id'])
     if not entry or abs(float(entry['duration'])-row['raw_duration'])>.06:return None
@@ -267,6 +267,18 @@ def captions_from_clause_times(row):
         if end<=start:return None
         cues.append({'start':start,'end':end,'text':text});last_end=end
     return cues
+
+
+def planned_blackouts(narration):
+    """用户指定：五次章间0.3秒黑场，位于无旁白的GAP内，不新增/复用镜头。"""
+    assert len(narration) == 6
+    windows = []
+    for previous, current in zip(narration, narration[1:]):
+        end = round(current['start'] * FPS)
+        start = end - round(0.3 * FPS)
+        assert start / FPS >= previous['end']
+        windows.append({'start_frame': start, 'end_frame': end})
+    return windows
 
 
 def make_edl(project, narration):
@@ -327,7 +339,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     for cue in cues:
         caption=safe_text(cue['text'])
         for key in presentation.get('caption_keywords') or []:
-            if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
+            if key in caption:caption=caption.replace(key,r'{\fs82\c&H0076DDF2&}'+key+r'{\fs68\c&H00FFFFFF&}')
         text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(20,20)}}{caption}\n"
     for entry in edl:
         if entry['id']=='END':continue
@@ -530,7 +542,11 @@ def main():
     args.output.parent.mkdir(parents=True,exist_ok=True)
     font_directory=find_font().parent
     # 保留来源标识，不继承其他影片的固定坐标去标；本片始终标注AI动画情景重现。
+    black_windows = planned_blackouts(narration)
     vf=(f"subtitles=filename='{subtitle.resolve().as_posix()}':fontsdir='{font_directory.as_posix()}'")
+    for window in black_windows:
+        vf += (",drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:"
+               f"enable='gte(n,{window['start_frame']})*lt(n,{window['end_frame']})'")
     run(['ffmpeg','-y','-v','error','-threads','2','-i',image_track,'-i',mixed,'-map','0:v:0','-map','1:a:0',
          '-vf',vf,'-c:v','libx264','-preset','fast','-crf','21','-maxrate','4000k','-bufsize','8000k',
          '-pix_fmt','yuv420p','-r','30','-c:a','aac','-b:a','160k','-ar','48000','-t',f'{DURATION:g}',
@@ -542,6 +558,10 @@ def main():
     run(['ffmpeg','-v','error','-threads','2','-i',args.output,'-map','0:v:0','-map','0:a:0','-f','null','-'])
     # Listening gate: the delivered MP4 must measure as audible, not merely
     # carry an AAC stream. This is what the first cut never checked.
+    blackout_receipt = {'film_sha256': digest(args.output), 'fps': FPS,
+                        'windows': black_windows, 'purpose': 'five planned 0.3-second chapter transitions'}
+    (HERE / 'delivery').mkdir(exist_ok=True)
+    (HERE / 'delivery/planned-blackouts.json').write_text(json.dumps(blackout_receipt, indent=2)+'\n')
     final_audio=measure(args.output,chapters=narration)
     final_audio['measured_on']='delivered mp4'
     (work/'final-audio-report.json').write_text(json.dumps(final_audio,ensure_ascii=False,indent=2)+'\n')

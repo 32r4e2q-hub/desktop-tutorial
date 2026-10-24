@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exhaustive frame-level technical/temporal QC for the delivered rabies film.
+"""Exhaustive frame-level technical/temporal QC for the delivered Gacy film.
 
 This checks every decoded output frame (not the source contact sheets):
   * frame count, PTS cadence, full-frame luma/contrast and frozen runs;
@@ -292,6 +292,23 @@ def run_audit(film: Path, project: Path, out_dir: Path, progress_every: int = 30
     segments = _load_segments(project)
     if not film.is_file():
         raise FileNotFoundError(f"找不到成片：{film}")
+    planned_black = set()
+    blackout_path = project / 'delivery/planned-blackouts.json'
+    if blackout_path.exists():
+        receipt = json.loads(blackout_path.read_text())
+        if receipt.get('film_sha256') != _sha256(film) or receipt.get('fps') != 30:
+            raise ValueError('Planned-blackout receipt does not match this film')
+        windows = receipt['windows']
+        if len(windows) != 5 or any(w['end_frame'] - w['start_frame'] != 9 for w in windows):
+            raise ValueError('Expected exactly five planned nine-frame chapter gaps')
+        narration = json.loads((project / 'delivery/narration-timing.json').read_text())
+        expected_ends = [round(row['start'] * 30) for row in narration[1:]]
+        if [w['end_frame'] for w in windows] != expected_ends:
+            raise ValueError('Blackout windows disagree with actual narration timing')
+        for w, previous in zip(windows, narration):
+            if w['start_frame'] / 30 < previous['end']:
+                raise ValueError('Planned blackout overlaps narration')
+            planned_black.update(range(w['start_frame'], w['end_frame']))
     container = av.open(str(film))
     stream = container.streams.video[0]
     fps = float(stream.average_rate or FPS_FALLBACK)
@@ -463,7 +480,7 @@ def run_audit(film: Path, project: Path, out_dir: Path, progress_every: int = 30
     non_graphic_freezes = [x for x in freeze_runs if x["kind"] == "agnes"]
     black_frames = [r for r in rows if r["luma"] < 12.0]
     unplanned_black = [r for r in black_frames
-                       if not (r["shot"] == "END" or r["seconds"] < 0.10)]
+                       if not (r["shot"] == "END" or r["seconds"] < 0.10 or r["frame"] in planned_black)]
 
     shot_summary = []
     for seg in segments:
@@ -538,6 +555,7 @@ def run_audit(film: Path, project: Path, out_dir: Path, progress_every: int = 30
         "checks": {
             "pts_issues": pts_issues,
             "black_frame_count_luma_lt12": len(black_frames),
+            "planned_chapter_blackout_frames": len(planned_black),
             "unplanned_black_frame_count": len(unplanned_black),
             "unplanned_black_frames": [
                 {"frame": r["frame"], "seconds": r["seconds"], "shot": r["shot"], "luma": r["luma"]}

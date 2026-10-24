@@ -46,6 +46,8 @@ TARGET_RMS_DBFS = -20.0
 PEAK_CEILING_DBFS = -1.5
 VOICE_LEVEL = 1.0
 BGM_LEVEL = 0.30
+BGM_RELATIVE_DB = -18.0
+FINAL_SILENCE_SECONDS = 1.0
 SFX_LEVEL = 0.85
 DUCK_DEPTH = 0.55
 DUCK_ATTACK = 0.03
@@ -171,9 +173,13 @@ def build_soundtrack(narration, music: Path, effects: Path, output: Path,
     score, effects_track = fit(score), fit(effects_track)
 
     duck = 1.0 - DUCK_DEPTH * envelope(np.abs(voice).max(axis=1), rate)
-    mix = (voice * VOICE_LEVEL
-           + score * (BGM_LEVEL * duck)[:, None]
-           + effects_track * SFX_LEVEL)
+    background = score * (BGM_LEVEL * duck)[:, None]
+    active = np.max(np.abs(voice), axis=1) > 0.01
+    if not np.any(active) or rms(background[active]) <= 1e-9:
+        raise AudioBuildError('Cannot measure speech-active BGM/voice ratio')
+    background *= rms(voice[active] * VOICE_LEVEL) * 10 ** (BGM_RELATIVE_DB / 20) / rms(background[active])
+    measured_bgm_db = dbfs(rms(background[active])) - dbfs(rms(voice[active] * VOICE_LEVEL))
+    mix = voice * VOICE_LEVEL + background + effects_track * SFX_LEVEL
 
     # Loudness normalisation: explicit RMS target, then an explicit ceiling.
     level = rms(mix)
@@ -186,8 +192,11 @@ def build_soundtrack(narration, music: Path, effects: Path, output: Path,
     if peak > 10 ** (PEAK_CEILING_DBFS / 20.0):
         mix = mix * (10 ** (PEAK_CEILING_DBFS / 20.0) / peak)
 
-    tail = int(1.5 * rate)  # the film ends on a card; let the sound breathe out
-    mix[-tail:] *= np.linspace(1.0, 0.0, tail, dtype=np.float32)[:, None]
+    silent_from = max(0, total - round(FINAL_SILENCE_SECONDS * rate))
+    tail = min(silent_from, round(1.5 * rate))
+    if tail:
+        mix[silent_from-tail:silent_from] *= np.linspace(1.0, 0.0, tail, dtype=np.float32)[:, None]
+    mix[silent_from:] = 0.0
     mix[: int(0.05 * rate)] *= np.linspace(0.0, 1.0, int(0.05 * rate), dtype=np.float32)[:, None]
 
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -204,6 +213,8 @@ def build_soundtrack(narration, music: Path, effects: Path, output: Path,
         "peak_ceiling_dbfs": PEAK_CEILING_DBFS,
         "voice_level": VOICE_LEVEL,
         "bgm_level": BGM_LEVEL,
+        "bgm_relative_to_voice_db_speech_active": round(measured_bgm_db, 3),
+        "final_silence_seconds": FINAL_SILENCE_SECONDS,
         "sfx_level": SFX_LEVEL,
         "duck_depth": DUCK_DEPTH,
         "applied_rms_dbfs": dbfs(rms(mix)),

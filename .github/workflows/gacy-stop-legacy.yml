@@ -13,7 +13,7 @@ concurrency:
 jobs:
   stop:
     if: github.ref == 'refs/heads/arena/3c0c229a-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - name: 取消本分支的旧生成与接力（不影响其他项目分支）
         env:
