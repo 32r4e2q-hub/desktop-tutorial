@@ -277,13 +277,29 @@
     },
     "S14": {
       "id": "S14",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "4f8a577b6909b5598d0657315d2f7976537cf2dca0786c0ab9cd33353126c149",
-      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-24T12:10:51Z",
+      "error": null,
+      "updated_at": "2026-10-24T12:12:00Z",
       "task_id": "20261024201051d1c7c2ce535148f1",
       "retry_attempt": 9,
-      "retry_after_seconds": 60
+      "retry_after_seconds": 60,
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261024201150b833ac1ead8843ca_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=vrVpVyJG5Jo%2B10V%2FqzkBbjEfqJE%3D&Expires=1792930311",
+      "sha256": "50b2e01705ac81309b55580515fb14cd5d5973777c92cb427fa9d47835b2929f",
+      "bytes": 1101862,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1101862,
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "video_codec": "h264",
+        "frames": 189,
+        "decoded_ok": true,
+        "contact_sheet": "production/gacy1978/qa/S14.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     }
   },
   "workflow_policy": "cogvideox-flash-receipt-v2-refprobe",
@@ -328,6 +344,6 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-24T12:10:51Z",
+  "updated_at": "2026-10-24T12:12:00Z",
   "previous_results": {}
 }
