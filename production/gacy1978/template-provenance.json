@@ -1,0 +1,37 @@
+{
+  "source": "production/kitakyushu2002",
+  "source_commit": "5913600d62024ccc6cd08be02d2d3d07378a81e1",
+  "branch": "arena/3c0c229a-desktop-tutorial",
+  "source_sha256": {
+    "media.py": "e04fb796843ebf1c90966f1b712f37d446708aa3ea4387b80a91b05a0ed02c08",
+    "throttle.py": "fdcbf370089f1095c11601eae1690f2537e7c0bb3310589fe18e35f5c3685609",
+    "align_audio.py": "e1120fa017ebebc3f11c82dab3057cdadd84052bf902652f2c2ca04d49761024",
+    "build_audio.py": "e915c4f97cd11a1171fa91820db12173dea1eb711bcabc97c79c39517be49691",
+    "generate.py": "756c46d1034877fcd66f473be9d28a4d9f12d830ab81426a7aefcb874afc9050",
+    "generate_cogvideox.py": "dfd0ca1e94c41af7a2fb1ff88db3d8c177fed8270b3c2a3814d92f53d1f521d8",
+    "fetch_sources.py": "61c769b7343f7319ea190eb5f94f0088422015d64f4c70f8da8a5ed591cf5abd",
+    "watch_run.py": "63a34394feb0d7d04cadb319613ee94b32269bd570700c678e49d3036c7bf2c7",
+    "tighten_pauses.py": "f5eb5b1a7573d7761f1bb5a8723226758c4abcc9d5c0eb124ae1aa7e4d87e712",
+    "clause_times.py": "9d11cb4ffd5921548fe3ad49c1b7f5c9001ebc03b46a5c16e421a5d5e58738dc",
+    "qc_shots.py": "530de487a7b830e7aa0338e5bb6ca6fe970ace1a9c9e31809b834d178a83212b",
+    "audit_frame_distortions.py": "27f2a8b262d3c32d0e6a2ee4610a93978954ef77052aa7f568552a3c6124a361",
+    "compose_all_frame_sheets.py": "1c07a4bf58d8481a5661fdd0dbb68746ea0524c020ede2805fb9c8aa058b5e41",
+    "export_visual_review_candidates.py": "13035e37fee0b1008aff9d42e0321d76e4c82006cf41156a88eb681610f25452",
+    "publish_visual_review_bundle.py": "efb6573a43856802f9b6846f0d2bf9b55fd3176c411ad0e36821a4adf7288c93",
+    "review_app.py": "4420a1ea61eea922e45fba1cc432d3ddcf96188b84345fe8e34f1a3330988874",
+    "progress_app.py": "6abb9b26a02ff5f9059594e7457c894199f2341825aeddd22d128e369bc15fd3",
+    "render.py": "bd34ac41ebafc46deb56c5515f1be7b0b526289ef6ba6ea0762f72c7337beebb",
+    "script_table.py": "353e6548a5070a04a8859f50029eda15381ef2e240098078f39bc15ae93ed2fa",
+    "auto_resume.py": "2dd31945c43c8cc8b18f27889af53cc129473654eb57de0a4c6f883b08be42eb",
+    "tools/plan_cuts.py": "075eea6683b1ae79480b84673c61298cb18b89de1bf8fc04594d2a8ab7a3ee42",
+    "tools/smoke_render.sh": "624b7f5218387aa9f6c435919c6b14bcfc6a9f9a31b815b0f40e9639121632b3"
+  },
+  "intentional_changes": [
+    "project identifiers and content",
+    "free-provider-only allowlist",
+    "fresh audio/receipts/EDL; no inherited media",
+    "planner first clause initialization fix",
+    "retain provenance labels, no inherited delogo coordinates",
+    "generic generator restricted to narration validation"
+  ]
+}

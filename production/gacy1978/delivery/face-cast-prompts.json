@@ -1,0 +1,118 @@
+{
+  "gate": "check-prompts",
+  "project": "production/gacy1978",
+  "errors": [],
+  "warnings": [],
+  "characters": [
+    {
+      "id": "C1",
+      "name": "盖西/波戈同一虚构成年演员（非本人容貌）",
+      "role": "suspect",
+      "face_token_chars": 398,
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19781211
+    },
+    {
+      "id": "C2",
+      "name": "母亲角色（虚构成年演员，非家属本人）",
+      "role": "other",
+      "face_token_chars": 344,
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19781212
+    },
+    {
+      "id": "C3",
+      "name": "办案警探（虚构成年演员，非真实警员）",
+      "role": "police",
+      "face_token_chars": 345,
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19781213
+    },
+    {
+      "id": "C4",
+      "name": "法官角色（虚构成年演员，非真实法官）",
+      "role": "other",
+      "face_token_chars": 351,
+      "portrait": "",
+      "portrait_url": "",
+      "seed": 19781214
+    }
+  ],
+  "face_shots": [
+    {
+      "shot": "S01",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 1045
+    },
+    {
+      "shot": "S03",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 947
+    },
+    {
+      "shot": "S09",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 886
+    },
+    {
+      "shot": "S11",
+      "characters": [
+        "C1"
+      ],
+      "prompt_chars": 941
+    },
+    {
+      "shot": "S19",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 837
+    },
+    {
+      "shot": "S24",
+      "characters": [
+        "C3"
+      ],
+      "prompt_chars": 829
+    },
+    {
+      "shot": "S25",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 837
+    },
+    {
+      "shot": "S28",
+      "characters": [
+        "C3"
+      ],
+      "prompt_chars": 850
+    },
+    {
+      "shot": "S37",
+      "characters": [
+        "C2"
+      ],
+      "prompt_chars": 842
+    },
+    {
+      "shot": "S39",
+      "characters": [
+        "C4"
+      ],
+      "prompt_chars": 834
+    }
+  ],
+  "mode": "face",
+  "status": "PASS"
+}
