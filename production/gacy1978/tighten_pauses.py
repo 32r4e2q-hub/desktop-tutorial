@@ -106,6 +106,28 @@ def tighten(x: np.ndarray):
     return out, cuts
 
 
+
+def preserve_requested_pause(x: np.ndarray, clip_id: str):
+    """保留用户指定的「地板下」停顿；0.45原始秒在本片tempo下约0.50成片秒。"""
+    if clip_id != 'N01':
+        return x, []
+    from clause_times import align
+    manifest = json.loads((OUT / 'manifest.json').read_text())
+    text = next(c['text'] for c in manifest['clips'] if c['id'] == clip_id)
+    _, rows = align(text, x)
+    index = next(i for i, row in enumerate(rows) if row['text'].endswith('地板下'))
+    end, start = rows[index]['end'], rows[index + 1]['start']
+    midpoint = round((end + start) / 2 * RATE)
+    quiet = x[max(0, midpoint - HOP):midpoint + HOP]
+    if not len(quiet) or float(np.sqrt(np.mean(quiet ** 2))) >= THRESHOLD:
+        raise RuntimeError('指定停顿未落在真实静音里，拒绝切入语音')
+    added = max(0, round((0.45 - (start - end)) * RATE))
+    if added:
+        x = np.concatenate([x[:midpoint], np.zeros(added, dtype=x.dtype), x[midpoint:]])
+    return x, [{'after': '就在地板下', 'original_gap_seconds': round(start-end, 3),
+                'target_raw_seconds': 0.45, 'added_seconds': added / RATE}]
+
+
 def encode(x: np.ndarray, path: Path):
     tmp = path.with_suffix(".tmp.wav")
     with wave.open(str(tmp), "wb") as f:
@@ -148,9 +170,10 @@ def main(argv=None) -> int:
     for raw in sorted(RAW.glob("N0*.mp3")):
         x = decode(raw)
         y, cuts = tighten(x)
+        y, requested_pauses = preserve_requested_pause(y, raw.stem)
         before += len(x) / RATE; after += len(y) / RATE
         summary.append({"id": raw.stem, "raw_seconds": round(len(x) / RATE, 3),
-                        "tight_seconds": round(len(y) / RATE, 3), "pauses_tightened": len(cuts),
+                        "tight_seconds": round(len(y) / RATE, 3), "pauses_tightened": len(cuts), "requested_pauses": requested_pauses,
                         "seconds_removed": round((len(x) - len(y)) / RATE, 3)})
         print(f"{raw.stem}: {len(x)/RATE:6.2f}s -> {len(y)/RATE:6.2f}s  ({len(cuts)} 处停顿收紧)")
         if not args.report:

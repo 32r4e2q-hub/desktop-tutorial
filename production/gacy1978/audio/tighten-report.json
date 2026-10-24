@@ -1,0 +1,71 @@
+{
+  "parameters": {
+    "rate": 48000,
+    "hop": 480,
+    "threshold_rms": 0.01,
+    "lead": 0.15,
+    "trail": 0.25,
+    "cap": 0.35,
+    "crossfade_samples": 240
+  },
+  "clips": [
+    {
+      "id": "N01",
+      "raw_seconds": 30.52,
+      "tight_seconds": 25.125,
+      "pauses_tightened": 13,
+      "requested_pauses": [
+        {
+          "after": "就在地板下",
+          "original_gap_seconds": 0.35,
+          "target_raw_seconds": 0.45,
+          "added_seconds": 0.1
+        }
+      ],
+      "seconds_removed": 5.395
+    },
+    {
+      "id": "N02",
+      "raw_seconds": 27.8,
+      "tight_seconds": 25.735,
+      "pauses_tightened": 9,
+      "requested_pauses": [],
+      "seconds_removed": 2.065
+    },
+    {
+      "id": "N03",
+      "raw_seconds": 27.64,
+      "tight_seconds": 23.6,
+      "pauses_tightened": 12,
+      "requested_pauses": [],
+      "seconds_removed": 4.04
+    },
+    {
+      "id": "N04",
+      "raw_seconds": 31.04,
+      "tight_seconds": 27.465,
+      "pauses_tightened": 15,
+      "requested_pauses": [],
+      "seconds_removed": 3.575
+    },
+    {
+      "id": "N05",
+      "raw_seconds": 28.0,
+      "tight_seconds": 26.015,
+      "pauses_tightened": 11,
+      "requested_pauses": [],
+      "seconds_removed": 1.985
+    },
+    {
+      "id": "N06",
+      "raw_seconds": 28.16,
+      "tight_seconds": 24.265,
+      "pauses_tightened": 11,
+      "requested_pauses": [],
+      "seconds_removed": 3.895
+    }
+  ],
+  "total_raw_seconds": 173.16,
+  "total_tight_seconds": 152.205,
+  "tempo_after": 0.906
+}
