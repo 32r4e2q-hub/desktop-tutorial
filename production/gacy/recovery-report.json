@@ -1,6 +1,6 @@
 {
   "status": "checked",
-  "checked_utc": "2026-10-24T04:57:48Z",
+  "checked_utc": "2026-10-24T05:04:33Z",
   "new_generation_requests": 0,
   "tasks": [
     {
@@ -21,7 +21,19 @@
       "task_id": "202610241227313be524cb93d34cab",
       "is_film_footage": "experimental_identity_clip_only",
       "provider_status": "FAIL",
-      "terminal": true
+      "terminal": true,
+      "failure_details": {
+        "code": "1234",
+        "message": "网络错误，错误id：202610241227313be524cb93d34cab，请稍后重试",
+        "response_fields": [
+          "error",
+          "id",
+          "model",
+          "request_id",
+          "task_status",
+          "video_result"
+        ]
+      }
     }
   ],
   "verified_downloads": 1
