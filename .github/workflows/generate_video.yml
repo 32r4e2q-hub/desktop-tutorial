@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       prompt:
-        description: '普通测试提示词；盖西制作使用 __GACY__:references / identity / probe / video / audio / render / all'
+        description: '普通测试提示词；盖西制作使用 __GACY__:references / identity / recover / probe / video / audio / render / all'
         required: true
         default: '阳光明媚的森林，一只小松鼠在树枝上吃坚果，高清真实，电影质感'
 
@@ -49,7 +49,7 @@ jobs:
           fi
           if [[ "$mode" == gacy ]]; then
             test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
-            case "$stage" in references|identity|probe|video|audio|render|all) ;; *) exit 2;; esac
+            case "$stage" in references|identity|recover|probe|video|audio|render|all) ;; *) exit 2;; esac
           fi
           echo "mode=$mode" >> "$GITHUB_OUTPUT"
           echo "stage=$stage" >> "$GITHUB_OUTPUT"
@@ -80,7 +80,7 @@ jobs:
         if: steps.mode.outputs.mode == 'gacy'
         run: |
           python production/gacy/validate.py
-          python -m pytest production/gacy/test_pipeline.py production/gacy/test_identity.py -q
+          python -m pytest production/gacy -q
 
       - name: 分阶段制作（仅使用智谱免费模型）
         if: steps.mode.outputs.mode == 'gacy'
@@ -130,7 +130,7 @@ jobs:
           test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
           git config user.name 'Arena production runner'
           git config user.email 'arena@local'
-          for path in production/gacy/references production/gacy/keyframes production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json production/gacy/api-diagnostics.json production/gacy/identity-probe production/gacy/identity-gate-report.json; do
+          for path in production/gacy/references production/gacy/keyframes production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json production/gacy/api-diagnostics.json production/gacy/identity-probe production/gacy/identity-gate-report.json production/gacy/recovery-report.json; do
             if [ -e "$path" ]; then git add "$path"; fi
           done
           if [ -d work/gacy/delivery ]; then
@@ -148,6 +148,9 @@ jobs:
               fi
             done
           fi
+          for clip in 交付/盖西_同脸实验_*_原始片段.mp4; do
+            if [ -f "$clip" ]; then git add "$clip"; fi
+          done
           if ! git diff --cached --quiet; then
             git commit -m "gacy: checkpoint generated references, receipts and review status"
             git push origin arena/3c0c229a-desktop-tutorial
@@ -170,6 +173,8 @@ jobs:
             production/gacy/identity-probe/
             production/gacy/identity-gate-report.json
             work/gacy/identity-probe/
+            work/gacy/recovered/
+            production/gacy/recovery-report.json
             work/gacy/delivery/
           if-no-files-found: warn
           retention-days: 14

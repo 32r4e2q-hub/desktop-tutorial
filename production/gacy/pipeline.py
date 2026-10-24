@@ -672,13 +672,16 @@ def render():
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['references','video','audio','render','probe','identity','all'],default='all');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['references','video','audio','render','probe','identity','recover','all'],default='all');args=parser.parse_args()
     WORK.mkdir(parents=True,exist_ok=True);OUT.mkdir(exist_ok=True)
     state=json.loads(STATE.read_text()) if STATE.exists() else {}
     state['video_policy']={'effective_input':'text','reason':'Mary Celeste proven three-field SDK route; user-authorized non-graphic visual redesign','identity_lock':False,'visual_revision':VISUAL_PLAN['revision']}
     save(HERE/'run-status.json',{'status':'running','stage':args.stage,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
     try:
         if args.stage in ('references','all'): references(state)
+        if args.stage == 'recover':
+            from recover_tasks import recover
+            recover(sys.modules[__name__])
         if args.stage == 'identity':
             from identity_retry import run_with_cooldown
             run_with_cooldown(sys.modules[__name__])
