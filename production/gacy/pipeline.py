@@ -28,7 +28,7 @@ OUT = WORK / 'delivery'
 STATE = HERE / 'receipts.json'
 API = 'https://open.bigmodel.cn/api/paas/v4'
 PLAN = json.loads((HERE / 'story.json').read_text())
-FPS = 24
+FPS = 30
 SR = 48000
 
 
@@ -104,8 +104,33 @@ REFERENCE_SCENES = {
     '法庭与监狱': '1970年代冷灰法庭，木质座位与金属门，无人物。',
     '雪夜药店': '1970年代雪夜药店外景，无可读文字霓虹、暖光橱窗、雪花，无人物。',
     '地下空间': '漆黑狭窄地下空间，手电体积光与飘浮尘埃，无具体物体、无人体。',
+    '封面底图': '单张完整电影封面画面，左三分线是一位穿彩色小丑服、白色脸部彩绘、圆形红鼻子的风格化中年男性，只见半张脸，半边脸在阴影；右三分线是木地板上一扇微开的活板门，只有光线与黑暗，不出现任何人体或具体物体。中央下方留排版空间，禁止文字。',
 }
 REF_MAP = {1:'郊区住宅',2:'地下空间',3:'波戈',4:'波戈',5:'盖西',6:'盖西',7:'法官与陪审团',8:'盖西',9:'盖西',10:'少年',11:'郊区住宅',12:'母亲',13:'盖西',14:'雪夜药店',15:'少年',16:'母亲',17:'警探',18:'警探',19:'郊区住宅',20:'盖西',21:'地下空间',22:'地下空间',23:'郊区住宅',24:'地下空间',25:'法官与陪审团',26:'法庭与监狱',27:'法庭与监狱',28:'母亲'}
+
+
+def dark_reference(path):
+    """Render a real 3D dust/light reference, with no invented room or furniture."""
+    width, height = 1344, 756
+    y, x = np.mgrid[0:height, 0:width]
+    center = 280 + .22*x
+    beam = np.exp(-((y-center)/(25+.12*x))**2)*np.clip(1-x/width,0,1)**1.4
+    image = np.zeros((height,width,3),dtype=np.uint8)
+    for channel, strength in enumerate((24,30,40)):
+        image[:,:,channel] = (beam*strength).astype(np.uint8)
+    im=Image.fromarray(image)
+    draw=ImageDraw.Draw(im)
+    rng=np.random.default_rng(19781221)
+    # Project 3D dust particles, lit by an angular cone in world space.
+    for _ in range(450):
+        px,py,pz=rng.uniform(-3,3),rng.uniform(-2,2),rng.uniform(2,12)
+        sx=width/2+700*px/pz;sy=height/2+700*py/pz
+        ix,iy=int(sx),int(sy)
+        if 0<=ix<width and 0<=iy<height and beam[iy,ix]>.15:
+            value=int(40+130*beam[iy,ix]);r=.4+1.2/pz
+            draw.ellipse((sx-r,sy-r,sx+r,sy+r),fill=(value,value,int(value*.9)))
+    path.parent.mkdir(exist_ok=True)
+    im.save(path, quality=94)
 
 
 def references(state):
@@ -126,6 +151,13 @@ def references(state):
                   + '所有人物为风格化3D虚构形象，非真实肖像。画面中不出现文字。'
                   + '【NEGATIVE】' + PLAN['negative'])
         digest = hashlib.sha256(prompt.encode()).hexdigest()
+        if name == '地下空间':
+            dark_reference(path)
+            refs[name] = {'model':'procedural_3d_dust_reference_v1','prompt_sha256':digest,
+                          'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                          'status':'rendered_requires_visual_review','seed':19781221}
+            save(STATE,state)
+            continue
         if path.exists() and refs.get(name, {}).get('prompt_sha256') == digest:
             continue
         print('Generating free reference: ' + name, flush=True)
@@ -178,12 +210,48 @@ def await_video(task_id):
     raise RuntimeError('Video polling timed out; task ID retained for resume')
 
 
+def shot_keyframe(shot, state):
+    """Scene-specific first frame. Free CogView has no verified multi-reference identity lock."""
+    folder = HERE / 'keyframes'
+    folder.mkdir(exist_ok=True)
+    path = folder / (shot['id'] + '.jpg')
+    prompt = (PLAN['style'] + '生成此镜头的电影动画首帧，不是角色站立定妆照。'
+              + shot['prompt'][len(PLAN['style']):])
+    digest = hashlib.sha256(prompt.encode()).hexdigest()
+    entries = state.setdefault('keyframes', {})
+    entry = entries.get(shot['id'], {})
+    if path.exists() and entry.get('prompt_sha256') == digest:
+        return path
+    if shot['id'] in ('S21','S22'):
+        dark_reference(path)
+        model = 'procedural_3d_dust_reference_v1'
+    else:
+        data=post('/images/generations',{'model':'cogview-3-flash','prompt':prompt,
+                  'size':'1344x768','watermark_enabled':False})
+        item=data.get('data',[{}])[0]
+        if item.get('url'):
+            download(item['url'],path)
+        elif item.get('b64_json'):
+            path.write_bytes(base64.b64decode(item['b64_json']))
+        else:
+            raise RuntimeError('Shot keyframe generation returned no image')
+        with Image.open(path) as im:
+            im.convert('RGB').save(path,quality=90)
+        model='cogview-3-flash'
+    entries[shot['id']]={'model':model,'prompt_sha256':digest,
+        'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+        'status':'generated_requires_scene_and_character_review',
+        'identity_conditioning':'text descriptions only; multi-reference identity lock not verified'}
+    save(STATE,state)
+    return path
+
+
 def generate_videos(state):
     receipts = state.setdefault('shots', {})
     for index, shot in enumerate(PLAN['shots'][:-1], 1):
         sid = shot['id']
         target = WORK / 'clips' / (sid + '.mp4')
-        reference = HERE / 'references' / (REF_MAP[index] + '.jpg')
+        reference = shot_keyframe(shot, state)
         image_url = 'data:image/jpeg;base64,' + base64.b64encode(reference.read_bytes()).decode()
         payload = {'model':'cogvideox-flash','quality':'speed',
                    'prompt':shot['prompt'],'image_url':image_url}
@@ -322,6 +390,15 @@ Style: Default,Noto Sans CJK SC,50,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 '''
     lines = []
+    headlines = [
+        (0, 5, '笑得最开心的小丑'), (10, 15, '1970年代 · 美国芝加哥郊区'),
+        (35, 40, '1968年入狱 · 只服刑一年多'), (55, 60, '1972年起 · 少年陆续失踪'),
+        (80, 85, '1978年12月11日 · 一句“马上回来”'), (105, 110, '12月13日 · 搜查令'),
+        (130, 136, '33名受害者 · 大多是十几岁到二十出头'),
+        (150, 156, '1980年审判 · 1994年5月10日执行'), (170, 176, '请记住他们，而不是他'),
+    ]
+    for start, end, text in headlines:
+        lines.append(f'Dialogue: 1,{ass_time(start)},{ass_time(end)},Default,,0,0,0,,{{\\an8\\pos(960,80)\\fs44\\c&H0057C7F2&}}{text}')
     keywords = ('三十三','地板下','马上回来','二十九','请记住他们','而不是他','罗伯特·皮耶斯特','1968年','1978年','1994年')
     for cue in cues:
         text = clean_ass(cue['text'])
@@ -411,7 +488,21 @@ def make_ending():
     run('ffmpeg','-y','-framerate',FPS,'-i',enddir/'%04d.png','-c:v','libx264','-pix_fmt','yuv420p','-crf','21',target)
 
 
+def make_cover():
+    from PIL import ImageOps
+    source = HERE / 'references/封面底图.jpg'
+    if not source.exists():
+        raise RuntimeError('Cover reference missing; run references stage before render')
+    with Image.open(source) as im:
+        cover = ImageOps.fit(im.convert('RGB'), (1920, 1080))
+    draw = ImageDraw.Draw(cover)
+    draw.text((960, 850), '小丑的秘密', font=font(132), fill=(242,199,87),
+              stroke_width=9, stroke_fill=(0,0,0), anchor='mm')
+    cover.save(OUT/'封面_小丑的秘密.jpg', quality=94)
+
+
 def render():
+    make_cover()
     make_ending()
     normalized=WORK/'normalized';normalized.mkdir(exist_ok=True)
     boundaries={10,35,55,80,105,130,150,170}
@@ -423,7 +514,7 @@ def render():
         # Constant speed fitting preserves continuous generated movement without looping/freeze.
         vf=f'setpts={wanted/original:.8f}*(PTS-STARTPTS),scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,setsar=1,fps={FPS}'
         if shot['end'] in boundaries:
-            vf+=f',fade=t=out:st={wanted-.3}:d=.15:color=black,drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:enable=gte(t\\,{wanted-.15})'
+            vf+=f',fade=t=out:st={wanted-.45}:d=.15:color=black,drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:enable=gte(t\\,{wanted-.3})'
         run('ffmpeg','-y','-i',src,'-an','-vf',vf,'-t',wanted,'-c:v','libx264','-preset','fast','-crf','24',normalized/(shot['id']+'.mp4'))
     concat=WORK/'concat.txt'
     concat.write_text(''.join(f"file '{(normalized/(s['id']+'.mp4')).as_posix()}'\n" for s in PLAN['shots']))

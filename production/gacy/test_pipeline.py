@@ -87,3 +87,32 @@ def test_does_not_skip_references_in_all_stage():
     source=(HERE/'pipeline.py').read_text()
     assert source.index("if args.stage in ('references','all')") < source.index("if args.stage in ('video','all')")
     assert 'requires_visual_review' in source
+
+
+def test_dark_reference_has_correct_frame_and_is_nearly_black(tmp_path):
+    from PIL import Image
+    import numpy as np
+    target=tmp_path/'dark.jpg'
+    p.dark_reference(target)
+    with Image.open(target) as im:
+        assert im.size==(1344,756)
+        assert np.asarray(im).mean()<10
+
+
+def test_music_relative_level_and_last_second_silence(tmp_path,monkeypatch):
+    import numpy as np
+    monkeypatch.setattr(p,'OUT',tmp_path)
+    monkeypatch.setattr(p,'SR',1000)
+    p.score(np.ones(180000,dtype=np.float32)*.1)
+    report=json.loads((tmp_path/'mix-report.json').read_text())
+    assert abs(report['music_relative_rms_db']+18)<.05
+    assert report['last_second_silent']
+    assert report['peak']<1
+
+
+def test_headline_ass_uses_single_backslashes(tmp_path,monkeypatch):
+    monkeypatch.setattr(p,'OUT',tmp_path)
+    p.write_subtitles([])
+    text=(tmp_path/'captions.ass').read_text()
+    assert r'\an8\pos(960,80)' in text
+    assert r'\\an8' not in text

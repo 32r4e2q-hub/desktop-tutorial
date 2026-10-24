@@ -117,7 +117,7 @@ jobs:
           test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
           git config user.name 'Arena production runner'
           git config user.email 'arena@local'
-          for path in production/gacy/references production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json; do
+          for path in production/gacy/references production/gacy/keyframes production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json; do
             if [ -e "$path" ]; then git add "$path"; fi
           done
           if [ -d work/gacy/delivery ]; then
@@ -125,6 +125,15 @@ jobs:
             cp work/gacy/delivery/*.json production/gacy/delivery/ 2>/dev/null || true
             cp work/gacy/delivery/*.ass production/gacy/delivery/ 2>/dev/null || true
             git add production/gacy/delivery
+          fi
+          if [ -f work/gacy/delivery/technical-report.json ]; then
+            mkdir -p 交付
+            for media in work/gacy/delivery/*.mp4 work/gacy/delivery/*.jpg; do
+              if [ -f "$media" ] && [ "$(stat -c %s "$media")" -lt 85000000 ]; then
+                cp "$media" 交付/
+                git add "交付/$(basename "$media")"
+              fi
+            done
           fi
           if ! git diff --cached --quiet; then
             git commit -m "gacy: checkpoint generated references, receipts and review status"
@@ -140,6 +149,7 @@ jobs:
             run_output.log
             output_video.mp4
             production/gacy/references/
+            production/gacy/keyframes/
             production/gacy/qa/
             production/gacy/receipts.json
             production/gacy/run-status.json
