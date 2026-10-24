@@ -781,20 +781,20 @@
     "S24": {
       "id": "S24",
       "request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30",
-      "status": "waiting_create_slot",
-      "error": null,
-      "updated_at": "2026-10-24T05:10:41Z",
-      "create_attempts": 6,
+      "status": "provider_cooldown",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024052459560326508BXGTZpgN)",
+      "updated_at": "2026-10-24T05:24:59Z",
+      "create_attempts": 10,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
     "S25": {
       "id": "S25",
       "request_hash": "b0623ded573496f75541cd23812ebebc73b87b9c068f0eca4b7969f355cce668",
-      "status": "provider_cooldown",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024051142503605010rxRUrPaa)",
-      "updated_at": "2026-10-24T05:11:42Z",
-      "create_attempts": 10,
+      "status": "waiting_create_slot",
+      "error": null,
+      "updated_at": "2026-10-24T05:23:58Z",
+      "create_attempts": 19,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     }
@@ -804,7 +804,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-24T05:11:42Z",
+  "updated_at": "2026-10-24T05:24:59Z",
   "run_id": "40064246900",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -924,9 +924,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024051142503605010rxRUrPaa)",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261024052459560326508BXGTZpgN)",
     "create_attempts": 10,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-24T05:11:42Z"
+    "last_seen": "2026-10-24T05:24:59Z"
   }
 }
