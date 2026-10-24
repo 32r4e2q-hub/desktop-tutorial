@@ -680,8 +680,8 @@ def main():
     try:
         if args.stage in ('references','all'): references(state)
         if args.stage == 'identity':
-            from identity_probe import run_probe
-            run_probe(sys.modules[__name__])
+            from identity_retry import run_with_cooldown
+            run_with_cooldown(sys.modules[__name__])
         if args.stage == 'probe': generate_videos(state, limit=1)
         if args.stage in ('video','all'): generate_videos(state)
         if args.stage in ('audio','all'): make_audio()

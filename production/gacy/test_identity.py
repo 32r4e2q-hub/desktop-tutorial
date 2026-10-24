@@ -106,3 +106,32 @@ def test_duplicate_source_does_not_prove_cross_shot_identity(tmp_path,monkeypatc
     result=gate.evaluate(tmp_path,receipts,review)
     assert not result['publishable']
     assert any('two distinct' in x for x in result['issues'])
+
+retry=load('identity_retry')
+
+
+def test_capacity_cooldown_is_bounded(tmp_path,monkeypatch):
+    monkeypatch.setattr(engine,'HERE',tmp_path)
+    sleep=Mock();monkeypatch.setattr(retry.time,'sleep',sleep)
+    experiment=Mock(side_effect=engine.ProviderError('/videos/generations',429,'1305'))
+    with pytest.raises(engine.ProviderError):retry.run_rounds(engine,experiment,rounds=3,cooldown=600)
+    assert experiment.call_count==3 and sleep.call_count==2
+    assert json.loads((tmp_path/'identity-probe/retry-status.json').read_text())['status']=='stopped'
+
+
+def test_moderation_does_not_enter_cooldown_loop(tmp_path,monkeypatch):
+    monkeypatch.setattr(engine,'HERE',tmp_path)
+    sleep=Mock();monkeypatch.setattr(retry.time,'sleep',sleep)
+    experiment=Mock(side_effect=engine.ProviderError('/videos/generations',400,'1301'))
+    with pytest.raises(engine.ProviderError):retry.run_rounds(engine,experiment)
+    assert experiment.call_count==1
+    sleep.assert_not_called()
+
+
+def test_unknown_submit_outcome_does_not_enter_cooldown_loop(tmp_path,monkeypatch):
+    monkeypatch.setattr(engine,'HERE',tmp_path)
+    sleep=Mock();monkeypatch.setattr(retry.time,'sleep',sleep)
+    experiment=Mock(side_effect=RuntimeError('acceptance unknown'))
+    with pytest.raises(RuntimeError):retry.run_rounds(engine,experiment)
+    assert experiment.call_count==1
+    sleep.assert_not_called()
