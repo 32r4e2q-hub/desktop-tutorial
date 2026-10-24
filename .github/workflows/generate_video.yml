@@ -4,10 +4,11 @@ on:
   push:
     paths:
       - 'trigger_video.txt'
+      - 'production/gacy/REQUEST'
   workflow_dispatch:
     inputs:
       prompt:
-        description: '请输入生成视频的提示词 (Prompt)'
+        description: '普通测试提示词；盖西制作使用 __GACY__:references / video / audio / render / all'
         required: true
         default: '阳光明媚的森林，一只小松鼠在树枝上吃坚果，高清真实，电影质感'
 
@@ -15,47 +16,133 @@ permissions:
   contents: write
   issues: write
 
+concurrency:
+  group: cogvideo-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 350
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: 选择生产模式
+        id: mode
+        env:
+          INPUT_PROMPT: ${{ inputs.prompt }}
+          EVENT: ${{ github.event_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mode=test
+          stage=references
+          if [[ "$INPUT_PROMPT" == __GACY__:* ]]; then
+            mode=gacy
+            stage="${INPUT_PROMPT#__GACY__:}"
+          elif [[ "$EVENT" == push ]] && [[ -f production/gacy/REQUEST ]] && [[ "$GITHUB_REF_NAME" == arena/3c0c229a-desktop-tutorial ]]; then
+            mode=gacy
+            stage="$(head -n 1 production/gacy/REQUEST)"
+          fi
+          if [[ "$mode" == gacy ]]; then
+            test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
+            case "$stage" in references|video|audio|render|all) ;; *) exit 2;; esac
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          echo "stage=$stage" >> "$GITHUB_OUTPUT"
 
       - name: 设置 Python 运行环境
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: 安装 Python 依赖
+      - name: 安装依赖
+        run: python -m pip install zhipuai sniffio httpx requests numpy pillow edge-tts pytest
+
+      - name: 安装合成工具与中文字体
+        if: steps.mode.outputs.mode == 'gacy'
         run: |
-          pip install --upgrade pip
-          pip install zhipuai sniffio httpx requests
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
 
-      - name: 调用 CogVideoX-Flash 生成视频
-        id: run_step
+      - name: 恢复制作缓存
+        if: steps.mode.outputs.mode == 'gacy'
+        uses: actions/cache/restore@v4
+        with:
+          path: work/gacy
+          key: gacy-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: gacy-v1-
+
+      - name: 校验29镜头与生产代码
+        if: steps.mode.outputs.mode == 'gacy'
+        run: |
+          python production/gacy/validate.py
+          python -m pytest production/gacy/test_pipeline.py -q
+
+      - name: 分阶段制作（仅使用智谱免费模型）
+        if: steps.mode.outputs.mode == 'gacy'
         env:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
-          INPUT_PROMPT: ${{ github.event.inputs.prompt }}
+          STAGE: ${{ steps.mode.outputs.stage }}
+        shell: bash
         run: |
-          python scripts/run_cogvideox.py 2>&1 | tee run_output.log
+          set -euo pipefail
+          python -u production/gacy/pipeline.py --stage "$STAGE" 2>&1 | tee run_output.log
 
-      - name: 将结果发到 GitHub Issue
-        if: always()
+      - name: 普通单镜连通性测试
+        if: steps.mode.outputs.mode == 'test'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
+          INPUT_PROMPT: ${{ inputs.prompt }}
+        shell: bash
         run: |
-          if [ -f run_output.log ]; then
-            gh issue create --title "视频生成测试报告 [$(date '+%H:%M:%S')]" --body-file run_output.log || true
+          set -euo pipefail
+          python -u scripts/run_cogvideox.py 2>&1 | tee run_output.log
+
+      - name: 保存缓存（包含失败时已生成的动态镜头）
+        if: always() && steps.mode.outputs.mode == 'gacy'
+        uses: actions/cache/save@v4
+        with:
+          path: work/gacy
+          key: gacy-v1-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: 回存参考图与任务收据（不含密钥与原始请求）
+        if: always() && steps.mode.outputs.mode == 'gacy'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
+          git config user.name 'Arena production runner'
+          git config user.email 'arena@local'
+          for path in production/gacy/references production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json; do
+            if [ -e "$path" ]; then git add "$path"; fi
+          done
+          if [ -d work/gacy/delivery ]; then
+            mkdir -p production/gacy/delivery
+            cp work/gacy/delivery/*.json production/gacy/delivery/ 2>/dev/null || true
+            cp work/gacy/delivery/*.ass production/gacy/delivery/ 2>/dev/null || true
+            git add production/gacy/delivery
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "gacy: checkpoint generated references, receipts and review status"
+            git push origin arena/3c0c229a-desktop-tutorial
           fi
 
-      - name: 上传视频与日志
+      - name: 上传素材、音轨、待审片与日志
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: video-output
+          name: video-output-${{ github.run_id }}
           path: |
             run_output.log
             output_video.mp4
+            production/gacy/references/
+            production/gacy/qa/
+            production/gacy/receipts.json
+            production/gacy/run-status.json
+            work/gacy/delivery/
           if-no-files-found: warn
-          retention-days: 7
+          retention-days: 14
