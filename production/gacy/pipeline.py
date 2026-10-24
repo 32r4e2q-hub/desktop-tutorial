@@ -28,6 +28,8 @@ OUT = WORK / 'delivery'
 STATE = HERE / 'receipts.json'
 API = 'https://open.bigmodel.cn/api/paas/v4'
 PLAN = json.loads((HERE / 'story.json').read_text())
+VISUAL_PLAN = json.loads((HERE / 'visual-plan.json').read_text())
+SDK_VIDEO_GENERATION = True
 FPS = 30
 SR = 48000
 
@@ -72,14 +74,42 @@ def record_api_attempt(resource, payload, status, code, attempt):
     save(DIAGNOSTICS, entries[-100:])
 
 
+def video_payload(shot):
+    return {'model':'cogvideox-flash', 'prompt':VISUAL_PLAN['shots'][shot['id']]['prompt'],
+            'quality':'speed'}
+
+
+def send_generation(resource, payload, key):
+    if resource != '/videos/generations' or not SDK_VIDEO_GENERATION:
+        return requests.post(API + resource, json=payload,
+            headers={'Authorization':'Bearer ' + key}, timeout=(30,180))
+    # Exactly the free-model SDK call used by the Mary Celeste production engine.
+    client = make_video_client()
+    response = requests.Response()
+    try:
+        result = client.videos.generations(model=payload['model'], prompt=payload['prompt'], quality=payload['quality'])
+        data = result if isinstance(result,dict) else result.model_dump()
+        response.status_code = 200
+    except Exception as exc:
+        original = getattr(exc,'response',None)
+        if original is None:
+            raise requests.RequestException('SDK submission outcome unknown') from None
+        response.status_code = original.status_code
+        try:
+            data = original.json()
+        except (ValueError,TypeError):
+            data = {'error':{'code':'sdk_non_json'}}
+    response._content = json.dumps(data).encode()
+    return response
+
+
 def post(resource, payload, attempts=8):
     key = os.environ.get('ZHIPUAI_API_KEY')
     if not key:
         raise RuntimeError('ZHIPUAI_API_KEY is not injected')
     for attempt in range(attempts):
         try:
-            response = requests.post(API + resource, json=payload,
-                headers={'Authorization': 'Bearer ' + key}, timeout=(30, 180))
+            response = send_generation(resource, payload, key)
         except requests.RequestException:
             # A timed-out POST may have been accepted: do not blindly create duplicates.
             record_api_attempt(resource, payload, 0, 'transport_outcome_unknown', attempt+1)
@@ -316,59 +346,80 @@ def submit_video(payload, state):
         return post('/videos/generations',text_payload),text_payload
 
 
-def generate_videos(state, limit=None):
+def generate_one_video(shot, state):
     receipts = state.setdefault('shots', {})
-    selected = PLAN['shots'][:-1] if limit is None else PLAN['shots'][:limit]
-    for index, shot in enumerate(selected, 1):
-        sid = shot['id']
-        target = WORK / 'clips' / (sid + '.mp4')
-        reference = shot_keyframe(shot, state)
-        image_url = 'data:image/jpeg;base64,' + base64.b64encode(reference.read_bytes()).decode()
-        payload = {'model':'cogvideox-flash','quality':'speed',
-                   'prompt':shot['prompt'],'image_url':image_url}
-        if state.get('video_policy',{}).get('effective_input') == 'text':
-            payload.pop('image_url')
-        wanted_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
-        receipt = receipts.get(sid, {})
-        if receipt.get('status') == 'blocked_by_provider_moderation':
-            raise ProviderError('/async-result', 400, '1301')
-        if receipt.get('payload_sha256') != wanted_hash:
-            receipt = {'payload_sha256':wanted_hash,'model':'cogvideox-flash',
-                       'reference':reference.name,'status':'pending'}
-            receipts[sid] = receipt
-        if target.exists() and receipt.get('status') == 'downloaded' and receipt.get('sha256') == hashlib.sha256(target.read_bytes()).hexdigest():
-            continue
-        if not receipt.get('task_id'):
-            receipt['input_mode'] = 'reference_image' if 'image_url' in payload else 'text'
-            save(STATE,state)
-            print('Submitting ' + sid + ' input=' + receipt['input_mode'], flush=True)
-            response, actual_payload = submit_video(payload,state)
-            if not response.get('id'):
-                raise RuntimeError('Video submit returned no task ID')
-            receipt.update(task_id=response['id'], status='submitted',
-                input_mode='reference_image' if 'image_url' in actual_payload else 'text',
-                payload_sha256=hashlib.sha256(json.dumps(actual_payload,sort_keys=True).encode()).hexdigest())
-            save(STATE, state)
+    sid = shot['id']
+    target = WORK / 'clips' / (sid + '.mp4')
+    # Same proven three-field free text-video contract as Mary Celeste.
+    payload = video_payload(shot)
+    wanted_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    receipt = receipts.get(sid, {})
+    if receipt.get('payload_sha256') != wanted_hash:
+        if receipt:
+            state.setdefault('previous_results', {}).setdefault(sid, []).append(dict(receipt))
+        receipt = {'payload_sha256':wanted_hash,'model':'cogvideox-flash',
+                   'visual_revision':VISUAL_PLAN['revision'],'status':'pending',
+                   'reference_conditioning':False}
+        receipts[sid] = receipt
+        save(STATE,state)
+    elif receipt.get('status') == 'blocked_by_provider_moderation':
+        raise ProviderError('/async-result', 400, '1301')
+    if target.exists() and receipt.get('status') == 'downloaded' and receipt.get('sha256') == hashlib.sha256(target.read_bytes()).hexdigest():
+        return
+    if not receipt.get('task_id'):
+        receipt['input_mode'] = 'reference_image' if 'image_url' in payload else 'text'
+        save(STATE,state)
+        print('Submitting ' + sid + ' input=' + receipt['input_mode'], flush=True)
         try:
-            url = await_video(receipt['task_id'])
+            response = post('/videos/generations', payload)
         except ProviderError as exc:
             if exc.code == '1301':
                 receipt.update(status='blocked_by_provider_moderation',error_code='1301',
                     requires_review=True,no_automatic_resubmit=True)
                 save(STATE,state)
             raise
-        download(url, target)
-        info = probe(target)
-        if not any(s.get('codec_type') == 'video' for s in info['streams']):
-            raise RuntimeError(sid + ': invalid downloaded video')
-        receipt.update(status='downloaded',duration=seconds(target),
-                       sha256=hashlib.sha256(target.read_bytes()).hexdigest())
+        actual_payload = payload
+        if not response.get('id'):
+            raise RuntimeError('Video submit returned no task ID')
+        receipt.update(task_id=response['id'], status='submitted',
+            input_mode='reference_image' if 'image_url' in actual_payload else 'text',
+            payload_sha256=hashlib.sha256(json.dumps(actual_payload,sort_keys=True).encode()).hexdigest())
         save(STATE, state)
-        qa = HERE / 'qa'
-        qa.mkdir(exist_ok=True)
-        for n, fraction in enumerate((0.15, 0.5, 0.85)):
-            run('ffmpeg','-y','-ss',receipt['duration']*fraction,'-i',target,
-                '-frames:v','1','-vf','scale=480:-1',qa/f'{sid}-{n}.jpg')
+    try:
+        url = await_video(receipt['task_id'])
+    except ProviderError as exc:
+        if exc.code == '1301':
+            receipt.update(status='blocked_by_provider_moderation',error_code='1301',
+                requires_review=True,no_automatic_resubmit=True)
+            save(STATE,state)
+        raise
+    download(url, target)
+    info = probe(target)
+    if not any(s.get('codec_type') == 'video' for s in info['streams']):
+        raise RuntimeError(sid + ': invalid downloaded video')
+    receipt.update(status='downloaded',duration=seconds(target),
+                   sha256=hashlib.sha256(target.read_bytes()).hexdigest())
+    save(STATE, state)
+    qa = HERE / 'qa'
+    qa.mkdir(exist_ok=True)
+    for n, fraction in enumerate((0.15, 0.5, 0.85)):
+        run('ffmpeg','-y','-ss',receipt['duration']*fraction,'-i',target,
+            '-frames:v','1','-vf','scale=480:-1',qa/f'{sid}-{n}.jpg')
+
+
+def generate_videos(state, limit=None):
+    selected = PLAN['shots'][:-1] if limit is None else PLAN['shots'][:limit]
+    blocked=[]
+    for shot in selected:
+        try:
+            generate_one_video(shot,state)
+        except ProviderError as exc:
+            if exc.code != '1301' or limit == 1:
+                raise
+            blocked.append(shot['id'])
+            print(shot['id'] + ': moderation rejected this revision; recording and moving to a different storyboard scene, not resubmitting this scene',flush=True)
+    if blocked:
+        raise RuntimeError('Visual review/redesign required for blocked scenes: '+','.join(blocked)+'; incomplete footage will not be rendered as a finished film')
 
 
 def wav_write(path, samples):
@@ -619,6 +670,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['references','video','audio','render','probe','all'],default='all');args=parser.parse_args()
     WORK.mkdir(parents=True,exist_ok=True);OUT.mkdir(exist_ok=True)
     state=json.loads(STATE.read_text()) if STATE.exists() else {}
+    state['video_policy']={'effective_input':'text','reason':'Mary Celeste proven three-field SDK route; user-authorized non-graphic visual redesign','identity_lock':False,'visual_revision':VISUAL_PLAN['revision']}
     save(HERE/'run-status.json',{'status':'running','stage':args.stage,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
     try:
         if args.stage in ('references','all'): references(state)

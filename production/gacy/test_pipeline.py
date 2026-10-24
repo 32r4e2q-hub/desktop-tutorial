@@ -14,6 +14,7 @@ spec.loader.exec_module(p)
 
 @pytest.fixture(autouse=True)
 def isolate_diagnostics(tmp_path, monkeypatch):
+    monkeypatch.setattr(p, 'SDK_VIDEO_GENERATION', False)
     monkeypatch.setattr(p, 'DIAGNOSTICS', tmp_path/'api-diagnostics.json')
     monkeypatch.setattr(p, 'STATE', tmp_path/'receipts.json')
 
@@ -229,3 +230,60 @@ def test_moderation_lookup_is_terminal_and_never_resubmits(monkeypatch):
     assert exc.value.code=='1301' and not exc.value.transient
     submit.assert_not_called()
     assert client.videos.retrieve_videos_result.call_count==1
+
+
+def test_revised_payload_is_three_fields_and_single_scene():
+    for shot in p.PLAN['shots'][:-1]:
+        payload=p.video_payload(shot)
+        assert set(payload)=={'model','prompt','quality'}
+        assert payload['model']=='cogvideox-flash'
+        assert payload['prompt'].startswith(p.VISUAL_PLAN['style'])
+        assert len(payload['prompt'])<2600
+        for role in shot['roles']:
+            assert p.VISUAL_PLAN['roles'][role] in payload['prompt']
+    assert len(p.VISUAL_PLAN['shots'])==28
+
+
+def test_sdk_generation_contract(monkeypatch):
+    monkeypatch.setattr(p,'SDK_VIDEO_GENERATION',True)
+    client=Mock()
+    client.videos.generations.return_value={'id':'sdk-task'}
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    payload=p.video_payload(p.PLAN['shots'][0])
+    response=p.send_generation('/videos/generations',payload,'TEST')
+    assert response.json()['id']=='sdk-task'
+    client.videos.generations.assert_called_once_with(**payload)
+
+
+def test_authorized_new_revision_archives_old_blocked_task(tmp_path,monkeypatch):
+    monkeypatch.setattr(p,'WORK',tmp_path/'media')
+    monkeypatch.setattr(p,'HERE',tmp_path)
+    submit=Mock(return_value={'id':'new-revised-task'})
+    lookup=Mock(return_value='https://example.invalid/clip.mp4')
+    monkeypatch.setattr(p,'post',submit)
+    monkeypatch.setattr(p,'await_video',lookup)
+    def download(url,path):
+        path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b'fake-video-for-test')
+    monkeypatch.setattr(p,'download',download)
+    monkeypatch.setattr(p,'probe',lambda _: {'streams':[{'codec_type':'video'}]})
+    monkeypatch.setattr(p,'seconds',lambda _:5.1)
+    monkeypatch.setattr(p,'run',Mock())
+    old={'payload_sha256':'previous-revision','task_id':'old-blocked-task','status':'blocked_by_provider_moderation'}
+    state={'shots':{'S01':old}}
+    p.generate_one_video(p.PLAN['shots'][0],state)
+    assert state['previous_results']['S01'][0]['task_id']=='old-blocked-task'
+    assert state['shots']['S01']['status']=='downloaded'
+    assert not state['shots']['S01']['reference_conditioning']
+    lookup.assert_called_once_with('new-revised-task')
+    assert set(submit.call_args.args[1])=={'model','prompt','quality'}
+
+
+def test_one_moderated_scene_does_not_discard_other_scenes(monkeypatch):
+    visited=[]
+    def one(shot,state):
+        visited.append(shot['id'])
+        if shot['id']=='S03':raise p.ProviderError('/videos/generations',400,'1301')
+    monkeypatch.setattr(p,'generate_one_video',one)
+    with pytest.raises(RuntimeError,match='S03'):
+        p.generate_videos({})
+    assert visited[-1]=='S28' and len(visited)==28
