@@ -780,13 +780,10 @@
     },
     "S24": {
       "id": "S24",
-      "status": "waiting_create_slot",
       "request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30",
+      "status": "submitting",
       "error": null,
-      "updated_at": "2026-10-24T04:39:11Z",
-      "create_attempts": 82,
-      "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "updated_at": "2026-10-24T04:57:22Z"
     },
     "S25": {
       "id": "S25",
@@ -804,7 +801,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-24T04:57:21Z",
+  "updated_at": "2026-10-24T04:57:22Z",
   "run_id": "40064246900",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -892,6 +889,18 @@
         "error": null,
         "updated_at": "2026-10-23T17:48:01Z",
         "create_attempts": 38,
+        "capacity_error": "video queue is full",
+        "applied_cooldown_seconds": 61
+      }
+    ],
+    "S24": [
+      {
+        "id": "S24",
+        "status": "waiting_create_slot",
+        "request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30",
+        "error": null,
+        "updated_at": "2026-10-24T04:39:11Z",
+        "create_attempts": 82,
         "capacity_error": "video queue is full",
         "applied_cooldown_seconds": 61
       }
