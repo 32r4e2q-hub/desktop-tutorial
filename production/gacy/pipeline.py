@@ -223,9 +223,24 @@ def await_video(task_id):
             errors += 1
             status = getattr(exc, 'status_code', 0) or 0
             body = getattr(exc, 'body', {})
-            error = body.get('error', {}) if isinstance(body, dict) else {}
+            response = getattr(exc, 'response', None)
+            if response is not None:
+                try:
+                    body = response.json()
+                except (ValueError, TypeError):
+                    pass
+            error = body.get('error', body) if isinstance(body, dict) else {}
             code = re.sub(r'[^a-zA-Z0-9_-]', '', str(error.get('code', 'sdk_query_error')))[:32]
             record_api_attempt('/async-result', {'model':'cogvideox-flash'}, status, code, attempts)
+            message = str(error.get('message', ''))
+            key = os.environ.get('ZHIPUAI_API_KEY', '')
+            if key:
+                message = message.replace(key, '[REDACTED]')
+            message = re.sub(r'https?://\S+|[A-Za-z0-9+/=]{100,}', '[REDACTED]', message)[:300]
+            if message:
+                entries = json.loads(DIAGNOSTICS.read_text())
+                entries[-1]['provider_message'] = message
+                save(DIAGNOSTICS, entries)
             if status in (400,401,403,404) or errors >= 12:
                 raise RuntimeError(f'Video polling failed: HTTP {status}, code={code}; existing task ID retained, no resubmission') from None
             print(f'Temporary video lookup error HTTP {status}, code={code}; retrying existing task only', flush=True)

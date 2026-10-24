@@ -198,3 +198,17 @@ def test_poll_preserves_query_error_details_without_resubmit(monkeypatch):
         p.await_video('existing-task')
     assert client.videos.retrieve_videos_result.call_count==1
     assert json.loads(p.DIAGNOSTICS.read_text())[-1]['resource']=='/async-result'
+
+
+def test_sdk_error_code_is_read_from_response_not_only_body(monkeypatch):
+    class SDKError(Exception):
+        status_code=400
+        response=Mock()
+    SDKError.response.json.return_value={'error':{'code':'1214','message':'service explanation'}}
+    client=Mock()
+    client.videos.retrieve_videos_result.side_effect=SDKError()
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    with pytest.raises(RuntimeError,match='code=1214'):
+        p.await_video('existing-task')
+    report=json.loads(p.DIAGNOSTICS.read_text())[-1]
+    assert report['provider_message']=='service explanation'
