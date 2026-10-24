@@ -3,31 +3,42 @@
     "C1-A": {
       "payload_sha256": "77240eae6b3373414fd1b58ebc46261ae22410f69a748c87e835bd5ac3bcf9f0",
       "reference_sha256": "45b70bbee238625d6f64239a81f542543ad5f0e4ea0704a4b647fe80231eda1c",
-      "status": "provider_failed_requires_review",
+      "status": "pending",
       "model": "cogvideox-flash",
-      "input_mode": "reference_image",
-      "task_id": "202610241227313be524cb93d34cab",
-      "last_provider_status": "FAIL",
-      "last_polled_utc": "2026-10-24T05:04:33Z",
-      "failure_details": {
-        "code": "1234",
-        "message": "网络错误，错误id：202610241227313be524cb93d34cab，请稍后重试",
-        "response_fields": [
-          "error",
-          "id",
-          "model",
-          "request_id",
-          "task_status",
-          "video_result"
-        ]
-      }
+      "input_mode": "reference_image"
     }
   },
   "reference_sha256": "45b70bbee238625d6f64239a81f542543ad5f0e4ea0704a4b647fe80231eda1c",
   "reference_path": "references/盖西.jpg",
-  "status": "provider_terminal_failure",
+  "status": "capacity_unavailable",
   "same_actor_verified": false,
   "experiment": "one canonical reference image, two independent animated clips",
   "limitations": "Successful generation is not proof of stable identity; inspect beginning/middle/end and compare across clips.",
-  "error": "Video polling timed out; task ID retained for resume"
+  "error": "Zhipu rejected request: /videos/generations, HTTP 429, code=1305",
+  "previous_results": {
+    "C1-A": [
+      {
+        "payload_sha256": "77240eae6b3373414fd1b58ebc46261ae22410f69a748c87e835bd5ac3bcf9f0",
+        "reference_sha256": "45b70bbee238625d6f64239a81f542543ad5f0e4ea0704a4b647fe80231eda1c",
+        "status": "provider_failed_requires_review",
+        "model": "cogvideox-flash",
+        "input_mode": "reference_image",
+        "task_id": "202610241227313be524cb93d34cab",
+        "last_provider_status": "FAIL",
+        "last_polled_utc": "2026-10-24T05:04:33Z",
+        "failure_details": {
+          "code": "1234",
+          "message": "网络错误，错误id：202610241227313be524cb93d34cab，请稍后重试",
+          "response_fields": [
+            "error",
+            "id",
+            "model",
+            "request_id",
+            "task_status",
+            "video_result"
+          ]
+        }
+      }
+    ]
+  }
 }
