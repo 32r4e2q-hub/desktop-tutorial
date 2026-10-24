@@ -25,7 +25,7 @@
 1. 事实边界及来源见 `事实核查.md`；旁白和规划分镜见 `screenplay.md`。罗伯特·皮斯特年龄修正为 **15 岁**。
 2. 本轮试听选音色 → 六段分别存 `audio/raw/N01.mp3` 至 `N06.mp3`。
 3. `tighten_pauses.py` 只剪静音；保留「地板下」后约 0.5 秒的指定停顿，不删除字。未核实的「马上回来」不当成真实引语使用。
-4. `clause_times.py` → `tools/plan_cuts.py` → `clause_times.py --check-cuts`。当前 CUTS 只是新规划占位，不能当实际时码；`WINDOWS={}`，待本片实看后设置。
+4. `clause_times.py` → `tools/plan_cuts.py` → `clause_times.py --check-cuts`。CUTS已按本轮真实配音分句对齐并通过停顿窗检查；`WINDOWS={}`，待本片实际素材复审后设置。
 5. 回填新音频 SHA 与音色记录，执行以下三道检查：
    ```bash
    python production/gacy1978/generate.py --validate
@@ -34,7 +34,7 @@
    ```
 6. 以上通过后才新增 `COGVIDEOX_GEN_REQUEST` 并推送，内容 `{"ref_image":false}`，一次按模板生成全部38个镜头；不再做旧双图前置实验。
 7. 下载真实片段，检查运动、构图、换场、脸与手；运行 `face_cast.py check-frames` 并人工看角色接触表。**面容 token/seed 不保证跨镜同脸**；纯三字段 SDK 请求并未发送 seed。坏镜头按模板单镜改提示词/重做，不冒充已解决。
-8. 根据新配音与新素材重对 CUTS；保留来源标识。混音、约低于旁白18dB的BGM、指定停顿、章间0.3秒黑场、最后1秒静音均须以本片实测验收，不能沿用模板数值报告。
+8. 根据新配音与新素材重对 CUTS；保留来源标识。已实现并预检speech-active BGM -18dB、指定停顿、章间0.3秒黑场与最后1秒PCM静音；预混音数据见audio/mix-preview-report.json。最终MP4仍须独立复测，不沿用预检作为成片签收。
 9. `RENDER_REQUEST` → 初剪；`VERBATIM_REQUEST` → CER逐字听检；`VISUAL_QC_REQUEST` → 5400帧全帧审计 → 人工语义签收。初剪不是终版。
 10. 通过实际 QC 后交付影片、封面、字幕、发布文案；`build_story.py --script` 在真实对齐后生成正式四列时间表。
 
@@ -45,3 +45,9 @@
 
 1301 记录原始拒绝信息并停该镜头，按仓库手册改成合规、非侵害、单一场景表达；不混淆词语、不绕过审核。
 模板支持请求哈希断点续跑；任务成功、文件下载、SHA校验、动态/同脸/全帧检查是不同证据，不能互相替代。
+
+## 本轮运行
+
+[38镜免费生成 · Actions 40069121240](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/40069121240)。已通过环境安装和三道前置验证，处于生成步骤。最近收据仍是S01 submitting，尚未记录供应商任务ID；核验成功素材0/38。不能据此判断已生成或断言具体供应商故障，需等实际回执/诊断。
+
+全仓离线自检：151 passed、234 subtests passed（本地已安装ffmpeg、Noto CJK、zhconv，无跳过）；GitHub离线自检40069440816也为success。这些都不代表视频视觉QC通过。
