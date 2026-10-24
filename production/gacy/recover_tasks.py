@@ -71,7 +71,9 @@ def recover(engine):
                         shutil.copyfile(target,delivery/f'盖西_同脸实验_{sid}_原始片段.mp4')
             elif status in ('FAIL','FAILED'):
                 row['terminal']=True
-                if receipt is not None:receipt['status']='provider_failed_requires_review'
+                row['failure_details']=engine.task_failure_details(data)
+                if receipt is not None:
+                    receipt.update(status='provider_failed_requires_review',failure_details=row['failure_details'])
             elif status in ('PROCESSING','PENDING','QUEUED','SUBMITTED'):
                 row['awaiting_existing_task']=True
             else:
@@ -79,11 +81,29 @@ def recover(engine):
         except Exception as exc:
             row.update(safe_error(exc))
             row['downloaded']=False
+            row['failure_phase']='download_or_validation' if row.get('provider_status')=='SUCCESS' else 'provider_query'
+            row['exception_type']=type(exc).__name__
             if row['error_code']=='1301' and receipt is not None:
                 receipt.update(status='blocked_by_provider_moderation',no_automatic_resubmit=True)
         engine.save(dest,report)
         if receipt is not None:engine.save(file,identity)
     report.update(status='checked',verified_downloads=sum(x.get('downloaded',False) for x in report['tasks']))
     engine.save(dest,report)
+    states=[s.get('status') for s in identity.get('shots',{}).values()]
+    if 'provider_failed_requires_review' in states:
+        identity['status']='provider_terminal_failure'
+    elif 'blocked_by_provider_moderation' in states:
+        identity['status']='blocked_by_provider_moderation'
+    elif any(t.get('awaiting_existing_task') for t in report['tasks'] if t['id']!='historical-control'):
+        identity['status']='awaiting_provider'
+    elif all(identity.get('shots',{}).get(sid,{}).get('status')=='downloaded' for sid in ('C1-A','C1-B')):
+        identity['status']='clips_downloaded_identity_review_required'
+    elif 'downloaded' in states:
+        identity['status']='partial_identity_clips_downloaded'
     engine.save(file,identity)
+    retry_file=engine.HERE/'identity-probe/retry-status.json'
+    if retry_file.exists():
+        retry=json.loads(retry_file.read_text())
+        retry.update(status=identity.get('status','checked'),reconciled_utc=report['checked_utc'],same_actor_verified=False)
+        engine.save(retry_file,retry)
     return report

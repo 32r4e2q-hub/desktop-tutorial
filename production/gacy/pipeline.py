@@ -65,6 +65,35 @@ class ProviderError(RuntimeError):
         super().__init__(f'{prefix}: {resource}, HTTP {status}, code={code or "unknown"}')
 
 
+class VideoPendingError(RuntimeError):
+    def __init__(self, task_id, last_status, timeout_seconds):
+        self.task_id, self.last_status = task_id, last_status
+        super().__init__(f'Video still awaiting provider after {timeout_seconds}s: {last_status}; existing task ID retained for resume')
+
+
+class VideoTaskFailedError(ProviderError):
+    def __init__(self, details):
+        super().__init__('/async-result', 200, details.get('code','unknown'))
+        self.details = details
+        # Repository evidence: 1234 is a terminal provider execution/network failure.
+        # Only a definitively failed task may be replaced, never a pending task.
+        self.transient = self.code == '1234'
+
+
+def task_failure_details(data):
+    error = data.get('error') or data.get('error_info') or {}
+    if isinstance(error, str):
+        try: error = json.loads(error)
+        except ValueError: error = {'message':error}
+    if not isinstance(error, dict): error = {}
+    code = re.sub(r'[^A-Za-z0-9_-]','',str(error.get('code') or data.get('error_code') or data.get('code') or 'unknown'))[:32]
+    message = str(error.get('message') or error.get('msg') or data.get('message') or data.get('fail_reason') or '')
+    key = os.environ.get('ZHIPUAI_API_KEY','')
+    if key: message = message.replace(key,'[REDACTED]')
+    message = re.sub(r'https?://\S+|[A-Za-z0-9+/=]{100,}', '[REDACTED]',message)[:400]
+    return {'code':code,'message':message,'response_fields':sorted(data.keys())}
+
+
 def record_api_attempt(resource, payload, status, code, attempt):
     entries = json.loads(DIAGNOSTICS.read_text()) if DIAGNOSTICS.exists() else []
     entries.append({'utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
@@ -238,12 +267,13 @@ def make_video_client():
     return ZhipuAI(api_key=os.environ['ZHIPUAI_API_KEY'], max_retries=0, timeout=60)
 
 
-def await_video(task_id, timeout_seconds=1800):
+def await_video(task_id, timeout_seconds=1200, on_status=None):
     # Use the same SDK retrieval protocol as the user's successful connectivity test.
     client = make_video_client()
     deadline = time.monotonic() + timeout_seconds
     errors = 0
     attempts = 0
+    last_status = 'UNQUERIED'
     while time.monotonic() < deadline:
         attempts += 1
         try:
@@ -279,7 +309,10 @@ def await_video(task_id, timeout_seconds=1800):
             print(f'Temporary video lookup error HTTP {status}, code={code}; retrying existing task only', flush=True)
             time.sleep(min(20 * errors, 60))
             continue
-        status = data.get('task_status')
+        status = str(data.get('task_status') or 'UNKNOWN').upper()
+        last_status = status
+        if on_status is not None:
+            on_status({'provider_status':status,'poll_count':attempts,'checked_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
         print(f'Video task {task_id}: {status}', flush=True)
         if status == 'SUCCESS':
             result = data.get('video_result', [])
@@ -287,9 +320,11 @@ def await_video(task_id, timeout_seconds=1800):
                 raise RuntimeError('Successful task has no video URL')
             return result[0]['url']
         if status in ('FAIL', 'FAILED'):
-            raise RuntimeError('Video task failed; no substitute footage is allowed')
+            raise VideoTaskFailedError(task_failure_details(data))
+        if status not in ('PROCESSING','PENDING','QUEUED','SUBMITTED'):
+            raise RuntimeError('Unexpected video task status: '+status+'; inspect schema, not a normal queue timeout')
         time.sleep(15)
-    raise RuntimeError('Video polling timed out; task ID retained for resume')
+    raise VideoPendingError(task_id,last_status,timeout_seconds)
 
 
 def shot_keyframe(shot, state):
@@ -365,6 +400,14 @@ def generate_one_video(shot, state):
         save(STATE,state)
     elif receipt.get('status') == 'blocked_by_provider_moderation':
         raise ProviderError('/async-result', 400, '1301')
+    if receipt.get('status') == 'provider_failed_requires_review':
+        error = VideoTaskFailedError(receipt.get('failure_details',{'code':'unknown'}))
+        if not error.transient: raise error
+        state.setdefault('previous_results',{}).setdefault(sid,[]).append(dict(receipt))
+        receipt={'payload_sha256':wanted_hash,'model':'cogvideox-flash','status':'pending',
+                 'visual_revision':VISUAL_PLAN['revision'],'reference_conditioning':False}
+        receipts[sid]=receipt
+        save(STATE,state)
     if target.exists() and receipt.get('status') == 'downloaded' and receipt.get('sha256') == hashlib.sha256(target.read_bytes()).hexdigest():
         return
     if not receipt.get('task_id'):
@@ -386,9 +429,15 @@ def generate_one_video(shot, state):
             input_mode='reference_image' if 'image_url' in actual_payload else 'text',
             payload_sha256=hashlib.sha256(json.dumps(actual_payload,sort_keys=True).encode()).hexdigest())
         save(STATE, state)
+    def progress(observation):
+        receipt.update(last_provider_status=observation['provider_status'],last_polled_utc=observation['checked_utc'],poll_count=observation['poll_count'])
+        save(STATE,state)
     try:
-        url = await_video(receipt['task_id'])
+        url = await_video(receipt['task_id'],on_status=progress)
     except ProviderError as exc:
+        if isinstance(exc,VideoTaskFailedError):
+            receipt.update(status='provider_failed_requires_review',failure_details=exc.details)
+            save(STATE,state)
         if exc.code == '1301':
             receipt.update(status='blocked_by_provider_moderation',error_code='1301',
                 requires_review=True,no_automatic_resubmit=True)
@@ -690,12 +739,24 @@ def main():
         if args.stage in ('audio','all'): make_audio()
         if args.stage in ('render','all'): render()
     except Exception as exc:
-        blocked = isinstance(exc, ProviderError) and exc.code == '1301'
-        save(HERE/'run-status.json',{'status':'blocked_by_provider_moderation' if blocked else 'failed',
-             'stage':args.stage,'error':str(exc),'no_static_fallback':True,
-             'automatic_retry_allowed':not blocked})
+        pending = isinstance(exc,VideoPendingError)
+        transient = isinstance(exc,ProviderError) and exc.transient
+        blocked = isinstance(exc,ProviderError) and exc.code=='1301'
+        phase = ('awaiting_provider' if pending else
+                 'provider_transient' if transient else
+                 'blocked_by_provider_moderation' if blocked else 'failed')
+        report={'status':phase,'stage':args.stage,'error':str(exc),'no_static_fallback':True,
+                'automatic_retry_allowed':pending or transient}
+        if pending: report.update(task_id=exc.task_id,last_provider_status=exc.last_status,new_submission_allowed=False)
+        save(HERE/'run-status.json',report)
+        if pending or transient: return 42
         raise
-    save(HERE/'run-status.json',{'status':'stage_completed' if args.stage!='all' else 'draft_ready_requires_review','stage':args.stage})
+    status = ('recovery_checked' if args.stage=='recover' else
+              'identity_review_required' if args.stage=='identity' else
+              'draft_ready_requires_review' if args.stage=='all' else 'stage_completed')
+    save(HERE/'run-status.json',{'status':status,'stage':args.stage,'automatic_retry_allowed':False})
+    return 0
+
 
 if __name__=='__main__':
-    main()
+    sys.exit(main())

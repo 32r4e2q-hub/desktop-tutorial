@@ -15,7 +15,7 @@ def setup_engine(tmp_path):
     record.write_text(json.dumps({'shots':{'C1-A':{'task_id':'existing-accepted-task','status':'submitted'}}}))
     client=Mock()
     engine=SimpleNamespace(HERE=tmp_path,WORK=tmp_path/'work',ROOT=tmp_path,
-        make_video_client=lambda:client,save=p.save,download=Mock(),probe=Mock(),seconds=Mock(),run=Mock())
+        make_video_client=lambda:client,save=p.save,task_failure_details=p.task_failure_details,download=Mock(),probe=Mock(),seconds=Mock(),run=Mock())
     return engine,client
 
 
@@ -52,4 +52,14 @@ def test_recovery_does_not_requery_moderated_task(tmp_path):
     client.videos.retrieve_videos_result.return_value={'task_status':'PROCESSING'}
     report=r.recover(engine)
     assert len(report['tasks'])==1  # control only
+    client.videos.generations.assert_not_called()
+
+
+def test_recovery_records_failure_code_and_clears_stale_running(tmp_path):
+    engine,client=setup_engine(tmp_path)
+    client.videos.retrieve_videos_result.return_value={'task_status':'FAIL','error':{'code':'1234','message':'network error'}}
+    retry=tmp_path/'identity-probe/retry-status.json';retry.write_text(json.dumps({'status':'running'}))
+    report=r.recover(engine)
+    assert report['tasks'][1]['failure_details']['code']=='1234'
+    assert json.loads(retry.read_text())['status']=='provider_terminal_failure'
     client.videos.generations.assert_not_called()

@@ -135,3 +135,24 @@ def test_unknown_submit_outcome_does_not_enter_cooldown_loop(tmp_path,monkeypatc
     with pytest.raises(RuntimeError):retry.run_rounds(engine,experiment)
     assert experiment.call_count==1
     sleep.assert_not_called()
+
+
+def test_pending_task_resumes_within_cooldown_rounds(tmp_path,monkeypatch):
+    monkeypatch.setattr(engine,'HERE',tmp_path)
+    monkeypatch.setattr(retry.time,'sleep',lambda _:None)
+    experiment=Mock(side_effect=[engine.VideoPendingError('same-id','PROCESSING',1200),None])
+    retry.run_rounds(engine,experiment,rounds=3,cooldown=600)
+    assert experiment.call_count==2
+    record=json.loads((tmp_path/'identity-probe/retry-status.json').read_text())
+    assert record['status']=='experiment_finished_requires_visual_review'
+    assert not record['same_actor_verified']
+
+
+def test_pending_budget_exhaustion_not_stale_running(tmp_path,monkeypatch):
+    monkeypatch.setattr(engine,'HERE',tmp_path)
+    monkeypatch.setattr(retry.time,'sleep',lambda _:None)
+    experiment=Mock(side_effect=engine.VideoPendingError('same-id','PROCESSING',1200))
+    with pytest.raises(engine.VideoPendingError):retry.run_rounds(engine,experiment,rounds=2)
+    record=json.loads((tmp_path/'identity-probe/retry-status.json').read_text())
+    assert record['status']=='awaiting_provider' and record['task_id']=='same-id'
+    assert not record['new_submission_allowed']

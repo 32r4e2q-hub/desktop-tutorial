@@ -15,6 +15,7 @@ on:
 permissions:
   contents: write
   issues: write
+  actions: write
 
 concurrency:
   group: cogvideo-${{ github.ref }}
@@ -82,7 +83,8 @@ jobs:
           python production/gacy/validate.py
           python -m pytest production/gacy -q
 
-      - name: 分阶段制作（仅使用智谱免费模型）
+      - name: 执行制作并记录退出码（仅智谱免费模型）
+        id: production
         if: steps.mode.outputs.mode == 'gacy'
         env:
           ZHIPUAI_API_KEY: ${{ secrets.ZHIPUAI_API_KEY }}
@@ -90,9 +92,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set +e
           python -u production/gacy/pipeline.py --stage "$STAGE" 2>&1 | tee run_output.log
-          if [[ "$STAGE" == probe ]]; then
-            # Publish the recovered first clip's receipt before proceeding with the rest.
+          result=${PIPESTATUS[0]}
+          set -e
+          if [[ "$result" == 0 && "$STAGE" == probe ]]; then
             git config user.name 'Arena production runner'
             git config user.email 'arena@local'
             for path in production/gacy/receipts.json production/gacy/api-diagnostics.json production/gacy/run-status.json production/gacy/qa; do
@@ -102,8 +106,13 @@ jobs:
               git commit -m 'gacy: first animated clip recovered; continue remaining production'
               git push origin arena/3c0c229a-desktop-tutorial
             fi
+            set +e
             python -u production/gacy/pipeline.py --stage all 2>&1 | tee -a run_output.log
+            result=${PIPESTATUS[0]}
+            set -e
           fi
+          echo "code=$result" >> "$GITHUB_OUTPUT"
+          echo "Production exit code: $result (42 means waiting, not completed)"
 
       - name: 普通单镜连通性测试
         if: steps.mode.outputs.mode == 'test'
@@ -122,6 +131,14 @@ jobs:
           path: work/gacy
           key: gacy-v1-${{ github.run_id }}-${{ github.run_attempt }}
 
+      - name: 决定是否接力续查（永久错误绝不接力）
+        id: relay
+        if: always() && steps.mode.outputs.mode == 'gacy'
+        env:
+          STAGE: ${{ steps.mode.outputs.stage }}
+          EXIT_CODE: ${{ steps.production.outputs.code || '1' }}
+        run: python production/gacy/relay.py --stage "$STAGE" --code "$EXIT_CODE"
+
       - name: 回存参考图与任务收据（不含密钥与原始请求）
         if: always() && steps.mode.outputs.mode == 'gacy'
         shell: bash
@@ -130,7 +147,7 @@ jobs:
           test "$GITHUB_REF_NAME" = arena/3c0c229a-desktop-tutorial
           git config user.name 'Arena production runner'
           git config user.email 'arena@local'
-          for path in production/gacy/references production/gacy/keyframes production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json production/gacy/api-diagnostics.json production/gacy/identity-probe production/gacy/identity-gate-report.json production/gacy/recovery-report.json; do
+          for path in production/gacy/references production/gacy/keyframes production/gacy/qa production/gacy/receipts.json production/gacy/run-status.json production/gacy/api-diagnostics.json production/gacy/identity-probe production/gacy/identity-gate-report.json production/gacy/recovery-report.json production/gacy/relay-state.json; do
             if [ -e "$path" ]; then git add "$path"; fi
           done
           if [ -d work/gacy/delivery ]; then
@@ -175,6 +192,35 @@ jobs:
             work/gacy/identity-probe/
             work/gacy/recovered/
             production/gacy/recovery-report.json
+            production/gacy/relay-state.json
             work/gacy/delivery/
           if-no-files-found: warn
           retention-days: 14
+
+      - name: 官方dispatch接力（GitHub Token推送本身不会触发下一轮）
+        id: dispatch
+        if: steps.relay.outputs.resume == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STAGE: ${{ steps.mode.outputs.stage }}
+        run: |
+          gh workflow run generate_video.yml --ref arena/3c0c229a-desktop-tutorial -f "prompt=__GACY__:$STAGE"
+          echo '已请求下一轮；当前仍是等待状态，不是成片完成。' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 汇总真实结果（续查不冒充视频完成）
+        if: always() && steps.mode.outputs.mode == 'gacy'
+        env:
+          EXIT_CODE: ${{ steps.production.outputs.code || '1' }}
+          RELAY: ${{ steps.relay.outputs.resume }}
+          DISPATCH: ${{ steps.dispatch.outcome }}
+        run: |
+          if [ "$EXIT_CODE" = 0 ]; then
+            echo '本阶段结束；素材/同脸/成片状态须查看run-status.json，不能只看绿色。' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if [ "$EXIT_CODE" = 42 ] && [ "$RELAY" = true ] && [ "$DISPATCH" = success ]; then
+            echo '尚未完成：现有任务/容量状态已保存，已请求有界接力。' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo '本阶段停止：真实错误或接力预算耗尽，请查看收据。' >> "$GITHUB_STEP_SUMMARY"
+          exit "$EXIT_CODE"

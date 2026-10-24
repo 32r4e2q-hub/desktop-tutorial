@@ -274,7 +274,9 @@ def test_authorized_new_revision_archives_old_blocked_task(tmp_path,monkeypatch)
     assert state['previous_results']['S01'][0]['task_id']=='old-blocked-task'
     assert state['shots']['S01']['status']=='downloaded'
     assert not state['shots']['S01']['reference_conditioning']
-    lookup.assert_called_once_with('new-revised-task')
+    lookup.assert_called_once()
+    assert lookup.call_args.args == ('new-revised-task',)
+    assert callable(lookup.call_args.kwargs['on_status'])
     assert set(submit.call_args.args[1])=={'model','prompt','quality'}
 
 
@@ -287,3 +289,51 @@ def test_one_moderated_scene_does_not_discard_other_scenes(monkeypatch):
     with pytest.raises(RuntimeError,match='S03'):
         p.generate_videos({})
     assert visited[-1]=='S28' and len(visited)==28
+
+
+def test_pending_query_reports_last_status_without_resubmitting(monkeypatch):
+    client=Mock();client.videos.retrieve_videos_result.return_value={'task_status':'processing'}
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    clock=iter([0,0,2]);monkeypatch.setattr(p.time,'monotonic',lambda:next(clock))
+    monkeypatch.setattr(p.time,'sleep',lambda _:None)
+    observe=Mock()
+    with pytest.raises(p.VideoPendingError) as exc:p.await_video('already-accepted',timeout_seconds=1,on_status=observe)
+    assert exc.value.task_id=='already-accepted' and exc.value.last_status=='PROCESSING'
+    assert observe.call_args.args[0]['provider_status']=='PROCESSING'
+    client.videos.generations.assert_not_called()
+
+
+@pytest.mark.parametrize('code,retry',[('1234',True),('1301',False),('unknown',False)])
+def test_terminal_task_failures_are_classified(monkeypatch,code,retry):
+    client=Mock();client.videos.retrieve_videos_result.return_value={'task_status':'FAIL','error':{'code':code,'message':'provider explanation'}}
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    with pytest.raises(p.VideoTaskFailedError) as exc:p.await_video('terminal-task')
+    assert exc.value.code==code and exc.value.transient is retry
+    assert exc.value.details['message']=='provider explanation'
+
+
+def test_unknown_task_status_is_not_misreported_as_queue_timeout(monkeypatch):
+    client=Mock();client.videos.retrieve_videos_result.return_value={'task_status':None}
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    with pytest.raises(RuntimeError,match='Unexpected'):p.await_video('task')
+    assert client.videos.retrieve_videos_result.call_count==1
+
+
+def test_pending_main_exit_42_preserves_identity_and_state(tmp_path,monkeypatch):
+    monkeypatch.setattr(p,'HERE',tmp_path);monkeypatch.setattr(p,'WORK',tmp_path/'work');monkeypatch.setattr(p,'OUT',tmp_path/'work/out')
+    monkeypatch.setattr(p.sys,'argv',['pipeline.py','--stage','probe'])
+    def pending(*a,**k):raise p.VideoPendingError('keep-this-id','PROCESSING',1200)
+    monkeypatch.setattr(p,'generate_videos',pending)
+    assert p.main()==42
+    report=json.loads((tmp_path/'run-status.json').read_text())
+    assert report['status']=='awaiting_provider' and report['task_id']=='keep-this-id'
+    assert report['new_submission_allowed'] is False and report['automatic_retry_allowed']
+
+
+def test_auth_failure_main_never_requests_relay(tmp_path,monkeypatch):
+    monkeypatch.setattr(p,'HERE',tmp_path);monkeypatch.setattr(p,'WORK',tmp_path/'work');monkeypatch.setattr(p,'OUT',tmp_path/'work/out')
+    monkeypatch.setattr(p.sys,'argv',['pipeline.py','--stage','probe'])
+    def auth(*a,**k):raise p.ProviderError('/videos/generations',401,'1000')
+    monkeypatch.setattr(p,'generate_videos',auth)
+    with pytest.raises(p.ProviderError):p.main()
+    assert json.loads((tmp_path/'run-status.json').read_text())['automatic_retry_allowed'] is False

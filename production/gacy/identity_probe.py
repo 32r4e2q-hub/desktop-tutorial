@@ -69,6 +69,16 @@ def run_probe(engine):
             raise engine.ProviderError('/videos/generations',400,'1301')
         target = engine.WORK / 'identity-probe' / (sid+'.mp4')
         try:
+            if shot.get('status') == 'provider_failed_requires_review':
+                details = shot.get('failure_details',{'code':'unknown'})
+                error = engine.VideoTaskFailedError(details)
+                if not error.transient:
+                    raise error
+                state.setdefault('previous_results',{}).setdefault(sid,[]).append(dict(shot))
+                shot = {'payload_sha256':digest,'reference_sha256':ref_hash,'status':'pending',
+                        'model':'cogvideox-flash','input_mode':'reference_image'}
+                state['shots'][sid] = shot
+                engine.save(record,state)
             if shot.get('status') == 'downloaded' and target.exists() and hashlib.sha256(target.read_bytes()).hexdigest() == shot.get('sha256'):
                 continue
             if not shot.get('task_id'):
@@ -77,7 +87,12 @@ def run_probe(engine):
                     raise RuntimeError('Identity probe returned no task ID')
                 shot.update(task_id=data['id'],status='submitted')
                 engine.save(record,state)
-            url = engine.await_video(shot['task_id'], timeout_seconds=600)
+            def progress(observation):
+                shot.update(last_provider_status=observation['provider_status'],last_polled_utc=observation['checked_utc'],poll_count=observation['poll_count'])
+                engine.save(record,state)
+            url = engine.await_video(shot['task_id'], timeout_seconds=1200,on_status=progress)
+            shot['status']='provider_succeeded'
+            engine.save(record,state)
             engine.download(url,target)
             duration = engine.seconds(target)
             shot.update(status='downloaded',sha256=hashlib.sha256(target.read_bytes()).hexdigest(),duration=duration)
@@ -87,13 +102,22 @@ def run_probe(engine):
             engine.save(record,state)
         except Exception as exc:
             code = getattr(exc,'code',None)
-            if code == '1301':
+            if isinstance(exc,engine.VideoPendingError):
+                shot['status']='awaiting_provider'
+                state['status']='awaiting_provider'
+            elif isinstance(exc,engine.VideoTaskFailedError):
+                shot.update(status='provider_failed_requires_review',failure_details=exc.details)
+                state['status']='provider_transient_failure' if exc.transient else 'provider_terminal_failure'
+                if code == '1301':
+                    shot.update(status='blocked_by_provider_moderation',no_automatic_resubmit=True)
+                    state['status']='blocked_by_provider_moderation'
+            elif code == '1301':
                 shot.update(status='blocked_by_provider_moderation',no_automatic_resubmit=True)
                 state['status']='blocked_by_provider_moderation'
             elif getattr(exc,'transient',False):
                 state['status']='capacity_unavailable'
             else:
-                state['status']='incomplete_requires_diagnosis'
+                state['status']='download_or_validation_failed' if shot.get('status')=='provider_succeeded' else 'incomplete_requires_diagnosis'
             state['error']=str(exc)
             engine.save(record,state)
             raise
