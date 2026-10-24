@@ -212,3 +212,20 @@ def test_sdk_error_code_is_read_from_response_not_only_body(monkeypatch):
         p.await_video('existing-task')
     report=json.loads(p.DIAGNOSTICS.read_text())[-1]
     assert report['provider_message']=='service explanation'
+
+
+def test_moderation_lookup_is_terminal_and_never_resubmits(monkeypatch):
+    class SDKError(Exception):
+        status_code=400
+        response=Mock()
+    SDKError.response.json.return_value={'error':{'code':'1301','message':'provider moderation rejection'}}
+    client=Mock()
+    client.videos.retrieve_videos_result.side_effect=SDKError()
+    monkeypatch.setattr(p,'make_video_client',lambda:client)
+    submit=Mock()
+    monkeypatch.setattr(p,'post',submit)
+    with pytest.raises(p.ProviderError) as exc:
+        p.await_video('blocked-existing-task')
+    assert exc.value.code=='1301' and not exc.value.transient
+    submit.assert_not_called()
+    assert client.videos.retrieve_videos_result.call_count==1

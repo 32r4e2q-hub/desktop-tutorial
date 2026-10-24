@@ -241,6 +241,8 @@ def await_video(task_id):
                 entries = json.loads(DIAGNOSTICS.read_text())
                 entries[-1]['provider_message'] = message
                 save(DIAGNOSTICS, entries)
+            if code == '1301':
+                raise ProviderError('/async-result', status, code) from None
             if status in (400,401,403,404) or errors >= 12:
                 raise RuntimeError(f'Video polling failed: HTTP {status}, code={code}; existing task ID retained, no resubmission') from None
             print(f'Temporary video lookup error HTTP {status}, code={code}; retrying existing task only', flush=True)
@@ -328,6 +330,8 @@ def generate_videos(state, limit=None):
             payload.pop('image_url')
         wanted_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
         receipt = receipts.get(sid, {})
+        if receipt.get('status') == 'blocked_by_provider_moderation':
+            raise ProviderError('/async-result', 400, '1301')
         if receipt.get('payload_sha256') != wanted_hash:
             receipt = {'payload_sha256':wanted_hash,'model':'cogvideox-flash',
                        'reference':reference.name,'status':'pending'}
@@ -345,7 +349,14 @@ def generate_videos(state, limit=None):
                 input_mode='reference_image' if 'image_url' in actual_payload else 'text',
                 payload_sha256=hashlib.sha256(json.dumps(actual_payload,sort_keys=True).encode()).hexdigest())
             save(STATE, state)
-        url = await_video(receipt['task_id'])
+        try:
+            url = await_video(receipt['task_id'])
+        except ProviderError as exc:
+            if exc.code == '1301':
+                receipt.update(status='blocked_by_provider_moderation',error_code='1301',
+                    requires_review=True,no_automatic_resubmit=True)
+                save(STATE,state)
+            raise
         download(url, target)
         info = probe(target)
         if not any(s.get('codec_type') == 'video' for s in info['streams']):
@@ -616,7 +627,10 @@ def main():
         if args.stage in ('audio','all'): make_audio()
         if args.stage in ('render','all'): render()
     except Exception as exc:
-        save(HERE/'run-status.json',{'status':'failed','stage':args.stage,'error':str(exc),'no_static_fallback':True})
+        blocked = isinstance(exc, ProviderError) and exc.code == '1301'
+        save(HERE/'run-status.json',{'status':'blocked_by_provider_moderation' if blocked else 'failed',
+             'stage':args.stage,'error':str(exc),'no_static_fallback':True,
+             'automatic_retry_allowed':not blocked})
         raise
     save(HERE/'run-status.json',{'status':'stage_completed' if args.stage!='all' else 'draft_ready_requires_review','stage':args.stage})
 

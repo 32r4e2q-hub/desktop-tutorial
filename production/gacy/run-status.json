@@ -1,6 +1,7 @@
 {
-  "status": "failed",
+  "status": "blocked_by_provider_moderation",
   "stage": "probe",
   "error": "Video polling failed: HTTP 400, code=1301; existing task ID retained, no resubmission",
-  "no_static_fallback": true
+  "no_static_fallback": true,
+  "automatic_retry_allowed": false
 }
