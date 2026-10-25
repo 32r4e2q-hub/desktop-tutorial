@@ -24,7 +24,7 @@ permissions:
 
 concurrency:
   group: gacy1978-visual-qc-arena-3c0c229a-desktop-tutorial
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   audit:
@@ -160,8 +160,15 @@ jobs:
           fi
           git status --short | head -20 || true
           git commit -m 'gacy1978: audit every frame of delivered cut'
+          # Never attach old-cut evidence to a newly published film.
+          audited_sha=$(python -c "import json;print(json.load(open('production/gacy1978/delivery/frame-distortion-audit.json'))['sha256'])")
           pushed=0
           for attempt in 1 2 3 4 5; do
+            current_sha=$(python -c "import json;print(json.load(open('production/gacy1978/delivery/technical-report.json'))['sha256'])")
+            if [ "$current_sha" != "$audited_sha" ]; then
+              echo 'Film changed during QC; keep evidence in artifacts, do not publish stale review.'
+              exit 0
+            fi
             if git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
             git fetch origin "${GITHUB_REF_NAME}" && git rebase FETCH_HEAD || break
             sleep 5
