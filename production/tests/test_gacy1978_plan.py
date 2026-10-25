@@ -44,7 +44,12 @@ class Gacy1978PlanTests(unittest.TestCase):
         by_id={c['id']:c for c in cast['characters']}
         for x in self.story['shots']:
             for cid in x.get('cast',[]): self.assertIn(by_id[cid]['face'],x['prompt'])
-        self.assertTrue(all(not x.get('reference_image') for x in self.story['shots']))
+        refs={x['id']:x['reference_image'] for x in self.story['shots'] if x.get('reference_image')}
+        self.assertEqual(set(refs),{'S01','S09','S11','S25','S28','S29','S37','S45'})
+        for sid,url in refs.items():
+            revision='06cd2bfb9c44c4dc7bb63b977856930a4c159653' if sid in {'S29','S45'} else 'b5be38f39679925ca5ae29fb972145cb77b33eaa'
+            self.assertIn('/'+revision+'/production/gacy1978/',url)
+            self.assertNotIn('/production/gacy/',url)  # no abandoned identity-experiment assets
 
     def test_actual_sdk_payload_is_free_three_field_text_to_video(self):
         code='''import sys,json
@@ -61,6 +66,12 @@ for shot in s['shots']:
  assert len(s['style_prefix']+shot['prompt']+' '+p.PROMPT_GUARDRAILS)<=2600
  assert 'HOLD:' in q['prompt']
  assert '{C' not in q['prompt']
+ g.REF_IMAGE_OK=True
+ q_image=g.full_payload(s,shot)
+ assert set(q_image)==({'model','prompt','quality','image_url'} if shot.get('reference_image') else {'model','prompt','quality'})
+ assert q_image['model']=='cogvideox-flash'
+ if shot.get('reference_image'):assert q_image['image_url']==shot['reference_image']
+ g.REF_IMAGE_OK=None
 '''
         env=dict(os.environ,AGNES_VIDEO_MODEL='agnes-video-2.5')
         proc=subprocess.run([sys.executable,'-c',code,str(PROJECT)],capture_output=True,text=True,env=env)

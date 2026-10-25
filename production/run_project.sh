@@ -87,7 +87,18 @@ else
       push_ok=true
       break
     fi
-    echo "推送失败（第 $attempt/40 轮），等 15 秒重试……" >&2
+    # A long render can finish after new source/QC commits reached the same
+    # branch. Retrying an unchanged non-fast-forward push can never succeed.
+    # Preserve the actual rendered MP4/reports in our delivery commit and replay
+    # that commit on the current branch; never reset or overwrite newer work.
+    if git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 fetch origin "$BRANCH"; then
+      if ! git rebase FETCH_HEAD; then
+        git rebase --abort || true
+        echo "交付提交与远端冲突；已保留本地成片，停止发布，勿覆盖新素材或新检查报告。" >&2
+        exit 1
+      fi
+    fi
+    echo "推送失败（第 $attempt/40 轮），同步分支后等 15 秒重试……" >&2
     sleep 15
   done
   if [ "$push_ok" != true ]; then

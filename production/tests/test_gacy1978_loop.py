@@ -65,14 +65,35 @@ class LoopTests(unittest.TestCase):
         self.results['shots']['S01']['request_hash']='stale'
         self.assertNotEqual(control.decide(self.story,self.results,self.options,0)[0],'render')
 
+    def test_image_mode_is_reconstructed_and_restored(self):
+        self.story['shots'][0]['reference_image']='https://example.invalid/current-film-frame.jpg'
+        saved=engine.REF_IMAGE_OK
+        try:
+            engine.REF_IMAGE_OK=True
+            for shot in self.story['shots']:
+                if shot['kind']=='graphic':continue
+                self.results['shots'][shot['id']]={'status':'completed','video_url':'https://example.invalid/video',
+                    'sha256':'a'*64,'bytes':123,'media':{'decoded_ok':True},
+                    'request_hash':engine.request_hash(self.story,shot)}
+            engine.REF_IMAGE_OK=None
+            self.assertEqual(control.decide(self.story,self.results,dict(self.options,ref_image=True),0)[0],'render')
+            self.assertIsNone(engine.REF_IMAGE_OK)
+            self.assertEqual(control.decide(self.story,self.results,dict(self.options,ref_image=False),0)[0],'stop')
+            self.assertEqual(control.decide(self.story,self.results,dict(self.options,ref_image=None),0)[0],'render')
+            self.results['shots']['S01']['request_hash']='stale'
+            self.assertEqual(control.decide(self.story,self.results,dict(self.options,ref_image=True),0)[0],'stop')
+        finally:
+            engine.REF_IMAGE_OK=saved
+
     def test_existing_six_receipts_are_reused(self):
         receipts=json.loads((PROJECT/'results.json').read_text())
         done=0
         for shot in self.story['shots']:
             row=receipts.get('shots',{}).get(shot['id'],{})
             if row.get('status')=='completed':
-                self.assertTrue(engine.usable_receipt(row,engine.request_hash(self.story,shot)))
-                done+=1
+                # A deliberately revised prompt invalidates the old receipt until
+                # its retake completes; unchanged completed clips still resume.
+                done += bool(engine.usable_receipt(row,engine.request_hash(self.story,shot)))
         self.assertGreaterEqual(done,6)
 
     def exercise_offline_provider(self, pending):

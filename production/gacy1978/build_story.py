@@ -602,11 +602,39 @@ FACE_SHOTS = {'S01': ['C1'],
 
 REFERENCE_SHOTS = {}
 
-FIRST_FRAME = {}
+# Immutable revision: references are current-film assets, never old identity experiments.
+REFERENCE_REVISION = "b5be38f39679925ca5ae29fb972145cb77b33eaa"
+FIRST_FRAME = {
+    "S01": "first_frames/S01.jpg", "S09": "first_frames/S09.jpg",
+    "S11": "first_frames/S11.jpg", "S25": "qa/retake-references/C2.jpg",
+    "S28": "qa/retake-references/C3.jpg", "S37": "qa/retake-references/C2.jpg",
+    "S29": "qa/retake-references/C0.jpg", "S45": "qa/retake-references/C0.jpg",
+}
+
+FRAME_REVISIONS = {"S29": '06cd2bfb9c44c4dc7bb63b977856930a4c159653', "S45": '06cd2bfb9c44c4dc7bb63b977856930a4c159653'}
+
+# Targeted content corrections after inspecting the actual 2 fps source contact sheets.
+# These new prompts/first-frame URLs change request hashes; the other 26 clips must be reused.
+RETAKE_BODIES = {
+    "S01": "In the supplied first frame, {C1} is the same fictional actor wearing the red-and-white clown costume and small red nose. Preserve his exact face, costume and this room. He slowly turns his head toward the warm lamp and breathes gently; fabric settles naturally. The flush square floor access panel at right stays completely CLOSED and level with the floor for the entire shot. No one touches it. Gentle camera push, one continuous shot, no cuts or new people.",
+    "S09": "Continue the supplied first frame with exactly the same fictional actor {C1}, navy shirt, face and home-office desk. He slowly slides the blank building plan a few centimetres across the desk with both hands, then lowers his gaze. Keep the paper flat and fingers anatomically stable. Gentle lateral camera move. One uninterrupted shot, no makeup, no mirror, no additional people or scene change.",
+    "S11": "Continue the supplied first frame. {C1} wears the identical red-and-white clown costume, white collar, white gloves and small red nose. Preserve his exact underlying face and the single community room. He slowly opens his palms in a small friendly party gesture, then relaxes them; the tethered red balloon gently sways independently. No other people. Restrained expression, no horror. Single continuous slow camera slide, no costume change or cuts.",
+    "S13": "Colour 3D CGI animation, physically modelled walnut archive desk in a plain 1970s office. Tight downward close-up of one unlettered buff paper folder lying FLAT on the desk. One anonymous adult hand in a dark wool sleeve slowly closes the folder, rests on it briefly, then withdraws out of frame. All faces and bodies remain outside frame. Stable paper geometry, natural hand motion, soft tungsten light and cool blue fill. One continuous slight camera move. No people in background, no shadows shaped like people, no writing, no floating props or scene cuts.",
+    "S16": "COLOUR three-dimensional CGI animated reenactment, NOT black-and-white archive footage and NOT live action. Fixed camera directly BEHIND one fully clothed anonymous teenage back silhouette at a plain 1978 pharmacy counter. Only the BACK of his head, shoulders and grey jacket are seen throughout. His face NEVER turns toward camera, no side profile. He gently puts a plain paper bag on the counter with his back still toward camera. Unlettered shelves, muted blue and tungsten colours, physically modelled objects and cloth. One continuous shot, no additional people, no text, no progress bars or scene cuts.",
+    "S21": "Colour 3D CGI close-up of one intact cream-coloured 1970s rotary telephone on a plain walnut side table. The NORMAL CURVED HANDSET rests HORIZONTALLY on its cradle throughout; it is never lifted or changed. One anonymous adult index finger slowly rotates the circular dial and lets it return. Only a hand and a dark sleeve are visible, no face or body. The phone body, cradle, handset and coiled cord retain their separate rigid shapes throughout. Soft tungsten and blue light. One continuous small camera move, no lettering, no cuts or transformation.",
+    "S25": "Continue the supplied first frame with the exact same fictional adult actress {C2}, the same blue cardigan, hair, face and modest home interior. She pauses, gently nods once and slowly lowers her gaze toward the table as if recalling a detail. Her shoulders move with a natural breath. Hands remain below the frame; no new props. Quiet respectful family-impact reenactment. A slight continuous camera slide, no facial morphing, new people or cuts.",
+    "S28": "Continue the supplied first frame with exactly the same fictional detective actor {C3}, preserving his GREY MOUSTACHE, square glasses, swept-back grey hair, brown tweed jacket and face. In the same plain office he slowly lays the blank folder flat on the desk and briefly looks up toward the left, then back down. Stable hands, no writing. One continuous slight camera push, no additional people, facial changes or scene cuts.",
+    "S29": "Continue the supplied first frame outside the SAME brick house, preserving its roof, windows, front door, hedge and parked unmarked car. The camera remains OUTSIDE for the entire shot. In the low foreground the existing anonymous adult back silhouettes gently shift weight without revealing any faces; wind bends the hedge and bare twigs independently. The parked car stays the same rigid car in the same place. Cool evening surveillance atmosphere with warm window light. One continuous shot, no interior view, no dissolves, double exposure, new objects or scene change.",
+    "S31": "Colour 3D CGI close shot of a square wooden floor access panel lying completely CLOSED, flush and LEVEL with the surrounding wooden floor in a modest 1978 wood-panelled room. The panel is a flat square seam with a small recessed pull, NOT an upright door. A soft flashlight beam slowly sweeps across the closed panel from left to right; the camera slides gently at low height. No person, hand or face is visible anywhere. The lid remains closed and untouched from first frame to last. No opening, dark hole, contents, bodies, remains, violence or scene cuts.",
+    "S45": "Continue the supplied first frame of the SAME established brick house, preserving exactly its roofline, windows, door and hedge. Cool blue dawn atmosphere. The small anonymous adult back silhouettes already low in the foreground slowly walk away beyond the bottom edge without turning toward camera; the entrance stays shut. Wind gently sways the bare branches and hedge independently as the camera slowly retreats. The porch lamp gradually dims. Leave the house quiet, no new people, no face close-ups, no new buildings, interior view, dissolves or scene changes.",
+    "S37": "Continue the supplied first frame with the exact same fictional adult actress {C2}, identical face, chestnut waved hair, blue cardigan and home interior. She slowly turns her gaze from the closed door toward the camera's left, then rests her eyes downward; one shoulder relaxes with a slow natural breath. Restrained grief, no melodrama. Hands stay below frame, no new objects or people. One continuous gently moving camera shot, no face or age changes and no cuts.",
+}
+SHOTS = [row[:5] + ((RETAKE_BODIES[row[0]] + " HOLD: one continuous shot, no cuts, no scene change, no camera relocation.") if row[0] in RETAKE_BODIES else row[5],) + row[6:] for row in SHOTS]
 
 def first_frame_urls():
-    base = "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/3c0c229a-desktop-tutorial/production/gacy1978/"
-    return {sid: base + rel for sid, rel in FIRST_FRAME.items()}
+    base = f"https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/{REFERENCE_REVISION}/production/gacy1978/"
+    return {sid: (base if sid not in FRAME_REVISIONS else base.replace(REFERENCE_REVISION, FRAME_REVISIONS[sid])) + rel
+            for sid, rel in FIRST_FRAME.items()}
 
 
 def faces():

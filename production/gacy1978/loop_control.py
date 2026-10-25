@@ -24,7 +24,25 @@ def decide(project, results, options, rc, stopped=False):
         return (engine.usable_receipt(row, engine.request_hash(project, shot))
                 and len(row.get('sha256', '')) == 64 and row.get('bytes', 0) > 0
                 and row.get('media', {}).get('decoded_ok') is True)
-    ready = all(verified(s) for s in required)
+    # The generator and relay are separate Python processes. Reconstruct its image
+    # mode rather than silently hashing I2V receipts as plain text-to-video.
+    saved_mode = engine.REF_IMAGE_OK
+    requested_mode = engine.parse_ref_image(options.get('ref_image'))
+    modes = (False, True) if requested_mode is None else (requested_mode,)
+    try:
+        ready = True
+        for shot in required:
+            matches = False
+            for mode in modes:
+                engine.REF_IMAGE_OK = mode
+                if verified(shot):
+                    matches = True
+                    break
+            if not matches:
+                ready = False
+                break
+    finally:
+        engine.REF_IMAGE_OK = saved_mode
     if rc == 0 and ready:
         return 'render', options, 'all 38 current-request media receipts verified; first cut still needs QC'
     if rc != 42 or results.get('phase') not in ('provider_capacity', 'generation_incomplete'):
