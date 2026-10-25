@@ -410,12 +410,16 @@
     "S12": {
       "id": "S12",
       "request_hash": "c012e5016e491b54b872a8f8ba21e1139b99a5985736f60d1aaa83bec3a637ae",
-      "status": "provider_cooldown",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025085219161880719FHuK5u79)",
-      "updated_at": "2026-10-25T08:52:19Z",
-      "create_attempts": 10,
+      "status": "queued",
+      "error": null,
+      "updated_at": "2026-10-25T08:58:28Z",
+      "create_attempts": 14,
       "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "applied_cooldown_seconds": 61,
+      "video_id": "task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM",
+      "task_id": "task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S13": {
       "id": "S13",
@@ -547,8 +551,8 @@
       "request_hash": "80073f2f83cf46540d3c9fda53aa24bb73b2e86268672e36b4f570da0ff50e9c",
       "status": "waiting_create_slot",
       "error": null,
-      "updated_at": "2026-10-25T08:46:11Z",
-      "create_attempts": 12,
+      "updated_at": "2026-10-25T08:55:24Z",
+      "create_attempts": 14,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -812,7 +816,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-25T08:52:19Z",
+  "updated_at": "2026-10-25T08:58:28Z",
   "run_id": "40176885043",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -1439,13 +1443,5 @@
     "height": 1080,
     "fps": 30,
     "cover": "work/somerton/clips/塔玛姆·舒德_封面.jpg"
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025085219161880719FHuK5u79)",
-    "create_attempts": 10,
-    "retry_interval_seconds": 61,
-    "last_seen": "2026-10-25T08:52:19Z"
   }
 }
