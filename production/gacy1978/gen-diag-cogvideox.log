@@ -1,78 +1,64 @@
-REF_IMAGE_MODE=False (payload override)
-REF_IMAGE_PROBE skipped: payload 指定 ref_image=False（纯文生）
+REF_IMAGE_MODE=True (payload override)
+REF_IMAGE_PROBE skipped: payload 指定 ref_image=True（带定妆照）
+PROVENANCE_PUSH_RETRY attempt=1
 PRODUCTION_STATUS CogVideoX cloud generation started
-S01: verified receipt already exists; no new generation
-S03: verified receipt already exists; no new generation
-S04: verified receipt already exists; no new generation
-S05: verified receipt already exists; no new generation
-S06: verified receipt already exists; no new generation
-S07: verified receipt already exists; no new generation
-S08: verified receipt already exists; no new generation
-S09: verified receipt already exists; no new generation
-S11: verified receipt already exists; no new generation
-S12: verified receipt already exists; no new generation
-S13: verified receipt already exists; no new generation
-S14: verified receipt already exists; no new generation
-S15: verified receipt already exists; no new generation
-S16: verified receipt already exists; no new generation
-S18: verified receipt already exists; no new generation
-S19: verified receipt already exists; no new generation
-S20: verified receipt already exists; no new generation
-S21: verified receipt already exists; no new generation
-S22: verified receipt already exists; no new generation
-S23: verified receipt already exists; no new generation
-S24: verified receipt already exists; no new generation
-S25: verified receipt already exists; no new generation
-S26: verified receipt already exists; no new generation
-S27: verified receipt already exists; no new generation
-S28: verified receipt already exists; no new generation
-S29: verified receipt already exists; no new generation
-S31: verified receipt already exists; no new generation
-S33: verified receipt already exists; no new generation
-S34: verified receipt already exists; no new generation
-S35: verified receipt already exists; no new generation
-S36: verified receipt already exists; no new generation
-S37: verified receipt already exists; no new generation
-S39: verified receipt already exists; no new generation
-S41: verified receipt already exists; no new generation
-S42: verified receipt already exists; no new generation
-PRODUCTION_STATUS S43 submitting
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 1, wait 20s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 2, wait 25s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 3, wait 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 4, wait 35s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 5, wait 40s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 6, wait 45s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 7, wait 50s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 8, wait 55s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 9, wait 60s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 10, wait 65s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 11, wait 70s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 12, wait 75s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 13, wait 80s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 14, wait 85s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 15, wait 90s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 16, wait 95s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 17, wait 100s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 18, wait 105s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
-S43: submit throttled attempt 19, wait 110s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
-PRODUCTION_STATUS S43 provider busy; deferred retry
+PRODUCTION_STATUS S07 submitting
+PRODUCTION_STATUS S07 provider busy; deferred retry
+S07: submit throttled attempt 1, wait 20s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PROVENANCE_PUSH_RETRY attempt=1
+PRODUCTION_STATUS S07 provider busy; deferred retry
+S07: submit throttled attempt 2, wait 25s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S07 provider busy; deferred retry
+S07: submit throttled attempt 3, wait 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S07 provider busy; deferred retry
+S07: submit throttled attempt 4, wait 35s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S07 queued
+S07 [1/38] submission 1 poll 1: PROCESSING
+S07 [1/38] submission 1 poll 2: PROCESSING
+S07 [1/38] submission 1 poll 3: PROCESSING
+S07 [1/38] submission 1 poll 4: PROCESSING
+S07 [1/38] submission 1 poll 5: PROCESSING
+S07 [1/38] submission 1 poll 6: PROCESSING
+S07 [1/38] submission 1 poll 7: SUCCESS
+PROVENANCE_PUSH_RETRY attempt=1
+PRODUCTION_STATUS S07 media and QA ready
+PRODUCTION_STATUS S13 submitting
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 1, wait 20s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 2, wait 25s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 3, wait 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 4, wait 35s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 5, wait 40s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 6, wait 45s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 7, wait 50s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 8, wait 55s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 9, wait 60s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 10, wait 65s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 11, wait 70s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 12, wait 75s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 13, wait 80s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 14, wait 85s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 15, wait 90s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 16, wait 95s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 17, wait 100s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 18, wait 105s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
+S13: submit throttled attempt 19, wait 110s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S13 provider busy; deferred retry
