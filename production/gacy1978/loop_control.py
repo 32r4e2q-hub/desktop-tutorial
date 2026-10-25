@@ -45,7 +45,16 @@ def decide(project, results, options, rc, stopped=False):
         engine.REF_IMAGE_OK = saved_mode
     if rc == 0 and ready:
         return 'render', options, 'all 38 current-request media receipts verified; first cut still needs QC'
-    if rc != 42 or results.get('phase') not in ('provider_capacity', 'generation_incomplete'):
+    # A generation worker can finish its loaded plan while a strict-review edit
+    # updates prompts on the branch. All old media can be valid but not current.
+    # Refresh those hashes in another bounded pass, rather than stopping or
+    # rendering a stale source. Malformed/undecoded media still stops for review.
+    rows = [results.get('shots', {}).get(s['id'], {}) for s in required]
+    refreshed_plan = (rc == 0 and not ready and results.get('phase') == 'sources_ready'
+        and all(r.get('status') == 'completed' and r.get('video_url')
+            and r.get('request_hash') and len(r.get('sha256', '')) == 64
+            and r.get('bytes', 0) > 0 and r.get('media', {}).get('decoded_ok') is True for r in rows))
+    if not refreshed_plan and (rc != 42 or results.get('phase') not in ('provider_capacity', 'generation_incomplete')):
         return 'stop', options, 'not a retryable capacity/pending-task exit; inspect diagnostic'
     round_no = int(options.get('round', 1))
     if round_no >= MAX_ROUNDS:

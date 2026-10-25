@@ -3,7 +3,7 @@
   "source_sha256": "23911609df1fdae0476ec1bd64fbadfcca297bafecb0328174d58f0a0d631e83",
   "proposed_take_start_seconds": 2.0,
   "source_duration_seconds": 5.108108,
-  "status": "NATIVE EVIDENCE ONLY: agent must inspect late arm action/anatomy before accepting take window",
+  "status": "REJECT_RETAKE",
   "frames": [
     {
       "requested_source_seconds": 2.0,
@@ -68,5 +68,6 @@
       "height": 1024,
       "sha256": "bd997c714d0f1ddd4b967eba5e222ca9513b15973b87dd0fadf6e35e0025da1b"
     }
-  ]
+  ],
+  "agent_review": "REJECT original source and proposed 2.0s take window: hand enters only at 4.25s; unfinished reach at end, most of the shot lacks clear action. Regenerate with hand present on folder from frame one."
 }

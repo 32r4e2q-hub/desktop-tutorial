@@ -2,8 +2,8 @@
   "reviewed_at": "2026-10-25T00:10:42.727602+00:00",
   "scope": "38源接触表复查；补看首版成片全帧接触表（S07/S20/S34/S44）与自动冻结报警；S04/S35按原源表对独立运动的疑虑保守重做。不构成新SHA或整片语义批准。",
   "status": "NOT_FINAL_APPROVED",
-  "reject_count": 18,
-  "other_count": 20,
+  "reject_count": 19,
+  "other_count": 19,
   "shots": {
     "S01": {
       "source_sha256": "90d9f849f5c4ae327b7b77572bf8b25d195f5345339cd796a63e6833e7cd79b3",
@@ -173,9 +173,10 @@
       "reviewed_evidence": "qa/S20.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "edit_remedy_pending",
-      "finding": "原取用前段缺乏明确动作；后移至源2.0秒后保留末段手部入画，需复核新取用窗与解剖。",
-      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
+      "decision": "reject_retake",
+      "finding": "原生1792×1024、源2.0–5.0秒九帧复查：直到4.25秒才开始入画，结束仍未完成桌面操作。即使后移取用窗仍大部分是空景，撤销剪辑补救，改首帧手已在文件上、整段完成滑动归位。",
+      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds",
+      "additional_source_evidence": "qa/take-window-review/S20-review.json; source SHA 23911609df1fdae0476ec1bd64fbadfcca297bafecb0328174d58f0a0d631e83"
     },
     "S21": {
       "source_sha256": "2116c55a1bd627e1d10da473211cd042c150c11256d35625fb0c65a19cc41342",
@@ -392,7 +393,7 @@
       "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
     }
   },
-  "retake_policy": "Changed prompts and immutable reference URLs invalidate exactly 18 old requests; preserve other 20 sources, including revised editorial take window for S20. Auto-resume checks current hashes, never forces successful new retakes again.",
+  "retake_policy": "Exactly 19 old requests rejected, preserve 19 others. S20/S41 cannot be approved by trimming. Auto-resume checks fresh current hashes and preserves accepted tasks; no force or paid fallback.",
   "video_model": "cogvideox-flash only, no paid video fallback",
   "retry_seconds": "20,25,30,... +5; explicit larger Retry-After honoured",
   "final_review": "Full source playback/frames, same-face, physical motion, 7 cards, actual MP4 ASR/audio/5400-frame and semantic review remain required."

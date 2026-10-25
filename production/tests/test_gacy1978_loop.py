@@ -79,6 +79,17 @@ class LoopTests(unittest.TestCase):
         self.results['shots']['S01']['request_hash']='stale'
         self.assertNotEqual(control.decide(self.story,self.results,self.options,0)[0],'render')
 
+    def test_changed_plan_after_success_resumes_but_corrupt_media_stops(self):
+        self.results['phase']='sources_ready'
+        for shot in self.story['shots']:
+            if shot['kind']=='graphic':continue
+            self.results['shots'][shot['id']]={'status':'completed','video_url':'https://example.invalid/video',
+                'request_hash':engine.request_hash(self.story,shot),'sha256':'a'*64,'bytes':123,'media':{'decoded_ok':True}}
+        self.results['shots']['S20']['request_hash']='valid-old-source-but-new-review-prompt'
+        self.assertEqual(control.decide(self.story,self.results,self.options,0)[0],'resume')
+        self.results['shots']['S20']['media']['decoded_ok']=False
+        self.assertEqual(control.decide(self.story,self.results,self.options,0)[0],'stop')
+
     def test_image_mode_is_reconstructed_and_restored(self):
         self.story['shots'][0]['reference_image']='https://example.invalid/current-film-frame.jpg'
         saved=engine.REF_IMAGE_OK
