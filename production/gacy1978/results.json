@@ -5,27 +5,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "completed",
-      "request_hash": "7101b4df29ff3b8b1e1f14749bf51cee93d3b3f4ab84a100d8246987137b8460",
+      "status": "submitting",
+      "request_hash": "d652879699f1ad096f323eb065275364efe166e857e2975600451c787ef0538b",
       "error": null,
-      "updated_at": "2026-10-24T06:22:01Z",
-      "task_id": "2026102414205720847691f25b4323",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610241421500bd39d3cd98e432b_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=pbZikpgIx8QcHG1jrFl9XpS6uik%3D&Expires=1792909313",
-      "sha256": "90d9f849f5c4ae327b7b77572bf8b25d195f5345339cd796a63e6833e7cd79b3",
-      "bytes": 1168213,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1168213,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/gacy1978/qa/S01.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-25T00:13:13Z"
     },
     "S03": {
       "id": "S03",
@@ -1012,6 +995,33 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-25T00:13:11Z",
-  "previous_results": {}
+  "updated_at": "2026-10-25T00:13:13Z",
+  "previous_results": {
+    "S01": [
+      {
+        "id": "S01",
+        "status": "completed",
+        "request_hash": "7101b4df29ff3b8b1e1f14749bf51cee93d3b3f4ab84a100d8246987137b8460",
+        "error": null,
+        "updated_at": "2026-10-24T06:22:01Z",
+        "task_id": "2026102414205720847691f25b4323",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610241421500bd39d3cd98e432b_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=pbZikpgIx8QcHG1jrFl9XpS6uik%3D&Expires=1792909313",
+        "sha256": "90d9f849f5c4ae327b7b77572bf8b25d195f5345339cd796a63e6833e7cd79b3",
+        "bytes": 1168213,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1168213,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/gacy1978/qa/S01.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ]
+  }
 }
