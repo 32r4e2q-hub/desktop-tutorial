@@ -513,29 +513,10 @@
     },
     "S25": {
       "id": "S25",
-      "status": "completed",
-      "request_hash": "df9ff446b4c7d9a979648a2f18ae88c97d23e20af69de98e861f447e61041040",
+      "status": "submitting",
+      "request_hash": "b29ff1ec830b81f96650e7878c0d544afd010c4ea914fdeaf9000939bd3ade45",
       "error": null,
-      "updated_at": "2026-10-24T16:31:18Z",
-      "task_id": "20261025003019f68df6ba7fe7457f",
-      "retry_attempt": 6,
-      "retry_after_seconds": 45,
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610250031108776d554006f4494_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=BMa1Ix%2FgMs2mcHYd0%2BJPbzTfev8%3D&Expires=1792945872",
-      "sha256": "79f4d3caef7608e3fd7f7e9cb896dfc9891582c27c066f83e8ded92a10120cd5",
-      "bytes": 1482732,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 1482732,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/gacy1978/qa/S25.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-25T09:33:56Z"
     },
     "S26": {
       "id": "S26",
@@ -930,7 +911,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-25T09:33:55Z",
+  "updated_at": "2026-10-25T09:33:56Z",
   "previous_results": {
     "S01": [
       {
@@ -1399,6 +1380,34 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/gacy1978/qa/S45.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S25": [
+      {
+        "id": "S25",
+        "status": "completed",
+        "request_hash": "df9ff446b4c7d9a979648a2f18ae88c97d23e20af69de98e861f447e61041040",
+        "error": null,
+        "updated_at": "2026-10-24T16:31:18Z",
+        "task_id": "20261025003019f68df6ba7fe7457f",
+        "retry_attempt": 6,
+        "retry_after_seconds": 45,
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/202610250031108776d554006f4494_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=BMa1Ix%2FgMs2mcHYd0%2BJPbzTfev8%3D&Expires=1792945872",
+        "sha256": "79f4d3caef7608e3fd7f7e9cb896dfc9891582c27c066f83e8ded92a10120cd5",
+        "bytes": 1482732,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 1482732,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/gacy1978/qa/S25.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
