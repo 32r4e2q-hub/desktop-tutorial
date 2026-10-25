@@ -32,7 +32,7 @@ jobs:
           work = Path('work/gacy1978/reference-extract')
           work.mkdir(parents=True, exist_ok=True)
           evidence = {}
-          for cid, sid in [('C1','S03'), ('C2','S19'), ('C3','S24')]:
+          for cid, sid in [('C0','S04'), ('C1','S03'), ('C2','S19'), ('C3','S24')]:
               row = results['shots'][sid]
               assert row['status'] == 'completed'
               video = work/f'{sid}.mp4'
