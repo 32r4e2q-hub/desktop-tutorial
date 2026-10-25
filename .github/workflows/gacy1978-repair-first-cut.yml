@@ -1,0 +1,81 @@
+name: 盖西案 · 修正初剪黑场定位
+on:
+  workflow_dispatch:
+  push:
+    branches: [arena/3c0c229a-desktop-tutorial]
+    paths: [production/gacy1978/REPAIR_FIRST_CUT]
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: gacy1978-repair-first-cut
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/3c0c229a-desktop-tutorial
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: gacy1978-成片-1
+          run-id: 40144809709
+          github-token: ${{ github.token }}
+          path: work/gacy1978/first-cut-artifact
+      - name: Install media and inspection runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          python3 -m pip install 'numpy>=1.26,<3' 'pillow>=10,<13' 'av>=12,<19'
+      - name: Re-encode the clean picture track with absolute-PTS blackouts and original audio
+        run: |
+          set -euo pipefail
+          python3 -u production/gacy1978/repair_first_cut.py \
+            --track work/gacy1978/first-cut-artifact/image-track.mp4 \
+            --film '交付/小丑背后的真相_约翰韦恩盖西_三分钟_带声音.mp4' \
+            --expected-sha e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4 \
+            --artifact-run 40144809709 \
+            --output 'work/gacy1978/first-cut-repair/小丑背后的真相_约翰韦恩盖西_三分钟_带声音.mp4' \
+            2>&1 | tee work/gacy1978/first-cut-repair.log
+      - name: Publish only if the diagnosed old cut has not been replaced
+        run: |
+          set -euo pipefail
+          git config user.name arena-first-cut-repair
+          git config user.email arena@local
+          cp 'work/gacy1978/first-cut-repair/小丑背后的真相_约翰韦恩盖西_三分钟_带声音.mp4' '交付/小丑背后的真相_约翰韦恩盖西_三分钟_带声音.mp4'
+          git add -f '交付/小丑背后的真相_约翰韦恩盖西_三分钟_带声音.mp4' \
+            production/gacy1978/delivery/technical-report.json \
+            production/gacy1978/delivery/final-audio-report.json \
+            production/gacy1978/delivery/first-cut-blackout-repair.json \
+            production/gacy1978/delivery/planned-blackouts.json \
+            production/gacy1978/delivery/final-contact.jpg
+          git commit -m 'gacy1978: repair and verify all 45 planned black frames; first cut still pending source retakes'
+          for attempt in 1 2 3 4 5; do
+            git fetch origin arena/3c0c229a-desktop-tutorial
+            python3 - <<'PY'
+          import json, subprocess
+          report=json.loads(subprocess.check_output(['git','show','FETCH_HEAD:production/gacy1978/delivery/technical-report.json']))
+          assert report['sha256']=='e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4', 'Newer cut exists: refusing rollback'
+          PY
+            git rebase FETCH_HEAD
+            if git push origin HEAD:arena/3c0c229a-desktop-tutorial; then exit 0; fi
+          done
+          exit 1
+      - name: Recheck this actual repaired MP4, never reuse the prior SHA's approval
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run gacy1978-verbatim.yml --ref arena/3c0c229a-desktop-tutorial
+          gh workflow run gacy1978-visual-qc.yml --ref arena/3c0c229a-desktop-tutorial
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gacy1978-blackout-repair
+          path: |
+            work/gacy1978/first-cut-repair/*.mp4
+            work/gacy1978/first-cut-repair.log
+            production/gacy1978/delivery/first-cut-blackout-repair.json
+          retention-days: 30

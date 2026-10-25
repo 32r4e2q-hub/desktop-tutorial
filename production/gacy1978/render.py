@@ -63,6 +63,21 @@ TIGHTER_CROPS = {
 
 # 调色：默认略压暗（沿用 raincoat2004 的刻度）；个别过暗的镜头在全帧审计之后
 # 按 lamkorwan/raincoat 的解法单独覆盖（GRADE_OVERRIDES），不要动全局。
+# Mixed segment range/pixel metadata can reinitialise a filter graph and reset
+# its local frame counter. Convert (not merely relabel) every segment to the
+# same SDR range/matrix, and schedule blackouts on absolute PTS, never local n.
+NORMALISE_COLOUR = ('scale=in_range=auto:out_range=tv:out_color_matrix=bt709,'
+                    'format=yuv420p,setparams=range=limited:color_primaries=bt709:'
+                    'color_trc=bt709:colorspace=bt709')
+COLOUR_FLAGS = ['-color_range','tv','-colorspace','bt709','-color_primaries','bt709','-color_trc','bt709']
+
+
+def blackout_filters(windows):
+    return ''.join(",drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:"
+                   f"enable='gte(round(t*{FPS}),{w['start_frame']})*"
+                   f"lt(round(t*{FPS}),{w['end_frame']})'" for w in windows)
+
+
 DEFAULT_GRADE = 'eq=saturation=0.92:contrast=1.025:brightness=-0.006'
 GRADE_OVERRIDES = {
     # 'S45': 'eq=saturation=1.06:contrast=1.12:brightness=0.004:gamma=2.10',
@@ -434,14 +449,14 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
         if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
         if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
         if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
-        cmd+=['-vf',vf+',format=yuv420p']
+        cmd+=['-vf',vf+','+NORMALISE_COLOUR]
     else:
         tail=''
         if entry['start_frame']==0:tail+=',fade=t=in:st=0:d=0.25'
         if sid==last_shot:tail+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
-        cmd+=['-filter_complex',fc.replace('[vbase]',tail+',format=yuv420p[v]'),'-map','[v]']
+        cmd+=['-filter_complex',fc.replace('[vbase]',tail+','+NORMALISE_COLOUR+'[v]'),'-map','[v]']
     cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
-          '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
+          '-crf','21','-maxrate','4000k','-bufsize','8000k',*COLOUR_FLAGS,'-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
     run(cmd);return target
 
 
@@ -539,12 +554,10 @@ def main():
     # 保留来源标识，不继承其他影片的固定坐标去标；本片始终标注AI动画情景重现。
     black_windows = planned_blackouts(narration)
     vf=(f"subtitles=filename='{subtitle.resolve().as_posix()}':fontsdir='{font_directory.as_posix()}'")
-    for window in black_windows:
-        vf += (",drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:"
-               f"enable='gte(n,{window['start_frame']})*lt(n,{window['end_frame']})'")
+    vf += blackout_filters(black_windows)
     run(['ffmpeg','-y','-v','error','-threads','2','-i',image_track,'-i',mixed,'-map','0:v:0','-map','1:a:0',
          '-vf',vf,'-c:v','libx264','-preset','fast','-crf','21','-maxrate','4000k','-bufsize','8000k',
-         '-pix_fmt','yuv420p','-r','30','-c:a','aac','-b:a','160k','-ar','48000','-t',f'{DURATION:g}',
+         '-pix_fmt','yuv420p',*COLOUR_FLAGS,'-r','30','-c:a','aac','-b:a','160k','-ar','48000','-t',f'{DURATION:g}',
          '-movflags','+faststart',args.output])
     info=probe(args.output)
     if (abs(info['duration']-DURATION)>.12 or info.get('audio_channels')!=2 or info.get('frames')!=TOTAL_FRAMES

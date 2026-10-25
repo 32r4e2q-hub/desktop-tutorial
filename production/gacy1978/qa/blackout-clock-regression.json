@@ -1,0 +1,39 @@
+{
+  "test": "mixed-range concatenation, 127 tv frames + 180 pc frames at 30fps",
+  "observed_filter_local_n_black_frames": [
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285
+  ],
+  "requested_black_frames": [
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158
+  ],
+  "observed_normalised_absolute_pts_black_frames": [
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158
+  ],
+  "result": "PASS for the codec regression fixture, not final-film approval",
+  "actual_first_cut": "qa/first-cut-blackout-defect.json",
+  "film_fix_status": "must still run on recovered clean image-track and inspect all 5400 output frames"
+}
