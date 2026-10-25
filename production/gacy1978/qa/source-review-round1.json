@@ -2,8 +2,8 @@
   "reviewed_at": "2026-10-25T00:10:42.727602+00:00",
   "scope": "38源接触表复查；补看首版成片全帧接触表（S07/S20/S34/S44）与自动冻结报警；S04/S35按原源表对独立运动的疑虑保守重做。不构成新SHA或整片语义批准。",
   "status": "NOT_FINAL_APPROVED",
-  "reject_count": 17,
-  "other_count": 21,
+  "reject_count": 18,
+  "other_count": 20,
   "shots": {
     "S01": {
       "source_sha256": "90d9f849f5c4ae327b7b77572bf8b25d195f5345339cd796a63e6833e7cd79b3",
@@ -345,9 +345,10 @@
       "reviewed_evidence": "qa/S41.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "edit_remedy_pending",
-      "finding": "实际MP4 f4678–4710冻结报警1.1秒；取用窗后移至源1.38秒，优先保留警卫出场动作，1.32倍以内，不得倒放。",
-      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
+      "decision": "reject_retake",
+      "finding": "全片冻结报警1.1秒；手部时序表显示警卫正面进场，不符合背影提示，门口出现过程也有突现/穿门疑虑。撤销仅靠后移取用窗的补救，重做为首帧已在场的背影，沿远离关闭门的空走廊持续行走。",
+      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds",
+      "additional_film_evidence": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4; qa/final-frame-review/hands/hands-S41.jpg; delivery/frame-distortion-audit.json"
     },
     "S42": {
       "source_sha256": "4a96c4d2fc28b894cd5e786e50fbb722748e4320708d601f8df809b12e01a247",
@@ -391,7 +392,7 @@
       "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
     }
   },
-  "retake_policy": "Changed prompts and immutable reference URLs invalidate exactly 17 old requests; preserve other 21 sources, including revised editorial take windows for S20/S41. Auto-resume handles current hashes, never forces successful new retakes again.",
+  "retake_policy": "Changed prompts and immutable reference URLs invalidate exactly 18 old requests; preserve other 20 sources, including revised editorial take window for S20. Auto-resume checks current hashes, never forces successful new retakes again.",
   "video_model": "cogvideox-flash only, no paid video fallback",
   "retry_seconds": "20,25,30,... +5; explicit larger Retry-After honoured",
   "final_review": "Full source playback/frames, same-face, physical motion, 7 cards, actual MP4 ASR/audio/5400-frame and semantic review remain required."

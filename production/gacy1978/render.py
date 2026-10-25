@@ -55,7 +55,7 @@ CUTS = {
 }
 
 # 本片接触表初审后的取景修正；最终仍须绑定新素材SHA复查。
-WINDOWS = {'S20': (2.0, None), 'S41': (1.38, None)}  # retain late real arm/guard action; recheck at full resolution
+WINDOWS = {'S20': (2.0, None)}  # retain late real arm action; S41 is rejected, not patched by trimming
 TIGHTER_CROPS = {
     'S14': (1.12, 0.5, 0.56),  # remove generated EXIT sign; retain the walking adult
     'S43': (1.45, 0.57, 0.345),  # remove embedded lower black matte, focus on folders/hand
