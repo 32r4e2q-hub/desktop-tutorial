@@ -681,7 +681,7 @@ def build():
     story["branch"] = "arena/3c0c229a-desktop-tutorial"
     story["_scaffold"] = {"reference": "production/kitakyushu2002"}
     story["publication"] = {"titles": TITLES, "description": DESCRIPTION, "question": QUESTION, "hashtags": HASHTAGS}
-    story["cover_brief"] = {"layout": "左侧小丑半影与红鼻，右侧关闭的地板入口；单一3D室内场景", "text": "小丑的秘密", "text_color": "gold", "status": "planned"}
+    story["cover_brief"] = {"layout": "左侧小丑半影与红鼻，右侧关闭的地板入口；单一3D室内场景", "text": "小丑的秘密", "text_color": "gold", "status": "generated_pending_final_film_consistency", "file": "delivery/封面_小丑的秘密.jpg"}
     story["style_prefix"] = STYLE_PREFIX
     story["negative_prompt"] = NEGATIVE_PROMPT
     story["principles"] = PRINCIPLES
@@ -737,7 +737,7 @@ def build():
     print(f"story.json 已写入：{len(shots)} 镜 = {kinds.count('agnes')} cogvideo + {kinds.count('graphic')} graphic，"
           f"解说 {chars} 字（含标点）")
     print("逐章字数：" + " / ".join(f"{c['id']} {len(c['text'])}" for c in story["chapters"]))
-    print(f"露脸镜头：{len(FACE_SHOTS)} 镜；首帧图钉脸：{len(FIRST_FRAME)} 镜")
+    print(f"露脸镜头：{len(FACE_SHOTS)} 镜；首帧参照：{len(FIRST_FRAME)} 镜（非同脸验收结论）")
     todo = json.dumps(story, ensure_ascii=False).count("TODO")
     if todo:
         print(f"注意：还有 {todo} 处 TODO 没填，generate.py --validate 不会放行", file=sys.stderr)

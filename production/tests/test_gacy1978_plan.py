@@ -51,7 +51,7 @@ class Gacy1978PlanTests(unittest.TestCase):
             self.assertIn('/'+revision+'/production/gacy1978/',url)
             self.assertNotIn('/production/gacy/',url)  # no abandoned identity-experiment assets
 
-    def test_actual_sdk_payload_is_free_three_field_text_to_video(self):
+    def test_actual_sdk_payload_stays_free_with_optional_first_frame(self):
         code='''import sys,json
 sys.path.insert(0,sys.argv[1])
 import generate_cogvideox as g
@@ -123,6 +123,31 @@ with tempfile.TemporaryDirectory() as tmp:
  text=path.read_text()
  assert r'\fs82\c&H0076DDF2&' in text
  assert r'\fs68\c&H00FFFFFF&' in text
+'''
+        result=subprocess.run([sys.executable,'-c',code,str(PROJECT)],capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+
+    def test_revised_edit_needs_no_reverse_padding(self):
+        code = r'''import sys,json
+sys.path.insert(0,sys.argv[1])
+import render
+from pathlib import Path
+p=Path(sys.argv[1]);story=json.load(open(p/'story.json'))
+r=json.load(open(p/'audio/tighten-report.json'))
+tempo=r['total_tight_seconds']/168
+start=render.INTRO;rows=[]
+for c in r['clips']:
+ end=start+c['tight_seconds']/tempo
+ rows.append({'id':c['id'],'start':start,'end':end,'tempo':tempo})
+ start=end+render.GAP
+edl=render.make_edl(story,rows)
+for e in edl:
+ if e['kind']=='agnes':
+  duration=(e['end_frame']-e['start_frame'])/30
+  assert duration/(5.108108-.24)<=1.33,(e['id'],duration)
+assert render.END_CARD==render.OUTRO==6
+assert 'reverse,trim=' not in (p/'render.py').read_text()
+assert set(render.TIGHTER_CROPS)=={'S14','S43'}
 '''
         result=subprocess.run([sys.executable,'-c',code,str(PROJECT)],capture_output=True,text=True)
         self.assertEqual(result.returncode,0,result.stderr)

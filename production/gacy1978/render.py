@@ -37,7 +37,7 @@ INTRO = 0.6
 GAP = 1.08
 OUTRO = 6.0
 RATE = 48000
-END_CARD = 3.8      # 片尾卡时长：最后一镜在旁白结束后再停 DURATION-OUTRO-END_CARD… 见 make_edl
+END_CARD = 6.0      # 旁白结束即入片尾卡，不再强行延长/倒放最后一条5.108秒素材
 END_AT = DURATION - END_CARD
 TOTAL_FRAMES = round(DURATION * FPS)
 # 切点 = 收紧后配音（audio/N0x.mp3）里的秒数，取自 clause_times.py 对出来的分句边界
@@ -54,9 +54,12 @@ CUTS = {
     'N06': [(0.0,'S39',''), (4.04,'S40',''), (7.24,'S41',''), (11.56,'S42',''), (14.52,'S43',''), (16.53,'S44',''), (20.07,'S45','')],
 }
 
-# 本片尚未取得素材；不得沿用模板的复审结论和取用窗。
+# 本片接触表初审后的取景修正；最终仍须绑定新素材SHA复查。
 WINDOWS = {}  # 待本片实际素材复审，不继承北九州取用窗
-TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
+TIGHTER_CROPS = {
+    'S14': (1.12, 0.5, 0.56),  # remove generated EXIT sign; retain the walking adult
+    'S43': (1.45, 0.57, 0.345),  # remove embedded lower black matte, focus on folders/hand
+}
 
 # 调色：默认略压暗（沿用 raincoat2004 的刻度）；个别过暗的镜头在全帧审计之后
 # 按 lamkorwan/raincoat 的解法单独覆盖（GRADE_OVERRIDES），不要动全局。
@@ -420,18 +423,10 @@ def render_segment(entry,index,sources,graphics,segments,width,height,checks,pre
                 f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
         fc=None
         if factor>1.33:
-            # 2026-10-11：CogVideoX-Flash 定长 5.108s 素材，S08 槽 7.67s 要 1.57×
-            # 慢放、超质量红线。改用乒乓循环：正放整段 + 尾段倒放补差——不慢放、
-            # 不定帧，慢节奏情景重现镜头的标准做法（倒放对雾气/光影类画面无感）。
-            need=duration-available
-            if need>available:
-                raise RuntimeError(f'{sid}/{variant}: slot {duration:.2f}s exceeds ping-pong capacity {2*available:.2f}s')
-            # 无需改 -t：duration>available 时 take 本就等于 available（正放整段）。
-            fc=('[0:v]split=2[fwd][rev0];'
-                f'[rev0]reverse,trim=duration={need:.6f},setpts=PTS-STARTPTS[rev];'
-                f'[fwd][rev]concat=n=2:v=1:a=0,setpts=PTS-STARTPTS,'+common+'[vbase]')
-            vf=None
-            entry.update(source_in=a,source_out=a+available,time_stretch=1.0,pingpong=True)
+            # A short source is an editorial failure, not permission to reverse
+            # people, phone actions or wind. Fix the cut/hold or regenerate.
+            raise RuntimeError(f'{sid}: slot {duration:.2f}s needs {factor:.2f}x stretching; '
+                               'reverse/ping-pong and frozen substitutes are forbidden')
         else:
             vf=f'setpts=(PTS-STARTPTS)*{factor:.9f},'+common
             entry.update(source_in=a,source_out=a+take,time_stretch=factor)
