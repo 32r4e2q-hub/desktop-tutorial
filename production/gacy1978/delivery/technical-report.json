@@ -1,6 +1,6 @@
 {
   "duration": 180.0,
-  "bytes": 64972980,
+  "bytes": 66727222,
   "width": 1920,
   "height": 1080,
   "fps": 30.0,
@@ -9,7 +9,7 @@
   "audio_codec": "aac",
   "sample_rate": 48000,
   "audio_channels": 2,
-  "sha256": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4",
+  "sha256": "53af564f8af653cc8d669fa037d8096a07138c35be690dae04ba3a91a7585023",
   "decoded_ok": true,
   "status": "audio_verified_cut",
   "visual_review": "pending",
@@ -65,5 +65,8 @@
     "quietest_window_dbfs": -120.0
   },
   "audio_listening_review": "measured (level + per-chapter + silence gate); not a substitute for human word-level listening",
-  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off."
+  "note": "Audio is measured as audible on the delivered file; visual and word-level review are still pending, so this is not a final sign-off.",
+  "first_cut_technical_repair": true,
+  "known_source_rejections": "qa/source-review-round1.json",
+  "temporal_reverse_present": true
 }
