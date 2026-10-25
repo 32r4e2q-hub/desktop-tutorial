@@ -597,22 +597,26 @@
     "S18": {
       "id": "S18",
       "request_hash": "42f794709c4b4867d47ca979c9cbe2638a2a0ccb0e91716b5b753d86a0fcae24",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-25T13:29:53Z",
+      "updated_at": "2026-10-25T13:42:10Z",
       "error": null,
-      "create_attempts": 121,
+      "create_attempts": 124,
       "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "applied_cooldown_seconds": 61,
+      "video_id": "task_jIkgsESKlpw76EyYisri2Ie6vrDqtKoU",
+      "task_id": "task_jIkgsESKlpw76EyYisri2Ie6vrDqtKoU",
+      "requested_seconds": 7.0,
+      "requested_size": "720P"
     },
     "S19": {
       "id": "S19",
       "request_hash": "c9c324f01612a9f338065671f4398f5fe6292089c4f2e2955de0a962257531ec",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-25T13:30:54Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025133054637725526jMfKGpcI)",
-      "create_attempts": 1,
+      "updated_at": "2026-10-25T13:41:09Z",
+      "error": null,
+      "create_attempts": 9,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -862,7 +866,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-25T13:30:54Z",
+  "updated_at": "2026-10-25T13:42:10Z",
   "run_id": "40176885043",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -1489,13 +1493,5 @@
     "height": 1080,
     "fps": 30,
     "cover": "work/somerton/clips/塔玛姆·舒德_封面.jpg"
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025133054637725526jMfKGpcI)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 61,
-    "last_seen": "2026-10-25T13:30:54Z"
   }
 }
