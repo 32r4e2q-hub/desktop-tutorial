@@ -1,7 +1,7 @@
 REF_IMAGE_MODE=True (payload override)
 REF_IMAGE_PROBE skipped: payload 指定 ref_image=True（带定妆照）
 PRODUCTION_STATUS CogVideoX cloud generation started
-S25: reusing accepted task 202610251806132a0a30086125429d
+S25: reusing accepted task 2026102518365410d50712de084703
 PRODUCTION_STATUS S25 submitting
 PRODUCTION_STATUS S25 queued
 S25 [1/38] submission 1 poll 1: PROCESSING
@@ -42,9 +42,34 @@ S25 [1/38] submission 1 poll 35: PROCESSING
 S25 [1/38] submission 1 poll 36: PROCESSING
 S25 [1/38] submission 1 poll 37: PROCESSING
 S25 [1/38] submission 1 poll 38: PROCESSING
-S25 [1/38] submission 1 poll 39: FAIL
-S25: submission 1 ended fail ({'code': '1234', 'message': '网络错误，错误id：202610251806132a0a30086125429d，请稍后重试'}); resubmitting
+S25 [1/38] submission 1 poll 39: PROCESSING
+S25 [1/38] submission 1 poll 40: PROCESSING
+S25 [1/38] submission 1 poll 41: PROCESSING
+S25 [1/38] submission 1 poll 42: PROCESSING
+S25 [1/38] submission 1 poll 43: PROCESSING
+S25 [1/38] submission 1 poll 44: PROCESSING
+S25 [1/38] submission 1 poll 45: PROCESSING
+S25 [1/38] submission 1 poll 46: PROCESSING
+S25 [1/38] submission 1 poll 47: PROCESSING
+S25 [1/38] submission 1 poll 48: PROCESSING
+S25 [1/38] submission 1 poll 49: PROCESSING
+S25 [1/38] submission 1 poll 50: PROCESSING
+S25 [1/38] submission 1 poll 51: PROCESSING
+S25 [1/38] submission 1 poll 52: PROCESSING
+S25 [1/38] submission 1 poll 53: PROCESSING
+S25 [1/38] submission 1 poll 54: PROCESSING
+S25 [1/38] submission 1 poll 55: PROCESSING
+S25 [1/38] submission 1 poll 56: FAIL
+S25: submission 1 ended fail ({'code': '1234', 'message': '网络错误，错误id：2026102518365410d50712de084703，请稍后重试'}); resubmitting
 PRODUCTION_STATUS S25 submitting
+PRODUCTION_STATUS S25 provider busy; deferred retry
+S25: submit throttled attempt 1, wait 20s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S25 provider busy; deferred retry
+S25: submit throttled attempt 2, wait 25s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S25 provider busy; deferred retry
+S25: submit throttled attempt 3, wait 30s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
+PRODUCTION_STATUS S25 provider busy; deferred retry
+S25: submit throttled attempt 4, wait 35s: Error code: 429, with error text {"error":{"code":"1305","message":"该模型当前访问量过大，请您稍后再试"}}
 PRODUCTION_STATUS S25 queued
 S25 [1/38] submission 2 poll 1: PROCESSING
 S25 [1/38] submission 2 poll 2: PROCESSING
@@ -120,31 +145,4 @@ S25 [1/38] submission 2 poll 71: PROCESSING
 S25 [1/38] submission 2 poll 72: PROCESSING
 S25 [1/38] submission 2 poll 73: PROCESSING
 S25 [1/38] submission 2 poll 74: PROCESSING
-S25 [1/38] submission 2 poll 75: PROCESSING
-S25 [1/38] submission 2 poll 76: PROCESSING
-S25 [1/38] submission 2 poll 77: PROCESSING
-S25 [1/38] submission 2 poll 78: PROCESSING
-S25 [1/38] submission 2 poll 79: PROCESSING
-S25 [1/38] submission 2 poll 80: PROCESSING
-S25 [1/38] submission 2 poll 81: PROCESSING
-S25 [1/38] submission 2 poll 82: PROCESSING
-S25 [1/38] submission 2 poll 83: PROCESSING
-S25 [1/38] submission 2 poll 84: PROCESSING
-S25 [1/38] submission 2 poll 85: PROCESSING
-S25 [1/38] submission 2 poll 86: PROCESSING
-S25 [1/38] submission 2 poll 87: PROCESSING
-S25 [1/38] submission 2 poll 88: PROCESSING
-S25 [1/38] submission 2 poll 89: PROCESSING
-S25 [1/38] submission 2 poll 90: PROCESSING
-S25 [1/38] submission 2 poll 91: PROCESSING
-S25 [1/38] submission 2 poll 92: PROCESSING
-S25 [1/38] submission 2 poll 93: PROCESSING
-S25 [1/38] submission 2 poll 94: PROCESSING
-S25 [1/38] submission 2 poll 95: PROCESSING
-S25 [1/38] submission 2 poll 96: PROCESSING
-S25 [1/38] submission 2 poll 97: PROCESSING
-S25 [1/38] submission 2 poll 98: PROCESSING
-S25 [1/38] submission 2 poll 99: PROCESSING
-S25 [1/38] submission 2 poll 100: PROCESSING
-S25 [1/38] submission 2 poll 101: PROCESSING
 PRODUCTION_STATUS S25 pending task preserved for next round
