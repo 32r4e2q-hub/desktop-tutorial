@@ -566,9 +566,9 @@
     "S17": {
       "id": "S17",
       "request_hash": "80073f2f83cf46540d3c9fda53aa24bb73b2e86268672e36b4f570da0ff50e9c",
-      "status": "downloaded",
+      "status": "completed",
       "error": null,
-      "updated_at": "2026-10-25T13:28:52Z",
+      "updated_at": "2026-10-25T13:28:54Z",
       "create_attempts": 158,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61,
@@ -580,7 +580,19 @@
       "bytes": 1152472,
       "sha256": "6efe2bcb83854d6ac5f021c005c98951997fcaadc3a7f7d7a736e7c619e5279c",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1152472,
+        "decoded_ok": true,
+        "contact_sheet": "production/somerton/qa/S17.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S18": {
       "id": "S18",
@@ -846,7 +858,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-25T13:28:52Z",
+  "updated_at": "2026-10-25T13:28:54Z",
   "run_id": "40176885043",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
