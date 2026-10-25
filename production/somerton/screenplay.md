@@ -70,7 +70,7 @@
 | S07 | 00:35—00:42 | 7 | N03 | 微距慢动作，缓慢下移 | Extreme close-up of gloved hands and vintage scissors cutting away a tiny, completely blank white cloth tab from a 1940s shirt collar; it has a featureless surface with no print, stitching, lines or marks |
 | S08 | 00:42—00:49 | 7 | N03 | 横向滑轨穿过档案柜 | Inside a cold 1940s Australian police archive, tall steel filing cabinets recede into depth |
 | S09 | 00:49—00:55 | 6 | N03 | 缓慢推近试管，冷白光 | Restrained 1940s examination room, no remains visible |
-| S10 | 00:55—01:02 | 7 | N04 | 从拱顶下降到柜台 | Adelaide railway station in 1949: a grand vaulted hall with steam drifting through angled morning sunlight, a plain wooden luggage counter and travelers in period coats crossing in both directions |
+| S10 | 00:55—01:02 | 7 | N04 | 从拱顶下降到柜台 | A 1949 Adelaide railway concourse framed only on its high glass-and-iron vaulted roof, bare stone pillars, drifting steam and travelers in period coats crossing in both directions |
 | S11 | 01:02—01:09 | 7 | N04 | 特写俯拍，逐件显露 | Behind the wooden station counter, a clerk hands a detective a worn dark-brown leather suitcase |
 | S12 | 01:09—01:15 | 6 | N04 | 缓慢推近衣物标签处 | Macro view of folded 1940s clothing inside an open suitcase |
 | S13 | 01:15—01:22 | 7 | N05 | 微距缓慢推进，慢动作展开 | In the softly lit examination room, the coroner's gloved hand carefully opens a hidden watch pocket sewn inside folded trousers and lifts out a tiny rolled paper scrap with tweezers |

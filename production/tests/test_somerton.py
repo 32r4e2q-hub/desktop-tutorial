@@ -189,6 +189,13 @@ class SomertonPlanTests(unittest.TestCase):
                 prompt = rows[sid]["prompt"].lower()
                 self.assertTrue(any(marker in prompt for marker in markers), prompt)
 
+    def test_s10_composition_excludes_signboard_shaped_surfaces(self):
+        shot = next(shot for shot in self.story["shots"] if shot["id"] == "S10")
+        prompt = shot["prompt"].lower()
+        self.assertIn("crop out all sign-shaped boards", prompt)
+        self.assertIn("no station signs", prompt)
+        self.assertIn("uniform blank surface", prompt)
+
     def test_changed_prompt_rows_are_checkpointed_before_workers_start(self):
         shots = {shot["id"]: shot for shot in self.story["shots"]}
         old_s07 = {"id": "S07", "request_hash": "old-prompt", "status": "completed",
