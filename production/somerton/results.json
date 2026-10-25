@@ -161,12 +161,16 @@
     "S04": {
       "id": "S04",
       "request_hash": "b8b02eb3c367f2a9df63ef161b00f9fb64df569d671083a057de9fe2d5be7b68",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "error": null,
-      "updated_at": "2026-10-25T00:03:03Z",
-      "create_attempts": 74,
+      "updated_at": "2026-10-25T00:12:14Z",
+      "create_attempts": 77,
       "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "applied_cooldown_seconds": 61,
+      "video_id": "task_Fl5F9QMvHxVnpCOiDgYKw8oZ4ph323kc",
+      "task_id": "task_Fl5F9QMvHxVnpCOiDgYKw8oZ4ph323kc",
+      "requested_seconds": 7.0,
+      "requested_size": "720P"
     },
     "S05": {
       "id": "S05",
@@ -743,7 +747,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-25T00:08:09Z",
+  "updated_at": "2026-10-25T00:12:14Z",
   "run_id": "40134370486",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
