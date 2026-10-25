@@ -1,15 +1,17 @@
 {
-  "action": "render",
-  "reason": "all 38 current-request media receipts verified; first cut still needs QC",
-  "round": 27,
+  "action": "resume",
+  "reason": "retry missing shots only; preserve accepted tasks and completed receipts",
+  "round": 1,
   "next_payload": {
-    "ref_image": false,
+    "ref_image": true,
     "auto_resume": true,
-    "round": 27,
-    "round_minutes": 25
+    "round": 2,
+    "round_minutes": 25,
+    "quality_retake_round": 1,
+    "reason": "strict_review_18_sources_20_reused"
   },
-  "exit_code": 0,
-  "completed": 38,
-  "source_run_id": "40129743802",
+  "exit_code": 42,
+  "completed": 36,
+  "source_run_id": "40147564205",
   "dispatch_status": "intent only; confirm with dispatch step and next workflow run"
 }
