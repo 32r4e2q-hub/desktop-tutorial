@@ -1,0 +1,153 @@
+{
+  "checked_at": "2026-10-25T00:44:57.483028+00:00",
+  "film_sha256": "53af564f8af653cc8d669fa037d8096a07138c35be690dae04ba3a91a7585023",
+  "story_sha256": "ef3f2696fe7722605e6e1d457739e94659641ce67e7aa4526e82236fdcadfbeb",
+  "status": "FIRST_CUT_REVIEW_ONLY_NOT_FINAL",
+  "repaired_blackouts": "45/45 verified independently; all previous +127 defect frames restored to picture",
+  "automated_visual_qc": {
+    "film": "小丑背后的真相_约翰韦恩盖西_三分钟_带声音.mp4",
+    "sha256": "53af564f8af653cc8d669fa037d8096a07138c35be690dae04ba3a91a7585023",
+    "workflow_run": "https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/40147144574",
+    "all_decoded_frames_scanned": true,
+    "decoded_frames": 5400,
+    "expected_frames": 5400,
+    "automated_status": "REVIEW",
+    "unplanned_black_frames": 1,
+    "non_graphic_freeze_runs": 1,
+    "temporal_outlier_windows": 36,
+    "face_review_candidates": 906,
+    "hand_landmark_extreme_events": 163,
+    "human_semantic_visual_review": "pending",
+    "midpoint_contact_sheet": "production/gacy1978/delivery/visual-qc-shot-midpoints.jpg",
+    "note": "Automation is triage. Review the uploaded all-frame, midpoint, hand, and suspect-frame artifacts before final sign-off."
+  },
+  "raw_unplanned_black_triage": {
+    "frame": 3,
+    "seconds": 0.1,
+    "classification": "EXPECTED quarter-second opening fade, not an unintended black cut",
+    "evidence": [
+      {
+        "frame": 0,
+        "seconds": 0.0,
+        "mean_rgb": 0.12219,
+        "max_rgb": 153
+      },
+      {
+        "frame": 1,
+        "seconds": 0.03333333333333333,
+        "mean_rgb": 2.27379,
+        "max_rgb": 153
+      },
+      {
+        "frame": 2,
+        "seconds": 0.06666666666666667,
+        "mean_rgb": 6.34193,
+        "max_rgb": 153
+      },
+      {
+        "frame": 3,
+        "seconds": 0.1,
+        "mean_rgb": 11.11073,
+        "max_rgb": 157
+      },
+      {
+        "frame": 4,
+        "seconds": 0.13333333333333333,
+        "mean_rgb": 15.56492,
+        "max_rgb": 162
+      },
+      {
+        "frame": 5,
+        "seconds": 0.16666666666666666,
+        "mean_rgb": 20.90767,
+        "max_rgb": 165
+      },
+      {
+        "frame": 6,
+        "seconds": 0.2,
+        "mean_rgb": 25.66647,
+        "max_rgb": 196
+      },
+      {
+        "frame": 7,
+        "seconds": 0.23333333333333334,
+        "mean_rgb": 30.74361,
+        "max_rgb": 228
+      }
+    ],
+    "renderer_setting": "fade=t=in:st=0:d=0.25; raw detector counts preserved, not hidden"
+  },
+  "asr": {
+    "film_sha256": "53af564f8af653cc8d669fa037d8096a07138c35be690dae04ba3a91a7585023",
+    "max_cer": 0.0811,
+    "failing": []
+  },
+  "rejected_original_sources": [
+    "S01",
+    "S04",
+    "S07",
+    "S09",
+    "S11",
+    "S13",
+    "S16",
+    "S20",
+    "S21",
+    "S25",
+    "S28",
+    "S29",
+    "S31",
+    "S34",
+    "S35",
+    "S37",
+    "S41",
+    "S44",
+    "S45"
+  ],
+  "current_request_media_receipts": [
+    "S03",
+    "S05",
+    "S06",
+    "S08",
+    "S12",
+    "S14",
+    "S15",
+    "S18",
+    "S19",
+    "S22",
+    "S23",
+    "S24",
+    "S26",
+    "S27",
+    "S33",
+    "S36",
+    "S39",
+    "S42",
+    "S43"
+  ],
+  "not_yet_current_request_verified": [
+    "S01",
+    "S04",
+    "S07",
+    "S09",
+    "S11",
+    "S13",
+    "S16",
+    "S20",
+    "S21",
+    "S25",
+    "S28",
+    "S29",
+    "S31",
+    "S34",
+    "S35",
+    "S37",
+    "S41",
+    "S44",
+    "S45"
+  ],
+  "current_media_count": 19,
+  "required_media_count": 38,
+  "remaining_reviews": "All new SHAs require motion/anatomy/identity and final-film semantic review; decoding, generation and automated triage are not approval",
+  "generation_run": "https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/40147564205",
+  "capacity_observation": "Both referenced S01 and unreferenced S07 requests have returned free-provider HTTP429 / code1305; no successful retake claimed by this snapshot"
+}
