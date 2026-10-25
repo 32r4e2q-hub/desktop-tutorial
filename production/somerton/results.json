@@ -612,13 +612,17 @@
     "S19": {
       "id": "S19",
       "request_hash": "c9c324f01612a9f338065671f4398f5fe6292089c4f2e2955de0a962257531ec",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-25T13:41:09Z",
+      "updated_at": "2026-10-25T13:43:11Z",
       "error": null,
       "create_attempts": 9,
       "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "applied_cooldown_seconds": 61,
+      "video_id": "task_OpGYCKhDQi2JeRFYHzPoJEBCKMdtud9z",
+      "task_id": "task_OpGYCKhDQi2JeRFYHzPoJEBCKMdtud9z",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S20": {
       "id": "S20",
@@ -866,7 +870,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-25T13:42:10Z",
+  "updated_at": "2026-10-25T13:43:11Z",
   "run_id": "40176885043",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
