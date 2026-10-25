@@ -551,27 +551,10 @@
     },
     "S29": {
       "id": "S29",
-      "status": "completed",
-      "request_hash": "77c7857c763171e41a122f77ecf91ac84227dbceadcf3fc76885a59cf1be83ad",
+      "status": "submitting",
+      "request_hash": "00d0da7b6a1240cb1ad7b14d77e672e05c4714fc556005697e6c2e472d71a0ce",
       "error": null,
-      "updated_at": "2026-10-24T17:08:08Z",
-      "task_id": "202610250106589c868987bbf7421c",
-      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261025010750fb560241bd464761_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=3A178Gj4pcCZ3hzGTFktR2Ha0Z0%3D&Expires=1792948073",
-      "sha256": "a2f1e9631ab235aebaf73ec3a2ce908522f43626f8cdc52d5e0a0468be5abd13",
-      "bytes": 2409944,
-      "media": {
-        "duration": 5.108108,
-        "bytes": 2409944,
-        "width": 1792,
-        "height": 1024,
-        "fps": 37.0,
-        "video_codec": "h264",
-        "frames": 189,
-        "decoded_ok": true,
-        "contact_sheet": "production/gacy1978/qa/S29.jpg",
-        "contact_sampling_fps": 2,
-        "visual_review": "pending"
-      }
+      "updated_at": "2026-10-25T05:43:15Z"
     },
     "S31": {
       "id": "S31",
@@ -878,7 +861,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-25T05:43:13Z",
+  "updated_at": "2026-10-25T05:43:15Z",
   "previous_results": {
     "S01": [
       {
@@ -1257,6 +1240,32 @@
           "frames": 189,
           "decoded_ok": true,
           "contact_sheet": "production/gacy1978/qa/S28.jpg",
+          "contact_sampling_fps": 2,
+          "visual_review": "pending"
+        }
+      }
+    ],
+    "S29": [
+      {
+        "id": "S29",
+        "status": "completed",
+        "request_hash": "77c7857c763171e41a122f77ecf91ac84227dbceadcf3fc76885a59cf1be83ad",
+        "error": null,
+        "updated_at": "2026-10-24T17:08:08Z",
+        "task_id": "202610250106589c868987bbf7421c",
+        "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261025010750fb560241bd464761_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=3A178Gj4pcCZ3hzGTFktR2Ha0Z0%3D&Expires=1792948073",
+        "sha256": "a2f1e9631ab235aebaf73ec3a2ce908522f43626f8cdc52d5e0a0468be5abd13",
+        "bytes": 2409944,
+        "media": {
+          "duration": 5.108108,
+          "bytes": 2409944,
+          "width": 1792,
+          "height": 1024,
+          "fps": 37.0,
+          "video_codec": "h264",
+          "frames": 189,
+          "decoded_ok": true,
+          "contact_sheet": "production/gacy1978/qa/S29.jpg",
           "contact_sampling_fps": 2,
           "visual_review": "pending"
         }
