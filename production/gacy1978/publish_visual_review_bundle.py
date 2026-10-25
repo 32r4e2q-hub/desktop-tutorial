@@ -29,6 +29,50 @@ def _copy_files(source: Path, pattern: str, destination: Path) -> list[str]:
     return copied
 
 
+def _copy_candidate_previews(source: Path, destination: Path):
+    """Keep bounded previews, not 900 duplicate 960px face frames in Git.
+
+    The full index and the actual MP4 retain every candidate; native frames can
+    be re-extracted without another generation. Full Actions artifacts retain
+    the complete exported candidate set as well.
+    """
+    document = json.loads((source / "manifest.json").read_text())
+    records = document["frames"]
+    chosen = {}
+    face_groups = {}
+    for row in records:
+        reasons = row.get("reasons", [])
+        if any(not r.startswith("face-") for r in reasons):
+            chosen[row["file"]] = row
+        for reason in reasons:
+            if reason.startswith("face-"):
+                face_groups.setdefault(reason, []).append(row)
+    for rows in face_groups.values():
+        for row in (rows[0], rows[len(rows)//2], rows[-1]):
+            chosen[row["file"]] = row
+    selected = sorted(chosen.values(), key=lambda r: r["frame"])
+    if len(selected) > 160:
+        selected = [selected[round(i*(len(selected)-1)/159)] for i in range(160)]
+    destination.mkdir(parents=True, exist_ok=True)
+    copied, retained, used = [], [], 0
+    for row in selected:
+        original = source / row["file"]
+        if used + original.stat().st_size > 12*1024*1024:
+            continue
+        target = destination / row["file"]
+        shutil.copy2(original, target)
+        copied.append(str(target)); retained.append(row); used += target.stat().st_size
+    kept = {r["file"] for r in retained}
+    document.update(frames=retained, full_candidate_count=len(records), preview_bytes=used,
+        unpublished_candidate_frames=[r["frame"] for r in records if r["file"] not in kept],
+        selection_policy="bounded previews: temporal/hand candidates and first/middle/last per face group; max 160 files / 12 MiB",
+        full_evidence="all 5400 frame sheets, per-frame audit and actual SHA-bound MP4 remain available; complete candidate exports in Actions artifact",
+        review_status="preview selection is NOT approval; re-extract any unpublished suspect frame from the actual MP4 before sign-off")
+    manifest = destination / "manifest.json"
+    manifest.write_text(json.dumps(document, ensure_ascii=False, indent=2)+"\n")
+    return copied, [str(manifest)]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--film", type=Path, required=True)
@@ -55,8 +99,7 @@ def main() -> int:
     manifests = _copy_files(args.all_frames, "manifest.json", temporary / "all-frames")
     hands = _copy_files(args.contacts, HAND_GLOB, temporary / "hands")
     midpoints = _copy_files(args.contacts, "shot-midpoints.jpg", temporary / "midpoints")
-    candidates = _copy_files(args.candidates, "*.jpg", temporary / "candidates")
-    candidate_manifests = _copy_files(args.candidates, "manifest.json", temporary / "candidates")
+    candidates, candidate_manifests = _copy_candidate_previews(args.candidates, temporary / "candidates")
 
     if len(all_frames) != 46:
         raise SystemExit(f"Expected 46 final-cut all-frame sheets, found {len(all_frames)}")

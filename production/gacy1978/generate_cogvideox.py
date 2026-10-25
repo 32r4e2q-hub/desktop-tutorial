@@ -80,7 +80,7 @@ def digest(path):
 
 def full_payload(project, shot):
     """CogVideoX-Flash 收 model/prompt/quality（+探测通过后带定妆照镜头加 image_url）。"""
-    prompt = (project['style_prefix'] + shot['prompt'] + ' ' + PROMPT_GUARDRAILS).strip()
+    prompt = (shot.get('style_prefix_override', project['style_prefix']) + shot['prompt'] + ' ' + PROMPT_GUARDRAILS).strip()
     if len(prompt) > 2600:
         prompt = prompt[:2600]
     payload = {'model': MODEL, 'prompt': prompt, 'quality': 'speed'}

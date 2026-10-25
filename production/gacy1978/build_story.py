@@ -608,15 +608,18 @@ FIRST_FRAME = {
     "S01": "first_frames/S01.jpg", "S09": "first_frames/S09.jpg",
     "S11": "first_frames/S11.jpg", "S25": "qa/retake-references/C2.jpg",
     "S28": "qa/retake-references/C3.jpg", "S37": "qa/retake-references/C2.jpg",
+    "S04": "qa/retake-references/C0.jpg",
     "S29": "qa/retake-references/C0.jpg", "S45": "qa/retake-references/C0.jpg",
 }
 
-FRAME_REVISIONS = {"S29": '06cd2bfb9c44c4dc7bb63b977856930a4c159653', "S45": '06cd2bfb9c44c4dc7bb63b977856930a4c159653'}
+FRAME_REVISIONS = {"S04": "06cd2bfb9c44c4dc7bb63b977856930a4c159653", "S29": '06cd2bfb9c44c4dc7bb63b977856930a4c159653', "S45": '06cd2bfb9c44c4dc7bb63b977856930a4c159653'}
 
 # Targeted content corrections after inspecting the actual 2 fps source contact sheets.
-# These new prompts/first-frame URLs change request hashes; the other 26 clips must be reused.
+# These new prompts/first-frame URLs change request hashes; the other 21 clips must be reused (S20/S41 need revised take windows).
 RETAKE_BODIES = {
     "S01": "In the supplied first frame, {C1} is the same fictional actor wearing the red-and-white clown costume and small red nose. Preserve his exact face, costume and this room. He slowly turns his head toward the warm lamp and breathes gently; fabric settles naturally. The flush square floor access panel at right stays completely CLOSED and level with the floor for the entire shot. No one touches it. Gentle camera push, one continuous shot, no cuts or new people.",
+    "S04": "Continue the supplied first frame of the SAME established brick house, keeping exactly its roof, windows, door, hedge and parked car. The camera is LOCKED OFF. The small anonymous fully clothed adult back silhouettes already along the lower foreground slowly walk to the left and partly out of frame; none turns toward camera. Bare branches visibly sway in the breeze and hedge tips bend independently. Blue-hour exterior with warm windows, one continuous shot, no new faces, no pan or zoom, no cut or building change.",
+    "S07": "Fixed-camera colour 3D CGI close shot of a red-and-white clown costume draped on a wooden chair beside a tungsten lamp in a plain 1978 wood-panelled room. Two anonymous adult white-gloved hands enter from the side and slowly fold ONE loose red sleeve over the costume, then move away. A small round red nose stays stationary on the seat, unchanged. No face or body in frame. The camera does not move: the folding cloth and hands provide the clearly visible motion. Stable anatomy, single continuous shot, no text or scene changes.",
     "S09": "Continue the supplied first frame with exactly the same fictional actor {C1}, navy shirt, face and home-office desk. He slowly slides the blank building plan a few centimetres across the desk with both hands, then lowers his gaze. Keep the paper flat and fingers anatomically stable. Gentle lateral camera move. One uninterrupted shot, no makeup, no mirror, no additional people or scene change.",
     "S11": "Continue the supplied first frame. {C1} wears the identical red-and-white clown costume, white collar, white gloves and small red nose. Preserve his exact underlying face and the single community room. He slowly opens his palms in a small friendly party gesture, then relaxes them; the tethered red balloon gently sways independently. No other people. Restrained expression, no horror. Single continuous slow camera slide, no costume change or cuts.",
     "S13": "Colour 3D CGI animation, physically modelled walnut archive desk in a plain 1970s office. Tight downward close-up of one unlettered buff paper folder lying FLAT on the desk. One anonymous adult hand in a dark wool sleeve slowly closes the folder, rests on it briefly, then withdraws out of frame. All faces and bodies remain outside frame. Stable paper geometry, natural hand motion, soft tungsten light and cool blue fill. One continuous slight camera move. No people in background, no shadows shaped like people, no writing, no floating props or scene cuts.",
@@ -627,8 +630,16 @@ RETAKE_BODIES = {
     "S29": "Continue the supplied first frame outside the SAME brick house, preserving its roof, windows, front door, hedge and parked unmarked car. The camera remains OUTSIDE for the entire shot. In the low foreground the existing anonymous adult back silhouettes gently shift weight without revealing any faces; wind bends the hedge and bare twigs independently. The parked car stays the same rigid car in the same place. Cool evening surveillance atmosphere with warm window light. One continuous shot, no interior view, no dissolves, double exposure, new objects or scene change.",
     "S31": "Colour 3D CGI close shot of a square wooden floor access panel lying completely CLOSED, flush and LEVEL with the surrounding wooden floor in a modest 1978 wood-panelled room. The panel is a flat square seam with a small recessed pull, NOT an upright door. A soft flashlight beam slowly sweeps across the closed panel from left to right; the camera slides gently at low height. No person, hand or face is visible anywhere. The lid remains closed and untouched from first frame to last. No opening, dark hole, contents, bodies, remains, violence or scene cuts.",
     "S45": "Continue the supplied first frame of the SAME established brick house, preserving exactly its roofline, windows, door and hedge. Cool blue dawn atmosphere. The small anonymous adult back silhouettes already low in the foreground slowly walk away beyond the bottom edge without turning toward camera; the entrance stays shut. Wind gently sways the bare branches and hedge independently as the camera slowly retreats. The porch lamp gradually dims. Leave the house quiet, no new people, no face close-ups, no new buildings, interior view, dissolves or scene changes.",
+    "S34": "Fixed-camera colour 3D CGI riverbank exterior in a cold Midwestern winter. Open flowing water is clearly visible across the middle of the frame. One EMPTY plain wooden rowboat is tied securely to a short wooden piling at right, gently bobbing UP AND DOWN with the water; the rope remains taut and the boat keeps its rigid shape. Wind sways tall reeds at left and small ripples flow across the river. No people, bodies, remains, contents, writing or discoveries. The camera remains completely still so the independent boat, water and reed motion is obvious. One continuous quiet respectful shot.",
+    "S35": "Fixed-camera colour 3D CGI medium-wide shot of ONE EMPTY wooden chair beside a tall window in a modest 1978 walnut-panelled room. A thin white curtain visibly billows a hand-width INTO the room, then settles and billows again in a continuous draught. The chair stays empty and rigid. Soft tungsten lamp, restrained cold blue window light. No people, hands, portraits, writing or new objects. The camera does NOT move, pan or zoom: the physically simulated curtain supplies the continuous motion. One uninterrupted shot.",
+    "S44": "Fixed-camera colour 3D CGI community-room interior: an EMPTY wooden chair at left, a plain vase of white flowers at right and a thin white curtain behind the vase. A steady draught makes the curtain visibly billow into the room twice and the flower stems nod gently without changing shape. One loose white petal slowly drifts down beside the vase. No people or faces, no text or new objects. Soft tungsten and blue light, respectful quiet atmosphere. The camera is completely still throughout; cloth, flowers and petal move independently. One continuous shot, no zoom or cuts.",
     "S37": "Continue the supplied first frame with the exact same fictional adult actress {C2}, identical face, chestnut waved hair, blue cardigan and home interior. She slowly turns her gaze from the closed door toward the camera's left, then rests her eyes downward; one shoulder relaxes with a slow natural breath. Restrained grief, no melodrama. Hands stay below frame, no new objects or people. One continuous gently moving camera shot, no face or age changes and no cuts.",
 }
+MOTION_STYLE = ('Colour physically modelled 3D CGI animated reenactment, 1970s American Midwest, '
+ 'walnut and period clothing, cool blue fill and warm tungsten light. FIXED tripod camera, no pan or zoom. '
+ 'Only the specified character, cloth, light or object moves; make that independent motion clearly visible. '
+ 'One continuous shot, horizontal thirds, uncluttered lower subtitle area. No readable text or real portraits. ')
+MOTION_STYLE_SHOTS = {'S04','S07','S13','S16','S21','S31','S34','S35','S44'}
 SHOTS = [row[:5] + ((RETAKE_BODIES[row[0]] + " HOLD: one continuous shot, no cuts, no scene change, no camera relocation.") if row[0] in RETAKE_BODIES else row[5],) + row[6:] for row in SHOTS]
 
 def first_frame_urls():
@@ -710,6 +721,9 @@ def build():
             "seconds": AGNES_SECONDS, "aspect": "16:9", "resolution": "1080p", "frame_rate": 24,
             "camera": camera, "sfx_note": sfx,
         }
+        if sid in MOTION_STYLE_SHOTS:
+            shot["style_prefix_override"] = MOTION_STYLE
+            shot["camera"] = "固定机位；镜内有明确独立动作"
         if sid in FACE_SHOTS:
             shot["cast"] = FACE_SHOTS[sid]
         if sid in REFERENCE_SHOTS:

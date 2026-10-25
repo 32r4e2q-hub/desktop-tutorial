@@ -1,7 +1,7 @@
 {
   "film_sha256": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4",
   "source_audit": "production/gacy1978/delivery/frame-distortion-audit.json",
-  "selection_policy": "start/middle/end of each temporal window; each face candidate; median hand-geometry event per affected shot",
+  "selection_policy": "bounded previews: temporal/hand candidates and first/middle/last per face group; max 160 files / 12 MiB",
   "max_width": 960,
   "frames": [
     {
@@ -35,26 +35,6 @@
       "height": 540
     },
     {
-      "frame": 9,
-      "seconds": 0.3,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00009_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 10,
-      "seconds": 0.333,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00010_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 11,
       "seconds": 0.367,
       "reasons": [
@@ -62,36 +42,6 @@
         "temporal-S01-end"
       ],
       "file": "f00011_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 12,
-      "seconds": 0.4,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00012_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 13,
-      "seconds": 0.433,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00013_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 14,
-      "seconds": 0.467,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00014_face-S01.jpg",
       "width": 960,
       "height": 540
     },
@@ -105,26 +55,6 @@
         "temporal-S01-start"
       ],
       "file": "f00015_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 16,
-      "seconds": 0.533,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00016_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 17,
-      "seconds": 0.567,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00017_face-S01.jpg",
       "width": 960,
       "height": 540
     },
@@ -151,16 +81,6 @@
         "temporal-S01-start"
       ],
       "file": "f00024_face-S01.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 25,
-      "seconds": 0.833,
-      "reasons": [
-        "face-S01"
-      ],
-      "file": "f00025_face-S01.jpg",
       "width": 960,
       "height": 540
     },
@@ -233,692 +153,12 @@
       "height": 540
     },
     {
-      "frame": 236,
-      "seconds": 7.867,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00236_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 237,
-      "seconds": 7.9,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00237_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 238,
-      "seconds": 7.933,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00238_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 239,
-      "seconds": 7.967,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00239_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 240,
-      "seconds": 8.0,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00240_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 241,
-      "seconds": 8.033,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00241_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 242,
-      "seconds": 8.067,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00242_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 243,
-      "seconds": 8.1,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00243_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 244,
-      "seconds": 8.133,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00244_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 245,
-      "seconds": 8.167,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00245_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 246,
-      "seconds": 8.2,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00246_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 247,
-      "seconds": 8.233,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00247_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 248,
-      "seconds": 8.267,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00248_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 249,
-      "seconds": 8.3,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00249_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 250,
-      "seconds": 8.333,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00250_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 251,
-      "seconds": 8.367,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00251_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 252,
-      "seconds": 8.4,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00252_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 253,
-      "seconds": 8.433,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00253_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 254,
-      "seconds": 8.467,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00254_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 255,
-      "seconds": 8.5,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00255_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 256,
-      "seconds": 8.533,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00256_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 257,
-      "seconds": 8.567,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00257_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 258,
-      "seconds": 8.6,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00258_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 259,
-      "seconds": 8.633,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00259_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 260,
-      "seconds": 8.667,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00260_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 261,
-      "seconds": 8.7,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00261_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 262,
-      "seconds": 8.733,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00262_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 263,
-      "seconds": 8.767,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00263_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 264,
-      "seconds": 8.8,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00264_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 265,
-      "seconds": 8.833,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00265_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 266,
-      "seconds": 8.867,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00266_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 267,
-      "seconds": 8.9,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00267_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 268,
-      "seconds": 8.933,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00268_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 269,
-      "seconds": 8.967,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00269_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 270,
       "seconds": 9.0,
       "reasons": [
         "face-S03"
       ],
       "file": "f00270_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 271,
-      "seconds": 9.033,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00271_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 272,
-      "seconds": 9.067,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00272_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 273,
-      "seconds": 9.1,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00273_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 274,
-      "seconds": 9.133,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00274_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 275,
-      "seconds": 9.167,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00275_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 276,
-      "seconds": 9.2,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00276_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 277,
-      "seconds": 9.233,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00277_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 278,
-      "seconds": 9.267,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00278_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 279,
-      "seconds": 9.3,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00279_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 280,
-      "seconds": 9.333,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00280_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 281,
-      "seconds": 9.367,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00281_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 282,
-      "seconds": 9.4,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00282_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 283,
-      "seconds": 9.433,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00283_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 284,
-      "seconds": 9.467,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00284_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 285,
-      "seconds": 9.5,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00285_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 286,
-      "seconds": 9.533,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00286_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 287,
-      "seconds": 9.567,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00287_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 288,
-      "seconds": 9.6,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00288_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 289,
-      "seconds": 9.633,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00289_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 290,
-      "seconds": 9.667,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00290_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 291,
-      "seconds": 9.7,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00291_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 292,
-      "seconds": 9.733,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00292_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 293,
-      "seconds": 9.767,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00293_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 294,
-      "seconds": 9.8,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00294_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 295,
-      "seconds": 9.833,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00295_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 296,
-      "seconds": 9.867,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00296_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 297,
-      "seconds": 9.9,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00297_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 298,
-      "seconds": 9.933,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00298_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 299,
-      "seconds": 9.967,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00299_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 300,
-      "seconds": 10.0,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00300_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 301,
-      "seconds": 10.033,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00301_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 302,
-      "seconds": 10.067,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00302_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 303,
-      "seconds": 10.1,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00303_face-S03.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 304,
-      "seconds": 10.133,
-      "reasons": [
-        "face-S03"
-      ],
-      "file": "f00304_face-S03.jpg",
       "width": 960,
       "height": 540
     },
@@ -953,616 +193,6 @@
       "height": 540
     },
     {
-      "frame": 883,
-      "seconds": 29.433,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00883_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 884,
-      "seconds": 29.467,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00884_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 885,
-      "seconds": 29.5,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00885_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 886,
-      "seconds": 29.533,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00886_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 887,
-      "seconds": 29.567,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00887_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 888,
-      "seconds": 29.6,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00888_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 889,
-      "seconds": 29.633,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00889_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 890,
-      "seconds": 29.667,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00890_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 891,
-      "seconds": 29.7,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00891_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 892,
-      "seconds": 29.733,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00892_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 893,
-      "seconds": 29.767,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00893_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 894,
-      "seconds": 29.8,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00894_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 895,
-      "seconds": 29.833,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00895_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 896,
-      "seconds": 29.867,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00896_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 897,
-      "seconds": 29.9,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00897_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 898,
-      "seconds": 29.933,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00898_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 899,
-      "seconds": 29.967,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00899_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 900,
-      "seconds": 30.0,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00900_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 901,
-      "seconds": 30.033,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00901_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 902,
-      "seconds": 30.067,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00902_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 903,
-      "seconds": 30.1,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00903_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 904,
-      "seconds": 30.133,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00904_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 905,
-      "seconds": 30.167,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00905_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 906,
-      "seconds": 30.2,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00906_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 907,
-      "seconds": 30.233,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00907_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 908,
-      "seconds": 30.267,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00908_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 909,
-      "seconds": 30.3,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00909_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 910,
-      "seconds": 30.333,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00910_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 911,
-      "seconds": 30.367,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00911_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 912,
-      "seconds": 30.4,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00912_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 913,
-      "seconds": 30.433,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00913_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 914,
-      "seconds": 30.467,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00914_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 915,
-      "seconds": 30.5,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00915_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 916,
-      "seconds": 30.533,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00916_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 917,
-      "seconds": 30.567,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00917_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 918,
-      "seconds": 30.6,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00918_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 919,
-      "seconds": 30.633,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00919_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 920,
-      "seconds": 30.667,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00920_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 921,
-      "seconds": 30.7,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00921_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 922,
-      "seconds": 30.733,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00922_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 923,
-      "seconds": 30.767,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00923_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 924,
-      "seconds": 30.8,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00924_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 925,
-      "seconds": 30.833,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00925_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 926,
-      "seconds": 30.867,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00926_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 927,
-      "seconds": 30.9,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00927_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 928,
-      "seconds": 30.933,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00928_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 929,
-      "seconds": 30.967,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00929_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 930,
-      "seconds": 31.0,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00930_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 931,
-      "seconds": 31.033,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00931_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 932,
-      "seconds": 31.067,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00932_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 933,
-      "seconds": 31.1,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00933_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 934,
-      "seconds": 31.133,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00934_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 935,
-      "seconds": 31.167,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00935_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 936,
-      "seconds": 31.2,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00936_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 937,
-      "seconds": 31.233,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00937_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 938,
-      "seconds": 31.267,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00938_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 939,
-      "seconds": 31.3,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00939_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 940,
-      "seconds": 31.333,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00940_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 941,
-      "seconds": 31.367,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00941_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 942,
-      "seconds": 31.4,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00942_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 943,
-      "seconds": 31.433,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00943_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 944,
       "seconds": 31.467,
       "reasons": [
@@ -1572,36 +202,6 @@
         "temporal-S09-start"
       ],
       "file": "f00944_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 945,
-      "seconds": 31.5,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00945_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 946,
-      "seconds": 31.533,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00946_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 947,
-      "seconds": 31.567,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00947_face-S09.jpg",
       "width": 960,
       "height": 540
     },
@@ -1617,36 +217,6 @@
       "height": 540
     },
     {
-      "frame": 949,
-      "seconds": 31.633,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00949_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 950,
-      "seconds": 31.667,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00950_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 951,
-      "seconds": 31.7,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00951_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 952,
       "seconds": 31.733,
       "reasons": [
@@ -1658,46 +228,6 @@
       "height": 540
     },
     {
-      "frame": 953,
-      "seconds": 31.767,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00953_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 954,
-      "seconds": 31.8,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00954_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 955,
-      "seconds": 31.833,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00955_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 956,
-      "seconds": 31.867,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00956_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 957,
       "seconds": 31.9,
       "reasons": [
@@ -1705,36 +235,6 @@
         "temporal-S09-end"
       ],
       "file": "f00957_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 958,
-      "seconds": 31.933,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00958_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 959,
-      "seconds": 31.967,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00959_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 960,
-      "seconds": 32.0,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00960_face-S09.jpg",
       "width": 960,
       "height": 540
     },
@@ -1752,46 +252,6 @@
       "height": 540
     },
     {
-      "frame": 962,
-      "seconds": 32.067,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00962_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 963,
-      "seconds": 32.1,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00963_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 964,
-      "seconds": 32.133,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00964_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 965,
-      "seconds": 32.167,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00965_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 966,
       "seconds": 32.2,
       "reasons": [
@@ -1801,286 +261,6 @@
         "temporal-S09-start"
       ],
       "file": "f00966_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 967,
-      "seconds": 32.233,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00967_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 968,
-      "seconds": 32.267,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00968_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 969,
-      "seconds": 32.3,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00969_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 970,
-      "seconds": 32.333,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00970_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 971,
-      "seconds": 32.367,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00971_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 972,
-      "seconds": 32.4,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00972_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 973,
-      "seconds": 32.433,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00973_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 974,
-      "seconds": 32.467,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00974_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 975,
-      "seconds": 32.5,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00975_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 976,
-      "seconds": 32.533,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00976_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 977,
-      "seconds": 32.567,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00977_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 978,
-      "seconds": 32.6,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00978_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 979,
-      "seconds": 32.633,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00979_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 980,
-      "seconds": 32.667,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00980_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 981,
-      "seconds": 32.7,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00981_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 982,
-      "seconds": 32.733,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00982_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 983,
-      "seconds": 32.767,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00983_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 984,
-      "seconds": 32.8,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00984_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 985,
-      "seconds": 32.833,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00985_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 986,
-      "seconds": 32.867,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00986_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 989,
-      "seconds": 32.967,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00989_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 990,
-      "seconds": 33.0,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00990_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 993,
-      "seconds": 33.1,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00993_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 994,
-      "seconds": 33.133,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00994_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 995,
-      "seconds": 33.167,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00995_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 996,
-      "seconds": 33.2,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00996_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 998,
-      "seconds": 33.267,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00998_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 999,
-      "seconds": 33.3,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f00999_face-S09.jpg",
       "width": 960,
       "height": 540
     },
@@ -2110,176 +290,6 @@
       "height": 540
     },
     {
-      "frame": 1010,
-      "seconds": 33.667,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01010_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1011,
-      "seconds": 33.7,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01011_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1012,
-      "seconds": 33.733,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01012_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1013,
-      "seconds": 33.767,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01013_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1014,
-      "seconds": 33.8,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01014_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1015,
-      "seconds": 33.833,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01015_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1016,
-      "seconds": 33.867,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01016_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1017,
-      "seconds": 33.9,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01017_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1018,
-      "seconds": 33.933,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01018_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1019,
-      "seconds": 33.967,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01019_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1020,
-      "seconds": 34.0,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01020_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1021,
-      "seconds": 34.033,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01021_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1022,
-      "seconds": 34.067,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01022_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1023,
-      "seconds": 34.1,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01023_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1024,
-      "seconds": 34.133,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01024_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1025,
-      "seconds": 34.167,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01025_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1026,
-      "seconds": 34.2,
-      "reasons": [
-        "face-S09"
-      ],
-      "file": "f01026_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 1027,
       "seconds": 34.233,
       "reasons": [
@@ -2300,882 +310,12 @@
       "height": 540
     },
     {
-      "frame": 1140,
-      "seconds": 38.0,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01140_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1141,
-      "seconds": 38.033,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01141_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1142,
-      "seconds": 38.067,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01142_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1143,
-      "seconds": 38.1,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01143_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1144,
-      "seconds": 38.133,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01144_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1145,
-      "seconds": 38.167,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01145_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1146,
-      "seconds": 38.2,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01146_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1147,
-      "seconds": 38.233,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01147_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1148,
-      "seconds": 38.267,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01148_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1149,
-      "seconds": 38.3,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01149_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1150,
-      "seconds": 38.333,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01150_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1151,
-      "seconds": 38.367,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01151_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1152,
-      "seconds": 38.4,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01152_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1153,
-      "seconds": 38.433,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01153_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1154,
-      "seconds": 38.467,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01154_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1155,
-      "seconds": 38.5,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01155_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1156,
-      "seconds": 38.533,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01156_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1157,
-      "seconds": 38.567,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01157_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1158,
-      "seconds": 38.6,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01158_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1159,
-      "seconds": 38.633,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01159_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1160,
-      "seconds": 38.667,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01160_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1161,
-      "seconds": 38.7,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01161_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1162,
-      "seconds": 38.733,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01162_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1163,
-      "seconds": 38.767,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01163_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1164,
-      "seconds": 38.8,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01164_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1165,
-      "seconds": 38.833,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01165_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1166,
-      "seconds": 38.867,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01166_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1167,
-      "seconds": 38.9,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01167_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1168,
-      "seconds": 38.933,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01168_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1169,
-      "seconds": 38.967,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01169_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1170,
-      "seconds": 39.0,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01170_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1171,
-      "seconds": 39.033,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01171_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1172,
-      "seconds": 39.067,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01172_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1173,
-      "seconds": 39.1,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01173_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1174,
-      "seconds": 39.133,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01174_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1175,
-      "seconds": 39.167,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01175_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1176,
-      "seconds": 39.2,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01176_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1177,
-      "seconds": 39.233,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01177_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1178,
-      "seconds": 39.267,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01178_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1179,
-      "seconds": 39.3,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01179_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1180,
-      "seconds": 39.333,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01180_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1181,
-      "seconds": 39.367,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01181_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1182,
-      "seconds": 39.4,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01182_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1183,
-      "seconds": 39.433,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01183_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 1184,
       "seconds": 39.467,
       "reasons": [
         "face-S11"
       ],
       "file": "f01184_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1185,
-      "seconds": 39.5,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01185_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1186,
-      "seconds": 39.533,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01186_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1187,
-      "seconds": 39.567,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01187_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1188,
-      "seconds": 39.6,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01188_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1189,
-      "seconds": 39.633,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01189_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1190,
-      "seconds": 39.667,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01190_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1191,
-      "seconds": 39.7,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01191_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1192,
-      "seconds": 39.733,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01192_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1193,
-      "seconds": 39.767,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01193_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1194,
-      "seconds": 39.8,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01194_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1195,
-      "seconds": 39.833,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01195_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1196,
-      "seconds": 39.867,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01196_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1197,
-      "seconds": 39.9,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01197_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1198,
-      "seconds": 39.933,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01198_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1199,
-      "seconds": 39.967,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01199_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1200,
-      "seconds": 40.0,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01200_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1201,
-      "seconds": 40.033,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01201_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1202,
-      "seconds": 40.067,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01202_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1203,
-      "seconds": 40.1,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01203_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1204,
-      "seconds": 40.133,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01204_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1205,
-      "seconds": 40.167,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01205_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1206,
-      "seconds": 40.2,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01206_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1207,
-      "seconds": 40.233,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01207_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1208,
-      "seconds": 40.267,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01208_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1209,
-      "seconds": 40.3,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01209_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1210,
-      "seconds": 40.333,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01210_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1211,
-      "seconds": 40.367,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01211_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1212,
-      "seconds": 40.4,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01212_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1213,
-      "seconds": 40.433,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01213_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1214,
-      "seconds": 40.467,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01214_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1215,
-      "seconds": 40.5,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01215_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1216,
-      "seconds": 40.533,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01216_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1217,
-      "seconds": 40.567,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01217_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1218,
-      "seconds": 40.6,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01218_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1219,
-      "seconds": 40.633,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01219_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1220,
-      "seconds": 40.667,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01220_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1221,
-      "seconds": 40.7,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01221_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1222,
-      "seconds": 40.733,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01222_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1223,
-      "seconds": 40.767,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01223_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1224,
-      "seconds": 40.8,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01224_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1225,
-      "seconds": 40.833,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01225_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1226,
-      "seconds": 40.867,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01226_face-S11.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1227,
-      "seconds": 40.9,
-      "reasons": [
-        "face-S11"
-      ],
-      "file": "f01227_face-S11.jpg",
       "width": 960,
       "height": 540
     },
@@ -3224,46 +364,6 @@
       "height": 540
     },
     {
-      "frame": 1977,
-      "seconds": 65.9,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01977_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1978,
-      "seconds": 65.933,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01978_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1979,
-      "seconds": 65.967,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01979_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1980,
-      "seconds": 66.0,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01980_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 1981,
       "seconds": 66.033,
       "reasons": [
@@ -3275,1202 +375,12 @@
       "height": 540
     },
     {
-      "frame": 1982,
-      "seconds": 66.067,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01982_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1983,
-      "seconds": 66.1,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01983_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1984,
-      "seconds": 66.133,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01984_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1985,
-      "seconds": 66.167,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01985_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1986,
-      "seconds": 66.2,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01986_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1987,
-      "seconds": 66.233,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01987_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1988,
-      "seconds": 66.267,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01988_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1989,
-      "seconds": 66.3,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01989_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1990,
-      "seconds": 66.333,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01990_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1991,
-      "seconds": 66.367,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01991_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1992,
-      "seconds": 66.4,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01992_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1993,
-      "seconds": 66.433,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01993_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1994,
-      "seconds": 66.467,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01994_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1995,
-      "seconds": 66.5,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01995_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1996,
-      "seconds": 66.533,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01996_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1997,
-      "seconds": 66.567,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01997_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1999,
-      "seconds": 66.633,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f01999_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2000,
-      "seconds": 66.667,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02000_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2001,
-      "seconds": 66.7,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02001_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2004,
-      "seconds": 66.8,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02004_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2005,
-      "seconds": 66.833,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02005_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2006,
-      "seconds": 66.867,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02006_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2007,
-      "seconds": 66.9,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02007_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2008,
-      "seconds": 66.933,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02008_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2009,
-      "seconds": 66.967,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02009_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2010,
-      "seconds": 67.0,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02010_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2011,
-      "seconds": 67.033,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02011_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2012,
-      "seconds": 67.067,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02012_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2013,
-      "seconds": 67.1,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02013_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2014,
-      "seconds": 67.133,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02014_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2015,
-      "seconds": 67.167,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02015_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2016,
-      "seconds": 67.2,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02016_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2017,
-      "seconds": 67.233,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02017_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2018,
-      "seconds": 67.267,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02018_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2019,
-      "seconds": 67.3,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02019_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2020,
-      "seconds": 67.333,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02020_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2021,
-      "seconds": 67.367,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02021_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2022,
-      "seconds": 67.4,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02022_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2023,
-      "seconds": 67.433,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02023_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2024,
-      "seconds": 67.467,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02024_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2025,
-      "seconds": 67.5,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02025_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2026,
-      "seconds": 67.533,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02026_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2027,
-      "seconds": 67.567,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02027_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2028,
-      "seconds": 67.6,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02028_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2029,
-      "seconds": 67.633,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02029_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2030,
-      "seconds": 67.667,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02030_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2031,
-      "seconds": 67.7,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02031_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2032,
-      "seconds": 67.733,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02032_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2033,
-      "seconds": 67.767,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02033_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2034,
-      "seconds": 67.8,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02034_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2035,
-      "seconds": 67.833,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02035_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2036,
-      "seconds": 67.867,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02036_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2037,
-      "seconds": 67.9,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02037_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2038,
-      "seconds": 67.933,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02038_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2039,
-      "seconds": 67.967,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02039_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2040,
-      "seconds": 68.0,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02040_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2041,
-      "seconds": 68.033,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02041_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 2042,
       "seconds": 68.067,
       "reasons": [
         "face-S19"
       ],
       "file": "f02042_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2043,
-      "seconds": 68.1,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02043_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2044,
-      "seconds": 68.133,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02044_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2045,
-      "seconds": 68.167,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02045_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2046,
-      "seconds": 68.2,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02046_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2047,
-      "seconds": 68.233,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02047_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2048,
-      "seconds": 68.267,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02048_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2049,
-      "seconds": 68.3,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02049_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2050,
-      "seconds": 68.333,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02050_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2051,
-      "seconds": 68.367,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02051_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2052,
-      "seconds": 68.4,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02052_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2053,
-      "seconds": 68.433,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02053_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2054,
-      "seconds": 68.467,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02054_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2055,
-      "seconds": 68.5,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02055_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2056,
-      "seconds": 68.533,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02056_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2057,
-      "seconds": 68.567,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02057_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2058,
-      "seconds": 68.6,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02058_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2059,
-      "seconds": 68.633,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02059_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2060,
-      "seconds": 68.667,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02060_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2061,
-      "seconds": 68.7,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02061_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2062,
-      "seconds": 68.733,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02062_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2063,
-      "seconds": 68.767,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02063_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2064,
-      "seconds": 68.8,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02064_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2065,
-      "seconds": 68.833,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02065_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2066,
-      "seconds": 68.867,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02066_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2067,
-      "seconds": 68.9,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02067_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2068,
-      "seconds": 68.933,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02068_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2069,
-      "seconds": 68.967,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02069_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2070,
-      "seconds": 69.0,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02070_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2071,
-      "seconds": 69.033,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02071_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2072,
-      "seconds": 69.067,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02072_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2073,
-      "seconds": 69.1,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02073_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2074,
-      "seconds": 69.133,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02074_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2075,
-      "seconds": 69.167,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02075_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2076,
-      "seconds": 69.2,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02076_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2077,
-      "seconds": 69.233,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02077_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2078,
-      "seconds": 69.267,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02078_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2079,
-      "seconds": 69.3,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02079_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2080,
-      "seconds": 69.333,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02080_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2081,
-      "seconds": 69.367,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02081_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2082,
-      "seconds": 69.4,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02082_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2083,
-      "seconds": 69.433,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02083_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2084,
-      "seconds": 69.467,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02084_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2085,
-      "seconds": 69.5,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02085_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2086,
-      "seconds": 69.533,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02086_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2087,
-      "seconds": 69.567,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02087_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2088,
-      "seconds": 69.6,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02088_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2089,
-      "seconds": 69.633,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02089_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2090,
-      "seconds": 69.667,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02090_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2091,
-      "seconds": 69.7,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02091_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2092,
-      "seconds": 69.733,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02092_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2093,
-      "seconds": 69.767,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02093_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2094,
-      "seconds": 69.8,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02094_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2095,
-      "seconds": 69.833,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02095_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2096,
-      "seconds": 69.867,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02096_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2097,
-      "seconds": 69.9,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02097_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2098,
-      "seconds": 69.933,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02098_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2099,
-      "seconds": 69.967,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02099_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2100,
-      "seconds": 70.0,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02100_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2101,
-      "seconds": 70.033,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02101_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2102,
-      "seconds": 70.067,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02102_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2103,
-      "seconds": 70.1,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02103_face-S19.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2104,
-      "seconds": 70.133,
-      "reasons": [
-        "face-S19"
-      ],
-      "file": "f02104_face-S19.jpg",
       "width": 960,
       "height": 540
     },
@@ -4619,842 +529,12 @@
       "height": 540
     },
     {
-      "frame": 2582,
-      "seconds": 86.067,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02582_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2583,
-      "seconds": 86.1,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02583_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2584,
-      "seconds": 86.133,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02584_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2585,
-      "seconds": 86.167,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02585_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2586,
-      "seconds": 86.2,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02586_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2587,
-      "seconds": 86.233,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02587_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2588,
-      "seconds": 86.267,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02588_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2589,
-      "seconds": 86.3,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02589_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2590,
-      "seconds": 86.333,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02590_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2591,
-      "seconds": 86.367,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02591_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2592,
-      "seconds": 86.4,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02592_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2593,
-      "seconds": 86.433,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02593_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2594,
-      "seconds": 86.467,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02594_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2595,
-      "seconds": 86.5,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02595_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2596,
-      "seconds": 86.533,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02596_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2597,
-      "seconds": 86.567,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02597_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2598,
-      "seconds": 86.6,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02598_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2599,
-      "seconds": 86.633,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02599_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2600,
-      "seconds": 86.667,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02600_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2601,
-      "seconds": 86.7,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02601_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2602,
-      "seconds": 86.733,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02602_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2603,
-      "seconds": 86.767,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02603_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2604,
-      "seconds": 86.8,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02604_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2605,
-      "seconds": 86.833,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02605_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2606,
-      "seconds": 86.867,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02606_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2607,
-      "seconds": 86.9,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02607_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2608,
-      "seconds": 86.933,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02608_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2609,
-      "seconds": 86.967,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02609_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2610,
-      "seconds": 87.0,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02610_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2611,
-      "seconds": 87.033,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02611_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2612,
-      "seconds": 87.067,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02612_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2613,
-      "seconds": 87.1,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02613_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2614,
-      "seconds": 87.133,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02614_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2615,
-      "seconds": 87.167,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02615_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2616,
-      "seconds": 87.2,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02616_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2617,
-      "seconds": 87.233,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02617_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2618,
-      "seconds": 87.267,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02618_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2619,
-      "seconds": 87.3,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02619_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2620,
-      "seconds": 87.333,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02620_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2621,
-      "seconds": 87.367,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02621_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2622,
-      "seconds": 87.4,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02622_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2623,
-      "seconds": 87.433,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02623_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 2624,
       "seconds": 87.467,
       "reasons": [
         "face-S24"
       ],
       "file": "f02624_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2625,
-      "seconds": 87.5,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02625_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2626,
-      "seconds": 87.533,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02626_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2627,
-      "seconds": 87.567,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02627_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2628,
-      "seconds": 87.6,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02628_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2629,
-      "seconds": 87.633,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02629_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2630,
-      "seconds": 87.667,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02630_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2631,
-      "seconds": 87.7,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02631_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2632,
-      "seconds": 87.733,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02632_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2633,
-      "seconds": 87.767,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02633_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2634,
-      "seconds": 87.8,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02634_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2635,
-      "seconds": 87.833,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02635_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2636,
-      "seconds": 87.867,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02636_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2637,
-      "seconds": 87.9,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02637_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2638,
-      "seconds": 87.933,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02638_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2639,
-      "seconds": 87.967,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02639_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2640,
-      "seconds": 88.0,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02640_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2641,
-      "seconds": 88.033,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02641_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2642,
-      "seconds": 88.067,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02642_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2643,
-      "seconds": 88.1,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02643_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2644,
-      "seconds": 88.133,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02644_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2645,
-      "seconds": 88.167,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02645_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2646,
-      "seconds": 88.2,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02646_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2647,
-      "seconds": 88.233,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02647_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2648,
-      "seconds": 88.267,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02648_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2649,
-      "seconds": 88.3,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02649_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2650,
-      "seconds": 88.333,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02650_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2651,
-      "seconds": 88.367,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02651_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2652,
-      "seconds": 88.4,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02652_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2653,
-      "seconds": 88.433,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02653_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2654,
-      "seconds": 88.467,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02654_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2655,
-      "seconds": 88.5,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02655_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2656,
-      "seconds": 88.533,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02656_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2657,
-      "seconds": 88.567,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02657_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2658,
-      "seconds": 88.6,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02658_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2659,
-      "seconds": 88.633,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02659_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2660,
-      "seconds": 88.667,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02660_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2661,
-      "seconds": 88.7,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02661_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2662,
-      "seconds": 88.733,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02662_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2663,
-      "seconds": 88.767,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02663_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2664,
-      "seconds": 88.8,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02664_face-S24.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2665,
-      "seconds": 88.833,
-      "reasons": [
-        "face-S24"
-      ],
-      "file": "f02665_face-S24.jpg",
       "width": 960,
       "height": 540
     },
@@ -5475,316 +555,6 @@
         "face-S25"
       ],
       "file": "f02667_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2668,
-      "seconds": 88.933,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02668_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2669,
-      "seconds": 88.967,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02669_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2670,
-      "seconds": 89.0,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02670_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2671,
-      "seconds": 89.033,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02671_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2672,
-      "seconds": 89.067,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02672_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2673,
-      "seconds": 89.1,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02673_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2674,
-      "seconds": 89.133,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02674_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2675,
-      "seconds": 89.167,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02675_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2676,
-      "seconds": 89.2,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02676_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2677,
-      "seconds": 89.233,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02677_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2678,
-      "seconds": 89.267,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02678_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2679,
-      "seconds": 89.3,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02679_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2680,
-      "seconds": 89.333,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02680_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2681,
-      "seconds": 89.367,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02681_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2682,
-      "seconds": 89.4,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02682_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2683,
-      "seconds": 89.433,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02683_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2684,
-      "seconds": 89.467,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02684_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2685,
-      "seconds": 89.5,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02685_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2686,
-      "seconds": 89.533,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02686_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2687,
-      "seconds": 89.567,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02687_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2688,
-      "seconds": 89.6,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02688_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2689,
-      "seconds": 89.633,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02689_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2690,
-      "seconds": 89.667,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02690_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2691,
-      "seconds": 89.7,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02691_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2692,
-      "seconds": 89.733,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02692_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2693,
-      "seconds": 89.767,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02693_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2694,
-      "seconds": 89.8,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02694_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2695,
-      "seconds": 89.833,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02695_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2696,
-      "seconds": 89.867,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02696_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2697,
-      "seconds": 89.9,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02697_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2698,
-      "seconds": 89.933,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02698_face-S25.jpg",
       "width": 960,
       "height": 540
     },
@@ -5814,872 +584,12 @@
       "height": 540
     },
     {
-      "frame": 2709,
-      "seconds": 90.3,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02709_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2710,
-      "seconds": 90.333,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02710_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2711,
-      "seconds": 90.367,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02711_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2712,
-      "seconds": 90.4,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02712_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2713,
-      "seconds": 90.433,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02713_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2714,
-      "seconds": 90.467,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02714_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2715,
-      "seconds": 90.5,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02715_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2716,
-      "seconds": 90.533,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02716_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2717,
-      "seconds": 90.567,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02717_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2718,
-      "seconds": 90.6,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02718_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2719,
-      "seconds": 90.633,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02719_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2720,
-      "seconds": 90.667,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02720_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2721,
-      "seconds": 90.7,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02721_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2722,
-      "seconds": 90.733,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02722_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2723,
-      "seconds": 90.767,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02723_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2724,
-      "seconds": 90.8,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02724_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2725,
-      "seconds": 90.833,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02725_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2726,
-      "seconds": 90.867,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02726_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2727,
-      "seconds": 90.9,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02727_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2728,
-      "seconds": 90.933,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02728_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2729,
-      "seconds": 90.967,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02729_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2730,
-      "seconds": 91.0,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02730_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2731,
-      "seconds": 91.033,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02731_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2732,
-      "seconds": 91.067,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02732_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2733,
-      "seconds": 91.1,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02733_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2734,
-      "seconds": 91.133,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02734_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2735,
-      "seconds": 91.167,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02735_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 2736,
       "seconds": 91.2,
       "reasons": [
         "face-S25"
       ],
       "file": "f02736_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2737,
-      "seconds": 91.233,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02737_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2738,
-      "seconds": 91.267,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02738_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2739,
-      "seconds": 91.3,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02739_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2740,
-      "seconds": 91.333,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02740_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2741,
-      "seconds": 91.367,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02741_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2742,
-      "seconds": 91.4,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02742_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2743,
-      "seconds": 91.433,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02743_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2744,
-      "seconds": 91.467,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02744_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2745,
-      "seconds": 91.5,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02745_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2746,
-      "seconds": 91.533,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02746_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2747,
-      "seconds": 91.567,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02747_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2748,
-      "seconds": 91.6,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02748_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2749,
-      "seconds": 91.633,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02749_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2750,
-      "seconds": 91.667,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02750_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2751,
-      "seconds": 91.7,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02751_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2752,
-      "seconds": 91.733,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02752_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2753,
-      "seconds": 91.767,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02753_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2754,
-      "seconds": 91.8,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02754_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2755,
-      "seconds": 91.833,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02755_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2756,
-      "seconds": 91.867,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02756_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2757,
-      "seconds": 91.9,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02757_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2758,
-      "seconds": 91.933,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02758_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2759,
-      "seconds": 91.967,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02759_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2760,
-      "seconds": 92.0,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02760_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2761,
-      "seconds": 92.033,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02761_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2762,
-      "seconds": 92.067,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02762_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2763,
-      "seconds": 92.1,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02763_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2764,
-      "seconds": 92.133,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02764_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2765,
-      "seconds": 92.167,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02765_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2766,
-      "seconds": 92.2,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02766_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2767,
-      "seconds": 92.233,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02767_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2768,
-      "seconds": 92.267,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02768_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2769,
-      "seconds": 92.3,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02769_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2770,
-      "seconds": 92.333,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02770_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2771,
-      "seconds": 92.367,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02771_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2772,
-      "seconds": 92.4,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02772_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2773,
-      "seconds": 92.433,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02773_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2774,
-      "seconds": 92.467,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02774_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2775,
-      "seconds": 92.5,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02775_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2776,
-      "seconds": 92.533,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02776_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2777,
-      "seconds": 92.567,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02777_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2778,
-      "seconds": 92.6,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02778_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2779,
-      "seconds": 92.633,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02779_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2780,
-      "seconds": 92.667,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02780_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2781,
-      "seconds": 92.7,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02781_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2782,
-      "seconds": 92.733,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02782_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2783,
-      "seconds": 92.767,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02783_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2784,
-      "seconds": 92.8,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02784_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2785,
-      "seconds": 92.833,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02785_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2786,
-      "seconds": 92.867,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02786_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2787,
-      "seconds": 92.9,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02787_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2788,
-      "seconds": 92.933,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02788_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2789,
-      "seconds": 92.967,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02789_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2790,
-      "seconds": 93.0,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02790_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2791,
-      "seconds": 93.033,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02791_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2792,
-      "seconds": 93.067,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02792_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2793,
-      "seconds": 93.1,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02793_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2794,
-      "seconds": 93.133,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02794_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2795,
-      "seconds": 93.167,
-      "reasons": [
-        "face-S25"
-      ],
-      "file": "f02795_face-S25.jpg",
       "width": 960,
       "height": 540
     },
@@ -6704,316 +614,6 @@
       "height": 540
     },
     {
-      "frame": 3059,
-      "seconds": 101.967,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03059_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3060,
-      "seconds": 102.0,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03060_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3061,
-      "seconds": 102.033,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03061_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3062,
-      "seconds": 102.067,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03062_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3063,
-      "seconds": 102.1,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03063_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3064,
-      "seconds": 102.133,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03064_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3065,
-      "seconds": 102.167,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03065_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3066,
-      "seconds": 102.2,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03066_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3067,
-      "seconds": 102.233,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03067_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3068,
-      "seconds": 102.267,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03068_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3069,
-      "seconds": 102.3,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03069_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3070,
-      "seconds": 102.333,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03070_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3071,
-      "seconds": 102.367,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03071_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3072,
-      "seconds": 102.4,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03072_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3073,
-      "seconds": 102.433,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03073_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3074,
-      "seconds": 102.467,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03074_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3075,
-      "seconds": 102.5,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03075_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3076,
-      "seconds": 102.533,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03076_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3077,
-      "seconds": 102.567,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03077_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3078,
-      "seconds": 102.6,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03078_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3079,
-      "seconds": 102.633,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03079_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3080,
-      "seconds": 102.667,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03080_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3081,
-      "seconds": 102.7,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03081_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3082,
-      "seconds": 102.733,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03082_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3083,
-      "seconds": 102.767,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03083_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3084,
-      "seconds": 102.8,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03084_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3085,
-      "seconds": 102.833,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03085_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3086,
-      "seconds": 102.867,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03086_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3087,
-      "seconds": 102.9,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03087_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3088,
-      "seconds": 102.933,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03088_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3089,
-      "seconds": 102.967,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03089_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 3090,
       "seconds": 103.0,
       "reasons": [
@@ -7025,962 +625,12 @@
       "height": 540
     },
     {
-      "frame": 3091,
-      "seconds": 103.033,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03091_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3092,
-      "seconds": 103.067,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03092_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3093,
-      "seconds": 103.1,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03093_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3094,
-      "seconds": 103.133,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03094_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3095,
-      "seconds": 103.167,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03095_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3096,
-      "seconds": 103.2,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03096_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3097,
-      "seconds": 103.233,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03097_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3098,
-      "seconds": 103.267,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03098_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3099,
-      "seconds": 103.3,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03099_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3100,
-      "seconds": 103.333,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03100_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3101,
-      "seconds": 103.367,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03101_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3102,
-      "seconds": 103.4,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03102_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3103,
-      "seconds": 103.433,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03103_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3104,
-      "seconds": 103.467,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03104_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3105,
-      "seconds": 103.5,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03105_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3106,
-      "seconds": 103.533,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03106_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3107,
-      "seconds": 103.567,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03107_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3108,
-      "seconds": 103.6,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03108_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3109,
-      "seconds": 103.633,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03109_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3110,
-      "seconds": 103.667,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03110_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3111,
-      "seconds": 103.7,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03111_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3112,
-      "seconds": 103.733,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03112_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3113,
-      "seconds": 103.767,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03113_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3114,
-      "seconds": 103.8,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03114_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3115,
-      "seconds": 103.833,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03115_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3116,
-      "seconds": 103.867,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03116_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3117,
-      "seconds": 103.9,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03117_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3118,
-      "seconds": 103.933,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03118_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3119,
-      "seconds": 103.967,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03119_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3120,
-      "seconds": 104.0,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03120_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3121,
-      "seconds": 104.033,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03121_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3122,
-      "seconds": 104.067,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03122_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 3123,
       "seconds": 104.1,
       "reasons": [
         "face-S28"
       ],
       "file": "f03123_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3124,
-      "seconds": 104.133,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03124_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3125,
-      "seconds": 104.167,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03125_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3126,
-      "seconds": 104.2,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03126_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3127,
-      "seconds": 104.233,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03127_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3128,
-      "seconds": 104.267,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03128_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3129,
-      "seconds": 104.3,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03129_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3130,
-      "seconds": 104.333,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03130_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3131,
-      "seconds": 104.367,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03131_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3132,
-      "seconds": 104.4,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03132_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3133,
-      "seconds": 104.433,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03133_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3134,
-      "seconds": 104.467,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03134_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3135,
-      "seconds": 104.5,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03135_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3136,
-      "seconds": 104.533,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03136_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3137,
-      "seconds": 104.567,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03137_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3138,
-      "seconds": 104.6,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03138_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3139,
-      "seconds": 104.633,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03139_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3140,
-      "seconds": 104.667,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03140_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3141,
-      "seconds": 104.7,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03141_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3142,
-      "seconds": 104.733,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03142_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3143,
-      "seconds": 104.767,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03143_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3144,
-      "seconds": 104.8,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03144_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3145,
-      "seconds": 104.833,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03145_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3146,
-      "seconds": 104.867,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03146_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3147,
-      "seconds": 104.9,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03147_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3148,
-      "seconds": 104.933,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03148_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3149,
-      "seconds": 104.967,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03149_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3150,
-      "seconds": 105.0,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03150_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3151,
-      "seconds": 105.033,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03151_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3152,
-      "seconds": 105.067,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03152_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3153,
-      "seconds": 105.1,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03153_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3154,
-      "seconds": 105.133,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03154_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3155,
-      "seconds": 105.167,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03155_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3156,
-      "seconds": 105.2,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03156_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3157,
-      "seconds": 105.233,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03157_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3158,
-      "seconds": 105.267,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03158_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3159,
-      "seconds": 105.3,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03159_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3160,
-      "seconds": 105.333,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03160_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3161,
-      "seconds": 105.367,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03161_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3162,
-      "seconds": 105.4,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03162_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3163,
-      "seconds": 105.433,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03163_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3164,
-      "seconds": 105.467,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03164_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3165,
-      "seconds": 105.5,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03165_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3166,
-      "seconds": 105.533,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03166_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3167,
-      "seconds": 105.567,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03167_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3168,
-      "seconds": 105.6,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03168_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3169,
-      "seconds": 105.633,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03169_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3170,
-      "seconds": 105.667,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03170_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3171,
-      "seconds": 105.7,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03171_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3172,
-      "seconds": 105.733,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03172_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3173,
-      "seconds": 105.767,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03173_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3174,
-      "seconds": 105.8,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03174_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3175,
-      "seconds": 105.833,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03175_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3176,
-      "seconds": 105.867,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03176_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3177,
-      "seconds": 105.9,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03177_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3178,
-      "seconds": 105.933,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03178_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3179,
-      "seconds": 105.967,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03179_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3180,
-      "seconds": 106.0,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03180_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3181,
-      "seconds": 106.033,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03181_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3182,
-      "seconds": 106.067,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03182_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3183,
-      "seconds": 106.1,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03183_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3184,
-      "seconds": 106.133,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03184_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3185,
-      "seconds": 106.167,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03185_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3186,
-      "seconds": 106.2,
-      "reasons": [
-        "face-S28"
-      ],
-      "file": "f03186_face-S28.jpg",
       "width": 960,
       "height": 540
     },
@@ -8103,366 +753,6 @@
       "height": 540
     },
     {
-      "frame": 4153,
-      "seconds": 138.433,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04153_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4154,
-      "seconds": 138.467,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04154_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4155,
-      "seconds": 138.5,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04155_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4156,
-      "seconds": 138.533,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04156_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4157,
-      "seconds": 138.567,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04157_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4158,
-      "seconds": 138.6,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04158_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4159,
-      "seconds": 138.633,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04159_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4160,
-      "seconds": 138.667,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04160_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4161,
-      "seconds": 138.7,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04161_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4162,
-      "seconds": 138.733,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04162_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4163,
-      "seconds": 138.767,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04163_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4164,
-      "seconds": 138.8,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04164_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4165,
-      "seconds": 138.833,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04165_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4166,
-      "seconds": 138.867,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04166_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4167,
-      "seconds": 138.9,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04167_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4168,
-      "seconds": 138.933,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04168_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4169,
-      "seconds": 138.967,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04169_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4170,
-      "seconds": 139.0,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04170_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4171,
-      "seconds": 139.033,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04171_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4172,
-      "seconds": 139.067,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04172_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4173,
-      "seconds": 139.1,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04173_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4174,
-      "seconds": 139.133,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04174_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4175,
-      "seconds": 139.167,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04175_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4176,
-      "seconds": 139.2,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04176_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4177,
-      "seconds": 139.233,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04177_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4178,
-      "seconds": 139.267,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04178_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4179,
-      "seconds": 139.3,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04179_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4180,
-      "seconds": 139.333,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04180_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4181,
-      "seconds": 139.367,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04181_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4182,
-      "seconds": 139.4,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04182_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4183,
-      "seconds": 139.433,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04183_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4184,
-      "seconds": 139.467,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04184_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4185,
-      "seconds": 139.5,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04185_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4186,
-      "seconds": 139.533,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04186_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4187,
-      "seconds": 139.567,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04187_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4188,
-      "seconds": 139.6,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04188_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 4189,
       "seconds": 139.633,
       "reasons": [
@@ -8474,992 +764,12 @@
       "height": 540
     },
     {
-      "frame": 4190,
-      "seconds": 139.667,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04190_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4191,
-      "seconds": 139.7,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04191_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4192,
-      "seconds": 139.733,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04192_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4193,
-      "seconds": 139.767,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04193_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4194,
-      "seconds": 139.8,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04194_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4195,
-      "seconds": 139.833,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04195_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4196,
-      "seconds": 139.867,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04196_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4197,
-      "seconds": 139.9,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04197_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4198,
-      "seconds": 139.933,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04198_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4199,
-      "seconds": 139.967,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04199_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4200,
-      "seconds": 140.0,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04200_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4201,
-      "seconds": 140.033,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04201_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4202,
-      "seconds": 140.067,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04202_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4203,
-      "seconds": 140.1,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04203_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4204,
-      "seconds": 140.133,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04204_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4205,
-      "seconds": 140.167,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04205_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4206,
-      "seconds": 140.2,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04206_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4207,
-      "seconds": 140.233,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04207_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4208,
-      "seconds": 140.267,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04208_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4209,
-      "seconds": 140.3,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04209_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4210,
-      "seconds": 140.333,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04210_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4211,
-      "seconds": 140.367,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04211_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4212,
-      "seconds": 140.4,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04212_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4213,
-      "seconds": 140.433,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04213_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4214,
-      "seconds": 140.467,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04214_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4215,
-      "seconds": 140.5,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04215_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4216,
-      "seconds": 140.533,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04216_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4217,
-      "seconds": 140.567,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04217_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4218,
-      "seconds": 140.6,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04218_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4219,
-      "seconds": 140.633,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04219_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4220,
-      "seconds": 140.667,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04220_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 4221,
       "seconds": 140.7,
       "reasons": [
         "face-S37"
       ],
       "file": "f04221_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4222,
-      "seconds": 140.733,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04222_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4223,
-      "seconds": 140.767,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04223_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4224,
-      "seconds": 140.8,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04224_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4225,
-      "seconds": 140.833,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04225_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4226,
-      "seconds": 140.867,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04226_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4227,
-      "seconds": 140.9,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04227_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4228,
-      "seconds": 140.933,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04228_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4229,
-      "seconds": 140.967,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04229_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4230,
-      "seconds": 141.0,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04230_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4231,
-      "seconds": 141.033,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04231_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4232,
-      "seconds": 141.067,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04232_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4233,
-      "seconds": 141.1,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04233_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4234,
-      "seconds": 141.133,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04234_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4235,
-      "seconds": 141.167,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04235_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4236,
-      "seconds": 141.2,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04236_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4237,
-      "seconds": 141.233,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04237_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4238,
-      "seconds": 141.267,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04238_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4239,
-      "seconds": 141.3,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04239_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4240,
-      "seconds": 141.333,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04240_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4241,
-      "seconds": 141.367,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04241_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4242,
-      "seconds": 141.4,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04242_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4243,
-      "seconds": 141.433,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04243_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4244,
-      "seconds": 141.467,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04244_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4245,
-      "seconds": 141.5,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04245_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4246,
-      "seconds": 141.533,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04246_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4247,
-      "seconds": 141.567,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04247_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4248,
-      "seconds": 141.6,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04248_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4249,
-      "seconds": 141.633,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04249_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4250,
-      "seconds": 141.667,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04250_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4251,
-      "seconds": 141.7,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04251_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4252,
-      "seconds": 141.733,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04252_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4253,
-      "seconds": 141.767,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04253_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4254,
-      "seconds": 141.8,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04254_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4255,
-      "seconds": 141.833,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04255_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4256,
-      "seconds": 141.867,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04256_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4257,
-      "seconds": 141.9,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04257_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4258,
-      "seconds": 141.933,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04258_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4259,
-      "seconds": 141.967,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04259_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4260,
-      "seconds": 142.0,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04260_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4261,
-      "seconds": 142.033,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04261_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4262,
-      "seconds": 142.067,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04262_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4263,
-      "seconds": 142.1,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04263_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4264,
-      "seconds": 142.133,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04264_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4265,
-      "seconds": 142.167,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04265_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4266,
-      "seconds": 142.2,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04266_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4267,
-      "seconds": 142.233,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04267_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4268,
-      "seconds": 142.267,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04268_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4269,
-      "seconds": 142.3,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04269_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4270,
-      "seconds": 142.333,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04270_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4271,
-      "seconds": 142.367,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04271_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4272,
-      "seconds": 142.4,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04272_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4273,
-      "seconds": 142.433,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04273_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4274,
-      "seconds": 142.467,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04274_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4275,
-      "seconds": 142.5,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04275_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4276,
-      "seconds": 142.533,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04276_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4277,
-      "seconds": 142.567,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04277_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4278,
-      "seconds": 142.6,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04278_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4279,
-      "seconds": 142.633,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04279_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4280,
-      "seconds": 142.667,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04280_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4281,
-      "seconds": 142.7,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04281_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4282,
-      "seconds": 142.733,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04282_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4283,
-      "seconds": 142.767,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04283_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4284,
-      "seconds": 142.8,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04284_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4285,
-      "seconds": 142.833,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04285_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4286,
-      "seconds": 142.867,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04286_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4287,
-      "seconds": 142.9,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04287_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4288,
-      "seconds": 142.933,
-      "reasons": [
-        "face-S37"
-      ],
-      "file": "f04288_face-S37.jpg",
       "width": 960,
       "height": 540
     },
@@ -9658,5 +968,880 @@
       "width": 960,
       "height": 540
     }
-  ]
+  ],
+  "full_candidate_count": 957,
+  "preview_bytes": 6046829,
+  "unpublished_candidate_frames": [
+    9,
+    10,
+    12,
+    13,
+    14,
+    16,
+    17,
+    25,
+    236,
+    237,
+    238,
+    239,
+    240,
+    241,
+    242,
+    243,
+    244,
+    245,
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    303,
+    304,
+    883,
+    884,
+    885,
+    886,
+    887,
+    888,
+    889,
+    890,
+    891,
+    892,
+    893,
+    894,
+    895,
+    896,
+    897,
+    898,
+    899,
+    900,
+    901,
+    902,
+    903,
+    904,
+    905,
+    906,
+    907,
+    908,
+    909,
+    910,
+    911,
+    912,
+    913,
+    914,
+    915,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    923,
+    924,
+    925,
+    926,
+    927,
+    928,
+    929,
+    930,
+    931,
+    932,
+    933,
+    934,
+    935,
+    936,
+    937,
+    938,
+    939,
+    940,
+    941,
+    942,
+    943,
+    945,
+    946,
+    947,
+    949,
+    950,
+    951,
+    953,
+    954,
+    955,
+    956,
+    958,
+    959,
+    960,
+    962,
+    963,
+    964,
+    965,
+    967,
+    968,
+    969,
+    970,
+    971,
+    972,
+    973,
+    974,
+    975,
+    976,
+    977,
+    978,
+    979,
+    980,
+    981,
+    982,
+    983,
+    984,
+    985,
+    986,
+    989,
+    990,
+    993,
+    994,
+    995,
+    996,
+    998,
+    999,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019,
+    1020,
+    1021,
+    1022,
+    1023,
+    1024,
+    1025,
+    1026,
+    1140,
+    1141,
+    1142,
+    1143,
+    1144,
+    1145,
+    1146,
+    1147,
+    1148,
+    1149,
+    1150,
+    1151,
+    1152,
+    1153,
+    1154,
+    1155,
+    1156,
+    1157,
+    1158,
+    1159,
+    1160,
+    1161,
+    1162,
+    1163,
+    1164,
+    1165,
+    1166,
+    1167,
+    1168,
+    1169,
+    1170,
+    1171,
+    1172,
+    1173,
+    1174,
+    1175,
+    1176,
+    1177,
+    1178,
+    1179,
+    1180,
+    1181,
+    1182,
+    1183,
+    1185,
+    1186,
+    1187,
+    1188,
+    1189,
+    1190,
+    1191,
+    1192,
+    1193,
+    1194,
+    1195,
+    1196,
+    1197,
+    1198,
+    1199,
+    1200,
+    1201,
+    1202,
+    1203,
+    1204,
+    1205,
+    1206,
+    1207,
+    1208,
+    1209,
+    1210,
+    1211,
+    1212,
+    1213,
+    1214,
+    1215,
+    1216,
+    1217,
+    1218,
+    1219,
+    1220,
+    1221,
+    1222,
+    1223,
+    1224,
+    1225,
+    1226,
+    1227,
+    1977,
+    1978,
+    1979,
+    1980,
+    1982,
+    1983,
+    1984,
+    1985,
+    1986,
+    1987,
+    1988,
+    1989,
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1999,
+    2000,
+    2001,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030,
+    2031,
+    2032,
+    2033,
+    2034,
+    2035,
+    2036,
+    2037,
+    2038,
+    2039,
+    2040,
+    2041,
+    2043,
+    2044,
+    2045,
+    2046,
+    2047,
+    2048,
+    2049,
+    2050,
+    2051,
+    2052,
+    2053,
+    2054,
+    2055,
+    2056,
+    2057,
+    2058,
+    2059,
+    2060,
+    2061,
+    2062,
+    2063,
+    2064,
+    2065,
+    2066,
+    2067,
+    2068,
+    2069,
+    2070,
+    2071,
+    2072,
+    2073,
+    2074,
+    2075,
+    2076,
+    2077,
+    2078,
+    2079,
+    2080,
+    2081,
+    2082,
+    2083,
+    2084,
+    2085,
+    2086,
+    2087,
+    2088,
+    2089,
+    2090,
+    2091,
+    2092,
+    2093,
+    2094,
+    2095,
+    2096,
+    2097,
+    2098,
+    2099,
+    2100,
+    2101,
+    2102,
+    2103,
+    2104,
+    2582,
+    2583,
+    2584,
+    2585,
+    2586,
+    2587,
+    2588,
+    2589,
+    2590,
+    2591,
+    2592,
+    2593,
+    2594,
+    2595,
+    2596,
+    2597,
+    2598,
+    2599,
+    2600,
+    2601,
+    2602,
+    2603,
+    2604,
+    2605,
+    2606,
+    2607,
+    2608,
+    2609,
+    2610,
+    2611,
+    2612,
+    2613,
+    2614,
+    2615,
+    2616,
+    2617,
+    2618,
+    2619,
+    2620,
+    2621,
+    2622,
+    2623,
+    2625,
+    2626,
+    2627,
+    2628,
+    2629,
+    2630,
+    2631,
+    2632,
+    2633,
+    2634,
+    2635,
+    2636,
+    2637,
+    2638,
+    2639,
+    2640,
+    2641,
+    2642,
+    2643,
+    2644,
+    2645,
+    2646,
+    2647,
+    2648,
+    2649,
+    2650,
+    2651,
+    2652,
+    2653,
+    2654,
+    2655,
+    2656,
+    2657,
+    2658,
+    2659,
+    2660,
+    2661,
+    2662,
+    2663,
+    2664,
+    2665,
+    2668,
+    2669,
+    2670,
+    2671,
+    2672,
+    2673,
+    2674,
+    2675,
+    2676,
+    2677,
+    2678,
+    2679,
+    2680,
+    2681,
+    2682,
+    2683,
+    2684,
+    2685,
+    2686,
+    2687,
+    2688,
+    2689,
+    2690,
+    2691,
+    2692,
+    2693,
+    2694,
+    2695,
+    2696,
+    2697,
+    2698,
+    2709,
+    2710,
+    2711,
+    2712,
+    2713,
+    2714,
+    2715,
+    2716,
+    2717,
+    2718,
+    2719,
+    2720,
+    2721,
+    2722,
+    2723,
+    2724,
+    2725,
+    2726,
+    2727,
+    2728,
+    2729,
+    2730,
+    2731,
+    2732,
+    2733,
+    2734,
+    2735,
+    2737,
+    2738,
+    2739,
+    2740,
+    2741,
+    2742,
+    2743,
+    2744,
+    2745,
+    2746,
+    2747,
+    2748,
+    2749,
+    2750,
+    2751,
+    2752,
+    2753,
+    2754,
+    2755,
+    2756,
+    2757,
+    2758,
+    2759,
+    2760,
+    2761,
+    2762,
+    2763,
+    2764,
+    2765,
+    2766,
+    2767,
+    2768,
+    2769,
+    2770,
+    2771,
+    2772,
+    2773,
+    2774,
+    2775,
+    2776,
+    2777,
+    2778,
+    2779,
+    2780,
+    2781,
+    2782,
+    2783,
+    2784,
+    2785,
+    2786,
+    2787,
+    2788,
+    2789,
+    2790,
+    2791,
+    2792,
+    2793,
+    2794,
+    2795,
+    3059,
+    3060,
+    3061,
+    3062,
+    3063,
+    3064,
+    3065,
+    3066,
+    3067,
+    3068,
+    3069,
+    3070,
+    3071,
+    3072,
+    3073,
+    3074,
+    3075,
+    3076,
+    3077,
+    3078,
+    3079,
+    3080,
+    3081,
+    3082,
+    3083,
+    3084,
+    3085,
+    3086,
+    3087,
+    3088,
+    3089,
+    3091,
+    3092,
+    3093,
+    3094,
+    3095,
+    3096,
+    3097,
+    3098,
+    3099,
+    3100,
+    3101,
+    3102,
+    3103,
+    3104,
+    3105,
+    3106,
+    3107,
+    3108,
+    3109,
+    3110,
+    3111,
+    3112,
+    3113,
+    3114,
+    3115,
+    3116,
+    3117,
+    3118,
+    3119,
+    3120,
+    3121,
+    3122,
+    3124,
+    3125,
+    3126,
+    3127,
+    3128,
+    3129,
+    3130,
+    3131,
+    3132,
+    3133,
+    3134,
+    3135,
+    3136,
+    3137,
+    3138,
+    3139,
+    3140,
+    3141,
+    3142,
+    3143,
+    3144,
+    3145,
+    3146,
+    3147,
+    3148,
+    3149,
+    3150,
+    3151,
+    3152,
+    3153,
+    3154,
+    3155,
+    3156,
+    3157,
+    3158,
+    3159,
+    3160,
+    3161,
+    3162,
+    3163,
+    3164,
+    3165,
+    3166,
+    3167,
+    3168,
+    3169,
+    3170,
+    3171,
+    3172,
+    3173,
+    3174,
+    3175,
+    3176,
+    3177,
+    3178,
+    3179,
+    3180,
+    3181,
+    3182,
+    3183,
+    3184,
+    3185,
+    3186,
+    4153,
+    4154,
+    4155,
+    4156,
+    4157,
+    4158,
+    4159,
+    4160,
+    4161,
+    4162,
+    4163,
+    4164,
+    4165,
+    4166,
+    4167,
+    4168,
+    4169,
+    4170,
+    4171,
+    4172,
+    4173,
+    4174,
+    4175,
+    4176,
+    4177,
+    4178,
+    4179,
+    4180,
+    4181,
+    4182,
+    4183,
+    4184,
+    4185,
+    4186,
+    4187,
+    4188,
+    4190,
+    4191,
+    4192,
+    4193,
+    4194,
+    4195,
+    4196,
+    4197,
+    4198,
+    4199,
+    4200,
+    4201,
+    4202,
+    4203,
+    4204,
+    4205,
+    4206,
+    4207,
+    4208,
+    4209,
+    4210,
+    4211,
+    4212,
+    4213,
+    4214,
+    4215,
+    4216,
+    4217,
+    4218,
+    4219,
+    4220,
+    4222,
+    4223,
+    4224,
+    4225,
+    4226,
+    4227,
+    4228,
+    4229,
+    4230,
+    4231,
+    4232,
+    4233,
+    4234,
+    4235,
+    4236,
+    4237,
+    4238,
+    4239,
+    4240,
+    4241,
+    4242,
+    4243,
+    4244,
+    4245,
+    4246,
+    4247,
+    4248,
+    4249,
+    4250,
+    4251,
+    4252,
+    4253,
+    4254,
+    4255,
+    4256,
+    4257,
+    4258,
+    4259,
+    4260,
+    4261,
+    4262,
+    4263,
+    4264,
+    4265,
+    4266,
+    4267,
+    4268,
+    4269,
+    4270,
+    4271,
+    4272,
+    4273,
+    4274,
+    4275,
+    4276,
+    4277,
+    4278,
+    4279,
+    4280,
+    4281,
+    4282,
+    4283,
+    4284,
+    4285,
+    4286,
+    4287,
+    4288
+  ],
+  "full_evidence": "all 5400 frame sheets, per-frame audit and actual SHA-bound MP4 remain available; complete candidate exports in Actions artifact",
+  "review_status": "preview selection is NOT approval; re-extract any unpublished suspect frame from the actual MP4 before sign-off"
 }

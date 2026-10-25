@@ -45,9 +45,9 @@ class Gacy1978PlanTests(unittest.TestCase):
         for x in self.story['shots']:
             for cid in x.get('cast',[]): self.assertIn(by_id[cid]['face'],x['prompt'])
         refs={x['id']:x['reference_image'] for x in self.story['shots'] if x.get('reference_image')}
-        self.assertEqual(set(refs),{'S01','S09','S11','S25','S28','S29','S37','S45'})
+        self.assertEqual(set(refs),{'S01','S04','S09','S11','S25','S28','S29','S37','S45'})
         for sid,url in refs.items():
-            revision='06cd2bfb9c44c4dc7bb63b977856930a4c159653' if sid in {'S29','S45'} else 'b5be38f39679925ca5ae29fb972145cb77b33eaa'
+            revision='06cd2bfb9c44c4dc7bb63b977856930a4c159653' if sid in {'S04','S29','S45'} else 'b5be38f39679925ca5ae29fb972145cb77b33eaa'
             self.assertIn('/'+revision+'/production/gacy1978/',url)
             self.assertNotIn('/production/gacy/',url)  # no abandoned identity-experiment assets
 
@@ -64,6 +64,9 @@ for shot in s['shots']:
  assert set(q)=={'model','prompt','quality'},q.keys()
  assert q['model']=='cogvideox-flash' and q['quality']=='speed'
  assert len(s['style_prefix']+shot['prompt']+' '+p.PROMPT_GUARDRAILS)<=2600
+ if shot.get('style_prefix_override'):
+  assert q['prompt'].startswith(shot['style_prefix_override'])
+  assert 'FIXED tripod' in q['prompt']
  assert 'HOLD:' in q['prompt']
  assert '{C' not in q['prompt']
  g.REF_IMAGE_OK=True
@@ -144,7 +147,9 @@ edl=render.make_edl(story,rows)
 for e in edl:
  if e['kind']=='agnes':
   duration=(e['end_frame']-e['start_frame'])/30
-  assert duration/(5.108108-.24)<=1.33,(e['id'],duration)
+  a,b=render.WINDOWS.get(e['id'],(.12,5.108108-.12))
+  available=(5.108108-.12 if b is None else b)-a
+  assert duration/available<=1.33,(e['id'],duration,available)
 assert render.END_CARD==render.OUTRO==6
 assert 'reverse,trim=' not in (p/'render.py').read_text()
 assert set(render.TIGHTER_CROPS)=={'S14','S43'}

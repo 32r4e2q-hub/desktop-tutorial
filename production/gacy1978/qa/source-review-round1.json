@@ -1,9 +1,9 @@
 {
   "reviewed_at": "2026-10-25T00:10:42.727602+00:00",
-  "scope": "38 dynamic contact sheets only; 7 cards and finished MP4 not yet reviewed",
+  "scope": "38源接触表复查；补看首版成片全帧接触表（S07/S20/S34/S44）与自动冻结报警；S04/S35按原源表对独立运动的疑虑保守重做。不构成新SHA或整片语义批准。",
   "status": "NOT_FINAL_APPROVED",
-  "reject_count": 12,
-  "other_count": 26,
+  "reject_count": 17,
+  "other_count": 21,
   "shots": {
     "S01": {
       "source_sha256": "90d9f849f5c4ae327b7b77572bf8b25d195f5345339cd796a63e6833e7cd79b3",
@@ -31,9 +31,10 @@
       "reviewed_evidence": "qa/S04.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "pending_full_resolution_motion_review",
-      "finding": "接触表未见足以直接否决的明显缺陷；仍须全分辨率运动、手/脸及成片语义复核。",
-      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
+      "decision": "reject_retake",
+      "finding": "成片全帧接触表/源接触表未显示足够明确的独立物体动作，主要为摄影机平移/推拉；按真实镜内运动标准保守拒收，改固定机位与明确演员/布料/水面动作。",
+      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds",
+      "additional_film_evidence": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4; qa/final-frame-review/all-frames/S04-all-frames.jpg"
     },
     "S05": {
       "source_sha256": "94a556996c5a07515ec7254e7dea1176bcffa1006b8ccff2c8f679c9e8390da5",
@@ -61,9 +62,10 @@
       "reviewed_evidence": "qa/S07.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "pending_full_resolution_motion_review",
-      "finding": "重点核验布料是否有独立运动，不能仅有摄影机推移。",
-      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
+      "decision": "reject_retake",
+      "finding": "成片全帧接触表/源接触表未显示足够明确的独立物体动作，主要为摄影机平移/推拉；按真实镜内运动标准保守拒收，改固定机位与明确演员/布料/水面动作。",
+      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds",
+      "additional_film_evidence": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4; qa/final-frame-review/all-frames/S07-all-frames.jpg"
     },
     "S08": {
       "source_sha256": "9f7e3aa091bbcddb92409f4cac316b78a8020c5eb18a6e2697f120fad7d0da72",
@@ -171,8 +173,8 @@
       "reviewed_evidence": "qa/S20.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "pending_full_resolution_motion_review",
-      "finding": "重点核验窗帘独立运动；原取用前段可能未包含末段手部动作。",
+      "decision": "edit_remedy_pending",
+      "finding": "原取用前段缺乏明确动作；后移至源2.0秒后保留末段手部入画，需复核新取用窗与解剖。",
       "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
     },
     "S21": {
@@ -291,9 +293,10 @@
       "reviewed_evidence": "qa/S34.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "pending_full_resolution_motion_review",
-      "finding": "重点核验芦苇/远处人物的真实运动及河岸语义，不能仅有推拉。",
-      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
+      "decision": "reject_retake",
+      "finding": "成片全帧接触表/源接触表未显示足够明确的独立物体动作，主要为摄影机平移/推拉；按真实镜内运动标准保守拒收，改固定机位与明确演员/布料/水面动作。",
+      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds",
+      "additional_film_evidence": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4; qa/final-frame-review/all-frames/S34-all-frames.jpg"
     },
     "S35": {
       "source_sha256": "68d2899a73ec2503a9f8a20cc6665e969d9ca31c24d1424abe5754f8c9df1d48",
@@ -301,9 +304,10 @@
       "reviewed_evidence": "qa/S35.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "pending_full_resolution_motion_review",
-      "finding": "核验窗帘独立运动、道具照片的非真实身份示意。",
-      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
+      "decision": "reject_retake",
+      "finding": "成片全帧接触表/源接触表未显示足够明确的独立物体动作，主要为摄影机平移/推拉；按真实镜内运动标准保守拒收，改固定机位与明确演员/布料/水面动作。",
+      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds",
+      "additional_film_evidence": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4; qa/final-frame-review/all-frames/S35-all-frames.jpg"
     },
     "S36": {
       "source_sha256": "fac35d06b15ba51fb9b02fe8a7c15bb5c1d9758a1a19880c56b751dbe9634ebd",
@@ -341,8 +345,8 @@
       "reviewed_evidence": "qa/S41.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "pending_full_resolution_motion_review",
-      "finding": "检查走廊人物入画连续性与是否出现未登记可辨识人脸。",
+      "decision": "edit_remedy_pending",
+      "finding": "实际MP4 f4678–4710冻结报警1.1秒；取用窗后移至源1.38秒，优先保留警卫出场动作，1.32倍以内，不得倒放。",
       "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
     },
     "S42": {
@@ -371,9 +375,10 @@
       "reviewed_evidence": "qa/S44.jpg, 2 fps, approximately 0–4.5 seconds; montage also viewed",
       "evidence_revision": "2f12a63",
       "review_method": "agent visual inspection of actual contact sheets; not a human signature or full source playback",
-      "decision": "pending_full_resolution_motion_review",
-      "finding": "核验花瓣和窗帘独立运动，不能只看摄影机位移。",
-      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
+      "decision": "reject_retake",
+      "finding": "成片全帧接触表/源接触表未显示足够明确的独立物体动作，主要为摄影机平移/推拉；按真实镜内运动标准保守拒收，改固定机位与明确演员/布料/水面动作。",
+      "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds",
+      "additional_film_evidence": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4; qa/final-frame-review/all-frames/S44-all-frames.jpg"
     },
     "S45": {
       "source_sha256": "b522e9e35f0627a84d39b330ad39817d7417135288ea2ed9d1b0d6f2339d274a",
@@ -386,7 +391,7 @@
       "new_source_review": "required for every changed SHA; rejection never becomes PASS merely because regeneration succeeds"
     }
   },
-  "retake_policy": "New scene prompts and immutable current-film first-frame URLs change request hashes; genuinely generate only the 12 stale requests, preserve the other 26 receipts. No force flag across auto-relay, which would repeatedly discard newly completed retakes.",
+  "retake_policy": "Changed prompts and immutable reference URLs invalidate exactly 17 old requests; preserve other 21 sources, including revised editorial take windows for S20/S41. Auto-resume handles current hashes, never forces successful new retakes again.",
   "video_model": "cogvideox-flash only, no paid video fallback",
   "retry_seconds": "20,25,30,... +5; explicit larger Retry-After honoured",
   "final_review": "Full source playback/frames, same-face, physical motion, 7 cards, actual MP4 ASR/audio/5400-frame and semantic review remain required."
