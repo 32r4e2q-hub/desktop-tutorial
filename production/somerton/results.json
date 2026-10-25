@@ -692,9 +692,9 @@
       "request_hash": "7ca3aee440f95890a2f3c369d78acbea8a7c23c1cec272b7ef985e6810eaa0c7",
       "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-25T15:26:41Z",
+      "updated_at": "2026-10-25T15:33:51Z",
       "error": null,
-      "create_attempts": 44,
+      "create_attempts": 45,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -829,9 +829,9 @@
       "request_hash": "b794c0087fd9b40753e6fed7b014dead9312c5eb9bcbd0992aa44b159e446036",
       "status": "provider_cooldown",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-25T15:28:43Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025152843582749390Kb3xbjPO)",
-      "create_attempts": 40,
+      "updated_at": "2026-10-25T15:39:58Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025153958340264127DpKAS4jU)",
+      "create_attempts": 50,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -910,7 +910,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-25T15:28:43Z",
+  "updated_at": "2026-10-25T15:39:58Z",
   "run_id": "40200293164",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -1541,9 +1541,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025152843582749390Kb3xbjPO)",
-    "create_attempts": 40,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261025153958340264127DpKAS4jU)",
+    "create_attempts": 50,
     "retry_interval_seconds": 61,
-    "last_seen": "2026-10-25T15:28:43Z"
+    "last_seen": "2026-10-25T15:39:58Z"
   }
 }
