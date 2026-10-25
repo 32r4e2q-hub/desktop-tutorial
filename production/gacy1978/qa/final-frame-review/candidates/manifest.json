@@ -1,26 +1,26 @@
 {
-  "film_sha256": "e335fc2712eee4a6b47b94161a480b5f1ca488378983466020533b0e1abff7c4",
+  "film_sha256": "53af564f8af653cc8d669fa037d8096a07138c35be690dae04ba3a91a7585023",
   "source_audit": "production/gacy1978/delivery/frame-distortion-audit.json",
   "selection_policy": "bounded previews: temporal/hand candidates and first/middle/last per face group; max 160 files / 12 MiB",
   "max_width": 960,
   "frames": [
     {
-      "frame": 2,
-      "seconds": 0.067,
+      "frame": 3,
+      "seconds": 0.1,
       "reasons": [
         "temporal-S01-start"
       ],
-      "file": "f00002_temporal-S01-start.jpg",
+      "file": "f00003_temporal-S01-start.jpg",
       "width": 960,
       "height": 540
     },
     {
-      "frame": 6,
-      "seconds": 0.2,
+      "frame": 7,
+      "seconds": 0.233,
       "reasons": [
         "temporal-S01-middle"
       ],
-      "file": "f00006_temporal-S01-middle.jpg",
+      "file": "f00007_temporal-S01-middle.jpg",
       "width": 960,
       "height": 540
     },
@@ -46,6 +46,16 @@
       "height": 540
     },
     {
+      "frame": 12,
+      "seconds": 0.4,
+      "reasons": [
+        "face-S01"
+      ],
+      "file": "f00012_face-S01.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 15,
       "seconds": 0.5,
       "reasons": [
@@ -62,12 +72,11 @@
       "frame": 19,
       "seconds": 0.633,
       "reasons": [
-        "face-S01",
         "temporal-S01-end",
         "temporal-S01-middle",
         "temporal-S01-start"
       ],
-      "file": "f00019_face-S01.jpg",
+      "file": "f00019_temporal-S01-end.jpg",
       "width": 960,
       "height": 540
     },
@@ -75,22 +84,21 @@
       "frame": 24,
       "seconds": 0.8,
       "reasons": [
-        "face-S01",
         "temporal-S01-end",
         "temporal-S01-middle",
         "temporal-S01-start"
       ],
-      "file": "f00024_face-S01.jpg",
+      "file": "f00024_temporal-S01-end.jpg",
       "width": 960,
       "height": 540
     },
     {
-      "frame": 26,
-      "seconds": 0.867,
+      "frame": 25,
+      "seconds": 0.833,
       "reasons": [
         "face-S01"
       ],
-      "file": "f00026_face-S01.jpg",
+      "file": "f00025_face-S01.jpg",
       "width": 960,
       "height": 540
     },
@@ -153,6 +161,17 @@
       "height": 540
     },
     {
+      "frame": 245,
+      "seconds": 8.167,
+      "reasons": [
+        "face-S03",
+        "hand-geometry-S03"
+      ],
+      "file": "f00245_face-S03.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 270,
       "seconds": 9.0,
       "reasons": [
@@ -179,6 +198,18 @@
         "hand-geometry-S07"
       ],
       "file": "f00719_hand-geometry-S07.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 873,
+      "seconds": 29.1,
+      "reasons": [
+        "temporal-S08-end",
+        "temporal-S08-middle",
+        "temporal-S08-start"
+      ],
+      "file": "f00873_temporal-S08-end.jpg",
       "width": 960,
       "height": 540
     },
@@ -265,31 +296,6 @@
       "height": 540
     },
     {
-      "frame": 1000,
-      "seconds": 33.333,
-      "reasons": [
-        "temporal-S09-end",
-        "temporal-S09-middle",
-        "temporal-S09-start"
-      ],
-      "file": "f01000_temporal-S09-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1009,
-      "seconds": 33.633,
-      "reasons": [
-        "face-S09",
-        "temporal-S09-end",
-        "temporal-S09-middle",
-        "temporal-S09-start"
-      ],
-      "file": "f01009_face-S09.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
       "frame": 1027,
       "seconds": 34.233,
       "reasons": [
@@ -330,26 +336,14 @@
       "height": 540
     },
     {
-      "frame": 1885,
-      "seconds": 62.833,
+      "frame": 1758,
+      "seconds": 58.6,
       "reasons": [
-        "temporal-S17-end",
-        "temporal-S17-middle",
-        "temporal-S17-start"
+        "temporal-S15-end",
+        "temporal-S15-middle",
+        "temporal-S15-start"
       ],
-      "file": "f01885_temporal-S17-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 1894,
-      "seconds": 63.133,
-      "reasons": [
-        "temporal-S17-end",
-        "temporal-S17-middle",
-        "temporal-S17-start"
-      ],
-      "file": "f01894_temporal-S17-end.jpg",
+      "file": "f01758_temporal-S15-end.jpg",
       "width": 960,
       "height": 540
     },
@@ -364,23 +358,23 @@
       "height": 540
     },
     {
-      "frame": 1981,
-      "seconds": 66.033,
+      "frame": 2005,
+      "seconds": 66.833,
       "reasons": [
         "face-S19",
         "hand-geometry-S19"
       ],
-      "file": "f01981_face-S19.jpg",
+      "file": "f02005_face-S19.jpg",
       "width": 960,
       "height": 540
     },
     {
-      "frame": 2042,
-      "seconds": 68.067,
+      "frame": 2046,
+      "seconds": 68.2,
       "reasons": [
         "face-S19"
       ],
-      "file": "f02042_face-S19.jpg",
+      "file": "f02046_face-S19.jpg",
       "width": 960,
       "height": 540
     },
@@ -473,6 +467,16 @@
       "height": 540
     },
     {
+      "frame": 2364,
+      "seconds": 78.8,
+      "reasons": [
+        "hand-geometry-S22"
+      ],
+      "file": "f02364_hand-geometry-S22.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 2367,
       "seconds": 78.9,
       "reasons": [
@@ -509,12 +513,14 @@
       "height": 540
     },
     {
-      "frame": 2391,
-      "seconds": 79.7,
+      "frame": 2572,
+      "seconds": 85.733,
       "reasons": [
-        "hand-geometry-S22"
+        "temporal-S23-end",
+        "temporal-S23-middle",
+        "temporal-S23-start"
       ],
-      "file": "f02391_hand-geometry-S22.jpg",
+      "file": "f02572_temporal-S23-end.jpg",
       "width": 960,
       "height": 540
     },
@@ -559,37 +565,23 @@
       "height": 540
     },
     {
-      "frame": 2699,
-      "seconds": 89.967,
-      "reasons": [
-        "temporal-S25-end",
-        "temporal-S25-middle",
-        "temporal-S25-start"
-      ],
-      "file": "f02699_temporal-S25-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2708,
-      "seconds": 90.267,
-      "reasons": [
-        "face-S25",
-        "temporal-S25-end",
-        "temporal-S25-middle",
-        "temporal-S25-start"
-      ],
-      "file": "f02708_face-S25.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 2736,
-      "seconds": 91.2,
+      "frame": 2732,
+      "seconds": 91.067,
       "reasons": [
         "face-S25"
       ],
-      "file": "f02736_face-S25.jpg",
+      "file": "f02732_face-S25.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "frame": 2781,
+      "seconds": 92.7,
+      "reasons": [
+        "face-S25",
+        "hand-geometry-S25"
+      ],
+      "file": "f02781_face-S25.jpg",
       "width": 960,
       "height": 540
     },
@@ -604,23 +596,22 @@
       "height": 540
     },
     {
+      "frame": 2932,
+      "seconds": 97.733,
+      "reasons": [
+        "hand-geometry-S27"
+      ],
+      "file": "f02932_hand-geometry-S27.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 3058,
       "seconds": 101.933,
       "reasons": [
         "face-S28"
       ],
       "file": "f03058_face-S28.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3090,
-      "seconds": 103.0,
-      "reasons": [
-        "face-S28",
-        "hand-geometry-S28"
-      ],
-      "file": "f03090_face-S28.jpg",
       "width": 960,
       "height": 540
     },
@@ -635,6 +626,17 @@
       "height": 540
     },
     {
+      "frame": 3179,
+      "seconds": 105.967,
+      "reasons": [
+        "face-S28",
+        "hand-geometry-S28"
+      ],
+      "file": "f03179_face-S28.jpg",
+      "width": 960,
+      "height": 540
+    },
+    {
       "frame": 3187,
       "seconds": 106.233,
       "reasons": [
@@ -645,12 +647,14 @@
       "height": 540
     },
     {
-      "frame": 3312,
-      "seconds": 110.4,
+      "frame": 3514,
+      "seconds": 117.133,
       "reasons": [
-        "hand-geometry-S29"
+        "temporal-S30-end",
+        "temporal-S30-middle",
+        "temporal-S30-start"
       ],
-      "file": "f03312_hand-geometry-S29.jpg",
+      "file": "f03514_temporal-S30-end.jpg",
       "width": 960,
       "height": 540
     },
@@ -675,36 +679,12 @@
       "height": 540
     },
     {
-      "frame": 3530,
-      "seconds": 117.667,
+      "frame": 3529,
+      "seconds": 117.633,
       "reasons": [
         "temporal-S31-end"
       ],
-      "file": "f03530_temporal-S31-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3641,
-      "seconds": 121.367,
-      "reasons": [
-        "temporal-S32-end",
-        "temporal-S32-middle",
-        "temporal-S32-start"
-      ],
-      "file": "f03641_temporal-S32-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 3650,
-      "seconds": 121.667,
-      "reasons": [
-        "temporal-S32-end",
-        "temporal-S32-middle",
-        "temporal-S32-start"
-      ],
-      "file": "f03650_temporal-S32-end.jpg",
+      "file": "f03529_temporal-S31-end.jpg",
       "width": 960,
       "height": 540
     },
@@ -733,12 +713,12 @@
       "height": 540
     },
     {
-      "frame": 4100,
-      "seconds": 136.667,
+      "frame": 4097,
+      "seconds": 136.567,
       "reasons": [
         "hand-geometry-S36"
       ],
-      "file": "f04100_hand-geometry-S36.jpg",
+      "file": "f04097_hand-geometry-S36.jpg",
       "width": 960,
       "height": 540
     },
@@ -749,17 +729,6 @@
         "face-S37"
       ],
       "file": "f04152_face-S37.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4189,
-      "seconds": 139.633,
-      "reasons": [
-        "face-S37",
-        "hand-geometry-S37"
-      ],
-      "file": "f04189_face-S37.jpg",
       "width": 960,
       "height": 540
     },
@@ -784,36 +753,24 @@
       "height": 540
     },
     {
-      "frame": 4535,
-      "seconds": 151.167,
+      "frame": 4408,
+      "seconds": 146.933,
       "reasons": [
-        "temporal-S39-end",
-        "temporal-S39-middle",
-        "temporal-S39-start"
+        "temporal-S38-end",
+        "temporal-S38-middle",
+        "temporal-S38-start"
       ],
-      "file": "f04535_temporal-S39-end.jpg",
+      "file": "f04408_temporal-S38-end.jpg",
       "width": 960,
       "height": 540
     },
     {
-      "frame": 4544,
-      "seconds": 151.467,
+      "frame": 4545,
+      "seconds": 151.5,
       "reasons": [
-        "temporal-S39-end",
-        "temporal-S39-middle",
-        "temporal-S39-start"
+        "hand-geometry-S39"
       ],
-      "file": "f04544_temporal-S39-end.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4747,
-      "seconds": 158.233,
-      "reasons": [
-        "hand-geometry-S41"
-      ],
-      "file": "f04747_hand-geometry-S41.jpg",
+      "file": "f04545_hand-geometry-S39.jpg",
       "width": 960,
       "height": 540
     },
@@ -887,19 +844,11 @@
       "frame": 4899,
       "seconds": 163.3,
       "reasons": [
+        "temporal-S43-end",
+        "temporal-S43-middle",
         "temporal-S43-start"
       ],
-      "file": "f04899_temporal-S43-start.jpg",
-      "width": 960,
-      "height": 540
-    },
-    {
-      "frame": 4901,
-      "seconds": 163.367,
-      "reasons": [
-        "temporal-S43-middle"
-      ],
-      "file": "f04901_temporal-S43-middle.jpg",
+      "file": "f04899_temporal-S43-end.jpg",
       "width": 960,
       "height": 540
     },
@@ -907,7 +856,9 @@
       "frame": 4903,
       "seconds": 163.433,
       "reasons": [
-        "temporal-S43-end"
+        "temporal-S43-end",
+        "temporal-S43-middle",
+        "temporal-S43-start"
       ],
       "file": "f04903_temporal-S43-end.jpg",
       "width": 960,
@@ -955,31 +906,15 @@
       "file": "f05283_temporal-S45-end.jpg",
       "width": 960,
       "height": 540
-    },
-    {
-      "frame": 5288,
-      "seconds": 176.267,
-      "reasons": [
-        "temporal-END-end",
-        "temporal-END-middle",
-        "temporal-END-start"
-      ],
-      "file": "f05288_temporal-END-end.jpg",
-      "width": 960,
-      "height": 540
     }
   ],
-  "full_candidate_count": 957,
-  "preview_bytes": 6046829,
+  "full_candidate_count": 951,
+  "preview_bytes": 5802239,
   "unpublished_candidate_frames": [
     9,
     10,
-    12,
     13,
-    14,
-    16,
     17,
-    25,
     236,
     237,
     238,
@@ -989,7 +924,6 @@
     242,
     243,
     244,
-    245,
     246,
     247,
     248,
@@ -1146,14 +1080,16 @@
     984,
     985,
     986,
-    989,
-    990,
-    993,
     994,
     995,
-    996,
-    998,
-    999,
+    1000,
+    1001,
+    1002,
+    1003,
+    1006,
+    1007,
+    1008,
+    1009,
     1010,
     1011,
     1012,
@@ -1262,27 +1198,19 @@
     1978,
     1979,
     1980,
+    1981,
     1982,
     1983,
     1984,
     1985,
     1986,
     1987,
-    1988,
     1989,
     1990,
     1991,
     1992,
     1993,
     1994,
-    1995,
-    1996,
-    1997,
-    1999,
-    2000,
-    2001,
-    2004,
-    2005,
     2006,
     2007,
     2008,
@@ -1319,10 +1247,10 @@
     2039,
     2040,
     2041,
+    2042,
     2043,
     2044,
     2045,
-    2046,
     2047,
     2048,
     2049,
@@ -1495,6 +1423,16 @@
     2696,
     2697,
     2698,
+    2699,
+    2700,
+    2701,
+    2702,
+    2703,
+    2704,
+    2705,
+    2706,
+    2707,
+    2708,
     2709,
     2710,
     2711,
@@ -1518,10 +1456,10 @@
     2729,
     2730,
     2731,
-    2732,
     2733,
     2734,
     2735,
+    2736,
     2737,
     2738,
     2739,
@@ -1566,7 +1504,6 @@
     2778,
     2779,
     2780,
-    2781,
     2782,
     2783,
     2784,
@@ -1612,6 +1549,7 @@
     3087,
     3088,
     3089,
+    3090,
     3091,
     3092,
     3093,
@@ -1699,7 +1637,6 @@
     3176,
     3177,
     3178,
-    3179,
     3180,
     3181,
     3182,
@@ -1743,6 +1680,7 @@
     4186,
     4187,
     4188,
+    4189,
     4190,
     4191,
     4192,
