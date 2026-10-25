@@ -1,0 +1,502 @@
+{
+  "gate": "check-frames",
+  "project": "production/gacy1978",
+  "film": "交付/小丑背后的真相_约翰韦恩盖西_三分钟_带声音.mp4",
+  "errors": [],
+  "warnings": [
+    "角色 C1 跨镜头最低相似度 -0.57（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C2 跨镜头最低相似度 0.27（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C3 跨镜头最低相似度 0.07（<0.45）：可能出现了换脸，请对照接触表人工确认",
+    "角色 C4 跨镜头最低相似度 0.18（<0.45）：可能出现了换脸，请对照接触表人工确认"
+  ],
+  "characters": {
+    "C1": {
+      "contact_sheet": "delivery/face-cast/C1.jpg",
+      "crops": 11,
+      "shots": [
+        "S01",
+        "S03",
+        "S09",
+        "S11"
+      ],
+      "within_min": -0.573,
+      "within_median": -0.08
+    },
+    "C2": {
+      "contact_sheet": "delivery/face-cast/C2.jpg",
+      "crops": 8,
+      "shots": [
+        "S19",
+        "S25",
+        "S37"
+      ],
+      "within_min": 0.271,
+      "within_median": 0.432
+    },
+    "C3": {
+      "contact_sheet": "delivery/face-cast/C3.jpg",
+      "crops": 6,
+      "shots": [
+        "S24",
+        "S28"
+      ],
+      "within_min": 0.072,
+      "within_median": 0.186
+    },
+    "C4": {
+      "contact_sheet": "delivery/face-cast/C4.jpg",
+      "crops": 3,
+      "shots": [
+        "S39"
+      ],
+      "within_min": 0.179,
+      "within_median": 0.326
+    }
+  },
+  "cross_character": [
+    {
+      "pair": [
+        "C1",
+        "C2"
+      ],
+      "max_similarity": 0.693
+    },
+    {
+      "pair": [
+        "C1",
+        "C3"
+      ],
+      "max_similarity": 0.368
+    },
+    {
+      "pair": [
+        "C1",
+        "C4"
+      ],
+      "max_similarity": 0.346
+    },
+    {
+      "pair": [
+        "C2",
+        "C3"
+      ],
+      "max_similarity": 0.167
+    },
+    {
+      "pair": [
+        "C2",
+        "C4"
+      ],
+      "max_similarity": 0.421
+    },
+    {
+      "pair": [
+        "C3",
+        "C4"
+      ],
+      "max_similarity": 0.292
+    }
+  ],
+  "shots": [
+    {
+      "shot": "S01",
+      "characters": [
+        "C1"
+      ],
+      "frames": [
+        {
+          "seconds": 1.058,
+          "faces": 1,
+          "score": 0.765,
+          "bbox": [
+            341,
+            288,
+            283,
+            283
+          ]
+        },
+        {
+          "seconds": 2.117,
+          "faces": 0
+        },
+        {
+          "seconds": 3.175,
+          "faces": 1,
+          "score": 0.74,
+          "bbox": [
+            412,
+            250,
+            145,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S03",
+      "characters": [
+        "C1"
+      ],
+      "frames": [
+        {
+          "seconds": 8.425,
+          "faces": 1,
+          "score": 0.941,
+          "bbox": [
+            600,
+            179,
+            340,
+            340
+          ]
+        },
+        {
+          "seconds": 9.017,
+          "faces": 1,
+          "score": 0.923,
+          "bbox": [
+            626,
+            223,
+            325,
+            325
+          ]
+        },
+        {
+          "seconds": 9.608,
+          "faces": 1,
+          "score": 0.829,
+          "bbox": [
+            664,
+            248,
+            322,
+            322
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S09",
+      "characters": [
+        "C1"
+      ],
+      "frames": [
+        {
+          "seconds": 30.617,
+          "faces": 1,
+          "score": 0.884,
+          "bbox": [
+            649,
+            217,
+            736,
+            736
+          ]
+        },
+        {
+          "seconds": 31.833,
+          "faces": 1,
+          "score": 0.714,
+          "bbox": [
+            781,
+            313,
+            689,
+            689
+          ]
+        },
+        {
+          "seconds": 33.05,
+          "faces": 1,
+          "score": 0.699,
+          "bbox": [
+            821,
+            380,
+            444,
+            444
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S11",
+      "characters": [
+        "C1"
+      ],
+      "frames": [
+        {
+          "seconds": 38.717,
+          "faces": 1,
+          "score": 0.915,
+          "bbox": [
+            623,
+            135,
+            352,
+            351
+          ]
+        },
+        {
+          "seconds": 39.467,
+          "faces": 1,
+          "score": 0.925,
+          "bbox": [
+            616,
+            133,
+            305,
+            305
+          ]
+        },
+        {
+          "seconds": 40.217,
+          "faces": 1,
+          "score": 0.914,
+          "bbox": [
+            609,
+            130,
+            313,
+            313
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S19",
+      "characters": [
+        "C2"
+      ],
+      "frames": [
+        {
+          "seconds": 66.95,
+          "faces": 1,
+          "score": 0.708,
+          "bbox": [
+            830,
+            269,
+            361,
+            361
+          ]
+        },
+        {
+          "seconds": 68.033,
+          "faces": 1,
+          "score": 0.802,
+          "bbox": [
+            812,
+            259,
+            359,
+            359
+          ]
+        },
+        {
+          "seconds": 69.117,
+          "faces": 1,
+          "score": 0.873,
+          "bbox": [
+            771,
+            233,
+            379,
+            379
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S24",
+      "characters": [
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 86.75,
+          "faces": 1,
+          "score": 0.796,
+          "bbox": [
+            617,
+            259,
+            579,
+            579
+          ]
+        },
+        {
+          "seconds": 87.467,
+          "faces": 1,
+          "score": 0.761,
+          "bbox": [
+            594,
+            272,
+            577,
+            577
+          ]
+        },
+        {
+          "seconds": 88.183,
+          "faces": 1,
+          "score": 0.74,
+          "bbox": [
+            612,
+            288,
+            521,
+            521
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S25",
+      "characters": [
+        "C2"
+      ],
+      "frames": [
+        {
+          "seconds": 89.983,
+          "faces": 0
+        },
+        {
+          "seconds": 91.067,
+          "faces": 1,
+          "score": 0.885,
+          "bbox": [
+            429,
+            192,
+            334,
+            334
+          ]
+        },
+        {
+          "seconds": 92.15,
+          "faces": 1,
+          "score": 0.828,
+          "bbox": [
+            416,
+            181,
+            335,
+            335
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S28",
+      "characters": [
+        "C3"
+      ],
+      "frames": [
+        {
+          "seconds": 103.017,
+          "faces": 1,
+          "score": 0.814,
+          "bbox": [
+            734,
+            227,
+            352,
+            352
+          ]
+        },
+        {
+          "seconds": 104.1,
+          "faces": 1,
+          "score": 0.929,
+          "bbox": [
+            818,
+            267,
+            329,
+            329
+          ]
+        },
+        {
+          "seconds": 105.183,
+          "faces": 1,
+          "score": 0.833,
+          "bbox": [
+            788,
+            277,
+            323,
+            323
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S37",
+      "characters": [
+        "C2"
+      ],
+      "frames": [
+        {
+          "seconds": 139.55,
+          "faces": 1,
+          "score": 0.964,
+          "bbox": [
+            805,
+            267,
+            342,
+            342
+          ]
+        },
+        {
+          "seconds": 140.7,
+          "faces": 1,
+          "score": 0.978,
+          "bbox": [
+            754,
+            270,
+            332,
+            332
+          ]
+        },
+        {
+          "seconds": 141.85,
+          "faces": 1,
+          "score": 0.983,
+          "bbox": [
+            773,
+            275,
+            328,
+            328
+          ]
+        }
+      ]
+    },
+    {
+      "shot": "S39",
+      "characters": [
+        "C4"
+      ],
+      "frames": [
+        {
+          "seconds": 148.342,
+          "faces": 1,
+          "score": 0.9,
+          "bbox": [
+            872,
+            374,
+            107,
+            107
+          ]
+        },
+        {
+          "seconds": 149.45,
+          "faces": 1,
+          "score": 0.822,
+          "bbox": [
+            860,
+            334,
+            141,
+            141
+          ]
+        },
+        {
+          "seconds": 150.558,
+          "faces": 1,
+          "score": 0.929,
+          "bbox": [
+            836,
+            289,
+            183,
+            183
+          ]
+        }
+      ]
+    }
+  ],
+  "human_review": "pending",
+  "detector": "mediapipe",
+  "status": "REVIEW",
+  "note": "机器只做分诊：相似度对光照/角度很敏感，最终必须人眼看每个角色的接触表，确认「同一个人跨镜头还是他、不同角色一眼能分辨」。"
+}
