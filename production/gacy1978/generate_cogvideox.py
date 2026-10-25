@@ -324,6 +324,30 @@ def transient_fail(text):
                                         '1305', '429', '访问量过大'))
 
 
+def schedule_shots(shots, project, doc, round_no=1):
+    """Do not let one overloaded I2V request starve every later shot.
+
+    Accepted current tasks always poll first. Unreferenced shots remain T2V by
+    design, NOT a fallback for any reference shot. Rotate pending starts between
+    relay rounds; all per-request 20,25,30... waits remain unchanged.
+    """
+    pending, completed = [], []
+    for shot in shots:
+        row = doc.get('shots', {}).get(shot['id'], {})
+        (completed if usable_receipt(row, request_hash(project, shot)) else pending).append(shot)
+    pending.sort(key=lambda shot: bool(REF_IMAGE_OK and shot.get('reference_image')))
+    if pending:
+        offset = max(0, int(round_no)-1) % len(pending)
+        pending = pending[offset:] + pending[:offset]
+    accepted = []
+    for shot in pending:
+        row = doc.get('shots', {}).get(shot['id'], {})
+        if shot['id'] in PROBE_TASKS or (row.get('request_hash') == request_hash(project, shot)
+                and row.get('task_id') and row.get('status') in ('queued', 'polling')):
+            accepted.append(shot)
+    return accepted + [shot for shot in pending if shot not in accepted] + completed
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--payload', default='{}')
@@ -386,6 +410,7 @@ def main():
     client = ZhipuAI(api_key=key, max_retries=0, timeout=60)
     # 先探测定妆照支持性，再进主循环（request_hash 依赖 REF_IMAGE_OK）。
     probe_ref_image(client, project)
+    shots = schedule_shots(shots, project, doc, options.get('round', 1))
     sources = ROOT / 'work/gacy1978/sources'
     qa = HERE / 'qa'
     sources.mkdir(parents=True, exist_ok=True)

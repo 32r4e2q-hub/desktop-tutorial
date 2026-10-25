@@ -1,0 +1,75 @@
+name: 盖西案 · 检查后移取用窗的原生动作
+on:
+  push:
+    branches: [arena/3c0c229a-desktop-tutorial]
+    paths: [production/gacy1978/TAKE_REVIEW_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: gacy1978-take-review
+  cancel-in-progress: true
+jobs:
+  review:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/3c0c229a-desktop-tutorial
+          fetch-depth: 1
+      - name: Install native frame decoder
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          python -m pip install 'pillow>=10,<13'
+      - name: Extract the exact original S20 late arm action, without regenerating it
+        run: |
+          python - <<'PY'
+          import hashlib, json, math, subprocess, urllib.request
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          root = Path('production/gacy1978')
+          row = json.loads((root/'results.json').read_text())['shots']['S20']
+          expected = json.loads((root/'qa/source-review-round1.json').read_text())['shots']['S20']['source_sha256']
+          assert row['sha256'] == expected, 'Source changed: do not review a different take under the original SHA'
+          work = Path('work/gacy1978/take-review'); work.mkdir(parents=True, exist_ok=True)
+          with urllib.request.urlopen(row['video_url'], timeout=90) as response:
+              data = response.read(20*1024*1024 + 1)
+          assert len(data) <= 20*1024*1024 and hashlib.sha256(data).hexdigest() == expected
+          source = work/'S20-original.mp4'; source.write_bytes(data)
+          out = root/'qa/take-window-review'; out.mkdir(parents=True, exist_ok=True)
+          times = [2.0, 2.5, 3.0, 3.5, 4.0, 4.25, 4.5, 4.75, 5.0]
+          sheet = Image.new('RGB', (1536, 3*323), '#11151b'); draw = ImageDraw.Draw(sheet)
+          frames = []
+          for i,t in enumerate(times):
+              name = f'S20-source-{t:.2f}s.jpg'; target = out/name
+              subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(t),'-i',str(source),'-frames:v','1','-q:v','3',str(target)],check=True)
+              with Image.open(target) as im:
+                  width,height = im.size
+                  preview = im.convert('RGB'); preview.thumbnail((512,293))
+                  x,y = (i%3)*512,(i//3)*323
+                  sheet.paste(preview,(x,y)); draw.text((x+8,y+298),f'S20 original source t={t:.2f}s',fill='white')
+              frames.append({'requested_source_seconds':t,'file':name,'width':width,'height':height,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
+          sheet.save(out/'S20-late-motion-contact.jpg',quality=90)
+          report = {'shot':'S20','source_sha256':expected,'proposed_take_start_seconds':2.0,'source_duration_seconds':row['media']['duration'],'status':'NATIVE EVIDENCE ONLY: agent must inspect late arm action/anatomy before accepting take window','frames':frames}
+          (out/'S20-review.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Publish only the SHA-bound take-window evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/gacy1978/qa/take-window-review
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'gacy1978: native late-motion evidence for S20 take-window review'
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            if git push origin "HEAD:$GITHUB_REF_NAME"; then exit 0; fi
+          done
+          exit 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gacy1978-S20-take-window-review
+          path: production/gacy1978/qa/take-window-review
+          retention-days: 30

@@ -26,6 +26,20 @@ class LoopTests(unittest.TestCase):
         self.modules=patch.dict(sys.modules,{'generate_cogvideox':engine});self.modules.start()
         self.addCleanup(self.modules.stop)
 
+    def test_pending_schedule_does_not_drop_refs_or_starve_other_shots(self):
+        shots=[s for s in self.story['shots'] if s['kind']!='graphic']
+        with patch.object(engine,'REF_IMAGE_OK',True):
+            first=engine.schedule_shots(shots,self.story,{'shots':{}},1)
+            second=engine.schedule_shots(shots,self.story,{'shots':{}},2)
+            self.assertEqual(len(first),38)
+            self.assertEqual({s['id'] for s in first},{s['id'] for s in shots})
+            self.assertFalse(first[0].get('reference_image'))
+            self.assertNotEqual(first[0]['id'],second[0]['id'])
+            ref=next(s for s in shots if s.get('reference_image'))
+            result={'shots':{ref['id']:{'status':'queued','task_id':'accepted-not-reposted',
+                'request_hash':engine.request_hash(self.story,ref)}}}
+            self.assertEqual(engine.schedule_shots(shots,self.story,result,3)[0]['id'],ref['id'])
+
     def test_linear_retry_cadence_and_no_extra_relay_sleep(self):
         self.assertEqual([engine.retry_delay(n) for n in range(1,21)], list(range(20,116,5)))
         hint=types.SimpleNamespace(response=types.SimpleNamespace(headers={'Retry-After':'40'}))
