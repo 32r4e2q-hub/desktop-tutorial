@@ -49,10 +49,18 @@ jobs:
         run: |
           set -euo pipefail
           tag='somerton-cut-40337362171'
-          gh release create "$tag" \
-            "$RUNNER_TEMP/Somerton-voiceover-run40337362171.mp4" \
-            --repo "$GITHUB_REPOSITORY" \
-            --target '119065b' \
-            --title 'Somerton voiceover refresh · Run 40337362171 · 29 shot-locked lines' \
-            --notes "Standalone MP4 from voiceover-refresh Run 40337362171 (one independent narration clip and one matched subtitle per unchanged shot, natural pace only accelerated up to 1.55x, no slowdown). Automated QC: pass (source/media/timing/subtitle/audio). Human review remains pending; this is a QC preview, not the final approved cut. SHA-256: $MP4_SHA256" \
-            --prerelease
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $tag already exists; uploading asset to existing release"
+            gh release upload "$tag" "$RUNNER_TEMP/Somerton-voiceover-run40337362171.mp4" --repo "$GITHUB_REPOSITORY" --clobber
+            echo "Uploaded to https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/Somerton-voiceover-run40337362171.mp4"
+          else
+            gh release create "$tag" \
+              "$RUNNER_TEMP/Somerton-voiceover-run40337362171.mp4" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title 'Somerton voiceover refresh · Run 40337362171 · 29 shot-locked lines' \
+              --notes "Standalone MP4 from voiceover-refresh Run 40337362171 (one independent narration clip and one matched subtitle per unchanged shot, natural pace only accelerated up to 1.55x, no slowdown). Automated QC: pass (source/media/timing/subtitle/audio). Human review remains pending; this is a QC preview, not the final approved cut. SHA-256: $MP4_SHA256" \
+              --prerelease
+          fi
+          echo "Release URL: https://github.com/${GITHUB_REPOSITORY}/releases/tag/${tag}"
+          gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[] | "\(.name) \(.size) \(.url)"'
