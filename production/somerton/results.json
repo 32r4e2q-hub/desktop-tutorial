@@ -317,11 +317,11 @@
     "S09": {
       "id": "S09",
       "request_hash": "fe489ce09d5334d67ec9407d14a3ec232604ca1d4db98add94722a5faa20d629",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-26T00:28:45Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261026002845495712635gMpnlLP3)",
-      "create_attempts": 1,
+      "updated_at": "2026-10-26T00:28:46Z",
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -330,7 +330,7 @@
       "request_hash": "e0281b98b41cbb4d89cf0df4b9e7e6ba62714bba796e1a398f063face94a5ed6",
       "status": "completed",
       "reused_existing_asset": true,
-      "updated_at": "2026-10-25T19:33:55Z",
+      "updated_at": "2026-10-26T00:28:47Z",
       "error": null,
       "create_attempts": 120,
       "capacity_error": "video queue is full",
@@ -954,7 +954,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-26T00:28:45Z",
+  "updated_at": "2026-10-26T00:28:47Z",
   "run_id": "40249455092",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
