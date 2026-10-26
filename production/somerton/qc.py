@@ -172,6 +172,15 @@ def motion_sample_times(shot: dict, count: int = 9) -> list[float]:
     return [round(start + duration * index / count, 3) for index in range(count)]
 
 
+def motion_sample_frame_positions(shot: dict, count: int = 9) -> list[tuple[int, float]]:
+    """Map intended sample instants to nearest exact 30 fps frame indices and timestamps."""
+    positions = []
+    for sample_time in motion_sample_times(shot, count):
+        frame_index = int(math.floor(sample_time * FPS + 0.5))
+        positions.append((frame_index, round(frame_index / FPS, 3)))
+    return positions
+
+
 def assemble_final_motion_sheet(shot_id: str, sample_times: list[float],
                                 frame_paths: list[Path], output: Path) -> None:
     """Create a labeled 3x3 contact sheet from final-cut frames of one shot."""
@@ -197,27 +206,38 @@ def assemble_final_motion_sheet(shot_id: str, sample_times: list[float],
 
 def draw_final_motion_sheets(video: Path, story: dict, output_dir: Path,
                              frame_dir: Path, count: int = 9) -> tuple[list[dict], list[dict]]:
-    """Extract nine final-render frames per shot and assemble a review sheet per shot."""
+    """Extract exact source-frame indices at the nine intended instants for every shot."""
     output_dir.mkdir(parents=True, exist_ok=True)
     frame_dir.mkdir(parents=True, exist_ok=True)
-    sheets, frame_samples = [], []
+    selections = []
     for shot in story["shots"]:
+        positions = motion_sample_frame_positions(shot, count)
+        selections.append({"shot": shot, "positions": positions})
+    frame_indices = sorted({index for item in selections for index, _ in item["positions"]})
+    select_terms = "+".join(f"eq(n\\,{index})" for index in frame_indices)
+    filter_graph = f"select='{select_terms}',scale=1280:720:flags=lanczos"
+    pattern = frame_dir / "source-frame-%03d.jpg"
+    subprocess.run([
+        "ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", str(video),
+        "-map", "0:v:0", "-vf", filter_graph, "-vsync", "0",
+        "-frames:v", str(len(frame_indices)), "-q:v", "3", "-start_number", "1", str(pattern),
+    ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    frame_by_index = {
+        frame_index: frame_dir / f"source-frame-{output_index:03d}.jpg"
+        for output_index, frame_index in enumerate(frame_indices, 1)
+    }
+    missing = [str(path) for path in frame_by_index.values()
+               if not path.is_file() or path.stat().st_size < 1000]
+    if missing:
+        raise RuntimeError(f"exact motion-frame extraction missed selected frames: {missing}")
+
+    sheets, frame_samples = [], []
+    for item in selections:
+        shot = item["shot"]
         sid = shot["id"]
-        duration = float(shot["duration"])
-        times = motion_sample_times(shot, count)
-        interval = duration / count
-        pattern = frame_dir / f"{sid}-%02d.jpg"
-        subprocess.run([
-            "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
-            "-ss", f"{float(shot['start']):.3f}", "-i", str(video),
-            "-t", f"{duration:.3f}", "-map", "0:v:0",
-            "-vf", f"fps={count / duration:.8f},scale=1280:720:flags=lanczos",
-            "-frames:v", str(count), "-q:v", "3", "-start_number", "1", str(pattern),
-        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-        frame_paths = [frame_dir / f"{sid}-{index + 1:02d}.jpg" for index in range(count)]
-        missing = [path.name for path in frame_paths if not path.is_file() or path.stat().st_size < 1000]
-        if missing:
-            raise RuntimeError(f"{sid}: motion sample extraction missed frames: {missing}")
+        positions = item["positions"]
+        times = [sample_time for _, sample_time in positions]
+        frame_paths = [frame_by_index[index] for index, _ in positions]
         sheet_path = output_dir / f"{sid}.jpg"
         assemble_final_motion_sheet(sid, times, frame_paths, sheet_path)
         sheets.append({"id": sid, "sample_times_seconds": times,
@@ -406,6 +426,8 @@ def scan_rendered_subtitles(frame_samples: list[dict], cues: list[dict], output_
                                  "kind": "unexpected-bottom-text"})
     finally:
         temp_path.unlink(missing_ok=True)
+    finding_counts = {kind: sum(row["kind"] == kind for row in findings)
+                      for kind in ("caption-not-read", "caption-mismatch", "unexpected-bottom-text")}
     return {
         "available": True,
         "sampled_frames": len(frame_samples),
@@ -413,6 +435,7 @@ def scan_rendered_subtitles(frame_samples: list[dict], cues: list[dict], output_
         "skipped_near_cue_boundaries": skipped_boundaries,
         "frames_with_recognized_text": recognized,
         "finding_count": len(findings),
+        "finding_counts": finding_counts,
         "findings": findings,
         "method": "Tesseract OCR of the bottom 24% on sampled final frames, compared with active caption timing; detections require visual confirmation.",
     }
@@ -826,10 +849,14 @@ def main() -> int:
                 add_check(report, "rendered-subtitle-samples", False,
                           subtitle_scan.get("reason", "subtitle OCR unavailable"), severity="warning")
             else:
+                finding_counts = subtitle_scan["finding_counts"]
                 add_check(report, "rendered-subtitle-samples", subtitle_scan["finding_count"] == 0,
-                          f"OCR compared {subtitle_scan['checked_frames']} sampled frames; "
+                          f"OCR compared {subtitle_scan['checked_frames']} exact-frame samples; "
                           f"boundary skips={subtitle_scan['skipped_near_cue_boundaries']}; "
-                          f"caption/visibility findings={subtitle_scan['finding_count']}", severity="warning")
+                          f"not-read={finding_counts['caption-not-read']}, "
+                          f"text-mismatch={finding_counts['caption-mismatch']}, "
+                          f"unexpected-bottom-text={finding_counts['unexpected-bottom-text']}",
+                          severity="warning")
         finally:
             remove_motion_frame_files(motion_frame_samples)
             if motion_frame_dir.exists():

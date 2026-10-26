@@ -20,6 +20,13 @@ class SomertonOcrTests(unittest.TestCase):
         steps = [times[index + 1] - times[index] for index in range(8)]
         self.assertTrue(all(abs(step - 8 / 9) < 0.002 for step in steps))
 
+    def test_motion_sample_targets_map_to_exact_source_frame_times(self):
+        shot = {"id": "S01", "start": 0.0, "duration": 5.0}
+        positions = qc.motion_sample_frame_positions(shot, 9)
+        self.assertEqual([index for index, _ in positions], [0, 17, 33, 50, 67, 83, 100, 117, 133])
+        self.assertEqual(positions[1][1], 0.567)
+        self.assertEqual(positions[-1][1], 4.433)
+
     def test_final_motion_sheet_is_a_labeled_three_by_three_grid(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
