@@ -1,0 +1,59 @@
+name: Publish Somerton QC preview MP4
+run-name: Somerton MP4 direct download · production run 40311434040
+
+on:
+  push:
+    branches:
+      - arena/dc7c8423-desktop-tutorial
+    paths:
+      - .github/workflows/somerton-mp4-export.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish-mp4:
+    if: contains(github.event.head_commit.message, '[publish-somerton-mp4]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the QC-reviewed production artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: somerton-3min-agnes-21
+          run-id: 40311434040
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          path: artifact
+
+      - name: Verify and stage the standalone MP4
+        id: verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          source='artifact/work/somerton/clips/塔玛姆·舒德_索马顿海滩无名男尸_三分钟_QC修订版.mp4'
+          asset="$RUNNER_TEMP/Somerton-QC-preview-run40311434040.mp4"
+          test -s "$source"
+          size=$(wc -c < "$source" | tr -d ' ')
+          test "$size" = '86137869'
+          cp "$source" "$asset"
+          sha=$(sha256sum "$asset" | cut -d' ' -f1)
+          echo "sha256=$sha" >> "$GITHUB_OUTPUT"
+          echo "size=$size" >> "$GITHUB_OUTPUT"
+          echo "Prepared standalone MP4: $size bytes; SHA-256 $sha"
+
+      - name: Publish as a clearly labeled prerelease asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MP4_SHA256: ${{ steps.verify.outputs.sha256 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag='somerton-cut-40311434040'
+          gh release create "$tag" \
+            "$RUNNER_TEMP/Somerton-QC-preview-run40311434040.mp4" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target 'f2737fc31de51337e1556c83fa88af847a1bfc33' \
+            --title 'Somerton QC Preview · Run 40311434040' \
+            --notes "Standalone MP4 exported from production Run 40311434040. Automated QC: 210 pass, 0 fail, 3 warnings (pass_with_warnings). Human review remains pending; this is a QC preview, not the final approved cut. SHA-256: $MP4_SHA256" \
+            --prerelease
