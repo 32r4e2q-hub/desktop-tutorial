@@ -1042,16 +1042,20 @@
       "detail": "possible blank/dark shots=none"
     },
     {
-      "name": "media-analysis",
-      "status": "fail",
-      "detail": "RuntimeError: S01: motion sample extraction missed frames: ['S01-09.jpg']"
+      "name": "final-shot-motion-sheets",
+      "status": "pass",
+      "detail": "29/29 shots, nine evenly spaced frames per sheet"
+    },
+    {
+      "name": "ocr-unapproved-scene-text",
+      "status": "warn",
+      "detail": "possible text detections: 2 source contact-sheet cells, 1 final sampled frames; inspect listed tokens visually"
     }
   ],
-  "failures": [
-    "media-analysis"
-  ],
+  "failures": [],
   "warnings": [
-    "technical-report-human-review-complete"
+    "technical-report-human-review-complete",
+    "ocr-unapproved-scene-text"
   ],
   "artifact_root": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-input",
   "expected_run_id": "40260874205",
@@ -1981,7 +1985,514 @@
       "near_black_fraction": 0.2995
     }
   ],
-  "automated_status": "fail",
+  "final_motion_sheets": [
+    {
+      "id": "S01",
+      "sample_times_seconds": [
+        0.0,
+        0.556,
+        1.111,
+        1.667,
+        2.222,
+        2.778,
+        3.333,
+        3.889,
+        4.444
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S01.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S02",
+      "sample_times_seconds": [
+        5.0,
+        5.556,
+        6.111,
+        6.667,
+        7.222,
+        7.778,
+        8.333,
+        8.889,
+        9.444
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S02.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S03",
+      "sample_times_seconds": [
+        10.0,
+        10.778,
+        11.556,
+        12.333,
+        13.111,
+        13.889,
+        14.667,
+        15.444,
+        16.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S03.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S04",
+      "sample_times_seconds": [
+        17.0,
+        17.778,
+        18.556,
+        19.333,
+        20.111,
+        20.889,
+        21.667,
+        22.444,
+        23.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S04.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S05",
+      "sample_times_seconds": [
+        24.0,
+        24.667,
+        25.333,
+        26.0,
+        26.667,
+        27.333,
+        28.0,
+        28.667,
+        29.333
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S05.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S06",
+      "sample_times_seconds": [
+        30.0,
+        30.556,
+        31.111,
+        31.667,
+        32.222,
+        32.778,
+        33.333,
+        33.889,
+        34.444
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S06.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S07",
+      "sample_times_seconds": [
+        35.0,
+        35.778,
+        36.556,
+        37.333,
+        38.111,
+        38.889,
+        39.667,
+        40.444,
+        41.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S07.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S08",
+      "sample_times_seconds": [
+        42.0,
+        42.778,
+        43.556,
+        44.333,
+        45.111,
+        45.889,
+        46.667,
+        47.444,
+        48.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S08.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S09",
+      "sample_times_seconds": [
+        49.0,
+        49.667,
+        50.333,
+        51.0,
+        51.667,
+        52.333,
+        53.0,
+        53.667,
+        54.333
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S09.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S10",
+      "sample_times_seconds": [
+        55.0,
+        55.778,
+        56.556,
+        57.333,
+        58.111,
+        58.889,
+        59.667,
+        60.444,
+        61.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S10.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S11",
+      "sample_times_seconds": [
+        62.0,
+        62.778,
+        63.556,
+        64.333,
+        65.111,
+        65.889,
+        66.667,
+        67.444,
+        68.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S11.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S12",
+      "sample_times_seconds": [
+        69.0,
+        69.667,
+        70.333,
+        71.0,
+        71.667,
+        72.333,
+        73.0,
+        73.667,
+        74.333
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S12.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S13",
+      "sample_times_seconds": [
+        75.0,
+        75.778,
+        76.556,
+        77.333,
+        78.111,
+        78.889,
+        79.667,
+        80.444,
+        81.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S13.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S14",
+      "sample_times_seconds": [
+        82.0,
+        82.778,
+        83.556,
+        84.333,
+        85.111,
+        85.889,
+        86.667,
+        87.444,
+        88.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S14.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S15",
+      "sample_times_seconds": [
+        89.0,
+        89.667,
+        90.333,
+        91.0,
+        91.667,
+        92.333,
+        93.0,
+        93.667,
+        94.333
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S15.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S16",
+      "sample_times_seconds": [
+        95.0,
+        95.556,
+        96.111,
+        96.667,
+        97.222,
+        97.778,
+        98.333,
+        98.889,
+        99.444
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S16.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S17",
+      "sample_times_seconds": [
+        100.0,
+        100.778,
+        101.556,
+        102.333,
+        103.111,
+        103.889,
+        104.667,
+        105.444,
+        106.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S17.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S18",
+      "sample_times_seconds": [
+        107.0,
+        107.778,
+        108.556,
+        109.333,
+        110.111,
+        110.889,
+        111.667,
+        112.444,
+        113.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S18.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S19",
+      "sample_times_seconds": [
+        114.0,
+        114.667,
+        115.333,
+        116.0,
+        116.667,
+        117.333,
+        118.0,
+        118.667,
+        119.333
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S19.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S20",
+      "sample_times_seconds": [
+        120.0,
+        120.556,
+        121.111,
+        121.667,
+        122.222,
+        122.778,
+        123.333,
+        123.889,
+        124.444
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S20.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S21",
+      "sample_times_seconds": [
+        125.0,
+        125.889,
+        126.778,
+        127.667,
+        128.556,
+        129.444,
+        130.333,
+        131.222,
+        132.111
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S21.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S22",
+      "sample_times_seconds": [
+        133.0,
+        133.889,
+        134.778,
+        135.667,
+        136.556,
+        137.444,
+        138.333,
+        139.222,
+        140.111
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S22.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S23",
+      "sample_times_seconds": [
+        141.0,
+        142.0,
+        143.0,
+        144.0,
+        145.0,
+        146.0,
+        147.0,
+        148.0,
+        149.0
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S23.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S24",
+      "sample_times_seconds": [
+        150.0,
+        150.778,
+        151.556,
+        152.333,
+        153.111,
+        153.889,
+        154.667,
+        155.444,
+        156.222
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S24.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S25",
+      "sample_times_seconds": [
+        157.0,
+        157.667,
+        158.333,
+        159.0,
+        159.667,
+        160.333,
+        161.0,
+        161.667,
+        162.333
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S25.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S26",
+      "sample_times_seconds": [
+        163.0,
+        163.556,
+        164.111,
+        164.667,
+        165.222,
+        165.778,
+        166.333,
+        166.889,
+        167.444
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S26.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S27",
+      "sample_times_seconds": [
+        168.0,
+        168.444,
+        168.889,
+        169.333,
+        169.778,
+        170.222,
+        170.667,
+        171.111,
+        171.556
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S27.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S28",
+      "sample_times_seconds": [
+        172.0,
+        172.444,
+        172.889,
+        173.333,
+        173.778,
+        174.222,
+        174.667,
+        175.111,
+        175.556
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S28.jpg",
+      "frame_count": 9
+    },
+    {
+      "id": "S29",
+      "sample_times_seconds": [
+        176.0,
+        176.444,
+        176.889,
+        177.333,
+        177.778,
+        178.222,
+        178.667,
+        179.111,
+        179.556
+      ],
+      "contact_sheet": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-output/final-shot-sheets/S29.jpg",
+      "frame_count": 9
+    }
+  ],
+  "ocr_text_scan": {
+    "available": true,
+    "languages": "eng+chi_sim",
+    "source_cells_scanned": 185,
+    "final_frames_scanned": 270,
+    "source_findings": [
+      {
+        "shot": "S03",
+        "sample_cell": 1,
+        "words": [
+          {
+            "token": "WRAY",
+            "confidence": 69.4
+          }
+        ]
+      },
+      {
+        "shot": "S12",
+        "sample_cell": 7,
+        "words": [
+          {
+            "token": "USN",
+            "confidence": 80.5
+          }
+        ]
+      }
+    ],
+    "final_findings": [
+      {
+        "shot": "S25",
+        "time_seconds": 162.333,
+        "words": [
+          {
+            "token": "eee",
+            "confidence": 76.7
+          }
+        ]
+      }
+    ],
+    "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and the approved S14 Tamam Shud and S29 closing-title frames are excluded from final-frame OCR."
+  },
+  "automated_status": "pass_with_warnings",
   "manual_visual_review": {
     "status": "pending",
     "note": "Automated checks, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or audio semantics. See the 29 final-shot contact sheets and midpoint sheet."
