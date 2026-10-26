@@ -25,5 +25,5 @@ jobs:
         run: |
           set -euo pipefail
           gh workflow run gacy1978-cogvideox-gen.yml --ref arena/3c0c229a-desktop-tutorial \
-            -f 'payload={"ref_image":true,"auto_resume":true,"round":1,"round_minutes":25,"quality_retake_round":1,"reason":"resume_8_missing_preserve_30_after_user_continuation"}'
+            -f 'payload={"ref_image":true,"auto_resume":true,"round":1,"round_minutes":25,"quality_retake_round":1,"reason":"resume_7_preserve_31_fix_stuck_apt"}'
           echo 'Old cadence cancelled by concurrency; fresh generation dispatched on the same branch, preserving receipts and accepted task IDs.' >> "$GITHUB_STEP_SUMMARY"

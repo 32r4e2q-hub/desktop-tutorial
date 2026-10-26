@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-10-26T05:30:59.073931+00:00",
+  "stalled_run": 40269067382,
+  "job_started_at": "2026-10-26T04:26:22Z",
+  "observed_at": "2026-10-26T05:28:46Z",
+  "active_step": "Install media tools and CJK fonts",
+  "model_generation_step": "pending; this run has not called the model yet",
+  "diagnosis": "Infrastructure setup stall, not evidence of current provider throttling. Exact apt internal/network cause unconfirmed because live logs unavailable.",
+  "repair": "Remove unnecessary apt/font installation from source generation. Use pinned bundled FFmpeg from PyPI with existing PyAV metadata fallback; bounded setup/download steps. Preserve renderer font requirements in its separate workflow.",
+  "regression_test": "Native 640x360, 45-frame H264 fixture decoded and contact sheet exported through bundled FFmpeg and PyAV, with ffprobe unavailable and no font installation.",
+  "resume_policy": "Cancel old generation through restart concurrency, preserve 31 current source receipts, continue 7 missing shots, no force/no paid fallback."
+}
