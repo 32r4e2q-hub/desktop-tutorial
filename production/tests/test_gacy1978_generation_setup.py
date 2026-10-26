@@ -17,6 +17,9 @@ def test_generation_setup_avoids_apt_and_bounds_downloads():
     for path in paths:
         text = path.read_text()
         assert 'sudo apt-get' not in text
+        assert 'fetch-depth: 1' in text
+        assert 'fetch-depth: 0' not in text
+        assert 'timeout-minutes: 8' in text
         assert 'imageio-ffmpeg==0.6.0' in text
         assert 'timeout-minutes: 12' in text
         assert 'timeout-minutes: 5' in text

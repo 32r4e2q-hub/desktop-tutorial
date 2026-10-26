@@ -32,10 +32,11 @@ jobs:
     timeout-minutes: 350
     steps:
       - name: Check out this Arena production branch
+        timeout-minutes: 8
         uses: actions/checkout@v4
         with:
           ref: arena/3c0c229a-desktop-tutorial
-          fetch-depth: 0  # 全量历史：checkpoint 推送被拒后 fetch+rebase 才能成功
+          fetch-depth: 1  # Current tree only; later fetch/rebase retains the initial common ancestor.
 
       - name: Resolve generation payload
         env:

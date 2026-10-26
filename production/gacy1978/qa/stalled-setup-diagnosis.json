@@ -8,5 +8,15 @@
   "diagnosis": "Infrastructure setup stall, not evidence of current provider throttling. Exact apt internal/network cause unconfirmed because live logs unavailable.",
   "repair": "Remove unnecessary apt/font installation from source generation. Use pinned bundled FFmpeg from PyPI with existing PyAV metadata fallback; bounded setup/download steps. Preserve renderer font requirements in its separate workflow.",
   "regression_test": "Native 640x360, 45-frame H264 fixture decoded and contact sheet exported through bundled FFmpeg and PyAV, with ffprobe unavailable and no font installation.",
-  "resume_policy": "Cancel old generation through restart concurrency, preserve 31 current source receipts, continue 7 missing shots, no force/no paid fallback."
+  "resume_policy": "Cancel old generation through restart concurrency, preserve 31 current source receipts, continue 7 missing shots, no force/no paid fallback.",
+  "verified_step_timing": {
+    "checkout_started": "2026-10-26T04:26:24Z",
+    "checkout_finished": "2026-10-26T05:06:57Z",
+    "checkout_duration_seconds": 2433,
+    "apt_started": "2026-10-26T05:06:57Z",
+    "apt_cancelled": "2026-10-26T05:31:15Z",
+    "apt_duration_seconds": 1458
+  },
+  "timing_correction": "The >1h duration applied to the whole preparation phase, NOT apt alone. Job-step timestamps confirm 40m33s checkout and 24m18s apt.",
+  "additional_repair": "Shallow checkout (depth 1) with 8-minute step limit, replacing full-history fetch. Never force push; checkpoint fetch/rebase can use the initial shallow tip as common ancestor."
 }
