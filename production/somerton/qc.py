@@ -294,8 +294,9 @@ def plausible_ocr_token(token: str, confidence: float) -> bool:
     return False
 
 
-def ocr_words(image: Image.Image, temp_path: Path, psm: int = 11) -> list[dict]:
-    """Return only plausible OCR tokens; this is a flagging aid, never a visual sign-off."""
+def ocr_words(image: Image.Image, temp_path: Path, psm: int = 11,
+              allow_partial_cjk: bool = False) -> list[dict]:
+    """Return plausible OCR tokens; subtitle mode keeps low-confidence CJK fragments for comparison."""
     image.convert("RGB").save(temp_path)
     proc = subprocess.run([
         "tesseract", str(temp_path), "stdout", "-l", "eng+chi_sim", "--psm", str(psm), "tsv",
@@ -311,7 +312,9 @@ def ocr_words(image: Image.Image, temp_path: Path, psm: int = 11) -> list[dict]:
             confidence = float(row.get("conf", -1))
         except ValueError:
             continue
-        if token and plausible_ocr_token(token, confidence):
+        cjk_token = "".join(ch for ch in token if 0x3400 <= ord(ch) <= 0x9FFF)
+        partial_cjk = (allow_partial_cjk and cjk_token and len(cjk_token) <= 40 and confidence >= 40)
+        if token and (plausible_ocr_token(token, confidence) or partial_cjk):
             words.append({"token": token, "confidence": round(confidence, 1)})
     return words
 
@@ -402,7 +405,7 @@ def scan_rendered_subtitles(frame_samples: list[dict], cues: list[dict], output_
             top = int(image.height * 0.76)
             band = image.crop((0, top, image.width, image.height))
             band = band.resize((band.width * 2, band.height * 2), Image.Resampling.LANCZOS)
-            words = ocr_words(band, temp_path, psm=6)
+            words = ocr_words(band, temp_path, psm=6, allow_partial_cjk=True)
             actual = "".join(str(word["token"]) for word in words)
             expected_norm = normalize_visible_text(expected)
             actual_norm = normalize_visible_text(actual)

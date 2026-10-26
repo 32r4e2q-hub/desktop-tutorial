@@ -56,6 +56,22 @@ class SomertonOcrTests(unittest.TestCase):
         self.assertEqual(words, [{"token": "TAMAN", "confidence": 91.3}])
         self.assertFalse(temp_path.exists())
 
+    def test_subtitle_ocr_can_keep_partial_low_confidence_cjk(self):
+        tsv = (
+            "level\tpage_num\tblock_num\tpar_num\tline_num\tword_num\tleft\ttop\twidth\theight\tconf\ttext\n"
+            "5\t1\t1\t1\t1\t1\t10\t10\t20\t20\t68.0\t一\n"
+            "5\t1\t1\t1\t1\t2\t30\t10\t20\t20\t52.0\t九\n"
+        )
+        completed = subprocess.CompletedProcess([], 0, stdout=tsv, stderr="")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            with patch.object(qc.subprocess, "run", return_value=completed):
+                strict = qc.ocr_words(Image.new("RGB", (64, 32), "white"), root / "strict.png")
+                subtitle = qc.ocr_words(Image.new("RGB", (64, 32), "white"), root / "subtitle.png",
+                                        psm=6, allow_partial_cjk=True)
+        self.assertEqual(strict, [])
+        self.assertEqual([word["token"] for word in subtitle], ["一", "九"])
+
     def test_ocr_token_filter_keeps_confident_words_and_multidigit_marks(self):
         self.assertTrue(qc.plausible_ocr_token("LUGGAGE", 80.0))
         self.assertTrue(qc.plausible_ocr_token("19", 95.0))
@@ -138,6 +154,7 @@ class SomertonOcrTests(unittest.TestCase):
         self.assertEqual(report["checked_frames"], 1)
         self.assertEqual(report["finding_count"], 0)
         self.assertEqual(ocr.call_args.kwargs["psm"], 6)
+        self.assertTrue(ocr.call_args.kwargs["allow_partial_cjk"])
         self.assertEqual(ocr.call_args.args[0].size, (200, 48))
 
     def test_rendered_subtitle_ocr_skips_cue_boundary_samples(self):
