@@ -1,7 +1,7 @@
 {
-  "action": "resume",
-  "reason": "retry missing shots only; preserve accepted tasks and completed receipts",
-  "round": 39,
+  "action": "stop",
+  "reason": "40-round safety budget reached; manual inspection required",
+  "round": 40,
   "next_payload": {
     "ref_image": true,
     "auto_resume": true,
@@ -12,6 +12,6 @@
   },
   "exit_code": 42,
   "completed": 37,
-  "source_run_id": "40400998027",
+  "source_run_id": "40404689649",
   "dispatch_status": "intent only; confirm with dispatch step and next workflow run"
 }
