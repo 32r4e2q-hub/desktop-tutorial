@@ -1042,15 +1042,16 @@
       "detail": "possible blank/dark shots=none"
     },
     {
-      "name": "ocr-unapproved-scene-text",
-      "status": "warn",
-      "detail": "possible text detections: 2 source contact-sheet cells, 0 final midpoints; inspect listed tokens visually"
+      "name": "media-analysis",
+      "status": "fail",
+      "detail": "RuntimeError: S01: motion sample extraction missed frames: ['S01-09.jpg']"
     }
   ],
-  "failures": [],
+  "failures": [
+    "media-analysis"
+  ],
   "warnings": [
-    "technical-report-human-review-complete",
-    "ocr-unapproved-scene-text"
+    "technical-report-human-review-complete"
   ],
   "artifact_root": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-input",
   "expected_run_id": "40260874205",
@@ -1980,39 +1981,9 @@
       "near_black_fraction": 0.2995
     }
   ],
-  "ocr_text_scan": {
-    "available": true,
-    "languages": "eng+chi_sim",
-    "source_cells_scanned": 185,
-    "final_frames_scanned": 27,
-    "source_findings": [
-      {
-        "shot": "S03",
-        "sample_cell": 1,
-        "words": [
-          {
-            "token": "WRAY",
-            "confidence": 69.4
-          }
-        ]
-      },
-      {
-        "shot": "S12",
-        "sample_cell": 7,
-        "words": [
-          {
-            "token": "USN",
-            "confidence": 80.5
-          }
-        ]
-      }
-    ],
-    "final_findings": [],
-    "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and the approved S14 Tamam Shud and S29 closing-title frames are excluded from final-frame OCR."
-  },
-  "automated_status": "pass_with_warnings",
+  "automated_status": "fail",
   "manual_visual_review": {
     "status": "pending",
-    "note": "Automated checks and midpoint stills do not replace full-motion review for morphing, visual glitches, story fit or subtitle placement. See the 29-shot contact sheets and final-film midpoint sheet."
+    "note": "Automated checks, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or audio semantics. See the 29 final-shot contact sheets and midpoint sheet."
   }
 }
