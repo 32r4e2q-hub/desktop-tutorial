@@ -756,10 +756,10 @@
     },
     "S37": {
       "id": "S37",
-      "status": "queued",
+      "status": "failed",
       "request_hash": "9221e620d54a441c7f874df0ccdf0d2a858fb3ca67aea1b40a504029c8e7c846",
-      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-26T16:42:21Z",
+      "error": "Error code: 400, with error text {\"task_status\":\"FAIL\",\"error\":{\"code\":\"1301\",\"message\":\"系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。\"},\"contentFilter\":[{\"level\":2,\"role\":\"assistant\"}]}",
+      "updated_at": "2026-10-26T16:43:58Z",
       "task_id": "20261027004221a948fc6f55384643",
       "retry_attempt": 9,
       "retry_after_seconds": 60
@@ -965,7 +965,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-26T16:42:21Z",
+  "updated_at": "2026-10-26T16:43:58Z",
   "previous_results": {
     "S01": [
       {
