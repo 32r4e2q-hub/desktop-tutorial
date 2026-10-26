@@ -785,21 +785,33 @@
     "S24": {
       "id": "S24",
       "request_hash": "5577ca3eb3adf2a87044b1615f0d07d32a0093b7ea49bc3465bb4d1f0c4bbb49",
-      "status": "downloaded",
+      "status": "completed",
       "video_id": "task_jb1wiCXxNDA39DYh0e4KmIWjIUGtvm5b",
       "task_id": "task_jb1wiCXxNDA39DYh0e4KmIWjIUGtvm5b",
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_jb1wiCXxNDA39DYh0e4KmIWjIUGtvm5b.mp4",
       "sha256": "2b64809a6d620b892f9c38488f80d03306e554bd35b5fec5c365ff7bbb79a4f0",
       "bytes": 1597595,
       "error": null,
-      "updated_at": "2026-10-26T09:16:00Z",
+      "updated_at": "2026-10-26T09:16:02Z",
       "create_attempts": 50,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61,
       "requested_seconds": 7.0,
       "requested_size": "720P",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1597595,
+        "decoded_ok": true,
+        "contact_sheet": "production/somerton/qa/S24.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S25": {
       "id": "S25",
@@ -962,7 +974,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-26T09:16:00Z",
+  "updated_at": "2026-10-26T09:16:02Z",
   "run_id": "40281081272",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
