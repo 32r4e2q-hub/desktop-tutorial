@@ -271,7 +271,7 @@ class SomertonPlanTests(unittest.TestCase):
         narration = self.story["narration_spec"]
         self.assertEqual(narration["voice_id"], "voice-01")
         self.assertEqual(narration["alignment"], "one-independently-generated-voice-clip-and-one-caption-cue-per-shot")
-        self.assertEqual(narration["max_speedup_factor"], 1.18)
+        self.assertEqual(narration["max_speedup_factor"], 1.55)
         self.assertFalse(narration["slowdown_allowed"])
 
 

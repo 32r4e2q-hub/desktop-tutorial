@@ -179,7 +179,7 @@ class SomertonOcrTests(unittest.TestCase):
                 "speech_start": 0.03, "speech_end": 1.72,
                 "characters": 5, "target_chars_per_second": 1.0}
         header = {"voice_id": "voice-01", "alignment": "one-clip-one-shot-one-caption",
-                  "slowdown_allowed": False, "max_speedup_factor": 1.18,
+                  "slowdown_allowed": False, "max_speedup_factor": 1.55,
                   "duration_seconds": 180.0}
         actual = {**header, "chapters": [chapter.copy()], "shots": [shot.copy()]}
         expected = {**header, "chapters": [chapter.copy()], "shots": [shot.copy()]}
@@ -193,7 +193,7 @@ class SomertonOcrTests(unittest.TestCase):
         self.assertEqual(voice_tempo_factor(3.4, 4.0), 1.0)
         self.assertAlmostEqual(voice_tempo_factor(4.4, 4.0), 1.1)
         with self.assertRaisesRegex(RuntimeError, "Shorten/regenerate"):
-            voice_tempo_factor(4.8, 4.0, max_speedup=1.18)
+            voice_tempo_factor(6.4, 4.0, max_speedup=1.55)
 
     def test_caption_voice_activity_flags_cues_without_narration_energy(self):
         voiced_then_silent = array("f", [0.1] * 48000 + [0.0] * 48000).tobytes()

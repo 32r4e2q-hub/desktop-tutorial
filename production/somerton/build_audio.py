@@ -103,7 +103,7 @@ def trim_voice_edges(samples: np.ndarray) -> tuple[np.ndarray, float, float]:
 
 
 def voice_tempo_factor(source_seconds: float, available_seconds: float,
-                       max_speedup: float = 1.18) -> float:
+                       max_speedup: float = 1.55) -> float:
     """Preserve natural pace; speed up only enough to fit, never slow down."""
     if source_seconds <= 0 or available_seconds <= 0:
         raise ValueError("Narration and available shot durations must be positive")
@@ -129,7 +129,7 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
     voice_id = spec.get("voice_id")
     if manifest.get("voice") != voice_id or manifest.get("slowdown_allowed") is not False:
         raise ValueError("Narration voice/alignment manifest is not the selected no-slowdown version")
-    max_speedup = float(spec.get("max_speedup_factor", 1.18))
+    max_speedup = float(spec.get("max_speedup_factor", 1.55))
     total_frames = round(float(story["target_duration"]) * RATE)
     voice = np.zeros(total_frames, dtype=np.float32)
     cues: list[dict] = []

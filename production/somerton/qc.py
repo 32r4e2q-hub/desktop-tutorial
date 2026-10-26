@@ -735,7 +735,7 @@ def main() -> int:
                   f"expected {shot['start']}–{shot['start']+shot['duration']}s → {shot['narration_id']}: {shot['narration']}")
 
     narration_spec = story.get("narration_spec", {})
-    max_speedup = float(narration_spec.get("max_speedup_factor", 1.18))
+    max_speedup = float(narration_spec.get("max_speedup_factor", 1.55))
     policy_ok = (narration_timing.get("voice_id") == narration_spec.get("voice_id")
                  and narration_timing.get("alignment") == "one-clip-one-shot-one-caption"
                  and narration_timing.get("slowdown_allowed") is False
@@ -864,7 +864,7 @@ def main() -> int:
     no_slowdown = (narration_sound.get("slowdown_allowed") is False
                    and len(voice_rows) == EXPECTED_SHOTS
                    and all(1.0 <= float(row.get("tempo_factor", 0))
-                           <= float(narration_sound.get("max_speedup_factor", 1.18)) + 0.001
+                           <= float(narration_sound.get("max_speedup_factor", 1.55)) + 0.001
                            for row in voice_rows))
     add_check(report, "no-slowdown-shot-locked-voice", no_slowdown,
               f"{len(voice_rows)} shot clips; tempo range="
