@@ -15,7 +15,7 @@ permissions:
 jobs:
   publish-mp4:
     if: contains(github.event.head_commit.message, '[publish-somerton-mp4]')
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - name: Download the QC-reviewed production artifact
         uses: actions/download-artifact@v4
