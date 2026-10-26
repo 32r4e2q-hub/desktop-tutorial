@@ -409,34 +409,10 @@
     },
     "S12": {
       "id": "S12",
-      "request_hash": "c012e5016e491b54b872a8f8ba21e1139b99a5985736f60d1aaa83bec3a637ae",
-      "status": "completed",
-      "error": null,
-      "updated_at": "2026-10-26T06:36:01Z",
-      "create_attempts": 14,
-      "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61,
-      "video_id": "task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM",
-      "task_id": "task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM.mp4",
-      "bytes": 1606902,
-      "sha256": "c1b984f1048dfbf47e4982726d613a4870ea9ce9478cab6d0a7a93cfc1f6be4c",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1606902,
-        "decoded_ok": true,
-        "contact_sheet": "production/somerton/qa/S12.jpg",
-        "visual_review": "pending"
-      },
-      "reused_existing_asset": true,
-      "visual_review": "pending"
+      "request_hash": "110d8c31599c35a73f007956d331db992a61d9801b6ab82ebfd3bc27370c3831",
+      "status": "retrying_create",
+      "reused_existing_asset": false,
+      "updated_at": "2026-10-26T08:02:08Z"
     },
     "S13": {
       "id": "S13",
@@ -958,7 +934,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-26T08:02:07Z",
+  "updated_at": "2026-10-26T08:02:08Z",
   "run_id": "40281081272",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -1444,6 +1420,37 @@
         "create_attempts": 121,
         "capacity_error": "video queue is full",
         "applied_cooldown_seconds": 61
+      },
+      {
+        "id": "S12",
+        "request_hash": "c012e5016e491b54b872a8f8ba21e1139b99a5985736f60d1aaa83bec3a637ae",
+        "status": "completed",
+        "error": null,
+        "updated_at": "2026-10-26T06:36:01Z",
+        "create_attempts": 14,
+        "capacity_error": "video queue is full",
+        "applied_cooldown_seconds": 61,
+        "video_id": "task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM",
+        "task_id": "task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_x6NhjAOmp8RpDjGX7rIwfSeSB37MxtrM.mp4",
+        "bytes": 1606902,
+        "sha256": "c1b984f1048dfbf47e4982726d613a4870ea9ce9478cab6d0a7a93cfc1f6be4c",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1606902,
+          "decoded_ok": true,
+          "contact_sheet": "production/somerton/qa/S12.jpg",
+          "visual_review": "pending"
+        },
+        "reused_existing_asset": true,
+        "visual_review": "pending"
       }
     ],
     "S15": [
