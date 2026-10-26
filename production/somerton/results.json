@@ -317,9 +317,9 @@
     "S09": {
       "id": "S09",
       "request_hash": "fe489ce09d5334d67ec9407d14a3ec232604ca1d4db98add94722a5faa20d629",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-26T01:53:20Z",
+      "updated_at": "2026-10-26T01:53:22Z",
       "error": null,
       "create_attempts": 60,
       "capacity_error": "video queue is full",
@@ -332,7 +332,18 @@
       "bytes": 1044617,
       "sha256": "eb32f132453af12ec3a27e3c426abd86eeca6b64b90cd8ab6da45114011d7c62",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1044617,
+        "decoded_ok": true,
+        "contact_sheet": "production/somerton/qa/S09.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -963,7 +974,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-26T01:53:20Z",
+  "updated_at": "2026-10-26T01:53:22Z",
   "run_id": "40249455092",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
