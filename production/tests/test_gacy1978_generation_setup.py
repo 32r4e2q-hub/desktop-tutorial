@@ -51,3 +51,41 @@ def test_bundled_ffmpeg_and_av_inspect_source_without_ffprobe_or_fonts(tmp_path,
     assert info['frames'] == 45
     assert info['fps'] == 10
     assert (tmp_path/'qa/SETUP.jpg').is_file()
+
+
+def test_shallow_checkpoint_rebases_after_concurrent_remote_update(tmp_path):
+    """Depth one still retains the common tip needed by checkpoint fetch/rebase."""
+    if not shutil.which('git'):
+        pytest.skip('git required')
+    branch = 'arena/3c0c229a-desktop-tutorial'
+    remote, writer, client = [tmp_path/name for name in ('remote.git','writer','client')]
+
+    def git(cwd, *args, check=True):
+        return subprocess.run(['git', *args], cwd=cwd, check=check, capture_output=True, text=True)
+
+    git(tmp_path, 'init','--bare',str(remote))
+    git(tmp_path, 'init','-b',branch,str(writer))
+    for repo in (writer,):
+        git(repo,'config','user.name','Fixture')
+        git(repo,'config','user.email','fixture@example.invalid')
+    (writer/'base.txt').write_text('base')
+    git(writer,'add','.'); git(writer,'commit','-m','base')
+    (writer/'base.txt').write_text('current source plan')
+    git(writer,'commit','-am','current plan')
+    git(writer,'remote','add','origin',remote.as_uri())
+    git(writer,'push','-u','origin',branch)
+    git(tmp_path,'clone','--depth','1','--branch',branch,remote.as_uri(),str(client))
+    assert git(client,'rev-parse','--is-shallow-repository').stdout.strip() == 'true'
+    git(client,'config','user.name','Fixture')
+    git(client,'config','user.email','fixture@example.invalid')
+    (writer/'upstream.txt').write_text('concurrent review')
+    git(writer,'add','.'); git(writer,'commit','-m','concurrent review')
+    git(writer,'push','origin',branch)
+    (client/'qa.txt').write_text('new checkpoint receipt')
+    git(client,'add','.'); git(client,'commit','-m','checkpoint')
+    assert git(client,'push','origin',branch,check=False).returncode != 0
+    git(client,'fetch','origin',branch)
+    git(client,'rebase','FETCH_HEAD')
+    git(client,'push','origin',branch)
+    assert (client/'qa.txt').read_text() == 'new checkpoint receipt'
+    assert (client/'upstream.txt').read_text() == 'concurrent review'
