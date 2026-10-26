@@ -10,6 +10,17 @@ from production.somerton.render import detect_matte_bands, letterbox_crop_filter
 
 
 class SomertonRenderTests(unittest.TestCase):
+    def test_s24_first_frame_is_not_faded_up_from_black(self):
+        shot = {"id": "S24", "start": 150, "duration": 7}
+        self.assertEqual(render.chapter_fade_filters(shot, {"S24"}, {"S27"}), [])
+
+    def test_other_chapter_openers_keep_their_fade_in(self):
+        shot = {"id": "S10", "start": 55, "duration": 7}
+        self.assertEqual(
+            render.chapter_fade_filters(shot, {"S10"}, set()),
+            ["fade=t=in:st=0:d=0.30"],
+        )
+
     def test_s24_letterbox_detector_finds_sharp_paired_mattes(self):
         image = Image.new("RGB", (640, 360), "black")
         ImageDraw.Draw(image).rectangle((0, 50, 639, 309), fill=(55, 85, 105))

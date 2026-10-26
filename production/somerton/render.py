@@ -87,6 +87,20 @@ def chapter_boundaries(story: dict) -> tuple[set[str], set[str]]:
     return first, last
 
 
+def chapter_fade_filters(shot: dict, first_ids: set[str], last_ids: set[str]) -> list[str]:
+    """Return chapter-boundary fades, except where a shot must start on its required scene."""
+    shot_id = shot["id"]
+    start = float(shot["start"])
+    duration = float(shot["duration"])
+    filters = []
+    # S24's first output frame must already depict the 2022 lab, not fade up from black.
+    if shot_id in first_ids and start > 0 and shot_id != "S24":
+        filters.append("fade=t=in:st=0:d=0.30")
+    if shot_id in last_ids and start + duration < DURATION:
+        filters.append(f"fade=t=out:st={max(0.0, duration-0.30):.3f}:d=0.30")
+    return filters
+
+
 def detect_matte_bands(image: Image.Image) -> tuple[int, int] | None:
     """Detect paired, nearly black borders with a sharp boundary in a low-resolution frame."""
     gray = np.asarray(image.convert("L"), dtype=np.uint8)
@@ -180,10 +194,7 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
         "setsar=1",
         "eq=gamma=1.10:brightness=0.008",
     ]
-    if shot["id"] in first_ids and shot["start"] > 0:
-        filters.append("fade=t=in:st=0:d=0.30")
-    if shot["id"] in last_ids and shot["start"] + duration < DURATION:
-        filters.append(f"fade=t=out:st={max(0.0, duration-0.30):.3f}:d=0.30")
+    filters.extend(chapter_fade_filters(shot, first_ids, last_ids))
     filters.append("format=yuv420p")
     target.parent.mkdir(parents=True, exist_ok=True)
     run([
