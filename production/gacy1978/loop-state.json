@@ -1,17 +1,17 @@
 {
   "action": "resume",
   "reason": "retry missing shots only; preserve accepted tasks and completed receipts",
-  "round": 9,
+  "round": 1,
   "next_payload": {
     "ref_image": true,
     "auto_resume": true,
-    "round": 10,
+    "round": 2,
     "round_minutes": 25,
     "quality_retake_round": 1,
-    "reason": "resume_8_missing_preserve_30_after_user_continuation"
+    "reason": "resume_7_preserve_31_fix_stuck_apt"
   },
   "exit_code": 42,
-  "completed": 31,
-  "source_run_id": "40267006417",
+  "completed": 32,
+  "source_run_id": "40274873177",
   "dispatch_status": "intent only; confirm with dispatch step and next workflow run"
 }
