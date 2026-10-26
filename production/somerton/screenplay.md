@@ -72,7 +72,7 @@
 | S09 | 00:49—00:55 | 6 | N03 | 缓慢推近试管，冷白光 | Restrained 1940s examination room, no remains visible |
 | S10 | 00:55—01:02 | 7 | N04 | 从拱顶下降到柜台 | A 1949 Adelaide railway concourse framed only on its high glass-and-iron vaulted roof, bare stone pillars, drifting steam and travelers in period coats crossing in both directions |
 | S11 | 01:02—01:09 | 7 | N04 | 特写俯拍，逐件显露 | Behind the wooden station counter, a clerk hands a detective a worn dark-brown leather suitcase |
-| S12 | 01:09—01:15 | 6 | N04 | 缓慢推近衣物标签处 | Macro view of folded 1940s clothing inside an open suitcase |
+| S12 | 01:09—01:15 | 6 | N04 | 微距推近衣物内缝 | Macro view of folded 1940s clothing inside an open suitcase |
 | S13 | 01:15—01:22 | 7 | N05 | 微距缓慢推进，慢动作展开 | In the softly lit examination room, the coroner's gloved hand carefully opens a hidden watch pocket sewn inside folded trousers and lifts out a tiny rolled paper scrap with tweezers |
 | S14 | 01:22—01:29 | 7 | N05 | 缓慢推近纸面，金色显影 | Extreme close-up of aged cream paper against a nearly black background |
 | S15 | 01:29—01:35 | 6 | N05 | 从书页特写缓慢拉远 | An old, unmarked poetry volume lies open on a dark desk; the final leaf is missing and its ragged torn edge is clearly visible |

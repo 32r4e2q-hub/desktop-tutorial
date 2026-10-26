@@ -189,6 +189,13 @@ class SomertonPlanTests(unittest.TestCase):
                 prompt = rows[sid]["prompt"].lower()
                 self.assertTrue(any(marker in prompt for marker in markers), prompt)
 
+    def test_s12_keeps_any_removed_clothing_label_out_of_frame(self):
+        shot = next(shot for shot in self.story["shots"] if shot["id"] == "S12")
+        prompt = shot["prompt"].lower()
+        self.assertIn("removed tag is not in frame", prompt)
+        self.assertIn("every label-shaped patch entirely outside the shot", prompt)
+        self.assertIn("no tag, tab, patch or label surface visible", prompt)
+
     def test_s09_keeps_surgical_lamp_offscreen_and_bans_mystery_symbols(self):
         shot = next(shot for shot in self.story["shots"] if shot["id"] == "S09")
         prompt = shot["prompt"].lower()
