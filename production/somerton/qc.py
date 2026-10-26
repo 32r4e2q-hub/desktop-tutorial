@@ -162,12 +162,12 @@ def draw_midpoint_sheet(video: Path, story: dict, output: Path, sample_dir: Path
 
 
 def motion_sample_times(shot: dict, count: int = 9) -> list[float]:
-    """Return evenly spaced sample times centered within equal subsegments of a shot."""
+    """Return evenly spaced sample times across a shot, including its first frame."""
     start = float(shot["start"])
     duration = float(shot["duration"])
     if count <= 0 or duration <= 0:
         raise ValueError("motion sample count and shot duration must be positive")
-    return [round(start + duration * (index + 0.5) / count, 3) for index in range(count)]
+    return [round(start + duration * index / count, 3) for index in range(count)]
 
 
 def assemble_final_motion_sheet(shot_id: str, sample_times: list[float],
@@ -207,8 +207,8 @@ def draw_final_motion_sheets(video: Path, story: dict, output_dir: Path,
         pattern = frame_dir / f"{sid}-%02d.jpg"
         subprocess.run([
             "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
-            "-ss", f"{times[0]:.3f}", "-i", str(video),
-            "-t", f"{duration - interval / 2:.3f}", "-map", "0:v:0",
+            "-ss", f"{float(shot['start']):.3f}", "-i", str(video),
+            "-t", f"{duration:.3f}", "-map", "0:v:0",
             "-vf", f"fps={count / duration:.8f},scale=1280:720:flags=lanczos",
             "-frames:v", str(count), "-q:v", "3", "-start_number", "1", str(pattern),
         ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)

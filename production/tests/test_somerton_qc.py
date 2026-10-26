@@ -14,8 +14,8 @@ class SomertonOcrTests(unittest.TestCase):
         shot = {"start": 125, "duration": 8}
         times = qc.motion_sample_times(shot)
         self.assertEqual(len(times), 9)
-        self.assertAlmostEqual(times[0], 125 + 8 / 18, delta=0.001)
-        self.assertAlmostEqual(times[-1], 125 + 8 * 8.5 / 9, delta=0.001)
+        self.assertEqual(times[0], 125.0)
+        self.assertAlmostEqual(times[-1], 125 + 8 * 8 / 9, delta=0.001)
         steps = [times[index + 1] - times[index] for index in range(8)]
         self.assertTrue(all(abs(step - 8 / 9) < 0.002 for step in steps))
 
