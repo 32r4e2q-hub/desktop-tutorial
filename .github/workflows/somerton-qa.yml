@@ -1,5 +1,5 @@
 name: Somerton First-Cut QC and QA
-run-name: Somerton QC · artifact ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40085920189' }}
+run-name: Somerton QC · artifact ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40260874205' }}
 
 on:
   push:
@@ -14,12 +14,12 @@ on:
         description: 'Successful production Actions run ID to inspect'
         required: true
         type: string
-        default: '40085920189'
+        default: '40260874205'
       artifact_name:
         description: 'Artifact name from that run'
         required: true
         type: string
-        default: 'somerton-3min-agnes-9'
+        default: 'somerton-3min-agnes-18'
 
 permissions:
   actions: read
@@ -35,8 +35,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
-      ARTIFACT_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40085920189' }}
-      ARTIFACT_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.artifact_name || 'somerton-3min-agnes-9' }}
+      ARTIFACT_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40260874205' }}
+      ARTIFACT_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.artifact_name || 'somerton-3min-agnes-18' }}
       TARGET_BRANCH: arena/dc7c8423-desktop-tutorial
     steps:
       - name: Check out the fixed Arena branch
@@ -73,7 +73,7 @@ jobs:
           --output-dir qa-output
           --expected-run-id "$ARTIFACT_RUN_ID"
 
-      - name: Publish machine-readable report and final-frame sheet to the fixed branch
+      - name: Publish report, midpoint and per-shot motion sheets to the fixed branch
         if: always()
         run: |
           if [ -f qa-output/automated-qc.json ]; then
@@ -82,11 +82,18 @@ jobs:
             if [ -f qa-output/final-film-midpoints.jpg ]; then
               cp qa-output/final-film-midpoints.jpg "production/somerton/qa/final-film-midpoints-run${ARTIFACT_RUN_ID}.jpg"
             fi
+            if [ -d qa-output/final-shot-sheets ]; then
+              mkdir -p "production/somerton/qa/final-shot-sheets-run${ARTIFACT_RUN_ID}"
+              cp -a qa-output/final-shot-sheets/. "production/somerton/qa/final-shot-sheets-run${ARTIFACT_RUN_ID}/"
+            fi
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add "production/somerton/qa/automated-qc-run${ARTIFACT_RUN_ID}.json"
             if [ -f "production/somerton/qa/final-film-midpoints-run${ARTIFACT_RUN_ID}.jpg" ]; then
               git add "production/somerton/qa/final-film-midpoints-run${ARTIFACT_RUN_ID}.jpg"
+            fi
+            if [ -d "production/somerton/qa/final-shot-sheets-run${ARTIFACT_RUN_ID}" ]; then
+              git add "production/somerton/qa/final-shot-sheets-run${ARTIFACT_RUN_ID}"
             fi
             if ! git diff --cached --quiet; then
               git commit -m "somerton: publish automated QC report for run ${ARTIFACT_RUN_ID}"

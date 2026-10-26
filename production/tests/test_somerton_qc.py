@@ -10,6 +10,29 @@ from production.somerton import qc
 
 
 class SomertonOcrTests(unittest.TestCase):
+    def test_motion_sample_times_are_evenly_spaced_inside_shot(self):
+        shot = {"start": 125, "duration": 8}
+        times = qc.motion_sample_times(shot)
+        self.assertEqual(len(times), 9)
+        self.assertAlmostEqual(times[0], 125 + 8 / 18, delta=0.001)
+        self.assertAlmostEqual(times[-1], 125 + 8 * 8.5 / 9, delta=0.001)
+        steps = [times[index + 1] - times[index] for index in range(8)]
+        self.assertTrue(all(abs(step - 8 / 9) < 0.002 for step in steps))
+
+    def test_final_motion_sheet_is_a_labeled_three_by_three_grid(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            frames = []
+            colors = [(index * 20, 100, 160) for index in range(9)]
+            for index, color in enumerate(colors):
+                frame = root / f"frame-{index}.jpg"
+                Image.new("RGB", (640, 360), color).save(frame)
+                frames.append(frame)
+            output = root / "S21.jpg"
+            qc.assemble_final_motion_sheet("S21", [float(i) for i in range(9)], frames, output)
+            with Image.open(output) as sheet:
+                self.assertEqual(sheet.size, (1278, 801))
+
     def test_ocr_parser_keeps_confident_text_and_ignores_low_confidence_noise(self):
         tsv = (
             "level\tpage_num\tblock_num\tpar_num\tline_num\tword_num\tleft\ttop\twidth\theight\tconf\ttext\n"
@@ -50,6 +73,22 @@ class SomertonOcrTests(unittest.TestCase):
         self.assertEqual(report["final_frames_scanned"], 1)
         self.assertEqual(ocr.call_count, 1)
         self.assertEqual(ocr.call_args.args[0].size, (100, 80))
+
+    def test_ocr_scans_explicit_additional_final_motion_frames(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            frame = root / "motion.jpg"
+            Image.new("RGB", (100, 100), "white").save(frame)
+            midpoint_samples = [{"id": "S01", "frame": str(frame), "time_seconds": 2.5}]
+            motion_samples = [{"id": "S01", "frame": str(frame), "time_seconds": 1.0},
+                              {"id": "S01", "frame": str(frame), "time_seconds": 4.0}]
+            with patch.object(qc.shutil, "which", return_value="/usr/bin/tesseract"), \
+                 patch.object(qc, "find_file", return_value=None), \
+                 patch.object(qc, "ocr_words", return_value=[]) as ocr:
+                report = qc.scan_unapproved_text(Path(temp_dir), midpoint_samples,
+                                                 Path(temp_dir) / "ocr", motion_samples)
+        self.assertEqual(report["final_frames_scanned"], 2)
+        self.assertEqual(ocr.call_count, 2)
 
     def test_only_s14_tamam_shud_words_are_allowlisted(self):
         words = [

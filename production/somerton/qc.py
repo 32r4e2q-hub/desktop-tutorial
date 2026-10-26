@@ -161,6 +161,75 @@ def draw_midpoint_sheet(video: Path, story: dict, output: Path, sample_dir: Path
     return samples
 
 
+def motion_sample_times(shot: dict, count: int = 9) -> list[float]:
+    """Return evenly spaced sample times centered within equal subsegments of a shot."""
+    start = float(shot["start"])
+    duration = float(shot["duration"])
+    if count <= 0 or duration <= 0:
+        raise ValueError("motion sample count and shot duration must be positive")
+    return [round(start + duration * (index + 0.5) / count, 3) for index in range(count)]
+
+
+def assemble_final_motion_sheet(shot_id: str, sample_times: list[float],
+                                frame_paths: list[Path], output: Path) -> None:
+    """Create a labeled 3x3 contact sheet from final-cut frames of one shot."""
+    if len(sample_times) != 9 or len(frame_paths) != 9:
+        raise ValueError("exactly nine sample times and frames are required for a 3x3 sheet")
+    cell_w, cell_h, label_h = 426, 240, 27
+    sheet = Image.new("RGB", (cell_w * 3, (cell_h + label_h) * 3), (17, 22, 28))
+    draw = ImageDraw.Draw(sheet)
+    try:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 15)
+    except OSError:
+        font = ImageFont.load_default()
+    for index, (sample_time, frame_path) in enumerate(zip(sample_times, frame_paths)):
+        col, row = index % 3, index // 3
+        x, y = col * cell_w, row * (cell_h + label_h)
+        draw.text((x + 7, y + 4), f"{shot_id} | t={sample_time:.2f}s", font=font, fill=(255, 222, 145))
+        image = Image.open(frame_path).convert("RGB")
+        image = image.resize((cell_w, cell_h), Image.Resampling.LANCZOS)
+        sheet.paste(image, (x, y + label_h))
+    output.parent.mkdir(parents=True, exist_ok=True)
+    sheet.save(output, quality=90)
+
+
+def draw_final_motion_sheets(video: Path, story: dict, output_dir: Path,
+                             frame_dir: Path, count: int = 9) -> tuple[list[dict], list[dict]]:
+    """Extract nine final-render frames per shot and assemble a review sheet per shot."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    frame_dir.mkdir(parents=True, exist_ok=True)
+    sheets, frame_samples = [], []
+    for shot in story["shots"]:
+        sid = shot["id"]
+        duration = float(shot["duration"])
+        times = motion_sample_times(shot, count)
+        interval = duration / count
+        pattern = frame_dir / f"{sid}-%02d.jpg"
+        subprocess.run([
+            "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
+            "-ss", f"{times[0]:.3f}", "-i", str(video),
+            "-t", f"{duration - interval / 2:.3f}", "-map", "0:v:0",
+            "-vf", f"fps={count / duration:.8f},scale=1280:720:flags=lanczos",
+            "-frames:v", str(count), "-q:v", "3", "-start_number", "1", str(pattern),
+        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        frame_paths = [frame_dir / f"{sid}-{index + 1:02d}.jpg" for index in range(count)]
+        missing = [path.name for path in frame_paths if not path.is_file() or path.stat().st_size < 1000]
+        if missing:
+            raise RuntimeError(f"{sid}: motion sample extraction missed frames: {missing}")
+        sheet_path = output_dir / f"{sid}.jpg"
+        assemble_final_motion_sheet(sid, times, frame_paths, sheet_path)
+        sheets.append({"id": sid, "sample_times_seconds": times,
+                       "contact_sheet": str(sheet_path), "frame_count": count})
+        frame_samples.extend({"id": sid, "time_seconds": sample_time, "frame": str(path)}
+                             for sample_time, path in zip(times, frame_paths))
+    return sheets, frame_samples
+
+
+def remove_motion_frame_files(frame_samples: list[dict]) -> None:
+    for sample in frame_samples:
+        Path(sample["frame"]).unlink(missing_ok=True)
+
+
 def run_ffmpeg_scan(video: Path) -> dict:
     command = [
         "ffmpeg", "-hide_banner", "-nostats", "-i", str(video),
@@ -233,8 +302,9 @@ def unapproved_ocr_words(shot_id: str, words: list[dict]) -> list[dict]:
             if re.sub(r"[^a-z]+", "", word["token"].casefold()) not in approved]
 
 
-def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) -> dict:
-    """OCR sampled source frames and the final cut, excluding post-produced subtitle/title zones."""
+def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path,
+                         final_frame_samples: list[dict] | None = None) -> dict:
+    """OCR source contacts and final frames, excluding post-produced subtitle/title zones."""
     if not shutil.which("tesseract"):
         return {"available": False, "reason": "tesseract executable not installed", "findings": []}
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -262,7 +332,8 @@ def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path) 
 
     final_findings = []
     final_frames_scanned = 0
-    for sample in samples:
+    final_samples = samples if final_frame_samples is None else final_frame_samples
+    for sample in final_samples:
         sid = sample["id"]
         if sid in {"S14", "S29"}:  # the allowed S14 phrase and post-produced S29 title occupy these frames
             continue
@@ -562,24 +633,43 @@ def main() -> int:
                             if row["near_black_fraction"] > 0.90 and row["luma_stddev"] < 8]
         add_check(report, "shot-midpoint-nonblank", not blank_candidates,
                   f"possible blank/dark shots={blank_candidates or 'none'}", severity="warning")
-        text_scan = scan_unapproved_text(artifact, samples, out / "ocr-review")
-        report["ocr_text_scan"] = text_scan
-        if not text_scan.get("available"):
-            add_check(report, "ocr-unapproved-scene-text", False,
-                      text_scan.get("reason", "OCR unavailable"), severity="warning")
-        else:
-            source_hits = len(text_scan["source_findings"])
-            final_hits = len(text_scan["final_findings"])
-            add_check(report, "ocr-unapproved-scene-text", source_hits == 0 and final_hits == 0,
-                      f"possible text detections: {source_hits} source contact-sheet cells, {final_hits} final midpoints; inspect listed tokens visually",
-                      severity="warning")
+
+        motion_frame_dir = out / "motion-frames"
+        motion_frame_samples = []
+        try:
+            motion_sheets, motion_frame_samples = draw_final_motion_sheets(
+                video, story, out / "final-shot-sheets", motion_frame_dir, count=9)
+            report["final_motion_sheets"] = motion_sheets
+            complete_sheets = (len(motion_sheets) == len(shots)
+                               and all(row["frame_count"] == 9 for row in motion_sheets))
+            add_check(report, "final-shot-motion-sheets", complete_sheets,
+                      f"{len(motion_sheets)}/{len(shots)} shots, nine evenly spaced frames per sheet")
+            text_scan = scan_unapproved_text(
+                artifact, samples, out / "ocr-review",
+                final_frame_samples=[*samples, *motion_frame_samples])
+            report["ocr_text_scan"] = text_scan
+            if not text_scan.get("available"):
+                add_check(report, "ocr-unapproved-scene-text", False,
+                          text_scan.get("reason", "OCR unavailable"), severity="warning")
+            else:
+                source_hits = len(text_scan["source_findings"])
+                final_hits = len(text_scan["final_findings"])
+                add_check(report, "ocr-unapproved-scene-text", source_hits == 0 and final_hits == 0,
+                          f"possible text detections: {source_hits} source contact-sheet cells, {final_hits} final sampled frames; inspect listed tokens visually",
+                          severity="warning")
+        finally:
+            remove_motion_frame_files(motion_frame_samples)
+            if motion_frame_dir.exists():
+                for leftover in motion_frame_dir.glob("*.jpg"):
+                    leftover.unlink(missing_ok=True)
+                motion_frame_dir.rmdir()
     except Exception as exc:
         add_check(report, "media-analysis", False, f"{type(exc).__name__}: {exc}")
 
     report["automated_status"] = "fail" if report["failures"] else ("pass_with_warnings" if report["warnings"] else "pass")
     report["manual_visual_review"] = {
         "status": "pending",
-        "note": "Automated checks and midpoint stills do not replace full-motion review for morphing, visual glitches, story fit or subtitle placement. See the 29-shot contact sheets and final-film midpoint sheet.",
+        "note": "Automated checks, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or audio semantics. See the 29 final-shot contact sheets and midpoint sheet.",
     }
     output = out / "automated-qc.json"
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -592,6 +682,7 @@ def main() -> int:
                  f"{sum(c['status']=='warn' for c in report['checks'])} warnings, "
                  f"{sum(c['status']=='fail' for c in report['checks'])} failures.",
                  f"- Completed shots: {len(completed)}/29.",
+                 f"- Final motion sheets: {len(report.get('final_motion_sheets', []))} (nine frames per shot; not a substitute for continuous review).",
                  f"- Final video: {delivery.get('film')}",
                  f"- Possible OCR text hits: {len(report.get('ocr_text_scan', {}).get('source_findings', []))} source cells, "
                  f"{len(report.get('ocr_text_scan', {}).get('final_findings', []))} final frames.",
