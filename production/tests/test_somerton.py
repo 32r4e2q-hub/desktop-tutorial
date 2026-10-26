@@ -236,16 +236,30 @@ class SomertonPlanTests(unittest.TestCase):
         self.assertFalse(results["shots"]["S07"]["reused_existing_asset"])
         self.assertEqual(results["shots"]["S08"], matching_s08)
 
-    def test_audio_manifest_is_exact_and_hashed(self):
+    def test_audio_manifest_is_exact_and_hashed_per_shot(self):
         manifest = json.loads((PROJECT / "audio" / "manifest.json").read_text(encoding="utf-8"))
         records = {row["id"]: row for row in manifest["clips"]}
-        self.assertEqual(len(records), 9)
-        for chapter in self.story["chapters"]:
-            row = records[chapter["id"]]
+        self.assertEqual(len(records), 29)
+        self.assertEqual(manifest["voice"], "voice-01")
+        self.assertEqual(manifest["alignment"], "one-clip-one-shot-one-caption")
+        self.assertFalse(manifest["slowdown_allowed"])
+        for shot in self.story["shots"]:
+            row = records[shot["id"]]
             audio = PROJECT / "audio" / row["file"]
-            self.assertEqual(row["text"], chapter["text"])
+            self.assertEqual(row["text"], shot["narration"])
+            self.assertEqual(row["voice_id"], "voice-01")
+            self.assertEqual(row["narration_id"], shot["narration_id"])
+            self.assertEqual(row["target_start"], shot["start"])
+            self.assertEqual(row["target_duration"], shot["duration"])
             self.assertEqual(row["sha256"], hashlib.sha256(audio.read_bytes()).hexdigest())
-            self.assertEqual(row["voice_id"], "voice-00")
+
+    def test_every_chapter_text_is_derived_from_its_ordered_shots(self):
+        shots = {shot["id"]: shot for shot in self.story["shots"]}
+        for chapter in self.story["chapters"]:
+            with self.subTest(chapter=chapter["id"]):
+                mapped = [shots[sid] for sid in chapter["shot_ids"]]
+                self.assertTrue(all(shot["narration_id"] == chapter["id"] for shot in mapped))
+                self.assertEqual(chapter["text"], "".join(shot["narration"] for shot in mapped))
 
     def test_reference_images_and_post_overlays_are_defined(self):
         for reference in self.story["reference_images"]:
@@ -254,8 +268,11 @@ class SomertonPlanTests(unittest.TestCase):
         self.assertEqual(presentation["end_title"], "塔玛姆·舒德")
         self.assertEqual(presentation["cover"]["text"], "他是谁?")
         self.assertIn("Tamam Shud", self.story["shots"][13]["prompt"])
-        self.assertEqual(presentation["voice_pauses"]["N03"]["seconds"], 0.5)
-        self.assertEqual(presentation["voice_pauses"]["N09"]["seconds"], 0.5)
+        narration = self.story["narration_spec"]
+        self.assertEqual(narration["voice_id"], "voice-01")
+        self.assertEqual(narration["alignment"], "one-independently-generated-voice-clip-and-one-caption-cue-per-shot")
+        self.assertEqual(narration["max_speedup_factor"], 1.18)
+        self.assertFalse(narration["slowdown_allowed"])
 
 
 if __name__ == "__main__":

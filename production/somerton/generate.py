@@ -212,13 +212,25 @@ def validate(project: dict) -> None:
 
     manifest = read_json(HERE / "audio" / "manifest.json", {})
     records = {row.get("id"): row for row in manifest.get("clips", [])}
-    for chapter in chapters:
-        row = records.get(chapter["id"], {})
+    narration_spec = project.get("narration_spec", {})
+    expected_voice = narration_spec.get("voice_id")
+    if manifest.get("voice") != expected_voice or manifest.get("alignment") != "one-clip-one-shot-one-caption":
+        raise ValueError("Narration manifest must use the selected voice and shot-locked alignment")
+    if manifest.get("slowdown_allowed") is not False:
+        raise ValueError("Narration must not be slowed down to fill shot durations")
+    if len(records) != len(shots):
+        raise ValueError("Narration manifest must contain exactly one clip per shot")
+    for shot in shots:
+        row = records.get(shot["id"], {})
         audio = HERE / "audio" / row.get("file", "missing.mp3")
-        if row.get("text") != chapter["text"] or not audio.is_file():
-            raise ValueError("Narration text/file mismatch: " + chapter["id"])
+        if (row.get("text") != shot.get("narration") or row.get("voice_id") != expected_voice
+                or row.get("narration_id") != shot["narration_id"]
+                or row.get("target_start") != shot["start"]
+                or row.get("target_duration") != shot["duration"]
+                or not audio.is_file()):
+            raise ValueError("Shot-locked narration text/file/timing mismatch: " + shot["id"])
         if row.get("sha256") != digest(audio):
-            raise ValueError("Narration SHA-256 mismatch: " + chapter["id"])
+            raise ValueError("Narration SHA-256 mismatch: " + shot["id"])
 
     for ref in project.get("reference_images", []):
         if not (HERE / ref["file"]).is_file():

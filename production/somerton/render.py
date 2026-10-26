@@ -409,7 +409,8 @@ def main() -> int:
                                                       encoding="utf-8")
     (delivery / "edit-decision-list.json").write_text(json.dumps([
         {"id": shot["id"], "start": shot["start"], "end": shot["start"] + shot["duration"],
-         "duration": shot["duration"], "kind": "agnes", "narration_id": shot["narration_id"]}
+         "duration": shot["duration"], "kind": "agnes", "narration_id": shot["narration_id"],
+         "narration": shot["narration"]}
         for shot in story["shots"]
     ], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (delivery / "narration-timing.json").write_text(json.dumps(audio_report["narration"], ensure_ascii=False, indent=2) + "\n",

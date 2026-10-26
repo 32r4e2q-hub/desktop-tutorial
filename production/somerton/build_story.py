@@ -14,7 +14,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 AUDIO = HERE / "audio"
 TITLE = "塔玛姆·舒德：索马顿海滩无名男尸"
-FILM_NAME = "塔玛姆·舒德_索马顿海滩无名男尸_三分钟_QC修订版.mp4"
+FILM_NAME = "塔玛姆·舒德_索马顿海滩无名男尸_旁白重配版_QC预览.mp4"
 
 # 供每条 Agnes 提示词自动置顶的全局 STYLE。保留用户要求的 1940 年代黑色电影调性；
 # 现代实验室镜头只把器材与服装换为当代，其余胶片色彩与镜头语言保持连续。
@@ -153,25 +153,52 @@ SHOT_ROWS = [
      "A near-black cinematic end background with a subtle cloud of fine gold particles swirling and drifting continuously from left to right; a faint amber glow breathes in and out at the center. Camera remains locked and stable while the particles keep real motion. Leave clean central negative space for post-production Chinese title and subtitle; no generated letters or symbols."),
 ]
 
+# 逐镜旁白是唯一解说稿：每条独立生成、从对应镜头起播，并只为该镜生成一条字幕。
+# 画面、镜头时间轴、提示词与剪辑顺序保持不变；旁白不跨镜、不靠慢放填满章节。
+VOICE_ID = "voice-01"
+MAX_VOICE_SPEEDUP = 1.18
+NARRATION_LINES = {
+    "S01": "一九四八年，阿德莱德索马顿海滩，天亮前异常安静。",
+    "S02": "海堤边坐着一名西装整齐的陌生人；他是谁，无人知晓。",
+    "S03": "十二月一日清晨，海边行人走近海堤，发现他已没有生命迹象。",
+    "S04": "警方迅速赶到现场；他没有证件，也没有明显外伤，身份无从查起。",
+    "S05": "有人回忆，前一晚他靠着海堤一动不动；路人以为他只是睡着了。",
+    "S06": "警方逐件检查随身物品，却找不到姓名、住址或身份凭证。",
+    "S07": "他身上几乎所有衣物标签都被剪掉，连来源和姓名也难以追查。",
+    "S08": "指纹和牙齿记录送去比对，档案里仍找不到任何身份匹配。",
+    "S09": "尸检发现内脏充血，疑似中毒；常见毒物检测无结果，死因未明。",
+    "S10": "一九四九年一月，阿德莱德火车站寄存处发现一只旧皮箱。",
+    "S11": "警方怀疑皮箱属于死者；箱内装着衣物、剃须用品和橙色缝线。",
+    "S12": "线头与裤子修补处相合；衣物出现“基恩”姓氏，却无匹配失踪报告。",
+    "S13": "复查衣物时，验尸官从裤子暗袋里取出一卷被藏起的小纸片。",
+    "S14": "纸上印着两个波斯语词：“Tamam Shud”，通常译作“结束了”。",
+    "S15": "纸片来自《鲁拜集》末页；那本诗集恰好缺了最后一页。",
+    "S16": "警方找到诗集后，撕口与纸片边缘严丝合缝。",
+    "S17": "研究者在诗集封底发现潦草字母；几十年来，仍没人能可靠解读。",
+    "S18": "探员和研究者反复比对各种可能，依然没有公认的密码解读。",
+    "S19": "书页上的电话号码追查到附近一位护士，警方于是登门询问。",
+    "S20": "她说不认识死者，也不知道自己的号码为何出现在诗集里。",
+    "S21": "案件登上报纸，公众追问：这个衣着整齐、没有身份的男人是谁？",
+    "S22": "冷战时期，间谍猜想甚嚣尘上；但没有证据证明他参与秘密行动。",
+    "S23": "情杀、毒杀后抛尸，这些说法反复流传；至今都没有证据证实。",
+    "S24": "二〇二二年，研究团队用石膏死亡面模里的头发做DNA家谱分析。",
+    "S25": "家谱线索层层追溯，研究者把身份指向卡尔·查尔斯·韦伯。",
+    "S26": "韦伯一九〇五年出生于墨尔本，是一名电气工程师。",
+    "S27": "研究者称把握超九成九；警方仍未正式确认。",
+    "S28": "身份线索有了方向，死因和密码依旧没有答案。",
+    "S29": "你觉得他是谁？评论区说说你的判断。",
+}
+
 CHAPTERS = [
-    ("N01", "黄金钩子", 0, 10,
-     "一九四八年，澳大利亚索马顿海滩，一个男人靠着海堤坐着。他死了，却无人知道他是谁。"),
-    ("N02", "清晨发现", 10, 25,
-     "十二月一日清晨，路人在索马顿海滩发现了他。他西装笔挺，领带整齐，身上没有证件，也没有明显外伤。前一晚，有人看见他靠在海堤边一动不动，以为他只是睡着了。警方想查清他的身份，却找不到入口。"),
-    ("N03", "身份被抹去", 35, 20,
-     "所有衣物标签几乎都被剪掉。警方把指纹和牙齿记录送去比对，仍没有匹配。验尸官发现内脏充血，怀疑可能中毒；常见毒物却查不出来。死因从此成了问号。"),
-    ("N04", "火车站行李箱", 55, 20,
-     "一九四九年一月，阿德莱德火车站发现一只旧皮箱，警方怀疑属于他。箱里有衣物、剃须用品和橙线，线头与裤子的修补处相合。衣物上只剩下“基恩”这个姓氏，却无人报失踪。"),
-    ("N05", "Tamam Shud", 75, 25,
-     "随后复查时，验尸官在他裤子的暗袋里发现一张卷起的小纸片。上面印着两个波斯语词：Tamam Shud，意思是“结束了”。纸片来自诗集《鲁拜集》的末页。警方后来找到那本缺页的书，撕痕严丝合缝。"),
-    ("N06", "密码与护士", 100, 25,
-     "诗集封底还有一串潦草字母，几十年来无人能可靠破解。旁边的电话号码，指向附近一位护士。她对警方说，不认识这个人，也不知道自己的号码为何会出现在诗集里。线索似乎指向某个人，却没有结论。"),
-    ("N07", "种种猜想", 125, 25,
-     "于是，间谍、情杀、毒杀后抛尸的猜想越传越远。冷战刚刚开始，纸条像暗号，毒物又查不出来，故事不断长出新版本。但传闻不是证据；没有公开证据能证明其中任何一种。"),
-    ("N08", "DNA线索", 150, 22,
-     "二〇二二年，教授德里克·艾伯特与家谱专家科琳·菲茨帕特里克，用石膏面模里的头发做DNA家谱比对，指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。研究者称把握超九成九；警方仍未正式确认。"),
-    ("N09", "回响", 172, 8,
-     "死因和密码，依旧没有答案。你觉得，他是谁？在评论区说说看。"),
+    ("N01", "黄金钩子", 0, 10),
+    ("N02", "清晨发现", 10, 25),
+    ("N03", "身份调查与死因", 35, 20),
+    ("N04", "火车站行李箱", 55, 20),
+    ("N05", "Tamam Shud", 75, 25),
+    ("N06", "密码与护士", 100, 25),
+    ("N07", "种种猜想", 125, 25),
+    ("N08", "DNA线索", 150, 22),
+    ("N09", "回响", 172, 8),
 ]
 
 SOURCES = [
@@ -214,9 +241,10 @@ SOURCES = [
 ]
 
 HIGHLIGHTS = [
-    "他是谁", "没有证件", "没有匹配", "标签", "中毒", "橙线", "基恩",
-    "Tamam Shud", "结束了", "无人能可靠破解", "护士", "传闻不是证据",
-    "卡尔·查尔斯·韦伯", "超九成九", "警方仍未正式确认", "死因", "密码", "无解",
+    "索马顿海滩", "他是谁", "没有生命迹象", "没有证件", "衣物标签", "中毒",
+    "毒物检测无结果", "火车站", "橙色缝线", "基恩", "Tamam Shud", "结束了",
+    "《鲁拜集》", "密码", "护士", "间谍猜想", "没有证据", "DNA家谱",
+    "卡尔·查尔斯·韦伯", "超九成九", "警方仍未正式确认", "死因", "无答案",
 ]
 
 PRESENTATION = {
@@ -228,10 +256,6 @@ PRESENTATION = {
     },
     "end_title": "塔玛姆·舒德",
     "end_subtitle": "索马顿海滩无名男尸",
-    "voice_pauses": {
-        "N03": {"after_text": "所有衣物标签几乎都被剪掉。", "seconds": 0.5},
-        "N09": {"after_text": "死因和密码，依旧没有答案。", "seconds": 0.5},
-    },
     "highlight_keywords": HIGHLIGHTS,
     "subtitle_style": {
         "font_size_px": 58,
@@ -270,10 +294,6 @@ def sha256(path: Path) -> str:
 
 
 def build() -> dict:
-    chapters = [
-        {"id": cid, "title": title, "start": start, "duration": duration, "text": text}
-        for cid, title, start, duration, text in CHAPTERS
-    ]
     shots = []
     for index, row in enumerate(SHOT_ROWS):
         if len(row) == 7:
@@ -286,12 +306,15 @@ def build() -> dict:
             )
         else:
             raise ValueError(f"Invalid shot row: {row!r}")
+        if sid not in NARRATION_LINES:
+            raise ValueError(f"Missing shot-locked narration for {sid}")
         shots.append({
             "id": sid,
             "kind": "agnes",
             "start": start,
             "duration": duration,
             "narration_id": narration_id,
+            "narration": NARRATION_LINES[sid],
             "camera": camera,
             "characters": character_ids,
             "prompt": prompt,
@@ -301,6 +324,22 @@ def build() -> dict:
             "aspect": "16:9",
             "source_size": "720P",
             "transition_out": "同段硬切或轻叠化；章间0.3秒海雾/黑场，不改变旁白时间轴。",
+        })
+    if set(NARRATION_LINES) != {shot["id"] for shot in shots}:
+        raise ValueError("Shot narration mapping must cover exactly S01–S29")
+
+    chapters = []
+    for cid, title, start, duration in CHAPTERS:
+        chapter_shots = [shot for shot in shots if shot["narration_id"] == cid]
+        if not chapter_shots:
+            raise ValueError(f"Narration chapter has no mapped shots: {cid}")
+        chapters.append({
+            "id": cid,
+            "title": title,
+            "start": start,
+            "duration": duration,
+            "shot_ids": [shot["id"] for shot in chapter_shots],
+            "text": "".join(shot["narration"] for shot in chapter_shots),
         })
     return {
         "title": TITLE,
@@ -321,12 +360,20 @@ def build() -> dict:
             "不出现尸体特写、血腥或伤口；逝者只以坐姿剪影、背影或半阴影表现。",
             "所有字幕均由后期准确叠加；仅S14纸面显示Tamam Shud，片尾叠加中文片名；封面单独叠加‘他是谁?’，片内镜头不加开场字卡。",
             "每镜4至9秒，16:9；主体放在三分线上，充分利用横向宽度，底部15%留给字幕。",
+            "旁白按镜锁定：每镜一条独立配音和一条匹配字幕，起止不跨镜；保留自然语速，必要时最多加速1.18倍，禁止慢放填满时长。",
             "研究者身份说法明确标注为2022年研究团队主张；截至2026年10月22日复核，能找到的最新直接警方状态为2026年7月：调查复杂且仍在进行，不称为官方确认。",
             "毒杀、间谍、情杀、护士关联等只作为未经证实的猜想呈现，不能包装成事实。",
             "研究者使用的是石膏面模中保存的头发；不可写成从尸体/头皮直接取发。",
         ],
         "chapters": chapters,
         "shots": shots,
+        "narration_spec": {
+            "voice_id": VOICE_ID,
+            "language": "zh-CN",
+            "alignment": "one-independently-generated-voice-clip-and-one-caption-cue-per-shot",
+            "max_speedup_factor": MAX_VOICE_SPEEDUP,
+            "slowdown_allowed": False,
+        },
         "sources": SOURCES,
         "presentation": PRESENTATION,
         "reference_images": [
@@ -360,22 +407,29 @@ def write_screenplay(story: dict) -> None:
         "- 研究者称基因家谱线索高度支持Webb；ABC于2026年7月6日引述警方称验尸官调查复杂且仍在进行。项目于2026年10月22日再次检索，未找到此后新的直接警方/验尸官公开结论；发布前仍应复查。",
         "- 死因与密码依然没有官方结论；间谍、情杀和毒杀等均作为未证实猜想，不替观众下结论。",
         "",
-        "## 旁白（每秒约3.7字）",
+        "## 逐镜旁白（voice-01；一镜一段声音、一条字幕；不慢速拉伸）",
         "",
     ]
     for chapter in story["chapters"]:
         start = chapter["start"]
         end = start + chapter["duration"]
-        lines += [f"### {start//60:02d}:{start%60:02d}—{end//60:02d}:{end%60:02d}　{chapter['title']}（{chapter['id']}）", "", chapter["text"], ""]
-    lines += ["## 29镜分镜表", "", "| 镜号 | 时间 | 秒数 | 章节 | 运镜 | 叙事职责 |", "|---|---:|---:|---|---|---|"]
+        lines += [f"### {start//60:02d}:{start%60:02d}—{end//60:02d}:{end%60:02d}　{chapter['title']}（{chapter['id']}）", ""]
+        for shot_id in chapter["shot_ids"]:
+            shot = next(row for row in story["shots"] if row["id"] == shot_id)
+            shot_end = shot["start"] + shot["duration"]
+            begin_tc = f"{shot['start']//60:02d}:{shot['start']%60:02d}"
+            end_tc = f"{shot_end//60:02d}:{shot_end%60:02d}"
+            lines.append(f"- **{shot['id']} · {begin_tc}–{end_tc}：** {shot['narration']}")
+        lines.append("")
+    lines += ["## 29镜分镜与解说映射", "", "| 镜号 | 时间 | 秒数 | 章节 | 对应解说词 | 运镜 | 叙事职责 |", "|---|---:|---:|---|---|---|---|"]
     for shot in story["shots"]:
         start, end = shot["start"], shot["start"] + shot["duration"]
         times = f"{start//60:02d}:{start%60:02d}—{end//60:02d}:{end%60:02d}"
-        lines.append(f"| {shot['id']} | {times} | {shot['duration']} | {shot['narration_id']} | {shot['camera']} | {shot['purpose']} |")
+        lines.append(f"| {shot['id']} | {times} | {shot['duration']} | {shot['narration_id']} | {shot['narration']} | {shot['camera']} | {shot['purpose']} |")
     lines += ["", "## 来源", ""]
     for source in story["sources"]:
         lines.append(f"- [{source['title']}]({source['url']})：{source['supports']}")
-    lines += ["", "## 后期规范", "", "- 配音：用户试听选择的低沉成熟男声（voice-00），悬疑讲述语气；N03第一句后和N09“没有答案”后各留约0.5秒停顿。", "- 字幕：逐句同步，白字黑边，底部安全区；关键词放大并用金色高亮。", "- 音乐/音效：海浪、钟声、海鸥、剪刀、蒸汽火车、拨号、低频心跳/弦乐；BGM在人声时压低约18dB。", "- 片尾：最后一秒音频静音，画面保留金色粒子运动；片名与副标题由后期叠字。", "- 封面：从S01海滩视频抽帧并水平翻转，男子剪影位于右侧，左侧叠加金色“他是谁?”。", ""]
+    lines += ["", "## 后期规范", "", "- 配音：使用用户试听选定的普通话男声 voice-01；每镜独立合成，只在对应镜头内播放，保持自然、利落语速，必要时最多加速1.18倍，不慢放填满镜头。", "- 字幕：每镜一条、文字与配音逐字一致；字幕起止按该镜声音实测，不跨镜、不串句；白字黑边、底部安全区，关键词金色高亮。", "- 音乐/音效：沿用项目原有配乐、音效和混音规则；旁白静隙留给配乐自然呼吸。", "- 片尾：最后一秒音频静音，画面保留金色粒子运动；片名与副标题由后期叠字。", "- 封面、29个镜头素材、顺序、时长、镜头运动与转场不作改动；仅替换旁白和同步字幕。", ""]
     (HERE / "screenplay.md").write_text("\n".join(lines), encoding="utf-8")
 
 
@@ -389,20 +443,30 @@ def write_manifest(story: dict) -> None:
         except (ValueError, KeyError, TypeError):
             existing = {}
     clips = []
-    for chapter in story["chapters"]:
-        clip_path = AUDIO / f"{chapter['id']}.mp3"
-        sha = sha256(clip_path) if clip_path.is_file() else existing.get(chapter["id"], {}).get("sha256")
+    for shot in story["shots"]:
+        clip_path = AUDIO / f"{shot['id']}.mp3"
+        sha = sha256(clip_path) if clip_path.is_file() else existing.get(shot["id"], {}).get("sha256")
         clips.append({
-            "id": chapter["id"],
+            "id": shot["id"],
             "file": clip_path.name,
-            "text": chapter["text"],
+            "text": shot["narration"],
             "sha256": sha,
-            "voice_id": "voice-00",
-            "voice_description": "用户试听选定：成熟、低沉、悬疑叙事男声",
-            "target_start": chapter["start"],
-            "target_duration": chapter["duration"],
+            "voice_id": VOICE_ID,
+            "voice_description": "用户试听选定的普通话男声；逐镜独立生成，叙事要求利落、有精神",
+            "narration_id": shot["narration_id"],
+            "target_start": shot["start"],
+            "target_duration": shot["duration"],
+            "alignment": "shot-locked",
         })
-    manifest = {"language": "zh-CN", "voice": "voice-00", "generation": "Arena TTS selected voice", "clips": clips}
+    manifest = {
+        "language": "zh-CN",
+        "voice": VOICE_ID,
+        "generation": "Arena TTS selected voice; one independent clip per shot",
+        "alignment": "one-clip-one-shot-one-caption",
+        "max_speedup_factor": MAX_VOICE_SPEEDUP,
+        "slowdown_allowed": False,
+        "clips": clips,
+    }
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
@@ -423,9 +487,9 @@ def write_release_copy(story: dict) -> None:
         f"**核心钩子：** {pres['cover']['text']}\n\n"
         f"**发布标题：** {pres['douyin_title']}\n\n"
         "**时长：** 180秒；横屏16:9；29条Agnes Video 2.5 Flash动态片段（720P源片后期放大至1920×1080）。\n\n"
-        "| 镜头 | 时间 | 旁白/章节 | 画面提示词 | 运镜 | 音效 |\n|---|---|---|---|---|---|\n"
+        "| 镜头 | 时间 | 章节 | 本镜解说词 | 画面提示词 | 运镜 |\n|---|---|---|---|---|---|\n"
         + "\n".join(
-            f"| {s['id']} | {s['start']}–{s['start']+s['duration']}秒 | {s['narration_id']} | {s['purpose']} | {s['camera']} | 依章节声音设计 |"
+            f"| {s['id']} | {s['start']}–{s['start']+s['duration']}秒 | {s['narration_id']} | {s['narration']} | {s['purpose']} | {s['camera']} |"
             for s in story["shots"]
         )
         + "\n\n**事实边界：** 研究者的身份认定不是南澳警方/验尸官的正式结论；任何间谍、情杀或毒杀说法都只是猜测。\n",

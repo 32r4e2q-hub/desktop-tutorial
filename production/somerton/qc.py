@@ -546,29 +546,43 @@ def analyze_caption_voice_activity(audio: Path | np.ndarray, cues: list[dict]) -
 
 
 def narration_timing_matches(actual: dict, expected: dict) -> tuple[bool, list[str]]:
-    """Confirm source-rebuilt narration timing agrees with the delivered timing receipt."""
-    actual_rows = actual.get("chapters", [])
-    expected_rows = expected.get("chapters", [])
-    if len(actual_rows) != len(expected_rows):
-        return False, [f"chapter_count:{len(actual_rows)}!={len(expected_rows)}"]
+    """Confirm rebuilt chapter/shot timing matches the delivered narration receipt."""
     mismatches = []
-    exact_fields = ("id", "characters")
-    float_fields = ("start", "duration", "source_seconds", "tempo_factor",
-                    "target_chars_per_second", "inserted_pause_seconds",
-                    "inserted_pause_at_chapter_seconds")
-    for index, (actual_row, expected_row) in enumerate(zip(actual_rows, expected_rows), 1):
-        for key in exact_fields:
-            if actual_row.get(key) != expected_row.get(key):
-                mismatches.append(f"chapter{index}:{key}")
-        for key in float_fields:
-            left, right = actual_row.get(key), expected_row.get(key)
-            if left is None or right is None:
-                if left is not right:
-                    mismatches.append(f"chapter{index}:{key}")
-            elif abs(float(left) - float(right)) > 0.002:
-                mismatches.append(f"chapter{index}:{key}")
+    for section in ("chapters", "shots"):
+        actual_rows = actual.get(section, [])
+        expected_rows = expected.get(section, [])
+        if len(actual_rows) != len(expected_rows):
+            mismatches.append(f"{section}_count:{len(actual_rows)}!={len(expected_rows)}")
+            continue
+        if section == "chapters":
+            exact_fields = ("id", "characters", "shot_ids")
+            float_fields = ("start", "duration", "source_seconds", "tempo_factor",
+                            "target_chars_per_second", "inserted_pause_seconds",
+                            "inserted_pause_at_chapter_seconds", "speech_seconds")
+        else:
+            exact_fields = ("id", "narration_id", "text", "characters")
+            float_fields = ("start", "duration", "source_seconds", "natural_clip_seconds",
+                            "natural_speech_seconds", "spoken_seconds", "tempo_factor",
+                            "speech_start", "speech_end", "target_chars_per_second")
+        for index, (actual_row, expected_row) in enumerate(zip(actual_rows, expected_rows), 1):
+            for key in exact_fields:
+                if actual_row.get(key) != expected_row.get(key):
+                    mismatches.append(f"{section}{index}:{key}")
+            for key in float_fields:
+                left, right = actual_row.get(key), expected_row.get(key)
+                if left is None or right is None:
+                    if left is not right:
+                        mismatches.append(f"{section}{index}:{key}")
+                elif abs(float(left) - float(right)) > 0.002:
+                    mismatches.append(f"{section}{index}:{key}")
+    for key in ("voice_id", "alignment", "slowdown_allowed", "max_speedup_factor", "duration_seconds"):
+        left, right = actual.get(key), expected.get(key)
+        if isinstance(left, (int, float)) and isinstance(right, (int, float)):
+            if abs(float(left) - float(right)) > 0.002:
+                mismatches.append(f"narration:{key}")
+        elif left != right:
+            mismatches.append(f"narration:{key}")
     return not mismatches, mismatches
-
 
 def analyze_audio(video: Path, story: dict) -> dict:
     command = [
@@ -714,9 +728,20 @@ def main() -> int:
         good = (edit.get("id") == shot["id"]
                 and abs(float(edit.get("start", -999)) - float(shot["start"])) < 0.001
                 and abs(float(edit.get("end", -999)) - (float(shot["start"]) + float(shot["duration"]))) < 0.001
-                and edit.get("narration_id") == shot["narration_id"])
+                and edit.get("narration_id") == shot["narration_id"]
+                and edit.get("narration") == shot["narration"])
         add_check(report, f"shot-narration-map-{shot['id']}", good,
-                  f"{edit.get('start')}–{edit.get('end')}s → {edit.get('narration_id')}; expected {shot['start']}–{shot['start']+shot['duration']}s → {shot['narration_id']}")
+                  f"{edit.get('start')}–{edit.get('end')}s → {edit.get('narration_id')}: {edit.get('narration')}; "
+                  f"expected {shot['start']}–{shot['start']+shot['duration']}s → {shot['narration_id']}: {shot['narration']}")
+
+    narration_spec = story.get("narration_spec", {})
+    max_speedup = float(narration_spec.get("max_speedup_factor", 1.18))
+    policy_ok = (narration_timing.get("voice_id") == narration_spec.get("voice_id")
+                 and narration_timing.get("alignment") == "one-clip-one-shot-one-caption"
+                 and narration_timing.get("slowdown_allowed") is False
+                 and abs(float(narration_timing.get("max_speedup_factor", 0)) - max_speedup) < 0.001)
+    add_check(report, "narration-shot-alignment-policy", policy_ok,
+              f"voice={narration_timing.get('voice_id')}; one clip/caption per shot; slowdown={narration_timing.get('slowdown_allowed')}; max speed-up={narration_timing.get('max_speedup_factor')}")
 
     chapter_rows = narration_timing.get("chapters", [])
     chapters = story.get("chapters", [])
@@ -726,19 +751,43 @@ def main() -> int:
         good = (expected.get("id") == measured.get("id")
                 and abs(float(expected.get("start", -999)) - float(measured.get("start", -999))) < 0.001
                 and abs(float(expected.get("duration", -999)) - float(measured.get("duration", -999))) < 0.001
-                and 0.60 <= float(measured.get("tempo_factor", 0)) <= 1.22
-                and int(measured.get("characters", -1)) == visible_weight(expected.get("text", "")))
+                and 1.0 <= float(measured.get("tempo_factor", 0)) <= max_speedup + 0.001
+                and int(measured.get("characters", -1)) == visible_weight(expected.get("text", ""))
+                and measured.get("shot_ids") == expected.get("shot_ids"))
         add_check(report, f"voice-timing-{expected['id']}", good,
-                  f"start={measured.get('start')}, duration={measured.get('duration')}, tempo={measured.get('tempo_factor')}, target cps={measured.get('target_chars_per_second')}")
+                  f"start={measured.get('start')}, duration={measured.get('duration')}, "
+                  f"maximum shot speed-up={measured.get('tempo_factor')}, target cps={measured.get('target_chars_per_second')}")
+
+    shot_timing_rows = narration_timing.get("shots", [])
+    shot_timing = {row.get("id"): row for row in shot_timing_rows}
+    add_check(report, "29-shot-narration-timings", len(shot_timing_rows) == len(shots)
+              and [row.get("id") for row in shot_timing_rows] == expected_ids,
+              f"timed narration clips={len(shot_timing_rows)}; expected one for each ordered shot")
+    for shot in shots:
+        measured = shot_timing.get(shot["id"], {})
+        maximum_end = min(float(shot["start"]) + float(shot["duration"]) - 0.05, DURATION - 1.0)
+        good = (measured.get("narration_id") == shot["narration_id"]
+                and measured.get("text") == shot["narration"]
+                and abs(float(measured.get("start", -999)) - float(shot["start"])) < 0.001
+                and abs(float(measured.get("duration", -999)) - float(shot["duration"])) < 0.001
+                and int(measured.get("characters", -1)) == visible_weight(shot["narration"])
+                and 1.0 <= float(measured.get("tempo_factor", 0)) <= max_speedup + 0.001
+                and float(measured.get("speech_start", -1)) >= float(shot["start"]) - 0.001
+                and float(measured.get("speech_end", DURATION + 1)) <= maximum_end + 0.03
+                and float(measured.get("speech_end", -1)) > float(measured.get("speech_start", DURATION)))
+        add_check(report, f"voice-timing-shot-{shot['id']}", good,
+                  f"{measured.get('speech_start')}–{measured.get('speech_end')}s; "
+                  f"shot={shot['start']}–{shot['start']+shot['duration']}s; "
+                  f"speed-up={measured.get('tempo_factor')}")
     add_check(report, "narration-covers-180s", abs(float(narration_timing.get("duration_seconds", 0)) - DURATION) < 0.001,
-              f"narration duration={narration_timing.get('duration_seconds')}")
+              f"narration timeline duration={narration_timing.get('duration_seconds')}")
 
     try:
         srt_path = find_file(artifact, basename="塔玛姆·舒德_字幕.srt")
         srt_cues = parse_srt(srt_path) if srt_path else []
         add_check(report, "subtitle-file-present", srt_path is not None, str(srt_path) if srt_path else "SRT missing")
-        add_check(report, "srt-vs-caption-timing-count", len(srt_cues) == len(cues),
-                  f"SRT cues={len(srt_cues)}, timing cues={len(cues)}")
+        add_check(report, "srt-vs-caption-timing-count", len(srt_cues) == len(cues) == len(shots),
+                  f"SRT cues={len(srt_cues)}, timing cues={len(cues)}, shots={len(shots)}")
         for index, (srt, cue) in enumerate(zip(srt_cues, cues), 1):
             exact = (abs(srt["start"] - float(cue["start"])) <= 0.02
                      and abs(srt["end"] - float(cue["end"])) <= 0.02
@@ -749,20 +798,24 @@ def main() -> int:
                       and float(cues[i]["end"]) <= float(cues[i + 1]["start"]) + 0.05
                       for i in range(len(cues) - 1))
         add_check(report, "subtitle-order-and-overlap", ordered, f"{len(cues)} cues")
-        for chapter in chapters:
-            chapter_start = float(chapter["start"])
-            chapter_end = chapter_start + float(chapter["duration"])
-            # Assign by cue start to exactly one chapter; a small end tolerance here
-            # incorrectly pulls the next chapter's first subtitle into this chapter.
-            chapter_cues = [cue for cue in cues if chapter_start <= float(cue["start"]) < chapter_end]
-            expected_clauses = clauses(chapter["text"])
-            actual_text = [cue["text"] for cue in chapter_cues]
-            good = actual_text == expected_clauses and all(
-                float(cue["end"]) <= float(chapter["start"]) + float(chapter["duration"]) + 0.03
-                for cue in chapter_cues
-            )
-            add_check(report, f"narration-caption-text-{chapter['id']}", good,
-                      f"caption clauses={len(actual_text)}, expected clauses={len(expected_clauses)}")
+        cue_by_shot = {cue.get("shot_id"): cue for cue in cues}
+        cue_order = [cue.get("shot_id") for cue in cues]
+        add_check(report, "one-caption-per-shot-in-order", cue_order == expected_ids,
+                  f"mapped subtitle shots={cue_order}")
+        for shot in shots:
+            cue = cue_by_shot.get(shot["id"], {})
+            timing = shot_timing.get(shot["id"], {})
+            good = (cue.get("shot_id") == shot["id"]
+                    and cue.get("narration_id") == shot["narration_id"]
+                    and cue.get("text") == shot["narration"]
+                    and abs(float(cue.get("start", -999)) - float(timing.get("speech_start", -999))) <= 0.002
+                    and abs(float(cue.get("end", -999)) - float(timing.get("speech_end", -999))) <= 0.002
+                    and float(cue.get("start", -1)) >= float(shot["start"]) - 0.001
+                    and float(cue.get("end", DURATION + 1)) <= min(
+                        float(shot["start"]) + float(shot["duration"]) - 0.05, DURATION - 1.0) + 0.03)
+            add_check(report, f"narration-caption-text-{shot['id']}", good,
+                      f"caption={cue.get('text')}; expected shot narration={shot['narration']}; "
+                      f"cue={cue.get('start')}–{cue.get('end')}s")
     except Exception as exc:
         add_check(report, "subtitle-analysis", False, f"{type(exc).__name__}: {exc}")
 
@@ -807,11 +860,16 @@ def main() -> int:
     bgm = sound.get("bgm_under_voice_measured_db")
     add_check(report, "bgm-under-voice-level", bgm is not None and -22.0 <= float(bgm) <= -14.0,
               f"measured BGM-under-voice={bgm} dB; target about -18 dB", severity="warning")
-    pause_records = narration_sound.get("chapters", [])
-    requested_pauses = [p for p in pause_records if float(p.get("inserted_pause_seconds", 0)) > 0]
-    add_check(report, "dramatic-pause-settings", all(abs(float(p["inserted_pause_seconds"]) - 0.5) < 0.001
-              for p in requested_pauses) and len(requested_pauses) == 2,
-              f"configured pauses={[(p.get('id'), p.get('inserted_pause_seconds'), p.get('inserted_pause_at_chapter_seconds')) for p in requested_pauses]}")
+    voice_rows = narration_sound.get("shots", [])
+    no_slowdown = (narration_sound.get("slowdown_allowed") is False
+                   and len(voice_rows) == EXPECTED_SHOTS
+                   and all(1.0 <= float(row.get("tempo_factor", 0))
+                           <= float(narration_sound.get("max_speedup_factor", 1.18)) + 0.001
+                           for row in voice_rows))
+    add_check(report, "no-slowdown-shot-locked-voice", no_slowdown,
+              f"{len(voice_rows)} shot clips; tempo range="
+              f"{min((float(row.get('tempo_factor', 0)) for row in voice_rows), default=0):.3f}–"
+              f"{max((float(row.get('tempo_factor', 0)) for row in voice_rows), default=0):.3f}x")
 
     try:
         media = probe(video)

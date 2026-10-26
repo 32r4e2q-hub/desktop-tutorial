@@ -1,0 +1,206 @@
+name: Somerton shot-locked voiceover refresh
+run-name: Somerton voiceover and captions only · ${{ github.event_name == 'push' && github.run_number || inputs.source_run_id }}
+
+on:
+  push:
+    branches:
+      - arena/dc7c8423-desktop-tutorial
+    paths:
+      - .github/workflows/somerton-voiceover-remix.yml
+      - production/somerton/build_story.py
+      - production/somerton/build_audio.py
+      - production/somerton/render.py
+      - production/somerton/generate.py
+      - production/somerton/qc.py
+      - production/somerton/audio/S*.mp3
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 'Successful Agnes source artifact run ID (original picture cut)'
+        required: true
+        type: string
+        default: '40311434040'
+      source_artifact_name:
+        description: 'Artifact containing the unchanged original 29 source clips'
+        required: true
+        type: string
+        default: 'somerton-3min-agnes-21'
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: somerton-voiceover-refresh-arena-dc7c8423-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: >-
+      github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial' &&
+      (github.event_name == 'workflow_dispatch' ||
+      contains(github.event.head_commit.message, '[somerton-voiceover-refresh]'))
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 90
+    env:
+      SOURCE_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40311434040' }}
+      SOURCE_ARTIFACT_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.source_artifact_name || 'somerton-3min-agnes-21' }}
+      TARGET_BRANCH: arena/dc7c8423-desktop-tutorial
+    steps:
+      - name: Check out the fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/dc7c8423-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install FFmpeg, Chinese fonts and render dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk python3-numpy python3-pil
+
+      - name: Rebuild the narration source, shot map and audio manifest
+        run: python3 production/somerton/build_story.py
+
+      - name: Validate every per-shot voice file, manifest hash and unchanged plan
+        run: |
+          set -euo pipefail
+          python3 production/somerton/generate.py --validate
+          python3 -m py_compile production/somerton/build_audio.py production/somerton/build_story.py production/somerton/render.py production/somerton/qc.py
+          python3 -m unittest production.tests.test_somerton production.tests.test_somerton_qc production.tests.test_somerton_render -v
+
+      - name: Download only the original 29-shot source-footage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SOURCE_ARTIFACT_NAME }}
+          run-id: ${{ env.SOURCE_RUN_ID }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          path: source-artifact
+
+      - name: Verify the original EDL and all 29 source hashes
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from production.somerton.render import verify_sources
+          story = json.loads(Path('production/somerton/story.json').read_text(encoding='utf-8'))
+          source_dir = Path('source-artifact/work/somerton/clips')
+          rows = verify_sources(story, source_dir)
+          old_edl_path = Path('source-artifact/work/somerton/edit/delivery/edit-decision-list.json')
+          if old_edl_path.is_file():
+              old_edl = json.loads(old_edl_path.read_text(encoding='utf-8'))
+              fields = ('id', 'start', 'end', 'duration', 'kind', 'narration_id')
+              current = [
+                  {'id': s['id'], 'start': s['start'], 'end': s['start'] + s['duration'],
+                   'duration': s['duration'], 'kind': 'agnes', 'narration_id': s['narration_id']}
+                  for s in story['shots']
+              ]
+              if len(old_edl) != len(current) or any(
+                  any(old.get(field) != new.get(field) for field in fields)
+                  for old, new in zip(old_edl, current)
+              ):
+                  raise SystemExit('The original shot order/timing differs; refusing to alter the picture cut.')
+          if len(rows) != 29:
+              raise SystemExit(f'Expected 29 verified original clips, got {len(rows)}')
+          print('Verified all original Agnes source hashes; shot IDs, order, durations and chapter map are unchanged.')
+          PY
+
+      - name: Render the same picture cut with only replacement narration and matched subtitles
+        run: |
+          set -euo pipefail
+          film_name="$(python3 -c 'import json; print(json.load(open("production/somerton/story.json", encoding="utf-8"))["film_name"])')"
+          mkdir -p work/somerton/clips
+          python3 -u production/somerton/render.py \
+            --sources source-artifact/work/somerton/clips \
+            --work work/somerton/edit \
+            --output "work/somerton/clips/${film_name}"
+
+      - name: Package the replacement cut, unchanged source clips and QC receipts
+        id: package
+        run: |
+          set -euo pipefail
+          film_name="$(python3 -c 'import json; print(json.load(open("production/somerton/story.json", encoding="utf-8"))["film_name"])')"
+          mkdir -p output/work/somerton/clips output/work/somerton/edit output/production/somerton/qa
+          cp "work/somerton/clips/${film_name}" output/work/somerton/clips/
+          cp work/somerton/clips/塔玛姆·舒德_封面.jpg output/work/somerton/clips/
+          cp work/somerton/edit/塔玛姆·舒德_字幕.srt output/work/somerton/edit/
+          cp -a work/somerton/edit/delivery output/work/somerton/edit/
+          for source in source-artifact/work/somerton/clips/S[0-9][0-9].mp4; do
+            cp "$source" output/work/somerton/clips/
+          done
+          for receipt in source-artifact/production/somerton/qa/S[0-9][0-9].jpg source-artifact/production/somerton/qa/S[0-9][0-9].json; do
+            if [ -f "$receipt" ]; then cp "$receipt" output/production/somerton/qa/; fi
+          done
+          python3 - <<'PY'
+          import json, os, time
+          from pathlib import Path
+          path = Path('production/somerton/results.json')
+          result = json.loads(path.read_text(encoding='utf-8'))
+          story = json.loads(Path('production/somerton/story.json').read_text(encoding='utf-8'))
+          film = Path('work/somerton/clips') / story['film_name']
+          result['run_id'] = os.environ['GITHUB_RUN_ID']
+          result['phase'] = 'first_cut_ready'
+          result['updated_at'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+          result['delivery'] = {
+              'film': f"work/somerton/clips/{story['film_name']}",
+              'duration_seconds': 180,
+              'width': 1920,
+              'height': 1080,
+              'fps': 30,
+              'cover': 'work/somerton/clips/塔玛姆·舒德_封面.jpg',
+          }
+          result['voiceover_revision'] = {
+              'source_run_id': os.environ.get('SOURCE_RUN_ID', '40311434040'),
+              'voice_id': story['narration_spec']['voice_id'],
+              'alignment': 'one independent narration clip and one matched subtitle per unchanged shot',
+              'picture_cut_changed': False,
+              'human_review': 'pending',
+          }
+          dest = Path('output/production/somerton/results.json')
+          dest.parent.mkdir(parents=True, exist_ok=True)
+          dest.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(f"Packaged {film.name}: {film.stat().st_size} bytes")
+          PY
+          echo "artifact_name=somerton-voiceover-${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the shot-locked voiceover preview and QC evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.artifact_name }}
+          path: output/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Dispatch automated source, subtitle, timing and audio QC
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.request
+          repository = os.environ['GITHUB_REPOSITORY']
+          artifact = f"somerton-voiceover-{os.environ['GITHUB_RUN_NUMBER']}"
+          body = json.dumps({
+              'ref': os.environ['TARGET_BRANCH'],
+              'inputs': {'source_run_id': os.environ['GITHUB_RUN_ID'], 'artifact_name': artifact},
+          }).encode('utf-8')
+          request = urllib.request.Request(
+              f'https://api.github.com/repos/{repository}/actions/workflows/somerton-qa.yml/dispatches',
+              data=body, method='POST',
+              headers={
+                  'Accept': 'application/vnd.github+json',
+                  'Authorization': f"Bearer {os.environ['GH_TOKEN']}",
+                  'X-GitHub-Api-Version': '2022-11-28',
+                  'Content-Type': 'application/json',
+              },
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  print(f"Automated QC dispatched for {artifact} (HTTP {response.status}).")
+          except urllib.error.HTTPError as error:
+              detail = error.read().decode('utf-8', 'replace')[:1000]
+              raise SystemExit(f"QC dispatch failed (HTTP {error.code}): {detail}")
+          PY

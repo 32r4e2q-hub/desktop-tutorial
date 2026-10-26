@@ -8,7 +8,7 @@
 |---|---|---|
 | 角色与场景定稿参考图 | ✅ 已生成 3 张概念参考图（不是史料/证物照片） | `reference/` |
 | 分镜 / 事实边界 / Agnes提示词 | ✅ 29镜、时长连续 180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `story.json`、`build_story.py` |
-| 中文旁白 | ✅ 9 段；用户试听选择的成熟低沉悬疑男声 `voice-00`；SHA-256 已登记 | `audio/N01-N09.mp3`、`audio/manifest.json` |
+| 逐镜中文旁白 | 🟡 正在重配：已选 `voice-01`；29句独立生成，一镜一段旁白与一条同步字幕；自然语速优先，不慢放填满时长 | `audio/S01-S29.mp3`、`audio/manifest.json` |
 | 本地规则校验 | ✅ `python3 production/somerton/generate.py --validate` | `generate.py` |
 | Agnes视频素材 | 🟡 上次Run #2 已验证 S01（5.184秒、1280×720）；S02 遇到 24 次 503 排队满后停止。现已改为 61 秒无限重试，下一次工作流会复用 S01 并继续其余镜头 | `results.json`、Actions 工作流 |
 | 最终渲染、字幕、配乐、音效、封面 | ⏳ 29镜生成成功后自动执行 | `render.py`、`build_audio.py` |

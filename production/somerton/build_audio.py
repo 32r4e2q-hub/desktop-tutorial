@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build Somerton narration, clause timing, original suspense beds and measured final mix.
+"""Build shot-locked Somerton narration, matched captions and the measured final mix.
 
-Narration is generated in Arena with the voice the user selected. It is time-stretched
-with pitch preservation to the 9-chapter timeline; two requested 0.5s dramatic pauses are
-inserted at safe clause boundaries. Music/SFX are original procedural WAV synthesis so no
-unlicensed stock audio or extra external service is required.
+Each line has its own user-selected Arena voice clip and one subtitle cue, both attached to
+one of the unchanged 29 shots. Natural pace is preserved; speech is never slowed to fill a
+shot and may only be accelerated slightly when needed to stay inside its cut. Music/SFX are
+original procedural WAV synthesis, unchanged from the existing production design.
 """
 from __future__ import annotations
 
@@ -73,11 +73,6 @@ def visible_weight(text: str) -> int:
     return max(1, len(re.sub(r"[^\u3400-\u9fffA-Za-z0-9]", "", text)))
 
 
-def split_clauses(text: str) -> list[str]:
-    pieces = re.findall(r"[^，。！？；：、]+[，。！？；：、]?", text)
-    return [piece.strip() for piece in pieces if piece.strip()]
-
-
 def energy(samples: np.ndarray, hop: int = RATE // 100) -> np.ndarray:
     if len(samples) < hop:
         return np.array([float(np.sqrt(np.mean(samples.astype(np.float64) ** 2)))])
@@ -86,194 +81,184 @@ def energy(samples: np.ndarray, hop: int = RATE // 100) -> np.ndarray:
     return np.sqrt(np.mean(np.square(blocks.astype(np.float64)), axis=1))
 
 
-def quiet_spans(samples: np.ndarray, min_seconds: float = 0.08) -> list[tuple[int, int]]:
+def trim_voice_edges(samples: np.ndarray) -> tuple[np.ndarray, float, float]:
+    """Trim only encoder silence, retaining short natural breath margins around speech."""
+    if len(samples) < RATE // 5:
+        raise RuntimeError("Narration clip is unexpectedly short")
     levels = energy(samples)
-    if not len(levels):
-        return []
-    threshold = max(0.0035, min(0.012, float(np.percentile(levels, 12)) * 1.8))
-    quiet = levels < threshold
+    if not len(levels) or float(levels.max()) < 1e-5:
+        raise RuntimeError("Narration clip contains no detectable speech energy")
+    threshold = max(0.0002, float(levels.max()) * 0.003)
+    active = np.flatnonzero(levels > threshold)
+    if not len(active):
+        raise RuntimeError("Narration clip contains no detectable speech energy")
     hop = RATE // 100
-    result = []
-    start = None
-    for i, state in enumerate(quiet):
-        if state and start is None:
-            start = i
-        elif not state and start is not None:
-            if (i - start) * hop / RATE >= min_seconds and start > 0:
-                result.append((start * hop, i * hop))
-            start = None
-    if start is not None and (len(quiet) - start) * hop / RATE >= min_seconds:
-        result.append((start * hop, len(quiet) * hop))
-    return result
+    first_frame, last_frame = int(active[0]), int(active[-1])
+    speech_start = first_frame * hop
+    speech_end = min(len(samples), (last_frame + 1) * hop)
+    keep_start = max(0, speech_start - int(0.03 * RATE))
+    keep_end = min(len(samples), speech_end + int(0.08 * RATE))
+    trimmed = samples[keep_start:keep_end].astype(np.float32, copy=True)
+    return trimmed, (speech_start - keep_start) / RATE, (speech_end - keep_start) / RATE
 
 
-def locate_pause(samples: np.ndarray, text: str, after_text: str) -> int:
-    """Find the safest low-energy boundary near a specified spoken clause."""
-    pos = text.find(after_text)
-    if pos < 0:
-        raise ValueError(f"pause marker is not present in narration: {after_text!r}")
-    fraction = visible_weight(text[:pos + len(after_text)]) / visible_weight(text)
-    expected = int(len(samples) * fraction)
-    spans = quiet_spans(samples, min_seconds=0.06)
-    candidates = [(a, b) for a, b in spans if abs((a + b) // 2 - expected) <= RATE * 1.6]
-    if candidates:
-        a, b = min(candidates, key=lambda span: abs((span[0] + span[1]) // 2 - expected))
-        return (a + b) // 2
-
-    # If the synthesizer did not make a long punctuation pause, choose the quietest
-    # 80 ms window around the expected clause boundary instead of cutting at a random sample.
-    levels = energy(samples)
-    hop = RATE // 100
-    center = expected // hop
-    radius = int(1.6 * RATE / hop)
-    lo, hi = max(1, center - radius), min(len(levels) - 8, center + radius)
-    if hi <= lo:
-        raise RuntimeError("Could not locate a safe dramatic-pause boundary")
-    window = 8
-    scores = np.convolve(levels[lo:hi + window], np.ones(window) / window, mode="valid")
-    index = lo + int(np.argmin(scores))
-    if float(scores.min()) > max(0.045, float(levels.max()) * 0.25):
-        raise RuntimeError("No low-energy boundary near the requested dramatic pause")
-    return max(hop, min(len(samples) - hop, index * hop + hop // 2))
-
-
-def pause_aware_cues(text: str, samples: np.ndarray, chapter_start: float) -> list[dict]:
-    clauses = split_clauses(text)
-    if not clauses:
-        return []
-    duration = len(samples) / RATE
-    weights = np.array([visible_weight(part) for part in clauses], dtype=float)
-    total_weight = float(weights.sum())
-    levels = energy(samples)
-    hop = RATE // 100
-    threshold = max(0.0035, min(0.012, float(np.percentile(levels, 12)) * 1.8)) if len(levels) else 0.01
-    spans = quiet_spans(samples, min_seconds=0.10)
-    chosen: list[tuple[float, float] | None] = []
-    previous = 0.0
-    cumulative = 0.0
-    for index, weight in enumerate(weights[:-1]):
-        cumulative += float(weight)
-        target = duration * cumulative / total_weight
-        candidates = []
-        for a, b in spans:
-            begin, end = a / RATE, b / RATE
-            if begin <= previous + 0.12 or end >= duration - 0.12:
-                continue
-            if abs((begin + end) / 2 - target) < 1.4:
-                candidates.append((begin, end))
-        if candidates:
-            boundary = min(candidates, key=lambda p: abs((p[0] + p[1]) / 2 - target))
-            chosen.append(boundary)
-            previous = boundary[1]
-        else:
-            chosen.append(None)
-            previous = target
-
-    starts = [0.0]
-    ends = []
-    for boundary_index, boundary in enumerate(chosen):
-        if boundary is None:
-            point = duration * (sum(weights[:boundary_index + 1]) / total_weight)
-            point = max(starts[-1] + 0.12, min(duration - 0.12, point))
-            ends.append(point)
-            starts.append(point)
-        else:
-            a, b = boundary
-            ends.append(max(starts[-1] + 0.12, a))
-            starts.append(max(ends[-1], b))
-    ends.append(duration)
-
-    cues = []
-    for clause, begin, end in zip(clauses, starts, ends):
-        begin = max(0.0, min(duration, begin))
-        end = max(begin + 0.12, min(duration, end))
-        cues.append({"start": round(chapter_start + begin, 3),
-                     "end": round(chapter_start + end, 3), "text": clause})
-    return cues
+def voice_tempo_factor(source_seconds: float, available_seconds: float,
+                       max_speedup: float = 1.18) -> float:
+    """Preserve natural pace; speed up only enough to fit, never slow down."""
+    if source_seconds <= 0 or available_seconds <= 0:
+        raise ValueError("Narration and available shot durations must be positive")
+    factor = max(1.0, source_seconds / available_seconds)
+    if factor > max_speedup + 1e-6:
+        raise RuntimeError(
+            f"Narration needs {factor:.3f}x speed to fit; maximum allowed is {max_speedup:.2f}x. "
+            "Shorten/regenerate the line instead of slowing or cutting it."
+        )
+    return factor
 
 
 def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.ndarray, list[dict], dict]:
+    """Build a shot-locked voice track and one precisely mapped caption for every line."""
     work_audio = work_dir / "audio"
     work_audio.mkdir(parents=True, exist_ok=True)
     manifest = json.loads((audio_dir / "manifest.json").read_text(encoding="utf-8"))
     records = {row["id"]: row for row in manifest["clips"]}
-    total_frames = int(story["target_duration"] * RATE)
-    full: list[np.ndarray] = []
+    shots = story["shots"]
+    if len(records) != len(shots):
+        raise ValueError(f"Expected one narration clip for each of {len(shots)} shots; got {len(records)}")
+    spec = story.get("narration_spec", {})
+    voice_id = spec.get("voice_id")
+    if manifest.get("voice") != voice_id or manifest.get("slowdown_allowed") is not False:
+        raise ValueError("Narration voice/alignment manifest is not the selected no-slowdown version")
+    max_speedup = float(spec.get("max_speedup_factor", 1.18))
+    total_frames = round(float(story["target_duration"]) * RATE)
+    voice = np.zeros(total_frames, dtype=np.float32)
     cues: list[dict] = []
-    timings = []
-    pause_config = story.get("presentation", {}).get("voice_pauses", {})
+    shot_timings: list[dict] = []
 
-    for chapter in story["chapters"]:
-        cid = chapter["id"]
-        record = records[cid]
+    for shot in shots:
+        sid = shot["id"]
+        record = records.get(sid)
+        if record is None:
+            raise ValueError("Missing shot narration manifest entry: " + sid)
+        if (record.get("text") != shot["narration"]
+                or record.get("voice_id") != voice_id
+                or record.get("narration_id") != shot["narration_id"]
+                or record.get("target_start") != shot["start"]
+                or record.get("target_duration") != shot["duration"]
+                or record.get("alignment") != "shot-locked"):
+            raise ValueError("Shot-locked narration text/voice/timing mismatch: " + sid)
         source = audio_dir / record["file"]
-        if record["text"] != chapter["text"]:
-            raise ValueError("Narration text mismatch: " + cid)
         digest = __import__("hashlib").sha256(source.read_bytes()).hexdigest()
         if record.get("sha256") != digest:
-            raise ValueError("Narration SHA-256 mismatch: " + cid)
-        duration = float(chapter["duration"])
-        target_frames = round(duration * RATE)
-        pause = pause_config.get(cid)
-        pause_seconds = float(pause["seconds"]) if pause else 0.0
-        speech_target = duration - pause_seconds
-        if speech_target <= 0:
-            raise ValueError("Dramatic pause exceeds chapter duration: " + cid)
+            raise ValueError("Narration SHA-256 mismatch: " + sid)
+
+        shot_start = float(shot["start"])
+        shot_duration = float(shot["duration"])
+        shot_end = shot_start + shot_duration
+        # Speech stops just before the cut. S29 additionally honors the required final
+        # second of silence while the animated end card remains on screen.
+        max_speech_end = min(shot_end - 0.08, float(story["target_duration"]) - 1.0)
+        available = max_speech_end - shot_start
+        if available <= 0:
+            raise ValueError("No safe speech window remains in " + sid)
+
         raw_duration = probe_duration(source)
-        tempo = raw_duration / speech_target
-        if not 0.60 <= tempo <= 1.22:
-            raise RuntimeError(f"{cid}: voice retiming {tempo:.3f} is outside the safe 0.60–1.22 range")
-        decoded_path = work_audio / f"{cid}-retimed.wav"
-        samples = decode_mp3(source, decoded_path, tempo)
-        speech_frames = round(speech_target * RATE)
-        # Correct only the small encoder/atempo duration error; no silent padding substitutes
-        # for narration and no Agnes video is ever replaced by a still.
-        if abs(len(samples) - speech_frames) > int(0.35 * RATE):
-            correction = len(samples) / speech_frames
-            samples = decode_mp3(source, decoded_path, tempo * correction)
-        if len(samples) < speech_frames:
-            samples = np.pad(samples, (0, speech_frames - len(samples)))
-        else:
-            samples = samples[:speech_frames]
+        decoded_path = work_audio / f"{sid}-retimed.wav"
+        natural_samples = decode_mp3(source, decoded_path, 1.0)
+        natural_trimmed, natural_onset, natural_offset = trim_voice_edges(natural_samples)
+        natural_clip_seconds = len(natural_trimmed) / RATE
+        natural_speech_seconds = natural_offset - natural_onset
+        tempo = voice_tempo_factor(natural_clip_seconds, available, max_speedup)
+        samples = natural_samples if tempo == 1.0 else decode_mp3(source, decoded_path, tempo)
+        trimmed, speech_onset, speech_offset = trim_voice_edges(samples)
 
-        inserted_pause_at = None
-        if pause:
-            inserted_pause_at = locate_pause(samples, chapter["text"], pause["after_text"])
-            silence = np.zeros(round(pause_seconds * RATE), dtype=np.float32)
-            samples = np.concatenate((samples[:inserted_pause_at], silence, samples[inserted_pause_at:]))
-        if len(samples) < target_frames:
-            samples = np.pad(samples, (0, target_frames - len(samples)))
-        else:
-            samples = samples[:target_frames]
-        # A 5ms edge fade prevents clicks at the nine narration boundaries.
-        edge = int(0.005 * RATE)
-        if edge:
-            samples[:edge] *= np.linspace(0.0, 1.0, edge, dtype=np.float32)
-            samples[-edge:] *= np.linspace(1.0, 0.0, edge, dtype=np.float32)
+        # Re-run at a minimally faster rate for small filter/encoder timing differences;
+        # never truncate syllables and never slow down to pad the rest of the shot.
+        if len(trimmed) > round(available * RATE):
+            correction = (len(trimmed) / (available * RATE)) * 1.005
+            tempo = voice_tempo_factor(tempo * correction, 1.0, max_speedup)
+            samples = decode_mp3(source, decoded_path, tempo)
+            trimmed, speech_onset, speech_offset = trim_voice_edges(samples)
+        if len(trimmed) > round(available * RATE):
+            raise RuntimeError(f"{sid}: complete narration still exceeds its shot after safe speed-up")
 
-        chapter_wav = work_audio / f"{cid}.wav"
-        write_wave(chapter_wav, samples, channels=1)
-        chapter_start = float(chapter["start"])
-        full.append(samples)
-        cues.extend(pause_aware_cues(chapter["text"], samples, chapter_start))
-        timings.append({
-            "id": cid,
-            "start": chapter_start,
-            "duration": duration,
-            "characters": visible_weight(chapter["text"]),
-            "target_chars_per_second": round(visible_weight(chapter["text"]) / duration, 3),
+        clip_start = round(shot_start * RATE)
+        clip_end = clip_start + len(trimmed)
+        allowed_end = round(max_speech_end * RATE)
+        if clip_end > allowed_end:
+            # Only sub-sample rounding may reach this path; do not discard spoken audio.
+            raise RuntimeError(f"{sid}: narration crosses its shot boundary")
+        fade = min(int(0.005 * RATE), len(trimmed) // 2)
+        if fade:
+            trimmed[:fade] *= np.linspace(0.0, 1.0, fade, dtype=np.float32)
+            trimmed[-fade:] *= np.linspace(1.0, 0.0, fade, dtype=np.float32)
+        voice[clip_start:clip_end] += trimmed
+
+        caption_start = shot_start + speech_onset
+        caption_end = shot_start + speech_offset
+        if caption_end <= caption_start:
+            raise RuntimeError(f"{sid}: narration activity window is empty")
+        cue = {
+            "shot_id": sid,
+            "narration_id": shot["narration_id"],
+            "start": round(caption_start, 3),
+            "end": round(caption_end, 3),
+            "text": shot["narration"],
+        }
+        if cues and cue["start"] < cues[-1]["end"] - 0.001:
+            raise RuntimeError(f"{sid}: shot-locked subtitle overlaps the preceding shot")
+        cues.append(cue)
+        characters = visible_weight(shot["narration"])
+        shot_timings.append({
+            "id": sid,
+            "narration_id": shot["narration_id"],
+            "text": shot["narration"],
+            "start": shot_start,
+            "duration": shot_duration,
             "source_seconds": round(raw_duration, 3),
+            "natural_clip_seconds": round(natural_clip_seconds, 3),
+            "natural_speech_seconds": round(natural_speech_seconds, 3),
+            "spoken_seconds": round(speech_offset - speech_onset, 3),
             "tempo_factor": round(tempo, 4),
-            "inserted_pause_seconds": pause_seconds,
-            "inserted_pause_at_chapter_seconds": round(inserted_pause_at / RATE, 3) if inserted_pause_at else None,
+            "speech_start": round(caption_start, 3),
+            "speech_end": round(caption_end, 3),
+            "characters": characters,
+            "target_chars_per_second": round(characters / shot_duration, 3),
         })
 
-    voice = np.concatenate(full).astype(np.float32)
     if len(voice) != total_frames:
         raise RuntimeError(f"Narration timeline has {len(voice)/RATE:.4f}s, expected {story['target_duration']}s")
     voice_path = work_audio / "voiceover.wav"
     write_wave(voice_path, voice, channels=1)
-    return voice, cues, {"chapters": timings, "output": str(voice_path), "duration_seconds": story["target_duration"]}
+
+    chapter_timings = []
+    for chapter in story["chapters"]:
+        members = [row for row in shot_timings if row["narration_id"] == chapter["id"]]
+        if not members:
+            raise ValueError("Narration chapter has no shot-locked audio: " + chapter["id"])
+        chapter_timings.append({
+            "id": chapter["id"],
+            "start": float(chapter["start"]),
+            "duration": float(chapter["duration"]),
+            "characters": visible_weight(chapter["text"]),
+            "target_chars_per_second": round(visible_weight(chapter["text"]) / chapter["duration"], 3),
+            "source_seconds": round(sum(row["source_seconds"] for row in members), 3),
+            "tempo_factor": max(row["tempo_factor"] for row in members),
+            "inserted_pause_seconds": 0.0,
+            "inserted_pause_at_chapter_seconds": None,
+            "speech_seconds": round(sum(row["spoken_seconds"] for row in members), 3),
+            "shot_ids": [row["id"] for row in members],
+        })
+    return voice, cues, {
+        "voice_id": voice_id,
+        "alignment": "one-clip-one-shot-one-caption",
+        "slowdown_allowed": False,
+        "max_speedup_factor": max_speedup,
+        "shots": shot_timings,
+        "chapters": chapter_timings,
+        "output": str(voice_path),
+        "duration_seconds": float(story["target_duration"]),
+    }
 
 
 def _event_envelope(t: np.ndarray, at: float, duration: float, decay: float = 2.0) -> np.ndarray:

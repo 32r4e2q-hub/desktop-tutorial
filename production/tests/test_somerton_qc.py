@@ -8,6 +8,7 @@ from unittest.mock import patch
 from PIL import Image, ImageDraw
 
 from production.somerton import qc
+from production.somerton.build_audio import voice_tempo_factor
 
 
 class SomertonOcrTests(unittest.TestCase):
@@ -167,16 +168,32 @@ class SomertonOcrTests(unittest.TestCase):
 
     def test_narration_timing_receipt_must_match_reconstruction(self):
         chapter = {"id": "N01", "start": 0.0, "duration": 10.0,
-                   "source_seconds": 7.338, "tempo_factor": 0.7338,
-                   "target_chars_per_second": 3.5, "inserted_pause_seconds": 0.0,
-                   "inserted_pause_at_chapter_seconds": None, "characters": 35}
-        actual = {"chapters": [chapter.copy()]}
-        expected = {"chapters": [chapter.copy()]}
+                   "source_seconds": 3.2, "tempo_factor": 1.0,
+                   "target_chars_per_second": 4.3, "inserted_pause_seconds": 0.0,
+                   "inserted_pause_at_chapter_seconds": None, "speech_seconds": 6.0,
+                   "shot_ids": ["S01", "S02"], "characters": 43}
+        shot = {"id": "S01", "narration_id": "N01", "text": "海滩旁白。",
+                "start": 0.0, "duration": 5.0, "source_seconds": 1.9,
+                "natural_clip_seconds": 1.8, "natural_speech_seconds": 1.69,
+                "spoken_seconds": 1.69, "tempo_factor": 1.0,
+                "speech_start": 0.03, "speech_end": 1.72,
+                "characters": 5, "target_chars_per_second": 1.0}
+        header = {"voice_id": "voice-01", "alignment": "one-clip-one-shot-one-caption",
+                  "slowdown_allowed": False, "max_speedup_factor": 1.18,
+                  "duration_seconds": 180.0}
+        actual = {**header, "chapters": [chapter.copy()], "shots": [shot.copy()]}
+        expected = {**header, "chapters": [chapter.copy()], "shots": [shot.copy()]}
         self.assertEqual(qc.narration_timing_matches(actual, expected), (True, []))
         expected["chapters"][0]["tempo_factor"] = 0.8
         matches, mismatches = qc.narration_timing_matches(actual, expected)
         self.assertFalse(matches)
-        self.assertEqual(mismatches, ["chapter1:tempo_factor"])
+        self.assertEqual(mismatches, ["chapters1:tempo_factor"])
+
+    def test_narration_pacing_never_slowed_and_caps_acceleration(self):
+        self.assertEqual(voice_tempo_factor(3.4, 4.0), 1.0)
+        self.assertAlmostEqual(voice_tempo_factor(4.4, 4.0), 1.1)
+        with self.assertRaisesRegex(RuntimeError, "Shorten/regenerate"):
+            voice_tempo_factor(4.8, 4.0, max_speedup=1.18)
 
     def test_caption_voice_activity_flags_cues_without_narration_energy(self):
         voiced_then_silent = array("f", [0.1] * 48000 + [0.0] * 48000).tobytes()

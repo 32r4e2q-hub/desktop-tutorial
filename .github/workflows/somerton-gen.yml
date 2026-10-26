@@ -28,7 +28,9 @@ concurrency:
 
 jobs:
   produce:
-    if: github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial'
+    if: >-
+      github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial' &&
+      !contains(github.event.head_commit.message, '[skip-somerton-agnes]')
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 360
     steps:
