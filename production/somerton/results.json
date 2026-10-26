@@ -410,9 +410,9 @@
     "S12": {
       "id": "S12",
       "request_hash": "110d8c31599c35a73f007956d331db992a61d9801b6ab82ebfd3bc27370c3831",
-      "status": "queued",
+      "status": "downloaded",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-26T08:16:53Z",
+      "updated_at": "2026-10-26T08:32:14Z",
       "error": null,
       "create_attempts": 10,
       "capacity_error": "video queue is full",
@@ -420,7 +420,12 @@
       "video_id": "task_TucUI8OK21eKxpam6sG2ytFt2RhpxdMZ",
       "task_id": "task_TucUI8OK21eKxpam6sG2ytFt2RhpxdMZ",
       "requested_seconds": 6.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_TucUI8OK21eKxpam6sG2ytFt2RhpxdMZ.mp4",
+      "bytes": 2308989,
+      "sha256": "3b75842e1b428c46fa7ae1366a4a4c44e872d3f244df9bc14fd70e8fb23f03d0",
+      "reported_size": "720P",
+      "reported_seconds": "6"
     },
     "S13": {
       "id": "S13",
@@ -769,15 +774,15 @@
     "S24": {
       "id": "S24",
       "request_hash": "5577ca3eb3adf2a87044b1615f0d07d32a0093b7ea49bc3465bb4d1f0c4bbb49",
-      "status": "provider_cooldown",
+      "status": "waiting_create_slot",
       "video_id": null,
       "task_id": null,
       "video_url": null,
       "sha256": null,
       "bytes": null,
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261026083212994419722RvxQOCpE)",
-      "updated_at": "2026-10-26T08:32:13Z",
-      "create_attempts": 20,
+      "error": null,
+      "updated_at": "2026-10-26T08:32:14Z",
+      "create_attempts": 21,
       "capacity_error": "video queue is full",
       "applied_cooldown_seconds": 61
     },
@@ -942,7 +947,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-26T08:32:13Z",
+  "updated_at": "2026-10-26T08:32:14Z",
   "run_id": "40281081272",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
