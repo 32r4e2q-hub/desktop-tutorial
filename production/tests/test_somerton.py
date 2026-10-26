@@ -182,12 +182,20 @@ class SomertonPlanTests(unittest.TestCase):
 
     def test_high_risk_props_have_explicit_strict_no_text_prompts(self):
         rows = {shot["id"]: shot for shot in self.story["shots"]}
-        high_risk = {"S04", "S06", "S07", "S10", "S12", "S15", "S17", "S18", "S19", "S21", "S26", "S27"}
+        high_risk = {"S04", "S06", "S07", "S09", "S10", "S12", "S15", "S17", "S18", "S19", "S21", "S26", "S27"}
         markers = ("no text", "text-free", "no letters", "no lettering", "no writing", "no symbols", "no marks")
         for sid in high_risk:
             with self.subTest(shot=sid):
                 prompt = rows[sid]["prompt"].lower()
                 self.assertTrue(any(marker in prompt for marker in markers), prompt)
+
+    def test_s09_keeps_surgical_lamp_offscreen_and_bans_mystery_symbols(self):
+        shot = next(shot for shot in self.story["shots"] if shot["id"] == "S09")
+        prompt = shot["prompt"].lower()
+        self.assertIn("entirely off-camera surgical light", prompt)
+        self.assertIn("do not show any part of the lamp", prompt)
+        self.assertIn("no question marks", prompt)
+        self.assertIn("no graphic overlays or mystery icons", prompt)
 
     def test_s10_composition_excludes_signboard_shaped_surfaces(self):
         shot = next(shot for shot in self.story["shots"] if shot["id"] == "S10")
