@@ -317,13 +317,17 @@
     "S09": {
       "id": "S09",
       "request_hash": "fe489ce09d5334d67ec9407d14a3ec232604ca1d4db98add94722a5faa20d629",
-      "status": "provider_cooldown",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-26T01:18:55Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261026011855818133334G95LkmPa)",
-      "create_attempts": 50,
+      "updated_at": "2026-10-26T01:29:10Z",
+      "error": null,
+      "create_attempts": 60,
       "capacity_error": "video queue is full",
-      "applied_cooldown_seconds": 61
+      "applied_cooldown_seconds": 61,
+      "video_id": "task_0DLr4aCXwxkrqPe0F48Htcgvi2g76Y3F",
+      "task_id": "task_0DLr4aCXwxkrqPe0F48Htcgvi2g76Y3F",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S10": {
       "id": "S10",
@@ -954,7 +958,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-26T01:18:55Z",
+  "updated_at": "2026-10-26T01:29:10Z",
   "run_id": "40249455092",
   "last_provider_outage": {
     "model": "agnes-video-2.5-flash",
@@ -1636,13 +1640,5 @@
     "height": 1080,
     "fps": 30,
     "cover": "work/somerton/clips/塔玛姆·舒德_封面.jpg"
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "video queue is full",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 503: video queue is full, please retry later (request id: 20261026011855818133334G95LkmPa)",
-    "create_attempts": 50,
-    "retry_interval_seconds": 61,
-    "last_seen": "2026-10-26T01:18:55Z"
   }
 }
