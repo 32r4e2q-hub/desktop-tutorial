@@ -35,7 +35,7 @@ jobs:
       github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial' &&
       (github.event_name == 'workflow_dispatch' ||
       !contains(github.event.head_commit.message, '[skip-somerton-qc]'))
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 45
     env:
       ARTIFACT_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '40260874205' }}
