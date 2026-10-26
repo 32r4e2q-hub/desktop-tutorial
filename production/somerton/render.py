@@ -87,6 +87,82 @@ def chapter_boundaries(story: dict) -> tuple[set[str], set[str]]:
     return first, last
 
 
+def detect_matte_bands(image: Image.Image) -> tuple[int, int] | None:
+    """Detect paired, nearly black borders with a sharp boundary in a low-resolution frame."""
+    gray = np.asarray(image.convert("L"), dtype=np.uint8)
+    height, _width = gray.shape
+    max_scan = max(2, int(height * 0.30))
+
+    def edge_run(reverse: bool) -> int:
+        run = 0
+        for offset in range(max_scan):
+            y = height - 1 - offset if reverse else offset
+            row = gray[y, :].astype(np.float32)
+            if float(np.mean(row)) < 10.0 and float(np.std(row)) < 4.0 and float(np.mean(row < 20)) > 0.995:
+                run += 1
+            else:
+                break
+        return run
+
+    top, bottom = edge_run(False), edge_run(True)
+    minimum = max(22, int(height * 0.06))
+    if top < minimum or bottom < minimum:
+        return None
+    probe_offset = min(max(8, int(height * 0.02)), max(0, height - max(top, bottom) - 1))
+    edge_mean = float(np.mean(gray[:min(5, top), :]))
+    top_probe = top + probe_offset
+    bottom_probe = height - 1 - bottom - probe_offset
+    top_contrast = float(np.mean(gray[top_probe, :])) - edge_mean if top_probe < height else 0.0
+    bottom_edge_mean = float(np.mean(gray[height-min(5, bottom):, :]))
+    bottom_contrast = float(np.mean(gray[bottom_probe, :])) - bottom_edge_mean if bottom_probe >= 0 else 0.0
+    if max(top_contrast, bottom_contrast) < 25.0:
+        return None
+    return top, bottom
+
+
+def detect_source_letterbox_bands(source: Path, shot: dict, info: dict) -> list[tuple[int, int]]:
+    """Sample S24 at three times; only apply an override when paired hard mattes persist."""
+    if shot.get("id") != "S24":
+        return []
+    duration = float(info["duration_seconds"])
+    sample_bands = []
+    for index, fraction in enumerate((0.15, 0.50, 0.85)):
+        timestamp = min(max(0.05, duration * fraction), max(0.05, duration - 0.05))
+        sample_path = source.parent / f".{source.stem}-letterbox-check-{index}.png"
+        try:
+            run([
+                "ffmpeg", "-y", "-v", "error", "-ss", f"{timestamp:.3f}", "-i", source,
+                "-frames:v", "1", "-vf", "scale=640:360", sample_path,
+            ])
+            with Image.open(sample_path) as image:
+                bands = detect_matte_bands(image)
+            if bands:
+                sample_bands.append(bands)
+        finally:
+            sample_path.unlink(missing_ok=True)
+    return sample_bands if len(sample_bands) >= 2 else []
+
+
+def letterbox_crop_filter(shot: dict, info: dict, detected_bands: list[tuple[int, int]] | None = None) -> str | None:
+    """Crop only verified embedded S24 mattes; regenerated full-frame footage stays untouched."""
+    if shot.get("id") != "S24" or not detected_bands or len(detected_bands) < 2:
+        return None
+    source_width, source_height = int(info["width"]), int(info["height"])
+    scale_y = source_height / 360.0
+    top = int(round(float(np.median([band[0] for band in detected_bands])) * scale_y)) + 2
+    bottom = int(round(float(np.median([band[1] for band in detected_bands])) * scale_y)) + 2
+    top = (top // 2) * 2
+    bottom = (bottom // 2) * 2
+    active_height = ((source_height - top - bottom) // 2) * 2
+    active_width = (int(active_height * 16 / 9) // 2) * 2
+    if active_width > source_width or active_height < source_height * 0.5:
+        raise RuntimeError(f"S24 letterbox correction is incompatible with source {source_width}x{source_height}")
+    left = ((source_width - active_width) // 2 // 2) * 2
+    if left < 0 or top < 0 or bottom < 0:
+        raise RuntimeError(f"S24 letterbox crop is out of bounds for source {source_width}x{source_height}")
+    return f"crop={active_width}:{active_height}:{left}:{top}"
+
+
 def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], last_ids: set[str]) -> dict:
     duration = float(shot["duration"])
     target_frames = round(duration * FPS)
@@ -95,7 +171,9 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
         raise RuntimeError(f"{shot['id']}: invalid Agnes clip duration {info['duration_seconds']:.3f}s")
     if info["width"] < 640 or info["height"] < 360:
         raise RuntimeError(f"{shot['id']}: returned video resolution is too small")
-    filters = [
+    detected_bands = detect_source_letterbox_bands(source, shot, info)
+    correction = letterbox_crop_filter(shot, info, detected_bands)
+    filters = ([correction] if correction else []) + [
         "scale=1920:1080:force_original_aspect_ratio=increase",
         "crop=1920:1080",
         "fps=30",
@@ -117,7 +195,9 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
     return {"id": shot["id"], "duration_seconds": duration, "frames": target_frames,
             "source_duration_seconds": round(info["duration_seconds"], 3),
             "source_width": info["width"], "source_height": info["height"],
-            "source_sha256": digest(source), "normalized_file": str(target)}
+            "source_sha256": digest(source), "normalized_file": str(target),
+            "embedded_letterbox_crop_filter": correction,
+            "embedded_letterbox_detected_samples": len(detected_bands)}
 
 
 def ass_time(seconds: float) -> str:

@@ -26,12 +26,15 @@ permissions:
   contents: write
 
 concurrency:
-  group: somerton-qc-arena-dc7c8423-desktop-tutorial
+  group: somerton-qc-arena-dc7c8423-desktop-tutorial-v2
   cancel-in-progress: false
 
 jobs:
   qc:
-    if: github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial'
+    if: >-
+      github.ref == 'refs/heads/arena/dc7c8423-desktop-tutorial' &&
+      (github.event_name == 'workflow_dispatch' ||
+      !contains(github.event.head_commit.message, '[skip-somerton-qc]'))
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -59,10 +62,10 @@ jobs:
           github-token: ${{ github.token }}
           path: qa-input
 
-      - name: Check QC script syntax and OCR unit tests
+      - name: Check QC and render syntax plus media unit tests
         run: |
-          python3 -m py_compile production/somerton/qc.py production/tests/test_somerton_qc.py
-          python3 -m unittest production.tests.test_somerton_qc -v
+          python3 -m py_compile production/somerton/qc.py production/somerton/render.py production/tests/test_somerton_qc.py production/tests/test_somerton_render.py
+          python3 -m unittest production.tests.test_somerton_qc production.tests.test_somerton_render -v
 
       - name: Run source, media, timing, subtitle and audio QC
         id: qc_run

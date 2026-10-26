@@ -84,7 +84,7 @@
 | S21 | 02:05—02:13 | 8 | N07 | 前景静置空白新闻纸，摄影机缓慢平移 | A restrained 1940s newsroom with anonymous shadow profiles moving at desks in the background |
 | S22 | 02:13—02:21 | 8 | N07 | 低机位摇镜 | Night harbor under dense sea fog |
 | S23 | 02:21—02:30 | 9 | N07 | 横向滑动，逐幅擦除 | Three ornate sepia picture frames stand side by side on a dark gallery wall, each a subtly animated illustrated hypothesis: an anonymous spy silhouette, a solitary figure beside a letter, and a sealed glass vial on a desk |
-| S24 | 02:30—02:37 | 7 | N08 | 浅景深缓慢环绕 | A 2022 university genetics laboratory under cool white light |
+| S24 | 02:30—02:37 | 7 | N08 | 浅景深缓慢环绕 | From the very first frame, one continuous shot entirely inside a 2022 university genetics laboratory under cool white light |
 | S25 | 02:37—02:43 | 6 | N08 | 从树根拉升至树冠 | In a dark abstract visualization space, an immense illuminated family tree grows from a single root into hundreds of branching nodes |
 | S26 | 02:43—02:48 | 5 | N08 | 中景缓慢推近 | A fictional, non-photographic 1930s Melbourne workroom, framed entirely from inside |
 | S27 | 02:48—02:52 | 4 | N08 | 分屏双向缓慢推近 | One clean vertical split-screen, divided exactly down the center and held continuously from the first frame through the last; both halves must remain visible at the same time, with no cut, alternating full-screen scene, wipe, dissolve or transition |

@@ -252,6 +252,65 @@ def remove_motion_frame_files(frame_samples: list[dict]) -> None:
         Path(sample["frame"]).unlink(missing_ok=True)
 
 
+def uniform_black_edge_run(image: Image.Image, reverse: bool = False) -> int:
+    """Count rows of nearly uniform black matte at one edge of a sampled frame."""
+    gray = np.asarray(image.convert("L"), dtype=np.uint8)
+    height, width = gray.shape
+    max_scan = max(2, int(height * 0.30))
+    run = 0
+    for offset in range(0, max_scan, 2):
+        y = height - 1 - offset if reverse else offset
+        row = gray[y, :].astype(np.float32)
+        if float(np.mean(row)) < 10.0 and float(np.std(row)) < 4.0 and float(np.mean(row < 20)) > 0.995:
+            run += 2
+        else:
+            break
+    return min(run, max_scan)
+
+
+def black_edge_boundary_contrast(image: Image.Image, run: int, reverse: bool = False) -> float:
+    """Measure whether the matte ends at a sharp boundary rather than a natural dark gradient."""
+    if run <= 0:
+        return 0.0
+    gray = np.asarray(image.convert("L"), dtype=np.uint8)
+    height = gray.shape[0]
+    edge_rows = gray[:min(5, run), :] if not reverse else gray[height-min(5, run):, :]
+    probe_offset = min(max(8, int(height * 0.02)), max(0, height - run - 1))
+    probe_y = run + probe_offset if not reverse else height - 1 - run - probe_offset
+    if not 0 <= probe_y < height:
+        return 0.0
+    return float(np.mean(gray[probe_y, :])) - float(np.mean(edge_rows))
+
+
+def scan_final_letterbox_bars(frame_samples: list[dict]) -> dict:
+    """Flag persistent paired black mattes with a sharp interior boundary, not dark gradients."""
+    by_shot = {}
+    for sample in frame_samples:
+        with Image.open(sample["frame"]) as image:
+            top = uniform_black_edge_run(image, reverse=False)
+            bottom = uniform_black_edge_run(image, reverse=True)
+            top_contrast = black_edge_boundary_contrast(image, top, reverse=False)
+            bottom_contrast = black_edge_boundary_contrast(image, bottom, reverse=True)
+            height = image.height
+        row = by_shot.setdefault(sample["id"], {"sample_count": 0, "paired": []})
+        row["sample_count"] += 1
+        min_bar = max(36, int(height * 0.06))
+        if top >= min_bar and bottom >= min_bar and max(top_contrast, bottom_contrast) >= 25.0:
+            row["paired"].append({"top": top, "bottom": bottom})
+    findings = []
+    for shot_id, row in by_shot.items():
+        if len(row["paired"]) >= max(3, math.ceil(row["sample_count"] * 0.60)):
+            findings.append({
+                "shot": shot_id,
+                "paired_bar_frames": len(row["paired"]),
+                "sampled_frames": row["sample_count"],
+                "median_top_bar_px": int(np.median([item["top"] for item in row["paired"]])),
+                "median_bottom_bar_px": int(np.median([item["bottom"] for item in row["paired"]])),
+            })
+    return {"available": True, "finding_count": len(findings), "findings": findings,
+            "method": "paired uniform-black top/bottom edge bands with a sharp interior boundary must persist in at least 60% of exact-frame samples for a shot"}
+
+
 def run_ffmpeg_scan(video: Path) -> dict:
     command = [
         "ffmpeg", "-hide_banner", "-nostats", "-i", str(video),
@@ -832,7 +891,12 @@ def main() -> int:
             complete_sheets = (len(motion_sheets) == len(shots)
                                and all(row["frame_count"] == 9 for row in motion_sheets))
             add_check(report, "final-shot-motion-sheets", complete_sheets,
-                      f"{len(motion_sheets)}/{len(shots)} shots, nine evenly spaced frames per sheet")
+                      f"{len(motion_sheets)}/{len(shots)} shots, nine exact source-frame samples per sheet")
+            letterbox_scan = scan_final_letterbox_bars(motion_frame_samples)
+            report["final_letterbox_scan"] = letterbox_scan
+            add_check(report, "final-video-letterbox", letterbox_scan["finding_count"] == 0,
+                      f"persistent paired black mattes={letterbox_scan['findings'] or 'none'}",
+                      severity="warning")
             text_scan = scan_unapproved_text(
                 artifact, samples, out / "ocr-review",
                 final_frame_samples=[*samples, *motion_frame_samples])
@@ -872,7 +936,7 @@ def main() -> int:
     report["automated_status"] = "fail" if report["failures"] else ("pass_with_warnings" if report["warnings"] else "pass")
     report["manual_visual_review"] = {
         "status": "pending",
-        "note": "Automated checks, subtitle-band OCR, source-reconstructed narration activity, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or human audio semantics. See the 29 final-shot contact sheets and midpoint sheet.",
+        "note": "Automated checks, subtitle-band OCR, source-reconstructed narration activity, paired-edge letterbox scans, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or human audio semantics. See the 29 final-shot contact sheets and midpoint sheet.",
     }
     output = out / "automated-qc.json"
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -891,6 +955,7 @@ def main() -> int:
                  f"{len(report.get('ocr_text_scan', {}).get('final_findings', []))} final frames.",
                  f"- Rendered subtitle OCR findings: {report.get('rendered_subtitle_scan', {}).get('finding_count', 'unavailable')}.",
                  f"- Caption/voiceover activity findings: {report.get('caption_voice_activity', {}).get('weak_cue_count', 'unavailable')}.",
+                 f"- Final letterbox-scan findings: {report.get('final_letterbox_scan', {}).get('finding_count', 'unavailable')}.",
                  "- Manual full-motion visual/audio review remains required.", ""]
         summary.write_text("\n".join(lines), encoding="utf-8")
     print(json.dumps({"automated_status": report["automated_status"],

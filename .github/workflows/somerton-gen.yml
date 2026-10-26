@@ -10,6 +10,7 @@ on:
     paths:
       - .github/workflows/somerton-gen.yml
       - production/somerton/build_story.py
+      - production/somerton/render.py
   workflow_dispatch:
     inputs:
       payload:
@@ -47,6 +48,11 @@ jobs:
 
       - name: Validate all prompts, voice clips and the 180-second timeline
         run: python3 production/somerton/generate.py --validate
+
+      - name: Test S24 matte detection and adaptive full-frame crop
+        run: |
+          python3 -m py_compile production/somerton/render.py production/tests/test_somerton_render.py
+          python3 -m unittest production.tests.test_somerton_render -v
 
       - name: Generate all Agnes Video 2.5 Flash clips with 61s retries, then render the 1080P first cut
         id: generate

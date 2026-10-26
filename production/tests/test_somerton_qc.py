@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from production.somerton import qc
 
@@ -19,6 +19,40 @@ class SomertonOcrTests(unittest.TestCase):
         self.assertAlmostEqual(times[-1], 125 + 8 * 8 / 9, delta=0.001)
         steps = [times[index + 1] - times[index] for index in range(8)]
         self.assertTrue(all(abs(step - 8 / 9) < 0.002 for step in steps))
+
+    def test_letterbox_scan_requires_persistent_paired_black_edges(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            samples = []
+            for index in range(9):
+                frame = Image.new("RGB", (640, 360), "black")
+                draw = ImageDraw.Draw(frame)
+                draw.rectangle((0, 72, 639, 287), fill=(55, 85, 105))
+                path = root / f"barred-{index}.jpg"
+                frame.save(path, quality=95)
+                samples.append({"id": "S24", "frame": str(path), "time_seconds": index / 30})
+            report = qc.scan_final_letterbox_bars(samples)
+        self.assertEqual(report["finding_count"], 1)
+        self.assertEqual(report["findings"][0]["shot"], "S24")
+        self.assertGreaterEqual(report["findings"][0]["median_top_bar_px"], 70)
+        self.assertGreaterEqual(report["findings"][0]["median_bottom_bar_px"], 70)
+
+    def test_letterbox_scan_ignores_smoothly_fading_dark_end_card_edges(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            samples = []
+            for index in range(9):
+                frame = Image.new("RGB", (640, 360), "black")
+                draw = ImageDraw.Draw(frame)
+                for y in range(frame.height):
+                    distance = min(y, frame.height - 1 - y)
+                    level = min(58, int(distance * 0.22))
+                    draw.line((0, y, frame.width - 1, y), fill=(level, level, level))
+                path = root / f"gradient-{index}.jpg"
+                frame.save(path, quality=95)
+                samples.append({"id": "S29", "frame": str(path), "time_seconds": index / 30})
+            report = qc.scan_final_letterbox_bars(samples)
+        self.assertEqual(report["finding_count"], 0)
 
     def test_motion_sample_targets_map_to_exact_source_frame_times(self):
         shot = {"id": "S01", "start": 0.0, "duration": 5.0}
