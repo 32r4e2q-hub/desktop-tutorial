@@ -37,6 +37,23 @@ class SomertonOcrTests(unittest.TestCase):
         self.assertGreaterEqual(report["findings"][0]["median_top_bar_px"], 70)
         self.assertGreaterEqual(report["findings"][0]["median_bottom_bar_px"], 70)
 
+    def test_letterbox_scan_catches_bars_present_in_half_of_samples(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            samples = []
+            for index in range(9):
+                frame = Image.new("RGB", (640, 360), (55, 85, 105))
+                if index < 5:
+                    draw = ImageDraw.Draw(frame)
+                    draw.rectangle((0, 0, 639, 71), fill="black")
+                    draw.rectangle((0, 288, 639, 359), fill="black")
+                path = root / f"mixed-{index}.jpg"
+                frame.save(path, quality=95)
+                samples.append({"id": "S24", "frame": str(path), "time_seconds": index / 30})
+            report = qc.scan_final_letterbox_bars(samples)
+        self.assertEqual(report["finding_count"], 1)
+        self.assertEqual(report["findings"][0]["paired_bar_frames"], 5)
+
     def test_letterbox_scan_ignores_smoothly_fading_dark_end_card_edges(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

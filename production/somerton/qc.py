@@ -299,7 +299,7 @@ def scan_final_letterbox_bars(frame_samples: list[dict]) -> dict:
             row["paired"].append({"top": top, "bottom": bottom})
     findings = []
     for shot_id, row in by_shot.items():
-        if len(row["paired"]) >= max(3, math.ceil(row["sample_count"] * 0.60)):
+        if len(row["paired"]) >= max(3, math.ceil(row["sample_count"] * 0.50)):
             findings.append({
                 "shot": shot_id,
                 "paired_bar_frames": len(row["paired"]),
@@ -308,7 +308,7 @@ def scan_final_letterbox_bars(frame_samples: list[dict]) -> dict:
                 "median_bottom_bar_px": int(np.median([item["bottom"] for item in row["paired"]])),
             })
     return {"available": True, "finding_count": len(findings), "findings": findings,
-            "method": "paired uniform-black top/bottom edge bands with a sharp interior boundary must persist in at least 60% of exact-frame samples for a shot"}
+            "method": "paired uniform-black top/bottom edge bands with a sharp interior boundary must persist in at least half of the exact-frame samples for a shot"}
 
 
 def run_ffmpeg_scan(video: Path) -> dict:
