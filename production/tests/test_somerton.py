@@ -197,6 +197,14 @@ class SomertonPlanTests(unittest.TestCase):
         self.assertIn("no question marks", prompt)
         self.assertIn("no graphic overlays or mystery icons", prompt)
 
+    def test_s21_newsprint_stays_static_and_featureless(self):
+        shot = next(shot for shot in self.story["shots"] if shot["id"] == "S21")
+        prompt = shot["prompt"].lower()
+        self.assertIn("lies flat and motionless", prompt)
+        self.assertIn("no pages fly, turn, curl", prompt)
+        self.assertIn("or blur", prompt)
+        self.assertIn("no headlines, columns, paragraphs", prompt)
+
     def test_s10_composition_excludes_signboard_shaped_surfaces(self):
         shot = next(shot for shot in self.story["shots"] if shot["id"] == "S10")
         prompt = shot["prompt"].lower()

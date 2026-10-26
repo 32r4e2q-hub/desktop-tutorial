@@ -81,7 +81,7 @@
 | S18 | 01:47—01:54 | 7 | N06 | 围绕黑板缓慢环绕，延时 | A dim 1940s analysis room |
 | S19 | 01:54—02:00 | 6 | N06 | 穿越式镜头：书页到电话线再到房屋 | Begin on a completely blank, unmarked ivory page beside an old rotary telephone |
 | S20 | 02:00—02:05 | 5 | N06 | 低角度中景缓慢推近 | At the entrance of a modest 1940s Adelaide house, a wary nurse with curled hair in a light uniform faces a detective in a wool coat and soft felt hat |
-| S21 | 02:05—02:13 | 8 | N07 | 旧报纸拼贴式快速推进 | A dynamic 1940s newsroom with anonymous shadow profiles moving behind a fast stream of completely blank, unprinted newsprint sheets |
+| S21 | 02:05—02:13 | 8 | N07 | 前景静置空白新闻纸，摄影机缓慢平移 | A restrained 1940s newsroom with anonymous shadow profiles moving at desks in the background |
 | S22 | 02:13—02:21 | 8 | N07 | 低机位摇镜 | Night harbor under dense sea fog |
 | S23 | 02:21—02:30 | 9 | N07 | 横向滑动，逐幅擦除 | Three ornate sepia picture frames stand side by side on a dark gallery wall, each a subtly animated illustrated hypothesis: an anonymous spy silhouette, a solitary figure beside a letter, and a sealed glass vial on a desk |
 | S24 | 02:30—02:37 | 7 | N08 | 浅景深缓慢环绕 | A 2022 university genetics laboratory under cool white light |
