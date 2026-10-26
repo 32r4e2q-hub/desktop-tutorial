@@ -128,8 +128,8 @@
     },
     {
       "name": "source-prompt-hash-S12",
-      "status": "pass",
-      "detail": "expected=c012e5016e49 actual=c012e5016e49"
+      "status": "warn",
+      "detail": "expected=110d8c31599c actual=c012e5016e49"
     },
     {
       "name": "source-clip-S12",
@@ -248,8 +248,8 @@
     },
     {
       "name": "source-prompt-hash-S24",
-      "status": "pass",
-      "detail": "expected=9396e97e359f actual=9396e97e359f"
+      "status": "warn",
+      "detail": "expected=5577ca3eb3ad actual=9396e97e359f"
     },
     {
       "name": "source-clip-S24",
@@ -1049,7 +1049,12 @@
     {
       "name": "final-shot-motion-sheets",
       "status": "pass",
-      "detail": "29/29 shots, nine evenly spaced frames per sheet"
+      "detail": "29/29 shots, nine exact source-frame samples per sheet"
+    },
+    {
+      "name": "final-video-letterbox",
+      "status": "pass",
+      "detail": "persistent paired black mattes=none"
     },
     {
       "name": "ocr-unapproved-scene-text",
@@ -1059,11 +1064,13 @@
     {
       "name": "rendered-subtitle-samples",
       "status": "warn",
-      "detail": "OCR compared 217 exact-frame samples; boundary skips=44; not-read=84, text-mismatch=9, unexpected-bottom-text=0"
+      "detail": "OCR compared 217 exact-frame samples; boundary skips=44; not-read=68, text-mismatch=14, unexpected-bottom-text=1"
     }
   ],
   "failures": [],
   "warnings": [
+    "source-prompt-hash-S12",
+    "source-prompt-hash-S24",
     "technical-report-human-review-complete",
     "ocr-unapproved-scene-text",
     "rendered-subtitle-samples"
@@ -1140,8 +1147,8 @@
     },
     {
       "shot": "S12",
-      "matches_current_story": true,
-      "expected_request_hash": "c012e5016e491b54b872a8f8ba21e1139b99a5985736f60d1aaa83bec3a637ae",
+      "matches_current_story": false,
+      "expected_request_hash": "110d8c31599c35a73f007956d331db992a61d9801b6ab82ebfd3bc27370c3831",
       "actual_request_hash": "c012e5016e491b54b872a8f8ba21e1139b99a5985736f60d1aaa83bec3a637ae"
     },
     {
@@ -1212,8 +1219,8 @@
     },
     {
       "shot": "S24",
-      "matches_current_story": true,
-      "expected_request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30",
+      "matches_current_story": false,
+      "expected_request_hash": "5577ca3eb3adf2a87044b1615f0d07d32a0093b7ea49bc3465bb4d1f0c4bbb49",
       "actual_request_hash": "9396e97e359f4691b6ad7a3bd7a6475c57645d5218ed6fd59d747b37d45fef30"
     },
     {
@@ -3026,6 +3033,12 @@
       "frame_count": 9
     }
   ],
+  "final_letterbox_scan": {
+    "available": true,
+    "finding_count": 0,
+    "findings": [],
+    "method": "paired uniform-black top/bottom edge bands with a sharp interior boundary must persist in at least 60% of exact-frame samples for a shot"
+  },
   "ocr_text_scan": {
     "available": true,
     "languages": "eng+chi_sim",
@@ -3072,12 +3085,12 @@
     "sampled_frames": 261,
     "checked_frames": 217,
     "skipped_near_cue_boundaries": 44,
-    "frames_with_recognized_text": 117,
-    "finding_count": 93,
+    "frames_with_recognized_text": 134,
+    "finding_count": 83,
     "finding_counts": {
-      "caption-not-read": 84,
-      "caption-mismatch": 9,
-      "unexpected-bottom-text": 0
+      "caption-not-read": 68,
+      "caption-mismatch": 14,
+      "unexpected-bottom-text": 1
     },
     "findings": [
       {
@@ -3095,14 +3108,6 @@
         "ocr": "",
         "similarity": 0.0,
         "kind": "caption-not-read"
-      },
-      {
-        "shot": "S02",
-        "time_seconds": 5.567,
-        "expected": "一个男人靠着海堤坐着。",
-        "ocr": "男人着",
-        "similarity": 0.462,
-        "kind": "caption-mismatch"
       },
       {
         "shot": "S02",
@@ -3164,25 +3169,25 @@
         "shot": "S03",
         "time_seconds": 13.1,
         "expected": "路人在索马顿海滩发现了他。",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
+        "ocr": "是了",
+        "similarity": 0.143,
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S03",
         "time_seconds": 13.9,
         "expected": "路人在索马顿海滩发现了他。",
-        "ocr": "",
+        "ocr": "严",
         "similarity": 0.0,
-        "kind": "caption-not-read"
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S03",
         "time_seconds": 14.667,
         "expected": "路人在索马顿海滩发现了他。",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
+        "ocr": "-人",
+        "similarity": 0.154,
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S03",
@@ -3191,6 +3196,14 @@
         "ocr": "",
         "similarity": 0.0,
         "kind": "caption-not-read"
+      },
+      {
+        "shot": "S04",
+        "time_seconds": 21.667,
+        "expected": "",
+        "ocr": "面",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
       },
       {
         "shot": "S05",
@@ -3212,17 +3225,17 @@
         "shot": "S05",
         "time_seconds": 28.0,
         "expected": "以为他只是睡着了。",
-        "ocr": "",
+        "ocr": "个",
         "similarity": 0.0,
-        "kind": "caption-not-read"
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S05",
         "time_seconds": 28.667,
         "expected": "以为他只是睡着了。",
-        "ocr": "",
+        "ocr": "站",
         "similarity": 0.0,
-        "kind": "caption-not-read"
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S05",
@@ -3231,22 +3244,6 @@
         "ocr": "",
         "similarity": 0.0,
         "kind": "caption-not-read"
-      },
-      {
-        "shot": "S06",
-        "time_seconds": 33.9,
-        "expected": "却找不到入口。",
-        "ocr": "到",
-        "similarity": 0.286,
-        "kind": "caption-mismatch"
-      },
-      {
-        "shot": "S06",
-        "time_seconds": 34.433,
-        "expected": "却找不到入口。",
-        "ocr": "到",
-        "similarity": 0.286,
-        "kind": "caption-mismatch"
       },
       {
         "shot": "S07",
@@ -3292,9 +3289,9 @@
         "shot": "S08",
         "time_seconds": 48.233,
         "expected": "怀疑可能中毒；",
-        "ocr": "",
+        "ocr": "一一一一",
         "similarity": 0.0,
-        "kind": "caption-not-read"
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S09",
@@ -3306,19 +3303,11 @@
       },
       {
         "shot": "S09",
-        "time_seconds": 50.333,
-        "expected": "常见毒物却查不出来。",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
-      },
-      {
-        "shot": "S09",
         "time_seconds": 51.0,
         "expected": "常见毒物却查不出来。",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
+        "ocr": "出一",
+        "similarity": 0.182,
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S09",
@@ -3370,14 +3359,6 @@
       },
       {
         "shot": "S10",
-        "time_seconds": 57.333,
-        "expected": "阿德莱德火车站发现一只旧皮箱，",
-        "ocr": "站",
-        "similarity": 0.133,
-        "kind": "caption-mismatch"
-      },
-      {
-        "shot": "S10",
         "time_seconds": 58.1,
         "expected": "阿德莱德火车站发现一只旧皮箱，",
         "ocr": "",
@@ -3388,17 +3369,17 @@
         "shot": "S10",
         "time_seconds": 58.9,
         "expected": "阿德莱德火车站发现一只旧皮箱，",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
+        "ocr": "一一",
+        "similarity": 0.125,
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S10",
         "time_seconds": 59.667,
         "expected": "阿德莱德火车站发现一只旧皮箱，",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
+        "ocr": "一",
+        "similarity": 0.133,
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S11",
@@ -3428,9 +3409,9 @@
         "shot": "S11",
         "time_seconds": 65.9,
         "expected": "剃须用品和橙线，",
-        "ocr": "",
+        "ocr": "局人",
         "similarity": 0.0,
-        "kind": "caption-not-read"
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S13",
@@ -3466,14 +3447,6 @@
       },
       {
         "shot": "S13",
-        "time_seconds": 79.667,
-        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
-        "ocr": "在他裤子里的",
-        "similarity": 0.37,
-        "kind": "caption-mismatch"
-      },
-      {
-        "shot": "S13",
         "time_seconds": 80.433,
         "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
         "ocr": "",
@@ -3487,14 +3460,6 @@
         "ocr": "",
         "similarity": 0.0,
         "kind": "caption-not-read"
-      },
-      {
-        "shot": "S14",
-        "time_seconds": 82.767,
-        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
-        "ocr": "他裤子起的",
-        "similarity": 0.385,
-        "kind": "caption-mismatch"
       },
       {
         "shot": "S14",
@@ -3570,14 +3535,6 @@
       },
       {
         "shot": "S16",
-        "time_seconds": 98.333,
-        "expected": "撕痕严丝合缝。",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
-      },
-      {
-        "shot": "S16",
         "time_seconds": 98.9,
         "expected": "撕痕严丝合缝。",
         "ocr": "",
@@ -3628,9 +3585,9 @@
         "shot": "S19",
         "time_seconds": 118.667,
         "expected": "也不知道自己的号码为何会出现在诗集里。",
-        "ocr": "",
+        "ocr": "一一一",
         "similarity": 0.0,
-        "kind": "caption-not-read"
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S19",
@@ -3700,9 +3657,9 @@
         "shot": "S24",
         "time_seconds": 150.767,
         "expected": "二〇二二年，",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
+        "ocr": "三三年",
+        "similarity": 0.25,
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S24",
@@ -3738,22 +3695,6 @@
       },
       {
         "shot": "S25",
-        "time_seconds": 159.0,
-        "expected": "用石膏面模里的头发做DNA家谱比对，",
-        "ocr": "",
-        "similarity": 0.0,
-        "kind": "caption-not-read"
-      },
-      {
-        "shot": "S25",
-        "time_seconds": 159.667,
-        "expected": "用石膏面模里的头发做DNA家谱比对，",
-        "ocr": "的DNA",
-        "similarity": 0.381,
-        "kind": "caption-mismatch"
-      },
-      {
-        "shot": "S25",
         "time_seconds": 160.333,
         "expected": "用石膏面模里的头发做DNA家谱比对，",
         "ocr": "",
@@ -3769,28 +3710,20 @@
         "kind": "caption-not-read"
       },
       {
-        "shot": "S26",
-        "time_seconds": 164.667,
+        "shot": "S25",
+        "time_seconds": 162.333,
         "expected": "指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。",
-        "ocr": "指向墨尔本工程",
-        "similarity": 0.467,
-        "kind": "caption-mismatch"
-      },
-      {
-        "shot": "S26",
-        "time_seconds": 165.233,
-        "expected": "指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。",
-        "ocr": "指向出工程",
-        "similarity": 0.357,
+        "ocr": ",指向一呈合",
+        "similarity": 0.214,
         "kind": "caption-mismatch"
       },
       {
         "shot": "S26",
         "time_seconds": 167.433,
         "expected": "研究者称把握超九成九；",
-        "ocr": "",
+        "ocr": "和",
         "similarity": 0.0,
-        "kind": "caption-not-read"
+        "kind": "caption-mismatch"
       },
       {
         "shot": "S29",
@@ -3830,6 +3763,6 @@
   "automated_status": "pass_with_warnings",
   "manual_visual_review": {
     "status": "pending",
-    "note": "Automated checks, subtitle-band OCR, source-reconstructed narration activity, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or human audio semantics. See the 29 final-shot contact sheets and midpoint sheet."
+    "note": "Automated checks, subtitle-band OCR, source-reconstructed narration activity, paired-edge letterbox scans, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or human audio semantics. See the 29 final-shot contact sheets and midpoint sheet."
   }
 }
