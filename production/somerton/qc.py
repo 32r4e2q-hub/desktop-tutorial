@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import difflib
 import hashlib
 import json
 import math
@@ -16,6 +17,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -272,11 +274,11 @@ def plausible_ocr_token(token: str, confidence: float) -> bool:
     return False
 
 
-def ocr_words(image: Image.Image, temp_path: Path) -> list[dict]:
+def ocr_words(image: Image.Image, temp_path: Path, psm: int = 11) -> list[dict]:
     """Return only plausible OCR tokens; this is a flagging aid, never a visual sign-off."""
     image.convert("RGB").save(temp_path)
     proc = subprocess.run([
-        "tesseract", str(temp_path), "stdout", "-l", "eng+chi_sim", "--psm", "11", "tsv",
+        "tesseract", str(temp_path), "stdout", "-l", "eng+chi_sim", "--psm", str(psm), "tsv",
     ], capture_output=True, text=True, timeout=45)
     temp_path.unlink(missing_ok=True)
     if proc.returncode:
@@ -350,6 +352,137 @@ def scan_unapproved_text(artifact: Path, samples: list[dict], output_dir: Path,
         "final_findings": final_findings,
         "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and the approved S14 Tamam Shud and S29 closing-title frames are excluded from final-frame OCR.",
     }
+
+
+def normalize_visible_text(text: str) -> str:
+    return "".join(ch.casefold() for ch in text if ch.isalnum() or 0x3400 <= ord(ch) <= 0x9FFF)
+
+
+def scan_rendered_subtitles(frame_samples: list[dict], cues: list[dict], output_dir: Path) -> dict:
+    """Compare OCR from sampled burned-in subtitle bands with cues active at each sample time."""
+    if not shutil.which("tesseract"):
+        return {"available": False, "reason": "tesseract executable not installed", "findings": []}
+    output_dir.mkdir(parents=True, exist_ok=True)
+    temp_path = output_dir / "subtitle-ocr-temp.png"
+    cue_edges = [float(cue[key]) for cue in cues for key in ("start", "end")]
+    boundary_tolerance = 0.12
+    checked = 0
+    skipped_boundaries = 0
+    recognized = 0
+    findings = []
+    try:
+        for sample in frame_samples:
+            timestamp = float(sample["time_seconds"])
+            if any(abs(timestamp - edge) <= boundary_tolerance for edge in cue_edges):
+                skipped_boundaries += 1
+                continue
+            active = [cue for cue in cues if float(cue["start"]) <= timestamp < float(cue["end"])]
+            expected = "".join(str(cue.get("text", "")) for cue in active)
+            image = Image.open(sample["frame"]).convert("RGB")
+            top = int(image.height * 0.76)
+            band = image.crop((0, top, image.width, image.height))
+            band = band.resize((band.width * 2, band.height * 2), Image.Resampling.LANCZOS)
+            words = ocr_words(band, temp_path, psm=6)
+            actual = "".join(str(word["token"]) for word in words)
+            expected_norm = normalize_visible_text(expected)
+            actual_norm = normalize_visible_text(actual)
+            checked += 1
+            if actual_norm:
+                recognized += 1
+            if expected_norm and actual_norm:
+                similarity = difflib.SequenceMatcher(None, expected_norm, actual_norm).ratio()
+                matched = similarity >= 0.50 or (len(actual_norm) >= 2 and actual_norm in expected_norm)
+                if not matched:
+                    findings.append({"shot": sample["id"], "time_seconds": timestamp,
+                                     "expected": expected, "ocr": actual,
+                                     "similarity": round(similarity, 3), "kind": "caption-mismatch"})
+            elif expected_norm and not actual_norm:
+                findings.append({"shot": sample["id"], "time_seconds": timestamp,
+                                 "expected": expected, "ocr": "", "similarity": 0.0,
+                                 "kind": "caption-not-read"})
+            elif actual_norm and not expected_norm:
+                findings.append({"shot": sample["id"], "time_seconds": timestamp,
+                                 "expected": "", "ocr": actual, "similarity": 0.0,
+                                 "kind": "unexpected-bottom-text"})
+    finally:
+        temp_path.unlink(missing_ok=True)
+    return {
+        "available": True,
+        "sampled_frames": len(frame_samples),
+        "checked_frames": checked,
+        "skipped_near_cue_boundaries": skipped_boundaries,
+        "frames_with_recognized_text": recognized,
+        "finding_count": len(findings),
+        "findings": findings,
+        "method": "Tesseract OCR of the bottom 24% on sampled final frames, compared with active caption timing; detections require visual confirmation.",
+    }
+
+
+def analyze_caption_voice_activity(audio: Path | np.ndarray, cues: list[dict]) -> dict:
+    """Check timed captions against narration RMS activity; arrays are reconstructed source narration."""
+    if isinstance(audio, Path):
+        command = [
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-i", str(audio), "-map", "0:a:0",
+            "-ar", "48000", "-ac", "1", "-f", "f32le", "-acodec", "pcm_f32le", "pipe:1",
+        ]
+        mono = np.frombuffer(subprocess.check_output(command), dtype="<f4")
+        track_source = "standalone-artifact-voiceover"
+    else:
+        mono = np.asarray(audio, dtype="<f4").reshape(-1)
+        track_source = "reconstructed-versioned-narration"
+    mono = np.nan_to_num(mono, copy=True)
+    hop = 4800  # 100 ms at 48 kHz
+    window_count = len(mono) // hop
+    windows = mono[:window_count * hop].reshape(window_count, hop)
+    rms = np.sqrt(np.mean(np.square(windows.astype(np.float64)), axis=1))
+    rms_db = 20.0 * np.log10(np.maximum(rms, 1e-9))
+    duration = len(mono) / 48000
+    cue_rows = []
+    weak_cues = []
+    for index, cue in enumerate(cues, 1):
+        start, end = float(cue["start"]), float(cue["end"])
+        edge_pad = min(0.1, max(0.0, (end - start) / 4))
+        lo = max(0, int(math.ceil((start + edge_pad) * 10 - 0.5)))
+        hi = min(window_count, int(math.ceil((end - edge_pad) * 10 - 0.5)))
+        section = rms_db[lo:hi]
+        active_fraction = float(np.mean(section > -42.0)) if len(section) else 0.0
+        row = {"cue": index, "start": start, "end": end,
+               "text": str(cue.get("text", "")),
+               "active_fraction_above_minus42dbfs": round(active_fraction, 3),
+               "duration_seconds": round(end - start, 3)}
+        cue_rows.append(row)
+        if active_fraction < 0.35:
+            weak_cues.append(row)
+    return {"available": True, "track_source": track_source,
+            "duration_seconds": round(duration, 3),
+            "cue_count": len(cues), "weak_cue_count": len(weak_cues),
+            "weak_cues": weak_cues, "cue_activity": cue_rows,
+            "note": "Narration-track RMS activity is a timing aid, not speech recognition or human listening."}
+
+
+def narration_timing_matches(actual: dict, expected: dict) -> tuple[bool, list[str]]:
+    """Confirm source-rebuilt narration timing agrees with the delivered timing receipt."""
+    actual_rows = actual.get("chapters", [])
+    expected_rows = expected.get("chapters", [])
+    if len(actual_rows) != len(expected_rows):
+        return False, [f"chapter_count:{len(actual_rows)}!={len(expected_rows)}"]
+    mismatches = []
+    exact_fields = ("id", "characters")
+    float_fields = ("start", "duration", "source_seconds", "tempo_factor",
+                    "target_chars_per_second", "inserted_pause_seconds",
+                    "inserted_pause_at_chapter_seconds")
+    for index, (actual_row, expected_row) in enumerate(zip(actual_rows, expected_rows), 1):
+        for key in exact_fields:
+            if actual_row.get(key) != expected_row.get(key):
+                mismatches.append(f"chapter{index}:{key}")
+        for key in float_fields:
+            left, right = actual_row.get(key), expected_row.get(key)
+            if left is None or right is None:
+                if left is not right:
+                    mismatches.append(f"chapter{index}:{key}")
+            elif abs(float(left) - float(right)) > 0.002:
+                mismatches.append(f"chapter{index}:{key}")
+    return not mismatches, mismatches
 
 
 def analyze_audio(video: Path, story: dict) -> dict:
@@ -548,6 +681,36 @@ def main() -> int:
     except Exception as exc:
         add_check(report, "subtitle-analysis", False, f"{type(exc).__name__}: {exc}")
 
+    voiceover_path = find_file(artifact, "work/somerton/edit/audio/voiceover.wav", "voiceover.wav")
+    try:
+        if voiceover_path is not None:
+            voice_activity = analyze_caption_voice_activity(voiceover_path, cues)
+            voice_activity["provenance"] = "standalone narration track extracted from the production artifact"
+        else:
+            # The current production artifact omits edit/audio/voiceover.wav. Rebuild the narration
+            # from the versioned MP3 receipts, then require its chapter timing to match the artifact.
+            from production.somerton.build_audio import build_narration
+
+            with tempfile.TemporaryDirectory(prefix="somerton-narration-qc-") as temp_dir:
+                rebuilt_voice, _, rebuilt_timing = build_narration(
+                    story, HERE / "audio", Path(temp_dir))
+            timing_matches, timing_mismatches = narration_timing_matches(rebuilt_timing, narration_timing)
+            if not timing_matches:
+                raise ValueError(f"source-rebuilt narration timing differs from artifact: {timing_mismatches}")
+            voice_activity = analyze_caption_voice_activity(rebuilt_voice, cues)
+            voice_activity["provenance"] = (
+                "reconstructed from version-controlled narration MP3s; chapter timing matched the artifact receipt")
+        report["caption_voice_activity"] = voice_activity
+        add_check(report, "caption-overlaps-voiceover-activity", voice_activity["weak_cue_count"] == 0,
+                  f"{voice_activity['cue_count']} caption cues; low-speech-activity cues="
+                  f"{voice_activity['weak_cue_count']}; source={voice_activity['track_source']}",
+                  severity="warning")
+    except Exception as exc:
+        report["caption_voice_activity"] = {"available": False,
+                                             "reason": f"{type(exc).__name__}: {exc}"}
+        add_check(report, "caption-overlaps-voiceover-activity", False,
+                  report["caption_voice_activity"]["reason"], severity="warning")
+
     sound = technical.get("soundtrack", {})
     narration_sound = sound.get("narration", {})
     add_check(report, "mix-duration", abs(float(sound.get("duration_seconds", 0)) - DURATION) < 0.001,
@@ -657,6 +820,16 @@ def main() -> int:
                 add_check(report, "ocr-unapproved-scene-text", source_hits == 0 and final_hits == 0,
                           f"possible text detections: {source_hits} source contact-sheet cells, {final_hits} final sampled frames; inspect listed tokens visually",
                           severity="warning")
+            subtitle_scan = scan_rendered_subtitles(motion_frame_samples, cues, out / "subtitle-ocr")
+            report["rendered_subtitle_scan"] = subtitle_scan
+            if not subtitle_scan.get("available"):
+                add_check(report, "rendered-subtitle-samples", False,
+                          subtitle_scan.get("reason", "subtitle OCR unavailable"), severity="warning")
+            else:
+                add_check(report, "rendered-subtitle-samples", subtitle_scan["finding_count"] == 0,
+                          f"OCR compared {subtitle_scan['checked_frames']} sampled frames; "
+                          f"boundary skips={subtitle_scan['skipped_near_cue_boundaries']}; "
+                          f"caption/visibility findings={subtitle_scan['finding_count']}", severity="warning")
         finally:
             remove_motion_frame_files(motion_frame_samples)
             if motion_frame_dir.exists():
@@ -669,7 +842,7 @@ def main() -> int:
     report["automated_status"] = "fail" if report["failures"] else ("pass_with_warnings" if report["warnings"] else "pass")
     report["manual_visual_review"] = {
         "status": "pending",
-        "note": "Automated checks, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or audio semantics. See the 29 final-shot contact sheets and midpoint sheet.",
+        "note": "Automated checks, subtitle-band OCR, source-reconstructed narration activity, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or human audio semantics. See the 29 final-shot contact sheets and midpoint sheet.",
     }
     output = out / "automated-qc.json"
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -686,6 +859,8 @@ def main() -> int:
                  f"- Final video: {delivery.get('film')}",
                  f"- Possible OCR text hits: {len(report.get('ocr_text_scan', {}).get('source_findings', []))} source cells, "
                  f"{len(report.get('ocr_text_scan', {}).get('final_findings', []))} final frames.",
+                 f"- Rendered subtitle OCR findings: {report.get('rendered_subtitle_scan', {}).get('finding_count', 'unavailable')}.",
+                 f"- Caption/voiceover activity findings: {report.get('caption_voice_activity', {}).get('weak_cue_count', 'unavailable')}.",
                  "- Manual full-motion visual/audio review remains required.", ""]
         summary.write_text("\n".join(lines), encoding="utf-8")
     print(json.dumps({"automated_status": report["automated_status"],

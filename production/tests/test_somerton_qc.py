@@ -1,3 +1,4 @@
+from array import array
 import subprocess
 import tempfile
 import unittest
@@ -89,6 +90,61 @@ class SomertonOcrTests(unittest.TestCase):
                                                  Path(temp_dir) / "ocr", motion_samples)
         self.assertEqual(report["final_frames_scanned"], 2)
         self.assertEqual(ocr.call_count, 2)
+
+    def test_narration_timing_receipt_must_match_reconstruction(self):
+        chapter = {"id": "N01", "start": 0.0, "duration": 10.0,
+                   "source_seconds": 7.338, "tempo_factor": 0.7338,
+                   "target_chars_per_second": 3.5, "inserted_pause_seconds": 0.0,
+                   "inserted_pause_at_chapter_seconds": None, "characters": 35}
+        actual = {"chapters": [chapter.copy()]}
+        expected = {"chapters": [chapter.copy()]}
+        self.assertEqual(qc.narration_timing_matches(actual, expected), (True, []))
+        expected["chapters"][0]["tempo_factor"] = 0.8
+        matches, mismatches = qc.narration_timing_matches(actual, expected)
+        self.assertFalse(matches)
+        self.assertEqual(mismatches, ["chapter1:tempo_factor"])
+
+    def test_caption_voice_activity_flags_cues_without_narration_energy(self):
+        voiced_then_silent = array("f", [0.1] * 48000 + [0.0] * 48000).tobytes()
+        cues = [{"start": 0.0, "end": 1.0, "text": "有旁白"},
+                {"start": 1.0, "end": 2.0, "text": "静音"}]
+        with patch.object(qc.subprocess, "check_output", return_value=voiced_then_silent):
+            report = qc.analyze_caption_voice_activity(Path("voiceover.wav"), cues)
+        self.assertEqual(report["cue_count"], 2)
+        self.assertEqual(report["weak_cue_count"], 1)
+        self.assertEqual(report["weak_cues"][0]["cue"], 2)
+
+    def test_visible_text_normalizer_keeps_chinese_and_latin_letters(self):
+        self.assertEqual(qc.normalize_visible_text("Tamam Shud，塔玛姆·舒德！"), "tamamshud塔玛姆舒德")
+
+    def test_rendered_subtitle_ocr_compares_sampled_burned_in_caption(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            frame = root / "frame.jpg"
+            Image.new("RGB", (100, 100), "white").save(frame)
+            samples = [{"id": "S01", "frame": str(frame), "time_seconds": 1.5}]
+            cues = [{"start": 1.0, "end": 2.0, "text": "索马顿海滩"}]
+            with patch.object(qc.shutil, "which", return_value="/usr/bin/tesseract"), \
+                 patch.object(qc, "ocr_words", return_value=[{"token": "索马顿海滩", "confidence": 90.0}]) as ocr:
+                report = qc.scan_rendered_subtitles(samples, cues, root / "subtitle-ocr")
+        self.assertTrue(report["available"])
+        self.assertEqual(report["checked_frames"], 1)
+        self.assertEqual(report["finding_count"], 0)
+        self.assertEqual(ocr.call_args.kwargs["psm"], 6)
+        self.assertEqual(ocr.call_args.args[0].size, (200, 48))
+
+    def test_rendered_subtitle_ocr_skips_cue_boundary_samples(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            frame = root / "frame.jpg"
+            Image.new("RGB", (100, 100), "white").save(frame)
+            samples = [{"id": "S01", "frame": str(frame), "time_seconds": 1.0}]
+            cues = [{"start": 1.0, "end": 2.0, "text": "索马顿海滩"}]
+            with patch.object(qc.shutil, "which", return_value="/usr/bin/tesseract"), \
+                 patch.object(qc, "ocr_words", return_value=[]) as ocr:
+                report = qc.scan_rendered_subtitles(samples, cues, root / "subtitle-ocr")
+        self.assertEqual(report["skipped_near_cue_boundaries"], 1)
+        self.assertEqual(ocr.call_count, 0)
 
     def test_only_s14_tamam_shud_words_are_allowlisted(self):
         words = [
