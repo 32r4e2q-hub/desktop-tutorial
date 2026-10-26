@@ -1,0 +1,48 @@
+{
+  "reviewed_at": "2026-10-26T00:27:58.767163+00:00",
+  "scope": "agent inspection of existing 2-fps source contact sheets only; NOT full-resolution video review, final-film or same-face sign-off",
+  "reviewed_revision": "ad363c9",
+  "shots": [
+    {
+      "id": "S01",
+      "source_sha256": "b3179956a97caca9332d6eb1f960843342bee71f2fd60ec6c82b9d4f4fba9f04",
+      "contact_sheet": "production/gacy1978/qa/S01.jpg",
+      "contact_sha256": "0e0b87b2b91a6611b4e2ddcf5e8189f819e7618247204f08480763ed53b6cf40",
+      "finding": "接触表可见头部转动，入口保持关闭；跨镜同脸、门板细节及原生时序仍待核查。",
+      "status": "NEEDS_NATIVE_REVIEW_NOT_APPROVED"
+    },
+    {
+      "id": "S07",
+      "source_sha256": "d9ab48d11c08890d0ccc439d9f06f47705bc4da4253daf7ce208ec44aa4a3480",
+      "contact_sheet": "production/gacy1978/qa/S07.jpg",
+      "contact_sha256": "cb67769ce9b9e9b358ac3bbf3e57f1d3bdac34ca5085f9f38e12688993f48c70",
+      "finding": "接触表前段服装基本不动，末段才出现白色部位/衣袖运动；需原生帧确认手部连接与折叠动作，且默认取用窗可能漏掉主要动作。不得自动签收。",
+      "status": "NEEDS_NATIVE_REVIEW_NOT_APPROVED"
+    },
+    {
+      "id": "S16",
+      "source_sha256": "b26599eb76934e49b26002c3c86c4013a1d9faf4b84c4af95a265c70681cddf9",
+      "contact_sheet": "production/gacy1978/qa/S16.jpg",
+      "contact_sha256": "53de051ff9abb46d06ed4aadbcb0042a9cdb8db4081cd4b9bea8720a47a47b68",
+      "finding": "采样中少年始终背对镜头，可见放纸袋的动作；仍需原生手部、物体连接与连续运动检查。",
+      "status": "NEEDS_NATIVE_REVIEW_NOT_APPROVED"
+    },
+    {
+      "id": "S20",
+      "source_sha256": "90a1a6f90589ce0802e296414aee19bae9de694b35e7be768ffaab653ca90bd0",
+      "contact_sheet": "production/gacy1978/qa/S20.jpg",
+      "contact_sha256": "e179e3c3582cf4f1de72ed4391a731c76aa857d5c35d8cdffc7d8b24403008a2",
+      "finding": "采样中手与文件前段位置基本不变，末段抬手；尚未确认完成所要求的滑动归位动作，需要原生时序检查。不得自动签收。",
+      "status": "NEEDS_NATIVE_REVIEW_NOT_APPROVED"
+    },
+    {
+      "id": "S41",
+      "source_sha256": "6c033dd04fd31c99c6ebbeb7f67c8965212baac97e6c9dda165145054a18474c",
+      "contact_sheet": "production/gacy1978/qa/S41.jpg",
+      "contact_sha256": "cb6c6928cb21ea00c98f305805392b0caa64a1d85843d8f5dc6549df86e28274",
+      "finding": "接触表中警卫从首帧已在场并背对镜头持续离开，未再见前版正面从关闭门口出现的情况；腿部与墙门稳定性待原生逐帧检查。",
+      "status": "NEEDS_NATIVE_REVIEW_NOT_APPROVED"
+    }
+  ],
+  "generation_policy": "preserve all current source receipts during missing-shot continuation; this triage does not convert decoding success into approval. Suspect source use must be resolved with native evidence before final acceptance."
+}
