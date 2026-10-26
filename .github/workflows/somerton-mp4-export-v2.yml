@@ -1,0 +1,58 @@
+name: Publish Somerton voiceover refresh MP4
+run-name: Somerton MP4 direct download · voiceover run 40337362171
+
+on:
+  push:
+    branches:
+      - arena/dc7c8423-desktop-tutorial
+    paths:
+      - .github/workflows/somerton-mp4-export-v2.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish-mp4-v2:
+    if: contains(github.event.head_commit.message, '[publish-somerton-mp4-v2]')
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    steps:
+      - name: Download the voiceover-refresh production artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: somerton-voiceover-2
+          run-id: 40337362171
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          path: artifact
+
+      - name: Verify and stage the standalone MP4
+        id: verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          source='artifact/work/somerton/clips/塔玛姆·舒德_索马顿海滩无名男尸_旁白重配版_QC预览.mp4'
+          asset="$RUNNER_TEMP/Somerton-voiceover-run40337362171.mp4"
+          test -s "$source"
+          size=$(wc -c < "$source" | tr -d ' ')
+          cp "$source" "$asset"
+          sha=$(sha256sum "$asset" | cut -d' ' -f1)
+          echo "sha256=$sha" >> "$GITHUB_OUTPUT"
+          echo "size=$size" >> "$GITHUB_OUTPUT"
+          echo "Prepared standalone MP4: $size bytes; SHA-256 $sha"
+
+      - name: Publish as a clearly labeled prerelease asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MP4_SHA256: ${{ steps.verify.outputs.sha256 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag='somerton-cut-40337362171'
+          gh release create "$tag" \
+            "$RUNNER_TEMP/Somerton-voiceover-run40337362171.mp4" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target '119065b' \
+            --title 'Somerton voiceover refresh · Run 40337362171 · 29 shot-locked lines' \
+            --notes "Standalone MP4 from voiceover-refresh Run 40337362171 (one independent narration clip and one matched subtitle per unchanged shot, natural pace only accelerated up to 1.55x, no slowdown). Automated QC: pass (source/media/timing/subtitle/audio). Human review remains pending; this is a QC preview, not the final approved cut. SHA-256: $MP4_SHA256" \
+            --prerelease
