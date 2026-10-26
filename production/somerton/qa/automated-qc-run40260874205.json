@@ -952,6 +952,11 @@
       "detail": "caption clauses=5, expected clauses=5"
     },
     {
+      "name": "caption-overlaps-voiceover-activity",
+      "status": "pass",
+      "detail": "69 caption cues; low-speech-activity cues=0; source=reconstructed-versioned-narration"
+    },
+    {
       "name": "mix-duration",
       "status": "pass",
       "detail": "180.0s"
@@ -1050,12 +1055,18 @@
       "name": "ocr-unapproved-scene-text",
       "status": "warn",
       "detail": "possible text detections: 2 source contact-sheet cells, 1 final sampled frames; inspect listed tokens visually"
+    },
+    {
+      "name": "rendered-subtitle-samples",
+      "status": "warn",
+      "detail": "OCR compared 217 sampled frames; boundary skips=44; caption/visibility findings=107"
     }
   ],
   "failures": [],
   "warnings": [
     "technical-report-human-review-complete",
-    "ocr-unapproved-scene-text"
+    "ocr-unapproved-scene-text",
+    "rendered-subtitle-samples"
   ],
   "artifact_root": "/home/runner/work/desktop-tutorial/desktop-tutorial/qa-input",
   "expected_run_id": "40260874205",
@@ -1635,6 +1646,570 @@
     "music_file": "original-suspense-score.wav",
     "sfx_file": "procedural-sfx.wav",
     "output": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/somerton/edit/audio/final-mix.wav"
+  },
+  "caption_voice_activity": {
+    "available": true,
+    "track_source": "reconstructed-versioned-narration",
+    "duration_seconds": 180.0,
+    "cue_count": 69,
+    "weak_cue_count": 0,
+    "weak_cues": [],
+    "cue_activity": [
+      {
+        "cue": 1,
+        "start": 0.0,
+        "end": 1.32,
+        "text": "一九四八年，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.32
+      },
+      {
+        "cue": 2,
+        "start": 1.7,
+        "end": 3.74,
+        "text": "澳大利亚索马顿海滩，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.04
+      },
+      {
+        "cue": 3,
+        "start": 4.17,
+        "end": 6.44,
+        "text": "一个男人靠着海堤坐着。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.27
+      },
+      {
+        "cue": 4,
+        "start": 6.87,
+        "end": 7.63,
+        "text": "他死了，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.76
+      },
+      {
+        "cue": 5,
+        "start": 7.98,
+        "end": 10.0,
+        "text": "却无人知道他是谁。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.02
+      },
+      {
+        "cue": 6,
+        "start": 10.0,
+        "end": 11.99,
+        "text": "十二月一日清晨，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.99
+      },
+      {
+        "cue": 7,
+        "start": 12.43,
+        "end": 15.7,
+        "text": "路人在索马顿海滩发现了他。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.27
+      },
+      {
+        "cue": 8,
+        "start": 16.28,
+        "end": 17.79,
+        "text": "他西装笔挺，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.51
+      },
+      {
+        "cue": 9,
+        "start": 18.26,
+        "end": 19.46,
+        "text": "领带整齐，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.2
+      },
+      {
+        "cue": 10,
+        "start": 19.86,
+        "end": 21.47,
+        "text": "身上没有证件，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.61
+      },
+      {
+        "cue": 11,
+        "start": 21.88,
+        "end": 23.56,
+        "text": "也没有明显外伤。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.68
+      },
+      {
+        "cue": 12,
+        "start": 23.75,
+        "end": 24.55,
+        "text": "前一晚，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.8
+      },
+      {
+        "cue": 13,
+        "start": 24.87,
+        "end": 27.42,
+        "text": "有人看见他靠在海堤边一动不动，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.55
+      },
+      {
+        "cue": 14,
+        "start": 27.54,
+        "end": 30.6,
+        "text": "以为他只是睡着了。",
+        "active_fraction_above_minus42dbfs": 0.862,
+        "duration_seconds": 3.06
+      },
+      {
+        "cue": 15,
+        "start": 30.91,
+        "end": 33.26,
+        "text": "警方想查清他的身份，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.35
+      },
+      {
+        "cue": 16,
+        "start": 33.49,
+        "end": 35.0,
+        "text": "却找不到入口。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.51
+      },
+      {
+        "cue": 17,
+        "start": 35.0,
+        "end": 38.44,
+        "text": "所有衣物标签几乎都被剪掉。",
+        "active_fraction_above_minus42dbfs": 0.938,
+        "duration_seconds": 3.44
+      },
+      {
+        "cue": 18,
+        "start": 39.02,
+        "end": 42.75,
+        "text": "警方把指纹和牙齿记录送去比对，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.73
+      },
+      {
+        "cue": 19,
+        "start": 42.87,
+        "end": 44.2,
+        "text": "仍没有匹配。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.33
+      },
+      {
+        "cue": 20,
+        "start": 44.73,
+        "end": 47.05,
+        "text": "验尸官发现内脏充血，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.32
+      },
+      {
+        "cue": 21,
+        "start": 47.52,
+        "end": 49.19,
+        "text": "怀疑可能中毒；",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.67
+      },
+      {
+        "cue": 22,
+        "start": 49.66,
+        "end": 51.98,
+        "text": "常见毒物却查不出来。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.32
+      },
+      {
+        "cue": 23,
+        "start": 52.47,
+        "end": 55.0,
+        "text": "死因从此成了问号。",
+        "active_fraction_above_minus42dbfs": 0.913,
+        "duration_seconds": 2.53
+      },
+      {
+        "cue": 24,
+        "start": 55.0,
+        "end": 56.76,
+        "text": "一九四九年一月，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.76
+      },
+      {
+        "cue": 25,
+        "start": 57.06,
+        "end": 60.21,
+        "text": "阿德莱德火车站发现一只旧皮箱，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.15
+      },
+      {
+        "cue": 26,
+        "start": 60.57,
+        "end": 62.19,
+        "text": "警方怀疑属于他。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.62
+      },
+      {
+        "cue": 27,
+        "start": 62.64,
+        "end": 63.88,
+        "text": "箱里有衣物、",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.24
+      },
+      {
+        "cue": 28,
+        "start": 64.27,
+        "end": 66.11,
+        "text": "剃须用品和橙线，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.84
+      },
+      {
+        "cue": 29,
+        "start": 66.46,
+        "end": 69.28,
+        "text": "线头与裤子的修补处相合。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.82
+      },
+      {
+        "cue": 30,
+        "start": 69.67,
+        "end": 72.76,
+        "text": "衣物上只剩下“基恩”这个姓氏，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.09
+      },
+      {
+        "cue": 31,
+        "start": 73.12,
+        "end": 75.0,
+        "text": "却无人报失踪。",
+        "active_fraction_above_minus42dbfs": 0.882,
+        "duration_seconds": 1.88
+      },
+      {
+        "cue": 32,
+        "start": 75.0,
+        "end": 76.76,
+        "text": "随后复查时，",
+        "active_fraction_above_minus42dbfs": 0.938,
+        "duration_seconds": 1.76
+      },
+      {
+        "cue": 33,
+        "start": 76.9,
+        "end": 82.97,
+        "text": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
+        "active_fraction_above_minus42dbfs": 0.932,
+        "duration_seconds": 6.07
+      },
+      {
+        "cue": 34,
+        "start": 83.1,
+        "end": 85.9,
+        "text": "上面印着两个波斯语词：",
+        "active_fraction_above_minus42dbfs": 0.962,
+        "duration_seconds": 2.8
+      },
+      {
+        "cue": 35,
+        "start": 86.49,
+        "end": 89.02,
+        "text": "Tamam Shud，",
+        "active_fraction_above_minus42dbfs": 0.783,
+        "duration_seconds": 2.53
+      },
+      {
+        "cue": 36,
+        "start": 89.14,
+        "end": 90.04,
+        "text": "意思是“结束了”。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.9
+      },
+      {
+        "cue": 37,
+        "start": 90.53,
+        "end": 93.91,
+        "text": "纸片来自诗集《鲁拜集》的末页。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.38
+      },
+      {
+        "cue": 38,
+        "start": 94.27,
+        "end": 97.31,
+        "text": "警方后来找到那本缺页的书，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.04
+      },
+      {
+        "cue": 39,
+        "start": 97.76,
+        "end": 100.0,
+        "text": "撕痕严丝合缝。",
+        "active_fraction_above_minus42dbfs": 0.95,
+        "duration_seconds": 2.24
+      },
+      {
+        "cue": 40,
+        "start": 100.0,
+        "end": 103.39,
+        "text": "诗集封底还有一串潦草字母，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.39
+      },
+      {
+        "cue": 41,
+        "start": 103.82,
+        "end": 106.84,
+        "text": "几十年来无人能可靠破解。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.02
+      },
+      {
+        "cue": 42,
+        "start": 107.47,
+        "end": 109.06,
+        "text": "旁边的电话号码，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.59
+      },
+      {
+        "cue": 43,
+        "start": 109.42,
+        "end": 111.49,
+        "text": "指向附近一位护士。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.07
+      },
+      {
+        "cue": 44,
+        "start": 111.59,
+        "end": 113.1,
+        "text": "她对警方说，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.51
+      },
+      {
+        "cue": 45,
+        "start": 113.36,
+        "end": 114.71,
+        "text": "不认识这个人，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.35
+      },
+      {
+        "cue": 46,
+        "start": 115.15,
+        "end": 119.71,
+        "text": "也不知道自己的号码为何会出现在诗集里。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 4.56
+      },
+      {
+        "cue": 47,
+        "start": 120.31,
+        "end": 123.02,
+        "text": "线索似乎指向某个人，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.71
+      },
+      {
+        "cue": 48,
+        "start": 123.39,
+        "end": 125.0,
+        "text": "却没有结论。",
+        "active_fraction_above_minus42dbfs": 0.857,
+        "duration_seconds": 1.61
+      },
+      {
+        "cue": 49,
+        "start": 125.0,
+        "end": 125.83,
+        "text": "于是，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.83
+      },
+      {
+        "cue": 50,
+        "start": 126.24,
+        "end": 127.02,
+        "text": "间谍、",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.78
+      },
+      {
+        "cue": 51,
+        "start": 127.43,
+        "end": 128.32,
+        "text": "情杀、",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.89
+      },
+      {
+        "cue": 52,
+        "start": 128.77,
+        "end": 132.41,
+        "text": "毒杀后抛尸的猜想越传越远。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.64
+      },
+      {
+        "cue": 53,
+        "start": 132.83,
+        "end": 134.83,
+        "text": "冷战刚刚开始，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.0
+      },
+      {
+        "cue": 54,
+        "start": 135.29,
+        "end": 135.821,
+        "text": "纸条像暗号，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.531
+      },
+      {
+        "cue": 55,
+        "start": 135.821,
+        "end": 139.31,
+        "text": "毒物又查不出来，",
+        "active_fraction_above_minus42dbfs": 0.879,
+        "duration_seconds": 3.489
+      },
+      {
+        "cue": 56,
+        "start": 139.81,
+        "end": 142.53,
+        "text": "故事不断长出新版本。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.72
+      },
+      {
+        "cue": 57,
+        "start": 142.76,
+        "end": 145.09,
+        "text": "但传闻不是证据；",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.33
+      },
+      {
+        "cue": 58,
+        "start": 145.54,
+        "end": 150.0,
+        "text": "没有公开证据能证明其中任何一种。",
+        "active_fraction_above_minus42dbfs": 0.953,
+        "duration_seconds": 4.46
+      },
+      {
+        "cue": 59,
+        "start": 150.0,
+        "end": 151.15,
+        "text": "二〇二二年，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.15
+      },
+      {
+        "cue": 60,
+        "start": 151.39,
+        "end": 156.68,
+        "text": "教授德里克·艾伯特与家谱专家科琳·菲茨帕特里克，",
+        "active_fraction_above_minus42dbfs": 0.98,
+        "duration_seconds": 5.29
+      },
+      {
+        "cue": 61,
+        "start": 156.98,
+        "end": 160.78,
+        "text": "用石膏面模里的头发做DNA家谱比对，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 3.8
+      },
+      {
+        "cue": 62,
+        "start": 161.18,
+        "end": 166.54,
+        "text": "指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。",
+        "active_fraction_above_minus42dbfs": 0.98,
+        "duration_seconds": 5.36
+      },
+      {
+        "cue": 63,
+        "start": 166.97,
+        "end": 169.53,
+        "text": "研究者称把握超九成九；",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.56
+      },
+      {
+        "cue": 64,
+        "start": 169.93,
+        "end": 172.0,
+        "text": "警方仍未正式确认。",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 2.07
+      },
+      {
+        "cue": 65,
+        "start": 172.0,
+        "end": 173.4,
+        "text": "死因和密码，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 1.4
+      },
+      {
+        "cue": 66,
+        "start": 173.55,
+        "end": 175.0,
+        "text": "依旧没有答案。",
+        "active_fraction_above_minus42dbfs": 0.769,
+        "duration_seconds": 1.45
+      },
+      {
+        "cue": 67,
+        "start": 175.63,
+        "end": 176.37,
+        "text": "你觉得，",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.74
+      },
+      {
+        "cue": 68,
+        "start": 176.61,
+        "end": 177.43,
+        "text": "他是谁？",
+        "active_fraction_above_minus42dbfs": 1.0,
+        "duration_seconds": 0.82
+      },
+      {
+        "cue": 69,
+        "start": 177.82,
+        "end": 180.0,
+        "text": "在评论区说说看。",
+        "active_fraction_above_minus42dbfs": 0.9,
+        "duration_seconds": 2.18
+      }
+    ],
+    "note": "Narration-track RMS activity is a timing aid, not speech recognition or human listening.",
+    "provenance": "reconstructed from version-controlled narration MP3s; chapter timing matched the artifact receipt"
   },
   "final_media": {
     "format_duration_seconds": 180.0,
@@ -2492,9 +3067,876 @@
     ],
     "note": "OCR detections can be false positives on film grain/props; every flagged frame needs visual confirmation. Subtitle band and the approved S14 Tamam Shud and S29 closing-title frames are excluded from final-frame OCR."
   },
+  "rendered_subtitle_scan": {
+    "available": true,
+    "sampled_frames": 261,
+    "checked_frames": 217,
+    "skipped_near_cue_boundaries": 44,
+    "frames_with_recognized_text": 118,
+    "finding_count": 107,
+    "findings": [
+      {
+        "shot": "S01",
+        "time_seconds": 0.556,
+        "expected": "一九四八年，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S01",
+        "time_seconds": 1.111,
+        "expected": "一九四八年，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S02",
+        "time_seconds": 5.0,
+        "expected": "一个男人靠着海堤坐着。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S02",
+        "time_seconds": 6.111,
+        "expected": "一个男人靠着海堤坐着。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S02",
+        "time_seconds": 7.222,
+        "expected": "他死了，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S02",
+        "time_seconds": 8.333,
+        "expected": "却无人知道他是谁。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S02",
+        "time_seconds": 8.889,
+        "expected": "却无人知道他是谁。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S03",
+        "time_seconds": 10.778,
+        "expected": "十二月一日清晨，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S03",
+        "time_seconds": 13.111,
+        "expected": "路人在索马顿海滩发现了他。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S03",
+        "time_seconds": 13.889,
+        "expected": "路人在索马顿海滩发现了他。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S03",
+        "time_seconds": 14.667,
+        "expected": "路人在索马顿海滩发现了他。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S03",
+        "time_seconds": 15.444,
+        "expected": "路人在索马顿海滩发现了他。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S04",
+        "time_seconds": 19.333,
+        "expected": "领带整齐，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S04",
+        "time_seconds": 21.667,
+        "expected": "",
+        "ocr": "也没有明显",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
+      },
+      {
+        "shot": "S04",
+        "time_seconds": 23.222,
+        "expected": "也没有明显外伤。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S05",
+        "time_seconds": 24.0,
+        "expected": "前一晚，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S05",
+        "time_seconds": 26.0,
+        "expected": "有人看见他靠在海堤边一动不动，",
+        "ocr": "人动不动",
+        "similarity": 0.444,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S05",
+        "time_seconds": 26.667,
+        "expected": "有人看见他靠在海堤边一动不动，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S05",
+        "time_seconds": 28.0,
+        "expected": "以为他只是睡着了。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S05",
+        "time_seconds": 28.667,
+        "expected": "以为他只是睡着了。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S05",
+        "time_seconds": 29.333,
+        "expected": "以为他只是睡着了。",
+        "ocr": "他",
+        "similarity": 0.222,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S06",
+        "time_seconds": 34.444,
+        "expected": "却找不到入口。",
+        "ocr": "到",
+        "similarity": 0.286,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S07",
+        "time_seconds": 35.778,
+        "expected": "所有衣物标签几乎都被剪掉。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S07",
+        "time_seconds": 38.111,
+        "expected": "所有衣物标签几乎都被剪掉。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S07",
+        "time_seconds": 38.889,
+        "expected": "",
+        "ocr": "警方把指纹和牙齿记录",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
+      },
+      {
+        "shot": "S08",
+        "time_seconds": 45.111,
+        "expected": "验尸官发现内脏充血，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S08",
+        "time_seconds": 45.889,
+        "expected": "验尸官发现内脏充血，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S08",
+        "time_seconds": 46.667,
+        "expected": "验尸官发现内脏充血，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S09",
+        "time_seconds": 49.0,
+        "expected": "怀疑可能中毒；",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S09",
+        "time_seconds": 50.333,
+        "expected": "常见毒物却查不出来。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S09",
+        "time_seconds": 51.0,
+        "expected": "常见毒物却查不出来。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S09",
+        "time_seconds": 51.667,
+        "expected": "常见毒物却查不出来。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S09",
+        "time_seconds": 53.0,
+        "expected": "死因从此成了问号。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S09",
+        "time_seconds": 53.667,
+        "expected": "死因从此成了问号。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S09",
+        "time_seconds": 54.333,
+        "expected": "死因从此成了问号。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S10",
+        "time_seconds": 55.778,
+        "expected": "一九四九年一月，",
+        "ocr": "四",
+        "similarity": 0.25,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S10",
+        "time_seconds": 56.556,
+        "expected": "一九四九年一月，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S10",
+        "time_seconds": 57.333,
+        "expected": "阿德莱德火车站发现一只旧皮箱，",
+        "ocr": "5\t1\t1\t1\t2\t7\t2313\t268\t11\t30\t83.963104\tj",
+        "similarity": 0.0,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S10",
+        "time_seconds": 58.111,
+        "expected": "阿德莱德火车站发现一只旧皮箱，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S10",
+        "time_seconds": 58.889,
+        "expected": "阿德莱德火车站发现一只旧皮箱，",
+        "ocr": "站",
+        "similarity": 0.133,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S10",
+        "time_seconds": 61.222,
+        "expected": "警方怀疑属于他。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S11",
+        "time_seconds": 62.0,
+        "expected": "警方怀疑属于他。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S11",
+        "time_seconds": 63.556,
+        "expected": "箱里有衣物、",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S11",
+        "time_seconds": 65.111,
+        "expected": "剃须用品和橙线，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S11",
+        "time_seconds": 65.889,
+        "expected": "剃须用品和橙线，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S11",
+        "time_seconds": 66.667,
+        "expected": "线头与裤子的修补处相合。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S12",
+        "time_seconds": 69.0,
+        "expected": "线头与裤子的修补处相合。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S12",
+        "time_seconds": 73.0,
+        "expected": "",
+        "ocr": "失踪",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
+      },
+      {
+        "shot": "S13",
+        "time_seconds": 76.556,
+        "expected": "随后复查时，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S13",
+        "time_seconds": 77.333,
+        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S13",
+        "time_seconds": 78.889,
+        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S13",
+        "time_seconds": 79.667,
+        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S13",
+        "time_seconds": 81.222,
+        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S14",
+        "time_seconds": 82.0,
+        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S14",
+        "time_seconds": 82.778,
+        "expected": "验尸官在他裤子的暗袋里发现一张卷起的小纸片。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S14",
+        "time_seconds": 84.333,
+        "expected": "上面印着两个波斯语词：",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S14",
+        "time_seconds": 85.111,
+        "expected": "上面印着两个波斯语词：",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S14",
+        "time_seconds": 86.667,
+        "expected": "Tamam Shud，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S14",
+        "time_seconds": 88.222,
+        "expected": "Tamam Shud，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S15",
+        "time_seconds": 89.667,
+        "expected": "意思是“结束了”。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S15",
+        "time_seconds": 90.333,
+        "expected": "",
+        "ocr": "诗集",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
+      },
+      {
+        "shot": "S15",
+        "time_seconds": 93.667,
+        "expected": "纸片来自诗集《鲁拜集》的末页。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S16",
+        "time_seconds": 95.0,
+        "expected": "警方后来找到那本缺页的书，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S16",
+        "time_seconds": 95.556,
+        "expected": "警方后来找到那本缺页的书，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S16",
+        "time_seconds": 96.111,
+        "expected": "警方后来找到那本缺页的书，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S16",
+        "time_seconds": 96.667,
+        "expected": "警方后来找到那本缺页的书，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S16",
+        "time_seconds": 98.333,
+        "expected": "撕痕严丝合缝。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S16",
+        "time_seconds": 98.889,
+        "expected": "撕痕严丝合缝。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S16",
+        "time_seconds": 99.444,
+        "expected": "撕痕严丝合缝。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S17",
+        "time_seconds": 100.778,
+        "expected": "诗集封底还有一串潦草字母，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S17",
+        "time_seconds": 101.556,
+        "expected": "诗集封底还有一串潦草字母，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S17",
+        "time_seconds": 103.111,
+        "expected": "诗集封底还有一串潦草字母，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S19",
+        "time_seconds": 114.0,
+        "expected": "不认识这个人，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S19",
+        "time_seconds": 118.667,
+        "expected": "也不知道自己的号码为何会出现在诗集里。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S20",
+        "time_seconds": 121.667,
+        "expected": "线索似乎指向某个人，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S20",
+        "time_seconds": 122.778,
+        "expected": "线索似乎指向某个人，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S21",
+        "time_seconds": 126.778,
+        "expected": "间谍、",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S21",
+        "time_seconds": 127.667,
+        "expected": "情杀、",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S21",
+        "time_seconds": 128.556,
+        "expected": "",
+        "ocr": "猜想",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
+      },
+      {
+        "shot": "S21",
+        "time_seconds": 130.333,
+        "expected": "毒杀后抛尸的猜想越传越远。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S21",
+        "time_seconds": 131.222,
+        "expected": "毒杀后抛尸的猜想越传越远。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S21",
+        "time_seconds": 132.111,
+        "expected": "毒杀后抛尸的猜想越传越远。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S22",
+        "time_seconds": 135.667,
+        "expected": "纸条像暗号，",
+        "ocr": "毒物出",
+        "similarity": 0.0,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S23",
+        "time_seconds": 143.0,
+        "expected": "但传闻不是证据；",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S23",
+        "time_seconds": 144.0,
+        "expected": "但传闻不是证据；",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S24",
+        "time_seconds": 150.778,
+        "expected": "二〇二二年，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S24",
+        "time_seconds": 151.556,
+        "expected": "教授德里克·艾伯特与家谱专家科琳·菲茨帕特里克，",
+        "ocr": "教授德里与",
+        "similarity": 0.385,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S24",
+        "time_seconds": 154.667,
+        "expected": "教授德里克·艾伯特与家谱专家科琳·菲茨帕特里克，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S24",
+        "time_seconds": 155.444,
+        "expected": "教授德里克·艾伯特与家谱专家科琳·菲茨帕特里克，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S24",
+        "time_seconds": 156.222,
+        "expected": "教授德里克·艾伯特与家谱专家科琳·菲茨帕特里克，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 157.667,
+        "expected": "用石膏面模里的头发做DNA家谱比对，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 158.333,
+        "expected": "用石膏面模里的头发做DNA家谱比对，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 159.0,
+        "expected": "用石膏面模里的头发做DNA家谱比对，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 159.667,
+        "expected": "用石膏面模里的头发做DNA家谱比对，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 160.333,
+        "expected": "用石膏面模里的头发做DNA家谱比对，",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 161.0,
+        "expected": "",
+        "ocr": "韦伯",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 161.667,
+        "expected": "指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。",
+        "ocr": "指向出的工程",
+        "similarity": 0.414,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S25",
+        "time_seconds": 162.333,
+        "expected": "指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S26",
+        "time_seconds": 165.778,
+        "expected": "指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。",
+        "ocr": "指向墨尔本工程",
+        "similarity": 0.467,
+        "kind": "caption-mismatch"
+      },
+      {
+        "shot": "S26",
+        "time_seconds": 166.333,
+        "expected": "指向一九〇五年出生的墨尔本工程师卡尔·查尔斯·韦伯。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S26",
+        "time_seconds": 167.444,
+        "expected": "研究者称把握超九成九；",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S27",
+        "time_seconds": 169.333,
+        "expected": "研究者称把握超九成九；",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S27",
+        "time_seconds": 169.778,
+        "expected": "",
+        "ocr": "警方正式确认",
+        "similarity": 0.0,
+        "kind": "unexpected-bottom-text"
+      },
+      {
+        "shot": "S27",
+        "time_seconds": 170.222,
+        "expected": "警方仍未正式确认。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S29",
+        "time_seconds": 176.889,
+        "expected": "他是谁？",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S29",
+        "time_seconds": 178.222,
+        "expected": "在评论区说说看。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      },
+      {
+        "shot": "S29",
+        "time_seconds": 179.556,
+        "expected": "在评论区说说看。",
+        "ocr": "",
+        "similarity": 0.0,
+        "kind": "caption-not-read"
+      }
+    ],
+    "method": "Tesseract OCR of the bottom 24% on sampled final frames, compared with active caption timing; detections require visual confirmation."
+  },
   "automated_status": "pass_with_warnings",
   "manual_visual_review": {
     "status": "pending",
-    "note": "Automated checks, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or audio semantics. See the 29 final-shot contact sheets and midpoint sheet."
+    "note": "Automated checks, subtitle-band OCR, source-reconstructed narration activity, midpoint stills and nine evenly spaced final-cut frames per shot do not replace continuous full-motion review for morphing, visual glitches, story fit, subtitle placement or human audio semantics. See the 29 final-shot contact sheets and midpoint sheet."
   }
 }
