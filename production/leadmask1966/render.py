@@ -258,7 +258,8 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
         "[V4+ Styles]",
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
         "Style: Caption,Noto Sans CJK SC,58,&H00FFFFFF,&H0000FFFF,&H00111110,&H99000000,1,0,0,0,100,100,0,0,1,3.2,1.0,2,115,115,72,1",
-        "Style: Title,Noto Serif CJK SC,112,&H00F2CF72,&H0000FFFF,&H0013110D,&H99000000,1,0,0,0,100,100,1,0,1,5,2,5,80,80,0,1",
+        # ASS 颜色是 &HBBGGRR：金色 #F4C95F 必须写成 &H005FC9F4，否则会渲染成浅蓝。
+        "Style: Title,Noto Serif CJK SC,112,&H005FC9F4,&H0000FFFF,&H0013110D,&H99000000,1,0,0,0,100,100,1,0,1,5,2,5,80,80,0,1",
         "",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
@@ -340,44 +341,64 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
     """Left: the lead eye-mask macro. Right: the red-orange light over the hill at night."""
     width, height = 1920, 1080
     background = fill_crop(grab_frame(sources / "S01.mp4", 2.2, work_dir, "hill"), width, height, 0.62)
-    mask = fill_crop(grab_frame(sources / "S13.mp4", 1.3, work_dir, "mask"), 1180, height, 0.5)
+    ramp_start, ramp_end = 620, 1360
+    # The mask panel must stay wide enough to carry the whole fade band, otherwise the alpha
+    # ramp is cut off at the panel edge and leaves a visible vertical seam.
+    mask = fill_crop(grab_frame(sources / "S13.mp4", 1.3, work_dir, "mask"), ramp_end, height, 0.5)
     panel = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     panel.paste(mask, (0, 0))
+    # Smoothstep over a wide band: a short ramp leaves a visible vertical seam on a phone screen.
     alpha = np.zeros((height, width), dtype=np.uint8)
     for x in range(width):
-        if x < 900:
-            fade = 255
-        elif x < 1250:
-            fade = int(255 * (1.0 - (x - 900) / 350.0) ** 1.35)
+        if x <= ramp_start:
+            fade = 1.0
+        elif x >= ramp_end:
+            fade = 0.0
         else:
-            fade = 0
-        alpha[:, x] = fade
+            position = (x - ramp_start) / (ramp_end - ramp_start)
+            fade = 1.0 - (position * position * (3.0 - 2.0 * position))
+        alpha[:, x] = int(round(255 * fade))
     panel.putalpha(Image.fromarray(alpha, "L"))
     image = Image.alpha_composite(background.convert("RGBA"), panel)
 
     # Darken the left side so the gold title reads on a phone screen.
     shade = np.zeros((height, width, 4), dtype=np.uint8)
     for x in range(width):
-        strength = int(184 * max(0.0, 1.0 - x / 1180.0) ** 1.45)
+        strength = int(184 * max(0.0, 1.0 - x / 1420.0) ** 1.35)
         shade[:, x, :] = (3, 7, 10, strength)
     image = Image.alpha_composite(image, Image.fromarray(shade, "RGBA"))
 
     draw = ImageDraw.Draw(image)
-    serif = True
-    title_size = fit_size(draw, story["presentation"]["cover"]["text"], 172, 760, serif=True)
-    title_font = ImageFont.truetype(str(find_font(serif)), title_size)
+    title_text = story["presentation"]["cover"]["text"]
+    title_size = fit_size(draw, title_text, 178, 780, serif=True)
+    title_font = ImageFont.truetype(str(find_font(True)), title_size)
     small = ImageFont.truetype(str(find_font()), 36)
-    sub = ImageFont.truetype(str(find_font()), 40)
+    sub = ImageFont.truetype(str(find_font()), 42)
     micro = ImageFont.truetype(str(find_font()), 30)
-    draw.text((112, 214), "1966 · 巴西 · 尼泰罗伊", font=small, fill="#d8c08a",
+
+    def stack(box: tuple[int, int, int, int]) -> int:
+        return int(box[3] - box[1])
+
+    # Everything is measured, then stacked with explicit gaps, so the gold title can never
+    # collide with the line under it whatever the font metrics turn out to be.
+    kicker_box = draw.textbbox((0, 0), "真实悬案 · 1966", font=small)
+    title_box = draw.textbbox((0, 0), title_text, font=title_font)
+    hook_box = draw.textbbox((0, 0), "两个人戴着铅面具，死在山头", font=sub)
+    sub_box = draw.textbbox((0, 0), story["presentation"]["cover"]["subtext"], font=micro)
+
+    y = 196
+    draw.text((112, y - kicker_box[1]), "真实悬案 · 1966", font=small, fill="#d8c08a",
               stroke_width=2, stroke_fill="#0d0f0c")
-    draw.text((104, 300), story["presentation"]["cover"]["text"], font=title_font, fill="#f4c95f",
+    y += stack(kicker_box) + 44
+    draw.text((104, y - title_box[1]), title_text, font=title_font, fill="#f4c95f",
               stroke_width=9, stroke_fill="#111008")
-    draw.text((112, 520), "两个人戴着铅面具，死在山头", font=sub, fill="#f2eee4",
+    y += stack(title_box) + 52
+    draw.text((112, y - hook_box[1]), "两个人戴着铅面具，死在山头", font=sub, fill="#f2eee4",
               stroke_width=3, stroke_fill="#0e0f0c")
-    draw.text((112, 580), story["presentation"]["cover"]["subtext"], font=micro, fill="#cfc7b4",
-              stroke_width=2, stroke_fill="#0e0f0c")
-    draw.text((112, 930), "AI动画情景重现 · 非历史影像", font=micro, fill="#9c9a94",
+    y += stack(hook_box) + 22
+    draw.text((112, y - sub_box[1]), story["presentation"]["cover"]["subtext"], font=micro,
+              fill="#cfc7b4", stroke_width=2, stroke_fill="#0e0f0c")
+    draw.text((112, 936), "AI动画情景重现 · 非历史影像", font=micro, fill="#9c9a94",
               stroke_width=2, stroke_fill="#0e0f0c")
     output.parent.mkdir(parents=True, exist_ok=True)
     image.convert("RGB").save(output, quality=95, subsampling=0)
