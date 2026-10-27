@@ -272,9 +272,9 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     # Only the closing title is a post-produced overlay; the Agnes model itself is never asked
     # to render legible text anywhere in the film (S29 is the single shot that carries a title).
     lines += [
-        f"Dialogue: 2,{ass_time(173.10)},{ass_time(179.60)},Title,,0,0,0,,{{\\pos(960,392)\\fad(500,500)\\fs104}}铅面具事件",
-        f"Dialogue: 2,{ass_time(173.35)},{ass_time(179.60)},Caption,,0,0,0,,{{\\pos(960,560)\\fad(550,500)\\fs42}}巴西 · 1966 · 至今未解",
-        f"Dialogue: 2,{ass_time(173.60)},{ass_time(179.60)},Caption,,0,0,0,,{{\\pos(960,640)\\fad(600,500)\\fs34}}AI动画情景重现 · 非历史影像",
+        f"Dialogue: 2,{ass_time(175.90)},{ass_time(179.60)},Title,,0,0,0,,{{\\pos(960,392)\\fad(420,430)\\fs104}}铅面具事件",
+        f"Dialogue: 2,{ass_time(176.10)},{ass_time(179.60)},Caption,,0,0,0,,{{\\pos(960,560)\\fad(460,430)\\fs42}}巴西 · 1966 · 至今未解",
+        f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.60)},Caption,,0,0,0,,{{\\pos(960,640)\\fad(500,430)\\fs34}}AI动画情景重现 · 非历史影像",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
