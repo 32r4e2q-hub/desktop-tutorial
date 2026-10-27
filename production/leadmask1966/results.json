@@ -208,10 +208,15 @@
     "S07": {
       "id": "S07",
       "request_hash": "105ec34c5810159c28cb53d23b07c7b335ecf23dfb4d2842cbd468a40793fa4f",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T08:06:51Z",
-      "error": null
+      "updated_at": "2026-10-27T08:06:52Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS",
+      "task_id": "task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS",
+      "requested_seconds": 7.0,
+      "requested_size": "720P"
     },
     "S08": {
       "id": "S08",
@@ -381,7 +386,7 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T08:06:51Z",
+  "updated_at": "2026-10-27T08:06:52Z",
   "run_id": "40468702721",
   "previous_results": {}
 }
