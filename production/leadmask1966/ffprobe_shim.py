@@ -113,6 +113,11 @@ def probe_with_ffmpeg(ffmpeg: str) -> dict:
 
 
 def main() -> int:
+    # 生成器启动时会用 `ffprobe -version` 探测工具链，这里直接给出可解析的版本行。
+    if "-version" in sys.argv or "-h" in sys.argv or not sys.argv[1:]:
+        print("ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe")
+        print("ffprobe version: shim")
+        return 0
     try:
         payload = probe_with_pyav()
     except Exception as error:  # PyAV 装不上或解不开时退回 ffmpeg 文本解析

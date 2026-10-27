@@ -115,9 +115,15 @@ jobs:
               print("imageio-ffmpeg unavailable; no ffmpeg shim created")
           shim = pathlib.Path("production/leadmask1966/ffprobe_shim.py").resolve()
           target = bindir / "ffprobe"
-          target.write_text("#!/bin/sh\nexec python3 " + str(shim) + " \"$@\"\n", encoding="utf-8")
+          target.write_text(
+              "#!/bin/sh\nexec python3 " + str(shim) + " \"$@\"\n", encoding="utf-8")
           target.chmod(target.stat().st_mode | stat.S_IEXEC)
           print(f"ffprobe shim -> {shim}")
+          probe = pathlib.Path.home() / ".local" / "bin" / "ffprobe"
+          for check in (["-version"],):
+              import subprocess
+              out = subprocess.run([str(probe), *check], capture_output=True, text=True)
+              print("ffprobe shim self-check:", out.returncode, (out.stdout or out.stderr)[:80].strip())
           PY
           export PATH="$HOME/.local/bin:$PATH"
           echo "PATH=$HOME/.local/bin added" >> "$RUN_LOG"
