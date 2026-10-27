@@ -91,6 +91,34 @@ class LeadMaskPlanTests(unittest.TestCase):
         for role, seeds in seen.items():
             self.assertEqual(len(seeds), 1, role)
 
+    def test_fresh_runner_can_restore_footage_from_receipts(self):
+        """出片任务跑在新 checkout 上：work/ 是空的，只能凭 results 里的收据重下并逐字节校验。"""
+        import hashlib
+        import tempfile
+
+        story = {"shots": self.story["shots"][:3]}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            originals, sources = root / "originals", root / "sources"
+            originals.mkdir()
+            sources.mkdir()
+            doc = {"shots": {}}
+            for index, shot in enumerate(story["shots"]):
+                blob = (f"agnes-fake-{index:02d}-".encode() * 9000)
+                original = originals / f"{shot['id']}.mp4"
+                original.write_bytes(blob)
+                doc["shots"][shot["id"]] = {
+                    "status": "completed", "video_url": original.as_uri(),
+                    "sha256": hashlib.sha256(blob).hexdigest(), "bytes": len(blob),
+                }
+            (sources / "S01.mp4").write_bytes(b"corrupt partial download")
+            self.assertEqual(self.gen.restore_sources(story, doc, sources),
+                             ["S01", "S02", "S03"])
+            self.assertEqual(self.gen.restore_sources(story, doc, sources), [])
+            doc["shots"]["S02"]["sha256"] = "0" * 64
+            with self.assertRaises(RuntimeError):
+                self.gen.restore_sources(story, doc, sources)
+
     def test_validation_runs_without_voice_before_tts(self):
         self.gen.validate(self.story, require_audio=False)
 

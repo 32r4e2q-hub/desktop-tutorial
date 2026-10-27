@@ -14,10 +14,10 @@
 |---|---|---|
 | 角色与场景定稿参考图 | ✅ 6 张（风格化形象，非真实肖像） | `reference/01–06*.png` |
 | 分镜 / 事实边界 / 提示词 | ✅ 29 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json` |
-| 一镜一句旁白清单 | 🟡 29 条文本定稿，已录音 20 条（voice-00） | `audio/manifest.json`、`audio/S01–S20.mp3` |
+| 一镜一句旁白 | ✅ 29/29 已录（voice-00），每镜都无需加速、留足呼吸位 | `audio/manifest.json`、`audio/S01–S29.mp3` |
 | 离线自检 | ✅ `python3 -m pytest production/tests/test_leadmask1966.py -q`（8 passed） | `production/tests/` |
 | Agnes 2.5 Flash 素材 | 🟡 持续生成中（S01 canary 已过；29 镜排队，62 秒节流） | `results.json`、`qa/*.jpg`、`.github/workflows/leadmask1966-gen.yml` |
-| 混音 / 拼接 / 字幕 / 封面 | ✅ 已用 29 段合成素材完整空跑：180.000 秒、5400 帧、48kHz 立体声、29 条字幕、封面出图 | `build_audio.py`、`render.py` |
+| 混音 / 拼接 / 字幕 / 封面 | ✅ 真实旁白已混音：180.000 秒、语音 116.1 秒、BGM 实测 −18.7 dB 垫底；画面侧用合成素材完整空跑过 5400 帧成片 | `build_audio.py`、`render.py` |
 
 ## 怎么跑
 

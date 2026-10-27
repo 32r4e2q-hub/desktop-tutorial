@@ -147,6 +147,32 @@ def request_hash(project: dict, shot: dict) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def restore_sources(project: dict, results: dict, sources: Path) -> list[str]:
+    """Rebuild ignored work/ footage from the recorded Agnes receipts of a finished run.
+
+    A render-only run starts on a fresh checkout, where ``work/`` is empty but ``results.json``
+    still carries the original video URL, byte size and SHA-256 of every clip. Each clip is
+    re-downloaded and byte-verified, so the render gate still proves the exact model output.
+    """
+    restored = []
+    sources.mkdir(parents=True, exist_ok=True)
+    for shot in project["shots"]:
+        sid = shot["id"]
+        receipt = results.get("shots", {}).get(sid, {})
+        dest = sources / f"{sid}.mp4"
+        if not receipt.get("video_url") or not receipt.get("sha256"):
+            raise RuntimeError(f"{sid}: no Agnes receipt to restore from")
+        if dest.is_file() and digest(dest) == receipt["sha256"] \
+                and dest.stat().st_size == receipt.get("bytes"):
+            continue
+        print(f"RESTORE {sid} from Agnes receipt", flush=True)
+        agnes.download(receipt["video_url"], dest, retries=3, retry_delay=5)
+        if digest(dest) != receipt["sha256"] or dest.stat().st_size != receipt.get("bytes"):
+            raise RuntimeError(f"{sid}: restored footage does not match the original receipt")
+        restored.append(sid)
+    return restored
+
+
 def prepare_prompt_changes(project: dict, results: dict, shots: list[dict]) -> list[str]:
     """Checkpoint changed requests before workers start, so stale rows cannot look reused."""
     rows = results.setdefault("shots", {})
@@ -350,6 +376,7 @@ def main() -> int:
                    if doc.get("shots", {}).get(shot["id"], {}).get("status") != "completed"]
         if missing:
             raise RuntimeError("Render requested but these clips are not completed: " + ", ".join(missing))
+        restore_sources(project, doc, sources)
         if os.getenv("GITHUB_ACTIONS") == "true":
             git("config", "user.name", "github-actions[bot]")
             git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
