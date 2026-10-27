@@ -48,15 +48,20 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "downloaded",
       "request_hash": "c0a2be6bbe02bcafd6074265b4df819f08ed3408c4c40d9dc13ff01382130232",
       "error": null,
-      "updated_at": "2026-10-27T07:43:03Z",
+      "updated_at": "2026-10-27T07:50:42Z",
       "create_attempts": 1,
       "video_id": "task_Qucm6XxXzwlHtECWtngvdLk7kacWHz4R",
       "task_id": "task_Qucm6XxXzwlHtECWtngvdLk7kacWHz4R",
       "requested_seconds": 5.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Qucm6XxXzwlHtECWtngvdLk7kacWHz4R.mp4",
+      "bytes": 1292605,
+      "sha256": "ec9c254d95c61c2a421c8bffe2884eba7a5e8fb7996c7f56562a00fe960208c2",
+      "reported_size": "720P",
+      "reported_seconds": "5"
     }
   },
   "review": {
@@ -72,6 +77,6 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T07:43:03Z",
+  "updated_at": "2026-10-27T07:50:42Z",
   "run_id": "40468702721"
 }
