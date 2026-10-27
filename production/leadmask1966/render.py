@@ -423,7 +423,12 @@ def main() -> int:
     run([
         "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent_video, "-i", mix,
         "-vf", f"ass={ass_path.as_posix()}", "-map", "0:v:0", "-map", "1:a:0",
-        "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p",
+        # Delivery-sized master: 1080p30 at ~3 Mbit/s keeps the 3-minute film near 70 MB
+        # (the same ballpark as the other finished films committed to 交付/), and Douyin
+        # re-encodes uploads anyway, so a 250 MB intermediate would only slow delivery.
+        "-c:v", "libx264", "-preset", "medium", "-crf", "22",
+        "-maxrate", "3000k", "-bufsize", "6000k", "-profile:v", "high", "-level", "4.1",
+        "-pix_fmt", "yuv420p",
         "-r", str(FPS), "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-t", str(DURATION), "-movflags", "+faststart", final,
     ])

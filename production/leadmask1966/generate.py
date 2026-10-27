@@ -147,6 +147,58 @@ def request_hash(project: dict, shot: dict) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+DELIVERY_DIR = ROOT / "交付"
+DELIVERY_FILM = "铅面具事件_山顶上的神秘字条_三分钟_带声音.mp4"
+
+
+def publish_delivery(film: Path) -> dict:
+    """Copy the finished film, cover and subtitle file into 交付/ (the repo's delivery convention)."""
+    DELIVERY_DIR.mkdir(parents=True, exist_ok=True)
+    copied = {}
+    targets = [(film, DELIVERY_FILM)]
+    cover = film.parent / "铅面具事件_封面.jpg"
+    if cover.is_file():
+        targets.append((cover, "铅面具事件_封面.jpg"))
+    for source, name in targets:
+        if not source.is_file():
+            continue
+        destination = DELIVERY_DIR / name
+        shutil.copy2(source, destination)
+        copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
+    srt = film.parent / f"{film.stem}_字幕.srt"
+    if srt.is_file():
+        destination = DELIVERY_DIR / "铅面具事件_字幕.srt"
+        shutil.copy2(srt, destination)
+        copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
+    report = film.parent / "delivery" / "technical-report.json"
+    if not report.is_file():
+        report = ROOT / "work" / "leadmask1966" / "edit" / "delivery" / "technical-report.json"
+    if report.is_file():
+        destination = DELIVERY_DIR / "铅面具事件_技术报告.json"
+        shutil.copy2(report, destination)
+        copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
+    return copied
+
+
+def commit_delivery(message: str) -> None:
+    """Commit results.json plus the 交付/ files, then push to the fixed branch."""
+    paths = [str(RESULTS.relative_to(ROOT))]
+    if DELIVERY_DIR.exists():
+        paths.append(str(DELIVERY_DIR.relative_to(ROOT)))
+    git("add", "-f", "--", *paths)
+    if not subprocess.run(["git", "diff", "--cached", "--quiet", "--", *paths], cwd=ROOT).returncode:
+        return
+    git("commit", "-m", message, "--", *paths)
+    for attempt in range(3):
+        try:
+            git("push", "origin", BRANCH)
+            return
+        except subprocess.CalledProcessError:
+            if attempt == 2:
+                raise
+            git("pull", "--rebase", "origin", BRANCH)
+
+
 def restore_sources(project: dict, results: dict, sources: Path) -> list[str]:
     """Rebuild ignored work/ footage from the recorded Agnes receipts of a finished run.
 
@@ -387,17 +439,14 @@ def main() -> int:
             "--output", str(output),
         ], cwd=ROOT, check=True)
         doc["phase"] = "first_cut_ready"
+        delivered = publish_delivery(output)
         doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                            "width": 1920, "height": 1080, "fps": 30,
-                           "cover": str((output.parent / "铅面具事件_封面.jpg").relative_to(ROOT))}
+                           "cover": str((output.parent / "铅面具事件_封面.jpg").relative_to(ROOT)),
+                           "delivered": delivered}
         RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.publish:
-            git("add", "--", str(RESULTS.relative_to(ROOT)))
-            if subprocess.run(["git", "diff", "--cached", "--quiet", "--",
-                               str(RESULTS.relative_to(ROOT))], cwd=ROOT).returncode:
-                git("commit", "-m", "leadmask1966: 180-second first cut ready", "--",
-                    str(RESULTS.relative_to(ROOT)))
-                git("push", "origin", BRANCH)
+            commit_delivery("leadmask1966: 180秒成片、封面、字幕与交付报告")
         print("FIRST_CUT_READY " + output.name, flush=True)
         return 0
 
@@ -694,8 +743,11 @@ def main() -> int:
                      "note": "First cut rendered; a human must inspect all 29 contact sheets and final playback."}
     doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                        "width": 1920, "height": 1080, "fps": 30,
-                       "cover": str((output.parent / "铅面具事件_封面.jpg").relative_to(ROOT))}
-    checkpoint("leadmask1966 180-second first cut ready")
+                       "cover": str((output.parent / "铅面具事件_封面.jpg").relative_to(ROOT)),
+                       "delivered": publish_delivery(output)}
+    checkpoint("leadmask1966 180-second first cut ready", publish=False)
+    if args.publish:
+        commit_delivery("leadmask1966: 180秒成片、封面、字幕与交付报告")
     summary = os.getenv("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as stream:

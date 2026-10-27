@@ -119,6 +119,30 @@ class LeadMaskPlanTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 self.gen.restore_sources(story, doc, sources)
 
+    def test_finished_film_cover_and_subtitles_reach_the_delivery_folder(self):
+        """成片不能只躺在被忽略的 work/ 里：交付约定是 交付/ 下的 mp4 + 封面 + 字幕。"""
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            clips = root / "clips"
+            (clips / "delivery").mkdir(parents=True)
+            film = clips / "成片.mp4"
+            film.write_bytes(b"film" * 1000)
+            (clips / "铅面具事件_封面.jpg").write_bytes(b"cover" * 100)
+            (clips / "成片_字幕.srt").write_bytes(b"1\n00:00:00,000 --> 00:00:04,000\n字幕\n")
+            (clips / "delivery" / "technical-report.json").write_text("{}", encoding="utf-8")
+            original = self.gen.DELIVERY_DIR
+            self.gen.DELIVERY_DIR = root / "交付"
+            try:
+                copied = self.gen.publish_delivery(film)
+            finally:
+                self.gen.DELIVERY_DIR = original
+            self.assertIn(self.gen.DELIVERY_FILM, copied)
+            self.assertIn("铅面具事件_封面.jpg", copied)
+            self.assertIn("铅面具事件_字幕.srt", copied)
+            self.assertEqual((root / "交付" / self.gen.DELIVERY_FILM).read_bytes(), film.read_bytes())
+
     def test_validation_runs_without_voice_before_tts(self):
         self.gen.validate(self.story, require_audio=False)
 
