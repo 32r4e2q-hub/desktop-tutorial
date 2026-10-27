@@ -1,12 +1,10 @@
 name: 铅面具事件 · Agnes 2.5 Flash 生成与三分钟成片
-run-name: >-
-  ${{ github.event_name == 'push' && '铅面具事件 · Agnes Video 2.5 Flash 生成/出片' ||
-  '铅面具事件 · 手动生成或出片' }}
+run-name: ${{ github.event_name == 'push' && '铅面具事件 · Agnes Video 2.5 Flash 生成/出片' || '铅面具事件 · 手动生成或出片' }}
 
 # 触发方式（沙箱 token 没有 actions:write，gh workflow run 会 403，所以用 marker 文件）：
 #   production/leadmask1966/GEN_REQUEST     → 生成 29 条 Agnes 2.5 Flash 片段（默认先跑 S01 canary）
 #   production/leadmask1966/RENDER_REQUEST  → 只出片（旁白齐了以后用）
-# 两种请求都会把结果 commit 回分支：results.json / qa 接触表 / work 里的成片。
+# 每个阶段都会把 stage.log 写回分支：沙箱里读不到 Actions 日志，只能靠分支自述进度。
 on:
   push:
     branches:
@@ -27,7 +25,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: leadmask1966-agnes-arena-1cf9df35-desktop-tutorial
+  group: leadmask1966-agnes-arena-1cf9df35-desktop-tutorial-v3
   cancel-in-progress: false
 
 jobs:
@@ -36,13 +34,27 @@ jobs:
       github.ref == 'refs/heads/arena/1cf9df35-desktop-tutorial' &&
       !contains(github.event.head_commit.message, '[skip-leadmask1966]')
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
-    timeout-minutes: 360
+    timeout-minutes: 340
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      TARGET_BRANCH: arena/1cf9df35-desktop-tutorial
     steps:
       - name: Check out the fixed Arena production branch
         uses: actions/checkout@v4
         with:
           ref: arena/1cf9df35-desktop-tutorial
           fetch-depth: 1
+
+      - name: Mark stage (visible from the sandbox, where Actions logs are unreadable)
+        run: |
+          set -uo pipefail
+          git config user.name "arena-stage"
+          git config user.email "arena-stage@users.noreply.github.com"
+          printf '%s run=%s stage=checkout_ok\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" >> production/leadmask1966/stage.log
+          git add -f production/leadmask1966/stage.log
+          git commit -q -m "leadmask1966: stage checkout_ok [skip-leadmask1966]" || true
+          git pull --rebase -q origin "$TARGET_BRANCH" || true
+          git push -q origin "HEAD:$TARGET_BRANCH" || true
 
       - name: Resolve the payload from inputs or a marker file
         env:
@@ -61,10 +73,29 @@ jobs:
           echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
           echo "payload: $payload"
 
-      - name: Install FFmpeg, Chinese fonts and render dependencies
+      - name: Install FFmpeg and Chinese fonts only when the image lacks them
+        timeout-minutes: 15
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk python3-numpy python3-pil
+          set -euo pipefail
+          need_fonts=0
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo -E apt-get update -qq
+            sudo -E apt-get install -y -qq --no-install-recommends ffmpeg
+          fi
+          if ! fc-list :lang=zh >/dev/null 2>&1 || [ -z "$(fc-list :lang=zh 2>/dev/null | head -1)" ]; then
+            need_fonts=1
+            sudo -E apt-get update -qq
+            sudo -E apt-get install -y -qq --no-install-recommends fonts-noto-cjk
+          fi
+          python3 - <<'PY'
+          import importlib.util
+          for name in ("numpy", "PIL", "yaml"):
+              print(f"{name}: {'ok' if importlib.util.find_spec(name) else 'MISSING'}")
+          PY
+          echo "fonts_installed=$need_fonts"
+          ffmpeg -version | head -1
+          ffprobe -version | head -1
+          printf '%s run=%s stage=tools_ready\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" >> production/leadmask1966/stage.log
 
       - name: Rebuild the single-source storyboard and per-shot narration manifest
         run: |
@@ -84,39 +115,32 @@ jobs:
       - name: Offline engine tests (prompt assembly, timeline, style variants)
         run: python3 -m unittest production.tests.test_leadmask1966 -v
 
+      - name: Commit the stage marker and the regenerated manifest
+        run: |
+          set -uo pipefail
+          git config user.name "arena-stage"
+          git config user.email "arena-stage@users.noreply.github.com"
+          printf '%s run=%s stage=plan_validated\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" >> production/leadmask1966/stage.log
+          git add -f production/leadmask1966/stage.log production/leadmask1966/audio/manifest.json production/leadmask1966/story.json
+          git commit -q -m "leadmask1966: stage plan_validated [skip-leadmask1966]" || true
+          git pull --rebase -q origin "$TARGET_BRANCH" || true
+          git push -q origin "HEAD:$TARGET_BRANCH" || true
+
       - name: Generate with Agnes Video 2.5 Flash (62s gate) and/or render the 1080P cut
         id: generate
         continue-on-error: true
+        timeout-minutes: 300
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
           PAYLOAD: ${{ env.PAYLOAD }}
         run: |
           set +e
           echo "AGNES_API_KEY present: $([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
-          timeout --signal=TERM --kill-after=30s 330m \
+          timeout --signal=TERM --kill-after=30s 285m \
             python3 -u production/leadmask1966/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
           code=${PIPESTATUS[0]}
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit "$code"
-
-      - name: Ship failure diagnostics to the branch (sandbox cannot read Actions logs)
-        if: failure()
-        run: |
-          set -euo pipefail
-          {
-            echo "run=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} ref=${GITHUB_REF_NAME}"
-            echo "payload=${PAYLOAD:-}"
-            echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
-            echo "--- gen.log ---"
-            tail -c 120000 /tmp/gen.log 2>/dev/null || echo "no /tmp/gen.log"
-            echo "--- results.json head ---"
-            head -c 4000 production/leadmask1966/results.json 2>/dev/null || true
-          } > production/leadmask1966/gen-diag.log
-          git config user.name "arena-diag"
-          git config user.email "arena@local"
-          git add -f production/leadmask1966/gen-diag.log
-          git commit -m "leadmask1966: 生成失败诊断 $(date -u +%FT%TZ) [skip-leadmask1966]" || true
-          git push origin HEAD:arena/1cf9df35-desktop-tutorial || true
 
       - name: Dispatch an automatic continuation when the time budget expires
         if: always()
@@ -167,6 +191,28 @@ jobs:
                     f"{error.read().decode('utf-8', 'replace')[:800]}")
               raise SystemExit(1)
           PY
+
+      - name: Ship diagnostics to the branch (the sandbox cannot read Actions logs)
+        if: always()
+        run: |
+          set -uo pipefail
+          {
+            echo "run=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} ref=${GITHUB_REF_NAME}"
+            echo "payload=${PAYLOAD:-}"
+            echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
+            echo "generator_exit=${GENERATOR_EXIT_CODE:-unknown}"
+            echo "--- gen.log (tail) ---"
+            tail -c 120000 /tmp/gen.log 2>/dev/null || echo "no /tmp/gen.log"
+            echo "--- results.json head ---"
+            head -c 6000 production/leadmask1966/results.json 2>/dev/null || true
+          } > production/leadmask1966/gen-diag.log
+          printf '%s run=%s stage=finished exit=%s\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" "${GENERATOR_EXIT_CODE:-?}" >> production/leadmask1966/stage.log
+          git config user.name "arena-diag"
+          git config user.email "arena-diag@users.noreply.github.com"
+          git add -f production/leadmask1966/gen-diag.log production/leadmask1966/stage.log
+          git commit -q -m "leadmask1966: 运行诊断 ${GITHUB_RUN_ID} [skip-leadmask1966]" || true
+          git pull --rebase -q origin "$TARGET_BRANCH" || true
+          git push -q origin "HEAD:$TARGET_BRANCH" || true
 
       - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
         if: always()
