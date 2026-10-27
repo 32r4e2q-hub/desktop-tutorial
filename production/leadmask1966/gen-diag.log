@@ -1,0 +1,61 @@
+run=40467759841 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+payload={ "mode": "clips", "workers": 2, "canary_then_full": true }
+agnes_key_present=no
+generator_exit=unknown
+--- gen.log (tail) ---
+no /tmp/gen.log
+--- results.json head ---
+{
+  "project": "铅面具事件：山顶上的神秘字条",
+  "model": "agnes-video-2.5-flash",
+  "source_size": "720P",
+  "branch": "arena/1cf9df35-desktop-tutorial",
+  "phase": "storyboard_voice_and_references_ready_pending_agnes",
+  "target_duration_seconds": 180,
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "aspect": "16:9",
+    "source_size": "720P",
+    "post_upscale": true
+  },
+  "workflow_policy": "agnes-video-2.5-flash-720p-upscale-180s-29shots-shotlocked-voice",
+  "required_generated_shots": [
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+  ],
+  "shots": {},
+  "review": {
+    "status": "pending",
+    "visual_review_required": true,
+    "note": "Agnes has not been called yet; references and decoded footage are not a human visual sign-off."
+  }
+}
