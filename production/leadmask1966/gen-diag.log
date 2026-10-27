@@ -1,5 +1,5 @@
-run=40468702721 attempt=1 ref=arena/1cf9df35-desktop-tutorial
-payload={"only":"S01","workers":2,"canary_then_full":true}
+run=40489586526 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+payload={"only":"S22","workers":1,"mode":"clips"}
 agnes_key_present=no
 generator_exit=0
 --- step.log ---
@@ -7,6 +7,14 @@ WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask196
 VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
 test_29_shots_cover_exactly_180_seconds (production.tests.test_leadmask1966.LeadMaskPlanTests.test_29_shots_cover_exactly_180_seconds) ... ok
 test_every_prompt_gets_style_characters_and_negative (production.tests.test_leadmask1966.LeadMaskPlanTests.test_every_prompt_gets_style_characters_and_negative) ... ok
+test_finished_film_cover_and_subtitles_reach_the_delivery_folder (production.tests.test_leadmask1966.LeadMaskPlanTests.test_finished_film_cover_and_subtitles_reach_the_delivery_folder)
+成片不能只躺在被忽略的 work/ 里：交付约定是 交付/ 下的 mp4 + 封面 + 字幕。 ... ok
+test_fresh_runner_can_restore_footage_from_receipts (production.tests.test_leadmask1966.LeadMaskPlanTests.test_fresh_runner_can_restore_footage_from_receipts)
+出片任务跑在新 checkout 上：work/ 是空的，只能凭 results 里的收据重下并逐字节校验。 ... RESTORE S01 from Agnes receipt
+RESTORE S02 from Agnes receipt
+RESTORE S03 from Agnes receipt
+RESTORE S02 from Agnes receipt
+ok
 test_narration_pace_stays_inside_the_speedup_budget (production.tests.test_leadmask1966.LeadMaskPlanTests.test_narration_pace_stays_inside_the_speedup_budget) ... ok
 test_reference_images_and_post_overlays_are_defined (production.tests.test_leadmask1966.LeadMaskPlanTests.test_reference_images_and_post_overlays_are_defined) ... ok
 test_rumor_shots_are_hand_drawn_and_labelled (production.tests.test_leadmask1966.LeadMaskPlanTests.test_rumor_shots_are_hand_drawn_and_labelled) ... ok
@@ -15,268 +23,29 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_lead
 test_validation_runs_without_voice_before_tts (production.tests.test_leadmask1966.LeadMaskPlanTests.test_validation_runs_without_voice_before_tts) ... ok
 
 ----------------------------------------------------------------------
-Ran 8 tests in 0.024s
+Ran 10 tests in 0.050s
 
 OK
 --- gen.log (tail) ---
 WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
 PRODUCTION_STATUS Agnes generation started
-PRODUCTION_STATUS S01 submitting
-PRODUCTION_STATUS S01 waiting for Agnes create slot
-PRODUCTION_STATUS S01 queued
-[07:43:04] status=pending progress=0% (elapsed 0s)
-[07:48:08] status=in_progress progress=10% (elapsed 304s)
-[07:50:41] status=completed progress=100% (elapsed 456s)
-PRODUCTION_STATUS S01 Agnes task completed
-PRODUCTION_STATUS S01 generated and decoded
-PRODUCTION_STATUS S01 canary passed; continuing full 29-shot production
-PRODUCTION_STATUS queued prompt-refresh shots: S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28,S29
-PRODUCTION_STATUS S02 submitting
-PRODUCTION_STATUS S03 submitting
-PRODUCTION_STATUS S02 waiting for Agnes create slot
-PRODUCTION_STATUS S03 waiting for Agnes create slot
-PRODUCTION_STATUS S02 queued
-[07:50:51] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S03 queued
-[07:51:52] status=pending progress=0% (elapsed 0s)
-[07:54:14] status=in_progress progress=10% (elapsed 202s)
-[07:55:14] status=in_progress progress=10% (elapsed 202s)
-[07:55:55] status=completed progress=100% (elapsed 304s)
-PRODUCTION_STATUS S02 Agnes task completed
-PRODUCTION_STATUS S02 generated and decoded
-PRODUCTION_STATUS S04 submitting
-PRODUCTION_STATUS S04 waiting for Agnes create slot
-PRODUCTION_STATUS S04 queued
-[07:56:02] status=pending progress=0% (elapsed 0s)
-[07:59:02] status=in_progress progress=70% (elapsed 430s)
-[07:59:25] status=in_progress progress=10% (elapsed 203s)
-[07:59:28] status=completed progress=100% (elapsed 456s)
-PRODUCTION_STATUS S03 Agnes task completed
-PRODUCTION_STATUS S03 generated and decoded
-PRODUCTION_STATUS S05 submitting
-PRODUCTION_STATUS S05 waiting for Agnes create slot
-PRODUCTION_STATUS S05 queued
-[07:59:35] status=pending progress=0% (elapsed 0s)
-[08:01:58] status=completed progress=100% (elapsed 356s)
-PRODUCTION_STATUS S04 Agnes task completed
-PRODUCTION_STATUS S04 generated and decoded
-PRODUCTION_STATUS S06 submitting
-PRODUCTION_STATUS S06 waiting for Agnes create slot
-PRODUCTION_STATUS S06 queued
-[08:02:07] status=pending progress=0% (elapsed 0s)
-[08:02:58] status=in_progress progress=10% (elapsed 202s)
-[08:05:29] status=in_progress progress=10% (elapsed 203s)
-[08:06:46] status=completed progress=100% (elapsed 431s)
-PRODUCTION_STATUS S05 Agnes task completed
-PRODUCTION_STATUS S05 generated and decoded
-PRODUCTION_STATUS S07 submitting
-PRODUCTION_STATUS S07 waiting for Agnes create slot
-PRODUCTION_STATUS S07 queued
-[08:06:54] status=pending progress=0% (elapsed 0s)
-[08:07:11] status=completed progress=100% (elapsed 304s)
-PRODUCTION_STATUS S06 Agnes task completed
-PRODUCTION_STATUS S06 generated and decoded
-PRODUCTION_STATUS S08 submitting
-PRODUCTION_STATUS S08 waiting for Agnes create slot
-PRODUCTION_STATUS S08 queued
-[08:08:13] status=pending progress=0% (elapsed 0s)
-[08:12:23] status=in_progress progress=10% (elapsed 329s)
-[08:13:42] status=in_progress progress=10% (elapsed 329s)
-[08:16:37] status=completed progress=100% (elapsed 583s)
-PRODUCTION_STATUS S07 Agnes task completed
-PRODUCTION_STATUS S07 generated and decoded
-PRODUCTION_STATUS S09 submitting
-PRODUCTION_STATUS S09 waiting for Agnes create slot
-PRODUCTION_STATUS S09 queued
-[08:16:43] status=pending progress=0% (elapsed 0s)
-[08:17:09] poll: HTTP 429: too many video status queries (request id: 20261027081709113116270VH6OPJ7) (code=429) [1/12]
-[08:18:09] status=completed progress=100% (elapsed 596s)
-PRODUCTION_STATUS S08 Agnes task completed
-PRODUCTION_STATUS S08 generated and decoded
-PRODUCTION_STATUS S10 submitting
-PRODUCTION_STATUS S10 waiting for Agnes create slot
-PRODUCTION_STATUS S10 queued
-[08:18:17] status=pending progress=0% (elapsed 0s)
-[08:32:56] status=in_progress progress=10% (elapsed 972s)
-[08:35:53] status=in_progress progress=70% (elapsed 1150s)
-[08:36:19] status=completed progress=100% (elapsed 1175s)
-PRODUCTION_STATUS S09 Agnes task completed
-PRODUCTION_STATUS S09 generated and decoded
-PRODUCTION_STATUS S11 submitting
-PRODUCTION_STATUS S11 waiting for Agnes create slot
-PRODUCTION_STATUS S11 queued
-[08:36:27] status=pending progress=0% (elapsed 0s)
-[08:36:51] status=in_progress progress=10% (elapsed 1114s)
-[08:37:43] poll: HTTP 429: too many video status queries (request id: 2026102708374354125799BCMb2ukD) (code=429) [1/12]
-[08:40:25] status=completed progress=100% (elapsed 1327s)
-PRODUCTION_STATUS S10 Agnes task completed
-PRODUCTION_STATUS S10 generated and decoded
-PRODUCTION_STATUS S12 submitting
-PRODUCTION_STATUS S12 waiting for Agnes create slot
-PRODUCTION_STATUS S12 queued
-[08:40:33] status=pending progress=0% (elapsed 0s)
-[08:48:51] status=in_progress progress=10% (elapsed 744s)
-[08:50:07] status=in_progress progress=90% (elapsed 820s)
-[08:50:33] status=completed progress=100% (elapsed 846s)
-PRODUCTION_STATUS S11 Agnes task completed
-PRODUCTION_STATUS S11 generated and decoded
-PRODUCTION_STATUS S13 submitting
-PRODUCTION_STATUS S13 waiting for Agnes create slot
-PRODUCTION_STATUS S13 queued
-[08:50:40] status=pending progress=0% (elapsed 0s)
-[08:51:32] status=in_progress progress=10% (elapsed 658s)
-[08:53:13] poll: HTTP 429: too many video status queries (request id: 202610270853132872245097XB2Lb25) (code=429) [1/12]
-[08:54:13] status=completed progress=100% (elapsed 820s)
-PRODUCTION_STATUS S12 Agnes task completed
-PRODUCTION_STATUS S12 generated and decoded
-PRODUCTION_STATUS S14 submitting
-PRODUCTION_STATUS S14 waiting for Agnes create slot
-PRODUCTION_STATUS S14 queued
-[08:54:22] status=pending progress=0% (elapsed 0s)
-[08:59:42] status=in_progress progress=10% (elapsed 542s)
-[09:02:15] status=completed progress=100% (elapsed 694s)
-PRODUCTION_STATUS S13 Agnes task completed
-PRODUCTION_STATUS S13 generated and decoded
-PRODUCTION_STATUS S15 submitting
-PRODUCTION_STATUS S15 waiting for Agnes create slot
-PRODUCTION_STATUS S15 queued
-[09:02:23] status=pending progress=0% (elapsed 0s)
-[09:02:49] poll: HTTP 429: too many video status queries (request id: 20261027090249590309838yik00CBA) (code=429) [1/12]
-[09:04:40] poll: HTTP 429: too many video status queries (request id: 20261027090440592651126GWJZil3O) (code=429) [1/12]
-[09:05:41] status=in_progress progress=10% (elapsed 678s)
-[09:09:29] status=completed progress=100% (elapsed 907s)
-PRODUCTION_STATUS S14 Agnes task completed
-PRODUCTION_STATUS S14 generated and decoded
-PRODUCTION_STATUS S16 submitting
-PRODUCTION_STATUS S16 waiting for Agnes create slot
-PRODUCTION_STATUS S16 queued
-[09:09:36] status=pending progress=0% (elapsed 0s)
-[09:11:35] status=in_progress progress=10% (elapsed 552s)
-[09:14:58] status=completed progress=100% (elapsed 754s)
-PRODUCTION_STATUS S15 Agnes task completed
-PRODUCTION_STATUS S15 generated and decoded
-PRODUCTION_STATUS S17 submitting
-PRODUCTION_STATUS S17 waiting for Agnes create slot
-PRODUCTION_STATUS S17 queued
-[09:15:07] status=pending progress=0% (elapsed 0s)
-[09:16:48] poll: HTTP 429: too many video status queries (request id: 20261027091648168605180hiHReYRa) (code=429) [1/12]
-[09:19:05] status=in_progress progress=10% (elapsed 568s)
-[09:21:12] status=completed progress=100% (elapsed 695s)
-PRODUCTION_STATUS S16 Agnes task completed
-PRODUCTION_STATUS S16 generated and decoded
-PRODUCTION_STATUS S18 submitting
-PRODUCTION_STATUS S18 waiting for Agnes create slot
-PRODUCTION_STATUS S18 queued
-[09:21:19] status=pending progress=0% (elapsed 0s)
-[09:25:49] status=in_progress progress=10% (elapsed 642s)
-[09:28:05] status=in_progress progress=10% (elapsed 405s)
-[09:29:21] status=completed progress=100% (elapsed 481s)
-PRODUCTION_STATUS S18 Agnes task completed
-PRODUCTION_STATUS S18 generated and decoded
-PRODUCTION_STATUS S19 submitting
-PRODUCTION_STATUS S19 waiting for Agnes create slot
-PRODUCTION_STATUS S19 queued
-[09:29:28] status=pending progress=0% (elapsed 0s)
-[09:29:37] status=completed progress=100% (elapsed 871s)
-PRODUCTION_STATUS S17 Agnes task completed
-PRODUCTION_STATUS S17 generated and decoded
-PRODUCTION_STATUS S20 submitting
-PRODUCTION_STATUS S20 waiting for Agnes create slot
-PRODUCTION_STATUS S20 queued
-[09:30:29] status=pending progress=0% (elapsed 0s)
-[09:35:48] status=in_progress progress=10% (elapsed 380s)
-[09:37:15] status=in_progress progress=10% (elapsed 405s)
-[09:37:55] status=completed progress=100% (elapsed 507s)
-PRODUCTION_STATUS S19 Agnes task completed
-PRODUCTION_STATUS S19 generated and decoded
-PRODUCTION_STATUS S21 submitting
-PRODUCTION_STATUS S21 waiting for Agnes create slot
-PRODUCTION_STATUS S21 queued
-[09:38:01] status=pending progress=0% (elapsed 0s)
-[09:40:12] poll: HTTP 429: too many video status queries (request id: 202610270940121109534876gVwgNHe) (code=429) [1/12]
-[09:41:12] status=completed progress=100% (elapsed 643s)
-PRODUCTION_STATUS S20 Agnes task completed
-PRODUCTION_STATUS S20 generated and decoded
+PRODUCTION_STATUS queued prompt-refresh shots: S22
 PRODUCTION_STATUS S22 submitting
 PRODUCTION_STATUS S22 waiting for Agnes create slot
 PRODUCTION_STATUS S22 queued
-[09:41:21] status=pending progress=0% (elapsed 0s)
-[09:48:48] status=in_progress progress=10% (elapsed 647s)
-[09:51:21] status=completed progress=100% (elapsed 800s)
-PRODUCTION_STATUS S21 Agnes task completed
-PRODUCTION_STATUS S21 generated and decoded
-PRODUCTION_STATUS S23 submitting
-PRODUCTION_STATUS S23 waiting for Agnes create slot
-PRODUCTION_STATUS S23 queued
-[09:51:28] status=pending progress=0% (elapsed 0s)
-[09:57:23] status=in_progress progress=10% (elapsed 962s)
-[09:58:39] poll: HTTP 429: too many video status queries (request id: 20261027095839351595008EBC274a3) (code=429) [1/12]
-[10:00:05] status=completed progress=100% (elapsed 1124s)
+[10:36:04] status=pending progress=0% (elapsed 0s)
+[10:36:55] status=in_progress progress=10% (elapsed 51s)
+[10:38:36] status=completed progress=100% (elapsed 152s)
 PRODUCTION_STATUS S22 Agnes task completed
 PRODUCTION_STATUS S22 generated and decoded
-PRODUCTION_STATUS S24 submitting
-PRODUCTION_STATUS S24 waiting for Agnes create slot
-PRODUCTION_STATUS S24 queued
-[10:00:13] status=pending progress=0% (elapsed 0s)
-[10:05:59] status=in_progress progress=10% (elapsed 871s)
-[10:10:13] status=completed progress=100% (elapsed 1124s)
-PRODUCTION_STATUS S23 Agnes task completed
-PRODUCTION_STATUS S23 generated and decoded
-PRODUCTION_STATUS S25 submitting
-PRODUCTION_STATUS S25 waiting for Agnes create slot
-[10:10:21] status=in_progress progress=10% (elapsed 608s)
-PRODUCTION_STATUS S25 queued
-[10:10:22] status=pending progress=0% (elapsed 0s)
-[10:12:03] poll: HTTP 429: too many video status queries (request id: 20261027101203306003661baJviQwH) (code=429) [1/12]
-[10:13:29] status=completed progress=100% (elapsed 796s)
-PRODUCTION_STATUS S24 Agnes task completed
-PRODUCTION_STATUS S24 generated and decoded
-PRODUCTION_STATUS S26 submitting
-PRODUCTION_STATUS S26 waiting for Agnes create slot
-PRODUCTION_STATUS S26 queued
-[10:13:37] status=pending progress=0% (elapsed 0s)
-[10:16:01] status=in_progress progress=10% (elapsed 339s)
-[10:19:57] status=in_progress progress=10% (elapsed 380s)
-[10:20:40] status=completed progress=100% (elapsed 618s)
-PRODUCTION_STATUS S25 Agnes task completed
-PRODUCTION_STATUS S25 generated and decoded
-PRODUCTION_STATUS S27 submitting
-PRODUCTION_STATUS S27 waiting for Agnes create slot
-PRODUCTION_STATUS S27 queued
-[10:20:48] status=pending progress=0% (elapsed 0s)
-[10:23:45] status=completed progress=100% (elapsed 608s)
-PRODUCTION_STATUS S26 Agnes task completed
-PRODUCTION_STATUS S26 generated and decoded
-PRODUCTION_STATUS S28 submitting
-PRODUCTION_STATUS S28 waiting for Agnes create slot
-PRODUCTION_STATUS S28 queued
-[10:23:53] status=pending progress=0% (elapsed 0s)
-[10:25:26] status=in_progress progress=10% (elapsed 278s)
-[10:27:08] status=completed progress=100% (elapsed 380s)
-PRODUCTION_STATUS S27 Agnes task completed
-PRODUCTION_STATUS S27 generated and decoded
-PRODUCTION_STATUS S29 submitting
-PRODUCTION_STATUS S29 waiting for Agnes create slot
-PRODUCTION_STATUS S29 queued
-[10:27:17] status=pending progress=0% (elapsed 0s)
-[10:28:32] status=in_progress progress=10% (elapsed 278s)
-[10:28:33] poll: HTTP 429: too many video status queries (request id: 20261027102833187841387ykgAsRIq) (code=429) [1/12]
-[10:30:24] poll: HTTP 429: too many video status queries (request id: 2026102710302487824213VzDACmsw) (code=429) [1/12]
-[10:31:24] status=in_progress progress=10% (elapsed 247s)
-[10:32:15] status=completed progress=100% (elapsed 502s)
-PRODUCTION_STATUS S28 Agnes task completed
-PRODUCTION_STATUS S28 generated and decoded
-[10:33:56] status=completed progress=100% (elapsed 399s)
-PRODUCTION_STATUS S29 Agnes task completed
-PRODUCTION_STATUS S29 generated and decoded
-PRODUCTION_STATUS all 29 Agnes clips ready; waiting for voice clips before rendering
+PRODUCTION_STATUS selected Agnes sources ready
 --- results.json head ---
 {
   "project": "铅面具事件：山顶上的神秘字条",
   "model": "agnes-video-2.5-flash",
   "source_size": "720P",
   "branch": "arena/1cf9df35-desktop-tutorial",
-  "phase": "sources_ready_pending_render",
+  "phase": "selected_sources_ready",
   "target_duration_seconds": 180,
   "format": {
     "width": 1920,
@@ -454,4 +223,4 @@ PRODUCTION_STATUS all 29 Agnes clips ready; waiting for voice clips before rende
       "reported_size": "720P",
       "reported_seconds": "6",
       "inspection": {
-     
+        "du
