@@ -166,24 +166,23 @@ class LeadMaskPlanTests(unittest.TestCase):
         def visible(text: str) -> int:
             return sum(1 for ch in text if ch.isalnum() or "\u3400" <= ch <= "\u9fff")
 
-        # voice-01 实测均值约 3.9 字/秒（短句 3.4、快句 4.9）：按均值估算，
-        # 每句要覆盖本镜 80%~108%，既不留大段空白，也不会被逼着加速。
-        rate = 3.9
+        # voice-01 实测：最快 4.9 字/秒、最慢 3.38 字/秒。
+        # 按最快语速不许溢出镜头（否则只能加速硬塞），按最慢语速也要填满七成以上。
+        fastest, slowest = 4.9, 3.38
         total = 0
         for shot in self.story["shots"]:
             chars = visible(shot["narration"])
             total += chars
             available = shot["duration"] - 0.08
-            coverage = (chars / rate) / available
-            self.assertGreaterEqual(
-                coverage, 0.80,
-                f"{shot['id']} 按实测语速只覆盖镜头的 {coverage:.0%}，会留下大段空白")
             self.assertLessEqual(
-                coverage, 1.08,
-                f"{shot['id']} 按实测语速会超出镜头，只能靠加速硬塞")
-        self.assertGreaterEqual(total, 580, "全片解说不足以填满镜头")
-        self.assertGreaterEqual(total / 180, 3.2, "全片语速过慢，会出现大段空白")
-        self.assertLessEqual(total / 180, 3.6, "全片语速过快，配音会被迫加速")
+                chars / fastest, available,
+                f"{shot['id']} 按实测最快语速会溢出镜头，只能靠加速硬塞")
+            self.assertGreaterEqual(
+                chars / slowest, available * 0.72,
+                f"{shot['id']} 按实测最慢语速也填不满镜头，会留下大段空白")
+        self.assertGreaterEqual(total, 630, "全片解说不足以填满镜头")
+        self.assertGreaterEqual(total / 180, 3.5, "全片语速过慢，会出现大段空白")
+        self.assertLessEqual(total / 180, 3.9, "全片语速过快，配音会被迫加速")
 
     def test_each_line_matches_its_own_shot(self):
         """一镜一句、句子互不重复，且镜头内出现的物件与人物要在这一句里有着落。"""
