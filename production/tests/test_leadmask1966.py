@@ -160,7 +160,9 @@ class LeadMaskPlanTests(unittest.TestCase):
             self.assertEqual(row["target_duration"], shot["duration"])
             self.assertEqual(row["alignment"], "shot-locked")
 
-    def test_narration_pace_stays_inside_the_speedup_budget(self):
+    def test_narration_fills_every_shot_without_rushing(self):
+        """解说要跟片段等长：每镜的字数按该镜时长配比，既不留大段空白，也不靠 1.5 倍速硬塞。"""
+
         def visible(text: str) -> int:
             return sum(1 for ch in text if ch.isalnum() or "\u3400" <= ch <= "\u9fff")
 
@@ -168,12 +170,32 @@ class LeadMaskPlanTests(unittest.TestCase):
         for shot in self.story["shots"]:
             chars = visible(shot["narration"])
             total += chars
-            # 慢速 TTS 实测下限约 2.6 字/秒；1.55 倍上限意味着每镜不能超过 4.0 字/秒。
-            self.assertLessEqual(chars / shot["duration"], 4.05,
-                                 f"{shot['id']} 的旁白太长，会被迫超过 1.55 倍加速")
-            self.assertGreater(chars, 8, f"{shot['id']} 的旁白太短")
-        self.assertGreaterEqual(total, 500, "全片旁白少于 500 字，节奏会散")
-        self.assertLessEqual(total / 180, 3.9, "全片语速超过每秒 3.9 字")
+            density = chars / shot["duration"]
+            # 4.6 字/秒 是实测最快语速：低于 3.6 会留下明显空白，高于 4.8 会被迫加速。
+            self.assertGreaterEqual(density, 3.6, f"{shot['id']} 台词相对镜头太短")
+            self.assertLessEqual(density, 4.8, f"{shot['id']} 台词相对镜头太长")
+            # 按 4.6 字/秒 估算，这句话至少要覆盖镜头的 85%。
+            self.assertGreaterEqual(chars / 4.6, shot["duration"] * 0.85,
+                                    f"{shot['id']} 说完了镜头还没走完")
+        self.assertGreaterEqual(total, 730, "全片解说不足以填满镜头")
+        self.assertLessEqual(total / 180, 4.6, "全片语速过快")
+        self.assertGreaterEqual(total / 180, 4.0, "全片语速过慢，会出现大段空白")
+
+    def test_each_line_matches_its_own_shot(self):
+        """一镜一句、句子互不重复，且镜头内出现的物件与人物要在这一句里有着落。"""
+        lines = [shot["narration"] for shot in self.story["shots"]]
+        self.assertEqual(len(lines), len(set(lines)), "有重复的旁白句子")
+        expectations = {
+            "S07": ["文廷山"], "S08": ["少年"], "S09": ["躺着"], "S13": ["眼罩"],
+            "S14": ["十六点三十", "十八点三十"], "S16": ["枪伤"], "S17": ["放射性"],
+            "S19": ["渔民"], "S20": ["外星人"], "S22": ["传闻"], "S23": ["胶囊"],
+            "S24": ["骗上了那座山"], "S25": ["一个也没有被证实"], "S27": ["妻子"],
+            "S28": ["信号"], "S29": ["评论区"],
+        }
+        by_id = {shot["id"]: shot["narration"] for shot in self.story["shots"]}
+        for sid, needles in expectations.items():
+            for needle in needles:
+                self.assertIn(needle, by_id[sid], f"{sid} 的解说没有说到画面里的内容：{needle}")
 
     def test_reference_images_and_post_overlays_are_defined(self):
         for reference in self.story["reference_images"]:
