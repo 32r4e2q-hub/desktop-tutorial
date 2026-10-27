@@ -16,8 +16,8 @@
 | 分镜 / 事实边界 / 提示词 | ✅ 29 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json` |
 | 一镜一句旁白 | ✅ 29/29 已录（voice-00），每镜都无需加速、留足呼吸位 | `audio/manifest.json`、`audio/S01–S29.mp3` |
 | 离线自检 | ✅ `python3 -m pytest production/tests/test_leadmask1966.py -q`（8 passed） | `production/tests/` |
-| Agnes 2.5 Flash 素材 | 🟡 持续生成中（S01 canary 已过；29 镜排队，62 秒节流） | `results.json`、`qa/*.jpg`、`.github/workflows/leadmask1966-gen.yml` |
-| 混音 / 拼接 / 字幕 / 封面 | ✅ 真实旁白已混音：180.000 秒、语音 116.1 秒、BGM 实测 −18.7 dB 垫底；画面侧用合成素材完整空跑过 5400 帧成片 | `build_audio.py`、`render.py` |
+| Agnes 2.5 Flash 素材 | ✅ 29/29 已完成（720P 源片，全部通过解码与 sha256 校验）；S07/S08/S22 已按画面复原重生成 | `results.json`、`qa/*.jpg` |
+| 成片 / 封面 / 字幕 | ✅ 已出片并入 `交付/`：180.000 秒、5400 帧、1080p30、AAC 48kHz 立体声、57.5 MB | `交付/铅面具事件_*` |
 
 ## 怎么跑
 
