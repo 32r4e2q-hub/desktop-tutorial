@@ -25,7 +25,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: leadmask1966-agnes-arena-1cf9df35-desktop-tutorial-v3
+  group: leadmask1966-agnes-arena-1cf9df35-desktop-tutorial-v4
   cancel-in-progress: false
 
 jobs:
@@ -73,29 +73,53 @@ jobs:
           echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
           echo "payload: $payload"
 
-      - name: Install FFmpeg and Chinese fonts only when the image lacks them
-        timeout-minutes: 15
+      - name: Probe FFmpeg and Chinese fonts, downloading them instead of waiting on apt
+        timeout-minutes: 12
         run: |
-          set -euo pipefail
-          need_fonts=0
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            sudo -E apt-get update -qq
-            sudo -E apt-get install -y -qq --no-install-recommends ffmpeg
-          fi
-          if ! fc-list :lang=zh >/dev/null 2>&1 || [ -z "$(fc-list :lang=zh 2>/dev/null | head -1)" ]; then
-            need_fonts=1
-            sudo -E apt-get update -qq
-            sudo -E apt-get install -y -qq --no-install-recommends fonts-noto-cjk
-          fi
+          set -uo pipefail
+          mark() { printf '%s run=%s stage=%s\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" "$1" >> production/leadmask1966/stage.log; }
+          mark tools_probe
+          echo "ffmpeg=$(command -v ffmpeg || echo none) ffprobe=$(command -v ffprobe || echo none)"
+          echo "cjk_fonts_before=$(fc-list :lang=zh 2>/dev/null | wc -l)"
           python3 - <<'PY'
           import importlib.util
-          for name in ("numpy", "PIL", "yaml"):
+          for name in ("numpy", "PIL", "yaml", "av"):
               print(f"{name}: {'ok' if importlib.util.find_spec(name) else 'MISSING'}")
           PY
-          echo "fonts_installed=$need_fonts"
-          ffmpeg -version | head -1
-          ffprobe -version | head -1
-          printf '%s run=%s stage=tools_ready\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" >> production/leadmask1966/stage.log
+
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            mark tools_apt_ffmpeg
+            timeout 300 sudo -E apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 \
+              -o Acquire::https::Timeout=20 update -qq || echo "apt update failed or timed out"
+            timeout 300 sudo -E apt-get -y -qq --no-install-recommends install ffmpeg || echo "apt ffmpeg failed"
+          fi
+
+          mkdir -p "$HOME/.local/share/fonts" .cache/fonts
+          if [ -z "$(fc-list :lang=zh 2>/dev/null | head -1)" ] && [ -z "$(ls -A .cache/fonts 2>/dev/null)" ]; then
+            mark tools_font_download
+            base="https://raw.githubusercontent.com/notofonts/noto-cjk/main"
+            for spec in \
+              "Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf" \
+              "Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Bold.otf" \
+              "Serif/OTF/SimplifiedChinese/NotoSerifCJKsc-Regular.otf"; do
+              name="$(basename "$spec")"
+              if timeout 180 curl -fsSL "$base/$spec" -o ".cache/fonts/$name"; then
+                cp ".cache/fonts/$name" "$HOME/.local/share/fonts/$name"
+              else
+                echo "font download failed: $name"
+              fi
+            done
+            fc-cache -f >/dev/null 2>&1 || true
+          fi
+          echo "cjk_fonts_after=$(fc-list :lang=zh 2>/dev/null | wc -l)"
+          ls -l .cache/fonts 2>/dev/null || true
+          ffmpeg -version 2>/dev/null | head -1 || echo "ffmpeg still missing"
+          ffprobe -version 2>/dev/null | head -1 || echo "ffprobe still missing"
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            echo "::error::ffmpeg/ffprobe unavailable on this runner; refusing to continue."
+            exit 1
+          fi
+          mark tools_ready
 
       - name: Rebuild the single-source storyboard and per-shot narration manifest
         run: |
