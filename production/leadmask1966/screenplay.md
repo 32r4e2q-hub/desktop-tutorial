@@ -47,8 +47,8 @@
 
 尼泰罗伊郊外，有一座荒凉的小山，叫文廷山。八月二十日，一个十八岁的少年上山放风筝。爬到山顶，他看见两个人并排躺着，一动不动。风筝线从他手里滑落，风筝飘向远处的天空。
 
-- **S07**（35–42秒，7秒／中景，缓慢推近）：尼泰罗伊郊外，有一座荒凉的小山，叫文廷山。
-- **S08**（42–49秒，7秒／航拍跟拍，逐渐上升）：八月二十日，一个十八岁的少年上山放风筝。
+- **S07**（35–42秒，7秒／航拍缓慢推向山脊）：尼泰罗伊郊外，有一座荒凉的小山，叫文廷山。
+- **S08**（42–49秒，7秒／中景跟拍少年上山）：八月二十日，一个十八岁的少年上山放风筝。
 - **S09**（49–55秒，6秒／中景，少年视角缓慢前移）：爬到山顶，他看见两个人并排躺着，一动不动。
 - **S10**（55–60秒，5秒／特写，慢动作）：风筝线从他手里滑落，风筝飘向远处的天空。
 
@@ -111,8 +111,8 @@
 | S04 | 00:17—00:24 | 7 | N02 | 低角度仰拍，环绕 | manuel | Rooftop of a low house in Campos dos Goytacazes, 1966, bright blue sky with white clouds |
 | S05 | 00:24—00:30 | 6 | N02 | 中景侧面，暖色光 | miguel、manuel、wives | Warm evening interior of a modest Brazilian home, 1966 |
 | S06 | 00:30—00:35 | 5 | N02 | 跟拍，逐渐拉远 | miguel、manuel | Late afternoon at the long-distance bus station in Niterói, 1966 |
-| S07 | 00:35—00:42 | 7 | N03 | 中景，缓慢推近 | miguel、manuel、shopkeeper | Evening inside a small corner shop in Niterói, 1966 |
-| S08 | 00:42—00:49 | 7 | N03 | 航拍跟拍，逐渐上升 | miguel、manuel | Sunset on a stony dirt path winding up a bare grassy hill outside Niterói, 1966 |
+| S07 | 00:35—00:42 | 7 | N03 | 航拍缓慢推向山脊 | — | Wide establishing shot of a bare grassy hill outside Niterói, 1966, at dusk |
+| S08 | 00:42—00:49 | 7 | N03 | 中景跟拍少年上山 | boy | Bright afternoon on a stony dirt path climbing the bare grassy hill outside Niterói, 1966 |
 | S09 | 00:49—00:55 | 6 | N03 | 中景，少年视角缓慢前移 | boy | Bright afternoon on the grassy summit of Vintém Hill, 1966 |
 | S10 | 00:55—01:00 | 5 | N03 | 特写，慢动作 | boy | Close-up of the boy's face on the hilltop, 1966 |
 | S11 | 01:00—01:07 | 7 | N04 | 航拍缓慢拉升 | police | Aerial view of the grassy hilltop at dusk, 1966 |

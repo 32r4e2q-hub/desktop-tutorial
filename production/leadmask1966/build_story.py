@@ -161,18 +161,21 @@ SHOT_ROWS = [
      "Manuel step down with the old leather bag, look around, excited but serious. The warm afternoon "
      "light slowly cools to gray-blue. Real motion: passengers walking, exhaust drifting, cloth moving. "
      "Camera: gentle tracking shot that gradually pulls back. No signage, no readable text."),
-    ("S07", 35, 7, "中景，缓慢推近", ["miguel", "manuel", "shopkeeper"], "real",
-     "Evening inside a small corner shop in Niterói, 1966: shelves of bottles on the left, a wooden "
-     "counter across the frame. The shopkeeper in an apron slides a glass water bottle across the "
-     "counter; Miguel takes it and checks his wristwatch, tense; Manuel stands close, glancing at the "
-     "door. The little bell above the door still trembles. Camera: medium shot, slow push-in. Warm bulb "
-     "light, cool street beyond the glass. No signs, no readable labels, no text."),
-    ("S08", 42, 7, "航拍跟拍，逐渐上升", ["miguel", "manuel"], "real",
-     "Sunset on a stony dirt path winding up a bare grassy hill outside Niterói, 1966: two men in dark "
-     "suits carrying folded raincoats walk away from the camera along the path in the middle third, the "
-     "city and bay small and hazy on the left horizon, the summit ahead. Long orange light rakes the "
-     "slope; grass and dust move in the wind. Camera: high aerial tracking shot rising slowly behind "
-     "them, one continuous move. Real motion: walking, grass, dust, clouds. No text."),
+    ("S07", 35, 7, "航拍缓慢推向山脊", [], "real",
+     "Wide establishing shot of a bare grassy hill outside Niterói, 1966, at dusk: the empty summit "
+     "sits in the middle third, a thin gravel path climbs through dry grass and scattered rocks, low "
+     "shrubs tilt in the wind, and the bay with the hazy city lies far below on the left. Cold "
+     "blue-gray sky, one faint red-orange glow left on the horizon, thin fog drifting across the "
+     "slope. Camera: slow high aerial drift toward the hilltop, one continuous move. Real motion: "
+     "long grass waves, drifting fog, two distant birds. No people, no text."),
+    ("S08", 42, 7, "中景跟拍少年上山", ["boy"], "real",
+     "Bright afternoon on a stony dirt path climbing the bare grassy hill outside Niterói, 1966: an "
+     "eighteen-year-old Brazilian boy in a short-sleeved shirt and shorts walks up the path toward the "
+     "summit, a small diamond kite under one arm and a wooden spool of string in his hand, seen from "
+     "behind and slightly to the side. The bay is small and hazy on the left horizon; grass and dust "
+     "move in the breeze, the kite tail flutters. Camera: medium-wide tracking shot following him "
+     "uphill at shoulder height, one continuous move. Real motion: walking, grass, dust, fluttering "
+     "kite tail. No text."),
     ("S09", 49, 6, "中景，少年视角缓慢前移", ["boy"], "real",
      "Bright afternoon on the grassy summit of Vintém Hill, 1966: the boy stands in the left third "
      "holding a taut kite string, a simple diamond kite swaying in the blue sky on the right. He steps "
