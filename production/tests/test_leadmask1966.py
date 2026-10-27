@@ -161,25 +161,27 @@ class LeadMaskPlanTests(unittest.TestCase):
             self.assertEqual(row["alignment"], "shot-locked")
 
     def test_narration_fills_every_shot_without_rushing(self):
-        """解说要跟片段等长：每镜的字数按该镜时长配比，既不留大段空白，也不靠 1.5 倍速硬塞。"""
+        """解说要跟片段等长：每镜的字数按该镜时长配比，既不留大段空白，也不靠加速硬塞。"""
 
         def visible(text: str) -> int:
             return sum(1 for ch in text if ch.isalnum() or "\u3400" <= ch <= "\u9fff")
 
+        # voice-01 实测语速：短句约 3.38 字/秒，长句约 4.06 字/秒。
+        slowest, fastest = 3.38, 4.06
         total = 0
         for shot in self.story["shots"]:
             chars = visible(shot["narration"])
             total += chars
-            density = chars / shot["duration"]
-            # 4.6 字/秒 是实测最快语速：低于 3.6 会留下明显空白，高于 4.8 会被迫加速。
-            self.assertGreaterEqual(density, 3.6, f"{shot['id']} 台词相对镜头太短")
-            self.assertLessEqual(density, 4.8, f"{shot['id']} 台词相对镜头太长")
-            # 按 4.6 字/秒 估算，这句话至少要覆盖镜头的 85%。
-            self.assertGreaterEqual(chars / 4.6, shot["duration"] * 0.85,
-                                    f"{shot['id']} 说完了镜头还没走完")
-        self.assertGreaterEqual(total, 730, "全片解说不足以填满镜头")
-        self.assertLessEqual(total / 180, 4.6, "全片语速过快")
-        self.assertGreaterEqual(total / 180, 4.0, "全片语速过慢，会出现大段空白")
+            available = shot["duration"] - 0.08
+            self.assertLessEqual(
+                chars / fastest, available,
+                f"{shot['id']} 按实测最快语速也超出镜头，只能靠加速硬塞")
+            self.assertGreaterEqual(
+                chars / slowest, available * 0.78,
+                f"{shot['id']} 即使按最慢语速也填不满镜头，会留下大段空白")
+        self.assertGreaterEqual(total, 580, "全片解说不足以填满镜头")
+        self.assertGreaterEqual(total / 180, 3.2, "全片语速过慢，会出现大段空白")
+        self.assertLessEqual(total / 180, 3.6, "全片语速过快，配音会被迫加速")
 
     def test_each_line_matches_its_own_shot(self):
         """一镜一句、句子互不重复，且镜头内出现的物件与人物要在这一句里有着落。"""
@@ -189,7 +191,7 @@ class LeadMaskPlanTests(unittest.TestCase):
             "S07": ["文廷山"], "S08": ["少年"], "S09": ["躺着"], "S13": ["眼罩"],
             "S14": ["十六点三十", "十八点三十"], "S16": ["枪伤"], "S17": ["放射性"],
             "S19": ["渔民"], "S20": ["外星人"], "S22": ["传闻"], "S23": ["胶囊"],
-            "S24": ["骗上了那座山"], "S25": ["一个也没有被证实"], "S27": ["妻子"],
+            "S24": ["飞碟", "上山"], "S25": ["一个也没有被证实"], "S27": ["妻子"],
             "S28": ["信号"], "S29": ["评论区"],
         }
         by_id = {shot["id"]: shot["narration"] for shot in self.story["shots"]}
@@ -205,6 +207,9 @@ class LeadMaskPlanTests(unittest.TestCase):
         self.assertEqual(presentation["cover"]["text"], "铅面具")
         self.assertIn("至今未解", presentation["end_subtitle"])
         self.assertIn("十六点三十", presentation["highlight_keywords"])
+        narration = "".join(shot["narration"] for shot in self.story["shots"])
+        for keyword in presentation["highlight_keywords"]:
+            self.assertIn(keyword, narration, f"高亮词在台词里找不到：{keyword}")
         self.assertEqual(self.story["narration_spec"]["max_speedup_factor"], 1.55)
         self.assertFalse(self.story["narration_spec"]["slowdown_allowed"])
 
