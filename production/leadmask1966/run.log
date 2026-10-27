@@ -1,11 +1,11 @@
-run=40503031555 attempt=1 ref=arena/1cf9df35-desktop-tutorial
-event=push runner=GitHub Actions 1000002631 os=Linux arch=X64
-sha=1dce9c84f65f7a1c359bb080fb47fcc78d6b836e
-started 2026-10-27T12:21:35Z
+run=40505051080 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+event=push runner=GitHub Actions 1000002636 os=Linux arch=X64
+sha=b8ae96fbd6aac09174c4c5e34269306b2c531da4
+started 2026-10-27T12:36:58Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"only":"S01","workers":2,"canary_then_full":true}
+payload={"mode":"render","workers":1}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -27,9 +27,9 @@ ffprobe -> ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments wi
 cjk_fonts=3
 stage=tools_ready
 == plan ==
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 763 visible narration characters (4.24/s)
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 664 visible narration characters (3.69/s)
 stage=build_ok
-validation mode: clips
+validation mode: render
 VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
 stage=validate_ok
 test_29_shots_cover_exactly_180_seconds (production.tests.test_leadmask1966.LeadMaskPlanTests.test_29_shots_cover_exactly_180_seconds) ... ok
@@ -45,7 +45,7 @@ RESTORE S03 from Agnes receipt
 RESTORE S02 from Agnes receipt
 ok
 test_narration_fills_every_shot_without_rushing (production.tests.test_leadmask1966.LeadMaskPlanTests.test_narration_fills_every_shot_without_rushing)
-解说要跟片段等长：每镜的字数按该镜时长配比，既不留大段空白，也不靠 1.5 倍速硬塞。 ... ok
+解说要跟片段等长：每镜的字数按该镜时长配比，既不留大段空白，也不靠加速硬塞。 ... ok
 test_reference_images_and_post_overlays_are_defined (production.tests.test_leadmask1966.LeadMaskPlanTests.test_reference_images_and_post_overlays_are_defined) ... ok
 test_rumor_shots_are_hand_drawn_and_labelled (production.tests.test_leadmask1966.LeadMaskPlanTests.test_rumor_shots_are_hand_drawn_and_labelled) ... ok
 test_shot_narration_matches_the_manifest_when_present (production.tests.test_leadmask1966.LeadMaskPlanTests.test_shot_narration_matches_the_manifest_when_present) ... ok
@@ -53,73 +53,7 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_lead
 test_validation_runs_without_voice_before_tts (production.tests.test_leadmask1966.LeadMaskPlanTests.test_validation_runs_without_voice_before_tts) ... ok
 
 ----------------------------------------------------------------------
-Ran 11 tests in 0.035s
+Ran 11 tests in 0.051s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 763 visible narration characters (4.24/s)
-PRODUCTION_STATUS Agnes generation started
-S01: reusing matching Agnes result
-PRODUCTION_STATUS S01 generated and decoded
-PRODUCTION_STATUS S01 canary passed; continuing full 29-shot production
-S02: reusing matching Agnes result
-S03: reusing matching Agnes result
-PRODUCTION_STATUS S03 generated and decoded
-PRODUCTION_STATUS S02 generated and decoded
-S04: reusing matching Agnes result
-S05: reusing matching Agnes result
-PRODUCTION_STATUS S05 generated and decoded
-PRODUCTION_STATUS S04 generated and decoded
-S06: reusing matching Agnes result
-S07: reusing matching Agnes result
-PRODUCTION_STATUS S07 generated and decoded
-PRODUCTION_STATUS S06 generated and decoded
-S08: reusing matching Agnes result
-S09: reusing matching Agnes result
-PRODUCTION_STATUS S09 generated and decoded
-PRODUCTION_STATUS S08 generated and decoded
-S10: reusing matching Agnes result
-S11: reusing matching Agnes result
-PRODUCTION_STATUS S10 generated and decoded
-PRODUCTION_STATUS S11 generated and decoded
-S12: reusing matching Agnes result
-S13: reusing matching Agnes result
-PRODUCTION_STATUS S13 generated and decoded
-PRODUCTION_STATUS S12 generated and decoded
-S14: reusing matching Agnes resultS15: reusing matching Agnes result
-
-PRODUCTION_STATUS S15 generated and decoded
-PRODUCTION_STATUS S14 generated and decoded
-S16: reusing matching Agnes resultS17: reusing matching Agnes result
-
-PRODUCTION_STATUS S16 generated and decoded
-PRODUCTION_STATUS S17 generated and decoded
-S18: reusing matching Agnes result
-S19: reusing matching Agnes result
-PRODUCTION_STATUS S18 generated and decoded
-PRODUCTION_STATUS S19 generated and decoded
-S20: reusing matching Agnes resultS21: reusing matching Agnes result
-
-PRODUCTION_STATUS S20 generated and decoded
-S22: reusing matching Agnes result
-PRODUCTION_STATUS S21 generated and decoded
-S23: reusing matching Agnes result
-PRODUCTION_STATUS S22 generated and decoded
-S24: reusing matching Agnes result
-PRODUCTION_STATUS S23 generated and decoded
-S25: reusing matching Agnes result
-PRODUCTION_STATUS S24 generated and decoded
-S26: reusing matching Agnes result
-PRODUCTION_STATUS S25 generated and decoded
-S27: reusing matching Agnes result
-PRODUCTION_STATUS S26 generated and decoded
-S28: reusing matching Agnes result
-PRODUCTION_STATUS S27 generated and decoded
-PRODUCTION_STATUS S28 generated and decoded
-S29: reusing matching Agnes result
-PRODUCTION_STATUS S29 generated and decoded
-PRODUCTION_STATUS all 29 Agnes clips ready; waiting for voice clips before rendering
-generator_exit=0
-stage=finished exit=0
