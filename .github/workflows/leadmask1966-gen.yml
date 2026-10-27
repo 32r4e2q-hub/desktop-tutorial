@@ -67,7 +67,10 @@ jobs:
           sudo apt-get install -y -qq ffmpeg fonts-noto-cjk python3-numpy python3-pil
 
       - name: Rebuild the single-source storyboard and per-shot narration manifest
-        run: python3 production/leadmask1966/build_story.py
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 production/leadmask1966/build_story.py
 
       - name: Validate the 180-second plan, prompts and (when present) voice clips
         run: |
@@ -89,11 +92,31 @@ jobs:
           PAYLOAD: ${{ env.PAYLOAD }}
         run: |
           set +e
+          echo "AGNES_API_KEY present: $([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
           timeout --signal=TERM --kill-after=30s 330m \
-            python3 -u production/leadmask1966/generate.py --publish --payload "$PAYLOAD"
-          code=$?
+            python3 -u production/leadmask1966/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
+          code=${PIPESTATUS[0]}
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit "$code"
+
+      - name: Ship failure diagnostics to the branch (sandbox cannot read Actions logs)
+        if: failure()
+        run: |
+          set -euo pipefail
+          {
+            echo "run=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} ref=${GITHUB_REF_NAME}"
+            echo "payload=${PAYLOAD:-}"
+            echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
+            echo "--- gen.log ---"
+            tail -c 120000 /tmp/gen.log 2>/dev/null || echo "no /tmp/gen.log"
+            echo "--- results.json head ---"
+            head -c 4000 production/leadmask1966/results.json 2>/dev/null || true
+          } > production/leadmask1966/gen-diag.log
+          git config user.name "arena-diag"
+          git config user.email "arena@local"
+          git add -f production/leadmask1966/gen-diag.log
+          git commit -m "leadmask1966: 生成失败诊断 $(date -u +%FT%TZ) [skip-leadmask1966]" || true
+          git push origin HEAD:arena/1cf9df35-desktop-tutorial || true
 
       - name: Dispatch an automatic continuation when the time budget expires
         if: always()
