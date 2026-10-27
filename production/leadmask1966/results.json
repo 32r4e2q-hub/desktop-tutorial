@@ -643,10 +643,15 @@
     "S22": {
       "id": "S22",
       "request_hash": "c72a84992dfa4e576f5c4148dfb44281ce212231a2d44d2d46f4a0c8a13931bf",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T09:41:18Z",
-      "error": null
+      "updated_at": "2026-10-27T09:41:19Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_kZOW5Nv785bbGNPI70TlcEnrDos4zfcA",
+      "task_id": "task_kZOW5Nv785bbGNPI70TlcEnrDos4zfcA",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S23": {
       "id": "S23",
@@ -711,7 +716,7 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T09:41:18Z",
+  "updated_at": "2026-10-27T09:41:19Z",
   "run_id": "40468702721",
   "previous_results": {}
 }
