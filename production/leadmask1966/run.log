@@ -1,0 +1,32 @@
+run=40492726750 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+event=push runner=GitHub Actions 1000002617 os=Linux arch=X64
+sha=dedc8deea18ea128bfa0a5ff95ac828b048007a2
+started 2026-10-27T11:00:05Z
+Python 3.14.4
+ffmpeg missing
+ffprobe missing
+payload={"mode":"render","workers":1}
+== tools ==
+ffmpeg=none ffprobe=none
+cjk_fonts_before=0
+numpy: MISSING
+PIL: MISSING
+yaml: ok
+av: MISSING
+installing ffmpeg via apt
+sudo: preserving the entire environment is not supported, '-E' is ignored
+sudo: preserving the entire environment is not supported, '-E' is ignored
+apt ffmpeg failed
+downloading CJK fonts
+font ok: NotoSansCJKsc-Regular.otf
+font ok: NotoSansCJKsc-Bold.otf
+font ok: NotoSerifCJKsc-Regular.otf
+cjk_fonts_after=3
+total 56628
+-rw-r--r-- 1 runner runner 17002248 Oct 27 11:04 NotoSansCJKsc-Bold.otf
+-rw-r--r-- 1 runner runner 16437364 Oct 27 11:04 NotoSansCJKsc-Regular.otf
+-rw-r--r-- 1 runner runner 24543080 Oct 27 11:04 NotoSerifCJKsc-Regular.otf
+ffmpeg still missing
+ffprobe still missing
+stage=tools_missing
+stage=finished exit=unknown
