@@ -1,44 +1,11 @@
-run=40489586526 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+run=40490129265 attempt=1 ref=arena/1cf9df35-desktop-tutorial
 payload={"only":"S22","workers":1,"mode":"clips"}
 agnes_key_present=no
-generator_exit=0
+generator_exit=unknown
 --- step.log ---
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
-VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
-test_29_shots_cover_exactly_180_seconds (production.tests.test_leadmask1966.LeadMaskPlanTests.test_29_shots_cover_exactly_180_seconds) ... ok
-test_every_prompt_gets_style_characters_and_negative (production.tests.test_leadmask1966.LeadMaskPlanTests.test_every_prompt_gets_style_characters_and_negative) ... ok
-test_finished_film_cover_and_subtitles_reach_the_delivery_folder (production.tests.test_leadmask1966.LeadMaskPlanTests.test_finished_film_cover_and_subtitles_reach_the_delivery_folder)
-成片不能只躺在被忽略的 work/ 里：交付约定是 交付/ 下的 mp4 + 封面 + 字幕。 ... ok
-test_fresh_runner_can_restore_footage_from_receipts (production.tests.test_leadmask1966.LeadMaskPlanTests.test_fresh_runner_can_restore_footage_from_receipts)
-出片任务跑在新 checkout 上：work/ 是空的，只能凭 results 里的收据重下并逐字节校验。 ... RESTORE S01 from Agnes receipt
-RESTORE S02 from Agnes receipt
-RESTORE S03 from Agnes receipt
-RESTORE S02 from Agnes receipt
-ok
-test_narration_pace_stays_inside_the_speedup_budget (production.tests.test_leadmask1966.LeadMaskPlanTests.test_narration_pace_stays_inside_the_speedup_budget) ... ok
-test_reference_images_and_post_overlays_are_defined (production.tests.test_leadmask1966.LeadMaskPlanTests.test_reference_images_and_post_overlays_are_defined) ... ok
-test_rumor_shots_are_hand_drawn_and_labelled (production.tests.test_leadmask1966.LeadMaskPlanTests.test_rumor_shots_are_hand_drawn_and_labelled) ... ok
-test_shot_narration_matches_the_manifest_when_present (production.tests.test_leadmask1966.LeadMaskPlanTests.test_shot_narration_matches_the_manifest_when_present) ... ok
-test_single_character_shots_reuse_the_character_seed (production.tests.test_leadmask1966.LeadMaskPlanTests.test_single_character_shots_reuse_the_character_seed) ... ok
-test_validation_runs_without_voice_before_tts (production.tests.test_leadmask1966.LeadMaskPlanTests.test_validation_runs_without_voice_before_tts) ... ok
-
-----------------------------------------------------------------------
-Ran 10 tests in 0.050s
-
-OK
+no /tmp/step.log
 --- gen.log (tail) ---
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
-PRODUCTION_STATUS Agnes generation started
-PRODUCTION_STATUS queued prompt-refresh shots: S22
-PRODUCTION_STATUS S22 submitting
-PRODUCTION_STATUS S22 waiting for Agnes create slot
-PRODUCTION_STATUS S22 queued
-[10:36:04] status=pending progress=0% (elapsed 0s)
-[10:36:55] status=in_progress progress=10% (elapsed 51s)
-[10:38:36] status=completed progress=100% (elapsed 152s)
-PRODUCTION_STATUS S22 Agnes task completed
-PRODUCTION_STATUS S22 generated and decoded
-PRODUCTION_STATUS selected Agnes sources ready
+no /tmp/gen.log
 --- results.json head ---
 {
   "project": "铅面具事件：山顶上的神秘字条",
