@@ -18,7 +18,7 @@ on:
       payload:
         description: 'JSON：{"mode":"clips","workers":2} / {"mode":"render"} / {"only":"S01"}'
         type: string
-        default: '{"mode":"clips","workers":2,"canary_then_full":true}'
+        default: '{"only":"S01","workers":2,"canary_then_full":true}'
 
 permissions:
   contents: write
@@ -68,7 +68,7 @@ jobs:
           elif [ -f production/leadmask1966/RENDER_REQUEST ]; then
             payload='{"mode":"render"}'
           else
-            payload='{"mode":"clips","workers":2,"canary_then_full":true}'
+            payload='{"only":"S01","workers":2,"canary_then_full":true}'
           fi
           echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
           echo "payload: $payload"
@@ -222,6 +222,8 @@ jobs:
 
       - name: Ship diagnostics to the branch (the sandbox cannot read Actions logs)
         if: always()
+        env:
+          GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
         run: |
           set -uo pipefail
           {
