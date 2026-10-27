@@ -3,7 +3,7 @@
   "model": "agnes-video-2.5-flash",
   "source_size": "720P",
   "branch": "arena/1cf9df35-desktop-tutorial",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "target_duration_seconds": 180,
   "format": {
     "width": 1920,
@@ -936,5 +936,31 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/leadmask1966/clips/铅面具事件_山顶上的神秘字条_三分钟_成片.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "cover": "work/leadmask1966/clips/铅面具事件_封面.jpg",
+    "delivered": {
+      "铅面具事件_山顶上的神秘字条_三分钟_带声音.mp4": {
+        "bytes": 59959425,
+        "sha256": "855d626f170134129d8f70f79fa92467bc558bee15cc4c2f7a27fff9d06a0f64"
+      },
+      "铅面具事件_封面.jpg": {
+        "bytes": 296203,
+        "sha256": "a4f62be73fde8aa07d0f37af910c18df0ec140be2eb4862ef4c154688ab1cf72"
+      },
+      "铅面具事件_字幕.srt": {
+        "bytes": 2856,
+        "sha256": "2548f99b9dfd49039253790657c76d122938d115fefbebe479c50e9394d330ac"
+      },
+      "铅面具事件_技术报告.json": {
+        "bytes": 35902,
+        "sha256": "95b464c4dafe766a1ee681e9f17781ccba2c5319d4d254d54e8364f3157e87e2"
+      }
+    }
   }
 }
