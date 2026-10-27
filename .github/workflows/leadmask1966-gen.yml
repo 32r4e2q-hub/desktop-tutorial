@@ -130,7 +130,7 @@ jobs:
       - name: Validate the 180-second plan for the requested mode
         run: |
           set -o pipefail
-          mode=$(python3 -c "import json,os;print(json.loads(os.environ.get('PAYLOAD') or '{}').get('mode','full'))")
+          mode=$(python3 -c "import json,os;d=json.loads(os.environ.get('PAYLOAD') or '{}');print(d.get('mode') or ('clips' if d.get('only') else 'full'))")
           echo "validation mode: $mode"
           if [ "$mode" = "render" ] || [ "$mode" = "full" ]; then
             python3 production/leadmask1966/generate.py --validate 2>&1 | tee -a /tmp/step.log

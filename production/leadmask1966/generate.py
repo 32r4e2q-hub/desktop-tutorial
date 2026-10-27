@@ -325,6 +325,9 @@ def main() -> int:
     project = read_json(PLAN, {})
     options = json.loads(args.payload or "{}")
     mode = str(options.get("mode") or "").strip()
+    if not mode and options.get("only"):
+        # 单镜/金丝雀试跑绝不进入出片阶段：配音还没齐也一样能先攒素材。
+        mode = "clips"
     if mode == "clips":
         args.clips_only = True
     elif mode == "render":
