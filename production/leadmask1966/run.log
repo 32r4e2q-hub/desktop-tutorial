@@ -54,3 +54,27 @@ Ran 10 tests in 0.038s
 
 OK
 stage=tests_ok
+agnes_key_present=yes
+== generator ==
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
+PRODUCTION_STATUS Agnes generation started
+PRODUCTION_STATUS queued prompt-refresh shots: S07,S08
+PRODUCTION_STATUS S07 submitting
+PRODUCTION_STATUS S08 submitting
+PRODUCTION_STATUS S07 waiting for Agnes create slot
+PRODUCTION_STATUS S08 waiting for Agnes create slot
+PRODUCTION_STATUS S07 queued
+[11:32:41] status=pending progress=0% (elapsed 0s)
+[11:33:07] status=in_progress progress=10% (elapsed 25s)
+PRODUCTION_STATUS S08 queued
+[11:33:43] status=pending progress=0% (elapsed 0s)
+[11:34:33] status=in_progress progress=10% (elapsed 50s)
+[11:35:39] status=completed progress=100% (elapsed 177s)
+PRODUCTION_STATUS S07 Agnes task completed
+PRODUCTION_STATUS S07 generated and decoded
+[11:36:40] status=completed progress=100% (elapsed 177s)
+PRODUCTION_STATUS S08 Agnes task completed
+PRODUCTION_STATUS S08 generated and decoded
+PRODUCTION_STATUS selected Agnes sources ready
+generator_exit=0
+stage=finished exit=0
