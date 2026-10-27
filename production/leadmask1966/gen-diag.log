@@ -1,7 +1,19 @@
-run=40467759841 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+run=40468126481 attempt=1 ref=arena/1cf9df35-desktop-tutorial
 payload={ "mode": "clips", "workers": 2, "canary_then_full": true }
 agnes_key_present=no
 generator_exit=unknown
+--- step.log ---
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/generate.py", line 679, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/generate.py", line 335, in main
+    validate(project, require_audio=(render_now or args.render_only))
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/generate.py", line 264, in validate
+    raise ValueError("Shot-locked narration text/file/timing mismatch: " + shot["id"])
+ValueError: Shot-locked narration text/file/timing mismatch: S11
 --- gen.log (tail) ---
 no /tmp/gen.log
 --- results.json head ---
