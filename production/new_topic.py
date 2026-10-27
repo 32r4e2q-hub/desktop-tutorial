@@ -301,7 +301,12 @@ def starter_manifest(story: dict) -> dict:
     return {
         "voice_id": "",
         "language": "zh-CN",
-        "selection": "TODO 用户试听后选定的音色（add_voice 的 voice_id）",
+        # 用户 2026-10 定稿：所有新片统一用低沉悬疑男声，复刻步骤见
+        # 《新题目开工手册》「固定音色：低沉悬疑男声」一节。
+        "voice_description": "低沉悬疑男声；叙事沉稳、气压低、句尾收得很轻",
+        "voice_reference_sample": "production/leadmask1966/audio/S01.mp3",
+        "measured_chars_per_second": "TODO 录一条 20–30 字测速后填写（金样实测 3.42–5.02，均值 4.11）",
+        "selection": "固定音色：add_voice(zh-CN, masculine, narration) 按金样试听，选最接近的那个填 voice_id",
         "clips": [
             {"id": chapter["id"], "file": f"{chapter['id']}.mp3", "sha256": "", "text": ""}
             for chapter in story["chapters"]
