@@ -81,31 +81,51 @@ jobs:
           echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
           echo "payload: $payload"
 
-      - name: Probe FFmpeg and Chinese fonts, downloading them instead of waiting on apt
-        timeout-minutes: 12
+      - name: Bootstrap the media toolchain (this runner image ships no ffmpeg and apt cannot install it)
+        timeout-minutes: 20
         run: |
           set -uo pipefail
           echo "== tools ==" >> "$RUN_LOG"
-          echo "ffmpeg=$(command -v ffmpeg || echo none) ffprobe=$(command -v ffprobe || echo none)" >> "$RUN_LOG"
-          echo "cjk_fonts_before=$(fc-list :lang=zh 2>/dev/null | wc -l)" >> "$RUN_LOG"
-          python3 - >> "$RUN_LOG" 2>&1 <<'PY' || echo "module probe failed" >> "$RUN_LOG"
+          echo "python=$(python3 --version 2>&1) ffmpeg=$(command -v ffmpeg || echo none) ffprobe=$(command -v ffprobe || echo none)" >> "$RUN_LOG"
+
+          echo "installing python media deps from PyPI" >> "$RUN_LOG"
+          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check \
+            --retries 3 --timeout 90 -q             numpy pillow pyyaml imageio-ffmpeg av >> "$RUN_LOG" 2>&1 \
+            || echo "pip install returned non-zero; continuing with whatever landed" >> "$RUN_LOG"
+
+          mkdir -p "$HOME/.local/bin" .cache/fonts
+          python3 - >> "$RUN_LOG" 2>&1 <<'PY' || echo "ffmpeg shim setup failed" >> "$RUN_LOG"
           import importlib.util
-          for name in ("numpy", "PIL", "yaml", "av"):
-              print(f"{name}: {'ok' if importlib.util.find_spec(name) else 'MISSING'}")
+          import os
+          import pathlib
+          import stat
+          import sys
+
+          bindir = pathlib.Path.home() / ".local" / "bin"
+          bindir.mkdir(parents=True, exist_ok=True)
+          if importlib.util.find_spec("imageio_ffmpeg"):
+              import imageio_ffmpeg
+              exe = pathlib.Path(imageio_ffmpeg.get_ffmpeg_exe())
+              link = bindir / "ffmpeg"
+              if link.exists() or link.is_symlink():
+                  link.unlink()
+              link.symlink_to(exe)
+              print(f"ffmpeg shim -> {exe}")
+          else:
+              print("imageio-ffmpeg unavailable; no ffmpeg shim created")
+          shim = pathlib.Path("production/leadmask1966/ffprobe_shim.py").resolve()
+          target = bindir / "ffprobe"
+          target.write_text("#!/bin/sh\nexec python3 " + str(shim) + " \"$@\"\n", encoding="utf-8")
+          target.chmod(target.stat().st_mode | stat.S_IEXEC)
+          print(f"ffprobe shim -> {shim}")
           PY
+          export PATH="$HOME/.local/bin:$PATH"
+          echo "PATH=$HOME/.local/bin added" >> "$RUN_LOG"
 
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            echo "installing ffmpeg via apt" >> "$RUN_LOG"
-            timeout 240 sudo -E apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=15 \
-              -o Acquire::https::Timeout=15 update -qq >> "$RUN_LOG" 2>&1 || echo "apt update failed" >> "$RUN_LOG"
-            timeout 240 sudo -E apt-get -y -qq --no-install-recommends install ffmpeg >> "$RUN_LOG" 2>&1 \
-              || echo "apt ffmpeg failed" >> "$RUN_LOG"
-          fi
-
-          mkdir -p "$HOME/.local/share/fonts" .cache/fonts
           if [ -z "$(fc-list :lang=zh 2>/dev/null | head -1)" ] && [ -z "$(ls -A .cache/fonts 2>/dev/null)" ]; then
             echo "downloading CJK fonts" >> "$RUN_LOG"
             base="https://raw.githubusercontent.com/notofonts/noto-cjk/main"
+            mkdir -p "$HOME/.local/share/fonts"
             for spec in \
               "Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf" \
               "Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Bold.otf" \
@@ -120,12 +140,26 @@ jobs:
             done
             fc-cache -f >/dev/null 2>&1 || true
           fi
-          echo "cjk_fonts_after=$(fc-list :lang=zh 2>/dev/null | wc -l)" >> "$RUN_LOG"
-          ls -l .cache/fonts >> "$RUN_LOG" 2>&1 || true
-          ffmpeg -version 2>/dev/null | head -1 >> "$RUN_LOG" || echo "ffmpeg still missing" >> "$RUN_LOG"
-          ffprobe -version 2>/dev/null | head -1 >> "$RUN_LOG" || echo "ffprobe still missing" >> "$RUN_LOG"
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            echo "::error::ffmpeg/ffprobe unavailable on this runner; refusing to continue."
+
+          python3 - >> "$RUN_LOG" 2>&1 <<'PY' || echo "font/env verification failed" >> "$RUN_LOG"
+          import importlib.util
+          import subprocess
+          import sys
+          for name in ("numpy", "PIL", "yaml", "av", "imageio_ffmpeg"):
+              print(f"{name}: {'ok' if importlib.util.find_spec(name) else 'MISSING'}")
+          for exe in ("ffmpeg", "ffprobe"):
+              try:
+                  out = subprocess.run([exe, "-version"], capture_output=True, text=True, timeout=60)
+                  print(exe, "->", (out.stdout or out.stderr).splitlines()[0][:90])
+              except Exception as error:
+                  print(exe, "FAILED:", error)
+          PY
+          echo "cjk_fonts=$(fc-list :lang=zh 2>/dev/null | wc -l)" >> "$RUN_LOG"
+          echo "HOME=$HOME" >> "$GITHUB_ENV"
+          echo "PATH=$HOME/.local/bin:$PATH" >> "$GITHUB_ENV"
+
+          if ! PATH="$HOME/.local/bin:$PATH" command -v ffmpeg >/dev/null; then
+            echo "::error::no usable ffmpeg on this runner"
             echo "stage=tools_missing" >> "$RUN_LOG"
             exit 1
           fi
