@@ -2,9 +2,9 @@ name: 铅面具事件 · Agnes 2.5 Flash 生成与三分钟成片
 run-name: ${{ github.event_name == 'push' && '铅面具事件 · Agnes Video 2.5 Flash 生成/出片' || '铅面具事件 · 手动生成或出片' }}
 
 # 触发方式（沙箱 token 没有 actions:write，gh workflow run 会 403，所以用 marker 文件）：
-#   production/leadmask1966/GEN_REQUEST     → 生成 29 条 Agnes 2.5 Flash 片段（默认先跑 S01 canary）
-#   production/leadmask1966/RENDER_REQUEST  → 只出片（旁白齐了以后用）
-# 每个阶段都会把 stage.log 写回分支：沙箱里读不到 Actions 日志，只能靠分支自述进度。
+#   production/leadmask1966/RENDER_REQUEST  → 只出片（旁白/素材齐了以后用，优先级最高）
+#   production/leadmask1966/GEN_REQUEST     → 生成片段（{"only":"S22"} 单镜 / {"mode":"clips"} 全量）
+# 所有日志都写进仓库目录（不是 /tmp）：沙箱读不到 Actions 日志，只能靠分支上的 run.log 自述。
 on:
   push:
     branches:
@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
     inputs:
       payload:
-        description: 'JSON：{"mode":"clips","workers":2} / {"mode":"render"} / {"only":"S01"}'
+        description: 'JSON：{"mode":"render"} / {"only":"S22"} / {"mode":"clips","workers":2}'
         type: string
         default: '{"only":"S01","workers":2,"canary_then_full":true}'
 
@@ -25,7 +25,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: leadmask1966-agnes-arena-1cf9df35-desktop-tutorial-v4
+  group: leadmask1966-agnes-arena-1cf9df35-desktop-tutorial-v5
   cancel-in-progress: false
 
 jobs:
@@ -38,6 +38,7 @@ jobs:
     env:
       DEBIAN_FRONTEND: noninteractive
       TARGET_BRANCH: arena/1cf9df35-desktop-tutorial
+      RUN_LOG: production/leadmask1966/run.log
     steps:
       - name: Check out the fixed Arena production branch
         uses: actions/checkout@v4
@@ -45,31 +46,38 @@ jobs:
           ref: arena/1cf9df35-desktop-tutorial
           fetch-depth: 1
 
-      - name: Mark stage (visible from the sandbox, where Actions logs are unreadable)
+      - name: Prepare the on-branch run log
         run: |
-          set -uo pipefail
-          git config user.name "arena-stage"
-          git config user.email "arena-stage@users.noreply.github.com"
-          printf '%s run=%s stage=checkout_ok\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" >> production/leadmask1966/stage.log
-          git add -f production/leadmask1966/stage.log
-          git commit -q -m "leadmask1966: stage checkout_ok [skip-leadmask1966]" || true
-          git pull --rebase -q origin "$TARGET_BRANCH" || true
-          git push -q origin "HEAD:$TARGET_BRANCH" || true
+          set -u
+          mkdir -p production/leadmask1966
+          : > "$RUN_LOG"
+          {
+            echo "run=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} ref=${GITHUB_REF_NAME}"
+            echo "event=${GITHUB_EVENT_NAME} runner=${RUNNER_NAME} os=${RUNNER_OS} arch=${RUNNER_ARCH}"
+            echo "sha=${GITHUB_SHA}"
+            date -u +"started %FT%TZ"
+            python3 --version 2>&1 || echo "python3 missing"
+            command -v ffmpeg || echo "ffmpeg missing"
+            command -v ffprobe || echo "ffprobe missing"
+          } >> "$RUN_LOG"
+          git config user.name "arena-autopilot"
+          git config user.email "arena-autopilot@users.noreply.github.com"
 
-      - name: Resolve the payload from inputs or a marker file
+      - name: Resolve the payload (render marker wins over a generation marker)
         env:
           PAYLOAD_INPUT: ${{ inputs.payload }}
         run: |
           set -euo pipefail
           if [ -n "${PAYLOAD_INPUT:-}" ]; then
             payload="$PAYLOAD_INPUT"
+          elif [ -f production/leadmask1966/RENDER_REQUEST ]; then
+            payload='{"mode":"render","workers":1}'
           elif [ -f production/leadmask1966/GEN_REQUEST ]; then
             payload="$(tr -d '\n' < production/leadmask1966/GEN_REQUEST)"
-          elif [ -f production/leadmask1966/RENDER_REQUEST ]; then
-            payload='{"mode":"render"}'
           else
             payload='{"only":"S01","workers":2,"canary_then_full":true}'
           fi
+          printf 'payload=%s\n' "$payload" >> "$RUN_LOG"
           echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
           echo "payload: $payload"
 
@@ -77,26 +85,26 @@ jobs:
         timeout-minutes: 12
         run: |
           set -uo pipefail
-          mark() { printf '%s run=%s stage=%s\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" "$1" >> production/leadmask1966/stage.log; }
-          mark tools_probe
-          echo "ffmpeg=$(command -v ffmpeg || echo none) ffprobe=$(command -v ffprobe || echo none)"
-          echo "cjk_fonts_before=$(fc-list :lang=zh 2>/dev/null | wc -l)"
-          python3 - <<'PY'
+          echo "== tools ==" >> "$RUN_LOG"
+          echo "ffmpeg=$(command -v ffmpeg || echo none) ffprobe=$(command -v ffprobe || echo none)" >> "$RUN_LOG"
+          echo "cjk_fonts_before=$(fc-list :lang=zh 2>/dev/null | wc -l)" >> "$RUN_LOG"
+          python3 - >> "$RUN_LOG" 2>&1 <<'PY' || echo "module probe failed" >> "$RUN_LOG"
           import importlib.util
           for name in ("numpy", "PIL", "yaml", "av"):
               print(f"{name}: {'ok' if importlib.util.find_spec(name) else 'MISSING'}")
           PY
 
           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            mark tools_apt_ffmpeg
-            timeout 300 sudo -E apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 \
-              -o Acquire::https::Timeout=20 update -qq || echo "apt update failed or timed out"
-            timeout 300 sudo -E apt-get -y -qq --no-install-recommends install ffmpeg || echo "apt ffmpeg failed"
+            echo "installing ffmpeg via apt" >> "$RUN_LOG"
+            timeout 240 sudo -E apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=15 \
+              -o Acquire::https::Timeout=15 update -qq >> "$RUN_LOG" 2>&1 || echo "apt update failed" >> "$RUN_LOG"
+            timeout 240 sudo -E apt-get -y -qq --no-install-recommends install ffmpeg >> "$RUN_LOG" 2>&1 \
+              || echo "apt ffmpeg failed" >> "$RUN_LOG"
           fi
 
           mkdir -p "$HOME/.local/share/fonts" .cache/fonts
           if [ -z "$(fc-list :lang=zh 2>/dev/null | head -1)" ] && [ -z "$(ls -A .cache/fonts 2>/dev/null)" ]; then
-            mark tools_font_download
+            echo "downloading CJK fonts" >> "$RUN_LOG"
             base="https://raw.githubusercontent.com/notofonts/noto-cjk/main"
             for spec in \
               "Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf" \
@@ -105,52 +113,46 @@ jobs:
               name="$(basename "$spec")"
               if timeout 180 curl -fsSL "$base/$spec" -o ".cache/fonts/$name"; then
                 cp ".cache/fonts/$name" "$HOME/.local/share/fonts/$name"
+                echo "font ok: $name" >> "$RUN_LOG"
               else
-                echo "font download failed: $name"
+                echo "font download failed: $name" >> "$RUN_LOG"
               fi
             done
             fc-cache -f >/dev/null 2>&1 || true
           fi
-          echo "cjk_fonts_after=$(fc-list :lang=zh 2>/dev/null | wc -l)"
-          ls -l .cache/fonts 2>/dev/null || true
-          ffmpeg -version 2>/dev/null | head -1 || echo "ffmpeg still missing"
-          ffprobe -version 2>/dev/null | head -1 || echo "ffprobe still missing"
+          echo "cjk_fonts_after=$(fc-list :lang=zh 2>/dev/null | wc -l)" >> "$RUN_LOG"
+          ls -l .cache/fonts >> "$RUN_LOG" 2>&1 || true
+          ffmpeg -version 2>/dev/null | head -1 >> "$RUN_LOG" || echo "ffmpeg still missing" >> "$RUN_LOG"
+          ffprobe -version 2>/dev/null | head -1 >> "$RUN_LOG" || echo "ffprobe still missing" >> "$RUN_LOG"
           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
             echo "::error::ffmpeg/ffprobe unavailable on this runner; refusing to continue."
+            echo "stage=tools_missing" >> "$RUN_LOG"
             exit 1
           fi
-          mark tools_ready
+          echo "stage=tools_ready" >> "$RUN_LOG"
 
-      - name: Rebuild the single-source storyboard and per-shot narration manifest
+      - name: Rebuild the storyboard, validate the plan and run the offline tests
         run: |
-          set -o pipefail
-          python3 --version
-          python3 production/leadmask1966/build_story.py 2>&1 | tee -a /tmp/step.log
-
-      - name: Validate the 180-second plan for the requested mode
-        run: |
-          set -o pipefail
+          echo "== plan ==" >> "$RUN_LOG"
+          python3 production/leadmask1966/build_story.py >> "$RUN_LOG" 2>&1 || { echo "stage=build_failed" >> "$RUN_LOG"; exit 1; }
+          echo "stage=build_ok" >> "$RUN_LOG"
           mode=$(python3 -c "import json,os;d=json.loads(os.environ.get('PAYLOAD') or '{}');print(d.get('mode') or ('clips' if d.get('only') else 'full'))")
-          echo "validation mode: $mode"
+          echo "validation mode: $mode" >> "$RUN_LOG"
           if [ "$mode" = "render" ] || [ "$mode" = "full" ]; then
-            python3 production/leadmask1966/generate.py --validate 2>&1 | tee -a /tmp/step.log
+            python3 production/leadmask1966/generate.py --validate >> "$RUN_LOG" 2>&1 || { echo "stage=validate_failed" >> "$RUN_LOG"; exit 1; }
           else
-            python3 production/leadmask1966/generate.py --validate --clips-only 2>&1 | tee -a /tmp/step.log
+            python3 production/leadmask1966/generate.py --validate --clips-only >> "$RUN_LOG" 2>&1 || { echo "stage=validate_failed" >> "$RUN_LOG"; exit 1; }
           fi
+          echo "stage=validate_ok" >> "$RUN_LOG"
+          python3 -m unittest production.tests.test_leadmask1966 -v >> "$RUN_LOG" 2>&1 || { echo "stage=tests_failed" >> "$RUN_LOG"; exit 1; }
+          echo "stage=tests_ok" >> "$RUN_LOG"
 
-      - name: Offline engine tests (prompt assembly, timeline, style variants)
-        run: |
-          set -o pipefail
-          python3 -m unittest production.tests.test_leadmask1966 -v 2>&1 | tee -a /tmp/step.log
-
-      - name: Commit the stage marker and the regenerated manifest
+      - name: Publish the plan checkpoint
         run: |
           set -uo pipefail
-          git config user.name "arena-stage"
-          git config user.email "arena-stage@users.noreply.github.com"
-          printf '%s run=%s stage=plan_validated\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" >> production/leadmask1966/stage.log
-          git add -f production/leadmask1966/stage.log production/leadmask1966/audio/manifest.json production/leadmask1966/story.json
-          git commit -q -m "leadmask1966: stage plan_validated [skip-leadmask1966]" || true
+          git add -f "$RUN_LOG" production/leadmask1966/stage.log 2>/dev/null || true
+          git add production/leadmask1966/audio/manifest.json production/leadmask1966/story.json 2>/dev/null || true
+          git commit -q -m "leadmask1966: run ${GITHUB_RUN_ID} plan checkpoint [skip-leadmask1966]" || true
           git pull --rebase -q origin "$TARGET_BRANCH" || true
           git push -q origin "HEAD:$TARGET_BRANCH" || true
 
@@ -163,11 +165,13 @@ jobs:
           PAYLOAD: ${{ env.PAYLOAD }}
         run: |
           set +e
-          echo "AGNES_API_KEY present: $([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
+          echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)" >> "$RUN_LOG"
+          echo "== generator ==" >> "$RUN_LOG"
           timeout --signal=TERM --kill-after=30s 285m \
-            python3 -u production/leadmask1966/generate.py --publish --payload "$PAYLOAD" 2>&1 | tee /tmp/gen.log
-          code=${PIPESTATUS[0]}
+            python3 -u production/leadmask1966/generate.py --publish --payload "$PAYLOAD" >> "$RUN_LOG" 2>&1
+          code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          echo "generator_exit=$code" >> "$RUN_LOG"
           exit "$code"
 
       - name: Dispatch an automatic continuation when the time budget expires
@@ -220,29 +224,17 @@ jobs:
               raise SystemExit(1)
           PY
 
-      - name: Ship diagnostics to the branch (the sandbox cannot read Actions logs)
+      - name: Ship the run log and results to the branch
         if: always()
         env:
           GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
         run: |
           set -uo pipefail
-          {
-            echo "run=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} ref=${GITHUB_REF_NAME}"
-            echo "payload=${PAYLOAD:-}"
-            echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
-            echo "generator_exit=${GENERATOR_EXIT_CODE:-unknown}"
-            echo "--- step.log ---"
-            tail -c 60000 /tmp/step.log 2>/dev/null || echo "no /tmp/step.log"
-            echo "--- gen.log (tail) ---"
-            tail -c 120000 /tmp/gen.log 2>/dev/null || echo "no /tmp/gen.log"
-            echo "--- results.json head ---"
-            head -c 6000 production/leadmask1966/results.json 2>/dev/null || true
-          } > production/leadmask1966/gen-diag.log
-          printf '%s run=%s stage=finished exit=%s\n' "$(date -u +%FT%TZ)" "${GITHUB_RUN_ID}" "${GENERATOR_EXIT_CODE:-?}" >> production/leadmask1966/stage.log
-          git config user.name "arena-diag"
-          git config user.email "arena-diag@users.noreply.github.com"
-          git add -f production/leadmask1966/gen-diag.log production/leadmask1966/stage.log
-          git commit -q -m "leadmask1966: 运行诊断 ${GITHUB_RUN_ID} [skip-leadmask1966]" || true
+          echo "stage=finished exit=${GENERATOR_EXIT_CODE:-unknown}" >> "$RUN_LOG"
+          git add -f "$RUN_LOG" production/leadmask1966/stage.log 2>/dev/null || true
+          git add -f production/leadmask1966/results.json 2>/dev/null || true
+          git add -A 交付 production/leadmask1966/qa 2>/dev/null || true
+          git commit -q -m "leadmask1966: run ${GITHUB_RUN_ID} log + delivery [skip-leadmask1966]" || true
           git pull --rebase -q origin "$TARGET_BRANCH" || true
           git push -q origin "HEAD:$TARGET_BRANCH" || true
 
@@ -255,7 +247,9 @@ jobs:
             work/leadmask1966/clips/
             work/leadmask1966/edit/delivery/
             work/leadmask1966/edit/*.srt
+            交付/
             production/leadmask1966/results.json
+            production/leadmask1966/run.log
             production/leadmask1966/qa/
           if-no-files-found: warn
           compression-level: 0
