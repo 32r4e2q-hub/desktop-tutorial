@@ -1,11 +1,11 @@
-run=40496440282 attempt=1 ref=arena/1cf9df35-desktop-tutorial
-event=push runner=GitHub Actions 1000002623 os=Linux arch=X64
-sha=83613bfde38ea26cb224f225ac5f593ec45d76f3
-started 2026-10-27T11:32:24Z
+run=40497497044 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+event=push runner=GitHub Actions 1000002624 os=Linux arch=X64
+sha=3567e3286f0f6a4e8bab52e9d9c8a370d6b89f39
+started 2026-10-27T11:37:52Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"only":"S07,S08","workers":2,"mode":"clips"}
+payload={"mode":"render","workers":1}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -29,7 +29,7 @@ stage=tools_ready
 == plan ==
 WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
 stage=build_ok
-validation mode: clips
+validation mode: render
 VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
 stage=validate_ok
 test_29_shots_cover_exactly_180_seconds (production.tests.test_leadmask1966.LeadMaskPlanTests.test_29_shots_cover_exactly_180_seconds) ... ok
@@ -50,31 +50,7 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_lead
 test_validation_runs_without_voice_before_tts (production.tests.test_leadmask1966.LeadMaskPlanTests.test_validation_runs_without_voice_before_tts) ... ok
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.038s
+Ran 10 tests in 0.043s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
-PRODUCTION_STATUS Agnes generation started
-PRODUCTION_STATUS queued prompt-refresh shots: S07,S08
-PRODUCTION_STATUS S07 submitting
-PRODUCTION_STATUS S08 submitting
-PRODUCTION_STATUS S07 waiting for Agnes create slot
-PRODUCTION_STATUS S08 waiting for Agnes create slot
-PRODUCTION_STATUS S07 queued
-[11:32:41] status=pending progress=0% (elapsed 0s)
-[11:33:07] status=in_progress progress=10% (elapsed 25s)
-PRODUCTION_STATUS S08 queued
-[11:33:43] status=pending progress=0% (elapsed 0s)
-[11:34:33] status=in_progress progress=10% (elapsed 50s)
-[11:35:39] status=completed progress=100% (elapsed 177s)
-PRODUCTION_STATUS S07 Agnes task completed
-PRODUCTION_STATUS S07 generated and decoded
-[11:36:40] status=completed progress=100% (elapsed 177s)
-PRODUCTION_STATUS S08 Agnes task completed
-PRODUCTION_STATUS S08 generated and decoded
-PRODUCTION_STATUS selected Agnes sources ready
-generator_exit=0
-stage=finished exit=0
