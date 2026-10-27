@@ -223,61 +223,17 @@
     },
     "S07": {
       "id": "S07",
-      "request_hash": "105ec34c5810159c28cb53d23b07c7b335ecf23dfb4d2842cbd468a40793fa4f",
-      "status": "completed",
+      "request_hash": "36308cfcba8d20aa520e91a8630fb75de28b3d162f9bc8efc98bc7cfbb1b0727",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T08:16:39Z",
-      "error": null,
-      "create_attempts": 1,
-      "video_id": "task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS",
-      "task_id": "task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS",
-      "requested_seconds": 7.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS.mp4",
-      "bytes": 1731643,
-      "sha256": "3c0cbf1cf59c19351900ba881258176cbb4889e343107a56850e4d69b5b23376",
-      "reported_size": "720P",
-      "reported_seconds": "7",
-      "inspection": {
-        "duration_seconds": 7.328,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1731643,
-        "decoded_ok": true,
-        "contact_sheet": "production/leadmask1966/qa/S07.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-10-27T11:32:36Z"
     },
     "S08": {
       "id": "S08",
-      "request_hash": "a4191714d6c9a872326913a6df5b25111c6b73dea1444f0f5282dfc8d95c4314",
-      "status": "completed",
+      "request_hash": "238e58e546e6e0ec80c78371ce7e22958714dcedfd6c8d1e4b44530a17f026f5",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T08:18:13Z",
-      "error": null,
-      "create_attempts": 1,
-      "video_id": "task_QwpnO1a8z8QC0bdu0fAKd72UzdiWiUdy",
-      "task_id": "task_QwpnO1a8z8QC0bdu0fAKd72UzdiWiUdy",
-      "requested_seconds": 7.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_QwpnO1a8z8QC0bdu0fAKd72UzdiWiUdy.mp4",
-      "bytes": 3344649,
-      "sha256": "9d3a59e62e67cf5251a35ef382bcdce5254530a3e0a1eab4ebdf311cf2f35e97",
-      "reported_size": "720P",
-      "reported_seconds": "7",
-      "inspection": {
-        "duration_seconds": 7.328,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 3344649,
-        "decoded_ok": true,
-        "contact_sheet": "production/leadmask1966/qa/S08.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-10-27T11:32:36Z"
     },
     "S09": {
       "id": "S09",
@@ -902,7 +858,7 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T11:32:35Z",
+  "updated_at": "2026-10-27T11:32:36Z",
   "run_id": "40496440282",
   "previous_results": {
     "S22": [
@@ -931,6 +887,68 @@
           "bytes": 1793536,
           "decoded_ok": true,
           "contact_sheet": "production/leadmask1966/qa/S22.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S07": [
+      {
+        "id": "S07",
+        "request_hash": "105ec34c5810159c28cb53d23b07c7b335ecf23dfb4d2842cbd468a40793fa4f",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-10-27T08:16:39Z",
+        "error": null,
+        "create_attempts": 1,
+        "video_id": "task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS",
+        "task_id": "task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS",
+        "requested_seconds": 7.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AenLZ8l5QMSwuWG8dEIrlBk9QJBQEMxS.mp4",
+        "bytes": 1731643,
+        "sha256": "3c0cbf1cf59c19351900ba881258176cbb4889e343107a56850e4d69b5b23376",
+        "reported_size": "720P",
+        "reported_seconds": "7",
+        "inspection": {
+          "duration_seconds": 7.328,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1731643,
+          "decoded_ok": true,
+          "contact_sheet": "production/leadmask1966/qa/S07.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S08": [
+      {
+        "id": "S08",
+        "request_hash": "a4191714d6c9a872326913a6df5b25111c6b73dea1444f0f5282dfc8d95c4314",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-10-27T08:18:13Z",
+        "error": null,
+        "create_attempts": 1,
+        "video_id": "task_QwpnO1a8z8QC0bdu0fAKd72UzdiWiUdy",
+        "task_id": "task_QwpnO1a8z8QC0bdu0fAKd72UzdiWiUdy",
+        "requested_seconds": 7.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_QwpnO1a8z8QC0bdu0fAKd72UzdiWiUdy.mp4",
+        "bytes": 3344649,
+        "sha256": "9d3a59e62e67cf5251a35ef382bcdce5254530a3e0a1eab4ebdf311cf2f35e97",
+        "reported_size": "720P",
+        "reported_seconds": "7",
+        "inspection": {
+          "duration_seconds": 7.328,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 3344649,
+          "decoded_ok": true,
+          "contact_sheet": "production/leadmask1966/qa/S08.jpg",
           "visual_review": "pending"
         },
         "visual_review": "pending"
