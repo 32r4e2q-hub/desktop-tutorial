@@ -3,7 +3,7 @@
   "model": "agnes-video-2.5-flash",
   "source_size": "720P",
   "branch": "arena/1cf9df35-desktop-tutorial",
-  "phase": "storyboard_voice_and_references_ready_pending_agnes",
+  "phase": "generating_sources",
   "target_duration_seconds": 180,
   "format": {
     "width": 1920,
@@ -13,7 +13,7 @@
     "source_size": "720P",
     "post_upscale": true
   },
-  "workflow_policy": "agnes-video-2.5-flash-720p-upscale-180s-29shots-shotlocked-voice",
+  "workflow_policy": "agnes-video-2.5-flash-720p-upscale-180s-29shots",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -49,6 +49,16 @@
   "review": {
     "status": "pending",
     "visual_review_required": true,
-    "note": "Agnes has not been called yet; references and decoded footage are not a human visual sign-off."
-  }
+    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+  },
+  "rate_policy": {
+    "minimum_creation_interval_seconds": 61,
+    "workers_max": 2,
+    "retry_after_respected": true,
+    "key_rotation": false,
+    "capacity_retry_interval_seconds": 61,
+    "capacity_retries_unbounded": true
+  },
+  "updated_at": "2026-10-27T07:43:01Z",
+  "run_id": "40468702721"
 }
