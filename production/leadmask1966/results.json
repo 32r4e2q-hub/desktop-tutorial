@@ -804,9 +804,9 @@
     "S27": {
       "id": "S27",
       "request_hash": "b7fadc759787a8e71a3cd8e863c80bfaf63a42343071938e867c3d7aaf8f7282",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T10:27:10Z",
+      "updated_at": "2026-10-27T10:27:11Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_3DrDcAG9PEEz3ncJU81T0Y0FUcKcz7s4",
@@ -817,7 +817,18 @@
       "bytes": 1391094,
       "sha256": "e4a8c3d5a0487e2126efe946eb17b2abc6ffb3b219d088b6f4f4d70f5e4143bd",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1391094,
+        "decoded_ok": true,
+        "contact_sheet": "production/leadmask1966/qa/S27.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S28": {
       "id": "S28",
@@ -853,7 +864,7 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T10:27:10Z",
+  "updated_at": "2026-10-27T10:27:11Z",
   "run_id": "40468702721",
   "previous_results": {}
 }
