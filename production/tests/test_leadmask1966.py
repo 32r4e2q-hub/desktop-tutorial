@@ -130,7 +130,8 @@ class LeadMaskPlanTests(unittest.TestCase):
             film = clips / "成片.mp4"
             film.write_bytes(b"film" * 1000)
             (clips / "铅面具事件_封面.jpg").write_bytes(b"cover" * 100)
-            (clips / "成片_字幕.srt").write_bytes(b"1\n00:00:00,000 --> 00:00:04,000\n字幕\n")
+            (clips / "成片_字幕.srt").write_text(
+                "1\n00:00:00,000 --> 00:00:04,000\n字幕\n", encoding="utf-8")
             (clips / "delivery" / "technical-report.json").write_text("{}", encoding="utf-8")
             original = self.gen.DELIVERY_DIR
             self.gen.DELIVERY_DIR = root / "交付"
