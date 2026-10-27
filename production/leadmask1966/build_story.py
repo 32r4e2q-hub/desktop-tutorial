@@ -253,10 +253,12 @@ SHOT_ROWS = [
      "slightly above. Camera: slow lateral macro glide across the bench, one continuous move. Real "
      "motion: swaying light, dust, a faint coil spring. No readable text."),
     ("S22", 130, 5, "横向滑动", [], "rumor",
-     "A red-orange glow fades from the sky into an ornate aged picture frame hanging in darkness: inside "
-     "the frame a childish hand-drawn flying saucer hovers above a hill, then a large red question mark "
-     "is painted across the glass. Camera: slow lateral slide; the glass catches a moving reflection as "
-     "the light dies. Clearly a hand-drawn rumor illustration, not a photograph. No readable letters."),
+     "Aged hand-drawn ink-and-watercolor illustration filling the whole frame edge to edge, drawn "
+     "directly on the paper with no inner picture frame, no painted border and no dark surround: a "
+     "childish flying saucer hovers above a bare hill under a red-orange glow, and one large red "
+     "question mark is brushed across the sky beside it. Camera: slow lateral slide while the glow "
+     "breathes and paper fibers drift. Every corner stays covered with drawing; never letterboxed. "
+     "Clearly a hand-drawn rumor illustration, not a photograph. No readable letters."),
     ("S23", 135, 7, "缓慢推近胶囊", [], "rumor",
      "A dim small room lit by a single candle: four blurred figures sit in a circle on the floor, faces "
      "indistinct, and on a low table a glass of water and three small white capsules catch the "

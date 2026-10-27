@@ -126,7 +126,7 @@
 | S19 | 01:50—01:57 | 7 | N06 | 低机位，仰拍天空 | fishermen | Night on a Brazilian beach near Niterói, 1966 |
 | S20 | 01:57—02:04 | 7 | N06 | 广角缓慢推近 | miguel、manuel | Night on a bare hilltop |
 | S21 | 02:04—02:10 | 6 | N06 | 横移特写 | — | Interior of a cluttered 1960s electronics workbench at night |
-| S22 | 02:10—02:15 | 5 | N06 | 横向滑动 | — | A red-orange glow fades from the sky into an ornate aged picture frame hanging in darkness |
+| S22 | 02:10—02:15 | 5 | N06 | 横向滑动 | — | Aged hand-drawn ink-and-watercolor illustration filling the whole frame edge to edge, drawn directly on the paper with n |
 | S23 | 02:15—02:22 | 7 | N07 | 缓慢推近胶囊 | — | A dim small room lit by a single candle |
 | S24 | 02:22—02:29 | 7 | N07 | 中景缓慢推近 | stranger、miguel、manuel | At a doorway, a stranger in a long coat and fedora, face completely lost in shadow, hands a folded map to two men in sui |
 | S25 | 02:29—02:35 | 6 | N07 | 横向滑动，依次擦除 | — | Three ornate aged frames hang side by side on a dark wall; each holds a subtly animated hand-drawn scene |
