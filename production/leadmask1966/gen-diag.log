@@ -1,31 +1,21 @@
-run=40468288017 attempt=1 ref=arena/1cf9df35-desktop-tutorial
-payload={ "mode": "clips", "workers": 2, "canary_then_full": true }
+run=40468478173 attempt=1 ref=arena/1cf9df35-desktop-tutorial
+payload={"only":"S01","workers":2,"canary_then_full":true}
 agnes_key_present=no
 generator_exit=unknown
 --- step.log ---
 WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/story.json — 29 shots, 180s, 537 visible narration characters (2.98/s)
-VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
-test_29_shots_cover_exactly_180_seconds (production.tests.test_leadmask1966.LeadMaskPlanTests.test_29_shots_cover_exactly_180_seconds) ... ok
-test_every_prompt_gets_style_characters_and_negative (production.tests.test_leadmask1966.LeadMaskPlanTests.test_every_prompt_gets_style_characters_and_negative) ... ok
-test_narration_pace_stays_inside_the_speedup_budget (production.tests.test_leadmask1966.LeadMaskPlanTests.test_narration_pace_stays_inside_the_speedup_budget) ... ok
-test_reference_images_and_post_overlays_are_defined (production.tests.test_leadmask1966.LeadMaskPlanTests.test_reference_images_and_post_overlays_are_defined) ... ok
-test_rumor_shots_are_hand_drawn_and_labelled (production.tests.test_leadmask1966.LeadMaskPlanTests.test_rumor_shots_are_hand_drawn_and_labelled) ... ok
-test_shot_narration_matches_the_manifest_when_present (production.tests.test_leadmask1966.LeadMaskPlanTests.test_shot_narration_matches_the_manifest_when_present) ... ok
-test_single_character_shots_reuse_the_character_seed (production.tests.test_leadmask1966.LeadMaskPlanTests.test_single_character_shots_reuse_the_character_seed) ... ok
-test_validation_runs_without_voice_before_tts (production.tests.test_leadmask1966.LeadMaskPlanTests.test_validation_runs_without_voice_before_tts) ... ok
-
-----------------------------------------------------------------------
-Ran 8 tests in 0.038s
-
-OK
---- gen.log (tail) ---
 Traceback (most recent call last):
   File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/generate.py", line 679, in <module>
     raise SystemExit(main())
                      ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/generate.py", line 383, in main
-    raise ValueError("canary_then_full requires only=S01")
-ValueError: canary_then_full requires only=S01
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/generate.py", line 335, in main
+    validate(project, require_audio=(render_now or args.render_only))
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/leadmask1966/generate.py", line 264, in validate
+    raise ValueError("Shot-locked narration text/file/timing mismatch: " + shot["id"])
+ValueError: Shot-locked narration text/file/timing mismatch: S11
+--- gen.log (tail) ---
+no /tmp/gen.log
 --- results.json head ---
 {
   "project": "铅面具事件：山顶上的神秘字条",
