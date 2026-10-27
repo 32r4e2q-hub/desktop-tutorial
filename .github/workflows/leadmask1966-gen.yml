@@ -123,21 +123,23 @@ jobs:
 
       - name: Rebuild the single-source storyboard and per-shot narration manifest
         run: |
-          set -euo pipefail
+          set -o pipefail
           python3 --version
-          python3 production/leadmask1966/build_story.py
+          python3 production/leadmask1966/build_story.py 2>&1 | tee -a /tmp/step.log
 
       - name: Validate the 180-second plan, prompts and (when present) voice clips
         run: |
-          set -euo pipefail
+          set -o pipefail
           if [ -f production/leadmask1966/audio/S01.mp3 ]; then
-            python3 production/leadmask1966/generate.py --validate
+            python3 production/leadmask1966/generate.py --validate 2>&1 | tee -a /tmp/step.log
           else
-            python3 production/leadmask1966/generate.py --validate --clips-only
+            python3 production/leadmask1966/generate.py --validate --clips-only 2>&1 | tee -a /tmp/step.log
           fi
 
       - name: Offline engine tests (prompt assembly, timeline, style variants)
-        run: python3 -m unittest production.tests.test_leadmask1966 -v
+        run: |
+          set -o pipefail
+          python3 -m unittest production.tests.test_leadmask1966 -v 2>&1 | tee -a /tmp/step.log
 
       - name: Commit the stage marker and the regenerated manifest
         run: |
@@ -225,6 +227,8 @@ jobs:
             echo "payload=${PAYLOAD:-}"
             echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)"
             echo "generator_exit=${GENERATOR_EXIT_CODE:-unknown}"
+            echo "--- step.log ---"
+            tail -c 60000 /tmp/step.log 2>/dev/null || echo "no /tmp/step.log"
             echo "--- gen.log (tail) ---"
             tail -c 120000 /tmp/gen.log 2>/dev/null || echo "no /tmp/gen.log"
             echo "--- results.json head ---"
