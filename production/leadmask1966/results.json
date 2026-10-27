@@ -295,10 +295,15 @@
     "S10": {
       "id": "S10",
       "request_hash": "c7b10d885a490b3dfc0a8cd156cdc4d5ea02b15c2a2b8543796fd2dd0f868bf6",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T08:18:14Z",
-      "error": null
+      "updated_at": "2026-10-27T08:18:16Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_oPz3MsQKtyrl4LUv17mypf142GqsBOQF",
+      "task_id": "task_oPz3MsQKtyrl4LUv17mypf142GqsBOQF",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S11": {
       "id": "S11",
@@ -447,7 +452,7 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T08:18:14Z",
+  "updated_at": "2026-10-27T08:18:16Z",
   "run_id": "40468702721",
   "previous_results": {}
 }
