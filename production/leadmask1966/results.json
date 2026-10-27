@@ -150,10 +150,15 @@
     "S05": {
       "id": "S05",
       "request_hash": "2148502ea10608328cf05deb462cbf1d5960936fdd0a9e2cee5a41695cfcdd84",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T07:59:33Z",
-      "error": null
+      "updated_at": "2026-10-27T07:59:34Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_B9BFFpgejaISBdlXmze1Pep1lSwenoA4",
+      "task_id": "task_B9BFFpgejaISBdlXmze1Pep1lSwenoA4",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S06": {
       "id": "S06",
@@ -337,7 +342,7 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T07:59:33Z",
+  "updated_at": "2026-10-27T07:59:34Z",
   "run_id": "40468702721",
   "previous_results": {}
 }
