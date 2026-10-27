@@ -807,13 +807,30 @@
     },
     "S37": {
       "id": "S37",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "9221e620d54a441c7f874df0ccdf0d2a858fb3ca67aea1b40a504029c8e7c846",
-      "error": "Error code: 429, with error text {\"error\":{\"code\":\"1305\",\"message\":\"该模型当前访问量过大，请您稍后再试\"}}",
-      "updated_at": "2026-10-27T07:31:23Z",
+      "error": null,
+      "updated_at": "2026-10-27T07:32:21Z",
       "task_id": "202610271531230f738f20787743e2",
       "retry_attempt": 13,
-      "retry_after_seconds": 80
+      "retry_after_seconds": 80,
+      "video_url": "https://maas-watermark-prod-new.cn-wlcb.ufileos.com/20261027153210e87533ea41924095_watermark.mp4?UCloudPublicKey=TOKEN_6df395df-5d8c-4f69-90f8-a4fe46088958&Signature=8HcnKjZbTG0CFC2oWHFS6EcjcLo%3D&Expires=1793172732",
+      "sha256": "071163b7b5f869e713add4c51716f240d2350e8936a4fc68db74ae57ceac9790",
+      "bytes": 1769873,
+      "media": {
+        "duration": 5.108108,
+        "bytes": 1769873,
+        "probe_backend": "pyav",
+        "width": 1792,
+        "height": 1024,
+        "fps": 37.0,
+        "frames": 189,
+        "video_codec": "h264",
+        "decoded_ok": true,
+        "contact_sheet": "production/gacy1978/qa/S37.jpg",
+        "contact_sampling_fps": 2,
+        "visual_review": "pending"
+      }
     },
     "S39": {
       "id": "S39",
@@ -1016,7 +1033,7 @@
     "S44",
     "S45"
   ],
-  "updated_at": "2026-10-27T07:31:23Z",
+  "updated_at": "2026-10-27T07:32:21Z",
   "previous_results": {
     "S01": [
       {
