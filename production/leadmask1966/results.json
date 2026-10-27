@@ -224,18 +224,24 @@
     "S07": {
       "id": "S07",
       "request_hash": "36308cfcba8d20aa520e91a8630fb75de28b3d162f9bc8efc98bc7cfbb1b0727",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T11:32:37Z",
-      "error": null
+      "updated_at": "2026-10-27T11:32:40Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_Pgc1X6E1sWEk05eGvfiCMVtrnIhNqFl9",
+      "task_id": "task_Pgc1X6E1sWEk05eGvfiCMVtrnIhNqFl9",
+      "requested_seconds": 7.0,
+      "requested_size": "720P"
     },
     "S08": {
       "id": "S08",
       "request_hash": "238e58e546e6e0ec80c78371ce7e22958714dcedfd6c8d1e4b44530a17f026f5",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-27T11:32:39Z",
-      "error": null
+      "updated_at": "2026-10-27T11:32:40Z",
+      "error": null,
+      "create_attempts": 1
     },
     "S09": {
       "id": "S09",
@@ -860,7 +866,7 @@
     "capacity_retry_interval_seconds": 61,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-10-27T11:32:39Z",
+  "updated_at": "2026-10-27T11:32:40Z",
   "run_id": "40496440282",
   "previous_results": {
     "S22": [
