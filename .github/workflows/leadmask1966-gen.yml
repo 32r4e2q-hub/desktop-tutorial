@@ -1,0 +1,161 @@
+name: 铅面具事件 · Agnes 2.5 Flash 生成与三分钟成片
+run-name: >-
+  ${{ github.event_name == 'push' && '铅面具事件 · Agnes Video 2.5 Flash 生成/出片' ||
+  '铅面具事件 · 手动生成或出片' }}
+
+# 触发方式（沙箱 token 没有 actions:write，gh workflow run 会 403，所以用 marker 文件）：
+#   production/leadmask1966/GEN_REQUEST     → 生成 29 条 Agnes 2.5 Flash 片段（默认先跑 S01 canary）
+#   production/leadmask1966/RENDER_REQUEST  → 只出片（旁白齐了以后用）
+# 两种请求都会把结果 commit 回分支：results.json / qa 接触表 / work 里的成片。
+on:
+  push:
+    branches:
+      - arena/1cf9df35-desktop-tutorial
+    paths:
+      - .github/workflows/leadmask1966-gen.yml
+      - production/leadmask1966/GEN_REQUEST
+      - production/leadmask1966/RENDER_REQUEST
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON：{"mode":"clips","workers":2} / {"mode":"render"} / {"only":"S01"}'
+        type: string
+        default: '{"mode":"clips","workers":2,"canary_then_full":true}'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: leadmask1966-agnes-arena-1cf9df35-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  produce:
+    if: >-
+      github.ref == 'refs/heads/arena/1cf9df35-desktop-tutorial' &&
+      !contains(github.event.head_commit.message, '[skip-leadmask1966]')
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 360
+    steps:
+      - name: Check out the fixed Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/1cf9df35-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Resolve the payload from inputs or a marker file
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then
+            payload="$PAYLOAD_INPUT"
+          elif [ -f production/leadmask1966/GEN_REQUEST ]; then
+            payload="$(tr -d '\n' < production/leadmask1966/GEN_REQUEST)"
+          elif [ -f production/leadmask1966/RENDER_REQUEST ]; then
+            payload='{"mode":"render"}'
+          else
+            payload='{"mode":"clips","workers":2,"canary_then_full":true}'
+          fi
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "payload: $payload"
+
+      - name: Install FFmpeg, Chinese fonts and render dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk python3-numpy python3-pil
+
+      - name: Rebuild the single-source storyboard and per-shot narration manifest
+        run: python3 production/leadmask1966/build_story.py
+
+      - name: Validate the 180-second plan, prompts and (when present) voice clips
+        run: |
+          set -euo pipefail
+          if [ -f production/leadmask1966/audio/S01.mp3 ]; then
+            python3 production/leadmask1966/generate.py --validate
+          else
+            python3 production/leadmask1966/generate.py --validate --clips-only
+          fi
+
+      - name: Offline engine tests (prompt assembly, timeline, style variants)
+        run: python3 -m unittest production.tests.test_leadmask1966 -v
+
+      - name: Generate with Agnes Video 2.5 Flash (62s gate) and/or render the 1080P cut
+        id: generate
+        continue-on-error: true
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: |
+          set +e
+          timeout --signal=TERM --kill-after=30s 330m \
+            python3 -u production/leadmask1966/generate.py --publish --payload "$PAYLOAD"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
+
+      - name: Dispatch an automatic continuation when the time budget expires
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+
+          try:
+              exit_code = int(os.environ.get("GENERATOR_EXIT_CODE", ""))
+          except ValueError:
+              raise SystemExit("Generator step did not publish an exit code; refusing an automatic retry.")
+          result = json.loads(Path("production/leadmask1966/results.json").read_text(encoding="utf-8"))
+          phase = result.get("phase")
+          if exit_code == 0:
+              print(f"Generator finished cleanly (phase={phase}).")
+              raise SystemExit(0)
+          if exit_code != 124:
+              raise SystemExit(f"Generator failed with exit code {exit_code}; not auto-dispatching.")
+          if str(result.get("run_id")) != os.environ.get("GITHUB_RUN_ID"):
+              raise SystemExit("Checkpoint belongs to a different run; refusing an automatic retry.")
+          if phase not in {"generating_sources", "rendering_first_cut"}:
+              raise SystemExit(f"Timed out in phase={phase!r}; not auto-dispatching.")
+          if any(row.get("status") in {"failed", "blocked"}
+                 for row in result.get("shots", {}).values()):
+              raise SystemExit("Fatal shot states prevent auto-dispatch.")
+          body = json.dumps({"ref": os.environ["GITHUB_REF_NAME"],
+                             "inputs": {"payload": '{"mode":"clips","workers":2}'}}).encode("utf-8")
+          request = urllib.request.Request(
+              f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}"
+              "/actions/workflows/leadmask1966-gen.yml/dispatches",
+              data=body, method="POST",
+              headers={"Accept": "application/vnd.github+json",
+                       "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                       "X-GitHub-Api-Version": "2022-11-28",
+                       "Content-Type": "application/json"})
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  print(f"Continuation dispatched (HTTP {response.status}); unfinished clips resume.")
+          except urllib.error.HTTPError as error:
+              print(f"Continuation dispatch failed (HTTP {error.code}): "
+                    f"{error.read().decode('utf-8', 'replace')[:800]}")
+              raise SystemExit(1)
+          PY
+
+      - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: leadmask1966-agnes-${{ github.run_number }}
+          path: |
+            work/leadmask1966/clips/
+            work/leadmask1966/edit/delivery/
+            work/leadmask1966/edit/*.srt
+            production/leadmask1966/results.json
+            production/leadmask1966/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
