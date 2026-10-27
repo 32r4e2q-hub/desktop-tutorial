@@ -14,10 +14,10 @@
 |---|---|---|
 | 角色与场景定稿参考图 | ✅ 6 张（风格化形象，非真实肖像） | `reference/01–06*.png` |
 | 分镜 / 事实边界 / 提示词 | ✅ 29 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json` |
-| 一镜一句旁白 | ✅ 29/29 已录（voice-00），每镜都无需加速、留足呼吸位 | `audio/manifest.json`、`audio/S01–S29.mp3` |
-| 离线自检 | ✅ `python3 -m pytest production/tests/test_leadmask1966.py -q`（8 passed） | `production/tests/` |
+| 一镜一句旁白 | ✅ 29/29 已录（**voice-01 低沉悬疑男声**，v2 全片重录）：664 字 / 实说 159.1 秒，逐镜覆盖 80–97%，全片 88.4% 有声 | `audio/manifest.json`、`audio/S01–S29.mp3` |
+| 离线自检 | ✅ `python3 -m unittest production.tests.test_leadmask1966 -q`（11 passed） | `production/tests/` |
 | Agnes 2.5 Flash 素材 | ✅ 29/29 已完成（720P 源片，全部通过解码与 sha256 校验）；S07/S08/S22 已按画面复原重生成 | `results.json`、`qa/*.jpg` |
-| 成片 / 封面 / 字幕 | ✅ 已出片并入 `交付/`：180.000 秒、5400 帧、1080p30、AAC 48kHz 立体声、57.5 MB | `交付/铅面具事件_*` |
+| 成片 / 封面 / 字幕 | ✅ v2 已出片并入 `交付/`：180.000 秒、5400 帧、1080p30、AAC 48kHz 立体声、57.7 MB（画面与 v1 完全一致，仅换新配音） | `交付/铅面具事件_*` |
 
 ## 怎么跑
 
@@ -45,7 +45,8 @@ python3 -m pytest production/tests/test_leadmask1966.py -q
 - **节流**：62 秒共享闸门、2 个 worker；「video queue is full」按 62 秒重试，直到被接受或被 job timeout 收口。
 - **断点续跑**：`results.json` 记 `video_url / task_id / sha256 / bytes / request_hash`，
   提示词或种子变了才算新请求；`work/` 不入库。
-- **旁白**：一镜一句（29 条），字幕 = 该镜旁白，时间 = 该镜内声音活动区间；只允许加速（≤1.55×），禁止慢放填时长。
+- **旁白**：一镜一句（29 条，`voice-01` 低沉悬疑男声），字幕 = 该镜旁白，时间 = 该镜内声音活动区间；
+  只允许加速（≤1.55×），禁止慢放填时长。语速实测 3.4–5.0 字/秒，按每镜时长配字数，7 镜有 1.01–1.15× 微加速。
 - **字幕**：白色黑边、底部安全区、关键词金色放大；`十六点三十 / 十八点三十 / 等待信号` 是高亮词。
 - **片尾**：S29 铅面具旋转，后期叠金色「铅面具事件」与「巴西 · 1966 · 至今未解」，最后一秒静音。
 - **封面**：左侧 S13 眼罩特写 + 右侧 S01 山顶红橙色光，金色「铅面具」加黑边。
