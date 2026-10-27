@@ -1,1 +1,3 @@
 2026-10-26 follow-up setup repair: cancel preparatory run 40274676220 and restart with shallow depth-1 checkout (8-minute limit) plus bundled FFmpeg (no apt/font downloads). Old run timings verified: checkout 40m33s and apt24m18s. Preserve 31 valid media receipts; same 7 missing requests, no force, no paid fallback, linear20+5 retry, auto-resume.
+
+2026-10-27 follow-up: round 40 ended at its safety cap with 37/38 SHA+decode-verified sources. Continue a fresh bounded cycle for S37 only; resume its already accepted provider task ID from results.json (do not submit a duplicate), preserve all 37 completed receipts, free CogVideoX-Flash only, no force/no paid fallback.
