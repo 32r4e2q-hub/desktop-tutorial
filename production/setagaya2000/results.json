@@ -106,9 +106,9 @@
     "S05": {
       "id": "S05",
       "request_hash": "6e4308e162f68098ba414729995aa713c8f262a30af03f4ae1fd5a0a7263b886",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-28T15:38:01Z",
+      "updated_at": "2026-10-28T15:38:03Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_1LkWF1odfgjQIkDg5T4Iz89vxBcLhiqJ",
@@ -119,7 +119,18 @@
       "bytes": 2392363,
       "sha256": "9cc2527fd410984b812f1ce05648dd905e0c8985d72c7ecece22a8fdb44d363d",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2392363,
+        "decoded_ok": true,
+        "contact_sheet": "production/setagaya2000/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S06": {
       "id": "S06",
@@ -337,7 +348,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-28T15:38:01Z",
+  "updated_at": "2026-10-28T15:38:03Z",
   "run_id": "40712958417",
   "previous_results": {}
 }
