@@ -202,6 +202,24 @@ def check_subtitles(srt: Path, story: dict) -> dict:
     }
 
 
+def export_fullres_stills(film: Path, story: dict, out_dir: Path) -> list[str]:
+    """One full-resolution still per shot, so AI pseudo-text can be checked at native pixels.
+
+    3x3 contact sheets are downscaled to 426 px tiles, where garbled on-screen lettering hides.
+    These JPEGs keep the full 1920x1080 detail and land in the repo for a human (or an agent)
+    to inspect shot by shot.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    produced = []
+    for shot in story["shots"]:
+        at = shot["start"] + min(1.6, shot["duration"] / 2)
+        target = out_dir / f"{shot['id']}.jpg"
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", f"{at:.3f}", "-i", str(film),
+                        "-frames:v", "1", "-q:v", "3", str(target)], check=True)
+        produced.append(str(target.relative_to(ROOT)))
+    return produced
+
+
 def make_contact_sheets(film: Path, story: dict, out_dir: Path) -> list[str]:
     out_dir.mkdir(parents=True, exist_ok=True)
     produced = []
@@ -302,6 +320,7 @@ def main() -> int:
             failures.append("cover is not 1920x1080")
 
     sheets = make_contact_sheets(film, story, HERE / "qa" / "sheets")
+    stills = export_fullres_stills(film, story, HERE / "qa" / "fullres")
 
     report = {
         "film": str(film.relative_to(ROOT)) if film.is_relative_to(ROOT) else str(film),
@@ -311,6 +330,7 @@ def main() -> int:
         "subtitles": subtitles,
         "cover": cover_info,
         "contact_sheets": sheets,
+        "fullres_stills": stills,
         "hard_gate_failures": failures,
         "human_review_still_required": [
             "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
@@ -337,6 +357,7 @@ def main() -> int:
         f"静音占比 {sound['silent_fraction'] * 100:.1f}% · 最后一秒 {sound['final_second_dbfs']} dBFS",
         f"- 字幕：{subtitles['cues']} 条（{len(subtitles['problems'])} 个问题）",
         f"- 封面：{cover_info.get('width')}×{cover_info.get('height')}",
+        f"- 原始像素抽帧：{len(stills)} 张（`qa/fullres/`，用于查 AI 伪文字与面部崩坏）",
         "",
         "## 硬闸门",
         "",
