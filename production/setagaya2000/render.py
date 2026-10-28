@@ -25,7 +25,9 @@ DURATION = 180
 TOTAL_FRAMES = FPS * DURATION
 
 # Abstract diagram shots occasionally come back letterboxed; only verified paired mattes are cropped.
-LETTERBOX_CHECK_SHOTS = {"S13", "S19", "S22", "S25", "S27"}
+# Abstract diagram shots and the dark studio display occasionally come back with embedded
+# mattes; only verified paired bands are cropped, full-frame footage is left untouched.
+LETTERBOX_CHECK_SHOTS = {"S13", "S19", "S22", "S24", "S25", "S27"}
 CARD_TEXT_MAX_WIDTH = 1660
 FADE_IN_SKIP = set()
 
