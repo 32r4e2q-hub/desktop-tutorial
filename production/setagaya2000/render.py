@@ -307,6 +307,9 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
         f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}世田谷一家四口杀人案",
         f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}日本 · 2000 · 至今未破",
         f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}真实案件改编 · 部分画面为3D复原",
+        # The closing prompt for discussion: a question only, never a claim about any person.
+        f"Dialogue: 2,{ass_time(177.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
+        + story["presentation"].get("end_question", ""),
         # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
         f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1798,58)\an9\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
     ]
@@ -323,6 +326,11 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     for i, cue in enumerate(cues, 1):
         body = "\n".join(split_caption(cue["text"]))
         rows.append(f"{i}\n{srt_clock(cue['start'])} --> {srt_clock(cue['end'])}\n{body}\n")
+    # The end-card question is on-screen text, not narration: it gets its own trailing cue so
+    # the delivered SRT matches what a viewer actually reads.
+    question = story["presentation"].get("end_question", "").strip()
+    if question:
+        rows.append(f"{len(cues) + 1}\n{srt_clock(177.15)} --> {srt_clock(179.45)}\n{question}\n")
     srt_path.write_text("\n".join(rows), encoding="utf-8")
 
 
@@ -550,6 +558,11 @@ def main() -> int:
         "source_model": MODEL,
         "source_resolution": SOURCE_SIZE,
         "final_resolution": "1920x1080 (upscaled in post)",
+        "style_consistency": "One STYLE block drives all 29 clips. Night exteriors read more "
+                             "photoreal while the family interiors read as painterly stylized 3D; the "
+                             "difference follows scene content rather than style drift. Faces drift "
+                             "slightly between shots because every clip is generated independently; "
+                             "single-character shots reuse a fixed per-character seed to limit it.",
         "all_29_generated_shots_verified_by_sha256": True,
         "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the "
                 "title, captions and end card are composited in post. The footage is an AI-produced "

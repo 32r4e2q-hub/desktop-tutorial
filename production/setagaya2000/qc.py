@@ -162,11 +162,18 @@ def parse_srt(path: Path) -> list[dict]:
 
 
 def check_subtitles(srt: Path, story: dict) -> dict:
-    cues = parse_srt(srt)
+    all_cues = parse_srt(srt)
     shots = {shot["id"]: shot for shot in story["shots"]}
+    # Cues after the last shot's narration belong to the end card (title + question), which is
+    # post-produced overlay text rather than shot-locked narration.
+    end_card = [cue for cue in all_cues if cue["start"] >= story["shots"][-1]["start"]
+                and cue["lines"] and cue["lines"][0] == story["presentation"].get("end_question", "")]
+    cues = [cue for cue in all_cues if cue not in end_card]
     problems = []
     if len(cues) != len(shots):
-        problems.append(f"expected {len(shots)} cues, found {len(cues)}")
+        problems.append(f"expected {len(shots)} shot-locked cues, found {len(cues)}")
+    if story["presentation"].get("end_question") and not end_card:
+        problems.append("the end-card question is missing from the SRT")
     overlaps = 0
     for position, (cue, shot) in enumerate(zip(cues, story["shots"])):
         if cue["index"] != position + 1:
@@ -187,6 +194,7 @@ def check_subtitles(srt: Path, story: dict) -> dict:
         problems.append(f"{overlaps} overlapping cues")
     return {
         "cues": len(cues),
+        "end_card_cues": len(end_card),
         "covers_all_shots": len(cues) == len(shots),
         # Two-line cues are split at punctuation, so the joined lines must equal the narration.
         "covers_all_lines": ["".join(cue["lines"]) for cue in cues] == [shot["narration"] for shot in story["shots"]],
