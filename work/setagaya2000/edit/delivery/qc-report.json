@@ -1,0 +1,149 @@
+{
+  "film": "交付/Setagaya_Case_Final.mp4",
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 65467992,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "picture": {
+    "sampled_frames": 720,
+    "sample_fps": 4.0,
+    "mean_luma_min": 6.84,
+    "mean_luma_max": 133.81,
+    "mean_luma_avg": 57.59,
+    "unexpected_black_samples": [],
+    "freeze_runs": [],
+    "flash_samples": [],
+    "motion_percentile_10": 2.097,
+    "motion_median": 9.463
+  },
+  "sound": {
+    "duration_seconds": 180.011,
+    "rms_dbfs": -20.97,
+    "peak_dbfs": -1.72,
+    "silent_seconds": 7,
+    "silent_fraction": 0.0387,
+    "final_second_dbfs": -120.0,
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0,
+        "rms_dbfs": -20.73,
+        "peak_dbfs": -2.05
+      },
+      {
+        "id": "N02",
+        "start": 10,
+        "rms_dbfs": -20.69,
+        "peak_dbfs": -1.85
+      },
+      {
+        "id": "N03",
+        "start": 31,
+        "rms_dbfs": -21.18,
+        "peak_dbfs": -2.27
+      },
+      {
+        "id": "N04",
+        "start": 51,
+        "rms_dbfs": -20.66,
+        "peak_dbfs": -1.95
+      },
+      {
+        "id": "N05",
+        "start": 72,
+        "rms_dbfs": -20.65,
+        "peak_dbfs": -2.71
+      },
+      {
+        "id": "N06",
+        "start": 93,
+        "rms_dbfs": -20.96,
+        "peak_dbfs": -2.71
+      },
+      {
+        "id": "N07",
+        "start": 114,
+        "rms_dbfs": -21.19,
+        "peak_dbfs": -2.13
+      },
+      {
+        "id": "N08",
+        "start": 135,
+        "rms_dbfs": -20.63,
+        "peak_dbfs": -2.1
+      },
+      {
+        "id": "N09",
+        "start": 156,
+        "rms_dbfs": -21.93,
+        "peak_dbfs": -1.72
+      }
+    ]
+  },
+  "subtitles": {
+    "cues": 29,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "cover": {
+    "exists": true,
+    "width": 1920,
+    "height": 1080,
+    "mode": "RGB",
+    "bytes": 1322793
+  },
+  "contact_sheets": [
+    "production/setagaya2000/qa/sheets/sheet-1.jpg",
+    "production/setagaya2000/qa/sheets/sheet-2.jpg",
+    "production/setagaya2000/qa/sheets/sheet-3.jpg",
+    "production/setagaya2000/qa/sheets/sheet-4.jpg"
+  ],
+  "fullres_stills": [
+    "production/setagaya2000/qa/fullres/S01.jpg",
+    "production/setagaya2000/qa/fullres/S02.jpg",
+    "production/setagaya2000/qa/fullres/S03.jpg",
+    "production/setagaya2000/qa/fullres/S04.jpg",
+    "production/setagaya2000/qa/fullres/S05.jpg",
+    "production/setagaya2000/qa/fullres/S06.jpg",
+    "production/setagaya2000/qa/fullres/S07.jpg",
+    "production/setagaya2000/qa/fullres/S08.jpg",
+    "production/setagaya2000/qa/fullres/S09.jpg",
+    "production/setagaya2000/qa/fullres/S10.jpg",
+    "production/setagaya2000/qa/fullres/S11.jpg",
+    "production/setagaya2000/qa/fullres/S12.jpg",
+    "production/setagaya2000/qa/fullres/S13.jpg",
+    "production/setagaya2000/qa/fullres/S14.jpg",
+    "production/setagaya2000/qa/fullres/S15.jpg",
+    "production/setagaya2000/qa/fullres/S16.jpg",
+    "production/setagaya2000/qa/fullres/S17.jpg",
+    "production/setagaya2000/qa/fullres/S18.jpg",
+    "production/setagaya2000/qa/fullres/S19.jpg",
+    "production/setagaya2000/qa/fullres/S20.jpg",
+    "production/setagaya2000/qa/fullres/S21.jpg",
+    "production/setagaya2000/qa/fullres/S22.jpg",
+    "production/setagaya2000/qa/fullres/S23.jpg",
+    "production/setagaya2000/qa/fullres/S24.jpg",
+    "production/setagaya2000/qa/fullres/S25.jpg",
+    "production/setagaya2000/qa/fullres/S26.jpg",
+    "production/setagaya2000/qa/fullres/S27.jpg",
+    "production/setagaya2000/qa/fullres/S28.jpg",
+    "production/setagaya2000/qa/fullres/S29.jpg"
+  ],
+  "hard_gate_failures": [],
+  "human_review_still_required": [
+    "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
+    "确认没有遗体、伤口、血腥、可读乱码文字与人物面部崩坏",
+    "确认字幕没有遮挡人物面部与关键物证",
+    "确认人物、服装、住宅在三分钟里保持一致"
+  ]
+}
