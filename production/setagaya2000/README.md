@@ -17,9 +17,16 @@
 | 离线自检 | ✅ `python3 -m unittest production.tests.test_setagaya2000 -q`（12 项） | `production/tests/` |
 | Agnes 2.5 Flash 素材 | ✅ 29/29 completed，全部 1280×720 源片 | `results.json`、`qa/*.jpg` |
 | 成片 / 封面 / 字幕 | ✅ 1920×1080 · 24fps · 180.0s · 4320 帧 · h264+aac 48k | `交付/Setagaya_Case_Final.mp4` 等 | 
-| 成片质检（硬闸门） | ✅ `QC PASS`，`hard_gate_failures: []` | `qa/qc-summary.md`、`qa/qc-report.json` |
+| 成片质检（硬闸门） | ✅ `QC PASS`，`hard_gate_failures: []`（平均亮度 57.67 · 非预期黑帧 0 · 冻结 0 · 闪烁 0 · RMS −21.04 dBFS · 峰值 −1.66 · 末秒 −120 dBFS） | `qa/qc-summary.md`、`qa/qc-report.json` |
 | 原始像素抽帧复核 | ✅ 29 张 1920×1080 原生帧 + 逐批 contact sheet（查 AI 伪文字 / 面部崩坏 / 字幕遮挡） | `qa/fullres/S01–S29.jpg`、`qa/sheets/` |
 | 逐镜提示词与生成记录 | ✅ 29/29 已完成 | `镜头提示词与生成记录.md`、`qa/生成记录.csv` |
+
+## 交付清单
+
+- `交付/Setagaya_Case_Final.mp4` — 65.4 MB · SHA-256 `976500f1103110808f204f2bdd7c94569d9c8dcf5aa9ec8833d71f43c50f683a`（与 `世田谷一家四口杀人案_留下无数线索的悬案_三分钟_带声音.mp4` 同一份字节）
+- `交付/Setagaya_Cover.png` — 1920×1080 封面
+- `交付/Setagaya_Subtitles.srt` — 30 条（29 条逐镜旁白 + 1 条片尾提问）
+- `交付/世田谷一家四口杀人案_技术报告.json` — 规格、混音实测、风格一致性说明
 
 ## 怎么跑
 
