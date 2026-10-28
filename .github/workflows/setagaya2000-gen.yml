@@ -1,0 +1,309 @@
+name: 世田谷一家四口 · Agnes 2.5 Flash 生成与三分钟成片
+run-name: ${{ github.event_name == 'push' && '世田谷一家四口 · Agnes Video 2.5 Flash 生成/出片' || '世田谷一家四口 · 手动生成或出片' }}
+
+# 触发方式（沙箱 token 没有 actions:write，gh workflow run 会 403，所以用 marker 文件）：
+#   production/setagaya2000/RENDER_REQUEST  → 只出片（旁白/素材齐了以后用，优先级最高）
+#   production/setagaya2000/GEN_REQUEST     → 生成片段（{"only":"S22"} 单镜 / {"mode":"clips"} 全量）
+#   production/setagaya2000/QC_REQUEST      → 只跑成片质检（容器 / 冻结 / 黑帧 / 字幕 / 音频）
+# 所有日志都写进仓库目录（不是 /tmp）：沙箱读不到 Actions 日志，只能靠分支上的 run.log 自述。
+on:
+  push:
+    branches:
+      - arena/fed820f6-desktop-tutorial
+    paths:
+      - .github/workflows/setagaya2000-gen.yml
+      - production/setagaya2000/GEN_REQUEST
+      - production/setagaya2000/RENDER_REQUEST
+      - production/setagaya2000/QC_REQUEST
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON：{"mode":"render"} / {"only":"S22"} / {"mode":"clips","workers":2}'
+        type: string
+        default: '{"only":"S01","workers":2,"canary_then_full":true}'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: setagaya2000-agnes-arena-fed820f6-desktop-tutorial-v1
+  cancel-in-progress: false
+
+env:
+  TARGET_BRANCH: arena/fed820f6-desktop-tutorial
+  RUN_LOG: production/setagaya2000/run.log
+
+jobs:
+  produce:
+    if: >-
+      github.ref == 'refs/heads/arena/fed820f6-desktop-tutorial' &&
+      !contains(github.event.head_commit.message, '[skip-setagaya2000]')
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 340
+    env:
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Check out the fixed Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/fed820f6-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Prepare the on-branch run log
+        run: |
+          set -u
+          mkdir -p production/setagaya2000
+          : > "$RUN_LOG"
+          {
+            echo "run=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} ref=${GITHUB_REF_NAME}"
+            echo "event=${GITHUB_EVENT_NAME} runner=${RUNNER_NAME} os=${RUNNER_OS} arch=${RUNNER_ARCH}"
+            echo "sha=${GITHUB_SHA}"
+            date -u +"started %FT%TZ"
+            python3 --version 2>&1 || echo "python3 missing"
+            command -v ffmpeg || echo "ffmpeg missing"
+            command -v ffprobe || echo "ffprobe missing"
+          } >> "$RUN_LOG"
+          git config user.name "arena-autopilot"
+          git config user.email "arena-autopilot@users.noreply.github.com"
+
+      - name: Resolve the payload (QC wins over render, render wins over generation)
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then
+            payload="$PAYLOAD_INPUT"
+          elif [ -f production/setagaya2000/QC_REQUEST ]; then
+            payload='{"mode":"qc"}'
+          elif [ -f production/setagaya2000/RENDER_REQUEST ]; then
+            payload='{"mode":"render","workers":1}'
+          elif [ -f production/setagaya2000/GEN_REQUEST ]; then
+            payload="$(tr -d '\n' < production/setagaya2000/GEN_REQUEST)"
+          else
+            payload='{"only":"S01","workers":2,"canary_then_full":true}'
+          fi
+          printf 'payload=%s\n' "$payload" >> "$RUN_LOG"
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+          echo "payload: $payload"
+
+      - name: Bootstrap the media toolchain (this runner image ships no ffmpeg and apt cannot install it)
+        timeout-minutes: 20
+        run: |
+          set -uo pipefail
+          echo "== tools ==" >> "$RUN_LOG"
+          echo "python=$(python3 --version 2>&1) ffmpeg=$(command -v ffmpeg || echo none) ffprobe=$(command -v ffprobe || echo none)" >> "$RUN_LOG"
+
+          echo "installing python media deps from PyPI" >> "$RUN_LOG"
+          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check \
+            --retries 3 --timeout 90 -q             numpy pillow pyyaml imageio-ffmpeg av >> "$RUN_LOG" 2>&1 \
+            || echo "pip install returned non-zero; continuing with whatever landed" >> "$RUN_LOG"
+
+          mkdir -p "$HOME/.local/bin" .cache/fonts
+          python3 - >> "$RUN_LOG" 2>&1 <<'PY' || echo "ffmpeg shim setup failed" >> "$RUN_LOG"
+          import importlib.util
+          import pathlib
+          import stat
+
+          bindir = pathlib.Path.home() / ".local" / "bin"
+          bindir.mkdir(parents=True, exist_ok=True)
+          if importlib.util.find_spec("imageio_ffmpeg"):
+              import imageio_ffmpeg
+              exe = pathlib.Path(imageio_ffmpeg.get_ffmpeg_exe())
+              link = bindir / "ffmpeg"
+              if link.exists() or link.is_symlink():
+                  link.unlink()
+              link.symlink_to(exe)
+              print(f"ffmpeg shim -> {exe}")
+          else:
+              print("imageio-ffmpeg unavailable; no ffmpeg shim created")
+          shim = pathlib.Path("production/setagaya2000/ffprobe_shim.py").resolve()
+          target = bindir / "ffprobe"
+          target.write_text("#!/bin/sh\nexec python3 " + str(shim) + " \"$@\"\n", encoding="utf-8")
+          target.chmod(target.stat().st_mode | stat.S_IEXEC)
+          print(f"ffprobe shim -> {shim}")
+          PY
+          export PATH="$HOME/.local/bin:$PATH"
+          echo "PATH=$HOME/.local/bin added" >> "$RUN_LOG"
+
+          if [ -z "$(fc-list :lang=zh 2>/dev/null | head -1)" ] && [ -z "$(ls -A .cache/fonts 2>/dev/null)" ]; then
+            echo "downloading CJK fonts" >> "$RUN_LOG"
+            base="https://raw.githubusercontent.com/notofonts/noto-cjk/main"
+            mkdir -p "$HOME/.local/share/fonts"
+            for spec in \
+              "Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf" \
+              "Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Bold.otf" \
+              "Serif/OTF/SimplifiedChinese/NotoSerifCJKsc-Regular.otf"; do
+              name="$(basename "$spec")"
+              if timeout 180 curl -fsSL "$base/$spec" -o ".cache/fonts/$name"; then
+                cp ".cache/fonts/$name" "$HOME/.local/share/fonts/$name"
+                echo "font ok: $name" >> "$RUN_LOG"
+              else
+                echo "font download failed: $name" >> "$RUN_LOG"
+              fi
+            done
+            fc-cache -f >/dev/null 2>&1 || true
+          fi
+
+          python3 - >> "$RUN_LOG" 2>&1 <<'PY' || echo "font/env verification failed" >> "$RUN_LOG"
+          import importlib.util
+          import subprocess
+          for name in ("numpy", "PIL", "yaml", "av", "imageio_ffmpeg"):
+              print(f"{name}: {'ok' if importlib.util.find_spec(name) else 'MISSING'}")
+          for exe in ("ffmpeg", "ffprobe"):
+              try:
+                  out = subprocess.run([exe, "-version"], capture_output=True, text=True, timeout=60)
+                  print(exe, "->", (out.stdout or out.stderr).splitlines()[0][:90])
+              except Exception as error:
+                  print(exe, "FAILED:", error)
+          PY
+          echo "cjk_fonts=$(fc-list :lang=zh 2>/dev/null | wc -l)" >> "$RUN_LOG"
+          echo "HOME=$HOME" >> "$GITHUB_ENV"
+          echo "PATH=$HOME/.local/bin:$PATH" >> "$GITHUB_ENV"
+
+          if ! PATH="$HOME/.local/bin:$PATH" command -v ffmpeg >/dev/null; then
+            echo "::error::no usable ffmpeg on this runner"
+            echo "stage=tools_missing" >> "$RUN_LOG"
+            exit 1
+          fi
+          echo "stage=tools_ready" >> "$RUN_LOG"
+
+      - name: Rebuild the storyboard, validate the plan and run the offline tests
+        run: |
+          set -uo pipefail
+          echo "== plan ==" >> "$RUN_LOG"
+          python3 production/setagaya2000/build_story.py >> "$RUN_LOG" 2>&1 || { echo "stage=build_failed" >> "$RUN_LOG"; exit 1; }
+          echo "stage=build_ok" >> "$RUN_LOG"
+          mode=$(python3 -c "import json,os;d=json.loads(os.environ.get('PAYLOAD') or '{}');print(d.get('mode') or ('clips' if d.get('only') else 'full'))")
+          echo "validation mode: $mode" >> "$RUN_LOG"
+          if [ "$mode" = "render" ] || [ "$mode" = "full" ] || [ "$mode" = "qc" ]; then
+            python3 production/setagaya2000/generate.py --validate >> "$RUN_LOG" 2>&1 || { echo "stage=validate_failed" >> "$RUN_LOG"; exit 1; }
+          else
+            python3 production/setagaya2000/generate.py --validate --clips-only >> "$RUN_LOG" 2>&1 || { echo "stage=validate_failed" >> "$RUN_LOG"; exit 1; }
+          fi
+          echo "stage=validate_ok" >> "$RUN_LOG"
+          python3 -m unittest production.tests.test_setagaya2000 -v >> "$RUN_LOG" 2>&1 || { echo "stage=tests_failed" >> "$RUN_LOG"; exit 1; }
+          echo "stage=tests_ok" >> "$RUN_LOG"
+
+      - name: Publish the plan checkpoint
+        run: |
+          set -uo pipefail
+          git add -f "$RUN_LOG" production/setagaya2000/stage.log 2>/dev/null || true
+          git add production/setagaya2000/audio/manifest.json production/setagaya2000/story.json 2>/dev/null || true
+          git commit -q -m "setagaya2000: run ${GITHUB_RUN_ID} plan checkpoint [skip-setagaya2000]" || true
+          git pull --rebase -q origin "$TARGET_BRANCH" || true
+          git push -q origin "HEAD:$TARGET_BRANCH" || true
+
+      - name: Generate with Agnes Video 2.5 Flash (62s gate) and/or render the 1080P cut
+        id: generate
+        continue-on-error: true
+        timeout-minutes: 300
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: |
+          set +e
+          echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)" >> "$RUN_LOG"
+          echo "== generator ==" >> "$RUN_LOG"
+          timeout --signal=TERM --kill-after=30s 285m \
+            python3 -u production/setagaya2000/generate.py --publish --payload "$PAYLOAD" >> "$RUN_LOG" 2>&1
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          echo "generator_exit=$code" >> "$RUN_LOG"
+          exit "$code"
+
+      - name: Run the picture and sound QC on the delivered film
+        if: always()
+        id: qc
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          set +e
+          if [ -f "交付/Setagaya_Case_Final.mp4" ]; then
+            echo "== qc ==" >> "$RUN_LOG"
+            python3 -u production/setagaya2000/qc.py >> "$RUN_LOG" 2>&1
+            echo "qc_exit=$?" >> "$RUN_LOG"
+          else
+            echo "no delivered film yet; QC skipped" >> "$RUN_LOG"
+          fi
+
+      - name: Dispatch an automatic continuation when the time budget expires
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+
+          try:
+              exit_code = int(os.environ.get("GENERATOR_EXIT_CODE", ""))
+          except ValueError:
+              raise SystemExit("Generator step did not publish an exit code; refusing an automatic retry.")
+          result = json.loads(Path("production/setagaya2000/results.json").read_text(encoding="utf-8"))
+          phase = result.get("phase")
+          if exit_code == 0:
+              print(f"Generator finished cleanly (phase={phase}).")
+              raise SystemExit(0)
+          if exit_code != 124:
+              raise SystemExit(f"Generator failed with exit code {exit_code}; not auto-dispatching.")
+          if str(result.get("run_id")) != os.environ.get("GITHUB_RUN_ID"):
+              raise SystemExit("Checkpoint belongs to a different run; refusing an automatic retry.")
+          if phase not in {"generating_sources", "rendering_first_cut"}:
+              raise SystemExit(f"Timed out in phase={phase!r}; not auto-dispatching.")
+          if any(row.get("status") in {"failed", "blocked"} for row in result.get("shots", {}).values()):
+              raise SystemExit("Fatal shot states prevent auto-dispatch.")
+          body = json.dumps({"ref": os.environ["GITHUB_REF_NAME"],
+                             "inputs": {"payload": '{"mode":"clips","workers":2}'}}).encode("utf-8")
+          request = urllib.request.Request(
+              f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}"
+              "/actions/workflows/setagaya2000-gen.yml/dispatches",
+              data=body, method="POST",
+              headers={"Accept": "application/vnd.github+json",
+                       "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                       "X-GitHub-Api-Version": "2022-11-28",
+                       "Content-Type": "application/json"})
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  print(f"Continuation dispatched (HTTP {response.status}); unfinished clips resume.")
+          except urllib.error.HTTPError as error:
+              print(f"Continuation dispatch failed (HTTP {error.code}): "
+                    f"{error.read().decode('utf-8', 'replace')[:800]}")
+              raise SystemExit(1)
+          PY
+
+      - name: Ship the run log, results and delivery to the branch
+        if: always()
+        env:
+          GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
+        run: |
+          set -uo pipefail
+          echo "stage=finished exit=${GENERATOR_EXIT_CODE:-unknown}" >> "$RUN_LOG"
+          git add -f "$RUN_LOG" production/setagaya2000/stage.log 2>/dev/null || true
+          git add -f production/setagaya2000/results.json 2>/dev/null || true
+          git add -A 交付 production/setagaya2000/qa 2>/dev/null || true
+          git add -f work/setagaya2000/edit/delivery 2>/dev/null || true
+          git commit -q -m "setagaya2000: run ${GITHUB_RUN_ID} log + delivery [skip-setagaya2000]" || true
+          git pull --rebase -q origin "$TARGET_BRANCH" || true
+          git push -q origin "HEAD:$TARGET_BRANCH" || true
+
+      - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: setagaya2000-agnes-${{ github.run_number }}
+          path: |
+            work/setagaya2000/clips/
+            work/setagaya2000/edit/delivery/
+            work/setagaya2000/edit/*.srt
+            交付/
+            production/setagaya2000/results.json
+            production/setagaya2000/run.log
+            production/setagaya2000/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
