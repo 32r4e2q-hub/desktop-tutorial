@@ -68,7 +68,7 @@ def dbfs(value: float) -> float:
     return -120.0 if value <= 1e-12 else round(20.0 * float(np.log10(value)), 2)
 
 
-def analyse_picture(frames: np.ndarray, fps: float) -> dict:
+def analyse_picture(frames: np.ndarray, fps: float, shots: list[dict]) -> dict:
     means = frames.reshape(len(frames), -1).mean(axis=1)
     diffs = np.abs(np.diff(frames.astype(np.int16), axis=0)).reshape(max(1, len(frames) - 1), -1).mean(axis=1)
     duration = len(frames) / fps
@@ -89,7 +89,17 @@ def analyse_picture(frames: np.ndarray, fps: float) -> dict:
     if start is not None and (len(diffs) - start) / fps >= FREEZE_SECONDS:
         freeze_runs.append({"start": round(start / fps, 2), "end": round(len(diffs) / fps, 2)})
 
-    flashes = [round(float(i / fps), 2) for i, jump in enumerate(np.abs(np.diff(means))) if jump > FLASH_MEAN_JUMP]
+    # A hard cut between a dark and a bright shot also changes the mean luma; only jumps that
+    # do not sit on a shot boundary are treated as flicker.
+    cut_times = [float(shot["start"]) for shot in shots]
+    flashes = []
+    for index, jump in enumerate(np.abs(np.diff(means))):
+        at = index / fps
+        if jump <= FLASH_MEAN_JUMP:
+            continue
+        if any(abs(at - cut) <= 0.6 for cut in cut_times):
+            continue
+        flashes.append(round(float(at), 2))
     return {
         "sampled_frames": int(len(frames)),
         "sample_fps": fps,
@@ -178,7 +188,8 @@ def check_subtitles(srt: Path, story: dict) -> dict:
     return {
         "cues": len(cues),
         "covers_all_shots": len(cues) == len(shots),
-        "covers_all_lines": [cue["lines"][0] for cue in cues] == [shot["narration"] for shot in story["shots"]],
+        # Two-line cues are split at punctuation, so the joined lines must equal the narration.
+        "covers_all_lines": ["".join(cue["lines"]) for cue in cues] == [shot["narration"] for shot in story["shots"]],
         "problems": problems,
     }
 
@@ -254,7 +265,7 @@ def main() -> int:
         failures.append("audio must be 48 kHz stereo")
 
     frames = decode_gray(film)
-    picture = analyse_picture(frames, fps=4.0)
+    picture = analyse_picture(frames, fps=4.0, shots=story["shots"])
     if picture["unexpected_black_samples"]:
         failures.append(f"unexpected black samples before the tail: {picture['unexpected_black_samples'][:6]}")
     long_freezes = [run_ for run_ in picture["freeze_runs"] if run_["end"] - run_["start"] >= 2.5]

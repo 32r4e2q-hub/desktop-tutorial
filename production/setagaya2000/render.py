@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -244,6 +245,36 @@ def highlight_text(text: str, phrases: list[str]) -> str:
     return "".join(out)
 
 
+CAPTION_LINE_MAX = 26
+
+
+def split_caption(text: str, limit: int = CAPTION_LINE_MAX) -> list[str]:
+    """Split one narration line into at most two balanced subtitle lines.
+
+    Chinese needs an explicit break: ASS WrapStyle 2 never auto-wraps, so a 31-character
+    line would run off the frame on a phone. Breaks prefer punctuation near the middle and
+    never exceed the per-line limit (58 px glyphs, 1690 px of safe width).
+    """
+    text = text.strip()
+    if len(text) <= limit:
+        return [text]
+    best = None
+    for index, char in enumerate(text):
+        if char in "，；：、。？！,;: " and 0 < index < len(text) - 1:
+            left, right = text[:index + 1].strip(), text[index + 1:].strip()
+            if len(left) <= limit and len(right) <= limit:
+                balance = abs(len(left) - len(right))
+                if best is None or balance < best[0]:
+                    best = (balance, left, right)
+    if best:
+        return [best[1], best[2]]
+    for index in range(len(text) // 2, 0, -1):
+        left, right = text[:index].strip(), text[index:].strip()
+        if len(left) <= limit and len(right) <= limit:
+            return [left, right]
+    raise RuntimeError(f"caption cannot be split into two readable lines: {text!r}")
+
+
 def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -> None:
     phrases = story["presentation"]["highlight_keywords"]
     lines = [
@@ -265,9 +296,9 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
     for cue in cues:
-        line = highlight_text(cue["text"], phrases)
+        rendered = "\\N".join(highlight_text(part, phrases) for part in split_caption(cue["text"]))
         lines.append(
-            f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(70,80)}}{line}"
+            f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(70,80)}}{rendered}"
         )
 
     # Only the closing title is a post-produced overlay; the Agnes model itself is never asked
@@ -290,11 +321,16 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
 
     rows = []
     for i, cue in enumerate(cues, 1):
-        rows.append(f"{i}\n{srt_clock(cue['start'])} --> {srt_clock(cue['end'])}\n{cue['text']}\n")
+        body = "\n".join(split_caption(cue["text"]))
+        rows.append(f"{i}\n{srt_clock(cue['start'])} --> {srt_clock(cue['end'])}\n{body}\n")
     srt_path.write_text("\n".join(rows), encoding="utf-8")
 
 
 def find_font(serif: bool = False) -> Path:
+    # Explicit override for machines without Noto CJK (e.g. an offline edit bench or a dry run).
+    override = os.getenv("SETAGAYA_FONT_SERIF" if serif else "SETAGAYA_FONT")
+    if override and Path(override).is_file():
+        return Path(override)
     candidates = []
     font_root = Path("/usr/share/fonts")
     if font_root.exists():
@@ -515,8 +551,10 @@ def main() -> int:
         "source_resolution": SOURCE_SIZE,
         "final_resolution": "1920x1080 (upscaled in post)",
         "all_29_generated_shots_verified_by_sha256": True,
-        "note": "Generated footage and the composited title/captions are an AI-produced reenactment, "
-                "not historical footage. Rumor scenes are hand-drawn illustrations, not claims of fact.",
+        "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the "
+                "title, captions and end card are composited in post. The footage is an AI-produced "
+                "reenactment, not historical evidence imagery, and the evidence shots are 3D "
+                "illustrative reconstructions of published descriptions, not police photographs.",
     }
     delivery = args.work / "delivery"
     delivery.mkdir(parents=True, exist_ok=True)
