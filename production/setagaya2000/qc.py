@@ -73,9 +73,13 @@ def analyse_picture(frames: np.ndarray, fps: float, shots: list[dict]) -> dict:
     diffs = np.abs(np.diff(frames.astype(np.int16), axis=0)).reshape(max(1, len(frames) - 1), -1).mean(axis=1)
     duration = len(frames) / fps
 
+    # Shot boundaries are fade-to-black hand-offs. A black sample landing exactly on a cut is the
+    # planned 0.3s chapter fade, not a black-frame defect; anything else is reported.
+    cut_times = [float(shot["start"]) for shot in shots]
     black = [round(float(i / fps), 2) for i, mean in enumerate(means) if mean < BLACK_MEAN]
-    # The deliberate fade to silence/black at the very end is expected; only earlier black is a defect.
-    unexpected_black = [at for at in black if at < duration - 1.6]
+    unexpected_black = [at for at in black
+                        if at < duration - 1.6
+                        and not any(abs(at - cut) <= 0.45 for cut in cut_times)]
 
     freeze_runs, start = [], None
     for index, diff in enumerate(diffs):
@@ -91,7 +95,6 @@ def analyse_picture(frames: np.ndarray, fps: float, shots: list[dict]) -> dict:
 
     # A hard cut between a dark and a bright shot also changes the mean luma; only jumps that
     # do not sit on a shot boundary are treated as flicker.
-    cut_times = [float(shot["start"]) for shot in shots]
     flashes = []
     for index, jump in enumerate(np.abs(np.diff(means))):
         at = index / fps

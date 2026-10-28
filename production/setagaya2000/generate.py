@@ -424,8 +424,32 @@ def main() -> int:
         args.clips_only = True
     elif mode == "render":
         args.render_only = True
-    elif mode not in {"", "full"}:
-        raise ValueError("payload.mode must be clips, render or full")
+    elif mode not in {"", "full", "qc"}:
+        raise ValueError("payload.mode must be clips, render, full or qc")
+    if mode == "qc":
+        # QC-only run: verify the plan and the delivered film, refresh qa/ (contact sheets,
+        # full-resolution stills, qc-report.json, qc-summary.md), never regenerate footage.
+        validate(project, require_audio=True)
+        film = DELIVERY_DIR / "Setagaya_Case_Final.mp4"
+        if not film.is_file():
+            raise RuntimeError("QC requested but 交付/Setagaya_Case_Final.mp4 does not exist")
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            git("config", "user.name", "github-actions[bot]")
+            git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+        code = subprocess.run([sys.executable, str(HERE / "qc.py")], cwd=ROOT).returncode
+        if args.publish:
+            git("add", "-f", "--", "production/setagaya2000/qa", "交付")
+            if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode:
+                git("commit", "-m", "setagaya2000: 成片质检（原始像素抽帧 + QC 报告）")
+                for attempt in range(3):
+                    try:
+                        git("push", "origin", BRANCH)
+                        break
+                    except subprocess.CalledProcessError:
+                        if attempt == 2:
+                            raise
+                        git("pull", "--rebase", "origin", BRANCH)
+        return code
     render_now = not args.clips_only
     validate(project, require_audio=(render_now or args.render_only))
     if args.validate:
