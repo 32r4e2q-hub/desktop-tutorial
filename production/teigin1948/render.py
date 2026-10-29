@@ -306,14 +306,14 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     # Only the closing title is a post-produced overlay; the Agnes model itself is never asked
     # to render legible text anywhere in the film (S29 is the single shot that carries a title).
     lines += [
-        f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}帝银一家四口杀人案",
-        f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}日本 · 2000 · 至今未破",
-        f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}真实案件改编 · 部分画面为3D复原",
+        f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}帝银事件",
+        f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}东京 · 1948 · 至今存疑",
+        f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}AI动画情景重现 · 非新闻影像",
         # The closing prompt for discussion: a question only, never a claim about any person.
         f"Dialogue: 2,{ass_time(177.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
         + story["presentation"].get("end_question", ""),
         # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
-        f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
+        f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景重现 · 非真实影像",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -386,102 +386,32 @@ def fill_crop(image: Image.Image, width: int, height: int, x_bias: float = 0.5) 
 
 
 def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None:
-    """Left: the grey raglan sweatshirt reconstruction. Right: the winter house at night.
-
-    A drawn gold question mark sits between them. Both photographic panels are frames of
-    verified Agnes clips (never a still substitute for video); only the typography and the
-    question mark are drawn here, in post.
-    """
+    """Cover uses an actual moving-shot frame of the defining row of sixteen cups."""
     width, height = 1920, 1080
-    background = fill_crop(grab_frame(sources / "S01.mp4", 2.4, work_dir, "house"),
-                           width, height, 0.72)
-
-    # Left evidence panel, with a wide smoothstep ramp so no vertical seam shows on a phone.
-    ramp_start, ramp_end = 660, 1180
-    garment = fill_crop(grab_frame(sources / "S11.mp4", 2.6, work_dir, "garment"),
-                        ramp_end, height, 0.42)
-    panel = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    panel.paste(garment, (0, 0))
-    alpha = np.zeros((height, width), dtype=np.uint8)
-    for x in range(width):
-        if x <= ramp_start:
-            fade = 1.0
-        elif x >= ramp_end:
-            fade = 0.0
-        else:
-            position = (x - ramp_start) / (ramp_end - ramp_start)
-            fade = 1.0 - (position * position * (3.0 - 2.0 * position))
-        alpha[:, x] = int(round(255 * fade))
-    panel.putalpha(Image.fromarray(alpha, "L"))
-    image = Image.alpha_composite(background.convert("RGBA"), panel)
-
-    # Cold cinematic grade: darken the left for the gold title, darken the top and bottom edges.
-    shade = np.zeros((height, width, 4), dtype=np.uint8)
-    for x in range(width):
-        strength = int(196 * max(0.0, 1.0 - x / 1500.0) ** 1.30)
-        shade[:, x, :] = (4, 8, 12, strength)
-    image = Image.alpha_composite(image, Image.fromarray(shade, "RGBA"))
-    vignette = np.zeros((height, width, 4), dtype=np.uint8)
-    yy, xx = np.mgrid[0:height, 0:width]
-    distance = np.sqrt(((xx - width * 0.5) / (width * 0.62)) ** 2 + ((yy - height * 0.46) / (height * 0.78)) ** 2)
-    vignette[:, :, 3] = np.clip((distance - 0.55) * 210, 0, 130).astype(np.uint8)
-    vignette[:, :, 0:3] = (2, 4, 8)
-    image = Image.alpha_composite(image, Image.fromarray(vignette, "RGBA"))
-
+    frame = grab_frame(sources / "S07.mp4", 3.0, work_dir, "cover-cups")
+    image = fill_crop(frame, width, height, 0.5).convert("RGBA")
+    shade = Image.new("RGBA", (width, height), (3, 8, 13, 72))
+    image = Image.alpha_composite(image, shade)
+    # Quiet dark backing keeps typography legible without hiding the cup row.
+    band = Image.new("RGBA", (width, 380), (4, 9, 14, 155))
+    image.alpha_composite(band, (0, 0))
     draw = ImageDraw.Draw(image)
-
-    # Gold question mark drawn between the two panels.
-    mark_font = ImageFont.truetype(str(find_font(True)), 470)
-    mark_box = draw.textbbox((0, 0), "?", font=mark_font)
-    mark_w, mark_h = mark_box[2] - mark_box[0], mark_box[3] - mark_box[1]
-    mark_x, mark_y = int(1218 - mark_w / 2), int(470 - mark_h / 2)
-    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    ImageDraw.Draw(glow).text((mark_x, mark_y - mark_box[1]), "?", font=mark_font,
-                              fill=(244, 201, 95, 150))
-    glow = glow.filter(ImageFilter.GaussianBlur(38))
-    image = Image.alpha_composite(image, glow)
-    image = Image.alpha_composite(image, glow)
+    title = story["presentation"]["cover"]["text"]
+    subtitle = story["presentation"]["cover"]["subtext"]
+    title_font = ImageFont.truetype(str(find_font(True)), fit_size(draw, title, 150, 1180, serif=True))
+    subtitle_font = ImageFont.truetype(str(find_font()), fit_size(draw, subtitle, 52, 1500))
+    draw.text((92, 75), title, font=title_font, fill="#f4c95f", stroke_width=8, stroke_fill="#11100d")
+    draw.text((102, 260), subtitle, font=subtitle_font, fill="#f6f1e6", stroke_width=4, stroke_fill="#101014")
+    # Red pinpoint marks the last cup in the defining row (not a label or rendered text).
+    halo = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    glow = ImageDraw.Draw(halo)
+    glow.ellipse((1720, 665, 1820, 765), fill=(232, 35, 26, 180))
+    halo = halo.filter(ImageFilter.GaussianBlur(26))
+    image = Image.alpha_composite(image, halo)
     draw = ImageDraw.Draw(image)
-    draw.text((mark_x, mark_y - mark_box[1]), "?", font=mark_font, fill="#f4c95f",
-              stroke_width=10, stroke_fill="#120f08")
-
-    title_text = story["presentation"]["cover"]["text"]
-    title_size = fit_size(draw, title_text, 158, 620, serif=True)
-    title_font = ImageFont.truetype(str(find_font(True)), title_size)
-    small = ImageFont.truetype(str(find_font()), 34)
-    sub = ImageFont.truetype(str(find_font()), 46)
-    micro = ImageFont.truetype(str(find_font()), 28)
-
-    def stack(box: tuple[int, int, int, int]) -> int:
-        return int(box[3] - box[1])
-
-    kicker = "真实悬案 · 东京 · 2000"
-    hook_a = "留下无数线索，"
-    hook_b = "凶手为何仍未找到？"
-    footer = "AI动画情景复原 · 非真实影像"
-    kicker_box = draw.textbbox((0, 0), kicker, font=small)
-    title_box = draw.textbbox((0, 0), title_text, font=title_font)
-    hook_a_box = draw.textbbox((0, 0), hook_a, font=sub)
-    hook_b_box = draw.textbbox((0, 0), hook_b, font=sub)
-    footer_box = draw.textbbox((0, 0), footer, font=micro)
-
-    y = 176
-    draw.text((96, y - kicker_box[1]), kicker, font=small, fill="#d8c08a",
-              stroke_width=2, stroke_fill="#0b0d0a")
-    y += stack(kicker_box) + 34
-    draw.text((88, y - title_box[1]), title_text, font=title_font, fill="#f4c95f",
-              stroke_width=8, stroke_fill="#100e07")
-    y += stack(title_box) + 40
-    draw.text((96, y - hook_a_box[1]), hook_a, font=sub, fill="#f3efe5",
-              stroke_width=3, stroke_fill="#0c0d0a")
-    y += stack(hook_a_box) + 12
-    draw.text((96, y - hook_b_box[1]), hook_b, font=sub, fill="#f3efe5",
-              stroke_width=3, stroke_fill="#0c0d0a")
-    draw.text((96, 944 - footer_box[1]), footer, font=micro, fill="#a7a49c",
-              stroke_width=2, stroke_fill="#0b0c09")
+    draw.ellipse((1753, 698, 1787, 732), fill="#e52b24", outline="#f6c95f", width=4)
     output.parent.mkdir(parents=True, exist_ok=True)
-    image.convert("RGB").save(output, quality=95, subsampling=0)
-    image.convert("RGB").save(output.with_suffix(".png"))
+    image.convert("RGB").save(output, quality=94, subsampling=0)
 
 
 def main() -> int:
@@ -516,7 +446,7 @@ def main() -> int:
     if not audio_report_path.is_file():
         raise RuntimeError("Measured audio report was not written")
     ass_path = args.work / "teigin-captions.ass"
-    srt_path = args.work / "帝银一家四口杀人案_字幕.srt"
+    srt_path = args.work / "帝银事件_字幕.srt"
     write_subtitles(ass_path, cues, story, srt_path)
     # Fontconfig resolves the installed Noto CJK family name on GitHub-hosted Ubuntu.
     final = args.output
@@ -524,7 +454,7 @@ def main() -> int:
     run([
         "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent_video, "-i", mix,
         "-vf", f"ass={ass_path.as_posix()}", "-map", "0:v:0", "-map", "1:a:0",
-        # Delivery-sized master: 1080p30 at ~3 Mbit/s keeps the 3-minute film near 70 MB
+        # Delivery-sized master: 1080p24 at ~3 Mbit/s keeps the 3-minute film near 70 MB
         # (the same ballpark as the other finished films committed to 交付/), and Douyin
         # re-encodes uploads anyway, so a 250 MB intermediate would only slow delivery.
         "-c:v", "libx264", "-preset", "medium", "-crf", "22",
@@ -541,7 +471,7 @@ def main() -> int:
     if summary["frames"] not in (0, TOTAL_FRAMES):
         raise RuntimeError(f"Expected 4320 frames, got {summary['frames']}")
 
-    cover = final.parent / "帝银一家四口杀人案_封面.jpg"
+    cover = final.parent / "帝银事件_封面.jpg"
     make_cover(args.sources, cover, story, args.work)
     srt_copy = final.parent / f"{final.stem}_字幕.srt"
     srt_copy.write_text(srt_path.read_text(encoding="utf-8"), encoding="utf-8")
@@ -560,11 +490,7 @@ def main() -> int:
         "source_model": MODEL,
         "source_resolution": SOURCE_SIZE,
         "final_resolution": "1920x1080 (upscaled in post)",
-        "style_consistency": "One STYLE block drives all 29 clips. Night exteriors read more "
-                             "photoreal while the family interiors read as painterly stylized 3D; the "
-                             "difference follows scene content rather than style drift. Faces drift "
-                             "slightly between shots because every clip is generated independently; "
-                             "single-character shots reuse a fixed per-character seed to limit it.",
+        "style_consistency": "One STYLE block drives all 29 clips. Snowy Tokyo exteriors use cold blue-grey light against warm amber interiors; rumor-only S28 uses an aged hand-drawn palette. Faces drift slightly between independently generated clips; recurring character prompts and fixed per-character seeds constrain continuity.",
         "all_29_generated_shots_verified_by_sha256": True,
         "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the "
                 "title, captions and end card are composited in post. The footage is an AI-produced "
