@@ -851,7 +851,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -899,5 +899,43 @@
   },
   "updated_at": "2026-10-29T16:46:15Z",
   "run_id": "40878898573",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/teigin1948/clips/帝银事件_一杯预防药_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/teigin1948/clips/帝银事件_封面.jpg",
+    "delivered": {
+      "帝银事件_一杯预防药_三分钟_带声音.mp4": {
+        "bytes": 63806483,
+        "sha256": "be3cd64a4c8614c439d87be5f1515717a025e983315b403ad03a285814787ac8"
+      },
+      "帝银事件_封面.jpg": {
+        "bytes": 333885,
+        "sha256": "f0912d1e7cf754f62e077cb90dec48eda21ba50d4d52057f860274ce8cd4fcf8"
+      },
+      "帝银事件_字幕.srt": {
+        "bytes": 2546,
+        "sha256": "0bf4a2f080d7e8a163761d38a4a92aba8098e7a9222fdbb418b9e0a23ec53013"
+      },
+      "帝银事件_技术报告.json": {
+        "bytes": 35994,
+        "sha256": "517e4a7851376034c38a287a00e14fa07dab23dfd4996e394007f8c613281035"
+      },
+      "Teigin_Case_Final.mp4": {
+        "bytes": 63806483,
+        "sha256": "be3cd64a4c8614c439d87be5f1515717a025e983315b403ad03a285814787ac8"
+      },
+      "Teigin_Cover.png": {
+        "bytes": 989747,
+        "sha256": "a103f1ac7e6960750a8c3fd61ee02da42d7291f6e0894a1fb31fc9b48c49ad1e"
+      },
+      "Teigin_Subtitles.srt": {
+        "bytes": 2546,
+        "sha256": "0bf4a2f080d7e8a163761d38a4a92aba8098e7a9222fdbb418b9e0a23ec53013"
+      }
+    }
+  }
 }
