@@ -270,9 +270,7 @@ def _event_envelope(t: np.ndarray, at: float, duration: float, decay: float = 2.
 def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray]:
     """Original procedural score and Foley for the nine chapters (no stock audio).
 
-    Palette: low cello, low strings, a warm upright piano that cools into suspense piano,
-    slow low pulses, winter wind, distant traffic, tape and paper, camera shutters, keyboard
-    and computer fan. Everything is synthesised here, so the film carries no licensed music.
+    Palette: low cello, winter wind, distant postwar traffic, abacus clicks, a ticking wall clock, delicate glass-cup chimes, printing-press rhythm, snow footsteps and a restrained courtroom gavel. All music and Foley are procedurally synthesised; no licensed recordings are used.
     """
     work_audio = work_dir / "audio"
     work_audio.mkdir(parents=True, exist_ok=True)
@@ -293,8 +291,8 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
     def gate(t: np.ndarray, lo: float, hi: float) -> np.ndarray:
         return ((t >= lo) & (t < hi)).astype(np.float64)
 
-    # Warm upright-piano phrase for the family chapter (A minor, unhurried).
-    piano_notes = np.array([220.00, 261.63, 329.63, 440.00, 329.63, 261.63, 246.94, 196.00])
+    # Suspense piano phrase under the false-official sequence.
+    piano_notes = np.array([196.00, 233.08, 261.63, 174.61, 207.65, 233.08, 164.81, 220.00])
     piano_step = 0.52
 
     with wave.open(str(music_path), "wb") as music_file, wave.open(str(sfx_path), "wb") as sfx_file:
@@ -324,15 +322,15 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
             tension = 0.013 * np.sin(2 * np.pi * 233.08 * t) + 0.010 * np.sin(2 * np.pi * 246.94 * t + 0.5)
             room_tone = 0.007 * (np.sin(2 * np.pi * 60.0 * t) + np.sin(2 * np.pi * 120.3 * t))
 
-            # ---- warm piano in the family chapter, cooling at its end
+            # ---- suspense piano under the false-official sequence, cooling at its end
             step = np.floor((t - 10.0) / piano_step).astype(int)
             age = np.mod(np.maximum(t - 10.0, 0.0), piano_step)
             note = piano_notes[np.mod(np.maximum(step, 0), len(piano_notes))]
-            warm_piano = 0.052 * np.sin(2 * np.pi * note * t) * np.exp(-age * 3.1)
+            warm_piano = 0.048 * np.sin(2 * np.pi * note * t) * np.exp(-age * 3.1)
             warm_piano += 0.016 * np.sin(2 * np.pi * note * 2.01 * t + 0.3) * np.exp(-age * 5.4)
             warm_piano *= gate(t, 10.0, 31.0)
 
-            # ---- sparse suspense piano and slow pulse for the evidence chapters
+            # ---- sparse suspense piano and slow pulse for the investigation chapters
             pulse_step = 1.05
             pulse_age = np.mod(np.maximum(t - 72.0, 0.0), pulse_step)
             pulse = 0.040 * np.sin(2 * np.pi * 55.0 * t) * np.exp(-pulse_age * 3.6)
@@ -368,6 +366,10 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
             )
             section_level = levels[section]
             score = np.tanh(score * 1.30) * section_level * fade
+            # At the first indirect aftermath image, pull the score sharply back, then let
+            # the low piano bed return under the rescue/report montage.
+            aftermath = np.clip((t - 65.0) / 8.0, 0.12, 1.0)
+            score *= np.where((t >= 60.0) & (t < 73.0), aftermath, 1.0)
             pan = 0.05 * np.sin(2 * np.pi * 0.015 * t)
             music_pcm = np.clip(np.column_stack((score * (1.0 - pan), score * (1.0 + pan))) * 32767,
                                 -32768, 32767).astype("<i2")
@@ -386,53 +388,97 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
                 rstate = 0.986 * rstate + 0.014 * value
                 rumble[i] = rstate
             wind_state, rumble_state = state, rstate
-
             wind_gain = np.select(
                 [section == 0, section == 1, section == 2, section == 3,
                  section == 4, section == 5, section == 6, section == 7, section == 8],
-                [0.030, 0.009, 0.032, 0.010, 0.008, 0.012, 0.009, 0.030, 0.020],
+                [0.032, 0.010, 0.006, 0.014, 0.008, 0.012, 0.009, 0.025, 0.018],
                 default=0.012,
             )
             sfx = wind * wind_gain
-            # Distant traffic: slow low-passed swells passing the house.
-            for at, amp in ((6.4, 0.020), (34.6, 0.016), (47.2, 0.014), (150.5, 0.012), (171.0, 0.010)):
-                env = _event_envelope(t, at, 3.2, 0.9)
+
+            # Snowy postwar street traffic and the muffled wind at the bank exterior.
+            for at, amp in ((2.2, 0.022), (21.8, 0.018), (26.7, 0.014), (75.0, 0.018), (171.2, 0.010)):
+                env = _event_envelope(t, at, 3.0, 0.85)
                 sfx += env * amp * rumble
-            # Police radio squelch and camera shutters around the cordon.
-            for at in (45.6, 49.4):
-                env = _event_envelope(t, at, 0.20, 9.0)
-                sfx += env * 0.020 * rng.normal(0.0, 1.0, count)
-            for at in (52.7, 54.3, 59.6, 60.9, 63.4):
-                click = _event_envelope(t, at, 0.075, 46.0)
-                sfx += click * 0.048 * rng.normal(0.0, 1.0, count)
-            # Tape trembling in the wind while the cordon is set.
-            tape = gate(t, 51.0, 58.0)
-            sfx += tape * 0.008 * rng.normal(0.0, 1.0, count) * (0.5 + 0.5 * np.sin(2 * np.pi * 2.6 * t))
-            # Evidence bags and cloth on the display table.
-            for at in (65.9, 67.4, 72.6, 74.2, 156.8, 158.3):
-                env = _event_envelope(t, at, 0.34, 7.0)
-                sfx += env * 0.024 * rng.normal(0.0, 1.0, count)
-            # Lab tone under the forensic visualisation.
-            sfx += gate(t, 79.0, 86.0) * 0.006 * np.sin(2 * np.pi * 1760.0 * t) * (0.4 + 0.6 * np.abs(np.sin(2 * np.pi * 0.35 * t)))
-            # Page turns, pen on paper and a desk-lamp switch in the office chapters.
-            for at in (87.2, 89.1, 115.2, 117.9, 120.6, 123.8, 130.2, 132.6, 136.1, 139.4):
-                env = _event_envelope(t, at, 0.42, 6.5)
-                sfx += env * 0.020 * rng.normal(0.0, 1.0, count)
-            pen = gate(t, 121.0, 128.0)
-            sfx += pen * 0.010 * rng.normal(0.0, 1.0, count) * (0.5 + 0.5 * np.sin(2 * np.pi * 9.0 * t))
-            lamp = _event_envelope(t, 135.4, 0.10, 34.0)
-            sfx += lamp * 0.036 * rng.normal(0.0, 1.0, count)
-            # Computer fan and spare keyboard taps in the study.
-            fan = gate(t, 93.5, 107.0)
-            sfx += fan * (0.010 * np.sin(2 * np.pi * 118.0 * t) + 0.004 * rng.normal(0.0, 1.0, count))
-            keys = gate(t, 94.0, 100.0) * (rng.random(count) < 0.0022)
-            sfx += keys * 0.055 * np.exp(-np.mod(t * 1000.0, 1.0) * 9.0)
-            # Metal chime for the closing question marks.
-            for at, amp in ((157.7, 0.030), (168.6, 0.034), (176.6, 0.026)):
-                env = _event_envelope(t, at, 1.6, 3.2)
-                sfx += env * amp * (np.sin(2 * np.pi * 1318.5 * (t - at))
-                                    + 0.6 * np.sin(2 * np.pi * 1975.5 * (t - at) + 0.4))
-            # Nothing sounds in the final stretch: the brief asks for a clean fade to silence.
+
+            # Wooden abacus beads in the opening bank hall and the signature glass-cup motif.
+            for at in np.arange(3.0, 9.2, 0.32):
+                env = _event_envelope(t, float(at), 0.11, 32.0)
+                sfx += env * (0.020 * np.sin(2 * np.pi * 1450.0 * (t-at))
+                              + 0.009 * np.sin(2 * np.pi * 2180.0 * (t-at)+0.3))
+            for at in (30.7, 32.2, 42.5, 44.2, 46.4, 55.6, 57.0, 58.3):
+                env = _event_envelope(t, at, 0.48, 4.8)
+                sfx += env * (0.018 * np.sin(2 * np.pi * 1320.0 * (t-at))
+                              + 0.010 * np.sin(2 * np.pi * 1975.0 * (t-at)+0.5))
+
+            # A faint distant bell over the opening snow-night street.
+            bell_env = _event_envelope(t, 7.8, 2.0, 2.1)
+            sfx += bell_env * (0.008 * np.sin(2 * np.pi * 659.3 * (t-7.8))
+                               + 0.004 * np.sin(2 * np.pi * 987.8 * (t-7.8)+0.2))
+
+            # Three firm knocks on the rear door; restrained rather than startling.
+            for at in (10.8, 11.5, 12.2):
+                env = _event_envelope(t, at, 0.20, 18.0)
+                sfx += env * (0.030 * np.sin(2 * np.pi * 165.0 * (t-at))
+                              + 0.012 * rng.normal(0.0, 1.0, count))
+
+            # The old wall clock ticks clearly for the one-minute wait (S09).
+            for at in np.arange(49.15, 60.1, 1.0):
+                env = _event_envelope(t, float(at), 0.12, 30.0)
+                sfx += env * (0.026 * np.sin(2 * np.pi * 930.0 * (t-at))
+                              + 0.012 * np.sin(2 * np.pi * 1860.0 * (t-at)))
+
+            # Subtle high-frequency room tone after the cutaway; no distress or pain sound.
+            sfx += gate(t, 60.1, 65.0) * 0.0018 * np.sin(2 * np.pi * 760.0 * t)
+
+            # One cup drops and taps the floor; no distress, impact on a person or violent foley.
+            for at, amp in ((60.45, 0.050), (60.72, 0.020), (61.05, 0.012)):
+                env = _event_envelope(t, at, 0.34, 8.0)
+                sfx += env * (amp * np.sin(2 * np.pi * 780.0 * (t-at))
+                              + amp * 0.35 * np.sin(2 * np.pi * 1240.0 * (t-at)+0.4))
+
+            # A soft rolling press rhythm for the non-readable newspaper montage.
+            press = gate(t, 80.0, 85.0)
+            press_phase = np.mod(t * 3.2, 1.0)
+            press_pulse = np.exp(-press_phase * 9.0) * (press_phase < 0.28)
+            sfx += press * (0.018 * press_pulse * np.sin(2 * np.pi * 92.0 * t)
+                            + 0.006 * rng.normal(0.0, 1.0, count))
+            for at in (80.4, 82.2, 84.1):
+                env = _event_envelope(t, at, 0.45, 5.5)
+                sfx += env * 0.018 * rng.normal(0.0, 1.0, count)
+
+            # A distant, low ambulance/police siren swells briefly outside the bank.
+            siren_env = gate(t, 73.0, 81.0)
+            siren_hz = 440.0 + 70.0 * np.sin(2 * np.pi * 0.28 * (t-73.0))
+            sfx += siren_env * 0.004 * np.sin(2 * np.pi * siren_hz * t)
+
+            # Snow footsteps during the Otaru tail and arrest; cloth and canvas rustle nearby.
+            for at in np.arange(117.4, 134.0, 0.72):
+                env = _event_envelope(t, float(at), 0.32, 7.5)
+                sfx += env * (0.023 * np.sin(2 * np.pi * 88.0 * (t-at))
+                              + 0.020 * rng.normal(0.0, 1.0, count))
+            for at in (124.8, 126.4, 128.0, 131.1, 133.0):
+                env = _event_envelope(t, at, 0.36, 6.5)
+                sfx += env * 0.014 * rng.normal(0.0, 1.0, count)
+
+            # Paper, pen and subdued room tone across the interrogation and court scenes.
+            for at in (137.0, 140.1, 143.0, 146.3, 151.1):
+                env = _event_envelope(t, at, 0.40, 6.0)
+                sfx += env * 0.017 * rng.normal(0.0, 1.0, count)
+            pen = gate(t, 142.0, 148.0)
+            sfx += pen * 0.008 * rng.normal(0.0, 1.0, count) * (0.5 + 0.5 * np.sin(2 * np.pi * 8.0 * t))
+
+            # A single muted wooden court gavel at the verdict; no aggressive impact design.
+            gavel_at = 154.05
+            gavel = _event_envelope(t, gavel_at, 0.58, 6.0)
+            sfx += gavel * (0.060 * np.sin(2 * np.pi * 118.0 * (t-gavel_at))
+                            + 0.025 * rng.normal(0.0, 1.0, count))
+
+            # A restrained closing glassy tone under the question/end card, then silence.
+            for at, amp in ((169.0, 0.020), (176.8, 0.025)):
+                env = _event_envelope(t, at, 1.35, 3.0)
+                sfx += env * amp * (np.sin(2 * np.pi * 1046.5 * (t-at))
+                                    + 0.48 * np.sin(2 * np.pi * 1568.0 * (t-at)+0.4))
             sfx *= np.clip((178.6 - t) / 0.6, 0, 1)
             stereo = np.column_stack((sfx, sfx * (1.0 + 0.03 * np.sin(2 * np.pi * 0.05 * t))))
             sfx_file.writeframes(np.clip(stereo * 32767, -32768, 32767).astype("<i2").tobytes())
