@@ -412,7 +412,10 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
     draw = ImageDraw.Draw(image)
     draw.ellipse((1753, 698, 1787, 732), fill="#e52b24", outline="#f6c95f", width=4)
     output.parent.mkdir(parents=True, exist_ok=True)
-    image.convert("RGB").save(output, quality=94, subsampling=0)
+    rgb = image.convert("RGB")
+    rgb.save(output, quality=94, subsampling=0)
+    # PNG alias is the native cover asset consumed by the inherited QC gate.
+    rgb.save(output.with_suffix(".png"), format="PNG", optimize=True)
 
 
 def main() -> int:

@@ -39,5 +39,12 @@ class TeiginPlanTests(unittest.TestCase):
         self.assertEqual(len({s['narration'] for s in self.story['shots']}), 29)
         self.assertEqual(self.story['shots'][27]['style_variant'], 'diagram')
 
+    def test_teigin_specific_endcard_and_cup_cover(self):
+        render = (PROJECT / 'render.py').read_text(encoding='utf-8')
+        self.assertIn('东京 · 1948 · 至今存疑', render)
+        self.assertIn('帝银事件', render)
+        self.assertIn('S07.mp4', render)
+        self.assertIn('Teigin_Cover.png', (PROJECT / 'generate.py').read_text(encoding='utf-8'))
+
 if __name__ == '__main__':
     unittest.main()
