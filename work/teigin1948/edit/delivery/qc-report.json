@@ -1,0 +1,155 @@
+{
+  "film": "交付/Teigin_Case_Final.mp4",
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 63806483,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "picture": {
+    "sampled_frames": 720,
+    "sample_fps": 4.0,
+    "mean_luma_min": 12.88,
+    "mean_luma_max": 247.56,
+    "mean_luma_avg": 60.83,
+    "unexpected_black_samples": [],
+    "freeze_runs": [],
+    "flash_samples": [
+      87.75
+    ],
+    "motion_percentile_10": 2.592,
+    "motion_median": 9.172
+  },
+  "sound": {
+    "duration_seconds": 180.011,
+    "rms_dbfs": -21.74,
+    "peak_dbfs": -1.5,
+    "silent_seconds": 9,
+    "silent_fraction": 0.0497,
+    "final_second_dbfs": -120.0,
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0,
+        "rms_dbfs": -20.57,
+        "peak_dbfs": -2.19
+      },
+      {
+        "id": "N02",
+        "start": 10,
+        "rms_dbfs": -21.21,
+        "peak_dbfs": -1.71
+      },
+      {
+        "id": "N03",
+        "start": 35,
+        "rms_dbfs": -22.42,
+        "peak_dbfs": -2.19
+      },
+      {
+        "id": "N04",
+        "start": 60,
+        "rms_dbfs": -22.11,
+        "peak_dbfs": -3.03
+      },
+      {
+        "id": "N05",
+        "start": 85,
+        "rms_dbfs": -21.45,
+        "peak_dbfs": -1.5
+      },
+      {
+        "id": "N06",
+        "start": 110,
+        "rms_dbfs": -21.9,
+        "peak_dbfs": -2.29
+      },
+      {
+        "id": "N07",
+        "start": 135,
+        "rms_dbfs": -22.57,
+        "peak_dbfs": -2.4
+      },
+      {
+        "id": "N08",
+        "start": 155,
+        "rms_dbfs": -21.39,
+        "peak_dbfs": -3.18
+      },
+      {
+        "id": "N09",
+        "start": 172,
+        "rms_dbfs": -21.39,
+        "peak_dbfs": -2.78
+      }
+    ]
+  },
+  "subtitles": {
+    "cues": 29,
+    "end_card_cues": 0,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": [
+      "the end-card question is missing from the SRT"
+    ]
+  },
+  "cover": {
+    "exists": true,
+    "width": 1920,
+    "height": 1080,
+    "mode": "RGB",
+    "bytes": 989747
+  },
+  "contact_sheets": [
+    "production/teigin1948/qa/sheets/sheet-1.jpg",
+    "production/teigin1948/qa/sheets/sheet-2.jpg",
+    "production/teigin1948/qa/sheets/sheet-3.jpg",
+    "production/teigin1948/qa/sheets/sheet-4.jpg"
+  ],
+  "fullres_stills": [
+    "production/teigin1948/qa/fullres/S01.jpg",
+    "production/teigin1948/qa/fullres/S02.jpg",
+    "production/teigin1948/qa/fullres/S03.jpg",
+    "production/teigin1948/qa/fullres/S04.jpg",
+    "production/teigin1948/qa/fullres/S05.jpg",
+    "production/teigin1948/qa/fullres/S06.jpg",
+    "production/teigin1948/qa/fullres/S07.jpg",
+    "production/teigin1948/qa/fullres/S08.jpg",
+    "production/teigin1948/qa/fullres/S09.jpg",
+    "production/teigin1948/qa/fullres/S10.jpg",
+    "production/teigin1948/qa/fullres/S11.jpg",
+    "production/teigin1948/qa/fullres/S12.jpg",
+    "production/teigin1948/qa/fullres/S13.jpg",
+    "production/teigin1948/qa/fullres/S14.jpg",
+    "production/teigin1948/qa/fullres/S15.jpg",
+    "production/teigin1948/qa/fullres/S16.jpg",
+    "production/teigin1948/qa/fullres/S17.jpg",
+    "production/teigin1948/qa/fullres/S18.jpg",
+    "production/teigin1948/qa/fullres/S19.jpg",
+    "production/teigin1948/qa/fullres/S20.jpg",
+    "production/teigin1948/qa/fullres/S21.jpg",
+    "production/teigin1948/qa/fullres/S22.jpg",
+    "production/teigin1948/qa/fullres/S23.jpg",
+    "production/teigin1948/qa/fullres/S24.jpg",
+    "production/teigin1948/qa/fullres/S25.jpg",
+    "production/teigin1948/qa/fullres/S26.jpg",
+    "production/teigin1948/qa/fullres/S27.jpg",
+    "production/teigin1948/qa/fullres/S28.jpg",
+    "production/teigin1948/qa/fullres/S29.jpg"
+  ],
+  "hard_gate_failures": [
+    "subtitle problems: ['the end-card question is missing from the SRT']"
+  ],
+  "human_review_still_required": [
+    "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
+    "确认没有遗体、伤口、血腥、可读乱码文字与人物面部崩坏",
+    "确认字幕没有遮挡人物面部与关键物证",
+    "确认人物、服装、住宅在三分钟里保持一致"
+  ]
+}
