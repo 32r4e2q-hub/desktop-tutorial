@@ -1,4 +1,17 @@
-# 雨夜屠夫林过云：一卷菲林里的四条人命
+# 世田谷一家四口杀人案：留下无数线索，凶手为何仍未找到？
+
+> **最新成片（2026-10-28）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.0 s · 29 个 Agnes Video 2.5 Flash 镜头
+>
+> - 影片：[`交付/Setagaya_Case_Final.mp4`](交付/Setagaya_Case_Final.mp4)（65.4 MB）
+> - 封面 / 字幕 / 旁白：[`Setagaya_Cover.png`](交付/Setagaya_Cover.png) · [`Setagaya_Subtitles.srt`](交付/Setagaya_Subtitles.srt) · [`Setagaya_Narration.wav`](交付/Setagaya_Narration.wav)
+> - 全流程与状态：[`production/setagaya2000/README.md`](production/setagaya2000/README.md)
+> - **从这一部起，出片一律按本片模板**：[`production/setagaya2000/模板-如何复用.md`](production/setagaya2000/模板-如何复用.md)
+>   （29 镜一镜一句 · 24 fps · 720P 源片放大 1080P · 一份 yml + 三个 marker · 闸门在 runner 上跑）
+> - 质检：`QC PASS`，`hard_gate_failures: []`（非预期黑帧 0 · 冻结 0 · 闪烁 0 · 字幕 0 问题 · RMS −21.04 dBFS · 末秒 −120 dBFS）
+
+---
+
+# 上一部：雨夜屠夫林过云：一卷菲林里的四条人命
 
 三分钟横版（16:9）中文悬疑解说短片 · 抖音横屏观看版 · 写实 3D 动画情景重现。
 一九八二年二月至七月，香港四名夜归女子坐上同一辆夜班的士后再没有回家；
