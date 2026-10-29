@@ -406,11 +406,13 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
     # Red pinpoint marks the last cup in the defining row (not a label or rendered text).
     halo = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     glow = ImageDraw.Draw(halo)
-    glow.ellipse((1720, 665, 1820, 765), fill=(232, 35, 26, 180))
+    # S07's last cup sits at the far-right edge of the row (center ~1885, 660).
+    # Keep the halo on the cup itself; a lower-right marker lands on the table apron instead.
+    glow.ellipse((1840, 615, 1920, 705), fill=(232, 35, 26, 180))
     halo = halo.filter(ImageFilter.GaussianBlur(26))
     image = Image.alpha_composite(image, halo)
     draw = ImageDraw.Draw(image)
-    draw.ellipse((1753, 698, 1787, 732), fill="#e52b24", outline="#f6c95f", width=4)
+    draw.ellipse((1868, 643, 1902, 677), fill="#e52b24", outline="#f6c95f", width=4)
     output.parent.mkdir(parents=True, exist_ok=True)
     rgb = image.convert("RGB")
     rgb.save(output, quality=94, subsampling=0)
