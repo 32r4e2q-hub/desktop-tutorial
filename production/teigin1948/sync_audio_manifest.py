@@ -10,7 +10,7 @@ for shot in story['shots']:
     audio=HERE/'audio'/f"{shot['id']}.mp3"
     if not audio.is_file():
         missing.append(shot['id']); continue
-    clips.append({'id':shot['id'],'file':audio.name,'voice_id':'voice-00','narration_id':shot['narration_id'],'target_start':shot['start'],'target_duration':shot['duration'],'text':shot['narration'],'sha256':hashlib.sha256(audio.read_bytes()).hexdigest()})
+    clips.append({'id':shot['id'],'file':audio.name,'voice_id':'voice-00','alignment':'shot-locked','narration_id':shot['narration_id'],'target_start':shot['start'],'target_duration':shot['duration'],'text':shot['narration'],'sha256':hashlib.sha256(audio.read_bytes()).hexdigest()})
 manifest={'voice':'voice-00','language':'zh-CN','alignment':'one-clip-one-shot-one-caption','slowdown_allowed':False,'clips':clips}
 (HERE/'audio'/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(f"manifest clips={len(clips)}/29; missing={','.join(missing) if missing else 'none'}")

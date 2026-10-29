@@ -331,7 +331,8 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     # The end-card question is on-screen text, not narration: it gets its own trailing cue so
     # the delivered SRT matches what a viewer actually reads.
     question = story["presentation"].get("end_question", "").strip()
-    if question:
+    # Do not duplicate the end-card question as a second subtitle if S29 already speaks it.
+    if question and not any(question in cue.get("text", "") for cue in cues):
         rows.append(f"{len(cues) + 1}\n{srt_clock(177.15)} --> {srt_clock(179.45)}\n{question}\n")
     srt_path.write_text("\n".join(rows), encoding="utf-8")
 
