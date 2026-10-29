@@ -20,15 +20,17 @@
     "S02": {
       "id": "S02",
       "request_hash": "6a4d51713a8971abf2af44f1c22cb76fbff3350a90b0db4fdbdacb44d2a1c393",
-      "status": "queued",
+      "status": "poll_retry",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-29T13:08:12Z",
-      "error": null,
+      "updated_at": "2026-10-29T13:33:40Z",
+      "error": "Timed out after 1500s waiting for video_id=task_VG4A6RzIofHcngfJmdk14mkl5kGWt4Yx (last: status=pending progress=0%)",
       "create_attempts": 1,
       "video_id": "task_VG4A6RzIofHcngfJmdk14mkl5kGWt4Yx",
       "task_id": "task_VG4A6RzIofHcngfJmdk14mkl5kGWt4Yx",
       "requested_seconds": 5.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "poll_retries": 1,
+      "applied_cooldown_seconds": 61
     },
     "S03": {
       "id": "S03",
@@ -267,7 +269,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-29T13:32:36Z",
+  "updated_at": "2026-10-29T13:33:40Z",
   "run_id": "40878898573",
   "previous_results": {}
 }
