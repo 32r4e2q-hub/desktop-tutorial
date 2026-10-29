@@ -243,9 +243,9 @@
     "S09": {
       "id": "S09",
       "request_hash": "d88d70d162b1879d550fbe0bd7c24dbc902ee22c1f8ba91c604b107f658a791f",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-29T15:06:23Z",
+      "updated_at": "2026-10-29T15:06:25Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_WPEdmMSchGeG32eHqM9UdKf3fjVBfhrt",
@@ -256,7 +256,18 @@
       "bytes": 1432218,
       "sha256": "409868d63f2e84b780cc04e79ad2882c2e856c99ca6b45c420910cf010736962",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1432218,
+        "decoded_ok": true,
+        "contact_sheet": "production/teigin1948/qa/S09.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -452,7 +463,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-29T15:06:23Z",
+  "updated_at": "2026-10-29T15:06:25Z",
   "run_id": "40878898573",
   "previous_results": {}
 }
