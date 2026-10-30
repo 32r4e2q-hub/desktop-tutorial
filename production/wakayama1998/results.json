@@ -748,9 +748,9 @@
     "S26": {
       "id": "S26",
       "request_hash": "23e75d9a2651042c576695beb00ff4bd0178dc10f1ab2248999a6b3c967db56a",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-30T12:47:31Z",
+      "updated_at": "2026-10-30T12:47:32Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -763,7 +763,18 @@
       "bytes": 2349258,
       "sha256": "a464adc179760c6aed7c5eafd8ad7ed240ac244162760828e0de3c397ba76120",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2349258,
+        "decoded_ok": true,
+        "contact_sheet": "production/wakayama1998/qa/S26.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S27": {
       "id": "S27",
@@ -842,7 +853,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-30T12:47:31Z",
+  "updated_at": "2026-10-30T12:47:32Z",
   "run_id": "41046643643",
   "previous_results": {}
 }
