@@ -121,9 +121,9 @@
     "S05": {
       "id": "S05",
       "request_hash": "373390e339bebb965aa95f5b1cac4c69bfb12cf5cb29cab0fdeb08d6f8a1e7d3",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-30T11:27:57Z",
+      "updated_at": "2026-10-30T11:27:59Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_EhWiEyIQVMb0qY7M0SWvDyPISOkdBbYZ",
@@ -134,7 +134,18 @@
       "bytes": 2016261,
       "sha256": "819513f2145bd4720f16085f500b55442995166b5115ab726bfd7c9a5c9e8734",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2016261,
+        "decoded_ok": true,
+        "contact_sheet": "production/wakayama1998/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S06": {
       "id": "S06",
@@ -358,7 +369,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-30T11:27:57Z",
+  "updated_at": "2026-10-30T11:27:59Z",
   "run_id": "41046643643",
   "previous_results": {}
 }
