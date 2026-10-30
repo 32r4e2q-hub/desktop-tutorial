@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the 29 Setagaya shots with Agnes Video 2.5 Flash, then render the 180s first cut.
+"""Generate the 29 Wakayama curry-case shots with Agnes Video 2.5 Flash, then render the first cut.
 
 The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
 size/aspect_ratio/mode/n); transient create failures retry every 61 seconds until accepted.
@@ -804,9 +804,9 @@ def main() -> int:
     summary = os.getenv("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as stream:
-            stream.write("## 和歌山毒咖喱事件：留下无数线索，凶手为何仍未找到？\n\n")
+            stream.write("## 和歌山毒咖喱事件：一锅咖喱，四条人命\n\n")
             stream.write("29个Agnes Video 2.5 Flash动态镜头（720P源片后期放大）；1920×1080；16:9；24fps；180秒。\n\n")
-            stream.write("初版已渲染。逐镜接触表和成片仍需人工视觉/听觉复核。\n")
+            stream.write("初版已渲染。逐镜接触表和成片仍需人工视觉/听觉复核；争议部分只陈述各方主张。\n")
     return 0
 
 
