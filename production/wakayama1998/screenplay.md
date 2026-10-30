@@ -117,17 +117,17 @@
 | S08 | 00:42—00:49 | 7 | N03 | 广角快速横移，人群慌乱 | residents、housewives | The festival street in chaos, seen wide and at eye level: plastic stools knocked over, a folding table tipped, |
 | S09 | 00:49—00:55 | 6 | N03 | 航拍俯拍，救护车驶入街区 | medics、residents | Night, blue hour gone |
 | S10 | 00:55—01:00 | 5 | N03 | 长走廊缓慢推进 | medics | A Japanese hospital emergency corridor at night: pale green walls, cold fluorescent tubes, a polished floor re |
-| S11 | 01:00—01:07 | 7 | N04 | 中景缓慢推近一双小鞋 | residents | The same hospital corridor, quieter now, near a row of plastic waiting chairs |
+| S11 | 01:00—01:07 | 7 | N04 | 中景缓慢推近一双小鞋 | residents | The same hospital corridor, quieter now: a row of blue plastic waiting chairs, a folded blanket, a paper cup o |
 | S12 | 01:07—01:14 | 7 | N04 | 实验室，样本进仪器，曲线飙升 | lab | A cool grey forensic laboratory: steel benches, glassware, an old analytical instrument with a small CRT scree |
 | S13 | 01:14—01:20 | 6 | N04 | 概念示意，毒瓶图标放大 | lab | Abstract conceptual visualisation in cold darkness: a three-dimensional bottle-shaped icon with a skull-free,  |
 | S14 | 01:20—01:25 | 5 | N04 | 快速拉远，锅与警戒线 | detectives | Return to the garage, late at night: the aluminium pot stands open, lid set aside, the curry inside gone flat  |
 | S15 | 01:25—01:32 | 7 | N05 | 中景环绕白板 | detectives | A police incident room at night, lit by one overhead tube and a desk lamp |
 | S16 | 01:32—01:39 | 7 | N05 | 固定机位慢动作，泛黄回忆 | residents、masumi | A memory image, deliberately faded and slightly sepia like old film: the festival garage on the afternoon of t |
-| S17 | 01:39—01:45 | 6 | N05 | 大特写，红线连线 | detectives | Extreme close-up over a detective's shoulder: his hand places a blank card on the whiteboard and draws a heavy |
-| S18 | 01:45—01:50 | 5 | N05 | 偷拍视角，缓慢推近二层小楼 | neighbours | From a narrow gap behind lace curtains in a neighbouring house: two women and an older man crowd the gap, face |
+| S17 | 01:39—01:45 | 6 | N05 | 大特写，红线连线 | detectives | Extreme close-up over a detective's shoulder at a whiteboard |
+| S18 | 01:45—01:50 | 5 | N05 | 偷拍视角，缓慢推近二层小楼 | neighbours | From behind lace curtains in a neighbouring house, at eye level: two neighbours are seen from behind in three- |
 | S19 | 01:50—01:57 | 7 | N06 | 中景侧光，客厅里的保险单 | masumi、kenji | The living room of the Hayashi house on a hot afternoon: sliding paper screens half closed, yellow light cutti |
 | S20 | 01:57—02:04 | 7 | N06 | 特写柜门打开，慢动作 | detectives | Inside the same house during a search, in the narrow kitchen: two detectives in latex gloves crouch at a low c |
-| S21 | 02:04—02:10 | 6 | N06 | 俯拍，红线连起剪影 | masumi | Overhead conceptual shot in dark space: a dozen blank insurance forms spread across a matte black surface, the |
+| S21 | 02:04—02:10 | 6 | N06 | 俯拍，红线连起剪影 | masumi | Overhead conceptual shot in dark space: a dozen completely blank paper sheets spread across a matte black surf |
 | S22 | 02:10—02:15 | 5 | N06 | 特写，两条曲线重合 | lab | A dark analytical screen, abstract and without any lettering: two glowing spectral traces draw themselves from |
 | S23 | 02:15—02:22 | 7 | N07 | 低机位慢动作，水管喷水 | reporters、masumi | Outside the Hayashi house in late afternoon: a wall of reporters, photographers and television crews presses a |
 | S24 | 02:22—02:29 | 7 | N07 | 中景，全家围着电视机 | residents | A different Japanese living room that evening: a family of four sits around a low table facing a CRT televisio |

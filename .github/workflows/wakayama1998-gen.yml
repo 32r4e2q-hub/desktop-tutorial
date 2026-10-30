@@ -219,7 +219,7 @@ jobs:
         timeout-minutes: 20
         run: |
           set +e
-          if [ -f "交付/Setagaya_Case_Final.mp4" ]; then
+          if [ -f "交付/Wakayama_Case_Final.mp4" ]; then
             echo "== qc ==" >> "$RUN_LOG"
             python3 -u production/wakayama1998/qc.py >> "$RUN_LOG" 2>&1
             echo "qc_exit=$?" >> "$RUN_LOG"

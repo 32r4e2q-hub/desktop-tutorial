@@ -27,7 +27,10 @@ TOTAL_FRAMES = FPS * DURATION
 # Abstract diagram shots occasionally come back letterboxed; only verified paired mattes are cropped.
 # Abstract diagram shots and the dark studio display occasionally come back with embedded
 # mattes; only verified paired bands are cropped, full-frame footage is left untouched.
-LETTERBOX_CHECK_SHOTS = {"S13", "S21", "S22", "S27"}
+# Every accepted source is a full-frame 1280x720 clip (checked in results.json), and the diagram
+# shots deliberately sit a glowing element inside a dark field. Auto-cropping "mattes" here would
+# therefore eat real picture, so no shot is crop-eligible; the grade stays the only geometry change.
+LETTERBOX_CHECK_SHOTS = set()
 CARD_TEXT_MAX_WIDTH = 1660
 FADE_IN_SKIP = set()
 

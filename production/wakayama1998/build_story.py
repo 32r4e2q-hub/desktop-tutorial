@@ -158,277 +158,273 @@ CHARACTER_SEEDS = {
 # (镜号, 起始, 时长, 运镜, 角色, 风格变体, 提示词)
 SHOT_ROWS = [
     ("S01", 0, 5, "航拍下降并推近街道", ["residents"], "real",
-     "Blue-hour summer evening, 1998, Sonobe district of Wakayama City. The camera descends "
-     "steadily from above a narrow residential lane: strings of red paper lanterns hang between "
-     "utility poles and house eaves, glowing warmly; below, a neighbourhood summer festival is "
-     "already alive - women in yukata fanning themselves, children running between folding tables, "
-     "an old man setting out plastic stools, paper streamers moving in the warm wind. Distant "
-     "festival drums throb, steam rises from a serving table. Camera: one continuous aerial glide "
-     "downward and slightly forward, settling above the crowd. Real motion: lanterns swaying, people "
-     "walking, children running, cloth and streamers moving. No readable text."),
+     "Blue-hour summer evening, 1998, Sonobe district of Wakayama City. The camera descends steadily from "
+     "above a narrow residential lane: strings of red paper lanterns hang between utility poles and house "
+     "eaves, glowing warmly; below, a neighbourhood summer festival is already alive - women in yukata fanning "
+     "themselves, children running between folding tables, an old man setting out plastic stools, paper "
+     "streamers moving in the warm wind. Distant festival drums throb, steam rises from a serving table. Every "
+     "lantern, cloth, box, car and wall in view is plain: no printed characters, no calligraphy, no cloth "
+     "banners with writing, no shop signs. Camera: one continuous aerial glide downward and slightly forward, "
+     "settling above the crowd. Real motion: lanterns swaying, people walking, children running, cloth and "
+     "streamers moving. No readable text."),
 
     ("S02", 5, 5, "锅面特写缓慢推近", [], "real",
-     "A garage in the same neighbourhood, early evening. A huge brushed-aluminium pot, wide as a "
-     "bathtub, sits on a gas burner; thick steam curls off the dark red curry inside, and the red "
-     "lantern light from the street is mirrored and distorted on the polished metal wall of the pot. "
-     "A sudden cool gust sweeps through the garage: every lantern reflected on the aluminium shivers "
-     "at once, the steam bends sideways and is torn apart. Camera: slow push toward the curved metal "
-     "surface until only the reflections and the trembling steam fill the frame. Real motion: steam "
-     "rolling, reflections wobbling, a single drop sliding down the pot. No people in this shot, no "
-     "readable text."),
+     "A garage in the same neighbourhood, early evening. A huge brushed-aluminium pot, wide as a bathtub, sits "
+     "on a gas burner; thick steam curls off the dark red curry inside, and the red lantern light from the "
+     "street is mirrored and distorted on the polished metal wall of the pot. A sudden cool gust sweeps "
+     "through the garage: every lantern reflected on the aluminium shivers at once, the steam bends sideways "
+     "and is torn apart. The bottles, jars, boxes and crates beside the burner are plain and unlabelled, and "
+     "the pot itself carries no marks or lettering. Camera: slow push toward the curved metal surface until "
+     "only the reflections and the trembling steam fill the frame. Real motion: steam rolling, reflections "
+     "wobbling, a single drop sliding down the pot. No people in this shot, no readable text."),
 
     ("S03", 10, 7, "中景环绕主妇与大锅", ["housewives"], "real",
-     "Inside the garage on the morning of the festival, sunlight striping the concrete floor. Three "
-     "housewives in aprons work around the enormous pot: one chops potatoes and onions on a wooden "
-     "board with quick even strokes, one stirs the curry with a long ladle, one wipes her forehead "
-     "with the towel around her neck and laughs at something the others said. A radio, boxes of "
-     "spices, plastic buckets and stacked plates crowd the shelves. Camera: a slow medium orbit "
-     "around the pot, moving from the chopping board past the steam to the laughing faces. Real "
-     "motion: knife work, ladle circling, steam, shoulders shaking with laughter. No readable text."),
+     "Inside the garage on the morning of the festival, sunlight striping the concrete floor. Three housewives "
+     "in aprons work around the enormous pot: one chops potatoes and onions on a wooden board with quick even "
+     "strokes, one stirs the curry with a long ladle, one wipes her forehead with the towel around her neck "
+     "and laughs at something the others said. A radio, boxes of spices, plastic buckets and stacked plates "
+     "crowd the shelves. Camera: a slow medium orbit around the pot, moving from the chopping board past the "
+     "steam to the laughing faces. Real motion: knife work, ladle circling, steam, shoulders shaking with "
+     "laughter. No readable text."),
 
     ("S04", 17, 7, "横向滑轨逐一展示排队的居民", ["residents", "housewives"], "real",
-     "The street outside the garage at midday: a long row of folding tables and plastic stools under "
-     "strings of red lanterns and colourful bunting. Residents queue with plastic plates - a woman in "
-     "yukata holding her daughter's hand, an old man in a vest fanning himself, a young father in a "
-     "work shirt just back from his shift. Behind the table a housewife ladles curry onto rice, steam "
-     "rising between them. Camera: a smooth lateral dolly along the queue, one continuous move that "
-     "reveals each person in turn. Real motion: queue shuffling forward, ladle serving, fans moving, "
-     "lanterns swinging in the breeze. No readable text."),
+     "The street outside the garage at midday: a long row of folding tables and plastic stools under strings "
+     "of red lanterns and colourful bunting. Residents queue with plastic plates - a woman in yukata holding "
+     "her daughter's hand, an old man in a vest fanning himself, a young father in a work shirt just back from "
+     "his shift. Behind the table a housewife ladles curry onto rice, steam rising between them. Every "
+     "lantern, tent cloth, apron and banner is plain, with no printed characters and no shop signs anywhere. "
+     "Camera: a smooth lateral dolly along the queue, one continuous move that reveals each person in turn. "
+     "Real motion: queue shuffling forward, ladle serving, fans moving, lanterns swinging in the breeze. No "
+     "readable text."),
 
     ("S05", 24, 6, "中景浅景深，母亲递勺子", ["residents"], "real",
-     "A folding table in the shade, shallow focus. A young mother in a cotton blouse leans in and "
-     "hands a spoon to her small son in a yukata; he takes it with both hands, scoops the curry, "
-     "eats, and grins with full cheeks while she laughs and wipes a grain of rice from his chin. "
-     "Plastic cups of barley tea, paper napkins and a paper fan lie on the table; the background "
-     "melts into warm lantern bokeh. Camera: medium shot with very shallow depth of field, a slow "
-     "gentle drift around the table. Real motion: chewing, blinking, the mother's hand moving, "
-     "steam rising. No readable text, no distress."),
+     "A folding table in the shade, shallow focus. A young mother in a cotton blouse leans in and hands a "
+     "spoon to her small son in a yukata; he takes it with both hands, scoops the curry, eats, and grins with "
+     "full cheeks while she laughs and wipes a grain of rice from his chin. Plastic cups of barley tea, paper "
+     "napkins and a paper fan lie on the table; the background melts into warm lantern bokeh. Camera: medium "
+     "shot with very shallow depth of field, a slow gentle drift around the table. Real motion: chewing, "
+     "blinking, the mother's hand moving, steam rising. No readable text, no distress."),
 
     ("S06", 30, 5, "航拍，云影缓慢覆盖", ["residents"], "real",
-     "High aerial view of the whole festival at sunset: the lane filled with tables, red lanterns "
-     "glowing, people sitting in small groups and chatting, children chasing each other between the "
-     "legs of folding tables, smoke from a grill drifting sideways. The warm orange light is at its "
-     "richest, and then a long shadow slides across the neighbourhood as a single dark cloud crosses "
-     "the sun; the red lanterns dim and the colour drains toward grey. Camera: slow aerial drift "
-     "with a gentle push in, the cloud shadow moving over the rooftops. Real motion: people, "
-     "lanterns, drifting smoke, sweeping cloud shadow. No readable text."),
-
-    ("S07", 35, 7, "中景，轻微手持晃动", ["residents"], "real",
-     "Back at the folding table, twenty minutes later, the light gone flat. An elderly man in a vest "
-     "carefully sets his spoon down, presses the heel of his hand to his forehead and closes his "
-     "eyes, swaying slightly; his bowl of curry trembles on the plastic table. Across from him a "
-     "woman half rises from her stool, alarmed, and reaches for his shoulder; other heads turn. "
-     "Camera: medium shot with a faint handheld tremor, slowly tightening on his hand against his "
-     "forehead. Real motion: trembling hands, a rocking bowl, heads turning, a stool scraping. No "
-     "vomit, no blood, no one collapsing on the ground, no readable text."),
-
-    ("S08", 42, 7, "广角快速横移，人群慌乱", ["residents", "housewives"], "real",
-     "The festival street in chaos, seen wide and at eye level: plastic stools knocked over, a folding "
-     "table tipped, plates sliding and curry spilling in a dark puddle on the asphalt, a housewife "
-     "crouching beside a fallen chair with a hand pressed to her stomach while neighbours hurry past "
-     "carrying water and towels, someone waving others away from the food table. Lanterns swing "
-     "wildly. Camera: fast lateral tracking move through the crowd, the spilled table sweeping "
-     "through the foreground. Real motion: running, swinging lanterns, spilling liquid, hands "
-     "reaching. No vomit, no blood, no close-up of suffering faces, no readable text."),
-
-    ("S09", 49, 6, "航拍俯拍，救护车驶入街区", ["medics", "residents"], "real",
-     "Night, blue hour gone. From high above the narrow lane, the roofs and wires dark, red emergency "
-     "lights pulsing against the walls: one ambulance has stopped in the street with its rear doors "
-     "open, a second turns slowly in from the corner, its beacon washing the houses in red, and a "
-     "third waits further back. Medics in pale uniforms push a folded stretcher toward a doorway; "
-     "residents stand in a loose circle, hands over mouths, kept back by an officer's raised arm. "
-     "Camera: top-down aerial, slow rotation following the turning ambulance. Real motion: rotating "
-     "beacons, walking medics, stretcher wheels, swaying lanterns. No bodies, no blood, no readable "
+     "High aerial view of the whole festival at sunset: the lane filled with tables, red lanterns glowing, "
+     "people sitting in small groups and chatting, children chasing each other between the legs of folding "
+     "tables, smoke from a grill drifting sideways. The warm orange light is at its richest, and then a long "
+     "shadow slides across the neighbourhood as a single dark cloud crosses the sun; the red lanterns dim and "
+     "the colour drains toward grey. Camera: slow aerial drift with a gentle push in, the cloud shadow moving "
+     "over the rooftops. Real motion: people, lanterns, drifting smoke, sweeping cloud shadow. No readable "
      "text."),
 
-    ("S10", 55, 5, "长走廊缓慢推进", ["medics"], "real",
-     "A Japanese hospital emergency corridor at night: pale green walls, cold fluorescent tubes, a "
-     "polished floor reflecting the light, curtained bays along one side. In the foreground a doctor "
-     "in a white coat pulls down his mask and frowns at a clipboard, then glances up as a stretcher "
-     "is wheeled past the far end of the corridor by two nurses. A wall clock with a plain face "
-     "reads deep night. Camera: slow steady push down the length of the corridor, the doctor passing "
-     "out of frame at the side. Real motion: walking, wheels, curtain sway, fluorescent flicker, "
-     "breathing. No blood, no bodies, no readable text."),
+    ("S07", 35, 7, "中景，轻微手持晃动", ["residents"], "real",
+     "Back at the folding table, twenty minutes later, the light gone flat. An elderly man in a vest carefully "
+     "sets his spoon down, presses the heel of his hand to his forehead and closes his eyes, swaying slightly; "
+     "his bowl of curry trembles on the plastic table. Across from him a woman half rises from her stool, "
+     "alarmed, and reaches for his shoulder; other heads turn. Camera: medium shot with a faint handheld "
+     "tremor, slowly tightening on his hand against his forehead. Real motion: trembling hands, a rocking "
+     "bowl, heads turning, a stool scraping. No vomit, no blood, no one collapsing on the ground, no readable "
+     "text."),
 
-    ("S11", 60, 7, "中景缓慢推近一双小鞋", ["residents"], "real",
-     "The same hospital corridor, quieter now, near a row of plastic waiting chairs. A mother in a "
-     "plain summer blouse stands with her back against the wall, head bowed, holding a pair of small "
-     "children's shoes against her chest with both hands; her shoulders shake once. Beside her a "
-     "folded blanket and a paper cup on the floor. No child is visible anywhere in the shot. The "
-     "corridor behind her is empty and cold. Camera: medium shot, very slow push in until the shoes "
-     "fill the lower third. Real motion: breathing, a trembling hand, a curtain moving, one flicker "
-     "of the tubes. No child, no body, no blood, no readable text."),
-
-    ("S12", 67, 7, "实验室，样本进仪器，曲线飙升", ["lab"], "real",
-     "A cool grey forensic laboratory: steel benches, glassware, an old analytical instrument with a "
-     "small CRT screen and physical dials. A researcher in a white lab coat and glasses slides a "
-     "sealed sample vial into the instrument's port, turns a knurled knob, and watches the screen; "
-     "the trace on the display climbs in a sharp spike, holds, and keeps climbing. His pupils widen, "
-     "his breath catches, and he snaps his head up toward a colleague off-frame. Camera: slow push "
-     "from the hands on the dial to the rising trace, then to his face. Real motion: gloved fingers, "
-     "dial turning, phosphor glow breathing, a blink. No readable characters or numbers on screen, "
+    ("S08", 42, 7, "广角快速横移，人群慌乱", ["residents", "housewives"], "real",
+     "The festival street in chaos, seen wide and at eye level: plastic stools knocked over, a folding table "
+     "tipped, plates sliding and curry spilling in a dark puddle on the asphalt, a housewife crouching beside "
+     "a fallen chair with a hand pressed to her stomach while neighbours hurry past carrying water and towels, "
+     "someone waving others away from the food table. Lanterns swing wildly. Camera: fast lateral tracking "
+     "move through the crowd, the spilled table sweeping through the foreground. Real motion: running, "
+     "swinging lanterns, spilling liquid, hands reaching. No vomit, no blood, no close-up of suffering faces, "
      "no readable text."),
 
+    ("S09", 49, 6, "航拍俯拍，救护车驶入街区", ["medics", "residents"], "real",
+     "Night, blue hour gone. From high above the narrow lane, the roofs and wires dark, red emergency lights "
+     "pulsing against the walls: one ambulance has stopped in the street with its rear doors open, a second "
+     "turns slowly in from the corner, its beacon washing the houses in red, and a third waits further back. "
+     "Medics in pale uniforms push a folded stretcher toward a doorway; residents stand in a loose circle, "
+     "hands over mouths, kept back by an officer's raised arm. Camera: top-down aerial, slow rotation "
+     "following the turning ambulance. Real motion: rotating beacons, walking medics, stretcher wheels, "
+     "swaying lanterns. No bodies, no blood, no readable text."),
+
+    ("S10", 55, 5, "长走廊缓慢推进", ["medics"], "real",
+     "A Japanese hospital emergency corridor at night: pale green walls, cold fluorescent tubes, a polished "
+     "floor reflecting the light, curtained bays along one side. In the foreground a doctor in a white coat "
+     "pulls down his surgical mask and frowns at a clipboard whose page is completely blank, then glances up "
+     "as a stretcher is wheeled past the far end of the corridor by two nurses. A wall clock with a plain face "
+     "and no numerals reads deep night. No lettering on the walls, doors or badges. Camera: slow steady push "
+     "down the length of the corridor, the doctor passing out of frame at the side. Real motion: walking, "
+     "wheels, curtain sway, a fluorescent tube flickering, breathing. No blood, no bodies, no readable text."),
+
+    ("S11", 60, 7, "中景缓慢推近一双小鞋", ["residents"], "real",
+     "The same hospital corridor, quieter now: a row of blue plastic waiting chairs, a folded blanket, a paper "
+     "cup on the floor. In a close medium shot a mother in a plain summer blouse stands with her back against "
+     "the wall, head bowed, holding a pair of small children's shoes against her chest with both hands; the "
+     "shoes are clearly readable, two little buckle straps, faint scuffs on the toes, and they fill the lower "
+     "third of the frame. Soft cool key light falls on her shoulders and on the shoes while the corridor "
+     "behind melts into blue-grey bokeh. Her shoulders shake once. No child and no body appears anywhere in "
+     "the shot. Camera: very slow push in toward the shoes. Real motion: breathing, a trembling hand, a "
+     "curtain moving, one flicker of the tubes. No blood, no readable text."),
+
+    ("S12", 67, 7, "实验室，样本进仪器，曲线飙升", ["lab"], "real",
+     "A cool grey forensic laboratory: steel benches, glassware, an old analytical instrument with a small CRT "
+     "screen and physical dials. A researcher in a white lab coat and glasses slides a sealed sample vial into "
+     "the instrument's port, turns a knurled knob, and watches the screen; the trace on the display climbs in "
+     "a sharp spike, holds, and keeps climbing. His pupils widen, his breath catches, and he snaps his head up "
+     "toward a colleague off-frame. Camera: slow push from the hands on the dial to the rising trace, then to "
+     "his face. Real motion: gloved fingers, dial turning, phosphor glow breathing, a blink. No readable "
+     "characters or numbers on screen, no readable text."),
+
     ("S13", 74, 6, "概念示意，毒瓶图标放大", ["lab"], "diagram",
-     "Abstract conceptual visualisation in cold darkness: a three-dimensional bottle-shaped icon with "
-     "a skull-free, unmarked label slowly rotates and grows in the centre of the frame, its glass "
-     "catching a deep blood-red light that pulses and flickers like a warning lamp; thin concentric "
-     "rings expand outward from it and dissolve, dust drifting through the beam. On the right third "
-     "the blurred silhouette of the researcher's face and glasses is lit only by that red glow. "
-     "Camera: slow push toward the icon while the rings pass the lens. Real motion: rotation, "
-     "pulsing light, expanding rings, drifting particles. Purely symbolic; no readable letters, no "
-     "numbers, no readable text."),
+     "Abstract conceptual visualisation in cold darkness: a three-dimensional bottle-shaped icon with a "
+     "skull-free, unmarked label slowly rotates and grows in the centre of the frame, its glass catching a "
+     "deep blood-red light that pulses and flickers like a warning lamp; thin concentric rings expand outward "
+     "from it and dissolve, dust drifting through the beam. On the right third the blurred silhouette of the "
+     "researcher's face and glasses is lit only by that red glow. Camera: slow push toward the icon while the "
+     "rings pass the lens. Real motion: rotation, pulsing light, expanding rings, drifting particles. Purely "
+     "symbolic; no readable letters, no numbers, no readable text."),
 
     ("S14", 80, 5, "快速拉远，锅与警戒线", ["detectives"], "real",
-     "Return to the garage, late at night: the aluminium pot stands open, lid set aside, the curry "
-     "inside gone flat and cold, no steam left, one ladle resting across the rim. The camera pulls "
-     "back fast and high through the garage door and out over the street, revealing the entire block "
-     "wrapped in yellow-and-black police tape strung between the utility poles and the garden fences, "
-     "white-and-blue patrol cars at both ends of the lane, and two detectives in dark suits standing "
-     "under the tape looking in. Camera: one continuous rapid pull-back and rise, foreground pot "
-     "shrinking to a point. Real motion: tape trembling, beacons turning, a coat flapping. No bodies, "
-     "no blood, no readable text."),
+     "Return to the garage, late at night: the aluminium pot stands open, lid set aside, the curry inside gone "
+     "flat and cold, no steam left, one ladle resting across the rim. The camera pulls back fast and high "
+     "through the garage door and out over the street, revealing the whole block wrapped in yellow-and-black "
+     "police tape strung between the utility poles and the garden fences, and white-and-blue patrol cars at "
+     "both ends of the lane, their bodies plain with no lettering and no number plates, roof lights turning. "
+     "Two detectives in dark suits stand under the tape looking in. Camera: one continuous rapid pull-back and "
+     "rise, the foreground pot shrinking to a point. Real motion: tape trembling, beacons turning, a coat "
+     "flapping. No bodies, no blood, no readable text."),
 
     ("S15", 85, 7, "中景环绕白板", ["detectives"], "real",
-     "A police incident room at night, lit by one overhead tube and a desk lamp. A detective in a "
-     "dark suit with the tie pulled loose stands at a large whiteboard, marking abstract unreadable "
-     "diagram strokes: a rough plan of a garage, a pot, a clock, and a cluster of small blank name "
-     "cards, some circled, some crossed out with a single hard line. A second detective sits smoking "
-     "at the table, ash dropping into a tin, a third leans on the back of a chair reading a folder. "
-     "Haze drifts through the lamplight. Camera: slow medium orbit around the whiteboard, from the "
-     "hand drawing to the watching faces. Real motion: marker moving, smoke curling, papers turning, "
-     "breathing. No readable writing, no names, no logos."),
+     "A police incident room at night, lit by one overhead tube and a desk lamp. A detective in a dark suit "
+     "with the tie pulled loose stands at a large whiteboard, marking abstract unreadable diagram strokes: a "
+     "rough plan of a garage, a pot, a clock, and a cluster of small blank name cards, some circled, some "
+     "crossed out with a single hard line. A second detective sits smoking at the table, ash dropping into a "
+     "tin, a third leans on the back of a chair reading a folder. Haze drifts through the lamplight. Camera: "
+     "slow medium orbit around the whiteboard, from the hand drawing to the watching faces. Real motion: "
+     "marker moving, smoke curling, papers turning, breathing. No readable writing, no names, no logos."),
 
     ("S16", 92, 7, "固定机位慢动作，泛黄回忆", ["residents", "masumi"], "real",
      "A memory image, deliberately faded and slightly sepia like old film: the festival garage on the "
-     "afternoon of the event, shot from a fixed position across the street. Residents come and go "
-     "through the open garage door carrying boxes and plates; among them a woman with short curly "
-     "hair in a floral blouse stands beside the big pot for a long stretch of time, her back half to "
-     "the camera, face never clear. Dust and steam turn slowly in the light; the other figures blur "
-     "past in slow motion. Camera: locked-off wide shot, subtle slow motion, no zoom. Real motion: "
-     "people crossing, steam, dust, a hand testing the pot's lid. No readable text, no clear face."),
+     "afternoon of the event, shot from a fixed position across the street. Residents come and go through the "
+     "open garage door carrying boxes and plates; among them a woman with short curly hair in a floral blouse "
+     "stands beside the big pot for a long stretch of time, her back half to the camera, face never clear. "
+     "Dust and steam turn slowly in the light; the other figures blur past in slow motion. Every banner, "
+     "curtain and sign on the street is plain, with no printed characters and no calligraphy. Camera: "
+     "locked-off wide shot, subtle slow motion, no zoom. Real motion: people crossing, steam, dust, a hand "
+     "testing the pot's lid. No readable text, no clear face."),
 
     ("S17", 99, 6, "大特写，红线连线", ["detectives"], "real",
-     "Extreme close-up over a detective's shoulder: his hand places a blank card on the whiteboard "
-     "and draws a heavy circle around it with a marker, then a second hand pins a red thread to that "
-     "circle and pulls it taut across the board to another card. The focus racks from the marker tip "
-     "to a small stylized photographic print pinned at the end, on which a woman with short permed "
-     "curly hair is visible only as an out-of-focus shape. Camera: very close, slow drift along the "
-     "red thread as it is pulled tight. Real motion: marker stroke, thread snapping straight, a card "
-     "settling, breathing. No readable names or writing on any card."),
+     "Extreme close-up over a detective's shoulder at a whiteboard. His hand places a blank card on the board "
+     "and draws a heavy circle around it with a marker, then a second hand pins a deep red thread to that "
+     "circle and pulls it taut across the board to another blank card. The board carries only arrows, boxes "
+     "and circles - no handwriting-like marks, no printed characters, no letters or numbers anywhere. The "
+     "focus racks from the marker tip to a small photographic print pinned at the end, on which a woman with "
+     "short permed curly hair is visible only as an out-of-focus shape. Camera: very close, slow drift along "
+     "the red thread as it is pulled tight. Real motion: marker stroke, thread snapping straight, a card "
+     "settling, breathing. No readable text."),
 
     ("S18", 105, 5, "偷拍视角，缓慢推近二层小楼", ["neighbours"], "real",
-     "From a narrow gap behind lace curtains in a neighbouring house: two women and an older man "
-     "crowd the gap, faces half in shadow, whispering to each other with hands near their mouths, "
-     "watching the street. Across the lane a two-storey Japanese house stands behind a low wall, one "
-     "upstairs window lit a dim amber, a small garden hose coiled by the gate. Camera: voyeuristic "
-     "telephoto view over their shoulders, very slow push toward the lit window; the curtain edge "
-     "drifts through the foreground. Real motion: whispering heads, curtain sway, a light flickering "
-     "in the window. No readable text, no clear faces."),
+     "From behind lace curtains in a neighbouring house, at eye level: two neighbours are seen from behind in "
+     "three-quarter back view, shoulders close together, faces turned away toward the street, warm rim light "
+     "along their hair and shoulders - real bodies in real cloth, never flat cut-out silhouettes. Across the "
+     "lane a two-storey Japanese house stands behind a low wall, one upstairs window lit a dim amber, a small "
+     "garden hose coiled by the gate. All signs and house fronts are plain, with no printed characters. "
+     "Camera: voyeuristic telephoto view over their shoulders, very slow push toward the lit window; the "
+     "curtain edge drifts through the foreground. Real motion: a whispered turn of the head, curtain sway, the "
+     "light flickering in the window. No readable text, no clear faces."),
 
     ("S19", 110, 7, "中景侧光，客厅里的保险单", ["masumi", "kenji"], "real",
-     "The living room of the Hayashi house on a hot afternoon: sliding paper screens half closed, "
-     "yellow light cutting through the gap, an electric fan turning slowly, a low table buried under "
-     "a fanned-out stack of insurance documents with blank, unreadable pages. Masumi sits across "
-     "from the lens in a floral blouse, chin slightly raised, watching the camera with a flat "
-     "half-smile that does not reach her eyes; beside her Kenji leans back in his chair, cigarette "
-     "smoke rising past his tired face as he looks away. Camera: medium two-shot lit from one side, "
-     "very slow drift to the right. Real motion: fan blades, smoke curling, a blink, a page lifting "
-     "in the draught. No readable text on any document."),
+     "The living room of the Hayashi house on a hot afternoon: sliding paper screens half closed, yellow light "
+     "cutting through the gap, an electric fan turning slowly, a low table buried under a fanned-out stack of "
+     "insurance documents whose pages are completely blank. There is no hanging scroll, no wall calendar and "
+     "no writing of any kind in the room. Masumi sits across from the lens in a floral blouse, chin slightly "
+     "raised, watching the camera with a flat half-smile that does not reach her eyes; beside her Kenji leans "
+     "back in his chair, cigarette smoke rising past his tired face as he looks away. Camera: medium two-shot "
+     "lit from one side, very slow drift to the right. Real motion: fan blades, smoke curling, a blink, a page "
+     "lifting in the draught. No readable text on any surface."),
 
     ("S20", 117, 7, "特写柜门打开，慢动作", ["detectives"], "real",
-     "Inside the same house during a search, in the narrow kitchen: two detectives in latex gloves "
-     "crouch at a low cabinet under the sink. One pulls the door open in slow motion - buckets, "
-     "bottles, a folded cloth - and a torch beam swings across the interior, stopping on a plain "
-     "plastic packet of white powder wedged at the back. They look at each other, then back at the "
-     "packet; one holds a clear evidence bag open. Camera: close-up on the cabinet door and the "
-     "torch beam, slow motion, slight handheld drift. Real motion: the door swinging, torch beam "
-     "sweeping, breathing, a gloved hand steadying. No readable labels, no blood."),
+     "Inside the same house during a search, in the narrow kitchen: two detectives in latex gloves crouch at a "
+     "low cabinet under the sink. One pulls the door open in slow motion - buckets, bottles, a folded cloth - "
+     "and a torch beam swings across the interior, stopping on a plain plastic packet of white powder wedged "
+     "at the back. They look at each other, then back at the packet; one holds a clear evidence bag open. "
+     "Camera: close-up on the cabinet door and the torch beam, slow motion, slight handheld drift. Real "
+     "motion: the door swinging, torch beam sweeping, breathing, a gloved hand steadying. No readable labels, "
+     "no blood."),
 
     ("S21", 124, 6, "俯拍，红线连起剪影", ["masumi"], "diagram",
-     "Overhead conceptual shot in dark space: a dozen blank insurance forms spread across a matte "
-     "black surface, their lines and boxes abstract and unreadable; around them float five dim "
-     "human silhouettes, faceless, each one tied to one of the forms by a thin deep-red thread. A "
-     "sixth silhouette at the centre - a woman with short curly hair - stands slightly apart, and "
-     "the red threads converge toward her without quite touching. Camera: slow push down "
-     "through the threads, dust drifting. Real motion: threads tightening and trembling, silhouettes "
-     "breathing, forms sliding a few millimetres. Symbolic only; no readable letters, no numbers, no readable "
-     "text."),
+     "Overhead conceptual shot in dark space: a dozen completely blank paper sheets spread across a matte "
+     "black surface, with no printed lines, no ruled boxes and no writing on them at all. Around the sheets "
+     "float five dim human silhouettes, faceless, each one tied to a sheet by a thin deep-red thread. A sixth "
+     "silhouette at the centre - a woman with short curly hair - stands slightly apart, and the red threads "
+     "converge toward her without quite touching. Camera: slow push down through the threads, dust drifting. "
+     "Real motion: threads tightening and trembling, silhouettes breathing, sheets sliding a few millimetres. "
+     "Symbolic only; no readable letters, no numbers, no readable text."),
 
     ("S22", 130, 5, "特写，两条曲线重合", ["lab"], "diagram",
      "A dark analytical screen, abstract and without any lettering: two glowing spectral traces draw "
-     "themselves from left to right, one pale gold, one cold white, rising and falling in almost the "
-     "same shape. As the camera eases closer, the white trace slides down and settles precisely onto "
-     "the gold one; the two lines fuse into a single bright curve and a soft confirmation pulse runs "
-     "along it. Fine dust and screen glow drift in front of the glass. Camera: micro push in on the "
-     "overlapping peaks, shallow focus. Real motion: lines drawing, overlaying, a pulse travelling "
-     "along the curve. Conceptual forensic illustration; no axes, no numbers, no readable letters, no readable text."),
+     "themselves from left to right, one pale gold, one cold white, rising and falling in almost the same "
+     "shape. As the camera eases closer, the white trace slides down and settles precisely onto the gold one; "
+     "the two lines fuse into a single bright curve and a soft confirmation pulse runs along it. Fine dust and "
+     "screen glow drift in front of the glass. Camera: micro push in on the overlapping peaks, shallow focus. "
+     "Real motion: lines drawing, overlaying, a pulse travelling along the curve. Conceptual forensic "
+     "illustration; no axes, no numbers, no readable letters, no readable text."),
 
     ("S23", 135, 7, "低机位慢动作，水管喷水", ["reporters", "masumi"], "real",
-     "Outside the Hayashi house in late afternoon: a wall of reporters, photographers and television "
-     "crews presses against the low garden wall, shoulder-mounted cameras raised, flashguns firing in "
-     "clusters, microphones pushed forward. Inside the yard Masumi stands with her jaw set, both "
-     "hands on a green garden hose, and sweeps a hard jet of water across the lenses; spray bursts "
-     "into the air and the front rank flinches back, shielding their cameras, one hat knocked "
-     "sideways. Camera: low angle from inside the yard, slow motion, the water crossing the frame in "
-     "sheets. Real motion: water jet and spray, flashing strobes, recoiling bodies, hair and cloth "
-     "whipping. No readable text, no logos."),
+     "Outside the Hayashi house in late afternoon: a wall of reporters, photographers and television crews "
+     "presses against the low garden wall, shoulder-mounted cameras raised, flashguns firing in clusters, "
+     "microphones pushed forward. Every camera body, microphone and jacket is blank and unbranded, and no "
+     "banner or sign carries writing. Inside the yard Masumi stands with her jaw set, both hands on a green "
+     "garden hose, and sweeps a hard jet of water across the lenses; spray bursts into the air and the front "
+     "rank flinches back, shielding their cameras, one hat knocked sideways. Camera: low angle from inside the "
+     "yard, slow motion, the water crossing the frame in sheets. Real motion: water jet and spray, flashing "
+     "strobes, recoiling bodies, hair and cloth whipping. No readable text, no logos."),
 
     ("S24", 142, 7, "中景，全家围着电视机", ["residents"], "real",
-     "A different Japanese living room that evening: a family of four sits around a low table facing "
-     "a CRT television, its pale flickering light washing their faces. On the screen only an "
-     "unreadable blurred image of a garden and a hose. The two children sit forward, curious; the "
-     "parents frown, the father's hand flat on the table, the mother's fingers pressed to her mouth. "
-     "Tea and a plate of watermelon are forgotten in front of them. Camera: medium shot from the "
-     "side of the television, slow drift around the family, the screen glow moving across their "
-     "faces. Real motion: flickering light, blinking, a child shifting, steam from tea. No readable "
-     "text on the screen."),
+     "A different Japanese living room that evening: a family of four sits around a low table facing a CRT "
+     "television, its pale flickering light washing their faces. On the screen only an unreadable blurred "
+     "image of a garden and a hose. The two children sit forward, curious; the parents frown, the father's "
+     "hand flat on the table, the mother's fingers pressed to her mouth. Tea and a plate of watermelon are "
+     "forgotten in front of them. Camera: medium shot from the side of the television, slow drift around the "
+     "family, the screen glow moving across their faces. Real motion: flickering light, blinking, a child "
+     "shifting, steam from tea. No readable text on the screen."),
 
     ("S25", 149, 6, "中景缓慢推近，回头一看", ["masumi", "detectives"], "real",
-     "The front gate of the Hayashi house, dusk, patrol-car beacons painting the wall red and blue. "
-     "Two detectives in dark suits stand on either side of Masumi; one holds up a folded document. "
-     "She is led out toward the lane, then stops and looks back over her shoulder at the house - "
-     "chin up, expression stubborn and eerily calm - and her lips move once, silently, as if "
-     "repeating a short sentence. The camera stays on her face as the others blur. Camera: medium "
-     "shot, slow push in, shallow focus. Real motion: walking, turning the head, lips moving, coat "
-     "and hair in the wind, beacons turning. No readable text on the document."),
+     "The front gate of the Hayashi house, dusk, patrol-car beacons painting the wall red and blue. Two "
+     "detectives in dark suits stand on either side of Masumi; one holds up a folded document whose page is "
+     "blank. Behind them the patrol car is plain, with no lettering and no number plate. She is led out toward "
+     "the lane, then stops and looks back over her shoulder at the house - chin up, expression stubborn and "
+     "eerily calm - and her lips move once, silently, as if repeating a short sentence. The camera stays on "
+     "her face as the others blur. Camera: medium shot, slow push in, shallow focus. Real motion: walking, "
+     "turning the head, lips moving, coat and hair in the wind, beacons turning. No readable text."),
 
     ("S26", 155, 6, "缓慢环绕法庭", ["court", "masumi"], "real",
-     "A Japanese district courtroom in winter 2002, everything cold grey and dark wood. The judge in "
-     "a black robe sits on the raised bench, head slightly bowed over a document, reading in a low "
-     "even voice; the clerk beside the bench keeps still. In the well of the court Masumi stands "
-     "with her hands folded, head down, short curly hair catching the flat overhead light; the "
-     "gallery behind is a row of motionless shoulders. Camera: slow orbit from the bench across the "
-     "empty floor to her lowered head. Real motion: a page turning, a slow blink, shoulders "
-     "breathing, dust in the light. No readable text, no gavel strike in this shot."),
+     "A Japanese district courtroom in winter 2002, everything cold grey and dark wood. The judge in a black "
+     "robe sits on the raised bench, head slightly bowed over a document, reading in a low even voice; the "
+     "clerk beside the bench keeps still. In the well of the court Masumi stands with her hands folded, head "
+     "down, short curly hair catching the flat overhead light; the gallery behind is a row of motionless "
+     "shoulders. Camera: slow orbit from the bench across the empty floor to her lowered head. Real motion: a "
+     "page turning, a slow blink, shoulders breathing, dust in the light. No readable text, no gavel strike in "
+     "this shot."),
 
     ("S27", 161, 6, "中景，天平摆动", ["court"], "diagram",
-     "A monumental three-dimensional balance scale in cold dark space. On the left pan rest a "
-     "glowing spectral curve and three small faceless witness silhouettes; on the right pan lie "
-     "several empty blank frames and a hollow outline of a question-shaped void. The beam tilts one "
-     "way, then the other, the pans trembling, never settling level; dust drifts through a single "
-     "beam of light. Camera: medium shot at eye level with the beam, slowly orbiting as it swings. "
-     "Real motion: swinging beam, trembling chains, drifting dust, pulsing curves. Symbolic only; no readable letters, no "
-     "numbers, no readable text."),
+     "A monumental three-dimensional balance scale in cold dark space. On the left pan rest a glowing spectral "
+     "curve and three small faceless witness silhouettes; on the right pan lie several empty blank frames and "
+     "a hollow outline of a question-shaped void. The beam tilts one way, then the other, the pans trembling, "
+     "never settling level; dust drifts through a single beam of light. Camera: medium shot at eye level with "
+     "the beam, slowly orbiting as it swings. Real motion: swinging beam, trembling chains, drifting dust, "
+     "pulsing curves. Symbolic only; no readable letters, no numbers, no readable text."),
 
     ("S28", 167, 5, "航拍转特写，判决书与红印", ["court"], "real",
-     "The Supreme Court building in Tokyo under a flat overcast sky: a tall pale modernist slab with "
-     "long vertical fins, wet paving in front, bare trees, a few suited figures tiny at the steps. "
-     "Camera: aerial descent toward the facade, then a rapid move to a close-up of a single sheet of "
-     "paper - blank and unreadable - lifted and turned by the wind on an outdoor ledge. A heavy "
-     "circular red seal descends onto the paper in slow motion, pressing flat, leaving only a solid "
-     "red disc with no characters. Real motion: clouds sliding, paper fluttering, the seal pressing "
-     "down. No readable text, no letters, no numbers."),
+     "The Supreme Court building in Tokyo under a flat overcast sky: a tall pale modernist slab with long "
+     "vertical fins, wet paving in front, bare trees, a few suited figures tiny at the steps. Camera: aerial "
+     "descent toward the facade, then a rapid move to a close-up of a single sheet of paper - blank and "
+     "unreadable - lifted and turned by the wind on an outdoor ledge. A heavy circular red seal descends onto "
+     "the paper in slow motion, pressing flat, leaving only a solid red disc with no characters. Real motion: "
+     "clouds sliding, paper fluttering, the seal pressing down. No readable text, no letters, no numbers."),
 
     ("S29", 172, 8, "缓慢推近，淡入淡出", [], "real",
-     "A death-row cell interior at dusk: bare concrete wall, a narrow barred window high up, one "
-     "thin shaft of warm sunset light falling across the bars and the floor. On the narrow sill "
-     "stands a single white flower in a small cup, its petals moving slightly in the draught. The "
-     "light slowly brightens until the frame begins to wash out toward white at the edges. Camera: "
-     "very slow push toward the window and the flower, settling into a stable final frame with clean "
-     "negative space in the upper half for a title added later. Real motion: dust in the beam, "
-     "petals trembling, the light breathing and blooming toward white. The generated clip contains "
-     "no lettering at all; every title is added in post."),
+     "A death-row cell interior at dusk: bare concrete wall, a narrow barred window high up, one thin shaft of "
+     "warm sunset light falling across the bars and the floor. On the narrow sill stands a single white flower "
+     "in a small cup, its petals moving slightly in the draught. The light slowly brightens until the frame "
+     "begins to wash out toward white at the edges. Camera: very slow push toward the window and the flower, "
+     "settling into a stable final frame with clean negative space in the upper half for a title added later. "
+     "Real motion: dust in the beam, petals trembling, the light breathing and blooming toward white. The "
+     "generated clip contains no lettering at all; every title is added in post."),
 ]
 
 # ---------------------------------------------------------------- 一镜一句旁白（29 条）
