@@ -63,7 +63,7 @@ def frames_db(samples: np.ndarray) -> np.ndarray:
     return 20.0 * np.log10(np.maximum(rms, 1e-9))
 
 
-def silence_candidates(samples: np.ndarray, min_gap: float = 0.09) -> tuple[list[float], np.ndarray]:
+def silence_candidates(samples: np.ndarray, min_gap: float = 0.16) -> tuple[list[tuple[float, float]], np.ndarray]:
     db = frames_db(samples)
     peak = float(np.max(db))
     threshold = max(-52.0, peak - 36.0)
@@ -78,10 +78,10 @@ def silence_candidates(samples: np.ndarray, min_gap: float = 0.09) -> tuple[list
     if start is not None:
         runs.append((start, len(silent)))
     min_frames = int(round(min_gap * 100))
-    points = [(a + b) / 2.0 * HOP / RATE for a, b in runs if b - a >= min_frames]
+    points = [((a + b) / 2.0 * HOP / RATE, (b - a) * HOP / RATE) for a, b in runs if b - a >= min_frames]
     # 片头/片尾不算切点。
     duration = len(samples) / RATE
-    points = [p for p in points if 0.25 < p < duration - 0.25]
+    points = [p for p in points if 0.25 < p[0] < duration - 0.25]
     return points, db
 
 
@@ -89,28 +89,45 @@ def visible(text: str) -> int:
     return max(1, sum(1 for ch in text if ch.isalnum() or "\u3400" <= ch <= "\u9fff"))
 
 
-def choose_cuts(duration: float, weights: list[float], candidates: list[float]) -> list[float]:
-    """Pick len(weights)-1 cut points so each slice's share of time matches its share of characters."""
-    k = len(weights) - 1
+def predict_seconds(text: str) -> float:
+    """自然语速下的朗读秒数（用交付版 29 条实测回归：汉字 0.192s、逗号 0.295s、句末 0.485s、数字 0.098s）。
+    比按字数摊派靠谱：句子里的停顿本身就占时间，切点跟着预测走才不会切在句子中间。"""
+    cjk = sum(1 for ch in text if "\u3400" <= ch <= "\u9fff")
+    commas = sum(1 for ch in text if ch in "，、；：")
+    stops = sum(1 for ch in text if ch in "。？！")
+    digits = sum(1 for ch in text if ch.isdigit())
+    return 0.192 * cjk + 0.295 * commas + 0.485 * stops + 0.098 * digits + 0.252
+
+
+def predict_seconds(text: str) -> float:
+    """自然语速下的朗读秒数（由首版 29 条实测回归：汉字 0.192s、逗号 0.295s、句末 0.485s、数字 0.098s、底噪 0.252s）。"""
+    cjk = sum(1 for ch in text if "\u3400" <= ch <= "\u9fff")
+    commas = sum(1 for ch in text if ch in "，、；：")
+    stops = sum(1 for ch in text if ch in "。？！")
+    digits = sum(1 for ch in text if ch.isdigit())
+    return 0.192 * cjk + 0.295 * commas + 0.485 * stops + 0.098 * digits + 0.252
+
+
+def choose_cuts(duration: float, targets: list[float], candidates: list[tuple[float, float]]) -> list[float]:
+    """沿「预测时间轴」挑切点，并偏好更长的停顿——句子边界通常比逗号停得更久。"""
+    k = len(targets)
     if k == 0:
         return []
     if len(candidates) < k:
         raise RuntimeError(f"only {len(candidates)} silence gaps for {k} cuts")
-    total = sum(weights)
-    cumulative = np.cumsum(weights)[:-1] / total * duration
-    points = np.array(candidates, dtype=np.float64)
+    points = np.array([point for point, _ in candidates], dtype=np.float64)
+    gaps = np.array([gap for _, gap in candidates], dtype=np.float64)
     inf = float("inf")
-    # cost[j, i]: 前 j+1 个切点里最后一个落在候选 i 上的最小代价
     cost = np.full((k, len(points)), inf)
     back = np.full((k, len(points)), -1, dtype=int)
-    cost[0] = np.abs(points - cumulative[0]) * 4.0
+    cost[0] = np.abs(points - targets[0]) - 0.45 * gaps
     for j in range(1, k):
         for i in range(len(points)):
             best, arg = inf, -1
             for p in range(i):
                 if cost[j - 1, p] == inf:
                     continue
-                value = cost[j - 1, p] + abs(points[i] - cumulative[j]) * 4.0
+                value = cost[j - 1, p] + abs(points[i] - targets[j]) - 0.45 * gaps[i]
                 if value < best:
                     best, arg = value, p
             cost[j, i], back[j, i] = best, arg
@@ -118,8 +135,7 @@ def choose_cuts(duration: float, weights: list[float], candidates: list[float]) 
     cuts = [last]
     for j in range(k - 1, 0, -1):
         cuts.append(int(back[j, cuts[-1]]))
-    cuts = sorted(cuts)
-    return [float(points[i]) for i in cuts]
+    return [float(points[i]) for i in sorted(cuts)]
 
 
 def trim_slice(samples: np.ndarray, start: float, end: float) -> np.ndarray:
@@ -158,8 +174,10 @@ def main() -> int:
             continue
         samples = decode(source)
         duration = len(samples) / RATE
-        weights = [visible(shots[sid]["narration"]) for sid in ids]
-        expected_cuts = choose_cuts(duration, weights, silence_candidates(samples)[0])
+        predicted = [predict_seconds(shots[sid]["narration"]) for sid in ids]
+        scale = (duration - 0.25) / sum(predicted) if sum(predicted) else 1.0
+        targets = list(np.cumsum([value * scale for value in predicted])[:-1])
+        expected_cuts = choose_cuts(duration, targets, silence_candidates(samples)[0])
         edges = [0.0] + expected_cuts + [duration]
         print(f"{name}: {duration:5.2f}s -> " + " / ".join(
             f"{sid} {edges[i+1]-edges[i]:4.2f}s" for i, sid in enumerate(ids)))
@@ -173,7 +191,7 @@ def main() -> int:
             if speed > 1.55:
                 flag = "  <-- OVER (>1.55x)"
                 problems.append(f"{sid}: needs {speed:.2f}x")
-            elif speed > 1.02:
+            elif speed > 1.03:
                 flag = f"  (speedup {speed:.2f}x)"
             print(f"    {sid} d={shots[sid]['duration']}s spoken={spoken:5.2f}s "
                   f"ratio={spoken/window:4.2f}{flag}")
