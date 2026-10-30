@@ -158,15 +158,18 @@ CHARACTER_SEEDS = {
 # (镜号, 起始, 时长, 运镜, 角色, 风格变体, 提示词)
 SHOT_ROWS = [
     ("S01", 0, 5, "航拍下降并推近街道", ["residents"], "real",
-     "Blue-hour summer evening, 1998, Sonobe district of Wakayama City. The camera descends steadily from high "
-     "above a narrow residential lane: long strings of plain red paper lanterns hang between utility poles and "
-     "house eaves, glowing warmly; below, a neighbourhood summer festival is alive - women in yukata fanning "
-     "themselves, children running between folding tables, an old man setting out plastic stools, paper "
-     "streamers moving in the warm wind. Every surface is clean and unmarked: no cloth banners, no red "
-     "vertical signage strips, no hanging shop signs, no printed characters, no calligraphy anywhere in the "
-     "frame; the lanterns are plain paper with nothing written on them. Camera: one continuous aerial glide "
-     "downward and slightly forward, settling above the crowd. Real motion: lanterns swaying, people walking, "
-     "children running, cloth and streamers moving. No readable text."),
+     "Blue-hour summer evening, 1998, a narrow lane in the Sonobe hillside neighbourhood of Wakayama City, one "
+     "continuous descending camera move. The upper half of the frame is packed with round red paper lanterns "
+     "strung between wooden utility poles, glowing amber, their paper plain and unmarked. Below them a "
+     "neighbourhood summer festival: women in cotton yukata fanning themselves, children running between "
+     "folding tables, an old man carrying a stack of plastic stools, steam curling off a serving table. The "
+     "buildings are plain 1998 Japanese houses - dark wood, white plaster, tiled roofs, closed sliding doors - "
+     "and every wall is bare: this is a quiet residential lane with no shopfronts, no banners, no flags, no "
+     "nobori, no vertical strips of cloth or paper, no placards, no posters, no painted lettering anywhere. "
+     "Photoreal live-action documentary look with fine grain, not an illustration, not a painting. Camera: a "
+     "smooth aerial glide descending and easing forward to settle just above the crowd, lanterns passing close "
+     "to the lens. Real motion: lanterns swaying, people walking and fanning, children running, steam "
+     "drifting, cloth moving. No readable text."),
 
     ("S02", 5, 5, "锅面特写缓慢推近", [], "real",
      "A garage in the same neighbourhood, early evening. A huge brushed-aluminium pot, wide as a bathtub, sits "
