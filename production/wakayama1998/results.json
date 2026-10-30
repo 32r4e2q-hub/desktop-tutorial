@@ -465,10 +465,13 @@
     "S17": {
       "id": "S17",
       "request_hash": "d404126c267a6aa710c61f1611a4f4fd5071f3870d28c08aa7a715c14fb16dbf",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-30T13:40:44Z",
-      "error": null
+      "updated_at": "2026-10-30T13:41:41Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 13:45:39. (request id: 20261030134141198225909Aww858PN) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 239.0
     },
     "S18": {
       "id": "S18",
@@ -770,7 +773,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-30T13:40:44Z",
+  "updated_at": "2026-10-30T13:41:41Z",
   "run_id": "41060871126",
   "previous_results": {
     "S01": [
@@ -1188,5 +1191,13 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 13:45:39. (request id: 20261030134141198225909Aww858PN) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 239.0,
+    "last_seen": "2026-10-30T13:41:41Z"
   }
 }
