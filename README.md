@@ -6,7 +6,7 @@
 > - 封面 / 字幕 / 旁白：[`Setagaya_Cover.png`](交付/Setagaya_Cover.png) · [`Setagaya_Subtitles.srt`](交付/Setagaya_Subtitles.srt) · [`Setagaya_Narration.wav`](交付/Setagaya_Narration.wav)
 > - 全流程与状态：[`production/setagaya2000/README.md`](production/setagaya2000/README.md)
 > - **从这一部起，出片一律按本片模板**：[`production/setagaya2000/模板-如何复用.md`](production/setagaya2000/模板-如何复用.md)
->   （29 镜一镜一句 · 24 fps · 720P 源片放大 1080P · 一份 yml + 三个 marker · 闸门在 runner 上跑）
+>   （29 镜一镜一句 · **解说词与片段等长**：镜头时长跟着旁白走，只快不慢 · 24 fps · 720P 源片放大 1080P · 一份 yml + 三个 marker · 闸门在 runner 上跑）
 > - 质检：`QC PASS`，`hard_gate_failures: []`（非预期黑帧 0 · 冻结 0 · 闪烁 0 · 字幕 0 问题 · RMS −21.04 dBFS · 末秒 −120 dBFS）
 
 ---

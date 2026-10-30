@@ -437,6 +437,21 @@ def main() -> int:
             git("config", "user.name", "github-actions[bot]")
             git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
         code = subprocess.run([sys.executable, str(HERE / "qc.py")], cwd=ROOT).returncode
+        # 解说词与片段等长：量一遍每镜旁白占了多少秒，写成 qa/narration-fit.md。
+        # 只要有一镜需要超过 1.55× 才装得下（over），这次质检直接判失败。
+        fit = subprocess.run([sys.executable, str(HERE / "narration_fit.py")], cwd=ROOT,
+                             capture_output=True, text=True)
+        qa_dir = HERE / "qa"
+        qa_dir.mkdir(parents=True, exist_ok=True)
+        (qa_dir / "narration-fit.md").write_text(
+            "# 解说词与片段等长 · 实测表\n\n"
+            "由 `narration_fit.py` 在 `mode=qc` 时生成：占比 = 自然语音秒数 ÷ 镜头可用窗口，"
+            ">100% 表示需要轻微加速（上限 1.55×，只快不慢）。\n\n"
+            + (fit.stdout or "").strip() + "\n", encoding="utf-8")
+        print(fit.stdout or "", flush=True)
+        if fit.returncode:
+            print("NARRATION FIT FAILED: 有镜头装不下这句旁白（见 qa/narration-fit.md）", flush=True)
+            code = 1
         if args.publish:
             git("add", "-f", "--", "production/setagaya2000/qa", "交付")
             if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode:
