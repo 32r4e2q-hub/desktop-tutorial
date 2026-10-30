@@ -1,11 +1,11 @@
-run=41077054347 attempt=1 ref=arena/3412a846-desktop-tutorial
-event=push runner=GitHub Actions 1000002716 os=Linux arch=X64
-sha=9697bc80fa1fd688c413f4f971240bdaee93b21a
-started 2026-10-30T15:03:40Z
+run=41077590594 attempt=1 ref=arena/3412a846-desktop-tutorial
+event=push runner=GitHub Actions 1000002719 os=Linux arch=X64
+sha=496a2fae5d7c90ee4168de1b96d21edceb2d2b2c
+started 2026-10-30T15:07:16Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"mode":"audio"} 
+payload={"mode":"qc"}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -29,7 +29,7 @@ stage=tools_ready
 WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/story.json — 29 shots, 180s, 557 visible narration characters (3.09/s)
 densest line: S28 3.86 chars/s
 stage=build_ok
-validation mode: audio
+validation mode: qc
 VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
 stage=validate_ok
 test_ass_has_no_control_characters_and_keeps_card_tags (production.tests.test_wakayama1998.SubtitleOverlayTests.test_ass_has_no_control_characters_and_keeps_card_tags) ... ok
@@ -57,37 +57,7 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_waka
 test_sources_and_fact_boundaries_are_recorded (production.tests.test_wakayama1998.WakayamaPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 15 tests in 0.168s
+Ran 15 tests in 0.164s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-AUDIO_DELIVERED Wakayama_Narration.wav, 和歌山毒咖喱事件_发布文案.md
-generator_exit=0
-== qc ==
-{
-  "container": {
-    "width": 1920,
-    "height": 1080,
-    "fps": "24/1",
-    "frames": 4320,
-    "duration_seconds": 180.0,
-    "bytes": 63842947,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "sample_rate": 48000,
-    "channels": 2
-  },
-  "subtitles": {
-    "cues": 29,
-    "end_card_cues": 1,
-    "covers_all_shots": true,
-    "covers_all_lines": true,
-    "problems": []
-  },
-  "hard_gate_failures": []
-}
-QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/wakayama1998/edit/delivery/qc-report.json
-qc_exit=0
-stage=finished exit=0
