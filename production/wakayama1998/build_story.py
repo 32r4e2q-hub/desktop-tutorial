@@ -158,15 +158,15 @@ CHARACTER_SEEDS = {
 # (镜号, 起始, 时长, 运镜, 角色, 风格变体, 提示词)
 SHOT_ROWS = [
     ("S01", 0, 5, "航拍下降并推近街道", ["residents"], "real",
-     "Blue-hour summer evening, 1998, Sonobe district of Wakayama City. The camera descends steadily from "
-     "above a narrow residential lane: strings of red paper lanterns hang between utility poles and house "
-     "eaves, glowing warmly; below, a neighbourhood summer festival is already alive - women in yukata fanning "
+     "Blue-hour summer evening, 1998, Sonobe district of Wakayama City. The camera descends steadily from high "
+     "above a narrow residential lane: long strings of plain red paper lanterns hang between utility poles and "
+     "house eaves, glowing warmly; below, a neighbourhood summer festival is alive - women in yukata fanning "
      "themselves, children running between folding tables, an old man setting out plastic stools, paper "
-     "streamers moving in the warm wind. Distant festival drums throb, steam rises from a serving table. Every "
-     "lantern, cloth, box, car and wall in view is plain: no printed characters, no calligraphy, no cloth "
-     "banners with writing, no shop signs. Camera: one continuous aerial glide downward and slightly forward, "
-     "settling above the crowd. Real motion: lanterns swaying, people walking, children running, cloth and "
-     "streamers moving. No readable text."),
+     "streamers moving in the warm wind. Every surface is clean and unmarked: no cloth banners, no red "
+     "vertical signage strips, no hanging shop signs, no printed characters, no calligraphy anywhere in the "
+     "frame; the lanterns are plain paper with nothing written on them. Camera: one continuous aerial glide "
+     "downward and slightly forward, settling above the crowd. Real motion: lanterns swaying, people walking, "
+     "children running, cloth and streamers moving. No readable text."),
 
     ("S02", 5, 5, "锅面特写缓慢推近", [], "real",
      "A garage in the same neighbourhood, early evening. A huge brushed-aluminium pot, wide as a bathtub, sits "
@@ -356,12 +356,14 @@ SHOT_ROWS = [
      "Symbolic only; no readable letters, no numbers, no readable text."),
 
     ("S22", 130, 5, "特写，两条曲线重合", ["lab"], "diagram",
-     "A dark analytical screen, abstract and without any lettering: two glowing spectral traces draw "
-     "themselves from left to right, one pale gold, one cold white, rising and falling in almost the same "
-     "shape. As the camera eases closer, the white trace slides down and settles precisely onto the gold one; "
-     "the two lines fuse into a single bright curve and a soft confirmation pulse runs along it. Fine dust and "
-     "screen glow drift in front of the glass. Camera: micro push in on the overlapping peaks, shallow focus. "
-     "Real motion: lines drawing, overlaying, a pulse travelling along the curve. Conceptual forensic "
+     "One continuous shot inside a dark analytical laboratory at night, no cuts. In the foreground a "
+     "glass-fronted CRT monitor shows two glowing spectral traces drawing themselves from left to right, one "
+     "pale gold and one cold white, rising and falling in almost the same shape. As the camera eases past the "
+     "monitor and racks focus into the room, the white trace slides down and settles precisely onto the gold "
+     "one behind the glass. Beyond it a researcher in a white lab coat stands watching, half in shadow, her "
+     "face lit only by the green-white glow of the screen. The whole clip stays in this one room in one style. "
+     "Camera: slow lateral drift from the screen glass to her watching face, shallow focus. Real motion: lines "
+     "drawing themselves, a pulse travelling along the curve, phosphor breathing, a blink. Conceptual forensic "
      "illustration; no axes, no numbers, no readable letters, no readable text."),
 
     ("S23", 135, 7, "低机位慢动作，水管喷水", ["reporters", "masumi"], "real",

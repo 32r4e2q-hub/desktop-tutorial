@@ -316,7 +316,9 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
         f"Dialogue: 2,{ass_time(177.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
         + story["presentation"].get("end_question", ""),
         # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
-        f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
+        f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,"
+        + r"{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}"
+        + "AI动画情景复原 · 非真实影像",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 

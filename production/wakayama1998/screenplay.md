@@ -128,7 +128,7 @@
 | S19 | 01:50—01:57 | 7 | N06 | 中景侧光，客厅里的保险单 | masumi、kenji | The living room of the Hayashi house on a hot afternoon: sliding paper screens half closed, yellow light cutti |
 | S20 | 01:57—02:04 | 7 | N06 | 特写柜门打开，慢动作 | detectives | Inside the same house during a search, in the narrow kitchen: two detectives in latex gloves crouch at a low c |
 | S21 | 02:04—02:10 | 6 | N06 | 俯拍，红线连起剪影 | masumi | Overhead conceptual shot in dark space: a dozen completely blank paper sheets spread across a matte black surf |
-| S22 | 02:10—02:15 | 5 | N06 | 特写，两条曲线重合 | lab | A dark analytical screen, abstract and without any lettering: two glowing spectral traces draw themselves from |
+| S22 | 02:10—02:15 | 5 | N06 | 特写，两条曲线重合 | lab | One continuous shot inside a dark analytical laboratory at night, no cuts |
 | S23 | 02:15—02:22 | 7 | N07 | 低机位慢动作，水管喷水 | reporters、masumi | Outside the Hayashi house in late afternoon: a wall of reporters, photographers and television crews presses a |
 | S24 | 02:22—02:29 | 7 | N07 | 中景，全家围着电视机 | residents | A different Japanese living room that evening: a family of four sits around a low table facing a CRT televisio |
 | S25 | 02:29—02:35 | 6 | N07 | 中景缓慢推近，回头一看 | masumi、detectives | The front gate of the Hayashi house, dusk, patrol-car beacons painting the wall red and blue |
