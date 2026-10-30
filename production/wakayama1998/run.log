@@ -1,11 +1,11 @@
-run=41084793059 attempt=1 ref=arena/3412a846-desktop-tutorial
-event=push runner=GitHub Actions 1000002725 os=Linux arch=X64
-sha=e2e21deb83925c51e2e70b68ad04ba9a601f0ac8
-started 2026-10-30T15:54:13Z
+run=41087485033 attempt=1 ref=arena/3412a846-desktop-tutorial
+event=push runner=GitHub Actions 1000002728 os=Linux arch=X64
+sha=70a2f240ae35063a3afb76a11bfd2d3e7f588807
+started 2026-10-30T16:11:52Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"mode":"qc"}
+payload={"mode":"render","workers":1}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -26,10 +26,10 @@ ffprobe -> ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments wi
 cjk_fonts=3
 stage=tools_ready
 == plan ==
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/story.json — 29 shots, 180s, 656 visible narration characters (3.64/s)
-densest line: S13 4.22 chars/s
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/story.json — 29 shots, 180s, 660 visible narration characters (3.67/s)
+densest line: S03 4.34 chars/s
 stage=build_ok
-validation mode: qc
+validation mode: render
 VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
 stage=validate_ok
 test_ass_has_no_control_characters_and_keeps_card_tags (production.tests.test_wakayama1998.SubtitleOverlayTests.test_ass_has_no_control_characters_and_keeps_card_tags) ... ok
@@ -57,93 +57,7 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_waka
 test_sources_and_fact_boundaries_are_recorded (production.tests.test_wakayama1998.WakayamaPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 15 tests in 0.220s
+Ran 15 tests in 0.177s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-{
-  "container": {
-    "width": 1920,
-    "height": 1080,
-    "fps": "24/1",
-    "frames": 4320,
-    "duration_seconds": 180.0,
-    "bytes": 63836215,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "sample_rate": 48000,
-    "channels": 2
-  },
-  "subtitles": {
-    "cues": 29,
-    "end_card_cues": 1,
-    "covers_all_shots": true,
-    "covers_all_lines": true,
-    "problems": []
-  },
-  "hard_gate_failures": []
-}
-QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/wakayama1998/edit/delivery/qc-report.json
-| 镜头 | 时长 | 自然语音 | 占比 | 需要加速 | 字数 | 字/秒 | 判定 |
-|---|---|---|---|---|---|---|---|
-| S01 | 5s | 4.65s | 94% | 1.00× | 17 | 3.40 | fit |
-| S02 | 5s | 4.19s | 85% | 1.00× | 19 | 3.80 | fit |
-| S03 | 7s | 5.81s | 84% | 1.00× | 27 | 3.86 | ok |
-| S04 | 7s | 6.60s | 95% | 1.00× | 27 | 3.86 | fit |
-| S05 | 6s | 6.19s | 105% | 1.05× | 24 | 4.00 | needs-speedup |
-| S06 | 5s | 5.13s | 104% | 1.06× | 18 | 3.60 | needs-speedup |
-| S07 | 7s | 6.56s | 95% | 1.00× | 26 | 3.71 | fit |
-| S08 | 7s | 6.82s | 99% | 1.00× | 23 | 3.29 | fit |
-| S09 | 6s | 5.38s | 91% | 1.00× | 22 | 3.67 | fit |
-| S10 | 5s | 4.30s | 87% | 1.00× | 20 | 4.00 | fit |
-| S11 | 7s | 5.73s | 83% | 1.00× | 26 | 3.71 | ok |
-| S12 | 7s | 6.45s | 93% | 1.00× | 23 | 3.29 | fit |
-| S13 | 6s | 5.21s | 88% | 1.00× | 25 | 4.17 | fit |
-| S14 | 5s | 4.32s | 88% | 1.00× | 17 | 3.40 | fit |
-| S15 | 7s | 6.48s | 94% | 1.00× | 25 | 3.57 | fit |
-| S16 | 7s | 6.09s | 88% | 1.00× | 26 | 3.71 | fit |
-| S17 | 6s | 5.12s | 86% | 1.00× | 21 | 3.50 | fit |
-| S18 | 5s | 5.08s | 103% | 1.05× | 17 | 3.40 | needs-speedup |
-| S19 | 7s | 7.32s | 106% | 1.06× | 25 | 3.57 | needs-speedup |
-| S20 | 7s | 6.57s | 95% | 1.00× | 25 | 3.57 | fit |
-| S21 | 6s | 5.90s | 100% | 1.01× | 23 | 3.83 | fit |
-| S22 | 5s | 4.19s | 85% | 1.00× | 16 | 3.20 | fit |
-| S23 | 7s | 6.24s | 90% | 1.00× | 26 | 3.71 | fit |
-| S24 | 7s | 6.04s | 87% | 1.00× | 28 | 4.00 | fit |
-| S25 | 6s | 5.02s | 85% | 1.00× | 20 | 3.33 | ok |
-| S26 | 6s | 5.73s | 97% | 1.00× | 24 | 4.00 | fit |
-| S27 | 6s | 6.31s | 107% | 1.07× | 22 | 3.67 | needs-speedup |
-| S28 | 5s | 5.01s | 102% | 1.03× | 19 | 3.80 | needs-speedup |
-| S29 | 8s | 6.36s | 91% | 1.00× | 25 | 3.12 | fit |
-
-判定分布：fit 20 · needs-speedup 6 · ok 3
-
-generator_exit=0
-== qc ==
-{
-  "container": {
-    "width": 1920,
-    "height": 1080,
-    "fps": "24/1",
-    "frames": 4320,
-    "duration_seconds": 180.0,
-    "bytes": 63836215,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "sample_rate": 48000,
-    "channels": 2
-  },
-  "subtitles": {
-    "cues": 29,
-    "end_card_cues": 1,
-    "covers_all_shots": true,
-    "covers_all_lines": true,
-    "problems": []
-  },
-  "hard_gate_failures": []
-}
-QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/wakayama1998/edit/delivery/qc-report.json
-qc_exit=0
-stage=finished exit=0
