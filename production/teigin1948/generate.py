@@ -341,8 +341,11 @@ def validate(project: dict, require_audio: bool = True) -> None:
     expected_voice = narration_spec.get("voice_id")
     if manifest.get("voice") != expected_voice or manifest.get("alignment") != "one-clip-one-shot-one-caption":
         raise ValueError("Narration manifest must use the selected voice and shot-locked alignment")
-    if manifest.get("slowdown_allowed") is not False:
-        raise ValueError("Narration must not be slowed down to fill shot durations")
+    if manifest.get("slowdown_allowed") is not bool(narration_spec.get("slowdown_allowed", False)):
+        raise ValueError("Narration time-fit policy must match the approved shot-locked story spec")
+    if (float(manifest.get("min_tempo_factor", 1.0)) != float(narration_spec.get("min_tempo_factor", 1.0))
+            or float(manifest.get("max_speedup_factor", 1.0)) != float(narration_spec.get("max_speedup_factor", 1.0))):
+        raise ValueError("Narration tempo bounds in the manifest do not match the story spec")
     if len(records) != len(shots):
         raise ValueError("Narration manifest must contain exactly one clip per shot")
     for shot in shots:

@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 
 from production.teigin1948.qc import analyse_picture, check_subtitles
+from production.teigin1948.build_audio import voice_tempo_factor
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / 'production' / 'teigin1948'
@@ -43,6 +44,20 @@ class TeiginPlanTests(unittest.TestCase):
         self.assertEqual(len(self.story['chapters']), 9)
         self.assertEqual(len({s['narration'] for s in self.story['shots']}), 29)
         self.assertEqual(self.story['shots'][27]['style_variant'], 'diagram')
+
+    def test_narration_copy_is_length_matched_to_each_video_shot(self):
+        spec = self.story['narration_spec']
+        self.assertEqual(spec['voice_id'], 'voice-01')
+        self.assertEqual(spec['target_characters_per_second'], 3.7)
+        self.assertTrue(spec['slowdown_allowed'])
+        for shot in self.story['shots']:
+            visible = sum(ch.isalnum() for ch in shot['narration'])
+            rate = visible / shot['duration']
+            self.assertGreaterEqual(rate, 2.9, shot['id'])
+            self.assertLessEqual(rate, 4.7, shot['id'])
+        self.assertAlmostEqual(voice_tempo_factor(4.6, 4.92), 4.6 / 4.92, places=6)
+        with self.assertRaises(RuntimeError):
+            voice_tempo_factor(3.0, 5.0)
 
     def test_teigin_specific_endcard_and_cup_cover(self):
         render = (PROJECT / 'render.py').read_text(encoding='utf-8')

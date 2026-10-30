@@ -1,327 +1,329 @@
 {
-  "voice": "voice-00",
+  "voice": "voice-01",
   "language": "zh-CN",
   "alignment": "one-clip-one-shot-one-caption",
-  "slowdown_allowed": false,
+  "slowdown_allowed": true,
+  "min_tempo_factor": 0.8,
+  "max_speedup_factor": 1.35,
   "clips": [
     {
       "id": "S01",
       "file": "S01.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N01",
       "target_start": 0,
       "target_duration": 5,
-      "text": "1948年的东京，雪夜里，帝国银行亮着一扇灯。",
-      "sha256": "86dbe2f614c56dc73db77986b35752c9b6b1b7b4f688b3ed8a07586f90ac1758"
+      "text": "一九四八年冬天，东京在战后的寒夜里飘着雪。",
+      "sha256": "503dfaa4825c06dad71ee93e0b187a29dc8ec1f31ef0a7a0d6de991be2da32df"
     },
     {
       "id": "S02",
       "file": "S02.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N01",
       "target_start": 5,
       "target_duration": 5,
-      "text": "一个自称防疫官的男人，敲响了银行后门。",
-      "sha256": "d70e1fe835a3257d9cd79b29cf7c5baeec0663b49d72cb1ac6ee5219061725c5"
+      "text": "帝国银行大堂灯火未熄，职员们仍在整理账目。",
+      "sha256": "a94d4729c249c0adb86e41f2e4422413e75c8f31b9fa09fec411e5403bcd94ca"
     },
     {
       "id": "S03",
       "file": "S03.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N02",
       "target_start": 10,
       "target_duration": 7,
-      "text": "他递上名片，自称山口二郎，说附近爆发了痢疾。",
-      "sha256": "ac814bf67cfea4e77307ee9603d137e4640bd5379e10a82591b0ef0b87f6ca44"
+      "text": "门外，一个自称防疫官的男人递来名片，还自称叫山口二郎。",
+      "sha256": "a650f3dff8e360f32047f492f4bc1780c65f2b8192a2f6ab7a4fe09224495631"
     },
     {
       "id": "S04",
       "file": "S04.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N02",
       "target_start": 17,
       "target_duration": 7,
-      "text": "他声称奉命送来预防药，要求职员立刻服用。",
-      "sha256": "045d7598356497c86b6f9e6e8172a917986fd26a9ea05edb6f09536f44cd23fc"
+      "text": "他声称附近发生痢疾疫情，奉命送来预防药，请众人立刻服下。",
+      "sha256": "f8a214552e7a2148765d9bc15ab169721b79b79c96427147a490900a1632c3af"
     },
     {
       "id": "S05",
       "file": "S05.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N02",
       "target_start": 24,
       "target_duration": 6,
-      "text": "窗外，美军吉普车驶过，没人敢多问。",
-      "sha256": "bad0a90537b9be1c9125e9a06b911c2c8863caba606290fe37576e8d9ed1e484"
+      "text": "窗外，美军吉普车驶过废墟街道，忙碌的身影映进玻璃。",
+      "sha256": "494abdde407844da7e19cacab639b1741c4e28fa124c76cb8efbf94d8c8e6236"
     },
     {
       "id": "S06",
       "file": "S06.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N02",
       "target_start": 30,
       "target_duration": 5,
-      "text": "药箱里，装着两种透明药水。",
-      "sha256": "2f6989433bc904a5ce4e4064f5532261bc8cf111c6a2d938c39ef1dbb38eedfd"
+      "text": "他打开药箱，取出两瓶透明液体，解释要分两次服用。",
+      "sha256": "106c65f221669c07e6d347dafa61d39e89a4d642c09bae614e5ad2e01f591d5e"
     },
     {
       "id": "S07",
       "file": "S07.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N03",
       "target_start": 35,
       "target_duration": 7,
-      "text": "他让十六个人排成一排，每人面前放一只小杯。",
-      "sha256": "eb7809c10250bdfd5beddf899f9d555482c13f590fa684dfc2f9d44b03306f59"
+      "text": "十六名银行职员依次站成一排，每个人面前的桌上，都放着一只小杯。",
+      "sha256": "008200a9cb695fc86021ed41784bcbbbc59b9f06b9f71d44604c4363581ad7d1"
     },
     {
       "id": "S08",
       "file": "S08.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N03",
       "target_start": 42,
       "target_duration": 7,
-      "text": "先喝第一种，他还亲自举杯示范。",
-      "sha256": "474e06431ff23e5217c3925a68a4c2bddd4d0155c8ed790a878c35c1a101fb5d"
+      "text": "来人先举杯示范，职员们相互观望，最后还是照他说的喝下。",
+      "sha256": "2d6e7bc12bce5187090324bbabff6149c5ee06a0cd173dd2d27ddf56e7d0166e"
     },
     {
       "id": "S09",
       "file": "S09.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N03",
       "target_start": 49,
       "target_duration": 6,
-      "text": "一分钟，秒针一格一格地走过。",
-      "sha256": "c534c38bd7806514b4c8729b10628529b92e29170c4f097f885f90e023e10d21"
+      "text": "整座银行陷入沉静，职员们无声地等着秒针走过一分钟。",
+      "sha256": "18142c01856c10cbf117e70c69a00b2a92a2d43c1697db86b2076a65a2d4683d"
     },
     {
       "id": "S10",
       "file": "S10.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N03",
       "target_start": 55,
       "target_duration": 5,
-      "text": "随后，第二种药水倒进杯中。",
-      "sha256": "7c110fbe29cd79ccfd9d064f904218f2af7a950f1d6c25072bc7a7604e2d8087"
+      "text": "随后，第二种药水倒入杯中，职员再次服下。",
+      "sha256": "846e91b2bf668b05a90ac117354d23c79de8b1edf4a0550efd7843c9a26c326e"
     },
     {
       "id": "S11",
       "file": "S11.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N04",
       "target_start": 60,
       "target_duration": 7,
-      "text": "几分钟后，杯子落地，算盘珠滚进柜台底下。",
-      "sha256": "1ee428a8f06b0b59b61c73abc38cea3b73c73e90a76a32b62fe9ccc37a473e93"
+      "text": "几分钟后，大堂传来杯子碎裂声，散落的算盘珠滚进柜台底下。",
+      "sha256": "63246a98c064382b4040c11805ab04b1ed76a6ec23889cb3028ee37fde7149cb"
     },
     {
       "id": "S12",
       "file": "S12.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N04",
       "target_start": 67,
       "target_duration": 7,
-      "text": "他拿走现金和支票，趁乱离开银行。",
-      "sha256": "0f64bff04a90917f1bed39ae87861723fa2581bf51a248de2416bc97381ea527"
+      "text": "来人趁着混乱取走现金和支票，拎起药箱，从后门匆匆离开。",
+      "sha256": "eb28ebd3ed5d3192b7c7efd81b3df8e60e84e0c89748ca9ee32ab1ef44d908f6"
     },
     {
       "id": "S13",
       "file": "S13.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N04",
       "target_start": 74,
       "target_duration": 6,
-      "text": "警车和救护车赶到，街上聚来围观者。",
-      "sha256": "113e282acf74e28d9c6c2cac6babddc7a38ddf11dd2053c75cf90ba592d911e7"
+      "text": "警车与救护车相继赶到，医护人员进入银行，街边围起人群。",
+      "sha256": "9b2c3ee8a95072d3e38d3a15cab01739d7fb8347a06c7e20501d1ca244a3779e"
     },
     {
       "id": "S14",
       "file": "S14.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N04",
       "target_start": 80,
       "target_duration": 5,
-      "text": "印刷机轰鸣，案件迅速登上报纸。",
-      "sha256": "f73a1c12bfabf554f215721ca6599b479a7393578c84d7cd0fad81c3c63f7ea2"
+      "text": "报社印刷机彻夜轰鸣，帝银案很快登上全国报纸头版。",
+      "sha256": "0aae8f49e95f8601c80a09a3b8e881fa69bccb2cf18720f5c2db6bc21716a5d0"
     },
     {
       "id": "S15",
       "file": "S15.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N05",
       "target_start": 85,
       "target_duration": 7,
-      "text": "警方发现，他曾在两家银行用相似说辞演练。",
-      "sha256": "c766b0973142f1efd4717f725a9dd5166ded0bd823d9019fb3110fe7b7533462"
+      "text": "调查人员后来发现，案发前，另外两家银行也遇到过相似的防疫说辞。",
+      "sha256": "46e8d31532b6acdab0a4e420ed71daba69f7f75ce399f8c288fe48e77bb86f04"
     },
     {
       "id": "S16",
       "file": "S16.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N05",
       "target_start": 92,
       "target_duration": 7,
-      "text": "安田银行的职员拒绝了他，男人转身离开。",
-      "sha256": "6254e37dbbb212f4376b9cbeeaa32bd3da893b97a65b265251d03659293db84d"
+      "text": "安田银行的职员当时拒绝服药，那个男人只好转身离开现场。",
+      "sha256": "543121262eb6a904fa4803c265368a2e37e95e48731d29cc5172a2886fa98993"
     },
     {
       "id": "S17",
       "file": "S17.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N05",
       "target_start": 99,
       "target_duration": 6,
-      "text": "一张名片，成为追查身份的重要线索。",
-      "sha256": "2d13c7d613b26ea08436fa61a391a2ca12ad73c273a62fff20ee553c02b4d89b"
+      "text": "侦查人员循线追查，一张名片，成为确认身份的重要线索。",
+      "sha256": "a3d7c277d8aad8f1f5a2ad1d5e62ce62af2cf5954c02422203490ba7a11c065e"
     },
     {
       "id": "S18",
       "file": "S18.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N05",
       "target_start": 105,
       "target_duration": 5,
-      "text": "名片属于松井蔚医生，他却不认识来人。",
-      "sha256": "531adb339e37596412a7bc33f6e4fa839e3df71fd301833f80379e0d74f6acf8"
+      "text": "名片属于松井蔚医生；他却称，自己并不认识这个来人。",
+      "sha256": "f9ccc539562bfc78508c09b6be782529d265771b972cf2d961554916b5cf0eb4"
     },
     {
       "id": "S19",
       "file": "S19.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N06",
       "target_start": 110,
       "target_duration": 7,
-      "text": "警方顺着名片流向，把线索织成一张网。",
-      "sha256": "e63f423d520e4211a210a4f6967c025b61779a492bbd8083927ba60cf5535862"
+      "text": "警方沿着名片上的身份继续调查，线索逐渐指向远在北海道。",
+      "sha256": "eff5af58aab8e5665c5a4bf721bfb4d26818fec3e777e4e27ddfe9d20f205f35"
     },
     {
       "id": "S20",
       "file": "S20.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N06",
       "target_start": 117,
       "target_duration": 7,
-      "text": "网的尽头，是北海道小樽的一位画家。",
-      "sha256": "9b3c499f2902d8da17dd5dd61c592e6b90d05dcbd1ac51205e0af0d7edb92892"
+      "text": "在北海道的小樽，警方最终找到一位画家，他名叫平泽贞通。",
+      "sha256": "d56cf33aa9604e20db4e07690dbfa2d83ab1b05ee37439f9a2fce1fdaf906131"
     },
     {
       "id": "S21",
       "file": "S21.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N06",
       "target_start": 124,
       "target_duration": 6,
-      "text": "他叫平泽贞通，五十七岁，正在画室作画。",
-      "sha256": "f94150a44d6a1dcb80920d471a3f9a8b4cd360f2b9385ec8b2e44d07df21f786"
+      "text": "当时五十七岁的平泽正在画室作画，生活与银行相距遥远。",
+      "sha256": "8ef50fa67b4f7b281a09fc87ba6069fe5c29f293f0858a09e078bba88eeae38d"
     },
     {
       "id": "S22",
       "file": "S22.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N06",
       "target_start": 130,
       "target_duration": 5,
-      "text": "1948年8月21日，他在北海道被捕。",
-      "sha256": "8d72a749905958214f7f4c45dc63dd61229c0400bf6fe523db95a01af0a75a19"
+      "text": "一九四八年八月二十一日，平泽在北海道被警方逮捕。",
+      "sha256": "0019e0bf5ffb446c7eb6d7a8a8b27e156eca3c0904ed1abb97cede5c0d8459e1"
     },
     {
       "id": "S23",
       "file": "S23.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N07",
       "target_start": 135,
       "target_duration": 7,
-      "text": "审讯中，他承认了罪行，供述写在纸上。",
-      "sha256": "21f4f710904afa5e967d432ab45849d9faf5b693c6c988d0a386c81afd38aee4"
+      "text": "审讯记录留下他的认罪供述；后来，他对这份供述提出异议。",
+      "sha256": "ea8c4ebec1ec37aa187c91fc2639c2a2b1ac560158fef2c2508d4ed7d2b9bc5a"
     },
     {
       "id": "S24",
       "file": "S24.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N07",
       "target_start": 142,
       "target_duration": 7,
-      "text": "但到了法庭，他立刻翻供，称口供被迫。",
-      "sha256": "4ab48b3af0a17e9783964dce2248c8ea3402ac4a6e3562a80b268d04b67dcd9a"
+      "text": "到了法庭，平泽翻供，称先前的供述是在压力之下被迫作出的。",
+      "sha256": "b3c9a22fc30e5564b1275cbe8a35d8649a8141eb216b3d52c2a18d6b76f3027e"
     },
     {
       "id": "S25",
       "file": "S25.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N07",
       "target_start": 149,
       "target_duration": 6,
-      "text": "法槌落下，案子的争议却没有结束。",
-      "sha256": "3231f1ad9c00026862d6335f4515ed7734ca4ca1532520ecccfeb10b4fe4ebfa"
+      "text": "法槌落下，判决没有平息争议，关于证据的质疑仍在。",
+      "sha256": "877dabc56bd0b878dd8bc407a92e939c26fdf1b7d560c7fededb523e76dd24f4"
     },
     {
       "id": "S26",
       "file": "S26.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N08",
       "target_start": 155,
       "target_duration": 6,
-      "text": "1950年，东京地方法院判处他死刑。",
-      "sha256": "ff2aeebae6a2c6430f17282fe62b89230a1b4ed4fa23737cf50df56ed3ce44b5"
+      "text": "一九五〇年，东京地方法院一审判处画家平泽贞通死刑。",
+      "sha256": "5d0c4aba0f90a9b37a02e54024ba10e5c2fd23c95c39b71fa7365d6c8b94ef1b"
     },
     {
       "id": "S27",
       "file": "S27.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N08",
       "target_start": 161,
       "target_duration": 6,
-      "text": "目击者的指认并不一致，疑点留到今天。",
-      "sha256": "480014a2e441dd230ece82e06a2df8e56762cef5faaf479f2c3087f291bb199c"
+      "text": "不同目击者对嫌疑人的辨认结果并不一致，案件因此留下诸多疑点。",
+      "sha256": "d94c18a34ec80208dcc287309d63a3be094450cc305984c13a778363940c326a"
     },
     {
       "id": "S28",
       "file": "S28.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N08",
       "target_start": 167,
       "target_duration": 5,
-      "text": "关于731部队涉案的说法，至今只是传闻。",
-      "sha256": "072ea60b501d7da74b099c5c0f305da803b4ca72683144459a921f4552f01285"
+      "text": "关于731部队涉案，至今仍只是未经证实的传闻。",
+      "sha256": "880cbcd670c59e9f60ff8eeee71dcf7a1c798135ecab85feb535302b5bed967b"
     },
     {
       "id": "S29",
       "file": "S29.mp3",
-      "voice_id": "voice-00",
+      "voice_id": "voice-01",
       "alignment": "shot-locked",
       "narration_id": "N09",
       "target_start": 172,
       "target_duration": 8,
-      "text": "死刑从未执行。他喊冤近四十年，1987年病逝狱中。真凶是谁？",
-      "sha256": "d2d46bbc16ba7eba69c233b786134b256dd73c5f68f7db17119fa5b80a0bac60"
+      "text": "死刑没有执行；平泽喊冤近四十年，一九八七年病逝狱中。真凶是谁？",
+      "sha256": "c13b0319a0cf92b8caa2216957bbbb509e45d8f3c25f84ce82935575b26ff57d"
     }
   ]
 }

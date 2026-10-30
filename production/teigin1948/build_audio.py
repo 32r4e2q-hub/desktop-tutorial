@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Build shot-locked Teigin narration, matched captions and the measured final mix.
 
-Each line has its own user-selected Arena voice clip and one subtitle cue, both attached to
-one of the unchanged 29 shots. Natural pace is preserved; speech is never slowed to fill a
-shot and may only be accelerated slightly when needed to stay inside its cut. Music/SFX are
-original procedural WAV synthesis, unchanged from the existing production design.
+Each line has its own selected Arena voice clip and one subtitle cue, locked to one of the
+29 visual shots. Audio is fit to the available shot window with modest tempo adjustment only;
+full sentences are preserved, speech is not cut, and coverage is checked so no shot ends with
+a long narration gap. Music/SFX are original procedural WAV synthesis.
 """
 from __future__ import annotations
 
@@ -103,15 +103,20 @@ def trim_voice_edges(samples: np.ndarray) -> tuple[np.ndarray, float, float]:
 
 
 def voice_tempo_factor(source_seconds: float, available_seconds: float,
-                       max_speedup: float = 1.55) -> float:
-    """Preserve natural pace; speed up only enough to fit, never slow down."""
+                       max_speedup: float = 1.35, min_tempo: float = 0.80) -> float:
+    """Fit the complete line to its shot, permitting only modest, natural time adjustment."""
     if source_seconds <= 0 or available_seconds <= 0:
         raise ValueError("Narration and available shot durations must be positive")
-    factor = max(1.0, source_seconds / available_seconds)
+    factor = source_seconds / available_seconds
     if factor > max_speedup + 1e-6:
         raise RuntimeError(
             f"Narration needs {factor:.3f}x speed to fit; maximum allowed is {max_speedup:.2f}x. "
-            "Shorten/regenerate the line instead of slowing or cutting it."
+            "Shorten/regenerate the line instead of cutting syllables."
+        )
+    if factor < min_tempo - 1e-6:
+        raise RuntimeError(
+            f"Narration occupies only {factor:.1%} of its shot; modest time expansion bottoms at "
+            f"{min_tempo:.2f}x. Add meaningful copy instead of leaving a long silent tail."
         )
     return factor
 
@@ -127,9 +132,11 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
         raise ValueError(f"Expected one narration clip for each of {len(shots)} shots; got {len(records)}")
     spec = story.get("narration_spec", {})
     voice_id = spec.get("voice_id")
-    if manifest.get("voice") != voice_id or manifest.get("slowdown_allowed") is not False:
-        raise ValueError("Narration voice/alignment manifest is not the selected no-slowdown version")
-    max_speedup = float(spec.get("max_speedup_factor", 1.55))
+    if (manifest.get("voice") != voice_id
+            or manifest.get("slowdown_allowed") is not bool(spec.get("slowdown_allowed", False))):
+        raise ValueError("Narration voice/alignment/tempo manifest does not match the approved shot-locked version")
+    max_speedup = float(spec.get("max_speedup_factor", 1.35))
+    min_tempo = float(spec.get("min_tempo_factor", 0.80))
     total_frames = round(float(story["target_duration"]) * RATE)
     voice = np.zeros(total_frames, dtype=np.float32)
     cues: list[dict] = []
@@ -168,19 +175,21 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
         natural_trimmed, natural_onset, natural_offset = trim_voice_edges(natural_samples)
         natural_clip_seconds = len(natural_trimmed) / RATE
         natural_speech_seconds = natural_offset - natural_onset
-        tempo = voice_tempo_factor(natural_clip_seconds, available, max_speedup)
+        tempo = voice_tempo_factor(natural_clip_seconds, available, max_speedup, min_tempo)
         samples = natural_samples if tempo == 1.0 else decode_mp3(source, decoded_path, tempo)
         trimmed, speech_onset, speech_offset = trim_voice_edges(samples)
 
-        # Re-run at a minimally faster rate for small filter/encoder timing differences;
-        # never truncate syllables and never slow down to pad the rest of the shot.
-        if len(trimmed) > round(available * RATE):
+        # MP3 frame rounding can leave a few milliseconds over the boundary. Correct iteratively,
+        # using only a small additional tempo change; never truncate or discard spoken audio.
+        for _ in range(4):
+            if len(trimmed) <= round(available * RATE):
+                break
             correction = (len(trimmed) / (available * RATE)) * 1.005
-            tempo = voice_tempo_factor(tempo * correction, 1.0, max_speedup)
+            tempo = voice_tempo_factor(tempo * correction, 1.0, max_speedup, min_tempo)
             samples = decode_mp3(source, decoded_path, tempo)
             trimmed, speech_onset, speech_offset = trim_voice_edges(samples)
         if len(trimmed) > round(available * RATE):
-            raise RuntimeError(f"{sid}: complete narration still exceeds its shot after safe speed-up")
+            raise RuntimeError(f"{sid}: complete narration still exceeds its shot after safe time-fit")
 
         clip_start = round(shot_start * RATE)
         clip_end = clip_start + len(trimmed)
@@ -209,6 +218,13 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
             raise RuntimeError(f"{sid}: shot-locked subtitle overlaps the preceding shot")
         cues.append(cue)
         characters = visible_weight(shot["narration"])
+        spoken_seconds = speech_offset - speech_onset
+        fill_fraction = spoken_seconds / shot_duration
+        if fill_fraction < 0.82:
+            raise RuntimeError(
+                f"{sid}: narration covers only {fill_fraction:.1%} of its video shot; "
+                "revise the line/audio instead of accepting a short voiceover."
+            )
         shot_timings.append({
             "id": sid,
             "narration_id": shot["narration_id"],
@@ -218,7 +234,8 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
             "source_seconds": round(raw_duration, 3),
             "natural_clip_seconds": round(natural_clip_seconds, 3),
             "natural_speech_seconds": round(natural_speech_seconds, 3),
-            "spoken_seconds": round(speech_offset - speech_onset, 3),
+            "spoken_seconds": round(spoken_seconds, 3),
+            "shot_fill_fraction": round(fill_fraction, 4),
             "tempo_factor": round(tempo, 4),
             "speech_start": round(caption_start, 3),
             "speech_end": round(caption_end, 3),
