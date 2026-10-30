@@ -1,0 +1,62 @@
+run=41071427020 attempt=1 ref=arena/3412a846-desktop-tutorial
+event=push runner=GitHub Actions 1000002706 os=Linux arch=X64
+sha=e1b7b722354ada32ed23aae20c38f52782c0748c
+started 2026-10-30T14:25:51Z
+Python 3.14.4
+ffmpeg missing
+ffprobe missing
+payload={"only":"S01,S22","workers":2}
+== tools ==
+python=Python 3.14.4 ffmpeg=none ffprobe=none
+installing python media deps from PyPI
+ffmpeg shim -> /home/runner/.local/lib/python3.14/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2
+ffprobe shim -> /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/ffprobe_shim.py
+PATH=/home/runner/.local/bin added
+downloading CJK fonts
+font ok: NotoSansCJKsc-Regular.otf
+font ok: NotoSansCJKsc-Bold.otf
+font ok: NotoSerifCJKsc-Regular.otf
+numpy: ok
+PIL: ok
+yaml: ok
+av: ok
+imageio_ffmpeg: ok
+ffmpeg -> ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the
+ffprobe -> ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe
+cjk_fonts=3
+stage=tools_ready
+== plan ==
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/story.json — 29 shots, 180s, 557 visible narration characters (3.09/s)
+densest line: S28 3.86 chars/s
+stage=build_ok
+validation mode: clips
+VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
+stage=validate_ok
+test_29_shots_cover_exactly_180_seconds (production.tests.test_wakayama1998.WakayamaPlanTests.test_29_shots_cover_exactly_180_seconds) ... ok
+test_chapters_are_nine_and_contiguous (production.tests.test_wakayama1998.WakayamaPlanTests.test_chapters_are_nine_and_contiguous) ... ok
+test_diagram_shots_use_their_own_style_and_carry_no_lettering (production.tests.test_wakayama1998.WakayamaPlanTests.test_diagram_shots_use_their_own_style_and_carry_no_lettering) ... ok
+test_every_prompt_gets_style_characters_and_negative (production.tests.test_wakayama1998.WakayamaPlanTests.test_every_prompt_gets_style_characters_and_negative) ... ok
+test_every_shot_demands_real_camera_motion (production.tests.test_wakayama1998.WakayamaPlanTests.test_every_shot_demands_real_camera_motion) ... ok
+test_finished_film_cover_and_named_deliverables_are_published (production.tests.test_wakayama1998.WakayamaPlanTests.test_finished_film_cover_and_named_deliverables_are_published)
+成片不能只躺在被忽略的 work/ 里：四份指定文件 + 仓库命名的交付一起进 交付/。 ... ok
+test_fresh_runner_can_restore_footage_from_receipts (production.tests.test_wakayama1998.WakayamaPlanTests.test_fresh_runner_can_restore_footage_from_receipts)
+出片任务跑在新 checkout 上：work/ 是空的，只能凭 results 里的收据重下并逐字节校验。 ... RESTORE S01 from Agnes receipt
+RESTORE S02 from Agnes receipt
+RESTORE S03 from Agnes receipt
+RESTORE S02 from Agnes receipt
+ok
+test_narration_fit_verdicts (production.tests.test_wakayama1998.WakayamaPlanTests.test_narration_fit_verdicts)
+narration_fit 的判定边界：只有超过 1.55× 上限才算不合格。 ... ok
+test_narration_is_one_line_per_shot_at_a_human_pace (production.tests.test_wakayama1998.WakayamaPlanTests.test_narration_is_one_line_per_shot_at_a_human_pace) ... ok
+test_narration_length_matches_shot_length (production.tests.test_wakayama1998.WakayamaPlanTests.test_narration_length_matches_shot_length)
+解说词跟片段等长：字数 ÷ 镜头秒数必须落在人类语速区间，且不靠加速凑。 ... ok
+test_reference_images_exist (production.tests.test_wakayama1998.WakayamaPlanTests.test_reference_images_exist) ... ok
+test_sensitive_imagery_is_never_requested (production.tests.test_wakayama1998.WakayamaPlanTests.test_sensitive_imagery_is_never_requested) ... ok
+test_single_character_shots_reuse_the_character_seed (production.tests.test_wakayama1998.WakayamaPlanTests.test_single_character_shots_reuse_the_character_seed) ... ok
+test_sources_and_fact_boundaries_are_recorded (production.tests.test_wakayama1998.WakayamaPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.035s
+
+OK
+stage=tests_ok
