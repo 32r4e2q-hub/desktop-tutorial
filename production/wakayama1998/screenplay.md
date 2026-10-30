@@ -107,7 +107,7 @@
 
 | 镜号 | 时间 | 秒数 | 段 | 运镜 | 角色 | 画面职责 |
 |---|---:|---:|---|---|---|---|
-| S01 | 00:00—00:05 | 5 | N01 | 航拍下降并推近街道 | residents | Blue-hour summer evening, 1998, a narrow lane in the Sonobe hillside neighbourhood of Wakayama City, one conti |
+| S01 | 00:00—00:05 | 5 | N01 | 航拍下降并推近街道 | residents | A summer evening in a hillside neighbourhood of Wakayama City, 1998 |
 | S02 | 00:05—00:10 | 5 | N01 | 锅面特写缓慢推近 | — | A garage in the same neighbourhood, early evening |
 | S03 | 00:10—00:17 | 7 | N02 | 中景环绕主妇与大锅 | housewives | Inside the garage on the morning of the festival, sunlight striping the concrete floor |
 | S04 | 00:17—00:24 | 7 | N02 | 横向滑轨逐一展示排队的居民 | residents、housewives | The street outside the garage at midday: a long row of folding tables and plastic stools under strings of red  |

@@ -13,10 +13,20 @@ import json
 from pathlib import Path
 import re
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / "production" / "wakayama1998"
+
+
+def load_render():
+    """按路径加载 render.py：字幕/片尾卡标签只能在离线环境里验。"""
+    spec = importlib.util.spec_from_file_location("wakayama1998_render", PROJECT / "render.py")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
 
 
 def load_generate():
@@ -243,6 +253,31 @@ class WakayamaPlanTests(unittest.TestCase):
         boundary = "\n".join(self.story["fact_boundary"])
         for keyword in ("1998年7月25日", "亚砷酸", "再审", "风格化形象"):
             self.assertIn(keyword, boundary)
+
+
+class SubtitleOverlayTests(unittest.TestCase):
+    """片尾卡与角标的 ASS 标签必须逐字正确：f-string 里的 \f 会变成换页符，静默毁掉整行。"""
+
+    def test_ass_has_no_control_characters_and_keeps_card_tags(self):
+        render = load_render()
+        story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+        cues = [{"start": shot["start"], "end": shot["start"] + shot["duration"],
+                 "text": shot["narration"]} for shot in story["shots"]]
+        with tempfile.TemporaryDirectory() as tmp:
+            ass_path = Path(tmp) / "captions.ass"
+            srt_path = Path(tmp) / "captions.srt"
+            render.write_subtitles(ass_path, cues, story, srt_path)
+            ass = ass_path.read_text(encoding="utf-8")
+            srt = srt_path.read_text(encoding="utf-8")
+        stray = sorted({ord(ch) for ch in ass + srt if ord(ch) < 32 and ch not in "\n\r\t"})
+        self.assertEqual(stray, [], f"control characters leaked into the subtitle files: {stray}")
+        self.assertIn(r"{\pos(960,382)\fad(420,430)\fs92}", ass)
+        self.assertIn(r"{\pos(960,548)\fad(460,430)\fs44}", ass)
+        self.assertIn(r"{\pos(960,776)\fad(520,430)\fs40}", ass)
+        self.assertIn(r"{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}", ass)
+        # 片尾卡下面那层压暗：ASS 矢量矩形，1:1 脚本像素铺满 1920x1080。
+        self.assertIn("m 0 0 l 1920 0 1920 1080 0 1080", ass)
+        self.assertIn("AI动画情景复原 · 非真实影像", srt + ass)
 
 
 if __name__ == "__main__":

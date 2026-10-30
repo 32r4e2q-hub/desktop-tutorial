@@ -306,20 +306,38 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
             f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(70,80)}}{rendered}"
         )
 
+    # A soft full-frame scrim under the closing card: S29 is a bright barred window at sunset, and
+    # gold serif on moving sunset light loses contrast. An ASS vector rectangle (drawn 1:1 in script
+    # pixels, alpha &H96& = ~41% black, 0.6s ramp) dims the picture without touching the encode.
+    lines.append(
+        f"Dialogue: 2,{ass_time(176.05)},{ass_time(179.99)},Title,,0,0,0,,"
+        + r"{\an7\pos(0,0)\p1\bord0\shad0\1c&H000000&\alpha&H96&\fad(600,0)}"
+        + "m 0 0 l 1920 0 1920 1080 0 1080{\\p0}"
+    )
+
     # Only the closing title is a post-produced overlay; the Agnes model itself is never asked
     # to render legible text anywhere in the film (S29 is the single shot that carries a title).
-    lines += [
-        f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs92}}" + story["presentation"].get("end_title", ""),
-        f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}" + story["presentation"].get("end_subtitle", ""),
-        f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}" + story["presentation"].get("end_note", ""),
+    # Raw templates on purpose: inside a normal f-string "\\f" is a form feed, which quietly
+    # corrupted these overlay tags (the card lost its fade and its per-line font size).
+    card = [
+        (176.30, "Title", 382, 92, 420, "end_title"),
+        (176.55, "Caption", 548, 44, 460, "end_subtitle"),
+        (176.75, "Caption", 636, 32, 500, "end_note"),
         # The closing prompt for discussion: a question only, never a claim about any person.
-        f"Dialogue: 2,{ass_time(177.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
-        + story["presentation"].get("end_question", ""),
-        # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
+        (177.15, "Title", 776, 40, 520, "end_question"),
+    ]
+    lines += [
+        f"Dialogue: 2,{ass_time(start)},{ass_time(179.45)},{style},,0,0,0,,"
+        + r"{{\pos(960,{y})\fad({fade},430)\fs{size}}}".format(y=y, fade=fade, size=size)
+        + story["presentation"].get(key, "")
+        for start, style, y, size, fade, key in card
+    ]
+    # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
+    lines.append(
         f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,"
         + r"{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}"
-        + "AI动画情景复原 · 非真实影像",
-    ]
+        + "AI动画情景复原 · 非真实影像"
+    )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     def srt_clock(seconds: float) -> str:

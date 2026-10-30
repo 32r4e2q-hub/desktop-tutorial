@@ -158,18 +158,16 @@ CHARACTER_SEEDS = {
 # (镜号, 起始, 时长, 运镜, 角色, 风格变体, 提示词)
 SHOT_ROWS = [
     ("S01", 0, 5, "航拍下降并推近街道", ["residents"], "real",
-     "Blue-hour summer evening, 1998, a narrow lane in the Sonobe hillside neighbourhood of Wakayama City, one "
-     "continuous descending camera move. The upper half of the frame is packed with round red paper lanterns "
-     "strung between wooden utility poles, glowing amber, their paper plain and unmarked. Below them a "
-     "neighbourhood summer festival: women in cotton yukata fanning themselves, children running between "
-     "folding tables, an old man carrying a stack of plastic stools, steam curling off a serving table. The "
-     "buildings are plain 1998 Japanese houses - dark wood, white plaster, tiled roofs, closed sliding doors - "
-     "and every wall is bare: this is a quiet residential lane with no shopfronts, no banners, no flags, no "
-     "nobori, no vertical strips of cloth or paper, no placards, no posters, no painted lettering anywhere. "
-     "Photoreal live-action documentary look with fine grain, not an illustration, not a painting. Camera: a "
-     "smooth aerial glide descending and easing forward to settle just above the crowd, lanterns passing close "
-     "to the lens. Real motion: lanterns swaying, people walking and fanning, children running, steam "
-     "drifting, cloth moving. No readable text."),
+     "A summer evening in a hillside neighbourhood of Wakayama City, 1998. Camera: the lens looks almost "
+     "straight down from high above a narrow residential lane and descends in one continuous smooth glide. A "
+     "dense river of round red paper lanterns fills the upper two thirds of the frame, strung in long lines "
+     "between wooden utility poles, glowing warm amber, the nearest ones swelling as they pass close to the "
+     "lens. Through the gaps you see only the tops of heads, shoulders in cotton yukata and a few straw hats "
+     "moving along the lane, plus folding tables and one serving table with steam rising. The whole frame is "
+     "lanterns, dusk sky and people seen from above - no walls, no building facades, no shopfronts, no "
+     "banners, no flags, no signage anywhere in frame. Photoreal live-action documentary look with fine "
+     "natural grain, not an illustration. Real motion: lanterns swaying on their strings, people walking "
+     "below, steam drifting, cloth moving. No readable text."),
 
     ("S02", 5, 5, "锅面特写缓慢推近", [], "real",
      "A garage in the same neighbourhood, early evening. A huge brushed-aluminium pot, wide as a bathtub, sits "
