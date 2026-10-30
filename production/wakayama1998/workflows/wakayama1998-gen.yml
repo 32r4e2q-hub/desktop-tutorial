@@ -77,7 +77,13 @@ jobs:
           elif [ -f production/wakayama1998/QC_REQUEST ]; then
             payload='{"mode":"qc"}'
           elif [ -f production/wakayama1998/RENDER_REQUEST ]; then
-            payload='{"mode":"render","workers":1}'
+            # The marker file carries its own JSON: {"mode":"render"} to cut the film,
+            # {"mode":"audio"} to refresh the delivered voice-over without re-encoding.
+            payload="$(tr -d '\n' < production/wakayama1998/RENDER_REQUEST)"
+            case "$payload" in
+              \{*) ;;
+              *) payload='{"mode":"render","workers":1}' ;;
+            esac
           elif [ -f production/wakayama1998/GEN_REQUEST ]; then
             payload="$(tr -d '\n' < production/wakayama1998/GEN_REQUEST)"
           else

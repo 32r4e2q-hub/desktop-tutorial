@@ -179,11 +179,18 @@ def publish_delivery(film: Path) -> dict:
         copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
     # The brief asks for four named deliverables; keep them byte-identical next to the
     # repository's own naming convention so the hand-off needs no renaming.
+    # build_audio writes the mastered voice-over next to the edit workbench, not to
+    # work/wakayama1998/audio, so both the delivered and the legacy location are tried.
+    narration = [
+        ROOT / "work" / "wakayama1998" / "edit" / "audio" / "voiceover.wav",
+        ROOT / "work" / "wakayama1998" / "audio" / "voiceover.wav",
+    ]
     aliases = [
         (film, "Wakayama_Case_Final.mp4"),
         (film.parent / "和歌山毒咖喱事件_封面.png", "Wakayama_Cover.png"),
         (film.parent / f"{film.stem}_字幕.srt", "Wakayama_Subtitles.srt"),
-        (ROOT / "work" / "wakayama1998" / "audio" / "voiceover.wav", "Wakayama_Narration.wav"),
+        (next((path for path in narration if path.is_file()), narration[-1]), "Wakayama_Narration.wav"),
+        (HERE / "抖音发布文案.md", "和歌山毒咖喱事件_发布文案.md"),
     ]
     for source, name in aliases:
         if not source.is_file():
@@ -424,8 +431,8 @@ def main() -> int:
         args.clips_only = True
     elif mode == "render":
         args.render_only = True
-    elif mode not in {"", "full", "qc"}:
-        raise ValueError("payload.mode must be clips, render, full or qc")
+    elif mode not in {"", "full", "qc", "audio"}:
+        raise ValueError("payload.mode must be clips, render, full, qc or audio")
     if mode == "qc":
         # QC-only run: verify the plan and the delivered film, refresh qa/ (contact sheets,
         # full-resolution stills, qc-report.json, qc-summary.md), never regenerate footage.
@@ -465,6 +472,38 @@ def main() -> int:
                             raise
                         git("pull", "--rebase", "origin", BRANCH)
         return code
+    if mode == "audio":
+        # Delivery-only run: rebuild the mastered voice-over and refresh the hand-off files
+        # without re-encoding the already-final film (a second 64 MB commit would be waste).
+        validate(project, require_audio=True)
+        work = ROOT / "work" / "wakayama1998" / "edit"
+        work.mkdir(parents=True, exist_ok=True)
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            git("config", "user.name", "github-actions[bot]")
+            git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+        from production.wakayama1998.build_audio import build_soundtrack
+        build_soundtrack(project, HERE / "audio", work)
+        voice = work / "audio" / "voiceover.wav"
+        if not voice.is_file():
+            raise RuntimeError("build_audio did not write a mastered voice-over")
+        DELIVERY_DIR.mkdir(parents=True, exist_ok=True)
+        pairs = [(voice, "Wakayama_Narration.wav"),
+                 (HERE / "抖音发布文案.md", "和歌山毒咖喱事件_发布文案.md")]
+        copied = {}
+        for source, name in pairs:
+            if not source.is_file():
+                continue
+            shutil.copy2(source, DELIVERY_DIR / name)
+            copied[name] = {"bytes": (DELIVERY_DIR / name).stat().st_size,
+                            "sha256": digest(DELIVERY_DIR / name)}
+        doc = read_json(RESULTS, {"project": project["title"], "model": MODEL, "shots": {}})
+        doc["delivery_narration"] = copied
+        RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        if args.publish:
+            commit_delivery("wakayama1998: 交付旁白音轨与发布文案")
+        print("AUDIO_DELIVERED " + ", ".join(copied), flush=True)
+        return 0
+
     render_now = not args.clips_only
     validate(project, require_audio=(render_now or args.render_only))
     if args.validate:
