@@ -4,32 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "request_hash": "fdc5b886fa6025ce821e7e211f0511332584db10a8fc28a3871f96e4584ee80f",
-      "status": "completed",
+      "request_hash": "fbe07e07bed54e4300dd7f05c69b1bf008f39ffa4c407465d28cb3467e8bfb5d",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-30T14:41:57Z",
-      "error": null,
-      "create_attempts": 1,
-      "video_id": "task_77EQDTsw5W8vxNhPKPKlnbkNH5WxMYIk",
-      "task_id": "task_77EQDTsw5W8vxNhPKPKlnbkNH5WxMYIk",
-      "requested_seconds": 5.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_77EQDTsw5W8vxNhPKPKlnbkNH5WxMYIk.mp4",
-      "bytes": 3838201,
-      "sha256": "6ca3834fe1835a9dc997e0e47aa0670a29cf3fe0e78c28050e1b2bfafca1e832",
-      "reported_size": "720P",
-      "reported_seconds": "5",
-      "inspection": {
-        "duration_seconds": 5.184,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 3838201,
-        "decoded_ok": true,
-        "contact_sheet": "production/wakayama1998/qa/S01.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-10-30T14:48:53Z"
     },
     "S02": {
       "id": "S02",
@@ -929,7 +907,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-30T14:48:52Z",
+  "updated_at": "2026-10-30T14:48:53Z",
   "run_id": "41074817376",
   "previous_results": {
     "S01": [
@@ -1014,6 +992,35 @@
           "height": 720,
           "fps": "24/1",
           "bytes": 5478601,
+          "decoded_ok": true,
+          "contact_sheet": "production/wakayama1998/qa/S01.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      },
+      {
+        "id": "S01",
+        "request_hash": "fdc5b886fa6025ce821e7e211f0511332584db10a8fc28a3871f96e4584ee80f",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-10-30T14:41:57Z",
+        "error": null,
+        "create_attempts": 1,
+        "video_id": "task_77EQDTsw5W8vxNhPKPKlnbkNH5WxMYIk",
+        "task_id": "task_77EQDTsw5W8vxNhPKPKlnbkNH5WxMYIk",
+        "requested_seconds": 5.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_77EQDTsw5W8vxNhPKPKlnbkNH5WxMYIk.mp4",
+        "bytes": 3838201,
+        "sha256": "6ca3834fe1835a9dc997e0e47aa0670a29cf3fe0e78c28050e1b2bfafca1e832",
+        "reported_size": "720P",
+        "reported_seconds": "5",
+        "inspection": {
+          "duration_seconds": 5.184,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 3838201,
           "decoded_ok": true,
           "contact_sheet": "production/wakayama1998/qa/S01.jpg",
           "visual_review": "pending"
