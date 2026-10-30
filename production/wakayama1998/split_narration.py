@@ -10,6 +10,8 @@ Arena TTS 一次只会给出整段音频；本片为了 29 个镜头共用 10 �
 
     python3 production/wakayama1998/split_narration.py
     python3 production/wakayama1998/split_narration.py --check   # 只测量，不写文件
+
+`audio/per-shot.json` 里列出的镜头是逐条单独录的成品，这里只测量、绝不覆盖。
 """
 from __future__ import annotations
 
@@ -159,10 +161,21 @@ def write_mp3(samples: np.ndarray, path: Path) -> None:
                    input=(pcm * 32767).astype("<i2").tobytes(), check=True)
 
 
+PER_SHOT = AUDIO / "per-shot.json"
+
+
+def per_shot_overrides() -> set[str]:
+    """逐条单独录过的镜头写在这里：它们是成品，切分脚本不许覆盖。"""
+    if not PER_SHOT.is_file():
+        return set()
+    return set(json.loads(PER_SHOT.read_text(encoding="utf-8")).get("shots", []))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
+    overrides = per_shot_overrides()
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
     shots = {shot["id"]: shot for shot in story["shots"]}
     problems = []
@@ -195,8 +208,10 @@ def main() -> int:
                 flag = f"  (speedup {speed:.2f}x)"
             print(f"    {sid} d={shots[sid]['duration']}s spoken={spoken:5.2f}s "
                   f"ratio={spoken/window:4.2f}{flag}")
-            if not args.check:
+            if not args.check and sid not in overrides:
                 write_mp3(piece, AUDIO / f"{sid}.mp3")
+            elif sid in overrides and not args.check:
+                print(f"    {sid} 逐条单独录音，跳过覆盖")
     print(f"\nTOTAL speech {total_speech:.2f}s over 180s ({total_speech/180:.1%} fill)")
     if problems:
         print("\nPROBLEMS:")
