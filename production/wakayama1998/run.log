@@ -1,11 +1,11 @@
-run=41071427020 attempt=1 ref=arena/3412a846-desktop-tutorial
-event=push runner=GitHub Actions 1000002706 os=Linux arch=X64
-sha=e1b7b722354ada32ed23aae20c38f52782c0748c
-started 2026-10-30T14:25:51Z
+run=41073067970 attempt=1 ref=arena/3412a846-desktop-tutorial
+event=push runner=GitHub Actions 1000002708 os=Linux arch=X64
+sha=2d2c72bc0d84000380535b830fb62b0e9916641b
+started 2026-10-30T14:37:23Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"only":"S01,S22","workers":2}
+payload={"only":"S01","workers":1}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -56,34 +56,7 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_waka
 test_sources_and_fact_boundaries_are_recorded (production.tests.test_wakayama1998.WakayamaPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 0.035s
+Ran 14 tests in 0.055s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/story.json — 29 shots, 180s, 557 visible narration characters (3.09/s)
-densest line: S28 3.86 chars/s
-PRODUCTION_STATUS Agnes generation started
-PRODUCTION_STATUS queued prompt-refresh shots: S01,S22
-PRODUCTION_STATUS S01 submitting
-PRODUCTION_STATUS S22 submitting
-PRODUCTION_STATUS S01 waiting for Agnes create slot
-PRODUCTION_STATUS S22 waiting for Agnes create slot
-PRODUCTION_STATUS S01 queued
-[14:27:05] status=in_progress progress=10% (elapsed 0s)
-PRODUCTION_STATUS S22 provider busy; retrying
-S22: HTTP 429; retrying create in 240s (attempt 1)
-PRODUCTION_STATUS S22 waiting for Agnes create slot
-[14:32:02] status=completed progress=100% (elapsed 297s)
-PRODUCTION_STATUS S22 queued
-[14:32:03] status=in_progress progress=10% (elapsed 0s)
-PRODUCTION_STATUS S01 Agnes task completed
-PRODUCTION_STATUS S01 generated and decoded
-[14:35:01] status=completed progress=100% (elapsed 178s)
-PRODUCTION_STATUS S22 Agnes task completed
-PRODUCTION_STATUS S22 generated and decoded
-PRODUCTION_STATUS selected Agnes sources ready
-generator_exit=0
-no delivered film yet; QC skipped
-stage=finished exit=0
