@@ -1,4 +1,5 @@
 import json
+import re
 import tempfile
 
 import numpy as np
@@ -55,6 +56,7 @@ class TeiginPlanTests(unittest.TestCase):
             rate = visible / shot['duration']
             self.assertGreaterEqual(rate, 2.9, shot['id'])
             self.assertLessEqual(rate, 4.7, shot['id'])
+            self.assertEqual(len(re.findall(r'[。！？!?]', shot['narration'])), 1, shot['id'])
         self.assertAlmostEqual(voice_tempo_factor(4.6, 4.92), 4.6 / 4.92, places=6)
         with self.assertRaises(RuntimeError):
             voice_tempo_factor(3.0, 5.0)

@@ -203,6 +203,9 @@ def check_subtitles(srt: Path, story: dict) -> dict:
                             f"{shot['start']}-{shot_end}")
         if cue["end"] - cue["start"] < 0.6:
             problems.append(f"{shot['id']}: cue shorter than 0.6s")
+        sentence_ends = len(re.findall(r"[。！？!?]", "".join(cue["lines"])))
+        if sentence_ends != 1:
+            problems.append(f"{shot['id']}: expected one sentence in one narration cue, found {sentence_ends}")
         if len(cue["lines"]) > 2:
             problems.append(f"{shot['id']}: more than two subtitle lines")
         if any(len(line) > 26 for line in cue["lines"]):
