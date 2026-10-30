@@ -52,7 +52,8 @@ python3 -m unittest production.tests.test_wakayama1998 -q           # 离线自�
   请求形状只有 `model/prompt/seconds/size/aspect_ratio/mode/n/seed` 八个字段，NEGATIVE 写在提示词正文里。
 - **节流**：61 秒共享闸门、2 个 worker；「video queue is full」按 61 秒重试。
 - **旁白与镜头等长**：镜头时长服从旁白——先写整句、再录音、量自然语音长度，落在 Agnes 的 4–9 秒档位里；
-  字幕时间取该镜语音活动区间。全片 557 个有效字，平均 3.09 字/秒（实测 2.8–3.4）。
+  字幕时间取该镜语音活动区间。全片 653 个有效字，平均 3.63 字/秒；29 条旁白合计 166.4 秒，覆盖率 92%
+  （`qa/narration-fit.md` 逐条实测）。台词按画面重写：解说只描述这一镜里真的能看见的东西。
 - **字幕**：白色黑边、底部安全区、关键词金色放大（`presentation.highlight_keywords` 共 58 个词）。
 - **转场**：同段内硬切；段与段之间 0.3 秒淡入淡出——前半段收在红灯笼暖光里，后半段收在冷蓝雾气里。
 - **音量**：BGM 实时侧链压在旁白下约 −18dB；全片 RMS ≈ −21 dBFS、峰值 ≈ −1.5 dBFS；最后一秒静音。
