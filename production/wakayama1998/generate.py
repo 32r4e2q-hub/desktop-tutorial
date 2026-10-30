@@ -481,8 +481,9 @@ def main() -> int:
         if os.getenv("GITHUB_ACTIONS") == "true":
             git("config", "user.name", "github-actions[bot]")
             git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
-        from production.wakayama1998.build_audio import build_soundtrack
-        build_soundtrack(project, HERE / "audio", work)
+        # HERE is already on sys.path (agnes_video/throttle are imported the same way).
+        import build_audio
+        build_audio.build_soundtrack(project, HERE / "audio", work)
         voice = work / "audio" / "voiceover.wav"
         if not voice.is_file():
             raise RuntimeError("build_audio did not write a mastered voice-over")
