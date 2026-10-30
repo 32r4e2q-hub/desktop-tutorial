@@ -188,7 +188,11 @@ jobs:
       - name: Publish the plan checkpoint
         run: |
           set -uo pipefail
-          git add -f "$RUN_LOG" production/wakayama1998/stage.log 2>/dev/null || true
+          # add each file separately: one missing pathspec aborts the whole `git add`,
+          # which is how run.log silently stopped reaching the branch.
+          for f in "$RUN_LOG" production/wakayama1998/stage.log; do
+            [ -e "$f" ] && { git add -f -- "$f" || true; }
+          done
           git add production/wakayama1998/audio/manifest.json production/wakayama1998/story.json 2>/dev/null || true
           git commit -q -m "wakayama1998: run ${GITHUB_RUN_ID} plan checkpoint [skip-wakayama1998]" || true
           git pull --rebase -q origin "$TARGET_BRANCH" || true
@@ -283,13 +287,20 @@ jobs:
         run: |
           set -uo pipefail
           echo "stage=finished exit=${GENERATOR_EXIT_CODE:-unknown}" >> "$RUN_LOG"
-          git add -f "$RUN_LOG" production/wakayama1998/stage.log 2>/dev/null || true
+          # add each file separately: one missing pathspec aborts the whole `git add`,
+          # which is how run.log silently stopped reaching the branch.
+          for f in "$RUN_LOG" production/wakayama1998/stage.log; do
+            [ -e "$f" ] && { git add -f -- "$f" || true; }
+          done
           git add -f production/wakayama1998/results.json 2>/dev/null || true
           git add -A 交付 production/wakayama1998/qa 2>/dev/null || true
           git add -f work/wakayama1998/edit/delivery 2>/dev/null || true
           git commit -q -m "wakayama1998: run ${GITHUB_RUN_ID} log + delivery [skip-wakayama1998]" || true
-          git pull --rebase -q origin "$TARGET_BRANCH" || true
-          git push -q origin "HEAD:$TARGET_BRANCH" || true
+          for attempt in 1 2 3; do
+            if git push -q origin "HEAD:$TARGET_BRANCH"; then echo "run log shipped on attempt $attempt" >> "$RUN_LOG"; break; fi
+            git pull --rebase -q origin "$TARGET_BRANCH" || true
+            sleep 5
+          done
 
       - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
         if: always()
