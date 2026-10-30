@@ -37,6 +37,14 @@ def load_generate():
     return module
 
 
+def load_module(name: str, path: Path):
+    """按路径加载单个模块（不执行它的副作用），用于纯函数单测。"""
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 class SetagayaPlanTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -125,6 +133,27 @@ class SetagayaPlanTests(unittest.TestCase):
                 self.assertLessEqual(characters / shot["duration"], 4.8)
         self.assertGreater(total, 600)
         self.assertLess(total / 180.0, 4.2)
+
+    def test_narration_length_matches_shot_length(self):
+        """解说词跟片段等长：字数 ÷ 镜头秒数必须落在人类语速区间，且不靠加速凑。"""
+        story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+        for shot in story["shots"]:
+            chars = len(re.sub(r"[^\u3400-\u9fffA-Za-z0-9]", "", shot["narration"]))
+            cps = chars / shot["duration"]
+            self.assertGreaterEqual(cps, 1.0, f"{shot['id']} 旁白太短，镜头会空着：{cps:.2f} 字/秒")
+            self.assertLessEqual(cps, 4.45, f"{shot['id']} 旁白太密，必须加速才能塞进镜头：{cps:.2f} 字/秒")
+        self.assertEqual(sum(1 for s in story["shots"] if s["duration"] in (4, 5, 6, 7, 8, 9)),
+                         len(story["shots"]), "镜头时长必须落在 Agnes 2.5 Flash 的 4–9 秒档位")
+
+    def test_narration_fit_verdicts(self):
+        """narration_fit 的判定边界：只有超过 1.55× 上限才算不合格。"""
+        fit = load_module("setagaya2000_narration_fit", PROJECT / "narration_fit.py")
+        self.assertEqual(fit.classify(0.92, 1.00, 1.55), "fit")
+        self.assertEqual(fit.classify(0.75, 1.00, 1.55), "ok")
+        self.assertEqual(fit.classify(0.46, 1.00, 1.55), "short")
+        self.assertEqual(fit.classify(1.12, 1.12, 1.55), "needs-speedup")
+        self.assertEqual(fit.classify(1.60, 1.60, 1.55), "over")
+        self.assertEqual(fit.classify(1.55, 1.55, 1.55), "needs-speedup")
 
     def test_chapters_are_nine_and_contiguous(self):
         chapters = self.story["chapters"]
