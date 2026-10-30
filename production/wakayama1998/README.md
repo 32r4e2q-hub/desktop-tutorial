@@ -15,7 +15,7 @@
 |---|---|---|
 | 角色与场景定稿 | ✅ 7 张（先程序绘制定稿板，成片后用真实帧替换） | `reference/01–07*.png` |
 | 分镜 / 事实边界 / 提示词 | ✅ 29 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json`、`screenplay.md` |
-| 一镜一句旁白 | ✅ 29 条；沉稳磁性男声（voice-00）；10 段录音在句子间切开 | `audio/manifest.json`、`audio/S**.mp3`、`audio/raw/` |
+| 一镜一句旁白 | ✅ 29 条；沉稳磁性男声（voice-00）；10 段母带按静音切分，另 11 条逐句单录 | `audio/manifest.json`、`audio/S**.mp3`、`audio/raw/` |
 | 离线自检 | ✅ `python3 -m unittest production.tests.test_wakayama1998 -q`（15 项） | `production/tests/` |
 | Agnes 2.5 Flash 素材 | ✅ 29/29 定稿（含 5 轮定点重做：去伪文字、去双画风、去示意图混剪） | `results.json`、`qa/Sxx.jpg` |
 | 成片 / 封面 / 字幕 / 旁白 | ✅ 已出片并通过硬闸门（QC PASS，见 `qa/qc-summary.md`） | `交付/` |
@@ -52,7 +52,7 @@ python3 -m unittest production.tests.test_wakayama1998 -q           # 离线自�
   请求形状只有 `model/prompt/seconds/size/aspect_ratio/mode/n/seed` 八个字段，NEGATIVE 写在提示词正文里。
 - **节流**：61 秒共享闸门、2 个 worker；「video queue is full」按 61 秒重试。
 - **旁白与镜头等长**：镜头时长服从旁白——先写整句、再录音、量自然语音长度，落在 Agnes 的 4–9 秒档位里；
-  字幕时间取该镜语音活动区间。全片 656 个有效字，平均 3.64 字/秒；29 条旁白合计 166.7 秒，覆盖率 92.6%（20 条 90–100%、3 条 85–89%、6 条需 ≤1.07× 微加速）
+  字幕时间取该镜语音活动区间。全片 660 个有效字，平均 3.67 字/秒；29 条逐镜实测合计 165.8 秒，覆盖片长 92.1%（13 条 90–100%、9 条 85–89%、1 条 85%、6 条需 ≤1.07× 微加速），没有一镜低于 85%
   （`qa/narration-fit.md` 逐条实测）。台词按画面重写：解说只描述这一镜里真的能看见的东西。
 - **字幕**：白色黑边、底部安全区、关键词金色放大（`presentation.highlight_keywords` 共 58 个词）。
 - **转场**：同段内硬切；段与段之间 0.3 秒淡入淡出——前半段收在红灯笼暖光里，后半段收在冷蓝雾气里。

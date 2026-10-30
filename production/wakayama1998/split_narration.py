@@ -12,6 +12,10 @@ Arena TTS 一次只会给出整段音频；本片为了 29 个镜头共用 10 �
     python3 production/wakayama1998/split_narration.py --check   # 只测量，不写文件
 
 `audio/per-shot.json` 里列出的镜头是逐条单独录的成品，这里只测量、绝不覆盖。
+
+警示：母带（`audio/raw/C01–C10.mp3`）一旦录好，就不要再为了改字幕而重跑本脚本。
+切点是按「每条旁白的字数」用动态规划挑的，改了句子长度，S10/S12 这类同段镜头的切点会跟着挪，
+可能把一整句切碎；要改台词就按 `per-shot.json` 的做法逐句单录，别动已经切好的成品。
 """
 from __future__ import annotations
 
