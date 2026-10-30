@@ -61,3 +61,89 @@ Ran 15 tests in 0.164s
 
 OK
 stage=tests_ok
+agnes_key_present=yes
+== generator ==
+{
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 63842947,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "subtitles": {
+    "cues": 29,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "hard_gate_failures": []
+}
+QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/wakayama1998/edit/delivery/qc-report.json
+| 镜头 | 时长 | 自然语音 | 占比 | 需要加速 | 字数 | 字/秒 | 判定 |
+|---|---|---|---|---|---|---|---|
+| S01 | 5s | 4.01s | 82% | 1.00× | 17 | 3.40 | ok |
+| S02 | 5s | 3.33s | 68% | 1.00× | 14 | 2.80 | short |
+| S03 | 7s | 5.37s | 78% | 1.00× | 21 | 3.00 | ok |
+| S04 | 7s | 5.73s | 83% | 1.00× | 20 | 2.86 | ok |
+| S05 | 6s | 5.12s | 86% | 1.00× | 17 | 2.83 | fit |
+| S06 | 5s | 5.07s | 103% | 1.04× | 17 | 3.40 | needs-speedup |
+| S07 | 7s | 5.68s | 82% | 1.00× | 19 | 2.71 | ok |
+| S08 | 7s | 5.48s | 79% | 1.00× | 19 | 2.71 | ok |
+| S09 | 6s | 5.78s | 98% | 1.00× | 19 | 3.17 | fit |
+| S10 | 5s | 3.60s | 73% | 1.00× | 16 | 3.20 | ok |
+| S11 | 7s | 5.01s | 72% | 1.00× | 21 | 3.00 | ok |
+| S12 | 7s | 5.19s | 75% | 1.00× | 21 | 3.00 | ok |
+| S13 | 6s | 5.23s | 88% | 1.00× | 18 | 3.00 | fit |
+| S14 | 5s | 5.06s | 103% | 1.03× | 17 | 3.40 | needs-speedup |
+| S15 | 7s | 5.04s | 73% | 1.00× | 22 | 3.14 | ok |
+| S16 | 7s | 3.69s | 53% | 1.00× | 19 | 2.71 | short |
+| S17 | 6s | 5.42s | 92% | 1.00× | 21 | 3.50 | fit |
+| S18 | 5s | 4.24s | 86% | 1.00× | 18 | 3.60 | fit |
+| S19 | 7s | 4.63s | 67% | 1.00× | 20 | 2.86 | short |
+| S20 | 7s | 5.00s | 72% | 1.00× | 22 | 3.14 | ok |
+| S21 | 6s | 4.44s | 75% | 1.00× | 20 | 3.33 | ok |
+| S22 | 5s | 4.93s | 100% | 1.02× | 16 | 3.20 | needs-speedup |
+| S23 | 7s | 7.14s | 103% | 1.04× | 23 | 3.29 | needs-speedup |
+| S24 | 7s | 5.61s | 81% | 1.00× | 20 | 2.86 | ok |
+| S25 | 6s | 5.14s | 87% | 1.00× | 19 | 3.17 | fit |
+| S26 | 6s | 4.35s | 74% | 1.00× | 17 | 2.83 | ok |
+| S27 | 6s | 4.92s | 83% | 1.00× | 20 | 3.33 | ok |
+| S28 | 5s | 4.60s | 94% | 1.00× | 19 | 3.80 | fit |
+| S29 | 8s | 6.49s | 93% | 1.00× | 25 | 3.12 | fit |
+
+判定分布：fit 8 · needs-speedup 4 · ok 14 · short 3
+
+generator_exit=0
+== qc ==
+{
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 63842947,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "subtitles": {
+    "cues": 29,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "hard_gate_failures": []
+}
+QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/wakayama1998/edit/delivery/qc-report.json
+qc_exit=0
+stage=finished exit=0
