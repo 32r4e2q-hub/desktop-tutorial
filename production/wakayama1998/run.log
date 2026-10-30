@@ -1,11 +1,11 @@
-run=41074817376 attempt=1 ref=arena/3412a846-desktop-tutorial
-event=push runner=GitHub Actions 1000002711 os=Linux arch=X64
-sha=f15cd157c7d7ad59133f67efeb2c7aa16e1f7499
-started 2026-10-30T14:48:40Z
+run=41075426087 attempt=1 ref=arena/3412a846-desktop-tutorial
+event=push runner=GitHub Actions 1000002713 os=Linux arch=X64
+sha=c3d1228a03a6aae7345d90a008996e19ad52f719
+started 2026-10-30T14:52:50Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"only":"S01","workers":1}
+payload={"mode":"render","workers":1}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -29,7 +29,7 @@ stage=tools_ready
 WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/story.json — 29 shots, 180s, 557 visible narration characters (3.09/s)
 densest line: S28 3.86 chars/s
 stage=build_ok
-validation mode: clips
+validation mode: render
 VALID: 180 seconds, 29 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 29 shot-locked voice lines, nine chapters and approved references
 stage=validate_ok
 test_ass_has_no_control_characters_and_keeps_card_tags (production.tests.test_wakayama1998.SubtitleOverlayTests.test_ass_has_no_control_characters_and_keeps_card_tags) ... ok
@@ -57,25 +57,7 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_waka
 test_sources_and_fact_boundaries_are_recorded (production.tests.test_wakayama1998.WakayamaPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 15 tests in 0.178s
+Ran 15 tests in 0.159s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/story.json — 29 shots, 180s, 557 visible narration characters (3.09/s)
-densest line: S28 3.86 chars/s
-PRODUCTION_STATUS Agnes generation started
-PRODUCTION_STATUS queued prompt-refresh shots: S01
-PRODUCTION_STATUS S01 submitting
-PRODUCTION_STATUS S01 waiting for Agnes create slot
-PRODUCTION_STATUS S01 queued
-[14:48:57] status=pending progress=0% (elapsed 0s)
-[14:49:22] status=in_progress progress=10% (elapsed 25s)
-[14:51:04] status=completed progress=100% (elapsed 127s)
-PRODUCTION_STATUS S01 Agnes task completed
-PRODUCTION_STATUS S01 generated and decoded
-PRODUCTION_STATUS selected Agnes sources ready
-generator_exit=0
-no delivered film yet; QC skipped
-stage=finished exit=0
