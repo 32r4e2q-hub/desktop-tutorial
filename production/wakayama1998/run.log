@@ -61,3 +61,39 @@ Ran 15 tests in 0.111s
 
 OK
 stage=tests_ok
+agnes_key_present=yes
+== generator ==
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/generate.py", line 853, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/generate.py", line 484, in main
+    from production.wakayama1998.build_audio import build_soundtrack
+ModuleNotFoundError: No module named 'production'
+generator_exit=1
+== qc ==
+{
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 63842947,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "subtitles": {
+    "cues": 29,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "hard_gate_failures": []
+}
+QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/wakayama1998/edit/delivery/qc-report.json
+qc_exit=0
+stage=finished exit=1
