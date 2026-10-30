@@ -16,15 +16,16 @@
 | 角色与场景定稿 | ✅ 7 张（先程序绘制定稿板，成片后用真实帧替换） | `reference/01–07*.png` |
 | 分镜 / 事实边界 / 提示词 | ✅ 29 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json`、`screenplay.md` |
 | 一镜一句旁白 | ✅ 29 条；沉稳磁性男声（voice-00）；10 段录音在句子间切开 | `audio/manifest.json`、`audio/S**.mp3`、`audio/raw/` |
-| 离线自检 | ✅ `python3 -m unittest production.tests.test_wakayama1998 -q`（14 项） | `production/tests/` |
-| Agnes 2.5 Flash 素材 | ⏳ 生成中（`results.json` 记 video_url / task_id / sha256 / bytes） | `results.json`、`qa/*.jpg` |
-| 成片 / 封面 / 字幕 | ⏳ 待 `RENDER_REQUEST` | `交付/` |
+| 离线自检 | ✅ `python3 -m unittest production.tests.test_wakayama1998 -q`（15 项） | `production/tests/` |
+| Agnes 2.5 Flash 素材 | ✅ 29/29 定稿（含 5 轮定点重做：去伪文字、去双画风、去示意图混剪） | `results.json`、`qa/Sxx.jpg` |
+| 成片 / 封面 / 字幕 / 旁白 | ✅ 已出片并通过硬闸门（QC PASS，见 `qa/qc-summary.md`） | `交付/` |
 
 ## 交付清单（出片后）
 
 - `交付/和歌山毒咖喱事件_一锅咖喱四条人命_三分钟_带声音.mp4` — 1920×1080 · 24fps · 180 秒 · h264 + aac 48k
 - `交付/Wakayama_Case_Final.mp4` / `Wakayama_Cover.png` / `Wakayama_Subtitles.srt` / `Wakayama_Narration.wav`
-- `交付/和歌山毒咖喱事件_封面.jpg` / `_字幕.srt` / `_技术报告.json`
+- `交付/和歌山毒咖喱事件_封面.jpg` / `_字幕.srt` / `_技术报告.json` / `_发布文案.md`
+- `production/wakayama1998/qa/` — 逐镜抽帧（`fullres/`）、成片抽帧拼版（`sheets/`）、`qc-summary.md`
 
 ## 怎么跑
 
@@ -32,7 +33,7 @@
 python3 production/wakayama1998/build_story.py                      # 重建 story.json / 清单 / 脚本
 python3 production/wakayama1998/split_narration.py                  # 10 段录音 → 29 条 Sxx.mp3
 python3 production/wakayama1998/generate.py --validate              # 结构 + 配音 SHA 闸门
-python3 -m unittest production.tests.test_wakayama1998 -q           # 离线自检（14 项）
+python3 -m unittest production.tests.test_wakayama1998 -q           # 离线自检（15 项）
 ```
 
 生成与出片在 GitHub Actions 上跑（仓库 secret 里已有 `AGNES_API_KEY`），靠 marker 文件触发：
@@ -40,7 +41,7 @@ python3 -m unittest production.tests.test_wakayama1998 -q           # 离线自�
 | 触发文件 | 作用 |
 |---|---|
 | `production/wakayama1998/GEN_REQUEST` | `{"mode":"clips","workers":2}`：生成 29 条片段（断点续跑） |
-| `production/wakayama1998/RENDER_REQUEST` | `{"mode":"render","workers":1}`：拼接 / 字幕 / 混音 / 封面 / 交付 |
+| `production/wakayama1998/RENDER_REQUEST` | `{"mode":"render","workers":1}`：拼接 / 字幕 / 混音 / 封面 / 交付；`{"mode":"audio"}`：只重出交付旁白与发布文案，不重编码成片 |
 | `production/wakayama1998/QC_REQUEST` | `{"mode":"qc"}`：成片质检（容器 / 冻结 / 黑帧 / 音频 / 字幕 / 抽帧） |
 
 > `QC_REQUEST` 优先级最高——想重渲必须先把它删掉。
