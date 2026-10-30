@@ -1,11 +1,11 @@
-run=41076696363 attempt=1 ref=arena/3412a846-desktop-tutorial
-event=push runner=GitHub Actions 1000002714 os=Linux arch=X64
-sha=9fdba92a2ac725820472a4d8f9b3b26bfa3f5443
-started 2026-10-30T15:01:49Z
+run=41077054347 attempt=1 ref=arena/3412a846-desktop-tutorial
+event=push runner=GitHub Actions 1000002716 os=Linux arch=X64
+sha=9697bc80fa1fd688c413f4f971240bdaee93b21a
+started 2026-10-30T15:03:40Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"mode":"audio"}
+payload={"mode":"audio"} 
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -57,43 +57,7 @@ test_single_character_shots_reuse_the_character_seed (production.tests.test_waka
 test_sources_and_fact_boundaries_are_recorded (production.tests.test_wakayama1998.WakayamaPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 15 tests in 0.111s
+Ran 15 tests in 0.168s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/generate.py", line 853, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/wakayama1998/generate.py", line 484, in main
-    from production.wakayama1998.build_audio import build_soundtrack
-ModuleNotFoundError: No module named 'production'
-generator_exit=1
-== qc ==
-{
-  "container": {
-    "width": 1920,
-    "height": 1080,
-    "fps": "24/1",
-    "frames": 4320,
-    "duration_seconds": 180.0,
-    "bytes": 63842947,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "sample_rate": 48000,
-    "channels": 2
-  },
-  "subtitles": {
-    "cues": 29,
-    "end_card_cues": 1,
-    "covers_all_shots": true,
-    "covers_all_lines": true,
-    "problems": []
-  },
-  "hard_gate_failures": []
-}
-QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/wakayama1998/edit/delivery/qc-report.json
-qc_exit=0
-stage=finished exit=1
