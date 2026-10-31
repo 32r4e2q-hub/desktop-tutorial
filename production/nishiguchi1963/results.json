@@ -623,9 +623,9 @@
     "S22": {
       "id": "S22",
       "request_hash": "95f4d6021d99e4fc25ba6ef5c18e81fbcbb98cdfd5e00006c140301e0aabff5d",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-31T08:53:55Z",
+      "updated_at": "2026-10-31T08:53:56Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -638,7 +638,18 @@
       "bytes": 746823,
       "sha256": "ef1d4459e21d5a93e73080548bb12a0aef77f3a0c8cdc4f33762057137b0e71f",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 746823,
+        "decoded_ok": true,
+        "contact_sheet": "production/nishiguchi1963/qa/S22.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S23": {
       "id": "S23",
@@ -753,7 +764,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-31T08:53:55Z",
+  "updated_at": "2026-10-31T08:53:56Z",
   "run_id": "41179394909",
   "previous_results": {}
 }
