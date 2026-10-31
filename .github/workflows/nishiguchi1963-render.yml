@@ -55,6 +55,11 @@ jobs:
             --sources work/nishiguchi1963/sources \
             --work work/nishiguchi1963/edit \
             --output work/nishiguchi1963/delivery/Nishiguchi_First_Cut.mp4
+      - name: Run objective first-cut QC
+        run: |
+          python3 production/nishiguchi1963/qc.py \
+            --delivery work/nishiguchi1963/delivery \
+            --work work/nishiguchi1963/edit
       - name: Publish the unreviewed first cut to the production branch
         run: |
           set -euo pipefail
@@ -78,5 +83,8 @@ jobs:
             work/nishiguchi1963/delivery/
             work/nishiguchi1963/edit/delivery/
             work/nishiguchi1963/edit/audio/mix-report.json
+            production/nishiguchi1963/qa/fullres/
+            production/nishiguchi1963/qa/sheets/
+            production/nishiguchi1963/qa/qc-summary.md
           if-no-files-found: warn
           retention-days: 7

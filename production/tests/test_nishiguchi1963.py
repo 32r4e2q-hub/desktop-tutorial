@@ -122,4 +122,19 @@ class RendererTests(unittest.TestCase):
             self.assertEqual(info['frames'],48)
             self.assertAlmostEqual(info['duration_seconds'],2,places=2)
 
+    def test_qc_checks_subtitle_text_and_shot_timing(self):
+        import tempfile
+        from production.nishiguchi1963 import render, qc
+        story=json.loads((HERE/'story.json').read_text(encoding='utf-8'))
+        cues=[{'start':s['start']+0.1,'end':s['start']+1.5,'text':s['narration']} for s in story['shots']]
+        with tempfile.TemporaryDirectory() as tmp:
+            ass=Path(tmp)/'captions.ass'; srt=Path(tmp)/'captions.srt'
+            render.write_subtitles(ass,cues,story,srt)
+            info=qc.check_subtitles(srt,story)
+            self.assertEqual(info['cues'],30)
+            self.assertTrue(info['covers_all_lines'])
+            self.assertEqual(info['problems'],[])
+            srt.write_text(srt.read_text(encoding='utf-8').replace(story['shots'][0]['narration'],'字幕错误'),encoding='utf-8')
+            self.assertFalse(qc.check_subtitles(srt,story)['covers_all_lines'])
+
 if __name__ == '__main__': unittest.main()
