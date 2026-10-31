@@ -1,0 +1,56 @@
+name: 西口彰事件 · 运动镜头生成
+on:
+  push:
+    branches: [arena/eef99fcf-desktop-tutorial]
+    paths: [production/nishiguchi1963/GEN_REQUEST]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: nishiguchi1963-arena-eef99fcf
+  cancel-in-progress: false
+jobs:
+  motion:
+    if: github.ref == 'refs/heads/arena/eef99fcf-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/eef99fcf-desktop-tutorial
+      - name: Install media tools
+        run: |
+          set -euo pipefail
+          python3 -m pip install --break-system-packages --disable-pip-version-check -q imageio-ffmpeg av
+          mkdir -p "$HOME/.local/bin"
+          python3 - <<'PY'
+          from pathlib import Path
+          import imageio_ffmpeg, os, stat
+          bindir=Path.home()/'.local/bin'
+          for name,target in [('ffmpeg',imageio_ffmpeg.get_ffmpeg_exe()),('ffprobe',str(Path('production/setagaya2000/ffprobe_shim.py').resolve()))]:
+              path=bindir/name
+              path.write_text('#!/bin/sh\nexec '+('python3 ' if name=='ffprobe' else '')+'"'+target+'" "$@"\n')
+              path.chmod(path.stat().st_mode | stat.S_IEXEC)
+          PY
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Validate the 30-shot plan
+        run: python3 production/nishiguchi1963/generate.py --validate --clips-only
+      - name: Generate a canary, then all motion clips
+        timeout-minutes: 310
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "$AGNES_API_KEY" ]; then echo '::error::AGNES_API_KEY repository secret unavailable'; exit 1; fi
+          python3 -u production/nishiguchi1963/generate.py --publish --payload '{"mode":"clips","only":"S01","workers":2,"canary_then_full":true}'
+      - name: Upload footage and review sheets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nishiguchi1963-motion-${{ github.run_number }}
+          path: |
+            work/nishiguchi1963/sources/
+            production/nishiguchi1963/qa/
+            production/nishiguchi1963/results.json
+          if-no-files-found: warn
+          retention-days: 7

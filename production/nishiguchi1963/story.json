@@ -1,0 +1,681 @@
+{
+  "title": "西口彰事件：78天的逃亡",
+  "film_name": "西口彰事件_78天的逃亡_三分钟.mp4",
+  "target_duration": 180,
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "model": "agnes-video-2.5-flash",
+  "source_size": "720P",
+  "branch": "arena/eef99fcf-desktop-tutorial",
+  "style_prefix": "【STYLE】Cinematic 3D animation, stylized fictional reconstructions of 1963-1964 Showa Japan, never real likenesses. Warm faded vintage film colors; black-and-white TV static, old newspapers, steam trains and ferries; blue winter nights against warm yellow lamps, volumetric fog, detailed realistic materials, shallow depth of field, fine film grain, cinematic 16:9 composition, subjects on thirds with clean lower safe area. Every shot is a real continuous animation: moving people, cloth, wind, steam, light, water or meaningful environmental action; never a still image with camera zoom. Historically appropriate costumes and objects. No legible writing anywhere; title will be added in post. Respectful non-graphic reenactment. Children only in completely safe, calm scenes.",
+  "style_rumor_prefix": "【STYLE】Cinematic 3D animation, stylized fictional reconstructions of 1963-1964 Showa Japan, never real likenesses. Warm faded vintage film colors; black-and-white TV static, old newspapers, steam trains and ferries; blue winter nights against warm yellow lamps, volumetric fog, detailed realistic materials, shallow depth of field, fine film grain, cinematic 16:9 composition, subjects on thirds with clean lower safe area. Every shot is a real continuous animation: moving people, cloth, wind, steam, light, water or meaningful environmental action; never a still image with camera zoom. Historically appropriate costumes and objects. No legible writing anywhere; title will be added in post. Respectful non-graphic reenactment. Children only in completely safe, calm scenes.",
+  "negative_prompt": "【NEGATIVE】text, subtitles, watermarks, logos, readable writing, blood, wounds, corpses, remains, weapons, violence, attack, peril to children, nudity, deformed hands, extra limbs, facial collapse, modern objects or clothes, low resolution, flicker, style drift, vertical framing, black borders, static slideshow, fake still-image zoom, real-person likeness.",
+  "characters": {
+    "nishiguchi": "【角色设定｜西口彰】Fictional stylized Japanese man, slim, short dark side-parted hair, kind unremarkable face, calm eyes, age around 37, dark suit and fedora, black briefcase. At different times a modest scholar jacket or lawyer suit and abstract badge. Consistent face; never a real likeness.",
+    "priest": "【角色设定｜古川泰龙】Fictional stylized Japanese priest in his forties, round kind face, simple black Buddhist robe, gentle, composed, not a real likeness.",
+    "girl": "【角色设定｜女孩】Fictional Japanese primary-school girl, about ten, bobbed hair, modest sweater, alert and quietly observant. Safe, peaceful scenes only; no likeness of a real person.",
+    "family": "【角色设定｜古川家人】Fictional welcoming Japanese family in simple period kimono and aprons, kind and composed, no likeness of real people.",
+    "police": "【角色设定｜警察】Fictional 1960s Japanese officers in period navy uniforms or dark overcoats, tired but focused, no visible weapons or real likenesses.",
+    "local": "【角色设定｜路人】Fictional ordinary Showa-era Japanese innkeepers, elders and travelers in period clothing, no real likenesses."
+  },
+  "character_seeds": {
+    "nishiguchi": 19631018,
+    "priest": 19640102,
+    "girl": 19640103,
+    "family": 19640104,
+    "police": 19631019,
+    "local": 19631020
+  },
+  "shots": [
+    {
+      "id": "S01",
+      "kind": "agnes",
+      "start": 0,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N01",
+      "narration": "他先后杀害五个人，在日本逃亡七十八天。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "In a dark living room an old monochrome television flickers with static and reveals a blurred drawn wanted portrait; a red warning light slowly passes across the glass. Real changing TV static, rotating warning light and drifting dust; close view slowly approaches.",
+      "seed": 19631018,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S02",
+      "kind": "agnes",
+      "start": 5,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N01",
+      "narration": "最终识破他的，竟是一名小学五年级的女孩。",
+      "characters": [
+        "nishiguchi",
+        "local"
+      ],
+      "style_variant": "real",
+      "prompt": "Move through the television glow to a 1963 railway platform: steam flows, travelers cross and a hatted man with briefcase walks away and disappears into the crowd. Follow his back; distant loudspeaker, no legible signage.",
+      "seed": 19631019,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S03",
+      "kind": "agnes",
+      "start": 10,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N02",
+      "narration": "一九六三年十月十八日，福冈县两名男子遇害。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "At dawn on a misty rural Fukuoka road an empty 1960s delivery truck stands alone with lights on; leaves stir and fog streams across it. Aerial descent. No victims.",
+      "seed": 19631020,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S04",
+      "kind": "agnes",
+      "start": 17,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N02",
+      "narration": "警方根据目击证言等线索，很快锁定一名嫌疑人。",
+      "characters": [
+        "police"
+      ],
+      "style_variant": "real",
+      "prompt": "Outside a misty crime scene police carefully unroll a plain cordon while a detective examines an abandoned shoe and closed file folder. Slow lateral track, no legible markings; these objects are illustrative, not verified evidence.",
+      "seed": 19631021,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S05",
+      "kind": "agnes",
+      "start": 24,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N02",
+      "narration": "他叫西口彰，当时三十七岁，曾因诈骗和盗窃获罪。",
+      "characters": [
+        "police"
+      ],
+      "style_variant": "real",
+      "prompt": "An officer pins a fictional hand-drawn portrait of a thin man on a police-office wall, then adds four unlabelled red markers to symbolize previous convictions; paper flutters, close camera. No readable writing.",
+      "seed": 19631022,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S06",
+      "kind": "agnes",
+      "start": 30,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N02",
+      "narration": "福冈警方随即发出全国通缉，寻找他的踪迹。",
+      "characters": [
+        "police"
+      ],
+      "style_variant": "real",
+      "prompt": "Overhead 1960s police desk: telegraph keys move, phone rings, an unlettered paper map of Japan fills with animated red dots as dispatch papers slide across it.",
+      "seed": 19631023,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S07",
+      "kind": "agnes",
+      "start": 35,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N03",
+      "narration": "逃亡途中，西口从报纸上得知，自己已被通缉。",
+      "characters": [
+        "nishiguchi",
+        "local"
+      ],
+      "style_variant": "real",
+      "prompt": "A small Showa diner: the man notices an unlettered newspaper portrait, pauses mid-meal and slowly lowers his chopsticks as a server walks in the background. Medium shot.",
+      "seed": 19631024,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S08",
+      "kind": "agnes",
+      "start": 42,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N03",
+      "narration": "濑户内海的渡轮上，他留下一双鞋和一封信。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "Night ferry deck in the Seto Inland Sea: wind buffets a folded blank letter beside two neatly placed leather shoes, dark sea swells and boat lights shimmer. Low-angle gentle move, no person or jump.",
+      "seed": 19631025,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S09",
+      "kind": "agnes",
+      "start": 49,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N03",
+      "narration": "这场假死只是障眼法，他已经换了身份继续逃亡。",
+      "characters": [
+        "nishiguchi",
+        "local"
+      ],
+      "style_variant": "real",
+      "prompt": "At a ferry harbor the man in changed clothes, hat and spectacles calmly walks with disembarking passengers; wind tugs coats and he glances back. Camera follows from behind to three-quarter view.",
+      "seed": 19631026,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S10",
+      "kind": "agnes",
+      "start": 55,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N03",
+      "narration": "搜寻没有结果，警方判断，所谓自杀只是伪装。",
+      "characters": [
+        "police"
+      ],
+      "style_variant": "real",
+      "prompt": "Cold grey sea: a search boat rocks and officers pull up an empty net, look at one another and continue searching; wide shot slowly retreats. No victims or remains.",
+      "seed": 19631027,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S11",
+      "kind": "agnes",
+      "start": 60,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N04",
+      "narration": "他辗转各地，时而自称教授，用体面外表赢得信任。",
+      "characters": [
+        "nishiguchi",
+        "local"
+      ],
+      "style_variant": "real",
+      "prompt": "Inside a period inn the man in a modest professor-like dark jacket bows and presents an unlettered card; the innkeeper bows back. Both move naturally as curtains sway. No academic cap.",
+      "seed": 19631028,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S12",
+      "kind": "agnes",
+      "start": 67,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N04",
+      "narration": "后来他又冒充律师，继续以虚假的身份行骗。",
+      "characters": [
+        "nishiguchi",
+        "local"
+      ],
+      "style_variant": "real",
+      "prompt": "A Kyoto-style tea room: the man wears a lawyer-style suit and small abstract badge; an elder listens as tea steams and hands him a plain envelope. Respectful medium over-shoulder shot.",
+      "seed": 19631029,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S13",
+      "kind": "agnes",
+      "start": 74,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N04",
+      "narration": "从神户到京都、名古屋，他不断更换衣着和说辞。",
+      "characters": [
+        "nishiguchi",
+        "local"
+      ],
+      "style_variant": "real",
+      "prompt": "Stylized continuous seamless moving match cuts across Showa streets: the same man walks past foreground screens as his period suit shifts between scholar, lawyer and businessman. People and steam keep moving; no stills.",
+      "seed": 19631030,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S14",
+      "kind": "agnes",
+      "start": 80,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N04",
+      "narration": "据公开资料，他诈骗所得合计约八十万日元。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "On a wooden desk envelopes and period banknotes slide into orderly stacks; an abstract red bar grows, no numbers, no readable marks. Overhead camera.",
+      "seed": 19631031,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S15",
+      "kind": "agnes",
+      "start": 85,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N05",
+      "narration": "十一月，静冈滨松一家旅馆的经营者母女遇害。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "A Showa Hamamatsu inn at night, curtains moving in wind and warm window lights turning off one after another. Aerial descent; entirely empty of victims and violence.",
+      "seed": 19631032,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S16",
+      "kind": "agnes",
+      "start": 91,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N05",
+      "narration": "两条生命消逝，旅馆里只剩下寂静。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "A quiet inn corridor with tatami and shoes left at the threshold, a paper door slowly closes in a breeze and lantern light fades. Respectful symbolic imagery, no person, no violence.",
+      "seed": 19631033,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S17",
+      "kind": "agnes",
+      "start": 97,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N05",
+      "narration": "十二月下旬，他又在东京杀害了一名律师。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "Winter Tokyo 1963, vacant period law office, cooled tea on wooden desk, empty chair gently rotating, curtains stir in grey daylight. Slow approach, no people.",
+      "seed": 19631034,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S18",
+      "kind": "agnes",
+      "start": 103,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N05",
+      "narration": "加上福冈的两人，遇害者一共是五人。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "An unlettered vintage map of Japan: five soft red lights appear one by one, two close together in Fukuoka, two close together in Hamamatsu, one in Tokyo; thin threads connect them. Respectful symbolic graphic.",
+      "seed": 19631035,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S19",
+      "kind": "agnes",
+      "start": 108,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N06",
+      "narration": "一九六四年一月二日，他来到熊本玉名。",
+      "characters": [
+        "priest"
+      ],
+      "style_variant": "real",
+      "prompt": "A mountain temple in winter Kumamoto mist, wind moves leaves on stone steps, a priest in black quietly sweeps the courtyard; aerial descent.",
+      "seed": 19631036,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S20",
+      "kind": "agnes",
+      "start": 114,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N06",
+      "narration": "他冒充川村律师，拜访教诲师古川泰龙。",
+      "characters": [
+        "nishiguchi",
+        "priest"
+      ],
+      "style_variant": "real",
+      "prompt": "At the temple gate, the man in a period lawyer suit and briefcase bows; the priest returns his bow. Side medium shot; leaves and robes move gently.",
+      "seed": 19631037,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S21",
+      "kind": "agnes",
+      "start": 120,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N06",
+      "narration": "他声称愿意帮助古川，为冤案奔走的活动。",
+      "characters": [
+        "nishiguchi",
+        "priest",
+        "family",
+        "girl"
+      ],
+      "style_variant": "real",
+      "prompt": "A calm tatami room: the priest explains papers to the attentive guest, family offers tea, the girl quietly observes from a safe corner. Gentle orbit, no readable documents.",
+      "seed": 19631038,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S22",
+      "kind": "agnes",
+      "start": 125,
+      "duration": 5,
+      "seconds": 5,
+      "narration_id": "N06",
+      "narration": "一家人热情接待，女儿却觉得这张脸十分眼熟。",
+      "characters": [
+        "nishiguchi",
+        "girl"
+      ],
+      "style_variant": "real",
+      "prompt": "In a peaceful room the guest calmly lifts tea to drink; the girl watches thoughtfully from across the table, in safe medium composition. Warm lamp and cool window light.",
+      "seed": 19631039,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S23",
+      "kind": "agnes",
+      "start": 130,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N07",
+      "narration": "女孩想起路边的通缉照片，发现客人与照片很像。",
+      "characters": [
+        "girl",
+        "nishiguchi"
+      ],
+      "style_variant": "real",
+      "prompt": "The girl quietly studies an unlettered fictional wanted portrait in a safe public place; dissolve to a stylized superimposition of the same guest’s face. Papers flutter and light moves, no readable text.",
+      "seed": 19631040,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S24",
+      "kind": "agnes",
+      "start": 137,
+      "duration": 7,
+      "seconds": 7,
+      "narration_id": "N07",
+      "narration": "她把疑虑告诉家人；起初，父亲并没有相信。",
+      "characters": [
+        "girl",
+        "priest",
+        "family"
+      ],
+      "style_variant": "real",
+      "prompt": "In a peaceful temple corridor the daughter speaks quietly to her family; the father first gently shakes his head, then listens attentively. No fear or danger, soft lateral camera.",
+      "seed": 19631041,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S25",
+      "kind": "agnes",
+      "start": 144,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N07",
+      "narration": "家人再三核对，古川最终决定悄悄向警方求助。",
+      "characters": [
+        "priest",
+        "family"
+      ],
+      "style_variant": "real",
+      "prompt": "The family compares an unlettered portrait away from the guest, then an adult discreetly uses a 1960s telephone; moonlight shifts and hands move. No suggestion of verified exact caller.",
+      "seed": 19631042,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S26",
+      "kind": "agnes",
+      "start": 150,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N08",
+      "narration": "警方核实身份，发现这名来客并非真正的律师。",
+      "characters": [
+        "police"
+      ],
+      "style_variant": "real",
+      "prompt": "At a police office an investigator studies unlettered paperwork, exchanges a look with a colleague and rises; telephone cord swings, brisk camera move.",
+      "seed": 19631043,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S27",
+      "kind": "agnes",
+      "start": 156,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N08",
+      "narration": "夜色中，警员赶到寺院附近，静静等待天亮。",
+      "characters": [
+        "police"
+      ],
+      "style_variant": "real",
+      "prompt": "On a misty mountain road, officers approach the distant temple quietly on foot, flashlights sweeping through fog and branches moving. Wide aerial, no weapons.",
+      "seed": 19631044,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S28",
+      "kind": "agnes",
+      "start": 162,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N08",
+      "narration": "一月三日，警方确认身份，西口终于被捕。",
+      "characters": [
+        "nishiguchi",
+        "police"
+      ],
+      "style_variant": "real",
+      "prompt": "Near the temple a few officers approach the adult guest calmly in morning light; he stops and speaks with them, no struggle or weapons. The exact arrest action is a reconstruction.",
+      "seed": 19631045,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S29",
+      "kind": "agnes",
+      "start": 168,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N09",
+      "narration": "从十月十八日算起，七十八天的逃亡画上句号。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "An unlettered calendar rapidly turns its blank pages in wind; each reveals a brief animated glimpse of an empty truck, ferry deck, inn and temple, ending in still morning light. No numbers.",
+      "seed": 19631046,
+      "aspect": "16:9",
+      "source_size": "720P"
+    },
+    {
+      "id": "S30",
+      "kind": "agnes",
+      "start": 174,
+      "duration": 6,
+      "seconds": 6,
+      "narration_id": "N09",
+      "narration": "他后来被判处死刑，一九七零年执行。",
+      "characters": [],
+      "style_variant": "real",
+      "prompt": "A solemn detention center wall in soft morning light, bright beam across a barred window and gently drifting clouds; image gradually brightens. No readable text; final title will be composited in post.",
+      "seed": 19631047,
+      "aspect": "16:9",
+      "source_size": "720P"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "N01",
+      "title": "黄金钩子",
+      "start": 0,
+      "duration": 10,
+      "shot_ids": [
+        "S01",
+        "S02"
+      ],
+      "text": "他先后杀害五个人，在日本逃亡七十八天。最终识破他的，竟是一名小学五年级的女孩。"
+    },
+    {
+      "id": "N02",
+      "title": "通缉令",
+      "start": 10,
+      "duration": 25,
+      "shot_ids": [
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "text": "一九六三年十月十八日，福冈县两名男子遇害。警方根据目击证言等线索，很快锁定一名嫌疑人。他叫西口彰，当时三十七岁，曾因诈骗和盗窃获罪。福冈警方随即发出全国通缉，寻找他的踪迹。"
+    },
+    {
+      "id": "N03",
+      "title": "假死",
+      "start": 35,
+      "duration": 25,
+      "shot_ids": [
+        "S07",
+        "S08",
+        "S09",
+        "S10"
+      ],
+      "text": "逃亡途中，西口从报纸上得知，自己已被通缉。濑户内海的渡轮上，他留下一双鞋和一封信。这场假死只是障眼法，他已经换了身份继续逃亡。搜寻没有结果，警方判断，所谓自杀只是伪装。"
+    },
+    {
+      "id": "N04",
+      "title": "千面诈骗犯",
+      "start": 60,
+      "duration": 25,
+      "shot_ids": [
+        "S11",
+        "S12",
+        "S13",
+        "S14"
+      ],
+      "text": "他辗转各地，时而自称教授，用体面外表赢得信任。后来他又冒充律师，继续以虚假的身份行骗。从神户到京都、名古屋，他不断更换衣着和说辞。据公开资料，他诈骗所得合计约八十万日元。"
+    },
+    {
+      "id": "N05",
+      "title": "五条人命",
+      "start": 85,
+      "duration": 23,
+      "shot_ids": [
+        "S15",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "text": "十一月，静冈滨松一家旅馆的经营者母女遇害。两条生命消逝，旅馆里只剩下寂静。十二月下旬，他又在东京杀害了一名律师。加上福冈的两人，遇害者一共是五人。"
+    },
+    {
+      "id": "N06",
+      "title": "古川家的客人",
+      "start": 108,
+      "duration": 22,
+      "shot_ids": [
+        "S19",
+        "S20",
+        "S21",
+        "S22"
+      ],
+      "text": "一九六四年一月二日，他来到熊本玉名。他冒充川村律师，拜访教诲师古川泰龙。他声称愿意帮助古川，为冤案奔走的活动。一家人热情接待，女儿却觉得这张脸十分眼熟。"
+    },
+    {
+      "id": "N07",
+      "title": "女孩的眼睛",
+      "start": 130,
+      "duration": 20,
+      "shot_ids": [
+        "S23",
+        "S24",
+        "S25"
+      ],
+      "text": "女孩想起路边的通缉照片，发现客人与照片很像。她把疑虑告诉家人；起初，父亲并没有相信。家人再三核对，古川最终决定悄悄向警方求助。"
+    },
+    {
+      "id": "N08",
+      "title": "逃亡的终点",
+      "start": 150,
+      "duration": 18,
+      "shot_ids": [
+        "S26",
+        "S27",
+        "S28"
+      ],
+      "text": "警方核实身份，发现这名来客并非真正的律师。夜色中，警员赶到寺院附近，静静等待天亮。一月三日，警方确认身份，西口终于被捕。"
+    },
+    {
+      "id": "N09",
+      "title": "尾声",
+      "start": 168,
+      "duration": 12,
+      "shot_ids": [
+        "S29",
+        "S30"
+      ],
+      "text": "从十月十八日算起，七十八天的逃亡画上句号。他后来被判处死刑，一九七零年执行。"
+    }
+  ],
+  "narration_spec": {
+    "voice_id": "voice-00",
+    "max_speedup_factor": 1.55
+  },
+  "reference_images": [
+    {
+      "file": "reference/nishiguchi.png"
+    },
+    {
+      "file": "reference/temple.png"
+    },
+    {
+      "file": "reference/characters.png"
+    }
+  ],
+  "presentation": {
+    "highlight_keywords": [
+      "七十八天",
+      "五个人",
+      "全国通缉",
+      "一双鞋",
+      "八十万日元",
+      "五人",
+      "女孩",
+      "一月三日",
+      "死刑"
+    ],
+    "title": "他骗过了全日本，却被一个小学生一眼认出",
+    "hashtags": "#真实事件 #西口彰 #日本 #昭和 #悬疑 #3D动画 #复仇在我"
+  }
+}
