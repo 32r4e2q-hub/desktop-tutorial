@@ -55,3 +55,10 @@ jobs:
             production/nishiguchi1963/results.json
           if-no-files-found: warn
           retention-days: 7
+
+  first-cut:
+    needs: motion
+    if: github.ref == 'refs/heads/arena/eef99fcf-desktop-tutorial'
+    permissions:
+      contents: write
+    uses: ./.github/workflows/nishiguchi1963-render.yml

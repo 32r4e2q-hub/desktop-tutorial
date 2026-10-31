@@ -137,4 +137,15 @@ class RendererTests(unittest.TestCase):
             srt.write_text(srt.read_text(encoding='utf-8').replace(story['shots'][0]['narration'],'字幕错误'),encoding='utf-8')
             self.assertFalse(qc.check_subtitles(srt,story)['covers_all_lines'])
 
+    def test_motion_then_render_workflows(self):
+        import yaml
+        root=HERE.parents[1]
+        motion=yaml.safe_load((root/'.github/workflows/nishiguchi1963-gen.yml').read_text())
+        render=yaml.safe_load((root/'.github/workflows/nishiguchi1963-render.yml').read_text())
+        self.assertEqual(motion['jobs']['first-cut']['needs'],'motion')
+        self.assertEqual(motion['jobs']['first-cut']['uses'],'./.github/workflows/nishiguchi1963-render.yml')
+        events=render.get('on',render.get(True,{}))
+        self.assertIn('workflow_call',events)
+        self.assertEqual(motion['jobs']['first-cut']['permissions']['contents'],'write')
+
 if __name__ == '__main__': unittest.main()
