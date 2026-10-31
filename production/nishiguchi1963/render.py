@@ -251,21 +251,45 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
             "embedded_letterbox_detected_samples": len(detected_bands)}
 
 
-def blend_temple_outgoing(current: Path, incoming: Path, target: Path, frames: int) -> None:
-    """Blend seven moving frames into the outgoing tail without changing its frame count.
+def retime_after_preblend(source: Path, target: Path, frames: int, overlap: int = 7) -> None:
+    """Use frames after the preblended head, spreading them over the original shot length.
 
-    The next clip begins at its original time; its first seven frames are also visible in
-    the preceding dissolve (never a held still). This preserves the narration timeline.
+    This avoids replaying the first seven incoming frames at the boundary while keeping
+    the narration's original shot timing. There is no frozen-frame padding.
+    """
+    if frames <= overlap:
+        raise ValueError("Clip too short to retime after dissolve")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    video_filter = (f"trim=start_frame={overlap}:end_frame={frames},"
+                    f"setpts=(PTS-STARTPTS)*{frames}/{frames-overlap},fps={FPS},format=yuv420p")
+    run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
+         "-vf", video_filter, "-an", "-frames:v", str(frames), "-r", str(FPS),
+         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", target])
+    if media_summary(target)["frames"] != frames:
+        raise RuntimeError("Post-dissolve retime did not preserve the original frame count")
+
+
+def blend_temple_outgoing(current: Path, incoming: Path, target: Path, frames: int) -> None:
+    """Blend seven moving incoming frames into the outgoing tail, retaining frame count.
+
+    The following clip must be produced with retime_after_preblend, so its first frame
+    continues after the seven preblended frames rather than replaying them.
     """
     overlap = 7  # 7/24 = 0.292 s, the closest frame-aligned duration to 0.3 s.
     if frames <= overlap:
         raise ValueError("Clip too short for temple dissolve")
     ramp = (overlap - 1) / FPS
+    # A low-contrast moving, irregular luma veil rises and falls only during the
+    # dissolve. Chroma is left intact and the veil is zero at both endpoints.
+    haze = (f"min(235,p(X,Y)+28*sin(PI*T/{ramp})*"
+            "(0.35+0.65*(0.5+0.5*sin(X/220+Y/350+T*4))*"
+            "(0.5+0.5*sin(X/360-Y/190-T*2))))")
     graph = (
         f"[0:v]split=2[m][t];[m]trim=start_frame=0:end_frame={frames-overlap},setpts=PTS-STARTPTS[head];"
         f"[t]trim=start_frame={frames-overlap}:end_frame={frames},setpts=PTS-STARTPTS[tail];"
         f"[1:v]trim=start_frame=0:end_frame={overlap},setpts=PTS-STARTPTS[next];"
-        f"[tail][next]blend=all_expr='A*(1-T/{ramp})+B*(T/{ramp})':shortest=1,setpts=PTS-STARTPTS[cross];"
+        f"[tail][next]blend=all_expr='A*(1-T/{ramp})+B*(T/{ramp})':shortest=1,"
+        f"setpts=PTS-STARTPTS,geq=lum='{haze}':cb='p(X,Y)':cr='p(X,Y)'[cross];"
         "[head][cross]concat=n=2:v=1:a=0[out]"
     )
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -474,17 +498,25 @@ def main() -> int:
         source = args.sources / f"{shot['id']}.mp4"
         target = normalized / f"{shot['id']}.mp4"
         clip_report.append(normalize_clip(source, target, shot, first_ids, last_ids))
-    # Keep every shot's frame count unchanged. Dissolve into the temple sequence and
-    # its following scenes; earlier shots retain crisp hard cuts.
+    # Keep every shot's frame count unchanged. The incoming 7-frame head is used
+    # once in the previous dissolve, then its remaining frames are gently retimed
+    # across the shot so the cut does not jump back or move the narration timeline.
     shots = story["shots"]
+    retimed = {}
     for i, shot in enumerate(shots):
-        target = normalized / f"{shot['id']}.mp4"
+        if i > 0 and shots[i-1]["start"] + shots[i-1]["duration"] >= 108:
+            shifted = args.work / "transitions" / f"{shot['id']}-after-preblend.mp4"
+            retime_after_preblend(normalized / f"{shot['id']}.mp4", shifted, round(shot["duration"] * FPS))
+            retimed[shot["id"]] = shifted
+            clip_report[i]["transition_in"] = "seven-frame preblend followed by gently retimed remaining motion"
+    for i, shot in enumerate(shots):
+        target = retimed.get(shot["id"], normalized / f"{shot['id']}.mp4")
         if i + 1 < len(shots) and shot["start"] + shot["duration"] >= 108:
             incoming = normalized / f"{shots[i+1]['id']}.mp4"
             blended = args.work / "transitions" / f"{shot['id']}.mp4"
-            blend_temple_outgoing(target, incoming, blended, round(shot['duration'] * FPS))
+            blend_temple_outgoing(target, incoming, blended, round(shot["duration"] * FPS))
             target = blended
-            clip_report[i]["transition_out"] = "seven-frame moving cross-dissolve; incoming frames recur at cut"
+            clip_report[i]["transition_out"] = "seven-frame moving cross-dissolve with a light procedural haze, no incoming frame replay"
         else:
             clip_report[i]["transition_out"] = "hard cut"
         escaped = str(target.resolve()).replace("'", "'\\''")

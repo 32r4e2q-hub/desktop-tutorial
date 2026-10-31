@@ -122,6 +122,28 @@ class RendererTests(unittest.TestCase):
             self.assertEqual(info['frames'],48)
             self.assertAlmostEqual(info['duration_seconds'],2,places=2)
 
+    def test_retime_continues_after_preblended_frames(self):
+        import shutil, subprocess, tempfile
+        import numpy as np
+        from PIL import Image
+        from production.nishiguchi1963 import render
+        if not shutil.which('ffmpeg') or not shutil.which('ffprobe'):
+            self.skipTest('requires ffmpeg and ffprobe')
+        with tempfile.TemporaryDirectory() as tmp:
+            d=Path(tmp); source=d/'original.mp4'; shifted=d/'shifted.mp4'
+            subprocess.run(['ffmpeg','-y','-v','error','-f','lavfi','-i',
+                'testsrc2=size=320x180:rate=24:duration=2','-c:v','libx264',
+                '-pix_fmt','yuv420p',str(source)],check=True)
+            render.retime_after_preblend(source,shifted,48)
+            self.assertEqual(render.media_summary(shifted)['frames'],48)
+            subprocess.run(['ffmpeg','-y','-v','error','-i',str(source),'-vf',
+                "select='eq(n,7)'",'-vsync','0','-frames:v','1',str(d/'frame7.png')],check=True)
+            subprocess.run(['ffmpeg','-y','-v','error','-i',str(shifted),
+                '-frames:v','1',str(d/'first.png')],check=True)
+            with Image.open(d/'frame7.png') as a, Image.open(d/'first.png') as b:
+                delta=np.abs(np.asarray(a,dtype=np.float32)-np.asarray(b,dtype=np.float32)).mean()
+                self.assertLess(delta,4.0)  # allow normal lossy re-encoding differences
+
     def test_qc_checks_subtitle_text_and_shot_timing(self):
         import tempfile
         from production.nishiguchi1963 import render, qc
