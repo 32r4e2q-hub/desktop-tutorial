@@ -174,6 +174,27 @@ class RendererTests(unittest.TestCase):
                 self.assertEqual(image.getpixel((400,900)),255)
                 self.assertEqual(image.getpixel((1000,500)),0)
 
+    def test_ffprobe_shim_reports_real_file_size(self):
+        import shutil, subprocess, tempfile
+        if not shutil.which('ffmpeg'):
+            self.skipTest('requires ffmpeg')
+        with tempfile.TemporaryDirectory() as tmp:
+            video = Path(tmp) / 'sample.mp4'
+            subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i',
+                            'testsrc2=size=320x180:rate=24:duration=1', '-c:v', 'libx264',
+                            '-pix_fmt', 'yuv420p', str(video)], check=True)
+            shim = HERE.parents[0] / 'setagaya2000' / 'ffprobe_shim.py'
+            output = subprocess.check_output([sys.executable, str(shim), '-show_format',
+                                              '-show_streams', '-of', 'json', str(video)], text=True)
+            self.assertEqual(int(json.loads(output)['format']['size']), video.stat().st_size)
+            # Check the fallback parser as well as the normal PyAV path.
+            # Pass paths through explicit arguments to avoid interpolating shell commands.
+            script = ("import json,runpy,sys; shim,path=sys.argv[1:]; sys.argv=['ffprobe',path];"
+                      "m=runpy.run_path(shim,run_name='shim_test');"
+                      "print(json.dumps(m['probe_with_ffmpeg']('ffmpeg')))")
+            output = subprocess.check_output([sys.executable, '-c', script, str(shim), str(video)], text=True)
+            self.assertEqual(int(json.loads(output)['format']['size']), video.stat().st_size)
+
     def test_motion_then_render_workflows(self):
         import yaml
         root=HERE.parents[1]

@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -31,6 +32,22 @@ def fraction(text: str) -> float:
 
 def parity(value: float) -> int:
     return int(value) + (int(value) % 2)
+
+
+def local_size() -> str | None:
+    """Match ffprobe's byte count for local files; omit unknown sizes instead of inventing zero."""
+    try:
+        return str(os.path.getsize(PATH))
+    except OSError:
+        return None
+
+
+def format_info(duration: float, format_name: str) -> dict:
+    info = {"duration": f"{duration:.6f}", "format_name": format_name}
+    size = local_size()
+    if size is not None:
+        info["size"] = size
+    return info
 
 
 def probe_with_pyav() -> dict:
@@ -62,7 +79,7 @@ def probe_with_pyav() -> dict:
                     "duration": f"{duration:.6f}",
                 })
         return {"streams": streams,
-                "format": {"duration": f"{duration:.6f}", "size": "0", "format_name": "mp4"}}
+                "format": format_info(duration, container.format.name)}
     finally:
         container.close()
 
@@ -108,8 +125,7 @@ def probe_with_ffmpeg(ffmpeg: str) -> dict:
                     "channels": channels,
                     "duration": f"{duration:.6f}",
                 })
-    return {"streams": streams,
-            "format": {"duration": f"{duration:.6f}", "size": "0", "format_name": "mp4"}}
+    return {"streams": streams, "format": format_info(duration, "mp4")}
 
 
 def main() -> int:
