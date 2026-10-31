@@ -358,9 +358,9 @@
     "S13": {
       "id": "S13",
       "request_hash": "85b02b1814d377292553ae7fd8bf1afcf7263bdf83dbfc3f621651eca876b109",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-31T11:33:26Z",
+      "updated_at": "2026-10-31T11:33:28Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -373,7 +373,18 @@
       "bytes": 1290863,
       "sha256": "7d825607b7e84f565ccb326451130167831f6549b90362a6ec0d0c6757c87365",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1290863,
+        "decoded_ok": true,
+        "contact_sheet": "production/nishiguchi1963/qa/S13.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S14": {
       "id": "S14",
@@ -903,7 +914,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-31T11:33:26Z",
+  "updated_at": "2026-10-31T11:33:28Z",
   "run_id": "41196605717",
   "previous_results": {
     "S02": [
