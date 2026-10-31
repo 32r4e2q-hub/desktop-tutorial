@@ -325,9 +325,9 @@
     "S12": {
       "id": "S12",
       "request_hash": "5cd3766ab09701d05a1d6640bf9a7ac4bed785ece3fe37279e4afe48c9bc31a3",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-31T08:09:17Z",
+      "updated_at": "2026-10-31T08:09:19Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_ePc4ZQwgPNa1MZdsMxpFvv5QmKs7hzWY",
@@ -338,7 +338,18 @@
       "bytes": 1385915,
       "sha256": "f845dd77fce2db639fc9c198c66c49db6338abec74bae88d7dff705e76e2122b",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1385915,
+        "decoded_ok": true,
+        "contact_sheet": "production/nishiguchi1963/qa/S12.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S13": {
       "id": "S13",
@@ -521,7 +532,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-31T08:09:17Z",
+  "updated_at": "2026-10-31T08:09:19Z",
   "run_id": "41179394909",
   "previous_results": {}
 }
