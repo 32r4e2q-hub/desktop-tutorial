@@ -840,9 +840,9 @@
     "S29": {
       "id": "S29",
       "request_hash": "1bb868969548a7ab86c3c06379adc9bcb87cdd8cbd241c4115c272a56c327ba7",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-31T09:30:01Z",
+      "updated_at": "2026-10-31T09:30:03Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -855,7 +855,18 @@
       "bytes": 3138854,
       "sha256": "8f90ac54d9e20e3126bea5fc6e12dade77acfaef279b816738cfe8b2169a94ed",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3138854,
+        "decoded_ok": true,
+        "contact_sheet": "production/nishiguchi1963/qa/S29.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S30": {
       "id": "S30",
@@ -921,7 +932,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-31T09:30:01Z",
+  "updated_at": "2026-10-31T09:30:03Z",
   "run_id": "41179394909",
   "previous_results": {}
 }
