@@ -1,0 +1,68 @@
+name: 西口彰事件 · 初剪合成
+on:
+  push:
+    branches: [arena/eef99fcf-desktop-tutorial]
+    paths: [production/nishiguchi1963/RENDER_REQUEST]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nishiguchi1963-render-arena-eef99fcf
+  cancel-in-progress: false
+jobs:
+  render:
+    if: github.ref == 'refs/heads/arena/eef99fcf-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/eef99fcf-desktop-tutorial
+      - name: Prepare tools and pinned Noto Sans CJK font
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 -m pip install --break-system-packages --disable-pip-version-check -q imageio-ffmpeg av numpy pillow
+          mkdir -p "$HOME/.local/bin" .cache/fonts
+          python3 - <<'PY'
+          from pathlib import Path
+          import imageio_ffmpeg, stat
+          bindir=Path.home()/'.local/bin'
+          for name,target in [('ffmpeg',imageio_ffmpeg.get_ffmpeg_exe()),('ffprobe',str(Path('production/setagaya2000/ffprobe_shim.py').resolve()))]:
+              p=bindir/name
+              p.write_text('#!/bin/sh\nexec '+('python3 ' if name=='ffprobe' else '')+'"'+target+'" "$@"\n')
+              p.chmod(p.stat().st_mode | stat.S_IEXEC)
+          PY
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          gh api repos/notofonts/noto-cjk/git/blobs/dc15562470b4f842321894787a0d066879ccff8b --jq .content | base64 -d > .cache/fonts/NotoSansCJKsc-Regular.otf
+          test "$(wc -c < .cache/fonts/NotoSansCJKsc-Regular.otf)" -eq 16437364
+      - name: Verify complete narration and current plan
+        run: |
+          python3 - <<'PY'
+          import json,sys
+          sys.path.insert(0,'production/nishiguchi1963')
+          import generate
+          p=json.load(open('production/nishiguchi1963/story.json',encoding='utf8'))
+          generate.validate(p,require_audio=True)
+          PY
+      - name: Restore hash-verified motion clips
+        run: python3 production/nishiguchi1963/fetch_sources.py
+      - name: Assemble unreviewed 1080p cut
+        run: |
+          mkdir -p work/nishiguchi1963/delivery
+          python3 production/nishiguchi1963/render.py \
+            --sources work/nishiguchi1963/sources \
+            --work work/nishiguchi1963/edit \
+            --output work/nishiguchi1963/delivery/Nishiguchi_First_Cut.mp4
+      - name: Upload first cut and review reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nishiguchi1963-first-cut-${{ github.run_number }}
+          path: |
+            work/nishiguchi1963/delivery/
+            work/nishiguchi1963/edit/delivery/
+            work/nishiguchi1963/edit/audio/mix-report.json
+          if-no-files-found: warn
+          retention-days: 7

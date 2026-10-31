@@ -15,7 +15,7 @@ ROLES = {
 'local':'【角色设定｜路人】Fictional ordinary Showa-era Japanese innkeepers, elders and travelers in period clothing, no real likenesses.'}
 # Every line is assigned to the pictured action, not merely the surrounding chapter.
 rows = [
-(5,'他先后杀害五个人，在日本逃亡七十八天。',[], 'In a dark living room an old monochrome television flickers with static and reveals a blurred drawn wanted portrait; a red warning light slowly passes across the glass. Real changing TV static, rotating warning light and drifting dust; close view slowly approaches.'),
+(5,'这场逃亡跨越七十八天，五条生命在途中消逝。',[], 'In a dark living room an old monochrome television flickers with static and reveals a blurred drawn wanted portrait; a red warning light slowly passes across the glass. Real changing TV static, rotating warning light and drifting dust; close view slowly approaches.'),
 (5,'最终识破他的，竟是一名小学五年级的女孩。',['nishiguchi','local'],'Move through the television glow to a 1963 railway platform: steam flows, travelers cross and a hatted man with briefcase walks away and disappears into the crowd. Follow his back; distant loudspeaker, no legible signage.'),
 (7,'一九六三年十月十八日，福冈县两名男子遇害。',[], 'At dawn on a misty rural Fukuoka road an empty 1960s delivery truck stands alone with lights on; leaves stir and fog streams across it. Aerial descent. No victims.'),
 (7,'警方根据目击证言等线索，很快锁定一名嫌疑人。',['police'],'Outside a misty crime scene police carefully unroll a plain cordon while a detective examines an abandoned shoe and closed file folder. Slow lateral track, no legible markings; these objects are illustrative, not verified evidence.'),
