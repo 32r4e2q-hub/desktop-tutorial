@@ -35,9 +35,9 @@
     "S02": {
       "id": "S02",
       "request_hash": "8896155c30d091ad8f81595b3ed8796950128495370695882636435d4a07dcfa",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-10-31T10:32:05Z",
+      "updated_at": "2026-10-31T10:32:06Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_LQvjbuJgCcIgbwIVd7dgTSlpYdszR5O3",
@@ -48,7 +48,18 @@
       "bytes": 2200365,
       "sha256": "ebda1b0e9032164532c0db3be7dd60345413ddacd4bb981ec085683f2d3f2d12",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2200365,
+        "decoded_ok": true,
+        "contact_sheet": "production/nishiguchi1963/qa/S02.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S03": {
       "id": "S03",
@@ -737,7 +748,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-10-31T10:32:05Z",
+  "updated_at": "2026-10-31T10:32:06Z",
   "run_id": "41192735568",
   "previous_results": {
     "S02": [
