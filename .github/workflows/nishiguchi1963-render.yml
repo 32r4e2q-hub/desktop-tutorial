@@ -5,7 +5,7 @@ on:
     paths: [production/nishiguchi1963/RENDER_REQUEST]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: nishiguchi1963-render-arena-eef99fcf
   cancel-in-progress: false
@@ -55,6 +55,20 @@ jobs:
             --sources work/nishiguchi1963/sources \
             --work work/nishiguchi1963/edit \
             --output work/nishiguchi1963/delivery/Nishiguchi_First_Cut.mp4
+      - name: Publish the unreviewed first cut to the production branch
+        run: |
+          set -euo pipefail
+          mkdir -p 交付
+          cp work/nishiguchi1963/delivery/Nishiguchi_First_Cut.mp4 交付/Nishiguchi_First_Cut.mp4
+          cp work/nishiguchi1963/delivery/西口彰事件_封面.png 交付/Nishiguchi_Cover.png
+          cp work/nishiguchi1963/delivery/Nishiguchi_First_Cut_字幕.srt 交付/Nishiguchi_Subtitles.srt
+          cp work/nishiguchi1963/edit/delivery/technical-report.json 交付/Nishiguchi_First_Cut_Report.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- 交付/Nishiguchi_First_Cut.mp4 交付/Nishiguchi_Cover.png 交付/Nishiguchi_Subtitles.srt 交付/Nishiguchi_First_Cut_Report.json
+          git commit -m 'nishiguchi1963: publish unreviewed first cut' || true
+          git pull --rebase origin arena/eef99fcf-desktop-tutorial
+          git push origin arena/eef99fcf-desktop-tutorial
       - name: Upload first cut and review reports
         if: always()
         uses: actions/upload-artifact@v4

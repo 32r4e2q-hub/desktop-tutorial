@@ -37,7 +37,11 @@ class NishiguchiPlanTests(unittest.TestCase):
     def test_references_exist_and_audio_not_misrepresented(self):
         for reference in self.project['reference_images']:
             self.assertTrue((HERE / reference['file']).is_file())
-        with self.assertRaises(ValueError):
+        missing = [s for s in self.project['shots'] if not (HERE / 'audio' / (s['id'] + '.mp3')).is_file()]
+        if missing:
+            with self.assertRaises(ValueError):
+                gen.validate(self.project, require_audio=True)
+        else:
             gen.validate(self.project, require_audio=True)
 
     def test_chapter_boundaries(self):

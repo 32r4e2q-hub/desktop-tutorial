@@ -35,14 +35,15 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Validate the 30-shot plan
         run: python3 production/nishiguchi1963/generate.py --validate --clips-only
-      - name: Generate a canary, then all motion clips
+      - name: Generate the requested motion clips
         timeout-minutes: 310
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
         run: |
           set -euo pipefail
           if [ -z "$AGNES_API_KEY" ]; then echo '::error::AGNES_API_KEY repository secret unavailable'; exit 1; fi
-          python3 -u production/nishiguchi1963/generate.py --publish --payload '{"mode":"clips","only":"S01","workers":2,"canary_then_full":true}'
+          payload="$(cat production/nishiguchi1963/GEN_REQUEST)"
+          python3 -u production/nishiguchi1963/generate.py --publish --payload "$payload"
       - name: Upload footage and review sheets
         if: always()
         uses: actions/upload-artifact@v4
