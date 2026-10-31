@@ -137,6 +137,21 @@ class RendererTests(unittest.TestCase):
             srt.write_text(srt.read_text(encoding='utf-8').replace(story['shots'][0]['narration'],'字幕错误'),encoding='utf-8')
             self.assertFalse(qc.check_subtitles(srt,story)['covers_all_lines'])
 
+    def test_writing_mask_only_applies_to_calibrated_source(self):
+        import tempfile
+        from PIL import Image
+        from production.nishiguchi1963 import render
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'mask.png'
+            self.assertIsNone(render.writing_soften_mask('S06', 'different source', path))
+            self.assertFalse(path.exists())
+            expected=render.WRITING_SOFTENING['S06']['sha256']
+            self.assertEqual(render.writing_soften_mask('S06', expected, path), path)
+            with Image.open(path) as image:
+                self.assertEqual(image.size,(1920,1080))
+                self.assertEqual(image.getpixel((400,900)),255)
+                self.assertEqual(image.getpixel((1000,500)),0)
+
     def test_motion_then_render_workflows(self):
         import yaml
         root=HERE.parents[1]

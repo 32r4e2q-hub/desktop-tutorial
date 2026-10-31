@@ -31,6 +31,29 @@ LETTERBOX_CHECK_SHOTS = {"S13", "S19", "S22", "S24", "S25", "S27"}
 CARD_TEXT_MAX_WIDTH = 1660
 FADE_IN_SKIP = set()
 
+# Localized defocus of model-invented writing, calibrated ONLY for these exact source
+# files. If a clip is regenerated its hash changes and no stale mask is applied.
+# Coordinates are in the normalized 1920x1080 frame, before subtitle compositing.
+WRITING_SOFTENING = {
+    "S06": {"sha256": "8fb4b08fc4fbd7051e8c7826dd86f71b65012eaa3d2f9195141978fdcac3baef",
+            "boxes": [(330, 775, 520, 1035)]},
+    "S26": {"sha256": "f39113f39c409f5e17274c81efbf775bd3c4178835c2f28a6f447d99856b41e6",
+            "boxes": [(300, 250, 455, 470), (465, 285, 565, 520)]},
+}
+
+
+def writing_soften_mask(shot_id: str, source_sha256: str, target: Path) -> Path | None:
+    spec = WRITING_SOFTENING.get(shot_id)
+    if not spec or spec["sha256"] != source_sha256:
+        return None
+    image = Image.new("L", (1920, 1080), 0)
+    draw = ImageDraw.Draw(image)
+    for box in spec["boxes"]:
+        draw.rounded_rectangle(box, radius=8, fill=255)
+    image = image.filter(ImageFilter.GaussianBlur(10))
+    target.parent.mkdir(parents=True, exist_ok=True)
+    image.save(target)
+    return target
 
 
 def run(command, capture=False):
@@ -199,11 +222,22 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
     filters.extend(chapter_fade_filters(shot, first_ids, last_ids))
     filters.append("format=yuv420p")
     target.parent.mkdir(parents=True, exist_ok=True)
+    source_sha256 = digest(source)
+    mask = writing_soften_mask(shot["id"], source_sha256, target.parent / f".{shot['id']}-writing-mask.png")
+    if mask:
+        # Merge only the luma plane: a grayscale mask must not desaturate the whole shot.
+        graph = (f"[0:v]{','.join(filters)},split=2[base][to_blur];"
+                 "[to_blur]gblur=sigma=13[soft];[1:v]format=yuv420p[mask];"
+                 "[base][soft][mask]maskedmerge=planes=1[out]")
+        inputs_and_filter = ["-i", source, "-loop", "1", "-framerate", str(FPS), "-i", mask,
+                             "-filter_complex", graph, "-map", "[out]"]
+    else:
+        inputs_and_filter = ["-i", source, "-map", "0:v:0", "-vf", ",".join(filters)]
     run([
-        "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
-        "-map", "0:v:0", "-vf", ",".join(filters), "-an", "-t", f"{duration:.3f}",
-        "-frames:v", str(target_frames), "-r", str(FPS), "-fps_mode", "cfr",
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", target,
+        "ffmpeg", "-y", "-v", "error", "-threads", "2", *inputs_and_filter,
+        "-an", "-t", f"{duration:.3f}", "-frames:v", str(target_frames), "-r", str(FPS),
+        "-fps_mode", "cfr", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+        "-pix_fmt", "yuv420p", target,
     ])
     normalized = media_summary(target)
     if normalized["frames"] != target_frames:
@@ -211,7 +245,8 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
     return {"id": shot["id"], "duration_seconds": duration, "frames": target_frames,
             "source_duration_seconds": round(info["duration_seconds"], 3),
             "source_width": info["width"], "source_height": info["height"],
-            "source_sha256": digest(source), "normalized_file": str(target),
+            "source_sha256": source_sha256, "normalized_file": str(target),
+            "localized_writing_softening": bool(mask),
             "embedded_letterbox_crop_filter": correction,
             "embedded_letterbox_detected_samples": len(detected_bands)}
 
