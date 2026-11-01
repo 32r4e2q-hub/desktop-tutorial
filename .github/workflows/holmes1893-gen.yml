@@ -70,7 +70,7 @@ jobs:
           git config http.version HTTP/1.1
           git config http.postBuffer 524288000
           git config http.lowSpeedLimit 1000
-          git config http.lowSpeedTime 120"
+          git config http.lowSpeedTime 120
 
       - name: Resolve the payload (QC wins over render, render wins over generation)
         env:
