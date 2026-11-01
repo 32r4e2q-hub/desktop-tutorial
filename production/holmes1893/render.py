@@ -701,6 +701,11 @@ def main() -> int:
         "-r", str(FPS), "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-t", str(DURATION), "-movflags", "+faststart", final,
     ])
+    # 自述式诊断：沙箱读不到 Actions 日志，只能靠 run.log 里的这几行定位渲染问题。
+    print("RENDER_GRAPH " + graph, flush=True)
+    print(f"PICTURE_DURATION {probe(picture).get('duration_seconds')}", flush=True)
+    for stamp in (100.0, 160.0, 176.0, 178.0):
+        print(f"LUMA {stamp:.1f} {frame_luma(final, stamp, final.parent):.1f}", flush=True)
     verify_end_card_dim(final)
     summary = media_summary(final)
     if summary["width"] != 1920 or summary["height"] != 1080 or abs(summary["duration_seconds"] - 180.0) > 0.04:
