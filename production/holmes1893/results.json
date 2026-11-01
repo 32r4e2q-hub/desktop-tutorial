@@ -267,9 +267,9 @@
     "S10": {
       "id": "S10",
       "request_hash": "4055cfddec40318095eab840860e49632305b4b4d9f247faaf0056bdb1f08500",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-01T05:54:50Z",
+      "updated_at": "2026-11-01T05:54:52Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_M653KKrXtphBsJtYpkpcLtvGz8c0M6PC",
@@ -280,7 +280,18 @@
       "bytes": 1865454,
       "sha256": "ae4013f15a48402c803710960520510322c2e533ad4208f88d16d4122cd0a939",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1865454,
+        "decoded_ok": true,
+        "contact_sheet": "production/holmes1893/qa/S10.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S11": {
       "id": "S11",
@@ -477,7 +488,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-01T05:54:50Z",
+  "updated_at": "2026-11-01T05:54:52Z",
   "run_id": "41274526656",
   "previous_results": {}
 }
