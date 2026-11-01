@@ -1,0 +1,58 @@
+run=41298231988 attempt=1 ref=arena/534c25c4-desktop-tutorial
+event=push runner=GitHub Actions 1000002789 os=Linux arch=X64
+sha=4c76bc4ce4403de634e1f76b6a96f898c9673c5a
+started 2026-11-01T10:38:56Z
+Python 3.14.4
+ffmpeg missing
+ffprobe missing
+payload={"mode":"render","workers":1}
+== tools ==
+python=Python 3.14.4 ffmpeg=none ffprobe=none
+installing python media deps from PyPI
+ffmpeg shim -> /home/runner/.local/lib/python3.14/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2
+ffprobe shim -> /home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/ffprobe_shim.py
+PATH=/home/runner/.local/bin added
+downloading CJK fonts
+font ok: NotoSansCJKsc-Regular.otf
+font ok: NotoSansCJKsc-Bold.otf
+font ok: NotoSerifCJKsc-Regular.otf
+numpy: ok
+PIL: ok
+yaml: ok
+av: ok
+imageio_ffmpeg: ok
+ffmpeg -> ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the
+ffprobe -> ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe
+cjk_fonts=3
+stage=tools_ready
+== plan ==
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/story.json — 30 shots, 180s, 594 visible narration characters (3.30/s)
+stage=build_ok
+validation mode: render
+VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines, nine chapters and approved references
+stage=validate_ok
+test_30_shots_cover_exactly_180_seconds (production.tests.test_holmes1893.HolmesPlanTests.test_30_shots_cover_exactly_180_seconds) ... ok
+test_brief_shot_lengths_are_five_to_seven_seconds (production.tests.test_holmes1893.HolmesPlanTests.test_brief_shot_lengths_are_five_to_seven_seconds)
+附件脚本给的 30 个镜头全部是 5–7 秒；这里守住这条节奏。 ... ok
+test_chapters_are_nine_and_contiguous (production.tests.test_holmes1893.HolmesPlanTests.test_chapters_are_nine_and_contiguous) ... ok
+test_every_prompt_gets_style_characters_and_negative (production.tests.test_holmes1893.HolmesPlanTests.test_every_prompt_gets_style_characters_and_negative) ... ok
+test_every_shot_demands_real_camera_motion (production.tests.test_holmes1893.HolmesPlanTests.test_every_shot_demands_real_camera_motion) ... ok
+test_fact_boundaries_quote_the_real_record (production.tests.test_holmes1893.HolmesPlanTests.test_fact_boundaries_quote_the_real_record) ... ok
+test_legend_panels_use_the_print_style_and_carry_no_lettering (production.tests.test_holmes1893.HolmesPlanTests.test_legend_panels_use_the_print_style_and_carry_no_lettering)
+双层画面规则：传说想象一律用泛黄旧报纸版画的独立 STYLE。 ... ok
+test_narration_fit_verdicts (production.tests.test_holmes1893.HolmesPlanTests.test_narration_fit_verdicts) ... ok
+test_narration_is_one_line_per_shot_at_a_human_pace (production.tests.test_holmes1893.HolmesPlanTests.test_narration_is_one_line_per_shot_at_a_human_pace) ... ok
+test_narration_length_matches_shot_length (production.tests.test_holmes1893.HolmesPlanTests.test_narration_length_matches_shot_length)
+解说词跟片段等长：字数 ÷ 镜头秒数落在人类语速区间，且不靠加速凑。 ... ok
+test_publish_delivery_uses_this_film_s_names (production.tests.test_holmes1893.HolmesPlanTests.test_publish_delivery_uses_this_film_s_names) ... ok
+test_reference_images_exist (production.tests.test_holmes1893.HolmesPlanTests.test_reference_images_exist) ... ok
+test_sensitive_imagery_is_never_requested (production.tests.test_holmes1893.HolmesPlanTests.test_sensitive_imagery_is_never_requested) ... ok
+test_single_character_shots_reuse_the_character_seed (production.tests.test_holmes1893.HolmesPlanTests.test_single_character_shots_reuse_the_character_seed) ... ok
+test_sources_and_release_copy_are_recorded (production.tests.test_holmes1893.HolmesPlanTests.test_sources_and_release_copy_are_recorded) ... ok
+test_transitions_follow_the_two_layer_rule (production.tests.test_holmes1893.HolmesPlanTests.test_transitions_follow_the_two_layer_rule) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.136s
+
+OK
+stage=tests_ok
