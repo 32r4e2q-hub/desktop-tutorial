@@ -290,6 +290,8 @@ jobs:
         run: |
           set -uo pipefail
           echo "stage=finished exit=${GENERATOR_EXIT_CODE:-unknown}" >> "$RUN_LOG"
+          export PUSH_ERROR_LOG="$RUNNER_TEMP/push-error.txt"
+          : > "$PUSH_ERROR_LOG"
 
           push_branch() {
             # 提交 → 拉取 → 推送，失败就重试；成片是五十多兆的大对象，网络抖动必须能自愈。
@@ -311,6 +313,7 @@ jobs:
                 return 0
               fi
               printf 'push_attempt=%s failed: %s\n' "$attempt" "$(echo "$out" | tr '\n' ' ' | cut -c1-400)" >> "$RUN_LOG"
+              printf '%s\n' "$out" >> "$PUSH_ERROR_LOG"
               sleep $((attempt * 10))
             done
             return 1
@@ -322,6 +325,55 @@ jobs:
             echo "::error::could not push the delivery to the branch after 5 attempts"
             exit 1
           fi
+
+      - name: Report a push failure through the REST API (git push is not the only write path)
+        if: always() && steps.ship.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64, json, os, pathlib, urllib.request, urllib.error
+
+          token = os.environ.get("GH_TOKEN", "")
+          repo = os.environ["GITHUB_REPOSITORY"]
+          branch = os.environ["TARGET_BRANCH"]
+          head = urllib.request.Request(
+              f"https://api.github.com/repos/{repo}/contents/production/holmes1893/qa/push-error.txt?ref={branch}",
+              headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
+          sha = None
+          try:
+              with urllib.request.urlopen(head, timeout=30) as r:
+                  sha = json.load(r).get("sha")
+          except urllib.error.HTTPError as e:
+              if e.code != 404:
+                  print("head request failed", e.code)
+
+          tmp = pathlib.Path(os.environ.get("RUNNER_TEMP", "/tmp"))
+          text = (tmp / "push-error.txt").read_text(encoding="utf-8", errors="replace")
+          try:
+              run_log = pathlib.Path("production/holmes1893/run.log").read_text(encoding="utf-8", errors="replace")
+          except OSError:
+              run_log = "(no run.log)"
+          text = ("=== PUSH OUTPUT ===\n" + (text or "(none captured)")
+                  + "\n=== RUN LOG TAIL ===\n" + "\n".join(run_log.splitlines()[-120:]))[:60000]
+          body = json.dumps({
+              "message": f"diagnostics: git push failed in run {os.environ.get('GITHUB_RUN_ID')} [skip-holmes1893]",
+              "content": base64.b64encode(text.encode("utf-8")).decode("ascii"),
+              "branch": branch,
+              **({"sha": sha} if sha else {}),
+          }).encode("utf-8")
+          put = urllib.request.Request(
+              f"https://api.github.com/repos/{repo}/contents/production/holmes1893/qa/push-error.txt",
+              data=body, method="PUT",
+              headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json",
+                       "X-GitHub-Api-Version": "2022-11-28", "Content-Type": "application/json"})
+          try:
+              with urllib.request.urlopen(put, timeout=60) as r:
+                  print("diagnostics uploaded", r.status)
+          except urllib.error.HTTPError as e:
+              print("diagnostics upload failed", e.code, e.read().decode("utf-8", "replace")[:500])
+              raise SystemExit(1)
+          PY
 
       - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
         if: always()
