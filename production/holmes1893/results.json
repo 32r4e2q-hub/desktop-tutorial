@@ -180,9 +180,9 @@
     "S07": {
       "id": "S07",
       "request_hash": "88b3aad0a5656b658998aa3ae6024f6165e75f9e8758861bf7cf0385eb9ce1d6",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-01T08:17:51Z",
+      "updated_at": "2026-11-01T08:17:54Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_2Lkq4s2SEHILqZ78JJnKetatrXFbEEkt",
@@ -193,7 +193,18 @@
       "bytes": 3091004,
       "sha256": "f9ca312a977b693cb321d427897ffc902d62204d0a53da15a4dedea7694e2e41",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3091004,
+        "decoded_ok": true,
+        "contact_sheet": "production/holmes1893/qa/S07.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S08": {
       "id": "S08",
@@ -931,7 +942,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-01T08:17:51Z",
+  "updated_at": "2026-11-01T08:17:54Z",
   "run_id": "41286833324",
   "previous_results": {
     "S06": [
