@@ -181,7 +181,34 @@ def letterbox_crop_filter(shot: dict, info: dict, detected_bands: list[tuple[int
     return f"crop={active_width}:{active_height}:{left}:{top}"
 
 
-def shot_filter(shot: dict, info: dict, detected_bands) -> tuple[str, dict]:
+def source_luma(source: Path) -> float:
+    """Median YAVG of five sampled frames: how dark this clip actually is."""
+    values = []
+    for fraction in (0.1, 0.3, 0.5, 0.7, 0.9):
+        sample = subprocess.run([
+            "ffmpeg", "-v", "info", "-ss", f"{fraction * 5:.2f}", "-i", str(source),
+            "-frames:v", "1", "-vf", "scale=160:90,signalstats,metadata=print:key=lavfi.signalstats.YAVG",
+            "-f", "null", "-",
+        ], capture_output=True, text=True)
+        for line in (sample.stderr or "").splitlines():
+            if "YAVG=" in line:
+                try:
+                    values.append(float(line.split("YAVG=")[1].strip()))
+                except ValueError:
+                    pass
+    if not values:
+        return 64.0
+    return float(np.median(values))
+
+
+def shadow_lift_gamma(luma: float) -> float:
+    """Lift the darkest clips only; daylight shots keep the original grade (1.10)."""
+    if luma >= 52.0:
+        return 1.10
+    return float(min(1.48, 1.10 + (52.0 - luma) / 52.0 * 0.42))
+
+
+def shot_filter(shot: dict, info: dict, detected_bands, luma: float = 64.0) -> tuple[str, dict]:
     """Return the per-input filter chain (normalize to 1920x1080/24fps, clone a 0.4 s tail)."""
     if not 3.75 <= info["duration_seconds"] <= 9.5:
         raise RuntimeError(f"{shot['id']}: invalid Agnes clip duration {info['duration_seconds']:.3f}s")
@@ -192,7 +219,7 @@ def shot_filter(shot: dict, info: dict, detected_bands) -> tuple[str, dict]:
         "scale=1920:1080:force_original_aspect_ratio=increase",
         "crop=1920:1080",
         "setsar=1",
-        f"eq=gamma=1.10:brightness=0.008",
+        f"eq=gamma={shadow_lift_gamma(luma):.3f}:brightness=0.014",
         # 传说版画：极轻的纸张抖动与颗粒，加强「会动的旧报纸」质感（不改变构图）。
         *(["noise=alls=7:allf=t+u", "vignette=angle=0.32"] if shot["style_variant"] != "real" else []),
         "format=yuv420p",
@@ -206,6 +233,7 @@ def shot_filter(shot: dict, info: dict, detected_bands) -> tuple[str, dict]:
         "settb=AVTB",
     ]
     report = {"id": shot["id"], "duration_seconds": float(shot["duration"]),
+              "source_luma": round(luma, 1), "grade_gamma": round(shadow_lift_gamma(luma), 3),
               "source_duration_seconds": round(info["duration_seconds"], 3),
               "source_width": info["width"], "source_height": info["height"],
               "embedded_letterbox_crop_filter": correction,
@@ -226,7 +254,7 @@ def build_picture(story: dict, sources: Path, work_dir: Path) -> tuple[Path, lis
         source = sources / f"{shot['id']}.mp4"
         info = media_summary(source)
         bands = detect_source_letterbox_bands(source, shot, info)
-        chain, report = shot_filter(shot, info, bands)
+        chain, report = shot_filter(shot, info, bands, source_luma(source))
         report["source_sha256"] = digest(source)
         reports.append(report)
         graph.append(f"[{index}:v]{chain}[v{index}]")

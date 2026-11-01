@@ -109,7 +109,7 @@
 | 镜号 | 时间 | 秒数 | 段 | 运镜 | 风格 | 角色 | 画面职责 |
 |---|---:|---:|---|---|---|---|---|
 | S01 | 00:00—00:05 | 5 | N01 | 航拍从摩天轮下降，穿过人群 | 写实3D | — | Night at the 1893 World's Columbian Exposition in Chicago: the White City's white classical palaces glow under |
-| S02 | 00:05—00:10 | 5 | N01 | 低机位缓慢推近，直到大门自掩 | 写实3D | — | The same night, four blocks away: the far end of a narrow gaslit Chicago street |
+| S02 | 00:05—00:10 | 5 | N01 | 低机位缓慢推近，直到大门自掩 | 写实3D | — | The same night, four blocks from the fair: a narrow gaslit Chicago street corner, and the three-storey dark br |
 | S03 | 00:10—00:17 | 7 | N02 | 中景，缓慢推近书桌与男孩 | 写实3D | boy | A New Hampshire farmhouse room in the early 1870s, late afternoon: low sun through a small window lays an ambe |
 | S04 | 00:17—00:24 | 7 | N02 | 中景，过肩镜头，缓缓横移 | 写实3D | student | A university anatomy lecture room in 1884, restrained and non-graphic: tiers of wooden benches, tall shelves o |
 | S05 | 00:24—00:30 | 6 | N02 | 大特写，慢动作，红章落下 | 写实3D | holmes | Extreme close-up on a desk under a warm desk lamp: a printed insurance form lies on green baize beside a brass |
