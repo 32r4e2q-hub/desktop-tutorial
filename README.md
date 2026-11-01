@@ -1,6 +1,6 @@
 # 系列封面与制作手册
 
-**「迷案解码人」系列**：用户告诉 Agent 是第几期，Agent 根据当前案件材料核实事实、自拟标题并生成固定版式竖版封面；若案件不明确会先询问。入口：[`系列封面工具和使用说明`](production/mystery-cover-template/README.md) · [`新题目开工手册`](新题目开工手册.md) · [`Agent 工作约定`](AGENTS.md)。
+**「迷案解码人」系列**：用户告诉 Agent 是第几期，Agent 根据当前案件材料核实事实、自拟标题、选取本期视频截图并生成固定版式竖版封面；若案件或截图来源不明确会先询问。入口：[`系列封面工具和使用说明`](production/mystery-cover-template/README.md) · [`新题目开工手册`](新题目开工手册.md) · [`Agent 工作约定`](AGENTS.md)。
 
 ---
 
