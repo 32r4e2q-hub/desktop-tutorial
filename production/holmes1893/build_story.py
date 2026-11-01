@@ -328,7 +328,10 @@ SHOT_ROWS = [
      "offers it across the desk. Pitezel takes it with both hands. Camera: pushes slowly "
      "past Pitezel's shoulder until the glass and Holmes's steady hand fill the right third, the "
      "light on the water trembling. Real motion: glass passing hands, water surface shaking, "
-     "clock ticking, breathing, smile. Nothing violent; no readable text."),
+     "clock ticking, breathing, smile. Nothing violent; no readable text. Photoreal "
+     "cinematic rendering with natural human proportions, real skin texture, subtle pores "
+     "and fine wrinkles, matte wool and linen fabrics, matching the rest of the film - no "
+     "cartoon, toy-like or caricatured faces, no oversized eyes or noses, no plastic skin."),
 
     ("S17", 97, 6, "低机位，缓慢推近，门外一双皮鞋", ["holmes"], "real",
      "Night, a narrow Philadelphia boarding-house third-floor corridor: patterned wallpaper, a "
