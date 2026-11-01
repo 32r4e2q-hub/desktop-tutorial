@@ -697,6 +697,12 @@ def main() -> int:
     print(f"PICTURE_DURATION {probe(picture).get('duration_seconds')}", flush=True)
     for stamp in (100.0, 160.0, 176.0, 178.0):
         print(f"LUMA {stamp:.1f} {frame_luma(final, stamp, final.parent):.1f}", flush=True)
+    # 把片尾两帧同时导进仓库 qa/：沙箱读不到 Actions 日志，也下载不了 artifact，只能看图定位。
+    qa_dir = HERE / "qa"
+    qa_dir.mkdir(parents=True, exist_ok=True)
+    for stamp, tag in ((160.0, "body"), (176.0, "endcard")):
+        run(["ffmpeg", "-y", "-v", "error", "-i", str(final), "-ss", f"{stamp:.3f}",
+             "-frames:v", "1", "-q:v", "3", str(qa_dir / f"render-{tag}.jpg")])
     verify_end_card_dim(final)
     summary = media_summary(final)
     if summary["width"] != 1920 or summary["height"] != 1080 or abs(summary["duration_seconds"] - 180.0) > 0.04:
