@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: arena/534c25c4-desktop-tutorial
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Prepare the on-branch run log
         run: |
@@ -66,6 +66,11 @@ jobs:
           } >> "$RUN_LOG"
           git config user.name "arena-autopilot"
           git config user.email "arena-autopilot@users.noreply.github.com"
+          # 成片五十多兆，走 HTTP/2 时 push 会被 curl 92 打断；统一降到 HTTP/1.1 并放大缓冲。
+          git config http.version HTTP/1.1
+          git config http.postBuffer 524288000
+          git config http.lowSpeedLimit 1000
+          git config http.lowSpeedTime 120"
 
       - name: Resolve the payload (QC wins over render, render wins over generation)
         env:
@@ -277,19 +282,46 @@ jobs:
           PY
 
       - name: Ship the run log, results and delivery to the branch
+        id: ship
         if: always()
+        timeout-minutes: 30
         env:
           GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
         run: |
           set -uo pipefail
           echo "stage=finished exit=${GENERATOR_EXIT_CODE:-unknown}" >> "$RUN_LOG"
-          git add -f "$RUN_LOG" production/holmes1893/stage.log 2>/dev/null || true
-          git add -f production/holmes1893/results.json 2>/dev/null || true
-          git add -A 交付 production/holmes1893/qa 2>/dev/null || true
-          git add -f work/holmes1893/edit/delivery 2>/dev/null || true
-          git commit -q -m "holmes1893: run ${GITHUB_RUN_ID} log + delivery [skip-holmes1893]" || true
-          git pull --rebase -q origin "$TARGET_BRANCH" || true
-          git push -q origin "HEAD:$TARGET_BRANCH" || true
+
+          push_branch() {
+            # 提交 → 拉取 → 推送，失败就重试；成片是五十多兆的大对象，网络抖动必须能自愈。
+            for attempt in 1 2 3 4 5; do
+              git add -f "$RUN_LOG" production/holmes1893/stage.log 2>/dev/null || true
+              git add -f production/holmes1893/results.json 2>/dev/null || true
+              git add -A 交付 production/holmes1893/qa 2>/dev/null || true
+              git add -f work/holmes1893/edit/delivery 2>/dev/null || true
+              git commit -q -m "holmes1893: run ${GITHUB_RUN_ID} log + delivery [skip-holmes1893]" || true
+              git fetch -q origin "$TARGET_BRANCH" || true
+              if ! git rebase -q "origin/$TARGET_BRANCH" >/dev/null 2>&1; then
+                git rebase --abort >/dev/null 2>&1 || true
+                echo "push_attempt=${attempt} rebase_conflict_fallback" >> "$RUN_LOG"
+              fi
+              if out=$(git push origin "HEAD:$TARGET_BRANCH" 2>&1); then
+                tip=$(git rev-parse HEAD)
+                echo "stage=pushed_ok attempt=${attempt} tip=${tip}" >> "$RUN_LOG"
+                echo "pushed=${tip}" >> "$GITHUB_OUTPUT"
+                return 0
+              fi
+              printf 'push_attempt=%s failed: %s\n' "$attempt" "$(echo "$out" | tr '\n' ' ' | cut -c1-400)" >> "$RUN_LOG"
+              sleep $((attempt * 10))
+            done
+            return 1
+          }
+
+          if push_branch; then
+            echo "::notice::delivery pushed to $TARGET_BRANCH"
+          else
+            echo "::error::could not push the delivery to the branch after 5 attempts"
+            exit 1
+          fi
 
       - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
         if: always()
