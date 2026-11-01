@@ -5,7 +5,7 @@ Requires Pillow and a CJK font for the sample; the generated editor embeds a sub
 of Noto Serif CJK (SIL OFL) and runs without Python, network, or external assets.
 """
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 import argparse,base64,html,json,zipfile
 
 HERE=Path(__file__).resolve().parent
@@ -36,7 +36,7 @@ def fitted_font(font_path,draw,text,max_size,max_width,min_size=30):
         if max(draw.textlength(text,font=f),right)-min(0,left)<=max_width:return f
     raise ValueError(f'文字无法适配宽度 {max_width}: {text}')
 
-def cover(font_path, period=PERIOD, line1=LINE1, line2=LINE2, plate_image=None):
+def cover(font_path, period=PERIOD, line1=LINE1, line2=LINE2, plate_image=None, screenshot=None, episode=1):
     im=(plate() if plate_image is None else plate_image).convert('RGBA');d=ImageDraw.Draw(im)
     font=lambda size:ImageFont.truetype(str(font_path),size)
     d.rectangle((62,76,68,126),fill='#b83d36')
@@ -54,6 +54,19 @@ def cover(font_path, period=PERIOD, line1=LINE1, line2=LINE2, plate_image=None):
     d.text((65,1275),'真相，藏在细节里',font=font(39),fill='#f0dfbd',anchor='lt')
     d.text((65,1352),FOOTER,font=font(25),fill='#b8a996',anchor='lt')
     d.text((1014,1352),'MYSTERY DECODER',font=font(20),fill='#a68a7d',anchor='rt')
+    if screenshot is not None:
+        x,y,w,h=126,622,828,405
+        shadow=Image.new('RGBA',im.size);sd=ImageDraw.Draw(shadow)
+        sd.rounded_rectangle((x-3,y+12,x+w+3,y+h+12),radius=8,fill=(0,0,0,220))
+        im=Image.alpha_composite(im,shadow.filter(ImageFilter.GaussianBlur(20)))
+        d=ImageDraw.Draw(im)
+        d.rounded_rectangle((x,y,x+w,y+h),radius=5,fill='#15191d',outline='#b7966a',width=2)
+        d.rectangle((x+7,y+7,x+w-7,y+h-7),outline='#574536',width=1)
+        shot=ImageOps.fit(screenshot.convert('RGB'),(w-20,h-64),method=Image.Resampling.LANCZOS)
+        im.paste(shot,(x+10,y+10));d=ImageDraw.Draw(im)
+        d.line((x+10,y+h-49,x+w-10,y+h-49),fill='#725a43',width=1)
+        d.text((x+20,y+h-41),'本片画面  ·  动画情景复原',font=font(22),fill='#e5d3b6')
+        d.text((x+w-22,y+h-38),f'CASE FILE  /  {episode:02d}',font=font(17),fill='#a79176',anchor='ra')
     return im.convert('RGB')
 
 def write_editor(font_woff):
@@ -67,10 +80,11 @@ def write_editor(font_woff):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--font',type=Path,required=True);parser.add_argument('--woff',type=Path,required=True);args=parser.parse_args()
     plate().save(HERE/'plate.jpg',quality=94,subsampling=0)
-    cover(args.font).save(HERE/'第一期_西口彰_封面.png',optimize=True)
+    with Image.open(HERE/'第一期_视频截图示例.jpg') as screenshot:
+        cover(args.font, screenshot=screenshot).save(HERE/'第一期_西口彰_封面.png',optimize=True)
     write_editor(args.woff)
     with zipfile.ZipFile(HERE/'迷案解码人_封面模板.zip','w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
-        for name in ['封面模板_可编辑.html','第一期_西口彰_封面.png','使用说明.txt','OFL.txt']:
+        for name in ['封面模板_可编辑.html','第一期_西口彰_封面.png','第一期_视频截图示例.jpg','使用说明.txt','OFL.txt']:
             z.write(HERE/name,arcname=name)
     print('cover, editor, and package created')
 

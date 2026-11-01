@@ -5,37 +5,61 @@
 @font-face{font-family:MysterySerif;src:url(data:font/woff2;base64,__FONT_DATA__) format('woff2');font-weight:700;font-display:block}
 :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b1018;color:#eee8df;font:16px/1.55 system-ui,-apple-system,'Microsoft YaHei',sans-serif}main{max-width:1110px;margin:auto;padding:28px 22px 52px}header{margin-bottom:24px}h1{font-size:26px;margin:0 0 5px}p{color:#aeb7c3;margin:0 0 16px}.layout{display:grid;grid-template-columns:minmax(280px,410px) minmax(280px,1fr);gap:30px;align-items:start}.panel{background:#151e29;padding:22px;border:1px solid #2a3644;border-radius:12px}label{display:block;margin:0 0 8px;font-weight:650}input{width:100%;margin:0 0 20px;padding:12px 14px;color:#fff;background:#0c131d;border:1px solid #526071;border-radius:7px;font-size:17px}input:focus{outline:2px solid #d6a257;outline-offset:2px}button,.link{display:inline-block;width:100%;text-align:center;padding:13px;border:0;border-radius:7px;background:#be4035;color:#fff;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;margin-bottom:10px}button:disabled{opacity:.45;cursor:wait}.link{background:#263545;color:#e9e4de}.tip{font-size:13px;color:#b7c0ca;line-height:1.7}.preview{background:#05080d;border:1px solid #2a3644;border-radius:12px;padding:14px;text-align:center}canvas{display:block;width:100%;height:auto;max-width:500px;margin:auto;box-shadow:0 15px 32px #0007}.preview p{margin:12px 0 0;font-size:13px}#status{min-height:24px;font-size:13px;color:#d7b78a}@media(max-width:760px){main{padding:18px 14px 40px}.layout{display:flex;flex-direction:column}.panel,.preview{width:100%}.preview{order:-1}canvas{max-width:340px}}
 </style></head><body><main>
-<header><h1>迷案解码人 · 封面模板</h1><p>固定版式，修改期数和两行标题，保存高清封面。</p></header>
+<header><h1>迷案解码人 · 封面模板</h1><p>固定版式，修改期数、两行标题和本期视频截图，保存高清封面。</p></header>
 <div class="layout"><section class="panel" aria-label="封面内容">
-<label for="episode">期数</label><input id="episode" value="第一期" maxlength="10" autocomplete="off">
+<label for="episode">期数（输入数字）</label><input id="episode" type="number" value="1" min="1" max="9999" step="1">
 <label for="line1">标题上行</label><input id="line1" value="逃亡78天的西口彰" maxlength="18" autocomplete="off">
 <label for="line2">标题下行</label><input id="line2" value="却被女孩一眼认出" maxlength="18" autocomplete="off">
+<label for="screenshot">本期视频截图（图片文件）</label><input id="screenshot" type="file" accept="image/*">
 <button id="save" type="button" disabled>下载本期封面 PNG</button>
 <a class="link" id="package" href="/template.zip" download="mystery-cover-template.zip">下载模板包（含离线编辑器）</a>
-<div id="status" role="status">正在准备封面…</div><div class="tip">建议每行不超过 10 个汉字；较长标题会自动缩小。导出为 1080 × 1440。封面背景为根据参考图风格重新创作的无水印图，并非历史照片。<br>如有非常罕见的生僻字，浏览器可能使用系统字体显示。</div>
+<div id="status" role="status">正在准备封面…</div><div class="tip">每期请选择该期视频的截图，图片会居中裁切填满画框；换期数后请重新选图。建议先裁去字幕并检查主体未被切掉。标题每行建议不超过 10 个汉字，较长会自动缩小。导出为 1080 × 1440。封面背景依据参考图气氛重新创作；视频画面为动画情景复原，不是历史影像。<br>如有生僻字，浏览器可能使用系统字体。</div>
 </section><section class="preview" aria-label="实时封面预览"><canvas id="canvas" width="1080" height="1440" aria-label="封面预览"></canvas><p>实时预览 · 3:4 竖版</p></section></div>
 </main><script>
 'use strict';
 const canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d');
 const period=document.getElementById('episode'), line1=document.getElementById('line1'), line2=document.getElementById('line2');
-const save=document.getElementById('save'), status=document.getElementById('status');
+const save=document.getElementById('save'), status=document.getElementById('status'), upload=document.getElementById('screenshot');
 if(location.protocol==='file:')document.getElementById('package').style.display='none';
 const bg=new Image();bg.src='data:image/jpeg;base64,__IMAGE_DATA__';
+let shot=null, ready=false, shotUrl=null, uploadVersion=0;
+function episodeNumber(){const n=Number(period.value);return Number.isInteger(n)&&n>=1&&n<=9999?n:null;}
+function episodeLabel(n){if(!n)return '第X期';let out='',zero=false;const ds='零一二三四五六七八九';for(const [v,u] of [[1000,'千'],[100,'百'],[10,'十'],[1,'']]){const digit=Math.floor(n/v);n%=v;if(digit){if(zero){out+='零';zero=false;}if(!(v===10&&digit===1&&!out))out+=ds[digit];out+=u;}else if(out&&n)zero=true;}return `第${out}期`;}
 function font(size){return `700 ${size}px MysterySerif, "Noto Serif CJK SC", "Songti SC", SimSun, serif`;}
-function fitted(text,max=106,width=940){let n=max;while(n>30){ctx.font=font(n);if(ctx.measureText(text).width<=width)break;n--;}return n;}
+function fitted(text,max=106,width=940,min=30){let n=max;while(n>min){ctx.font=font(n);if(ctx.measureText(text).width<=width)break;n--;}return n;}
+function update(){if(!ready)return;render();const valid=episodeNumber()&&line1.value.trim()&&line2.value.trim()&&shot;save.disabled=!valid;status.textContent=valid?'模板已就绪，请核对内容后下载。':'请填写期数、两行标题并选择本期视频截图。';}
+function resetShot(){uploadVersion++;shot=null;upload.value='';if(shotUrl){URL.revokeObjectURL(shotUrl);shotUrl=null;}}
 function text(s,x,y,size,color,align='left'){ctx.font=font(size);ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='top';ctx.fillText(s,x,y);}
 function roundRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);}
 function render(){
  ctx.clearRect(0,0,1080,1440);ctx.drawImage(bg,0,0,1080,1440);
  ctx.fillStyle='#b83d36';ctx.fillRect(62,76,6,50);text('迷案解码人',84,72,45,'#f0dfbd');
  roundRect(786,72,230,64,7);ctx.fillStyle='#871e20';ctx.fill();ctx.strokeStyle='#c65c51';ctx.lineWidth=2;ctx.stroke();
- const ep=(period.value.trim()||'第X期');text(ep,901,84,fitted(ep,33,190),'#fff2d9','center');
+ const ep=episodeLabel(episodeNumber());text(ep,901,84,fitted(ep,33,190,16),'#fff2d9','center');
  ctx.fillStyle='#a55c4c';ctx.fillRect(62,168,956,2);text('真实案件',66,207,30,'#cd7f65');text('CASE FILE  /  TRUE STORY',260,209,21,'#c4b9a8');
  [[line1.value,285,'#fff0d0'],[line2.value,425,'#efd19b']].forEach(([s,y,color])=>{const size=fitted(s);ctx.font=font(size);ctx.textAlign='left';ctx.textBaseline='top';ctx.lineJoin='round';ctx.lineWidth=10;ctx.strokeStyle='#140d0c';ctx.strokeText(s,66,y+5);ctx.fillStyle='#140d0c';ctx.fillText(s,66,y+5);ctx.lineWidth=4;ctx.strokeStyle='#241914';ctx.strokeText(s,66,y);ctx.fillStyle=color;ctx.fillText(s,66,y);});
  ctx.fillStyle='#a53330';ctx.fillRect(65,583,225,5);text('真相，藏在细节里',65,1275,39,'#f0dfbd');text('真实案件 · 动画情景复原',65,1352,25,'#b8a996');text('MYSTERY DECODER',1014,1352,20,'#a68a7d','right');
+ const x=126,y=622,w=828,h=405;
+ ctx.save();ctx.shadowColor='rgba(0,0,0,.86)';ctx.shadowBlur=20;ctx.shadowOffsetY=12;roundRect(x,y,w,h,5);ctx.fillStyle='#15191d';ctx.fill();ctx.restore();
+ roundRect(x,y,w,h,5);ctx.fillStyle='#15191d';ctx.fill();ctx.strokeStyle='#b7966a';ctx.lineWidth=2;ctx.stroke();
+ ctx.strokeStyle='#574536';ctx.lineWidth=1;ctx.strokeRect(x+7,y+7,w-14,h-14);
+ if(shot){const dw=w-20,dh=h-64,scale=Math.max(dw/shot.naturalWidth,dh/shot.naturalHeight),sw=dw/scale,sh=dh/scale;ctx.drawImage(shot,(shot.naturalWidth-sw)/2,(shot.naturalHeight-sh)/2,sw,sh,x+10,y+10,dw,dh);}
+ else{text('请选择本期视频截图',x+w/2,y+155,32,'#b8a996','center');}
+ ctx.fillStyle='#725a43';ctx.fillRect(x+10,y+h-49,w-20,1);text('本片画面  ·  动画情景复原',x+20,y+h-41,22,'#e5d3b6');
+ text(`CASE FILE  /  ${String(episodeNumber()||0).padStart(2,'0')}`,x+w-22,y+h-38,17,'#a79176','right');
 }
 function download(blob){if(!blob){status.textContent='导出失败，请尝试其他浏览器。';return}const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download=`迷案解码人_${(period.value.trim()||'封面').replace(/[\\/:*?"<>|]/g,'_')}.png`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);status.textContent='封面已导出。如果没有弹出下载，请检查浏览器的下载提示。';}
-save.addEventListener('click',()=>{render();canvas.toBlob(download,'image/png');});
-[period,line1,line2].forEach(el=>el.addEventListener('input',()=>{if(bg.complete&&bg.naturalWidth)render();}));
-Promise.all([document.fonts.load(font(45)),new Promise((resolve,reject)=>{if(bg.complete&&bg.naturalWidth)resolve();else{bg.onload=resolve;bg.onerror=reject;}})]).then(()=>{render();save.disabled=false;status.textContent='模板已就绪，修改文字后点击下载。';}).catch(()=>{status.textContent='模板加载失败，请用新版浏览器打开。';});
+save.addEventListener('click',()=>{if(!save.disabled){render();canvas.toBlob(download,'image/png');}});
+period.addEventListener('input',()=>{resetShot();update();});
+[line1,line2].forEach(el=>el.addEventListener('input',update));
+upload.addEventListener('change',()=>{
+ const file=upload.files[0];shot=null;uploadVersion++;const version=uploadVersion;
+ if(shotUrl){URL.revokeObjectURL(shotUrl);shotUrl=null;}
+ update();if(!file)return;
+ shotUrl=URL.createObjectURL(file);const image=new Image();
+ image.onload=()=>{if(version!==uploadVersion)return;shot=image;update();};
+ image.onerror=()=>{if(version!==uploadVersion)return;shot=null;update();status.textContent='截图无法读取，请选择有效的图片文件。';};
+ image.src=shotUrl;
+});
+Promise.all([document.fonts.load(font(45)),new Promise((resolve,reject)=>{if(bg.complete&&bg.naturalWidth)resolve();else{bg.onload=resolve;bg.onerror=reject;}})]).then(()=>{ready=true;update();}).catch(()=>{status.textContent='模板加载失败，请用新版浏览器打开。';});
 </script></body></html>
