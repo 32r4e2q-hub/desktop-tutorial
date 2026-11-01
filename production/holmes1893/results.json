@@ -865,9 +865,9 @@
     "S30": {
       "id": "S30",
       "request_hash": "a748443cfd370cf48e54a0adf565071bfe40787b745838427b7fed950c6b24bb",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-01T07:44:31Z",
+      "updated_at": "2026-11-01T07:44:33Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -880,7 +880,18 @@
       "bytes": 5544373,
       "sha256": "dcec4ec4deb0c58c234c09ba760447b66694783d6873789135259b35903d8617",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 5544373,
+        "decoded_ok": true,
+        "contact_sheet": "production/holmes1893/qa/S30.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     }
   },
   "source_size": "720P",
@@ -931,7 +942,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-01T07:44:31Z",
+  "updated_at": "2026-11-01T07:44:33Z",
   "run_id": "41274526656",
   "previous_results": {}
 }
