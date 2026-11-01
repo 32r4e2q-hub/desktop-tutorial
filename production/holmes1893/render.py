@@ -38,8 +38,8 @@ END_CARD_AT = 174.55
 # 片尾卡压在最后一镜（S30 现代芝加哥航拍）上，所以压暗放在这一镜的逐镜调色里做。
 END_CARD_SHOT = "S30"
 # 片尾卡渐隐：S30 从 174.0 s 开始，片尾卡在 174.55 s 亮起，0.55 s 处开始渐隐到黑。
-END_CARD_FADE_START = 0.55
-END_CARD_FADE_SECONDS = 5.2
+END_CARD_FADE_START = 0.10
+END_CARD_FADE_SECONDS = 1.70
 # 片尾压暗：像素乘法系数。实测 0.42 时城市仍可辨认，金色片名与白色字幕都清晰。
 END_CARD_DIM_GAIN = 0.42
 
