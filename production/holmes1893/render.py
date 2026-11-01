@@ -422,13 +422,20 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
 
     # Only the closing title is a post-produced overlay; the model is never asked to render text.
     # 片尾底板：一层半透明墨色，让金色片名压在亮画面上也读得清（第 0 层，字幕与片名都在它之上）。
-    plate_start = ass_time(END_CARD_AT - 0.30)
-    lines += [
-        # 一层均匀的墨色底：整块盖住画面，避免出现任何硬边色带；金色片名与白字幕都压在它上面。
-        f"Dialogue: 0,{plate_start},{ass_time(179.90)},Plate,,0,0,0,,"
-        f"{{\\an7\\pos(0,0)\\p1\\bord0\\shad0\\1c&H0C0805&\\1a&H78&\\fad(800,0)}}"
-        f"m 0 0 l 1920 0 l 1920 1080 l 0 1080",
-    ]
+    # 注意：\\fad() 作用在 \\p1 整幅绘图上时，libass 会让这一层完全不渲染（实测成片里底板整个消失，
+    # 金色数字直接压在亮画面上）。改成若干**首尾相接、透明度递增**的事件做阶梯淡入：
+    # 既不叠加变黑，也不需要 fad。
+    plate_end = 179.90
+    plate_begin = END_CARD_AT - 0.30
+    steps = [(0.00, 0xE8), (0.16, 0xC8), (0.34, 0xA8), (0.52, 0x92), (0.70, 0x7E)]
+    for index, (offset, alpha) in enumerate(steps):
+        begin = plate_begin + offset
+        finish = plate_begin + steps[index + 1][0] if index + 1 < len(steps) else plate_end
+        lines.append(
+            f"Dialogue: 0,{ass_time(begin)},{ass_time(finish)},Plate,,0,0,0,,"
+            f"{{\\an7\\pos(0,0)\\p1\\bord0\\shad0\\1c&H0C0805&\\1a&H{alpha:02X}&}}"
+            f"m 0 0 l 1920 0 l 1920 1080 l 0 1080"
+        )
     lines += [
         f"Dialogue: 2,{ass_time(END_CARD_AT)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(960,158)\\fad(420,430)\\fs100}}"
         + pres["end_title"],

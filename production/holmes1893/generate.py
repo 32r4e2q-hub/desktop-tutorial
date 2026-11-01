@@ -160,6 +160,9 @@ def publish_delivery(film: Path) -> dict:
     if not cover.is_file():
         # render.py names the cover after the film it sits next to; accept that too.
         cover = film.parent / f"{film.stem}_封面.jpg"
+    if not cover.is_file():
+        # render.py writes the cover as <片名片段>_封面.jpg (H·H·霍姆斯_封面.jpg), which is neither.
+        cover = film.parent / "H·H·霍姆斯_封面.jpg"
     if cover.is_file():
         targets.append((cover, "H·H·霍姆斯_传说里的杀人城堡_封面.jpg"))
     for source, name in targets:

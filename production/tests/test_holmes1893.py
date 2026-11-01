@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -257,3 +258,35 @@ class HolmesPlanTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class EndCardPlateTests(unittest.TestCase):
+    """成片里片尾底板曾经整个消失：\\fad() 作用在 \\p1 整幅绘图上时 libass 不渲染这一层。"""
+
+    def build_ass(self) -> str:
+        plan = load_module("holmes1893_story_for_plate", PROJECT / "build_story.py")
+        render = load_module("holmes1893_render_for_plate", PROJECT / "render.py")
+        story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+        cues = [{"shot_id": shot["id"], "start": shot["start"] + 0.1,
+                 "end": shot["start"] + max(0.6, shot["duration"] - 0.2),
+                 "text": shot["narration"]} for shot in story["shots"]]
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "check.ass"
+            render.write_subtitles(path, cues, story, Path(tmp) / "check.srt")
+            return path.read_text(encoding="utf-8")
+
+    def test_plate_layers_render_without_fading_the_drawing(self):
+        ass = self.build_ass()
+        plate = [line for line in ass.splitlines() if ",Plate," in line]
+        self.assertGreaterEqual(len(plate), 2, "片尾底板应拆成多段阶梯淡入")
+        for line in plate:
+            self.assertNotIn("\\fad(", line, "整幅绘图上不能挂 fad，否则这一层完全不渲染")
+            self.assertIn("\\p1", line)
+            self.assertIn("l 1920 1080", line)
+
+    def test_plate_is_dark_and_opaque_enough_to_read_the_gold_title(self):
+        ass = self.build_ass()
+        plate = [line for line in ass.splitlines() if ",Plate," in line]
+        last = plate[-1]
+        alpha = int(last.split("\\1a&H")[1][:2], 16)
+        self.assertLessEqual(alpha, 0x92, "最终底板透明度要够低，否则金色片名在亮画面上读不清")
