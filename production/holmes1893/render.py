@@ -617,7 +617,16 @@ def compose_cover(left_frame: Image.Image, right_frame: Image.Image, output: Pat
     kicker_box = draw.textbbox((0, 0), kicker, font=kicker_font)
     draw.text((72, 52 - kicker_box[1]), kicker, font=kicker_font, fill="#e8e2d2",
               stroke_width=2, stroke_fill="#0b0c0a")
-    draw.text((width - 300, 52 - kicker_box[1]), "第二期", font=kicker_font, fill="#f4c95f",
+    # 「第二期」常落在摩天轮的高光上，单靠描边仍读不清：先垫一块半透明墨色药丸再写字。
+    badge = "第二期"
+    badge_box = draw.textbbox((0, 0), badge, font=kicker_font)
+    badge_w, badge_h = badge_box[2] - badge_box[0], badge_box[3] - badge_box[1]
+    badge_x, badge_y = width - 72 - badge_w, 52 - badge_box[1]
+    draw.rounded_rectangle(
+        (badge_x - 18, badge_y + badge_box[1] - 13,
+         badge_x + badge_w + 18, badge_y + badge_box[1] + badge_h + 13),
+        radius=10, fill=(10, 11, 9, 168))
+    draw.text((badge_x, badge_y), badge, font=kicker_font, fill="#f4c95f",
               stroke_width=2, stroke_fill="#0b0c0a")
 
     centered("传说", legend_font, int(width * 0.245), 150, "#e6c58a", 10, "#120f08")
