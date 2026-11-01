@@ -39,7 +39,7 @@ END_CARD_AT = 176.40
 END_CARD_SHOT = "S30"
 # 片尾卡渐隐：S30 从 174.0 s 开始，片尾卡在 174.55 s 亮起，0.55 s 处开始渐隐到黑。
 END_CARD_FADE_START = 0.10
-END_CARD_FADE_SECONDS = 1.45
+END_CARD_FADE_SECONDS = 2.30  # 0.10 s 起到 176.40 s 刚好全黑，片尾卡正是在黑底上浮出
 # 片尾压暗：像素乘法系数。实测 0.42 时城市仍可辨认，金色片名与白色字幕都清晰。
 END_CARD_DIM_GAIN = 0.42
 

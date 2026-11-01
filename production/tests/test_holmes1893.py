@@ -16,6 +16,8 @@ import sys
 import tempfile
 import unittest
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / "production" / "holmes1893"
 
@@ -285,3 +287,25 @@ class EndCardDimTests(unittest.TestCase):
         self.assertIn("closing_shot_darkened", source)
         self.assertNotIn("enable=", source, "不要再用时间表达式压暗")
         self.assertIn("verify_end_card_dim", source, "渲染后必须校验片尾真的被压暗")
+
+    def test_fade_lands_on_the_end_card_and_qc_accepts_the_tail_blackout(self):
+        source = (PROJECT / "render.py").read_text(encoding="utf-8")
+        card_at = float(re.search(r"^END_CARD_AT = ([0-9.]+)", source, re.M).group(1))
+        fade_start = float(re.search(r"^END_CARD_FADE_START = ([0-9.]+)", source, re.M).group(1))
+        fade_len = float(re.search(r"^END_CARD_FADE_SECONDS = ([0-9.]+)", source, re.M).group(1))
+        story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+        last_start = float(story["shots"][-1]["start"])
+        # 渐隐是 S30 内的相对时间：全黑的那一刻要正好落在片尾卡出现的位置，中间不留死黑。
+        self.assertAlmostEqual(card_at, 176.40, places=2)
+        self.assertLessEqual(abs((last_start + fade_start + fade_len) - card_at), 0.05)
+
+        import qc
+
+        fps = 10.0
+        frames = np.full((1800, 4, 4), 90, dtype=np.uint8)   # 缩略图即可，只看亮度序列
+        frames[1760:] = 0                      # 176.0 s 起是计划内的片尾收黑
+        frames[905] = 0                        # 90.5 s 的孤立黑帧（不在切点上）才是缺陷
+        shots = [{"start": i * 6.0} for i in range(30)]
+        picture = qc.analyse_picture(frames, fps=fps, shots=shots)
+        self.assertEqual(picture["unexpected_black_samples"], [90.5])
+        self.assertTrue(picture["tail_black_samples"], "片尾收黑要被单独记录下来")

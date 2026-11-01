@@ -29,6 +29,8 @@ COVER_NAME = "Holmes_Castle_Cover.png"
 SRT_NAME = "Holmes_Castle_Subtitles.srt"
 EXPECTED = {"width": 1920, "height": 1080, "fps": 24, "duration": 180.0, "frames": 4320}
 BLACK_MEAN = 7.0
+# 片尾压暗是有意为之：画面在 176.4 s 落到全黑，片尾卡在黑底上排字。
+TAIL_BLACK_START = 175.8
 FREEZE_DIFF = 0.35
 FREEZE_SECONDS = 1.4
 FLASH_MEAN_JUMP = 55.0
@@ -77,8 +79,10 @@ def analyse_picture(frames: np.ndarray, fps: float, shots: list[dict]) -> dict:
     # planned 0.3s chapter fade, not a black-frame defect; anything else is reported.
     cut_times = [float(shot["start"]) for shot in shots]
     black = [round(float(i / fps), 2) for i, mean in enumerate(means) if mean < BLACK_MEAN]
+    # 收黑处的黑帧属于结尾设计（压暗 → 片尾卡），只有它之前的黑帧才算缺陷。
+    tail_black = [at for at in black if at >= min(TAIL_BLACK_START, duration - 1.6)]
     unexpected_black = [at for at in black
-                        if at < duration - 1.6
+                        if at < min(TAIL_BLACK_START, duration - 1.6)
                         and not any(abs(at - cut) <= 0.45 for cut in cut_times)]
 
     freeze_runs, start = [], None
@@ -110,6 +114,7 @@ def analyse_picture(frames: np.ndarray, fps: float, shots: list[dict]) -> dict:
         "mean_luma_max": round(float(means.max()), 2),
         "mean_luma_avg": round(float(means.mean()), 2),
         "unexpected_black_samples": unexpected_black,
+        "tail_black_samples": tail_black,
         "freeze_runs": freeze_runs,
         "flash_samples": flashes,
         "motion_percentile_10": round(float(np.percentile(diffs, 10)), 3),
