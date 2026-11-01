@@ -694,12 +694,20 @@ def main() -> int:
     ])
     # 自述式诊断：沙箱读不到 Actions 日志，只能靠 run.log 里的这几行定位渲染问题。
     print("RENDER_GRAPH " + graph, flush=True)
-    print(f"PICTURE_DURATION {probe(picture).get('duration_seconds')}", flush=True)
+    picture_info = probe(picture)
+    print(f"PICTURE_DURATION {picture_info.get('duration_seconds')} "
+          f"frames={picture_info.get('frames')} {picture_info.get('width')}x{picture_info.get('height')}", flush=True)
+    for stamp in (170.0, 176.0, 179.0):
+        print(f"PICTURE_LUMA {stamp:.1f} {frame_luma(picture, stamp, final.parent):.1f}", flush=True)
     for stamp in (100.0, 160.0, 176.0, 178.0):
         print(f"LUMA {stamp:.1f} {frame_luma(final, stamp, final.parent):.1f}", flush=True)
     # 把片尾两帧同时导进仓库 qa/：沙箱读不到 Actions 日志，也下载不了 artifact，只能看图定位。
     qa_dir = HERE / "qa"
     qa_dir.mkdir(parents=True, exist_ok=True)
+    print("S30_REPORT " + json.dumps(
+        next((row for row in clip_report if row.get("id") == END_CARD_SHOT), {}), ensure_ascii=False), flush=True)
+    run(["ffmpeg", "-y", "-v", "error", "-i", str(picture), "-ss", "176.000",
+         "-frames:v", "1", "-q:v", "3", str(qa_dir / "render-picture176.jpg")])
     for stamp, tag in ((160.0, "body"), (176.0, "endcard")):
         run(["ffmpeg", "-y", "-v", "error", "-i", str(final), "-ss", f"{stamp:.3f}",
              "-frames:v", "1", "-q:v", "3", str(qa_dir / f"render-{tag}.jpg")])
