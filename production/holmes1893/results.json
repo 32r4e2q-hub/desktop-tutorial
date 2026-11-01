@@ -440,32 +440,10 @@
     },
     "S16": {
       "id": "S16",
-      "request_hash": "872732118b8b4c4747b2fe8ad037455452113d090f299d04bcaf4412b205d6f5",
-      "status": "completed",
+      "request_hash": "0281bcb661561d77cae9e3b042077999b4b2802138ee48a277cd521fd0516b48",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-01T06:23:41Z",
-      "error": null,
-      "create_attempts": 1,
-      "video_id": "task_oqCdgYUWd1pfOYAXAMS0foYV5U1spDyY",
-      "task_id": "task_oqCdgYUWd1pfOYAXAMS0foYV5U1spDyY",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_oqCdgYUWd1pfOYAXAMS0foYV5U1spDyY.mp4",
-      "bytes": 1896450,
-      "sha256": "211df3c5bd0adf2f5bdb8e616b3d4e571c2f954508a3544cde0b816d46780512",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1896450,
-        "decoded_ok": true,
-        "contact_sheet": "production/holmes1893/qa/S16.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-01T08:19:12Z"
     },
     "S17": {
       "id": "S17",
@@ -942,7 +920,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-01T08:19:11Z",
+  "updated_at": "2026-11-01T08:19:12Z",
   "run_id": "41286943577",
   "previous_results": {
     "S06": [
@@ -1002,6 +980,37 @@
           "bytes": 2746357,
           "decoded_ok": true,
           "contact_sheet": "production/holmes1893/qa/S07.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S16": [
+      {
+        "id": "S16",
+        "request_hash": "872732118b8b4c4747b2fe8ad037455452113d090f299d04bcaf4412b205d6f5",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-01T06:23:41Z",
+        "error": null,
+        "create_attempts": 1,
+        "video_id": "task_oqCdgYUWd1pfOYAXAMS0foYV5U1spDyY",
+        "task_id": "task_oqCdgYUWd1pfOYAXAMS0foYV5U1spDyY",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_oqCdgYUWd1pfOYAXAMS0foYV5U1spDyY.mp4",
+        "bytes": 1896450,
+        "sha256": "211df3c5bd0adf2f5bdb8e616b3d4e571c2f954508a3544cde0b816d46780512",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1896450,
+          "decoded_ok": true,
+          "contact_sheet": "production/holmes1893/qa/S16.jpg",
           "visual_review": "pending"
         },
         "visual_review": "pending"
