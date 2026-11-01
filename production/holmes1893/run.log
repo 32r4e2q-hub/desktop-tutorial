@@ -58,3 +58,116 @@ Ran 18 tests in 0.121s
 
 OK
 stage=tests_ok
+agnes_key_present=yes
+== generator ==
+RESTORE S01 from Agnes receipt
+RESTORE S02 from Agnes receipt
+RESTORE S03 from Agnes receipt
+RESTORE S04 from Agnes receipt
+RESTORE S05 from Agnes receipt
+RESTORE S06 from Agnes receipt
+RESTORE S07 from Agnes receipt
+RESTORE S08 from Agnes receipt
+RESTORE S09 from Agnes receipt
+RESTORE S10 from Agnes receipt
+RESTORE S11 from Agnes receipt
+RESTORE S12 from Agnes receipt
+RESTORE S13 from Agnes receipt
+RESTORE S14 from Agnes receipt
+RESTORE S15 from Agnes receipt
+RESTORE S16 from Agnes receipt
+RESTORE S17 from Agnes receipt
+RESTORE S18 from Agnes receipt
+RESTORE S19 from Agnes receipt
+RESTORE S20 from Agnes receipt
+RESTORE S21 from Agnes receipt
+RESTORE S22 from Agnes receipt
+RESTORE S23 from Agnes receipt
+RESTORE S24 from Agnes receipt
+RESTORE S25 from Agnes receipt
+RESTORE S26 from Agnes receipt
+RESTORE S27 from Agnes receipt
+RESTORE S28 from Agnes receipt
+RESTORE S29 from Agnes receipt
+RESTORE S30 from Agnes receipt
+Unable to revert mtime: /usr/share/fonts
+Unable to revert mtime: /usr/share/fonts/truetype
+Unable to revert mtime: /usr/share/fonts/truetype/dejavu
+Unable to revert mtime: /usr/share/fonts/truetype/lato
+Unable to revert mtime: /usr/share/fonts/truetype/liberation
+Unable to revert mtime: /usr/share/fonts/truetype/noto
+RENDER_GRAPH [0:v]split=2[full0][full1];[full0]trim=start=0:end=174.25,setpts=PTS-STARTPTS[head];[full1]trim=start=174.25:end=180,setpts=PTS-STARTPTS,lutrgb=r='val*0.42':g='val*0.42':b='val*0.42'[tail];[head][tail]concat=n=2:v=1:a=0,ass=/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit/holmes-captions.ass:fontsdir=/home/runner/work/desktop-tutorial/desktop-tutorial/.cache/fonts[v]
+PICTURE_DURATION None
+/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py:638: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  values = list(image.convert("L").getdata())
+LUMA 100.0 38.1
+/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py:638: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  values = list(image.convert("L").getdata())
+LUMA 160.0 78.8
+/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py:638: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  values = list(image.convert("L").getdata())
+LUMA 176.0 52.0
+/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py:638: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  values = list(image.convert("L").getdata())
+LUMA 178.0 65.0
+/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py:638: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  values = list(image.convert("L").getdata())
+/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py:638: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  values = list(image.convert("L").getdata())
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 769, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 709, in main
+    verify_end_card_dim(final)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 649, in verify_end_card_dim
+    raise RuntimeError(
+        f"End card was not darkened (body={body:.1f}, tail={tail:.1f}); refusing to deliver")
+RuntimeError: End card was not darkened (body=49.0, tail=65.0); refusing to deliver
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/generate.py", line 820, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/generate.py", line 495, in main
+    subprocess.run([
+    ~~~~~~~~~~~~~~^^
+        sys.executable, str(HERE / "render.py"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--sources", str(sources), "--work", str(ROOT / "work" / "holmes1893" / "edit"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--output", str(output),
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ], cwd=ROOT, check=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/clips/H·H·霍姆斯_传说里的杀人城堡_三分钟_带声音.mp4']' returned non-zero exit status 1.
+generator_exit=1
+== qc ==
+{
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 72230312,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "subtitles": {
+    "cues": 30,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "hard_gate_failures": []
+}
+QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit/delivery/qc-report.json
+qc_exit=0
+stage=finished exit=1
