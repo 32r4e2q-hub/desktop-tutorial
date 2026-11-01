@@ -281,6 +281,7 @@ class EndCardDimTests(unittest.TestCase):
 
     def test_closing_card_is_darkened_by_a_filter_not_by_ass(self):
         source = (PROJECT / "render.py").read_text(encoding="utf-8")
-        self.assertIn("lutrgb=", source)
-        self.assertIn("trim=start=0:end=", source, "用 trim+concat 分段压暗，不依赖 enable 时间表达式")
+        # 时间门控（enable=）与 trim/concat 在 runner 上都实测不生效，压暗改到 S30 的逐镜调色里。
+        self.assertIn("closing_shot_darkened", source)
+        self.assertNotIn("enable=", source, "不要再用时间表达式压暗")
         self.assertIn("verify_end_card_dim", source, "渲染后必须校验片尾真的被压暗")

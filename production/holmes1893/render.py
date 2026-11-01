@@ -35,6 +35,8 @@ PAD = 0.40  # clone tail so every xfade has room without shifting a single cut t
 LETTERBOX_CHECK_SHOTS = {"S09", "S12", "S13"}
 CARD_TEXT_MAX_WIDTH = 1660
 END_CARD_AT = 174.55
+# 片尾卡压在最后一镜（S30 现代芝加哥航拍）上，所以压暗放在这一镜的逐镜调色里做。
+END_CARD_SHOT = "S30"
 # 片尾压暗：像素乘法系数。实测 0.42 时城市仍可辨认，金色片名与白色字幕都清晰。
 END_CARD_DIM_GAIN = 0.42
 
@@ -217,11 +219,14 @@ def shot_filter(shot: dict, info: dict, detected_bands, luma: float = 64.0) -> t
     if info["width"] < 640 or info["height"] < 360:
         raise RuntimeError(f"{shot['id']}: returned video resolution is too small")
     correction = letterbox_crop_filter(shot, info, detected_bands)
+    closing = shot["id"] == END_CARD_SHOT
     parts = ([correction] if correction else []) + [
         "scale=1920:1080:force_original_aspect_ratio=increase",
         "crop=1920:1080",
         "setsar=1",
         f"eq=gamma={shadow_lift_gamma(luma):.3f}:brightness=0.014",
+        # 片尾镜整体压暗：金色片名与白字幕要压在航拍亮区上，靠逐镜调色最稳。
+        *(["eq=brightness=-0.07:contrast=1.04:saturation=0.95"] if closing else []),
         # 传说版画：极轻的纸张抖动与颗粒，加强「会动的旧报纸」质感（不改变构图）。
         *(["noise=alls=7:allf=t+u", "vignette=angle=0.32"] if shot["style_variant"] != "real" else []),
         "format=yuv420p",
@@ -236,6 +241,7 @@ def shot_filter(shot: dict, info: dict, detected_bands, luma: float = 64.0) -> t
     ]
     report = {"id": shot["id"], "duration_seconds": float(shot["duration"]),
               "source_luma": round(luma, 1), "grade_gamma": round(shadow_lift_gamma(luma), 3),
+              "closing_shot_darkened": closing,
               "source_duration_seconds": round(info["duration_seconds"], 3),
               "source_width": info["width"], "source_height": info["height"],
               "embedded_letterbox_crop_filter": correction,
@@ -673,23 +679,8 @@ def main() -> int:
 
     font_dir = ROOT / ".cache" / "fonts"
     ass_part = f"ass={ass_path.as_posix()}" + (f":fontsdir={font_dir.as_posix()}" if font_dir.is_dir() else "")
-    # 片尾卡压暗：把画面按时间切成「正片」和「片尾」两段，只对片尾段用 lutrgb 做像素乘法，
-    # 再用 concat 拼回去，字幕最后叠，金色片名才不会压在亮航拍上。
-    # 为什么不用 enable= 时间门控 / drawbox / eq：
-    #   * ASS 的 \\p1 整幅绘图在部分 libass 构建上会被整层丢弃（成片里底板直接消失）；
-    #   * drawbox 的 alpha 在 yuv420p 上合成为「略暗」而不是真黑；
-    #   * eq 的 brightness 会把彩色暗部压成偏色；
-    #   * enable= 在 runner 上实测没有生效（本地同一命令有效），所以改用不依赖时间表达式的 trim+concat。
-    dim_start = END_CARD_AT - 0.30
-    gain = END_CARD_DIM_GAIN
-    # 显式 split：同一个输入 pad 在 filter_complex 里只能被消费一次。
-    graph = (
-        f"[0:v]split=2[full0][full1];"
-        f"[full0]trim=start=0:end={dim_start:.2f},setpts=PTS-STARTPTS[head];"
-        f"[full1]trim=start={dim_start:.2f}:end={DURATION},setpts=PTS-STARTPTS,"
-        f"lutrgb=r='val*{gain}':g='val*{gain}':b='val*{gain}'[tail];"
-        f"[head][tail]concat=n=2:v=1:a=0,{ass_part}[v]"
-    )
+    # 字幕单独一层；片尾压暗已经在 S30 的逐镜调色里完成，这里不再依赖任何时间表达式。
+    graph = f"[0:v]{ass_part}[v]"
     final = args.output
     final.parent.mkdir(parents=True, exist_ok=True)
     run([
