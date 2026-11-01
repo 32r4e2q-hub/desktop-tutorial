@@ -191,15 +191,18 @@ def shot_filter(shot: dict, info: dict, detected_bands) -> tuple[str, dict]:
     parts = ([correction] if correction else []) + [
         "scale=1920:1080:force_original_aspect_ratio=increase",
         "crop=1920:1080",
-        "fps=24",
         "setsar=1",
         f"eq=gamma=1.10:brightness=0.008",
         # 传说版画：极轻的纸张抖动与颗粒，加强「会动的旧报纸」质感（不改变构图）。
         *(["noise=alls=7:allf=t+u", "vignette=angle=0.32"] if shot["style_variant"] != "real" else []),
         "format=yuv420p",
-        f"trim=duration={float(shot['duration']):.3f}",
-        "setpts=PTS-STARTPTS",
+        # 先补 0.4 秒冻结尾帧、再按「本镜时长 + 尾帧」裁切：叠化只吃掉这段尾巴，
+        # 每个镜头的可见时长和切点因此一秒都不动。
         f"tpad=stop_mode=clone:stop_duration={PAD:.2f}",
+        f"trim=duration={float(shot['duration']) + PAD:.3f}",
+        "setpts=PTS-STARTPTS",
+        # xfade 要求输入是恒定帧率与统一时基。
+        "fps=24",
         "settb=AVTB",
     ]
     report = {"id": shot["id"], "duration_seconds": float(shot["duration"]),
@@ -250,6 +253,9 @@ def build_picture(story: dict, sources: Path, work_dir: Path) -> tuple[Path, lis
         "-t", str(DURATION), str(picture),
     ]
     run(command)
+    summary = media_summary(picture)
+    if abs(summary["duration_seconds"] - DURATION) > 0.05:
+        raise RuntimeError(f"Picture assembly is {summary['duration_seconds']:.2f}s, expected {DURATION}s")
     return picture, reports
 
 
@@ -315,19 +321,19 @@ def dots_events(story: dict) -> list[str]:
         return []
     start = float(shot["start"]) + 0.55
     events = []
-    spacing, radius = 46, 7
-    origin_x, origin_y = 960 - spacing * 13, 214
+    spacing, radius = 38, 8
+    origin_x, origin_y = 960 - spacing * 13, 764
     dying = {3, 8, 12, 19, 24}
     for index in range(27):
         column, row = index % 14, index // 14
         x = origin_x + column * spacing * 2
-        y = origin_y + row * 46
+        y = origin_y + row * 36
         draw = f"m {x - radius} {y} b {x} {y - radius * 1.4} {x + radius} {y - radius * 1.4} {x + radius} {y} " \
                f"b {x + radius} {y + radius * 1.4} {x - radius} {y + radius * 1.4} {x - radius} {y} "
         appear = start + index * 0.13
         events.append(
             f"Dialogue: 3,{ass_time(appear)},{ass_time(float(shot['start']) + float(shot['duration']) - 0.05)},"
-            f"Dot,,0,0,0,,{{\\an7\\pos(0,0)\\p1\\c&H00343CE6&\\alpha&H30&\\bord0\\blur1}}{draw}"
+            f"Dot,,0,0,0,,{{\\an7\\pos(0,0)\\p1\\c&H002A3CE8&\\alpha&H20&\\bord0\\blur1}}{draw}"
         )
         if index in dying:
             fade_at = start + 27 * 0.13 + 0.25
@@ -359,6 +365,8 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
         "Style: Title,Noto Serif CJK SC,112,&H005FC9F4,&H0000FFFF,&H0013110D,&H99000000,1,0,0,0,100,100,1,0,1,5,2,5,80,80,0,1",
         "Style: Tag,Noto Sans CJK SC,26,&H00E6E6E6,&H0000FFFF,&H00101010,&H99000000,1,0,0,0,100,100,1,0,1,2,0,7,96,96,42,1",
         "Style: Dot,Noto Sans CJK SC,20,&H00343CE6,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1",
+        # \\p1 的绘图坐标按字号缩放：字号 100 时 1 单位 = 1 像素，片尾底板因此能精确铺满画面。
+        "Style: Plate,Noto Sans CJK SC,100,&H00000000,&H00000000,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1",
         "",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
@@ -385,17 +393,28 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     lines += dots_events(story)
 
     # Only the closing title is a post-produced overlay; the model is never asked to render text.
+    # 片尾底板：一层半透明墨色，让金色片名压在亮画面上也读得清（第 0 层，字幕与片名都在它之上）。
+    plate_start = ass_time(END_CARD_AT - 0.30)
     lines += [
-        f"Dialogue: 2,{ass_time(END_CARD_AT)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(960,392)\\fad(420,430)\\fs104}}"
+        # 一层均匀的墨色底：整块盖住画面，避免出现任何硬边色带；金色片名与白字幕都压在它上面。
+        f"Dialogue: 0,{plate_start},{ass_time(179.90)},Plate,,0,0,0,,"
+        f"{{\\an7\\pos(0,0)\\p1\\bord0\\shad0\\1c&H0C0805&\\1a&H78&\\fad(800,0)}}"
+        f"m 0 0 l 1920 0 l 1920 1080 l 0 1080",
+    ]
+    lines += [
+        f"Dialogue: 2,{ass_time(END_CARD_AT)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(960,158)\\fad(420,430)\\fs100}}"
         + pres["end_title"],
-        f"Dialogue: 2,{ass_time(END_CARD_AT + 0.25)},{ass_time(179.45)},Caption,,0,0,0,,{{\\pos(960,556)\\fad(460,430)\\fs44}}"
+        f"Dialogue: 2,{ass_time(END_CARD_AT + 0.18)},{ass_time(179.45)},Caption,,0,0,0,,{{\\pos(960,278)\\fad(460,430)\\fs42}}"
         + pres["end_subtitle"],
-        f"Dialogue: 2,{ass_time(END_CARD_AT + 0.45)},{ass_time(179.45)},Caption,,0,0,0,,{{\\pos(960,642)\\fad(500,430)\\fs30}}"
-        + pres["end_note"],
-        f"Dialogue: 2,{ass_time(END_CARD_AT + 0.85)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(960,772)\\fad(520,430)\\fs40}}"
+        # 传说 vs 真相：两个数字并排，作为最后一个画面上的问题（字幕之下、片名之上）。
+        f"Dialogue: 3,{ass_time(END_CARD_AT + 0.40)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(604,432)\\fad(500,430)\\fs92}}{pres['end_numbers'][0]}",
+        f"Dialogue: 3,{ass_time(END_CARD_AT + 0.40)},{ass_time(179.45)},Caption,,0,0,0,,{{\\pos(604,508)\\fad(500,430)\\fs28}}{pres['end_numbers'][1]}",
+        f"Dialogue: 3,{ass_time(END_CARD_AT + 0.62)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(1316,432)\\fad(540,430)\\fs92}}{pres['end_numbers'][2]}",
+        f"Dialogue: 3,{ass_time(END_CARD_AT + 0.62)},{ass_time(179.45)},Caption,,0,0,0,,{{\\pos(1316,508)\\fad(540,430)\\fs28}}{pres['end_numbers'][3]}",
+        f"Dialogue: 3,{ass_time(END_CARD_AT + 0.95)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(960,646)\\fad(560,430)\\fs40}}"
         + pres.get("end_question", ""),
         # A quiet, persistent honesty label: this is a reenactment, not news or evidence material.
-        f"Dialogue: 1,{ass_time(0.80)},{ass_time(174.10)},Tag,,0,0,0,,{{\\pos(1824,42)\\alpha&H70&\\fs24\\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
+        f"Dialogue: 1,{ass_time(0.80)},{ass_time(179.90)},Tag,,0,0,0,,{{\\pos(1824,42)\\alpha&H70&\\fs24\\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
