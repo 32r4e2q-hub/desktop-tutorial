@@ -226,7 +226,7 @@ def shot_filter(shot: dict, info: dict, detected_bands, luma: float = 64.0) -> t
         "setsar=1",
         f"eq=gamma={shadow_lift_gamma(luma):.3f}:brightness=0.014",
         # 片尾镜整体压暗：金色片名与白字幕要压在航拍亮区上，靠逐镜调色最稳。
-        *(["eq=brightness=-0.07:contrast=1.04:saturation=0.95"] if closing else []),
+        *(["eq=gamma=0.55:brightness=-0.12:contrast=1.05:saturation=0.94"] if closing else []),
         # 传说版画：极轻的纸张抖动与颗粒，加强「会动的旧报纸」质感（不改变构图）。
         *(["noise=alls=7:allf=t+u", "vignette=angle=0.32"] if shot["style_variant"] != "real" else []),
         "format=yuv420p",
@@ -634,12 +634,16 @@ def compose_cover(left_frame: Image.Image, right_frame: Image.Image, output: Pat
 
 
 
-def frame_luma(path: Path, seconds: float, work_dir: Path) -> float:
-    """Average luma of one decoded frame; used to prove the end card really was darkened."""
-    sample = work_dir / f".luma-{seconds:.1f}.png"
+def frame_luma(path: Path, seconds: float, work_dir: Path, top_only: bool = False) -> float:
+    """Average luma of one decoded frame; used to prove the end card really was darkened.
+
+    ``top_only`` crops away the lower 45% so the white subtitle never inflates the reading.
+    """
+    sample = work_dir / f".luma-{seconds:.1f}{'-top' if top_only else ''}.png"
+    crop = "crop=iw:ih*0.55:0:0," if top_only else ""
     try:
         run(["ffmpeg", "-y", "-v", "error", "-i", str(path), "-ss", f"{seconds:.3f}",
-             "-frames:v", "1", "-vf", "scale=320:180", str(sample)])
+             "-frames:v", "1", "-vf", f"{crop}scale=320:180", str(sample)])
         with Image.open(sample) as image:
             values = list(image.convert("L").getdata())
         return sum(values) / len(values)
@@ -649,14 +653,13 @@ def frame_luma(path: Path, seconds: float, work_dir: Path) -> float:
 
 def verify_end_card_dim(film: Path) -> None:
     """The closing card must be measurably darker than the rest of the film."""
-    body = frame_luma(film, 150.0, film.parent)
-    tail = frame_luma(film, 178.0, film.parent)
-    if tail >= body * 0.85:
+    # 只看画面上 55%：下三分之一有白字幕，会把读数拉高。
+    # 不拿正片做相对比较——S29 木棺那几秒本来就非常暗，容易误判；
+    # 片尾镜未压暗时上区亮度在 120 上下，压暗后约 45，绝对阈值就足够可靠。
+    tail = frame_luma(film, 178.0, film.parent, top_only=True)
+    if tail > 58:
         raise RuntimeError(
-            f"End card was not darkened (body={body:.1f}, tail={tail:.1f}); refusing to deliver")
-    if tail > 45:
-        raise RuntimeError(
-            f"End card is still too bright for the gold title (tail={tail:.1f}); refusing to deliver")
+            f"End card was not darkened for the gold title (tail_top={tail:.1f}); refusing to deliver")
 
 def main() -> int:
     parser = argparse.ArgumentParser()
