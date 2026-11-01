@@ -1,11 +1,11 @@
-run=41298231988 attempt=1 ref=arena/534c25c4-desktop-tutorial
-event=push runner=GitHub Actions 1000002789 os=Linux arch=X64
-sha=4c76bc4ce4403de634e1f76b6a96f898c9673c5a
-started 2026-11-01T10:38:56Z
+run=41298749748 attempt=1 ref=arena/534c25c4-desktop-tutorial
+event=push runner=GitHub Actions 1000002792 os=Linux arch=X64
+sha=495631bef01c5c4f6cb632fee0f0f72a97ea96f1
+started 2026-11-01T10:47:36Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"mode":"render","workers":1}
+payload={"only":"S02","workers":1}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -28,7 +28,7 @@ stage=tools_ready
 == plan ==
 WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/story.json — 30 shots, 180s, 594 visible narration characters (3.30/s)
 stage=build_ok
-validation mode: render
+validation mode: clips
 VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines, nine chapters and approved references
 stage=validate_ok
 test_30_shots_cover_exactly_180_seconds (production.tests.test_holmes1893.HolmesPlanTests.test_30_shots_cover_exactly_180_seconds) ... ok
@@ -52,71 +52,7 @@ test_sources_and_release_copy_are_recorded (production.tests.test_holmes1893.Hol
 test_transitions_follow_the_two_layer_rule (production.tests.test_holmes1893.HolmesPlanTests.test_transitions_follow_the_two_layer_rule) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 0.136s
+Ran 16 tests in 0.158s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-RESTORE S01 from Agnes receipt
-RESTORE S02 from Agnes receipt
-RESTORE S03 from Agnes receipt
-RESTORE S04 from Agnes receipt
-RESTORE S05 from Agnes receipt
-RESTORE S06 from Agnes receipt
-RESTORE S07 from Agnes receipt
-RESTORE S08 from Agnes receipt
-RESTORE S09 from Agnes receipt
-RESTORE S10 from Agnes receipt
-RESTORE S11 from Agnes receipt
-RESTORE S12 from Agnes receipt
-RESTORE S13 from Agnes receipt
-RESTORE S14 from Agnes receipt
-RESTORE S15 from Agnes receipt
-RESTORE S16 from Agnes receipt
-RESTORE S17 from Agnes receipt
-RESTORE S18 from Agnes receipt
-RESTORE S19 from Agnes receipt
-RESTORE S20 from Agnes receipt
-RESTORE S21 from Agnes receipt
-RESTORE S22 from Agnes receipt
-RESTORE S23 from Agnes receipt
-RESTORE S24 from Agnes receipt
-RESTORE S25 from Agnes receipt
-RESTORE S26 from Agnes receipt
-RESTORE S27 from Agnes receipt
-RESTORE S28 from Agnes receipt
-RESTORE S29 from Agnes receipt
-RESTORE S30 from Agnes receipt
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 727, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 643, in main
-    verify_sources(story, args.sources)
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 86, in verify_sources
-    raise RuntimeError(f"Agnes prompt/provenance mismatch: {sid}")
-RuntimeError: Agnes prompt/provenance mismatch: S02
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/generate.py", line 817, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/generate.py", line 492, in main
-    subprocess.run([
-    ~~~~~~~~~~~~~~^^
-        sys.executable, str(HERE / "render.py"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--sources", str(sources), "--work", str(ROOT / "work" / "holmes1893" / "edit"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--output", str(output),
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ], cwd=ROOT, check=True)
-    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/clips/H·H·霍姆斯_传说里的杀人城堡_三分钟_带声音.mp4']' returned non-zero exit status 1.
-generator_exit=1
-no delivered film yet; QC skipped
-stage=finished exit=1
