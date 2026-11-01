@@ -652,9 +652,9 @@
     "S23": {
       "id": "S23",
       "request_hash": "cf5619354912b4f46b576241ecf4438dd2375c526e4080b7a81a6635633bc965",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-01T07:00:29Z",
+      "updated_at": "2026-11-01T07:00:31Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -667,7 +667,18 @@
       "bytes": 1941298,
       "sha256": "041f5194dd927a02c715385886a4a98e2088f7eb5ce69b4bcdfaa3fb37b97761",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1941298,
+        "decoded_ok": true,
+        "contact_sheet": "production/holmes1893/qa/S23.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S24": {
       "id": "S24",
@@ -775,7 +786,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-01T07:00:29Z",
+  "updated_at": "2026-11-01T07:00:31Z",
   "run_id": "41274526656",
   "previous_results": {}
 }
