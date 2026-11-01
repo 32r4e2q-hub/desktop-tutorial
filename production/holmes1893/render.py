@@ -35,8 +35,8 @@ PAD = 0.40  # clone tail so every xfade has room without shifting a single cut t
 LETTERBOX_CHECK_SHOTS = {"S09", "S12", "S13"}
 CARD_TEXT_MAX_WIDTH = 1660
 END_CARD_AT = 174.55
-# 片尾压暗强度（0–1）：实测 0.58 时金色片名与白色字幕在亮航拍上都清晰，城市仍可辨认。
-END_CARD_DIM_ALPHA = 0.58
+# 片尾压暗：像素乘法系数。实测 0.42 时城市仍可辨认，金色片名与白色字幕都清晰。
+END_CARD_DIM_GAIN = 0.42
 
 
 def run(command, capture=False):
@@ -650,8 +650,10 @@ def main() -> int:
     ass_part = f"ass={ass_path.as_posix()}" + (f":fontsdir={font_dir.as_posix()}" if font_dir.is_dir() else "")
     # 片尾卡压暗：先铺一层半透明黑，再叠字幕，金色片名才不会压在亮航拍上。
     # 用 drawbox 而不是 eq：eq 的 brightness 会把彩色暗部压成偏色，黑色覆盖层则保持中性。
-    dim = (f"drawbox=x=0:y=0:w=1920:h=1080:color=black@{END_CARD_DIM_ALPHA}:t=fill:"
-           f"enable='gte(t,{END_CARD_AT - 0.30:.2f})'")
+    # 用 lutrgb 缩放像素（而不是 drawbox/eq）：drawbox 的 alpha 覆盖在 yuv420p 上会按有限范围
+    # 合成为「略暗」而不是「真的黑」，eq 则会让彩色暗部偏色；lutrgb 只做乘法，中性且可预测。
+    dim = (f"lutrgb=r='val*{END_CARD_DIM_GAIN}':g='val*{END_CARD_DIM_GAIN}':b='val*{END_CARD_DIM_GAIN}'"
+           f":enable='gte(t,{END_CARD_AT - 0.30:.2f})'")
     ass_filter = f"{dim},{ass_part}"
     final = args.output
     final.parent.mkdir(parents=True, exist_ok=True)
