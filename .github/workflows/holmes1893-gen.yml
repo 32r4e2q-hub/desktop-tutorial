@@ -193,8 +193,11 @@ jobs:
       - name: Publish the plan checkpoint
         run: |
           set -uo pipefail
-          git add -f "$RUN_LOG" production/holmes1893/stage.log 2>/dev/null || true
-          git add production/holmes1893/audio/manifest.json production/holmes1893/story.json 2>/dev/null || true
+          # 逐个路径单独 add：git add 只要有一个 pathspec 不存在就会整条失败，
+          # 之前把不存在的 stage.log 和 run.log 写在同一条命令里，结果什么都没暂存。
+          stage_path() { for path in "$@"; do [ -e "$path" ] && git add -f -- "$path" 2>/dev/null || true; done; }
+          stage_path "$RUN_LOG" production/holmes1893/stage.log
+          stage_path production/holmes1893/audio/manifest.json production/holmes1893/story.json
           git commit -q -m "holmes1893: run ${GITHUB_RUN_ID} plan checkpoint [skip-holmes1893]" || true
           git pull --rebase -q origin "$TARGET_BRANCH" || true
           git push -q origin "HEAD:$TARGET_BRANCH" || true
@@ -292,14 +295,17 @@ jobs:
           echo "stage=finished exit=${GENERATOR_EXIT_CODE:-unknown}" >> "$RUN_LOG"
           export PUSH_ERROR_LOG="$RUNNER_TEMP/push-error.txt"
           : > "$PUSH_ERROR_LOG"
+          # 逐个路径单独 add：git add 只要有一个 pathspec 不存在就会整条失败，
+          # 之前把不存在的 stage.log 和 run.log 写在同一条命令里，结果什么都没暂存。
+          stage_path() { for path in "$@"; do [ -e "$path" ] && git add -f -- "$path" 2>/dev/null || true; done; }
+
 
           push_branch() {
             # 提交 → 拉取 → 推送，失败就重试；成片是五十多兆的大对象，网络抖动必须能自愈。
             for attempt in 1 2 3 4 5; do
-              git add -f "$RUN_LOG" production/holmes1893/stage.log 2>/dev/null || true
-              git add -f production/holmes1893/results.json 2>/dev/null || true
-              git add -A 交付 production/holmes1893/qa 2>/dev/null || true
-              git add -f work/holmes1893/edit/delivery 2>/dev/null || true
+              stage_path "$RUN_LOG" production/holmes1893/stage.log
+              stage_path production/holmes1893/results.json
+              stage_path 交付 production/holmes1893/qa work/holmes1893/edit/delivery
               git commit -q -m "holmes1893: run ${GITHUB_RUN_ID} log + delivery [skip-holmes1893]" || true
               git fetch -q origin "$TARGET_BRANCH" || true
               if ! git rebase -q "origin/$TARGET_BRANCH" >/dev/null 2>&1; then
