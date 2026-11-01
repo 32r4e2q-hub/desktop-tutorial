@@ -282,5 +282,5 @@ class EndCardDimTests(unittest.TestCase):
     def test_closing_card_is_darkened_by_a_filter_not_by_ass(self):
         source = (PROJECT / "render.py").read_text(encoding="utf-8")
         self.assertIn("lutrgb=", source)
-        self.assertIn("enable='gte(t,", source, "压暗要按时间门控，只作用于片尾卡")
-        self.assertIn("ass_filter", source)
+        self.assertIn("trim=start=0:end=", source, "用 trim+concat 分段压暗，不依赖 enable 时间表达式")
+        self.assertIn("verify_end_card_dim", source, "渲染后必须校验片尾真的被压暗")

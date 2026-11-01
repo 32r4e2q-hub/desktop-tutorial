@@ -627,6 +627,31 @@ def compose_cover(left_frame: Image.Image, right_frame: Image.Image, output: Pat
     image.convert("RGB").save(output.with_suffix(".png"))
 
 
+
+def frame_luma(path: Path, seconds: float, work_dir: Path) -> float:
+    """Average luma of one decoded frame; used to prove the end card really was darkened."""
+    sample = work_dir / f".luma-{seconds:.1f}.png"
+    try:
+        run(["ffmpeg", "-y", "-v", "error", "-i", str(path), "-ss", f"{seconds:.3f}",
+             "-frames:v", "1", "-vf", "scale=320:180", str(sample)])
+        with Image.open(sample) as image:
+            values = list(image.convert("L").getdata())
+        return sum(values) / len(values)
+    finally:
+        sample.unlink(missing_ok=True)
+
+
+def verify_end_card_dim(film: Path) -> None:
+    """The closing card must be measurably darker than the rest of the film."""
+    body = frame_luma(film, 150.0, film.parent)
+    tail = frame_luma(film, 178.0, film.parent)
+    if tail >= body * 0.85:
+        raise RuntimeError(
+            f"End card was not darkened (body={body:.1f}, tail={tail:.1f}); refusing to deliver")
+    if tail > 45:
+        raise RuntimeError(
+            f"End card is still too bright for the gold title (tail={tail:.1f}); refusing to deliver")
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, required=True)
@@ -648,24 +673,35 @@ def main() -> int:
 
     font_dir = ROOT / ".cache" / "fonts"
     ass_part = f"ass={ass_path.as_posix()}" + (f":fontsdir={font_dir.as_posix()}" if font_dir.is_dir() else "")
-    # 片尾卡压暗：先铺一层半透明黑，再叠字幕，金色片名才不会压在亮航拍上。
-    # 用 drawbox 而不是 eq：eq 的 brightness 会把彩色暗部压成偏色，黑色覆盖层则保持中性。
-    # 用 lutrgb 缩放像素（而不是 drawbox/eq）：drawbox 的 alpha 覆盖在 yuv420p 上会按有限范围
-    # 合成为「略暗」而不是「真的黑」，eq 则会让彩色暗部偏色；lutrgb 只做乘法，中性且可预测。
-    dim = (f"lutrgb=r='val*{END_CARD_DIM_GAIN}':g='val*{END_CARD_DIM_GAIN}':b='val*{END_CARD_DIM_GAIN}'"
-           f":enable='gte(t,{END_CARD_AT - 0.30:.2f})'")
-    ass_filter = f"{dim},{ass_part}"
+    # 片尾卡压暗：把画面按时间切成「正片」和「片尾」两段，只对片尾段用 lutrgb 做像素乘法，
+    # 再用 concat 拼回去，字幕最后叠，金色片名才不会压在亮航拍上。
+    # 为什么不用 enable= 时间门控 / drawbox / eq：
+    #   * ASS 的 \\p1 整幅绘图在部分 libass 构建上会被整层丢弃（成片里底板直接消失）；
+    #   * drawbox 的 alpha 在 yuv420p 上合成为「略暗」而不是真黑；
+    #   * eq 的 brightness 会把彩色暗部压成偏色；
+    #   * enable= 在 runner 上实测没有生效（本地同一命令有效），所以改用不依赖时间表达式的 trim+concat。
+    dim_start = END_CARD_AT - 0.30
+    gain = END_CARD_DIM_GAIN
+    # 显式 split：同一个输入 pad 在 filter_complex 里只能被消费一次。
+    graph = (
+        f"[0:v]split=2[full0][full1];"
+        f"[full0]trim=start=0:end={dim_start:.2f},setpts=PTS-STARTPTS[head];"
+        f"[full1]trim=start={dim_start:.2f}:end={DURATION},setpts=PTS-STARTPTS,"
+        f"lutrgb=r='val*{gain}':g='val*{gain}':b='val*{gain}'[tail];"
+        f"[head][tail]concat=n=2:v=1:a=0,{ass_part}[v]"
+    )
     final = args.output
     final.parent.mkdir(parents=True, exist_ok=True)
     run([
         "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", picture, "-i", mix,
-        "-vf", ass_filter, "-map", "0:v:0", "-map", "1:a:0",
+        "-filter_complex", graph, "-map", "[v]", "-map", "1:a:0",
         "-c:v", "libx264", "-preset", "medium", "-crf", "22",
         "-maxrate", "3200k", "-bufsize", "6400k", "-profile:v", "high", "-level", "4.1",
         "-pix_fmt", "yuv420p",
         "-r", str(FPS), "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-t", str(DURATION), "-movflags", "+faststart", final,
     ])
+    verify_end_card_dim(final)
     summary = media_summary(final)
     if summary["width"] != 1920 or summary["height"] != 1080 or abs(summary["duration_seconds"] - 180.0) > 0.04:
         raise RuntimeError("Final video failed format/duration gate: " + json.dumps(summary, ensure_ascii=False))
