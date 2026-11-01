@@ -37,6 +37,9 @@ CARD_TEXT_MAX_WIDTH = 1660
 END_CARD_AT = 174.55
 # 片尾卡压在最后一镜（S30 现代芝加哥航拍）上，所以压暗放在这一镜的逐镜调色里做。
 END_CARD_SHOT = "S30"
+# 片尾卡渐隐：S30 从 174.0 s 开始，片尾卡在 174.55 s 亮起，0.55 s 处开始渐隐到黑。
+END_CARD_FADE_START = 0.55
+END_CARD_FADE_SECONDS = 5.2
 # 片尾压暗：像素乘法系数。实测 0.42 时城市仍可辨认，金色片名与白色字幕都清晰。
 END_CARD_DIM_GAIN = 0.42
 
@@ -226,7 +229,11 @@ def shot_filter(shot: dict, info: dict, detected_bands, luma: float = 64.0) -> t
         "setsar=1",
         f"eq=gamma={shadow_lift_gamma(luma):.3f}:brightness=0.014",
         # 片尾镜整体压暗：金色片名与白字幕要压在航拍亮区上，靠逐镜调色最稳。
-        *(["eq=gamma=0.55:brightness=-0.12:contrast=1.05:saturation=0.94"] if closing else []),
+        # 片尾镜：S30 结尾本身会「渐白」，纯粹提亮/压暗都盖不住金色片名，
+        # 所以先做轻度压暗，再让画面在片尾卡期间渐隐到黑——字幕在合成时后叠，因此保持清晰。
+        *(["eq=gamma=0.72:brightness=-0.08:contrast=1.04:saturation=0.92"] if closing else []),
+        *([f"fade=t=out:st={END_CARD_FADE_START:.2f}:d={END_CARD_FADE_SECONDS:.2f}"]
+          if closing else []),
         # 传说版画：极轻的纸张抖动与颗粒，加强「会动的旧报纸」质感（不改变构图）。
         *(["noise=alls=7:allf=t+u", "vignette=angle=0.32"] if shot["style_variant"] != "real" else []),
         "format=yuv420p",
