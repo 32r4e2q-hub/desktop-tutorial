@@ -35,6 +35,8 @@ PAD = 0.40  # clone tail so every xfade has room without shifting a single cut t
 LETTERBOX_CHECK_SHOTS = {"S09", "S12", "S13"}
 CARD_TEXT_MAX_WIDTH = 1660
 END_CARD_AT = 174.55
+# 片尾压暗强度（0–1）：实测 0.58 时金色片名与白色字幕在亮航拍上都清晰，城市仍可辨认。
+END_CARD_DIM_ALPHA = 0.58
 
 
 def run(command, capture=False):
@@ -393,8 +395,6 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
         "Style: Title,Noto Serif CJK SC,112,&H005FC9F4,&H0000FFFF,&H0013110D,&H99000000,1,0,0,0,100,100,1,0,1,5,2,5,80,80,0,1",
         "Style: Tag,Noto Sans CJK SC,26,&H00E6E6E6,&H0000FFFF,&H00101010,&H99000000,1,0,0,0,100,100,1,0,1,2,0,7,96,96,42,1",
         "Style: Dot,Noto Sans CJK SC,20,&H00343CE6,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1",
-        # \\p1 的绘图坐标按字号缩放：字号 100 时 1 单位 = 1 像素，片尾底板因此能精确铺满画面。
-        "Style: Plate,Noto Sans CJK SC,100,&H00000000,&H00000000,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1",
         "",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
@@ -421,21 +421,8 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     lines += dots_events(story)
 
     # Only the closing title is a post-produced overlay; the model is never asked to render text.
-    # 片尾底板：一层半透明墨色，让金色片名压在亮画面上也读得清（第 0 层，字幕与片名都在它之上）。
-    # 注意：\\fad() 作用在 \\p1 整幅绘图上时，libass 会让这一层完全不渲染（实测成片里底板整个消失，
-    # 金色数字直接压在亮画面上）。改成若干**首尾相接、透明度递增**的事件做阶梯淡入：
-    # 既不叠加变黑，也不需要 fad。
-    plate_end = 179.90
-    plate_begin = END_CARD_AT - 0.30
-    steps = [(0.00, 0xE8), (0.16, 0xC8), (0.34, 0xA8), (0.52, 0x92), (0.70, 0x7E)]
-    for index, (offset, alpha) in enumerate(steps):
-        begin = plate_begin + offset
-        finish = plate_begin + steps[index + 1][0] if index + 1 < len(steps) else plate_end
-        lines.append(
-            f"Dialogue: 0,{ass_time(begin)},{ass_time(finish)},Plate,,0,0,0,,"
-            f"{{\\an7\\pos(0,0)\\p1\\bord0\\shad0\\1c&H0C0805&\\1a&H{alpha:02X}&}}"
-            f"m 0 0 l 1920 0 l 1920 1080 l 0 1080"
-        )
+    # 片尾压暗不放在 ASS 里：\\p1 整幅绘图在部分 libass 构建上会被整层丢弃（实测成片里底板
+    # 完全没渲染），改由 main() 在滤镜链上用 eq 做时间门控压暗，ASS 只负责文字。
     lines += [
         f"Dialogue: 2,{ass_time(END_CARD_AT)},{ass_time(179.45)},Title,,0,0,0,,{{\\pos(960,158)\\fad(420,430)\\fs100}}"
         + pres["end_title"],
@@ -660,7 +647,12 @@ def main() -> int:
     write_subtitles(ass_path, cues, story, srt_path)
 
     font_dir = ROOT / ".cache" / "fonts"
-    ass_filter = f"ass={ass_path.as_posix()}" + (f":fontsdir={font_dir.as_posix()}" if font_dir.is_dir() else "")
+    ass_part = f"ass={ass_path.as_posix()}" + (f":fontsdir={font_dir.as_posix()}" if font_dir.is_dir() else "")
+    # 片尾卡压暗：先铺一层半透明黑，再叠字幕，金色片名才不会压在亮航拍上。
+    # 用 drawbox 而不是 eq：eq 的 brightness 会把彩色暗部压成偏色，黑色覆盖层则保持中性。
+    dim = (f"drawbox=x=0:y=0:w=1920:h=1080:color=black@{END_CARD_DIM_ALPHA}:t=fill:"
+           f"enable='gte(t,{END_CARD_AT - 0.30:.2f})'")
+    ass_filter = f"{dim},{ass_part}"
     final = args.output
     final.parent.mkdir(parents=True, exist_ok=True)
     run([

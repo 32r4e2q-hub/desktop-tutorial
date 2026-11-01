@@ -260,33 +260,27 @@ if __name__ == "__main__":
     unittest.main()
 
 
-class EndCardPlateTests(unittest.TestCase):
-    """成片里片尾底板曾经整个消失：\\fad() 作用在 \\p1 整幅绘图上时 libass 不渲染这一层。"""
+class EndCardDimTests(unittest.TestCase):
+    """片尾压暗必须走 ffmpeg 滤镜：ASS 里的 \\p1 整幅绘图在部分 libass 构建上会被整层丢弃。"""
 
-    def build_ass(self) -> str:
-        plan = load_module("holmes1893_story_for_plate", PROJECT / "build_story.py")
-        render = load_module("holmes1893_render_for_plate", PROJECT / "render.py")
-        story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+    def setUp(self):
+        self.render = load_module("holmes1893_render_dim", PROJECT / "render.py")
+        self.story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+
+    def test_ass_carries_no_full_frame_drawing(self):
         cues = [{"shot_id": shot["id"], "start": shot["start"] + 0.1,
                  "end": shot["start"] + max(0.6, shot["duration"] - 0.2),
-                 "text": shot["narration"]} for shot in story["shots"]]
+                 "text": shot["narration"]} for shot in self.story["shots"]]
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "check.ass"
-            render.write_subtitles(path, cues, story, Path(tmp) / "check.srt")
-            return path.read_text(encoding="utf-8")
+            self.render.write_subtitles(path, cues, self.story, Path(tmp) / "check.srt")
+            ass = path.read_text(encoding="utf-8")
+        self.assertNotIn("Style: Plate", ass)
+        self.assertNotIn("l 1920 1080", ass)
+        self.assertIn("Dialogue: 2,", ass, "片尾字幕仍需保留")
 
-    def test_plate_layers_render_without_fading_the_drawing(self):
-        ass = self.build_ass()
-        plate = [line for line in ass.splitlines() if ",Plate," in line]
-        self.assertGreaterEqual(len(plate), 2, "片尾底板应拆成多段阶梯淡入")
-        for line in plate:
-            self.assertNotIn("\\fad(", line, "整幅绘图上不能挂 fad，否则这一层完全不渲染")
-            self.assertIn("\\p1", line)
-            self.assertIn("l 1920 1080", line)
-
-    def test_plate_is_dark_and_opaque_enough_to_read_the_gold_title(self):
-        ass = self.build_ass()
-        plate = [line for line in ass.splitlines() if ",Plate," in line]
-        last = plate[-1]
-        alpha = int(last.split("\\1a&H")[1][:2], 16)
-        self.assertLessEqual(alpha, 0x92, "最终底板透明度要够低，否则金色片名在亮画面上读不清")
+    def test_closing_card_is_darkened_by_a_filter_not_by_ass(self):
+        source = (PROJECT / "render.py").read_text(encoding="utf-8")
+        self.assertIn("drawbox=", source)
+        self.assertIn("enable='gte(t,", source, "压暗要按时间门控，只作用于片尾卡")
+        self.assertIn("ass_filter", source)
