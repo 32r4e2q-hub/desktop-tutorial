@@ -895,7 +895,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1069,5 +1069,35 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/holmes1893/clips/H·H·霍姆斯_传说里的杀人城堡_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/holmes1893/clips/H·H·霍姆斯_传说里的杀人城堡_封面.jpg",
+    "delivered": {
+      "H·H·霍姆斯_传说里的杀人城堡_三分钟_带声音.mp4": {
+        "bytes": 72316855,
+        "sha256": "eda4d6469e2935d05275e90964cf8e372f8b877081a6e50dbd199105c16f766d"
+      },
+      "H·H·霍姆斯_传说里的杀人城堡_字幕.srt": {
+        "bytes": 3097,
+        "sha256": "1f2a2d2a76fe94712f932b0f0ab23e2535e24a9bae4da4f38ba2fcbf19a1feb7"
+      },
+      "H·H·霍姆斯_传说里的杀人城堡_技术报告.json": {
+        "bytes": 36114,
+        "sha256": "527c923ac58b61843403b8f28da7d99c2795acc7305a7f0ea6f8c222135bb229"
+      },
+      "Holmes_Castle_Final.mp4": {
+        "bytes": 72316855,
+        "sha256": "eda4d6469e2935d05275e90964cf8e372f8b877081a6e50dbd199105c16f766d"
+      },
+      "Holmes_Castle_Subtitles.srt": {
+        "bytes": 3097,
+        "sha256": "1f2a2d2a76fe94712f932b0f0ab23e2535e24a9bae4da4f38ba2fcbf19a1feb7"
+      }
+    }
   }
 }
