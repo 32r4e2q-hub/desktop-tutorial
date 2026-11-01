@@ -251,10 +251,15 @@
     "S10": {
       "id": "S10",
       "request_hash": "4055cfddec40318095eab840860e49632305b4b4d9f247faaf0056bdb1f08500",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-01T05:44:12Z",
-      "error": null
+      "updated_at": "2026-11-01T05:44:13Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_M653KKrXtphBsJtYpkpcLtvGz8c0M6PC",
+      "task_id": "task_M653KKrXtphBsJtYpkpcLtvGz8c0M6PC",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S11": {
       "id": "S11",
@@ -445,7 +450,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-01T05:44:12Z",
+  "updated_at": "2026-11-01T05:44:13Z",
   "run_id": "41274526656",
   "previous_results": {}
 }
