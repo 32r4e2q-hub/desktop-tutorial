@@ -15,8 +15,10 @@
 | 分镜与旁白（30 镜 / 180 秒） | ✅ `build_story.py` → `story.json` / `screenplay.md` |
 | 离线自检（16 项） | ✅ `python3 -m unittest production.tests.test_holmes1893 -q` |
 | 计划闸门 | ✅ `python3 production/holmes1893/generate.py --validate` |
-| 片段生成 | 见 `results.json` 的 `phase` 与 `run.log` |
-| 出片 / 质检 | 见下方 marker 说明 |
+| 片段生成 | 🔄 进行中（Agnes 队列限流，按 61 秒闸门断点续跑；进度看 `results.json` 的 `phase` 与 `qa/`） |
+| 旁白 S01–S09 | ✅ 已录（悬疑低沉男声 voice-01）；实测语音占比 0.67–1.12×，需加速的镜头 ≤1.12× |
+| 旁白 S10–S30 | ⏳ 待录（每轮 TTS 上限 10 条，需分三轮） |
+| 出片 / 质检 | ⏳ 见下方 marker 说明 |
 
 ## 一镜一句，镜头跟着旁白走（与世田谷模板同一套规矩）
 
