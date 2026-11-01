@@ -113,7 +113,7 @@
 | S03 | 00:10—00:17 | 7 | N02 | 中景，缓慢推近书桌与男孩 | 写实3D | boy | A New Hampshire farmhouse room in the early 1870s, late afternoon: low sun through a small window lays an ambe |
 | S04 | 00:17—00:24 | 7 | N02 | 中景，过肩镜头，缓缓横移 | 写实3D | student | A university anatomy lecture room in 1884, restrained and non-graphic: tiers of wooden benches, tall shelves o |
 | S05 | 00:24—00:30 | 6 | N02 | 大特写，慢动作，红章落下 | 写实3D | holmes | Extreme close-up on a desk under a warm desk lamp: a printed insurance form lies on green baize beside a brass |
-| S06 | 00:30—00:35 | 5 | N02 | 俯拍，名片依次翻转 | 写实3D | holmes | Overhead shot of a polished desk: four engraved calling cards lie face down in a row, and another card turns o |
+| S06 | 00:30—00:35 | 5 | N02 | 俯拍，名片依次翻转 | 写实3D | holmes | Overhead close shot of a polished walnut desk under a single warm lamp: three calling cards lie face up in a n |
 | S07 | 00:35—00:42 | 7 | N03 | 中景环绕，药店柜台 | 写实3D | holmes、crowd | An Englewood street-corner drugstore in 1886, warm and busy: shelves of coloured glass bottles - cobalt, amber |
 | S08 | 00:42—00:49 | 7 | N03 | 航拍俯拍，缓慢下降，脚手架交错 | 写实3D | holmes、workers | The empty lot across the street from the drugstore, 1887: a three-storey brick building rising inside a lattic |
 | S09 | 00:49—00:55 | 6 | N03 | 剖面视角缓慢移动，走廊像迷宫 | 泛黄版画 | — | Cutaway view of the three-storey building, drawn as an 1890s newspaper illustration: the front wall removed so |
