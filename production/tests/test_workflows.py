@@ -179,8 +179,22 @@ class WorkflowIntegrityTests(unittest.TestCase):
                 jobs = data["jobs"]
                 self.assertIsInstance(jobs, dict, f"{path.name} 的 jobs 不是映射")
                 for job_name, job in jobs.items():
-                    self.assertIn("runs-on", job, f"{path.name}:{job_name} 缺 runs-on")
-                    self.assertIn("steps", job, f"{path.name}:{job_name} 缺 steps")
+                    if "uses" in job:
+                        # A reusable-workflow call is a valid job, but runs-on and
+                        # steps belong to the called workflow, not the caller.
+                        self.assertIsInstance(job["uses"], str)
+                        self.assertTrue(job["uses"].strip())
+                        self.assertNotIn("runs-on", job)
+                        self.assertNotIn("steps", job)
+                        if job["uses"].startswith("./"):
+                            target = ROOT / job["uses"][2:]
+                            self.assertTrue(target.is_file(), f"{path.name}:{job_name} 调用的工作流不存在")
+                            called = yaml.safe_load(target.read_text(encoding="utf-8"))
+                            called_on = called.get("on", called.get(True))
+                            self.assertIn("workflow_call", called_on, f"{target.name} 缺 workflow_call")
+                    else:
+                        self.assertIn("runs-on", job, f"{path.name}:{job_name} 缺 runs-on")
+                        self.assertIn("steps", job, f"{path.name}:{job_name} 缺 steps")
 
     def test_no_workflow_hardcodes_a_github_hosted_runner(self):
         """runs-on 必须走仓库变量开关，不能写死 ubuntu-latest。

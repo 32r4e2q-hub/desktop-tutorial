@@ -29,23 +29,24 @@ def plate():
         for x in range(W): pix[x,y]=(3,9,17,alpha)
     return Image.alpha_composite(im,overlay).convert('RGB')
 
-def fitted_font(font_path,draw,text,max_size,max_width):
-    for size in range(max_size,29,-1):
+def fitted_font(font_path,draw,text,max_size,max_width,min_size=30):
+    for size in range(max_size,min_size-1,-1):
         f=ImageFont.truetype(str(font_path),size)
-        if draw.textlength(text,font=f)<=max_width:return f
-    return ImageFont.truetype(str(font_path),30)
+        left,_,right,_=draw.textbbox((0,0),text,font=f)
+        if max(draw.textlength(text,font=f),right)-min(0,left)<=max_width:return f
+    raise ValueError(f'文字无法适配宽度 {max_width}: {text}')
 
-def cover(font_path):
-    im=plate().convert('RGBA');d=ImageDraw.Draw(im)
+def cover(font_path, period=PERIOD, line1=LINE1, line2=LINE2, plate_image=None):
+    im=(plate() if plate_image is None else plate_image).convert('RGBA');d=ImageDraw.Draw(im)
     font=lambda size:ImageFont.truetype(str(font_path),size)
     d.rectangle((62,76,68,126),fill='#b83d36')
     d.text((84,72),LABEL,font=font(45),fill='#f0dfbd',anchor='lt')
     d.rounded_rectangle((786,72,1016,136),radius=7,fill='#871e20',outline='#c65c51',width=2)
-    d.text((901,84),PERIOD,font=font(33),fill='#fff2d9',anchor='mt')
+    d.text((901,84),period,font=fitted_font(font_path,d,period,33,190,min_size=16),fill='#fff2d9',anchor='mt')
     d.line((62,168,1018,168),fill='#a55c4c',width=2)
     d.text((66,207),'真实案件',font=font(30),fill='#cd7f65',anchor='lt')
     d.text((260,209),'CASE FILE  /  TRUE STORY',font=font(21),fill='#c4b9a8',anchor='lt')
-    for y,text,color in [(285,LINE1,'#fff0d0'),(425,LINE2,'#efd19b')]:
+    for y,text,color in [(285,line1,'#fff0d0'),(425,line2,'#efd19b')]:
         f=fitted_font(font_path,d,text,106,940)
         d.text((66,y+5),text,font=f,fill='#140d0c',stroke_width=5,stroke_fill='#140d0c',anchor='lt')
         d.text((66,y),text,font=f,fill=color,stroke_width=2,stroke_fill='#241914',anchor='lt')
