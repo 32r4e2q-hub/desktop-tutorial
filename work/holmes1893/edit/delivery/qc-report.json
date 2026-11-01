@@ -6,7 +6,7 @@
     "fps": "24/1",
     "frames": 4320,
     "duration_seconds": 180.0,
-    "bytes": 70890610,
+    "bytes": 71113921,
     "video_codec": "h264",
     "audio_codec": "aac",
     "sample_rate": 48000,
@@ -17,11 +17,9 @@
     "sample_fps": 4.0,
     "mean_luma_min": 1.09,
     "mean_luma_max": 163.28,
-    "mean_luma_avg": 73.64,
-    "unexpected_black_samples": [
-      175.5,
-      175.75,
-      176.0,
+    "mean_luma_avg": 73.79,
+    "unexpected_black_samples": [],
+    "tail_black_samples": [
       176.25,
       176.5,
       176.75,
@@ -30,7 +28,13 @@
       177.5,
       177.75,
       178.0,
-      178.25
+      178.25,
+      178.5,
+      178.75,
+      179.0,
+      179.25,
+      179.5,
+      179.75
     ],
     "freeze_runs": [
       {
@@ -39,8 +43,8 @@
       }
     ],
     "flash_samples": [],
-    "motion_percentile_10": 2.823,
-    "motion_median": 10.757
+    "motion_percentile_10": 2.865,
+    "motion_median": 10.913
   },
   "sound": {
     "duration_seconds": 180.011,
@@ -158,9 +162,7 @@
     "production/holmes1893/qa/fullres/S29.jpg",
     "production/holmes1893/qa/fullres/S30.jpg"
   ],
-  "hard_gate_failures": [
-    "unexpected black samples before the tail: [175.5, 175.75, 176.0, 176.25, 176.5, 176.75]"
-  ],
+  "hard_gate_failures": [],
   "human_review_still_required": [
     "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
     "确认没有遗体、伤口、血腥、可读乱码文字与人物面部崩坏",
