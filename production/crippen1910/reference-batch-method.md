@@ -22,3 +22,13 @@ https://wiki.agnes-ai.com/en/docs/agnes-image-25-flash.md
 python3 production/crippen1910/batch_references.py --validate
 python3 -m unittest production.tests.test_crippen_reference_batch -q
 ```
+
+## 实际结果与质量限制
+
+- 全30请求批次41469730755成功，之后6请求修订批次41472228725成功。每次运行的独立收据在 `reference/batch-runs/`，最新 `batch-results.json` 仅代表最新6项修订，不能误读为完整批次。
+- 当前64张主/补充参考文件均已存在；完整编号总览为 `reference-overview.pdf`，当前内容SHA为 `reference/inventory.json`。
+- 反复实际检查发现：多图姿态引导未能可靠保证严格侧视，且可能混入配饰、人物或身体片段。不能因为API返回200便批准。
+- 7张侧视通过Arena图像编辑工具另做并替换，来源为各自正面图+已核实90度姿态图。C05的黑裤修正版被拒收，未覆盖白制服正面标准。
+- 当前方案改用姿态参考+头部裁切，P02只输入报纸本身，避免将参考人物实体合成进报纸。仍有C05_side、C06_side、C08_side需重做。
+- 面部裁切和报纸平面印刷肖像合成有独立可复现脚本与SHA收据，不冒充新的API生成。
+- 无参考图批准，无视频提交；视频闸门保持关闭。

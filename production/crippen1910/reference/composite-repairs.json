@@ -1,0 +1,39 @@
+{
+  "note": "One-time correction of outputs from run 41472228725. Do not re-run on already corrected files.",
+  "items": [
+    {
+      "id": "C08_face",
+      "method": "crop generated image to head and collar; no synthesis or stretching",
+      "crop": [
+        20,
+        0,
+        844,
+        835
+      ],
+      "before_sha256": "7d35748f3588a202d7846f95ce443da6af0c8bc8d9b5250f1bf9b7b4b4e6d5e1",
+      "sha256": "f5b741ee2697f3b183a394d907c0a89f76b9458062c2e81128ed4b5a3fa56bef"
+    },
+    {
+      "id": "C03B_face",
+      "method": "crop generated image to head and collar; no synthesis or stretching",
+      "crop": [
+        55,
+        0,
+        809,
+        825
+      ],
+      "before_sha256": "b36f84781d7756cd67292d964177346338a56c25faa934a1fc093b3c10f8904f",
+      "sha256": "b7e7b14388c5b9342407821b4de53a5d6b00687c8eed80257e21761cb0580489"
+    },
+    {
+      "id": "P02",
+      "method": "perspective-mapped duotone ink portraits from actual character face references; newspaper base retained",
+      "inputs": {
+        "C01_face.png": "3f125fdce765e738f85e9883ea4bce2a40967c6e08ed79c6395f1a92b9921059",
+        "C03_face.png": "e79f59fda40a4c4e1f8c58e235f49a3c912bdd79281865032773cf5837ad5de8"
+      },
+      "before_sha256": "7d6365c578d71fcb69f0f9e1a08278f7f0fe612e5055e67ba15ed2a2d8fdb7f1",
+      "sha256": "0ab6a9fd4d85e97740fbe80627f90ce299e96316f6bdf59d7160d8180b8cc0de"
+    }
+  ]
+}
