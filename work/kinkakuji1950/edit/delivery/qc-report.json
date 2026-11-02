@@ -1,0 +1,154 @@
+{
+  "film": "交付/Kinkakuji_Case_Final.mp4",
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 59818989,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "picture": {
+    "sampled_frames": 720,
+    "sample_fps": 4.0,
+    "mean_luma_min": 13.02,
+    "mean_luma_max": 227.66,
+    "mean_luma_avg": 86.22,
+    "unexpected_black_samples": [],
+    "freeze_runs": [],
+    "flash_samples": [],
+    "motion_percentile_10": 1.472,
+    "motion_median": 4.163
+  },
+  "sound": {
+    "duration_seconds": 180.011,
+    "rms_dbfs": -22.02,
+    "peak_dbfs": -1.6,
+    "silent_seconds": 4,
+    "silent_fraction": 0.0221,
+    "final_second_dbfs": -120.0,
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0,
+        "rms_dbfs": -21.96,
+        "peak_dbfs": -3.9
+      },
+      {
+        "id": "N02",
+        "start": 11,
+        "rms_dbfs": -21.86,
+        "peak_dbfs": -4.12
+      },
+      {
+        "id": "N03",
+        "start": 37,
+        "rms_dbfs": -21.95,
+        "peak_dbfs": -4.15
+      },
+      {
+        "id": "N04",
+        "start": 61,
+        "rms_dbfs": -22.29,
+        "peak_dbfs": -4.41
+      },
+      {
+        "id": "N05",
+        "start": 83,
+        "rms_dbfs": -21.67,
+        "peak_dbfs": -3.77
+      },
+      {
+        "id": "N06",
+        "start": 107,
+        "rms_dbfs": -22.06,
+        "peak_dbfs": -1.6
+      },
+      {
+        "id": "N07",
+        "start": 132,
+        "rms_dbfs": -21.92,
+        "peak_dbfs": -4.3
+      },
+      {
+        "id": "N08",
+        "start": 149,
+        "rms_dbfs": -22.34,
+        "peak_dbfs": -4.14
+      },
+      {
+        "id": "N09",
+        "start": 167,
+        "rms_dbfs": -22.38,
+        "peak_dbfs": -4.33
+      }
+    ]
+  },
+  "subtitles": {
+    "cues": 30,
+    "end_card_cues": 0,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": [
+      "the end-card question is missing from the SRT"
+    ]
+  },
+  "cover": {
+    "exists": true,
+    "width": 1920,
+    "height": 1080,
+    "mode": "RGB",
+    "bytes": 1770411
+  },
+  "contact_sheets": [
+    "production/kinkakuji1950/qa/sheets/sheet-1.jpg",
+    "production/kinkakuji1950/qa/sheets/sheet-2.jpg",
+    "production/kinkakuji1950/qa/sheets/sheet-3.jpg",
+    "production/kinkakuji1950/qa/sheets/sheet-4.jpg"
+  ],
+  "fullres_stills": [
+    "production/kinkakuji1950/qa/fullres/S01.jpg",
+    "production/kinkakuji1950/qa/fullres/S02.jpg",
+    "production/kinkakuji1950/qa/fullres/S03.jpg",
+    "production/kinkakuji1950/qa/fullres/S04.jpg",
+    "production/kinkakuji1950/qa/fullres/S05.jpg",
+    "production/kinkakuji1950/qa/fullres/S06.jpg",
+    "production/kinkakuji1950/qa/fullres/S07.jpg",
+    "production/kinkakuji1950/qa/fullres/S08.jpg",
+    "production/kinkakuji1950/qa/fullres/S09.jpg",
+    "production/kinkakuji1950/qa/fullres/S10.jpg",
+    "production/kinkakuji1950/qa/fullres/S11.jpg",
+    "production/kinkakuji1950/qa/fullres/S12.jpg",
+    "production/kinkakuji1950/qa/fullres/S13.jpg",
+    "production/kinkakuji1950/qa/fullres/S14.jpg",
+    "production/kinkakuji1950/qa/fullres/S15.jpg",
+    "production/kinkakuji1950/qa/fullres/S16.jpg",
+    "production/kinkakuji1950/qa/fullres/S17.jpg",
+    "production/kinkakuji1950/qa/fullres/S18.jpg",
+    "production/kinkakuji1950/qa/fullres/S19.jpg",
+    "production/kinkakuji1950/qa/fullres/S20.jpg",
+    "production/kinkakuji1950/qa/fullres/S21.jpg",
+    "production/kinkakuji1950/qa/fullres/S22.jpg",
+    "production/kinkakuji1950/qa/fullres/S23.jpg",
+    "production/kinkakuji1950/qa/fullres/S24.jpg",
+    "production/kinkakuji1950/qa/fullres/S25.jpg",
+    "production/kinkakuji1950/qa/fullres/S26.jpg",
+    "production/kinkakuji1950/qa/fullres/S27.jpg",
+    "production/kinkakuji1950/qa/fullres/S28.jpg",
+    "production/kinkakuji1950/qa/fullres/S29.jpg",
+    "production/kinkakuji1950/qa/fullres/S30.jpg"
+  ],
+  "hard_gate_failures": [
+    "subtitle problems: ['the end-card question is missing from the SRT']"
+  ],
+  "human_review_still_required": [
+    "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
+    "确认没有遗体、伤口、血腥、可读乱码文字与人物面部崩坏",
+    "确认字幕没有遮挡人物面部与关键物证",
+    "确认人物、服装、住宅在三分钟里保持一致"
+  ]
+}
