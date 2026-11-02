@@ -42,7 +42,7 @@ def plan(story):
     instructions={
         'side':'STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame.',
         'back':'EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame.',
-        'face':'One close-up near-FRONT FACE portrait, framed from upper chest to above head with margin; face large and sharp, preserve eyes, nose, mouth, hair, facial hair, spectacles and headwear exactly as in source. Do not turn to side view.',
+        'face':'EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view.',
     }
     bare_heads={'C01','C03','C06','C08'}
     for role in roles:
@@ -63,11 +63,13 @@ def plan(story):
                 'no panels, no contact sheet, no collage. Not a real person portrait.'
             )
             inputs=[f'reference/{role}.png']
+            transforms=['head_crop'] if view=='face' else ['full']
             if view in {'side','back'}:
-                inputs.append(f'reference-guides/{view}.png')
-                prompt+=' INPUT IMAGE 1 is the ONLY identity, clothing, build, gender and appearance source. INPUT IMAGE 2 is ONLY the exact camera-angle/pose guide. Recreate image 1 character in image 2 pose and camera view. Never copy image 2 grey clothes, generic face or male body shape. Preserve image 1 gender and body shape. The view angle from image 2 OVERRIDES the angle in image 1.'
+                inputs=[f'reference-guides/{view}.png',f'reference/{role}.png',f'reference/{role}.png']
+                transforms=['full','head_crop','full']
+                prompt+=' IMAGE 1 is the PRIMARY STRUCTURAL COMPOSITION: preserve its EXACT camera angle and full-body pose. IMAGE 2 supplies ONLY this character face/head identity. IMAGE 3 supplies ONLY this character clothing, gender, build, accessories and materials. Dress and identify the image 1 figure using images 2 and 3. The pose from IMAGE 1 is mandatory; never copy the three-quarter angle from image 3. Do not copy generic grey clothes, face or male shape from image 1; keep image 3 gender and build.'
             rows.append(dict(id=f'{role}_{view}',role=role,view=view,file=str(target.relative_to(HERE)),
-                             inputs=inputs,prompt=prompt,ratio='3:4'))
+                             inputs=inputs,input_transforms=transforms,prompt=prompt,ratio='3:4'))
     rows.append(dict(id='P02',role=None,view='prop_revision',file='reference/P02.png',
         inputs=['reference/P02.png','reference/C01.png','reference/C03.png'],ratio='16:9',
         prompt='One single cinematic stylized 3D newspaper prop on black background. Preserve the first input newspaper layout, yellow paper, folds and abstract line columns. Correct ONLY its two illustrated portraits: the man must match the SECOND input character including round gold glasses and thick parted downward-sloping moustache; the woman must match the THIRD input including pinned black hair and beige blouse. All newspaper headings and columns must be abstract straight ink strokes, never readable words or letters. No readable title, no watermark, no other people, no panels or collage. The portraits are small ink drawings printed within one newspaper, not extra character figures.'))
@@ -76,8 +78,14 @@ def plan(story):
 
 def make_payload(row):
     images=[]
-    for name in row['inputs']:
+    for index,name in enumerate(row['inputs']):
         data=(HERE/name).read_bytes()
+        transforms=row.get('input_transforms',[])
+        if index<len(transforms) and transforms[index]=='head_crop':
+            with Image.open(io.BytesIO(data)) as original:
+                w,h=original.size
+                crop=original.crop((int(w*.32),0,int(w*.68),int(h*.48)))
+                output=io.BytesIO();crop.save(output,format='PNG');data=output.getvalue()
         images.append('data:image/png;base64,'+base64.b64encode(data).decode('ascii'))
     return dict(model=MODEL,prompt=row['prompt'],size='1K',ratio=row['ratio'],
                 extra_body={'image':images,'response_format':'url'})

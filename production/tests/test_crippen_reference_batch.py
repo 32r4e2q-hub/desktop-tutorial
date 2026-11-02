@@ -30,9 +30,13 @@ class BatchReferenceTests(unittest.TestCase):
     def test_every_view_uses_its_own_identity_source(self):
         for row in self.rows:
             if row['role']:
-                self.assertEqual(row['inputs'][0],f"reference/{row['role']}.png")
                 if row['view'] in {'side','back'}:
-                    self.assertEqual(row['inputs'][1],f"reference-guides/{row['view']}.png")
+                    self.assertEqual(row['inputs'][0],f"reference-guides/{row['view']}.png")
+                    self.assertEqual(row['inputs'][1:],[f"reference/{row['role']}.png"]*2)
+                    self.assertEqual(row['input_transforms'],['full','head_crop','full'])
+                else:
+                    self.assertEqual(row['inputs'],[f"reference/{row['role']}.png"])
+                    self.assertEqual(row['input_transforms'],['head_crop'])
                 self.assertIn('no panels',row['prompt'])
             for source in row['inputs']:
                 self.assertTrue((HERE/source).is_file())
@@ -45,7 +49,7 @@ class BatchReferenceTests(unittest.TestCase):
         self.assertEqual(payload['size'],'1K')
         uri=payload['extra_body']['image'][0]
         self.assertTrue(uri.startswith('data:image/png;base64,'))
-        self.assertEqual(base64.b64decode(uri.split(',',1)[1]),(HERE/'reference/C01.png').read_bytes())
+        self.assertEqual(base64.b64decode(uri.split(',',1)[1]),(HERE/self.rows[0]['inputs'][0]).read_bytes())
 
     def test_portrait_update_has_three_explicit_inputs(self):
         row=next(r for r in self.rows if r['id']=='P02')
