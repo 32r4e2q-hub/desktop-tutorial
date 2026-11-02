@@ -389,9 +389,13 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
     half = width // 2
     bleed = 150
 
-    left = fill_crop(grab_frame(sources / "S01.mp4", 1.6, work_dir, "cover-calmpavilion"),
+    def clean(frame):
+        """Drop the burned-in subtitle band so the cover never carries stray caption text."""
+        return frame.crop((0, 0, frame.width, int(frame.height * 0.80)))
+
+    left = fill_crop(clean(grab_frame(sources / "S01.mp4", 1.6, work_dir, "cover-calmpavilion")),
                      half + bleed, height, 0.58)
-    right = fill_crop(grab_frame(sources / "S18.mp4", 2.4, work_dir, "cover-burningreflection"),
+    right = fill_crop(clean(grab_frame(sources / "S18.mp4", 2.4, work_dir, "cover-burningreflection")),
                       half + bleed, height, 0.42)
     right = ImageOps.mirror(right)
 

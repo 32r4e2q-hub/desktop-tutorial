@@ -18,11 +18,18 @@
 |---|---|---|
 | 角色与场景定稿参考图 | ✅ 8 张（风格化形象，非真实肖像） | `reference/01–08*.png`、`reference/prompts.md` |
 | 分镜 / 事实边界 / 提示词 | ✅ 30 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json` |
-| 一镜一句旁白 | ✅ 30 条（低沉悬疑男声，voice-02；10 条母带按句末停顿切成 30 条） | `audio/manifest.json`、`audio/S**.mp3`、`audio/raw/G**.mp3` |
+| 一镜一句旁白 | ✅ 30 条（低沉悬疑男声，voice-02；10 条母带按句末停顿切成 30 条，29 条零加速） | `audio/manifest.json`、`audio/S**.mp3`、`audio/raw/G**.mp3` |
+| 配乐与混音 | ✅ 尺八/筝/太鼓/梵钟 + 音效原创合成；RMS −22.0 dBFS、峰值 −1.5、BGM 压在旁白下 −19.9 dB | `build_audio.py`、`交付/金阁寺纵火案_技术报告.json` |
+| 字幕 | ✅ 30 条，与配音同起止；关键词金色放大 | `交付/金阁寺纵火案_字幕.srt` |
 | 离线自检 | ✅ `python3 -m unittest production.tests.test_kinkakuji1950 -q`（15 项） | `production/tests/` |
-| Agnes 2.5 Flash 素材 | ⏳ 见 `results.json` 与 `run.log` | `results.json`、`qa/*.jpg` |
-| 成片 / 封面 / 字幕 | ⏳ 出片后见「交付清单」 | `交付/` |
-| 第三期系列封面 | ⏳ 用成片真实帧生成 | `交付/金阁寺纵火案_第三期封面.png` |
+| 成片（预演版） | ✅ 1920×1080 · 24fps · 180.0s · 61 MB | `交付/金阁寺纵火案_预演版_三分钟_1080p.mp4` |
+| Agnes 2.5 Flash 素材 | ⏳ 队列 `pending progress=0%` 超过 25 分钟，生成器按 61 秒闸门重试中 | `results.json`、`run.log` |
+| 封面（16:9 / 第三期竖版） | ✅ 1920×1080 + 1080×1440 | `交付/金阁寺纵火案_封面.jpg`、`交付/金阁寺纵火案_第三期封面.png` |
+
+> **预演版说明**：Agnes 队列当天长时间返回 `pending progress=0%`，因此先用 8 张定稿参考图做
+> 2.5D 动态分镜（相机推拉 + 视差裁切 + 程序化樱花/火星/雪/萤火/雾气粒子 + 光呼吸）把整条时间轴、
+> 30 条旁白、字幕与混音跑到成片，用来锁定剪辑点与语速。`previs.py` 生成这一版；
+> **Agnes 片段一到，`render.py` 会用同一份时间轴与同一份旁白替换画面**，剪辑点与每一句解说完全不变。
 
 ## 怎么跑
 
@@ -91,6 +98,7 @@ python3 -m unittest production.tests.test_kinkakuji1950 -q
 | `screenplay.md` | 完整旁白 + 30 镜分镜表 + 来源 + 事实边界 |
 | `reference_prompts.py` / `reference/` | 8 张定稿参考图与自动拼接后的提示词 |
 | `split_narration.py` | 10 条配音母带按句末停顿切成 30 条，并输出 `qa/narration-split.json` |
+| `previs.py` | 预演渲染器：参考图 → 2.5D 动态分镜 + 字幕烧录（Agnes 不可用时的兜底，成片即由它生成） |
 | `audio/` | `manifest.json` + `S01–S30.mp3` + `raw/G01–G10.mp3`（含 sha256 / target_start / target_duration） |
 | `generate.py` | Agnes 2.5 Flash 请求、61 秒节流、断点续跑、接触表、`--clips-only` / `--render-only` |
 | `render.py` | 30 镜拼接、逐镜字幕、片尾叠加、封面、技术报告 |

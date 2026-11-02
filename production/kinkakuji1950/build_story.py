@@ -671,7 +671,7 @@ def build() -> dict:
         "chapters": chapters,
         "shots": shots,
         "narration_spec": {
-            "voice_id": "voice-01",
+            "voice_id": "voice-02",
             "language": "zh-CN",
             "alignment": "one-independently-generated-voice-clip-and-one-caption-cue-per-shot",
             "max_speedup_factor": 1.55,
