@@ -1,7 +1,7 @@
-run=41384462220 attempt=1 ref=arena/534c25c4-desktop-tutorial
-event=push runner=GitHub Actions 1000002842 os=Linux arch=X64
-sha=f173e85f4348b2334b986bccc763c267d043e5cb
-started 2026-11-02T03:46:45Z
+run=41385642892 attempt=1 ref=arena/534c25c4-desktop-tutorial
+event=push runner=GitHub Actions 1000002845 os=Linux arch=X64
+sha=bf5803107bc64d5fb12a04eee647b85e5fdb03d7
+started 2026-11-02T03:58:00Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
@@ -34,6 +34,8 @@ stage=validate_ok
 test_ass_carries_no_full_frame_drawing (production.tests.test_holmes1893.EndCardDimTests.test_ass_carries_no_full_frame_drawing) ... ok
 test_closing_card_is_darkened_by_a_filter_not_by_ass (production.tests.test_holmes1893.EndCardDimTests.test_closing_card_is_darkened_by_a_filter_not_by_ass) ... ok
 test_cover_uses_the_single_series_template (production.tests.test_holmes1893.EndCardDimTests.test_cover_uses_the_single_series_template) ... ok
+test_every_render_helper_called_from_main_is_defined (production.tests.test_holmes1893.EndCardDimTests.test_every_render_helper_called_from_main_is_defined)
+main() 里调用的辅助函数必须真有定义：曾把 frame_luma / verify_end_card_dim 的定义删掉、 ... ok
 test_fade_lands_on_the_end_card_and_qc_accepts_the_tail_blackout (production.tests.test_holmes1893.EndCardDimTests.test_fade_lands_on_the_end_card_and_qc_accepts_the_tail_blackout) ... ok
 test_30_shots_cover_exactly_180_seconds (production.tests.test_holmes1893.HolmesPlanTests.test_30_shots_cover_exactly_180_seconds) ... ok
 test_brief_shot_lengths_are_five_to_seven_seconds (production.tests.test_holmes1893.HolmesPlanTests.test_brief_shot_lengths_are_five_to_seven_seconds)
@@ -58,101 +60,7 @@ test_sources_and_release_copy_are_recorded (production.tests.test_holmes1893.Hol
 test_transitions_follow_the_two_layer_rule (production.tests.test_holmes1893.HolmesPlanTests.test_transitions_follow_the_two_layer_rule) ... ok
 
 ----------------------------------------------------------------------
-Ran 21 tests in 0.107s
+Ran 22 tests in 0.133s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-RESTORE S01 from Agnes receipt
-RESTORE S02 from Agnes receipt
-RESTORE S03 from Agnes receipt
-RESTORE S04 from Agnes receipt
-RESTORE S05 from Agnes receipt
-RESTORE S06 from Agnes receipt
-RESTORE S07 from Agnes receipt
-RESTORE S08 from Agnes receipt
-RESTORE S09 from Agnes receipt
-RESTORE S10 from Agnes receipt
-RESTORE S11 from Agnes receipt
-RESTORE S12 from Agnes receipt
-RESTORE S13 from Agnes receipt
-RESTORE S14 from Agnes receipt
-RESTORE S15 from Agnes receipt
-RESTORE S16 from Agnes receipt
-RESTORE S17 from Agnes receipt
-RESTORE S18 from Agnes receipt
-RESTORE S19 from Agnes receipt
-RESTORE S20 from Agnes receipt
-RESTORE S21 from Agnes receipt
-RESTORE S22 from Agnes receipt
-RESTORE S23 from Agnes receipt
-RESTORE S24 from Agnes receipt
-RESTORE S25 from Agnes receipt
-RESTORE S26 from Agnes receipt
-RESTORE S27 from Agnes receipt
-RESTORE S28 from Agnes receipt
-RESTORE S29 from Agnes receipt
-RESTORE S30 from Agnes receipt
-Unable to revert mtime: /usr/share/fonts
-Unable to revert mtime: /usr/share/fonts/truetype
-Unable to revert mtime: /usr/share/fonts/truetype/dejavu
-Unable to revert mtime: /usr/share/fonts/truetype/lato
-Unable to revert mtime: /usr/share/fonts/truetype/liberation
-Unable to revert mtime: /usr/share/fonts/truetype/noto
-RENDER_GRAPH [0:v]ass=/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit/holmes-captions.ass:fontsdir=/home/runner/work/desktop-tutorial/desktop-tutorial/.cache/fonts[v]
-PICTURE_DURATION None frames=None NonexNone
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 632, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py", line 559, in main
-    print(f"PICTURE_LUMA {stamp:.1f} {frame_luma(picture, stamp, final.parent):.1f}", flush=True)
-                                      ^^^^^^^^^^
-NameError: name 'frame_luma' is not defined
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/generate.py", line 820, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/generate.py", line 495, in main
-    subprocess.run([
-    ~~~~~~~~~~~~~~^^
-        sys.executable, str(HERE / "render.py"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--sources", str(sources), "--work", str(ROOT / "work" / "holmes1893" / "edit"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--output", str(output),
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ], cwd=ROOT, check=True)
-    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/clips/H·H·霍姆斯_传说里的杀人城堡_三分钟_带声音.mp4']' returned non-zero exit status 1.
-generator_exit=1
-== qc ==
-{
-  "container": {
-    "width": 1920,
-    "height": 1080,
-    "fps": "24/1",
-    "frames": 4320,
-    "duration_seconds": 180.0,
-    "bytes": 71113921,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "sample_rate": 48000,
-    "channels": 2
-  },
-  "subtitles": {
-    "cues": 30,
-    "end_card_cues": 1,
-    "covers_all_shots": true,
-    "covers_all_lines": false,
-    "problems": []
-  },
-  "hard_gate_failures": []
-}
-QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit/delivery/qc-report.json
-qc_exit=0
-stage=finished exit=1
