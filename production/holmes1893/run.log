@@ -1,11 +1,11 @@
-run=41327572534 attempt=1 ref=arena/534c25c4-desktop-tutorial
-event=push runner=GitHub Actions 1000002831 os=Linux arch=X64
-sha=5445ff5785f4f393809c02fb6d76c828cfabbf8f
-started 2026-11-01T16:42:34Z
+run=41384462220 attempt=1 ref=arena/534c25c4-desktop-tutorial
+event=push runner=GitHub Actions 1000002842 os=Linux arch=X64
+sha=f173e85f4348b2334b986bccc763c267d043e5cb
+started 2026-11-02T03:46:45Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"mode":"qc"}
+payload={"mode":"render","workers":1}
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -26,18 +26,21 @@ ffprobe -> ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments wi
 cjk_fonts=3
 stage=tools_ready
 == plan ==
-WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/story.json — 30 shots, 180s, 594 visible narration characters (3.30/s)
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/holmes1893/story.json — 30 shots, 180s, 588 visible narration characters (3.27/s)
 stage=build_ok
-validation mode: qc
+validation mode: render
 VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines, nine chapters and approved references
 stage=validate_ok
 test_ass_carries_no_full_frame_drawing (production.tests.test_holmes1893.EndCardDimTests.test_ass_carries_no_full_frame_drawing) ... ok
 test_closing_card_is_darkened_by_a_filter_not_by_ass (production.tests.test_holmes1893.EndCardDimTests.test_closing_card_is_darkened_by_a_filter_not_by_ass) ... ok
+test_cover_uses_the_single_series_template (production.tests.test_holmes1893.EndCardDimTests.test_cover_uses_the_single_series_template) ... ok
 test_fade_lands_on_the_end_card_and_qc_accepts_the_tail_blackout (production.tests.test_holmes1893.EndCardDimTests.test_fade_lands_on_the_end_card_and_qc_accepts_the_tail_blackout) ... ok
 test_30_shots_cover_exactly_180_seconds (production.tests.test_holmes1893.HolmesPlanTests.test_30_shots_cover_exactly_180_seconds) ... ok
 test_brief_shot_lengths_are_five_to_seven_seconds (production.tests.test_holmes1893.HolmesPlanTests.test_brief_shot_lengths_are_five_to_seven_seconds)
 附件脚本给的 30 个镜头全部是 5–7 秒；这里守住这条节奏。 ... ok
 test_chapters_are_nine_and_contiguous (production.tests.test_holmes1893.HolmesPlanTests.test_chapters_are_nine_and_contiguous) ... ok
+test_children_are_identified_as_pitezels_not_his_own (production.tests.test_holmes1893.HolmesPlanTests.test_children_are_identified_as_pitezels_not_his_own)
+解说里必须说清三个孩子是皮泰泽尔的孩子，不能让人听成霍姆斯杀自己孩子。 ... ok
 test_every_prompt_gets_style_characters_and_negative (production.tests.test_holmes1893.HolmesPlanTests.test_every_prompt_gets_style_characters_and_negative) ... ok
 test_every_shot_demands_real_camera_motion (production.tests.test_holmes1893.HolmesPlanTests.test_every_shot_demands_real_camera_motion) ... ok
 test_fact_boundaries_quote_the_real_record (production.tests.test_holmes1893.HolmesPlanTests.test_fact_boundaries_quote_the_real_record) ... ok
@@ -55,94 +58,7 @@ test_sources_and_release_copy_are_recorded (production.tests.test_holmes1893.Hol
 test_transitions_follow_the_two_layer_rule (production.tests.test_holmes1893.HolmesPlanTests.test_transitions_follow_the_two_layer_rule) ... ok
 
 ----------------------------------------------------------------------
-Ran 19 tests in 0.082s
+Ran 21 tests in 0.107s
 
 OK
 stage=tests_ok
-agnes_key_present=yes
-== generator ==
-{
-  "container": {
-    "width": 1920,
-    "height": 1080,
-    "fps": "24/1",
-    "frames": 4320,
-    "duration_seconds": 180.0,
-    "bytes": 71113921,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "sample_rate": 48000,
-    "channels": 2
-  },
-  "subtitles": {
-    "cues": 30,
-    "end_card_cues": 1,
-    "covers_all_shots": true,
-    "covers_all_lines": true,
-    "problems": []
-  },
-  "hard_gate_failures": []
-}
-QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit/delivery/qc-report.json
-| 镜头 | 时长 | 自然语音 | 占比 | 需要加速 | 字数 | 字/秒 | 判定 |
-|---|---|---|---|---|---|---|---|
-| S01 | 5s | 5.03s | 102% | 1.04× | 19 | 3.80 | needs-speedup |
-| S02 | 5s | 2.94s | 60% | 1.00× | 14 | 2.80 | short |
-| S03 | 7s | 5.54s | 80% | 1.00× | 22 | 3.14 | ok |
-| S04 | 7s | 6.72s | 97% | 1.00× | 25 | 3.57 | fit |
-| S05 | 6s | 4.71s | 80% | 1.00× | 19 | 3.17 | ok |
-| S06 | 5s | 5.20s | 106% | 1.08× | 19 | 3.80 | needs-speedup |
-| S07 | 7s | 5.70s | 82% | 1.00× | 26 | 3.71 | ok |
-| S08 | 7s | 5.78s | 84% | 1.00× | 21 | 3.00 | ok |
-| S09 | 6s | 4.97s | 84% | 1.00× | 19 | 3.17 | ok |
-| S10 | 5s | 4.57s | 93% | 1.00× | 20 | 4.00 | fit |
-| S11 | 7s | 6.56s | 95% | 1.00× | 27 | 3.86 | fit |
-| S12 | 7s | 5.75s | 83% | 1.00× | 21 | 3.00 | ok |
-| S13 | 6s | 4.91s | 83% | 1.00× | 20 | 3.33 | ok |
-| S14 | 5s | 3.66s | 74% | 1.00× | 13 | 2.60 | ok |
-| S15 | 6s | 3.43s | 58% | 1.00× | 11 | 1.83 | short |
-| S16 | 6s | 5.21s | 88% | 1.00× | 21 | 3.50 | fit |
-| S17 | 6s | 4.83s | 82% | 1.00× | 22 | 3.67 | ok |
-| S18 | 5s | 4.31s | 88% | 1.00× | 16 | 3.20 | fit |
-| S19 | 6s | 5.63s | 95% | 1.00× | 21 | 3.50 | fit |
-| S20 | 6s | 6.40s | 108% | 1.10× | 20 | 3.33 | needs-speedup |
-| S21 | 5s | 3.12s | 63% | 1.00× | 16 | 3.20 | short |
-| S22 | 5s | 3.95s | 80% | 1.00× | 17 | 3.40 | ok |
-| S23 | 7s | 5.35s | 77% | 1.00× | 24 | 3.43 | ok |
-| S24 | 7s | 5.47s | 79% | 1.00× | 19 | 2.71 | ok |
-| S25 | 6s | 5.87s | 99% | 1.01× | 25 | 4.17 | fit |
-| S26 | 6s | 5.29s | 89% | 1.00× | 23 | 3.83 | fit |
-| S27 | 6s | 4.18s | 71% | 1.00× | 16 | 2.67 | ok |
-| S28 | 6s | 5.13s | 87% | 1.00× | 22 | 3.67 | fit |
-| S29 | 6s | 4.25s | 72% | 1.00× | 17 | 2.83 | ok |
-| S30 | 6s | 4.71s | 94% | 1.00× | 19 | 3.17 | fit |
-
-判定分布：fit 10 · needs-speedup 3 · ok 14 · short 3
-
-generator_exit=0
-== qc ==
-{
-  "container": {
-    "width": 1920,
-    "height": 1080,
-    "fps": "24/1",
-    "frames": 4320,
-    "duration_seconds": 180.0,
-    "bytes": 71113921,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "sample_rate": 48000,
-    "channels": 2
-  },
-  "subtitles": {
-    "cues": 30,
-    "end_card_cues": 1,
-    "covers_all_shots": true,
-    "covers_all_lines": true,
-    "problems": []
-  },
-  "hard_gate_failures": []
-}
-QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/holmes1893/edit/delivery/qc-report.json
-qc_exit=0
-stage=finished exit=0
