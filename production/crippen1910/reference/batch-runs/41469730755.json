@@ -5,7 +5,7 @@
   "selected_count": 30,
   "run_id": "41469730755",
   "source_revision": "541be5d17df220fda1f815d13300a276719c5ef2",
-  "phase": "generating_candidates",
+  "phase": "candidates_ready_for_review",
   "visual_review": "pending",
   "automatic_video_submission": false,
   "items": [
@@ -844,12 +844,21 @@
       ],
       "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C08锚点】戴细框眼镜的法医,白大褂,手持放大镜 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
       "ratio": "3:4",
-      "status": "submitting",
+      "status": "candidate_generated",
       "input_sha256": {
         "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
         "reference/C08.png": "514af90805e709e3caabfb2a9d3a89e72c9a98a627a25b3bbf070b1b86572185"
       },
-      "request_sha256": "442e68bc833436c12a38993c0752ad36e3ab46a595de61b4ce01df7255e89fcd"
+      "request_sha256": "442e68bc833436c12a38993c0752ad36e3ab46a595de61b4ce01df7255e89fcd",
+      "response_created": 1793633226,
+      "image_url": "https://platform-outputs.agnes-ai.space/images/i2i/task_5ZaBFSpqPH8K4PH6kHQumbDyNVqSkTIX/output.png",
+      "sha256": "41c9324cc50ce54d52cb5b63ac3efb44ea84e186fdc9a00d40023cc55eaa6d13",
+      "bytes": 787406,
+      "dimensions": [
+        864,
+        1152
+      ],
+      "visual_review": "pending"
     },
     {
       "id": "C08_back",
@@ -868,11 +877,21 @@
       ],
       "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C08锚点】戴细框眼镜的法医,白大褂,手持放大镜 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
       "ratio": "3:4",
-      "status": "pending",
+      "status": "candidate_generated",
       "input_sha256": {
         "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
         "reference/C08.png": "514af90805e709e3caabfb2a9d3a89e72c9a98a627a25b3bbf070b1b86572185"
-      }
+      },
+      "request_sha256": "4bfa3c997800bbce9a3be85c6d6c93dbba66c9cbf17a037bf0aa0d4386cb2334",
+      "response_created": 1793633247,
+      "image_url": "https://platform-outputs.agnes-ai.space/images/i2i/task_2qOE3SB6zuczQ2HinRyEL7oRGeYNsLQ2/output.png",
+      "sha256": "18a7a9ebe0032d85d56e7724a52f4a868eacccbe4e24bed5d6d0eea4e3378821",
+      "bytes": 657872,
+      "dimensions": [
+        864,
+        1152
+      ],
+      "visual_review": "pending"
     },
     {
       "id": "C08_face",
@@ -887,10 +906,20 @@
       ],
       "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C08锚点】戴细框眼镜的法医,白大褂,手持放大镜 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
       "ratio": "3:4",
-      "status": "pending",
+      "status": "candidate_generated",
       "input_sha256": {
         "reference/C08.png": "514af90805e709e3caabfb2a9d3a89e72c9a98a627a25b3bbf070b1b86572185"
-      }
+      },
+      "request_sha256": "11bfc4c08de213f23288a14eeac3f39ae7ca27f575360646bd3d33b2bda0b624",
+      "response_created": 1793633261,
+      "image_url": "https://platform-outputs.agnes-ai.space/images/i2i/task_XqvQjPfzHZEO4P1s9u1xsH7ALoNG2GCd/output.png",
+      "sha256": "a8d16a1dcef88340e5cb2ceee4f20e064db21c9172f5483edbbaf29739082d4a",
+      "bytes": 1081423,
+      "dimensions": [
+        864,
+        1152
+      ],
+      "visual_review": "pending"
     },
     {
       "id": "P02",
@@ -904,12 +933,22 @@
       ],
       "ratio": "16:9",
       "prompt": "One single cinematic stylized 3D newspaper prop on black background. Preserve the first input newspaper layout, yellow paper, folds and abstract line columns. Correct ONLY its two illustrated portraits: the man must match the SECOND input character including round gold glasses and thick parted downward-sloping moustache; the woman must match the THIRD input including pinned black hair and beige blouse. All newspaper headings and columns must be abstract straight ink strokes, never readable words or letters. No readable title, no watermark, no other people, no panels or collage. The portraits are small ink drawings printed within one newspaper, not extra character figures.",
-      "status": "pending",
+      "status": "candidate_generated",
       "input_sha256": {
         "reference/P02.png": "939683bca6123cc1f52931a110b8d61e8e6717bd97ba7f26f0045654a9be7cf5",
         "reference/C01.png": "3890dcf67df2d98cb22263f1ac41fb8df9d92a019c212419753f01b955625503",
         "reference/C03.png": "33d1bf8dfe063eb0786a98b9fa4566eff966e1d7fe0527c43a85f5e28907ceaf"
-      }
+      },
+      "request_sha256": "8b36f133a6e446d5604f841537505bb31b7c771d8591b0ed86c2dc184a26b72c",
+      "response_created": 1793633294,
+      "image_url": "https://platform-outputs.agnes-ai.space/images/i2i/task_BrqXHywOZ0vcLndE7eiSvZ3YC1qfgltu/output.png",
+      "sha256": "8883a8240324d44795bbf1c7ec62bdf75a8b61a55d75a52f02508215bfde5bca",
+      "bytes": 920473,
+      "dimensions": [
+        1312,
+        736
+      ],
+      "visual_review": "pending"
     }
   ]
 }
