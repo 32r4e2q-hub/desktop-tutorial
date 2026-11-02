@@ -1,5 +1,5 @@
 {
-  "series": "谜案解码人",
+  "series": "迷案解码人",
   "episode": 2,
   "episode_label": "第二期",
   "cover_title_lines": [
@@ -7,13 +7,16 @@
     "他只承认九个人"
   ],
   "release_title": "H·H·霍姆斯：传说里的杀人城堡",
-  "fact_basis": "production/holmes1893/story.json；1893 芝加哥世博会期间的人口失踪传闻 vs 霍姆斯承认的 27 人与可确认的 9 人",
-  "cover_file": "H·H·霍姆斯_传说里的杀人城堡_封面.png",
-  "cover_template": "production/mystery-cover-template/template.py（经 production/series_cover.py 调用）",
+  "cover_file": "H·H·霍姆斯_传说里的杀人城堡_封面.jpg",
+  "cover_template": "production/mystery-cover-template/template.py",
   "size": [
     1080,
     1440
   ],
-  "shot": "S11 @ 6.9s（成片 66.9 s，世博会白城人流）",
-  "shot_y_bias": 0.45
+  "window_frame": {
+    "shot": "S12",
+    "at": 67.8,
+    "picked_by": "contact-sheet #17（看图选定）",
+    "description": "年轻女子推门走进「杀人城堡」，传说从这里开始"
+  }
 }

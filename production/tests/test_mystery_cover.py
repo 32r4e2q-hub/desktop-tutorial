@@ -183,3 +183,121 @@ def test_film_stills_with_burned_in_subtitles_are_rejected():
 
     assert subtitle_ink(clean) < 60
     assert subtitle_ink(dirty) > 400
+
+
+# ---------------------------------------------------------------- 只说期数就出封面
+def load_series_cover():
+    sys.path.insert(0, str(ROOT))
+    from production import series_cover
+
+    return series_cover
+
+
+def test_auto_title_splits_and_trims_to_eighteen():
+    series_cover = load_series_cover()
+    story = {'title': 'H·H·霍姆斯：传说里的杀人城堡',
+             'presentation': {'cover': {'series_episode': 2}},
+             'shots': [{'id': 'S01', 'start': 0, 'duration': 5,
+                        'narration': '传说，1893年芝加哥世博会旁，有一栋旅馆。'}]}
+    assert series_cover.auto_title(story) == ('H·H·霍姆斯', '传说里的杀人城堡')
+
+    long_title = {'title': '某某案件：这是一句非常非常长的副标题超过十八个字要截断',
+                  'presentation': {}, 'shots': []}
+    line1, line2 = series_cover.auto_title(long_title)
+    assert len(line1) <= 18 and len(line2) <= 18
+    assert line2 and not line2.endswith(('，', '。', '、'))
+
+    hook_only = {'title': '某个悬案', 'presentation': {},
+                 'shots': [{'id': 'S01', 'start': 0, 'duration': 5,
+                            'narration': '一九六三年，五条生命在途中消逝。'}]}
+    assert series_cover.auto_title(hook_only)[0] == '某个悬案'
+    assert '五条生命' in series_cover.auto_title(hook_only)[1]
+
+
+def test_cover_config_prefers_written_lines_and_records_episode():
+    series_cover = load_series_cover()
+    story = {'title': '原标题', 'shots': [{'id': 'S01', 'start': 0, 'duration': 6}],
+             'presentation': {'cover': {'series_episode': 4, 'line1': '人工第一行', 'line2': '人工第二行',
+                                        'window_shot': 'S01', 'window_at': 2.5, 'window_y_bias': 0.4}}}
+    cfg = series_cover.cover_config(story)
+    assert (cfg['episode'], cfg['line1'], cfg['line2']) == (4, '人工第一行', '人工第二行')
+    assert cfg['shot'] == 'S01' and cfg['at'] == 2.5 and cfg['y_bias'] == 0.4
+
+
+def test_contact_sheet_numbers_every_candidate_frame(tmp_path):
+    series_cover = load_series_cover()
+    ffmpeg = shutil_ffmpeg()
+    film = tmp_path / 'film.mp4'
+    subprocess.run([ffmpeg, '-y', '-v', 'error', '-f', 'lavfi', '-i',
+                    'color=c=0x203040:s=640x360:d=12:r=24', '-pix_fmt', 'yuv420p', str(film)],
+                   check=True)
+    story = {'title': '示例：示例副标题', 'shots': [
+        {'id': 'S01', 'start': 0, 'duration': 6, 'narration': '第一镜'},
+        {'id': 'S02', 'start': 6, 'duration': 6, 'narration': '第二镜'},
+    ], 'presentation': {'cover': {'series_episode': 5, 'candidates': ['S01', 'S02']}}}
+    info = series_cover.contact_sheet(film, story, tmp_path / 'sheet.jpg', tmp_path / 'work',
+                                      ['S01', 'S02'], per_shot=3)
+    assert len(info['tiles']) == 6
+    assert [tile['shot'] for tile in info['tiles']] == ['S01'] * 3 + ['S02'] * 3
+    assert Path(info['sheet']).is_file() and Path(info['manifest']).is_file()
+    data = json.loads(Path(info['manifest']).read_text(encoding='utf8'))
+    assert [tile['index'] for tile in data['tiles']] == [1, 2, 3, 4, 5, 6]
+    assert all(0 <= tile['at'] <= 12 for tile in data['tiles'])
+
+
+def test_frame_scoring_rejects_subtitle_ink_and_flat_frames():
+    series_cover = load_series_cover()
+    flat = Image.new('RGB', (1920, 1080), (18, 20, 24))
+    busy = flat.copy()
+    draw = ImageDraw.Draw(busy)
+    for x in range(200, 1700, 220):
+        draw.ellipse((x, 300, x + 180, 520), fill=(214, 176, 148))
+    subtitled = busy.copy()
+    ImageDraw.Draw(subtitled).text((420, 860), '这是一句很亮的成片字幕',
+                                   font=ImageFont.truetype(str(series_cover.template.DEFAULT_FONT), 60),
+                                   fill=(255, 255, 255))
+
+    assert series_cover.score_frame(busy)['score'] > series_cover.score_frame(flat)['score']
+    assert series_cover.score_frame(subtitled)['subtitle_ink'] > series_cover.SUBTITLE_INK_LIMIT
+    assert series_cover.score_frame(subtitled)['score'] < series_cover.score_frame(busy)['score']
+
+
+def test_cli_writes_cover_and_records_window_frame(tmp_path):
+    series_cover = load_series_cover()
+    ffmpeg = shutil_ffmpeg()
+    film = tmp_path / 'film.mp4'
+    subprocess.run([ffmpeg, '-y', '-v', 'error', '-f', 'lavfi', '-i',
+                    'color=c=0x40281c:s=640x360:d=8:r=24', '-pix_fmt', 'yuv420p', str(film)],
+                   check=True)
+    story_path = tmp_path / 'story.json'
+    story_path.write_text(json.dumps({
+        'title': '示例案件：一句副标题', 'shots': [
+            {'id': 'S01', 'start': 0, 'duration': 8, 'narration': '第一镜'},],
+        'presentation': {'cover': {'series_episode': 6, 'window_shot': 'S01', 'window_at': 2.0}},
+    }, ensure_ascii=False), encoding='utf8')
+    output = tmp_path / '封面.png'
+    result = subprocess.run([sys.executable, '-m', 'production.series_cover', '--episode', '6',
+                             '--story', str(story_path), '--film', str(film),
+                             '--shot', 'S01', '--at', '2.0', '--output', str(output)],
+                            cwd=str(ROOT), text=True, capture_output=True)
+    assert result.returncode == 0, result.stderr
+    assert output.is_file() and output.with_suffix('.png').is_file()
+    meta = json.loads(output.with_suffix('.json').read_text(encoding='utf8'))
+    assert meta['episode_label'] == '第六期'
+    assert meta['window_frame']['shot'] == 'S01'
+    assert meta['window_frame']['picked_by'] == 'cli'
+    assert Image.open(output).size == (1080, 1440)
+
+
+def shutil_ffmpeg():
+    import shutil
+
+    found = shutil.which('ffmpeg')
+    if found:
+        return found
+    try:
+        import imageio_ffmpeg
+
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:  # pragma: no cover - 缺 ffmpeg 时跳过
+        pytest.skip('ffmpeg 不可用')
