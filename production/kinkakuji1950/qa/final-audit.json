@@ -3,10 +3,10 @@
   "failures": [],
   "warnings": [
     "清晰度异常帧 20 处（可能是运动模糊/画面崩坏）：[23.12, 23.25, 23.38, 23.5, 23.62, 23.75, 23.88, 24.0]",
-    "块状/压缩痕异常帧 8 处：[55.88, 84.12, 86.38, 87.25, 88.0, 151.12, 151.25, 151.38]",
-    "S09 运动偏慢（帧间差 0.79），但 100% 的帧有局部运动，按慢镜头保留",
-    "S12 运动偏慢（帧间差 1.11），但 100% 的帧有局部运动，按慢镜头保留",
-    "S16 运动偏慢（帧间差 0.86），但 100% 的帧有局部运动，按慢镜头保留",
+    "块状/压缩痕异常帧 7 处：[55.88, 86.38, 87.25, 88.0, 151.12, 151.25, 151.38]",
+    "S09 运动偏慢（帧间差 0.8），但 100% 的帧有局部运动，按慢镜头保留",
+    "S12 运动偏慢（帧间差 1.12），但 100% 的帧有局部运动，按慢镜头保留",
+    "S16 运动偏慢（帧间差 0.87），但 100% 的帧有局部运动，按慢镜头保留",
     "S20 运动偏慢（帧间差 0.73），但 100% 的帧有局部运动，按慢镜头保留",
     "S24 运动偏慢（帧间差 0.73），但 100% 的帧有局部运动，按慢镜头保留",
     "9 处接缝亮度跳变 >45，其中 3 处正好是章节分界（日→夜/暖→冷，属设计）"
@@ -58,14 +58,13 @@
       24.75,
       24.88,
       25.0,
-      176.75,
-      176.88,
-      177.0,
-      177.12
+      25.12,
+      25.25,
+      25.38,
+      25.5
     ],
     "block": [
       55.88,
-      84.12,
       86.38,
       87.25,
       88.0,
@@ -98,7 +97,7 @@
   },
   "cuts_detected": [
     5.0,
-    11.25,
+    10.88,
     17.0,
     23.0,
     30.0,
@@ -169,11 +168,11 @@
         0,
         5
       ],
-      "motion_mean": 7.71,
-      "motion_max": 10.42,
-      "luma_mean": 99.7,
-      "sharp_mean": 956.8,
-      "local_motion": 22.77,
+      "motion_mean": 7.7,
+      "motion_max": 10.43,
+      "luma_mean": 100.0,
+      "sharp_mean": 886.5,
+      "local_motion": 22.74,
       "moving_frame_share": 1.0
     },
     {
@@ -182,11 +181,11 @@
         5,
         11
       ],
-      "motion_mean": 1.99,
-      "motion_max": 23.85,
-      "luma_mean": 54.0,
-      "sharp_mean": 634.1,
-      "local_motion": 7.8,
+      "motion_mean": 2.0,
+      "motion_max": 24.36,
+      "luma_mean": 53.5,
+      "sharp_mean": 543.2,
+      "local_motion": 7.81,
       "moving_frame_share": 1.0
     },
     {
@@ -195,11 +194,11 @@
         11,
         17
       ],
-      "motion_mean": 7.08,
-      "motion_max": 29.47,
-      "luma_mean": 83.5,
-      "sharp_mean": 832.0,
-      "local_motion": 23.98,
+      "motion_mean": 7.13,
+      "motion_max": 30.05,
+      "luma_mean": 84.1,
+      "sharp_mean": 735.2,
+      "local_motion": 23.99,
       "moving_frame_share": 1.0
     },
     {
@@ -208,11 +207,11 @@
         17,
         23
       ],
-      "motion_mean": 3.41,
-      "motion_max": 4.13,
-      "luma_mean": 124.4,
-      "sharp_mean": 1394.2,
-      "local_motion": 10.85,
+      "motion_mean": 3.47,
+      "motion_max": 4.22,
+      "luma_mean": 124.6,
+      "sharp_mean": 1324.3,
+      "local_motion": 10.9,
       "moving_frame_share": 1.0
     },
     {
@@ -221,11 +220,11 @@
         23,
         30
       ],
-      "motion_mean": 3.47,
-      "motion_max": 4.92,
-      "luma_mean": 125.1,
-      "sharp_mean": 1613.3,
-      "local_motion": 17.26,
+      "motion_mean": 3.51,
+      "motion_max": 4.97,
+      "luma_mean": 125.3,
+      "sharp_mean": 1532.1,
+      "local_motion": 18.86,
       "moving_frame_share": 1.0
     },
     {
@@ -234,10 +233,10 @@
         30,
         37
       ],
-      "motion_mean": 1.48,
-      "motion_max": 22.81,
-      "luma_mean": 53.5,
-      "sharp_mean": 626.7,
+      "motion_mean": 1.5,
+      "motion_max": 23.21,
+      "luma_mean": 53.0,
+      "sharp_mean": 537.7,
       "local_motion": 5.2,
       "moving_frame_share": 1.0
     },
@@ -247,11 +246,11 @@
         37,
         43
       ],
-      "motion_mean": 3.93,
-      "motion_max": 61.57,
-      "luma_mean": 137.0,
-      "sharp_mean": 994.9,
-      "local_motion": 13.9,
+      "motion_mean": 3.94,
+      "motion_max": 61.81,
+      "luma_mean": 136.5,
+      "sharp_mean": 900.0,
+      "local_motion": 13.91,
       "moving_frame_share": 1.0
     },
     {
@@ -260,10 +259,10 @@
         43,
         50
       ],
-      "motion_mean": 1.22,
-      "motion_max": 2.4,
-      "luma_mean": 66.6,
-      "sharp_mean": 611.1,
+      "motion_mean": 1.23,
+      "motion_max": 2.41,
+      "luma_mean": 66.2,
+      "sharp_mean": 526.5,
       "local_motion": 9.74,
       "moving_frame_share": 1.0
     },
@@ -273,11 +272,11 @@
         50,
         56
       ],
-      "motion_mean": 0.79,
-      "motion_max": 1.62,
-      "luma_mean": 83.3,
-      "sharp_mean": 595.3,
-      "local_motion": 2.87,
+      "motion_mean": 0.8,
+      "motion_max": 1.63,
+      "luma_mean": 83.0,
+      "sharp_mean": 510.9,
+      "local_motion": 2.95,
       "moving_frame_share": 1.0
     },
     {
@@ -286,10 +285,10 @@
         56,
         61
       ],
-      "motion_mean": 3.66,
-      "motion_max": 34.62,
-      "luma_mean": 81.8,
-      "sharp_mean": 732.4,
+      "motion_mean": 3.67,
+      "motion_max": 34.98,
+      "luma_mean": 81.1,
+      "sharp_mean": 634.3,
       "local_motion": 19.97,
       "moving_frame_share": 1.0
     },
@@ -299,11 +298,11 @@
         61,
         66
       ],
-      "motion_mean": 5.81,
-      "motion_max": 47.81,
-      "luma_mean": 105.9,
-      "sharp_mean": 967.0,
-      "local_motion": 15.29,
+      "motion_mean": 5.85,
+      "motion_max": 48.46,
+      "luma_mean": 106.3,
+      "sharp_mean": 879.3,
+      "local_motion": 15.33,
       "moving_frame_share": 1.0
     },
     {
@@ -312,11 +311,11 @@
         66,
         70
       ],
-      "motion_mean": 1.11,
+      "motion_mean": 1.12,
       "motion_max": 2.26,
-      "luma_mean": 124.4,
-      "sharp_mean": 693.7,
-      "local_motion": 12.28,
+      "luma_mean": 125.0,
+      "sharp_mean": 602.5,
+      "local_motion": 12.27,
       "moving_frame_share": 1.0
     },
     {
@@ -327,9 +326,9 @@
       ],
       "motion_mean": 3.09,
       "motion_max": 4.07,
-      "luma_mean": 124.5,
-      "sharp_mean": 1311.3,
-      "local_motion": 18.82,
+      "luma_mean": 124.0,
+      "sharp_mean": 1219.7,
+      "local_motion": 18.81,
       "moving_frame_share": 1.0
     },
     {
@@ -338,10 +337,10 @@
         77,
         83
       ],
-      "motion_mean": 1.92,
-      "motion_max": 39.85,
-      "luma_mean": 93.3,
-      "sharp_mean": 840.7,
+      "motion_mean": 1.95,
+      "motion_max": 40.47,
+      "luma_mean": 93.2,
+      "sharp_mean": 746.8,
       "local_motion": 8.6,
       "moving_frame_share": 1.0
     },
@@ -351,11 +350,11 @@
         83,
         89
       ],
-      "motion_mean": 3.64,
-      "motion_max": 18.07,
-      "luma_mean": 44.5,
-      "sharp_mean": 743.0,
-      "local_motion": 12.37,
+      "motion_mean": 3.65,
+      "motion_max": 18.1,
+      "luma_mean": 43.7,
+      "sharp_mean": 638.2,
+      "local_motion": 12.38,
       "moving_frame_share": 1.0
     },
     {
@@ -364,10 +363,10 @@
         89,
         94
       ],
-      "motion_mean": 0.86,
+      "motion_mean": 0.87,
       "motion_max": 1.9,
-      "luma_mean": 34.0,
-      "sharp_mean": 578.2,
+      "luma_mean": 33.3,
+      "sharp_mean": 475.9,
       "local_motion": 9.16,
       "moving_frame_share": 1.0
     },
@@ -377,10 +376,10 @@
         94,
         101
       ],
-      "motion_mean": 6.54,
-      "motion_max": 7.84,
-      "luma_mean": 53.6,
-      "sharp_mean": 722.3,
+      "motion_mean": 6.55,
+      "motion_max": 7.85,
+      "luma_mean": 53.0,
+      "sharp_mean": 628.5,
       "local_motion": 21.62,
       "moving_frame_share": 1.0
     },
@@ -390,10 +389,10 @@
         101,
         107
       ],
-      "motion_mean": 2.26,
-      "motion_max": 27.92,
-      "luma_mean": 66.5,
-      "sharp_mean": 815.0,
+      "motion_mean": 2.27,
+      "motion_max": 27.99,
+      "luma_mean": 65.7,
+      "sharp_mean": 715.0,
       "local_motion": 9.18,
       "moving_frame_share": 1.0
     },
@@ -403,11 +402,11 @@
         107,
         112
       ],
-      "motion_mean": 13.01,
-      "motion_max": 33.6,
-      "luma_mean": 83.7,
-      "sharp_mean": 785.1,
-      "local_motion": 47.85,
+      "motion_mean": 13.07,
+      "motion_max": 33.89,
+      "luma_mean": 83.8,
+      "sharp_mean": 704.8,
+      "local_motion": 48.07,
       "moving_frame_share": 1.0
     },
     {
@@ -417,9 +416,9 @@
         119
       ],
       "motion_mean": 0.73,
-      "motion_max": 1.73,
-      "luma_mean": 50.9,
-      "sharp_mean": 784.9,
+      "motion_max": 1.74,
+      "luma_mean": 50.2,
+      "sharp_mean": 687.2,
       "local_motion": 5.25,
       "moving_frame_share": 1.0
     },
@@ -429,10 +428,10 @@
         119,
         125
       ],
-      "motion_mean": 1.49,
+      "motion_mean": 1.5,
       "motion_max": 2.31,
       "luma_mean": 101.5,
-      "sharp_mean": 947.9,
+      "sharp_mean": 866.3,
       "local_motion": 6.97,
       "moving_frame_share": 1.0
     },
@@ -442,11 +441,11 @@
         125,
         132
       ],
-      "motion_mean": 10.28,
-      "motion_max": 24.75,
-      "luma_mean": 62.9,
-      "sharp_mean": 681.1,
-      "local_motion": 22.84,
+      "motion_mean": 10.4,
+      "motion_max": 25.01,
+      "luma_mean": 62.8,
+      "sharp_mean": 597.8,
+      "local_motion": 23.13,
       "moving_frame_share": 1.0
     },
     {
@@ -455,11 +454,11 @@
         132,
         137
       ],
-      "motion_mean": 2.22,
-      "motion_max": 25.84,
-      "luma_mean": 58.3,
-      "sharp_mean": 630.8,
-      "local_motion": 9.37,
+      "motion_mean": 2.23,
+      "motion_max": 26.01,
+      "luma_mean": 57.7,
+      "sharp_mean": 535.5,
+      "local_motion": 9.38,
       "moving_frame_share": 1.0
     },
     {
@@ -469,9 +468,9 @@
         143
       ],
       "motion_mean": 0.73,
-      "motion_max": 2.3,
-      "luma_mean": 30.6,
-      "sharp_mean": 544.0,
+      "motion_max": 2.32,
+      "luma_mean": 29.8,
+      "sharp_mean": 440.3,
       "local_motion": 6.95,
       "moving_frame_share": 1.0
     },
@@ -481,11 +480,11 @@
         143,
         149
       ],
-      "motion_mean": 3.38,
-      "motion_max": 64.22,
-      "luma_mean": 146.7,
-      "sharp_mean": 751.5,
-      "local_motion": 7.68,
+      "motion_mean": 3.4,
+      "motion_max": 64.93,
+      "luma_mean": 147.5,
+      "sharp_mean": 648.4,
+      "local_motion": 8.01,
       "moving_frame_share": 1.0
     },
     {
@@ -494,11 +493,11 @@
         149,
         155
       ],
-      "motion_mean": 11.17,
-      "motion_max": 40.22,
-      "luma_mean": 82.9,
-      "sharp_mean": 504.2,
-      "local_motion": 47.0,
+      "motion_mean": 11.25,
+      "motion_max": 40.7,
+      "luma_mean": 83.1,
+      "sharp_mean": 410.0,
+      "local_motion": 47.19,
       "moving_frame_share": 1.0
     },
     {
@@ -507,11 +506,11 @@
         155,
         160
       ],
-      "motion_mean": 1.95,
+      "motion_mean": 1.97,
       "motion_max": 2.81,
-      "luma_mean": 77.8,
-      "sharp_mean": 652.9,
-      "local_motion": 6.18,
+      "luma_mean": 77.9,
+      "sharp_mean": 564.7,
+      "local_motion": 6.19,
       "moving_frame_share": 1.0
     },
     {
@@ -520,11 +519,11 @@
         160,
         167
       ],
-      "motion_mean": 2.31,
-      "motion_max": 52.67,
-      "luma_mean": 119.9,
-      "sharp_mean": 629.7,
-      "local_motion": 8.53,
+      "motion_mean": 2.32,
+      "motion_max": 53.13,
+      "luma_mean": 120.0,
+      "sharp_mean": 540.4,
+      "local_motion": 8.54,
       "moving_frame_share": 1.0
     },
     {
@@ -533,10 +532,10 @@
         167,
         174
       ],
-      "motion_mean": 11.65,
-      "motion_max": 38.49,
-      "luma_mean": 87.1,
-      "sharp_mean": 1181.1,
+      "motion_mean": 11.68,
+      "motion_max": 38.92,
+      "luma_mean": 86.7,
+      "sharp_mean": 1095.4,
       "local_motion": 35.88,
       "moving_frame_share": 1.0
     },
@@ -547,10 +546,10 @@
         180
       ],
       "motion_mean": 4.28,
-      "motion_max": 8.97,
-      "luma_mean": 137.6,
-      "sharp_mean": 1349.6,
-      "local_motion": 16.54,
+      "motion_max": 8.98,
+      "luma_mean": 137.8,
+      "sharp_mean": 1319.1,
+      "local_motion": 17.22,
       "moving_frame_share": 1.0
     }
   ],
@@ -564,16 +563,16 @@
   "luma_jumps": [
     {
       "cut": "S01->S02",
-      "delta_luma": 45.7,
+      "delta_luma": 46.5,
       "chapter_break": false
     },
     {
       "cut": "S02->S03",
-      "delta_luma": 29.5
+      "delta_luma": 30.6
     },
     {
       "cut": "S03->S04",
-      "delta_luma": 40.9
+      "delta_luma": 40.5
     },
     {
       "cut": "S04->S05",
@@ -581,7 +580,7 @@
     },
     {
       "cut": "S05->S06",
-      "delta_luma": 71.6,
+      "delta_luma": 72.3,
       "chapter_break": false
     },
     {
@@ -591,88 +590,88 @@
     },
     {
       "cut": "S07->S08",
-      "delta_luma": 70.4,
+      "delta_luma": 70.3,
       "chapter_break": false
     },
     {
       "cut": "S08->S09",
-      "delta_luma": 16.7
+      "delta_luma": 16.8
     },
     {
       "cut": "S09->S10",
-      "delta_luma": 1.5
+      "delta_luma": 1.9
     },
     {
       "cut": "S10->S11",
-      "delta_luma": 24.1
+      "delta_luma": 25.2
     },
     {
       "cut": "S11->S12",
-      "delta_luma": 18.5
+      "delta_luma": 18.7
     },
     {
       "cut": "S12->S13",
-      "delta_luma": 0.1
+      "delta_luma": 1.0
     },
     {
       "cut": "S13->S14",
-      "delta_luma": 31.2
+      "delta_luma": 30.8
     },
     {
       "cut": "S14->S15",
-      "delta_luma": 48.8,
+      "delta_luma": 49.5,
       "chapter_break": true
     },
     {
       "cut": "S15->S16",
-      "delta_luma": 10.5
+      "delta_luma": 10.4
     },
     {
       "cut": "S16->S17",
-      "delta_luma": 19.6
+      "delta_luma": 19.7
     },
     {
       "cut": "S17->S18",
-      "delta_luma": 12.9
+      "delta_luma": 12.7
     },
     {
       "cut": "S18->S19",
-      "delta_luma": 17.2
+      "delta_luma": 18.1
     },
     {
       "cut": "S19->S20",
-      "delta_luma": 32.8
+      "delta_luma": 33.6
     },
     {
       "cut": "S20->S21",
-      "delta_luma": 50.6,
+      "delta_luma": 51.3,
       "chapter_break": false
     },
     {
       "cut": "S21->S22",
-      "delta_luma": 38.6
+      "delta_luma": 38.7
     },
     {
       "cut": "S22->S23",
-      "delta_luma": 4.6
+      "delta_luma": 5.1
     },
     {
       "cut": "S23->S24",
-      "delta_luma": 27.7
+      "delta_luma": 27.9
     },
     {
       "cut": "S24->S25",
-      "delta_luma": 116.1,
+      "delta_luma": 117.7,
       "chapter_break": false
     },
     {
       "cut": "S25->S26",
-      "delta_luma": 63.8,
+      "delta_luma": 64.4,
       "chapter_break": true
     },
     {
       "cut": "S26->S27",
-      "delta_luma": 5.1
+      "delta_luma": 5.2
     },
     {
       "cut": "S27->S28",
@@ -680,11 +679,11 @@
     },
     {
       "cut": "S28->S29",
-      "delta_luma": 32.8
+      "delta_luma": 33.3
     },
     {
       "cut": "S29->S30",
-      "delta_luma": 50.5,
+      "delta_luma": 51.1,
       "chapter_break": false
     }
   ],
