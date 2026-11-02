@@ -1,0 +1,48 @@
+name: 金阁寺 · Agnes 线路探针（v2.0 / 2.5-flash）
+
+# 2.5 Flash 在 2026-11-02 对新任务一直返回 pending 0%；本探针同时问两条线路，
+# 各要一条 6 秒片子，把每分钟的真实状态写进 production/kinkakuji1950/qa/probe-v20.json。
+# 独立 concurrency group：不占用出片任务的队列，也不改动 results.json。
+
+on:
+  push:
+    branches:
+      - arena/98ae98a6-desktop-tutorial
+    paths:
+      - .github/workflows/kinkakuji-v20-probe.yml
+      - production/kinkakuji1950/PROBE_REQUEST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kinkakuji1950-probe-98ae98a6
+
+jobs:
+  probe:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/98ae98a6-desktop-tutorial
+
+      - name: Probe both Agnes routes
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          set -uo pipefail
+          python3 production/kinkakuji1950/probe_v20.py 2>&1 | tee production/kinkakuji1950/qa/probe-v20.log
+          echo "exit=$?" >> production/kinkakuji1950/qa/probe-v20.log
+
+      - name: Publish the probe report
+        if: always()
+        run: |
+          set -uo pipefail
+          git config user.name "arena-autopilot"
+          git config user.email "arena-autopilot@users.noreply.github.com"
+          git add -f production/kinkakuji1950/qa/probe-v20.json production/kinkakuji1950/qa/probe-v20.log 2>/dev/null || true
+          git commit -q -m "kinkakuji1950: Agnes 线路探针结果 [skip-kinkakuji1950] [skip-probe]" || true
+          git pull --rebase -q origin arena/98ae98a6-desktop-tutorial || true
+          git push -q origin HEAD:arena/98ae98a6-desktop-tutorial || true
