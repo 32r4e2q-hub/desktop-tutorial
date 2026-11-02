@@ -108,6 +108,12 @@ def build():
         chapters.append(dict(id=f'N{i:02d}',title=['黄金三秒钩子','消失的科拉','探长上门','煤窖','海上的父子','电波追捕','抓捕','审判','反转'][i-1],start=group[0]['start'],duration=sum(s['duration'] for s in group),shot_ids=[s['id'] for s in group],text=''.join(s['narration'] for s in group)))
     primary_ids=list(ROLES)+list(REF_DESCRIPTIONS)
     reference_ids=primary_ids+list(SUPPLEMENT_DESCRIPTIONS)
+    for role in ROLES:
+        if role in {'C07','C09'}:continue
+        for view in ('side','back','face'):
+            key=f'{role}_{view}'
+            if (HERE/f'reference/{key}.png').is_file() and key not in reference_ids:
+                reference_ids.append(key)
     voice_path=HERE/'audio/voice.json'
     voice_id=json.loads(voice_path.read_text()).get('voice_id') if voice_path.exists() else None
     story=dict(title='克里平医生案：一道追上凶手的电波',film_name='克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4',episode=3,target_duration=180,width=1920,height=1080,fps=24,model='agnes-video-2.5-flash',source_size='720P',branch=BRANCH,style_prefix=STYLE,style_rumor_prefix=STYLE,negative_prompt=NEGATIVE,characters=ROLES,character_seeds={key:191010+i for i,key in enumerate(ROLES)},shots=shots,chapters=chapters,narration_spec={'voice_id':voice_id,'description':'悬疑低沉成熟男声，逐镜自然叙述','max_speedup_factor':1.15},reference_images=[{'id':key,'file':f'reference/{key}.png','asset_role':'primary' if key in primary_ids else 'supplement'} for key in reference_ids],presentation={'highlight_keywords':['一道电波','科拉','二十七分钟','终于结束','仍有争议','无线电','罗宾逊父子'],'end_question':'地窖里的人，究竟是谁？','cover':{'text':'一道电波'},'title':'凶手逃上大西洋邮轮，却被一道电波追上','hashtags':'#真实事件 #克里平医生 #伦敦 #悬疑 #历史 #3D动画 #无线电'})

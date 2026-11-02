@@ -1,0 +1,57 @@
+name: 克里平 · 全量角色补图批处理
+on:
+  push:
+    branches: [arena/f38dd103-desktop-tutorial]
+    paths: [production/crippen1910/REFERENCE_BATCH_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: crippen1910-reference-batch
+  cancel-in-progress: false
+jobs:
+  references:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f38dd103-desktop-tutorial
+          fetch-depth: 1
+      - name: Install image validation dependency
+        run: python3 -m pip install --break-system-packages --no-input --disable-pip-version-check -q pillow
+      - name: Validate the entire thirty-image queue
+        run: python3 production/crippen1910/batch_references.py --validate
+      - name: Generate the queue with the existing cloud secret
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -u production/crippen1910/batch_references.py --publish --workers 2 2>&1 | tee production/crippen1910/reference-batch.log
+      - name: Preserve receipts and candidates even on failure
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add production/crippen1910/reference-batch.log production/crippen1910/reference production/crippen1910/story.json production/crippen1910/screenplay.md production/crippen1910/audio/manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'crippen1910: full reference batch log and receipts [skip-crippen-batch]'
+            git pull --rebase origin arena/f38dd103-desktop-tutorial
+            git push origin arena/f38dd103-desktop-tutorial
+          fi
+      - name: Upload review candidates and receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crippen1910-reference-batch-${{ github.run_number }}
+          path: |
+            production/crippen1910/reference/batch-results.json
+            production/crippen1910/reference/batch-review/
+            production/crippen1910/reference/*_side.png
+            production/crippen1910/reference/*_back.png
+            production/crippen1910/reference/*_face.png
+            production/crippen1910/reference-batch.log
+          if-no-files-found: warn
+          retention-days: 7
