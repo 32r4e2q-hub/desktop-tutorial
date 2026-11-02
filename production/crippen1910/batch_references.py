@@ -50,24 +50,24 @@ def plan(story):
             target=HERE/f'reference/{role}_{view}.png'
             if role=='C01' and view=='face':
                 continue  # Dedicated face image already exists and was inspected.
-            prompt=(
-                'One single standalone character reference image, cinematic stylized 3D animation, Edwardian 1910. '
-                'The supplied input is the identity and costume source: keep EXACTLY the same fictional person, '
-                'age, build, face proportions, hairstyle, facial hair or clean-shaven state, spectacles or absence, '
-                'hat, fabric colours, garment cut, buttons, shoes and accessories. '
-                + instructions[view]+' '+story['characters'][role]
-                + ('. BARE HEAD: absolutely NO HAT, NO CAP, NO BOWLER, NO added headwear. Hair must remain exposed exactly as source.' if role in bare_heads else '. Preserve ONLY the exact specific headwear in source, never add or substitute a different hat.')+
-                ' Neutral light grey seamless studio background, soft neutral studio light, detailed wool, skin and hair. '
-                'Natural anatomy and hands. Only change camera angle/framing, not character design. '
-                'No extra people, no duplicated figures, no labels or writing, no text, no watermark, '
-                'no panels, no contact sheet, no collage. Not a real person portrait.'
-            )
             inputs=[f'reference/{role}.png']
             transforms=['head_crop'] if view=='face' else ['full']
             if view in {'side','back'}:
                 inputs=[f'reference-guides/{view}.png',f'reference/{role}.png',f'reference/{role}.png']
                 transforms=['full','head_crop','full']
-                prompt+=' IMAGE 1 is the PRIMARY STRUCTURAL COMPOSITION: preserve its EXACT camera angle and full-body pose. IMAGE 2 supplies ONLY this character face/head identity. IMAGE 3 supplies ONLY this character clothing, gender, build, accessories and materials. Dress and identify the image 1 figure using images 2 and 3. The pose from IMAGE 1 is mandatory; never copy the three-quarter angle from image 3. Do not copy generic grey clothes, face or male shape from image 1; keep image 3 gender and build.'
+            direction={
+                'side':'严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。',
+                'back':'严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。',
+                'face':'脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。',
+            }[view]
+            prompt=direction+' '+instructions[view]+' '+story['characters'][role]
+            if view in {'side','back'}:
+                prompt+=' Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character.'
+            else:
+                prompt+=' Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear.'
+            prompt+=' Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.'
+            if role in bare_heads:
+                prompt+=' Bare head, no hat or cap.'
             rows.append(dict(id=f'{role}_{view}',role=role,view=view,file=str(target.relative_to(HERE)),
                              inputs=inputs,input_transforms=transforms,prompt=prompt,ratio='3:4'))
     rows.append(dict(id='P02',role=None,view='prop_revision',file='reference/P02.png',
