@@ -156,26 +156,33 @@
     "S09": {
       "id": "S09",
       "request_hash": "87c4af5f5ca51e3ce7ea6ab5049d45b8b184e19e5bd99d603d22f41cab5d8759",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-02T04:45:01Z",
-      "error": null
+      "updated_at": "2026-11-02T04:45:05Z",
+      "error": null,
+      "create_attempts": 1
     },
     "S10": {
       "id": "S10",
       "request_hash": "beab70397f2ac46066bd43d0a86431113a2342ca5e3ed24347123c198ce3b69e",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-02T04:45:03Z",
-      "error": null
+      "updated_at": "2026-11-02T04:45:58Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_Z4UMtgX63KiyK0qXklFxqnzA1YSGzBaZ",
+      "task_id": "task_Z4UMtgX63KiyK0qXklFxqnzA1YSGzBaZ",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S11": {
       "id": "S11",
       "request_hash": "8252dfe29e3ad062b3450bd0efb1f27fe09f820f5fbed39c969c6c31d71f4232",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-02T04:45:00Z",
-      "error": null
+      "updated_at": "2026-11-02T04:45:05Z",
+      "error": null,
+      "create_attempts": 1
     },
     "S12": {
       "id": "S12",
@@ -359,7 +366,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-02T04:45:04Z",
+  "updated_at": "2026-11-02T04:45:58Z",
   "run_id": "41390058503",
   "previous_results": {}
 }
