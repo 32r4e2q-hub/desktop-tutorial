@@ -40,10 +40,11 @@ def plan(story):
     roles=[key for key in story['characters'] if key not in {'C07','C09'}]
     rows=[]
     instructions={
-        'side':'EXACT left-side PROFILE full-body view, head and torso and feet all point left; one visible profile eye. Not three-quarter view. Entire figure including hat if worn and shoes inside frame.',
+        'side':'STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame.',
         'back':'EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame.',
         'face':'One close-up near-FRONT FACE portrait, framed from upper chest to above head with margin; face large and sharp, preserve eyes, nose, mouth, hair, facial hair, spectacles and headwear exactly as in source. Do not turn to side view.',
     }
+    bare_heads={'C01','C03','C06','C08'}
     for role in roles:
         for view in ('side','back','face'):
             target=HERE/f'reference/{role}_{view}.png'
@@ -55,7 +56,8 @@ def plan(story):
                 'age, build, face proportions, hairstyle, facial hair or clean-shaven state, spectacles or absence, '
                 'hat, fabric colours, garment cut, buttons, shoes and accessories. '
                 + instructions[view]+' '+story['characters'][role]+
-                '. Neutral light grey seamless studio background, soft neutral studio light, detailed wool, skin and hair. '
+                + ('. BARE HEAD: absolutely NO HAT, NO CAP, NO BOWLER, NO added headwear. Hair must remain exposed exactly as source.' if role in bare_heads else '. Preserve ONLY the exact specific headwear in source, never add or substitute a different hat.')+
+                ' Neutral light grey seamless studio background, soft neutral studio light, detailed wool, skin and hair. '
                 'Natural anatomy and hands. Only change camera angle/framing, not character design. '
                 'No extra people, no duplicated figures, no labels or writing, no text, no watermark, '
                 'no panels, no contact sheet, no collage. Not a real person portrait.'
@@ -154,7 +156,7 @@ def main():
         git('config','user.email','arena-autopilot@users.noreply.github.com')
     previous=json.loads(RESULTS.read_text()) if RESULTS.exists() else {}
     old={row['id']:row for row in previous.get('items',[])}
-    doc=dict(model=MODEL,endpoint=ENDPOINT,run_id=os.environ.get('GITHUB_RUN_ID'),
+    doc=dict(model=MODEL,endpoint=ENDPOINT,planned_count=30,selected_count=len(rows),run_id=os.environ.get('GITHUB_RUN_ID'),
              source_revision=os.environ.get('GITHUB_SHA'),phase='generating_candidates',
              visual_review='pending',automatic_video_submission=False,items=[])
     for row in rows:

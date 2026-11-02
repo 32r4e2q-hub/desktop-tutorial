@@ -7,7 +7,7 @@ permissions:
   contents: write
 concurrency:
   group: crippen1910-reference-batch
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   references:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
@@ -21,13 +21,23 @@ jobs:
         run: python3 -m pip install --break-system-packages --no-input --disable-pip-version-check -q pillow
       - name: Validate the entire thirty-image queue
         run: python3 production/crippen1910/batch_references.py --validate
+      - name: Read the requested subset, empty means the full batch
+        run: |
+          python3 - <<'PYCODE'
+          import json,os
+          from pathlib import Path
+          options=json.loads(Path('production/crippen1910/REFERENCE_BATCH_REQUEST').read_text())
+          only=options.get('only','')
+          assert isinstance(only,str) and all(c.isalnum() or c in '_, ' for c in only)
+          with open(os.environ['GITHUB_ENV'],'a') as f:f.write('BATCH_ONLY='+only+'\n')
+          PYCODE
       - name: Generate the queue with the existing cloud secret
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
         shell: bash
         run: |
           set -euo pipefail
-          python3 -u production/crippen1910/batch_references.py --publish --workers 2 2>&1 | tee production/crippen1910/reference-batch.log
+          python3 -u production/crippen1910/batch_references.py --publish --workers 2 --only "$BATCH_ONLY" 2>&1 | tee production/crippen1910/reference-batch.log
       - name: Preserve receipts and candidates even on failure
         if: always()
         shell: bash
