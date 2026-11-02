@@ -88,8 +88,82 @@
       "status": "candidate_not_approved",
       "review": "已看原图：细框眼镜、白大褂、放大镜清楚，须补侧背视图。",
       "complete_character_package": false
+    },
+    {
+      "id": "C09",
+      "file": "C09.png",
+      "sha256": "fabb4d7cba16f22b371b15d97a2e9959cfb24580008a36a3616e75955cfbbf5e",
+      "status": "needs_revision",
+      "review": "已逐张看原图：红袍假发、1910服装与风格统一；群像人员角色与十二名陪审员未清晰分组，不能据此认定法庭人数正确。",
+      "overall_approved": false,
+      "complete_character_package": false
+    },
+    {
+      "id": "S01",
+      "file": "S01.png",
+      "sha256": "cc8241a762e3f9ee94b7a7e2aac27616266bb2582e5d015f124a2ada0ce28c11",
+      "status": "visual_pass_environment",
+      "review": "已逐张看原图：横屏、冷青夜雾、联排住宅、暖窗、煤气灯、湿路可辨，无人物、无明显现代物体。是环境概念，不是原址测绘。",
+      "overall_approved": false
+    },
+    {
+      "id": "S02",
+      "file": "S02.png",
+      "sha256": "579ff979ddcf067b8f83e7c86067ec18226faec0d15a2d8ff981be10fbc3695f",
+      "status": "visual_pass_environment",
+      "review": "已逐张看原图：暖色红沙发、留声机、煤气壁灯及相邻梳妆台成立，单一连贯空间，无明显可读文字。",
+      "overall_approved": false
+    },
+    {
+      "id": "S03",
+      "file": "S03.png",
+      "sha256": "7a573c894689111c18ce17730d59e7df3b2d090a307ec867864fe3741598b261",
+      "status": "visual_pass_environment",
+      "review": "已逐张看原图：煤窖、半开木门、砖地、煤块、提灯和冷暖对比清楚，无遗骸、人体或伤口。",
+      "overall_approved": false
+    },
+    {
+      "id": "S04",
+      "file": "S04.png",
+      "sha256": "820a398928a70b76eaf4e0f219a49b1239d80eb2019db031bfedc873d0c579e2",
+      "status": "visual_pass_environment",
+      "review": "已逐张看原图：冷青街道与门内值班室连贯，无分屏；为苏格兰场概念复原，不是历史建筑精确肖像。",
+      "overall_approved": false
+    },
+    {
+      "id": "S05",
+      "file": "S05.png",
+      "sha256": "1b7ab1c7af455e3f6e9d06bb56a0ad95a57a7eee3c57602ccc4debce4441fc58",
+      "status": "visual_pass_environment",
+      "review": "已逐张看首版和修订版：首版船身出现ANTWERPEN字样，已重新生成移除；修订版保留港口、蒸汽、单烟囱、舷梯及小比例旅客。",
+      "overall_approved": false,
+      "generation_attempts_this_turn": 2
+    },
+    {
+      "id": "S06",
+      "file": "S06.png",
+      "sha256": "95e2319765461b375f08eb2c5570fa92d78374066c98d4db3dd3dc0834263c69",
+      "status": "partial_reference",
+      "review": "已逐张看原图：船型、单烟囱和暖色延续S05，海浪与航迹清楚；当前仅为外观参考，甲板、餐厅、船长室参考仍需补齐。",
+      "overall_approved": false
+    },
+    {
+      "id": "S07",
+      "file": "S07.png",
+      "sha256": "5e43350e67d622d5f7441b0046a5397d67ef4f7c1f88835041d99d3d1860334a",
+      "status": "visual_pass_environment",
+      "review": "已逐张看原图：铜电键、线圈、老式耳机、纸带和窗外天线蓝光可辨；纸张小标记不作为可读内容，不在生成片中放大。",
+      "overall_approved": false
+    },
+    {
+      "id": "S08",
+      "file": "S08.png",
+      "sha256": "c42cd8f725aa9561163efbc57ceb529af7ed5cc5a2cb62770ce469d67788b70e",
+      "status": "needs_regeneration",
+      "review": "已逐张看原图并核对船史：本图误画成双烟囱，1910年所用Laurentic应为单烟囱、双桅，且船身有小字，必须重生成，禁止进入视频。",
+      "overall_approved": false
     }
   ],
-  "next_asset": "C09",
-  "blocking_issue": "Image tool per-turn generation limit reached; no further images or footage submitted."
+  "next_asset": "S08 correction, then S09",
+  "blocking_issue": "10 image calls used this turn, including S05 text removal. 20 of 31 primary asset files exist; package is not complete or approved. No video generation submitted."
 }
