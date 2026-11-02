@@ -1,0 +1,32 @@
+name: 克里平 · 云端视频接口只读检查
+on:
+  push:
+    branches: [arena/f38dd103-desktop-tutorial]
+    paths: [production/crippen1910/PROBE_REQUEST, .github/workflows/crippen1910-probe.yml]
+permissions:
+  contents: write
+concurrency:
+  group: crippen1910-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f38dd103-desktop-tutorial
+      - name: Check service without creating a video task
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 production/crippen1910/probe_service.py
+      - name: Save non-secret receipt on the fixed branch
+        run: |
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add production/crippen1910/service-probe.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'crippen1910: cloud connectivity receipt'
+            git pull --rebase origin arena/f38dd103-desktop-tutorial
+            git push origin arena/f38dd103-desktop-tutorial
+          fi
