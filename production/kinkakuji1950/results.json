@@ -4,10 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "downloaded",
+      "status": "completed",
       "request_hash": "0223b391dd1df202b602efdd57e6d9a13b9ab3f4645b2b0d29c24fdfc2454119",
       "error": null,
-      "updated_at": "2026-11-02T03:49:54Z",
+      "updated_at": "2026-11-02T03:50:02Z",
       "create_attempts": 1,
       "video_id": "task_Y5XACeQbTb1mUYs9QK6vXoBO1z1YYPgu",
       "task_id": "task_Y5XACeQbTb1mUYs9QK6vXoBO1z1YYPgu",
@@ -19,7 +19,19 @@
       "bytes": 3234007,
       "sha256": "b4382d42b5d257dd1c2afa551251ae60541e66be0e19c9e5d0d19ead1a0af1f6",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3234007,
+        "decoded_ok": true,
+        "contact_sheet": "production/kinkakuji1950/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "source_size": "720P",
@@ -70,6 +82,6 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-02T03:49:54Z",
+  "updated_at": "2026-11-02T03:50:02Z",
   "run_id": "41381248879"
 }
