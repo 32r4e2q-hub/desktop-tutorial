@@ -53,7 +53,11 @@ def main() -> int:
         report['assets'].append(row)
         print(ref['id'], 'verified' if row['verified'] else 'FAILED', flush=True)
     report['published_assets_verified'] = bool(report['assets']) and all(row['verified'] for row in report['assets'])
-    report['reference_package_complete'] = not report['missing_local']
+    report['story_reference_files_complete'] = not report['missing_local']
+    package_path=HERE/'reference/character-packages.json'
+    packages=json.loads(package_path.read_text()).get('packages', []) if package_path.is_file() else []
+    report['character_views_missing']=[package['id']+'/'+view for package in packages for view,relative in package['views'].items() if not (HERE/relative).is_file()]
+    report['reference_package_complete'] = (report['story_reference_files_complete'] and len(packages)==10 and not report['character_views_missing'])
     report['visual_approval_implied'] = False
     (HERE/'reference-access.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n')
     return 0 if report['published_assets_verified'] else 1
