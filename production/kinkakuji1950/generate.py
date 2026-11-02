@@ -515,7 +515,7 @@ def main() -> int:
         raise ValueError("canary_then_full requires only=S01")
     selected = ([by_id["S01"]] if canary_then_full else
                 [shot for shot in project["shots"] if not only or shot["id"] in only])
-    workers = min(2, max(1, int(options.get("workers", 2))))
+    workers = min(8, max(1, int(options.get("workers", 8))))
     gate = RequestGate(minimum_interval=REQUEST_INTERVAL_SECONDS)
     # The retry loop is intentionally unbounded; the Actions job timeout is the outer safety cap.
     # Every create attempt is still checkpointed, and a restarted run resumes completed/task IDs.
@@ -534,7 +534,7 @@ def main() -> int:
     doc["required_generated_shots"] = [shot["id"] for shot in project["shots"]]
     doc["workflow_policy"] = "agnes-video-2.5-flash-720p-upscale-180s-30shots"
     doc["rate_policy"] = {"minimum_creation_interval_seconds": REQUEST_INTERVAL_SECONDS,
-                          "workers_max": 2, "retry_after_respected": True,
+                          "workers_max": 8, "retry_after_respected": True,
                           "key_rotation": False, "capacity_retry_interval_seconds": REQUEST_INTERVAL_SECONDS,
                           "capacity_retries_unbounded": True}
     doc["review"] = {"status": "pending", "visual_review_required": True,
@@ -695,7 +695,7 @@ def main() -> int:
                     remaining = deadline - time.monotonic()
                     final, url = agnes.poll_task(
                         base, key, MODEL, str(video_id), str(task_id) if task_id else None,
-                        interval=25, timeout=min(1500, remaining), max_failures=12,
+                        interval=25, timeout=min(3000, remaining), max_failures=12,
                         before_request=lambda: gate.wait_unblocked(deadline), rate_limit_callback=gate.defer,
                     )
                     size = agnes.download(url, dest, retries=3, retry_delay=5)

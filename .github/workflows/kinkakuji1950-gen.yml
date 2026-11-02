@@ -27,7 +27,9 @@ permissions:
   actions: write
 
 concurrency:
-  group: kinkakuji1950-agnes-arena-98ae98a6-desktop-tutorial-v1
+  # v2：provider 侧排队要 40 分钟一条、旧版只在 2 并发上慢慢挪，一期跑不完 30 镜。
+  # 换独立 group 让高并发 run 能立刻启动，再在 run 内部用 actions:write 掐掉旧 run。
+  group: kinkakuji1950-agnes-arena-98ae98a6-desktop-tutorial-v2
   cancel-in-progress: false
 
 env:
@@ -66,6 +68,22 @@ jobs:
           } >> "$RUN_LOG"
           git config user.name "arena-autopilot"
           git config user.email "arena-autopilot@users.noreply.github.com"
+
+      - name: Cancel superseded runs of this workflow (the sandbox token has no actions:write)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          gh run list --workflow kinkakuji1950-gen.yml --limit 20 \
+            --json databaseId,status \
+            --jq '.[] | select(.status=="in_progress" or .status=="queued" or .status=="pending" or .status=="waiting") | .databaseId' \
+          | while read -r old_id; do
+              [ -z "$old_id" ] && continue
+              if [ "$old_id" = "$GITHUB_RUN_ID" ]; then continue; fi
+              echo "cancelling superseded run $old_id" >> "$RUN_LOG" || true
+              gh run cancel "$old_id" >/dev/null 2>&1 && echo "cancelled $old_id" || echo "could not cancel $old_id"
+            done
+          date -u +"supersede sweep done %FT%TZ" >> "$RUN_LOG" || true
 
       - name: Resolve the payload (QC wins over render, render wins over generation)
         env:
@@ -258,7 +276,7 @@ jobs:
           if any(row.get("status") in {"failed", "blocked"} for row in result.get("shots", {}).values()):
               raise SystemExit("Fatal shot states prevent auto-dispatch.")
           body = json.dumps({"ref": os.environ["GITHUB_REF_NAME"],
-                             "inputs": {"payload": '{"mode":"clips","workers":2}'}}).encode("utf-8")
+                             "inputs": {"payload": '{"mode":"clips","workers":8}'}}).encode("utf-8")
           request = urllib.request.Request(
               f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}"
               "/actions/workflows/kinkakuji1950-gen.yml/dispatches",
