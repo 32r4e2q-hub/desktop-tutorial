@@ -1,0 +1,40 @@
+{
+  "model": "agnes-image-2.5-flash",
+  "endpoint": "https://apihub.agnes-ai.com/v1/images/generations",
+  "planned_count": 30,
+  "selected_count": 1,
+  "run_id": "41468732601",
+  "source_revision": "819828f972c7ddf2a0e5639c7c456daf5b9b334c",
+  "phase": "generating_candidates",
+  "visual_review": "pending",
+  "automatic_video_submission": false,
+  "items": [
+    {
+      "id": "C01_side",
+      "role": "C01",
+      "view": "side",
+      "file": "reference/C01_side.png",
+      "inputs": [
+        "reference/C01.png",
+        "reference-guides/side.png"
+      ],
+      "prompt": "One single standalone character reference image, cinematic stylized 3D animation, Edwardian 1910. The supplied input is the identity and costume source: keep EXACTLY the same fictional person, age, build, face proportions, hairstyle, facial hair or clean-shaven state, spectacles or absence, hat, fabric colours, garment cut, buttons, shoes and accessories. STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C01锚点】瘦小中年男子,圆框金边眼镜,浓密八字胡,深灰三件套西装,神情温顺. BARE HEAD: absolutely NO HAT, NO CAP, NO BOWLER, NO added headwear. Hair must remain exposed exactly as source. Neutral light grey seamless studio background, soft neutral studio light, detailed wool, skin and hair. Natural anatomy and hands. Only change camera angle/framing, not character design. No extra people, no duplicated figures, no labels or writing, no text, no watermark, no panels, no contact sheet, no collage. Not a real person portrait. INPUT IMAGE 1 is the ONLY identity, clothing, build, gender and appearance source. INPUT IMAGE 2 is ONLY the exact camera-angle/pose guide. Recreate image 1 character in image 2 pose and camera view. Never copy image 2 grey clothes, generic face or male body shape. Preserve image 1 gender and body shape. The view angle from image 2 OVERRIDES the angle in image 1.",
+      "ratio": "3:4",
+      "status": "candidate_generated",
+      "input_sha256": {
+        "reference/C01.png": "3890dcf67df2d98cb22263f1ac41fb8df9d92a019c212419753f01b955625503",
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd"
+      },
+      "request_sha256": "ad636a56fc28dd910c37974318c25deae0bc806a4769713089e731f849c93a5b",
+      "response_created": 1793632230,
+      "image_url": "https://platform-outputs.agnes-ai.space/images/i2i/task_fVYsSUPglciQVHThQPkdcROWIFSio1OB/output.png",
+      "sha256": "f1e70e9b991e5f63bd209140a2395398cd26d1364e1ba147d57fa327151bbd19",
+      "bytes": 597837,
+      "dimensions": [
+        864,
+        1152
+      ],
+      "visual_review": "pending"
+    }
+  ]
+}
