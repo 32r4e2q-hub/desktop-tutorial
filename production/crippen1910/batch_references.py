@@ -53,8 +53,8 @@ def plan(story):
             inputs=[f'reference/{role}.png']
             transforms=['head_crop'] if view=='face' else ['full']
             if view in {'side','back'}:
-                inputs=[f'reference-guides/{view}.png',f'reference/{role}.png',f'reference/{role}.png']
-                transforms=['full','head_crop','full']
+                inputs=[f'reference-guides/{view}.png',f'reference/{role}.png']
+                transforms=['full','head_crop']
             direction={
                 'side':'严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。',
                 'back':'严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。',
@@ -62,17 +62,21 @@ def plan(story):
             }[view]
             prompt=direction+' '+instructions[view]+' '+story['characters'][role]
             if view in {'side','back'}:
-                prompt+=' Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character.'
+                prompt+=' Image 1 controls the EXACT camera angle and full-body pose only. Image 2 supplies this character head identity and gender. Costume comes from the character description. EXACTLY copy the camera angle of image 1, NEVER the frontal head angle of image 2. Replace the grey mannequin with this character.'
             else:
                 prompt+=' Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear.'
             prompt+=' Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.'
             if role in bare_heads:
                 prompt+=' Bare head, no hat or cap.'
+            if role=='C05':prompt+=' White uniform jacket AND WHITE TROUSERS, black shoes, brass telescope in hand, no spectacles.'
+            if role=='C08':prompt+=' Thin spectacles, white knee-length lab coat over dark vest, black trousers and shoes, absolutely NO HEADPHONES, ONE person only. For face portrait omit hands and magnifying glass.'
+            if role=='C06':prompt+=' Dark grey waistcoat, rolled white shirt sleeves, black trousers, dark shoes, antique headphones.'
+            if role=='C03B' and view=='face':prompt+=' Face ONLY from cap to collar, no hands, no waist, no moustache.'
             rows.append(dict(id=f'{role}_{view}',role=role,view=view,file=str(target.relative_to(HERE)),
                              inputs=inputs,input_transforms=transforms,prompt=prompt,ratio='3:4'))
     rows.append(dict(id='P02',role=None,view='prop_revision',file='reference/P02.png',
-        inputs=['reference/P02.png','reference/C01.png','reference/C03.png'],ratio='16:9',
-        prompt='One single cinematic stylized 3D newspaper prop on black background. Preserve the first input newspaper layout, yellow paper, folds and abstract line columns. Correct ONLY its two illustrated portraits: the man must match the SECOND input character including round gold glasses and thick parted downward-sloping moustache; the woman must match the THIRD input including pinned black hair and beige blouse. All newspaper headings and columns must be abstract straight ink strokes, never readable words or letters. No readable title, no watermark, no other people, no panels or collage. The portraits are small ink drawings printed within one newspaper, not extra character figures.'))
+        inputs=['reference/P02.png'],ratio='16:9',
+        prompt='一份独立的1910年泛黄折叠报纸道具，黑色背景。保留原版报纸造型，仅将印刷男肖像改为圆金边眼镜、浓密下垂八字胡，女肖像为黑色盘发年轻女子。两个肖像必须是报纸纸面上的小幅黑白油墨平面插画。绝对没有真实立体人物，没有站在报纸上的人，没有人从报纸中走出来。所有文字只能是抽象墨线，禁止可读标题。One newspaper only, flat printed ink portraits, NO three dimensional people, no extra objects.'))
     return rows
 
 
@@ -84,7 +88,7 @@ def make_payload(row):
         if index<len(transforms) and transforms[index]=='head_crop':
             with Image.open(io.BytesIO(data)) as original:
                 w,h=original.size
-                crop=original.crop((int(w*.32),0,int(w*.68),int(h*.48)))
+                crop=original.crop((int(w*.37),int(h*.02),int(w*.63),int(h*.31)))
                 output=io.BytesIO();crop.save(output,format='PNG');data=output.getvalue()
         images.append('data:image/png;base64,'+base64.b64encode(data).decode('ascii'))
     return dict(model=MODEL,prompt=row['prompt'],size='1K',ratio=row['ratio'],

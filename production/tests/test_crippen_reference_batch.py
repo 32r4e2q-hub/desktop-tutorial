@@ -32,8 +32,8 @@ class BatchReferenceTests(unittest.TestCase):
             if row['role']:
                 if row['view'] in {'side','back'}:
                     self.assertEqual(row['inputs'][0],f"reference-guides/{row['view']}.png")
-                    self.assertEqual(row['inputs'][1:],[f"reference/{row['role']}.png"]*2)
-                    self.assertEqual(row['input_transforms'],['full','head_crop','full'])
+                    self.assertEqual(row['inputs'][1:],[f"reference/{row['role']}.png"])
+                    self.assertEqual(row['input_transforms'],['full','head_crop'])
                 else:
                     self.assertEqual(row['inputs'],[f"reference/{row['role']}.png"])
                     self.assertEqual(row['input_transforms'],['head_crop'])
@@ -51,9 +51,9 @@ class BatchReferenceTests(unittest.TestCase):
         self.assertTrue(uri.startswith('data:image/png;base64,'))
         self.assertEqual(base64.b64decode(uri.split(',',1)[1]),(HERE/self.rows[0]['inputs'][0]).read_bytes())
 
-    def test_portrait_update_has_three_explicit_inputs(self):
+    def test_portrait_update_has_one_prop_input(self):
         row=next(r for r in self.rows if r['id']=='P02')
-        self.assertEqual(row['inputs'],['reference/P02.png','reference/C01.png','reference/C03.png'])
+        self.assertEqual(row['inputs'],['reference/P02.png'])
         self.assertEqual(row['ratio'],'16:9')
 
 if __name__=='__main__':unittest.main()
