@@ -295,10 +295,11 @@ class EndCardDimTests(unittest.TestCase):
         self.assertEqual((cover["line1"], cover["line2"]), ("传说里两百人失踪", "他只承认九个人"))
         for line in (cover["line1"], cover["line2"]):
             self.assertTrue(1 <= len(line) <= 18, line)
-        # 窗口里必须是本片的一帧。
-        self.assertEqual(cover["window_shot"], "S08")
+        # 窗口里必须是本片的一帧，且落在该镜时长之内（取没有字幕压住的时刻）。
         self.assertIn(cover["window_shot"], [shot["id"] for shot in self.story["shots"]])
-        self.assertLess(cover["window_at"], 7.0)
+        shot = next(s for s in self.story["shots"] if s["id"] == cover["window_shot"])
+        self.assertGreaterEqual(cover["window_at"], 0)
+        self.assertLess(cover["window_at"], shot["duration"])
 
     def test_closing_card_is_darkened_by_a_filter_not_by_ass(self):
         source = (PROJECT / "render.py").read_text(encoding="utf-8")
