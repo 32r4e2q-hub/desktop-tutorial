@@ -1,0 +1,59 @@
+{
+  "api_key_present": true,
+  "requests": [
+    {
+      "url": "https://agnes-ai.com/en/docs/agnes-video-25",
+      "status": 200,
+      "schema_excerpts": [
+        "ht'):p;d.classList.remove(r==='dark'?'light':'dark');d.classList.add(r);d.setAttribute(\"data-theme-preference\",p)})();                                     {\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://wiki.agnes-ai.com/#organization\",\"name\":\"Agnes-Ai Do",
+        "\"description\":\"Integrate Agnes Video 2.5 through an OpenAI Videos-compatible API for text-to-video, keyframe control, and multimodal reference generation.\",\"dateModified\":\"2026-10-31T01:25:43.333Z\",\"isPartOf\":{\"@id\":\"https://wiki.agnes-ai.com#website\"},\"breadcrumb\":{\"@id\":\"https://wiki.a",
+        "\"description\":\"Integrate Agnes Video 2.5 through an OpenAI Videos-compatible API for text-to-video, keyframe control, and multimodal reference generation.\",\"url\":\"https://wiki.agnes-ai.com/en/docs/agnes-video-25\",\"mainEntityOfPage\":{\"@id\":\"https://wiki.agnes-ai.com/en/docs/agnes-video-25",
+        "ht'):p;d.classList.remove(r==='dark'?'light':'dark');d.classList.add(r);d.setAttribute(\"data-theme-preference\",p)})();   Documentation Index  Fetch the complete documentation index at:   /llms.txt   Use this file to discover all available pages before exploring further.   :root{--banner-h",
+        "               Integrate Agnes Video 2.5 through an OpenAI Videos-compatible API for text-to-video, keyframe control, and multimodal reference generation.           Copy page  Copy page                      Agnes Video 2.5 is now available on the international site and uses an asynchrono",
+        "n and transition with a first frame, a last frame, or both.             Multimodal References   Use images, audio, and videos as content, style, rhythm, or motion references.             Video-to-video Reference   Continue or reinterpret motion, visual appearance, and timing from a ref",
+        "erence video.             Audio-visual Coordination   Use audio or a video soundtrack as a reference to improve rhythm and audio-visual consistency.             Multiple Aspect Ratios   Generate landscape, portrait, square, and ultrawide video outputs.      ",
+        "del   string  Yes  Model ID. Use  agnes-video-2.5 .     prompt   string  Yes  Video description. In reference mode, use  &lt;Picture N&gt; ,  &lt;Audio N&gt; , and  &lt;Video N&gt;  to refer to input media.     mode   string  Yes  Generation mode:  text ,  keyframe , or  reference .     s",
+        "         Parameter  Type  Mode  Description       first_frame   string   keyframe   First-frame image URL. Provide this,  last_frame , or both.     last_frame   string   keyframe   Last-frame image URL. Provide this,  first_frame , or both.     images   string[",
+        "]   reference   Reference image URLs.     audios   string[]   reference   Reference audio URLs.     videos   object[]   reference   Reference video objects. See the fields below.        ",
+        "pose  Required Media  Media Fields Not Allowed       text   Generate a video from text only  None   first_frame ,  last_frame ,  images ,  audios ,  videos      keyframe   Control the first frame, last frame, or both  At least one of  first_frame  or  last_frame    images ,  audios ,  video",
+        "s      reference   Generate from image, audio, or video references  At least one non-empty  images ,  audios , or  videos  array   first_frame ,  last_frame         ",
+        "          keyframe  attempts to preserve the input image as the actual first or last frame, making it suitable for start/end composition control.  reference  treats media as a content, style, motion",
+        ", or rhythm reference and may recompose or retime the result.   ",
+        "url   string  Yes  Publicly accessible video URL.     start_seconds   number  No  Start reading the reference video at this offset. The default is  0 .     require_audio   boolean  No  Require the reference video to contain an audio track. The default is  false .        ",
+        " When  require_audio  is  false , a reference video may omit audio. If it contains an audio track, the audio can also participate as a reference. When set to  true , the source must contain an audio track or the request fails",
+        " The following limits apply to Agnes Video 2.5 reference media: ",
+        "         Media  Limits      Images  Up to 8 images; each image must be smaller than 15 MB; the total request must be smaller than 50 MB; each dimension must be in the range  256 – 5760  pixels.    Videos  Up to 1 video; total dura",
+        " The total number of reference media files in one request must not exceed 12. ",
+        "      &quot;mode&quot;: &quot;keyframe&quot;,  ",
+        "      &quot;first_frame&quot;: &quot;https://example.com/first.png&quot;,  ",
+        "      &quot;prompt&quot;: &quot;Use the character and art style in &lt;Picture 1&gt; as reference. The character runs naturally through a flower field, maintaining a consistent appearance, filmed from a low tracking angle.&quot;,  ",
+        "      &quot;mode&quot;: &quot;reference&quot;,  ",
+        "      &quot;images&quot;: [&quot;https://example.com/character.png&quot;]  ",
+        "      &quot;mode&quot;: &quot;reference&quot;,  ",
+        "      &quot;images&quot;: [&quot;https://example.com/subject.png&quot;],  ",
+        "      &quot;mode&quot;: &quot;reference&quot;,  ",
+        "ependently, starting from  1  in their respective arrays. For example, refer to the second item in  images  as  &lt;Picture 2&gt; .   ",
+        "          This form works for  text ,  keyframe , and  reference  modes and is the recommended polling method for Agnes Video 2.5.                        curl   -sS   &quot;https://apihub.agnes-ai.com/agnesapi?video_id=video_YOUR_VIDEO_ID&quot;",
+        "          This form is valid only for tasks created with  mode: &quot;text&quot; . Queries for  keyframe  and  reference  tasks must include  model_name=agnes-video-2.5 .    ",
+        "          &quot;mode&quot;  :   &quot;reference&quot;  ,  ",
+        " Passing reference videos through  video_url ,  video_path , or  video_reference ; use  videos[].url  instead. ",
+        " Passing media through  input_reference  or  reference_url ; use  first_frame ,  last_frame ,  images ,  audios , or  videos  according to the selected mode. ",
+        " Using media fields that conflict with  mode , or using  reference  without any reference media. ",
+        "      &quot;message&quot;  :   &quot;Invalid reference media&quot;  "
+      ]
+    },
+    {
+      "url": "https://apihub.agnes-ai.com/v1/models",
+      "status": 200,
+      "model_ids": [
+        "agnes-video-2.5-flash",
+        "agnes-3.0-flash",
+        "agnes-image-2.1-flash",
+        "agnes-image-2.0-flash",
+        "agnes-2.5-flash",
+        "agnes-image-2.5-flash"
+      ]
+    }
+  ],
+  "generation_submitted": false
+}
