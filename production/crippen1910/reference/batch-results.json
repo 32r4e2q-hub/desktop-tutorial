@@ -2,10 +2,10 @@
   "model": "agnes-image-2.5-flash",
   "endpoint": "https://apihub.agnes-ai.com/v1/images/generations",
   "planned_count": 30,
-  "selected_count": 1,
-  "run_id": "41469212796",
-  "source_revision": "d76dfa0176b6d23b205603c9d0862bc19f1d34ff",
-  "phase": "candidates_ready_for_review",
+  "selected_count": 30,
+  "run_id": "41469730755",
+  "source_revision": "541be5d17df220fda1f815d13300a276719c5ef2",
+  "phase": "generating_candidates",
   "visual_review": "pending",
   "automatic_video_submission": false,
   "items": [
@@ -24,23 +24,641 @@
         "head_crop",
         "full"
       ],
-      "prompt": "One single standalone character reference image, cinematic stylized 3D animation, Edwardian 1910. The supplied input is the identity and costume source: keep EXACTLY the same fictional person, age, build, face proportions, hairstyle, facial hair or clean-shaven state, spectacles or absence, hat, fabric colours, garment cut, buttons, shoes and accessories. STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C01锚点】瘦小中年男子,圆框金边眼镜,浓密八字胡,深灰三件套西装,神情温顺. BARE HEAD: absolutely NO HAT, NO CAP, NO BOWLER, NO added headwear. Hair must remain exposed exactly as source. Neutral light grey seamless studio background, soft neutral studio light, detailed wool, skin and hair. Natural anatomy and hands. Only change camera angle/framing, not character design. No extra people, no duplicated figures, no labels or writing, no text, no watermark, no panels, no contact sheet, no collage. Not a real person portrait. IMAGE 1 is the PRIMARY STRUCTURAL COMPOSITION: preserve its EXACT camera angle and full-body pose. IMAGE 2 supplies ONLY this character face/head identity. IMAGE 3 supplies ONLY this character clothing, gender, build, accessories and materials. Dress and identify the image 1 figure using images 2 and 3. The pose from IMAGE 1 is mandatory; never copy the three-quarter angle from image 3. Do not copy generic grey clothes, face or male shape from image 1; keep image 3 gender and build.",
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C01锚点】瘦小中年男子,圆框金边眼镜,浓密八字胡,深灰三件套西装,神情温顺 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
       "ratio": "3:4",
       "status": "candidate_generated",
       "input_sha256": {
         "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
         "reference/C01.png": "3890dcf67df2d98cb22263f1ac41fb8df9d92a019c212419753f01b955625503"
       },
-      "request_sha256": "24e1ad1f9f035ae6dd2d8dbf141d3ff4433e2e418d62d89e3cc9d19268ce1a55",
-      "response_created": 1793632416,
-      "image_url": "https://platform-outputs.agnes-ai.space/images/i2i/task_kxczVtebInp9WQBGUClgwV8TThCehj31/output.png",
-      "sha256": "f24a8ad124a93874c6e37a7cbe964d64bc473aa64b38cd5146e89906354c1730",
-      "bytes": 728536,
+      "request_sha256": "9ab864187b64ac644750a4e87b69d7bbb9d2ce07970d2e7af70744966d018bf1",
+      "response_created": 1793632637,
+      "image_url": "https://platform-outputs.agnes-ai.space/images/i2i/task_8gZSn33TY8OkmxUJkGKJlfvH4mPQRsYu/output.png",
+      "sha256": "40e73b99a0d6051bc79f6038f72e3f1548252d4e6c7761085866cb251e0c2d5f",
+      "bytes": 711288,
       "dimensions": [
         864,
         1152
       ],
       "visual_review": "pending"
+    },
+    {
+      "id": "C01_back",
+      "role": "C01",
+      "view": "back",
+      "file": "reference/C01_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C01.png",
+        "reference/C01.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C01锚点】瘦小中年男子,圆框金边眼镜,浓密八字胡,深灰三件套西装,神情温顺 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C01.png": "3890dcf67df2d98cb22263f1ac41fb8df9d92a019c212419753f01b955625503"
+      }
+    },
+    {
+      "id": "C01B_side",
+      "role": "C01B",
+      "view": "side",
+      "file": "reference/C01B_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C01B.png",
+        "reference/C01B.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C01B锚点】与C01同一男子,无胡子无眼镜,鼻梁有压痕,灰色软呢帽,浅褐色旅行西装 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C01B.png": "26675b23d68f39e342255dee3b9ced8bd0c733e310867f1cd756b708b4c7ddd5"
+      }
+    },
+    {
+      "id": "C01B_back",
+      "role": "C01B",
+      "view": "back",
+      "file": "reference/C01B_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C01B.png",
+        "reference/C01B.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C01B锚点】与C01同一男子,无胡子无眼镜,鼻梁有压痕,灰色软呢帽,浅褐色旅行西装 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C01B.png": "26675b23d68f39e342255dee3b9ced8bd0c733e310867f1cd756b708b4c7ddd5"
+      }
+    },
+    {
+      "id": "C01B_face",
+      "role": "C01B",
+      "view": "face",
+      "file": "reference/C01B_face.png",
+      "inputs": [
+        "reference/C01B.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C01B锚点】与C01同一男子,无胡子无眼镜,鼻梁有压痕,灰色软呢帽,浅褐色旅行西装 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C01B.png": "26675b23d68f39e342255dee3b9ced8bd0c733e310867f1cd756b708b4c7ddd5"
+      }
+    },
+    {
+      "id": "C02_side",
+      "role": "C02",
+      "view": "side",
+      "file": "reference/C02_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C02.png",
+        "reference/C02.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C02锚点】金色卷发盘高,浓妆红唇,紫红色舞台长裙,羽毛披肩,夸张大宽边帽 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C02.png": "ec97748e81cff81833ee3e63509e84ab069f7f567e89f539b64d1102c2cd9d19"
+      }
+    },
+    {
+      "id": "C02_back",
+      "role": "C02",
+      "view": "back",
+      "file": "reference/C02_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C02.png",
+        "reference/C02.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C02锚点】金色卷发盘高,浓妆红唇,紫红色舞台长裙,羽毛披肩,夸张大宽边帽 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C02.png": "ec97748e81cff81833ee3e63509e84ab069f7f567e89f539b64d1102c2cd9d19"
+      }
+    },
+    {
+      "id": "C02_face",
+      "role": "C02",
+      "view": "face",
+      "file": "reference/C02_face.png",
+      "inputs": [
+        "reference/C02.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C02锚点】金色卷发盘高,浓妆红唇,紫红色舞台长裙,羽毛披肩,夸张大宽边帽 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C02.png": "ec97748e81cff81833ee3e63509e84ab069f7f567e89f539b64d1102c2cd9d19"
+      }
+    },
+    {
+      "id": "C03_side",
+      "role": "C03",
+      "view": "side",
+      "file": "reference/C03_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C03.png",
+        "reference/C03.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C03锚点】黑发盘起的清瘦年轻女子,米色衬衫,深色长裙,神情拘谨 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C03.png": "33d1bf8dfe063eb0786a98b9fa4566eff966e1d7fe0527c43a85f5e28907ceaf"
+      }
+    },
+    {
+      "id": "C03_back",
+      "role": "C03",
+      "view": "back",
+      "file": "reference/C03_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C03.png",
+        "reference/C03.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C03锚点】黑发盘起的清瘦年轻女子,米色衬衫,深色长裙,神情拘谨 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C03.png": "33d1bf8dfe063eb0786a98b9fa4566eff966e1d7fe0527c43a85f5e28907ceaf"
+      }
+    },
+    {
+      "id": "C03_face",
+      "role": "C03",
+      "view": "face",
+      "file": "reference/C03_face.png",
+      "inputs": [
+        "reference/C03.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C03锚点】黑发盘起的清瘦年轻女子,米色衬衫,深色长裙,神情拘谨 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C03.png": "33d1bf8dfe063eb0786a98b9fa4566eff966e1d7fe0527c43a85f5e28907ceaf"
+      }
+    },
+    {
+      "id": "C03B_side",
+      "role": "C03B",
+      "view": "side",
+      "file": "reference/C03B_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C03B.png",
+        "reference/C03B.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C03B锚点】与C03同一人物,短发塞进鸭舌帽,偏大的深色男式西装,裤脚别着别针,神情紧张 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C03B.png": "3e20865520a7d05311522ef176151c2c9bbfb6ec2463f4a47303dee2725413ea"
+      }
+    },
+    {
+      "id": "C03B_back",
+      "role": "C03B",
+      "view": "back",
+      "file": "reference/C03B_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C03B.png",
+        "reference/C03B.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C03B锚点】与C03同一人物,短发塞进鸭舌帽,偏大的深色男式西装,裤脚别着别针,神情紧张 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C03B.png": "3e20865520a7d05311522ef176151c2c9bbfb6ec2463f4a47303dee2725413ea"
+      }
+    },
+    {
+      "id": "C03B_face",
+      "role": "C03B",
+      "view": "face",
+      "file": "reference/C03B_face.png",
+      "inputs": [
+        "reference/C03B.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C03B锚点】与C03同一人物,短发塞进鸭舌帽,偏大的深色男式西装,裤脚别着别针,神情紧张 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C03B.png": "3e20865520a7d05311522ef176151c2c9bbfb6ec2463f4a47303dee2725413ea"
+      }
+    },
+    {
+      "id": "C04_side",
+      "role": "C04",
+      "view": "side",
+      "file": "reference/C04_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C04.png",
+        "reference/C04.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C04锚点】高个中年探长,浓密八字胡,深色长大衣,圆顶礼帽,目光锐利 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C04.png": "497ef95cc168ab5878aabcefc00b947d4036592dcac9a117979f56418505efa6"
+      }
+    },
+    {
+      "id": "C04_back",
+      "role": "C04",
+      "view": "back",
+      "file": "reference/C04_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C04.png",
+        "reference/C04.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C04锚点】高个中年探长,浓密八字胡,深色长大衣,圆顶礼帽,目光锐利 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C04.png": "497ef95cc168ab5878aabcefc00b947d4036592dcac9a117979f56418505efa6"
+      }
+    },
+    {
+      "id": "C04_face",
+      "role": "C04",
+      "view": "face",
+      "file": "reference/C04_face.png",
+      "inputs": [
+        "reference/C04.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C04锚点】高个中年探长,浓密八字胡,深色长大衣,圆顶礼帽,目光锐利 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C04.png": "497ef95cc168ab5878aabcefc00b947d4036592dcac9a117979f56418505efa6"
+      }
+    },
+    {
+      "id": "C04B_side",
+      "role": "C04B",
+      "view": "side",
+      "file": "reference/C04B_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C04B.png",
+        "reference/C04B.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C04B锚点】与C04同一探长,深蓝色引航员制服,带徽章的制帽,帽檐压低 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C04B.png": "10f96bc6b3a76fcadcfadd7622adee4354e2ba8019e771d7dd7ecd7803c9f285"
+      }
+    },
+    {
+      "id": "C04B_back",
+      "role": "C04B",
+      "view": "back",
+      "file": "reference/C04B_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C04B.png",
+        "reference/C04B.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C04B锚点】与C04同一探长,深蓝色引航员制服,带徽章的制帽,帽檐压低 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C04B.png": "10f96bc6b3a76fcadcfadd7622adee4354e2ba8019e771d7dd7ecd7803c9f285"
+      }
+    },
+    {
+      "id": "C04B_face",
+      "role": "C04B",
+      "view": "face",
+      "file": "reference/C04B_face.png",
+      "inputs": [
+        "reference/C04B.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C04B锚点】与C04同一探长,深蓝色引航员制服,带徽章的制帽,帽檐压低 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C04B.png": "10f96bc6b3a76fcadcfadd7622adee4354e2ba8019e771d7dd7ecd7803c9f285"
+      }
+    },
+    {
+      "id": "C05_side",
+      "role": "C05",
+      "view": "side",
+      "file": "reference/C05_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C05.png",
+        "reference/C05.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C05锚点】白色制服船长,金色肩章,花白络腮胡,船长帽,目光敏锐 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C05.png": "7bb51c516047d649cfd262c4f0186e24ca49c4b43a2f80420b0485572a69d111"
+      }
+    },
+    {
+      "id": "C05_back",
+      "role": "C05",
+      "view": "back",
+      "file": "reference/C05_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C05.png",
+        "reference/C05.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C05锚点】白色制服船长,金色肩章,花白络腮胡,船长帽,目光敏锐 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C05.png": "7bb51c516047d649cfd262c4f0186e24ca49c4b43a2f80420b0485572a69d111"
+      }
+    },
+    {
+      "id": "C05_face",
+      "role": "C05",
+      "view": "face",
+      "file": "reference/C05_face.png",
+      "inputs": [
+        "reference/C05.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C05锚点】白色制服船长,金色肩章,花白络腮胡,船长帽,目光敏锐 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C05.png": "7bb51c516047d649cfd262c4f0186e24ca49c4b43a2f80420b0485572a69d111"
+      }
+    },
+    {
+      "id": "C06_side",
+      "role": "C06",
+      "view": "side",
+      "file": "reference/C06_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C06.png",
+        "reference/C06.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C06锚点】戴老式耳机的年轻电报员,衬衫袖口卷起,神情专注 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C06.png": "e245156edb43e3d3bb77c33cccf6561050eeec5e2d62aed38a521cdd0a6cc811"
+      }
+    },
+    {
+      "id": "C06_back",
+      "role": "C06",
+      "view": "back",
+      "file": "reference/C06_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C06.png",
+        "reference/C06.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C06锚点】戴老式耳机的年轻电报员,衬衫袖口卷起,神情专注 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C06.png": "e245156edb43e3d3bb77c33cccf6561050eeec5e2d62aed38a521cdd0a6cc811"
+      }
+    },
+    {
+      "id": "C06_face",
+      "role": "C06",
+      "view": "face",
+      "file": "reference/C06_face.png",
+      "inputs": [
+        "reference/C06.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C06锚点】戴老式耳机的年轻电报员,衬衫袖口卷起,神情专注 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C06.png": "e245156edb43e3d3bb77c33cccf6561050eeec5e2d62aed38a521cdd0a6cc811"
+      }
+    },
+    {
+      "id": "C08_side",
+      "role": "C08",
+      "view": "side",
+      "file": "reference/C08_side.png",
+      "inputs": [
+        "reference-guides/side.png",
+        "reference/C08.png",
+        "reference/C08.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格左侧90度全身正交视图：鼻尖朝画面左边，只能见一只眼睛和一片眼镜。肩膀、腿和鞋前后重合，胸口不可朝向镜头。 STRICT ORTHOGRAPHIC LEFT PROFILE, exactly 90 degrees away from frontal view. Nose points to LEFT image edge. ONLY ONE EYE can be visible. One shoulder occludes the other. Head, torso, knees and both shoes all point LEFT. NOT frontal, NOT three-quarter. This is a technical character turnaround side elevation. Entire body with shoes and hair/required headwear inside frame. 【C08锚点】戴细框眼镜的法医,白大褂,手持放大镜 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/side.png": "511c51234343eeabee4a9e0cfa0eeb9a8a8f9927f8605c5822be3c793d6988cd",
+        "reference/C08.png": "514af90805e709e3caabfb2a9d3a89e72c9a98a627a25b3bbf070b1b86572185"
+      }
+    },
+    {
+      "id": "C08_back",
+      "role": "C08",
+      "view": "back",
+      "file": "reference/C08_back.png",
+      "inputs": [
+        "reference-guides/back.png",
+        "reference/C08.png",
+        "reference/C08.png"
+      ],
+      "input_transforms": [
+        "full",
+        "head_crop",
+        "full"
+      ],
+      "prompt": "严格180度背面全身正交视图：后脑勺和后背朝镜头，完全看不见脸和眼睛。 EXACT straight BACK full-body view, facing directly away from the viewer. Back of head, jacket, trousers/skirt and shoes visible; absolutely NO face or eyes visible. Entire figure including hat if worn and shoes inside frame. 【C08锚点】戴细框眼镜的法医,白大褂,手持放大镜 Image 1 controls the EXACT camera angle and full-body pose only. Image 2 is this character head identity; image 3 is this character costume, gender, body shape and colours. Match the pose of image 1, NEVER the pose of images 2 or 3. Replace the grey mannequin with this character. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference-guides/back.png": "5f802e3e1f0bbafa42cdce21b43cc417abbc0ffcbb56ec545a6fc0893342b407",
+        "reference/C08.png": "514af90805e709e3caabfb2a9d3a89e72c9a98a627a25b3bbf070b1b86572185"
+      }
+    },
+    {
+      "id": "C08_face",
+      "role": "C08",
+      "view": "face",
+      "file": "reference/C08_face.png",
+      "inputs": [
+        "reference/C08.png"
+      ],
+      "input_transforms": [
+        "head_crop"
+      ],
+      "prompt": "脸部大特写：只画头顶到锁骨，脸占画面大部分，不画腰部、手部和腿部。 EXTREME CLOSE-UP FACE PORTRAIT, from clavicle to above head ONLY. Face fills most of the frame. NO waist, NO hands, NO legs, NO full body. Near-frontal face, eyes large and sharp; preserve face identity, hair, facial hair, spectacles and required headwear. Do not turn to side view. 【C08锚点】戴细框眼镜的法医,白大褂,手持放大镜 Enlarge this supplied head crop into a face close-up, preserving its exact identity and headwear. Fictional stylized cinematic 3D character, 1910, pale grey seamless studio, one figure only, no words, no panels. Preserve costume, hair, accessories and face identity. Bare head, no hat or cap.",
+      "ratio": "3:4",
+      "status": "pending",
+      "input_sha256": {
+        "reference/C08.png": "514af90805e709e3caabfb2a9d3a89e72c9a98a627a25b3bbf070b1b86572185"
+      }
+    },
+    {
+      "id": "P02",
+      "role": null,
+      "view": "prop_revision",
+      "file": "reference/P02.png",
+      "inputs": [
+        "reference/P02.png",
+        "reference/C01.png",
+        "reference/C03.png"
+      ],
+      "ratio": "16:9",
+      "prompt": "One single cinematic stylized 3D newspaper prop on black background. Preserve the first input newspaper layout, yellow paper, folds and abstract line columns. Correct ONLY its two illustrated portraits: the man must match the SECOND input character including round gold glasses and thick parted downward-sloping moustache; the woman must match the THIRD input including pinned black hair and beige blouse. All newspaper headings and columns must be abstract straight ink strokes, never readable words or letters. No readable title, no watermark, no other people, no panels or collage. The portraits are small ink drawings printed within one newspaper, not extra character figures.",
+      "status": "pending",
+      "input_sha256": {
+        "reference/P02.png": "939683bca6123cc1f52931a110b8d61e8e6717bd97ba7f26f0045654a9be7cf5",
+        "reference/C01.png": "3890dcf67df2d98cb22263f1ac41fb8df9d92a019c212419753f01b955625503",
+        "reference/C03.png": "33d1bf8dfe063eb0786a98b9fa4566eff966e1d7fe0527c43a85f5e28907ceaf"
+      }
     }
   ]
 }
