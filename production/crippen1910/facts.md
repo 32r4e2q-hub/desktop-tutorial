@@ -33,4 +33,4 @@
 
 ## 船型审核补充
 
-1910年追捕使用的第一艘Laurentic应为单烟囱、双桅；现有S08首版误画成双烟囱，已拒绝放行，待重生成。[1](https://www.norwayheritage.com/p_ship.asp?sh=laur1)
+1910年追捕使用的第一艘Laurentic应为单烟囱、双桅；S08首版误画成双烟囱，已拒绝放行；目前已重生成单烟囱版并目视核查。[1](https://www.norwayheritage.com/p_ship.asp?sh=laur1)
