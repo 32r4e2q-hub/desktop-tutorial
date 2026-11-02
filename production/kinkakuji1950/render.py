@@ -308,9 +308,9 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     lines += [
         f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}金阁寺纵火案",
         f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}京都 · 1950 · 美与毁灭",
+        # 披露只保留片尾卡这一次（176.75–179.45s，落在 S30 窗口内）：全片仅镜头 30 允许文字，
+        # 逐镜常驻角标会违反这条规则。
         f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}AI动画情景复原 · 非真实影像",
-        # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
-        f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
