@@ -1,23 +1,2 @@
 CANDIDATE C01_side [864, 1152]
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/batch_references.py", line 254, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/batch_references.py", line 237, in main
-    if args.publish:publish()
-                    ~~~~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/batch_references.py", line 108, in publish
-    git('pull','--rebase','origin',BRANCH)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/batch_references.py", line 91, in git
-    return subprocess.check_output(['git',*args],cwd=ROOT,text=True,stderr=subprocess.STDOUT,timeout=120)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-               **kwargs).stdout
-               ^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/f38dd103-desktop-tutorial']' returned non-zero exit status 128.
+Built 30 shots / 180 seconds; media and references remain gated.
