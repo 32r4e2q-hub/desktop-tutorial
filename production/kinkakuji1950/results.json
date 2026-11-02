@@ -911,7 +911,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -965,5 +965,43 @@
     "mode": "serial",
     "interval_seconds": 61,
     "note": "一次只提交一条，间隔 61 秒；提交齐了再并行轮询。"
+  },
+  "delivery": {
+    "film": "work/kinkakuji1950/clips/金阁寺纵火案_美为何被烧成灰_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/kinkakuji1950/clips/金阁寺纵火案_封面.jpg",
+    "delivered": {
+      "金阁寺纵火案_美为何被烧成灰_三分钟_带声音.mp4": {
+        "bytes": 59818989,
+        "sha256": "49c668490e107b6aed9c14e1008fbb10f992aa47047ffc8adc7c387e050cc23d"
+      },
+      "金阁寺纵火案_封面.jpg": {
+        "bytes": 602972,
+        "sha256": "f6d34778bf8c8d14e67db82c7b675984e5ea832a873cd3cba1ba9f520c70bc6d"
+      },
+      "金阁寺纵火案_字幕.srt": {
+        "bytes": 2968,
+        "sha256": "3ac85b15e214c127b028843b9840162aaba1c8b39378c14a83675c08c09226e8"
+      },
+      "金阁寺纵火案_技术报告.json": {
+        "bytes": 37555,
+        "sha256": "58d46ce8ee7966d4ccc26ad9e2aa1f04b8603412c1aa7086cad839e75917535c"
+      },
+      "Kinkakuji_Case_Final.mp4": {
+        "bytes": 59818989,
+        "sha256": "49c668490e107b6aed9c14e1008fbb10f992aa47047ffc8adc7c387e050cc23d"
+      },
+      "Kinkakuji_Cover.png": {
+        "bytes": 1770411,
+        "sha256": "255aeeae8569d68b1190c59e3a11c979eaba984d3f1a65281d66810b594a0bc6"
+      },
+      "Kinkakuji_Subtitles.srt": {
+        "bytes": 2968,
+        "sha256": "3ac85b15e214c127b028843b9840162aaba1c8b39378c14a83675c08c09226e8"
+      }
+    }
   }
 }
