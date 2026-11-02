@@ -1,0 +1,958 @@
+{
+  "film": "交付/金阁寺纵火案_美为何被烧成灰_三分钟_带声音.mp4",
+  "failures": [],
+  "warnings": [
+    "清晰度异常帧 20 处（可能是运动模糊/画面崩坏）：[23.12, 23.25, 23.38, 23.5, 23.62, 23.75, 23.88, 24.0]",
+    "块状/压缩痕异常帧 8 处：[55.88, 84.12, 86.38, 87.25, 88.0, 151.12, 151.25, 151.38]",
+    "S09 运动偏慢（帧间差 0.79），但 100% 的帧有局部运动，按慢镜头保留",
+    "S12 运动偏慢（帧间差 1.11），但 100% 的帧有局部运动，按慢镜头保留",
+    "S16 运动偏慢（帧间差 0.86），但 100% 的帧有局部运动，按慢镜头保留",
+    "S20 运动偏慢（帧间差 0.73），但 100% 的帧有局部运动，按慢镜头保留",
+    "S24 运动偏慢（帧间差 0.73），但 100% 的帧有局部运动，按慢镜头保留",
+    "9 处接缝亮度跳变 >45，其中 3 处正好是章节分界（日→夜/暖→冷，属设计）"
+  ],
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24.0,
+    "vcodec": "h264",
+    "duration_seconds": 180.0,
+    "frames": 4320,
+    "acodec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "scan": {
+    "fps": 8.0,
+    "samples": 1440
+  },
+  "black_frames": {
+    "count": 8,
+    "unexpected": []
+  },
+  "freeze_runs": [
+    {
+      "start": 89.25,
+      "end": 90.38
+    },
+    {
+      "start": 112.25,
+      "end": 113.62
+    }
+  ],
+  "distortion_suspects": {
+    "sharp": [
+      23.12,
+      23.25,
+      23.38,
+      23.5,
+      23.62,
+      23.75,
+      23.88,
+      24.0,
+      24.12,
+      24.25,
+      24.38,
+      24.5,
+      24.62,
+      24.75,
+      24.88,
+      25.0,
+      176.75,
+      176.88,
+      177.0,
+      177.12
+    ],
+    "block": [
+      55.88,
+      84.12,
+      86.38,
+      87.25,
+      88.0,
+      151.12,
+      151.25,
+      151.38
+    ],
+    "diff": [
+      5.0,
+      10.88,
+      11.0,
+      11.12,
+      11.25,
+      11.38,
+      17.0,
+      23.0,
+      30.0,
+      36.88,
+      37.0,
+      37.12,
+      37.25,
+      37.38,
+      43.0,
+      50.0,
+      56.0,
+      60.88,
+      61.0,
+      61.12
+    ]
+  },
+  "cuts_detected": [
+    5.0,
+    11.25,
+    17.0,
+    23.0,
+    30.0,
+    37.12,
+    43.0,
+    50.0,
+    56.0,
+    61.12,
+    66.0,
+    70.0,
+    77.0,
+    82.88,
+    89.0,
+    94.0,
+    101.0,
+    106.88,
+    112.0,
+    119.0,
+    125.0,
+    131.88,
+    137.0,
+    143.0,
+    149.0,
+    155.0,
+    160.0,
+    166.88,
+    174.0
+  ],
+  "boundaries": {
+    "planned": [
+      5,
+      11,
+      17,
+      23,
+      30,
+      37,
+      43,
+      50,
+      56,
+      61,
+      66,
+      70,
+      77,
+      83,
+      89,
+      94,
+      101,
+      107,
+      112,
+      119,
+      125,
+      132,
+      137,
+      143,
+      149,
+      155,
+      160,
+      167,
+      174
+    ],
+    "unmatched": [],
+    "extra_cuts": []
+  },
+  "shots": [
+    {
+      "id": "S01",
+      "window": [
+        0,
+        5
+      ],
+      "motion_mean": 7.71,
+      "motion_max": 10.42,
+      "luma_mean": 99.7,
+      "sharp_mean": 956.8,
+      "local_motion": 22.77,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S02",
+      "window": [
+        5,
+        11
+      ],
+      "motion_mean": 1.99,
+      "motion_max": 23.85,
+      "luma_mean": 54.0,
+      "sharp_mean": 634.1,
+      "local_motion": 7.8,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S03",
+      "window": [
+        11,
+        17
+      ],
+      "motion_mean": 7.08,
+      "motion_max": 29.47,
+      "luma_mean": 83.5,
+      "sharp_mean": 832.0,
+      "local_motion": 23.98,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S04",
+      "window": [
+        17,
+        23
+      ],
+      "motion_mean": 3.41,
+      "motion_max": 4.13,
+      "luma_mean": 124.4,
+      "sharp_mean": 1394.2,
+      "local_motion": 10.85,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S05",
+      "window": [
+        23,
+        30
+      ],
+      "motion_mean": 3.47,
+      "motion_max": 4.92,
+      "luma_mean": 125.1,
+      "sharp_mean": 1613.3,
+      "local_motion": 17.26,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S06",
+      "window": [
+        30,
+        37
+      ],
+      "motion_mean": 1.48,
+      "motion_max": 22.81,
+      "luma_mean": 53.5,
+      "sharp_mean": 626.7,
+      "local_motion": 5.2,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S07",
+      "window": [
+        37,
+        43
+      ],
+      "motion_mean": 3.93,
+      "motion_max": 61.57,
+      "luma_mean": 137.0,
+      "sharp_mean": 994.9,
+      "local_motion": 13.9,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S08",
+      "window": [
+        43,
+        50
+      ],
+      "motion_mean": 1.22,
+      "motion_max": 2.4,
+      "luma_mean": 66.6,
+      "sharp_mean": 611.1,
+      "local_motion": 9.74,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S09",
+      "window": [
+        50,
+        56
+      ],
+      "motion_mean": 0.79,
+      "motion_max": 1.62,
+      "luma_mean": 83.3,
+      "sharp_mean": 595.3,
+      "local_motion": 2.87,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S10",
+      "window": [
+        56,
+        61
+      ],
+      "motion_mean": 3.66,
+      "motion_max": 34.62,
+      "luma_mean": 81.8,
+      "sharp_mean": 732.4,
+      "local_motion": 19.97,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S11",
+      "window": [
+        61,
+        66
+      ],
+      "motion_mean": 5.81,
+      "motion_max": 47.81,
+      "luma_mean": 105.9,
+      "sharp_mean": 967.0,
+      "local_motion": 15.29,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S12",
+      "window": [
+        66,
+        70
+      ],
+      "motion_mean": 1.11,
+      "motion_max": 2.26,
+      "luma_mean": 124.4,
+      "sharp_mean": 693.7,
+      "local_motion": 12.28,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S13",
+      "window": [
+        70,
+        77
+      ],
+      "motion_mean": 3.09,
+      "motion_max": 4.07,
+      "luma_mean": 124.5,
+      "sharp_mean": 1311.3,
+      "local_motion": 18.82,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S14",
+      "window": [
+        77,
+        83
+      ],
+      "motion_mean": 1.92,
+      "motion_max": 39.85,
+      "luma_mean": 93.3,
+      "sharp_mean": 840.7,
+      "local_motion": 8.6,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S15",
+      "window": [
+        83,
+        89
+      ],
+      "motion_mean": 3.64,
+      "motion_max": 18.07,
+      "luma_mean": 44.5,
+      "sharp_mean": 743.0,
+      "local_motion": 12.37,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S16",
+      "window": [
+        89,
+        94
+      ],
+      "motion_mean": 0.86,
+      "motion_max": 1.9,
+      "luma_mean": 34.0,
+      "sharp_mean": 578.2,
+      "local_motion": 9.16,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S17",
+      "window": [
+        94,
+        101
+      ],
+      "motion_mean": 6.54,
+      "motion_max": 7.84,
+      "luma_mean": 53.6,
+      "sharp_mean": 722.3,
+      "local_motion": 21.62,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S18",
+      "window": [
+        101,
+        107
+      ],
+      "motion_mean": 2.26,
+      "motion_max": 27.92,
+      "luma_mean": 66.5,
+      "sharp_mean": 815.0,
+      "local_motion": 9.18,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S19",
+      "window": [
+        107,
+        112
+      ],
+      "motion_mean": 13.01,
+      "motion_max": 33.6,
+      "luma_mean": 83.7,
+      "sharp_mean": 785.1,
+      "local_motion": 47.85,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S20",
+      "window": [
+        112,
+        119
+      ],
+      "motion_mean": 0.73,
+      "motion_max": 1.73,
+      "luma_mean": 50.9,
+      "sharp_mean": 784.9,
+      "local_motion": 5.25,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S21",
+      "window": [
+        119,
+        125
+      ],
+      "motion_mean": 1.49,
+      "motion_max": 2.31,
+      "luma_mean": 101.5,
+      "sharp_mean": 947.9,
+      "local_motion": 6.97,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S22",
+      "window": [
+        125,
+        132
+      ],
+      "motion_mean": 10.28,
+      "motion_max": 24.75,
+      "luma_mean": 62.9,
+      "sharp_mean": 681.1,
+      "local_motion": 22.84,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S23",
+      "window": [
+        132,
+        137
+      ],
+      "motion_mean": 2.22,
+      "motion_max": 25.84,
+      "luma_mean": 58.3,
+      "sharp_mean": 630.8,
+      "local_motion": 9.37,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S24",
+      "window": [
+        137,
+        143
+      ],
+      "motion_mean": 0.73,
+      "motion_max": 2.3,
+      "luma_mean": 30.6,
+      "sharp_mean": 544.0,
+      "local_motion": 6.95,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S25",
+      "window": [
+        143,
+        149
+      ],
+      "motion_mean": 3.38,
+      "motion_max": 64.22,
+      "luma_mean": 146.7,
+      "sharp_mean": 751.5,
+      "local_motion": 7.68,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S26",
+      "window": [
+        149,
+        155
+      ],
+      "motion_mean": 11.17,
+      "motion_max": 40.22,
+      "luma_mean": 82.9,
+      "sharp_mean": 504.2,
+      "local_motion": 47.0,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S27",
+      "window": [
+        155,
+        160
+      ],
+      "motion_mean": 1.95,
+      "motion_max": 2.81,
+      "luma_mean": 77.8,
+      "sharp_mean": 652.9,
+      "local_motion": 6.18,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S28",
+      "window": [
+        160,
+        167
+      ],
+      "motion_mean": 2.31,
+      "motion_max": 52.67,
+      "luma_mean": 119.9,
+      "sharp_mean": 629.7,
+      "local_motion": 8.53,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S29",
+      "window": [
+        167,
+        174
+      ],
+      "motion_mean": 11.65,
+      "motion_max": 38.49,
+      "luma_mean": 87.1,
+      "sharp_mean": 1181.1,
+      "local_motion": 35.88,
+      "moving_frame_share": 1.0
+    },
+    {
+      "id": "S30",
+      "window": [
+        174,
+        180
+      ],
+      "motion_mean": 4.28,
+      "motion_max": 8.97,
+      "luma_mean": 137.6,
+      "sharp_mean": 1349.6,
+      "local_motion": 16.54,
+      "moving_frame_share": 1.0
+    }
+  ],
+  "static_shots": [
+    "S09",
+    "S12",
+    "S16",
+    "S20",
+    "S24"
+  ],
+  "luma_jumps": [
+    {
+      "cut": "S01->S02",
+      "delta_luma": 45.7,
+      "chapter_break": false
+    },
+    {
+      "cut": "S02->S03",
+      "delta_luma": 29.5
+    },
+    {
+      "cut": "S03->S04",
+      "delta_luma": 40.9
+    },
+    {
+      "cut": "S04->S05",
+      "delta_luma": 0.7
+    },
+    {
+      "cut": "S05->S06",
+      "delta_luma": 71.6,
+      "chapter_break": false
+    },
+    {
+      "cut": "S06->S07",
+      "delta_luma": 83.5,
+      "chapter_break": true
+    },
+    {
+      "cut": "S07->S08",
+      "delta_luma": 70.4,
+      "chapter_break": false
+    },
+    {
+      "cut": "S08->S09",
+      "delta_luma": 16.7
+    },
+    {
+      "cut": "S09->S10",
+      "delta_luma": 1.5
+    },
+    {
+      "cut": "S10->S11",
+      "delta_luma": 24.1
+    },
+    {
+      "cut": "S11->S12",
+      "delta_luma": 18.5
+    },
+    {
+      "cut": "S12->S13",
+      "delta_luma": 0.1
+    },
+    {
+      "cut": "S13->S14",
+      "delta_luma": 31.2
+    },
+    {
+      "cut": "S14->S15",
+      "delta_luma": 48.8,
+      "chapter_break": true
+    },
+    {
+      "cut": "S15->S16",
+      "delta_luma": 10.5
+    },
+    {
+      "cut": "S16->S17",
+      "delta_luma": 19.6
+    },
+    {
+      "cut": "S17->S18",
+      "delta_luma": 12.9
+    },
+    {
+      "cut": "S18->S19",
+      "delta_luma": 17.2
+    },
+    {
+      "cut": "S19->S20",
+      "delta_luma": 32.8
+    },
+    {
+      "cut": "S20->S21",
+      "delta_luma": 50.6,
+      "chapter_break": false
+    },
+    {
+      "cut": "S21->S22",
+      "delta_luma": 38.6
+    },
+    {
+      "cut": "S22->S23",
+      "delta_luma": 4.6
+    },
+    {
+      "cut": "S23->S24",
+      "delta_luma": 27.7
+    },
+    {
+      "cut": "S24->S25",
+      "delta_luma": 116.1,
+      "chapter_break": false
+    },
+    {
+      "cut": "S25->S26",
+      "delta_luma": 63.8,
+      "chapter_break": true
+    },
+    {
+      "cut": "S26->S27",
+      "delta_luma": 5.1
+    },
+    {
+      "cut": "S27->S28",
+      "delta_luma": 42.1
+    },
+    {
+      "cut": "S28->S29",
+      "delta_luma": 32.8
+    },
+    {
+      "cut": "S29->S30",
+      "delta_luma": 50.5,
+      "chapter_break": false
+    }
+  ],
+  "subtitles": {
+    "cues": 30,
+    "problems": []
+  },
+  "subtitle_baseline": "mix-report",
+  "narration_fit": {
+    "per_shot": [
+      {
+        "id": "S01",
+        "speech": 4.09,
+        "window": 5.0,
+        "ratio": 0.819,
+        "chars": 18
+      },
+      {
+        "id": "S02",
+        "speech": 5.27,
+        "window": 6.0,
+        "ratio": 0.878,
+        "chars": 22
+      },
+      {
+        "id": "S03",
+        "speech": 5.38,
+        "window": 6.0,
+        "ratio": 0.897,
+        "chars": 20
+      },
+      {
+        "id": "S04",
+        "speech": 5.33,
+        "window": 6.0,
+        "ratio": 0.888,
+        "chars": 19
+      },
+      {
+        "id": "S05",
+        "speech": 6.27,
+        "window": 7.0,
+        "ratio": 0.896,
+        "chars": 18
+      },
+      {
+        "id": "S06",
+        "speech": 5.91,
+        "window": 7.0,
+        "ratio": 0.844,
+        "chars": 18
+      },
+      {
+        "id": "S07",
+        "speech": 5.39,
+        "window": 6.0,
+        "ratio": 0.899,
+        "chars": 19
+      },
+      {
+        "id": "S08",
+        "speech": 6.25,
+        "window": 7.0,
+        "ratio": 0.892,
+        "chars": 21
+      },
+      {
+        "id": "S09",
+        "speech": 5.42,
+        "window": 6.0,
+        "ratio": 0.903,
+        "chars": 21
+      },
+      {
+        "id": "S10",
+        "speech": 3.88,
+        "window": 5.0,
+        "ratio": 0.777,
+        "chars": 17
+      },
+      {
+        "id": "S11",
+        "speech": 4.28,
+        "window": 5.0,
+        "ratio": 0.856,
+        "chars": 17
+      },
+      {
+        "id": "S12",
+        "speech": 2.96,
+        "window": 4.0,
+        "ratio": 0.741,
+        "chars": 14
+      },
+      {
+        "id": "S13",
+        "speech": 5.58,
+        "window": 7.0,
+        "ratio": 0.798,
+        "chars": 19
+      },
+      {
+        "id": "S14",
+        "speech": 5.41,
+        "window": 6.0,
+        "ratio": 0.902,
+        "chars": 19
+      },
+      {
+        "id": "S15",
+        "speech": 5.49,
+        "window": 6.0,
+        "ratio": 0.914,
+        "chars": 21
+      },
+      {
+        "id": "S16",
+        "speech": 4.57,
+        "window": 5.0,
+        "ratio": 0.914,
+        "chars": 16
+      },
+      {
+        "id": "S17",
+        "speech": 5.97,
+        "window": 7.0,
+        "ratio": 0.853,
+        "chars": 21
+      },
+      {
+        "id": "S18",
+        "speech": 5.5,
+        "window": 6.0,
+        "ratio": 0.917,
+        "chars": 20
+      },
+      {
+        "id": "S19",
+        "speech": 4.46,
+        "window": 5.0,
+        "ratio": 0.891,
+        "chars": 19
+      },
+      {
+        "id": "S20",
+        "speech": 5.72,
+        "window": 7.0,
+        "ratio": 0.817,
+        "chars": 22
+      },
+      {
+        "id": "S21",
+        "speech": 5.45,
+        "window": 6.0,
+        "ratio": 0.908,
+        "chars": 20
+      },
+      {
+        "id": "S22",
+        "speech": 6.46,
+        "window": 7.0,
+        "ratio": 0.923,
+        "chars": 25
+      },
+      {
+        "id": "S23",
+        "speech": 4.49,
+        "window": 5.0,
+        "ratio": 0.898,
+        "chars": 16
+      },
+      {
+        "id": "S24",
+        "speech": 5.18,
+        "window": 6.0,
+        "ratio": 0.863,
+        "chars": 19
+      },
+      {
+        "id": "S25",
+        "speech": 4.74,
+        "window": 6.0,
+        "ratio": 0.79,
+        "chars": 20
+      },
+      {
+        "id": "S26",
+        "speech": 4.67,
+        "window": 6.0,
+        "ratio": 0.777,
+        "chars": 16
+      },
+      {
+        "id": "S27",
+        "speech": 4.57,
+        "window": 5.0,
+        "ratio": 0.913,
+        "chars": 18
+      },
+      {
+        "id": "S28",
+        "speech": 5.81,
+        "window": 7.0,
+        "ratio": 0.83,
+        "chars": 22
+      },
+      {
+        "id": "S29",
+        "speech": 5.86,
+        "window": 7.0,
+        "ratio": 0.837,
+        "chars": 19
+      },
+      {
+        "id": "S30",
+        "speech": 5.47,
+        "window": 6.0,
+        "ratio": 0.912,
+        "chars": 19
+      }
+    ],
+    "max_ratio": 0.923,
+    "min_ratio": 0.741,
+    "total_speech": 155.83
+  },
+  "audio": {
+    "rms_dbfs": -22.02,
+    "peak_dbfs": -1.6,
+    "samples": 8640512
+  },
+  "safety": {
+    "banned_hits": []
+  },
+  "on_screen_text": {
+    "shots_without_text_clause": []
+  },
+  "stills": [
+    "production/kinkakuji1950/qa/audit/frames/S01_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S02_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S03_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S04_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S05_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S06_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S07_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S08_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S09_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S10_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S11_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S12_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S13_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S14_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S15_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S16_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S17_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S18_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S19_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S20_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S21_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S22_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S23_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S24_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S25_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S26_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S27_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S28_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S29_mid.jpg",
+    "production/kinkakuji1950/qa/audit/frames/S30_mid.jpg"
+  ],
+  "montage": "production/kinkakuji1950/qa/audit/montage.jpg",
+  "verdict": "PASS"
+}
