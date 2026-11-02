@@ -281,6 +281,21 @@ class EndCardDimTests(unittest.TestCase):
         self.assertNotIn("l 1920 1080", ass)
         self.assertIn("Dialogue: 2,", ass, "片尾字幕仍需保留")
 
+    def test_cover_uses_the_single_series_template(self):
+        source = (PROJECT / "render.py").read_text(encoding="utf-8")
+        self.assertIn("series_template.cover(", source)
+        self.assertNotIn("tear_path(", source, "旧的撕裂封面已废弃")
+        self.assertIn("SERIES_EPISODE = 2", source)
+        self.assertIn("make_cover(", source)
+
+        import qc
+
+        self.assertEqual(tuple(qc.COVER_SIZE), (1080, 1440))
+        cover = self.story["presentation"]["cover"]
+        self.assertEqual((cover["line1"], cover["line2"]), ("传说里两百人失踪", "他只承认九个人"))
+        for line in (cover["line1"], cover["line2"]):
+            self.assertTrue(1 <= len(line) <= 18, line)
+
     def test_closing_card_is_darkened_by_a_filter_not_by_ass(self):
         source = (PROJECT / "render.py").read_text(encoding="utf-8")
         # 时间门控（enable=）与 trim/concat 在 runner 上都实测不生效，压暗改到 S30 的逐镜调色里。

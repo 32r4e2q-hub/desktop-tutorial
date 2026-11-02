@@ -1,6 +1,6 @@
 # 迷案解码人｜系列封面工具
 
-这是用户已认可的竖版系列封面：1080×1440，固定背景、栏目、排版及红色期数角标；每期只换期数与两行封面标题。仓库的 `NotoSerifCJKsc-Common.otf` 是编辑器内嵌字体的相同常用字子集，字体许可见 `OFL.txt`。`plate.jpg` 是预处理过的固定背景，运行时不依赖 `work/`、下载或浏览器。编辑器见 `封面模板_可编辑.html`，可离线手动修改；该 CLI 和编辑器是各自独立的生成途径，细微渲染差异需视觉复核。
+这是用户已认可的竖版系列封面：1080×1440，固定背景、栏目、排版及红色期数角标；每期只换**期数、两行封面标题，以及截图窗口里的那张本片画面**。版式只有一份实现：`template.py` 里的 `cover()`；`generate_cover.py`、`build_template.py` 生成的样张、以及各案件 `render.py` 出片时的封面全部调用它，所以「所有封面都用这一个模板」是代码约束，不是约定。仓库的 `NotoSerifCJKsc-Common.otf` 是编辑器内嵌字体的相同常用字子集，字体许可见 `OFL.txt`。`plate.jpg` 是预处理过的固定背景，运行时不依赖 `work/`、下载或浏览器。编辑器见 `封面模板_可编辑.html`，可离线手动修改；该 CLI 和编辑器是各自独立的生成途径，细微渲染差异需视觉复核。
 
 ## Agent 自动流程
 
@@ -20,6 +20,7 @@ python3 production/mystery-cover-template/generate_cover.py \
   --line1 '逃亡78天的西口彰' --line2 '却被女孩一眼认出' \
   --release-title '逃亡78天的西口彰，却被女孩一眼认出' \
   --fact-basis 'production/nishiguchi1963/screenplay.md 和 qa/review_round5.md' \
+  --shot work/nishiguchi1963/edit/帧_通缉照.jpg --shot-y-bias 0.5 \
   --output production/nishiguchi1963/delivery/系列封面_第1期.png
 ```
 

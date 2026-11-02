@@ -92,9 +92,7 @@ def main() -> int:
     ], check=True)
     print("film:", render.media_summary(out), flush=True)
 
-    render.compose_cover(render.grab_frame(SOURCES / "S02.mp4", 2.0, PICTURE_DIR, "dry-castle"),
-                         render.grab_frame(SOURCES / "S01.mp4", 1.5, PICTURE_DIR, "dry-city"),
-                         PICTURE_DIR / "dryrun-cover.png", story)
+    render.make_cover(SOURCES, PICTURE_DIR / "dryrun-cover.jpg", story, PICTURE_DIR)
     print("cover ok", flush=True)
     return 0
 

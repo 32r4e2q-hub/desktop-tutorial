@@ -25,7 +25,9 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 
 FILM_NAME = "Holmes_Castle_Final.mp4"
-COVER_NAME = "Holmes_Castle_Cover.png"
+COVER_NAME = "Holmes_Castle_Cover.png"   # 交付目录里统一给这个文件名（竖版 1080×1440 JPEG→PNG）
+# 全系列封面统一为「谜案解码人」竖版 1080×1440 模板。
+COVER_SIZE = (1080, 1440)
 SRT_NAME = "Holmes_Castle_Subtitles.srt"
 EXPECTED = {"width": 1920, "height": 1080, "fps": 24, "duration": 180.0, "frames": 4320}
 BLACK_MEAN = 7.0
@@ -324,8 +326,8 @@ def main() -> int:
         with Image.open(cover) as image:
             cover_info.update(width=image.width, height=image.height, mode=image.mode,
                               bytes=cover.stat().st_size)
-        if (cover_info["width"], cover_info["height"]) != (1920, 1080):
-            failures.append("cover is not 1920x1080")
+        if (cover_info["width"], cover_info["height"]) != COVER_SIZE:
+            failures.append(f"cover is not {COVER_SIZE[0]}x{COVER_SIZE[1]} (series template)")
 
     sheets = make_contact_sheets(film, story, HERE / "qa" / "sheets")
     stills = export_fullres_stills(film, story, HERE / "qa" / "fullres")

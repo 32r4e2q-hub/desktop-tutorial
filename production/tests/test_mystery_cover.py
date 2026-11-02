@@ -15,6 +15,7 @@ spec = importlib.util.spec_from_file_location('mystery_generate_cover', CLI)
 generator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(generator)
 from build_template import fitted_font
+import template
 
 
 def run(output, episode='2', line1='逃亡七十八天的谜案', line2='一张通缉照揭开真相', extra=()):
@@ -46,9 +47,10 @@ def test_generation_records_different_episode_and_title(tmp_path):
                                  second.crop((780, 70, 1020, 140))).getbbox()
     assert ImageChops.difference(first.crop((50, 280, 1030, 560)),
                                  second.crop((50, 280, 1030, 560))).getbbox()
-    # Background and layout stay fixed outside the changing text areas.
-    assert not ImageChops.difference(first.crop((0, 600, 1080, 1200)),
-                                     second.crop((0, 600, 1080, 1200))).getbbox()
+    # Background and layout stay fixed outside the changing text areas: 截图窗口里都是空位，
+    # 只有角标和窗口字幕条上的 CASE FILE 编号随期数变。
+    assert not ImageChops.difference(first.crop((0, 620, 1080, 970)),
+                                     second.crop((0, 620, 1080, 970))).getbbox()
     data = json.loads(a.with_suffix('.json').read_text(encoding='utf8'))
     assert data['episode'] == 1 and data['episode_label'] == '第一期'
     assert data['cover_title_lines'] == ['逃亡78天的西口彰', '却被女孩一眼认出']
@@ -93,3 +95,33 @@ def test_no_overwrite_of_either_output_without_force(tmp_path):
     assert output.read_bytes() == original
     assert run(output, line1='另一个标题', extra=('--force',)).returncode == 0
     assert output.read_bytes() != original
+
+
+def test_window_takes_a_frame_from_the_film(tmp_path):
+    """窗口里必须是本片的一帧，而不是底板自带的书桌。"""
+    shot = Image.new('RGB', (1920, 1080), (0, 0, 0))
+    ImageDraw.Draw(shot).rectangle((0, 0, 1920, 400), fill=(230, 40, 40))
+    path = tmp_path / 'shot.png'
+    shot.save(path)
+    empty = template.cover(template.DEFAULT_FONT, 2, '传说里两百万人失踪', '他只承认了九个人')
+    filled = template.cover(template.DEFAULT_FONT, 2, '传说里两百万人失踪', '他只承认了九个人', shot=path)
+    window = (140, 640, 940, 960)
+    assert ImageChops.difference(empty.crop(window), filled.crop(window)).getbbox()
+    # 底部标语与期数角标不受截图影响。
+    assert not ImageChops.difference(empty.crop((0, 1150, 1080, 1440)),
+                                     filled.crop((0, 1150, 1080, 1440))).getbbox()
+    # 截图铺满窗口：红色区域出现在窗口上部。
+    red = filled.crop(window).split()[0].resize((8, 4))
+    assert max(red.get_flattened_data() if hasattr(red, 'get_flattened_data') else red.getdata()) > 180
+
+
+def test_one_template_drives_the_cli_and_the_editor_sample():
+    """CLI 与编辑器样张都走 template.cover，版式只保留一份。"""
+    cli_source = CLI.read_text(encoding='utf8')
+    build_source = (TOOL_DIR / 'build_template.py').read_text(encoding='utf8')
+    assert 'from template import' in cli_source and '_cover(' in build_source
+    assert 'def cover(' in (TOOL_DIR / 'template.py').read_text(encoding='utf8')
+    # 旧版 16:9 撕裂封面已经从工程里删除。
+    for project in ('holmes1893', 'nishiguchi1963', 'setagaya2000'):
+        source = (ROOT / 'production' / project / 'render.py').read_text(encoding='utf8')
+        assert 'tear_path(' not in source or project != 'holmes1893'

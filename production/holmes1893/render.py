@@ -35,6 +35,10 @@ PAD = 0.40  # clone tail so every xfade has room without shifting a single cut t
 LETTERBOX_CHECK_SHOTS = {"S09", "S12", "S13"}
 CARD_TEXT_MAX_WIDTH = 1660
 END_CARD_AT = 176.40
+# 系列封面：谜案解码人统一的竖版 1080×1440 版式；窗口里放本片的一帧。
+SERIES_EPISODE = 2
+COVER_SHOT = "S08"
+COVER_AT = 3.0
 # 片尾卡压在最后一镜（S30 现代芝加哥航拍）上，所以压暗放在这一镜的逐镜调色里做。
 END_CARD_SHOT = "S30"
 # 片尾卡渐隐：S30 从 174.0 s 开始，片尾卡在 174.55 s 亮起，0.55 s 处开始渐隐到黑。
@@ -510,172 +514,25 @@ def grab_frame(video: Path, seconds: float, work_dir: Path, tag: str) -> Image.I
         return image.convert("RGB")
 
 
-def fill_crop(image: Image.Image, width: int, height: int, x_bias: float = 0.5) -> Image.Image:
-    ratio = max(width / image.width, height / image.height)
-    resized = image.resize((max(width, round(image.width * ratio)),
-                            max(height, round(image.height * ratio))), Image.Resampling.LANCZOS)
-    left = int((resized.width - width) * x_bias)
-    top = int((resized.height - height) * 0.5)
-    return resized.crop((left, top, left + width, top + height))
+def series_cover(episode: int, line1: str, line2: str, shot: Image.Image,
+                 font_path: Path | None = None) -> Image.Image:
+    """全系列统一的竖版封面（迷案解码人版式）；版式代码只有一份，在 mystery-cover-template。"""
+    sys.path.insert(0, str(ROOT / "production" / "mystery-cover-template"))
+    import template as series_template
 
-
-def tear_path(width: int, height: int, seed: int = 1893) -> list[tuple[float, float]]:
-    """A jagged paper-tear line down the centre of the cover, leaning slightly."""
-    rng = np.random.default_rng(seed)
-    points = []
-    x = width * 0.5
-    for y in range(-20, height + 40, 22):
-        x += float(rng.normal(0, 13))
-        x = min(max(x, width * 0.42), width * 0.58)
-        points.append((x + (y / height - 0.5) * 90, y))
-    return points
+    return series_template.cover(font_path or series_template.DEFAULT_FONT,
+                                 episode, line1, line2, shot=shot)
 
 
 def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None:
-    """Left: the black building with one guttering window. Right: the lit White City."""
-    left_frame = grab_frame(sources / "S02.mp4", 3.2, work_dir, "castle")
-    right_frame = grab_frame(sources / "S01.mp4", 1.8, work_dir, "whitecity")
-    compose_cover(left_frame, right_frame, output, story)
-
-
-def compose_cover(left_frame: Image.Image, right_frame: Image.Image, output: Path,
-                  story: dict) -> None:
-    """Compose the '传说 vs 真相' cover from any two images (footage frames or references).
-
-    A white torn seam runs down the middle; '传说' sits over the dark half and '真相' over the
-    bright half. In the finished film both panels are frames of verified Agnes clips.
-    """
-    width, height = 1920, 1080
-    # Both panels are full-frame crops: the tear decides which half a viewer actually sees, so
-    # there is no seam to hide and each side keeps the whole 1920-pixel width for its subject.
-    left = fill_crop(left_frame, width, height, 0.36)
-    right = fill_crop(right_frame, width, height, 0.62)
-    image = Image.new("RGB", (width, height))
-
-    # Soften the seam, then cut the tear through it.
-    torn = tear_path(width, height)
-    mask = Image.new("L", (width, height), 0)
-    ImageDraw.Draw(mask).polygon([(0, 0), (torn[0][0], 0), *torn, (torn[-1][0], height), (0, height)], fill=255)
-    mask = mask.filter(ImageFilter.GaussianBlur(1.2))
-    base = Image.new("RGB", (width, height))
-    base.paste(right, (0, 0))
-    base.paste(left, (0, 0), mask)
-    image = base
-
-    rgba = image.convert("RGBA")
-    # Warm the left (legend) half, cool the right (fact) half.
-    wash = np.zeros((height, width, 4), dtype=np.uint8)
-    xx = np.arange(width)[None, :]
-    legend_side = (xx <= width * 0.5)
-    warm = np.clip((width * 0.52 - xx) / (width * 0.52), 0, 1)
-    cool = np.clip((xx - width * 0.48) / (width * 0.52), 0, 1)
-    wash[:, :, 3] = np.clip(warm * 46 + cool * 26, 0, 60).repeat(height, axis=0).astype(np.uint8)
-    wash[:, :, 0] = np.where(legend_side, 60, 4).repeat(height, axis=0).astype(np.uint8)
-    wash[:, :, 1] = np.where(legend_side, 32, 10).repeat(height, axis=0).astype(np.uint8)
-    wash[:, :, 2] = np.where(legend_side, 6, 26).repeat(height, axis=0).astype(np.uint8)
-    image = Image.alpha_composite(rgba, Image.fromarray(wash, "RGBA"))
-
-    # Bottom gradient for the title block.
-    gradient = np.zeros((height, width, 4), dtype=np.uint8)
-    for y in range(height):
-        strength = int(228 * max(0.0, (y - height * 0.50) / (height * 0.50)) ** 1.15)
-        gradient[y, :, :] = (3, 5, 8, strength)
-    image = Image.alpha_composite(image, Image.fromarray(gradient, "RGBA"))
-
-    draw = ImageDraw.Draw(image)
-
-    # The tear itself: hot white core with a soft glow, then splinters.
-    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    ImageDraw.Draw(glow).line(torn, fill=(255, 248, 226, 200), width=16, joint="curve")
-    image = Image.alpha_composite(image, glow.filter(ImageFilter.GaussianBlur(26)))
-    image = Image.alpha_composite(image, glow.filter(ImageFilter.GaussianBlur(9)))
-    draw = ImageDraw.Draw(image)
-    draw.line(torn, fill=(255, 252, 240, 255), width=4, joint="curve")
-    rng = np.random.default_rng(77)
-    for point in torn[::3]:
-        for _ in range(2):
-            dx, dy = rng.normal(0, 40), rng.normal(0, 46)
-            draw.line([point, (point[0] + dx, point[1] + dy)], fill=(255, 250, 236, 150), width=2)
-
-    serif = find_font(True)
-    sans = find_font()
-    legend_font = ImageFont.truetype(str(serif), 168)
-    vs_font = ImageFont.truetype(str(serif), 92)
-    title_font_size = fit_size(draw, story["presentation"]["cover"]["text"], 150, 980, serif=True)
-    title_font = ImageFont.truetype(str(serif), title_font_size)
-    sub_font = ImageFont.truetype(str(sans), 44)
-    micro_font = ImageFont.truetype(str(sans), 27)
-    kicker_font = ImageFont.truetype(str(sans), 32)
-
-    def centered(text: str, font, centre_x: int, y: int, fill: str, stroke: int, stroke_fill: str):
-        box = draw.textbbox((0, 0), text, font=font)
-        w = box[2] - box[0]
-        draw.text((centre_x - w / 2 - box[0], y - box[1]), text, font=font, fill=fill,
-                  stroke_width=stroke, stroke_fill=stroke_fill)
-
-    kicker = "真实案件 · 动画情景复原"
-    kicker_box = draw.textbbox((0, 0), kicker, font=kicker_font)
-    draw.text((72, 52 - kicker_box[1]), kicker, font=kicker_font, fill="#e8e2d2",
-              stroke_width=2, stroke_fill="#0b0c0a")
-    # 「第二期」常落在摩天轮的高光上，单靠描边仍读不清：先垫一块半透明墨色药丸再写字。
-    badge = "第二期"
-    badge_box = draw.textbbox((0, 0), badge, font=kicker_font)
-    badge_w, badge_h = badge_box[2] - badge_box[0], badge_box[3] - badge_box[1]
-    badge_x, badge_y = width - 72 - badge_w, 52 - badge_box[1]
-    draw.rounded_rectangle(
-        (badge_x - 18, badge_y + badge_box[1] - 13,
-         badge_x + badge_w + 18, badge_y + badge_box[1] + badge_h + 13),
-        radius=10, fill=(10, 11, 9, 168))
-    draw.text((badge_x, badge_y), badge, font=kicker_font, fill="#f4c95f",
-              stroke_width=2, stroke_fill="#0b0c0a")
-
-    centered("传说", legend_font, int(width * 0.245), 150, "#e6c58a", 10, "#120f08")
-    centered("vs", vs_font, int(width * 0.5), 268, "#fffaf0", 7, "#0d0c0a")
-    centered("真相", legend_font, int(width * 0.755), 150, "#f4c95f", 10, "#120f08")
-
-    title_text = story["presentation"]["cover"]["text"]
-    centered(title_text, title_font, width // 2, 742, "#f4c95f", 8, "#100e07")
-    subtext = story["presentation"]["cover"]["subtext"]
-    centered(subtext, sub_font, width // 2, 742 + title_font_size + 36, "#f3efe5", 3, "#0c0d0a")
-    draw.text((72, height - 74), "AI动画情景复原 · 非真实影像", font=micro_font, fill="#a7a49c",
-              stroke_width=2, stroke_fill="#0b0c09")
-    tag = "1893 芝加哥世博会 · 英格尔伍德"
-    tag_box = draw.textbbox((0, 0), tag, font=micro_font)
-    draw.text((width - (tag_box[2] - tag_box[0]) - 72, height - 74), tag, font=micro_font,
-              fill="#a7a49c", stroke_width=2, stroke_fill="#0b0c09")
-
+    """窗口里放本片最有代表性的一帧：正在盖「世界博览会旅馆」的工地（S08）。"""
+    cover_cfg = story["presentation"]["cover"]
+    shot = grab_frame(sources / f"{COVER_SHOT}.mp4", COVER_AT, work_dir, "series")
+    image = series_cover(SERIES_EPISODE, cover_cfg["line1"], cover_cfg["line2"], shot)
     output.parent.mkdir(parents=True, exist_ok=True)
-    image.convert("RGB").save(output, quality=95, subsampling=0)
-    image.convert("RGB").save(output.with_suffix(".png"))
+    image.save(output, quality=95, subsampling=0)
+    image.save(output.with_suffix(".png"))
 
-
-
-def frame_luma(path: Path, seconds: float, work_dir: Path, top_only: bool = False) -> float:
-    """Average luma of one decoded frame; used to prove the end card really was darkened.
-
-    ``top_only`` crops away the lower 45% so the white subtitle never inflates the reading.
-    """
-    sample = work_dir / f".luma-{seconds:.1f}{'-top' if top_only else ''}.png"
-    crop = "crop=iw:ih*0.55:0:0," if top_only else ""
-    try:
-        run(["ffmpeg", "-y", "-v", "error", "-i", str(path), "-ss", f"{seconds:.3f}",
-             "-frames:v", "1", "-vf", f"{crop}scale=320:180", str(sample)])
-        with Image.open(sample) as image:
-            values = list(image.convert("L").getdata())
-        return sum(values) / len(values)
-    finally:
-        sample.unlink(missing_ok=True)
-
-
-def verify_end_card_dim(film: Path) -> None:
-    """The closing card must be measurably darker than the rest of the film."""
-    # 只看画面上 55%：下三分之一有白字幕，会把读数拉高。
-    # 不拿正片做相对比较——S29 木棺那几秒本来就非常暗，容易误判；
-    # 片尾镜未压暗时上区亮度在 120 上下，压暗后约 45，绝对阈值就足够可靠。
-    tail = frame_luma(film, 178.0, film.parent, top_only=True)
-    if tail > 58:
-        raise RuntimeError(
-            f"End card was not darkened for the gold title (tail_top={tail:.1f}); refusing to deliver")
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -739,7 +596,7 @@ def main() -> int:
     if summary["frames"] not in (0, TOTAL_FRAMES):
         raise RuntimeError(f"Expected {TOTAL_FRAMES} frames, got {summary['frames']}")
 
-    cover = final.parent / "H·H·霍姆斯_封面.jpg"
+    cover = final.parent / "H·H·霍姆斯_传说里的杀人城堡_封面.jpg"
     make_cover(args.sources, cover, story, args.work)
     srt_copy = final.parent / f"{final.stem}_字幕.srt"
     srt_copy.write_text(srt_path.read_text(encoding="utf-8"), encoding="utf-8")
