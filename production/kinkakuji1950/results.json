@@ -386,9 +386,9 @@
     "S15": {
       "id": "S15",
       "request_hash": "8443946c2564a151c008887ab0c22822634799a15087288229feed4c535fb51a",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-02T06:10:39Z",
+      "updated_at": "2026-11-02T06:10:44Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_wzNuTsycgpfHB59l8lYq4P6n4dIcwo2w",
@@ -399,7 +399,18 @@
       "bytes": 1853498,
       "sha256": "c301bb036f52a410960a42536386b965f1511c32bbcf38812354b9fcd62b7684",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1853498,
+        "decoded_ok": true,
+        "contact_sheet": "production/kinkakuji1950/qa/S15.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S16": {
       "id": "S16",
@@ -675,7 +686,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-02T06:10:43Z",
+  "updated_at": "2026-11-02T06:10:44Z",
   "run_id": "41390236310",
   "previous_results": {},
   "submission_policy": {
