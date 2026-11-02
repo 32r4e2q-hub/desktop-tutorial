@@ -9,6 +9,8 @@
 from __future__ import annotations
 
 import importlib.util
+import ast
+import builtins
 import json
 from pathlib import Path
 import re
@@ -322,6 +324,32 @@ class EndCardDimTests(unittest.TestCase):
         self.assertIn("closing_shot_darkened", source)
         self.assertNotIn("enable=", source, "不要再用时间表达式压暗")
         self.assertIn("verify_end_card_dim", source, "渲染后必须校验片尾真的被压暗")
+
+    def test_every_render_helper_called_from_main_is_defined(self):
+        """main() 里调用的辅助函数必须真有定义：曾把 frame_luma / verify_end_card_dim 的定义删掉、
+        只留下调用，渲染跑完最后一步才崩，成片一直没更新。"""
+        sys.path.insert(0, str(ROOT))
+        import importlib
+        render = importlib.import_module("production.holmes1893.render")
+        for name in ("frame_luma", "verify_end_card_dim", "build_picture", "make_cover"):
+            self.assertTrue(callable(getattr(render, name, None)), f"render.{name} 不存在")
+        tree = ast.parse((PROJECT / "render.py").read_text(encoding="utf-8"))
+        module_names = {node.name for node in tree.body if isinstance(node, ast.FunctionDef)}
+        module_names |= {alias.asname or alias.name.split(".")[0]
+                         for node in tree.body if isinstance(node, (ast.Import, ast.ImportFrom))
+                         for alias in node.names}
+        module_names |= {target.id for node in tree.body if isinstance(node, ast.Assign)
+                         for target in node.targets if isinstance(target, ast.Name)}
+        main_fn = next(node for node in tree.body
+                       if isinstance(node, ast.FunctionDef) and node.name == "main")
+        local = {arg.arg for arg in main_fn.args.args + main_fn.args.kwonlyargs}
+        local |= {node.id for node in ast.walk(main_fn) if isinstance(node, ast.Name)
+                  and isinstance(node.ctx, ast.Store)}
+        for node in ast.walk(main_fn):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                name = node.func.id
+                self.assertTrue(name in module_names or name in local or hasattr(builtins, name),
+                                f"render.main 调用了未定义的函数：{name}")
 
     def test_fade_lands_on_the_end_card_and_qc_accepts_the_tail_blackout(self):
         source = (PROJECT / "render.py").read_text(encoding="utf-8")

@@ -516,6 +516,34 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
     series_cover.make(story, sources, output, work_dir)
 
 
+def frame_luma(path: Path, seconds: float, work_dir: Path, top_only: bool = False) -> float:
+    """Average luma of one decoded frame; used to prove the end card really was darkened.
+
+    ``top_only`` crops away the lower 45% so the white subtitle never inflates the reading.
+    """
+    sample = work_dir / f".luma-{seconds:.1f}{'-top' if top_only else ''}.png"
+    crop = "crop=iw:ih*0.55:0:0," if top_only else ""
+    try:
+        run(["ffmpeg", "-y", "-v", "error", "-i", str(path), "-ss", f"{seconds:.3f}",
+             "-frames:v", "1", "-vf", f"{crop}scale=320:180", str(sample)])
+        with Image.open(sample) as image:
+            values = list(image.convert("L").getdata())
+        return sum(values) / len(values)
+    finally:
+        sample.unlink(missing_ok=True)
+
+
+def verify_end_card_dim(film: Path) -> None:
+    """The closing card must be measurably darker than the rest of the film."""
+    # 只看画面上 55%：下三分之一有白字幕，会把读数拉高。
+    # 不拿正片做相对比较——S29 木棺那几秒本来就非常暗，容易误判；
+    # 片尾镜未压暗时上区亮度在 120 上下，压暗后约 45，绝对阈值就足够可靠。
+    tail = frame_luma(film, 178.0, film.parent, top_only=True)
+    if tail > 58:
+        raise RuntimeError(
+            f"End card was not darkened for the gold title (tail_top={tail:.1f}); refusing to deliver")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, required=True)
