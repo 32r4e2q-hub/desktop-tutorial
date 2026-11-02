@@ -62,8 +62,12 @@ def plan(story):
                 'No extra people, no duplicated figures, no labels or writing, no text, no watermark, '
                 'no panels, no contact sheet, no collage. Not a real person portrait.'
             )
+            inputs=[f'reference/{role}.png']
+            if view in {'side','back'}:
+                inputs.append(f'reference-guides/{view}.png')
+                prompt+=' INPUT IMAGE 1 is the ONLY identity, clothing, build, gender and appearance source. INPUT IMAGE 2 is ONLY the exact camera-angle/pose guide. Recreate image 1 character in image 2 pose and camera view. Never copy image 2 grey clothes, generic face or male body shape. Preserve image 1 gender and body shape. The view angle from image 2 OVERRIDES the angle in image 1.'
             rows.append(dict(id=f'{role}_{view}',role=role,view=view,file=str(target.relative_to(HERE)),
-                             inputs=[f'reference/{role}.png'],prompt=prompt,ratio='3:4'))
+                             inputs=inputs,prompt=prompt,ratio='3:4'))
     rows.append(dict(id='P02',role=None,view='prop_revision',file='reference/P02.png',
         inputs=['reference/P02.png','reference/C01.png','reference/C03.png'],ratio='16:9',
         prompt='One single cinematic stylized 3D newspaper prop on black background. Preserve the first input newspaper layout, yellow paper, folds and abstract line columns. Correct ONLY its two illustrated portraits: the man must match the SECOND input character including round gold glasses and thick parted downward-sloping moustache; the woman must match the THIRD input including pinned black hair and beige blouse. All newspaper headings and columns must be abstract straight ink strokes, never readable words or letters. No readable title, no watermark, no other people, no panels or collage. The portraits are small ink drawings printed within one newspaper, not extra character figures.'))
@@ -96,6 +100,9 @@ def save(doc):
         tmp=RESULTS.with_suffix('.tmp')
         tmp.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
         tmp.replace(RESULTS)
+        archive=HERE/'reference/batch-runs'
+        archive.mkdir(exist_ok=True)
+        (archive/(str(doc.get('run_id') or 'local')+'.json')).write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
 
 
 def publish():
@@ -105,11 +112,11 @@ def publish():
         git('commit','-m','crippen1910: cloud reference candidates checkpoint [skip-crippen-batch]')
         for attempt in range(3):
             try:
-                git('pull','--rebase','origin',BRANCH)
                 git('push','origin',BRANCH)
                 return
             except subprocess.CalledProcessError:
                 if attempt==2:raise
+                git('pull','--rebase','--autostash','origin',BRANCH)
 
 
 def contact_sheets(doc):
