@@ -228,9 +228,9 @@
     "S09": {
       "id": "S09",
       "request_hash": "87c4af5f5ca51e3ce7ea6ab5049d45b8b184e19e5bd99d603d22f41cab5d8759",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-02T06:10:35Z",
+      "updated_at": "2026-11-02T06:10:41Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_QeJm0ZWQerEcmYEjWYGlQ6yT9EWOJYNS",
@@ -241,7 +241,18 @@
       "bytes": 1050394,
       "sha256": "30a6518ab150fbe98b387aa017bf0a80ea0910e9fb2fe6015912a1175bcf28f3",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1050394,
+        "decoded_ok": true,
+        "contact_sheet": "production/kinkakuji1950/qa/S09.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -642,7 +653,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-02T06:10:40Z",
+  "updated_at": "2026-11-02T06:10:41Z",
   "run_id": "41390236310",
   "previous_results": {},
   "submission_policy": {
