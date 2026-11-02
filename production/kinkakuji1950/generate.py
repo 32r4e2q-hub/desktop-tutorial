@@ -533,6 +533,8 @@ def main() -> int:
     doc["phase"] = "generating_sources"
     doc["required_generated_shots"] = [shot["id"] for shot in project["shots"]]
     doc["workflow_policy"] = "agnes-video-2.5-flash-720p-upscale-180s-30shots"
+    doc["submission_policy"] = {"mode": "serial", "interval_seconds": REQUEST_INTERVAL_SECONDS,
+                                "note": "一次只提交一条，间隔 61 秒；提交齐了再并行轮询。"}
     doc["rate_policy"] = {"minimum_creation_interval_seconds": REQUEST_INTERVAL_SECONDS,
                           "workers_max": 8, "retry_after_respected": True,
                           "key_rotation": False, "capacity_retry_interval_seconds": REQUEST_INTERVAL_SECONDS,
@@ -643,6 +645,42 @@ def main() -> int:
                    request_hash=wanted_hash, video_id=None, task_id=None, video_url=None,
                    sha256=None, bytes=None, error=error[:600])
         gate.defer(REQUEST_INTERVAL_SECONDS)
+
+    def submit_only(shot: dict) -> None:
+        """Submit one shot, then move on: strictly one create per 61 s, never wait for the render.
+
+        The provider needs roughly 40 minutes per clip, so waiting for each shot before
+        submitting the next would turn 30 shots into 20 hours. Serial *submission* (the user's
+        request) still guarantees the documented 1-request-per-61-seconds politeness, while the
+        clips themselves queue up server-side in parallel. A rejected create is recorded and the
+        sweep continues, so one full queue cannot stall every remaining shot.
+        """
+        sid = shot["id"]
+        payload = full_payload(project, shot)
+        wanted_hash = request_hash(project, shot)
+        with LOCK:
+            old = dict(doc.setdefault("shots", {}).get(sid, {}))
+        if old.get("video_id") or (old.get("video_url") and old.get("sha256")):
+            return
+        if old.get("status") == "completed":
+            return
+        if old.get("request_hash") not in (None, wanted_hash):
+            return
+        try:
+            checkpoint(sid + " submitting", sid, status="submitting", error=None)
+            created = paced_create(sid, payload)
+            video_id = created.get("video_id") or created.get("id") or created.get("task_id")
+            task_id = created.get("task_id") or created.get("id")
+            if not video_id:
+                raise agnes.Fatal("Agnes returned no task identifier")
+            checkpoint(sid + " queued", sid, status="queued", video_id=str(video_id),
+                       task_id=str(task_id or ""), requested_seconds=float(payload["seconds"]),
+                       requested_size=payload["size"], error=None)
+        except Exception as exc:  # one rejected create must not stall the serial sweep
+            error = str(exc).replace(key, "[redacted]") if key else str(exc)
+            checkpoint(sid + " create deferred to poll phase", sid, status="retrying_create",
+                       error=error[:600])
+            gate.defer(REQUEST_INTERVAL_SECONDS)
 
     def generate_one(shot: dict) -> bool:
         sid = shot["id"]
@@ -756,12 +794,19 @@ def main() -> int:
             selected = [shot for shot in project["shots"] if shot["id"] != "S01"]
             only = set()
             prepare_selected(selected)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+                list(pool.map(submit_only, selected))
+            checkpoint("serial submission sweep finished; polling every queued task", None)
             with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
                 outcomes = list(pool.map(generate_one, selected))
         else:
             outcomes = [False]
     else:
         prepare_selected(selected)
+        # 串行提交：一次只有一条 create 在飞，由共享 RequestGate 保证 61 秒间隔。
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+            list(pool.map(submit_only, selected))
+        checkpoint("serial submission sweep finished; polling every queued task", None)
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
             outcomes = list(pool.map(generate_one, selected))
     if not all(outcomes):

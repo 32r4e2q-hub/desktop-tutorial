@@ -29,7 +29,7 @@ permissions:
 concurrency:
   # v2：provider 侧排队要 40 分钟一条、旧版只在 2 并发上慢慢挪，一期跑不完 30 镜。
   # 换独立 group 让高并发 run 能立刻启动，再在 run 内部用 actions:write 掐掉旧 run。
-  group: kinkakuji1950-agnes-arena-98ae98a6-desktop-tutorial-v2
+  group: kinkakuji1950-agnes-arena-98ae98a6-desktop-tutorial-v3
   cancel-in-progress: false
 
 env:
