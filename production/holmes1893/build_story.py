@@ -597,7 +597,7 @@ PRESENTATION = {
         "line1": "传说里两百人失踪",
         "line2": "他只承认九个人",
         "window_shot": "S12",
-        "window_at": 3.8,
+        "window_at": 0.8,  # 镜内秒数：S12 起于 67 s，成片 67.8 s 正是女子推门那一帧
         "window_y_bias": 0.5,
         "layout": "谜案解码人竖版模板：期数角标 + 两行标题 + 中间窗口放本片 S12（独自走进旅馆的年轻女子）的帧",
         "candidates": ["S12", "S07", "S10", "S11", "S09"],

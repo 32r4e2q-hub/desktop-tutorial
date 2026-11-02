@@ -13,7 +13,8 @@
 # 1) 先看候选帧样张，自己挑一格
 python3 -m production.series_cover --episode 2 --story production/holmes1893/story.json \
   --film 交付/H·H·霍姆斯_传说里的杀人城堡_三分钟_带声音.mp4 --contacts /tmp/候选.jpg
-# 2) 把选中的镜头+镜内秒数写回 story.json 的 presentation.cover（window_shot / window_at）
+# 2) 把选中的镜头+镜内秒数写回 story.json 的 presentation.cover（window_shot / window_at，
+#    window_at 是镜内秒数，出封面时会自动加上该镜起始时间；一旦写回，第 3 步就用这一帧，不再自动重选）
 # 3) 出封面：JPEG + PNG + 标题记录
 python3 -m production.series_cover --episode 2 --story production/holmes1893/story.json \
   --film 交付/H·H·霍姆斯_传说里的杀人城堡_三分钟_带声音.mp4 \
@@ -22,7 +23,8 @@ python3 -m production.series_cover --episode 2 --story production/holmes1893/sto
 
 `--line1/--line2` 覆盖自动标题，`--shot/--at`（绝对秒）跳过选帧。自动标题来自
 `auto_title()`，自动选帧来自 `pick_frame()`（人物占比/对比/细节/字幕压制/镜头优先级打分，
-但「代表性」仍需看图判断）。
+但「代表性」仍需看图判断）。story.json 里一旦写了 `window_shot` / `window_at`（样张里人眼选过的那一帧），
+`--film` 出封面时就直接用这一帧，不再自动重选；要重新自动挑帧，先把这两个键删掉或显式给 `--shot/--at`。
 
 首次安装本工具的最小依赖（安装可能需要联网，安装后生成离线运行）：
 

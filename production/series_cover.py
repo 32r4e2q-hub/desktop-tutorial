@@ -323,15 +323,38 @@ def grab(video: Path, seconds: float, work_dir: Path, tag: str = "cover") -> Ima
         return opened.convert("RGB")
 
 
+def pinned_frame(story: dict, film: Path, work_dir: Path):
+    """story.json 里已经用样张看脸选定的窗口帧：有就用它，别再自动重选。
+
+    约定（见 mystery-cover-template/README.md）：先出候选帧样张、人眼挑一格，把
+    `window_shot` / `window_at`（镜内秒数，渲染时按镜头起始换算成成片绝对秒数）写回
+    `presentation.cover`。自动评分挑不出「代表性」——空走廊、空衣架常常分最高，
+    所以一旦定过帧，就必须尊重它。
+    """
+    coverage = (story.get("presentation", {}) or {}).get("cover", {}) or {}
+    if not coverage.get("window_shot") or coverage.get("window_at") is None:
+        return None
+    cfg = cover_config(story)
+    starts = {shot.get("id"): float(shot.get("start", 0)) for shot in story.get("shots", [])}
+    if cfg["shot"] not in starts:
+        return None
+    at = starts[cfg["shot"]] + cfg["at"]
+    frame = grab(film, at, work_dir, "cover-pinned")
+    return frame, {"shot": cfg["shot"], "at": round(at, 3), "picked_by": "story.json（样张看图选定）"}
+
+
 def make_auto(story: dict, film: Path, output: Path, work_dir: Path,
               episode: int | None = None, line1: str | None = None,
               line2: str | None = None, at: float | None = None,
               shot_id: str | None = None) -> tuple[Image.Image, dict]:
     """一句话出封面：自动选帧（或按 --shot/--at 指定）+ 自动拟标题。"""
     candidates = list(story.get("presentation", {}).get("cover", {}).get("candidates") or []) or None
+    pinned = None if (shot_id and at is not None) else pinned_frame(story, film, work_dir)
     if shot_id and at is not None:
         frame = grab(film, at, work_dir, "cover-fixed")
         picked = {"shot": shot_id, "at": at, "picked_by": "cli"}
+    elif pinned:
+        frame, picked = pinned
     else:
         frame, picked = pick_frame(film, story, work_dir, only=candidates)
     image = render_with_frame(story, frame, output, line1=line1, line2=line2, episode=episode)

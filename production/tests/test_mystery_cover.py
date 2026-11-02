@@ -289,6 +289,28 @@ def test_cli_writes_cover_and_records_window_frame(tmp_path):
     assert Image.open(output).size == (1080, 1440)
 
 
+def test_pinned_window_frame_wins_over_auto_pick(tmp_path):
+    """样张里人眼定过的窗口帧必须被尊重：自动评分挑不出「代表性」，重开会挑空走廊。"""
+    series_cover = load_series_cover()
+    ffmpeg = shutil_ffmpeg()
+    film = tmp_path / 'film.mp4'
+    subprocess.run([ffmpeg, '-y', '-v', 'error', '-f', 'lavfi', '-i',
+                    'testsrc=s=640x360:d=10:r=24', '-pix_fmt', 'yuv420p', str(film)], check=True)
+    story = {
+        'title': '示例案件：一句副标题',
+        'shots': [{'id': 'S01', 'start': 0, 'duration': 5, 'narration': '第一镜'},
+                  {'id': 'S02', 'start': 5, 'duration': 5, 'narration': '第二镜'}],
+        'presentation': {'cover': {'series_episode': 2, 'window_shot': 'S02', 'window_at': 1.0,
+                                   'candidates': ['S01', 'S02']}},
+    }
+    output = tmp_path / '封面.png'
+    image, picked = series_cover.make_auto(story, film, output, tmp_path)
+    assert picked['shot'] == 'S02'
+    assert abs(picked['at'] - 6.0) < 0.01, picked   # 镜头起始 5 s + 镜内 1.0 s
+    assert 'story.json' in picked['picked_by']
+    assert image.size == (1080, 1440)
+
+
 def shutil_ffmpeg():
     import shutil
 
