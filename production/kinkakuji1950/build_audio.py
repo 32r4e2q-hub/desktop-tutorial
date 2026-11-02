@@ -270,20 +270,20 @@ def _event_envelope(t: np.ndarray, at: float, duration: float, decay: float = 2.
 def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray]:
     """Original procedural score and Foley for the nine chapters (no stock audio).
 
-    Palette: low cello, low strings, a warm upright piano that cools into suspense piano,
-    slow low pulses, winter wind, distant traffic, tape and paper, camera shutters, keyboard
-    and computer fan. Everything is synthesised here, so the film carries no licensed music.
+    Palette for this film: breathy shakuhachi, plucked koto in a Japanese pentatonic mode, a low
+    string bed, a single temple bell, and taiko that enters only with the fire. Foley is wind,
+    water lapping at the pond, cicadas, wooden burning, hose water and steam, a train over rails
+    and a gavel. Everything is synthesised here, so the film carries no licensed music.
     """
     work_audio = work_dir / "audio"
     work_audio.mkdir(parents=True, exist_ok=True)
-    music_path = work_audio / "original-suspense-score.wav"
+    music_path = work_audio / "original-kinkakuji-score.wav"
     sfx_path = work_audio / "procedural-sfx.wav"
     duration = float(story["target_duration"])
     total = int(round(duration * RATE))
-    rng = np.random.default_rng(20001230)
+    rng = np.random.default_rng(19500702)
     wind_state = 0.0
     rumble_state = 0.0
-    # Chapter edges come from the storyboard, so the score always follows the picture.
     chapter_edges = np.array([float(c["start"]) for c in story["chapters"]] + [duration])
     sections = len(story["chapters"])
 
@@ -293,9 +293,24 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
     def gate(t: np.ndarray, lo: float, hi: float) -> np.ndarray:
         return ((t >= lo) & (t < hi)).astype(np.float64)
 
-    # Warm upright-piano phrase for the family chapter (A minor, unhurried).
-    piano_notes = np.array([220.00, 261.63, 329.63, 440.00, 329.63, 261.63, 246.94, 196.00])
-    piano_step = 0.52
+    # ---- koto: Japanese pentatonic (D, E, F, G, A, C) with a slow rising phrase
+    koto_notes = np.array([293.66, 349.23, 392.00, 440.00, 523.25, 440.00, 392.00,
+                           349.23, 293.66, 261.63, 293.66, 392.00])
+    koto_step = 0.62
+    # ---- shakuhachi: one sustained breath per chapter, slow attack, gentle vibrato
+    flute_hz = np.array([293.66, 392.00, 349.23, 261.63, 220.00, 196.00, 233.08, 174.61, 293.66])
+    # ---- taiko: the single hook hit, then the accelerating fire pattern
+    taiko_hits = [(6.15, 0.95), (6.55, 0.45)]
+    taiko_hits += [(85.2 + 0.62 * step + 0.02 * step * step, min(0.95, 0.42 + 0.055 * step))
+                   for step in range(22)]
+    taiko_hits += [(112.4, 0.80), (118.9, 0.72), (125.3, 0.55)]
+    # ---- temple bell and wind chimes, placed on the picture's chapter edges
+    bells = [(0.9, 0.55), (83.4, 0.42), (107.2, 0.62), (167.4, 0.50), (176.2, 0.34)]
+    chimes = [(11.4, 0.5), (37.6, 0.4), (61.2, 0.42), (132.4, 0.34), (149.6, 0.34)]
+    # ---- fire crackle window and hose water window
+    fire_lo, fire_hi = 85.0, 121.0
+    steam_lo, steam_hi = 107.0, 121.0
+    crackles = np.sort(rng.uniform(fire_lo, fire_hi, 260))
 
     with wave.open(str(music_path), "wb") as music_file, wave.open(str(sfx_path), "wb") as sfx_file:
         for writer in (music_file, sfx_file):
@@ -308,66 +323,100 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
             section = section_index(t)
             fade = np.minimum(np.clip(t / 1.6, 0, 1), np.clip((duration - t) / 1.8, 0, 1))
 
-            # ---- sustained bed: contrabass + cello + one detuned pair for width
+            # ---- string bed: contrabass, cello, a detuned pair and a low drone
             lfo = 0.76 + 0.18 * np.sin(2 * np.pi * 0.019 * t)
-            cello = (0.090 * np.sin(2 * np.pi * 55.00 * t)
-                     + 0.042 * np.sin(2 * np.pi * 82.41 * t + 0.35)
-                     + 0.020 * np.sin(2 * np.pi * 110.00 * t + 0.90)) * lfo
-            sub = 0.050 * np.sin(2 * np.pi * 36.71 * t)
-            drone = (0.046 * np.sin(2 * np.pi * 73.42 * t)
-                     + 0.026 * np.sin(2 * np.pi * 146.83 * t + 0.4)
+            cello = (0.082 * np.sin(2 * np.pi * 55.00 * t)
+                     + 0.038 * np.sin(2 * np.pi * 82.41 * t + 0.35)
+                     + 0.018 * np.sin(2 * np.pi * 110.00 * t + 0.90)) * lfo
+            sub = 0.046 * np.sin(2 * np.pi * 36.71 * t)
+            drone = (0.040 * np.sin(2 * np.pi * 73.42 * t)
+                     + 0.022 * np.sin(2 * np.pi * 146.83 * t + 0.4)
                      * (0.5 + 0.5 * np.sin(2 * np.pi * 0.06 * t)))
-            strings = (0.026 * np.sin(2 * np.pi * 98.00 * t)
-                       + 0.020 * np.sin(2 * np.pi * 116.54 * t + 0.16)
-                       + 0.014 * np.sin(2 * np.pi * 146.83 * t + 0.72))
+            strings = (0.024 * np.sin(2 * np.pi * 98.00 * t)
+                       + 0.018 * np.sin(2 * np.pi * 116.54 * t + 0.16)
+                       + 0.012 * np.sin(2 * np.pi * 146.83 * t + 0.72))
             tremolo = strings * (0.65 + 0.35 * np.sin(2 * np.pi * 5.6 * t))
-            tension = 0.013 * np.sin(2 * np.pi * 233.08 * t) + 0.010 * np.sin(2 * np.pi * 246.94 * t + 0.5)
-            room_tone = 0.007 * (np.sin(2 * np.pi * 60.0 * t) + np.sin(2 * np.pi * 120.3 * t))
 
-            # ---- warm piano in the family chapter, cooling at its end
-            step = np.floor((t - 10.0) / piano_step).astype(int)
-            age = np.mod(np.maximum(t - 10.0, 0.0), piano_step)
-            note = piano_notes[np.mod(np.maximum(step, 0), len(piano_notes))]
-            warm_piano = 0.052 * np.sin(2 * np.pi * note * t) * np.exp(-age * 3.1)
-            warm_piano += 0.016 * np.sin(2 * np.pi * note * 2.01 * t + 0.3) * np.exp(-age * 5.4)
-            warm_piano *= gate(t, 10.0, 31.0)
+            # ---- koto: plucked, decaying, slightly detuned second string for body
+            step = np.mod(np.floor(np.maximum(t - 11.0, 0.0) / koto_step).astype(int), len(koto_notes))
+            age = np.mod(np.maximum(t - 11.0, 0.0), koto_step)
+            note = koto_notes[step]
+            koto = 0.062 * np.sin(2 * np.pi * note * t) * np.exp(-age * 3.0)
+            koto += 0.026 * np.sin(2 * np.pi * note * 2.002 * t + 0.2) * np.exp(-age * 5.6)
+            koto += 0.012 * np.sin(2 * np.pi * note * 3.01 * t + 0.5) * np.exp(-age * 8.0)
+            koto *= (gate(t, 11.0, 37.0) * 0.85 + gate(t, 61.0, 70.0) * 0.35
+                     + gate(t, 167.0, 180.0) * 0.95)
 
-            # ---- sparse suspense piano and slow pulse for the evidence chapters
-            pulse_step = 1.05
-            pulse_age = np.mod(np.maximum(t - 72.0, 0.0), pulse_step)
-            pulse = 0.040 * np.sin(2 * np.pi * 55.0 * t) * np.exp(-pulse_age * 3.6)
-            pulse *= gate(t, 72.0, 114.0)
-            suspense_step = 1.9
-            s_age = np.mod(np.maximum(t - 72.0, 0.0), suspense_step)
-            s_index = np.mod(np.floor((t - 72.0) / suspense_step).astype(int), 5)
-            s_notes = np.array([146.83, 174.61, 220.00, 174.61, 130.81])
-            suspense_piano = 0.045 * np.sin(2 * np.pi * s_notes[s_index] * t) * np.exp(-s_age * 2.4)
-            suspense_piano *= gate(t, 72.0, 93.0)
-            office_piano = 0.038 * np.sin(2 * np.pi * s_notes[s_index] * t) * np.exp(-s_age * 2.0)
-            office_piano *= gate(t, 114.0, 135.0)
+            # ---- shakuhachi: breath + tone, one note per chapter, gentle vibrato
+            flute_index = np.clip(section, 0, len(flute_hz) - 1)
+            flute_note = flute_hz[flute_index]
+            vibrato = 1.0 + 0.0032 * np.sin(2 * np.pi * 4.6 * t + 0.7)
+            breath = 0.013 * np.sin(2 * np.pi * flute_note * vibrato * t) * (0.6 + 0.4 * np.sin(2 * np.pi * 0.11 * t))
+            breath += 0.036 * np.sin(2 * np.pi * flute_note * vibrato * t) * (0.55 + 0.45 * np.sin(2 * np.pi * 0.07 * t))
+            breath *= np.select(
+                [section == 0, section == 1, section == 2, section == 3,
+                 section == 4, section == 5, section == 6, section == 7, section == 8],
+                [1.00, 0.75, 0.30, 0.18, 0.12, 0.22, 0.55, 0.30, 0.95], default=0.2)
+            breath *= (t >= 0.6)
 
-            # ---- decaying cello line over the unsolved chapters, then the closing notes
-            descent = np.clip((t - 135.0) / 21.0, 0.0, 1.0)
-            glide_hz = 110.0 * np.exp(-0.42 * descent)
-            gliding = 0.052 * np.sin(2 * np.pi * glide_hz * t) * gate(t, 135.0, 156.0)
-            outro_env = np.clip((168.0 - t) / 12.0, 0.0, 1.0)
-            outro = (0.058 * np.sin(2 * np.pi * 110.0 * t)
-                     + 0.026 * np.sin(2 * np.pi * 87.31 * t + 0.4)) * outro_env * (t >= 156.0)
+            # ---- taiko: low thump with a short pitch drop, only where the picture needs it
+            taiko = np.zeros(count, dtype=np.float64)
+            for at, amp in taiko_hits:
+                if at + 1.2 < t[0] or at > t[-1] + 1.2:
+                    continue
+                delta = t - at
+                live = (delta >= 0) & (delta < 1.2)
+                if not live.any():
+                    continue
+                env = np.exp(-np.clip(delta, 0, 1.2) * 4.6) * live
+                pitch = 64.0 * np.exp(-np.clip(delta, 0, 1.2) * 3.2) + 38.0
+                taiko += amp * env * (0.75 * np.sin(2 * np.pi * pitch * t) + 0.25 * np.sin(2 * np.pi * pitch * 1.5 * t + 0.3))
 
-            levels = np.array([0.62, 0.58, 0.66, 0.60, 0.62, 0.58, 0.60, 0.66, 0.44])
+            # ---- temple bell and wind chimes
+            bell = np.zeros(count, dtype=np.float64)
+            for at, amp in bells:
+                delta = t - at
+                live = (delta >= 0) & (delta < 6.0)
+                if not live.any():
+                    continue
+                d = np.clip(delta, 0, 6.0)
+                env = np.exp(-d * 1.15) * live
+                bell += amp * env * (0.55 * np.sin(2 * np.pi * 174.6 * d)
+                                     + 0.30 * np.sin(2 * np.pi * 261.6 * d + 0.4)
+                                     + 0.16 * np.sin(2 * np.pi * 523.2 * d + 0.9))
+            chime = np.zeros(count, dtype=np.float64)
+            for at, amp in chimes:
+                delta = t - at
+                live = (delta >= 0) & (delta < 3.2)
+                if not live.any():
+                    continue
+                d = np.clip(delta, 0, 3.2)
+                env = np.exp(-d * 1.8) * live
+                chime += amp * env * (0.5 * np.sin(2 * np.pi * 1318.5 * d)
+                                      + 0.3 * np.sin(2 * np.pi * 1975.5 * d + 0.4))
+
+            # ---- slow piano for the two quiet chapters (mother, verdict)
+            piano_index = np.mod(np.floor(np.maximum(t - 132.0, 0.0) / 1.4).astype(int), 6)
+            piano_age = np.mod(np.maximum(t - 132.0, 0.0), 1.4)
+            piano_notes = np.array([146.83, 174.61, 220.00, 196.00, 174.61, 130.81])
+            piano = (0.044 * np.sin(2 * np.pi * piano_notes[piano_index] * t)
+                     + 0.014 * np.sin(2 * np.pi * piano_notes[piano_index] * 2.01 * t + 0.3)) * np.exp(-piano_age * 2.6)
+            piano *= (gate(t, 132.0, 149.0) * 0.9 + gate(t, 155.0, 167.0) * 0.6)
+
+            levels = np.array([0.72, 0.60, 0.50, 0.54, 0.70, 0.44, 0.46, 0.42, 0.58])
             score = (
-                (cello * 0.85 + sub + drone * 0.35) * (section == 0)
-                + (warm_piano + drone * 0.45 + cello * 0.25) * (section == 1)
-                + (tremolo + cello * 0.55 + sub * 0.6) * (section == 2)
-                + (cello * 0.45 + drone * 0.7 + room_tone * 0.5) * (section == 3)
-                + (pulse + suspense_piano + drone * 0.4) * (section == 4)
-                + (pulse * 0.7 + room_tone * 0.8 + cello * 0.3 + tension * 0.6) * (section == 5)
-                + (cello * 0.5 + office_piano + drone * 0.5) * (section == 6)
-                + (gliding + cello * 0.40 + tremolo * 0.35) * (section == 7)
-                + (outro + cello * 0.22) * (section == 8)
+                (breath + koto * 0.45 + cello * 0.35 + sub * 0.5 + bell * 0.35) * (section == 0)
+                + (koto * 1.00 + breath * 0.55 + drone * 0.30 + chime * 0.55 + cello * 0.18) * (section == 1)
+                + (breath * 0.40 + tremolo * 0.70 + cello * 0.60 + chime * 0.25) * (section == 2)
+                + (cello * 0.55 + drone * 0.60 + tremolo * 0.40 + koto * 0.22) * (section == 3)
+                + (taiko * 0.95 + drone * 0.75 + cello * 0.40 + tremolo * 0.25 + breath * 0.18) * (section == 4)
+                + (cello * 0.70 + drone * 0.45 + taiko * 0.22 + breath * 0.30) * (section == 5)
+                + (piano * 0.95 + breath * 0.55 + cello * 0.30) * (section == 6)
+                + (piano * 0.70 + cello * 0.45 + drone * 0.40) * (section == 7)
+                + (koto * 1.05 + breath * 0.85 + bell * 0.40 + drone * 0.20) * (section == 8)
             )
             section_level = levels[section]
-            score = np.tanh(score * 1.30) * section_level * fade
+            score = np.tanh(score * 1.25) * section_level * fade
             pan = 0.05 * np.sin(2 * np.pi * 0.015 * t)
             music_pcm = np.clip(np.column_stack((score * (1.0 - pan), score * (1.0 + pan))) * 32767,
                                 -32768, 32767).astype("<i2")
@@ -390,49 +439,57 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
             wind_gain = np.select(
                 [section == 0, section == 1, section == 2, section == 3,
                  section == 4, section == 5, section == 6, section == 7, section == 8],
-                [0.030, 0.009, 0.032, 0.010, 0.008, 0.012, 0.009, 0.030, 0.020],
-                default=0.012,
+                [0.026, 0.008, 0.030, 0.009, 0.014, 0.012, 0.010, 0.026, 0.018],
+                default=0.010,
             )
             sfx = wind * wind_gain
-            # Distant traffic: slow low-passed swells passing the house.
-            for at, amp in ((6.4, 0.020), (34.6, 0.016), (47.2, 0.014), (150.5, 0.012), (171.0, 0.010)):
-                env = _event_envelope(t, at, 3.2, 0.9)
-                sfx += env * amp * rumble
-            # Police radio squelch and camera shutters around the cordon.
-            for at in (45.6, 49.4):
-                env = _event_envelope(t, at, 0.20, 9.0)
-                sfx += env * 0.020 * rng.normal(0.0, 1.0, count)
-            for at in (52.7, 54.3, 59.6, 60.9, 63.4):
-                click = _event_envelope(t, at, 0.075, 46.0)
-                sfx += click * 0.048 * rng.normal(0.0, 1.0, count)
-            # Tape trembling in the wind while the cordon is set.
-            tape = gate(t, 51.0, 58.0)
-            sfx += tape * 0.008 * rng.normal(0.0, 1.0, count) * (0.5 + 0.5 * np.sin(2 * np.pi * 2.6 * t))
-            # Evidence bags and cloth on the display table.
-            for at in (65.9, 67.4, 72.6, 74.2, 156.8, 158.3):
-                env = _event_envelope(t, at, 0.34, 7.0)
-                sfx += env * 0.024 * rng.normal(0.0, 1.0, count)
-            # Lab tone under the forensic visualisation.
-            sfx += gate(t, 79.0, 86.0) * 0.006 * np.sin(2 * np.pi * 1760.0 * t) * (0.4 + 0.6 * np.abs(np.sin(2 * np.pi * 0.35 * t)))
-            # Page turns, pen on paper and a desk-lamp switch in the office chapters.
-            for at in (87.2, 89.1, 115.2, 117.9, 120.6, 123.8, 130.2, 132.6, 136.1, 139.4):
-                env = _event_envelope(t, at, 0.42, 6.5)
-                sfx += env * 0.020 * rng.normal(0.0, 1.0, count)
-            pen = gate(t, 121.0, 128.0)
-            sfx += pen * 0.010 * rng.normal(0.0, 1.0, count) * (0.5 + 0.5 * np.sin(2 * np.pi * 9.0 * t))
-            lamp = _event_envelope(t, 135.4, 0.10, 34.0)
-            sfx += lamp * 0.036 * rng.normal(0.0, 1.0, count)
-            # Computer fan and spare keyboard taps in the study.
-            fan = gate(t, 93.5, 107.0)
-            sfx += fan * (0.010 * np.sin(2 * np.pi * 118.0 * t) + 0.004 * rng.normal(0.0, 1.0, count))
-            keys = gate(t, 94.0, 100.0) * (rng.random(count) < 0.0022)
-            sfx += keys * 0.055 * np.exp(-np.mod(t * 1000.0, 1.0) * 9.0)
-            # Metal chime for the closing question marks.
-            for at, amp in ((157.7, 0.030), (168.6, 0.034), (176.6, 0.026)):
-                env = _event_envelope(t, at, 1.6, 3.2)
-                sfx += env * amp * (np.sin(2 * np.pi * 1318.5 * (t - at))
-                                    + 0.6 * np.sin(2 * np.pi * 1975.5 * (t - at) + 0.4))
-            # Nothing sounds in the final stretch: the brief asks for a clean fade to silence.
+
+            # Water lapping at the pond: slow amplitude-modulated low noise.
+            lap = gate(t, 0.0, 37.0) + gate(t, 100.0, 132.0) + gate(t, 160.0, 180.0)
+            sfx += lap * 0.010 * rumble * (0.45 + 0.55 * np.abs(np.sin(2 * np.pi * 0.42 * t)))
+
+            # Cicadas in the summer chapters (S06, S09, S25): high band with a fast tremolo.
+            cicada = (gate(t, 29.0, 37.0) * 0.6 + gate(t, 50.0, 56.5) * 0.85 + gate(t, 143.0, 149.0) * 0.35)
+            cicada_noise = rng.normal(0.0, 1.0, count)
+            cicada_tone = (np.sin(2 * np.pi * 4300.0 * t) * 0.5 + np.sin(2 * np.pi * 6100.0 * t + 0.3) * 0.3)
+            sfx += cicada * 0.006 * (cicada_tone + cicada_noise) * (0.5 + 0.5 * np.sin(2 * np.pi * 11.0 * t))
+
+            # Wooden burning: sparse crackles and a low roar while the pavilion is alight.
+            sfx += gate(t, fire_lo, fire_hi) * 0.014 * rumble * (0.6 + 0.4 * np.sin(2 * np.pi * 0.23 * t))
+            block_start, block_end = t[0], t[-1]
+            for at in crackles:
+                if at + 0.12 < block_start or at > block_end:
+                    continue
+                d = t - at
+                live = (d >= 0) & (d < 0.12)
+                if live.any():
+                    sfx += live * 0.055 * np.exp(-d * 52.0) * np.sin(2 * np.pi * 900.0 * d)
+
+            # Hose water and steam around the firefighting shot.
+            sfx += gate(t, steam_lo, steam_hi) * 0.011 * rng.normal(0.0, 1.0, count)
+            sfx += gate(t, steam_lo, steam_hi) * 0.008 * np.sin(2 * np.pi * 2300.0 * t) * (0.4 + 0.6 * np.abs(np.sin(2 * np.pi * 0.7 * t)))
+
+            # Train over rails, then the empty carriage, then the courtroom hush.
+            clack = np.zeros(count, dtype=np.float64)
+            for at in np.arange(150.2, 156.0, 0.86):
+                d = t - at
+                live = (d >= 0) & (d < 0.16)
+                clack += live * np.exp(-np.clip(d, 0, 0.16) * 26.0)
+            sfx += clack * 0.030 * (rng.normal(0.0, 1.0, count) * 0.4
+                                   + np.sin(2 * np.pi * 220.0 * t) * 0.6)
+            sfx += gate(t, 150.2, 156.0) * 0.006 * rumble
+            gavel = np.zeros(count, dtype=np.float64)
+            for at in (163.1, 163.45):
+                d = t - at
+                live = (d >= 0) & (d < 0.22)
+                gavel += live * np.exp(-np.clip(d, 0, 0.22) * 30.0) * np.sin(2 * np.pi * 320.0 * d)
+            sfx += gavel * 0.050
+            sfx += gate(t, 161.5, 167.0) * 0.004 * (rng.normal(0.0, 1.0, count))  # silent gallery
+
+            # Breeze chime on the closing question, then nothing: a clean fade to silence.
+            sfx += _event_envelope(t, 176.4, 2.0, 2.2) * 0.020 * (
+                np.sin(2 * np.pi * 1318.5 * np.clip(t - 176.4, 0, 2.0))
+                + 0.6 * np.sin(2 * np.pi * 1975.5 * np.clip(t - 176.4, 0, 2.0) + 0.4))
             sfx *= np.clip((178.6 - t) / 0.6, 0, 1)
             stereo = np.column_stack((sfx, sfx * (1.0 + 0.03 * np.sin(2 * np.pi * 0.05 * t))))
             sfx_file.writeframes(np.clip(stereo * 32767, -32768, 32767).astype("<i2").tobytes())
@@ -523,7 +580,7 @@ def build_soundtrack(story: dict, audio_dir: Path, work_dir: Path) -> tuple[Path
         "bgm_silence_gain": BGM_SILENCE_LEVEL,
         "sfx_level": SFX_LEVEL,
         "narration": narration_report,
-        "music_file": "original-suspense-score.wav",
+        "music_file": "original-kinkakuji-score.wav",
         "sfx_file": "procedural-sfx.wav",
         "output": str(output),
     }

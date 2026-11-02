@@ -27,7 +27,7 @@ TOTAL_FRAMES = FPS * DURATION
 # Abstract diagram shots occasionally come back letterboxed; only verified paired mattes are cropped.
 # Abstract diagram shots and the dark studio display occasionally come back with embedded
 # mattes; only verified paired bands are cropped, full-frame footage is left untouched.
-LETTERBOX_CHECK_SHOTS = {"S13", "S19", "S22", "S24", "S25", "S27"}
+LETTERBOX_CHECK_SHOTS = {"S24"}
 CARD_TEXT_MAX_WIDTH = 1660
 FADE_IN_SKIP = set()
 
@@ -304,14 +304,11 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
         )
 
     # Only the closing title is a post-produced overlay; the Agnes model itself is never asked
-    # to render legible text anywhere in the film (S29 is the single shot that carries a title).
+    # to render legible text anywhere in the film (S30 is the single shot that carries a title).
     lines += [
         f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}金阁寺纵火案",
-        f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}日本 · 2000 · 至今未破",
-        f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}真实案件改编 · 部分画面为3D复原",
-        # The closing prompt for discussion: a question only, never a claim about any person.
-        f"Dialogue: 2,{ass_time(177.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
-        + story["presentation"].get("end_question", ""),
+        f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}京都 · 1950 · 美与毁灭",
+        f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}AI动画情景复原 · 非真实影像",
         # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
         f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
     ]
@@ -328,11 +325,8 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     for i, cue in enumerate(cues, 1):
         body = "\n".join(split_caption(cue["text"]))
         rows.append(f"{i}\n{srt_clock(cue['start'])} --> {srt_clock(cue['end'])}\n{body}\n")
-    # The end-card question is on-screen text, not narration: it gets its own trailing cue so
-    # the delivered SRT matches what a viewer actually reads.
-    question = story["presentation"].get("end_question", "").strip()
-    if question:
-        rows.append(f"{len(cues) + 1}\n{srt_clock(177.15)} --> {srt_clock(179.45)}\n{question}\n")
+    # The closing question is already carried by the last narration cue (S30), so the end card
+    # itself only adds the title, the place-and-year line and the honesty label.
     srt_path.write_text("\n".join(rows), encoding="utf-8")
 
 
@@ -386,99 +380,102 @@ def fill_crop(image: Image.Image, width: int, height: int, x_bias: float = 0.5) 
 
 
 def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None:
-    """Left: the grey raglan sweatshirt reconstruction. Right: the winter house at night.
+    """左：金阁与完美倒影（S01 的一帧）；右：同一座楼阁的燃烧倒影（S18 的一帧）。
 
-    A drawn gold question mark sits between them. Both photographic panels are frames of
-    verified Agnes clips (never a still substitute for video); only the typography and the
-    question mark are drawn here, in post.
+    中间是一条后期绘制的「水面分界线」——竖向金色水光 + 横向水平线，把两个时代接在一起。
+    两块画面都是已核验 Agnes 片段的真实帧，不是另造的静帧；只有字体与分界线是后期绘制。
     """
     width, height = 1920, 1080
-    background = fill_crop(grab_frame(sources / "S01.mp4", 2.4, work_dir, "house"),
-                           width, height, 0.72)
+    half = width // 2
+    bleed = 150
 
-    # Left evidence panel, with a wide smoothstep ramp so no vertical seam shows on a phone.
-    ramp_start, ramp_end = 660, 1180
-    garment = fill_crop(grab_frame(sources / "S11.mp4", 2.6, work_dir, "garment"),
-                        ramp_end, height, 0.42)
-    panel = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    panel.paste(garment, (0, 0))
-    alpha = np.zeros((height, width), dtype=np.uint8)
-    for x in range(width):
-        if x <= ramp_start:
-            fade = 1.0
-        elif x >= ramp_end:
-            fade = 0.0
-        else:
-            position = (x - ramp_start) / (ramp_end - ramp_start)
-            fade = 1.0 - (position * position * (3.0 - 2.0 * position))
-        alpha[:, x] = int(round(255 * fade))
-    panel.putalpha(Image.fromarray(alpha, "L"))
-    image = Image.alpha_composite(background.convert("RGBA"), panel)
+    left = fill_crop(grab_frame(sources / "S01.mp4", 1.6, work_dir, "cover-calmpavilion"),
+                     half + bleed, height, 0.58)
+    right = fill_crop(grab_frame(sources / "S18.mp4", 2.4, work_dir, "cover-burningreflection"),
+                      half + bleed, height, 0.42)
+    right = ImageOps.mirror(right)
 
-    # Cold cinematic grade: darken the left for the gold title, darken the top and bottom edges.
+    canvas = Image.new("RGB", (width, height), (6, 8, 12))
+    canvas.paste(left.crop((0, 0, half + bleed, height)), (0, 0))
+    canvas.paste(right.crop((bleed, 0, bleed + half, height)), (half, 0))
+    image = canvas.convert("RGBA")
+
+    # 竖向水面分界线：柔和的缝 + 一条随水波摆动的金色水光。
+    seam = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    seam_draw = ImageDraw.Draw(seam)
+    for offset in range(-110, 111):
+        distance = abs(offset)
+        alpha = int(150 * max(0.0, 1.0 - distance / 110.0) ** 1.5)
+        seam_draw.line([(half + offset, 0), (half + offset, height)], fill=(4, 8, 14, alpha))
+    for offset in range(-3, 4):
+        points = []
+        for y in range(0, height + 1, 12):
+            wobble = 7.0 * np.sin(y / 78.0) + 3.0 * np.sin(y / 21.0 + 1.1)
+            points.append((half + offset + wobble, y))
+        seam_draw.line(points, fill=(246, 214, 140, 210 if offset == 0 else 90), width=2 if offset == 0 else 1)
+    image = Image.alpha_composite(image, seam)
+
+    # 横向水平线：读作镜湖池的水面，横穿两半。
+    water = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    water_draw = ImageDraw.Draw(water)
+    horizon = 704
+    for thickness, alpha in ((26, 46), (14, 70), (5, 120), (2, 190)):
+        water_draw.line([(0, horizon), (width, horizon)], fill=(248, 226, 176, alpha), width=thickness)
+    water = water.filter(ImageFilter.GaussianBlur(6))
+    image = Image.alpha_composite(image, water)
+
+    # 压暗左半与上下边缘，让金色大字压得住画面。
     shade = np.zeros((height, width, 4), dtype=np.uint8)
     for x in range(width):
-        strength = int(196 * max(0.0, 1.0 - x / 1500.0) ** 1.30)
-        shade[:, x, :] = (4, 8, 12, strength)
-    image = Image.alpha_composite(image, Image.fromarray(shade, "RGBA"))
-    vignette = np.zeros((height, width, 4), dtype=np.uint8)
+        strength = int(186 * max(0.0, 1.0 - x / 1160.0) ** 1.25)
+        shade[:, x, :] = (4, 7, 11, strength)
     yy, xx = np.mgrid[0:height, 0:width]
-    distance = np.sqrt(((xx - width * 0.5) / (width * 0.62)) ** 2 + ((yy - height * 0.46) / (height * 0.78)) ** 2)
-    vignette[:, :, 3] = np.clip((distance - 0.55) * 210, 0, 130).astype(np.uint8)
+    distance = np.sqrt(((xx - width * 0.42) / (width * 0.72)) ** 2 + ((yy - height * 0.62) / (height * 0.62)) ** 2)
+    vignette = np.zeros((height, width, 4), dtype=np.uint8)
+    vignette[:, :, 3] = np.clip((distance - 0.62) * 220, 0, 128).astype(np.uint8)
     vignette[:, :, 0:3] = (2, 4, 8)
+    image = Image.alpha_composite(image, Image.fromarray(shade, "RGBA"))
     image = Image.alpha_composite(image, Image.fromarray(vignette, "RGBA"))
 
     draw = ImageDraw.Draw(image)
-
-    # Gold question mark drawn between the two panels.
-    mark_font = ImageFont.truetype(str(find_font(True)), 470)
-    mark_box = draw.textbbox((0, 0), "?", font=mark_font)
-    mark_w, mark_h = mark_box[2] - mark_box[0], mark_box[3] - mark_box[1]
-    mark_x, mark_y = int(1218 - mark_w / 2), int(470 - mark_h / 2)
-    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    ImageDraw.Draw(glow).text((mark_x, mark_y - mark_box[1]), "?", font=mark_font,
-                              fill=(244, 201, 95, 150))
-    glow = glow.filter(ImageFilter.GaussianBlur(38))
-    image = Image.alpha_composite(image, glow)
-    image = Image.alpha_composite(image, glow)
-    draw = ImageDraw.Draw(image)
-    draw.text((mark_x, mark_y - mark_box[1]), "?", font=mark_font, fill="#f4c95f",
-              stroke_width=10, stroke_fill="#120f08")
-
-    title_text = story["presentation"]["cover"]["text"]
-    title_size = fit_size(draw, title_text, 158, 620, serif=True)
+    cover = story["presentation"]["cover"]
+    title_text = cover["text"]
+    sub_text = cover["subtext"]
+    title_size = fit_size(draw, title_text, 176, 880, serif=True, floor=96)
     title_font = ImageFont.truetype(str(find_font(True)), title_size)
-    small = ImageFont.truetype(str(find_font()), 34)
-    sub = ImageFont.truetype(str(find_font()), 46)
+    sub = ImageFont.truetype(str(find_font()), 54)
+    small = ImageFont.truetype(str(find_font()), 36)
     micro = ImageFont.truetype(str(find_font()), 28)
 
-    def stack(box: tuple[int, int, int, int]) -> int:
+    def stack(box):
         return int(box[3] - box[1])
 
-    kicker = "真实悬案 · 东京 · 2000"
-    hook_a = "留下无数线索，"
-    hook_b = "凶手为何仍未找到？"
-    footer = "AI动画情景复原 · 非真实影像"
+    kicker = "真实事件 · 京都 · 1950"
     kicker_box = draw.textbbox((0, 0), kicker, font=small)
     title_box = draw.textbbox((0, 0), title_text, font=title_font)
-    hook_a_box = draw.textbbox((0, 0), hook_a, font=sub)
-    hook_b_box = draw.textbbox((0, 0), hook_b, font=sub)
-    footer_box = draw.textbbox((0, 0), footer, font=micro)
+    sub_box = draw.textbbox((0, 0), sub_text, font=sub)
+    x = 92
+    y = 470
+    draw.text((x, y - kicker_box[1]), kicker, font=small, fill="#e6cf9a",
+              stroke_width=3, stroke_fill="#0a0c09")
+    y += stack(kicker_box) + 26
+    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).text((x, y - title_box[1]), title_text, font=title_font,
+                              fill=(244, 201, 95, 140), stroke_width=10, stroke_fill=(20, 14, 6, 90))
+    glow = glow.filter(ImageFilter.GaussianBlur(26))
+    image = Image.alpha_composite(image, glow)
+    draw = ImageDraw.Draw(image)
+    draw.text((x, y - title_box[1]), title_text, font=title_font, fill="#f4c95f",
+              stroke_width=9, stroke_fill="#0d0b06")
+    y += stack(title_box) + 30
+    draw.text((x, y - sub_box[1]), sub_text, font=sub, fill="#f6f1e6",
+              stroke_width=4, stroke_fill="#0a0c09")
 
-    y = 176
-    draw.text((96, y - kicker_box[1]), kicker, font=small, fill="#d8c08a",
-              stroke_width=2, stroke_fill="#0b0d0a")
-    y += stack(kicker_box) + 34
-    draw.text((88, y - title_box[1]), title_text, font=title_font, fill="#f4c95f",
-              stroke_width=8, stroke_fill="#100e07")
-    y += stack(title_box) + 40
-    draw.text((96, y - hook_a_box[1]), hook_a, font=sub, fill="#f3efe5",
-              stroke_width=3, stroke_fill="#0c0d0a")
-    y += stack(hook_a_box) + 12
-    draw.text((96, y - hook_b_box[1]), hook_b, font=sub, fill="#f3efe5",
-              stroke_width=3, stroke_fill="#0c0d0a")
-    draw.text((96, 944 - footer_box[1]), footer, font=micro, fill="#a7a49c",
-              stroke_width=2, stroke_fill="#0b0c09")
+    footer = "AI动画情景复原 · 非真实影像"
+    footer_box = draw.textbbox((0, 0), footer, font=micro)
+    draw.text((x, 992 - footer_box[1]), footer, font=micro, fill="#adaaa2",
+              stroke_width=2, stroke_fill="#0a0c09")
+
     output.parent.mkdir(parents=True, exist_ok=True)
     image.convert("RGB").save(output, quality=95, subsampling=0)
     image.convert("RGB").save(output.with_suffix(".png"))
@@ -560,12 +557,12 @@ def main() -> int:
         "source_model": MODEL,
         "source_resolution": SOURCE_SIZE,
         "final_resolution": "1920x1080 (upscaled in post)",
-        "style_consistency": "One STYLE block drives all 29 clips. Night exteriors read more "
-                             "photoreal while the family interiors read as painterly stylized 3D; the "
-                             "difference follows scene content rather than style drift. Faces drift "
+        "style_consistency": "One STYLE block drives all 30 clips. Night exteriors and the fire read more "
+                             "photoreal while the temple interiors and the small rooms read as painterly "
+                             "stylized 3D; the difference follows scene content rather than style drift. Faces drift "
                              "slightly between shots because every clip is generated independently; "
                              "single-character shots reuse a fixed per-character seed to limit it.",
-        "all_29_generated_shots_verified_by_sha256": True,
+        "all_30_generated_shots_verified_by_sha256": True,
         "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the "
                 "title, captions and end card are composited in post. The footage is an AI-produced "
                 "reenactment, not historical evidence imagery, and the evidence shots are 3D "
