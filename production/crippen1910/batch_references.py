@@ -55,7 +55,7 @@ def plan(story):
                 'The supplied input is the identity and costume source: keep EXACTLY the same fictional person, '
                 'age, build, face proportions, hairstyle, facial hair or clean-shaven state, spectacles or absence, '
                 'hat, fabric colours, garment cut, buttons, shoes and accessories. '
-                + instructions[view]+' '+story['characters'][role]+
+                + instructions[view]+' '+story['characters'][role]
                 + ('. BARE HEAD: absolutely NO HAT, NO CAP, NO BOWLER, NO added headwear. Hair must remain exposed exactly as source.' if role in bare_heads else '. Preserve ONLY the exact specific headwear in source, never add or substitute a different hat.')+
                 ' Neutral light grey seamless studio background, soft neutral studio light, detailed wool, skin and hair. '
                 'Natural anatomy and hands. Only change camera angle/framing, not character design. '
