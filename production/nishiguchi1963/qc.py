@@ -25,6 +25,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 
 FILM_NAME = "Nishiguchi_First_Cut.mp4"
+COVER_SIZE = (1080, 1440)
 COVER_NAME = "西口彰事件_封面.png"
 SRT_NAME = "Nishiguchi_First_Cut_字幕.srt"
 EXPECTED = {"width": 1920, "height": 1080, "fps": 24, "duration": 180.0, "frames": 4320}
@@ -323,8 +324,9 @@ def main() -> int:
         with Image.open(cover) as image:
             cover_info.update(width=image.width, height=image.height, mode=image.mode,
                               bytes=cover.stat().st_size)
-        if (cover_info["width"], cover_info["height"]) != (1920, 1080):
-            failures.append("cover is not 1920x1080")
+        # 全系列封面统一为「谜案解码人」竖版模板 1080×1440。
+        if (cover_info["width"], cover_info["height"]) != COVER_SIZE:
+            failures.append(f"cover is not {COVER_SIZE[0]}x{COVER_SIZE[1]} (series template)")
 
     sheets = make_contact_sheets(film, story, HERE / "qa" / "sheets")
     stills = export_fullres_stills(film, story, HERE / "qa" / "fullres")

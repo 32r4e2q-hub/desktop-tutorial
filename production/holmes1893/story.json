@@ -820,15 +820,15 @@
   ],
   "presentation": {
     "cover": {
-      "layout": "16:9；左半是夜色中漆黑的三层大楼与唯一一扇忽明忽暗的窗，右半是白城的万盏电灯与摩天轮，中间一道自上而下的白色撕裂裂缝；左上『传说』、右上『真相』、中缝『vs』；底部压金色主标题『杀人城堡』与白色副标题",
-      "text": "杀人城堡",
-      "subtext": "传说里的两百人，真相里的九个人",
-      "style": "金色粗体字、黑色描边；左半取 S02 帧、右半取 S01 帧，裂缝为后期绘制，不是静态图替代视频",
+      "series": "谜案解码人",
+      "series_episode": 2,
+      "template": "production/mystery-cover-template/template.py（竖版 1080×1440，全系列唯一版式）",
       "line1": "传说里两百人失踪",
       "line2": "他只承认九个人",
-      "series": "谜案解码人",
-      "episode": 2,
-      "window_shot": "S08"
+      "window_shot": "S08",
+      "window_at": 3.0,
+      "window_y_bias": 0.15,
+      "layout": "迷案解码人竖版模板：期数角标 + 两行标题 + 中间窗口放本片 S08（正在盖世界博览会旅馆）的帧"
     },
     "end_title": "H·H·霍姆斯",
     "end_subtitle": "芝加哥 · 1893 · 传说与真相",

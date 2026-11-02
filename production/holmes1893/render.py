@@ -23,6 +23,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(ROOT))
+from production import series_cover  # noqa: E402  全系列统一封面模板（production/series_cover.py）
 from production.holmes1893.build_audio import build_soundtrack  # noqa: E402
 from production.holmes1893.generate import MODEL, SOURCE_SIZE, digest, request_hash  # noqa: E402
 
@@ -35,10 +36,6 @@ PAD = 0.40  # clone tail so every xfade has room without shifting a single cut t
 LETTERBOX_CHECK_SHOTS = {"S09", "S12", "S13"}
 CARD_TEXT_MAX_WIDTH = 1660
 END_CARD_AT = 176.40
-# 系列封面：谜案解码人统一的竖版 1080×1440 版式；窗口里放本片的一帧。
-SERIES_EPISODE = 2
-COVER_SHOT = "S08"
-COVER_AT = 3.0
 # 片尾卡压在最后一镜（S30 现代芝加哥航拍）上，所以压暗放在这一镜的逐镜调色里做。
 END_CARD_SHOT = "S30"
 # 片尾卡渐隐：S30 从 174.0 s 开始，片尾卡在 174.55 s 亮起，0.55 s 处开始渐隐到黑。
@@ -514,24 +511,9 @@ def grab_frame(video: Path, seconds: float, work_dir: Path, tag: str) -> Image.I
         return image.convert("RGB")
 
 
-def series_cover(episode: int, line1: str, line2: str, shot: Image.Image,
-                 font_path: Path | None = None) -> Image.Image:
-    """全系列统一的竖版封面（迷案解码人版式）；版式代码只有一份，在 mystery-cover-template。"""
-    sys.path.insert(0, str(ROOT / "production" / "mystery-cover-template"))
-    import template as series_template
-
-    return series_template.cover(font_path or series_template.DEFAULT_FONT,
-                                 episode, line1, line2, shot=shot)
-
-
 def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None:
-    """窗口里放本片最有代表性的一帧：正在盖「世界博览会旅馆」的工地（S08）。"""
-    cover_cfg = story["presentation"]["cover"]
-    shot = grab_frame(sources / f"{COVER_SHOT}.mp4", COVER_AT, work_dir, "series")
-    image = series_cover(SERIES_EPISODE, cover_cfg["line1"], cover_cfg["line2"], shot)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    image.save(output, quality=95, subsampling=0)
-    image.save(output.with_suffix(".png"))
+    """封面走全系列统一的「谜案解码人」竖版模板，窗口里放本片的一帧。"""
+    series_cover.make(story, sources, output, work_dir)
 
 
 def main() -> int:

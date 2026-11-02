@@ -16,7 +16,10 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+
 sys.path.insert(0, str(ROOT))
+
+from production import series_cover  # noqa: E402  全系列统一封面模板（production/series_cover.py）
 from production.nishiguchi1963.build_audio import build_soundtrack  # noqa: E402
 from production.nishiguchi1963.generate import MODEL, SOURCE_SIZE, digest, request_hash, validate  # noqa: E402
 
@@ -465,16 +468,8 @@ def fill_crop(image: Image.Image, width: int, height: int, x_bias: float = 0.5) 
 
 
 def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None:
-    """Export the approved project cover; still art is never used as footage."""
-    source = HERE / "cover.png"
-    if not source.is_file():
-        raise RuntimeError("Project cover is missing; run make_cover.py with a CJK font")
-    with Image.open(source) as cover:
-        if cover.size != (1920, 1080):
-            raise RuntimeError("Project cover must be 1920x1080")
-        output.parent.mkdir(parents=True, exist_ok=True)
-        cover.convert("RGB").save(output, quality=95, subsampling=0)
-        cover.save(output.with_suffix(".png"))
+    """封面用全系列统一的「谜案解码人」竖版模板；窗口里放本片的一帧。"""
+    series_cover.make(story, sources, output, work_dir)
 
 
 def main() -> int:

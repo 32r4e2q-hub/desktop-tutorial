@@ -1,6 +1,6 @@
 # 迷案解码人｜系列封面工具
 
-这是用户已认可的竖版系列封面：1080×1440，固定背景、栏目、排版及红色期数角标；每期只换**期数、两行封面标题，以及截图窗口里的那张本片画面**。版式只有一份实现：`template.py` 里的 `cover()`；`generate_cover.py`、`build_template.py` 生成的样张、以及各案件 `render.py` 出片时的封面全部调用它，所以「所有封面都用这一个模板」是代码约束，不是约定。仓库的 `NotoSerifCJKsc-Common.otf` 是编辑器内嵌字体的相同常用字子集，字体许可见 `OFL.txt`。`plate.jpg` 是预处理过的固定背景，运行时不依赖 `work/`、下载或浏览器。编辑器见 `封面模板_可编辑.html`，可离线手动修改；该 CLI 和编辑器是各自独立的生成途径，细微渲染差异需视觉复核。
+这是用户已认可的竖版系列封面：1080×1440，固定背景、栏目、排版及红色期数角标；每期只换**期数、两行封面标题，以及截图窗口里的那张本片画面**。版式只有一份实现：`template.py` 里的 `cover()`；`generate_cover.py`、`build_template.py` 生成的样张、以及各案件 `render.py` 出片时的封面全部调用它，所以「所有封面都用这一个模板」是代码约束，不是约定。各案件出片时统一调用仓库根目录的 `production/series_cover.py`（它读 `story.json` 的 `presentation.cover`：`series_episode` / `line1` / `line2` / `window_shot` / `window_at` / `window_y_bias`），封面尺寸固定 1080×1440，`qc.py` 会按这个尺寸卡。仓库的 `NotoSerifCJKsc-Common.otf` 是编辑器内嵌字体的相同常用字子集，字体许可见 `OFL.txt`。`plate.jpg` 是预处理过的固定背景，运行时不依赖 `work/`、下载或浏览器。编辑器见 `封面模板_可编辑.html`，可离线手动修改；该 CLI 和编辑器是各自独立的生成途径，细微渲染差异需视觉复核。
 
 ## Agent 自动流程
 

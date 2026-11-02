@@ -16,7 +16,10 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+
 sys.path.insert(0, str(ROOT))
+
+from production import series_cover  # noqa: E402  全系列统一封面模板（production/series_cover.py）
 from production.setagaya2000.build_audio import build_soundtrack  # noqa: E402
 from production.setagaya2000.generate import MODEL, SOURCE_SIZE, digest, request_hash  # noqa: E402
 
@@ -386,102 +389,8 @@ def fill_crop(image: Image.Image, width: int, height: int, x_bias: float = 0.5) 
 
 
 def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None:
-    """Left: the grey raglan sweatshirt reconstruction. Right: the winter house at night.
-
-    A drawn gold question mark sits between them. Both photographic panels are frames of
-    verified Agnes clips (never a still substitute for video); only the typography and the
-    question mark are drawn here, in post.
-    """
-    width, height = 1920, 1080
-    background = fill_crop(grab_frame(sources / "S01.mp4", 2.4, work_dir, "house"),
-                           width, height, 0.72)
-
-    # Left evidence panel, with a wide smoothstep ramp so no vertical seam shows on a phone.
-    ramp_start, ramp_end = 660, 1180
-    garment = fill_crop(grab_frame(sources / "S11.mp4", 2.6, work_dir, "garment"),
-                        ramp_end, height, 0.42)
-    panel = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    panel.paste(garment, (0, 0))
-    alpha = np.zeros((height, width), dtype=np.uint8)
-    for x in range(width):
-        if x <= ramp_start:
-            fade = 1.0
-        elif x >= ramp_end:
-            fade = 0.0
-        else:
-            position = (x - ramp_start) / (ramp_end - ramp_start)
-            fade = 1.0 - (position * position * (3.0 - 2.0 * position))
-        alpha[:, x] = int(round(255 * fade))
-    panel.putalpha(Image.fromarray(alpha, "L"))
-    image = Image.alpha_composite(background.convert("RGBA"), panel)
-
-    # Cold cinematic grade: darken the left for the gold title, darken the top and bottom edges.
-    shade = np.zeros((height, width, 4), dtype=np.uint8)
-    for x in range(width):
-        strength = int(196 * max(0.0, 1.0 - x / 1500.0) ** 1.30)
-        shade[:, x, :] = (4, 8, 12, strength)
-    image = Image.alpha_composite(image, Image.fromarray(shade, "RGBA"))
-    vignette = np.zeros((height, width, 4), dtype=np.uint8)
-    yy, xx = np.mgrid[0:height, 0:width]
-    distance = np.sqrt(((xx - width * 0.5) / (width * 0.62)) ** 2 + ((yy - height * 0.46) / (height * 0.78)) ** 2)
-    vignette[:, :, 3] = np.clip((distance - 0.55) * 210, 0, 130).astype(np.uint8)
-    vignette[:, :, 0:3] = (2, 4, 8)
-    image = Image.alpha_composite(image, Image.fromarray(vignette, "RGBA"))
-
-    draw = ImageDraw.Draw(image)
-
-    # Gold question mark drawn between the two panels.
-    mark_font = ImageFont.truetype(str(find_font(True)), 470)
-    mark_box = draw.textbbox((0, 0), "?", font=mark_font)
-    mark_w, mark_h = mark_box[2] - mark_box[0], mark_box[3] - mark_box[1]
-    mark_x, mark_y = int(1218 - mark_w / 2), int(470 - mark_h / 2)
-    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    ImageDraw.Draw(glow).text((mark_x, mark_y - mark_box[1]), "?", font=mark_font,
-                              fill=(244, 201, 95, 150))
-    glow = glow.filter(ImageFilter.GaussianBlur(38))
-    image = Image.alpha_composite(image, glow)
-    image = Image.alpha_composite(image, glow)
-    draw = ImageDraw.Draw(image)
-    draw.text((mark_x, mark_y - mark_box[1]), "?", font=mark_font, fill="#f4c95f",
-              stroke_width=10, stroke_fill="#120f08")
-
-    title_text = story["presentation"]["cover"]["text"]
-    title_size = fit_size(draw, title_text, 158, 620, serif=True)
-    title_font = ImageFont.truetype(str(find_font(True)), title_size)
-    small = ImageFont.truetype(str(find_font()), 34)
-    sub = ImageFont.truetype(str(find_font()), 46)
-    micro = ImageFont.truetype(str(find_font()), 28)
-
-    def stack(box: tuple[int, int, int, int]) -> int:
-        return int(box[3] - box[1])
-
-    kicker = "真实悬案 · 东京 · 2000"
-    hook_a = "留下无数线索，"
-    hook_b = "凶手为何仍未找到？"
-    footer = "AI动画情景复原 · 非真实影像"
-    kicker_box = draw.textbbox((0, 0), kicker, font=small)
-    title_box = draw.textbbox((0, 0), title_text, font=title_font)
-    hook_a_box = draw.textbbox((0, 0), hook_a, font=sub)
-    hook_b_box = draw.textbbox((0, 0), hook_b, font=sub)
-    footer_box = draw.textbbox((0, 0), footer, font=micro)
-
-    y = 176
-    draw.text((96, y - kicker_box[1]), kicker, font=small, fill="#d8c08a",
-              stroke_width=2, stroke_fill="#0b0d0a")
-    y += stack(kicker_box) + 34
-    draw.text((88, y - title_box[1]), title_text, font=title_font, fill="#f4c95f",
-              stroke_width=8, stroke_fill="#100e07")
-    y += stack(title_box) + 40
-    draw.text((96, y - hook_a_box[1]), hook_a, font=sub, fill="#f3efe5",
-              stroke_width=3, stroke_fill="#0c0d0a")
-    y += stack(hook_a_box) + 12
-    draw.text((96, y - hook_b_box[1]), hook_b, font=sub, fill="#f3efe5",
-              stroke_width=3, stroke_fill="#0c0d0a")
-    draw.text((96, 944 - footer_box[1]), footer, font=micro, fill="#a7a49c",
-              stroke_width=2, stroke_fill="#0b0c09")
-    output.parent.mkdir(parents=True, exist_ok=True)
-    image.convert("RGB").save(output, quality=95, subsampling=0)
-    image.convert("RGB").save(output.with_suffix(".png"))
+    """封面用全系列统一的「谜案解码人」竖版模板；窗口里放本片的一帧。"""
+    series_cover.make(story, sources, output, work_dir)
 
 
 def main() -> int:

@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFont
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -125,3 +125,61 @@ def test_one_template_drives_the_cli_and_the_editor_sample():
     for project in ('holmes1893', 'nishiguchi1963', 'setagaya2000'):
         source = (ROOT / 'production' / project / 'render.py').read_text(encoding='utf8')
         assert 'tear_path(' not in source or project != 'holmes1893'
+
+
+def test_every_project_renders_the_same_template(tmp_path):
+    """每部片子的 render.py 都必须走 production/series_cover.py，不允许各写一套封面。"""
+    sys.path.insert(0, str(ROOT))
+    from production import series_cover
+
+    for project in ('holmes1893', 'nishiguchi1963', 'setagaya2000'):
+        source = (ROOT / 'production' / project / 'render.py').read_text(encoding='utf8')
+        assert 'series_cover.make(' in source, project
+        assert 'tear_path(' not in source, project
+        story = json.loads((ROOT / 'production' / project / 'story.json').read_text(encoding='utf8'))
+        cfg = series_cover.cover_config(story)
+        assert 1 <= cfg['episode'] <= 9999, project
+        assert 1 <= len(cfg['line1']) <= 18 and 1 <= len(cfg['line2']) <= 18, project
+        assert cfg['shot'] in [shot['id'] for shot in story['shots']], project
+
+
+def test_series_cover_entry_writes_both_formats(tmp_path):
+    sys.path.insert(0, str(ROOT))
+    from production import series_cover
+
+    story = {
+        'title': '测试案件',
+        'shots': [{'id': 'S01', 'start': 0, 'duration': 5}],
+        'presentation': {'cover': {'series_episode': 7, 'line1': '第一行标题', 'line2': '第二行标题',
+                                   'window_shot': 'S01', 'window_at': 1.0}},
+    }
+    shot = Image.new('RGB', (1920, 1080), (12, 12, 12))
+    output = tmp_path / '封面.jpg'
+    image = series_cover.render_with_frame(story, shot, output)
+    assert image.size == (1080, 1440)
+    assert output.is_file() and output.with_suffix('.png').is_file()
+    # 角标写着第七期
+    badge = image.crop((790, 76, 1012, 132))
+    assert badge.convert('L').getextrema()[1] > 120
+
+
+def test_film_stills_with_burned_in_subtitles_are_rejected():
+    """截图窗口底部一旦压到成片字幕，就要换帧：给出可复现的检测方式。"""
+    sys.path.insert(0, str(ROOT))
+    from production import series_cover
+
+    template_ = series_cover.template
+    left, top, right, bottom = template_.SHOT_BOX
+    width, height = right - left, bottom - top
+    clean = Image.new('RGB', (1920, 1080), (10, 10, 10))
+    dirty = clean.copy()
+    ImageDraw.Draw(dirty).text((500, 780), '这是一句很亮的中文字幕',
+                               font=ImageFont.truetype(str(template_.DEFAULT_FONT), 64),
+                               fill=(255, 255, 255))
+
+    def subtitle_ink(shot):
+        band = template_.fill_crop(shot, width, height).convert('L').crop((0, int(height * 0.72), width, height))
+        return sum(1 for value in list(band.getdata()) if value > 200)
+
+    assert subtitle_ink(clean) < 60
+    assert subtitle_ink(dirty) > 400

@@ -217,9 +217,9 @@ class HolmesPlanTests(unittest.TestCase):
     def test_sources_and_release_copy_are_recorded(self):
         self.assertTrue(all(source["url"].startswith("https://") for source in self.story["sources"]))
         pres = self.story["presentation"]
-        self.assertIn("城堡", pres["cover"]["text"])
-        self.assertIn("传说", pres["cover"]["subtext"])
-        self.assertIn("真相", pres["cover"]["subtext"])
+        # 封面改成系列模板后，标题是两行短句；仍要能看出「传说 / 真相」这组对照。
+        self.assertIn("九个人", pres["cover"]["line2"])
+        self.assertIn("失踪", pres["cover"]["line1"])
         self.assertEqual(pres["end_title"], "H·H·霍姆斯")
         self.assertIn("哪个更可怕", pres["end_question"])
         for tag in ("#真实事件", "#HH霍姆斯", "#杀人城堡", "#3D动画"):
@@ -283,18 +283,22 @@ class EndCardDimTests(unittest.TestCase):
 
     def test_cover_uses_the_single_series_template(self):
         source = (PROJECT / "render.py").read_text(encoding="utf-8")
-        self.assertIn("series_template.cover(", source)
+        self.assertIn("series_cover.make(", source, "封面必须走 production/series_cover.py")
         self.assertNotIn("tear_path(", source, "旧的撕裂封面已废弃")
-        self.assertIn("SERIES_EPISODE = 2", source)
         self.assertIn("make_cover(", source)
 
         import qc
 
         self.assertEqual(tuple(qc.COVER_SIZE), (1080, 1440))
         cover = self.story["presentation"]["cover"]
+        self.assertEqual(cover["series_episode"], 2)
         self.assertEqual((cover["line1"], cover["line2"]), ("传说里两百人失踪", "他只承认九个人"))
         for line in (cover["line1"], cover["line2"]):
             self.assertTrue(1 <= len(line) <= 18, line)
+        # 窗口里必须是本片的一帧。
+        self.assertEqual(cover["window_shot"], "S08")
+        self.assertIn(cover["window_shot"], [shot["id"] for shot in self.story["shots"]])
+        self.assertLess(cover["window_at"], 7.0)
 
     def test_closing_card_is_darkened_by_a_filter_not_by_ass(self):
         source = (PROJECT / "render.py").read_text(encoding="utf-8")
