@@ -55,6 +55,17 @@ class CrippenPlanTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Reference missing/unreviewed/changed'):
                 gen.validate_reference_gate(self.story)
 
+    def test_primary_files_alone_cannot_bypass_character_package(self):
+        approved={ref['id']:{'status':'approved','sha256':gen.digest(HERE/ref['file'])} for ref in self.story['reference_images']}
+        original=gen.read_json
+        def fake_read(path,default):
+            if path.name=='approvals.json':
+                return {'assets':approved}
+            return original(path,default)
+        with patch.object(gen,'read_json',side_effect=fake_read):
+            with self.assertRaisesRegex(ValueError,'Character view missing'):
+                gen.validate_reference_gate(self.story)
+
     def test_mutable_reference_revision_rejected(self):
         with patch.object(gen,'read_json',return_value={'revision':'main'}):
             with self.assertRaisesRegex(ValueError,'immutable commit'):
@@ -76,7 +87,17 @@ class CrippenPlanTests(unittest.TestCase):
     def test_revision_and_episode(self):
         self.assertEqual(self.story['episode'],3)
         self.assertEqual(self.story['branch'],'arena/f38dd103-desktop-tutorial')
-        self.assertEqual(len(self.story['reference_images']),31)
+        self.assertEqual(sum(r['asset_role']=='primary' for r in self.story['reference_images']),31)
+        self.assertEqual(len(self.story['reference_images']),35)
+
+    def test_montrose_sub_locations(self):
+        shots={s['id']:s for s in self.story['shots']}
+        self.assertIn('S06_deck',shots['S16']['references'])
+        self.assertIn('S06_dining',shots['S17']['references'])
+        self.assertIn('S06_cabin',shots['S18']['references'])
+        self.assertIn('C01_face',shots['S04']['references'])
+        for shot in shots.values():
+            self.assertLessEqual(len(shot['references']),8)
 
     def test_twist_not_exoneration(self):
         tail=''.join(s['narration'] for s in self.story['shots'][-2:])

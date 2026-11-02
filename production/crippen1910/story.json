@@ -117,7 +117,8 @@
       "references": [
         "C01",
         "C02",
-        "S02"
+        "S02",
+        "C01_face"
       ],
       "narration": "女歌手科拉放声高歌，丈夫克里平，却安静地坐在角落。",
       "narration_id": "N02",
@@ -222,7 +223,8 @@
       "references": [
         "C04",
         "C01",
-        "S02"
+        "S02",
+        "C01_face"
       ],
       "narration": "探长上门，克里平温和应答，第一次搜查，一无所获。",
       "narration_id": "N03",
@@ -374,7 +376,7 @@
       ],
       "references": [
         "C05",
-        "S06"
+        "S06_deck"
       ],
       "narration": "船长肯德尔，却留意上了这对举止奇怪的父子。",
       "narration_id": "N05",
@@ -399,7 +401,7 @@
         "C01B",
         "C03B",
         "C05",
-        "S06",
+        "S06_dining",
         "P05"
       ],
       "narration": "男孩的裤脚靠别针固定，两人牵手的动作，又过分亲密。",
@@ -421,7 +423,7 @@
       ],
       "references": [
         "C05",
-        "S06",
+        "S06_cabin",
         "P02"
       ],
       "narration": "船长翻开通缉报纸，认出了这对逃亡者。",
@@ -555,7 +557,7 @@
       "references": [
         "C01B",
         "C04B",
-        "S06",
+        "S06_deck",
         "S09"
       ],
       "narration": "小船靠上蒙特罗斯号，探长登船，走到毫无防备的克里平身后。",
@@ -579,7 +581,8 @@
       "references": [
         "C01B",
         "C04B",
-        "S09"
+        "S09",
+        "S06_deck"
       ],
       "narration": "帽子摘下，身份揭晓。这场跨海逃亡，终于结束了。",
       "narration_id": "N07",
@@ -602,7 +605,8 @@
       "references": [
         "C01",
         "C09",
-        "S10"
+        "S10",
+        "C01_face"
       ],
       "narration": "十月，克里平在老贝利受审，陪审团开始商议判决。",
       "narration_id": "N08",
@@ -625,7 +629,8 @@
       "references": [
         "C01",
         "C09",
-        "S10"
+        "S10",
+        "C01_face"
       ],
       "narration": "仅二十七分钟，他被裁定有罪。伊瑟尔另案受审，获判无罪。",
       "narration_id": "N08",
@@ -809,127 +814,178 @@
   "reference_images": [
     {
       "id": "C01",
-      "file": "reference/C01.png"
+      "file": "reference/C01.png",
+      "asset_role": "primary"
     },
     {
       "id": "C01B",
-      "file": "reference/C01B.png"
+      "file": "reference/C01B.png",
+      "asset_role": "primary"
     },
     {
       "id": "C02",
-      "file": "reference/C02.png"
+      "file": "reference/C02.png",
+      "asset_role": "primary"
     },
     {
       "id": "C03",
-      "file": "reference/C03.png"
+      "file": "reference/C03.png",
+      "asset_role": "primary"
     },
     {
       "id": "C03B",
-      "file": "reference/C03B.png"
+      "file": "reference/C03B.png",
+      "asset_role": "primary"
     },
     {
       "id": "C04",
-      "file": "reference/C04.png"
+      "file": "reference/C04.png",
+      "asset_role": "primary"
     },
     {
       "id": "C04B",
-      "file": "reference/C04B.png"
+      "file": "reference/C04B.png",
+      "asset_role": "primary"
     },
     {
       "id": "C05",
-      "file": "reference/C05.png"
+      "file": "reference/C05.png",
+      "asset_role": "primary"
     },
     {
       "id": "C06",
-      "file": "reference/C06.png"
+      "file": "reference/C06.png",
+      "asset_role": "primary"
     },
     {
       "id": "C07",
-      "file": "reference/C07.png"
+      "file": "reference/C07.png",
+      "asset_role": "primary"
     },
     {
       "id": "C08",
-      "file": "reference/C08.png"
+      "file": "reference/C08.png",
+      "asset_role": "primary"
     },
     {
       "id": "C09",
-      "file": "reference/C09.png"
+      "file": "reference/C09.png",
+      "asset_role": "primary"
     },
     {
       "id": "S01",
-      "file": "reference/S01.png"
+      "file": "reference/S01.png",
+      "asset_role": "primary"
     },
     {
       "id": "S02",
-      "file": "reference/S02.png"
+      "file": "reference/S02.png",
+      "asset_role": "primary"
     },
     {
       "id": "S03",
-      "file": "reference/S03.png"
+      "file": "reference/S03.png",
+      "asset_role": "primary"
     },
     {
       "id": "S04",
-      "file": "reference/S04.png"
+      "file": "reference/S04.png",
+      "asset_role": "primary"
     },
     {
       "id": "S05",
-      "file": "reference/S05.png"
+      "file": "reference/S05.png",
+      "asset_role": "primary"
     },
     {
       "id": "S06",
-      "file": "reference/S06.png"
+      "file": "reference/S06.png",
+      "asset_role": "primary"
     },
     {
       "id": "S07",
-      "file": "reference/S07.png"
+      "file": "reference/S07.png",
+      "asset_role": "primary"
     },
     {
       "id": "S08",
-      "file": "reference/S08.png"
+      "file": "reference/S08.png",
+      "asset_role": "primary"
     },
     {
       "id": "S09",
-      "file": "reference/S09.png"
+      "file": "reference/S09.png",
+      "asset_role": "primary"
     },
     {
       "id": "S10",
-      "file": "reference/S10.png"
+      "file": "reference/S10.png",
+      "asset_role": "primary"
     },
     {
       "id": "S11",
-      "file": "reference/S11.png"
+      "file": "reference/S11.png",
+      "asset_role": "primary"
     },
     {
       "id": "S12",
-      "file": "reference/S12.png"
+      "file": "reference/S12.png",
+      "asset_role": "primary"
     },
     {
       "id": "S13",
-      "file": "reference/S13.png"
+      "file": "reference/S13.png",
+      "asset_role": "primary"
     },
     {
       "id": "S14",
-      "file": "reference/S14.png"
+      "file": "reference/S14.png",
+      "asset_role": "primary"
     },
     {
       "id": "P01",
-      "file": "reference/P01.png"
+      "file": "reference/P01.png",
+      "asset_role": "primary"
     },
     {
       "id": "P02",
-      "file": "reference/P02.png"
+      "file": "reference/P02.png",
+      "asset_role": "primary"
     },
     {
       "id": "P03",
-      "file": "reference/P03.png"
+      "file": "reference/P03.png",
+      "asset_role": "primary"
     },
     {
       "id": "P04",
-      "file": "reference/P04.png"
+      "file": "reference/P04.png",
+      "asset_role": "primary"
     },
     {
       "id": "P05",
-      "file": "reference/P05.png"
+      "file": "reference/P05.png",
+      "asset_role": "primary"
+    },
+    {
+      "id": "S06_deck",
+      "file": "reference/S06_deck.png",
+      "asset_role": "supplement"
+    },
+    {
+      "id": "S06_dining",
+      "file": "reference/S06_dining.png",
+      "asset_role": "supplement"
+    },
+    {
+      "id": "S06_cabin",
+      "file": "reference/S06_cabin.png",
+      "asset_role": "supplement"
+    },
+    {
+      "id": "C01_face",
+      "file": "reference/C01_face.png",
+      "asset_role": "supplement"
     }
   ],
   "presentation": {

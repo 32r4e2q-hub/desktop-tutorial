@@ -78,20 +78,39 @@ REF_DESCRIPTIONS = {
 }
 
 
+SUPPLEMENT_DESCRIPTIONS = {
+    'S06_deck':'蒙特罗斯号木甲板、栏杆、躺椅、单烟囱与海平线，暖黄。',
+    'S06_dining':'蒙特罗斯号木质餐厅、白桌布、餐具、面包篮与吊灯，暖黄。',
+    'S06_cabin':'蒙特罗斯号船长舱室、木桌、旧报纸与窗外同款甲板，暖黄。',
+    'C01_face':'C01同一角色面部特写，眼镜、浓密八字胡、眉眼与发型。',
+}
+
+
 def build():
     shots=[]; cursor=0
     for i,(duration,chapter,refs,roles,text,prompt) in enumerate(ROWS,1):
         sid=f'S{i:02d}'
         shots.append(dict(id=sid,start=cursor,duration=duration,seconds=duration,aspect='16:9',source_size='720P',kind='agnes',style_variant='real',seed=191000+i,characters=roles.split(),references=refs.split(),narration=text,narration_id=f'N{chapter:02d}',prompt=prompt))
+        # Use the correct Montrose sub-location instead of exterior-only references.
+        if sid in {'S16','S24','S25'}:
+            shots[-1]['references']=[('S06_deck' if ref=='S06' else ref) for ref in shots[-1]['references']]
+            if sid=='S25':shots[-1]['references'].append('S06_deck')
+        elif sid=='S17':
+            shots[-1]['references']=[('S06_dining' if ref=='S06' else ref) for ref in shots[-1]['references']]
+        elif sid=='S18':
+            shots[-1]['references']=[('S06_cabin' if ref=='S06' else ref) for ref in shots[-1]['references']]
+        if 'C01' in shots[-1]['characters']:
+            shots[-1]['references'].append('C01_face')
         cursor+=duration
     chapters=[]
     for i in range(1,10):
         group=[s for s in shots if s['narration_id']==f'N{i:02d}']
         chapters.append(dict(id=f'N{i:02d}',title=['黄金三秒钩子','消失的科拉','探长上门','煤窖','海上的父子','电波追捕','抓捕','审判','反转'][i-1],start=group[0]['start'],duration=sum(s['duration'] for s in group),shot_ids=[s['id'] for s in group],text=''.join(s['narration'] for s in group)))
-    reference_ids=list(ROLES)+list(REF_DESCRIPTIONS)
+    primary_ids=list(ROLES)+list(REF_DESCRIPTIONS)
+    reference_ids=primary_ids+list(SUPPLEMENT_DESCRIPTIONS)
     voice_path=HERE/'audio/voice.json'
     voice_id=json.loads(voice_path.read_text()).get('voice_id') if voice_path.exists() else None
-    story=dict(title='克里平医生案：一道追上凶手的电波',film_name='克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4',episode=3,target_duration=180,width=1920,height=1080,fps=24,model='agnes-video-2.5-flash',source_size='720P',branch=BRANCH,style_prefix=STYLE,style_rumor_prefix=STYLE,negative_prompt=NEGATIVE,characters=ROLES,character_seeds={key:191010+i for i,key in enumerate(ROLES)},shots=shots,chapters=chapters,narration_spec={'voice_id':voice_id,'description':'悬疑低沉成熟男声，逐镜自然叙述','max_speedup_factor':1.15},reference_images=[{'id':key,'file':f'reference/{key}.png'} for key in reference_ids],presentation={'highlight_keywords':['一道电波','科拉','二十七分钟','终于结束','仍有争议','无线电','罗宾逊父子'],'end_question':'地窖里的人，究竟是谁？','cover':{'text':'一道电波'},'title':'凶手逃上大西洋邮轮，却被一道电波追上','hashtags':'#真实事件 #克里平医生 #伦敦 #悬疑 #历史 #3D动画 #无线电'})
+    story=dict(title='克里平医生案：一道追上凶手的电波',film_name='克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4',episode=3,target_duration=180,width=1920,height=1080,fps=24,model='agnes-video-2.5-flash',source_size='720P',branch=BRANCH,style_prefix=STYLE,style_rumor_prefix=STYLE,negative_prompt=NEGATIVE,characters=ROLES,character_seeds={key:191010+i for i,key in enumerate(ROLES)},shots=shots,chapters=chapters,narration_spec={'voice_id':voice_id,'description':'悬疑低沉成熟男声，逐镜自然叙述','max_speedup_factor':1.15},reference_images=[{'id':key,'file':f'reference/{key}.png','asset_role':'primary' if key in primary_ids else 'supplement'} for key in reference_ids],presentation={'highlight_keywords':['一道电波','科拉','二十七分钟','终于结束','仍有争议','无线电','罗宾逊父子'],'end_question':'地窖里的人，究竟是谁？','cover':{'text':'一道电波'},'title':'凶手逃上大西洋邮轮，却被一道电波追上','hashtags':'#真实事件 #克里平医生 #伦敦 #悬疑 #历史 #3D动画 #无线电'})
     (HERE/'story.json').write_text(json.dumps(story,ensure_ascii=False,indent=2)+'\n')
     (HERE/'audio').mkdir(exist_ok=True)
     manifest_path=HERE/'audio/manifest.json'
@@ -103,8 +122,14 @@ def build():
         valid=old.get(s['id'],{}).get('text')==s['narration'] and p.is_file()
         clips.append(dict(id=s['id'],file=p.name,text=s['narration'],voice_id=story['narration_spec']['voice_id'],narration_id=s['narration_id'],target_start=s['start'],target_duration=s['duration'],alignment='shot-locked',sha256=hashlib.sha256(p.read_bytes()).hexdigest() if valid else None))
     manifest_path.write_text(json.dumps(dict(voice=story['narration_spec']['voice_id'],alignment='one-clip-one-shot-one-caption',slowdown_allowed=False,clips=clips),ensure_ascii=False,indent=2)+'\n')
-    refs=[dict(id=key,file=f'reference/{key}.png',description=ROLES.get(key,REF_DESCRIPTIONS.get(key)),status='candidate' if (HERE/f'reference/{key}.png').exists() else 'pending') for key in reference_ids]
+    refs=[dict(id=key,file=f'reference/{key}.png',description=ROLES.get(key,REF_DESCRIPTIONS.get(key,SUPPLEMENT_DESCRIPTIONS.get(key))),status='candidate' if (HERE/f'reference/{key}.png').exists() else 'pending') for key in reference_ids]
     (HERE/'reference/manifest.json').write_text(json.dumps({'assets':refs,'all_approved':False,'note':'Single-view candidates are not the complete three-view plus close-up character package.'},ensure_ascii=False,indent=2)+'\n')
+    individual_roles=[role for role in ROLES if role not in {'C07','C09'}]
+    packages=[]
+    for role in individual_roles:
+        views={view:f'reference/{role}{suffix}.png' for view,suffix in [('front',''),('side','_side'),('back','_back'),('face','_face')]}
+        packages.append(dict(id=role,views=views,missing=[view for view,file in views.items() if not (HERE/file).is_file()],approved=False))
+    (HERE/'reference/character-packages.json').write_text(json.dumps({'note':'One standalone image per view; no grid layouts. Existing full-body near-front references are front anchors. Approval is separate from file existence.','packages':packages},ensure_ascii=False,indent=2)+'\n')
     lines=['# 克里平医生案 · 第三期 · 制作分镜（未出片）','', '|镜头|时间|参考图|旁白|动画动作|','|---|---|---|---|---|']
     for s in shots:
         lines.append(f"|{s['id']}|{s['start']}–{s['start']+s['duration']}秒|{', '.join(s['references'])}|{s['narration']}|{s['prompt']}|")

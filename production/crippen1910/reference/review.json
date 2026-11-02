@@ -2,22 +2,6 @@
   "reviewed_at": "2026-11-02",
   "assets": [
     {
-      "id": "C01",
-      "file": "C01.png",
-      "sha256": "7a7c3435807169c8a46a0cf4502159427ce68d3a836af3803264a924602649c7",
-      "status": "candidate_not_approved",
-      "review": "已看原图：眼镜、西装、怀表链和微驼可辨；胡须仍需更贴近浓密八字胡。",
-      "complete_character_package": false
-    },
-    {
-      "id": "C01B",
-      "file": "C01B.png",
-      "sha256": "6be439a7e538b9628d2cff3ef79fb654f657929c2fae65cfae12202a120d8cd4",
-      "status": "candidate_not_approved",
-      "review": "已看原图：无眼镜无胡须，灰帽、浅褐旅行装清楚；同一角色关联可辨，鼻梁压痕不明显。",
-      "complete_character_package": false
-    },
-    {
       "id": "C02",
       "file": "C02.png",
       "sha256": "ec97748e81cff81833ee3e63509e84ab069f7f567e89f539b64d1102c2cd9d19",
@@ -50,14 +34,6 @@
       "complete_character_package": false
     },
     {
-      "id": "C04B",
-      "file": "C04B.png",
-      "sha256": "8c60216157c19b2dfb817452979cee0a855f090b6e38b6d60ab3391ba7f546bc",
-      "status": "candidate_not_approved",
-      "review": "已看原图：深蓝制服、徽章制帽、八字胡清楚；帽檐尚未遮住半脸，需纠正。",
-      "complete_character_package": false
-    },
-    {
       "id": "C05",
       "file": "C05.png",
       "sha256": "7bb51c516047d649cfd262c4f0186e24ca49c4b43a2f80420b0485572a69d111",
@@ -87,15 +63,6 @@
       "sha256": "514af90805e709e3caabfb2a9d3a89e72c9a98a627a25b3bbf070b1b86572185",
       "status": "candidate_not_approved",
       "review": "已看原图：细框眼镜、白大褂、放大镜清楚，须补侧背视图。",
-      "complete_character_package": false
-    },
-    {
-      "id": "C09",
-      "file": "C09.png",
-      "sha256": "fabb4d7cba16f22b371b15d97a2e9959cfb24580008a36a3616e75955cfbbf5e",
-      "status": "needs_revision",
-      "review": "已逐张看原图：红袍假发、1910服装与风格统一；群像人员角色与十二名陪审员未清晰分组，不能据此认定法庭人数正确。",
-      "overall_approved": false,
       "complete_character_package": false
     },
     {
@@ -299,8 +266,8 @@
       "id": "P02",
       "file": "P02.png",
       "sha256": "939683bca6123cc1f52931a110b8d61e8e6717bd97ba7f26f0045654a9be7cf5",
-      "status": "visual_pass_prop",
-      "review": "已看原图：泛黄卷边报纸、与C01/C03关联的男女绘画肖像清楚，报头和文字为不可读抽象笔画；不得冒充历史报纸原件。",
+      "status": "recheck_after_character_revision",
+      "review": "已看原图：泛黄卷边报纸、与C01/C03关联的男女绘画肖像清楚，报头和文字为不可读抽象笔画；不得冒充历史报纸原件。 C01胡须已修订，P02男肖像须同步复查。",
       "dimensions": [
         1408,
         768
@@ -318,8 +285,136 @@
         768
       ],
       "overall_approved": false
+    },
+    {
+      "id": "P04",
+      "file": "P04.png",
+      "sha256": "b419a2fdd8dcef299e3d9423988360f1fc671587b9d7ba3da03526d7b8cdd02c",
+      "status": "visual_pass_prop",
+      "review": "已看原图：紫红宽帽、羽毛、花饰与C02一致，黑底独立道具，无头部或人形。",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "overall_approved": false
+    },
+    {
+      "id": "P05",
+      "file": "P05.png",
+      "sha256": "96fb8ccac68575687a87a1b4ca65f6bbd4c62b14f5d5a956a16286f3463cf24a",
+      "status": "visual_pass_prop",
+      "review": "已看原图：银色别针、弹簧圈、针扣与深色折裤脚清楚，无身体和人脸。",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "overall_approved": false
+    },
+    {
+      "id": "S06_deck",
+      "file": "S06_deck.png",
+      "sha256": "70c3286f15176eace90f31473a2081ccf1dae3564df65ba7da3a9fd1062e571c",
+      "status": "visual_pass_environment",
+      "review": "已看原图：暖黄木甲板、白栏杆、单烟囱、躺椅、海平线与蒙特罗斯船型呼应。",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "overall_approved": false
+    },
+    {
+      "id": "S06_dining",
+      "file": "S06_dining.png",
+      "sha256": "aeb417d74e6dd47b5ed59c039a7197e260933c0a2791d7ef3c893e1b1247d5d2",
+      "status": "visual_pass_environment",
+      "review": "已看原图：暖黄橡木餐厅、白桌布、餐具、面包篮和吊灯成立，无人物或可读菜单。",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "overall_approved": false
+    },
+    {
+      "id": "S06_cabin",
+      "file": "S06_cabin.png",
+      "sha256": "0952c1977f3edebf73c536a91cba2ec6eea7e0f4f053c09bfaa5cc75cac815c3",
+      "status": "visual_pass_environment",
+      "review": "已看原图：舱内木桌、黄铜器具、旧报纸及窗外同款甲板连贯；报纸笔画仅作示意，不放大为可读文字。",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "overall_approved": false
+    },
+    {
+      "id": "C01",
+      "file": "C01.png",
+      "sha256": "3890dcf67df2d98cb22263f1ac41fb8df9d92a019c212419753f01b955625503",
+      "status": "visual_pass_front_candidate",
+      "review": "已看修订原图：圆金眼镜、浓密下斜八字胡、微驼与灰三件套清楚；仍需侧背视图。",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "overall_approved": false,
+      "supersedes_sha256": "7a7c3435807169c8a46a0cf4502159427ce68d3a836af3803264a924602649c7",
+      "complete_character_package": false
+    },
+    {
+      "id": "C01B",
+      "file": "C01B.png",
+      "sha256": "26675b23d68f39e342255dee3b9ced8bd0c733e310867f1cd756b708b4c7ddd5",
+      "status": "visual_pass_front_candidate",
+      "review": "已看修订原图：无眼镜无胡子、灰帽和浅褐旅行装清楚，鼻梁有淡红压痕；需在近景补图检查。",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "overall_approved": false,
+      "supersedes_sha256": "6be439a7e538b9628d2cff3ef79fb654f657929c2fae65cfae12202a120d8cd4",
+      "complete_character_package": false
+    },
+    {
+      "id": "C04B",
+      "file": "C04B.png",
+      "sha256": "10f96bc6b3a76fcadcfadd7622adee4354e2ba8019e771d7dd7ecd7803c9f285",
+      "status": "visual_pass_front_candidate",
+      "review": "已看修订原图：帽檐压低遮住眼部，徽章、深蓝制服、下半脸与八字胡保留。",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "overall_approved": false,
+      "supersedes_sha256": "8c60216157c19b2dfb817452979cee0a855f090b6e38b6d60ab3391ba7f546bc",
+      "complete_character_package": false
+    },
+    {
+      "id": "C09",
+      "file": "C09.png",
+      "sha256": "0b00c1b72742219498982a6993fad6455fc9ee7f40e4884d49769285df3f1b89",
+      "status": "visual_pass_group",
+      "review": "已看修订原图并数人：左一名法官，右前排六名、后排六名陪审员，共十三人；已去掉陪审员室内帽子。此图不包含报童、旁听者。",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "overall_approved": false,
+      "supersedes_sha256": "fabb4d7cba16f22b371b15d97a2e9959cfb24580008a36a3616e75955cfbbf5e"
+    },
+    {
+      "id": "C01_face",
+      "file": "C01_face.png",
+      "sha256": "3f125fdce765e738f85e9883ea4bce2a40967c6e08ed79c6395f1a92b9921059",
+      "status": "visual_pass_face_candidate",
+      "review": "已看原图：金框眼镜、浓密八字胡、眉眼鼻耳与C01关联可辨，面部特写清晰；不代表侧背视图已完成。",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "overall_approved": false,
+      "complete_character_package": false
     }
   ],
-  "next_asset": "P04, then P05; resolve character/package and S06 interior review gaps before footage",
-  "blocking_issue": "29/31 primary files exist. Ten image calls used this turn (S08 revision plus nine new assets). Full package remains unapproved; no video task submitted."
+  "next_asset": "Character side/back/face supplements; P02 portrait consistency check",
+  "blocking_issue": "All 31 primary assets exist, plus three Montrose interior/deck supplements and C01 face. Character packages still lack side/back/face views. No video generation submitted."
 }

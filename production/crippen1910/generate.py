@@ -279,6 +279,20 @@ def validate_reference_gate(project: dict) -> None:
         row = approved.get(ref["id"], {})
         if not path.is_file() or row.get("status") != "approved" or row.get("sha256") != digest(path):
             raise ValueError("Reference missing/unreviewed/changed: " + ref["id"])
+    packages = read_json(HERE / "reference" / "character-packages.json", {}).get("packages", [])
+    expected_roles = set(project["characters"]) - {"C07", "C09"}
+    if {p.get("id") for p in packages} != expected_roles:
+        raise ValueError("Character package manifest is missing individual characters")
+    for package in packages:
+        if set(package.get("views", {})) != {"front", "side", "back", "face"}:
+            raise ValueError("Character package must contain front/side/back/face: " + package["id"])
+        for view, relative in package["views"].items():
+            path = (HERE / relative).resolve()
+            if not path.is_relative_to(HERE) or not path.is_file():
+                raise ValueError("Character view missing: " + package["id"] + "/" + view)
+            row = approved.get(path.stem, {})
+            if row.get("status") != "approved" or row.get("sha256") != digest(path):
+                raise ValueError("Character view not reviewed: " + path.stem)
     for shot in project["shots"]:
         if not 1 <= len(shot.get("references", [])) <= 8:
             raise ValueError("Reference count outside provider limits: " + shot["id"])
