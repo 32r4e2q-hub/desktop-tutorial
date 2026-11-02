@@ -762,7 +762,8 @@ def build() -> dict:
         "chapters": chapters,
         "shots": shots,
         "narration_spec": {
-            "voice_id": "voice-00",
+            # 全片只用这一把嗓子：2026-11-02 用户指出前段与重录段是两个声音，30 句统一重录成 voice-03。
+            "voice_id": "voice-03",
             "language": "zh-CN",
             "alignment": "one-independently-generated-voice-clip-and-one-caption-cue-per-shot",
             "max_speedup_factor": 1.55,
