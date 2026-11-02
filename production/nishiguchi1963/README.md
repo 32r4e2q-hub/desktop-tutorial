@@ -5,7 +5,6 @@
 - 30 镜、180 秒、16:9 的分镜计划与逐镜旁白：`story.json`、`screenplay.md`。每条镜头 5–7 秒。
 - `reference/` 有男主、寺院、寺院人物和封面背景四张 AI 示意图。都不是现实人物照片或真实影像。生成采用文字模式，参考图**不会作为模型输入**，仅供人工审校；角色一致性尚未验证。
 - `audio/` 已生成 30/30 条旁白，S23、S24、S28 偏短的录音已重录；按去边缘静音实测分别占可用镜头窗口约107%、86%、95%，S23 合成时约加速 1.078 倍，另两条不加速。`audio/fit-measured.md` 是全部实测结果；仍需人工听审。最新初剪已包含这些重录，仍需听审。
-- `cover.png` 是 1920×1080 封面初版，`make_cover.py` 使用 Noto Sans CJK 字体（SIL OFL 授权，字库单独存于忽略的工作目录）。封面依照指定标题写“十岁小女孩”，并附“另有十一岁说法”的醒目脚注。画面人物为虚构风格化重构。
 - `generate.py` 沿用世田谷的 Agnes Video 2.5 Flash、61秒节流、源片校验和断点记录，仍只支持素材生成。`render.py`、`build_audio.py`、`fetch_sources.py` 是新适配的初剪工具：拒绝缺失旁白或未经哈希验证的视频；配乐与音效程序合成；字幕按语音能量窗口对齐；后半段按7帧叠化并叠加轻微程序化雾感，叠化后重排入镜片段避免首帧回放且保留镜头总帧数；该调整待重新合成和视觉审查。前半段目前为硬切、还未实现报纸翻页视觉转场；S06/S26 的指定源片已安排对背景伪字局部羽化柔焦，不修改其余区域。`qc.py` 已接入首剪工作流检查客观规格、字幕、黑帧、冻结与音量，内容审校不可自动替代。真实素材初剪已合成并通过客观质检；仍须完整视听和事实质检。
 - 30 镜均已生成解码，第三轮 S12/S13/S23/S28 重做和首剪已完成。首剪人工抽帧发现 S01 肖像不一致、S06/S26 伪文字、S24 风格不一致，第四轮已重做；其中 S06/S26 已作局部柔焦，S24 父女第五轮已改为背影与肢体语言，并已重新合成。详见 `qa/review_round3.md`、`qa/review_round4.md` 和 `qa/review_round5.md`。由于生成接口限流，任务需自动冷却重试。源视频 Actions 工件保留七天，素材 URL 可能过期。
 - 首剪文件为 `交付/Nishiguchi_First_Cut.mp4`，报告与状态为 `交付/Nishiguchi_First_Cut_Report.json`、`交付/Nishiguchi_First_Cut_Status.json`；客观 QC 通过，但画面与声音尚未完整人工验收，不能当作最终成片。第五轮重做、三段旁白重录和后半段转场修订已经纳入该初剪。
@@ -44,3 +43,10 @@ python3 -m unittest production.tests.test_nishiguchi1963 -v
 话题：#真实事件 #西口彰 #日本 #昭和 #悬疑 #3D动画 #复仇在我
 
 说明：女孩的年龄有十岁和十一岁两种报道，具体记载存在差异。本片依据公开资料制作，画面均为AI动画情景复原，不代表真实人物相貌或历史影像。谨记五位遇害者。
+
+## 封面
+
+封面统一走「谜案解码人」竖版模板（1080×1440）：版式在 `production/mystery-cover-template/template.py`，
+入口是 `production/series_cover.py`，期数、两行标题和截图窗口的位置写在 `story.json` 的
+`presentation.cover`（`series_episode` / `line1` / `line2` / `window_shot` / `window_at` / `window_y_bias`）。
+出片时 `render.py` 自动生成；旧的 1920×1080 自制封面与 `make_cover.py` 已删除。
