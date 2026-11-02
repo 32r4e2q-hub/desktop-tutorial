@@ -641,9 +641,9 @@
     "S24": {
       "id": "S24",
       "request_hash": "d73be6b4afea5c6590f78dd4fccbcb8e600c9198054f585ee553e25d54becf3f",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-02T06:12:36Z",
+      "updated_at": "2026-11-02T06:12:40Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -656,7 +656,18 @@
       "bytes": 1209561,
       "sha256": "921571a0965a1765ec04e77d2ae8054b055e3f2d78cb1936fd3dd77c90de508f",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1209561,
+        "decoded_ok": true,
+        "contact_sheet": "production/kinkakuji1950/qa/S24.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S25": {
       "id": "S25",
@@ -802,7 +813,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-02T06:12:39Z",
+  "updated_at": "2026-11-02T06:12:40Z",
   "run_id": "41390236310",
   "previous_results": {},
   "submission_policy": {
