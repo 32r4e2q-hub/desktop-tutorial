@@ -184,6 +184,21 @@ class HolmesPlanTests(unittest.TestCase):
         self.assertEqual(fit.classify(1.12, 1.12, 1.55), "needs-speedup")
         self.assertEqual(fit.classify(1.60, 1.60, 1.55), "over")
 
+    def test_children_are_identified_as_pitezels_not_his_own(self):
+        """解说里必须说清三个孩子是皮泰泽尔的孩子，不能让人听成霍姆斯杀自己孩子。"""
+        by_id = {shot["id"]: shot["narration"] for shot in self.story["shots"]}
+        block = "".join(by_id[f"S{n:02d}"] for n in range(18, 23))
+        self.assertIn("皮泰泽尔", block + by_id["S17"], "得先交代皮泰泽尔是谁")
+        self.assertTrue("孩子母亲" in block or "的妻子" in block,
+                        "要说清是从孩子的母亲身边带走")
+        for shot in self.story["shots"]:
+            for wrong in ("他的三个孩子", "自己的孩子", "虎毒不食子"):
+                self.assertNotIn(wrong, shot["narration"], shot["id"])
+        # 每个孩子的死要有落点，不能只用「没能等到回家」含糊带过。
+        self.assertIn("地窖门", by_id["S21"])
+        self.assertIn("艾丽斯", by_id["S22"])
+        self.assertNotIn("没能等到回家", "".join(by_id.values()))
+
     def test_chapters_are_nine_and_contiguous(self):
         chapters = self.story["chapters"]
         self.assertEqual(len(chapters), 9)
