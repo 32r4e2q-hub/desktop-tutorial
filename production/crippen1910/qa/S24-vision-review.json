@@ -1,0 +1,40 @@
+{
+  "shot": "S24",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "59c0c605fbdaf993545cc5985ff1cee9da7735d6d922baa08c66c8649cb5e367",
+  "image_revision": "e7e50112dcc0293e03a4f44af1a010109e9ab05a",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.1045332499319172,
+    "residuals": [
+      0.0941421568627451,
+      0.10269001906318083,
+      0.10961417483660131,
+      0.1035681508714597,
+      0.09852151416122004,
+      0.14227757352941175,
+      0.13636955337690632,
+      0.04908285675381264
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "9 unique sample frames showing progressive movement of the detective from the ship's stern toward the lookout.",
+      "C01B identity confirmed: clean-shaven male, no glasses, prominent nose, grey hat, light tan/beige three-piece suit.",
+      "C04B identity confirmed: male with mustache (visible in side profile in last frame), dark blue pilot uniform, cap with gold anchor insignia.",
+      "Action continuity: sequence transitions from wide shot (distant figures) to medium close-up (nearly adjacent) - matches 'steady approach'.",
+      "Both characters show independent movement: C01B remains largely stationary near rail; C04B advances forward across deck planks.",
+      "Environment consistent: wooden deck, coiled rope, wooden deck chairs, ship railings, morning light with fog haze on horizon.",
+      "No material face/clothing drift across frames; costume and character features remain consistent throughout sequence."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
