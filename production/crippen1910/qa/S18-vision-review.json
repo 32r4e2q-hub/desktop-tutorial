@@ -1,0 +1,41 @@
+{
+  "shot": "S18",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "4c47a038dbd44f2b24a42e52b2792bc775e59e45346f9ff147f86a593c29fa79",
+  "image_revision": "1631d71bca08764f296cb2adbc1be92c1e768ae4",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.03750917415577342,
+    "residuals": [
+      0.030717184095860568,
+      0.026710443899782135,
+      0.04424217047930283,
+      0.054406386165577345,
+      0.026931985294117645,
+      0.025120438453159043,
+      0.04923039215686275,
+      0.04271439270152505
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Expected textless newspaper contradicted by visible readable text on the page",
+      "Missing key story action: captain raises eyebrows and grips newspaper tightly in recognition"
+    ],
+    "observations": [
+      "Captain C05 matches anchor: white uniform, gold epaulets, grey/white beard, captain's cap.",
+      "Newspaper shows legible headline text like 'ABANDONED' and portrait images on the page; grid and detail frames confirm print is present and mostly readable.",
+      "Outside window, a man and woman walk along the deck in period-appearing clothing, consistent with 'tourists'.",
+      "Hands hold the paper and posture changes slightly across frames, so motion is not a simple still-pushed-pan.",
+      "Captain does not visibly lift his brows or tighten his grip in the sampled frames; expression remains calm scanning rather than the specified recognition beat."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
