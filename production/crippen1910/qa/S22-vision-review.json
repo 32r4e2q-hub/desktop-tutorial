@@ -2,45 +2,39 @@
   "shot": "S22",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "a60674d08c676810241149f809fa84c4d51667c2cf2792b8b0085c68b08aabbb",
-  "image_revision": "cd010cd4bc085fe18c12680566e4924547da6f3f",
+  "source_sha256": "a463fdf52918f65be53dcc6572e2e6d7f0f90fd63029fa26851d608574ddad5e",
+  "image_revision": "f3970c5352c3120f3b568ad5b769373003126359",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.13891916019880174,
+    "camera_compensated_mean_residual": 0.12901515693082788,
     "residuals": [
-      0.08546779684095861,
-      0.08203165849673202,
-      0.08900694444444444,
-      0.20966407952069718,
-      0.13478928376906318,
-      0.22447337962962963,
-      0.24538807189542483,
-      0.04053206699346405
+      0.09005902777777777,
+      0.07539385893246187,
+      0.09314760348583878,
+      0.09249598311546842,
+      0.2335385348583878,
+      0.1778245506535948,
+      0.22281794662309368,
+      0.04684375
     ]
   },
   "assessment": {
     "pass": false,
-    "independent_motion": false,
+    "independent_motion": true,
     "identity_consistent": false,
     "safe": true,
-    "story_matches": false,
+    "story_matches": true,
     "issues": [
-      "Visible text on newspaper in C01B frames (rows of gibberish/Asian characters), violating 'paper has no text, letters, numbers or title'",
-      "Cartoon-style C01B character (wide eyes, exaggerated features) does not match realistic cinematic reference image provided",
-      "C04 inspector character shows significant facial feature drift between frames (moustache shape/thickness varies)",
-      "Bottom section displays numbers/coordinates (392, 3510, 3170, 3425) on the nautical map, violating 'no numbers'",
-      "No evidence of split-screen structure with blue ring merge animation into Canadian estuary",
-      "No visible camera movement or independent motion beyond basic pans"
+      "C01B identity drift: reference shows wide cartoon eyes and no mustache, but in frames C01B has normal cinematic proportions and a light mustache — deliberate disguise does not override reference mismatch in the shot itself; character anchor says '无胡子' but frames show a visible mustache",
+      "Left side of split-screen shows warm amber deck lighting but right side shows cold blue tones, not both simultaneously as described; blue ring does not connect both sides in any frame, rings are separate visual elements with no merge animation into Canadian estuary",
+      "C04 inspector face/clothing: consistent across frames (mustache shape, bowler hat, dark overcoat) but reference image shows different mustache style than what appears in actual footage; identity reference is not matched in shot"
     ],
     "observations": [
-      "Top-left grid cells show C01B holding newspaper with visible column text, not blank",
-      "C01B has exaggerated cartoon proportions vs realistic reference with narrow eyes and natural features",
-      "C04 appears inconsistently - sometimes with thick moustache, sometimes thin, facial structure varies",
-      "Bottom-right frame shows abstract sea chart with glowing blue route line but includes yellow coordinate numbers (392, 3510, 3170, 3425)",
-      "Center-bottom frame shows aerial view of estuary with blue dots but numbers are present",
-      "No split-screen composition visible in any frame",
-      "No blue ring merge animation sequence shown",
-      "Characters appear static with minimal independent movement"
+      "Frame row shows three sequential shots: warm-lit man reading newspaper on ship deck, cold-lit man standing on same deck; nautical map with glowing blue route dots visible in each frame; no text on newspaper visible, characters are clean-shaven or have mustaches depending on frame",
+      "C01B anchor image shows wide cartoon eyes, grey fedora, tan suit with maroon tie, no mustache — but in frames C01B has normal proportions and a light mustache",
+      "C04 anchor image shows steely blue eyes, black bowler hat, thick handlebar mustache, dark overcoat — but in frames C04 has thinner mustache and different facial proportions",
+      "Blue concentric rings appear in first bottom frame but do not merge with Canadian estuary scene; ship voyage shown in center bottom frame with dark smoke from funnel",
+      "No numbers/coordinates visible on map; no visible text/watermark on any element; story action matches narration: one relaxed on deck, one already arrived"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
