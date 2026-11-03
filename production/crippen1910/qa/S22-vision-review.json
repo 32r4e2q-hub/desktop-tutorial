@@ -2,20 +2,20 @@
   "shot": "S22",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "7fbfea333c1abb8ca9dbd602de0860e0fe9a979124cf34870c91ad2190c57353",
-  "image_revision": "e7e50112dcc0293e03a4f44af1a010109e9ab05a",
+  "source_sha256": "9df1e12e603feaa044c46a04e00ed0e5b34a7acae933b1508a520685eed4afc9",
+  "image_revision": "3c1d4e1e9b432571abdab9258e2dcd0ddd8e550b",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.09895732911220044,
+    "camera_compensated_mean_residual": 0.09048217081971678,
     "residuals": [
-      0.0745490876906318,
-      0.07146963507625272,
-      0.08582427832244009,
-      0.07827008442265795,
-      0.08186070261437908,
-      0.1925347903050109,
-      0.18558394607843137,
-      0.021566108387799564
+      0.0599490059912854,
+      0.07769784858387799,
+      0.0740921160130719,
+      0.06547950708061002,
+      0.0662671568627451,
+      0.11349455337690632,
+      0.24912860838779957,
+      0.01774857026143791
     ]
   },
   "assessment": {
@@ -25,20 +25,16 @@
     "safe": true,
     "story_matches": false,
     "issues": [
+      "Unapproved on-screen text: newspaper headline 'THE REUNION' is clearly legible on C01B's paper in the visible frames; scene specifies this prop text is extraneous and should not be generated.",
       "Narration text missing: expected '一边还在悠闲看海，另一边，已经抢先抵达加拿大。' is not displayed or audible in the visible frames.",
-      "Unapproved on-screen text: newspaper headline 'THE REUNION' is legible on C01B's paper; expected scene specifies no generated numeric distance and this prop text is extraneous.",
-      "Continuity mismatch of C01B's expression: expected right-panel behavior is smiling while reading; left-panel frames show neutral/focused reading rather than the required smile.",
-      "Ending shot inconsistency: final frame shows a glowing blue horizon seam over ocean with headlands but does not clearly establish a Canada river estuary setting as required."
+      "Ending shot inconsistency: final wide frame shows a river channel between headlands with a boat wake, but does not clearly establish a Canada river estuary setting as required by the scene specification."
     ],
     "observations": [
-      "Grid shows 7 occupied chronological cells and 2 black unused cells.",
-      "Left side depicts warm-toned ship deck with C01B (grey soft felt hat, beige travel suit, clean-shaven, no glasses) holding an open newspaper.",
-      "Right side depicts cold-blue sea with C04 (bowler hat, dark long coat, prominent moustache) walking along the rail.",
-      "Both characters show pose progression across frames (newspaper angle changes; walking stride changes), indicating independent motion beyond a static pan.",
-      "Lower map/sea-chart area shows glowing route dots and concentric blue rings near the dividing line.",
-      "A vertical blue glow separates the two scenes in most frames; final detail frame shows a horizontal blue light seam at the horizon over water.",
-      "Close-up frames reveal readable newspaper text 'THE REUNION' on C01B's paper.",
-      "Character identities match C01B and C04 reference images in hat, facial hair, and costume."
+      "C01B clean-shaven/no glasses with grey soft felt hat and beige suit matches reference; C04 tall man with浓密八字胡 (full handlebar moustache), dark overcoat and bowler hat matches reference. Both character identities are consistent across all 5 occupied grid cells and the three larger detail frames.",
+      "C01B is shown reading newspaper with neutral/focused expression in early frames, then smiling broadly in the middle-to-late frames (detail frame 3); C04 paces/stands beside him. Independent movement verified: C01B flips pages and shifts grip, C04 takes steps and moves legs across frame cells.",
+      "Blue glowing seam connecting the split-screen panels and the circular light nodes on the nautical chart below are present throughout the sequence. The final wide shot transitions to a single full-frame view of a waterway between green headlands/cliffs with a visible boat wake—this could plausibly represent an estuary but lacks explicit Canada identification (no signage, no ice, no specific Canadian landscape markers).",
+      "The newspaper held by C01B clearly displays the headline 'THE REUNION' in large serif type—this is an unapproved generated prop text that should be absent per scene specification.",
+      "No modern clothing, gore, duplicate faces, or safety issues detected. Period clothing is plausible for the era depicted."
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
