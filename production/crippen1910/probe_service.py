@@ -55,6 +55,9 @@ try:
     request=urllib.request.Request('https://apihub.agnes-ai.com/v1/chat/completions',data=json.dumps(payload).encode(),headers={'Authorization':'Bearer '+os.environ['AGNES_API_KEY'],'Content-Type':'application/json'},method='POST')
     with urllib.request.urlopen(request,timeout=180) as response:vision=json.load(response)
     out['vision_preflight']={'model':'agnes-2.5-flash','source_reference':'C05_side','response':vision['choices'][0]['message']['content']}
+except urllib.error.HTTPError as exc:
+    detail=exc.read(1000).decode('utf-8','replace').replace(os.environ.get('AGNES_API_KEY',''),'[redacted]')
+    out['vision_preflight']={'error_type':type(exc).__name__,'http_status':exc.code,'detail':detail}
 except Exception as exc:out['vision_preflight']={'error_type':type(exc).__name__}
 Path('production/crippen1910/service-probe.json').write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n')
 print(json.dumps(out, ensure_ascii=False, indent=2))
