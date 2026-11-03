@@ -2,50 +2,40 @@
   "shot": "S10",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "d6a7f880e9628b093c5813a583240e8863416358f930dcc1240328e879274455",
-  "image_revision": "62c55ed7464469a327029ddf074f517ec15aac3d",
+  "source_sha256": "6d5a835d7801bd059ffbdebd8b91184dbe96220784a6eab5deb2606ed6e39900",
+  "image_revision": "7c13d138f6af8fb293759c79cbabff4f4bbe2386",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.03767785777505447,
+    "camera_compensated_mean_residual": 0.08387229370915032,
     "residuals": [
-      0.026413194444444444,
-      0.035773488562091504,
-      0.058109749455337686,
-      0.04540590958605665,
-      0.04139814814814815,
-      0.031946418845315905,
-      0.0315458197167756,
-      0.030830133442265796
+      0.036395629084967324,
+      0.01835287309368192,
+      0.04330358115468409,
+      0.24584191176470588,
+      0.0968834422657952,
+      0.08550959967320261,
+      0.07773311546840958,
+      0.066958197167756
     ]
   },
   "assessment": {
-    "pass": false,
+    "pass": true,
     "independent_motion": true,
     "identity_consistent": true,
     "safe": true,
-    "story_matches": false,
-    "issues": [
-      "Wrong wall color: green/teal instead of required cold cyan-blue moonlight",
-      "Missing key story beats: no visible door-knocking action in any frame; cup has visible steam despite requirement for 'no steam cold teacup'; no turning head to check sofa/table",
-      "Lighting inconsistency: warm amber wall sconces dominate instead of unified cold cyan-blue月光",
-      "Camera position inconsistent with low-angle tracking through doorway at floor level",
-      "Curtain movement present but only captured in one detail frame, not clearly repeated as specified"
-    ],
+    "story_matches": true,
+    "issues": [],
     "observations": [
-      "C04 character anchor verified: black bowler hat,浓密八字胡,深色长大衣, sharp features match reference",
-      "Frame 1 (top-left grid): man standing at half-open door, hand on door — not a clear knocking gesture",
-      "Frame 2 (top-middle grid): same pose, still at doorway, no forward stepping motion visible",
-      "Frame 3 (top-right grid): man fully inside room, posture upright, no head-turning toward sofa/table",
-      "Frame 4 (bottom-left grid): white curtain clearly billowing leftward — independent motion confirmed",
-      "Frame 5 (bottom-middle grid): same curtain position, no additional wave cycle visible",
-      "Detail frame 1: close-up of man at door, hand on door panel — action reads as pushing not knocking",
-      "Detail frame 2: man stepping through doorway, low angle but not sufficiently low/camera-compensated",
-      "Detail frame 3: man fully inside, looking forward not toward furniture; cup on gramophone table has visible white steam wisp",
-      "Walls are deep green with vertical stripe pattern — contradicts '冷青蓝' moonlight requirement",
-      "Bedroom visible through adjacent doorway with warm-toned bedspread — not consistent with unified cold lighting",
-      "No text or watermarks present; period clothing plausible; no duplicates or anachronisms detected"
+      "Character C04 matches anchor: high-set middle-aged man, dense handlebar/moustache style, dark long coat, bowler hat, sharp gaze.",
+      "Action sequence present: exterior knock at door (detail frame shows arm raised/knocking); interior low tracking/standing shot shows the investigator entering with hand on open door knob and then standing inside the empty parlor.",
+      "Lighting/theme correct: dominant cold cyan-blue moonlight through the large window; no warm amber wall sconces visible—wall fixtures are cool-toned.",
+      "Curtain movement evident: sheer curtains blown inward by wind in multiple frames.",
+      "Teacup state correct: teacup on side table near gramophone shows no visible steam, consistent with 'cold cup.'",
+      "Camera setup plausible: mix of low-angle/dolly proximity and medium stance; doorway entry is shown from behind through the open door.",
+      "Narration content matches scene implication: empty room after arrival supports 'after investigation the couple suddenly disappeared' story beat.",
+      "Continuity stable across occupied frames: same hat, beard, and costume maintained; no duplicate faces or modern garments observed."
     ],
     "image_transport": "inline_jpeg_data_uri",
-    "accepted": false
+    "accepted": true
   }
 }
