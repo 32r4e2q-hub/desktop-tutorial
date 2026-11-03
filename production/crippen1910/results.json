@@ -916,7 +916,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1897,5 +1897,47 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/crippen1910/clips/克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/crippen1910/clips/克里平医生案_封面.jpg",
+    "delivered": {
+      "克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4": {
+        "bytes": 71623979,
+        "sha256": "b143c7dd26d109d5ebaab25ee058816945e287c546e9f6f4f9c775bcb217fbd5"
+      },
+      "克里平医生案_封面.jpg": {
+        "bytes": 502163,
+        "sha256": "f0a62c36dd7448e6f226e4e9664770e00ca87d41286f33282c0e186b5ba19534"
+      },
+      "克里平医生案_字幕.srt": {
+        "bytes": 3188,
+        "sha256": "fedb34e95530b9bf221ed77a3d09449e166b8035466745208dfabaf697d588cf"
+      },
+      "克里平医生案_技术报告.json": {
+        "bytes": 41076,
+        "sha256": "ac892bd5c86178da6800f73786639b843742ad145ebc39a650c7849fbcbc06f0"
+      },
+      "Crippen_Case_Final.mp4": {
+        "bytes": 71623979,
+        "sha256": "b143c7dd26d109d5ebaab25ee058816945e287c546e9f6f4f9c775bcb217fbd5"
+      },
+      "Crippen_Cover.png": {
+        "bytes": 1549141,
+        "sha256": "dedd98b6ee468c95490d9894c016952c2108fb794f0f8462ef8923b8766b71b3"
+      },
+      "Crippen_Subtitles.srt": {
+        "bytes": 3188,
+        "sha256": "fedb34e95530b9bf221ed77a3d09449e166b8035466745208dfabaf697d588cf"
+      },
+      "Crippen_Narration.wav": {
+        "bytes": 17280044,
+        "sha256": "1a27ca01e724ca551db55cd05bcdf5ee40737344090cfc4880ecb15dcb3dade6"
+      }
+    }
   }
 }
