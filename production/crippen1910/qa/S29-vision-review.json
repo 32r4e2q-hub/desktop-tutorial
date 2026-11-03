@@ -1,0 +1,39 @@
+{
+  "shot": "S29",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "d249bc3e6ea1ca3c00265c349be6ba8c02edd417425f22e290ee2b6aad4cc7b2",
+  "image_revision": "0efb85d81e3fd1dad31cf22c78b67bc19744e477",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.04801371868191721,
+    "residuals": [
+      0.06979404956427014,
+      0.07401211873638344,
+      0.0420829248366013,
+      0.05078690087145969,
+      0.06757516339869281,
+      0.0417650462962963,
+      0.02167681100217865,
+      0.016416734749455337
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Sequence clearly shows a progressive action: holding a sealed sample tube, inserting it into the instrument slot, and operating the panel.",
+      "Monitor graphics transition correctly: from split DNA peak graphs to a single abstract blue concentric wave/electromagnetic pattern.",
+      "Environment is consistently a modern (2000s-era CRT monitor, sterile lab benches, cold white lighting) biological laboratory.",
+      "No human tissue visible; only gloved hands and lab coat sleeves are shown.",
+      "Character arm positions change appropriately across frames (moving from holding tube up to pushing it into machine).",
+      "Action continuity is preserved without body drift or duplicate faces."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
