@@ -3,13 +3,19 @@ Artifacts are downloaded by the authenticated GitHub action, not an untrusted mo
 Every source, narration clip, and shot decision is compared to this checkout before reuse.
 """
 import hashlib,json,shutil
+from generate import request_hash
 from pathlib import Path
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def restore(root):
-    old=root/'production/crippen1910';now=json.loads((HERE/'story.json').read_text());prior=json.loads((old/'story.json').read_text())
+    old=root/'production/crippen1910';now=json.loads((HERE/'story.json').read_text())
     keys=('id','start','duration','prompt','references','narration')
-    assert [[s[k] for k in keys] for s in now['shots']]==[[s[k] for k in keys] for s in prior['shots']], 'Rendered decisions changed'
+    original_rows=json.loads((old/'results.json').read_text())['shots']
+    original_voice={x['id']:x for x in json.loads((old/'audio/manifest.json').read_text())['clips']}
+    for shot in now['shots']:
+        row=original_voice[shot['id']]
+        assert (row['text'],row['target_start'],row['target_duration'])==(shot['narration'],shot['start'],shot['duration']), 'Rendered narration or timing changed'
+        assert request_hash(now,shot)==original_rows[shot['id']]['request_hash'], 'Rendered visual request changed'
     log=(old/'autopilot.log').read_text();assert 'make_cover(args.sources, cover, story, args.work)' in log and 'Noto CJK fonts are required' in log
     rows=json.loads((HERE/'results.json').read_text())['shots'];src=ROOT/'work/crippen1910/sources';exports=ROOT/'work/crippen1910/clips';src.mkdir(parents=True,exist_ok=True);exports.mkdir(parents=True,exist_ok=True)
     source_hashes={};voice_hashes={}

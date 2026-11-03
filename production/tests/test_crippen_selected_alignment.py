@@ -51,3 +51,16 @@ class EditorialSpliceTests(unittest.TestCase):
         from production.crippen1910.selected_voice_groups import kept_ranges
         self.assertEqual(kept_ranges('帽子摘下，身份揭晓。这场逃亡，终于结束了。',{'keep_text':['帽子摘下，','这场逃亡，终于结束了。'],'text':'帽子摘下，这场逃亡，终于结束了。'}),[(0,4),(8,17)])
         with self.assertRaises(RuntimeError):kept_ranges('已经结束。',{'keep_text':['已经结束。'],'text':'尚未结束。'})
+
+class HomeFontDiscoveryTests(unittest.TestCase):
+    def test_action_installed_home_font_is_discoverable(self):
+        import tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from production.crippen1910.render import find_font
+        with tempfile.TemporaryDirectory() as d:
+            home=Path(d);fonts=home/'.local/share/fonts';fonts.mkdir(parents=True)
+            for name in ['NotoSansCJKsc-Regular.otf','NotoSerifCJKsc-Regular.otf']:(fonts/name).write_bytes(b'font-discovery-test')
+            with patch('pathlib.Path.home',return_value=home):
+                self.assertEqual(find_font(False),fonts/'NotoSansCJKsc-Regular.otf')
+                self.assertEqual(find_font(True),fonts/'NotoSerifCJKsc-Regular.otf')
