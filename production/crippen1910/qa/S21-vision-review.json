@@ -1,0 +1,44 @@
+{
+  "shot": "S21",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "45d94e3a1a808d47a380ee241553f1d24bdcc234b3b3b59358460fd235745dd9",
+  "image_revision": "e7e50112dcc0293e03a4f44af1a010109e9ab05a",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.07751411866830066,
+    "residuals": [
+      0.03646970315904139,
+      0.04398822167755991,
+      0.05434967320261438,
+      0.050820669934640524,
+      0.30249046840958604,
+      0.04488371459694989,
+      0.0440333605664488,
+      0.04307713779956427
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Missing ship's stern and white water wake (proposed shot was ship's tail/wake)"
+    ],
+    "observations": [
+      "C04 anchor present: tall middle-aged man, thick handlebar moustache, dark long coat, bowler hat, sharp eyes in all character frames",
+      "Grid top row (3 frames): C04 on gangway/dock with ship behind; mid-shot and closer shot; no motion blur",
+      "Grid bottom row (2 frames): steamer at sea, black hull, yellow/black funnel, emitting smoke, blue-white sea",
+      "Detail left: C04 walking on wooden gangplank toward camera; ropes and lamps visible; ship docked behind",
+      "Detail center: closer portrait of C04 on dock; same costume and facial features consistent with reference",
+      "Detail right: ship shown from bow-quarter angle with white wake and deck figures; stern/wake-cut shot not shown",
+      "Smoke plume differs across frames (direction/shape), indicating independent motion beyond camera move",
+      "Water and deck figures visible in motion frames; no visible text/watermarks",
+      "Missing storyboard beat: no cut to full-speed stern wake; no clear aft-looking-over-ship composition"
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
