@@ -99,7 +99,6 @@ def build():
             shots[-1]['references']=[('S06_dining' if ref=='S06' else ref) for ref in shots[-1]['references']]
         elif sid=='S18':
             shots[-1]['references']=[('S06_cabin' if ref=='S06' else ref) for ref in shots[-1]['references']]
-        if sid=='S22':shots[-1]['references'].append('S09')
         if 'C01' in shots[-1]['characters']:
             shots[-1]['references'].append('C01_face')
         cursor+=duration

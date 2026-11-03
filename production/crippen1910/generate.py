@@ -294,7 +294,7 @@ def validate_reference_gate(project: dict) -> None:
             if row.get("status") != "approved" or row.get("sha256") != digest(path):
                 raise ValueError("Character view not reviewed: " + path.stem)
     for shot in project["shots"]:
-        if not 1 <= len(shot.get("references", [])) <= 8:
+        if not 1 <= len(shot.get("references", [])) <= 5:
             raise ValueError("Reference count outside provider limits: " + shot["id"])
         if not set(shot["references"]).issubset({r["id"] for r in project["reference_images"]}):
             raise ValueError("Unknown reference: " + shot["id"])
