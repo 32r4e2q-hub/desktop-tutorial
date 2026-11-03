@@ -41,6 +41,12 @@ def align(script,words):
         for i in range(block.size):anchors[block.a+i]=times[block.b+i]
     coverage=len(anchors)/max(1,len(expected))
     if coverage<.68:raise RuntimeError(f'Selected-voice ASR alignment too weak: {coverage:.3f}')
+    # Short ASR homophone substitutions still have real acoustic timestamps.
+    # Keep exact-match coverage unchanged; do not map long/unrelated replacement spans.
+    for tag,a,b,c,d in matcher.get_opcodes():
+        if tag=='replace' and 0<b-a<=4 and 0<d-c<=4:
+            start,end=times[c][0],times[d-1][1]
+            for i in range(b-a):anchors[a+i]=(start+(end-start)*i/(b-a),start+(end-start)*(i+1)/(b-a))
     def position(offset,end=False):
         index=offset-1 if end else offset
         if index in anchors:return anchors[index][1 if end else 0]
@@ -95,7 +101,7 @@ def prepare():
     assert manifest['voice_id']==selection['voice_id']
     groups=manifest['groups'];assert [sid for g in groups for sid in g['shot_ids']]==[s['id'] for s in story['shots']]
     by_id={s['id']:s for s in story['shots']};work=ROOT/'work/crippen1910/selected-voice';work.mkdir(parents=True,exist_ok=True)
-    vosk.SetLogLevel(-1);model=vosk.Model(str(model_path(work)));timings={};evidence={}
+    vosk.SetLogLevel(-1);model=vosk.Model(str(model_path(work)));timings={};evidence={};oversized=[]
     for group in groups:
         gid=group['id'];source=HERE/'audio/groups'/f'{gid}.mp3'
         assert hashlib.sha256(source.read_bytes()).hexdigest()==group['sha256']
@@ -131,7 +137,9 @@ def prepare():
             fixed=.5*len(pauses);gap=sum(b-a for a,b in pauses)
             tempo=max(1.0,(len(trimmed)/RATE-gap)/(available-fixed-.04))
             if tempo>story['narration_spec']['max_speedup_factor']:
-                raise RuntimeError(f'{sid}: selected voice requires {tempo:.3f}x, above natural delivery limit; do not truncate')
+                oversized.append({'shot':sid,'required_tempo':tempo,'natural_seconds':len(trimmed)/RATE,'available_seconds':available})
+                (HERE/'qa/selected-voice-duration-issues.json').write_text(json.dumps(oversized,ensure_ascii=False,indent=2)+'\n')
+                continue
             raw_path=work/f'{sid}-natural.wav';write_wave(raw_path,trimmed)
             fitted=work/f'{sid}-fitted.wav';decode(raw_path,fitted,tempo=tempo);data=read_wave(fitted)
             ratio=len(data)/len(trimmed)
@@ -152,6 +160,7 @@ def prepare():
             subprocess.run(['ffmpeg','-y','-v','error','-i',str(joined),'-c:a','libmp3lame','-b:a','96k',str(output)],check=True)
             timings[sid]={'captions':captions,'inserted_pauses':inserted,'natural_seconds':len(data)/RATE,'tempo_factor':tempo,'sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'alignment':'Vosk actual word timestamps matched to known script','group_id':gid}
             print('SELECTED_VOICE',sid,'seconds',round(len(data)/RATE,3),'tempo',round(tempo,3),flush=True)
+    if oversized:raise RuntimeError('Selected narration exceeds natural delivery limits; see qa/selected-voice-duration-issues.json; no truncation allowed')
     (HERE/'audio/timing.json').write_text(json.dumps(timings,ensure_ascii=False,indent=2)+'\n')
     (HERE/'audio/voice.json').write_text(json.dumps({'provider':'Arena speech','voice_id':selection['voice_id'],'language':'zh-CN','gender':'masculine','selection':'user selected audition, no Edge substitution'},ensure_ascii=False,indent=2)+'\n')
     (HERE/'qa/selected-voice-alignment.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')

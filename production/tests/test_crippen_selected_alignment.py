@@ -37,3 +37,11 @@ class SourceReframeTests(unittest.TestCase):
         self.assertIn('crop=240:110:130:305,boxblur=8:2',filters)
         self.assertIn("enable='lt(t,4.3)'",filters)
         self.assertEqual(source_reframe_filters({'id':'S23'}),[])
+
+class SubstitutionBoundaryTests(unittest.TestCase):
+    def test_short_asr_substitution_uses_its_own_acoustic_time(self):
+        words=[{'word':'藏住自己','start':3.6,'end':4.74},{'word':'和','start':5.13,'end':5.55},{'word':'一道电波跑前面','start':5.58,'end':7.92}]
+        p,coverage=align('藏住自己。可一道电波跑前面。',words)
+        self.assertGreater(coverage,.8)
+        self.assertAlmostEqual(p(4),5.13)
+        self.assertAlmostEqual(p(4,True),4.74)
