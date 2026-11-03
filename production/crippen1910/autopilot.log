@@ -2,7 +2,113 @@ Built 30 shots / 180 seconds; media and references remain gated.
 BULK_GENERATION_ROUND 1 shots S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28,S29,S30
 Built 30 shots / 180 seconds; media and references remain gated.
 PRODUCTION_STATUS Agnes generation started
-PRODUCTION_STATUS queued prompt-refresh shots: S18,S22,S28
-PRODUCTION_STATUS S18 waiting for Agnes create slot
-PRODUCTION_STATUS S18 accepted in paced batch submission
-PRODUCTION_STATUS S22 waiting for Agnes create slot
+S01: reusing matching Agnes result
+S02: reusing matching Agnes result
+PRODUCTION_STATUS S02 generated and decoded
+PRODUCTION_STATUS S01 generated and decoded
+S03: reusing matching Agnes result
+S04: reusing matching Agnes result
+PRODUCTION_STATUS S04 generated and decoded
+PRODUCTION_STATUS S03 generated and decoded
+S05: reusing matching Agnes result
+S06: reusing matching Agnes result
+PRODUCTION_STATUS S06 generated and decoded
+PRODUCTION_STATUS S05 generated and decoded
+S07: reusing matching Agnes result
+S08: reusing matching Agnes result
+PRODUCTION_STATUS S08 generated and decoded
+PRODUCTION_STATUS S07 generated and decoded
+S09: reusing matching Agnes result
+S10: reusing matching Agnes result
+PRODUCTION_STATUS S09 generated and decoded
+PRODUCTION_STATUS S10 generated and decoded
+S11: reusing matching Agnes result
+S12: reusing matching Agnes result
+PRODUCTION_STATUS S12 generated and decoded
+PRODUCTION_STATUS S11 generated and decoded
+S13: reusing matching Agnes result
+S14: reusing matching Agnes result
+PRODUCTION_STATUS S14 generated and decoded
+PRODUCTION_STATUS S13 generated and decoded
+S15: reusing matching Agnes result
+S16: reusing matching Agnes result
+PRODUCTION_STATUS S16 generated and decoded
+PRODUCTION_STATUS S15 generated and decoded
+S17: reusing matching Agnes result
+S18: reusing matching Agnes result
+PRODUCTION_STATUS S18 generated and decoded
+PRODUCTION_STATUS S17 generated and decoded
+S19: reusing matching Agnes result
+S20: reusing matching Agnes result
+PRODUCTION_STATUS S20 generated and decoded
+PRODUCTION_STATUS S19 generated and decoded
+S21: reusing matching Agnes result
+S22: reusing matching Agnes result
+PRODUCTION_STATUS S22 generated and decoded
+PRODUCTION_STATUS S21 generated and decoded
+S23: reusing matching Agnes result
+S24: reusing matching Agnes result
+PRODUCTION_STATUS S23 generated and decoded
+PRODUCTION_STATUS S24 generated and decoded
+S25: reusing matching Agnes result
+S26: reusing matching Agnes result
+PRODUCTION_STATUS S25 generated and decoded
+PRODUCTION_STATUS S26 generated and decoded
+S27: reusing matching Agnes result
+S28: reusing matching Agnes result
+PRODUCTION_STATUS S27 generated and decoded
+PRODUCTION_STATUS S28 generated and decoded
+S29: reusing matching Agnes result
+S30: reusing matching Agnes result
+PRODUCTION_STATUS S29 generated and decoded
+PRODUCTION_STATUS S30 generated and decoded
+PRODUCTION_STATUS selected Agnes sources ready
+Built 30 shots / 180 seconds; media and references remain gated.
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 629, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 584, in main
+    make_cover(args.sources, cover, story, args.work)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 473, in make_cover
+    title_size = fit_size(draw, title_text, 158, 620, serif=True)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 395, in fit_size
+    while size > floor and text_width(draw, text, size, serif) > max_width:
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 387, in text_width
+    font = ImageFont.truetype(str(find_font(serif)), size)
+                                  ~~~~~~~~~^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 383, in find_font
+    raise RuntimeError("Noto CJK fonts are required to render Chinese titles and subtitles")
+RuntimeError: Noto CJK fonts are required to render Chinese titles and subtitles
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/generate.py", line 894, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/generate.py", line 549, in main
+    subprocess.run([
+    ~~~~~~~~~~~~~~^^
+        sys.executable, str(HERE / "render.py"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--sources", str(sources), "--work", str(ROOT / "work" / "crippen1910" / "edit"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--output", str(output),
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ], cwd=ROOT, check=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/clips/克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/autopilot.py", line 171, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/autopilot.py", line 164, in main
+    subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload','{"mode":"render"}'],check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/generate.py', '--publish', '--payload', '{"mode":"render"}']' returned non-zero exit status 1.
