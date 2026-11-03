@@ -1,0 +1,83 @@
+{
+  "S03": {
+    "source_sha256": "43f025409de1a89d478d5a86c30a23ba52f717313138ff92ea9d30fac3ace9f4",
+    "automated_review_retained": "qa/S03-vision-review.json",
+    "assistant_review_scope": "Actual chronological contact sheets and enlarged crops; not continuous playback and not a human sign-off.",
+    "observations": [
+      "Re-inspected all four exterior chronological frames, including enlarged real window crops, not just the three-frame detail strip. Upper-window guest changes from low arms to both arms raised; lower-window guest also changes arm pose. The model claim that all silhouettes remain static is demonstrably false.",
+      "Fog and silhouettes visibly change while the street camera moves; the later empty interior is an establishing/transition view, not a substitute for an entirely still clip. Period street, warm party windows and gramophone match the January gathering narration. No identity-bearing foreground character, modern objects, gore or text."
+    ],
+    "unused_repair_task": {
+      "id": "S03",
+      "request_hash": "e7664254d7c1071ddf373ff63baad4a65df8ecff37980467be89b95d977244e4",
+      "status": "queued",
+      "video_id": "task_KlJit7lX4aQcv7Q9rSjtR3pODgeJVfCh",
+      "task_id": "task_KlJit7lX4aQcv7Q9rSjtR3pODgeJVfCh",
+      "video_url": null,
+      "sha256": null,
+      "bytes": null,
+      "error": null,
+      "updated_at": "2026-11-03T02:06:39Z",
+      "create_attempts": 1,
+      "requested_seconds": 7.0,
+      "requested_size": "720P"
+    },
+    "decision": "approve original on independently inspected visual evidence; do not resubmit or wait for discarded repair task"
+  },
+  "S05": {
+    "source_sha256": "be8f7a13a92a061c7d45b0f9a705527e9fc5971d0f030002dd58652f0586fc9b",
+    "automated_review_retained": "qa/S05-vision-review.json",
+    "assistant_review_scope": "Actual chronological contact sheets and enlarged crops; not continuous playback and not a human sign-off.",
+    "observations": [
+      "Across the actual chronological frames the door rotates from wide open through a narrow gap to nearly shut, while fog and hat feathers move independently. The automated review incorrectly characterized this as the opposite action.",
+      "The actual narration says Cora was not seen again after the party; it does NOT narrate that the door must visibly latch. The empty corridor and abandoned purple feathered hat support absence. A nearly shut door at the sampled endpoint is not a material story contradiction. No visible person, gore, text or wardrobe drift."
+    ],
+    "unused_repair_task": {
+      "id": "S05",
+      "request_hash": "eb57f6330a9cb5c194e61529269e8826f83a967e4180df0c59846b680cab9909",
+      "status": "poll_retry",
+      "reused_existing_asset": false,
+      "updated_at": "2026-11-03T01:46:48Z",
+      "create_attempts": 1,
+      "error": "Timed out after 1500s waiting for video_id=task_QEcz7lfMEQs50SeBAVMUAhRTEeVy8KDh (last: status=pending progress=0%)",
+      "video_id": "task_QEcz7lfMEQs50SeBAVMUAhRTEeVy8KDh",
+      "task_id": "task_QEcz7lfMEQs50SeBAVMUAhRTEeVy8KDh",
+      "requested_seconds": 6.0,
+      "requested_size": "720P",
+      "poll_retries": 1,
+      "applied_cooldown_seconds": 61
+    },
+    "decision": "approve original on independently inspected visual evidence; do not resubmit or wait for discarded repair task",
+    "additional_discarded_repair_state": {
+      "id": "S05",
+      "request_hash": "eb57f6330a9cb5c194e61529269e8826f83a967e4180df0c59846b680cab9909",
+      "status": "completed",
+      "reused_existing_asset": false,
+      "updated_at": "2026-11-03T02:11:58Z",
+      "create_attempts": 1,
+      "error": null,
+      "video_id": "task_QEcz7lfMEQs50SeBAVMUAhRTEeVy8KDh",
+      "task_id": "task_QEcz7lfMEQs50SeBAVMUAhRTEeVy8KDh",
+      "requested_seconds": 6.0,
+      "requested_size": "720P",
+      "poll_retries": 1,
+      "applied_cooldown_seconds": 61,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_QEcz7lfMEQs50SeBAVMUAhRTEeVy8KDh.mp4",
+      "bytes": 2706916,
+      "sha256": "cd76857a7831de63804fb8e27bd259af84668b6545d85e96813502c87b675fce",
+      "reported_size": "720P",
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2706916,
+        "decoded_ok": true,
+        "contact_sheet": "production/crippen1910/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
+    }
+  }
+}

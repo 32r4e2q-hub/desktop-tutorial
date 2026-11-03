@@ -14,10 +14,14 @@
     "evidence": "qa/S02.jpg"
   },
   "S03": {
-    "status": "rejected",
+    "status": "approved",
     "sha256": "43f025409de1a89d478d5a86c30a23ba52f717313138ff92ea9d30fac3ace9f4",
-    "reviewer": "Agnes image understanding, automated; NOT a human approval",
-    "evidence": "qa/S03-vision-review.json"
+    "reviewer": "Arena assistant: actual-pixel independent chronological-frame reassessment; NOT a human approval",
+    "evidence": "qa/manual-review-overrides.json",
+    "observations": [
+      "Re-inspected all four exterior chronological frames, including enlarged real window crops, not just the three-frame detail strip. Upper-window guest changes from low arms to both arms raised; lower-window guest also changes arm pose. The model claim that all silhouettes remain static is demonstrably false.",
+      "Fog and silhouettes visibly change while the street camera moves; the later empty interior is an establishing/transition view, not a substitute for an entirely still clip. Period street, warm party windows and gramophone match the January gathering narration. No identity-bearing foreground character, modern objects, gore or text."
+    ]
   },
   "S04": {
     "status": "approved",
@@ -26,9 +30,13 @@
     "evidence": "qa/S04-vision-review.json"
   },
   "S05": {
-    "status": "rejected",
+    "status": "approved",
     "sha256": "be8f7a13a92a061c7d45b0f9a705527e9fc5971d0f030002dd58652f0586fc9b",
-    "reviewer": "Agnes image understanding, automated; NOT a human approval",
-    "evidence": "qa/S05-vision-review.json"
+    "reviewer": "Arena assistant: actual-pixel independent chronological-frame reassessment; NOT a human approval",
+    "evidence": "qa/manual-review-overrides.json",
+    "observations": [
+      "Across the actual chronological frames the door rotates from wide open through a narrow gap to nearly shut, while fog and hat feathers move independently. The automated review incorrectly characterized this as the opposite action.",
+      "The actual narration says Cora was not seen again after the party; it does NOT narrate that the door must visibly latch. The empty corridor and abandoned purple feathered hat support absence. A nearly shut door at the sampled endpoint is not a material story contradiction. No visible person, gore, text or wardrobe drift."
+    ]
   }
 }
