@@ -2,39 +2,39 @@
   "shot": "S13",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "fbad14ab2f4336e49306500a8cc31d5c00f668650d14cd49d91514fa4d296b81",
-  "image_revision": "07849840eaea2a40a66173391ec40df3bcc92066",
+  "source_sha256": "71e2f3af0640936bb43534b677eaf9c6ccb415d08464df79d9fd2d51a9c16eeb",
+  "image_revision": "d8f8841cf93af166f3fd7f4ba24045c86a09a398",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.0998318184912854,
+    "camera_compensated_mean_residual": 0.1166097409449891,
     "residuals": [
-      0.0688447031590414,
-      0.08820125272331154,
-      0.11082924836601307,
-      0.14127546296296298,
-      0.13075490196078432,
-      0.10570349945533769,
-      0.07706427015250544,
-      0.0759812091503268
+      0.09213044662309369,
+      0.08658660130718954,
+      0.11110443899782135,
+      0.13448508986928104,
+      0.1287330473856209,
+      0.12957700163398694,
+      0.14782155501089325,
+      0.10243974673202615
     ]
   },
   "assessment": {
     "pass": false,
     "independent_motion": true,
     "identity_consistent": true,
-    "safe": true,
+    "safe": false,
     "story_matches": false,
     "issues": [
-      "CRITICAL: Two police officers are carrying an OPEN wooden box with the lid hinged backward; the interior and a light-colored object inside are clearly visible in the first detail frame, directly contradicting the required 'completely closed opaque evidence box'.",
-      "The box shown is a classic wooden chest, not an opaque sealed container.",
-      "While crowd behavior matches the 'onlookers whispering' and 'newsboy waving paper' requirements, the primary transport action is flawed."
+      "Safety violation: The wooden box carried by police is visually a classic luggage chest with exposed wood grain and brass corners; it is not a 'completely closed opaque evidence box' as required. The texture implies a traditional trunk rather than an impenetrable forensic container.",
+      "Story mismatch: The reference image for C09 explicitly depicts a judge in red robes and a barrister wig, along with jurors, but none of these characters appear in the narrative shot. The crowd consists only of generic Edwardian men.",
+      "Narration mismatch: The provided text states 'remains were discovered underground,' but the officers are shown exiting a house door with a box, suggesting a body or items rather than an underground excavation context."
     ],
     "observations": [
-      "First detail image (left): Two officers step from doorway; the brown wooden box has a lid flipped open backward, revealing white contents/interior.",
-      "First detail image (middle): Officers walking away, box appears closed from this angle, but remains a wooden chest.",
-      "Grid middle row, center: Officers walking with box; the newsboy on the right is holding/waving a large sheet of paper.",
-      "Grid middle row, right: The newsboy stands on the cobblestones; onlookers (men in hats, woman in Edwardian dress) stand grouped near the building.",
-      "Camera motion: Residuals show low motion (<0.15), but background fog and foreground subjects indicate independent movement (parallax)."
+      "Police officers are wearing Edwardian-era helmets and dark uniforms consistent with the setting.",
+      "The box being carried is a brown wooden chest with brass latches and corner guards, not an opaque, sealed evidence container.",
+      "A newsboy is visible on the left side of the street holding up a newspaper.",
+      "Crowd members are standing on the sidewalk in period clothing, but the specific C09 characters (judge in red robe, wig) are absent.",
+      "The camera pans and the characters move independently across the cobblestone street."
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
