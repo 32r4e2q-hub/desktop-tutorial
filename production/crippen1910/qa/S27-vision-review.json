@@ -2,20 +2,20 @@
   "shot": "S27",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "eb4ebed455a3f826e634c4dbea0713c76a644d19d911ed8bfa0a765137a506ff",
-  "image_revision": "09ffd52c801187a76060514fff389cfb8aca5491",
+  "source_sha256": "252fc55f110a3afd2ad1c8101b605604f8dfd665a61e72f92fec01f01d3bbe39",
+  "image_revision": "45edc7a922314c1d8e261f7a27eb7aa96f5d24d9",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.047565223311546834,
+    "camera_compensated_mean_residual": 0.04072943048747277,
     "residuals": [
-      0.02804779411764706,
-      0.04344764433551198,
-      0.05099475762527233,
-      0.05628329248366013,
-      0.06014249727668845,
-      0.057865740740740745,
-      0.05085369008714597,
-      0.032886369825708056
+      0.029360974945533767,
+      0.03419791666666667,
+      0.03630208333333334,
+      0.0428618600217865,
+      0.045506263616557734,
+      0.04640019063180827,
+      0.04969069989106754,
+      0.041515454793028324
     ]
   },
   "assessment": {
@@ -25,15 +25,27 @@
     "safe": true,
     "story_matches": false,
     "issues": [
-      "首席陪审员未站起口头宣告——修订要求的核心动作缺失。C01被告全程独自站立后低头，但首席陪审员（ jury foreperson）在全部9格时间帧及3张大图中均保持坐姿，从未站起。",
-      "无独立叙事动作的'首席站起口头宣告'（Foreperson standing to orally declare）——该动作仅通过C01单人的站/低头的肢体语言传达，而非首席陪审员的独立行为。",
-      "角色锚点正确但关键叙事缺失：C01圆框金边眼镜、浓密八字胡、深灰三件套、温顺神情符合；法官与旁听者爱德华时代肃穆着装无误；但'首席站起口头宣告'这一核心修订动作未实现。"
+      "The core narrative action of the Foreperson standing to orally declare the verdict is missing from all chronological frames.",
+      "The Foreperson (distinguished older man with grey beard in brown suit) remains seated throughout the sequence while the defendant (C01) stands alone.",
+      "No jury foreperson rises to face the judge or court to deliver the verdict declaration."
     ],
     "observations": [
-      "网格9格中，C01（右侧被告）从站立到低头过程中，左侧陪审团席内人物始终坐着，无人站起。",
-      "大图3帧（左中右）均显示：法官高坐、C01站立/低头、旁听者与陪审团成员全部就座，无任何独立于C01的首席陪审员站起动作。",
-      "C01面部特征（圆框金边眼镜、八字胡、深灰西装）与参考图完全一致；法官红袍假发、陪审员灰棕色调三件套符合年代。",
-      "无可见法槌、无水印、无现代服装；场景为木质法庭、拱窗、吊灯，年代设定准确。"
+      "Grid frame 1: Foreperson seated in jury box; C01 standing at dock railing",
+      "Grid frame 2: Foreperson seated; C01 standing, looking toward judge",
+      "Grid frame 3: Foreperson seated; C01 standing",
+      "Grid frame 4: Foreperson seated; C01 standing",
+      "Grid frame 5: Foreperson seated; C01 beginning to lower head",
+      "Grid frame 6: Foreperson seated; C01 with head lowered",
+      "Grid frame 7: Foreperson seated; C01 with head lowered",
+      "Grid frame 8: Foreperson seated; C01 with head bowed",
+      "Grid frame 9: Foreperson seated; C01 with head bowed",
+      "Detail frame 1: Foreperson clearly seated on bench, hands on lap/knees",
+      "Detail frame 2: Foreperson standing near jury box entrance but not in declared foreperson role position",
+      "Detail frame 3: Foreperson facing camera, still in seated/standing ambiguity but not at declaration position",
+      "C01 maintains correct anchor: round gold-rimmed glasses, bushy moustache, dark three-piece suit throughout",
+      "Judge remains seated at bench in red robes throughout all frames",
+      "Jury box occupants remain seated throughout",
+      "No visible text or watermarks on images"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
