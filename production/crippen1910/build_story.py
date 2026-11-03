@@ -133,13 +133,18 @@ def build():
         valid=old.get(s['id'],{}).get('text')==s['narration'] and p.is_file()
         clips.append(dict(id=s['id'],file=p.name,text=s['narration'],voice_id=story['narration_spec']['voice_id'],narration_id=s['narration_id'],target_start=s['start'],target_duration=s['duration'],alignment='shot-locked',sha256=hashlib.sha256(p.read_bytes()).hexdigest() if valid else None))
     manifest_path.write_text(json.dumps(dict(voice=story['narration_spec']['voice_id'],alignment='one-clip-one-shot-one-caption',slowdown_allowed=False,clips=clips),ensure_ascii=False,indent=2)+'\n')
-    refs=[dict(id=key,file=f'reference/{key}.png',description=ROLES.get(key,REF_DESCRIPTIONS.get(key,SUPPLEMENT_DESCRIPTIONS.get(key))),status='candidate' if (HERE/f'reference/{key}.png').exists() else 'pending') for key in reference_ids]
-    (HERE/'reference/manifest.json').write_text(json.dumps({'assets':refs,'all_approved':False,'note':'Single-view candidates are not the complete three-view plus close-up character package.'},ensure_ascii=False,indent=2)+'\n')
+    approval_path=HERE/'reference/approvals.json'
+    approved=json.loads(approval_path.read_text()).get('assets',{}) if approval_path.exists() else {}
+    def reviewed(key):
+        path=HERE/f'reference/{key}.png';row=approved.get(key,{})
+        return path.is_file() and row.get('status')=='approved' and row.get('sha256')==hashlib.sha256(path.read_bytes()).hexdigest()
+    refs=[dict(id=key,file=f'reference/{key}.png',description=ROLES.get(key,REF_DESCRIPTIONS.get(key,SUPPLEMENT_DESCRIPTIONS.get(key))),status='approved' if reviewed(key) else 'candidate' if (HERE/f'reference/{key}.png').exists() else 'pending') for key in reference_ids]
+    (HERE/'reference/manifest.json').write_text(json.dumps({'assets':refs,'all_approved':all(r['status']=='approved' for r in refs),'note':'Approval is SHA-bound in approvals.json; this is reference approval, not video approval.'},ensure_ascii=False,indent=2)+'\n')
     individual_roles=[role for role in ROLES if role not in {'C07','C09'}]
     packages=[]
     for role in individual_roles:
         views={view:f'reference/{role}{suffix}.png' for view,suffix in [('front',''),('side','_side'),('back','_back'),('face','_face')]}
-        packages.append(dict(id=role,views=views,missing=[view for view,file in views.items() if not (HERE/file).is_file()],approved=False))
+        packages.append(dict(id=role,views=views,missing=[view for view,file in views.items() if not (HERE/file).is_file()],approved=all(reviewed(Path(file).stem) for file in views.values())))
     (HERE/'reference/character-packages.json').write_text(json.dumps({'note':'One standalone image per view; no grid layouts. Existing full-body near-front references are front anchors. Approval is separate from file existence.','packages':packages},ensure_ascii=False,indent=2)+'\n')
     lines=['# 克里平医生案 · 第三期 · 制作分镜（未出片）','', '|镜头|时间|参考图|旁白|动画动作|','|---|---|---|---|---|']
     for s in shots:

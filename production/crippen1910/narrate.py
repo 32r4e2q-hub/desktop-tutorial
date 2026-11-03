@@ -31,15 +31,19 @@ async def generate(story):
     async def one(shot):
         async with semaphore:
             sid=shot['id'];available=min(shot['start']+shot['duration']-.08,179)-shot['start']
+            if sid=='S25':available-=.5  # A dramatic narration pause after '终于结束了'.
             # Fits at natural playback: atempo remains 1, keeping inserted pauses exactly .5s.
             for rate in [0,6,12,18,24,30]:
                 joined=[];cursor=0;captions=[];gaps=[]
                 for sentence_index,sentence in enumerate(split_sentence(shot['narration'])):
                     caption_start=None;caption_end=None
-                    parts=re.split(r'(一道电波[，,]?|科拉[，,](?=究竟))',sentence)
-                    for part_index,part in enumerate(parts):
+                    parts=[];position=0
+                    for marker in re.finditer(r'一道电波[，,]?|科拉[，,](?=究竟)',sentence):
+                        parts.append((sentence[position:marker.end()],True));position=marker.end()
+                    if position<len(sentence):parts.append((sentence[position:],False))
+                    for part_index,(part,pause_after) in enumerate(parts):
                         if not part:continue
-                        text=part.rstrip('，,') if ('一道电波' in part or re.fullmatch('科拉[，,]',part)) else part
+                        text=part.rstrip('，,') if pause_after else part
                         raw=work/f'{sid}-{sentence_index}-{part_index}.mp3';wav=raw.with_suffix('.wav')
                         for attempt in range(3):
                             try:
@@ -53,7 +57,7 @@ async def generate(story):
                         if caption_start is None:caption_start=cursor/RATE+onset
                         caption_end=cursor/RATE+offset
                         joined.append(samples);cursor+=len(samples)
-                        if '一道电波' in part or re.fullmatch('科拉[，,]',part):
+                        if pause_after:
                             gaps.append(dict(at=cursor/RATE,duration=.5))
                             silence=np.zeros(RATE//2,dtype=np.float32);joined.append(silence);cursor+=len(silence)
                     captions.append(dict(text=sentence,start=caption_start,end=caption_end))
