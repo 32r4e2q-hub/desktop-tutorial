@@ -556,6 +556,7 @@ def main() -> int:
 
     cover = final.parent / "克里平医生案_封面.jpg"
     make_cover(args.sources, cover, story, args.work)
+    Image.open(cover).save(final.parent/"克里平医生案_封面.png")
     srt_copy = final.parent / f"{final.stem}_字幕.srt"
     srt_copy.write_text(srt_path.read_text(encoding="utf-8"), encoding="utf-8")
     report = {

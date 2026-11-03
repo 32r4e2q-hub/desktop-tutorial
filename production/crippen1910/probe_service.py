@@ -41,6 +41,10 @@ if results.exists():
             req=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['AGNES_API_KEY']})
             with urllib.request.urlopen(req,timeout=60) as response:data=json.load(response)
             item['response']={key:data.get(key) for key in ['id','video_id','status','progress','created_at','started_at','completed_at','error','queue_position','estimated_wait_time'] if key in data}
+            legacy='https://apihub.agnes-ai.com/v1/videos/'+urllib.parse.quote(str(row.get('task_id') or row['video_id']),safe='')
+            req=urllib.request.Request(legacy,headers={'Authorization':'Bearer '+os.environ['AGNES_API_KEY']})
+            with urllib.request.urlopen(req,timeout=60) as response:legacy_data=json.load(response)
+            item['legacy_response']={key:legacy_data.get(key) for key in ['id','video_id','status','progress','created_at','started_at','completed_at','error'] if key in legacy_data}
         except Exception as exc:item['error_type']=type(exc).__name__
         out['task_checks'].append(item)
 Path('production/crippen1910/service-probe.json').write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n')

@@ -173,36 +173,25 @@ def check_subtitles(srt: Path, story: dict) -> dict:
                 and cue["lines"] and cue["lines"][0] == story["presentation"].get("end_question", "")]
     cues = [cue for cue in all_cues if cue not in end_card]
     problems = []
-    if len(cues) != len(shots):
-        problems.append(f"expected {len(shots)} shot-locked cues, found {len(cues)}")
-    if story["presentation"].get("end_question") and not end_card:
-        problems.append("the end-card question is missing from the SRT")
-    overlaps = 0
-    for position, (cue, shot) in enumerate(zip(cues, story["shots"])):
-        if cue["index"] != position + 1:
-            problems.append(f"cue {position + 1}: index is {cue['index']}")
-        shot_end = shot["start"] + shot["duration"]
-        if cue["start"] < shot["start"] - 0.05 or cue["end"] > shot_end + 0.05:
-            problems.append(f"{shot['id']}: cue {cue['start']}-{cue['end']} escapes shot "
-                            f"{shot['start']}-{shot_end}")
-        if cue["end"] - cue["start"] < 0.6:
-            problems.append(f"{shot['id']}: cue shorter than 0.6s")
-        if len(cue["lines"]) > 2:
-            problems.append(f"{shot['id']}: more than two subtitle lines")
-        if any(len(line) > 26 for line in cue["lines"]):
-            problems.append(f"{shot['id']}: a subtitle line exceeds 26 characters")
-        if position and cue["start"] < cues[position - 1]["end"] - 0.001:
-            overlaps += 1
-    if overlaps:
-        problems.append(f"{overlaps} overlapping cues")
-    return {
-        "cues": len(cues),
-        "end_card_cues": len(end_card),
-        "covers_all_shots": len(cues) == len(shots),
-        # Two-line cues are split at punctuation, so the joined lines must equal the narration.
-        "covers_all_lines": ["".join(cue["lines"]) for cue in cues] == [shot["narration"] for shot in story["shots"]],
-        "problems": problems,
-    }
+    if story['presentation'].get('end_question') and not end_card:
+        problems.append('the end-card question is missing from the SRT')
+    groups={sid:[] for sid in shots};overlaps=0
+    for position,cue in enumerate(cues):
+        owners=[shot for shot in shots.values() if cue['start']>=shot['start']-.05 and cue['end']<=shot['start']+shot['duration']+.05]
+        if len(owners)!=1:
+            problems.append(f"cue {position+1}: outside one unshifted shot")
+            continue
+        shot=owners[0];groups[shot['id']].append(cue)
+        if cue['index']!=position+1:problems.append('non-contiguous subtitle index')
+        if cue['end']-cue['start']<.6:problems.append(shot['id']+': cue shorter than .6s')
+        if len(cue['lines'])>2 or any(len(line)>26 for line in cue['lines']):problems.append(shot['id']+': subtitle wrapping exceeds safe size')
+        if position and cue['start']<cues[position-1]['end']-.001:overlaps+=1
+    covers_all_shots=all(groups.values())
+    covers_all_lines=all(''.join(''.join(cue['lines']) for cue in groups[sid])==shot['narration'] for sid,shot in shots.items())
+    if not covers_all_shots:problems.append('missing narration subtitles for one or more shots')
+    if not covers_all_lines:problems.append('sentence subtitles do not reproduce the complete narration verbatim')
+    if overlaps:problems.append(f'{overlaps} overlapping narration cues')
+    return dict(cues=len(cues),end_card_cues=len(end_card),covers_all_shots=covers_all_shots,covers_all_lines=covers_all_lines,problems=problems)
 
 
 def export_fullres_stills(film: Path, story: dict, out_dir: Path) -> list[str]:
@@ -321,6 +310,9 @@ def main() -> int:
                               bytes=cover.stat().st_size)
         if (cover_info["width"], cover_info["height"]) != (1920, 1080):
             failures.append("cover is not 1920x1080")
+
+    else:
+        failures.append('required 1920x1080 cover PNG is missing')
 
     sheets = make_contact_sheets(film, story, HERE / "qa" / "sheets")
     stills = export_fullres_stills(film, story, HERE / "qa" / "fullres")

@@ -193,7 +193,7 @@ def publish_delivery(film: Path) -> dict:
         (film, "Crippen_Case_Final.mp4"),
         (film.parent / "克里平医生案_封面.png", "Crippen_Cover.png"),
         (film.parent / f"{film.stem}_字幕.srt", "Crippen_Subtitles.srt"),
-        (ROOT / "work" / "crippen1910" / "audio" / "voiceover.wav", "Crippen_Narration.wav"),
+        (ROOT / "work" / "crippen1910" / "edit" / "audio" / "voiceover.wav", "Crippen_Narration.wav"),
     ]
     for source, name in aliases:
         if not source.is_file():

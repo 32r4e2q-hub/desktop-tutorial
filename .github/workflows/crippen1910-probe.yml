@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: arena/f38dd103-desktop-tutorial
+          sparse-checkout: production/crippen1910
       - name: Check service without creating a video task
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
