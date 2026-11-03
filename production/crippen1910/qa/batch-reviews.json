@@ -120,10 +120,14 @@
     "evidence": "qa/S17-vision-review.json"
   },
   "S18": {
-    "status": "rejected",
-    "sha256": "6f8d51d87ece62c6ab231300498bbcacaa1d5790bd5da8bc4384a21c9f7eadf4",
-    "reviewer": "Agnes image understanding, automated; NOT a human approval",
-    "evidence": "qa/S18-vision-review.json"
+    "status": "approved",
+    "sha256": "681fedebb281966efeb7e279f5fa22e74e1575d7c1ea35940da908c34fe4867c",
+    "reviewer": "Arena assistant actual-pixel review with required fixed framing correction; NOT a human",
+    "evidence": "qa/manual-review-overrides.json",
+    "observations": [
+      "New source has no glasses. Across actual chronological frames the captain unfolds paper, raises his eyes/eyebrows and turns his head toward the window. Beard, cap and white uniform match C05; no legible headline identified in these samples.",
+      "Distant passers-by through the window are NOT correctly dressed as the disguised father/son pair. They are not accepted as those characters. A fixed left 59.375% 16:9 recognition close-up is now enforced by render.py, excluding them; the plot is conveyed by the newspaper, captain reaction and off-screen look. Actual cropped-frame proof was inspected. No still image replaces the moving clip; final rendered framing still requires QC."
+    ]
   },
   "S19": {
     "status": "approved",

@@ -186,6 +186,14 @@ def letterbox_crop_filter(shot: dict, info: dict, detected_bands: list[tuple[int
     return f"crop={active_width}:{active_height}:{left}:{top}"
 
 
+def source_reframe_filters(shot: dict) -> list[str]:
+    # S18: maintain the captain's moving recognition close-up, exclude incorrectly dressed
+    # distant passers-by through the right window. This is a fixed edit of genuine footage.
+    if shot["id"] == "S18":
+        return ["crop=trunc(iw*0.59375/2)*2:trunc(ih*0.59375/2)*2:0:0"]
+    return []
+
+
 def source_post_filters(shot: dict) -> list[str]:
     # Reviewed S21 has a warm sunset deck cut. Grade real moving frames, never replace motion.
     if shot["id"] == "S21":
@@ -205,7 +213,7 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
         raise RuntimeError(f"{shot['id']}: returned video resolution is too small")
     detected_bands = detect_source_letterbox_bands(source, shot, info)
     correction = letterbox_crop_filter(shot, info, detected_bands)
-    filters = ([correction] if correction else []) + [
+    filters = ([correction] if correction else []) + source_reframe_filters(shot) + [
         "scale=1920:1080:force_original_aspect_ratio=increase",
         "crop=1920:1080",
         f"setpts={(normalized_duration / info['duration_seconds']):.10f}*(PTS-STARTPTS)",
@@ -229,6 +237,7 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
             "source_sha256": digest(source), "normalized_file": str(target),
             "embedded_letterbox_crop_filter": correction,
             "source_post_filters": source_post_filters(shot),
+            "source_reframe_filters": source_reframe_filters(shot),
             "embedded_letterbox_detected_samples": len(detected_bands)}
 
 

@@ -119,5 +119,15 @@
       "Defendant with gold-rimmed glasses/grey moustache remains in dock and lowers his head; judge remains seated. No Ethel joint verdict, no gavel, no execution or gore, no readable text. These actual independent changes convey the verdict supported by the voiceover."
     ],
     "decision": "approve source on actual visual evidence; final rendered QC remains mandatory"
+  },
+  "S18": {
+    "source_sha256": "681fedebb281966efeb7e279f5fa22e74e1575d7c1ea35940da908c34fe4867c",
+    "assistant_review_scope": "New source chronological sheet and actual fixed-crop proof, NOT a human sign-off or continuous playback.",
+    "observations": [
+      "New source has no glasses. Across actual chronological frames the captain unfolds paper, raises his eyes/eyebrows and turns his head toward the window. Beard, cap and white uniform match C05; no legible headline identified in these samples.",
+      "Distant passers-by through the window are NOT correctly dressed as the disguised father/son pair. They are not accepted as those characters. A fixed left 59.375% 16:9 recognition close-up is now enforced by render.py, excluding them; the plot is conveyed by the newspaper, captain reaction and off-screen look. Actual cropped-frame proof was inspected. No still image replaces the moving clip; final rendered framing still requires QC."
+    ],
+    "required_post_filter": "source_reframe_filters(S18) in render.py; qa/S18-reframe-proof.jpg",
+    "decision": "approve new moving source only with enforced framing fix; old automated review remains for old source"
   }
 }

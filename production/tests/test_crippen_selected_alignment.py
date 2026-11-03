@@ -23,3 +23,9 @@ class SelectedAlignmentTests(unittest.TestCase):
         position,_=align('开头甲乙丙丁戊结尾后续内容很长很好',[{'word':'开头结尾后续内容很长很好','start':0,'end':8}])
         # A modest mismatch remains auditable; grossly unrelated recognition fails above.
         self.assertGreater(position(7),0)
+
+class SourceReframeTests(unittest.TestCase):
+    def test_only_recognition_closeup_is_reframed(self):
+        from production.crippen1910.render import source_reframe_filters
+        self.assertIn('crop=',source_reframe_filters({'id':'S18'})[0])
+        self.assertEqual(source_reframe_filters({'id':'S21'}),[])
