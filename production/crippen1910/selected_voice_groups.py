@@ -128,7 +128,8 @@ def prepare():
             local=lambda index,last=False: max(0.0,min(len(trimmed)/RATE,position(offsets[i]+index,end=last)-start-removed))
             captions=[];char_cursor=0
             for sentence in re.findall(r'.+?[。！？]|.+$',shot['narration']):
-                n=len(normalize(sentence));captions.append({'text':sentence,'start':local(char_cursor),'end':local(char_cursor+n,True)});char_cursor+=n
+                n=len(normalize(sentence));last=char_cursor+n==offsets[i+1]-offsets[i]
+                captions.append({'text':sentence,'start':onset if char_cursor==0 else local(char_cursor),'end':offset if last else local(char_cursor+n,True)});char_cursor+=n
             pauses=[]
             for match in re.finditer(r'一道电波[，,]?|科拉[，,](?=究竟)',shot['narration']):
                 at=len(normalize(shot['narration'][:match.end()]));a=local(at,True);b=local(at)
