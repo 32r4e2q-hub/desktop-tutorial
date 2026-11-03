@@ -46,61 +46,67 @@
       "url": "https://apihub.agnes-ai.com/v1/models",
       "status": 200,
       "model_ids": [
-        "agnes-video-2.5-flash",
-        "agnes-3.0-flash",
-        "agnes-image-2.1-flash",
-        "agnes-image-2.0-flash",
         "agnes-2.5-flash",
-        "agnes-image-2.5-flash"
+        "agnes-3.0-flash",
+        "agnes-image-2.0-flash",
+        "agnes-image-2.1-flash",
+        "agnes-image-2.5-flash",
+        "agnes-video-2.5-flash"
       ]
     }
   ],
   "generation_submitted": false,
   "task_checks": [
     {
-      "shot": "S01",
-      "task_id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
-      "checked_at_epoch": 1793666301,
+      "shot": "S03",
+      "task_id": "task_zRPDdAFdK7miRIOXqrGFCSshxCKtbcwU",
+      "checked_at_epoch": 1793666458,
       "response": {
-        "id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
-        "status": "in_progress",
-        "progress": 10,
-        "created_at": 1793664761,
-        "started_at": 1793666048,
+        "id": "task_zRPDdAFdK7miRIOXqrGFCSshxCKtbcwU",
+        "status": "pending",
+        "progress": 0,
+        "created_at": 1793666302,
         "completed_at": null,
         "error": null
       },
       "legacy_response": {
-        "id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
-        "video_id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
-        "status": "in_progress",
-        "progress": 10,
-        "created_at": 1793664761
+        "id": "task_zRPDdAFdK7miRIOXqrGFCSshxCKtbcwU",
+        "video_id": "task_zRPDdAFdK7miRIOXqrGFCSshxCKtbcwU",
+        "status": "queued",
+        "progress": 0,
+        "created_at": 1793666302
       }
     },
     {
-      "shot": "S02",
-      "task_id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
-      "checked_at_epoch": 1793666301,
+      "shot": "S04",
+      "task_id": "task_gdqxRiWttWlKSSxn9FnBWCSZb9WFewpG",
+      "checked_at_epoch": 1793666459,
       "response": {
-        "id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
-        "status": "in_progress",
-        "progress": 10,
-        "created_at": 1793664822,
-        "started_at": 1793666167,
+        "id": "task_gdqxRiWttWlKSSxn9FnBWCSZb9WFewpG",
+        "status": "pending",
+        "progress": 0,
+        "created_at": 1793666363,
         "completed_at": null,
         "error": null
       },
       "legacy_response": {
-        "id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
-        "video_id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
-        "status": "in_progress",
-        "progress": 10,
-        "created_at": 1793664822
+        "id": "task_gdqxRiWttWlKSSxn9FnBWCSZb9WFewpG",
+        "video_id": "task_gdqxRiWttWlKSSxn9FnBWCSZb9WFewpG",
+        "status": "queued",
+        "progress": 0,
+        "created_at": 1793666363
       }
+    },
+    {
+      "shot": "S05",
+      "task_id": "task_25vwpurWUlcf1dW6rt58A81d3RqDsfph",
+      "checked_at_epoch": 1793666460,
+      "error_type": "HTTPError"
     }
   ],
   "vision_preflight": {
-    "error_type": "HTTPError"
+    "error_type": "HTTPError",
+    "http_status": 500,
+    "detail": "{\"error\":{\"message\":\"***.InternalServerError: InternalServerError: OpenAIException - {\\\"object\\\":\\\"error\\\",\\\"message\\\":\\\"Internal server error: An exception occurred while loading IMAGE data at index 0: Error while loading data ImageData(url='https://***.com/***/***/*** HTTPSConnectionPool(host='***.***.com', port=443): Max retries exceeded with url: /32r4e2q-hub/desktop-tutorial/b3a0bf17dc080c80a3694ca4c460b365c9b491d9/production/crippen1910/reference/C05_side.png (Caused by NewConnectionError(\\\\\\\"HTTPSConnection(host='***.***.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\\\\\\\"))\\\",\\\"type\\\":\\\"InternalServerError\\\",\\\"param\\\":null,\\\"code\\\":500}\",\"type\":\"internal_server_error\",\"param\":\"\",\"code\":\"500\"}}"
   }
 }
