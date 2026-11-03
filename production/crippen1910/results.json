@@ -644,9 +644,9 @@
     "S22": {
       "id": "S22",
       "request_hash": "22538d67c398dcb7780f774aa5ce365a99297b05cdeb27276cf61eb2d4041844",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-03T08:54:11Z",
+      "updated_at": "2026-11-03T08:54:13Z",
       "create_attempts": 2,
       "error": null,
       "capacity_error": "HTTP 429",
@@ -659,7 +659,18 @@
       "bytes": 2425097,
       "sha256": "7fbfea333c1abb8ca9dbd602de0860e0fe9a979124cf34870c91ad2190c57353",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2425097,
+        "decoded_ok": true,
+        "contact_sheet": "production/crippen1910/qa/S22.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S23": {
       "id": "S23",
@@ -835,7 +846,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-03T08:54:12Z",
+  "updated_at": "2026-11-03T08:54:13Z",
   "run_id": "41595089970",
   "previous_results": {
     "S03": [
