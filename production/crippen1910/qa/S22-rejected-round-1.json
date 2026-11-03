@@ -2,43 +2,45 @@
   "shot": "S22",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "7fbfea333c1abb8ca9dbd602de0860e0fe9a979124cf34870c91ad2190c57353",
-  "image_revision": "e7e50112dcc0293e03a4f44af1a010109e9ab05a",
+  "source_sha256": "a60674d08c676810241149f809fa84c4d51667c2cf2792b8b0085c68b08aabbb",
+  "image_revision": "cd010cd4bc085fe18c12680566e4924547da6f3f",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.09895732911220044,
+    "camera_compensated_mean_residual": 0.13891916019880174,
     "residuals": [
-      0.0745490876906318,
-      0.07146963507625272,
-      0.08582427832244009,
-      0.07827008442265795,
-      0.08186070261437908,
-      0.1925347903050109,
-      0.18558394607843137,
-      0.021566108387799564
+      0.08546779684095861,
+      0.08203165849673202,
+      0.08900694444444444,
+      0.20966407952069718,
+      0.13478928376906318,
+      0.22447337962962963,
+      0.24538807189542483,
+      0.04053206699346405
     ]
   },
   "assessment": {
     "pass": false,
-    "independent_motion": true,
-    "identity_consistent": true,
+    "independent_motion": false,
+    "identity_consistent": false,
     "safe": true,
     "story_matches": false,
     "issues": [
-      "Narration text missing: expected '一边还在悠闲看海，另一边，已经抢先抵达加拿大。' is not displayed or audible in the visible frames.",
-      "Unapproved on-screen text: newspaper headline 'THE REUNION' is legible on C01B's paper; expected scene specifies no generated numeric distance and this prop text is extraneous.",
-      "Continuity mismatch of C01B's expression: expected right-panel behavior is smiling while reading; left-panel frames show neutral/focused reading rather than the required smile.",
-      "Ending shot inconsistency: final frame shows a glowing blue horizon seam over ocean with headlands but does not clearly establish a Canada river estuary setting as required."
+      "Visible text on newspaper in C01B frames (rows of gibberish/Asian characters), violating 'paper has no text, letters, numbers or title'",
+      "Cartoon-style C01B character (wide eyes, exaggerated features) does not match realistic cinematic reference image provided",
+      "C04 inspector character shows significant facial feature drift between frames (moustache shape/thickness varies)",
+      "Bottom section displays numbers/coordinates (392, 3510, 3170, 3425) on the nautical map, violating 'no numbers'",
+      "No evidence of split-screen structure with blue ring merge animation into Canadian estuary",
+      "No visible camera movement or independent motion beyond basic pans"
     ],
     "observations": [
-      "Grid shows 7 occupied chronological cells and 2 black unused cells.",
-      "Left side depicts warm-toned ship deck with C01B (grey soft felt hat, beige travel suit, clean-shaven, no glasses) holding an open newspaper.",
-      "Right side depicts cold-blue sea with C04 (bowler hat, dark long coat, prominent moustache) walking along the rail.",
-      "Both characters show pose progression across frames (newspaper angle changes; walking stride changes), indicating independent motion beyond a static pan.",
-      "Lower map/sea-chart area shows glowing route dots and concentric blue rings near the dividing line.",
-      "A vertical blue glow separates the two scenes in most frames; final detail frame shows a horizontal blue light seam at the horizon over water.",
-      "Close-up frames reveal readable newspaper text 'THE REUNION' on C01B's paper.",
-      "Character identities match C01B and C04 reference images in hat, facial hair, and costume."
+      "Top-left grid cells show C01B holding newspaper with visible column text, not blank",
+      "C01B has exaggerated cartoon proportions vs realistic reference with narrow eyes and natural features",
+      "C04 appears inconsistently - sometimes with thick moustache, sometimes thin, facial structure varies",
+      "Bottom-right frame shows abstract sea chart with glowing blue route line but includes yellow coordinate numbers (392, 3510, 3170, 3425)",
+      "Center-bottom frame shows aerial view of estuary with blue dots but numbers are present",
+      "No split-screen composition visible in any frame",
+      "No blue ring merge animation sequence shown",
+      "Characters appear static with minimal independent movement"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
