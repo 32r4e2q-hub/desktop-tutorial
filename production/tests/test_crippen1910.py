@@ -111,3 +111,23 @@ class CrippenPlanTests(unittest.TestCase):
 
 if __name__=='__main__':
     unittest.main()
+
+class BulkGenerationPolicyTests(unittest.TestCase):
+    def test_bulk_accepts_all_thirty_without_fabricating_approvals(self):
+        selected=[{'id':f'S{i:02d}'} for i in range(1,31)]
+        reviews={};receipts={}
+        gen.enforce_generation_review_policy(selected,set(),{'defer_visual_review':True},reviews,receipts)
+        self.assertEqual(reviews,{})
+        self.assertEqual(receipts,{})
+
+    def test_default_still_requires_prior_batch_approval(self):
+        with self.assertRaisesRegex(ValueError,'Previous batch'):
+            gen.enforce_generation_review_policy([{'id':'S11'}],{'S11'},{},{},{})
+
+    def test_bulk_flag_must_be_explicit_boolean(self):
+        with self.assertRaisesRegex(ValueError,'boolean'):
+            gen.enforce_generation_review_policy([{'id':'S11'}],{'S11'},{'defer_visual_review':'false'},{},{})
+
+    def test_default_does_not_silently_allow_thirty(self):
+        with self.assertRaisesRegex(ValueError,'at most five'):
+            gen.enforce_generation_review_policy([{'id':f'S{i:02d}'} for i in range(1,31)],set(),{},{},{})

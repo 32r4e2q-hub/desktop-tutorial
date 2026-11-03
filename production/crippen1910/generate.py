@@ -444,6 +444,26 @@ def create_contact_sheet(source: Path, shot_id: str, qa_dir: Path) -> dict:
     return info
 
 
+def enforce_generation_review_policy(selected, only, options, review, receipts):
+    """Bulk mode defers review only during generation; final render gates stay unchanged."""
+    bulk = options.get("defer_visual_review", False)
+    if type(bulk) is not bool:
+        raise ValueError("defer_visual_review must be boolean")
+    if not selected or len(selected) > 30:
+        raise ValueError("Select between one and thirty shots")
+    if bulk:
+        return
+    if not only or len(selected) > 5:
+        raise ValueError("Select one batch of at most five shots; review it before the next batch")
+    for shot in selected:
+        previous_batch_end = ((int(shot["id"][1:]) - 1) // 5) * 5
+        for number in range(1, previous_batch_end + 1):
+            sid = f"S{number:02d}"
+            row = review.get(sid, {})
+            if row.get("status") != "approved" or not row.get("sha256") or row["sha256"] != receipts.get(sid, {}).get("sha256"):
+                raise ValueError("Previous batch is not visually approved: " + sid)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--validate", action="store_true")
@@ -557,17 +577,9 @@ def main() -> int:
         raise ValueError("canary_then_full requires only=S01")
     selected = ([by_id["S01"]] if canary_then_full else
                 [shot for shot in project["shots"] if not only or shot["id"] in only])
-    if not only or len(selected) > 5:
-        raise ValueError("Select one batch of at most five shots; review it before the next batch")
-    review = read_json(HERE / "qa" / "batch-reviews.json", {})
-    receipts = read_json(RESULTS, {}).get("shots", {})
-    for shot in selected:
-        previous_batch_end = ((int(shot["id"][1:]) - 1) // 5) * 5
-        for number in range(1, previous_batch_end + 1):
-            sid = f"S{number:02d}"
-            row = review.get(sid, {})
-            if row.get("status") != "approved" or not row.get("sha256") or row["sha256"] != receipts.get(sid, {}).get("sha256"):
-                raise ValueError("Previous batch is not visually approved: " + sid)
+    enforce_generation_review_policy(selected, only, options,
+        read_json(HERE / "qa" / "batch-reviews.json", {}),
+        read_json(RESULTS, {}).get("shots", {}))
     workers = min(2, max(1, int(options.get("workers", 2))))
     gate = RequestGate(minimum_interval=REQUEST_INTERVAL_SECONDS)
     # The retry loop is intentionally unbounded; the Actions job timeout is the outer safety cap.
@@ -816,7 +828,7 @@ def main() -> int:
     else:
         prepare_selected(selected)
         if options.get('eager_submit'):
-            # Submit only this reviewed five-shot batch, spaced by the same 61-second gate.
+            # Submit the selected shots (bulk mode allowed), spaced by the same 61-second gate.
             # Poll workers stay at two; accepted task IDs are always resumed, never duplicated.
             for shot in selected:
                 sid=shot['id'];old=doc.get('shots',{}).get(sid,{})

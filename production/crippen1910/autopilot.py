@@ -1,4 +1,4 @@
-"""Autonomous production, still fail-closed: five clips -> actual-image AI review -> next five.
+"""Autonomous production, still fail-closed: all clips -> actual-image review -> targeted repairs.
 
 Reviews are explicitly attributed to Agnes image understanding, NOT to a human. No missing,
 failed or ambiguous review is approved. Narration/rendering cannot precede thirty approvals.
@@ -132,31 +132,32 @@ def main():
     gen.git('config','user.name','arena-autopilot');gen.git('config','user.email','arena-autopilot@users.noreply.github.com')
     subprocess.run([sys.executable,str(HERE/'build_story.py')],check=True)
     project=json.loads((HERE/'story.json').read_text());gen.validate(project,require_audio=False)
-    for start in range(0,30,5):
-        selected_ids=[s['id'] for s in project['shots'][start:start+5]]
-        wanted=selected_ids
-        print('START_BATCH',start//5+1,flush=True)
-        for round_number in range(3):
-            payload=dict(mode='clips',only=','.join(wanted),workers=2,eager_submit=True)
-            subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload',json.dumps(payload)],check=True)
-            batch=[s for s in project['shots'] if s['id'] in selected_ids]
-            failed=review_batch(batch,project)
-            if not failed:break
-            if round_number==2:raise RuntimeError('Three actual visual inspections still fail; refusing bad footage: '+','.join(failed))
-            correction_path=HERE/'qa/shot-corrections.json'
-            corrections=json.loads(correction_path.read_text()) if correction_path.exists() else {}
-            for sid in failed:
-                evidence=json.loads((HERE/'qa'/f'{sid}-vision-review.json').read_text())
-                assessment=evidence['assessment']
-                note='; '.join(str(x) for x in assessment['issues'])[:850]
-                if not note:note='Add unmistakable independent character/object movement, preserve approved identity and the exact stated story action.'
-                corrections[sid]=note
-                archive=HERE/'qa'/f'{sid}-rejected-round-{round_number+1}.json'
-                archive.write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
-            correction_path.write_text(json.dumps(corrections,ensure_ascii=False,indent=2)+'\n')
-            subprocess.run([sys.executable,str(HERE/'build_story.py')],check=True)
-            project=json.loads((HERE/'story.json').read_text());publish('bounded targeted repair for '+','.join(failed))
-            wanted=failed
+    selected_ids=[s['id'] for s in project['shots']]
+    wanted=selected_ids
+    for round_number in range(3):
+        print('BULK_GENERATION_ROUND',round_number+1,'shots',','.join(wanted),flush=True)
+        payload=dict(mode='clips',only=','.join(wanted),workers=2,eager_submit=True,defer_visual_review=True)
+        subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload',json.dumps(payload)],check=True)
+        # Review groups are for manageable image inspection, never submission barriers.
+        failed=[]
+        for start in range(0,len(project['shots']),5):
+            failed.extend(review_batch(project['shots'][start:start+5],project))
+        if not failed:break
+        if round_number==2:raise RuntimeError('Three actual visual inspections still fail; refusing bad footage: '+','.join(failed))
+        correction_path=HERE/'qa/shot-corrections.json'
+        corrections=json.loads(correction_path.read_text()) if correction_path.exists() else {}
+        for sid in failed:
+            evidence=json.loads((HERE/'qa'/f'{sid}-vision-review.json').read_text())
+            assessment=evidence['assessment']
+            note='; '.join(str(x) for x in assessment['issues'])[:850]
+            if not note:note='Add unmistakable independent character/object movement, preserve approved identity and the exact stated story action.'
+            corrections[sid]=note
+            archive=HERE/'qa'/f'{sid}-rejected-round-{round_number+1}.json'
+            archive.write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
+        correction_path.write_text(json.dumps(corrections,ensure_ascii=False,indent=2)+'\n')
+        subprocess.run([sys.executable,str(HERE/'build_story.py')],check=True)
+        project=json.loads((HERE/'story.json').read_text());publish('bounded targeted repair for '+','.join(failed))
+        wanted=failed
     # Explicit temporal workflow boundary: no synthesis before all thirty reviewed clips.
     subprocess.run([sys.executable,str(HERE/'narrate.py')],check=True);publish('complete measured narration after thirty motion approvals')
     subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload','{"mode":"render"}'],check=True)
