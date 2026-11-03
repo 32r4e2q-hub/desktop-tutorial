@@ -43,12 +43,30 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Test the closed gates and exact timeline
         run: python3 -m unittest production.tests.test_crippen1910 production.tests.test_crippen_reference_batch production.tests.test_crippen_transitions production.tests.test_crippen_selected_alignment -q
+      - name: Restore fully encoded movie from font-only failure
+        uses: actions/download-artifact@v4
+        with:
+          name: crippen1910-autonomous-production-5
+          run-id: 41649456908
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/crippen1910/recovered-artifact
+      - name: Verify font discovery before any expensive work
+        run: |
+          python3 - <<'PY'
+          from production.crippen1910.render import find_font
+          from PIL import ImageFont
+          for serif in [False, True]:
+              font=find_font(serif);ImageFont.truetype(str(font),48)
+              print('VERIFIED_CJK_FONT',font)
+          PY
       - name: Generate, actually inspect each five shots, narrate and assemble
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          CRIPPEN_RECOVER_FINISHED_RENDER: "1"
         shell: bash
         run: |
           set -euo pipefail
+          python3 -u production/crippen1910/recover_finished_render.py
           python3 -u production/crippen1910/selected_voice_groups.py 2>&1 | tee production/crippen1910/selected-voice.log
           python3 -u production/crippen1910/autopilot.py 2>&1 | tee production/crippen1910/autopilot.log
       - name: Preserve progress, reviews, narration and any delivered film

@@ -372,6 +372,8 @@ def find_font(serif: bool = False) -> Path:
     if override and Path(override).is_file():
         return Path(override)
     candidates = []
+    family="NotoSerifCJKsc-Regular.otf" if serif else "NotoSansCJKsc-Regular.otf"
+    candidates.append(Path.home()/".local/share/fonts"/family)
     font_root = Path("/usr/share/fonts")
     if font_root.exists():
         for pattern in ("**/NotoSerifCJK-Regular.ttc", "**/NotoSansCJK-Regular.ttc", "**/*CJK*" ) if serif else ("**/NotoSansCJK-Regular.ttc", "**/*CJK*"):
@@ -522,6 +524,14 @@ def main() -> int:
         review = reviews.get(sid, {})
         if review.get("status") != "approved" or review.get("sha256") != receipt.get("sha256"):
             raise RuntimeError("Visual consistency review required before assembly: " + sid)
+    recovery_path=HERE/'qa/finished-film-recovery.json'
+    recovery=json.loads(recovery_path.read_text()) if os.getenv('CRIPPEN_RECOVER_FINISHED_RENDER')=='1' and recovery_path.exists() else None
+    if recovery:
+        assert recovery['film_sha256']==digest(args.output), 'Recovered film changed'
+        for shot in story['shots']:
+            sid=shot['id']
+            assert recovery['source_sha256'][sid]==digest(args.sources/f'{sid}.mp4')
+            assert recovery['voice_sha256'][sid]==digest(HERE/'audio'/f'{sid}.mp3')
     args.work.mkdir(parents=True, exist_ok=True)
     normalized = args.work / "normalized"
     normalized.mkdir(parents=True, exist_ok=True)
@@ -532,7 +542,16 @@ def main() -> int:
     for shot in story["shots"]:
         source = args.sources / f"{shot['id']}.mp4"
         target = normalized / f"{shot['id']}.mp4"
-        clip_report.append(normalize_clip(source, target, shot, first_ids, last_ids))
+        if recovery:
+            info=media_summary(source)
+            bands=detect_source_letterbox_bands(source,shot,info)
+            clip_report.append({'id':shot['id'],'duration_seconds':shot['duration'],
+                'source_duration_seconds':info['duration_seconds'],'source_width':info['width'],'source_height':info['height'],
+                'source_sha256':digest(source),'normalization_reused_from_run':recovery['recovered_from_run'],
+                'embedded_letterbox_crop_filter':letterbox_crop_filter(shot,info,bands),
+                'source_reframe_filters':source_reframe_filters(shot),'source_post_filters':source_post_filters(shot)})
+        else:
+            clip_report.append(normalize_clip(source, target, shot, first_ids, last_ids))
         escaped = str(target.resolve()).replace("'", "'\\''")
         lines.append(f"file '{escaped}'")
     concat_list.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -546,7 +565,7 @@ def main() -> int:
               '-c:v','libx264','-threads','2','-preset','veryfast','-crf','19',
               '-r',str(FPS),'-frames:v',str(TOTAL_FRAMES),'-pix_fmt','yuv420p',
               '-movflags','+faststart',str(silent_video)]
-    run(command)
+    if not recovery:run(command)
     (args.work/'transition-report.json').write_text(json.dumps(transition_report,indent=2)+'\n')
 
 
@@ -560,18 +579,19 @@ def main() -> int:
     # Fontconfig resolves the installed Noto CJK family name on GitHub-hosted Ubuntu.
     final = args.output
     final.parent.mkdir(parents=True, exist_ok=True)
-    run([
-        "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent_video, "-i", mix,
-        "-vf", f"ass={ass_path.as_posix()}", "-map", "0:v:0", "-map", "1:a:0",
-        # Delivery-sized master: 1080p30 at ~3 Mbit/s keeps the 3-minute film near 70 MB
-        # (the same ballpark as the other finished films committed to 交付/), and Douyin
-        # re-encodes uploads anyway, so a 250 MB intermediate would only slow delivery.
-        "-c:v", "libx264", "-preset", "medium", "-crf", "22",
-        "-maxrate", "3000k", "-bufsize", "6000k", "-profile:v", "high", "-level", "4.1",
-        "-pix_fmt", "yuv420p",
-        "-r", str(FPS), "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
-        "-t", str(DURATION), "-movflags", "+faststart", final,
-    ])
+    if not recovery:
+        run([
+            "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent_video, "-i", mix,
+            "-vf", f"ass={ass_path.as_posix()}", "-map", "0:v:0", "-map", "1:a:0",
+            # Delivery-sized master: 1080p30 at ~3 Mbit/s keeps the 3-minute film near 70 MB
+            # (the same ballpark as the other finished films committed to 交付/), and Douyin
+            # re-encodes uploads anyway, so a 250 MB intermediate would only slow delivery.
+            "-c:v", "libx264", "-preset", "medium", "-crf", "22",
+            "-maxrate", "3000k", "-bufsize", "6000k", "-profile:v", "high", "-level", "4.1",
+            "-pix_fmt", "yuv420p",
+            "-r", str(FPS), "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
+            "-t", str(DURATION), "-movflags", "+faststart", final,
+        ])
     summary = media_summary(final)
     if summary["width"] != 1920 or summary["height"] != 1080 or abs(summary["duration_seconds"] - 180.0) > 0.04:
         raise RuntimeError("Final video failed format/duration gate: " + json.dumps(summary, ensure_ascii=False))
@@ -587,6 +607,7 @@ def main() -> int:
     srt_copy.write_text(srt_path.read_text(encoding="utf-8"), encoding="utf-8")
     report = {
         "title": story["title"],
+        "render_recovery": recovery,
         "output": final.name,
         "unreviewed_first_cut": True,
         "human_visual_review": "pending",
