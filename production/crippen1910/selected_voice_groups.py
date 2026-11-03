@@ -56,6 +56,39 @@ def align(script,words):
     return position,coverage
 
 
+def kept_ranges(recorded,edit):
+    full=normalize(recorded);ranges=[];cursor=0
+    for text in edit['keep_text']:
+        part=normalize(text);start=full.find(part,cursor)
+        if start<0:raise RuntimeError('Narration edit does not match original spoken words')
+        ranges.append((start,start+len(part)));cursor=start+len(part)
+    if ''.join(full[a:b] for a,b in ranges)!=normalize(edit['text']):
+        raise RuntimeError('Narration edit would invent unrecorded words')
+    return ranges
+
+
+def edit_take(samples,position,offset,start,end,recorded,edit):
+    ranges=kept_ranges(recorded,edit);pieces=[];mapping=[];cursor=0
+    for a,b in ranges:
+        begin=start if a==0 else max(start,position(offset+a)-.025)
+        finish=end if b==len(normalize(recorded)) else min(end,position(offset+b,end=True)+.05)
+        if finish<=begin:raise RuntimeError('Invalid ASR narration edit boundary')
+        data=samples[round(begin*RATE):round(finish*RATE)].copy()
+        # Tiny edge fades suppress splicing clicks without removing any word/syllable.
+        fade=min(240,len(data)//4);data[:fade]*=np.linspace(0,1,fade);data[-fade:]*=np.linspace(1,0,fade)
+        mapping.append((a,b,begin,cursor/RATE));pieces.append(data);cursor+=len(data)
+        if (a,b)!=ranges[-1]:pieces.append(np.zeros(round(.08*RATE),dtype=np.float32));cursor+=len(pieces[-1])
+    def edited_position(index,last=False):
+        probe=index-1 if last else index;relative=0
+        for a,b,begin,joined in mapping:
+            if relative<=probe<relative+b-a:
+                old=a+index-relative
+                return joined+position(offset+old,end=last)-begin
+            relative+=b-a
+        raise RuntimeError('Edited caption does not match kept words')
+    return np.concatenate(pieces),edited_position,[dict(original_start=a,original_end=b,source_start=begin,edited_start=joined) for a,b,begin,joined in mapping]
+
+
 def read_wave(path):
     with wave.open(str(path)) as f:
         assert f.getnchannels()==1 and f.getframerate()==RATE
@@ -93,28 +126,39 @@ def model_path(work):
 
 def prepare():
     from narrate import enforce_video_gate
-    import vosk
     story=json.loads((HERE/'story.json').read_text());enforce_video_gate(story)
     selection=json.loads((HERE/'audio/voice-selection.json').read_text())
     assert selection['provider']=='Arena speech'
     manifest=json.loads((HERE/'audio/voice-groups.json').read_text())
     assert manifest['voice_id']==selection['voice_id']
     groups=manifest['groups'];assert [sid for g in groups for sid in g['shot_ids']]==[s['id'] for s in story['shots']]
+    edits=json.loads((HERE/'audio/narration-edits.json').read_text()) if (HERE/'audio/narration-edits.json').exists() else {}
+    (HERE/'qa/selected-voice-duration-issues.json').write_text('[]\n')
     by_id={s['id']:s for s in story['shots']};work=ROOT/'work/crippen1910/selected-voice';work.mkdir(parents=True,exist_ok=True)
-    vosk.SetLogLevel(-1);model=vosk.Model(str(model_path(work)));timings={};evidence={};oversized=[]
+    cache_path=HERE/'qa/selected-voice-alignment.json'
+    cached=json.loads(cache_path.read_text()) if cache_path.exists() else {}
+    model=None;timings={};evidence={};oversized=[]
     for group in groups:
         gid=group['id'];source=HERE/'audio/groups'/f'{gid}.mp3'
         assert hashlib.sha256(source.read_bytes()).hexdigest()==group['sha256']
         shots=[by_id[sid] for sid in group['shot_ids']]
-        script='\n'.join(s['narration'] for s in shots)
+        script='\n'.join(s.get('recorded_narration',s['narration']) for s in shots)
         assert script==group['text']
         wav16=work/f'{gid}-16.wav';wav48=work/f'{gid}-48.wav'
         decode(source,wav16,16000);decode(source,wav48);samples=read_wave(wav48)
-        words=recognize(wav16,model);position,coverage=align(script,words)
+        prior=cached.get(gid,{})
+        if prior.get('sha256')==group['sha256'] and prior.get('asr_words'):
+            words=prior['asr_words']  # Reuse genuine SHA-bound acoustic measurements, not invented times.
+        else:
+            if model is None:
+                import vosk
+                vosk.SetLogLevel(-1);model=vosk.Model(str(model_path(work)))
+            words=recognize(wav16,model)
+        position,coverage=align(script,words)
         evidence[gid]={'sha256':group['sha256'],'asr_words':words,'normalized_script_coverage':coverage}
         (HERE/'qa/selected-voice-alignment.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
         offsets=[0]
-        for shot in shots:offsets.append(offsets[-1]+len(normalize(shot['narration'])))
+        for shot in shots:offsets.append(offsets[-1]+len(normalize(shot.get('recorded_narration',shot['narration']))))
         cuts=[0.0]
         for offset in offsets[1:-1]:
             a=position(offset,end=True);b=position(offset)
@@ -123,12 +167,16 @@ def prepare():
         cuts.append(len(samples)/RATE)
         for i,shot in enumerate(shots):
             sid=shot['id'];start=cuts[i];end=cuts[i+1];raw=samples[round(start*RATE):round(end*RATE)]
+            edited=None
+            if sid in edits:
+                raw,edited,splices=edit_take(samples,position,offsets[i],start,end,shot['recorded_narration'],edits[sid])
+                evidence[gid].setdefault('measured_splices',{})[sid]=splices
             levels=energy(raw);active=np.flatnonzero(levels>max(.0002,float(levels.max())*.003))
             trimmed,onset,offset=trim_voice_edges(raw);removed=max(0,int(active[0])*.01-onset)
-            local=lambda index,last=False: max(0.0,min(len(trimmed)/RATE,position(offsets[i]+index,end=last)-start-removed))
+            local=lambda index,last=False: max(0.0,min(len(trimmed)/RATE,(edited(index,last) if edited else position(offsets[i]+index,end=last)-start)-removed))
             captions=[];char_cursor=0
             for sentence in re.findall(r'.+?[。！？]|.+$',shot['narration']):
-                n=len(normalize(sentence));last=char_cursor+n==offsets[i+1]-offsets[i]
+                n=len(normalize(sentence));last=char_cursor+n==len(normalize(shot['narration']))
                 captions.append({'text':sentence,'start':onset if char_cursor==0 else local(char_cursor),'end':offset if last else local(char_cursor+n,True)});char_cursor+=n
             pauses=[]
             for match in re.finditer(r'一道电波[，,]?|科拉[，,](?=究竟)',shot['narration']):

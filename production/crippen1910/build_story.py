@@ -88,9 +88,16 @@ SUPPLEMENT_DESCRIPTIONS = {
 
 def build():
     shots=[]; cursor=0
+    edit_path=HERE/'audio/narration-edits.json'
+    edits=json.loads(edit_path.read_text()) if edit_path.exists() else {}
     for i,(duration,chapter,refs,roles,text,prompt) in enumerate(ROWS,1):
         sid=f'S{i:02d}'
+        recorded=text
+        if sid in edits:
+            assert edits[sid]['recorded_text']==recorded
+            text=edits[sid]['text']
         shots.append(dict(id=sid,start=cursor,duration=duration,seconds=duration,aspect='16:9',source_size='720P',kind='agnes',style_variant='real',seed=191000+i,characters=roles.split(),references=refs.split(),narration=text,narration_id=f'N{chapter:02d}',prompt=prompt))
+        if sid in edits:shots[-1]['recorded_narration']=recorded
         # Use the correct Montrose sub-location instead of exterior-only references.
         if sid in {'S16','S24','S25'}:
             shots[-1]['references']=[('S06_deck' if ref=='S06' else ref) for ref in shots[-1]['references']]

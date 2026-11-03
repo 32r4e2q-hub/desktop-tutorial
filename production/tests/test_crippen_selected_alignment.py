@@ -45,3 +45,9 @@ class SubstitutionBoundaryTests(unittest.TestCase):
         self.assertGreater(coverage,.8)
         self.assertAlmostEqual(p(4),5.13)
         self.assertAlmostEqual(p(4,True),4.74)
+
+class EditorialSpliceTests(unittest.TestCase):
+    def test_keep_ranges_cannot_invent_unspoken_copy(self):
+        from production.crippen1910.selected_voice_groups import kept_ranges
+        self.assertEqual(kept_ranges('帽子摘下，身份揭晓。这场逃亡，终于结束了。',{'keep_text':['帽子摘下，','这场逃亡，终于结束了。'],'text':'帽子摘下，这场逃亡，终于结束了。'}),[(0,4),(8,17)])
+        with self.assertRaises(RuntimeError):kept_ranges('已经结束。',{'keep_text':['已经结束。'],'text':'尚未结束。'})

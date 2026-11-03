@@ -1071,7 +1071,17 @@
         "word": "好"
       }
     ],
-    "normalized_script_coverage": 0.8333333333333334
+    "normalized_script_coverage": 0.8333333333333334,
+    "measured_splices": {
+      "S13": [
+        {
+          "original_start": 0,
+          "original_end": 13,
+          "source_start": 0.0,
+          "edited_start": 0.0
+        }
+      ]
+    }
   },
   "G06": {
     "sha256": "17e0eaef397b5fab90df68d12889140dabec404761d69aebd30bfdc4bfd24fe5",
@@ -1521,7 +1531,17 @@
         "word": "前面"
       }
     ],
-    "normalized_script_coverage": 0.8
+    "normalized_script_coverage": 0.8,
+    "measured_splices": {
+      "S20": [
+        {
+          "original_start": 7,
+          "original_end": 22,
+          "source_start": 8.254999999999999,
+          "edited_start": 0.0
+        }
+      ]
+    }
   },
   "G08": {
     "sha256": "39d2a149b018fab5f327439b15df0db5697a67243d8d948eea43a11c227ec512",
@@ -1995,7 +2015,37 @@
         "word": "无罪"
       }
     ],
-    "normalized_script_coverage": 0.7580645161290323
+    "normalized_script_coverage": 0.7580645161290323,
+    "measured_splices": {
+      "S25": [
+        {
+          "original_start": 0,
+          "original_end": 4,
+          "source_start": 0.0,
+          "edited_start": 0.0
+        },
+        {
+          "original_start": 8,
+          "original_end": 19,
+          "source_start": 3.005,
+          "edited_start": 1.27
+        }
+      ],
+      "S27": [
+        {
+          "original_start": 0,
+          "original_end": 18,
+          "source_start": 12.39,
+          "edited_start": 0.0
+        },
+        {
+          "original_start": 20,
+          "original_end": 22,
+          "source_start": 18.935000000000002,
+          "edited_start": 5.815
+        }
+      ]
+    }
   },
   "G10": {
     "sha256": "9d3b8b828d81cbcee8ba7266a8e24a0959ec64f102da6d9bdb5743037e8345b0",
