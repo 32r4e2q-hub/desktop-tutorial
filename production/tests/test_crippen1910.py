@@ -164,5 +164,5 @@ class SelectedNarratorPolicyTests(unittest.TestCase):
 
     def test_cold_grade_changes_only_approved_deck_source(self):
         from production.crippen1910.render import source_post_filters
-        self.assertIn('colorbalance',source_post_filters({'id':'S21'})[0])
+        self.assertTrue(any('colorbalance' in f for f in source_post_filters({'id':'S21'})))
         self.assertEqual(source_post_filters({'id':'S16'}),[])

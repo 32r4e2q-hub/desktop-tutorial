@@ -189,7 +189,7 @@ def letterbox_crop_filter(shot: dict, info: dict, detected_bands: list[tuple[int
 def source_post_filters(shot: dict) -> list[str]:
     # Reviewed S21 has a warm sunset deck cut. Grade real moving frames, never replace motion.
     if shot["id"] == "S21":
-        return ["colorbalance=rs=-0.10:gs=0.02:bs=0.18:rm=-0.12:gm=0.02:bm=0.14:rh=-0.08:bh=0.08"]
+        return ["hue=s=0.45", "colorbalance=rs=-0.12:gs=0.03:bs=0.22:rm=-0.12:gm=0.04:bm=0.20:rh=-0.09:gh=0.015:bh=0.13"]
     return []
 
 
