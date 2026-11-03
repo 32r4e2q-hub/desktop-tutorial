@@ -2,20 +2,20 @@
   "shot": "S27",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "2b9ef9fa5df98c7e4af50965754dc5b9b945b7feb2fc6c61a432036ac06be4d6",
-  "image_revision": "0efb85d81e3fd1dad31cf22c78b67bc19744e477",
+  "source_sha256": "eb4ebed455a3f826e634c4dbea0713c76a644d19d911ed8bfa0a765137a506ff",
+  "image_revision": "09ffd52c801187a76060514fff389cfb8aca5491",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.06592566210511983,
+    "camera_compensated_mean_residual": 0.047565223311546834,
     "residuals": [
-      0.03996779684095861,
-      0.059871936274509804,
-      0.06550156590413943,
-      0.0753822848583878,
-      0.07528152233115468,
-      0.07186832788671024,
-      0.07265168845315904,
-      0.066880174291939
+      0.02804779411764706,
+      0.04344764433551198,
+      0.05099475762527233,
+      0.05628329248366013,
+      0.06014249727668845,
+      0.057865740740740745,
+      0.05085369008714597,
+      0.032886369825708056
     ]
   },
   "assessment": {
@@ -25,14 +25,15 @@
     "safe": true,
     "story_matches": false,
     "issues": [
-      "The '首席站起口头宣告' (Foreperson standing to orally declare) action is not shown; the jury foreperson remains seated throughout the clip, while only the defendant (C01) stands and then bows his head."
+      "首席陪审员未站起口头宣告——修订要求的核心动作缺失。C01被告全程独自站立后低头，但首席陪审员（ jury foreperson）在全部9格时间帧及3张大图中均保持坐姿，从未站起。",
+      "无独立叙事动作的'首席站起口头宣告'（Foreperson standing to orally declare）——该动作仅通过C01单人的站/低头的肢体语言传达，而非首席陪审员的独立行为。",
+      "角色锚点正确但关键叙事缺失：C01圆框金边眼镜、浓密八字胡、深灰三件套、温顺神情符合；法官与旁听者爱德华时代肃穆着装无误；但'首席站起口头宣告'这一核心修订动作未实现。"
     ],
     "observations": [
-      "The sequence shows C01 (small man, round gold glasses, thick moustache, grey three-piece suit) initially seated at the dock, then standing and finally bowing his head in a medium close-up.",
-      "The jury foreperson (seated far left in wide shots) does not appear to stand or address the court in any of the sampled frames; he remains seated while other jurors look on.",
-      "The judge (in red robes and white wig) remains seated at the bench throughout; no gavel is visible or used.",
-      "C09 group identity is consistent with Edwardian-era judges and jurors depicted in the reference image, with plausible period clothing and roles.",
-      "Camera movement includes a push-in from wide to medium close-up of C01, consistent with '中景轻推'."
+      "网格9格中，C01（右侧被告）从站立到低头过程中，左侧陪审团席内人物始终坐着，无人站起。",
+      "大图3帧（左中右）均显示：法官高坐、C01站立/低头、旁听者与陪审团成员全部就座，无任何独立于C01的首席陪审员站起动作。",
+      "C01面部特征（圆框金边眼镜、八字胡、深灰西装）与参考图完全一致；法官红袍假发、陪审员灰棕色调三件套符合年代。",
+      "无可见法槌、无水印、无现代服装；场景为木质法庭、拱窗、吊灯，年代设定准确。"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
