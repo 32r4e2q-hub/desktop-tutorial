@@ -11,17 +11,24 @@ SELECTED_VOICE S10 seconds 3.652 tempo 1.0
 SELECTED_VOICE S11 seconds 5.848 tempo 1.0
 SELECTED_VOICE S12 seconds 5.684 tempo 1.0
 SELECTED_VOICE S14 seconds 4.025 tempo 1.0
+SELECTED_VOICE S15 seconds 5.64 tempo 1.0
+SELECTED_VOICE S16 seconds 5.881 tempo 1.033
+SELECTED_VOICE S17 seconds 5.888 tempo 1.039
+SELECTED_VOICE S18 seconds 3.597 tempo 1.0
+SELECTED_VOICE S19 seconds 5.881 tempo 1.022
+SELECTED_VOICE S21 seconds 4.428 tempo 1.0
+SELECTED_VOICE S22 seconds 4.886 tempo 1.075
+SELECTED_VOICE S23 seconds 6.836 tempo 1.0
+SELECTED_VOICE S24 seconds 6.434 tempo 1.0
+SELECTED_VOICE S26 seconds 5.879 tempo 1.006
+SELECTED_VOICE S28 seconds 5.881 tempo 1.06
+SELECTED_VOICE S29 seconds 5.881 tempo 1.117
+SELECTED_VOICE S30 seconds 4.96 tempo 1.054
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 170, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 171, in <module>
     if __name__=='__main__':prepare()
                             ~~~~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 131, in prepare
-    n=len(normalize(sentence));captions.append({'text':sentence,'start':local(char_cursor),'end':local(char_cursor+n,True)});char_cursor+=n
-                                                                                                 ~~~~~^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 128, in <lambda>
-    local=lambda index,last=False: max(0.0,min(len(trimmed)/RATE,position(offsets[i]+index,end=last)-start-removed))
-                                                                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 54, in position
-    if not nearby or abs(nearby[0]-index)>3:raise RuntimeError('Unanchored selected-voice script boundary')
-                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Unanchored selected-voice script boundary
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 164, in prepare
+    if oversized:raise RuntimeError('Selected narration exceeds natural delivery limits; see qa/selected-voice-duration-issues.json; no truncation allowed')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Selected narration exceeds natural delivery limits; see qa/selected-voice-duration-issues.json; no truncation allowed
