@@ -1,0 +1,39 @@
+{
+  "shot": "S26",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "7827e862a985bb95fbee591d00fd6dc02ca0aaecdc267e7a3b72c7860407d87f",
+  "image_revision": "0efb85d81e3fd1dad31cf22c78b67bc19744e477",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.10585083912037037,
+    "residuals": [
+      0.05121316721132898,
+      0.06978485838779956,
+      0.08877689270152506,
+      0.11612608932461874,
+      0.14051654411764705,
+      0.12311172385620915,
+      0.12588031045751635,
+      0.13139712690631808
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "C01 (Crippen) is rendered as a thin, middle-aged man with round gold-rimmed glasses and a thick, droopy dark mustache.",
+      "C01 is placed alone in the defendant's dock at the far end of the courtroom, isolated from the jury, confirming the solo trial condition.",
+      "The judge (C09 anchor) is visible wearing a red robe and white wig.",
+      "Twelve jurors are seated in the jury box, wearing Edwardian-era dark suits.",
+      "The sequence depicts the action of the jury standing up and exiting; some jurors are seen walking out while others remain seated or are in transitional poses, creating independent motion.",
+      "The setting is a wooden, grey-toned courtroom consistent with the Old Bailey description."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
