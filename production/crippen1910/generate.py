@@ -220,7 +220,7 @@ def commit_delivery(message: str) -> None:
         except subprocess.CalledProcessError:
             if attempt == 2:
                 raise
-            git("pull", "--rebase", "origin", BRANCH)
+            git("pull", "--rebase", "--autostash", "origin", BRANCH)
 
 
 def restore_sources(project: dict, results: dict, sources: Path) -> list[str]:
@@ -503,7 +503,7 @@ def main() -> int:
                     except subprocess.CalledProcessError:
                         if attempt == 2:
                             raise
-                        git("pull", "--rebase", "origin", BRANCH)
+                        git("pull", "--rebase", "--autostash", "origin", BRANCH)
         return code
     render_now = not args.clips_only
     validate(project, require_audio=(render_now or args.render_only))
@@ -624,7 +624,7 @@ def main() -> int:
                         except subprocess.CalledProcessError:
                             if attempt == 2:
                                 raise
-                            git("pull", "--rebase", "origin", BRANCH)
+                            git("pull", "--rebase", "--autostash", "origin", BRANCH)
             print("PRODUCTION_STATUS " + label, flush=True)
 
     def prepare_selected(shots: list[dict]) -> None:

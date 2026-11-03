@@ -207,7 +207,20 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
         }
         if cues and cue["start"] < cues[-1]["end"] - 0.001:
             raise RuntimeError(f"{sid}: shot-locked subtitle overlaps the preceding shot")
-        cues.append(cue)
+        timing_path=audio_dir/'timing.json'
+        timing=json.loads(timing_path.read_text()).get(sid,{}) if timing_path.exists() else {}
+        if timing.get('sha256')==record.get('sha256') and timing.get('captions'):
+            levels=energy(samples)
+            threshold=max(0.0002,float(levels.max())*.003)
+            active=np.flatnonzero(levels>threshold)
+            removed_lead=max(0.0,int(active[0])*.01-.03) if len(active) else 0.0
+            for sentence in timing['captions']:
+                begin=max(caption_start,shot_start+float(sentence['start'])/tempo-removed_lead)
+                end=min(caption_end,shot_start+float(sentence['end'])/tempo-removed_lead)
+                if end<=begin:raise RuntimeError('Invalid sentence timing: '+sid)
+                cues.append(dict(shot_id=sid,narration_id=shot['narration_id'],start=round(begin,3),end=round(end,3),text=sentence['text']))
+        else:
+            cues.append(cue)
         characters = visible_weight(shot["narration"])
         shot_timings.append({
             "id": sid,

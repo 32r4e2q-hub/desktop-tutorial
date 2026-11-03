@@ -48,6 +48,14 @@ jobs:
         with:
           ref: arena/f38dd103-desktop-tutorial
           fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /production/crippen1910/
+            /production/tests/
+            /production/agnes_video.py
+            /production/mystery-cover-template/
+            /交付/Crippen*
+            /交付/克里平*
 
       - name: Prepare the on-branch run log
         run: |

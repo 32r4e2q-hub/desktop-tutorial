@@ -17,6 +17,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(ROOT))
+from production.crippen1910.transitions import HANDLE, HANDLE_FRAMES, graph as transition_graph
 from production.crippen1910.build_audio import build_soundtrack  # noqa: E402
 from production.crippen1910.generate import MODEL, SOURCE_SIZE, digest, request_hash  # noqa: E402
 
@@ -187,7 +188,9 @@ def letterbox_crop_filter(shot: dict, info: dict, detected_bands: list[tuple[int
 
 def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], last_ids: set[str]) -> dict:
     duration = float(shot["duration"])
-    target_frames = round(duration * FPS)
+    handle_frames = HANDLE_FRAMES if shot["id"] != "S30" else 0
+    target_frames = round(duration * FPS) + handle_frames
+    normalized_duration = target_frames / FPS
     info = media_summary(source)
     if not 3.75 <= info["duration_seconds"] <= 9.5:
         raise RuntimeError(f"{shot['id']}: invalid Agnes clip duration {info['duration_seconds']:.3f}s")
@@ -198,16 +201,17 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
     filters = ([correction] if correction else []) + [
         "scale=1920:1080:force_original_aspect_ratio=increase",
         "crop=1920:1080",
+        f"setpts={(normalized_duration / info['duration_seconds']):.10f}*(PTS-STARTPTS)",
         "fps=24",
         "setsar=1",
         "eq=gamma=1.10:brightness=0.008",
     ]
-    filters.extend(chapter_fade_filters(shot, first_ids, last_ids))
+    # Transition handles remain moving: no fades to black, cloned frames, or static pans.
     filters.append("format=yuv420p")
     target.parent.mkdir(parents=True, exist_ok=True)
     run([
         "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
-        "-map", "0:v:0", "-vf", ",".join(filters), "-an", "-t", f"{duration:.3f}",
+        "-map", "0:v:0", "-vf", ",".join(filters), "-an", "-t", f"{normalized_duration:.9f}",
         "-frames:v", str(target_frames), "-r", str(FPS), "-fps_mode", "cfr",
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", target,
     ])
@@ -306,14 +310,14 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
     # Only the closing title is a post-produced overlay; the Agnes model itself is never asked
     # to render legible text anywhere in the film (S29 is the single shot that carries a title).
     lines += [
-        f"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}克里平医生案",
-        f"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}伦敦 · 1910 · 地窖里的人是谁？",
-        f"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}真实案件改编 · 部分画面为3D复原",
+        rf"Dialogue: 2,{ass_time(176.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}克里平医生案",
+        rf"Dialogue: 2,{ass_time(176.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}伦敦 · 1910 · 地窖里的人是谁？",
+        rf"Dialogue: 2,{ass_time(176.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}真实案件改编 · 部分画面为3D复原",
         # The closing prompt for discussion: a question only, never a claim about any person.
-        f"Dialogue: 2,{ass_time(177.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
+        rf"Dialogue: 2,{ass_time(177.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
         + story["presentation"].get("end_question", ""),
         # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
-        f"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
+        rf"Dialogue: 1,{ass_time(0.80)},{ass_time(176.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -398,7 +402,7 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
 
     # Left evidence panel, with a wide smoothstep ramp so no vertical seam shows on a phone.
     ramp_start, ramp_end = 660, 1180
-    garment = fill_crop(grab_frame(sources / "S01.mp4", 2.6, work_dir, "garment"),
+    garment = fill_crop(grab_frame(sources / "S25.mp4", 2.6, work_dir, "garment"),
                         ramp_end, height, 0.42)
     panel = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     panel.paste(garment, (0, 0))
@@ -507,9 +511,18 @@ def main() -> int:
         lines.append(f"file '{escaped}'")
     concat_list.write_text("\n".join(lines) + "\n", encoding="utf-8")
     silent_video = args.work / "crippen-picture-only.mp4"
-    run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", concat_list,
-         "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19", "-r", str(FPS),
-         "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-t", str(DURATION), silent_video])
+    graph, transition_report = transition_graph(story['shots'])
+    graph_file=args.work/'transitions.ffgraph';graph_file.write_text(graph)
+    command=['ffmpeg','-y','-v','error','-filter_complex_threads','1']
+    for shot in story['shots']:
+        command+=['-threads','1','-i',str(normalized/f"{shot['id']}.mp4")]
+    command+=['-filter_complex',graph,'-map','[outv]','-an',
+              '-c:v','libx264','-threads','2','-preset','veryfast','-crf','19',
+              '-r',str(FPS),'-frames:v',str(TOTAL_FRAMES),'-pix_fmt','yuv420p',
+              '-movflags','+faststart',str(silent_video)]
+    run(command)
+    (args.work/'transition-report.json').write_text(json.dumps(transition_report,indent=2)+'\n')
+
 
     mix, audio_report, cues = build_soundtrack(story, HERE / "audio", args.work)
     audio_report_path = args.work / "audio" / "mix-report.json"

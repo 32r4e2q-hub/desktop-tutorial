@@ -1,0 +1,44 @@
+name: 克里平 · 三十镜审核后的旁白
+on:
+  push:
+    branches: [arena/f38dd103-desktop-tutorial]
+    paths: [production/crippen1910/NARRATION_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: crippen1910-narration
+  cancel-in-progress: false
+jobs:
+  narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f38dd103-desktop-tutorial
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /production/crippen1910/
+      - run: python3 -m pip install --break-system-packages -q edge-tts numpy pillow imageio-ffmpeg
+      - name: Narrate only after all clips pass review
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          python3 - <<'PY'
+          from pathlib import Path
+          import imageio_ffmpeg
+          Path.home().joinpath('.local/bin/ffmpeg').symlink_to(imageio_ffmpeg.get_ffmpeg_exe())
+          PY
+          export PATH="$HOME/.local/bin:$PATH"
+          set -o pipefail
+          python3 -u production/crippen1910/narrate.py 2>&1 | tee production/crippen1910/narration.log
+      - name: Preserve narration and receipts
+        if: always()
+        run: |
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add production/crippen1910/audio production/crippen1910/narration.log production/crippen1910/story.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'crippen1910: measured shot narration and timing receipts'
+            git pull --rebase --autostash origin arena/f38dd103-desktop-tutorial
+            git push origin arena/f38dd103-desktop-tutorial
+          fi
