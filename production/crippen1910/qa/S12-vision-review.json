@@ -1,0 +1,38 @@
+{
+  "shot": "S12",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "c1e79049a0628da17ce5008d7234009f66798c53831bf01da8a0f417296867c3",
+  "image_revision": "b764f38b38dc7bb5494490aee5f856486d486e36",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.028302942878540308,
+    "residuals": [
+      0.03402879901960784,
+      0.031362813180827884,
+      0.030709899237472766,
+      0.033647807734204796,
+      0.028685117102396514,
+      0.02138970588235294,
+      0.023403799019607843,
+      0.023195601851851853
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Character matches C04 anchor: adult man with thick handled/mutton-chop moustache (八字胡), dark coat, and round bowler hat.",
+      "Action sequence follows instruction: character crouches and uses an iron crowbar to pry open bricks in the floor.",
+      "The hole in the floor is rendered fully black; no body, tissue, or remains are visible inside.",
+      "Dust motes are visible floating in the lantern light, consistent with the brick-breaking action.",
+      "Final frames show the character looking down into the opened ground with a serious/solemn expression, matching the narration cue."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
