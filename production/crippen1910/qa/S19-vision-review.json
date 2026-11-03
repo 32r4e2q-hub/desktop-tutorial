@@ -2,41 +2,36 @@
   "shot": "S19",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "91a9db5768b99263cb291bdc370711e2b0f3d58af6b34620e64651523dac4d89",
-  "image_revision": "1631d71bca08764f296cb2adbc1be92c1e768ae4",
+  "source_sha256": "26ab216732002d5695937c1ef7f9fd4e27e07ea66fd81c36769eb2d9e9896865",
+  "image_revision": "6b9a558e394de57c876da0c5ab6ba8e52a276089",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.09488319546568627,
+    "camera_compensated_mean_residual": 0.10570932904411764,
     "residuals": [
-      0.07080623638344227,
-      0.07428839869281047,
-      0.08548747276688454,
-      0.17517299836601308,
-      0.02559974128540305,
-      0.02941421568627451,
-      0.07211281318082788,
-      0.22618368736383443
+      0.042196214596949895,
+      0.0611156045751634,
+      0.20472256263616556,
+      0.18164229302832244,
+      0.1397382897603486,
+      0.09045336328976035,
+      0.0662833605664488,
+      0.05952294389978214
     ]
   },
   "assessment": {
-    "pass": false,
+    "pass": true,
     "independent_motion": true,
     "identity_consistent": true,
     "safe": true,
-    "story_matches": false,
-    "issues": [
-      "Static composition with no clear independent motion; the character appears to be in a frozen pose.",
-      "Lack of visible action indicating telegraph key striking or copper coil vibration.",
-      "Arcane and wave propagation elements appear as still graphical overlays rather than dynamic motion.",
-      "Narrative action of sending a telegraph message across the Atlantic is not visually enacted."
-    ],
+    "story_matches": true,
+    "issues": [],
     "observations": [
-      "The grid shows a man with an old-fashioned headset in a ship cabin, but poses are static across frames.",
-      "Blue arcs and concentric rings are present as illustrative overlays, not animated propagating effects.",
-      "Background sea and ship details are consistent but lack natural movement such as waves or smoke displacement.",
-      "Character C06 face and costume remain identical in each frame without signs of dynamic action."
+      "Subject C06 matches reference: young man, dark hair, clean-shaven, wearing antique gold cup headphones and grey vest with white shirt.",
+      "The grid shows temporal progression: the telegraph arm moves from resting to depressed in frames 1-2; the arc changes shape (jagged then straight) and position in frames 3-4; wave rings expand outward in frames 5-7 (from 3 rings to a full screen of concentric circles).",
+      "Camera transitions from interior close-up to exterior view through the porthole as the 'blue electric arc' propagates across the Atlantic fog.",
+      "No frozen silhouettes or missing essential actions; all sequential frames depict distinct, active motion states."
     ],
     "image_transport": "inline_jpeg_data_uri",
-    "accepted": false
+    "accepted": true
   }
 }
