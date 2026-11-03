@@ -11,7 +11,7 @@
 |S07|35–42秒|C07, S14|丈夫先说科拉回了美国，后来又说她病死，朋友们起了疑心。|音乐厅后台，三位女士对照信封与报纸，摇头、交换担忧目光，一人起身拿手袋。中景环绕，无可读文字。|
 |S08|42–49秒|C04, S04|她们报了警，苏格兰场的杜探长，开始调查这场失踪。|雾蒙蒙的苏格兰场外，杜探长持卷宗快步走过马车，进入大楼；冷青蓝光、衣摆随步伐摆动，侧面跟拍。|
 |S09|49–55秒|C04, C01, S02, C01_face|探长上门，克里平温和应答，第一次搜查，一无所获。|客厅过肩切换，探长环顾柜子，克里平交叠双手温和回答，挂钟摆动。轻微推近，避免夸张嘴部。|
-|S10|55–60秒|C04, S01, S02|可调查之后，这对情人突然不见了。|探长敲门无人应，推门走入安静客厅，桌上杯子已经冷了，窗帘随风动。低机位跟随入门，冷青蓝。|
+|S10|55–60秒|C04, S01, S02|可调查之后，这对情人突然不见了。|探长敲门无人应，推门走入安静客厅，桌上杯子已经冷了，窗帘随风动。低机位跟随入门，冷青蓝。 修订要求（不改变以上角色锚点、年代和动作）：Missing expected action: detective knocking on door; character is already entering or inside the house.; Missing expected action: moving through an empty, quiet living room with visible cold cup and wind-moving curtains as primary focus.; Shot composition does not reflect 'low-angle following entrance'; camera height varies and does not prominently track entry from low position.; Narration context ('couples suddenly disappeared') not visually supported — no indication of absence, investigation, or emotional tone implied.|
 |S11|60–67秒|C04, S03, P03|两人的消失，让探长折返回去，这次，他走向地下煤窖。|探长在门前停步拉开木门，举起铜提灯，火焰照亮松动砖缝。跟随提灯进入地窖，冷色阴影与暖灯对比。|
 |S12|67–74秒|C04, S03, P03|他撬开松动的砖地，看到地下的东西，脸色变得凝重。|只拍手、铁撬棍与砖块移动，探长蹲下撬开一块砖，抬眼神情凝重。坑内保持全黑，绝不出现人体、人体组织或遗骸，尘埃飘动。|
 |S13|74–80秒|C09, S01|地下发现了遗骸，警方封锁现场，消息很快传遍伦敦。|安全替代画面：警察搬运完全封闭的不透明证物箱走出屋门，围观者在外围低语，报童挥报。无担架、无蒙布人形、无人体组织；广角横移。参考群像仅提取1910平民服装，不在街道出现法官。|
