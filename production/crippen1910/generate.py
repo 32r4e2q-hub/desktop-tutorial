@@ -158,7 +158,7 @@ def request_hash(project: dict, shot: dict) -> str:
 
 
 DELIVERY_DIR = ROOT / "交付"
-DELIVERY_FILM = "克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4"
+DELIVERY_FILM = "Crippen_Case_Final.mp4"
 
 
 def publish_delivery(film: Path) -> dict:

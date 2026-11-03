@@ -10,7 +10,7 @@ BRANCH='arena/f38dd103-desktop-tutorial'
 DEST=ROOT/'work/crippen1910/live-delivery';DEST.mkdir(parents=True,exist_ok=True)
 STATE={'completed':0,'approved':0,'accepted':0,'narration':0,'shots':[],'message':'读取云端实际收据…','files':{},'final_ready':False}
 LOCK=threading.RLock()
-FILES={'film.mp4':('克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4','video/mp4'), 'cover.png':('Crippen_Cover.png','image/png'),'narration.wav':('Crippen_Narration.wav','audio/wav'),'subtitles.srt':('Crippen_Subtitles.srt','text/plain; charset=utf-8'),'episode03.png':('Crippen_Series_Episode03.png','image/png')}
+FILES={'film.mp4':('Crippen_Case_Final.mp4','video/mp4'), 'cover.png':('Crippen_Cover.png','image/png'),'narration.wav':('Crippen_Narration.wav','audio/wav'),'subtitles.srt':('Crippen_Subtitles.srt','text/plain; charset=utf-8'),'episode03.png':('Crippen_Series_Episode03.png','image/png')}
 
 def api(path,raw=False):
     args=['gh','api',path]

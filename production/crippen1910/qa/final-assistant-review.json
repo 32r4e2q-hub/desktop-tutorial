@@ -1,0 +1,110 @@
+{
+  "film": "交付/Crippen_Case_Final.mp4",
+  "sha256": "b143c7dd26d109d5ebaab25ee058816945e287c546e9f6f4f9c775bcb217fbd5",
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24",
+    "frames": 4320,
+    "duration": 180.0,
+    "audio_rate": 48000,
+    "channels": 2
+  },
+  "picture": {
+    "sampled_frames": 720,
+    "sample_fps": 4,
+    "mean_luma_min": 23.75,
+    "mean_luma_max": 237.43,
+    "mean_luma_avg": 79.05,
+    "unexpected_black_samples": [],
+    "freeze_runs": [],
+    "flash_samples": [
+      57.0
+    ],
+    "motion_percentile_10": 5.483,
+    "motion_median": 15.824
+  },
+  "sound": {
+    "duration_seconds": 180.0,
+    "rms_dbfs": -20.88,
+    "peak_dbfs": -1.56,
+    "silent_seconds": 1,
+    "silent_fraction": 0.0056,
+    "final_second_dbfs": -120.0,
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0,
+        "rms_dbfs": -21.46,
+        "peak_dbfs": -4.13
+      },
+      {
+        "id": "N02",
+        "start": 10,
+        "rms_dbfs": -20.69,
+        "peak_dbfs": -2.72
+      },
+      {
+        "id": "N03",
+        "start": 35,
+        "rms_dbfs": -20.58,
+        "peak_dbfs": -2.75
+      },
+      {
+        "id": "N04",
+        "start": 60,
+        "rms_dbfs": -21.54,
+        "peak_dbfs": -1.71
+      },
+      {
+        "id": "N05",
+        "start": 85,
+        "rms_dbfs": -21.16,
+        "peak_dbfs": -2.31
+      },
+      {
+        "id": "N06",
+        "start": 108,
+        "rms_dbfs": -20.58,
+        "peak_dbfs": -2.36
+      },
+      {
+        "id": "N07",
+        "start": 130,
+        "rms_dbfs": -20.98,
+        "peak_dbfs": -1.81
+      },
+      {
+        "id": "N08",
+        "start": 150,
+        "rms_dbfs": -20.13,
+        "peak_dbfs": -2.28
+      },
+      {
+        "id": "N09",
+        "start": 168,
+        "rms_dbfs": -21.28,
+        "peak_dbfs": -1.56
+      }
+    ]
+  },
+  "subtitles": {
+    "cues": 32,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "cloud_hard_gates": "all passed; run 41652050026",
+  "reviewer": "Arena assistant; NOT a human",
+  "scope": "All thirty actual final-film contact-sheet tiles, native S18/S21/S22/S25/S28/S29 stills, late S22 wipe, 178s end-card, both covers, and local full-film 4fps technical decoding. Previous source chronological reviews remain SHA-bound. Not a continuous human playback or frame-by-frame human sign-off.",
+  "observations": [
+    "S18 enforced close-up excludes wrong window extras and keeps captain without glasses; S21 actual final frames have a visibly cold cyan grade.",
+    "S22 actual native final frames show no readable Montrose map label or invented prop headline; faces, hand movement and connecting radio rings remain visible. Late wipe retains the cleanup.",
+    "S25 includes an additional period-clothed man; the moustached pilot-uniform figure is still visible behind the tan-suited fugitive. The narration no longer misstates a specific hat-owner identity reveal. It is an illustrative reconstruction, not an assertion of the historical appearance of extras.",
+    "S28 actual corridor still is empty and non-graphic; source chronological door/lamp motion was previously checked. S29 modern instrument traces are abstract, not claimed as original forensic results. Ending explicitly says contested conclusion and unchanged verdict.",
+    "The one luma-jump detector candidate at 57s is a normal source-internal exterior-to-interior cut, confirmed with before/after actual frames in final-internal-cut-review.jpg; no white/black insert or repeated flicker.",
+    "White outlined sentence captions and gold enlarged keywords stay below faces; third-episode cover label and title are legible. Last decoded second is silent."
+  ],
+  "decision": "Technical and assistant sampled-image release checks passed; ready for delivery without claiming human approval."
+}

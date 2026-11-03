@@ -87,6 +87,11 @@ SUPPLEMENT_DESCRIPTIONS = {
 
 
 def build():
+    try:
+        from .reference_storage import hydrate
+    except ImportError:
+        from reference_storage import hydrate
+    hydrate()
     shots=[]; cursor=0
     edit_path=HERE/'audio/narration-edits.json'
     edits=json.loads(edit_path.read_text()) if edit_path.exists() else {}
