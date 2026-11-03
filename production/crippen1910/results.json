@@ -274,17 +274,22 @@
     "S10": {
       "id": "S10",
       "request_hash": "53dd83f4fef91e2b1074786a7eef4ba725cfb515409fb8d106141bd4a3361c0e",
-      "status": "poll_retry",
+      "status": "downloaded",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-03T06:31:43Z",
+      "updated_at": "2026-11-03T06:41:15Z",
       "create_attempts": 1,
-      "error": "Timed out after 1500s waiting for video_id=task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6 (last: status=pending progress=0%)",
+      "error": null,
       "video_id": "task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6",
       "task_id": "task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6",
       "requested_seconds": 5.0,
       "requested_size": "720P",
       "poll_retries": 1,
-      "applied_cooldown_seconds": 61
+      "applied_cooldown_seconds": 61,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6.mp4",
+      "bytes": 1645985,
+      "sha256": "d6a7f880e9628b093c5813a583240e8863416358f930dcc1240328e879274455",
+      "reported_size": "720P",
+      "reported_seconds": "5"
     }
   },
   "source_size": "720P",
@@ -335,7 +340,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-03T06:31:43Z",
+  "updated_at": "2026-11-03T06:41:15Z",
   "run_id": "41587710972",
   "previous_results": {
     "S03": [
