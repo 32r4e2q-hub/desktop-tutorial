@@ -1,0 +1,39 @@
+{
+  "shot": "S11",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "45d100bb43aefb92a10fdd1a470522b92e3a391994f3a7135176451d7bbb633c",
+  "image_revision": "b764f38b38dc7bb5494490aee5f856486d486e36",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.08674877450980392,
+    "residuals": [
+      0.12447004357298475,
+      0.08407366557734205,
+      0.058345520152505444,
+      0.10083775871459695,
+      0.11185260076252723,
+      0.08734654139433551,
+      0.06234980936819172,
+      0.06471425653594771
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "C04 detective identity consistent: thick mustache, bowler hat, dark overcoat with gold chain detail matches reference in all frames.",
+      "Action sequence accurate: frames show approach, hand on door latch, pulling open wooden door, raising lit copper lantern, and moving into dark cellar.",
+      "Lighting contrast achieved: warm lantern glow illuminates brick wall and loose mortar in door frame while interior remains in cool blue shadow.",
+      "Atmosphere correct: foggy exterior corridor, flickering flame inside lantern, steam/smoke particles visible near light source.",
+      "Camera movement independent: residual 0.087 indicates character and lantern move relative to camera, not just static scene pan.",
+      "No watermarks, text overlays, or modern clothing elements detected."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
