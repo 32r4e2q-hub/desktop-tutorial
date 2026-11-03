@@ -2,20 +2,20 @@
   "shot": "S28",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "9cab39b03b8b0b3cc6c2ab06a1b7fc39a5fcf42738005aefa5bce887c4d7cbb1",
-  "image_revision": "09ffd52c801187a76060514fff389cfb8aca5491",
+  "source_sha256": "b1070d945caa0906e9cb33bce4855abd252955e4af2c88c32c3bed14935044bb",
+  "image_revision": "45edc7a922314c1d8e261f7a27eb7aa96f5d24d9",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.09202876497821351,
+    "camera_compensated_mean_residual": 0.08398111553649239,
     "residuals": [
-      0.07128887527233115,
-      0.1126118600217865,
-      0.10142231753812636,
-      0.09052648420479303,
-      0.0932286220043573,
-      0.08034238834422658,
-      0.09525333605664488,
-      0.09155623638344226
+      0.07052335239651415,
+      0.11033374183006536,
+      0.11942626633986927,
+      0.07186737472766885,
+      0.05146446078431372,
+      0.06789610566448802,
+      0.08854527505446624,
+      0.09179234749455338
     ]
   },
   "assessment": {
@@ -25,23 +25,21 @@
     "safe": true,
     "story_matches": false,
     "issues": [
-      "Video is a static pan of a single rendered image with no actual motion animation",
-      "Perspective lines, door positions, and background geometry remain perfectly rigid with no parallax shifts across frames",
-      "Hanging lanterns are visually frozen with no flickering despite camera movement",
-      "Lighting is constant throughout the sequence with no lights extinguishing one by one as required",
-      "Prison doors remain open/static throughout and do not show any closing animation",
-      "Camera shows a sideways tilt/pan rather than the required forward tracking shot along the corridor",
-      "No independent movement detected in any elements - all frames show identical static imagery"
+      "No animation: all frames are identical static rendered images with no motion detected",
+      "Expected sequential light extinguishing not shown; lamp illumination is uniform/frozen across all frames",
+      "Expected door closing animation absent; cell doors remain in identical open/static positions throughout",
+      "Camera movement is limited/absent rather than the required forward tracking shot along the corridor",
+      "Missing essential narrative action (lights going out and doors closing as independent motion events)"
     ],
     "observations": [
-      "All 9 sampled frames show identical prison corridor perspective with no positional changes",
-      "Lanterns maintain same brightness and position in every frame - no extinguishing animation",
-      "Doors at left and right remain open at identical angles throughout sequence",
-      "No parallax between foreground doors and background architecture indicating camera translation",
-      "Floor tile patterns and wall textures show zero displacement between frames",
-      "Scene contains only empty corridor, stone walls, iron doors, and hanging lamps - no people or silhouettes present",
-      "Final frame shows tilted perspective but identical geometry to all previous frames",
-      "No temporal progression visible - appears to be slideshow of same still image at different crops/rotation"
+      "Grid contains 9 chronological cells but all display visually identical static imagery of a stone prison corridor with no frame-to-frame changes",
+      "Details confirmed across cells: arched stone ceilings, hanging lanterns at fixed brightness, dark iron cell doors with small viewports on both sides, barred gate at far end of corridor",
+      "Floor shows wet reflections but these are painted/fixed in every frame with no dynamic lighting changes",
+      "No parallax shift or camera translation evident between frames; perspective geometry is rigid and unchanging",
+      "Empty corridor: no people, bodies, or silhouettes visible in any frame",
+      "Lower-right grid cell is entirely black (unused placeholder), reducing sample coverage",
+      "Three larger detail frames also show the same static scene with no motion cues, flicker, or animation state changes",
+      "Scene matches the expected setting (empty prison corridor, stone walls, iron doors) but fails to depict the required animated sequence of lights extinguishing and doors closing"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
