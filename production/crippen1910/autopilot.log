@@ -2,8 +2,8 @@ Built 30 shots / 180 seconds; media and references remain gated.
 BULK_GENERATION_ROUND 1 shots S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28,S29,S30
 Built 30 shots / 180 seconds; media and references remain gated.
 PRODUCTION_STATUS Agnes generation started
-S01: reusing matching Agnes result
 S02: reusing matching Agnes result
+S01: reusing matching Agnes result
 PRODUCTION_STATUS S02 generated and decoded
 PRODUCTION_STATUS S01 generated and decoded
 S03: reusing matching Agnes result
@@ -40,12 +40,12 @@ PRODUCTION_STATUS S18 generated and decoded
 PRODUCTION_STATUS S17 generated and decoded
 S19: reusing matching Agnes result
 S20: reusing matching Agnes result
-PRODUCTION_STATUS S20 generated and decoded
 PRODUCTION_STATUS S19 generated and decoded
+PRODUCTION_STATUS S20 generated and decoded
 S21: reusing matching Agnes result
 S22: reusing matching Agnes result
-PRODUCTION_STATUS S22 generated and decoded
 PRODUCTION_STATUS S21 generated and decoded
+PRODUCTION_STATUS S22 generated and decoded
 S23: reusing matching Agnes result
 S24: reusing matching Agnes result
 PRODUCTION_STATUS S23 generated and decoded
@@ -64,51 +64,1168 @@ PRODUCTION_STATUS S29 generated and decoded
 PRODUCTION_STATUS S30 generated and decoded
 PRODUCTION_STATUS selected Agnes sources ready
 Built 30 shots / 180 seconds; media and references remain gated.
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 629, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 584, in main
-    make_cover(args.sources, cover, story, args.work)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 473, in make_cover
-    title_size = fit_size(draw, title_text, 158, 620, serif=True)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 395, in fit_size
-    while size > floor and text_width(draw, text, size, serif) > max_width:
-                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 387, in text_width
-    font = ImageFont.truetype(str(find_font(serif)), size)
-                                  ~~~~~~~~~^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py", line 383, in find_font
-    raise RuntimeError("Noto CJK fonts are required to render Chinese titles and subtitles")
-RuntimeError: Noto CJK fonts are required to render Chinese titles and subtitles
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/generate.py", line 894, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/generate.py", line 549, in main
-    subprocess.run([
-    ~~~~~~~~~~~~~~^^
-        sys.executable, str(HERE / "render.py"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--sources", str(sources), "--work", str(ROOT / "work" / "crippen1910" / "edit"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--output", str(output),
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ], cwd=ROOT, check=True)
-    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/clips/克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4']' returned non-zero exit status 1.
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/autopilot.py", line 171, in <module>
-    if __name__=='__main__':main()
-                            ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/autopilot.py", line 164, in main
-    subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload','{"mode":"render"}'],check=True)
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/generate.py', '--publish', '--payload', '{"mode":"render"}']' returned non-zero exit status 1.
+{
+  "title": "克里平医生案：一道追上凶手的电波",
+  "render_recovery": {
+    "recovered_from_run": 41649456908,
+    "artifact_name": "crippen1910-autonomous-production-5",
+    "reason": "All encoding completed; only Pillow cover font discovery failed. Reuse exact encoded bytes, rebuild covers/reports and run full actual-film QC.",
+    "film_sha256": "b143c7dd26d109d5ebaab25ee058816945e287c546e9f6f4f9c775bcb217fbd5",
+    "source_sha256": {
+      "S01": "033ed01e4adf635674ca8554cd8a6468566ef8183b1fcaca41b14b80962875fb",
+      "S02": "2ff6c672599684603ff632f13a28d4aa88f9e93da83e513474380659bccf71ad",
+      "S03": "43f025409de1a89d478d5a86c30a23ba52f717313138ff92ea9d30fac3ace9f4",
+      "S04": "5f4855c0455a073b0ce0890d06d31b61e4f59c14f0ba368883c85411f42d98e9",
+      "S05": "be8f7a13a92a061c7d45b0f9a705527e9fc5971d0f030002dd58652f0586fc9b",
+      "S06": "669bdce7b1c2878db9a1a9aeba38c436145613d625d2324c5d75c88d3ed26378",
+      "S07": "4a2d409bf5fa30a8fa710d003a20435e0fb2adc18ff640d04c6688d862cf87f4",
+      "S08": "a73aed7e40f1c0a54c2ca85a36e0a408fa3fbe43bfd73be1ed0b69d4ad4792ac",
+      "S09": "9dc697f98ffb3b008e283ca7b54e5da9e2f668686012ea854cfc7cc4d6f59401",
+      "S10": "6d5a835d7801bd059ffbdebd8b91184dbe96220784a6eab5deb2606ed6e39900",
+      "S11": "45d100bb43aefb92a10fdd1a470522b92e3a391994f3a7135176451d7bbb633c",
+      "S12": "c1e79049a0628da17ce5008d7234009f66798c53831bf01da8a0f417296867c3",
+      "S13": "71e2f3af0640936bb43534b677eaf9c6ccb415d08464df79d9fd2d51a9c16eeb",
+      "S14": "2eaafd79bb0268d8adcd56427655f3c57d09268f6aa4f56b64a8dea42d9d7bed",
+      "S15": "ca893e27675064edf9afd89382c6191cbd9d8ed7287e6bd133353afce6078fef",
+      "S16": "cebea27d203cbccf66bb57c552f6b0e5c0b35e350477c07e1358e3c63594ea1b",
+      "S17": "f4b3448fb3a14f957b03f352502d6ba91f0be872739ce06cb9fb80169ce18ab6",
+      "S18": "681fedebb281966efeb7e279f5fa22e74e1575d7c1ea35940da908c34fe4867c",
+      "S19": "26ab216732002d5695937c1ef7f9fd4e27e07ea66fd81c36769eb2d9e9896865",
+      "S20": "3bcbea1769101bc8d2ee3f89561d2f900b4f5f1fec381b8cc009b98a2bff2db9",
+      "S21": "d99db1511791f46320b64c252551e63a9358e189226f02e3ce341e4d2f5cc7e1",
+      "S22": "431e80cbd5deb52a9c4ecd45b690663dfee2c4b7284ed35e6981eeabd9fbea82",
+      "S23": "ff6309337559b12be501251a0b786b3b65bc4709ae3fd0feb4a74b8cd1dfc3fd",
+      "S24": "59c0c605fbdaf993545cc5985ff1cee9da7735d6d922baa08c66c8649cb5e367",
+      "S25": "a0f32b526f6dd04fab0d470d0e581af068c6fcd6f6b41fb7a7020ac156c87f46",
+      "S26": "7827e862a985bb95fbee591d00fd6dc02ca0aaecdc267e7a3b72c7860407d87f",
+      "S27": "252fc55f110a3afd2ad1c8101b605604f8dfd665a61e72f92fec01f01d3bbe39",
+      "S28": "d81c4a5c0fbfc50ac60b01e641b4af9549ea0ead1d58bca7ab451e8f23c14116",
+      "S29": "d249bc3e6ea1ca3c00265c349be6ba8c02edd417425f22e290ee2b6aad4cc7b2",
+      "S30": "8d486cf666d0aa01cd3d9136bda9c3e81332039d5f5234e76c09eab6cced4049"
+    },
+    "voice_sha256": {
+      "S01": "7518c1d28e1d3d2d0077462d16087b9bc419255fe3e82974af863e95b6b64e8e",
+      "S02": "61c4de0bd2962fa34b197e3fd7a629a57c02a503e90c9ed1efa022a7b805c479",
+      "S03": "5ac6bdfe186cef7c7aba227e2c77237d2977986a3215e261470011da53d6ef9e",
+      "S04": "d3c6e90f8e775c1e7a894b9fc1d8dac2201aeb472c978dc7f71f6b039fb953fa",
+      "S05": "5e6409c03bf9c65f771a0cda679fd7d474e6fa174fea5be3c05a19ac4b71d416",
+      "S06": "c95e12ef4009284d770cf5c2f822b81c508e71c08e39edb6658824545eb6e8b5",
+      "S07": "a410e472bb600417328b39b29c343e4ee0789ef8226fcb09cbb86f5ee5d2f329",
+      "S08": "ac7246dd8644dd956398f31c17fbcb80a64707cbae9bd7e83d8076c1e8bd0882",
+      "S09": "9030dbda1857e3d1c770a8c5ef492d9c0109f7c0ef6296d20094cb71c69f23cc",
+      "S10": "95f2f3012a4498198ff27a482915536ed1d34d6fdebe0f5524a36c137e874494",
+      "S11": "b779e7c4500cd4bc7013102fb3ae6e5041aebd8f8da5ab2394139169fc7d050a",
+      "S12": "2057d616f322ebf170de3e076f040da1a260a37fdf5502780bd72eeed0883dc6",
+      "S13": "382c44e8a7844a7bf6f810cf368d929f0608360d84722620ec130589d47e51bb",
+      "S14": "464e6aa31d3a21d48b7985d7d12352d8c849ea0b3308ce9e163e6b73280fa51b",
+      "S15": "32dbd95065f2a2e0f2a7f90b80a9931a0f852e8e24bdb5c5ab775aa098ce0e17",
+      "S16": "960b6d61673781782f320de974b9e8b100a5f5e117027cc200eaf3062393cf6b",
+      "S17": "e4283322dcd5498c1ada5c0452d516d382d4d7d2a7d4b9e0e28da7677637edf7",
+      "S18": "d092ca6e67f0d1064659132087862e5c4ce353e4d75c3c00521ca160d9587bd2",
+      "S19": "591446c820c01899d496009055feacda63121095e94aab1fca7e2b9787d7315e",
+      "S20": "0d0442356992ee469d6f2e1cc6e0c55e9b76eda3965cdd84fa8c8e5a89bd5290",
+      "S21": "65980e3015114c9652ebd0ab1e59426d0b56810f831101f7429328e22905a85c",
+      "S22": "cc2fd84d7aed07f923a3401f888d02e93948b3c9a747b1ae3ade093127bfa011",
+      "S23": "f38dd31238cdddc66a4fb38d0cf91432f784b011957ab7984e9e7ccc77c2f212",
+      "S24": "fa429e46800799645ad4a8046dcb3aba59316170dc8b5f268cc3849c82a0debe",
+      "S25": "7b3a91774be0bf039b97b153a62ff6fb123e2bbfb8d7d8569971b8f0d55fd044",
+      "S26": "1cda90ca5743f9f8a05d6a9c1e358e054ed5302482114f491e42c4d690c34dde",
+      "S27": "2fe49d498b197880c1b43672120057a73b51dc9c79df8e0929bfbd6925eb4d18",
+      "S28": "d0fb3074ef699b86349ecc56360e111e5c14eb8b5df8e91d853ebca43792fddb",
+      "S29": "5e16e5870513f233452f26927ac8197f8194d8f330a579564697042b81c6ceb5",
+      "S30": "34af4c4eeeed6af2843da53f88ebbfaca42b93ac9ed3b487db4634cd92574130"
+    },
+    "shot_decisions_sha256": "910d7672e6576ac7223766e6abb2c7a656aca9def309d1100c531fc4efb384dc"
+  },
+  "output": "克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4",
+  "unreviewed_first_cut": true,
+  "human_visual_review": "pending",
+  "video": {
+    "duration_seconds": 180.0,
+    "bytes": 71623979,
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2
+  },
+  "shots": [
+    {
+      "id": "S01",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "033ed01e4adf635674ca8554cd8a6468566ef8183b1fcaca41b14b80962875fb",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S02",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "2ff6c672599684603ff632f13a28d4aa88f9e93da83e513474380659bccf71ad",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S03",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "43f025409de1a89d478d5a86c30a23ba52f717313138ff92ea9d30fac3ace9f4",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S04",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "5f4855c0455a073b0ce0890d06d31b61e4f59c14f0ba368883c85411f42d98e9",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S05",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "be8f7a13a92a061c7d45b0f9a705527e9fc5971d0f030002dd58652f0586fc9b",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S06",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "669bdce7b1c2878db9a1a9aeba38c436145613d625d2324c5d75c88d3ed26378",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S07",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "4a2d409bf5fa30a8fa710d003a20435e0fb2adc18ff640d04c6688d862cf87f4",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S08",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "a73aed7e40f1c0a54c2ca85a36e0a408fa3fbe43bfd73be1ed0b69d4ad4792ac",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S09",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "9dc697f98ffb3b008e283ca7b54e5da9e2f668686012ea854cfc7cc4d6f59401",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S10",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "6d5a835d7801bd059ffbdebd8b91184dbe96220784a6eab5deb2606ed6e39900",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S11",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "45d100bb43aefb92a10fdd1a470522b92e3a391994f3a7135176451d7bbb633c",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S12",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "c1e79049a0628da17ce5008d7234009f66798c53831bf01da8a0f417296867c3",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S13",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "71e2f3af0640936bb43534b677eaf9c6ccb415d08464df79d9fd2d51a9c16eeb",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S14",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "2eaafd79bb0268d8adcd56427655f3c57d09268f6aa4f56b64a8dea42d9d7bed",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S15",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "ca893e27675064edf9afd89382c6191cbd9d8ed7287e6bd133353afce6078fef",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S16",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "cebea27d203cbccf66bb57c552f6b0e5c0b35e350477c07e1358e3c63594ea1b",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S17",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "f4b3448fb3a14f957b03f352502d6ba91f0be872739ce06cb9fb80169ce18ab6",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S18",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "681fedebb281966efeb7e279f5fa22e74e1575d7c1ea35940da908c34fe4867c",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [
+        "crop=trunc(iw*0.59375/2)*2:trunc(ih*0.59375/2)*2:0:0"
+      ],
+      "source_post_filters": []
+    },
+    {
+      "id": "S19",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "26ab216732002d5695937c1ef7f9fd4e27e07ea66fd81c36769eb2d9e9896865",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S20",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "3bcbea1769101bc8d2ee3f89561d2f900b4f5f1fec381b8cc009b98a2bff2db9",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S21",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "d99db1511791f46320b64c252551e63a9358e189226f02e3ce341e4d2f5cc7e1",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": [
+        "hue=s=0.45",
+        "colorbalance=rs=-0.12:gs=0.03:bs=0.22:rm=-0.12:gm=0.04:bm=0.20:rh=-0.09:gh=0.015:bh=0.13"
+      ]
+    },
+    {
+      "id": "S22",
+      "duration_seconds": 5,
+      "source_duration_seconds": 5.184,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "431e80cbd5deb52a9c4ecd45b690663dfee2c4b7284ed35e6981eeabd9fbea82",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [
+        "delogo=x=500:y=580:w=115:h=44:enable='lt(t,4.3)'",
+        "split[base][paper];[paper]crop=240:110:130:305,boxblur=8:2,format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='255*clip(min(min(X/8,(W-1-X)/8),min(Y/8,(H-1-Y)/8)),0,1)'[patch];[base][patch]overlay=130:305:enable='lt(t,4.3)'"
+      ],
+      "source_post_filters": []
+    },
+    {
+      "id": "S23",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "ff6309337559b12be501251a0b786b3b65bc4709ae3fd0feb4a74b8cd1dfc3fd",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S24",
+      "duration_seconds": 7,
+      "source_duration_seconds": 7.328,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "59c0c605fbdaf993545cc5985ff1cee9da7735d6d922baa08c66c8649cb5e367",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S25",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "a0f32b526f6dd04fab0d470d0e581af068c6fcd6f6b41fb7a7020ac156c87f46",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S26",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "7827e862a985bb95fbee591d00fd6dc02ca0aaecdc267e7a3b72c7860407d87f",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S27",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "252fc55f110a3afd2ad1c8101b605604f8dfd665a61e72f92fec01f01d3bbe39",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S28",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "d81c4a5c0fbfc50ac60b01e641b4af9549ea0ead1d58bca7ab451e8f23c14116",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S29",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "d249bc3e6ea1ca3c00265c349be6ba8c02edd417425f22e290ee2b6aad4cc7b2",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    },
+    {
+      "id": "S30",
+      "duration_seconds": 6,
+      "source_duration_seconds": 6.592,
+      "source_width": 1280,
+      "source_height": 720,
+      "source_sha256": "8d486cf666d0aa01cd3d9136bda9c3e81332039d5f5234e76c09eab6cced4049",
+      "normalization_reused_from_run": 41649456908,
+      "embedded_letterbox_crop_filter": null,
+      "source_reframe_filters": [],
+      "source_post_filters": []
+    }
+  ],
+  "soundtrack": {
+    "duration_seconds": 180.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "rms_dbfs": -20.86,
+    "peak_dbfs": -1.5,
+    "silent_windows": 1,
+    "window_count": 180,
+    "silent_fraction": 0.0056,
+    "target_rms_dbfs": -20.0,
+    "peak_ceiling_dbfs": -1.5,
+    "bgm_under_voice_target_db": -18.0,
+    "bgm_sidechain_makeup_db": 1.5,
+    "bgm_under_voice_measured_db": -19.58,
+    "bgm_silence_gain": 0.24,
+    "sfx_level": 0.5,
+    "narration": {
+      "voice_id": "voice-00",
+      "alignment": "one-clip-one-shot-one-caption",
+      "slowdown_allowed": false,
+      "max_speedup_factor": 1.15,
+      "shots": [
+        {
+          "id": "S01",
+          "narration_id": "N01",
+          "text": "他逃上大西洋邮轮，以为这片海，能藏住自己。",
+          "start": 0.0,
+          "duration": 5.0,
+          "source_seconds": 4.843,
+          "natural_clip_seconds": 4.69,
+          "natural_speech_seconds": 4.58,
+          "spoken_seconds": 4.58,
+          "tempo_factor": 1.0,
+          "speech_start": 0.03,
+          "speech_end": 4.61,
+          "characters": 18,
+          "target_chars_per_second": 3.6
+        },
+        {
+          "id": "S02",
+          "narration_id": "N01",
+          "text": "可一道电波，已经跑在了他的前面。",
+          "start": 5.0,
+          "duration": 5.0,
+          "source_seconds": 3.602,
+          "natural_clip_seconds": 3.29,
+          "natural_speech_seconds": 3.18,
+          "spoken_seconds": 3.18,
+          "tempo_factor": 1.0,
+          "speech_start": 5.03,
+          "speech_end": 8.21,
+          "characters": 14,
+          "target_chars_per_second": 2.8
+        },
+        {
+          "id": "S03",
+          "narration_id": "N02",
+          "text": "一九一零年一月三十一日，伦敦的小楼里，聚会正热闹。",
+          "start": 10.0,
+          "duration": 7.0,
+          "source_seconds": 5.418,
+          "natural_clip_seconds": 5.31,
+          "natural_speech_seconds": 5.23,
+          "spoken_seconds": 5.23,
+          "tempo_factor": 1.0,
+          "speech_start": 10.0,
+          "speech_end": 15.23,
+          "characters": 22,
+          "target_chars_per_second": 3.143
+        },
+        {
+          "id": "S04",
+          "narration_id": "N02",
+          "text": "女歌手科拉放声高歌，丈夫克里平，却安静地坐在角落。",
+          "start": 17.0,
+          "duration": 7.0,
+          "source_seconds": 5.897,
+          "natural_clip_seconds": 5.68,
+          "natural_speech_seconds": 5.57,
+          "spoken_seconds": 5.57,
+          "tempo_factor": 1.0,
+          "speech_start": 17.03,
+          "speech_end": 22.6,
+          "characters": 22,
+          "target_chars_per_second": 3.143
+        },
+        {
+          "id": "S05",
+          "narration_id": "N02",
+          "text": "可聚会之后，科拉再没露面，只留下了她的舞台帽。",
+          "start": 24.0,
+          "duration": 6.0,
+          "source_seconds": 5.277,
+          "natural_clip_seconds": 4.89,
+          "natural_speech_seconds": 4.78,
+          "spoken_seconds": 4.78,
+          "tempo_factor": 1.0,
+          "speech_start": 24.03,
+          "speech_end": 28.81,
+          "characters": 20,
+          "target_chars_per_second": 3.333
+        },
+        {
+          "id": "S06",
+          "narration_id": "N02",
+          "text": "几周后，情人伊瑟尔住了进来，戴上科拉的首饰。",
+          "start": 30.0,
+          "duration": 5.0,
+          "source_seconds": 4.833,
+          "natural_clip_seconds": 4.52,
+          "natural_speech_seconds": 4.41,
+          "spoken_seconds": 4.41,
+          "tempo_factor": 1.0,
+          "speech_start": 30.03,
+          "speech_end": 34.44,
+          "characters": 19,
+          "target_chars_per_second": 3.8
+        },
+        {
+          "id": "S07",
+          "narration_id": "N03",
+          "text": "丈夫先说科拉回了美国，后来又说她病死，朋友们起了疑心。",
+          "start": 35.0,
+          "duration": 7.0,
+          "source_seconds": 6.289,
+          "natural_clip_seconds": 6.12,
+          "natural_speech_seconds": 6.01,
+          "spoken_seconds": 6.01,
+          "tempo_factor": 1.0,
+          "speech_start": 35.03,
+          "speech_end": 41.04,
+          "characters": 24,
+          "target_chars_per_second": 3.429
+        },
+        {
+          "id": "S08",
+          "narration_id": "N03",
+          "text": "她们报了警，苏格兰场的杜探长，开始调查这场失踪。",
+          "start": 42.0,
+          "duration": 7.0,
+          "source_seconds": 5.408,
+          "natural_clip_seconds": 5.22,
+          "natural_speech_seconds": 5.11,
+          "spoken_seconds": 5.11,
+          "tempo_factor": 1.0,
+          "speech_start": 42.03,
+          "speech_end": 47.14,
+          "characters": 21,
+          "target_chars_per_second": 3.0
+        },
+        {
+          "id": "S09",
+          "narration_id": "N03",
+          "text": "探长上门，克里平温和应答，第一次搜查，一无所获。",
+          "start": 49.0,
+          "duration": 6.0,
+          "source_seconds": 5.157,
+          "natural_clip_seconds": 5.03,
+          "natural_speech_seconds": 4.92,
+          "spoken_seconds": 4.92,
+          "tempo_factor": 1.0,
+          "speech_start": 49.03,
+          "speech_end": 53.95,
+          "characters": 20,
+          "target_chars_per_second": 3.333
+        },
+        {
+          "id": "S10",
+          "narration_id": "N03",
+          "text": "可调查之后，这对情人突然不见了。",
+          "start": 55.0,
+          "duration": 5.0,
+          "source_seconds": 3.652,
+          "natural_clip_seconds": 3.45,
+          "natural_speech_seconds": 3.34,
+          "spoken_seconds": 3.34,
+          "tempo_factor": 1.0,
+          "speech_start": 55.03,
+          "speech_end": 58.37,
+          "characters": 14,
+          "target_chars_per_second": 2.8
+        },
+        {
+          "id": "S11",
+          "narration_id": "N04",
+          "text": "两人的消失，让探长折返回去，这次，他走向地下煤窖。",
+          "start": 60.0,
+          "duration": 7.0,
+          "source_seconds": 5.848,
+          "natural_clip_seconds": 5.5,
+          "natural_speech_seconds": 5.39,
+          "spoken_seconds": 5.39,
+          "tempo_factor": 1.0,
+          "speech_start": 60.03,
+          "speech_end": 65.42,
+          "characters": 21,
+          "target_chars_per_second": 3.0
+        },
+        {
+          "id": "S12",
+          "narration_id": "N04",
+          "text": "他撬开松动的砖地，看到地下的东西，脸色变得凝重。",
+          "start": 67.0,
+          "duration": 7.0,
+          "source_seconds": 5.684,
+          "natural_clip_seconds": 5.51,
+          "natural_speech_seconds": 5.43,
+          "spoken_seconds": 5.43,
+          "tempo_factor": 1.0,
+          "speech_start": 67.0,
+          "speech_end": 72.43,
+          "characters": 21,
+          "target_chars_per_second": 3.0
+        },
+        {
+          "id": "S13",
+          "narration_id": "N04",
+          "text": "地下发现了遗骸，警方封锁现场。",
+          "start": 74.0,
+          "duration": 6.0,
+          "source_seconds": 4.456,
+          "natural_clip_seconds": 4.263,
+          "natural_speech_seconds": 4.22,
+          "spoken_seconds": 4.22,
+          "tempo_factor": 1.0,
+          "speech_start": 74.03,
+          "speech_end": 78.25,
+          "characters": 13,
+          "target_chars_per_second": 2.167
+        },
+        {
+          "id": "S14",
+          "narration_id": "N04",
+          "text": "检验发现了剧毒药物，警方随即发出通缉令。",
+          "start": 80.0,
+          "duration": 5.0,
+          "source_seconds": 4.025,
+          "natural_clip_seconds": 3.92,
+          "natural_speech_seconds": 3.84,
+          "spoken_seconds": 3.84,
+          "tempo_factor": 1.0,
+          "speech_start": 80.0,
+          "speech_end": 83.84,
+          "characters": 18,
+          "target_chars_per_second": 3.6
+        },
+        {
+          "id": "S15",
+          "narration_id": "N05",
+          "text": "七月二十日，两人化名罗宾逊父子，登上蒙特罗斯号。",
+          "start": 85.0,
+          "duration": 6.0,
+          "source_seconds": 5.64,
+          "natural_clip_seconds": 5.47,
+          "natural_speech_seconds": 5.36,
+          "spoken_seconds": 5.36,
+          "tempo_factor": 1.0,
+          "speech_start": 85.03,
+          "speech_end": 90.39,
+          "characters": 21,
+          "target_chars_per_second": 3.5
+        },
+        {
+          "id": "S16",
+          "narration_id": "N05",
+          "text": "船长肯德尔，却留意上了这对举止奇怪的父子。",
+          "start": 91.0,
+          "duration": 6.0,
+          "source_seconds": 5.881,
+          "natural_clip_seconds": 5.64,
+          "natural_speech_seconds": 5.53,
+          "spoken_seconds": 5.53,
+          "tempo_factor": 1.0,
+          "speech_start": 91.03,
+          "speech_end": 96.56,
+          "characters": 19,
+          "target_chars_per_second": 3.167
+        },
+        {
+          "id": "S17",
+          "narration_id": "N05",
+          "text": "男孩的裤脚靠别针固定，两人牵手的动作，又过分亲密。",
+          "start": 97.0,
+          "duration": 6.0,
+          "source_seconds": 5.888,
+          "natural_clip_seconds": 5.86,
+          "natural_speech_seconds": 5.76,
+          "spoken_seconds": 5.76,
+          "tempo_factor": 1.0,
+          "speech_start": 97.02,
+          "speech_end": 102.78,
+          "characters": 22,
+          "target_chars_per_second": 3.667
+        },
+        {
+          "id": "S18",
+          "narration_id": "N05",
+          "text": "船长翻开通缉报纸，认出了这对逃亡者。",
+          "start": 103.0,
+          "duration": 5.0,
+          "source_seconds": 3.597,
+          "natural_clip_seconds": 3.26,
+          "natural_speech_seconds": 3.15,
+          "spoken_seconds": 3.15,
+          "tempo_factor": 1.0,
+          "speech_start": 103.03,
+          "speech_end": 106.18,
+          "characters": 16,
+          "target_chars_per_second": 3.2
+        },
+        {
+          "id": "S19",
+          "narration_id": "N06",
+          "text": "他让电报员向英国发报，一道电波，越过了大西洋。",
+          "start": 108.0,
+          "duration": 6.0,
+          "source_seconds": 5.881,
+          "natural_clip_seconds": 5.75,
+          "natural_speech_seconds": 5.64,
+          "spoken_seconds": 5.64,
+          "tempo_factor": 1.0,
+          "speech_start": 108.03,
+          "speech_end": 113.67,
+          "characters": 20,
+          "target_chars_per_second": 3.333
+        },
+        {
+          "id": "S20",
+          "narration_id": "N06",
+          "text": "线索送到警方手里，杜探长立即出发。",
+          "start": 114.0,
+          "duration": 6.0,
+          "source_seconds": 4.997,
+          "natural_clip_seconds": 4.86,
+          "natural_speech_seconds": 4.78,
+          "spoken_seconds": 4.78,
+          "tempo_factor": 1.0,
+          "speech_start": 114.0,
+          "speech_end": 118.78,
+          "characters": 15,
+          "target_chars_per_second": 2.5
+        },
+        {
+          "id": "S21",
+          "narration_id": "N06",
+          "text": "他登上更快的劳伦蒂克号，要赶在两人前面。",
+          "start": 120.0,
+          "duration": 5.0,
+          "source_seconds": 4.428,
+          "natural_clip_seconds": 4.23,
+          "natural_speech_seconds": 4.12,
+          "spoken_seconds": 4.12,
+          "tempo_factor": 1.0,
+          "speech_start": 120.03,
+          "speech_end": 124.15,
+          "characters": 18,
+          "target_chars_per_second": 3.6
+        },
+        {
+          "id": "S22",
+          "narration_id": "N06",
+          "text": "一边还在悠闲看海，另一边，已经抢先抵达加拿大。",
+          "start": 125.0,
+          "duration": 5.0,
+          "source_seconds": 4.886,
+          "natural_clip_seconds": 4.71,
+          "natural_speech_seconds": 4.6,
+          "spoken_seconds": 4.6,
+          "tempo_factor": 1.0,
+          "speech_start": 125.03,
+          "speech_end": 129.63,
+          "characters": 20,
+          "target_chars_per_second": 4.0
+        },
+        {
+          "id": "S23",
+          "narration_id": "N07",
+          "text": "七月三十一日清晨，探长换上引航员制服，在父亲角等候。",
+          "start": 130.0,
+          "duration": 7.0,
+          "source_seconds": 6.836,
+          "natural_clip_seconds": 6.48,
+          "natural_speech_seconds": 6.37,
+          "spoken_seconds": 6.37,
+          "tempo_factor": 1.0,
+          "speech_start": 130.03,
+          "speech_end": 136.4,
+          "characters": 23,
+          "target_chars_per_second": 3.286
+        },
+        {
+          "id": "S24",
+          "narration_id": "N07",
+          "text": "小船靠上蒙特罗斯号，探长登船，走到毫无防备的克里平身后。",
+          "start": 137.0,
+          "duration": 7.0,
+          "source_seconds": 6.434,
+          "natural_clip_seconds": 6.28,
+          "natural_speech_seconds": 6.17,
+          "spoken_seconds": 6.17,
+          "tempo_factor": 1.0,
+          "speech_start": 137.03,
+          "speech_end": 143.2,
+          "characters": 25,
+          "target_chars_per_second": 3.571
+        },
+        {
+          "id": "S25",
+          "narration_id": "N07",
+          "text": "帽子摘下，这场跨海逃亡，终于结束了。",
+          "start": 144.0,
+          "duration": 6.0,
+          "source_seconds": 4.568,
+          "natural_clip_seconds": 4.33,
+          "natural_speech_seconds": 4.22,
+          "spoken_seconds": 4.22,
+          "tempo_factor": 1.0,
+          "speech_start": 144.03,
+          "speech_end": 148.25,
+          "characters": 15,
+          "target_chars_per_second": 2.5
+        },
+        {
+          "id": "S26",
+          "narration_id": "N08",
+          "text": "十月，克里平在老贝利受审，陪审团开始商议判决。",
+          "start": 150.0,
+          "duration": 6.0,
+          "source_seconds": 5.879,
+          "natural_clip_seconds": 5.56,
+          "natural_speech_seconds": 5.45,
+          "spoken_seconds": 5.45,
+          "tempo_factor": 1.0,
+          "speech_start": 150.03,
+          "speech_end": 155.48,
+          "characters": 20,
+          "target_chars_per_second": 3.333
+        },
+        {
+          "id": "S27",
+          "narration_id": "N08",
+          "text": "仅二十七分钟，他被裁定有罪。伊瑟尔另案受审，无罪。",
+          "start": 156.0,
+          "duration": 6.0,
+          "source_seconds": 5.877,
+          "natural_clip_seconds": 5.71,
+          "natural_speech_seconds": 5.6,
+          "spoken_seconds": 5.6,
+          "tempo_factor": 1.0,
+          "speech_start": 156.03,
+          "speech_end": 161.63,
+          "characters": 21,
+          "target_chars_per_second": 3.5
+        },
+        {
+          "id": "S28",
+          "narration_id": "N08",
+          "text": "十一月二十三日，克里平被处决，故事似乎画上了句号。",
+          "start": 162.0,
+          "duration": 6.0,
+          "source_seconds": 5.881,
+          "natural_clip_seconds": 5.73,
+          "natural_speech_seconds": 5.62,
+          "spoken_seconds": 5.62,
+          "tempo_factor": 1.0,
+          "speech_start": 162.03,
+          "speech_end": 167.65,
+          "characters": 22,
+          "target_chars_per_second": 3.667
+        },
+        {
+          "id": "S29",
+          "narration_id": "N09",
+          "text": "可二〇〇七年的DNA研究提出：地窖里的人，可能不是科拉。",
+          "start": 168.0,
+          "duration": 6.0,
+          "source_seconds": 5.881,
+          "natural_clip_seconds": 5.62,
+          "natural_speech_seconds": 5.51,
+          "spoken_seconds": 5.51,
+          "tempo_factor": 1.0,
+          "speech_start": 168.03,
+          "speech_end": 173.54,
+          "characters": 23,
+          "target_chars_per_second": 3.833
+        },
+        {
+          "id": "S30",
+          "narration_id": "N09",
+          "text": "结论仍有争议，原判未改。科拉，究竟在哪？",
+          "start": 174.0,
+          "duration": 6.0,
+          "source_seconds": 4.96,
+          "natural_clip_seconds": 4.86,
+          "natural_speech_seconds": 4.75,
+          "spoken_seconds": 4.75,
+          "tempo_factor": 1.0,
+          "speech_start": 174.03,
+          "speech_end": 178.78,
+          "characters": 16,
+          "target_chars_per_second": 2.667
+        }
+      ],
+      "chapters": [
+        {
+          "id": "N01",
+          "start": 0.0,
+          "duration": 10.0,
+          "characters": 32,
+          "target_chars_per_second": 3.2,
+          "source_seconds": 8.445,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 7.76,
+          "shot_ids": [
+            "S01",
+            "S02"
+          ]
+        },
+        {
+          "id": "N02",
+          "start": 10.0,
+          "duration": 25.0,
+          "characters": 83,
+          "target_chars_per_second": 3.32,
+          "source_seconds": 21.425,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 19.99,
+          "shot_ids": [
+            "S03",
+            "S04",
+            "S05",
+            "S06"
+          ]
+        },
+        {
+          "id": "N03",
+          "start": 35.0,
+          "duration": 25.0,
+          "characters": 79,
+          "target_chars_per_second": 3.16,
+          "source_seconds": 20.506,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 19.38,
+          "shot_ids": [
+            "S07",
+            "S08",
+            "S09",
+            "S10"
+          ]
+        },
+        {
+          "id": "N04",
+          "start": 60.0,
+          "duration": 25.0,
+          "characters": 73,
+          "target_chars_per_second": 2.92,
+          "source_seconds": 20.013,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 18.88,
+          "shot_ids": [
+            "S11",
+            "S12",
+            "S13",
+            "S14"
+          ]
+        },
+        {
+          "id": "N05",
+          "start": 85.0,
+          "duration": 23.0,
+          "characters": 78,
+          "target_chars_per_second": 3.391,
+          "source_seconds": 21.006,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 19.8,
+          "shot_ids": [
+            "S15",
+            "S16",
+            "S17",
+            "S18"
+          ]
+        },
+        {
+          "id": "N06",
+          "start": 108.0,
+          "duration": 22.0,
+          "characters": 73,
+          "target_chars_per_second": 3.318,
+          "source_seconds": 20.192,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 19.14,
+          "shot_ids": [
+            "S19",
+            "S20",
+            "S21",
+            "S22"
+          ]
+        },
+        {
+          "id": "N07",
+          "start": 130.0,
+          "duration": 20.0,
+          "characters": 63,
+          "target_chars_per_second": 3.15,
+          "source_seconds": 17.838,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 16.76,
+          "shot_ids": [
+            "S23",
+            "S24",
+            "S25"
+          ]
+        },
+        {
+          "id": "N08",
+          "start": 150.0,
+          "duration": 18.0,
+          "characters": 63,
+          "target_chars_per_second": 3.5,
+          "source_seconds": 17.637,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 16.67,
+          "shot_ids": [
+            "S26",
+            "S27",
+            "S28"
+          ]
+        },
+        {
+          "id": "N09",
+          "start": 168.0,
+          "duration": 12.0,
+          "characters": 39,
+          "target_chars_per_second": 3.25,
+          "source_seconds": 10.841,
+          "tempo_factor": 1.0,
+          "inserted_pause_seconds": 0.0,
+          "inserted_pause_at_chapter_seconds": null,
+          "speech_seconds": 10.26,
+          "shot_ids": [
+            "S29",
+            "S30"
+          ]
+        }
+      ],
+      "output": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/edit/audio/voiceover.wav",
+      "duration_seconds": 180.0
+    },
+    "music_file": "original-suspense-score.wav",
+    "sfx_file": "procedural-sfx.wav",
+    "output": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/edit/audio/final-mix.wav"
+  },
+  "caption_cues": 32,
+  "captions_ass": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/edit/crippen-captions.ass",
+  "captions_srt": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/edit/克里平医生案_字幕.srt",
+  "cover": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/clips/克里平医生案_封面.jpg",
+  "source_model": "agnes-video-2.5-flash",
+  "source_resolution": "720P",
+  "final_resolution": "1920x1080 (upscaled in post)",
+  "style_consistency": "Reference-conditioned requests; visual consistency requires per-five-shot human review. No automatic visual approval is implied.",
+  "all_30_generated_shots_verified_by_sha256": true,
+  "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the title, captions and end card are composited in post. The footage is an AI-produced reenactment, not historical evidence imagery, and the evidence shots are 3D illustrative reconstructions of published descriptions, not police photographs."
+}
+FIRST_CUT_READY 克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4
+{
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 71623979,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "subtitles": {
+    "cues": 32,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "hard_gate_failures": []
+}
+QC PASS → /home/runner/work/desktop-tutorial/desktop-tutorial/work/crippen1910/edit/delivery/qc-report.json
+封面：/home/runner/work/desktop-tutorial/desktop-tutorial/交付/Crippen_Series_Episode03.png
+标题记录：/home/runner/work/desktop-tutorial/desktop-tutorial/交付/Crippen_Series_Episode03.json
+发布标题：凶手逃上大西洋邮轮，却被一道电波追上
+FILM_AND_COVER_READY /home/runner/work/desktop-tutorial/desktop-tutorial/交付/克里平医生案_一道追上凶手的电波_三分钟_带声音.mp4
