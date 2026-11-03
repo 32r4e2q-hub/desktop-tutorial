@@ -2,20 +2,20 @@
   "shot": "S16",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "d23ae68eaa98d7a1008b3e5ac84a433897215e27113b9e40f487bacf71bdb456",
-  "image_revision": "6b9a558e394de57c876da0c5ab6ba8e52a276089",
+  "source_sha256": "cebea27d203cbccf66bb57c552f6b0e5c0b35e350477c07e1358e3c63594ea1b",
+  "image_revision": "8577d4852d424ea98fd6e1b21568d5c78384b5d2",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.12067658973311546,
+    "camera_compensated_mean_residual": 0.12252420343137256,
     "residuals": [
-      0.0572302559912854,
-      0.11485913671023966,
-      0.08062956154684095,
-      0.11091271786492375,
-      0.10822467320261438,
-      0.14028771786492375,
-      0.20015407135076252,
-      0.15311458333333333
+      0.05127178649237473,
+      0.06869601034858389,
+      0.09397337962962964,
+      0.12015965413943355,
+      0.12679255174291937,
+      0.1457662037037037,
+      0.19899843409586057,
+      0.17453560729847495
     ]
   },
   "assessment": {
@@ -25,22 +25,21 @@
     "safe": true,
     "story_matches": false,
     "issues": [
-      "Critical action omission: Captain never performs the 'turn head to observe' action; remains static facing forward/right throughout all frames.",
-      "Missing 'squinting' expression: Eyes remain wide open/alert even in close-up (bottom-left frame), not narrowed as specified.",
-      "No transitional 'lowering telescope' motion visible: Jump cut from binoculars at eye (frame 1-2) to hands at sides (frame 3) without showing the lowering action.",
-      "No progressive zoom-in sequence: Camera positions appear fixed; no evidence of dolly-in movement from medium shot to extreme close-up.",
+      "Critical action omission: Captain remains static facing forward/right throughout all frames; never performs the required 'turn head to observe' action.",
+      "Missing 'squinting' expression: Eyes remain wide open/alert even in close-up frames (bottom-left, right large frame), not narrowed as specified.",
+      "No transitional 'lowering telescope' motion visible: Jump cut from binoculars at eye (frames 1-2) to hands at sides (frame 3) without showing the lowering action.",
+      "No progressive zoom-in sequence: Camera positions appear fixed with no evidence of dolly-in movement from medium shot to extreme close-up.",
       "Static environment: Clothing folds, background figures, and rigging show no wind-driven independent motion.",
-      "Narrative gap: No visual indication of captain noticing 'suspicious father and son' – gaze remains generic horizon stare."
+      "Narrative gap: No visual indication of captain noticing 'suspicious father and son' - gaze remains generic horizon stare rather than focused on specific passengers."
     ],
     "observations": [
-      "Frame 1-2: Captain holding brass telescope to eyes, white uniform, gold epaulettes, grey beard – matches C05 anchor",
-      "Frame 3-4: Sudden position change – telescope now held at waist level, no intermediate lowering frames",
-      "Frame 5-7: Side-profile medium shots, eyes wide, no head-turning motion detected",
-      "Frame 8-9: Extreme close-ups of face – eyes fully open, pupils dilated, no squinting",
-      "Background extras (frames 4-7): Three static figures on deck, no independent movement",
-      "Rigging and sails: Completely motionless across all frames",
-      "Deck shadows and reflections: Static lighting with no temporal variation",
-      "Bottom-left inset: Eye close-up shows green irises, wide eyelids, no narrowing"
+      "Captain C05 anchor consistent: white uniform, gold epaulettes, grey beard, captain hat maintained across all frames",
+      "Frame 1-2: Captain holding brass telescope to eyes, facing forward/right toward horizon",
+      "Frame 3: Sudden transition shows captain with telescope lowered to his side, no intermediate frames showing the lowering motion",
+      "Close-up frames (bottom-left, right large): Captain's eyes are wide open with green irises visible, eyebrows neutral, no squinting or narrowing of eyelids",
+      "Background: Two small figures (father and son) visible in distance but captain's gaze does not appear directed at them specifically",
+      "Static elements: Deck chairs, rigging lines, and captain's uniform show identical positions across frames with no wind displacement",
+      "Camera: No apparent movement between frames - all appear to be static shots with different compositions rather than a continuous dolly-in sequence"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
