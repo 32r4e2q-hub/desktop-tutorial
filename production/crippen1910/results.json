@@ -5,18 +5,24 @@
     "S01": {
       "id": "S01",
       "request_hash": "26bfcdbf96d4d71b118eea7b16e42648cc3e52faa0d7e629e957e021b32cca6e",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-03T00:12:39Z",
-      "error": null
+      "updated_at": "2026-11-03T00:12:41Z",
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
+      "task_id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S02": {
       "id": "S02",
       "request_hash": "f95a43d118de1e2808f09d75d725f7aa9c767df6e2f26e5873653f2753aa92db",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-03T00:12:40Z",
-      "error": null
+      "updated_at": "2026-11-03T00:12:41Z",
+      "error": null,
+      "create_attempts": 1
     },
     "S03": {
       "id": "S03",
@@ -88,7 +94,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-03T00:12:40Z",
+  "updated_at": "2026-11-03T00:12:41Z",
   "run_id": "41551033420",
   "previous_results": {}
 }
