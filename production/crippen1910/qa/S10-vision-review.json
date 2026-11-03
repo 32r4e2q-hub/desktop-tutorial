@@ -2,44 +2,48 @@
   "shot": "S10",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "e502a0c4ea3b004a6d0d4dcbda4bb86a860f05451476395f484977c305fea8cf",
-  "image_revision": "2a87977b75e62d75d74fb0d222f76eb50c803aa8",
+  "source_sha256": "d6a7f880e9628b093c5813a583240e8863416358f930dcc1240328e879274455",
+  "image_revision": "62c55ed7464469a327029ddf074f517ec15aac3d",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.07080364923747276,
+    "camera_compensated_mean_residual": 0.03767785777505447,
     "residuals": [
-      0.05220091230936819,
-      0.07007216775599129,
-      0.07208523965141611,
-      0.09378833061002179,
-      0.11449802559912854,
-      0.07706631263616558,
-      0.05293048747276688,
-      0.033787717864923746
+      0.026413194444444444,
+      0.035773488562091504,
+      0.058109749455337686,
+      0.04540590958605665,
+      0.04139814814814815,
+      0.031946418845315905,
+      0.0315458197167756,
+      0.030830133442265796
     ]
   },
   "assessment": {
     "pass": false,
-    "independent_motion": false,
+    "independent_motion": true,
     "identity_consistent": true,
     "safe": true,
     "story_matches": false,
     "issues": [
-      "Missing expected action: detective is shown knocking on the door but never enters or walks through the house.",
-      "Camera height is not a low-angle following shot; frames show eye-level or high-angle outside shots and static interior wide shots, not a tracking movement from a low position.",
-      "Interior shot color tone is warm amber/green rather than the specified cold blue palette.",
-      "No visible evidence of wind-moving curtains; curtains appear static in all frames.",
-      "The cold cup and quiet living room are present but not framed as primary focus with the required camera movement."
+      "Wrong wall color: green/teal instead of required cold cyan-blue moonlight",
+      "Missing key story beats: no visible door-knocking action in any frame; cup has visible steam despite requirement for 'no steam cold teacup'; no turning head to check sofa/table",
+      "Lighting inconsistency: warm amber wall sconces dominate instead of unified cold cyan-blue月光",
+      "Camera position inconsistent with low-angle tracking through doorway at floor level",
+      "Curtain movement present but only captured in one detail frame, not clearly repeated as specified"
     ],
     "observations": [
-      "Character C04 consistently shown: dark bowler hat, dark overcoat, mustache matching identity reference in exterior frames.",
-      "Frame 1-2: Detective outside door, hand raised knocking, streetlamp glow, smoky blue exterior.",
-      "Frame 3-4: Detective still at doorway, door partially open, interior visible but no entry motion.",
-      "Frame 5-7: Interior shots show green walls, red sofa, gramophone, framed portraits, warm lamp lighting—no cold blue tone.",
-      "Frame 8-9: White curtains visible by window but completely static, no wind movement evident.",
-      "Coffee cup on table in interior frames appears steaming/warm, not clearly 'cold'.",
-      "No low-angle perspective; all shots are eye-level or high-angle looking down.",
-      "No camera tracking motion following character entry; static or pan-only shots."
+      "C04 character anchor verified: black bowler hat,浓密八字胡,深色长大衣, sharp features match reference",
+      "Frame 1 (top-left grid): man standing at half-open door, hand on door — not a clear knocking gesture",
+      "Frame 2 (top-middle grid): same pose, still at doorway, no forward stepping motion visible",
+      "Frame 3 (top-right grid): man fully inside room, posture upright, no head-turning toward sofa/table",
+      "Frame 4 (bottom-left grid): white curtain clearly billowing leftward — independent motion confirmed",
+      "Frame 5 (bottom-middle grid): same curtain position, no additional wave cycle visible",
+      "Detail frame 1: close-up of man at door, hand on door panel — action reads as pushing not knocking",
+      "Detail frame 2: man stepping through doorway, low angle but not sufficiently low/camera-compensated",
+      "Detail frame 3: man fully inside, looking forward not toward furniture; cup on gramophone table has visible white steam wisp",
+      "Walls are deep green with vertical stripe pattern — contradicts '冷青蓝' moonlight requirement",
+      "Bedroom visible through adjacent doorway with warm-toned bedspread — not consistent with unified cold lighting",
+      "No text or watermarks present; period clothing plausible; no duplicates or anachronisms detected"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
