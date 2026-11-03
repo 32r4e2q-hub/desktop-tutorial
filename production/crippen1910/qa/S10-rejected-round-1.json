@@ -2,41 +2,48 @@
   "shot": "S10",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "b796449c87e47e71f41ace8d77d7d351ede26cf87304e77c2fac3aed4fd982d3",
-  "image_revision": "2bdc634d37812f3f34b353d023e67dbe520ba908",
+  "source_sha256": "d6a7f880e9628b093c5813a583240e8863416358f930dcc1240328e879274455",
+  "image_revision": "62c55ed7464469a327029ddf074f517ec15aac3d",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.07003977736928105,
+    "camera_compensated_mean_residual": 0.03767785777505447,
     "residuals": [
-      0.05221153322440087,
-      0.05436485566448802,
-      0.10175381263616558,
-      0.1509821623093682,
-      0.08622038398692809,
-      0.04440468409586057,
-      0.034507965686274504,
-      0.03587282135076253
+      0.026413194444444444,
+      0.035773488562091504,
+      0.058109749455337686,
+      0.04540590958605665,
+      0.04139814814814815,
+      0.031946418845315905,
+      0.0315458197167756,
+      0.030830133442265796
     ]
   },
   "assessment": {
     "pass": false,
-    "independent_motion": false,
+    "independent_motion": true,
     "identity_consistent": true,
     "safe": true,
     "story_matches": false,
     "issues": [
-      "Missing expected action: detective knocking on door; character is already entering or inside the house.",
-      "Missing expected action: moving through an empty, quiet living room with visible cold cup and wind-moving curtains as primary focus.",
-      "Shot composition does not reflect 'low-angle following entrance'; camera height varies and does not prominently track entry from low position.",
-      "Narration context ('couples suddenly disappeared') not visually supported — no indication of absence, investigation, or emotional tone implied."
+      "Wrong wall color: green/teal instead of required cold cyan-blue moonlight",
+      "Missing key story beats: no visible door-knocking action in any frame; cup has visible steam despite requirement for 'no steam cold teacup'; no turning head to check sofa/table",
+      "Lighting inconsistency: warm amber wall sconces dominate instead of unified cold cyan-blue月光",
+      "Camera position inconsistent with low-angle tracking through doorway at floor level",
+      "Curtain movement present but only captured in one detail frame, not clearly repeated as specified"
     ],
     "observations": [
-      "Character matches C04 anchor: tall middle-aged man, prominent handlebar mustache, dark overcoat, bowler hat, sharp gaze.",
-      "Scene transitions from exterior cobblestone street to interior green-walled room with red sofa, gramophone, and framed portraits.",
-      "No visible wind movement in curtains; all drapery appears static across frames.",
-      "No close-up or clear view of a teacup on table to confirm it is cold; cup appears present but not emphasized.",
-      "Camera angle shifts from rear three-quarter to frontal full-body; no consistent low-angle tracking shot observed.",
-      "Lighting is moody and blue-tinted in exterior, warmer indoors — partial match to 'cold cyan-blue' tone request."
+      "C04 character anchor verified: black bowler hat,浓密八字胡,深色长大衣, sharp features match reference",
+      "Frame 1 (top-left grid): man standing at half-open door, hand on door — not a clear knocking gesture",
+      "Frame 2 (top-middle grid): same pose, still at doorway, no forward stepping motion visible",
+      "Frame 3 (top-right grid): man fully inside room, posture upright, no head-turning toward sofa/table",
+      "Frame 4 (bottom-left grid): white curtain clearly billowing leftward — independent motion confirmed",
+      "Frame 5 (bottom-middle grid): same curtain position, no additional wave cycle visible",
+      "Detail frame 1: close-up of man at door, hand on door panel — action reads as pushing not knocking",
+      "Detail frame 2: man stepping through doorway, low angle but not sufficiently low/camera-compensated",
+      "Detail frame 3: man fully inside, looking forward not toward furniture; cup on gramophone table has visible white steam wisp",
+      "Walls are deep green with vertical stripe pattern — contradicts '冷青蓝' moonlight requirement",
+      "Bedroom visible through adjacent doorway with warm-toned bedspread — not consistent with unified cold lighting",
+      "No text or watermarks present; period clothing plausible; no duplicates or anachronisms detected"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
