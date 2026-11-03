@@ -1,3 +1,52 @@
 Built 30 shots / 180 seconds; media and references remain gated.
 START_BATCH 1
 Built 30 shots / 180 seconds; media and references remain gated.
+PRODUCTION_STATUS Agnes generation started
+S01: reusing matching Agnes result
+S02: reusing matching Agnes result
+PRODUCTION_STATUS S01 generated and decoded
+PRODUCTION_STATUS S02 generated and decoded
+S03: reusing matching Agnes result
+S04: reusing matching Agnes result
+PRODUCTION_STATUS S04 generated and decoded
+PRODUCTION_STATUS S03 generated and decoded
+S05: reusing matching Agnes result
+PRODUCTION_STATUS S05 generated and decoded
+PRODUCTION_STATUS selected Agnes sources ready
+START_BATCH 2
+Built 30 shots / 180 seconds; media and references remain gated.
+PRODUCTION_STATUS Agnes generation started
+PRODUCTION_STATUS queued prompt-refresh shots: S10
+PRODUCTION_STATUS S10 waiting for Agnes create slot
+PRODUCTION_STATUS S10 accepted in paced batch submission
+S06: reusing matching Agnes result
+S07: reusing matching Agnes result
+PRODUCTION_STATUS S06 generated and decoded
+S08: reusing matching Agnes result
+PRODUCTION_STATUS S07 generated and decoded
+S09: reusing matching Agnes result
+PRODUCTION_STATUS S08 generated and decoded
+PRODUCTION_STATUS S09 generated and decoded
+S10: resuming saved Agnes task
+[06:06:22] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S10 poll/download transient error; retrying
+S10: resuming saved Agnes task
+[06:32:46] status=pending progress=0% (elapsed 61s)
+[06:37:00] status=in_progress progress=10% (elapsed 314s)
+[06:41:13] status=completed progress=100% (elapsed 568s)
+PRODUCTION_STATUS S10 Agnes task completed
+PRODUCTION_STATUS S10 generated and decoded
+PRODUCTION_STATUS selected Agnes sources ready
+VISUAL_REVIEW S10 rejected ['Wrong wall color: green/teal instead of required cold cyan-blue moonlight', "Missing key story beats: no visible door-knocking action in any frame; cup has visible steam despite requirement for 'no steam cold teacup'; no turning head to check sofa/table", 'Lighting inconsistency: warm amber wall sconces dominate instead of unified cold cyan-blue月光', 'Camera position inconsistent with low-angle tracking through doorway at floor level', 'Curtain movement present but only captured in one detail frame, not clearly repeated as specified']
+Built 30 shots / 180 seconds; media and references remain gated.
+Built 30 shots / 180 seconds; media and references remain gated.
+PRODUCTION_STATUS Agnes generation started
+PRODUCTION_STATUS queued prompt-refresh shots: S10
+PRODUCTION_STATUS S10 waiting for Agnes create slot
+PRODUCTION_STATUS S10 accepted in paced batch submission
+S10: resuming saved Agnes task
+[06:41:33] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S10 poll/download transient error; retrying
+S10: resuming saved Agnes task
+[07:07:58] status=pending progress=0% (elapsed 61s)
+[07:12:37] status=in_progress progress=10% (elapsed 340s)
