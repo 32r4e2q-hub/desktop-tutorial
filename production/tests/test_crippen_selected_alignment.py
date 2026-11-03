@@ -29,3 +29,11 @@ class SourceReframeTests(unittest.TestCase):
         from production.crippen1910.render import source_reframe_filters
         self.assertIn('crop=',source_reframe_filters({'id':'S18'})[0])
         self.assertEqual(source_reframe_filters({'id':'S21'}),[])
+
+    def test_split_screen_required_local_cleanup_only(self):
+        from production.crippen1910.render import source_reframe_filters
+        filters=','.join(source_reframe_filters({'id':'S22'}))
+        self.assertIn('delogo=x=500:y=580:w=115:h=44',filters)
+        self.assertIn('crop=240:110:130:305,boxblur=8:2',filters)
+        self.assertIn("enable='lt(t,4.3)'",filters)
+        self.assertEqual(source_reframe_filters({'id':'S23'}),[])

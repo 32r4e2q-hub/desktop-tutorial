@@ -152,10 +152,15 @@
     ]
   },
   "S22": {
-    "status": "rejected",
+    "status": "approved",
     "sha256": "431e80cbd5deb52a9c4ecd45b690663dfee2c4b7284ed35e6981eeabd9fbea82",
-    "reviewer": "Agnes image understanding, automated; NOT a human approval",
-    "evidence": "qa/S22-vision-review.json"
+    "reviewer": "Arena assistant actual-pixel and mandatory-post-filter review; NOT human",
+    "evidence": "qa/manual-review-overrides.json",
+    "observations": [
+      "Actual new source shows clean-shaven C01B in tan suit and C04 in bowler/dark coat. A lip shadow is not a moustache. Expression changes explain narrower eyes than the neutral portrait. Independent page/eye/hand movement, waves and smoke appear across chronological frames.",
+      "Concentric blue rings visibly straddle the warm/cold divider; route points advance, followed by a full water view. The automated contrary ring claim is contradicted by actual frames. Final water view is a transition; arrival is established by the following Father Point scene, not claimed as geographically identifiable footage.",
+      "Raw chart label and invented newspaper headline glyphs are NOT waived: render.py enforces calibrated 1280x720 chart delogo and small soft-edged prop-headline defocus during split portion only. Early/mid/late actual-frame proof uses these exact filters. Faces/hands remain outside patch; full-water end is unaltered. Final render QC remains mandatory."
+    ]
   },
   "S23": {
     "status": "approved",

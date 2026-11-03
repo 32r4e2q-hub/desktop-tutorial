@@ -129,5 +129,17 @@
     ],
     "required_post_filter": "source_reframe_filters(S18) in render.py; qa/S18-reframe-proof.jpg",
     "decision": "approve new moving source only with enforced framing fix; old automated review remains for old source"
+  },
+  "S22": {
+    "source_sha256": "431e80cbd5deb52a9c4ecd45b690663dfee2c4b7284ed35e6981eeabd9fbea82",
+    "automated_review_retained": "qa/S22-vision-review.json",
+    "assistant_review_scope": "Chronological source grid and actual high-resolution post-filter proof frames; NOT continuous playback or human approval.",
+    "observations": [
+      "Actual new source shows clean-shaven C01B in tan suit and C04 in bowler/dark coat. A lip shadow is not a moustache. Expression changes explain narrower eyes than the neutral portrait. Independent page/eye/hand movement, waves and smoke appear across chronological frames.",
+      "Concentric blue rings visibly straddle the warm/cold divider; route points advance, followed by a full water view. The automated contrary ring claim is contradicted by actual frames. Final water view is a transition; arrival is established by the following Father Point scene, not claimed as geographically identifiable footage.",
+      "Raw chart label and invented newspaper headline glyphs are NOT waived: render.py enforces calibrated 1280x720 chart delogo and small soft-edged prop-headline defocus during split portion only. Early/mid/late actual-frame proof uses these exact filters. Faces/hands remain outside patch; full-water end is unaltered. Final render QC remains mandatory."
+    ],
+    "required_post_filter": "source_reframe_filters(S22), render.py",
+    "decision": "approve only with enforced corrections; final rendered QC mandatory"
   }
 }
