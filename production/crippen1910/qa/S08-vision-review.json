@@ -1,0 +1,41 @@
+{
+  "shot": "S08",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "a73aed7e40f1c0a54c2ca85a36e0a408fa3fbe43bfd73be1ed0b69d4ad4792ac",
+  "image_revision": "2bdc634d37812f3f34b353d023e67dbe520ba908",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.11341810491557734,
+    "residuals": [
+      0.091515727124183,
+      0.0925213779956427,
+      0.0991952614379085,
+      0.09442755991285404,
+      0.1033794934640523,
+      0.14643545751633988,
+      0.16365230119825708,
+      0.11621766067538127
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Frame grid shows 8 occupied cells with a black void where no footage exists; the active frames depict a continuous sequence.",
+      "Character matches C04 anchor: tall middle-aged man with thick handlebar moustache, dark long coat, and bowler hat.",
+      "He is carrying a tan portfolio/folder consistent with 'holding documents'.",
+      "Environment is foggy/ethereal street at night with blue lighting (cold cyan light).",
+      "Background contains horse-drawn carriages and cobblestone street, confirming Scotland Yard exterior setting.",
+      "Motion is captured: the character walks briskly past a carriage and enters a building through an open wooden door into an interior office.",
+      "The final frame shows him crossing the threshold, matching 'entering the building'.",
+      "Independent movement confirmed via background carriage wheels and the character's walking stride relative to static architecture."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
