@@ -1,0 +1,40 @@
+{
+  "shot": "S30",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "8d486cf666d0aa01cd3d9136bda9c3e81332039d5f5234e76c09eab6cced4049",
+  "image_revision": "0efb85d81e3fd1dad31cf22c78b67bc19744e477",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.1644937193627451,
+    "residuals": [
+      0.055097834967320264,
+      0.06706263616557734,
+      0.18047099673202616,
+      0.12007278050108933,
+      0.07959606481481482,
+      0.0770693082788671,
+      0.13758326525054468,
+      0.5989968681917212
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Upper grid row begins in a brick-lined coal cellar with a lantern on the ground, matching the '煤窖' description.",
+      "Sequence transitions upward through a street-level archway onto a wet, foggy Victorian road.",
+      "Lower grid row continues through the foggy street scene with rising perspective and fading brightness.",
+      "Bottom-left cell shows extreme white fade-out, confirming the '逐渐淡白' ending.",
+      "No text, watermarks, or characters are visible in the frame sequence.",
+      "Period clothing and architecture are consistent throughout the scene.",
+      "No gore, modern elements, or continuity errors detected."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
