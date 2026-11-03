@@ -1,0 +1,41 @@
+{
+  "shot": "S07",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "4a2d409bf5fa30a8fa710d003a20435e0fb2adc18ff640d04c6688d862cf87f4",
+  "image_revision": "2bdc634d37812f3f34b353d023e67dbe520ba908",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.13425285947712418,
+    "residuals": [
+      0.11508367374727668,
+      0.1275587554466231,
+      0.13010600490196078,
+      0.14332768246187363,
+      0.14571888616557732,
+      0.14958074618736383,
+      0.13707196350762527,
+      0.12557516339869282
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Three Edwardian ladies wearing wide-brim decorated hats and long waist-cinched dresses are present throughout all occupied grid cells and detail frames, matching C07 anchor.",
+      "Setting is a backstage music hall dressing room: large mirror with vanity bulbs, costume rack, wooden table, and garments visible; consistent with S07.",
+      "The woman in the green dress holds an envelope; the woman in the maroon dress holds a newspaper across sequential frames, confirming they are comparing letter and paper.",
+      "Faces show concerned/worried expressions and glances exchanged among the three women, matching the emotional beat of the narration.",
+      "In the final bottom-row grid frame and rightmost detail frame, the green-dress woman is shown reaching for/picking up a dark handbag from the table, matching the required action of one woman standing up to take her bag.",
+      "Camera appears to move around the group (different framing and angles across frames), consistent with a medium-shot orbit rather than a single static still.",
+      "No readable text or watermarks are visible on the envelope, newspaper, or environment.",
+      "Character appearance is stable across frames: green velvet dress with braided trim and green hat with feather for one woman, maroon satin dress and maroon hat with feathers for the second, purple/maroony lace-fronted dress and purple bonnet-style hat for the third."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
