@@ -1,0 +1,36 @@
+{
+  "shot": "S13",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "04cc0492b7cc9d6ae855e31e9a199c3f1baf63acad95896129e2086d5350c963",
+  "image_revision": "b764f38b38dc7bb5494490aee5f856486d486e36",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.08996637561274509,
+    "residuals": [
+      0.05824108115468409,
+      0.08148175381263616,
+      0.09293852124183007,
+      0.12708700980392157,
+      0.07308238017429193,
+      0.06212520424836601,
+      0.08070901416122003,
+      0.1440660403050109
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "预期叙事：'警察搬运完全封闭的不透明证物箱走出屋门'——实际画面中警察搬运的是打开的箱子，箱盖向后敞开，可看到内部（第二张大图右帧清晰显示箱内白色/浅色物体），不符合'完全封闭的不透明'要求。"
+    ],
+    "observations": [
+      "广角横移街道场景成立，建筑/路灯/雾气一致；独立运动：围观者吸烟/低语、报童挥报、警察抬箱行走均有连续性；安全：无担架、无蒙布人形、无人体组织露出；C09群像：平民服装符合爱德华时代，法官/陪审员/旁听者在背景台阶上低语或远望，未在街道核心位置出现，符合约束；叙事文本匹配；核心差异：证物箱非完全封闭，箱盖开启，箱体可见内容物。"
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}

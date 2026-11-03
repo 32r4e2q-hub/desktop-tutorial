@@ -1,0 +1,44 @@
+{
+  "shot": "S14",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "8f90f99797115e533e828ee706d78fdd2954cb6fbc97daae93e74ac5c76df676",
+  "image_revision": "b764f38b38dc7bb5494490aee5f856486d486e36",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.0972947133714597,
+    "residuals": [
+      0.08156610838779957,
+      0.0821228894335512,
+      0.09333217592592592,
+      0.10372971132897604,
+      0.14230712145969499,
+      0.13169049564270152,
+      0.08421405228758169,
+      0.05939515250544662
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "预期动作未完整呈现：缺少‘试剂滴入玻璃试管且液体逐渐变深’的关键变色过程",
+      "预期特写缺失：无‘移焦到泛黄通缉纸’的画面，桌面仅出现空白泛黄纸张",
+      "叙事要素丢失：通缉令/通缉纸未在画面中显式出现，无法支撑‘警方随即发出通缉令’的旁白逻辑"
+    ],
+    "observations": [
+      "C08法医持续出现：细框眼镜、白色大褂、黑色领带、棕色短发与身份参考一致",
+      "镜头1-3可见法医手持放大镜观察桌面容器，容器呈封闭无盖状态，内部无可见标本",
+      "镜头4-5出现试管架，部分试管含红色液体，但无滴管动作或颜色渐变过程的清晰帧",
+      "桌面散落泛黄纸张，表面无文字、无可读标签、无通缉令特征",
+      "实验室背景有油灯、显微镜、试剂瓶等道具，整体为虚构历史风格，无现代元素",
+      "画面间存在独立运动证据：手臂位置、试管数量、纸张角度随帧变化非纯相机位移",
+      "人物面部、服装、眼镜在连续帧中保持稳定，无漂移或替换"
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
