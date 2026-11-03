@@ -102,6 +102,11 @@ def build():
         if 'C01' in shots[-1]['characters']:
             shots[-1]['references'].append('C01_face')
         cursor+=duration
+    correction_path=HERE/'qa/shot-corrections.json'
+    corrections=json.loads(correction_path.read_text()) if correction_path.exists() else {}
+    for shot in shots:
+        if corrections.get(shot['id']):
+            shot['prompt']+=' 修订要求（不改变以上角色锚点、年代和动作）：'+corrections[shot['id']]
     chapters=[]
     for i in range(1,10):
         group=[s for s in shots if s['narration_id']==f'N{i:02d}']

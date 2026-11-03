@@ -15,7 +15,7 @@ MODEL='agnes-2.5-flash'
 
 
 def publish(label):
-    gen.git('add','--','production/crippen1910/qa','production/crippen1910/results.json','production/crippen1910/audio','production/crippen1910/story.json')
+    gen.git('add','--','production/crippen1910/qa','production/crippen1910/results.json','production/crippen1910/audio','production/crippen1910/story.json','production/crippen1910/screenplay.md')
     if subprocess.run(['git','diff','--cached','--quiet'],cwd=ROOT).returncode:return_commit(label)
 
 
@@ -123,7 +123,7 @@ def review_batch(shots,project):
         path.write_text(json.dumps(reviews,ensure_ascii=False,indent=2)+'\n');publish('actual-image continuity review '+sid)
         print('VISUAL_REVIEW',sid,reviews[sid]['status'],assessment['issues'],flush=True)
         if not assessment['accepted']:failed.append(sid)
-    if failed:raise RuntimeError('Visual corrections required, next batch blocked: '+','.join(failed))
+    return failed
 
 
 def main():
@@ -131,11 +131,30 @@ def main():
     subprocess.run([sys.executable,str(HERE/'build_story.py')],check=True)
     project=json.loads((HERE/'story.json').read_text());gen.validate(project,require_audio=False)
     for start in range(0,30,5):
-        batch=project['shots'][start:start+5]
+        selected_ids=[s['id'] for s in project['shots'][start:start+5]]
+        wanted=selected_ids
         print('START_BATCH',start//5+1,flush=True)
-        payload=dict(mode='clips',only=','.join(s['id'] for s in batch),workers=2,eager_submit=True)
-        subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload',json.dumps(payload)],check=True)
-        review_batch(batch,project)
+        for round_number in range(3):
+            payload=dict(mode='clips',only=','.join(wanted),workers=2,eager_submit=True)
+            subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload',json.dumps(payload)],check=True)
+            batch=[s for s in project['shots'] if s['id'] in selected_ids]
+            failed=review_batch(batch,project)
+            if not failed:break
+            if round_number==2:raise RuntimeError('Three actual visual inspections still fail; refusing bad footage: '+','.join(failed))
+            correction_path=HERE/'qa/shot-corrections.json'
+            corrections=json.loads(correction_path.read_text()) if correction_path.exists() else {}
+            for sid in failed:
+                evidence=json.loads((HERE/'qa'/f'{sid}-vision-review.json').read_text())
+                assessment=evidence['assessment']
+                note='; '.join(str(x) for x in assessment['issues'])[:850]
+                if not note:note='Add unmistakable independent character/object movement, preserve approved identity and the exact stated story action.'
+                corrections[sid]=note
+                archive=HERE/'qa'/f'{sid}-rejected-round-{round_number+1}.json'
+                archive.write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
+            correction_path.write_text(json.dumps(corrections,ensure_ascii=False,indent=2)+'\n')
+            subprocess.run([sys.executable,str(HERE/'build_story.py')],check=True)
+            project=json.loads((HERE/'story.json').read_text());publish('bounded targeted repair for '+','.join(failed))
+            wanted=failed
     # Explicit temporal workflow boundary: no synthesis before all thirty reviewed clips.
     subprocess.run([sys.executable,str(HERE/'narrate.py')],check=True);publish('complete measured narration after thirty motion approvals')
     subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload','{"mode":"render"}'],check=True)
