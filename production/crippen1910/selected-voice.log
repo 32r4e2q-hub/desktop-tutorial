@@ -1,8 +1,27 @@
+SELECTED_VOICE S01 seconds 4.843 tempo 1.0
+SELECTED_VOICE S02 seconds 3.602 tempo 1.0
+SELECTED_VOICE S03 seconds 5.418 tempo 1.0
+SELECTED_VOICE S04 seconds 5.897 tempo 1.0
+SELECTED_VOICE S05 seconds 5.277 tempo 1.0
+SELECTED_VOICE S06 seconds 4.833 tempo 1.0
+SELECTED_VOICE S07 seconds 6.288 tempo 1.0
+SELECTED_VOICE S08 seconds 5.408 tempo 1.0
+SELECTED_VOICE S09 seconds 5.157 tempo 1.0
+SELECTED_VOICE S10 seconds 3.652 tempo 1.0
+SELECTED_VOICE S11 seconds 5.848 tempo 1.0
+SELECTED_VOICE S12 seconds 5.684 tempo 1.0
+SELECTED_VOICE S14 seconds 4.025 tempo 1.0
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 161, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 170, in <module>
     if __name__=='__main__':prepare()
                             ~~~~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 115, in prepare
-    if b<a-.12:raise RuntimeError('ASR boundary order conflict')
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: ASR boundary order conflict
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 131, in prepare
+    n=len(normalize(sentence));captions.append({'text':sentence,'start':local(char_cursor),'end':local(char_cursor+n,True)});char_cursor+=n
+                                                                                                 ~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 128, in <lambda>
+    local=lambda index,last=False: max(0.0,min(len(trimmed)/RATE,position(offsets[i]+index,end=last)-start-removed))
+                                                                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/crippen1910/selected_voice_groups.py", line 54, in position
+    if not nearby or abs(nearby[0]-index)>3:raise RuntimeError('Unanchored selected-voice script boundary')
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Unanchored selected-voice script boundary
