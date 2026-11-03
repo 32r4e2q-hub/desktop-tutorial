@@ -94,6 +94,8 @@ class Handler(BaseHTTPRequestHandler):
                 start=int(match[1]);end=min(end,int(match[2])) if match[2] else end;partial=True
                 if start>end:self.send_error(416);return
             self.send_response(206 if partial else 200);self.send_header('Content-Type',FILES[key][1]);self.send_header('Accept-Ranges','bytes');self.send_header('Content-Length',str(end-start+1))
+            if urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query).get('download')==['1']:
+                self.send_header('Content-Disposition','attachment; filename="'+FILES[key][0]+'"')
             if partial:self.send_header('Content-Range',f'bytes {start}-{end}/{size}')
             self.end_headers()
             try:
