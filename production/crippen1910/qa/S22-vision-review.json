@@ -2,37 +2,45 @@
   "shot": "S22",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "e79155de83308358a5349e5929c3a16ef78910575fead1a1eb6e4bcb592c6a9d",
-  "image_revision": "e9305b199a76ca097d8756fca40c944fa86bac1c",
+  "source_sha256": "a60674d08c676810241149f809fa84c4d51667c2cf2792b8b0085c68b08aabbb",
+  "image_revision": "cd010cd4bc085fe18c12680566e4924547da6f3f",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.08388593579793029,
+    "camera_compensated_mean_residual": 0.13891916019880174,
     "residuals": [
-      0.05954459422657952,
-      0.06978683278867102,
-      0.06412670206971678,
-      0.0647775054466231,
-      0.08269212962962963,
-      0.23371772875816996,
-      0.06513024237472767,
-      0.03131175108932462
+      0.08546779684095861,
+      0.08203165849673202,
+      0.08900694444444444,
+      0.20966407952069718,
+      0.13478928376906318,
+      0.22447337962962963,
+      0.24538807189542483,
+      0.04053206699346405
     ]
   },
   "assessment": {
     "pass": false,
-    "independent_motion": true,
-    "identity_consistent": true,
+    "independent_motion": false,
+    "identity_consistent": false,
     "safe": true,
     "story_matches": false,
     "issues": [
-      "Unapproved on-screen text: Newspaper headline 'THE REUNION' is clearly legible on the prop in the left panel of the split-screen sequence, violating the requirement for no extraneous text on this prop."
+      "Visible text on newspaper in C01B frames (rows of gibberish/Asian characters), violating 'paper has no text, letters, numbers or title'",
+      "Cartoon-style C01B character (wide eyes, exaggerated features) does not match realistic cinematic reference image provided",
+      "C04 inspector character shows significant facial feature drift between frames (moustache shape/thickness varies)",
+      "Bottom section displays numbers/coordinates (392, 3510, 3170, 3425) on the nautical map, violating 'no numbers'",
+      "No evidence of split-screen structure with blue ring merge animation into Canadian estuary",
+      "No visible camera movement or independent motion beyond basic pans"
     ],
     "observations": [
-      "C01B (clean-shaven, tan suit, grey hat) and C04 (mustache, bowler hat, dark coat) are visually present and match identity anchors.",
-      "Narration text '一边还在悠闲看海 另一边 已经抢先抵达加拿大' is successfully displayed as a subtitle.",
-      "Split-screen effect with blue connecting lines is present in early frames.",
-      "Newspaper held by C01B clearly displays the large title 'THE REUNION' in multiple visible frames (grid frames 1-5 and detail panels 1-2).",
-      "Final wide shot shows a river channel/estuary with a vessel wake, consistent with the narrative requirement."
+      "Top-left grid cells show C01B holding newspaper with visible column text, not blank",
+      "C01B has exaggerated cartoon proportions vs realistic reference with narrow eyes and natural features",
+      "C04 appears inconsistently - sometimes with thick moustache, sometimes thin, facial structure varies",
+      "Bottom-right frame shows abstract sea chart with glowing blue route line but includes yellow coordinate numbers (392, 3510, 3170, 3425)",
+      "Center-bottom frame shows aerial view of estuary with blue dots but numbers are present",
+      "No split-screen composition visible in any frame",
+      "No blue ring merge animation sequence shown",
+      "Characters appear static with minimal independent movement"
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
