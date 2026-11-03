@@ -94,9 +94,9 @@
     "S04": {
       "id": "S04",
       "request_hash": "2a8b9b02c4a5e7d70466ea86b5a826f8acd0aacc31511071e2c7736c78bd8528",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-03T01:20:00Z",
+      "updated_at": "2026-11-03T01:20:02Z",
       "create_attempts": 1,
       "error": null,
       "video_id": "task_gdqxRiWttWlKSSxn9FnBWCSZb9WFewpG",
@@ -109,7 +109,18 @@
       "bytes": 3285031,
       "sha256": "5f4855c0455a073b0ce0890d06d31b61e4f59c14f0ba368883c85411f42d98e9",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3285031,
+        "decoded_ok": true,
+        "contact_sheet": "production/crippen1910/qa/S04.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S05": {
       "id": "S05",
@@ -189,7 +200,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-03T01:20:00Z",
+  "updated_at": "2026-11-03T01:20:02Z",
   "run_id": "41555719595",
   "previous_results": {}
 }
