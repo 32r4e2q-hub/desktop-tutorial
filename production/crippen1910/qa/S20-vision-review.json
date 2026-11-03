@@ -1,0 +1,42 @@
+{
+  "shot": "S20",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "3bcbea1769101bc8d2ee3f89561d2f900b4f5f1fec381b8cc009b98a2bff2db9",
+  "image_revision": "1631d71bca08764f296cb2adbc1be92c1e768ae4",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.10626803342864924,
+    "residuals": [
+      0.06316176470588235,
+      0.15793348311546843,
+      0.07704432189542483,
+      0.04696704793028322,
+      0.07234286492374728,
+      0.16801348039215686,
+      0.14662622549019608,
+      0.11805507897603486
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "C04 anchor matches: tall middle-aged man, thick prominent mustache (八字胡), dark long coat, bowler hat, sharp intense expression.",
+      "Action sequence clearly depicted across frames: duty room, note handed through doorway, reading note with urgency, donning hat, burst out door, fast tracking shot running down wet cobblestone street.",
+      "Lighting and atmosphere correct: cold blue-grey outdoor light contrasts warm amber interior lamps; fog/mist visible; streetlamp glow.",
+      "Independent motion confirmed: running figure has bent knees and arm swing; coat tails and paper飘动 behind him; no static silhouette.",
+      "Continuity of costume consistent throughout all chronological frames: same dark suit, vest, tie, overcoat, bowler hat.",
+      "No modern clothing or anachronisms visible; period-appropriate architecture and setting.",
+      "No visible text, watermarks, or UI artifacts in any frame.",
+      "Grid has one unused black cell (bottom-right), which is allowed per instructions.",
+      "Narration content not displayed on screen; no requirement to embed narration text within footage."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
