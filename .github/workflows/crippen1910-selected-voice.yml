@@ -49,7 +49,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -u production/crippen1910/selected_voice_groups.py
+          python3 -u production/crippen1910/selected_voice_groups.py 2>&1 | tee production/crippen1910/selected-voice.log
           python3 -u production/crippen1910/autopilot.py 2>&1 | tee production/crippen1910/autopilot.log
       - name: Preserve progress, reviews, narration and any delivered film
         if: always()
@@ -58,7 +58,7 @@ jobs:
           set -euo pipefail
           git config user.name arena-autopilot
           git config user.email arena-autopilot@users.noreply.github.com
-          for path in production/crippen1910/autopilot.log production/crippen1910/results.json production/crippen1910/qa production/crippen1910/audio production/crippen1910/story.json 交付; do
+          for path in production/crippen1910/selected-voice.log production/crippen1910/autopilot.log production/crippen1910/results.json production/crippen1910/qa production/crippen1910/audio production/crippen1910/story.json 交付; do
             if [ -e "$path" ]; then git add -- "$path"; fi
           done
           if ! git diff --cached --quiet; then

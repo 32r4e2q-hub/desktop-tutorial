@@ -106,6 +106,7 @@ def prepare():
         decode(source,wav16,16000);decode(source,wav48);samples=read_wave(wav48)
         words=recognize(wav16,model);position,coverage=align(script,words)
         evidence[gid]={'sha256':group['sha256'],'asr_words':words,'normalized_script_coverage':coverage}
+        (HERE/'qa/selected-voice-alignment.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
         offsets=[0]
         for shot in shots:offsets.append(offsets[-1]+len(normalize(shot['narration'])))
         cuts=[0.0]
