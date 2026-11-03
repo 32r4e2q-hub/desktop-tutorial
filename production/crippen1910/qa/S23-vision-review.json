@@ -1,0 +1,41 @@
+{
+  "shot": "S23",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "ff6309337559b12be501251a0b786b3b65bc4709ae3fd0feb4a74b8cd1dfc3fd",
+  "image_revision": "e7e50112dcc0293e03a4f44af1a010109e9ab05a",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.0854001736111111,
+    "residuals": [
+      0.03809361383442266,
+      0.10154384531590414,
+      0.10314018246187365,
+      0.0999927151416122,
+      0.10900571895424836,
+      0.08665802015250544,
+      0.07652730119825708,
+      0.06823999183006536
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Morning light and sea fog consistent with the expected river estuary setting.",
+      "Close pilot boat approaches alongside a large steamer; smoke from the pilot-boat funnel confirms independent motion beyond camera movement.",
+      "Man on boat matches C04B: dark blue double-breasted pilot uniform with gold buttons and anchor collar badges, peaked cap with metallic badge.",
+      "Cap brim is lowered on the face in closer frames, matching the expected压低制帽 action.",
+      "Mustache and facial features remain continuous across frames; no face drift or duplicate faces.",
+      "Low-angle, close tracking framing in later frames suggests waterline-level camera work; boat roll and wake are visible.",
+      "Grid contains six occupied chronological frames plus three black cells; no extraneous or unclear frames.",
+      "No visible text, watermarks, anachronistic clothing, gore, or hanging."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
