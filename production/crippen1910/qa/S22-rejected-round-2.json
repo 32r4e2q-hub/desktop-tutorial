@@ -1,0 +1,42 @@
+{
+  "shot": "S22",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "9df1e12e603feaa044c46a04e00ed0e5b34a7acae933b1508a520685eed4afc9",
+  "image_revision": "3c1d4e1e9b432571abdab9258e2dcd0ddd8e550b",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.09048217081971678,
+    "residuals": [
+      0.0599490059912854,
+      0.07769784858387799,
+      0.0740921160130719,
+      0.06547950708061002,
+      0.0662671568627451,
+      0.11349455337690632,
+      0.24912860838779957,
+      0.01774857026143791
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Unapproved on-screen text: newspaper headline 'THE REUNION' is clearly legible on C01B's paper in the visible frames; scene specifies this prop text is extraneous and should not be generated.",
+      "Narration text missing: expected '一边还在悠闲看海，另一边，已经抢先抵达加拿大。' is not displayed or audible in the visible frames.",
+      "Ending shot inconsistency: final wide frame shows a river channel between headlands with a boat wake, but does not clearly establish a Canada river estuary setting as required by the scene specification."
+    ],
+    "observations": [
+      "C01B clean-shaven/no glasses with grey soft felt hat and beige suit matches reference; C04 tall man with浓密八字胡 (full handlebar moustache), dark overcoat and bowler hat matches reference. Both character identities are consistent across all 5 occupied grid cells and the three larger detail frames.",
+      "C01B is shown reading newspaper with neutral/focused expression in early frames, then smiling broadly in the middle-to-late frames (detail frame 3); C04 paces/stands beside him. Independent movement verified: C01B flips pages and shifts grip, C04 takes steps and moves legs across frame cells.",
+      "Blue glowing seam connecting the split-screen panels and the circular light nodes on the nautical chart below are present throughout the sequence. The final wide shot transitions to a single full-frame view of a waterway between green headlands/cliffs with a visible boat wake—this could plausibly represent an estuary but lacks explicit Canada identification (no signage, no ice, no specific Canadian landscape markers).",
+      "The newspaper held by C01B clearly displays the headline 'THE REUNION' in large serif type—this is an unapproved generated prop text that should be absent per scene specification.",
+      "No modern clothing, gore, duplicate faces, or safety issues detected. Period clothing is plausible for the era depicted."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}

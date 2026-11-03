@@ -1,0 +1,48 @@
+{
+  "shot": "S16",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "d23ae68eaa98d7a1008b3e5ac84a433897215e27113b9e40f487bacf71bdb456",
+  "image_revision": "6b9a558e394de57c876da0c5ab6ba8e52a276089",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.12067658973311546,
+    "residuals": [
+      0.0572302559912854,
+      0.11485913671023966,
+      0.08062956154684095,
+      0.11091271786492375,
+      0.10822467320261438,
+      0.14028771786492375,
+      0.20015407135076252,
+      0.15311458333333333
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": false,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Critical action omission: Captain never performs the 'turn head to observe' action; remains static facing forward/right throughout all frames.",
+      "Missing 'squinting' expression: Eyes remain wide open/alert even in close-up (bottom-left frame), not narrowed as specified.",
+      "No transitional 'lowering telescope' motion visible: Jump cut from binoculars at eye (frame 1-2) to hands at sides (frame 3) without showing the lowering action.",
+      "No progressive zoom-in sequence: Camera positions appear fixed; no evidence of dolly-in movement from medium shot to extreme close-up.",
+      "Static environment: Clothing folds, background figures, and rigging show no wind-driven independent motion.",
+      "Narrative gap: No visual indication of captain noticing 'suspicious father and son' – gaze remains generic horizon stare."
+    ],
+    "observations": [
+      "Frame 1-2: Captain holding brass telescope to eyes, white uniform, gold epaulettes, grey beard – matches C05 anchor",
+      "Frame 3-4: Sudden position change – telescope now held at waist level, no intermediate lowering frames",
+      "Frame 5-7: Side-profile medium shots, eyes wide, no head-turning motion detected",
+      "Frame 8-9: Extreme close-ups of face – eyes fully open, pupils dilated, no squinting",
+      "Background extras (frames 4-7): Three static figures on deck, no independent movement",
+      "Rigging and sails: Completely motionless across all frames",
+      "Deck shadows and reflections: Static lighting with no temporal variation",
+      "Bottom-left inset: Eye close-up shows green irises, wide eyelids, no narrowing"
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}

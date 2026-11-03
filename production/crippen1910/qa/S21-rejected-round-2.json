@@ -1,0 +1,47 @@
+{
+  "shot": "S21",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "b2056a12dee8ca652f788e49f972fc06a550595d317f508cb05f97ca03f363bf",
+  "image_revision": "3c1d4e1e9b432571abdab9258e2dcd0ddd8e550b",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.0685235991966231,
+    "residuals": [
+      0.046839733115468414,
+      0.06204180283224401,
+      0.07220540577342048,
+      0.18601783769063182,
+      0.04658476307189542,
+      0.044111043028322444,
+      0.04554888344226579,
+      0.04483932461873639
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "CRITICAL ERROR: Ship depicted is bow-first, not stern/wake. The requested shot was the ship's tail (stern) with white water wake. All three sea frames show the ship's bow cutting through water, with the smokestacks ahead and the bridge structure forward. This is the wrong end of the ship entirely.",
+      "Missing the specific stern-white-water-wake visual that was the core of the revision request",
+      "The detective character appears only on the pier, not on the ship's deck as specified in '他在甲板眺望海平线'"
+    ],
+    "observations": [
+      "Grid top-left: Detective in bowler hat, dark coat, handlebar mustache walking on wooden pier with steam/fog and lamplight - matches C04 anchor",
+      "Grid top-middle: Same detective figure mid-stride on pier, consistent face and costume",
+      "Grid middle-left: Large ocean liner at full speed, BUT showing BOW-FIRST with bow wave and forward spray; smokestacks and bridge are forward, not aft",
+      "Grid middle-right: Same ship angle, still bow-first; white water is bow wake/churning, not stern wake",
+      "Detail frame 2 (middle): Clear bow view with forward prow cutting water, anchors visible on bow, smokestacks ahead - ship is heading toward camera or slightly away from starboard bow angle",
+      "Detail frame 3 (right): Same bow-first perspective, no stern or aft wake visible",
+      "Ship has single smokestack, two masts, multiple deck levels - era-appropriate steamship",
+      "White water present but it is bow churning and forward prop wash, not the stern wake requested",
+      "Detective never appears on ship deck; only on pier in initial frames",
+      "No visible stern view or stern white water trail in any frame"
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}

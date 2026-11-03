@@ -315,7 +315,7 @@
       ],
       "narration": "地下发现了遗骸，警方封锁现场，消息很快传遍伦敦。",
       "narration_id": "N04",
-      "prompt": "安全替代画面：警察搬运完全封闭的不透明证物箱走出屋门，围观者在外围低语，报童挥报。无担架、无蒙布人形、无人体组织；广角横移。参考群像仅提取1910平民服装，不在街道出现法官。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：预期叙事：'警察搬运完全封闭的不透明证物箱走出屋门'——实际画面中警察搬运的是打开的箱子，箱盖向后敞开，可看到内部（第二张大图右帧清晰显示箱内白色/浅色物体），不符合'完全封闭的不透明'要求。"
+      "prompt": "安全替代画面：警察搬运完全封闭的不透明证物箱走出屋门，围观者在外围低语，报童挥报。无担架、无蒙布人形、无人体组织；广角横移。参考群像仅提取1910平民服装，不在街道出现法官。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：CRITICAL: Two police officers are carrying an OPEN wooden box with the lid hinged backward; the interior and a light-colored object inside are clearly visible in the first detail frame, directly contradicting the required 'completely closed opaque evidence box'.; The box shown is a classic wooden chest, not an opaque sealed container.; While crowd behavior matches the 'onlookers whispering' and 'newsboy waving paper' requirements, the primary transport action is flawed."
     },
     {
       "id": "S14",
@@ -380,7 +380,7 @@
       ],
       "narration": "船长肯德尔，却留意上了这对举止奇怪的父子。",
       "narration_id": "N05",
-      "prompt": "船长在木甲板上转头注视远处乘客，眯眼，手中黄铜望远镜轻轻放下，海风吹衣摆，眼神特写缓推。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：Expected action: 船长转头注视远处乘客、眯眼、手中黄铜望远镜轻轻放下。实际：船长始终手持望远镜举至眼前（格1）或垂握于身侧（格2-9），从未出现'转头环顾'的扫视动作，也未出现'放下望远镜'的动作过渡。; 叙事核心缺失：期望中船长'留意上了这对举止奇怪的父子'是观察→发现的渐进式表演，实际镜头自始至终聚焦船长正面/半侧面凝视远方，没有视线转移至乘客方向的任何迹象。; 眼神特写缓推：格9确为面部特写，但眼睛是睁大的警觉状态而非'眯眼'，且缺少由中景→特写的渐进推镜轨迹，格5-7仍是中景。; 海风吹衣摆：服装褶皱、衣摆及背景人物均无明显风力驱动的独立摆动，甲板场景呈现静态布光效果。"
+      "prompt": "船长在木甲板上转头注视远处乘客，眯眼，手中黄铜望远镜轻轻放下，海风吹衣摆，眼神特写缓推。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：Critical action omission: Captain never performs the 'turn head to observe' action; remains static facing forward/right throughout all frames.; Missing 'squinting' expression: Eyes remain wide open/alert even in close-up (bottom-left frame), not narrowed as specified.; No transitional 'lowering telescope' motion visible: Jump cut from binoculars at eye (frame 1-2) to hands at sides (frame 3) without showing the lowering action.; No progressive zoom-in sequence: Camera positions appear fixed; no evidence of dolly-in movement from medium shot to extreme close-up.; Static environment: Clothing folds, background figures, and rigging show no wind-driven independent motion.; Narrative gap: No visual indication of captain noticing 'suspicious father and son' – gaze remains generic horizon stare."
     },
     {
       "id": "S17",
@@ -428,7 +428,7 @@
       ],
       "narration": "船长翻开通缉报纸，认出了这对逃亡者。",
       "narration_id": "N05",
-      "prompt": "船长舱室，摊开旧报纸上的男女抽象肖像，对照窗外那对旅客，抬眉握紧报纸。拉焦切换，无可读新闻文字。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：Expected textless newspaper contradicted by visible readable text on the page; Missing key story action: captain raises eyebrows and grips newspaper tightly in recognition"
+      "prompt": "船长舱室，摊开旧报纸上的男女抽象肖像，对照窗外那对旅客，抬眉握紧报纸。拉焦切换，无可读新闻文字。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：船长安德烈眉毛动作缺失：所有有效帧中船长为低头阅读/抬眼打量状，未见'抬眉'这一关键识别动作; 报纸文字可读：大尺寸细节帧（右）清晰显示报纸上有多栏可读文字排版，违反'textless newspaper'约束; 报纸内容不符预期：报纸展示的是模糊肖像/通缉画样式，非'男女抽象肖像'，与叙事中'翻开通缉报纸认出逃亡者'情节有偏差; 关键叙事动作缺失：船长未见'握紧报纸'的紧张识别姿态，整体动作偏向平静翻阅"
     },
     {
       "id": "S19",
@@ -492,7 +492,7 @@
       ],
       "narration": "他登上更快的劳伦蒂克号，要赶在两人前面。",
       "narration_id": "N06",
-      "prompt": "港口蒸汽笛声，探长跨上舷梯，接切全速航行船尾白浪，他在甲板眺望海平线。冷青蓝航拍后拉。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：Missing ship's stern and white water wake (proposed shot was ship's tail/wake)"
+      "prompt": "港口蒸汽笛声，探长跨上舷梯，接切全速航行船尾白浪，他在甲板眺望海平线。冷青蓝航拍后拉。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：CRITICAL ERROR: Ship depicted is bow-first, not stern/wake. The requested shot was the ship's tail (stern) with white water wake. All three sea frames show the ship's bow cutting through water, with the smokestacks ahead and the bridge structure forward. This is the wrong end of the ship entirely.; Missing the specific stern-white-water-wake visual that was the core of the revision request; The detective character appears only on the pier, not on the ship's deck as specified in '他在甲板眺望海平线'"
     },
     {
       "id": "S22",
@@ -517,7 +517,7 @@
       ],
       "narration": "一边还在悠闲看海，另一边，已经抢先抵达加拿大。",
       "narration_id": "N06",
-      "prompt": "唯一分屏镜头：左暖黄蒙特罗斯甲板，克里平翻报微笑；右冷青劳伦蒂克破浪，探长踱步；下方无字海图航线光点靠近，蓝色光环连接两边，不生成数字距离。最后一秒蓝光扫过分界，将分屏合并为加拿大河口的全幅冷青海面。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：Narration text missing: expected '一边还在悠闲看海，另一边，已经抢先抵达加拿大。' is not displayed or audible in the visible frames.; Unapproved on-screen text: newspaper headline 'THE REUNION' is legible on C01B's paper; expected scene specifies no generated numeric distance and this prop text is extraneous.; Continuity mismatch of C01B's expression: expected right-panel behavior is smiling while reading; left-panel frames show neutral/focused reading rather than the required smile.; Ending shot inconsistency: final frame shows a glowing blue horizon seam over ocean with headlands but does not clearly establish a Canada river estuary setting as required."
+      "prompt": "唯一分屏镜头：左暖黄蒙特罗斯甲板，克里平翻报微笑；右冷青劳伦蒂克破浪，探长踱步；下方无字海图航线光点靠近，蓝色光环连接两边，不生成数字距离。最后一秒蓝光扫过分界，将分屏合并为加拿大河口的全幅冷青海面。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：Unapproved on-screen text: newspaper headline 'THE REUNION' is clearly legible on C01B's paper in the visible frames; scene specifies this prop text is extraneous and should not be generated.; Narration text missing: expected '一边还在悠闲看海，另一边，已经抢先抵达加拿大。' is not displayed or audible in the visible frames.; Ending shot inconsistency: final wide frame shows a river channel between headlands with a boat wake, but does not clearly establish a Canada river estuary setting as required by the scene specification."
     },
     {
       "id": "S23",
@@ -634,7 +634,7 @@
       ],
       "narration": "仅二十七分钟，他被裁定有罪。伊瑟尔另案受审，获判无罪。",
       "narration_id": "N08",
-      "prompt": "陪审员返回，首席站起口头宣告，克里平缓缓低头，法官稳坐。无伊瑟尔同庭宣判，不拍英式法庭并不存在的法槌。中景轻推。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：The '首席站起口头宣告' (Foreperson standing to orally declare) action is not shown; the jury foreperson remains seated throughout the clip, while only the defendant (C01) stands and then bows his head."
+      "prompt": "陪审员返回，首席站起口头宣告，克里平缓缓低头，法官稳坐。无伊瑟尔同庭宣判，不拍英式法庭并不存在的法槌。中景轻推。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：首席陪审员未站起口头宣告——修订要求的核心动作缺失。C01被告全程独自站立后低头，但首席陪审员（ jury foreperson）在全部9格时间帧及3张大图中均保持坐姿，从未站起。; 无独立叙事动作的'首席站起口头宣告'（Foreperson standing to orally declare）——该动作仅通过C01单人的站/低头的肢体语言传达，而非首席陪审员的独立行为。; 角色锚点正确但关键叙事缺失：C01圆框金边眼镜、浓密八字胡、深灰三件套、温顺神情符合；法官与旁听者爱德华时代肃穆着装无误；但'首席站起口头宣告'这一核心修订动作未实现。"
     },
     {
       "id": "S28",
@@ -652,7 +652,7 @@
       ],
       "narration": "十一月二十三日，克里平被处决，故事似乎画上了句号。",
       "narration_id": "N08",
-      "prompt": "空监狱走廊，石墙与铁门，一盏盏灯依次熄灭，铁门缓慢关上，镜头沿长廊对称推进。无人，无刑场无绞刑无人体轮廓。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：The video is a static pan of a single image. The background geometry, perspective lines, and door positions remain perfectly rigid across all frames with no parallax shifts or micro-movements.; The hanging lanterns are visually frozen; their wicks do not flicker despite the camera moving past them.; The lighting is constant throughout the sequence, failing to show the 'lights extinguishing one by one' narrative beat.; The doors remain open in the wide shots but do not show any actual closing animation, contradicting the core action description."
+      "prompt": "空监狱走廊，石墙与铁门，一盏盏灯依次熄灭，铁门缓慢关上，镜头沿长廊对称推进。无人，无刑场无绞刑无人体轮廓。 修订要求（优先明确实现修订动作，保持以上角色锚点和年代；旧失败描述是待纠正问题，不是目标画面）：Video is a static pan of a single rendered image with no actual motion animation; Perspective lines, door positions, and background geometry remain perfectly rigid with no parallax shifts across frames; Hanging lanterns are visually frozen with no flickering despite camera movement; Lighting is constant throughout the sequence with no lights extinguishing one by one as required; Prison doors remain open/static throughout and do not show any closing animation; Camera shows a sideways tilt/pan rather than the required forward tracking shot along the corridor; No independent movement detected in any elements - all frames show identical static imagery"
     },
     {
       "id": "S29",

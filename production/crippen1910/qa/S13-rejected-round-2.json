@@ -1,0 +1,42 @@
+{
+  "shot": "S13",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "fbad14ab2f4336e49306500a8cc31d5c00f668650d14cd49d91514fa4d296b81",
+  "image_revision": "07849840eaea2a40a66173391ec40df3bcc92066",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.0998318184912854,
+    "residuals": [
+      0.0688447031590414,
+      0.08820125272331154,
+      0.11082924836601307,
+      0.14127546296296298,
+      0.13075490196078432,
+      0.10570349945533769,
+      0.07706427015250544,
+      0.0759812091503268
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "CRITICAL: Two police officers are carrying an OPEN wooden box with the lid hinged backward; the interior and a light-colored object inside are clearly visible in the first detail frame, directly contradicting the required 'completely closed opaque evidence box'.",
+      "The box shown is a classic wooden chest, not an opaque sealed container.",
+      "While crowd behavior matches the 'onlookers whispering' and 'newsboy waving paper' requirements, the primary transport action is flawed."
+    ],
+    "observations": [
+      "First detail image (left): Two officers step from doorway; the brown wooden box has a lid flipped open backward, revealing white contents/interior.",
+      "First detail image (middle): Officers walking away, box appears closed from this angle, but remains a wooden chest.",
+      "Grid middle row, center: Officers walking with box; the newsboy on the right is holding/waving a large sheet of paper.",
+      "Grid middle row, right: The newsboy stands on the cobblestones; onlookers (men in hats, woman in Edwardian dress) stand grouped near the building.",
+      "Camera motion: Residuals show low motion (<0.15), but background fog and foreground subjects indicate independent movement (parallax)."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}

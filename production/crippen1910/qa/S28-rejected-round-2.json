@@ -1,0 +1,49 @@
+{
+  "shot": "S28",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "9cab39b03b8b0b3cc6c2ab06a1b7fc39a5fcf42738005aefa5bce887c4d7cbb1",
+  "image_revision": "09ffd52c801187a76060514fff389cfb8aca5491",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.09202876497821351,
+    "residuals": [
+      0.07128887527233115,
+      0.1126118600217865,
+      0.10142231753812636,
+      0.09052648420479303,
+      0.0932286220043573,
+      0.08034238834422658,
+      0.09525333605664488,
+      0.09155623638344226
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": false,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Video is a static pan of a single rendered image with no actual motion animation",
+      "Perspective lines, door positions, and background geometry remain perfectly rigid with no parallax shifts across frames",
+      "Hanging lanterns are visually frozen with no flickering despite camera movement",
+      "Lighting is constant throughout the sequence with no lights extinguishing one by one as required",
+      "Prison doors remain open/static throughout and do not show any closing animation",
+      "Camera shows a sideways tilt/pan rather than the required forward tracking shot along the corridor",
+      "No independent movement detected in any elements - all frames show identical static imagery"
+    ],
+    "observations": [
+      "All 9 sampled frames show identical prison corridor perspective with no positional changes",
+      "Lanterns maintain same brightness and position in every frame - no extinguishing animation",
+      "Doors at left and right remain open at identical angles throughout sequence",
+      "No parallax between foreground doors and background architecture indicating camera translation",
+      "Floor tile patterns and wall textures show zero displacement between frames",
+      "Scene contains only empty corridor, stone walls, iron doors, and hanging lamps - no people or silhouettes present",
+      "Final frame shows tilted perspective but identical geometry to all previous frames",
+      "No temporal progression visible - appears to be slideshow of same still image at different crops/rotation"
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
