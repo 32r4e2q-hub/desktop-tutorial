@@ -1,0 +1,39 @@
+{
+  "shot": "S06",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "669bdce7b1c2878db9a1a9aeba38c436145613d625d2324c5d75c88d3ed26378",
+  "image_revision": "2bdc634d37812f3f34b353d023e67dbe520ba908",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.04522971983932461,
+    "residuals": [
+      0.025372617102396515,
+      0.04101899509803921,
+      0.03463677832244009,
+      0.05161608115468409,
+      0.06065311819172114,
+      0.04268355119825708,
+      0.05780582788671024,
+      0.04805078976034858
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Frame sequence shows independent motion: character moves hand from mirror/neck area down to pick up and look at the small framed photograph.",
+      "Character identity consistent with C03 anchor: black hair in a bun, wearing a beige/muted tan collared shirt and dark skirt.",
+      "Scene setting matches expectation: wooden dressing table with oval mirror, jewelry box, and wall sconces in a room with dark green wallpaper.",
+      "Narrative action accurately depicted: character is shown wearing a necklace/collar piece (consisting of a pendant/brooch) while interacting with the woman's framed portrait.",
+      "No visible text, watermarks, or modern anachronisms outside S29.",
+      "No duplicate faces, gore, or missing essential story elements detected in the occupied frames."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
