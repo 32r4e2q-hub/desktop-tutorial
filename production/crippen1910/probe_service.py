@@ -50,13 +50,16 @@ if results.exists():
 # Small actual image-understanding preflight for the automated continuity reviewer.
 try:
     source=json.loads(Path('production/crippen1910/reference/approvals.json').read_text())['revision']
-    url=f'https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/{source}/production/crippen1910/reference/C05_side.png'
-    payload={'model':'agnes-2.5-flash','max_tokens':300,'temperature':0,'messages':[{'role':'user','content':[{'type':'text','text':'Describe only what is actually visible: is this a left profile of one white-uniformed captain, with a telescope? This is a still reference, not a video. Reply briefly.'},{'type':'image_url','image_url':{'url':url}}]}]}
+    import base64
+    url='data:image/png;base64,'+base64.b64encode(Path('production/crippen1910/reference/C05_side.png').read_bytes()).decode('ascii')
+    payload={'model':'agnes-2.5-flash','max_tokens':1200,'temperature':0,'chat_template_kwargs':{'enable_thinking':False},'messages':[{'role':'user','content':[{'type':'text','text':'Describe only what is actually visible: is this a left profile of one white-uniformed captain, with a telescope? This is a still reference, not a video. Reply briefly.'},{'type':'image_url','image_url':{'url':url}}]}]}
     request=urllib.request.Request('https://apihub.agnes-ai.com/v1/chat/completions',data=json.dumps(payload).encode(),headers={'Authorization':'Bearer '+os.environ['AGNES_API_KEY'],'Content-Type':'application/json'},method='POST')
     with urllib.request.urlopen(request,timeout=180) as response:vision=json.load(response)
-    out['vision_preflight']={'model':'agnes-2.5-flash','source_reference':'C05_side','response':vision['choices'][0]['message']['content']}
+    out['vision_preflight']={'model':'agnes-2.5-flash','source_reference':'C05_side','image_transport':'inline_png_data_uri','response':vision['choices'][0]['message']['content']}
 except urllib.error.HTTPError as exc:
     detail=exc.read(1000).decode('utf-8','replace').replace(os.environ.get('AGNES_API_KEY',''),'[redacted]')
+    import re
+    detail=re.sub(r'data:image/[^\s\"\']+','[inline image omitted]',detail)
     out['vision_preflight']={'error_type':type(exc).__name__,'http_status':exc.code,'detail':detail}
 except Exception as exc:out['vision_preflight']={'error_type':type(exc).__name__}
 Path('production/crippen1910/service-probe.json').write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n')
