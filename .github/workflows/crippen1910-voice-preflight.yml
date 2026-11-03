@@ -1,0 +1,39 @@
+name: Crippen selected voice alignment toolchain preflight
+on:
+  push:
+    branches: [arena/f38dd103-desktop-tutorial]
+    paths: [.github/workflows/crippen1910-voice-preflight.yml]
+permissions:
+  contents: write
+jobs:
+  alignment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f38dd103-desktop-tutorial
+          sparse-checkout: |
+            production/crippen1910
+          sparse-checkout-cone-mode: false
+      - name: Verify public Chinese ASR model loads, without synthesizing narration
+        run: |
+          python3 -m pip install --break-system-packages -q numpy vosk
+          python3 - <<'PY'
+          import sys,json
+          from pathlib import Path
+          sys.path.insert(0,'production/crippen1910')
+          from selected_voice_groups import model_path
+          import vosk
+          work=Path('work/crippen1910/voice-preflight');work.mkdir(parents=True,exist_ok=True)
+          vosk.SetLogLevel(-1);model=vosk.Model(str(model_path(work)))
+          Path('production/crippen1910/audio/voice-preflight.json').write_text(json.dumps({'asr_model':'vosk-model-small-cn-0.22','model_loaded':True,'speech_generated':False,'note':'Toolchain preflight only; formal selected speech is still gated on thirty video approvals.'},indent=2)+'\n')
+          PY
+      - name: Preserve readiness receipt
+        run: |
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add production/crippen1910/audio/voice-preflight.json
+          git commit -m 'crippen1910: selected-voice actual timestamp alignment toolchain verified'
+          git pull --rebase --autostash origin arena/f38dd103-desktop-tutorial
+          git push origin arena/f38dd103-desktop-tutorial

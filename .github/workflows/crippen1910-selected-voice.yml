@@ -1,0 +1,83 @@
+name: Crippen selected narrator and final film
+on:
+  push:
+    branches: [arena/f38dd103-desktop-tutorial]
+    paths: [production/crippen1910/VOICE_GROUPS_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: crippen1910-agnes-arena-f38dd103-desktop-tutorial-v1
+  cancel-in-progress: false
+jobs:
+  film:
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f38dd103-desktop-tutorial
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /production/crippen1910/
+            /production/tests/
+            /production/agnes_video.py
+            /production/mystery-cover-template/
+            /交付/Crippen*
+            /交付/克里平*
+      - name: Prepare video, narration, vision review and CJK toolchain
+        run: |
+          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check -q numpy pillow pyyaml imageio-ffmpeg av edge-tts vosk opencv-python-headless fonttools
+          mkdir -p "$HOME/.local/bin" "$HOME/.local/share/fonts" .cache/fonts
+          python3 - <<'PY'
+          import pathlib,stat,imageio_ffmpeg
+          bindir=pathlib.Path.home()/'.local/bin'
+          (bindir/'ffmpeg').symlink_to(imageio_ffmpeg.get_ffmpeg_exe())
+          shim=pathlib.Path('production/crippen1910/ffprobe_shim.py').resolve()
+          p=bindir/'ffprobe';p.write_text('#!/bin/sh\nexec python3 '+str(shim)+' "$@"\n');p.chmod(p.stat().st_mode|stat.S_IEXEC)
+          PY
+          for spec in 'Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf' 'Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Bold.otf' 'Serif/OTF/SimplifiedChinese/NotoSerifCJKsc-Regular.otf'; do
+            curl --retry 3 --max-time 120 -fsSL "https://raw.githubusercontent.com/notofonts/noto-cjk/main/$spec" -o "$HOME/.local/share/fonts/$(basename "$spec")"
+          done
+          fc-cache -f >/dev/null 2>&1 || true
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Test the closed gates and exact timeline
+        run: python3 -m unittest production.tests.test_crippen1910 production.tests.test_crippen_reference_batch production.tests.test_crippen_transitions -q
+      - name: Generate, actually inspect each five shots, narrate and assemble
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -u production/crippen1910/selected_voice_groups.py
+          python3 -u production/crippen1910/autopilot.py 2>&1 | tee production/crippen1910/autopilot.log
+      - name: Preserve progress, reviews, narration and any delivered film
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          for path in production/crippen1910/autopilot.log production/crippen1910/results.json production/crippen1910/qa production/crippen1910/audio production/crippen1910/story.json 交付; do
+            if [ -e "$path" ]; then git add -- "$path"; fi
+          done
+          if ! git diff --cached --quiet; then
+            git commit -m 'crippen1910: autonomous production checkpoint and diagnostics [skip-crippen1910]'
+            git pull --rebase --autostash origin arena/f38dd103-desktop-tutorial
+            git push origin arena/f38dd103-desktop-tutorial
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crippen1910-autonomous-production-${{ github.run_number }}
+          path: |
+            work/crippen1910/clips/
+            work/crippen1910/edit/delivery/
+            production/crippen1910/qa/
+            production/crippen1910/audio/
+            production/crippen1910/autopilot.log
+            production/crippen1910/results.json
+            交付/Crippen*
+            交付/克里平*
+          if-no-files-found: warn
+          retention-days: 14
