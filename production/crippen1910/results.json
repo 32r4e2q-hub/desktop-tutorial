@@ -273,34 +273,10 @@
     },
     "S10": {
       "id": "S10",
-      "request_hash": "53dd83f4fef91e2b1074786a7eef4ba725cfb515409fb8d106141bd4a3361c0e",
-      "status": "completed",
+      "request_hash": "a318137d5db2a5f5fce7f3e4b93448c0e51df67ac37a1cc6e5471ad29ccef3cb",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-03T06:41:17Z",
-      "create_attempts": 1,
-      "error": null,
-      "video_id": "task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6",
-      "task_id": "task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6",
-      "requested_seconds": 5.0,
-      "requested_size": "720P",
-      "poll_retries": 1,
-      "applied_cooldown_seconds": 61,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6.mp4",
-      "bytes": 1645985,
-      "sha256": "d6a7f880e9628b093c5813a583240e8863416358f930dcc1240328e879274455",
-      "reported_size": "720P",
-      "reported_seconds": "5",
-      "inspection": {
-        "duration_seconds": 5.184,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1645985,
-        "decoded_ok": true,
-        "contact_sheet": "production/crippen1910/qa/S10.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-03T06:41:31Z"
     }
   },
   "source_size": "720P",
@@ -351,7 +327,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-03T06:41:29Z",
+  "updated_at": "2026-11-03T06:41:31Z",
   "run_id": "41587710972",
   "previous_results": {
     "S03": [
@@ -549,6 +525,37 @@
           "height": 720,
           "fps": "24/1",
           "bytes": 1939166,
+          "decoded_ok": true,
+          "contact_sheet": "production/crippen1910/qa/S10.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      },
+      {
+        "id": "S10",
+        "request_hash": "53dd83f4fef91e2b1074786a7eef4ba725cfb515409fb8d106141bd4a3361c0e",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-03T06:41:17Z",
+        "create_attempts": 1,
+        "error": null,
+        "video_id": "task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6",
+        "task_id": "task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6",
+        "requested_seconds": 5.0,
+        "requested_size": "720P",
+        "poll_retries": 1,
+        "applied_cooldown_seconds": 61,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_FwVWk1VA3JsRx1TwuesgHIBYoAMV6xy6.mp4",
+        "bytes": 1645985,
+        "sha256": "d6a7f880e9628b093c5813a583240e8863416358f930dcc1240328e879274455",
+        "reported_size": "720P",
+        "reported_seconds": "5",
+        "inspection": {
+          "duration_seconds": 5.184,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1645985,
           "decoded_ok": true,
           "contact_sheet": "production/crippen1910/qa/S10.jpg",
           "visual_review": "pending"
