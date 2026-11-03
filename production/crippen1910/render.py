@@ -191,6 +191,14 @@ def source_reframe_filters(shot: dict) -> list[str]:
     # distant passers-by through the right window. This is a fixed edit of genuine footage.
     if shot["id"] == "S18":
         return ["crop=trunc(iw*0.59375/2)*2:trunc(ih*0.59375/2)*2:0:0"]
+    if shot["id"] == "S22":
+        # Source is verified 1280x720. Remove one chart label and defocus only the
+        # small prop headline region, never the actor's face or the whole shot.
+        alpha="255*clip(min(min(X/8,(W-1-X)/8),min(Y/8,(H-1-Y)/8)),0,1)"
+        return ["delogo=x=500:y=580:w=115:h=44:enable='lt(t,4.3)'",
+                "split[base][paper];[paper]crop=240:110:130:305,boxblur=8:2,format=rgba,"
+                "geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='"+alpha+"'[patch];"
+                "[base][patch]overlay=130:305:enable='lt(t,4.3)'"]
     return []
 
 
