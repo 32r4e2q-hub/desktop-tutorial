@@ -47,5 +47,14 @@ if results.exists():
             item['legacy_response']={key:legacy_data.get(key) for key in ['id','video_id','status','progress','created_at','started_at','completed_at','error'] if key in legacy_data}
         except Exception as exc:item['error_type']=type(exc).__name__
         out['task_checks'].append(item)
+# Small actual image-understanding preflight for the automated continuity reviewer.
+try:
+    source=json.loads(Path('production/crippen1910/reference/approvals.json').read_text())['revision']
+    url=f'https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/{source}/production/crippen1910/reference/C05_side.png'
+    payload={'model':'agnes-2.5-flash','max_tokens':300,'temperature':0,'messages':[{'role':'user','content':[{'type':'text','text':'Describe only what is actually visible: is this a left profile of one white-uniformed captain, with a telescope? This is a still reference, not a video. Reply briefly.'},{'type':'image_url','image_url':{'url':url}}]}]}
+    request=urllib.request.Request('https://apihub.agnes-ai.com/v1/chat/completions',data=json.dumps(payload).encode(),headers={'Authorization':'Bearer '+os.environ['AGNES_API_KEY'],'Content-Type':'application/json'},method='POST')
+    with urllib.request.urlopen(request,timeout=180) as response:vision=json.load(response)
+    out['vision_preflight']={'model':'agnes-2.5-flash','source_reference':'C05_side','response':vision['choices'][0]['message']['content']}
+except Exception as exc:out['vision_preflight']={'error_type':type(exc).__name__}
 Path('production/crippen1910/service-probe.json').write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n')
 print(json.dumps(out, ensure_ascii=False, indent=2))

@@ -815,6 +815,21 @@ def main() -> int:
             outcomes = [False]
     else:
         prepare_selected(selected)
+        if options.get('eager_submit'):
+            # Submit only this reviewed five-shot batch, spaced by the same 61-second gate.
+            # Poll workers stay at two; accepted task IDs are always resumed, never duplicated.
+            for shot in selected:
+                sid=shot['id'];old=doc.get('shots',{}).get(sid,{})
+                wanted=request_hash(project,shot)
+                if old.get('request_hash')==wanted and (old.get('video_id') or old.get('sha256')):
+                    continue
+                created=paced_create(sid,full_payload(project,shot))
+                video_id=created.get('video_id') or created.get('id') or created.get('task_id')
+                task_id=created.get('task_id') or created.get('id')
+                if not video_id:raise RuntimeError('Accepted create response has no task identifier: '+sid)
+                checkpoint(sid+' accepted in paced batch submission',sid,status=created.get('status','queued'),
+                           request_hash=wanted,video_id=str(video_id),task_id=str(task_id) if task_id else None,
+                           requested_seconds=float(shot['duration']),requested_size=SOURCE_SIZE,error=None)
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
             outcomes = list(pool.map(generate_one, selected))
     if not all(outcomes):

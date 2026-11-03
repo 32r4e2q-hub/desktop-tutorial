@@ -123,7 +123,7 @@ def main():
     for start in range(0,30,5):
         batch=project['shots'][start:start+5]
         print('START_BATCH',start//5+1,flush=True)
-        payload=dict(mode='clips',only=','.join(s['id'] for s in batch),workers=2)
+        payload=dict(mode='clips',only=','.join(s['id'] for s in batch),workers=2,eager_submit=True)
         subprocess.run([sys.executable,str(HERE/'generate.py'),'--publish','--payload',json.dumps(payload)],check=True)
         review_batch(batch,project)
     # Explicit temporal workflow boundary: no synthesis before all thirty reviewed clips.

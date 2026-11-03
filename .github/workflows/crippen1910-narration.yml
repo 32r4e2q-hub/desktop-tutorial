@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   narration:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4

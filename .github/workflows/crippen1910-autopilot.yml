@@ -7,7 +7,7 @@ permissions:
   contents: write
 concurrency:
   group: crippen1910-agnes-arena-f38dd103-desktop-tutorial-v1
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   film:
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
