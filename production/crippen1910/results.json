@@ -396,9 +396,9 @@
     "S14": {
       "id": "S14",
       "request_hash": "8b24555d917387d42d880a2ed4d9f1737f7e2d632d478888caa977243979e383",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-03T08:53:43Z",
+      "updated_at": "2026-11-03T08:53:46Z",
       "create_attempts": 2,
       "error": null,
       "capacity_error": "HTTP 429",
@@ -411,7 +411,18 @@
       "bytes": 3003227,
       "sha256": "8f90f99797115e533e828ee706d78fdd2954cb6fbc97daae93e74ac5c76df676",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3003227,
+        "decoded_ok": true,
+        "contact_sheet": "production/crippen1910/qa/S14.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S15": {
       "id": "S15",
@@ -707,7 +718,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-03T08:53:45Z",
+  "updated_at": "2026-11-03T08:53:46Z",
   "run_id": "41595089970",
   "previous_results": {
     "S03": [
