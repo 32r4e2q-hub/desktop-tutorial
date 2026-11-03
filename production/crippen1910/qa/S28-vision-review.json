@@ -1,0 +1,42 @@
+{
+  "shot": "S28",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "3bfdb9c01b4274c1dedd3192e47e9ceade3510a30b3a0dda8e6097573eb911a5",
+  "image_revision": "0efb85d81e3fd1dad31cf22c78b67bc19744e477",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.09187089801198257,
+    "residuals": [
+      0.05899673202614379,
+      0.08373100490196078,
+      0.09924183006535948,
+      0.11222092864923747,
+      0.09782162309368192,
+      0.09920846949891068,
+      0.10392252178649238,
+      0.07982407407407408
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": false,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "The video is a static pan of a single image. The background geometry, perspective lines, and door positions remain perfectly rigid across all frames with no parallax shifts or micro-movements.",
+      "The hanging lanterns are visually frozen; their wicks do not flicker despite the camera moving past them.",
+      "The lighting is constant throughout the sequence, failing to show the 'lights extinguishing one by one' narrative beat.",
+      "The doors remain open in the wide shots but do not show any actual closing animation, contradicting the core action description."
+    ],
+    "observations": [
+      "Frame timestamps 00:00-00:06 show identical stone arching and wall textures shifting only due to rigid camera translation.",
+      "The rightmost door in the mid-shot (around 00:02) appears static in its own frame while the camera moves away, confirming it is a still element.",
+      "No characters, silhouettes, or movement sources are present in any frame.",
+      "The corridor composition is symmetrical but the motion is a smooth, mechanical slide rather than a live filmed push-in."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
