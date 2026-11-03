@@ -1,0 +1,34 @@
+{
+  "shot": "S15",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "ca893e27675064edf9afd89382c6191cbd9d8ed7287e6bd133353afce6078fef",
+  "image_revision": "b764f38b38dc7bb5494490aee5f856486d486e36",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.14943858081427014,
+    "residuals": [
+      0.13918532135076253,
+      0.15166346677559914,
+      0.13502308006535949,
+      0.14741047113289762,
+      0.15730194716775597,
+      0.15931059368191722,
+      0.1472520424836601,
+      0.15836172385620914
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Two main characters walk along a wooden gangplank towards the camera in a continuous tracking shot. C01B wears a grey fedora and light tan three-piece suit with a brown patterned tie, carrying a brown suitcase. C03B is dressed as a boy with short black hair under a black flat cap, wearing an oversized dark jacket and trousers with a white collared shirt. Background features brick port buildings, steamships, and Antwerp skyline towers bathed in warm golden light. Steam rises from ships indicating industrial port setting. Both characters show animated movement with leg motion and swinging suitcases. No visible text or watermarks. All nine chronological frames depict coherent motion of boarding the vessel."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
