@@ -2,20 +2,20 @@
   "shot": "S22",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "a463fdf52918f65be53dcc6572e2e6d7f0f90fd63029fa26851d608574ddad5e",
-  "image_revision": "f3970c5352c3120f3b568ad5b769373003126359",
+  "source_sha256": "431e80cbd5deb52a9c4ecd45b690663dfee2c4b7284ed35e6981eeabd9fbea82",
+  "image_revision": "84d6ff19af6abbb1d1aab70610cde162e73a59cd",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.12901515693082788,
+    "camera_compensated_mean_residual": 0.07530021105664488,
     "residuals": [
-      0.09005902777777777,
-      0.07539385893246187,
-      0.09314760348583878,
-      0.09249598311546842,
-      0.2335385348583878,
-      0.1778245506535948,
-      0.22281794662309368,
-      0.04684375
+      0.06483993736383442,
+      0.05999489379084967,
+      0.05718035130718954,
+      0.0755145697167756,
+      0.04564290577342048,
+      0.0932642973856209,
+      0.18611982570806102,
+      0.019844907407407405
     ]
   },
   "assessment": {
@@ -23,18 +23,20 @@
     "independent_motion": true,
     "identity_consistent": false,
     "safe": true,
-    "story_matches": true,
+    "story_matches": false,
     "issues": [
-      "C01B identity drift: reference shows wide cartoon eyes and no mustache, but in frames C01B has normal cinematic proportions and a light mustache — deliberate disguise does not override reference mismatch in the shot itself; character anchor says '无胡子' but frames show a visible mustache",
-      "Left side of split-screen shows warm amber deck lighting but right side shows cold blue tones, not both simultaneously as described; blue ring does not connect both sides in any frame, rings are separate visual elements with no merge animation into Canadian estuary",
-      "C04 inspector face/clothing: consistent across frames (mustache shape, bowler hat, dark overcoat) but reference image shows different mustache style than what appears in actual footage; identity reference is not matched in shot"
+      "C01B identity drift: The reference image shows wide cartoon eyes and a clean-shaven face, but the shot frames show realistic proportional eyes and a visible light mustache. While the prompt mentions a 'deliberate disguise', the character anchor explicitly states '无胡子' (no mustache), and the reference face does not match the shot's face at all.",
+      "Text watermark: The word 'Montrose' is visible as an on-screen text label in the grid frames below the characters.",
+      "Blue ring continuity: The blue rings do not connect both sides into a single entity; they appear as separate concentric rings around each ship, though there is a merging transition to a single sea view at the end.",
+      "Expected narration content: 一边还在悠闲看海，另一边，已经抢先抵达加拿大。"
     ],
     "observations": [
-      "Frame row shows three sequential shots: warm-lit man reading newspaper on ship deck, cold-lit man standing on same deck; nautical map with glowing blue route dots visible in each frame; no text on newspaper visible, characters are clean-shaven or have mustaches depending on frame",
-      "C01B anchor image shows wide cartoon eyes, grey fedora, tan suit with maroon tie, no mustache — but in frames C01B has normal proportions and a light mustache",
-      "C04 anchor image shows steely blue eyes, black bowler hat, thick handlebar mustache, dark overcoat — but in frames C04 has thinner mustache and different facial proportions",
-      "Blue concentric rings appear in first bottom frame but do not merge with Canadian estuary scene; ship voyage shown in center bottom frame with dark smoke from funnel",
-      "No numbers/coordinates visible on map; no visible text/watermark on any element; story action matches narration: one relaxed on deck, one already arrived"
+      "C01B has a light mustache in the footage but is clean-shaven in the identity reference.",
+      "C01B has realistic eyes in the footage but wide cartoon eyes in the identity reference.",
+      "The word 'Montrose' appears as text below the characters.",
+      "Blue glowing rings surround each ship separately in the split-screen section.",
+      "The final frames transition to a single cold blue seascape with a vertical light beam.",
+      "The inspector (C04) has a consistent thick mustache and bowler hat across all frames."
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
