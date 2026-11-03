@@ -2,40 +2,38 @@
   "shot": "S25",
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
-  "source_sha256": "b742806f9dce337f1fa89b5e4b0d8b9c3b786ae1733c095397975d8caf1bab8a",
-  "image_revision": "e7e50112dcc0293e03a4f44af1a010109e9ab05a",
+  "source_sha256": "a0f32b526f6dd04fab0d470d0e581af068c6fcd6f6b41fb7a7020ac156c87f46",
+  "image_revision": "3c1d4e1e9b432571abdab9258e2dcd0ddd8e550b",
   "motion_metrics": {
     "unique_sampled_frames": 9,
-    "camera_compensated_mean_residual": 0.08938377416938997,
+    "camera_compensated_mean_residual": 0.08044929534313726,
     "residuals": [
-      0.11001348039215687,
-      0.0969868600217865,
-      0.0921625816993464,
-      0.15203227124183005,
-      0.11880691721132898,
-      0.06961478758169934,
-      0.05449611928104575,
-      0.020957175925925924
+      0.09394546568627452,
+      0.07210580065359477,
+      0.07426136982570807,
+      0.10339018246187363,
+      0.08162881263616557,
+      0.07356733387799565,
+      0.08764760348583878,
+      0.05704779411764706
     ]
   },
   "assessment": {
-    "pass": false,
+    "pass": true,
     "independent_motion": true,
     "identity_consistent": true,
     "safe": true,
-    "story_matches": false,
-    "issues": [
-      "Action does not match expected event. The prompt requires C01B (the man in the soft felt hat, Inspector) to remove his hat from his own head. Instead, the animation shows C04B (the man in the peaked cap, Clarkin) removing his uniform cap. The required 'identity reveal' via the felt hat removal is missing.",
-      "Narration contradiction. The supplied text '帽子摘下，身份揭晓' (Hat taken off, identity revealed) directly conflicts with the visual, where the wrong character's hat is removed, failing to deliver the promised narrative beat."
-    ],
+    "story_matches": true,
+    "issues": [],
     "observations": [
-      "C01B character in frames 1-3 (bottom-left of grid and left detail frame) correctly depicts a man in a beige suit with a grey/greenish soft felt hat (fedor/ trilby style) and no facial hair; matches C01B anchor.",
-      "C04B character in frames 1-3 correctly depicts a man in a navy double-breasted pilot uniform with a peaked cap and a thick handlebar moustache; matches C04B anchor.",
-      "In frame 2 (top center), C04B is shown reaching up to grasp the brim of his own peaked cap, appearing to lift it off his head. C01B stands facing him with his hat securely on his head.",
-      "In frame 3 (top right), C04B holds the peaked cap in his hand near his shoulder/chest area. C01B has not removed his hat.",
-      "Frames 4-9 (grid middle/bottom rows) show close-up reaction shots focusing on the faces of both characters. No hat is held by C01B, and C04B's hands are not visible in these close-ups. The action of hat removal is not completed by the correct subject."
+      "Frame 2 shows C01B (man in tan suit/felt hat) lifting the hand to the brim of his own hat, actively removing it.",
+      "Frame 3 clearly shows C01B holding the grey felt hat in his hand, no longer on his head.",
+      "Frames 4-6 show C01B holding the removed hat against his chest while maintaining eye contact with C04B.",
+      "C04B (man in peaked cap/uniform) remains standing in place; his cap stays on his head throughout the sequence, confirming he did not remove his uniform cap.",
+      "Facial expressions shift from neutral (C01B) and stern (C04B) to surprised and softening (C04B) in the close-up frames, consistent with the 'shocked then relaxing' narrative beat.",
+      "Lighting changes from shadow to bright backlight/wash in the final close-up frames, corresponding to the 'fog penetrated by sunlight' direction."
     ],
     "image_transport": "inline_jpeg_data_uri",
-    "accepted": false
+    "accepted": true
   }
 }
