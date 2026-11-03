@@ -5,6 +5,7 @@ on:
     paths: [production/crippen1910/PROBE_REQUEST, .github/workflows/crippen1910-probe.yml]
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: crippen1910-probe
   cancel-in-progress: false
@@ -17,6 +18,15 @@ jobs:
         with:
           ref: arena/f38dd103-desktop-tutorial
           sparse-checkout: production/crippen1910
+      - name: Hand off the two persisted tasks to the resumable autonomous runner
+        if: contains(github.event.head_commit.message, '[handoff-crippen]')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          state=$(gh run view 41551033420 --repo 32r4e2q-hub/desktop-tutorial --json status --jq .status)
+          if [ "$state" != completed ]; then
+            gh run cancel 41551033420 --repo 32r4e2q-hub/desktop-tutorial
+          fi
       - name: Check service without creating a video task
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
