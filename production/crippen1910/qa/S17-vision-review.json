@@ -1,0 +1,42 @@
+{
+  "shot": "S17",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "f4b3448fb3a14f957b03f352502d6ba91f0be872739ce06cb9fb80169ce18ab6",
+  "image_revision": "1631d71bca08764f296cb2adbc1be92c1e768ae4",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.06788551028050109,
+    "residuals": [
+      0.041671092047930285,
+      0.05659157135076253,
+      0.05702416938997821,
+      0.07221806917211329,
+      0.08133646514161219,
+      0.08063037854030501,
+      0.08386921296296296,
+      0.06974312363834421
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Warm-toned wooden dining room with chandeliers and bright window light consistent with a restaurant setting.",
+      "C01B (grey soft felt hat, tan travel suit, clean-shaven, slight nasal bridge indentation) seated at table, holding bread basket.",
+      "C03B (dark flat cap, oversized dark suit, nervous expression) seated opposite C01B.",
+      "C03B's pant leg is raised in foreground center frame; a bright safety-pin-shaped glint is clearly visible at the cuff hem.",
+      "C01B's hand is extended toward C03B's raised ankle/cuff area, matching the described intimate gesture; hands are in proximity or contact.",
+      "C05 (white captain uniform, gold epaulets, grey beard, captain cap) is visible in background left; gaze and upper body turned toward the pair, consistent with distant observation.",
+      "Lighting varies naturally across frames (warm interior vs. bright window), with plausible face angle variation but no material identity drift.",
+      "No modern clothing elements outside S29, no visible watermarks, no gore/remains/hanging, no duplicate faces or limbs.",
+      "Sequence shows continuous action in progress across occupied chronological cells."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
