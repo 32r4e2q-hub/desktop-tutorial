@@ -1,0 +1,40 @@
+{
+  "shot": "S27",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "2b9ef9fa5df98c7e4af50965754dc5b9b945b7feb2fc6c61a432036ac06be4d6",
+  "image_revision": "0efb85d81e3fd1dad31cf22c78b67bc19744e477",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.06592566210511983,
+    "residuals": [
+      0.03996779684095861,
+      0.059871936274509804,
+      0.06550156590413943,
+      0.0753822848583878,
+      0.07528152233115468,
+      0.07186832788671024,
+      0.07265168845315904,
+      0.066880174291939
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "The '首席站起口头宣告' (Foreperson standing to orally declare) action is not shown; the jury foreperson remains seated throughout the clip, while only the defendant (C01) stands and then bows his head."
+    ],
+    "observations": [
+      "The sequence shows C01 (small man, round gold glasses, thick moustache, grey three-piece suit) initially seated at the dock, then standing and finally bowing his head in a medium close-up.",
+      "The jury foreperson (seated far left in wide shots) does not appear to stand or address the court in any of the sampled frames; he remains seated while other jurors look on.",
+      "The judge (in red robes and white wig) remains seated at the bench throughout; no gavel is visible or used.",
+      "C09 group identity is consistent with Edwardian-era judges and jurors depicted in the reference image, with plausible period clothing and roles.",
+      "Camera movement includes a push-in from wide to medium close-up of C01, consistent with '中景轻推'."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
