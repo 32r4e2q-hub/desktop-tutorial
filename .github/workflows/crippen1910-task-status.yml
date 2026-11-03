@@ -1,0 +1,33 @@
+name: Crippen read-only task status
+on:
+  push:
+    branches: [arena/f38dd103-desktop-tutorial]
+    paths: [production/crippen1910/TASK_STATUS_REQUEST]
+permissions:
+  contents: write
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f38dd103-desktop-tutorial
+          sparse-checkout: |
+            production/crippen1910
+            production/agnes_video.py
+          sparse-checkout-cone-mode: false
+      - name: Query existing task IDs without generating
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 production/crippen1910/check_task_status.py
+      - name: Save safe status receipt
+        run: |
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add production/crippen1910/task-status-probe.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'crippen1910: actual read-only provider status receipt'
+            git pull --rebase --autostash origin arena/f38dd103-desktop-tutorial
+            git push origin arena/f38dd103-desktop-tutorial
+          fi
