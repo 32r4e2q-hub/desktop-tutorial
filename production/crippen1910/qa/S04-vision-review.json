@@ -1,0 +1,41 @@
+{
+  "shot": "S04",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "5f4855c0455a073b0ce0890d06d31b61e4f59c14f0ba368883c85411f42d98e9",
+  "image_revision": "550ab2dfd2e446d68f4e6c7a7c149f8bd860b77b",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.08263054874727668,
+    "residuals": [
+      0.054207312091503264,
+      0.05846282679738562,
+      0.0912229711328976,
+      0.10047426470588236,
+      0.10274087690631808,
+      0.102223924291939,
+      0.08391013071895426,
+      0.06780208333333333
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Character C02 (Kora) maintains golden curly updo, heavy makeup with red lips, and the specified purple stage gown with feathered cape throughout all frames.",
+      "Character C01 (Krippin) appears as a short middle-aged man with round gold-rimmed glasses and thick gray mustache, wearing a dark grey three-piece suit.",
+      "C01 is positioned in the foreground or mid-ground looking down and fiddling with a pocket watch chain, matching the 'quietly sitting' action.",
+      "C02 is shown in wide gestures with arms open, matching the singing/vocal performance action.",
+      "Background extras are visible clapping in the doorway area, consistent with audience applause.",
+      "The scene is lit with warm yellow lighting from wall sconces, creating the 'warm lamp living room' atmosphere.",
+      "Camera movement simulates a dolly/arc around the subjects, changing perspective between medium and closer shots.",
+      "No extraneous on-screen text or watermarks are visible."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
