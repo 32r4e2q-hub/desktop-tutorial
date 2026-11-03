@@ -80,6 +80,8 @@ def ask_vision(shot,project,revision,motion):
           "Check independent movement of people/objects/waves/smoke beyond a simple camera pan or zoom of one still. Check exact core face, moustache/glasses, hair, costume and role continuity. "
           "For C01B clean-shaven/no glasses is deliberate disguise; C03B is an adult woman disguised as a boy; C04B is pilot disguise. C07/C09 group extras need plausible period clothing/count, not biometric matching of every extra. "
           "Do not reject harmless angle/expression/lighting variation. Reject material face/clothing drift, missing essential story action, visible text/watermark, modern clothing outside S29, duplicate faces/limbs, gore/remains/hanging, or a still image disguised by camera motion. "
+          "Inspect EVERY occupied chronological grid cell: the three larger detail frames sample only some times and can omit an action visible elsewhere in the grid. Compare actual arm/limb poses relative to the scene before claiming static silhouettes. "
+          "Judge essential narrative events, safety and identity rigorously, not exact camera recipe execution. A moving action in progress is not its opposite just because the final sample does not show a latch/end pose. Do not invent or misquote narration: its exact text is supplied separately above. "
           "If the images are not accessible or unclear, fail with that issue; never infer that they passed. "
           'Return ONLY JSON: {"pass":boolean,"independent_motion":boolean,"identity_consistent":boolean,"safe":boolean,"story_matches":boolean,"issues":[strings],"observations":[specific visible evidence strings]}.')
     content=[dict(type='text',text=text)]
