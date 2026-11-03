@@ -1,0 +1,44 @@
+{
+  "shot": "S10",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "b796449c87e47e71f41ace8d77d7d351ede26cf87304e77c2fac3aed4fd982d3",
+  "image_revision": "2bdc634d37812f3f34b353d023e67dbe520ba908",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.07003977736928105,
+    "residuals": [
+      0.05221153322440087,
+      0.05436485566448802,
+      0.10175381263616558,
+      0.1509821623093682,
+      0.08622038398692809,
+      0.04440468409586057,
+      0.034507965686274504,
+      0.03587282135076253
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": false,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Missing expected action: detective knocking on door; character is already entering or inside the house.",
+      "Missing expected action: moving through an empty, quiet living room with visible cold cup and wind-moving curtains as primary focus.",
+      "Shot composition does not reflect 'low-angle following entrance'; camera height varies and does not prominently track entry from low position.",
+      "Narration context ('couples suddenly disappeared') not visually supported — no indication of absence, investigation, or emotional tone implied."
+    ],
+    "observations": [
+      "Character matches C04 anchor: tall middle-aged man, prominent handlebar mustache, dark overcoat, bowler hat, sharp gaze.",
+      "Scene transitions from exterior cobblestone street to interior green-walled room with red sofa, gramophone, and framed portraits.",
+      "No visible wind movement in curtains; all drapery appears static across frames.",
+      "No close-up or clear view of a teacup on table to confirm it is cold; cup appears present but not emphasized.",
+      "Camera angle shifts from rear three-quarter to frontal full-body; no consistent low-angle tracking shot observed.",
+      "Lighting is moody and blue-tinted in exterior, warmer indoors — partial match to 'cold cyan-blue' tone request."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
