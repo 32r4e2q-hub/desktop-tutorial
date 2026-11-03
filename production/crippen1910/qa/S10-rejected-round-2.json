@@ -1,0 +1,46 @@
+{
+  "shot": "S10",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "e502a0c4ea3b004a6d0d4dcbda4bb86a860f05451476395f484977c305fea8cf",
+  "image_revision": "26a2c7e97b39bb2591eedb41388791c169d469a6",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.07080364923747276,
+    "residuals": [
+      0.05220091230936819,
+      0.07007216775599129,
+      0.07208523965141611,
+      0.09378833061002179,
+      0.11449802559912854,
+      0.07706631263616558,
+      0.05293048747276688,
+      0.033787717864923746
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Missing expected action: detective knocking on door; character is already entering or inside the house.",
+      "Missing expected action: moving through an empty, quiet living room with visible cold cup and wind-moving curtains as primary focus.",
+      "Shot composition does not reflect 'low-angle following entrance'; camera height varies and does not prominently track entry from low position.",
+      "Narration context ('couples suddenly disappeared') not visually supported — no indication of absence, investigation, or emotional tone implied."
+    ],
+    "observations": [
+      "Frame 1-3: Detective (C04) seen from behind, standing at doorway, knocking or about to enter. Dark coat, bowler hat, mustache consistent with reference.",
+      "Frame 4-6: View from over shoulder into green-walled living room with red sofa, gramophone, framed portraits on walls, sheer curtains visible.",
+      "Frame 7-9: Interior shot focuses on empty living room - red sofa with throw, gramophone on table, coffee cup on small table in foreground, curtains slightly billowed.",
+      "Camera angle shifts from exterior street level to interior over-the-shoulder to eye-level interior - no consistent low-angle tracking shot.",
+      "Character identity consistent: tall middle-aged man,浓密八字胡, dark overcoat, bowler hat, sharp gaze matches C04 anchor.",
+      "Steam visible rising from coffee cup suggests it may not be cold yet, contradicting '杯子已经冷了'.",
+      "Curtains show minimal movement - possible wind implication but not prominently featured as primary action.",
+      "No visual indication of missing persons or investigation atmosphere beyond ordinary domestic scene."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
