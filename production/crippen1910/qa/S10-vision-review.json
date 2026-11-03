@@ -3,7 +3,7 @@
   "model": "agnes-2.5-flash",
   "reviewer": "Agnes image understanding, automated; NOT a human approval",
   "source_sha256": "e502a0c4ea3b004a6d0d4dcbda4bb86a860f05451476395f484977c305fea8cf",
-  "image_revision": "26a2c7e97b39bb2591eedb41388791c169d469a6",
+  "image_revision": "2a87977b75e62d75d74fb0d222f76eb50c803aa8",
   "motion_metrics": {
     "unique_sampled_frames": 9,
     "camera_compensated_mean_residual": 0.07080364923747276,
@@ -20,25 +20,26 @@
   },
   "assessment": {
     "pass": false,
-    "independent_motion": true,
+    "independent_motion": false,
     "identity_consistent": true,
     "safe": true,
     "story_matches": false,
     "issues": [
-      "Missing expected action: detective knocking on door; character is already entering or inside the house.",
-      "Missing expected action: moving through an empty, quiet living room with visible cold cup and wind-moving curtains as primary focus.",
-      "Shot composition does not reflect 'low-angle following entrance'; camera height varies and does not prominently track entry from low position.",
-      "Narration context ('couples suddenly disappeared') not visually supported — no indication of absence, investigation, or emotional tone implied."
+      "Missing expected action: detective is shown knocking on the door but never enters or walks through the house.",
+      "Camera height is not a low-angle following shot; frames show eye-level or high-angle outside shots and static interior wide shots, not a tracking movement from a low position.",
+      "Interior shot color tone is warm amber/green rather than the specified cold blue palette.",
+      "No visible evidence of wind-moving curtains; curtains appear static in all frames.",
+      "The cold cup and quiet living room are present but not framed as primary focus with the required camera movement."
     ],
     "observations": [
-      "Frame 1-3: Detective (C04) seen from behind, standing at doorway, knocking or about to enter. Dark coat, bowler hat, mustache consistent with reference.",
-      "Frame 4-6: View from over shoulder into green-walled living room with red sofa, gramophone, framed portraits on walls, sheer curtains visible.",
-      "Frame 7-9: Interior shot focuses on empty living room - red sofa with throw, gramophone on table, coffee cup on small table in foreground, curtains slightly billowed.",
-      "Camera angle shifts from exterior street level to interior over-the-shoulder to eye-level interior - no consistent low-angle tracking shot.",
-      "Character identity consistent: tall middle-aged man,浓密八字胡, dark overcoat, bowler hat, sharp gaze matches C04 anchor.",
-      "Steam visible rising from coffee cup suggests it may not be cold yet, contradicting '杯子已经冷了'.",
-      "Curtains show minimal movement - possible wind implication but not prominently featured as primary action.",
-      "No visual indication of missing persons or investigation atmosphere beyond ordinary domestic scene."
+      "Character C04 consistently shown: dark bowler hat, dark overcoat, mustache matching identity reference in exterior frames.",
+      "Frame 1-2: Detective outside door, hand raised knocking, streetlamp glow, smoky blue exterior.",
+      "Frame 3-4: Detective still at doorway, door partially open, interior visible but no entry motion.",
+      "Frame 5-7: Interior shots show green walls, red sofa, gramophone, framed portraits, warm lamp lighting—no cold blue tone.",
+      "Frame 8-9: White curtains visible by window but completely static, no wind movement evident.",
+      "Coffee cup on table in interior frames appears steaming/warm, not clearly 'cold'.",
+      "No low-angle perspective; all shots are eye-level or high-angle looking down.",
+      "No camera tracking motion following character entry; static or pan-only shots."
     ],
     "image_transport": "inline_jpeg_data_uri",
     "accepted": false
