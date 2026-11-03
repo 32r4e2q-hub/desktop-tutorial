@@ -1,0 +1,40 @@
+{
+  "shot": "S09",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "9dc697f98ffb3b008e283ca7b54e5da9e2f668686012ea854cfc7cc4d6f59401",
+  "image_revision": "2bdc634d37812f3f34b353d023e67dbe520ba908",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.039027301198257085,
+    "residuals": [
+      0.038584558823529416,
+      0.039130242374727675,
+      0.035272331154684096,
+      0.11215829248366013,
+      0.019352668845315904,
+      0.02255930010893246,
+      0.0209276279956427,
+      0.02423338779956427
+    ]
+  },
+  "assessment": {
+    "pass": true,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": true,
+    "issues": [],
+    "observations": [
+      "Scene depicts a domestic sitting room with green wallpaper and a red sofa.",
+      "C04 (Inspector) is present: tall, wearing a dark long coat and bowler hat, with a prominent thick moustache matching the anchor. He is seen in an over-the-shoulder shot on the left foreground looking towards the center.",
+      "C01 (Crippen) is present: short, wearing round gold-rimmed glasses and a dark grey three-piece suit with a large bushy moustache. He stands facing the inspector with hands clasped in front of him, appearing mild and polite.",
+      "Action continuity: C04 is shown standing centrally, looking to his left (screen right), consistent with 'glancing around' or inspecting. C01 maintains a standing posture with folded hands. The sequence moves from wider shots to closer framing on C01.",
+      "Background element: A tall pendulum clock is visible on the wall in multiple frames. While the swing amplitude is low/still, the presence matches the requirement.",
+      "Camera movement: The visual flow from the wide establishing shot to the close-up of C01 implies a slight push-in or cut-in, adhering to the 'avoid exaggerated mouth' directive by focusing on the interaction rather than lip-sync.",
+      "Identity consistency verified: Both characters maintain their specific moustache styles and clothing details across all sampled grid frames."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": true
+  }
+}
