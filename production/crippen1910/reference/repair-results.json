@@ -75,10 +75,32 @@
       "approved_for_video": false
     }
   ],
-  "still_needs_repair": [
-    "C05_side",
-    "C06_side",
-    "C08_side"
-  ],
-  "later_repairs": "See composite-repairs.json for C03B/C08 framing and P02 ink-portrait replacement. All candidates remain unapproved."
+  "still_needs_repair": [],
+  "later_repairs": "See composite-repairs.json for C03B/C08 framing and P02 ink-portrait replacement. All candidates remain unapproved.",
+  "final_repairs": [
+    {
+      "id": "C05_side",
+      "sha256": "a612e9bdee95a5e7901ac13ef8cd96b3e2a3d395f23b043164ffe7fe0bdc974e",
+      "method": "Arena image edit: own original character plus verified side pose; C08 face uses own front and corrected side",
+      "visual_review": "passed: angle, costume, identity, no added face/headphones"
+    },
+    {
+      "id": "C06_side",
+      "sha256": "d7448931ec27aec08776ace4ec763995ee9b693f0cb50db769357723bbda1b97",
+      "method": "Arena image edit: own original character plus verified side pose; C08 face uses own front and corrected side",
+      "visual_review": "passed: angle, costume, identity, no added face/headphones"
+    },
+    {
+      "id": "C08_side",
+      "sha256": "942d5eeee9b86426e994df7bd1cb234f382d8d226beae4ae2c55dadaa9134877",
+      "method": "Arena image edit: own original character plus verified side pose; C08 face uses own front and corrected side",
+      "visual_review": "passed: angle, costume, identity, no added face/headphones"
+    },
+    {
+      "id": "C08_face",
+      "sha256": "d0ad6d98b8b2098e3477d5ad6ae9c0ab21ceacccd0247431de5ac38cea43f862",
+      "method": "Arena image edit: own original character plus verified side pose; C08 face uses own front and corrected side",
+      "visual_review": "passed: angle, costume, identity, no added face/headphones"
+    }
+  ]
 }
