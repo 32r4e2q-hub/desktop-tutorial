@@ -1,0 +1,43 @@
+{
+  "shot": "S03",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "43f025409de1a89d478d5a86c30a23ba52f717313138ff92ea9d30fac3ace9f4",
+  "image_revision": "550ab2dfd2e446d68f4e6c7a7c149f8bd860b77b",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.06657584422657953,
+    "residuals": [
+      0.08436696623093683,
+      0.07388174019607843,
+      0.07344975490196079,
+      0.2147470043572985,
+      0.019472630718954248,
+      0.020648624727668846,
+      0.022114106753812635,
+      0.023925925925925927
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": false,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Missing core story action: the expected scene requires visible guests raising glasses and moving/interacting inside the window, but all figures are static silhouettes.",
+      "Camera motion does not match the required low-angle street push-in toward a window; the wide exterior is static across frames.",
+      "Narration mentions a party, but interiors show only furniture with no guests visible."
+    ],
+    "observations": [
+      "Top grid row shows three nearly identical exterior frames of a foggy cobblestone street with gas lamps and brick terraces; positions of lampposts and window silhouettes do not change.",
+      "Middle-left grid frame is a duplicate of the exterior view with no camera movement compared to the top row.",
+      "Middle-right and bottom-left grid frames show an interior living room with green walls, a red sofa, framed portraits, and a gramophone, but no people are present.",
+      "Wide exterior panel (Image 2 left) matches the earlier static street framing and does not demonstrate a push-in toward a window.",
+      "Wide interior panels (Image 2 center/right) are visually consistent in furniture and lighting but show no guest movement or drinking action.",
+      "Window silhouettes remain fixed across all exterior frames, indicating no independent motion."
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}

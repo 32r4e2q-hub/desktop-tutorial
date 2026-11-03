@@ -4,9 +4,9 @@
 |---|---|---|---|---|
 |S01|0–5秒|S06|他逃上大西洋邮轮，以为这片海，能藏住自己。|1910年7月，大西洋晨雾，黑烟囱远洋客轮破浪航行，乘客走动、海鸥盘旋、烟雾漂移。航拍下降靠近船舷，暖金色调。|
 |S02|5–10秒|S07, P01, C06|可一道电波，已经跑在了他的前面。|沿桅杆上摇，天线随风微颤，蓝色电弧闪亮；匹配切到电报室，电报员猛抬头，耳机线轻晃。|
-|S03|10–17秒|S01, S02|一九一零年一月三十一日，伦敦的小楼里，聚会正热闹。|夜雾流过伦敦希尔德罗普新月街，煤气灯照亮湿鹅卵石，窗内客人举杯走动，留声机唱片转动；街头低机位推近窗口。|
+|S03|10–17秒|S01, S02|一九一零年一月三十一日，伦敦的小楼里，聚会正热闹。|夜雾流过伦敦希尔德罗普新月街，煤气灯照亮湿鹅卵石，窗内客人举杯走动，留声机唱片转动；街头低机位推近窗口。 修订要求（不改变以上角色锚点、年代和动作）：Missing core story action: the expected scene requires visible guests raising glasses and moving/interacting inside the window, but all figures are static silhouettes.; Camera motion does not match the required low-angle street push-in toward a window; the wide exterior is static across frames.; Narration mentions a party, but interiors show only furniture with no guests visible.|
 |S04|17–24秒|C01, C02, S02, C01_face|女歌手科拉放声高歌，丈夫克里平，却安静地坐在角落。|暖灯客厅，科拉挥动羽毛披肩唱歌，朋友鼓掌，克里平微驼低头捏住怀表链。中景环绕，以拉焦对比两人，不生成对白文字。|
-|S05|24–30秒|S01, P04|可聚会之后，科拉再没露面，只留下了她的舞台帽。|不出现人物。走廊门缓缓自行合上，煤气灯焰轻颤，紫红羽毛宽边帽在楼梯台阶，羽毛被门缝气流带动，低机位缓缓接近。|
+|S05|24–30秒|S01, P04|可聚会之后，科拉再没露面，只留下了她的舞台帽。|不出现人物。走廊门缓缓自行合上，煤气灯焰轻颤，紫红羽毛宽边帽在楼梯台阶，羽毛被门缝气流带动，低机位缓缓接近。 修订要求（不改变以上角色锚点、年代和动作）：Main action mismatch: The sequence shows the door OPEN throughout the frames (wide open to narrow gap), but the expected narration explicitly states the door 'slowly closes by itself' (缓缓自行合上).; Narration conflict: The narration says 'Corra never appeared again after the party,' implying absence, but the shot begins with the door wide open and does not convey the finality of a closed door.|
 |S06|30–35秒|C03, S02|几周后，情人伊瑟尔住了进来，戴上科拉的首饰。|伊瑟尔在梳妆台镜前扣好项链，手指轻轻扣下女人的相框，镜中神情拘谨。镜面正确反射，特写缓推。|
 |S07|35–42秒|C07, S14|丈夫先说科拉回了美国，后来又说她病死，朋友们起了疑心。|音乐厅后台，三位女士对照信封与报纸，摇头、交换担忧目光，一人起身拿手袋。中景环绕，无可读文字。|
 |S08|42–49秒|C04, S04|她们报了警，苏格兰场的杜探长，开始调查这场失踪。|雾蒙蒙的苏格兰场外，杜探长持卷宗快步走过马车，进入大楼；冷青蓝光、衣摆随步伐摆动，侧面跟拍。|
