@@ -42,7 +42,7 @@ jobs:
           fc-cache -f >/dev/null 2>&1 || true
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Test the closed gates and exact timeline
-        run: python3 -m unittest production.tests.test_crippen1910 production.tests.test_crippen_reference_batch production.tests.test_crippen_transitions -q
+        run: python3 -m unittest production.tests.test_crippen1910 production.tests.test_crippen_reference_batch production.tests.test_crippen_transitions production.tests.test_crippen_selected_alignment -q
       - name: Generate, actually inspect each five shots, narrate and assemble
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}

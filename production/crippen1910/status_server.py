@@ -30,7 +30,9 @@ def update():
             try:voice=contents('production/crippen1910/audio/manifest.json')
             except Exception:voice={}
             runs=json.loads(api(f'repos/{REPO}/actions/workflows/crippen1910-autopilot.yml/runs?per_page=1'))['workflow_runs']
-            job=runs[0] if runs else {};rows=[]
+            try:runs+=json.loads(api(f'repos/{REPO}/actions/workflows/crippen1910-selected-voice.yml/runs?per_page=1')).get('workflow_runs',[])
+            except Exception:pass
+            job=max(runs,key=lambda r:r.get('created_at','')) if runs else {};rows=[]
             for n in range(1,31):
                 sid=f'S{n:02d}';r=result.get('shots',{}).get(sid,{})
                 approved=reviews.get(sid,{}).get('status')=='approved' and bool(r.get('sha256')) and reviews[sid].get('sha256')==r['sha256']
