@@ -46,14 +46,11 @@
       "url": "https://apihub.agnes-ai.com/v1/models",
       "status": 200,
       "model_ids": [
-        "agnes-2.5-pro-alpha",
         "agnes-video-2.5-flash",
         "agnes-3.0-flash",
         "agnes-image-2.1-flash",
-        "agnes-video-2.5",
         "agnes-image-2.0-flash",
         "agnes-2.5-flash",
-        "agnes-2.5-pro-beta",
         "agnes-image-2.5-flash"
       ]
     }
@@ -63,7 +60,7 @@
     {
       "shot": "S01",
       "task_id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
-      "checked_at_epoch": 1793665543,
+      "checked_at_epoch": 1793665978,
       "response": {
         "id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
         "status": "pending",
@@ -71,12 +68,19 @@
         "created_at": 1793664761,
         "completed_at": null,
         "error": null
+      },
+      "legacy_response": {
+        "id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
+        "video_id": "task_ICtO7sX8mYaQyXBsxFMonSI6hW4JBzKM",
+        "status": "queued",
+        "progress": 0,
+        "created_at": 1793664761
       }
     },
     {
       "shot": "S02",
       "task_id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
-      "checked_at_epoch": 1793665543,
+      "checked_at_epoch": 1793665978,
       "response": {
         "id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
         "status": "pending",
@@ -84,6 +88,13 @@
         "created_at": 1793664822,
         "completed_at": null,
         "error": null
+      },
+      "legacy_response": {
+        "id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
+        "video_id": "task_XpZsbwI2q7fpm1bBijCDMnpdhXtp2xnp",
+        "status": "queued",
+        "progress": 0,
+        "created_at": 1793664822
       }
     }
   ]
