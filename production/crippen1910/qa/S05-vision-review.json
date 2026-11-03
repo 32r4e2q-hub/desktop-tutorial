@@ -1,0 +1,44 @@
+{
+  "shot": "S05",
+  "model": "agnes-2.5-flash",
+  "reviewer": "Agnes image understanding, automated; NOT a human approval",
+  "source_sha256": "be8f7a13a92a061c7d45b0f9a705527e9fc5971d0f030002dd58652f0586fc9b",
+  "image_revision": "550ab2dfd2e446d68f4e6c7a7c149f8bd860b77b",
+  "motion_metrics": {
+    "unique_sampled_frames": 9,
+    "camera_compensated_mean_residual": 0.06077155671296297,
+    "residuals": [
+      0.036494825708061,
+      0.05106433823529412,
+      0.04922154139433551,
+      0.05936710239651416,
+      0.06630303649237473,
+      0.0779899237472767,
+      0.0945119825708061,
+      0.051219703159041396
+    ]
+  },
+  "assessment": {
+    "pass": false,
+    "independent_motion": true,
+    "identity_consistent": true,
+    "safe": true,
+    "story_matches": false,
+    "issues": [
+      "Main action mismatch: The sequence shows the door OPEN throughout the frames (wide open to narrow gap), but the expected narration explicitly states the door 'slowly closes by itself' (缓缓自行合上).",
+      "Narration conflict: The narration says 'Corra never appeared again after the party,' implying absence, but the shot begins with the door wide open and does not convey the finality of a closed door."
+    ],
+    "observations": [
+      "No human figures appear in any frame - corridor, stairs, and hat only",
+      "Purple-red feathered wide-brimmed hat present on staircase steps in all frames with consistent floral/rose decorations",
+      "GAS LAMP on brick wall shows visible flame颤动 (trembling) in all frames - independent light animation confirmed",
+      "Hat feathers show directional displacement across frames (left to right tilt shift) indicating air current from door",
+      "Camera performs low-angle push-in toward hat across sequence",
+      "CRITICAL: Door remains OPEN in all sampled frames - left edge of door moves from wide gap to narrow gap, but door does NOT close",
+      "Smoke/fog flows through open doorway and around stairs throughout sequence",
+      "Hat position shifts slightly up楼梯台阶 across frames consistent with camera approach"
+    ],
+    "image_transport": "inline_jpeg_data_uri",
+    "accepted": false
+  }
+}
