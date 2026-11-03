@@ -10,6 +10,7 @@ import edge_tts
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from build_audio import RATE,trim_voice_edges,write_wave
+from voice_policy import selected_voice_ready
 VOICE='zh-CN-YunjianNeural'
 PITCH='-8Hz'
 
@@ -77,4 +78,12 @@ async def generate(story):
     subprocess.run([sys.executable,str(HERE/'build_story.py')],check=True)
 
 if __name__=='__main__':
-    story=json.loads((HERE/'story.json').read_text());enforce_video_gate(story);asyncio.run(generate(story))
+    story=json.loads((HERE/'story.json').read_text());enforce_video_gate(story)
+    try:
+        ready=selected_voice_ready(HERE,story['shots'])
+    except RuntimeError:
+        path=HERE/'results.json';result=json.loads(path.read_text());result['phase']='awaiting_selected_voice'
+        path.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+        raise
+    if ready:subprocess.run([sys.executable,str(HERE/'build_story.py')],check=True)
+    else:asyncio.run(generate(story))

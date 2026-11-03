@@ -186,6 +186,13 @@ def letterbox_crop_filter(shot: dict, info: dict, detected_bands: list[tuple[int
     return f"crop={active_width}:{active_height}:{left}:{top}"
 
 
+def source_post_filters(shot: dict) -> list[str]:
+    # Reviewed S21 has a warm sunset deck cut. Grade real moving frames, never replace motion.
+    if shot["id"] == "S21":
+        return ["colorbalance=rs=-0.10:gs=0.02:bs=0.18:rm=-0.12:gm=0.02:bm=0.14:rh=-0.08:bh=0.08"]
+    return []
+
+
 def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], last_ids: set[str]) -> dict:
     duration = float(shot["duration"])
     handle_frames = HANDLE_FRAMES if shot["id"] != "S30" else 0
@@ -207,6 +214,7 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
         "eq=gamma=1.10:brightness=0.008",
     ]
     # Transition handles remain moving: no fades to black, cloned frames, or static pans.
+    filters.extend(source_post_filters(shot))
     filters.append("format=yuv420p")
     target.parent.mkdir(parents=True, exist_ok=True)
     run([
@@ -220,6 +228,7 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
             "source_width": info["width"], "source_height": info["height"],
             "source_sha256": digest(source), "normalized_file": str(target),
             "embedded_letterbox_crop_filter": correction,
+            "source_post_filters": source_post_filters(shot),
             "embedded_letterbox_detected_samples": len(detected_bands)}
 
 

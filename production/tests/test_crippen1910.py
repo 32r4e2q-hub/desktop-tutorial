@@ -131,3 +131,38 @@ class BulkGenerationPolicyTests(unittest.TestCase):
     def test_default_does_not_silently_allow_thirty(self):
         with self.assertRaisesRegex(ValueError,'at most five'):
             gen.enforce_generation_review_policy([{'id':f'S{i:02d}'} for i in range(1,31)],set(),{},{},{})
+
+class SelectedNarratorPolicyTests(unittest.TestCase):
+    def test_no_selection_keeps_legacy_mode(self):
+        import tempfile
+        from production.crippen1910.voice_policy import selected_voice_ready
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertFalse(selected_voice_ready(Path(tmp),[{'id':'S01'}]))
+
+    def test_explicit_arena_selection_blocks_silent_edge_fallback(self):
+        import tempfile
+        from production.crippen1910.voice_policy import selected_voice_ready
+        with tempfile.TemporaryDirectory() as tmp:
+            here=Path(tmp);(here/'audio').mkdir()
+            (here/'audio/voice-selection.json').write_text(json.dumps({'provider':'Arena speech','voice_id':'voice-00'}))
+            with self.assertRaisesRegex(RuntimeError,'SELECTED_VOICE_REQUIRED'):
+                selected_voice_ready(here,[{'id':'S01'}])
+
+    def test_selected_voice_checks_audio_sha_and_provider(self):
+        import tempfile,hashlib
+        from production.crippen1910.voice_policy import selected_voice_ready
+        with tempfile.TemporaryDirectory() as tmp:
+            here=Path(tmp);(here/'audio').mkdir()
+            (here/'audio/voice-selection.json').write_text(json.dumps({'provider':'Arena speech','voice_id':'voice-00'}))
+            (here/'audio/voice.json').write_text(json.dumps({'provider':'Arena speech','voice_id':'voice-00'}))
+            data=b'unit-test bytes only';(here/'audio/S01.mp3').write_bytes(data)
+            (here/'audio/timing.json').write_text(json.dumps({'S01':{'sha256':hashlib.sha256(data).hexdigest(),'captions':[{'text':'test'}]}}))
+            self.assertTrue(selected_voice_ready(here,[{'id':'S01'}]))
+            (here/'audio/S01.mp3').write_bytes(b'changed')
+            with self.assertRaisesRegex(RuntimeError,'S01'):
+                selected_voice_ready(here,[{'id':'S01'}])
+
+    def test_cold_grade_changes_only_approved_deck_source(self):
+        from production.crippen1910.render import source_post_filters
+        self.assertIn('colorbalance',source_post_filters({'id':'S21'})[0])
+        self.assertEqual(source_post_filters({'id':'S16'}),[])

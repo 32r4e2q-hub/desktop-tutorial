@@ -39,7 +39,8 @@ def update():
             count=sum(bool(c.get('sha256')) for c in voice.get('clips',[]))
             message='视频服务排队与生成中；保留原任务ID，不因等待而重复提交。'
             if done==30:message='30个动画镜头已生成，正在审核、配音或合成质检。'
-            if job.get('conclusion')=='failure':message='流程遇到接口或审核问题，已保留进度；未将未通过素材冒充成片。'
+            if result.get('phase')=='awaiting_selected_voice':message='30镜已审核通过，等待用户选定的低沉男声正式配音；不会自动换用其他声音。'
+            elif job.get('conclusion')=='failure':message='流程遇到接口或审核问题，已保留进度；未将未通过素材冒充成片。'
             with LOCK:STATE.update(completed=done,approved=approved,accepted=sum(r['accepted'] for r in rows),narration=count,shots=rows,message=message,job_url=job.get('html_url'),job_status=job.get('status'),job_conclusion=job.get('conclusion'),updated=time.strftime('%H:%M:%S UTC',time.gmtime()))
             delivered=result.get('delivery',{}).get('delivered',{})
             for route,(name,mime) in FILES.items():

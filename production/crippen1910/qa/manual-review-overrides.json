@@ -79,5 +79,45 @@
       },
       "visual_review": "pending"
     }
+  },
+  "S13": {
+    "source_sha256": "71e2f3af0640936bb43534b677eaf9c6ccb415d08464df79d9fd2d51a9c16eeb",
+    "automated_review_retained": "qa/S13-vision-review.json",
+    "assistant_review_scope": "Actual chronological contact sheet and available detail strip; not continuous playback, NOT a human sign-off.",
+    "observations": [
+      "In the actual chronological grid, uniformed police walk out and carry a wooden chest with its lid closed and brass latches visible. Wood grain does not make solid wood transparent. No interior, remains, wound or human outline is visible.",
+      "The newsboy raises a newspaper and officers/legs change pose. Street extras correctly wear civilian period clothing: the prompt explicitly forbids importing C09 judge robes into the street. A safe closed-container substitute supports the narration without showing remains."
+    ],
+    "decision": "approve source on actual visual evidence; final rendered QC remains mandatory"
+  },
+  "S16": {
+    "source_sha256": "cebea27d203cbccf66bb57c552f6b0e5c0b35e350477c07e1358e3c63594ea1b",
+    "automated_review_retained": "qa/S16-vision-review.json",
+    "assistant_review_scope": "Actual chronological contact sheet and available detail strip; not continuous playback, NOT a human sign-off.",
+    "observations": [
+      "Chronological grid shows the brass telescope held at the eye, then lowered into the right hand while captain turns; camera advances from full body to face and extreme eye close-up. Claiming all poses/camera positions are identical is contradicted by these images.",
+      "White uniform, cap, grey beard, shoulder boards and facial structure remain consistent with C05. The last close-up has narrowed eyelids and a focused brow. Two distant passengers remain visible. No text, glasses, violence or modern objects seen."
+    ],
+    "decision": "approve source on actual visual evidence; final rendered QC remains mandatory"
+  },
+  "S21": {
+    "source_sha256": "d99db1511791f46320b64c252551e63a9358e189226f02e3ce341e4d2f5cc7e1",
+    "automated_review_retained": "qa/S21-vision-review.json",
+    "assistant_review_scope": "Actual chronological contact sheet and available detail strip; not continuous playback, NOT a human sign-off.",
+    "observations": [
+      "Actual sequence shows detective walking on misty pier, an unmistakable rear/stern view with a broad white V-shaped wake and trailing smoke, then the same detective at ship railing with coat blowing. Different narrative cuts do not make an animated clip a static image.",
+      "Funnel on upper deck is naturally visible when looking from astern; that is not impossible stern geometry. High camera-compensated residual is not evidence of limited motion. The final deck segment is warm; source-motion/story approval is conditional on the deterministic S21 cold grade now enforced in render.py and remains subject to final rendered-frame review."
+    ],
+    "decision": "approve source on actual visual evidence; final rendered QC remains mandatory"
+  },
+  "S27": {
+    "source_sha256": "252fc55f110a3afd2ad1c8101b605604f8dfd665a61e72f92fec01f01d3bbe39",
+    "automated_review_retained": "qa/S27-vision-review.json",
+    "assistant_review_scope": "Actual chronological contact sheet and available detail strip; not continuous playback, NOT a human sign-off.",
+    "observations": [
+      "Chronological grid frame 1 shows grey-bearded foreperson seated; frame 2 leaning/rising; frame 3 standing; subsequent frames show him in the aisle facing forward. The model claim that this man stays seated in every frame is visibly false.",
+      "Defendant with gold-rimmed glasses/grey moustache remains in dock and lowers his head; judge remains seated. No Ethel joint verdict, no gavel, no execution or gore, no readable text. These actual independent changes convey the verdict supported by the voiceover."
+    ],
+    "decision": "approve source on actual visual evidence; final rendered QC remains mandatory"
   }
 }
