@@ -1,0 +1,58 @@
+name: Crippen persistent public downloads
+on:
+  push:
+    branches: [arena/f38dd103-desktop-tutorial]
+    paths: [.github/workflows/crippen1910-release.yml]
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f38dd103-desktop-tutorial
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /交付/Crippen*
+            /production/crippen1910/qa/
+      - name: Verify finished bytes and publish persistent release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'b143c7dd26d109d5ebaab25ee058816945e287c546e9f6f4f9c775bcb217fbd5  交付/Crippen_Case_Final.mp4' | sha256sum -c -
+          files=('交付/Crippen_Case_Final.mp4' '交付/Crippen_Cover.png' '交付/Crippen_Series_Episode03.png' '交付/Crippen_Subtitles.srt' '交付/Crippen_Narration.wav')
+          if gh release view crippen-episode03-final >/dev/null 2>&1; then
+            gh release upload crippen-episode03-final "${files[@]}" --clobber
+            gh release edit crippen-episode03-final --draft=false --prerelease
+          else
+            gh release create crippen-episode03-final --target "$GITHUB_SHA" --prerelease --title '第三期｜克里平医生案：一道追上凶手的电波' --notes '180秒，1920×1080，24fps。完整中文旁白、字幕、配乐与音效，另附两张封面、独立旁白及字幕。AI动画情景复原，非历史影像。DNA结论仍有争议，原判未改。所有附件均为原始交付文件，不依赖沙箱。' "${files[@]}"
+          fi
+          gh api repos/32r4e2q-hub/desktop-tutorial/releases/tags/crippen-episode03-final > /tmp/crippen-release.json
+          python3 - <<'PY'
+          import json,hashlib,pathlib
+          data=json.load(open('/tmp/crippen-release.json'))
+          assert not data['draft']
+          expected=['Crippen_Case_Final.mp4','Crippen_Cover.png','Crippen_Series_Episode03.png','Crippen_Subtitles.srt','Crippen_Narration.wav']
+          by={a['name']:a for a in data['assets']};assets=[]
+          for name in expected:
+              asset=by[name];p=pathlib.Path('交付')/name;sha=hashlib.sha256(p.read_bytes()).hexdigest()
+              assert asset['state']=='uploaded' and asset['size']==p.stat().st_size>0
+              if asset.get('digest'):assert asset['digest']=='sha256:'+sha
+              assets.append({'name':name,'bytes':asset['size'],'sha256':sha,'url':asset['browser_download_url'],'state':asset['state']})
+          out={'release_url':data['html_url'],'public':True,'draft':False,'assets':assets,'note':'Persistent GitHub Release attachments. No sandbox/preview host required.'}
+          path=pathlib.Path('production/crippen1910/qa/persistent-downloads.json')
+          path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add production/crippen1910/qa/persistent-downloads.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'crippen1910: verified permanent public release downloads, no sandbox dependency'
+            git pull --rebase --autostash origin arena/f38dd103-desktop-tutorial
+            git push origin arena/f38dd103-desktop-tutorial
+          fi
