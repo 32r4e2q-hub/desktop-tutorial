@@ -24,6 +24,8 @@ BLOCK = RATE
 TARGET_RMS_DBFS = -20.0
 PEAK_CEILING_DBFS = -1.5
 BGM_TARGET_BELOW_VOICE_DB = -18.0
+BGM_JAZZ_BELOW_VOICE_DB = -12.0   # 开场与爵士狂欢段落
+JAZZ_MUSIC_BOOST_DB = 8.0         # 爵士段音乐额外抬升，形成明确的段落对比
 BGM_SIDECHAIN_MAKEUP_DB = 1.5
 BGM_SILENCE_LEVEL = 0.24
 SFX_LEVEL = 0.50
@@ -330,8 +332,9 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
     chapter_edges = np.array([float(c["start"]) for c in story["chapters"]] + [duration])
     tones = [c.get("tone", "fear") for c in story["chapters"]]
     sections = len(story["chapters"])
-    # Per-chapter score level: the jazz chapters are allowed to sit closer to the voice.
-    levels = np.array([0.74, 0.60, 0.62, 0.62, 0.64, 0.80, 0.58, 0.62, 0.70])[:sections]
+    # Per-chapter score level. The jazz chapters (N1 开场 / N6 爵士夜 / N9 收尾) are deliberately
+    # louder: the brief wants the city-wide jazz狂欢 to actually feel louder than the fear bed.
+    levels = np.array([1.55, 0.60, 0.62, 0.62, 0.64, 1.75, 0.58, 0.62, 1.30])[:sections]
     trumpet_shots = {"N1": 0.0, "N6": 108.0, "N9": 174.0}
 
     def section_index(t: np.ndarray) -> np.ndarray:
@@ -353,7 +356,9 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
     trombone_line = ["F3", "F3", "Bb4", "A4", "G4", "F4"]
     for bar in range(90):
         for eighth in range(6):
-            step = eighth / 3.0
+            # 摆动八分音符：一拍 = swing，每个八分 = swing/1.5，整小节 2.0 s。
+            # 原来写成 eighth/3.0 会让第 4 个八分之后全部落到小节内部错误的位置。
+            step = eighth * swing / 1.5
             base = bar * swing * 3
             jazz_hits.append((base + step, cornet_line[eighth % 6], "cornet", bar))
             if eighth in (1, 4):
@@ -370,16 +375,21 @@ def synthesize_beds(work_dir: Path, story: dict) -> tuple[np.ndarray, np.ndarray
     # Bucket every note/brush/kick by the 1-second render block it can touch, so the synth loop
     # stays O(events-nearby) instead of scanning the whole score 180 times.
     def bucket(events, tail=1.3):
+        """把事件按「它还能响到哪些 1 秒块」归档。at 是秒，块号是块序，必须先乘 RATE。"""
         buckets = {}
         for event in events:
-            at = event[0]
-            for block_index in range(int(at // BLOCK), int((at + tail) // BLOCK) + 1):
+            at = float(event[0])
+            first = int((at * RATE) // BLOCK)
+            last = int(((at + tail) * RATE) // BLOCK)
+            for block_index in range(first, last + 1):
                 buckets.setdefault(block_index, []).append(event)
         return buckets
 
-    jazz_buckets = bucket(jazz_hits)
-    bass_buckets = bucket(jazz_bass)
-    ride_events = [(bar * swing * 3 + eighth / 3.0, "ride")
+    # 铜管/簧片的包络最长约 1/0.5 ≈ 2 s（指数衰减），尾长必须覆盖它，否则事件被记到
+    # 声音已经归零的区块里，爵士段落会整段静音。
+    jazz_buckets = bucket(jazz_hits, tail=3.2)
+    bass_buckets = bucket(jazz_bass, tail=3.2)
+    ride_events = [(bar * swing * 3 + eighth * swing / 1.5, "ride")
                    for bar in range(90) for eighth in (1, 3, 5)]
     kick_events = [(bar * swing * 3 + beat, "kick", amp)
                    for bar in range(90) for beat, amp in ((0.0, 0.055), (swing * 1.5, 0.030), (swing * 3.0, 0.048))]
@@ -637,8 +647,31 @@ def build_soundtrack(story: dict, audio_dir: Path, work_dir: Path) -> tuple[Path
     music_blocks = music[:usable].reshape(-1, hop, 2)
     voice_levels = np.sqrt(np.mean(np.square(voice_blocks.astype(np.float64)), axis=1))
     music_levels = np.sqrt(np.mean(np.square(music_blocks.astype(np.float64)), axis=(1, 2)))
-    target_ratio = 10 ** ((BGM_TARGET_BELOW_VOICE_DB + BGM_SIDECHAIN_MAKEUP_DB) / 20.0)
+    # 分档：开场（S01-S02）与爵士狂欢（S19-S22）按简报抬到 -12 dB，其余 -18 dB，
+    # 否则全片旁白不断，自动压音会让每一段听起来一样响，爵士夜的狂欢就没了。
+    loud_windows = []
+    cursor = 0.0
+    for shot in story["shots"]:
+        start = float(shot["start"]); end = start + float(shot["duration"])
+        if shot["id"] in {"S01", "S02"} or shot.get("style_variant") == "jazz":
+            loud_windows.append((start, end))
+    block_time = (np.arange(len(voice_levels)) + 0.5) * hop / RATE
+    is_loud = np.zeros(len(voice_levels), dtype=bool)
+    for start, end in loud_windows:
+        is_loud |= (block_time >= start) & (block_time < end)
+    below_db = np.where(is_loud, BGM_JAZZ_BELOW_VOICE_DB, BGM_TARGET_BELOW_VOICE_DB)
+    target_ratio = 10 ** ((below_db + BGM_SIDECHAIN_MAKEUP_DB) / 20.0)
+    # 逐块算完再按段统一：同一段落里保持自然的乐句起伏，段落之间才是硬性 -18 / -12 dB 差。
     raw_gain = (voice_levels * target_ratio) / np.maximum(music_levels, 1e-5)
+    segment_ids = np.zeros(len(raw_gain), dtype=np.int32)
+    for index, (start, end) in enumerate(loud_windows):
+        segment_ids[(block_time >= start) & (block_time < end)] = index + 1
+    # 分段取中位增益：段内保留律动，段间保持目标响度差。
+    for segment in np.unique(segment_ids):
+        mask = segment_ids == segment
+        if mask.sum() < 3:
+            continue
+        raw_gain[mask] = np.median(raw_gain[mask])
     active_voice = voice_levels > 0.003
     desired_gain = np.where(active_voice, np.clip(raw_gain, 0.015, 0.85), BGM_SILENCE_LEVEL)
     # Fast enough for narration onset, slow enough not to pump on syllables.
@@ -650,6 +683,11 @@ def build_soundtrack(story: dict, audio_dir: Path, work_dir: Path) -> tuple[Path
         coeff = attack if value < state else release
         state = coeff * state + (1.0 - coeff) * value
         smooth_gain[i] = state
+    # 爵士段落再抬 JAZZ_MUSIC_BOOST_DB：这是「城市同时放爵士」的高光，音乐必须顶上来。
+    jazz_mask = np.zeros(len(smooth_gain), dtype=bool)
+    for start, end in loud_windows:
+        jazz_mask |= (block_time >= start) & (block_time < end)
+    smooth_gain = np.where(jazz_mask, smooth_gain * (10 ** (JAZZ_MUSIC_BOOST_DB / 20.0)), smooth_gain)
     per_sample_gain = np.repeat(smooth_gain.astype(np.float32), hop)
     if len(per_sample_gain) < len(voice):
         per_sample_gain = np.pad(per_sample_gain, (0, len(voice) - len(per_sample_gain)),
@@ -691,6 +729,8 @@ def build_soundtrack(story: dict, audio_dir: Path, work_dir: Path) -> tuple[Path
         "target_rms_dbfs": TARGET_RMS_DBFS,
         "peak_ceiling_dbfs": PEAK_CEILING_DBFS,
         "bgm_under_voice_target_db": BGM_TARGET_BELOW_VOICE_DB,
+        "bgm_jazz_under_voice_target_db": BGM_JAZZ_BELOW_VOICE_DB,
+        "bgm_loud_windows": loud_windows,
         "bgm_sidechain_makeup_db": BGM_SIDECHAIN_MAKEUP_DB,
         "bgm_under_voice_measured_db": dbfs(float(np.median(
             (music_levels[active_voice] * smooth_gain[active_voice]) / np.maximum(voice_levels[active_voice], 1e-6)
