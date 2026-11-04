@@ -313,19 +313,21 @@
   ],
   "workflow_policy": "agnes-video-2.5-flash-720p-reference-upscale-180s-30shots",
   "rate_policy": {
-    "minimum_creation_interval_seconds": 61,
-    "workers_max": 2,
+    "minimum_creation_interval_seconds": 12,
+    "workers_max": 5,
     "retry_after_respected": true,
     "key_rotation": false,
-    "capacity_retry_interval_seconds": 61,
-    "capacity_retries_unbounded": true
+    "capacity_retry_interval_seconds": 12,
+    "capacity_retries_unbounded": true,
+    "plan": "paid monthly key: 5 creations/min, 500 video-seconds/day",
+    "poll_timeout_seconds": 5400
   },
   "review": {
     "status": "pending",
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-04T02:57:10Z",
-  "run_id": "41755535657",
+  "updated_at": "2026-11-04T03:07:33Z",
+  "run_id": "41765032949",
   "previous_results": {}
 }
