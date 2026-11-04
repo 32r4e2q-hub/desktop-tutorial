@@ -201,7 +201,7 @@ SHOT_ROWS = [
      "low lateral dolly along the wall, easing almost to a stop as the shadow passes. Real motion: "
      "breathing into horns, dancers turning, coat hems swinging, shadow sliding, notes drifting. No "
      "readable text, no visible face on the shadow.",
-     "因为一封信说：放爵士的家，斧头不会落下。"),
+     "一封信说：放爵士的家，斧头不会落下。"),
 
     ("S03", 10, 7, "中景环绕", ["joseph", "catherine"], "fear", ["SC02", "C02", "C03"],
      "May 1918, night, a corner grocery in an Italian neighbourhood of New Orleans. Warm light "
