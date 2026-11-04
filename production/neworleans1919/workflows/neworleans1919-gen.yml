@@ -248,7 +248,8 @@ jobs:
 
       - name: Generate with Agnes Video 2.5 Flash (62s gate) and/or render the 1080P cut
         id: generate
-        continue-on-error: true
+        # 不要 continue-on-error：渲染失败必须让整个 run 红掉，否则「看起来成功却没成片」。
+        # 生成阶段的断点续跑由收尾步骤按 exit_code 判断，不需要靠吞掉失败来实现。
         timeout-minutes: 300
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
@@ -263,6 +264,26 @@ jobs:
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           echo "generator_exit=$code" >> "$RUN_LOG"
           exit "$code"
+
+      - name: Checkpoint the run log right after generation
+        # continue-on-error 会把生成/渲染的真实失败藏起来，所以这里先把 run.log 推到分支，
+        # 后面无论是 QC 还是收尾步骤出问题，失败原因都能在仓库里读到。
+        if: always()
+        run: |
+          set -uo pipefail
+          echo "stage=generate_step_done exit=${{ steps.generate.outputs.exit_code }}" >> "$RUN_LOG"
+          for attempt in 1 2 3 4 5; do
+            git add -f "$RUN_LOG" 2>/dev/null || true
+            git diff --cached --quiet -- "$RUN_LOG" || \
+              git commit -q -m "neworleans1919: run ${GITHUB_RUN_ID} log checkpoint [skip-neworleans1919]" || true
+            git pull --rebase -q origin "$TARGET_BRANCH" || true
+            if git push -q origin "HEAD:$TARGET_BRANCH" 2>/dev/null; then
+              echo "run log pushed on attempt $attempt"
+              break
+            fi
+            echo "run log push attempt $attempt failed; retrying"
+            sleep 5
+          done
 
       - name: Run the picture and sound QC on the delivered film
         if: always()
@@ -280,7 +301,8 @@ jobs:
           fi
 
       - name: Dispatch an automatic continuation when the time budget expires
-        if: always()
+        # 只在「生成超时但还有镜头没做完」时续跑；渲染成功、只出片、QC 这几条路径必须安静通过。
+        if: always() && (steps.generate.outputs.exit_code == '124')
         env:
           GH_TOKEN: ${{ github.token }}
           GENERATOR_EXIT_CODE: ${{ steps.generate.outputs.exit_code }}
@@ -295,7 +317,7 @@ jobs:
           try:
               exit_code = int(os.environ.get("GENERATOR_EXIT_CODE", ""))
           except ValueError:
-              raise SystemExit("Generator step did not publish an exit code; refusing an automatic retry.")
+              raise SystemExit("Generator step did not publish an exit code; nothing to continue.")
           result = json.loads(Path("production/neworleans1919/results.json").read_text(encoding="utf-8"))
           phase = result.get("phase")
           if exit_code == 0:
@@ -340,8 +362,20 @@ jobs:
           git add -A 交付 production/neworleans1919/qa 2>/dev/null || true
           git add -f work/neworleans1919/edit/delivery 2>/dev/null || true
           git commit -q -m "neworleans1919: run ${GITHUB_RUN_ID} log + delivery [skip-neworleans1919]" || true
-          git pull --rebase -q origin "$TARGET_BRANCH" || true
-          git push -q origin "HEAD:$TARGET_BRANCH" || true
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase -q origin "$TARGET_BRANCH" || true
+            if git push -q origin "HEAD:$TARGET_BRANCH" 2>/dev/null; then
+              echo "delivery pushed on attempt $attempt"
+              break
+            fi
+            echo "delivery push attempt $attempt failed; retrying"
+            sleep 5
+          done
+          if [ -f "交付/NewOrleans1919_Final.mp4" ]; then
+            echo "delivery_present=yes bytes=$(stat -c%s '交付/NewOrleans1919_Final.mp4')"
+          else
+            echo "::error::render produced no 交付/NewOrleans1919_Final.mp4"
+          fi
 
       - name: Upload the film, cover, subtitles, Agnes clips and QC contact sheets
         if: always()
