@@ -2,7 +2,9 @@
 """Generate the 30 New Orleans shots with Agnes Video 2.5 Flash, then render the 180s film.
 
 The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
-size/aspect_ratio/mode/n); transient create failures retry every 61 seconds until accepted.
+size/aspect_ratio/mode/n/images); transient create failures retry every REQUEST_INTERVAL_SECONDS
+until accepted. A paid monthly key allows 5 creations per minute, so creations are spaced 12 s
+apart and up to 5 workers fill the queue in about six minutes.
 Clips are normalized and upscaled to the 1920x1080 delivery master.
 All generated footage is downloaded to ignored ``work/``. Only JSON provenance and small
 contact sheets are checkpointed into the fixed Arena branch. No still-image substitute is used.
@@ -31,7 +33,8 @@ from throttle import RequestGate  # noqa: E402
 BRANCH = "arena/eb3c7fec-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
-REQUEST_INTERVAL_SECONDS = 61
+# 付费月卡：5 次/分钟 -> 12 秒一条；免费池用 61（见 throttle.py）。
+REQUEST_INTERVAL_SECONDS = 12
 SUPPORTED_MODES = {"text", "keyframe", "reference"}
 ALLOWED_PAYLOAD_FIELDS = {
     "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed", "images",
@@ -550,7 +553,8 @@ def main() -> int:
         raise ValueError("payload.only must be a comma-separated string of shot IDs")
     only = {part.strip() for part in requested.split(",") if part.strip()}
     canary_then_full = options.get("canary_then_full") is True
-    # 30 条素材按 61 秒一条的共享闸门提交，一整轮约 30 分钟；断点续跑不重复提交已接受的任务。
+    # 30 条素材按 12 秒一条的共享闸门提交（5 次/分钟），5 个 worker 约 6 分钟铺满队列；
+    # 断点续跑不重复提交已接受的任务。
     by_id = {shot["id"]: shot for shot in project["shots"]}
     if only - set(by_id):
         raise ValueError("Unknown Agnes shot(s): " + ", ".join(sorted(only - set(by_id))))
@@ -563,8 +567,8 @@ def main() -> int:
         )
     selected = ([by_id["S01"]] if canary_then_full else
                 [shot for shot in project["shots"] if not only or shot["id"] in only])
-    workers = min(2, max(1, int(options.get("workers", 2))))
-    gate = RequestGate(minimum_interval=REQUEST_INTERVAL_SECONDS)
+    workers = min(5, max(1, int(options.get("workers", 5))))
+    gate = RequestGate(minimum_interval=REQUEST_INTERVAL_SECONDS, allow_fast_plan=True)
     # The retry loop is intentionally unbounded; the Actions job timeout is the outer safety cap.
     # Every create attempt is still checkpointed, and a restarted run resumes completed/task IDs.
     deadline = float("inf")
@@ -582,9 +586,11 @@ def main() -> int:
     doc["required_generated_shots"] = [shot["id"] for shot in project["shots"]]
     doc["workflow_policy"] = "agnes-video-2.5-flash-720p-reference-upscale-180s-30shots"
     doc["rate_policy"] = {"minimum_creation_interval_seconds": REQUEST_INTERVAL_SECONDS,
-                          "workers_max": 2, "retry_after_respected": True,
+                          "workers_max": 5, "retry_after_respected": True,
                           "key_rotation": False, "capacity_retry_interval_seconds": REQUEST_INTERVAL_SECONDS,
-                          "capacity_retries_unbounded": True}
+                          "capacity_retries_unbounded": True,
+                          "plan": "paid monthly key: 5 creations/min, 500 video-seconds/day",
+                          "poll_timeout_seconds": 5400}
     doc["review"] = {"status": "pending", "visual_review_required": True,
                      "note": "A decoded clip and contact sheet are not a human visual sign-off."}
     base = os.getenv("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).rstrip("/")
@@ -743,7 +749,9 @@ def main() -> int:
                     remaining = deadline - time.monotonic()
                     final, url = agnes.poll_task(
                         base, key, MODEL, str(video_id), str(task_id) if task_id else None,
-                        interval=25, timeout=min(1500, remaining), max_failures=12,
+                        # A paid plan queues work behind other users; allow 90 minutes per task before the
+                        # outer Actions budget takes over (the saved task id is resumed, never resubmitted).
+                        interval=25, timeout=min(5400, remaining), max_failures=24,
                         before_request=lambda: gate.wait_unblocked(deadline), rate_limit_callback=gate.defer,
                     )
                     size = agnes.download(url, dest, retries=3, retry_delay=5)

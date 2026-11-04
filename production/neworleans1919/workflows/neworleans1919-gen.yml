@@ -18,9 +18,9 @@ on:
   workflow_dispatch:
     inputs:
       payload:
-        description: 'JSON：{"mode":"render"} / {"only":"S22"} / {"mode":"clips","workers":2}'
+        description: 'JSON：{"mode":"render"} / {"only":"S22"} / {"mode":"clips","workers":5}'
         type: string
-        default: '{"only":"S01","workers":2,"canary_then_full":true}'
+        default: '{"mode":"clips","workers":5}'
 
 permissions:
   contents: write
@@ -40,7 +40,7 @@ jobs:
       github.ref == 'refs/heads/arena/eb3c7fec-desktop-tutorial' &&
       !contains(github.event.head_commit.message, '[skip-neworleans1919]')
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
-    timeout-minutes: 340
+    timeout-minutes: 355
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
@@ -81,7 +81,7 @@ jobs:
           elif [ -f production/neworleans1919/GEN_REQUEST ]; then
             payload="$(tr -d '\n' < production/neworleans1919/GEN_REQUEST)"
           else
-            payload='{"only":"S01","workers":2,"canary_then_full":true}'
+            payload='{"mode":"clips","workers":5}'
           fi
           printf 'payload=%s\n' "$payload" >> "$RUN_LOG"
           echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
@@ -215,7 +215,7 @@ jobs:
           set +e
           echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)" >> "$RUN_LOG"
           echo "== generator ==" >> "$RUN_LOG"
-          timeout --signal=TERM --kill-after=30s 285m \
+          timeout --signal=TERM --kill-after=30s 320m \
             python3 -u production/neworleans1919/generate.py --publish --payload "$PAYLOAD" >> "$RUN_LOG" 2>&1
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
@@ -268,7 +268,7 @@ jobs:
           if any(row.get("status") in {"failed", "blocked"} for row in result.get("shots", {}).values()):
               raise SystemExit("Fatal shot states prevent auto-dispatch.")
           body = json.dumps({"ref": os.environ["GITHUB_REF_NAME"],
-                             "inputs": {"payload": '{"mode":"clips","workers":2}'}}).encode("utf-8")
+                             "inputs": {"payload": '{"mode":"clips","workers":5}'}}).encode("utf-8")
           request = urllib.request.Request(
               f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}"
               "/actions/workflows/neworleans1919-gen.yml/dispatches",
