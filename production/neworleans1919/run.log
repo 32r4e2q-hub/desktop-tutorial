@@ -1,7 +1,7 @@
-run=41799788810 attempt=1 ref=arena/eb3c7fec-desktop-tutorial
-event=push runner=GitHub Actions 1000002973 os=Linux arch=X64
-sha=af6077bbb4256a7209d6a5369adef0867e256f8b
-started 2026-11-04T08:29:35Z
+run=41802460149 attempt=1 ref=arena/eb3c7fec-desktop-tutorial
+event=push runner=GitHub Actions 1000002975 os=Linux arch=X64
+sha=69138e160c0023ead804d7d1e26aa2dee759de45
+started 2026-11-04T08:50:14Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
@@ -50,7 +50,7 @@ test_sources_and_fact_boundaries_are_recorded (production.tests.test_neworleans1
 test_two_tone_palette_only_flips_where_scripted (production.tests.test_neworleans1919.NewOrleansPlanTests.test_two_tone_palette_only_flips_where_scripted) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 0.161s
+Ran 16 tests in 0.154s
 
 OK
 stage=tests_ok
@@ -93,7 +93,7 @@ RESTORE S30 from Agnes receipt
   "human_visual_review": "pending",
   "video": {
     "duration_seconds": 180.0,
-    "bytes": 72203135,
+    "bytes": 72221286,
     "width": 1920,
     "height": 1080,
     "fps": "24/1",
@@ -469,7 +469,7 @@ RESTORE S30 from Agnes receipt
     "duration_seconds": 180.0,
     "sample_rate": 48000,
     "channels": 2,
-    "rms_dbfs": -20.94,
+    "rms_dbfs": -20.61,
     "peak_dbfs": -1.5,
     "silent_windows": 1,
     "window_count": 180,
@@ -477,8 +477,39 @@ RESTORE S30 from Agnes receipt
     "target_rms_dbfs": -20.0,
     "peak_ceiling_dbfs": -1.5,
     "bgm_under_voice_target_db": -18.0,
+    "bgm_jazz_under_voice_target_db": -12.0,
+    "bgm_loud_windows": [
+      [
+        0.0,
+        5.0
+      ],
+      [
+        5.0,
+        10.0
+      ],
+      [
+        108.0,
+        114.0
+      ],
+      [
+        114.0,
+        120.0
+      ],
+      [
+        120.0,
+        125.0
+      ],
+      [
+        125.0,
+        130.0
+      ],
+      [
+        174.0,
+        180.0
+      ]
+    ],
     "bgm_sidechain_makeup_db": 1.5,
-    "bgm_under_voice_measured_db": -20.0,
+    "bgm_under_voice_measured_db": -19.13,
     "bgm_silence_gain": 0.24,
     "sfx_level": 0.5,
     "narration": {
