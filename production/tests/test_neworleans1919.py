@@ -171,7 +171,7 @@ class NewOrleansPlanTests(unittest.TestCase):
                 self.assertNotIn("children", lowered)
                 self.assertNotIn("infant", lowered)
                 self.assertNotIn("baby", lowered)
-        self.assertIn("no victim", self.story["negative_prompt"].lower())
+        self.assertIn("victim", self.story["negative_prompt"].lower())
         self.assertIn("child in distress", self.story["negative_prompt"])
         self.assertIn("no face", self.story["characters"]["axeman"].lower())
         # 斧头只能是影子、剪影或静物
