@@ -1,7 +1,7 @@
-run=41802460149 attempt=1 ref=arena/eb3c7fec-desktop-tutorial
-event=push runner=GitHub Actions 1000002975 os=Linux arch=X64
-sha=69138e160c0023ead804d7d1e26aa2dee759de45
-started 2026-11-04T08:50:14Z
+run=41803970762 attempt=1 ref=arena/eb3c7fec-desktop-tutorial
+event=push runner=GitHub Actions 1000002977 os=Linux arch=X64
+sha=bb52ef7b43645db5cfcdbc3549d2a0448fbd3975
+started 2026-11-04T09:01:56Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
@@ -50,7 +50,7 @@ test_sources_and_fact_boundaries_are_recorded (production.tests.test_neworleans1
 test_two_tone_palette_only_flips_where_scripted (production.tests.test_neworleans1919.NewOrleansPlanTests.test_two_tone_palette_only_flips_where_scripted) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 0.154s
+Ran 16 tests in 0.112s
 
 OK
 stage=tests_ok
@@ -93,7 +93,7 @@ RESTORE S30 from Agnes receipt
   "human_visual_review": "pending",
   "video": {
     "duration_seconds": 180.0,
-    "bytes": 72221286,
+    "bytes": 72194042,
     "width": 1920,
     "height": 1080,
     "fps": "24/1",
@@ -469,7 +469,7 @@ RESTORE S30 from Agnes receipt
     "duration_seconds": 180.0,
     "sample_rate": 48000,
     "channels": 2,
-    "rms_dbfs": -20.61,
+    "rms_dbfs": -21.83,
     "peak_dbfs": -1.5,
     "silent_windows": 1,
     "window_count": 180,
@@ -509,7 +509,7 @@ RESTORE S30 from Agnes receipt
       ]
     ],
     "bgm_sidechain_makeup_db": 1.5,
-    "bgm_under_voice_measured_db": -19.13,
+    "bgm_under_voice_measured_db": -19.2,
     "bgm_silence_gain": 0.24,
     "sfx_level": 0.5,
     "narration": {
@@ -543,10 +543,10 @@ RESTORE S30 from Agnes receipt
           "source_seconds": 5.027,
           "natural_clip_seconds": 4.82,
           "natural_speech_seconds": 4.71,
-          "spoken_seconds": 4.71,
-          "tempo_factor": 1.0,
+          "spoken_seconds": 4.37,
+          "tempo_factor": 1.0836,
           "speech_start": 5.03,
-          "speech_end": 9.74,
+          "speech_end": 9.4,
           "characters": 17,
           "target_chars_per_second": 3.4
         },
@@ -863,10 +863,10 @@ RESTORE S30 from Agnes receipt
           "source_seconds": 6.014,
           "natural_clip_seconds": 5.79,
           "natural_speech_seconds": 5.68,
-          "spoken_seconds": 4.79,
-          "tempo_factor": 1.1875,
+          "spoken_seconds": 4.37,
+          "tempo_factor": 1.3017,
           "speech_start": 125.03,
-          "speech_end": 129.82,
+          "speech_end": 129.4,
           "characters": 17,
           "target_chars_per_second": 3.4
         },
@@ -1007,10 +1007,10 @@ RESTORE S30 from Agnes receipt
           "characters": 34,
           "target_chars_per_second": 3.4,
           "source_seconds": 9.16,
-          "tempo_factor": 1.0,
+          "tempo_factor": 1.0836,
           "inserted_pause_seconds": 0.0,
           "inserted_pause_at_chapter_seconds": null,
-          "speech_seconds": 8.52,
+          "speech_seconds": 8.18,
           "shot_ids": [
             "S01",
             "S02"
@@ -1095,10 +1095,10 @@ RESTORE S30 from Agnes receipt
           "characters": 74,
           "target_chars_per_second": 3.364,
           "source_seconds": 21.605,
-          "tempo_factor": 1.1875,
+          "tempo_factor": 1.3017,
           "inserted_pause_seconds": 0.0,
           "inserted_pause_at_chapter_seconds": null,
-          "speech_seconds": 19.33,
+          "speech_seconds": 18.91,
           "shot_ids": [
             "S19",
             "S20",
