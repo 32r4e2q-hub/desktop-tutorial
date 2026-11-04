@@ -26,6 +26,8 @@ sys.path.insert(0, str(PRODUCTION_DIR))
 
 import agnes_video  # noqa: E402
 
+LEGACY_MODEL = "agnes-video-v2.0"
+FLASH_MODEL = "agnes-video-2.5-flash"
 API_KEY = "test-key"
 FAKE_VIDEO = b"\x00\x00\x00\x18ftypmp42" + bytes(range(256)) * 32  # 8 KB, > the 1 KB sanity floor
 
@@ -79,6 +81,33 @@ class MockAgnes(BaseHTTPRequestHandler):
         if type(self).create_failures > 0:
             type(self).create_failures -= 1
             return self._send(503, {"error": {"message": "service busy"}})
+        if "seconds" in payload:  # agnes-video-2.5-flash shape
+            if any(key in payload for key in ("num_frames", "frame_rate", "width", "height", "negative_prompt")):
+                return self._send(400, {"error": {"message": "unsupported field for 2.5 Flash"}})
+            try:
+                seconds = int(payload["seconds"])
+            except (TypeError, ValueError):
+                return self._send(400, {"error": {"message": "seconds must be an integer"}})
+            if not 4 <= seconds <= 12:
+                return self._send(400, {"error": {"message": "seconds must be 4-12"}})
+            if payload.get("mode") == "reference" and not payload.get("images"):
+                return self._send(400, {"error": {"message": "mode=reference needs images"}})
+            return self._send(
+                200,
+                {
+                    "id": "task_1",
+                    "task_id": "task_1",
+                    "video_id": "video_1",
+                    "object": "video",
+                    "model": payload.get("model"),
+                    "status": "queued",
+                    "progress": 0,
+                    "created_at": 1,
+                    "seconds": f"{seconds}.0",
+                    "size": payload.get("size", "720P"),
+                },
+            )
+
         frames = payload.get("num_frames")
         if not isinstance(frames, int) or (frames - 1) % 8 or frames > 441:
             return self._send(400, {"error": {"message": "num_frames must follow 8n+1"}})
@@ -166,8 +195,8 @@ class DryRunPayloadTests(unittest.TestCase):
         return json.loads(result.stdout)
 
     def test_text_to_video_defaults(self):
-        payload = self.payload("--prompt", "  a cat on the beach  ")
-        self.assertEqual(payload["model"], "agnes-video-v2.0")
+        payload = self.payload("--prompt", "  a cat on the beach  ", "--model", LEGACY_MODEL)
+        self.assertEqual(payload["model"], LEGACY_MODEL)
         self.assertEqual(payload["prompt"], "a cat on the beach")
         self.assertEqual((payload["width"], payload["height"]), (1280, 720))
         self.assertEqual(payload["num_frames"], 121)
@@ -176,14 +205,14 @@ class DryRunPayloadTests(unittest.TestCase):
         self.assertNotIn("extra_body", payload)
 
     def test_single_image_is_image_to_video(self):
-        payload = self.payload("--prompt", "p", "--image", "https://x/a.png", "--aspect", "9:16", "--seconds", "10")
+        payload = self.payload("--prompt", "p", "--image", "https://x/a.png", "--aspect", "9:16", "--seconds", "10", "--model", LEGACY_MODEL)
         self.assertEqual(payload["image"], "https://x/a.png")
         self.assertEqual((payload["width"], payload["height"]), (720, 1280))
         self.assertEqual(payload["num_frames"], 241)
         self.assertNotIn("extra_body", payload)
 
     def test_multiple_images_become_keyframes(self):
-        payload = self.payload("--prompt", "p", "--image", "https://x/1.png", "--image", "https://x/2.png")
+        payload = self.payload("--prompt", "p", "--image", "https://x/1.png", "--image", "https://x/2.png", "--model", LEGACY_MODEL)
         self.assertNotIn("image", payload)
         self.assertEqual(payload["extra_body"], {"image": ["https://x/1.png", "https://x/2.png"], "mode": "keyframes"})
 
@@ -191,6 +220,7 @@ class DryRunPayloadTests(unittest.TestCase):
         payload = self.payload(
             "--prompt", "p", "--negative-prompt", "blurry", "--seed", "7", "--steps", "30",
             "--width", "1024", "--height", "576", "--num-frames", "81", "--frame-rate", "30",
+            "--model", LEGACY_MODEL,
         )
         self.assertEqual(payload["negative_prompt"], "blurry")
         self.assertEqual(payload["seed"], 7)
@@ -200,11 +230,53 @@ class DryRunPayloadTests(unittest.TestCase):
         self.assertEqual(payload["frame_rate"], 30)
 
     def test_invalid_inputs_are_rejected(self):
-        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--num-frames", "100").returncode, 2)
-        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--frame-rate", "90").returncode, 2)
-        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--image", "/local/file.png").returncode, 1)
-        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--mode", "keyframes", "--image", "https://x/1.png").returncode, 1)
-        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--width", "640").returncode, 1)
+        legacy = ["--model", LEGACY_MODEL]
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--num-frames", "100", *legacy).returncode, 2)
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--frame-rate", "90", *legacy).returncode, 2)
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--image", "/local/file.png", *legacy).returncode, 1)
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--mode", "keyframes", "--image", "https://x/1.png", *legacy).returncode, 1)
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--width", "640", *legacy).returncode, 1)
+
+
+class Flash25PayloadTests(unittest.TestCase):
+    """agnes-video-2.5-flash has a different wire shape: seconds/size/aspect_ratio, no width/fps."""
+
+    def payload(self, *args):
+        result = run_cli("--dry-run", "--model", FLASH_MODEL, *args)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        return json.loads(result.stdout)
+
+    def test_flash_uses_the_new_wire_shape(self):
+        payload = self.payload("--prompt", "  a jazz street  ", "--seconds", "6")
+        self.assertEqual(payload["model"], FLASH_MODEL)
+        self.assertEqual(payload["prompt"], "a jazz street")
+        self.assertEqual(payload["seconds"], "6")
+        self.assertEqual(payload["size"], "720P")
+        self.assertEqual(payload["aspect_ratio"], "16:9")
+        self.assertEqual(payload["n"], 1)
+        for banned in ("width", "height", "num_frames", "frame_rate", "negative_prompt"):
+            self.assertNotIn(banned, payload)
+
+    def test_reference_images_switch_mode(self):
+        payload = self.payload("--prompt", "p", "--seconds", "7",
+                               "--image", "https://x/C02.png", "--image", "https://x/SC04.png")
+        self.assertEqual(payload["mode"], "reference")
+        self.assertEqual(payload["images"], ["https://x/C02.png", "https://x/SC04.png"])
+
+    def test_negative_prompt_is_folded_into_text(self):
+        payload = self.payload("--prompt", "p", "--negative-prompt", "no gore", "--seconds", "5")
+        self.assertIn("【NEGATIVE】no gore", payload["prompt"])
+        self.assertNotIn("negative_prompt", payload)
+
+    def test_flash_rejects_legacy_controls(self):
+        flash = ["--model", FLASH_MODEL]
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--seconds", "20", *flash).returncode, 1)
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--seconds", "3", *flash).returncode, 1)
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--num-frames", "121", *flash).returncode, 1)
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--width", "1024", "--height", "576", *flash).returncode, 1)
+        six_images = ["--image", "https://x/1.png", "--image", "https://x/2.png", "--image", "https://x/3.png",
+                      "--image", "https://x/4.png", "--image", "https://x/5.png", "--image", "https://x/6.png"]
+        self.assertEqual(run_cli("--dry-run", "--prompt", "p", "--seconds", "6", *six_images, *flash).returncode, 1)
 
 
 class EndToEndTests(unittest.TestCase):
@@ -241,7 +313,7 @@ class EndToEndTests(unittest.TestCase):
             (500, {"error": "hiccup"}),
             (200, "COMPLETED"),
         ]
-        result = run_cli("--prompt", "a cat", "--output", str(self.out), base_url=self.base_url)
+        result = run_cli("--prompt", "a cat", "--output", str(self.out), "--model", LEGACY_MODEL, base_url=self.base_url)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), str(self.out))
         self.assertEqual(self.out.read_bytes(), FAKE_VIDEO)
@@ -263,7 +335,7 @@ class EndToEndTests(unittest.TestCase):
     def test_legacy_endpoint_fallback(self):
         MockAgnes.primary_404 = True
         MockAgnes.poll_script = [(200, {"status": "queued", "progress": 0}), (200, "COMPLETED")]
-        result = run_cli("--prompt", "a dog", "--output", str(self.out), base_url=self.base_url)
+        result = run_cli("--prompt", "a dog", "--output", str(self.out), "--model", LEGACY_MODEL, base_url=self.base_url)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("falling back to legacy", result.stderr)
         self.assertTrue(any(r[1] == "/v1/videos/task_1" for r in MockAgnes.requests))
@@ -278,16 +350,32 @@ class EndToEndTests(unittest.TestCase):
         self.assertFalse(self.out.exists())
 
     def test_bad_api_key_fails_fast(self):
-        result = run_cli("--prompt", "x", "--output", str(self.out), base_url=self.base_url, api_key="wrong")
+        result = run_cli("--prompt", "x", "--output", str(self.out), "--model", LEGACY_MODEL, base_url=self.base_url, api_key="wrong")
         self.assertEqual(result.returncode, 1)
         self.assertIn("Authentication failed", result.stderr)
         self.assertEqual(len([r for r in MockAgnes.requests if r[0] == "POST"]), 1)  # no pointless retries
 
     def test_missing_api_key(self):
-        result = run_cli("--prompt", "x", "--output", str(self.out), base_url=self.base_url, api_key=None)
+        result = run_cli("--prompt", "x", "--output", str(self.out), "--model", LEGACY_MODEL, base_url=self.base_url, api_key=None)
         self.assertEqual(result.returncode, 1)
         self.assertIn("AGNES_API_KEY", result.stderr)
         self.assertEqual(MockAgnes.requests, [])
+
+    def test_flash_25_end_to_end_with_references(self):
+        MockAgnes.poll_script = [(200, {"status": "pending", "progress": 0}), (200, "COMPLETED")]
+        result = run_cli("--prompt", "【STYLE】gold", "--seconds", "6", "--model", FLASH_MODEL,
+                         "--image", "https://x/C02.png", "--output", str(self.out),
+                         base_url=self.base_url)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.out.read_bytes(), FAKE_VIDEO)
+        sidecar = json.loads(self.out.with_suffix(".json").read_text())
+        request = sidecar["request"]
+        self.assertEqual(request["seconds"], "6")
+        self.assertEqual(request["mode"], "reference")
+        self.assertEqual(request["size"], "720P")
+        self.assertNotIn("num_frames", request)
+        polls = [r[1] for r in MockAgnes.requests if r[0] == "GET" and r[1].startswith("/agnesapi")]
+        self.assertTrue(all("model_name=agnes-video-2.5-flash" in p for p in polls))
 
     def test_github_outputs_and_summary(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -296,7 +384,7 @@ class EndToEndTests(unittest.TestCase):
             env = {k: v for k, v in os.environ.items() if not k.startswith("GITHUB_")}
             env.update({"AGNES_API_KEY": API_KEY, "GITHUB_OUTPUT": str(outputs), "GITHUB_STEP_SUMMARY": str(summary)})
             result = subprocess.run(
-                [sys.executable, str(SCRIPT), "--prompt", "a | pipe", "--output", str(self.out),
+                [sys.executable, str(SCRIPT), "--prompt", "a | pipe", "--output", str(self.out), "--model", LEGACY_MODEL,
                  "--base-url", self.base_url, "--poll-interval", "0.02"],
                 capture_output=True, text=True, timeout=60, env=env,
             )

@@ -28,6 +28,20 @@ Examples:
 
   # inspect the request without calling the API
   python production/agnes_video.py --prompt "..." --seconds 10 --aspect 9:16 --dry-run
+
+Production notes for agnes-video-2.5-flash (measured on a real 30-shot film, 2026-11-04;
+full write-up: production/neworleans1919/AGNES-2.5-Flash调用方法.md):
+  * ``seconds`` must be an integer between 4 and 12; a 180 s film is 30 shots of 5-7 s.
+  * The API rejects width/height/fps/num_frames and a separate ``negative_prompt`` field.
+    Put every constraint in the prompt text and drive framing with ``size`` + ``aspect``.
+  * ``--image`` requires ``mode=reference`` payloads, and the URLs must be publicly reachable;
+    pin them to a fixed commit SHA so every shot references the same approved still.
+  * A ``pending`` task can sit there for 20-30 minutes when the plan quota is tight: poll with
+    a long timeout (the film used 5400 s) and resume from the saved video_id instead of
+    re-creating the task.
+  * Paid monthly keys allow 5 creations/minute (12 s spacing, 5 workers); the free pool is
+    1/minute (61 s spacing, 2 workers). When the daily video-second quota runs out the API
+    answers HTTP 429 and drops to one request every five minutes: back off, do not hammer.
 """
 from __future__ import annotations
 
@@ -48,7 +62,10 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BASE_URL = "https://apihub.agnes-ai.com"
-DEFAULT_MODEL = "agnes-video-v2.0"
+DEFAULT_MODEL = "agnes-video-v2.0"        # legacy default kept for existing projects
+FLASH_MODEL = "agnes-video-2.5-flash"      # the 30-shot film used this; pass --model explicitly
+# 2.5 Flash framing: size preset + aspect_ratio, no pixel dimensions.
+FLASH_ASPECTS = {"16:9": "16:9", "9:16": "9:16", "1:1": "1:1"}
 MAX_FRAMES = 441  # API limit; num_frames must also satisfy 8n + 1
 USER_AGENT = "agnes-video-cli/1.0 (+https://github.com/32r4e2q-hub/desktop-tutorial)"
 
@@ -145,7 +162,64 @@ def frame_rate_type(value: str) -> float:
 
 # --------------------------------------------------------------------------- request payload
 
+def is_flash_25(model: str) -> bool:
+    """agnes-video-2.5-flash takes a different payload than the legacy v2.0 socket."""
+    return "2.5" in model
+
+
+def build_flash_payload(args: argparse.Namespace) -> dict:
+    """Payload the 2.5 Flash endpoint actually accepts.
+
+    It rejects width/height/fps/num_frames and a separate ``negative_prompt`` field, so the
+    duration goes out as an integer ``seconds`` (4-12), framing as ``size`` + ``aspect_ratio``,
+    an image-conditioned shot as ``mode=reference`` + ``images``, and every negative constraint
+    has to be inside the prompt text.
+    """
+    if args.num_frames is not None:
+        raise Fatal("--num-frames is not supported by agnes-video-2.5-flash; use --seconds")
+    seconds = int(round(args.seconds))
+    if not 4 <= seconds <= 12:
+        raise Fatal(f"--seconds must be 4-12 for agnes-video-2.5-flash, got {args.seconds:g}")
+    if args.width or args.height:
+        raise Fatal("--width/--height are not supported by agnes-video-2.5-flash; use --size/--aspect")
+    if args.aspect not in FLASH_ASPECTS:
+        raise Fatal(f"--aspect must be one of {sorted(FLASH_ASPECTS)} for 2.5 Flash, got {args.aspect}")
+
+    prompt = args.prompt.strip()
+    if not prompt:
+        raise Fatal("--prompt must not be empty")
+    if args.negative_prompt:
+        # The endpoint rejects the field; the constraint is only honoured inside the text.
+        prompt = f"{prompt}\n【NEGATIVE】{args.negative_prompt.strip()}"
+
+    images = [url.strip() for url in (args.image or []) if url and url.strip()]
+    for url in images:
+        if not url.startswith(("http://", "https://")):
+            raise Fatal(f"image must be a publicly reachable http(s) URL, got: {url[:80]}")
+    if len(images) > 5:
+        raise Fatal(f"agnes-video-2.5-flash accepts at most 5 reference images, got {len(images)}")
+
+    payload: dict = {
+        "model": args.model,
+        "prompt": prompt,
+        "seconds": str(seconds),
+        "size": getattr(args, "size", "720P"),
+        "aspect_ratio": FLASH_ASPECTS[args.aspect],
+        "n": 1,
+    }
+    if images:
+        payload["mode"] = "reference"
+        payload["images"] = images
+    elif args.mode:
+        payload["mode"] = args.mode
+    if args.seed is not None:
+        payload["seed"] = args.seed
+    return payload
+
+
 def build_payload(args: argparse.Namespace) -> dict:
+    if is_flash_25(args.model):
+        return build_flash_payload(args)
     if args.num_frames is not None:
         frames = args.num_frames
     else:
@@ -473,7 +547,8 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
     shape = parser.add_argument_group("duration and size")
     shape.add_argument("--seconds", type=positive_float, default=5.0, help="target duration in seconds (max ~18)")
     shape.add_argument("--num-frames", type=frames_type, help="exact frame count (8n+1, <= 441); overrides --seconds")
-    shape.add_argument("--frame-rate", type=frame_rate_type, default=24, help="frames per second (1-60)")
+    shape.add_argument("--size", default="720P", help="2.5 Flash size preset, e.g. 720P / 1080P")
+    shape.add_argument("--frame-rate", type=frame_rate_type, default=24, help="frames per second (1-60), legacy models only")
     shape.add_argument("--aspect", choices=sorted(SIZE_PRESETS), default="16:9", help="aspect ratio preset")
     shape.add_argument("--resolution", choices=["480p", "720p", "1080p"], default="720p", help="resolution tier")
     shape.add_argument("--width", type=int, help="explicit width (with --height); overrides the presets")
@@ -487,8 +562,8 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         default=os.environ.get("AGNES_BASE_URL", DEFAULT_BASE_URL),
         help="API gateway (env AGNES_BASE_URL)",
     )
-    runtime.add_argument("--poll-interval", type=positive_float, default=5.0, help="seconds between status checks")
-    runtime.add_argument("--timeout", type=positive_float, default=1800.0, help="max seconds to wait for the video")
+    runtime.add_argument("--poll-interval", type=positive_float, default=25.0, help="seconds between status checks")
+    runtime.add_argument("--timeout", type=positive_float, default=5400.0, help="max seconds to wait for the video (a tight quota can leave a task pending for 20-30 min)")
     runtime.add_argument("--max-poll-failures", type=int, default=24, help="consecutive poll errors before giving up")
     runtime.add_argument("--retry-delay", type=positive_float, default=5.0, help="initial back-off for create/download retries")
     runtime.add_argument("--dry-run", action="store_true", help="print the request payload and exit without calling the API")
@@ -500,10 +575,14 @@ def main(argv: Optional[list] = None) -> int:
     try:
         payload = build_payload(args)
         log("request payload: " + json.dumps(payload, ensure_ascii=False))
-        log(
-            f"requested ~{payload['num_frames'] / payload['frame_rate']:.1f}s @ {payload['frame_rate']} fps, "
-            f"{payload['width']}x{payload['height']} (the API may snap the size to its nearest preset)"
-        )
+        if is_flash_25(args.model):
+            log(f"requested {payload['seconds']}s @ {payload['size']} {payload['aspect_ratio']}"
+                + (f" with {len(payload.get('images', []))} reference image(s)" if payload.get("images") else ""))
+        else:
+            log(
+                f"requested ~{payload['num_frames'] / payload['frame_rate']:.1f}s @ {payload['frame_rate']} fps, "
+                f"{payload['width']}x{payload['height']} (the API may snap the size to its nearest preset)"
+            )
         if args.dry_run:
             print(json.dumps(payload, ensure_ascii=False, indent=2))
             return 0

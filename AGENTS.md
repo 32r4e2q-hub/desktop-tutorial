@@ -12,3 +12,14 @@
 6. 查看生成图并人工复核文字、期数、截图来源、裁剪、排版及事实；自动测试不能代替视觉审核。向用户交付封面、发布标题和可实际访问的下载方式。程序本身不理解案件或自动选帧、生成文案，Agent 必须完成上述识别、核实、拟题与选帧。
 
 详情：`新题目开工手册.md` 的系列封面章节与 `production/mystery-cover-template/README.md`。该竖版封面流程不改变视频的横版制作规格。
+
+## Agnes 视频生成（所有片子共用）
+
+调用 `agnes-video-2.5-flash` 的接口形状、时长范围（4–12 秒）、`mode=reference` + 公网参考图、
+轮询超时（本仓库用 90 分钟，不要 25 分钟就放弃）、免费池 61 秒 vs 月卡 12 秒的配速差异、
+`HTTP 429` 每日额度用尽后的退避方式、三段式提示词（【STYLE】/【角色锚点】/【NEGATIVE】）
+与 `results.json` 断点续跑，统一以
+[`production/neworleans1919/AGNES-2.5-Flash调用方法.md`](production/neworleans1919/AGNES-2.5-Flash调用方法.md)
+为准。改 `generate.py` / `throttle.py` 前先读它，改完先跑
+`python3 production/neworleans1919/throttle_probe.py --pacing` 自检配速。
+不要在提示词里放 `negative_prompt` 字段或 `width/height/fps` —— 接口会拒。

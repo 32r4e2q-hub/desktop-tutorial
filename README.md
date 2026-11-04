@@ -4,7 +4,27 @@
 
 ---
 
-# 世田谷一家四口杀人案：留下无数线索，凶手为何仍未找到？
+# 第四期：1919年，整座城市同时放爵士乐：因为一封凶手的信
+
+> **最新成片（2026-11-04）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.0 s · **30 个 Agnes Video 2.5 Flash 动态镜头**
+>
+> - 影片：[`交付/NewOrleans1919_Final.mp4`](交付/NewOrleans1919_Final.mp4)（72.2 MB）
+> - 封面 · 字幕：[`NewOrleans1919_Cover.png`](交付/NewOrleans1919_Cover.png) · [`NewOrleans1919_Subtitles.srt`](交付/NewOrleans1919_Subtitles.srt)
+> - 全流程与状态：[`production/neworleans1919/README.md`](production/neworleans1919/README.md)
+> - **Agnes 2.5 Flash 调用方法**：[`production/neworleans1919/AGNES-2.5-Flash调用方法.md`](production/neworleans1919/AGNES-2.5-Flash调用方法.md)
+>   （请求形状 · 4–12 秒 · `mode=reference` 公网参考图 · 90 分钟轮询 · 免费池 61 s vs 月卡 12 s 配速 · 三段式提示词 · 断点续跑）
+> - 质检：`QC PASS`，`hard_gate_failures: []`（非预期黑帧 0 · 冻结 0 · 闪烁 0 · 字幕 30 条 0 问题 · RMS −20.7 dBFS · 末秒 −120 dBFS）
+> - 解说：30 句一镜一句，**29/30 原速、最高 1.048×**；「斧头不会落下」「没有人遇害」「你放哪首歌」后各留 0.5 s 静默
+
+**发布用**
+
+- **标题**：1919年，整座城市同时放爵士乐：因为一封凶手的信
+- **抖音介绍 + 话题**：[`production/neworleans1919/抖音发布文案.md`](production/neworleans1919/抖音发布文案.md)
+- **提问读者一句话**：如果那天晚上你家没有留声机，你敢出门借一台吗？
+
+---
+
+# 上一部：世田谷一家四口杀人案：留下无数线索，凶手为何仍未找到？
 
 > **最新成片（2026-10-28）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.0 s · 29 个 Agnes Video 2.5 Flash 镜头
 >
@@ -17,7 +37,7 @@
 
 ---
 
-# 上一部：雨夜屠夫林过云：一卷菲林里的四条人命
+# 更早：雨夜屠夫林过云：一卷菲林里的四条人命
 
 三分钟横版（16:9）中文悬疑解说短片 · 抖音横屏观看版 · 写实 3D 动画情景重现。
 一九八二年二月至七月，香港四名夜归女子坐上同一辆夜班的士后再没有回家；
