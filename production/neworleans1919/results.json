@@ -173,9 +173,9 @@
     "S07": {
       "id": "S07",
       "request_hash": "98a41dcd796d02aa9f1897c3373a6fc534b63a8182ebbfae90f93fcb5962914c",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-04T03:43:16Z",
+      "updated_at": "2026-11-04T03:43:18Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_jB9F9tB4LdNKVTuIADn6xfS3J6IWagkS",
@@ -186,7 +186,18 @@
       "bytes": 4414154,
       "sha256": "65e7256c236bbeee000641db7682aad8836ef73bbae12fc81f64ab7646af9853",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 4414154,
+        "decoded_ok": true,
+        "contact_sheet": "production/neworleans1919/qa/S07.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S08": {
       "id": "S08",
@@ -418,7 +429,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-04T03:43:16Z",
+  "updated_at": "2026-11-04T03:43:18Z",
   "run_id": "41765032949",
   "previous_results": {}
 }
