@@ -179,6 +179,15 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
             tempo = voice_tempo_factor(tempo * correction, 1.0, max_speedup)
             samples = decode_mp3(source, decoded_path, tempo)
             trimmed, speech_onset, speech_offset = trim_voice_edges(samples)
+        # Sub-second rounding may still leave a few milliseconds over. Converge instead of
+        # failing the whole render: shrink the speed slightly and retry, up to the same hard cap.
+        for _ in range(6):
+            if len(trimmed) <= round(available * RATE):
+                break
+            correction = (len(trimmed) / (available * RATE)) * 1.004
+            tempo = voice_tempo_factor(tempo * correction, 1.0, max_speedup)
+            samples = decode_mp3(source, decoded_path, tempo)
+            trimmed, speech_onset, speech_offset = trim_voice_edges(samples)
         if len(trimmed) > round(available * RATE):
             raise RuntimeError(f"{sid}: complete narration still exceeds its shot after safe speed-up")
 
