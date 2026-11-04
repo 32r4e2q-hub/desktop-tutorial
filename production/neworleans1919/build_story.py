@@ -236,7 +236,7 @@ SHOT_ROWS = [
      "is empty of violence: no wound, no struggle, no body. Camera: an extremely slow dolly toward "
      "the wall shadow, the exposure falling as it moves. Real motion: curtain breathing, dust "
      "turning in the moonbeam, the shadow rising, the lamp guttering. No readable text.",
-     "他没有惊动任何人，只留下墙上一个斧头的影子。"),
+     "他没有惊动任何人，只在墙上留下一个斧头影子。"),
 
     ("S06", 30, 5, "门口视角，缓慢推近", ["detective"], "fear", ["SC02", "C04"],
      "Grey early morning, the same grocery. The front door swings inward and two men in aprons and "
@@ -294,7 +294,7 @@ SHOT_ROWS = [
      "page in his fist. Gaslight, cold cyan haze, warm shop windows behind. Camera: tight tracking "
      "shot on the paper, then a fast tilt and pull-back. Real motion: paper spinning and flapping, "
      "newsboy's arms, cloth, fog drifting. No readable text.",
-     "入夜以后，整座城市被恐惧笼罩。"),
+     "入夜以后，整座城市被恐惧笼罩，天一黑，门窗紧闭。"),
 
     ("S11", 60, 7, "航拍缓慢下降，穿过雾气", [], "fear", ["SC04"],
      "Across the Mississippi from New Orleans: Gretna, Louisiana, March 1919, late night. The camera "
@@ -317,7 +317,7 @@ SHOT_ROWS = [
      "Camera: a very low dolly following the ball at its own speed, then holding on the sill. Real "
      "motion: ball rolling and settling, lamp swinging, blanket edge stirring, hem passing the "
      "doorway, dust in the lamp light. No body, no blood, no readable text.",
-     "店主夫妇被打成重伤。那间屋里，还有一个孩子的摇篮，空了。"),
+     "那一夜，店主夫妇受了重伤。屋里，摇篮空着。"),
 
     ("S13", 74, 6, "中景，缓慢推近", ["detective", "neighbor"], "fear", ["SC03", "C04"],
      "A police interrogation room, Gretna, 1919: bare plank walls, a single hanging bulb, a tin "
@@ -352,7 +352,7 @@ SHOT_ROWS = [
      "rain streaks the glass. Camera: over-the-shoulder slow push-in toward the letter in his hands. "
      "Real motion: paper unfolding, fingers, breath, rain on glass, lightning flicker, press wheel "
      "turning in the background. No readable text.",
-     "三月中旬，当地报纸登出了一封奇怪的信。"),
+     "三月中旬，报纸头版登出一封奇怪的信，署名“来自地狱”。"),
 
     ("S16", 91, 6, "大特写，文字逐行亮起", [], "fear", ["P03"],
      "Extreme close-up of an old letter lying on a dark desk: coarse paper, ink that has bled at the "
@@ -386,7 +386,7 @@ SHOT_ROWS = [
      "close on the gramophone, then one continuous slow pull-back and pan to the corner. Real motion: "
      "disc turning, needle arm drifting, notes swirling, curtain lifting, the silhouette's coat "
      "stirring in the wind. No visible face, no readable text.",
-     "如果屋里正放着爵士乐，我会放过这一家。"),
+     "信里说：屋里要放着爵士乐，我就放过这一家。"),
 
     ("S19", 108, 6, "蒙太奇快速切换", ["band", "crowd"], "jazz", ["SC06", "C05", "C06"],
      "Dusk, March 18, 1919: the city gets ready. A brisk montage inside one moving camera: hands "
@@ -431,7 +431,7 @@ SHOT_ROWS = [
      "clock, whip to the dancers, then a slow reverse track as the shadow retreats. Real motion: "
      "bell swinging, dancers turning, notes swirling, coat hem and hat brim sliding back into "
      "darkness. No visible face, no readable text.",
-     "那一夜，没有人遇害。全城的乐声，一直响到天亮。"),
+     "那一夜，没有人遇害。全城的乐声，响到天亮。"),
 
     ("S23", 130, 7, "广角，缓慢横移", ["crowd"], "fear", ["SC01", "C06"],
      "Autumn, New Orleans, a month later: a wide street scene in late afternoon light gone cold. "
@@ -465,7 +465,7 @@ SHOT_ROWS = [
      "table. Camera: low-angle slow push-in across the floor toward the chisel. Real motion: lantern "
      "swaying so shadows slide, notebook page turning, breath, curtain lifting. No body, no blood, "
      "no readable text.",
-     "妻子埃丝特，看见一个男人从后门逃出去。"),
+     "妻子埃丝特冲进卧室，只看见一个背影，从后门逃走。"),
 
     ("S26", 150, 6, "俯拍，日历翻页", [], "fear", ["SC01"],
      "A tabletop seen from directly above: a stack of newspapers with unreadable woodcut "
@@ -605,7 +605,7 @@ PRESENTATION = {
         "1919年", "新奥尔良", "爵士乐", "斧头", "不会落下", "午夜", "12点15分",
         "1918年5月", "杂货店", "马乔", "凿子", "方洞", "影子", "钱一分没少",
         "一年多", "后门", "自己的斧头", "柜子", "恐惧", "报纸",
-        "3月10日", "格雷特纳", "重伤", "摇篮", "空了", "邻居父子", "关键证词",
+        "3月10日", "格雷特纳", "重伤", "摇篮空着", "邻居父子", "关键证词",
         "来自地狱", "3月13日", "下周二", "放过这一家", "留声机", "黑影",
         "圣约瑟夫节", "全城", "达维拉", "神秘斧头手的爵士", "震耳欲聋",
         "没有人遇害", "10月27日", "佩皮托内", "最后一起",
