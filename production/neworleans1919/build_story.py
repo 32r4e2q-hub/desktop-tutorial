@@ -486,7 +486,7 @@ SHOT_ROWS = [
      "Camera: slow-motion medium push-in across the street, traffic sliding out of focus in front of "
      "the lens. Real motion: heat shimmer, palm fronds, her hands tightening on the bag, his coat "
      "moving, a tram passing. No clear face, no readable text.",
-     "一年多后，洛杉矶，埃丝特开枪打死一个男人。"),
+     "一年多后，洛杉矶，埃丝特朝一个男人开了枪。"),
 
     ("S28", 162, 6, "橱窗倒影，快速", ["mumfre"], "fear", ["SC09", "C09"],
      "The same street, one heartbeat later: a pane of shop-window glass fills the frame, and in its "
@@ -599,7 +599,7 @@ PRESENTATION = {
     },
     "end_title": "新奥尔良斧头杀手",
     "end_subtitle": "新奥尔良 · 1918—1919 · 爵士之夜",
-    "end_note": "真实案件改编 · 部分画面为3D复原",
+    "end_note": "真实案件改编 · 部分画面为3D复原 · 传闻细节未经证实",
     "end_question": "",
     "highlight_keywords": [
         "1919年", "新奥尔良", "爵士乐", "斧头", "不会落下", "午夜", "12点15分",
@@ -609,7 +609,7 @@ PRESENTATION = {
         "来自地狱", "3月13日", "下周二", "放过这一家", "留声机", "黑影",
         "圣约瑟夫节", "全城", "达维拉", "神秘斧头手的爵士", "震耳欲聋",
         "没有人遇害", "10月27日", "佩皮托内", "最后一起",
-        "埃丝特", "蒙弗尔", "找不到他", "没有答案", "哪首歌",
+        "埃丝特", "开了枪", "蒙弗尔", "找不到他", "没有答案", "哪首歌",
     ],
     "subtitle_style": {
         "font_size_px": 58,

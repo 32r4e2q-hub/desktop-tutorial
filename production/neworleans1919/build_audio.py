@@ -18,6 +18,8 @@ from pathlib import Path
 import numpy as np
 
 RATE = 48_000
+TAIL_GUARD = 0.05      # 收尾留白，避免切点吞字
+PUNCH_PAUSE = 0.45     # 关键句后的静默（加 TAIL_GUARD 约 0.5 s）
 BLOCK = RATE
 TARGET_RMS_DBFS = -20.0
 PEAK_CEILING_DBFS = -1.5
@@ -157,7 +159,11 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
         shot_end = shot_start + shot_duration
         # Speech stops just before the cut; the closing shot also leaves the brief's final
         # second and a half for the last hanging note before the picture fades.
-        max_speech_end = min(shot_end - 0.08, float(story["target_duration"]) - 1.6)
+        # The brief asks for a ~0.5 s beat after three signature lines (斧头不会落下 / 没有人遇害 /
+        # 你放哪首歌). The pause is made by pulling the line slightly earlier so silence runs to the
+        # cut - it never truncates a syllable, it only moves the line.
+        lead_out = (TAIL_GUARD + PUNCH_PAUSE) if record.get("punch_pause") else 0.08
+        max_speech_end = min(shot_end - lead_out, float(story["target_duration"]) - 1.6)
         available = max_speech_end - shot_start
         if available <= 0:
             raise ValueError("No safe speech window remains in " + sid)
