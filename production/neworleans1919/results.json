@@ -752,9 +752,9 @@
     "S26": {
       "id": "S26",
       "request_hash": "e47330d09c58961c84cd97cde1d6350c2ef705846c530137562ec301e19d4245",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-04T06:26:41Z",
+      "updated_at": "2026-11-04T06:26:43Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -767,7 +767,18 @@
       "bytes": 2082695,
       "sha256": "27c193d3d917c5eb8ec06b04cb40cf0181dc26e14661fe11c3cbfec308bb37a6",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2082695,
+        "decoded_ok": true,
+        "contact_sheet": "production/neworleans1919/qa/S26.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S27": {
       "id": "S27",
@@ -874,7 +885,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-04T06:26:41Z",
+  "updated_at": "2026-11-04T06:26:43Z",
   "run_id": "41765032949",
   "previous_results": {}
 }
