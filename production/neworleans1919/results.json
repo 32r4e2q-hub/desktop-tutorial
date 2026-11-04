@@ -632,9 +632,9 @@
     "S22": {
       "id": "S22",
       "request_hash": "7da0a66344ba58de9e9a5f012f77238b192f8a8530710a144936c5affabbf89e",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-04T05:47:39Z",
+      "updated_at": "2026-11-04T05:47:44Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -647,7 +647,18 @@
       "bytes": 4222161,
       "sha256": "c84f3b7df789486455a6697efe174ae614d507c9f66e2e47bac3e0a0f41833af",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 4222161,
+        "decoded_ok": true,
+        "contact_sheet": "production/neworleans1919/qa/S22.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S23": {
       "id": "S23",
@@ -784,7 +795,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-04T05:47:39Z",
+  "updated_at": "2026-11-04T05:47:44Z",
   "run_id": "41765032949",
   "previous_results": {}
 }
