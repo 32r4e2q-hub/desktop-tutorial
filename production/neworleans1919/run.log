@@ -1,0 +1,122 @@
+run=41793731039 attempt=1 ref=arena/eb3c7fec-desktop-tutorial
+event=push runner=GitHub Actions 1000002968 os=Linux arch=X64
+sha=010fd4a89bea8ef5f30dab7002293dc10242fd19
+started 2026-11-04T07:39:38Z
+Python 3.14.4
+ffmpeg missing
+ffprobe missing
+payload={"mode":"render","workers":1}
+== tools ==
+python=Python 3.14.4 ffmpeg=none ffprobe=none
+installing python media deps from PyPI
+ffmpeg shim -> /home/runner/.local/lib/python3.14/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v9.0.2
+ffprobe shim -> /home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/ffprobe_shim.py
+PATH=/home/runner/.local/bin added
+downloading CJK fonts
+font ok: NotoSansCJKsc-Regular.otf
+font ok: NotoSansCJKsc-Bold.otf
+font ok: NotoSerifCJKsc-Regular.otf
+numpy: ok
+PIL: ok
+yaml: ok
+av: ok
+imageio_ffmpeg: ok
+ffmpeg -> ffmpeg version n9.0.2-17-g2a571b6068-20260930 Copyright (c) 2000-2026 the FFmpeg developer
+ffprobe -> ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe
+cjk_fonts=3
+stage=tools_ready
+reference_revision=c34959cc37cf037d0a92169d9bae7d8d408ba049
+== plan ==
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/story.json — 30 shots, 180s, 590 visible narration characters (3.28/s)
+stage=build_ok
+validation mode: render
+VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines, nine chapters and approved references
+stage=validate_ok
+test_30_shots_cover_exactly_180_seconds (production.tests.test_neworleans1919.NewOrleansPlanTests.test_30_shots_cover_exactly_180_seconds) ... ok
+test_caption_lines_stay_within_the_two_line_limit (production.tests.test_neworleans1919.NewOrleansPlanTests.test_caption_lines_stay_within_the_two_line_limit) ... ok
+test_chapters_are_nine_and_contiguous (production.tests.test_neworleans1919.NewOrleansPlanTests.test_chapters_are_nine_and_contiguous) ... ok
+test_every_prompt_gets_style_characters_references_and_negative (production.tests.test_neworleans1919.NewOrleansPlanTests.test_every_prompt_gets_style_characters_references_and_negative) ... ok
+test_every_shot_demands_real_camera_motion (production.tests.test_neworleans1919.NewOrleansPlanTests.test_every_shot_demands_real_camera_motion) ... ok
+test_hook_and_ending_are_built_in (production.tests.test_neworleans1919.NewOrleansPlanTests.test_hook_and_ending_are_built_in) ... ok
+test_narration_fit_verdicts (production.tests.test_neworleans1919.NewOrleansPlanTests.test_narration_fit_verdicts) ... ok
+test_narration_is_one_line_per_shot_at_the_scripted_pace (production.tests.test_neworleans1919.NewOrleansPlanTests.test_narration_is_one_line_per_shot_at_the_scripted_pace) ... ok
+test_payload_uses_reference_mode_with_approved_images (production.tests.test_neworleans1919.NewOrleansPlanTests.test_payload_uses_reference_mode_with_approved_images) ... ok
+test_publish_delivery_copies_the_named_four (production.tests.test_neworleans1919.NewOrleansPlanTests.test_publish_delivery_copies_the_named_four) ... ok
+test_reference_images_are_declared_and_published (production.tests.test_neworleans1919.NewOrleansPlanTests.test_reference_images_are_declared_and_published) ... ok
+test_reference_revision_is_an_immutable_commit_when_recorded (production.tests.test_neworleans1919.NewOrleansPlanTests.test_reference_revision_is_an_immutable_commit_when_recorded) ... ok
+test_sensitive_imagery_is_never_requested (production.tests.test_neworleans1919.NewOrleansPlanTests.test_sensitive_imagery_is_never_requested) ... ok
+test_single_character_shots_use_a_fixed_per_character_seed (production.tests.test_neworleans1919.NewOrleansPlanTests.test_single_character_shots_use_a_fixed_per_character_seed) ... ok
+test_sources_and_fact_boundaries_are_recorded (production.tests.test_neworleans1919.NewOrleansPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
+test_two_tone_palette_only_flips_where_scripted (production.tests.test_neworleans1919.NewOrleansPlanTests.test_two_tone_palette_only_flips_where_scripted) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.184s
+
+OK
+stage=tests_ok
+agnes_key_present=yes
+== generator ==
+RESTORE S01 from Agnes receipt
+RESTORE S02 from Agnes receipt
+RESTORE S03 from Agnes receipt
+RESTORE S04 from Agnes receipt
+RESTORE S05 from Agnes receipt
+RESTORE S06 from Agnes receipt
+RESTORE S07 from Agnes receipt
+RESTORE S08 from Agnes receipt
+RESTORE S09 from Agnes receipt
+RESTORE S10 from Agnes receipt
+RESTORE S11 from Agnes receipt
+RESTORE S12 from Agnes receipt
+RESTORE S13 from Agnes receipt
+RESTORE S14 from Agnes receipt
+RESTORE S15 from Agnes receipt
+RESTORE S16 from Agnes receipt
+RESTORE S17 from Agnes receipt
+RESTORE S18 from Agnes receipt
+RESTORE S19 from Agnes receipt
+RESTORE S20 from Agnes receipt
+RESTORE S21 from Agnes receipt
+RESTORE S22 from Agnes receipt
+RESTORE S23 from Agnes receipt
+RESTORE S24 from Agnes receipt
+RESTORE S25 from Agnes receipt
+RESTORE S26 from Agnes receipt
+RESTORE S27 from Agnes receipt
+RESTORE S28 from Agnes receipt
+RESTORE S29 from Agnes receipt
+RESTORE S30 from Agnes receipt
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/render.py", line 627, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/render.py", line 546, in main
+    mix, audio_report, cues = build_soundtrack(story, HERE / "audio", args.work)
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/build_audio.py", line 612, in build_soundtrack
+    voice, cues, narration_report = build_narration(story, audio_dir, work_dir)
+                                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/build_audio.py", line 183, in build_narration
+    raise RuntimeError(f"{sid}: complete narration still exceeds its shot after safe speed-up")
+RuntimeError: S10: complete narration still exceeds its shot after safe speed-up
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/generate.py", line 871, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/generate.py", line 534, in main
+    subprocess.run([
+    ~~~~~~~~~~~~~~^^
+        sys.executable, str(HERE / "render.py"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--sources", str(sources), "--work", str(ROOT / "work" / "neworleans1919" / "edit"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--output", str(output),
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ], cwd=ROOT, check=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/neworleans1919/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/neworleans1919/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/neworleans1919/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/neworleans1919/clips/新奥尔良斧头杀手_全城放爵士的夜晚_三分钟_带声音.mp4']' returned non-zero exit status 1.
+generator_exit=1
+stage=generate_step_done exit=1
