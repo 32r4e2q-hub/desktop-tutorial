@@ -451,6 +451,29 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
     vignette[:, :, 0:3] = (8, 3, 0)
     image = Image.alpha_composite(image, Image.fromarray(vignette, "RGBA"))
 
+    # 窗外墙上那道斧头长影：一条连通的剪影（斧柄 + 斧刃），从窗脚向左下拖长，
+    # 用统一的深冷灰半透明 + 轻微模糊，读起来像灯打出来的投影而不是贴图。
+    shadow_layer = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    shadow_draw = ImageDraw.Draw(shadow_layer)
+    # 斧柄：从窗脚 (1150, 600) 拖到左下 (250, 980)
+    x0, y0, x1, y1 = 1150.0, 600.0, 250.0, 980.0
+    steps = 160
+    for i in range(steps):
+        t = i / (steps - 1)
+        px = x0 + (x1 - x0) * t
+        py = y0 + (y1 - y0) * t
+        half = 22.0 + 9.0 * t                      # 越近越粗，模拟投影透视
+        shadow_draw.line((px, py, px + (x1 - x0) / steps, py + (y1 - y0) / steps),
+                         fill=(7, 11, 17, 168), width=int(half * 2))
+    # 斧刃：接在斧柄末端，一个偏宽的梯形 + 弧形刃口
+    hx, hy = x1, y1
+    blade = [(hx - 36, hy - 96), (hx + 40, hy - 120), (hx + 78, hy - 30),
+             (hx + 30, hy + 66), (hx - 54, hy + 40)]
+    shadow_draw.polygon(blade, fill=(7, 11, 17, 178))
+    shadow_draw.ellipse((hx + 46, hy - 78, hx + 120, hy + 34), fill=(7, 11, 17, 178))
+    shadow_layer = shadow_layer.filter(ImageFilter.GaussianBlur(5.0))
+    image = Image.alpha_composite(image, shadow_layer)
+
     draw = ImageDraw.Draw(image)
 
     # Drawn golden note sparks drifting out of the lit window (the film's visual signature).
@@ -483,6 +506,7 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
     kicker = "真实悬案 · 新奥尔良 · 1919"
     sub_text = story["presentation"]["cover"]["subtext"]
     footer = "AI动画情景复原 · 非真实影像"
+    episode = story["presentation"].get("episode_label", "")
     kicker_box = draw.textbbox((0, 0), kicker, font=small)
     title_box = draw.textbbox((0, 0), title_text, font=title_font)
     sub_box = draw.textbbox((0, 0), sub_text, font=sub)
@@ -510,6 +534,25 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
               stroke_width=3, stroke_fill="#0c0a06")
     draw.text((96, 950 - footer_box[1]), footer, font=micro, fill="#b7ad9d",
               stroke_width=2, stroke_fill="#0b0906")
+
+    # 第 N 期徽标：右上角，暖金描边，手机上也能一眼看到。
+    if episode.strip():
+        badge_font = ImageFont.truetype(str(find_font()), 40)
+        badge_box = draw.textbbox((0, 0), episode, font=badge_font)
+        pad_x, pad_y = 30, 16
+        badge_w = (badge_box[2] - badge_box[0]) + pad_x * 2
+        badge_h = (badge_box[3] - badge_box[1]) + pad_y * 2
+        right = 1824
+        top = 44
+        badge = Image.new("RGBA", (badge_w, badge_h), (0, 0, 0, 0))
+        badge_draw = ImageDraw.Draw(badge)
+        badge_draw.rounded_rectangle((0, 0, badge_w - 1, badge_h - 1), radius=badge_h // 2,
+                                     fill=(14, 9, 4, 205), outline=(244, 201, 95, 235), width=3)
+        badge_draw.text(((badge_w - (badge_box[2] - badge_box[0])) / 2 - badge_box[0],
+                         (badge_h - (badge_box[3] - badge_box[1])) / 2 - badge_box[1]),
+                        episode, font=badge_font, fill="#f4c95f")
+        image.alpha_composite(badge, (right - badge_w, top)) if image.mode == "RGBA" else image.paste(
+            badge, (right - badge_w, top), badge)
     output.parent.mkdir(parents=True, exist_ok=True)
     image.convert("RGB").save(output, quality=95, subsampling=0)
     image.convert("RGB").save(output.with_suffix(".png"))

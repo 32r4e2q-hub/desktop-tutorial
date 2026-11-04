@@ -213,7 +213,7 @@ SHOT_ROWS = [
      "glass, one continuous move with a faint reflection sliding across the frame. Real motion: "
      "cloth moving as he reaches, pencil writing, page turning, lamp flame breathing, curtain "
      "lifting. No readable text on labels.",
-     "故事要从一年前说起。1918年5月，新奥尔良的杂货店主夫妇。"),
+     "故事从一年前说起。1918年5月，新奥尔良一家杂货店。"),
 
     ("S04", 17, 7, "特写，慢动作", ["axeman"], "fear", ["SC02", "P02"],
      "The narrow back alley behind the grocery, deep night. Wet bricks, a broken crate, a cat "
@@ -294,7 +294,7 @@ SHOT_ROWS = [
      "page in his fist. Gaslight, cold cyan haze, warm shop windows behind. Camera: tight tracking "
      "shot on the paper, then a fast tilt and pull-back. Real motion: paper spinning and flapping, "
      "newsboy's arms, cloth, fog drifting. No readable text.",
-     "入夜以后，整座城市被恐惧笼罩，天一黑，门窗紧闭。"),
+     "入夜以后，全城戒严，门窗紧闭。"),
 
     ("S11", 60, 7, "航拍缓慢下降，穿过雾气", [], "fear", ["SC04"],
      "Across the Mississippi from New Orleans: Gretna, Louisiana, March 1919, late night. The camera "
@@ -352,7 +352,7 @@ SHOT_ROWS = [
      "rain streaks the glass. Camera: over-the-shoulder slow push-in toward the letter in his hands. "
      "Real motion: paper unfolding, fingers, breath, rain on glass, lightning flicker, press wheel "
      "turning in the background. No readable text.",
-     "三月中旬，报纸头版登出一封奇怪的信，署名“来自地狱”。"),
+     "三月中旬，报纸头版登出一封怪信，署名“来自地狱”。"),
 
     ("S16", 91, 6, "大特写，文字逐行亮起", [], "fear", ["P03"],
      "Extreme close-up of an old letter lying on a dark desk: coarse paper, ink that has bled at the "
@@ -431,7 +431,7 @@ SHOT_ROWS = [
      "clock, whip to the dancers, then a slow reverse track as the shadow retreats. Real motion: "
      "bell swinging, dancers turning, notes swirling, coat hem and hat brim sliding back into "
      "darkness. No visible face, no readable text.",
-     "那一夜，没有人遇害。全城的乐声，响到天亮。"),
+     "那一夜，没有人遇害。乐声响到天亮。"),
 
     ("S23", 130, 7, "广角，缓慢横移", ["crowd"], "fear", ["SC01", "C06"],
      "Autumn, New Orleans, a month later: a wide street scene in late afternoon light gone cold. "
@@ -589,6 +589,7 @@ SOURCES = [
 ]
 
 PRESENTATION = {
+    "episode_label": "第四期",
     "cover": {
         "layout": "16:9；中央是一扇亮着暖金灯光的窗口，窗外墙上一个斧头的长长影子，"
                   "金色音符从窗内飘出；主标题在左侧，副标题在下方",
