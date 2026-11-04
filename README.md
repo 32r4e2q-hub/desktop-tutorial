@@ -25,7 +25,8 @@
 **下载（Release [`neworleans1919-v1`](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/neworleans1919-v1)，不需登录）**
 
 - 成片：[neworleans1919-axeman-jazz-city-3min-1080p.mp4](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-axeman-jazz-city-3min-1080p.mp4)（72,198,594 B）
-- 封面：[neworleans1919-cover-ep04-1920x1080.png](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-cover-ep04-1920x1080.png)（1920×1080 · 第四期角标 · 2,134,677 B）
+- 封面（横版）：[neworleans1919-cover-ep04-1920x1080.png](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-cover-ep04-1920x1080.png)（1920×1080 · 第四期角标 · 2,134,677 B）
+- 封面（竖版·系列模板）：[neworleans1919-cover-ep04-portrait-1080x1440.png](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-cover-ep04-portrait-1080x1440.png)（1080×1440 · 1,355,370 B）
 - 字幕：[neworleans1919-subtitles.srt](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-subtitles.srt)（30 条）
 
 ---
