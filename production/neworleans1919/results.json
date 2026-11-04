@@ -900,7 +900,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -951,5 +951,43 @@
   },
   "updated_at": "2026-11-04T07:11:19Z",
   "run_id": "41765032949",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/neworleans1919/clips/新奥尔良斧头杀手_全城放爵士的夜晚_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/neworleans1919/clips/新奥尔良斧头杀手_封面.jpg",
+    "delivered": {
+      "新奥尔良斧头杀手_全城放爵士的夜晚_三分钟_带声音.mp4": {
+        "bytes": 72200672,
+        "sha256": "2d14e784f2927db8794be9e50f1a259cbccd1a52a729dc01967f3130e58c2019"
+      },
+      "新奥尔良斧头杀手_封面.jpg": {
+        "bytes": 687338,
+        "sha256": "2d36f040ba714a8358368b4d9b3a86d61a516e4362f842a14eeb6d7010a9eed1"
+      },
+      "新奥尔良斧头杀手_字幕.srt": {
+        "bytes": 3030,
+        "sha256": "b70746b652284ec907790278e012b5e3ffe554f5699e472456bb6adafd65156a"
+      },
+      "新奥尔良斧头杀手_技术报告.json": {
+        "bytes": 37766,
+        "sha256": "addacf3e4d0ff32fb7644dc155b84a439d7b101c612002b74ee8a2fd2e41bb76"
+      },
+      "NewOrleans1919_Final.mp4": {
+        "bytes": 72200672,
+        "sha256": "2d14e784f2927db8794be9e50f1a259cbccd1a52a729dc01967f3130e58c2019"
+      },
+      "NewOrleans1919_Cover.png": {
+        "bytes": 2139833,
+        "sha256": "9b57f439e83605202b7a8a742a4c314d09b5a1b07bc67d9cfe442e762dfebc06"
+      },
+      "NewOrleans1919_Subtitles.srt": {
+        "bytes": 3030,
+        "sha256": "b70746b652284ec907790278e012b5e3ffe554f5699e472456bb6adafd65156a"
+      }
+    }
+  }
 }
