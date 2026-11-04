@@ -317,7 +317,7 @@ SHOT_ROWS = [
      "Camera: a very low dolly following the ball at its own speed, then holding on the sill. Real "
      "motion: ball rolling and settling, lamp swinging, blanket edge stirring, hem passing the "
      "doorway, dust in the lamp light. No body, no blood, no readable text.",
-     "店主夫妇被打成重伤，他们两岁的女儿，没能活下来。"),
+     "店主夫妇被打成重伤。那间屋里，还有一个孩子的摇篮，空了。"),
 
     ("S13", 74, 6, "中景，缓慢推近", ["detective", "neighbor"], "fear", ["SC03", "C04"],
      "A police interrogation room, Gretna, 1919: bare plank walls, a single hanging bulb, a tin "
