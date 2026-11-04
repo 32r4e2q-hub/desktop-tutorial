@@ -663,9 +663,9 @@
     "S23": {
       "id": "S23",
       "request_hash": "4cc65660deaa854f33a343e7cf8ba21ac60cbe6f4727e90df2121f1d602c6c56",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-04T05:51:31Z",
+      "updated_at": "2026-11-04T05:51:34Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -678,7 +678,18 @@
       "bytes": 5012024,
       "sha256": "f87c2974cc8c20f80a9a38ad471269cbd6d11f52c9a20fcbc46f35359db4d2d3",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 5012024,
+        "decoded_ok": true,
+        "contact_sheet": "production/neworleans1919/qa/S23.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S24": {
       "id": "S24",
@@ -806,7 +817,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-04T05:51:31Z",
+  "updated_at": "2026-11-04T05:51:34Z",
   "run_id": "41765032949",
   "previous_results": {}
 }
