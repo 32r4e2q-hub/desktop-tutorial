@@ -22,6 +22,12 @@
 - **抖音介绍 + 话题**：[`production/neworleans1919/抖音发布文案.md`](production/neworleans1919/抖音发布文案.md)
 - **提问读者一句话**：如果那天晚上你家没有留声机，你敢出门借一台吗？
 
+**下载（Release [`neworleans1919-v1`](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/neworleans1919-v1)，不需登录）**
+
+- 成片：[neworleans1919-axeman-jazz-city-3min-1080p.mp4](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-axeman-jazz-city-3min-1080p.mp4)（72,198,594 B）
+- 封面：[neworleans1919-cover-ep04-1920x1080.png](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-cover-ep04-1920x1080.png)（1920×1080 · 第四期角标 · 2,134,677 B）
+- 字幕：[neworleans1919-subtitles.srt](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/neworleans1919-v1/neworleans1919-subtitles.srt)（30 条）
+
 ---
 
 # 上一部：世田谷一家四口杀人案：留下无数线索，凶手为何仍未找到？
