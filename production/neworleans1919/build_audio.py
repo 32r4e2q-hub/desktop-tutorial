@@ -20,6 +20,7 @@ import numpy as np
 RATE = 48_000
 TAIL_GUARD = 0.05      # 收尾留白，避免切点吞字
 PUNCH_PAUSE = 0.45     # 关键句后的静默（加 TAIL_GUARD 约 0.5 s）
+PUNCH_LINES = ("斧头不会落下", "没有人遇害", "哪首歌")
 BLOCK = RATE
 TARGET_RMS_DBFS = -20.0
 PEAK_CEILING_DBFS = -1.5
@@ -164,7 +165,10 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
         # The brief asks for a ~0.5 s beat after three signature lines (斧头不会落下 / 没有人遇害 /
         # 你放哪首歌). The pause is made by pulling the line slightly earlier so silence runs to the
         # cut - it never truncates a syllable, it only moves the line.
-        lead_out = (TAIL_GUARD + PUNCH_PAUSE) if record.get("punch_pause") else 0.08
+        # 关键句自动识别：「斧头不会落下」「没有人遇害」「你放哪首歌」之后各留 0.5 s 静默。
+        # 不依赖 manifest 的手工标记（同步 manifest 时会丢），只认旁白文本本身。
+        punch = any(key in shot["narration"] for key in PUNCH_LINES) or bool(record.get("punch_pause"))
+        lead_out = (TAIL_GUARD + PUNCH_PAUSE) if punch else 0.08
         max_speech_end = min(shot_end - lead_out, float(story["target_duration"]) - 1.6)
         available = max_speech_end - shot_start
         if available <= 0:
