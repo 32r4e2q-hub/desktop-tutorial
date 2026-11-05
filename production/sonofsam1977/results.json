@@ -711,10 +711,13 @@
     "S27": {
       "id": "S27",
       "request_hash": "a4f4170fb6d55e6e345cff77afa70bce4171049b7903a9e3d8d739eaa3a1cd83",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T08:00:58Z",
-      "error": null
+      "updated_at": "2026-11-05T08:01:00Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:01:32. (request id: 20261105080100432523485QaZHEpMR) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 33.0
     },
     "S28": {
       "id": "S28",
@@ -788,7 +791,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T08:00:58Z",
+  "updated_at": "2026-11-05T08:01:00Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
@@ -826,5 +829,13 @@
         "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128."
       }
     ]
+  },
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:01:32. (request id: 20261105080100432523485QaZHEpMR) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 33.0,
+    "last_seen": "2026-11-05T08:01:00Z"
   }
 }
