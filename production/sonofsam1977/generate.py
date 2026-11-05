@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the 30 New Orleans shots with Agnes Video 2.5 Flash, then render the 180s film.
+"""Generate the 30 Son of Sam shots with Agnes Video 2.5 Flash, then render the 180s film.
 
 The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
 size/aspect_ratio/mode/n/images); transient create failures retry every REQUEST_INTERVAL_SECONDS

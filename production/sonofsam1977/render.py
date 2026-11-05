@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Deterministic 180-second edit from verified Agnes motion clips and the selected Chinese VO.
 
-Two palettes cut against each other: the jazz night is warm gold with drifting note sparks, the
-fear line is cold cyan. The only generated text in the whole film is the closing title, which is
-composited here in post, never asked of the model (except shot 30's licence).
+Three palettes cut against each other: the summer-night line is sultry orange against cold cyan,
+the chase line is cold blue-white fluorescent, the ending turns warm gold. The only generated text
+in the whole film is the closing title, which is composited here in post, never asked of the model
+(except shot 30's licence).
 """
 from __future__ import annotations
 
@@ -591,18 +592,19 @@ def main() -> int:
         "source_model": MODEL,
         "source_resolution": SOURCE_SIZE,
         "final_resolution": "1920x1080 (upscaled in post)",
-        "style_consistency": "Two STYLE blocks, one film: the fear line (cold cyan and deep blue "
-                             "gaslight) and the jazz line (warm gold, amber and orange-red with drifting "
-                             "golden note sparks) alternate exactly as scripted, so every palette shift "
-                             "is pacing rather than drift. Every clip is generated from the same approved "
-                             "reference stills with mode=reference; single-character shots also reuse a "
-                             "fixed per-character seed to limit face drift.",
+        "style_consistency": "Three STYLE blocks, one film: the summer-night line (sultry orange and "
+                             "cold cyan with steam and neon), the chase line (cold blue-white "
+                             "fluorescent offices) and the warm gold ending alternate exactly as "
+                             "scripted, so every palette shift is pacing rather than drift. Every clip "
+                             "is generated from the same approved reference stills with mode=reference; "
+                             "single-character shots also reuse a fixed per-character seed to limit "
+                             "face drift.",
         "all_30_generated_shots_verified_by_sha256": True,
         "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the "
                 "title, captions and end card are composited in post. The footage is an AI-produced "
-                "reenactment, not historical imagery; no victim, wound, body or axe strike is shown, "
-                "the Axeman is always a faceless silhouette, and the letter is presented as the "
-                "contemporary newspaper claim it was, not as a proven confession.",
+                "reenactment, not historical imagery; no victim, wound, body, shooting or weapon in "
+                "use is shown, the attacker is always a faceless silhouette, and the letters are "
+                "presented as the contemporary newspaper claims they were.",
     }
     delivery = args.work / "delivery"
     delivery.mkdir(parents=True, exist_ok=True)

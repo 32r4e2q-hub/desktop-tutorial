@@ -30,7 +30,7 @@ REFERENCE = HERE / "reference"
 REVISION_FILE = REFERENCE / "revision.txt"
 APPROVALS = REFERENCE / "approvals.json"
 # Set to a date once a human or an agent has actually looked at every still.
-REVIEWED_AT = "2026-11-04"
+REVIEWED_AT = "2026-11-05"
 
 
 def story() -> dict:
@@ -79,7 +79,7 @@ def main() -> int:
         "reviewer": "Arena assistant visual inspection, one sheet at a time",
         "reviewed_at": REVIEWED_AT,
         "note": "Checks per sheet: three-view plus facial close-up present, no face on the "
-                "Axeman, no victim, no wound, no legible lettering, period-correct clothing.",
+                "the attacker silhouette, no victim, no wound, no shooting, no legible lettering, period-correct 1977 clothing.",
         "assets": assets,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
