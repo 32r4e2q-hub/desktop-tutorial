@@ -183,10 +183,10 @@
     "S07": {
       "id": "S07",
       "request_hash": "13828c013dd5c9772377122012849b19692b0054af02ca9022253aca02db74f8",
-      "status": "failed",
-      "reused_existing_asset": false,
-      "updated_at": "2026-11-05T03:17:36Z",
-      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.",
+      "status": "completed",
+      "reused_existing_asset": true,
+      "updated_at": "2026-11-05T06:05:26Z",
+      "error": null,
       "create_attempts": 4,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 12,
@@ -198,7 +198,18 @@
       "bytes": 4010651,
       "sha256": "b65a5db75a949fb1c09ceb650dcdb441da0feec24d55dde216322b8452c9503a",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 4010651,
+        "decoded_ok": true,
+        "contact_sheet": "production/sonofsam1977/qa/S07.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S08": {
       "id": "S08",
@@ -439,7 +450,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:05:25Z",
+  "updated_at": "2026-11-05T06:05:26Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
