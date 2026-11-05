@@ -892,7 +892,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -979,5 +979,43 @@
         "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128."
       }
     ]
+  },
+  "delivery": {
+    "film": "work/sonofsam1977/clips/山姆之子_一张25美元的罚单_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/sonofsam1977/clips/山姆之子_封面.jpg",
+    "delivered": {
+      "山姆之子_一张25美元的罚单_三分钟_带声音.mp4": {
+        "bytes": 72224977,
+        "sha256": "7e3d16be4d2d17e6a09630ee96aa9b4699509be796154abb185c8ff290144e46"
+      },
+      "山姆之子_封面.jpg": {
+        "bytes": 420605,
+        "sha256": "8a449ffbeca2af5be50bf203141d6688bdcc85562c6bd1cddb2120733690f8c8"
+      },
+      "山姆之子_字幕.srt": {
+        "bytes": 2913,
+        "sha256": "9d7b74777132d84d56b7c50ad43c4f0d7c922a1f1140a5aa2b7af32eeeeac2c2"
+      },
+      "山姆之子_技术报告.json": {
+        "bytes": 37682,
+        "sha256": "c6b2d7eac22ad26cb7db7b68e381fba2bc016e3d39f16916c717f43d0a3a2081"
+      },
+      "SonOfSam1977_Final.mp4": {
+        "bytes": 72224977,
+        "sha256": "7e3d16be4d2d17e6a09630ee96aa9b4699509be796154abb185c8ff290144e46"
+      },
+      "SonOfSam1977_Cover.png": {
+        "bytes": 1153793,
+        "sha256": "4fe537401627b717e3c7db86bd5c70b2eb498fcc65c1871e1f2aaddaebb6a32d"
+      },
+      "SonOfSam1977_Subtitles.srt": {
+        "bytes": 2913,
+        "sha256": "9d7b74777132d84d56b7c50ad43c4f0d7c922a1f1140a5aa2b7af32eeeeac2c2"
+      }
+    }
   }
 }
