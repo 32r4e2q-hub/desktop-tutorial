@@ -445,11 +445,15 @@
     "S17": {
       "id": "S17",
       "request_hash": "164a364cce8ad0732d2aafe061b07309494f7600574365c63b22db6451decf78",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:41:53Z",
+      "updated_at": "2026-11-05T06:44:29Z",
       "error": null,
-      "create_attempts": 1
+      "create_attempts": 1,
+      "video_id": "task_UREis7Qo3rLO10g2Bg755HbLObriId2T",
+      "task_id": "task_UREis7Qo3rLO10g2Bg755HbLObriId2T",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S18": {
       "id": "S18",
@@ -463,10 +467,11 @@
     "S19": {
       "id": "S19",
       "request_hash": "d459f54305f9e41a8fbbdb8e8ef746fc9b850c2f4cd22cda6ecabfc72784bcc6",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:42:52Z",
-      "error": null
+      "updated_at": "2026-11-05T06:42:53Z",
+      "error": null,
+      "create_attempts": 1
     },
     "S20": {
       "id": "S20",
@@ -596,7 +601,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:42:52Z",
+  "updated_at": "2026-11-05T06:44:29Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
@@ -634,13 +639,5 @@
         "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128."
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:44:26. (request id: 20261105064245591169194vJ9WtLNW) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 102.0,
-    "last_seen": "2026-11-05T06:42:45Z"
   }
 }
