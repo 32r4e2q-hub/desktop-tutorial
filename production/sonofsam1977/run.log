@@ -1,7 +1,7 @@
-run=41950495782 attempt=1 ref=arena/e455e5b7-desktop-tutorial
-event=push runner=GitHub Actions 1000003002 os=Linux arch=X64
-sha=ffc7cb78ad9254167ea01737dad96fc750f61b75
-started 2026-11-05T01:44:37Z
+run=41950987109 attempt=1 ref=arena/e455e5b7-desktop-tutorial
+event=push runner=GitHub Actions 1000003005 os=Linux arch=X64
+sha=20de5845a719e31e91c508c3644c6fbbb7f73c3e
+started 2026-11-05T01:49:09Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
@@ -37,48 +37,313 @@ test_caption_lines_stay_within_the_two_line_limit (production.tests.test_sonofsa
 test_chapters_are_nine_and_contiguous (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_chapters_are_nine_and_contiguous) ... ok
 test_every_prompt_gets_style_characters_references_and_negative (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_every_prompt_gets_style_characters_references_and_negative) ... ok
 test_every_shot_demands_real_camera_motion (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_every_shot_demands_real_camera_motion) ... ok
-test_hook_and_ending_are_built_in (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_hook_and_ending_are_built_in) ... FAIL
+test_hook_and_ending_are_built_in (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_hook_and_ending_are_built_in) ... ok
 test_narration_fit_verdicts (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_narration_fit_verdicts) ... ok
 test_narration_is_one_line_per_shot_at_the_scripted_pace (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_narration_is_one_line_per_shot_at_the_scripted_pace) ... ok
 test_payload_uses_reference_mode_with_approved_images (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_payload_uses_reference_mode_with_approved_images) ... ok
 test_publish_delivery_copies_the_named_four (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_publish_delivery_copies_the_named_four) ... ok
-test_reference_images_are_declared_and_published (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_reference_images_are_declared_and_published) ... FAIL
+test_reference_images_are_declared_and_published (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_reference_images_are_declared_and_published) ... ok
 test_reference_revision_is_an_immutable_commit_when_recorded (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_reference_revision_is_an_immutable_commit_when_recorded) ... ok
 test_sensitive_imagery_is_never_requested (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_sensitive_imagery_is_never_requested) ... ok
 test_single_character_shots_use_a_fixed_per_character_seed (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_single_character_shots_use_a_fixed_per_character_seed) ... ok
 test_sources_and_fact_boundaries_are_recorded (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
 test_three_tone_palette_only_flips_where_scripted (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_three_tone_palette_only_flips_where_scripted) ... ok
 
-======================================================================
-FAIL: test_hook_and_ending_are_built_in (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_hook_and_ending_are_built_in)
 ----------------------------------------------------------------------
+Ran 16 tests in 0.148s
+
+OK
+stage=tests_ok
+agnes_key_present=yes
+== generator ==
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/story.json — 30 shots, 180s, 538 visible narration characters (2.99/s)
+PRODUCTION_STATUS Agnes generation started
+PRODUCTION_STATUS queued prompt-refresh shots: S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28,S29,S30
+PRODUCTION_STATUS S01 submitting
+PRODUCTION_STATUS S05 submitting
+PRODUCTION_STATUS S02 submitting
+PRODUCTION_STATUS S03 submitting
+PRODUCTION_STATUS S04 submitting
+PRODUCTION_STATUS S01 waiting for Agnes create slot
+PRODUCTION_STATUS S05 waiting for Agnes create slot
+PRODUCTION_STATUS S02 waiting for Agnes create slot
+PRODUCTION_STATUS S03 waiting for Agnes create slot
+PRODUCTION_STATUS S04 waiting for Agnes create slot
+PRODUCTION_STATUS S01 queued
+[01:49:29] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S03 queued
+[01:49:41] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S04 provider busy; retrying
+S04: HTTP 429; retrying create in 12s (attempt 1)
+PRODUCTION_STATUS S04 waiting for Agnes create slot
+PRODUCTION_STATUS S04 provider busy; retrying
+S04: HTTP 429; retrying create in 12s (attempt 2)
+PRODUCTION_STATUS S04 waiting for Agnes create slot
+PRODUCTION_STATUS S05 provider busy; retrying
+S05: HTTP 429; retrying create in 12s (attempt 1)
+PRODUCTION_STATUS S05 waiting for Agnes create slot
+PRODUCTION_STATUS S02 queued
+[01:50:32] poll: HTTP 429: too many video status queries (request id: 20261105015032270979464fcj9cIw7) (code=429) [1/24]
+[01:51:32] status=pending progress=0% (elapsed 60s)
+PRODUCTION_STATUS S04 queued
+[01:51:34] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S05 queued
+[01:51:46] status=pending progress=0% (elapsed 0s)
+[01:52:48] poll: HTTP 429: too many video status queries (request id: 20261105015248319318614hzfFHyEt) (code=429) [1/24]
+[01:53:48] poll: HTTP 429: too many video status queries (request id: 20261105015348538421808k8VBP9oa) (code=429) [1/24]
+[01:53:48] poll: HTTP 429: too many video status queries (request id: 20261105015348546886399fKZG4vKk) (code=429) [1/24]
+[01:54:48] poll: HTTP 429: too many video status queries (request id: 20261105015448843258448wUgIMEyN) (code=429) [2/24]
+[01:55:49] poll: HTTP 429: too many video status queries (request id: 2026110501554975871063n2qIKl2E) (code=429) [3/24]
+[01:56:49] poll: HTTP 429: too many video status queries (request id: 20261105015649297575065wJLD7AoZ) (code=429) [1/24]
+[01:57:49] poll: HTTP 429: too many video status queries (request id: 20261105015749518955979uDliOkYr) (code=429) [1/24]
+[01:59:15] poll: HTTP 429: too many video status queries (request id: 20261105015914997763230hgPwutx3) (code=429) [1/24]
+[01:59:15] poll: HTTP 429: too many video status queries (request id: 2026110501591499669885798OjLf1A) (code=429) [1/24]
+[02:01:05] poll: HTTP 429: too many video status queries (request id: 20261105020105858806181v8EaBdtX) (code=429) [1/24]
+[02:02:06] poll: HTTP 429: too many video status queries (request id: 2026110502020670881079zbRzgHDn) (code=429) [1/24]
+[02:03:32] poll: HTTP 429: too many video status queries (request id: 2026110502033267891910n46PVlQ0) (code=429) [1/24]
+[02:04:57] poll: HTTP 429: too many video status queries (request id: 20261105020457569365483FQdK2Tuh) (code=429) [1/24]
+[02:05:57] poll: HTTP 429: too many video status queries (request id: 20261105020557840693042RFpgYAhP) (code=429) [2/24]
+[02:06:58] poll: HTTP 429: too many video status queries (request id: 2026110502065860690319342YBFxD) (code=429) [1/24]
+[02:07:58] poll: HTTP 429: too many video status queries (request id: 202611050207582765324346xi230pY) (code=429) [1/24]
+[02:09:49] poll: HTTP 429: too many video status queries (request id: 2026110502094941200791TviA0YDB) (code=429) [1/24]
+[02:10:49] poll: HTTP 429: too many video status queries (request id: 20261105021049263779786ew5cPG9E) (code=429) [1/24]
+[02:12:40] poll: HTTP 429: too many video status queries (request id: 2026110502124089256967J4jSHoag) (code=429) [1/24]
+[02:13:40] poll: HTTP 429: too many video status queries (request id: 20261105021340308617622wU5TLBKp) (code=429) [1/24]
+[02:14:40] poll: HTTP 429: too many video status queries (request id: 20261105021440523732688mIlNl5NL) (code=429) [1/24]
+[02:15:40] poll: HTTP 429: too many video status queries (request id: 20261105021540749899392iKdGnsMk) (code=429) [2/24]
+[02:17:06] poll: HTTP 429: too many video status queries (request id: 202611050217062899671896b6CblQy) (code=429) [1/24]
+[02:17:06] poll: HTTP 429: too many video status queries (request id: 20261105021706288887706a7QL6iQH) (code=429) [1/24]
+[02:18:31] poll: HTTP 429: too many video status queries (request id: 20261105021831798589779Gv7We8O2) (code=429) [1/24]
+[02:18:31] poll: HTTP 429: too many video status queries (request id: 20261105021831803183610eushkFB9) (code=429) [1/24]
+[02:19:32] poll: HTTP 429: too many video status queries (request id: 20261105021932180562282voQneH1) (code=429) [2/24]
+[02:20:57] poll: HTTP 429: too many video status queries (request id: 20261105022057531362768MjTVZZ3C) (code=429) [1/24]
+[02:22:48] poll: HTTP 429: too many video status queries (request id: 20261105022248381699712a7nFVWHH) (code=429) [1/24]
+[02:23:48] poll: HTTP 429: too many video status queries (request id: 202611050223485949395832uL2n7fD) (code=429) [1/24]
+[02:23:48] status=in_progress progress=10% (elapsed 2059s)
+[02:24:48] poll: HTTP 429: too many video status queries (request id: 20261105022448817867043eOWClD59) (code=429) [1/24]
+[02:24:48] status=in_progress progress=10% (elapsed 2107s)
+[02:25:49] status=in_progress progress=10% (elapsed 2117s)
+[02:26:14] poll: HTTP 429: too many video status queries (request id: 202611050226143444378884NrE678O) (code=429) [1/24]
+[02:27:14] poll: HTTP 429: too many video status queries (request id: 20261105022714551667370wJ1M3N0z) (code=429) [1/24]
+[02:27:14] status=in_progress progress=10% (elapsed 2140s)
+[02:27:14] status=failed progress=100% (elapsed 2202s)
+PRODUCTION_STATUS S02 asset/task failed; retrying
+PRODUCTION_STATUS S02 submitting
+PRODUCTION_STATUS S02 waiting for Agnes create slot
+[02:28:14] status=completed progress=100% (elapsed 2325s)[02:28:14] status=in_progress progress=10% (elapsed 2189s)
+
+PRODUCTION_STATUS S02 queued
+[02:28:16] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S01 Agnes task completed
+PRODUCTION_STATUS S01 generated and decoded
+PRODUCTION_STATUS S06 submitting
+PRODUCTION_STATUS S06 waiting for Agnes create slot
+PRODUCTION_STATUS S06 queued
+[02:28:28] status=pending progress=0% (elapsed 0s)
+[02:28:40] status=completed progress=100% (elapsed 2339s)
+PRODUCTION_STATUS S03 Agnes task completed
+PRODUCTION_STATUS S03 generated and decoded
+PRODUCTION_STATUS S07 submitting
+PRODUCTION_STATUS S07 waiting for Agnes create slot
+PRODUCTION_STATUS S07 provider busy; retrying
+S07: HTTP 429; retrying create in 12s (attempt 1)
+PRODUCTION_STATUS S07 waiting for Agnes create slot
+PRODUCTION_STATUS S07 provider busy; retrying
+S07: HTTP 429; retrying create in 12s (attempt 2)
+PRODUCTION_STATUS S07 waiting for Agnes create slot
+PRODUCTION_STATUS S07 provider busy; retrying
+S07: HTTP 429; retrying create in 12s (attempt 3)
+PRODUCTION_STATUS S07 waiting for Agnes create slot
+PRODUCTION_STATUS S07 queued
+[02:29:26] status=pending progress=0% (elapsed 0s)
+[02:29:38] poll: HTTP 429: too many video status queries (request id: 20261105022938322044281pI4G7buR) (code=429) [1/24]
+[02:30:38] poll: HTTP 429: too many video status queries (request id: 20261105023038558616496DWiUhFBY) (code=429) [2/24]
+[02:31:38] status=completed progress=100% (elapsed 2393s)
+PRODUCTION_STATUS S05 Agnes task completed
+PRODUCTION_STATUS S05 generated and decoded
+PRODUCTION_STATUS S08 submitting
+PRODUCTION_STATUS S08 waiting for Agnes create slot
+PRODUCTION_STATUS S08 queued
+[02:31:47] status=pending progress=0% (elapsed 0s)
+[02:32:04] status=completed progress=100% (elapsed 2430s)
+PRODUCTION_STATUS S04 Agnes task completed
+PRODUCTION_STATUS S04 generated and decoded
+PRODUCTION_STATUS S09 failed
+PRODUCTION_STATUS S10 submitting
+PRODUCTION_STATUS S10 waiting for Agnes create slot
+PRODUCTION_STATUS S10 queued
+[02:32:14] status=pending progress=0% (elapsed 0s)
+[02:32:39] poll: HTTP 429: too many video status queries (request id: 20261105023239517744029c6bCH1Pt) (code=429) [1/24]
+[02:33:39] poll: HTTP 429: too many video status queries (request id: 20261105023339775505644UWtk7TmH) (code=429) [2/24]
+[02:34:40] poll: HTTP 429: too many video status queries (request id: 20261105023439996343804PWkZCO6p) (code=429) [1/24]
+[02:34:40] poll: HTTP 429: too many video status queries (request id: 20261105023439997819559e8JefPM4) (code=429) [1/24]
+[02:35:40] poll: HTTP 429: too many video status queries (request id: 20261105023540216298748jlMt9sT1) (code=429) [2/24]
+[02:36:40] poll: HTTP 429: too many video status queries (request id: 20261105023640425298480MijktrlC) (code=429) [3/24]
+[02:37:40] poll: HTTP 429: too many video status queries (request id: 20261105023740628233543qvNsqsAO) (code=429) [1/24]
+[02:37:40] poll: HTTP 429: too many video status queries (request id: 20261105023740641431562DqrbR0VE) (code=429) [1/24]
+[02:39:06] poll: HTTP 429: too many video status queries (request id: 20261105023906195932440JKzfxKzG) (code=429) [1/24]
+[02:40:06] poll: HTTP 429: too many video status queries (request id: 20261105024006411861318P8q2vCBW) (code=429) [1/24]
+[02:41:06] poll: HTTP 429: too many video status queries (request id: 20261105024106628532300wLYG3JXc) (code=429) [2/24]
+[02:42:32] poll: HTTP 429: too many video status queries (request id: 20261105024232141464010HMJX1aTl) (code=429) [1/24]
+[02:43:32] poll: HTTP 429: too many video status queries (request id: 20261105024332366159831i7Q5kcgo) (code=429) [1/24]
+[02:43:32] poll: HTTP 429: too many video status queries (request id: 20261105024332363832097mA43EfAW) (code=429) [1/24]
+[02:44:58] poll: HTTP 429: too many video status queries (request id: 202611050244579222223719sOQsqZN) (code=429) [1/24]
+[02:45:58] poll: HTTP 429: too many video status queries (request id: 20261105024558139890833mqVLATIb) (code=429) [2/24]
+[02:47:49] poll: HTTP 429: too many video status queries (request id: 20261105024748930899663HKInhumi) (code=429) [1/24]
+[02:48:49] poll: HTTP 429: too many video status queries (request id: 20261105024849161308099GCfWBUnR) (code=429) [2/24]
+[02:49:49] poll: HTTP 429: too many video status queries (request id: 20261105024949461174126raiA2fr3) (code=429) [3/24]
+[02:50:49] poll: HTTP 429: too many video status queries (request id: 20261105025049670819511wcSP4k61) (code=429) [1/24]
+[02:50:49] poll: HTTP 429: too many video status queries (request id: 20261105025049690672195WbANItNS) (code=429) [4/24]
+[02:52:15] poll: HTTP 429: too many video status queries (request id: 20261105025215225352030x3VjgRSr) (code=429) [1/24]
+[02:53:15] poll: HTTP 429: too many video status queries (request id: 20261105025315447201032sBiaWG3k) (code=429) [1/24]
+[02:55:31] poll: HTTP 429: too many video status queries (request id: 20261105025531496906188i4RcUKBW) (code=429) [1/24]
+[02:55:31] poll: HTTP 429: too many video status queries (request id: 20261105025531522529909W2aKNum3) (code=429) [1/24]
+[02:56:31] poll: HTTP 429: too many video status queries (request id: 20261105025631746708179A8IfJT9b) (code=429) [1/24]
+[02:57:32] poll: HTTP 429: too many video status queries (request id: 20261105025731971019308r1XmE6z7) (code=429) [1/24]
+[02:58:32] poll: HTTP 429: too many video status queries (request id: 20261105025832191701582tRY2NGmn) (code=429) [2/24]
+[02:58:32] poll: HTTP 429: too many video status queries (request id: 20261105025832191829059sHWjsmMU) (code=429) [1/24]
+[02:59:32] poll: HTTP 429: too many video status queries (request id: 20261105025932413867909Bxko97D3) (code=429) [1/24]
+[03:00:32] poll: HTTP 429: too many video status queries (request id: 20261105030032691543369fEgMS7Bi) (code=429) [1/24]
+[03:01:32] poll: HTTP 429: too many video status queries (request id: 20261105030132905755241JfWwHGa2) (code=429) [1/24]
+[03:02:33] poll: HTTP 429: too many video status queries (request id: 20261105030233135039127ONNPR1I9) (code=429) [2/24]
+[03:03:58] poll: HTTP 429: too many video status queries (request id: 20261105030358666028387linLYdQl) (code=429) [1/24]
+[03:04:58] poll: HTTP 429: too many video status queries (request id: 20261105030458885072064iMyNt8D6) (code=429) [1/24]
+[03:06:24] poll: HTTP 429: too many video status queries (request id: 20261105030624433578446cv7ncdfv) (code=429) [1/24]
+[03:06:24] poll: HTTP 429: too many video status queries (request id: 20261105030624443098307B6VRasNu) (code=429) [1/24]
+[03:08:15] poll: HTTP 429: too many video status queries (request id: 20261105030815201292516gsxHWqNd) (code=429) [1/24]
+[03:09:15] poll: HTTP 429: too many video status queries (request id: 20261105030915417788721ilG6huz5) (code=429) [1/24]
+[03:09:15] poll: HTTP 429: too many video status queries (request id: 20261105030915423381476lVdQQNdM) (code=429) [1/24]
+[03:11:06] poll: HTTP 429: too many video status queries (request id: 20261105031106214170228FpTxz8Ln) (code=429) [1/24]
+[03:11:06] poll: HTTP 429: too many video status queries (request id: 20261105031106227214199OYs30GFj) (code=429) [1/24]
+[03:12:06] poll: HTTP 429: too many video status queries (request id: 20261105031206456770773OBy5Lixk) (code=429) [2/24]
+[03:12:06] status=in_progress progress=10% (elapsed 2630s)
+[03:13:06] poll: HTTP 429: too many video status queries (request id: 20261105031306678534182xv8BTGgD) (code=429) [1/24]
+[03:13:06] poll: HTTP 429: too many video status queries (request id: 20261105031306674359156OGDFEgGN) (code=429) [1/24]
+[03:13:06] status=in_progress progress=10% (elapsed 2678s)
+[03:13:06] status=in_progress progress=10% (elapsed 2620s)
+[03:14:06] poll: HTTP 429: too many video status queries (request id: 20261105031406896595581ZQcLHxwU) (code=429) [1/24]
+[03:15:07] poll: HTTP 429: too many video status queries (request id: 20261105031507105528843PKJ1gC2h) (code=429) [1/24]
+[03:16:07] poll: HTTP 429: too many video status queries (request id: 20261105031607385164021uPQW3x0w) (code=429) [1/24]
+[03:16:07] poll: HTTP 429: too many video status queries (request id: 20261105031607385666281TQYwlnDV) (code=429) [2/24]
+[03:16:07] status=completed progress=100% (elapsed 2871s)
+[03:16:07] status=completed progress=100% (elapsed 2859s)
+[03:17:07] status=in_progress progress=10% (elapsed 2693s)
+[03:17:07] status=in_progress progress=10% (elapsed 2720s)
+[03:17:33] status=completed progress=100% (elapsed 2886s)
+[03:18:23] poll: HTTP 429: too many video status queries (request id: 20261105031823413018106ruP9ZoIR) (code=429) [1/24]
+[03:21:04] status=completed progress=100% (elapsed 2930s)
+[03:21:30] status=in_progress progress=90% (elapsed 2983s)
+[03:21:55] status=completed progress=100% (elapsed 3008s)
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/tests/test_sonofsam1977.py", line 265, in test_hook_and_ending_are_built_in
-    self.assertIn("P01", shot["references"])
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: 'P01' not found in ['SC01', 'SC02']
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 627, in checkpoint
+    git("push", "origin", BRANCH)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                  stderr=subprocess.STDOUT, timeout=120)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 1.
 
-======================================================================
-FAIL: test_reference_images_are_declared_and_published (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_reference_images_are_declared_and_published)
-----------------------------------------------------------------------
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/tests/test_sonofsam1977.py", line 101, in test_reference_images_are_declared_and_published
-    self.assertEqual(declared, {"C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10",
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                "SC01", "SC02", "SC03", "SC04", "SC05", "SC06", "SC07", "SC08",
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                "SC09", "SC10", "P01", "P02", "P03", "P04", "P05"})
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: Items in the second set but not the first:
-'P01'
-'P05'
-'P02'
-'P03'
-'P04'
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 764, in generate_one
+    checkpoint(sid + " Agnes task completed", sid, status="downloaded", video_url=url,
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               bytes=size, sha256=receipt["sha256"], reported_size=final.get("size"),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               reported_seconds=final.get("seconds"), error=None)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 632, in checkpoint
+    git("pull", "--rebase", "origin", BRANCH)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                  stderr=subprocess.STDOUT, timeout=120)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.
 
-----------------------------------------------------------------------
-Ran 16 tests in 0.143s
+During handling of the above exception, another exception occurred:
 
-FAILED (failures=2)
-stage=tests_failed
-stage=generate_step_done exit=
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 627, in checkpoint
+    git("push", "origin", BRANCH)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                  stderr=subprocess.STDOUT, timeout=120)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 1.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 875, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 826, in main
+    outcomes = list(pool.map(generate_one, selected))
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 639, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 311, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 450, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 395, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 798, in generate_one
+    checkpoint(sid + " failed", sid, status="failed", error=error[:600])
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 632, in checkpoint
+    git("pull", "--rebase", "origin", BRANCH)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                  stderr=subprocess.STDOUT, timeout=120)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.
+generator_exit=1
+stage=generate_step_done exit=1
