@@ -314,11 +314,13 @@
     "S14": {
       "id": "S14",
       "request_hash": "287974a1daa4de4474ac7bd412dfbb3854bb4d17e57ff3f6cd12fbbdcc215c9c",
-      "status": "waiting_create_slot",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:05:32Z",
-      "error": null,
-      "create_attempts": 1
+      "updated_at": "2026-11-05T06:05:47Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261105060547293271059rTlYVG5f) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 12
     },
     "S15": {
       "id": "S15",
@@ -483,7 +485,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:05:35Z",
+  "updated_at": "2026-11-05T06:05:47Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
@@ -521,5 +523,13 @@
         "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128."
       }
     ]
+  },
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261105060547293271059rTlYVG5f) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 12,
+    "last_seen": "2026-11-05T06:05:47Z"
   }
 }
