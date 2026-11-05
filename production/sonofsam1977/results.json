@@ -18,15 +18,14 @@
     "S02": {
       "id": "S02",
       "request_hash": "6e1202a6340d119d04a7adf2d8e3593b4540f3833b03119b60121b3b0d8ed97a",
-      "status": "queued",
-      "reused_existing_asset": false,
-      "updated_at": "2026-11-05T01:50:31Z",
-      "error": null,
-      "create_attempts": 1,
-      "video_id": "task_vM7IIN4GiK8uCyAoP4adrIGATCxTWnRJ",
-      "task_id": "task_vM7IIN4GiK8uCyAoP4adrIGATCxTWnRJ",
-      "requested_seconds": 5.0,
-      "requested_size": "720P"
+      "status": "retrying_create",
+      "video_id": null,
+      "task_id": null,
+      "video_url": null,
+      "sha256": null,
+      "bytes": null,
+      "error": "Video task failed: generation failed (code=internal_error)",
+      "updated_at": "2026-11-05T02:27:14Z"
     },
     "S03": {
       "id": "S03",
@@ -297,7 +296,23 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T01:51:44Z",
+  "updated_at": "2026-11-05T02:27:14Z",
   "run_id": "41950987109",
-  "previous_results": {}
+  "previous_results": {
+    "S02": [
+      {
+        "id": "S02",
+        "request_hash": "6e1202a6340d119d04a7adf2d8e3593b4540f3833b03119b60121b3b0d8ed97a",
+        "status": "queued",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-05T01:50:31Z",
+        "error": null,
+        "create_attempts": 1,
+        "video_id": "task_vM7IIN4GiK8uCyAoP4adrIGATCxTWnRJ",
+        "task_id": "task_vM7IIN4GiK8uCyAoP4adrIGATCxTWnRJ",
+        "requested_seconds": 5.0,
+        "requested_size": "720P"
+      }
+    ]
+  }
 }
