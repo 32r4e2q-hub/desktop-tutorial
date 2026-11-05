@@ -1,0 +1,84 @@
+run=41950495782 attempt=1 ref=arena/e455e5b7-desktop-tutorial
+event=push runner=GitHub Actions 1000003002 os=Linux arch=X64
+sha=ffc7cb78ad9254167ea01737dad96fc750f61b75
+started 2026-11-05T01:44:37Z
+Python 3.14.4
+ffmpeg missing
+ffprobe missing
+payload={"mode":"clips","workers":5}
+== tools ==
+python=Python 3.14.4 ffmpeg=none ffprobe=none
+installing python media deps from PyPI
+ffmpeg shim -> /home/runner/.local/lib/python3.14/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v9.0.2
+ffprobe shim -> /home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/ffprobe_shim.py
+PATH=/home/runner/.local/bin added
+downloading CJK fonts
+font ok: NotoSansCJKsc-Regular.otf
+font ok: NotoSansCJKsc-Bold.otf
+font ok: NotoSerifCJKsc-Regular.otf
+numpy: ok
+PIL: ok
+yaml: ok
+av: ok
+imageio_ffmpeg: ok
+ffmpeg -> ffmpeg version n9.0.2-17-g2a571b6068-20260930 Copyright (c) 2000-2026 the FFmpeg developer
+ffprobe -> ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe
+cjk_fonts=3
+stage=tools_ready
+reference_revision=92d7753b137a2531088e18a20e9d14c8b84fa0d6
+== plan ==
+WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/story.json — 30 shots, 180s, 538 visible narration characters (2.99/s)
+stage=build_ok
+validation mode: clips
+VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines, nine chapters and approved references
+stage=validate_ok
+test_30_shots_cover_exactly_180_seconds (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_30_shots_cover_exactly_180_seconds) ... ok
+test_caption_lines_stay_within_the_two_line_limit (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_caption_lines_stay_within_the_two_line_limit) ... ok
+test_chapters_are_nine_and_contiguous (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_chapters_are_nine_and_contiguous) ... ok
+test_every_prompt_gets_style_characters_references_and_negative (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_every_prompt_gets_style_characters_references_and_negative) ... ok
+test_every_shot_demands_real_camera_motion (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_every_shot_demands_real_camera_motion) ... ok
+test_hook_and_ending_are_built_in (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_hook_and_ending_are_built_in) ... FAIL
+test_narration_fit_verdicts (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_narration_fit_verdicts) ... ok
+test_narration_is_one_line_per_shot_at_the_scripted_pace (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_narration_is_one_line_per_shot_at_the_scripted_pace) ... ok
+test_payload_uses_reference_mode_with_approved_images (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_payload_uses_reference_mode_with_approved_images) ... ok
+test_publish_delivery_copies_the_named_four (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_publish_delivery_copies_the_named_four) ... ok
+test_reference_images_are_declared_and_published (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_reference_images_are_declared_and_published) ... FAIL
+test_reference_revision_is_an_immutable_commit_when_recorded (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_reference_revision_is_an_immutable_commit_when_recorded) ... ok
+test_sensitive_imagery_is_never_requested (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_sensitive_imagery_is_never_requested) ... ok
+test_single_character_shots_use_a_fixed_per_character_seed (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_single_character_shots_use_a_fixed_per_character_seed) ... ok
+test_sources_and_fact_boundaries_are_recorded (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_sources_and_fact_boundaries_are_recorded) ... ok
+test_three_tone_palette_only_flips_where_scripted (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_three_tone_palette_only_flips_where_scripted) ... ok
+
+======================================================================
+FAIL: test_hook_and_ending_are_built_in (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_hook_and_ending_are_built_in)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/tests/test_sonofsam1977.py", line 265, in test_hook_and_ending_are_built_in
+    self.assertIn("P01", shot["references"])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'P01' not found in ['SC01', 'SC02']
+
+======================================================================
+FAIL: test_reference_images_are_declared_and_published (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_reference_images_are_declared_and_published)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/tests/test_sonofsam1977.py", line 101, in test_reference_images_are_declared_and_published
+    self.assertEqual(declared, {"C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10",
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                "SC01", "SC02", "SC03", "SC04", "SC05", "SC06", "SC07", "SC08",
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                "SC09", "SC10", "P01", "P02", "P03", "P04", "P05"})
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+'P01'
+'P05'
+'P02'
+'P03'
+'P04'
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.143s
+
+FAILED (failures=2)
+stage=tests_failed
+stage=generate_step_done exit=
