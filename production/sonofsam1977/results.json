@@ -34,19 +34,31 @@
     "S02": {
       "id": "S02",
       "request_hash": "6e1202a6340d119d04a7adf2d8e3593b4540f3833b03119b60121b3b0d8ed97a",
-      "status": "failed",
+      "status": "completed",
       "video_id": "task_s4zIfIpyK71Jj8ZJZtVCaBUHddgateVL",
       "task_id": "task_s4zIfIpyK71Jj8ZJZtVCaBUHddgateVL",
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_s4zIfIpyK71Jj8ZJZtVCaBUHddgateVL.mp4",
       "sha256": "122f05ce3e30d896339f90f36f9ccf32bb2a22f4e352e4c512607e7db4b0bcda",
       "bytes": 2343260,
-      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.",
-      "updated_at": "2026-11-05T03:16:10Z",
+      "error": null,
+      "updated_at": "2026-11-05T06:05:18Z",
       "create_attempts": 1,
       "requested_seconds": 5.0,
       "requested_size": "720P",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2343260,
+        "decoded_ok": true,
+        "contact_sheet": "production/sonofsam1977/qa/S02.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": true,
+      "visual_review": "pending"
     },
     "S03": {
       "id": "S03",
@@ -413,7 +425,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:05:17Z",
+  "updated_at": "2026-11-05T06:05:18Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
