@@ -330,9 +330,9 @@
     "S12": {
       "id": "S12",
       "request_hash": "c55e73cb794d87679248c2104e4808044edac22992db819570c606a1b8cef89b",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:42:48Z",
+      "updated_at": "2026-11-05T06:42:51Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -345,7 +345,18 @@
       "bytes": 6034285,
       "sha256": "ce43990604d293da8191548ca5744b689ff392649b920d4bfde95d34373c6924",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 6034285,
+        "decoded_ok": true,
+        "contact_sheet": "production/sonofsam1977/qa/S12.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S13": {
       "id": "S13",
@@ -583,7 +594,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:42:50Z",
+  "updated_at": "2026-11-05T06:42:51Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
