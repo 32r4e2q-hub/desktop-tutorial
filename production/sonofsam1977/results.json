@@ -509,9 +509,9 @@
     "S19": {
       "id": "S19",
       "request_hash": "d459f54305f9e41a8fbbdb8e8ef746fc9b850c2f4cd22cda6ecabfc72784bcc6",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T07:23:05Z",
+      "updated_at": "2026-11-05T07:23:07Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_Kvb0zm5rSkc0xBm72uZEaZHBrCAaqFZ1",
@@ -522,7 +522,18 @@
       "bytes": 4256193,
       "sha256": "0b90187d6ffd61c67057613804e458fa4740bff919d84fefad9ae8ea4a39d5d9",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 4256193,
+        "decoded_ok": true,
+        "contact_sheet": "production/sonofsam1977/qa/S19.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S20": {
       "id": "S20",
@@ -664,7 +675,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T07:23:05Z",
+  "updated_at": "2026-11-05T07:23:07Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
