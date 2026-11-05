@@ -214,10 +214,10 @@
     "S08": {
       "id": "S08",
       "request_hash": "f9d210407503bddb9567e049946c0cda676807969d9e6d5df32cb3d6b1ea4da6",
-      "status": "failed",
-      "reused_existing_asset": false,
-      "updated_at": "2026-11-05T03:21:57Z",
-      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.",
+      "status": "completed",
+      "reused_existing_asset": true,
+      "updated_at": "2026-11-05T06:05:27Z",
+      "error": null,
       "create_attempts": 1,
       "video_id": "task_eFh3taupAuiN9Uqk6cvaMg7zGYsDgGfz",
       "task_id": "task_eFh3taupAuiN9Uqk6cvaMg7zGYsDgGfz",
@@ -227,7 +227,18 @@
       "bytes": 4790693,
       "sha256": "d5c09c1499d8d9b722916a22449d7ac82433392d793e078433d9d4890d50d4fc",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 4790693,
+        "decoded_ok": true,
+        "contact_sheet": "production/sonofsam1977/qa/S08.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S09": {
       "id": "S09",
@@ -262,9 +273,10 @@
     "S11": {
       "id": "S11",
       "request_hash": "a0cf46132c16e1a85801b23b4e110ba32ec0a9866b256aab021500b630799182",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "error": null,
-      "updated_at": "2026-11-05T06:05:25Z"
+      "updated_at": "2026-11-05T06:05:27Z",
+      "create_attempts": 1
     },
     "S12": {
       "id": "S12",
@@ -450,7 +462,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:05:26Z",
+  "updated_at": "2026-11-05T06:05:27Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
