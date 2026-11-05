@@ -59,13 +59,17 @@
     "S05": {
       "id": "S05",
       "request_hash": "a6fc3e13c33718a97304651268fcf40c43be85fdef871c239ce56a961e092f13",
-      "status": "waiting_create_slot",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T01:50:18Z",
+      "updated_at": "2026-11-05T01:51:44Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 12
+      "applied_cooldown_seconds": 12,
+      "video_id": "task_meE7AlFOBW86n3Vs12qZz2P99BxMNZsQ",
+      "task_id": "task_meE7AlFOBW86n3Vs12qZz2P99BxMNZsQ",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S06": {
       "id": "S06",
@@ -293,7 +297,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T01:51:32Z",
+  "updated_at": "2026-11-05T01:51:44Z",
   "run_id": "41950987109",
   "previous_results": {}
 }
