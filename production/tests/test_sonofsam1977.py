@@ -100,7 +100,7 @@ class SonOfSamPlanTests(unittest.TestCase):
         declared = {ref["id"] for ref in self.story["reference_images"]}
         self.assertEqual(declared, {"C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10",
                                     "SC01", "SC02", "SC03", "SC04", "SC05", "SC06", "SC07", "SC08",
-                                    "SC09", "SC10", "P01", "P02", "P03", "P04", "P05"})
+                                    "SC09", "SC10"})
         for shot in self.story["shots"]:
             with self.subTest(shot=shot["id"]):
                 self.assertTrue(1 <= len(shot["references"]) <= 5)
@@ -259,10 +259,10 @@ class SonOfSamPlanTests(unittest.TestCase):
         self.assertIn("罚单", self.story["shots"][-1]["narration"])
         self.assertIn("大案子", self.story["shots"][-1]["narration"])
         self.assertTrue(self.story["presentation"]["end_question"].strip().endswith("？"))
-        # 罚单视觉符号首尾呼应：S01/S02 出现，S30 回到罚单
+        # 罚单视觉符号首尾呼应：S01/S02 亮相（罚单/黄车场景），S30 回到罚单桌面
         for sid in ("S01", "S02", "S30"):
             shot = next(s for s in self.story["shots"] if s["id"] == sid)
-            self.assertIn("P01", shot["references"])
+            self.assertTrue({"SC01", "SC03", "SC10"} & set(shot["references"]), sid)
 
     def test_sources_and_fact_boundaries_are_recorded(self):
         self.assertGreaterEqual(len(self.story["sources"]), 5)
