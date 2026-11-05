@@ -26,11 +26,6 @@
 - `reference/SC08.png`：场景定稿：山姆·卡尔家后院——木篱笆、狗窝、晾衣绳、夜晚月光、冷青色调，无人，16:9
 - `reference/SC09.png`：场景定稿：理发店与迪斯科舞厅——左侧1977年美发店（镜子、烫发机、落发），右侧迪斯科舞厅（灯球、舞池、人群），橙黄与冷青对比，少人，16:9
 - `reference/SC10.png`：场景定稿：罚单堆满的桌面——警局桌上堆满黄色停车罚单、烟灰缸、台灯、拨盘电话、墙上挂钟指向深夜，冷蓝色调，无人，16:9
-- `reference/P01.png`：道具定稿：1977年黄色停车罚单——纸张微皱、抽象线条与小格（无可读文字）、角落红色圆圈，黑色背景特写
-- `reference/P02.png`：道具定稿：1970年黄色福特Galaxie——侧面45度、停在消防栓旁、夜晚路灯、挡风玻璃夹着一张黄色罚单
-- `reference/P03.png`：道具定稿：来信——歪斜笔迹手写信（抽象线条、无可读文字）、污渍信封、卷曲信纸、角落小日历图标圈出日期，黑色背景
-- `reference/P04.png`：特效定稿：井盖蒸汽与霓虹——纽约夏夜街头、井盖冒白汽、红蓝霓虹在蒸汽里模糊、地面反光
-- `reference/P05.png`：道具定稿：1977年米色拨盘电话——听筒放在一旁、电话线弯弯曲曲、昏暗办公室背景、冷蓝色调特写
 
 ## 事实边界
 
@@ -124,8 +119,8 @@
 
 | 镜号 | 时间 | 秒数 | 段 | 色调 | 运镜 | 角色 | 参考图 | 画面职责 |
 |---|---:|---:|---|---|---|---|---|---|
-| S01 | 00:00—00:05 | 5 | N1 | night | 低机位跟随罚单飞行 | — | SC01、P04、P01 | Summer night, New York City, 1977: heat shimmer over the pavement, steam rising from a manhole, a corner bodeg |
-| S02 | 00:05—00:10 | 5 | N1 | night | 缓慢推近罚单特写 | — | P01、P02、SC03 | The yellow parking ticket settles onto the windshield of a parked yellow 1970s Ford Galaxie standing beside a  |
+| S01 | 00:00—00:05 | 5 | N1 | night | 低机位跟随罚单飞行 | — | SC01、SC02 | Summer night, New York City, 1977: heat shimmer over the pavement, steam rising from a manhole, a corner bodeg |
+| S02 | 00:05—00:10 | 5 | N1 | night | 缓慢推近罚单特写 | — | SC03、SC07 | The yellow parking ticket settles onto the windshield of a parked yellow 1970s Ford Galaxie standing beside a  |
 | S03 | 00:10—00:17 | 7 | N2 | night | 广角缓慢横移 | crowd | SC02、C03 | Summer night 1976, the Bronx: a warm street under yellow street lamps, heat rising, kids running through the s |
 | S04 | 00:17—00:24 | 7 | N2 | night | 缓慢推近车窗 | crowd | SC01、C03 | Deeper night: a small car parked at the kerb, inside it the silhouettes of a young couple talking and laughing |
 | S05 | 00:24—00:30 | 6 | N2 | night | 缓慢推近黑影后切黑 | shadow | SC01、C02 | A dark street corner at night: the shadow figure stands motionless in the shade, jacket collar turned up, face |
@@ -134,26 +129,26 @@
 | S08 | 00:42—00:49 | 7 | N3 | night | 中景环绕 | crowd | SC09、C03 | Inside a 1970s hair salon at night: young women queue up, a hairdresser's scissors snip, long locks of hair fa |
 | S09 | 00:49—00:55 | 6 | N3 | night | 广角缓慢推近 | crowd | SC09、C03 | A 1970s disco at night: a mirror ball spinning, coloured lights sweeping the dance floor, people dancing, but  |
 | S10 | 00:55—01:00 | 5 | N3 | night | 中景缓慢横移 | crowd | SC01、C03 | At a newsstand at night: a crowd gathered around, newspaper front pages shown as abstract bold headlines with  |
-| S11 | 01:00—01:07 | 7 | N4 | night | 低机位缓慢推近信封 | justus | SC01、P03、C05 | April 1977, early morning at a cordoned street: detectives in coats bend down beside a parked car and one lift |
+| S11 | 01:00—01:07 | 7 | N4 | night | 低机位缓慢推近信封 | justus | SC01、C05、SC04 | April 1977, early morning at a cordoned street: detectives in coats bend down beside a parked car and one lift |
 | S12 | 01:07—01:14 | 7 | N4 | chase | 广角环绕后推向局长 | keenan | SC04、C07 | A 1977 NYPD task-force office at night: walls covered with photographs, maps and timelines, dozens of typewrit |
-| S13 | 01:14—01:20 | 6 | N4 | chase | 中景缓慢推近 | breslin | SC05、C08、P03 | A 1977 Daily News city room at night: the columnist at his desk tears open a letter, reads it, and his typing  |
-| S14 | 01:20—01:25 | 5 | N4 | chase | 大特写红圈闪烁 | — | P03 | Extreme close-up of the letter paper on a desk: crooked handwriting rendered as abstract lines, a red circle d |
-| S15 | 01:25—01:31 | 6 | N5 | night | 航拍缓慢下降聚焦黄车 | patrol | SC03、P02、C10 | Night of 31 July 1977, Bensonhurst, Brooklyn: a row of brick row houses under yellow street lamps, a fire hydr |
-| S16 | 01:31—01:37 | 6 | N5 | night | 中景侧面 | patrol | SC03、P01、P02、C10 | Closer on the same street: a patrol officer takes out his ticket book and clips a yellow parking ticket onto t |
-| S17 | 01:37—01:43 | 6 | N5 | night | 低角度缓慢推近 | shadow | SC03、P01、P02、C02 | Not far away, the shadow figure hurries toward the yellow Ford, lifts the parking ticket from the windshield,  |
+| S13 | 01:14—01:20 | 6 | N4 | chase | 中景缓慢推近 | breslin | SC05、C08、SC04 | A 1977 Daily News city room at night: the columnist at his desk tears open a letter, reads it, and his typing  |
+| S14 | 01:20—01:25 | 5 | N4 | chase | 大特写红圈闪烁 | — | SC10 | Extreme close-up of the letter paper on a desk: crooked handwriting rendered as abstract lines, a red circle d |
+| S15 | 01:25—01:31 | 6 | N5 | night | 航拍缓慢下降聚焦黄车 | patrol | SC03、C10、SC07 | Night of 31 July 1977, Bensonhurst, Brooklyn: a row of brick row houses under yellow street lamps, a fire hydr |
+| S16 | 01:31—01:37 | 6 | N5 | night | 中景侧面 | patrol | SC03、SC10、C10、SC07 | Closer on the same street: a patrol officer takes out his ticket book and clips a yellow parking ticket onto t |
+| S17 | 01:37—01:43 | 6 | N5 | night | 低角度缓慢推近 | shadow | SC03、C02、SC07、SC10 | Not far away, the shadow figure hurries toward the yellow Ford, lifts the parking ticket from the windshield,  |
 | S18 | 01:43—01:48 | 5 | N5 | night | 中景缓慢推近 | davis | SC03、C04 | Across the street, on a porch: Cecilia Davis stands holding the leash of a small dog, she has just seen everyt |
-| S19 | 01:48—01:54 | 6 | N6 | chase | 俯拍缓慢推近 | justus | SC10、C05、P01 | Inside the police office at deep night: Detective Justus's desk is piled high with yellow parking tickets and  |
-| S20 | 01:54—02:00 | 6 | N6 | chase | 大特写罚单叠化地图 | justus | P01、SC10 | Extreme close-up: Justus's finger stops on one yellow ticket, he looks up, eyes lighting up; on the ticket a r |
-| S21 | 02:00—02:05 | 5 | N6 | chase | 穿越式镜头：电话线→城市→调度室 | justus | P05、SC04 | Justus picks up a beige 1977 rotary dial telephone, his finger spins the dial; the coiled cord stretches and t |
+| S19 | 01:48—01:54 | 6 | N6 | chase | 俯拍缓慢推近 | justus | SC10、C05、SC04 | Inside the police office at deep night: Detective Justus's desk is piled high with yellow parking tickets and  |
+| S20 | 01:54—02:00 | 6 | N6 | chase | 大特写罚单叠化地图 | justus | SC10、SC04 | Extreme close-up: Justus's finger stops on one yellow ticket, he looks up, eyes lighting up; on the ticket a r |
+| S21 | 02:00—02:05 | 5 | N6 | chase | 穿越式镜头：电话线→城市→调度室 | justus | SC04、SC06 | Justus picks up a beige 1977 rotary dial telephone, his finger spins the dial; the coiled cord stretches and t |
 | S22 | 02:05—02:10 | 5 | N6 | chase | 中景缓慢推近 | whit | SC06、C06 | The Yonkers police dispatch room, dim cold blue light: dispatcher Whitney Call, wearing a vintage headset, ans |
-| S23 | 02:10—02:17 | 7 | N7 | night | 低机位缓慢推近公寓 | — | SC07、P02 | A quiet street in Yonkers at night: a red-brick apartment building with steps up to the door, a yellow Ford Ga |
+| S23 | 02:10—02:17 | 7 | N7 | night | 低机位缓慢推近公寓 | — | SC07、SC03 | A quiet street in Yonkers at night: a red-brick apartment building with steps up to the door, a yellow Ford Ga |
 | S24 | 02:17—02:24 | 7 | N7 | night | 中景缓慢推近 | samcall、berkowitz | SC08、C09、C01 | A backyard at night under moonlight: Sam Call strokes the black Labrador beside him, the dog rubs gently again |
 | S25 | 02:24—02:30 | 6 | N7 | chase | 中景环绕 | whit | SC06、C06 | In the Yonkers police station: officers gather around a table spread with letters and a report; they look at e |
 | S26 | 02:30—02:36 | 6 | N8 | night | 航拍俯拍光束汇聚 | justus、keenan | SC07、C05、C07 | Night of 10 August 1977, outside the Yonkers apartment: task-force detectives quietly surround the building, p |
-| S27 | 02:36—02:42 | 6 | N8 | night | 中景慢动作 | berkowitz、keenan | SC07、P02、C01、C07 | At the apartment door: the 24-year-old man in the light-blue postal uniform walks out of the doorway toward th |
+| S27 | 02:36—02:42 | 6 | N8 | night | 中景慢动作 | berkowitz、keenan | SC07、SC03、C01、C07 | At the apartment door: the 24-year-old man in the light-blue postal uniform walks out of the doorway toward th |
 | S28 | 02:42—02:48 | 6 | N8 | night | 特写缓慢推近 | berkowitz | SC07、C01 | Close on the young man: he slowly raises both hands, his lips moving as if saying a short sentence; behind him |
 | S29 | 02:48—02:54 | 6 | N9 | gold | 广角快速切换 | crowd | SC01、C03 | August 1977, the morning after: newspaper headlines fly past as abstract bold titles with cheering silhouettes |
-| S30 | 02:54—03:00 | 6 | N9 | gold | 缓慢推近淡入淡出 | — | P01、SC01 | The frame returns to the yellow parking ticket lying quietly on a desk, the New York summer night skyline blur |
+| S30 | 02:54—03:00 | 6 | N9 | gold | 缓慢推近淡入淡出 | — | SC10、SC01 | The frame returns to the yellow parking ticket lying quietly on a desk, the New York summer night skyline blur |
 
 ## 来源
 

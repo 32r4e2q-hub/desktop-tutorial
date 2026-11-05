@@ -172,7 +172,7 @@ CHARACTER_SEEDS = {
 # ---------------------------------------------------------------- 30 镜（5–7 秒／镜，合计 180 秒）
 # (镜号, 起始, 时长, 运镜, 角色, 色调, 参考图, 提示词, 旁白)
 SHOT_ROWS = [
-    ("S01", 0, 5, "低机位跟随罚单飞行", [], "night", ["SC01", "P04", "P01"],
+    ("S01", 0, 5, "低机位跟随罚单飞行", [], "night", ["SC01", "SC02"],
      "Summer night, New York City, 1977: heat shimmer over the pavement, steam rising from a "
      "manhole, a corner bodega's red and blue neon smeared in the humid air, a parked 1970s car at "
      "the kerb. A single yellow parking ticket is carried by the wind across the empty street, "
@@ -182,7 +182,7 @@ SHOT_ROWS = [
      "people, no readable text.",
      "1977年夏天，一张25美元罚单飘过纽约街头。"),
 
-    ("S02", 5, 5, "缓慢推近罚单特写", [], "night", ["P01", "P02", "SC03"],
+    ("S02", 5, 5, "缓慢推近罚单特写", [], "night", ["SC03", "SC07"],
      "The yellow parking ticket settles onto the windshield of a parked yellow 1970s Ford Galaxie "
      "standing beside a fire hydrant; blurred street lamps behind. Camera: slow push-in onto the "
      "ticket, one continuous move, shallow depth of field. The writing on the ticket is abstract "
@@ -257,7 +257,7 @@ SHOT_ROWS = [
      "text.",
      "信的署名，是三个字：山姆之子。"),
 
-    ("S11", 60, 7, "低机位缓慢推近信封", ["justus"], "night", ["SC01", "P03", "C05"],
+    ("S11", 60, 7, "低机位缓慢推近信封", ["justus"], "night", ["SC01", "C05", "SC04"],
      "April 1977, early morning at a cordoned street: detectives in coats bend down beside a "
      "parked car and one lifts a letter from the ground; the handwriting on the envelope is "
      "crooked abstract unreadable lines, the paper stained. Camera: low angle, slow push toward "
@@ -275,7 +275,7 @@ SHOT_ROWS = [
      "text.",
      "信里问：7月29日，也就是他的首案周年，你会送我什么？"),
 
-    ("S13", 74, 6, "中景缓慢推近", ["breslin"], "chase", ["SC05", "C08", "P03"],
+    ("S13", 74, 6, "中景缓慢推近", ["breslin"], "chase", ["SC05", "C08", "SC04"],
      "A 1977 Daily News city room at night: the columnist at his desk tears open a letter, reads "
      "it, and his typing hands stop mid-keystroke; through the big window behind, the Manhattan "
      "skyline glows at night. Camera: medium shot slowly pushing in on his face and hands, one "
@@ -284,7 +284,7 @@ SHOT_ROWS = [
      "lines. No readable text.",
      "那一天，正是他第一次作案的周年。"),
 
-    ("S14", 80, 5, "大特写红圈闪烁", [], "chase", ["P03"],
+    ("S14", 80, 5, "大特写红圈闪烁", [], "chase", ["SC10"],
      "Extreme close-up of the letter paper on a desk: crooked handwriting rendered as abstract "
      "lines, a red circle drawn around a calendar date icon, a small clock face beside it, the "
      "whole frame humming with tension. Camera: macro shot, the red circle pulses once, then the "
@@ -292,7 +292,7 @@ SHOT_ROWS = [
      "the lamp beam, a subtle breathing of the paper. No readable text.",
      "警方成立了庞大的专案组，通宵追查。"),
 
-    ("S15", 85, 6, "航拍缓慢下降聚焦黄车", ["patrol"], "night", ["SC03", "P02", "C10"],
+    ("S15", 85, 6, "航拍缓慢下降聚焦黄车", ["patrol"], "night", ["SC03", "C10", "SC07"],
      "Night of 31 July 1977, Bensonhurst, Brooklyn: a row of brick row houses under yellow street "
      "lamps, a fire hydrant, and a yellow Ford Galaxie parked right beside the hydrant; in the "
      "distance two patrol officers walk along the street writing tickets. Camera: aerial shot "
@@ -301,7 +301,7 @@ SHOT_ROWS = [
      "No readable text.",
      "7月31日深夜，布鲁克林海湾区，又一对年轻人遇袭。"),
 
-    ("S16", 91, 6, "中景侧面", ["patrol"], "night", ["SC03", "P01", "P02", "C10"],
+    ("S16", 91, 6, "中景侧面", ["patrol"], "night", ["SC03", "SC10", "C10", "SC07"],
      "Closer on the same street: a patrol officer takes out his ticket book and clips a yellow "
      "parking ticket onto the yellow Ford's windshield; the wind lifts the corner of the paper; he "
      "checks his watch and turns toward the next car. Camera: medium side shot, one continuous "
@@ -309,7 +309,7 @@ SHOT_ROWS = [
      "officer turning and walking away. No readable text on the ticket.",
      "邻居西西莉亚·戴维斯出门遛狗，看到了什么？"),
 
-    ("S17", 97, 6, "低角度缓慢推近", ["shadow"], "night", ["SC03", "P01", "P02", "C02"],
+    ("S17", 97, 6, "低角度缓慢推近", ["shadow"], "night", ["SC03", "C02", "SC07", "SC10"],
      "Not far away, the shadow figure hurries toward the yellow Ford, lifts the parking ticket "
      "from the windshield, glances at it, crumples it and smooths it out again, then slides into "
      "the driver's seat and the door closes; the tension is palpable, the face is never shown. "
@@ -326,7 +326,7 @@ SHOT_ROWS = [
      "behind swaying slightly. No readable text.",
      "她还说，那晚警察一直在街上开罚单。"),
 
-    ("S19", 108, 6, "俯拍缓慢推近", ["justus"], "chase", ["SC10", "C05", "P01"],
+    ("S19", 108, 6, "俯拍缓慢推近", ["justus"], "chase", ["SC10", "C05", "SC04"],
      "Inside the police office at deep night: Detective Justus's desk is piled high with yellow "
      "parking tickets and he flips through them one by one; an ashtray heaped with cigarette "
      "butts, a wall clock pointing at the small hours. Camera: overhead shot slowly pushing down "
@@ -334,7 +334,7 @@ SHOT_ROWS = [
      "smoke rising and curling, the clock pendulum swinging. No readable text.",
      "探长贾斯特斯翻遍了当晚开出的所有罚单。"),
 
-    ("S20", 114, 6, "大特写罚单叠化地图", ["justus"], "chase", ["P01", "SC10"],
+    ("S20", 114, 6, "大特写罚单叠化地图", ["justus"], "chase", ["SC10", "SC04"],
      "Extreme close-up: Justus's finger stops on one yellow ticket, he looks up, eyes lighting up; "
      "on the ticket a red circle pulses; behind, a blurred wall map of New York with one red dot "
      "marking Yonkers in the north, the map sliding into the frame as a dissolve. Camera: macro "
@@ -342,7 +342,7 @@ SHOT_ROWS = [
      "red circle gleaming, the red map dot pulsing, dust in the lamp beam. No readable text.",
      "其中一张罚单的车牌，来自北边的扬克斯。"),
 
-    ("S21", 120, 5, "穿越式镜头：电话线→城市→调度室", ["justus"], "chase", ["P05", "SC04"],
+    ("S21", 120, 5, "穿越式镜头：电话线→城市→调度室", ["justus"], "chase", ["SC04", "SC06"],
      "Justus picks up a beige 1977 rotary dial telephone, his finger spins the dial; the coiled "
      "cord stretches and travels across the city at night - over rooftops and lit windows - and "
      "lands on the Yonkers police dispatch room. Camera: one continuous travelling shot following "
@@ -359,7 +359,7 @@ SHOT_ROWS = [
      "blinking. No readable text.",
      "接电话的调度员，叫惠特·卡尔。"),
 
-    ("S23", 130, 7, "低机位缓慢推近公寓", [], "night", ["SC07", "P02"],
+    ("S23", 130, 7, "低机位缓慢推近公寓", [], "night", ["SC07", "SC03"],
      "A quiet street in Yonkers at night: a red-brick apartment building with steps up to the "
      "door, a yellow Ford Galaxie parked in front, warm dim light in the windows, laundry swaying "
      "on a line. Camera: low shot slowly pushing toward the apartment, one continuous move. Real "
@@ -394,7 +394,7 @@ SHOT_ROWS = [
      "light blinking on a distant car. No readable text.",
      "8月10日夜，警方在扬克斯公寓外等到了他。"),
 
-    ("S27", 156, 6, "中景慢动作", ["berkowitz", "keenan"], "night", ["SC07", "P02", "C01", "C07"],
+    ("S27", 156, 6, "中景慢动作", ["berkowitz", "keenan"], "night", ["SC07", "SC03", "C01", "C07"],
      "At the apartment door: the 24-year-old man in the light-blue postal uniform walks out of the "
      "doorway toward the yellow Ford; detectives step out from both sides, he stops, his expression "
      "shifting from surprise to calm. Camera: medium shot in slow motion, one continuous move. "
@@ -419,7 +419,7 @@ SHOT_ROWS = [
      "across the street. No readable text.",
      "他被判终身监禁，纽约终于松了一口气。"),
 
-    ("S30", 174, 6, "缓慢推近淡入淡出", [], "gold", ["P01", "SC01"],
+    ("S30", 174, 6, "缓慢推近淡入淡出", [], "gold", ["SC10", "SC01"],
      "The frame returns to the yellow parking ticket lying quietly on a desk, the New York summer "
      "night skyline blurred behind it; the ticket is slowly lit by golden light, one red circle "
      "glowing on it. Camera: slow push-in, fading in from black and out at the end, one continuous "
@@ -629,21 +629,6 @@ REFERENCE_IMAGES = [
     {"id": "SC10", "file": "reference/SC10.png", "kind": "scene",
      "description": "场景定稿：罚单堆满的桌面——警局桌上堆满黄色停车罚单、烟灰缸、台灯、拨盘电话、"
                     "墙上挂钟指向深夜，冷蓝色调，无人，16:9"},
-    {"id": "P01", "file": "reference/P01.png", "kind": "prop",
-     "description": "道具定稿：1977年黄色停车罚单——纸张微皱、抽象线条与小格（无可读文字）、角落红色"
-                    "圆圈，黑色背景特写"},
-    {"id": "P02", "file": "reference/P02.png", "kind": "prop",
-     "description": "道具定稿：1970年黄色福特Galaxie——侧面45度、停在消防栓旁、夜晚路灯、挡风玻璃夹着"
-                    "一张黄色罚单"},
-    {"id": "P03", "file": "reference/P03.png", "kind": "prop",
-     "description": "道具定稿：来信——歪斜笔迹手写信（抽象线条、无可读文字）、污渍信封、卷曲信纸、"
-                    "角落小日历图标圈出日期，黑色背景"},
-    {"id": "P04", "file": "reference/P04.png", "kind": "prop",
-     "description": "特效定稿：井盖蒸汽与霓虹——纽约夏夜街头、井盖冒白汽、红蓝霓虹在蒸汽里模糊、地面"
-                    "反光"},
-    {"id": "P05", "file": "reference/P05.png", "kind": "prop",
-     "description": "道具定稿：1977年米色拨盘电话——听筒放在一旁、电话线弯弯曲曲、昏暗办公室背景、"
-                    "冷蓝色调特写"},
 ]
 
 
