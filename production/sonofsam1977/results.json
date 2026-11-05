@@ -775,9 +775,9 @@
     "S27": {
       "id": "S27",
       "request_hash": "a4f4170fb6d55e6e345cff77afa70bce4171049b7903a9e3d8d739eaa3a1cd83",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T08:41:27Z",
+      "updated_at": "2026-11-05T08:41:29Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -790,7 +790,18 @@
       "bytes": 3600236,
       "sha256": "a8fd610443b871719eb78457c471396ec1c49871c157903c58a4ab81a09ebe68",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3600236,
+        "decoded_ok": true,
+        "contact_sheet": "production/sonofsam1977/qa/S27.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S28": {
       "id": "S28",
@@ -882,7 +893,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T08:41:27Z",
+  "updated_at": "2026-11-05T08:41:29Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
