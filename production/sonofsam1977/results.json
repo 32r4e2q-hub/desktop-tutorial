@@ -210,10 +210,9 @@
     "S09": {
       "id": "S09",
       "request_hash": "c125cd2bf7748c98f386a5391dc9f43785cd608af5c6fe9d3a0f6f1bd34d256d",
-      "status": "failed",
-      "reused_existing_asset": false,
-      "updated_at": "2026-11-05T02:32:10Z",
-      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128."
+      "status": "submitting",
+      "error": null,
+      "updated_at": "2026-11-05T06:05:22Z"
     },
     "S10": {
       "id": "S10",
@@ -425,7 +424,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:05:21Z",
+  "updated_at": "2026-11-05T06:05:22Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
@@ -441,6 +440,16 @@
         "task_id": "task_vM7IIN4GiK8uCyAoP4adrIGATCxTWnRJ",
         "requested_seconds": 5.0,
         "requested_size": "720P"
+      }
+    ],
+    "S09": [
+      {
+        "id": "S09",
+        "request_hash": "c125cd2bf7748c98f386a5391dc9f43785cd608af5c6fe9d3a0f6f1bd34d256d",
+        "status": "failed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-05T02:32:10Z",
+        "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128."
       }
     ]
   }
