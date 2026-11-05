@@ -1,11 +1,11 @@
-run=41950987109 attempt=1 ref=arena/e455e5b7-desktop-tutorial
-event=push runner=GitHub Actions 1000003005 os=Linux arch=X64
-sha=20de5845a719e31e91c508c3644c6fbbb7f73c3e
-started 2026-11-05T01:49:09Z
+run=41977971874 attempt=1 ref=arena/e455e5b7-desktop-tutorial
+event=push runner=GitHub Actions 1000003009 os=Linux arch=X64
+sha=e1df3b9d53637bb144357cb708c8bed8ad92d2ba
+started 2026-11-05T06:04:59Z
 Python 3.14.4
 ffmpeg missing
 ffprobe missing
-payload={"mode":"clips","workers":5}
+payload={"mode":"clips","workers":5} 
 == tools ==
 python=Python 3.14.4 ffmpeg=none ffprobe=none
 installing python media deps from PyPI
@@ -50,7 +50,7 @@ test_sources_and_fact_boundaries_are_recorded (production.tests.test_sonofsam197
 test_three_tone_palette_only_flips_where_scripted (production.tests.test_sonofsam1977.SonOfSamPlanTests.test_three_tone_palette_only_flips_where_scripted) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 0.148s
+Ran 16 tests in 0.192s
 
 OK
 stage=tests_ok
@@ -58,292 +58,358 @@ agnes_key_present=yes
 == generator ==
 WROTE /home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/story.json — 30 shots, 180s, 538 visible narration characters (2.99/s)
 PRODUCTION_STATUS Agnes generation started
-PRODUCTION_STATUS queued prompt-refresh shots: S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28,S29,S30
-PRODUCTION_STATUS S01 submitting
-PRODUCTION_STATUS S05 submitting
-PRODUCTION_STATUS S02 submitting
-PRODUCTION_STATUS S03 submitting
-PRODUCTION_STATUS S04 submitting
-PRODUCTION_STATUS S01 waiting for Agnes create slot
-PRODUCTION_STATUS S05 waiting for Agnes create slot
-PRODUCTION_STATUS S02 waiting for Agnes create slot
-PRODUCTION_STATUS S03 waiting for Agnes create slot
-PRODUCTION_STATUS S04 waiting for Agnes create slot
-PRODUCTION_STATUS S01 queued
-[01:49:29] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S03 queued
-[01:49:41] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S04 provider busy; retrying
-S04: HTTP 429; retrying create in 12s (attempt 1)
-PRODUCTION_STATUS S04 waiting for Agnes create slot
-PRODUCTION_STATUS S04 provider busy; retrying
-S04: HTTP 429; retrying create in 12s (attempt 2)
-PRODUCTION_STATUS S04 waiting for Agnes create slot
-PRODUCTION_STATUS S05 provider busy; retrying
-S05: HTTP 429; retrying create in 12s (attempt 1)
-PRODUCTION_STATUS S05 waiting for Agnes create slot
-PRODUCTION_STATUS S02 queued
-[01:50:32] poll: HTTP 429: too many video status queries (request id: 20261105015032270979464fcj9cIw7) (code=429) [1/24]
-[01:51:32] status=pending progress=0% (elapsed 60s)
-PRODUCTION_STATUS S04 queued
-[01:51:34] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S05 queued
-[01:51:46] status=pending progress=0% (elapsed 0s)
-[01:52:48] poll: HTTP 429: too many video status queries (request id: 20261105015248319318614hzfFHyEt) (code=429) [1/24]
-[01:53:48] poll: HTTP 429: too many video status queries (request id: 20261105015348538421808k8VBP9oa) (code=429) [1/24]
-[01:53:48] poll: HTTP 429: too many video status queries (request id: 20261105015348546886399fKZG4vKk) (code=429) [1/24]
-[01:54:48] poll: HTTP 429: too many video status queries (request id: 20261105015448843258448wUgIMEyN) (code=429) [2/24]
-[01:55:49] poll: HTTP 429: too many video status queries (request id: 2026110501554975871063n2qIKl2E) (code=429) [3/24]
-[01:56:49] poll: HTTP 429: too many video status queries (request id: 20261105015649297575065wJLD7AoZ) (code=429) [1/24]
-[01:57:49] poll: HTTP 429: too many video status queries (request id: 20261105015749518955979uDliOkYr) (code=429) [1/24]
-[01:59:15] poll: HTTP 429: too many video status queries (request id: 20261105015914997763230hgPwutx3) (code=429) [1/24]
-[01:59:15] poll: HTTP 429: too many video status queries (request id: 2026110501591499669885798OjLf1A) (code=429) [1/24]
-[02:01:05] poll: HTTP 429: too many video status queries (request id: 20261105020105858806181v8EaBdtX) (code=429) [1/24]
-[02:02:06] poll: HTTP 429: too many video status queries (request id: 2026110502020670881079zbRzgHDn) (code=429) [1/24]
-[02:03:32] poll: HTTP 429: too many video status queries (request id: 2026110502033267891910n46PVlQ0) (code=429) [1/24]
-[02:04:57] poll: HTTP 429: too many video status queries (request id: 20261105020457569365483FQdK2Tuh) (code=429) [1/24]
-[02:05:57] poll: HTTP 429: too many video status queries (request id: 20261105020557840693042RFpgYAhP) (code=429) [2/24]
-[02:06:58] poll: HTTP 429: too many video status queries (request id: 2026110502065860690319342YBFxD) (code=429) [1/24]
-[02:07:58] poll: HTTP 429: too many video status queries (request id: 202611050207582765324346xi230pY) (code=429) [1/24]
-[02:09:49] poll: HTTP 429: too many video status queries (request id: 2026110502094941200791TviA0YDB) (code=429) [1/24]
-[02:10:49] poll: HTTP 429: too many video status queries (request id: 20261105021049263779786ew5cPG9E) (code=429) [1/24]
-[02:12:40] poll: HTTP 429: too many video status queries (request id: 2026110502124089256967J4jSHoag) (code=429) [1/24]
-[02:13:40] poll: HTTP 429: too many video status queries (request id: 20261105021340308617622wU5TLBKp) (code=429) [1/24]
-[02:14:40] poll: HTTP 429: too many video status queries (request id: 20261105021440523732688mIlNl5NL) (code=429) [1/24]
-[02:15:40] poll: HTTP 429: too many video status queries (request id: 20261105021540749899392iKdGnsMk) (code=429) [2/24]
-[02:17:06] poll: HTTP 429: too many video status queries (request id: 202611050217062899671896b6CblQy) (code=429) [1/24]
-[02:17:06] poll: HTTP 429: too many video status queries (request id: 20261105021706288887706a7QL6iQH) (code=429) [1/24]
-[02:18:31] poll: HTTP 429: too many video status queries (request id: 20261105021831798589779Gv7We8O2) (code=429) [1/24]
-[02:18:31] poll: HTTP 429: too many video status queries (request id: 20261105021831803183610eushkFB9) (code=429) [1/24]
-[02:19:32] poll: HTTP 429: too many video status queries (request id: 20261105021932180562282voQneH1) (code=429) [2/24]
-[02:20:57] poll: HTTP 429: too many video status queries (request id: 20261105022057531362768MjTVZZ3C) (code=429) [1/24]
-[02:22:48] poll: HTTP 429: too many video status queries (request id: 20261105022248381699712a7nFVWHH) (code=429) [1/24]
-[02:23:48] poll: HTTP 429: too many video status queries (request id: 202611050223485949395832uL2n7fD) (code=429) [1/24]
-[02:23:48] status=in_progress progress=10% (elapsed 2059s)
-[02:24:48] poll: HTTP 429: too many video status queries (request id: 20261105022448817867043eOWClD59) (code=429) [1/24]
-[02:24:48] status=in_progress progress=10% (elapsed 2107s)
-[02:25:49] status=in_progress progress=10% (elapsed 2117s)
-[02:26:14] poll: HTTP 429: too many video status queries (request id: 202611050226143444378884NrE678O) (code=429) [1/24]
-[02:27:14] poll: HTTP 429: too many video status queries (request id: 20261105022714551667370wJ1M3N0z) (code=429) [1/24]
-[02:27:14] status=in_progress progress=10% (elapsed 2140s)
-[02:27:14] status=failed progress=100% (elapsed 2202s)
-PRODUCTION_STATUS S02 asset/task failed; retrying
-PRODUCTION_STATUS S02 submitting
-PRODUCTION_STATUS S02 waiting for Agnes create slot
-[02:28:14] status=completed progress=100% (elapsed 2325s)[02:28:14] status=in_progress progress=10% (elapsed 2189s)
-
-PRODUCTION_STATUS S02 queued
-[02:28:16] status=pending progress=0% (elapsed 0s)
-PRODUCTION_STATUS S01 Agnes task completed
+S01: reusing matching Agnes result
+S02: reusing matching Agnes result
+S03: reusing matching Agnes result
+S04: reusing matching Agnes result
+S05: reusing matching Agnes result
 PRODUCTION_STATUS S01 generated and decoded
-PRODUCTION_STATUS S06 submitting
-PRODUCTION_STATUS S06 waiting for Agnes create slot
-PRODUCTION_STATUS S06 queued
-[02:28:28] status=pending progress=0% (elapsed 0s)
-[02:28:40] status=completed progress=100% (elapsed 2339s)
-PRODUCTION_STATUS S03 Agnes task completed
-PRODUCTION_STATUS S03 generated and decoded
-PRODUCTION_STATUS S07 submitting
-PRODUCTION_STATUS S07 waiting for Agnes create slot
-PRODUCTION_STATUS S07 provider busy; retrying
-S07: HTTP 429; retrying create in 12s (attempt 1)
-PRODUCTION_STATUS S07 waiting for Agnes create slot
-PRODUCTION_STATUS S07 provider busy; retrying
-S07: HTTP 429; retrying create in 12s (attempt 2)
-PRODUCTION_STATUS S07 waiting for Agnes create slot
-PRODUCTION_STATUS S07 provider busy; retrying
-S07: HTTP 429; retrying create in 12s (attempt 3)
-PRODUCTION_STATUS S07 waiting for Agnes create slot
-PRODUCTION_STATUS S07 queued
-[02:29:26] status=pending progress=0% (elapsed 0s)
-[02:29:38] poll: HTTP 429: too many video status queries (request id: 20261105022938322044281pI4G7buR) (code=429) [1/24]
-[02:30:38] poll: HTTP 429: too many video status queries (request id: 20261105023038558616496DWiUhFBY) (code=429) [2/24]
-[02:31:38] status=completed progress=100% (elapsed 2393s)
-PRODUCTION_STATUS S05 Agnes task completed
+PRODUCTION_STATUS S02 generated and decoded
 PRODUCTION_STATUS S05 generated and decoded
-PRODUCTION_STATUS S08 submitting
-PRODUCTION_STATUS S08 waiting for Agnes create slot
-PRODUCTION_STATUS S08 queued
-[02:31:47] status=pending progress=0% (elapsed 0s)
-[02:32:04] status=completed progress=100% (elapsed 2430s)
-PRODUCTION_STATUS S04 Agnes task completed
+S06: reusing matching Agnes result
+PRODUCTION_STATUS S03 generated and decoded
 PRODUCTION_STATUS S04 generated and decoded
-PRODUCTION_STATUS S09 failed
-PRODUCTION_STATUS S10 submitting
-PRODUCTION_STATUS S10 waiting for Agnes create slot
-PRODUCTION_STATUS S10 queued
-[02:32:14] status=pending progress=0% (elapsed 0s)
-[02:32:39] poll: HTTP 429: too many video status queries (request id: 20261105023239517744029c6bCH1Pt) (code=429) [1/24]
-[02:33:39] poll: HTTP 429: too many video status queries (request id: 20261105023339775505644UWtk7TmH) (code=429) [2/24]
-[02:34:40] poll: HTTP 429: too many video status queries (request id: 20261105023439996343804PWkZCO6p) (code=429) [1/24]
-[02:34:40] poll: HTTP 429: too many video status queries (request id: 20261105023439997819559e8JefPM4) (code=429) [1/24]
-[02:35:40] poll: HTTP 429: too many video status queries (request id: 20261105023540216298748jlMt9sT1) (code=429) [2/24]
-[02:36:40] poll: HTTP 429: too many video status queries (request id: 20261105023640425298480MijktrlC) (code=429) [3/24]
-[02:37:40] poll: HTTP 429: too many video status queries (request id: 20261105023740628233543qvNsqsAO) (code=429) [1/24]
-[02:37:40] poll: HTTP 429: too many video status queries (request id: 20261105023740641431562DqrbR0VE) (code=429) [1/24]
-[02:39:06] poll: HTTP 429: too many video status queries (request id: 20261105023906195932440JKzfxKzG) (code=429) [1/24]
-[02:40:06] poll: HTTP 429: too many video status queries (request id: 20261105024006411861318P8q2vCBW) (code=429) [1/24]
-[02:41:06] poll: HTTP 429: too many video status queries (request id: 20261105024106628532300wLYG3JXc) (code=429) [2/24]
-[02:42:32] poll: HTTP 429: too many video status queries (request id: 20261105024232141464010HMJX1aTl) (code=429) [1/24]
-[02:43:32] poll: HTTP 429: too many video status queries (request id: 20261105024332366159831i7Q5kcgo) (code=429) [1/24]
-[02:43:32] poll: HTTP 429: too many video status queries (request id: 20261105024332363832097mA43EfAW) (code=429) [1/24]
-[02:44:58] poll: HTTP 429: too many video status queries (request id: 202611050244579222223719sOQsqZN) (code=429) [1/24]
-[02:45:58] poll: HTTP 429: too many video status queries (request id: 20261105024558139890833mqVLATIb) (code=429) [2/24]
-[02:47:49] poll: HTTP 429: too many video status queries (request id: 20261105024748930899663HKInhumi) (code=429) [1/24]
-[02:48:49] poll: HTTP 429: too many video status queries (request id: 20261105024849161308099GCfWBUnR) (code=429) [2/24]
-[02:49:49] poll: HTTP 429: too many video status queries (request id: 20261105024949461174126raiA2fr3) (code=429) [3/24]
-[02:50:49] poll: HTTP 429: too many video status queries (request id: 20261105025049670819511wcSP4k61) (code=429) [1/24]
-[02:50:49] poll: HTTP 429: too many video status queries (request id: 20261105025049690672195WbANItNS) (code=429) [4/24]
-[02:52:15] poll: HTTP 429: too many video status queries (request id: 20261105025215225352030x3VjgRSr) (code=429) [1/24]
-[02:53:15] poll: HTTP 429: too many video status queries (request id: 20261105025315447201032sBiaWG3k) (code=429) [1/24]
-[02:55:31] poll: HTTP 429: too many video status queries (request id: 20261105025531496906188i4RcUKBW) (code=429) [1/24]
-[02:55:31] poll: HTTP 429: too many video status queries (request id: 20261105025531522529909W2aKNum3) (code=429) [1/24]
-[02:56:31] poll: HTTP 429: too many video status queries (request id: 20261105025631746708179A8IfJT9b) (code=429) [1/24]
-[02:57:32] poll: HTTP 429: too many video status queries (request id: 20261105025731971019308r1XmE6z7) (code=429) [1/24]
-[02:58:32] poll: HTTP 429: too many video status queries (request id: 20261105025832191701582tRY2NGmn) (code=429) [2/24]
-[02:58:32] poll: HTTP 429: too many video status queries (request id: 20261105025832191829059sHWjsmMU) (code=429) [1/24]
-[02:59:32] poll: HTTP 429: too many video status queries (request id: 20261105025932413867909Bxko97D3) (code=429) [1/24]
-[03:00:32] poll: HTTP 429: too many video status queries (request id: 20261105030032691543369fEgMS7Bi) (code=429) [1/24]
-[03:01:32] poll: HTTP 429: too many video status queries (request id: 20261105030132905755241JfWwHGa2) (code=429) [1/24]
-[03:02:33] poll: HTTP 429: too many video status queries (request id: 20261105030233135039127ONNPR1I9) (code=429) [2/24]
-[03:03:58] poll: HTTP 429: too many video status queries (request id: 20261105030358666028387linLYdQl) (code=429) [1/24]
-[03:04:58] poll: HTTP 429: too many video status queries (request id: 20261105030458885072064iMyNt8D6) (code=429) [1/24]
-[03:06:24] poll: HTTP 429: too many video status queries (request id: 20261105030624433578446cv7ncdfv) (code=429) [1/24]
-[03:06:24] poll: HTTP 429: too many video status queries (request id: 20261105030624443098307B6VRasNu) (code=429) [1/24]
-[03:08:15] poll: HTTP 429: too many video status queries (request id: 20261105030815201292516gsxHWqNd) (code=429) [1/24]
-[03:09:15] poll: HTTP 429: too many video status queries (request id: 20261105030915417788721ilG6huz5) (code=429) [1/24]
-[03:09:15] poll: HTTP 429: too many video status queries (request id: 20261105030915423381476lVdQQNdM) (code=429) [1/24]
-[03:11:06] poll: HTTP 429: too many video status queries (request id: 20261105031106214170228FpTxz8Ln) (code=429) [1/24]
-[03:11:06] poll: HTTP 429: too many video status queries (request id: 20261105031106227214199OYs30GFj) (code=429) [1/24]
-[03:12:06] poll: HTTP 429: too many video status queries (request id: 20261105031206456770773OBy5Lixk) (code=429) [2/24]
-[03:12:06] status=in_progress progress=10% (elapsed 2630s)
-[03:13:06] poll: HTTP 429: too many video status queries (request id: 20261105031306678534182xv8BTGgD) (code=429) [1/24]
-[03:13:06] poll: HTTP 429: too many video status queries (request id: 20261105031306674359156OGDFEgGN) (code=429) [1/24]
-[03:13:06] status=in_progress progress=10% (elapsed 2678s)
-[03:13:06] status=in_progress progress=10% (elapsed 2620s)
-[03:14:06] poll: HTTP 429: too many video status queries (request id: 20261105031406896595581ZQcLHxwU) (code=429) [1/24]
-[03:15:07] poll: HTTP 429: too many video status queries (request id: 20261105031507105528843PKJ1gC2h) (code=429) [1/24]
-[03:16:07] poll: HTTP 429: too many video status queries (request id: 20261105031607385164021uPQW3x0w) (code=429) [1/24]
-[03:16:07] poll: HTTP 429: too many video status queries (request id: 20261105031607385666281TQYwlnDV) (code=429) [2/24]
-[03:16:07] status=completed progress=100% (elapsed 2871s)
-[03:16:07] status=completed progress=100% (elapsed 2859s)
-[03:17:07] status=in_progress progress=10% (elapsed 2693s)
-[03:17:07] status=in_progress progress=10% (elapsed 2720s)
-[03:17:33] status=completed progress=100% (elapsed 2886s)
-[03:18:23] poll: HTTP 429: too many video status queries (request id: 20261105031823413018106ruP9ZoIR) (code=429) [1/24]
-[03:21:04] status=completed progress=100% (elapsed 2930s)
-[03:21:30] status=in_progress progress=90% (elapsed 2983s)
-[03:21:55] status=completed progress=100% (elapsed 3008s)
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 627, in checkpoint
-    git("push", "origin", BRANCH)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
-    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                  stderr=subprocess.STDOUT, timeout=120)
-                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-               **kwargs).stdout
-               ^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 1.
+S07: reusing matching Agnes resultS08: reusing matching Agnes result
 
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 764, in generate_one
-    checkpoint(sid + " Agnes task completed", sid, status="downloaded", video_url=url,
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-               bytes=size, sha256=receipt["sha256"], reported_size=final.get("size"),
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-               reported_seconds=final.get("seconds"), error=None)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 632, in checkpoint
-    git("pull", "--rebase", "origin", BRANCH)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
-    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                  stderr=subprocess.STDOUT, timeout=120)
-                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-               **kwargs).stdout
-               ^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 627, in checkpoint
-    git("push", "origin", BRANCH)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
-    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                  stderr=subprocess.STDOUT, timeout=120)
-                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-               **kwargs).stdout
-               ^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 1.
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 875, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 826, in main
-    outcomes = list(pool.map(generate_one, selected))
-  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 639, in result_iterator
-    yield _result_or_cancel(fs.pop())
-          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
-  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 311, in _result_or_cancel
-    return fut.result(timeout)
-           ~~~~~~~~~~^^^^^^^^^
-  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 450, in result
-    return self.__get_result()
-           ~~~~~~~~~~~~~~~~~^^
-  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 395, in __get_result
-    raise self._exception
-  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 86, in run
-    result = ctx.run(self.task)
-  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 73, in run
-    return fn(*args, **kwargs)
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 798, in generate_one
-    checkpoint(sid + " failed", sid, status="failed", error=error[:600])
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 632, in checkpoint
-    git("pull", "--rebase", "origin", BRANCH)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sonofsam1977/generate.py", line 415, in git
-    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                  stderr=subprocess.STDOUT, timeout=120)
-                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 473, in check_output
-    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
-           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-               **kwargs).stdout
-               ^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.
-generator_exit=1
-stage=generate_step_done exit=1
+PRODUCTION_STATUS S09 submitting
+S10: reusing matching Agnes result
+PRODUCTION_STATUS S09 waiting for Agnes create slot
+PRODUCTION_STATUS S06 generated and decoded
+PRODUCTION_STATUS S09 queued
+[06:05:25] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S11 submitting
+PRODUCTION_STATUS S07 generated and decoded
+PRODUCTION_STATUS S11 waiting for Agnes create slot
+PRODUCTION_STATUS S08 generated and decoded
+PRODUCTION_STATUS S10 generated and decoded
+PRODUCTION_STATUS S13 submitting
+PRODUCTION_STATUS S12 submitting
+PRODUCTION_STATUS S13 waiting for Agnes create slot
+PRODUCTION_STATUS S12 waiting for Agnes create slot
+PRODUCTION_STATUS S14 submitting
+PRODUCTION_STATUS S14 waiting for Agnes create slot
+PRODUCTION_STATUS S13 queued
+[06:05:36] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S14 provider busy; retrying
+S14: HTTP 429; retrying create in 12s (attempt 1)
+PRODUCTION_STATUS S14 waiting for Agnes create slot
+PRODUCTION_STATUS S12 provider busy; retrying
+S12: HTTP 429; retrying create in 12s (attempt 1)
+PRODUCTION_STATUS S12 waiting for Agnes create slot
+PRODUCTION_STATUS S14 provider busy; retrying
+S14: HTTP 429; retrying create in 12s (attempt 2)
+PRODUCTION_STATUS S14 waiting for Agnes create slot
+PRODUCTION_STATUS S12 queued
+[06:06:27] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S11 queued
+[06:06:39] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S14 provider busy; retrying
+S14: HTTP 429; retrying create in 12s (attempt 3)
+PRODUCTION_STATUS S14 waiting for Agnes create slot
+PRODUCTION_STATUS S14 provider busy; retrying
+S14: HTTP 429; retrying create in 12s (attempt 4)
+PRODUCTION_STATUS S14 waiting for Agnes create slot
+PRODUCTION_STATUS S14 provider busy; retrying
+S14: HTTP 429; retrying create in 12s (attempt 5)
+PRODUCTION_STATUS S14 waiting for Agnes create slot
+PRODUCTION_STATUS S14 queued
+[06:07:28] status=pending progress=0% (elapsed 0s)
+[06:07:53] poll: HTTP 429: too many video status queries (request id: 20261105060753604490795XxasxwXt) (code=429) [1/24]
+[06:08:54] poll: HTTP 429: too many video status queries (request id: 202611050608545651779237l6nke50) (code=429) [1/24]
+[06:09:54] poll: HTTP 429: too many video status queries (request id: 20261105060954826477683TjUJbIEN) (code=429) [1/24]
+[06:10:55] poll: HTTP 429: too many video status queries (request id: 20261105061055127151696xDwvoU6q) (code=429) [1/24]
+[06:11:55] poll: HTTP 429: too many video status queries (request id: 202611050611554049246435Jvo29Jl) (code=429) [2/24]
+[06:12:55] poll: HTTP 429: too many video status queries (request id: 2026110506125566410085112FEM3j8) (code=429) [3/24]
+[06:13:56] poll: HTTP 429: too many video status queries (request id: 20261105061355946925177W4BinGmW) (code=429) [4/24]
+[06:14:56] poll: HTTP 429: too many video status queries (request id: 20261105061456215857509ycZxL6FB) (code=429) [1/24]
+[06:15:56] poll: HTTP 429: too many video status queries (request id: 20261105061556531479915OALCh5Rw) (code=429) [2/24]
+[06:16:56] poll: HTTP 429: too many video status queries (request id: 20261105061656839276519MhLxdIJ1) (code=429) [1/24]
+[06:17:57] poll: HTTP 429: too many video status queries (request id: 20261105061757297669351y6MaBVle) (code=429) [1/24]
+[06:17:57] poll: HTTP 429: too many video status queries (request id: 20261105061757802871886n7auY663) (code=429) [1/24]
+[06:18:58] poll: HTTP 429: too many video status queries (request id: 2026110506185857601430YycBUyu9) (code=429) [1/24]
+[06:18:58] poll: HTTP 429: too many video status queries (request id: 2026110506185865670323VINTKkoc) (code=429) [1/24]
+[06:19:58] poll: HTTP 429: too many video status queries (request id: 202611050619583271289556eYRorbn) (code=429) [1/24]
+[06:19:58] poll: HTTP 429: too many video status queries (request id: 20261105061958328677524F0II0Gzp) (code=429) [2/24]
+[06:20:59] poll: HTTP 429: too many video status queries (request id: 20261105062059374911625LZxj0mEm) (code=429) [1/24]
+[06:21:59] poll: HTTP 429: too many video status queries (request id: 20261105062159648545903zGuAIhlV) (code=429) [1/24]
+[06:23:00] poll: HTTP 429: too many video status queries (request id: 20261105062259910420357prwFnI1D) (code=429) [1/24]
+[06:24:25] poll: HTTP 429: too many video status queries (request id: 20261105062425518608212AymUSAQX) (code=429) [1/24]
+[06:25:25] poll: HTTP 429: too many video status queries (request id: 20261105062525812853928OGCr4RFW) (code=429) [2/24]
+[06:26:51] poll: HTTP 429: too many video status queries (request id: 20261105062651520488301dcScUvlf) (code=429) [1/24]
+[06:27:51] poll: HTTP 429: too many video status queries (request id: 20261105062751783195310pWI830VF) (code=429) [1/24]
+[06:29:42] poll: HTTP 429: too many video status queries (request id: 20261105062942785854096ouvo2gi0) (code=429) [1/24]
+[06:31:08] poll: HTTP 429: too many video status queries (request id: 202611050631083672321599OFXfZ3z) (code=429) [1/24]
+[06:33:25] poll: HTTP 429: too many video status queries (request id: 20261105063325315280916dPfqEhzG) (code=429) [1/24]
+[06:34:51] poll: HTTP 429: too many video status queries (request id: 20261105063451598627705Yes0lIHJ) (code=429) [1/24]
+[06:35:51] poll: HTTP 429: too many video status queries (request id: 202611050635518671680558LPfpTn0) (code=429) [1/24]
+[06:35:51] poll: HTTP 429: too many video status queries (request id: 20261105063551872044657JgjK1GPN) (code=429) [1/24]
+[06:35:52] status=in_progress progress=10% (elapsed 1826s)
+[06:36:52] status=in_progress progress=10% (elapsed 1813s)
+[06:36:52] status=in_progress progress=10% (elapsed 1825s)
+[06:36:52] status=in_progress progress=10% (elapsed 1875s)
+[06:36:52] poll: HTTP 429: too many video status queries (request id: 202611050636528155332378dp9QNqR) (code=429) [1/24]
+[06:37:53] poll: HTTP 429: too many video status queries (request id: 202611050637531262560239BA2FRV5) (code=429) [1/24]
+[06:37:53] status=in_progress progress=10% (elapsed 1825s)
+[06:39:19] status=completed progress=100% (elapsed 2034s)
+PRODUCTION_STATUS S09 Agnes task completed
+PRODUCTION_STATUS S09 generated and decoded
+PRODUCTION_STATUS S15 submitting
+PRODUCTION_STATUS S15 waiting for Agnes create slot
+PRODUCTION_STATUS S15 queued
+[06:39:28] status=pending progress=0% (elapsed 0s)
+[06:39:44] poll: HTTP 429: too many video status queries (request id: 2026110506394488331662OPTC8Uj5) (code=429) [1/24]
+[06:40:44] poll: HTTP 429: too many video status queries (request id: 20261105064044345874270mDNEDtwx) (code=429) [1/24]
+[06:41:44] status=completed progress=100% (elapsed 2105s)
+[06:41:44] status=completed progress=100% (elapsed 2168s)
+[06:41:45] poll: HTTP 429: too many video status queries (request id: 202611050641453248340135Uvenx4M) (code=429) [1/24]
+PRODUCTION_STATUS S13 Agnes task completed
+PRODUCTION_STATUS S11 Agnes task completed
+PRODUCTION_STATUS S13 generated and decoded
+PRODUCTION_STATUS S11 generated and decoded
+PRODUCTION_STATUS S16 submitting
+PRODUCTION_STATUS S17 submitting
+PRODUCTION_STATUS S16 waiting for Agnes create slot
+PRODUCTION_STATUS S17 waiting for Agnes create slot
+[06:42:45] status=completed progress=100% (elapsed 2117s)
+[06:42:46] status=completed progress=100% (elapsed 2179s)
+PRODUCTION_STATUS S16 provider busy; retrying
+S16: HTTP 429; retrying create in 102s (attempt 1)
+PRODUCTION_STATUS S16 waiting for Agnes create slot
+PRODUCTION_STATUS S14 Agnes task completed
+PRODUCTION_STATUS S12 Agnes task completed
+PRODUCTION_STATUS S14 generated and decoded
+PRODUCTION_STATUS S18 submitting
+PRODUCTION_STATUS S12 generated and decoded
+PRODUCTION_STATUS S18 waiting for Agnes create slot
+PRODUCTION_STATUS S19 submitting
+PRODUCTION_STATUS S19 waiting for Agnes create slot
+PRODUCTION_STATUS S17 queued
+[06:44:31] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S16 provider busy; retrying
+S16: HTTP 429; retrying create in 289s (attempt 2)
+PRODUCTION_STATUS S16 waiting for Agnes create slot
+[06:49:30] poll: HTTP 429: too many video status queries (request id: 20261105064930220358665xrmVuj3q) (code=429) [1/24]
+PRODUCTION_STATUS S19 queued
+[06:50:30] poll: HTTP 429: too many video status queries (request id: 20261105065030482231893xa0zF05X) (code=429) [1/24]
+PRODUCTION_STATUS S16 provider busy; retrying
+S16: HTTP 429; retrying create in 240s (attempt 3)
+PRODUCTION_STATUS S16 waiting for Agnes create slot
+[06:54:30] status=pending progress=0% (elapsed 299s)
+PRODUCTION_STATUS S16 queued
+[06:54:32] status=pending progress=0% (elapsed 0s)
+PRODUCTION_STATUS S18 provider busy; retrying
+S18: HTTP 429; retrying create in 289s (attempt 1)
+PRODUCTION_STATUS S18 waiting for Agnes create slot
+PRODUCTION_STATUS S18 queued
+[06:59:34] status=pending progress=0% (elapsed 0s)
+[06:59:58] poll: HTTP 429: too many video status queries (request id: 20261105065958354954245d2XSRuFK) (code=429) [1/24]
+[06:59:58] poll: HTTP 429: too many video status queries (request id: 20261105065958360765586k0svdx1P) (code=429) [1/24]
+[07:00:58] poll: HTTP 429: too many video status queries (request id: 20261105070058665980891PfC5DcI1) (code=429) [2/24]
+[07:01:59] poll: HTTP 429: too many video status queries (request id: 20261105070159640079988EsR4y4kP) (code=429) [1/24]
+[07:03:00] poll: HTTP 429: too many video status queries (request id: 20261105070300646693867cTRWOn7H) (code=429) [1/24]
+[07:04:01] poll: HTTP 429: too many video status queries (request id: 20261105070400963463096BLymtklr) (code=429) [2/24]
+[07:05:01] poll: HTTP 429: too many video status queries (request id: 20261105070501261169578VCrqmvLY) (code=429) [3/24]
+[07:06:26] poll: HTTP 429: too many video status queries (request id: 202611050706268552970531zDN0oe8) (code=429) [1/24]
+[07:07:27] poll: HTTP 429: too many video status queries (request id: 20261105070727118904896FUz7CGPj) (code=429) [1/24]
+[07:07:27] status=in_progress progress=10% (elapsed 1679s)
+[07:08:52] poll: HTTP 429: too many video status queries (request id: 20261105070852731280783FXUA2miv) (code=429) [1/24]
+[07:09:53] poll: HTTP 429: too many video status queries (request id: 20261105070953690605829853NUL9V) (code=429) [2/24]
+[07:11:20] poll: HTTP 429: too many video status queries (request id: 2026110507112092837912OKq2BOJ0) (code=429) [1/24]
+[07:12:20] status=completed progress=100% (elapsed 1972s)
+PRODUCTION_STATUS S15 Agnes task completed
+PRODUCTION_STATUS S15 generated and decoded
+PRODUCTION_STATUS S20 submitting
+PRODUCTION_STATUS S20 waiting for Agnes create slot
+PRODUCTION_STATUS S20 queued
+[07:12:28] status=pending progress=0% (elapsed 0s)
+[07:12:45] status=in_progress progress=10% (elapsed 1695s)
+[07:13:36] poll: HTTP 429: too many video status queries (request id: 20261105071336314267973ElzqdDNm) (code=429) [1/24]
+[07:14:36] poll: HTTP 429: too many video status queries (request id: 20261105071436570000746d19FaQDn) (code=429) [1/24]
+[07:15:36] poll: HTTP 429: too many video status queries (request id: 202611050715368199678130CPv2bk5) (code=429) [1/24]
+[07:17:03] status=in_progress progress=90% (elapsed 1952s)
+[07:17:28] poll: HTTP 429: too many video status queries (request id: 202611050717284080711003CCp7dZE) (code=429) [1/24]
+[07:18:28] status=in_progress progress=10% (elapsed 1737s)
+[07:18:28] status=completed progress=100% (elapsed 2038s)
+PRODUCTION_STATUS S17 Agnes task completed
+PRODUCTION_STATUS S17 generated and decoded
+PRODUCTION_STATUS S21 submitting
+PRODUCTION_STATUS S21 waiting for Agnes create slot
+PRODUCTION_STATUS S21 queued
+[07:18:36] status=pending progress=0% (elapsed 0s)
+[07:21:01] poll: HTTP 429: too many video status queries (request id: 20261105072101429986156YKkMEopZ) (code=429) [1/24]
+[07:22:01] poll: HTTP 429: too many video status queries (request id: 20261105072201730838897Zaoa6xEp) (code=429) [2/24]
+[07:22:01] poll: HTTP 429: too many video status queries (request id: 20261105072201732850835YoUK2bdb) (code=429) [1/24]
+[07:23:02] status=completed progress=100% (elapsed 2011s)
+PRODUCTION_STATUS S19 Agnes task completed
+PRODUCTION_STATUS S19 generated and decoded
+PRODUCTION_STATUS S22 submitting
+PRODUCTION_STATUS S22 waiting for Agnes create slot
+PRODUCTION_STATUS S22 provider busy; retrying
+S22: HTTP 429; retrying create in 26s (attempt 1)
+PRODUCTION_STATUS S22 waiting for Agnes create slot
+PRODUCTION_STATUS S22 queued
+[07:23:38] status=pending progress=0% (elapsed 0s)
+[07:24:27] poll: HTTP 429: too many video status queries (request id: 20261105072427427107580Kf3xI397) (code=429) [1/24]
+[07:25:27] status=in_progress progress=10% (elapsed 1855s)
+[07:25:28] poll: HTTP 429: too many video status queries (request id: 20261105072528398216901kVUJvBYO) (code=429) [1/24]
+[07:26:28] poll: HTTP 429: too many video status queries (request id: 20261105072628662213643ri9mHPJj) (code=429) [1/24]
+[07:28:19] poll: HTTP 429: too many video status queries (request id: 20261105072819706431796IH3m3LA9) (code=429) [1/24]
+[07:29:20] poll: HTTP 429: too many video status queries (request id: 202611050729206879611O1IBCsDY) (code=429) [1/24]
+[07:29:20] status=completed progress=100% (elapsed 2087s)
+PRODUCTION_STATUS S16 Agnes task completed
+PRODUCTION_STATUS S16 generated and decoded
+PRODUCTION_STATUS S23 submitting
+PRODUCTION_STATUS S23 waiting for Agnes create slot
+[07:30:20] poll: HTTP 429: too many video status queries (request id: 20261105073020263773520NGj1uJEb) (code=429) [1/24]
+PRODUCTION_STATUS S23 queued
+[07:31:20] status=pending progress=0% (elapsed 59s)
+[07:31:20] status=in_progress progress=10% (elapsed 1906s)
+[07:31:21] poll: HTTP 429: too many video status queries (request id: 202611050731212521447272fMrGAa7) (code=429) [1/24]
+[07:32:21] poll: HTTP 429: too many video status queries (request id: 20261105073221519281120qIHRlnD3) (code=429) [1/24]
+[07:33:21] poll: HTTP 429: too many video status queries (request id: 20261105073321833095189A7YEmjd8) (code=429) [1/24]
+[07:33:21] poll: HTTP 429: too many video status queries (request id: 20261105073321829231146vbx1ouW7) (code=429) [1/24]
+[07:33:21] poll: HTTP 429: too many video status queries (request id: 20261105073321819068628N5sjhaBF) (code=429) [2/24]
+[07:34:22] poll: HTTP 429: too many video status queries (request id: 20261105073422110825886vb9l6jmt) (code=429) [1/24]
+[07:35:23] status=in_progress progress=70% (elapsed 2149s)
+[07:35:48] poll: HTTP 429: too many video status queries (request id: 20261105073548410851151bcbdnanL) (code=429) [1/24]
+[07:36:48] poll: HTTP 429: too many video status queries (request id: 20261105073648679643722dCJ71fWw) (code=429) [2/24]
+[07:37:49] poll: HTTP 429: too many video status queries (request id: 20261105073748936214836kStybBzf) (code=429) [1/24]
+[07:37:49] poll: HTTP 429: too many video status queries (request id: 202611050737489307037305lesviMH) (code=429) [1/24]
+[07:37:49] status=completed progress=100% (elapsed 2294s)
+PRODUCTION_STATUS S18 Agnes task completed
+PRODUCTION_STATUS S18 generated and decoded
+PRODUCTION_STATUS S24 submitting
+PRODUCTION_STATUS S24 waiting for Agnes create slot
+[07:38:50] poll: HTTP 429: too many video status queries (request id: 20261105073849908068850YPSN3W6e) (code=429) [1/24]
+PRODUCTION_STATUS S24 queued
+[07:39:50] poll: HTTP 429: too many video status queries (request id: 20261105073950169730461TmKRH19G) (code=429) [1/24]
+[07:39:50] status=pending progress=0% (elapsed 60s)
+[07:40:51] poll: HTTP 429: too many video status queries (request id: 20261105074051120659473hBaihC30) (code=429) [1/24]
+[07:42:17] poll: HTTP 429: too many video status queries (request id: 20261105074217418481625Uh3M6IjV) (code=429) [1/24]
+[07:42:17] poll: HTTP 429: too many video status queries (request id: 20261105074217494167262lIhGQFCb) (code=429) [1/24]
+[07:43:43] poll: HTTP 429: too many video status queries (request id: 20261105074343732915981aZNdEDHP) (code=429) [1/24]
+[07:45:09] poll: HTTP 429: too many video status queries (request id: 20261105074509386977914U0w1vb2S) (code=429) [1/24]
+[07:45:09] status=in_progress progress=10% (elapsed 1961s)
+[07:46:09] poll: HTTP 429: too many video status queries (request id: 20261105074609659616304cKtYAfvQ) (code=429) [1/24]
+[07:48:51] poll: HTTP 429: too many video status queries (request id: 20261105074851258328798y0YW6dTw) (code=429) [1/24]
+[07:49:51] status=completed progress=100% (elapsed 2243s)
+PRODUCTION_STATUS S20 Agnes task completed
+PRODUCTION_STATUS S20 generated and decoded
+PRODUCTION_STATUS S25 submitting
+PRODUCTION_STATUS S25 waiting for Agnes create slot
+PRODUCTION_STATUS S25 queued
+[07:49:59] status=pending progress=0% (elapsed 0s)
+[07:51:33] poll: HTTP 429: too many video status queries (request id: 20261105075133503467610nhZ2JTam) (code=429) [1/24]
+[07:51:33] status=in_progress progress=10% (elapsed 1977s)
+[07:52:33] poll: HTTP 429: too many video status queries (request id: 20261105075233759721921liAL8mlx) (code=429) [2/24]
+[07:53:59] poll: HTTP 429: too many video status queries (request id: 20261105075359333650058o7uHNJDR) (code=429) [1/24]
+[07:55:25] poll: HTTP 429: too many video status queries (request id: 20261105075525665204103LxnnDXXh) (code=429) [1/24]
+[07:56:26] status=in_progress progress=10% (elapsed 1968s)
+[07:56:26] status=completed progress=100% (elapsed 2269s)
+PRODUCTION_STATUS S21 Agnes task completed
+PRODUCTION_STATUS S21 generated and decoded
+PRODUCTION_STATUS S26 submitting
+PRODUCTION_STATUS S26 waiting for Agnes create slot
+PRODUCTION_STATUS S26 queued
+[07:56:34] status=pending progress=0% (elapsed 0s)
+[07:56:51] poll: HTTP 429: too many video status queries (request id: 20261105075651254519833EcJQXf9T) (code=429) [1/24]
+[07:57:51] poll: HTTP 429: too many video status queries (request id: 20261105075751514829413vtlypt3t) (code=429) [1/24]
+[07:58:51] poll: HTTP 429: too many video status queries (request id: 20261105075851770200141RrJgGpij) (code=429) [1/24]
+[07:59:52] poll: HTTP 429: too many video status queries (request id: 20261105075952745744683bFLlnsxZ) (code=429) [1/24]
+[08:00:53] status=completed progress=100% (elapsed 2235s)
+PRODUCTION_STATUS S22 Agnes task completed
+PRODUCTION_STATUS S22 generated and decoded
+PRODUCTION_STATUS S27 submitting
+PRODUCTION_STATUS S27 waiting for Agnes create slot
+PRODUCTION_STATUS S27 provider busy; retrying
+S27: HTTP 429; retrying create in 33s (attempt 1)
+PRODUCTION_STATUS S27 waiting for Agnes create slot
+PRODUCTION_STATUS S27 queued
+[08:01:36] poll: HTTP 429: too many video status queries (request id: 20261105080136366560006mTu9h7bn) (code=429) [1/24]
+[08:02:36] status=pending progress=0% (elapsed 60s)
+[08:03:28] poll: HTTP 429: too many video status queries (request id: 20261105080327946685330Lz8G0vcK) (code=429) [1/24]
+[08:04:28] poll: HTTP 429: too many video status queries (request id: 20261105080428202733249Y4exKkuA) (code=429) [2/24]
+[08:05:28] status=in_progress progress=10% (elapsed 2107s)
+[08:05:29] poll: HTTP 429: too many video status queries (request id: 20261105080529157314826lq5ATVPb) (code=429) [1/24]
+[08:06:29] poll: HTTP 429: too many video status queries (request id: 202611050806294939960795aB6j9Jb) (code=429) [1/24]
+[08:07:55] poll: HTTP 429: too many video status queries (request id: 20261105080755734131192PZvsOLzn) (code=429) [1/24]
+[08:08:56] poll: HTTP 429: too many video status queries (request id: 20261105080855997756105lq6SaXKf) (code=429) [1/24]
+[08:08:56] poll: HTTP 429: too many video status queries (request id: 202611050808559955849229LlYtcOd) (code=429) [2/24]
+[08:09:56] poll: HTTP 429: too many video status queries (request id: 20261105080956274019972yJABg25k) (code=429) [3/24]
+[08:09:56] status=completed progress=100% (elapsed 2374s)
+PRODUCTION_STATUS S23 Agnes task completed
+PRODUCTION_STATUS S23 generated and decoded
+PRODUCTION_STATUS S28 submitting
+PRODUCTION_STATUS S28 waiting for Agnes create slot
+PRODUCTION_STATUS S28 queued
+[08:10:58] poll: HTTP 429: too many video status queries (request id: 20261105081057962428258dTXl8YMj) (code=429) [1/24]
+[08:11:58] status=pending progress=0% (elapsed 60s)
+[08:12:23] status=in_progress progress=10% (elapsed 2013s)
+[08:13:14] poll: HTTP 429: too many video status queries (request id: 20261105081314248697684lFWmK3V5) (code=429) [1/24]
+[08:14:39] poll: HTTP 429: too many video status queries (request id: 20261105081439818185571MDxwOLnn) (code=429) [1/24]
+[08:16:05] poll: HTTP 429: too many video status queries (request id: 20261105081605424401602KryU1wMW) (code=429) [1/24]
+[08:17:05] status=completed progress=100% (elapsed 2295s)
+PRODUCTION_STATUS S24 Agnes task completed
+PRODUCTION_STATUS S24 generated and decoded
+PRODUCTION_STATUS S29 submitting
+PRODUCTION_STATUS S29 waiting for Agnes create slot
+PRODUCTION_STATUS S29 queued
+[08:17:14] status=pending progress=0% (elapsed 0s)
+[08:17:56] poll: HTTP 429: too many video status queries (request id: 20261105081756449304712oQxe6FLk) (code=429) [1/24]
+[08:17:56] poll: HTTP 429: too many video status queries (request id: 20261105081756464777665F5pOjf12) (code=429) [1/24]
+[08:20:13] poll: HTTP 429: too many video status queries (request id: 20261105082013398074187wIptVecF) (code=429) [1/24]
+[08:22:05] poll: HTTP 429: too many video status queries (request id: 2026110508220512848427XrKMxJuD) (code=429) [1/24]
+[08:23:05] poll: HTTP 429: too many video status queries (request id: 20261105082305303822145YWlydB7C) (code=429) [1/24]
+[08:24:05] poll: HTTP 429: too many video status queries (request id: 20261105082405569946622BTd2LWdj) (code=429) [2/24]
+[08:25:05] poll: HTTP 429: too many video status queries (request id: 20261105082505832091692za2AALtJ) (code=429) [1/24]
+[08:25:05] poll: HTTP 429: too many video status queries (request id: 202611050825058376314187xX5tAOc) (code=429) [1/24]
+[08:25:05] poll: HTTP 429: too many video status queries (request id: 20261105082505837949222xPyGvXEP) (code=429) [1/24]
+[08:26:06] poll: HTTP 429: too many video status queries (request id: 2026110508260691524735AB3icFxQ) (code=429) [2/24]
+[08:26:06] poll: HTTP 429: too many video status queries (request id: 2026110508260699853885OJbEvEiJ) (code=429) [1/24]
+[08:27:06] poll: HTTP 429: too many video status queries (request id: 20261105082706365398439ujQT9fMD) (code=429) [1/24]
+[08:27:06] poll: HTTP 429: too many video status queries (request id: 20261105082706368607485UKNgRejT) (code=429) [2/24]
+[08:28:06] status=in_progress progress=10% (elapsed 2287s)
+[08:28:32] poll: HTTP 429: too many video status queries (request id: 2026110508283213201995tnWzmCKw) (code=429) [1/24]
+[08:28:32] poll: HTTP 429: too many video status queries (request id: 20261105082832726319232km2S4VWJ) (code=429) [1/24]
+[08:29:33] status=completed progress=100% (elapsed 2374s)
+PRODUCTION_STATUS S25 Agnes task completed
+PRODUCTION_STATUS S25 generated and decoded
+PRODUCTION_STATUS S30 submitting
+PRODUCTION_STATUS S30 waiting for Agnes create slot
+PRODUCTION_STATUS S30 queued
+[08:29:42] status=pending progress=0% (elapsed 0s)
+[08:30:24] poll: HTTP 429: too many video status queries (request id: 20261105083024327673385XNHBR9gE) (code=429) [1/24]
+[08:31:24] poll: HTTP 429: too many video status queries (request id: 20261105083124594482768KrZczSuk) (code=429) [1/24]
+[08:32:25] status=in_progress progress=10% (elapsed 2151s)
+[08:33:15] poll: HTTP 429: too many video status queries (request id: 202611050833155143307627QXyZ94x) (code=429) [1/24]
+[08:33:15] poll: HTTP 429: too many video status queries (request id: 20261105083315526200027dxfEo2J6) (code=429) [1/24]
+[08:34:15] poll: HTTP 429: too many video status queries (request id: 20261105083415798953340gpxUGms4) (code=429) [1/24]
+[08:35:16] poll: HTTP 429: too many video status queries (request id: 2026110508351670277472fUAmoA4K) (code=429) [1/24]
+[08:36:16] status=completed progress=100% (elapsed 2382s)
+[08:36:17] poll: HTTP 429: too many video status queries (request id: 20261105083616998803993rFKlKOD6) (code=429) [1/24]
+PRODUCTION_STATUS S26 Agnes task completed
+PRODUCTION_STATUS S26 generated and decoded
+[08:37:18] status=in_progress progress=10% (elapsed 2141s)
+[08:37:42] poll: HTTP 429: too many video status queries (request id: 20261105083742569831620T10rRxlo) (code=429) [1/24]
+[08:40:24] poll: HTTP 429: too many video status queries (request id: 20261105084024482868624iJXskoq4) (code=429) [1/24]
+[08:41:25] status=completed progress=100% (elapsed 2389s)
+PRODUCTION_STATUS S27 Agnes task completed
+PRODUCTION_STATUS S27 generated and decoded
+[08:44:22] poll: HTTP 429: too many video status queries (request id: 20261105084422200234062SvTyiLzj) (code=429) [1/24]
+[08:45:22] status=in_progress progress=10% (elapsed 2064s)
+[08:48:47] poll: HTTP 429: too many video status queries (request id: 20261105084847224892600KN4qpl0S) (code=429) [1/24]
+[08:49:47] status=in_progress progress=10% (elapsed 1953s)
+[08:49:47] status=completed progress=100% (elapsed 2329s)
+PRODUCTION_STATUS S28 Agnes task completed
+PRODUCTION_STATUS S28 generated and decoded
+[08:54:01] status=in_progress progress=90% (elapsed 2207s)
+[08:54:27] status=completed progress=100% (elapsed 2233s)
+PRODUCTION_STATUS S29 Agnes task completed
+PRODUCTION_STATUS S29 generated and decoded
+[09:03:21] status=in_progress progress=10% (elapsed 2020s)
+[09:08:28] status=completed progress=100% (elapsed 2326s)
+PRODUCTION_STATUS S30 Agnes task completed
+PRODUCTION_STATUS S30 generated and decoded
+PRODUCTION_STATUS all 30 Agnes clips ready; waiting for voice clips before rendering
+generator_exit=0
+stage=generate_step_done exit=0
