@@ -255,10 +255,10 @@
     "S10": {
       "id": "S10",
       "request_hash": "b616b8e7e927077ceb32a42e108ac3f4e7b0c9bdde254ff6574ae88edac1a965",
-      "status": "failed",
-      "reused_existing_asset": false,
-      "updated_at": "2026-11-05T03:21:07Z",
-      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/e455e5b7-desktop-tutorial']' returned non-zero exit status 128.",
+      "status": "completed",
+      "reused_existing_asset": true,
+      "updated_at": "2026-11-05T06:05:28Z",
+      "error": null,
       "create_attempts": 1,
       "video_id": "task_VzT5WGBIKw1SbR5R9rm99r9FQmNXAIw5",
       "task_id": "task_VzT5WGBIKw1SbR5R9rm99r9FQmNXAIw5",
@@ -268,7 +268,18 @@
       "bytes": 3580846,
       "sha256": "0279b5339bb571ec20d8d8c19078718c2c8556ee50bf86aa54d1095a2394fe5e",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3580846,
+        "decoded_ok": true,
+        "contact_sheet": "production/sonofsam1977/qa/S10.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S11": {
       "id": "S11",
@@ -462,7 +473,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:05:27Z",
+  "updated_at": "2026-11-05T06:05:28Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
