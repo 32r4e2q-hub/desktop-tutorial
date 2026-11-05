@@ -121,10 +121,13 @@
     "S07": {
       "id": "S07",
       "request_hash": "13828c013dd5c9772377122012849b19692b0054af02ca9022253aca02db74f8",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T02:28:46Z",
-      "error": null
+      "updated_at": "2026-11-05T02:28:47Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261105022847488011098xHhUwYnP) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 12
     },
     "S08": {
       "id": "S08",
@@ -338,7 +341,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T02:28:46Z",
+  "updated_at": "2026-11-05T02:28:47Z",
   "run_id": "41950987109",
   "previous_results": {
     "S02": [
@@ -356,5 +359,13 @@
         "requested_size": "720P"
       }
     ]
+  },
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261105022847488011098xHhUwYnP) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 12,
+    "last_seen": "2026-11-05T02:28:47Z"
   }
 }
