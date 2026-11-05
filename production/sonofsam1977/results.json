@@ -292,25 +292,28 @@
     "S12": {
       "id": "S12",
       "request_hash": "c55e73cb794d87679248c2104e4808044edac22992db819570c606a1b8cef89b",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:05:30Z",
-      "error": null
+      "updated_at": "2026-11-05T06:05:31Z",
+      "error": null,
+      "create_attempts": 1
     },
     "S13": {
       "id": "S13",
       "request_hash": "819df8b69f848ecb38865faf87c30ada4059357e82d2a570755d02a0a1c6b80e",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:05:29Z",
-      "error": null
+      "updated_at": "2026-11-05T06:05:31Z",
+      "error": null,
+      "create_attempts": 1
     },
     "S14": {
       "id": "S14",
       "request_hash": "287974a1daa4de4474ac7bd412dfbb3854bb4d17e57ff3f6cd12fbbdcc215c9c",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T01:49:21Z"
+      "updated_at": "2026-11-05T06:05:31Z",
+      "error": null
     },
     "S15": {
       "id": "S15",
@@ -475,7 +478,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:05:30Z",
+  "updated_at": "2026-11-05T06:05:31Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
