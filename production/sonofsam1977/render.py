@@ -203,7 +203,7 @@ def normalize_clip(source: Path, target: Path, shot: dict, first_ids: set[str], 
     correction = letterbox_crop_filter(shot, info, detected_bands)
     variant = shot.get("style_variant")
     if variant == "gold":
-        grade = "eq=gamma=1.05:brightness=0.010:saturation=1.14:colortemperature=6200"
+        grade = "eq=gamma=1.05:brightness=0.010:saturation=1.14,colorbalance=rs=0.10:gs=0.03:bs=-0.12:rm=0.06:bm=-0.08"
     elif variant == "chase":
         grade = "eq=gamma=1.08:brightness=0.004:saturation=0.86"
     else:
