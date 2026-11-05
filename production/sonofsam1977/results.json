@@ -374,9 +374,9 @@
     "S14": {
       "id": "S14",
       "request_hash": "287974a1daa4de4474ac7bd412dfbb3854bb4d17e57ff3f6cd12fbbdcc215c9c",
-      "status": "queued",
+      "status": "downloaded",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:07:27Z",
+      "updated_at": "2026-11-05T06:42:47Z",
       "error": null,
       "create_attempts": 6,
       "capacity_error": "HTTP 429",
@@ -384,7 +384,12 @@
       "video_id": "task_Vgji1kOBayohTnHY33vtzL3sbFfJuneC",
       "task_id": "task_Vgji1kOBayohTnHY33vtzL3sbFfJuneC",
       "requested_seconds": 5.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Vgji1kOBayohTnHY33vtzL3sbFfJuneC.mp4",
+      "bytes": 1636520,
+      "sha256": "a5df931abee01637c05dbeb25cbbf088a98d942be96b6bccf87a63a104a7d960",
+      "reported_size": "720P",
+      "reported_seconds": "5"
     },
     "S15": {
       "id": "S15",
@@ -402,11 +407,11 @@
     "S16": {
       "id": "S16",
       "request_hash": "dc44a14bb371f1b194dac1f8791e759840e647e19d4069c6efbb676e7b10d1c8",
-      "status": "rate_limited",
+      "status": "waiting_create_slot",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-05T06:42:45Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:44:26. (request id: 20261105064245591169194vJ9WtLNW) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "updated_at": "2026-11-05T06:42:46Z",
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 102.0
     },
@@ -561,7 +566,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-05T06:42:45Z",
+  "updated_at": "2026-11-05T06:42:47Z",
   "run_id": "41977971874",
   "previous_results": {
     "S02": [
