@@ -8,7 +8,8 @@
 - 视频：S01–S30 全部完成（每镜 6.592 秒、1280×720、24fps），30/30 九帧联系表已通过视觉审查。返修后 S11 与 S17 通过；S12 最初仍生成火焰、斑点与伪字幕，最终改为无人、纯俯拍、干净衣物镜头后通过。最终回执见 `results.json`，全部视觉状态 `passed`。
 - Agnes 账号为用户确认的 $4 月卡，创建任务按 12 秒最小间隔、最多 5 个并发 worker；遵从服务器 Retry-After，不轮换密钥。最终连续生成仍会受 Actions 运行预算限制；若超时或遇到服务端冷却，任务 ID 与回执保存，重跑时恢复已有任务而不是重新创建。
 - 旁白：voice-00 的 S01–S30 均已生成，MP3 与逐条 SHA/台词清单见 `audio/manifest.json`（30/30）。
-- 最终成片：GitHub Actions run [42227002875](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/42227002875) 已成功；母版经校验为 1920×1080、24fps、180秒。30条旁白逐句对齐，关键词金色强调，并混合克制的程序化氛围配乐与低音量程序化环境音效。下载包 `hakamada58-final-film-42227002875` 含 MP4、SRT/ASS 字幕、封面及混音/成片报告，有效至 2026-12-06；大型视频产物保留在 Actions artifact，不进 Git。
+- 最终成片：GitHub Actions run [42227002875](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/42227002875) 已成功；母版经校验为 1920×1080、24fps、180秒。30条旁白逐句对齐，关键词金色强调，并混合克制的程序化氛围配乐与低音量程序化环境音效。
+- 第六期直接下载：发布页 [hakamada58-episode06-v1](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/hakamada58-episode06-v1)；MP4 资产 [1080p／180秒](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/hakamada58-episode06-v1/hakamada58-episode06-1080p-180s.mp4)，封面资产 [1080×1440 PNG](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/hakamada58-episode06-v1/hakamada58-episode06-cover-1080x1440.png)。另附 SRT/ASS 字幕；大视频不进 Git。
 - 系列第六期封面按第五期 `迷案解码人` 模板制作，1080×1440；采用已审通过的 S29 画面，成品 `第六期_袴田事件_封面.png` 与文字/来源记录 `.json` 一并保存在本目录。
 
 ## Agnes 2.5 Flash 参考图实现
