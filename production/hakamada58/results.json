@@ -2,7 +2,7 @@
   "project": "袴田事件：58年",
   "model": "agnes-video-2.5-flash",
   "mode": "reference",
-  "phase": "clips_ready",
+  "phase": "batch_ready",
   "shots": {
     "S01": {
       "id": "S01",
@@ -67,6 +67,312 @@
       "visual_review": "passed",
       "updated_at": "2026-11-06T05:23:51Z",
       "visual_review_note": "九帧接触表显示从法院外景全景连续推近至秀子中近景；C02B的白发、蓝灰上衣和年长面容保持一致；群众、伞、横幅与地面反光有连续变化；未见血腥、暴力或可读文字。"
+    },
+    "S02": {
+      "id": "S02",
+      "status": "completed",
+      "request_hash": "f2943dfc21318a15cbbf2a3f9ff19d392dadcfdbbe2dbf1b03e20c0ee0f634a8",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画影像，35mm胶片摄影质感，浅景深，长焦压缩，自然光与硬朗对比，昭和社会派剧情片风格，低饱和，暗部厚重，真实皮肤、布料与建筑材质，克制沉重。16:9宽银幕横屏构图，底部留字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，烟雾、火光、风、布料、光影和镜头均持续运动；禁止静态图加推拉。真实人物均采用非肖像的虚构演员式形象。\n【C01C锚点】与C01同一人，88岁，满头白发，瘦削安静，眼神温和略恍惚，米色外套。\n剥落墙壁与简朴床铺构成的昏暗牢房里，白发老人安静坐在床沿，双手放在膝上；灰白窗光落在肩背，微尘浮动，镜头轻轻靠近。 运镜：牢房背影缓推，窗光缓慢移动。\n【参考图说明】图1为S02（定稿：拘置所牢房），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。；图2为C01C（定稿：袴田岩八十八岁虚构演员式角色定妆），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。\n【NEGATIVE】卡通，Q版，童话，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，血腥，伤口，遗体，尸体，暴力过程，殴打，裸露，畸形手指，多余肢体，面部崩坏，现代物体，现代服装，低清晰度，闪烁，风格突变，竖屏，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 58001,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/S02.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/C01C.png"
+        ]
+      },
+      "create_attempt": 1,
+      "video_id": "task_AEqxfFppiBYyl4IelhnTbYzpyzQ13to9",
+      "task_id": "task_AEqxfFppiBYyl4IelhnTbYzpyzQ13to9",
+      "requested_seconds": 6,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AEqxfFppiBYyl4IelhnTbYzpyzQ13to9.mp4",
+      "bytes": 2643473,
+      "sha256": "7a22db1f63ec2f80c8e55e7935bfe25625e5eb68520f7c53074dbe4616d76a16",
+      "final_response": {
+        "completed_at": 1793944923,
+        "created_at": 1793942917,
+        "error": null,
+        "expires_at": null,
+        "id": "task_AEqxfFppiBYyl4IelhnTbYzpyzQ13to9",
+        "internal_progress": 0,
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": null,
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1793944650,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AEqxfFppiBYyl4IelhnTbYzpyzQ13to9.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2643473,
+        "decoded_ok": true,
+        "contact_sheet": "production/hakamada58/qa/S02.jpg",
+        "visual_review": "pending"
+      },
+      "visual_reference_attached": true,
+      "visual_review": "pending",
+      "updated_at": "2026-11-06T06:02:24Z"
+    },
+    "S03": {
+      "id": "S03",
+      "status": "completed",
+      "request_hash": "ef2d255ff128e7a84cc434e0d87ec1d6f8a3fd4d78ac1b9ef9ed86f0b451f643",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画影像，35mm胶片摄影质感，浅景深，长焦压缩，自然光与硬朗对比，昭和社会派剧情片风格，低饱和，暗部厚重，真实皮肤、布料与建筑材质，克制沉重。16:9宽银幕横屏构图，底部留字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，烟雾、火光、风、布料、光影和镜头均持续运动；禁止静态图加推拉。真实人物均采用非肖像的虚构演员式形象。\n【C06锚点】1960年代日本工人与邻居，白背心、围裙、工作服，神情朴素。\n1966年夜晚，静冈木造住宅窗内火光冲出，烟雾被橙光照亮，邻居穿年代服装在远处接力传水；只呈现远景，不出现受害者。 运镜：远景缓慢下降；烟火与邻居提桶。\n【参考图说明】图1为S03（定稿：1966年静冈住宅火灾远景），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。；图2为C06（定稿：虚构工人与邻居定妆），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。\n【NEGATIVE】卡通，Q版，童话，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，血腥，伤口，遗体，尸体，暴力过程，殴打，裸露，畸形手指，多余肢体，面部崩坏，现代物体，现代服装，低清晰度，闪烁，风格突变，竖屏，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 58002,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/S03.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/C06.png"
+        ]
+      },
+      "create_attempt": 1,
+      "video_id": "task_JXVpjAW0f8RGw7ywwoU84xzR8sIEn901",
+      "task_id": "task_JXVpjAW0f8RGw7ywwoU84xzR8sIEn901",
+      "requested_seconds": 6,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_JXVpjAW0f8RGw7ywwoU84xzR8sIEn901.mp4",
+      "bytes": 2408578,
+      "sha256": "e4d7d2ef1bca0dee8efb8028cb202d9b528c4b2c3d779f1a7ec8282b0d0d143d",
+      "final_response": {
+        "completed_at": 1793944989,
+        "created_at": 1793942977,
+        "error": null,
+        "expires_at": null,
+        "id": "task_JXVpjAW0f8RGw7ywwoU84xzR8sIEn901",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1793944725,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_JXVpjAW0f8RGw7ywwoU84xzR8sIEn901.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2408578,
+        "decoded_ok": true,
+        "contact_sheet": "production/hakamada58/qa/S03.jpg",
+        "visual_review": "pending"
+      },
+      "visual_reference_attached": true,
+      "visual_review": "pending",
+      "updated_at": "2026-11-06T06:03:24Z"
+    },
+    "S04": {
+      "id": "S04",
+      "status": "completed",
+      "request_hash": "156f1cf6aae3efdcd7ebabf3eeb6b30b6deb05ab45ab6ecf23be3fa86870bd97",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画影像，35mm胶片摄影质感，浅景深，长焦压缩，自然光与硬朗对比，昭和社会派剧情片风格，低饱和，暗部厚重，真实皮肤、布料与建筑材质，克制沉重。16:9宽银幕横屏构图，底部留字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，烟雾、火光、风、布料、光影和镜头均持续运动；禁止静态图加推拉。真实人物均采用非肖像的虚构演员式形象。\n【C06锚点】1960年代日本工人与邻居，白背心、围裙、工作服，神情朴素。\n消防车灯在夜雾中闪烁，水柱扫过燃烧房屋，烟雾在探照灯下翻涌，警戒线外邻居沉默站立；克制远景，不出现伤亡者。 运镜：手持广角轻晃；水柱与警灯。\n【参考图说明】图1为S03（定稿：1966年静冈住宅火灾远景），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。；图2为C06（定稿：虚构工人与邻居定妆），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。\n【NEGATIVE】卡通，Q版，童话，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，血腥，伤口，遗体，尸体，暴力过程，殴打，裸露，畸形手指，多余肢体，面部崩坏，现代物体，现代服装，低清晰度，闪烁，风格突变，竖屏，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 58003,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/S03.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/C06.png"
+        ]
+      },
+      "create_attempt": 1,
+      "video_id": "task_b9oOWupsgrvyEuJqecUXVCwCN5VZgeCW",
+      "task_id": "task_b9oOWupsgrvyEuJqecUXVCwCN5VZgeCW",
+      "requested_seconds": 6,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_b9oOWupsgrvyEuJqecUXVCwCN5VZgeCW.mp4",
+      "bytes": 2353540,
+      "sha256": "fdc49ce7c3c98456a0586a9bd97f12d1ac6d793b8ec061dfd28c8290c255576f",
+      "final_response": {
+        "completed_at": 1793946937,
+        "created_at": 1793944944,
+        "error": null,
+        "expires_at": null,
+        "id": "task_b9oOWupsgrvyEuJqecUXVCwCN5VZgeCW",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1793946704,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_b9oOWupsgrvyEuJqecUXVCwCN5VZgeCW.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2353540,
+        "decoded_ok": true,
+        "contact_sheet": "production/hakamada58/qa/S04.jpg",
+        "visual_review": "pending"
+      },
+      "visual_reference_attached": true,
+      "visual_review": "pending",
+      "updated_at": "2026-11-06T06:35:45Z"
+    },
+    "S05": {
+      "id": "S05",
+      "status": "completed",
+      "request_hash": "1de8f01c88168d6293067b2727d28ca816880f90aba48b964648b9ed5c4ba92f",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画影像，35mm胶片摄影质感，浅景深，长焦压缩，自然光与硬朗对比，昭和社会派剧情片风格，低饱和，暗部厚重，真实皮肤、布料与建筑材质，克制沉重。16:9宽银幕横屏构图，底部留字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，烟雾、火光、风、布料、光影和镜头均持续运动；禁止静态图加推拉。真实人物均采用非肖像的虚构演员式形象。\n\n黎明时烧焦的木屋梁柱立在灰烬中，警方与鉴识人员在远处缓慢勘查，白布覆盖的物件只以远景轮廓经过；雾气流动，无遗体可见。 运镜：低机位横移；灰烬、晨雾与鉴识人员背影。\n【参考图说明】图1为S04（定稿：住宅火灾后的黎明残骸），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。\n【NEGATIVE】卡通，Q版，童话，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，血腥，伤口，遗体，尸体，暴力过程，殴打，裸露，畸形手指，多余肢体，面部崩坏，现代物体，现代服装，低清晰度，闪烁，风格突变，竖屏，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 58004,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/S04.png"
+        ]
+      },
+      "create_attempt": 1,
+      "video_id": "task_tlcv0p5HRppo9Nx02FYGR2VksrbVQiHC",
+      "task_id": "task_tlcv0p5HRppo9Nx02FYGR2VksrbVQiHC",
+      "requested_seconds": 6,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_tlcv0p5HRppo9Nx02FYGR2VksrbVQiHC.mp4",
+      "bytes": 3068592,
+      "sha256": "b670e913813275cfbbe2a72a476a9adf23699c34acf4d95952552dd479980c8d",
+      "final_response": {
+        "completed_at": 1793947045,
+        "created_at": 1793945005,
+        "error": null,
+        "expires_at": null,
+        "id": "task_tlcv0p5HRppo9Nx02FYGR2VksrbVQiHC",
+        "internal_progress": 0,
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": null,
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1793946778,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_tlcv0p5HRppo9Nx02FYGR2VksrbVQiHC.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 1,
+          "input_audio_seconds": 0
+        }
+      },
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3068592,
+        "decoded_ok": true,
+        "contact_sheet": "production/hakamada58/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_reference_attached": true,
+      "visual_review": "pending",
+      "updated_at": "2026-11-06T06:37:37Z"
+    },
+    "S06": {
+      "id": "S06",
+      "status": "completed",
+      "request_hash": "7acb77b7f3d5f14a0faea05b75e8f8f0fc73ca7f7a74f7d02e004d8f58357ae5",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画影像，35mm胶片摄影质感，浅景深，长焦压缩，自然光与硬朗对比，昭和社会派剧情片风格，低饱和，暗部厚重，真实皮肤、布料与建筑材质，克制沉重。16:9宽银幕横屏构图，底部留字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，烟雾、火光、风、布料、光影和镜头均持续运动；禁止静态图加推拉。真实人物均采用非肖像的虚构演员式形象。\n【C03锚点】两名1960年代日本刑警，深色西装细领带，一人高壮强硬，一人瘦削锐利。\n1966年警局办公室，墙上静冈地图与抽象轮廓照片，两名刑警低声讨论、指向地图，烟雾在昏黄灯光里漂浮；所有纸面无可读文字。 运镜：中景环绕地图与办案人员。\n【参考图说明】图1为S05（定稿：1960年代警局办公室），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。；图2为C03（定稿：两名虚构1960年代侦查员定妆），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版。\n【NEGATIVE】卡通，Q版，童话，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，血腥，伤口，遗体，尸体，暴力过程，殴打，裸露，畸形手指，多余肢体，面部崩坏，现代物体，现代服装，低清晰度，闪烁，风格突变，竖屏，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 58005,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/S05.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/040d12431c35e7bdde340fee6aff3a0f1dabc5f5/production/hakamada58/reference/C03.png"
+        ]
+      },
+      "create_attempt": 1,
+      "video_id": "task_DiHgTaA2gjXI2YDkZTn3FxJwVce7RHKe",
+      "task_id": "task_DiHgTaA2gjXI2YDkZTn3FxJwVce7RHKe",
+      "requested_seconds": 6,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_DiHgTaA2gjXI2YDkZTn3FxJwVce7RHKe.mp4",
+      "bytes": 3930550,
+      "sha256": "69bea8400054273288054313b8ce31f34f050fed10d359f80881ddce4ee9ab11",
+      "final_response": {
+        "completed_at": 1793949080,
+        "created_at": 1793946945,
+        "error": null,
+        "expires_at": null,
+        "id": "task_DiHgTaA2gjXI2YDkZTn3FxJwVce7RHKe",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1793948839,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_DiHgTaA2gjXI2YDkZTn3FxJwVce7RHKe.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3930550,
+        "decoded_ok": true,
+        "contact_sheet": "production/hakamada58/qa/S06.jpg",
+        "visual_review": "pending"
+      },
+      "visual_reference_attached": true,
+      "visual_review": "pending",
+      "updated_at": "2026-11-06T07:11:39Z"
     }
   },
   "reference_revision": "040d12431c35e7bdde340fee6aff3a0f1dabc5f5"
