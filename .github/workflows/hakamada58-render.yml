@@ -1,0 +1,73 @@
+name: Hakamada 58 · Final film assembly
+
+on:
+  push:
+    branches: [arena/74df59cd-desktop-tutorial]
+    paths:
+      - production/hakamada58/RENDER_REQUEST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hakamada58-final-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.ref == 'refs/heads/arena/74df59cd-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/74df59cd-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install rendering tools and explicit CJK font
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+          fc-match 'Noto Sans CJK SC' | grep -qi 'noto sans cjk'
+          ffmpeg -version | head -1
+
+      - name: Set up Python and dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check numpy pillow av
+
+      - name: Validate all source media, voiceover timing, and tests
+        run: |
+          set -euo pipefail
+          python -m py_compile production/hakamada58/render.py
+          python production/tests/test_hakamada58.py
+          python production/tests/test_hakamada58_render.py
+          python production/hakamada58/render.py --plan-only
+
+      - name: Assemble the 180-second master, caption files, cover and report
+        run: python production/hakamada58/render.py
+
+      - name: Publish final delivery files as a downloadable artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakamada58-final-film-${{ github.run_id }}
+          path: work/hakamada58/delivery/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Add render status to workflow summary
+        if: always()
+        run: |
+          {
+            echo '## Hakamada 58 final render'
+            if [ -f work/hakamada58/delivery/render_report.json ]; then
+              echo 'The 180-second master and delivery package are ready.'
+              echo 'Files are attached in the **hakamada58-final-film** artifact.'
+            else
+              echo 'Render did not produce a complete master; inspect the failed step logs.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
