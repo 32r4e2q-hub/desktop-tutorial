@@ -1,0 +1,95 @@
+name: Hakamada 58 · Agnes 2.5 Flash reference canary
+
+on:
+  push:
+    branches: [arena/74df59cd-desktop-tutorial]
+    paths:
+      - production/hakamada58/GEN_REQUEST
+      - .github/workflows/hakamada58-gen.yml
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON request (first run is restricted to the S01 canary)
+        required: true
+        default: '{"mode":"canary","only":"S01","workers":1}'
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hakamada58-agnes-reference-canary
+  cancel-in-progress: false
+
+jobs:
+  canary:
+    if: github.ref == 'refs/heads/arena/74df59cd-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/74df59cd-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install video inspection dependencies
+        run: python -m pip install --disable-pip-version-check pillow av
+
+      - name: Resolve and constrain the first-run request
+        env:
+          DISPATCH_PAYLOAD: ${{ inputs.payload }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            payload="$DISPATCH_PAYLOAD"
+          else
+            payload="$(cat production/hakamada58/GEN_REQUEST)"
+          fi
+          python - "$payload" <<'PY' >> "$GITHUB_ENV"
+          import json, sys
+          request=json.loads(sys.argv[1])
+          if request.get('mode')!='canary' or request.get('only')!='S01':
+              raise SystemExit('First run is intentionally restricted to mode=canary, only=S01')
+          print('SHOT=S01')
+          PY
+
+      - name: Validate storyboard, references, and offline tests
+        run: |
+          set -euo pipefail
+          python production/hakamada58/build_story.py
+          python production/hakamada58/generate_clips.py --validate
+          python production/tests/../tests/test_hakamada58.py
+          test -s production/hakamada58/reference/revision.txt
+          test -s production/hakamada58/reference/approvals.json
+
+      - name: Submit one reference-conditioned motion canary
+        run: python production/hakamada58/generate_clips.py --only "$SHOT" --workers 1 --budget-hours 4.5
+
+      - name: Publish small receipt and visual QA sheet
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          paths=()
+          [ ! -f production/hakamada58/results.json ] || paths+=(production/hakamada58/results.json)
+          [ ! -d production/hakamada58/qa ] || paths+=(production/hakamada58/qa)
+          if [ ${#paths[@]} -eq 0 ]; then echo "No result artifacts to publish"; exit 0; fi
+          git add -f -- "${paths[@]}"
+          if git diff --cached --quiet -- "${paths[@]}"; then
+            echo "No new receipt or QA changes"
+          else
+            git commit -m "hakamada58: checkpoint S01 reference canary"
+            git push origin arena/74df59cd-desktop-tutorial
+          fi
