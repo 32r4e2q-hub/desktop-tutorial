@@ -105,7 +105,7 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('全身可见',shots['S20']['visual_prompt'])
   self.assertIn('NO CUT, NO CLOSE-UP',shots['S20']['visual_prompt'])
   self.assertEqual(shots['S22']['reference_images'],['S15','P29'])
-  self.assertIn('始终并肩同框',shots['S22']['visual_prompt'])
+  self.assertIn('完整全身同框',shots['S22']['visual_prompt'])
   self.assertEqual(shots['S27']['reference_images'],['P27'])
   self.assertIn('不出现特写插入',shots['S27']['visual_prompt'])
   self.assertEqual(shots['S28']['reference_images'],['P28'])
