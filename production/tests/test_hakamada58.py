@@ -93,7 +93,7 @@ class Hakamada58PlanTests(unittest.TestCase):
  def test_second_pass_retake_prompts_resolve_continuity_failures(self):
   shots={s['id']:s for s in self.data['shots']}
   self.assertEqual(shots['S03']['reference_images'],['S03'])
-  self.assertEqual(shots['S04']['reference_images'],['S03'])
+  self.assertEqual(shots['S04']['reference_images'],['S03','S04'])
   self.assertIn('严格不出现消防车',shots['S03']['visual_prompt'])
   self.assertIn('仅出现三名',shots['S04']['visual_prompt'])
   self.assertIn('严禁红十字、黄十字',shots['S04']['visual_prompt'])
