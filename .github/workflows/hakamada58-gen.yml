@@ -112,6 +112,7 @@ jobs:
           branch=arena/74df59cd-desktop-tutorial
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global http.version HTTP/1.1
           paths=()
           [ ! -f production/hakamada58/results.json ] || paths+=(production/hakamada58/results.json)
           [ ! -d production/hakamada58/qa ] || paths+=(production/hakamada58/qa)

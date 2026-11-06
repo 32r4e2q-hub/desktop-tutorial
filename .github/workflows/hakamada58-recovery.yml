@@ -44,6 +44,15 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Resolve optional receipt artifact run
+        run: |
+          python - <<'PY' >> "$GITHUB_ENV"
+          import json
+          from pathlib import Path
+          request=json.loads(Path('production/hakamada58/RECOVERY_REQUEST').read_text(encoding='utf-8'))
+          print('RECOVERY_RUN_ID='+str(request.get('artifact_run_id','')))
+          PY
+
       - name: Query task inventory without creating tasks
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -57,16 +66,49 @@ jobs:
             python production/hakamada58/recover_tasks.py --request production/hakamada58/RECOVERY_REQUEST
           fi
 
-      - name: Save sanitized recovery inventory
+      - name: Restore completed receipts from a prior run artifact
+        if: env.RECOVERY_RUN_ID != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/hakamada58-receipts"
+          mkdir -p "$bundle"
+          gh run download "$RECOVERY_RUN_ID" --name "hakamada58-receipts-$RECOVERY_RUN_ID" --dir "$bundle"
+          result_file="$(find "$bundle" -type f -name results.json -print -quit)"
+          test -n "$result_file"
+          cp "$result_file" production/hakamada58/results.json
+          while IFS= read -r file; do
+            cp "$file" "production/hakamada58/qa/$(basename "$file")"
+          done < <(find "$bundle" -type f \( -name 'S[0-9][0-9].jpg' -o -name 'S[0-9][0-9].json' \) -print)
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('production/hakamada58/results.json').read_text(encoding='utf-8'))
+          row=r['shots']['S04']
+          print('Restored S04 receipt:',row.get('task_id'),row.get('status'),row.get('sha256'))
+          assert row.get('status')=='completed' and row.get('video_url') and row.get('sha256')
+          PY
+
+      - name: Save sanitized recovery inventory and restored receipts
         if: always()
         run: |
           set -euo pipefail
-          test -s production/hakamada58/recovery_inventory.json || exit 0
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add production/hakamada58/recovery_inventory.json
+          git config --global http.version HTTP/1.1
+          git add -f production/hakamada58/recovery_inventory.json production/hakamada58/results.json production/hakamada58/qa
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "hakamada58: record read-only task recovery inventory"
-          git fetch --deepen=10 origin arena/74df59cd-desktop-tutorial
-          git rebase -X theirs origin/arena/74df59cd-desktop-tutorial
-          git push origin arena/74df59cd-desktop-tutorial
+          git commit -m "hakamada58: restore checkpoint receipts from run artifact"
+          for attempt in 1 2 3; do
+            git fetch --deepen=10 origin arena/74df59cd-desktop-tutorial
+            if ! git rebase -X theirs origin/arena/74df59cd-desktop-tutorial; then
+              git rebase --abort || true
+              echo "Could not safely rebase restored receipts" >&2
+              exit 1
+            fi
+            if git push origin arena/74df59cd-desktop-tutorial; then exit 0; fi
+            sleep 3
+          done
+          echo "Unable to publish restored receipts" >&2
+          exit 1
