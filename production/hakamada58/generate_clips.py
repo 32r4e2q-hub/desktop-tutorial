@@ -5,17 +5,17 @@ import argparse, concurrent.futures, hashlib, json, os, re, sys, threading, time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 HERE=Path(__file__).resolve().parent
+sys.path.insert(0,str(HERE))
 sys.path.insert(0,str(ROOT/'production'))
-sys.path.insert(0,str(ROOT/'production'/'setagaya2000'))
 import agnes_video as agnes
 from throttle import RequestGate
 PLAN=HERE/'story.json'; RESULTS=HERE/'results.json'; REF=HERE/'reference'
 REVISION_FILE=REF/'revision.txt'; APPROVALS_FILE=REF/'approvals.json'
 BRANCH='arena/74df59cd-desktop-tutorial'; REPOSITORY='32r4e2q-hub/desktop-tutorial'
-MODEL='agnes-video-2.5-flash'; SIZE='720P'; REQUEST_INTERVAL=61
+MODEL='agnes-video-2.5-flash'; SIZE='720P'; REQUEST_INTERVAL=12; MAX_WORKERS=5
 ALLOWED={'model','prompt','seconds','size','aspect_ratio','mode','n','seed','images'}
 FORBIDDEN={'width','height','fps','num_frames','frame_rate','duration','resolution','negative_prompt','quality','num_inference_steps'}
-LOCK=threading.RLock(); GATE=RequestGate(REQUEST_INTERVAL)
+LOCK=threading.RLock(); GATE=RequestGate(REQUEST_INTERVAL,allow_fast_plan=True)
 
 def sha(path):
  h=hashlib.sha256()
@@ -120,8 +120,20 @@ def one(shot,doc,key,base,outdir,deadline,rev,project):
  with LOCK: old=dict(doc.setdefault('shots',{}).get(sid,{}))
  if old.get('request_hash')!=ph and old:
   doc.setdefault('previous_results',{}).setdefault(sid,[]).append(old); old={}; doc['shots'][sid]={'id':sid}
- if old.get('request_hash')==ph and old.get('status')=='completed' and dest.exists() and sha(dest)==old.get('sha256'):
-  print(sid+': verified completed result reused',flush=True); return True
+ if old.get('request_hash')==ph and old.get('status')=='completed':
+  if dest.exists() and sha(dest)==old.get('sha256'):
+   print(sid+': verified completed result reused',flush=True); return True
+  if old.get('video_url'):
+   try:
+    size=agnes.download(old['video_url'],dest,retries=3,retry_delay=5)
+    if sha(dest)==old.get('sha256'):
+     qa=inspect_clip(dest,sid); review=old.get('visual_review','pending'); qa['visual_review']=review
+     with LOCK: doc['shots'][sid].update(bytes=size,inspection=qa,visual_review=review);save(doc)
+     print(sid+': completed video restored from saved URL; no new task created',flush=True); return True
+    dest.unlink(missing_ok=True)
+   except Exception as restore_error:
+    dest.unlink(missing_ok=True)
+    print(f'{sid}: saved URL restore unavailable; will resume existing task: {str(restore_error)[:180]}',flush=True)
  if not key:
   with LOCK: doc['shots'][sid]={'id':sid,'status':'blocked','request_hash':ph,'error':'AGNES_API_KEY is unavailable'};save(doc)
   return False
@@ -133,7 +145,7 @@ def one(shot,doc,key,base,outdir,deadline,rev,project):
     GATE.acquire_creation(deadline)
     try: created=agnes.create_task(base,key,p,retries=1,retry_delay=75); break
     except agnes.RateLimited as exc:
-     delay=max(REQUEST_INTERVAL_SECONDS,exc.retry_after or 0);GATE.defer(delay)
+     delay=max(REQUEST_INTERVAL,exc.retry_after or 0);GATE.defer(delay)
      with LOCK: doc['shots'][sid].update(status='rate_limited',cooldown_seconds=delay,error=str(exc)[:600]);save(doc)
    else: raise RuntimeError('Agnes create retry limit reached')
    video_id=created.get('video_id') or created.get('id') or created.get('task_id');task_id=created.get('task_id') or created.get('id')
@@ -141,7 +153,8 @@ def one(shot,doc,key,base,outdir,deadline,rev,project):
    with LOCK: doc['shots'][sid].update(status='queued',video_id=str(video_id),task_id=str(task_id or ''),requested_seconds=int(p['seconds']));save(doc)
   final,url=agnes.poll_task(base,key,MODEL,str(video_id),str(task_id or '') or None,interval=25,timeout=max(30,deadline-time.monotonic()),max_failures=12,before_request=lambda:GATE.wait_unblocked(deadline),rate_limit_callback=GATE.defer)
   size=agnes.download(url,dest,retries=3,retry_delay=5); digest=sha(dest); qa=inspect_clip(dest,sid)
-  with LOCK: doc['shots'][sid].update(status='completed',video_url=url,bytes=size,sha256=digest,final_response=final,inspection=qa,visual_reference_attached=True,visual_review='pending',updated_at=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()));save(doc)
+  review=old.get('visual_review','pending'); qa['visual_review']=review
+  with LOCK: doc['shots'][sid].update(status='completed',video_url=url,bytes=size,sha256=digest,final_response=final,inspection=qa,visual_reference_attached=True,visual_review=review,updated_at=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()));save(doc)
   print(f'{sid}: completed, decoded and contact sheet ready',flush=True);return True
  except Exception as exc:
   msg=str(exc).replace(key,'[REDACTED]') if key else str(exc)
@@ -158,7 +171,7 @@ def main():
  shots=[s for s in project['shots'] if not ids or s['id'] in ids]
  outdir=ROOT/args.out;outdir.mkdir(parents=True,exist_ok=True);doc=read_results();doc.update(phase='generating',reference_revision=rev,mode='reference',model=MODEL);save(doc)
  key=os.getenv('AGNES_API_KEY','').strip();base=(os.getenv('AGNES_BASE_URL','').strip() or agnes.DEFAULT_BASE_URL).rstrip('/');deadline=time.monotonic()+args.budget_hours*3600
- with concurrent.futures.ThreadPoolExecutor(max_workers=min(2,max(1,args.workers))) as pool: outcomes=list(pool.map(lambda s:one(s,doc,key,base,outdir,deadline,rev,project),shots))
+ with concurrent.futures.ThreadPoolExecutor(max_workers=min(MAX_WORKERS,max(1,args.workers))) as pool: outcomes=list(pool.map(lambda s:one(s,doc,key,base,outdir,deadline,rev,project),shots))
  count=sum(row.get('status')=='completed' for row in doc['shots'].values())
  doc['phase']='clips_ready' if count==30 else 'batch_ready' if all(outcomes) else 'clips_incomplete';save(doc)
  print(f'COMPLETE: {count}/30 clips recorded; selected={len(shots)}',flush=True);return 0 if all(outcomes) else 1

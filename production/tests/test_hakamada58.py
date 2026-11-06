@@ -7,6 +7,7 @@ ROOT=Path(__file__).resolve().parents[2]
 PROJECT=ROOT/'production'/'hakamada58'
 sys.path.insert(0,str(PROJECT))
 import generate_clips
+from throttle import BudgetExhausted, RequestGate
 class Hakamada58PlanTests(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
@@ -60,4 +61,18 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('mode=reference',result.stdout)
   after=results.read_bytes() if results.exists() else None
   self.assertEqual(before,after)
+ def test_paid_plan_creation_gate_requires_opt_in_and_spaces_requests(self):
+  class Clock:
+   now=0.0
+   def __call__(self): return self.now
+   def sleep(self,seconds): self.now+=seconds
+  clock=Clock()
+  with self.assertRaises(ValueError): RequestGate(12,clock=clock,sleep=clock.sleep)
+  gate=RequestGate(12,allow_fast_plan=True,clock=clock,sleep=clock.sleep)
+  gate.acquire_creation(100)
+  first=clock.now
+  gate.acquire_creation(100)
+  self.assertGreaterEqual(clock.now-first,12)
+  gate.defer(25)
+  with self.assertRaises(BudgetExhausted): gate.wait_unblocked(24)
 if __name__=='__main__':unittest.main()

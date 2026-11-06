@@ -1,4 +1,4 @@
-name: Hakamada 58 · Agnes 2.5 Flash reference batches
+name: Hakamada 58 · Agnes 2.5 Flash full production
 
 on:
   push:
@@ -9,20 +9,20 @@ on:
   workflow_dispatch:
     inputs:
       payload:
-        description: JSON request for one S01 canary or a consecutive batch of up to five shots
+        description: JSON request; mode full runs all 30 shots continuously and reuses saved completed tasks
         required: true
-        default: '{"mode":"batch","only":"S02,S03,S04,S05,S06","workers":2}'
+        default: '{"mode":"full","workers":5}'
         type: string
 
 permissions:
   contents: write
 
 concurrency:
-  group: hakamada58-agnes-reference-batches
+  group: hakamada58-agnes-full-production
   cancel-in-progress: false
 
 jobs:
-  canary:
+  production:
     if: github.ref == 'refs/heads/arena/74df59cd-desktop-tutorial'
     runs-on: ubuntu-latest
     timeout-minutes: 355
@@ -43,7 +43,7 @@ jobs:
       - name: Install video inspection dependencies
         run: python -m pip install --disable-pip-version-check pillow av
 
-      - name: Resolve and constrain the first-run request
+      - name: Resolve and constrain the production request
         env:
           DISPATCH_PAYLOAD: ${{ inputs.payload }}
           EVENT_NAME: ${{ github.event_name }}
@@ -60,7 +60,10 @@ jobs:
           mode=request.get('mode')
           shots=[x.strip() for x in request.get('only','').split(',') if x.strip()]
           all_ids=[f'S{i:02d}' for i in range(1,31)]
-          if mode=='canary':
+          if mode=='full':
+              if shots:
+                  raise SystemExit('Full mode must leave only empty so all 30 shots run')
+          elif mode=='canary':
               if shots!=['S01']:
                   raise SystemExit('Canary mode is restricted to S01')
           elif mode=='batch':
@@ -70,10 +73,11 @@ jobs:
               if indices!=list(range(indices[0],indices[0]+len(indices))):
                   raise SystemExit('Batch shots must be consecutive and in script order')
           else:
-              raise SystemExit('mode must be canary or batch')
-          workers=min(2,max(1,int(request.get('workers',1))))
+              raise SystemExit('mode must be full, canary, or batch')
+          workers=min(5,max(1,int(request.get('workers',5 if mode=='full' else 1))))
           print('SHOT_IDS='+','.join(shots))
           print('WORKERS='+str(workers))
+          print('RUN_MODE='+mode)
           PY
 
       - name: Validate storyboard, references, and offline tests
@@ -81,14 +85,14 @@ jobs:
           set -euo pipefail
           python production/hakamada58/build_story.py
           python production/hakamada58/generate_clips.py --validate
-          python production/tests/../tests/test_hakamada58.py
+          python production/tests/test_hakamada58.py
           test -s production/hakamada58/reference/revision.txt
           test -s production/hakamada58/reference/approvals.json
 
-      - name: Submit reference-conditioned motion batch
+      - name: Generate or resume all requested reference-conditioned motion clips
         run: python production/hakamada58/generate_clips.py --only "$SHOT_IDS" --workers "$WORKERS" --budget-hours 4.5
 
-      - name: Publish small receipt and visual QA sheet
+      - name: Publish receipts and visual QA sheets
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
@@ -104,6 +108,6 @@ jobs:
           if git diff --cached --quiet -- "${paths[@]}"; then
             echo "No new receipt or QA changes"
           else
-            git commit -m "hakamada58: checkpoint reference-conditioned batch"
+            git commit -m "hakamada58: checkpoint full-production receipts and QA"
             git push origin arena/74df59cd-desktop-tutorial
           fi
