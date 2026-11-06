@@ -43,7 +43,7 @@ class Hakamada58PlanTests(unittest.TestCase):
    self.assertTrue(all('/'+rid+'.png' in url for rid,url in zip(shot['reference_images'],p['images'])))
  def test_all_approved_references_exist(self):
   status=self.data['reference_status']
-  self.assertEqual(len(status['approved_generated']),35)
+  self.assertEqual(len(status['approved_generated']),36)
   self.assertEqual(status['pending'],[])
   for rid in status['approved_generated']:
    p=PROJECT/'reference'/f'{rid}.png'
