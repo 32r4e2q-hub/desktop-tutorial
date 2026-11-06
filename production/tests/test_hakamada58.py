@@ -8,6 +8,7 @@ PROJECT=ROOT/'production'/'hakamada58'
 sys.path.insert(0,str(PROJECT))
 import generate_clips
 from throttle import BudgetExhausted, RequestGate
+from recover_tasks import find_records, as_time
 class Hakamada58PlanTests(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
@@ -61,6 +62,10 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('mode=reference',result.stdout)
   after=results.read_bytes() if results.exists() else None
   self.assertEqual(before,after)
+ def test_read_only_recovery_parser_handles_paginated_task_lists(self):
+  body={'data':{'tasks':[{'id':'task_a','status':'completed'},{'id':'task_b','status':'running'}]}}
+  self.assertEqual([x['id'] for x in find_records(body)],['task_a','task_b'])
+  self.assertIsNotNone(as_time('2026-11-06T10:40:00Z'))
  def test_targeted_qc_revisions_remove_bloodlike_marks_and_calendar_artifact(self):
   shots={s['id']:s for s in self.data['shots']}
   self.assertIn('不得出现',shots['S11']['visual_prompt'])

@@ -1,0 +1,61 @@
+name: Hakamada 58 · read-only Agnes task recovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      created_after:
+        description: UTC ISO timestamp lower bound for the failed run
+        required: true
+        default: '2026-11-06T10:38:40Z'
+        type: string
+      created_before:
+        description: UTC ISO timestamp upper bound for the failed run
+        required: true
+        default: '2026-11-06T11:00:00Z'
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hakamada58-task-recovery
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    if: github.ref == 'refs/heads/arena/74df59cd-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/74df59cd-desktop-tutorial
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Query task inventory without creating tasks
+        env:
+          CREATED_AFTER: ${{ inputs.created_after }}
+          CREATED_BEFORE: ${{ inputs.created_before }}
+        run: python production/hakamada58/recover_tasks.py --created-after "$CREATED_AFTER" --created-before "$CREATED_BEFORE"
+
+      - name: Save sanitized recovery inventory
+        if: always()
+        run: |
+          set -euo pipefail
+          test -s production/hakamada58/recovery_inventory.json || exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/hakamada58/recovery_inventory.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "hakamada58: record read-only task recovery inventory"
+          git fetch origin arena/74df59cd-desktop-tutorial
+          git rebase -X theirs origin/arena/74df59cd-desktop-tutorial
+          git push origin arena/74df59cd-desktop-tutorial
