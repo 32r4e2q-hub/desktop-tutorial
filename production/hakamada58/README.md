@@ -4,7 +4,7 @@
 
 ## 进度
 
-- 参考图：35张逐项检查并登记在 `reference/approvals.json`；不可变素材版本由 `reference/revision.txt` 固定。
+- 参考图：38张逐项检查并登记在 `reference/approvals.json`；不可变素材版本由 `reference/revision.txt` 固定。
 - 视频复检：原始 S01–S30 已生成每镜144帧（共4320帧）时间标记审核表，九帧初审不作为最终验收。S03全帧符合空街火灾；S04最新参考版九帧表可见无十字车标的消防车、三名消防员与水流，待144帧复核；S12新重拍九帧表符合纯正俯拍、恰好五件干净衣物且无人物/污渍/伪字，待144帧复核；S20旧版及workflow `42244655816` 的新参考版都仍有硬切（宽景切到手部/纸张特写），需进一步收紧提示后再次重拍。新增发现S22存在不必要切换/溶解，S23在3.25秒硬切，S27有人物前景插入/叠影，S28有黑场与类人体布包及不相关切镜，S29为明显分屏。S23已更新单镜提示并排队workflow `42245032106`；P27（同框法庭）、P28（无人体干净物证）、P29（庭院兄妹同框）参考均已审阅更新。S22/S27/S28/S29的单镜连续提示已更新，尚未排队。全部镜头逐帧验收通过后才重渲染并替换Release母版。
 - Agnes 账号为用户确认的 $4 月卡，创建任务按 12 秒最小间隔、最多 5 个并发 worker；遵从服务器 Retry-After，不轮换密钥。最终连续生成仍会受 Actions 运行预算限制；若超时或遇到服务端冷却，任务 ID 与回执保存，重跑时恢复已有任务而不是重新创建。
 - 旁白：voice-00 的 S01–S30 均已生成，MP3 与逐条 SHA/台词清单见 `audio/manifest.json`（30/30）。
@@ -37,4 +37,4 @@ python production/tests/test_hakamada58.py
 - `build_story.py`：30镜、时间线、参考图清单、STYLE/角色锚点/NEGATIVE。
 - `generate_clips.py`：2.5 Flash `reference` payload、不可变URL和SHA校验、12秒并发安全限频、任务复用与接触表。
 - `throttle.py`：月卡创建节奏、429 Retry-After 冷却和运行预算保护。
-- `reference/`：35张已审 PNG、SHA审批账本与固定 revision。
+- `reference/`：38张已审 PNG、SHA审批账本与固定 revision。
