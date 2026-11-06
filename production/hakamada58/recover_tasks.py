@@ -90,7 +90,7 @@ def main():
             # A successful empty page is meaningful; do not make more requests.
             if isinstance(body,(dict,list)):break
     project=json.loads((HERE/'story.json').read_text(encoding='utf-8'))
-    targets={s['id']:s for s in project['shots'] if s['id'] in {'S11','S12','S17'}}
+    targets={s['id']:s for s in project['shots']}
     prompts={hashlib.sha256(s['prompt'].encode()).hexdigest():sid for sid,s in targets.items()}
     selected=[]
     for row in records:
