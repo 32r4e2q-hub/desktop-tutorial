@@ -1,0 +1,76 @@
+name: Hakamada 58 · every-frame visual audit sheets
+
+on:
+  push:
+    branches: [arena/74df59cd-desktop-tutorial]
+    paths:
+      - production/hakamada58/FRAME_AUDIT_REQUEST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hakamada58-every-frame-audit
+  cancel-in-progress: false
+
+jobs:
+  frame-audit:
+    if: github.ref == 'refs/heads/arena/74df59cd-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/74df59cd-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install frame extraction dependencies
+        run: python -m pip install --disable-pip-version-check pillow av
+
+      - name: Download and decode every shot's final six seconds
+        run: python production/hakamada58/audit_motion.py
+
+      - name: Archive complete frame audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakamada58-all-frames-${{ github.run_id }}
+          path: production/hakamada58/qa/frame_audit/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish frame sheets and frame-count manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branch=arena/74df59cd-desktop-tutorial
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f -- production/hakamada58/qa/frame_audit
+          if git diff --cached --quiet -- production/hakamada58/qa/frame_audit; then
+            echo "Frame audit is unchanged"
+            exit 0
+          fi
+          git commit -m "hakamada58: publish all-frame visual audit sheets"
+          for attempt in 1 2 3; do
+            git fetch --deepen=10 origin "$branch"
+            if ! git rebase -X theirs "origin/$branch"; then
+              git rebase --abort || true
+              echo "Could not safely rebase the frame audit" >&2
+              exit 1
+            fi
+            if git push origin "$branch"; then
+              echo "Published frame audit on attempt $attempt"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Unable to publish frame audit after three attempts" >&2
+          exit 1
