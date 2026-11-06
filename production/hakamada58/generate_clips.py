@@ -59,8 +59,9 @@ def validate(project):
  if len(shots)!=30 or project['target_duration']!=180: raise ValueError('expected 30 shots / 180 seconds')
  if project.get('model')!=MODEL or project.get('source_size')!=SIZE: raise ValueError('wrong Agnes model/source size')
  refs={r['id'] for r in project.get('reference_images',[])}
- if len(refs)!=34 or len(project.get('reference_status',{}).get('approved_generated',[]))!=34 or project.get('reference_status',{}).get('pending'):
-  raise ValueError('all 34 approved references must be declared')
+ approved=project.get('reference_status',{}).get('approved_generated',[])
+ if len(refs)!=len(approved) or set(refs)!=set(approved) or project.get('reference_status',{}).get('pending'):
+  raise ValueError('all approved references must be declared exactly once')
  cursor=0; test_revision='a'*40
  for s in shots:
   if s['start']!=cursor or s['duration']!=6: raise ValueError(f'invalid timeline {s["id"]}')
@@ -72,7 +73,7 @@ def validate(project):
 def validate_bundle(project,rev):
  ledger=json.loads(APPROVALS_FILE.read_text(encoding='utf-8'))
  assets=ledger.get('assets',{}); expected={r['id']:r for r in project['reference_images']}
- if set(assets)!=set(expected): raise RuntimeError('approval ledger must cover exactly all 34 refs')
+ if set(assets)!=set(expected): raise RuntimeError('approval ledger must cover exactly every declared reference')
  for rid,item in expected.items():
   path=HERE/item['file']
   if not path.is_file() or path.stat().st_size<20000 or path.read_bytes()[:8]!=b'\x89PNG\r\n\x1a\n':
@@ -172,7 +173,7 @@ def one(shot,doc,key,base,outdir,deadline,rev,project):
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--validate',action='store_true');ap.add_argument('--only',default='');ap.add_argument('--workers',type=int,default=2);ap.add_argument('--out',default='work/hakamada58/clips');ap.add_argument('--budget-hours',type=float,default=4.5)
  args=ap.parse_args(); project=json.loads(PLAN.read_text(encoding='utf-8'));validate(project)
- if args.validate: print('VALID: 30 shots / 180s; Agnes 2.5 Flash mode=reference; 34 refs; 1–5 immutable image URLs per shot');return 0
+ if args.validate: print(f'VALID: 30 shots / 180s; Agnes 2.5 Flash mode=reference; {len(project["reference_images"])} refs; 1–5 immutable image URLs per shot');return 0
  rev=revision();validate_bundle(project,rev)
  ids={x.strip() for x in args.only.split(',') if x.strip()}; unknown=ids-{s['id'] for s in project['shots']}
  if unknown: raise ValueError('unknown shot IDs: '+','.join(sorted(unknown)))

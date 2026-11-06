@@ -41,9 +41,9 @@ class Hakamada58PlanTests(unittest.TestCase):
    self.assertEqual(len(p['images']),len(shot['reference_images']))
    self.assertTrue(all(rev in url for url in p['images']))
    self.assertTrue(all('/'+rid+'.png' in url for rid,url in zip(shot['reference_images'],p['images'])))
- def test_all_34_approved_references_exist(self):
+ def test_all_approved_references_exist(self):
   status=self.data['reference_status']
-  self.assertEqual(len(status['approved_generated']),34)
+  self.assertEqual(len(status['approved_generated']),35)
   self.assertEqual(status['pending'],[])
   for rid in status['approved_generated']:
    p=PROJECT/'reference'/f'{rid}.png'
@@ -100,9 +100,10 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('清楚看到水流喷向',shots['S04']['visual_prompt'])
   self.assertIn('不要出现村民群',shots['S04']['visual_prompt'])
   self.assertNotIn('C06',shots['S04']['reference_images'])
-  self.assertNotIn('P06',shots['S20']['reference_images'])
+  self.assertEqual(shots['S20']['reference_images'],['S20','C02'])
   self.assertIn('晾衣绳',shots['S20']['visual_prompt'])
-  self.assertIn('单一连续镜头',shots['S20']['visual_prompt'])
+  self.assertIn('同一眼平中广景',shots['S20']['visual_prompt'])
+  self.assertIn('不切镜',shots['S20']['visual_prompt'])
  def test_paid_plan_creation_gate_requires_opt_in_and_spaces_requests(self):
   class Clock:
    now=0.0
