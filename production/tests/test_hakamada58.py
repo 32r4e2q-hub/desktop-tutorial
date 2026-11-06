@@ -43,7 +43,7 @@ class Hakamada58PlanTests(unittest.TestCase):
    self.assertTrue(all('/'+rid+'.png' in url for rid,url in zip(shot['reference_images'],p['images'])))
  def test_all_approved_references_exist(self):
   status=self.data['reference_status']
-  self.assertEqual(len(status['approved_generated']),36)
+  self.assertEqual(len(status['approved_generated']),38)
   self.assertEqual(status['pending'],[])
   for rid in status['approved_generated']:
    p=PROJECT/'reference'/f'{rid}.png'
@@ -104,6 +104,14 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('晾衣绳',shots['S20']['visual_prompt'])
   self.assertIn('同一眼平中广景',shots['S20']['visual_prompt'])
   self.assertIn('不切镜',shots['S20']['visual_prompt'])
+  self.assertEqual(shots['S22']['reference_images'],['S15','P29'])
+  self.assertIn('始终并肩同框',shots['S22']['visual_prompt'])
+  self.assertEqual(shots['S27']['reference_images'],['P27'])
+  self.assertIn('不出现特写插入',shots['S27']['visual_prompt'])
+  self.assertEqual(shots['S28']['reference_images'],['P28'])
+  self.assertIn('不得出现人物、手、人体',shots['S28']['visual_prompt'])
+  self.assertEqual(shots['S29']['reference_images'],['P29'])
+  self.assertIn('左右分屏',shots['S29']['visual_prompt'])
  def test_paid_plan_creation_gate_requires_opt_in_and_spaces_requests(self):
   class Clock:
    now=0.0
