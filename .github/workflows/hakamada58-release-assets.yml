@@ -1,0 +1,61 @@
+name: Hakamada 58 · Publish direct MP4 and cover downloads
+
+on:
+  push:
+    branches: [arena/74df59cd-desktop-tutorial]
+    paths:
+      - production/hakamada58/DIRECT_RELEASE_REQUEST
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: hakamada58-episode06-release-assets
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/arena/74df59cd-desktop-tutorial'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/74df59cd-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Download the validated final-film artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: hakamada58-final-film-42227002875
+          path: work/hakamada58/release
+          run-id: 42227002875
+          github-token: ${{ github.token }}
+
+      - name: Verify package and stage ASCII-named direct assets
+        run: |
+          set -euo pipefail
+          src=work/hakamada58/release
+          test -s "$src/Hakamada58_Final.mp4"
+          test -s "$src/captions.srt"
+          test -s "$src/captions.ass"
+          test -s 'production/hakamada58/第六期_袴田事件_封面.png'
+          mkdir -p work/hakamada58/release-assets
+          cp "$src/Hakamada58_Final.mp4" work/hakamada58/release-assets/hakamada58-episode06-1080p-180s.mp4
+          cp "$src/captions.srt" work/hakamada58/release-assets/hakamada58-episode06-subtitles.srt
+          cp "$src/captions.ass" work/hakamada58/release-assets/hakamada58-episode06-subtitles.ass
+          cp 'production/hakamada58/第六期_袴田事件_封面.png' work/hakamada58/release-assets/hakamada58-episode06-cover-1080x1440.png
+          (cd work/hakamada58/release-assets && sha256sum *) | tee work/hakamada58/release-assets-sha256.txt
+          ls -lh work/hakamada58/release-assets
+
+      - name: Upload assets and publish the episode release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag=hakamada58-episode06-v1
+          gh release upload "$tag" work/hakamada58/release-assets/* --clobber
+          gh release edit "$tag" --draft=false
+          echo '--- Published direct-download assets ---'
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$tag" --jq '.assets[] | {name, size, state, browser_download_url}'
