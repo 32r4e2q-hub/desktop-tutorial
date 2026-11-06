@@ -7,7 +7,8 @@
 - 参考图：34/34 已检查并发布；不可变素材 revision `040d12431c35e7bdde340fee6aff3a0f1dabc5f5`，SHA 清单 `reference/approvals.json`。
 - 视频：S01–S30 全部完成（每镜 6.592 秒、1280×720、24fps），30/30 九帧联系表已通过视觉审查。返修后 S11 与 S17 通过；S12 最初仍生成火焰、斑点与伪字幕，最终改为无人、纯俯拍、干净衣物镜头后通过。最终回执见 `results.json`，全部视觉状态 `passed`。
 - Agnes 账号为用户确认的 $4 月卡，创建任务按 12 秒最小间隔、最多 5 个并发 worker；遵从服务器 Retry-After，不轮换密钥。最终连续生成仍会受 Actions 运行预算限制；若超时或遇到服务端冷却，任务 ID 与回执保存，重跑时恢复已有任务而不是重新创建。
-- 旁白：voice-00 的 S01–S30 均已生成，MP3 与逐条 SHA/台词清单见 `audio/manifest.json`（30/30）。后期合成脚本 `render.py` 会先按每条 MP3 实际时长生成逐句字幕时序，关键词金色强调；再混合克制的程序化氛围配乐与低音量环境音效，导出 1920×1080、24fps、180秒 MP4、SRT/ASS 字幕、封面和混音/成片报告。最终产物不进 Git，固定分支工作流 `hakamada58-render.yml` 会发布 30 天可下载 artifact。音画时长、电平和分辨率均由脚本硬性校验。
+- 旁白：voice-00 的 S01–S30 均已生成，MP3 与逐条 SHA/台词清单见 `audio/manifest.json`（30/30）。
+- 最终成片：GitHub Actions run [42227002875](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/42227002875) 已成功；母版经校验为 1920×1080、24fps、180秒。30条旁白逐句对齐，关键词金色强调，并混合克制的程序化氛围配乐与低音量环境音效。下载包 `hakamada58-final-film-42227002875` 含 MP4、SRT/ASS 字幕、封面及混音/成片报告，有效至 2026-12-06；大型视频产物保留在 Actions artifact，不进 Git。
 
 ## Agnes 2.5 Flash 参考图实现
 
