@@ -48,7 +48,23 @@ jobs:
           python production/hakamada58/render.py --plan-only
 
       - name: Assemble the 180-second master, caption files, cover and report
-        run: python production/hakamada58/render.py
+        run: |
+          set -o pipefail
+          mkdir -p work/hakamada58
+          python production/hakamada58/render.py 2>&1 | tee work/hakamada58/render.log
+
+      - name: Publish temporary failure diagnostics for repair
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [ ! -s work/hakamada58/render.log ]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f work/hakamada58/render.log
+          git commit -m "hakamada58: publish temporary render diagnostics"
+          git push origin arena/74df59cd-desktop-tutorial
 
       - name: Publish final delivery files as a downloadable artifact
         if: always()
