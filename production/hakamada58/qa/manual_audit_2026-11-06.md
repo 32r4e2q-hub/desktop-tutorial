@@ -26,6 +26,11 @@ Status: in progress. This is a second-pass review after the user's continuity/wa
 - S20 remains one continuous outdoor station-square shot of Shuko handing small paper leaflets and bowing. No cutaway, home, clothesline, laundry, or paper-to-fabric transformation.
 - All 30 final shots require dense frame-level motion/continuity review before the revised MP4 is called final.
 
+## Additional first-pass findings
+
+- **S07, S21, S24, S25, S26, and S30:** all 144 frames reviewed. No clear major continuity, anatomy, text, or non-graphic presentation issue found; retain provisionally pending final consolidated QA.
+- **S22, S23, S27, S28, and S29:** rejected for the specific continuity/composition defects recorded above and require retakes.
+
 ## Frame audit
 
-The all-frame audit workflow is now prepared to download each hash-verified six-second clip and produce four time-labelled sheets per shot (144 frames at 24 fps). The user-visible nine-frame sheets remain preliminary evidence, not final acceptance. No retake is marked passed yet.
+The all-frame audit workflow produced four time-labelled sheets per shot (144 frames at 24 fps). Human review of all original-shot sheets is now complete; existing automated checks report no black frames or large changes except the issues described above (S23/S28 transitions and S28 opening black interval). New retakes for S04, S12, S20, S23, S22, and S27–S29 must be regenerated and audited again across all 144 frames. Nine-frame sheets remain preliminary only; no revised retake is finally accepted yet.
