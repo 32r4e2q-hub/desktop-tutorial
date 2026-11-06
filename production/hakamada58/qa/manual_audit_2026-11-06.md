@@ -11,6 +11,7 @@ Status: in progress. This is a second-pass review after the user's continuity/wa
 
 - **S03:** all 144 labeled frames (0–5.96 s) reviewed. The empty-street fire remains in the same location throughout; no vehicle, people, hose, or crowd appears, and no obvious shape/continuity defect was seen. Pass for this shot's visual/logical criteria.
 - **S04:** all 144 labeled frames reviewed. It begins empty, then one red engine arrives and the crew appears; three crew members are visible by the end. Reject this version: the vehicle repeatedly carries prominent yellow cross emblems, and no clear water stream is visible. A stricter no-medical-symbol / visible-water retake is queued.
+- **S12:** all 144 frames reviewed. Reject: the shot is an oblique room/table view rather than the required pure overhead view, and it does not clearly preserve the exact five clean garments. A new approved 90-degree overhead reference, five-garment composition, and tighter prompt are prepared; retake pending.
 - **S20:** all-frame sheets are being reviewed. The new footage remains at the station and avoids the old laundry cutaway, but the framing changes abruptly from the wide view to close shots; this does not meet the requested single continuous camera shot. A more constrained locked/slow-push single-angle retake is required.
 
 ## Required constraints
