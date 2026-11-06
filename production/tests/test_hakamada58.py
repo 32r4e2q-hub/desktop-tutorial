@@ -71,8 +71,10 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('不得出现',shots['S11']['visual_prompt'])
   self.assertIn('干燥',shots['S11']['visual_prompt'])
   self.assertNotIn('P01',shots['S11']['reference_images'])
-  self.assertIn('无任何污渍',shots['S12']['visual_prompt'])
-  self.assertNotIn('P02',shots['S12']['reference_images'])
+  self.assertIn('无任何斑点、污渍',shots['S12']['visual_prompt'])
+  self.assertIn('NO FIRE, NO SMOKE, NO BLOOD',shots['S12']['visual_prompt'])
+  self.assertEqual(shots['S12']['reference_images'],['S08'])
+  self.assertEqual(shots['S12']['character_anchors'],[])
   self.assertIn('不出现日历',shots['S17']['visual_prompt'])
   self.assertEqual(shots['S17']['character_anchors'],['C01C'])
  def test_paid_plan_creation_gate_requires_opt_in_and_spaces_requests(self):
