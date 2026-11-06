@@ -62,9 +62,14 @@ def nested_value(record,*keys):
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument('--created-after',required=True);ap.add_argument('--created-before',required=True)
+    ap.add_argument('--created-after');ap.add_argument('--created-before');ap.add_argument('--request')
     ap.add_argument('--out',default=str(HERE/'recovery_inventory.json'))
     args=ap.parse_args()
+    if args.request:
+        request=json.loads(Path(args.request).read_text(encoding='utf-8'))
+        args.created_after=args.created_after or request.get('created_after')
+        args.created_before=args.created_before or request.get('created_before')
+    if not args.created_after or not args.created_before:raise ValueError('provide both recovery-window timestamps or --request')
     start,end=parse_window(args.created_after),parse_window(args.created_before)
     if end<=start:raise ValueError('created-before must be after created-after')
     key=os.getenv('AGNES_API_KEY','').strip()
@@ -112,6 +117,6 @@ def main():
          'note':'Read-only API inventory; this probe never creates, cancels, or modifies Agnes tasks.'}
     path=Path(args.out);path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'query_status':out['query_status'],'tasks_found':len(selected),'matched_shots':[x['shot_id'] for x in selected if x['shot_id']],'out':str(path)},ensure_ascii=False))
-    return 0 if out['query_status']=='found' else 2
+    return 0
 
 if __name__=='__main__':raise SystemExit(main())

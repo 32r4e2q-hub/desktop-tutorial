@@ -22,7 +22,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: hakamada58-task-recovery-fast
+  group: hakamada58-task-recovery-v3
   cancel-in-progress: false
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Resolve recovery window
+      - name: Query task inventory without creating tasks
         env:
           EVENT_NAME: ${{ github.event_name }}
           INPUT_CREATED_AFTER: ${{ inputs.created_after }}
@@ -52,19 +52,10 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            echo "CREATED_AFTER=$INPUT_CREATED_AFTER" >> "$GITHUB_ENV"
-            echo "CREATED_BEFORE=$INPUT_CREATED_BEFORE" >> "$GITHUB_ENV"
+            python production/hakamada58/recover_tasks.py --created-after "$INPUT_CREATED_AFTER" --created-before "$INPUT_CREATED_BEFORE"
           else
-            python - <<'PY' >> "$GITHUB_ENV"
-            import json
-            request=json.load(open('production/hakamada58/RECOVERY_REQUEST',encoding='utf-8'))
-            print('CREATED_AFTER='+request['created_after'])
-            print('CREATED_BEFORE='+request['created_before'])
-            PY
+            python production/hakamada58/recover_tasks.py --request production/hakamada58/RECOVERY_REQUEST
           fi
-
-      - name: Query task inventory without creating tasks
-        run: python production/hakamada58/recover_tasks.py --created-after "$CREATED_AFTER" --created-before "$CREATED_BEFORE"
 
       - name: Save sanitized recovery inventory
         if: always()
