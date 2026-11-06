@@ -202,7 +202,7 @@ def make_sfx(path,story,rate=RATE,duration=DURATION):
 def decode_voice(row,rate=RATE):
     cmd=['ffmpeg','-v','error','-i',row['file'],'-af',f"atempo={row['tempo']:.6f},aresample={rate},apad=pad_dur=0.05",'-ac','2','-ar',str(rate),'-f','f32le','pipe:1']
     raw=subprocess.run(cmd,check=True,stdout=subprocess.PIPE).stdout
-    return np.frombuffer(raw,dtype='<f4').reshape(-1,2)
+    return np.frombuffer(raw,dtype='<f4').reshape(-1,2).copy()
 
 def build_mix(rows,bgm_path,sfx_path,out_path,rate=RATE,duration=DURATION):
     total=int(rate*duration);voice=np.zeros((total,2),dtype=np.float32)
