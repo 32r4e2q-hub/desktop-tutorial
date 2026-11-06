@@ -7,11 +7,11 @@ Status: in progress. This is a second-pass review after the user's continuity/wa
 - **S03 → S04 continuity:** the old S03 sheet showed the red fire engine and villagers carrying buckets before the narrated arrival. Old S04 repeated the house and villagers, violating shot order and duplicating the cast.
 - **S20 logic:** the old shot began with Shuko handing out leaflets at the station, then switched to a household clothesline and laundry unrelated to the narration.
 
-## Retake status — preliminary contact-sheet review only
+## Retake status — dense all-frame review in progress
 
-- **S03:** new nine-frame sheet shows the fire at the empty street/house, without a vehicle, firefighters, hose, or crowd. This is a coarse-screen pass only; all 144 frames remain to be reviewed.
-- **S04:** new sheet shows the fire engine arriving after the empty S03 scene and uniformed crew, without the same villagers from the old S03. A conspicuous yellow cross-like vehicle marking is still questionable; exact firefighter count, hose deployment, and every-frame stability are not yet approved.
-- **S20:** new sheet stays outdoors in the station square and no longer cuts to laundry. The single-location correction passes the coarse screen only; every frame remains pending.
+- **S03:** all 144 labeled frames (0–5.96 s) reviewed. The empty-street fire remains in the same location throughout; no vehicle, people, hose, or crowd appears, and no obvious shape/continuity defect was seen. Pass for this shot's visual/logical criteria.
+- **S04:** all 144 labeled frames reviewed. It begins empty, then one red engine arrives and the crew appears; three crew members are visible by the end. Reject this version: the vehicle repeatedly carries prominent yellow cross emblems, and no clear water stream is visible. A stricter no-medical-symbol / visible-water retake is queued.
+- **S20:** all-frame sheets are being reviewed. The new footage remains at the station and avoids the old laundry cutaway, but the framing changes abruptly from the wide view to close shots; this does not meet the requested single continuous camera shot. A more constrained locked/slow-push single-angle retake is required.
 
 ## Required constraints
 
