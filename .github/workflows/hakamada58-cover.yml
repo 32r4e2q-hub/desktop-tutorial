@@ -1,0 +1,78 @@
+name: Hakamada 58 · Episode 6 series cover
+
+on:
+  push:
+    branches: [arena/74df59cd-desktop-tutorial]
+    paths:
+      - production/hakamada58/COVER_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hakamada58-episode06-cover
+  cancel-in-progress: false
+
+jobs:
+  cover:
+    if: github.ref == 'refs/heads/arena/74df59cd-desktop-tutorial'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/74df59cd-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install the explicit CJK serif font
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          font="$(fc-match -f '%{file}' 'Noto Serif CJK SC')"
+          test -s "$font"
+          echo "COVER_FONT=$font" >> "$GITHUB_ENV"
+          echo "Using $font"
+
+      - name: Set up Python tools
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check pillow fonttools
+
+      - name: Generate the episode 6 cover from the series template and approved scene
+        run: |
+          set -euo pipefail
+          python production/mystery-cover-template/generate_cover.py \
+            --episode 6 \
+            --line1 '袴田事件' \
+            --line2 '等了58年才等来无罪' \
+            --screenshot production/hakamada58/qa/S29.jpg \
+            --crop 852 480 1278 720 \
+            --output 'production/hakamada58/第六期_袴田事件_封面.png' \
+            --release-title '他等了58年，才等来一个无罪：袴田事件' \
+            --fact-basis 'production/hakamada58/story.json；S29 approved QA contact sheet crop (852,480,1278,720)' \
+            --font "$COVER_FONT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          p=Path('production/hakamada58/第六期_袴田事件_封面.png')
+          with Image.open(p) as im:
+              assert im.size==(1080,1440), im.size
+              assert im.mode=='RGB', im.mode
+          record=json.loads(p.with_suffix('.json').read_text(encoding='utf-8'))
+          assert record['episode']==6 and record['episode_label']=='第六期'
+          assert record['cover_title_lines']==['袴田事件','等了58年才等来无罪']
+          print('Cover verified:',p.stat().st_size,'bytes')
+          PY
+
+      - name: Publish the cover and source metadata on the fixed branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- 'production/hakamada58/第六期_袴田事件_封面.png' 'production/hakamada58/第六期_袴田事件_封面.json'
+          git commit -m "hakamada58: add episode six series cover"
+          git push origin arena/74df59cd-desktop-tutorial
