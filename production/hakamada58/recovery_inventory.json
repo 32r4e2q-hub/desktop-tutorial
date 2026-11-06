@@ -1,0 +1,28 @@
+{
+  "project": "袴田事件：58年",
+  "recovery_window": {
+    "created_after": "2026-11-06T10:38:40Z",
+    "created_before": "2026-11-06T11:00:00Z"
+  },
+  "query_status": "unsupported_or_unavailable",
+  "endpoint": null,
+  "attempts": [
+    {
+      "route": "/v1/videos?limit=100&page=1",
+      "http_status": 404,
+      "response_type": "dict"
+    },
+    {
+      "route": "/v1/videos?limit=100",
+      "http_status": 404,
+      "response_type": "dict"
+    },
+    {
+      "route": "/v1/videos",
+      "http_status": 404,
+      "response_type": "dict"
+    }
+  ],
+  "tasks": [],
+  "note": "Read-only API inventory; this probe never creates, cancels, or modifies Agnes tasks."
+}
