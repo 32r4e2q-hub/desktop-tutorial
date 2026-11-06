@@ -1,3 +1,4 @@
+import hashlib
 import json
 import subprocess
 import sys
@@ -62,6 +63,17 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('mode=reference',result.stdout)
   after=results.read_bytes() if results.exists() else None
   self.assertEqual(before,after)
+ def test_voiceover_manifest_matches_story_and_audio_hashes(self):
+  manifest_path=PROJECT/'audio'/'manifest.json'
+  if not manifest_path.exists():self.skipTest('narration not yet generated')
+  manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
+  self.assertEqual(manifest['completed'],len(manifest['clips']))
+  self.assertLessEqual(manifest['completed'],manifest['planned'])
+  shots={s['id']:s for s in self.data['shots']}
+  for row in manifest['clips']:
+   path=PROJECT/row['file']
+   self.assertEqual(row['text'],shots[row['id']]['narration'])
+   self.assertEqual(row['sha256'],hashlib.sha256(path.read_bytes()).hexdigest())
  def test_read_only_recovery_parser_handles_paginated_task_lists(self):
   body={'data':{'tasks':[{'id':'task_a','status':'completed'},{'id':'task_b','status':'running'}]}}
   self.assertEqual([x['id'] for x in find_records(body)],['task_a','task_b'])
