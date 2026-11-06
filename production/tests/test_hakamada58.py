@@ -61,6 +61,15 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertIn('mode=reference',result.stdout)
   after=results.read_bytes() if results.exists() else None
   self.assertEqual(before,after)
+ def test_targeted_qc_revisions_remove_bloodlike_marks_and_calendar_artifact(self):
+  shots={s['id']:s for s in self.data['shots']}
+  self.assertIn('不得出现',shots['S11']['visual_prompt'])
+  self.assertIn('干燥',shots['S11']['visual_prompt'])
+  self.assertNotIn('P01',shots['S11']['reference_images'])
+  self.assertIn('无任何污渍',shots['S12']['visual_prompt'])
+  self.assertNotIn('P02',shots['S12']['reference_images'])
+  self.assertIn('不出现日历',shots['S17']['visual_prompt'])
+  self.assertEqual(shots['S17']['character_anchors'],['C01C'])
  def test_paid_plan_creation_gate_requires_opt_in_and_spaces_requests(self):
   class Clock:
    now=0.0
