@@ -1,6 +1,10 @@
 name: Hakamada 58 · read-only Agnes task recovery
 
 on:
+  push:
+    branches: [arena/74df59cd-desktop-tutorial]
+    paths:
+      - production/hakamada58/RECOVERY_REQUEST
   workflow_dispatch:
     inputs:
       created_after:
@@ -40,10 +44,26 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Query task inventory without creating tasks
+      - name: Resolve recovery window
         env:
-          CREATED_AFTER: ${{ inputs.created_after }}
-          CREATED_BEFORE: ${{ inputs.created_before }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_CREATED_AFTER: ${{ inputs.created_after }}
+          INPUT_CREATED_BEFORE: ${{ inputs.created_before }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "CREATED_AFTER=$INPUT_CREATED_AFTER" >> "$GITHUB_ENV"
+            echo "CREATED_BEFORE=$INPUT_CREATED_BEFORE" >> "$GITHUB_ENV"
+          else
+            python - <<'PY' >> "$GITHUB_ENV"
+            import json
+            request=json.load(open('production/hakamada58/RECOVERY_REQUEST',encoding='utf-8'))
+            print('CREATED_AFTER='+request['created_after'])
+            print('CREATED_BEFORE='+request['created_before'])
+            PY
+          fi
+
+      - name: Query task inventory without creating tasks
         run: python production/hakamada58/recover_tasks.py --created-after "$CREATED_AFTER" --created-before "$CREATED_BEFORE"
 
       - name: Save sanitized recovery inventory
