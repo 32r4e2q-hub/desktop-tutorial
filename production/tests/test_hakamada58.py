@@ -89,6 +89,17 @@ class Hakamada58PlanTests(unittest.TestCase):
   self.assertEqual(shots['S12']['character_anchors'],[])
   self.assertIn('不出现日历',shots['S17']['visual_prompt'])
   self.assertEqual(shots['S17']['character_anchors'],['C01C'])
+ def test_second_pass_retake_prompts_resolve_continuity_failures(self):
+  shots={s['id']:s for s in self.data['shots']}
+  self.assertEqual(shots['S03']['reference_images'],['S03'])
+  self.assertEqual(shots['S04']['reference_images'],['S03'])
+  self.assertIn('严格不出现消防车',shots['S03']['visual_prompt'])
+  self.assertIn('仅出现三名',shots['S04']['visual_prompt'])
+  self.assertIn('不要出现上一镜的村民群',shots['S04']['visual_prompt'])
+  self.assertNotIn('C06',shots['S04']['reference_images'])
+  self.assertNotIn('P06',shots['S20']['reference_images'])
+  self.assertIn('晾衣绳',shots['S20']['visual_prompt'])
+  self.assertIn('单一连续镜头',shots['S20']['visual_prompt'])
  def test_paid_plan_creation_gate_requires_opt_in_and_spaces_requests(self):
   class Clock:
    now=0.0
