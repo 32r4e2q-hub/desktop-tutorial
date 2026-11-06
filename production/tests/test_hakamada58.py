@@ -53,8 +53,11 @@ class Hakamada58PlanTests(unittest.TestCase):
   urls=generate_clips.payload(self.data['shots'][0],rev)['images']
   self.assertEqual(len(urls),len(self.data['shots'][0]['reference_images']))
  def test_cli_validate_is_offline(self):
+  results=PROJECT/'results.json'
+  before=results.read_bytes() if results.exists() else None
   result=subprocess.run([sys.executable,str(PROJECT/'generate_clips.py'),'--validate'],capture_output=True,text=True)
   self.assertEqual(result.returncode,0,result.stderr)
   self.assertIn('mode=reference',result.stdout)
-  self.assertFalse((PROJECT/'results.json').exists())
+  after=results.read_bytes() if results.exists() else None
+  self.assertEqual(before,after)
 if __name__=='__main__':unittest.main()

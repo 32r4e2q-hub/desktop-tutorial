@@ -159,6 +159,7 @@ def main():
  outdir=ROOT/args.out;outdir.mkdir(parents=True,exist_ok=True);doc=read_results();doc.update(phase='generating',reference_revision=rev,mode='reference',model=MODEL);save(doc)
  key=os.getenv('AGNES_API_KEY','').strip();base=(os.getenv('AGNES_BASE_URL','').strip() or agnes.DEFAULT_BASE_URL).rstrip('/');deadline=time.monotonic()+args.budget_hours*3600
  with concurrent.futures.ThreadPoolExecutor(max_workers=min(2,max(1,args.workers))) as pool: outcomes=list(pool.map(lambda s:one(s,doc,key,base,outdir,deadline,rev,project),shots))
- count=sum(row.get('status')=='completed' for row in doc['shots'].values());doc['phase']='clips_ready' if all(outcomes) else 'clips_incomplete';save(doc)
+ count=sum(row.get('status')=='completed' for row in doc['shots'].values())
+ doc['phase']='clips_ready' if count==30 else 'batch_ready' if all(outcomes) else 'clips_incomplete';save(doc)
  print(f'COMPLETE: {count}/30 clips recorded; selected={len(shots)}',flush=True);return 0 if all(outcomes) else 1
 if __name__=='__main__': raise SystemExit(main())

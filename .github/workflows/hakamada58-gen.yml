@@ -1,4 +1,4 @@
-name: Hakamada 58 · Agnes 2.5 Flash reference canary
+name: Hakamada 58 · Agnes 2.5 Flash reference batches
 
 on:
   push:
@@ -9,16 +9,16 @@ on:
   workflow_dispatch:
     inputs:
       payload:
-        description: JSON request (first run is restricted to the S01 canary)
+        description: JSON request for one S01 canary or a consecutive batch of up to five shots
         required: true
-        default: '{"mode":"canary","only":"S01","workers":1}'
+        default: '{"mode":"batch","only":"S02,S03,S04,S05,S06","workers":2}'
         type: string
 
 permissions:
   contents: write
 
 concurrency:
-  group: hakamada58-agnes-reference-canary
+  group: hakamada58-agnes-reference-batches
   cancel-in-progress: false
 
 jobs:
@@ -57,9 +57,23 @@ jobs:
           python - "$payload" <<'PY' >> "$GITHUB_ENV"
           import json, sys
           request=json.loads(sys.argv[1])
-          if request.get('mode')!='canary' or request.get('only')!='S01':
-              raise SystemExit('First run is intentionally restricted to mode=canary, only=S01')
-          print('SHOT=S01')
+          mode=request.get('mode')
+          shots=[x.strip() for x in request.get('only','').split(',') if x.strip()]
+          all_ids=[f'S{i:02d}' for i in range(1,31)]
+          if mode=='canary':
+              if shots!=['S01']:
+                  raise SystemExit('Canary mode is restricted to S01')
+          elif mode=='batch':
+              if not 1<=len(shots)<=5 or len(set(shots))!=len(shots):
+                  raise SystemExit('Batch mode accepts 1–5 distinct shots')
+              indices=[all_ids.index(s) if s in all_ids else -99 for s in shots]
+              if indices!=list(range(indices[0],indices[0]+len(indices))):
+                  raise SystemExit('Batch shots must be consecutive and in script order')
+          else:
+              raise SystemExit('mode must be canary or batch')
+          workers=min(2,max(1,int(request.get('workers',1))))
+          print('SHOT_IDS='+','.join(shots))
+          print('WORKERS='+str(workers))
           PY
 
       - name: Validate storyboard, references, and offline tests
@@ -71,8 +85,8 @@ jobs:
           test -s production/hakamada58/reference/revision.txt
           test -s production/hakamada58/reference/approvals.json
 
-      - name: Submit one reference-conditioned motion canary
-        run: python production/hakamada58/generate_clips.py --only "$SHOT" --workers 1 --budget-hours 4.5
+      - name: Submit reference-conditioned motion batch
+        run: python production/hakamada58/generate_clips.py --only "$SHOT_IDS" --workers "$WORKERS" --budget-hours 4.5
 
       - name: Publish small receipt and visual QA sheet
         if: always()
@@ -90,6 +104,6 @@ jobs:
           if git diff --cached --quiet -- "${paths[@]}"; then
             echo "No new receipt or QA changes"
           else
-            git commit -m "hakamada58: checkpoint S01 reference canary"
+            git commit -m "hakamada58: checkpoint reference-conditioned batch"
             git push origin arena/74df59cd-desktop-tutorial
           fi

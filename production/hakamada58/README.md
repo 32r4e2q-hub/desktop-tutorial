@@ -5,7 +5,7 @@
 ## 进度
 
 - 参考图：34/34 已检查并发布；不可变素材 revision `040d12431c35e7bdde340fee6aff3a0f1dabc5f5`，SHA 清单 `reference/approvals.json`。
-- 视频：0/30。现配置 **S01 canary**，只提交一条 Agnes 任务；回收视频解码信息和九帧接触表供检查，通过后再发起剩余镜头。
+- 视频：S01 canary 已完成并通过目视抽检（1/30）；已配置下一批 S02–S06，每批不超过5镜，逐批检查接触表后再继续。
 - 旁白：voice-00 已选；先前 S01–S10 音频中除 S02、S04 外因台词变更需重录，S11–S30 待生成。成片合成尚未启动。
 
 ## Agnes 2.5 Flash 参考图实现
@@ -16,9 +16,9 @@
 
 ## Canary 与工作流
 
-- `GEN_REQUEST` 当前只允许 `{"mode":"canary","only":"S01","workers":1}`。
-- `.github/workflows/hakamada58-gen.yml` 验证计划和 34 张图后，调用一次 S01，并将小型结果回执及 `qa/S01.jpg` 提交回当前固定分支；视频文件留在 runner 的 ignored `work/`，不进入 Git。
-- canary 完成后检查 motion contact sheet、解码报告和角色一致性，再决定是否提交剩余 29 镜。
+- `GEN_REQUEST` 当前请求 `{"mode":"batch","only":"S02,S03,S04,S05,S06","workers":2}`；工作流限制最多5个连续镜头。
+- `.github/workflows/hakamada58-gen.yml` 验证计划和34张图后生成选定批次，将小型结果回执及接触表提交回当前固定分支；视频文件留在 runner 的 ignored `work/`，不进入 Git。
+- 每批完成后检查动态、脸部/服装/年龄一致性与敏感内容，再发起下一批。
 
 ## 文件与命令
 
