@@ -106,6 +106,10 @@ def inspect_clip(path,sid):
  (qa/f'{sid}.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  container.close(); return result
 
+def write_qa_json(sid,inspection):
+ qa_path=HERE/'qa'/f'{sid}.json';qa_path.parent.mkdir(parents=True,exist_ok=True)
+ qa_path.write_text(json.dumps(inspection,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
 def read_results():
  if RESULTS.is_file():
   try:return json.loads(RESULTS.read_text(encoding='utf-8'))
@@ -128,6 +132,8 @@ def one(shot,doc,key,base,outdir,deadline,rev,project):
     size=agnes.download(old['video_url'],dest,retries=3,retry_delay=5)
     if sha(dest)==old.get('sha256'):
      qa=inspect_clip(dest,sid); review=old.get('visual_review','pending'); qa['visual_review']=review
+     if old.get('visual_review_note'):qa['visual_review_note']=old['visual_review_note']
+     write_qa_json(sid,qa)
      with LOCK: doc['shots'][sid].update(bytes=size,inspection=qa,visual_review=review);save(doc)
      print(sid+': completed video restored from saved URL; no new task created',flush=True); return True
     dest.unlink(missing_ok=True)
@@ -154,6 +160,8 @@ def one(shot,doc,key,base,outdir,deadline,rev,project):
   final,url=agnes.poll_task(base,key,MODEL,str(video_id),str(task_id or '') or None,interval=25,timeout=max(30,deadline-time.monotonic()),max_failures=12,before_request=lambda:GATE.wait_unblocked(deadline),rate_limit_callback=GATE.defer)
   size=agnes.download(url,dest,retries=3,retry_delay=5); digest=sha(dest); qa=inspect_clip(dest,sid)
   review=old.get('visual_review','pending'); qa['visual_review']=review
+  if old.get('visual_review_note'):qa['visual_review_note']=old['visual_review_note']
+  write_qa_json(sid,qa)
   with LOCK: doc['shots'][sid].update(status='completed',video_url=url,bytes=size,sha256=digest,final_response=final,inspection=qa,visual_reference_attached=True,visual_review=review,updated_at=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()));save(doc)
   print(f'{sid}: completed, decoded and contact sheet ready',flush=True);return True
  except Exception as exc:

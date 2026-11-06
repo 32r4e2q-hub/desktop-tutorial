@@ -5,7 +5,6 @@ on:
     branches: [arena/74df59cd-desktop-tutorial]
     paths:
       - production/hakamada58/GEN_REQUEST
-      - .github/workflows/hakamada58-gen.yml
   workflow_dispatch:
     inputs:
       payload:
@@ -92,12 +91,25 @@ jobs:
       - name: Generate or resume all requested reference-conditioned motion clips
         run: python production/hakamada58/generate_clips.py --only "$SHOT_IDS" --workers "$WORKERS" --budget-hours 4.5
 
+      - name: Archive generated receipts for recovery
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakamada58-receipts-${{ github.run_id }}
+          path: |
+            production/hakamada58/results.json
+            production/hakamada58/qa/*.jpg
+            production/hakamada58/qa/*.json
+          if-no-files-found: warn
+          retention-days: 30
+
       - name: Publish receipts and visual QA sheets
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          branch=arena/74df59cd-desktop-tutorial
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           paths=()
@@ -107,7 +119,21 @@ jobs:
           git add -f -- "${paths[@]}"
           if git diff --cached --quiet -- "${paths[@]}"; then
             echo "No new receipt or QA changes"
-          else
-            git commit -m "hakamada58: checkpoint full-production receipts and QA"
-            git push origin arena/74df59cd-desktop-tutorial
+            exit 0
           fi
+          git commit -m "hakamada58: checkpoint full-production receipts and QA"
+          for attempt in 1 2 3; do
+            git fetch --deepen=10 origin "$branch"
+            if ! git rebase -X theirs "origin/$branch"; then
+              git rebase --abort || true
+              echo "Could not safely rebase the receipt checkpoint" >&2
+              exit 1
+            fi
+            if git push origin "$branch"; then
+              echo "Published generated receipts on attempt $attempt"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Unable to publish generated receipts after three attempts" >&2
+          exit 1
