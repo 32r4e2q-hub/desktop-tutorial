@@ -1,6 +1,6 @@
 # Hakamada 58 motion re-review — 2026-11-06
 
-Status: in progress. This is a second-pass review after the user's continuity/warping report. The earlier nine-frame review is not sufficient as final acceptance.
+Status: refreshed 144-frame review completed for the retake set. S04/S12/S20/S22/S23/S27/S28/S29 pass; the user explicitly accepted S28’s very subtle motion and S29’s small cardigan mark. The existing Release master has not been replaced.
 
 ## Confirmed failures in the previous cut
 
@@ -33,4 +33,19 @@ Status: in progress. This is a second-pass review after the user's continuity/wa
 
 ## Frame audit
 
-The original all-frame audit produced four time-labelled sheets per shot (144 frames at 24 fps), and human review of the original-shot sheets is complete. A refreshed all-30-shot audit is now running as workflow `42316053718` against the current retake receipts. It must be manually reviewed for the updated S04, S12, S20, S22, S23, S27, S28, and S29 sources; S04 and S12 in particular remain subject to their strict visual criteria. Nine-frame sheets are preliminary only; no revised retake is finally accepted until the refreshed 144-frame audit is reviewed.
+The original all-frame audit produced four time-labelled sheets per shot (144 frames at 24 fps), and human review of the original-shot sheets is complete. The refreshed all-30-shot audit against the current retake receipts is complete as workflow `42316053718`; its manual findings and remaining holds are recorded in the dated review below. Nine-frame sheets remain preliminary and are not final acceptance.
+
+
+## Refreshed full-frame review — 2026-11-07
+
+The refreshed all-30-shot audit is complete (workflow `42316053718`; 30 shots / 4,320 frames). The four-page, 144-frame sheets were checked for the retake sources. The refreshed `audit_summary.json` currently reports no black-frame indices or large-frame-change events for the reviewed retakes below. This supersedes the earlier “audit running / pending dense review” statements above; it does not change or replace the released v1 master.
+
+- **S04, S12:** previously completed full 144-frame manual checks remain provisionally passed as recorded in the session review.
+- **S20 — pass:** one stable outdoor station-wide shot, no cuts. The leaflet exchange is not especially clear at first, but later frames show the woman extending the paper and the man receiving it; the shot stays wide. The station sign/boards show no legible writing.
+- **S22 — pass:** fixed wide framing; both siblings remain full-body together throughout, with only subtle natural movement. No cut or third person.
+- **S23 — pass:** one continuous tabletop composition. The hand brings the stamp in, presses/holds it over the sheet, and lifts it; no unrelated cut, black frame, or legible writing on the paper.
+- **S27 — pass:** one stable wide courtroom master; judge and siblings remain in the scene together throughout. No insert, overlay, or cut; only restrained movement.
+- **S28 — pass:** the tabletop remains clean and readable throughout, with the two blue cloth pieces, blank paper, pen, and barrel edge. No black frames, body-like bundle, stains, or cut. The requested slow lateral pan is barely perceptible in the contact sheets; the user reviewed and accepted the subtle motion.
+- **S29 — pass:** both siblings stay in one shared garden wide shot and walk together without a split-screen or cut. A small warm red/orange mark is visible on the back of the sister’s navy cardigan from about frame 90 (~3.75 s) onward. Its nature is unclear at contact-sheet resolution; the user reviewed and accepted it.
+
+**Current retake disposition:** S04/S12/S20/S22/S23/S27/S28/S29 all pass the refreshed 144-frame review. The user has authorized the revised render/release phase; render attempt 5 is now being prepared. The existing v1 Release master remains unchanged until the new master passes validation.

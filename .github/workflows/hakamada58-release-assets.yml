@@ -25,12 +25,24 @@ jobs:
           ref: arena/74df59cd-desktop-tutorial
           fetch-depth: 1
 
+      - name: Read release request
+        id: request
+        run: |
+          set -euo pipefail
+          request=production/hakamada58/DIRECT_RELEASE_REQUEST
+          run_id=$(jq -r '.render_run_id' "$request")
+          tag=$(jq -r '.release_tag' "$request")
+          test "$run_id" -gt 0
+          test -n "$tag"
+          echo "render_run_id=$run_id" >> "$GITHUB_OUTPUT"
+          echo "release_tag=$tag" >> "$GITHUB_OUTPUT"
+
       - name: Download the validated final-film artifact
         uses: actions/download-artifact@v4
         with:
-          name: hakamada58-final-film-42227002875
+          name: hakamada58-final-film-${{ steps.request.outputs.render_run_id }}
           path: work/hakamada58/release
-          run-id: 42227002875
+          run-id: ${{ steps.request.outputs.render_run_id }}
           github-token: ${{ github.token }}
 
       - name: Verify package and stage ASCII-named direct assets
@@ -54,7 +66,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          tag=hakamada58-episode06-v1
+          tag='${{ steps.request.outputs.release_tag }}'
           gh release upload "$tag" work/hakamada58/release-assets/* --clobber
           gh release edit "$tag" --draft=false
           echo '--- Published direct-download assets ---'
