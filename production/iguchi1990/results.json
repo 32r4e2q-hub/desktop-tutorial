@@ -1319,12 +1319,12 @@
     "S18": {
       "id": "S18",
       "request_hash": "26f31792a82f546619f54f5f993ced303b37b427b7bc4d083045de33050cf4a5",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T11:41:05Z",
+      "updated_at": "2026-11-07T13:41:54Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_H23dmCrC039E5e9sU0faHRVVh4cYAnqU",
@@ -1344,7 +1344,53 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S10-night-house-window.png"
         ]
       },
-      "created_at": "2026-11-07T11:46:04Z"
+      "created_at": "2026-11-07T11:46:04Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_H23dmCrC039E5e9sU0faHRVVh4cYAnqU.mp4",
+      "completed_response": {
+        "completed_at": 1794052255,
+        "created_at": 1794051964,
+        "error": null,
+        "expires_at": null,
+        "id": "task_H23dmCrC039E5e9sU0faHRVVh4cYAnqU",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794051989,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_H23dmCrC039E5e9sU0faHRVVh4cYAnqU.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 1,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "5",
+      "bytes": 2232661,
+      "sha256": "d72ef719f017779eb23cb4b23b2ba739f2a1b56b52ac1804458e5ea7ec430447",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2232661,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 10,
+          "mean_difference": 0.037209,
+          "max_difference": 0.039966,
+          "moving_transitions": 9,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S18.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S19": {
       "id": "S19",
@@ -1354,7 +1400,7 @@
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T11:51:05Z",
+      "updated_at": "2026-11-07T13:41:52Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_0ee98TdgOe4LSDtpGOlW6jAWyiqu8rDe",
@@ -1376,7 +1422,34 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P01-navy-backpack.png"
         ]
       },
-      "created_at": "2026-11-07T11:56:05Z"
+      "created_at": "2026-11-07T11:56:05Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_0ee98TdgOe4LSDtpGOlW6jAWyiqu8rDe.mp4",
+      "completed_response": {
+        "completed_at": 1794052895,
+        "created_at": 1794052564,
+        "error": null,
+        "expires_at": null,
+        "id": "task_0ee98TdgOe4LSDtpGOlW6jAWyiqu8rDe",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794052597,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_0ee98TdgOe4LSDtpGOlW6jAWyiqu8rDe.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "6",
+      "bytes": 3314771,
+      "sha256": "88a14f4d66baf9b477a57199c3ebc6a1add269b827fbb79c47ffe87bc300fa86"
     },
     "S20": {
       "id": "S20",
@@ -1776,7 +1849,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:41:49Z",
+  "updated_at": "2026-11-07T13:41:54Z",
   "last_create_epoch": 1794058867.777677,
   "pending_shots": [
     "S06",
