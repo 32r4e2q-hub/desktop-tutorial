@@ -54,7 +54,7 @@ concurrency:
 jobs:
   render:
     if: github.ref == 'refs/heads/arena/36f9cd13-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 120
     steps:
       - name: Check out the fixed Arena branch
@@ -208,7 +208,7 @@ jobs:
           python production/iguchi1990/render.py \
             --sources work/iguchi1990/sources \
             --work work/iguchi1990/render \
-            --output "production/iguchi1990/交付/井口真理子命案_她没能回家_三分钟_1080p24.mp4"
+            --output "production/iguchi1990/交付/井口真理子命案_她没能回家_三分钟_1080p24.mp4" 2>&1 | tee work/iguchi1990/render.log
           test -s "production/iguchi1990/交付/井口真理子命案_她没能回家_三分钟_1080p24.mp4"
           python - <<'PY'
           import json
@@ -221,6 +221,18 @@ jobs:
           assert report['voice_report']['silent_tail_seconds'] == 1.0
           print('Render gates passed; full-playback human review remains explicitly pending.')
           PY
+
+      - name: Expose renderer diagnostics in the workflow summary on failure
+        if: ${{ failure() }}
+        run: |
+          set +e
+          if [ -s work/iguchi1990/render.log ]; then
+            {
+              printf '## Renderer diagnostics\n\n```text\n'
+              tail -n 120 work/iguchi1990/render.log
+              printf '\n```\n'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Commit the rendered candidate and reproducibility reports
         if: ${{ steps.params.outputs.publish == 'true' }}
