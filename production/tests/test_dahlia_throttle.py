@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'production'))
 sys.path.insert(0,str(ROOT/'production/dahlia'))
 import agnes_video as agnes
-from throttle import RequestGate,BudgetExhausted
+from dahlia.throttle import RequestGate,BudgetExhausted
 
 
 class FakeClock:

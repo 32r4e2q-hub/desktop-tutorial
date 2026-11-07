@@ -6,9 +6,10 @@ import unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 PROJECT=ROOT/'production'/'hakamada58'
+sys.path.insert(0,str(ROOT/'production'))
 sys.path.insert(0,str(PROJECT))
 import generate_clips
-from throttle import BudgetExhausted, RequestGate
+from hakamada58.throttle import BudgetExhausted, RequestGate
 from recover_tasks import find_records, as_time
 class Hakamada58PlanTests(unittest.TestCase):
  @classmethod
