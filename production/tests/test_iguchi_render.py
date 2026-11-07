@@ -74,8 +74,8 @@ class IguchiRenderTests(unittest.TestCase):
                 self.assertEqual([box[4:] for box in boxes], [(0.0, 3.5), (3.5, 7.0)])
             if sid == "S09":
                 self.assertEqual(sorted({box[4:] for box in boxes}),
-                                 [(0.0, 0.55), (0.55, 1.05), (1.05, 1.55), (1.35, 1.55),
-                                  (1.55, 2.2), (2.2, 2.7), (2.7, 3.0), (3.0, 6.0)])
+                                 [(0.0, 0.55), (0.55, 1.05), (1.05, 1.55), (1.3, 1.4),
+                                  (1.4, 1.55), (1.55, 2.2), (2.2, 2.7), (2.7, 3.0), (3.0, 6.0)])
         with self.assertRaisesRegex(RuntimeError, "source changed since blur mask review"):
             render._blur_spec("S06", "0" * 64)
 
