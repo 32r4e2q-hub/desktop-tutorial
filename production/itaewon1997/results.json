@@ -1,0 +1,70 @@
+{
+  "project": "梨泰院杀人事件：两个少年，都说不是我",
+  "model": "agnes-video-2.5-flash",
+  "mode": "reference",
+  "phase": "batch_ready",
+  "shots": {
+    "S01": {
+      "id": "S01",
+      "status": "completed",
+      "request_hash": "1f91b3abf76d94e6cac7ad83ba3c54b3b72c30a077b80ce7a5bf72d2214e3a1c",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，雨夜霓虹与冷白荧光灯对比，低饱和冷青色调，胶片颗粒，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画质感的情景重现（高精度CG渲染，非卡通，非Q版）。全程真实连续运动：人物呼吸、走动、转头，雨水、光影、烟雾和镜头均持续运动；禁止静态图加推拉。主体放在三分线上，底部留出字幕安全区。真实人物一律为非肖像的虚构演员式形象。\n【C01锚点】22岁韩国男大学生，清秀短发，格子衬衫牛仔裤，深色双肩包，神情温和\n1997年4月深夜，首尔梨泰院街头，雨后的柏油路反射着霓虹招牌，美式酒吧、纪念品店、小贩推车，一位年轻男子的背影（背着双肩包）走在人群之外，画面冷峻，雨水从屋檐连续滴落。 运镜：长焦跟拍背影。\n【参考图说明】图1为S01（1997年梨泰院雨后夜街），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版，不要生成任何文字；图2为C01（赵重弼（22岁大学生）虚构演员式定妆），仅作人物身份、服装、场景结构或道具外观参考；不要复制设定板/拼贴排版，不要生成任何文字\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，血腥，伤口，遗体，尸体，凶器，刺杀过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，伪文字，真实人物肖像",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 1997000,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/d34f8783c0ccc7444fb2df626dd025edd0e8ba95/production/itaewon1997/reference/S01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/d34f8783c0ccc7444fb2df626dd025edd0e8ba95/production/itaewon1997/reference/C01.png"
+        ]
+      },
+      "create_attempt": 1,
+      "video_id": "task_X7xApKnYSpmTTnrYWLgq2p9x6F0Z7M4p",
+      "task_id": "task_X7xApKnYSpmTTnrYWLgq2p9x6F0Z7M4p",
+      "requested_seconds": 5,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_X7xApKnYSpmTTnrYWLgq2p9x6F0Z7M4p.mp4",
+      "bytes": 2527598,
+      "sha256": "81c4ebfddcb90f70a184f3e07c6a52f81bd18c2595812c92a9f1ed0f181cf0d2",
+      "final_response": {
+        "completed_at": 1794018726,
+        "created_at": 1794017830,
+        "error": null,
+        "expires_at": null,
+        "id": "task_X7xApKnYSpmTTnrYWLgq2p9x6F0Z7M4p",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794018481,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_X7xApKnYSpmTTnrYWLgq2p9x6F0Z7M4p.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2527598,
+        "decoded_ok": true,
+        "contact_sheet": "production/itaewon1997/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "visual_reference_attached": true,
+      "visual_review": "pending",
+      "updated_at": "2026-11-07T02:32:22Z"
+    }
+  },
+  "reference_revision": "d34f8783c0ccc7444fb2df626dd025edd0e8ba95"
+}
