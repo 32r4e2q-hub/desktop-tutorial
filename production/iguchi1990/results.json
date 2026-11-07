@@ -592,7 +592,7 @@
   },
   "source_size": "720P",
   "branch": "arena/36f9cd13-desktop-tutorial",
-  "phase": "queueing_and_polling",
+  "phase": "clips_pending_resume",
   "reference_gate": {
     "status": "complete",
     "approved_count": 29,
@@ -639,6 +639,35 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T09:54:36Z",
-  "last_create_epoch": 1794043869.1877267
+  "updated_at": "2026-11-07T09:54:37Z",
+  "last_create_epoch": 1794043869.1877267,
+  "pending_shots": [
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29",
+    "S30"
+  ],
+  "failed_shots": [],
+  "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit"
 }
