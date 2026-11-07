@@ -5,10 +5,10 @@
 ## 进度
 
 - 参考图：38张逐项检查并登记在 `reference/approvals.json`；不可变素材版本由 `reference/revision.txt` 固定。
-- 视频复检：刷新后的全片逐帧审计 workflow `42316053718` 已完成，覆盖 S01–S30 共 4,320 帧；人工复核记录见 `qa/manual_audit_2026-11-06.md`。更新版 S04、S12、S20、S22、S23、S27、S28、S29 均已通过144帧复核；用户接受 S28 极轻微的横移及 S29 开衫上的小红橙色标记。30镜逐帧复核状态已登记；新版母版重渲染已请求（attempt 5），旧版 Release 暂保持不变，待成片校验后再更新下载资产。
+- 视频复检：刷新后的全片逐帧审计 workflow `42316053718` 已完成，覆盖 S01–S30 共 4,320 帧；人工复核记录见 `qa/manual_audit_2026-11-06.md`。更新版 S04、S12、S20、S22、S23、S27、S28、S29 均已通过144帧复核；用户接受 S28 极轻微的横移及 S29 开衫上的小红橙色标记。30镜逐帧复核状态已登记；新版重渲染与校验已完成，随后成功更新既有 v1 Release 的视频、字幕和封面资产。
 - Agnes 账号为用户确认的 $4 月卡，创建任务按 12 秒最小间隔、最多 5 个并发 worker；遵从服务器 Retry-After，不轮换密钥。最终连续生成仍会受 Actions 运行预算限制；若超时或遇到服务端冷却，任务 ID 与回执保存，重跑时恢复已有任务而不是重新创建。
 - 旁白：voice-00 的 S01–S30 均已生成，MP3 与逐条 SHA/台词清单见 `audio/manifest.json`（30/30）。
-- 新版成片：GitHub Actions run [42320572914](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/42320572914) 已成功；流水线校验通过1920×1080、24fps、180秒与30条旁白/字幕时序。发布包已生成；正在将新版MP4与字幕替换到既有 v1 Release，保留已批准封面。
+- 新版成片：GitHub Actions render run [42320572914](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/42320572914) 成功，校验为1920×1080、24fps、180秒并包含30条旁白/字幕；Release 更新 run [42321215129](https://github.com/32r4e2q-hub/desktop-tutorial/actions/runs/42321215129) 成功。既有 v1 Release 现已替换为新版MP4和字幕，并保留已批准封面。
 - 第六期直接下载：发布页 [hakamada58-episode06-v1](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/hakamada58-episode06-v1)；MP4 资产 [1080p／180秒](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/hakamada58-episode06-v1/hakamada58-episode06-1080p-180s.mp4)，封面资产 [1080×1440 PNG](https://github.com/32r4e2q-hub/desktop-tutorial/releases/download/hakamada58-episode06-v1/hakamada58-episode06-cover-1080x1440.png)。另附 SRT/ASS 字幕；大视频不进 Git。
 - 系列第六期封面按第五期 `迷案解码人` 模板制作，1080×1440；采用已审通过的 S29 画面，成品 `第六期_袴田事件_封面.png` 与文字/来源记录 `.json` 一并保存在本目录。
 
