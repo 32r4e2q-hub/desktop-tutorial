@@ -624,14 +624,15 @@
     "S09": {
       "id": "S09",
       "request_hash": "0a433416d9986304d6e46ecaef803a7870f12e42c899f933faf34aa64c5da461",
-      "status": "failed",
-      "generation_attempts": 1,
-      "create_attempts": 1,
-      "error": "Video task failed: upload timed out (code=upload_timeout)",
-      "last_create_attempt": 1,
-      "updated_at": "2026-11-07T15:07:47Z",
-      "video_id": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
-      "task_id": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
+      "status": "queued",
+      "generation_attempts": 2,
+      "create_attempts": 2,
+      "error": null,
+      "forced_retry_of": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
+      "last_create_attempt": 2,
+      "updated_at": "2026-11-07T15:28:12Z",
+      "video_id": "task_3ZsEd2nGqX49ntfGvLR3qKIri3KTIzWk",
+      "task_id": "task_3ZsEd2nGqX49ntfGvLR3qKIri3KTIzWk",
       "requested_seconds": 6,
       "requested_size": "720P",
       "request": {
@@ -649,7 +650,7 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P02-yellow-taxi.png"
         ]
       },
-      "created_at": "2026-11-07T14:58:12Z"
+      "created_at": "2026-11-07T15:28:12Z"
     },
     "S10": {
       "id": "S10",
@@ -2277,7 +2278,7 @@
   },
   "source_size": "720P",
   "branch": "arena/36f9cd13-desktop-tutorial",
-  "phase": "clips_pending_resume",
+  "phase": "queueing_and_polling",
   "reference_gate": {
     "status": "complete",
     "approved_count": 29,
@@ -2297,8 +2298,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T15:25:39Z",
-  "last_create_epoch": 1794064451.9285042,
+  "updated_at": "2026-11-07T15:28:12Z",
+  "last_create_epoch": 1794065292.867468,
   "pending_shots": [
     "S09"
   ],
@@ -2307,7 +2308,7 @@
   ],
   "queue_error": null,
   "provider_minimum_create_interval_seconds": 300.0,
-  "last_successful_create_epoch": 1794064451.9285042,
+  "last_successful_create_epoch": 1794065292.867468,
   "provider_blocked_until_epoch": 1794064451.4575145,
   "previous_results": {
     "S09": [
@@ -2386,6 +2387,36 @@
           "visual_review": "pending"
         },
         "visual_review": "pending"
+      },
+      {
+        "id": "S09",
+        "request_hash": "0a433416d9986304d6e46ecaef803a7870f12e42c899f933faf34aa64c5da461",
+        "status": "failed",
+        "generation_attempts": 1,
+        "create_attempts": 1,
+        "error": "Video task failed: upload timed out (code=upload_timeout)",
+        "last_create_attempt": 1,
+        "updated_at": "2026-11-07T15:07:47Z",
+        "video_id": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
+        "task_id": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
+        "requested_seconds": 6,
+        "requested_size": "720P",
+        "request": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the scene reference for 1990年高雄火车站大厅与出口. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 2> is the character reference for 23岁日本大学生虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 3> is the prop reference for 1990年台湾黄色出租车. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n【C01锚点】23岁日本女大学生,黑色及肩直发,清秀明亮,浅色短袖衬衫牛仔裤,深蓝色大旅行背包,笑容温暖 A wholly fictional, non-identifiable actor; never reproduce a real photograph or person's likeness.\n\nOne uninterrupted exterior scene in the same 1990 Kaohsiung station forecourt at midday. The fictional young traveler in a pale blouse, jeans and the same navy backpack walks across the station exit area, pauses briefly to look toward the busy street, then continues out of frame. A yellow taxi passes far behind but never stops, approaches or interacts with her. Keep the entire six-second clip in this single location, in steady natural daylight and continuous real time. One measured medium follow from behind; after she leaves frame, hold on the same moving forecourt. No interior cut, no second location, no silhouette insert, no time-lapse, no montage, no black flash, no touching, no readable signs or license text.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 19900401,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S01-kaohsiung-station.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C01-mariko.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P02-yellow-taxi.png"
+          ]
+        },
+        "created_at": "2026-11-07T14:58:12Z"
       }
     ],
     "S23": [
