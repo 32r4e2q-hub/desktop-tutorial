@@ -227,6 +227,9 @@ jobs:
         run: |
           set +e
           if [ -s work/iguchi1990/render.log ]; then
+            details="$(tail -n 30 work/iguchi1990/render.log | tr '\r\n' ' ')"
+            details="${details//'%'/'%25'}"
+            printf '::error title=Renderer diagnostics::%s\n' "$details"
             {
               printf '## Renderer diagnostics\n\n```text\n'
               tail -n 120 work/iguchi1990/render.log
