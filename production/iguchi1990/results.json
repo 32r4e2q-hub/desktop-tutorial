@@ -1628,12 +1628,12 @@
     "S22": {
       "id": "S22",
       "request_hash": "7bec52cb7022452432e1f08a6c9929828c4f9c73ca98938d83adb4336fa0e816",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T12:21:06Z",
+      "updated_at": "2026-11-07T13:42:06Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_5fEA9vbEbgHmhWJVknK3PaNXYtH2IkWw",
@@ -1655,7 +1655,53 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P04-red-line-map.png"
         ]
       },
-      "created_at": "2026-11-07T12:26:05Z"
+      "created_at": "2026-11-07T12:26:05Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_5fEA9vbEbgHmhWJVknK3PaNXYtH2IkWw.mp4",
+      "completed_response": {
+        "completed_at": 1794054615,
+        "created_at": 1794054365,
+        "error": null,
+        "expires_at": null,
+        "id": "task_5fEA9vbEbgHmhWJVknK3PaNXYtH2IkWw",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794054397,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_5fEA9vbEbgHmhWJVknK3PaNXYtH2IkWw.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "5",
+      "bytes": 2623529,
+      "sha256": "2e06db2ad77f5dde9e7a6b7731ea4e1efe97932a9c9b6994ecb7f83cebb96c4e",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2623529,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 10,
+          "mean_difference": 0.169983,
+          "max_difference": 0.367523,
+          "moving_transitions": 9,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S22.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S23": {
       "id": "S23",
@@ -1665,7 +1711,7 @@
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T12:31:06Z",
+      "updated_at": "2026-11-07T13:42:05Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_reiqwauyjh1JRXQxf2QqUYKxlkGNmxRT",
@@ -1687,7 +1733,34 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C07-police-crowd.png"
         ]
       },
-      "created_at": "2026-11-07T12:36:06Z"
+      "created_at": "2026-11-07T12:36:06Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_reiqwauyjh1JRXQxf2QqUYKxlkGNmxRT.mp4",
+      "completed_response": {
+        "completed_at": 1794055208,
+        "created_at": 1794054965,
+        "error": null,
+        "expires_at": null,
+        "id": "task_reiqwauyjh1JRXQxf2QqUYKxlkGNmxRT",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794054989,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_reiqwauyjh1JRXQxf2QqUYKxlkGNmxRT.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "7",
+      "bytes": 2964856,
+      "sha256": "a47dd95eff7c3df6b915f9bc68bc29a7f468da7726840689816dc786776d8b18"
     },
     "S24": {
       "id": "S24",
@@ -1960,7 +2033,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:42:01Z",
+  "updated_at": "2026-11-07T13:42:06Z",
   "last_create_epoch": 1794058867.777677,
   "pending_shots": [
     "S06",
