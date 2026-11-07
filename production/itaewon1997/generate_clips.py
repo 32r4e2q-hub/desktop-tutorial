@@ -8,7 +8,7 @@ HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 sys.path.insert(0,str(ROOT/'production'))
 import agnes_video as agnes
-from throttle import RequestGate
+from itaewon_throttle import RequestGate
 PLAN=HERE/'story.json'; RESULTS=HERE/'results.json'; REF=HERE/'reference'
 REVISION_FILE=REF/'revision.txt'; APPROVALS_FILE=REF/'approvals.json'
 BRANCH='arena/e8c2f70d-desktop-tutorial'; REPOSITORY='32r4e2q-hub/desktop-tutorial'

@@ -40,7 +40,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install video inspection dependencies
-        run: python -m pip install --disable-pip-version-check pillow av
+        run: python -m pip install --disable-pip-version-check pillow numpy av
 
       - name: Resolve and constrain the production request
         env:

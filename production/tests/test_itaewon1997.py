@@ -4,8 +4,18 @@ ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / "production" / "itaewon1997"
 sys.path.insert(0, str(ROOT / "production"))
 sys.path.insert(0, str(PROJECT))
-import generate_clips  # noqa: E402
-from throttle import BudgetExhausted, RequestGate  # noqa: E402
+import importlib.util  # noqa: E402
+
+
+def _load(name, filename):
+    # 其他项目也有 generate_clips/render/throttle，同名模块会在同一个 pytest 进程里串台，所以用唯一名字加载。
+    spec = importlib.util.spec_from_file_location(name, PROJECT / filename)
+    mod = importlib.util.module_from_spec(spec); sys.modules[name] = mod; spec.loader.exec_module(mod)
+    return mod
+
+
+from itaewon_throttle import BudgetExhausted, RequestGate  # noqa: E402
+generate_clips = _load("itaewon_generate_clips", "generate_clips.py")
 
 SLOTS = [5,5,7,7,6,5,7,7,6,5,7,7,6,5,6,6,6,5,6,6,5,5,7,7,6,6,6,6,6,6]
 
@@ -82,7 +92,7 @@ class ItaewonPlanTests(unittest.TestCase):
             g.acquire_creation(clock[0] + 1)
 
     def test_render_filters_and_ass(self):
-        import render  # noqa: E402
+        render = _load("itaewon_render", "render.py")
         for s in self.data["shots"]:
             f = render.segment_filter(s)
             self.assertIn(f"trim=duration={s['duration']}", f)
@@ -91,7 +101,7 @@ class ItaewonPlanTests(unittest.TestCase):
 
     def test_render_audio_synthesis(self):
         import tempfile, wave
-        import render  # noqa: E402
+        render = _load("itaewon_render", "render.py")
         with tempfile.TemporaryDirectory() as d:
             for name, fn in (("a.wav", lambda p: render.make_score(p)), ("b.wav", lambda p: render.make_sfx(p, self.data))):
                 p = Path(d) / name; fn(p)
