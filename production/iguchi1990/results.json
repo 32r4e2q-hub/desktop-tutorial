@@ -827,14 +827,34 @@
     "S17": {
       "id": "S17",
       "request_hash": "49cf99c21aa8087bfe16359ca5a827efe305f74ef08e8b7a484f96c16efbf0cb",
-      "status": "rate_limited",
-      "generation_attempts": 0,
-      "create_attempts": 1,
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 11:31:04. (request id: 20261107113104133529945Kd2TbR8i) (code=rate_limit_exceeded)",
-      "last_create_attempt": 1,
-      "updated_at": "2026-11-07T11:31:04Z",
+      "status": "queued",
+      "generation_attempts": 1,
+      "create_attempts": 2,
+      "error": null,
+      "last_create_attempt": 2,
+      "updated_at": "2026-11-07T11:31:05Z",
       "applied_cooldown_seconds": 300.0,
-      "provider_minimum_create_interval_seconds": 300.0
+      "provider_minimum_create_interval_seconds": 300.0,
+      "video_id": "task_abAW7cHymBAN6p60KTHOMdRNjGd9BRHU",
+      "task_id": "task_abAW7cHymBAN6p60KTHOMdRNjGd9BRHU",
+      "requested_seconds": 6,
+      "requested_size": "720P",
+      "request": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the scene reference for 澄清湖黄昏. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 2> is the character reference for 刘学强虚构侧影形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 3> is the character reference for 23岁日本大学生虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n【C03锚点】35岁台湾瘦削男子,短发,深色夹克,眼神游移,半脸隐于阴影,表情看似亲切 A fictionalized, non-identifiable actor; keep him mostly in profile, shadow or rear view, never glamourize him, no real-person likeness.\n\n【C01锚点】23岁日本女大学生,黑色及肩直发,清秀明亮,浅色短袖衬衫牛仔裤,深蓝色大旅行背包,笑容温暖 A wholly fictional, non-identifiable actor; never reproduce a real photograph or person's likeness.\n\nAt Chengcing Lake near sunset, the fictional young traveler takes a photograph of the water and smiles. The lean man walks beside her but keeps glancing away toward the path. Camera: long-lens slow lateral track, hold both figures on separate thirds. Real motion: lake ripples, leaves move in the breeze, camera shutter flashes once. The warm gold light gradually cools toward teal. No romantic framing.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19900423,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S09-chengqing-lake.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C03-liu-suspect.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C01-mariko.png"
+        ]
+      },
+      "created_at": "2026-11-07T11:36:04Z"
     },
     "S18": {
       "id": "S18",
@@ -992,8 +1012,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T11:31:04Z",
-  "last_create_epoch": 1794051064.2617967,
+  "updated_at": "2026-11-07T11:36:04Z",
+  "last_create_epoch": 1794051364.662335,
   "pending_shots": [
     "S06",
     "S07",
@@ -1024,6 +1044,6 @@
   "failed_shots": [],
   "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
   "provider_minimum_create_interval_seconds": 300.0,
-  "last_successful_create_epoch": 1794050764.9786448,
+  "last_successful_create_epoch": 1794051364.662335,
   "provider_blocked_until_epoch": 1794051364.2618108
 }
