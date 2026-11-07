@@ -10,7 +10,7 @@
       "create_attempts": 1,
       "error": null,
       "last_create_attempt": 1,
-      "updated_at": "2026-11-07T09:36:41Z",
+      "updated_at": "2026-11-07T10:13:51Z",
       "video_id": "task_J4p9EtWjwVxAGSOOzweBD8dFsSKsAaAm",
       "task_id": "task_J4p9EtWjwVxAGSOOzweBD8dFsSKsAaAm",
       "requested_seconds": 5,
@@ -76,7 +76,8 @@
         "contact_sheet": "production/iguchi1990/qa/S01.jpg",
         "visual_review": "pending"
       },
-      "visual_review": "pending"
+      "visual_review": "pending",
+      "reused_existing_asset": false
     },
     "S02": {
       "id": "S02",
@@ -592,7 +593,7 @@
   },
   "source_size": "720P",
   "branch": "arena/36f9cd13-desktop-tutorial",
-  "phase": "clips_pending_resume",
+  "phase": "queueing_and_polling",
   "reference_gate": {
     "status": "complete",
     "approved_count": 29,
@@ -632,14 +633,16 @@
     "S30"
   ],
   "rate_policy": {
-    "minimum_creation_interval_seconds": 61,
+    "membership_max_create_requests_per_minute": 5,
+    "minimum_creation_interval_seconds": 12.1,
+    "effective_creation_interval_seconds": 300.0,
     "workers_max": 2,
     "retry_after_respected": true,
     "provider_queue_full_respected": true,
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T09:54:37Z",
+  "updated_at": "2026-11-07T10:13:51Z",
   "last_create_epoch": 1794043869.1877267,
   "pending_shots": [
     "S06",
@@ -669,5 +672,6 @@
     "S30"
   ],
   "failed_shots": [],
-  "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit"
+  "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
+  "provider_minimum_create_interval_seconds": 300.0
 }
