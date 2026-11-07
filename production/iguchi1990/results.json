@@ -158,12 +158,12 @@
     "S03": {
       "id": "S03",
       "request_hash": "34d6fa8db7080a69635cf98d1418c75eb483ffa2109f2253131505d11372aaa1",
-      "status": "polling",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T09:36:43Z",
+      "updated_at": "2026-11-07T09:46:32Z",
       "applied_cooldown_seconds": 239.0,
       "video_id": "task_eYtItk7NuVf2a5tDg6aAdoew7EJCttky",
       "task_id": "task_eYtItk7NuVf2a5tDg6aAdoew7EJCttky",
@@ -184,17 +184,63 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P01-navy-backpack.png"
         ]
       },
-      "created_at": "2026-11-07T09:15:05Z"
+      "created_at": "2026-11-07T09:15:05Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_eYtItk7NuVf2a5tDg6aAdoew7EJCttky.mp4",
+      "completed_response": {
+        "completed_at": 1794044740,
+        "created_at": 1794042905,
+        "error": null,
+        "expires_at": null,
+        "id": "task_eYtItk7NuVf2a5tDg6aAdoew7EJCttky",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794044450,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_eYtItk7NuVf2a5tDg6aAdoew7EJCttky.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "7",
+      "bytes": 3763602,
+      "sha256": "f3615a7010996eb1bd2b0be62610a1993f87511be72c3b6d28d7b56157da917a",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3763602,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 15,
+          "mean_difference": 0.160318,
+          "max_difference": 0.177034,
+          "moving_transitions": 14,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S03.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S04": {
       "id": "S04",
       "request_hash": "99960068771c15237c90d91a6583a8855559943f8a9a4db676e5360488f66d86",
-      "status": "queued",
+      "status": "polling",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T09:16:08Z",
+      "updated_at": "2026-11-07T09:42:04Z",
       "applied_cooldown_seconds": 239.0,
       "video_id": "task_WGF4CnDnyW0KlCP1ktsx51pYrHR8d6Ne",
       "task_id": "task_WGF4CnDnyW0KlCP1ktsx51pYrHR8d6Ne",
@@ -501,6 +547,6 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T09:42:03Z",
+  "updated_at": "2026-11-07T09:46:32Z",
   "last_create_epoch": 1794043869.1877267
 }
