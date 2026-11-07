@@ -1,0 +1,56 @@
+name: Itaewon 1997 · render final film
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: Optional note
+        required: false
+        default: render
+        type: string
+  push:
+    branches: [arena/e8c2f70d-desktop-tutorial]
+    paths:
+      - production/itaewon1997/RENDER_REQUEST
+
+permissions:
+  contents: read
+
+concurrency:
+  group: itaewon1997-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.ref == 'refs/heads/arena/e8c2f70d-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/e8c2f70d-desktop-tutorial
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          python -m pip install --disable-pip-version-check pillow numpy av
+      - name: Offline checks
+        run: |
+          set -euo pipefail
+          python production/itaewon1997/build_story.py
+          python production/itaewon1997/generate_clips.py --validate
+          python production/tests/test_itaewon1997.py
+          python production/itaewon1997/render.py --plan-only
+      - name: Render master, captions, cover
+        run: python production/itaewon1997/render.py
+      - name: Upload deliverables
+        uses: actions/upload-artifact@v4
+        with:
+          name: itaewon1997-final-${{ github.run_id }}
+          path: work/itaewon1997/delivery/*
+          retention-days: 30
