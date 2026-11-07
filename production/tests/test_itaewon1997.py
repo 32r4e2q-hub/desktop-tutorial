@@ -81,6 +81,23 @@ class ItaewonPlanTests(unittest.TestCase):
         with self.assertRaises(BudgetExhausted):
             g.acquire_creation(clock[0] + 1)
 
+    def test_render_filters_and_ass(self):
+        import render  # noqa: E402
+        for s in self.data["shots"]:
+            f = render.segment_filter(s)
+            self.assertIn(f"trim=duration={s['duration']}", f)
+        self.assertIn("fade=t=out", render.segment_filter(next(s for s in self.data["shots"] if s["id"] == "S30")))
+        self.assertEqual(render.highlight("a九刀b", ["九刀"]), "a{\\c&H003CC9FF\\fs60\\b1}九刀{\\r}b")
+
+    def test_render_audio_synthesis(self):
+        import tempfile, wave
+        import render  # noqa: E402
+        with tempfile.TemporaryDirectory() as d:
+            for name, fn in (("a.wav", lambda p: render.make_score(p)), ("b.wav", lambda p: render.make_sfx(p, self.data))):
+                p = Path(d) / name; fn(p)
+                with wave.open(str(p)) as w:
+                    self.assertEqual(w.getnframes(), 48000 * 180)
+
 
 if __name__ == "__main__":
     unittest.main()

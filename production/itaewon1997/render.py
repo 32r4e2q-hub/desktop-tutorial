@@ -97,7 +97,7 @@ def highlight(text, keywords, big=False):
     size = 78 if big else 60
     for w in sorted(keywords, key=len, reverse=True):
         if w:
-            body = body.replace(esc_ass(w), "{\\c" + GOLD + f"\\fs{size}\\b1" + "}" + esc_ass(w) + "{\\rDefault}")
+            body = body.replace(esc_ass(w), "{\\c" + GOLD + f"\\fs{size}\\b1" + "}" + esc_ass(w) + "{\\r}")
     return body
 
 
@@ -203,7 +203,10 @@ def make_sfx(path, story, rate=RATE, duration=DURATION):
         env = np.sin(np.pi * np.linspace(0, 1, len(z))) ** 2
         return z * env * amp
 
-    def drip(at, pan=0): add(at, tone(1750, .09, 55, .05) + tone(1100, .12, 40, .03), pan)
+    def ss(a, b):
+        n = max(len(a), len(b)); o = np.zeros(n); o[:len(a)] += a; o[:len(b)] += b; return o
+
+    def drip(at, pan=0): add(at, ss(tone(1750, .09, 55, .05), tone(1100, .12, 40, .03)), pan)
     def thud(at, f=58, amp=.14): add(at, tone(f, .45, 11, amp))
     def hum(s, d, amp=.012):
         q = np.arange(int(d * rate)) / rate
@@ -212,7 +215,7 @@ def make_sfx(path, story, rate=RATE, duration=DURATION):
     def chatter(s, d, amp=.012):
         for at in np.arange(0, d, .17):
             add(s + at, noise(.14, amp * rng.uniform(.5, 1.2), 14), pan=rng.uniform(-.5, .5))
-    def step(at, amp=.05): add(at, tone(70, .12, 30, amp) + noise(.07, amp * .3, 20))
+    def step(at, amp=.05): add(at, ss(tone(70, .12, 30, amp), noise(.07, amp * .3, 20)))
 
     for sh in story["shots"]:
         sid, s0, d = sh["id"], float(sh["start"]), float(sh["duration"])
@@ -247,10 +250,10 @@ def make_sfx(path, story, rate=RATE, duration=DURATION):
             thud(s0 + 1.0, 90, .05)
         if sid == "S14":
             data[int((s0 + 3.1) * rate):int((s0 + d) * rate)] *= .15
-            add(s0 + 3.1, noise(.25, .30, 2) + tone(120, .35, 12, .2)); thud(s0 + 3.15, 45, .25)
+            add(s0 + 3.1, ss(noise(.25, .30, 2), tone(120, .35, 12, .2))); thud(s0 + 3.15, 45, .25)
         if sid in {"S15", "S16"}: add(s0 + 2.2, noise(.35, .01, 30)); [step(s0 + k) for k in ((1.0, 1.6, 2.2, 2.8, 3.4) if sid == "S16" else ())]
         if sid in {"S17", "S18"}:
-            add(s0 + 1.0, tone(48, 1.2, 4, .12) + noise(1.0, .04, 30)); add(s0 + 1.2, tone(2100, .6, 7, .006))
+            add(s0 + 1.0, ss(tone(48, 1.2, 4, .12), noise(1.0, .04, 30))); add(s0 + 1.2, tone(2100, .6, 7, .006))
         if sid == "S19":
             chatter(s0, d, .008)
             for k in np.arange(.4, d, .6): add(s0 + float(k), noise(.15, .012, 30) * 1.0)
@@ -273,7 +276,7 @@ def make_sfx(path, story, rate=RATE, duration=DURATION):
                 q = np.arange(int(.35 * rate)) / rate
                 add(s0 + at, .004 * np.sin(2 * np.pi * (f - 300 * q) * q) * np.sin(np.pi * q / .35) ** 2)
         if sid == "S30":
-            add(s0 + 1.2, noise(.5, .025, 60) + tone(180, .5, 9, .02))   # 门开启的轻响
+            add(s0 + 1.2, ss(noise(.5, .025, 60), tone(180, .5, 9, .02)))   # 门开启的轻响
     data = np.clip(data, -.95, .95)
     with wave.open(str(path), "wb") as w:
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(rate); w.writeframes(np.int16(data * 32767).tobytes())
