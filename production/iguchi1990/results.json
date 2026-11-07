@@ -425,12 +425,12 @@
     "S07": {
       "id": "S07",
       "request_hash": "0f9ddcaf7eedfc763d2a671bc3c6b5a422ccdf9834ca6651c75eac0866987ba7",
-      "status": "queued",
+      "status": "polling",
       "generation_attempts": 1,
       "create_attempts": 1,
       "error": null,
       "last_create_attempt": 1,
-      "updated_at": "2026-11-07T10:14:12Z",
+      "updated_at": "2026-11-07T10:19:32Z",
       "video_id": "task_1ENJGI8NxPsWaJcYOqZpIt1jA8cjk7nu",
       "task_id": "task_1ENJGI8NxPsWaJcYOqZpIt1jA8cjk7nu",
       "requested_seconds": 7,
@@ -456,10 +456,32 @@
     "S08": {
       "id": "S08",
       "request_hash": "7e8cf71a9961d63a6bd45c1836f2554f46cf5baa216f5d73d54529414acaf5fe",
-      "status": "waiting_create_slot",
-      "generation_attempts": 0,
-      "create_attempts": 0,
-      "error": null
+      "status": "queued",
+      "generation_attempts": 1,
+      "create_attempts": 1,
+      "error": null,
+      "last_create_attempt": 1,
+      "updated_at": "2026-11-07T10:19:32Z",
+      "video_id": "task_M0PuLZ9HN9RDOQrTD1c6UbmCgvu21fj9",
+      "task_id": "task_M0PuLZ9HN9RDOQrTD1c6UbmCgvu21fj9",
+      "requested_seconds": 7,
+      "requested_size": "720P",
+      "request": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the scene reference for 台南火车站月台. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 2> is the character reference for 23岁日本大学生虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 3> is the prop reference for 明信片与圆珠笔. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n【C01锚点】23岁日本女大学生,黑色及肩直发,清秀明亮,浅色短袖衬衫牛仔裤,深蓝色大旅行背包,笑容温暖 A wholly fictional, non-identifiable actor; never reproduce a real photograph or person's likeness.\n\nInside a moving 1990 passenger train, a close three-quarter view of the fictional young traveler seated beside the window. She holds a postcard in one hand and watches rice fields and palm trees slide past outside. Camera: gentle interior tracking move parallel to the window, no zoom-only movement. Real motion: landscape parallax, window reflections travel across her face, paper corner flutters in the air from the vent. No readable text on the postcard.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19900401,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S05-tainan-platform.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C01-mariko.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P03-postcard.png"
+        ]
+      },
+      "created_at": "2026-11-07T10:25:12Z"
     },
     "S09": {
       "id": "S09",
@@ -689,8 +711,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T10:19:31Z",
-  "last_create_epoch": 1794046771.6969802,
+  "updated_at": "2026-11-07T10:25:12Z",
+  "last_create_epoch": 1794047112.9875247,
   "pending_shots": [
     "S06",
     "S07",
@@ -721,5 +743,5 @@
   "failed_shots": [],
   "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
   "provider_minimum_create_interval_seconds": 300.0,
-  "last_successful_create_epoch": 1794046771.6969802
+  "last_successful_create_epoch": 1794047112.9875247
 }
