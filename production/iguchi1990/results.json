@@ -2172,12 +2172,12 @@
     "S29": {
       "id": "S29",
       "request_hash": "99ad8f0cdd4cf32a940752cb5f4ade75a2af7c9b8831cd7d0c2749c868ee6e9d",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 1,
       "error": null,
       "last_create_attempt": 1,
-      "updated_at": "2026-11-07T13:26:08Z",
+      "updated_at": "2026-11-07T13:43:24Z",
       "video_id": "task_ucR48yVwOIETnZ3KvQ2AepKs9CNy8whi",
       "task_id": "task_ucR48yVwOIETnZ3KvQ2AepKs9CNy8whi",
       "requested_seconds": 6,
@@ -2196,17 +2196,63 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C04-hisako.png"
         ]
       },
-      "created_at": "2026-11-07T13:31:07Z"
+      "created_at": "2026-11-07T13:31:07Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ucR48yVwOIETnZ3KvQ2AepKs9CNy8whi.mp4",
+      "completed_response": {
+        "completed_at": 1794058604,
+        "created_at": 1794058267,
+        "error": null,
+        "expires_at": null,
+        "id": "task_ucR48yVwOIETnZ3KvQ2AepKs9CNy8whi",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794058288,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ucR48yVwOIETnZ3KvQ2AepKs9CNy8whi.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "6",
+      "bytes": 2902934,
+      "sha256": "0a925babb3abbad15a23d618d104bdde30fcff3d289385d7963a0b01a8243d3e",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2902934,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 13,
+          "mean_difference": 0.102215,
+          "max_difference": 0.14366,
+          "moving_transitions": 12,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S29.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S30": {
       "id": "S30",
       "request_hash": "534ab9ba25428a2c538f958562bcb0db8ef3b99573e03e7c1776205ef4359d77",
-      "status": "queued",
+      "status": "polling",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T13:36:08Z",
+      "updated_at": "2026-11-07T13:43:21Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_81OBw2kkT700aDS2OneNeXRKTMjjTcvb",
@@ -2282,7 +2328,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:43:20Z",
+  "updated_at": "2026-11-07T13:43:24Z",
   "last_create_epoch": 1794058867.777677,
   "pending_shots": [
     "S06",
