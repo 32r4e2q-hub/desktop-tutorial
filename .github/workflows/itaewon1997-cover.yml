@@ -1,0 +1,46 @@
+name: Itaewon 1997 · cover candidate frames
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [arena/e8c2f70d-desktop-tutorial]
+    paths:
+      - production/itaewon1997/COVER_REQUEST
+
+permissions:
+  contents: write
+
+jobs:
+  frames:
+    if: github.ref == 'refs/heads/arena/e8c2f70d-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/e8c2f70d-desktop-tutorial
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --disable-pip-version-check pillow numpy av
+      - run: python production/itaewon1997/cover_frames.py
+      - name: Publish frames
+        run: |
+          set -euo pipefail
+          branch=arena/e8c2f70d-desktop-tutorial
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f production/itaewon1997/qa_final/cover_frames
+          git diff --cached --quiet && exit 0
+          git commit -m "itaewon1997: cover candidate frames"
+          for attempt in 1 2 3; do
+            git fetch --deepen=10 origin "$branch"
+            git rebase -X theirs "origin/$branch" || { git rebase --abort; exit 1; }
+            git push origin "$branch" && exit 0
+            sleep 3
+          done
+          exit 1
