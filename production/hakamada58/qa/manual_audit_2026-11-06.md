@@ -33,4 +33,4 @@ Status: in progress. This is a second-pass review after the user's continuity/wa
 
 ## Frame audit
 
-The all-frame audit workflow produced four time-labelled sheets per shot (144 frames at 24 fps). Human review of all original-shot sheets is now complete; existing automated checks report no black frames or large changes except the issues described above (S23/S28 transitions and S28 opening black interval). New retakes for S04, S12, S20, S23, S22, and S27–S29 must be regenerated and audited again across all 144 frames. Nine-frame sheets remain preliminary only; no revised retake is finally accepted yet.
+The original all-frame audit produced four time-labelled sheets per shot (144 frames at 24 fps), and human review of the original-shot sheets is complete. A refreshed all-30-shot audit is now running as workflow `42316053718` against the current retake receipts. It must be manually reviewed for the updated S04, S12, S20, S22, S23, S27, S28, and S29 sources; S04 and S12 in particular remain subject to their strict visual criteria. Nine-frame sheets are preliminary only; no revised retake is finally accepted until the refreshed 144-frame audit is reviewed.
