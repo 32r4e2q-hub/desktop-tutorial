@@ -29,6 +29,16 @@ class IguchiRenderTests(unittest.TestCase):
             self.assertEqual(clips[shot["id"]]["target_duration"], shot["duration"])
             self.assertEqual(clips[shot["id"]]["alignment"], "shot-locked")
 
+    def test_all_thirty_selected_voice_files_are_ready_and_hash_bound(self):
+        manifest = json.loads((HERE / "audio" / "manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["voice_id"], "voice-02")
+        self.assertEqual(len(manifest["clips"]), 30)
+        for row in manifest["clips"]:
+            self.assertEqual(row["status"], "ready", row["id"])
+            audio = HERE / "audio" / row["file"]
+            self.assertTrue(audio.is_file(), row["id"])
+            self.assertEqual(render.sha256(audio), row["sha256"], row["id"])
+
     def test_narration_integrity_and_date_qualified_parole_status(self):
         self.assertEqual(self.story["narration_stats"]["hanzi_count"], 658)
         self.assertAlmostEqual(self.story["narration_stats"]["hanzi_per_second"], 658 / 180, places=3)
