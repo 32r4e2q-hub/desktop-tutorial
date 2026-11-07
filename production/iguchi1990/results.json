@@ -1789,7 +1789,7 @@
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T12:41:07Z",
+      "updated_at": "2026-11-07T13:42:11Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_N9r2FlsFI7vuLEWBRWBj3wJeyNpqmT5t",
@@ -1810,17 +1810,44 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C07-police-crowd.png"
         ]
       },
-      "created_at": "2026-11-07T12:46:06Z"
+      "created_at": "2026-11-07T12:46:06Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_N9r2FlsFI7vuLEWBRWBj3wJeyNpqmT5t.mp4",
+      "completed_response": {
+        "completed_at": 1794055769,
+        "created_at": 1794055566,
+        "error": null,
+        "expires_at": null,
+        "id": "task_N9r2FlsFI7vuLEWBRWBj3wJeyNpqmT5t",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794055602,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_N9r2FlsFI7vuLEWBRWBj3wJeyNpqmT5t.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "7",
+      "bytes": 3243478,
+      "sha256": "04747129f2b2ea57b13e305c3362fd0d88ce513656d28bbb845683a8d91ff0ff"
     },
     "S25": {
       "id": "S25",
       "request_hash": "b937f477fa6e28a5cc1f7f98b2462b2152f16acad47d8910be88856729257c97",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T12:51:07Z",
+      "updated_at": "2026-11-07T13:42:12Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_5vycvMpyFbFt5sZxWb84mczZSwhQQCtK",
@@ -1842,7 +1869,53 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C03-liu-suspect.png"
         ]
       },
-      "created_at": "2026-11-07T12:56:06Z"
+      "created_at": "2026-11-07T12:56:06Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_5vycvMpyFbFt5sZxWb84mczZSwhQQCtK.mp4",
+      "completed_response": {
+        "completed_at": 1794056480,
+        "created_at": 1794056166,
+        "error": null,
+        "expires_at": null,
+        "id": "task_5vycvMpyFbFt5sZxWb84mczZSwhQQCtK",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794056198,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_5vycvMpyFbFt5sZxWb84mczZSwhQQCtK.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "6",
+      "bytes": 1506537,
+      "sha256": "eeef2f139c8f2d0b973776d9db6fcabed6a7ffe22c4b3c2e01c2eb0e0c7472b6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1506537,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 13,
+          "mean_difference": 0.013304,
+          "max_difference": 0.017719,
+          "moving_transitions": 12,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S25.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S26": {
       "id": "S26",
@@ -2052,7 +2125,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:42:07Z",
+  "updated_at": "2026-11-07T13:42:12Z",
   "last_create_epoch": 1794058867.777677,
   "pending_shots": [
     "S06",
