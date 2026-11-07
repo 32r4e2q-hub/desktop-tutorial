@@ -159,10 +159,13 @@
     "S06": {
       "id": "S06",
       "request_hash": "8a6aec02dc4123b5784355abc1963d9ee59717e4cc2b9152542ed61fd36e337c",
-      "status": "waiting_create_slot",
+      "status": "rate_limited",
       "generation_attempts": 0,
-      "create_attempts": 0,
-      "error": null
+      "create_attempts": 1,
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 09:30:06. (request id: 20261107092608268329872q4AYQZwl) (code=rate_limit_exceeded)",
+      "last_create_attempt": 1,
+      "updated_at": "2026-11-07T09:26:08Z",
+      "applied_cooldown_seconds": 239.0
     },
     "S07": {
       "id": "S07",
@@ -406,6 +409,6 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T09:25:07Z",
-  "last_create_epoch": 1794043507.148113
+  "updated_at": "2026-11-07T09:26:08Z",
+  "last_create_epoch": 1794043568.385666
 }
