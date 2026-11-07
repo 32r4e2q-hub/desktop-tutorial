@@ -126,6 +126,22 @@ class Iguchi1990PlanTests(unittest.TestCase):
         self.assertEqual(stricter_cooldown, 600.0)
         self.assertEqual(stricter_doc["rate_policy"]["effective_creation_interval_seconds"], 600.0)
 
+    def test_forced_retry_archives_terminal_failure_and_clears_provider_task_id(self):
+        shot = next(row for row in self.project["shots"] if row["id"] == "S09")
+        wanted_hash = generate.request_hash(self.project, shot)
+        old = {"id": "S09", "request_hash": wanted_hash, "status": "failed",
+               "video_id": "task_upload_timeout", "generation_attempts": 1,
+               "create_attempts": 1, "error": "upload timed out"}
+        doc = {"shots": {"S09": old}}
+        row = generate._new_task_row(doc, shot, wanted_hash)
+        retried = generate.prepare_forced_retry(doc, shot, row, wanted_hash)
+        self.assertEqual(retried["status"], "waiting_create_slot")
+        self.assertNotIn("video_id", retried)
+        self.assertEqual(retried["generation_attempts"], 1)
+        self.assertEqual(retried["create_attempts"], 1)
+        self.assertEqual(doc["previous_results"]["S09"], [old])
+        self.assertEqual(doc["shots"]["S09"], retried)
+
     def test_prompt_order_is_style_references_role_scene_negative(self):
         shot = self.project["shots"][0]
         prompt = generate.full_prompt(self.project, shot)

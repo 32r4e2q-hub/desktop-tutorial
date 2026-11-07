@@ -454,6 +454,23 @@ def _new_task_row(doc: dict, shot: dict, wanted_hash: str) -> dict:
         return row
 
 
+def prepare_forced_retry(doc: dict, shot: dict, row: dict, wanted_hash: str) -> dict:
+    """Archive a terminal result and allow an explicitly forced, quota-limited retry."""
+    if row.get("status") not in {"completed", "failed", "quota_blocked", "create_failed"}:
+        return row
+    sid = shot["id"]
+    with LOCK:
+        doc.setdefault("previous_results", {}).setdefault(sid, []).append(dict(row))
+        fresh = {
+            "id": sid, "request_hash": wanted_hash, "status": "waiting_create_slot",
+            "generation_attempts": int(row.get("generation_attempts", 0)),
+            "create_attempts": int(row.get("create_attempts", 0)),
+            "error": None, "forced_retry_of": row.get("video_id"),
+        }
+        doc.setdefault("shots", {})[sid] = fresh
+        return fresh
+
+
 def create_with_gate(shot: dict, payload: dict, doc: dict, gate: RequestGate,
                      deadline: float, api_key: str) -> dict:
     sid = shot["id"]
@@ -741,12 +758,8 @@ def run_generation(project: dict, options: dict, publish: bool) -> int:
         sid = shot["id"]
         wanted_hash = request_hash(project, shot)
         row = _new_task_row(doc, shot, wanted_hash)
-        if force and row.get("status") == "completed":
-            with LOCK:
-                doc.setdefault("previous_results", {}).setdefault(sid, []).append(dict(row))
-                doc["shots"][sid] = {"id": sid, "request_hash": wanted_hash,
-                                     "generation_attempts": int(row.get("generation_attempts", 0))}
-            row = doc["shots"][sid]
+        if force:
+            row = prepare_forced_retry(doc, shot, row, wanted_hash)
         if row.get("status") == "completed" and row.get("video_url") and row.get("sha256") and not force:
             try:
                 download_and_verify(shot, row, doc, api_key)
