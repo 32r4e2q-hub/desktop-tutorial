@@ -394,13 +394,33 @@
     "S06": {
       "id": "S06",
       "request_hash": "8a6aec02dc4123b5784355abc1963d9ee59717e4cc2b9152542ed61fd36e337c",
-      "status": "rate_limited",
-      "generation_attempts": 0,
-      "create_attempts": 3,
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261107093108930820900hXPwyeab) (code=rate_limit_exceeded)",
-      "last_create_attempt": 3,
-      "updated_at": "2026-11-07T09:31:09Z",
-      "applied_cooldown_seconds": 61.0
+      "status": "queued",
+      "generation_attempts": 1,
+      "create_attempts": 4,
+      "error": null,
+      "last_create_attempt": 4,
+      "updated_at": "2026-11-07T10:14:11Z",
+      "video_id": "task_upJZTHUKCOcc9sMQJlgmQosuogkF9Qvo",
+      "task_id": "task_upJZTHUKCOcc9sMQJlgmQosuogkF9Qvo",
+      "requested_seconds": 5,
+      "requested_size": "720P",
+      "request": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the scene reference for 台南司机家客厅. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 2> is the character reference for 23岁日本大学生虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 3> is the character reference for 台南李姓司机虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 4> is the prop reference for 明信片与圆珠笔. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n【C01锚点】23岁日本女大学生,黑色及肩直发,清秀明亮,浅色短袖衬衫牛仔裤,深蓝色大旅行背包,笑容温暖 A wholly fictional, non-identifiable actor; never reproduce a real photograph or person's likeness.\n\n【C02锚点】50岁台湾中年男子,黝黑圆脸,短袖衬衫,笑容朴实热情 A fictionalized, non-identifiable Taiwanese man; no real-person likeness.\n\nInside a modest Tainan family living room at golden dusk. A small electric fan turns slowly, fruit rests on a low table, and a fictional local family member sets down a plate. The student sits at the wooden table and writes a postcard with a ballpoint pen while the kind driver listens nearby. Camera: calm medium shot that glides toward the postcard, whose writing is only abstract marks. Real motion: fan blades turn, curtain breathes, pen moves. No legible writing.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19900412,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S04-lee-family-living-room.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C01-mariko.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C02-lee-driver.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P03-postcard.png"
+        ]
+      },
+      "created_at": "2026-11-07T10:14:11Z"
     },
     "S07": {
       "id": "S07",
@@ -646,8 +666,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T10:14:10Z",
-  "last_create_epoch": 1794043869.1877267,
+  "updated_at": "2026-11-07T10:14:11Z",
+  "last_create_epoch": 1794046451.756938,
   "pending_shots": [
     "S06",
     "S07",
@@ -677,5 +697,6 @@
   ],
   "failed_shots": [],
   "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
-  "provider_minimum_create_interval_seconds": 300.0
+  "provider_minimum_create_interval_seconds": 300.0,
+  "last_successful_create_epoch": 1794046451.756938
 }
