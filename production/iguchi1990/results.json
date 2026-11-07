@@ -516,10 +516,30 @@
     "S10": {
       "id": "S10",
       "request_hash": "448d62df76cca58166e010d234d415f432ede7971ffcbb7d402757769afc1067",
-      "status": "waiting_create_slot",
-      "generation_attempts": 0,
-      "create_attempts": 0,
-      "error": null
+      "status": "queued",
+      "generation_attempts": 1,
+      "create_attempts": 1,
+      "error": null,
+      "last_create_attempt": 1,
+      "updated_at": "2026-11-07T10:30:32Z",
+      "video_id": "task_ZXqC7uJtlNln8SyDIg9rLr08PDj3W47q",
+      "task_id": "task_ZXqC7uJtlNln8SyDIg9rLr08PDj3W47q",
+      "requested_seconds": 5,
+      "requested_size": "720P",
+      "request": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the scene reference for 1990年桃园机场到达大厅. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\nA single 1990 airport check-in counter in cool gray light. A blank boarding pass lies beside a clerk's paper passenger list; the clerk checks the page, pauses and looks toward the quiet arrivals hall as no traveler appears. Keep every mark abstract and unreadable; do not imply a cancellation or give an airline name. Camera: close overhead move slowly down toward the unmarked passenger list. Real motion: paper edges lift in air from a fan. No legible text, dates, logos or modern screens.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19900416,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S02-taoyuan-airport.png"
+        ]
+      },
+      "created_at": "2026-11-07T10:36:03Z"
     },
     "S11": {
       "id": "S11",
@@ -733,8 +753,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T10:30:31Z",
-  "last_create_epoch": 1794047431.0076532,
+  "updated_at": "2026-11-07T10:36:03Z",
+  "last_create_epoch": 1794047763.213296,
   "pending_shots": [
     "S06",
     "S07",
@@ -765,5 +785,5 @@
   "failed_shots": [],
   "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
   "provider_minimum_create_interval_seconds": 300.0,
-  "last_successful_create_epoch": 1794047431.0076532
+  "last_successful_create_epoch": 1794047763.213296
 }
