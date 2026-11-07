@@ -1706,12 +1706,12 @@
     "S23": {
       "id": "S23",
       "request_hash": "a2fec978e94788ac53cfe708cb02b3ae9ec0883bf3cfae52dd4d1f29a8575d6c",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T13:42:05Z",
+      "updated_at": "2026-11-07T13:42:07Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_reiqwauyjh1JRXQxf2QqUYKxlkGNmxRT",
@@ -1760,7 +1760,26 @@
       "reported_size": "720P",
       "reported_seconds": "7",
       "bytes": 2964856,
-      "sha256": "a47dd95eff7c3df6b915f9bc68bc29a7f468da7726840689816dc786776d8b18"
+      "sha256": "a47dd95eff7c3df6b915f9bc68bc29a7f468da7726840689816dc786776d8b18",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2964856,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 15,
+          "mean_difference": 0.10778,
+          "max_difference": 0.119727,
+          "moving_transitions": 14,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S23.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S24": {
       "id": "S24",
@@ -2033,7 +2052,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:42:06Z",
+  "updated_at": "2026-11-07T13:42:07Z",
   "last_create_epoch": 1794058867.777677,
   "pending_shots": [
     "S06",
