@@ -624,13 +624,13 @@
     "S09": {
       "id": "S09",
       "request_hash": "0a433416d9986304d6e46ecaef803a7870f12e42c899f933faf34aa64c5da461",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 2,
       "create_attempts": 2,
       "error": null,
       "forced_retry_of": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T15:28:12Z",
+      "updated_at": "2026-11-07T15:31:21Z",
       "video_id": "task_3ZsEd2nGqX49ntfGvLR3qKIri3KTIzWk",
       "task_id": "task_3ZsEd2nGqX49ntfGvLR3qKIri3KTIzWk",
       "requested_seconds": 6,
@@ -650,7 +650,54 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P02-yellow-taxi.png"
         ]
       },
-      "created_at": "2026-11-07T15:28:12Z"
+      "created_at": "2026-11-07T15:28:12Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_3ZsEd2nGqX49ntfGvLR3qKIri3KTIzWk.mp4",
+      "completed_response": {
+        "completed_at": 1794065478,
+        "created_at": 1794065292,
+        "error": null,
+        "expires_at": null,
+        "id": "task_3ZsEd2nGqX49ntfGvLR3qKIri3KTIzWk",
+        "internal_progress": 0,
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": null,
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794065323,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_3ZsEd2nGqX49ntfGvLR3qKIri3KTIzWk.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "6",
+      "bytes": 2881082,
+      "sha256": "eb538eb5959c1a6b7b03d455affb77431f9857788a0c58cdd6776d94fc038656",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2881082,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 13,
+          "mean_difference": 0.135111,
+          "max_difference": 0.239726,
+          "moving_transitions": 12,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S09.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -2298,7 +2345,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T15:28:12Z",
+  "updated_at": "2026-11-07T15:31:21Z",
   "last_create_epoch": 1794065292.867468,
   "pending_shots": [
     "S09"
