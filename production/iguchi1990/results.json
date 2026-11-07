@@ -700,12 +700,12 @@
     "S10": {
       "id": "S10",
       "request_hash": "448d62df76cca58166e010d234d415f432ede7971ffcbb7d402757769afc1067",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 1,
       "error": null,
       "last_create_attempt": 1,
-      "updated_at": "2026-11-07T10:30:32Z",
+      "updated_at": "2026-11-07T13:41:29Z",
       "video_id": "task_ZXqC7uJtlNln8SyDIg9rLr08PDj3W47q",
       "task_id": "task_ZXqC7uJtlNln8SyDIg9rLr08PDj3W47q",
       "requested_seconds": 5,
@@ -723,7 +723,53 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S02-taoyuan-airport.png"
         ]
       },
-      "created_at": "2026-11-07T10:36:03Z"
+      "created_at": "2026-11-07T10:36:03Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZXqC7uJtlNln8SyDIg9rLr08PDj3W47q.mp4",
+      "completed_response": {
+        "completed_at": 1794048149,
+        "created_at": 1794047763,
+        "error": null,
+        "expires_at": null,
+        "id": "task_ZXqC7uJtlNln8SyDIg9rLr08PDj3W47q",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794048020,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZXqC7uJtlNln8SyDIg9rLr08PDj3W47q.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 1,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "5",
+      "bytes": 1864508,
+      "sha256": "680dade4a5368f9ded6273ed3e6a78f9e4b365c8b8fe0a6553f04d67b1fedec0",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1864508,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 10,
+          "mean_difference": 0.132457,
+          "max_difference": 0.180081,
+          "moving_transitions": 9,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S10.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S11": {
       "id": "S11",
@@ -733,7 +779,7 @@
       "create_attempts": 1,
       "error": null,
       "last_create_attempt": 1,
-      "updated_at": "2026-11-07T10:36:04Z",
+      "updated_at": "2026-11-07T13:41:28Z",
       "video_id": "task_0YWjxrhtfVkopLHn8ZtBxcRCwbx9r1SL",
       "task_id": "task_0YWjxrhtfVkopLHn8ZtBxcRCwbx9r1SL",
       "requested_seconds": 7,
@@ -753,7 +799,34 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C07-police-crowd.png"
         ]
       },
-      "created_at": "2026-11-07T10:41:03Z"
+      "created_at": "2026-11-07T10:41:03Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_0YWjxrhtfVkopLHn8ZtBxcRCwbx9r1SL.mp4",
+      "completed_response": {
+        "completed_at": 1794048352,
+        "created_at": 1794048063,
+        "error": null,
+        "expires_at": null,
+        "id": "task_0YWjxrhtfVkopLHn8ZtBxcRCwbx9r1SL",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794048120,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_0YWjxrhtfVkopLHn8ZtBxcRCwbx9r1SL.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "7",
+      "bytes": 2905174,
+      "sha256": "c3508ba5545e89705516a352faf5d5f1e3b212ff69cb6087e5d5446ae14a8e45"
     },
     "S12": {
       "id": "S12",
@@ -1408,7 +1481,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:41:25Z",
+  "updated_at": "2026-11-07T13:41:29Z",
   "last_create_epoch": 1794058867.777677,
   "pending_shots": [
     "S06",
