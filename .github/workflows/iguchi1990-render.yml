@@ -226,49 +226,6 @@ jobs:
         if: ${{ failure() }}
         run: |
           set +e
-          if [ -s work/iguchi1990/sources/S08.mp4 ]; then
-            python - <<'PY'
-          import json
-          from pathlib import Path
-          import numpy as np
-          from PIL import Image, ImageDraw, ImageFont
-          from production.iguchi1990 import render
-          source = Path('work/iguchi1990/sources/S08.mp4')
-          duration = float(render.probe(source)['format']['duration'])
-          samples = []
-          metrics = []
-          for fraction in (0.16, 0.50, 0.84):
-              image = render._frame_png(source, min(duration - 0.06, duration * fraction))
-              samples.append(image.resize((640, 360), Image.Resampling.LANCZOS))
-              gray = np.asarray(samples[-1].convert('L'), dtype=np.uint8)
-              metrics.append({
-                  'fraction': fraction,
-                  'top_run': render._dark_edge_run(gray, False, axis=0, limit=79),
-                  'bottom_run': render._dark_edge_run(gray, True, axis=0, limit=79),
-                  'top_mean_32': float(gray[:32].mean()),
-                  'bottom_mean_32': float(gray[-32:].mean()),
-              })
-          sheet = Image.new('RGB', (1920, 390), (15, 18, 22))
-          draw = ImageDraw.Draw(sheet)
-          font = ImageFont.load_default()
-          for index, image in enumerate(samples):
-              x = index * 640
-              sheet.paste(image, (x, 30))
-              draw.text((x + 8, 7), f'S08 sample {index + 1}', fill='white', font=font)
-          target = Path('production/iguchi1990/qa/S08-runner-diagnostic.jpg')
-          target.parent.mkdir(parents=True, exist_ok=True)
-          sheet.save(target, quality=94, subsampling=0)
-          Path('production/iguchi1990/qa/S08-runner-diagnostic.json').write_text(
-              json.dumps(metrics, indent=2) + '\n', encoding='utf-8')
-          PY
-            git config user.name "arena-autopilot"
-            git config user.email "arena-autopilot@users.noreply.github.com"
-            git add -f production/iguchi1990/qa/S08-runner-diagnostic.jpg production/iguchi1990/qa/S08-runner-diagnostic.json
-            if ! git diff --cached --quiet; then
-              git commit -m "iguchi1990: preserve S08 matte diagnostics"
-              git push origin "HEAD:arena/36f9cd13-desktop-tutorial"
-            fi
-          fi
           if [ -s work/iguchi1990/render.log ]; then
             details="$(tail -n 30 work/iguchi1990/render.log | tr '\r\n' ' ')"
             details="${details//'%'/'%25'}"

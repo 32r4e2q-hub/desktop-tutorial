@@ -70,8 +70,22 @@ class IguchiRenderTests(unittest.TestCase):
             self.assertEqual(results["shots"][sid]["sha256"], spec["sha256"], sid)
             boxes = render._blur_spec(sid, spec["sha256"])
             self.assertTrue(boxes)
+            if sid == "S08":
+                self.assertEqual([box[4:] for box in boxes], [(0.0, 3.5), (3.5, 7.0)])
         with self.assertRaisesRegex(RuntimeError, "source changed since blur mask review"):
             render._blur_spec("S06", "0" * 64)
+
+    def test_matte_detector_tolerates_only_a_few_noisy_edge_rows(self):
+        gray = render.np.full((360, 640), 100, dtype=render.np.uint8)
+        gray[:31, :] = 0
+        gray[:4, ::10] = 32  # a sparse compression/lighting artifact at the edge
+        gray[-27:, :] = 0
+        gray[-3:, ::10] = 32
+        self.assertEqual(render._dark_edge_run(gray, False, axis=0, limit=79), 31)
+        self.assertEqual(render._dark_edge_run(gray, True, axis=0, limit=79), 27)
+        self.assertEqual(render._crop_values(
+            {"width": 1280, "height": 720}, {"axis": "horizontal", "first": 64, "last": 56}
+        ), (1280, 600, 0, 64))
 
     def test_source_gate_rejects_freeze_padding_and_frame_duplication(self):
         self.assertEqual(render.validate_source_motion("S01", {"duration": "5.0", "avg_frame_rate": "24/1"}, 120, 5), 120)

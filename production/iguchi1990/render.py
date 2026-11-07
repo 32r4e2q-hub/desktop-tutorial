@@ -44,7 +44,7 @@ BLUR_MASKS = {
     "S07": {"sha256": "67d1049c0c8cb53547b0afbe7ad39ad07f980cb6f740ec6f32ddf2e098bd6305",
             "boxes": [(80, 55, 500, 260)]},
     "S08": {"sha256": "cb9347dd379ab032d9b53d1313d08b321620070845f42b231596515f97315754",
-            "boxes": [(1060, 545, 600, 470)]},
+            "boxes": [(1060, 545, 600, 470, 0.0, 3.5), (1060, 420, 600, 550, 3.5, 7.0)]},
     "S09": {"sha256": "dd4464270bdce60836612ca33d4eecb572625704b6ca2ea4f5626bac0ee42e09",
             "boxes": [(620, 50, 720, 220, 0.0, 0.55), (620, 50, 240, 220, 0.55, 1.55),
                       (1060, 50, 300, 220, 0.55, 1.55), (620, 50, 720, 220, 1.55, 6.0),
@@ -233,7 +233,12 @@ def _dark_edge_run(gray: np.ndarray, reverse: bool, axis: int, limit: int) -> in
     for offset in range(min(limit, length)):
         index = length - 1 - offset if reverse else offset
         band = gray[:, index] if axis == 1 else gray[index, :]
-        if float(np.mean(band)) < 12 and float(np.std(band)) < 8 and float(np.mean(band < 20)) > 0.985:
+        mean, spread, dark_fraction = float(np.mean(band)), float(np.std(band)), float(np.mean(band < 20))
+        strict_black = mean < 12 and spread < 8 and dark_fraction > 0.985
+        # Generated letterbox edges can contain a few compression/lighting specks.
+        # Tolerate only the first six edge rows, then require a strict black run.
+        edge_noise = offset < 6 and mean < 12 and spread < 16 and dark_fraction > 0.80
+        if strict_black or edge_noise:
             count += 1
         else:
             break
