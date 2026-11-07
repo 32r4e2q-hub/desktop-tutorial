@@ -1922,14 +1922,35 @@
     "S27": {
       "id": "S27",
       "request_hash": "4a8d38efda7a87e2572f34abd028e3a56bc781acfc3767f32a3e009ac62665d3",
-      "status": "rate_limited",
-      "generation_attempts": 0,
-      "create_attempts": 1,
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 15:09:11. (request id: 2026110715091133494819941p8wEpH) (code=rate_limit_exceeded)",
-      "last_create_attempt": 1,
-      "updated_at": "2026-11-07T15:09:11Z",
+      "status": "queued",
+      "generation_attempts": 1,
+      "create_attempts": 2,
+      "error": null,
+      "last_create_attempt": 2,
+      "updated_at": "2026-11-07T15:09:12Z",
       "applied_cooldown_seconds": 300.0,
-      "provider_minimum_create_interval_seconds": 300.0
+      "provider_minimum_create_interval_seconds": 300.0,
+      "video_id": "task_4mOnVCZ7WVpiO4iUWsOEU4DuIScr0Iqy",
+      "task_id": "task_4mOnVCZ7WVpiO4iUWsOEU4DuIScr0Iqy",
+      "requested_seconds": 6,
+      "requested_size": "720P",
+      "request": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the scene reference for 东京黄昏窗台. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 2> is the character reference for 母亲井口久子虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 3> is the prop reference for 雨伞与手电筒. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 4> is the prop reference for 深蓝色大旅行背包. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n【C04锚点】50多岁日本中年女性,盘起短发,深色外套长裙,神情憔悴坚毅 A wholly fictional, non-identifiable Japanese mother; grief remains restrained and dignified, never a real-person likeness.\n\nA quiet private room in Tokyo, months after the case was identified. One fictional older Japanese woman sits alone at a clean wooden table. The only objects on the table are a folded plain umbrella, an old unmarked flashlight, one sealed blank kraft envelope and the same deep navy travel backpack seen earlier. She rests one hand beside the bag and looks down in silence, then turns toward the window. Close shot of her hand and the backpack, then a restrained three-quarter profile. Keep this a single clean room, no other people, no uniforms, no forensic tent, no laboratory, no medical equipment, no trays, no stains, no tissue, no bones, no body parts, no blood, no violence, no labels or readable writing. Soft, dignified, natural motion only.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19900404,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S16-tokyo-windowsill.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C04-hisako.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P05-umbrella-flashlight.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P01-navy-backpack.png"
+        ]
+      },
+      "created_at": "2026-11-07T15:14:11Z"
     },
     "S28": {
       "id": "S28",
@@ -2186,13 +2207,13 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T15:09:11Z",
-  "last_create_epoch": 1794064151.457453,
+  "updated_at": "2026-11-07T15:14:11Z",
+  "last_create_epoch": 1794064451.9285042,
   "pending_shots": [],
   "failed_shots": [],
   "queue_error": null,
   "provider_minimum_create_interval_seconds": 300.0,
-  "last_successful_create_epoch": 1794063851.6143281,
+  "last_successful_create_epoch": 1794064451.9285042,
   "provider_blocked_until_epoch": 1794064451.4575145,
   "previous_results": {
     "S09": [
