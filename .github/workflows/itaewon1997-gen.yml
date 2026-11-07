@@ -1,0 +1,140 @@
+name: Itaewon 1997 · Agnes 2.5 Flash full production
+
+on:
+  push:
+    branches: [arena/e8c2f70d-desktop-tutorial]
+    paths:
+      - production/itaewon1997/GEN_REQUEST
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON request; mode full runs all 30 shots continuously and reuses saved completed tasks
+        required: true
+        default: '{"mode":"full","workers":5}'
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: itaewon1997-agnes-full-production
+  cancel-in-progress: false
+
+jobs:
+  production:
+    if: github.ref == 'refs/heads/arena/e8c2f70d-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 355
+    env:
+      AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/e8c2f70d-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install video inspection dependencies
+        run: python -m pip install --disable-pip-version-check pillow av
+
+      - name: Resolve and constrain the production request
+        env:
+          DISPATCH_PAYLOAD: ${{ inputs.payload }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            payload="$DISPATCH_PAYLOAD"
+          else
+            payload="$(cat production/itaewon1997/GEN_REQUEST)"
+          fi
+          python - "$payload" <<'PY' >> "$GITHUB_ENV"
+          import json, sys
+          request=json.loads(sys.argv[1])
+          mode=request.get('mode')
+          shots=[x.strip() for x in request.get('only','').split(',') if x.strip()]
+          all_ids=[f'S{i:02d}' for i in range(1,31)]
+          if mode=='full':
+              if shots:
+                  raise SystemExit('Full mode must leave only empty so all 30 shots run')
+          elif mode=='canary':
+              if shots!=['S01']:
+                  raise SystemExit('Canary mode is restricted to S01')
+          elif mode=='batch':
+              if not 1<=len(shots)<=5 or len(set(shots))!=len(shots):
+                  raise SystemExit('Batch mode accepts 1–5 distinct shots')
+              indices=[all_ids.index(s) if s in all_ids else -99 for s in shots]
+              if indices!=list(range(indices[0],indices[0]+len(indices))):
+                  raise SystemExit('Batch shots must be consecutive and in script order')
+          else:
+              raise SystemExit('mode must be full, canary, or batch')
+          workers=min(5,max(1,int(request.get('workers',5 if mode=='full' else 1))))
+          print('SHOT_IDS='+','.join(shots))
+          print('WORKERS='+str(workers))
+          print('RUN_MODE='+mode)
+          PY
+
+      - name: Validate storyboard, references, and offline tests
+        run: |
+          set -euo pipefail
+          python production/itaewon1997/build_story.py
+          python production/itaewon1997/generate_clips.py --validate
+          python production/tests/test_itaewon1997.py
+          test -s production/itaewon1997/reference/revision.txt
+          test -s production/itaewon1997/reference/approvals.json
+
+      - name: Generate or resume all requested reference-conditioned motion clips
+        run: python production/itaewon1997/generate_clips.py --only "$SHOT_IDS" --workers "$WORKERS" --budget-hours 4.5
+
+      - name: Archive generated receipts for recovery
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: itaewon1997-receipts-${{ github.run_id }}
+          path: |
+            production/itaewon1997/results.json
+            production/itaewon1997/qa/*.jpg
+            production/itaewon1997/qa/*.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish receipts and visual QA sheets
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branch=arena/e8c2f70d-desktop-tutorial
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global http.version HTTP/1.1
+          paths=()
+          [ ! -f production/itaewon1997/results.json ] || paths+=(production/itaewon1997/results.json)
+          [ ! -d production/itaewon1997/qa ] || paths+=(production/itaewon1997/qa)
+          if [ ${#paths[@]} -eq 0 ]; then echo "No result artifacts to publish"; exit 0; fi
+          git add -f -- "${paths[@]}"
+          if git diff --cached --quiet -- "${paths[@]}"; then
+            echo "No new receipt or QA changes"
+            exit 0
+          fi
+          git commit -m "itaewon1997: checkpoint full-production receipts and QA"
+          for attempt in 1 2 3; do
+            git fetch --deepen=10 origin "$branch"
+            if ! git rebase -X theirs "origin/$branch"; then
+              git rebase --abort || true
+              echo "Could not safely rebase the receipt checkpoint" >&2
+              exit 1
+            fi
+            if git push origin "$branch"; then
+              echo "Published generated receipts on attempt $attempt"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Unable to publish generated receipts after three attempts" >&2
+          exit 1
