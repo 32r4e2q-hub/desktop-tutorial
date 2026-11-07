@@ -1,7 +1,7 @@
-run=42384006337 attempt=1 ref=arena/36f9cd13-desktop-tutorial sha=ac7e29baeedd839105ede31e0adf83df464a026c
-started 2026-11-07T14:58:06Z
+run=42386264278 attempt=1 ref=arena/36f9cd13-desktop-tutorial sha=45ed17a45299cf3642e6d2f662e2b90c9341c2f1
+started 2026-11-07T15:25:32Z
 Python 3.14.4
-payload={"mode":"clips","workers":1,"only":["S09","S23","S27"],"force":true,"time_budget_minutes":270}
+payload={"mode":"clips","workers":1,"only":["S09"],"force":true,"time_budget_minutes":270}
 Built 30 shots / 180s; reference package: check reference/manifest.json
 test_airport_and_night_market_are_separate_reference_assets (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_airport_and_night_market_are_separate_reference_assets) ... ok
 test_every_shot_has_its_own_caption_audio_slot_and_no_bgm (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_every_shot_has_its_own_caption_audio_slot_and_no_bgm) ... ok
@@ -15,7 +15,7 @@ test_reference_gate_fails_closed (production.tests.test_iguchi1990.Iguchi1990Pla
 test_retry_after_extends_provider_interval_and_persists_cooldown (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_retry_after_extends_provider_interval_and_persists_cooldown) ... ok
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.239s
+Ran 10 tests in 0.308s
 
 OK
 VALID storyboard: 30 shots, 180 seconds, agnes-video-2.5-flash, 720P source, 16:9, shot-locked narration.
@@ -24,54 +24,9 @@ reference gate passed; all image files are approved and hash-matched
 ffmpeg version n9.0.2-17-g2a571b6068-20260930 Copyright (c) 2000-2026 the FFmpeg developers
 ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe
 agnes_key_present=yes
-[arena/36f9cd13-desktop-tutorial ea7a8a7] iguchi1990: S09 checkpoint [skip-iguchi1990]
- 1 file changed, 264 insertions(+), 237 deletions(-)
-[14:58:13] S09: accepted by Agnes (task task_tw86PLl…); next create waits at least 300s
-[14:58:24] status=pending progress=0% (elapsed 10s)
-[14:58:42] status=in_progress progress=10% (elapsed 29s)
-[14:58:51] poll: HTTP 429: too many video status queries (request id: 20261107145851792577057pNzYgklX) (code=429) [1/24]
-[14:59:54] poll: HTTP 429: too many video status queries (request id: 20261107145954281753541FvD2mPUN) (code=429) [1/24]
-[15:00:59] poll: HTTP 429: too many video status queries (request id: 2026110715005987925038wMxnILbv) (code=429) [1/24]
-[15:02:08] poll: HTTP 429: too many video status queries (request id: 20261107150208497564688FXe9pamz) (code=429) [1/24]
-[15:03:11] poll: HTTP 429: too many video status queries (request id: 20261107150311103289668a6spZqf3) (code=429) [1/24]
-[arena/36f9cd13-desktop-tutorial 139bb1e] iguchi1990: S23 checkpoint [skip-iguchi1990]
- 1 file changed, 31 insertions(+), 9 deletions(-)
-[15:04:12] S23: accepted by Agnes (task task_dwpRQxE…); next create waits at least 300s
-[15:04:30] poll: HTTP 429: too many video status queries (request id: 20261107150430782485142Uo7vHJ9A) (code=429) [1/24]
-[15:05:31] status=in_progress progress=90% (elapsed 437s)
-[15:05:35] poll: HTTP 429: too many video status queries (request id: 20261107150535546703488cpbua087) (code=429) [1/24]
-[15:06:47] poll: HTTP 429: too many video status queries (request id: 20261107150647251774136O3QI2okE) (code=429) [1/24]
-[15:07:47] status=failed progress=100% (elapsed 574s)
-[arena/36f9cd13-desktop-tutorial be38b66] iguchi1990: S09 checkpoint [skip-iguchi1990]
- 1 file changed, 7 insertions(+), 5 deletions(-)
-[15:07:49] S09: failed: Video task failed: upload timed out (code=upload_timeout)
-[arena/36f9cd13-desktop-tutorial 0437225] iguchi1990: S27 checkpoint [skip-iguchi1990]
- 1 file changed, 9 insertions(+), 7 deletions(-)
-[15:09:12] S27: provider rate limit; honoring 300s cooldown, effective create interval 300s
-[arena/36f9cd13-desktop-tutorial f9ddf81] iguchi1990: S27 checkpoint [skip-iguchi1990]
- 1 file changed, 31 insertions(+), 10 deletions(-)
-[15:14:13] S27: accepted by Agnes (task task_4mOnVCZ…); next create waits at least 300s
-[15:14:24] status=completed progress=100% (elapsed 11s)
-[arena/36f9cd13-desktop-tutorial c10dd39] iguchi1990: S23 checkpoint [skip-iguchi1990]
- 2 files changed, 50 insertions(+), 4 deletions(-)
-[15:14:28] S23: downloaded and decoded (2361857 bytes, 2848509f1444…)
-[15:14:28] status=pending progress=0% (elapsed 0s)
-[15:14:44] poll: HTTP 429: too many video status queries (request id: 20261107151444340139081t0cWgqww) (code=429) [1/24]
-[15:15:44] status=in_progress progress=10% (elapsed 76s)
-[15:15:51] poll: HTTP 429: too many video status queries (request id: 20261107151551454005062eNJS04n0) (code=429) [1/24]
-[15:17:00] poll: HTTP 429: too many video status queries (request id: 202611071517008765667674gBT5N6J) (code=429) [1/24]
-[15:18:24] poll: HTTP 429: too many video status queries (request id: 202611071518246880457578ekcPJ3) (code=429) [1/24]
-[15:19:31] poll: HTTP 429: too many video status queries (request id: 202611071519312765302079yNkUk72) (code=429) [1/24]
-[15:20:36] poll: HTTP 429: too many video status queries (request id: 20261107152036202258612BGNHCYBu) (code=429) [1/24]
-[15:21:36] status=in_progress progress=90% (elapsed 428s)
-[15:22:08] poll: HTTP 429: too many video status queries (request id: 20261107152208524179586IwmgOnZc) (code=429) [1/24]
-[15:23:08] status=completed progress=100% (elapsed 520s)
-[arena/36f9cd13-desktop-tutorial a5c1776] iguchi1990: S27 checkpoint [skip-iguchi1990]
- 2 files changed, 50 insertions(+), 4 deletions(-)
-[15:23:12] S27: downloaded and decoded (1924953 bytes, 42a75b1dd0b4…)
-[arena/36f9cd13-desktop-tutorial 13c58d1] iguchi1990: production checkpoint [skip-iguchi1990]
- 1 file changed, 8 insertions(+), 4 deletions(-)
-[15:23:13] Generation paused: 1 clip(s) pending; accepted task IDs remain resumable.
-[15:23:13] S09: Agnes task failed — Video task failed: upload timed out (code=upload_timeout)
+[arena/36f9cd13-desktop-tutorial 4348699] iguchi1990: production checkpoint [skip-iguchi1990]
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+[15:25:41] Generation paused: 1 clip(s) pending; accepted task IDs remain resumable.
+[15:25:41] S09: failed — Video task failed: upload timed out (code=upload_timeout)
 generator_exit=1
 stage=finished exit=1
