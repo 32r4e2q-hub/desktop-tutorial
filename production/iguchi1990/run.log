@@ -1,0 +1,125 @@
+run=42358139599 attempt=1 ref=arena/36f9cd13-desktop-tutorial sha=ab1c2138a440d141476a8db5d314b4ee04b5ee0a
+started 2026-11-07T09:04:59Z
+Python 3.14.4
+payload={"mode":"clips","workers":2}
+Built 30 shots / 180s; reference package: check reference/manifest.json
+test_airport_and_night_market_are_separate_reference_assets (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_airport_and_night_market_are_separate_reference_assets) ... ok
+test_every_shot_has_its_own_caption_audio_slot_and_no_bgm (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_every_shot_has_its_own_caption_audio_slot_and_no_bgm) ... ok
+test_exact_30_shots_and_180_second_contiguous_timeline (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_exact_30_shots_and_180_second_contiguous_timeline) ... ok
+test_motion_probe_flags_frozen_frames (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_motion_probe_flags_frozen_frames) ... ok
+test_narration_hanzi_rate_matches_target (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_narration_hanzi_rate_matches_target) ... ok
+test_offline_project_and_agnes_payload_validate (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_offline_project_and_agnes_payload_validate) ... ok
+test_prompt_order_is_style_references_role_scene_negative (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_prompt_order_is_style_references_role_scene_negative) ... ok
+test_reference_gate_fails_closed (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_reference_gate_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.220s
+
+OK
+VALID storyboard: 30 shots, 180 seconds, agnes-video-2.5-flash, 720P source, 16:9, shot-locked narration.
+Reference gate: 29/29 approved.
+reference gate passed; all image files are approved and hash-matched
+ffmpeg version n9.0.2-17-g2a571b6068-20260930 Copyright (c) 2000-2026 the FFmpeg developers
+ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe
+agnes_key_present=yes
+[arena/36f9cd13-desktop-tutorial 92cf0ac] iguchi1990: S01 checkpoint [skip-iguchi1990]
+ 1 file changed, 319 insertions(+)
+ create mode 100644 production/iguchi1990/results.json
+[09:05:06] S01: accepted by Agnes (task task_J4p9EtW…); next create waits at least 61s
+[arena/36f9cd13-desktop-tutorial 526bdec] iguchi1990: S02 checkpoint [skip-iguchi1990]
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+[09:06:05] status=pending progress=0% (elapsed 59s)
+[09:06:06] S02: provider rate limit; honoring 239s cooldown
+[arena/36f9cd13-desktop-tutorial 0ef8448] iguchi1990: S02 checkpoint [skip-iguchi1990]
+ 1 file changed, 29 insertions(+), 9 deletions(-)
+[09:10:06] S02: accepted by Agnes (task task_xq5Qpgi…); next create waits at least 61s
+[arena/36f9cd13-desktop-tutorial 45dabea] iguchi1990: S03 checkpoint [skip-iguchi1990]
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+[09:11:06] status=pending progress=0% (elapsed 60s)
+[09:11:07] S03: provider rate limit; honoring 239s cooldown
+[09:15:05] poll: HTTP 429: too many video status queries (request id: 202611070915054485470270Ka7Bbe5) (code=429) [1/24]
+[arena/36f9cd13-desktop-tutorial dfde73c] iguchi1990: S03 checkpoint [skip-iguchi1990]
+ 1 file changed, 29 insertions(+), 9 deletions(-)
+[09:15:06] S03: accepted by Agnes (task task_eYtItk7…); next create waits at least 61s
+[arena/36f9cd13-desktop-tutorial f054c12] iguchi1990: S04 checkpoint [skip-iguchi1990]
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+[09:16:08] S04: provider rate limit; honoring 239s cooldown
+[arena/36f9cd13-desktop-tutorial db7678e] iguchi1990: S04 checkpoint [skip-iguchi1990]
+ 1 file changed, 28 insertions(+), 9 deletions(-)
+[09:20:07] S04: accepted by Agnes (task task_WGF4CnD…); next create waits at least 61s
+[arena/36f9cd13-desktop-tutorial d74f6be] iguchi1990: S05 checkpoint [skip-iguchi1990]
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+[09:21:08] S05: provider rate limit; honoring 239s cooldown
+[arena/36f9cd13-desktop-tutorial e90ed18] iguchi1990: S05 checkpoint [skip-iguchi1990]
+ 1 file changed, 30 insertions(+), 9 deletions(-)
+[09:25:08] S05: accepted by Agnes (task task_oyrMmPb…); next create waits at least 61s
+[arena/36f9cd13-desktop-tutorial d31531a] iguchi1990: S06 checkpoint [skip-iguchi1990]
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+[09:26:09] S06: provider rate limit; honoring 239s cooldown
+[arena/36f9cd13-desktop-tutorial 2b5208f] iguchi1990: S06 checkpoint [skip-iguchi1990]
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+[09:30:08] S06: provider rate limit; honoring 61s cooldown
+[arena/36f9cd13-desktop-tutorial fc60a51] iguchi1990: S06 checkpoint [skip-iguchi1990]
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+[09:31:10] Stopping new task creation: Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit
+[09:32:10] status=in_progress progress=10% (elapsed 1624s)
+[09:32:12] poll: HTTP 429: too many video status queries (request id: 202611070932126744836829V1wfwBZ) (code=429) [1/24]
+[09:33:15] poll: HTTP 429: too many video status queries (request id: 20261107093315166289620LZ1yK9Be) (code=429) [1/24]
+[09:34:17] poll: HTTP 429: too many video status queries (request id: 202611070934176728741765khw5c33) (code=429) [1/24]
+[09:35:38] poll: HTTP 429: too many video status queries (request id: 20261107093538459700032mvSOU9vQ) (code=429) [1/24]
+[09:36:38] status=completed progress=100% (elapsed 1892s)
+[arena/36f9cd13-desktop-tutorial cb83e53] iguchi1990: S01 checkpoint [skip-iguchi1990]
+ 2 files changed, 50 insertions(+), 4 deletions(-)
+ create mode 100644 production/iguchi1990/qa/S01.jpg
+[09:36:43] S01: downloaded and decoded (3291428 bytes, 0ce502d6b61b…)
+[09:36:43] status=pending progress=0% (elapsed 0s)
+[09:36:45] poll: HTTP 429: too many video status queries (request id: 202611070936454720411886Jrgdzr5) (code=429) [1/24]
+[09:37:45] status=in_progress progress=10% (elapsed 1659s)
+[09:37:48] poll: HTTP 429: too many video status queries (request id: 20261107093747970900687N2LMxcYc) (code=429) [1/24]
+[09:37:48] poll: HTTP 429: too many video status queries (request id: 20261107093747998914189vSixMAPY) (code=429) [1/24]
+[09:38:50] poll: HTTP 429: too many video status queries (request id: 20261107093850492363079WNg2aYpw) (code=429) [1/24]
+[09:39:55] poll: HTTP 429: too many video status queries (request id: 20261107093955254772192cgmdx4ME) (code=429) [1/24]
+[09:40:55] status=in_progress progress=10% (elapsed 252s)
+[09:41:00] poll: HTTP 429: too many video status queries (request id: 2026110709410069650969WlN1PCk4) (code=429) [1/24]
+[09:42:00] status=completed progress=100% (elapsed 1914s)
+[arena/36f9cd13-desktop-tutorial cdfed8d] iguchi1990: S02 checkpoint [skip-iguchi1990]
+ 2 files changed, 52 insertions(+), 6 deletions(-)
+ create mode 100644 production/iguchi1990/qa/S02.jpg
+[09:42:04] S02: downloaded and decoded (1968632 bytes, 7151ddeac041…)
+[09:42:04] status=pending progress=0% (elapsed 0s)
+[09:42:09] poll: HTTP 429: too many video status queries (request id: 20261107094209572663092P98mnDed) (code=429) [1/24]
+[09:43:14] poll: HTTP 429: too many video status queries (request id: 20261107094314342034691KDwqib4v) (code=429) [1/24]
+[09:44:19] poll: HTTP 429: too many video status queries (request id: 20261107094419109121607xnMskZnd) (code=429) [1/24]
+[09:45:26] status=in_progress progress=10% (elapsed 201s)
+[09:45:28] poll: HTTP 429: too many video status queries (request id: 20261107094528530714521O3g88WD5) (code=429) [1/24]
+[09:46:29] status=completed progress=100% (elapsed 585s)
+[09:46:31] poll: HTTP 429: too many video status queries (request id: 20261107094631309188727LBLisS1i) (code=429) [1/24]
+[arena/36f9cd13-desktop-tutorial b7b4d1e] iguchi1990: S03 checkpoint [skip-iguchi1990]
+ 2 files changed, 52 insertions(+), 6 deletions(-)
+ create mode 100644 production/iguchi1990/qa/S03.jpg
+[09:46:33] S03: downloaded and decoded (3763602 bytes, f3615a701099…)
+[09:47:31] status=pending progress=0% (elapsed 58s)
+[09:47:36] poll: HTTP 429: too many video status queries (request id: 20261107094736125165032HDNgf6S4) (code=429) [1/24]
+[09:48:43] poll: HTTP 429: too many video status queries (request id: 20261107094843169547539tmoYhPjp) (code=429) [1/24]
+[09:48:43] poll: HTTP 429: too many video status queries (request id: 20261107094843203669416v4HFvBXR) (code=429) [1/24]
+[09:49:48] poll: HTTP 429: too many video status queries (request id: 20261107094947963475622lu9xILxx) (code=429) [1/24]
+[09:49:48] poll: HTTP 429: too many video status queries (request id: 20261107094947965785045MtvMELPY) (code=429) [1/24]
+[09:50:48] status=in_progress progress=10% (elapsed 254s)
+[09:50:48] status=completed progress=100% (elapsed 523s)
+[arena/36f9cd13-desktop-tutorial 8ebd492] iguchi1990: S04 checkpoint [skip-iguchi1990]
+ 2 files changed, 52 insertions(+), 6 deletions(-)
+ create mode 100644 production/iguchi1990/qa/S04.jpg
+[09:50:53] S04: downloaded and decoded (4612572 bytes, e00597e80687…)
+[09:51:02] poll: HTTP 429: too many video status queries (request id: 20261107095102102534057ehRjDZXz) (code=429) [1/24]
+[09:52:11] poll: HTTP 429: too many video status queries (request id: 20261107095211502868809GIl5QtGg) (code=429) [1/24]
+[09:53:32] poll: HTTP 429: too many video status queries (request id: 20261107095332262177892hOnFS9L3) (code=429) [1/24]
+[09:54:32] status=completed progress=100% (elapsed 479s)
+[arena/36f9cd13-desktop-tutorial 06075e6] iguchi1990: S05 checkpoint [skip-iguchi1990]
+ 2 files changed, 50 insertions(+), 4 deletions(-)
+ create mode 100644 production/iguchi1990/qa/S05.jpg
+[09:54:37] S05: downloaded and decoded (4190015 bytes, 412df7243452…)
+[arena/36f9cd13-desktop-tutorial b3f452f] iguchi1990: production checkpoint [skip-iguchi1990]
+ 1 file changed, 32 insertions(+), 3 deletions(-)
+[09:54:38] Generation paused: 25 clip(s) pending; accepted task IDs remain resumable.
+generator_exit=1
+stage=finished exit=1
