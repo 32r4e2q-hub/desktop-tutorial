@@ -624,12 +624,12 @@
     "S09": {
       "id": "S09",
       "request_hash": "27dbe821661c3a1bc65421d3f98391a343545f7202a8b73b920d4b7c73c451c2",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 1,
       "error": null,
       "last_create_attempt": 1,
-      "updated_at": "2026-11-07T13:41:22Z",
+      "updated_at": "2026-11-07T13:41:25Z",
       "video_id": "task_xhszu89Zt0sNPrBdwmeSLAHQ68sSrEMb",
       "task_id": "task_xhszu89Zt0sNPrBdwmeSLAHQ68sSrEMb",
       "requested_seconds": 6,
@@ -676,7 +676,26 @@
       "reported_size": "720P",
       "reported_seconds": "6",
       "bytes": 3678502,
-      "sha256": "e7c57400ddb6d3848df585493d4796e2ad6cff919878361f92461302a06db59e"
+      "sha256": "e7c57400ddb6d3848df585493d4796e2ad6cff919878361f92461302a06db59e",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3678502,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 13,
+          "mean_difference": 0.108994,
+          "max_difference": 0.204168,
+          "moving_transitions": 12,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S09.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -1389,7 +1408,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:41:23Z",
+  "updated_at": "2026-11-07T13:41:25Z",
   "last_create_epoch": 1794058867.777677,
   "pending_shots": [
     "S06",
