@@ -1,0 +1,165 @@
+name: 井口真理子命案 · Agnes 2.5 Flash 动态片段
+run-name: 井口真理子命案 · ${{ github.event_name == 'workflow_dispatch' && '手动生成/续跑' || '参考图批准后的生成任务' }}
+
+# Only an explicit marker change queues clips. The generator independently refuses to call
+# Agnes unless all 29 references are present, hash-matched and individually approved.
+on:
+  push:
+    branches:
+      - arena/36f9cd13-desktop-tutorial
+    paths:
+      - production/iguchi1990/GEN_REQUEST
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON，例如 {"mode":"clips","workers":2}；默认续跑全部未完成镜头'
+        type: string
+        required: false
+        default: '{"mode":"clips","workers":2}'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: iguchi1990-agnes-arena-36f9cd13-desktop-tutorial
+  cancel-in-progress: false
+
+env:
+  TARGET_BRANCH: arena/36f9cd13-desktop-tutorial
+  RUN_LOG: production/iguchi1990/run.log
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/36f9cd13-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Check out the fixed Arena production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/36f9cd13-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Start an on-branch run log and resolve payload
+        id: request
+        env:
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          mkdir -p production/iguchi1990
+          : > "$RUN_LOG"
+          git config user.name "arena-autopilot"
+          git config user.email "arena-autopilot@users.noreply.github.com"
+          {
+            echo "run=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} ref=${GITHUB_REF_NAME} sha=${GITHUB_SHA}"
+            date -u +"started %FT%TZ"
+            python3 --version
+          } >> "$RUN_LOG"
+          if [ -n "${PAYLOAD_INPUT:-}" ]; then
+            payload="$PAYLOAD_INPUT"
+          elif [ -f production/iguchi1990/GEN_REQUEST ]; then
+            payload="$(tr -d '\n' < production/iguchi1990/GEN_REQUEST)"
+          else
+            payload='{"mode":"clips","workers":2}'
+          fi
+          python3 -c 'import json,sys; json.loads(sys.argv[1])' "$payload"
+          printf 'payload=%s\n' "$payload" >> "$RUN_LOG"
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+
+      - name: Rebuild and validate the 30-shot plan and reference gate
+        run: |
+          set -euo pipefail
+          python3 production/iguchi1990/build_story.py >> "$RUN_LOG" 2>&1
+          python3 -m unittest production.tests.test_iguchi1990 -v >> "$RUN_LOG" 2>&1
+          python3 production/iguchi1990/generate.py --validate >> "$RUN_LOG" 2>&1
+          python3 - <<'PY' >> "$RUN_LOG" 2>&1
+          import json
+          from pathlib import Path
+          from production.iguchi1990.generate import validate_project
+          project = json.loads(Path('production/iguchi1990/story.json').read_text(encoding='utf-8'))
+          validate_project(project, require_approved_refs=True)
+          print('reference gate passed; all image files are approved and hash-matched')
+          PY
+
+      - name: Install FFmpeg tools for decoding and motion contact sheets
+        run: |
+          set -euo pipefail
+          python3 -m pip install --break-system-packages --user --no-input --disable-pip-version-check --retries 3 --timeout 90 av imageio-ffmpeg
+          mkdir -p "$HOME/.local/bin"
+          python3 - <<'PY'
+          import imageio_ffmpeg
+          import pathlib
+          import stat
+          import sys
+          bindir = pathlib.Path.home() / '.local' / 'bin'
+          ffmpeg = pathlib.Path(imageio_ffmpeg.get_ffmpeg_exe())
+          link = bindir / 'ffmpeg'
+          if link.exists() or link.is_symlink():
+              link.unlink()
+          link.symlink_to(ffmpeg)
+          shim = pathlib.Path('production/setagaya2000/ffprobe_shim.py').resolve()
+          probe = bindir / 'ffprobe'
+          probe.write_text('#!/bin/sh\nexec python3 ' + str(shim) + ' "$@"\n', encoding='utf-8')
+          probe.chmod(probe.stat().st_mode | stat.S_IEXEC)
+          print('ffmpeg:', ffmpeg)
+          print('ffprobe shim:', shim)
+          PY
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/ffmpeg" -version | head -n 1 >> "$RUN_LOG"
+          "$HOME/.local/bin/ffprobe" -version | head -n 1 >> "$RUN_LOG"
+
+      - name: Queue and resume Agnes Video 2.5 Flash clips (61-second creation gate)
+        id: generator
+        continue-on-error: true
+        timeout-minutes: 335
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD: ${{ env.PAYLOAD }}
+        run: |
+          set +e
+          echo "agnes_key_present=$([ -n "${AGNES_API_KEY:-}" ] && echo yes || echo no)" >> "$RUN_LOG"
+          timeout --signal=TERM --kill-after=30s 330m \
+            python3 -u production/iguchi1990/generate.py --publish --payload "$PAYLOAD" >> "$RUN_LOG" 2>&1
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          echo "generator_exit=$code" >> "$RUN_LOG"
+          exit "$code"
+
+      - name: Publish logs, task receipts, and small QA sheets
+        if: always()
+        env:
+          GENERATOR_EXIT_CODE: ${{ steps.generator.outputs.exit_code }}
+        run: |
+          set -uo pipefail
+          echo "stage=finished exit=${GENERATOR_EXIT_CODE:-unknown}" >> "$RUN_LOG"
+          for path in "$RUN_LOG" production/iguchi1990/results.json production/iguchi1990/qa; do
+            if [ -e "$path" ]; then
+              git add -f -- "$path"
+            fi
+          done
+          if ! git diff --cached --quiet; then
+            git commit -m "iguchi1990: run ${GITHUB_RUN_ID} receipts and QA [skip-iguchi1990]"
+            for attempt in 1 2 3; do
+              if git push origin "HEAD:$TARGET_BRANCH"; then
+                break
+              fi
+              if [ "$attempt" -eq 3 ]; then
+                exit 1
+              fi
+              git pull --rebase origin "$TARGET_BRANCH"
+            done
+          fi
+
+      - name: Upload Agnes clips, logs, receipts, and contact sheets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iguchi1990-agnes-${{ github.run_number }}
+          path: |
+            work/iguchi1990/sources/
+            production/iguchi1990/results.json
+            production/iguchi1990/run.log
+            production/iguchi1990/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
