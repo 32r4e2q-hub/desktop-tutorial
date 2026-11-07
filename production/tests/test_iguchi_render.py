@@ -44,6 +44,10 @@ class IguchiRenderTests(unittest.TestCase):
     def test_three_visual_failures_have_narrow_safe_replacement_prompts(self):
         prompts = {shot["id"]: shot["prompt"].lower() for shot in self.story["shots"]}
         self.assertIn("no montage", prompts["S09"])
+        s09 = next(shot for shot in self.story["shots"] if shot["id"] == "S09")
+        self.assertEqual(s09["references"], ["C01"])
+        self.assertIn("locked-off wide shot", prompts["S09"])
+        self.assertIn("no taxi", prompts["S09"])
         self.assertIn("no storefront", prompts["S23"])
         self.assertIn("no blood", prompts["S27"])
         self.assertIn("no forensic tent", prompts["S27"])

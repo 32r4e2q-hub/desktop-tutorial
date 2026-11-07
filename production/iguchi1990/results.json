@@ -624,10 +624,10 @@
     "S09": {
       "id": "S09",
       "request_hash": "0a433416d9986304d6e46ecaef803a7870f12e42c899f933faf34aa64c5da461",
-      "status": "poll_pending",
+      "status": "completed",
       "generation_attempts": 2,
       "create_attempts": 2,
-      "error": "Command '['git', 'pull', '--rebase', 'origin', 'arena/36f9cd13-desktop-tutorial']' returned non-zero exit status 128.",
+      "error": null,
       "forced_retry_of": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
       "last_create_attempt": 2,
       "updated_at": "2026-11-07T15:31:23Z",
@@ -697,7 +697,9 @@
         "contact_sheet": "production/iguchi1990/qa/S09.jpg",
         "visual_review": "pending"
       },
-      "visual_review": "pending"
+      "visual_review": "pending",
+      "recovered_from_run_id": 42386465199,
+      "recovery_note": "Agnes task completed and the runner decoded, hashed, and uploaded the clip; only the Git checkpoint push failed. Contact sheet remains visually rejected."
     },
     "S10": {
       "id": "S10",

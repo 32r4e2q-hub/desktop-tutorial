@@ -295,11 +295,11 @@ SHOTS = [
     },
     {
         "id": "S09", "start": 49, "duration": 6, "narration_id": "N03",
-        "camera": "站口单一连续跟拍，人物离画后停留",
-        "characters": ["C01"], "references": ["S01", "C01", "P02"],
+        "camera": "站外固定广角单镜，人物横穿画面离开",
+        "characters": ["C01"], "references": ["C01"],
         "narration": "据报道，她随后抵达高雄车站；此后，她的行踪难以确认。",
-        "prompt": "One uninterrupted exterior scene in the same 1990 Kaohsiung station forecourt at midday. The fictional young traveler in a pale blouse, jeans and the same navy backpack walks across the station exit area, pauses briefly to look toward the busy street, then continues out of frame. A yellow taxi passes far behind but never stops, approaches or interacts with her. Keep the entire six-second clip in this single location, in steady natural daylight and continuous real time. One measured medium follow from behind; after she leaves frame, hold on the same moving forecourt. No interior cut, no second location, no silhouette insert, no time-lapse, no montage, no black flash, no touching, no readable signs or license text.",
-        "sfx": ["车站人声", "远处车流", "渐远脚步"],
+        "prompt": "A single locked-off wide shot, filmed entirely outdoors on the sidewalk directly in front of the 1990 Kaohsiung railway station exterior. The camera is already outside before frame one and never moves or cuts. In the same unchanging composition, the fictional young Japanese traveler in a pale blouse, jeans and the same deep navy backpack walks slowly from left to right across the station forecourt and exits the right edge; the camera holds that exact same outdoor view for the remaining seconds. Show only this one continuous real-time take: same exterior building, same sidewalk, same noon daylight, same framing throughout all six seconds. Background pedestrians may move naturally, but there is no taxi, no vehicle insert, no other action. Absolutely no station interior, no platform, no transition, no angle change, no cutaway, no montage, no time-lapse, no flash, no silhouette insert, no readable lettering or signs.",
+        "sfx": ["站外人声", "远处脚步", "轻微城市环境声"],
     },
     {
         "id": "S10", "start": 55, "duration": 5, "narration_id": "N03",
