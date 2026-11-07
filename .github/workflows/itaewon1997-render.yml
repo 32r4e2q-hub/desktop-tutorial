@@ -14,7 +14,7 @@ on:
       - production/itaewon1997/RENDER_REQUEST
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: itaewon1997-render
@@ -54,3 +54,31 @@ jobs:
           name: itaewon1997-final-${{ github.run_id }}
           path: work/itaewon1997/delivery/*
           retention-days: 30
+      - name: Frame QA sheets
+        run: python production/itaewon1997/qa_final.py
+      - name: Publish QA sheets to the branch
+        run: |
+          set -euo pipefail
+          branch=arena/e8c2f70d-desktop-tutorial
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f production/itaewon1997/qa_final
+          git diff --cached --quiet && exit 0
+          git commit -m "itaewon1997: final-film QA sheets"
+          for attempt in 1 2 3; do
+            git fetch --deepen=10 origin "$branch"
+            git rebase -X theirs "origin/$branch" || { git rebase --abort; exit 1; }
+            git push origin "$branch" && exit 0
+            sleep 3
+          done
+          exit 1
+      - name: Publish release with the final film
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="itaewon1997-final-${GITHUB_RUN_ID}"
+          gh release create "$tag" --target arena/e8c2f70d-desktop-tutorial --title "梨泰院杀人事件 成片 (run ${GITHUB_RUN_ID})" \
+            --notes "AI动画情景重现。1920x1080 / 24fps / 180s。" \
+            work/itaewon1997/delivery/Itaewon1997_Final.mp4 work/itaewon1997/delivery/Itaewon1997_Cover.png \
+            work/itaewon1997/delivery/captions.srt work/itaewon1997/delivery/captions.ass work/itaewon1997/delivery/Itaewon1997_Narration.wav
