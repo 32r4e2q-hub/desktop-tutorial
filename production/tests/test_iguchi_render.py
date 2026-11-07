@@ -94,9 +94,11 @@ class IguchiRenderTests(unittest.TestCase):
         workflow = yaml.safe_load((ROOT / ".github" / "workflows" / "iguchi1990-render.yml").read_text())
         steps = workflow["jobs"]["render"]["steps"]
         download_steps = [step for step in steps if step.get("uses", "").startswith("actions/download-artifact@")]
-        self.assertEqual(len(download_steps), 2)
+        self.assertEqual(len(download_steps), 3)
         self.assertEqual(download_steps[0]["with"]["run-id"], "${{ steps.params.outputs.base_run_id }}")
         self.assertEqual(download_steps[1]["with"]["run-id"], "${{ steps.params.outputs.repair_run_id }}")
+        self.assertEqual(download_steps[2]["with"]["run-id"], "${{ steps.params.outputs.repair2_run_id }}")
+        self.assertIn("repair2_run_id != ''", download_steps[2]["if"])
         self.assertTrue(any("render.py" in step.get("run", "") for step in steps))
         triggers = workflow.get("on", workflow.get(True, {}))
         self.assertEqual(triggers["push"]["paths"], ["production/iguchi1990/RENDER_REQUEST"])

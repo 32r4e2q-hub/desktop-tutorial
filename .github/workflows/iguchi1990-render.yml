@@ -24,9 +24,19 @@ on:
         type: string
         required: true
       repair_artifact_name:
-        description: '重生成 Agnes artifact 名称，例如 iguchi1990-agnes-3'
+        description: '第一份重生成 Agnes artifact 名称，例如 iguchi1990-agnes-3'
         type: string
         required: true
+      repair2_run_id:
+        description: '可选的第二个重生成 run ID，用于分轮返工'
+        type: string
+        required: false
+        default: ''
+      repair2_artifact_name:
+        description: '可选的第二份重生成 artifact 名称，例如 iguchi1990-agnes-4'
+        type: string
+        required: false
+        default: ''
       publish:
         description: '技术门禁通过后将成片与字幕推回固定分支'
         type: boolean
@@ -60,6 +70,8 @@ jobs:
           BASE_ARTIFACT_INPUT: ${{ inputs.base_artifact_name }}
           REPAIR_RUN_INPUT: ${{ inputs.repair_run_id }}
           REPAIR_ARTIFACT_INPUT: ${{ inputs.repair_artifact_name }}
+          REPAIR2_RUN_INPUT: ${{ inputs.repair2_run_id }}
+          REPAIR2_ARTIFACT_INPUT: ${{ inputs.repair2_artifact_name }}
           PUBLISH_INPUT: ${{ inputs.publish }}
         run: |
           set -euo pipefail
@@ -74,6 +86,8 @@ jobs:
                   'base_artifact_name': os.environ.get('BASE_ARTIFACT_INPUT', ''),
                   'repair_run_id': os.environ.get('REPAIR_RUN_INPUT', ''),
                   'repair_artifact_name': os.environ.get('REPAIR_ARTIFACT_INPUT', ''),
+                  'repair2_run_id': os.environ.get('REPAIR2_RUN_INPUT', ''),
+                  'repair2_artifact_name': os.environ.get('REPAIR2_ARTIFACT_INPUT', ''),
                   'publish': os.environ.get('PUBLISH_INPUT', 'true'),
               }
           for key in ('base_run_id', 'repair_run_id'):
@@ -84,6 +98,16 @@ jobs:
               if not re.fullmatch(r'[A-Za-z0-9._-]+', value):
                   raise SystemExit(f'{key} must contain only letters, digits, dot, underscore or hyphen')
               values[key] = value
+          repair2_id = str(values.get('repair2_run_id', '')).strip()
+          repair2_name = str(values.get('repair2_artifact_name', '')).strip()
+          if bool(repair2_id) != bool(repair2_name):
+              raise SystemExit('repair2_run_id and repair2_artifact_name must be provided together')
+          if repair2_id and not repair2_id.isdigit():
+              raise SystemExit('repair2_run_id must be a numeric Actions run ID')
+          if repair2_name and not re.fullmatch(r'[A-Za-z0-9._-]+', repair2_name):
+              raise SystemExit('repair2_artifact_name contains invalid characters')
+          values['repair2_run_id'] = repair2_id
+          values['repair2_artifact_name'] = repair2_name
           publish = str(values.get('publish', True)).lower()
           if publish not in ('true', 'false'):
               raise SystemExit('publish must be true or false')
@@ -92,6 +116,8 @@ jobs:
               output.write(f"base_artifact_name={values['base_artifact_name']}\n")
               output.write(f"repair_run_id={values['repair_run_id']}\n")
               output.write(f"repair_artifact_name={values['repair_artifact_name']}\n")
+              output.write(f"repair2_run_id={values['repair2_run_id']}\n")
+              output.write(f"repair2_artifact_name={values['repair2_artifact_name']}\n")
               output.write(f"publish={publish}\n")
           PY
 
@@ -118,6 +144,15 @@ jobs:
           run-id: ${{ steps.params.outputs.repair_run_id }}
           github-token: ${{ github.token }}
 
+      - name: Download the optional second replacement run
+        if: ${{ steps.params.outputs.repair2_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.params.outputs.repair2_artifact_name }}
+          path: work/iguchi1990/downloads/repair2
+          run-id: ${{ steps.params.outputs.repair2_run_id }}
+          github-token: ${{ github.token }}
+
       - name: Install rendering tools and CJK subtitles font
         run: |
           set -euo pipefail
@@ -136,6 +171,7 @@ jobs:
           import shutil
           base = Path('work/iguchi1990/downloads/base')
           repair = Path('work/iguchi1990/downloads/repair')
+          repair2 = Path('work/iguchi1990/downloads/repair2')
           destination = Path('work/iguchi1990/sources')
           destination.mkdir(parents=True, exist_ok=True)
           def copy_sources(root, replace=False):
@@ -150,6 +186,8 @@ jobs:
               print(f'{root}: copied {len(files)} MP4 files (replace={replace})')
           copy_sources(base)
           copy_sources(repair, replace=True)
+          if repair2.exists():
+              copy_sources(repair2, replace=True)
           actual = sorted(path.name for path in destination.glob('S[0-9][0-9].mp4'))
           expected = [f'S{i:02d}.mp4' for i in range(1, 31)]
           if actual != expected:

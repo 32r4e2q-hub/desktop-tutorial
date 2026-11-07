@@ -9,7 +9,7 @@
 - S01–S30 联系表已逐张人工查看，但这只是首轮抽帧复核，不等同完整播放。首轮发现 S09、S23 的场景连续性/地点错误，S27 出现疑似血肉托盘；三镜已改提示词，**须仅重生成这三镜并重新审核**。其他镜头有生成式招牌、纸张文字、嵌入黑边和 S30 白闪等问题，处理方案见 `visual_review.md`。
 - 当前旁白已修订来源归因、背包连续性和假释日期口径：658 个 CJK 字，180 秒约 3.66 字/秒。用户选定低沉、克制、带悬疑感的男声 `voice-02`；S01–S20 TTS 已生成并逐镜锁定，S21–S30 待生成。
 - `render.py` 已实现 30 镜 SHA/提示词核验、无冻结/补帧门禁、逐镜裁切、遮挡柔焦、字幕、48 kHz 逐镜环境声/非周期拟音与尾段静音。离线单元测试和合成素材裁切/补边冒烟测试通过；尚未对真实30镜运行。
-- `.github/workflows/iguchi1990-render.yml` 会在 Actions runner 从原始 Agnes run 与三镜修复 run 下载素材，技术门禁通过后生成 1080p24 候选片、字幕和质检报告。可用固定分支上的 `production/iguchi1990/RENDER_REQUEST` 提交两次 run ID 与 artifact 名称触发；全片逐镜人工复看/声音监听完成前，不称为定稿。
+- `.github/workflows/iguchi1990-render.yml` 会在 Actions runner 从原始 Agnes run 与一个或两个分轮修复 run 下载素材，技术门禁通过后生成 1080p24 候选片、字幕和质检报告。可用固定分支上的 `production/iguchi1990/RENDER_REQUEST` 提交各 run ID 与 artifact 名称触发；全片逐镜人工复看/声音监听完成前，不称为定稿。
 - 生成器已配置每分钟不超过 5 次创建（至少 12.1 秒间隔）、遵守更严格服务端冷却、保存续跑回执、静帧筛查和参考图门禁。只有固定分支上的 `GEN_REQUEST` 或手动工作流能触发 Agnes；不轮换密钥、不绕过限额。
 
 生成器在 `reference/manifest.json` 中要求每一张图片同时满足：文件存在、SHA-256相符、`review_status=approved`。只要一项不符，`generate.py` 就在触碰API密钥或提交任务前失败。不要手工把缺失或错误图片标成已批准。
