@@ -1968,12 +1968,12 @@
     "S27": {
       "id": "S27",
       "request_hash": "4a8d38efda7a87e2572f34abd028e3a56bc781acfc3767f32a3e009ac62665d3",
-      "status": "queued",
+      "status": "completed",
       "generation_attempts": 1,
       "create_attempts": 2,
       "error": null,
       "last_create_attempt": 2,
-      "updated_at": "2026-11-07T15:09:12Z",
+      "updated_at": "2026-11-07T15:23:11Z",
       "applied_cooldown_seconds": 300.0,
       "provider_minimum_create_interval_seconds": 300.0,
       "video_id": "task_4mOnVCZ7WVpiO4iUWsOEU4DuIScr0Iqy",
@@ -1996,7 +1996,53 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P01-navy-backpack.png"
         ]
       },
-      "created_at": "2026-11-07T15:14:11Z"
+      "created_at": "2026-11-07T15:14:11Z",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_4mOnVCZ7WVpiO4iUWsOEU4DuIScr0Iqy.mp4",
+      "completed_response": {
+        "completed_at": 1794064934,
+        "created_at": 1794064451,
+        "error": null,
+        "expires_at": null,
+        "id": "task_4mOnVCZ7WVpiO4iUWsOEU4DuIScr0Iqy",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794064499,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_4mOnVCZ7WVpiO4iUWsOEU4DuIScr0Iqy.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 4,
+          "input_audio_seconds": 0
+        }
+      },
+      "reported_size": "720P",
+      "reported_seconds": "6",
+      "bytes": 1924953,
+      "sha256": "42a75b1dd0b464ccb7f3b8e37a7ebcaa567dfab43b437f9b7ec212736d92ea36",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1924953,
+        "decoded_ok": true,
+        "motion": {
+          "sample_frames": 13,
+          "mean_difference": 0.099867,
+          "max_difference": 0.145324,
+          "moving_transitions": 12,
+          "suspected_static": false
+        },
+        "motion_review": "pending_visual_review",
+        "contact_sheet": "production/iguchi1990/qa/S27.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S28": {
       "id": "S28",
@@ -2253,7 +2299,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T15:14:26Z",
+  "updated_at": "2026-11-07T15:23:11Z",
   "last_create_epoch": 1794064451.9285042,
   "pending_shots": [],
   "failed_shots": [],
