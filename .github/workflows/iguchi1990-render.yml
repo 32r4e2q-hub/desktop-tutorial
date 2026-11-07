@@ -2,6 +2,11 @@ name: 井口真理子命案 · 成片渲染与技术质检
 run-name: 井口真理子命案 · 1080p24 渲染
 
 on:
+  push:
+    branches:
+      - arena/36f9cd13-desktop-tutorial
+    paths:
+      - production/iguchi1990/RENDER_REQUEST
   workflow_dispatch:
     inputs:
       base_run_id:
@@ -48,6 +53,48 @@ jobs:
           ref: arena/36f9cd13-desktop-tutorial
           fetch-depth: 1
 
+      - name: Resolve artifact IDs from dispatch inputs or RENDER_REQUEST
+        id: params
+        env:
+          BASE_RUN_INPUT: ${{ inputs.base_run_id }}
+          BASE_ARTIFACT_INPUT: ${{ inputs.base_artifact_name }}
+          REPAIR_RUN_INPUT: ${{ inputs.repair_run_id }}
+          REPAIR_ARTIFACT_INPUT: ${{ inputs.repair_artifact_name }}
+          PUBLISH_INPUT: ${{ inputs.publish }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          if os.environ.get('GITHUB_EVENT_NAME') == 'push':
+              values = json.loads(Path('production/iguchi1990/RENDER_REQUEST').read_text(encoding='utf-8'))
+          else:
+              values = {
+                  'base_run_id': os.environ.get('BASE_RUN_INPUT', ''),
+                  'base_artifact_name': os.environ.get('BASE_ARTIFACT_INPUT', ''),
+                  'repair_run_id': os.environ.get('REPAIR_RUN_INPUT', ''),
+                  'repair_artifact_name': os.environ.get('REPAIR_ARTIFACT_INPUT', ''),
+                  'publish': os.environ.get('PUBLISH_INPUT', 'true'),
+              }
+          for key in ('base_run_id', 'repair_run_id'):
+              if not str(values.get(key, '')).isdigit():
+                  raise SystemExit(f'{key} must be a numeric Actions run ID')
+          for key in ('base_artifact_name', 'repair_artifact_name'):
+              value = str(values.get(key, '')).strip()
+              if not re.fullmatch(r'[A-Za-z0-9._-]+', value):
+                  raise SystemExit(f'{key} must contain only letters, digits, dot, underscore or hyphen')
+              values[key] = value
+          publish = str(values.get('publish', True)).lower()
+          if publish not in ('true', 'false'):
+              raise SystemExit('publish must be true or false')
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write(f"base_run_id={values['base_run_id']}\n")
+              output.write(f"base_artifact_name={values['base_artifact_name']}\n")
+              output.write(f"repair_run_id={values['repair_run_id']}\n")
+              output.write(f"repair_artifact_name={values['repair_artifact_name']}\n")
+              output.write(f"publish={publish}\n")
+          PY
+
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -58,17 +105,17 @@ jobs:
       - name: Download the completed 30-clip Agnes run on the runner
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.base_artifact_name }}
+          name: ${{ steps.params.outputs.base_artifact_name }}
           path: work/iguchi1990/downloads/base
-          run-id: ${{ inputs.base_run_id }}
+          run-id: ${{ steps.params.outputs.base_run_id }}
           github-token: ${{ github.token }}
 
       - name: Download the three reviewed replacement clips on the runner
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.repair_artifact_name }}
+          name: ${{ steps.params.outputs.repair_artifact_name }}
           path: work/iguchi1990/downloads/repair
-          run-id: ${{ inputs.repair_run_id }}
+          run-id: ${{ steps.params.outputs.repair_run_id }}
           github-token: ${{ github.token }}
 
       - name: Install rendering tools and CJK subtitles font
@@ -138,7 +185,7 @@ jobs:
           PY
 
       - name: Commit the rendered candidate and reproducibility reports
-        if: ${{ inputs.publish }}
+        if: ${{ steps.params.outputs.publish == 'true' }}
         run: |
           set -euo pipefail
           git config user.name "arena-autopilot"
@@ -152,14 +199,18 @@ jobs:
             production/iguchi1990/qa/narration_timing.json \
             production/iguchi1990/audio/render_audio_report.json
           git diff --cached --check
-          git commit -m "iguchi1990: render and QC 1080p24 cut"
-          for attempt in 1 2 3; do
-            if git push origin "HEAD:arena/36f9cd13-desktop-tutorial"; then
-              break
-            fi
-            if [ "$attempt" -eq 3 ]; then exit 1; fi
-            git pull --rebase origin arena/36f9cd13-desktop-tutorial
-          done
+          if git diff --cached --quiet; then
+            echo "No new rendered files to publish."
+          else
+            git commit -m "iguchi1990: render and QC 1080p24 cut"
+            for attempt in 1 2 3; do
+              if git push origin "HEAD:arena/36f9cd13-desktop-tutorial"; then
+                break
+              fi
+              if [ "$attempt" -eq 3 ]; then exit 1; fi
+              git pull --rebase origin arena/36f9cd13-desktop-tutorial
+            done
+          fi
 
       - name: Upload the final film and QC sidecars
         if: always()

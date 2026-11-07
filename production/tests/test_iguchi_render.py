@@ -95,9 +95,12 @@ class IguchiRenderTests(unittest.TestCase):
         steps = workflow["jobs"]["render"]["steps"]
         download_steps = [step for step in steps if step.get("uses", "").startswith("actions/download-artifact@")]
         self.assertEqual(len(download_steps), 2)
-        self.assertEqual(download_steps[0]["with"]["run-id"], "${{ inputs.base_run_id }}")
-        self.assertEqual(download_steps[1]["with"]["run-id"], "${{ inputs.repair_run_id }}")
+        self.assertEqual(download_steps[0]["with"]["run-id"], "${{ steps.params.outputs.base_run_id }}")
+        self.assertEqual(download_steps[1]["with"]["run-id"], "${{ steps.params.outputs.repair_run_id }}")
         self.assertTrue(any("render.py" in step.get("run", "") for step in steps))
+        triggers = workflow.get("on", workflow.get(True, {}))
+        self.assertEqual(triggers["push"]["paths"], ["production/iguchi1990/RENDER_REQUEST"])
+        self.assertTrue(any(step.get("id") == "params" for step in steps))
 
 
 if __name__ == "__main__":
