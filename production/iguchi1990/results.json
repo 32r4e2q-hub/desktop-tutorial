@@ -624,12 +624,12 @@
     "S09": {
       "id": "S09",
       "request_hash": "0a433416d9986304d6e46ecaef803a7870f12e42c899f933faf34aa64c5da461",
-      "status": "polling",
+      "status": "failed",
       "generation_attempts": 1,
       "create_attempts": 1,
-      "error": null,
+      "error": "Video task failed: upload timed out (code=upload_timeout)",
       "last_create_attempt": 1,
-      "updated_at": "2026-11-07T14:58:13Z",
+      "updated_at": "2026-11-07T15:07:47Z",
       "video_id": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
       "task_id": "task_tw86PLlNQeOt9OqK5cdbXZyBI4xapQFg",
       "requested_seconds": 6,
@@ -1925,7 +1925,9 @@
       "status": "waiting_create_slot",
       "generation_attempts": 0,
       "create_attempts": 0,
-      "error": null
+      "error": null,
+      "last_create_attempt": 1,
+      "updated_at": "2026-11-07T15:04:12Z"
     },
     "S28": {
       "id": "S28",
@@ -2182,7 +2184,7 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T15:04:11Z",
+  "updated_at": "2026-11-07T15:07:47Z",
   "last_create_epoch": 1794063851.6143281,
   "pending_shots": [],
   "failed_shots": [],
