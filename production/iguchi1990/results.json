@@ -1206,10 +1206,31 @@
     "S29": {
       "id": "S29",
       "request_hash": "99ad8f0cdd4cf32a940752cb5f4ade75a2af7c9b8831cd7d0c2749c868ee6e9d",
-      "status": "waiting_create_slot",
-      "generation_attempts": 0,
-      "create_attempts": 0,
-      "error": null
+      "status": "queued",
+      "generation_attempts": 1,
+      "create_attempts": 1,
+      "error": null,
+      "last_create_attempt": 1,
+      "updated_at": "2026-11-07T13:26:08Z",
+      "video_id": "task_ucR48yVwOIETnZ3KvQ2AepKs9CNy8whi",
+      "task_id": "task_ucR48yVwOIETnZ3KvQ2AepKs9CNy8whi",
+      "requested_seconds": 6,
+      "requested_size": "720P",
+      "request": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the scene reference for 1993年台湾机场出口. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 2> is the character reference for 母亲井口久子虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n【C04锚点】50多岁日本中年女性,盘起短发,深色外套长裙,神情憔悴坚毅 A wholly fictional, non-identifiable Japanese mother; grief remains restrained and dignified, never a real-person likeness.\n\nA 1993 Taiwan airport departure hall seen from behind. The fictional mother, wearing the same dark coat and long skirt, holds a small plain urn wrapped in cloth close to her chest and walks slowly through moving travelers. She pauses once and looks back toward the island through tall windows. Camera: compressed long-lens follow from behind. Real motion: crowd passes in both directions, sunlight moves across the floor. No readable airport signage, no logo.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19900404,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/S15-airport-1993.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C04-hisako.png"
+        ]
+      },
+      "created_at": "2026-11-07T13:31:07Z"
     },
     "S30": {
       "id": "S30",
@@ -1271,8 +1292,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:26:07Z",
-  "last_create_epoch": 1794057967.4708068,
+  "updated_at": "2026-11-07T13:31:07Z",
+  "last_create_epoch": 1794058267.504012,
   "pending_shots": [
     "S06",
     "S07",
@@ -1303,6 +1324,6 @@
   "failed_shots": [],
   "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
   "provider_minimum_create_interval_seconds": 300.0,
-  "last_successful_create_epoch": 1794057967.4708068,
+  "last_successful_create_epoch": 1794058267.504012,
   "provider_blocked_until_epoch": 1794057967.085089
 }
