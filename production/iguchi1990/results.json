@@ -1111,10 +1111,14 @@
     "S26": {
       "id": "S26",
       "request_hash": "9cbab448c3073ab8cd9b791e31807dbaff7b94d0096cd091f3b60e8072870cea",
-      "status": "waiting_create_slot",
+      "status": "rate_limited",
       "generation_attempts": 0,
-      "create_attempts": 0,
-      "error": null
+      "create_attempts": 1,
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 13:01:06. (request id: 20261107130106419064017rTExq60J) (code=rate_limit_exceeded)",
+      "last_create_attempt": 1,
+      "updated_at": "2026-11-07T13:01:06Z",
+      "applied_cooldown_seconds": 300.0,
+      "provider_minimum_create_interval_seconds": 300.0
     },
     "S27": {
       "id": "S27",
@@ -1200,8 +1204,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T12:56:06Z",
-  "last_create_epoch": 1794056166.6405547,
+  "updated_at": "2026-11-07T13:01:06Z",
+  "last_create_epoch": 1794056466.5608182,
   "pending_shots": [
     "S06",
     "S07",
@@ -1233,5 +1237,5 @@
   "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
   "provider_minimum_create_interval_seconds": 300.0,
   "last_successful_create_epoch": 1794056166.6405547,
-  "provider_blocked_until_epoch": 1794056166.2905574
+  "provider_blocked_until_epoch": 1794056766.5608325
 }
