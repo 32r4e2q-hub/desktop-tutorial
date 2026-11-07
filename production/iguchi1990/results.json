@@ -1142,14 +1142,35 @@
     "S27": {
       "id": "S27",
       "request_hash": "e6820f2a52e65310b37c4fec1ec6c09200ab5730185cc621dd58af81e3acc4cc",
-      "status": "rate_limited",
-      "generation_attempts": 0,
-      "create_attempts": 1,
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 13:11:06. (request id: 20261107131106689997123yvXJnTp8) (code=rate_limit_exceeded)",
-      "last_create_attempt": 1,
-      "updated_at": "2026-11-07T13:11:06Z",
+      "status": "queued",
+      "generation_attempts": 1,
+      "create_attempts": 2,
+      "error": null,
+      "last_create_attempt": 2,
+      "updated_at": "2026-11-07T13:11:07Z",
       "applied_cooldown_seconds": 300.0,
-      "provider_minimum_create_interval_seconds": 300.0
+      "provider_minimum_create_interval_seconds": 300.0,
+      "video_id": "task_NvkLgdG0dEFCcTr9WLJEBdP4ful7lFuI",
+      "task_id": "task_NvkLgdG0dEFCcTr9WLJEBdP4ful7lFuI",
+      "requested_seconds": 6,
+      "requested_size": "720P",
+      "request": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】Cinematic realistic 3D animation, photoreal live-action cinematography, physically based skin, cloth, wood, metal and wet-street materials; fictionalized non-identifiable actor portrayals, never real-person likenesses; Taiwanese/Japanese 1990s social-crime film atmosphere, humid southern Taiwan afternoons, cold teal night, warm amber gradually shifting to deep blue, 35mm film grain, shallow depth of field, long-lens compression, restrained and humane, never sensational. Horizontal 16:9 widescreen, subject on a third line, clean lower 15 percent for subtitles. Every clip is real continuous animated footage with visible natural movement in people, cloth, wind, light, traffic, water, steam or machinery; never a still image with a fake zoom. One coherent scene from first frame to last, period-correct 1990–1993 Taiwan/Japan when applicable. No generated titles or readable text; all Chinese text is added in post.\n\n<Picture 1> is the character reference for 法医与刑事专家虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 2> is the character reference for 母亲井口久子虚构形象. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 3> is the prop reference for 雨伞与手电筒. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n<Picture 4> is the prop reference for 深蓝色大旅行背包. Preserve its period, materials, palette and identity cues; adapt its composition to the requested moving shot. Do not reproduce any lettering.\n\n【C06锚点】白发圆框眼镜老法医白大褂;中年华裔刑事专家深色西装 Two fictionalized, non-identifiable forensic professionals; neither resembles any real person.\n\n【C04锚点】50多岁日本中年女性,盘起短发,深色外套长裙,神情憔悴坚毅 A wholly fictional, non-identifiable Japanese mother; grief remains restrained and dignified, never a real-person likeness.\n\nUnder a plain forensic tent after identification, two fictional experts exchange a restrained confirming glance beside empty, covered evidence trays. The mother is gently supported as she approaches a table with only a closed, unmarked evidence envelope, a folded umbrella, a flashlight and the deep navy backpack. She looks at the belongings, tears held back. Camera: medium push toward the umbrella and worn backpack, faces remain natural and dignified. Real motion: tent fabric lifts in wind, hands tremble slightly. No remains, body, bones, weapons or readable labels.\n\n【NEGATIVE】cartoon, chibi, anime, exaggerated expressions, glamorized suspect, oversaturation, readable text, fake letters, subtitles, watermark, logo, blood, wound, corpse, body, human remains, bones, weapon, crossbow, knife, assault, sexual violence, nudity, dismemberment, violence process, deformed fingers, extra fingers, extra limbs, facial collapse, identity drift, modern objects in period scenes, low resolution, flicker, style drift, vertical framing, black bars, frozen frame, slideshow, still image with artificial zoom, jump scare, supernatural imagery.",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19900433,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C06-forensic-team.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/C04-hisako.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P05-umbrella-flashlight.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/arena/36f9cd13-desktop-tutorial/production/iguchi1990/reference/P01-navy-backpack.png"
+        ]
+      },
+      "created_at": "2026-11-07T13:16:07Z"
     },
     "S28": {
       "id": "S28",
@@ -1227,8 +1248,8 @@
     "key_rotation": false,
     "queue_all_available_shots_before_final_poll_drain": true
   },
-  "updated_at": "2026-11-07T13:11:06Z",
-  "last_create_epoch": 1794057066.8281572,
+  "updated_at": "2026-11-07T13:16:07Z",
+  "last_create_epoch": 1794057367.2160459,
   "pending_shots": [
     "S06",
     "S07",
@@ -1259,6 +1280,6 @@
   "failed_shots": [],
   "queue_error": "Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit",
   "provider_minimum_create_interval_seconds": 300.0,
-  "last_successful_create_epoch": 1794056766.9773424,
+  "last_successful_create_epoch": 1794057367.2160459,
   "provider_blocked_until_epoch": 1794057366.8281727
 }
