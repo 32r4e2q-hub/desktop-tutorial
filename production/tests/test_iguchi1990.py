@@ -58,6 +58,74 @@ class Iguchi1990PlanTests(unittest.TestCase):
             self.assertNotIn("negative_prompt", payload)
             self.assertFalse(generate.FORBIDDEN_FIELDS.intersection(payload))
 
+    def test_monthly_rate_gate_and_saved_provider_window(self):
+        self.assertAlmostEqual(generate.MIN_CREATE_INTERVAL, 12.1)
+        member_gate = generate.RequestGate(
+            minimum_interval=generate.MIN_CREATE_INTERVAL,
+            minimum_allowed_interval=generate.MIN_CREATE_INTERVAL,
+        )
+        self.assertAlmostEqual(member_gate.interval, 12.1)
+        # Other projects retain the shared conservative 60-second floor unless they opt in.
+        with self.assertRaises(ValueError):
+            generate.RequestGate(minimum_interval=generate.MIN_CREATE_INTERVAL)
+
+        self.assertEqual(
+            generate.provider_interval_from_message(
+                "You have used up today's video generation quota and are now limited to 1 request every 5 minutes."
+            ),
+            300.0,
+        )
+        old_receipt = {"shots": {"S02": {"applied_cooldown_seconds": 239.0}}}
+        self.assertEqual(generate.provider_interval_from_results(old_receipt), 300.0)
+        current_receipt = {
+            "provider_minimum_create_interval_seconds": 300.0,
+            "shots": {"S06": {"applied_cooldown_seconds": 300.0,
+                               "provider_minimum_create_interval_seconds": 300.0}},
+        }
+        self.assertEqual(generate.provider_interval_from_results(current_receipt), 300.0)
+
+    def test_retry_after_extends_provider_interval_and_persists_cooldown(self):
+        from unittest.mock import patch
+
+        gate = generate.RequestGate(
+            minimum_interval=generate.MIN_CREATE_INTERVAL,
+            minimum_allowed_interval=generate.MIN_CREATE_INTERVAL,
+        )
+        doc = {"last_successful_create_epoch": 100.0}
+        with patch("production.iguchi1990.generate.time.time", return_value=112.1):
+            cooldown = generate.apply_rate_limit(gate, doc, "HTTP 429", 288.0)
+        self.assertAlmostEqual(gate.interval, 300.1)
+        self.assertEqual(cooldown, 300.0)
+        self.assertAlmostEqual(doc["provider_minimum_create_interval_seconds"], 300.1)
+        self.assertAlmostEqual(doc["provider_blocked_until_epoch"], 412.1)
+
+        bare_gate = generate.RequestGate(
+            minimum_interval=generate.MIN_CREATE_INTERVAL,
+            minimum_allowed_interval=generate.MIN_CREATE_INTERVAL,
+        )
+        bare_doc = {}
+        with patch("production.iguchi1990.generate.time.time", return_value=200.0):
+            bare_cooldown = generate.apply_rate_limit(bare_gate, bare_doc, "HTTP 429", None)
+        self.assertEqual(bare_cooldown, 300.0)
+        self.assertEqual(bare_gate.interval, 300.0)
+        self.assertEqual(bare_doc["provider_blocked_until_epoch"], 500.0)
+
+        stricter_gate = generate.RequestGate(
+            minimum_interval=generate.MIN_CREATE_INTERVAL,
+            minimum_allowed_interval=generate.MIN_CREATE_INTERVAL,
+        )
+        stricter_doc = {"rate_policy": {}}
+        with patch("production.iguchi1990.generate.time.time", return_value=200.0):
+            stricter_cooldown = generate.apply_rate_limit(
+                stricter_gate,
+                stricter_doc,
+                "1 request every 5 minutes",
+                600.0,
+            )
+        self.assertEqual(stricter_gate.interval, 600.0)
+        self.assertEqual(stricter_cooldown, 600.0)
+        self.assertEqual(stricter_doc["rate_policy"]["effective_creation_interval_seconds"], 600.0)
+
     def test_prompt_order_is_style_references_role_scene_negative(self):
         shot = self.project["shots"][0]
         prompt = generate.full_prompt(self.project, shot)

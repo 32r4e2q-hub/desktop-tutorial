@@ -31,7 +31,7 @@ env:
 jobs:
   generate:
     if: github.ref == 'refs/heads/arena/36f9cd13-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 350
     steps:
       - name: Check out the fixed Arena production branch
@@ -108,7 +108,7 @@ jobs:
           "$HOME/.local/bin/ffmpeg" -version | head -n 1 >> "$RUN_LOG"
           "$HOME/.local/bin/ffprobe" -version | head -n 1 >> "$RUN_LOG"
 
-      - name: Queue and resume Agnes Video 2.5 Flash clips (61-second creation gate)
+      - name: Queue and resume Agnes Video 2.5 Flash clips (provider-aware member rate gate)
         id: generator
         continue-on-error: true
         timeout-minutes: 335

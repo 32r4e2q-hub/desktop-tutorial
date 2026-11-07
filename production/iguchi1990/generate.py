@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+from datetime import datetime
 import hashlib
 import json
 import os
@@ -26,16 +27,20 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "production"))
-sys.path.insert(0, str(ROOT / "production" / "setagaya2000"))
 
 import agnes_video as agnes  # noqa: E402
-from throttle import BudgetExhausted, RequestGate  # noqa: E402
+from production.setagaya2000.throttle import BudgetExhausted, RequestGate  # noqa: E402
 
 BRANCH = "arena/36f9cd13-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
-MIN_CREATE_INTERVAL = 61.0
+MEMBERSHIP_MAX_CREATE_REQUESTS_PER_MINUTE = 5
+# 12.1s stays just below the monthly plan's five-per-minute ceiling.
+MIN_CREATE_INTERVAL = 60.0 / MEMBERSHIP_MAX_CREATE_REQUESTS_PER_MINUTE + 0.1
+# The account has already advertised a five-minute window; use it for opaque 429s too.
+RATE_LIMIT_FALLBACK_SECONDS = 300.0
 WORKERS_MAX = 2
 REQUEST_FIELDS = {"model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed", "images"}
 FORBIDDEN_FIELDS = {"width", "height", "fps", "num_frames", "frame_rate", "duration",
@@ -69,6 +74,106 @@ def digest(path: Path) -> str:
 
 def now_utc() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+
+def provider_interval_from_message(message: str) -> float | None:
+    """Extract an explicit provider rate window, e.g. '1 request every 5 minutes'."""
+    match = re.search(r"\b\d+\s+requests?\s+(?:every|per)\s+(\d+)\s+(seconds?|minutes?)\b",
+                      str(message or ""), re.IGNORECASE)
+    if not match:
+        return None
+    amount = float(match.group(1))
+    unit = match.group(2).lower()
+    return amount * (60.0 if unit.startswith("minute") else 1.0)
+
+
+def provider_interval_from_results(doc: dict) -> float:
+    """Recover a stricter provider interval recorded by this or an older workflow run."""
+    try:
+        recorded = float(doc.get("provider_minimum_create_interval_seconds", 0) or 0)
+    except (TypeError, ValueError):
+        recorded = 0.0
+    interval = max(MIN_CREATE_INTERVAL, recorded)
+    has_current_interval_receipt = recorded > 0
+    for row in doc.get("shots", {}).values():
+        interval = max(interval, provider_interval_from_message(row.get("error", "")) or 0.0)
+        try:
+            row_interval = float(row.get("provider_minimum_create_interval_seconds", 0) or 0)
+        except (TypeError, ValueError):
+            row_interval = 0.0
+        interval = max(interval, row_interval)
+        # Legacy runs stored only Retry-After: 239s after an old 61s gap implies a 300s window.
+        try:
+            cooldown = float(row.get("applied_cooldown_seconds", 0) or 0)
+        except (TypeError, ValueError):
+            cooldown = 0.0
+        if cooldown >= 180.0 and not has_current_interval_receipt and row_interval <= 0:
+            interval = max(interval, cooldown + 61.0)
+    return interval
+
+
+def utc_epoch(value: str | None) -> float | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00")).timestamp()
+    except (TypeError, ValueError):
+        return None
+
+
+def last_successful_create_epoch(doc: dict) -> float | None:
+    try:
+        recorded = float(doc.get("last_successful_create_epoch") or 0)
+    except (TypeError, ValueError):
+        recorded = 0.0
+    if recorded > 0:
+        return recorded
+    # Compatibility with receipts from before the explicit timestamp was added.
+    created = [utc_epoch(row.get("created_at")) for row in doc.get("shots", {}).values()
+               if row.get("video_id") and row.get("created_at")]
+    created = [value for value in created if value is not None]
+    return max(created) if created else None
+
+
+def apply_rate_limit(gate: RequestGate, doc: dict, message: str, retry_after: float | None) -> float:
+    """Extend both the creation interval and persisted cooldown from provider feedback."""
+    now = time.time()
+    try:
+        retry_seconds = max(0.0, float(retry_after or 0))
+    except (TypeError, ValueError):
+        retry_seconds = 0.0
+    explicit_interval = provider_interval_from_message(message)
+    last_success = last_successful_create_epoch(doc)
+    elapsed_since_success = max(0.0, now - last_success) if last_success is not None else 0.0
+    # With no learned provider window, infer it from elapsed time since the last successful
+    # create plus Retry-After. Once a stricter window is known, do not ratchet it upward merely
+    # because another 429 repeated the same remaining cooldown.
+    if explicit_interval:
+        inferred_interval = max(explicit_interval, retry_seconds)
+    elif retry_seconds and gate.interval <= MIN_CREATE_INTERVAL + 0.01:
+        inferred_interval = max(elapsed_since_success + retry_seconds,
+                                RATE_LIMIT_FALLBACK_SECONDS)
+    elif retry_seconds:
+        inferred_interval = max(gate.interval, retry_seconds)
+    else:
+        inferred_interval = max(gate.interval, RATE_LIMIT_FALLBACK_SECONDS)
+    gate.interval = max(gate.interval, inferred_interval)
+    try:
+        recorded_interval = float(doc.get("provider_minimum_create_interval_seconds", MIN_CREATE_INTERVAL)
+                                 or MIN_CREATE_INTERVAL)
+    except (TypeError, ValueError):
+        recorded_interval = MIN_CREATE_INTERVAL
+    doc["provider_minimum_create_interval_seconds"] = max(recorded_interval, gate.interval)
+    if isinstance(doc.get("rate_policy"), dict):
+        doc["rate_policy"]["effective_creation_interval_seconds"] = round(gate.interval, 2)
+    cooldown = max(MIN_CREATE_INTERVAL, RATE_LIMIT_FALLBACK_SECONDS, retry_seconds,
+                   explicit_interval or 0.0, gate.interval if retry_seconds <= 0 else 0.0)
+    try:
+        blocked_until = float(doc.get("provider_blocked_until_epoch", 0) or 0)
+    except (TypeError, ValueError):
+        blocked_until = 0.0
+    doc["provider_blocked_until_epoch"] = max(blocked_until, now + cooldown)
+    return cooldown
 
 
 def api_base_url() -> str:
@@ -353,9 +458,11 @@ def create_with_gate(shot: dict, payload: dict, doc: dict, gate: RequestGate,
                      deadline: float, api_key: str) -> dict:
     sid = shot["id"]
     attempts = 0
+    prior_attempts = int(doc.get("shots", {}).get(sid, {}).get("create_attempts", 0))
     while True:
         attempts += 1
-        _record_status(doc, sid, {"status": "waiting_create_slot", "last_create_attempt": attempts})
+        total_attempts = prior_attempts + attempts
+        _record_status(doc, sid, {"status": "waiting_create_slot", "last_create_attempt": total_attempts})
         gate.acquire_creation(deadline)
         try:
             created = agnes.create_task(
@@ -364,7 +471,9 @@ def create_with_gate(shot: dict, payload: dict, doc: dict, gate: RequestGate,
             )
             gate.defer(MIN_CREATE_INTERVAL)
             with LOCK:
-                doc["last_create_epoch"] = time.time()
+                created_at = time.time()
+                doc["last_create_epoch"] = created_at
+                doc["last_successful_create_epoch"] = created_at
             return created
         except agnes.RateLimited as exc:
             with LOCK:
@@ -373,16 +482,17 @@ def create_with_gate(shot: dict, payload: dict, doc: dict, gate: RequestGate,
             classification = retryable_create_error(message)
             if classification == "quota_exhausted":
                 _record_status(doc, sid, {"status": "quota_blocked", "error": message,
-                                           "create_attempts": attempts}, publish=True)
+                                           "create_attempts": total_attempts}, publish=True)
                 raise RuntimeError("Agnes reports the account quota/credits are exhausted; stopping without trying to bypass it") from exc
-            cooldown = max(MIN_CREATE_INTERVAL, float(exc.retry_after or 0))
+            cooldown = apply_rate_limit(gate, doc, message, exc.retry_after)
             gate.defer(cooldown)
             _record_status(doc, sid, {"status": "rate_limited", "error": message,
-                                       "create_attempts": attempts,
-                                       "applied_cooldown_seconds": cooldown}, publish=True)
+                                       "create_attempts": total_attempts,
+                                       "applied_cooldown_seconds": cooldown,
+                                       "provider_minimum_create_interval_seconds": gate.interval}, publish=True)
             if attempts >= 3:
-                raise RuntimeError("Agnes rejected three creation attempts with HTTP 429 after the required cooldowns; stopping and preserving the provider limit") from exc
-            log(f"{sid}: provider rate limit; honoring {cooldown:g}s cooldown")
+                raise RuntimeError("Agnes rejected three creation attempts with HTTP 429 after honoring the provider cooldown; stopping and preserving the provider limit") from exc
+            log(f"{sid}: provider rate limit; honoring {cooldown:g}s cooldown, effective create interval {gate.interval:g}s")
         except agnes.Fatal as exc:
             with LOCK:
                 doc["last_create_epoch"] = time.time()
@@ -581,11 +691,15 @@ def run_generation(project: dict, options: dict, publish: bool) -> int:
     deadline = time.monotonic() + time_budget * 60
 
     doc = read_json(RESULTS, {"project": project["title"], "model": MODEL, "shots": {}})
+    effective_interval = provider_interval_from_results(doc)
+    doc["provider_minimum_create_interval_seconds"] = effective_interval
     doc.update({"project": project["title"], "model": MODEL, "source_size": SOURCE_SIZE,
                 "branch": BRANCH, "phase": "queueing_and_polling",
                 "reference_gate": project.get("reference_gate"),
                 "required_generated_shots": [shot["id"] for shot in shots],
-                "rate_policy": {"minimum_creation_interval_seconds": int(MIN_CREATE_INTERVAL),
+                "rate_policy": {"membership_max_create_requests_per_minute": MEMBERSHIP_MAX_CREATE_REQUESTS_PER_MINUTE,
+                                "minimum_creation_interval_seconds": round(MIN_CREATE_INTERVAL, 2),
+                                "effective_creation_interval_seconds": round(effective_interval, 2),
                                 "workers_max": WORKERS_MAX, "retry_after_respected": True,
                                 "provider_queue_full_respected": True, "key_rotation": False,
                                 "queue_all_available_shots_before_final_poll_drain": True},
@@ -594,11 +708,27 @@ def run_generation(project: dict, options: dict, publish: bool) -> int:
     SOURCES.mkdir(parents=True, exist_ok=True)
     QA.mkdir(parents=True, exist_ok=True)
 
-    # Persisted epoch plus the shared throttle prevents a restarted Actions job from resetting
-    # the creation cadence. Gate cooldown is also extended after each response, never shortened.
-    latest_create = doc.get("last_create_epoch")
-    remaining = max(0.0, float(latest_create) + MIN_CREATE_INTERVAL - time.time()) if latest_create else 0.0
-    gate = RequestGate(minimum_interval=MIN_CREATE_INTERVAL)
+    # Restore the account-specific provider interval and any active cooldown across restarts.
+    now_epoch = time.time()
+    earliest_allowed = []
+    last_success = last_successful_create_epoch(doc)
+    if last_success is not None:
+        earliest_allowed.append(last_success + effective_interval)
+    try:
+        last_attempt = float(doc.get("last_create_epoch") or 0)
+    except (TypeError, ValueError):
+        last_attempt = 0.0
+    if last_attempt > 0:
+        earliest_allowed.append(last_attempt + effective_interval)
+    try:
+        blocked_until = float(doc.get("provider_blocked_until_epoch") or 0)
+    except (TypeError, ValueError):
+        blocked_until = 0.0
+    if blocked_until > 0:
+        earliest_allowed.append(blocked_until)
+    remaining = max(0.0, max(earliest_allowed, default=now_epoch) - now_epoch)
+    gate = RequestGate(minimum_interval=effective_interval,
+                       minimum_allowed_interval=MIN_CREATE_INTERVAL)
     if remaining:
         gate.defer(remaining)
 
@@ -662,8 +792,9 @@ def run_generation(project: dict, options: dict, publish: bool) -> int:
 
     queue_error: str | None = None
     try:
-        # One serial creator enforces the provider's 1-RPM cap. Up to two independent pollers
-        # run in the background, so tasks are queued promptly without waiting on each MP4.
+        # One serial creator enforces the five-per-minute membership ceiling and any stricter
+        # provider interval restored from receipts or received in Retry-After feedback.
+        # Up to two independent pollers can run without creating duplicate tasks.
         index = 0
         while index < len(to_submit):
             start_pollers()
@@ -718,11 +849,13 @@ def run_generation(project: dict, options: dict, publish: bool) -> int:
                                 "request": payload, "generation_attempts": int(current.get("generation_attempts", 0)) + 1,
                                 "create_attempts": int(current.get("create_attempts", 0)) + 1,
                                 "created_at": now_utc(), "error": None})
-                doc["last_create_epoch"] = time.time()
+                accepted_epoch = time.time()
+                doc["last_create_epoch"] = accepted_epoch
+                doc["last_successful_create_epoch"] = accepted_epoch
                 doc["updated_at"] = now_utc()
                 outstanding[sid] = current
                 commit_checkpoint(doc, sid)
-            log(f"{sid}: accepted by Agnes (task {str(video_id)[:12]}…); next create waits at least 61s")
+            log(f"{sid}: accepted by Agnes (task {str(video_id)[:12]}…); next create waits at least {gate.interval:g}s")
             index += 1
             start_pollers()
 

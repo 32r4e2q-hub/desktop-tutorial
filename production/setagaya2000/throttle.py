@@ -1,7 +1,7 @@
-"""Shared 61-second request spacing for Agnes's free video 1-RPM pool.
+"""Shared request gate with a conservative default for Agnes's free 1-RPM video pool.
 
-There is no key rotation or limit bypass. Creation is spaced at least 61 seconds apart;
-server-requested cooldowns are respected across both workers.
+Callers may opt into a lower configured-plan floor only when that plan explicitly allows it.
+There is no key rotation or limit bypass; server-requested cooldowns remain shared across workers.
 """
 import threading
 import time
@@ -12,9 +12,9 @@ class BudgetExhausted(RuntimeError):
 
 
 class RequestGate:
-    def __init__(self, minimum_interval=61.0, clock=None, sleep=None):
-        if minimum_interval<60:
-            raise ValueError('Free video creation must be spaced at least 60 seconds apart')
+    def __init__(self, minimum_interval=61.0, clock=None, sleep=None, minimum_allowed_interval=60.0):
+        if minimum_allowed_interval<=0 or minimum_interval<minimum_allowed_interval:
+            raise ValueError(f'Request interval must be at least {minimum_allowed_interval:g} seconds')
         self.interval=float(minimum_interval)
         self.clock=clock or time.monotonic
         self.sleep=sleep or time.sleep

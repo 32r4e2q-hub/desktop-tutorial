@@ -6,7 +6,7 @@
 
 - 参考图已全部完成并逐张审核：29/29通过（C01–C07、S01–S16、P01–P05）。S02机场图已替换并批准；S02b夜市保持独立场景图。
 - 30镜/180秒脚本已校验；旁白按CJK汉字计数664字，约3.69字/秒，并与逐镜时长锁定。
-- Agnes Video 2.5 Flash生成器、61秒全局创建间隔、续跑回执、静帧筛查和参考图门禁已配置。视频任务仅由固定分支上的`GEN_REQUEST`明确触发；Actions在发出请求前会先验证全部参考图并检查`AGNES_API_KEY`，缺少密钥时不会调用Agnes。
+- Agnes Video 2.5 Flash生成器、月卡每分钟最多5次（创建间隔至少12.1秒）、可自适应更严格的服务端冷却、续跑回执、静帧筛查和参考图门禁已配置。视频任务仅由固定分支上的`GEN_REQUEST`明确触发；Actions在发出请求前会先验证全部参考图并检查`AGNES_API_KEY`，缺少密钥时不会调用Agnes。
 - 旁白配音、字幕成片、逐镜音效及最终合成依要求排在视频片段生成之后；目前只有脚本和文案清单，没有TTS音频或合成成片。
 
 生成器在 `reference/manifest.json` 中要求每一张图片同时满足：文件存在、SHA-256相符、`review_status=approved`。只要一项不符，`generate.py` 就在触碰API密钥或提交任务前失败。不要手工把缺失或错误图片标成已批准。
@@ -32,7 +32,7 @@ python3 -m unittest production.tests.test_iguchi1990 -v
    {"mode":"clips","workers":2}
    ```
 
-   推送到固定分支 `arena/36f9cd13-desktop-tutorial` 后，`.github/workflows/iguchi1990-gen.yml` 才会运行。任务创建串行并至少间隔61秒；最多2个轮询工作线程；尊重服务端`Retry-After`、队列已满和用户额度，不轮换密钥、不绕过限制。
+   推送到固定分支 `arena/36f9cd13-desktop-tutorial` 后，`.github/workflows/iguchi1990-gen.yml` 才会运行。创建串行，计划上限为每分钟5次并至少间隔12.1秒；若回执或Agnes返回更严格的速率窗口/`Retry-After`，生成器会延长间隔并跨工作流续存冷却。最多2个轮询工作线程；尊重队列容量和账户额度，不轮换密钥、不绕过限制。
 
 5. 工作流只把任务ID、请求哈希、下载校验、状态和小型联系表提交到Git；原始MP4保存在忽略的`work/iguchi1990/`，并作为短期Actions artifact上传。续跑会恢复已有任务，不重复提交成功任务。
 6. 30段视频完成后先逐镜人工检查实际运动、人物一致性、年代物件和非血腥画面，再开始旁白/字幕/音效及合成。联系表旁的`motion_review=suspected_static`必须优先退回重做；自动帧差只是筛查，不能代替人工播放检查。
