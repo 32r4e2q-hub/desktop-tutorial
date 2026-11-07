@@ -1,11 +1,12 @@
-run=42386264278 attempt=1 ref=arena/36f9cd13-desktop-tutorial sha=45ed17a45299cf3642e6d2f662e2b90c9341c2f1
-started 2026-11-07T15:25:32Z
+run=42386465199 attempt=1 ref=arena/36f9cd13-desktop-tutorial sha=76e89ce9ea3b8f43193c548aecb90e94dbf12310
+started 2026-11-07T15:28:08Z
 Python 3.14.4
-payload={"mode":"clips","workers":1,"only":["S09"],"force":true,"time_budget_minutes":270}
+payload={"mode":"clips","workers":1,"only":["S09"],"force":true,"time_budget_minutes":285}
 Built 30 shots / 180s; reference package: check reference/manifest.json
 test_airport_and_night_market_are_separate_reference_assets (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_airport_and_night_market_are_separate_reference_assets) ... ok
 test_every_shot_has_its_own_caption_audio_slot_and_no_bgm (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_every_shot_has_its_own_caption_audio_slot_and_no_bgm) ... ok
 test_exact_30_shots_and_180_second_contiguous_timeline (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_exact_30_shots_and_180_second_contiguous_timeline) ... ok
+test_forced_retry_archives_terminal_failure_and_clears_provider_task_id (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_forced_retry_archives_terminal_failure_and_clears_provider_task_id) ... ok
 test_monthly_rate_gate_and_saved_provider_window (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_monthly_rate_gate_and_saved_provider_window) ... ok
 test_motion_probe_flags_frozen_frames (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_motion_probe_flags_frozen_frames) ... ok
 test_narration_hanzi_rate_matches_target (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_narration_hanzi_rate_matches_target) ... ok
@@ -15,7 +16,7 @@ test_reference_gate_fails_closed (production.tests.test_iguchi1990.Iguchi1990Pla
 test_retry_after_extends_provider_interval_and_persists_cooldown (production.tests.test_iguchi1990.Iguchi1990PlanTests.test_retry_after_extends_provider_interval_and_persists_cooldown) ... ok
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.308s
+Ran 11 tests in 0.264s
 
 OK
 VALID storyboard: 30 shots, 180 seconds, agnes-video-2.5-flash, 720P source, 16:9, shot-locked narration.
@@ -24,9 +25,146 @@ reference gate passed; all image files are approved and hash-matched
 ffmpeg version n9.0.2-17-g2a571b6068-20260930 Copyright (c) 2000-2026 the FFmpeg developers
 ffprobe shim 1.0 (PyAV/ffmpeg based) — stand-in for environments without ffprobe
 agnes_key_present=yes
-[arena/36f9cd13-desktop-tutorial 4348699] iguchi1990: production checkpoint [skip-iguchi1990]
- 1 file changed, 2 insertions(+), 4 deletions(-)
-[15:25:41] Generation paused: 1 clip(s) pending; accepted task IDs remain resumable.
-[15:25:41] S09: failed — Video task failed: upload timed out (code=upload_timeout)
+[arena/36f9cd13-desktop-tutorial fa0ab5d] iguchi1990: S09 checkpoint [skip-iguchi1990]
+ 1 file changed, 44 insertions(+), 13 deletions(-)
+[15:28:14] S09: accepted by Agnes (task task_3ZsEd2n…); next create waits at least 300s
+[15:28:26] status=pending progress=0% (elapsed 11s)
+[15:28:44] poll: HTTP 429: too many video status queries (request id: 20261107152844766498953gvN6SO91) (code=429) [1/24]
+[15:29:45] status=in_progress progress=10% (elapsed 90s)
+[15:29:54] poll: HTTP 429: too many video status queries (request id: 20261107152954392405690dW3xNIkm) (code=429) [1/24]
+[15:31:16] status=in_progress progress=70% (elapsed 182s)
+[15:31:19] status=completed progress=100% (elapsed 184s)
+[arena/36f9cd13-desktop-tutorial cf265f1] iguchi1990: S09 checkpoint [skip-iguchi1990]
+ 2 files changed, 51 insertions(+), 4 deletions(-)
+[arena/36f9cd13-desktop-tutorial 21dbf2a] iguchi1990: S09 checkpoint [skip-iguchi1990]
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+[arena/36f9cd13-desktop-tutorial 83e673b] iguchi1990: S09 checkpoint [skip-iguchi1990]
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 391, in commit_checkpoint
+    _run(["git", "push", "origin", BRANCH], capture_output=True, text=True)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 370, in _run
+    return subprocess.run(command, cwd=ROOT, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/36f9cd13-desktop-tutorial']' returned non-zero exit status 1.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 650, in poll_one
+    _record_status(doc, sid, {"status": "completed", "video_url": url,
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              "bytes": receipt["bytes"], "sha256": receipt["sha256"],
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              "requested_seconds": receipt["requested_seconds"],
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              "requested_size": SOURCE_SIZE, "inspection": inspection,
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              "visual_review": "pending", "error": None}, publish=True)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 428, in _record_status
+    commit_checkpoint(doc, sid)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 396, in commit_checkpoint
+    _run(["git", "pull", "--rebase", "origin", BRANCH], capture_output=True, text=True)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 370, in _run
+    return subprocess.run(command, cwd=ROOT, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/36f9cd13-desktop-tutorial']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 391, in commit_checkpoint
+    _run(["git", "push", "origin", BRANCH], capture_output=True, text=True)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 370, in _run
+    return subprocess.run(command, cwd=ROOT, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/36f9cd13-desktop-tutorial']' returned non-zero exit status 1.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 799, in wait_one
+    result = future.result()
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 395, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 666, in poll_one
+    _record_status(doc, sid, {"status": "poll_pending", "error": message}, publish=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 428, in _record_status
+    commit_checkpoint(doc, sid)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 396, in commit_checkpoint
+    _run(["git", "pull", "--rebase", "origin", BRANCH], capture_output=True, text=True)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 370, in _run
+    return subprocess.run(command, cwd=ROOT, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/36f9cd13-desktop-tutorial']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 391, in commit_checkpoint
+    _run(["git", "push", "origin", BRANCH], capture_output=True, text=True)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 370, in _run
+    return subprocess.run(command, cwd=ROOT, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'push', 'origin', 'arena/36f9cd13-desktop-tutorial']' returned non-zero exit status 1.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 938, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 931, in main
+    return run_generation(project, options, args.publish)
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 879, in run_generation
+    wait_one()
+    ~~~~~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 803, in wait_one
+    _record_status(doc, sid, {"status": "poll_pending", "error": redact(str(exc), api_key)}, publish=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 428, in _record_status
+    commit_checkpoint(doc, sid)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 396, in commit_checkpoint
+    _run(["git", "pull", "--rebase", "origin", BRANCH], capture_output=True, text=True)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/iguchi1990/generate.py", line 370, in _run
+    return subprocess.run(command, cwd=ROOT, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'pull', '--rebase', 'origin', 'arena/36f9cd13-desktop-tutorial']' returned non-zero exit status 128.
 generator_exit=1
 stage=finished exit=1
