@@ -175,7 +175,7 @@ class RealInspection(unittest.TestCase):
                 out.mux(packet)
         with patch.object(gen, "QA", tmp / "qa"):
             info = gen.inspect_clip(clip, "S99")
-        self.assertEqual((info["width"], info["height"], info["fps"]), (1280, 720, "24"))
+        self.assertEqual((info["width"], info["height"], float(info["fps"])), (1280, 720, 24.0))
         self.assertGreater(info["motion_mean_difference"], 0)
         self.assertTrue((tmp / "qa" / "S99.jpg").is_file())
 
@@ -212,7 +212,7 @@ class RealInspection(unittest.TestCase):
             row = receipts.doc["shots"][shot["id"]]
         self.assertEqual(row["status"], "completed", row.get("download_error"))
         self.assertEqual(len(row["sha256"]), 64)
-        self.assertEqual(row["inspection"]["fps"], "24")
+        self.assertEqual(float(row["inspection"]["fps"]), 24.0)
 
 
 class RenderPlan(unittest.TestCase):

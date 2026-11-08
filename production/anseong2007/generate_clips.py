@@ -235,7 +235,7 @@ def inspect_clip(path: Path, sid: str) -> dict:
         duration = float(container.duration / av.time_base) if container.duration else float(stream.duration * stream.time_base)
         width, height = int(stream.width), int(stream.height)
         # 必须在 with 块内读完：PyAV ≥ 14 关闭容器后再访问 stream 属性会抛 "Container is not open"
-        fps = str(stream.average_rate) if stream.average_rate else None
+        fps = round(float(stream.average_rate), 3) if stream.average_rate else None  # "24/1" vs "24" 因版本而异
         targets = [duration * (i + 0.5) / 9 for i in range(9)]
         thumbs, small, ix, last = [], [], 0, None
         for frame in container.decode(stream):
