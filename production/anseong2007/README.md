@@ -31,7 +31,9 @@ python3 production/anseong2007/render.py --plan-only                 # 配音窗
 
 参考图 URL 固定到 `reference/revision.txt` 记录的不可变 commit；生成器在触碰密钥前核对每张图的 SHA-256 与审核状态。
 
-## 交付状态（v3，2026-11-08）
+## 交付状态（v4，2026-11-08）
+
+- v4：S05 重新生成（原片厨房左侧有一个半透明绿衣女人的重影跟着两人出门），新片源 run 42473422387；渲染 run 42473838986，仍只留解说。
 
 - v3：按用户要求去掉全部背景声/拟音，只留解说（`render.py` `VOICE_ONLY = True`，渲染时校验两句之间为静音）。
 
