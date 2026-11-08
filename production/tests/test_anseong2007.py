@@ -8,6 +8,7 @@ import tempfile
 import threading
 import time
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -101,8 +102,11 @@ class SchedulerSimulation(unittest.TestCase):
     def test_queue_all_then_poll_with_limits(self):
         gen = load("generate_clips")
         fake = FakeAgnes(gen.agnes)
+        # agnes_video 是全仓共享模块：只在本用例内替换，结束自动还原，不能串到别的测试
         for name in ("create_task", "http_json", "download"):
-            setattr(gen.agnes, name, getattr(fake, name))
+            patcher = patch.object(gen.agnes, name, getattr(fake, name))
+            patcher.start()
+            self.addCleanup(patcher.stop)
         tmp = Path(tempfile.mkdtemp())
         gen.RESULTS, gen.QA, gen.WORK = tmp / "results.json", tmp / "qa", tmp / "clips"
         gen.CREATE_STOP_MARGIN = 0.0

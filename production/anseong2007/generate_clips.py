@@ -32,7 +32,15 @@ ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(ROOT / "production"))
 import agnes_video as agnes  # noqa: E402
-from throttle import BudgetExhausted, RequestGate  # noqa: E402
+import importlib.util  # noqa: E402
+
+# 本项目的 throttle.py 用独立模块名加载：production/dahlia 等项目也有同名 throttle.py，
+# 全量 pytest 时谁先进 sys.modules 谁就赢，会互相串台。
+_spec = importlib.util.spec_from_file_location("anseong2007_throttle", HERE / "throttle.py")
+_throttle = importlib.util.module_from_spec(_spec)
+sys.modules["anseong2007_throttle"] = _throttle
+_spec.loader.exec_module(_throttle)
+BudgetExhausted, RequestGate = _throttle.BudgetExhausted, _throttle.RequestGate
 
 SLUG = "anseong2007"
 BRANCH = "arena/7f19693e-desktop-tutorial"
