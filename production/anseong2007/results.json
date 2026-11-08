@@ -1195,12 +1195,32 @@
     },
     "S23": {
       "id": "S23",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:03:39. (request id: 202611080758515340443469upIKW2M) (code=rate_limit_exceeded)",
+      "status": "queued",
+      "error": null,
       "request_hash": "de6e41ec0fb4b4ab00d7487c67aaeae3f636be551daeac158d856a75375f186c",
-      "create_attempts": 1,
+      "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T07:58:51Z"
+      "updated_at": "2026-11-08T08:03:40Z",
+      "video_id": "task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH",
+      "task_id": "task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S06参考图（2007年安城警察署强力组办公室，地图与白板）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C06参考图（强力组刑警（40多岁）虚构定妆：深色夹克衬衫、胡茬）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为P02参考图（发动机特写：油污铜绿、刻印编号（抽象线条））：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C06锚点】40多岁韩国刑警，深色夹克衬衫，眼神疲惫锐利，下巴胡茬，神情执着\n2007年安城警察署，几名刑警围着长桌俯身，桌上摊着出口单据、发动机照片和一张中东与北非地图（无可读文字），下巴有胡茬、穿深色夹克的刑警用红笔从东亚一路画出一条长长的红线延伸到埃及，众人互相对视，眼神发亮。俯拍镜头。 运镜：俯拍，红线延伸。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007322,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S06.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C06.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/P02.png"
+        ]
+      },
+      "requested_seconds": 7,
+      "created_at": "2026-11-08T08:03:40Z",
+      "next_poll_epoch": 1794125110.0713537
     },
     "S24": {
       "id": "S24"
@@ -1390,8 +1410,8 @@
   },
   "status_counts": {
     "download_pending": 22,
-    "rate_limited": 1,
+    "queued": 1,
     "?": 7
   },
-  "updated_at": "2026-11-08T08:02:14Z"
+  "updated_at": "2026-11-08T08:03:40Z"
 }
