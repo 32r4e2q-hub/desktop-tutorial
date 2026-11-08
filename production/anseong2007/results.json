@@ -1305,12 +1305,12 @@
     },
     "S25": {
       "id": "S25",
-      "status": "queued",
+      "status": "in_progress",
       "error": null,
       "request_hash": "13d0180685a87d4cfa576db36c9ef6c1c04d3dd895a9dd24be1d9e82be38e1d4",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:13:40Z",
+      "updated_at": "2026-11-08T08:16:11Z",
       "video_id": "task_qsZOpJPcKlUONgc1HUR13htToNeRday7",
       "task_id": "task_qsZOpJPcKlUONgc1HUR13htToNeRday7",
       "request_payload": {
@@ -1330,7 +1330,9 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T08:13:40Z",
-      "next_poll_epoch": 1794125710.8261704
+      "next_poll_epoch": 1794125831.6431816,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S26": {
       "id": "S26",
@@ -1520,9 +1522,9 @@
   },
   "status_counts": {
     "download_pending": 24,
-    "queued": 1,
+    "in_progress": 1,
     "rate_limited": 1,
     "?": 4
   },
-  "updated_at": "2026-11-08T08:14:17Z"
+  "updated_at": "2026-11-08T08:16:11Z"
 }
