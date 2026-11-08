@@ -5,7 +5,7 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "download_pending",
+      "status": "completed",
       "video_id": "task_ugqQM7Niuq7iJFyfqvFfh2U8JAKOLWIv",
       "task_id": "task_ugqQM7Niuq7iJFyfqvFfh2U8JAKOLWIv",
       "request_hash": "f8fc168a052d0b73e67c513e5bee39e595c10a84263ca6a595e43305d2cadaac",
@@ -28,7 +28,7 @@
       "created_at": "2026-11-08T07:12:55Z",
       "error": null,
       "next_poll_epoch": 1794122431.370197,
-      "updated_at": "2026-11-08T07:20:34Z",
+      "updated_at": "2026-11-08T09:07:33Z",
       "progress": 100,
       "poll_failures": 0,
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ugqQM7Niuq7iJFyfqvFfh2U8JAKOLWIv.mp4",
@@ -54,11 +54,27 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 2568276,
+      "sha256": "0ce9e764b958164fb0579bdf1c50a1949e44a7b555048209596b353f0be91f22",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2568276,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0455,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:33Z"
     },
     "S02": {
       "id": "S02",
-      "status": "download_pending",
+      "status": "completed",
       "video_id": "task_UHeegspdvgnsPE2VkCO0iaq2FtFW6uSH",
       "task_id": "task_UHeegspdvgnsPE2VkCO0iaq2FtFW6uSH",
       "request_hash": "9c937ab85eb005b53c6438efa50aee48192d00f93e8e0b956988a880edaa6878",
@@ -81,7 +97,7 @@
       "created_at": "2026-11-08T07:13:07Z",
       "error": null,
       "next_poll_epoch": 1794122413.0875115,
-      "updated_at": "2026-11-08T07:20:16Z",
+      "updated_at": "2026-11-08T09:07:29Z",
       "progress": 100,
       "poll_failures": 0,
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_UHeegspdvgnsPE2VkCO0iaq2FtFW6uSH.mp4",
@@ -107,16 +123,32 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 1829887,
+      "sha256": "ba9e21fa0a7b1e9b3405fe35894861d9c482306007eaaae966b1c8c70cab2bc0",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1829887,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0359,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S02.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:29Z"
     },
     "S03": {
       "id": "S03",
-      "status": "download_pending",
+      "status": "completed",
       "error": null,
       "request_hash": "29045c7f8469130176eb3f72c64cb8ce0c3d93b8c8c022b6c44ece7e047115e7",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:21:27Z",
+      "updated_at": "2026-11-08T09:07:42Z",
       "video_id": "task_PmYbojFzCDSPitEyyG5SX6KwoHB1OY2M",
       "task_id": "task_PmYbojFzCDSPitEyyG5SX6KwoHB1OY2M",
       "request_payload": {
@@ -162,11 +194,27 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 1998677,
+      "sha256": "c5ea1c1e53e5b3d50c4ff5e067892611bb851cd7f7bd04999049b490f5b06fe4",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1998677,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.015,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S03.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:42Z"
     },
     "S04": {
       "id": "S04",
-      "status": "download_pending",
+      "status": "completed",
       "video_id": "task_lj2HFlGsYUMjmDUZOarMDFN8TzNZUxae",
       "task_id": "task_lj2HFlGsYUMjmDUZOarMDFN8TzNZUxae",
       "request_hash": "c5f3c8bd1c2e588711b76d7a715e016b6aad3a5f8023d8f868536899f56054cf",
@@ -190,7 +238,7 @@
       "created_at": "2026-11-08T07:14:32Z",
       "error": null,
       "next_poll_epoch": 1794122435.752761,
-      "updated_at": "2026-11-08T07:20:38Z",
+      "updated_at": "2026-11-08T09:07:37Z",
       "progress": 100,
       "poll_failures": 0,
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj2HFlGsYUMjmDUZOarMDFN8TzNZUxae.mp4",
@@ -216,16 +264,32 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 2301440,
+      "sha256": "bccb03fe14c7f9cfea3c0eb99b2cb5359c0f7b650862e4862dd4b70d874eaa50",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2301440,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0299,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S04.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:37Z"
     },
     "S05": {
       "id": "S05",
-      "status": "download_pending",
+      "status": "completed",
       "error": null,
       "request_hash": "6225d498a47281e592e9e57ad8c634d3d0756f5f7cc525bae754106abff2fc1c",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:21:51Z",
+      "updated_at": "2026-11-08T09:07:46Z",
       "video_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
       "task_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
       "request_payload": {
@@ -271,16 +335,32 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 3450857,
+      "sha256": "7512ca754637e6f767105aacbc5207cf693e20ff6b39a45f1b5e77da75496ff0",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 3450857,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0604,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:46Z"
     },
     "S06": {
       "id": "S06",
-      "status": "download_pending",
+      "status": "completed",
       "error": null,
       "request_hash": "a97ad7ad317221ed7ad82dc33d7376f07f6895d5e8d447e7e74f3f190cab1c6e",
       "create_attempts": 9,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:25:37Z",
+      "updated_at": "2026-11-08T09:07:55Z",
       "video_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
       "task_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
       "request_payload": {
@@ -324,11 +404,27 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 2609633,
+      "sha256": "c6c4f333ebac76d9790bf4a3a3f843247e4cb4f3655d54a6fec20ee557b23d3b",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2609633,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0405,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S06.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:55Z"
     },
     "S07": {
       "id": "S07",
-      "status": "download_pending",
+      "status": "completed",
       "video_id": "task_EOSRGMH9G6bchJg8PuyFKnSFe31SQt1a",
       "task_id": "task_EOSRGMH9G6bchJg8PuyFKnSFe31SQt1a",
       "request_hash": "bcc3df84dfa7e5eb10b0a4881a13db16e4e15760084b8661369ef1081717d8bc",
@@ -351,7 +447,7 @@
       "created_at": "2026-11-08T07:20:12Z",
       "error": null,
       "next_poll_epoch": 1794122745.50752,
-      "updated_at": "2026-11-08T07:25:48Z",
+      "updated_at": "2026-11-08T09:07:59Z",
       "progress": 100,
       "poll_failures": 0,
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_EOSRGMH9G6bchJg8PuyFKnSFe31SQt1a.mp4",
@@ -377,16 +473,32 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 1444482,
+      "sha256": "e98f4bf149c1a939e089626b032c1fd371e570d78bb6802fa4ba0895541e99f9",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1444482,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0321,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S07.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:59Z"
     },
     "S08": {
       "id": "S08",
-      "status": "download_pending",
+      "status": "completed",
       "error": null,
       "request_hash": "c387b026f050efda7dae47ce3e4398b3050b9ff6b596e56888213255875999db",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:26:32Z",
+      "updated_at": "2026-11-08T09:08:03Z",
       "video_id": "task_mF0slbxk5rIYXUEHXESBBpgjzlpiercM",
       "task_id": "task_mF0slbxk5rIYXUEHXESBBpgjzlpiercM",
       "request_payload": {
@@ -431,11 +543,27 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 2032247,
+      "sha256": "71073e8739d439ff3831dcd9c462681437dc298b0ff97858d3171d3ab3750d2c",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2032247,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0523,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S08.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:08:03Z"
     },
     "S09": {
       "id": "S09",
-      "status": "download_pending",
+      "status": "completed",
       "video_id": "task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko",
       "task_id": "task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko",
       "request_hash": "c2d2a9684fae07f7d110879f0f95e571bf8c6855657d8eed89e549c610ea3b26",
@@ -458,7 +586,7 @@
       "created_at": "2026-11-08T07:21:37Z",
       "error": null,
       "next_poll_epoch": 1794122709.2090914,
-      "updated_at": "2026-11-08T07:25:12Z",
+      "updated_at": "2026-11-08T09:07:50Z",
       "progress": 100,
       "poll_failures": 0,
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko.mp4",
@@ -484,16 +612,32 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 3361514,
+      "sha256": "e57fc7382f8272103cc0ed0e7151c6af7f2c3fcca76f84229cffac7b635bad84",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 3361514,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0283,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S09.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:07:50Z"
     },
     "S10": {
       "id": "S10",
-      "status": "download_pending",
+      "status": "completed",
       "error": null,
       "request_hash": "a783da7f518b87d149959369f75f2b8ffe2b7e7ad1d984a98e139fd91a620523",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:27:25Z",
+      "updated_at": "2026-11-08T09:08:07Z",
       "video_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
       "task_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
       "request_payload": {
@@ -538,16 +682,32 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 1956970,
+      "sha256": "d2cd506b778f9cc998b76bbd8f0aff4e224fe8d01900c8594fdda7576857f2d9",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1956970,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.082,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S10.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:08:07Z"
     },
     "S11": {
       "id": "S11",
-      "status": "download_pending",
+      "status": "completed",
       "error": null,
       "request_hash": "6e583728ec0603c4baf435c2c4619f46cdef121c6d57803428dbaf4eca0eb53a",
       "create_attempts": 5,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:28:38Z",
+      "updated_at": "2026-11-08T09:08:12Z",
       "video_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
       "task_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
       "request_payload": {
@@ -593,11 +753,27 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 2632329,
+      "sha256": "dee3a6c4eefc8c986a4cba3180e2c5f1915bfbe914eb909bc4be5d67e677fbf3",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2632329,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0592,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S11.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:08:12Z"
     },
     "S12": {
       "id": "S12",
-      "status": "download_pending",
+      "status": "completed",
       "video_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
       "task_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
       "request_hash": "c3d253149f985118cbdc7114632c56592b0d3fb1fc869f65ebdf04e240dee88c",
@@ -621,7 +797,7 @@
       "created_at": "2026-11-08T07:25:16Z",
       "error": null,
       "next_poll_epoch": 1794123049.4874072,
-      "updated_at": "2026-11-08T07:30:52Z",
+      "updated_at": "2026-11-08T09:08:16Z",
       "progress": 100,
       "poll_failures": 0,
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac.mp4",
@@ -647,16 +823,32 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 2828423,
+      "sha256": "c51394b73ae693a49069ade0328455aa755e6b894bdfed1c09b4a7c6ecb666f9",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2828423,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0449,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S12.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:08:16Z"
     },
     "S13": {
       "id": "S13",
-      "status": "download_pending",
+      "status": "completed",
       "error": null,
       "request_hash": "2632995a7682e7a8df9bfa38845ca3d3681289625436d0f56c3e32b70244b5ad",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:31:04Z",
+      "updated_at": "2026-11-08T09:08:20Z",
       "video_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "task_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "request_payload": {
@@ -702,11 +894,27 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 1725833,
+      "sha256": "9128d0737e0cdbd378057f8c1f27d2eff38af20e7d8d4a4bd73c10ff9a0eda7e",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1725833,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0612,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S13.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:08:20Z"
     },
     "S14": {
       "id": "S14",
-      "status": "download_pending",
+      "status": "completed",
       "video_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
       "task_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
       "request_hash": "5be3f2a56872f114bbbe40e74331252c9f4c8cf9d841a637087c5b45e4f98d97",
@@ -729,7 +937,7 @@
       "created_at": "2026-11-08T07:26:40Z",
       "error": null,
       "next_poll_epoch": 1794123135.157777,
-      "updated_at": "2026-11-08T07:32:17Z",
+      "updated_at": "2026-11-08T09:08:25Z",
       "progress": 100,
       "poll_failures": 0,
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v.mp4",
@@ -755,7 +963,23 @@
           "input_audio_seconds": 0
         }
       },
-      "download_error": "Container is not open"
+      "download_error": "Container is not open",
+      "bytes": 1962145,
+      "sha256": "4d9943a3feeae856d8a7d1ca2b6f25fd0767741888bba69494dc96823085135d",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1962145,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.1247,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S14.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:08:25Z"
     },
     "S15": {
       "id": "S15",
@@ -1798,9 +2022,10 @@
     ]
   },
   "status_counts": {
-    "download_pending": 30
+    "completed": 14,
+    "download_pending": 16
   },
-  "updated_at": "2026-11-08T08:44:19Z",
+  "updated_at": "2026-11-08T09:08:25Z",
   "pending_shots": [
     "S01",
     "S02",
