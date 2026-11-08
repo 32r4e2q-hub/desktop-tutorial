@@ -924,12 +924,12 @@
     },
     "S18": {
       "id": "S18",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "f7d84c7674a403a81a8b63b79dd4512a4070dc8ce38935ab67de3013ecb5bdfd",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T07:43:09Z",
+      "updated_at": "2026-11-08T07:43:41Z",
       "video_id": "task_UTfRme288zdzTrda9gSCRuEihwyvwxFv",
       "task_id": "task_UTfRme288zdzTrda9gSCRuEihwyvwxFv",
       "request_payload": {
@@ -949,20 +949,71 @@
       "requested_seconds": 7,
       "created_at": "2026-11-08T07:38:37Z",
       "next_poll_epoch": 1794123819.1919494,
-      "progress": 90,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_UTfRme288zdzTrda9gSCRuEihwyvwxFv.mp4",
+      "final_response": {
+        "completed_at": 1794123789,
+        "created_at": 1794123516,
+        "error": null,
+        "expires_at": null,
+        "id": "task_UTfRme288zdzTrda9gSCRuEihwyvwxFv",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794123559,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_UTfRme288zdzTrda9gSCRuEihwyvwxFv.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S19": {
       "id": "S19",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:43:36. (request id: 2026110807384973364465pSIRPvCM) (code=rate_limit_exceeded)",
+      "status": "in_progress",
+      "error": null,
       "request_hash": "8a3fa7b34e9e520f69a7317cda22bb273e0db7f174da95f8d1a5a9c8b957ce6c",
-      "create_attempts": 1,
+      "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T07:38:49Z"
+      "updated_at": "2026-11-08T07:45:08Z",
+      "video_id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
+      "task_id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S06参考图（2007年安城警察署强力组办公室，地图与白板）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C06参考图（强力组刑警（40多岁）虚构定妆：深色夹克衬衫、胡茬）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C06锚点】40多岁韩国刑警，深色夹克衬衫，眼神疲惫锐利，下巴胡茬，神情执着\n2007年安城警察署强力组办公室，荧光灯冷灰蓝色调，墙上贴满时间线卡片与照片（模糊），挂历一页页被风翻过，白板上的线条被擦掉又重画；一名下巴有胡茬、穿深色夹克衬衫的刑警坐在桌前看着日历，疲惫地叹气。镜头缓慢推近，无可读文字。 运镜：延时感，缓慢推近。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007318,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S06.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C06.png"
+        ]
+      },
+      "requested_seconds": 6,
+      "created_at": "2026-11-08T07:43:37Z",
+      "next_poll_epoch": 1794123968.1445494,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S20": {
-      "id": "S20"
+      "id": "S20",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:48:37. (request id: 20261108074349445154831oHtdRNMd) (code=rate_limit_exceeded)",
+      "request_hash": "53da1935f2a47acd1a57b94d400d4061ec5be8ad5146e34827112fdec6a3f737",
+      "create_attempts": 1,
+      "cooldown_seconds": 289.0,
+      "updated_at": "2026-11-08T07:43:49Z"
     },
     "S21": {
       "id": "S21"
@@ -1160,10 +1211,10 @@
     ]
   },
   "status_counts": {
-    "download_pending": 17,
+    "download_pending": 18,
     "in_progress": 1,
     "rate_limited": 1,
-    "?": 11
+    "?": 10
   },
-  "updated_at": "2026-11-08T07:43:09Z"
+  "updated_at": "2026-11-08T07:45:08Z"
 }
