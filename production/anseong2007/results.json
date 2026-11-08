@@ -701,145 +701,10 @@
       "completed_at": "2026-11-08T09:08:07Z"
     },
     "S11": {
-      "id": "S11",
-      "status": "completed",
-      "error": null,
-      "request_hash": "6e583728ec0603c4baf435c2c4619f46cdef121c6d57803428dbaf4eca0eb53a",
-      "create_attempts": 5,
-      "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T09:08:12Z",
-      "video_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
-      "task_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S04参考图（2007年韩国地下赌场，烟雾、花牌与现金）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C03参考图（柳某（48岁）虚构演员式定妆：粗壮短发、旧夹克、半脸阴影）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C04参考图（柳某妻子（约42岁）虚构定妆：凌乱烫发、深色外套、指间夹烟）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C03锚点】48岁韩国粗壮男子，短发，旧夹克，眼神阴沉克制，半脸隐于阴影\n【C04锚点】42岁韩国女性，烫发凌乱，深色外套，神情焦虑疲惫，指间夹烟\n烟雾缭绕的韩国地下赌场一角，昏黄灯光。身形粗壮、穿旧夹克的中年男子半张脸隐在烟雾与阴影里，手里攥着一只牛皮纸信封，神情阴沉；旁边他凌乱烫发、穿深色外套的妻子不停点烟，神情焦虑，桌上散着花牌和借据（纸面无字）。镜头缓慢推近。 运镜：中景，缓慢推近。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
-        "seconds": "7",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 2007310,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S04.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C04.png"
-        ]
-      },
-      "requested_seconds": 7,
-      "created_at": "2026-11-08T07:25:04Z",
-      "next_poll_epoch": 1794122915.4784071,
-      "progress": 100,
-      "poll_failures": 0,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC.mp4",
-      "final_response": {
-        "completed_at": 1794122906,
-        "created_at": 1794122703,
-        "error": null,
-        "expires_at": null,
-        "id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
-        "internal_status": "pending",
-        "object": "video",
-        "progress": 100,
-        "quality": "standard",
-        "remixed_from_video_id": "",
-        "seconds": "7",
-        "size": "720P",
-        "started_at": 1794122755,
-        "status": "completed",
-        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC.mp4",
-        "usage": {
-          "input_seconds": 0,
-          "input_image_count": 3,
-          "input_audio_seconds": 0
-        }
-      },
-      "download_error": "Container is not open",
-      "bytes": 2632329,
-      "sha256": "dee3a6c4eefc8c986a4cba3180e2c5f1915bfbe914eb909bc4be5d67e677fbf3",
-      "inspection": {
-        "duration_seconds": 7.328,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "bytes": 2632329,
-        "decoded_ok": true,
-        "motion_mean_difference": 0.0592,
-        "suspected_static": false,
-        "contact_sheet": "production/anseong2007/qa/S11.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending",
-      "completed_at": "2026-11-08T09:08:12Z"
+      "id": "S11"
     },
     "S12": {
-      "id": "S12",
-      "status": "completed",
-      "video_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
-      "task_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
-      "request_hash": "c3d253149f985118cbdc7114632c56592b0d3fb1fc869f65ebdf04e240dee88c",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S08参考图（2007年柳某家客厅，挂钟、旧沙发、昏黄灯光）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C03参考图（柳某（48岁）虚构演员式定妆：粗壮短发、旧夹克、半脸阴影）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C04参考图（柳某妻子（约42岁）虚构定妆：凌乱烫发、深色外套、指间夹烟）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C03锚点】48岁韩国粗壮男子，短发，旧夹克，眼神阴沉克制，半脸隐于阴影\n【C04锚点】42岁韩国女性，烫发凌乱，深色外套，神情焦虑疲惫，指间夹烟\n2007年韩国普通住宅的昏暗客厅，旧沙发、挂钟，窗外天色渐暗。凌乱烫发的妻子坐在沙发上低头哭泣，粗壮短发、穿旧夹克的男人一言不发地盯着墙上的挂钟，手边放着一只旧皮包；镜头缓慢推近他慢慢握紧的拳头。 运镜：近景，缓慢推近握紧的拳头。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
-        "seconds": "7",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 2007311,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S08.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C04.png"
-        ]
-      },
-      "requested_seconds": 7,
-      "create_attempts": 1,
-      "created_at": "2026-11-08T07:25:16Z",
-      "error": null,
-      "next_poll_epoch": 1794123049.4874072,
-      "updated_at": "2026-11-08T09:08:16Z",
-      "progress": 100,
-      "poll_failures": 0,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac.mp4",
-      "final_response": {
-        "completed_at": 1794123044,
-        "created_at": 1794122715,
-        "error": null,
-        "expires_at": null,
-        "id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
-        "internal_status": "pending",
-        "object": "video",
-        "progress": 100,
-        "quality": "standard",
-        "remixed_from_video_id": "",
-        "seconds": "7",
-        "size": "720P",
-        "started_at": 1794122764,
-        "status": "completed",
-        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac.mp4",
-        "usage": {
-          "input_seconds": 0,
-          "input_image_count": 3,
-          "input_audio_seconds": 0
-        }
-      },
-      "download_error": "Container is not open",
-      "bytes": 2828423,
-      "sha256": "c51394b73ae693a49069ade0328455aa755e6b894bdfed1c09b4a7c6ecb666f9",
-      "inspection": {
-        "duration_seconds": 7.328,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "bytes": 2828423,
-        "decoded_ok": true,
-        "motion_mean_difference": 0.0449,
-        "suspected_static": false,
-        "contact_sheet": "production/anseong2007/qa/S12.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending",
-      "completed_at": "2026-11-08T09:08:16Z"
+      "id": "S12"
     },
     "S13": {
       "id": "S13",
@@ -913,73 +778,7 @@
       "completed_at": "2026-11-08T09:08:20Z"
     },
     "S14": {
-      "id": "S14",
-      "status": "completed",
-      "video_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
-      "task_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
-      "request_hash": "5be3f2a56872f114bbbe40e74331252c9f4c8cf9d841a637087c5b45e4f98d97",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S01参考图（2007年3月安城市郊山路傍晚，雾气低垂）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为P05参考图（插在湿泥土里的铁锹，雾气）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n暮色渐沉的韩国山林，固定机位远景，雾气在树梢间流动，几只鸟突然从树林里惊飞而起，掠过灰暗的天空；随后光线迅速暗下，画面几乎沉入黑暗，只剩树影轮廓。不出现任何人物与行凶。 运镜：固定机位，暮色压暗至近乎全黑。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
-        "seconds": "5",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 2007313,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/P05.png"
-        ]
-      },
-      "requested_seconds": 5,
-      "create_attempts": 1,
-      "created_at": "2026-11-08T07:26:40Z",
-      "error": null,
-      "next_poll_epoch": 1794123135.157777,
-      "updated_at": "2026-11-08T09:08:25Z",
-      "progress": 100,
-      "poll_failures": 0,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v.mp4",
-      "final_response": {
-        "completed_at": 1794123114,
-        "created_at": 1794122800,
-        "error": null,
-        "expires_at": null,
-        "id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
-        "internal_status": "pending",
-        "object": "video",
-        "progress": 100,
-        "quality": "standard",
-        "remixed_from_video_id": "",
-        "seconds": "5",
-        "size": "720P",
-        "started_at": 1794122853,
-        "status": "completed",
-        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v.mp4",
-        "usage": {
-          "input_seconds": 0,
-          "input_image_count": 2,
-          "input_audio_seconds": 0
-        }
-      },
-      "download_error": "Container is not open",
-      "bytes": 1962145,
-      "sha256": "4d9943a3feeae856d8a7d1ca2b6f25fd0767741888bba69494dc96823085135d",
-      "inspection": {
-        "duration_seconds": 5.184,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "bytes": 1962145,
-        "decoded_ok": true,
-        "motion_mean_difference": 0.1247,
-        "suspected_static": false,
-        "contact_sheet": "production/anseong2007/qa/S14.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending",
-      "completed_at": "2026-11-08T09:08:25Z"
+      "id": "S14"
     },
     "S15": {
       "id": "S15",
@@ -1265,74 +1064,7 @@
       "completed_at": "2026-11-08T09:08:42Z"
     },
     "S19": {
-      "id": "S19",
-      "status": "completed",
-      "error": null,
-      "request_hash": "8a3fa7b34e9e520f69a7317cda22bb273e0db7f174da95f8d1a5a9c8b957ce6c",
-      "create_attempts": 2,
-      "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T09:08:46Z",
-      "video_id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
-      "task_id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S06参考图（2007年安城警察署强力组办公室，地图与白板）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C06参考图（强力组刑警（40多岁）虚构定妆：深色夹克衬衫、胡茬）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C06锚点】40多岁韩国刑警，深色夹克衬衫，眼神疲惫锐利，下巴胡茬，神情执着\n2007年安城警察署强力组办公室，荧光灯冷灰蓝色调，墙上贴满时间线卡片与照片（模糊），挂历一页页被风翻过，白板上的线条被擦掉又重画；一名下巴有胡茬、穿深色夹克衬衫的刑警坐在桌前看着日历，疲惫地叹气。镜头缓慢推近，无可读文字。 运镜：延时感，缓慢推近。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 2007318,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S06.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C06.png"
-        ]
-      },
-      "requested_seconds": 6,
-      "created_at": "2026-11-08T07:43:37Z",
-      "next_poll_epoch": 1794124150.506521,
-      "progress": 100,
-      "poll_failures": 0,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB.mp4",
-      "final_response": {
-        "completed_at": 1794124126,
-        "created_at": 1794123817,
-        "error": null,
-        "expires_at": null,
-        "id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
-        "internal_status": "pending",
-        "object": "video",
-        "progress": 100,
-        "quality": "standard",
-        "remixed_from_video_id": "",
-        "seconds": "6",
-        "size": "720P",
-        "started_at": 1794123859,
-        "status": "completed",
-        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB.mp4",
-        "usage": {
-          "input_seconds": 0,
-          "input_image_count": 2,
-          "input_audio_seconds": 0
-        }
-      },
-      "download_error": "Container is not open",
-      "bytes": 2988357,
-      "sha256": "ac72e802b8a1c868b3189400665916418783eaa278d254cb7a3039a7d9d5a108",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "bytes": 2988357,
-        "decoded_ok": true,
-        "motion_mean_difference": 0.0893,
-        "suspected_static": false,
-        "contact_sheet": "production/anseong2007/qa/S19.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending",
-      "completed_at": "2026-11-08T09:08:46Z"
+      "id": "S19"
     },
     "S20": {
       "id": "S20",
@@ -2115,8 +1847,8 @@
   },
   "branch": "arena/7f19693e-desktop-tutorial",
   "reference_revision": "3b6de108fdc739423d039ea003fd520e324190d0",
-  "phase": "clips_ready",
-  "started_at": "2026-11-08T09:07:24Z",
+  "phase": "generating",
+  "started_at": "2026-11-08T09:13:37Z",
   "rate_policy": {
     "creates_per_minute": 5,
     "create_interval_seconds": 12.1,
@@ -2179,11 +1911,152 @@
     "S11": [
       {
         "id": "S11"
+      },
+      {
+        "id": "S11",
+        "status": "completed",
+        "error": null,
+        "request_hash": "6e583728ec0603c4baf435c2c4619f46cdef121c6d57803428dbaf4eca0eb53a",
+        "create_attempts": 5,
+        "cooldown_seconds": 30.0,
+        "updated_at": "2026-11-08T09:08:12Z",
+        "video_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
+        "task_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S04参考图（2007年韩国地下赌场，烟雾、花牌与现金）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C03参考图（柳某（48岁）虚构演员式定妆：粗壮短发、旧夹克、半脸阴影）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C04参考图（柳某妻子（约42岁）虚构定妆：凌乱烫发、深色外套、指间夹烟）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C03锚点】48岁韩国粗壮男子，短发，旧夹克，眼神阴沉克制，半脸隐于阴影\n【C04锚点】42岁韩国女性，烫发凌乱，深色外套，神情焦虑疲惫，指间夹烟\n烟雾缭绕的韩国地下赌场一角，昏黄灯光。身形粗壮、穿旧夹克的中年男子半张脸隐在烟雾与阴影里，手里攥着一只牛皮纸信封，神情阴沉；旁边他凌乱烫发、穿深色外套的妻子不停点烟，神情焦虑，桌上散着花牌和借据（纸面无字）。镜头缓慢推近。 运镜：中景，缓慢推近。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+          "seconds": "7",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 2007310,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S04.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C04.png"
+          ]
+        },
+        "requested_seconds": 7,
+        "created_at": "2026-11-08T07:25:04Z",
+        "next_poll_epoch": 1794122915.4784071,
+        "progress": 100,
+        "poll_failures": 0,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC.mp4",
+        "final_response": {
+          "completed_at": 1794122906,
+          "created_at": 1794122703,
+          "error": null,
+          "expires_at": null,
+          "id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
+          "internal_status": "pending",
+          "object": "video",
+          "progress": 100,
+          "quality": "standard",
+          "remixed_from_video_id": "",
+          "seconds": "7",
+          "size": "720P",
+          "started_at": 1794122755,
+          "status": "completed",
+          "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC.mp4",
+          "usage": {
+            "input_seconds": 0,
+            "input_image_count": 3,
+            "input_audio_seconds": 0
+          }
+        },
+        "download_error": "Container is not open",
+        "bytes": 2632329,
+        "sha256": "dee3a6c4eefc8c986a4cba3180e2c5f1915bfbe914eb909bc4be5d67e677fbf3",
+        "inspection": {
+          "duration_seconds": 7.328,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "bytes": 2632329,
+          "decoded_ok": true,
+          "motion_mean_difference": 0.0592,
+          "suspected_static": false,
+          "contact_sheet": "production/anseong2007/qa/S11.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending",
+        "completed_at": "2026-11-08T09:08:12Z"
       }
     ],
     "S12": [
       {
         "id": "S12"
+      },
+      {
+        "id": "S12",
+        "status": "completed",
+        "video_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
+        "task_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
+        "request_hash": "c3d253149f985118cbdc7114632c56592b0d3fb1fc869f65ebdf04e240dee88c",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S08参考图（2007年柳某家客厅，挂钟、旧沙发、昏黄灯光）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C03参考图（柳某（48岁）虚构演员式定妆：粗壮短发、旧夹克、半脸阴影）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C04参考图（柳某妻子（约42岁）虚构定妆：凌乱烫发、深色外套、指间夹烟）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C03锚点】48岁韩国粗壮男子，短发，旧夹克，眼神阴沉克制，半脸隐于阴影\n【C04锚点】42岁韩国女性，烫发凌乱，深色外套，神情焦虑疲惫，指间夹烟\n2007年韩国普通住宅的昏暗客厅，旧沙发、挂钟，窗外天色渐暗。凌乱烫发的妻子坐在沙发上低头哭泣，粗壮短发、穿旧夹克的男人一言不发地盯着墙上的挂钟，手边放着一只旧皮包；镜头缓慢推近他慢慢握紧的拳头。 运镜：近景，缓慢推近握紧的拳头。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+          "seconds": "7",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 2007311,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S08.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C04.png"
+          ]
+        },
+        "requested_seconds": 7,
+        "create_attempts": 1,
+        "created_at": "2026-11-08T07:25:16Z",
+        "error": null,
+        "next_poll_epoch": 1794123049.4874072,
+        "updated_at": "2026-11-08T09:08:16Z",
+        "progress": 100,
+        "poll_failures": 0,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac.mp4",
+        "final_response": {
+          "completed_at": 1794123044,
+          "created_at": 1794122715,
+          "error": null,
+          "expires_at": null,
+          "id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
+          "internal_status": "pending",
+          "object": "video",
+          "progress": 100,
+          "quality": "standard",
+          "remixed_from_video_id": "",
+          "seconds": "7",
+          "size": "720P",
+          "started_at": 1794122764,
+          "status": "completed",
+          "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac.mp4",
+          "usage": {
+            "input_seconds": 0,
+            "input_image_count": 3,
+            "input_audio_seconds": 0
+          }
+        },
+        "download_error": "Container is not open",
+        "bytes": 2828423,
+        "sha256": "c51394b73ae693a49069ade0328455aa755e6b894bdfed1c09b4a7c6ecb666f9",
+        "inspection": {
+          "duration_seconds": 7.328,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "bytes": 2828423,
+          "decoded_ok": true,
+          "motion_mean_difference": 0.0449,
+          "suspected_static": false,
+          "contact_sheet": "production/anseong2007/qa/S12.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending",
+        "completed_at": "2026-11-08T09:08:16Z"
       }
     ],
     "S13": [
@@ -2194,6 +2067,75 @@
     "S14": [
       {
         "id": "S14"
+      },
+      {
+        "id": "S14",
+        "status": "completed",
+        "video_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
+        "task_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
+        "request_hash": "5be3f2a56872f114bbbe40e74331252c9f4c8cf9d841a637087c5b45e4f98d97",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S01参考图（2007年3月安城市郊山路傍晚，雾气低垂）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为P05参考图（插在湿泥土里的铁锹，雾气）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n暮色渐沉的韩国山林，固定机位远景，雾气在树梢间流动，几只鸟突然从树林里惊飞而起，掠过灰暗的天空；随后光线迅速暗下，画面几乎沉入黑暗，只剩树影轮廓。不出现任何人物与行凶。 运镜：固定机位，暮色压暗至近乎全黑。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+          "seconds": "5",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 2007313,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/P05.png"
+          ]
+        },
+        "requested_seconds": 5,
+        "create_attempts": 1,
+        "created_at": "2026-11-08T07:26:40Z",
+        "error": null,
+        "next_poll_epoch": 1794123135.157777,
+        "updated_at": "2026-11-08T09:08:25Z",
+        "progress": 100,
+        "poll_failures": 0,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v.mp4",
+        "final_response": {
+          "completed_at": 1794123114,
+          "created_at": 1794122800,
+          "error": null,
+          "expires_at": null,
+          "id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
+          "internal_status": "pending",
+          "object": "video",
+          "progress": 100,
+          "quality": "standard",
+          "remixed_from_video_id": "",
+          "seconds": "5",
+          "size": "720P",
+          "started_at": 1794122853,
+          "status": "completed",
+          "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v.mp4",
+          "usage": {
+            "input_seconds": 0,
+            "input_image_count": 2,
+            "input_audio_seconds": 0
+          }
+        },
+        "download_error": "Container is not open",
+        "bytes": 1962145,
+        "sha256": "4d9943a3feeae856d8a7d1ca2b6f25fd0767741888bba69494dc96823085135d",
+        "inspection": {
+          "duration_seconds": 5.184,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "bytes": 1962145,
+          "decoded_ok": true,
+          "motion_mean_difference": 0.1247,
+          "suspected_static": false,
+          "contact_sheet": "production/anseong2007/qa/S14.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending",
+        "completed_at": "2026-11-08T09:08:25Z"
       }
     ],
     "S15": [
@@ -2219,6 +2161,76 @@
     "S19": [
       {
         "id": "S19"
+      },
+      {
+        "id": "S19",
+        "status": "completed",
+        "error": null,
+        "request_hash": "8a3fa7b34e9e520f69a7317cda22bb273e0db7f174da95f8d1a5a9c8b957ce6c",
+        "create_attempts": 2,
+        "cooldown_seconds": 288.0,
+        "updated_at": "2026-11-08T09:08:46Z",
+        "video_id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
+        "task_id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S06参考图（2007年安城警察署强力组办公室，地图与白板）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C06参考图（强力组刑警（40多岁）虚构定妆：深色夹克衬衫、胡茬）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C06锚点】40多岁韩国刑警，深色夹克衬衫，眼神疲惫锐利，下巴胡茬，神情执着\n2007年安城警察署强力组办公室，荧光灯冷灰蓝色调，墙上贴满时间线卡片与照片（模糊），挂历一页页被风翻过，白板上的线条被擦掉又重画；一名下巴有胡茬、穿深色夹克衬衫的刑警坐在桌前看着日历，疲惫地叹气。镜头缓慢推近，无可读文字。 运镜：延时感，缓慢推近。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 2007318,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S06.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C06.png"
+          ]
+        },
+        "requested_seconds": 6,
+        "created_at": "2026-11-08T07:43:37Z",
+        "next_poll_epoch": 1794124150.506521,
+        "progress": 100,
+        "poll_failures": 0,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB.mp4",
+        "final_response": {
+          "completed_at": 1794124126,
+          "created_at": 1794123817,
+          "error": null,
+          "expires_at": null,
+          "id": "task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB",
+          "internal_status": "pending",
+          "object": "video",
+          "progress": 100,
+          "quality": "standard",
+          "remixed_from_video_id": "",
+          "seconds": "6",
+          "size": "720P",
+          "started_at": 1794123859,
+          "status": "completed",
+          "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_YxmlqKBTHowlcJz9ZOMpBztz8nKeJzuB.mp4",
+          "usage": {
+            "input_seconds": 0,
+            "input_image_count": 2,
+            "input_audio_seconds": 0
+          }
+        },
+        "download_error": "Container is not open",
+        "bytes": 2988357,
+        "sha256": "ac72e802b8a1c868b3189400665916418783eaa278d254cb7a3039a7d9d5a108",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "bytes": 2988357,
+          "decoded_ok": true,
+          "motion_mean_difference": 0.0893,
+          "suspected_static": false,
+          "contact_sheet": "production/anseong2007/qa/S19.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending",
+        "completed_at": "2026-11-08T09:08:46Z"
       }
     ],
     "S20": [
@@ -2278,7 +2290,8 @@
     ]
   },
   "status_counts": {
-    "completed": 30
+    "completed": 26,
+    "?": 4
   },
   "updated_at": "2026-11-08T09:10:34Z",
   "pending_shots": [],
