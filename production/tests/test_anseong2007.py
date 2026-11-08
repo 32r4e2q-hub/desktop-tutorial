@@ -165,6 +165,41 @@ class RealInspection(unittest.TestCase):
         self.assertGreater(info["motion_mean_difference"], 0)
         self.assertTrue((tmp / "qa" / "S99.jpg").is_file())
 
+    def test_download_one_marks_completed_with_sha(self):
+        """下载 → 真解码检查 → 回执写 completed + sha256（渲染只认带 SHA 的回执）。"""
+        gen = load("generate_clips")
+        tmp = Path(tempfile.mkdtemp())
+        src = tmp / "S99.mp4"
+        import av
+        import numpy as np
+        with av.open(str(src), "w") as out:
+            st = out.add_stream("libx264", rate=24)
+            st.width, st.height, st.pix_fmt = 1280, 720, "yuv420p"
+            for i in range(24 * 5):
+                img = np.full((720, 1280, 3), (i * 2) % 255, dtype=np.uint8)
+                for packet in st.encode(av.VideoFrame.from_ndarray(img, format="rgb24")):
+                    out.mux(packet)
+            for packet in st.encode():
+                out.mux(packet)
+
+        def fake_download(url, dest, retries=4, retry_delay=5):
+            Path(dest).parent.mkdir(parents=True, exist_ok=True)
+            Path(dest).write_bytes(src.read_bytes())
+            return Path(dest).stat().st_size
+
+        story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+        shot = story["shots"][0]
+        with patch.object(gen, "WORK", tmp / "clips"), patch.object(gen, "QA", tmp / "qa"), \
+                patch.object(gen, "RESULTS", tmp / "results.json"), \
+                patch.object(gen.agnes, "download", fake_download):
+            receipts = gen.Receipts({"shots": {shot["id"]: {"id": shot["id"], "status": "downloading"}}}, publish=False)
+            producer = gen.Producer(story, [shot], "KEY", "https://x", time.monotonic() + 60, receipts, "0" * 40, set())
+            producer.download_one(shot, "https://example.invalid/S01.mp4", restore=False)
+            row = receipts.doc["shots"][shot["id"]]
+        self.assertEqual(row["status"], "completed", row.get("download_error"))
+        self.assertEqual(len(row["sha256"]), 64)
+        self.assertEqual(row["inspection"]["fps"], "24")
+
 
 class RenderPlan(unittest.TestCase):
     """render.py 的离线部分：不需要 ffmpeg / 原片。"""
