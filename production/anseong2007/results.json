@@ -1265,12 +1265,12 @@
     },
     "S19": {
       "id": "S19",
-      "status": "in_progress",
+      "status": "completed",
       "error": null,
       "request_hash": "8f02188e966cf2eff2c6672488072173e0f37ec3dd61fc52d7e9fca011d94756",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T09:33:14Z",
+      "updated_at": "2026-11-08T09:34:17Z",
       "video_id": "task_Hwnpw9McmGGp7v2vwniUup6gEBCstmmw",
       "task_id": "task_Hwnpw9McmGGp7v2vwniUup6gEBCstmmw",
       "request_payload": {
@@ -1290,8 +1290,47 @@
       "requested_seconds": 6,
       "created_at": "2026-11-08T09:28:40Z",
       "next_poll_epoch": 1794130454.038188,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Hwnpw9McmGGp7v2vwniUup6gEBCstmmw.mp4",
+      "final_response": {
+        "completed_at": 1794130433,
+        "created_at": 1794130120,
+        "error": null,
+        "expires_at": null,
+        "id": "task_Hwnpw9McmGGp7v2vwniUup6gEBCstmmw",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794130159,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Hwnpw9McmGGp7v2vwniUup6gEBCstmmw.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "bytes": 2965606,
+      "sha256": "751c2e9ba2aac9ed9b02809db08a9a380b5f8bc8a5555f49aa4b299ba731cddb",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2965606,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.1093,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S19.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:34:17Z"
     },
     "S20": {
       "id": "S20",
@@ -2517,10 +2556,9 @@
     ]
   },
   "status_counts": {
-    "completed": 29,
-    "in_progress": 1
+    "completed": 30
   },
-  "updated_at": "2026-11-08T09:33:14Z",
+  "updated_at": "2026-11-08T09:34:17Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
