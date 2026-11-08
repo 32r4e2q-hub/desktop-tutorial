@@ -284,7 +284,7 @@
     },
     "S05": {
       "id": "S05",
-      "status": "in_progress",
+      "status": "completed",
       "video_id": "task_agVtrOyspWUOmqUFtqVSnx7rPQVhI42K",
       "task_id": "task_agVtrOyspWUOmqUFtqVSnx7rPQVhI42K",
       "request_hash": "b6f0ac230aa9753a29cbe4e6876397fa8ef86238e6e19d0820c31b378cc18ed7",
@@ -308,9 +308,48 @@
       "created_at": "2026-11-08T10:55:38Z",
       "error": null,
       "next_poll_epoch": 1794135549.6764064,
-      "updated_at": "2026-11-08T10:58:09Z",
-      "progress": 10,
-      "poll_failures": 0
+      "updated_at": "2026-11-08T10:59:13Z",
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_agVtrOyspWUOmqUFtqVSnx7rPQVhI42K.mp4",
+      "final_response": {
+        "completed_at": 1794135537,
+        "created_at": 1794135337,
+        "error": null,
+        "expires_at": null,
+        "id": "task_agVtrOyspWUOmqUFtqVSnx7rPQVhI42K",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794135360,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_agVtrOyspWUOmqUFtqVSnx7rPQVhI42K.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "bytes": 2377088,
+      "sha256": "2c9c205f6437ea238b0497561fee79565de68bbb217a0352191c077a22a80eeb",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2377088,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0329,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T10:59:13Z"
     },
     "S06": {
       "id": "S06",
@@ -2586,10 +2625,9 @@
     ]
   },
   "status_counts": {
-    "completed": 29,
-    "in_progress": 1
+    "completed": 30
   },
-  "updated_at": "2026-11-08T10:58:09Z",
+  "updated_at": "2026-11-08T10:59:13Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
