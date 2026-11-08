@@ -771,12 +771,12 @@
     },
     "S12": {
       "id": "S12",
-      "status": "in_progress",
+      "status": "completed",
       "error": null,
       "request_hash": "bd7a506b80cf64ecb54c41a78e4ae5726f5f0bda68cc226f4c439655f7ef84b5",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T09:22:12Z",
+      "updated_at": "2026-11-08T09:23:15Z",
       "video_id": "task_nbdnPxWqNZ9pxhl6lrdjqEcYCliFXL7H",
       "task_id": "task_nbdnPxWqNZ9pxhl6lrdjqEcYCliFXL7H",
       "request_payload": {
@@ -797,8 +797,47 @@
       "requested_seconds": 7,
       "created_at": "2026-11-08T09:18:40Z",
       "next_poll_epoch": 1794129792.57275,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_nbdnPxWqNZ9pxhl6lrdjqEcYCliFXL7H.mp4",
+      "final_response": {
+        "completed_at": 1794129763,
+        "created_at": 1794129519,
+        "error": null,
+        "expires_at": null,
+        "id": "task_nbdnPxWqNZ9pxhl6lrdjqEcYCliFXL7H",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794129548,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_nbdnPxWqNZ9pxhl6lrdjqEcYCliFXL7H.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "bytes": 1238095,
+      "sha256": "a42f96710560bef0e0078613b3f60431558afb8da62ce45d79684916857706bf",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1238095,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0212,
+        "suspected_static": false,
+        "contact_sheet": "production/anseong2007/qa/S12.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-08T09:23:15Z"
     },
     "S13": {
       "id": "S13",
@@ -2390,12 +2429,11 @@
     ]
   },
   "status_counts": {
-    "completed": 27,
-    "in_progress": 1,
+    "completed": 28,
     "rate_limited": 1,
     "?": 1
   },
-  "updated_at": "2026-11-08T09:22:12Z",
+  "updated_at": "2026-11-08T09:23:15Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
