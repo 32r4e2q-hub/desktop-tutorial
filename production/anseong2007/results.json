@@ -1195,12 +1195,12 @@
     },
     "S23": {
       "id": "S23",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "de6e41ec0fb4b4ab00d7487c67aaeae3f636be551daeac158d856a75375f186c",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:07:11Z",
+      "updated_at": "2026-11-08T08:08:15Z",
       "video_id": "task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH",
       "task_id": "task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH",
       "request_payload": {
@@ -1221,8 +1221,32 @@
       "requested_seconds": 7,
       "created_at": "2026-11-08T08:03:40Z",
       "next_poll_epoch": 1794125291.94599,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH.mp4",
+      "final_response": {
+        "completed_at": 1794125258,
+        "created_at": 1794125019,
+        "error": null,
+        "expires_at": null,
+        "id": "task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794125043,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S24": {
       "id": "S24",
@@ -1417,10 +1441,9 @@
     ]
   },
   "status_counts": {
-    "download_pending": 22,
-    "in_progress": 1,
+    "download_pending": 23,
     "rate_limited": 1,
     "?": 6
   },
-  "updated_at": "2026-11-08T08:07:11Z"
+  "updated_at": "2026-11-08T08:08:15Z"
 }
