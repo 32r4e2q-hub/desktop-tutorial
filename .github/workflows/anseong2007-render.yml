@@ -3,7 +3,8 @@ run-name: 安城双尸案 · 1080p24 渲染
 
 # 触发：推送 production/anseong2007/RENDER_REQUEST（JSON），例如
 #   {"clips_run_id": "42457809910", "clips_artifact": "anseong2007-clips-42457809910",
-#    "repair_run_id": "", "repair_artifact": "", "publish": true, "request_id": "v1"}
+#    "repair_run_id": "", "repair_artifact": "", "repair2_run_id": "", "repair2_artifact": "",
+#    "publish": true, "request_id": "v1"}   (repair2_* optional: a later retake run)
 # 原片在 runner 内下载 artifact；按 results.json 的 SHA 为每镜挑选，缺的再按 video_url 补抓并核对。
 
 on:
@@ -45,12 +46,12 @@ jobs:
           import json, os, re
           v = json.load(open('production/anseong2007/RENDER_REQUEST', encoding='utf-8'))
           out = {}
-          for key in ('clips_run_id', 'repair_run_id'):
+          for key in ('clips_run_id', 'repair_run_id', 'repair2_run_id'):
               val = str(v.get(key, '')).strip()
               if val and not val.isdigit():
                   raise SystemExit(f'{key} must be a numeric run id')
               out[key] = val
-          for key in ('clips_artifact', 'repair_artifact'):
+          for key in ('clips_artifact', 'repair_artifact', 'repair2_artifact'):
               val = str(v.get(key, '')).strip()
               if val and not re.fullmatch(r'[A-Za-z0-9._-]+', val):
                   raise SystemExit(f'{key} has invalid characters')
@@ -59,6 +60,8 @@ jobs:
               raise SystemExit('clips_run_id and clips_artifact are required')
           if bool(out['repair_run_id']) != bool(out['repair_artifact']):
               raise SystemExit('repair_run_id and repair_artifact go together')
+          if bool(out['repair2_run_id']) != bool(out['repair2_artifact']):
+              raise SystemExit('repair2_run_id and repair2_artifact go together')
           out['publish'] = 'true' if v.get('publish', True) in (True, 'true') else 'false'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               for k, val in out.items():
@@ -90,6 +93,16 @@ jobs:
           run-id: ${{ steps.params.outputs.repair_run_id }}
           github-token: ${{ github.token }}
 
+      - name: Download second repair clips (optional)
+        if: ${{ steps.params.outputs.repair2_run_id != '' }}
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: ${{ steps.params.outputs.repair2_artifact }}
+          path: work/anseong2007/downloads/repair2
+          run-id: ${{ steps.params.outputs.repair2_run_id }}
+          github-token: ${{ github.token }}
+
       - name: Install ffmpeg, CJK fonts and Python deps
         run: |
           set -euo pipefail
@@ -114,6 +127,7 @@ jobs:
           python production/anseong2007/render.py \
             --from work/anseong2007/downloads/base \
             --from work/anseong2007/downloads/repair \
+            --from work/anseong2007/downloads/repair2 \
             --fetch \
             --sources work/anseong2007/sources \
             --work work/anseong2007/render 2>&1 | tee work/anseong2007/render.log
