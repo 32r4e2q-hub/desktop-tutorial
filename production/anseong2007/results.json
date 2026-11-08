@@ -27,8 +27,8 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:12:55Z",
       "error": null,
-      "next_poll_epoch": 1794122278.4633195,
-      "updated_at": "2026-11-08T07:16:58Z",
+      "next_poll_epoch": 1794122339.4081376,
+      "updated_at": "2026-11-08T07:17:59Z",
       "progress": 10,
       "poll_failures": 0
     },
@@ -56,19 +56,19 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:13:07Z",
       "error": null,
-      "next_poll_epoch": 1794122230.1415946,
-      "updated_at": "2026-11-08T07:16:10Z",
+      "next_poll_epoch": 1794122291.1469405,
+      "updated_at": "2026-11-08T07:17:11Z",
       "progress": 10,
       "poll_failures": 0
     },
     "S03": {
       "id": "S03",
-      "status": "pending",
+      "status": "in_progress",
       "error": null,
       "request_hash": "29045c7f8469130176eb3f72c64cb8ce0c3d93b8c8c022b6c44ece7e047115e7",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:15:51Z",
+      "updated_at": "2026-11-08T07:17:21Z",
       "video_id": "task_PmYbojFzCDSPitEyyG5SX6KwoHB1OY2M",
       "task_id": "task_PmYbojFzCDSPitEyyG5SX6KwoHB1OY2M",
       "request_payload": {
@@ -88,13 +88,13 @@
       },
       "requested_seconds": 7,
       "created_at": "2026-11-08T07:14:20Z",
-      "next_poll_epoch": 1794122241.1572163,
-      "progress": 0,
+      "next_poll_epoch": 1794122301.7800956,
+      "progress": 10,
       "poll_failures": 0
     },
     "S04": {
       "id": "S04",
-      "status": "pending",
+      "status": "in_progress",
       "video_id": "task_lj2HFlGsYUMjmDUZOarMDFN8TzNZUxae",
       "task_id": "task_lj2HFlGsYUMjmDUZOarMDFN8TzNZUxae",
       "request_hash": "c5f3c8bd1c2e588711b76d7a715e016b6aad3a5f8023d8f868536899f56054cf",
@@ -117,19 +117,19 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:14:32Z",
       "error": null,
-      "next_poll_epoch": 1794122252.8035376,
-      "updated_at": "2026-11-08T07:16:02Z",
-      "progress": 0,
+      "next_poll_epoch": 1794122314.0829268,
+      "updated_at": "2026-11-08T07:17:34Z",
+      "progress": 10,
       "poll_failures": 0
     },
     "S05": {
       "id": "S05",
-      "status": "queued",
+      "status": "pending",
       "error": null,
       "request_hash": "6225d498a47281e592e9e57ad8c634d3d0756f5f7cc525bae754106abff2fc1c",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:15:45Z",
+      "updated_at": "2026-11-08T07:17:15Z",
       "video_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
       "task_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
       "request_payload": {
@@ -149,16 +149,18 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:15:45Z",
-      "next_poll_epoch": 1794122235.0569518
+      "next_poll_epoch": 1794122325.4728,
+      "progress": 0,
+      "poll_failures": 0
     },
     "S06": {
       "id": "S06",
       "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261108071657850167550umOithXf) (code=rate_limit_exceeded)",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261108071758788764870GMDHJDqi) (code=rate_limit_exceeded)",
       "request_hash": "a97ad7ad317221ed7ad82dc33d7376f07f6895d5e8d447e7e74f3f190cab1c6e",
-      "create_attempts": 3,
+      "create_attempts": 5,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:16:58Z"
+      "updated_at": "2026-11-08T07:17:59Z"
     },
     "S07": {
       "id": "S07"
@@ -398,11 +400,10 @@
     ]
   },
   "status_counts": {
-    "in_progress": 2,
-    "pending": 2,
-    "queued": 1,
+    "in_progress": 4,
+    "pending": 1,
     "rate_limited": 1,
     "?": 24
   },
-  "updated_at": "2026-11-08T07:16:58Z"
+  "updated_at": "2026-11-08T07:17:59Z"
 }
