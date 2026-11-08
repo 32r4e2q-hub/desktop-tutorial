@@ -706,7 +706,7 @@
     },
     "S14": {
       "id": "S14",
-      "status": "in_progress",
+      "status": "download_pending",
       "video_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
       "task_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
       "request_hash": "5be3f2a56872f114bbbe40e74331252c9f4c8cf9d841a637087c5b45e4f98d97",
@@ -729,18 +729,42 @@
       "created_at": "2026-11-08T07:26:40Z",
       "error": null,
       "next_poll_epoch": 1794123135.157777,
-      "updated_at": "2026-11-08T07:31:15Z",
-      "progress": 10,
-      "poll_failures": 0
+      "updated_at": "2026-11-08T07:32:17Z",
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v.mp4",
+      "final_response": {
+        "completed_at": 1794123114,
+        "created_at": 1794122800,
+        "error": null,
+        "expires_at": null,
+        "id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794122853,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S15": {
       "id": "S15",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "7e2488c5d4a49b7c9ce764700417b408fa2c5630605ffdfad62ef50a7ed85e0b",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:31:26Z",
+      "updated_at": "2026-11-08T07:32:30Z",
       "video_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "task_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "request_payload": {
@@ -762,8 +786,32 @@
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:27:53Z",
       "next_poll_epoch": 1794123146.4835365,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9.mp4",
+      "final_response": {
+        "completed_at": 1794123139,
+        "created_at": 1794122873,
+        "error": null,
+        "expires_at": null,
+        "id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794122918,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 4,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S16": {
       "id": "S16",
@@ -772,7 +820,7 @@
       "request_hash": "2cf7958da11f0654e9a20a9dc0b6a9160f82caf2f6d429f6f636497d4983351c",
       "create_attempts": 2,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:32:08Z",
+      "updated_at": "2026-11-08T07:33:09Z",
       "video_id": "task_w2it2aqJRDJplF3Wprfvqh8MFTsKqv8L",
       "task_id": "task_w2it2aqJRDJplF3Wprfvqh8MFTsKqv8L",
       "request_payload": {
@@ -792,7 +840,7 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:28:36Z",
-      "next_poll_epoch": 1794123188.8172233,
+      "next_poll_epoch": 1794123249.3324916,
       "progress": 10,
       "poll_failures": 0
     },
@@ -1010,10 +1058,10 @@
     ]
   },
   "status_counts": {
-    "download_pending": 13,
-    "in_progress": 3,
+    "download_pending": 15,
+    "in_progress": 1,
     "rate_limited": 1,
     "?": 13
   },
-  "updated_at": "2026-11-08T07:32:08Z"
+  "updated_at": "2026-11-08T07:33:09Z"
 }
