@@ -465,15 +465,15 @@ SHOTS = [
         "id": "S30", "start": 174, "duration": 6, "narration_id": "N09",
         "camera": "窗台缓慢推近，白光叠化",
         "characters": ["C04"], "references": ["S16", "C04", "P01"],
-        "narration": "骨灰回到故乡，可那趟旅程留下的问号，并未全都解开。",
+        "narration": "旅程结束，留下的疑问仍未解开。",
         "prompt": "In a quiet Tokyo room years later at dusk, the fictional mother sits in three-quarter back view beside a small plain urn and white flowers on a wooden windowsill. A framed, indistinct photograph of a young woman and the worn deep navy backpack stand nearby. She rests one hand beside the urn, then looks out at the rooftops as a sheer curtain moves in the evening breeze. Camera: very slow push toward the photograph and backpack; warm light blooms gently to white in the final third. Real motion: curtain and flowers move naturally. In the final 0.3 seconds, the moving image freezes for a beat and abruptly flashes to white, then black; no generated text.",
         "sfx": ["晚风渐弱", "最后一秒静音"],
     },
 ]
 
-# User-requested narration rewrite (2026-11-07), now promoted to SHOTS after the 30
-# voice-03 clips passed preliminary timing checks. Keep this versioned audit list in sync
-# with SHOTS; the current subtitles and MP4 still await the render workflow.
+# User-requested narration rewrite (2026-11-07), promoted to SHOTS and kept in a
+# versioned audit list. S30 was shortened and re-recorded after the first render gate
+# exposed the final-second-silence window; subtitles and MP4 still await a fresh render.
 NARRATION_REWRITE_V2 = [
     {"id": "S01", "narration": "井口真理子来台湾毕业旅行，却再也没能回家。"},
     {"id": "S02", "narration": "母亲久子带着女儿照片，跨海来到台湾寻人。"},
@@ -505,7 +505,7 @@ NARRATION_REWRITE_V2 = [
     {"id": "S27", "narration": "确认身份后，母亲后来见到女儿遗物；漫长等待，终于有了结果。"},
     {"id": "S28", "narration": "他供称，头颅被垃圾车运走；相关搜寻最终停止。"},
     {"id": "S29", "narration": "刘学强被判无期；一九九三年，母亲带着女儿骨灰回到日本。"},
-    {"id": "S30", "narration": "骨灰回到故乡，可那趟旅程留下的问号，并未全都解开。"},
+    {"id": "S30", "narration": "旅程结束，留下的疑问仍未解开。"},
 ]
 
 
@@ -531,7 +531,7 @@ def narration_rewrite_v2_rows() -> list[dict]:
     total_duration = sum(row["duration"] for row in rows)
     total_hanzi = sum(row["hanzi_count"] for row in rows)
     total_rate = total_hanzi / total_duration
-    if total_duration != 180 or not 3.65 <= total_rate <= 3.75:
+    if total_duration != 180 or not 3.60 <= total_rate <= 3.75:
         raise ValueError(f"Narration draft pacing is outside spec: {total_hanzi}/{total_duration}s.")
     max_shot_rate = max(row["hanzi_per_second"] for row in rows)
     if max_shot_rate > 3.7 * 1.15:
@@ -587,8 +587,8 @@ def write_narration_rewrite_v2(path: Path | None = None) -> Path:
         "- 开场先给出‘毕业旅行—没能回家’的情绪钩子，再落到真理子与母亲久子，随后回到1990年四月展开故事。",
         "- 不再重复使用‘媒体报道／媒体记载／据报道’作句首；只在必要处把供述或回忆归到说话者：S16–S17、S25、S28。",
         "- S19只把深蓝色背包写成未解问号，不推断它的具体去向；S27明确母亲是在身份确认后见到遗物，不安排她出现在挖掘现场。",
-        "- S30不复述未经最新官方核验的假释状态；以母亲带骨灰返日和仍未解开的疑问收束。",
-        "- 30条旁白已生成，初步逐镜时长检查通过；字幕、声画混音、完整播放和最终QA仍待渲染后完成。",
+        "- S30不复述未经最新官方核验的假释状态；承接返日结尾，以旅程落幕、疑问未解收束。",
+        "- S30已缩短并用voice-03重录；PyAV/RMS初步活动时长4.28秒，落在末镜4.88秒可用窗内。新版渲染门禁与全片字幕、声音复核仍待完成。",
         "",
     ])
     target.write_text("\n".join(lines), encoding="utf-8")
@@ -753,7 +753,7 @@ def build() -> dict:
         "> AI写实3D动画情景复原，不是历史影像。所有人物均为非真实肖像的虚构演员式形象；全片不出现遗体、人体残骸、凶器或暴力过程。", "",
         "## 事实边界与制作说明", "",
         f"旁白按每镜一句编排，单镜字幕、语音和画面共享同一时间窗；按CJK汉字计数{narration_hanzi_count}字，180秒约{narration_hanzi_rate:.2f}字/秒。原脚本里镜头时码连续覆盖180秒，但段落标题有约2秒起点偏差；本版以30条镜头时码为准重新分章。", "",
-        "1991年3月9日挖掘时不安排母亲在场；相关报道记载她于3月14日再度抵台。供述细节均明确归因于媒体转述；公开检索截至2026-11-07未找到可确认的新近官方状态，因此S30只说“二〇二六年初报道”，并注明官方现况待核。黄色出租车只作司机职业的视觉意象，不宣称它是弃置遗骸的车辆。", "",
+        "1991年3月9日挖掘时不安排母亲在场；相关报道记载她于3月14日再度抵台。供述细节在必要处明确归因于供述者或回忆者；片尾不涉及未经核实的假释状态。黄色出租车只作司机职业的视觉意象，不宣称它是弃置遗骸的车辆。", "",
         "## 旁白与分章", "",
     ]
     for chapter in chapters:

@@ -40,8 +40,8 @@ class IguchiRenderTests(unittest.TestCase):
             self.assertEqual(render.sha256(audio), row["sha256"], row["id"])
 
     def test_narration_integrity_and_storylike_attribution(self):
-        self.assertEqual(self.story["narration_stats"]["hanzi_count"], 658)
-        self.assertAlmostEqual(self.story["narration_stats"]["hanzi_per_second"], 658 / 180, places=3)
+        self.assertEqual(self.story["narration_stats"]["hanzi_count"], 649)
+        self.assertAlmostEqual(self.story["narration_stats"]["hanzi_per_second"], 649 / 180, places=3)
         rows = {shot["id"]: shot for shot in self.story["shots"]}
         narration = "".join(shot["narration"] for shot in self.story["shots"])
         for phrase in ("媒体报道", "媒体记载", "据报道", "报道指"):

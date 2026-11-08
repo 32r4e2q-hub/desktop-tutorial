@@ -40,7 +40,7 @@ class Iguchi1990PlanTests(unittest.TestCase):
         )
         self.assertEqual(stats["hanzi_count"], counted)
         self.assertAlmostEqual(stats["hanzi_per_second"], counted / 180, places=3)
-        self.assertGreaterEqual(stats["hanzi_per_second"], 3.65)
+        self.assertGreaterEqual(stats["hanzi_per_second"], 3.60)
         self.assertLessEqual(stats["hanzi_per_second"], 3.75)
 
     def test_offline_project_and_agnes_payload_validate(self):

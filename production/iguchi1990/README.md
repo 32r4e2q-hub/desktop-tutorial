@@ -4,12 +4,12 @@
 
 ## 当前阶段
 
-- 2026-11-07旁白修订稿 v2 已启用：`narration_rewrite_v2.md`，658个CJK汉字、180秒约3.656字/秒，逐句沿用现有30镜时长。用户试听选定 `voice-03`；30条MP3均已生成并通过初步PyAV/RMS时长门限。`SHOTS`、`story.json`、`screenplay.md`、`audio/manifest.json` 与活动音轨已更新；进度、SHA和逐镜秒数见 `audio/rewrite_v2/progress.json`。现有字幕与MP4仍是voice-02旧版，须经渲染工作流重建；完整播放与最终QA尚未完成。
+- 2026-11-07旁白修订稿 v2 已启用：`narration_rewrite_v2.md`，649个CJK汉字、180秒约3.606字/秒，沿用现有30镜时长。用户试听选定 `voice-03`；首轮Actions发现旧S30活动语音6.13秒，超过片尾静音约束下4.88秒的可用窗。S30现已缩短并重录，PyAV/RMS初步活动时长4.28秒；`SHOTS`、`story.json`、`screenplay.md`、`audio/manifest.json` 与活动音轨均已同步。进度与SHA见 `audio/rewrite_v2/progress.json`。待重跑正式渲染；现有字幕与MP4仍是voice-02旧版。
 - 现有交付目录中的MP4/ASS/SRT仍绑定旧版旁白，不能称为新稿成片。
 - 参考图已全部审核通过（29/29：C01–C07、S01–S16、P01–P05）；S02机场图已替换并批准，S02b夜市是独立场景图。
 - Agnes run `42363010740` 已完成 30/30 段 720P 动态素材，全部解码通过。源片约 1280×720；渲染必须按时间轴裁到每镜目标帧数，禁止静帧补时。源素材在本地直接下载遭遇 GitHub artifact `EOF`，最终渲染工作流应在 Actions runner 内用 `actions/download-artifact@v4` 读取旧 run。
 - S01–S30 联系表已逐张人工查看，但这只是抽帧复核，不等同完整播放。S23/S27 替换联系表达到预期；S09 最终替换保持单一站外镜头；首个合成候选曾碰到人物，最新强柔焦候选的脸部抽帧清晰，左侧招牌遮挡改善，但1.3–1.4秒仍见少量红色字形残片。此候选未获最终画面放行，须完整播放复核；若要求无可读伪字，应继续修整或重生成。S08 黑边裁切及后段卡片柔焦也已修正。其他镜头仍有生成式招牌/纸张文字等待全片核验；记录见 `visual_review.md`。
-- 新版音轨初步时长门限已全部通过；最终 `render.py` 仍须逐条解码、应用不超过1.15×的加速并输出正式 `narration_timing.json`。现有 MP4 仍是旧版旁白，需等渲染完成后再完整播放复核。
+- 30条音轨的PyAV/RMS初步时长筛查均在各自可用窗内；S30按片尾1秒静音后的4.88秒窗口检查。仍须由 `render.py` 逐条解码、限速并输出正式 `narration_timing.json`；现有 MP4 仍是旧版旁白。
 - `render.py` 已实现 30 镜 SHA/提示词核验、无冻结/补帧门禁、逐镜裁切、遮挡柔焦、字幕、48 kHz 逐镜环境声/非周期拟音与尾段静音。离线单元测试和合成素材裁切/补边冒烟测试通过；尚未对真实30镜运行。
 - `.github/workflows/iguchi1990-render.yml` 会在 Actions runner 从原始 Agnes run 与一个或两个分轮修复 run 下载素材，技术门禁通过后生成 1080p24 候选片、字幕和质检报告。可用固定分支上的 `production/iguchi1990/RENDER_REQUEST` 提交各 run ID 与 artifact 名称触发；全片逐镜人工复看/声音监听完成前，不称为定稿。
 - 生成器已配置每分钟不超过 5 次创建（至少 12.1 秒间隔）、遵守更严格服务端冷却、保存续跑回执、静帧筛查和参考图门禁。只有固定分支上的 `GEN_REQUEST` 或手动工作流能触发 Agnes；不轮换密钥、不绕过限额。
