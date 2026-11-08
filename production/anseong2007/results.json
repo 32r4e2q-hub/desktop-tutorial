@@ -5,7 +5,7 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "queued",
+      "status": "pending",
       "video_id": "task_ugqQM7Niuq7iJFyfqvFfh2U8JAKOLWIv",
       "task_id": "task_ugqQM7Niuq7iJFyfqvFfh2U8JAKOLWIv",
       "request_hash": "f8fc168a052d0b73e67c513e5bee39e595c10a84263ca6a595e43305d2cadaac",
@@ -27,12 +27,14 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:12:55Z",
       "error": null,
-      "next_poll_epoch": 1794122065.605567,
-      "updated_at": "2026-11-08T07:12:55Z"
+      "next_poll_epoch": 1794122156.5006914,
+      "updated_at": "2026-11-08T07:14:26Z",
+      "progress": 0,
+      "poll_failures": 0
     },
     "S02": {
       "id": "S02",
-      "status": "queued",
+      "status": "pending",
       "video_id": "task_UHeegspdvgnsPE2VkCO0iaq2FtFW6uSH",
       "task_id": "task_UHeegspdvgnsPE2VkCO0iaq2FtFW6uSH",
       "request_hash": "9c937ab85eb005b53c6438efa50aee48192d00f93e8e0b956988a880edaa6878",
@@ -54,8 +56,10 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:13:07Z",
       "error": null,
-      "next_poll_epoch": 1794122077.6459982,
-      "updated_at": "2026-11-08T07:13:07Z"
+      "next_poll_epoch": 1794122168.8177452,
+      "updated_at": "2026-11-08T07:14:38Z",
+      "progress": 0,
+      "poll_failures": 0
     },
     "S03": {
       "id": "S03",
@@ -87,10 +91,61 @@
       "next_poll_epoch": 1794122150.4725077
     },
     "S04": {
-      "id": "S04"
+      "id": "S04",
+      "status": "queued",
+      "video_id": "task_lj2HFlGsYUMjmDUZOarMDFN8TzNZUxae",
+      "task_id": "task_lj2HFlGsYUMjmDUZOarMDFN8TzNZUxae",
+      "request_hash": "c5f3c8bd1c2e588711b76d7a715e016b6aad3a5f8023d8f868536899f56054cf",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S04参考图（2007年韩国地下赌场，烟雾、花牌与现金）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C01参考图（朴某（45岁）虚构演员式定妆：烫短卷发、红色针织外套）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为P04参考图（韩国花牌与一叠现金，昏黄灯光）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C01锚点】45岁韩国中年女性，烫短卷发，红色针织外套，神情精明爽朗\n深夜的韩国地下赌场，烟雾缭绕，几张矮桌围着模糊的赌客，花牌被拍在桌上。角落里，穿红色针织外套、烫短卷发的女人面前摊着一本小账本（纸面无字），一边低声交谈一边把一叠钞票递给对面的赌客，暗黄灯光，手持镜头轻微晃动。 运镜：手持，中景。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007303,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S04.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/P04.png"
+        ]
+      },
+      "requested_seconds": 7,
+      "create_attempts": 1,
+      "created_at": "2026-11-08T07:14:32Z",
+      "error": null,
+      "next_poll_epoch": 1794122162.36205,
+      "updated_at": "2026-11-08T07:14:32Z"
     },
     "S05": {
-      "id": "S05"
+      "id": "S05",
+      "status": "queued",
+      "error": null,
+      "request_hash": "6225d498a47281e592e9e57ad8c634d3d0756f5f7cc525bae754106abff2fc1c",
+      "create_attempts": 3,
+      "cooldown_seconds": 30.0,
+      "updated_at": "2026-11-08T07:15:45Z",
+      "video_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
+      "task_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S03参考图（2007年韩国联排住宅厨房，暖黄灯光，饭菜冒热气）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C01参考图（朴某（45岁）虚构演员式定妆：烫短卷发、红色针织外套）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C02参考图（沈某（45岁）虚构演员式定妆：齐耳直发、深灰开衫长裙）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C01锚点】45岁韩国中年女性，烫短卷发，红色针织外套，神情精明爽朗\n【C02锚点】45岁韩国中年女性，齐耳直发，深灰开衫长裙，神情谨慎温和\n2007年韩国联排住宅厨房，傍晚暖黄灯光。穿红色针织外套的女人放下墙上的米色座机听筒，转身对齐耳直发、深灰开衫的同伴点点头，两人穿上外套一起走出门，门关上；固定机位停留在餐桌上仍冒着热气的饭菜上。 运镜：固定机位，门关上后停留。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007304,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S03.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C02.png"
+        ]
+      },
+      "requested_seconds": 6,
+      "created_at": "2026-11-08T07:15:45Z",
+      "next_poll_epoch": 1794122235.0569518
     },
     "S06": {
       "id": "S06"
@@ -333,8 +388,9 @@
     ]
   },
   "status_counts": {
+    "pending": 2,
     "queued": 3,
-    "?": 27
+    "?": 25
   },
-  "updated_at": "2026-11-08T07:14:20Z"
+  "updated_at": "2026-11-08T07:15:45Z"
 }
