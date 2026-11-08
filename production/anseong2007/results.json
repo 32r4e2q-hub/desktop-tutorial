@@ -280,7 +280,7 @@
       "request_hash": "a97ad7ad317221ed7ad82dc33d7376f07f6895d5e8d447e7e74f3f190cab1c6e",
       "create_attempts": 9,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:22:32Z",
+      "updated_at": "2026-11-08T07:23:32Z",
       "video_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
       "task_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
       "request_payload": {
@@ -298,7 +298,7 @@
       },
       "requested_seconds": 5,
       "created_at": "2026-11-08T07:20:00Z",
-      "next_poll_epoch": 1794122612.0466015,
+      "next_poll_epoch": 1794122672.9471185,
       "progress": 10,
       "poll_failures": 0
     },
@@ -326,19 +326,19 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:20:12Z",
       "error": null,
-      "next_poll_epoch": 1794122563.405096,
-      "updated_at": "2026-11-08T07:21:43Z",
+      "next_poll_epoch": 1794122623.9309964,
+      "updated_at": "2026-11-08T07:22:43Z",
       "progress": 10,
       "poll_failures": 0
     },
     "S08": {
       "id": "S08",
-      "status": "queued",
+      "status": "in_progress",
       "error": null,
       "request_hash": "c387b026f050efda7dae47ce3e4398b3050b9ff6b596e56888213255875999db",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:21:25Z",
+      "updated_at": "2026-11-08T07:22:56Z",
       "video_id": "task_mF0slbxk5rIYXUEHXESBBpgjzlpiercM",
       "task_id": "task_mF0slbxk5rIYXUEHXESBBpgjzlpiercM",
       "request_payload": {
@@ -357,11 +357,13 @@
       },
       "requested_seconds": 7,
       "created_at": "2026-11-08T07:21:25Z",
-      "next_poll_epoch": 1794122575.424229
+      "next_poll_epoch": 1794122636.258634,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S09": {
       "id": "S09",
-      "status": "queued",
+      "status": "in_progress",
       "video_id": "task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko",
       "task_id": "task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko",
       "request_hash": "c2d2a9684fae07f7d110879f0f95e571bf8c6855657d8eed89e549c610ea3b26",
@@ -383,20 +385,47 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:21:37Z",
       "error": null,
-      "next_poll_epoch": 1794122587.5246482,
-      "updated_at": "2026-11-08T07:21:37Z"
+      "next_poll_epoch": 1794122648.6104696,
+      "updated_at": "2026-11-08T07:23:08Z",
+      "progress": 10,
+      "poll_failures": 0
     },
     "S10": {
       "id": "S10",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261108072219689003646ElYNu7Hx) (code=rate_limit_exceeded)",
+      "status": "queued",
+      "error": null,
       "request_hash": "a783da7f518b87d149959369f75f2b8ffe2b7e7ad1d984a98e139fd91a620523",
-      "create_attempts": 2,
+      "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:22:19Z"
+      "updated_at": "2026-11-08T07:22:50Z",
+      "video_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
+      "task_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S06参考图（2007年安城警察署强力组办公室，地图与白板）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C07参考图（2007年韩国防暴警察与便衣刑警虚构群像）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C07锚点】2007年韩国警察防暴装备与便衣刑警，神情严肃\n2007年安城警察署办公室，柜子上一台老式显像管电视正在播放新闻（画面只是模糊的抽象色块），几名便衣刑警和穿制服的警察围在电视前，神情焦灼，有人摇头叹气，有人点烟；镜头在电视与人群之间快速摇移。 运镜：中景，快速摇移。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007309,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S06.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C07.png"
+        ]
+      },
+      "requested_seconds": 5,
+      "created_at": "2026-11-08T07:22:50Z",
+      "next_poll_epoch": 1794122660.2041922
     },
     "S11": {
-      "id": "S11"
+      "id": "S11",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261108072332528355605a4Grou0k) (code=rate_limit_exceeded)",
+      "request_hash": "6e583728ec0603c4baf435c2c4619f46cdef121c6d57803428dbaf4eca0eb53a",
+      "create_attempts": 2,
+      "cooldown_seconds": 30.0,
+      "updated_at": "2026-11-08T07:23:32Z"
     },
     "S12": {
       "id": "S12"
@@ -622,10 +651,10 @@
   },
   "status_counts": {
     "download_pending": 5,
-    "in_progress": 2,
-    "queued": 2,
+    "in_progress": 4,
+    "queued": 1,
     "rate_limited": 1,
-    "?": 20
+    "?": 19
   },
-  "updated_at": "2026-11-08T07:22:32Z"
+  "updated_at": "2026-11-08T07:23:32Z"
 }
