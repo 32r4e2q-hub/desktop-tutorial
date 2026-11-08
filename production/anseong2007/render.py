@@ -40,6 +40,7 @@ TOTAL_SAMPLES = RATE * DURATION
 SILENT_TAIL_SECONDS = 1.0
 VOICE_ID = "voice-01"
 MAX_SPEEDUP = 1.15
+SFX_GAIN = 2.2             # 环境声/拟音总线 +7dB：旁白下约 -16dB，手机外放仍听得到
 MAX_SLOWMO = 1.12          # 原片偏短时允许的最大慢放倍数（>1 表示变慢）
 VOICE_LEAD = 0.12          # 句子在镜头内的起点
 VOICE_GUARD = 0.12         # 句子距离镜头结尾的最小留白
@@ -840,7 +841,7 @@ def render(sources: Path, work: Path, output: Path, fetch: bool, candidates: lis
     concat.write_text("\n".join(entries) + "\n", encoding="utf-8")
 
     sfx, sfx_report = build_sfx(story)
-    mix = voice + duck(sfx, voice)
+    mix = voice + duck(sfx * SFX_GAIN, voice)
     mix[-RATE:] = 0
     peak = float(np.abs(mix).max())
     if peak > 0.95:
