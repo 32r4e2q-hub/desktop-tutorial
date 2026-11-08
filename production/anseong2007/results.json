@@ -488,12 +488,12 @@
     },
     "S10": {
       "id": "S10",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "a783da7f518b87d149959369f75f2b8ffe2b7e7ad1d984a98e139fd91a620523",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:26:22Z",
+      "updated_at": "2026-11-08T07:27:25Z",
       "video_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
       "task_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
       "request_payload": {
@@ -513,8 +513,32 @@
       "requested_seconds": 5,
       "created_at": "2026-11-08T07:22:50Z",
       "next_poll_epoch": 1794122842.3215675,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir.mp4",
+      "final_response": {
+        "completed_at": 1794122807,
+        "created_at": 1794122569,
+        "error": null,
+        "expires_at": null,
+        "id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794122612,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S11": {
       "id": "S11",
@@ -523,7 +547,7 @@
       "request_hash": "6e583728ec0603c4baf435c2c4619f46cdef121c6d57803428dbaf4eca0eb53a",
       "create_attempts": 5,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:26:34Z",
+      "updated_at": "2026-11-08T07:27:35Z",
       "video_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
       "task_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
       "request_payload": {
@@ -543,13 +567,13 @@
       },
       "requested_seconds": 7,
       "created_at": "2026-11-08T07:25:04Z",
-      "next_poll_epoch": 1794122854.957333,
+      "next_poll_epoch": 1794122915.4784071,
       "progress": 10,
       "poll_failures": 0
     },
     "S12": {
       "id": "S12",
-      "status": "queued",
+      "status": "in_progress",
       "video_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
       "task_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
       "request_hash": "c3d253149f985118cbdc7114632c56592b0d3fb1fc869f65ebdf04e240dee88c",
@@ -572,8 +596,10 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:25:16Z",
       "error": null,
-      "next_poll_epoch": 1794122806.1603878,
-      "updated_at": "2026-11-08T07:25:16Z"
+      "next_poll_epoch": 1794122866.8419201,
+      "updated_at": "2026-11-08T07:26:46Z",
+      "progress": 10,
+      "poll_failures": 0
     },
     "S13": {
       "id": "S13",
@@ -605,10 +631,40 @@
       "next_poll_epoch": 1794122878.7872941
     },
     "S14": {
-      "id": "S14"
+      "id": "S14",
+      "status": "queued",
+      "video_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
+      "task_id": "task_lj4Xprse4jBYsnRj2BQFZNO20L6ukr7v",
+      "request_hash": "5be3f2a56872f114bbbe40e74331252c9f4c8cf9d841a637087c5b45e4f98d97",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S01参考图（2007年3月安城市郊山路傍晚，雾气低垂）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为P05参考图（插在湿泥土里的铁锹，雾气）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n暮色渐沉的韩国山林，固定机位远景，雾气在树梢间流动，几只鸟突然从树林里惊飞而起，掠过灰暗的天空；随后光线迅速暗下，画面几乎沉入黑暗，只剩树影轮廓。不出现任何人物与行凶。 运镜：固定机位，暮色压暗至近乎全黑。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007313,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/P05.png"
+        ]
+      },
+      "requested_seconds": 5,
+      "create_attempts": 1,
+      "created_at": "2026-11-08T07:26:40Z",
+      "error": null,
+      "next_poll_epoch": 1794122890.884907,
+      "updated_at": "2026-11-08T07:26:40Z"
     },
     "S15": {
-      "id": "S15"
+      "id": "S15",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261108072723123734258H6951Mu3) (code=rate_limit_exceeded)",
+      "request_hash": "7e2488c5d4a49b7c9ce764700417b408fa2c5630605ffdfad62ef50a7ed85e0b",
+      "create_attempts": 2,
+      "cooldown_seconds": 30.0,
+      "updated_at": "2026-11-08T07:27:23Z"
     },
     "S16": {
       "id": "S16"
@@ -821,10 +877,11 @@
     ]
   },
   "status_counts": {
-    "download_pending": 9,
+    "download_pending": 10,
     "in_progress": 2,
     "queued": 2,
-    "?": 17
+    "rate_limited": 1,
+    "?": 15
   },
-  "updated_at": "2026-11-08T07:26:34Z"
+  "updated_at": "2026-11-08T07:27:35Z"
 }
