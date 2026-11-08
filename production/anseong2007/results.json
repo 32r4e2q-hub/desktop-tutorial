@@ -651,12 +651,12 @@
     },
     "S13": {
       "id": "S13",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "2632995a7682e7a8df9bfa38845ca3d3681289625436d0f56c3e32b70244b5ad",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:30:01Z",
+      "updated_at": "2026-11-08T07:31:04Z",
       "video_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "task_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "request_payload": {
@@ -677,8 +677,32 @@
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:26:28Z",
       "next_poll_epoch": 1794123061.267685,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR.mp4",
+      "final_response": {
+        "completed_at": 1794123038,
+        "created_at": 1794122788,
+        "error": null,
+        "expires_at": null,
+        "id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794122839,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S14": {
       "id": "S14",
@@ -704,8 +728,8 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:26:40Z",
       "error": null,
-      "next_poll_epoch": 1794123073.9020877,
-      "updated_at": "2026-11-08T07:30:13Z",
+      "next_poll_epoch": 1794123135.157777,
+      "updated_at": "2026-11-08T07:31:15Z",
       "progress": 10,
       "poll_failures": 0
     },
@@ -716,7 +740,7 @@
       "request_hash": "7e2488c5d4a49b7c9ce764700417b408fa2c5630605ffdfad62ef50a7ed85e0b",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:30:25Z",
+      "updated_at": "2026-11-08T07:31:26Z",
       "video_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "task_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "request_payload": {
@@ -737,7 +761,7 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:27:53Z",
-      "next_poll_epoch": 1794123085.425062,
+      "next_poll_epoch": 1794123146.4835365,
       "progress": 10,
       "poll_failures": 0
     },
@@ -748,7 +772,7 @@
       "request_hash": "2cf7958da11f0654e9a20a9dc0b6a9160f82caf2f6d429f6f636497d4983351c",
       "create_attempts": 2,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:30:06Z",
+      "updated_at": "2026-11-08T07:32:08Z",
       "video_id": "task_w2it2aqJRDJplF3Wprfvqh8MFTsKqv8L",
       "task_id": "task_w2it2aqJRDJplF3Wprfvqh8MFTsKqv8L",
       "request_payload": {
@@ -768,7 +792,7 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:28:36Z",
-      "next_poll_epoch": 1794123066.5830288,
+      "next_poll_epoch": 1794123188.8172233,
       "progress": 10,
       "poll_failures": 0
     },
@@ -986,10 +1010,10 @@
     ]
   },
   "status_counts": {
-    "download_pending": 12,
-    "in_progress": 4,
+    "download_pending": 13,
+    "in_progress": 3,
     "rate_limited": 1,
     "?": 13
   },
-  "updated_at": "2026-11-08T07:30:52Z"
+  "updated_at": "2026-11-08T07:32:08Z"
 }
