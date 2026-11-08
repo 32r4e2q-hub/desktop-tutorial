@@ -9,10 +9,12 @@
 |---|---|
 | 事实核查 | ✅ 5 条公开报道（见 `screenplay.md` 事实边界）；S24 改为“埃及买家自拍编号发回”，刑警未赴埃及 |
 | 分镜 / 提示词 | ✅ `build_story.py` → `story.json` / `screenplay.md`（STYLE → <Picture N> → 角色锚点原文 → 画面 → NEGATIVE） |
-| 参考图 | 🟡 已审 8/27（C01–C06、C08、S01）；其余按平台单轮 10 张上限分批生成 |
-| 生成器 | ✅ `generate_clips.py`：一次性排队 30 镜，创建 ≤5 次/分钟（12.1 s 间隔），单线程全局轮询（≤15 次/分钟、429 整体退避），断点续跑；`test_anseong2007.py` 离线仿真 429 / 队列满 / 任务失败自动重建 |
-| 视频片段 | ⏳ 参考图全部审定后写 `GEN_REQUEST` 触发 `.github/workflows/anseong2007-gen.yml` |
-| 旁白 / 字幕 / 音效 / 合成 | ⏳ 生成期间并行制作 |
+| 参考图 | ✅ 27/27 逐张审定（C05/C07 重生成去名人相似脸）；固定在 commit `3b6de10`（`reference/revision.txt`） |
+| 生成器 | ✅ `generate_clips.py`：一次性排队 30 镜，创建 ≤5 次/分钟，单线程全局轮询，断点续跑；已修复 PyAV 18 下 `inspect_clip` 关闭容器后读属性的 bug（首轮 16 镜因此停在 `download_pending`，续跑会重新轮询并下载，不重复创建） |
+| 视频片段 | 🟡 首轮 run 42457809910 运行中：16 镜 Agnes 已完成；Agnes 当日额度用尽后限速为每 5 分钟 1 次创建，生成器按 Retry-After 继续排队 |
+| 旁白 | 🟡 voice-01（低沉男声）已录 S01–S09；S10 改稿待重录；S11–S30 待录（每轮最多 10 条）；`audio/voice/recorded.json` 记录每个 mp3 的实际朗读文本，改稿自动作废旧录音 |
+| 合成 | ✅ `render.py` + `.github/workflows/anseong2007-render.yml`；本地 30 段合成源片全流程验证：4320 帧 / 180.000 s / 尾秒静音 |
+| 封面 / 发布标题 | ⏳ 需本期成片真实帧（AGENTS.md） |
 
 ## 命令
 
@@ -23,6 +25,8 @@ python3 -m pytest -q production/tests/test_anseong2007.py
 # 触发（只在固定分支 Actions 上真实调用 Agnes）：
 echo '{"mode":"full"}' > production/anseong2007/GEN_REQUEST   # 全部 30 镜
 echo '{"only":"S12","force":"S12"}' > production/anseong2007/GEN_REQUEST   # 单镜重做
+python3 production/anseong2007/render.py --plan-only                 # 配音窗口（只加速 ≤1.15×）
+# 渲染（Actions）：RENDER_REQUEST = {"clips_run_id": "<gen run id>", "clips_artifact": "anseong2007-clips-<gen run id>", "publish": true}
 ```
 
 参考图 URL 固定到 `reference/revision.txt` 记录的不可变 commit；生成器在触碰密钥前核对每张图的 SHA-256 与审核状态。
