@@ -233,7 +233,7 @@ SHOTS = [
         "id": "S01", "start": 0, "duration": 5, "narration_id": "N01",
         "camera": "长焦背影跟拍，末秒停在空荡的车站大厅",
         "characters": ["C01"], "references": ["S01", "C01", "P01"],
-        "narration": "报道指，她走出高雄车站后失踪，亲友再无音讯。",
+        "narration": "井口真理子来台湾毕业旅行，却再也没能回家。",
         "prompt": "At noon on 7 April 1990, inside the Kaohsiung railway station concourse. A fictional young Japanese woman wearing a pale blouse, jeans and a large deep navy backpack walks from the busy hall toward the street-side exit, briefly glancing over her shoulder. Commuters flow past until her back disappears beyond the exit and the camera holds on the now-empty concourse. Camera: long-lens tracking from behind at walking speed, ending in a gentle hold. Real motion: crowd streams naturally, backpack straps swing, sunlight and dust drift. No gate or train is required; no readable signs.",
         "sfx": ["车站广播", "人群与脚步", "末拍抽离"],
     },
@@ -241,7 +241,7 @@ SHOTS = [
         "id": "S02", "start": 5, "duration": 5, "narration_id": "N01",
         "camera": "雨中缓慢推近母亲手里的照片",
         "characters": ["C04", "C07"], "references": ["S06", "C04", "C07"],
-        "narration": "她离开车站后去了哪里？公开资料没有答案。",
+        "narration": "母亲久子带着女儿照片，跨海来到台湾寻人。",
         "prompt": "Outside a Taiwanese police-station entrance on a rainy 1990 afternoon. A fictional Japanese mother in a dark coat holds a blurred photograph of her daughter, bows deeply toward officers just inside the doorway, then slowly raises her face with reddened but controlled eyes. Camera: restrained slow push-in from medium shot to the photograph and her hands. Real motion: steady rain, coat fabric, water running down the doorway. No dialogue text, no visible tears exaggerated for drama.",
         "sfx": ["雨声", "警局内模糊电话铃"],
     },
@@ -249,7 +249,7 @@ SHOTS = [
         "id": "S03", "start": 10, "duration": 7, "narration_id": "N02",
         "camera": "手持中景跟拍，轻微横移",
         "characters": ["C01"], "references": ["S02", "C01", "P01"],
-        "narration": "一九九〇年四月，她从日本独自飞来台湾，开始毕业旅行。",
+        "narration": "时间回到一九九〇年四月，二十三岁的她独自抵台，旅程才开始。",
         "prompt": "A single scene in the 1990 Taoyuan airport arrivals hall. A fictional 23-year-old Japanese university student pulls a modest suitcase, wears a large navy travel backpack and looks curiously across the glass-roofed terminal while other travelers pass. Camera: gentle handheld medium follow from her left, with natural human pace. Real motion: luggage wheels roll, travelers cross, sunlight shifts through the glass roof. Keep every sign blank and unreadable; no modern phone or screen.",
         "sfx": ["机场广播", "行李滚轮声"],
     },
@@ -257,7 +257,7 @@ SHOTS = [
         "id": "S04", "start": 17, "duration": 7, "narration_id": "N02",
         "camera": "夜市中景手持横移",
         "characters": ["C01"], "references": ["S02b", "C01"],
-        "narration": "夜市人声与锅气交织，她在摊边小本写下所见，留下旅途心情。",
+        "narration": "夜市人声热闹、锅气升起；她边尝小吃，边把见闻记进小本子。",
         "prompt": "One continuous 1990 Taipei night-market alley. The young traveler tastes a small snack, gestures politely with a vendor and smiles, then writes in a tiny travel notebook at a stall counter. Camera: natural handheld medium lateral move, settling on her writing hand while keeping her face on a third line. Real motion: steam rises, vendors move, crowd flows behind her, neon reflections shimmer. All stall lettering remains abstract and unreadable.",
         "sfx": ["夜市叫卖", "油锅滋滋声", "笔尖划纸"],
     },
@@ -265,7 +265,7 @@ SHOTS = [
         "id": "S05", "start": 24, "duration": 6, "narration_id": "N02",
         "camera": "台南街角侧向中景",
         "characters": ["C01", "C02"], "references": ["S03", "C01", "C02", "P02"],
-        "narration": "媒体回顾提到，李姓司机曾接待她，也邀她在家里借宿。",
+        "narration": "在台南，她认识了李姓计程车司机；对方接待过她，也邀她借住。",
         "prompt": "A single late-afternoon street corner in old Tainan, 1990. Red brick and a temple lantern frame the street. A yellow taxi is parked at the curb; a fictional middle-aged local driver steps out, smiles kindly and gestures toward the old street as the young traveler listens. He offers to help with her backpack without pulling or grabbing her. Camera: lateral medium two-shot, keep the two people separated by comfortable space. Real motion: lantern sways, taxi idles, warm humid light flickers through leaves. No readable signs or license text.",
         "sfx": ["出租车发动机", "远处庙钟"],
     },
@@ -273,7 +273,7 @@ SHOTS = [
         "id": "S06", "start": 30, "duration": 5, "narration_id": "N02",
         "camera": "缓慢移向明信片特写",
         "characters": ["C01", "C02"], "references": ["S04", "C01", "C02", "P03"],
-        "narration": "媒体回顾称，她曾写下明信片，向远方家人报平安。",
+        "narration": "她写下明信片，向日本家人报平安，也留下旅途点滴。",
         "prompt": "Inside a modest Tainan family living room at golden dusk. A small electric fan turns slowly, fruit rests on a low table, and a fictional local family member sets down a plate. The student sits at the wooden table and writes a postcard with a ballpoint pen while the kind driver listens nearby. Camera: calm medium shot that glides toward the postcard, whose writing is only abstract marks. Real motion: fan blades turn, curtain breathes, pen moves. No legible writing.",
         "sfx": ["电风扇声", "笔尖划纸声"],
     },
@@ -281,7 +281,7 @@ SHOTS = [
         "id": "S07", "start": 35, "duration": 7, "narration_id": "N03",
         "camera": "月台长焦跟拍后缓慢拉远",
         "characters": ["C01", "C02"], "references": ["S05", "C01", "C02", "P01"],
-        "narration": "媒体记载，四月七日清晨，李姓司机送她到台南车站；她随后南下。",
+        "narration": "四月七日清晨，司机送她到台南车站；她登上列车，驶向高雄。",
         "prompt": "On the 1990 Tainan station platform in bright morning sun, the fictional driver carefully helps lift the navy backpack onto the train step. The young woman bows in thanks and boards; he waves as the period passenger train begins to roll away. Camera: long platform view, slowly pulling back as the train leaves the frame. Real motion: train wheels move, clothing and hair stir in the breeze, steam drifts. No readable station signs.",
         "sfx": ["列车汽笛", "月台广播", "车轮渐远"],
     },
@@ -289,7 +289,7 @@ SHOTS = [
         "id": "S08", "start": 42, "duration": 7, "narration_id": "N03",
         "camera": "车窗内近景，稻田光影流动",
         "characters": ["C01"], "references": ["S05", "C01", "P03"],
-        "narration": "车窗外稻田不断后退，她手里仍握着明信片，沿途光影掠过窗边。",
+        "narration": "车窗外，稻田渐渐退远；她手里的明信片，记着旅途日常。",
         "prompt": "Inside a moving 1990 passenger train, a close three-quarter view of the fictional young traveler seated beside the window. She holds a postcard in one hand and watches rice fields and palm trees slide past outside. Camera: gentle interior tracking move parallel to the window, no zoom-only movement. Real motion: landscape parallax, window reflections travel across her face, paper corner flutters in the air from the vent. No readable text on the postcard.",
         "sfx": ["列车行驶声", "铁轨节奏"],
     },
@@ -297,7 +297,7 @@ SHOTS = [
         "id": "S09", "start": 49, "duration": 6, "narration_id": "N03",
         "camera": "站外固定广角单镜，人物横穿画面离开",
         "characters": ["C01"], "references": ["C01"],
-        "narration": "据报道，她随后抵达高雄车站；此后，她的行踪难以确认。",
+        "narration": "她抵达高雄车站，独自走出站口；此后便没了消息。",
         "prompt": "A single locked-off wide shot, filmed entirely outdoors on the sidewalk directly in front of the 1990 Kaohsiung railway station exterior. The camera is already outside before frame one and never moves or cuts. In the same unchanging composition, the fictional young Japanese traveler in a pale blouse, jeans and the same deep navy backpack walks slowly from left to right across the station forecourt and exits the right edge; the camera holds that exact same outdoor view for the remaining seconds. Show only this one continuous real-time take: same exterior building, same sidewalk, same noon daylight, same framing throughout all six seconds. Background pedestrians may move naturally, but there is no taxi, no vehicle insert, no other action. Absolutely no station interior, no platform, no transition, no angle change, no cutaway, no montage, no time-lapse, no flash, no silhouette insert, no readable lettering or signs.",
         "sfx": ["站外人声", "远处脚步", "轻微城市环境声"],
     },
@@ -305,7 +305,7 @@ SHOTS = [
         "id": "S10", "start": 55, "duration": 5, "narration_id": "N03",
         "camera": "柜台名单特写缓慢下移",
         "characters": [], "references": ["S02"],
-        "narration": "报道指，她原定四月十八日返日，最终未登机。",
+        "narration": "四月十八日，原定返日的航班起飞，她却没有登机。",
         "prompt": "A single 1990 airport check-in counter in cool gray light. A blank boarding pass lies beside a clerk's paper passenger list; the clerk checks the page, pauses and looks toward the quiet arrivals hall as no traveler appears. Keep every mark abstract and unreadable; do not imply a cancellation or give an airline name. Camera: close overhead move slowly down toward the unmarked passenger list. Real motion: paper edges lift in air from a fan. No legible text, dates, logos or modern screens.",
         "sfx": ["柜台键盘声", "低声交谈"],
     },
@@ -313,7 +313,7 @@ SHOTS = [
         "id": "S11", "start": 60, "duration": 7, "narration_id": "N04",
         "camera": "机场手持中景跟拍",
         "characters": ["C04", "C07"], "references": ["S02", "C04", "C07"],
-        "narration": "四月二十五日，母亲久子抵台寻人，手中一直攥着女儿的照片。",
+        "narration": "四月二十五日，母亲久子带着女儿照片抵台，沿途打听她的下落。",
         "prompt": "At a 1990 Taiwanese airport arrival hall, a fictional Japanese mother steps out carrying a small suitcase and a blurred photograph. A liaison worker and a police officer approach; she bows deeply, then raises her head and scans the crowd. Camera: restrained handheld medium follow. Real motion: travelers pass behind her, suitcase wheels roll, sunlight shifts across the floor. No identifiable faces, no readable signage.",
         "sfx": ["机场广播", "行李脚步声"],
     },
@@ -321,7 +321,7 @@ SHOTS = [
         "id": "S12", "start": 67, "duration": 7, "narration_id": "N04",
         "camera": "办公室中景缓慢推向地图",
         "characters": ["C04", "C07"], "references": ["S06", "C04", "C07", "P04"],
-        "narration": "媒体记载，她久等不到返日消息，前往警方求助；警方随后成立专案。",
+        "narration": "等不到消息，她向警方求助；搜寻范围由台南一路延伸到高雄。",
         "prompt": "Inside a 1990 police investigation office, the mother hands a blurred photograph to two fictional officers. One officer pins an unlabelled Taiwan map with small red markers around Tainan and Kaohsiung; an old rotary telephone rings on the desk. Camera: slow push from the mother's hands to the map. Real motion: paper turns, telephone cord trembles, a desk fan moves smoke. All labels and photo details stay unreadable.",
         "sfx": ["电话铃声", "翻纸声"],
     },
@@ -329,7 +329,7 @@ SHOTS = [
         "id": "S13", "start": 74, "duration": 6, "narration_id": "N04",
         "camera": "过肩缓慢推近，笔记本合上",
         "characters": ["C02", "C07"], "references": ["S12", "C02", "C07"],
-        "narration": "据报道，李姓司机接受调查后获释；警方另寻线索。",
+        "narration": "李姓司机接受警方询问后获释；真理子的下落仍无从确认。",
         "prompt": "In a cool gray 1990 police interview room, the fictional Tainan driver sits tired but composed across from a detective. A blank map and abstract itinerary sheets lie between them; he answers with measured gestures. The officer finally closes a notebook and motions toward the door, releasing him. Camera: over-the-shoulder slow push, then hold on the closed notebook. Real motion: hands move, chair shifts, fluorescent light softly hums. No legible writing.",
         "sfx": ["椅子摩擦", "笔记本合上"],
     },
@@ -337,7 +337,7 @@ SHOTS = [
         "id": "S14", "start": 80, "duration": 5, "narration_id": "N04",
         "camera": "快速蒙太奇，手持搜索后定格空地",
         "characters": ["C04", "C07"], "references": ["S07", "C04", "C07"],
-        "narration": "报道记载，墓园、甘蔗田均曾搜寻，仍无结果。",
+        "narration": "墓园与甘蔗田反复搜过，仍找不到她的踪迹。",
         "prompt": "A fast but readable montage of three non-graphic search images, all at night in southern Taiwan: flashlight beams sweep along a cemetery path, police search a sugarcane-field edge with a dog, then a fictional mother waits at a distant cordon and lowers her gaze. Never show a body, covered shape or remains. Camera: short handheld pans with clean match cuts, ending on a still, empty path. Real motion: cane leaves wave, flashlight beams move, dog walks naturally.",
         "sfx": ["铁锹与脚步", "远处犬吠", "夜风"],
     },
@@ -345,7 +345,7 @@ SHOTS = [
         "id": "S15", "start": 85, "duration": 6, "narration_id": "N05",
         "camera": "清晨中景，包围后缓慢横移",
         "characters": ["C03", "C07"], "references": ["S08", "C03", "C07", "P02"],
-        "narration": "媒体记载，一九九一年三月四日，警方在高雄逮捕刘学强。",
+        "narration": "次年三月，警方在高雄逮捕刘学强；追查终于有了突破。",
         "prompt": "At dawn on 4 March 1991 outside a modest Xiaogang house, fictional police quietly form a perimeter. A yellow taxi is parked by the gate. A lean fictional man steps out, notices the officers and stops; his expression shifts from surprise to guarded stillness. Camera: medium lateral move, no physical struggle and no weapon. Real motion: laundry and branches move, birds lift from the roofline. Keep the suspect in side view and half-shadow.",
         "sfx": ["脚步声", "短促警哨", "晨鸟惊飞"],
     },
@@ -353,7 +353,7 @@ SHOTS = [
         "id": "S16", "start": 91, "duration": 6, "narration_id": "N05",
         "camera": "车站街角中景缓慢推近",
         "characters": ["C03", "C01"], "references": ["S01", "C03", "C01", "P02"],
-        "narration": "媒体转述的供述称，他在车站看见她，随后上前搭话。",
+        "narration": "他供称，自己在车站看见真理子，随后主动上前搭话。",
         "prompt": "A carefully fictionalized flashback on a 1990 street outside Kaohsiung station. A lean man in a dark jacket approaches the young traveler at a respectful distance and gestures toward a blank note, while a yellow taxi remains parked far behind as a recurring motif, not a ride. Camera: medium two-shot, slow push that stops before their personal space closes. Real motion: pedestrians pass, taxi lights flicker softly, paper moves in the breeze. No readable writing, no coercion, no touch.",
         "sfx": ["车窗轻响", "远处街声"],
     },
@@ -361,7 +361,7 @@ SHOTS = [
         "id": "S17", "start": 97, "duration": 6, "narration_id": "N05",
         "camera": "澄清湖长焦缓慢横移",
         "characters": ["C03", "C01"], "references": ["S09", "C03", "C01"],
-        "narration": "据媒体转述，其供述称白天曾带她游览景点；这只是他的说法。",
+        "narration": "他还说，白天带她去过景点；每个细节仍要逐一核实。",
         "prompt": "At Chengcing Lake near sunset, the fictional young traveler takes a photograph of the water and smiles. The lean man walks beside her but keeps glancing away toward the path. Camera: long-lens slow lateral track, hold both figures on separate thirds. Real motion: lake ripples, leaves move in the breeze, camera shutter flashes once. The warm gold light gradually cools toward teal. No romantic framing.",
         "sfx": ["湖面微风", "相机快门", "远处蝉鸣"],
     },
@@ -369,7 +369,7 @@ SHOTS = [
         "id": "S18", "start": 103, "duration": 5, "narration_id": "N05",
         "camera": "低机位缓推窗口，灯灭后停住",
         "characters": [], "references": ["S10"],
-        "narration": "媒体回顾仅转述供述；案发夜细节不作画面复原。",
+        "narration": "他的说法几度变化，警方只好重新核对每条线索。",
         "prompt": "Exterior of a modest Taiwanese low house at night. A single warm window glows; the light slowly goes out and the curtain closes. A stray dog stands far outside and gives one low bark. Camera: low, slow move toward the window, stopping outside the wall. Real motion: curtain, leaves, dog and dim light. No person is visible and the camera never enters the house.",
         "sfx": ["野狗低吠", "灯熄啪声", "随后静寂"],
     },
@@ -377,7 +377,7 @@ SHOTS = [
         "id": "S19", "start": 108, "duration": 6, "narration_id": "N06",
         "camera": "门缝视角，剪影与背包缓慢移入",
         "characters": ["C03"], "references": ["S10", "C03", "P01"],
-        "narration": "媒体曾提及那只深蓝色背包；其具体去向，本片不作推断。",
+        "narration": "那只深蓝色背包，也成了这个故事里另一个没有答案的问号。",
         "prompt": "From outside a half-closed doorway before dawn, a fictional male silhouette moves across a dim room. A deep navy travel backpack is lifted briefly, set down beside a chair and then carried out of view; no person or body is seen inside. Camera: narrow door-gap point of view, slow restrained creep forward. Real motion: silhouette crosses, bag straps sway, a weak bulb trembles. Keep the scene non-graphic and ambiguous; no forced action.",
         "sfx": ["轻微脚步", "背带摩擦"],
     },
@@ -385,7 +385,7 @@ SHOTS = [
         "id": "S20", "start": 114, "duration": 6, "narration_id": "N06",
         "camera": "车内视角缓慢推向后视镜",
         "characters": ["C03"], "references": ["S11", "C03", "P02"],
-        "narration": "媒体回顾称，供述几经变化，警方必须逐一核查每个线索。",
+        "narration": "每报出一个新地点，警员就得立即出发；搜寻一再落空。",
         "prompt": "A symbolic, empty 1991 southern Taiwan road before dawn. A yellow taxi rolls slowly through wet streets with no passenger and nothing visible in the back seat. In the rear-view mirror only the fictional driver's guarded eyes appear briefly. Camera: fixed interior view with a slow move toward the mirror. Real motion: road lights slide across glass, windshield reflections move, taxi travels at a steady pace. Do not imply a specific transport route or show any bags or body.",
         "sfx": ["引擎声", "车窗外风声"],
     },
@@ -393,7 +393,7 @@ SHOTS = [
         "id": "S21", "start": 120, "duration": 5, "narration_id": "N06",
         "camera": "凌晨小巷远景缓慢推近",
         "characters": ["C03"], "references": ["S11", "C03"],
-        "narration": "报道指出，弃置地点说法多次变化，搜寻一度受阻。",
+        "narration": "深夜，警车循着新线索驶进小巷。",
         "prompt": "A quiet Tainan alley at 3 a.m. A lean fictional man steps out beneath one amber streetlamp, looks left and right, then turns away and disappears into the cool blue darkness. Keep the alley empty, no object is left behind. Camera: distant slow push, ending on the empty pool of light. Real motion: damp pavement glints, a hanging cable moves, thin night mist crosses frame. No grin or threatening gesture.",
         "sfx": ["车门远声", "夜风"],
     },
@@ -401,7 +401,7 @@ SHOTS = [
         "id": "S22", "start": 125, "duration": 5, "narration_id": "N06",
         "camera": "快速闪回三切，红线绷紧后定格",
         "characters": ["C07"], "references": ["S06", "C07", "P04"],
-        "narration": "媒体记载，警方依供述逐一核查多个地点。",
+        "narration": "又一处线索落空，天快亮了，搜寻仍没有停下来。",
         "prompt": "A restrained three-beat investigation montage: fictional officers compare two blank, unlabelled paper maps; a detective traces a route with a pencil, then pauses to compare it with a neutral evidence folder. A thin red string is moved from one anonymous point to another and finally laid flat, not aimed at any named person. Camera: clean match cuts ending in a steady overhead view of the map and notebook. Real motion: pencil moves, paper turns, the red string settles. No readable text, no accusation of an innocent person.",
         "sfx": ["倒带般低鸣", "红线轻绷声"],
     },
@@ -409,7 +409,7 @@ SHOTS = [
         "id": "S23", "start": 130, "duration": 7, "narration_id": "N07",
         "camera": "室内双人中景轻微推近",
         "characters": ["C03", "C05"], "references": ["S12", "C03", "C05"],
-        "narration": "据报道，三月七日深夜，组长王家儒单独留下，与他谈了很久。",
+        "narration": "三月七日深夜，组长王家儒决定自己留下来，再和他单独谈一次。",
         "prompt": "One continuous interior scene in a plain 1991 interview room, exactly two fictional adults: a tired, non-identifiable male suspect and a calm, non-identifiable senior detective. They sit across a bare metal table with one blank paper folder and a small reel-to-reel recorder. The detective listens without interrupting; the suspect looks down, then slowly speaks. The camera makes a very restrained push at seated eye level. Keep every frame inside the same room, with the same two people and the same light; no exterior, no street, no storefront, no other people, no montage, no visible police badge, no handcuffs, no weapons, no readable text. Natural human motion only; no coercion or threatening gesture.",
         "sfx": ["录音机轻转", "纸页轻响", "室内空调与呼吸"],
     },
@@ -417,7 +417,7 @@ SHOTS = [
         "id": "S24", "start": 137, "duration": 7, "narration_id": "N07",
         "camera": "车内延时，雨刷与路灯快速掠过",
         "characters": ["C07"], "references": ["S11", "C07"],
-        "narration": "媒体回忆，警车一夜往返台南、高雄，多处搜索仍然落空，天色渐亮。",
+        "narration": "警车整夜往返台南、高雄，路灯从车窗掠过，天色渐渐发亮。",
         "prompt": "A continuous interior view from a period police car traveling between Kaohsiung and Tainan at night. Tired fictional officers sit in front; headlights, wet road and streetlamps pass by the windows. Use a restrained in-camera time-lapse effect as the windshield wipers sweep and the sky slowly lightens, without changing location abruptly. Real motion: wipers, road reflections, subtle breathing. No readable dashboard text or modern equipment.",
         "sfx": ["雨刷声", "引擎声", "时钟加速"],
     },
@@ -425,7 +425,7 @@ SHOTS = [
         "id": "S25", "start": 144, "duration": 6, "narration_id": "N07",
         "camera": "两人近景缓慢推近，天色渐亮",
         "characters": ["C05", "C03"], "references": ["S12", "C05", "C03"],
-        "narration": "报道转述，谈到唯一的儿子后，他沉默良久，终于说出地点。",
+        "narration": "王家儒回忆，谈到儿子时，对方沉默良久，终于说出地点。",
         "prompt": "Late night in the same fully described 1991 interrogation room, with only the fictional detective leader and suspect present. A cup of cold tea sits between them. The detective speaks calmly, then waits; the suspect lowers his eyes and his shoulders slowly loosen. Camera: close two-shot, gradual push toward the table, then hold as the first pale dawn appears through a high window. Real motion: clock hand advances, tea surface stills, subtle breathing. No visible child, no readable writing, no coercion.",
         "sfx": ["低声交谈", "钟摆声", "第一声晨鸟"],
     },
@@ -433,7 +433,7 @@ SHOTS = [
         "id": "S26", "start": 150, "duration": 6, "narration_id": "N08",
         "camera": "地面低机位推向树根与铁锹",
         "characters": ["C07"], "references": ["S13", "C07"],
-        "narration": "报道记载，三月九日清晨，警方挖出一百多块骨骸。",
+        "narration": "三月九日清晨，警方在那片土地挖掘，发现一百多块骨骸。",
         "prompt": "At a Tainan vacant lot on 9 March 1991, fictional investigators and workers carefully dig around an old cut tree stump. Keep the camera at ground level on moving shovels, soil and wind-blown cordon tape; never show what is uncovered. A white evidence tent remains distant and closed. Camera: slow low push toward exposed roots, end before the soil is opened. Real motion: hands work, loose soil falls, tape moves. Absolutely no body, bone or remains visible.",
         "sfx": ["铁锹入土", "风声"],
     },
@@ -441,7 +441,7 @@ SHOTS = [
         "id": "S27", "start": 156, "duration": 6, "narration_id": "N08",
         "camera": "安静室内手部近景转母亲侧影",
         "characters": ["C04"], "references": ["S16", "C04", "P05", "P01"],
-        "narration": "报道记载，身份确认后，母亲后来见到女儿留下的遗物。",
+        "narration": "确认身份后，母亲后来见到女儿遗物；漫长等待，终于有了结果。",
         "prompt": "A quiet private room in Tokyo, months after the case was identified. One fictional older Japanese woman sits alone at a clean wooden table. The only objects on the table are a folded plain umbrella, an old unmarked flashlight, one sealed blank kraft envelope and the same deep navy travel backpack seen earlier. She rests one hand beside the bag and looks down in silence, then turns toward the window. Close shot of her hand and the backpack, then a restrained three-quarter profile. Keep this a single clean room, no other people, no uniforms, no forensic tent, no laboratory, no medical equipment, no trays, no stains, no tissue, no bones, no body parts, no blood, no violence, no labels or readable writing. Soft, dignified, natural motion only.",
         "sfx": ["室内静音底噪", "衣料轻响", "轻柔呼吸"],
     },
@@ -449,7 +449,7 @@ SHOTS = [
         "id": "S28", "start": 162, "duration": 6, "narration_id": "N08",
         "camera": "远景航拍缓慢拉升",
         "characters": ["C07"], "references": ["S14", "C07"],
-        "narration": "据供述，头颅被垃圾车运走；掩埋场的后续搜寻最终停止。",
+        "narration": "他供称，头颅被垃圾车运走；相关搜寻最终停止。",
         "prompt": "A vast municipal landfill outside Tainan beneath a gray sky. A distant bulldozer and excavator move slowly through ordinary refuse while a few fictional police silhouettes stand at the edge, unable to search the entire area. Camera: slow aerial rise and pullback to reveal the immense scale. Real motion: machinery moves, seabirds circle, wind lifts dust. No body, remains or sensational imagery.",
         "sfx": ["机械轰鸣", "海鸥叫声", "风声"],
     },
@@ -457,7 +457,7 @@ SHOTS = [
         "id": "S29", "start": 168, "duration": 6, "narration_id": "N09",
         "camera": "长焦背影跟拍，机场人流掠过",
         "characters": ["C04"], "references": ["S15", "C04"],
-        "narration": "一九九三年，母亲带着女儿的骨灰返日；刘学强被判无期。",
+        "narration": "刘学强被判无期；一九九三年，母亲带着女儿骨灰回到日本。",
         "prompt": "A 1993 Taiwan airport departure hall seen from behind. The fictional mother, wearing the same dark coat and long skirt, holds a small plain urn wrapped in cloth close to her chest and walks slowly through moving travelers. She pauses once and looks back toward the island through tall windows. Camera: compressed long-lens follow from behind. Real motion: crowd passes in both directions, sunlight moves across the floor. No readable airport signage, no logo.",
         "sfx": ["机场广播", "缓慢脚步"],
     },
@@ -465,11 +465,134 @@ SHOTS = [
         "id": "S30", "start": 174, "duration": 6, "narration_id": "N09",
         "camera": "窗台缓慢推近，白光叠化",
         "characters": ["C04"], "references": ["S16", "C04", "P01"],
-        "narration": "二〇二六年初报道：假释未获准；官方现况待核。",
+        "narration": "骨灰回到故乡，可那趟旅程留下的问号，并未全都解开。",
         "prompt": "In a quiet Tokyo room years later at dusk, the fictional mother sits in three-quarter back view beside a small plain urn and white flowers on a wooden windowsill. A framed, indistinct photograph of a young woman and the worn deep navy backpack stand nearby. She rests one hand beside the urn, then looks out at the rooftops as a sheer curtain moves in the evening breeze. Camera: very slow push toward the photograph and backpack; warm light blooms gently to white in the final third. Real motion: curtain and flowers move naturally. In the final 0.3 seconds, the moving image freezes for a beat and abruptly flashes to white, then black; no generated text.",
         "sfx": ["晚风渐弱", "最后一秒静音"],
     },
 ]
+
+# User-requested narration rewrite (2026-11-07), now promoted to SHOTS after the 30
+# voice-03 clips passed preliminary timing checks. Keep this versioned audit list in sync
+# with SHOTS; the current subtitles and MP4 still await the render workflow.
+NARRATION_REWRITE_V2 = [
+    {"id": "S01", "narration": "井口真理子来台湾毕业旅行，却再也没能回家。"},
+    {"id": "S02", "narration": "母亲久子带着女儿照片，跨海来到台湾寻人。"},
+    {"id": "S03", "narration": "时间回到一九九〇年四月，二十三岁的她独自抵台，旅程才开始。"},
+
+    {"id": "S04", "narration": "夜市人声热闹、锅气升起；她边尝小吃，边把见闻记进小本子。"},
+    {"id": "S05", "narration": "在台南，她认识了李姓计程车司机；对方接待过她，也邀她借住。"},
+    {"id": "S06", "narration": "她写下明信片，向日本家人报平安，也留下旅途点滴。"},
+    {"id": "S07", "narration": "四月七日清晨，司机送她到台南车站；她登上列车，驶向高雄。"},
+    {"id": "S08", "narration": "车窗外，稻田渐渐退远；她手里的明信片，记着旅途日常。"},
+    {"id": "S09", "narration": "她抵达高雄车站，独自走出站口；此后便没了消息。"},
+    {"id": "S10", "narration": "四月十八日，原定返日的航班起飞，她却没有登机。"},
+    {"id": "S11", "narration": "四月二十五日，母亲久子带着女儿照片抵台，沿途打听她的下落。"},
+    {"id": "S12", "narration": "等不到消息，她向警方求助；搜寻范围由台南一路延伸到高雄。"},
+    {"id": "S13", "narration": "李姓司机接受警方询问后获释；真理子的下落仍无从确认。"},
+    {"id": "S14", "narration": "墓园与甘蔗田反复搜过，仍找不到她的踪迹。"},
+    {"id": "S15", "narration": "次年三月，警方在高雄逮捕刘学强；追查终于有了突破。"},
+    {"id": "S16", "narration": "他供称，自己在车站看见真理子，随后主动上前搭话。"},
+    {"id": "S17", "narration": "他还说，白天带她去过景点；每个细节仍要逐一核实。"},
+    {"id": "S18", "narration": "他的说法几度变化，警方只好重新核对每条线索。"},
+    {"id": "S19", "narration": "那只深蓝色背包，也成了这个故事里另一个没有答案的问号。"},
+    {"id": "S20", "narration": "每报出一个新地点，警员就得立即出发；搜寻一再落空。"},
+    {"id": "S21", "narration": "深夜，警车循着新线索驶进小巷。"},
+    {"id": "S22", "narration": "又一处线索落空，天快亮了，搜寻仍没有停下来。"},
+    {"id": "S23", "narration": "三月七日深夜，组长王家儒决定自己留下来，再和他单独谈一次。"},
+    {"id": "S24", "narration": "警车整夜往返台南、高雄，路灯从车窗掠过，天色渐渐发亮。"},
+    {"id": "S25", "narration": "王家儒回忆，谈到儿子时，对方沉默良久，终于说出地点。"},
+    {"id": "S26", "narration": "三月九日清晨，警方在那片土地挖掘，发现一百多块骨骸。"},
+    {"id": "S27", "narration": "确认身份后，母亲后来见到女儿遗物；漫长等待，终于有了结果。"},
+    {"id": "S28", "narration": "他供称，头颅被垃圾车运走；相关搜寻最终停止。"},
+    {"id": "S29", "narration": "刘学强被判无期；一九九三年，母亲带着女儿骨灰回到日本。"},
+    {"id": "S30", "narration": "骨灰回到故乡，可那趟旅程留下的问号，并未全都解开。"},
+]
+
+
+def narration_rewrite_v2_rows() -> list[dict]:
+    """Pair the promoted V2 wording with the fixed shot schedule and pacing checks."""
+    shots = {shot["id"]: shot for shot in SHOTS}
+    if [row["id"] for row in NARRATION_REWRITE_V2] != list(shots):
+        raise ValueError("Narration V2 must cover the existing S01–S30 order exactly.")
+    rows = []
+    for draft in NARRATION_REWRITE_V2:
+        shot = shots[draft["id"]]
+        if shot["narration"] != draft["narration"]:
+            raise ValueError(f"V2 audit text diverges from active SHOTS for {draft['id']}.")
+        count = len(re.findall(r"[\u3400-\u4dbf\u4e00-\u9fff]", draft["narration"]))
+        rows.append({
+            **draft,
+            "start": shot["start"],
+            "duration": shot["duration"],
+            "narration_id": shot["narration_id"],
+            "hanzi_count": count,
+            "hanzi_per_second": count / shot["duration"],
+        })
+    total_duration = sum(row["duration"] for row in rows)
+    total_hanzi = sum(row["hanzi_count"] for row in rows)
+    total_rate = total_hanzi / total_duration
+    if total_duration != 180 or not 3.65 <= total_rate <= 3.75:
+        raise ValueError(f"Narration draft pacing is outside spec: {total_hanzi}/{total_duration}s.")
+    max_shot_rate = max(row["hanzi_per_second"] for row in rows)
+    if max_shot_rate > 3.7 * 1.15:
+        raise ValueError(f"A line exceeds the 1.15x shot pacing limit: {max_shot_rate:.3f} CJK/s.")
+    return rows
+
+
+def write_narration_rewrite_v2(path: Path | None = None) -> Path:
+    """Write the versioned V2 script and timing sheet without rebuilding media outputs."""
+    rows = narration_rewrite_v2_rows()
+    by_id = {row["id"]: row for row in rows}
+    total_hanzi = sum(row["hanzi_count"] for row in rows)
+    total_duration = sum(row["duration"] for row in rows)
+    max_rate = max(row["hanzi_per_second"] for row in rows)
+    target = path or HERE / "narration_rewrite_v2.md"
+
+    lines = [
+        "# 《井口真理子命案：她没能回家》全片解说词重写稿 v2",
+        "",
+        "> 解说词修订稿 v2｜2026-11-07。沿用现有30段动态镜头及其时长；只改旁白，不改镜头片段。",
+        "> 30条 voice-03 MP3 与 `story.json`、`audio/manifest.json` 已更新；字幕和MP4仍是旧版，须经渲染工作流重建并复核。",
+        "",
+        "## 连贯口播稿",
+        "",
+    ]
+    for chapter_id, title, start, duration, shot_ids in CHAPTERS:
+        chapter_text = " ".join(by_id[shot_id]["narration"] for shot_id in shot_ids)
+        lines.extend([
+            f"### {timecode(start)}—{timecode(start + duration)}　{title}（{chapter_id}）",
+            "",
+            chapter_text,
+            "",
+        ])
+    lines.extend([
+        "## 30镜逐句与时长核对",
+        "",
+        f"全稿 {total_hanzi} 个 CJK 汉字／180 秒＝{total_hanzi / total_duration:.3f} 字/秒；",
+        f"最密单镜 {max_rate:.2f} 字/秒，低于约 4.26 字/秒（3.7 字/秒 × 1.15）文字估算上限。配音已生成并经初步时长检查；渲染工作流仍须验证实际解码、加速和字幕边界。",
+        "",
+        "| 镜号 | 时码 | 秒数 | CJK字数 | 字/秒 | 解说词 |",
+        "|---|---|---:|---:|---:|---|",
+    ])
+    for row in rows:
+        lines.append(
+            f"| {row['id']} | {timecode(row['start'])}–{timecode(row['start'] + row['duration'])} "
+            f"| {row['duration']} | {row['hanzi_count']} | {row['hanzi_per_second']:.2f} "
+            f"| {row['narration']} |"
+        )
+    lines.extend([
+        "",
+        "## 事实与口吻边界",
+        "",
+        "- 开场先给出‘毕业旅行—没能回家’的情绪钩子，再落到真理子与母亲久子，随后回到1990年四月展开故事。",
+        "- 不再重复使用‘媒体报道／媒体记载／据报道’作句首；只在必要处把供述或回忆归到说话者：S16–S17、S25、S28。",
+        "- S19只把深蓝色背包写成未解问号，不推断它的具体去向；S27明确母亲是在身份确认后见到遗物，不安排她出现在挖掘现场。",
+        "- S30不复述未经最新官方核验的假释状态；以母亲带骨灰返日和仍未解开的疑问收束。",
+        "- 30条旁白已生成，初步逐镜时长检查通过；字幕、声画混音、完整播放和最终QA仍待渲染后完成。",
+        "",
+    ])
+    target.write_text("\n".join(lines), encoding="utf-8")
+    return target
 
 
 def sha256(path: Path) -> str:

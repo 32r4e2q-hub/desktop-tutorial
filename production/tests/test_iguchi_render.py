@@ -31,7 +31,7 @@ class IguchiRenderTests(unittest.TestCase):
 
     def test_all_thirty_selected_voice_files_are_ready_and_hash_bound(self):
         manifest = json.loads((HERE / "audio" / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["voice_id"], "voice-02")
+        self.assertEqual(manifest["voice_id"], "voice-03")
         self.assertEqual(len(manifest["clips"]), 30)
         for row in manifest["clips"]:
             self.assertEqual(row["status"], "ready", row["id"])
@@ -39,17 +39,19 @@ class IguchiRenderTests(unittest.TestCase):
             self.assertTrue(audio.is_file(), row["id"])
             self.assertEqual(render.sha256(audio), row["sha256"], row["id"])
 
-    def test_narration_integrity_and_date_qualified_parole_status(self):
+    def test_narration_integrity_and_storylike_attribution(self):
         self.assertEqual(self.story["narration_stats"]["hanzi_count"], 658)
         self.assertAlmostEqual(self.story["narration_stats"]["hanzi_per_second"], 658 / 180, places=3)
         rows = {shot["id"]: shot for shot in self.story["shots"]}
-        self.assertIn("媒体回顾", rows["S05"]["narration"])
-        self.assertIn("媒体", rows["S06"]["narration"])
-        self.assertIn("媒体", rows["S07"]["narration"])
-        self.assertNotIn("失去踪影", rows["S19"]["narration"])
-        self.assertIn("二〇二六年初", rows["S30"]["narration"])
-        self.assertIn("官方现况待核", rows["S30"]["narration"])
-        self.assertNotIn("近年报道", rows["S30"]["narration"])
+        narration = "".join(shot["narration"] for shot in self.story["shots"])
+        for phrase in ("媒体报道", "媒体记载", "据报道", "报道指"):
+            self.assertNotIn(phrase, narration)
+        self.assertIn("来台湾毕业旅行", rows["S01"]["narration"])
+        self.assertIn("他供称", rows["S16"]["narration"])
+        self.assertIn("他还说", rows["S17"]["narration"])
+        self.assertIn("王家儒回忆", rows["S25"]["narration"])
+        self.assertIn("他供称", rows["S28"]["narration"])
+        self.assertNotIn("二〇二六年初", rows["S30"]["narration"])
 
     def test_three_visual_failures_have_narrow_safe_replacement_prompts(self):
         prompts = {shot["id"]: shot["prompt"].lower() for shot in self.story["shots"]}
