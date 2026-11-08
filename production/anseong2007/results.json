@@ -912,12 +912,33 @@
     },
     "S14": {
       "id": "S14",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 09:23:39. (request id: 2026110809185226217001V1PKfFEv) (code=rate_limit_exceeded)",
+      "status": "in_progress",
+      "error": null,
       "request_hash": "1b92a7b665d4681b93b1a1c0b18bc429b18bce4379f95489feaad59606f2a088",
-      "create_attempts": 1,
+      "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T09:18:52Z"
+      "updated_at": "2026-11-08T09:25:11Z",
+      "video_id": "task_krU53s2JcDDzbFrpTeCjCscM45HqtI2d",
+      "task_id": "task_krU53s2JcDDzbFrpTeCjCscM45HqtI2d",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S01参考图（2007年3月安城市郊山路傍晚，雾气低垂）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为P05参考图（插在湿泥土里的铁锹，雾气）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n纯空镜：画面里自始至终没有任何人、人脸、人影或车辆。暮色渐沉的韩国山林与山路，固定机位远景，雾气在松树梢间流动，一群鸟突然从树林里惊飞而起，掠过灰暗的天空；随后光线迅速暗下，画面几乎沉入黑暗，只剩松树剪影轮廓。 运镜：固定机位，暮色压暗至近乎全黑。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007313,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/P05.png"
+        ]
+      },
+      "requested_seconds": 5,
+      "created_at": "2026-11-08T09:23:40Z",
+      "next_poll_epoch": 1794129971.0859234,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S15": {
       "id": "S15",
@@ -1203,7 +1224,13 @@
       "completed_at": "2026-11-08T09:08:42Z"
     },
     "S19": {
-      "id": "S19"
+      "id": "S19",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 09:28:40. (request id: 20261108092352360347505JxVxIxJg) (code=rate_limit_exceeded)",
+      "request_hash": "8f02188e966cf2eff2c6672488072173e0f37ec3dd61fc52d7e9fca011d94756",
+      "create_attempts": 1,
+      "cooldown_seconds": 288.0,
+      "updated_at": "2026-11-08T09:23:52Z"
     },
     "S20": {
       "id": "S20",
@@ -2430,10 +2457,10 @@
   },
   "status_counts": {
     "completed": 28,
-    "rate_limited": 1,
-    "?": 1
+    "in_progress": 1,
+    "rate_limited": 1
   },
-  "updated_at": "2026-11-08T09:23:15Z",
+  "updated_at": "2026-11-08T09:25:11Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
