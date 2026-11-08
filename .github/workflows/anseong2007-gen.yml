@@ -42,14 +42,24 @@ jobs:
 
       - name: Validate storyboard, references and scheduler simulation
         run: |
-          set -euo pipefail
+          set -uo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          python production/anseong2007/build_story.py
-          git diff --stat -- production/anseong2007/story.json || true
-          python production/anseong2007/generate_clips.py --validate
-          python -m pytest -q production/tests/test_anseong2007.py
-          test "$(wc -c < production/anseong2007/reference/revision.txt)" -ge 40
+          python --version; ffmpeg -version 2>/dev/null | head -n 1 || echo "no ffmpeg"
+          {
+            python production/anseong2007/build_story.py &&
+            python production/anseong2007/generate_clips.py --validate &&
+            python -m pytest -q -p no:cacheprovider production/tests/test_anseong2007.py &&
+            test "$(wc -c < production/anseong2007/reference/revision.txt)" -ge 40
+          } > validate.log 2>&1
+          status=$?
+          cat validate.log
+          if [ "$status" -ne 0 ]; then
+            # 日志下载域名在部分环境不可达：把失败要点写成 annotation（API 可读）
+            grep -E "FAILED|Error|error:|assert|Traceback|SystemExit|ValueError|RuntimeError" validate.log \
+              | tail -n 25 | while IFS= read -r line; do echo "::error title=validate::${line:0:900}"; done
+            exit "$status"
+          fi
           echo "agnes_key_present=$([ -n "$AGNES_API_KEY" ] && echo yes || echo no)"
 
       - name: Queue all requested shots (5 creates/min) and poll to completion
