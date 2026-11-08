@@ -251,6 +251,19 @@ class RenderPlan(unittest.TestCase):
         fast = self.render.timing_plan(shots["S16"], {"duration": 6.6})
         self.assertEqual(len(fast["cuts"]), 2)
 
+    def test_blur_masks_bound_to_reviewed_source(self):
+        results = json.loads((PROJECT / "results.json").read_text(encoding="utf-8"))
+        for sid, spec in self.render.BLUR_MASKS.items():
+            if results["shots"][sid].get("sha256") == spec["sha256"]:
+                self.assertTrue(self.render.blur_boxes(sid, spec["sha256"]))
+            with self.assertRaises(RuntimeError):
+                self.render.blur_boxes(sid, "0" * 64)
+        graph = self.render.video_graph(self.story, self.story["shots"][20], {"duration": 6.6},
+                                        {"stretch": 1.0, "cuts": [], "target_frames": 144},
+                                        [(600, 170, 900, 890, 4.2, 6.0)])
+        self.assertIn("boxblur", graph)
+        self.assertTrue(graph.endswith("[outv]"))
+
     def test_subtitles_wrap_and_highlight_gold(self):
         lines = self.render.split_subtitle("他用死者手机发短信：暂时躲一躲警察。他以为，天衣无缝。")
         self.assertTrue(all(len(x) <= 22 for x in lines))

@@ -67,6 +67,12 @@ GRADES = {
 }
 FILM_FINISH = "noise=alls=5:allf=t,vignette=angle=PI/5"
 
+# 局部模糊（输出坐标 1920×1080：x, y, w, h, 起, 止 秒），绑定已审原片 SHA；原片一换立即拒绝渲染、需重审。
+BLUR_MASKS: dict[str, dict] = {
+    # S21 末段收据特写上的伪文字
+    "S21": {"sha256": "31003989c0b8fd555b0d4393570522a7a2f043b64cd45b2e1ada786e0764c328", "boxes": [(600, 170, 900, 890, 4.2, 6.0)]},
+}
+
 # 每镜声音设计：(环境底, [(拟音, 起点占比, 强度), ...])。全部由滤波噪声/衰减分音合成，没有音乐。
 SFX_PLAN: dict[str, tuple[str, list[tuple[str, float, float]]]] = {
     "S01": ("mountain_wind", [("engine", 0.0, 1.0)]),
@@ -293,7 +299,23 @@ def timing_plan(shot: dict, src: dict) -> dict:
     return {"stretch": round(stretch, 4), "cuts": cuts, "target_frames": target_frames}
 
 
-def video_graph(story: dict, shot: dict, src: dict, plan: dict) -> str:
+def blur_boxes(sid: str, source_sha: str) -> list[tuple]:
+    spec = BLUR_MASKS.get(sid)
+    if not spec:
+        return []
+    if spec["sha256"] != source_sha:
+        raise RuntimeError(f"{sid}: source changed since its blur mask was reviewed; re-review before rendering")
+    out = []
+    for x, y, w, h, t0, t1 in spec["boxes"]:
+        x, y, w, h = (int(v) // 2 * 2 for v in (x, y, w, h))
+        if x < 0 or y < 0 or x + w > 1920 or y + h > 1080:
+            raise ValueError(f"{sid}: blur box out of frame")
+        out.append((x, y, w, h, float(t0), float(t1)))
+    return out
+
+
+def video_graph(story: dict, shot: dict, src: dict, plan: dict, masks: list[tuple] = ()) -> str:
+    """返回 -filter_complex 图，输入 [0:v]，输出 [outv]。"""
     sid = shot["id"]
     chain = []
     if plan["cuts"]:
@@ -307,33 +329,41 @@ def video_graph(story: dict, shot: dict, src: dict, plan: dict) -> str:
     if plan["cuts"]:
         # 跳切处 2 帧轻微闪白，强化快剪
         target = float(shot["duration"])
-        for i, frac in enumerate((1 / 3, 2 / 3)):
+        for frac in (1 / 3, 2 / 3):
             t = round(target * frac, 3)
             chain.append(f"eq=brightness=0.18:enable='between(t,{t},{t + 2 / FPS:.3f})'")
+    graph = "[0:v]" + ",".join(chain) + "[g0]"
+    current = "g0"
+    for i, (x, y, w, h, t0, t1) in enumerate(masks):
+        graph += (f";[{current}]split=2[m{i}][c{i}];[c{i}]crop={w}:{h}:{x}:{y},boxblur=20:2[b{i}];"
+                  f"[m{i}][b{i}]overlay={x}:{y}:enable='between(t,{t0:.3f},{t1:.3f})'[g{i + 1}]")
+        current = f"g{i + 1}"
+    post = []
     d = float(shot["duration"])
     if sid == "S14":
-        chain.append(f"fade=t=out:st={d * 0.44:.3f}:d={d * 0.2:.3f}")   # 2.2s 起 1s 压到全黑，之后黑场
+        post.append(f"fade=t=out:st={d * 0.44:.3f}:d={d * 0.2:.3f}")   # 2.2s 起 1s 压到全黑，之后黑场
     if sid == "S15":
-        chain.append("fade=t=in:st=0:d=0.5")                             # 从黑场里亮起
+        post.append("fade=t=in:st=0:d=0.5")                             # 从黑场里亮起
     if sid == "S30":
-        chain.append("fade=t=in:st=0:d=0.5")
-        chain.append(f"fade=t=out:st={d - 1:.3f}:d=1")
-    chain.append("format=yuv420p")
-    return ",".join(chain)
+        post.append("fade=t=in:st=0:d=0.5")
+        post.append(f"fade=t=out:st={d - 1:.3f}:d=1")
+    post.append("format=yuv420p")
+    return graph + f";[{current}]" + ",".join(post) + "[outv]"
 
 
 def normalize_clip(story: dict, shot: dict, src_path: Path, src: dict, out: Path) -> dict:
     plan = timing_plan(shot, src)
+    masks = blur_boxes(shot["id"], src["sha256"])
     out.parent.mkdir(parents=True, exist_ok=True)
     run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", src_path,
-         "-vf", video_graph(story, shot, src, plan), "-an",
+         "-filter_complex", video_graph(story, shot, src, plan, masks), "-map", "[outv]", "-an",
          "-frames:v", plan["target_frames"], "-r", FPS, "-fps_mode", "cfr",
          "-c:v", "libx264", "-preset", "veryfast", "-crf", "19", "-pix_fmt", "yuv420p", out])
     got = count_frames(out)
     if got != plan["target_frames"]:
         raise RuntimeError(f"{shot['id']}: normalized clip has {got} frames, expected {plan['target_frames']}")
     return {"id": shot["id"], "grade": grade_for(story, shot["id"]), "source_seconds": round(src["duration"], 3),
-            "target_seconds": shot["duration"], "frames": got, **plan}
+            "target_seconds": shot["duration"], "frames": got, "blur_masks": len(masks), **plan}
 
 
 # ───────────────────────────── voice ─────────────────────────────
