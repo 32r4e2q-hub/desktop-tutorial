@@ -1,0 +1,88 @@
+name: 安城双尸案 · Agnes 2.5 Flash 30镜一次性排队生成
+
+on:
+  push:
+    branches: [arena/7f19693e-desktop-tutorial]
+    paths:
+      - production/anseong2007/GEN_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: anseong2007-agnes-generation
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/7f19693e-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 355
+    env:
+      AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+    steps:
+      - name: Checkout fixed Arena branch (skip mp4 blobs)
+        uses: actions/checkout@v4
+        with:
+          ref: arena/7f19693e-desktop-tutorial
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            /*
+            !*.mp4
+          sparse-checkout-cone-mode: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install inspection dependencies
+        run: python -m pip install --disable-pip-version-check pillow av numpy pytest
+
+      - name: Validate storyboard, references and scheduler simulation
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python production/anseong2007/build_story.py
+          git diff --stat -- production/anseong2007/story.json || true
+          python production/anseong2007/generate_clips.py --validate
+          python -m pytest -q production/tests/test_anseong2007.py
+          test "$(wc -c < production/anseong2007/reference/revision.txt)" -ge 40
+          echo "agnes_key_present=$([ -n "$AGNES_API_KEY" ] && echo yes || echo no)"
+
+      - name: Queue all requested shots (5 creates/min) and poll to completion
+        run: |
+          set -o pipefail
+          payload="$(cat production/anseong2007/GEN_REQUEST)"
+          python production/anseong2007/generate_clips.py --publish --payload "$payload" --budget-hours 5.3 \
+            2>&1 | tee work-gen.log
+
+      - name: Upload source clips for the render job
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: anseong2007-clips-${{ github.run_id }}
+          path: |
+            work/anseong2007/clips/*.mp4
+            production/anseong2007/results.json
+            work-gen.log
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Final receipts checkpoint
+        if: always()
+        run: |
+          set -euo pipefail
+          branch=arena/7f19693e-desktop-tutorial
+          for attempt in 1 2 3 4 5; do
+            git fetch --depth=1 origin "+refs/heads/$branch:refs/remotes/origin/$branch"
+            git reset --mixed -q "origin/$branch"
+            git add -f -- production/anseong2007/results.json production/anseong2007/qa || true
+            if git diff --cached --quiet; then echo "receipts already published"; exit 0; fi
+            git commit -q -m "anseong2007: final Agnes receipts (run ${{ github.run_id }}) [skip ci]"
+            if git push origin "HEAD:$branch"; then exit 0; fi
+            sleep $((attempt * 3))
+          done
+          exit 1
