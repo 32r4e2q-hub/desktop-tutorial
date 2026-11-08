@@ -140,6 +140,20 @@ class SchedulerSimulation(unittest.TestCase):
         self.assertEqual(rows["S02"]["auto_retries"], 1)
 
 
+class NarrationCompliance(unittest.TestCase):
+    """解说词：合规（不出现赌博/高利贷/死者等敏感词）且金色高亮词必须真的在句子里。"""
+
+    SENSITIVE = ("赌", "高利贷", "死者", "尸体", "遗体", "杀", "砍", "勒", "血")
+
+    def test_keywords_present_and_no_sensitive_words(self):
+        story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+        for shot in story["shots"]:
+            for key in shot["highlight_keywords"]:
+                self.assertIn(key, shot["narration"], shot["id"])
+            for word in self.SENSITIVE:
+                self.assertNotIn(word, shot["narration"], f"{shot['id']}: {word}")
+
+
 class RealInspection(unittest.TestCase):
     """真 inspect_clip（不打桩）：2026-11-08 首轮生成里 16 镜因关闭容器后读 stream 属性而卡在 download_pending。"""
 
