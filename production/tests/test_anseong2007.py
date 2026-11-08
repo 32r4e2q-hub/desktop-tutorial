@@ -251,6 +251,15 @@ class RenderPlan(unittest.TestCase):
         fast = self.render.timing_plan(shots["S16"], {"duration": 6.6})
         self.assertEqual(len(fast["cuts"]), 2)
 
+    def test_subtitle_lines_never_start_with_punctuation(self):
+        self.assertEqual(self.render.split_subtitle("顺着编号追查，这台发动机三月初就出口到了埃及。"),
+                         ["顺着编号追查，", "这台发动机三月初就出口到了埃及。"])
+        for shot in self.story["shots"]:
+            lines = self.render.split_subtitle(shot.get("subtitle") or shot["narration"])
+            self.assertLessEqual(len(lines), 2, shot["id"])
+            for line in lines:
+                self.assertNotIn(line[0], "，；：、。？！", shot["id"])
+
     def test_blur_masks_bound_to_reviewed_source(self):
         results = json.loads((PROJECT / "results.json").read_text(encoding="utf-8"))
         for sid, spec in self.render.BLUR_MASKS.items():

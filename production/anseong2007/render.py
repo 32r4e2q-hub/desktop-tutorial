@@ -70,7 +70,9 @@ FILM_FINISH = "noise=alls=5:allf=t,vignette=angle=PI/5"
 # 局部模糊（输出坐标 1920×1080：x, y, w, h, 起, 止 秒），绑定已审原片 SHA；原片一换立即拒绝渲染、需重审。
 BLUR_MASKS: dict[str, dict] = {
     # S21 末段收据特写上的伪文字
-    "S21": {"sha256": "31003989c0b8fd555b0d4393570522a7a2f043b64cd45b2e1ada786e0764c328", "boxes": [(600, 170, 900, 890, 4.2, 6.0)]},
+    # 两段跟随纸张：4.2–5.1 s 纸在下方较小；5.1–6.0 s 举到胸前变大。按 qa/S21.jpg 源帧位置量出，羽化边缘。
+    "S21": {"sha256": "31003989c0b8fd555b0d4393570522a7a2f043b64cd45b2e1ada786e0764c328",
+            "boxes": [(780, 500, 600, 500, 4.2, 5.1), (650, 220, 820, 830, 5.1, 6.0)]},
 }
 
 # 每镜声音设计：(环境底, [(拟音, 起点占比, 强度), ...])。全部由滤波噪声/衰减分音合成，没有音乐。
@@ -299,6 +301,9 @@ def timing_plan(shot: dict, src: dict) -> dict:
     return {"stretch": round(stretch, 4), "cuts": cuts, "target_frames": target_frames}
 
 
+MASK_FEATHER = 56   # 羽化像素：模糊块边缘渐隐，看不出矩形
+
+
 def blur_boxes(sid: str, source_sha: str) -> list[tuple]:
     spec = BLUR_MASKS.get(sid)
     if not spec:
@@ -335,7 +340,10 @@ def video_graph(story: dict, shot: dict, src: dict, plan: dict, masks: list[tupl
     graph = "[0:v]" + ",".join(chain) + "[g0]"
     current = "g0"
     for i, (x, y, w, h, t0, t1) in enumerate(masks):
-        graph += (f";[{current}]split=2[m{i}][c{i}];[c{i}]crop={w}:{h}:{x}:{y},boxblur=20:2[b{i}];"
+        feather = MASK_FEATHER
+        alpha = f"255*clip(min(min(X\\,W-1-X)\\,min(Y\\,H-1-Y))/{feather}\\,0\\,1)"
+        graph += (f";[{current}]split=2[m{i}][c{i}];[c{i}]crop={w}:{h}:{x}:{y},boxblur=20:2,format=yuva444p,"
+                  f"geq=lum='lum(X,Y)':cb='cb(X,Y)':cr='cr(X,Y)':a='{alpha}'[b{i}];"
                   f"[m{i}][b{i}]overlay={x}:{y}:enable='between(t,{t0:.3f},{t1:.3f})'[g{i + 1}]")
         current = f"g{i + 1}"
     post = []
@@ -740,8 +748,13 @@ def split_subtitle(text: str, limit: int = 22) -> list[str]:
     lines, rest = [], text.strip()
     while len(rest) > limit:
         floor = int(limit * 0.5)
-        breaks = [i + 1 for i, ch in enumerate(rest[:limit]) if i + 1 >= floor and ch in "，；：、。？！"]
+        punct = "，；：、。？！"
+        breaks = [i + 1 for i, ch in enumerate(rest[:limit]) if i + 1 >= floor and ch in punct]
+        if not breaks:   # 退而求其次：较早的标点也比硬切强
+            breaks = [i + 1 for i, ch in enumerate(rest[:limit]) if i + 1 >= 4 and ch in punct]
         cut = max(breaks) if breaks else limit
+        while cut < len(rest) and rest[cut] in punct + "”’）》":   # 标点永不落在行首
+            cut += 1
         lines.append(rest[:cut])
         rest = rest[cut:]
     if rest:
