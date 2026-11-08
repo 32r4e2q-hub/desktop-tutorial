@@ -77,10 +77,7 @@ REFERENCES = {
     "P06": ("prop", "打开的集装箱，码放的汽车零件，夜晚吊车"),
 }
 # 逐张人工审核结论（只有真正看过并合格的图才写 approved）
-REVIEW = {
-    "C01": "approved", "C02": "approved", "C03": "approved", "C04": "approved",
-    "C05": "approved", "C06": "approved", "C08": "approved", "S01": "approved",
-}
+REVIEW = {rid: "approved" for rid in REFERENCES}  # 27/27 逐张查看通过（C05/C07 重生成一次：去掉名人相似脸）
 
 # ───────────────────────── 30 镜分镜（一镜一句，解说与片段等长） ─────────────────────────
 # (id, 段落, 秒数, 参考图, 角色, 旁白, 运镜, 音效, 画面提示词, 关键词)
