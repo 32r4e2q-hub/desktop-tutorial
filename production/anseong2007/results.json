@@ -1141,12 +1141,12 @@
     },
     "S22": {
       "id": "S22",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "704bd0c193ccfd32913b8799fafa45c034eef6f3fbc5011999d622829077199a",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:01:11Z",
+      "updated_at": "2026-11-08T08:02:14Z",
       "video_id": "task_oIaP8JqQXfm7sHSfXkEs4xKntLdfDOW6",
       "task_id": "task_oIaP8JqQXfm7sHSfXkEs4xKntLdfDOW6",
       "request_payload": {
@@ -1165,8 +1165,33 @@
       "requested_seconds": 5,
       "created_at": "2026-11-08T07:58:39Z",
       "next_poll_epoch": 1794124931.0038013,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_oIaP8JqQXfm7sHSfXkEs4xKntLdfDOW6.mp4",
+      "final_response": {
+        "completed_at": 1794124930,
+        "created_at": 1794124719,
+        "error": null,
+        "expires_at": null,
+        "id": "task_oIaP8JqQXfm7sHSfXkEs4xKntLdfDOW6",
+        "internal_progress": 0,
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": null,
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794124752,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_oIaP8JqQXfm7sHSfXkEs4xKntLdfDOW6.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 1,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S23": {
       "id": "S23",
@@ -1364,10 +1389,9 @@
     ]
   },
   "status_counts": {
-    "download_pending": 21,
-    "in_progress": 1,
+    "download_pending": 22,
     "rate_limited": 1,
     "?": 7
   },
-  "updated_at": "2026-11-08T08:01:11Z"
+  "updated_at": "2026-11-08T08:02:14Z"
 }
