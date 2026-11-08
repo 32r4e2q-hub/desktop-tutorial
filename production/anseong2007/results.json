@@ -1580,12 +1580,12 @@
     },
     "S30": {
       "id": "S30",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "704407edcca15e3f83e84ad82abc14a9deb71f9339d22d0a519727e1ddf8a93c",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:43:15Z",
+      "updated_at": "2026-11-08T08:44:19Z",
       "video_id": "task_WNdCdkxsPpPA1xtglhtYLVQs4IxcEI8i",
       "task_id": "task_WNdCdkxsPpPA1xtglhtYLVQs4IxcEI8i",
       "request_payload": {
@@ -1605,8 +1605,32 @@
       "requested_seconds": 5,
       "created_at": "2026-11-08T08:38:42Z",
       "next_poll_epoch": 1794127455.8881307,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_WNdCdkxsPpPA1xtglhtYLVQs4IxcEI8i.mp4",
+      "final_response": {
+        "completed_at": 1794127410,
+        "created_at": 1794127122,
+        "error": null,
+        "expires_at": null,
+        "id": "task_WNdCdkxsPpPA1xtglhtYLVQs4IxcEI8i",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794127162,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_WNdCdkxsPpPA1xtglhtYLVQs4IxcEI8i.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     }
   },
   "branch": "arena/7f19693e-desktop-tutorial",
@@ -1774,8 +1798,7 @@
     ]
   },
   "status_counts": {
-    "download_pending": 29,
-    "in_progress": 1
+    "download_pending": 30
   },
-  "updated_at": "2026-11-08T08:43:15Z"
+  "updated_at": "2026-11-08T08:44:19Z"
 }
