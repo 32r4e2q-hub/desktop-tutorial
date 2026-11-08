@@ -27,9 +27,9 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:12:55Z",
       "error": null,
-      "next_poll_epoch": 1794122400.3405457,
-      "updated_at": "2026-11-08T07:19:00Z",
-      "progress": 10,
+      "next_poll_epoch": 1794122431.370197,
+      "updated_at": "2026-11-08T07:20:01Z",
+      "progress": 70,
       "poll_failures": 0
     },
     "S02": {
@@ -56,8 +56,8 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:13:07Z",
       "error": null,
-      "next_poll_epoch": 1794122352.0469458,
-      "updated_at": "2026-11-08T07:18:12Z",
+      "next_poll_epoch": 1794122413.0875115,
+      "updated_at": "2026-11-08T07:19:13Z",
       "progress": 10,
       "poll_failures": 0
     },
@@ -68,7 +68,7 @@
       "request_hash": "29045c7f8469130176eb3f72c64cb8ce0c3d93b8c8c022b6c44ece7e047115e7",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:18:22Z",
+      "updated_at": "2026-11-08T07:19:23Z",
       "video_id": "task_PmYbojFzCDSPitEyyG5SX6KwoHB1OY2M",
       "task_id": "task_PmYbojFzCDSPitEyyG5SX6KwoHB1OY2M",
       "request_payload": {
@@ -88,7 +88,7 @@
       },
       "requested_seconds": 7,
       "created_at": "2026-11-08T07:14:20Z",
-      "next_poll_epoch": 1794122362.384649,
+      "next_poll_epoch": 1794122423.4201436,
       "progress": 10,
       "poll_failures": 0
     },
@@ -117,8 +117,8 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:14:32Z",
       "error": null,
-      "next_poll_epoch": 1794122374.697047,
-      "updated_at": "2026-11-08T07:18:34Z",
+      "next_poll_epoch": 1794122435.752761,
+      "updated_at": "2026-11-08T07:19:35Z",
       "progress": 10,
       "poll_failures": 0
     },
@@ -129,7 +129,7 @@
       "request_hash": "6225d498a47281e592e9e57ad8c634d3d0756f5f7cc525bae754106abff2fc1c",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:18:46Z",
+      "updated_at": "2026-11-08T07:19:47Z",
       "video_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
       "task_id": "task_01ga2VxSxwAmOiFV6ghFhFB86iE2AOlu",
       "request_payload": {
@@ -149,18 +149,36 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:15:45Z",
-      "next_poll_epoch": 1794122386.0106761,
+      "next_poll_epoch": 1794122447.0553246,
       "progress": 10,
       "poll_failures": 0
     },
     "S06": {
       "id": "S06",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261108071859625644853SwnZhKqf) (code=rate_limit_exceeded)",
+      "status": "queued",
+      "error": null,
       "request_hash": "a97ad7ad317221ed7ad82dc33d7376f07f6895d5e8d447e7e74f3f190cab1c6e",
-      "create_attempts": 7,
+      "create_attempts": 9,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:18:59Z"
+      "updated_at": "2026-11-08T07:20:00Z",
+      "video_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
+      "task_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S05参考图（夜晚住宅小巷与路灯下的空车位，雨后湿地）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n夜晚的韩国住宅区小巷空无一人，冷青色调，路灯下只剩一个空着的停车位，被雨打湿的地面映着灯光，雨滴落进水洼泛起涟漪；低机位镜头缓慢推近空车位，最后停在空位上。 运镜：低机位，缓慢推近空车位。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007305,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S05.png"
+        ]
+      },
+      "requested_seconds": 5,
+      "created_at": "2026-11-08T07:20:00Z",
+      "next_poll_epoch": 1794122490.7032497
     },
     "S07": {
       "id": "S07"
@@ -401,8 +419,8 @@
   },
   "status_counts": {
     "in_progress": 5,
-    "rate_limited": 1,
+    "queued": 1,
     "?": 24
   },
-  "updated_at": "2026-11-08T07:19:00Z"
+  "updated_at": "2026-11-08T07:20:01Z"
 }
