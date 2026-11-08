@@ -136,7 +136,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch --depth=1 origin "+refs/heads/$branch:refs/remotes/origin/$branch"
             git reset --mixed -q "origin/$branch"
-            git add -f -- production/anseong2007/交付 production/anseong2007/qa/final_timeline.jpg \
+            git add -f --sparse -- production/anseong2007/交付 production/anseong2007/qa/final_timeline.jpg \
               production/anseong2007/qa/render_report.json
             if git diff --cached --quiet; then echo "nothing new to publish"; exit 0; fi
             git commit -q -m "anseong2007: render 1080p24 cut (run ${{ github.run_id }}) [skip ci]"
