@@ -140,5 +140,78 @@ class SchedulerSimulation(unittest.TestCase):
         self.assertEqual(rows["S02"]["auto_retries"], 1)
 
 
+class RealInspection(unittest.TestCase):
+    """真 inspect_clip（不打桩）：2026-11-08 首轮生成里 16 镜因关闭容器后读 stream 属性而卡在 download_pending。"""
+
+    def test_inspect_clip_on_real_mp4(self):
+        import av
+        import numpy as np
+        gen = load("generate_clips")
+        tmp = Path(tempfile.mkdtemp())
+        clip = tmp / "S99.mp4"
+        with av.open(str(clip), "w") as out:
+            st = out.add_stream("libx264", rate=24)
+            st.width, st.height, st.pix_fmt = 1280, 720, "yuv420p"
+            for i in range(24 * 4):
+                img = np.zeros((720, 1280, 3), dtype=np.uint8)
+                img[:, (i * 13) % 1280:(i * 13) % 1280 + 80] = 200
+                for packet in st.encode(av.VideoFrame.from_ndarray(img, format="rgb24")):
+                    out.mux(packet)
+            for packet in st.encode():
+                out.mux(packet)
+        with patch.object(gen, "QA", tmp / "qa"):
+            info = gen.inspect_clip(clip, "S99")
+        self.assertEqual((info["width"], info["height"], info["fps"]), (1280, 720, "24"))
+        self.assertGreater(info["motion_mean_difference"], 0)
+        self.assertTrue((tmp / "qa" / "S99.jpg").is_file())
+
+
+class RenderPlan(unittest.TestCase):
+    """render.py 的离线部分：不需要 ffmpeg / 原片。"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.render = load("render")
+        cls.story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
+
+    def test_timeline_grades_and_sfx_cover_every_shot(self):
+        self.render.validate_timeline(self.story)
+        for shot in self.story["shots"]:
+            self.assertIn(self.render.grade_for(self.story, shot["id"]), self.render.GRADES)
+            bed, events = self.render.SFX_PLAN[shot["id"]]
+            self.assertIn(bed, self.render.BEDS)
+        self.assertIn(("dig", 0.66, 0.9), self.render.SFX_PLAN["S14"][1])   # 黑场之后才有铁锹声
+
+    def test_sfx_events_synthesize_without_music_bed(self):
+        import numpy as np
+        rng = np.random.default_rng(1)
+        kinds = {k for _, evs in self.render.SFX_PLAN.values() for k, _, _ in evs} - {"cut_to_silence"}
+        for kind in sorted(kinds):
+            audio = self.render.event_audio(kind, rng, 3.0)
+            self.assertTrue(np.isfinite(audio).all(), kind)
+            self.assertLessEqual(len(audio), int(3.0 * self.render.RATE) + self.render.RATE, kind)
+
+    def test_timing_plan_trims_slows_and_jump_cuts(self):
+        shots = {s["id"]: s for s in self.story["shots"]}
+        long_src = {"duration": 7.6}
+        plan = self.render.timing_plan(shots["S03"], long_src)   # 7s 镜头
+        self.assertEqual((plan["stretch"], plan["cuts"], plan["target_frames"]), (1.0, [], 168))
+        self.assertGreater(self.render.timing_plan(shots["S03"], {"duration": 6.5})["stretch"], 1.0)
+        with self.assertRaises(RuntimeError):                     # 太短：不许大幅慢放/冻结
+            self.render.timing_plan(shots["S03"], {"duration": 5.5})
+        fast = self.render.timing_plan(shots["S16"], {"duration": 6.6})
+        self.assertEqual(len(fast["cuts"]), 2)
+
+    def test_subtitles_wrap_and_highlight_gold(self):
+        lines = self.render.split_subtitle("他用死者手机发短信：暂时躲一躲警察。他以为，天衣无缝。")
+        self.assertTrue(all(len(x) <= 22 for x in lines))
+        self.assertIn("&H005FC9F4", self.render.highlight("一台发动机", ["发动机"]))
+
+    @unittest.skipUnless(__import__("shutil").which("ffmpeg"), "ffmpeg not installed (render workflow runs --plan-only)")
+    def test_plan_only_runs_on_repository_state(self):
+        report = self.render.plan_only()
+        self.assertEqual(report["voice_too_long"], [])
+
+
 if __name__ == "__main__":
     unittest.main()

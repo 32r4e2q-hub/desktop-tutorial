@@ -112,7 +112,7 @@ SHOTS = [
   "夜晚的韩国住宅区小巷空无一人，冷青色调，路灯下只剩一个空着的停车位，被雨打湿的地面映着灯光，雨滴落进水洼泛起涟漪；"
   "低机位镜头缓慢推近空车位，最后停在空位上。",
   ["银色轿车", "再也没有回来"]),
- ("S07", 3, 7, "S06,C07", "C07", "3月5日，同住的女人走进警察署：她们四天没回家了。",
+ ("S07", 3, 7, "S06,C07", "C07", "3月5日，家属走进警察署：她们已经四天没回家了。",
   "中景，过肩", "笔尖划纸声，挂钟滴答",
   "2007年安城警察署强力组办公室，荧光灯冷灰色调，窗外灰蒙蒙。一名穿深色夹克的便衣警察在桌前埋头记录，"
   "对面一位中年女子攥着衣角、神情焦急地讲述；过肩镜头，墙上的挂钟秒针走动。纸面无可读文字。",
@@ -122,12 +122,12 @@ SHOTS = [
   "2007年警察署办公室，俯拍桌面：一张钉在桌上的地区地图上插着两枚红色图钉，一只手用红笔在地图上圈出一片区域；"
   "旁边一部折叠手机屏幕漆黑、只有一个抽象的灰色图标闪烁。镜头缓慢推近，空气凝重。地图与纸面无可读文字。",
   ["全部关机", "一分钱没动"]),
- ("S09", 3, 6, "S07,C07", "C07", "八千五百名警力翻遍金光水库和山林，一无所获。",
+ ("S09", 3, 6, "S07,C07", "C07", "八千五百名警力，翻遍了水库和山林，一无所获。",
   "航拍，缓慢拉升", "整齐脚步声，杂草声，晨风",
   "清晨的韩国金光水库一带，晨雾笼罩水面与山坡，数百名穿深蓝制服、戴头盔的防暴警察排成一条长线，"
   "手持长棍沿着水库岸边与山坡缓慢前进，脚下杂草摆动；航拍镜头缓慢拉升，画面宏大而无力。",
   ["八千五百名", "一无所获"]),
- ("S10", 3, 5, "S06,C07", "C07", "女性接连失踪，满城恐慌，案子眼看成了悬案。",
+ ("S10", 3, 5, "S06,C07", "C07", "女性接连失踪，案子眼看成了悬案。",
   "中景，快速摇移", "新闻提示音，人群低语",
   "2007年安城警察署办公室，柜子上一台老式显像管电视正在播放新闻（画面只是模糊的抽象色块），"
   "几名便衣刑警和穿制服的警察围在电视前，神情焦灼，有人摇头叹气，有人点烟；镜头在电视与人群之间快速摇移。",
@@ -152,7 +152,7 @@ SHOTS = [
   "暮色渐沉的韩国山林，固定机位远景，雾气在树梢间流动，几只鸟突然从树林里惊飞而起，掠过灰暗的天空；"
   "随后光线迅速暗下，画面几乎沉入黑暗，只剩树影轮廓。不出现任何人物与行凶。",
   ["天黑之后", "铁锹"]),
- ("S15", 5, 6, "S09,C03,C05,P01", "C03;C05", "当晚九点，他把那辆新车，交给了废车厂的几个后辈。",
+ ("S15", 5, 6, "S09,C03,C05,P01", "C03;C05", "当晚九点，他找来熟人，要把那辆新车处理干净。",
   "中景，手持", "铁门滑动声，低声交谈",
   "夜晚雨后的韩国废车厂，铁皮围墙的滑动铁门被拉开，粗壮短发、穿旧夹克的男子把一辆银色现代伊兰特开进来停下；"
   "两三个穿油污工作服的男子迎上来，与他低声交谈，眼神闪烁，探照灯在银色车身上打出刺眼的白光。手持镜头，车牌不可读。",
@@ -253,7 +253,7 @@ SOURCES = [
 ]
 FACT_NOTES = [
     "3月1日傍晚约6:50两人说去见熟人后开车出门（日曜新闻）；3月5日家属报警。",
-    "8500余名警力搜索金光水库一带；手机关机、账户无交易、72台交通信息采集设备未见车辆。",
+    "8500余名警力搜索安城川上游水库与周边山林；手机关机、账户无交易、72台交通信息采集设备未见车辆。",
     "柳某之妻借2500万韩元，利滚利至5000万；柳某以还钱为由约两人至思谷洞山上杀害并掩埋。",
     "当晚约9点柳某托后辈处理车辆；车辆在废车厂被拆解，零件卖给二手出口商。",
     "柳某用被害人手机发出“暂时躲一躲警察”等短信混淆侦查（安城新闻）。",
@@ -266,6 +266,19 @@ FACT_NOTES = [
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+# 朗读用写法：字幕保留阿拉伯数字，配音读中文数字（避免 TTS 把“2007”读成“两千零七”）。
+SPOKEN_FORMS = [("2007年3月1日", "二零零七年三月一日"), ("3月5日", "三月五日"),
+                ("7月21日", "七月二十一日"), ("7月23日", "七月二十三日")]
+
+
+def spoken_form(text: str) -> str:
+    for written, spoken in SPOKEN_FORMS:
+        text = text.replace(written, spoken)
+    if any(ch.isdigit() for ch in text):
+        raise ValueError(f"narration still has digits for TTS: {text}")
+    return text
 
 
 def cjk_count(text: str) -> int:
@@ -341,16 +354,20 @@ def build() -> dict:
     audio_dir.mkdir(exist_ok=True)
     manifest_path = audio_dir / "manifest.json"
     old = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.is_file() else {}
-    old_clips = {c["id"]: c for c in old.get("clips", [])}
+    # recorded.json：每个 mp3 实际合成时用的朗读文本（写入方 = 配音那一步）。
+    # 只有朗读文本与当前稿一致的文件才算完成，改稿后旧录音自动作废、需重录。
+    recorded_path = audio_dir / "voice" / "recorded.json"
+    recorded = json.loads(recorded_path.read_text(encoding="utf-8")) if recorded_path.is_file() else {}
     clips = []
     for s in shots:
-        prev = old_clips.get(s["id"], {})
         f = audio_dir / "voice" / f"{s['id']}.mp3"
-        same = prev.get("text") == s["narration"] and f.is_file()
-        clips.append({"id": s["id"], "text": s["narration"], "file": f"audio/voice/{s['id']}.mp3",
+        tts = spoken_form(s["narration"])
+        ok = f.is_file() and recorded.get(s["id"]) == tts
+        clips.append({"id": s["id"], "text": s["narration"], "tts_text": tts,
+                      "file": f"audio/voice/{s['id']}.mp3",
                       "target_start": s["start"], "target_duration": s["duration"],
-                      "alignment": "shot-locked", "sha256": sha(f) if same else None})
-    manifest = {"project": TITLE, "voice_id": old.get("voice_id"), "language": "zh-CN",
+                      "alignment": "shot-locked", "sha256": sha(f) if ok else None})
+    manifest = {"project": TITLE, "voice_id": "voice-01", "language": "zh-CN",
                 "voice_style": story["voice_style"], "clips": clips,
                 "completed": sum(1 for c in clips if c["sha256"])}
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

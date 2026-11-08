@@ -234,6 +234,8 @@ def inspect_clip(path: Path, sid: str) -> dict:
         stream = next(s for s in container.streams if s.type == "video")
         duration = float(container.duration / av.time_base) if container.duration else float(stream.duration * stream.time_base)
         width, height = int(stream.width), int(stream.height)
+        # 必须在 with 块内读完：PyAV ≥ 14 关闭容器后再访问 stream 属性会抛 "Container is not open"
+        fps = str(stream.average_rate) if stream.average_rate else None
         targets = [duration * (i + 0.5) / 9 for i in range(9)]
         thumbs, small, ix, last = [], [], 0, None
         for frame in container.decode(stream):
@@ -261,7 +263,7 @@ def inspect_clip(path: Path, sid: str) -> dict:
     QA.mkdir(parents=True, exist_ok=True)
     sheet.save(QA / f"{sid}.jpg", quality=86)
     info = {"duration_seconds": round(duration, 3), "width": width, "height": height,
-            "fps": str(stream.average_rate) if stream.average_rate else None, "bytes": path.stat().st_size,
+            "fps": fps, "bytes": path.stat().st_size,
             "decoded_ok": True, "motion_mean_difference": round(sum(diffs) / len(diffs), 4),
             "suspected_static": max(diffs) < 0.01, "contact_sheet": f"production/{SLUG}/qa/{sid}.jpg",
             "visual_review": "pending"}

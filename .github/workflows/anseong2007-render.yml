@@ -1,0 +1,160 @@
+name: 安城双尸案 · 成片渲染与技术质检
+run-name: 安城双尸案 · 1080p24 渲染
+
+# 触发：推送 production/anseong2007/RENDER_REQUEST（JSON），例如
+#   {"clips_run_id": "42457809910", "clips_artifact": "anseong2007-clips-42457809910",
+#    "repair_run_id": "", "repair_artifact": "", "publish": true, "request_id": "v1"}
+# 原片在 runner 内下载 artifact；按 results.json 的 SHA 为每镜挑选，缺的再按 video_url 补抓并核对。
+
+on:
+  push:
+    branches: [arena/7f19693e-desktop-tutorial]
+    paths:
+      - production/anseong2007/RENDER_REQUEST
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: anseong2007-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.ref == 'refs/heads/arena/7f19693e-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 120
+    steps:
+      - name: Checkout fixed Arena branch (skip other projects' mp4 blobs)
+        uses: actions/checkout@v4
+        with:
+          ref: arena/7f19693e-desktop-tutorial
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            /*
+            !*.mp4
+          sparse-checkout-cone-mode: false
+
+      - name: Read RENDER_REQUEST
+        id: params
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, re
+          v = json.load(open('production/anseong2007/RENDER_REQUEST', encoding='utf-8'))
+          out = {}
+          for key in ('clips_run_id', 'repair_run_id'):
+              val = str(v.get(key, '')).strip()
+              if val and not val.isdigit():
+                  raise SystemExit(f'{key} must be a numeric run id')
+              out[key] = val
+          for key in ('clips_artifact', 'repair_artifact'):
+              val = str(v.get(key, '')).strip()
+              if val and not re.fullmatch(r'[A-Za-z0-9._-]+', val):
+                  raise SystemExit(f'{key} has invalid characters')
+              out[key] = val
+          if not out['clips_run_id'] or not out['clips_artifact']:
+              raise SystemExit('clips_run_id and clips_artifact are required')
+          if bool(out['repair_run_id']) != bool(out['repair_artifact']):
+              raise SystemExit('repair_run_id and repair_artifact go together')
+          out['publish'] = 'true' if v.get('publish', True) in (True, 'true') else 'false'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              for k, val in out.items():
+                  f.write(f'{k}={val}\n')
+          print(out)
+          PY
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download generated clips (runner-side)
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: ${{ steps.params.outputs.clips_artifact }}
+          path: work/anseong2007/downloads/base
+          run-id: ${{ steps.params.outputs.clips_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Download repair clips (optional)
+        if: ${{ steps.params.outputs.repair_run_id != '' }}
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: ${{ steps.params.outputs.repair_artifact }}
+          path: work/anseong2007/downloads/repair
+          run-id: ${{ steps.params.outputs.repair_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Install ffmpeg, CJK fonts and Python deps
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg fonts-noto-cjk
+          python -m pip install --disable-pip-version-check -r production/requirements.txt
+          ffmpeg -version | head -n 1
+          fc-list | grep -c "Noto Sans CJK" || true
+
+      - name: Validate storyboard, voice windows and tests
+        run: |
+          set -euo pipefail
+          python production/anseong2007/build_story.py
+          python production/anseong2007/generate_clips.py --validate
+          python -m pytest -q production/tests/test_anseong2007.py
+          python production/anseong2007/render.py --plan-only
+
+      - name: Render 180 s film and run delivery gates
+        run: |
+          set -euo pipefail
+          mkdir -p work/anseong2007
+          python production/anseong2007/render.py \
+            --from work/anseong2007/downloads/base \
+            --from work/anseong2007/downloads/repair \
+            --fetch \
+            --sources work/anseong2007/sources \
+            --work work/anseong2007/render 2>&1 | tee work/anseong2007/render.log
+
+      - name: Renderer diagnostics on failure
+        if: ${{ failure() }}
+        run: |
+          set +e
+          if [ -s work/anseong2007/render.log ]; then
+            { printf '## Renderer diagnostics\n\n```text\n'; tail -n 120 work/anseong2007/render.log; printf '\n```\n'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Publish the film and QC reports to the branch
+        if: ${{ steps.params.outputs.publish == 'true' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch=arena/7f19693e-desktop-tutorial
+          for attempt in 1 2 3 4 5; do
+            git fetch --depth=1 origin "+refs/heads/$branch:refs/remotes/origin/$branch"
+            git reset --mixed -q "origin/$branch"
+            git add -f -- production/anseong2007/交付 production/anseong2007/qa/final_timeline.jpg \
+              production/anseong2007/qa/render_report.json
+            if git diff --cached --quiet; then echo "nothing new to publish"; exit 0; fi
+            git commit -q -m "anseong2007: render 1080p24 cut (run ${{ github.run_id }}) [skip ci]"
+            if git push origin "HEAD:$branch"; then exit 0; fi
+            sleep $((attempt * 3))
+          done
+          exit 1
+
+      - name: Upload the film and QC sidecars
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: anseong2007-final-${{ github.run_id }}
+          path: |
+            production/anseong2007/交付/
+            production/anseong2007/qa/final_timeline.jpg
+            production/anseong2007/qa/render_report.json
+            work/anseong2007/render.log
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 30
