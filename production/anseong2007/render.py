@@ -40,6 +40,7 @@ TOTAL_SAMPLES = RATE * DURATION
 SILENT_TAIL_SECONDS = 1.0
 VOICE_ID = "voice-01"
 MAX_SPEEDUP = 1.15
+VOICE_ONLY = True          # 用户要求（2026-11-08）：去掉全部背景声/拟音，只留解说
 SFX_GAIN = 2.2             # 环境声/拟音总线 +7dB：旁白下约 -16dB，手机外放仍听得到
 MAX_SLOWMO = 1.12          # 原片偏短时允许的最大慢放倍数（>1 表示变慢）
 VOICE_LEAD = 0.12          # 句子在镜头内的起点
@@ -728,6 +729,19 @@ def write_wav(path: Path, audio: np.ndarray) -> None:
 
 # ───────────────────────────── subtitles ─────────────────────────────
 
+def voice_only_gaps(mix: np.ndarray, captions: list[dict]) -> dict:
+    """只留解说时，两句之间必须是真正的静音（没有残留的环境声/拟音）。"""
+    edges = [0.0] + [t for c in captions for t in (c["start"], c["end"])] + [len(mix) / RATE]
+    worst = 0.0
+    for a, b in zip(edges[0::2], edges[1::2]):
+        lo, hi = int((a + 0.15) * RATE), int((b - 0.05) * RATE)
+        if hi - lo > RATE // 10:
+            worst = max(worst, float(np.abs(mix[lo:hi]).max()))
+    if worst > 0.003:
+        raise RuntimeError(f"voice-only mix has sound between narration lines (peak {worst:.4f})")
+    return {"gap_peak": round(worst, 6)}
+
+
 def ass_clock(t: float) -> str:
     c = int(round(t * 100))
     h, c = divmod(c, 360000)
@@ -883,8 +897,13 @@ def render(sources: Path, work: Path, output: Path, fetch: bool, candidates: lis
     concat = work / "clips.ffconcat"
     concat.write_text("\n".join(entries) + "\n", encoding="utf-8")
 
-    sfx, sfx_report = build_sfx(story)
-    mix = voice + duck(sfx * SFX_GAIN, voice)
+    if VOICE_ONLY:
+        mix = voice.copy()
+        sfx_report = {"removed": True, "reason": "user request: narration only, no background sound",
+                      **voice_only_gaps(mix, captions)}
+    else:
+        sfx, sfx_report = build_sfx(story)
+        mix = voice + duck(sfx * SFX_GAIN, voice)
     mix[-RATE:] = 0
     peak = float(np.abs(mix).max())
     if peak > 0.95:

@@ -251,6 +251,18 @@ class RenderPlan(unittest.TestCase):
         fast = self.render.timing_plan(shots["S16"], {"duration": 6.6})
         self.assertEqual(len(fast["cuts"]), 2)
 
+    def test_voice_only_mix_rejects_background_sound(self):
+        import numpy as np
+        self.assertTrue(self.render.VOICE_ONLY)   # 用户要求只留解说
+        rate = self.render.RATE
+        mix = np.zeros((rate * 6, 2), np.float32)
+        mix[rate:rate * 2] = 0.3
+        caps = [{"start": 1.0, "end": 2.0}]
+        self.assertEqual(self.render.voice_only_gaps(mix, caps)["gap_peak"], 0.0)
+        mix[rate * 4] = 0.05
+        with self.assertRaises(RuntimeError):
+            self.render.voice_only_gaps(mix, caps)
+
     def test_subtitle_lines_never_start_with_punctuation(self):
         self.assertEqual(self.render.split_subtitle("顺着编号追查，这台发动机三月初就出口到了埃及。"),
                          ["顺着编号追查，", "这台发动机三月初就出口到了埃及。"])
