@@ -76,6 +76,13 @@ class IguchiRenderTests(unittest.TestCase):
                 self.assertEqual(sorted({box[4:] for box in boxes}),
                                  [(0.0, 0.55), (0.55, 1.05), (1.05, 1.55), (1.3, 1.4),
                                   (1.4, 1.55), (1.55, 2.2), (2.2, 2.7), (2.7, 3.0), (3.0, 6.0)])
+                micro_masks = {box[4:]: box[:4] for box in boxes if box[4:] in {(1.3, 1.4), (1.4, 1.55)}}
+                self.assertEqual(micro_masks, {(1.3, 1.4): (520, 50, 260, 220),
+                                               (1.4, 1.55): (520, 50, 280, 220)})
+                graph, _ = render._normalized_graph({"id": "S09", "duration": 6},
+                                                    {"width": 1280, "height": 720}, None, boxes)
+                self.assertIn("crop=260:220:520:50,boxblur=42:8", graph)
+                self.assertIn("crop=280:220:520:50,boxblur=42:8", graph)
         with self.assertRaisesRegex(RuntimeError, "source changed since blur mask review"):
             render._blur_spec("S06", "0" * 64)
 

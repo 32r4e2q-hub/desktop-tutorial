@@ -49,7 +49,7 @@ BLUR_MASKS = {
             "boxes": [(620, 50, 1220, 220, 0.0, 0.55), (620, 340, 1220, 170, 0.0, 0.55),
                       (720, 50, 1120, 220, 0.55, 1.05), (720, 340, 1120, 170, 0.55, 1.05),
                       (1150, 50, 690, 220, 1.05, 1.55), (1150, 340, 690, 170, 1.05, 1.55),
-                      (520, 50, 160, 220, 1.3, 1.4), (520, 50, 240, 220, 1.4, 1.55),
+                      (520, 50, 260, 220, 1.3, 1.4), (520, 50, 280, 220, 1.4, 1.55),
                       (620, 50, 480, 220, 1.55, 2.2), (1500, 50, 340, 220, 1.55, 2.2),
                       (620, 340, 480, 170, 1.55, 2.2),
                       (620, 50, 680, 220, 2.2, 2.7), (620, 340, 680, 170, 2.2, 2.7),
@@ -339,8 +339,11 @@ def _normalized_graph(shot: dict, info: dict, mattes: dict | None, masks: list[t
     graph = f"[0:v]{base};"
     for index, (x, y, w, h, start, end) in enumerate(masks):
         graph += f"[{current}]split=2[main{index}][copy{index}];"
-        graph += (f"[copy{index}]crop={w}:{h}:{x}:{y},"
-                  f"boxblur=22:2[soft{index}];")
+        blur_filter = "boxblur=22:2"
+        if sid == "S09" and (start, end) in {(1.3, 1.4), (1.4, 1.55)}:
+            blur_filter = "boxblur=42:8"
+        graph += (f"[copy{index}]crop={w}:{h}:{x}:{y},{blur_filter}"
+                  f"[soft{index}];")
         graph += (f"[main{index}][soft{index}]overlay={x}:{y}:"
                   f"enable='between(t,{start:.3f},{end:.3f})'[layer{index}];")
         current = f"layer{index}"
