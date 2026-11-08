@@ -597,7 +597,7 @@
     },
     "S12": {
       "id": "S12",
-      "status": "in_progress",
+      "status": "download_pending",
       "video_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
       "task_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
       "request_hash": "c3d253149f985118cbdc7114632c56592b0d3fb1fc869f65ebdf04e240dee88c",
@@ -621,9 +621,33 @@
       "created_at": "2026-11-08T07:25:16Z",
       "error": null,
       "next_poll_epoch": 1794123049.4874072,
-      "updated_at": "2026-11-08T07:29:49Z",
-      "progress": 10,
-      "poll_failures": 0
+      "updated_at": "2026-11-08T07:30:52Z",
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac.mp4",
+      "final_response": {
+        "completed_at": 1794123044,
+        "created_at": 1794122715,
+        "error": null,
+        "expires_at": null,
+        "id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "7",
+        "size": "720P",
+        "started_at": 1794122764,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 3,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S13": {
       "id": "S13",
@@ -632,7 +656,7 @@
       "request_hash": "2632995a7682e7a8df9bfa38845ca3d3681289625436d0f56c3e32b70244b5ad",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:29:00Z",
+      "updated_at": "2026-11-08T07:30:01Z",
       "video_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "task_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "request_payload": {
@@ -652,7 +676,7 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:26:28Z",
-      "next_poll_epoch": 1794123000.515245,
+      "next_poll_epoch": 1794123061.267685,
       "progress": 10,
       "poll_failures": 0
     },
@@ -680,8 +704,8 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:26:40Z",
       "error": null,
-      "next_poll_epoch": 1794123012.8423145,
-      "updated_at": "2026-11-08T07:29:12Z",
+      "next_poll_epoch": 1794123073.9020877,
+      "updated_at": "2026-11-08T07:30:13Z",
       "progress": 10,
       "poll_failures": 0
     },
@@ -692,7 +716,7 @@
       "request_hash": "7e2488c5d4a49b7c9ce764700417b408fa2c5630605ffdfad62ef50a7ed85e0b",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:29:24Z",
+      "updated_at": "2026-11-08T07:30:25Z",
       "video_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "task_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "request_payload": {
@@ -713,18 +737,18 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:27:53Z",
-      "next_poll_epoch": 1794123024.1635919,
+      "next_poll_epoch": 1794123085.425062,
       "progress": 10,
       "poll_failures": 0
     },
     "S16": {
       "id": "S16",
-      "status": "queued",
+      "status": "in_progress",
       "error": null,
       "request_hash": "2cf7958da11f0654e9a20a9dc0b6a9160f82caf2f6d429f6f636497d4983351c",
       "create_attempts": 2,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:28:36Z",
+      "updated_at": "2026-11-08T07:30:06Z",
       "video_id": "task_w2it2aqJRDJplF3Wprfvqh8MFTsKqv8L",
       "task_id": "task_w2it2aqJRDJplF3Wprfvqh8MFTsKqv8L",
       "request_payload": {
@@ -744,7 +768,9 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:28:36Z",
-      "next_poll_epoch": 1794123006.1879466
+      "next_poll_epoch": 1794123066.5830288,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S17": {
       "id": "S17",
@@ -960,11 +986,10 @@
     ]
   },
   "status_counts": {
-    "download_pending": 11,
+    "download_pending": 12,
     "in_progress": 4,
-    "queued": 1,
     "rate_limited": 1,
     "?": 13
   },
-  "updated_at": "2026-11-08T07:29:49Z"
+  "updated_at": "2026-11-08T07:30:52Z"
 }
