@@ -1195,12 +1195,12 @@
     },
     "S23": {
       "id": "S23",
-      "status": "queued",
+      "status": "in_progress",
       "error": null,
       "request_hash": "de6e41ec0fb4b4ab00d7487c67aaeae3f636be551daeac158d856a75375f186c",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:03:40Z",
+      "updated_at": "2026-11-08T08:05:10Z",
       "video_id": "task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH",
       "task_id": "task_UkhFpcGcSOMsr6MspDMrgNsdNSQIFSCH",
       "request_payload": {
@@ -1220,10 +1220,18 @@
       },
       "requested_seconds": 7,
       "created_at": "2026-11-08T08:03:40Z",
-      "next_poll_epoch": 1794125110.0713537
+      "next_poll_epoch": 1794125170.5778158,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S24": {
-      "id": "S24"
+      "id": "S24",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:08:39. (request id: 20261108080351902209702LUO8zsEQ) (code=rate_limit_exceeded)",
+      "request_hash": "6ad1a86268f07823b33eaeace4f10e3c6643f6a5b63540d0558312fe92fc9851",
+      "create_attempts": 1,
+      "cooldown_seconds": 288.0,
+      "updated_at": "2026-11-08T08:03:52Z"
     },
     "S25": {
       "id": "S25"
@@ -1410,8 +1418,9 @@
   },
   "status_counts": {
     "download_pending": 22,
-    "queued": 1,
-    "?": 7
+    "in_progress": 1,
+    "rate_limited": 1,
+    "?": 6
   },
-  "updated_at": "2026-11-08T08:03:40Z"
+  "updated_at": "2026-11-08T08:05:10Z"
 }
