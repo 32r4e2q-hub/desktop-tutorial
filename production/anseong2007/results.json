@@ -1250,15 +1250,43 @@
     },
     "S24": {
       "id": "S24",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:08:39. (request id: 20261108080351902209702LUO8zsEQ) (code=rate_limit_exceeded)",
+      "status": "in_progress",
+      "error": null,
       "request_hash": "6ad1a86268f07823b33eaeace4f10e3c6643f6a5b63540d0558312fe92fc9851",
-      "create_attempts": 1,
+      "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:03:52Z"
+      "updated_at": "2026-11-08T08:10:11Z",
+      "video_id": "task_oqH45FfpJh6YQXtaArkJ4xWRpF05WxMe",
+      "task_id": "task_oqH45FfpJh6YQXtaArkJ4xWRpF05WxMe",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S12参考图（埃及开罗汽车配件市场，刺眼暖黄阳光）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C08参考图（埃及汽配商人（50岁）虚构定妆：浅色长袍、短胡须）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为P02参考图（发动机特写：油污铜绿、刻印编号（抽象线条））：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C08锚点】50岁埃及男子，黝黑皮肤，短胡须，浅色长袍，热情精明\n埃及开罗拥挤的汽车配件市场，刺眼的暖黄阳光，店铺里堆满零件，摩托车驶过。一位黝黑皮肤、短胡须、穿浅色长袍的50岁商人把一台发动机推到镜头前，用布擦净刻印编号，再举起一台数码相机对准编号拍照，神情热情而精明。手持中景，招牌无可读文字。 运镜：手持，中景。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007323,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S12.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C08.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/P02.png"
+        ]
+      },
+      "requested_seconds": 7,
+      "created_at": "2026-11-08T08:08:40Z",
+      "next_poll_epoch": 1794125471.3897185,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S25": {
-      "id": "S25"
+      "id": "S25",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:13:40. (request id: 20261108080852281644155xGKiC6F7) (code=rate_limit_exceeded)",
+      "request_hash": "13d0180685a87d4cfa576db36c9ef6c1c04d3dd895a9dd24be1d9e82be38e1d4",
+      "create_attempts": 1,
+      "cooldown_seconds": 288.0,
+      "updated_at": "2026-11-08T08:08:52Z"
     },
     "S26": {
       "id": "S26"
@@ -1442,8 +1470,9 @@
   },
   "status_counts": {
     "download_pending": 23,
+    "in_progress": 1,
     "rate_limited": 1,
-    "?": 6
+    "?": 5
   },
-  "updated_at": "2026-11-08T08:08:15Z"
+  "updated_at": "2026-11-08T08:10:11Z"
 }
