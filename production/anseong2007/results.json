@@ -1416,12 +1416,12 @@
     },
     "S27": {
       "id": "S27",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "f93c28d1abaae842c3263eab9d7b7af5ebee4d2d814f722310784c23c9fe092e",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:28:14Z",
+      "updated_at": "2026-11-08T08:29:17Z",
       "video_id": "task_JkzXkHNcLKBdGIbGmmzP3OgzsNa2vcEL",
       "task_id": "task_JkzXkHNcLKBdGIbGmmzP3OgzsNa2vcEL",
       "request_payload": {
@@ -1441,20 +1441,70 @@
       "requested_seconds": 6,
       "created_at": "2026-11-08T08:23:41Z",
       "next_poll_epoch": 1794126554.9717858,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_JkzXkHNcLKBdGIbGmmzP3OgzsNa2vcEL.mp4",
+      "final_response": {
+        "completed_at": 1794126528,
+        "created_at": 1794126221,
+        "error": null,
+        "expires_at": null,
+        "id": "task_JkzXkHNcLKBdGIbGmmzP3OgzsNa2vcEL",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794126266,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_JkzXkHNcLKBdGIbGmmzP3OgzsNa2vcEL.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S28": {
       "id": "S28",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:28:41. (request id: 20261108082353394735559zn7UNu87) (code=rate_limit_exceeded)",
+      "status": "queued",
+      "error": null,
       "request_hash": "bfc5a94922ebd2a4170437eb720cfacba284027759be140a8cf4ea710dfecb35",
-      "create_attempts": 1,
+      "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:23:53Z"
+      "updated_at": "2026-11-08T08:28:41Z",
+      "video_id": "task_WZGUxaU1JFecBlPVfIbcPASx83evpXJO",
+      "task_id": "task_WZGUxaU1JFecBlPVfIbcPASx83evpXJO",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S03参考图（2007年韩国联排住宅厨房，暖黄灯光，饭菜冒热气）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C01参考图（朴某（45岁）虚构演员式定妆：烫短卷发、红色针织外套）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C02参考图（沈某（45岁）虚构演员式定妆：齐耳直发、深灰开衫长裙）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C01锚点】45岁韩国中年女性，烫短卷发，红色针织外套，神情精明爽朗\n【C02锚点】45岁韩国中年女性，齐耳直发，深灰开衫长裙，神情谨慎温和\n2007年韩国联排住宅厨房，两个女人并肩做饭的背影——红色针织外套的烫短卷发女人与深灰开衫的齐耳直发女人，暖黄灯光慢慢变暗、颜色渐渐褪去，桌上的饭菜热气消散，窗外的光暗下来。固定机位。 运镜：固定机位，暖光渐暗。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007327,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S03.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C02.png"
+        ]
+      },
+      "requested_seconds": 5,
+      "created_at": "2026-11-08T08:28:41Z",
+      "next_poll_epoch": 1794126611.9204886
     },
     "S29": {
-      "id": "S29"
+      "id": "S29",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:33:41. (request id: 20261108082853766734316Cn8aiaFO) (code=rate_limit_exceeded)",
+      "request_hash": "0704f69e151b478861795b3faf69474f55f285871acaa3096f5c288d2bea11a0",
+      "create_attempts": 1,
+      "cooldown_seconds": 288.0,
+      "updated_at": "2026-11-08T08:28:53Z"
     },
     "S30": {
       "id": "S30"
@@ -1625,10 +1675,10 @@
     ]
   },
   "status_counts": {
-    "download_pending": 26,
-    "in_progress": 1,
+    "download_pending": 27,
+    "queued": 1,
     "rate_limited": 1,
-    "?": 2
+    "?": 1
   },
-  "updated_at": "2026-11-08T08:28:14Z"
+  "updated_at": "2026-11-08T08:29:17Z"
 }
