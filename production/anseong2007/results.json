@@ -701,10 +701,43 @@
       "completed_at": "2026-11-08T09:08:07Z"
     },
     "S11": {
-      "id": "S11"
+      "id": "S11",
+      "status": "in_progress",
+      "video_id": "task_oJjLLHvAoRwCWmbMguFPWeY29APJc9XK",
+      "task_id": "task_oJjLLHvAoRwCWmbMguFPWeY29APJc9XK",
+      "request_hash": "6a0d0399808e521fcbda3920a6d8e343279c7866500caaf9a0b18e19791e7739",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S04参考图（2007年韩国地下赌场，烟雾、花牌与现金）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C03参考图（柳某（48岁）虚构演员式定妆：粗壮短发、旧夹克、半脸阴影）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C04参考图（柳某妻子（约42岁）虚构定妆：凌乱烫发、深色外套、指间夹烟）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C03锚点】48岁韩国粗壮男子，短发，旧夹克，眼神阴沉克制，半脸隐于阴影\n【C04锚点】42岁韩国女性，烫发凌乱，深色外套，神情焦虑疲惫，指间夹烟\n烟雾缭绕的韩国地下赌场一角，昏黄灯光。身形粗壮、穿旧夹克的中年男子背对镜头坐在前景，只露出后脑、短发和宽厚的肩背，自始至终不转头、面部不入镜，他背在身后的手攥着一只牛皮纸信封；镜头越过他的肩膀，看见对面凌乱烫发、穿深色外套的妻子不停点烟、神情焦虑，桌上散着花牌和借据（纸面无字）。镜头缓慢推近他的背影。 运镜：中景，缓慢推近。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007310,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S04.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C03.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C04.png"
+        ]
+      },
+      "requested_seconds": 7,
+      "create_attempts": 1,
+      "created_at": "2026-11-08T09:13:39Z",
+      "error": null,
+      "next_poll_epoch": 1794129370.7456608,
+      "updated_at": "2026-11-08T09:15:10Z",
+      "progress": 10,
+      "poll_failures": 0
     },
     "S12": {
-      "id": "S12"
+      "id": "S12",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 09:18:39. (request id: 20261108091351688062568GOdz6ff3) (code=rate_limit_exceeded)",
+      "request_hash": "bd7a506b80cf64ecb54c41a78e4ae5726f5f0bda68cc226f4c439655f7ef84b5",
+      "create_attempts": 1,
+      "cooldown_seconds": 288.0,
+      "updated_at": "2026-11-08T09:13:51Z"
     },
     "S13": {
       "id": "S13",
@@ -2291,9 +2324,11 @@
   },
   "status_counts": {
     "completed": 26,
-    "?": 4
+    "in_progress": 1,
+    "rate_limited": 1,
+    "?": 2
   },
-  "updated_at": "2026-11-08T09:10:34Z",
+  "updated_at": "2026-11-08T09:15:10Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
