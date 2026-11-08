@@ -620,8 +620,8 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:25:16Z",
       "error": null,
-      "next_poll_epoch": 1794122927.3401659,
-      "updated_at": "2026-11-08T07:27:47Z",
+      "next_poll_epoch": 1794123049.4874072,
+      "updated_at": "2026-11-08T07:29:49Z",
       "progress": 10,
       "poll_failures": 0
     },
@@ -632,7 +632,7 @@
       "request_hash": "2632995a7682e7a8df9bfa38845ca3d3681289625436d0f56c3e32b70244b5ad",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:27:59Z",
+      "updated_at": "2026-11-08T07:29:00Z",
       "video_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "task_id": "task_KkOerjtouuqeFib5HwxDp1tB0G6Aq5jR",
       "request_payload": {
@@ -652,7 +652,7 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:26:28Z",
-      "next_poll_epoch": 1794122939.659415,
+      "next_poll_epoch": 1794123000.515245,
       "progress": 10,
       "poll_failures": 0
     },
@@ -680,19 +680,19 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:26:40Z",
       "error": null,
-      "next_poll_epoch": 1794122951.9742415,
-      "updated_at": "2026-11-08T07:28:11Z",
+      "next_poll_epoch": 1794123012.8423145,
+      "updated_at": "2026-11-08T07:29:12Z",
       "progress": 10,
       "poll_failures": 0
     },
     "S15": {
       "id": "S15",
-      "status": "queued",
+      "status": "in_progress",
       "error": null,
       "request_hash": "7e2488c5d4a49b7c9ce764700417b408fa2c5630605ffdfad62ef50a7ed85e0b",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:27:53Z",
+      "updated_at": "2026-11-08T07:29:24Z",
       "video_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "task_id": "task_FOIr5SiKUZpT8LPsF44uELplmEPz1eD9",
       "request_payload": {
@@ -713,7 +713,9 @@
       },
       "requested_seconds": 6,
       "created_at": "2026-11-08T07:27:53Z",
-      "next_poll_epoch": 1794122963.6123712
+      "next_poll_epoch": 1794123024.1635919,
+      "progress": 10,
+      "poll_failures": 0
     },
     "S16": {
       "id": "S16",
@@ -745,7 +747,13 @@
       "next_poll_epoch": 1794123006.1879466
     },
     "S17": {
-      "id": "S17"
+      "id": "S17",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:33:35. (request id: 20261108072918323772571Z9dfrsFf) (code=rate_limit_exceeded)",
+      "request_hash": "61637d217781dd98fbf220b82642ab2b19039d64d25ab3b50ebe4a8257825e5d",
+      "create_attempts": 2,
+      "cooldown_seconds": 258.0,
+      "updated_at": "2026-11-08T07:29:18Z"
     },
     "S18": {
       "id": "S18"
@@ -953,9 +961,10 @@
   },
   "status_counts": {
     "download_pending": 11,
-    "in_progress": 3,
-    "queued": 2,
-    "?": 14
+    "in_progress": 4,
+    "queued": 1,
+    "rate_limited": 1,
+    "?": 13
   },
-  "updated_at": "2026-11-08T07:28:38Z"
+  "updated_at": "2026-11-08T07:29:49Z"
 }
