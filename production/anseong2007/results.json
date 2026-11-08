@@ -1580,12 +1580,12 @@
     },
     "S30": {
       "id": "S30",
-      "status": "queued",
+      "status": "in_progress",
       "error": null,
       "request_hash": "704407edcca15e3f83e84ad82abc14a9deb71f9339d22d0a519727e1ddf8a93c",
       "create_attempts": 2,
       "cooldown_seconds": 288.0,
-      "updated_at": "2026-11-08T08:38:42Z",
+      "updated_at": "2026-11-08T08:41:14Z",
       "video_id": "task_WNdCdkxsPpPA1xtglhtYLVQs4IxcEI8i",
       "task_id": "task_WNdCdkxsPpPA1xtglhtYLVQs4IxcEI8i",
       "request_payload": {
@@ -1604,7 +1604,9 @@
       },
       "requested_seconds": 5,
       "created_at": "2026-11-08T08:38:42Z",
-      "next_poll_epoch": 1794127212.7010841
+      "next_poll_epoch": 1794127334.2478204,
+      "progress": 10,
+      "poll_failures": 0
     }
   },
   "branch": "arena/7f19693e-desktop-tutorial",
@@ -1773,7 +1775,7 @@
   },
   "status_counts": {
     "download_pending": 29,
-    "queued": 1
+    "in_progress": 1
   },
-  "updated_at": "2026-11-08T08:39:18Z"
+  "updated_at": "2026-11-08T08:41:14Z"
 }
