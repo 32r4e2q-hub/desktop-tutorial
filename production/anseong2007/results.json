@@ -275,12 +275,12 @@
     },
     "S06": {
       "id": "S06",
-      "status": "in_progress",
+      "status": "download_pending",
       "error": null,
       "request_hash": "a97ad7ad317221ed7ad82dc33d7376f07f6895d5e8d447e7e74f3f190cab1c6e",
       "create_attempts": 9,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:24:33Z",
+      "updated_at": "2026-11-08T07:25:37Z",
       "video_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
       "task_id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
       "request_payload": {
@@ -299,8 +299,32 @@
       "requested_seconds": 5,
       "created_at": "2026-11-08T07:20:00Z",
       "next_poll_epoch": 1794122733.850809,
-      "progress": 10,
-      "poll_failures": 0
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno.mp4",
+      "final_response": {
+        "completed_at": 1794122679,
+        "created_at": 1794122400,
+        "error": null,
+        "expires_at": null,
+        "id": "task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "5",
+        "size": "720P",
+        "started_at": 1794122440,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_VAj8Fnam2cvLMpGkPv4rdUQnz0k7beno.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 1,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S07": {
       "id": "S07",
@@ -326,8 +350,8 @@
       "create_attempts": 1,
       "created_at": "2026-11-08T07:20:12Z",
       "error": null,
-      "next_poll_epoch": 1794122684.5607703,
-      "updated_at": "2026-11-08T07:23:44Z",
+      "next_poll_epoch": 1794122745.50752,
+      "updated_at": "2026-11-08T07:24:45Z",
       "progress": 10,
       "poll_failures": 0
     },
@@ -338,7 +362,7 @@
       "request_hash": "c387b026f050efda7dae47ce3e4398b3050b9ff6b596e56888213255875999db",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:23:56Z",
+      "updated_at": "2026-11-08T07:24:57Z",
       "video_id": "task_mF0slbxk5rIYXUEHXESBBpgjzlpiercM",
       "task_id": "task_mF0slbxk5rIYXUEHXESBBpgjzlpiercM",
       "request_payload": {
@@ -357,13 +381,13 @@
       },
       "requested_seconds": 7,
       "created_at": "2026-11-08T07:21:25Z",
-      "next_poll_epoch": 1794122696.89169,
+      "next_poll_epoch": 1794122757.8165653,
       "progress": 10,
       "poll_failures": 0
     },
     "S09": {
       "id": "S09",
-      "status": "in_progress",
+      "status": "download_pending",
       "video_id": "task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko",
       "task_id": "task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko",
       "request_hash": "c2d2a9684fae07f7d110879f0f95e571bf8c6855657d8eed89e549c610ea3b26",
@@ -386,9 +410,33 @@
       "created_at": "2026-11-08T07:21:37Z",
       "error": null,
       "next_poll_epoch": 1794122709.2090914,
-      "updated_at": "2026-11-08T07:24:09Z",
-      "progress": 10,
-      "poll_failures": 0
+      "updated_at": "2026-11-08T07:25:12Z",
+      "progress": 100,
+      "poll_failures": 0,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko.mp4",
+      "final_response": {
+        "completed_at": 1794122699,
+        "created_at": 1794122497,
+        "error": null,
+        "expires_at": null,
+        "id": "task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794122563,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_GMTvDC2Vkbk5PMJJSvQ5E9vBafDHsyko.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "download_error": "Container is not open"
     },
     "S10": {
       "id": "S10",
@@ -397,7 +445,7 @@
       "request_hash": "a783da7f518b87d149959369f75f2b8ffe2b7e7ad1d984a98e139fd91a620523",
       "create_attempts": 3,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:24:20Z",
+      "updated_at": "2026-11-08T07:25:21Z",
       "video_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
       "task_id": "task_ur8oABme1POXR8eHcAnI5KGBadKYT1ir",
       "request_payload": {
@@ -416,24 +464,75 @@
       },
       "requested_seconds": 5,
       "created_at": "2026-11-08T07:22:50Z",
-      "next_poll_epoch": 1794122720.5283315,
+      "next_poll_epoch": 1794122781.4845955,
       "progress": 10,
       "poll_failures": 0
     },
     "S11": {
       "id": "S11",
-      "status": "rate_limited",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261108072433403614381uSH9v9xf) (code=rate_limit_exceeded)",
+      "status": "queued",
+      "error": null,
       "request_hash": "6e583728ec0603c4baf435c2c4619f46cdef121c6d57803428dbaf4eca0eb53a",
-      "create_attempts": 4,
+      "create_attempts": 5,
       "cooldown_seconds": 30.0,
-      "updated_at": "2026-11-08T07:24:33Z"
+      "updated_at": "2026-11-08T07:25:04Z",
+      "video_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
+      "task_id": "task_3ylsoIXoRxB3gU1rND3DouZ0sdXHDCWC",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S04参考图（2007年韩国地下赌场，烟雾、花牌与现金）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C03参考图（柳某（48岁）虚构演员式定妆：粗壮短发、旧夹克、半脸阴影）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C04参考图（柳某妻子（约42岁）虚构定妆：凌乱烫发、深色外套、指间夹烟）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C03锚点】48岁韩国粗壮男子，短发，旧夹克，眼神阴沉克制，半脸隐于阴影\n【C04锚点】42岁韩国女性，烫发凌乱，深色外套，神情焦虑疲惫，指间夹烟\n烟雾缭绕的韩国地下赌场一角，昏黄灯光。身形粗壮、穿旧夹克的中年男子半张脸隐在烟雾与阴影里，手里攥着一只牛皮纸信封，神情阴沉；旁边他凌乱烫发、穿深色外套的妻子不停点烟，神情焦虑，桌上散着花牌和借据（纸面无字）。镜头缓慢推近。 运镜：中景，缓慢推近。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007310,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S04.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C03.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C04.png"
+        ]
+      },
+      "requested_seconds": 7,
+      "created_at": "2026-11-08T07:25:04Z",
+      "next_poll_epoch": 1794122794.0331166
     },
     "S12": {
-      "id": "S12"
+      "id": "S12",
+      "status": "queued",
+      "video_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
+      "task_id": "task_lhWxd1lnvkSbfUmToMGHhRi4FtmkK9ac",
+      "request_hash": "c3d253149f985118cbdc7114632c56592b0d3fb1fc869f65ebdf04e240dee88c",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像，35mm胶片摄影质感，浅景深，长焦压缩，韩国犯罪惊悚片风格，低饱和，暗部厚重，胶片颗粒，雾气与山林，真实的皮肤、服装与建筑材质，克制冷静而紧绷的情绪，16:9宽银幕横屏构图。写实3D动画电影渲染，主体放在三分线上，画面底部留出字幕安全区。全程真实连续运动：人物呼吸、走动、转头、手部动作，雾气、雨、风、布料、灯光与镜头持续运动；禁止静态图加推拉。一个连贯场景从第一帧到最后一帧，不转场、不插入其它场景。真实人物一律为虚构演员式形象，非真实肖像。所有文字后期添加，画面中不生成任何可读文字。\n<Picture 1> 为S08参考图（2007年柳某家客厅，挂钟、旧沙发、昏黄灯光）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 2> 为C03参考图（柳某（48岁）虚构演员式定妆：粗壮短发、旧夹克、半脸阴影）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n<Picture 3> 为C04参考图（柳某妻子（约42岁）虚构定妆：凌乱烫发、深色外套、指间夹烟）：仅参考其人物身份、服装、场景结构或道具外观，按本镜动作重新构图，不要复制设定板拼贴排版，不要复制任何字样。\n【C03锚点】48岁韩国粗壮男子，短发，旧夹克，眼神阴沉克制，半脸隐于阴影\n【C04锚点】42岁韩国女性，烫发凌乱，深色外套，神情焦虑疲惫，指间夹烟\n2007年韩国普通住宅的昏暗客厅，旧沙发、挂钟，窗外天色渐暗。凌乱烫发的妻子坐在沙发上低头哭泣，粗壮短发、穿旧夹克的男人一言不发地盯着墙上的挂钟，手边放着一只旧皮包；镜头缓慢推近他慢慢握紧的拳头。 运镜：近景，缓慢推近握紧的拳头。\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，伪文字，水印，字幕，标志，车牌文字，血腥，伤口，遗体，尸体，枪支，猎枪，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，现代物体，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图片，幻灯片，真实人物肖像",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2007311,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/S08.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C03.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3b6de108fdc739423d039ea003fd520e324190d0/production/anseong2007/reference/C04.png"
+        ]
+      },
+      "requested_seconds": 7,
+      "create_attempts": 1,
+      "created_at": "2026-11-08T07:25:16Z",
+      "error": null,
+      "next_poll_epoch": 1794122806.1603878,
+      "updated_at": "2026-11-08T07:25:16Z"
     },
     "S13": {
-      "id": "S13"
+      "id": "S13",
+      "status": "rate_limited",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026110807252822868567uGncLBSg) (code=rate_limit_exceeded)",
+      "request_hash": "2632995a7682e7a8df9bfa38845ca3d3681289625436d0f56c3e32b70244b5ad",
+      "create_attempts": 1,
+      "cooldown_seconds": 30.0,
+      "updated_at": "2026-11-08T07:25:28Z"
     },
     "S14": {
       "id": "S14"
@@ -652,10 +751,11 @@
     ]
   },
   "status_counts": {
-    "download_pending": 5,
-    "in_progress": 5,
+    "download_pending": 7,
+    "in_progress": 3,
+    "queued": 2,
     "rate_limited": 1,
-    "?": 19
+    "?": 17
   },
-  "updated_at": "2026-11-08T07:24:33Z"
+  "updated_at": "2026-11-08T07:25:37Z"
 }
