@@ -10,7 +10,7 @@ jobs:
   transfer:
     if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,24 +22,19 @@ jobs:
           github-token: ${{ github.token }}
           name: nowon2021-first-cut-4
           path: video
-      - name: Check checksum and stream MP4 to download service
+      - name: Transfer verified MP4 chunks without committing video files
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -o pipefail
-          {
-            set -eux
-            find video -type f -printf '%p %s bytes\n'
-            mapfile -d '' files < <(find video -type f -name '*未审片无水印.mp4' -print0)
-            test "${#files[@]}" -eq 1
-            printf '%s  %s\n' 'ee5342f6ad68fdcf5749d356ea740f41551304fcc077113e4c0e1e020a702b78' "${files[0]}" | sha256sum -c -
-            curl --fail --silent --show-error --retry 2 --max-time 600 -T "${files[0]}" 'https://8766-isx2vmgbgqir1fxs4l2co.e2b.app/upload'
-          } 2>&1 | tee production/nowon2021/video-transfer-diagnostic.log
-      - name: Save diagnostic
+          python3 -u production/nowon2021/bridge_video.py 2>&1 | tee production/nowon2021/video-transfer-diagnostic.log
+      - name: Save transfer manifest and diagnostic
         if: always()
         run: |
           set -euo pipefail
-          if [ ! -f production/nowon2021/video-transfer-diagnostic.log ]; then exit 0; fi
           git config user.name arena-autopilot
           git config user.email arena-autopilot@users.noreply.github.com
-          git add -f production/nowon2021/video-transfer-diagnostic.log
-          git diff --cached --quiet || git commit -m 'Record video transfer diagnostic [skip ci]'
+          if [ -f production/nowon2021/video-transfer-diagnostic.log ]; then git add -f production/nowon2021/video-transfer-diagnostic.log; fi
+          if [ -f production/nowon2021/video-transfer-manifest.json ]; then git add -f production/nowon2021/video-transfer-manifest.json; fi
+          git diff --cached --quiet || git commit -m 'Record temporary video transfer manifest [skip ci]'
           git push origin HEAD:arena/ed1fa571-desktop-tutorial
