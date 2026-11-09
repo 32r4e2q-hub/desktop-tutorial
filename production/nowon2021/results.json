@@ -1503,7 +1503,7 @@
     },
     "SH23": {
       "id": "SH23",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "6ccb9f176101bd8d0eea5aaa3d99ab2014c370c88fd360dce4f78c817110c164",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -1520,14 +1520,54 @@
         ]
       },
       "create_attempts": 2,
-      "updated_at": "2026-11-09T08:08:50Z",
+      "updated_at": "2026-11-09T08:14:18Z",
       "error": null,
       "cooldown_seconds": 288.0,
       "video_id": "task_OTnFP82dOION9tH6mKmk3JzzUvseml7m",
       "task_id": "task_OTnFP82dOION9tH6mKmk3JzzUvseml7m",
       "requested_seconds": 8,
       "created_at": "2026-11-09T08:08:50Z",
-      "next_poll_epoch": 1794211820.8359604
+      "next_poll_epoch": 1794211820.8359604,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_OTnFP82dOION9tH6mKmk3JzzUvseml7m.mp4",
+      "final_response": {
+        "completed_at": 1794212002,
+        "created_at": 1794211730,
+        "error": null,
+        "expires_at": null,
+        "id": "task_OTnFP82dOION9tH6mKmk3JzzUvseml7m",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "8",
+        "size": "720P",
+        "started_at": 1794211750,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_OTnFP82dOION9tH6mKmk3JzzUvseml7m.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "progress": 100,
+      "bytes": 1845295,
+      "sha256": "2ec664250aedaed4a83ee284044c10ee91a9b5b55d50986d9a033bb01336e3c5",
+      "inspection": {
+        "duration_seconds": 8.0,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 1845295,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0478,
+        "suspected_static": false,
+        "contact_sheet": "production/nowon2021/qa/SH23.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-09T08:14:18Z"
     },
     "SH24": {
       "id": "SH24",
@@ -1873,7 +1913,7 @@
     },
     "SH29": {
       "id": "SH29",
-      "status": "queued",
+      "status": "in_progress",
       "request_hash": "13835d29ac81e5424f54db2f7bf366055a74b583e8fb8e05d589d0e976a6c6bf",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -1890,14 +1930,16 @@
         ]
       },
       "create_attempts": 2,
-      "updated_at": "2026-11-09T08:14:04Z",
+      "updated_at": "2026-11-09T08:15:34Z",
       "error": null,
       "cooldown_seconds": 289.0,
       "video_id": "task_MTJAPOTYLhZK4tI4heuq1GiV0hymFD1u",
       "task_id": "task_MTJAPOTYLhZK4tI4heuq1GiV0hymFD1u",
       "requested_seconds": 7,
       "created_at": "2026-11-09T08:14:04Z",
-      "next_poll_epoch": 1794212134.2021456
+      "next_poll_epoch": 1794212194.632366,
+      "progress": 10,
+      "poll_failures": 0
     },
     "SH30": {
       "id": "SH30",
@@ -3092,10 +3134,10 @@
     ]
   },
   "status_counts": {
-    "completed": 28,
-    "queued": 2
+    "completed": 29,
+    "in_progress": 1
   },
-  "updated_at": "2026-11-09T08:14:04Z",
+  "updated_at": "2026-11-09T08:15:34Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
