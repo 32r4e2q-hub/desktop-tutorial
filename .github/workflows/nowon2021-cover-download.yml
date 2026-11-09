@@ -1,0 +1,24 @@
+name: 第十期公开封面下载
+on:
+  push:
+    branches: [arena/ed1fa571-desktop-tutorial]
+    paths: [production/nowon2021/PUBLIC_COVER_REQUEST]
+permissions:
+  contents: write
+jobs:
+  upload:
+    if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/ed1fa571-desktop-tutorial
+      - name: Verify and upload cover PNG to existing episode release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' '15355c5173e32f9ef715219bd1feb87b7ebbea6d702d5fe839f546de3b034a55' 'production/nowon2021/delivery/episode10_cover.png' | sha256sum -c -
+          gh release upload nowon2021-episode10-review production/nowon2021/delivery/episode10_cover.png --clobber
