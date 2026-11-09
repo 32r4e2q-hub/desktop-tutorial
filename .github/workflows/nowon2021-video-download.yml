@@ -1,0 +1,27 @@
+name: 芦原区三母女案 · 本次视频下载准备
+on:
+  push:
+    branches: [arena/ed1fa571-desktop-tutorial]
+    paths: [production/nowon2021/VIDEO_DOWNLOAD_REQUEST]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  transfer:
+    if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 42596892607
+          github-token: ${{ github.token }}
+          name: nowon2021-first-cut-4
+          path: video
+      - name: Check checksum and stream MP4 to download service
+        run: |
+          set -euo pipefail
+          mapfile -d '' files < <(find video -type f -name '*未审片无水印.mp4' -print0)
+          test "${#files[@]}" -eq 1
+          printf '%s  %s\n' 'ee5342f6ad68fdcf5749d356ea740f41551304fcc077113e4c0e1e020a702b78' "${files[0]}" | sha256sum -c -
+          curl --fail --show-error --retry 2 --max-time 600 -T "${files[0]}" 'https://8766-isx2vmgbgqir1fxs4l2co.e2b.app/upload'
