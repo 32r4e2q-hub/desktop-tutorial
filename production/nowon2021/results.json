@@ -1285,8 +1285,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/C07.png"
         ]
       },
-      "create_attempts": 1,
-      "updated_at": "2026-11-09T02:40:47Z"
+      "create_attempts": 2,
+      "updated_at": "2026-11-09T02:40:57Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 02:45:45. (request id: 20261109024057245822217HKHkiVsM) (code=rate_limit_exceeded)",
+      "cooldown_seconds": 288.0
     },
     "SH27": {
       "id": "SH27"
@@ -1472,5 +1474,5 @@
     "creating": 1,
     "?": 4
   },
-  "updated_at": "2026-11-09T02:40:47Z"
+  "updated_at": "2026-11-09T02:40:57Z"
 }
