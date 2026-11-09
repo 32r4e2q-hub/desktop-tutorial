@@ -16,6 +16,9 @@ jobs:
         with:
           ref: arena/ed1fa571-desktop-tutorial
           fetch-depth: 1
+      - name: Install FFmpeg
+        run: |
+          if ! command -v ffmpeg >/dev/null; then sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; fi
       - name: Install image library
         run: python3 -m pip install --user --break-system-packages --disable-pip-version-check pillow
       - name: Restore watermarked review preview
