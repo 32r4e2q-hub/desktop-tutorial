@@ -5,7 +5,7 @@
   "shots": {
     "SH01": {
       "id": "SH01",
-      "status": "queued",
+      "status": "in_progress",
       "request_hash": "2696daa4762ea620208a93b3b0a8ae30e8bf0a11ce95e8a2d381e1b5247fd282",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -24,13 +24,15 @@
         ]
       },
       "create_attempts": 1,
-      "updated_at": "2026-11-09T01:40:37Z",
+      "updated_at": "2026-11-09T01:42:14Z",
       "video_id": "task_tlB5NhsllOEiystiipPp79lEkMcvji4V",
       "task_id": "task_tlB5NhsllOEiystiipPp79lEkMcvji4V",
       "requested_seconds": 6,
       "created_at": "2026-11-09T01:40:37Z",
       "error": null,
-      "next_poll_epoch": 1794188527.6649454
+      "next_poll_epoch": 1794188594.3943117,
+      "progress": 10,
+      "poll_failures": 0
     },
     "SH02": {
       "id": "SH02",
@@ -88,7 +90,7 @@
     },
     "SH04": {
       "id": "SH04",
-      "status": "creating",
+      "status": "queued",
       "request_hash": "af87b373ccbac3296cacb72054a484e334ca166f5d23d6cc37c1395f89034129",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -106,7 +108,13 @@
         ]
       },
       "create_attempts": 1,
-      "updated_at": "2026-11-09T01:42:03Z"
+      "updated_at": "2026-11-09T01:42:26Z",
+      "video_id": "task_b14Xr8acpaPEr51OjgfQUebHFnN4x8wo",
+      "task_id": "task_b14Xr8acpaPEr51OjgfQUebHFnN4x8wo",
+      "requested_seconds": 8,
+      "created_at": "2026-11-09T01:42:26Z",
+      "error": null,
+      "next_poll_epoch": 1794188636.5584793
     },
     "SH05": {
       "id": "SH05"
@@ -353,9 +361,9 @@
     ]
   },
   "status_counts": {
+    "in_progress": 1,
     "queued": 3,
-    "creating": 1,
     "?": 26
   },
-  "updated_at": "2026-11-09T01:42:03Z"
+  "updated_at": "2026-11-09T01:42:26Z"
 }
