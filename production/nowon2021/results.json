@@ -643,7 +643,25 @@
       "completed_at": "2026-11-09T01:54:18Z"
     },
     "SH11": {
-      "id": "SH11"
+      "id": "SH11",
+      "status": "creating",
+      "request_hash": "aa5396897b36ea61e09ca6064b636428683c00376f80e5d198c0e00dc5d0342e",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S05（独居房间）；<Picture 2>=C01（嫌疑人演员造型）\n【C01锚点】24岁韩国瘦高男子,黑色口罩深色鸭舌帽,深色外套,手捧纸箱,眼神空洞冷漠,半脸隐于阴影\n单一连续写实近景，手机显示简洁抽象的搜索页面，戴口罩帽子的男子低头滑动手机然后停顿，手、屏幕与深色背景真实清晰，冷蓝照明均匀平稳，朴素纪实感。\n摄影：大特写缓慢推近；色调：克制的冷蓝屏幕或夜景光。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+        "seconds": "8",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2022011,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S05.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/C01.png"
+        ]
+      },
+      "create_attempts": 1,
+      "updated_at": "2026-11-09T06:52:38Z"
     },
     "SH12": {
       "id": "SH12",
@@ -2660,9 +2678,10 @@
   "status_counts": {
     "completed": 27,
     "queued": 1,
-    "?": 2
+    "creating": 1,
+    "?": 1
   },
-  "updated_at": "2026-11-09T06:52:37Z",
+  "updated_at": "2026-11-09T06:52:38Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
