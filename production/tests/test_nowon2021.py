@@ -229,5 +229,9 @@ class TestNowonPlan(unittest.TestCase):
         sample=[{'caption_start':0.2,'caption_end':1.0,'text':'测试。','keywords':[]}]
         ass,_=render.subtitles(sample,draft=True);self.assertIn('未审片预览',ass)
         ass,_=render.subtitles(sample);self.assertNotIn('未审片预览',ass)
+        self.assertIn('AI动画情景重现 · 非新闻影像',ass)
+        import sys
+        with patch.object(sys,'argv',['render.py','--no-review-watermark']):
+            with self.assertRaises(SystemExit): render.main()
 
 if __name__=='__main__': unittest.main()

@@ -89,13 +89,25 @@ jobs:
           set -euo pipefail
           python3 -m unittest production.tests.test_nowon2021 -v
           args=()
-          if [ -f production/nowon2021/RENDER_REQUEST ] && [ "$(cat production/nowon2021/RENDER_REQUEST)" = draft ]; then args+=(--draft); fi
+          if [ -f production/nowon2021/RENDER_REQUEST ]; then
+            case "$(cat production/nowon2021/RENDER_REQUEST)" in
+              draft) args+=(--draft) ;;
+              draft-unwatermarked) args+=(--draft --no-review-watermark) ;;
+              *) echo 'Invalid render request' >&2; exit 1 ;;
+            esac
+          fi
           python3 production/nowon2021/render.py --plan-only "${args[@]}"
       - name: Assemble subtitled 1080p film without BGM
         run: |
           set -euo pipefail
           args=()
-          if [ -f production/nowon2021/RENDER_REQUEST ] && [ "$(cat production/nowon2021/RENDER_REQUEST)" = draft ]; then args+=(--draft); fi
+          if [ -f production/nowon2021/RENDER_REQUEST ]; then
+            case "$(cat production/nowon2021/RENDER_REQUEST)" in
+              draft) args+=(--draft) ;;
+              draft-unwatermarked) args+=(--draft --no-review-watermark) ;;
+              *) echo 'Invalid render request' >&2; exit 1 ;;
+            esac
+          fi
           python3 -u production/nowon2021/render.py "${args[@]}"
       - name: Preserve first cut and reports
         if: always()

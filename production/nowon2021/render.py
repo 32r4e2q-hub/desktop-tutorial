@@ -317,9 +317,13 @@ def audit_mix(path,rows):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--plan-only',action='store_true');parser.add_argument('--draft',action='store_true',help='unreviewed, visibly watermarked preview only; never final approval')
+    parser=argparse.ArgumentParser();parser.add_argument('--plan-only',action='store_true');parser.add_argument('--draft',action='store_true',help='unreviewed preview only; never final approval')
+    parser.add_argument('--no-review-watermark',action='store_true',help='remove preview watermark by explicit request; still an unreviewed draft')
     parser.add_argument('--work',default='work/nowon2021/edit');parser.add_argument('--out',default='work/nowon2021/delivery')
-    args=parser.parse_args();work=ROOT/args.work;out=ROOT/args.out
+    args=parser.parse_args()
+    if args.no_review_watermark and not args.draft:
+        parser.error('--no-review-watermark requires --draft; final review gate remains enforced')
+    work=ROOT/args.work;out=ROOT/args.out
     story=json.loads((HERE/'story.json').read_text(encoding='utf-8'))
     results=json.loads((HERE/'results.json').read_text(encoding='utf-8'))
     manifest=json.loads((HERE/'audio'/'manifest.json').read_text(encoding='utf-8'))
@@ -327,7 +331,7 @@ def main():
     if args.plan_only:
         print(json.dumps({'shots':30,'duration':180,'voiceovers':len(rows),'speech_windows':rows},ensure_ascii=False,indent=2));return 0
     work.mkdir(parents=True,exist_ok=True);out.mkdir(parents=True,exist_ok=True)
-    ass,srt=subtitles(rows,draft=args.draft);(out/'captions.ass').write_text(ass,encoding='utf-8-sig');(out/'captions.srt').write_text(srt,encoding='utf-8')
+    ass,srt=subtitles(rows,draft=args.draft and not args.no_review_watermark);(out/'captions.ass').write_text(ass,encoding='utf-8-sig');(out/'captions.srt').write_text(srt,encoding='utf-8')
     source=ROOT/'work/nowon2021/clips'; source.mkdir(parents=True,exist_ok=True)
     segdir=work/'segments';segdir.mkdir(parents=True,exist_ok=True);segments=[]
     for index,shot in enumerate(story['shots'],1):
@@ -348,7 +352,7 @@ def main():
     silent=work/'silent.mp4';run(['ffmpeg','-v','error','-y','-f','concat','-safe','0','-i',concat,'-an','-c','copy',silent])
     foley=work/'foley.wav';mix=work/'mix.wav';make_foley(foley,story);mix_voice(rows,foley,mix)
     mix_report=audit_mix(mix,rows)
-    final=out/('芦原区三母女案_未审片预览.mp4' if args.draft else '芦原区三母女案_一次门铃_初剪.mp4')
+    final=out/('芦原区三母女案_未审片无水印.mp4' if args.no_review_watermark else ('芦原区三母女案_未审片预览.mp4' if args.draft else '芦原区三母女案_一次门铃_初剪.mp4'))
     # libass reads the ASS file; output path does not enter the filter expression.
     run(['ffmpeg','-v','error','-y','-i',silent,'-i',mix,'-vf',f"subtitles='{(out/'captions.ass').as_posix()}'",'-map','0:v:0','-map','1:a:0','-t','180','-c:v','libx264','-preset','medium','-crf','18','-pix_fmt','yuv420p','-r',str(FPS),'-c:a','aac','-b:a','256k','-ar',str(RATE),'-movflags','+faststart',final])
     info=probe(final)
@@ -364,8 +368,8 @@ def main():
         raise RuntimeError('encoded final second is not exactly silent')
     mix_report['encoded_last_second_peak']=float(np.max(np.abs(last)))
     from cover import make_cover
-    cover=make_cover(final,out/('封面_预览.png' if args.draft else '封面.png'))
-    report={'draft':args.draft,'visual_review_pending':[s['id'] for s in story['shots'] if results['shots'][s['id']].get('visual_review')!='passed'],'cover':str(cover),'cover_source':'本片初剪 0.25 秒实际帧，叠加封面文案；须人工复核。','note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
+    cover=make_cover(final,out/('封面_未审片无水印.png' if args.no_review_watermark else ('封面_预览.png' if args.draft else '封面.png')))
+    report={'draft':args.draft,'review_watermark':args.draft and not args.no_review_watermark,'visual_review_pending':[s['id'] for s in story['shots'] if results['shots'][s['id']].get('visual_review')!='passed'],'cover':str(cover),'cover_source':'本片初剪 0.25 秒实际帧，叠加封面文案；须人工复核。','note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
     (out/'render_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'film':str(final),'video':info},ensure_ascii=False));return 0
 
