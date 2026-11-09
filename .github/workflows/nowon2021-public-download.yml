@@ -1,0 +1,32 @@
+name: 第十期公开 MP4 下载（用户同意）
+on:
+  push:
+    branches: [arena/ed1fa571-desktop-tutorial]
+    paths: [production/nowon2021/PUBLIC_MP4_REQUEST]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 42596892607
+          github-token: ${{ github.token }}
+          name: nowon2021-first-cut-4
+          path: video
+      - name: Verify original MP4, upload and publish pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mapfile -d '' files < <(find video -type f -name '*未审片无水印.mp4' -print0)
+          test "${#files[@]}" -eq 1
+          printf '%s  %s\n' 'ee5342f6ad68fdcf5749d356ea740f41551304fcc077113e4c0e1e020a702b78' "${files[0]}" | sha256sum -c -
+          mv "${files[0]}" video/episode10_review.mp4
+          gh release upload nowon2021-episode10-review video/episode10_review.mp4 --clobber
+          gh release edit nowon2021-episode10-review --draft=false --prerelease --latest=false
