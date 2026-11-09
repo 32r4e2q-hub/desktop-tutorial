@@ -76,8 +76,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S01.png"
         ]
       },
-      "create_attempts": 1,
-      "updated_at": "2026-11-09T01:40:51Z"
+      "create_attempts": 2,
+      "updated_at": "2026-11-09T01:41:01Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 202611090141015556135359fMjcRy8) (code=rate_limit_exceeded)",
+      "cooldown_seconds": 30.0
     },
     "SH04": {
       "id": "SH04"
@@ -331,5 +333,5 @@
     "creating": 1,
     "?": 27
   },
-  "updated_at": "2026-11-09T01:40:51Z"
+  "updated_at": "2026-11-09T01:41:01Z"
 }
