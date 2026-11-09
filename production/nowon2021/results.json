@@ -939,7 +939,25 @@
       "next_poll_epoch": 1794190296.1300313
     },
     "SH20": {
-      "id": "SH20"
+      "id": "SH20",
+      "status": "creating",
+      "request_hash": "edd4cbd7f6553922705a2235c97ebdc2271851dcaec30ff67edea2016273a745",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S02（公寓电梯与走廊空间）；<Picture 2>=C04（母亲演员造型）\n【C04锚点】59岁韩国中年女性,短烫发,深色外套长裤,手提菜篮,神情疲惫温暖\n母亲提菜篮与背包走到门前，取钥匙开门进入，门慢慢合上。\n摄影：背影中景跟拍；色调：冷白荧光灯与深蓝阴影。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2021020,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S02.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/C04.png"
+        ]
+      },
+      "create_attempts": 1,
+      "updated_at": "2026-11-09T02:10:08Z"
     },
     "SH21": {
       "id": "SH21"
@@ -1141,7 +1159,8 @@
     "completed": 10,
     "in_progress": 1,
     "queued": 8,
-    "?": 11
+    "creating": 1,
+    "?": 10
   },
-  "updated_at": "2026-11-09T02:10:06Z"
+  "updated_at": "2026-11-09T02:10:08Z"
 }
