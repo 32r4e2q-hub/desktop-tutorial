@@ -752,72 +752,7 @@
       "completed_at": "2026-11-09T07:03:16Z"
     },
     "SH12": {
-      "id": "SH12",
-      "status": "completed",
-      "request_hash": "023e9b85a086230af8b81e79b4f9b3ae7333bdb2542a5237c2bc72db93dcc458",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=P04（墙上时钟的造型）；<Picture 2>=S05（独居房间）\n\n普通尺寸挂钟确实悬挂在房间墙上，不要夸张放大、漂浮或凭空消失；持续单一钟面近景，秒针连续走动，窗边光线自然变暗，不要跳转场景。\n摄影：时钟特写缓慢推近；色调：克制的冷蓝屏幕或夜景光。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
-        "seconds": "8",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 2021012,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/P04.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S05.png"
-        ]
-      },
-      "create_attempts": 2,
-      "updated_at": "2026-11-09T05:36:29Z",
-      "error": null,
-      "cooldown_seconds": 288.0,
-      "video_id": "task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y",
-      "task_id": "task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y",
-      "requested_seconds": 8,
-      "created_at": "2026-11-09T05:25:49Z",
-      "next_poll_epoch": 1794202039.8657172,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y.mp4",
-      "final_response": {
-        "completed_at": 1794202143,
-        "created_at": 1794201949,
-        "error": null,
-        "expires_at": null,
-        "id": "task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y",
-        "internal_status": "pending",
-        "object": "video",
-        "progress": 100,
-        "quality": "standard",
-        "remixed_from_video_id": "",
-        "seconds": "8",
-        "size": "720P",
-        "started_at": 1794201986,
-        "status": "completed",
-        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y.mp4",
-        "usage": {
-          "input_seconds": 0,
-          "input_image_count": 2,
-          "input_audio_seconds": 0
-        }
-      },
-      "progress": 100,
-      "bytes": 2113036,
-      "sha256": "e666bae09833c87cd97ba4edf1b7f0b150bf0f626d812929c5944e63b47e2519",
-      "inspection": {
-        "duration_seconds": 8.0,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "bytes": 2113036,
-        "decoded_ok": true,
-        "motion_mean_difference": 0.072,
-        "suspected_static": false,
-        "contact_sheet": "production/nowon2021/qa/SH12.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending",
-      "completed_at": "2026-11-09T05:36:29Z"
+      "id": "SH12"
     },
     "SH13": {
       "id": "SH13",
@@ -1502,72 +1437,7 @@
       "completed_at": "2026-11-09T03:07:02Z"
     },
     "SH23": {
-      "id": "SH23",
-      "status": "completed",
-      "request_hash": "5b65f53b28839d31c747a341408293d0107f86957663853dc877f8710dcfe013",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S04（昏暗小房间）；<Picture 2>=S03（暖色客厅与玄关）\n\n无人客厅窗帘的光线由白天转夜晚，电视画面无声变化，时间流逝。\n摄影：空房间固定机位，光线变化；色调：昏暗但细节可辨的冷青色。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
-        "seconds": "8",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 2021023,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S04.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S03.png"
-        ]
-      },
-      "create_attempts": 2,
-      "updated_at": "2026-11-09T03:07:15Z",
-      "error": null,
-      "cooldown_seconds": 288.0,
-      "video_id": "task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn",
-      "task_id": "task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn",
-      "requested_seconds": 8,
-      "created_at": "2026-11-09T02:30:32Z",
-      "next_poll_epoch": 1794191522.622636,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn.mp4",
-      "final_response": {
-        "completed_at": 1794191760,
-        "created_at": 1794191432,
-        "error": null,
-        "expires_at": null,
-        "id": "task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn",
-        "internal_status": "pending",
-        "object": "video",
-        "progress": 100,
-        "quality": "standard",
-        "remixed_from_video_id": "",
-        "seconds": "8",
-        "size": "720P",
-        "started_at": 1794191470,
-        "status": "completed",
-        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn.mp4",
-        "usage": {
-          "input_seconds": 0,
-          "input_image_count": 2,
-          "input_audio_seconds": 0
-        }
-      },
-      "progress": 100,
-      "bytes": 2071310,
-      "sha256": "7e65e0eb847bb27a40261b98c95455653357244636cb9772ae7da3f014a86894",
-      "inspection": {
-        "duration_seconds": 8.0,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "bytes": 2071310,
-        "decoded_ok": true,
-        "motion_mean_difference": 0.022,
-        "suspected_static": false,
-        "contact_sheet": "production/nowon2021/qa/SH23.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending",
-      "completed_at": "2026-11-09T03:07:15Z"
+      "id": "SH23"
     },
     "SH24": {
       "id": "SH24",
@@ -1912,73 +1782,7 @@
       "completed_at": "2026-11-09T03:08:19Z"
     },
     "SH29": {
-      "id": "SH29",
-      "status": "completed",
-      "request_hash": "3a555e3fae64d67558e34ea803ab88172e796a8a8188619dd9f9d3540d2a3559",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S12（清晨走廊）；<Picture 2>=P01（门铃对讲机的结构与屏幕）\n\n清晨空无一人的公寓走廊，摄影机缓慢接近墙面上固定安装的门铃对讲机。对讲机紧贴墙壁、位置固定，方形屏幕亮起并显示空走廊；屏幕内外都没有人物或纸箱。建筑和对讲机稳定不变，光线缓慢变化，连续写实摄影。\n摄影：长走廊缓慢推近屏幕；色调：清晨冷蓝与微光。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
-        "seconds": "7",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 2023029,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S12.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/P01.png"
-        ]
-      },
-      "create_attempts": 2,
-      "updated_at": "2026-11-09T08:01:06Z",
-      "error": null,
-      "cooldown_seconds": 288.0,
-      "video_id": "task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl",
-      "task_id": "task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl",
-      "requested_seconds": 7,
-      "created_at": "2026-11-09T07:58:32Z",
-      "next_poll_epoch": 1794211263.558729,
-      "progress": 100,
-      "poll_failures": 0,
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl.mp4",
-      "final_response": {
-        "completed_at": 1794211252,
-        "created_at": 1794211112,
-        "error": null,
-        "expires_at": null,
-        "id": "task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl",
-        "internal_status": "pending",
-        "object": "video",
-        "progress": 100,
-        "quality": "standard",
-        "remixed_from_video_id": "",
-        "seconds": "7",
-        "size": "720P",
-        "started_at": 1794211135,
-        "status": "completed",
-        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl.mp4",
-        "usage": {
-          "input_seconds": 0,
-          "input_image_count": 2,
-          "input_audio_seconds": 0
-        }
-      },
-      "bytes": 2814433,
-      "sha256": "af4adf476ac04a76f230cfdb25d7fa5313af6035faf10e97208af88e5de673d4",
-      "inspection": {
-        "duration_seconds": 7.328,
-        "width": 1280,
-        "height": 720,
-        "fps": 24.0,
-        "bytes": 2814433,
-        "decoded_ok": true,
-        "motion_mean_difference": 0.107,
-        "suspected_static": false,
-        "contact_sheet": "production/nowon2021/qa/SH29.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending",
-      "completed_at": "2026-11-09T08:01:06Z"
+      "id": "SH29"
     },
     "SH30": {
       "id": "SH30",
@@ -2052,8 +1856,8 @@
   },
   "branch": "arena/ed1fa571-desktop-tutorial",
   "reference_revision": "ed991b833fd58627358f8c8058d4049cbfb0eb1c",
-  "phase": "clips_ready",
-  "started_at": "2026-11-09T07:53:16Z",
+  "phase": "generating",
+  "started_at": "2026-11-09T08:03:15Z",
   "rate_policy": {
     "creates_per_minute": 5,
     "create_interval_seconds": 12.1,
@@ -2529,6 +2333,74 @@
         },
         "visual_review": "pending",
         "completed_at": "2026-11-09T02:15:32Z"
+      },
+      {
+        "id": "SH12",
+        "status": "completed",
+        "request_hash": "023e9b85a086230af8b81e79b4f9b3ae7333bdb2542a5237c2bc72db93dcc458",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=P04（墙上时钟的造型）；<Picture 2>=S05（独居房间）\n\n普通尺寸挂钟确实悬挂在房间墙上，不要夸张放大、漂浮或凭空消失；持续单一钟面近景，秒针连续走动，窗边光线自然变暗，不要跳转场景。\n摄影：时钟特写缓慢推近；色调：克制的冷蓝屏幕或夜景光。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+          "seconds": "8",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 2021012,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/P04.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S05.png"
+          ]
+        },
+        "create_attempts": 2,
+        "updated_at": "2026-11-09T05:36:29Z",
+        "error": null,
+        "cooldown_seconds": 288.0,
+        "video_id": "task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y",
+        "task_id": "task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y",
+        "requested_seconds": 8,
+        "created_at": "2026-11-09T05:25:49Z",
+        "next_poll_epoch": 1794202039.8657172,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y.mp4",
+        "final_response": {
+          "completed_at": 1794202143,
+          "created_at": 1794201949,
+          "error": null,
+          "expires_at": null,
+          "id": "task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y",
+          "internal_status": "pending",
+          "object": "video",
+          "progress": 100,
+          "quality": "standard",
+          "remixed_from_video_id": "",
+          "seconds": "8",
+          "size": "720P",
+          "started_at": 1794201986,
+          "status": "completed",
+          "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uTxsM2qHoQqg8kfjmT05lkxZr70iNj9Y.mp4",
+          "usage": {
+            "input_seconds": 0,
+            "input_image_count": 2,
+            "input_audio_seconds": 0
+          }
+        },
+        "progress": 100,
+        "bytes": 2113036,
+        "sha256": "e666bae09833c87cd97ba4edf1b7f0b150bf0f626d812929c5944e63b47e2519",
+        "inspection": {
+          "duration_seconds": 8.0,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "bytes": 2113036,
+          "decoded_ok": true,
+          "motion_mean_difference": 0.072,
+          "suspected_static": false,
+          "contact_sheet": "production/nowon2021/qa/SH12.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending",
+        "completed_at": "2026-11-09T05:36:29Z"
       }
     ],
     "SH13": [
@@ -2792,6 +2664,74 @@
     "SH23": [
       {
         "id": "SH23"
+      },
+      {
+        "id": "SH23",
+        "status": "completed",
+        "request_hash": "5b65f53b28839d31c747a341408293d0107f86957663853dc877f8710dcfe013",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S04（昏暗小房间）；<Picture 2>=S03（暖色客厅与玄关）\n\n无人客厅窗帘的光线由白天转夜晚，电视画面无声变化，时间流逝。\n摄影：空房间固定机位，光线变化；色调：昏暗但细节可辨的冷青色。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+          "seconds": "8",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 2021023,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S04.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S03.png"
+          ]
+        },
+        "create_attempts": 2,
+        "updated_at": "2026-11-09T03:07:15Z",
+        "error": null,
+        "cooldown_seconds": 288.0,
+        "video_id": "task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn",
+        "task_id": "task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn",
+        "requested_seconds": 8,
+        "created_at": "2026-11-09T02:30:32Z",
+        "next_poll_epoch": 1794191522.622636,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn.mp4",
+        "final_response": {
+          "completed_at": 1794191760,
+          "created_at": 1794191432,
+          "error": null,
+          "expires_at": null,
+          "id": "task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn",
+          "internal_status": "pending",
+          "object": "video",
+          "progress": 100,
+          "quality": "standard",
+          "remixed_from_video_id": "",
+          "seconds": "8",
+          "size": "720P",
+          "started_at": 1794191470,
+          "status": "completed",
+          "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_uC7DWvHArvYHudLk7rUOzrcLuYqeWAYn.mp4",
+          "usage": {
+            "input_seconds": 0,
+            "input_image_count": 2,
+            "input_audio_seconds": 0
+          }
+        },
+        "progress": 100,
+        "bytes": 2071310,
+        "sha256": "7e65e0eb847bb27a40261b98c95455653357244636cb9772ae7da3f014a86894",
+        "inspection": {
+          "duration_seconds": 8.0,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "bytes": 2071310,
+          "decoded_ok": true,
+          "motion_mean_difference": 0.022,
+          "suspected_static": false,
+          "contact_sheet": "production/nowon2021/qa/SH23.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending",
+        "completed_at": "2026-11-09T03:07:15Z"
       }
     ],
     "SH24": [
@@ -2959,6 +2899,75 @@
         },
         "visual_review": "pending",
         "completed_at": "2026-11-09T05:40:39Z"
+      },
+      {
+        "id": "SH29",
+        "status": "completed",
+        "request_hash": "3a555e3fae64d67558e34ea803ab88172e796a8a8188619dd9f9d3540d2a3559",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S12（清晨走廊）；<Picture 2>=P01（门铃对讲机的结构与屏幕）\n\n清晨空无一人的公寓走廊，摄影机缓慢接近墙面上固定安装的门铃对讲机。对讲机紧贴墙壁、位置固定，方形屏幕亮起并显示空走廊；屏幕内外都没有人物或纸箱。建筑和对讲机稳定不变，光线缓慢变化，连续写实摄影。\n摄影：长走廊缓慢推近屏幕；色调：清晨冷蓝与微光。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+          "seconds": "7",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 2023029,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S12.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/P01.png"
+          ]
+        },
+        "create_attempts": 2,
+        "updated_at": "2026-11-09T08:01:06Z",
+        "error": null,
+        "cooldown_seconds": 288.0,
+        "video_id": "task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl",
+        "task_id": "task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl",
+        "requested_seconds": 7,
+        "created_at": "2026-11-09T07:58:32Z",
+        "next_poll_epoch": 1794211263.558729,
+        "progress": 100,
+        "poll_failures": 0,
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl.mp4",
+        "final_response": {
+          "completed_at": 1794211252,
+          "created_at": 1794211112,
+          "error": null,
+          "expires_at": null,
+          "id": "task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl",
+          "internal_status": "pending",
+          "object": "video",
+          "progress": 100,
+          "quality": "standard",
+          "remixed_from_video_id": "",
+          "seconds": "7",
+          "size": "720P",
+          "started_at": 1794211135,
+          "status": "completed",
+          "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZiTENT6TEPKT9acHWsL2ofdNql2DHkkl.mp4",
+          "usage": {
+            "input_seconds": 0,
+            "input_image_count": 2,
+            "input_audio_seconds": 0
+          }
+        },
+        "bytes": 2814433,
+        "sha256": "af4adf476ac04a76f230cfdb25d7fa5313af6035faf10e97208af88e5de673d4",
+        "inspection": {
+          "duration_seconds": 7.328,
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "bytes": 2814433,
+          "decoded_ok": true,
+          "motion_mean_difference": 0.107,
+          "suspected_static": false,
+          "contact_sheet": "production/nowon2021/qa/SH29.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending",
+        "completed_at": "2026-11-09T08:01:06Z"
       }
     ],
     "SH30": [
@@ -2968,7 +2977,8 @@
     ]
   },
   "status_counts": {
-    "completed": 30
+    "completed": 27,
+    "?": 3
   },
   "updated_at": "2026-11-09T08:01:06Z",
   "pending_shots": [],
