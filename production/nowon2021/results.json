@@ -94,7 +94,7 @@
     },
     "SH04": {
       "id": "SH04",
-      "status": "queued",
+      "status": "in_progress",
       "request_hash": "af87b373ccbac3296cacb72054a484e334ca166f5d23d6cc37c1395f89034129",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -112,13 +112,15 @@
         ]
       },
       "create_attempts": 1,
-      "updated_at": "2026-11-09T01:42:26Z",
+      "updated_at": "2026-11-09T01:46:11Z",
       "video_id": "task_b14Xr8acpaPEr51OjgfQUebHFnN4x8wo",
       "task_id": "task_b14Xr8acpaPEr51OjgfQUebHFnN4x8wo",
       "requested_seconds": 8,
       "created_at": "2026-11-09T01:42:26Z",
       "error": null,
-      "next_poll_epoch": 1794188636.5584793
+      "next_poll_epoch": 1794188831.1128955,
+      "progress": 10,
+      "poll_failures": 0
     },
     "SH05": {
       "id": "SH05",
@@ -166,9 +168,9 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/C04.png"
         ]
       },
-      "create_attempts": 5,
-      "updated_at": "2026-11-09T01:45:40Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261109014540527730860v4qP1zvS) (code=rate_limit_exceeded)",
+      "create_attempts": 6,
+      "updated_at": "2026-11-09T01:46:23Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026110901462357757422QC8ckT10) (code=rate_limit_exceeded)",
       "cooldown_seconds": 30.0
     },
     "SH07": {
@@ -410,10 +412,10 @@
     ]
   },
   "status_counts": {
-    "in_progress": 3,
-    "queued": 2,
+    "in_progress": 4,
+    "queued": 1,
     "creating": 1,
     "?": 24
   },
-  "updated_at": "2026-11-09T01:45:40Z"
+  "updated_at": "2026-11-09T01:46:23Z"
 }
