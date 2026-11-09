@@ -271,7 +271,9 @@ def main():
     if (info['width']!=1920 or info['height']!=1080 or abs(info['duration']-180)>.08
         or info['fps']!=FPS or info['frames']!=FPS*DURATION or info['audio_rate']!=RATE or info['audio_channels']!=2):
         raise RuntimeError(f'final spec mismatch: {info}')
-    report={'note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
+    from cover import make_cover
+    cover=make_cover(final,out/'封面.png')
+    report={'cover':str(cover),'cover_source':'本片初剪 2.5 秒实际帧，叠加封面文案；须人工复核。','note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
     (out/'render_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'film':str(final),'video':info},ensure_ascii=False));return 0
 

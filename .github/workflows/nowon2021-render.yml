@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: nowon2021-render-ed1fa571
@@ -35,7 +36,27 @@ jobs:
           ffmpeg -hide_banner -filters | grep -q subtitles
           test -n "$(fc-list :lang=zh | head -1)"
       - name: Install media libraries
-        run: python3 -m pip install --user --break-system-packages --disable-pip-version-check av numpy
+        run: python3 -m pip install --user --break-system-packages --disable-pip-version-check av numpy pillow
+      - name: Restore original generation artifact when available
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          run-id: 42546173073
+          github-token: ${{ github.token }}
+          pattern: nowon2021-agnes-*
+          merge-multiple: true
+          path: work/nowon2021/restored-artifacts/original
+      - name: Restore targeted retake artifact when available
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          run-id: 42565653224
+          github-token: ${{ github.token }}
+          pattern: nowon2021-agnes-*
+          merge-multiple: true
+          path: work/nowon2021/restored-artifacts/retakes
+      - name: Verify restored files against current video receipts
+        run: python3 production/nowon2021/restore_artifacts.py
       - name: Test plan and require reviewed footage and 30 voice tracks
         run: |
           set -euo pipefail

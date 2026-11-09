@@ -160,4 +160,16 @@ class TestNowonPlan(unittest.TestCase):
             self.assertIn('rejected',producer.stop_reason)
         finally: producer.downloads.shutdown(wait=False)
 
+    def test_artifact_restore_matches_receipt_not_artifact_order(self):
+        import hashlib
+        restore=load('restore_artifacts')
+        with TemporaryDirectory() as temp:
+            root=Path(temp); first=root/'original'; second=root/'retakes';out=root/'clips'
+            first.mkdir();second.mkdir();(first/'SH05.mp4').write_bytes(b'old video')
+            (second/'SH05.mp4').write_bytes(b'new video')
+            data=b'new video';doc={'shots':{'SH05':{'status':'completed','sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)},'SH06':{'status':'completed','sha256':'b'*64,'bytes':2}}}
+            done,missing=restore.restore(doc,[first,second],out)
+            self.assertEqual(done,['SH05']);self.assertEqual(missing,['SH06'])
+            self.assertEqual((out/'SH05.mp4').read_bytes(),data)
+
 if __name__=='__main__': unittest.main()
