@@ -192,4 +192,24 @@ class TestNowonPlan(unittest.TestCase):
             self.assertEqual(int(np.max(np.abs(pcm[-8000:]))),0)
             self.assertGreater(float(np.sqrt(np.mean(pcm[144*8000:146*8000].astype('float32')**2))),float(np.sqrt(np.mean(pcm[140*8000:142*8000].astype('float32')**2))))
 
+    def test_draft_is_watermarked_and_final_still_requires_review(self):
+        import hashlib
+        render=load('render');doc=json.loads((ROOT/'story.json').read_text(encoding='utf-8'))
+        with TemporaryDirectory() as temp:
+            root=Path(temp);(root/'audio').mkdir();(root/'voice-selection.json').write_text('{"voice_id":"voice-00"}',encoding='utf-8')
+            results={'phase':'clips_ready','shots':{}};clips=[]
+            for shot in doc['shots']:
+                sid=shot['id'];data=sid.encode();(root/'audio'/f'{sid}.mp3').write_bytes(data)
+                clips.append({'id':sid,'file':f'audio/{sid}.mp3','text':shot['narration'],'voice_id':'voice-00','sha256':hashlib.sha256(data).hexdigest()})
+                results['shots'][sid]={'status':'completed','visual_review':'pending','video_id':'id','sha256':'x','bytes':1,'video_url':'https://example.invalid/v'}
+            manifest={'completed':30,'clips':clips}
+            with patch.object(render,'HERE',root):
+                with self.assertRaises(RuntimeError):render.verify_inputs(doc,results,manifest)
+                self.assertEqual(len(render.verify_inputs(doc,results,manifest,allow_unreviewed=True)),30)
+                results['shots']['SH01']['status']='failed'
+                with self.assertRaises(RuntimeError):render.verify_inputs(doc,results,manifest,allow_unreviewed=True)
+        sample=[{'caption_start':0.2,'caption_end':1.0,'text':'测试。','keywords':[]}]
+        ass,_=render.subtitles(sample,draft=True);self.assertIn('未审片预览',ass)
+        ass,_=render.subtitles(sample);self.assertNotIn('未审片预览',ass)
+
 if __name__=='__main__': unittest.main()

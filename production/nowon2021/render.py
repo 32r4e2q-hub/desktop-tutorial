@@ -115,7 +115,7 @@ def highlight(text,keywords):
     return ''.join(output)
 
 
-def verify_inputs(story,results,manifest):
+def verify_inputs(story,results,manifest,allow_unreviewed=False):
     shots=story['shots']
     if len(shots)!=30 or shots[-1]['end']!=DURATION: raise RuntimeError('plan must be exactly 30 shots / 180 seconds')
     if results.get('phase')!='clips_ready': raise RuntimeError('Agnes clips are not yet all ready')
@@ -125,8 +125,10 @@ def verify_inputs(story,results,manifest):
     expected_voice=json.loads((HERE/'voice-selection.json').read_text(encoding='utf-8'))['voice_id']
     for shot in shots:
         sid=shot['id']; result=entries.get(sid,{})
-        if result.get('status')!='completed' or result.get('visual_review')!='passed' or not result.get('video_id'):
-            raise RuntimeError(f'{sid}: completed provider receipt and human visual approval required')
+        if result.get('status')!='completed' or not result.get('video_id'):
+            raise RuntimeError(f'{sid}: completed provider receipt required')
+        if not allow_unreviewed and result.get('visual_review')!='passed':
+            raise RuntimeError(f'{sid}: human visual approval required for final render')
         if not result.get('sha256') or not result.get('bytes') or not result.get('video_url'):
             raise RuntimeError(f'{sid}: provider media provenance is incomplete')
         v=clips.get(sid,{})
@@ -179,9 +181,10 @@ def subtitle_cues(row):
     return [(boundaries[i],boundaries[i+1],p) for i,p in enumerate(parts)]
 
 
-def subtitles(rows):
+def subtitles(rows,draft=False):
     header='''[Script Info]\nScriptType: v4.00+\nWrapStyle: 2\nScaledBorderAndShadow: yes\nPlayResX: 1920\nPlayResY: 1080\n\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,Noto Sans CJK SC,46,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,3,1,2,120,120,96,1\nStyle: Label,Noto Sans CJK SC,25,&H00E5E5E5,&H000000FF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,2,0,7,52,52,35,1\nStyle: Title,Noto Sans CJK SC,76,&H0066D1FF,&H000000FF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,3,1,5,120,120,0,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n'''
     ass=[f'Dialogue: 0,{ass_time(0)},{ass_time(180)},Label,,0,0,0,,AI动画情景重现 · 非新闻影像']
+    if draft: ass.append(r'Dialogue: 3,0:00:00.00,0:03:00.00,Label,,0,0,0,,{\an8\pos(960,32)}未审片预览 · 画面与字幕待复核')
     ass.append(r'Dialogue: 0,0:01:48.00,0:01:54.00,Label,,0,0,0,,{\pos(52,70)}钟面时间为情景示意')
     srt=[]
     for r in rows:
@@ -302,17 +305,17 @@ def audit_mix(path,rows):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--plan-only',action='store_true')
+    parser=argparse.ArgumentParser();parser.add_argument('--plan-only',action='store_true');parser.add_argument('--draft',action='store_true',help='unreviewed, visibly watermarked preview only; never final approval')
     parser.add_argument('--work',default='work/nowon2021/edit');parser.add_argument('--out',default='work/nowon2021/delivery')
     args=parser.parse_args();work=ROOT/args.work;out=ROOT/args.out
     story=json.loads((HERE/'story.json').read_text(encoding='utf-8'))
     results=json.loads((HERE/'results.json').read_text(encoding='utf-8'))
     manifest=json.loads((HERE/'audio'/'manifest.json').read_text(encoding='utf-8'))
-    clips=verify_inputs(story,results,manifest); rows=speech_plan(story,clips)
+    clips=verify_inputs(story,results,manifest,allow_unreviewed=args.draft); rows=speech_plan(story,clips)
     if args.plan_only:
         print(json.dumps({'shots':30,'duration':180,'voiceovers':len(rows),'speech_windows':rows},ensure_ascii=False,indent=2));return 0
     work.mkdir(parents=True,exist_ok=True);out.mkdir(parents=True,exist_ok=True)
-    ass,srt=subtitles(rows);(out/'captions.ass').write_text(ass,encoding='utf-8-sig');(out/'captions.srt').write_text(srt,encoding='utf-8')
+    ass,srt=subtitles(rows,draft=args.draft);(out/'captions.ass').write_text(ass,encoding='utf-8-sig');(out/'captions.srt').write_text(srt,encoding='utf-8')
     source=ROOT/'work/nowon2021/clips'; source.mkdir(parents=True,exist_ok=True)
     segdir=work/'segments';segdir.mkdir(parents=True,exist_ok=True);segments=[]
     for index,shot in enumerate(story['shots'],1):
@@ -333,7 +336,7 @@ def main():
     silent=work/'silent.mp4';run(['ffmpeg','-v','error','-y','-f','concat','-safe','0','-i',concat,'-an','-c','copy',silent])
     foley=work/'foley.wav';mix=work/'mix.wav';make_foley(foley,story);mix_voice(rows,foley,mix)
     mix_report=audit_mix(mix,rows)
-    final=out/'芦原区三母女案_一次门铃_初剪.mp4'
+    final=out/('芦原区三母女案_未审片预览.mp4' if args.draft else '芦原区三母女案_一次门铃_初剪.mp4')
     # libass reads the ASS file; output path does not enter the filter expression.
     run(['ffmpeg','-v','error','-y','-i',silent,'-i',mix,'-vf',f"subtitles='{(out/'captions.ass').as_posix()}'",'-map','0:v:0','-map','1:a:0','-t','180','-c:v','libx264','-preset','medium','-crf','18','-pix_fmt','yuv420p','-r',str(FPS),'-c:a','aac','-b:a','256k','-ar',str(RATE),'-movflags','+faststart',final])
     info=probe(final)
@@ -341,8 +344,8 @@ def main():
         or info['fps']!=FPS or info['frames']!=FPS*DURATION or info['audio_rate']!=RATE or info['audio_channels']!=2):
         raise RuntimeError(f'final spec mismatch: {info}')
     from cover import make_cover
-    cover=make_cover(final,out/'封面.png')
-    report={'cover':str(cover),'cover_source':'本片初剪 2.5 秒实际帧，叠加封面文案；须人工复核。','note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
+    cover=make_cover(final,out/('封面_预览.png' if args.draft else '封面.png'))
+    report={'draft':args.draft,'visual_review_pending':[s['id'] for s in story['shots'] if results['shots'][s['id']].get('visual_review')!='passed'],'cover':str(cover),'cover_source':'本片初剪 2.5 秒实际帧，叠加封面文案；须人工复核。','note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
     (out/'render_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'film':str(final),'video':info},ensure_ascii=False));return 0
 

@@ -70,9 +70,15 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m unittest production.tests.test_nowon2021 -v
-          python3 production/nowon2021/render.py --plan-only
+          args=()
+          if [ -f production/nowon2021/RENDER_REQUEST ] && [ "$(cat production/nowon2021/RENDER_REQUEST)" = draft ]; then args+=(--draft); fi
+          python3 production/nowon2021/render.py --plan-only "${args[@]}"
       - name: Assemble subtitled 1080p film without BGM
-        run: python3 -u production/nowon2021/render.py
+        run: |
+          set -euo pipefail
+          args=()
+          if [ -f production/nowon2021/RENDER_REQUEST ] && [ "$(cat production/nowon2021/RENDER_REQUEST)" = draft ]; then args+=(--draft); fi
+          python3 -u production/nowon2021/render.py "${args[@]}"
       - name: Preserve first cut and reports
         if: always()
         uses: actions/upload-artifact@v4
