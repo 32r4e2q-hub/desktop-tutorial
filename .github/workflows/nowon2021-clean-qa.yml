@@ -1,0 +1,38 @@
+name: 芦原区三母女案 · 去水印版技术检查
+on:
+  push:
+    branches: [arena/ed1fa571-desktop-tutorial]
+    paths: [production/nowon2021/CLEAN_QA_REQUEST]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  check:
+    if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/ed1fa571-desktop-tutorial
+          fetch-depth: 1
+      - name: Install FFmpeg
+        run: |
+          if ! command -v ffmpeg >/dev/null; then sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; fi
+      - name: Restore explicitly requested copy
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 42596892607
+          github-token: ${{ github.token }}
+          name: nowon2021-first-cut-4
+          path: work/nowon2021/unwatermarked-review
+      - name: Verify encoded copy
+        run: python3 production/nowon2021/clean_copy_qc.py
+      - name: Save small proof and preview cover
+        run: |
+          set -euo pipefail
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add -f production/nowon2021/qa/unwatermarked
+          git diff --cached --quiet || git commit -m 'Check requested unwatermarked draft [skip ci]'
+          git push origin HEAD:arena/ed1fa571-desktop-tutorial
