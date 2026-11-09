@@ -417,7 +417,7 @@
     },
     "SH10": {
       "id": "SH10",
-      "status": "creating",
+      "status": "queued",
       "request_hash": "b0d7edef736e7f425fe79a66a67744ed9ae8196ce88f371b164d2b4c7a5a311d",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -434,9 +434,14 @@
         ]
       },
       "create_attempts": 2,
-      "updated_at": "2026-11-09T01:49:43Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261109014943113183179eSwftESz) (code=rate_limit_exceeded)",
-      "cooldown_seconds": 30.0
+      "updated_at": "2026-11-09T01:50:13Z",
+      "error": null,
+      "cooldown_seconds": 30.0,
+      "video_id": "task_DbKqXSR10HXBkPEl4hRhkt5B6AHcW68I",
+      "task_id": "task_DbKqXSR10HXBkPEl4hRhkt5B6AHcW68I",
+      "requested_seconds": 6,
+      "created_at": "2026-11-09T01:50:13Z",
+      "next_poll_epoch": 1794189103.636572
     },
     "SH11": {
       "id": "SH11"
@@ -667,9 +672,8 @@
   "status_counts": {
     "completed": 4,
     "in_progress": 1,
-    "queued": 4,
-    "creating": 1,
+    "queued": 5,
     "?": 20
   },
-  "updated_at": "2026-11-09T01:49:43Z"
+  "updated_at": "2026-11-09T01:50:13Z"
 }
