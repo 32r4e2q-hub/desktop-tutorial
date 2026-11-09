@@ -65,7 +65,7 @@ ROWS = [
 (67,74,'P04 S05','','普通尺寸挂钟确实悬挂在房间墙上，不要夸张放大、漂浮或凭空消失；持续单一钟面近景，秒针连续走动，窗边光线自然变暗，不要跳转场景。','他把注意力从游戏转向现实，甚至试图掌握大女儿上下班的时间。'),
 (74,80,'S01 S07 C01','C01','小区对面街边，戴口罩帽子的男子背影停在路灯下，风吹动衣角。','公寓里仍是寻常的一天；楼外的人，让危险一步步逼近。'),
 (80,85,'P02 C01','C01','戴口罩帽子的男子低头整理普通纸箱，撕开胶带贴上抽象标签。','他准备了一个纸箱，下一步，就是走到那扇门前。'),
-(85,91,'S02 C01 P04-1730','C01','冷白灯光公寓大堂，墙上挂钟示意五点半，戴口罩帽子男子抱纸箱走到电梯旁，伸手按按钮，电梯门合上。单一连续机位，墙面完整平整，光线均匀，现实纪实摄影。','三月二十三日傍晚，他假扮送货员，来到这栋公寓。'),
+(85,91,'S02 C01 P04-1730','C01','冷白灯光的公寓电梯大堂，墙面平整干净，画面中只有一只固定挂钟，始终挂在同一面墙上并指向五点半。戴口罩帽子的男子双手抱着纸箱走向电梯，伸手按一次电梯按钮，等待电梯门打开。固定机位，人物与纸箱动作连贯，稳定自然的写实摄影。','三月二十三日傍晚，他假扮送货员，来到这栋公寓。'),
 (91,97,'S02 C01','C01','电梯内，金属门上映出戴口罩帽子的身影；灯光随电梯运行变化。','电梯向上时，家里只有小女儿一个人，她并不认识门外的人。'),
 (97,103,'S02 P01 C01','C01','走廊里男子按门铃，拿纸箱退开；对讲机亮起，身体略有移动。','他来到门口谎称送货，小女儿让他把东西放在门前。'),
 (103,108,'P01 S02 C03','C03','回响第一镜同一对讲机鱼眼构图，转至门内手伸向门把，门开启一线光后切黑。','可他没有离开，等到门打开，便趁机闯了进去。'),
@@ -79,7 +79,7 @@ ROWS = [
 (150,156,'S10 C06 C07','C06 C07','法庭内检察官起身整理文件，法官端坐，亲友在旁听席沉默。','检方求处死刑，一审判无期，附三十年电子监控。'),
 (156,162,'S10 C06 C07','C06 C07','法庭内法官宣读判决，亲友握住彼此的手，光线缓慢变化。','二审维持判决，法官主张不予假释；双方继续上诉。'),
 (162,168,'S11 P05','','晨雾墓园里的三束白菊花被风轻轻吹动，镜头缓缓拉远，不出现真实墓名。','二零二二年四月，最高法院驳回上诉，无期徒刑最终确定。'),
-(168,174,'S12 P01','','清晨空无一人的走廊，门边对讲机屏幕亮起，屏幕内同样只有空无一人的走廊，绝无人物、纸箱或旧画面；仅借鉴对讲机的外观，不要复现参考图屏幕中的人物。画面安静而连续。','一声门铃，三个生命消逝。跟踪纠缠绝不是小事。'),
+(168,174,'S12 P01','','清晨空无一人的公寓走廊，摄影机缓慢接近墙面上固定安装的门铃对讲机。对讲机紧贴墙壁、位置固定，方形屏幕亮起并显示空走廊；屏幕内外都没有人物或纸箱。建筑和对讲机稳定不变，光线缓慢变化，连续写实摄影。','一声门铃，三个生命消逝。跟踪纠缠绝不是小事。'),
 (174,180,'S12 P01','','黑暗中对讲机冷光轻微闪动，留出画面中央空白，标题由后期叠加。','遭遇跟踪骚扰，请保留证据，请报警。'),
 ]
 
@@ -93,7 +93,7 @@ def build():
   labels='；'.join(f'<Picture {n}>={r}（{REFERENCE_USE[r]}）' for n,r in enumerate(refs,1))
   anchors='\n'.join(f'【{r}锚点】{ANCHORS[r]}' for r in roles)
   prompt=f'【STYLE】{STYLE}\n参考图用途：{labels}\n{anchors}\n{action}\n摄影：{CAMERAS[i-1]}；色调：{lighting(i)}。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】{NEGATIVE}'
-  shots.append(dict(id=f'SH{i:02}',seed=2022000+i if i in (5,11,15) else 2021000+i,start=start,end=end,duration=end-start,reference_images=refs,characters=roles,action=action,camera=CAMERAS[i-1],lighting=lighting(i),sound=SOUNDS[i-1],highlight_keywords=KEYWORDS.get(i,[]),narration=narration,prompt=prompt))
+  shots.append(dict(id=f'SH{i:02}',seed=2023000+i if i in (15,29) else (2022000+i if i in (5,11) else 2021000+i),start=start,end=end,duration=end-start,reference_images=refs,characters=roles,action=action,camera=CAMERAS[i-1],lighting=lighting(i),sound=SOUNDS[i-1],highlight_keywords=KEYWORDS.get(i,[]),narration=narration,prompt=prompt))
  return dict(title='芦原区三母女案：一次门铃',episode=10,duration=180,delivery={'width':1920,'height':1080,'aspect':'16:9','fps':24}, model='agnes-video-2.5-flash',source_size='720P',mode='reference',style=STYLE,negative=NEGATIVE,anchors=ANCHORS,reference_ids=REFERENCES,additional_review_ids=ADDITIONAL,shots=shots)
 if __name__ == '__main__':
  p=build(); assert len(p['shots'])==30 and p['shots'][-1]['end']==180
