@@ -633,7 +633,25 @@
       "next_poll_epoch": 1794201727.437607
     },
     "SH12": {
-      "id": "SH12"
+      "id": "SH12",
+      "status": "creating",
+      "request_hash": "023e9b85a086230af8b81e79b4f9b3ae7333bdb2542a5237c2bc72db93dcc458",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=P04（墙上时钟的造型）；<Picture 2>=S05（独居房间）\n\n普通尺寸挂钟确实悬挂在房间墙上，不要夸张放大、漂浮或凭空消失；持续单一钟面近景，秒针连续走动，窗边光线自然变暗，不要跳转场景。\n摄影：时钟特写缓慢推近；色调：克制的冷蓝屏幕或夜景光。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+        "seconds": "8",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2021012,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/P04.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S05.png"
+        ]
+      },
+      "create_attempts": 1,
+      "updated_at": "2026-11-09T05:20:38Z"
     },
     "SH13": {
       "id": "SH13",
@@ -2312,9 +2330,10 @@
     "completed": 24,
     "in_progress": 1,
     "queued": 2,
-    "?": 3
+    "creating": 1,
+    "?": 2
   },
-  "updated_at": "2026-11-09T05:20:37Z",
+  "updated_at": "2026-11-09T05:20:38Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
