@@ -1462,7 +1462,25 @@
       "completed_at": "2026-11-09T03:07:02Z"
     },
     "SH23": {
-      "id": "SH23"
+      "id": "SH23",
+      "status": "creating",
+      "request_hash": "6ccb9f176101bd8d0eea5aaa3d99ab2014c370c88fd360dce4f78c817110c164",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S04（昏暗小房间）；<Picture 2>=S03（暖色客厅与玄关）\n\n无人客厅里窗帘全程严密拉合，窗户被布帘遮住，窗外没有可见景色。电视安静闪动，关闭的窗帘上映出微弱光线由明转暗，表现时间流逝。固定机位，连贯写实。\n摄影：空房间固定机位，光线变化；色调：昏暗但细节可辨的冷青色。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+        "seconds": "8",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2024023,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S04.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S03.png"
+        ]
+      },
+      "create_attempts": 1,
+      "updated_at": "2026-11-09T08:03:51Z"
     },
     "SH24": {
       "id": "SH24",
@@ -3004,9 +3022,10 @@
   "status_counts": {
     "completed": 27,
     "queued": 1,
-    "?": 2
+    "creating": 1,
+    "?": 1
   },
-  "updated_at": "2026-11-09T08:03:50Z",
+  "updated_at": "2026-11-09T08:03:51Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
