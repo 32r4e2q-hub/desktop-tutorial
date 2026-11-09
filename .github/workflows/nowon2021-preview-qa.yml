@@ -1,0 +1,37 @@
+name: 芦原区三母女案 · 预览帧抽检
+on:
+  push:
+    branches: [arena/ed1fa571-desktop-tutorial]
+    paths: [production/nowon2021/PREVIEW_QA_REQUEST]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  preview-frames:
+    if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/ed1fa571-desktop-tutorial
+          fetch-depth: 1
+      - name: Install image library
+        run: python3 -m pip install --user --break-system-packages --disable-pip-version-check pillow
+      - name: Restore watermarked review preview
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 42577524440
+          github-token: ${{ github.token }}
+          name: nowon2021-first-cut-1
+          path: work/nowon2021/review-preview
+      - name: Extract preview samples
+        run: python3 production/nowon2021/preview_qa.py
+      - name: Publish only small QA sheets
+        run: |
+          set -euo pipefail
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          git add -f production/nowon2021/qa/preview
+          git diff --cached --quiet || git commit -m 'Add watermarked preview frame sheets [skip ci]'
+          git push origin HEAD:arena/ed1fa571-desktop-tutorial
