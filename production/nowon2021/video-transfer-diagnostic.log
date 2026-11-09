@@ -1,0 +1,14 @@
++ find video -type f -printf '%p %s bytes\n'
+video/封面_未审片无水印.png 670006 bytes
+video/captions.ass 9111 bytes
+video/render_report.json 21360 bytes
+video/captions.srt 5268 bytes
+video/芦原区三母女案_未审片无水印.mp4 112690865 bytes
++ mapfile -d '' files
+++ find video -type f -name '*未审片无水印.mp4' -print0
++ test 1 -eq 1
++ printf '%s  %s\n' ee5342f6ad68fdcf5749d356ea740f41551304fcc077113e4c0e1e020a702b78 video/芦原区三母女案_未审片无水印.mp4
++ sha256sum -c -
+video/芦原区三母女案_未审片无水印.mp4: OK
++ curl --fail --silent --show-error --retry 2 --max-time 600 -T video/芦原区三母女案_未审片无水印.mp4 https://8766-isx2vmgbgqir1fxs4l2co.e2b.app/upload
+curl: (22) The requested URL returned error: 403
