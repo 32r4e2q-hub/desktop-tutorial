@@ -39,6 +39,8 @@ jobs:
           python3 production/nowon2021/build_story.py
           python3 -m unittest production.tests.test_nowon2021 -v
           python3 production/nowon2021/generate_clips.py --validate
+      - name: Verify public immutable reference images before paid requests
+        run: python3 -u production/nowon2021/check_public_refs.py
       - name: Submit and recover 30 reference-mode tasks under shared request limit
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
