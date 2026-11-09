@@ -843,7 +843,26 @@
       "next_poll_epoch": 1794189683.0283616
     },
     "SH18": {
-      "id": "SH18"
+      "id": "SH18",
+      "status": "creating",
+      "request_hash": "e11b26bfc342177cbd00eb15e12c03ab3fea24855f4d7aa8ec0348dca2db366c",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=P01（门铃对讲机的结构与屏幕）；<Picture 2>=S02（公寓电梯与走廊空间）；<Picture 3>=C03（小女儿演员造型）\n【C03锚点】22岁韩国女大学生,黑色马尾辫,灰色卫衣牛仔裤,耳机,神情活泼温和\n回响第一镜同一对讲机鱼眼构图，转至门内手伸向门把，门开启一线光后切黑。\n摄影：回响第一镜对讲机构图，再固定机位切黑；色调：冷白荧光灯与深蓝阴影。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2021018,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/P01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S02.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/C03.png"
+        ]
+      },
+      "create_attempts": 1,
+      "updated_at": "2026-11-09T01:59:54Z"
     },
     "SH19": {
       "id": "SH19"
@@ -1051,7 +1070,8 @@
     "completed": 9,
     "in_progress": 2,
     "queued": 6,
-    "?": 13
+    "creating": 1,
+    "?": 12
   },
-  "updated_at": "2026-11-09T01:59:53Z"
+  "updated_at": "2026-11-09T01:59:54Z"
 }
