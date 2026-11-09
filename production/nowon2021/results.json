@@ -1582,7 +1582,7 @@
     },
     "SH30": {
       "id": "SH30",
-      "status": "creating",
+      "status": "queued",
       "request_hash": "2be22649c8844e876cecad7a49d4841b23284ad64c8261008ed31151d1d58dec",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -1599,9 +1599,14 @@
         ]
       },
       "create_attempts": 2,
-      "updated_at": "2026-11-09T03:01:35Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 03:06:11. (request id: 202611090301351747624576CEeFbgR) (code=rate_limit_exceeded)",
-      "cooldown_seconds": 276.0
+      "updated_at": "2026-11-09T03:06:23Z",
+      "error": null,
+      "cooldown_seconds": 276.0,
+      "video_id": "task_GE4blxE6zkZBdumwtgNLRU6RSlI9aaxF",
+      "task_id": "task_GE4blxE6zkZBdumwtgNLRU6RSlI9aaxF",
+      "requested_seconds": 7,
+      "created_at": "2026-11-09T03:06:23Z",
+      "next_poll_epoch": 1794193673.8353295
     }
   },
   "branch": "arena/ed1fa571-desktop-tutorial",
@@ -1771,8 +1776,7 @@
   },
   "status_counts": {
     "completed": 19,
-    "queued": 10,
-    "creating": 1
+    "queued": 11
   },
-  "updated_at": "2026-11-09T03:06:13Z"
+  "updated_at": "2026-11-09T03:06:23Z"
 }
