@@ -1267,7 +1267,26 @@
       "next_poll_epoch": 1794192135.4418612
     },
     "SH26": {
-      "id": "SH26"
+      "id": "SH26",
+      "status": "creating",
+      "request_hash": "bc1379bb6631ca621e27dfb37d1ab2dd40db756b41f14bf2f944cdbf680210bc",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=S10（法庭）；<Picture 2>=C06（警察及法庭人物造型）；<Picture 3>=C07（黑衣亲友造型）\n【C06锚点】2021年韩国警察制服口罩,检察官深色西装,法官黑色法袍,神情严肃\n【C07锚点】几位黑衣韩国亲友,神情悲伤克制\n法庭内检察官起身整理文件，法官端坐，亲友在旁听席沉默。\n摄影：法庭中景缓慢环绕；色调：庄严冷灰法庭光。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2021026,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S10.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/C06.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/C07.png"
+        ]
+      },
+      "create_attempts": 1,
+      "updated_at": "2026-11-09T02:40:47Z"
     },
     "SH27": {
       "id": "SH27"
@@ -1450,7 +1469,8 @@
   "status_counts": {
     "completed": 14,
     "queued": 11,
-    "?": 5
+    "creating": 1,
+    "?": 4
   },
-  "updated_at": "2026-11-09T02:40:45Z"
+  "updated_at": "2026-11-09T02:40:47Z"
 }
