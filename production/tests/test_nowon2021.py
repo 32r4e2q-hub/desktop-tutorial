@@ -124,20 +124,23 @@ class TestNowonPlan(unittest.TestCase):
 
     def test_render_provenance_and_voice_hash_gates(self):
         import hashlib
-        render=load('render')
+        render=load('render');gen=load('generate_clips');rev=gen.revision()
         doc=json.loads((ROOT/'story.json').read_text(encoding='utf-8'))
         with TemporaryDirectory() as temp:
             root=Path(temp); (root/'audio').mkdir()
             (root/'voice-selection.json').write_text('{"voice_id":"voice-00"}',encoding='utf-8')
-            results={'phase':'clips_ready','shots':{}}
+            results={'phase':'clips_ready','reference_revision':rev,'shots':{}}
             clips=[]
             for shot in doc['shots']:
                 sid=shot['id']; path=root/'audio'/f'{sid}.mp3'; path.write_bytes(('test-'+sid).encode())
                 clips.append({'id':sid,'file':f'audio/{sid}.mp3','text':shot['narration'],'voice_id':'voice-00','sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
-                results['shots'][sid]={'status':'completed','visual_review':'passed','video_id':'fixture','sha256':'fixture','bytes':1,'video_url':'https://fixture.invalid/a'}
+                results['shots'][sid]={'status':'completed','visual_review':'passed','video_id':'fixture','sha256':'fixture','bytes':1,'video_url':'https://fixture.invalid/a','request_hash':gen.request_hash(gen.payload(shot,rev))}
             manifest={'completed':30,'clips':clips}
             with patch.object(render,'HERE',root):
                 self.assertEqual(len(render.verify_inputs(doc,results,manifest)),30)
+                expected=results['shots']['SH01']['request_hash'];results['shots']['SH01']['request_hash']='stale'
+                with self.assertRaises(RuntimeError): render.verify_inputs(doc,results,manifest,allow_unreviewed=True)
+                results['shots']['SH01']['request_hash']=expected
                 clips[0]['voice_id']='wrong-voice'
                 with self.assertRaises(RuntimeError): render.verify_inputs(doc,results,manifest)
                 clips[0]['voice_id']='voice-00'
@@ -192,16 +195,31 @@ class TestNowonPlan(unittest.TestCase):
             self.assertEqual(int(np.max(np.abs(pcm[-8000:]))),0)
             self.assertGreater(float(np.sqrt(np.mean(pcm[144*8000:146*8000].astype('float32')**2))),float(np.sqrt(np.mean(pcm[140*8000:142*8000].astype('float32')**2))))
 
+    def test_caption_audit_requires_exact_text_and_shot_boundaries(self):
+        audit=load('media_audit')
+        doc={'shots':[{'id':'SH01','start':0,'end':5,'narration':'第一句，第二句。'},
+                      {'id':'SH02','start':5,'end':10,'narration':'第三句。'}]}
+        valid=('1\n00:00:00,100 --> 00:00:02,000\n第一句，\n\n'
+               '2\n00:00:02,100 --> 00:00:04,900\n第二句。\n\n'
+               '3\n00:00:05,100 --> 00:00:08,000\n第三句。\n')
+        with TemporaryDirectory() as temp:
+            srt=Path(temp)/'captions.srt';srt.write_text(valid,encoding='utf-8')
+            self.assertEqual(audit.captions_audit(srt,doc)['cue_count'],3)
+            srt.write_text(valid.replace('第一句','错一句',1),encoding='utf-8')
+            with self.assertRaises(ValueError): audit.captions_audit(srt,doc)
+            srt.write_text(valid.replace('00:00:04,900','00:00:05,020',1),encoding='utf-8')
+            with self.assertRaises(ValueError): audit.captions_audit(srt,doc)
+
     def test_draft_is_watermarked_and_final_still_requires_review(self):
         import hashlib
-        render=load('render');doc=json.loads((ROOT/'story.json').read_text(encoding='utf-8'))
+        render=load('render');gen=load('generate_clips');rev=gen.revision();doc=json.loads((ROOT/'story.json').read_text(encoding='utf-8'))
         with TemporaryDirectory() as temp:
             root=Path(temp);(root/'audio').mkdir();(root/'voice-selection.json').write_text('{"voice_id":"voice-00"}',encoding='utf-8')
-            results={'phase':'clips_ready','shots':{}};clips=[]
+            results={'phase':'clips_ready','reference_revision':rev,'shots':{}};clips=[]
             for shot in doc['shots']:
                 sid=shot['id'];data=sid.encode();(root/'audio'/f'{sid}.mp3').write_bytes(data)
                 clips.append({'id':sid,'file':f'audio/{sid}.mp3','text':shot['narration'],'voice_id':'voice-00','sha256':hashlib.sha256(data).hexdigest()})
-                results['shots'][sid]={'status':'completed','visual_review':'pending','video_id':'id','sha256':'x','bytes':1,'video_url':'https://example.invalid/v'}
+                results['shots'][sid]={'status':'completed','visual_review':'pending','video_id':'id','sha256':'x','bytes':1,'video_url':'https://example.invalid/v','request_hash':gen.request_hash(gen.payload(shot,rev))}
             manifest={'completed':30,'clips':clips}
             with patch.object(render,'HERE',root):
                 with self.assertRaises(RuntimeError):render.verify_inputs(doc,results,manifest)

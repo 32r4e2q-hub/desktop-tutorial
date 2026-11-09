@@ -22,17 +22,25 @@ def main():
     OUT.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
         folder=Path(tmp)
-        subprocess.run(['ffmpeg','-v','error','-y','-i',str(video),'-vf','fps=1,scale=384:216','-q:v','3',str(folder/'frame-%03d.jpg')],check=True)
+        subprocess.run(['ffmpeg','-v','error','-y','-i',str(video),'-vf','fps=4,scale=384:216','-q:v','3',str(folder/'frame-%03d.jpg')],check=True)
         frames=sorted(folder.glob('frame-*.jpg'))
-        if len(frames)!=180: raise RuntimeError(f'expected 180 frame samples, got {len(frames)}')
+        if len(frames)!=720: raise RuntimeError(f'expected 720 frame samples, got {len(frames)}')
         for shot in story['shots']:
             canvas=Image.new('RGB',(1152,648),(18,18,18));draw=ImageDraw.Draw(canvas)
             for i,second in enumerate(range(shot['start'],shot['end'])):
-                tile=Image.open(frames[second]).convert('RGB')
+                tile=Image.open(frames[second*4]).convert('RGB')
                 x,y=(i%3)*384,(i//3)*216
                 canvas.paste(tile,(x,y));draw.rectangle((x,y,x+76,y+21),fill=(0,0,0));draw.text((x+4,y+3),f"{shot['id']} {second}s",fill=(255,255,255))
             canvas.save(OUT/f"{shot['id']}.jpg",quality=86,optimize=True)
-    report={'preview_sha256':h.hexdigest(),'source':'watermarked review preview, not final film','samples_per_second':1,'shot_count':len(story['shots']),'status':'unreviewed contact sheets, not approval'}
+            detailed=OUT/'detail';detailed.mkdir(exist_ok=True)
+            count=shot['duration']*4
+            sheet=Image.new('RGB',(1280,((count+3)//4)*180),(18,18,18));labels=ImageDraw.Draw(sheet)
+            for i in range(count):
+                tile=Image.open(frames[shot['start']*4+i]).convert('RGB').resize((320,180))
+                x,y=(i%4)*320,(i//4)*180
+                sheet.paste(tile,(x,y));labels.rectangle((x,y,x+92,y+18),fill=(0,0,0));labels.text((x+3,y+2),f"{shot['id']} {shot['start']+i/4:.2f}s",fill=(255,255,255))
+            sheet.save(detailed/f"{shot['id']}.jpg",quality=80,optimize=True)
+    report={'preview_sha256':h.hexdigest(),'source':'watermarked review preview, not final film','samples_per_second':4,'shot_count':len(story['shots']),'status':'four frames per second are still samples, not full playback or approval'}
     probe=json.loads(subprocess.run(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(video)],check=True,stdout=subprocess.PIPE).stdout)
     raw=subprocess.run(['ffmpeg','-v','error','-ss','179','-i',str(video),'-t','1','-map','0:a:0','-f','f32le','-acodec','pcm_f32le','-ac','2','-ar','48000','pipe:1'],check=True,stdout=subprocess.PIPE).stdout
     samples=array.array('f');samples.frombytes(raw)

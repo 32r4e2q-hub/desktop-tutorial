@@ -123,8 +123,17 @@ def verify_inputs(story,results,manifest,allow_unreviewed=False):
     clips={c['id']:c for c in manifest.get('clips',[])}
     if len(clips)!=30 or len(manifest.get('clips',[]))!=30 or manifest.get('completed')!=30: raise RuntimeError('all 30 recorded voice clips are required')
     expected_voice=json.loads((HERE/'voice-selection.json').read_text(encoding='utf-8'))['voice_id']
+    # Bind every receipt to the current shot prompt, seed and immutable reference revision.
+    # A checksum-valid old clip is not valid for a newly revised shot.
+    import generate_clips as generation
+    rev=generation.revision()
+    if not re.fullmatch(r'[0-9a-f]{40}',rev) or results.get('reference_revision')!=rev:
+        raise RuntimeError('reference revision missing or mismatched')
     for shot in shots:
         sid=shot['id']; result=entries.get(sid,{})
+        expected_request=generation.request_hash(generation.payload(shot,rev))
+        if result.get('request_hash')!=expected_request:
+            raise RuntimeError(f'{sid}: receipt does not match current shot request')
         if result.get('status')!='completed' or not result.get('video_id'):
             raise RuntimeError(f'{sid}: completed provider receipt required')
         if not allow_unreviewed and result.get('visual_review')!='passed':
@@ -327,7 +336,7 @@ def main():
         if info['width']<640 or info['height']<360 or info['duration']<dur: raise RuntimeError(f'{sid}: source too small or short: {info}')
         effects=[f'trim=duration={dur}','setpts=PTS-STARTPTS',f'fps={FPS}','scale=1920:1080:force_original_aspect_ratio=increase:flags=lanczos','crop=1920:1080','setsar=1','format=yuv420p']
         if index<=14: effects += ['fade=t=in:st=0:d=0.16',f'fade=t=out:st={dur-0.16}:d=0.16']
-        elif index in (18,22,25): effects += [f"drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:enable='gte(t,{dur-1/FPS:.6f})'"]
+        elif index in (18,22,25): effects += [f"drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:enable='gte(t,{dur-.25:.6f})'"]
         elif index==30: effects += ['fade=t=in:st=0:d=0.3']
         seg=segdir/f'{sid}.mp4'
         run(['ffmpeg','-v','error','-y','-i',raw,'-an','-vf',','.join(effects),'-frames:v',str(dur*FPS),'-c:v','libx264','-preset','veryfast','-crf','18','-pix_fmt','yuv420p',seg])

@@ -32,6 +32,12 @@ jobs:
         run: |
           set -o pipefail
           python3 production/nowon2021/preview_qa.py 2>&1 | tee production/nowon2021/preview-qa-run.log
+      - name: Check encoded media, cut samples, captions and loudness
+        run: |
+          set -o pipefail
+          video="$(find work/nowon2021/review-preview -name '*未审片预览.mp4' -print -quit)"
+          test -n "$video"
+          python3 production/nowon2021/media_audit.py "$video" production/nowon2021/qa/preview/technical-audit.json 2>&1 | tee -a production/nowon2021/preview-qa-run.log
       - name: Publish only small QA sheets
         if: always()
         run: |
