@@ -889,7 +889,7 @@
     },
     "SH14": {
       "id": "SH14",
-      "status": "queued",
+      "status": "completed",
       "request_hash": "634c70679f70db1777ea4d0379dc68b46e331a6aeb8f5da590e2a5deecad179c",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -906,14 +906,54 @@
         ]
       },
       "create_attempts": 2,
-      "updated_at": "2026-11-09T01:53:33Z",
+      "updated_at": "2026-11-09T02:35:34Z",
       "error": null,
       "cooldown_seconds": 30.0,
       "video_id": "task_mQopI2SNwHihU1L5Lu6M8FmgLvrSrtDh",
       "task_id": "task_mQopI2SNwHihU1L5Lu6M8FmgLvrSrtDh",
       "requested_seconds": 6,
       "created_at": "2026-11-09T01:53:33Z",
-      "next_poll_epoch": 1794189303.5020413
+      "next_poll_epoch": 1794189303.5020413,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_mQopI2SNwHihU1L5Lu6M8FmgLvrSrtDh.mp4",
+      "final_response": {
+        "completed_at": 1794189535,
+        "created_at": 1794189213,
+        "error": null,
+        "expires_at": null,
+        "id": "task_mQopI2SNwHihU1L5Lu6M8FmgLvrSrtDh",
+        "internal_status": "pending",
+        "object": "video",
+        "progress": 100,
+        "quality": "standard",
+        "remixed_from_video_id": "",
+        "seconds": "6",
+        "size": "720P",
+        "started_at": 1794189250,
+        "status": "completed",
+        "url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_mQopI2SNwHihU1L5Lu6M8FmgLvrSrtDh.mp4",
+        "usage": {
+          "input_seconds": 0,
+          "input_image_count": 2,
+          "input_audio_seconds": 0
+        }
+      },
+      "progress": 100,
+      "bytes": 2030716,
+      "sha256": "95e04850a9a4a75ab522f8eb46b9944a7063f12d2f2f9e1ed4d6be4a21a411a2",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "bytes": 2030716,
+        "decoded_ok": true,
+        "motion_mean_difference": 0.0789,
+        "suspected_static": false,
+        "contact_sheet": "production/nowon2021/qa/SH14.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending",
+      "completed_at": "2026-11-09T02:35:34Z"
     },
     "SH15": {
       "id": "SH15",
@@ -1377,10 +1417,10 @@
     ]
   },
   "status_counts": {
-    "completed": 13,
-    "queued": 10,
+    "completed": 14,
+    "queued": 9,
     "creating": 1,
     "?": 6
   },
-  "updated_at": "2026-11-09T02:30:44Z"
+  "updated_at": "2026-11-09T02:35:34Z"
 }
