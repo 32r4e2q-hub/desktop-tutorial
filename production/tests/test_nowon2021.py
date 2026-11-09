@@ -172,4 +172,18 @@ class TestNowonPlan(unittest.TestCase):
             self.assertEqual(done,['SH05']);self.assertEqual(missing,['SH06'])
             self.assertEqual((out/'SH05.mp4').read_bytes(),data)
 
+    @unittest.skipUnless(importlib.util.find_spec('numpy'), 'numpy not installed')
+    def test_foley_is_timed_and_silent_at_end(self):
+        import wave
+        import numpy as np
+        render=load('render')
+        doc=json.loads((ROOT/'story.json').read_text(encoding='utf-8'))
+        with TemporaryDirectory() as temp, patch.object(render,'RATE',8000):
+            path=Path(temp)/'foley.wav';render.make_foley(path,doc)
+            with wave.open(str(path)) as audio:
+                self.assertEqual((audio.getframerate(),audio.getnchannels(),audio.getnframes()),(8000,2,8000*180))
+                pcm=np.frombuffer(audio.readframes(audio.getnframes()),dtype='<i2').reshape(-1,2)
+            self.assertEqual(int(np.max(np.abs(pcm[-8000:]))),0)
+            self.assertGreater(float(np.sqrt(np.mean(pcm[144*8000:146*8000].astype('float32')**2))),float(np.sqrt(np.mean(pcm[140*8000:142*8000].astype('float32')**2))))
+
 if __name__=='__main__': unittest.main()

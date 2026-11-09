@@ -169,22 +169,53 @@ def fetch_verified(row,dest):
 
 
 def make_foley(path,story):
+    """Procedural quiet ambience and foley, not music; timing tied to the shot plan."""
     import numpy as np
     rng=np.random.default_rng(20210323)
     total=RATE*DURATION
-    # Low, continuous room tone only; no score or soundtrack instruments.
     mono=rng.normal(0,0.00065,total).astype('float32')
+
+    def event(at,dur,gain,kind,frequency=300):
+        begin=max(0,round(at*RATE)); n=min(round(dur*RATE),total-begin)
+        if n<=0: return
+        t=np.arange(n,dtype='float32')/RATE
+        fade=np.minimum(1,t/.025)*np.minimum(1,(dur-t)/.035)
+        if kind=='bell':
+            wave=np.sin(2*np.pi*frequency*t)*np.exp(-4*t)
+        elif kind=='siren':
+            # A distant, restrained sweep, not a music cue.
+            phase=2*np.pi*(frequency*t+75*dur/(2*np.pi)*(1-np.cos(2*np.pi*t/dur)))
+            wave=np.sin(phase)*fade
+        elif kind=='hum':
+            wave=(np.sin(2*np.pi*frequency*t)+.25*np.sin(4*np.pi*frequency*t))*fade
+        elif kind=='foot':
+            wave=(.6*np.sin(2*np.pi*85*t)+.4*rng.normal(0,1,n))*np.exp(-18*t)*fade
+        elif kind=='click':
+            wave=(.5*np.sin(2*np.pi*frequency*t)+.5*rng.normal(0,1,n))*np.exp(-28*t)*fade
+        else:  # short swish: clothing, paper, tape and breeze
+            wave=rng.normal(0,1,n)*fade
+        mono[begin:begin+n]+=gain*wave.astype('float32')
+
+    steps={'SH06':(.7,1.8,2.9,4.0),'SH13':(1.0,2.1,3.2),'SH15':(1,1.9,2.8),
+           'SH17':(.5,1.4),'SH20':(.5,1.5,2.5),'SH21':(.8,1.8,2.8),
+           'SH24':(2.7,3.5,4.3),'SH25':(2.0,2.7,3.4,4.1)}
     for shot in story['shots']:
-        sid=shot['id']; start=shot['start']
-        events=[]
-        if sid in {'SH01','SH17','SH29'}: events=[(0.85,880,.28),(1.14,660,.38)]
-        if sid in {'SH02','SH18','SH20'}: events=[(1.7,180,.07)]
-        if sid in {'SH10','SH12','SH19','SH23'}: events=[(t,1400,.035) for t in (1,2,3,4)]
-        for offset,hz,dur in events:
-            begin=round((start+offset)*RATE); n=min(round(dur*RATE),total-begin)
-            if n<=0: continue
-            t=np.arange(n,dtype='float32')/RATE
-            mono[begin:begin+n]+=0.009*np.sin(2*np.pi*hz*t)*np.exp(-8*t)
+        sid=shot['id'];start=shot['start'];duration=shot['duration']
+        for t in steps.get(sid,()):
+            if t+.18<duration: event(start+t,.18,.012,'foot')
+        if sid in {'SH01','SH17','SH29'}:
+            event(start+.75,.36,.009,'bell',880);event(start+1.12,.4,.007,'bell',660)
+        if sid in {'SH02','SH18','SH20'}: event(start+1.7,.09,.014,'click',190)
+        if sid in {'SH10','SH12','SH19','SH23'}:
+            for t in (1,2,3,4): event(start+t,.055,.006,'click',1300)
+        if sid in {'SH04','SH26','SH27'}: event(start+1.2,.48,.003,'swish')
+        if sid in {'SH05','SH07','SH11'}:
+            for t in (.65,.89,1.2,1.46,1.75):event(start+t,.045,.005,'click',800)
+        if sid in {'SH09','SH24'}: event(start+.8,.18,.007,'bell',1050)
+        if sid=='SH14': event(start+1.1,.55,.004,'swish')
+        if sid in {'SH16','SH19','SH21'}: event(start+.4,min(2.0,duration-.5),.002,'hum',110)
+        if sid=='SH25': event(start+.3,2.1,.005,'siren',650)
+        if sid=='SH28': event(start+.4,2.8,.001,'swish')
     mono[-RATE:]=0
     stereo=np.column_stack((mono,mono*.95))
     with wave.open(str(path),'wb') as out:
