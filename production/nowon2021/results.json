@@ -5,7 +5,7 @@
   "shots": {
     "SH01": {
       "id": "SH01",
-      "status": "creating",
+      "status": "queued",
       "request_hash": "2696daa4762ea620208a93b3b0a8ae30e8bf0a11ce95e8a2d381e1b5247fd282",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -24,7 +24,13 @@
         ]
       },
       "create_attempts": 1,
-      "updated_at": "2026-11-09T01:40:35Z"
+      "updated_at": "2026-11-09T01:40:37Z",
+      "video_id": "task_tlB5NhsllOEiystiipPp79lEkMcvji4V",
+      "task_id": "task_tlB5NhsllOEiystiipPp79lEkMcvji4V",
+      "requested_seconds": 6,
+      "created_at": "2026-11-09T01:40:37Z",
+      "error": null,
+      "next_poll_epoch": 1794188527.6649454
     },
     "SH02": {
       "id": "SH02"
@@ -280,8 +286,8 @@
     ]
   },
   "status_counts": {
-    "creating": 1,
+    "queued": 1,
     "?": 29
   },
-  "updated_at": "2026-11-09T01:40:35Z"
+  "updated_at": "2026-11-09T01:40:37Z"
 }
