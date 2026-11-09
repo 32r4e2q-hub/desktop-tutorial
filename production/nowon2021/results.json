@@ -911,7 +911,25 @@
       "next_poll_epoch": 1794189995.4986105
     },
     "SH19": {
-      "id": "SH19"
+      "id": "SH19",
+      "status": "creating",
+      "request_hash": "34dea9ffb0bd78e470f690e1b8a33ee03aeb64cf345c8c2334e9ff73ee99eb7d",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实影像,35mm胶片摄影质感,浅景深,长焦与广角交替,韩国犯罪惊悚片风格,首尔高层公寓住宅区,暖黄家庭灯光与冷白走廊荧光灯对比,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而紧绷的情绪,16:9宽银幕横屏构图\n参考图用途：<Picture 1>=P04-2230（十点半的示意钟面（戏剧化时间，不作为已证实事实））；<Picture 2>=S02（公寓电梯与走廊空间）\n\n示意性墙上时钟指向十点半、秒针行走，镜头移向空走廊，声控灯亮起；这一钟面仅为戏剧化时间意象，不声称精确案发时间。\n摄影：时钟特写移向空走廊；色调：冷白荧光灯与深蓝阴影。\n全部为连续真实运动的写实3D电影情景重现，不使用静态图加推拉；虚构演员，不是现实人物肖像。\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,血腥,伤口,遗体,尸体,凶器,刀具,行凶过程,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2021019,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/P04-2230.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/ed991b833fd58627358f8c8058d4049cbfb0eb1c/production/nowon2021/reference/S02.png"
+        ]
+      },
+      "create_attempts": 1,
+      "updated_at": "2026-11-09T02:05:06Z"
     },
     "SH20": {
       "id": "SH20"
@@ -1116,7 +1134,8 @@
     "completed": 10,
     "in_progress": 1,
     "queued": 7,
-    "?": 12
+    "creating": 1,
+    "?": 11
   },
-  "updated_at": "2026-11-09T02:05:05Z"
+  "updated_at": "2026-11-09T02:05:06Z"
 }
