@@ -1,0 +1,67 @@
+name: 芦原区三母女案 · Agnes参考图视频生成
+run-name: 第十期 · Agnes 2.5 Flash 30镜排队
+
+# No request marker is present while references are incomplete.
+on:
+  push:
+    branches: [arena/ed1fa571-desktop-tutorial]
+    paths: [production/nowon2021/GEN_REQUEST]
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON，例如 {"mode":"full"}，返工可用 {"only":"SH01"}'
+        type: string
+        default: '{"mode":"full"}'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nowon2021-agnes-ed1fa571
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 340
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/ed1fa571-desktop-tutorial
+          fetch-depth: 0
+      - name: Prepare media inspection dependencies
+        run: python3 -m pip install --user --break-system-packages --disable-pip-version-check av pillow
+      - name: Check approved references and offline tests
+        run: |
+          set -euo pipefail
+          python3 production/nowon2021/build_story.py
+          python3 -m unittest production.tests.test_nowon2021 -v
+          python3 production/nowon2021/generate_clips.py --validate
+      - name: Submit and recover 30 reference-mode tasks under shared request limit
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          git config user.name arena-autopilot
+          git config user.email arena-autopilot@users.noreply.github.com
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ]; then
+            test -f production/nowon2021/GEN_REQUEST
+            payload="$(cat production/nowon2021/GEN_REQUEST)"
+          fi
+          python3 -u production/nowon2021/generate_clips.py --publish --payload "$payload"
+      - name: Preserve receipts and inspection sheets even if incomplete
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nowon2021-agnes-${{ github.run_number }}
+          path: |
+            production/nowon2021/results.json
+            production/nowon2021/qa/
+            work/nowon2021/clips/
+          if-no-files-found: warn
+          retention-days: 30
+          compression-level: 0

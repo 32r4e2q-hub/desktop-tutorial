@@ -1,0 +1,54 @@
+name: 芦原区三母女案 · 后期合成与技术校验
+run-name: 第十期 · 180秒横版初剪
+
+# No RENDER_REQUEST exists while footage, reviews or voiceover are missing.
+on:
+  push:
+    branches: [arena/ed1fa571-desktop-tutorial]
+    paths: [production/nowon2021/RENDER_REQUEST]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nowon2021-render-ed1fa571
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.ref == 'refs/heads/arena/ed1fa571-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/ed1fa571-desktop-tutorial
+          fetch-depth: 1
+      - name: Install FFmpeg and Chinese fonts
+        run: |
+          set -euo pipefail
+          if ! command -v ffmpeg >/dev/null || ! command -v fc-list >/dev/null || [ -z "$(fc-list :lang=zh | head -1)" ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg fonts-noto-cjk fontconfig
+          fi
+          ffmpeg -hide_banner -filters | grep -q subtitles
+          test -n "$(fc-list :lang=zh | head -1)"
+      - name: Install media libraries
+        run: python3 -m pip install --user --break-system-packages --disable-pip-version-check av numpy
+      - name: Test plan and require reviewed footage and 30 voice tracks
+        run: |
+          set -euo pipefail
+          python3 -m unittest production.tests.test_nowon2021 -v
+          python3 production/nowon2021/render.py --plan-only
+      - name: Assemble subtitled 1080p film without BGM
+        run: python3 -u production/nowon2021/render.py
+      - name: Preserve first cut and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nowon2021-first-cut-${{ github.run_number }}
+          path: work/nowon2021/delivery/
+          if-no-files-found: warn
+          retention-days: 30
+          compression-level: 0
