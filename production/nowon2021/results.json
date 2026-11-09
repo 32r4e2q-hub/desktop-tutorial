@@ -280,7 +280,7 @@
     },
     "SH05": {
       "id": "SH05",
-      "status": "creating",
+      "status": "queued",
       "request_hash": "614dcf3e467e8dbe9439c385429a0c6b70f9e233eb61494d9b0bebe8fb88205c",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -297,7 +297,13 @@
         ]
       },
       "create_attempts": 1,
-      "updated_at": "2026-11-09T06:52:35Z"
+      "updated_at": "2026-11-09T06:52:37Z",
+      "video_id": "task_wOxAywCaEhhdyypmdnCY5f46pkDVGk0z",
+      "task_id": "task_wOxAywCaEhhdyypmdnCY5f46pkDVGk0z",
+      "requested_seconds": 7,
+      "created_at": "2026-11-09T06:52:37Z",
+      "error": null,
+      "next_poll_epoch": 1794207247.455498
     },
     "SH06": {
       "id": "SH06",
@@ -2653,10 +2659,10 @@
   },
   "status_counts": {
     "completed": 27,
-    "creating": 1,
+    "queued": 1,
     "?": 2
   },
-  "updated_at": "2026-11-09T06:52:35Z",
+  "updated_at": "2026-11-09T06:52:37Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
