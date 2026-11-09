@@ -1873,7 +1873,7 @@
     },
     "SH29": {
       "id": "SH29",
-      "status": "creating",
+      "status": "queued",
       "request_hash": "13835d29ac81e5424f54db2f7bf366055a74b583e8fb8e05d589d0e976a6c6bf",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -1890,9 +1890,14 @@
         ]
       },
       "create_attempts": 2,
-      "updated_at": "2026-11-09T08:09:02Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:13:50. (request id: 20261109080902556508715SrCmNddt) (code=rate_limit_exceeded)",
-      "cooldown_seconds": 289.0
+      "updated_at": "2026-11-09T08:14:04Z",
+      "error": null,
+      "cooldown_seconds": 289.0,
+      "video_id": "task_MTJAPOTYLhZK4tI4heuq1GiV0hymFD1u",
+      "task_id": "task_MTJAPOTYLhZK4tI4heuq1GiV0hymFD1u",
+      "requested_seconds": 7,
+      "created_at": "2026-11-09T08:14:04Z",
+      "next_poll_epoch": 1794212134.2021456
     },
     "SH30": {
       "id": "SH30",
@@ -3088,10 +3093,9 @@
   },
   "status_counts": {
     "completed": 28,
-    "queued": 1,
-    "creating": 1
+    "queued": 2
   },
-  "updated_at": "2026-11-09T08:13:53Z",
+  "updated_at": "2026-11-09T08:14:04Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
