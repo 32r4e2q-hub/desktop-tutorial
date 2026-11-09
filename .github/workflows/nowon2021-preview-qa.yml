@@ -24,9 +24,9 @@ jobs:
       - name: Restore watermarked review preview
         uses: actions/download-artifact@v4
         with:
-          run-id: 42578944427
+          run-id: 42585111419
           github-token: ${{ github.token }}
-          name: nowon2021-first-cut-2
+          name: nowon2021-first-cut-3
           path: work/nowon2021/review-preview
       - name: Extract preview samples
         run: |
