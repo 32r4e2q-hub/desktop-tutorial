@@ -30,7 +30,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: arena/ed1fa571-desktop-tutorial
-          fetch-depth: 0
+          fetch-depth: 1
+      - name: Fetch immutable approved reference commit
+        run: |
+          set -euo pipefail
+          rev="$(cat production/nowon2021/reference/revision.txt)"
+          [[ "$rev" =~ ^[0-9a-f]{40}$ ]]
+          git fetch --depth=1 origin "$rev"
       - name: Prepare media inspection dependencies
         run: python3 -m pip install --user --break-system-packages --disable-pip-version-check av pillow
       - name: Check approved references and offline tests
