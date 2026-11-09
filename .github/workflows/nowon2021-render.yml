@@ -55,6 +55,15 @@ jobs:
           pattern: nowon2021-agnes-*
           merge-multiple: true
           path: work/nowon2021/restored-artifacts/retakes
+      - name: Restore second retake artifact when available
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          run-id: 42575654551
+          github-token: ${{ github.token }}
+          pattern: nowon2021-agnes-*
+          merge-multiple: true
+          path: work/nowon2021/restored-artifacts/second-retakes
       - name: Verify restored files against current video receipts
         run: python3 production/nowon2021/restore_artifacts.py
       - name: Test plan and require reviewed footage and 30 voice tracks

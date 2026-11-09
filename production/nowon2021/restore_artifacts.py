@@ -40,5 +40,5 @@ def restore(results, source_dirs, dest):
 if __name__ == '__main__':
     results = json.loads((ROOT/'production/nowon2021/results.json').read_text(encoding='utf-8'))
     stage = ROOT/'work/nowon2021/restored-artifacts'
-    done, missing = restore(results, [stage/'original', stage/'retakes'], ROOT/'work/nowon2021/clips')
+    done, missing = restore(results, [stage/'original', stage/'retakes', stage/'second-retakes'], ROOT/'work/nowon2021/clips')
     print(f'Restored {len(done)} SHA-verified clips from Actions artifacts; {len(missing)} absent, rendering will try verified provider URL fallback: {missing}')

@@ -95,7 +95,7 @@ class TestNowonPlan(unittest.TestCase):
         render=load('render')
         doc=json.loads((ROOT/'story.json').read_text(encoding='utf-8'))
         clips={s['id']:{'file':'not-generated.mp3'} for s in doc['shots']}
-        with patch.object(render,'duration_audio',return_value=4.0), patch.object(render,'voice_activity',return_value=(0.2,3.7)):
+        with patch.object(render,'duration_audio',return_value=4.0), patch.object(render,'voice_activity',return_value=(0.2,3.7)), patch.object(render,'speech_pause_points',return_value=[2.0]):
             rows=render.speech_plan(doc,clips)
         self.assertEqual(len(rows),30)
         for shot,row in zip(doc['shots'],rows):
@@ -107,7 +107,13 @@ class TestNowonPlan(unittest.TestCase):
         self.assertIn('AI动画情景重现 · 非新闻影像',ass)
         self.assertIn('芦原区三母女案',ass)
         self.assertIn(r'\c&H0066D1FF&',ass)
-        self.assertEqual(srt.count(' --> '),30)
+        self.assertGreaterEqual(srt.count(' --> '),30)
+        self.assertIn('钟面时间为情景示意',ass)
+        for row in rows:
+            cues=render.subtitle_cues(row)
+            self.assertEqual(''.join(t for _,_,t in cues),row['text'])
+            self.assertTrue(all(row['caption_start']<=a<b<=row['caption_end'] for a,b,_ in cues))
+            self.assertTrue(all(cues[j][1]<=cues[j+1][0]+1e-9 for j in range(len(cues)-1)))
 
     def test_render_rejects_overlong_voice(self):
         render=load('render')

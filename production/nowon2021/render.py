@@ -70,6 +70,23 @@ def voice_activity(path,duration):
     return max(0.0,lead),min(duration,tail)
 
 
+def speech_pause_points(path,lead,tail):
+    """Estimate internal pause midpoints; these are not word-level alignment."""
+    proc=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',str(path),'-af',
+                         'silencedetect=noise=-40dB:d=0.10','-f','null','-'],
+                        text=True,capture_output=True,check=True)
+    pauses=[];start=None
+    for line in proc.stderr.splitlines():
+        a=re.search(r'silence_start:\s*(-?[\d.]+)',line)
+        b=re.search(r'silence_end:\s*(-?[\d.]+)',line)
+        if a: start=max(0.0,float(a.group(1)))
+        if b and start is not None:
+            end=float(b.group(1));mid=(start+end)/2
+            if lead+.12 < mid < tail-.12: pauses.append(mid)
+            start=None
+    return pauses
+
+
 def srt_time(seconds):
     ms=max(0,round(seconds*1000));h,rem=divmod(ms,3600000);m,rem=divmod(rem,60000);s,ms=divmod(rem,1000)
     return f'{h:02d}:{m:02d}:{s:02d},{ms:03d}'
@@ -133,23 +150,44 @@ def speech_plan(story,clips):
         if window<=0: raise RuntimeError(f'{sid}: no time for voice')
         tempo=max(1.0,raw/window)
         if tempo>1.12: raise RuntimeError(f'{sid}: narration requires {tempo:.2f}x; rewrite/re-record instead')
+        pauses=speech_pause_points(path,lead,tail)
         end=start+raw/tempo
         caption_start=start+lead/tempo;caption_end=start+tail/tempo
         if caption_end>limit+0.001: raise RuntimeError(f'{sid}: narration overruns the shot')
         rows.append(dict(id=sid,file=str(path),start=start,end=end,tempo=tempo,
                          caption_start=caption_start,caption_end=caption_end,
+                         pauses=[start+p/tempo for p in pauses],
                          text=shot['narration'],keywords=shot.get('highlight_keywords',[])))
     return rows
+
+
+def subtitle_cues(row):
+    """Split phrases and align to detected pauses when possible; manual review remains mandatory."""
+    text=row['text'];start=row['caption_start'];end=row['caption_end']
+    parts=re.findall(r'[^，,。！？!?；;：:]+[，,。！？!?；;：:]?',text)
+    if not parts or ''.join(parts)!=text: parts=[text]
+    weights=[max(1,len(re.sub(r'[，,。！？!?；;：:\s]','',p))) for p in parts]
+    total=sum(weights);boundaries=[start];cumulative=0
+    for i,weight in enumerate(weights[:-1]):
+        cumulative+=weight
+        target=start+(end-start)*cumulative/total
+        low=boundaries[-1]+.12;high=end-.12*(len(parts)-i-1)
+        if high<low: return [(start,end,text)]
+        candidates=[p for p in row.get('pauses',[]) if low<=p<=high and abs(p-target)<=.45]
+        boundaries.append(min(candidates,key=lambda p:abs(p-target)) if candidates else max(low,min(high,target)))
+    boundaries.append(end)
+    return [(boundaries[i],boundaries[i+1],p) for i,p in enumerate(parts)]
 
 
 def subtitles(rows):
     header='''[Script Info]\nScriptType: v4.00+\nWrapStyle: 2\nScaledBorderAndShadow: yes\nPlayResX: 1920\nPlayResY: 1080\n\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,Noto Sans CJK SC,46,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,3,1,2,120,120,96,1\nStyle: Label,Noto Sans CJK SC,25,&H00E5E5E5,&H000000FF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,2,0,7,52,52,35,1\nStyle: Title,Noto Sans CJK SC,76,&H0066D1FF,&H000000FF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,3,1,5,120,120,0,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n'''
     ass=[f'Dialogue: 0,{ass_time(0)},{ass_time(180)},Label,,0,0,0,,AI动画情景重现 · 非新闻影像']
+    ass.append(r'Dialogue: 0,0:01:48.00,0:01:54.00,Label,,0,0,0,,{\pos(52,70)}钟面时间为情景示意')
     srt=[]
-    for i,r in enumerate(rows,1):
-        a,b=r['caption_start'],r['caption_end']
-        ass.append(f"Dialogue: 1,{ass_time(a)},{ass_time(b)},Default,,0,0,0,,{highlight(r['text'],r['keywords'])}")
-        srt.append(f"{i}\n{srt_time(a)} --> {srt_time(b)}\n{r['text']}\n")
+    for r in rows:
+        for a,b,text in subtitle_cues(r):
+            ass.append(f"Dialogue: 1,{ass_time(a)},{ass_time(b)},Default,,0,0,0,,{highlight(text,r['keywords'])}")
+            srt.append(f"{len(srt)+1}\n{srt_time(a)} --> {srt_time(b)}\n{text}\n")
     ass.append(r'Dialogue: 2,0:02:54.30,0:02:59.00,Title,,0,0,0,,{\fad(300,300)}芦原区三母女案\N{\fs40}首尔 · 2021 · 一次门铃')
     return header+'\n'.join(ass)+'\n','\n'.join(srt)+'\n'
 
