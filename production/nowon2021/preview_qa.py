@@ -3,7 +3,7 @@
 
 These contact sheets are screening aids, not evidence of full playback or approval.
 """
-import hashlib, json, subprocess, tempfile
+import array, hashlib, json, math, shutil, subprocess, tempfile
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -33,6 +33,17 @@ def main():
                 canvas.paste(tile,(x,y));draw.rectangle((x,y,x+76,y+21),fill=(0,0,0));draw.text((x+4,y+3),f"{shot['id']} {second}s",fill=(255,255,255))
             canvas.save(OUT/f"{shot['id']}.jpg",quality=86,optimize=True)
     report={'preview_sha256':h.hexdigest(),'source':'watermarked review preview, not final film','samples_per_second':1,'shot_count':len(story['shots']),'status':'unreviewed contact sheets, not approval'}
+    probe=json.loads(subprocess.run(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(video)],check=True,stdout=subprocess.PIPE).stdout)
+    raw=subprocess.run(['ffmpeg','-v','error','-ss','179','-i',str(video),'-t','1','-map','0:a:0','-f','f32le','-acodec','pcm_f32le','-ac','2','-ar','48000','pipe:1'],check=True,stdout=subprocess.PIPE).stdout
+    samples=array.array('f');samples.frombytes(raw)
+    if len(samples)!=96000: raise RuntimeError(f'final second has {len(samples)} samples, expected 96000')
+    report['encoded_last_second_peak']=max(map(abs,samples))
+    report['encoded_last_second_rms']=math.sqrt(sum(x*x for x in samples)/len(samples))
+    report['ffprobe']=probe
+    for name in ('render_report.json','captions.ass','captions.srt','封面_预览.png'):
+        source=video.parent/name
+        if not source.is_file(): raise RuntimeError(f'missing {name}')
+        shutil.copy2(source,OUT/name)
     (OUT/'manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False))
 
