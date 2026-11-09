@@ -17,7 +17,7 @@ def make_cover(video, output, font_path=None):
     output.parent.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory() as folder:
         frame=Path(folder)/'final-film-frame.png'
-        subprocess.run(['ffmpeg','-v','error','-y','-ss','2.5','-i',str(video),'-frames:v','1',str(frame)],check=True)
+        subprocess.run(['ffmpeg','-v','error','-y','-ss','0.25','-i',str(video),'-frames:v','1',str(frame)],check=True)
         image=Image.open(frame).convert('RGB')
         if image.size != (1920,1080): raise RuntimeError(f'expected final film 1920x1080, got {image.size}')
         overlay=Image.new('RGBA', image.size, (0,0,0,0));draw=ImageDraw.Draw(overlay)

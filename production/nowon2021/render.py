@@ -147,7 +147,7 @@ def speech_plan(story,clips):
         raw=duration_audio(path);lead,tail=voice_activity(path,raw)
         # Leave a brief leading and trailing buffer and the requested final second of silence.
         start=shot['start']+0.12
-        limit=min(shot['end']-0.10,178.85)
+        limit=min(shot['end']-0.10,178.65)
         window=limit-start
         if window<=0: raise RuntimeError(f'{sid}: no time for voice')
         tempo=max(1.0,raw/window)
@@ -257,7 +257,10 @@ def make_foley(path,story):
         if sid in {'SH16','SH19','SH21'}: event(start+.4,min(2.0,duration-.5),.002,'hum',110)
         if sid=='SH25': event(start+.3,2.1,.005,'siren',650)
         if sid=='SH28': event(start+.4,2.8,.001,'swish')
-    mono[-RATE:]=0
+    # Fade ambience before encoding; AAC can otherwise smear audio into the final second.
+    fade_start=round(178.55*RATE); fade_end=round(178.75*RATE)
+    mono[fade_start:fade_end] *= np.linspace(1,0,fade_end-fade_start,dtype='float32')
+    mono[fade_end:]=0
     stereo=np.column_stack((mono,mono*.95))
     with wave.open(str(path),'wb') as out:
         out.setnchannels(2);out.setsampwidth(2);out.setframerate(RATE)
@@ -272,7 +275,7 @@ def mix_voice(rows,foley,mix):
         delay=round(row['start']*1000)
         filters.append(f'[{i}:a]aresample=48000,atempo={row["tempo"]:.8f},adelay={delay}|{delay}[a{i}]')
     ins=''.join(f'[a{i}]' for i in range(len(rows)+1))
-    filters.append(f'{ins}amix=inputs={len(rows)+1}:duration=first:normalize=0,alimiter=limit=0.84,atrim=0:179,apad=pad_dur=1,atrim=0:180[a]')
+    filters.append(f'{ins}amix=inputs={len(rows)+1}:duration=first:normalize=0,alimiter=limit=0.84,atrim=0:178.75,apad=pad_dur=1.25,atrim=0:180[a]')
     cmd+=['-filter_complex',';'.join(filters),'-map','[a]','-ar',str(RATE),'-ac','2','-c:a','pcm_s16le',mix]
     run(cmd)
 
@@ -343,9 +346,17 @@ def main():
     if (info['width']!=1920 or info['height']!=1080 or abs(info['duration']-180)>.08
         or info['fps']!=FPS or info['frames']!=FPS*DURATION or info['audio_rate']!=RATE or info['audio_channels']!=2):
         raise RuntimeError(f'final spec mismatch: {info}')
+    # Verify the *encoded* file, not just the pre-encode PCM: lossy codec overlap
+    # can otherwise leak low-level sound into the required final silent second.
+    import numpy as np
+    decoded=subprocess.run(['ffmpeg','-v','error','-ss','179','-i',str(final),'-t','1','-map','0:a:0','-f','f32le','-acodec','pcm_f32le','-ar',str(RATE),'-ac','2','pipe:1'],check=True,stdout=subprocess.PIPE).stdout
+    last=np.frombuffer(decoded,dtype='<f4')
+    if last.size!=RATE*2 or float(np.max(np.abs(last)))>1e-12:
+        raise RuntimeError('encoded final second is not exactly silent')
+    mix_report['encoded_last_second_peak']=float(np.max(np.abs(last)))
     from cover import make_cover
     cover=make_cover(final,out/('封面_预览.png' if args.draft else '封面.png'))
-    report={'draft':args.draft,'visual_review_pending':[s['id'] for s in story['shots'] if results['shots'][s['id']].get('visual_review')!='passed'],'cover':str(cover),'cover_source':'本片初剪 2.5 秒实际帧，叠加封面文案；须人工复核。','note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
+    report={'draft':args.draft,'visual_review_pending':[s['id'] for s in story['shots'] if results['shots'][s['id']].get('visual_review')!='passed'],'cover':str(cover),'cover_source':'本片初剪 0.25 秒实际帧，叠加封面文案；须人工复核。','note':'待人工画面/字幕/听觉复审的初剪；不是历史影像。','film':str(final),'video':info,'shots':30,'voiceovers':30,'audio':'无BGM，仅旁白与合成音效','audio_mix':mix_report,'voice_windows':rows,'sources':{s['id']:results['shots'][s['id']]['sha256'] for s in story['shots']}}
     (out/'render_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'film':str(final),'video':info},ensure_ascii=False));return 0
 
