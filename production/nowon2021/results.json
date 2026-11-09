@@ -280,7 +280,7 @@
     },
     "SH05": {
       "id": "SH05",
-      "status": "queued",
+      "status": "in_progress",
       "request_hash": "34658d9d5399ecea5f2163afe7ee18d1eab61a97164c3e17e007c342e0c3c6aa",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -297,13 +297,15 @@
         ]
       },
       "create_attempts": 1,
-      "updated_at": "2026-11-09T05:10:23Z",
+      "updated_at": "2026-11-09T05:15:25Z",
       "video_id": "task_XyyesmltYoF6L5aFgr7FxUOSHKTeFeZA",
       "task_id": "task_XyyesmltYoF6L5aFgr7FxUOSHKTeFeZA",
       "requested_seconds": 7,
       "created_at": "2026-11-09T05:10:23Z",
       "error": null,
-      "next_poll_epoch": 1794201113.889861
+      "next_poll_epoch": 1794201385.0500948,
+      "progress": 10,
+      "poll_failures": 0
     },
     "SH06": {
       "id": "SH06",
@@ -443,7 +445,7 @@
     },
     "SH08": {
       "id": "SH08",
-      "status": "creating",
+      "status": "queued",
       "request_hash": "ded1d845a7e5f8c7734d856f5809b1f7d48a77c55733adeb098619362cc6c98c",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
@@ -459,9 +461,14 @@
         ]
       },
       "create_attempts": 2,
-      "updated_at": "2026-11-09T05:10:36Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 05:15:23. (request id: 20261109051036373152585Lo6lfmjZ) (code=rate_limit_exceeded)",
-      "cooldown_seconds": 288.0
+      "updated_at": "2026-11-09T05:15:37Z",
+      "error": null,
+      "cooldown_seconds": 288.0,
+      "video_id": "task_Ty08BakJ8fCIk5zVhpES6dgOSgTdQV7c",
+      "task_id": "task_Ty08BakJ8fCIk5zVhpES6dgOSgTdQV7c",
+      "requested_seconds": 8,
+      "created_at": "2026-11-09T05:15:37Z",
+      "next_poll_epoch": 1794201427.0170941
     },
     "SH09": {
       "id": "SH09",
@@ -2278,11 +2285,11 @@
   },
   "status_counts": {
     "completed": 24,
+    "in_progress": 1,
     "queued": 1,
-    "creating": 1,
     "?": 4
   },
-  "updated_at": "2026-11-09T05:10:36Z",
+  "updated_at": "2026-11-09T05:15:37Z",
   "pending_shots": [],
   "stop_reason": null,
   "completed_count": 30,
