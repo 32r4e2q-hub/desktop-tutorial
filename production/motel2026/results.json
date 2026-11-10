@@ -76,11 +76,13 @@
     "S04": {
       "id": "S04",
       "request_hash": "f82af5d7ac48783122b46c4eb2a9d01cc837b9f55fb273c12b6d795be75000c2",
-      "status": "waiting_create_slot",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-10T11:19:38Z",
-      "error": null,
-      "create_attempts": 1
+      "updated_at": "2026-11-10T11:19:51Z",
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 11:24:39. (request id: 20261110111951130774259lFepuXLF) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 289.0
     },
     "S05": {
       "id": "S05",
@@ -831,7 +833,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-10T11:19:39Z",
+  "updated_at": "2026-11-10T11:19:51Z",
   "run_id": "42806143552",
   "previous_results": {
     "S04": [
@@ -1631,5 +1633,13 @@
       }
     }
   },
-  "film_name": "汽车旅馆连环命案_人物关系与动机修订版_三分钟_带声音.mp4"
+  "film_name": "汽车旅馆连环命案_人物关系与动机修订版_三分钟_带声音.mp4",
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 11:24:39. (request id: 20261110111951130774259lFepuXLF) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 289.0,
+    "last_seen": "2026-11-10T11:19:51Z"
+  }
 }
