@@ -914,7 +914,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1468,5 +1468,43 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/motel2026/clips/汽车旅馆连环命案_AI警告过她_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/motel2026/clips/汽车旅馆连环命案_封面.jpg",
+    "delivered": {
+      "汽车旅馆连环命案_AI警告过她_三分钟_带声音.mp4": {
+        "bytes": 48730466,
+        "sha256": "b7bccadf407612b9a65fe393d073cb9d82c337427716bced234fc721b890bffa"
+      },
+      "汽车旅馆连环命案_封面.jpg": {
+        "bytes": 380717,
+        "sha256": "a6ed6516e353bbd2483f09261b244310d89e196ba82471604f4e09db4844f0a5"
+      },
+      "汽车旅馆连环命案_字幕.srt": {
+        "bytes": 3006,
+        "sha256": "07993023d7169eb7d7759a2c484f819bd9f53bda8caeac0a5384abd043c0ad8f"
+      },
+      "汽车旅馆连环命案_技术报告.json": {
+        "bytes": 37365,
+        "sha256": "43480aa3f4a70157e12f87046e1788aaecbdcf830c463ca61ef42078f41cddf4"
+      },
+      "Motel_Case_Final.mp4": {
+        "bytes": 48730466,
+        "sha256": "b7bccadf407612b9a65fe393d073cb9d82c337427716bced234fc721b890bffa"
+      },
+      "Motel_Cover.png": {
+        "bytes": 899415,
+        "sha256": "e4dcb27dd5bc1a893e18bb10c1cde3b845148c6513c0ae4346176a4f09413ed9"
+      },
+      "Motel_Subtitles.srt": {
+        "bytes": 3006,
+        "sha256": "07993023d7169eb7d7759a2c484f819bd9f53bda8caeac0a5384abd043c0ad8f"
+      }
+    }
   }
 }
