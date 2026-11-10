@@ -173,14 +173,14 @@ SHOT_ROWS = [
      "table lamp still glows; the woman stands beside him with a calm expression, lowers "
      "her head and picks up her phone. Camera: low angle with a slow push-in. Real motion: "
      "lamp glow breathing, curtain moving, the woman shifting weight and lifting the phone, "
-     "breathing. Restrained, no violence shown, no readable text."),
+     "breathing. Restrained, no violence shown, no readable text; any background lights are heavily blurred abstract glows with no letters."),
 
     ("S05", 24, 6, "长走廊，缓慢推近", ["kim"], "real",
      "A hospital emergency corridor under cold white light: a stretcher trolley rushes past "
      "in the foreground, an emergency room door opens and closes; the woman sits alone on a "
      "long bench, head lowered over her phone, cold screen light on her face, no visible "
      "grief. Camera: slow push along the long corridor. Real motion: trolley wheels, door "
-     "moving, footsteps, blinking, breathing. No readable text, no signage letters."),
+     "moving, footsteps, blinking, breathing. Interior corridor only, no street, no storefronts; no readable text, no signage letters, no Korean characters."),
 
     ("S06", 30, 5, "大特写", ["kim"], "diagram",
      "Abstract smartphone screen in darkness: soft chat lines and bubbles with no readable "
@@ -219,29 +219,27 @@ SHOT_ROWS = [
      "alone, pulls up her hood, walks at an unhurried pace and disappears into the wet "
      "street; neon reflections break into pieces on the ground. Camera: low tracking shot "
      "from behind. Real motion: curtain lifting, walking, hood settling, puddle ripples, "
-     "neon shimmering. No readable text."),
+     "neon shimmering. All signs are heavily blurred abstract glowing shapes with no letters, no Korean characters, no text."),
 
     ("S11", 60, 7, "中景，手持", ["cleaner"], "real",
      "The next day, a motel corridor: a cleaner pushes a small cart, knocks on a door with "
      "no answer, opens it with a master card, freezes in the doorway as a towel slips from "
      "her hand, then turns and runs; the picture cuts to black before any interior is "
      "shown. Camera: handheld medium shot. Real motion: cart rolling, knocking, towel "
-     "falling, turning and running. No interior, no readable text."),
+     "falling, turning and running. Interior corridor only, no exterior, no neon signs; no interior shown, no readable text, no Korean characters."),
 
     ("S12", 67, 7, "广角，缓慢推近", ["detective"], "real",
      "Police lights flash at a motel entrance at night: officers stretch a yellow cordon "
      "tape, passers-by stop and watch, a detective in a dark jacket walks into the motel; "
      "the scene stays restrained and procedural. Camera: wide shot with a slow push-in. "
-     "Real motion: flashing lights, tape sagging, walking, coat movement. No readable "
-     "text, no insignia numbers."),
+     "Real motion: flashing lights, tape sagging, walking, coat movement. All signs are heavily blurred abstract glows with no letters, no Korean characters; no readable text, no insignia numbers."),
 
     ("S13", 74, 6, "同S07构图，缓慢推近", ["kim", "victimB"], "real",
      "9 February at night, another motel on the same street: purple-red neon flickers, a "
      "man and a woman walk in side by side in almost the same composition as an earlier "
      "night, but light rain falls and the man's clothing is different; the repetition "
      "feels uneasy. Camera: same composition as the earlier entrance, slow push-in. Real "
-     "motion: rain falling, curtain parting, walking, neon flickering. No clear faces of "
-     "the man, no readable text."),
+     "motion: rain falling, curtain parting, walking, neon flickering. All signs are heavily blurred abstract glowing shapes with no letters, no Korean characters, no subtitles, no captions; no clear faces of the man, no readable text."),
 
     ("S14", 80, 5, "中景，慢动作", ["kim", "detective"], "real",
      "11 February at dawn, below an apartment block in morning mist: plain-clothes "
@@ -255,7 +253,7 @@ SHOT_ROWS = [
      "at a metal table facing two detectives, her lips move as if saying she only wanted "
      "him to sleep, the detectives stay expressionless, a paper file rests on the table. "
      "Camera: over-the-shoulder with a slow push-in. Real motion: lips moving, blinking, "
-     "breathing, paper edge lifting. No readable text, no names."),
+     "breathing, paper edge lifting. Interrogation room only, no street, no storefronts; no readable text, no names, no Korean characters."),
 
     ("S16", 91, 6, "手持，长焦", ["kim"], "real",
      "Early morning outside Seoul Northern District Court: the woman is led from a police "
@@ -282,7 +280,7 @@ SHOT_ROWS = [
      "on the table, a hand pauses above a glass rim and withdraws; only fine bubbles "
      "rising in the glass and a streak of cold light are visible, nothing else on the "
      "table. Camera: close-up with a slow push-in. Real motion: hand hovering, bubbles "
-     "rising, lamp glow breathing, dust in the light. No medicine, no readable text."),
+     "rising, lamp glow breathing, dust in the light. Kitchen interior only, no street, no storefronts, no vehicles; no medicine, no readable text, no Korean characters."),
 
     ("S20", 114, 6, "中景，缓慢推近屏幕", [], "real",
      "A white laboratory at the National Forensic Service: instrument lights blink, a "
