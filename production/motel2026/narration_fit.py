@@ -72,9 +72,17 @@ def measure(audio_dir: Path, scratch: Path) -> dict:
         record = records.get(sid)
         if record is None:
             raise SystemExit(f"缺少旁白清单条目：{sid}")
+        expected_text_sha = __import__("hashlib").sha256(shot["narration"].encode("utf-8")).hexdigest()
+        if (record.get("text_sha256") != expected_text_sha
+                or record.get("audio_text_sha256") != expected_text_sha
+                or not record.get("sha256")):
+            raise SystemExit(f"旁白尚未按当前解说词重生成：{sid}")
         source = audio_dir / record["file"]
         if not source.is_file():
             raise SystemExit(f"缺少旁白文件：{source}")
+        digest = __import__("hashlib").sha256(source.read_bytes()).hexdigest()
+        if digest != record.get("sha256"):
+            raise SystemExit(f"旁白 SHA-256 不匹配：{sid}")
         samples = ba.decode_mp3(source, scratch / f"{sid}.wav", 1.0)
         trimmed, onset, offset = ba.trim_voice_edges(samples)
         natural = len(trimmed) / ba.RATE

@@ -148,8 +148,14 @@ def build_narration(story: dict, audio_dir: Path, work_dir: Path) -> tuple[np.nd
                 or record.get("alignment") != "shot-locked"):
             raise ValueError("Shot-locked narration text/voice/timing mismatch: " + sid)
         source = audio_dir / record["file"]
+        expected_text_sha = __import__("hashlib").sha256(shot["narration"].encode("utf-8")).hexdigest()
+        if (record.get("text_sha256") != expected_text_sha
+                or record.get("audio_text_sha256") != expected_text_sha):
+            raise ValueError("Narration audio was not regenerated for current text: " + sid)
+        if not source.is_file():
+            raise ValueError("Missing narration audio file: " + sid)
         digest = __import__("hashlib").sha256(source.read_bytes()).hexdigest()
-        if record.get("sha256") != digest:
+        if not record.get("sha256") or record.get("sha256") != digest:
             raise ValueError("Narration SHA-256 mismatch: " + sid)
 
         shot_start = float(shot["start"])

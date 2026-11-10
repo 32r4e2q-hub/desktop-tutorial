@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""唯一内容源：《汽车旅馆连环命案：AI警告过她》
+"""唯一内容源：《汽车旅馆连环命案：金素英为什么带他们去旅馆？》
 
 运行 ``python3 production/motel2026/build_story.py`` 会写出 story.json、screenplay.md、
 audio/manifest.json、抖音脚本.md 与抖音发布文案.md。30 个镜头全部是 Agnes Video 2.5 Flash
 （720P 源片，后期放大到 1920×1080 · 24fps）生成的连续运动片段；旁白一镜一句，字幕与配音同起止。
 
-事实口径（按用户脚本）：案件一审已判，双方均已上诉；嫌疑人称“金某”；法院认定写“法院认为”；
-检方口径写“检方要求”。片中不出现药物名称、药片、剂量、调配细节，不出现遗体、血腥；
-受害者只以背影、剪影与白菊花出现；手机界面一律抽象线条，不出现可读文字。
+事实口径（已按公开检方、法院与主流媒体资料核验至 2026-11-10）：被告金素英的姓名、年龄与照片已由
+首尔北部地方检察厅依法公开；一审已判、控辩双方均已上诉。片中对侦查、检方与一审法院的判断均保留
+“警方认为”“检方认为”“一审法院认为”的归属，不把被告辩解或网络猜测剪成事实。片中不出现药物名称、
+药片、剂量、调配细节，不出现遗体、血腥；受害者只以背影、剪影与白菊花出现；手机界面一律抽象线条，
+不出现可读文字。
 """
 from __future__ import annotations
 
@@ -17,10 +19,13 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 AUDIO = HERE / "audio"
-TITLE = "汽车旅馆连环命案：AI警告过她"
-FILM_NAME = "汽车旅馆连环命案_AI警告过她_三分钟_带声音.mp4"
+TITLE = "汽车旅馆连环命案：金素英为什么带他们去旅馆？"
+# 修订版绝不覆盖已交付的旧叙事成片和其配套文件。
+FILM_NAME = "汽车旅馆连环命案_人物关系与动机修订版_三分钟_带声音.mp4"
+DELIVERY_BASENAME = "Motel_Case_Revised_V2"
 BRANCH = "arena/4d042fa6-desktop-tutorial"
 FPS = 24
+REVISION_FILE = HERE / "revised-narration-v2.json"
 
 # ---------------------------------------------------------------- 全局 STYLE / NEGATIVE
 STYLE_PREFIX = (
@@ -165,28 +170,26 @@ SHOT_ROWS = [
      "extreme close-up with a slow push-in. Real motion: icon pulsing, fingertip sliding, "
      "blinking, breathing. No readable text, no letters, no numbers."),
 
-    ("S03", 10, 7, "中景，缓慢推近杯子", ["kim", "boyfriend"], "real",
-     "December 2025, a small apartment in Gangbuk-gu at night: a young couple sit at a "
-     "small dining table talking, two clean glass cups on the table, warm lamplight, night "
-     "city outside the window; the woman smiles and hands over a glass, the camera settles "
-     "on fine bubbles rising in the glass. Camera: medium shot with a slow push toward the "
-     "glass. Real motion: talking, smiling, hand passing the glass, bubbles rising, "
-     "breathing. No medicine, no readable text."),
+    ("S03", 10, 7, "中景，缓慢推近", ["kim", "boyfriend"], "real",
+     "Strict visual priority: a photorealistic Korean crime-thriller 3D reenactment with "
+     "normal-proportioned adult people and physically based winter pavement, fabric and glass, "
+     "never cartoon or illustrated. 14 December 2025, outside an unmarked cafe in Namyangju at "
+     "night: a young adult couple walks slowly through a quiet wet parking area toward a compact "
+     "car, both seen in three-quarter back view. The woman offers an ordinary sealed takeaway cup; "
+     "the man accepts it casually. Keep the cafe facade blurred and completely unmarked, with no "
+     "legible signage. Camera: medium shot with a slow push toward the passing hands. Real motion: "
+     "walking, breath vapour, wet reflections trembling, cup changing hands, coat fabric moving. "
+     "No medicine, no danger depiction, no readable text, no letters, no numbers."),
 
     ("S04", 17, 7, "低机位，缓慢推近", ["kim"], "real",
-     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered "
-     "with physically based materials and the visual realism of a serious live-action film; "
-     "every person is a normal-proportioned full-size adult with natural skin, hair, fabric "
-     "and believable anatomy, never cute, doll-like, childlike or illustrated. The same "
-     "apartment is quiet and still: at floor level, the camera looks past a clean glass rolled "
-     "onto the carpet and the rear shoulder of an adult man resting beyond the sofa arm; he is "
-     "seen only as an opaque side-and-back silhouette with his face completely invisible. A "
-     "table lamp still glows. Kim, also turned three-quarter away from camera, is a realistic "
-     "adult silhouette in a grey jacket; she calmly lowers her head, reaches down and picks up "
-     "her phone. Camera: low angle with a slow push-in. Real motion: lamp glow breathing, "
-     "curtain moving, Kim shifting weight and lifting the phone, subtle breathing. Restrained "
-     "and procedural, no violence shown, no readable text; background lights are only soft "
-     "abstract glows with no letters, logos or glyphs."),
+     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with "
+     "physically based wet asphalt, glass and fabric, never cartoon, toy-like or illustrated. "
+     "The same unmarked Namyangju cafe parking area later that winter night: cool ambulance light "
+     "reflections sweep across rain-dark pavement while an empty wheeled chair passes behind frosted "
+     "glass in the background. Kim stands at a distance in three-quarter back view, looking down at "
+     "her phone without dramatics. No person is shown injured, unconscious, restrained or on a bed. "
+     "Camera: low angle with a slow push-in. Real motion: reflected light sweeping, raindrops falling, "
+     "chair wheels passing, Kim shifting weight, breath vapour drifting. No readable text or signage."),
 
     ("S05", 24, 6, "长走廊，缓慢推近", ["kim"], "real",
      "A hospital emergency corridor under cold white light: a stretcher trolley rushes past "
@@ -248,12 +251,15 @@ SHOT_ROWS = [
      "Absolutely no writing in any language: no letters, numbers, logos, Korean Hangul, "
      "glyph-like shapes, subtitles or captions anywhere in frame."),
 
-    ("S11", 60, 7, "中景，手持", ["cleaner"], "real",
-     "The next day, a motel corridor: a cleaner pushes a small cart, knocks on a door with "
-     "no answer, opens it with a master card, freezes in the doorway as a towel slips from "
-     "her hand, then turns and runs; the picture cuts to black before any interior is "
-     "shown. Camera: handheld medium shot. Real motion: cart rolling, knocking, towel "
-     "falling, turning and running. Interior corridor only, no exterior, no neon signs; no interior shown, no readable text, no Korean characters."),
+    ("S11", 60, 7, "中景，手持", ["kim", "victimB"], "real",
+     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with natural adult "
+     "proportions, rain-wet concrete and fabric, never cartoon or illustrated. 9 February at night: "
+     "inside a different completely unmarked motel vestibule in Gangbuk-gu, Kim and another young "
+     "adult man walk through a plain fabric curtain side by side. He is seen only from behind and in "
+     "three-quarter back view; no face is visible. A blank key card passes at an unlabelled frosted "
+     "front desk. Camera: handheld medium shot with a restrained slow approach. Real motion: curtain "
+     "parting, adults walking, card passing, rain glimmering beyond the door, fabric moving. No harm, "
+     "no readable text, no numbers, no signage, no Korean characters."),
 
     ("S12", 67, 7, "广角，缓慢推近", ["detective"], "real",
      "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with "
@@ -269,21 +275,15 @@ SHOT_ROWS = [
      "not a sign. Absolutely no readable writing of any kind: no letters, numbers, logos, "
      "Korean Hangul, glyphs or insignia numbers."),
 
-    ("S13", 74, 6, "同S07构图，缓慢推近", ["kim", "victimB"], "real",
-     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered "
-     "with serious live-action-film realism, physically based rain, fabric, concrete and skin; "
-     "the two people have normal full-size adult anatomy, never cute, toy-like, doll-like, "
-     "chibi or illustrated. 9 February at night: repeat the spacing and slow push-in feeling "
-     "of the earlier entrance scene inside a closed-in, completely unmarked motel vestibule. "
-     "A plain fabric curtain parts and Kim and a man in different clothing walk in side by side; "
-     "both are filmed from behind in dark three-quarter silhouettes with faces never visible. "
-     "Light rain falls beyond the doorway. The camera crops above the door lintel and excludes "
-     "the street, storefronts, all signboards and every illuminated text panel. Purple-red "
-     "colour is only a soft reflected glow on wet ground and blank walls, never a neon sign. "
-     "Camera: same composition as the earlier entrance, slow push-in. Real motion: rain falling, "
-     "curtain parting, adult walking, fabric moving and reflected light flickering. Absolutely "
-     "no readable text, Korean Hangul, letters, numbers, logos, subtitles, captions or "
-     "glyph-like shapes."),
+    ("S13", 74, 6, "中景，缓慢环绕", ["kim", "victimB"], "real",
+     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with serious "
+     "live-action-film realism and normal full-size adults, never cute, doll-like, chibi or "
+     "illustrated. In a modest Seoul restaurant with no readable menus or brand marks, Kim sits "
+     "opposite a young man filmed only from behind. A server leaves a plain unmarked card tray near "
+     "his side of the table; Kim watches quietly while he reaches toward it. The scene remains an "
+     "ordinary short date, not a romance montage and not a transaction demonstration. Camera: medium "
+     "shot with a slow restrained orbit. Real motion: hands settling, steam rising, chairs shifting, "
+     "eyes blinking. No readable text, no receipt details, no logos, no harm."),
 
     ("S14", 80, 5, "中景，慢动作", ["kim", "detective"], "real",
      "11 February at dawn, below an apartment block in morning mist: plain-clothes "
@@ -305,12 +305,13 @@ SHOT_ROWS = [
      "form a ring around her. Camera: handheld long-lens shot. Real motion: walking, "
      "flashes firing, hair moving, crowd shifting. No readable text, no logos."),
 
-    ("S17", 97, 6, "近景，缓慢推近", ["forensic"], "real",
-     "A digital forensics laboratory under blue screen light: a young forensic specialist "
-     "with glasses connects a smartphone to a device, rows of abstract chat blocks scroll "
-     "on the monitor, he stops his finger, looks up, eyes widening. Camera: close shot "
-     "with a slow push-in. Real motion: cable connecting, blocks scrolling, finger "
-     "stopping, head lifting. No readable text, no letters, no numbers."),
+    ("S17", 97, 6, "近景，缓慢推近", ["kim", "detective"], "real",
+     "A cold-grey police interview room under flat winter light: Kim sits at one side of a metal "
+     "table, a detective sits opposite, both shown in restrained three-quarter profile rather than "
+     "clear portrait. Kim makes a small defensive hand gesture and then folds her hands; the detective "
+     "listens without reaction. A closed case folder lies face down, with no visible words. Camera: "
+     "close shot with a slow push-in. Real motion: hands moving, blinking, breathing, the paper edge "
+     "lifting in ventilation. No readable text, no violence, no glamour."),
 
     ("S18", 103, 5, "大特写，屏幕缓慢上卷", [], "diagram",
      "Extreme close-up of an abstract chat screen: question and answer blocks alternate "
@@ -347,12 +348,14 @@ SHOT_ROWS = [
      "the falling seal in slow motion. Real motion: walking, files settling, seal falling "
      "and lifting, curtain moving. No readable text, no letters."),
 
-    ("S23", 130, 7, "大特写，缓慢推近", [], "diagram",
-     "A smartphone screen showing an abstract social account page made of lines only: a "
-     "cluster of light dots rises like a slot machine into tall glowing bars, blue light "
-     "flickering continuously, background blurred. Camera: extreme close-up with a slow "
-     "push-in. Real motion: bars rising, dots pulsing, light flickering. No readable "
-     "text, no readable letters, no numbers."),
+    ("S23", 130, 7, "抽象关系图，缓慢推近", [], "diagram",
+     "An abstract cinematic 3D relationship diagram on a deep charcoal background: two warm gold "
+     "restaurant-table symbols and a small blank hotel-door icon drift in depth around a single cold "
+     "blue human silhouette; a muted red thread draws between them and then tightens into a closed "
+     "loop. All forms remain symbolic and unlabeled, with no readable letters, money amounts, names, "
+     "words or numbers. Camera: slow push through layered depth. Real motion: icons drifting, red thread "
+     "drawing itself, particles floating, light pulsing. Clearly conceptual, not a phone screen, not "
+     "a real document and not a how-to diagram."),
 
     ("S24", 137, 7, "中景，缓慢推近", ["cafe"], "real",
      "Inside a Seoul cafe in warm light: young people sit around a table with smartphones, "
@@ -404,67 +407,85 @@ SHOT_ROWS = [
 ]
 
 # ---------------------------------------------------------------- 一镜一句旁白（30 条）
-NARRATION = {
-    "S01": "她问AI：安眠药加酒，会不会死？",
-    "S02": "AI说：可能致命。她看完，继续加大了药量。",
-    "S03": "2025年12月，首尔江北区，金某让男友喝下掺了药的饮料。",
-    "S04": "他昏迷了两天才醒来，当时，她没有被追责。",
-    "S05": "她没有收手，转头又问AI：药检，能查出来吗？",
-    "S06": "她把AI的回答，记在了心里。",
-    "S07": "2026年1月28日晚九点半，江北区水踰洞的一家汽车旅馆。",
-    "S08": "她陪着一位二十多岁的男子走了进去，前台递出一张门卡。",
-    "S09": "两个小时后，有人看到她一个人走了出来。",
-    "S10": "第二天，男子被发现死在了房间的床上。",
-    "S11": "仅仅十二天后，2月9日，同样的旅馆街，另一名男子也再没有醒来。",
-    "S12": "2月11日清晨，警察在公寓楼下抓到了她，她没有逃跑。",
-    "S13": "她说：我们吵了一架，我只是想让他睡着。",
-    "S14": "直到警察联系我，我才知道他死了。",
-    "S15": "起初，她面对的只是伤害致死，她以为就这样了。",
-    "S16": "可第二天，警察打开了她的手机，里面有一长串聊天记录。",
-    "S17": "她反复问AI：过量会不会致死，药和酒一起会怎样？",
-    "S18": "AI明确回答：可能致命。而她后来，加大了药量。",
-    "S19": "警方还发现，她在作案前，已在家里提前调好了饮料。",
-    "S20": "国立科学搜查研究院，检出了死者体内的药物成分。",
-    "S21": "伤害致死，变成了杀人，罪名彻底反转。",
-    "S22": "2026年3月，她被提起公诉，等待审判。",
-    "S23": "案发后，她的社交账号十天涨粉，从两百涨到一万多。",
-    "S24": "评论区里，不少人在写：颜值即正义，点赞数暴涨。",
-    "S25": "一半在为受害者哀悼，另一半，却在为凶手点赞。",
-    "S26": "法庭上，她说自己不记得那些对话，语气平静。",
-    "S27": "法官不信：你记得每个细节，却唯独忘了这些？",
-    "S28": "8月27日，她被判无期徒刑，检方要求死刑，双方都已上诉。",
-    "S29": "AI警告过她，她没有听。",
-    "S30": "你觉得，当一个人铁了心，一句警告，拦得住吗？",
-}
+def load_revised_narration() -> tuple[dict[str, str], str, dict[str, str]]:
+    """Load approved V2 lines, narrator, and the per-shot visual-sync audit anchors."""
+    payload = json.loads(REVISION_FILE.read_text(encoding="utf-8"))
+    rows = payload.get("revisions", [])
+    expected = [f"S{index:02d}" for index in range(1, 31)]
+    ids = [row.get("id") for row in rows]
+    if ids != expected:
+        raise ValueError("revised-narration-v2.json must contain S01–S30 in order")
+    if sum(int(row.get("duration", 0)) for row in rows) != 180:
+        raise ValueError("revised narration must remain exactly 180 seconds")
+    lines = {str(row["id"]): str(row["text"]).strip() for row in rows}
+    anchors = {str(row["id"]): str(row.get("visual_anchor", "")).strip() for row in rows}
+    if any(not value for value in lines.values()):
+        raise ValueError("every revised narration shot needs text")
+    if any(not value for value in anchors.values()):
+        raise ValueError("every revised narration shot needs a visual-sync anchor")
+    voice_id = str(payload.get("voice", "")).strip()
+    if not voice_id.startswith("voice-"):
+        raise ValueError("revised narration must name the user-selected Arena voice")
+    return lines, voice_id, anchors
+
+
+NARRATION, SELECTED_VOICE_ID, VISUAL_ANCHORS = load_revised_narration()
 
 # ---------------------------------------------------------------- 九段（由镜头推导，只用于章节统计）
 CHAPTER_TITLES = [
-    ("N01", "开头钩子"),
-    ("N02", "第一次得手"),
-    ("N03", "1月28日"),
-    ("N04", "十二天后"),
-    ("N05", "手机里的聊天记录"),
-    ("N06", "罪名反转"),
-    ("N07", "网络狂欢"),
-    ("N08", "法庭"),
-    ("N09", "结尾提问"),
+    ("N01", "姓名与关系"),
+    ("N02", "前男友为何幸存"),
+    ("N03", "第一名死者"),
+    ("N04", "第二名死者"),
+    ("N05", "关系与动机"),
+    ("N06", "证据与法律认定"),
+    ("N07", "一审动机"),
+    ("N08", "判决与上诉"),
+    ("N09", "完整案件"),
 ]
 
 SOURCES = [
     {
-        "id": "user-script",
-        "title": "用户脚本《汽车旅馆连环命案：AI警告过她》（30镜分镜）",
-        "url": "",
-        "supports": "全片时间轴、人物关系、案件节点（2025年12月、2026年1月28日、2月9日、"
-                    "2月11日被捕、2月12日手机取证、3月起诉、8月27日一审判决）与事实口径"
-                    "（被判、检方要求、金某、法院认为、双方上诉）均以该脚本为准。",
+        "id": "yna-timeline-2026-02-12",
+        "title": "韩联社：早期受害者与前男友关系、南杨州事件及两起旅馆死亡时间线（2026-02-12）",
+        "url": "https://www.yna.co.kr/view/AKR20260212061452004",
+        "supports": "前男友在 2025 年 12 月南杨州事件后幸存、分手报案；1 月 28 日与 2 月 9 日两起旅馆死亡的基本时间线。",
     },
     {
-        "id": "fact-boundary",
-        "title": "事实边界（脚本口径）",
-        "url": "",
-        "supports": "一审已判、双方均已上诉；不写未定论的动机与细节；不出现药物名称与调配过程；"
-                    "受害者只以背影、剪影与白菊花出现；手机界面一律抽象。",
+        "id": "koreaherald-relationship-2026-02-13",
+        "title": "Korea Herald：第一名死者为案发前不久认识的男子及早期辩解（2026-02-13）",
+        "url": "https://www.koreaherald.com/article/10676420",
+        "supports": "两名死者不是前男友；第一名死者为金素英在案发前不久认识的 20 多岁男性。",
+    },
+    {
+        "id": "yna-motive-2026-03-04",
+        "title": "韩联社：警方送检材料中的消费利用、冲突回避与风险判断（2026-03-04）",
+        "url": "https://www.yna.co.kr/view/AKR20260304181600004",
+        "supports": "警方对消费利用、约会支出、冲突回避及明知风险的调查结论。",
+    },
+    {
+        "id": "yna-indictment-2026-03-10",
+        "title": "韩联社：检方依法公开金素英姓名、年龄与照片并起诉（2026-03-10）",
+        "url": "https://www.yna.co.kr/view/AKR20260310181751004",
+        "supports": "姓名公开、检方对计划性和消费/经济动机的调查口径。",
+    },
+    {
+        "id": "koreaherald-motel-2026-03-05",
+        "title": "Korea Herald：旅馆由金素英提出、消费利用的警方调查报道（2026-03-05）",
+        "url": "https://www.koreaherald.com/article/10687755",
+        "supports": "旅馆并非偶遇地点，而是被调查认为由金素英主动推进的约会场所。",
+    },
+    {
+        "id": "lawtimes-verdict-2026-08-27",
+        "title": "法律新闻：一审无期徒刑、30 年电子定位监管与未必故意认定（2026-08-27）",
+        "url": "https://www.lawtimes.co.kr/news/articleView.html?idxno=225477",
+        "supports": "一审判决、电子定位监管和未必故意的法律结论。",
+    },
+    {
+        "id": "seoul-appeal-2026-09-02",
+        "title": "首尔新闻：金素英与检方均已上诉（2026-09-02）",
+        "url": "https://www.seoul.co.kr/news/society/2026/09/02/20260902500158",
+        "supports": "控辩双方均上诉，判决尚未生效。",
     },
 ]
 
@@ -474,7 +495,7 @@ PRINCIPLES = [
     "每条提示词自动以【STYLE】开头、以【NEGATIVE】结尾；出现人物时自动拼接对应【角色设定】；"
     "2.5 Flash 不接受独立 negative_prompt 字段，红线因此写在提示词正文里。",
     "不出现药物名称、药片、剂量、调配过程；厨房镜头只允许玻璃杯与光影；不出现遗体、血腥；"
-    "受害者只以背影、剪影与白菊花出现；嫌疑人以平静空洞形象呈现，不美化。",
+    "受害者只以背影、剪影与白菊花出现；金素英以克制的虚构形象呈现，不美化、不贴“蛇蝎美女”等标签。",
     "手机聊天界面一律用抽象线条与图标表示，不出现可读文字；片中文字全部由后期叠加。",
     "旁白一镜一句：每镜一条独立配音与一条同起止字幕；保留自然语速，必要时最多加速 1.55 倍，禁止慢放填满时长。",
     "视觉主线：手机屏幕上的红色警告图标贯穿全片（S02被划走 → S18反复出现 → S29再次亮起 → S30黑场亮起）；"
@@ -484,23 +505,21 @@ PRINCIPLES = [
 PRESENTATION = {
     "cover": {
         "layout": "16:9；中央手机屏幕红色警告图标，四周紫红霓虹汽车旅馆夜景",
-        "text": "AI警告过她",
-        "subtext": "汽车旅馆连环命案",
+        "text": "她为什么带他们去旅馆？",
+        "subtext": "金素英案 · 关系与动机",
+        "hook_lines": ["金素英，20岁。一个幸存者，两名死者。", "两扇旅馆门，先后合上。"],
         "style": "金色粗体字、黑色描边；由 S02 手机帧与 S01 街景帧合成，红色警告图标为后期绘制，"
                  "不是静态图替代视频",
     },
     "end_title": "汽车旅馆连环命案",
-    "end_subtitle": "首尔江北区 · 2025—2026 · AI警告过她",
+    "end_subtitle": "首尔江北区 · 2025—2026 · 关系与动机补全",
     "end_note": "真实案件改编 · 部分画面为3D复原",
-    "end_question": "一句警告，拦得住吗？",
+    "end_question": "关系一旦变成利用，谁来阻止下一步？",
     "highlight_keywords": [
-        "AI", "可能致命", "加大了药量", "2025年12月", "江北区", "金某", "掺了药",
-        "昏迷", "没有被追责", "没有收手", "药检", "1月28日", "水踰洞", "汽车旅馆",
-        "门卡", "2月9日", "再没有醒来", "2月11日", "抓到了她", "只是想让他睡着",
-        "伤害致死", "手机", "聊天记录", "ChatGPT", "过量", "提前调好了饮料",
-        "药物成分", "杀人", "罪名", "提起公诉", "粉丝", "两百", "一万多",
-        "颜值即正义", "哀悼", "点赞", "法庭", "不记得", "无期徒刑", "检方要求死刑",
-        "上诉", "警告", "拦得住吗",
+        "金素英", "20岁", "前男友", "幸存", "南杨州", "水踰洞", "第一名死者", "第二名死者",
+        "不是恋人", "汽车旅馆", "封闭空间", "消费", "主动选择", "警方认为", "检方认为",
+        "聊天记录", "证据链", "一审法院认为", "明知可能死亡", "未必故意", "经济", "消费贪欲",
+        "没有采信", "无期徒刑", "30年", "检方要求死刑", "双方都提起上诉", "完整案件",
     ],
     "subtitle_style": {
         "font_size_px": 58,
@@ -539,16 +558,18 @@ PRESENTATION = {
         {"at": 168, "name": "提示音、红色图标亮起的滴声", "kind": "sfx"},
         {"at": 174, "name": "最后一秒静音", "kind": "sfx"},
     ],
-    "douyin_title": "AI明确警告过她：可能致命。她看完，继续加大药量：汽车旅馆连环命案",
+    "douyin_title": "金素英为什么带他们去旅馆？两名死者与她的关系，终于说清",
+    "hook": "雨落在南杨州。二十岁的金素英坐在男友对面；一个人醒来、报案，两名并非恋人的男子，先后走进水踰洞的旅馆。",
+    "cover_title": "她为什么带他们去旅馆？",
     "hashtags": ["#真实事件", "#汽车旅馆命案", "#韩国", "#ChatGPT", "#悬疑", "#电影感"],
     "release_intro": (
-        "她问AI：安眠药加酒，会不会死？AI说：可能致命。她看完，继续加大了药量。\n\n"
-        "2025年12月，首尔江北区，金某让男友喝下掺了药的饮料。他昏迷两天才醒来，当时她没有被追责。\n"
-        "2026年1月28日晚九点半，她陪着一名男子走进水踰洞的汽车旅馆；十二天后，另一名男子也再没有醒来。\n"
-        "2月11日她被捕。警察打开她的手机，里面有一长串和ChatGPT的聊天记录：她反复问过量会不会致死，"
-        "AI明确回答可能致命，而她后来加大了药量。伤害致死，变成了杀人。\n\n"
-        "8月27日，她被判无期徒刑，检方要求死刑，双方都已上诉。\n\n"
-        "画面为AI生成的3D动画情景重现，不是新闻影像。手机界面为抽象示意，不出现可读文字。"
+        "雨落在南杨州的玻璃窗上。二十岁的金素英坐在男友对面；两天后，他醒来、分手、报案。"
+        "一个月后，水踰洞的两扇旅馆门，先后在两名并非恋人的二十多岁男子身后合上。\n\n"
+        "警方与检方调查认为，她把接触到的男性当成消费的承担者，并主动推进约会后的旅馆安排；"
+        "一审法院认为，她已经知道风险却仍继续，主因是经济和消费贪欲，而非爱情纠纷。\n\n"
+        "2026年8月27日，金素英一审被判无期徒刑并被命令接受30年电子定位监管；"
+        "检方曾要求死刑。她于8月28日、检方于9月2日分别上诉，案件仍在二审中。\n\n"
+        "画面为AI生成的3D动画情景复原，不是新闻影像；人物均为虚构演员形象。"
     ),
 }
 
@@ -598,6 +619,7 @@ def build() -> dict:
             "duration": duration,
             "narration_id": None,
             "narration": narration,
+            "narration_visual_anchor": VISUAL_ANCHORS[sid],
             "camera": camera,
             "characters": characters,
             "style_variant": variant,
@@ -635,6 +657,7 @@ def build() -> dict:
     return {
         "title": TITLE,
         "film_name": FILM_NAME,
+        "delivery_basename": DELIVERY_BASENAME,
         "target_duration": 180,
         "width": 1920,
         "height": 1080,
@@ -651,7 +674,7 @@ def build() -> dict:
         "chapters": chapters,
         "shots": shots,
         "narration_spec": {
-            "voice_id": "voice-01",
+            "voice_id": SELECTED_VOICE_ID,
             "language": "zh-CN",
             "alignment": "one-independently-generated-voice-clip-and-one-caption-cue-per-shot",
             "max_speedup_factor": 1.55,
@@ -662,14 +685,13 @@ def build() -> dict:
         "presentation": PRESENTATION,
         "reference_images": REFERENCE_IMAGES,
         "fact_boundary": [
-            "案件一审已判，双方均已上诉；片中一律使用“被判”“检方要求”口径，嫌疑人称“金某”，"
-            "法院认定写“法院认为”。",
-            "时间节点：2025年12月第一次；2026年1月28日晚九点半水踰洞汽车旅馆；2月9日十二天后；"
-            "2月11日被捕；2月12日手机取证；2026年3月提起公诉；8月27日一审被判无期徒刑。",
-            "片中不出现药物名称、药片、剂量、调配过程；厨房镜头只允许玻璃杯与光影；"
-            "不出现遗体、血腥；受害者只以背影、剪影与白菊花出现。",
+            "姓名：首尔北部地方检察厅已依法公开被告金素英的姓名、年龄和照片；片中直接称“金素英”，不再以“金某”代替。",
+            "关系：2025年12月南杨州事件中的男性是她当时的男友，后幸存并报案；1月28日和2月9日死亡的两名20多岁男性均非其男友，公开资料未披露其姓名、职业和完整私交。",
+            "动机与地点：对消费利用、旅馆由金素英主动推进、冲突回避等内容，使用“警方认为”或“检方认为”；不把未公开细节和网络猜测写成事实。",
+            "法律状态：一审法院认定存在未必故意，判处无期徒刑并命令30年电子定位监管；检方曾要求死刑，控辩双方均已上诉，因此一律写“一审法院认为”“被判”“检方要求”。",
+            "片中不出现药物名称、药片、剂量、调配过程；厨房镜头只允许玻璃杯与光影；不出现遗体、血腥；受害者只以背影、剪影与白菊花出现。",
             "手机聊天界面一律用抽象线条与图标表示，不出现可读文字；片中文字全部由后期叠加。",
-            "所有画面为AI 3D动画情景重现，不是新闻影像；真实人物均为风格化虚构形象，非真实肖像。",
+            "所有画面为AI 3D动画情景重现，不是新闻影像；人物均为风格化虚构演员，非真实肖像。",
         ],
     }
 
@@ -726,9 +748,9 @@ def write_screenplay(story: dict) -> None:
         "- 字幕：白色黑边、底部安全区、关键词金色放大；日期与案件信息与脚本口径一致。",
         "- 音乐：原创程序合成（低沉弦乐、钢琴、低频脉冲、金属提示音）；旁白下压约 −18dB。",
         "- 音效：霓虹嗡鸣、雨声、车帘、门卡、时钟、警笛、快门、键盘、印章、法槌（见 sound_events）。",
-        "- 片尾：S30 黑场红色警告图标，后期叠加金色片名『汽车旅馆连环命案』与副题"
-        "『首尔江北区 · 2025—2026 · AI警告过她』，最后 1 秒静音。",
-        "- 封面：中央手机红色警告图标、四周紫红霓虹旅馆夜景；主标题『AI警告过她』。",
+        f"- 片尾：S30 黑场红色警告图标，后期叠加金色片名『{story['presentation'].get('end_title', TITLE)}』与副题"
+        f"『{story['presentation'].get('end_subtitle', '')}』，最后 1 秒静音。",
+        f"- 封面：沿用《迷案解码人》固定竖版模板；配套主标题『{story['presentation'].get('cover_title', story['presentation'].get('end_title', TITLE))}』。",
         "",
     ]
     (HERE / "screenplay.md").write_text("\n".join(lines), encoding="utf-8")
@@ -748,15 +770,21 @@ def write_manifest(story: dict) -> None:
     for shot in story["shots"]:
         clip_path = AUDIO / f"{shot['id']}.mp3"
         previous = existing.get(shot["id"], {})
-        same_text = previous.get("text") == shot["narration"]
-        sha = sha256(clip_path) if clip_path.is_file() and same_text else None
+        text_sha = hashlib.sha256(shot["narration"].encode("utf-8")).hexdigest()
+        # Never trust a same-looking manifest row alone: when a script is rebuilt before the
+        # new TTS file exists, the old MP3 is still on disk.  Only an audio row explicitly
+        # stamped with the current text hash is allowed to retain its audio SHA-256.
+        same_audio_text = previous.get("audio_text_sha256") == text_sha
+        sha = sha256(clip_path) if clip_path.is_file() and same_audio_text else None
         clips.append({
             "id": shot["id"],
             "file": clip_path.name,
             "text": shot["narration"],
+            "text_sha256": text_sha,
+            "audio_text_sha256": text_sha if sha else None,
             "sha256": sha,
             "voice_id": story["narration_spec"]["voice_id"],
-            "voice_description": "悬疑低沉男声；语速沉稳、句尾收得轻，像真实犯罪纪录片",
+            "voice_description": "用户选定的低沉克制男声；像电影旁白一样直接进入现场，句间留白，不使用解说式元叙事",
             "narration_id": shot["narration_id"],
             "target_start": shot["start"],
             "target_duration": shot["duration"],
@@ -795,16 +823,13 @@ def write_release_copy(story: dict) -> None:
         f"**标题：** {pres['douyin_title']}\n\n"
         f"**规格：** 1920×1080 · 16:9 横屏 · {story['fps']}fps · 180 秒 · "
         "30 个 Agnes Video 2.5 Flash 动态镜头\n\n"
-        "**核心钩子：** AI明确警告过她：可能致命。她看完，继续加大药量\n\n"
+        f"**核心钩子：** {pres.get('hook', pres['release_intro'])}\n\n"
         "## 四列分镜表\n\n"
         "| 镜号 | 时间 | 口播（=字幕） | 画面 | 运镜 |\n|---|---|---|---|---|\n"
         + "\n".join(rows)
-        + "\n\n## 声音设计\n\n| 时间 | 声音 |\n|---|---|\n" + events
         + "\n\n## 事实边界\n\n"
-        "- 一审已判、双方均已上诉；嫌疑人称“金某”；检方口径写“检方要求”。\n"
-        "- 不出现药物名称、药片、剂量、调配过程；不出现遗体、血腥；受害者只以背影、剪影与白菊花出现。\n"
-        "- 手机界面一律抽象，不出现可读文字；画面为AI 3D动画情景重现。\n\n"
-        "## 发布文案\n\n" + pres["release_intro"] + "\n\n" + " ".join(pres["hashtags"]) + "\n",
+        + "\n".join(f"- {item}" for item in story["fact_boundary"])
+        + "\n\n## 发布文案\n\n" + pres["release_intro"] + "\n\n" + " ".join(pres["hashtags"]) + "\n",
         encoding="utf-8",
     )
 

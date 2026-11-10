@@ -24,9 +24,10 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 
-FILM_NAME = "Motel_Case_Final.mp4"
-COVER_NAME = "Motel_Cover.png"
-SRT_NAME = "Motel_Subtitles.srt"
+# These are defaults only; main() reads the V2 delivery namespace from story.json.
+FILM_NAME = "Motel_Case_Revised_V2.mp4"
+COVER_NAME = "Motel_Case_Revised_V2_Cover.png"
+SRT_NAME = "Motel_Case_Revised_V2_Subtitles.srt"
 EXPECTED = {"width": 1920, "height": 1080, "fps": 24, "duration": 180.0, "frames": 4320}
 BLACK_MEAN = 7.0
 FREEZE_DIFF = 0.35
@@ -268,12 +269,13 @@ def main() -> int:
     args = parser.parse_args()
 
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
-    film = args.delivery / FILM_NAME
+    base = str(story.get("delivery_basename") or "Motel_Case_Revised_V2")
+    film = args.delivery / f"{base}.mp4"
     if not film.is_file():
         print(f"MISSING {film}", flush=True)
         return 1
-    cover = args.delivery / COVER_NAME
-    srt = args.delivery / SRT_NAME
+    cover = args.delivery / f"{base}_Cover.png"
+    srt = args.delivery / f"{base}_Subtitles.srt"
 
     data = probe(film)
     video = next((s for s in data["streams"] if s.get("codec_type") == "video"), None)

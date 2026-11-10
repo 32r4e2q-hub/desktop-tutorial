@@ -1,6 +1,7 @@
 {
-  "title": "汽车旅馆连环命案：AI警告过她",
-  "film_name": "汽车旅馆连环命案_AI警告过她_三分钟_带声音.mp4",
+  "title": "汽车旅馆连环命案：金素英为什么带他们去旅馆？",
+  "film_name": "汽车旅馆连环命案_人物关系与动机修订版_三分钟_带声音.mp4",
+  "delivery_basename": "Motel_Case_Revised_V2",
   "target_duration": 180,
   "width": 1920,
   "height": 1080,
@@ -38,7 +39,7 @@
   "principles": [
     "全片30个镜头全部由 Agnes Video 2.5 Flash 生成连续运动片段（720P 源片，后期放大到 1920×1080 · 24fps），禁止静态图加推拉代替；每个镜头只出现一次。",
     "每条提示词自动以【STYLE】开头、以【NEGATIVE】结尾；出现人物时自动拼接对应【角色设定】；2.5 Flash 不接受独立 negative_prompt 字段，红线因此写在提示词正文里。",
-    "不出现药物名称、药片、剂量、调配过程；厨房镜头只允许玻璃杯与光影；不出现遗体、血腥；受害者只以背影、剪影与白菊花出现；嫌疑人以平静空洞形象呈现，不美化。",
+    "不出现药物名称、药片、剂量、调配过程；厨房镜头只允许玻璃杯与光影；不出现遗体、血腥；受害者只以背影、剪影与白菊花出现；金素英以克制的虚构形象呈现，不美化、不贴“蛇蝎美女”等标签。",
     "手机聊天界面一律用抽象线条与图标表示，不出现可读文字；片中文字全部由后期叠加。",
     "旁白一镜一句：每镜一条独立配音与一条同起止字幕；保留自然语速，必要时最多加速 1.55 倍，禁止慢放填满时长。",
     "视觉主线：手机屏幕上的红色警告图标贯穿全片（S02被划走 → S18反复出现 → S29再次亮起 → S30黑场亮起）；紫红色汽车旅馆霓虹为第二条色彩线索。"
@@ -46,18 +47,18 @@
   "chapters": [
     {
       "id": "N01",
-      "title": "开头钩子",
+      "title": "姓名与关系",
       "start": 0,
       "duration": 10,
       "shot_ids": [
         "S01",
         "S02"
       ],
-      "text": "她问AI：安眠药加酒，会不会死？AI说：可能致命。她看完，继续加大了药量。"
+      "text": "雨后的水踰洞，连着两起死亡。金素英，二十岁。三月，检方公开了她的姓名、年龄和照片。"
     },
     {
       "id": "N02",
-      "title": "第一次得手",
+      "title": "前男友为何幸存",
       "start": 10,
       "duration": 25,
       "shot_ids": [
@@ -66,11 +67,11 @@
         "S05",
         "S06"
       ],
-      "text": "2025年12月，首尔江北区，金某让男友喝下掺了药的饮料。他昏迷了两天才醒来，当时，她没有被追责。她没有收手，转头又问AI：药检，能查出来吗？她把AI的回答，记在了心里。"
+      "text": "最早的一杯饮料，在南杨州咖啡馆外，递给了她当时的男友。2025年12月14日，南杨州咖啡馆外，男友喝下饮料后昏迷。两天后，他醒来，分手后报案。线索浮出水面。他活了下来。可屏幕上的红光，没有熄灭。"
     },
     {
       "id": "N03",
-      "title": "1月28日",
+      "title": "第一名死者",
       "start": 35,
       "duration": 25,
       "shot_ids": [
@@ -79,11 +80,11 @@
         "S09",
         "S10"
       ],
-      "text": "2026年1月28日晚九点半，江北区水踰洞的一家汽车旅馆。她陪着一位二十多岁的男子走了进去，前台递出一张门卡。两个小时后，有人看到她一个人走了出来。第二天，男子被发现死在了房间的床上。"
+      "text": "1月28日，水踰洞。认识不久、不是男友的男子，随她走进旅馆。饭后，是她提出去旅馆。门，在两人身后轻轻合上。警方认为，她选的不是偶遇地点，而是封闭、私密的空间。两小时后，她独自离开。次日，那名男子死亡。"
     },
     {
       "id": "N04",
-      "title": "十二天后",
+      "title": "第二名死者",
       "start": 60,
       "duration": 25,
       "shot_ids": [
@@ -92,11 +93,11 @@
         "S13",
         "S14"
       ],
-      "text": "仅仅十二天后，2月9日，同样的旅馆街，另一名男子也再没有醒来。2月11日清晨，警察在公寓楼下抓到了她，她没有逃跑。她说：我们吵了一架，我只是想让他睡着。直到警察联系我，我才知道他死了。"
+      "text": "2月9日，第二名二十多岁男子，和她进了同区旅馆。他也不是男友。警方封锁现场；两人的姓名职业没有公开。两次短暂约会里，他们都替她付了饭钱和房费。警方认为，她接近这些男人，是为了满足消费。"
     },
     {
       "id": "N05",
-      "title": "手机里的聊天记录",
+      "title": "关系与动机",
       "start": 85,
       "duration": 23,
       "shot_ids": [
@@ -105,11 +106,11 @@
         "S17",
         "S18"
       ],
-      "text": "起初，她面对的只是伤害致死，她以为就这样了。可第二天，警察打开了她的手机，里面有一长串聊天记录。她反复问AI：过量会不会致死，药和酒一起会怎样？AI明确回答：可能致命。而她后来，加大了药量。"
+      "text": "检方认为，冲突或索取回报出现时，她试图控制对方。她却说，自己怕身体接触，只想让他们睡过去。她说没想杀人。可这个解释，开始被证据推开。记录显示，她事前反复确认：这样做，可能致命。"
     },
     {
       "id": "N06",
-      "title": "罪名反转",
+      "title": "证据与法律认定",
       "start": 108,
       "duration": 22,
       "shot_ids": [
@@ -118,11 +119,11 @@
         "S21",
         "S22"
       ],
-      "text": "警方还发现，她在作案前，已在家里提前调好了饮料。国立科学搜查研究院，检出了死者体内的药物成分。伤害致死，变成了杀人，罪名彻底反转。2026年3月，她被提起公诉，等待审判。"
+      "text": "男友昏迷之后，她没有停下；同样的风险，越过下一扇门。鉴定、轨迹、聊天记录，扣成两起死亡的证据链。一审法院认为，她知道风险，却仍然继续。明知可能死亡，仍任由它发生——未必故意。"
     },
     {
       "id": "N07",
-      "title": "网络狂欢",
+      "title": "一审动机",
       "start": 130,
       "duration": 20,
       "shot_ids": [
@@ -130,11 +131,11 @@
         "S24",
         "S25"
       ],
-      "text": "案发后，她的社交账号十天涨粉，从两百涨到一万多。评论区里，不少人在写：颜值即正义，点赞数暴涨。一半在为受害者哀悼，另一半，却在为凶手点赞。"
+      "text": "法院认定，驱使她的主因不是爱情，而是经济和消费贪欲。过度警惕、回避冲突、缺乏共情，也让关系失了衡。没有性侵或强迫迹象。“只是防身”，法院没有采信。"
     },
     {
       "id": "N08",
-      "title": "法庭",
+      "title": "判决与上诉",
       "start": 150,
       "duration": 18,
       "shot_ids": [
@@ -142,18 +143,18 @@
         "S27",
         "S28"
       ],
-      "text": "法庭上，她说自己不记得那些对话，语气平静。法官不信：你记得每个细节，却唯独忘了这些？8月27日，她被判无期徒刑，检方要求死刑，双方都已上诉。"
+      "text": "三月，她被起诉。8月27日，法庭判处无期徒刑。法庭还命令她接受三十年电子定位监管。检方曾求死刑。8月28日，她先提出上诉。"
     },
     {
       "id": "N09",
-      "title": "结尾提问",
+      "title": "完整案件",
       "start": 168,
       "duration": 12,
       "shot_ids": [
         "S29",
         "S30"
       ],
-      "text": "AI警告过她，她没有听。你觉得，当一个人铁了心，一句警告，拦得住吗？"
+      "text": "9月2日，检方也上诉。案件，仍在二审。门关上了，红光还亮着。审判仍在继续。"
     }
   ],
   "shots": [
@@ -163,7 +164,8 @@
       "start": 0,
       "duration": 5,
       "narration_id": "N01",
-      "narration": "她问AI：安眠药加酒，会不会死？",
+      "narration": "雨后的水踰洞，连着两起死亡。金素英，二十岁。",
+      "narration_visual_anchor": "雨后水踰洞空街、雨滴与湿地反光；用地点、两起死亡和姓名年龄抛出案件钩子。",
       "camera": "长焦推近",
       "characters": [],
       "style_variant": "real",
@@ -181,7 +183,8 @@
       "start": 5,
       "duration": 5,
       "narration_id": "N01",
-      "narration": "AI说：可能致命。她看完，继续加大了药量。",
+      "narration": "三月，检方公开了她的姓名、年龄和照片。",
+      "narration_visual_anchor": "抽象手机红色警告图标与冷蓝半脸；身份信息在警示意象中落下。",
       "camera": "大特写，缓慢推近",
       "characters": [
         "kim"
@@ -201,15 +204,16 @@
       "start": 10,
       "duration": 7,
       "narration_id": "N02",
-      "narration": "2025年12月，首尔江北区，金某让男友喝下掺了药的饮料。",
-      "camera": "中景，缓慢推近杯子",
+      "narration": "最早的一杯饮料，在南杨州咖啡馆外，递给了她当时的男友。",
+      "narration_visual_anchor": "南杨州咖啡馆停车区，一只普通外带杯在两人手间交接。",
+      "camera": "中景，缓慢推近",
       "characters": [
         "kim",
         "boyfriend"
       ],
       "style_variant": "real",
-      "prompt": "December 2025, a small apartment in Gangbuk-gu at night: a young couple sit at a small dining table talking, two clean glass cups on the table, warm lamplight, night city outside the window; the woman smiles and hands over a glass, the camera settles on fine bubbles rising in the glass. Camera: medium shot with a slow push toward the glass. Real motion: talking, smiling, hand passing the glass, bubbles rising, breathing. No medicine, no readable text.",
-      "purpose": "December 2025, a small apartment in Gangbuk-gu at night: a young couple sit at a small dining table talking, t",
+      "prompt": "Strict visual priority: a photorealistic Korean crime-thriller 3D reenactment with normal-proportioned adult people and physically based winter pavement, fabric and glass, never cartoon or illustrated. 14 December 2025, outside an unmarked cafe in Namyangju at night: a young adult couple walks slowly through a quiet wet parking area toward a compact car, both seen in three-quarter back view. The woman offers an ordinary sealed takeaway cup; the man accepts it casually. Keep the cafe facade blurred and completely unmarked, with no legible signage. Camera: medium shot with a slow push toward the passing hands. Real motion: walking, breath vapour, wet reflections trembling, cup changing hands, coat fabric moving. No medicine, no danger depiction, no readable text, no letters, no numbers.",
+      "purpose": "Strict visual priority: a photorealistic Korean crime-thriller 3D reenactment with normal-proportioned adult p",
       "seed": 20260103,
       "seconds": 7,
       "aspect": "16:9",
@@ -222,14 +226,15 @@
       "start": 17,
       "duration": 7,
       "narration_id": "N02",
-      "narration": "他昏迷了两天才醒来，当时，她没有被追责。",
+      "narration": "2025年12月14日，南杨州咖啡馆外，男友喝下饮料后昏迷。",
+      "narration_visual_anchor": "救护灯反射、空轮椅与金素英看手机；不展示伤害或受害者。",
       "camera": "低机位，缓慢推近",
       "characters": [
         "kim"
       ],
       "style_variant": "real",
-      "prompt": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered with physically based materials and the visual realism of a serious live-action film; every person is a normal-proportioned full-size adult with natural skin, hair, fabric and believable anatomy, never cute, doll-like, childlike or illustrated. The same apartment is quiet and still: at floor level, the camera looks past a clean glass rolled onto the carpet and the rear shoulder of an adult man resting beyond the sofa arm; he is seen only as an opaque side-and-back silhouette with his face completely invisible. A table lamp still glows. Kim, also turned three-quarter away from camera, is a realistic adult silhouette in a grey jacket; she calmly lowers her head, reaches down and picks up her phone. Camera: low angle with a slow push-in. Real motion: lamp glow breathing, curtain moving, Kim shifting weight and lifting the phone, subtle breathing. Restrained and procedural, no violence shown, no readable text; background lights are only soft abstract glows with no letters, logos or glyphs.",
-      "purpose": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered with physically based mat",
+      "prompt": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with physically based wet asphalt, glass and fabric, never cartoon, toy-like or illustrated. The same unmarked Namyangju cafe parking area later that winter night: cool ambulance light reflections sweep across rain-dark pavement while an empty wheeled chair passes behind frosted glass in the background. Kim stands at a distance in three-quarter back view, looking down at her phone without dramatics. No person is shown injured, unconscious, restrained or on a bed. Camera: low angle with a slow push-in. Real motion: reflected light sweeping, raindrops falling, chair wheels passing, Kim shifting weight, breath vapour drifting. No readable text or signage.",
+      "purpose": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with physically based wet asphalt,",
       "seed": 20260101,
       "seconds": 7,
       "aspect": "16:9",
@@ -242,7 +247,8 @@
       "start": 24,
       "duration": 6,
       "narration_id": "N02",
-      "narration": "她没有收手，转头又问AI：药检，能查出来吗？",
+      "narration": "两天后，他醒来，分手后报案。线索浮出水面。",
+      "narration_visual_anchor": "医院走廊、急诊门和独坐的金素英，承接幸存、分手和报案。",
       "camera": "长走廊，缓慢推近",
       "characters": [
         "kim"
@@ -262,7 +268,8 @@
       "start": 30,
       "duration": 5,
       "narration_id": "N02",
-      "narration": "她把AI的回答，记在了心里。",
+      "narration": "他活了下来。可屏幕上的红光，没有熄灭。",
+      "narration_visual_anchor": "抽象聊天线、红色问号和屏幕冷光，以视觉母题把线索推向下一段。",
       "camera": "大特写",
       "characters": [
         "kim"
@@ -282,7 +289,8 @@
       "start": 35,
       "duration": 7,
       "narration_id": "N03",
-      "narration": "2026年1月28日晚九点半，江北区水踰洞的一家汽车旅馆。",
+      "narration": "1月28日，水踰洞。认识不久、不是男友的男子，随她走进旅馆。",
+      "narration_visual_anchor": "第一名死者与金素英从旅馆入口进入，均为背影或三分之二背影。",
       "camera": "中景，缓慢推近",
       "characters": [
         "kim",
@@ -303,7 +311,8 @@
       "start": 42,
       "duration": 7,
       "narration_id": "N03",
-      "narration": "她陪着一位二十多岁的男子走了进去，前台递出一张门卡。",
+      "narration": "饭后，是她提出去旅馆。门，在两人身后轻轻合上。",
+      "narration_visual_anchor": "走廊、房卡与房门关闭；明确由她提出旅馆但不展示房内伤害。",
       "camera": "走廊对称构图，缓慢推近门",
       "characters": [
         "kim",
@@ -324,7 +333,8 @@
       "start": 49,
       "duration": 6,
       "narration_id": "N03",
-      "narration": "两个小时后，有人看到她一个人走了出来。",
+      "narration": "警方认为，她选的不是偶遇地点，而是封闭、私密的空间。",
+      "narration_visual_anchor": "空旅馆房、两只玻璃杯、床和时钟快转，表现封闭空间与时间流逝。",
       "camera": "固定机位，延时",
       "characters": [],
       "style_variant": "real",
@@ -342,7 +352,8 @@
       "start": 55,
       "duration": 5,
       "narration_id": "N03",
-      "narration": "第二天，男子被发现死在了房间的床上。",
+      "narration": "两小时后，她独自离开。次日，那名男子死亡。",
+      "narration_visual_anchor": "金素英独自离开旅馆，紫红反光与湿地承接孤身离场。",
       "camera": "低机位，背影跟拍",
       "characters": [
         "kim"
@@ -362,15 +373,17 @@
       "start": 60,
       "duration": 7,
       "narration_id": "N04",
-      "narration": "仅仅十二天后，2月9日，同样的旅馆街，另一名男子也再没有醒来。",
+      "narration": "2月9日，第二名二十多岁男子，和她进了同区旅馆。",
+      "narration_visual_anchor": "第二名死者与金素英从另一家同区旅馆入口进入，受害者始终不露正脸。",
       "camera": "中景，手持",
       "characters": [
-        "cleaner"
+        "kim",
+        "victimB"
       ],
       "style_variant": "real",
-      "prompt": "The next day, a motel corridor: a cleaner pushes a small cart, knocks on a door with no answer, opens it with a master card, freezes in the doorway as a towel slips from her hand, then turns and runs; the picture cuts to black before any interior is shown. Camera: handheld medium shot. Real motion: cart rolling, knocking, towel falling, turning and running. Interior corridor only, no exterior, no neon signs; no interior shown, no readable text, no Korean characters.",
-      "purpose": "The next day, a motel corridor: a cleaner pushes a small cart, knocks on a door with no answer, opens it with ",
-      "seed": 20260105,
+      "prompt": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with natural adult proportions, rain-wet concrete and fabric, never cartoon or illustrated. 9 February at night: inside a different completely unmarked motel vestibule in Gangbuk-gu, Kim and another young adult man walk through a plain fabric curtain side by side. He is seen only from behind and in three-quarter back view; no face is visible. A blank key card passes at an unlabelled frosted front desk. Camera: handheld medium shot with a restrained slow approach. Real motion: curtain parting, adults walking, card passing, rain glimmering beyond the door, fabric moving. No harm, no readable text, no numbers, no signage, no Korean characters.",
+      "purpose": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with natural adult proportions, ra",
+      "seed": 20260111,
       "seconds": 7,
       "aspect": "16:9",
       "source_size": "720P",
@@ -382,7 +395,8 @@
       "start": 67,
       "duration": 7,
       "narration_id": "N04",
-      "narration": "2月11日清晨，警察在公寓楼下抓到了她，她没有逃跑。",
+      "narration": "他也不是男友。警方封锁现场；两人的姓名职业没有公开。",
+      "narration_visual_anchor": "警戒带、无字门口和侦探；不写出两名死者的姓名或职业。",
       "camera": "广角，缓慢推近",
       "characters": [
         "detective"
@@ -402,15 +416,16 @@
       "start": 74,
       "duration": 6,
       "narration_id": "N04",
-      "narration": "她说：我们吵了一架，我只是想让他睡着。",
-      "camera": "同S07构图，缓慢推近",
+      "narration": "两次短暂约会里，他们都替她付了饭钱和房费。",
+      "narration_visual_anchor": "餐厅内，男子背影旁有无字账单托盘；画面只显示普通短暂约会。",
+      "camera": "中景，缓慢环绕",
       "characters": [
         "kim",
         "victimB"
       ],
       "style_variant": "real",
-      "prompt": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered with serious live-action-film realism, physically based rain, fabric, concrete and skin; the two people have normal full-size adult anatomy, never cute, toy-like, doll-like, chibi or illustrated. 9 February at night: repeat the spacing and slow push-in feeling of the earlier entrance scene inside a closed-in, completely unmarked motel vestibule. A plain fabric curtain parts and Kim and a man in different clothing walk in side by side; both are filmed from behind in dark three-quarter silhouettes with faces never visible. Light rain falls beyond the doorway. The camera crops above the door lintel and excludes the street, storefronts, all signboards and every illuminated text panel. Purple-red colour is only a soft reflected glow on wet ground and blank walls, never a neon sign. Camera: same composition as the earlier entrance, slow push-in. Real motion: rain falling, curtain parting, adult walking, fabric moving and reflected light flickering. Absolutely no readable text, Korean Hangul, letters, numbers, logos, subtitles, captions or glyph-like shapes.",
-      "purpose": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered with serious live-action-",
+      "prompt": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with serious live-action-film realism and normal full-size adults, never cute, doll-like, chibi or illustrated. In a modest Seoul restaurant with no readable menus or brand marks, Kim sits opposite a young man filmed only from behind. A server leaves a plain unmarked card tray near his side of the table; Kim watches quietly while he reaches toward it. The scene remains an ordinary short date, not a romance montage and not a transaction demonstration. Camera: medium shot with a slow restrained orbit. Real motion: hands settling, steam rising, chairs shifting, eyes blinking. No readable text, no receipt details, no logos, no harm.",
+      "purpose": "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with serious live-action-film real",
       "seed": 20260113,
       "seconds": 6,
       "aspect": "16:9",
@@ -423,7 +438,8 @@
       "start": 80,
       "duration": 5,
       "narration_id": "N04",
-      "narration": "直到警察联系我，我才知道他死了。",
+      "narration": "警方认为，她接近这些男人，是为了满足消费。",
+      "narration_visual_anchor": "凌晨抓捕与便衣警察；以警方归因进入消费动机，不把调查判断说成绝对事实。",
       "camera": "中景，慢动作",
       "characters": [
         "kim",
@@ -444,7 +460,8 @@
       "start": 85,
       "duration": 6,
       "narration_id": "N05",
-      "narration": "起初，她面对的只是伤害致死，她以为就这样了。",
+      "narration": "检方认为，冲突或索取回报出现时，她试图控制对方。",
+      "narration_visual_anchor": "讯问室中金素英面对侦探，匹配检方对冲突、索取回报和控制的判断。",
       "camera": "过肩，缓慢推近",
       "characters": [
         "kim",
@@ -465,7 +482,8 @@
       "start": 91,
       "duration": 6,
       "narration_id": "N05",
-      "narration": "可第二天，警察打开了她的手机，里面有一长串聊天记录。",
+      "narration": "她却说，自己怕身体接触，只想让他们睡过去。",
+      "narration_visual_anchor": "法院外被带离警车的金素英与媒体闪光；明确为她的辩解。",
       "camera": "手持，长焦",
       "characters": [
         "kim"
@@ -485,15 +503,17 @@
       "start": 97,
       "duration": 6,
       "narration_id": "N05",
-      "narration": "她反复问AI：过量会不会致死，药和酒一起会怎样？",
+      "narration": "她说没想杀人。可这个解释，开始被证据推开。",
+      "narration_visual_anchor": "冷灰讯问室，防御性手势与合上的案卷，承接辩解和证据的冲突。",
       "camera": "近景，缓慢推近",
       "characters": [
-        "forensic"
+        "kim",
+        "detective"
       ],
       "style_variant": "real",
-      "prompt": "A digital forensics laboratory under blue screen light: a young forensic specialist with glasses connects a smartphone to a device, rows of abstract chat blocks scroll on the monitor, he stops his finger, looks up, eyes widening. Camera: close shot with a slow push-in. Real motion: cable connecting, blocks scrolling, finger stopping, head lifting. No readable text, no letters, no numbers.",
-      "purpose": "A digital forensics laboratory under blue screen light: a young forensic specialist with glasses connects a sm",
-      "seed": 20260107,
+      "prompt": "A cold-grey police interview room under flat winter light: Kim sits at one side of a metal table, a detective sits opposite, both shown in restrained three-quarter profile rather than clear portrait. Kim makes a small defensive hand gesture and then folds her hands; the detective listens without reaction. A closed case folder lies face down, with no visible words. Camera: close shot with a slow push-in. Real motion: hands moving, blinking, breathing, the paper edge lifting in ventilation. No readable text, no violence, no glamour.",
+      "purpose": "A cold-grey police interview room under flat winter light: Kim sits at one side of a metal table, a detective ",
+      "seed": 20260117,
       "seconds": 6,
       "aspect": "16:9",
       "source_size": "720P",
@@ -505,7 +525,8 @@
       "start": 103,
       "duration": 5,
       "narration_id": "N05",
-      "narration": "AI明确回答：可能致命。而她后来，加大了药量。",
+      "narration": "记录显示，她事前反复确认：这样做，可能致命。",
+      "narration_visual_anchor": "抽象聊天问答与反复跳动的红色警告图标，视觉化风险确认但不显示文字。",
       "camera": "大特写，屏幕缓慢上卷",
       "characters": [],
       "style_variant": "diagram",
@@ -523,7 +544,8 @@
       "start": 108,
       "duration": 6,
       "narration_id": "N06",
-      "narration": "警方还发现，她在作案前，已在家里提前调好了饮料。",
+      "narration": "男友昏迷之后，她没有停下；同样的风险，越过下一扇门。",
+      "narration_visual_anchor": "厨房玻璃杯、停在杯沿上方又收回的手；不出现药物、制备或可模仿细节。",
       "camera": "特写，缓慢推近",
       "characters": [],
       "style_variant": "real",
@@ -541,7 +563,8 @@
       "start": 114,
       "duration": 6,
       "narration_id": "N06",
-      "narration": "国立科学搜查研究院，检出了死者体内的药物成分。",
+      "narration": "鉴定、轨迹、聊天记录，扣成两起死亡的证据链。",
+      "narration_visual_anchor": "法医实验室、无字光谱和研究员背影，呈现证据链而非操作流程。",
       "camera": "中景，缓慢推近屏幕",
       "characters": [],
       "style_variant": "real",
@@ -559,7 +582,8 @@
       "start": 120,
       "duration": 5,
       "narration_id": "N06",
-      "narration": "伤害致死，变成了杀人，罪名彻底反转。",
+      "narration": "一审法院认为，她知道风险，却仍然继续。",
+      "narration_visual_anchor": "警方会议桌与红线延伸的抽象板，承接一审对风险认知的判断。",
       "camera": "俯拍，红线延伸",
       "characters": [
         "detective"
@@ -579,7 +603,8 @@
       "start": 125,
       "duration": 5,
       "narration_id": "N06",
-      "narration": "2026年3月，她被提起公诉，等待审判。",
+      "narration": "明知可能死亡，仍任由它发生——未必故意。",
+      "narration_visual_anchor": "检察官办公室、案卷和红色印章，承接法律上的未必故意认定。",
       "camera": "特写，印章落下，慢动作",
       "characters": [
         "court"
@@ -599,12 +624,13 @@
       "start": 130,
       "duration": 7,
       "narration_id": "N07",
-      "narration": "案发后，她的社交账号十天涨粉，从两百涨到一万多。",
-      "camera": "大特写，缓慢推近",
+      "narration": "法院认定，驱使她的主因不是爱情，而是经济和消费贪欲。",
+      "narration_visual_anchor": "抽象关系图中的餐桌、旅馆门和收紧的红线，直指关系、消费和旅馆。",
+      "camera": "抽象关系图，缓慢推近",
       "characters": [],
       "style_variant": "diagram",
-      "prompt": "A smartphone screen showing an abstract social account page made of lines only: a cluster of light dots rises like a slot machine into tall glowing bars, blue light flickering continuously, background blurred. Camera: extreme close-up with a slow push-in. Real motion: bars rising, dots pulsing, light flickering. No readable text, no readable letters, no numbers.",
-      "purpose": "A smartphone screen showing an abstract social account page made of lines only: a cluster of light dots rises ",
+      "prompt": "An abstract cinematic 3D relationship diagram on a deep charcoal background: two warm gold restaurant-table symbols and a small blank hotel-door icon drift in depth around a single cold blue human silhouette; a muted red thread draws between them and then tightens into a closed loop. All forms remain symbolic and unlabeled, with no readable letters, money amounts, names, words or numbers. Camera: slow push through layered depth. Real motion: icons drifting, red thread drawing itself, particles floating, light pulsing. Clearly conceptual, not a phone screen, not a real document and not a how-to diagram.",
+      "purpose": "An abstract cinematic 3D relationship diagram on a deep charcoal background: two warm gold restaurant-table sy",
       "seed": 20260123,
       "seconds": 7,
       "aspect": "16:9",
@@ -617,7 +643,8 @@
       "start": 137,
       "duration": 7,
       "narration_id": "N07",
-      "narration": "评论区里，不少人在写：颜值即正义，点赞数暴涨。",
+      "narration": "过度警惕、回避冲突、缺乏共情，也让关系失了衡。",
+      "narration_visual_anchor": "咖啡馆中手机、表情和抽象泡泡，以人际互动画面承接混合因素。",
       "camera": "中景，缓慢推近",
       "characters": [
         "cafe"
@@ -637,7 +664,8 @@
       "start": 144,
       "duration": 6,
       "narration_id": "N07",
-      "narration": "一半在为受害者哀悼，另一半，却在为凶手点赞。",
+      "narration": "没有性侵或强迫迹象。“只是防身”，法院没有采信。",
+      "narration_visual_anchor": "白菊与烛光的纪念空间，拒绝血腥和受害者真实肖像。",
       "camera": "近景，缓慢推近",
       "characters": [
         "family"
@@ -657,7 +685,8 @@
       "start": 150,
       "duration": 6,
       "narration_id": "N08",
-      "narration": "法庭上，她说自己不记得那些对话，语气平静。",
+      "narration": "三月，她被起诉。8月27日，法庭判处无期徒刑。",
+      "narration_visual_anchor": "冷灰法庭、低头的被告与法官判决书，呈现一审裁判。",
       "camera": "横向环绕，缓慢",
       "characters": [
         "kim",
@@ -679,7 +708,8 @@
       "start": 156,
       "duration": 6,
       "narration_id": "N08",
-      "narration": "法官不信：你记得每个细节，却唯独忘了这些？",
+      "narration": "法庭还命令她接受三十年电子定位监管。",
+      "narration_visual_anchor": "法庭中被告、法官与旁听席，承接电子定位监管命令。",
       "camera": "中景，慢动作",
       "characters": [
         "kim",
@@ -701,7 +731,8 @@
       "start": 162,
       "duration": 6,
       "narration_id": "N08",
-      "narration": "8月27日，她被判无期徒刑，检方要求死刑，双方都已上诉。",
+      "narration": "检方曾求死刑。8月28日，她先提出上诉。",
+      "narration_visual_anchor": "法槌落下、旁听席低头；对应一审后上诉节点。",
       "camera": "特写，慢动作",
       "characters": [
         "kim",
@@ -722,7 +753,8 @@
       "start": 168,
       "duration": 6,
       "narration_id": "N09",
-      "narration": "AI警告过她，她没有听。",
+      "narration": "9月2日，检方也上诉。案件，仍在二审。",
+      "narration_visual_anchor": "手机红色警告与判决书剪影同框，表现案件尚未终局。",
       "camera": "缓慢拉远，淡入",
       "characters": [],
       "style_variant": "real",
@@ -740,7 +772,8 @@
       "start": 174,
       "duration": 6,
       "narration_id": "N09",
-      "narration": "你觉得，当一个人铁了心，一句警告，拦得住吗？",
+      "narration": "门关上了，红光还亮着。审判仍在继续。",
+      "narration_visual_anchor": "黑场中红色警告图标亮起，预留后期标题，最后一秒静音。",
       "camera": "缓慢推近，淡入淡出",
       "characters": [],
       "style_variant": "real",
@@ -754,7 +787,7 @@
     }
   ],
   "narration_spec": {
-    "voice_id": "voice-01",
+    "voice_id": "voice-03",
     "language": "zh-CN",
     "alignment": "one-independently-generated-voice-clip-and-one-caption-cue-per-shot",
     "max_speedup_factor": 1.55,
@@ -765,73 +798,92 @@
   },
   "sources": [
     {
-      "id": "user-script",
-      "title": "用户脚本《汽车旅馆连环命案：AI警告过她》（30镜分镜）",
-      "url": "",
-      "supports": "全片时间轴、人物关系、案件节点（2025年12月、2026年1月28日、2月9日、2月11日被捕、2月12日手机取证、3月起诉、8月27日一审判决）与事实口径（被判、检方要求、金某、法院认为、双方上诉）均以该脚本为准。"
+      "id": "yna-timeline-2026-02-12",
+      "title": "韩联社：早期受害者与前男友关系、南杨州事件及两起旅馆死亡时间线（2026-02-12）",
+      "url": "https://www.yna.co.kr/view/AKR20260212061452004",
+      "supports": "前男友在 2025 年 12 月南杨州事件后幸存、分手报案；1 月 28 日与 2 月 9 日两起旅馆死亡的基本时间线。"
     },
     {
-      "id": "fact-boundary",
-      "title": "事实边界（脚本口径）",
-      "url": "",
-      "supports": "一审已判、双方均已上诉；不写未定论的动机与细节；不出现药物名称与调配过程；受害者只以背影、剪影与白菊花出现；手机界面一律抽象。"
+      "id": "koreaherald-relationship-2026-02-13",
+      "title": "Korea Herald：第一名死者为案发前不久认识的男子及早期辩解（2026-02-13）",
+      "url": "https://www.koreaherald.com/article/10676420",
+      "supports": "两名死者不是前男友；第一名死者为金素英在案发前不久认识的 20 多岁男性。"
+    },
+    {
+      "id": "yna-motive-2026-03-04",
+      "title": "韩联社：警方送检材料中的消费利用、冲突回避与风险判断（2026-03-04）",
+      "url": "https://www.yna.co.kr/view/AKR20260304181600004",
+      "supports": "警方对消费利用、约会支出、冲突回避及明知风险的调查结论。"
+    },
+    {
+      "id": "yna-indictment-2026-03-10",
+      "title": "韩联社：检方依法公开金素英姓名、年龄与照片并起诉（2026-03-10）",
+      "url": "https://www.yna.co.kr/view/AKR20260310181751004",
+      "supports": "姓名公开、检方对计划性和消费/经济动机的调查口径。"
+    },
+    {
+      "id": "koreaherald-motel-2026-03-05",
+      "title": "Korea Herald：旅馆由金素英提出、消费利用的警方调查报道（2026-03-05）",
+      "url": "https://www.koreaherald.com/article/10687755",
+      "supports": "旅馆并非偶遇地点，而是被调查认为由金素英主动推进的约会场所。"
+    },
+    {
+      "id": "lawtimes-verdict-2026-08-27",
+      "title": "法律新闻：一审无期徒刑、30 年电子定位监管与未必故意认定（2026-08-27）",
+      "url": "https://www.lawtimes.co.kr/news/articleView.html?idxno=225477",
+      "supports": "一审判决、电子定位监管和未必故意的法律结论。"
+    },
+    {
+      "id": "seoul-appeal-2026-09-02",
+      "title": "首尔新闻：金素英与检方均已上诉（2026-09-02）",
+      "url": "https://www.seoul.co.kr/news/society/2026/09/02/20260902500158",
+      "supports": "控辩双方均上诉，判决尚未生效。"
     }
   ],
   "presentation": {
     "cover": {
       "layout": "16:9；中央手机屏幕红色警告图标，四周紫红霓虹汽车旅馆夜景",
-      "text": "AI警告过她",
-      "subtext": "汽车旅馆连环命案",
+      "text": "她为什么带他们去旅馆？",
+      "subtext": "金素英案 · 关系与动机",
+      "hook_lines": [
+        "金素英，20岁。一个幸存者，两名死者。",
+        "两扇旅馆门，先后合上。"
+      ],
       "style": "金色粗体字、黑色描边；由 S02 手机帧与 S01 街景帧合成，红色警告图标为后期绘制，不是静态图替代视频"
     },
     "end_title": "汽车旅馆连环命案",
-    "end_subtitle": "首尔江北区 · 2025—2026 · AI警告过她",
+    "end_subtitle": "首尔江北区 · 2025—2026 · 关系与动机补全",
     "end_note": "真实案件改编 · 部分画面为3D复原",
-    "end_question": "一句警告，拦得住吗？",
+    "end_question": "关系一旦变成利用，谁来阻止下一步？",
     "highlight_keywords": [
-      "AI",
-      "可能致命",
-      "加大了药量",
-      "2025年12月",
-      "江北区",
-      "金某",
-      "掺了药",
-      "昏迷",
-      "没有被追责",
-      "没有收手",
-      "药检",
-      "1月28日",
+      "金素英",
+      "20岁",
+      "前男友",
+      "幸存",
+      "南杨州",
       "水踰洞",
+      "第一名死者",
+      "第二名死者",
+      "不是恋人",
       "汽车旅馆",
-      "门卡",
-      "2月9日",
-      "再没有醒来",
-      "2月11日",
-      "抓到了她",
-      "只是想让他睡着",
-      "伤害致死",
-      "手机",
+      "封闭空间",
+      "消费",
+      "主动选择",
+      "警方认为",
+      "检方认为",
       "聊天记录",
-      "ChatGPT",
-      "过量",
-      "提前调好了饮料",
-      "药物成分",
-      "杀人",
-      "罪名",
-      "提起公诉",
-      "粉丝",
-      "两百",
-      "一万多",
-      "颜值即正义",
-      "哀悼",
-      "点赞",
-      "法庭",
-      "不记得",
+      "证据链",
+      "一审法院认为",
+      "明知可能死亡",
+      "未必故意",
+      "经济",
+      "消费贪欲",
+      "没有采信",
       "无期徒刑",
+      "30年",
       "检方要求死刑",
-      "上诉",
-      "警告",
-      "拦得住吗"
+      "双方都提起上诉",
+      "完整案件"
     ],
     "subtitle_style": {
       "font_size_px": 58,
@@ -974,7 +1026,9 @@
         "kind": "sfx"
       }
     ],
-    "douyin_title": "AI明确警告过她：可能致命。她看完，继续加大药量：汽车旅馆连环命案",
+    "douyin_title": "金素英为什么带他们去旅馆？两名死者与她的关系，终于说清",
+    "hook": "雨落在南杨州。二十岁的金素英坐在男友对面；一个人醒来、报案，两名并非恋人的男子，先后走进水踰洞的旅馆。",
+    "cover_title": "她为什么带他们去旅馆？",
     "hashtags": [
       "#真实事件",
       "#汽车旅馆命案",
@@ -983,7 +1037,7 @@
       "#悬疑",
       "#电影感"
     ],
-    "release_intro": "她问AI：安眠药加酒，会不会死？AI说：可能致命。她看完，继续加大了药量。\n\n2025年12月，首尔江北区，金某让男友喝下掺了药的饮料。他昏迷两天才醒来，当时她没有被追责。\n2026年1月28日晚九点半，她陪着一名男子走进水踰洞的汽车旅馆；十二天后，另一名男子也再没有醒来。\n2月11日她被捕。警察打开她的手机，里面有一长串和ChatGPT的聊天记录：她反复问过量会不会致死，AI明确回答可能致命，而她后来加大了药量。伤害致死，变成了杀人。\n\n8月27日，她被判无期徒刑，检方要求死刑，双方都已上诉。\n\n画面为AI生成的3D动画情景重现，不是新闻影像。手机界面为抽象示意，不出现可读文字。"
+    "release_intro": "雨落在南杨州的玻璃窗上。二十岁的金素英坐在男友对面；两天后，他醒来、分手、报案。一个月后，水踰洞的两扇旅馆门，先后在两名并非恋人的二十多岁男子身后合上。\n\n警方与检方调查认为，她把接触到的男性当成消费的承担者，并主动推进约会后的旅馆安排；一审法院认为，她已经知道风险却仍继续，主因是经济和消费贪欲，而非爱情纠纷。\n\n2026年8月27日，金素英一审被判无期徒刑并被命令接受30年电子定位监管；检方曾要求死刑。她于8月28日、检方于9月2日分别上诉，案件仍在二审中。\n\n画面为AI生成的3D动画情景复原，不是新闻影像；人物均为虚构演员形象。"
   },
   "reference_images": [
     {
@@ -1020,10 +1074,12 @@
     }
   ],
   "fact_boundary": [
-    "案件一审已判，双方均已上诉；片中一律使用“被判”“检方要求”口径，嫌疑人称“金某”，法院认定写“法院认为”。",
-    "时间节点：2025年12月第一次；2026年1月28日晚九点半水踰洞汽车旅馆；2月9日十二天后；2月11日被捕；2月12日手机取证；2026年3月提起公诉；8月27日一审被判无期徒刑。",
+    "姓名：首尔北部地方检察厅已依法公开被告金素英的姓名、年龄和照片；片中直接称“金素英”，不再以“金某”代替。",
+    "关系：2025年12月南杨州事件中的男性是她当时的男友，后幸存并报案；1月28日和2月9日死亡的两名20多岁男性均非其男友，公开资料未披露其姓名、职业和完整私交。",
+    "动机与地点：对消费利用、旅馆由金素英主动推进、冲突回避等内容，使用“警方认为”或“检方认为”；不把未公开细节和网络猜测写成事实。",
+    "法律状态：一审法院认定存在未必故意，判处无期徒刑并命令30年电子定位监管；检方曾要求死刑，控辩双方均已上诉，因此一律写“一审法院认为”“被判”“检方要求”。",
     "片中不出现药物名称、药片、剂量、调配过程；厨房镜头只允许玻璃杯与光影；不出现遗体、血腥；受害者只以背影、剪影与白菊花出现。",
     "手机聊天界面一律用抽象线条与图标表示，不出现可读文字；片中文字全部由后期叠加。",
-    "所有画面为AI 3D动画情景重现，不是新闻影像；真实人物均为风格化虚构形象，非真实肖像。"
+    "所有画面为AI 3D动画情景重现，不是新闻影像；人物均为风格化虚构演员，非真实肖像。"
   ]
 }

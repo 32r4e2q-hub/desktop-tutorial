@@ -134,6 +134,16 @@ class MotelPlanTests(unittest.TestCase):
         self.assertGreater(total, 500)
         self.assertLess(total / 180.0, 4.2)
 
+    def test_each_narration_is_audited_against_its_visual(self):
+        """V2 不能让口播和素材各讲各的：每镜须保留非空的画面锚点。"""
+        revision = json.loads((PROJECT / "revised-narration-v2.json").read_text(encoding="utf-8"))
+        anchors = {row["id"]: row.get("visual_anchor", "").strip() for row in revision["revisions"]}
+        self.assertEqual(self.story["narration_spec"]["voice_id"], revision["voice"])
+        for shot in self.story["shots"]:
+            with self.subTest(shot=shot["id"]):
+                self.assertTrue(anchors.get(shot["id"]), "missing source visual anchor")
+                self.assertEqual(shot.get("narration_visual_anchor"), anchors[shot["id"]])
+
     def test_narration_length_matches_shot_length(self):
         """解说词跟片段等长：字数 ÷ 镜头秒数必须落在人类语速区间，且不靠加速凑。"""
         story = json.loads((PROJECT / "story.json").read_text(encoding="utf-8"))
@@ -204,7 +214,7 @@ class MotelPlanTests(unittest.TestCase):
                 self.gen.restore_sources(story, doc, sources)
 
     def test_finished_film_cover_and_named_deliverables_are_published(self):
-        """成片不能只躺在被忽略的 work/ 里：四份指定文件 + 仓库命名的交付一起进 交付/。"""
+        """修订版交付必须使用独立 V2 名称，绝不覆盖旧版指定文件。"""
         import tempfile
 
         with tempfile.TemporaryDirectory() as tmp:
@@ -229,20 +239,25 @@ class MotelPlanTests(unittest.TestCase):
             try:
                 self.gen.DELIVERY_DIR = delivery
                 self.gen.ROOT = root
-                copied = self.gen.publish_delivery(film)
+                copied = self.gen.publish_delivery(
+                    film, {"delivery_basename": "Motel_Case_Revised_V2"})
             finally:
                 self.gen.DELIVERY_DIR = original_delivery
                 self.gen.ROOT = original_root
-            for name in ("Motel_Case_Final.mp4", "Motel_Cover.png",
-                         "Motel_Subtitles.srt", "Motel_Narration.wav"):
+            for name in ("Motel_Case_Revised_V2.mp4", "Motel_Case_Revised_V2_Cover.png",
+                         "Motel_Case_Revised_V2_Subtitles.srt", "Motel_Case_Revised_V2_Narration.wav"):
                 self.assertIn(name, copied)
                 self.assertTrue((delivery / name).is_file(), name)
+            self.assertFalse((delivery / "Motel_Case_Final.mp4").exists())
 
     def test_sources_and_fact_boundaries_are_recorded(self):
-        self.assertGreaterEqual(len(self.story["sources"]), 1)
-        self.assertTrue(any("用户脚本" in source["title"] for source in self.story["sources"]))
+        self.assertGreaterEqual(len(self.story["sources"]), 7)
+        self.assertTrue(any(source.get("id") == "yna-indictment-2026-03-10"
+                            for source in self.story["sources"]))
+        self.assertTrue(all(source.get("url", "").startswith("https://")
+                            for source in self.story["sources"]))
         boundary = "\n".join(self.story["fact_boundary"])
-        for keyword in ("一审已判", "金某", "双方均已上诉", "3D动画情景重现"):
+        for keyword in ("金素英", "一审法院认为", "双方均已上诉", "3D动画情景重现"):
             self.assertIn(keyword, boundary)
 
 

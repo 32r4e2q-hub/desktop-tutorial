@@ -305,13 +305,16 @@ def write_subtitles(path: Path, cues: list[dict], story: dict, srt_path: Path) -
 
     # Only the closing title is a post-produced overlay; the Agnes model itself is never asked
     # to render legible text anywhere in the film (S30 is the single shot that carries a title).
+    end_title = escape_ass(story["presentation"].get("end_title", "汽车旅馆连环命案"))
+    end_subtitle = escape_ass(story["presentation"].get("end_subtitle", ""))
+    end_note = escape_ass(story["presentation"].get("end_note", "真实案件改编 · 部分画面为3D复原"))
+    end_question = escape_ass(story["presentation"].get("end_question", ""))
     lines += [
-        f"Dialogue: 2,{ass_time(174.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}汽车旅馆连环命案",
-        f"Dialogue: 2,{ass_time(174.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}首尔江北区 · 2025—2026 · AI警告过她",
-        f"Dialogue: 2,{ass_time(174.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}真实案件改编 · 部分画面为3D复原",
+        f"Dialogue: 2,{ass_time(174.30)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,382)\fad(420,430)\fs96}}{end_title}",
+        f"Dialogue: 2,{ass_time(174.55)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,548)\fad(460,430)\fs44}}{end_subtitle}",
+        f"Dialogue: 2,{ass_time(174.75)},{ass_time(179.45)},Caption,,0,0,0,,{{\pos(960,636)\fad(500,430)\fs32}}{end_note}",
         # The closing prompt for discussion: a question only, never a claim about any person.
-        f"Dialogue: 2,{ass_time(175.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}"
-        + story["presentation"].get("end_question", ""),
+        f"Dialogue: 2,{ass_time(175.15)},{ass_time(179.45)},Title,,0,0,0,,{{\pos(960,776)\fad(520,430)\fs40}}{end_question}",
         # A quiet, persistent honesty label: the footage is a reenactment, not evidence material.
         f"Dialogue: 1,{ass_time(0.80)},{ass_time(174.10)},Caption,,0,0,0,,{{\pos(1592,40)\alpha&H70&\fs24\c&H00E6E6E6&}}AI动画情景复原 · 非真实影像",
     ]
@@ -456,8 +459,12 @@ def make_cover(sources: Path, output: Path, story: dict, work_dir: Path) -> None
         return int(box[3] - box[1])
 
     kicker = "真实事件 · 首尔 · 2025—2026"
-    hook_a = "AI明确警告过她：可能致命。"
-    hook_b = "她看完，继续加大了药量。"
+    hook_lines = story["presentation"].get("cover", {}).get("hook_lines", [
+        "20岁金素英：三名男性，三种关系。",
+        "旅馆为何成为关键地点？",
+    ])
+    hook_a = hook_lines[0] if hook_lines else ""
+    hook_b = hook_lines[1] if len(hook_lines) > 1 else ""
     footer = "AI动画情景复原 · 非真实影像"
     kicker_box = draw.textbbox((0, 0), kicker, font=small)
     title_box = draw.textbbox((0, 0), title_text, font=title_font)

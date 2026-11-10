@@ -148,58 +148,55 @@ def request_hash(project: dict, shot: dict) -> str:
 
 
 DELIVERY_DIR = ROOT / "交付"
-DELIVERY_FILM = "汽车旅馆连环命案_AI警告过她_三分钟_带声音.mp4"
 
 
-def publish_delivery(film: Path) -> dict:
-    """Copy the finished film, cover and subtitle file into 交付/ (the repo's delivery convention)."""
+def delivery_names(project: dict) -> dict[str, str]:
+    """Namespaced V2 hand-off names; never overwrite the original final cut."""
+    base = str(project.get("delivery_basename") or "Motel_Case_Revised_V2")
+    return {
+        "film": f"{base}.mp4",
+        "cover": f"{base}_Cover.png",
+        "subtitles": f"{base}_Subtitles.srt",
+        "narration": f"{base}_Narration.wav",
+        "technical_report": f"{base}_Technical_Report.json",
+        "release_copy": f"{base}_Release.md",
+    }
+
+
+def publish_delivery(film: Path, project: dict) -> dict:
+    """Copy only namespaced V2 artifacts into 交付/, preserving original delivery assets."""
     DELIVERY_DIR.mkdir(parents=True, exist_ok=True)
+    names = delivery_names(project)
     copied = {}
-    targets = [(film, DELIVERY_FILM)]
-    cover = film.parent / "汽车旅馆连环命案_封面.jpg"
-    if cover.is_file():
-        targets.append((cover, "汽车旅馆连环命案_封面.jpg"))
+    cover = film.parent / "汽车旅馆连环命案_封面.png"
+    if not cover.is_file():
+        cover = film.parent / "汽车旅馆连环命案_封面.jpg"
+    srt = film.parent / f"{film.stem}_字幕.srt"
+    report = film.parent / "delivery" / "technical-report.json"
+    if not report.is_file():
+        report = ROOT / "work" / "motel2026" / "edit" / "delivery" / "technical-report.json"
+    voiceover = ROOT / "work" / "motel2026" / "edit" / "audio" / "voiceover.wav"
+    if not voiceover.is_file():
+        voiceover = ROOT / "work" / "motel2026" / "audio" / "voiceover.wav"
+    release_copy = HERE / "抖音发布文案.md"
+    targets = [
+        (film, names["film"]),
+        (cover, names["cover"]),
+        (srt, names["subtitles"]),
+        (voiceover, names["narration"]),
+        (report, names["technical_report"]),
+        (release_copy, names["release_copy"]),
+    ]
     for source, name in targets:
         if not source.is_file():
             continue
         destination = DELIVERY_DIR / name
         shutil.copy2(source, destination)
         copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
-    srt = film.parent / f"{film.stem}_字幕.srt"
-    if srt.is_file():
-        destination = DELIVERY_DIR / "汽车旅馆连环命案_字幕.srt"
-        shutil.copy2(srt, destination)
-        copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
-    report = film.parent / "delivery" / "technical-report.json"
-    if not report.is_file():
-        report = ROOT / "work" / "motel2026" / "edit" / "delivery" / "technical-report.json"
-    if report.is_file():
-        destination = DELIVERY_DIR / "汽车旅馆连环命案_技术报告.json"
-        shutil.copy2(report, destination)
-        copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
-    # The brief asks for four named deliverables; keep them byte-identical next to the
-    # repository's own naming convention so the hand-off needs no renaming.  render.py
-    # writes its working audio below ``edit/``; retain the older path as a fallback for
-    # archived runs that pre-date the unified render workspace.
-    voiceover = ROOT / "work" / "motel2026" / "edit" / "audio" / "voiceover.wav"
-    if not voiceover.is_file():
-        voiceover = ROOT / "work" / "motel2026" / "audio" / "voiceover.wav"
-    aliases = [
-        (film, "Motel_Case_Final.mp4"),
-        (film.parent / "汽车旅馆连环命案_封面.png", "Motel_Cover.png"),
-        (film.parent / f"{film.stem}_字幕.srt", "Motel_Subtitles.srt"),
-        (voiceover, "Motel_Narration.wav"),
-    ]
-    for source, name in aliases:
-        if not source.is_file():
-            continue
-        destination = DELIVERY_DIR / name
-        shutil.copy2(source, destination)
-        copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
-    required = {"Motel_Case_Final.mp4", "Motel_Cover.png", "Motel_Subtitles.srt", "Motel_Narration.wav"}
+    required = {names["film"], names["cover"], names["subtitles"], names["narration"]}
     missing = sorted(required.difference(copied))
     if missing:
-        raise RuntimeError("Required delivery artifact(s) missing: " + ", ".join(missing))
+        raise RuntimeError("Required revised delivery artifact(s) missing: " + ", ".join(missing))
     return copied
 
 
@@ -363,7 +360,11 @@ def validate(project: dict, require_audio: bool = True) -> None:
                 or row.get("target_duration") != shot["duration"]
                 or not audio.is_file()):
             raise ValueError("Shot-locked narration text/file/timing mismatch: " + shot["id"])
-        if row.get("sha256") != digest(audio):
+        current_text_sha = hashlib.sha256(shot["narration"].encode("utf-8")).hexdigest()
+        if (row.get("text_sha256") != current_text_sha
+                or row.get("audio_text_sha256") != current_text_sha):
+            raise ValueError("Narration audio was not regenerated for current text: " + shot["id"])
+        if not row.get("sha256") or row.get("sha256") != digest(audio):
             raise ValueError("Narration SHA-256 mismatch: " + shot["id"])
 
     for ref in project.get("reference_images", []):
@@ -439,9 +440,9 @@ def main() -> int:
         # QC-only run: verify the plan and the delivered film, refresh qa/ (contact sheets,
         # full-resolution stills, qc-report.json, qc-summary.md), never regenerate footage.
         validate(project, require_audio=True)
-        film = DELIVERY_DIR / "Motel_Case_Final.mp4"
+        film = DELIVERY_DIR / delivery_names(project)["film"]
         if not film.is_file():
-            raise RuntimeError("QC requested but 交付/Motel_Case_Final.mp4 does not exist")
+            raise RuntimeError(f"QC requested but revised delivery does not exist: {film}")
         if os.getenv("GITHUB_ACTIONS") == "true":
             git("config", "user.name", "github-actions[bot]")
             git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
@@ -501,10 +502,10 @@ def main() -> int:
             "--output", str(output),
         ], cwd=ROOT, check=True)
         doc["phase"] = "first_cut_ready"
-        delivered = publish_delivery(output)
+        delivered = publish_delivery(output, project)
         doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                            "width": 1920, "height": 1080, "fps": 24,
-                           "cover": str((output.parent / "汽车旅馆连环命案_封面.jpg").relative_to(ROOT)),
+                           "cover": str((output.parent / "汽车旅馆连环命案_封面.png").relative_to(ROOT)),
                            "delivered": delivered}
         RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.publish:
@@ -536,6 +537,10 @@ def main() -> int:
         git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
 
     doc = read_json(RESULTS, {"project": project["title"], "model": project["model"], "shots": {}})
+    # A rerun may begin from receipts made for an older editorial cut.  Keep the receipt
+    # document's project label and eventual filename in lockstep with the current story.
+    doc["project"] = project["title"]
+    doc["film_name"] = project["film_name"]
     doc["model"] = MODEL
     doc["source_size"] = SOURCE_SIZE
     doc.pop("provider_outage", None)
@@ -805,15 +810,15 @@ def main() -> int:
                      "note": "First cut rendered; a human must inspect all 30 contact sheets and final playback."}
     doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                        "width": 1920, "height": 1080, "fps": 24,
-                       "cover": str((output.parent / "汽车旅馆连环命案_封面.jpg").relative_to(ROOT)),
-                       "delivered": publish_delivery(output)}
+                       "cover": str((output.parent / "汽车旅馆连环命案_封面.png").relative_to(ROOT)),
+                       "delivered": publish_delivery(output, project)}
     checkpoint("motel2026 180-second first cut ready", publish=False)
     if args.publish:
         commit_delivery("motel2026: 180秒成片、封面、字幕与交付报告")
     summary = os.getenv("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as stream:
-            stream.write("## 汽车旅馆连环命案：AI警告过她\n\n")
+            stream.write("## 汽车旅馆连环命案：人物关系与动机修订版\n\n")
             stream.write("30个Agnes Video 2.5 Flash动态镜头（720P源片后期放大）；1920×1080；16:9；24fps；180秒。\n\n")
             stream.write("初版已渲染。逐镜接触表和成片仍需人工视觉/听觉复核。\n")
     return 0
