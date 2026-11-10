@@ -10,7 +10,7 @@
 ## 这是世田谷模板的复用
 
 本目录照 [`production/setagaya2000/模板-如何复用.md`](../setagaya2000/模板-如何复用.md) 复制：
-29 镜 → 30 镜，其余引擎（Agnes 2.5 Flash 720P、61 秒节流、断点续跑、一镜一句、只快不慢、
+29 镜 → 30 镜，其余引擎（Agnes 2.5 Flash 720P、12 秒节流（月卡每分钟最多五次）、断点续跑、一镜一句、只快不慢、
 24fps、1080P 出片、QC 硬闸门）原样复用。分支已换为 `arena/4d042fa6-desktop-tutorial`。
 
 ## 当前状态
@@ -21,7 +21,7 @@
 | 分镜 / 事实边界 / 提示词 | ✅ 30 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json` |
 | 一镜一句旁白 | ⏳ 待录（悬疑低沉男声，一镜一条 mp3） | `audio/manifest.json`、`audio/S**.mp3` |
 | 离线自检 | ✅ `python3 -m unittest production.tests.test_motel2026 -q`（14 项） | `production/tests/` |
-| Agnes 2.5 Flash 素材 | ⏳ 生成中（30/30 排队，61 秒节流） | `results.json`、`qa/*.jpg` |
+| Agnes 2.5 Flash 素材 | ⏳ 生成中（30/30 排队，12 秒节流（月卡每分钟最多五次）） | `results.json`、`qa/*.jpg` |
 | 成片 / 封面 / 字幕 | ⏳ 待旁白齐后出片 | `交付/Motel_Case_Final.mp4` 等 |
 
 ## 怎么跑
@@ -45,7 +45,7 @@ python3 -m unittest production.tests.test_motel2026 -q
 - **模型**：`agnes-video-2.5-flash`，`size=720P`、`aspect_ratio=16:9`、`mode=text`、`n=1`；
   请求形状只有 `model/prompt/seconds/size/aspect_ratio/mode/n/seed` 八个字段，
   NEGATIVE 写在提示词正文里。
-- **节流**：61 秒共享闸门、2 个 worker；「video queue is full」按 61 秒重试（满足每分钟最多五次的额度上限）。
+- **节流**：12 秒共享闸门、2 个 worker；「video queue is full」按 12 秒重试（月卡额度：每分钟最多五次）。
 - **断点续跑**：`results.json` 记 `video_url / task_id / sha256 / bytes / request_hash`，`work/` 不入库。
 - **旁白与镜头等长**：镜头时长服从旁白——先录一整句、量自然语音长度，再在 Agnes 的 4–9 秒档位里挑一个刚好装下它的；
   字幕时间直接取该镜的语音活动区间，所以切点落在句子之间。只加速（≤1.55×），从不慢放填时长、从不截字。
@@ -73,7 +73,7 @@ python3 -m unittest production.tests.test_motel2026 -q
 | `build_story.py` / `story.json` | 唯一内容源：STYLE（写实/示意两套）、NEGATIVE、10 个角色与种子、30 镜提示词、30 条旁白、九段结构、事实边界、字幕高亮、音效设计、发布文案 |
 | `screenplay.md` | 完整旁白 + 30 镜分镜表 + 来源 + 后期规范 |
 | `audio/` | `manifest.json` + `S01–S30.mp3`（一镜一句，含 sha256 / target_start / target_duration） |
-| `generate.py` | Agnes 2.5 Flash 请求、61 秒节流、断点续跑、接触表、`--clips-only` / `--render-only` |
+| `generate.py` | Agnes 2.5 Flash 请求、12 秒节流（月卡每分钟最多五次）、断点续跑、接触表、`--clips-only` / `--render-only` |
 | `render.py` | 30 镜拼接、逐镜字幕、片尾叠加、封面、技术报告 |
 | `build_audio.py` | 旁白限速与字幕对时、原创配乐与音效、响度/峰值闸门 |
 | `qc.py` | 成片质检：容器 / 冻结 / 黑帧 / 闪烁 / 电平 / 静音 / 字幕时间轴 / 封面尺寸 |

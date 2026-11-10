@@ -2,7 +2,7 @@
 """Generate the 30 Motel shots with Agnes Video 2.5 Flash, then render the 180s first cut.
 
 The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
-size/aspect_ratio/mode/n); transient create failures retry every 61 seconds until accepted.
+size/aspect_ratio/mode/n); transient create failures retry every 12 seconds until accepted (monthly card: max 5 per minute).
 Clips are normalized and upscaled to the 1920x1080 delivery master.
 All generated footage is downloaded to ignored ``work/``. Only JSON provenance and small
 contact sheets are checkpointed into the fixed Arena branch. No still-image substitute is used.
@@ -30,7 +30,7 @@ from throttle import RequestGate  # noqa: E402
 BRANCH = "arena/4d042fa6-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
-REQUEST_INTERVAL_SECONDS = 61
+REQUEST_INTERVAL_SECONDS = 12
 SUPPORTED_MODES = {"text", "keyframe", "reference"}
 ALLOWED_PAYLOAD_FIELDS = {
     "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed",
@@ -748,7 +748,7 @@ def main() -> int:
     checkpoint("Agnes generation started")
     if canary_then_full:
         # The fixed-branch push event probes one shot first. Continue to all remaining footage
-        # in this same process (and shared 61s request gate) only if S01 really completes.
+        # in this same process (and shared 12s request gate) only if S01 really completes.
         canary_ok = generate_one(by_id["S01"])
         if canary_ok:
             checkpoint("S01 canary passed; continuing full 30-shot production", "S01",
