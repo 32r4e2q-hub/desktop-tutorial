@@ -27,7 +27,14 @@
     ],
     "flash_samples": [],
     "motion_percentile_10": 1.036,
-    "motion_median": 2.898
+    "motion_median": 2.898,
+    "planned_end_card_freeze_runs": [
+      {
+        "start": 176.0,
+        "end": 178.5
+      }
+    ],
+    "unexpected_long_freeze_runs": []
   },
   "sound": {
     "duration_seconds": 180.0,
@@ -145,9 +152,7 @@
     "production/motel2026/qa/fullres/S29.jpg",
     "production/motel2026/qa/fullres/S30.jpg"
   ],
-  "hard_gate_failures": [
-    "freeze longer than 2.5s: [{'start': 176.0, 'end': 178.5}]"
-  ],
+  "hard_gate_failures": [],
   "human_review_still_required": [
     "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
     "确认没有遗体、伤口、血腥、可读乱码文字与人物面部崩坏",
