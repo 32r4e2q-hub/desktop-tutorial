@@ -686,9 +686,9 @@
     "S24": {
       "id": "S24",
       "request_hash": "185bb503327230d9b6633fea8174a143a2bc03348452658368ea677e7eea698d",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-10T04:16:14Z",
+      "updated_at": "2026-11-10T04:16:16Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -701,7 +701,18 @@
       "bytes": 2000810,
       "sha256": "38a57340461ace3e6909a16aff877ab4229ee16ea913bf26390fded01b338bd2",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2000810,
+        "decoded_ok": true,
+        "contact_sheet": "production/motel2026/qa/S24.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S25": {
       "id": "S25",
@@ -802,7 +813,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-10T04:16:14Z",
+  "updated_at": "2026-11-10T04:16:16Z",
   "run_id": "42745745078",
   "previous_results": {}
 }
