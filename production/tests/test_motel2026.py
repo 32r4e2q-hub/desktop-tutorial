@@ -217,7 +217,9 @@ class MotelPlanTests(unittest.TestCase):
             (clips / "汽车旅馆连环命案_封面.png").write_bytes(b"cover" * 100)
             (clips / "成片_字幕.srt").write_text("1\n00:00:00,000 --> 00:00:04,000\n字幕\n", encoding="utf-8")
             (clips / "delivery" / "technical-report.json").write_text("{}", encoding="utf-8")
-            audio = root / "work" / "motel2026" / "audio"
+            # render.py builds the narration in the same edit workspace that it gives to
+            # build_soundtrack(), rather than in the legacy work/motel2026/audio location.
+            audio = root / "work" / "motel2026" / "edit" / "audio"
             audio.mkdir(parents=True)
             (audio / "voiceover.wav").write_bytes(b"RIFF" * 500)
             delivery = root / "交付"

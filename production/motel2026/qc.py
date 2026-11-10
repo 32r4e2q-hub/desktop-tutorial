@@ -32,6 +32,18 @@ BLACK_MEAN = 7.0
 FREEZE_DIFF = 0.35
 FREEZE_SECONDS = 1.4
 FLASH_MEAN_JUMP = 55.0
+# The final title is deliberately held over S30 after its fade-in. It is the one planned
+# still end-card in a film otherwise required to use continuously moving generated footage.
+# Keep this window tied to render.py's post-production title timing.
+END_CARD_FREEZE_WINDOW = (174.30, 179.45)
+
+
+def is_planned_end_card_freeze(run_: dict) -> bool:
+    """Return true only when a detected freeze sits wholly in the planned closing hold."""
+    start, end = float(run_["start"]), float(run_["end"])
+    window_start, window_end = END_CARD_FREEZE_WINDOW
+    # The 4fps detector quantises a run by up to one sample at each end.
+    return start >= window_start - 0.26 and end <= window_end + 0.26
 
 
 def run(command, capture=True):
@@ -298,8 +310,12 @@ def main() -> int:
     if picture["unexpected_black_samples"]:
         failures.append(f"unexpected black samples before the tail: {picture['unexpected_black_samples'][:6]}")
     long_freezes = [run_ for run_ in picture["freeze_runs"] if run_["end"] - run_["start"] >= 2.5]
-    if long_freezes:
-        failures.append(f"freeze longer than 2.5s: {long_freezes}")
+    planned_end_card_freezes = [run_ for run_ in long_freezes if is_planned_end_card_freeze(run_)]
+    unexpected_long_freezes = [run_ for run_ in long_freezes if not is_planned_end_card_freeze(run_)]
+    picture["planned_end_card_freeze_runs"] = planned_end_card_freezes
+    picture["unexpected_long_freeze_runs"] = unexpected_long_freezes
+    if unexpected_long_freezes:
+        failures.append(f"freeze longer than 2.5s outside the planned end card: {unexpected_long_freezes}")
 
     sound = analyse_sound(decode_audio(film), story["chapters"])
     if sound["rms_dbfs"] < -30:
@@ -361,6 +377,7 @@ def main() -> int:
         f"- 字幕：{subtitles['cues']} 条（{len(subtitles['problems'])} 个问题）",
         f"- 封面：{cover_info.get('width')}×{cover_info.get('height')}",
         f"- 原始像素抽帧：{len(stills)} 张（`qa/fullres/`，用于查 AI 伪文字与面部崩坏）",
+        f"- 片尾计划静止：{planned_end_card_freezes or '无'}（仅允许在 {END_CARD_FREEZE_WINDOW[0]:.2f}–{END_CARD_FREEZE_WINDOW[1]:.2f}s 标题卡范围内）",
         "",
         "## 硬闸门",
         "",

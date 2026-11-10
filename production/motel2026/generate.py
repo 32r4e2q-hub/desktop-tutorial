@@ -178,12 +178,17 @@ def publish_delivery(film: Path) -> dict:
         shutil.copy2(report, destination)
         copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
     # The brief asks for four named deliverables; keep them byte-identical next to the
-    # repository's own naming convention so the hand-off needs no renaming.
+    # repository's own naming convention so the hand-off needs no renaming.  render.py
+    # writes its working audio below ``edit/``; retain the older path as a fallback for
+    # archived runs that pre-date the unified render workspace.
+    voiceover = ROOT / "work" / "motel2026" / "edit" / "audio" / "voiceover.wav"
+    if not voiceover.is_file():
+        voiceover = ROOT / "work" / "motel2026" / "audio" / "voiceover.wav"
     aliases = [
         (film, "Motel_Case_Final.mp4"),
         (film.parent / "汽车旅馆连环命案_封面.png", "Motel_Cover.png"),
         (film.parent / f"{film.stem}_字幕.srt", "Motel_Subtitles.srt"),
-        (ROOT / "work" / "motel2026" / "audio" / "voiceover.wav", "Motel_Narration.wav"),
+        (voiceover, "Motel_Narration.wav"),
     ]
     for source, name in aliases:
         if not source.is_file():
@@ -191,6 +196,10 @@ def publish_delivery(film: Path) -> dict:
         destination = DELIVERY_DIR / name
         shutil.copy2(source, destination)
         copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
+    required = {"Motel_Case_Final.mp4", "Motel_Cover.png", "Motel_Subtitles.srt", "Motel_Narration.wav"}
+    missing = sorted(required.difference(copied))
+    if missing:
+        raise RuntimeError("Required delivery artifact(s) missing: " + ", ".join(missing))
     return copied
 
 
