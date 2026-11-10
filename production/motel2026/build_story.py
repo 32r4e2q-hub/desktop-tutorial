@@ -184,12 +184,16 @@ SHOT_ROWS = [
     ("S04", 17, 7, "低机位，缓慢推近", ["kim"], "real",
      "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with "
      "physically based wet asphalt, glass and fabric, never cartoon, toy-like or illustrated. "
-     "The same unmarked Namyangju cafe parking area later that winter night: cool ambulance light "
-     "reflections sweep across rain-dark pavement while an empty wheeled chair passes behind frosted "
-     "glass in the background. Kim stands at a distance in three-quarter back view, looking down at "
-     "her phone without dramatics. No person is shown injured, unconscious, restrained or on a bed. "
-     "Camera: low angle with a slow push-in. Real motion: reflected light sweeping, raindrops falling, "
-     "chair wheels passing, Kim shifting weight, breath vapour drifting. No readable text or signage."),
+     "The same unmarked Namyangju cafe parking area later that winter night: frame a plain service "
+     "alcove looking only toward blank frosted glass and rain-dark pavement, never toward a lobby, "
+     "street, storefront, window display, exit sign, neon sign or illuminated panel. Cold blue-white "
+     "ambulance reflections sweep across the pavement while one unmistakably empty wheelchair crosses "
+     "behind the frosted glass. Kim appears only small and distant at the far edge in three-quarter "
+     "back view, phone lowered, with no other interior silhouettes. No person is shown injured, "
+     "unconscious, restrained or on a bed. Camera: low angle with a slow push-in. Real motion: "
+     "reflections sweeping, raindrops falling, wheelchair wheels passing, Kim shifting weight, breath "
+     "vapour drifting. Absolutely no readable writing: no letters, numbers, logos, Korean Hangul, "
+     "glyph-like illuminated shapes, signage or captions."),
 
     ("S05", 24, 6, "长走廊，缓慢推近", ["kim"], "real",
      "A hospital emergency corridor under cold white light: a stretcher trolley rushes past "
@@ -254,12 +258,15 @@ SHOT_ROWS = [
     ("S11", 60, 7, "中景，手持", ["kim", "victimB"], "real",
      "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with natural adult "
      "proportions, rain-wet concrete and fabric, never cartoon or illustrated. 9 February at night: "
-     "inside a different completely unmarked motel vestibule in Gangbuk-gu, Kim and another young "
-     "adult man walk through a plain fabric curtain side by side. He is seen only from behind and in "
-     "three-quarter back view; no face is visible. A blank key card passes at an unlabelled frosted "
-     "front desk. Camera: handheld medium shot with a restrained slow approach. Real motion: curtain "
-     "parting, adults walking, card passing, rain glimmering beyond the door, fabric moving. No harm, "
-     "no readable text, no numbers, no signage, no Korean characters."),
+     "inside a different completely unmarked inner motel vestibule in Gangbuk-gu, Kim and another young "
+     "adult man walk through an opaque plain fabric divider side by side. The camera looks inward at a "
+     "blank matte wall and unlabelled frosted desk, never toward an exterior entrance or street. He is "
+     "seen only from behind and in three-quarter back view; no face is visible. A blank key card passes "
+     "at the desk. Camera: handheld medium shot with a restrained slow approach. Real motion: divider "
+     "parting, adults walking, card passing, fabric moving and soft indirect rain light shifting. No "
+     "exterior view, red neon, exit sign, lightbox, signboard, storefront, poster, window advertisement "
+     "or glowing glyph-like shape. Absolutely no readable writing: no letters, numbers, logos, Korean "
+     "Hangul, captions or signage."),
 
     ("S12", 67, 7, "广角，缓慢推近", ["detective"], "real",
      "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with "
@@ -278,12 +285,14 @@ SHOT_ROWS = [
     ("S13", 74, 6, "中景，缓慢环绕", ["kim", "victimB"], "real",
      "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with serious "
      "live-action-film realism and normal full-size adults, never cute, doll-like, chibi or "
-     "illustrated. In a modest Seoul restaurant with no readable menus or brand marks, Kim sits "
-     "opposite a young man filmed only from behind. A server leaves a plain unmarked card tray near "
-     "his side of the table; Kim watches quietly while he reaches toward it. The scene remains an "
-     "ordinary short date, not a romance montage and not a transaction demonstration. Camera: medium "
-     "shot with a slow restrained orbit. Real motion: hands settling, steam rising, chairs shifting, "
-     "eyes blinking. No readable text, no receipt details, no logos, no harm."),
+     "illustrated. At a small Seoul restaurant table isolated against a soft dark blank wall, Kim sits "
+     "opposite a young man filmed only from behind. The defocused background contains only neutral wall "
+     "and soft pendant light: no shopfront, poster, menu board, window, wall decal, red sign or hanging "
+     "lettering. A server leaves a plain unmarked card tray near his side of the table; Kim watches "
+     "quietly while he reaches toward it. The scene remains an ordinary short date, not a romance "
+     "montage and not a transaction demonstration. Camera: medium shot with a slow restrained orbit. "
+     "Real motion: hands settling, steam rising, chairs shifting, eyes blinking. Absolutely no readable "
+     "writing: no letters, numbers, logos, Korean Hangul, glyph-like shapes, receipt details or harm."),
 
     ("S14", 80, 5, "中景，慢动作", ["kim", "detective"], "real",
      "11 February at dawn, below an apartment block in morning mist: plain-clothes "
