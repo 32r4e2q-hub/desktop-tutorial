@@ -562,9 +562,9 @@
     "S20": {
       "id": "S20",
       "request_hash": "37182d6f3b441f0f9c7d1106857b9c97889e4f180a704d6b290ecb602ab5c718",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-10T03:56:05Z",
+      "updated_at": "2026-11-10T03:56:07Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -577,7 +577,18 @@
       "bytes": 2004562,
       "sha256": "7c78411ebbedfaad5df161a3676e173dd32fad59c70019d70f62bbb19a5811bc",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2004562,
+        "decoded_ok": true,
+        "contact_sheet": "production/motel2026/qa/S20.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S21": {
       "id": "S21",
@@ -706,7 +717,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-10T03:56:05Z",
+  "updated_at": "2026-11-10T03:56:07Z",
   "run_id": "42745745078",
   "previous_results": {}
 }
