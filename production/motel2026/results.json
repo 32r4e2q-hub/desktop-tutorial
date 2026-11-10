@@ -105,13 +105,17 @@
     "S05": {
       "id": "S05",
       "request_hash": "bdc3cf4689ebd25b328a4471131dc8275ba6a95def20bf2acc3ce8c111093701",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-10T05:25:05Z",
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 05:29:53. (request id: 20261110052505621947593O5zj2A6R) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "updated_at": "2026-11-10T05:29:56Z",
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 289.0
+      "applied_cooldown_seconds": 289.0,
+      "video_id": "task_BrT9MBjvo4vlrQ4H0HGPOTn6ATOE3x8a",
+      "task_id": "task_BrT9MBjvo4vlrQ4H0HGPOTn6ATOE3x8a",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S06": {
       "id": "S06",
@@ -685,7 +689,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-10T05:25:05Z",
+  "updated_at": "2026-11-10T05:29:56Z",
   "run_id": "42761889488",
   "previous_results": {
     "S04": [
@@ -1070,13 +1074,5 @@
         "visual_review": "pending"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 05:29:53. (request id: 20261110052505621947593O5zj2A6R) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 289.0,
-    "last_seen": "2026-11-10T05:25:05Z"
   }
 }
