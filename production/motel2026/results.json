@@ -92,9 +92,9 @@
     "S04": {
       "id": "S04",
       "request_hash": "94150db98c14cefbdb1950f60f68821061f656c7285a4742cce7db5417ac00ef",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-10T06:32:35Z",
+      "updated_at": "2026-11-10T06:32:36Z",
       "error": null,
       "create_attempts": 1,
       "video_id": "task_ZM6U87KcLypLxYOospUD5IPtQLrxqoc8",
@@ -105,7 +105,18 @@
       "bytes": 1080079,
       "sha256": "2b5766f80c9347c35f571712b7ede84aa8252adce98b0643deaa44525aef282b",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1080079,
+        "decoded_ok": true,
+        "contact_sheet": "production/motel2026/qa/S04.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S05": {
       "id": "S05",
@@ -886,7 +897,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-10T06:32:35Z",
+  "updated_at": "2026-11-10T06:32:36Z",
   "run_id": "42768514752",
   "previous_results": {
     "S04": [
