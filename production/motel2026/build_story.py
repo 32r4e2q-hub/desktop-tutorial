@@ -287,15 +287,14 @@ SHOT_ROWS = [
      "researcher seen from behind stares at a monitor showing a long abstract spectrum "
      "with several peaks rising together, a pen taps the desk lightly, expression "
      "serious. Camera: medium shot with a slow push toward the screen. Real motion: "
-     "blinking lights, pen tapping, spectrum lines growing, breathing. No readable text, "
-     "no numbers, no charts with labels."),
+     "blinking lights, pen tapping, spectrum lines growing, breathing. Laboratory interior only, no street, no storefronts; no readable text, no numbers, no charts with labels, no Korean characters."),
 
     ("S21", 120, 5, "俯拍，红线延伸", ["detective"], "real",
      "A police meeting room: detectives gather around a table, on the wall an abstract "
      "word shape is crossed out with a red line and replaced by another abstract shape, "
      "the red line extends across the board; papers turn on the table. Camera: overhead "
      "shot following the extending red line. Real motion: marker drawing, line extending, "
-     "pages turning, breathing. No readable text, no letters, no names."),
+     "pages turning, breathing. Abstract shapes only on the board, no handwriting, no letters, no Korean characters; no readable text, no names."),
 
     ("S22", 125, 5, "特写，印章落下，慢动作", ["court"], "real",
      "A prosecutor's office corridor and desk under overcast light: a prosecutor in a dark "
@@ -343,8 +342,7 @@ SHOT_ROWS = [
      "27 August: a gavel falls in slow motion, the defendant's body stiffens slightly in "
      "the dock, in the family gallery one person bows his head and another closes his "
      "eyes; low clouds press outside the window. Camera: close-up in slow motion. Real "
-     "motion: gavel falling, shoulders stiffening, heads bowing, clouds drifting. No "
-     "readable text."),
+     "motion: gavel falling, shoulders stiffening, heads bowing, clouds drifting. Courtroom interior only, no street, no storefronts; no readable text, no Korean characters."),
 
     ("S29", 168, 6, "缓慢拉远，淡入", [], "real",
      "A smartphone rests on a black table: the cursor blinks in an abstract chat "
@@ -358,7 +356,7 @@ SHOT_ROWS = [
      "black field and holds, faint dust drifting through the darkness; the frame is kept "
      "deliberately clear for a title added later. Camera: very slow push-in with fade-in "
      "and fade-out. Real motion: icon brightening, dust drifting, light breathing. The "
-     "generated clip contains no lettering at all; every title is added in post."),
+     "generated clip contains no lettering at all; black field only, no street, no storefronts, no vehicles; every title is added in post."),
 ]
 
 # ---------------------------------------------------------------- 一镜一句旁白（30 条）
