@@ -1,0 +1,157 @@
+{
+  "film": "交付/Motel_Case_Final.mp4",
+  "container": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 4320,
+    "duration_seconds": 180.0,
+    "bytes": 48730466,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "channels": 2
+  },
+  "picture": {
+    "sampled_frames": 720,
+    "sample_fps": 4.0,
+    "mean_luma_min": 6.29,
+    "mean_luma_max": 96.2,
+    "mean_luma_avg": 48.5,
+    "unexpected_black_samples": [],
+    "freeze_runs": [
+      {
+        "start": 176.0,
+        "end": 178.5
+      }
+    ],
+    "flash_samples": [],
+    "motion_percentile_10": 1.036,
+    "motion_median": 2.898
+  },
+  "sound": {
+    "duration_seconds": 180.0,
+    "rms_dbfs": -21.31,
+    "peak_dbfs": -1.51,
+    "silent_seconds": 1,
+    "silent_fraction": 0.0056,
+    "final_second_dbfs": -120.0,
+    "chapters": [
+      {
+        "id": "N01",
+        "start": 0,
+        "rms_dbfs": -21.03,
+        "peak_dbfs": -1.91
+      },
+      {
+        "id": "N02",
+        "start": 10,
+        "rms_dbfs": -21.49,
+        "peak_dbfs": -3.1
+      },
+      {
+        "id": "N03",
+        "start": 35,
+        "rms_dbfs": -21.38,
+        "peak_dbfs": -2.03
+      },
+      {
+        "id": "N04",
+        "start": 60,
+        "rms_dbfs": -21.12,
+        "peak_dbfs": -1.51
+      },
+      {
+        "id": "N05",
+        "start": 85,
+        "rms_dbfs": -21.09,
+        "peak_dbfs": -2.33
+      },
+      {
+        "id": "N06",
+        "start": 108,
+        "rms_dbfs": -20.94,
+        "peak_dbfs": -1.83
+      },
+      {
+        "id": "N07",
+        "start": 130,
+        "rms_dbfs": -21.42,
+        "peak_dbfs": -2.26
+      },
+      {
+        "id": "N08",
+        "start": 150,
+        "rms_dbfs": -21.3,
+        "peak_dbfs": -2.43
+      },
+      {
+        "id": "N09",
+        "start": 168,
+        "rms_dbfs": -22.69,
+        "peak_dbfs": -2.2
+      }
+    ]
+  },
+  "subtitles": {
+    "cues": 30,
+    "end_card_cues": 1,
+    "covers_all_shots": true,
+    "covers_all_lines": true,
+    "problems": []
+  },
+  "cover": {
+    "exists": true,
+    "width": 1920,
+    "height": 1080,
+    "mode": "RGB",
+    "bytes": 899415
+  },
+  "contact_sheets": [
+    "production/motel2026/qa/sheets/sheet-1.jpg",
+    "production/motel2026/qa/sheets/sheet-2.jpg",
+    "production/motel2026/qa/sheets/sheet-3.jpg",
+    "production/motel2026/qa/sheets/sheet-4.jpg"
+  ],
+  "fullres_stills": [
+    "production/motel2026/qa/fullres/S01.jpg",
+    "production/motel2026/qa/fullres/S02.jpg",
+    "production/motel2026/qa/fullres/S03.jpg",
+    "production/motel2026/qa/fullres/S04.jpg",
+    "production/motel2026/qa/fullres/S05.jpg",
+    "production/motel2026/qa/fullres/S06.jpg",
+    "production/motel2026/qa/fullres/S07.jpg",
+    "production/motel2026/qa/fullres/S08.jpg",
+    "production/motel2026/qa/fullres/S09.jpg",
+    "production/motel2026/qa/fullres/S10.jpg",
+    "production/motel2026/qa/fullres/S11.jpg",
+    "production/motel2026/qa/fullres/S12.jpg",
+    "production/motel2026/qa/fullres/S13.jpg",
+    "production/motel2026/qa/fullres/S14.jpg",
+    "production/motel2026/qa/fullres/S15.jpg",
+    "production/motel2026/qa/fullres/S16.jpg",
+    "production/motel2026/qa/fullres/S17.jpg",
+    "production/motel2026/qa/fullres/S18.jpg",
+    "production/motel2026/qa/fullres/S19.jpg",
+    "production/motel2026/qa/fullres/S20.jpg",
+    "production/motel2026/qa/fullres/S21.jpg",
+    "production/motel2026/qa/fullres/S22.jpg",
+    "production/motel2026/qa/fullres/S23.jpg",
+    "production/motel2026/qa/fullres/S24.jpg",
+    "production/motel2026/qa/fullres/S25.jpg",
+    "production/motel2026/qa/fullres/S26.jpg",
+    "production/motel2026/qa/fullres/S27.jpg",
+    "production/motel2026/qa/fullres/S28.jpg",
+    "production/motel2026/qa/fullres/S29.jpg",
+    "production/motel2026/qa/fullres/S30.jpg"
+  ],
+  "hard_gate_failures": [
+    "freeze longer than 2.5s: [{'start': 176.0, 'end': 178.5}]"
+  ],
+  "human_review_still_required": [
+    "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
+    "确认没有遗体、伤口、血腥、可读乱码文字与人物面部崩坏",
+    "确认字幕没有遮挡人物面部与关键物证",
+    "确认人物、服装、住宅在三分钟里保持一致"
+  ]
+}
