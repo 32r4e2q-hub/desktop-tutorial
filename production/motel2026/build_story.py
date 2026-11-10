@@ -144,12 +144,18 @@ CHARACTER_SEEDS = {
 # (镜号, 起始, 时长, 运镜, 角色, 风格变体, 提示词)
 SHOT_ROWS = [
     ("S01", 0, 5, "长焦推近", [], "real",
-     "Night in the motel district of Gangbuk-gu, Seoul, after rain. The camera pushes in "
-     "slowly with a long lens from across the street toward a motel entrance: wet asphalt "
-     "reflects purple-red neon, a vacancy sign flickers with abstract glowing shapes and no "
-     "letters, a fabric curtain sways in the wind, distant headlights slide past. Camera: "
-     "one continuous long-lens push-in, slow and steady. Real motion: curtain swaying, "
-     "neon flickering, water dripping, travelling headlights. No people, no readable text."),
+     "Strict framing priority: a photorealistic Korean crime-thriller 3D reenactment with "
+     "physically based wet concrete, glass and fabric, never cartoon or illustrated. After "
+     "rain at night, a long-lens camera pushes in from across a mostly empty wet service lane "
+     "toward an unmarked recessed motel side entrance: only a plain blank facade, a frosted "
+     "glass doorway and a fabric curtain are visible. The frame deliberately crops out the "
+     "roofline, fascia, commercial street, storefronts, every signboard, billboard and "
+     "illuminated panel. Purple-red colour appears solely as a soft reflected ambient glow on "
+     "wet asphalt from unseen diffuse light, never as a neon sign. Camera: one continuous "
+     "long-lens push-in, slow and steady. Real motion: curtain swaying, water dripping, "
+     "reflections rippling and distant defocused headlights sliding past. No people. "
+     "Absolutely no writing in any language: no letters, numbers, logos, Korean Hangul, "
+     "glyph-like shapes, subtitles or captions anywhere in the generated frame."),
 
     ("S02", 5, 5, "大特写，缓慢推近", ["kim"], "real",
      "Extreme close-up of a smartphone screen in a dark room: an abstract chat interface "
@@ -198,12 +204,19 @@ SHOT_ROWS = [
      "readable letters, no numbers."),
 
     ("S07", 35, 7, "中景，缓慢推近", ["kim", "victimA"], "real",
-     "28 January 2026, 9:30 pm, a motel entrance in Suyu-dong: a fabric curtain parts, a "
-     "man and a woman walk in side by side, the man seen from behind and in three-quarter "
-     "back view talking with an easy smile, the woman with her head lowered; warm light "
-     "from the front desk window, a key card is handed out. Camera: medium shot with a "
-     "slow push-in. Real motion: curtain parting, walking, head turning, card passing "
-     "hands. No clear faces of the man, no readable text."),
+     "Strict framing priority: photorealistic Korean crime-thriller 3D reenactment with "
+     "normal-proportioned adult people, realistic rain, fabric, concrete and skin, never "
+     "cartoon, toy-like or illustrated. 28 January 2026, 9:30 pm: inside an enclosed, "
+     "completely unmarked motel vestibule, a plain fabric curtain parts and a man and woman "
+     "walk in side by side. The man is seen only from behind and in three-quarter back view; "
+     "the woman keeps her head lowered. Warm light spills from an unlabelled front desk behind "
+     "frosted glass; an unmarked blank key card is handed out. The camera remains inside the "
+     "vestibule and deliberately excludes the outer street, upper facade, storefronts, every "
+     "signboard, billboard and illuminated panel. Purple-red colour is only a diffuse "
+     "reflection on blank walls and wet floor, never a neon sign. Camera: medium shot with a "
+     "slow push-in. Real motion: curtain parting, adult walking, head turning, card passing "
+     "hands and fabric moving. No clear faces. Absolutely no writing in any language: no "
+     "letters, numbers, logos, Korean Hangul, glyph-like shapes, subtitles or captions."),
 
     ("S08", 42, 7, "走廊对称构图，缓慢推近门", ["kim", "victimA"], "real",
      "A long motel corridor under purple-red light, carpeted, doors on both sides in "

@@ -105,13 +105,13 @@ AI警告过她，她没有听。你觉得，当一个人铁了心，一句警告
 
 | 镜号 | 时间 | 秒数 | 段 | 运镜 | 角色 | 画面职责 |
 |---|---:|---:|---|---|---|---:|
-| S01 | 00:00—00:05 | 5 | N01 | 长焦推近 | — | Night in the motel district of Gangbuk-gu, Seoul, after rain |
+| S01 | 00:00—00:05 | 5 | N01 | 长焦推近 | — | Strict framing priority: a photorealistic Korean crime-thriller 3D reenactment with physically based wet concr |
 | S02 | 00:05—00:10 | 5 | N01 | 大特写，缓慢推近 | kim | Extreme close-up of a smartphone screen in a dark room: an abstract chat interface made of soft lines and bubb |
 | S03 | 00:10—00:17 | 7 | N02 | 中景，缓慢推近杯子 | kim、boyfriend | December 2025, a small apartment in Gangbuk-gu at night: a young couple sit at a small dining table talking, t |
 | S04 | 00:17—00:24 | 7 | N02 | 低机位，缓慢推近 | kim | Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered with physically based mat |
 | S05 | 00:24—00:30 | 6 | N02 | 长走廊，缓慢推近 | kim | A hospital emergency corridor under cold white light: a stretcher trolley rushes past in the foreground, an em |
 | S06 | 00:30—00:35 | 5 | N02 | 大特写 | kim | Abstract smartphone screen in darkness: soft chat lines and bubbles with no readable words, a fingertip types  |
-| S07 | 00:35—00:42 | 7 | N03 | 中景，缓慢推近 | kim、victimA | 28 January 2026, 9:30 pm, a motel entrance in Suyu-dong: a fabric curtain parts, a man and a woman walk in sid |
+| S07 | 00:35—00:42 | 7 | N03 | 中景，缓慢推近 | kim、victimA | Strict framing priority: photorealistic Korean crime-thriller 3D reenactment with normal-proportioned adult pe |
 | S08 | 00:42—00:49 | 7 | N03 | 走廊对称构图，缓慢推近门 | kim、victimA | A long motel corridor under purple-red light, carpeted, doors on both sides in symmetrical composition: two fi |
 | S09 | 00:49—00:55 | 6 | N03 | 固定机位，延时 | — | Inside an empty motel room: purple-red neon seeps through a curtain gap, two clean glasses on a table, a neatl |
 | S10 | 00:55—01:00 | 5 | N03 | 低机位，背影跟拍 | kim | Strict visual priority: a photorealistic Korean crime-thriller 3D reenactment with physically based real-world |
