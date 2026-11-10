@@ -168,12 +168,19 @@ SHOT_ROWS = [
      "breathing. No medicine, no readable text."),
 
     ("S04", 17, 7, "低机位，缓慢推近", ["kim"], "real",
-     "The same apartment, quiet and still: a man lies slumped on a sofa seen only from the "
-     "side and behind with his face never shown, a glass has rolled onto the carpet, the "
-     "table lamp still glows; the woman stands beside him with a calm expression, lowers "
-     "her head and picks up her phone. Camera: low angle with a slow push-in. Real motion: "
-     "lamp glow breathing, curtain moving, the woman shifting weight and lifting the phone, "
-     "breathing. Restrained, no violence shown, no readable text; any background lights are heavily blurred abstract glows with no letters."),
+     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered "
+     "with physically based materials and the visual realism of a serious live-action film; "
+     "every person is a normal-proportioned full-size adult with natural skin, hair, fabric "
+     "and believable anatomy, never cute, doll-like, childlike or illustrated. The same "
+     "apartment is quiet and still: at floor level, the camera looks past a clean glass rolled "
+     "onto the carpet and the rear shoulder of an adult man resting beyond the sofa arm; he is "
+     "seen only as an opaque side-and-back silhouette with his face completely invisible. A "
+     "table lamp still glows. Kim, also turned three-quarter away from camera, is a realistic "
+     "adult silhouette in a grey jacket; she calmly lowers her head, reaches down and picks up "
+     "her phone. Camera: low angle with a slow push-in. Real motion: lamp glow breathing, "
+     "curtain moving, Kim shifting weight and lifting the phone, subtle breathing. Restrained "
+     "and procedural, no violence shown, no readable text; background lights are only soft "
+     "abstract glows with no letters, logos or glyphs."),
 
     ("S05", 24, 6, "长走廊，缓慢推近", ["kim"], "real",
      "A hospital emergency corridor under cold white light: a stretcher trolley rushes past "
@@ -215,11 +222,18 @@ SHOT_ROWS = [
      "readable text, no numbers."),
 
     ("S10", 55, 5, "低机位，背影跟拍", ["kim"], "real",
-     "Deep night at the motel entrance: a fabric curtain is lifted, a woman walks out "
-     "alone, pulls up her hood, walks at an unhurried pace and disappears into the wet "
-     "street; neon reflections break into pieces on the ground. Camera: low tracking shot "
-     "from behind. Real motion: curtain lifting, walking, hood settling, puddle ripples, "
-     "neon shimmering. All signs are heavily blurred abstract glowing shapes with no letters, no Korean characters, no text."),
+     "Strict visual priority: a photorealistic Korean crime-thriller 3D reenactment with "
+     "physically based real-world materials, normal-proportioned adult anatomy and a serious "
+     "live-action-film look, never cartoon, toy-like or illustrated. Deep night at an "
+     "unmarked motel side exit: this is a narrow wet service passage, not a commercial street. "
+     "The camera deliberately crops out every upper facade, shopfront, signboard and illuminated "
+     "panel. A fabric curtain lifts; Kim is seen only from behind as she walks out, pulls up "
+     "her hood, crosses the wet concrete passage at an unhurried pace and disappears into "
+     "shadow. Purple-red colour appears only as diffuse reflected ambient light from an unseen "
+     "source, never as a neon sign. Camera: low tracking shot from behind. Real motion: curtain "
+     "lifting, walking, hood settling, puddle ripples and coloured reflections shimmering. "
+     "Absolutely no writing in any language: no letters, numbers, logos, Korean Hangul, "
+     "glyph-like shapes, subtitles or captions anywhere in frame."),
 
     ("S11", 60, 7, "中景，手持", ["cleaner"], "real",
      "The next day, a motel corridor: a cleaner pushes a small cart, knocks on a door with "
@@ -229,17 +243,34 @@ SHOT_ROWS = [
      "falling, turning and running. Interior corridor only, no exterior, no neon signs; no interior shown, no readable text, no Korean characters."),
 
     ("S12", 67, 7, "广角，缓慢推近", ["detective"], "real",
-     "Police lights flash at a motel entrance at night: officers stretch a yellow cordon "
-     "tape, passers-by stop and watch, a detective in a dark jacket walks into the motel; "
-     "the scene stays restrained and procedural. Camera: wide shot with a slow push-in. "
-     "Real motion: flashing lights, tape sagging, walking, coat movement. All signs are heavily blurred abstract glows with no letters, no Korean characters; no readable text, no insignia numbers."),
+     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment with "
+     "physically based concrete, wet fabric and realistic full-size adult people, never "
+     "cartoon, chibi, toy-like or illustrated. At night, officers secure an unmarked recessed "
+     "motel entrance with yellow cordon tape: the entrance is plain blank concrete and an "
+     "opaque unlabelled door. The wide frame is intentionally held below the roofline and "
+     "fascia, so it contains no building name, shopfront, window advertisement, vehicle or "
+     "signboard. A few passers-by stop behind the tape while a detective in a dark jacket walks "
+     "through the blank doorway; the scene remains restrained and procedural. Camera: wide shot "
+     "with a slow push-in. Real motion: blue and red emergency light reflections sweep over "
+     "bare walls, tape sags, adults walk and coats move. The coloured light is only reflection, "
+     "not a sign. Absolutely no readable writing of any kind: no letters, numbers, logos, "
+     "Korean Hangul, glyphs or insignia numbers."),
 
     ("S13", 74, 6, "同S07构图，缓慢推近", ["kim", "victimB"], "real",
-     "9 February at night, another motel on the same street: purple-red neon flickers, a "
-     "man and a woman walk in side by side in almost the same composition as an earlier "
-     "night, but light rain falls and the man's clothing is different; the repetition "
-     "feels uneasy. Camera: same composition as the earlier entrance, slow push-in. Real "
-     "motion: rain falling, curtain parting, walking, neon flickering. All signs are heavily blurred abstract glowing shapes with no letters, no Korean characters, no subtitles, no captions; no clear faces of the man, no readable text."),
+     "Strict visual priority: photorealistic Korean crime-thriller 3D reenactment rendered "
+     "with serious live-action-film realism, physically based rain, fabric, concrete and skin; "
+     "the two people have normal full-size adult anatomy, never cute, toy-like, doll-like, "
+     "chibi or illustrated. 9 February at night: repeat the spacing and slow push-in feeling "
+     "of the earlier entrance scene inside a closed-in, completely unmarked motel vestibule. "
+     "A plain fabric curtain parts and Kim and a man in different clothing walk in side by side; "
+     "both are filmed from behind in dark three-quarter silhouettes with faces never visible. "
+     "Light rain falls beyond the doorway. The camera crops above the door lintel and excludes "
+     "the street, storefronts, all signboards and every illuminated text panel. Purple-red "
+     "colour is only a soft reflected glow on wet ground and blank walls, never a neon sign. "
+     "Camera: same composition as the earlier entrance, slow push-in. Real motion: rain falling, "
+     "curtain parting, adult walking, fabric moving and reflected light flickering. Absolutely "
+     "no readable text, Korean Hangul, letters, numbers, logos, subtitles, captions or "
+     "glyph-like shapes."),
 
     ("S14", 80, 5, "中景，慢动作", ["kim", "detective"], "real",
      "11 February at dawn, below an apartment block in morning mist: plain-clothes "
