@@ -19,7 +19,7 @@
 |---|---|---|
 | 角色与场景定稿参考图 | ✅ 8 张（风格化形象，非真实肖像） | `reference/01–08*.png` |
 | 分镜 / 事实边界 / 提示词 | ✅ 30 镜、180 秒；生成器自动拼接 STYLE、角色设定与 NEGATIVE | `build_story.py`、`story.json` |
-| 一镜一句旁白 | ⏳ 待录（悬疑低沉男声，一镜一条 mp3） | `audio/manifest.json`、`audio/S**.mp3` |
+| 一镜一句旁白 | ✅ 30/30 已完成，悬疑低沉男声（voice-01） | `audio/manifest.json`、`audio/S**.mp3` |
 | 离线自检 | ✅ `python3 -m unittest production.tests.test_motel2026 -q`（14 项） | `production/tests/` |
 | Agnes 2.5 Flash 素材 | ⏳ 生成中（30/30 排队，12 秒节流（月卡每分钟最多五次）） | `results.json`、`qa/*.jpg` |
 | 成片 / 封面 / 字幕 | ⏳ 待旁白齐后出片 | `交付/Motel_Case_Final.mp4` 等 |
