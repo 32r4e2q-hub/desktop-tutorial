@@ -884,9 +884,9 @@
     "S30": {
       "id": "S30",
       "request_hash": "9d9994c5641d45e2f2ea560d72964a954efc10cbd8f02b9182aeca3113b4c6dc",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-10T06:22:53Z",
+      "updated_at": "2026-11-10T06:22:55Z",
       "error": null,
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
@@ -899,7 +899,18 @@
       "bytes": 453390,
       "sha256": "de74184fd4bf3d64c6a31e988d85cacb496e282aa9106850f3251c86e242115d",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 453390,
+        "decoded_ok": true,
+        "contact_sheet": "production/motel2026/qa/S30.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     }
   },
   "source_size": "720P",
@@ -950,7 +961,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-10T06:22:53Z",
+  "updated_at": "2026-11-10T06:22:55Z",
   "run_id": "42761889488",
   "previous_results": {
     "S04": [
