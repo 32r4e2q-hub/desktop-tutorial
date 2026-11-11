@@ -58,6 +58,10 @@ jobs:
             echo 'Cancellation requested; no Agnes generation requests will be made.'
             exit 0
           fi
+          if [ "$mode" = "render" ] || [ "$mode" = "qc" ]; then
+            python3 -u production/honeymoon_nicotine/generate.py --render-only --publish
+            exit $?
+          fi
           test -n "$AGNES_API_KEY"
           python3 production/honeymoon_nicotine/generate.py --validate --clips-only
           if [ "$mode" = "status" ]; then

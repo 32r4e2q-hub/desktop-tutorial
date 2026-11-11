@@ -47,6 +47,55 @@ def ffmpeg_escape(path: Path) -> str:
     return str(path.resolve()).replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'")
 
 
+def ass_time(seconds: float) -> str:
+    centiseconds = round(seconds * 100)
+    hours, centiseconds = divmod(centiseconds, 360000)
+    minutes, centiseconds = divmod(centiseconds, 6000)
+    secs, centiseconds = divmod(centiseconds, 100)
+    return f"{hours}:{minutes:02d}:{secs:02d}.{centiseconds:02d}"
+
+
+def ass_escape(text: str) -> str:
+    return text.replace("\\", "／").replace("{", "（").replace("}", "）").replace("\n", " ")
+
+
+def caption_lines(text: str, limit: int = 24) -> list[str]:
+    """Keep Chinese captions compact and centered, using a consistent small type size."""
+    if len(text) <= limit:
+        return [text]
+    split_at = len(text) // 2
+    punctuation = set("，。；：！？、")
+    candidates = [i + 1 for i, char in enumerate(text) if char in punctuation and 6 <= i + 1 <= limit]
+    if candidates:
+        split_at = min(candidates, key=lambda i: abs(i - len(text) / 2))
+    else:
+        split_at = min(limit, split_at)
+    left, right = text[:split_at].strip(), text[split_at:].strip()
+    if len(right) > limit:
+        return [left] + caption_lines(right, limit)
+    return [left, right]
+
+
+def ass_caption(text: str) -> str:
+    """Escape text only; the shared ASS style keeps every glyph the same golden size."""
+    return ass_escape(text)
+
+
+def write_ass(path: Path, cues: list[tuple[float, float, str]]) -> None:
+    rows = [
+        "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1920", "PlayResY: 1080",
+        "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
+        "[V4+ Styles]",
+        "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
+        "Style: Caption,Noto Sans CJK SC,32,&H0000C8FF,&H0000C8FF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.0,0.5,2,140,140,54,1",
+        "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
+    ]
+    for start, end, text in cues:
+        rendered = r"\N".join(ass_caption(line) for line in caption_lines(text))
+        rows.append(f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Caption,,0,0,0,,{{\\q2\\fad(60,70)}}{rendered}")
+    path.write_text("\n".join(rows) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sources", type=Path, required=True)
@@ -140,6 +189,8 @@ def main() -> int:
     audio_list.write_text("\n".join(audio_entries) + "\n", encoding="utf-8")
     srt.write_text("\n".join(f"{i}\n{srt_time(a)} --> {srt_time(b)}\n{text}\n"
                                   for i, (a, b, text) in enumerate(cues, 1)), encoding="utf-8")
+    ass = args.work / "subtitles.ass"
+    write_ass(ass, cues)
     silent = args.work / "picture-only.mp4"
     voice = args.work / "voiceover.wav"
     run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", video_list,
@@ -147,7 +198,7 @@ def main() -> int:
     run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", audio_list,
          "-c:a", "pcm_s16le", "-ar", RATE, "-ac", 2, voice])
 
-    subtitle_filter = f"subtitles='{ffmpeg_escape(srt)}':force_style='FontName=Noto Sans CJK SC,FontSize=42,PrimaryColour=&H00FFFFFF,OutlineColour=&H00101010,BorderStyle=1,Outline=2.5,Shadow=0.5,Alignment=2,MarginV=52'"
+    subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
     run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent, "-i", voice,
          "-vf", subtitle_filter, "-map", "0:v:0", "-map", "1:a:0", "-t", "180",
          "-frames:v", 180 * FPS, "-r", FPS, "-fps_mode", "cfr",
