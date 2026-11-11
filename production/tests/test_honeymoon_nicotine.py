@@ -80,6 +80,47 @@ class HoneymoonReferenceTests(unittest.TestCase):
             finally:
                 generator.RESULTS = original_results
 
+    def test_retrieve_completed_downloads_only_existing_task_and_never_creates(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            here = root / "production" / "honeymoon_nicotine"
+            here.mkdir(parents=True)
+            results_path = here / "results.json"
+            results_path.write_text(json.dumps({"shots": {
+                "S01": {"video_id": "task-existing", "task_id": "task-existing", "status": "queued"},
+            }}), encoding="utf-8")
+            original_root, original_here, original_results = generator.ROOT, generator.HERE, generator.RESULTS
+
+            def fake_download(url, dest, retries, retry_delay):
+                self.assertEqual(url, "https://video.example/S01.mp4")
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                dest.write_bytes(b"video-bytes" * 200)
+                return dest.stat().st_size
+
+            try:
+                generator.ROOT, generator.HERE, generator.RESULTS = root, here, results_path
+                with (
+                    patch.dict(os.environ, {"AGNES_API_KEY": "test-key"}),
+                    patch.object(generator.agnes, "http_json", return_value=(200, {
+                        "status": "completed", "progress": 100,
+                        "video_url": "https://video.example/S01.mp4",
+                    }, "")) as request,
+                    patch.object(generator.agnes, "download", side_effect=fake_download),
+                    patch.object(generator, "create_contact_sheet", return_value={
+                        "decoded_ok": True, "visual_review": "pending",
+                    }),
+                ):
+                    self.assertEqual(generator.retrieve_completed_tasks(publish=False), 0)
+                request.assert_called_once()
+                self.assertEqual(request.call_args.args[0], "GET")
+                saved = json.loads(results_path.read_text(encoding="utf-8"))
+                self.assertEqual(saved["task_retrieval"]["create_requests"], 0)
+                self.assertEqual(saved["task_retrieval"]["downloaded"], ["S01"])
+                self.assertEqual(saved["shots"]["S01"]["status"], "completed")
+                self.assertTrue((root / "work/honeymoon_nicotine/sources/S01.mp4").is_file())
+            finally:
+                generator.ROOT, generator.HERE, generator.RESULTS = original_root, original_here, original_results
+
     def test_plan_validates_offline_without_agnes_requests(self):
         generator.validate(self.project, require_audio=False)
         self.assertEqual(len(self.project["shots"]), 30)

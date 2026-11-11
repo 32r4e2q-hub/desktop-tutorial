@@ -188,6 +188,105 @@ def check_outstanding_tasks(publish: bool) -> int:
     return 2 if pending else 0
 
 
+def retrieve_completed_tasks(publish: bool, selected: set[str] | None = None) -> int:
+    """Fetch only already-created, terminal-success task outputs; this path never POSTs or retries creation."""
+    if publish and (os.getenv("GITHUB_ACTIONS") != "true" or git("branch", "--show-current").strip() != BRANCH):
+        raise RuntimeError("Publishing is restricted to the fixed Arena branch in GitHub Actions")
+    key = os.getenv("AGNES_API_KEY", "").strip()
+    if not key:
+        raise RuntimeError("AGNES_API_KEY is unavailable; completed task outputs cannot be retrieved")
+    base = (os.getenv("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).strip() or agnes.DEFAULT_BASE_URL).rstrip("/")
+    doc = read_json(RESULTS, {"shots": {}})
+    sources = ROOT / "work" / "honeymoon_nicotine" / "sources"
+    qa_dir = HERE / "qa"
+    outcomes = {"run_id": os.getenv("GITHUB_RUN_ID"),
+                "checked_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "create_requests": 0, "downloaded": [], "pending": [], "shots": {}}
+    commit_paths = [str(RESULTS.relative_to(ROOT))]
+    for sid, row in sorted(doc.get("shots", {}).items()):
+        if selected and sid not in selected:
+            continue
+        video_id = row.get("video_id")
+        if not video_id:
+            continue
+        observation = {"video_id": str(video_id), "task_id": row.get("task_id"),
+                       "state": "unconfirmed"}
+        outcomes["shots"][sid] = observation
+        query = base + "/agnesapi?" + urllib.parse.urlencode(
+            {"video_id": video_id, "model_name": MODEL})
+        try:
+            code, body, text = agnes.http_json("GET", query, key, timeout=60)
+            if code == 404 and row.get("task_id"):
+                legacy = base + "/v1/videos/" + urllib.parse.quote(str(row["task_id"]), safe="")
+                code, body, text = agnes.http_json("GET", legacy, key, timeout=60)
+            observation["http_status"] = code
+            if not (200 <= code < 300 and isinstance(body, dict)):
+                observation["error"] = agnes.describe_error(body, text, code).replace(key, "[redacted]")[:300]
+                outcomes["pending"].append(sid)
+                print(f"RETRIEVE_UNCONFIRMED {sid}: HTTP {code} {observation['error']}", flush=True)
+                continue
+            state = str(body.get("status") or "unknown").lower()
+            observation["state"] = state
+            observation["progress"] = body.get("progress")
+            if state in agnes.FAILED_STATES:
+                observation["error"] = agnes.describe_error(body, text, code).replace(key, "[redacted]")[:300]
+                row.update({"status": "provider_failed", "error": observation["error"]})
+                outcomes["pending"].append(sid)
+                print(f"RETRIEVE_FAILED {sid}: {state}", flush=True)
+                continue
+            if state not in agnes.COMPLETED_STATES:
+                outcomes["pending"].append(sid)
+                print(f"RETRIEVE_PENDING {sid}: {state}", flush=True)
+                continue
+            video_url = agnes.find_video_url(body)
+            if not video_url:
+                observation["error"] = "Provider reports completed but returned no video URL"
+                outcomes["pending"].append(sid)
+                print(f"RETRIEVE_PENDING {sid}: no video URL in completed receipt", flush=True)
+                continue
+            dest = sources / f"{sid}.mp4"
+            size = agnes.download(video_url, dest, retries=3, retry_delay=5)
+            inspection = create_contact_sheet(dest, sid, qa_dir)
+            checksum = digest(dest)
+            row.update({"status": "completed", "video_url": video_url, "bytes": size,
+                        "sha256": checksum, "inspection": inspection,
+                        "provider_status": state, "error": None,
+                        "updated_at": outcomes["checked_at"]})
+            observation.update({"downloaded": True, "bytes": size, "sha256": checksum,
+                                "inspection": inspection})
+            outcomes["downloaded"].append(sid)
+            commit_paths.extend([
+                str((qa_dir / f"{sid}.jpg").relative_to(ROOT)),
+                str((qa_dir / f"{sid}.json").relative_to(ROOT)),
+            ])
+            print(f"RETRIEVED {sid}: {size} bytes; decoded and contact sheet ready; visual review pending", flush=True)
+        except (agnes.TransientError, agnes.Fatal, OSError, RuntimeError,
+                subprocess.CalledProcessError, ValueError) as exc:
+            observation["error"] = str(exc).replace(key, "[redacted]")[:400]
+            outcomes["pending"].append(sid)
+            print(f"RETRIEVE_UNCONFIRMED {sid}: {observation['error']}", flush=True)
+
+    doc["task_retrieval"] = outcomes
+    RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if publish:
+        git("config", "user.name", "github-actions[bot]")
+        git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+        git("add", "--", *commit_paths)
+        if subprocess.run(["git", "diff", "--cached", "--quiet", "--", *commit_paths], cwd=ROOT).returncode:
+            git("commit", "-m", "honeymoon_nicotine: retrieve completed Agnes clips and QC sheets",
+                "--", *commit_paths)
+            for attempt in range(3):
+                try:
+                    git("push", "origin", BRANCH)
+                    break
+                except subprocess.CalledProcessError:
+                    if attempt == 2:
+                        raise
+                    git("pull", "--rebase", "origin", BRANCH)
+    print("RETRIEVAL_SUMMARY " + json.dumps(outcomes, ensure_ascii=False), flush=True)
+    return 2 if outcomes["pending"] else 0
+
+
 def retryable_create_error(message: str):
     """Return the matched transient provider marker, or None for a fatal request error."""
     text = str(message or "").lower()
@@ -548,6 +647,8 @@ def main() -> int:
     parser.add_argument("--publish", action="store_true")
     parser.add_argument("--check-outstanding", action="store_true",
                         help="poll existing task IDs once; never create or resume a video task")
+    parser.add_argument("--retrieve-completed", action="store_true",
+                        help="download and decode already-completed tasks only; never create a task")
     parser.add_argument("--payload", default="{}", help='JSON, e.g. {"only":"S01","workers":1}')
     parser.add_argument("--clips-only", action="store_true",
                         help="generate all 30 clips but do not render (voice may not exist yet)")
@@ -558,6 +659,14 @@ def main() -> int:
     if args.check_outstanding:
         return check_outstanding_tasks(args.publish)
     options = json.loads(args.payload or "{}")
+    if args.retrieve_completed:
+        selected_value = options.get("only", "")
+        if not isinstance(selected_value, str):
+            raise ValueError("payload.only must be a comma-separated string of shot IDs")
+        selected = {part.strip() for part in selected_value.split(",") if part.strip()}
+        if selected - {shot["id"] for shot in project.get("shots", [])}:
+            raise ValueError("Unknown retrieval shot(s): " + ", ".join(sorted(selected - {shot["id"] for shot in project.get('shots', [])})))
+        return retrieve_completed_tasks(args.publish, selected or None)
     mode = str(options.get("mode") or "").strip()
     if not mode and options.get("only"):
         # 单镜/金丝雀试跑绝不进入出片阶段：配音还没齐也一样能先攒素材。
