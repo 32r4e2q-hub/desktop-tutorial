@@ -171,7 +171,7 @@ def main() -> int:
             filter_args = ["-vf", vf, "-map", "0:v:0"]
         run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
              *filter_args, "-an", "-frames:v", frames, "-r", FPS,
-             "-fps_mode", "cfr", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
+             "-vsync", "cfr", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
              "-movflags", "+faststart", normalized])
         video_entries.append(f"file '{normalized.resolve()}'")
 
@@ -213,7 +213,7 @@ def main() -> int:
     subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
     run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent, "-i", voice,
          "-vf", subtitle_filter, "-map", "0:v:0", "-map", "1:a:0", "-t", "180",
-         "-frames:v", 180 * FPS, "-r", FPS, "-fps_mode", "cfr",
+         "-frames:v", 180 * FPS, "-r", FPS, "-vsync", "cfr",
          "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p",
          "-c:a", "aac", "-b:a", "192k", "-ar", RATE, "-ac", 2, "-movflags", "+faststart", args.output])
 
