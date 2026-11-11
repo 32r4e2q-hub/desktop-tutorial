@@ -261,11 +261,11 @@
   ],
   "workflow_policy": "agnes-video-2.5-flash-720p-upscale-180s-30shots",
   "rate_policy": {
-    "minimum_creation_interval_seconds": 61,
+    "minimum_creation_interval_seconds": 12,
     "workers_max": 2,
     "retry_after_respected": true,
     "key_rotation": false,
-    "capacity_retry_interval_seconds": 61,
+    "capacity_retry_interval_seconds": 12,
     "capacity_retries_unbounded": true
   },
   "review": {
@@ -273,7 +273,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T00:32:35Z",
-  "run_id": "42931895553",
+  "updated_at": "2026-11-11T03:29:55Z",
+  "run_id": "42953032851",
   "previous_results": {}
 }
