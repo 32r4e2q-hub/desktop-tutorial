@@ -41,9 +41,12 @@ jobs:
             sudo timeout 120s apt-get update -o Acquire::Retries=2 -o Acquire::http::Timeout=20
             sudo timeout 120s apt-get install -y --no-install-recommends ffmpeg
           fi
-          if ! fc-match 'Noto Sans CJK SC' 2>/dev/null | grep -q 'Noto Sans CJK SC'; then
-            sudo timeout 120s apt-get install -y --no-install-recommends fonts-noto-cjk
-          fi
+          mkdir -p "$HOME/.local/share/fonts"
+          GH_TOKEN="${{ github.token }}" gh api -H 'Accept: application/vnd.github.raw' \
+            'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' \
+            > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          fc-cache -f "$HOME/.local/share/fonts"
+          fc-match 'Noto Sans CJK SC' | grep -q 'Noto Sans CJK SC'
           if ! python3 -c 'import numpy; from PIL import Image' >/dev/null 2>&1; then
             python3 -m pip install --break-system-packages --no-input --disable-pip-version-check pillow numpy
           fi
