@@ -1,10 +1,19 @@
-# 源片技术 QC
+# 成片技术 QC
 
 状态：**TECHNICAL_PASS_VISUAL_REVIEW_PENDING**
 
 ## 成片规格
 
-null
+{
+  "duration_seconds": 180.0,
+  "width": 1920,
+  "height": 1080,
+  "fps": "24/1",
+  "frames": 4320,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "audio_sample_rate": 48000
+}
 
 ## 源片抽样警告
 
