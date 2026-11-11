@@ -1360,7 +1360,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1407,9 +1407,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-11T11:20:10Z",
   "run_id": "43010265748",
@@ -2804,5 +2804,35 @@
       "S24",
       "S26"
     ]
+  },
+  "delivery": {
+    "film": "work/honeymoon_nicotine/clips/蜜月尼古丁命案_新婚第十一天_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/honeymoon_nicotine/clips/Honeymoon_Nicotine_Cover.jpg",
+    "delivered": {
+      "Honeymoon_Nicotine_Final.mp4": {
+        "bytes": 86426524,
+        "sha256": "d7613cc2502ab6e2ec607f6572be4749d57ede96456bb54334fd02401fb520e5"
+      },
+      "Honeymoon_Nicotine_Cover.jpg": {
+        "bytes": 264124,
+        "sha256": "f916550f9eb6c5764321ddbb8437db35e84462da0fe617bebc00c9da74bb3d78"
+      },
+      "Honeymoon_Nicotine_Subtitles.srt": {
+        "bytes": 2935,
+        "sha256": "dfc1077370a25764320ed46a9616c79ae49f6cbacdabfb8e6fb9539655ad8e07"
+      },
+      "Honeymoon_Nicotine_Narration.wav": {
+        "bytes": 34560078,
+        "sha256": "bc7dee67ec1430270e20dc8879c7bb58144094bd5ff2d00ed9993ed0b34eb30f"
+      },
+      "Honeymoon_Nicotine_Technical_Report.json": {
+        "bytes": 10458,
+        "sha256": "dd39c09d623cc56dae8a96c5a370ff8e7ccd7030d0a913e077598e065ffbb29a"
+      }
+    }
   }
 }
