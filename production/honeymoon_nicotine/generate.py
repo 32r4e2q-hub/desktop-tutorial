@@ -117,16 +117,23 @@ def check_outstanding_tasks(publish: bool) -> int:
     doc = read_json(RESULTS, {"shots": {}})
     pending = []
     checked = 0
+    observations = {}
+    checked_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    terminal = agnes.COMPLETED_STATES | agnes.FAILED_STATES
     for sid, row in sorted(doc.get("shots", {}).items()):
         video_id = row.get("video_id")
         if not video_id or row.get("status") in {"failed", "cancelled", "canceled", "completed"}:
             continue
+        observation = {"video_id": str(video_id), "task_id": row.get("task_id"),
+                       "checked_at": checked_at, "state": "unconfirmed"}
+        observations[sid] = observation
         query = base + "/agnesapi?" + urllib.parse.urlencode(
             {"video_id": video_id, "model_name": MODEL})
         try:
             response = agnes.http_json("GET", query, key, timeout=60)
         except agnes.TransientError as exc:
-            print(f"STATUS_UNCONFIRMED {sid}: {exc}", flush=True)
+            observation["error"] = str(exc).replace(key, "[redacted]")[:300]
+            print(f"STATUS_UNCONFIRMED {sid}: {observation['error']}", flush=True)
             pending.append(sid)
             continue
         code, body, text = response
@@ -136,20 +143,47 @@ def check_outstanding_tasks(publish: bool) -> int:
                 response = agnes.http_json("GET", legacy, key, timeout=60)
                 code, body, text = response
             except agnes.TransientError as exc:
-                print(f"STATUS_UNCONFIRMED {sid}: legacy status error: {exc}", flush=True)
+                observation["error"] = str(exc).replace(key, "[redacted]")[:300]
+                print(f"STATUS_UNCONFIRMED {sid}: legacy status error: {observation['error']}", flush=True)
                 pending.append(sid)
                 continue
+        observation["http_status"] = code
         if not (200 <= code < 300 and isinstance(body, dict)):
             detail = agnes.describe_error(body, text, code)
-            print(f"STATUS_UNCONFIRMED {sid}: HTTP {code} {detail}", flush=True)
+            observation["error"] = detail.replace(key, "[redacted]")[:300]
+            print(f"STATUS_UNCONFIRMED {sid}: HTTP {code} {observation['error']}", flush=True)
             pending.append(sid)
             continue
         checked += 1
         state = str(body.get("status") or "unknown").lower()
         progress = body.get("progress")
+        observation["state"] = state
+        if progress is not None:
+            observation["progress"] = progress
         print(f"STATUS_CHECK {sid}: {state}" + (f" progress={progress}%" if progress is not None else ""), flush=True)
-        if state not in agnes.COMPLETED_STATES | agnes.FAILED_STATES:
+        if state not in terminal:
             pending.append(sid)
+
+    summary = {"run_id": os.getenv("GITHUB_RUN_ID"), "checked_at": checked_at,
+               "checked": checked, "unresolved": pending, "create_requests": 0,
+               "shots": observations}
+    doc["task_status_check"] = summary
+    RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if publish:
+        git("config", "user.name", "github-actions[bot]")
+        git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+        git("add", "--", str(RESULTS.relative_to(ROOT)))
+        if subprocess.run(["git", "diff", "--cached", "--quiet", "--", str(RESULTS.relative_to(ROOT))], cwd=ROOT).returncode:
+            git("commit", "-m", "honeymoon_nicotine: record status-only Agnes task check",
+                "--", str(RESULTS.relative_to(ROOT)))
+            for attempt in range(3):
+                try:
+                    git("push", "origin", BRANCH)
+                    break
+                except subprocess.CalledProcessError:
+                    if attempt == 2:
+                        raise
+                    git("pull", "--rebase", "origin", BRANCH)
     print(f"STATUS_SUMMARY checked={checked} unresolved={','.join(pending) if pending else 'none'}; create_requests=0", flush=True)
     return 2 if pending else 0
 
