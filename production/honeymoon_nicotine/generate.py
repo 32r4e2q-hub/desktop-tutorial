@@ -400,57 +400,40 @@ def request_hash(project: dict, shot: dict) -> str:
 
 
 DELIVERY_DIR = ROOT / "交付"
-DELIVERY_FILM = "蜜月尼古丁命案_新婚第十一天_三分钟_带声音.mp4"
+DELIVERY_FILM = "Honeymoon_Nicotine_Final.mp4"
 
 
 def publish_delivery(film: Path) -> dict:
-    """Copy the finished film, cover and subtitle file into 交付/ (the repo's delivery convention)."""
+    """Stage the final film and sidecars; large media is kept out of Git commits."""
     DELIVERY_DIR.mkdir(parents=True, exist_ok=True)
-    copied = {}
-    targets = [(film, DELIVERY_FILM)]
-    cover = film.parent / "世田谷一家四口杀人案_封面.jpg"
-    if cover.is_file():
-        targets.append((cover, "世田谷一家四口杀人案_封面.jpg"))
-    for source, name in targets:
-        if not source.is_file():
-            continue
-        destination = DELIVERY_DIR / name
-        shutil.copy2(source, destination)
-        copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
-    srt = film.parent / f"{film.stem}_字幕.srt"
-    if srt.is_file():
-        destination = DELIVERY_DIR / "世田谷一家四口杀人案_字幕.srt"
-        shutil.copy2(srt, destination)
-        copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
-    report = film.parent / "delivery" / "technical-report.json"
-    if not report.is_file():
-        report = ROOT / "work" / "honeymoon_nicotine" / "edit" / "delivery" / "technical-report.json"
-    if report.is_file():
-        destination = DELIVERY_DIR / "世田谷一家四口杀人案_技术报告.json"
-        shutil.copy2(report, destination)
-        copied[destination.name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
-    # The brief asks for four named deliverables; keep them byte-identical next to the
-    # repository's own naming convention so the hand-off needs no renaming.
-    aliases = [
-        (film, "Honeymoon_Nicotine_Final.mp4"),
-        (film.parent / "世田谷一家四口杀人案_封面.png", "Honeymoon_Nicotine_Cover.png"),
-        (film.parent / f"{film.stem}_字幕.srt", "Honeymoon_Nicotine_Subtitles.srt"),
-        (ROOT / "work" / "honeymoon_nicotine" / "audio" / "voiceover.wav", "Honeymoon_Nicotine_Narration.wav"),
+    work = ROOT / "work" / "honeymoon_nicotine" / "edit"
+    sources = [
+        (film, DELIVERY_FILM),
+        (film.parent / "Honeymoon_Nicotine_Cover.jpg", "Honeymoon_Nicotine_Cover.jpg"),
+        (film.with_suffix(".srt"), "Honeymoon_Nicotine_Subtitles.srt"),
+        (work / "voiceover.wav", "Honeymoon_Nicotine_Narration.wav"),
+        (work / "technical-report.json", "Honeymoon_Nicotine_Technical_Report.json"),
     ]
-    for source, name in aliases:
-        if not source.is_file():
-            continue
-        destination = DELIVERY_DIR / name
-        shutil.copy2(source, destination)
-        copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
+    copied = {}
+    for source, name in sources:
+        if source.is_file():
+            destination = DELIVERY_DIR / name
+            shutil.copy2(source, destination)
+            copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
     return copied
 
 
 def commit_delivery(message: str) -> None:
-    """Commit results.json plus the 交付/ files, then push to the fixed branch."""
+    """Commit provenance and small sidecars only; keep video/audio in the Actions artifact."""
     paths = [str(RESULTS.relative_to(ROOT))]
+    for name in ("qc-report.json", "qc-summary.md", "narration-fit.md", "MANUAL_VISUAL_REVIEW_2026-11-11.md"):
+        report = HERE / "qa" / name
+        if report.is_file():
+            paths.append(str(report.relative_to(ROOT)))
     if DELIVERY_DIR.exists():
-        paths.append(str(DELIVERY_DIR.relative_to(ROOT)))
+        for path in sorted(DELIVERY_DIR.iterdir()):
+            if path.suffix.lower() in {".json", ".srt", ".jpg", ".png"} and path.stat().st_size < 2_000_000:
+                paths.append(str(path.relative_to(ROOT)))
     git("add", "-f", "--", *paths)
     if not subprocess.run(["git", "diff", "--cached", "--quiet", "--", *paths], cwd=ROOT).returncode:
         return
@@ -638,7 +621,7 @@ def create_contact_sheet(source: Path, shot_id: str, qa_dir: Path) -> dict:
     contact = qa_dir / f"{shot_id}.jpg"
     subprocess.run([
         "ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", str(source),
-        "-vf", "fps=1,scale=426:240:force_original_aspect_ratio=decrease,pad=426:240:(ow-iw)/2:(oh-ih)/2,tile=3x3",
+        "-vf", "fps=4,scale=320:180:force_original_aspect_ratio=decrease,pad=320:180:(ow-iw)/2:(oh-ih)/2,tile=5x6",
         "-frames:v", "1", "-q:v", "4", str(contact),
     ], check=True)
     if not contact.is_file():
@@ -759,11 +742,21 @@ def main() -> int:
             "--sources", str(sources), "--work", str(ROOT / "work" / "honeymoon_nicotine" / "edit"),
             "--output", str(output),
         ], cwd=ROOT, check=True)
-        doc["phase"] = "first_cut_ready"
+        # Verify all source hashes, decoding, sampled exposure/freeze metrics, and final
+        # video/audio/subtitle technical properties before publishing any delivery asset.
+        qc = subprocess.run([sys.executable, str(HERE / "qc.py"), "--sources", str(sources),
+                             "--film", str(output)], cwd=ROOT)
+        fit = subprocess.run([sys.executable, str(HERE / "narration_fit.py")], cwd=ROOT)
+        if qc.returncode or fit.returncode:
+            raise RuntimeError("Technical QC or narration-fit failed; refusing delivery sign-off")
         delivered = publish_delivery(output)
+        doc["phase"] = "first_cut_ready"
+        doc["review"] = {"status": "technical_pass_visual_review_pending",
+                         "visual_review_required": True,
+                         "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."}
         doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                            "width": 1920, "height": 1080, "fps": 24,
-                           "cover": str((output.parent / "世田谷一家四口杀人案_封面.jpg").relative_to(ROOT)),
+                           "cover": str((output.parent / "Honeymoon_Nicotine_Cover.jpg").relative_to(ROOT)),
                            "delivered": delivered}
         RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.publish:

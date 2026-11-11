@@ -37,7 +37,7 @@ jobs:
       - name: Install media tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
           python3 -m pip install --break-system-packages --no-input --disable-pip-version-check pillow numpy
       - name: Validate plan and generate 30 Agnes clips
         env:
@@ -51,6 +51,9 @@ jobs:
           fi
           if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
           mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", ""))' <<< "$payload")"
+          if [ "$mode" = "render" ] || [ "$mode" = "qc" ]; then
+            python3 production/honeymoon_nicotine/build_audio_manifest.py
+          fi
           if [ "$mode" != "status" ] && [ "$mode" != "retrieve" ] && [ -f production/honeymoon_nicotine/CANCEL_REQUEST ]; then
             echo 'Cancellation requested; no Agnes generation requests will be made.'
             exit 0
@@ -72,6 +75,7 @@ jobs:
           name: honeymoon-nicotine-agnes-${{ github.run_number }}
           path: |
             work/honeymoon_nicotine/
+            交付/
             production/honeymoon_nicotine/results.json
             production/honeymoon_nicotine/qa/
           if-no-files-found: warn
