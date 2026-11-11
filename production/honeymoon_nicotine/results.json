@@ -943,9 +943,9 @@
     "S22": {
       "id": "S22",
       "request_hash": "8630347c10e719a21ef159b13cd69118289f218fb5e08540b22c5a4cff9ac749",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-11T11:04:04Z",
+      "updated_at": "2026-11-11T11:04:06Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2017年韩国世宗市与日本大阪，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和色彩、细腻胶片颗粒；前半段春日暖黄明亮，随后由暖黄转冷青、深蓝与冷白荧光灯，居酒屋暖黄但边缘渐冷，法庭冷灰，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，雨水、窗帘、灯光与环境持续真实运动，单镜连续运镜，禁止静态图推拉；所有人物为虚构演员式形象，不还原真实人物。\n\n【C01锚点】22岁韩国男子,偏瘦圆脸,黑色短发,浅色夹克白T恤,笑容温和,眼神冷静克制\n\n【C03锚点】22岁韩国女子,齐肩短发,米色针织衫牛仔裤,神情警觉敏锐\n\nCinematic 3D animated reenactment shot S22. 一个不间断的固定中景双人镜头，持续整个六秒：大阪居酒屋里，穿浅色夹克的年轻男子始终坐在画面左侧，穿米色针织衫的前女友始终坐在画面右侧，木桌上的杯子全程可见；女子拿起杯子，察觉异样后停顿并把杯子放回桌上，抬眼看向男子，男子保持克制。两个人和同一间居酒屋从第一帧到最后一帧都必须留在画面中；不可切镜、叠化、转场、消失、换景、变成空房或白蓝色摄影棚。窗外暖黄灯笼与夜色可轻微虚化，空气干净，不得有漂浮粒子、雪花、灰尘、火星、闪粉或覆盖人物的亮点；雨滴只能位于窗玻璃外。边缘色温由暖黄轻微转冷，不展示添加过程。 One uninterrupted stable medium two-shot for the entire clip; keep both characters seated in the same izakaya at all times, no cuts, dissolve, scene transition, disappearance, blank wall, or studio background. Clean air, no floating speckles, glitter, dust, snow, sparks, or overlay bokeh. Continuous natural motion; camera locked. Keep realistic stable faces and hands. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design ID: S13.\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，注射器，针头，药剂，瓶身标签，血腥，伤口，遗体，尸体，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -971,7 +971,18 @@
       "bytes": 2172962,
       "sha256": "65ae2a5ac84928bc11aca4eb19d10a382483005e905cd319ba4f20fcfd2e68a5",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2172962,
+        "decoded_ok": true,
+        "contact_sheet": "production/honeymoon_nicotine/qa/S22.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S23": {
       "id": "S23",
@@ -1402,7 +1413,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T11:04:04Z",
+  "updated_at": "2026-11-11T11:04:06Z",
   "run_id": "43008028488",
   "previous_results": {
     "S01": [
