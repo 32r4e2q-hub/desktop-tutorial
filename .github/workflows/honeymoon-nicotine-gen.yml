@@ -6,6 +6,7 @@ on:
     branches: [arena/31d27a2a-desktop-tutorial]
     paths:
       - production/honeymoon_nicotine/GEN_REQUEST
+      - production/honeymoon_nicotine/CANCEL_REQUEST
       - .github/workflows/honeymoon-nicotine-gen.yml
   workflow_dispatch:
     inputs:
@@ -20,7 +21,7 @@ permissions:
 
 concurrency:
   group: honeymoon-nicotine-agnes-arena-31d27a2a
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   generate:
@@ -44,6 +45,10 @@ jobs:
           PAYLOAD_INPUT: ${{ inputs.payload }}
         run: |
           set -euo pipefail
+          if [ -f production/honeymoon_nicotine/CANCEL_REQUEST ]; then
+            echo 'Cancellation requested; no Agnes generation requests will be made.'
+            exit 0
+          fi
           test -n "$AGNES_API_KEY"
           python3 production/honeymoon_nicotine/generate.py --validate --clips-only
           payload="${PAYLOAD_INPUT:-}"
