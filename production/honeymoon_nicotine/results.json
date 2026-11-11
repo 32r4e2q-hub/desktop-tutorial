@@ -376,9 +376,9 @@
     "S10": {
       "id": "S10",
       "request_hash": "eab4663d811562b28c34ce41a3d8e9888e8c10680dd9fc76f284a8a88b12040f",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-11T07:32:37Z",
+      "updated_at": "2026-11-11T07:32:39Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2017年韩国世宗市与日本大阪，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和色彩、细腻胶片颗粒；前半段春日暖黄明亮，随后由暖黄转冷青、深蓝与冷白荧光灯，居酒屋暖黄但边缘渐冷，法庭冷灰，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，雨水、窗帘、灯光与环境持续真实运动，单镜连续运镜，禁止静态图推拉；所有人物为虚构演员式形象，不还原真实人物。\n\n【C01锚点】22岁韩国男子,偏瘦圆脸,黑色短发,浅色夹克白T恤,笑容温和,眼神冷静克制\n\n【C06锚点】日本警察制服警帽神情沉稳;日本法医白大褂口罩神情专注\n\nCinematic 3D animated reenactment shot S10. 走廊窗面映出红蓝警灯，男子背对镜头坐长椅，警察克制询问；不出现浴室内部、遗体或任何伤害过程。 Continuous natural motion; camera: 中景慢推. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design IDs: S01. 【C01锚点】22岁韩国男子,偏瘦圆脸,黑色短发,浅色夹克白T恤,笑容温和,眼神冷静克制 【C06锚点】日本警察制服警帽神情沉稳;日本法医白大褂口罩神情专注\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，注射器，针头，药剂，瓶身标签，血腥，伤口，遗体，尸体，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -406,7 +406,18 @@
       "bytes": 1526780,
       "sha256": "4609176f7a63d6d2a82f0e527b27069ddcb0c872bebbb3eaaa104a6cbb4cafff",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1526780,
+        "decoded_ok": true,
+        "contact_sheet": "production/honeymoon_nicotine/qa/S10.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S11": {
       "id": "S11",
@@ -1074,7 +1085,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T07:32:37Z",
+  "updated_at": "2026-11-11T07:32:39Z",
   "run_id": "42965299197",
   "previous_results": {
     "S01": [
