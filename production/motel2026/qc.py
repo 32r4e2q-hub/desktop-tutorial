@@ -331,14 +331,19 @@ def main() -> int:
     if subtitles["problems"]:
         failures.append(f"subtitle problems: {subtitles['problems'][:4]}")
 
-    cover_info = {"exists": cover.is_file()}
+    series_cover = story.get("presentation", {}).get("series_cover", {})
+    expected_cover_size = (int(series_cover.get("width", 1920)),
+                           int(series_cover.get("height", 1080)))
+    cover_info = {"exists": cover.is_file(), "expected_width": expected_cover_size[0],
+                  "expected_height": expected_cover_size[1],
+                  "template": series_cover.get("template") or "render work cover"}
     if cover.is_file():
         from PIL import Image
         with Image.open(cover) as image:
             cover_info.update(width=image.width, height=image.height, mode=image.mode,
                               bytes=cover.stat().st_size)
-        if (cover_info["width"], cover_info["height"]) != (1920, 1080):
-            failures.append("cover is not 1920x1080")
+        if (cover_info["width"], cover_info["height"]) != expected_cover_size:
+            failures.append(f"cover is not {expected_cover_size[0]}x{expected_cover_size[1]}")
 
     sheets = make_contact_sheets(film, story, HERE / "qa" / "sheets")
     stills = export_fullres_stills(film, story, HERE / "qa" / "fullres")

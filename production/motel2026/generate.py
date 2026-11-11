@@ -168,9 +168,21 @@ def publish_delivery(film: Path, project: dict) -> dict:
     DELIVERY_DIR.mkdir(parents=True, exist_ok=True)
     names = delivery_names(project)
     copied = {}
-    cover = film.parent / "汽车旅馆连环命案_封面.png"
-    if not cover.is_file():
-        cover = film.parent / "汽车旅馆连环命案_封面.jpg"
+    series_cover = project.get("presentation", {}).get("series_cover", {})
+    if series_cover:
+        # Episode 11 has a mandatory, fixed 迷案解码人 vertical template.  The horizontal
+        # cover rendered beside the film is only a work preview and may never replace it.
+        series_cover_file = str(series_cover.get("file", "")).strip()
+        if not series_cover_file:
+            raise RuntimeError("Fixed series-cover specification has no file name")
+        cover_source = str(series_cover.get("source", "")).strip()
+        cover = ROOT / cover_source if cover_source else DELIVERY_DIR / series_cover_file
+        if not cover.is_file():
+            raise RuntimeError("Required fixed series cover is missing: " + str(cover))
+    else:
+        cover = film.parent / "汽车旅馆连环命案_封面.png"
+        if not cover.is_file():
+            cover = film.parent / "汽车旅馆连环命案_封面.jpg"
     srt = film.parent / f"{film.stem}_字幕.srt"
     report = film.parent / "delivery" / "technical-report.json"
     if not report.is_file():
@@ -192,6 +204,25 @@ def publish_delivery(film: Path, project: dict) -> dict:
             continue
         destination = DELIVERY_DIR / name
         shutil.copy2(source, destination)
+        if name == names["technical_report"] and series_cover:
+            try:
+                report_payload = json.loads(destination.read_text(encoding="utf-8"))
+                report_payload["work_cover"] = report_payload.pop("cover", None)
+                report_payload["delivery_cover"] = {
+                    "file": f"交付/{name}",
+                    "source": series_cover.get("source"),
+                    "template": series_cover.get("template"),
+                    "width": series_cover.get("width"),
+                    "height": series_cover.get("height"),
+                    "orientation": series_cover.get("orientation"),
+                    "bytes": series_cover.get("bytes"),
+                    "sha256": series_cover.get("sha256"),
+                    "note": series_cover.get("rule"),
+                }
+                destination.write_text(json.dumps(report_payload, ensure_ascii=False, indent=2) + "\n",
+                                       encoding="utf-8")
+            except (OSError, ValueError, TypeError) as error:
+                raise RuntimeError("Cannot annotate revised delivery report with fixed cover") from error
         copied[name] = {"bytes": destination.stat().st_size, "sha256": digest(destination)}
     required = {names["film"], names["cover"], names["subtitles"], names["narration"]}
     missing = sorted(required.difference(copied))
@@ -281,6 +312,17 @@ def validate(project: dict, require_audio: bool = True) -> None:
         raise ValueError("Rumor STYLE block is missing")
     if not project.get("negative_prompt", "").startswith("【NEGATIVE】"):
         raise ValueError("NEGATIVE block is missing")
+    series_cover = project.get("presentation", {}).get("series_cover", {})
+    if series_cover:
+        if (series_cover.get("template") != "迷案解码人固定竖版模板"
+                or series_cover.get("orientation") != "vertical"
+                or (series_cover.get("width"), series_cover.get("height")) != (1080, 1440)
+                or not series_cover.get("file") or not series_cover.get("source")):
+            raise ValueError("Episode 11 requires the fixed 1080x1440 vertical series cover")
+        source = ROOT / str(series_cover["source"])
+        if not source.is_file() or source.stat().st_size != series_cover.get("bytes") \
+                or digest(source) != series_cover.get("sha256"):
+            raise ValueError("Fixed series cover source is missing or does not match its recorded SHA-256")
     ids = [shot.get("id") for shot in shots]
     if len(ids) != 30 or len(set(ids)) != 30:
         raise ValueError("Shot IDs must be unique")
@@ -503,9 +545,12 @@ def main() -> int:
         ], cwd=ROOT, check=True)
         doc["phase"] = "first_cut_ready"
         delivered = publish_delivery(output, project)
+        series_cover = project.get("presentation", {}).get("series_cover", {})
         doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                            "width": 1920, "height": 1080, "fps": 24,
-                           "cover": str((output.parent / "汽车旅馆连环命案_封面.png").relative_to(ROOT)),
+                           "cover": str((DELIVERY_DIR / delivery_names(project)["cover"]).relative_to(ROOT)),
+                           "work_cover": str((output.parent / "汽车旅馆连环命案_封面.png").relative_to(ROOT)),
+                           "cover_spec": series_cover,
                            "delivered": delivered}
         RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.publish:

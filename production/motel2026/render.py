@@ -563,7 +563,10 @@ def main() -> int:
         "caption_cues": len(cues),
         "captions_ass": str(ass_path),
         "captions_srt": str(srt_path),
-        "cover": str(cover),
+        # This 16:9 image is a render-side work preview only.  generate.publish_delivery()
+        # replaces it with presentation.series_cover for the public V2 hand-off.
+        "work_cover": str(cover),
+        "delivery_cover_spec": story.get("presentation", {}).get("series_cover", {}),
         "source_model": MODEL,
         "source_resolution": SOURCE_SIZE,
         "final_resolution": "1920x1080 (upscaled in post)",

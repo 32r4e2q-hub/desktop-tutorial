@@ -213,6 +213,18 @@ class MotelPlanTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 self.gen.restore_sources(story, doc, sources)
 
+    def test_fixed_series_cover_is_required_for_episode_eleven(self):
+        """第十一期对外封面必须是固定竖版模板，不能回退为横版工作封面。"""
+        spec = self.story["presentation"].get("series_cover", {})
+        self.assertEqual(spec.get("template"), "迷案解码人固定竖版模板")
+        self.assertEqual((spec.get("width"), spec.get("height")), (1080, 1440))
+        self.assertEqual(spec.get("orientation"), "vertical")
+        source = ROOT / spec.get("source", "missing.png")
+        self.assertTrue(source.is_file())
+        self.assertEqual(source.stat().st_size, spec.get("bytes"))
+        self.assertEqual(self.gen.digest(source), spec.get("sha256"))
+        self.assertTrue((ROOT / "交付" / spec.get("file", "missing.png")).is_file())
+
     def test_finished_film_cover_and_named_deliverables_are_published(self):
         """修订版交付必须使用独立 V2 名称，绝不覆盖旧版指定文件。"""
         import tempfile

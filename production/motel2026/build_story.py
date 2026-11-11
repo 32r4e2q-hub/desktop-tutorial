@@ -343,12 +343,16 @@ SHOT_ROWS = [
      "serious. Camera: medium shot with a slow push toward the screen. Real motion: "
      "blinking lights, pen tapping, spectrum lines growing, breathing. Laboratory interior only, no street, no storefronts; no readable text, no numbers, no charts with labels, no Korean characters."),
 
-    ("S21", 120, 5, "俯拍，红线延伸", ["detective"], "real",
-     "A police meeting room: detectives gather around a table, on the wall an abstract "
-     "word shape is crossed out with a red line and replaced by another abstract shape, "
-     "the red line extends across the board; papers turn on the table. Camera: overhead "
-     "shot following the extending red line. Real motion: marker drawing, line extending, "
-     "pages turning, breathing. Abstract shapes only on the board, no handwriting, no letters, no Korean characters; no readable text, no names."),
+    ("S21", 120, 5, "俯拍，红色光带合拢", ["court"], "real",
+     "A restrained courthouse deliberation room viewed directly from above: three fictional "
+     "court officials in dark suits sit around a clean, completely blank matte charcoal table. "
+     "At its centre is one plain unmarked ivory square tile. A single solid crimson ribbon of "
+     "light sweeps slowly across the otherwise empty tabletop and closes into a circle around "
+     "the tile. Camera: overhead shot following the moving red light ribbon. Real motion: "
+     "the ribbon moving, one hand rotating the blank tile, sleeves shifting, calm breathing. "
+     "No wall, board, screen, paper document, photograph, pen or marker. Only pure circle and "
+     "rectangle geometry; absolutely zero handwriting, letters, Korean characters, numbers, "
+     "symbols, signage, labels or readable text."),
 
     ("S22", 125, 5, "特写，印章落下，慢动作", ["court"], "real",
      "A prosecutor's office corridor and desk under overcast light: a prosecutor in a dark "
@@ -517,8 +521,19 @@ PRESENTATION = {
         "text": "她为什么带他们去旅馆？",
         "subtext": "金素英案 · 关系与动机",
         "hook_lines": ["金素英，20岁。一个幸存者，两名死者。", "两扇旅馆门，先后合上。"],
-        "style": "金色粗体字、黑色描边；由 S02 手机帧与 S01 街景帧合成，红色警告图标为后期绘制，"
-                 "不是静态图替代视频",
+        "style": "金色粗体字、黑色描边；只作渲染工作封面，不能替代对外系列封面。",
+    },
+    "series_cover": {
+        "template": "迷案解码人固定竖版模板",
+        "source": "production/motel2026/assets/Motel_Case_Revised_V2_Series_Cover.png",
+        "file": "Motel_Case_Revised_V2_Cover.png",
+        "bytes": 1055010,
+        "sha256": "d47a57dfb2f1dd32e935553a6091cfeb01c9f6a4e507154c63d65f97592e6e15",
+        "width": 1080,
+        "height": 1440,
+        "orientation": "vertical",
+        "title_lines": ["两起死亡", "从旅馆门后开始"],
+        "rule": "对外第十一期封面必须使用此固定模板；不交付自由生成横版工作封面。",
     },
     "end_title": "汽车旅馆连环命案",
     "end_subtitle": "首尔江北区 · 2025—2026 · 关系与动机补全",
@@ -567,7 +582,7 @@ PRESENTATION = {
         {"at": 168, "name": "提示音、红色图标亮起的滴声", "kind": "sfx"},
         {"at": 174, "name": "最后一秒静音", "kind": "sfx"},
     ],
-    "douyin_title": "金素英为什么带他们去旅馆？两名死者与她的关系，终于说清",
+    "douyin_title": "两起死亡，从旅馆门后开始｜迷案解码人·第十一期",
     "hook": "雨落在南杨州。二十岁的金素英坐在男友对面；一个人醒来、报案，两名并非恋人的男子，先后走进水踰洞的旅馆。",
     "cover_title": "她为什么带他们去旅馆？",
     "hashtags": ["#真实事件", "#汽车旅馆命案", "#韩国", "#ChatGPT", "#悬疑", "#电影感"],
@@ -813,10 +828,22 @@ def write_manifest(story: dict) -> None:
 
 def write_release_copy(story: dict) -> None:
     pres = story["presentation"]
+    series_cover = pres.get("series_cover", {})
+    cover_note = ""
+    if series_cover:
+        cover_note = (
+            "\n## 第十一期系列封面\n\n"
+            f"- 固定模板：{series_cover['template']}\n"
+            f"- 文件：交付/{series_cover['file']}（{series_cover['width']}×{series_cover['height']}，"
+            f"{series_cover['orientation']}）\n"
+            f"- 标题：{' / '.join(series_cover['title_lines'])}\n"
+            f"- 规则：{series_cover['rule']}\n"
+        )
     (HERE / "抖音发布文案.md").write_text(
         f"# {pres['douyin_title']}\n\n"
         f"{pres['release_intro']}\n\n"
-        + " ".join(pres["hashtags"]) + "\n",
+        + " ".join(pres["hashtags"]) + "\n"
+        + cover_note,
         encoding="utf-8",
     )
     rows = []

@@ -77,7 +77,7 @@
 
 - **S19**（108–114秒，6秒／特写，缓慢推近）：男友昏迷之后，她没有停下；同样的风险，越过下一扇门。
 - **S20**（114–120秒，6秒／中景，缓慢推近屏幕）：鉴定、轨迹、聊天记录，扣成两起死亡的证据链。
-- **S21**（120–125秒，5秒／俯拍，红线延伸）：一审法院认为，她知道风险，却仍然继续。
+- **S21**（120–125秒，5秒／俯拍，红色光带合拢）：一审法院认为，她知道风险，却仍然继续。
 - **S22**（125–130秒，5秒／特写，印章落下，慢动作）：明知可能死亡，仍任由它发生——未必故意。
 
 ### 02:10—02:30　一审动机（N07）
@@ -127,7 +127,7 @@
 | S18 | 01:43—01:48 | 5 | N05 | 大特写，屏幕缓慢上卷 | — | Extreme close-up of an abstract chat screen: question and answer blocks alternate and scroll slowly upward, a  |
 | S19 | 01:48—01:54 | 6 | N06 | 特写，缓慢推近 | — | An apartment kitchen at night under a desk lamp: several clean empty glasses stand on the table, a hand pauses |
 | S20 | 01:54—02:00 | 6 | N06 | 中景，缓慢推近屏幕 | — | A white laboratory at the National Forensic Service: instrument lights blink, a researcher seen from behind st |
-| S21 | 02:00—02:05 | 5 | N06 | 俯拍，红线延伸 | detective | A police meeting room: detectives gather around a table, on the wall an abstract word shape is crossed out wit |
+| S21 | 02:00—02:05 | 5 | N06 | 俯拍，红色光带合拢 | court | A restrained courthouse deliberation room viewed directly from above: three fictional court officials in dark  |
 | S22 | 02:05—02:10 | 5 | N06 | 特写，印章落下，慢动作 | court | A prosecutor's office corridor and desk under overcast light: a prosecutor in a dark suit carries case files i |
 | S23 | 02:10—02:17 | 7 | N07 | 抽象关系图，缓慢推近 | — | An abstract cinematic 3D relationship diagram on a deep charcoal background: two warm gold restaurant-table sy |
 | S24 | 02:17—02:24 | 7 | N07 | 中景，缓慢推近 | cafe | Inside a Seoul cafe in warm light: young people sit around a table with smartphones, abstract comment bubbles  |
