@@ -225,6 +225,57 @@ class MotelPlanTests(unittest.TestCase):
         self.assertEqual(self.gen.digest(source), spec.get("sha256"))
         self.assertTrue((ROOT / "交付" / spec.get("file", "missing.png")).is_file())
 
+    def test_v2_technical_report_identifies_the_public_series_cover(self):
+        """技术报告不能把渲染用的横版工作图误写成正式对外封面。"""
+        report = json.loads((ROOT / "交付" / "Motel_Case_Revised_V2_Technical_Report.json")
+                            .read_text(encoding="utf-8"))
+        spec = self.story["presentation"]["series_cover"]
+        cover = report.get("delivery_cover", {})
+        self.assertEqual(cover.get("file"), "交付/Motel_Case_Revised_V2_Cover.png")
+        self.assertEqual(cover.get("sha256"), spec.get("sha256"))
+        self.assertEqual((cover.get("width"), cover.get("height")), (1080, 1440))
+        self.assertEqual(report.get("human_visual_review"), "approved-manual-v4-final")
+        self.assertEqual(report.get("work_cover"), "work/motel2026/clips/汽车旅馆连环命案_封面.jpg")
+
+    def test_publish_delivery_copies_the_fixed_cover_and_reports_its_filename(self):
+        """未来重渲染也必须交付竖版封面，报告不能再指到自身 JSON。"""
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            clips = root / "clips"
+            (clips / "delivery").mkdir(parents=True)
+            film = clips / "film.mp4"
+            film.write_bytes(b"film" * 1000)
+            (clips / "film_字幕.srt").write_text("1\n00:00:00,000 --> 00:00:04,000\n字幕\n", encoding="utf-8")
+            (clips / "delivery" / "technical-report.json").write_text("{}", encoding="utf-8")
+            source = root / "production" / "motel2026" / "assets" / "cover.png"
+            source.parent.mkdir(parents=True)
+            source.write_bytes(b"fixed-series-cover")
+            audio = root / "work" / "motel2026" / "edit" / "audio"
+            audio.mkdir(parents=True)
+            (audio / "voiceover.wav").write_bytes(b"RIFF" * 500)
+            delivery = root / "交付"
+            series = {
+                "template": "迷案解码人固定竖版模板", "source": str(source.relative_to(root)),
+                "file": "Motel_Case_Revised_V2_Cover.png", "width": 1080, "height": 1440,
+                "orientation": "vertical", "bytes": source.stat().st_size,
+                "sha256": self.gen.digest(source), "rule": "fixed template only",
+            }
+            original_delivery, original_root = self.gen.DELIVERY_DIR, self.gen.ROOT
+            try:
+                self.gen.DELIVERY_DIR, self.gen.ROOT = delivery, root
+                self.gen.publish_delivery(film, {"delivery_basename": "Motel_Case_Revised_V2",
+                                                  "presentation": {"series_cover": series}})
+            finally:
+                self.gen.DELIVERY_DIR, self.gen.ROOT = original_delivery, original_root
+            copied_cover = delivery / "Motel_Case_Revised_V2_Cover.png"
+            self.assertEqual(copied_cover.read_bytes(), source.read_bytes())
+            report = json.loads((delivery / "Motel_Case_Revised_V2_Technical_Report.json")
+                                .read_text(encoding="utf-8"))
+            self.assertEqual(report["delivery_cover"]["file"], "交付/Motel_Case_Revised_V2_Cover.png")
+            self.assertEqual(report["delivery_cover"]["sha256"], series["sha256"])
+
     def test_finished_film_cover_and_named_deliverables_are_published(self):
         """修订版交付必须使用独立 V2 名称，绝不覆盖旧版指定文件。"""
         import tempfile

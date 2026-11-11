@@ -207,9 +207,12 @@ def publish_delivery(film: Path, project: dict) -> dict:
         if name == names["technical_report"] and series_cover:
             try:
                 report_payload = json.loads(destination.read_text(encoding="utf-8"))
-                report_payload["work_cover"] = report_payload.pop("cover", None)
+                if report_payload.get("cover") is not None:
+                    report_payload["work_cover"] = report_payload.pop("cover")
+                else:
+                    report_payload.pop("cover", None)
                 report_payload["delivery_cover"] = {
-                    "file": f"交付/{name}",
+                    "file": f"交付/{names['cover']}",
                     "source": series_cover.get("source"),
                     "template": series_cover.get("template"),
                     "width": series_cover.get("width"),
@@ -549,7 +552,7 @@ def main() -> int:
         doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                            "width": 1920, "height": 1080, "fps": 24,
                            "cover": str((DELIVERY_DIR / delivery_names(project)["cover"]).relative_to(ROOT)),
-                           "work_cover": str((output.parent / "汽车旅馆连环命案_封面.png").relative_to(ROOT)),
+                           "work_cover": str((output.parent / "汽车旅馆连环命案_封面.jpg").relative_to(ROOT)),
                            "cover_spec": series_cover,
                            "delivered": delivered}
         RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -921,7 +921,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "first_cut_ready",
+  "phase": "delivery_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -964,9 +964,11 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
-    "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "status": "approved-manual-v4-final",
+    "film": "交付/Motel_Case_Revised_V2.mp4",
+    "film_sha256": "2b2095c61e8b38112b09b655e40dffc297c3eb5f65f82c91bea3b85a02ef8227",
+    "scope": "180 个 1 fps 时间轴抽帧、30 个全分辨率分镜抽帧和替换 S21 联系表；配合自动 QC。",
+    "note": "未发现需重渲染的伪文字、敏感画面、字幕遮挡或明显连续性问题。"
   },
   "updated_at": "2026-11-11T00:16:17Z",
   "run_id": "42928945431",
@@ -1857,7 +1859,7 @@
     "height": 1080,
     "fps": 24,
     "cover": "交付/Motel_Case_Revised_V2_Cover.png",
-    "work_cover": "work/motel2026/clips/汽车旅馆连环命案_封面.png",
+    "work_cover": "work/motel2026/clips/汽车旅馆连环命案_封面.jpg",
     "cover_spec": {
       "template": "迷案解码人固定竖版模板",
       "source": "production/motel2026/assets/Motel_Case_Revised_V2_Series_Cover.png",
@@ -1891,13 +1893,20 @@
         "sha256": "0f9950edc2131ae8dbf6917ccaa2532c98f7a0643ec8a2edc1b1852ebc3ed351"
       },
       "Motel_Case_Revised_V2_Technical_Report.json": {
-        "bytes": 38491,
-        "sha256": "45add7d1cbe2a61c9b5e87665b7af3d06b454e66a49272f2ebc289370c4eaf68"
+        "bytes": 39574,
+        "sha256": "90f58ca57fb1cb3349c686f61adb6aa39c0c4c63ec5278a25725d9fff7c27c97"
       },
       "Motel_Case_Revised_V2_Release.md": {
         "bytes": 1395,
         "sha256": "64fca583ed0ca9d1a4b5d8d827565951774ca7710a01aab8ea939c9ae2397764"
       }
+    },
+    "manual_final_review": {
+      "status": "approved-manual-v4-final",
+      "film": "交付/Motel_Case_Revised_V2.mp4",
+      "film_sha256": "2b2095c61e8b38112b09b655e40dffc297c3eb5f65f82c91bea3b85a02ef8227",
+      "scope": "180 个 1 fps 时间轴抽帧、30 个全分辨率分镜抽帧和替换 S21 联系表；配合自动 QC。",
+      "note": "未发现需重渲染的伪文字、敏感画面、字幕遮挡或明显连续性问题。"
     }
   },
   "film_name": "汽车旅馆连环命案_人物关系与动机修订版_三分钟_带声音.mp4"

@@ -156,10 +156,10 @@
     "production/motel2026/qa/fullres/S30.jpg"
   ],
   "hard_gate_failures": [],
-  "human_review_still_required": [
-    "逐镜确认每一帧都是连续运动（本脚本只能量化帧间差异，不能判断语义）",
-    "确认没有遗体、伤口、血腥、可读乱码文字与人物面部崩坏",
-    "确认字幕没有遮挡人物面部与关键物证",
-    "确认人物、服装、住宅在三分钟里保持一致"
-  ]
+  "human_review_still_required": [],
+  "human_review": {
+    "status": "approved-manual-v4-final",
+    "method": "180 张 1 fps 时间轴抽帧 + 30 张全分辨率分镜抽帧 + S21 九格联系表；结合自动 4 fps QC。",
+    "note": "人工采样复核不等同于逐帧语义判定；未发现需重渲染的问题。"
+  }
 }

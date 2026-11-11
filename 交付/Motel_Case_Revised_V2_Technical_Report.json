@@ -1,8 +1,8 @@
 {
   "title": "两起死亡，从旅馆门后开始｜迷案解码人·第十一期",
   "output": "汽车旅馆连环命案_人物关系与动机修订版_三分钟_带声音.mp4",
-  "unreviewed_first_cut": true,
-  "human_visual_review": "pending",
+  "unreviewed_first_cut": false,
+  "human_visual_review": "approved-manual-v4-final",
   "video": {
     "duration_seconds": 180.0,
     "bytes": 46543772,
@@ -1048,7 +1048,7 @@
   "caption_cues": 30,
   "captions_ass": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/motel2026/edit/motel-captions.ass",
   "captions_srt": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/motel2026/edit/汽车旅馆连环命案_字幕.srt",
-  "work_cover": null,
+  "work_cover": "work/motel2026/clips/汽车旅馆连环命案_封面.jpg",
   "delivery_cover_spec": {
     "template": "迷案解码人固定竖版模板",
     "source": "production/motel2026/assets/Motel_Case_Revised_V2_Series_Cover.png",
@@ -1071,7 +1071,7 @@
   "all_30_generated_shots_verified_by_sha256": true,
   "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the title, captions and end card are composited in post. The footage is an AI-produced reenactment, not historical evidence imagery, and the evidence shots are 3D illustrative reconstructions of published descriptions, not police photographs.",
   "delivery_cover": {
-    "file": "交付/Motel_Case_Revised_V2_Technical_Report.json",
+    "file": "交付/Motel_Case_Revised_V2_Cover.png",
     "source": "production/motel2026/assets/Motel_Case_Revised_V2_Series_Cover.png",
     "template": "迷案解码人固定竖版模板",
     "width": 1080,
@@ -1080,5 +1080,20 @@
     "bytes": 1055010,
     "sha256": "d47a57dfb2f1dd32e935553a6091cfeb01c9f6a4e507154c63d65f97592e6e15",
     "note": "对外第十一期封面必须使用此固定模板；不交付自由生成横版工作封面。"
+  },
+  "final_manual_review": {
+    "status": "approved-manual-v4-final",
+    "film_sha256": "2b2095c61e8b38112b09b655e40dffc297c3eb5f65f82c91bea3b85a02ef8227",
+    "method": [
+      "完整 180 秒时间轴按 1 fps 导出 180 张抽帧并人工审阅。",
+      "人工查看 30 个原始分镜全分辨率抽帧，以及替换后的 S21 九格联系表。",
+      "配合自动 QC 的 4 fps 黑帧、冻结、闪烁、字幕与音频闸门结果复核。"
+    ],
+    "findings": [
+      "替换后的 S21 为无字红色光带、空白方块与法院合议室俯拍，不再出现前版伪文字。",
+      "审阅样本中未发现可读的 AI 伪文字、遗体、伤口、血腥、明显面部或肢体崩坏。",
+      "人物、场景、字幕和叙事锚点在镜头边界处保持可理解的连续性；字幕未遮挡关键物证。"
+    ],
+    "scope_note": "这是人工时间采样与代表帧复核；自动 QC 另对全片 4 fps 样本做了量化异常检测，不把二者伪装成逐帧语义判定。"
   }
 }
