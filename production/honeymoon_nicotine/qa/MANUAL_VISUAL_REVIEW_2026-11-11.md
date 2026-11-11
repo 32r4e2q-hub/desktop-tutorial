@@ -1,23 +1,25 @@
 # Contact-sheet visual QC — 2026-11-11
 
-Scope: reviewed the 30 currently recorded contact sheets, including the new S09/S30 sheets sampled at 4 fps. This is human review of sampled stills—not full-motion sign-off. Contact sheets cannot rule out transient face/hand morphs, flicker between samples, or audio/sync defects.
+Scope: human-reviewed 30 high-density contact sheets sampled at 4 fps from decoded source clips. This is substantially denser than the first 3×3 sheets, but still not full-motion sign-off; brief defects between samples and audio/sync issues can remain.
 
-## Replacement clips reviewed against storyboard
+## Shot decisions
 
-| Shot | Decision | Visual observations | Action |
-|---|---|---|---|
-| S05 | PASS at sampled-frame level | Insurance form with a red circled detail, followed by the male lead and pink-cardigan woman at an airport. Matches the intended insurance-at-airport beat; no obvious anatomy distortion in samples. | Keep; full-motion review still required. |
-| S09 | PASS WITH POST-EDIT | New samples show a fully closed bathroom door, a narrow light slit at the threshold, and a dark fade; no open doorway. To make the required cut-to-black deterministic, render 5.5 seconds of picture followed by 0.5 seconds black. | Keep the new source and add the black tail in post. |
-| S29 | PASS WITH CAVEAT at sampled-frame level | Claims adjuster with glasses in a dark suit beside office files and a window; subject/location broadly match. Still samples do not prove the cabinet-closing action. | Keep provisionally; full-motion review required. |
-| S30 | PASS at sampled-frame level | New samples show the green bottle in a dark room; a narrow light area sweeps behind it and the picture returns to darkness. No near-total whiteout appears in the 4-fps sheet. | Keep the new source; await source technical QC. |
+| Shot | Decision | Visual observations / disposition |
+|---|---|---|
+| S01–S08 | PASS at sampled-frame level | Scenes are broadly coherent and no definite anatomical distortion is visible. S05 replacement shows the circled insurance form, male lead, and woman in pink at the airport. Continue full-motion QC for faces/hands. |
+| S09 | PASS WITH POST-EDIT | New source shows a closed bathroom door, narrow threshold light, and fade to dark; no open doorway. The render will use 5.5 seconds picture plus 0.5 seconds black for a deterministic cut-to-black. |
+| S10–S21 | PASS at sampled-frame level, with S11 HOLD | Scenes are broadly coherent, and no clear face/hand deformation appears at 4-fps sampling. S11's group-to-empty-corridor dissolve should be checked in continuous playback; it may be intentional. S18/S19 hand close-ups need ordinary full-resolution confirmation. |
+| S22 | REJECT | Dense samples show numerous bright speckle-like particles scattered across the foreground, faces, and table throughout the indoor izakaya exchange. This is distracting and not requested by the shot; treat as a visual artifact/scene mismatch, not approved bokeh. | Regenerate with clean air and only fixed, restrained lamp bokeh; reject this source. |
+| S23–S25 | PASS at sampled-frame level | Face close-up remains consistent in S23; S24's red-line/policy graphic resolves into an office meeting; S25 conversation is coherent. Full-resolution inspection still required. |
+| S26 | HOLD | The defendant fades into the detention cell through a deliberate double-exposure. Samples do not establish whether this is the intended transition or a distracting ghosting artifact; verify full playback. |
+| S27–S30 | PASS at sampled-frame level | Courtroom and exterior images are coherent. S29's adjuster/files/window match the story broadly, though cabinet-closing action needs playback. New S30 shows the green bottle in a dark room with a narrow light area and no full-frame whiteout. |
 
-## Remaining shots
+## Automated source technical QC
 
-The 26 other contact sheets (S01–S04, S06–S08, S10–S28) look broadly coherent at thumbnail scale; no definite anatomical distortion is apparent. HOLD items pending more detailed review: S01 motion, S11 transition, S24 graphic clarity, S26 possible double exposure. Inspect faces/hands, exposure and temporal consistency at full resolution for all 30.
+The media-enabled Actions run `43003857202` downloaded and decoded **30/30** source clips. Its committed `qa/qc-report.json` reports `TECHNICAL_PASS_VISUAL_REVIEW_PENDING`, scope `sources_only`, no hard failures, and no sampled near-white or freeze windows. S09's near-black samples are consistent with its intended dark ending. This check confirms decoding, receipt hashes/sizes, source dimensions, and sampled exposure/motion metrics; it cannot detect anatomy/scene errors by itself.
 
-## QC status
+## Remaining gates
 
-- **Rejected old versions:** prior S09 (open doorway) and S30 (whiteout). The new replacement task IDs differ and have been visually checked at sampled-frame level; do not use the superseded files.
-- **Provisionally acceptable from samples:** S05, S09 (with black-tail edit), S29, S30.
-- **Full-motion source QC:** pending. Source retrieval into the media-enabled Actions runner and dense 4-fps contact sheets are being prepared; local artifact download has returned EOF.
-- No final cut exists yet. Do not mark the project complete based on contact sheets or successful generation runs alone.
+- **Hard reject:** S22 current source; replacement request is being prepared. Superseded S09/S30 source versions remain rejected in `results.json.previous_results` and must not be cut in.
+- **Full-motion visual sign-off:** still pending for all 30 sources, especially S01 motion, S11 dissolve, S22 after regeneration, S26 ghosting, S29 cabinet action, and hand/face close-ups.
+- No final film exists yet. Do not mark the project complete until replacement contact-sheet review, rendering, final-film QC, subtitle/audio checks, and full playback are complete.
