@@ -447,6 +447,13 @@ def commit_delivery(message: str) -> None:
         for path in sorted(DELIVERY_DIR.iterdir()):
             if path.suffix.lower() in {".json", ".srt", ".jpg", ".png"} and path.stat().st_size < 2_000_000:
                 paths.append(str(path.relative_to(ROOT)))
+        # Publish the requested standalone MP4 when it fits GitHub's per-file limit.
+        # This is the final deliverable itself, not the bulky intermediate/source artifact.
+        film = DELIVERY_DIR / DELIVERY_FILM
+        if film.is_file():
+            if film.stat().st_size >= 100_000_000:
+                raise RuntimeError(f"Refusing to commit MP4 larger than GitHub's 100 MB per-file limit: {film.stat().st_size} bytes")
+            paths.append(str(film.relative_to(ROOT)))
     git("add", "-f", "--", *paths)
     if not subprocess.run(["git", "diff", "--cached", "--quiet", "--", *paths], cwd=ROOT).returncode:
         return
