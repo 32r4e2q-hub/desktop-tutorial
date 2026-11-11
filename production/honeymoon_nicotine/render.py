@@ -76,22 +76,34 @@ def caption_lines(text: str, limit: int = 24) -> list[str]:
     return [left, right]
 
 
-def ass_caption(text: str) -> str:
-    """Escape text only; the shared ASS style keeps every glyph the same golden size."""
-    return ass_escape(text)
+def ass_caption(text: str, phrases: list[str]) -> str:
+    """Apply gold to selected phrases only; all text keeps the same font size and weight."""
+    text = ass_escape(text)
+    ordered = sorted(set(phrases), key=len, reverse=True)
+    out = []
+    i = 0
+    while i < len(text):
+        hit = next((phrase for phrase in ordered if text.startswith(phrase, i)), None)
+        if hit:
+            out.append(r"{\c&H0000C8FF&}" + hit + r"{\rCaption}")
+            i += len(hit)
+        else:
+            out.append(text[i])
+            i += 1
+    return "".join(out)
 
 
-def write_ass(path: Path, cues: list[tuple[float, float, str]]) -> None:
+def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[str]) -> None:
     rows = [
         "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1920", "PlayResY: 1080",
         "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
         "[V4+ Styles]",
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-        "Style: Caption,Noto Sans CJK SC,32,&H0000C8FF,&H0000C8FF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.0,0.5,2,140,140,54,1",
+        "Style: Caption,Noto Sans CJK SC,36,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.0,0.5,2,140,140,54,1",
         "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
     for start, end, text in cues:
-        rendered = r"\N".join(ass_caption(line) for line in caption_lines(text))
+        rendered = r"\N".join(ass_caption(line, phrases) for line in caption_lines(text))
         rows.append(f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Caption,,0,0,0,,{{\\q2\\fad(60,70)}}{rendered}")
     path.write_text("\n".join(rows) + "\n", encoding="utf-8")
 
@@ -190,7 +202,7 @@ def main() -> int:
     srt.write_text("\n".join(f"{i}\n{srt_time(a)} --> {srt_time(b)}\n{text}\n"
                                   for i, (a, b, text) in enumerate(cues, 1)), encoding="utf-8")
     ass = args.work / "subtitles.ass"
-    write_ass(ass, cues)
+    write_ass(ass, cues, story["presentation"].get("highlight_phrases", []))
     silent = args.work / "picture-only.mp4"
     voice = args.work / "voiceover.wav"
     run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", video_list,
