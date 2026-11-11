@@ -1298,7 +1298,7 @@
     "S30": {
       "id": "S30",
       "request_hash": "9eef0d7943f10f56a276e12626af4252e80d34ca5fd3230606c1f416e0e949f3",
-      "status": "downloaded",
+      "status": "completed",
       "supersedes_task_id": "task_sLbNFvmHR1JAWMljK7IrwCdm2aiVK2QC",
       "replacement_reason": "Hard mismatch: returned frames show courthouse exterior/people, duplicating S28; storyboard requires black frame, green-bottle silhouette and door-seam light.",
       "request_payload": {
@@ -1316,7 +1316,7 @@
         ]
       },
       "error": null,
-      "updated_at": "2026-11-11T08:22:30Z",
+      "updated_at": "2026-11-11T08:22:32Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 288.0,
@@ -1328,7 +1328,19 @@
       "bytes": 2240303,
       "sha256": "b99d602af7ae9dfd9c81bed537f006d6386169a04eb9212436b839455bebcdd7",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2240303,
+        "decoded_ok": true,
+        "contact_sheet": "production/honeymoon_nicotine/qa/S30.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "source_size": "720P",
@@ -1383,7 +1395,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T08:22:30Z",
+  "updated_at": "2026-11-11T08:22:32Z",
   "run_id": "42983365547",
   "previous_results": {
     "S01": [
