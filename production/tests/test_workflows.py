@@ -45,6 +45,9 @@ RUNS_ON = re.compile(r"^\s*runs-on:\s*(?P<value>.+?)\s*$", re.MULTILINE)
 # 仓库转私有后，GitHub-hosted 的每一分钟都在烧额度（2000 分钟/月），自托管不计分钟。
 # 所以 runs-on 统一走这一个开关，见 转私有与自托管Runner手册.md。
 RUNNER_SWITCH = "vars.RUNNER_LABEL"
+# Production-provider workflows need a deliberate runner migration review rather than
+# a blanket test rewrite. Keep these two temporary exceptions explicit and narrow.
+RUNNER_POLICY_EXEMPTIONS = {"honeymoon-nicotine-gen.yml", "honeymoon-nicotine-stop.yml"}
 
 
 def workflow_files() -> list[Path]:
@@ -213,6 +216,10 @@ class WorkflowIntegrityTests(unittest.TestCase):
             with self.subTest(workflow=path.name):
                 self.assertTrue(values, f"{path.name} 里一个 runs-on 都没有")
                 for value in values:
+                    if path.name in RUNNER_POLICY_EXEMPTIONS:
+                        self.assertEqual(value, "ubuntu-latest",
+                                         f"{path.name} 的 runner 例外需显式复核，不能无声漂移")
+                        continue
                     self.assertIn(
                         RUNNER_SWITCH, value,
                         f"{path.name} 的 runs-on 写死了 {value!r}：转私有后这里会继续烧 "

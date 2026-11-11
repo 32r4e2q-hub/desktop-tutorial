@@ -1,4 +1,5 @@
 """Offline validation for the reviewed reference package and reference-mode video payloads."""
+import importlib.util
 import json
 from pathlib import Path
 import sys
@@ -7,7 +8,12 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 HERE = ROOT / "production" / "honeymoon_nicotine"
 sys.path.insert(0, str(HERE))
-import generate as generator  # noqa: E402
+# Other production projects also import a top-level module named ``generate``.
+# Load this project by file path to avoid whichever test happened to import first.
+spec = importlib.util.spec_from_file_location("honeymoon_nicotine_generate", HERE / "generate.py")
+assert spec is not None and spec.loader is not None
+generator = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(generator)
 
 
 class HoneymoonReferenceTests(unittest.TestCase):
