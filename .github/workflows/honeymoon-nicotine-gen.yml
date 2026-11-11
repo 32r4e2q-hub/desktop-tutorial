@@ -46,6 +46,9 @@ jobs:
         run: |
           set -euo pipefail
           payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ] && [ -f production/honeymoon_nicotine/GEN_REQUEST ]; then
+            payload="$(cat production/honeymoon_nicotine/GEN_REQUEST)"
+          fi
           if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
           mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", ""))' <<< "$payload")"
           if [ "$mode" != "status" ] && [ -f production/honeymoon_nicotine/CANCEL_REQUEST ]; then
