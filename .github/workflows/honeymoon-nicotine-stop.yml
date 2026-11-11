@@ -1,0 +1,16 @@
+name: 蜜月尼古丁命案 · 停止当前生成
+on:
+  push:
+    branches: [arena/31d27a2a-desktop-tutorial]
+    paths: [production/honeymoon_nicotine/STOP_NOW, .github/workflows/honeymoon-nicotine-stop.yml]
+permissions:
+  contents: read
+concurrency:
+  group: honeymoon-nicotine-agnes-arena-31d27a2a
+  cancel-in-progress: true
+jobs:
+  stop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm stop marker
+        run: echo 'Stop requested. This run intentionally makes no Agnes requests.'
