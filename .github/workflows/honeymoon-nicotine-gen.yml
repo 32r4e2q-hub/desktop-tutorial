@@ -1,0 +1,63 @@
+name: 蜜月尼古丁命案 · Agnes Video 2.5 Flash
+run-name: 蜜月尼古丁命案 · 30镜片段生成
+
+on:
+  push:
+    branches: [arena/31d27a2a-desktop-tutorial]
+    paths:
+      - production/honeymoon_nicotine/GEN_REQUEST
+      - .github/workflows/honeymoon-nicotine-gen.yml
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON payload, default generates all 30 clips
+        type: string
+        default: '{"mode":"clips","workers":2}'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: honeymoon-nicotine-agnes-arena-31d27a2a
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/31d27a2a-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/31d27a2a-desktop-tutorial
+          fetch-depth: 1
+      - name: Install media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check pillow numpy
+      - name: Validate plan and generate 30 Agnes clips
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          test -n "$AGNES_API_KEY"
+          python3 production/honeymoon_nicotine/generate.py --validate --clips-only
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
+          python3 -u production/honeymoon_nicotine/generate.py --clips-only --payload "$payload" --publish
+      - name: Upload generated footage and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: honeymoon-nicotine-agnes-${{ github.run_number }}
+          path: |
+            work/honeymoon_nicotine/
+            production/honeymoon_nicotine/results.json
+            production/honeymoon_nicotine/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
