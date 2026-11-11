@@ -80,13 +80,14 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, default=ROOT / "work" / "honeymoon_nicotine" / "sources")
     parser.add_argument("--film", type=Path, default=ROOT / "交付" / "Honeymoon_Nicotine_Final.mp4")
+    parser.add_argument("--sources-only", action="store_true", help="decode and sample all sources without requiring a rendered film")
     args = parser.parse_args()
     results_path = HERE / "results.json"
     results = json.loads(results_path.read_text(encoding="utf-8"))
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
     sources = args.sources
     film = args.film
-    if not film.is_file():
+    if not args.sources_only and not film.is_file():
         raise SystemExit(f"Final film is missing: {film}")
     hard_failures = []
     rows = []
@@ -112,43 +113,47 @@ def main() -> int:
                      "width": int(video["width"]), "height": int(video["height"]),
                      "fps": video.get("avg_frame_rate"), "decoded_ok": True, **sample})
 
-    decode_check(film)
-    final = probe(film, count_frames=True)
-    video = next((s for s in final["streams"] if s.get("codec_type") == "video"), None)
-    audio = next((s for s in final["streams"] if s.get("codec_type") == "audio"), None)
-    if not video:
-        hard_failures.append("Final film has no video stream")
-    else:
-        meta = {
-            "duration_seconds": round(float(final["format"]["duration"]), 3),
-            "width": int(video["width"]), "height": int(video["height"]),
-            "fps": video.get("avg_frame_rate"), "frames": int(video.get("nb_read_frames") or 0),
-            "video_codec": video.get("codec_name"),
-            "audio_codec": audio.get("codec_name") if audio else None,
-            "audio_sample_rate": int(audio.get("sample_rate", 0)) if audio else None,
-        }
-        if abs(meta["duration_seconds"] - DURATION) > 0.04:
-            hard_failures.append(f"Final duration is {meta['duration_seconds']}s, expected 180s")
-        if (meta["width"], meta["height"], meta["fps"]) != (1920, 1080, "24/1"):
-            hard_failures.append(f"Final video format mismatch: {meta['width']}x{meta['height']} at {meta['fps']}")
-        if meta["frames"] != 180 * FPS:
-            hard_failures.append(f"Final frame count is {meta['frames']}, expected {180 * FPS}")
-        if not audio:
-            hard_failures.append("Final film has no narration/audio stream")
-        elif int(audio.get("sample_rate", 0)) != 48_000:
-            hard_failures.append(f"Final audio sample rate is {audio.get('sample_rate')}, expected 48000 Hz")
-    if not film.with_suffix(".srt").is_file():
-        hard_failures.append("Subtitle sidecar is missing")
+    meta = None
+    if not args.sources_only:
+        decode_check(film)
+        final = probe(film, count_frames=True)
+        video = next((s for s in final["streams"] if s.get("codec_type") == "video"), None)
+        audio = next((s for s in final["streams"] if s.get("codec_type") == "audio"), None)
+        if not video:
+            hard_failures.append("Final film has no video stream")
+        else:
+            meta = {
+                "duration_seconds": round(float(final["format"]["duration"]), 3),
+                "width": int(video["width"]), "height": int(video["height"]),
+                "fps": video.get("avg_frame_rate"), "frames": int(video.get("nb_read_frames") or 0),
+                "video_codec": video.get("codec_name"),
+                "audio_codec": audio.get("codec_name") if audio else None,
+                "audio_sample_rate": int(audio.get("sample_rate", 0)) if audio else None,
+            }
+            if abs(meta["duration_seconds"] - DURATION) > 0.04:
+                hard_failures.append(f"Final duration is {meta['duration_seconds']}s, expected 180s")
+            if (meta["width"], meta["height"], meta["fps"]) != (1920, 1080, "24/1"):
+                hard_failures.append(f"Final video format mismatch: {meta['width']}x{meta['height']} at {meta['fps']}")
+            if meta["frames"] != 180 * FPS:
+                hard_failures.append(f"Final frame count is {meta['frames']}, expected {180 * FPS}")
+            if not audio:
+                hard_failures.append("Final film has no narration/audio stream")
+            elif int(audio.get("sample_rate", 0)) != 48_000:
+                hard_failures.append(f"Final audio sample rate is {audio.get('sample_rate')}, expected 48000 Hz")
+        if not film.with_suffix(".srt").is_file():
+            hard_failures.append("Subtitle sidecar is missing")
 
     report = {"status": "FAIL" if hard_failures else "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
-              "final": meta if video else None, "source_shots": rows,
+              "scope": "sources_only" if args.sources_only else "sources_and_final", "final": meta,
+              "source_shots": rows,
               "hard_failures": hard_failures,
               "limitations": ["Sampled grayscale freeze/exposure metrics do not detect anatomical distortions reliably.",
                               "Human full-playback signoff is required for faces, hands, scene continuity, and temporal artifacts."]}
     qa = HERE / "qa"
     qa.mkdir(parents=True, exist_ok=True)
     (qa / "qc-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    summary = ["# 成片技术 QC", "", f"状态：**{report['status']}**", "", "## 成片规格", "",
+    title = "源片技术 QC" if args.sources_only else "成片技术 QC"
+    summary = [f"# {title}", "", f"状态：**{report['status']}**", "", "## 成片规格", "",
                json.dumps(report.get("final"), ensure_ascii=False, indent=2), "", "## 源片抽样警告", ""]
     for row in rows:
         if row["near_black_sample_seconds"] or row["near_white_sample_seconds"] or row["suspected_freeze_window_starts"]:

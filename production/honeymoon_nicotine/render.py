@@ -97,9 +97,19 @@ def main() -> int:
             raise RuntimeError(f"{sid}: source aspect ratio is not 16:9; refusing to distort/crop")
 
         normalized = segments / f"{sid}.mp4"
-        vf = f"scale=1920:1080:flags=lanczos,fps={FPS},trim=duration={target:.6f},setpts=PTS-STARTPTS,setsar=1,format=yuv420p"
+        if sid == "S09":
+            # The approved storyboard requires a clean final cut to black after the stopped-water beat.
+            picture_seconds = target - 0.5
+            vf = (f"[0:v:0]scale=1920:1080:flags=lanczos,fps={FPS},trim=duration={picture_seconds:.6f},"
+                  f"setpts=PTS-STARTPTS,setsar=1,format=yuv420p[pic];"
+                  f"color=c=black:s=1920x1080:r={FPS}:d=0.5,format=yuv420p[tail];"
+                  "[pic][tail]concat=n=2:v=1:a=0[outv]")
+            filter_args = ["-filter_complex", vf, "-map", "[outv]"]
+        else:
+            vf = f"scale=1920:1080:flags=lanczos,fps={FPS},trim=duration={target:.6f},setpts=PTS-STARTPTS,setsar=1,format=yuv420p"
+            filter_args = ["-vf", vf, "-map", "0:v:0"]
         run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
-             "-map", "0:v:0", "-an", "-vf", vf, "-frames:v", frames, "-r", FPS,
+             *filter_args, "-an", "-frames:v", frames, "-r", FPS,
              "-fps_mode", "cfr", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
              "-movflags", "+faststart", normalized])
         video_entries.append(f"file '{normalized.resolve()}'")

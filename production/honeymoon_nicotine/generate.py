@@ -199,6 +199,7 @@ def retrieve_completed_tasks(publish: bool, selected: set[str] | None = None) ->
     if not key:
         raise RuntimeError("AGNES_API_KEY is unavailable; completed task outputs cannot be retrieved")
     base = (os.getenv("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).strip() or agnes.DEFAULT_BASE_URL).rstrip("/")
+    gate = RequestGate(minimum_interval=REQUEST_INTERVAL_SECONDS)
     doc = read_json(RESULTS, {"shots": {}})
     sources = ROOT / "work" / "honeymoon_nicotine" / "sources"
     qa_dir = HERE / "qa"
@@ -218,9 +219,11 @@ def retrieve_completed_tasks(publish: bool, selected: set[str] | None = None) ->
         query = base + "/agnesapi?" + urllib.parse.urlencode(
             {"video_id": video_id, "model_name": MODEL})
         try:
+            gate.acquire()
             code, body, text = agnes.http_json("GET", query, key, timeout=60)
             if code == 404 and row.get("task_id"):
                 legacy = base + "/v1/videos/" + urllib.parse.quote(str(row["task_id"]), safe="")
+                gate.acquire()
                 code, body, text = agnes.http_json("GET", legacy, key, timeout=60)
             observation["http_status"] = code
             if not (200 <= code < 300 and isinstance(body, dict)):
@@ -269,6 +272,14 @@ def retrieve_completed_tasks(publish: bool, selected: set[str] | None = None) ->
             outcomes["pending"].append(sid)
             print(f"RETRIEVE_UNCONFIRMED {sid}: {observation['error']}", flush=True)
 
+    # Decode and sample every source in the same media-enabled runner. The report is a
+    # technical gate and explicitly leaves human full-motion visual review outstanding.
+    source_qc = subprocess.CompletedProcess([], 0)
+    if (HERE / "qc.py").is_file():
+        source_qc = subprocess.run([sys.executable, str(HERE / "qc.py"), "--sources",
+                                    str(sources), "--sources-only"], cwd=ROOT)
+        commit_paths.extend([str((qa_dir / "qc-report.json").relative_to(ROOT)),
+                             str((qa_dir / "qc-summary.md").relative_to(ROOT))])
     doc["task_retrieval"] = outcomes
     RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if publish:
@@ -287,6 +298,8 @@ def retrieve_completed_tasks(publish: bool, selected: set[str] | None = None) ->
                         raise
                     git("pull", "--rebase", "origin", BRANCH)
     print("RETRIEVAL_SUMMARY " + json.dumps(outcomes, ensure_ascii=False), flush=True)
+    if source_qc.returncode:
+        return 1
     return 2 if outcomes["pending"] else 0
 
 
