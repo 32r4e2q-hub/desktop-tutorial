@@ -314,7 +314,7 @@
     "S09": {
       "id": "S09",
       "request_hash": "cb6dd9ad79a425e3d60ff2c48951bd326b46467f1bfd6780a3368f58b8369e92",
-      "status": "rate_limited",
+      "status": "queued",
       "supersedes_task_id": "task_q4q1dkfoT6X8X8lRFh9JnjWY2qCfETCq",
       "replacement_reason": "Contact sheet appears to show the room/entry door opening rather than the specified closed bathroom door with a light seam and cut to black.",
       "request_payload": {
@@ -331,11 +331,15 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/21d2d3934a53625c90837cef7be90344805d1db7/production/honeymoon_nicotine/reference/P01_DOOR_LIGHT.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:04:14. (request id: 2026111107592621239615EIiFp7jI) (code=rate_limit_exceeded)",
-      "updated_at": "2026-11-11T07:59:26Z",
-      "create_attempts": 1,
+      "error": null,
+      "updated_at": "2026-11-11T08:04:15Z",
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_6dMnOa2YoGnTBEfsDYvCpAsiiDZ4orOr",
+      "task_id": "task_6dMnOa2YoGnTBEfsDYvCpAsiiDZ4orOr",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S10": {
       "id": "S10",
@@ -1277,7 +1281,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T07:59:26Z",
+  "updated_at": "2026-11-11T08:04:15Z",
   "run_id": "42983365547",
   "previous_results": {
     "S01": [
@@ -1851,13 +1855,5 @@
       "S24",
       "S26"
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:04:14. (request id: 2026111107592621239615EIiFp7jI) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-11T07:59:26Z"
   }
 }
