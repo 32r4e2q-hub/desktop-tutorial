@@ -6,7 +6,8 @@
 
 - ✅ `story.json`：30 镜、180 秒、16:9、旁白草案、角色锚点与内容安全约束；`generate.py --validate --clips-only` 离线通过。
 - ✅ 31 张批准参考图及逐张 QC、哈希记录见 `reference/REFERENCE_QC.md` / `reference/approvals.json`。
-- ⚠️ 当前生成脚本构造的 payload 含 `mode=reference` 与图片 URL，但仓库里已验证的 Agnes 2.5 Flash adapter 文档仍不足以证明服务端支持或实际使用这些输入。S01/S02 的输出和批准图视觉相似，只能作为观察，不能替代接口契约确认；**暂停创建 S03–S30**。
+- ✅ 找到仓库内的 reference-mode 实证：旧分支 `arena/ed1fa571-desktop-tutorial` 的 `nowon2021` README 引用 Agnes 2.5 Flash 官方 schema，`generate_clips.py` 提交 `mode=reference` + 1–5 个 `images`，其 `results.json` 保留实际图片 payload 且 30/30 任务完成。当前 S01/S02 也以同一字段形状完成并已回收。由此可确认该 schema 在 Agnes 服务端至少曾可用；参考依据：[旧分支 README](https://github.com/32r4e2q-hub/desktop-tutorial/blob/arena/ed1fa571-desktop-tutorial/production/nowon2021/README.md)、[生成器](https://github.com/32r4e2q-hub/desktop-tutorial/blob/arena/ed1fa571-desktop-tutorial/production/nowon2021/generate_clips.py)、[30镜回执](https://github.com/32r4e2q-hub/desktop-tutorial/blob/arena/ed1fa571-desktop-tutorial/production/nowon2021/results.json)。这属于仓库运行实证；不是本次直接抓取官方站点文档。
+- ⚠️ 暂停创建 S03–S30 的原因改为：当前批次的服务端容量/重试过程缺乏可读日志，且 S01 的运动真实性仍未通过完整播放检查；不能把参考图 schema 当成本次卡住的已证根因。
 - ✅ 旧生成 workflow `42953032851` 已取消；S01/S02 的既有 Agnes task 在 2026-11-11 03:59 UTC 查询为 `completed` / 100%，未创建新任务。
 - ✅ 已只下载这两个既有任务的输出：均为 1280×720、24fps、5.184 秒，并通过解码检查；字节数、SHA-256 与接触表见 `results.json`、`qa/S01.json`、`qa/S02.json`。源片/接触表来自 Actions run `42956363021`；视频本体在 Actions artifact，完整播放检查仍待完成。
 - 🔎 接触表初检：S02 可见男子出门并沿走廊移动，外观大致符合 C01 锚点；S01 场景与酒店外景参考图相符，但采样帧主要呈逐渐推进，未能证明有独立场景运动。S01 暂不通过“不可用静态图推拉”的要求；须看完整视频再判定。两镜最终视觉审核仍为 pending。
