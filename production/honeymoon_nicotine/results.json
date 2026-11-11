@@ -741,9 +741,9 @@
     "S18": {
       "id": "S18",
       "request_hash": "e11caa5afa5843313506b9c1adfa13f0cdb416169d9a4bef4df34a414c6bb1a5",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-11T07:34:01Z",
+      "updated_at": "2026-11-11T07:34:03Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2017年韩国世宗市与日本大阪，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和色彩、细腻胶片颗粒；前半段春日暖黄明亮，随后由暖黄转冷青、深蓝与冷白荧光灯，居酒屋暖黄但边缘渐冷，法庭冷灰，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，雨水、窗帘、灯光与环境持续真实运动，单镜连续运镜，禁止静态图推拉；所有人物为虚构演员式形象，不还原真实人物。\n\n【C05锚点】35至45岁韩国刑警,深色夹克衬衫,眼神锐利克制\n\nCinematic 3D animated reenactment shot S18. 冷灰公寓内景，刑警打开抽屉，戴手套取出旧日记；只拍封面、手和纸页，不显示可读内容。 Continuous natural motion; camera: 低机位移至桌面. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design IDs: S11+P04. 【C05锚点】35至45岁韩国刑警,深色夹克衬衫,眼神锐利克制\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，注射器，针头，药剂，瓶身标签，血腥，伤口，遗体，尸体，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -771,7 +771,18 @@
       "bytes": 1443709,
       "sha256": "e364fa7de77c0dbed7d4a28ddecfda77ff362ae8345d7f249192f222fe85bdf0",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1443709,
+        "decoded_ok": true,
+        "contact_sheet": "production/honeymoon_nicotine/qa/S18.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S19": {
       "id": "S19",
@@ -1186,7 +1197,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T07:34:01Z",
+  "updated_at": "2026-11-11T07:34:03Z",
   "run_id": "42965299197",
   "previous_results": {
     "S01": [
