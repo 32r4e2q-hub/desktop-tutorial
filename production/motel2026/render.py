@@ -553,7 +553,7 @@ def main() -> int:
     srt_copy = final.parent / f"{final.stem}_字幕.srt"
     srt_copy.write_text(srt_path.read_text(encoding="utf-8"), encoding="utf-8")
     report = {
-        "title": story["title"],
+        "title": story.get("presentation", {}).get("douyin_title", story["title"]),
         "output": final.name,
         "unreviewed_first_cut": True,
         "human_visual_review": "pending",
