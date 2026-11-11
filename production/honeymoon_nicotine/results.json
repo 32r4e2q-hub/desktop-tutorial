@@ -943,9 +943,9 @@
     "S22": {
       "id": "S22",
       "request_hash": "8dc316b6aa4360c96e0184a274201ba6f781fe6fa39dd001c860eea5de34a0c2",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-11T10:51:19Z",
+      "updated_at": "2026-11-11T10:51:21Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2017年韩国世宗市与日本大阪，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和色彩、细腻胶片颗粒；前半段春日暖黄明亮，随后由暖黄转冷青、深蓝与冷白荧光灯，居酒屋暖黄但边缘渐冷，法庭冷灰，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，雨水、窗帘、灯光与环境持续真实运动，单镜连续运镜，禁止静态图推拉；所有人物为虚构演员式形象，不还原真实人物。\n\n【C01锚点】22岁韩国男子,偏瘦圆脸,黑色短发,浅色夹克白T恤,笑容温和,眼神冷静克制\n\n【C03锚点】22岁韩国女子,齐肩短发,米色针织衫牛仔裤,神情警觉敏锐\n\nCinematic 3D animated reenactment shot S22. 暖黄大阪居酒屋，年轻男子与前女友对坐，杯子置于桌面，女子察觉异样而停下；边缘色温悄悄转冷。空气必须干净清澈，画面中不得有漂浮亮点、雪花、灰尘、火星、粒子、闪粉或叠加光斑；仅背景灯笼保留克制、固定的自然虚化光点，不覆盖人物面部和桌面。不展示添加过程。 Continuous natural motion; camera: medium push toward the space between the two people. No floating particles, glitter, dust, snow, sparks, noisy bokeh overlay, or flickering points. Keep realistic stable faces and hands. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design ID: S13.\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，注射器，针头，药剂，瓶身标签，血腥，伤口，遗体，尸体，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -961,7 +961,12 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/21d2d3934a53625c90837cef7be90344805d1db7/production/honeymoon_nicotine/reference/S13_IZAKAYA.png"
         ]
       },
-      "error": null
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_vGNRrtPLgMKhbp0xFZ7MCEkjQeYl1aEF",
+      "task_id": "task_vGNRrtPLgMKhbp0xFZ7MCEkjQeYl1aEF",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S23": {
       "id": "S23",
@@ -1392,7 +1397,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T10:51:19Z",
+  "updated_at": "2026-11-11T10:51:21Z",
   "run_id": "43006935386",
   "previous_results": {
     "S01": [
