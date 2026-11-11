@@ -443,9 +443,9 @@
     "S16": {
       "id": "S16",
       "request_hash": "6b83c9e711e649893b35e4ab39bb7a4c4cdcce927e11208100a7e003719821fc",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-11T06:15:35Z",
+      "updated_at": "2026-11-11T06:20:25Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2017年韩国世宗市与日本大阪，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和色彩、细腻胶片颗粒；前半段春日暖黄明亮，随后由暖黄转冷青、深蓝与冷白荧光灯，居酒屋暖黄但边缘渐冷，法庭冷灰，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，雨水、窗帘、灯光与环境持续真实运动，单镜连续运镜，禁止静态图推拉；所有人物为虚构演员式形象，不还原真实人物。\n\n【C06锚点】日本警察制服警帽神情沉稳;日本法医白大褂口罩神情专注\n\nCinematic 3D animated reenactment shot S16. 冷白实验室，法医查看抽象曲线，在屏幕峰值处轻轻标记；不展示样本细节、数值或任何可模仿步骤。 Continuous natural motion; camera: 缓慢推近屏幕后移向法医. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design IDs: S10. 【C06锚点】日本警察制服警帽神情沉稳;日本法医白大褂口罩神情专注\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，注射器，针头，药剂，瓶身标签，血腥，伤口，遗体，尸体，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -460,10 +460,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/21d2d3934a53625c90837cef7be90344805d1db7/production/honeymoon_nicotine/reference/S10_FORENSIC_LAB.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:20:23. (request id: 20261111061535595581424tPkKemke) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_Tm3ABiMNJkjgWEuci1YurrxpiTnRCf2V",
+      "task_id": "task_Tm3ABiMNJkjgWEuci1YurrxpiTnRCf2V",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S17": {
       "id": "S17",
@@ -616,7 +620,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T06:15:35Z",
+  "updated_at": "2026-11-11T06:20:25Z",
   "run_id": "42965299197",
   "previous_results": {
     "S01": [
@@ -978,13 +982,5 @@
         }
       }
     }
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:20:23. (request id: 20261111061535595581424tPkKemke) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-11T06:15:35Z"
   }
 }
