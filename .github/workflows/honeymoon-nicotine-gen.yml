@@ -45,14 +45,19 @@ jobs:
           PAYLOAD_INPUT: ${{ inputs.payload }}
         run: |
           set -euo pipefail
-          if [ -f production/honeymoon_nicotine/CANCEL_REQUEST ]; then
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
+          mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", ""))' <<< "$payload")"
+          if [ "$mode" != "status" ] && [ -f production/honeymoon_nicotine/CANCEL_REQUEST ]; then
             echo 'Cancellation requested; no Agnes generation requests will be made.'
             exit 0
           fi
           test -n "$AGNES_API_KEY"
           python3 production/honeymoon_nicotine/generate.py --validate --clips-only
-          payload="${PAYLOAD_INPUT:-}"
-          if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
+          if [ "$mode" = "status" ]; then
+            python3 -u production/honeymoon_nicotine/generate.py --check-outstanding --publish
+            exit $?
+          fi
           python3 -u production/honeymoon_nicotine/generate.py --clips-only --payload "$payload" --publish
       - name: Upload generated footage and provenance
         if: always()

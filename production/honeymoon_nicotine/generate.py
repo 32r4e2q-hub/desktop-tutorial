@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate the 29 Setagaya shots with Agnes Video 2.5 Flash, then render the 180s first cut.
+"""Generate the 30 Honeymoon Nicotine shots with Agnes Video 2.5 Flash, then render the 180s first cut.
 
 The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
-size/aspect_ratio/mode/n); transient create failures retry every 61 seconds until accepted.
+size/aspect_ratio/mode/n/images); create attempts are spaced at least 12 seconds apart and honor Retry-After.
 Clips are normalized and upscaled to the 1920x1080 delivery master.
 All generated footage is downloaded to ignored ``work/``. Only JSON provenance and small
 contact sheets are checkpointed into the fixed Arena branch. No still-image substitute is used.
@@ -20,6 +20,7 @@ import subprocess
 import sys
 import threading
 import time
+import urllib.parse
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "production"))
@@ -33,7 +34,7 @@ SOURCE_SIZE = "720P"
 REQUEST_INTERVAL_SECONDS = 12
 SUPPORTED_MODES = {"text", "keyframe", "reference"}
 ALLOWED_PAYLOAD_FIELDS = {
-    "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed",
+    "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed", "images",
 }
 FORBIDDEN_PAYLOAD_FIELDS = {
     "width", "height", "fps", "num_frames", "frame_rate", "duration", "resolution",
@@ -46,11 +47,111 @@ RETRYABLE_CREATE_MARKERS = (
 HERE = Path(__file__).resolve().parent
 PLAN = HERE / "story.json"
 RESULTS = HERE / "results.json"
+REFERENCE_DIR = HERE / "reference"
+REFERENCE_APPROVALS = REFERENCE_DIR / "approvals.json"
+REFERENCE_REVISION = REFERENCE_DIR / "revision.txt"
+REPOSITORY = "32r4e2q-hub/desktop-tutorial"
 LOCK = threading.RLock()
+
+CHARACTER_REFERENCE_IDS = {
+    "A": "C01", "BRIDE": "C02", "EX": "C03", "CLAIMS": "C04",
+    "POLICE": "C05", "JP": "C06", "COURT": "C07", "FAMILY": "C08",
+}
+SCENE_REFERENCE_IDS = {f"S{i:02d}": f"S{i:02d}" for i in range(2, 17)}
+SCENE_REFERENCE_IDS.update({"S01_EXT": "S01_EXT", "S01_HALLWAY": "S01_HALLWAY"})
+PROP_REFERENCE_IDS = {f"P{i:02d}": f"P{i:02d}" for i in range(1, 7)}
 
 
 def read_json(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
+
+
+def reference_asset_ids(shot: dict) -> list[str]:
+    """Resolve story design IDs plus character roles to the final approved image IDs."""
+    asset_ids = [CHARACTER_REFERENCE_IDS[role] for role in shot.get("characters", [])]
+    design_refs = str(shot.get("reference_ids", shot.get("references", ""))).split("+")
+    for ref in (part.strip().upper() for part in design_refs if part.strip()):
+        if ref == "S01":
+            asset_ids.append("S01_EXT" if shot.get("id") == "S01" else "S01_HALLWAY")
+        elif ref in SCENE_REFERENCE_IDS:
+            asset_ids.append(SCENE_REFERENCE_IDS[ref])
+        elif ref in PROP_REFERENCE_IDS:
+            asset_ids.append(PROP_REFERENCE_IDS[ref])
+        else:
+            raise ValueError(f"{shot.get('id')}: unknown reference design ID {ref!r}")
+    return list(dict.fromkeys(asset_ids))
+
+
+def reference_image_urls(shot: dict) -> list[str]:
+    """Return immutable raw-GitHub URLs after verifying the approved local PNG digests."""
+    approvals = read_json(REFERENCE_APPROVALS, {})
+    assets = approvals.get("assets", {})
+    revision = REFERENCE_REVISION.read_text(encoding="utf-8").strip() if REFERENCE_REVISION.is_file() else ""
+    if len(revision) != 40 or any(ch not in "0123456789abcdef" for ch in revision.lower()):
+        raise RuntimeError("reference/revision.txt must pin the immutable commit containing the approved PNGs")
+    urls = []
+    for asset_id in reference_asset_ids(shot):
+        record = assets.get(asset_id, {})
+        if record.get("status") != "approved":
+            raise RuntimeError(f"{asset_id}: reference is not approved")
+        path = HERE / record.get("file", "")
+        if not path.is_file() or path.read_bytes()[:8] != b"\x89PNG\r\n\x1a\n":
+            raise RuntimeError(f"{asset_id}: approved reference PNG is missing or invalid")
+        if digest(path) != record.get("sha256"):
+            raise RuntimeError(f"{asset_id}: image changed after approval")
+        relative = path.relative_to(HERE).as_posix()
+        urls.append(f"https://raw.githubusercontent.com/{REPOSITORY}/{revision}/production/honeymoon_nicotine/{relative}")
+    if not 1 <= len(urls) <= 5:
+        raise ValueError(f"{shot.get('id')}: reference mode needs 1–5 images, got {len(urls)}")
+    return urls
+
+
+def check_outstanding_tasks(publish: bool) -> int:
+    """Poll old task IDs once; never create, resume, download, or replace a video task."""
+    if publish and (os.getenv("GITHUB_ACTIONS") != "true" or git("branch", "--show-current").strip() != BRANCH):
+        raise RuntimeError("Publishing is restricted to the fixed Arena branch in GitHub Actions")
+    key = os.getenv("AGNES_API_KEY", "").strip()
+    if not key:
+        raise RuntimeError("AGNES_API_KEY is unavailable; old task status cannot be confirmed")
+    base = (os.getenv("AGNES_BASE_URL", agnes.DEFAULT_BASE_URL).strip() or agnes.DEFAULT_BASE_URL).rstrip("/")
+    doc = read_json(RESULTS, {"shots": {}})
+    pending = []
+    checked = 0
+    for sid, row in sorted(doc.get("shots", {}).items()):
+        video_id = row.get("video_id")
+        if not video_id or row.get("status") in {"failed", "cancelled", "canceled", "completed"}:
+            continue
+        query = base + "/agnesapi?" + urllib.parse.urlencode(
+            {"video_id": video_id, "model_name": MODEL})
+        try:
+            response = agnes.http_json("GET", query, key, timeout=60)
+        except agnes.TransientError as exc:
+            print(f"STATUS_UNCONFIRMED {sid}: {exc}", flush=True)
+            pending.append(sid)
+            continue
+        code, body, text = response
+        if code == 404 and row.get("task_id"):
+            legacy = base + "/v1/videos/" + urllib.parse.quote(str(row["task_id"]), safe="")
+            try:
+                response = agnes.http_json("GET", legacy, key, timeout=60)
+                code, body, text = response
+            except agnes.TransientError as exc:
+                print(f"STATUS_UNCONFIRMED {sid}: legacy status error: {exc}", flush=True)
+                pending.append(sid)
+                continue
+        if not (200 <= code < 300 and isinstance(body, dict)):
+            detail = agnes.describe_error(body, text, code)
+            print(f"STATUS_UNCONFIRMED {sid}: HTTP {code} {detail}", flush=True)
+            pending.append(sid)
+            continue
+        checked += 1
+        state = str(body.get("status") or "unknown").lower()
+        progress = body.get("progress")
+        print(f"STATUS_CHECK {sid}: {state}" + (f" progress={progress}%" if progress is not None else ""), flush=True)
+        if state not in agnes.COMPLETED_STATES | agnes.FAILED_STATES:
+            pending.append(sid)
+    print(f"STATUS_SUMMARY checked={checked} unresolved={','.join(pending) if pending else 'none'}; create_requests=0", flush=True)
+    return 2 if pending else 0
 
 
 def retryable_create_error(message: str):
@@ -127,9 +228,10 @@ def full_payload(project: dict, shot: dict) -> dict:
         "seconds": seconds,
         "size": project.get("source_size", SOURCE_SIZE),
         "aspect_ratio": shot["aspect"],
-        "mode": "text",
+        "mode": "reference",
         "n": 1,
         "seed": payload_seed(project, shot),
+        "images": reference_image_urls(shot),
     }
 
 
@@ -307,8 +409,10 @@ def validate(project: dict, require_audio: bool = True) -> None:
                 or int(payload["seconds"]) != duration:
             raise ValueError(f"2.5 Flash seconds must be the duration string for {shot['id']}")
         if payload.get("size") != SOURCE_SIZE or payload.get("aspect_ratio") != "16:9" \
-                or payload.get("mode") not in SUPPORTED_MODES or payload.get("n") != 1:
+                or payload.get("mode") != "reference" or payload.get("n") != 1:
             raise ValueError(f"Invalid 2.5 Flash size/aspect/mode/count for {shot['id']}")
+        if not isinstance(payload.get("images"), list) or not 1 <= len(payload["images"]) <= 5:
+            raise ValueError(f"Reference mode needs 1–5 approved images for {shot['id']}")
         if FORBIDDEN_PAYLOAD_FIELDS.intersection(payload):
             raise ValueError(f"2.5 Flash rejects fields: {sorted(FORBIDDEN_PAYLOAD_FIELDS.intersection(payload))}")
         if payload["prompt"] != prompt:
@@ -408,6 +512,8 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--validate", action="store_true")
     parser.add_argument("--publish", action="store_true")
+    parser.add_argument("--check-outstanding", action="store_true",
+                        help="poll existing task IDs once; never create or resume a video task")
     parser.add_argument("--payload", default="{}", help='JSON, e.g. {"only":"S01","workers":1}')
     parser.add_argument("--clips-only", action="store_true",
                         help="generate all 30 clips but do not render (voice may not exist yet)")
@@ -415,6 +521,8 @@ def main() -> int:
                         help="skip generation entirely and render from verified clips")
     args = parser.parse_args()
     project = read_json(PLAN, {})
+    if args.check_outstanding:
+        return check_outstanding_tasks(args.publish)
     options = json.loads(args.payload or "{}")
     mode = str(options.get("mode") or "").strip()
     if not mode and options.get("only"):
