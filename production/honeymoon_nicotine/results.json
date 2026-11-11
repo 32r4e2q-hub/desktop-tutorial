@@ -331,7 +331,7 @@
     "S09": {
       "id": "S09",
       "request_hash": "cb6dd9ad79a425e3d60ff2c48951bd326b46467f1bfd6780a3368f58b8369e92",
-      "status": "downloaded",
+      "status": "completed",
       "supersedes_task_id": "task_q4q1dkfoT6X8X8lRFh9JnjWY2qCfETCq",
       "replacement_reason": "Contact sheet appears to show the room/entry door opening rather than the specified closed bathroom door with a light seam and cut to black.",
       "request_payload": {
@@ -349,7 +349,7 @@
         ]
       },
       "error": null,
-      "updated_at": "2026-11-11T08:15:08Z",
+      "updated_at": "2026-11-11T08:15:10Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 288.0,
@@ -361,7 +361,19 @@
       "bytes": 1567505,
       "sha256": "04a40d92cf7eb82981e421a2dba312cd967c76a78c75d341259a697ba22488a1",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1567505,
+        "decoded_ok": true,
+        "contact_sheet": "production/honeymoon_nicotine/qa/S09.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S10": {
       "id": "S10",
@@ -1366,7 +1378,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T08:15:08Z",
+  "updated_at": "2026-11-11T08:15:10Z",
   "run_id": "42983365547",
   "previous_results": {
     "S01": [
