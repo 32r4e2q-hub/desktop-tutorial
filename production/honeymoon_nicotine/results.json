@@ -1234,7 +1234,7 @@
     "S29": {
       "id": "S29",
       "request_hash": "778037ee0cb8ddf17975568f4e294cb46c0c8543f68a378691c8502854f35d85",
-      "status": "downloaded",
+      "status": "completed",
       "supersedes_task_id": "task_FQAa1mF9QTITl75Hx31FobKPvHL4tbi6",
       "replacement_reason": "Hard mismatch: returned frames show a dark room/table and green bottle, then a blown-out white frame; storyboard requires claims adjuster at a file cabinet/window.",
       "request_payload": {
@@ -1252,7 +1252,7 @@
         ]
       },
       "error": null,
-      "updated_at": "2026-11-11T08:14:44Z",
+      "updated_at": "2026-11-11T08:14:46Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 288.0,
@@ -1264,7 +1264,19 @@
       "bytes": 1973705,
       "sha256": "83ff55a4cdd2822dd961d8081a44d19f8d48ca5f39ec78de27b54a4bde110139",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1973705,
+        "decoded_ok": true,
+        "contact_sheet": "production/honeymoon_nicotine/qa/S29.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S30": {
       "id": "S30",
@@ -1349,7 +1361,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T08:14:44Z",
+  "updated_at": "2026-11-11T08:14:46Z",
   "run_id": "42983365547",
   "previous_results": {
     "S01": [
