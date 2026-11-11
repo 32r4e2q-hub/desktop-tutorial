@@ -289,11 +289,15 @@
   ],
   "workflow_policy": "agnes-video-2.5-flash-720p-upscale-180s-30shots",
   "rate_policy": {
-    "minimum_creation_interval_seconds": 12,
+    "minimum_request_interval_seconds": 12.1,
     "workers_max": 2,
+    "create_before_poll": true,
+    "shared_create_poll_gate": true,
     "retry_after_respected": true,
     "key_rotation": false,
-    "capacity_retry_interval_seconds": 12,
+    "queue_full_retry_seconds": 60.0,
+    "capacity_retry_seconds": 120.0,
+    "poll_interval_seconds": 45.0,
     "capacity_retries_unbounded": true
   },
   "review": {
@@ -301,8 +305,8 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T03:30:12Z",
-  "run_id": "42953032851",
+  "updated_at": "2026-11-11T05:23:31Z",
+  "run_id": "42965299197",
   "previous_results": {
     "S01": [
       {
