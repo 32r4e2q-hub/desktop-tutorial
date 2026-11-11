@@ -1247,7 +1247,7 @@
     "S30": {
       "id": "S30",
       "request_hash": "9eef0d7943f10f56a276e12626af4252e80d34ca5fd3230606c1f416e0e949f3",
-      "status": "submitting",
+      "status": "rate_limited",
       "supersedes_task_id": "task_sLbNFvmHR1JAWMljK7IrwCdm2aiVK2QC",
       "replacement_reason": "Hard mismatch: returned frames show courthouse exterior/people, duplicating S28; storyboard requires black frame, green-bottle silhouette and door-seam light.",
       "request_payload": {
@@ -1264,8 +1264,11 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/21d2d3934a53625c90837cef7be90344805d1db7/production/honeymoon_nicotine/reference/P03_GREEN_BOTTLE_SILHOUETTE.png"
         ]
       },
-      "error": null,
-      "updated_at": "2026-11-11T08:09:19Z"
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:14:17. (request id: 20261111080929261976340szaoInBL) (code=rate_limit_exceeded)",
+      "updated_at": "2026-11-11T08:09:29Z",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 288.0
     }
   },
   "source_size": "720P",
@@ -1320,7 +1323,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T08:09:19Z",
+  "updated_at": "2026-11-11T08:09:29Z",
   "run_id": "42983365547",
   "previous_results": {
     "S01": [
@@ -1894,5 +1897,13 @@
       "S24",
       "S26"
     ]
+  },
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:14:17. (request id: 20261111080929261976340szaoInBL) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 288.0,
+    "last_seen": "2026-11-11T08:09:29Z"
   }
 }
