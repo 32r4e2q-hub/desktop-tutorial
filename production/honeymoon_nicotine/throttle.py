@@ -1,7 +1,7 @@
-"""Shared 61-second request spacing matching the tested Agnes Video 2.5 Flash project template.
+"""Shared request spacing for the user's paid Agnes limit of at most five creates per minute.
 
-There is no key rotation or limit bypass. Creation is spaced at least 61 seconds apart;
-server-requested cooldowns are respected across both workers.
+There is no key rotation or limit bypass. New requests are spaced at least 12 seconds apart;
+server-requested Retry-After cooldowns are respected across both workers.
 """
 import threading
 import time
@@ -12,9 +12,9 @@ class BudgetExhausted(RuntimeError):
 
 
 class RequestGate:
-    def __init__(self, minimum_interval=61.0, clock=None, sleep=None):
-        if minimum_interval<60:
-            raise ValueError('Free video creation must be spaced at least 60 seconds apart')
+    def __init__(self, minimum_interval=12.0, clock=None, sleep=None):
+        if minimum_interval<12:
+            raise ValueError('Paid Agnes requests must be spaced at least 12 seconds apart')
         self.interval=float(minimum_interval)
         self.clock=clock or time.monotonic
         self.sleep=sleep or time.sleep

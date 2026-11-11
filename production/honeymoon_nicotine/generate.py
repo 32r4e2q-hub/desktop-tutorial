@@ -30,7 +30,7 @@ from throttle import RequestGate  # noqa: E402
 BRANCH = "arena/31d27a2a-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
-REQUEST_INTERVAL_SECONDS = 61
+REQUEST_INTERVAL_SECONDS = 12
 SUPPORTED_MODES = {"text", "keyframe", "reference"}
 ALLOWED_PAYLOAD_FIELDS = {
     "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed",
