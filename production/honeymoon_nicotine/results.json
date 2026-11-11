@@ -354,9 +354,25 @@
     "S13": {
       "id": "S13",
       "request_hash": "072fb2d4ffc531d2fce4d14396403d427c654a04a4f667f42a1a7121e5b5bb2e",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-11T03:29:56Z"
+      "updated_at": "2026-11-11T05:48:22Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2017年韩国世宗市与日本大阪，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和色彩、细腻胶片颗粒；前半段春日暖黄明亮，随后由暖黄转冷青、深蓝与冷白荧光灯，居酒屋暖黄但边缘渐冷，法庭冷灰，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，雨水、窗帘、灯光与环境持续真实运动，单镜连续运镜，禁止静态图推拉；所有人物为虚构演员式形象，不还原真实人物。\n\n【C04锚点】40多岁韩国女性理赔员,中等短发,深色西装套裙,细框眼镜,神情细致专注\n\nCinematic 3D animated reenactment shot S13. 俯拍桌面，保单上的三个日期位置被红圈和红线连接，理赔员拿起电话，背景灰冷克制。 Continuous natural motion; camera: 俯拍向前滑动. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design IDs: S08+P02. 【C04锚点】40多岁韩国女性理赔员,中等短发,深色西装套裙,细框眼镜,神情细致专注\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，注射器，针头，药剂，瓶身标签，血腥，伤口，遗体，尸体，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 40017,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/21d2d3934a53625c90837cef7be90344805d1db7/production/honeymoon_nicotine/reference/C04_CLAIMS.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/21d2d3934a53625c90837cef7be90344805d1db7/production/honeymoon_nicotine/reference/S08_INSURANCE_OFFICE.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/21d2d3934a53625c90837cef7be90344805d1db7/production/honeymoon_nicotine/reference/P02_POLICY_RED_CIRCLE.png"
+        ]
+      },
+      "error": null
     },
     "S14": {
       "id": "S14",
@@ -530,7 +546,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-11T05:48:20Z",
+  "updated_at": "2026-11-11T05:48:22Z",
   "run_id": "42965299197",
   "previous_results": {
     "S01": [
