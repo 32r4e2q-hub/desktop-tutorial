@@ -922,7 +922,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "first_cut_ready",
+  "phase": "generating_sources",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -965,20 +965,12 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "partial-approved-v3",
+    "status": "pending",
     "visual_review_required": true,
-    "reviewed_shots": [
-      "S03",
-      "S04",
-      "S11",
-      "S13",
-      "S17",
-      "S23"
-    ],
-    "note": "V3 已人工复核所有新生成/改提示词镜头；其余24镜沿用此前已完成生产与质检的匹配素材。最终成片仍须做全片播放和 QC。"
+    "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-10T14:04:45Z",
-  "run_id": "42828224551",
+  "updated_at": "2026-11-11T00:09:48Z",
+  "run_id": "42928945431",
   "previous_results": {
     "S04": [
       {
