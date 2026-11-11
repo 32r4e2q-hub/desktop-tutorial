@@ -921,7 +921,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1856,15 +1856,31 @@
     "width": 1920,
     "height": 1080,
     "fps": 24,
-    "cover": "work/motel2026/clips/汽车旅馆连环命案_封面.png",
+    "cover": "交付/Motel_Case_Revised_V2_Cover.png",
+    "work_cover": "work/motel2026/clips/汽车旅馆连环命案_封面.png",
+    "cover_spec": {
+      "template": "迷案解码人固定竖版模板",
+      "source": "production/motel2026/assets/Motel_Case_Revised_V2_Series_Cover.png",
+      "file": "Motel_Case_Revised_V2_Cover.png",
+      "bytes": 1055010,
+      "sha256": "d47a57dfb2f1dd32e935553a6091cfeb01c9f6a4e507154c63d65f97592e6e15",
+      "width": 1080,
+      "height": 1440,
+      "orientation": "vertical",
+      "title_lines": [
+        "两起死亡",
+        "从旅馆门后开始"
+      ],
+      "rule": "对外第十一期封面必须使用此固定模板；不交付自由生成横版工作封面。"
+    },
     "delivered": {
       "Motel_Case_Revised_V2.mp4": {
-        "bytes": 47347879,
-        "sha256": "4c0ed6ed447aaa2684521d4180b7c534d71f4bdb56757d215b0aef32bd801921"
+        "bytes": 46543772,
+        "sha256": "2b2095c61e8b38112b09b655e40dffc297c3eb5f65f82c91bea3b85a02ef8227"
       },
       "Motel_Case_Revised_V2_Cover.png": {
-        "bytes": 1123889,
-        "sha256": "19e4284b9c08aa9f72bd83cb08480849a0384ab1735cd00472fa520d934ff9d9"
+        "bytes": 1055010,
+        "sha256": "d47a57dfb2f1dd32e935553a6091cfeb01c9f6a4e507154c63d65f97592e6e15"
       },
       "Motel_Case_Revised_V2_Subtitles.srt": {
         "bytes": 3115,
@@ -1875,12 +1891,12 @@
         "sha256": "0f9950edc2131ae8dbf6917ccaa2532c98f7a0643ec8a2edc1b1852ebc3ed351"
       },
       "Motel_Case_Revised_V2_Technical_Report.json": {
-        "bytes": 37494,
-        "sha256": "fc1c5038b46d4e7b5fc35fe477bf7fc953a7ca38f29a4b44f186cce29fe93dbc"
+        "bytes": 38491,
+        "sha256": "45add7d1cbe2a61c9b5e87665b7af3d06b454e66a49272f2ebc289370c4eaf68"
       },
       "Motel_Case_Revised_V2_Release.md": {
-        "bytes": 916,
-        "sha256": "43d3178311e384262f28c8ece17f866bb7e2ae4ca6c44df90c60c1bd51d2a4f2"
+        "bytes": 1395,
+        "sha256": "64fca583ed0ca9d1a4b5d8d827565951774ca7710a01aab8ea939c9ae2397764"
       }
     }
   },

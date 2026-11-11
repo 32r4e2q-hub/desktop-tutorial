@@ -1,11 +1,11 @@
 {
-  "title": "汽车旅馆连环命案：金素英为什么带他们去旅馆？",
+  "title": "两起死亡，从旅馆门后开始｜迷案解码人·第十一期",
   "output": "汽车旅馆连环命案_人物关系与动机修订版_三分钟_带声音.mp4",
   "unreviewed_first_cut": true,
   "human_visual_review": "pending",
   "video": {
     "duration_seconds": 180.0,
-    "bytes": 47347879,
+    "bytes": 46543772,
     "width": 1920,
     "height": 1080,
     "fps": "24/1",
@@ -263,7 +263,7 @@
       "source_duration_seconds": 5.184,
       "source_width": 1280,
       "source_height": 720,
-      "source_sha256": "5f1e8f8797e3cc37a9bb612d037c6518de31f6236639c8ac2d8ef9f1f5151229",
+      "source_sha256": "e355dc18e2219d1ed1164885c234ff98f9157c49934ea24b389ba4aa5bdd7c94",
       "normalized_file": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/motel2026/edit/normalized/S21.mp4",
       "embedded_letterbox_crop_filter": null,
       "embedded_letterbox_detected_samples": 0
@@ -1048,11 +1048,37 @@
   "caption_cues": 30,
   "captions_ass": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/motel2026/edit/motel-captions.ass",
   "captions_srt": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/motel2026/edit/汽车旅馆连环命案_字幕.srt",
-  "cover": "/home/runner/work/desktop-tutorial/desktop-tutorial/work/motel2026/clips/汽车旅馆连环命案_封面.jpg",
+  "work_cover": null,
+  "delivery_cover_spec": {
+    "template": "迷案解码人固定竖版模板",
+    "source": "production/motel2026/assets/Motel_Case_Revised_V2_Series_Cover.png",
+    "file": "Motel_Case_Revised_V2_Cover.png",
+    "bytes": 1055010,
+    "sha256": "d47a57dfb2f1dd32e935553a6091cfeb01c9f6a4e507154c63d65f97592e6e15",
+    "width": 1080,
+    "height": 1440,
+    "orientation": "vertical",
+    "title_lines": [
+      "两起死亡",
+      "从旅馆门后开始"
+    ],
+    "rule": "对外第十一期封面必须使用此固定模板；不交付自由生成横版工作封面。"
+  },
   "source_model": "agnes-video-2.5-flash",
   "source_resolution": "720P",
   "final_resolution": "1920x1080 (upscaled in post)",
   "style_consistency": "One STYLE block drives all 30 clips. Night exteriors read more photoreal while the family interiors read as painterly stylized 3D; the difference follows scene content rather than style drift. Faces drift slightly between shots because every clip is generated independently; single-character shots reuse a fixed per-character seed to limit it.",
   "all_30_generated_shots_verified_by_sha256": true,
-  "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the title, captions and end card are composited in post. The footage is an AI-produced reenactment, not historical evidence imagery, and the evidence shots are 3D illustrative reconstructions of published descriptions, not police photographs."
+  "note": "Every shot is an Agnes Video 2.5 Flash (720P) motion clip upscaled to 1080p; the title, captions and end card are composited in post. The footage is an AI-produced reenactment, not historical evidence imagery, and the evidence shots are 3D illustrative reconstructions of published descriptions, not police photographs.",
+  "delivery_cover": {
+    "file": "交付/Motel_Case_Revised_V2_Technical_Report.json",
+    "source": "production/motel2026/assets/Motel_Case_Revised_V2_Series_Cover.png",
+    "template": "迷案解码人固定竖版模板",
+    "width": 1080,
+    "height": 1440,
+    "orientation": "vertical",
+    "bytes": 1055010,
+    "sha256": "d47a57dfb2f1dd32e935553a6091cfeb01c9f6a4e507154c63d65f97592e6e15",
+    "note": "对外第十一期封面必须使用此固定模板；不交付自由生成横版工作封面。"
+  }
 }
