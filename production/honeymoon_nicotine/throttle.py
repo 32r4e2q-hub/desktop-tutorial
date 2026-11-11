@@ -1,7 +1,8 @@
-"""Shared request spacing for the user's paid Agnes limit of at most five creates per minute.
+"""One shared request gate for paid Agnes 2.5 Flash traffic.
 
-There is no key rotation or limit bypass. New requests are spaced at least 12 seconds apart;
-server-requested Retry-After cooldowns are respected across both workers.
+A call reserves a slot immediately before any POST or status-poll GET. Keeping both
+methods on the same gate caps aggregate API traffic and honors Retry-After/capacity
+cooldowns across the producer and poll workers.
 """
 import threading
 import time
@@ -12,36 +13,43 @@ class BudgetExhausted(RuntimeError):
 
 
 class RequestGate:
-    def __init__(self, minimum_interval=12.0, clock=None, sleep=None):
-        if minimum_interval<12:
-            raise ValueError('Paid Agnes requests must be spaced at least 12 seconds apart')
-        self.interval=float(minimum_interval)
-        self.clock=clock or time.monotonic
-        self.sleep=sleep or time.sleep
-        self._next_create=0.0
-        self._blocked_until=0.0
-        self._lock=threading.Lock()
+    def __init__(self, minimum_interval=12.1, clock=None, sleep=None):
+        if minimum_interval < 12.1:
+            raise ValueError("Agnes requests must be spaced at least 12.1 seconds apart")
+        self.interval = float(minimum_interval)
+        self.clock = clock or time.monotonic
+        self.sleep = sleep or time.sleep
+        self._next_request = 0.0
+        self._blocked_until = 0.0
+        self._lock = threading.Lock()
 
-    def _wait_until_available(self, deadline, creation=False):
+    def acquire(self, deadline=float("inf")):
+        """Wait for and reserve one shared POST/GET request slot."""
         while True:
             with self._lock:
-                now=self.clock()
-                ready=max(self._blocked_until,self._next_create if creation else 0.0)
-                if now>=deadline or max(now,ready)>=deadline:
-                    raise BudgetExhausted('Provider cooldown would exceed the generation budget; saved tasks can be resumed')
-                delay=max(0.0,ready-now)
-                if delay<=0:
-                    if creation:self._next_create=now+self.interval
+                now = self.clock()
+                ready = max(self._blocked_until, self._next_request)
+                if now >= deadline or max(now, ready) >= deadline:
+                    raise BudgetExhausted(
+                        "Provider cooldown would exceed the generation budget; saved tasks can be resumed"
+                    )
+                delay = max(0.0, ready - now)
+                if delay <= 0:
+                    self._next_request = now + self.interval
                     return
-            # Short internal sleeps allow another worker's Retry-After to extend a cooldown.
-            self.sleep(min(10.0,delay))
+            # Short sleeps let another worker extend the shared Retry-After cooldown.
+            self.sleep(min(10.0, delay))
 
     def acquire_creation(self, deadline):
-        self._wait_until_available(deadline,creation=True)
+        """Compatibility alias; creates and polls reserve from the same request timeline."""
+        self.acquire(deadline)
 
     def wait_unblocked(self, deadline):
-        self._wait_until_available(deadline,creation=False)
+        """Compatibility callback for poll_task; reserve one GET on the shared timeline."""
+        self.acquire(deadline)
 
-    def defer(self,seconds):
+    def defer(self, seconds):
         with self._lock:
-            self._blocked_until=max(self._blocked_until,self.clock()+max(0,float(seconds)))
+            self._blocked_until = max(
+                self._blocked_until, self.clock() + max(0.0, float(seconds))
+            )

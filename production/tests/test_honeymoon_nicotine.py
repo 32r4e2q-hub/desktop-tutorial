@@ -10,13 +10,20 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = ROOT / "production" / "honeymoon_nicotine"
+original_sys_path = list(sys.path)
 sys.path.insert(0, str(HERE))
-# Other production projects also import a top-level module named ``generate``.
-# Load this project by file path to avoid whichever test happened to import first.
+# Projects use top-level imports with shared names; load the matching Agnes/throttle modules
+# directly, without inheriting whichever project's modules another test imported first.
+previous_modules = {name: sys.modules.pop(name, None) for name in ("agnes_video", "throttle")}
 spec = importlib.util.spec_from_file_location("honeymoon_nicotine_generate", HERE / "generate.py")
 assert spec is not None and spec.loader is not None
 generator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(generator)
+for name in ("agnes_video", "throttle"):
+    sys.modules.pop(name, None)
+    if previous_modules[name] is not None:
+        sys.modules[name] = previous_modules[name]
+sys.path[:] = original_sys_path
 
 
 class HoneymoonReferenceTests(unittest.TestCase):
@@ -120,6 +127,56 @@ class HoneymoonReferenceTests(unittest.TestCase):
                 self.assertTrue((root / "work/honeymoon_nicotine/sources/S01.mp4").is_file())
             finally:
                 generator.ROOT, generator.HERE, generator.RESULTS = original_root, original_here, original_results
+
+    def test_creates_and_polls_share_one_12_1_second_gate(self):
+        class Clock:
+            now = 0.0
+            def monotonic(self):
+                return self.now
+            def sleep(self, seconds):
+                self.now += seconds
+
+        clock = Clock()
+        gate = generator.RequestGate(12.1, clock.monotonic, clock.sleep)
+        gate.acquire_creation(float("inf"))  # POST
+        gate.wait_unblocked(float("inf"))    # status GET
+        gate.acquire_creation(float("inf"))  # next POST
+        self.assertAlmostEqual(clock.now, 24.2)
+
+    def test_create_429_retries_with_capacity_backoff_but_ambiguous_post_stops(self):
+        class Gate:
+            def __init__(self):
+                self.cooldowns = []
+            def defer(self, seconds):
+                self.cooldowns.append(seconds)
+
+        gate = Gate()
+        calls = []
+        def create_after_queue_full():
+            calls.append("POST")
+            if len(calls) == 1:
+                raise generator.agnes.RateLimited("HTTP 429: queue is full", retry_after=20)
+            return {"video_id": "accepted-task"}
+
+        accepted = generator.retry_create_until_accepted(
+            create_after_queue_full, gate, generator.REQUEST_INTERVAL_SECONDS,
+            lambda *args: None,
+        )
+        self.assertEqual(accepted["video_id"], "accepted-task")
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(gate.cooldowns, [generator.QUEUE_FULL_RETRY_SECONDS])
+
+        ambiguous_calls = []
+        def ambiguous_post():
+            ambiguous_calls.append("POST")
+            raise generator.agnes.Fatal("Could not create video task after 1 attempts; last problem: network error")
+
+        with self.assertRaises(generator.AmbiguousCreateError):
+            generator.retry_create_until_accepted(
+                ambiguous_post, gate, generator.REQUEST_INTERVAL_SECONDS,
+                lambda *args: None,
+            )
+        self.assertEqual(len(ambiguous_calls), 1)
 
     def test_plan_validates_offline_without_agnes_requests(self):
         generator.validate(self.project, require_audio=False)

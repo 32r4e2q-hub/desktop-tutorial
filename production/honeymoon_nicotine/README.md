@@ -22,4 +22,4 @@ python3 production/honeymoon_nicotine/build_story.py
 python3 production/honeymoon_nicotine/generate.py --validate --clips-only
 ```
 
-`.github/workflows/honeymoon-nicotine-gen.yml` 监听本项目的 `GEN_REQUEST` marker：`mode=status` 仅查询既有 task；`mode=retrieve` 仅下载并解码已完成 task；只有 `mode=clips` 才会创建新视频任务。当前 marker 保持 retrieve-only。**在 Agnes 2.5 Flash 图像参考接口得到确认、S01 通过完整运动检查之前，不要切换到 clips。** 真正创建任务时共享创建间隔至少 12 秒（每分钟最多 5 次），尊重服务端 Retry-After。
+`.github/workflows/honeymoon-nicotine-gen.yml` 监听本项目的 `GEN_REQUEST` marker：`mode=status` 仅查询既有 task；`mode=retrieve` 仅下载并解码已完成 task；只有 `mode=clips` 才会创建新视频任务。当前 marker 保持 retrieve-only。**在 Agnes 2.5 Flash 图像参考接口得到确认、S01 通过完整运动检查之前，不要切换到 clips。** 生成调度器改为串行预创建并持久化任务 ID，再开始轮询；创建 POST 与状态 GET 共用至少 12.1 秒的请求间隔。只对明确 HTTP 429 自动重试并遵守 Retry-After/队列容量退避；网络/5xx 等创建结果不明确时暂停并要求先核对 Agnes，避免重复收费。

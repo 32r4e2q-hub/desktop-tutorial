@@ -2,7 +2,7 @@
 """Generate the 30 Honeymoon Nicotine shots with Agnes Video 2.5 Flash, then render the 180s first cut.
 
 The 2.5 Flash endpoint requires the documented 720P payload shape (seconds as a string,
-size/aspect_ratio/mode/n/images); create attempts are spaced at least 12 seconds apart and honor Retry-After.
+size/aspect_ratio/mode/n/images); creates and polls share a 12.1-second request gate and honor Retry-After.
 Clips are normalized and upscaled to the 1920x1080 delivery master.
 All generated footage is downloaded to ignored ``work/``. Only JSON provenance and small
 contact sheets are checkpointed into the fixed Arena branch. No still-image substitute is used.
@@ -31,7 +31,10 @@ from throttle import RequestGate  # noqa: E402
 BRANCH = "arena/31d27a2a-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
-REQUEST_INTERVAL_SECONDS = 12
+REQUEST_INTERVAL_SECONDS = 12.1
+QUEUE_FULL_RETRY_SECONDS = 60.0
+CAPACITY_RETRY_SECONDS = 120.0
+POLL_INTERVAL_SECONDS = 45.0
 SUPPORTED_MODES = {"text", "keyframe", "reference"}
 ALLOWED_PAYLOAD_FIELDS = {
     "model", "prompt", "seconds", "size", "aspect_ratio", "mode", "n", "seed", "images",
@@ -292,6 +295,8 @@ def retryable_create_error(message: str):
     text = str(message or "").lower()
     if "http 408" in text or "http 425" in text:
         return "provider request timeout"
+    if "network error" in text or "could not create video task" in text:
+        return "network/5xx create outcome"
     for marker in RETRYABLE_CREATE_MARKERS:
         if marker in text:
             return marker
@@ -300,24 +305,36 @@ def retryable_create_error(message: str):
     return None
 
 
-def retry_create_until_accepted(create_call, gate, interval: int, on_retry):
-    """Retry transient create failures indefinitely, respecting Retry-After and the shared gate."""
+class AmbiguousCreateError(RuntimeError):
+    """The POST may have reached Agnes; reconcile it instead of risking a duplicate charge."""
+
+
+def retry_create_until_accepted(create_call, gate, interval: float, on_retry):
+    """Retry only explicit HTTP 429 rejection; ambiguous POST outcomes must be reconciled."""
     attempts = 0
     while True:
         attempts += 1
         try:
             return create_call()
         except agnes.RateLimited as exc:
-            cooldown = max(interval, exc.retry_after or 0)
+            text = str(exc).lower()
+            if any(marker in text for marker in ("queue is full", "queue_full", "no available channel",
+                                                  "get_channel_failed", "too many pending")):
+                floor = QUEUE_FULL_RETRY_SECONDS
+            elif "capacity" in text or "concurrent" in text:
+                floor = CAPACITY_RETRY_SECONDS
+            else:
+                floor = 30.0
+            cooldown = max(interval, floor, exc.retry_after or 0)
             on_retry(attempts, "HTTP 429", str(exc), cooldown)
             gate.defer(cooldown)
         except agnes.Fatal as exc:
             marker = retryable_create_error(str(exc))
-            if not marker:
-                raise
-            cooldown = max(interval, getattr(exc, "retry_after", None) or 0)
-            on_retry(attempts, marker, str(exc), cooldown)
-            gate.defer(cooldown)
+            if marker:
+                raise AmbiguousCreateError(
+                    f"Create outcome is ambiguous ({marker}); do not resubmit until Agnes is reconciled"
+                ) from exc
+            raise
 
 
 def digest(path: Path) -> str:
@@ -784,9 +801,13 @@ def main() -> int:
     doc["phase"] = "generating_sources"
     doc["required_generated_shots"] = [shot["id"] for shot in project["shots"]]
     doc["workflow_policy"] = "agnes-video-2.5-flash-720p-upscale-180s-30shots"
-    doc["rate_policy"] = {"minimum_creation_interval_seconds": REQUEST_INTERVAL_SECONDS,
-                          "workers_max": 2, "retry_after_respected": True,
-                          "key_rotation": False, "capacity_retry_interval_seconds": REQUEST_INTERVAL_SECONDS,
+    doc["rate_policy"] = {"minimum_request_interval_seconds": REQUEST_INTERVAL_SECONDS,
+                          "workers_max": 2, "create_before_poll": True,
+                          "shared_create_poll_gate": True, "retry_after_respected": True,
+                          "key_rotation": False,
+                          "queue_full_retry_seconds": QUEUE_FULL_RETRY_SECONDS,
+                          "capacity_retry_seconds": CAPACITY_RETRY_SECONDS,
+                          "poll_interval_seconds": POLL_INTERVAL_SECONDS,
                           "capacity_retries_unbounded": True}
     doc["review"] = {"status": "pending", "visual_review_required": True,
                      "note": "A decoded clip and contact sheet are not a human visual sign-off."}
@@ -847,7 +868,8 @@ def main() -> int:
 
     def paced_create(sid: str, payload: dict):
         """Keep submitting a shot until Agnes accepts it; transient failures never exhaust a cap."""
-        attempts = 0
+        with LOCK:
+            attempts = int(doc.get("shots", {}).get(sid, {}).get("create_attempts", 0))
 
         def create():
             nonlocal attempts
@@ -864,14 +886,14 @@ def main() -> int:
                     "model": MODEL,
                     "reason": marker,
                     "last_error": redacted,
-                    "create_attempts": attempt,
+                    "create_attempts": attempts,
                     "retry_interval_seconds": cooldown,
                     "last_seen": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                 }
             checkpoint(sid + " provider busy; retrying", sid,
                        publish=(attempt == 1 or attempt % 10 == 0),
                        status="rate_limited" if marker == "HTTP 429" else "provider_cooldown",
-                       capacity_error=marker, create_attempts=attempt,
+                       capacity_error=marker, create_attempts=attempts,
                        applied_cooldown_seconds=cooldown, error=redacted)
             print(f"{sid}: {marker}; retrying create in {cooldown:g}s (attempt {attempt})", flush=True)
 
@@ -879,6 +901,75 @@ def main() -> int:
         with LOCK:
             doc.pop("provider_outage", None)
         return created
+
+    def prequeue_tasks(shots: list[dict]) -> bool:
+        """Submit every missing shot serially before workers wait on long-running task polls.
+
+        A worker that both POSTs and blocks in poll_task starves later creates. This producer
+        reserves each request at 12.1s and leaves all accepted task IDs in results.json first.
+        """
+        for shot in shots:
+            sid = shot["id"]
+            payload = full_payload(project, shot)
+            wanted_hash = request_hash(project, shot)
+            with LOCK:
+                old = dict(doc.setdefault("shots", {}).get(sid, {}))
+            has_receipt = (old.get("request_hash") == wanted_hash and old.get("video_url")
+                           and old.get("sha256") and old.get("bytes"))
+            if has_receipt:
+                continue
+            if old.get("video_id") or old.get("task_id"):
+                if old.get("request_hash") != wanted_hash:
+                    checkpoint(sid + " blocked: older task needs reconciliation", sid,
+                               status="create_unknown",
+                               error="Existing task has a different request hash; refusing duplicate POST")
+                    return False
+                if old.get("video_id"):
+                    continue
+                print(f"{sid}: task ID exists without a video ID; reconcile before any POST", flush=True)
+                return False
+            if old.get("video_url"):
+                print(f"{sid}: video receipt is incomplete; reconcile before any POST", flush=True)
+                return False
+            safe_to_create = {"", "retrying_create", "rate_limited", "blocked"}
+            if old.get("status", "") not in safe_to_create:
+                print(f"{sid}: blocked in {old.get('status')}; reconcile before any POST", flush=True)
+                return False
+            if not key:
+                checkpoint(sid + " blocked", sid, status="blocked", request_hash=wanted_hash,
+                           error="AGNES_API_KEY is unavailable to this workflow")
+                return False
+
+            checkpoint(sid + " submitting", sid, status="submitting", request_hash=wanted_hash,
+                       request_payload=payload, error=None)
+            try:
+                created = paced_create(sid, payload)
+            except AmbiguousCreateError as exc:
+                checkpoint(sid + " create outcome unknown; stopping before duplicate POST", sid,
+                           status="create_unknown", request_hash=wanted_hash,
+                           request_payload=payload, error=str(exc).replace(key, "[redacted]")[:600])
+                return False
+            except Exception as exc:
+                checkpoint(sid + " create rejected; stopping batch", sid,
+                           status="failed", request_hash=wanted_hash,
+                           request_payload=payload,
+                           error=str(exc).replace(key, "[redacted]")[:600])
+                return False
+
+            video_id = created.get("video_id") or created.get("id") or created.get("task_id")
+            task_id = created.get("task_id") or created.get("id") or video_id
+            if not video_id:
+                checkpoint(sid + " create response missing task ID; reconciliation required", sid,
+                           status="create_unknown", request_hash=wanted_hash,
+                           request_payload=payload, error="Agnes returned no task identifier")
+                return False
+            with LOCK:
+                attempts = int(doc.get("shots", {}).get(sid, {}).get("create_attempts", 1))
+            checkpoint(sid + " queued", sid, status="queued", request_hash=wanted_hash,
+                       request_payload=payload, video_id=str(video_id), task_id=str(task_id or ""),
+                       requested_seconds=float(payload["seconds"]), requested_size=payload["size"],
+                       create_attempts=attempts)
+        return True
 
     def reset_shot_for_retry(sid: str, wanted_hash: str, dest: Path, error: str) -> None:
         with LOCK:
@@ -911,6 +1002,11 @@ def main() -> int:
                 except (agnes.Fatal, OSError, RuntimeError, subprocess.CalledProcessError) as exc:
                     reset_shot_for_retry(sid, wanted_hash, dest, str(exc))
                     old = {"id": sid, "request_hash": wanted_hash, "status": "retrying_create"}
+            if (old.get("status") in {"submitting", "waiting_create_slot", "create_unknown", "failed", "provider_failed"}
+                    or (old.get("task_id") and not old.get("video_id"))
+                    or (old.get("video_url") and not old.get("bytes"))):
+                print(f"{sid}: refusing duplicate create for unreconciled {old.get('status')} state", flush=True)
+                return False
             stale_without_saved_task = (
                 old.get("status") not in {"completed", "retrying_create"}
                 and not old.get("video_url") and not old.get("video_id")
@@ -946,7 +1042,7 @@ def main() -> int:
                     remaining = deadline - time.monotonic()
                     final, url = agnes.poll_task(
                         base, key, MODEL, str(video_id), str(task_id) if task_id else None,
-                        interval=25, timeout=min(1500, remaining), max_failures=12,
+                        interval=POLL_INTERVAL_SECONDS, timeout=min(1500, remaining), max_failures=12,
                         before_request=lambda: gate.wait_unblocked(deadline), rate_limit_callback=gate.defer,
                     )
                     size = agnes.download(url, dest, retries=3, retry_delay=5)
@@ -961,6 +1057,12 @@ def main() -> int:
                         reset_shot_for_retry(sid, wanted_hash, dest, str(exc))
                         video_id = task_id = None
                         continue
+                except AmbiguousCreateError as exc:
+                    message = str(exc).replace(key, "[redacted]")[:600]
+                    checkpoint(sid + " create outcome unknown; reconcile before retry", sid,
+                               status="create_unknown", request_hash=wanted_hash,
+                               request_payload=payload, error=message)
+                    return False
                 except agnes.Fatal as exc:
                     message = str(exc)
                     lowered = message.lower()
@@ -999,7 +1101,7 @@ def main() -> int:
     checkpoint("Agnes generation started")
     if canary_then_full:
         # The fixed-branch push event probes one shot first. Continue to all remaining footage
-        # in this same process (and shared 61s request gate) only if S01 really completes.
+        # in this same process (and shared create/poll request gate) only if S01 really completes.
         canary_ok = generate_one(by_id["S01"])
         if canary_ok:
             checkpoint("S01 canary passed; continuing full 30-shot production", "S01",
@@ -1007,14 +1109,20 @@ def main() -> int:
             selected = [shot for shot in project["shots"] if shot["id"] != "S01"]
             only = set()
             prepare_selected(selected)
-            with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-                outcomes = list(pool.map(generate_one, selected))
+            if prequeue_tasks(selected):
+                with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+                    outcomes = list(pool.map(generate_one, selected))
+            else:
+                outcomes = [False]
         else:
             outcomes = [False]
     else:
         prepare_selected(selected)
-        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-            outcomes = list(pool.map(generate_one, selected))
+        if prequeue_tasks(selected):
+            with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+                outcomes = list(pool.map(generate_one, selected))
+        else:
+            outcomes = [False]
     if not all(outcomes):
         doc["phase"] = "generation_incomplete"
         checkpoint("generation incomplete")
