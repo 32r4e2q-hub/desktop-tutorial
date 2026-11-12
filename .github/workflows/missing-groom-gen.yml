@@ -75,8 +75,24 @@ jobs:
             exit 0
           fi
           if [ "$mode" = "render" ] || [ "$mode" = "qc" ]; then
-            python3 -u production/missing_groom_89tons/generate.py --render-only --publish
-            exit $?
+            # The runner log host is not reachable from every agent sandbox, so the render/QC
+            # transcript is committed next to qa/ and always available in-repo.
+            set +e
+            python3 -u production/missing_groom_89tons/generate.py --render-only --publish 2>&1 | tee /tmp/render.log
+            status=${PIPESTATUS[0]}
+            set -e
+            mkdir -p production/missing_groom_89tons/qa
+            { echo "# render/QC transcript"; echo; tail -c 24000 /tmp/render.log; } \
+              > production/missing_groom_89tons/qa/render-log.txt
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -f production/missing_groom_89tons/qa/render-log.txt
+            if ! git diff --cached --quiet -- production/missing_groom_89tons/qa/render-log.txt; then
+              git commit -q -m "missing_groom_89tons: render/QC transcript" -- production/missing_groom_89tons/qa/render-log.txt
+              git pull --rebase -q origin arena/fa517800-desktop-tutorial || true
+              git push origin arena/fa517800-desktop-tutorial || true
+            fi
+            exit $status
           fi
           test -n "$AGNES_API_KEY"
           python3 production/missing_groom_89tons/generate.py --validate --clips-only

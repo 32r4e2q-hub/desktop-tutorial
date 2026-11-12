@@ -222,8 +222,13 @@ def main() -> int:
     run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent, "-i", voice,
          "-vf", subtitle_filter, "-map", "0:v:0", "-map", "1:a:0", "-t", "180",
          "-frames:v", 180 * FPS, "-r", FPS, "-vsync", "cfr",
-         "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p",
+         "-c:v", "libx264", "-preset", "medium", "-crf", "22",
+         "-maxrate", "3200k", "-bufsize", "6400k", "-pix_fmt", "yuv420p",
          "-c:a", "aac", "-b:a", "192k", "-ar", RATE, "-ac", 2, "-movflags", "+faststart", args.output])
+    # GitHub rejects a single file over 100 MB; a 3-minute 1080p master must fit comfortably.
+    size_mb = args.output.stat().st_size / (1024 * 1024)
+    if size_mb > 95:
+        raise RuntimeError(f"Final master is {size_mb:.1f} MB; cap the bitrate before delivering")
 
     cover = args.output.parent / "消失的未婚夫_Cover.jpg"
     run(["ffmpeg", "-y", "-v", "error", "-ss", "2", "-i", args.output,
