@@ -700,9 +700,9 @@
     "S25": {
       "id": "S25",
       "request_hash": "1dbfbff5e77d7e22760dc1e2b4174bd8d1c97324f2c34b17652f7892442adeab",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-12T02:48:00Z",
+      "updated_at": "2026-11-12T02:52:50Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2010年韩国首尔近郊（城南），世界杯夜晚的红色狂欢与背街商业楼的冷白荧光灯对比，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和、暗部厚重、细腻胶片颗粒；镜头1红色热烈，镜头3至6暖黄，镜头8起转冷青，镜头15至22冷白荧光与冷灰，镜头26至28冷蓝镜像，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，水、雨、灯光、人群与窗帘持续真实运动，单镜连续运镜，禁止静态图加推拉；所有人物为虚构演员式写实形象，不还原真实人物肖像。\n\n【C07锚点】韩国法官黑色法袍神情肃穆;检察官深色西装神情冷峻\n\n【C06锚点】60岁韩国老年女性,短烫发,深色外套,神情憔悴坚韧\n\nCinematic 3D animated reenactment shot S25. 二审法庭，法官翻阅卷宗后摇头，法槌落下；金明哲的母亲在旁听席愣住，画面一半被阴影吞没，窗外一束光落在空着的座位上。 Continuous natural motion; camera: 近景，缓慢推近. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design IDs: S11+C07+C06. 【C07锚点】韩国法官黑色法袍神情肃穆;检察官深色西装神情冷峻 【C06锚点】60岁韩国老年女性,短烫发,深色外套,神情憔悴坚韧\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，血腥，伤口，遗体，尸体，遗体处理，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -718,10 +718,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/a862ea7c72d68bffa1552f49801aec09565e8e26/production/missing_groom_89tons/reference/S11.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 02:52:48. (request id: 202611120248007753808757Mf47H9E) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_fbMhHVICy68dnq7ulsOwbrdwLTgnnqBC",
+      "task_id": "task_fbMhHVICy68dnq7ulsOwbrdwLTgnnqBC",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S26": {
       "id": "S26",
@@ -811,15 +815,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-12T02:48:00Z",
+  "updated_at": "2026-11-12T02:52:50Z",
   "run_id": "43134776967",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 02:52:48. (request id: 202611120248007753808757Mf47H9E) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-12T02:48:00Z"
-  }
+  "previous_results": {}
 }
