@@ -76,6 +76,47 @@ def decode_check(path: Path) -> None:
     subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-f", "null", "-"], check=True)
 
 
+def read_srt_cues(path: Path) -> list[tuple[float, float]]:
+    import re
+    if not path.is_file():
+        return []
+    blocks = path.read_text(encoding="utf-8").strip().split("\n\n")
+    pattern = re.compile(r"(\d+):(\d+):(\d+)[,.](\d+) --> (\d+):(\d+):(\d+)[,.](\d+)")
+    cues = []
+    for block in blocks:
+        match = pattern.search(block)
+        if not match:
+            continue
+        g = [int(value) for value in match.groups()]
+        cues.append((g[0] * 3600 + g[1] * 60 + g[2] + g[3] / 1000,
+                     g[4] * 3600 + g[5] * 60 + g[6] + g[7] / 1000))
+    return cues
+
+
+def speech_activity(film: Path):
+    """10 ms RMS envelope of the delivered narration bed, so caption timing can be checked."""
+    import av
+    container = av.open(str(film))
+    stream = container.streams.audio[0]
+    rate = int(stream.codec_context.sample_rate)
+    chunks = []
+    for frame in container.decode(audio=0):
+        data = frame.to_ndarray()
+        chunks.append(data.mean(axis=0) if data.ndim > 1 else data)
+    samples = np.concatenate(chunks).astype(np.float32)
+    hop = max(1, rate // 100)
+    count = len(samples) // hop
+    rms = np.sqrt((samples[: count * hop].reshape(count, hop) ** 2).mean(axis=1))
+    threshold = max(0.004, float(np.percentile(rms, 95)) * 0.10)
+    active = rms > threshold
+
+    def window(start_block: int, end_block: int) -> bool:
+        lo, hi = max(0, start_block), min(len(active), end_block)
+        return bool(hi > lo and active[lo:hi].mean() > 0.12)
+
+    return window
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, default=ROOT / "work" / "missing_groom_89tons" / "sources")
@@ -138,8 +179,34 @@ def main() -> int:
                 hard_failures.append(f"Final frame count is {meta['frames']}, expected {180 * FPS}")
             if not audio:
                 hard_failures.append("Final film has no narration/audio stream")
-            elif int(audio.get("sample_rate", 0)) != 48_000:
-                hard_failures.append(f"Final audio sample rate is {audio.get('sample_rate')}, expected 48000 Hz")
+            else:
+                if int(audio.get("sample_rate", 0)) != 48_000:
+                    hard_failures.append(f"Final audio sample rate is {audio.get('sample_rate')}, expected 48000 Hz")
+                # A narration bus that stops early silently clips the closing line, so the
+                # audio stream length must match the picture, not just the container header.
+                audio_seconds = float(audio.get("duration") or 0.0)
+                meta["audio_seconds"] = round(audio_seconds, 3)
+                if abs(audio_seconds - DURATION) > 0.06:
+                    hard_failures.append(
+                        f"Final audio stream is {audio_seconds:.3f}s, expected {DURATION}s (narration clipped)")
+                # Subtitle timing gate: one cue per shot, inside its own shot window and over real speech.
+                cues = read_srt_cues(film.with_suffix(".srt"))
+                meta["subtitle_cues"] = len(cues)
+                if len(cues) != len(rows):
+                    hard_failures.append(f"Subtitle cue count is {len(cues)}, expected {len(rows)}")
+                shot_spans = [(float(s["start"]), float(s["start"]) + float(s["duration"])) for s in rows]
+                for index, ((cue_start, cue_end), (shot_start, shot_end)) in enumerate(
+                        zip(cues, shot_spans), 1):
+                    if cue_start < shot_start - 0.02 or cue_end > shot_end + 0.02:
+                        hard_failures.append(
+                            f"Subtitle cue {index} {cue_start:.2f}-{cue_end:.2f}s runs outside its shot "
+                            f"{shot_start:.2f}-{shot_end:.2f}s")
+                active = speech_activity(film)
+                missed = [i for i, (a, b) in enumerate(cues, 1)
+                          if not active(int(a * 100), int(min(b, DURATION) * 100) + 1)]
+                meta["cues_without_speech"] = missed
+                if missed:
+                    hard_failures.append(f"Subtitle cues with no speech energy: {missed}")
         if not film.with_suffix(".srt").is_file():
             hard_failures.append("Subtitle sidecar is missing")
 

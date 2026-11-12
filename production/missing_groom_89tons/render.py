@@ -194,13 +194,31 @@ def main() -> int:
         speed = max(1.0, raw_duration / target)
         if speed > 1.55 + 1e-9:
             raise RuntimeError(f"{sid}: speech needs {speed:.3f}x, beyond the 1.55x limit")
+        # Strip the TTS lead-in silence first: otherwise every caption cue runs ~0.3s ahead
+        # of the spoken word and the last line can spill past its shot window.
+        speech = segments / f"{sid}.speech.wav"
+        run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af",
+             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+             f"atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+        speech_seconds = duration(speech)
+        if speech_seconds > target:
+            extra = speech_seconds / target
+            if speed * extra > 1.55 + 1e-9:
+                raise RuntimeError(f"{sid}: speech cannot fit even at 1.55x")
+            run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af",
+                 f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+            speech_seconds = duration(speech)
         wav = segments / f"{sid}.wav"
-        audio_filter = f"atempo={speed:.6f},apad,atrim=duration={target:.6f},asetpts=PTS-STARTPTS"
-        run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af", audio_filter,
-             "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", wav])
+        # `-t` on the output (not only atrim) guarantees each segment is exactly `target`
+        # long, so the concatenated narration bus is exactly 180.000s.
+        run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-af", "apad",
+             "-t", f"{target:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", wav])
+        segment_seconds = duration(wav)
+        if abs(segment_seconds - target) > 0.02:
+            raise RuntimeError(f"{sid}: narration segment is {segment_seconds:.3f}s, expected {target:.3f}s")
         audio_entries.append(f"file '{wav.resolve()}'")
-        speech_end = min(target, raw_duration / speed)
-        cues.append((float(shot["start"]), float(shot["start"]) + speech_end, shot["narration"]))
+        cues.append((float(shot["start"]),
+                     float(shot["start"]) + min(target - 0.04, speech_seconds), shot["narration"]))
         technical.append({"id": sid, "target_seconds": target, "target_frames": frames,
                           "source_seconds": round(source_duration, 3), "source_size": [width, height],
                           "source_sha256": record["sha256"], "narration_seconds": round(raw_duration, 3),
@@ -222,6 +240,14 @@ def main() -> int:
          "-c", "copy", "-an", "-movflags", "+faststart", silent])
     run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", audio_list,
          "-c:a", "pcm_s16le", "-ar", RATE, "-ac", 2, voice])
+    voice_seconds = duration(voice)
+    if abs(voice_seconds - 180.0) > 0.02:
+        # Force the narration bus to the full 180s so no line can be clipped at the tail.
+        run(["ffmpeg", "-y", "-v", "error", "-i", voice, "-af", "apad",
+             "-t", "180.0", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", voice])
+        voice_seconds = duration(voice)
+    if abs(voice_seconds - 180.0) > 0.05:
+        raise RuntimeError(f"Voice track is {voice_seconds:.3f}s; the master must be 180.000s")
 
     subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
     run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent, "-i", voice,
@@ -235,10 +261,19 @@ def main() -> int:
     if size_mb > 95:
         raise RuntimeError(f"Final master is {size_mb:.1f} MB; cap the bitrate before delivering")
 
+    pcm = probe(args.output)
+    audio_stream = next((s for s in pcm["streams"] if s.get("codec_type") == "audio"), None)
+    if audio_stream is None:
+        raise RuntimeError("Master has no audio stream")
+    audio_seconds = float(audio_stream.get("duration") or 0.0)
+    if abs(audio_seconds - 180.0) > 0.06:
+        raise RuntimeError(f"Master audio stream is {audio_seconds:.3f}s, expected 180.000s")
+
     cover = args.output.parent / "消失的未婚夫_Cover.jpg"
     run(["ffmpeg", "-y", "-v", "error", "-ss", "2", "-i", args.output,
          "-frames:v", 1, "-q:v", 2, cover])
     report = {"film": str(args.output), "duration_seconds": 180, "width": 1920, "height": 1080,
+              "voice_track_seconds": round(voice_seconds, 3), "audio_stream_seconds": round(audio_seconds, 3),
               "fps": FPS, "frames": 180 * FPS, "audio": "voiceover only; no unlicensed music",
               "subtitle_file": str(srt), "shots": technical}
     report_path = args.work / "technical-report.json"
