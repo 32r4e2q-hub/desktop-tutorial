@@ -49,29 +49,21 @@ Fontconfig warning: "/etc/fonts/conf.d/60-generic.conf", line 4: unknown element
 Fontconfig warning: "/etc/fonts/conf.d/60-latin.conf", line 4: unknown element "description"
 Fontconfig warning: "/etc/fonts/conf.d/65-nonlatin.conf", line 4: unknown element "description"
 Fontconfig warning: "/etc/fonts/conf.d/70-no-bitmaps-except-emoji.conf", line 4: unknown element "description"
+PICTURE 180.000s  VOICE 180.000s  MUXED 180.000s
+FIRST_CUT_READY /home/runner/work/desktop-tutorial/desktop-tutorial/work/missing_groom_89tons/clips/消失的未婚夫_一个月89吨水_三分钟_带声音.mp4
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/render.py", line 286, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/qc.py", line 239, in <module>
     raise SystemExit(main())
                      ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/render.py", line 270, in main
-    raise RuntimeError(f"Master audio stream is {audio_seconds:.3f}s, expected 180.000s")
-RuntimeError: Master audio stream is 177.834s, expected 180.000s
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/qc.py", line 197, in main
+    shot_spans = [(float(s["start"]), float(s["start"]) + float(s["duration"])) for s in rows]
+                         ~^^^^^^^^^
+KeyError: 'start'
+All 30 narration clips fit their shot windows.
 Traceback (most recent call last):
   File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/generate.py", line 1180, in <module>
     raise SystemExit(main())
                      ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/generate.py", line 754, in main
-    subprocess.run([
-    ~~~~~~~~~~~~~~^^
-        sys.executable, str(HERE / "render.py"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--sources", str(sources), "--work", str(ROOT / "work" / "missing_groom_89tons" / "edit"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        "--output", str(output),
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ], cwd=ROOT, check=True)
-    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/missing_groom_89tons/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/missing_groom_89tons/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/missing_groom_89tons/clips/消失的未婚夫_一个月89吨水_三分钟_带声音.mp4']' returned non-zero exit status 1.
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/missing_groom_89tons/generate.py", line 765, in main
+    raise RuntimeError("Technical QC or narration-fit failed; refusing delivery sign-off")
+RuntimeError: Technical QC or narration-fit failed; refusing delivery sign-off
