@@ -1352,7 +1352,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1399,9 +1399,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-12T06:00:26Z",
   "run_id": "43163912529",
@@ -1463,12 +1463,12 @@
     "cover": "work/missing_groom_89tons/clips/消失的未婚夫_Cover.jpg",
     "delivered": {
       "消失的未婚夫_一个月89吨水_三分钟_带声音.mp4": {
-        "bytes": 74499905,
-        "sha256": "6d6c0f8ec50cd10405872199886e9b45ddd5fbbb044550e0cfa60e679f14608e"
+        "bytes": 74481112,
+        "sha256": "fd448953054206805362d9f00429cdb05a5dcb14cf820e25033dfda915d37d2c"
       },
       "消失的未婚夫_Cover.jpg": {
-        "bytes": 366654,
-        "sha256": "451e4c896657fc4019c5ac9f027b7e6ac525be756b260ac54195597ca3148cbd"
+        "bytes": 367050,
+        "sha256": "8a048561361ee512dc8187bb09a24fbd9d1e67852ad058e617ced557f66753b7"
       },
       "消失的未婚夫_Subtitles.srt": {
         "bytes": 2855,
@@ -1480,7 +1480,7 @@
       },
       "消失的未婚夫_Technical_Report.json": {
         "bytes": 10561,
-        "sha256": "e4532e4d5c153b4a4b78594a3e8fb669d5b2b1dc8f558c8d26f93e9631c7a9be"
+        "sha256": "b20b7624c4bc33c1bc31ffed14ad748c6bd910bcb03c27c58e029fda15786444"
       }
     }
   }
