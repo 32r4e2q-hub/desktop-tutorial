@@ -215,7 +215,7 @@ def build() -> None:
                             "COP": 430612, "MOM": 600612, "COURT": 500612, "TEACH": 400612,
                             "FANS": 90612, "TWINS": 350612},
         "narration_spec": {
-            "voice_id": "voice-02",
+            "voice_id": "voice-01",
             "description": "低沉悬疑的成熟男声，中文普通话，克制不煽情；逐镜独立配音，旁白与字幕同步",
         },
         "chapters": chapters, "shots": shots,
