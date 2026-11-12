@@ -12,7 +12,10 @@
   "frames": 4320,
   "video_codec": "h264",
   "audio_codec": "aac",
-  "audio_sample_rate": 48000
+  "audio_sample_rate": 48000,
+  "audio_seconds": 180.0,
+  "subtitle_cues": 30,
+  "cues_without_speech": []
 }
 
 ## 源片抽样警告
