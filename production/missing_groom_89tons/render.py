@@ -59,7 +59,7 @@ def ass_escape(text: str) -> str:
     return text.replace("\\", "／").replace("{", "（").replace("}", "）").replace("\n", " ")
 
 
-def caption_lines(text: str, limit: int = 24) -> list[str]:
+def caption_lines(text: str, limit: int = 20) -> list[str]:
     """Keep Chinese captions compact and centered, using a consistent small type size."""
     if len(text) <= limit:
         return [text]
@@ -85,7 +85,7 @@ def ass_caption(text: str, phrases: list[str]) -> str:
     while i < len(text):
         hit = next((phrase for phrase in ordered if text.startswith(phrase, i)), None)
         if hit:
-            out.append(r"{\c&H0000C8FF&\fs42}" + hit + r"{\rCaption}")
+            out.append(r"{\c&H0000C8FF&\fs50}" + hit + r"{\rCaption}")
             i += len(hit)
         else:
             out.append(text[i])
@@ -94,19 +94,23 @@ def ass_caption(text: str, phrases: list[str]) -> str:
 
 
 def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[str],
-              end_card: tuple[str, str, float, float] | None = None) -> None:
+              end_card: tuple[str, str, float, float] | None = None,
+              onscreen_label: str = "") -> None:
     rows = [
         "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1920", "PlayResY: 1080",
         "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
         "[V4+ Styles]",
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-        "Style: Caption,Noto Sans CJK SC,36,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.0,0.5,2,140,140,54,1",
+        "Style: Caption,Noto Sans CJK SC,44,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.4,0.6,2,120,120,62,1",
+        "Style: Label,Noto Sans CJK SC,26,&H60FFFFFF,&H00FFFFFF,&H00101010,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0.0,7,52,52,34,1",
         "Style: Title,Noto Sans CJK SC,104,&H0000C8FF,&H00FFFFFF,&H00101010,&H80000000,-1,0,0,0,100,100,2,0,1,3.0,1.0,2,120,120,330,1",
         "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
     for start, end, text in cues:
         rendered = r"\N".join(ass_caption(line, phrases) for line in caption_lines(text))
         rows.append(f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Caption,,0,0,0,,{{\\q2\\fad(60,70)}}{rendered}")
+    if onscreen_label:
+        rows.append(f"Dialogue: 0,{ass_time(0.8)},{ass_time(176.0)},Label,,0,0,0,,{{\\q2\\fad(300,300)}}{ass_escape(onscreen_label)}")
     if end_card:
         title, subtitle, start, end = end_card
         card = (ass_escape(title) + r"\N" +
@@ -210,7 +214,8 @@ def main() -> int:
     pres = story["presentation"]
     write_ass(ass, cues, pres.get("highlight_phrases", []),
               (pres.get("end_title", ""), pres.get("end_subtitle", ""),
-               174.6, 179.5) if pres.get("end_title") else None)
+               174.6, 179.5) if pres.get("end_title") else None,
+              pres.get("onscreen_label", ""))
     silent = args.work / "picture-only.mp4"
     voice = args.work / "voiceover.wav"
     run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", video_list,
