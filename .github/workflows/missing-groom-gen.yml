@@ -1,0 +1,103 @@
+name: 消失的未婚夫 · Agnes Video 2.5 Flash
+run-name: 消失的未婚夫 · 30镜片段生成
+
+on:
+  push:
+    branches: [arena/fa517800-desktop-tutorial]
+    paths:
+      - production/missing_groom_89tons/GEN_REQUEST
+      - production/missing_groom_89tons/CANCEL_REQUEST
+      - .github/workflows/missing-groom-gen.yml
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON payload, default generates all 30 clips
+        type: string
+        default: '{"mode":"clips","workers":2}'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: missing-groom-agnes-arena-fa517800
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/fa517800-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/fa517800-desktop-tutorial
+          fetch-depth: 1
+      - name: Ensure media tools are available
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media-tools" --no-save --ignore-scripts --no-audit --no-fund \
+            @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media-tools/bin" "$HOME/.local/share/fonts"
+          chmod +x "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" \
+            "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media-tools/bin/ffmpeg"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media-tools/bin/ffprobe"
+          export PATH="$RUNNER_TEMP/media-tools/bin:$PATH"
+          echo "$RUNNER_TEMP/media-tools/bin" >> "$GITHUB_PATH"
+          GH_TOKEN="${{ github.token }}" gh api -H 'Accept: application/vnd.github.raw' \
+            'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' \
+            > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
+          ffmpeg -hide_banner -filters 2>&1 | grep -q subtitles
+          ffprobe -version | head -1
+          if ! python3 -c 'import numpy; from PIL import Image' >/dev/null 2>&1; then
+            python3 -m pip install --break-system-packages --no-input --disable-pip-version-check pillow numpy
+          fi
+      - name: Validate plan and generate 30 Agnes clips
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ] && [ -f production/missing_groom_89tons/GEN_REQUEST ]; then
+            payload="$(cat production/missing_groom_89tons/GEN_REQUEST)"
+          fi
+          if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
+          mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", ""))' <<< "$payload")"
+          if [ "$mode" = "render" ] || [ "$mode" = "qc" ]; then
+            python3 production/missing_groom_89tons/build_audio_manifest.py
+          fi
+          if [ "$mode" != "status" ] && [ "$mode" != "retrieve" ] && [ -f production/missing_groom_89tons/CANCEL_REQUEST ]; then
+            echo 'Cancellation requested; no Agnes generation requests will be made.'
+            exit 0
+          fi
+          if [ "$mode" = "render" ] || [ "$mode" = "qc" ]; then
+            python3 -u production/missing_groom_89tons/generate.py --render-only --publish
+            exit $?
+          fi
+          test -n "$AGNES_API_KEY"
+          python3 production/missing_groom_89tons/generate.py --validate --clips-only
+          if [ "$mode" = "status" ]; then
+            python3 -u production/missing_groom_89tons/generate.py --check-outstanding --publish
+            exit $?
+          elif [ "$mode" = "retrieve" ]; then
+            python3 -u production/missing_groom_89tons/generate.py --retrieve-completed --payload "$payload" --publish
+            exit $?
+          fi
+          python3 -u production/missing_groom_89tons/generate.py --clips-only --payload "$payload" --publish
+      - name: Upload generated footage and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: missing-groom-agnes-${{ github.run_number }}
+          path: |
+            work/missing_groom_89tons/
+            交付/
+            production/missing_groom_89tons/results.json
+            production/missing_groom_89tons/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
