@@ -192,9 +192,11 @@ def main() -> int:
                 # Subtitle timing gate: one cue per shot, inside its own shot window and over real speech.
                 cues = read_srt_cues(film.with_suffix(".srt"))
                 meta["subtitle_cues"] = len(cues)
-                if len(cues) != len(rows):
-                    hard_failures.append(f"Subtitle cue count is {len(cues)}, expected {len(rows)}")
-                shot_spans = [(float(s["start"]), float(s["start"]) + float(s["duration"])) for s in rows]
+                if len(cues) != len(story["shots"]):
+                    hard_failures.append(
+                        f"Subtitle cue count is {len(cues)}, expected {len(story['shots'])}")
+                shot_spans = [(float(s["start"]), float(s["start"]) + float(s["duration"]))
+                              for s in story["shots"]]
                 for index, ((cue_start, cue_end), (shot_start, shot_end)) in enumerate(
                         zip(cues, shot_spans), 1):
                     if cue_start < shot_start - 0.02 or cue_end > shot_end + 0.02:
