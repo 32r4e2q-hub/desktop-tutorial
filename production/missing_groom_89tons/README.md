@@ -53,7 +53,7 @@ printf '{"mode":"render","workers":1}' > GEN_REQUEST && git commit -am "render" 
 
 - [x] 仓库勘察 / 模板比对（setagaya2000 + honeymoon_nicotine）
 - [x] `build_story.py`：30 镜 / 180 秒 / 9 章 / 605 字旁白（3.0–4.0 字/秒）
-- [ ] 30 张参考图定稿（C01–C10 已完成 10 张）
-- [ ] Agnes 30 片段排队生成
-- [ ] 旁白 TTS + 字幕 + 音效合成
-- [ ] 出片 / QC / 交付
+- [x] 30 张参考图定稿（C01–C10 / S01–S13 / P01–P07，逐张审批 + SHA-256 + 不可变 revision）
+- [x] Agnes 30 片段排队生成（720P 源片，全部解码校验，run 43134776967 success）
+- [x] 旁白 TTS（voice-01，30 条一镜一句，最大 1.28×）+ 烧录字幕（44px 白字 / 50px 金色关键词 / 左上 AI 标注）
+- [x] 出片 / QC / 交付：`交付/消失的未婚夫_一个月89吨水_三分钟_带声音.mp4`（74.6MB，180.000s / 4320 帧 / 24fps / 1080p，QC 硬失败 0 项）
