@@ -250,12 +250,23 @@ def main() -> int:
         raise RuntimeError(f"Voice track is {voice_seconds:.3f}s; the master must be 180.000s")
 
     subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
-    run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent, "-i", voice,
-         "-vf", subtitle_filter, "-map", "0:v:0", "-map", "1:a:0", "-t", "180",
-         "-frames:v", 180 * FPS, "-r", FPS, "-vsync", "cfr",
-         "-c:v", "libx264", "-preset", "medium", "-crf", "22",
+    # Encode picture and narration separately and then stream-copy them together. On the
+    # runner's older ffmpeg a single combined encode silently dropped the last ~2s of audio
+    # (177.834s instead of 180.000s), which clipped the closing question.
+    picture = args.work / "picture-subbed.mp4"
+    run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent,
+         "-vf", subtitle_filter, "-an", "-t", "180", "-frames:v", 180 * FPS,
+         "-r", FPS, "-vsync", "cfr", "-c:v", "libx264", "-preset", "medium", "-crf", "22",
          "-maxrate", "3200k", "-bufsize", "6400k", "-pix_fmt", "yuv420p",
-         "-c:a", "aac", "-b:a", "192k", "-ar", RATE, "-ac", 2, "-movflags", "+faststart", args.output])
+         "-movflags", "+faststart", picture])
+    narration_bus = args.work / "narration-bus.m4a"
+    run(["ffmpeg", "-y", "-v", "error", "-i", voice, "-af", "apad", "-t", "180",
+         "-c:a", "aac", "-b:a", "192k", "-ar", RATE, "-ac", 2, narration_bus])
+    run(["ffmpeg", "-y", "-v", "error", "-i", picture, "-i", narration_bus,
+         "-map", "0:v:0", "-map", "1:a:0", "-c", "copy", "-t", "180",
+         "-movflags", "+faststart", args.output])
+    print(f"PICTURE {duration(picture):.3f}s  VOICE {voice_seconds:.3f}s  MUXED {duration(args.output):.3f}s",
+          flush=True)
     # GitHub rejects a single file over 100 MB; a 3-minute 1080p master must fit comfortably.
     size_mb = args.output.stat().st_size / (1024 * 1024)
     if size_mb > 95:
