@@ -300,9 +300,9 @@
     "S08": {
       "id": "S08",
       "request_hash": "678c10b5ecbb4fae46874c8c0c8a69ae41f7f1826dfec0b1728ed34bb35f6e55",
-      "status": "queued",
+      "status": "downloaded",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-12T01:45:00Z",
+      "updated_at": "2026-11-12T03:19:23Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2010年韩国首尔近郊（城南），世界杯夜晚的红色狂欢与背街商业楼的冷白荧光灯对比，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和、暗部厚重、细腻胶片颗粒；镜头1红色热烈，镜头3至6暖黄，镜头8起转冷青，镜头15至22冷白荧光与冷灰，镜头26至28冷蓝镜像，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，水、雨、灯光、人群与窗帘持续真实运动，单镜连续运镜，禁止静态图加推拉；所有人物为虚构演员式写实形象，不还原真实人物肖像。\n\n【C01锚点】32岁韩国男子,高大健壮,短发,浅色衬衫深色长裤,笑容爽朗踏实\n\n【C09锚点】数十名红色T恤的韩国球迷,挥舞旗帜,表情兴奋欢呼\n\nCinematic 3D animated reenactment shot S08. 夜幕初降的街头，金明哲边走边看手机，他拨出电话，屏幕亮起；背景里穿红衣的球迷逐渐聚集，他像一粒孤独的黑点逆着人流走向街的另一头。 Continuous natural motion; camera: 长焦跟拍，背景虚化. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design IDs: S05+C01+C09. 【C01锚点】32岁韩国男子,高大健壮,短发,浅色衬衫深色长裤,笑容爽朗踏实 【C09锚点】数十名红色T恤的韩国球迷,挥舞旗帜,表情兴奋欢呼\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，血腥，伤口，遗体，尸体，遗体处理，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -325,7 +325,12 @@
       "video_id": "task_85P60qj9oQqcyqErfTtlo0xsHBCFexYE",
       "task_id": "task_85P60qj9oQqcyqErfTtlo0xsHBCFexYE",
       "requested_seconds": 7.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_85P60qj9oQqcyqErfTtlo0xsHBCFexYE.mp4",
+      "bytes": 3335116,
+      "sha256": "972bbc09bdfd174821620ec16a55b1a2413529a9fbfc676b309e72ba4d87ac5c",
+      "reported_size": "720P",
+      "reported_seconds": "7"
     },
     "S09": {
       "id": "S09",
@@ -1021,7 +1026,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-12T03:19:13Z",
+  "updated_at": "2026-11-12T03:19:23Z",
   "run_id": "43134776967",
   "previous_results": {}
 }
