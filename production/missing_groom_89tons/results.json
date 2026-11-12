@@ -362,9 +362,9 @@
     "S09": {
       "id": "S09",
       "request_hash": "ee9232d3601c810d5518e0bcba6235e6a230892e4bdd29bc64952bcd92bca118",
-      "status": "queued",
+      "status": "downloaded",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-12T01:45:12Z",
+      "updated_at": "2026-11-12T03:20:00Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非历史影像，35mm胶片摄影质感，浅景深，长焦压缩，克制的韩国犯罪惊悚片氛围；2010年韩国首尔近郊（城南），世界杯夜晚的红色狂欢与背街商业楼的冷白荧光灯对比，真实的人体比例、自然皮肤与服装材质、可信建筑和道具，低饱和、暗部厚重、细腻胶片颗粒；镜头1红色热烈，镜头3至6暖黄，镜头8起转冷青，镜头15至22冷白荧光与冷灰，镜头26至28冷蓝镜像，结尾黑场；16:9横屏宽银幕，主体置于三分线附近，底部六分之一保持低干扰供字幕；每条必须是真实连续的3D运动影像，人物自然呼吸、眨眼、行走、转头、手部动作，水、雨、灯光、人群与窗帘持续真实运动，单镜连续运镜，禁止静态图加推拉；所有人物为虚构演员式写实形象，不还原真实人物肖像。\n\n【C01锚点】32岁韩国男子,高大健壮,短发,浅色衬衫深色长裤,笑容爽朗踏实\n\nCinematic 3D animated reenactment shot S09. 街角ATM亭，冷白灯光，金明哲插卡取出一叠现金塞进外套内袋，头顶监控摄像头红点闪烁；画面从监控视角俯拍，人影在玻璃上重叠。 Continuous natural motion; camera: 监控视角俯拍，缓慢推近. Keep the subject on a third line, bottom subtitle-safe zone quiet. No legible signage, no text. Reference design IDs: S05+C01. 【C01锚点】32岁韩国男子,高大健壮,短发,浅色衬衫深色长裤,笑容爽朗踏实\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，血腥，伤口，遗体，尸体，遗体处理，行凶过程，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，霓虹伪文字。",
@@ -384,7 +384,12 @@
       "video_id": "task_rZM8FwyagXB35FSEt71CBmEWusqWtVri",
       "task_id": "task_rZM8FwyagXB35FSEt71CBmEWusqWtVri",
       "requested_seconds": 6.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_rZM8FwyagXB35FSEt71CBmEWusqWtVri.mp4",
+      "bytes": 2251969,
+      "sha256": "979d92aed5208128690205d63daa3401de64c476f878c949f9d02ffbd9c249f9",
+      "reported_size": "720P",
+      "reported_seconds": "6"
     },
     "S10": {
       "id": "S10",
@@ -1069,7 +1074,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-12T03:19:50Z",
+  "updated_at": "2026-11-12T03:20:00Z",
   "run_id": "43134776967",
   "previous_results": {}
 }
