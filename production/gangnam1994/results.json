@@ -673,9 +673,25 @@
     "S24": {
       "id": "S24",
       "request_hash": "63276e5f2e1de3f7c804ae75d0f984c68a6963b748c78c43c12182fbda94e6ac",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T01:04:01Z"
+      "updated_at": "2026-11-13T02:49:55Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\n【C07锚点】45岁韩国中年女性,短烫发,朴素外套,神情谨慎犹豫\n\n【C05锚点】40多岁韩国刑警,深色夹克衬衫,下巴胡茬,眼神锐利疲惫\n\nCinematic realistic 3D animated crime-thriller reenactment shot S24. 1994年韩国普通亲戚家昏黄压抑的客厅内，老式布沙发边，45岁短烫发穿朴素外套的中年女亲戚神情犹豫谨慎，身体前倾压低声音对胡茬刑警诉说，并低头伸手比划着自己的小腿位置，刑警猛然抬头目光一亮，在空白记事本上飞快划下几笔抽象线条；无任何文字。 Continuous natural 3D motion from first frame to last frame; camera: 过肩镜头缓慢推近. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S12+C07+C05. 【C07锚点】45岁韩国中年女性,短烫发,朴素外套,神情谨慎犹豫 【C05锚点】40多岁韩国刑警,深色夹克衬衫,下巴胡茬,眼神锐利疲惫\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19940543,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/C07.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/C05.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/S12.png"
+        ]
+      },
+      "error": null
     },
     "S25": {
       "id": "S25",
@@ -771,7 +787,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T02:49:53Z",
+  "updated_at": "2026-11-13T02:49:55Z",
   "run_id": "43341881302",
   "previous_results": {}
 }
