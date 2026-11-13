@@ -149,7 +149,7 @@
       "request_hash": "ab43b6864857f73ee1adfd0af5647c8f4dff67aef935a9cca4214c1b4faaddef",
       "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T01:16:48Z",
+      "updated_at": "2026-11-13T01:21:55Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\n【C01锚点】23岁韩国男子,时髦发型,名牌T恤牛仔裤,外表体面,眼神平静不自然,嘴角漫不经心的笑\n\nCinematic realistic 3D animated crime-thriller reenactment shot S06. 1994年阳光明亮的美国大学草坪上，23岁的朴汉相穿着宽松名牌T恤与牛仔裤，站在树影与砖墙建筑前对着几名同伴仰头大笑，修长手指漫不经心地转动一串车钥匙，金色阳光下神情透着浮夸与空洞；全程室外草坪单景，无校名标牌、无衣服字母。 Continuous natural 3D motion from first frame to last frame; camera: 中景微手持跟拍. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S03+C01. 【C01锚点】23岁韩国男子,时髦发型,名牌T恤牛仔裤,外表体面,眼神平静不自然,嘴角漫不经心的笑\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
@@ -164,8 +164,8 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/S03.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261113011648671661948xgK3TAnh) (code=rate_limit_exceeded)",
-      "create_attempts": 20,
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261113012154735778215bCn3FOgT) (code=rate_limit_exceeded)",
+      "create_attempts": 30,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 30.0
     },
@@ -389,15 +389,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T01:16:48Z",
+  "updated_at": "2026-11-13T01:21:55Z",
   "run_id": "43341881302",
   "previous_results": {},
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261113011648671661948xgK3TAnh) (code=rate_limit_exceeded)",
-    "create_attempts": 20,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261113012154735778215bCn3FOgT) (code=rate_limit_exceeded)",
+    "create_attempts": 30,
     "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-13T01:16:48Z"
+    "last_seen": "2026-11-13T01:21:55Z"
   }
 }
