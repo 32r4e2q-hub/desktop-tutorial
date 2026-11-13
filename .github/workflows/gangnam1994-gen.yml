@@ -1,0 +1,122 @@
+name: 江南豪门双尸案 · Agnes Video 2.5 Flash
+run-name: 第十四期 · 江南豪门双尸案 · 30镜片段生成与合成
+
+on:
+  push:
+    branches: [arena/bba78b78-desktop-tutorial]
+    paths:
+      - production/gangnam1994/GEN_REQUEST
+      - production/gangnam1994/CANCEL_REQUEST
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON payload, default generates all 30 clips
+        type: string
+        default: '{"mode":"clips","workers":2}'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: gangnam1994-agnes-arena-bba78b78
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/arena/bba78b78-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 300
+    steps:
+      - name: Checkout fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/bba78b78-desktop-tutorial
+          fetch-depth: 1
+      - name: Ensure media tools are available
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media-tools" --no-save --ignore-scripts --no-audit --no-fund \
+            @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media-tools/bin" "$HOME/.local/share/fonts"
+          chmod +x "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" \
+            "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media-tools/bin/ffmpeg"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media-tools/bin/ffprobe"
+          export PATH="$RUNNER_TEMP/media-tools/bin:$PATH"
+          echo "$RUNNER_TEMP/media-tools/bin" >> "$GITHUB_PATH"
+          GH_TOKEN="${{ github.token }}" gh api -H 'Accept: application/vnd.github.raw' \
+            'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' \
+            > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
+          ffmpeg -hide_banner -filters 2>&1 | grep -q subtitles
+          ffprobe -version | head -1
+          if ! python3 -c 'import numpy, av; from PIL import Image' >/dev/null 2>&1; then
+            python3 -m pip install --break-system-packages --no-input --disable-pip-version-check pillow numpy av fonttools
+          fi
+      - name: Validate plan and run Agnes Video 2.5 Flash pipeline
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ] && [ -f production/gangnam1994/GEN_REQUEST ]; then
+            payload="$(cat production/gangnam1994/GEN_REQUEST)"
+          fi
+          if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
+          mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", ""))' <<< "$payload")"
+          if [ "$mode" = "render" ] || [ "$mode" = "qc" ]; then
+            python3 production/gangnam1994/build_audio_manifest.py
+          fi
+          if [ "$mode" != "status" ] && [ "$mode" != "retrieve" ] && [ -f production/gangnam1994/CANCEL_REQUEST ]; then
+            echo 'Cancellation requested; no Agnes generation requests will be made.'
+            exit 0
+          fi
+          if [ "$mode" = "render" ] || [ "$mode" = "qc" ]; then
+            set +e
+            if [ "$mode" = "qc" ]; then
+              python3 -u production/gangnam1994/generate.py --payload '{"mode":"qc"}' --publish 2>&1 | tee /tmp/render.log
+              status=${PIPESTATUS[0]}
+            else
+              python3 -u production/gangnam1994/generate.py --render-only --publish 2>&1 | tee /tmp/render.log
+              status=${PIPESTATUS[0]}
+            fi
+            set -e
+            mkdir -p production/gangnam1994/qa
+            { echo "# render/QC transcript"; echo; tail -c 24000 /tmp/render.log; } \
+              > production/gangnam1994/qa/render-log.txt
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -f production/gangnam1994/qa/render-log.txt
+            if ! git diff --cached --quiet -- production/gangnam1994/qa/render-log.txt; then
+              git commit -q -m "gangnam1994: render/QC transcript" -- production/gangnam1994/qa/render-log.txt
+              git pull --rebase -q origin arena/bba78b78-desktop-tutorial || true
+              git push origin arena/bba78b78-desktop-tutorial || true
+            fi
+            exit $status
+          fi
+          test -n "$AGNES_API_KEY"
+          python3 production/gangnam1994/generate.py --validate --clips-only
+          if [ "$mode" = "status" ]; then
+            python3 -u production/gangnam1994/generate.py --check-outstanding --publish
+            exit $?
+          elif [ "$mode" = "retrieve" ]; then
+            python3 -u production/gangnam1994/generate.py --retrieve-completed --payload "$payload" --publish
+            exit $?
+          fi
+          python3 -u production/gangnam1994/generate.py --clips-only --payload "$payload" --publish
+      - name: Upload generated footage and provenance
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: gangnam1994-agnes-${{ github.run_number }}
+          path: |
+            work/gangnam1994/
+            交付/江南豪门双尸案*
+            production/gangnam1994/results.json
+            production/gangnam1994/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 3
