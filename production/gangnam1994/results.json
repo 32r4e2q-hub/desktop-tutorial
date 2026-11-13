@@ -410,9 +410,25 @@
     "S15": {
       "id": "S15",
       "request_hash": "3323bfa38043fcd646f225b348b23be58e1b63e8ed638e1f7e74ec5193e669d0",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T01:04:01Z"
+      "updated_at": "2026-11-13T01:53:49Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\n【C01锚点】23岁韩国男子,时髦发型,名牌T恤牛仔裤,外表体面,眼神平静不自然,嘴角漫不经心的笑\n\nCinematic realistic 3D animated crime-thriller reenactment shot S15. 1994年首尔新沙洞深夜加油站，头顶冷青白色荧光灯管微微闪烁，湿润柏油地面反射冷光，无任何标志字样的老式金属加油机旁，朴汉相单手提着一只深色无标签塑料桶站立，加油员低头忙碌，朴汉相冷冷回头看了一眼漆黑夜色；全程夜景单镜，无任何招牌字母数字。 Continuous natural 3D motion from first frame to last frame; camera: 中景缓慢推近. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S07+C01+P04. 【C01锚点】23岁韩国男子,时髦发型,名牌T恤牛仔裤,外表体面,眼神平静不自然,嘴角漫不经心的笑\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 230519,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/S07.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/P04.png"
+        ]
+      },
+      "error": null
     },
     "S16": {
       "id": "S16",
@@ -571,7 +587,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T01:53:48Z",
+  "updated_at": "2026-11-13T01:53:49Z",
   "run_id": "43341881302",
   "previous_results": {}
 }
