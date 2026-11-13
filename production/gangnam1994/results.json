@@ -794,9 +794,25 @@
     "S28": {
       "id": "S28",
       "request_hash": "24593beef3c630e73918267e2cef75409c2a20f04e6b0bdd799c8330df57a2c6",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T01:04:01Z"
+      "updated_at": "2026-11-13T03:09:59Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\n【C08锚点】韩国法官黑色法袍戴眼镜神情肃穆;检察官深色西装神情冷峻\n\nCinematic realistic 3D animated crime-thriller reenactment shot S28. 法庭木质审判席慢动作大特写：55岁韩国老法官缓缓摘下金属细框眼镜，用手指沉重地揉了揉眉心，低头翻开厚卷宗的最后一页（纸面仅为模糊横线无文字），窗外冷灰天光落在他肃穆苍老的脸庞上，双唇沉重地缓缓开合；全程特写慢动作，无任何文字。 Continuous natural 3D motion from first frame to last frame; camera: 大特写慢动作. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S14+C08+P06. 【C08锚点】韩国法官黑色法袍戴眼镜神情肃穆;检察官深色西装神情冷峻\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 550519,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/C08.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/S14.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/P06.png"
+        ]
+      },
+      "error": null
     },
     "S29": {
       "id": "S29",
@@ -864,7 +880,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T03:09:58Z",
+  "updated_at": "2026-11-13T03:09:59Z",
   "run_id": "43341881302",
   "previous_results": {}
 }
