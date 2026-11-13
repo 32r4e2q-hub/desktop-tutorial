@@ -431,7 +431,7 @@ def main() -> int:
         # Strip TTS lead-in silence first so captions never lead spoken audio by 0.3s.
         speech = segments / f"{sid}.speech.wav"
         run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af",
-             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.03,"
              f"atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
         speech_seconds = duration(speech)
         max_speech_slot = target - 0.85 if sid == "S30" else target - 0.04
@@ -439,8 +439,10 @@ def main() -> int:
             extra = speech_seconds / max_speech_slot
             if speed * extra > 1.55 + 1e-9:
                 raise RuntimeError(f"{sid}: speech cannot fit even at 1.55x")
+            speech_tmp = segments / f"{sid}.speech2.wav"
             run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af",
-                 f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+                 f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech_tmp])
+            speech_tmp.replace(speech)
             speech_seconds = duration(speech)
             speed *= extra
         wav = segments / f"{sid}.wav"
@@ -495,7 +497,8 @@ def main() -> int:
 
     build_thriller_bed_and_mix(voice, mixed_voice)
 
-    subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
+    fonts_dir = find_cjk_font().parent
+    subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}':fontsdir='{ffmpeg_escape(fonts_dir)}'"
     # Two-pass separate encode + stream-copy mux prevents ffmpeg 4.1 tail audio loss on runner.
     picture = args.work / "picture-subbed.mp4"
     run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent,
