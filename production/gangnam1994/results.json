@@ -824,9 +824,9 @@
     "S29": {
       "id": "S29",
       "request_hash": "9538e0073d85d539fcec6a416bb0fbec77928d2ef10b0de32999ebdc29de3e59",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T03:15:01Z",
+      "updated_at": "2026-11-13T03:15:12Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\nCinematic realistic 3D animated crime-thriller reenactment shot S29. 清晨冷灰色调的大邱监狱外景，高耸冰冷的灰色混凝土高墙与盘绕铁丝网延伸向远方，一只黑色飞鸟停在铁丝网尖端随后振翅飞离，航拍镜头从铁丝网缓缓向高空拉远，墙内庞大的监狱建筑群像一座灰色铁盒，厚重云层缝隙漏下一缕冷光；无任何监狱标牌文字。 Continuous natural 3D motion from first frame to last frame; camera: 航拍缓慢拉远. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S15+C04.\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
@@ -841,7 +841,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/C04.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 03:19:59. (request id: 20261113031511921871573UqKtjQFq) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 288.0
     },
     "S30": {
       "id": "S30",
@@ -902,7 +905,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T03:15:01Z",
+  "updated_at": "2026-11-13T03:15:12Z",
   "run_id": "43341881302",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 03:19:59. (request id: 20261113031511921871573UqKtjQFq) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 288.0,
+    "last_seen": "2026-11-13T03:15:12Z"
+  }
 }
