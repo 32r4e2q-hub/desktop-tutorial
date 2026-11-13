@@ -121,9 +121,9 @@
     "S04": {
       "id": "S04",
       "request_hash": "0781b725a5b4c81aa7fda3a07c3041c89ba6b25ec5d0d801e7eb574696e06d12",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T03:25:41Z",
+      "updated_at": "2026-11-13T03:25:43Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\n【C02锚点】47岁韩国男子,身材敦实,短发,深色西装领带,神情沉稳威严\n\n【C03锚点】四十多岁韩国女性,烫发,素雅连衣裙开衫,神情温柔操劳\n\n【C04锚点】两名韩国少年,白T恤与校服,神情安静\n\nCinematic realistic 3D animated crime-thriller reenactment shot S04. 1994年韩国豪宅温暖华贵的餐厅内景，暖黄吊灯下，朴淳泰与烫发穿开衫的妻子、两名穿白T恤与深色校服的少年弟弟围坐木质餐桌吃晚饭，母亲温柔地用筷子给孩子夹菜，窗外透入柔和暮色，背景木墙上挂着模糊失焦的家族合照；全程室内单景，无任何文字与书法字迹。 Continuous natural 3D motion from first frame to last frame; camera: 中景缓慢横移. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S02+C02+C03+C04. 【C02锚点】47岁韩国男子,身材敦实,短发,深色西装领带,神情沉稳威严 【C03锚点】四十多岁韩国女性,烫发,素雅连衣裙开衫,神情温柔操劳 【C04锚点】两名韩国少年,白T恤与校服,神情安静\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
@@ -150,7 +150,18 @@
       "bytes": 3461912,
       "sha256": "60efbe65853a86d8215e0a7f622166cf4a7d7427c14479ac462f98b1e6fe202e",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3461912,
+        "decoded_ok": true,
+        "contact_sheet": "production/gangnam1994/qa/S04.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S05": {
       "id": "S05",
@@ -968,7 +979,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T03:25:41Z",
+  "updated_at": "2026-11-13T03:25:43Z",
   "run_id": "43341881302",
   "previous_results": {}
 }
