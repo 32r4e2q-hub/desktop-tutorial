@@ -643,9 +643,25 @@
     "S23": {
       "id": "S23",
       "request_hash": "dc72fc3b027c547eca3b68b7df5fce9ad341d959d2f2093d8ac807c52c5f25fb",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T01:04:01Z"
+      "updated_at": "2026-11-13T02:44:53Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\n【C06锚点】30岁韩国女护士,白色护士服护士帽,神情细致专注\n\n【C01锚点】23岁韩国男子,时髦发型,名牌T恤牛仔裤,外表体面,眼神平静不自然,嘴角漫不经心的笑\n\nCinematic realistic 3D animated crime-thriller reenactment shot S23. 1994年韩国医院冷白灯光诊室内，白色隔帘旁，23岁的朴汉相平静坐在病床边，30岁穿白护士服戴护士帽的女护士俯身为他手臂换药，她的手忽然停在他耳侧黑发旁，手里的棉签悬停在半空，眼神猛地一顿，表情由专注转为深深困惑（无伤口血腥画面）；无任何文字胸牌。 Continuous natural 3D motion from first frame to last frame; camera: 近景缓慢推近护士眼睛. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S11+C06+C01. 【C06锚点】30岁韩国女护士,白色护士服护士帽,神情细致专注 【C01锚点】23岁韩国男子,时髦发型,名牌T恤牛仔裤,外表体面,眼神平静不自然,嘴角漫不经心的笑\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19940542,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/C06.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/S11.png"
+        ]
+      },
+      "error": null
     },
     "S24": {
       "id": "S24",
@@ -748,7 +764,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T02:44:51Z",
+  "updated_at": "2026-11-13T02:44:53Z",
   "run_id": "43341881302",
   "previous_results": {}
 }
