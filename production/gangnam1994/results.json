@@ -1317,9 +1317,9 @@
     "S30": {
       "id": "S30",
       "request_hash": "c8d1b6f6a0a3390d46af64cedec30ac608f4314869621ee4b979222955a634e6",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T03:41:18Z",
+      "updated_at": "2026-11-13T03:41:20Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\nCinematic realistic 3D animated crime-thriller reenactment shot S30. 深夜纯黑压抑的暗调背景里，江南三成洞那栋两层豪宅的剪影轮廓静静浮现，地下室窗口最后一簇微弱的橙红色火苗轻轻摇曳后彻底熄灭，一缕青烟消散在冷夜里，整幅画面缓缓沉入深邃黑场；画面只有豪宅暗影与熄灭的火光，绝对没有任何文字、字形、字母、招牌、字幕、标题或水印。 Continuous natural 3D motion from first frame to last frame; camera: 缓慢推近并淡入黑场. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S01+P02.\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
@@ -1346,7 +1346,18 @@
       "bytes": 1372687,
       "sha256": "e5a72f45fafb6f00cb7acce7063255a6c02af16c7298daedb72b933280af691b",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1372687,
+        "decoded_ok": true,
+        "contact_sheet": "production/gangnam1994/qa/S30.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     }
   },
   "source_size": "720P",
@@ -1400,7 +1411,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T03:41:18Z",
+  "updated_at": "2026-11-13T03:41:20Z",
   "run_id": "43341881302",
   "previous_results": {}
 }
