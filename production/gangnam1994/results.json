@@ -440,9 +440,24 @@
     "S16": {
       "id": "S16",
       "request_hash": "cbed8d2890a112d20bb596fc74dc0924d02018a2605c60f719e5489c0ff4f40e",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-13T01:04:01Z"
+      "updated_at": "2026-11-13T01:56:04Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现,非历史影像,35mm胶片摄影质感,浅景深,长焦压缩,韩国犯罪惊悚片风格,1994年首尔江南区富人区与夜晚,暖黄豪宅灯光与冷青夜色对比,火光橙红作为强调色,低饱和,暗部厚重,胶片颗粒,真实的皮肤、服装与建筑材质,克制冷静而压抑的情绪,16:9宽银幕横屏构图,主体置于三分线附近,底部安全区干净低干扰,每条镜头从第一帧到最后一帧保持真实连续的3D人物与环境运动,自然呼吸眨眼与肢体动作,单镜连续运镜,绝无静态图推拉,所有人物为虚构写实演员式形象,不还原真实人物肖像\n\nCinematic realistic 3D animated crime-thriller reenactment shot S16. 夜晚昏暗冷青色调的豪宅水泥车库内景，一只无标签深色塑料桶被一双手悄悄推进角落纸箱与杂物阴影后面仅露出半边轮廓，紧接着厚重的金属车库卷门从上方缓缓降下，把地面最后一线微弱冷光彻底切断；全程室内低机位克制空镜感，无任何文字标签。 Continuous natural 3D motion from first frame to last frame; camera: 低机位缓慢推近门缝. Keep main subject near rule-of-thirds lines and keep bottom subtitle-safe zone clean. Strictly zero legible signage, zero letters, zero numbers, zero text. Reference design IDs: S08+P04.\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,标题,招牌文字,血腥,伤口,遗体,尸体,裸体,凶器,暴力过程,畸形手指,多余肢体,人物面部崩坏,现代物体,智能手机,液晶屏,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图加推拉,幻灯片,霓虹伪文字",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 19940535,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/S08.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/75530f3fc56abaa51c16254ca03064c7b617a460/production/gangnam1994/reference/P04.png"
+        ]
+      },
+      "error": null
     },
     "S17": {
       "id": "S17",
@@ -594,7 +609,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-13T01:56:02Z",
+  "updated_at": "2026-11-13T01:56:04Z",
   "run_id": "43341881302",
   "previous_results": {}
 }
