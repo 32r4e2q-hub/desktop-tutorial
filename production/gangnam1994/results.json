@@ -1361,7 +1361,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1407,11 +1407,41 @@
     "poll_interval_seconds": 45.0
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical, narration-fit, and verify_master checks passed; human visual review remains required."
   },
   "updated_at": "2026-11-13T03:41:23Z",
   "run_id": "43341881302",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/gangnam1994/clips/江南豪门双尸案_报警的人是凶手_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/gangnam1994/clips/江南豪门双尸案_Cover.jpg",
+    "delivered": {
+      "江南豪门双尸案_报警的人是凶手_三分钟_带声音.mp4": {
+        "bytes": 73549800,
+        "sha256": "c4e3176a71661c0a56b6cbb9a6ee65b9771861d6e6d34b456616b4767155c41b"
+      },
+      "江南豪门双尸案_Cover.jpg": {
+        "bytes": 369520,
+        "sha256": "b72004e67765d04fd0597f89fcb8da013b566319345cbf642ffad83227a47f79"
+      },
+      "江南豪门双尸案_Subtitles.srt": {
+        "bytes": 3236,
+        "sha256": "fbaa8d29849d942c008437b5ce901c214a670da68b290183e674c42bfb38e069"
+      },
+      "江南豪门双尸案_Narration.wav": {
+        "bytes": 34560078,
+        "sha256": "91b99ad56539d593bc44e9f782fbba9ab1d407b7a986ff32e1475429465a0dd2"
+      },
+      "江南豪门双尸案_Technical_Report.json": {
+        "bytes": 10701,
+        "sha256": "60f8badf31e5b195364a025c4afacd59d8f8d4d87e02a499a9f4bffc132f6788"
+      }
+    }
+  }
 }
