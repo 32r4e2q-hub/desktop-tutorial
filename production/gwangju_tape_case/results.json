@@ -1324,11 +1324,11 @@
       "visual_review": "pending"
     }
   },
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "source_size": "720P",
   "required_generated_shots": [
@@ -1888,8 +1888,8 @@
     "cover": "work/gwangju_tape_case/clips/光州胶带案_Cover.jpg",
     "delivered": {
       "光州胶带案_22米胶带_三分钟_带声音.mp4": {
-        "bytes": 73135022,
-        "sha256": "1f549224ea208d1f2d03bb8a0a928b00e1f7bd3e4f6666ab085c3793885f6cfe"
+        "bytes": 73352637,
+        "sha256": "364c744667551d0884856e2a6aa5e7aa67624224b2162871212e040835fa7a89"
       },
       "光州胶带案_Cover.jpg": {
         "bytes": 145573,
@@ -1901,7 +1901,7 @@
       },
       "光州胶带案_Technical_Report.json": {
         "bytes": 10948,
-        "sha256": "47dd9e4d7d6ad7cd12adfe5f0524cb226e3c0b382ef0466687fbf4b9777c22b5"
+        "sha256": "7f7a60f87f6f8dba86368c684752dfd9bc34d3dc597a335e6e57c10af3a6c711"
       }
     }
   }
