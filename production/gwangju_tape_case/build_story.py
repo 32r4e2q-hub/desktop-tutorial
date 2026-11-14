@@ -242,6 +242,11 @@ def build() -> dict:
 
     approvals_path = HERE / "reference" / "approvals.json"
     approvals = json.loads(approvals_path.read_text(encoding="utf-8")) if approvals_path.exists() else {"assets": {}}
+    c02n_revision = approvals.get("assets", {}).get("C02N", {}).get("revision")
+    if c02n_revision:
+        # Keep S08's two input URLs on the same immutable snapshot without changing the
+        # default reference revision (and therefore request hashes) for the other 29 shots.
+        next(shot for shot in shots if shot["id"] == "S08")["reference_revision_override"] = c02n_revision
     ref_images = []
     for asset_id, record in approvals.get("assets", {}).items():
         path = HERE / record.get("file", "")

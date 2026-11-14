@@ -92,19 +92,22 @@ def reference_image_urls(shot: dict) -> list[str]:
     assets = approvals.get("assets", {})
     revision = REFERENCE_REVISION.read_text(encoding="utf-8").strip() if REFERENCE_REVISION.is_file() else ""
     if len(revision) != 40 or any(ch not in "0123456789abcdef" for ch in revision.lower()):
-        raise RuntimeError("reference/revision.txt must pin the immutable commit containing the approved PNGs")
+        raise RuntimeError("reference/revision.txt must pin the immutable base reference commit")
     urls = []
     for asset_id in reference_asset_ids(shot):
         record = assets.get(asset_id, {})
         if record.get("status") != "approved":
             raise RuntimeError(f"{asset_id}: reference is not approved")
+        asset_revision = str(shot.get("reference_revision_override") or record.get("revision") or revision)
+        if len(asset_revision) != 40 or any(ch not in "0123456789abcdef" for ch in asset_revision.lower()):
+            raise RuntimeError(f"{asset_id}: immutable reference revision is invalid")
         path = HERE / record.get("file", "")
         if not path.is_file() or path.read_bytes()[:8] != b"\x89PNG\r\n\x1a\n":
             raise RuntimeError(f"{asset_id}: approved reference PNG is missing or invalid")
         if digest(path) != record.get("sha256"):
             raise RuntimeError(f"{asset_id}: image changed after approval")
         relative = path.relative_to(HERE).as_posix()
-        urls.append(f"https://raw.githubusercontent.com/{REPOSITORY}/{revision}/production/gwangju_tape_case/{relative}")
+        urls.append(f"https://raw.githubusercontent.com/{REPOSITORY}/{asset_revision}/production/gwangju_tape_case/{relative}")
     if not 1 <= len(urls) <= 5:
         raise ValueError(f"{shot.get('id')}: reference mode needs 1–5 images, got {len(urls)}")
     return urls

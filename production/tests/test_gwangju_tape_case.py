@@ -115,6 +115,22 @@ def test_visual_retake_safeguards_and_legal_qualifier(story):
     assert "嘴唇保持闭合" in s08["purpose"] and "绝不微笑" in s08["purpose"]
     assert "肩带" in s08["purpose"]
     assert project_generate.reference_asset_ids(s08) == ["C02N", "S02"]
+    approvals = project_generate.read_json(project_generate.REFERENCE_APPROVALS, {})
+    base_revision = project_generate.REFERENCE_REVISION.read_text(encoding="utf-8").strip()
+    neutral_revision = approvals["assets"]["C02N"]["revision"]
+    assert s08["reference_revision_override"] == neutral_revision
+    s08_urls = project_generate.reference_image_urls(s08)
+    assert f"/{neutral_revision}/production/gwangju_tape_case/reference/C02N.png" in s08_urls[0]
+    assert f"/{neutral_revision}/production/gwangju_tape_case/reference/S02.png" in s08_urls[1]
+    assert f"/{base_revision}/production/gwangju_tape_case/reference/C02.png" in \
+        project_generate.reference_image_urls(shots["S07"])[0]
+
+    # Every already-completed clip must retain its exact request hash; only S08 changed.
+    results = project_generate.read_json(project_generate.RESULTS, {})
+    for shot in story["shots"]:
+        row = results.get("shots", {}).get(shot["id"], {})
+        assert row.get("status") == "completed", shot["id"]
+        assert project_generate.request_hash(story, shot) == row.get("request_hash"), shot["id"]
 
     s22 = shots["S22"]
     assert s22["characters"] == []

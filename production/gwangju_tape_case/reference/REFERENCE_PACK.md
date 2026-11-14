@@ -58,4 +58,4 @@
 
 - 角色锚点原文见 `build_story.py` 的 `CHARACTERS`，生成时 `generate.py` 会逐字插入，不要手动改写成真实人物特征。
 - 每个 Agnes 镜头引用 1–5 张经审批的参考图；每张图在 `approvals.json` 中必须有准确文件路径与 SHA-256。
-- 参考图全部定稿并推送后，`revision.txt` 指向包含这些图与审批哈希的 40 位不可变 commit：`6130c84be04e53b10d61bb93a01c2fc2cafc3a84`。
+- 基础角色/场景/道具参考由 `revision.txt` 固定在不可变 commit：`5395eb5cc0574eb75622acb9e51da43e5f24b9e0`。新增的中性表情 C02N 单独固定在审批记录所列 commit：`6130c84be04e53b10d61bb93a01c2fc2cafc3a84`；这样只会改变使用 C02N 的 S08 请求哈希，不会使其余 29 个已验收镜头失效。

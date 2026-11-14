@@ -103,6 +103,20 @@ def main() -> int:
         except subprocess.CalledProcessError:
             incomplete.append("reference/revision.txt: commit is not available in this checkout")
 
+    for aid, row in assets.items():
+        asset_revision = row.get("revision")
+        if not asset_revision:
+            continue
+        if not re.fullmatch(r"[0-9a-fA-F]{40}", str(asset_revision)):
+            incomplete.append(f"{aid}: immutable asset revision is not pinned")
+            continue
+        asset_path = f"production/gwangju_tape_case/{row.get('file', '')}"
+        try:
+            subprocess.run(["git", "cat-file", "-e", f"{asset_revision}:{asset_path}"], cwd=ROOT,
+                           check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except subprocess.CalledProcessError:
+            incomplete.append(f"{aid}: pinned commit does not contain the approved image")
+
     hooks = story["presentation"].get("hooks", [])
     required_hooks = {f"H{i}" for i in range(1, 10)}
     if not required_hooks.issubset({hook.get("id") for hook in hooks}):
