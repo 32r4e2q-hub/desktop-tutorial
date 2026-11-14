@@ -15,7 +15,19 @@
   "audio_sample_rate": 48000,
   "audio_seconds": 180.0,
   "subtitle_cues": 30,
-  "cues_without_speech": []
+  "cues_without_speech": [],
+  "s07_tail_frames": [
+    1004,
+    1005,
+    1006,
+    1007
+  ],
+  "s07_tail_mean_luma": [
+    29.35,
+    29.35,
+    29.35,
+    29.35
+  ]
 }
 
 ## 源片抽样警告
