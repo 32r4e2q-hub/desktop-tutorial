@@ -10,9 +10,9 @@
 - P 道具参考：P01–P07 均已生成、目视通过并登记哈希；P07 首次生成因类条码标记被拒绝，修订提示重生成后通过。
 - C/S/P 共 30 张参考图全部通过项目内目视检查；审批与 SHA-256 见 `reference/approvals.json`。
 - `reference/revision.txt` 已固定到包含全部 C/S/P PNG 与审批清单的不可变提交 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`；后续视频请求只引用该提交中的素材。
-- 普通话男声 `voice-00` 已由用户试听选定；S01–S30 的逐镜 MP3 均已生成并留在 `audio/`；30 条时长检查与 manifest SHA-256 清单已通过，最大需加速 1.406x（上限 1.55x），全片人工听检仍待完成。已在 `work/gwangju_tape_case/edit/sfx/` 生成 30 条确定性 SFX WAV，并校验 48 kHz 立体声、逐镜时长和哈希；这些可重建的中间文件位于忽略的 `work/`，不是 Git 交付物。
-- `GEN_REQUEST` 已提交，要求生成 30 镜。首个 Actions 运行 `43543178010` 在媒体工具安装步骤失败，生成/验证步骤被跳过；该运行没有调用 Agnes、没有任务 ID。runner 日志下载返回 EOF，具体失败行尚未能确认；工作流中发现并修复一个确定的同一步 PATH 缺陷（安装的 ffmpeg 原本只加入后续步骤 PATH）。当前本地未暴露 `AGNES_API_KEY`，GitHub secrets 列表因权限返回 403；是否配置了云端 secret 尚待重跑结果确认。`results.json` 仍为 `preproduction`。
-- 视频片段、字幕文件、封面和最终成片尚未生成。项目未完工。
+- 普通话男声 `voice-00` 已由用户试听选定；S01–S30 的逐镜 MP3 均已生成并留在 `audio/`；30 条时长检查与 manifest SHA-256 清单已通过，最大需加速 1.406x（上限 1.55x），全片人工听检仍待完成。旁白试听串接稿 `work/gwangju_tape_case/narration-review.mp3`（附 cue sheet）已备好。另在 `work/gwangju_tape_case/edit/sfx/` 生成 30 条确定性 SFX WAV，并校验 48 kHz 立体声、逐镜时长和哈希；SFX 试听稿为 `work/gwangju_tape_case/sfx-review.mp3`。这些可重建中间文件位于忽略的 `work/`，不是 Git 交付物。
+- 首个 Actions 运行 `43543178010` 在媒体工具安装步骤失败，生成步骤被跳过；runner 日志下载返回 EOF，具体失败行未能确认。已修复发现的同一步 PATH 缺陷（安装的 ffmpeg 原本只加入后续步骤 PATH）。重跑 `43544148329` 已通过媒体工具安装，并成功向 Agnes 提交 S01 金丝雀任务 `task_492kgSn9Ekm3e6f19IzJ32jlYhnPGmpo`；截至 2026-11-14 02:04:35 UTC，`results.json` 为 `generating_sources`，S01 状态 `queued`，其余 29 镜待金丝雀通过后继续。云端调用凭证可用；本地未暴露 `AGNES_API_KEY`，secrets 列表仍因权限返回 403。运行仍在进行，未把“queued”记作已生成视频。
+- 截至上述时间点，还没有下载完成的视频片段、字幕文件、封面或最终成片。项目未完工。
 
 ## 内容红线与核实口径
 
@@ -44,9 +44,9 @@
 | `build_sfx.py` | 按镜头脚本生成确定性的轻量拟音/环境声；无旋律、无 BGM，并生成时长和哈希清单。 |
 | `preflight.py` | 离线核对 30 镜时序、参考图审批/哈希、每镜 1–5 张引用与 revision；缺项即阻断，不调用 Agnes。 |
 | `qc.py` / `narration_fit.py` | 生成片段、时长、分辨率、音频和旁白适配校验；自动通过不等于人工签收。 |
-| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`，12.1 秒共享闸门；`GEN_REQUEST` 已存在。首次工作流在媒体工具安装阶段失败、未进入 Agnes 调用；修复 PATH 后需重新触发。 |
+| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`，12.1 秒共享闸门；首次运行失败于媒体安装，修复 PATH 后的 run `43544148329` 已提交 S01 金丝雀并在等待。 |
 | `audio/voice.json` | 声线描述与 TTS 选择状态。 |
-| `results.json` | 任务状态与 provenance；当前为空队列。 |
+| `results.json` | 任务状态与 provenance；当前 `generating_sources`，S01 queued，必须以此文件和 Actions run 作为实时状态。 |
 
 ## 本地只读检查
 
