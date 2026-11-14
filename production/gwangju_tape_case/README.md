@@ -10,9 +10,9 @@
 - P 道具参考：P01–P07 均已生成、目视通过并登记哈希；P07 首次生成因类条码标记被拒绝，修订提示重生成后通过。
 - C/S/P 共 30 张参考图全部通过项目内目视检查；审批与 SHA-256 见 `reference/approvals.json`。
 - `reference/revision.txt` 已固定到包含全部 C/S/P PNG 与审批清单的不可变提交 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`；后续视频请求只引用该提交中的素材。
-- 普通话男声 `voice-00` 已由用户试听选定；S01–S30 的逐镜 MP3 均已生成并留在 `audio/`；30 条时长检查与 manifest SHA-256 清单已通过，最大需加速 1.406x（上限 1.55x），全片人工听检仍待完成。目前尚无项目内 SFX WAV、字幕、封面或成片。程序化 SFX 仅在 `/tmp` 做过完整性测试，临时文件未纳入项目。
-- `results.json` 处于 `preproduction`，没有 Agnes 请求或任务 ID；API 密钥 / 调用权限 / 生成状态均未验证。
-- 没有视频片段、封面、字幕文件或最终成片。项目未完工。
+- 普通话男声 `voice-00` 已由用户试听选定；S01–S30 的逐镜 MP3 均已生成并留在 `audio/`；30 条时长检查与 manifest SHA-256 清单已通过，最大需加速 1.406x（上限 1.55x），全片人工听检仍待完成。已在 `work/gwangju_tape_case/edit/sfx/` 生成 30 条确定性 SFX WAV，并校验 48 kHz 立体声、逐镜时长和哈希；这些可重建的中间文件位于忽略的 `work/`，不是 Git 交付物。
+- `GEN_REQUEST` 已提交，要求生成 30 镜。首个 Actions 运行 `43543178010` 在媒体工具安装步骤失败，生成/验证步骤被跳过；该运行没有调用 Agnes、没有任务 ID。runner 日志下载返回 EOF，具体失败行尚未能确认；工作流中发现并修复一个确定的同一步 PATH 缺陷（安装的 ffmpeg 原本只加入后续步骤 PATH）。当前本地未暴露 `AGNES_API_KEY`，GitHub secrets 列表因权限返回 403；是否配置了云端 secret 尚待重跑结果确认。`results.json` 仍为 `preproduction`。
+- 视频片段、字幕文件、封面和最终成片尚未生成。项目未完工。
 
 ## 内容红线与核实口径
 
@@ -44,7 +44,7 @@
 | `build_sfx.py` | 按镜头脚本生成确定性的轻量拟音/环境声；无旋律、无 BGM，并生成时长和哈希清单。 |
 | `preflight.py` | 离线核对 30 镜时序、参考图审批/哈希、每镜 1–5 张引用与 revision；缺项即阻断，不调用 Agnes。 |
 | `qc.py` / `narration_fit.py` | 生成片段、时长、分辨率、音频和旁白适配校验；自动通过不等于人工签收。 |
-| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`，12.1 秒共享闸门；目前没有请求文件，未排队。 |
+| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`，12.1 秒共享闸门；`GEN_REQUEST` 已存在。首次工作流在媒体工具安装阶段失败、未进入 Agnes 调用；修复 PATH 后需重新触发。 |
 | `audio/voice.json` | 声线描述与 TTS 选择状态。 |
 | `results.json` | 任务状态与 provenance；当前为空队列。 |
 

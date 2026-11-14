@@ -3,6 +3,7 @@ import re
 import struct
 import sys
 import wave
+from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
 import pytest
@@ -11,9 +12,24 @@ ROOT = Path(__file__).resolve().parents[2]
 PROJECT_DIR = ROOT / "production" / "gwangju_tape_case"
 sys.path.insert(0, str(PROJECT_DIR))
 
-import build_sfx  # noqa: E402
-from generate import full_prompt  # noqa: E402
-from render import write_ass, write_cover_ass  # noqa: E402
+
+def load_project_module(name: str):
+    """Avoid collisions with same-named modules from other production projects."""
+    module_name = f"gwangju_tape_case_{name}"
+    spec = spec_from_file_location(module_name, PROJECT_DIR / f"{name}.py")
+    assert spec and spec.loader
+    module = module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+build_sfx = load_project_module("build_sfx")
+project_render = load_project_module("render")
+project_generate = load_project_module("generate")
+full_prompt = project_generate.full_prompt
+write_ass = project_render.write_ass
+write_cover_ass = project_render.write_cover_ass
 
 
 @pytest.fixture(scope="module")

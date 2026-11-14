@@ -46,6 +46,8 @@ jobs:
           ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media-tools/bin/ffmpeg"
           ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media-tools/bin/ffprobe"
           echo "$RUNNER_TEMP/media-tools/bin" >> "$GITHUB_PATH"
+          # GITHUB_PATH takes effect for later steps; export PATH here as this step also probes ffmpeg.
+          export PATH="$RUNNER_TEMP/media-tools/bin:$PATH"
           GH_TOKEN="${{ github.token }}" gh api -H 'Accept: application/vnd.github.raw' \
             'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' \
             > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"

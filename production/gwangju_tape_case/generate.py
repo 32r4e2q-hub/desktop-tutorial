@@ -1145,7 +1145,7 @@ def main() -> int:
         doc["phase"] = "sources_ready_pending_render"
         checkpoint("all 30 Agnes clips ready; waiting for voice clips before rendering")
         (exports / "剪好前说明.txt").write_text(
-            "29 条 Agnes 视频已全部完成并通过解码检查；旁白一到就渲染成片。\n", encoding="utf-8")
+            "30 条 Agnes 视频已全部完成并通过解码检查；人工画面 QC 后进入渲染。\n", encoding="utf-8")
         return 0
 
     doc["phase"] = "rendering_first_cut"
