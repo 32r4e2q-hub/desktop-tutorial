@@ -17,11 +17,11 @@ RATE = 48_000
 # applied inside its normalized shot, where frame indices start at zero and cannot drift
 # with concat timestamps. Runtime, cut points, and audio sync stay fixed.
 FLASH_REPAIR_FRAME = 464             # S04, 19.333s: blend a one-frame exposure dip with its previous frame.
-S07_TAIL_HOLD_FRAME = 1006           # S07, 41.917s: replace the two black tail frames with the last visible silhouette.
+S07_TAIL_HOLD_FRAME = 1003           # S07, 41.792s: last readable frame before the generated near-black tail.
+S07_TAIL_PAD_FRAMES = 4               # Hold that frame for the final 4 frames (0.167s) instead of the blackout.
 HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: lighten one-frame occlusions.
 FRAME_REPAIR_MODES = {
     FLASH_REPAIR_FRAME: "average",
-    S07_TAIL_HOLD_FRAME: "lighten",
     HOLD_REPAIR_FRAMES[0]: "lighten",
     HOLD_REPAIR_FRAMES[1]: "lighten",
 }
@@ -36,21 +36,42 @@ def local_frame_index(global_frame: int, shot_start: float) -> int:
 
 
 def repair_filter_suffix(shot_start: float, frame_count: int) -> str:
-    """Build frame repairs on normalized shot frames, before concat timestamps are added.
-
-    FFmpeg 4.1's timeline-enabled ``tblend`` does not reliably advance its frame counter across
-    disabled frames. For S07's two-frame black tail, chaining the same lighten pass twice holds
-    the last visible silhouette on both final frames rather than leaving a two-frame blackout.
-    """
+    """Build frame repairs on normalized shot frames, before concat timestamps are added."""
     filters = []
     for global_frame, mode in FRAME_REPAIR_MODES.items():
         local = local_frame_index(global_frame, shot_start)
         if 0 <= local < frame_count:
-            filter_expr = f"tblend=all_mode={mode}:enable='eq(n,{local})'"
-            filters.append(filter_expr)
-            if global_frame == S07_TAIL_HOLD_FRAME:
-                filters.append(filter_expr)
+            filters.append(f"tblend=all_mode={mode}:enable='eq(n,{local})'")
     return "," + ",".join(filters) if filters else ""
+
+
+def normalized_video_filter(shot_id: str, shot_start: float,
+                            target_seconds: float, frame_count: int) -> str:
+    """Build a shot's normalized picture filter, including the S07 tail hold.
+
+    The source for S07 fades to near-black in its last frames. A timeline-enabled ``tblend``
+    cannot reliably hold an earlier frame across that tail on FFmpeg 4.1, so trim after its
+    last readable frame and append an exact, short clone pad. The shot remains exactly 168
+    frames long; only the generated near-black tail is replaced.
+    """
+    if frame_count != round(target_seconds * FPS):
+        raise ValueError(f"{shot_id}: frame count does not match its target duration")
+    base = f"scale=1920:1080:flags=lanczos,fps={FPS}"
+    if shot_id == "S07":
+        hold_local = local_frame_index(S07_TAIL_HOLD_FRAME, shot_start)
+        keep_frames = hold_local + 1
+        pad_frames = frame_count - keep_frames
+        if pad_frames != S07_TAIL_PAD_FRAMES:
+            raise ValueError(f"S07: expected {S07_TAIL_PAD_FRAMES} tail frames, got {pad_frames}")
+        vf = (f"{base},trim=end_frame={keep_frames},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,"
+              f"tpad=stop_mode=clone:stop_duration={pad_frames / FPS:.9f}")
+    else:
+        vf = (f"{base},trim=duration={target_seconds:.6f},setpts=PTS-STARTPTS,"
+              "setsar=1,format=yuv420p")
+        if shot_id == "S30":
+            # Closing shot: hold the falling drop, then fade into black under the end title.
+            vf += f",fade=t=out:st={target_seconds - 0.8:.3f}:d=0.8"
+    return vf + repair_filter_suffix(shot_start, frame_count)
 
 
 def run(args: list[object], capture: bool = False) -> subprocess.CompletedProcess:
@@ -249,14 +270,7 @@ def main() -> int:
             raise RuntimeError(f"{sid}: source aspect ratio is not 16:9; refusing to distort/crop")
 
         normalized = segments / f"{sid}.mp4"
-        if sid == "S30":
-            # Closing shot: hold the falling drop, then a 0.6s fade into black under the end title.
-            vf = (f"scale=1920:1080:flags=lanczos,fps={FPS},trim=duration={target:.6f},"
-                  f"setpts=PTS-STARTPTS,setsar=1,format=yuv420p,"
-                  f"fade=t=out:st={target-0.8:.3f}:d=0.8")
-        else:
-            vf = f"scale=1920:1080:flags=lanczos,fps={FPS},trim=duration={target:.6f},setpts=PTS-STARTPTS,setsar=1,format=yuv420p"
-        vf += repair_filter_suffix(float(shot["start"]), frames)
+        vf = normalized_video_filter(sid, float(shot["start"]), target, frames)
         filter_args = ["-vf", vf, "-map", "0:v:0"]
         run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
              *filter_args, "-an", "-frames:v", frames, "-r", FPS,

@@ -80,21 +80,30 @@ def test_hooks_and_explainers_are_complete_and_safely_timed(story):
 
 def test_final_picture_repairs_are_narrow_and_frame_locked():
     assert project_render.FLASH_REPAIR_FRAME == 464
-    assert project_render.S07_TAIL_HOLD_FRAME == 1006
+    assert project_render.S07_TAIL_HOLD_FRAME == 1003
+    assert project_render.S07_TAIL_PAD_FRAMES == 4
     assert project_render.HOLD_REPAIR_FRAMES == (2533, 3450)
     assert project_render.FRAME_REPAIR_MODES == {
-        464: "average", 1006: "lighten", 2533: "lighten", 3450: "lighten"
+        464: "average", 2533: "lighten", 3450: "lighten"
     }
     assert project_render.local_frame_index(464, 17) == 56
-    assert project_render.local_frame_index(1006, 35) == 166
+    assert project_render.local_frame_index(1003, 35) == 163
     assert project_render.local_frame_index(2533, 102) == 85
     assert project_render.local_frame_index(3450, 137) == 162
     assert project_render.repair_filter_suffix(17, 168) == ",tblend=all_mode=average:enable='eq(n,56)'"
-    tail_hold = ",tblend=all_mode=lighten:enable='eq(n,166)'"
-    assert project_render.repair_filter_suffix(35, 168) == tail_hold + tail_hold
+    assert project_render.repair_filter_suffix(35, 168) == ""
     assert project_render.repair_filter_suffix(102, 144) == ",tblend=all_mode=lighten:enable='eq(n,85)'"
     assert project_render.repair_filter_suffix(137, 168) == ",tblend=all_mode=lighten:enable='eq(n,162)'"
     assert project_render.repair_filter_suffix(0, 120) == ""
+
+    s07_filter = project_render.normalized_video_filter("S07", 35, 7, 168)
+    assert "trim=end_frame=164" in s07_filter
+    assert "tpad=stop_mode=clone:stop_duration=0.166666667" in s07_filter
+    assert "tblend" not in s07_filter
+    with pytest.raises(ValueError, match="frame count"):
+        project_render.normalized_video_filter("S07", 35, 7, 167)
+    assert project_render.normalized_video_filter("S30", 174, 6, 144).endswith(
+        "fade=t=out:st=5.200:d=0.8")
     assert project_render.DARK_REPAIR_START == pytest.approx(159.25)
     assert project_render.DARK_REPAIR_END == pytest.approx(160.0417)
     assert project_render.DARK_REPAIR_GAMMA == pytest.approx(1.5)

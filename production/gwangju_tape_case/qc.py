@@ -15,6 +15,8 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 DURATION = 180.0
+S07_TAIL_CHECK_FRAMES = 4
+S07_TAIL_MIN_MEAN_LUMA = 18.0
 
 
 def probe(path: Path, count_frames: bool = False) -> dict:
@@ -70,6 +72,24 @@ def sampled_video(path: Path) -> dict:
         "near_white_longest_run_frames": int(longest_white),
         "suspected_freeze_window_starts": freeze_windows[:20],
     }
+
+
+def exact_frame_luma_means(path: Path, frame_numbers: list[int]) -> list[float]:
+    """Measure selected full-master frames exactly, rather than sampling at a fixed cadence."""
+    if not frame_numbers:
+        return []
+    expression = "+".join(f"eq(n,{number})" for number in frame_numbers)
+    proc = subprocess.run([
+        "ffmpeg", "-v", "error", "-i", str(path), "-vf",
+        f"select='{expression}',scale=160:90:flags=area,format=gray",
+        "-vsync", "0", "-f", "rawvideo", "-pix_fmt", "gray", "pipe:1",
+    ], check=True, stdout=subprocess.PIPE)
+    frame_bytes = 160 * 90
+    count = len(proc.stdout) // frame_bytes
+    if count != len(frame_numbers):
+        raise RuntimeError(f"Could not extract frames {frame_numbers} from {path.name}: got {count}")
+    frames = np.frombuffer(proc.stdout, dtype=np.uint8).reshape(count, 90, 160)
+    return [round(float(value), 2) for value in frames.mean(axis=(1, 2))]
 
 
 def decode_check(path: Path) -> None:
@@ -211,6 +231,20 @@ def main() -> int:
                     hard_failures.append(f"Subtitle cues with no speech energy: {missed}")
         if not film.with_suffix(".srt").is_file():
             hard_failures.append("Subtitle sidecar is missing")
+        if meta is not None:
+            s07 = next((shot for shot in story["shots"] if shot["id"] == "S07"), None)
+            if s07 is None:
+                hard_failures.append("Story has no S07 shot for the final tail-exposure guard")
+            else:
+                tail_end = round((float(s07["start"]) + float(s07["duration"])) * FPS)
+                tail_frames = list(range(tail_end - S07_TAIL_CHECK_FRAMES, tail_end))
+                tail_means = exact_frame_luma_means(film, tail_frames)
+                meta["s07_tail_frames"] = tail_frames
+                meta["s07_tail_mean_luma"] = tail_means
+                if min(tail_means) < S07_TAIL_MIN_MEAN_LUMA:
+                    hard_failures.append(
+                        f"S07 near-black tail remains: mean luma {tail_means}, "
+                        f"minimum required is {S07_TAIL_MIN_MEAN_LUMA:.1f}")
 
     report = {"status": "FAIL" if hard_failures else "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
               "scope": "sources_only" if args.sources_only else "sources_and_final", "final": meta,
