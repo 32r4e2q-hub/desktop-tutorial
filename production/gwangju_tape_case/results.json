@@ -4,10 +4,15 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "submitting",
+      "status": "queued",
       "request_hash": "7ebc634bd781b11664b4b496eaa386f3ed2a4cd07f00ab0091702a4bd0f7b8a0",
       "error": null,
-      "updated_at": "2026-11-14T02:04:33Z"
+      "updated_at": "2026-11-14T02:04:35Z",
+      "create_attempts": 1,
+      "video_id": "task_492kgSn9Ekm3e6f19IzJ32jlYhnPGmpo",
+      "task_id": "task_492kgSn9Ekm3e6f19IzJ32jlYhnPGmpo",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     }
   },
   "phase": "generating_sources",
@@ -62,6 +67,6 @@
     "poll_interval_seconds": 45.0,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-11-14T02:04:33Z",
+  "updated_at": "2026-11-14T02:04:35Z",
   "run_id": "43544148329"
 }
