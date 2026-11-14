@@ -13,13 +13,24 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
-# Targeted, frame-locked exposure repairs found during final visual triage.  Each is
-# confined to the offending source frame/window; runtime, cut points, and audio sync stay fixed.
+# Targeted, timestamp-locked exposure repairs found during final visual triage.  Each is
+# confined to the offending frame/window; runtime, cut points, and audio sync stay fixed.
 FLASH_REPAIR_FRAME = 464             # S04, 19.333s: blend isolated near-black frame.
 HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: one-frame occlusion dips.
 DARK_REPAIR_START = 159.25           # S27: raise only the brief unmotivated exposure dip.
 DARK_REPAIR_END = 160.0417
 DARK_REPAIR_GAMMA = 1.5
+
+
+def frame_enable(frame: int) -> str:
+    """Return a one-frame FFmpeg timeline predicate using exact media timestamps.
+
+    ``n`` is not reliable in a timeline-disabled filter such as tblend: its counter may
+    advance only while enabled.  PTS-based bounds remain stable across concat/trim stages.
+    """
+    start = frame / FPS
+    end = (frame + 1) / FPS
+    return f"gte(t,{start:.9f})*lt(t,{end:.9f})"
 
 
 def run(args: list[object], capture: bool = False) -> subprocess.CompletedProcess:
@@ -322,10 +333,10 @@ def main() -> int:
         f"1+{DARK_REPAIR_GAMMA - 1:.3f}*max(0,min(1,min("
         f"(t-{DARK_REPAIR_START:.4f})/0.125,({DARK_REPAIR_END:.4f}-t)/0.125)))"
     )
-    hold_expr = "+".join(f"eq(n,{frame})" for frame in HOLD_REPAIR_FRAMES)
+    hold_expr = "+".join(frame_enable(frame) for frame in HOLD_REPAIR_FRAMES)
     picture_filter = (
         f"eq=gamma='{gamma_expr}':eval=frame,{subtitle_filter},"
-        f"tblend=all_mode=average:enable='eq(n,{FLASH_REPAIR_FRAME})',"
+        f"tblend=all_mode=average:enable='{frame_enable(FLASH_REPAIR_FRAME)}',"
         f"tblend=all_mode=lighten:enable='{hold_expr}'"
     )
     # Encode picture and narration/SFX mix separately and then stream-copy them together.
