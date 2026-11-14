@@ -56,7 +56,15 @@ def normalized_video_filter(shot_id: str, shot_start: float,
     """
     if frame_count != round(target_seconds * FPS):
         raise ValueError(f"{shot_id}: frame count does not match its target duration")
-    base = f"scale=1920:1080:flags=lanczos,fps={FPS}"
+    # Global anti-flicker grade: every shot is luminance-stabilized before the concat, so
+    # AI exposure pumping, police-light strobing and day/night pumping cannot reach the master.
+    # deflicker uses a long window; hqdn3d removes temporal shimmer; the gentle eq softens
+    # hard contrast without crushing detail. This is applied to all 30 shots, not only repairs.
+    base = (
+        f"deflicker=size=21:mode=am,hqdn3d=2:1.5:8:8,"
+        f"scale=1920:1080:flags=lanczos,fps={FPS},"
+        f"eq=contrast=0.985:brightness=0.012:saturation=0.96"
+    )
     if shot_id == "S07":
         hold_local = local_frame_index(S07_TAIL_HOLD_FRAME, shot_start)
         keep_frames = hold_local + 1
