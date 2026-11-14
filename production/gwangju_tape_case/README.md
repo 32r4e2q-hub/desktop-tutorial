@@ -6,11 +6,12 @@
 
 - 内容计划：30 镜、180 秒、9 段解说单元，旁白共 663 字符；`build_story.py` 为唯一内容源。
 - C/S/P 共 30 张参考图均已逐张目视检查、登记 SHA-256；不可变资产 revision 为 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`。
-- Agnes run `43544148329` 于 05:06:22 UTC 成功结束；`results.json` 已确认 30/30 动态视频镜头完成，每镜都有任务 ID、SHA-256 和字节数，阶段为 `sources_ready_pending_render`。源 MP4 可由已验证的 Agnes 收据在 Actions runner 上恢复；大体积中间源片不提交进 Git。
-- 30 镜接触表初审发现 S04 违规出现女儿，S26 文件上有类似可读文字。已收紧两镜提示词：S04 限定画面仅有母亲；S26 改为无纸张、无印章、无文字的法槌与时钟象征场景。`GEN_REQUEST` 将 S04、S26 作为同一批次重生成，验收接触表通过后再渲染。
+- Agnes 全片素材 run `43544148329` 于 05:06:22 UTC 成功完成；针对视觉偏差的 S04、S26 同批重生成 run `43563547641` 于 06:07:33 UTC 成功结束。`results.json` 已确认 30/30 均为 completed，每镜有任务 ID、SHA-256 与字节数；当前阶段为 `selected_sources_ready`。源 MP4 可由已验证的 Agnes 收据在 Actions runner 上恢复；大体积中间源片不提交进 Git。
+- 接触表复核：S04 重生成后只见母亲、没有女儿；S26 已去掉有字样的文件和印章，改为法槌与时钟象征画面（保留普通时钟刻度）。其他镜头仍需随最终成片做完整动态复核。
+- 现将 `GEN_REQUEST` 切换为 `mode=render`，触发 render-only：按收据恢复全部 30 镜，生成 180 秒母版、字幕和封面，并运行自动技术 QC。
 - 普通话男声 `voice-00` 已由用户试听选定；`audio/` 中 S01–S30 的 MP3、逐镜文稿、时长和 SHA-256 manifest 均已核验，最大需加速 1.4063×（上限 1.55×）。人工旁白听检仍待完成；试听稿为 `work/gwangju_tape_case/narration-review.mp3`。
 - 30 条确定性 SFX WAV 已生成，48 kHz 立体声、时长与哈希校验通过；无 BGM。试听稿为 `work/gwangju_tape_case/sfx-review.mp3`，人工听检仍待完成。可重建试听与剪辑中间文件保存在被忽略的 `work/`。
-- 目前尚无完成的字幕文件、封面或 180 秒母版。两镜重生成并通过技术检查后，运行 render-only 流程生成母版、字幕和封面；成片仍需人工逐镜动态画面与全片听检，不把自动 QC 视为最终签收。
+- 当前仍没有字幕文件、封面或 180 秒母版；render-only 运行完成后再更新为真实交付状态。自动技术 QC 通过也不等于最终签收：全片人工听检和逐镜动态画面复核仍需完成。
 
 ## 内容红线与核实口径
 
@@ -42,9 +43,9 @@
 | `build_sfx.py` | 按镜头脚本生成确定性的轻量拟音/环境声；无旋律、无 BGM，并生成时长和哈希清单。 |
 | `preflight.py` | 离线核对 30 镜时序、参考图审批/哈希、每镜 1–5 张引用与 revision；缺项即阻断，不调用 Agnes。 |
 | `qc.py` / `narration_fit.py` | 生成片段、时长、分辨率、音频和旁白适配校验；自动通过不等于人工签收。 |
-| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`；Agnes 全片素材 run `43544148329` 已成功；`GEN_REQUEST` 当前安排 S04、S26 同批重生成，之后须另行 dispatch `mode=render`。 |
+| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`；Agnes 全片与 S04/S26 重生成均成功；当前 `GEN_REQUEST` 为 `mode=render`。 |
 | `audio/voice.json` | 声线描述、已选 TTS 声线与逐镜生成状态。 |
-| `results.json` | 任务状态与 provenance；基础 30 镜全部 completed，当前正式状态仍为 `sources_ready_pending_render`，以最新文件和 Actions run 为准。 |
+| `results.json` | 任务状态与 provenance；30/30 全部 completed，最新素材阶段为 `selected_sources_ready`，渲染后会更新交付信息。 |
 
 ## 本地只读检查
 
