@@ -9,7 +9,7 @@
 - S 场景参考：S01–S13 均已生成、目视通过并登记哈希。
 - P 道具参考：P01–P07 均已生成、目视通过并登记哈希；P07 首次生成因类条码标记被拒绝，修订提示重生成后通过。
 - C/S/P 共 30 张参考图全部通过项目内目视检查；审批与 SHA-256 见 `reference/approvals.json`。
-- `reference/revision.txt` 仍为待定值；参考包未全部通过、未固定到包含素材的不可变 Git commit 之前，不应生成任何视频。
+- `reference/revision.txt` 已固定到包含全部 C/S/P PNG 与审批清单的不可变提交 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`；后续视频请求只引用该提交中的素材。
 - 普通话男声 `voice-00` 已由用户试听选定；S01–S30 的逐镜 MP3 均已生成并留在 `audio/`；30 条时长检查与 manifest SHA-256 清单已通过，最大需加速 1.406x（上限 1.55x），全片人工听检仍待完成。目前尚无项目内 SFX WAV、字幕、封面或成片。程序化 SFX 仅在 `/tmp` 做过完整性测试，临时文件未纳入项目。
 - `results.json` 处于 `preproduction`，没有 Agnes 请求或任务 ID；API 密钥 / 调用权限 / 生成状态均未验证。
 - 没有视频片段、封面、字幕文件或最终成片。项目未完工。
@@ -38,7 +38,7 @@
 | `story.json`、`screenplay.md`、`抖音脚本.md`、`抖音发布文案.md` | 由 `build_story.py` 生成；改内容应改源脚本后重建。 |
 | `reference/REFERENCE_PACK.md` | C/S/P 参考图定义、画面提示词与逐张状态。 |
 | `reference/approvals.json` | 每张参考图的审批状态、路径和 SHA-256；未通过的不能进入 Agnes payload。 |
-| `reference/revision.txt` | 参考素材所在的不可变 commit；尚未完成。 |
+| `reference/revision.txt` | 固定到包含全部参考图的不可变资产 commit `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`。 |
 | `generate.py` / `throttle.py` | Agnes Video 2.5 Flash reference 模式、队列状态、断点续跑、12.1 秒 POST/GET 共享请求闸门。 |
 | `render.py` | 逐镜画面、旁白与脚本 SFX 混音，合成 H1–H9 大字钩子、金色解释字卡、同步字幕、片尾标题；封面取自成片真实帧并后期加字。 |
 | `build_sfx.py` | 按镜头脚本生成确定性的轻量拟音/环境声；无旋律、无 BGM，并生成时长和哈希清单。 |
