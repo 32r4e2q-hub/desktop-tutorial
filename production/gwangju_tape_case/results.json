@@ -1017,48 +1017,10 @@
     },
     "S24": {
       "id": "S24",
-      "request_hash": "614822e25addbb102b620d85c37d23431635e10ef53a9655c60136ff6059212a",
-      "status": "completed",
+      "request_hash": "86ed731e51a496ad8a0cf58eb00677fe469da6b7980371cfb791e907973b2e55",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-14T06:48:42Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国犯罪惊悚片的克制、冷静、压抑氛围；2004年韩国光州北区龙凤洞老式公寓住宅区，准确呈现当年普通公寓建筑、衣料、家具与电话材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；镜头1与3至6为清晨暖黄，镜头7至10傍晚转冷青，镜头11至18冷白与冷灰，镜头19至22冷蓝，镜头23至25实验室冷白，镜头26至28冷灰，镜头29黄昏暖金，镜头30黑场中仅一点黄色；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；黄色箱封胶带是贯穿全片的象征性视觉母题：只有证物镜头中作为真实物品出现，其余镜头仅以画面边缘的虚焦黄色反光或后期抽象细线转场短暂出现，不暗示它当时真实存在于日常场景；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。\n\n【C08锚点】30岁韩国年轻刑警便装夹克神情坚定;DNA研究员白大褂口罩神情专注\n\n单一不间断的 DNA 实验室近景：白大褂研究员戴手套，将一支小样本管放入白色检测仪；镜头缓慢推近，研究员的手继续轻柔调整样本，屏幕只显示两条简洁抽象曲线。屏幕与仪器机身全程无文字、字母、数字、标识、品牌或标签，屏幕界面保持简洁虚焦；不切换镜头或人物，冷白灯光稳定，手部与曲线自然连续运动。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：近景推近仪器屏幕；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，捆绑，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "7",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 300924,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5395eb5cc0574eb75622acb9e51da43e5f24b9e0/production/gwangju_tape_case/reference/C08.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5395eb5cc0574eb75622acb9e51da43e5f24b9e0/production/gwangju_tape_case/reference/S10.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_K6Ebz4sL6ZhYnd7zFJX3ieOaLmOLABp9",
-      "task_id": "task_K6Ebz4sL6ZhYnd7zFJX3ieOaLmOLABp9",
-      "requested_seconds": 7.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_K6Ebz4sL6ZhYnd7zFJX3ieOaLmOLABp9.mp4",
-      "bytes": 3693234,
-      "sha256": "6f61878c69576b5140ec47376550494d7a896d328ae013b4d97a8c850c9a92e3",
-      "reported_size": "720P",
-      "reported_seconds": "7",
-      "inspection": {
-        "duration_seconds": 7.328,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 3693234,
-        "decoded_ok": true,
-        "contact_sheet": "production/gwangju_tape_case/qa/S24.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-14T06:55:27Z"
     },
     "S25": {
       "id": "S25",
@@ -1284,47 +1246,10 @@
     },
     "S30": {
       "id": "S30",
-      "request_hash": "1a5fac3d3647b247f994cd6a2cbb8ae747d340b55c331bb01ea784ce53fa416e",
-      "status": "completed",
+      "request_hash": "e1dba3c4d931249b5e36b5ab751a3e75cca278fee7a10d3f6d83586cee882ede",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-14T06:51:54Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国犯罪惊悚片的克制、冷静、压抑氛围；2004年韩国光州北区龙凤洞老式公寓住宅区，准确呈现当年普通公寓建筑、衣料、家具与电话材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；镜头1与3至6为清晨暖黄，镜头7至10傍晚转冷青，镜头11至18冷白与冷灰，镜头19至22冷蓝，镜头23至25实验室冷白，镜头26至28冷灰，镜头29黄昏暖金，镜头30黑场中仅一点黄色；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；黄色箱封胶带是贯穿全片的象征性视觉母题：只有证物镜头中作为真实物品出现，其余镜头仅以画面边缘的虚焦黄色反光或后期抽象细线转场短暂出现，不暗示它当时真实存在于日常场景；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。\n\n单一不间断的纯黑背景微距镜头，全程只出现一卷普通黄色箱封胶带和一条胶带；胶带卷从第一帧起缓慢匀速转动，长条轻轻延伸，边缘始终留一点金黄色反光，镜头缓慢推近。黑色背景保持纯黑；绝不出现建筑、街道、人物、手、电话、桌面、器材、证物架、瓶子或其他物品，不叠化、不切镜、不出现中途黑屏，胶带运动连续；仅最后0.6秒让胶带柔和淡暗至黑场，留出干净字幕空间，所有标题均由后期叠加。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，捆绑，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20040944,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5395eb5cc0574eb75622acb9e51da43e5f24b9e0/production/gwangju_tape_case/reference/P01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_SB2uw5AM9xGRhvAh2FLHK1Ik4gKHR7XG",
-      "task_id": "task_SB2uw5AM9xGRhvAh2FLHK1Ik4gKHR7XG",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_SB2uw5AM9xGRhvAh2FLHK1Ik4gKHR7XG.mp4",
-      "bytes": 1650312,
-      "sha256": "473715cb519012504862f18419fe9d44a14477c6d55c7eca67342f2c376d0c2a",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1650312,
-        "decoded_ok": true,
-        "contact_sheet": "production/gwangju_tape_case/qa/S30.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-14T06:55:27Z"
     }
   },
   "phase": "generating_sources",
@@ -1379,7 +1304,7 @@
     "poll_interval_seconds": 45.0,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-11-14T06:55:25Z",
+  "updated_at": "2026-11-14T06:55:27Z",
   "run_id": "43568578664",
   "previous_results": {
     "S04": [
@@ -1567,6 +1492,51 @@
           "visual_review": "pending"
         },
         "visual_review": "pending"
+      },
+      {
+        "id": "S24",
+        "request_hash": "614822e25addbb102b620d85c37d23431635e10ef53a9655c60136ff6059212a",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-14T06:48:42Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国犯罪惊悚片的克制、冷静、压抑氛围；2004年韩国光州北区龙凤洞老式公寓住宅区，准确呈现当年普通公寓建筑、衣料、家具与电话材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；镜头1与3至6为清晨暖黄，镜头7至10傍晚转冷青，镜头11至18冷白与冷灰，镜头19至22冷蓝，镜头23至25实验室冷白，镜头26至28冷灰，镜头29黄昏暖金，镜头30黑场中仅一点黄色；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；黄色箱封胶带是贯穿全片的象征性视觉母题：只有证物镜头中作为真实物品出现，其余镜头仅以画面边缘的虚焦黄色反光或后期抽象细线转场短暂出现，不暗示它当时真实存在于日常场景；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。\n\n【C08锚点】30岁韩国年轻刑警便装夹克神情坚定;DNA研究员白大褂口罩神情专注\n\n单一不间断的 DNA 实验室近景：白大褂研究员戴手套，将一支小样本管放入白色检测仪；镜头缓慢推近，研究员的手继续轻柔调整样本，屏幕只显示两条简洁抽象曲线。屏幕与仪器机身全程无文字、字母、数字、标识、品牌或标签，屏幕界面保持简洁虚焦；不切换镜头或人物，冷白灯光稳定，手部与曲线自然连续运动。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：近景推近仪器屏幕；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，捆绑，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "7",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 300924,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5395eb5cc0574eb75622acb9e51da43e5f24b9e0/production/gwangju_tape_case/reference/C08.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5395eb5cc0574eb75622acb9e51da43e5f24b9e0/production/gwangju_tape_case/reference/S10.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_K6Ebz4sL6ZhYnd7zFJX3ieOaLmOLABp9",
+        "task_id": "task_K6Ebz4sL6ZhYnd7zFJX3ieOaLmOLABp9",
+        "requested_seconds": 7.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_K6Ebz4sL6ZhYnd7zFJX3ieOaLmOLABp9.mp4",
+        "bytes": 3693234,
+        "sha256": "6f61878c69576b5140ec47376550494d7a896d328ae013b4d97a8c850c9a92e3",
+        "reported_size": "720P",
+        "reported_seconds": "7",
+        "inspection": {
+          "duration_seconds": 7.328,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 3693234,
+          "decoded_ok": true,
+          "contact_sheet": "production/gwangju_tape_case/qa/S24.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
       }
     ],
     "S30": [
@@ -1609,6 +1579,50 @@
           "height": 720,
           "fps": "24/1",
           "bytes": 2182357,
+          "decoded_ok": true,
+          "contact_sheet": "production/gwangju_tape_case/qa/S30.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      },
+      {
+        "id": "S30",
+        "request_hash": "1a5fac3d3647b247f994cd6a2cbb8ae747d340b55c331bb01ea784ce53fa416e",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-14T06:51:54Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国犯罪惊悚片的克制、冷静、压抑氛围；2004年韩国光州北区龙凤洞老式公寓住宅区，准确呈现当年普通公寓建筑、衣料、家具与电话材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；镜头1与3至6为清晨暖黄，镜头7至10傍晚转冷青，镜头11至18冷白与冷灰，镜头19至22冷蓝，镜头23至25实验室冷白，镜头26至28冷灰，镜头29黄昏暖金，镜头30黑场中仅一点黄色；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；黄色箱封胶带是贯穿全片的象征性视觉母题：只有证物镜头中作为真实物品出现，其余镜头仅以画面边缘的虚焦黄色反光或后期抽象细线转场短暂出现，不暗示它当时真实存在于日常场景；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。\n\n单一不间断的纯黑背景微距镜头，全程只出现一卷普通黄色箱封胶带和一条胶带；胶带卷从第一帧起缓慢匀速转动，长条轻轻延伸，边缘始终留一点金黄色反光，镜头缓慢推近。黑色背景保持纯黑；绝不出现建筑、街道、人物、手、电话、桌面、器材、证物架、瓶子或其他物品，不叠化、不切镜、不出现中途黑屏，胶带运动连续；仅最后0.6秒让胶带柔和淡暗至黑场，留出干净字幕空间，所有标题均由后期叠加。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，捆绑，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20040944,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5395eb5cc0574eb75622acb9e51da43e5f24b9e0/production/gwangju_tape_case/reference/P01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_SB2uw5AM9xGRhvAh2FLHK1Ik4gKHR7XG",
+        "task_id": "task_SB2uw5AM9xGRhvAh2FLHK1Ik4gKHR7XG",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_SB2uw5AM9xGRhvAh2FLHK1Ik4gKHR7XG.mp4",
+        "bytes": 1650312,
+        "sha256": "473715cb519012504862f18419fe9d44a14477c6d55c7eca67342f2c376d0c2a",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1650312,
           "decoded_ok": true,
           "contact_sheet": "production/gwangju_tape_case/qa/S30.jpg",
           "visual_review": "pending"
