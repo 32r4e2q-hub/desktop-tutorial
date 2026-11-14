@@ -23,17 +23,18 @@
     1007
   ],
   "s07_tail_mean_luma": [
-    29.35,
-    29.35,
-    29.35,
-    29.35
+    26.68,
+    26.69,
+    26.67,
+    26.67
   ]
 }
 
 ## 源片抽样警告
 
-- S07: black=[7.0], white=[], freeze≈[]
 - S14: black=[5.0], white=[], freeze≈[]
+- S20: black=[6.0, 6.25], white=[], freeze≈[]
 - S21: black=[5.0], white=[], freeze≈[]
+- S25: black=[6.0], white=[], freeze≈[]
 
 自动采样不能代替逐镜完整播放和人工畸变签核。
