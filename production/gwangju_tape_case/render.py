@@ -28,8 +28,12 @@ def frame_enable(frame: int) -> str:
     ``n`` is not reliable in a timeline-disabled filter such as tblend: its counter may
     advance only while enabled.  PTS-based bounds remain stable across concat/trim stages.
     """
-    start = frame / FPS
-    end = (frame + 1) / FPS
+    # Decimal PTS values such as 105.541667 are rounded to microseconds by some
+    # demuxers; move both bounds 1 ms earlier so the target frame is safely inside
+    # its own half-open interval while its neighbors remain outside.
+    epsilon = 0.001
+    start = frame / FPS - epsilon
+    end = (frame + 1) / FPS - epsilon
     return f"gte(t,{start:.9f})*lt(t,{end:.9f})"
 
 
