@@ -13,6 +13,9 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
+# One isolated Agnes-generated near-black flash in S04 at 19.333s; blend only that
+# frame with its predecessor to remove the blink without changing runtime or sync.
+FLASH_REPAIR_FRAME = 464
 
 
 def run(args: list[object], capture: bool = False) -> subprocess.CompletedProcess:
@@ -311,12 +314,13 @@ def main() -> int:
         raise RuntimeError(f"Audio mix is {audio_mix_seconds:.3f}s; the master must be 180.000s")
 
     subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
+    picture_filter = f"{subtitle_filter},tblend=all_mode=average:enable='eq(n,{FLASH_REPAIR_FRAME})'"
     # Encode picture and narration/SFX mix separately and then stream-copy them together.
     # On the runner's older ffmpeg a single combined encode silently dropped the last ~2s of
     # audio (177.834s instead of 180.000s), which clipped the closing question.
     picture = args.work / "picture-subbed.mp4"
     run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent,
-         "-vf", subtitle_filter, "-an", "-t", "180", "-frames:v", 180 * FPS,
+         "-vf", picture_filter, "-an", "-t", "180", "-frames:v", 180 * FPS,
          "-r", FPS, "-vsync", "cfr", "-c:v", "libx264", "-preset", "medium", "-crf", "22",
          "-maxrate", "3200k", "-bufsize", "6400k", "-pix_fmt", "yuv420p",
          "-movflags", "+faststart", picture])
