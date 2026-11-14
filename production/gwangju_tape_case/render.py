@@ -13,36 +13,17 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
-# Targeted, frame-locked exposure repairs found during final visual triage. Each repair is
-# applied inside its normalized shot, where frame indices start at zero and cannot drift
-# with concat timestamps. Runtime, cut points, and audio sync stay fixed.
-FLASH_REPAIR_FRAME = 464             # S04, 19.333s: blend a one-frame exposure dip with its previous frame.
+# The old one-frame blend/lighten/gamma "repairs" were removed: against the stabilized
+# sources they themselves became visible brightness spikes (S18 +8 luma, S24 +4, S27 a
+# 0.8s gamma pulse). Global deflicker now handles exposure; only the S07 near-black tail
+# still needs a frame-locked hold so the shot never dips to black before its cut.
 S07_TAIL_HOLD_FRAME = 1003           # S07, 41.792s: last readable frame before the generated near-black tail.
 S07_TAIL_PAD_FRAMES = 4               # Hold that frame for the final 4 frames (0.167s) instead of the blackout.
-HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: lighten one-frame occlusions.
-FRAME_REPAIR_MODES = {
-    FLASH_REPAIR_FRAME: "average",
-    HOLD_REPAIR_FRAMES[0]: "lighten",
-    HOLD_REPAIR_FRAMES[1]: "lighten",
-}
-DARK_REPAIR_START = 159.25           # S27: raise only the brief unmotivated exposure dip.
-DARK_REPAIR_END = 160.0417
-DARK_REPAIR_GAMMA = 1.5
 
 
 def local_frame_index(global_frame: int, shot_start: float) -> int:
     """Map an absolute 24 fps frame number to its shot-local zero-based index."""
     return global_frame - round(shot_start * FPS)
-
-
-def repair_filter_suffix(shot_start: float, frame_count: int) -> str:
-    """Build frame repairs on normalized shot frames, before concat timestamps are added."""
-    filters = []
-    for global_frame, mode in FRAME_REPAIR_MODES.items():
-        local = local_frame_index(global_frame, shot_start)
-        if 0 <= local < frame_count:
-            filters.append(f"tblend=all_mode={mode}:enable='eq(n,{local})'")
-    return "," + ",".join(filters) if filters else ""
 
 
 def normalized_video_filter(shot_id: str, shot_start: float,
@@ -61,7 +42,7 @@ def normalized_video_filter(shot_id: str, shot_start: float,
     # deflicker uses a long window; hqdn3d removes temporal shimmer; the gentle eq softens
     # hard contrast without crushing detail. This is applied to all 30 shots, not only repairs.
     base = (
-        f"deflicker=size=45:mode=am,hqdn3d=3:2:9:9,"
+        f"deflicker=size=61:mode=am,hqdn3d=3:2:9:9,"
         f"scale=1920:1080:flags=lanczos,fps={FPS},"
         f"eq=contrast=0.97:brightness=0.018:saturation=0.94"
     )
@@ -79,7 +60,7 @@ def normalized_video_filter(shot_id: str, shot_start: float,
         if shot_id == "S30":
             # Closing shot: hold the falling drop, then fade into black under the end title.
             vf += f",fade=t=out:st={target_seconds - 0.8:.3f}:d=0.8"
-    return vf + repair_filter_suffix(shot_start, frame_count)
+    return vf
 
 
 def run(args: list[object], capture: bool = False) -> subprocess.CompletedProcess:
@@ -371,11 +352,7 @@ def main() -> int:
         raise RuntimeError(f"Audio mix is {audio_mix_seconds:.3f}s; the master must be 180.000s")
 
     subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
-    gamma_expr = (
-        f"1+{DARK_REPAIR_GAMMA - 1:.3f}*max(0,min(1,min("
-        f"(t-{DARK_REPAIR_START:.4f})/0.125,({DARK_REPAIR_END:.4f}-t)/0.125)))"
-    )
-    picture_filter = f"eq=gamma='{gamma_expr}':eval=frame,{subtitle_filter}"
+    picture_filter = subtitle_filter
     # Encode picture and narration/SFX mix separately and then stream-copy them together.
     # On the runner's older ffmpeg a single combined encode silently dropped the last ~2s of
     # audio (177.834s instead of 180.000s), which clipped the closing question.
@@ -418,7 +395,7 @@ def main() -> int:
     report = {"film": str(args.output), "duration_seconds": 180, "width": 1920, "height": 1080,
               "audio_mix_seconds": round(audio_mix_seconds, 3), "audio_stream_seconds": round(audio_seconds, 3),
               "fps": FPS, "frames": 180 * FPS,
-              "anti_flicker": "all shots: deflicker=size=45:mode=am,hqdn3d=3:2:9:9,eq=contrast=0.97:brightness=0.018:saturation=0.94; no strobe/flash transitions",
+              "anti_flicker": "all shots: deflicker=size=61:mode=am,hqdn3d=3:2:9:9,eq=contrast=0.97:brightness=0.018:saturation=0.94; no legacy frame gamma/blend spikes; no strobe/flash transitions",
               "audio": "shot-locked Mandarin narration plus scripted procedural SFX only; no BGM",
               "sfx_manifest": str((sfx_dir / "manifest.json").relative_to(ROOT)),
               "cover": str(cover), "cover_sha256": digest(cover),
