@@ -23,7 +23,6 @@
 - S07: black=[7.0], white=[], freeze≈[]
 - S14: black=[5.0], white=[], freeze≈[]
 - S21: black=[5.0], white=[], freeze≈[]
-- S22: black=[1.75], white=[], freeze≈[]
-- S30: black=[2.5, 5.5], white=[], freeze≈[]
+- S22: black=[5.0], white=[], freeze≈[]
 
 自动采样不能代替逐镜完整播放和人工畸变签核。
