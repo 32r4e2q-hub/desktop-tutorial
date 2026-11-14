@@ -78,12 +78,31 @@ def test_hooks_and_explainers_are_complete_and_safely_timed(story):
         assert next_exp["start"] >= hook["end"]
 
 
+def test_final_picture_repairs_are_narrow_and_frame_locked():
+    assert project_render.FLASH_REPAIR_FRAME == 464
+    assert project_render.HOLD_REPAIR_FRAMES == (2533, 3450)
+    assert project_render.DARK_REPAIR_START == pytest.approx(159.25)
+    assert project_render.DARK_REPAIR_END == pytest.approx(160.0417)
+    assert project_render.DARK_REPAIR_GAMMA == pytest.approx(1.5)
+
+
 def test_visual_retake_safeguards_and_legal_qualifier(story):
     shots = {shot["id"]: shot for shot in story["shots"]}
     s04 = shots["S04"]["purpose"]
     assert "绝无其他人" in s04
     assert "不出现年轻女性" in s04
     assert "餐桌椅始终空无一人" in s04
+
+    s08 = shots["S08"]["purpose"]
+    assert "绝不出现刀具" in s08
+    assert "血迹" in s08 and "房间深处始终不入镜" in s08
+    assert "水果" not in s08
+
+    s22 = shots["S22"]
+    assert s22["characters"] == []
+    assert "全程无人、无手" in s22["purpose"]
+    assert "平铺在桌面上" in s22["purpose"]
+    assert "胶带缠绕或束缚人体" in s22["purpose"]
 
     s26 = shots["S26"]["purpose"]
     assert "绝不出现纸张" in s26

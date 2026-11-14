@@ -13,9 +13,13 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
-# One isolated Agnes-generated near-black flash in S04 at 19.333s; blend only that
-# frame with its predecessor to remove the blink without changing runtime or sync.
-FLASH_REPAIR_FRAME = 464
+# Targeted, frame-locked exposure repairs found during final visual triage.  Each is
+# confined to the offending source frame/window; runtime, cut points, and audio sync stay fixed.
+FLASH_REPAIR_FRAME = 464             # S04, 19.333s: blend isolated near-black frame.
+HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: one-frame occlusion dips.
+DARK_REPAIR_START = 159.25           # S27: raise only the brief unmotivated exposure dip.
+DARK_REPAIR_END = 160.0417
+DARK_REPAIR_GAMMA = 1.5
 
 
 def run(args: list[object], capture: bool = False) -> subprocess.CompletedProcess:
@@ -314,7 +318,16 @@ def main() -> int:
         raise RuntimeError(f"Audio mix is {audio_mix_seconds:.3f}s; the master must be 180.000s")
 
     subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
-    picture_filter = f"{subtitle_filter},tblend=all_mode=average:enable='eq(n,{FLASH_REPAIR_FRAME})'"
+    gamma_expr = (
+        f"1+{DARK_REPAIR_GAMMA - 1:.3f}*max(0,min(1,min("
+        f"(t-{DARK_REPAIR_START:.4f})/0.125,({DARK_REPAIR_END:.4f}-t)/0.125)))"
+    )
+    hold_expr = "+".join(f"eq(n,{frame})" for frame in HOLD_REPAIR_FRAMES)
+    picture_filter = (
+        f"eq=gamma='{gamma_expr}':eval=frame,{subtitle_filter},"
+        f"tblend=all_mode=average:enable='eq(n,{FLASH_REPAIR_FRAME})',"
+        f"tblend=all_mode=lighten:enable='{hold_expr}'"
+    )
     # Encode picture and narration/SFX mix separately and then stream-copy them together.
     # On the runner's older ffmpeg a single combined encode silently dropped the last ~2s of
     # audio (177.834s instead of 180.000s), which clipped the closing question.
