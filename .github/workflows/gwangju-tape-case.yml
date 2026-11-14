@@ -81,8 +81,27 @@ jobs:
             test -n "$AGNES_API_KEY"
             python3 -u production/gwangju_tape_case/generate.py --retrieve-completed --payload "$payload" --publish
           elif [ "$mode" = "render" ]; then
-            python3 production/gwangju_tape_case/build_audio_manifest.py
-            python3 production/gwangju_tape_case/generate.py --render-only --publish
+            log_file="$RUNNER_TEMP/gwangju-render.log"
+            set +e
+            python3 production/gwangju_tape_case/build_audio_manifest.py 2>&1 | tee "$log_file"
+            status=${PIPESTATUS[0]}
+            if [ "$status" -eq 0 ]; then
+              python3 production/gwangju_tape_case/generate.py --render-only --publish 2>&1 | tee -a "$log_file"
+              status=${PIPESTATUS[0]}
+            fi
+            if [ "$status" -ne 0 ]; then
+              mkdir -p production/gwangju_tape_case/qa
+              cp "$log_file" production/gwangju_tape_case/qa/render-failure.log
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add -- production/gwangju_tape_case/qa/render-failure.log
+              if ! git diff --cached --quiet -- production/gwangju_tape_case/qa/render-failure.log; then
+                git commit -m "gwangju_tape_case: retain render failure diagnostics" -- production/gwangju_tape_case/qa/render-failure.log
+                git push origin arena/ebfe4b76-desktop-tutorial
+              fi
+              exit "$status"
+            fi
+            exit 0
           elif [ "$mode" = "qc" ]; then
             python3 production/gwangju_tape_case/generate.py --payload "$payload" --publish
           else
