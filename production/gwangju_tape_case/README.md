@@ -2,17 +2,15 @@
 
 本项目是单独案件目录，沿用仓库 `production/missing_groom_89tons/` 的 Agnes Video 2.5 Flash 生成、字幕、音画校验与断点续跑工具链；没有复用旧案件脚本、人物、参考图或输出。目标规格：抖音横屏 16:9、1920×1080、24fps、180 秒、30 个连续运动的写实 3D 动画镜头；不加入 BGM。
 
-## 当前真实状态（2026-11-14）
+## 当前真实状态（2026-11-14 UTC）
 
-- 内容计划：30 镜、180 秒、9 段解说单元已由 `build_story.py` 重建至 `story.json`、`screenplay.md`、`抖音脚本.md` 与发布文案（旁白共 663 字符）。
-- C 角色参考：C01–C09、C02B 共 10 张已逐张目视检查并作项目内通过记录，SHA-256 已登记在 `reference/approvals.json`。
-- S 场景参考：S01–S13 均已生成、目视通过并登记哈希。
-- P 道具参考：P01–P07 均已生成、目视通过并登记哈希；P07 首次生成因类条码标记被拒绝，修订提示重生成后通过。
-- C/S/P 共 30 张参考图全部通过项目内目视检查；审批与 SHA-256 见 `reference/approvals.json`。
-- `reference/revision.txt` 已固定到包含全部 C/S/P PNG 与审批清单的不可变提交 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`；后续视频请求只引用该提交中的素材。
-- 普通话男声 `voice-00` 已由用户试听选定；S01–S30 的逐镜 MP3 均已生成并留在 `audio/`；30 条时长检查与 manifest SHA-256 清单已通过，最大需加速 1.406x（上限 1.55x），全片人工听检仍待完成。旁白试听串接稿 `work/gwangju_tape_case/narration-review.mp3`（附 cue sheet）已备好。另在 `work/gwangju_tape_case/edit/sfx/` 生成 30 条确定性 SFX WAV，并校验 48 kHz 立体声、逐镜时长和哈希；SFX 试听稿为 `work/gwangju_tape_case/sfx-review.mp3`。这些可重建中间文件位于忽略的 `work/`，不是 Git 交付物。
-- 首个 Actions 运行 `43543178010` 在媒体工具安装步骤失败，生成步骤被跳过；runner 日志下载返回 EOF，具体失败行未能确认。已修复发现的同一步 PATH 缺陷（安装的 ffmpeg 原本只加入后续步骤 PATH）。重跑 `43544148329` 已通过媒体工具安装，并成功向 Agnes 提交 S01 金丝雀任务 `task_492kgSn9Ekm3e6f19IzJ32jlYhnPGmpo`；截至 2026-11-14 02:04:35 UTC，`results.json` 为 `generating_sources`，S01 状态 `queued`，其余 29 镜待金丝雀通过后继续。云端调用凭证可用；本地未暴露 `AGNES_API_KEY`，secrets 列表仍因权限返回 403。运行仍在进行，未把“queued”记作已生成视频。
-- 截至上述时间点，还没有下载完成的视频片段、字幕文件、封面或最终成片。项目未完工。
+- 内容计划：30 镜、180 秒、9 段解说单元，旁白共 663 字符；`build_story.py` 为唯一内容源。
+- C/S/P 共 30 张参考图均已逐张目视检查、登记 SHA-256；不可变资产 revision 为 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`。
+- Agnes run `43544148329` 于 05:06:22 UTC 成功结束；`results.json` 已确认 30/30 动态视频镜头完成，每镜都有任务 ID、SHA-256 和字节数，阶段为 `sources_ready_pending_render`。源 MP4 可由已验证的 Agnes 收据在 Actions runner 上恢复；大体积中间源片不提交进 Git。
+- 30 镜接触表初审发现 S04 违规出现女儿，S26 文件上有类似可读文字。已收紧两镜提示词：S04 限定画面仅有母亲；S26 改为无纸张、无印章、无文字的法槌与时钟象征场景。`GEN_REQUEST` 将 S04、S26 作为同一批次重生成，验收接触表通过后再渲染。
+- 普通话男声 `voice-00` 已由用户试听选定；`audio/` 中 S01–S30 的 MP3、逐镜文稿、时长和 SHA-256 manifest 均已核验，最大需加速 1.4063×（上限 1.55×）。人工旁白听检仍待完成；试听稿为 `work/gwangju_tape_case/narration-review.mp3`。
+- 30 条确定性 SFX WAV 已生成，48 kHz 立体声、时长与哈希校验通过；无 BGM。试听稿为 `work/gwangju_tape_case/sfx-review.mp3`，人工听检仍待完成。可重建试听与剪辑中间文件保存在被忽略的 `work/`。
+- 目前尚无完成的字幕文件、封面或 180 秒母版。两镜重生成并通过技术检查后，运行 render-only 流程生成母版、字幕和封面；成片仍需人工逐镜动态画面与全片听检，不把自动 QC 视为最终签收。
 
 ## 内容红线与核实口径
 
@@ -28,7 +26,7 @@
 2. 所有参考图通过后，把参考图与审批清单固定到 GitHub 上的不可变 commit，`reference/revision.txt` 写该 40 位 commit。随后运行 `build_story.py`、`generate.py --validate --clips-only`。
 3. 一次只为 30 镜排队 Agnes Video 2.5 Flash reference 片段；请求共享闸门每 12.1 秒至少一次（不超过 5 次/分钟），最多 2 个 worker。每条提示词由工具自动按 STYLE → 逐字角色锚点 → 单镜描述 → NEGATIVE 组成。
 4. 下载并逐镜检查运动、人物一致性、无伪文字和安全要求；失败镜头单独重生成。视频必须是真实连续运动，不能以静帧加推拉替代。
-5. 选择低沉克制的成熟普通话男声；逐镜合成旁白、同步字幕和脚本音效，不加 BGM；输出后运行 `qc.py`、`narration_fit.py` 与仓库通用 `production/verify_master.py`，再人工逐镜/全片视听复核。
+5. 使用已选的低沉克制普通话男声 `voice-00`；逐镜合成旁白、同步字幕和脚本音效，不加 BGM；输出后运行 `qc.py`、`narration_fit.py` 与仓库通用 `production/verify_master.py`，再人工逐镜/全片视听复核。
 
 ## 目录与工具
 
@@ -44,9 +42,9 @@
 | `build_sfx.py` | 按镜头脚本生成确定性的轻量拟音/环境声；无旋律、无 BGM，并生成时长和哈希清单。 |
 | `preflight.py` | 离线核对 30 镜时序、参考图审批/哈希、每镜 1–5 张引用与 revision；缺项即阻断，不调用 Agnes。 |
 | `qc.py` / `narration_fit.py` | 生成片段、时长、分辨率、音频和旁白适配校验；自动通过不等于人工签收。 |
-| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`，12.1 秒共享闸门；首次运行失败于媒体安装，修复 PATH 后的 run `43544148329` 已提交 S01 金丝雀并在等待。 |
-| `audio/voice.json` | 声线描述与 TTS 选择状态。 |
-| `results.json` | 任务状态与 provenance；当前 `generating_sources`，S01 queued，必须以此文件和 Actions run 作为实时状态。 |
+| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`；Agnes 全片素材 run `43544148329` 已成功；`GEN_REQUEST` 当前安排 S04、S26 同批重生成，之后须另行 dispatch `mode=render`。 |
+| `audio/voice.json` | 声线描述、已选 TTS 声线与逐镜生成状态。 |
+| `results.json` | 任务状态与 provenance；基础 30 镜全部 completed，当前正式状态仍为 `sources_ready_pending_render`，以最新文件和 Actions run 为准。 |
 
 ## 本地只读检查
 

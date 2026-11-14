@@ -78,6 +78,23 @@ def test_hooks_and_explainers_are_complete_and_safely_timed(story):
         assert next_exp["start"] >= hook["end"]
 
 
+def test_visual_retake_safeguards_and_legal_qualifier(story):
+    shots = {shot["id"]: shot for shot in story["shots"]}
+    s04 = shots["S04"]["purpose"]
+    assert "绝无其他人" in s04
+    assert "不出现年轻女性" in s04
+    assert "餐桌椅始终空无一人" in s04
+
+    s26 = shots["S26"]["purpose"]
+    assert "绝不出现纸张" in s26
+    assert "绝不出现" in s26 and "任何文字、字母、数字" in s26
+    assert "法槌" in shots["S26"]["sound_design"]
+    assert build_sfx.CUES["S26"][1][0][0] == "gavel"
+    assert "排除从犯" in next(
+        cue["text"] for cue in story["presentation"]["explainers"] if cue["start"] == 162.1
+    )
+
+
 def test_reference_ids_and_sfx_cover_all_thirty_shots(story):
     expected = set(story["reference_designs"]["characters"] +
                    story["reference_designs"]["scenes"] + story["reference_designs"]["props"])

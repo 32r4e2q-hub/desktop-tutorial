@@ -45,7 +45,7 @@ CUES = {
     "S23": ("cold_room", [("metal_door", 0.5), ("footsteps", 2.25)]),
     "S24": ("lab", [("lab_fan", 0.3), ("electronic_beep", 4.0)]),
     "S25": ("lab", [("lab_fan", 0.3), ("electronic_beep", 1.4), ("electronic_beep", 3.5)]),
-    "S26": ("room", [("stamp", 1.0), ("clock_stop", 3.0)]),
+    "S26": ("room", [("gavel", 1.0), ("clock_stop", 3.0)]),
     "S27": ("cold_room", [("lock_click", 1.9)]),
     "S28": ("outdoor", [("wind", 0.7), ("camera_relay", 3.7)]),
     "S29": ("room", [("wind", 1.0), ("clock_tick", 3.9)]),
@@ -164,8 +164,8 @@ def apply_event(out: np.ndarray, at: float, event: str,
     elif event in {"soft_click", "camera_relay", "lock_click", "keypad"}:
         add_click(out, at, rng, gain=0.024 if event == "soft_click" else 0.03,
                   f=650 if event != "keypad" else 1050)
-    elif event in {"door_latch", "metal_tap", "metal_door", "stamp", "bag_drop", "tape_set_down"}:
-        add_impact(out, at, rng, gain=0.048 if event not in {"stamp", "bag_drop"} else 0.062,
+    elif event in {"door_latch", "metal_tap", "metal_door", "stamp", "gavel", "bag_drop", "tape_set_down"}:
+        add_impact(out, at, rng, gain=0.048 if event not in {"stamp", "gavel", "bag_drop"} else 0.062,
                    metallic=event in {"metal_tap", "metal_door", "door_latch"})
         if event == "door_latch":
             add_click(out, at + 0.16, rng, gain=0.022, f=500)
