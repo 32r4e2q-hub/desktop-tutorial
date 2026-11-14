@@ -437,9 +437,9 @@
     "S16": {
       "id": "S16",
       "request_hash": "f57a58d80da1ba6c106fff4c3f8a27ea708df6fd85bad615f8b9ad5ece18ce12",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-14T03:25:34Z",
+      "updated_at": "2026-11-14T03:25:45Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国犯罪惊悚片的克制、冷静、压抑氛围；2004年韩国光州北区龙凤洞老式公寓住宅区，准确呈现当年普通公寓建筑、衣料、家具与电话材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；镜头1与3至6为清晨暖黄，镜头7至10傍晚转冷青，镜头11至18冷白与冷灰，镜头19至22冷蓝，镜头23至25实验室冷白，镜头26至28冷灰，镜头29黄昏暖金，镜头30黑场中仅一点黄色；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；黄色箱封胶带是贯穿全片的象征性视觉母题：只有证物镜头中作为真实物品出现，其余镜头仅以画面边缘的虚焦黄色反光或后期抽象细线转场短暂出现，不暗示它当时真实存在于日常场景；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。\n\n【C05锚点】23岁韩国男大学生,短发,连帽卫衣牛仔裤,神情紧张坦然\n\n【C04锚点】40多岁韩国刑警,深色夹克衬衫,眼神锐利疲惫,下巴胡茬\n\n大学社团办公室里，年轻男子安静坐在桌边接受询问，几名社团成员在旁点头作证，墙上挂钟持续走动；镜头保持克制，不将任何人拍成罪犯。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：过肩缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，捆绑，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
@@ -455,7 +455,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5395eb5cc0574eb75622acb9e51da43e5f24b9e0/production/gwangju_tape_case/reference/S06.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026111403254526922426700FAIkAQ) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 30.0
     },
     "S17": {
       "id": "S17",
@@ -608,7 +611,15 @@
     "poll_interval_seconds": 45.0,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-11-14T03:25:34Z",
+  "updated_at": "2026-11-14T03:25:45Z",
   "run_id": "43544148329",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026111403254526922426700FAIkAQ) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 30.0,
+    "last_seen": "2026-11-14T03:25:45Z"
+  }
 }
