@@ -61,9 +61,9 @@ def normalized_video_filter(shot_id: str, shot_start: float,
     # deflicker uses a long window; hqdn3d removes temporal shimmer; the gentle eq softens
     # hard contrast without crushing detail. This is applied to all 30 shots, not only repairs.
     base = (
-        f"deflicker=size=21:mode=am,hqdn3d=2:1.5:8:8,"
+        f"deflicker=size=45:mode=am,hqdn3d=3:2:9:9,"
         f"scale=1920:1080:flags=lanczos,fps={FPS},"
-        f"eq=contrast=0.985:brightness=0.012:saturation=0.96"
+        f"eq=contrast=0.97:brightness=0.018:saturation=0.94"
     )
     if shot_id == "S07":
         hold_local = local_frame_index(S07_TAIL_HOLD_FRAME, shot_start)
@@ -418,6 +418,7 @@ def main() -> int:
     report = {"film": str(args.output), "duration_seconds": 180, "width": 1920, "height": 1080,
               "audio_mix_seconds": round(audio_mix_seconds, 3), "audio_stream_seconds": round(audio_seconds, 3),
               "fps": FPS, "frames": 180 * FPS,
+              "anti_flicker": "all shots: deflicker=size=45:mode=am,hqdn3d=3:2:9:9,eq=contrast=0.97:brightness=0.018:saturation=0.94; no strobe/flash transitions",
               "audio": "shot-locked Mandarin narration plus scripted procedural SFX only; no BGM",
               "sfx_manifest": str((sfx_dir / "manifest.json").relative_to(ROOT)),
               "cover": str(cover), "cover_sha256": digest(cover),
