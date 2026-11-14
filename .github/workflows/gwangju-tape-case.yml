@@ -1,0 +1,104 @@
+name: 光州胶带案 · Agnes Video 2.5 Flash
+run-name: 光州胶带案 · 30镜视频制作
+
+on:
+  push:
+    branches: [arena/ebfe4b76-desktop-tutorial]
+    paths:
+      - production/gwangju_tape_case/GEN_REQUEST
+      - production/gwangju_tape_case/CANCEL_REQUEST
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON payload, e.g. {"mode":"clips","workers":2}
+        type: string
+        default: '{"mode":"clips","workers":2}'
+
+permissions:
+  contents: write
+  actions: read
+
+# Never cancel an in-flight generation batch merely because another request was pushed.
+concurrency:
+  group: gwangju-tape-case-agnes-arena-ebfe4b76
+  cancel-in-progress: false
+
+jobs:
+  produce:
+    if: github.ref == 'refs/heads/arena/ebfe4b76-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 300
+    steps:
+      - name: Checkout the fixed Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/ebfe4b76-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install media tools and subtitle font
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media-tools" --no-save --ignore-scripts --no-audit --no-fund \
+            @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media-tools/bin" "$HOME/.local/share/fonts"
+          chmod +x "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" \
+            "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media-tools/bin/ffmpeg"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media-tools/bin/ffprobe"
+          echo "$RUNNER_TEMP/media-tools/bin" >> "$GITHUB_PATH"
+          GH_TOKEN="${{ github.token }}" gh api -H 'Accept: application/vnd.github.raw' \
+            'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' \
+            > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
+          ffmpeg -hide_banner -filters 2>&1 | grep -q subtitles
+          ffprobe -version | head -1
+          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check numpy pillow av
+
+      - name: Validate and run the requested mode
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ] && [ -f production/gwangju_tape_case/GEN_REQUEST ]; then
+            payload="$(cat production/gwangju_tape_case/GEN_REQUEST)"
+          fi
+          if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
+          mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", "clips"))' <<< "$payload")"
+
+          if [ "$mode" != "status" ] && [ "$mode" != "retrieve" ] && [ -f production/gwangju_tape_case/CANCEL_REQUEST ]; then
+            echo 'Cancellation requested; no Agnes creation requests will be made.'
+            exit 0
+          fi
+
+          if [ "$mode" = "status" ]; then
+            test -n "$AGNES_API_KEY"
+            python3 -u production/gwangju_tape_case/generate.py --check-outstanding --publish
+          elif [ "$mode" = "retrieve" ]; then
+            test -n "$AGNES_API_KEY"
+            python3 -u production/gwangju_tape_case/generate.py --retrieve-completed --payload "$payload" --publish
+          elif [ "$mode" = "render" ]; then
+            python3 production/gwangju_tape_case/build_audio_manifest.py
+            python3 production/gwangju_tape_case/generate.py --render-only --publish
+          elif [ "$mode" = "qc" ]; then
+            python3 production/gwangju_tape_case/generate.py --payload "$payload" --publish
+          else
+            test -n "$AGNES_API_KEY"
+            python3 production/gwangju_tape_case/generate.py --validate --clips-only
+            python3 -u production/gwangju_tape_case/generate.py --clips-only --payload "$payload" --publish
+          fi
+
+      - name: Upload footage, provenance and QA reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gwangju-tape-case-${{ github.run_number }}
+          path: |
+            work/gwangju_tape_case/
+            交付/
+            production/gwangju_tape_case/results.json
+            production/gwangju_tape_case/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7

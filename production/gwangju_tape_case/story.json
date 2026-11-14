@@ -1,0 +1,1462 @@
+{
+  "title": "光州胶带案：22米胶带，封住了谁的真相？",
+  "film_name": "光州胶带案_22米胶带_三分钟_带声音.mp4",
+  "target_duration": 180,
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "model": "agnes-video-2.5-flash",
+  "source_size": "720P",
+  "branch": "arena/ebfe4b76-desktop-tutorial",
+  "style_prefix": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国犯罪惊悚片的克制、冷静、压抑氛围；2004年韩国光州北区龙凤洞老式公寓住宅区，准确呈现当年普通公寓建筑、衣料、家具与电话材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；镜头1与3至6为清晨暖黄，镜头7至10傍晚转冷青，镜头11至18冷白与冷灰，镜头19至22冷蓝，镜头23至25实验室冷白，镜头26至28冷灰，镜头29黄昏暖金，镜头30黑场中仅一点黄色；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；黄色箱封胶带是贯穿全片的象征性视觉母题：只有证物镜头中作为真实物品出现，其余镜头仅以画面边缘的虚焦黄色反光或后期抽象细线转场短暂出现，不暗示它当时真实存在于日常场景；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。",
+  "negative_prompt": "【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，捆绑，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+  "style_rumor_prefix": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国犯罪惊悚片的克制、冷静、压抑氛围；2004年韩国光州北区龙凤洞老式公寓住宅区，准确呈现当年普通公寓建筑、衣料、家具与电话材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；镜头1与3至6为清晨暖黄，镜头7至10傍晚转冷青，镜头11至18冷白与冷灰，镜头19至22冷蓝，镜头23至25实验室冷白，镜头26至28冷灰，镜头29黄昏暖金，镜头30黑场中仅一点黄色；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；黄色箱封胶带是贯穿全片的象征性视觉母题：只有证物镜头中作为真实物品出现，其余镜头仅以画面边缘的虚焦黄色反光或后期抽象细线转场短暂出现，不暗示它当时真实存在于日常场景；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。",
+  "characters": {
+    "SANA": "【C01锚点】22岁韩国女大学生,黑色马尾,清秀明亮,浅色针织衫牛仔裤,双肩包与便当盒,笑容干净",
+    "MOTHER": "【C02锚点】50岁出头韩国女性,烫发,运动外套长裤,网球拍包,神情温和爽朗",
+    "MOTHER_OLD": "【C02B锚点】与C02同一人,六十多岁,头发全白,神情憔悴平静,素色上衣",
+    "FATHER": "【C03锚点】50多岁韩国男子,短发,西装领带,公文包,神情沉稳",
+    "DETECTIVE": "【C04锚点】40多岁韩国刑警,深色夹克衬衫,眼神锐利疲惫,下巴胡茬",
+    "EX": "【C05锚点】23岁韩国男大学生,短发,连帽卫衣牛仔裤,神情紧张坦然",
+    "FAMILIAR": "【C06锚点】50多岁韩国男子,深色夹克休闲裤,神情亲切坦然",
+    "EXPERT": "【C07锚点】40岁韩国男性专家,戴眼镜,衬衫西裤,神情冷静专注",
+    "TEAM_2024": "【C08锚点】30岁韩国年轻刑警便装夹克神情坚定;DNA研究员白大褂口罩神情专注",
+    "SHADOW": "【C09锚点】中等身材男性黑影,深色外套,面部隐在阴影中,只见手部轮廓"
+  },
+  "character_seeds": {
+    "SANA": 220914,
+    "MOTHER": 520914,
+    "MOTHER_OLD": 520914,
+    "FATHER": 500914,
+    "DETECTIVE": 400914,
+    "EX": 230914,
+    "FAMILIAR": 500915,
+    "EXPERT": 400924,
+    "TEAM_2024": 300924,
+    "SHADOW": 900914
+  },
+  "narration_spec": {
+    "voice_id": "voice-00",
+    "description": "悬疑低沉、克制的成熟普通话男声",
+    "language": "zh-CN",
+    "target_characters_per_second": 3.7,
+    "alignment": "一镜一句，一镜一条TTS与一条字幕；只在确有必要时加速，不慢放"
+  },
+  "chapters": [
+    {
+      "id": "N01",
+      "title": "黄金钩子",
+      "start": 0,
+      "duration": 10,
+      "text": "二十二米胶带，留下了谁也解不开的疑问？2024年节目公开时，这起案件仍未告破。"
+    },
+    {
+      "id": "N02",
+      "title": "那天早晨",
+      "start": 10,
+      "duration": 25,
+      "text": "2004年9月14日，光州北区，父亲七点四十出门。八点五十五分，母亲留下便当，轻轻关门离开。母亲离开后，善雅起床，准备去学校上课。案发公寓当时没有监控，也没有可确认凶手的痕迹。"
+    },
+    {
+      "id": "N03",
+      "title": "母亲回家",
+      "start": 35,
+      "duration": 25,
+      "text": "晚上八点左右，母亲结束聚会，朝公寓走回家。晚上八点左右，母亲回家，玄关却一片凌乱。她沿着走廊走向小房间，脚步忽然停住。她想拨112报警，却慌乱中按成119。"
+    },
+    {
+      "id": "N04",
+      "title": "22米与42段",
+      "start": 60,
+      "duration": 25,
+      "text": "警方赶到公寓，楼道里只有警灯在墙上闪动。调查人员守在门口，镜头不进入房间。那卷黄色胶带长约二十二米，围巾也来自家中。四十二段胶带证物，被分别封存保存。"
+    },
+    {
+      "id": "N05",
+      "title": "熟人线索",
+      "start": 85,
+      "duration": 23,
+      "text": "警方调阅五百余人的通话记录，重点排查熟人。前男友案发时在大学社团，证人证明他不在场。熟悉门锁的另一位重点对象，也有不在场证明。警方查三十名性犯罪前科者、比对五十五名类似胶带前科者，仍无结果。"
+    },
+    {
+      "id": "N06",
+      "title": "警方也许想错了",
+      "start": 108,
+      "duration": 22,
+      "text": "警方曾把调查重点放在熟人，推测凶手知道她独自在家。胶带和围巾都是家中物品，专家提出临时取用的可能。陌生人入室后临时取物，也只是专家提出的一种推测。“胶带案”的名字，会不会让调查方向变窄？"
+    },
+    {
+      "id": "N07",
+      "title": "旧证物的新线索",
+      "start": 130,
+      "duration": 20,
+      "text": "2016年，警方重新检验封存多年的证物。胶带与围巾上，检出极微量男性Y染色体信息。2024年公开时，父系分析指向两个姓氏，仍未找到匹配者。"
+    },
+    {
+      "id": "N08",
+      "title": "追诉时效",
+      "start": 150,
+      "duration": 18,
+      "text": "2015年修法：适用死刑的杀人罪不再受追诉时效限制。新法适用于当时尚未过期的旧案，这起案件仍可追诉。公开报道说，公寓后来才装上监控，证物仍被保存。"
+    },
+    {
+      "id": "N09",
+      "title": "母亲与结尾提问",
+      "start": 168,
+      "duration": 12,
+      "text": "母亲曾说，那一天，她仿佛也跟女儿一起死去。截至2024年节目播出时仍未匹配。你觉得凶手是熟人，还是陌生人？"
+    }
+  ],
+  "shots": [
+    {
+      "id": "S01",
+      "kind": "agnes",
+      "start": 0,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N01",
+      "narration": "二十二米胶带，留下了谁也解不开的疑问？",
+      "prompt": "2004年光州普通公寓玄关，双肩包与便当盒安静地放在地砖边，门缝透出一线暖黄光；一条象征性的黄色细线掠过画面边缘（后期视觉母题，不是现场物品），空气微尘在光束里漂浮，镜头贴地从楼道连续滑近门口，现场无人、无伤害画面。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：贴地缓慢滑近门缝；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "2004年光州普通公寓玄关，双肩包与便当盒安静地放在地砖边，门缝透出一线暖黄光；一条象征性的黄色细线掠过画面边缘（后期视觉母题，不是现场物品），空气微尘在光束里漂浮，镜头贴地从楼道连续滑近门口，现场无人、无伤害画面。",
+      "characters": [],
+      "seed": 20040915,
+      "camera": "贴地缓慢滑近门缝",
+      "sound_design": "清晨鸟鸣、远处汽车声、一声轻微低频嗡鸣",
+      "color_grade": "暖黄晨光",
+      "reference_ids": "S01+S02+P04",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S02",
+      "kind": "agnes",
+      "start": 5,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N01",
+      "narration": "2024年节目公开时，这起案件仍未告破。",
+      "prompt": "黑色空间里，一卷黄色箱封胶带持续缓慢旋转，胶带长条被真实拉出并延伸向远处，末端消失在深暗中；一道人形黑影只在远处掠过一瞬，面部完全不可见。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：缓慢拉远，沿黄色胶带线移动；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "黑色空间里，一卷黄色箱封胶带持续缓慢旋转，胶带长条被真实拉出并延伸向远处，末端消失在深暗中；一道人形黑影只在远处掠过一瞬，面部完全不可见。",
+      "characters": [
+        "SHADOW"
+      ],
+      "seed": 20040916,
+      "camera": "缓慢拉远，沿黄色胶带线移动",
+      "sound_design": "胶带被拉出的轻微嘶声，尾音沉入寂静",
+      "color_grade": "黑场与黄色强调",
+      "reference_ids": "P01",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S03",
+      "kind": "agnes",
+      "start": 10,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N02",
+      "narration": "2004年9月14日，光州北区，父亲七点四十出门。",
+      "prompt": "普通韩国公寓客厅的晨光中，父亲提起公文包走向玄关，母亲仍在厨房准备便当，卧室门半掩，女儿还在睡觉；水壶轻冒热气，窗帘被风吹动，气氛温暖平常。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：中景缓慢横移跟随父亲至门口；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "普通韩国公寓客厅的晨光中，父亲提起公文包走向玄关，母亲仍在厨房准备便当，卧室门半掩，女儿还在睡觉；水壶轻冒热气，窗帘被风吹动，气氛温暖平常。",
+      "characters": [
+        "FATHER",
+        "MOTHER"
+      ],
+      "seed": 20040917,
+      "camera": "中景缓慢横移跟随父亲至门口",
+      "sound_design": "锅铲轻响、晨间电台声、门锁声",
+      "color_grade": "暖黄晨光",
+      "reference_ids": "S02",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S04",
+      "kind": "agnes",
+      "start": 17,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N02",
+      "narration": "八点五十五分，母亲留下便当，轻轻关门离开。",
+      "prompt": "母亲把便当放在餐桌上，肩背网球拍包，确认女儿仍在休息后独自出门；房间门保持半掩，女儿不出现、不与母亲道别，走廊声控灯亮起后缓缓熄灭。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：中景轻推至门锁后缓慢拉远；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "母亲把便当放在餐桌上，肩背网球拍包，确认女儿仍在休息后独自出门；房间门保持半掩，女儿不出现、不与母亲道别，走廊声控灯亮起后缓缓熄灭。",
+      "characters": [
+        "MOTHER"
+      ],
+      "seed": 20040918,
+      "camera": "中景轻推至门锁后缓慢拉远",
+      "sound_design": "门锁声、脚步声渐远",
+      "color_grade": "暖黄晨光",
+      "reference_ids": "S02",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S05",
+      "kind": "agnes",
+      "start": 24,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N02",
+      "narration": "母亲离开后，善雅起床，准备去学校上课。",
+      "prompt": "善雅从卧室醒来，扎起马尾，穿上外套，拿起双肩包与餐桌上的便当，动作平常自然；镜头从窗边暖光缓慢移向玄关，黄色胶带只以非现场的边缘反光母题一闪而过。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：镜中近景转为缓慢跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "善雅从卧室醒来，扎起马尾，穿上外套，拿起双肩包与餐桌上的便当，动作平常自然；镜头从窗边暖光缓慢移向玄关，黄色胶带只以非现场的边缘反光母题一闪而过。",
+      "characters": [
+        "SANA"
+      ],
+      "seed": 20040919,
+      "camera": "镜中近景转为缓慢跟拍",
+      "sound_design": "窗外鸟鸣、衣料摩擦、拉链声",
+      "color_grade": "暖黄晨光",
+      "reference_ids": "S02+P04",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S06",
+      "kind": "agnes",
+      "start": 30,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N02",
+      "narration": "案发公寓当时没有监控，也没有可确认凶手的痕迹。",
+      "prompt": "老式公寓楼梯间与公共走廊的普通墙角，没有摄像头、没有支架、没有安装痕迹；风从楼道穿过，树影轻轻晃动，镜头连续缓慢横移扫过空荡的墙面。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：缓慢横移扫过空墙与楼道；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "老式公寓楼梯间与公共走廊的普通墙角，没有摄像头、没有支架、没有安装痕迹；风从楼道穿过，树影轻轻晃动，镜头连续缓慢横移扫过空荡的墙面。",
+      "characters": [],
+      "seed": 20040920,
+      "camera": "缓慢横移扫过空墙与楼道",
+      "sound_design": "风穿过楼道、远处关门声",
+      "color_grade": "冷青晨光",
+      "reference_ids": "S03",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S07",
+      "kind": "agnes",
+      "start": 35,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N03",
+      "narration": "晚上八点左右，母亲结束聚会，朝公寓走回家。",
+      "prompt": "夜色将临，母亲提着网球拍包和购物袋走回同一栋公寓，街灯与楼影拉长；她抬头看向自家窗户，步伐从轻快逐渐放慢，门厅的光色由暖转冷。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：中景缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "夜色将临，母亲提着网球拍包和购物袋走回同一栋公寓，街灯与楼影拉长；她抬头看向自家窗户，步伐从轻快逐渐放慢，门厅的光色由暖转冷。",
+      "characters": [
+        "MOTHER"
+      ],
+      "seed": 20040921,
+      "camera": "中景缓慢推近",
+      "sound_design": "脚步声、远处孩子玩耍、晚风",
+      "color_grade": "傍晚暖转冷青",
+      "reference_ids": "S01",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S08",
+      "kind": "agnes",
+      "start": 42,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N03",
+      "narration": "晚上八点左右，母亲回家，玄关却一片凌乱。",
+      "prompt": "母亲推门停住，玄关地砖上双肩包和便当盒翻倒，拉链半开，几样普通随身物品散落；她手里的购物袋滑落，水果滚到脚边，画面不出现血迹或房间内部。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：中景连续推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "母亲推门停住，玄关地砖上双肩包和便当盒翻倒，拉链半开，几样普通随身物品散落；她手里的购物袋滑落，水果滚到脚边，画面不出现血迹或房间内部。",
+      "characters": [
+        "MOTHER"
+      ],
+      "seed": 20040922,
+      "camera": "中景连续推近",
+      "sound_design": "袋子落地、水果滚动、随后一拍寂静",
+      "color_grade": "傍晚冷青",
+      "reference_ids": "S02+P04",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S09",
+      "kind": "agnes",
+      "start": 49,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N03",
+      "narration": "她沿着走廊走向小房间，脚步忽然停住。",
+      "prompt": "走廊里母亲扶墙缓缓向关闭的小房间门口靠近，画面只见她的背影、门框与一道长长的门缝光；她的肩膀突然僵住，房间内部始终不可见。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：背后跟拍缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "走廊里母亲扶墙缓缓向关闭的小房间门口靠近，画面只见她的背影、门框与一道长长的门缝光；她的肩膀突然僵住，房间内部始终不可见。",
+      "characters": [
+        "MOTHER"
+      ],
+      "seed": 20040923,
+      "camera": "背后跟拍缓慢推近",
+      "sound_design": "轻脚步、压抑呼吸、远处钟声",
+      "color_grade": "冷青",
+      "reference_ids": "S04",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S10",
+      "kind": "agnes",
+      "start": 55,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N03",
+      "narration": "她想拨112报警，却慌乱中按成119。",
+      "prompt": "小房间门外，母亲剪影捂住嘴，另一只手颤抖着拿起按键座机听筒；她按下按键，听筒传来接线声，她怔住后垂下手，镜头只拍手与电话，不出现可读数字。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：电话与手部大特写；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "小房间门外，母亲剪影捂住嘴，另一只手颤抖着拿起按键座机听筒；她按下按键，听筒传来接线声，她怔住后垂下手，镜头只拍手与电话，不出现可读数字。",
+      "characters": [
+        "MOTHER"
+      ],
+      "seed": 20040924,
+      "camera": "电话与手部大特写",
+      "sound_design": "按键声、接线音、听筒轻碰桌面",
+      "color_grade": "冷青渐暗",
+      "reference_ids": "S04+P05",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S11",
+      "kind": "agnes",
+      "start": 60,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N04",
+      "narration": "警方赶到公寓，楼道里只有警灯在墙上闪动。",
+      "prompt": "夜色中，几名刑警快步走进老公寓楼道，红蓝警灯在水泥墙面来回扫过，邻居只以模糊背影站在门边，刑警的脚步声在楼梯间连续回响。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：低机位跟拍上楼；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "夜色中，几名刑警快步走进老公寓楼道，红蓝警灯在水泥墙面来回扫过，邻居只以模糊背影站在门边，刑警的脚步声在楼梯间连续回响。",
+      "characters": [
+        "DETECTIVE"
+      ],
+      "seed": 20040925,
+      "camera": "低机位跟拍上楼",
+      "sound_design": "远处警笛、楼梯脚步回响",
+      "color_grade": "冷白与警灯反射",
+      "reference_ids": "S01",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S12",
+      "kind": "agnes",
+      "start": 67,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N04",
+      "narration": "调查人员守在门口，镜头不进入房间。",
+      "prompt": "关闭的小房间门外，一名戴手套的刑警低头查看玄关与门槛，另一名同事递来空白记录板；地面边缘放着一卷黄色箱封胶带，门缝光清晰，房内绝不露出。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：中景缓慢推近门槛；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "关闭的小房间门外，一名戴手套的刑警低头查看玄关与门槛，另一名同事递来空白记录板；地面边缘放着一卷黄色箱封胶带，门缝光清晰，房内绝不露出。",
+      "characters": [
+        "DETECTIVE"
+      ],
+      "seed": 20040926,
+      "camera": "中景缓慢推近门槛",
+      "sound_design": "对讲机低声、纸张摩擦、远处脚步",
+      "color_grade": "冷白冷灰",
+      "reference_ids": "S04+P01",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S13",
+      "kind": "agnes",
+      "start": 74,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N04",
+      "narration": "那卷黄色胶带长约二十二米，围巾也来自家中。",
+      "prompt": "冷白证物台上，一卷黄色胶带和折叠整齐的深色围巾分开摆放；戴手套的技术人员用镊子轻轻提起一小段胶带，反光随手部移动，不展示任何现场伤害。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：微距缓慢推近证物台；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "冷白证物台上，一卷黄色胶带和折叠整齐的深色围巾分开摆放；戴手套的技术人员用镊子轻轻提起一小段胶带，反光随手部移动，不展示任何现场伤害。",
+      "characters": [],
+      "seed": 20040927,
+      "camera": "微距缓慢推近证物台",
+      "sound_design": "镊子轻碰、证物袋沙沙声",
+      "color_grade": "冷白",
+      "reference_ids": "S09+P01+P03",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S14",
+      "kind": "agnes",
+      "start": 80,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N04",
+      "narration": "四十二段胶带证物，被分别封存保存。",
+      "prompt": "冷白桌面上，透明证物袋被技术人员逐个摆开，每袋内只有一小段黄色胶带；镜头俯拍连续掠过一排排封存袋，最后停在最后一只袋子封口上，画面无标签文字。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：俯拍横移，末端短暂停留；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "冷白桌面上，透明证物袋被技术人员逐个摆开，每袋内只有一小段黄色胶带；镜头俯拍连续掠过一排排封存袋，最后停在最后一只袋子封口上，画面无标签文字。",
+      "characters": [],
+      "seed": 20040928,
+      "camera": "俯拍横移，末端短暂停留",
+      "sound_design": "塑料袋封口声逐渐加快，最后一声轻落",
+      "color_grade": "冷白",
+      "reference_ids": "P02",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S15",
+      "kind": "agnes",
+      "start": 85,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N05",
+      "narration": "警方调阅五百余人的通话记录，重点排查熟人。",
+      "prompt": "2004年警察署办公室，刑警在光州城区地图前翻阅厚厚通话记录，桌上纸张不断传递，墙上只有抽象路线、没有真实姓名或可读内容，人物神情专注而疲惫。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：俯拍缓慢推近地图与卷宗；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "2004年警察署办公室，刑警在光州城区地图前翻阅厚厚通话记录，桌上纸张不断传递，墙上只有抽象路线、没有真实姓名或可读内容，人物神情专注而疲惫。",
+      "characters": [
+        "DETECTIVE"
+      ],
+      "seed": 20040929,
+      "camera": "俯拍缓慢推近地图与卷宗",
+      "sound_design": "纸张翻动、电话铃声交错",
+      "color_grade": "冷灰",
+      "reference_ids": "S05",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S16",
+      "kind": "agnes",
+      "start": 91,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N05",
+      "narration": "前男友案发时在大学社团，证人证明他不在场。",
+      "prompt": "大学社团办公室里，年轻男子安静坐在桌边接受询问，几名社团成员在旁点头作证，墙上挂钟持续走动；镜头保持克制，不将任何人拍成罪犯。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：过肩缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "大学社团办公室里，年轻男子安静坐在桌边接受询问，几名社团成员在旁点头作证，墙上挂钟持续走动；镜头保持克制，不将任何人拍成罪犯。",
+      "characters": [
+        "EX",
+        "DETECTIVE"
+      ],
+      "seed": 20040930,
+      "camera": "过肩缓慢推近",
+      "sound_design": "挂钟滴答、低声交谈",
+      "color_grade": "冷白冷灰",
+      "reference_ids": "S06",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S17",
+      "kind": "agnes",
+      "start": 97,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N05",
+      "narration": "熟悉门锁的另一位重点对象，也有不在场证明。",
+      "prompt": "一位五十多岁男子平静站在公寓数字门锁旁，手指示意自己熟悉日常门锁操作，绿灯亮起后他收回手；神情亲切坦然，画面没有阴森或定罪暗示。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：低机位缓慢推近门锁与侧影；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "一位五十多岁男子平静站在公寓数字门锁旁，手指示意自己熟悉日常门锁操作，绿灯亮起后他收回手；神情亲切坦然，画面没有阴森或定罪暗示。",
+      "characters": [
+        "FAMILIAR"
+      ],
+      "seed": 20040931,
+      "camera": "低机位缓慢推近门锁与侧影",
+      "sound_design": "轻微按键声、绿灯提示音",
+      "color_grade": "冷青",
+      "reference_ids": "S07+P06",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S18",
+      "kind": "agnes",
+      "start": 102,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N05",
+      "narration": "警方查三十名性犯罪前科者、比对五十五名类似胶带前科者，仍无结果。",
+      "prompt": "冷灰档案室里，刑警沿一排排档案柜抽出、翻阅并归还卷宗，空白文件夹接连合上；红色抽象标记只作为后期图形叠加，画面本身不出现可读文字。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：横向滑轨穿过档案柜；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "冷灰档案室里，刑警沿一排排档案柜抽出、翻阅并归还卷宗，空白文件夹接连合上；红色抽象标记只作为后期图形叠加，画面本身不出现可读文字。",
+      "characters": [],
+      "seed": 20040932,
+      "camera": "横向滑轨穿过档案柜",
+      "sound_design": "卷宗翻动、文件柜滑轨声",
+      "color_grade": "冷灰",
+      "reference_ids": "S08",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S19",
+      "kind": "agnes",
+      "start": 108,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N06",
+      "narration": "警方曾把调查重点放在熟人，推测凶手知道她独自在家。",
+      "prompt": "冷蓝色画面被分成两种抽象调查方向：一侧是熟人关系线，另一侧是陌生访客路径；两组虚化线条缓缓靠近又分开，中间黄色胶带线轻微摆动，无文字标签。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：分屏缓慢推近并轻微错位；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "冷蓝色画面被分成两种抽象调查方向：一侧是熟人关系线，另一侧是陌生访客路径；两组虚化线条缓缓靠近又分开，中间黄色胶带线轻微摆动，无文字标签。",
+      "characters": [],
+      "seed": 20040933,
+      "camera": "分屏缓慢推近并轻微错位",
+      "sound_design": "低频电流嗡鸣、缓慢滴答",
+      "color_grade": "冷蓝",
+      "reference_ids": "P01",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S20",
+      "kind": "agnes",
+      "start": 114,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N06",
+      "narration": "胶带和围巾都是家中物品，专家提出临时取用的可能。",
+      "prompt": "四十岁左右的专家站在白板前，将胶带卷与折叠围巾放在证物盘边比对；他转头向同事解释，白板保持空白，动作冷静克制，不给出确定结论。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：中景缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "四十岁左右的专家站在白板前，将胶带卷与折叠围巾放在证物盘边比对；他转头向同事解释，白板保持空白，动作冷静克制，不给出确定结论。",
+      "characters": [
+        "EXPERT"
+      ],
+      "seed": 20040934,
+      "camera": "中景缓慢推近",
+      "sound_design": "白板笔轻触、胶带放下的声音",
+      "color_grade": "冷蓝",
+      "reference_ids": "P01+P03",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S21",
+      "kind": "agnes",
+      "start": 120,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N06",
+      "narration": "陌生人入室后临时取物，也只是专家提出的一种推测。",
+      "prompt": "回到案发公寓的虚构情景重现：一道人形黑影停在玄关，目光扫过鞋柜、书包和客厅，手在桌边短暂停留又收回，脸始终藏在阴影中，不出现任何伤害动作。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：低机位缓慢跟随影子；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "回到案发公寓的虚构情景重现：一道人形黑影停在玄关，目光扫过鞋柜、书包和客厅，手在桌边短暂停留又收回，脸始终藏在阴影中，不出现任何伤害动作。",
+      "characters": [
+        "SHADOW"
+      ],
+      "seed": 20040935,
+      "camera": "低机位缓慢跟随影子",
+      "sound_design": "极轻脚步声、室内风声",
+      "color_grade": "冷蓝",
+      "reference_ids": "S02",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S22",
+      "kind": "agnes",
+      "start": 125,
+      "duration": 5,
+      "seconds": 5,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N06",
+      "narration": "“胶带案”的名字，会不会让调查方向变窄？",
+      "prompt": "黑影的手只以特写出现，黄色胶带卷在掌心缓慢转动，一圈、两圈，长条反光逐渐成为画面唯一亮色；黑暗逐层加深，但手、胶带和光线仍持续自然运动。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：大特写缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "黑影的手只以特写出现，黄色胶带卷在掌心缓慢转动，一圈、两圈，长条反光逐渐成为画面唯一亮色；黑暗逐层加深，但手、胶带和光线仍持续自然运动。",
+      "characters": [
+        "SHADOW"
+      ],
+      "seed": 20040936,
+      "camera": "大特写缓慢推近",
+      "sound_design": "胶带转动的嘶声被黑暗吞没",
+      "color_grade": "冷蓝转黑",
+      "reference_ids": "P01",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S23",
+      "kind": "agnes",
+      "start": 130,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N07",
+      "narration": "2016年，警方重新检验封存多年的证物。",
+      "prompt": "2024年的证据保管室，年轻刑警打开沉重铁门，研究员在旁照亮最深处的透明证物箱；架上标签全部模糊不可读，箱内只见封存的围巾与胶带片。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：长走廊缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "2024年的证据保管室，年轻刑警打开沉重铁门，研究员在旁照亮最深处的透明证物箱；架上标签全部模糊不可读，箱内只见封存的围巾与胶带片。",
+      "characters": [
+        "TEAM_2024"
+      ],
+      "seed": 20040937,
+      "camera": "长走廊缓慢推近",
+      "sound_design": "铁门开启、脚步回响",
+      "color_grade": "实验室冷白",
+      "reference_ids": "S09",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S24",
+      "kind": "agnes",
+      "start": 137,
+      "duration": 7,
+      "seconds": 7,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N07",
+      "narration": "胶带与围巾上，检出极微量男性Y染色体信息。",
+      "prompt": "DNA实验室内，研究员戴手套将极小样本放进仪器，冷白屏幕上的抽象曲线逐渐抬升；研究员交换一个克制的眼神，屏幕不出现任何字母、数字或姓名。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：近景推近仪器屏幕；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "DNA实验室内，研究员戴手套将极小样本放进仪器，冷白屏幕上的抽象曲线逐渐抬升；研究员交换一个克制的眼神，屏幕不出现任何字母、数字或姓名。",
+      "characters": [
+        "TEAM_2024"
+      ],
+      "seed": 20040938,
+      "camera": "近景推近仪器屏幕",
+      "sound_design": "设备运行声、一声提示音",
+      "color_grade": "实验室冷白",
+      "reference_ids": "S10",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S25",
+      "kind": "agnes",
+      "start": 144,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N07",
+      "narration": "2024年公开时，父系分析指向两个姓氏，仍未找到匹配者。",
+      "prompt": "黑暗背景上，一段抽象DNA曲线向两条细细的父系线索分支，终点是两个没有文字的圆形标记；圆点轻轻闪动后停在空白，没有指向任何个人。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：俯拍缓慢推近分支终点；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "黑暗背景上，一段抽象DNA曲线向两条细细的父系线索分支，终点是两个没有文字的圆形标记；圆点轻轻闪动后停在空白，没有指向任何个人。",
+      "characters": [],
+      "seed": 20040939,
+      "camera": "俯拍缓慢推近分支终点",
+      "sound_design": "低频脉冲、轻微电子提示音",
+      "color_grade": "实验室冷白",
+      "reference_ids": "P07",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S26",
+      "kind": "agnes",
+      "start": 150,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N08",
+      "narration": "2015年修法：适用死刑的杀人罪不再受追诉时效限制。",
+      "prompt": "2015年风格的韩国立法会议场，法案纸张被郑重盖章，钟表指针停下；画面里的法案没有可读字样，法律年份与关键词全部留给后期字幕。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：印章特写后轻微拉远；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "2015年风格的韩国立法会议场，法案纸张被郑重盖章，钟表指针停下；画面里的法案没有可读字样，法律年份与关键词全部留给后期字幕。",
+      "characters": [],
+      "seed": 20040940,
+      "camera": "印章特写后轻微拉远",
+      "sound_design": "印章落下的闷响、钟摆停止",
+      "color_grade": "冷灰",
+      "reference_ids": "S11",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S27",
+      "kind": "agnes",
+      "start": 156,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N08",
+      "narration": "新法适用于当时尚未过期的旧案，这起案件仍可追诉。",
+      "prompt": "证据保管室里，透明封存箱被稳稳放回货架，锁扣合上，值班灯在箱面留下一点冷白反光；一名研究员从画面边缘走过，灯光不熄。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：缓慢拉远；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "证据保管室里，透明封存箱被稳稳放回货架，锁扣合上，值班灯在箱面留下一点冷白反光；一名研究员从画面边缘走过，灯光不熄。",
+      "characters": [],
+      "seed": 20040941,
+      "camera": "缓慢拉远",
+      "sound_design": "锁扣咔哒、远处空调低鸣",
+      "color_grade": "冷灰",
+      "reference_ids": "S09+P02",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S28",
+      "kind": "agnes",
+      "start": 162,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N08",
+      "narration": "公开报道说，公寓后来才装上监控，证物仍被保存。",
+      "prompt": "黄昏中的同类型公寓外墙，楼道口新装监控摄像头的红色状态灯规律闪烁，镜头贴近镜头玻璃，里面映出空荡楼道与远去的街灯。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：缓慢推近摄像头；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "黄昏中的同类型公寓外墙，楼道口新装监控摄像头的红色状态灯规律闪烁，镜头贴近镜头玻璃，里面映出空荡楼道与远去的街灯。",
+      "characters": [],
+      "seed": 20040942,
+      "camera": "缓慢推近摄像头",
+      "sound_design": "设备轻鸣、晚风",
+      "color_grade": "冷灰转黄昏",
+      "reference_ids": "S13",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S29",
+      "kind": "agnes",
+      "start": 168,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N09",
+      "narration": "母亲曾说，那一天，她仿佛也跟女儿一起死去。",
+      "prompt": "六十多岁的母亲独自坐在客厅沙发上，手里捧着一张完全模糊的家庭照片，茶几上是一杯凉掉的茶；她抬头望向窗外黄昏，神情平静而疲惫，不作哭喊。 本镜头以画面边缘一闪而过的虚焦黄色反光或后期抽象细线延续胶带母题，不把胶带画成当时真实存在的现场道具；真实连续运动贯穿全镜，镜头运镜：中景缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "六十多岁的母亲独自坐在客厅沙发上，手里捧着一张完全模糊的家庭照片，茶几上是一杯凉掉的茶；她抬头望向窗外黄昏，神情平静而疲惫，不作哭喊。",
+      "characters": [
+        "MOTHER_OLD"
+      ],
+      "seed": 20040943,
+      "camera": "中景缓慢推近",
+      "sound_design": "晚风、挂钟滴答",
+      "color_grade": "黄昏暖金",
+      "reference_ids": "S12",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    },
+    {
+      "id": "S30",
+      "kind": "agnes",
+      "start": 174,
+      "duration": 6,
+      "seconds": 6,
+      "aspect": "16:9",
+      "source_size": "720P",
+      "narration_id": "N09",
+      "narration": "截至2024年节目播出时仍未匹配。你觉得凶手是熟人，还是陌生人？",
+      "prompt": "画面渐暗，一卷黄色箱封胶带在黑场中缓慢旋转，边缘只留一点金黄色反光；纯黑背景留出干净空间，所有标题与字幕都由后期叠加，镜头最后一秒渐入静音。 本镜头允许真实黄色箱封胶带作为证物或明确的抽象象征出现，但绝不接触人体、不展示施害方式；真实连续运动贯穿全镜，镜头运镜：缓慢推近后黑场淡入；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。",
+      "purpose": "画面渐暗，一卷黄色箱封胶带在黑场中缓慢旋转，边缘只留一点金黄色反光；纯黑背景留出干净空间，所有标题与字幕都由后期叠加，镜头最后一秒渐入静音。",
+      "characters": [],
+      "seed": 20040944,
+      "camera": "缓慢推近后黑场淡入",
+      "sound_design": "胶带轻微嘶声，最后一秒完全静音",
+      "color_grade": "黑场与一点黄色",
+      "reference_ids": "P01+S01",
+      "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
+      "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
+    }
+  ],
+  "reference_images": [
+    {
+      "id": "C01",
+      "file": "reference/C01.png",
+      "status": "approved",
+      "sha256": "e14e94b3807749b65e5cb316314ce9d99d960b093a35bbd9db90466ff3f28c33",
+      "type": "character",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "SANA: young adult female student character sheet; AI-generated, no real-person likeness."
+    },
+    {
+      "id": "C02",
+      "file": "reference/C02.png",
+      "status": "approved",
+      "sha256": "16e914c72267ac6fa88c1e1f167d8ebd7503c57201bbbc8038830db5e18471ee",
+      "type": "character",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "MOTHER: middle-aged woman with tennis bag; AI-generated."
+    },
+    {
+      "id": "C02B",
+      "file": "reference/C02B.png",
+      "status": "approved",
+      "sha256": "19c2d59ecd30641c6454f85f763641d525f313c7a9a074999c2e9ba9cdc8be23",
+      "type": "character",
+      "dimensions": [
+        843,
+        1264
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "MOTHER_OLD: older white-haired version of the mother; AI-generated."
+    },
+    {
+      "id": "C03",
+      "file": "reference/C03.png",
+      "status": "approved",
+      "sha256": "ef3279357bf154b9593b62f0738066bc3b330737babc87cb14c4abcd79dff8d0",
+      "type": "character",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "FATHER: middle-aged man in suit; AI-generated."
+    },
+    {
+      "id": "C04",
+      "file": "reference/C04.png",
+      "status": "approved",
+      "sha256": "4f8ddfd931fa7432d6ebce5a0a09467e32aa4d6d5105e894a6563b755ab553dc",
+      "type": "character",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "DETECTIVE: middle-aged male investigator; AI-generated."
+    },
+    {
+      "id": "C05",
+      "file": "reference/C05.png",
+      "status": "approved",
+      "sha256": "44d73dc11eb350d3a518e1be1c1c52066bbe0f1a3496aaf56a625b76c6e3c11c",
+      "type": "character",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "EX: young male former-boyfriend role; neutral, not an accusation."
+    },
+    {
+      "id": "C06",
+      "file": "reference/C06.png",
+      "status": "approved",
+      "sha256": "d9b29a310f58f35628b6e125f5f67548017c37a7452ac1a1c13334ec45301c26",
+      "type": "character",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "FAMILIAR: middle-aged male acquaintance role; neutral, not an accusation."
+    },
+    {
+      "id": "C07",
+      "file": "reference/C07.png",
+      "status": "approved",
+      "sha256": "03bb2a78a7f3698bcaac31a002448e55da4c95db6b86eab70f624e4e1b97c374",
+      "type": "character",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "EXPERT: male expert role; the image also contains a tape prop."
+    },
+    {
+      "id": "C08",
+      "file": "reference/C08.png",
+      "status": "approved",
+      "sha256": "51aa2ce5e7d2f3b0345fa727346fc2a1cb2d4f525c31df208c03d586f4d5412e",
+      "type": "character",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "TEAM_2024: male investigator and female lab researcher together."
+    },
+    {
+      "id": "C09",
+      "file": "reference/C09.png",
+      "status": "approved",
+      "sha256": "9f50a23fbdabfde547e7fe5f595737bddf014f1c17d75b3942df8eb793628287",
+      "type": "character",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "SHADOW: anonymous male silhouette, face concealed."
+    },
+    {
+      "id": "S01",
+      "file": "reference/S01.png",
+      "status": "approved",
+      "sha256": "1fe8187ee3aaecaf512414b84f97b14452cef071f17ba1114323676e88cab267",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "2004-era modest Gwangju apartment exterior at dusk; no people or readable signage."
+    },
+    {
+      "id": "S02",
+      "file": "reference/S02.png",
+      "status": "approved",
+      "sha256": "b2e25745df17e49a03418a7302484bf3a22f5db931486459156efbd8c7a41114",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Quiet period-appropriate family interior with backpack and lunchbox; no readable text or harmful content."
+    },
+    {
+      "id": "S03",
+      "file": "reference/S03.png",
+      "status": "approved",
+      "sha256": "8b0ad0328c3aab52015175def14bb89823a5743ead112973af6902582768f75e",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Empty apartment stairwell/corridor without CCTV hardware or readable text."
+    },
+    {
+      "id": "S04",
+      "file": "reference/S04.png",
+      "status": "approved",
+      "sha256": "09194edb43e463ae327ffbb00f743d21ccc5219bb5b9d24d698d7918bb7af8fe",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Empty 2004-era apartment corridor and closed bedroom door with a thin light line beneath; no room interior or harmful scene."
+    },
+    {
+      "id": "S05",
+      "file": "reference/S05.png",
+      "status": "approved",
+      "sha256": "5f05c7a01d9102a513e02765d6416faafc5f07bac57a25517c4dc52666e2ce0c",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Period-appropriate 2004 investigation office with CRTs, files and landline; no people, identifiable badges or readable text."
+    },
+    {
+      "id": "S06",
+      "file": "reference/S06.png",
+      "status": "approved",
+      "sha256": "5ff5b48bb018cc992fe3e815eb425222549353c645f59c5d2e0182585bfd751f",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Empty circa-2004 university club room with tables, CRT computer and clock; no people or readable papers."
+    },
+    {
+      "id": "S07",
+      "file": "reference/S07.png",
+      "status": "approved",
+      "sha256": "a890475d32a044450bb3f41c18259c56f75b734b3eec96d3acdd40e821fdd1d6",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Early-2000s apartment digital keypad mounted on a door; buttons are blank/unreadable, no hands or text."
+    },
+    {
+      "id": "S08",
+      "file": "reference/S08.png",
+      "status": "approved",
+      "sha256": "7b6c307bec69c38f3485a0295f143d94b905ffb37e058e34478e118ccbeee606",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Quiet archival records room with blank binders and open file; no people or legible labels."
+    },
+    {
+      "id": "S09",
+      "file": "reference/S09.png",
+      "status": "approved",
+      "sha256": "e1eff3d47505ece126520947f5cca2cdff54858a5cbf0e8eb73a671f625e1080",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Secure evidence-storage room with tape and scarf in separate sealed clear containers; no people or legible labels."
+    },
+    {
+      "id": "S10",
+      "file": "reference/S10.png",
+      "status": "approved",
+      "sha256": "86255b9dd61acd93725fe888b9143370e7c818303b634ddee971838a05cd53fb",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Modern forensic DNA lab with abstract genetic graphic on monitor; no readable text, people or bodily material."
+    },
+    {
+      "id": "S11",
+      "file": "reference/S11.png",
+      "status": "approved",
+      "sha256": "737c0b9b31836f8e0c4876546dd2cd9f6e558cf7bde97f30d550ec1d93a67cd8",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Empty Korean legislative chamber with document and stamp; no elected officials or readable text."
+    },
+    {
+      "id": "S12",
+      "file": "reference/S12.png",
+      "status": "approved",
+      "sha256": "7265a66b85418b8586bab9664fb4d3690df30c84cabb4de4902b9f53d27349b8",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Quiet mid-2020s apartment living room at dusk; family photograph is fully blurred, no people or legible text."
+    },
+    {
+      "id": "S13",
+      "file": "reference/S13.png",
+      "status": "approved",
+      "sha256": "7c66c490644e50944a4df32758e996fe2824a20ec4a8ffa33902000ea1c2f540",
+      "type": "scene",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Mid-2020s apartment entrance with a visible installed CCTV camera; no people, readable signs, or crime-scene content."
+    },
+    {
+      "id": "P01",
+      "file": "reference/P01.png",
+      "status": "approved",
+      "sha256": "436b243d440c73f8bd2bc7598cfca9880d92e928a69c6ecbbc21ac21f6af3948",
+      "type": "prop",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Single plain yellow packing-tape roll and short unwound strip; no people, labels, or injury."
+    },
+    {
+      "id": "P02",
+      "file": "reference/P02.png",
+      "status": "approved",
+      "sha256": "47d0d24195a07fca8d8639bdac6c064371df29c47cf9767b72fd687483d70dc2",
+      "type": "prop",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Array of clear evidence bags with small yellow fragments and blank labels; no harmful content."
+    },
+    {
+      "id": "P03",
+      "file": "reference/P03.png",
+      "status": "approved",
+      "sha256": "0f80422efe8888a6d58daadb1804a6f515dd31ca7d9ef04fdea1086e8a35bf1d",
+      "type": "prop",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Folded dark scarf sealed in a clear unmarked evidence sleeve."
+    },
+    {
+      "id": "P04",
+      "file": "reference/P04.png",
+      "status": "approved",
+      "sha256": "cf5dcf230d42945323057068160ccbeaa22e6496d04bf9d3b022b8f45d3e4fd4",
+      "type": "prop",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Dark student backpack and plain lunchbox in a modest entryway; no people or text."
+    },
+    {
+      "id": "P05",
+      "file": "reference/P05.png",
+      "status": "approved",
+      "sha256": "017675902b7cd48636da6372f1d7c56b7f6712a983903e63352e4a327279e88d",
+      "type": "prop",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Early-2000s beige landline; no legible button labels or other text."
+    },
+    {
+      "id": "P06",
+      "file": "reference/P06.png",
+      "status": "approved",
+      "sha256": "4c62ce7f72866b311c23c67de2f9cadb4d94bd44f04d9a227598662833dcfea4",
+      "type": "prop",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Early-2000s door keypad with green indicator; digits are blurred/unreadable, no people."
+    },
+    {
+      "id": "P07",
+      "file": "reference/P07.png",
+      "status": "approved",
+      "sha256": "1b21b248dec1e3009cc7d8f558a10747a351a2ee667fee8b29eaf526b21105f9",
+      "type": "prop",
+      "visual_review": "passed_by_agent",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "review_note": "Unmarked clear sample tube with no barcode; monitor shows a simple abstract Y-shaped branching tree; no readable text or harmful content."
+    }
+  ],
+  "reference_revision": "PENDING — replace with the 40-character immutable commit containing all approved C/S/P PNGs before Agnes requests.",
+  "reference_designs": {
+    "characters": [
+      "C01",
+      "C02",
+      "C02B",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09"
+    ],
+    "scenes": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13"
+    ],
+    "props": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07"
+    ],
+    "note": "30张逐张审核的PNG：10张角色参考、13张16:9环境概念、7张道具特写；Agnes调用使用不可变raw链接。"
+  },
+  "presentation": {
+    "onscreen_label": "AI动画情景重现 · 非真实影像",
+    "highlight_phrases": [
+      "22米胶带",
+      "22岁",
+      "2004年9月14日",
+      "七点四十",
+      "八点五十五分",
+      "八点二十分",
+      "善雅",
+      "112",
+      "119",
+      "没有监控",
+      "42段",
+      "前男友",
+      "重点对象",
+      "不在场证明",
+      "五百余人",
+      "三十名",
+      "五十五名",
+      "临时取用",
+      "专家推测",
+      "陌生人",
+      "2016年",
+      "男性Y染色体信息",
+      "两个姓氏",
+      "2024年",
+      "2015年",
+      "追诉时效",
+      "母亲还在等",
+      "熟人",
+      "陌生人"
+    ],
+    "hooks": [
+      {
+        "id": "H1",
+        "start": 0.0,
+        "end": 2.0,
+        "text": "22米胶带，留下未解疑问",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H2",
+        "start": 8.0,
+        "end": 10.0,
+        "text": "二十年后，旧证物带来新问题",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H3",
+        "start": 30.0,
+        "end": 32.0,
+        "text": "案发公寓，当时没有监控",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H4",
+        "start": 55.0,
+        "end": 57.0,
+        "text": "母亲想拨112，却误拨119",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H5",
+        "start": 80.0,
+        "end": 82.0,
+        "text": "22米胶带，留下42段证物",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H6",
+        "start": 103.0,
+        "end": 105.0,
+        "text": "两名重点熟人，都有不在场证明",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H7",
+        "start": 125.0,
+        "end": 127.0,
+        "text": "警方最初的方向，可能错了吗？",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H8",
+        "start": 144.0,
+        "end": 146.0,
+        "text": "旧证物检出男性Y染色体信息",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "H9",
+        "start": 160.0,
+        "end": 162.0,
+        "text": "这起旧案，仍可依法追诉",
+        "style": "big_white_black_outline"
+      },
+      {
+        "id": "CTA",
+        "start": 168.0,
+        "end": 170.0,
+        "text": "熟人，还是陌生人？",
+        "style": "big_white_black_outline"
+      }
+    ],
+    "explainers": [
+      {
+        "start": 2.1,
+        "end": 4.8,
+        "text": "案发于2004年9月14日 · 胶带约22米",
+        "color": "gold"
+      },
+      {
+        "start": 10.1,
+        "end": 14.8,
+        "text": "2016年旧证物复检发现线索 · 2024年公开",
+        "color": "gold"
+      },
+      {
+        "start": 32.1,
+        "end": 34.8,
+        "text": "无监控 · 无可识别凶手的指纹或足迹",
+        "color": "gold"
+      },
+      {
+        "start": 57.1,
+        "end": 59.8,
+        "text": "母亲慌乱中把112误拨成119",
+        "color": "gold"
+      },
+      {
+        "start": 82.1,
+        "end": 84.8,
+        "text": "42段胶带证物仍保存",
+        "color": "gold"
+      },
+      {
+        "start": 105.1,
+        "end": 107.8,
+        "text": "公开报道中的两名重点对象有不在场证明",
+        "color": "gold"
+      },
+      {
+        "start": 127.1,
+        "end": 129.8,
+        "text": "“临时取用”是专家推测，并非定论",
+        "color": "gold"
+      },
+      {
+        "start": 146.1,
+        "end": 149.8,
+        "text": "2016年复检检出 · 2024年节目公开 · 当时未匹配",
+        "color": "gold"
+      },
+      {
+        "start": 162.1,
+        "end": 167.8,
+        "text": "仅限适用死刑的杀人罪，且旧案当时尚未届满",
+        "color": "gold"
+      }
+    ],
+    "end_title": "光州胶带案",
+    "end_subtitle": "韩国光州 · 2004 · 2024年公开新线索",
+    "title_start": 174.6,
+    "title_end": 179.5,
+    "cover_text": "22米胶带",
+    "cover_concept": "封面只用本片已生成视频截图：玄关的书包与便当盒、画面中央的象征性黄色胶带母题；后期加大字“22米胶带”及金色黑边，禁止用参考图或另造图冒充本期视频帧。",
+    "publish_title": "22米胶带与42段证物：光州悬案的旧证物，带来什么新线索？",
+    "hashtags": [
+      "#真实事件",
+      "#光州胶带案",
+      "#韩国",
+      "#悬案",
+      "#未解之谜",
+      "#电影感"
+    ],
+    "caption_policy": {
+      "regular": "白字黑边，底部居中安全区，逐镜与旁白逐句同步；关键词金色高亮并放大",
+      "hook": "白字黑边，大号字幕，居中偏下，每条停留2秒，不挡主体",
+      "explainer": "金色小字，置于字幕安全区上方，只补充可核实事实",
+      "end_title": "只在镜头30由后期添加标题文字，AI源片禁止自绘文字"
+    }
+  },
+  "sfx_only": true,
+  "fact_check": {
+    "status": "cross_checked_against_SBS_broadcast_two_credible_news_reports_and_official_law_search_results",
+    "as_of": "2026-11-14; this production pass found no reliable later public case update than the 2024 SBS reports; that is not proof that no later update exists",
+    "legal_note": "2004年适用的刑事诉讼法对可判死刑犯罪规定15年公诉时效；2007年延长期限对该日前犯罪仍适用旧规定。2015年《刑事诉讼法》第253条之2取消适用死刑的杀人罪（排除从犯）的公诉时效，并依过渡条款适用于当时尚未届满的旧案。该案于2004-09-14发生，到2015-07-31修法施行时尚不足15年；法律表述只限于相应罪名和未届满案件，不等同所有杀人罪无条件适用。",
+    "sources": [
+      {
+        "publisher": "SBS (official program page, episode 1409)",
+        "date": "2024-08-24",
+        "url": "https://programs.sbs.co.kr/culture/unansweredquestions/vod/55075/22000541391",
+        "supports": "2004年9月14日、22岁大学生、母亲晚间回家、玄关书包与便当、无CCTV、无可识别凶手的指纹/足迹、42段胶带与案件仍未破"
+      },
+      {
+        "publisher": "Kyunghyang Shinmun",
+        "date": "2016-05-10",
+        "url": "https://www.khan.co.kr/article/201605101404001",
+        "supports": "父亲约7:40出门、母亲约8:55离家并于晚间约8点回家、误拨119、两名重点熟人有不在场证明、500余人通话记录、30名性犯罪前科者及55名相似胶带手法前科者调查"
+      },
+      {
+        "publisher": "Hankyoreh",
+        "date": "2018-06-28",
+        "url": "https://www.hani.co.kr/arti/specialsection/esc_section/850935.html",
+        "supports": "无可识别的指纹/足迹、家中胶带与围巾、无CCTV、案发后安装CCTV、调查与目击信息"
+      },
+      {
+        "publisher": "SBS News / SBS Entertainment News",
+        "date": "2024-08-25",
+        "url": "https://news.sbs.co.kr/news/endPage.do?news_id=N1007774346",
+        "supports": "2016年旧证物复检发现微量男性Y染色体信息；节目报道父系分析指向两个姓氏范围，播出时没有找到匹配者"
+      },
+      {
+        "publisher": "National Law Information Center (official 2015 amendment)",
+        "date": "2015-07-31",
+        "url": "https://www.law.go.kr/LSW/lsRvsDocListP.do?lsId=001671&chrClsCd=010102",
+        "supports": "《刑事诉讼法》第253条之2：适用死刑的杀人罪（排除从犯）不适用公诉时效；过渡条款将其适用于施行前尚未届满的案件。网站于本轮访问时显示维护页，条文由官方搜索结果核对"
+      },
+      {
+        "publisher": "National Law Information Center (official law effective 2004-07-22)",
+        "date": "2004-07-22",
+        "url": "https://www.law.go.kr/LSW/lsLinkProc.do?lsNm=%ED%98%95%EC%82%AC%EC%86%8C%EC%86%A1%EB%B2%95&efYd=20040722&lsId=prec20040722&lsClsCd=L&joNo=024900&mode=11&lnkJoNo=undefined",
+        "supports": "第249条：可判死刑犯罪的公诉时效为15年"
+      },
+      {
+        "publisher": "Supreme Court of Korea (2007 amendment transitional rule, official case bulletin)",
+        "date": "2022-08-19",
+        "url": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&seqnum=8725&gubun=4&type=0",
+        "supports": "2007年延长公诉时效的修法对修法前犯罪适用旧规定；本案2015年修法前仍未满当时15年期限"
+      }
+    ],
+    "editorial_cautions": [
+      "受害者只称善雅（化名）；所有嫌疑人和相关者只用角色称谓，不出现真实姓名或可识别肖像。",
+      "两名公开报道中的重点对象均有不在场证明；这不等于公开资料证明警方逐一排除了所有熟人。",
+      "男性Y染色体痕迹于2016年旧证物复检时发现，2024年节目公开报道；父系姓氏范围只是线索，不是身份确认；“播出时未匹配”不能写成2026年实时结论。",
+      "追诉时效口径严格限定为适用死刑的杀人罪、排除从犯及修法时尚未届满的旧案；不声称所有杀人罪无条件适用。",
+      "母亲回家时间在不同报道中约为晚上8点至8点20分，旁白只说“晚上八点左右”。",
+      "不展示遗体、血迹、绑缚、窒息过程或性相关细节；以玄关物件、胶带、证物袋、门缝光和空房间暗示。"
+    ]
+  },
+  "production_rules": [
+    "全片1920x1080、16:9、24fps、180秒，30段连续运动视频；源片720P，后期高质量放大到1080P。",
+    "所有Agnes提示词由generate.py自动组合：STYLE在最前，角色锚点逐字插入，NEGATIVE在末尾；仅镜头30允许后期标题，不让模型画字。",
+    "镜头每5条抽查一次人物脸和服装漂移；出现漂移则以同一批准参考图只重生成对应镜头。",
+    "全片无BGM；旁白与字幕逐句锁定，音效/环境声只做轻量辅助，不盖住解说。",
+    "转场按脚本章节使用晨光闪烁、切黑、警灯反射、黄色胶带拉伸和0.3秒黑场淡入。"
+  ]
+}

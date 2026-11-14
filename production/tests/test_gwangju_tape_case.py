@@ -1,0 +1,171 @@
+import json
+import re
+import struct
+import sys
+import wave
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[2]
+PROJECT_DIR = ROOT / "production" / "gwangju_tape_case"
+sys.path.insert(0, str(PROJECT_DIR))
+
+import build_sfx  # noqa: E402
+from generate import full_prompt  # noqa: E402
+from render import write_ass, write_cover_ass  # noqa: E402
+
+
+@pytest.fixture(scope="module")
+def story():
+    return json.loads((PROJECT_DIR / "story.json").read_text(encoding="utf-8"))
+
+
+def test_exact_30_shots_180_seconds_and_six_second_average(story):
+    shots = story["shots"]
+    assert len(shots) == 30
+    cursor = 0
+    for shot in shots:
+        assert shot["start"] == cursor
+        assert 5 <= shot["duration"] <= 7
+        assert shot["seconds"] == shot["duration"]
+        assert shot["aspect"] == "16:9"
+        cursor += shot["duration"]
+    assert cursor == 180
+    assert cursor / len(shots) <= 6
+
+
+def test_every_character_role_has_an_exact_anchor(story):
+    assert set(story["characters"]) == {
+        "SANA", "MOTHER", "MOTHER_OLD", "FATHER", "DETECTIVE",
+        "EX", "FAMILIAR", "EXPERT", "TEAM_2024", "SHADOW",
+    }
+    for shot in story["shots"]:
+        for role in shot["characters"]:
+            assert story["characters"][role].startswith("【C")
+            assert story["characters"][role] in story["characters"].values()
+
+
+def test_hooks_and_explainers_are_complete_and_safely_timed(story):
+    hooks = story["presentation"]["hooks"]
+    hook_ids = {hook["id"] for hook in hooks}
+    assert {f"H{i}" for i in range(1, 10)} <= hook_ids
+    assert "CTA" in hook_ids
+    for hook in hooks:
+        assert hook["end"] - hook["start"] == pytest.approx(2.0)
+    explainers = story["presentation"]["explainers"]
+    assert len(explainers) == 9
+    for hook in hooks:
+        if hook["id"] == "CTA":
+            continue
+        next_exp = min(explainers, key=lambda item: abs(item["start"] - hook["end"]))
+        assert next_exp["start"] >= hook["end"]
+
+
+def test_reference_ids_and_sfx_cover_all_thirty_shots(story):
+    expected = set(story["reference_designs"]["characters"] +
+                   story["reference_designs"]["scenes"] + story["reference_designs"]["props"])
+    role_to_asset = {
+        "SANA": "C01", "MOTHER": "C02", "MOTHER_OLD": "C02B", "FATHER": "C03",
+        "DETECTIVE": "C04", "EX": "C05", "FAMILIAR": "C06", "EXPERT": "C07",
+        "TEAM_2024": "C08", "SHADOW": "C09",
+    }
+    for shot in story["shots"]:
+        refs = [role_to_asset[role] for role in shot["characters"]]
+        refs.extend(part.strip() for part in shot["reference_ids"].split("+") if part.strip())
+        assert refs
+        assert set(refs) <= expected
+        assert len(set(refs)) <= 5
+    assert set(build_sfx.CUES) == {shot["id"] for shot in story["shots"]}
+
+
+def test_approved_reference_records_match_file_hashes_and_aspect(story):
+    approvals = json.loads((PROJECT_DIR / "reference" / "approvals.json").read_text(encoding="utf-8"))
+    for aid, row in approvals["assets"].items():
+        if row.get("status") != "approved":
+            continue
+        path = PROJECT_DIR / row["file"]
+        raw = path.read_bytes()
+        assert raw[:8] == b"\x89PNG\r\n\x1a\n"
+        width, height = struct.unpack(">II", raw[16:24])
+        assert row["dimensions"] == [width, height]
+        assert build_sfx.digest(path) == row["sha256"]
+        if row.get("type") in {"scene", "prop"}:
+            assert width / height == pytest.approx(16 / 9, abs=0.015)
+
+
+def test_sfx_generation_has_exact_timing_hashes_and_non_silent_pcm(story, tmp_path):
+    output = tmp_path / "sfx"
+    manifest = build_sfx.build(output)
+    assert len(manifest["clips"]) == 30
+    assert "no BGM" in manifest["policy"]
+    shots = {shot["id"]: shot for shot in story["shots"]}
+    for row in manifest["clips"]:
+        path = output / row["file"]
+        assert build_sfx.digest(path) == row["sha256"]
+        assert row["script_note"] == shots[row["id"]]["sound_design"]
+        with wave.open(str(path), "rb") as audio:
+            assert audio.getnchannels() == 2
+            assert audio.getframerate() == 48_000
+            assert audio.getnframes() == round(row["seconds"] * 48_000)
+            assert any(audio.readframes(audio.getnframes()))
+
+
+def test_full_narration_manifest_is_shot_locked_and_hash_verified(story):
+    manifest = json.loads((PROJECT_DIR / "audio" / "manifest.json").read_text(encoding="utf-8"))
+    rows = {row["id"]: row for row in manifest["clips"]}
+    assert len(rows) == 30
+    assert manifest["voice"] == story["narration_spec"]["voice_id"]
+    assert manifest["alignment"] == "one-clip-one-shot-one-caption"
+    assert manifest["slowdown_allowed"] is False
+    for shot in story["shots"]:
+        row = rows[shot["id"]]
+        audio = PROJECT_DIR / "audio" / row["file"]
+        assert row["text"] == shot["narration"]
+        assert row["voice_id"] == manifest["voice"]
+        assert row["target_start"] == shot["start"]
+        assert row["target_duration"] == shot["duration"]
+        assert build_sfx.digest(audio) == row["sha256"]
+
+
+def test_prompt_prefix_and_negative_policy(story):
+    assert story["style_prefix"].startswith("【STYLE】")
+    assert story["negative_prompt"].startswith("【NEGATIVE】")
+    assert story["source_size"] == "720P"
+    assert story["model"] == "agnes-video-2.5-flash"
+    assert story["sfx_only"] is True
+    for shot in story["shots"]:
+        prompt = full_prompt(story, shot)
+        assert prompt.startswith(story["style_prefix"])
+        assert prompt.endswith(story["negative_prompt"])
+        for role in shot["characters"]:
+            assert story["characters"][role] in prompt
+
+
+def test_ass_output_includes_big_hooks_and_gold_explainers(story, tmp_path):
+    path = tmp_path / "captions.ass"
+    presentation = story["presentation"]
+    write_ass(path, [], presentation["highlight_phrases"],
+              (presentation["end_title"], presentation["end_subtitle"],
+               presentation["title_start"], presentation["title_end"]),
+              presentation["onscreen_label"], presentation["hooks"], presentation["explainers"])
+    ass = path.read_text(encoding="utf-8")
+    plain_ass = re.sub(r"\{[^}]*\}", "", ass).replace(r"\N", "")
+    assert "Style: Hook," in ass
+    assert "Style: Explainer," in ass
+    assert r"{\q2\fad" in ass
+    assert r"\\q2" not in ass
+    assert r"\\N" not in ass
+    for hook in presentation["hooks"]:
+        assert hook["text"] in plain_ass
+    for explainer in presentation["explainers"]:
+        assert explainer["text"] in plain_ass
+    assert "AI动画情景重现 · 非真实影像" in ass
+    assert "\\c&H0000C8FF&" in ass
+    cover = tmp_path / "cover.ass"
+    write_cover_ass(cover, presentation["cover_text"], presentation["end_title"])
+    cover_ass = cover.read_text(encoding="utf-8")
+    assert "Style: CoverTitle," in cover_ass
+    assert presentation["cover_text"] in cover_ass
+    assert presentation["end_title"] in cover_ass
+    assert "22米胶带" in presentation["cover_concept"]
