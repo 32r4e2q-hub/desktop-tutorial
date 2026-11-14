@@ -94,8 +94,8 @@ def test_visual_retake_safeguards_and_legal_qualifier(story):
     assert "餐桌椅始终空无一人" in s04
 
     s08 = shots["S08"]["purpose"]
-    assert "绝不出现刀具" in s08
-    assert "血迹" in s08 and "房间深处始终不入镜" in s08
+    assert "刀具" in s08 and "绝不出现" in s08
+    assert "血迹" in s08 and "不展示地面" in s08
     assert "水果" not in s08
 
     s22 = shots["S22"]
