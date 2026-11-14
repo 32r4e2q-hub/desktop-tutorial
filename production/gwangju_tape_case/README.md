@@ -2,14 +2,15 @@
 
 本项目是单独案件目录，沿用仓库 `production/missing_groom_89tons/` 的 Agnes Video 2.5 Flash 生成、字幕、音画校验与断点续跑工具链；没有复用旧案件脚本、人物、参考图或输出。目标规格：抖音横屏 16:9、1920×1080、24fps、180 秒、30 个连续运动的写实 3D 动画镜头；不加入 BGM。
 
-## 当前真实状态（2026-11-14 UTC，用户反馈后第二次重做）
+## 当前真实状态（2026-11-14 UTC，最终交付）
 
-- 用户反馈原片两类严重问题：大量片段闪烁/忽明忽暗刺眼；解说词与画面不匹配、长短不齐、不连贯。当前分支已按这两个方向重做，不再把旧母版当作最终交付。
-- 画面：`render.py` 对全部 30 镜统一加 `deflicker=size=45:mode=am,hqdn3d=3:2:9:9,eq=contrast=0.97:brightness=0.018:saturation=0.94`，不使用闪白/闪黑/频闪转场；S11 警灯、S25 DNA 圆点、S28 监控状态灯已改为常亮并重新生成。S07/S18/S20 伪文字镜头也已重做。
-- 解说：重写为连续电影解说式 30 句，总 628 字；按 10 组连续 TTS 生成后在句间静音中点切分为 30 条 shot-locked MP3。新旁白最大加速 1.046×，全部装入 5–7 秒镜头窗口；声线仍为 `voice-00` 普通话男声。
-- 当前 `GEN_REQUEST` 为 `{"mode":"render","attempt":19}`，等待远端 Actions 用已验证 Agnes 源片重新合片。新母版出来后必须重新跑 `production/verify_master.py`、全帧/闪烁指标审计和抽帧人眼复核。
-- 31 张大参考图不重复提交到本分支；工作流会从不可变提交恢复并核对哈希。本地 sparse checkout 直接跑 `preflight.py` 会因缺 PNG 阻断，这是预期保护。
-- 自动 QC 和 Agent 抽帧复核不能冒充人工签收；最终交付仍须如实写明“仍需完整播放复核”。
+- 最终母版：`交付/光州胶带案_22米胶带_三分钟_带声音.mp4`，SHA-256 `115df3249e272529085cc66aca268239561ac54f711210a4eac4c4017f106e27`，72,574,275 字节；180.000s / 1920×1080 / 24fps / 4320 帧 / AAC 48kHz 立体声 180.000s / 30 条逐镜字幕。
+- 下载：Google Drive 公开只读链接 https://drive.google.com/file/d/1aey4Z3PV4f-th-dsXXkTLnOQ5menihsf/view?usp=drivesdk （直链 https://drive.google.com/uc?export=download&id=1aey4Z3PV4f-th-dsXXkTLnOQ5menihsf ）；仓库内同名文件亦可直接下载。
+- `production/verify_master.py` 硬校验 **PASS**（时长/帧数/音轨长度/字幕窗口/字幕-语音同步，最大字幕领先 0.11s）；报告 `qa/verify-master-current.json`。
+- 去闪烁：全片 `deflicker=size=61:mode=am,hqdn3d=3:2:9:9,eq=…`；移除了旧版反而制造亮度尖峰的帧级 gamma/blend 修复；S04（黄色十字光束）、S07/S18/S20（伪文字）、S11/S25/S28（闪烁光源/昼夜渐变）源片重生成。逐镜复审见 `qa/flicker-review.md`：旧版 14 镜往复闪烁清零；仅 S09 保留一段单调有动机渐亮（走向门口光源），S11/S14 各有 ≤3.4 的孤立单帧跳变。
+- 解说：连贯电影解说式 30 句 / 628 字，10 组连续 TTS 切分为逐镜 shot-locked MP3（`audio/GROUP_TTS_NOTES.md`），最大加速 1.046×；声线 `voice-00` 普通话男声；仅脚本 SFX、无 BGM。
+- 抽帧人眼（Agent）复核：`qa/delivery-review/` 6 张接触表覆盖 30 镜 + 片尾标题帧；全 4320 帧灰度审计无近白帧、无冻帧窗口，近黑仅片尾设计内淡出末帧。
+- **签收口径：技术 QC 与 Agent 抽帧复核通过；仍需用户完整播放人工复核，本交付不冒充人工签收。**
 
 ## 内容红线与核实口径
 
