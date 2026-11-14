@@ -53,7 +53,7 @@ def test_exact_30_shots_180_seconds_and_six_second_average(story):
 
 def test_every_character_role_has_an_exact_anchor(story):
     assert set(story["characters"]) == {
-        "SANA", "MOTHER", "MOTHER_OLD", "FATHER", "DETECTIVE",
+        "SANA", "MOTHER", "MOTHER_NEUTRAL", "MOTHER_OLD", "FATHER", "DETECTIVE",
         "EX", "FAMILIAR", "EXPERT", "TEAM_2024", "SHADOW",
     }
     for shot in story["shots"]:
@@ -80,12 +80,18 @@ def test_hooks_and_explainers_are_complete_and_safely_timed(story):
 
 def test_final_picture_repairs_are_narrow_and_frame_locked():
     assert project_render.FLASH_REPAIR_FRAME == 464
+    assert project_render.S07_TAIL_HOLD_FRAME == 1006
     assert project_render.HOLD_REPAIR_FRAMES == (2533, 3450)
-    assert project_render.FRAME_REPAIR_MODES == {464: "average", 2533: "lighten", 3450: "lighten"}
+    assert project_render.FRAME_REPAIR_MODES == {
+        464: "average", 1006: "lighten", 2533: "lighten", 3450: "lighten"
+    }
     assert project_render.local_frame_index(464, 17) == 56
+    assert project_render.local_frame_index(1006, 35) == 166
     assert project_render.local_frame_index(2533, 102) == 85
     assert project_render.local_frame_index(3450, 137) == 162
     assert project_render.repair_filter_suffix(17, 168) == ",tblend=all_mode=average:enable='eq(n,56)'"
+    tail_hold = ",tblend=all_mode=lighten:enable='eq(n,166)'"
+    assert project_render.repair_filter_suffix(35, 168) == tail_hold + tail_hold
     assert project_render.repair_filter_suffix(102, 144) == ",tblend=all_mode=lighten:enable='eq(n,85)'"
     assert project_render.repair_filter_suffix(137, 168) == ",tblend=all_mode=lighten:enable='eq(n,162)'"
     assert project_render.repair_filter_suffix(0, 120) == ""
@@ -101,10 +107,14 @@ def test_visual_retake_safeguards_and_legal_qualifier(story):
     assert "不出现年轻女性" in s04
     assert "餐桌椅始终空无一人" in s04
 
-    s08 = shots["S08"]["purpose"]
-    assert "刀具" in s08 and "绝不出现" in s08
-    assert "血迹" in s08 and "不展示地面" in s08
-    assert "水果" not in s08
+    s08 = shots["S08"]
+    assert "刀具" in s08["purpose"] and "绝不出现" in s08["purpose"]
+    assert "血迹" in s08["purpose"] and "不展示地面" in s08["purpose"]
+    assert "水果" not in s08["purpose"]
+    assert s08["characters"] == ["MOTHER_NEUTRAL"]
+    assert "嘴唇保持闭合" in s08["purpose"] and "绝不微笑" in s08["purpose"]
+    assert "肩带" in s08["purpose"]
+    assert project_generate.reference_asset_ids(s08) == ["C02N", "S02"]
 
     s22 = shots["S22"]
     assert s22["characters"] == []
@@ -126,7 +136,7 @@ def test_reference_ids_and_sfx_cover_all_thirty_shots(story):
     expected = set(story["reference_designs"]["characters"] +
                    story["reference_designs"]["scenes"] + story["reference_designs"]["props"])
     role_to_asset = {
-        "SANA": "C01", "MOTHER": "C02", "MOTHER_OLD": "C02B", "FATHER": "C03",
+        "SANA": "C01", "MOTHER": "C02", "MOTHER_NEUTRAL": "C02N", "MOTHER_OLD": "C02B", "FATHER": "C03",
         "DETECTIVE": "C04", "EX": "C05", "FAMILIAR": "C06", "EXPERT": "C07",
         "TEAM_2024": "C08", "SHADOW": "C09",
     }

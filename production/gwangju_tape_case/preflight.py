@@ -12,7 +12,7 @@ import subprocess
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 ROLE_TO_ASSET = {
-    "SANA": "C01", "MOTHER": "C02", "MOTHER_OLD": "C02B", "FATHER": "C03",
+    "SANA": "C01", "MOTHER": "C02", "MOTHER_NEUTRAL": "C02N", "MOTHER_OLD": "C02B", "FATHER": "C03",
     "DETECTIVE": "C04", "EX": "C05", "FAMILIAR": "C06", "EXPERT": "C07",
     "TEAM_2024": "C08", "SHADOW": "C09",
 }

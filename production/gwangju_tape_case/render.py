@@ -17,9 +17,11 @@ RATE = 48_000
 # applied inside its normalized shot, where frame indices start at zero and cannot drift
 # with concat timestamps. Runtime, cut points, and audio sync stay fixed.
 FLASH_REPAIR_FRAME = 464             # S04, 19.333s: blend a one-frame exposure dip with its previous frame.
+S07_TAIL_HOLD_FRAME = 1006           # S07, 41.917s: replace the two black tail frames with the last visible silhouette.
 HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: lighten one-frame occlusions.
 FRAME_REPAIR_MODES = {
     FLASH_REPAIR_FRAME: "average",
+    S07_TAIL_HOLD_FRAME: "lighten",
     HOLD_REPAIR_FRAMES[0]: "lighten",
     HOLD_REPAIR_FRAMES[1]: "lighten",
 }
@@ -34,12 +36,20 @@ def local_frame_index(global_frame: int, shot_start: float) -> int:
 
 
 def repair_filter_suffix(shot_start: float, frame_count: int) -> str:
-    """Build tblend repairs on normalized shot frames, before concat timestamps are added."""
+    """Build frame repairs on normalized shot frames, before concat timestamps are added.
+
+    FFmpeg 4.1's timeline-enabled ``tblend`` does not reliably advance its frame counter across
+    disabled frames. For S07's two-frame black tail, chaining the same lighten pass twice holds
+    the last visible silhouette on both final frames rather than leaving a two-frame blackout.
+    """
     filters = []
     for global_frame, mode in FRAME_REPAIR_MODES.items():
         local = local_frame_index(global_frame, shot_start)
         if 0 <= local < frame_count:
-            filters.append(f"tblend=all_mode={mode}:enable='eq(n,{local})'")
+            filter_expr = f"tblend=all_mode={mode}:enable='eq(n,{local})'"
+            filters.append(filter_expr)
+            if global_frame == S07_TAIL_HOLD_FRAME:
+                filters.append(filter_expr)
     return "," + ",".join(filters) if filters else ""
 
 

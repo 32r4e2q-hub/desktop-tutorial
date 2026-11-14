@@ -57,7 +57,7 @@ REPOSITORY = "32r4e2q-hub/desktop-tutorial"
 LOCK = threading.RLock()
 
 CHARACTER_REFERENCE_IDS = {
-    "SANA": "C01", "MOTHER": "C02", "MOTHER_OLD": "C02B", "FATHER": "C03",
+    "SANA": "C01", "MOTHER": "C02", "MOTHER_NEUTRAL": "C02N", "MOTHER_OLD": "C02B", "FATHER": "C03",
     "DETECTIVE": "C04", "EX": "C05", "FAMILIAR": "C06", "EXPERT": "C07",
     "TEAM_2024": "C08", "SHADOW": "C09",
 }

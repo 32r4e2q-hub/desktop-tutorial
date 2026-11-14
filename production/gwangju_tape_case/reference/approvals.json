@@ -2,7 +2,7 @@
   "project": "gwangju_tape_case",
   "reviewer": "Arena agent (visual inspection; not an external forensic approval)",
   "reviewed_at": "2026-11-14",
-  "note": "C01-C09 and C02B plus S01-S13 and P01-P07 were individually opened, visually reviewed, dimension-checked, and SHA-256 recorded by 2026-11-14. All 30 reference assets are approved. P07 first generation was rejected for a barcode-like mark and re-generated cleanly. No unapproved or missing reference may be used for Agnes.",
+  "note": "C01-C09, C02B, and neutral-expression C02N plus S01-S13 and P01-P07 were individually opened, visually reviewed, dimension-checked, and SHA-256 recorded by 2026-11-14. All 31 reference assets are approved. C02N is an AI-generated neutral-expression derivative of the approved fictional C02 character and is used only for S08. P07 first generation was rejected for a barcode-like mark and re-generated cleanly. No unapproved or missing reference may be used for Agnes.",
   "assets": {
     "C01": {
       "file": "reference/C01.png",
@@ -27,6 +27,18 @@
       ],
       "visual_review": "passed_by_agent",
       "review_note": "MOTHER: middle-aged woman with tennis bag; AI-generated."
+    },
+    "C02N": {
+      "file": "reference/C02N.png",
+      "status": "approved",
+      "sha256": "88d30b9d53142be90ed1537f71235185cf4baa1549259a62f499cdca5c6fb162",
+      "type": "character",
+      "dimensions": [
+        768,
+        768
+      ],
+      "visual_review": "passed_by_agent",
+      "review_note": "MOTHER_NEUTRAL: AI-generated neutral-expression derivative of fictional C02; closed mouth, restrained concern; used only for S08."
     },
     "C02B": {
       "file": "reference/C02B.png",
