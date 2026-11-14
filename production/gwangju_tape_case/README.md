@@ -4,14 +4,13 @@
 
 ## 当前真实状态（2026-11-14 UTC）
 
-- 内容计划：30 镜、180 秒、9 段解说单元，旁白共 663 字符；`build_story.py` 为唯一内容源。
-- C/S/P 共 30 张参考图均已逐张目视检查、登记 SHA-256；不可变资产 revision 为 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`。
-- Agnes 全片素材 run `43544148329` 于 05:06:22 UTC 成功完成；针对视觉偏差的 S04、S26 同批重生成 run `43563547641` 于 06:07:33 UTC 成功结束。`results.json` 已确认 30/30 均为 completed，每镜有任务 ID、SHA-256 与字节数；当前阶段为 `selected_sources_ready`。源 MP4 可由已验证的 Agnes 收据在 Actions runner 上恢复；大体积中间源片不提交进 Git。
-- 接触表复核：S04 重生成后只见母亲、没有女儿；S26 已去掉有字样的文件和印章，改为法槌与时钟象征画面（保留普通时钟刻度）。其他镜头仍需随最终成片做完整动态复核。
-- 现将 `GEN_REQUEST` 切换为 `mode=render`，触发 render-only：按收据恢复全部 30 镜，生成 180 秒母版、字幕和封面，并运行自动技术 QC。
-- 普通话男声 `voice-00` 已由用户试听选定；`audio/` 中 S01–S30 的 MP3、逐镜文稿、时长和 SHA-256 manifest 均已核验，最大需加速 1.4063×（上限 1.55×）。人工旁白听检仍待完成；试听稿为 `work/gwangju_tape_case/narration-review.mp3`。
-- 30 条确定性 SFX WAV 已生成，48 kHz 立体声、时长与哈希校验通过；无 BGM。试听稿为 `work/gwangju_tape_case/sfx-review.mp3`，人工听检仍待完成。可重建试听与剪辑中间文件保存在被忽略的 `work/`。
-- 首次 render-only run `43565067358` 已恢复并校验全部 30 源片，但在混音时发现 runner 固定的 FFmpeg 4.1 不支持 `amix normalize` 参数；`render.py` 已改为旧版兼容的两路混音并通过同版本 FFmpeg 冒烟测试，当前正准备重跑。字幕、封面和 180 秒母版仍未生成。自动技术 QC 通过也不等于最终签收：全片人工听检和逐镜动态画面复核仍需完成。
+- 内容计划为 30 镜、180 秒、9 段解说单元，旁白共 663 字符；`build_story.py` 是唯一内容源。C/S/P 参考图均已逐张检查并登记 SHA-256，不可变 revision 为 `5395eb5cc0574eb75622acb9e51da43e5f24b9e0`。
+- Agnes 源片 30/30 均已完成且有任务 ID、SHA-256 与字节数收据；原始全片 run `43544148329`，S04/S26 重生成 run `43563547641`，S22/S24/S30 视觉修订分别见 run `43567133092`、`43568578664`。源 MP4 可从收据恢复；大体积中间源片不提交 Git。
+- 最新母版 render run `43569483729` 成功，离线自检 run `43569483761` 成功。交付目录已包含 180 秒母版、封面、SRT 和技术报告；规格为 1920×1080、24fps、H.264/AAC、48 kHz，30 条字幕 cue，自动检查没有无语音 cue。当前技术 QC 为 **TECHNICAL_PASS_VISUAL_REVIEW_PENDING**，不是视听签收。
+- 已检查 S04 接触表（只见母亲、未见女儿），并对最新母版做了逐秒抽帧概览及告警附近细看；S22 已换为连续胶带近景，S24 为 DNA 仪器与抽象曲线，S30 为黑底胶带片尾。该抽样不能代替 24fps 全片播放；近黑检测仍需人工确认 S04 的 19.333 秒单帧暗闪、S07 的片尾过渡（约 41.875–42.000 秒）及数段有意设计的低曝光镜头。
+- 源片 QC 的 S07（7.0 秒）、S14（5.0 秒）、S21（5.0 秒）、S22（5.0 秒）黑场样本均落在各镜源片的目标裁切边界；最终剪辑按目标镜长裁切。S30 的旧版黑场/错场问题已重生成并重渲染。QC 报告仍保留源片抽样限制。
+- 普通话男声 `voice-00` 已由用户试听选定；S01–S30 旁白素材、逐镜文稿、时长与 SHA-256 manifest 均通过自动核验，最大加速 1.4063×（上限 1.55×）。但本轮没有人工听检旁白或 SFX。自动 EBU R128 测量为 -19.3 LUFS integrated、LRA 5.0 LU、true peak -4.3 dBFS；这些数值不代表主观听感合格。
+- 30 条确定性 SFX WAV 已通过 48 kHz 立体声、时长与哈希核验；无 BGM。人工听检仍待完成，试听稿为 `work/gwangju_tape_case/narration-review.mp3` 与 `work/gwangju_tape_case/sfx-review.mp3`。临时试听/抽帧文件放在被忽略的 `work/`。
 
 ## 内容红线与核实口径
 
@@ -43,9 +42,10 @@
 | `build_sfx.py` | 按镜头脚本生成确定性的轻量拟音/环境声；无旋律、无 BGM，并生成时长和哈希清单。 |
 | `preflight.py` | 离线核对 30 镜时序、参考图审批/哈希、每镜 1–5 张引用与 revision；缺项即阻断，不调用 Agnes。 |
 | `qc.py` / `narration_fit.py` | 生成片段、时长、分辨率、音频和旁白适配校验；自动通过不等于人工签收。 |
-| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`；Agnes 全片与 S04/S26 重生成均成功；当前 `GEN_REQUEST` 为 `mode=render`。 |
+| `.github/workflows/gwangju-tape-case.yml` | 只监听本案当前分支的 `GEN_REQUEST` / `CANCEL_REQUEST`；全片、S04/S26/S22/S24/S30 修订素材与最终 render 均成功；当前 `GEN_REQUEST` 为 `mode=render`。 |
 | `audio/voice.json` | 声线描述、已选 TTS 声线与逐镜生成状态。 |
-| `results.json` | 任务状态与 provenance；30/30 全部 completed，最新素材阶段为 `selected_sources_ready`，渲染后会更新交付信息。 |
+| `results.json` | 任务状态与 provenance；30/30 全部 completed，阶段为 `first_cut_ready`，已登记母版与 sidecar 哈希；视听签收仍待人工完成。 |
+| `qa/qc-report.json` / `qa/qc-summary.md` | 自动技术 QC 与源片抽样报告；技术通过，但明确保留视觉复核待办及采样限制。 |
 
 ## 本地只读检查
 
