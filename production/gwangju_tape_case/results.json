@@ -4,10 +4,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "status": "downloaded",
+      "status": "completed",
       "request_hash": "7ebc634bd781b11664b4b496eaa386f3ed2a4cd07f00ab0091702a4bd0f7b8a0",
       "error": null,
-      "updated_at": "2026-11-14T02:30:00Z",
+      "updated_at": "2026-11-14T02:30:02Z",
       "create_attempts": 1,
       "video_id": "task_492kgSn9Ekm3e6f19IzJ32jlYhnPGmpo",
       "task_id": "task_492kgSn9Ekm3e6f19IzJ32jlYhnPGmpo",
@@ -19,7 +19,19 @@
       "bytes": 2385022,
       "sha256": "fbf80a7012703d77788f4d331ea68f39f4248916d55a9c0c6e18a2f4c23edd19",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2385022,
+        "decoded_ok": true,
+        "contact_sheet": "production/gwangju_tape_case/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     }
   },
   "phase": "generating_sources",
@@ -74,6 +86,6 @@
     "poll_interval_seconds": 45.0,
     "capacity_retries_unbounded": true
   },
-  "updated_at": "2026-11-14T02:30:00Z",
+  "updated_at": "2026-11-14T02:30:02Z",
   "run_id": "43544148329"
 }
