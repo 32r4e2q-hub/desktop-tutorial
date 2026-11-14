@@ -13,28 +13,34 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
-# Targeted, timestamp-locked exposure repairs found during final visual triage.  Each is
-# confined to the offending frame/window; runtime, cut points, and audio sync stay fixed.
-FLASH_REPAIR_FRAME = 464             # S04, 19.333s: blend isolated near-black frame.
-HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: one-frame occlusion dips.
+# Targeted, frame-locked exposure repairs found during final visual triage. Each repair is
+# applied inside its normalized shot, where frame indices start at zero and cannot drift
+# with concat timestamps. Runtime, cut points, and audio sync stay fixed.
+FLASH_REPAIR_FRAME = 464             # S04, 19.333s: average an isolated dark frame with its neighbor.
+HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: lighten one-frame occlusions.
+FRAME_REPAIR_MODES = {
+    FLASH_REPAIR_FRAME: "average",
+    HOLD_REPAIR_FRAMES[0]: "lighten",
+    HOLD_REPAIR_FRAMES[1]: "lighten",
+}
 DARK_REPAIR_START = 159.25           # S27: raise only the brief unmotivated exposure dip.
 DARK_REPAIR_END = 160.0417
 DARK_REPAIR_GAMMA = 1.5
 
 
-def frame_enable(frame: int) -> str:
-    """Return a one-frame FFmpeg timeline predicate using exact media timestamps.
+def local_frame_index(global_frame: int, shot_start: float) -> int:
+    """Map an absolute 24 fps frame number to its shot-local zero-based index."""
+    return global_frame - round(shot_start * FPS)
 
-    ``n`` is not reliable in a timeline-disabled filter such as tblend: its counter may
-    advance only while enabled.  PTS-based bounds remain stable across concat/trim stages.
-    """
-    # Decimal PTS values such as 105.541667 are rounded to microseconds by some
-    # demuxers; move both bounds 1 ms earlier so the target frame is safely inside
-    # its own half-open interval while its neighbors remain outside.
-    epsilon = 0.001
-    start = frame / FPS - epsilon
-    end = (frame + 1) / FPS - epsilon
-    return f"gte(t,{start:.9f})*lt(t,{end:.9f})"
+
+def repair_filter_suffix(shot_start: float, frame_count: int) -> str:
+    """Build tblend repairs on normalized shot frames, before concat timestamps are added."""
+    filters = []
+    for global_frame, mode in FRAME_REPAIR_MODES.items():
+        local = local_frame_index(global_frame, shot_start)
+        if 0 <= local < frame_count:
+            filters.append(f"tblend=all_mode={mode}:enable='eq(n,{local})'")
+    return "," + ",".join(filters) if filters else ""
 
 
 def run(args: list[object], capture: bool = False) -> subprocess.CompletedProcess:
@@ -238,10 +244,10 @@ def main() -> int:
             vf = (f"scale=1920:1080:flags=lanczos,fps={FPS},trim=duration={target:.6f},"
                   f"setpts=PTS-STARTPTS,setsar=1,format=yuv420p,"
                   f"fade=t=out:st={target-0.8:.3f}:d=0.8")
-            filter_args = ["-vf", vf, "-map", "0:v:0"]
         else:
             vf = f"scale=1920:1080:flags=lanczos,fps={FPS},trim=duration={target:.6f},setpts=PTS-STARTPTS,setsar=1,format=yuv420p"
-            filter_args = ["-vf", vf, "-map", "0:v:0"]
+        vf += repair_filter_suffix(float(shot["start"]), frames)
+        filter_args = ["-vf", vf, "-map", "0:v:0"]
         run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
              *filter_args, "-an", "-frames:v", frames, "-r", FPS,
              "-vsync", "cfr", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
@@ -337,12 +343,7 @@ def main() -> int:
         f"1+{DARK_REPAIR_GAMMA - 1:.3f}*max(0,min(1,min("
         f"(t-{DARK_REPAIR_START:.4f})/0.125,({DARK_REPAIR_END:.4f}-t)/0.125)))"
     )
-    hold_expr = "+".join(frame_enable(frame) for frame in HOLD_REPAIR_FRAMES)
-    picture_filter = (
-        f"eq=gamma='{gamma_expr}':eval=frame,{subtitle_filter},"
-        f"tblend=all_mode=average:enable='{frame_enable(FLASH_REPAIR_FRAME)}',"
-        f"tblend=all_mode=lighten:enable='{hold_expr}'"
-    )
+    picture_filter = f"eq=gamma='{gamma_expr}':eval=frame,{subtitle_filter}"
     # Encode picture and narration/SFX mix separately and then stream-copy them together.
     # On the runner's older ffmpeg a single combined encode silently dropped the last ~2s of
     # audio (177.834s instead of 180.000s), which clipped the closing question.

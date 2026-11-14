@@ -81,9 +81,14 @@ def test_hooks_and_explainers_are_complete_and_safely_timed(story):
 def test_final_picture_repairs_are_narrow_and_frame_locked():
     assert project_render.FLASH_REPAIR_FRAME == 464
     assert project_render.HOLD_REPAIR_FRAMES == (2533, 3450)
-    assert project_render.frame_enable(464) == "gte(t,19.332333333)*lt(t,19.374000000)"
-    assert project_render.frame_enable(2533) == "gte(t,105.540666667)*lt(t,105.582333333)"
-    assert project_render.frame_enable(3450) == "gte(t,143.749000000)*lt(t,143.790666667)"
+    assert project_render.FRAME_REPAIR_MODES == {464: "average", 2533: "lighten", 3450: "lighten"}
+    assert project_render.local_frame_index(464, 17) == 56
+    assert project_render.local_frame_index(2533, 102) == 85
+    assert project_render.local_frame_index(3450, 137) == 162
+    assert project_render.repair_filter_suffix(17, 168) == ",tblend=all_mode=average:enable='eq(n,56)'"
+    assert project_render.repair_filter_suffix(102, 144) == ",tblend=all_mode=lighten:enable='eq(n,85)'"
+    assert project_render.repair_filter_suffix(137, 168) == ",tblend=all_mode=lighten:enable='eq(n,162)'"
+    assert project_render.repair_filter_suffix(0, 120) == ""
     assert project_render.DARK_REPAIR_START == pytest.approx(159.25)
     assert project_render.DARK_REPAIR_END == pytest.approx(160.0417)
     assert project_render.DARK_REPAIR_GAMMA == pytest.approx(1.5)
