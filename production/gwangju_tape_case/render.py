@@ -259,10 +259,13 @@ def main() -> int:
         wav = segments / f"{sid}.wav"
         # Pad narration to the exact shot window, mix only restrained scripted SFX underneath,
         # then trim to the exact shot length. No generated-video audio or BGM enters the mix.
+        # This runner's pinned FFmpeg 4.1 build predates amix's ``normalize`` option.
+        # Its default normalization divides two inputs by their count, so restore that
+        # factor immediately after amix to retain the intended voice + quiet-SFX gain.
         mix_filter = (
             f"[0:a]apad,atrim=duration={target:.6f},volume=1.0[voice];"
             f"[1:a]atrim=duration={target:.6f},volume=0.35[sfx];"
-            f"[voice][sfx]amix=inputs=2:duration=first:dropout_transition=0:normalize=0,"
+            f"[voice][sfx]amix=inputs=2:duration=first:dropout_transition=0,volume=2.0,"
             f"alimiter=limit=0.98,atrim=duration={target:.6f}[a]"
         )
         run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-i", sfx_path,

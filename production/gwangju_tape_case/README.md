@@ -11,7 +11,7 @@
 - 现将 `GEN_REQUEST` 切换为 `mode=render`，触发 render-only：按收据恢复全部 30 镜，生成 180 秒母版、字幕和封面，并运行自动技术 QC。
 - 普通话男声 `voice-00` 已由用户试听选定；`audio/` 中 S01–S30 的 MP3、逐镜文稿、时长和 SHA-256 manifest 均已核验，最大需加速 1.4063×（上限 1.55×）。人工旁白听检仍待完成；试听稿为 `work/gwangju_tape_case/narration-review.mp3`。
 - 30 条确定性 SFX WAV 已生成，48 kHz 立体声、时长与哈希校验通过；无 BGM。试听稿为 `work/gwangju_tape_case/sfx-review.mp3`，人工听检仍待完成。可重建试听与剪辑中间文件保存在被忽略的 `work/`。
-- 当前仍没有字幕文件、封面或 180 秒母版；render-only 运行完成后再更新为真实交付状态。自动技术 QC 通过也不等于最终签收：全片人工听检和逐镜动态画面复核仍需完成。
+- 首次 render-only run `43565067358` 已恢复并校验全部 30 源片，但在混音时发现 runner 固定的 FFmpeg 4.1 不支持 `amix normalize` 参数；`render.py` 已改为旧版兼容的两路混音并通过同版本 FFmpeg 冒烟测试，当前正准备重跑。字幕、封面和 180 秒母版仍未生成。自动技术 QC 通过也不等于最终签收：全片人工听检和逐镜动态画面复核仍需完成。
 
 ## 内容红线与核实口径
 
