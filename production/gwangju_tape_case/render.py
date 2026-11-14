@@ -16,11 +16,10 @@ RATE = 48_000
 # Targeted, frame-locked exposure repairs found during final visual triage. Each repair is
 # applied inside its normalized shot, where frame indices start at zero and cannot drift
 # with concat timestamps. Runtime, cut points, and audio sync stay fixed.
-FLASH_REPAIR_FRAME = 464             # S04, 19.333s: lift an isolated exposure dip.
-FLASH_REPAIR_BRIGHTNESS = 0.065
+FLASH_REPAIR_FRAME = 464             # S04, 19.333s: blend a one-frame exposure dip with its previous frame.
 HOLD_REPAIR_FRAMES = (2533, 3450)    # S18, 105.542s and S24, 143.750s: lighten one-frame occlusions.
 FRAME_REPAIR_MODES = {
-    FLASH_REPAIR_FRAME: "brightness",
+    FLASH_REPAIR_FRAME: "average",
     HOLD_REPAIR_FRAMES[0]: "lighten",
     HOLD_REPAIR_FRAMES[1]: "lighten",
 }
@@ -39,13 +38,7 @@ def repair_filter_suffix(shot_start: float, frame_count: int) -> str:
     filters = []
     for global_frame, mode in FRAME_REPAIR_MODES.items():
         local = local_frame_index(global_frame, shot_start)
-        if not 0 <= local < frame_count:
-            continue
-        if mode == "brightness":
-            filters.append(
-                f"eq=brightness='if(eq(n,{local}),{FLASH_REPAIR_BRIGHTNESS:.3f},0)':eval=frame"
-            )
-        else:
+        if 0 <= local < frame_count:
             filters.append(f"tblend=all_mode={mode}:enable='eq(n,{local})'")
     return "," + ",".join(filters) if filters else ""
 

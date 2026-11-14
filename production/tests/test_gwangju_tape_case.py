@@ -81,12 +81,11 @@ def test_hooks_and_explainers_are_complete_and_safely_timed(story):
 def test_final_picture_repairs_are_narrow_and_frame_locked():
     assert project_render.FLASH_REPAIR_FRAME == 464
     assert project_render.HOLD_REPAIR_FRAMES == (2533, 3450)
-    assert project_render.FRAME_REPAIR_MODES == {464: "brightness", 2533: "lighten", 3450: "lighten"}
-    assert project_render.FLASH_REPAIR_BRIGHTNESS == pytest.approx(0.065)
+    assert project_render.FRAME_REPAIR_MODES == {464: "average", 2533: "lighten", 3450: "lighten"}
     assert project_render.local_frame_index(464, 17) == 56
     assert project_render.local_frame_index(2533, 102) == 85
     assert project_render.local_frame_index(3450, 137) == 162
-    assert project_render.repair_filter_suffix(17, 168) == ",eq=brightness='if(eq(n,56),0.065,0)':eval=frame"
+    assert project_render.repair_filter_suffix(17, 168) == ",tblend=all_mode=average:enable='eq(n,56)'"
     assert project_render.repair_filter_suffix(102, 144) == ",tblend=all_mode=lighten:enable='eq(n,85)'"
     assert project_render.repair_filter_suffix(137, 168) == ",tblend=all_mode=lighten:enable='eq(n,162)'"
     assert project_render.repair_filter_suffix(0, 120) == ""
