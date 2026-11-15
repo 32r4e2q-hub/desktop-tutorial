@@ -271,9 +271,25 @@
     "S10": {
       "id": "S10",
       "request_hash": "2ba54a6d2f73dfc55225563765f6b1cc97742ef23c8247e9b306caabbabe5e10",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T03:16:44Z"
+      "updated_at": "2026-11-15T03:24:36Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n【C01锚点】23岁虚构韩国女性,齐肩黑发简单扎起,海边略晒黑素净面庞,旧蓝灰格子衬衫与旧牛仔裤,背旧橄榄绿帆布斜挎包,神情疲惫克制\n\n罗生门警方版本第4镜：审讯室金属桌面，一盒打开的红色印泥与空白泛黄口供纸被冷峻地推到镜头前，一只微微发抖的手握着黑色圆珠笔悬在空白纸页上方迟迟落下；窗缝透进一线冷灰天亮晨光。画面无任何手写字、印刷字或伪指纹。 罗生门警方版本冷灰蓝基调，构图严谨压迫。 真实连续运动贯穿全镜，镜头运镜：高角度特写缓慢下压推近纸面与悬笔；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
+        "seconds": "5",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 20000307,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/S05.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P05.png"
+        ]
+      },
+      "error": null
     },
     "S11": {
       "id": "S11",
@@ -467,7 +483,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T03:24:35Z",
+  "updated_at": "2026-11-15T03:24:36Z",
   "run_id": "43671523708",
   "previous_results": {}
 }
