@@ -526,9 +526,9 @@
     "S18": {
       "id": "S18",
       "request_hash": "cf42a407005b396876f2d3d2365c003f1cdeb1d15823307da9921671c36c6f4b",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T06:43:39Z",
+      "updated_at": "2026-11-15T06:48:29Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现；35mm胶片摄影质感，浅景深，韩国社会派犯罪悬疑片克制写实风格，真实人体比例、自然皮肤纹理、可信衣料与实景建筑材质，低饱和细腻胶片颗粒；16:9横屏宽银幕，主体置于三分线附近，底部六分之一留作字幕安全区；每个片段从第1帧到最后一帧必须是单一不间断连续长镜头（one continuous uninterrupted single take），全程固定在同一实景空间与同一恒定光照色温中，有自然呼吸、微风、手势或平稳运镜，绝不切镜、绝不跳切、绝不闪白切黑、绝不冷暖闪烁、绝不出现参考图本身的纯灰/纯白摄影棚背景；严禁生成任何可读韩文、汉字、字母、数字或招牌。\n\n【C06锚点】2014年40岁出头虚构韩国再审男律师,戴细框眼镜,深灰呢西装外搭与格纹衬衫,怀抱空白牛皮纸卷宗,专注温和而执着\n\n【C01B锚点】与C01同一虚构女性自然衰老至47岁,齐下巴黑短发微带白丝,细纹平静眼神,深灰长外套与同款旧帆布包,沉静坚毅\n\n单一不间断连续长镜头（one continuous uninterrupted single take），从第1帧到最后一帧始终留在同一实景空间内，人物从第1帧起已在现场，绝不切镜、绝不出现纯灰或纯白摄影棚背景：2014年监狱会见室室内隔窗两侧同框过肩中景（从第1帧起玻璃两侧两人同时同框，绝不跳切纯灰棚拍单人像）：前景40岁戴细框眼镜穿深灰呢西装的男律师坐在桌前翻开那本磨损棕色空白硬壳笔记本，透过面前的细铁丝网防弹玻璃专注温和望向对面安静落座的47岁短发金信惠。 真实连续运动贯穿全镜，镜头运镜：过肩穿过铁丝网玻璃浅景深极缓慢前推；色调全程恒定保持恒定室内冷调微暖；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；绝无跳切、黑屏、红蓝频闪、血迹、药片或任何可读韩文汉字数字。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，切镜，跳切，蒙太奇，多画面拼接，黑屏，闪白，色温闪变，频闪警灯，纯灰背景，纯白棚拍背景，定妆照，证件照，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，血迹，红墨水，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
@@ -545,10 +545,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P04.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:48:27. (request id: 20261115064339877876306Bk7Ra1Zb) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_iFlEo283bvVlg06tLotDuJOBgA8HVl9K",
+      "task_id": "task_iFlEo283bvVlg06tLotDuJOBgA8HVl9K",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S19": {
       "id": "S19",
@@ -723,7 +727,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T06:43:39Z",
+  "updated_at": "2026-11-15T06:48:29Z",
   "run_id": "43681074571",
   "previous_results": {
     "S01": [
@@ -2215,13 +2219,5 @@
         "visual_review": "pending"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:48:27. (request id: 20261115064339877876306Bk7Ra1Zb) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-15T06:43:39Z"
   }
 }
