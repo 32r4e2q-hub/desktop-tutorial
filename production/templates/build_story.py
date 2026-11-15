@@ -113,6 +113,14 @@ END_CARD = [
 CAPTION_KEYWORDS = [
     # 例："关键物证", "三十年", "认罪" —— 每章两三个就够，多了等于没有
 ]
+# 光州胶带案默认画面文字层：钩子大字 + 中间偏下金色注释。
+# HOOKS：每条严格 2 秒，白字黑边，居中偏下；EXPLAINERS：金色小字，MarginV=200，只写可核实事实。
+HOOKS = [
+    {"id": "H1", "start": 0.0, "end": 2.0, "text": "TODO 黄金钩子", "style": "big_white_black_outline"},
+]
+EXPLAINERS = [
+    {"start": 2.1, "end": 4.8, "text": "TODO 可核实事实注释", "color": "gold"},
+]
 # 逐镜标签覆盖：默认 agnes 镜头标「AI动画情景重现 · 非新闻影像」，法庭/监狱/取证/搜查镜头要写得更具体
 LABEL_OVERRIDES = {
     # "S40": "AI动画示意 · 非庭审影像",
@@ -152,6 +160,13 @@ def presentation():
         "title_card": TITLE_CARD, "end_card": END_CARD,
         "caption_keywords": CAPTION_KEYWORDS, "label_overrides": LABEL_OVERRIDES,
         "sfx_events": [list(e) for e in SFX_EVENTS],
+        "hooks": HOOKS, "explainers": EXPLAINERS,
+        "caption_policy": {
+            "regular": "白字黑边，底部居中安全区，逐镜与旁白逐句同步；关键词金色高亮并放大",
+            "hook": "白字黑边，大号字幕，居中偏下，每条停留2秒，不挡主体",
+            "explainer": "金色小字，画面中间偏下（MarginV=200），只补充可核实事实，帮助读者看懂",
+            "end_title": "只在片尾由后期添加标题文字，AI源片禁止自绘文字",
+        },
     }
 
 
