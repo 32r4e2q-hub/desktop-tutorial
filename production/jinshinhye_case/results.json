@@ -94,9 +94,9 @@
     "S03": {
       "id": "S03",
       "request_hash": "02fe523139ad7b8b0aa3e156fca360240bf57da4d76da38f479cabde1ad6e7d4",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T07:45:55Z",
+      "updated_at": "2026-11-15T07:45:57Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现；35mm胶片摄影质感，浅景深，韩国社会派犯罪悬疑片克制写实风格，真实人体比例、自然皮肤纹理、可信衣料与实景建筑材质，低饱和细腻胶片颗粒；16:9横屏宽银幕，主体置于三分线附近，底部六分之一留作字幕安全区；每个片段从第1帧到最后一帧必须是单一不间断连续长镜头（one continuous uninterrupted single take），全程固定在同一实景空间与同一恒定光照色温中，有自然呼吸、微风、手势或平稳运镜，绝不切镜、绝不跳切、绝不闪白切黑、绝不冷暖闪烁、绝不出现参考图本身的纯灰/纯白摄影棚背景；严禁生成任何可读韩文、汉字、字母、数字或招牌。\n\n单一不间断连续长镜头（one continuous uninterrupted single take），从第1帧到最后一帧始终留在同一实景空间内，人物从第1帧起已在现场，绝不切镜、绝不出现纯灰或纯白摄影棚背景：2000年3月7日凌晨海边荒僻公交站外景固定缓慢推镜（全程只在雾夜公交站旁，无任何韩字站牌或文字）：浓厚海雾下昏黄路灯均匀照亮湿柏油路与长椅，长椅脚旁地面躺着穿深色旧外套男子的模糊远景背影轮廓（保持敬意不做面部近景），近侧路边倒着一只干净无字的空深棕色玻璃酒瓶，恒定冷蓝海雾配昏黄路灯。 真实连续运动贯穿全镜，镜头运镜：海雾远景极缓慢低推近公交站长椅与空酒瓶轮廓；色调全程恒定保持冷蓝海雾与昏黄路灯；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；绝无跳切、黑屏、红蓝频闪、血迹、药片或任何可读韩文汉字数字。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，切镜，跳切，蒙太奇，多画面拼接，黑屏，闪白，色温闪变，频闪警灯，纯灰背景，纯白棚拍背景，定妆照，证件照，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，血迹，红墨水，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
@@ -123,7 +123,18 @@
       "bytes": 2111659,
       "sha256": "f977f0e6903b20e60432fc3ec93e6ade7e77165e08ebe6a0883a8f83ef179dd3",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2111659,
+        "decoded_ok": true,
+        "contact_sheet": "production/jinshinhye_case/qa/S03.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S04": {
       "id": "S04",
@@ -1134,7 +1145,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T07:45:55Z",
+  "updated_at": "2026-11-15T07:45:57Z",
   "run_id": "43681074571",
   "previous_results": {
     "S01": [
