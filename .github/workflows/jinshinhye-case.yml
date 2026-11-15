@@ -1,0 +1,160 @@
+name: 金信惠案 · 30镜生成与成片出片
+run-name: 金信惠案 · 30镜视频制作
+
+on:
+  push:
+    branches: [arena/5299d09a-desktop-tutorial]
+    paths:
+      - production/jinshinhye_case/GEN_REQUEST
+      - production/jinshinhye_case/CANCEL_REQUEST
+      - .github/workflows/jinshinhye-case.yml
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON payload, e.g. {"mode":"clips","workers":2}
+        type: string
+        default: '{"mode":"clips","workers":2}'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: jinshinhye-case-agnes-arena-5299d09a
+  cancel-in-progress: false
+
+jobs:
+  produce:
+    if: github.ref == 'refs/heads/arena/5299d09a-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 300
+    steps:
+      - name: Checkout the current Arena branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/5299d09a-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install media tools and subtitle font
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media-tools" --no-save --ignore-scripts --no-audit --no-fund \
+            @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media-tools/bin" "$HOME/.local/share/fonts"
+          chmod +x "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" \
+            "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media-tools/bin/ffmpeg"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media-tools/bin/ffprobe"
+          if ! "$RUNNER_TEMP/media-tools/bin/ffprobe" -version >/dev/null 2>&1; then
+            npm install --prefix "$RUNNER_TEMP/media-tools-ffprobe" --no-save --ignore-scripts --no-audit --no-fund ffprobe-static
+            chmod +x "$RUNNER_TEMP/media-tools-ffprobe/node_modules/ffprobe-static/bin/linux/x64/ffprobe"
+            ln -sf "$RUNNER_TEMP/media-tools-ffprobe/node_modules/ffprobe-static/bin/linux/x64/ffprobe" "$RUNNER_TEMP/media-tools/bin/ffprobe"
+          fi
+          echo "$RUNNER_TEMP/media-tools/bin" >> "$GITHUB_PATH"
+          export PATH="$RUNNER_TEMP/media-tools/bin:$PATH"
+          GH_TOKEN="${{ github.token }}" gh api -H 'Accept: application/vnd.github.raw' \
+            'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' \
+            > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
+          ffmpeg -hide_banner -filters 2>&1 | grep -q subtitles
+          ffprobe -version | head -1
+          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check numpy pillow av
+
+      - name: Restore approved reference PNGs into the working tree only
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          here = Path('production/jinshinhye_case')
+          approvals = json.loads((here / 'reference/approvals.json').read_text())
+          default_revision = (here / 'reference/revision.txt').read_text().strip()
+          fetched = set()
+          for aid, row in approvals['assets'].items():
+              if row.get('status') != 'approved':
+                  raise SystemExit(f'{aid}: reference is not approved')
+              revision = str(row.get('revision') or default_revision)
+              if revision not in fetched:
+                  subprocess.run(['git', 'fetch', '--depth=1', 'origin', revision], check=True)
+                  fetched.add(revision)
+              rel = row['file']
+              dest = here / rel
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              data = subprocess.check_output(['git', 'show', f'{revision}:production/jinshinhye_case/{rel}'])
+              if hashlib.sha256(data).hexdigest() != row['sha256']:
+                  raise SystemExit(f'{aid}: pinned reference checksum mismatch')
+              dest.write_bytes(data)
+              print(f'restored {aid} from {revision[:12]} ({len(data)} bytes)')
+          PY
+
+      - name: Validate and run the requested mode
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ] && [ -f production/jinshinhye_case/GEN_REQUEST ]; then
+            payload="$(cat production/jinshinhye_case/GEN_REQUEST)"
+          fi
+          if [ -z "$payload" ]; then payload='{"mode":"clips","workers":2}'; fi
+          mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", "clips"))' <<< "$payload")"
+          if [ "$mode" != "status" ] && [ "$mode" != "retrieve" ] && [ -f production/jinshinhye_case/CANCEL_REQUEST ]; then
+            echo 'Cancellation requested; no Agnes creation requests will be made.'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "$mode" = "status" ]; then
+            test -n "$AGNES_API_KEY"
+            python3 -u production/jinshinhye_case/generate.py --check-outstanding --publish
+          elif [ "$mode" = "retrieve" ]; then
+            test -n "$AGNES_API_KEY"
+            python3 -u production/jinshinhye_case/generate.py --retrieve-completed --payload "$payload" --publish
+          elif [ "$mode" = "qc" ]; then
+            python3 -u production/jinshinhye_case/generate.py --payload "$payload" --publish
+          elif [ "$mode" = "render" ]; then
+            log_file="$RUNNER_TEMP/jinshinhye-render.log"
+            set +e
+            python3 production/jinshinhye_case/build_audio_manifest.py 2>&1 | tee "$log_file"
+            status=${PIPESTATUS[0]}
+            if [ "$status" -eq 0 ]; then
+              python3 production/jinshinhye_case/generate.py --render-only --publish 2>&1 | tee -a "$log_file"
+              status=${PIPESTATUS[0]}
+            fi
+            if [ "$status" -ne 0 ]; then
+              mkdir -p production/jinshinhye_case/qa
+              cp "$log_file" production/jinshinhye_case/qa/render-failure.log
+              git add -- production/jinshinhye_case/qa/render-failure.log
+              if ! git diff --cached --quiet -- production/jinshinhye_case/qa/render-failure.log; then
+                git commit -m "jinshinhye_case: retain render failure diagnostics" -- production/jinshinhye_case/qa/render-failure.log
+                git push origin arena/5299d09a-desktop-tutorial
+              fi
+              exit "$status"
+            fi
+            exit 0
+          elif [ "$mode" = "clips" ]; then
+            test -n "$AGNES_API_KEY"
+            python3 production/jinshinhye_case/build_story.py
+            python3 production/jinshinhye_case/preflight.py
+            python3 production/jinshinhye_case/generate.py --validate --clips-only
+            python3 -u production/jinshinhye_case/generate.py --clips-only --payload "$payload" --publish
+          else
+            echo "Unsupported continuation mode: $mode" >&2
+            exit 2
+          fi
+
+      - name: Upload footage, provenance and QA reports
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: jinshinhye-case-${{ github.run_number }}
+          path: |
+            work/jinshinhye_case/
+            交付/
+            production/jinshinhye_case/results.json
+            production/jinshinhye_case/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
