@@ -5,47 +5,10 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "request_hash": "f6a1d2110bedb619b686ea327716c19c75cadafae75d25d9189248dd05195b68",
-      "status": "completed",
+      "request_hash": "3c5d18e0ec50faf056ade3dcb4a8f39b3a2eb7bd472fcd6de89dea3c66d7d200",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T04:42:22Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n【C01B锚点】与C01同一虚构女性自然衰老至47岁,齐下巴黑短发微带白丝,细纹平静眼神,深灰长外套与同款旧帆布包,沉静坚毅\n\n2025年1月冬晨，韩国长兴监狱外景（门母题1）：厚重灰色大铁门缓缓向内拉开，冷雾中47岁金信惠拎着磨旧帆布包独自缓慢迈出铁门门槛，晨光微冷与远端门灯余光交汇；她停步呼出一口白雾。全程无文字标牌。 门母题重点镜头：清晰呈现门的开合与人物进出门槛的命运转折。 真实连续运动贯穿全镜，镜头运镜：门外低机位平视缓慢拉远跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
-        "seconds": "5",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20250106,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C01B.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/S01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P02.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 1,
-      "video_id": "task_obfnlCnM1ASMAm5GwuESRphkTspaWsGC",
-      "task_id": "task_obfnlCnM1ASMAm5GwuESRphkTspaWsGC",
-      "requested_seconds": 5.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_obfnlCnM1ASMAm5GwuESRphkTspaWsGC.mp4",
-      "bytes": 2955198,
-      "sha256": "128f42a69f08293103a77f1580ea970ae50a98f04143737a860cc1b6015b3778",
-      "reported_size": "720P",
-      "reported_seconds": "5",
-      "inspection": {
-        "duration_seconds": 5.184,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2955198,
-        "decoded_ok": true,
-        "contact_sheet": "production/jinshinhye_case/qa/S01.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-15T04:56:50Z"
     },
     "S02": {
       "id": "S02",
@@ -642,51 +605,10 @@
     },
     "S15": {
       "id": "S15",
-      "request_hash": "819ea9c063cbedbc5ac3a182ae66aa50b165efe01885a40ae52ab407478f63a5",
-      "status": "completed",
+      "request_hash": "860d32290d179612b73c26312e07ce4026a1259e1623867123083b2266f14592",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T04:44:59Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n【C07锚点】两名虚构韩国司法人员:45岁深灰三件套西装男检察官神情冷峻;55岁黑色韩式法袍老法官神情庄严\n\n【C01锚点】23岁虚构韩国女性,齐肩黑发简单扎起,海边略晒黑素净面庞,旧蓝灰格子衬衫与旧牛仔裤,背旧橄榄绿帆布斜挎包,神情疲惫克制\n\n【C03锚点】2000年约20岁虚构韩国青年女性,直长黑发,墨绿素色毛衣与深色长裙,神情温柔坚定\n\n【C02锚点】2000年约16岁虚构韩国少年,清瘦,短黑发,深蓝老式素面校服外套与白衬衫黑裤旧球鞋,胸口无铭牌,神情怯弱低眉\n\n2000年8月冷白冷灰法庭，法台老法官肃穆合上卷宗；被告席的23岁金信惠浑身凝固不动；旁听席前排穿墨绿毛衣的20岁妹妹瞬间捂嘴低声啜泣，身旁16岁弟弟僵直低着头一动不动。 真实连续运动贯穿全镜，镜头运镜：中远景缓慢从法台摇向旁听席弟妹与被告背影；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20001322,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C07.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C02.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/S06.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 30.0,
-      "video_id": "task_Mj4Kzvks96vHNAKTSSgzgqKPjL6xI3Gi",
-      "task_id": "task_Mj4Kzvks96vHNAKTSSgzgqKPjL6xI3Gi",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Mj4Kzvks96vHNAKTSSgzgqKPjL6xI3Gi.mp4",
-      "bytes": 3004364,
-      "sha256": "5d8d7fd6babb9266f9da1bf2be1ee6da5ee588512a8da71a83f9ea09beba0a2c",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 3004364,
-        "decoded_ok": true,
-        "contact_sheet": "production/jinshinhye_case/qa/S15.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-15T04:56:50Z"
     },
     "S16": {
       "id": "S16",
@@ -1342,47 +1264,10 @@
     },
     "S30": {
       "id": "S30",
-      "request_hash": "210dfb4146932c3795ca2653ca34b8055b5db31df6bdea7a352eaeed4bfc5270",
-      "status": "completed",
+      "request_hash": "16a3028b3b4b4385691a8a77b1e8adb7948d80f75663a36bf8cce8a47cf2504a",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T04:48:12Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n极简纯黑背景收束镜头：纯黑空间中央只静静立着那只干净无标签的深棕色老式洋酒空瓶剪影，一束极细的冷金轮廓光绕瓶身缓缓划过玻璃反光，最后0.6秒平稳渐暗融入纯黑；绝不出现人物、手、药片、桌面或文字，片尾标题由后期叠加。 真实连续运动贯穿全镜，镜头运镜：平稳缓慢推近孤立暗光空酒瓶剪影；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20261115,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_SLM0NcptapM0mgceJXPcNVerpVnoswVB",
-      "task_id": "task_SLM0NcptapM0mgceJXPcNVerpVnoswVB",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_SLM0NcptapM0mgceJXPcNVerpVnoswVB.mp4",
-      "bytes": 2540208,
-      "sha256": "be9eb4ec0303d3b0067cb14894b1c9da13cf0b8f3710619add127361bacd0ffd",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2540208,
-        "decoded_ok": true,
-        "contact_sheet": "production/jinshinhye_case/qa/S30.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-15T04:56:50Z"
     }
   },
   "phase": "generating_sources",
@@ -1436,7 +1321,150 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T04:56:47Z",
+  "updated_at": "2026-11-15T04:56:50Z",
   "run_id": "43678853717",
-  "previous_results": {}
+  "previous_results": {
+    "S01": [
+      {
+        "id": "S01",
+        "request_hash": "f6a1d2110bedb619b686ea327716c19c75cadafae75d25d9189248dd05195b68",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-15T04:42:22Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n【C01B锚点】与C01同一虚构女性自然衰老至47岁,齐下巴黑短发微带白丝,细纹平静眼神,深灰长外套与同款旧帆布包,沉静坚毅\n\n2025年1月冬晨，韩国长兴监狱外景（门母题1）：厚重灰色大铁门缓缓向内拉开，冷雾中47岁金信惠拎着磨旧帆布包独自缓慢迈出铁门门槛，晨光微冷与远端门灯余光交汇；她停步呼出一口白雾。全程无文字标牌。 门母题重点镜头：清晰呈现门的开合与人物进出门槛的命运转折。 真实连续运动贯穿全镜，镜头运镜：门外低机位平视缓慢拉远跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
+          "seconds": "5",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20250106,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C01B.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/S01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P02.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 1,
+        "video_id": "task_obfnlCnM1ASMAm5GwuESRphkTspaWsGC",
+        "task_id": "task_obfnlCnM1ASMAm5GwuESRphkTspaWsGC",
+        "requested_seconds": 5.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_obfnlCnM1ASMAm5GwuESRphkTspaWsGC.mp4",
+        "bytes": 2955198,
+        "sha256": "128f42a69f08293103a77f1580ea970ae50a98f04143737a860cc1b6015b3778",
+        "reported_size": "720P",
+        "reported_seconds": "5",
+        "inspection": {
+          "duration_seconds": 5.184,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2955198,
+          "decoded_ok": true,
+          "contact_sheet": "production/jinshinhye_case/qa/S01.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S15": [
+      {
+        "id": "S15",
+        "request_hash": "819ea9c063cbedbc5ac3a182ae66aa50b165efe01885a40ae52ab407478f63a5",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-15T04:44:59Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n【C07锚点】两名虚构韩国司法人员:45岁深灰三件套西装男检察官神情冷峻;55岁黑色韩式法袍老法官神情庄严\n\n【C01锚点】23岁虚构韩国女性,齐肩黑发简单扎起,海边略晒黑素净面庞,旧蓝灰格子衬衫与旧牛仔裤,背旧橄榄绿帆布斜挎包,神情疲惫克制\n\n【C03锚点】2000年约20岁虚构韩国青年女性,直长黑发,墨绿素色毛衣与深色长裙,神情温柔坚定\n\n【C02锚点】2000年约16岁虚构韩国少年,清瘦,短黑发,深蓝老式素面校服外套与白衬衫黑裤旧球鞋,胸口无铭牌,神情怯弱低眉\n\n2000年8月冷白冷灰法庭，法台老法官肃穆合上卷宗；被告席的23岁金信惠浑身凝固不动；旁听席前排穿墨绿毛衣的20岁妹妹瞬间捂嘴低声啜泣，身旁16岁弟弟僵直低着头一动不动。 真实连续运动贯穿全镜，镜头运镜：中远景缓慢从法台摇向旁听席弟妹与被告背影；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20001322,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C07.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C02.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/S06.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 30.0,
+        "video_id": "task_Mj4Kzvks96vHNAKTSSgzgqKPjL6xI3Gi",
+        "task_id": "task_Mj4Kzvks96vHNAKTSSgzgqKPjL6xI3Gi",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Mj4Kzvks96vHNAKTSSgzgqKPjL6xI3Gi.mp4",
+        "bytes": 3004364,
+        "sha256": "5d8d7fd6babb9266f9da1bf2be1ee6da5ee588512a8da71a83f9ea09beba0a2c",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 3004364,
+          "decoded_ok": true,
+          "contact_sheet": "production/jinshinhye_case/qa/S15.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S30": [
+      {
+        "id": "S30",
+        "request_hash": "210dfb4146932c3795ca2653ca34b8055b5db31df6bdea7a352eaeed4bfc5270",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-15T04:48:12Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n极简纯黑背景收束镜头：纯黑空间中央只静静立着那只干净无标签的深棕色老式洋酒空瓶剪影，一束极细的冷金轮廓光绕瓶身缓缓划过玻璃反光，最后0.6秒平稳渐暗融入纯黑；绝不出现人物、手、药片、桌面或文字，片尾标题由后期叠加。 真实连续运动贯穿全镜，镜头运镜：平稳缓慢推近孤立暗光空酒瓶剪影；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20261115,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_SLM0NcptapM0mgceJXPcNVerpVnoswVB",
+        "task_id": "task_SLM0NcptapM0mgceJXPcNVerpVnoswVB",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_SLM0NcptapM0mgceJXPcNVerpVnoswVB.mp4",
+        "bytes": 2540208,
+        "sha256": "be9eb4ec0303d3b0067cb14894b1c9da13cf0b8f3710619add127361bacd0ffd",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2540208,
+          "decoded_ok": true,
+          "contact_sheet": "production/jinshinhye_case/qa/S30.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ]
+  }
 }
