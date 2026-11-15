@@ -849,9 +849,9 @@
     "S29": {
       "id": "S29",
       "request_hash": "018eaa2e78ae48a05bb526139a2910fb7a3bc4b80563b943bca06c964bb10f90",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T04:32:14Z",
+      "updated_at": "2026-11-15T04:37:03Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n【C01B锚点】与C01同一虚构女性自然衰老至47岁,齐下巴黑短发微带白丝,细纹平静眼神,深灰长外套与同款旧帆布包,沉静坚毅\n\n2025年黄昏完岛渔港旧木码头栈桥，夕阳暖橙余晖铺满深蓝暮海与远处渔船灯火；47岁金信惠独自抓紧肩上磨旧帆布包的背带，缓缓步向栈桥尽头独自望向大海，海风吹起她的短发与深色外套衣角。 真实连续运动贯穿全镜，镜头运镜：背侧中景平稳跟随后缓缓停在黄昏海平线远景；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
@@ -867,10 +867,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P02.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 04:37:02. (request id: 202611150432143172452758tu8LIkg) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_nGvIGWJ9mouzFuydobFaa5aEz2VzSIEW",
+      "task_id": "task_nGvIGWJ9mouzFuydobFaa5aEz2VzSIEW",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S30": {
       "id": "S30",
@@ -931,15 +935,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T04:32:14Z",
+  "updated_at": "2026-11-15T04:37:03Z",
   "run_id": "43671523708",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 04:37:02. (request id: 202611150432143172452758tu8LIkg) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-15T04:32:14Z"
-  }
+  "previous_results": {}
 }
