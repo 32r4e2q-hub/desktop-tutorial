@@ -6,9 +6,9 @@
     "S01": {
       "id": "S01",
       "request_hash": "3c5d18e0ec50faf056ade3dcb4a8f39b3a2eb7bd472fcd6de89dea3c66d7d200",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T05:07:13Z",
+      "updated_at": "2026-11-15T05:07:15Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现；35mm胶片摄影质感，浅景深，韩国社会派犯罪悬疑片克制写实风格，真实人体比例、自然皮肤纹理、可信衣料与实景建筑材质，低饱和细腻胶片颗粒；16:9横屏宽银幕，主体置于三分线附近，底部六分之一留作字幕安全区；每个片段从第1帧到最后一帧必须是单一不间断连续长镜头（one continuous uninterrupted single take），全程固定在同一实景空间与同一恒定光照色温中，有自然呼吸、微风、手势或平稳运镜，绝不切镜、绝不跳切、绝不闪白切黑、绝不冷暖闪烁、绝不出现参考图本身的纯灰/纯白摄影棚背景；严禁生成任何可读韩文、汉字、字母、数字或招牌。\n\n【C01B锚点】与C01同一虚构女性自然衰老至47岁,齐下巴黑短发微带白丝,细纹平静眼神,深灰长外套与同款旧帆布包,沉静坚毅\n\n单一不间断连续长镜头（one continuous uninterrupted single take），从第1帧到最后一帧始终留在同一实景空间内，人物从第1帧起已在现场，绝不切镜、绝不出现纯灰或纯白摄影棚背景：2025年1月冬晨韩国长兴监狱外景（单一户外铁门场景，绝不切入室内走廊、法庭或海边）：厚重灰色大铁门缓缓向内拉开，47岁短发微白的金信惠从第1帧起就自然站在铁门门槛内，拎着磨旧橄榄绿帆布包独自缓慢迈出铁门进入冷雾院落并轻呼出一口白雾，全程恒定冷灰蓝冬晨微光，无文字标牌。 真实连续运动贯穿全镜，镜头运镜：门外低机位平视缓慢拉远跟拍；色调全程恒定保持冷灰蓝冬晨与微暖门灯；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；绝无跳切、黑屏、红蓝频闪、血迹、药片或任何可读韩文汉字数字。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，切镜，跳切，蒙太奇，多画面拼接，黑屏，闪白，色温闪变，频闪警灯，纯灰背景，纯白棚拍背景，定妆照，证件照，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，血迹，红墨水，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
@@ -34,7 +34,18 @@
       "bytes": 2479010,
       "sha256": "271be05578db1d993c301770f316a41448a0e2684aa7695879f5bd6443f06937",
       "reported_size": "720P",
-      "reported_seconds": "5"
+      "reported_seconds": "5",
+      "inspection": {
+        "duration_seconds": 5.184,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2479010,
+        "decoded_ok": true,
+        "contact_sheet": "production/jinshinhye_case/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S02": {
       "id": "S02",
@@ -1393,7 +1404,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T05:07:13Z",
+  "updated_at": "2026-11-15T05:07:15Z",
   "run_id": "43678853717",
   "previous_results": {
     "S01": [
