@@ -1057,9 +1057,25 @@
     "S25": {
       "id": "S25",
       "request_hash": "380871b80e1ed6b7225fd25ef473b72daf583f8870147147d8fb0794bae0b9c1",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T08:04:30Z"
+      "updated_at": "2026-11-15T08:14:40Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现；35mm胶片摄影质感，浅景深，韩国社会派犯罪悬疑片克制写实风格，真实人体比例、自然皮肤纹理、可信衣料与实景建筑材质，低饱和细腻胶片颗粒；16:9横屏宽银幕，主体置于三分线附近，底部六分之一留作字幕安全区；每个片段从第1帧到最后一帧必须是单一不间断连续长镜头（one continuous uninterrupted single take），全程固定在同一实景空间与同一恒定光照色温中，有自然呼吸、微风、手势或平稳运镜，绝不切镜、绝不跳切、绝不闪白切黑、绝不冷暖闪烁、绝不出现参考图本身的纯灰/纯白摄影棚背景；严禁生成任何可读韩文、汉字、字母、数字或招牌。\n\n【C07锚点】两名虚构韩国司法人员:45岁深灰三件套西装男检察官神情冷峻;55岁黑色韩式法袍老法官神情庄严\n\n【C01B锚点】与C01同一虚构女性自然衰老至47岁,齐下巴黑短发微带白丝,细纹平静眼神,深灰长外套与同款旧帆布包,沉静坚毅\n\n单一不间断连续长镜头（one continuous uninterrupted single take），从第1帧到最后一帧始终留在同一实景空间内，人物从第1帧起已在现场，绝不切镜、绝不出现纯灰或纯白摄影棚背景：2025年1月6日现代再审刑事法庭固定宽中景（全程人物双手始终安静平放在身前桌面或膝上纹丝不动，绝不抬起手臂或张开手掌，绝无任何红色印记、红色颜料或血迹）：高侧窗透进一缕柔和金色冬日阳光斜照在前景被告席端坐闭目微低头长舒一口气的47岁短发金信惠肩头，她双手安稳平放在桌面空白文件夹旁一动不动；左后方高台上白发老法官庄重合上空白卷宗，全员同框，摄影机极缓慢平稳微前推。 真实连续运动贯穿全镜，镜头运镜：宽中景固定机位极缓慢平稳前推被暖冬光照亮的被告席与法台；色调全程恒定保持冷灰法庭破开一缕暖冬光；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；绝无跳切、黑屏、红蓝频闪、血迹、药片或任何可读韩文汉字数字。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，切镜，跳切，蒙太奇，多画面拼接，黑屏，闪白，色温闪变，频闪警灯，纯灰背景，纯白棚拍背景，定妆照，证件照，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，血迹，红墨水，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 20002332,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/S12.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C07.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/C01B.png"
+        ]
+      },
+      "error": null
     },
     "S26": {
       "id": "S26",
@@ -1263,7 +1279,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T08:14:39Z",
+  "updated_at": "2026-11-15T08:14:40Z",
   "run_id": "43692687735",
   "previous_results": {
     "S01": [
