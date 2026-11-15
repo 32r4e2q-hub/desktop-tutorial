@@ -508,9 +508,9 @@
     "S12": {
       "id": "S12",
       "request_hash": "7351b01fc7c7d16fa64de30ad3433e8314fab40ad3a5af892908cb006d556870",
-      "status": "queued",
+      "status": "downloaded",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T06:18:19Z",
+      "updated_at": "2026-11-15T07:46:19Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现；35mm胶片摄影质感，浅景深，韩国社会派犯罪悬疑片克制写实风格，真实人体比例、自然皮肤纹理、可信衣料与实景建筑材质，低饱和细腻胶片颗粒；16:9横屏宽银幕，主体置于三分线附近，底部六分之一留作字幕安全区；每个片段从第1帧到最后一帧必须是单一不间断连续长镜头（one continuous uninterrupted single take），全程固定在同一实景空间与同一恒定光照色温中，有自然呼吸、微风、手势或平稳运镜，绝不切镜、绝不跳切、绝不闪白切黑、绝不冷暖闪烁、绝不出现参考图本身的纯灰/纯白摄影棚背景；严禁生成任何可读韩文、汉字、字母、数字或招牌。\n\n【C04锚点】2000年60岁左右虚构渔村男子,晒黑粗糙皮肤,花白短发,旧深蓝工作夹克,神情沉重严肃\n\n【C01锚点】23岁虚构韩国女性,齐肩黑发简单扎起,海边略晒黑素净面庞,旧蓝灰格子衬衫与旧牛仔裤,背旧橄榄绿帆布斜挎包,神情疲惫克制\n\n单一不间断连续长镜头（one continuous uninterrupted single take），从第1帧到最后一帧始终留在同一实景空间内，人物从第1帧起已在现场，绝不切镜、绝不出现纯灰或纯白摄影棚背景：2000年完岛传统木屋檐下昏暗角落中景（全程只在此木屋走廊暗影内，绝无门牌文字、绝无铁栏杆、绝无灰白摄影棚壁）：60岁花白头发穿深蓝工装夹克的姑父微弓着背靠近身旁23岁金信惠耳边低声交代，金信惠听后脸色骤白、眼神惊惶低垂，恒定暖黄暮色配冷青阴影。 真实连续运动贯穿全镜，镜头运镜：低机位暗影极缓慢平稳推近两人同框侧影；色调全程恒定保持暖黄暮色与冷青阴影；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；绝无跳切、黑屏、红蓝频闪、血迹、药片或任何可读韩文汉字数字。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，切镜，跳切，蒙太奇，多画面拼接，黑屏，闪白，色温闪变，频闪警灯，纯灰背景，纯白棚拍背景，定妆照，证件照，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，血迹，红墨水，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
@@ -533,7 +533,12 @@
       "video_id": "task_QCV9MQvTzqO8VZn3mgULn3mEFVFaCImd",
       "task_id": "task_QCV9MQvTzqO8VZn3mgULn3mEFVFaCImd",
       "requested_seconds": 7.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_QCV9MQvTzqO8VZn3mgULn3mEFVFaCImd.mp4",
+      "bytes": 2466849,
+      "sha256": "260bfe7535cf6e5a72dca17a6dee901c4abd2b7482c0572c33ed1379a8aac02a",
+      "reported_size": "720P",
+      "reported_seconds": "7"
     },
     "S13": {
       "id": "S13",
@@ -1161,7 +1166,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T07:46:10Z",
+  "updated_at": "2026-11-15T07:46:19Z",
   "run_id": "43681074571",
   "previous_results": {
     "S01": [
