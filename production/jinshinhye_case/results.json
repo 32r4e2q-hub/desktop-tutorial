@@ -1376,7 +1376,7 @@
       "visual_review": "pending"
     }
   },
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1423,9 +1423,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-15T08:55:13Z",
   "run_id": "43696055629",
@@ -3244,5 +3244,31 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/jinshinhye_case/clips/金信惠案_关了24年_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/jinshinhye_case/clips/金信惠案_Cover.jpg",
+    "delivered": {
+      "金信惠案_关了24年_三分钟_带声音.mp4": {
+        "bytes": 68263291,
+        "sha256": "de49a7f70e3685dbf05436ed4e26a7a1015ff8a1c870f6ca455daaf43004d81a"
+      },
+      "金信惠案_Cover.jpg": {
+        "bytes": 214747,
+        "sha256": "e12724b71fde1f2011a32bc2e3d10eaea08023217388253941c6379e662cf8af"
+      },
+      "金信惠案_Subtitles.srt": {
+        "bytes": 3107,
+        "sha256": "8fb281cc7138c69a1e89d05c23b9a5fbea0a614234c1223babc9013b0612bbd0"
+      },
+      "金信惠案_Technical_Report.json": {
+        "bytes": 11062,
+        "sha256": "d9f06a25d6d7b53b767d959b79b785427a6ebfaea04d67143120b4e0290f3850"
+      }
+    }
   }
 }
