@@ -541,9 +541,9 @@
     "S19": {
       "id": "S19",
       "request_hash": "fcc552c7515db34497c39f6fd4158d547c37a46227c6685922c722f2a5f80349",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-15T03:41:59Z",
+      "updated_at": "2026-11-15T03:46:48Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似韩国社会派犯罪悬疑片的克制、冷静、潮湿海风感氛围；2000年至2025年韩国全罗南道完岛渔村、旧警署、审讯室、老式住宅、监狱与韩国刑事法庭，准确呈现当年老式衣料、旧帆布包、牛皮纸卷宗与木质建筑材质；真实人体比例、自然皮肤纹理、可信布料与潮湿环境表面，低饱和、暗部厚重、细腻胶片颗粒；色调严格按章节推进：镜1至2冷灰蓝冬晨与庭审冷调，镜3至4海雾蓝灰配微弱路灯黄，镜5门内暖黄微光，镜6至10冷灰蓝警方版本，镜11至14罗生门对照暖黄偏冷边角，镜15至18冷白冷蓝灰铁窗岁月，镜19至22深蓝律所台灯暖与冷青回溯，镜23至25阴天微暖及一缕暖光破开，镜26至28冷灰与冷静法台青灰，镜29黄昏暖橙渐入深蓝，镜30纯黑场仅轮廓光；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、衣角风动、海雾飘散、指尖微动或光影推进，镜头本身平稳移动，绝不以静态图加推拉冒充视频；贯穿全片两条视觉母题：铁门/木门的开关（镜1、14、25、26）与红线/红圈/红印标记（镜8、19、22、27）；所有人物均为虚构演员式形象，不还原任何真实人物肖像，禁止生成任何可读韩文、汉字、数字或招牌。\n\n【C06锚点】2014年40岁出头虚构韩国再审男律师,戴细框眼镜,深灰呢西装外搭与格纹衬衫,怀抱空白牛皮纸卷宗,专注温和而执着\n\n深蓝黑夜色中一间温暖台灯照亮的2014年律师事务所桌面（红线母题2）：整叠无字空白牛皮纸卷宗堆叠如山，戴眼镜律师俯身将一条鲜明显眼的细红线从桌面材料间抽丝剥茧般连起。 红线/红印母题镜头：仅允许细红线、红笔圈痕或空白红环印记推进视觉线索。 真实连续运动贯穿全镜，镜头运镜：俯斜角度缓慢沿红线推过成堆牛皮纸卷宗；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；严禁生成任何文字、韩文、汉字、数字、药片或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，韩文，汉字，数字，伪招牌，真实姓名，真实肖像，药片，药丸，药粉，投药特写，性侵害画面，血腥，伤口，遗体细节，裸露，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，频闪警灯，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版。",
@@ -559,10 +559,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/f103ee94bb7734c7135259d5c1edb27d9f4f97b0/production/jinshinhye_case/reference/P07.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 03:46:46. (request id: 2026111503415929155956CzWWChbc) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_V2LHCZJVTefPDFQSvsvBrmHcQzpTb64U",
+      "task_id": "task_V2LHCZJVTefPDFQSvsvBrmHcQzpTb64U",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S20": {
       "id": "S20",
@@ -693,15 +697,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-15T03:41:59Z",
+  "updated_at": "2026-11-15T03:46:48Z",
   "run_id": "43671523708",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 03:46:46. (request id: 2026111503415929155956CzWWChbc) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-15T03:41:59Z"
-  }
+  "previous_results": {}
 }
