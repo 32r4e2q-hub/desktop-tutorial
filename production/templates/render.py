@@ -25,8 +25,10 @@ from PIL import Image, ImageDraw, ImageFont
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(ROOT / "production"))
 from media import probe
 from build_audio import build_soundtrack, measure, assert_audible
+from gwangju_style import ass_caption, caption_lines
 
 FPS = 30
 DURATION = 180.0
@@ -291,18 +293,32 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Caption,Noto Sans CJK SC,43,&H00FFFFFF,&H000000FF,&H00141410,&H99000000,1,0,0,0,100,100,1,0,1,2.3,0.8,2,80,80,42,1
+Style: Caption,Noto Sans CJK SC,44,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.4,0.6,2,120,120,62,1
 Style: Label,Noto Sans CJK SC,23,&H60E9E4D4,&H000000FF,&H00262621,&H99000000,0,0,0,0,100,100,1,0,1,1,0,9,60,60,36,1
+Style: Hook,Noto Sans CJK SC,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1
+Style: Explainer,Noto Sans CJK SC,32,&H0000C8FF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,2.2,0.5,2,120,120,200,1
 Style: Title,Noto Serif CJK SC,102,&H00EBE8DE,&H000000FF,&H00141B17,&H99000000,0,0,0,0,100,100,4,0,1,1,2,7,104,104,205,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 '''
+    keywords = presentation.get('caption_keywords') or []
     for cue in cues:
-        caption=safe_text(cue['text'])
-        for key in presentation.get('caption_keywords') or []:
-            if key in caption:caption=caption.replace(key,r'{\c&H0076DDF2&}'+key+r'{\c&H00FFFFFF&}')
+        caption = r'\N'.join(ass_caption(line, keywords) for line in caption_lines(cue['text']))
         text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
+    for hook in presentation.get('hooks') or []:
+        start, end = float(hook['start']), float(hook['end'])
+        if abs((end - start) - 2.0) > 1e-6:
+            raise RuntimeError(f"{hook.get('id')}: 钩子字幕必须严格 2 秒")
+        rendered = r'\N'.join(ass_caption(line, keywords, highlight_size=86)
+                              for line in caption_lines(str(hook['text']), limit=18))
+        text+=f"Dialogue: 2,{ass_time(start)},{ass_time(end)},Hook,,0,0,0,,{{\\q2\\fad(90,100)}}{rendered}\n"
+    for explainer in presentation.get('explainers') or []:
+        start, end = float(explainer['start']), float(explainer['end'])
+        if end <= start:
+            raise RuntimeError('注释字幕时长必须为正')
+        rendered = r'\N'.join(caption_lines(str(explainer['text']), limit=28))
+        text+=f"Dialogue: 1,{ass_time(start)},{ass_time(end)},Explainer,,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}\n"
     for entry in edl:
         if entry['id']=='END':continue
         label={'agnes':'AI动画情景重现 · 非新闻影像','archive':'档案照片',

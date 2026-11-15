@@ -96,94 +96,9 @@ def ffmpeg_escape(path: Path) -> str:
     return str(path.resolve()).replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'")
 
 
-def ass_time(seconds: float) -> str:
-    centiseconds = round(seconds * 100)
-    hours, centiseconds = divmod(centiseconds, 360000)
-    minutes, centiseconds = divmod(centiseconds, 6000)
-    secs, centiseconds = divmod(centiseconds, 100)
-    return f"{hours}:{minutes:02d}:{secs:02d}.{centiseconds:02d}"
-
-
-def ass_escape(text: str) -> str:
-    return text.replace("\\", "／").replace("{", "（").replace("}", "）").replace("\n", " ")
-
-
-def caption_lines(text: str, limit: int = 20) -> list[str]:
-    """Keep Chinese captions compact and centered, using a consistent small type size."""
-    if len(text) <= limit:
-        return [text]
-    split_at = len(text) // 2
-    punctuation = set("，。；：！？、")
-    candidates = [i + 1 for i, char in enumerate(text) if char in punctuation and 6 <= i + 1 <= limit]
-    if candidates:
-        split_at = min(candidates, key=lambda i: abs(i - len(text) / 2))
-    else:
-        split_at = min(limit, split_at)
-    left, right = text[:split_at].strip(), text[split_at:].strip()
-    if len(right) > limit:
-        return [left] + caption_lines(right, limit)
-    return [left, right]
-
-
-def ass_caption(text: str, phrases: list[str], highlight_size: int = 50) -> str:
-    """Apply gold to selected phrases, restoring the active base style after each hit."""
-    text = ass_escape(text)
-    ordered = sorted(set(phrases), key=len, reverse=True)
-    out = []
-    i = 0
-    while i < len(text):
-        hit = next((phrase for phrase in ordered if text.startswith(phrase, i)), None)
-        if hit:
-            out.append(r"{\c&H0000C8FF&\fs" + str(highlight_size) + "}" + hit + r"{\r}")
-            i += len(hit)
-        else:
-            out.append(text[i])
-            i += 1
-    return "".join(out)
-
-
-def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[str],
-              end_card: tuple[str, str, float, float] | None = None,
-              onscreen_label: str = "", hooks: list[dict] | None = None,
-              explainers: list[dict] | None = None) -> None:
-    rows = [
-        "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1920", "PlayResY: 1080",
-        "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
-        "[V4+ Styles]",
-        "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-        "Style: Caption,Noto Sans CJK SC,44,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.4,0.6,2,120,120,62,1",
-        "Style: Label,Noto Sans CJK SC,26,&H60FFFFFF,&H00FFFFFF,&H00101010,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0.0,7,52,52,34,1",
-        "Style: Hook,Noto Sans CJK SC,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1",
-        "Style: Explainer,Noto Sans CJK SC,32,&H0000C8FF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,2.2,0.5,2,120,120,200,1",
-        "Style: Title,Noto Sans CJK SC,104,&H0000C8FF,&H00FFFFFF,&H00101010,&H80000000,-1,0,0,0,100,100,2,0,1,3.0,1.0,2,120,120,330,1",
-        "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-    ]
-    for start, end, text in cues:
-        rendered = r"\N".join(ass_caption(line, phrases) for line in caption_lines(text))
-        rows.append(f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Caption,,0,0,0,,{{\\q2\\fad(60,70)}}{rendered}")
-    for hook in hooks or []:
-        start, end = float(hook["start"]), float(hook["end"])
-        if abs((end - start) - 2.0) > 1e-6:
-            raise ValueError(f"{hook.get('id')}: hook overlay must be exactly 2 seconds")
-        rendered = r"\N".join(
-            ass_caption(line, phrases, highlight_size=86)
-            for line in caption_lines(str(hook["text"]), limit=18)
-        )
-        rows.append(f"Dialogue: 2,{ass_time(start)},{ass_time(end)},Hook,,0,0,0,,{{\\q2\\fad(90,100)}}{rendered}")
-    for explainer in explainers or []:
-        start, end = float(explainer["start"]), float(explainer["end"])
-        if end <= start:
-            raise ValueError("Explainer overlay has a non-positive duration")
-        rendered = r"\N".join(caption_lines(str(explainer["text"]), limit=28))
-        rows.append(f"Dialogue: 1,{ass_time(start)},{ass_time(end)},Explainer,,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}")
-    if onscreen_label:
-        rows.append(f"Dialogue: 0,{ass_time(0.8)},{ass_time(176.0)},Label,,0,0,0,,{{\\q2\\fad(300,300)}}{ass_escape(onscreen_label)}")
-    if end_card:
-        title, subtitle, start, end = end_card
-        card = (ass_escape(title) + r"\N" +
-                r"{\fs38\c&H00FFFFFF&}" + ass_escape(subtitle))
-        rows.append(f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Title,,0,0,0,,{{\\q2\\fad(200,400)}}{card}")
-    path.write_text("\n".join(rows) + "\n", encoding="utf-8")
+# 默认画面文字层：光州胶带案风格已固化为仓库共享模板。
+sys.path.insert(0, str(ROOT / "production"))
+from gwangju_style import ass_time, ass_escape, caption_lines, ass_caption, write_ass  # noqa: E402
 
 
 def write_cover_ass(path: Path, title: str, subtitle: str) -> None:

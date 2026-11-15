@@ -4,14 +4,27 @@
 
 ---
 
-# 世田谷一家四口杀人案：留下无数线索，凶手为何仍未找到？
+# 第十五期 · 光州胶带案：22米胶带，封住了谁的真相？
 
-> **最新成片（2026-10-28）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.0 s · 29 个 Agnes Video 2.5 Flash 镜头
+> **最新成片（2026-11-14）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.000 s · 30 镜 / 628 字 / 无 BGM
+>
+> - 影片：[`交付/光州胶带案_22米胶带_三分钟_带声音.mp4`](交付/光州胶带案_22米胶带_三分钟_带声音.mp4)（72,574,275 B · SHA-256 `115df324…`）
+> - Drive 下载：https://drive.google.com/file/d/1aey4Z3PV4f-th-dsXXkTLnOQ5menihsf/view?usp=drivesdk
+> - 系列封面：[`第十五期_光州胶带案_系列封面.png`](交付/第十五期_光州胶带案_系列封面.png) · 发布文案：[`第十五期_抖音发布文案.md`](交付/第十五期_抖音发布文案.md)
+> - 制作过程：[`production/gwangju_tape_case/制作过程.md`](production/gwangju_tape_case/制作过程.md) · 复用模板：[`模板-如何复用.md`](production/gwangju_tape_case/模板-如何复用.md)
+> - **从这一部起，画面文字层一律按本片默认**：画面内解说词字幕 + 画面中间偏下金色注释（`production/gwangju_style.py`）。
+> - 质检：`verify_master.py` PASS；最大字幕领先 0.11s；技术 QC 与 Agent 抽帧复核通过，仍需用户完整播放人工复核。
+
+---
+
+# 上一部：世田谷一家四口杀人案：留下无数线索，凶手为何仍未找到？
+
+> **上一部成片（2026-10-28）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.0 s · 29 个 Agnes Video 2.5 Flash 镜头
 >
 > - 影片：[`交付/Setagaya_Case_Final.mp4`](交付/Setagaya_Case_Final.mp4)（65.4 MB）
 > - 封面 / 字幕 / 旁白：[`Setagaya_Cover.png`](交付/Setagaya_Cover.png) · [`Setagaya_Subtitles.srt`](交付/Setagaya_Subtitles.srt) · [`Setagaya_Narration.wav`](交付/Setagaya_Narration.wav)
 > - 全流程与状态：[`production/setagaya2000/README.md`](production/setagaya2000/README.md)
-> - **从这一部起，出片一律按本片模板**：[`production/setagaya2000/模板-如何复用.md`](production/setagaya2000/模板-如何复用.md)
+> - **历史模板**：[`production/setagaya2000/模板-如何复用.md`](production/setagaya2000/模板-如何复用.md)（画面文字层默认已由光州胶带案风格取代）
 >   （29 镜一镜一句 · **解说词与片段等长**：镜头时长跟着旁白走，只快不慢 · 24 fps · 720P 源片放大 1080P · 一份 yml + 三个 marker · 闸门在 runner 上跑）
 > - 质检：`QC PASS`，`hard_gate_failures: []`（非预期黑帧 0 · 冻结 0 · 闪烁 0 · 字幕 0 问题 · RMS −21.04 dBFS · 末秒 −120 dBFS）
 
@@ -106,7 +119,9 @@ python3 production/new_topic.py --slug <slug> --title "<片名>" --branch <分�
 
 脚手架以 `production/rabies1885/` 为参考开出新目录（45 镜 × 4 秒骨架、内容与引擎分离的
 `build_story.py` / `render.py` / `script_table.py`、检验工具链、四份 marker 触发的工作流：
-生成 / 出片 / 听检 / **全帧视觉 QC**），然后照 [`新题目开工手册.md`](新题目开工手册.md) 的 12 步走。
+生成 / 出片 / 听检 / **全帧视觉 QC**），并复制 `production/gwangju_style.py` 作为默认画面文字层
+（画面内解说词字幕 + 画面中间偏下注释）。然后照 [`新题目开工手册.md`](新题目开工手册.md) 的 12 步走；
+完整 30 镜 reference 模式见 [`production/gwangju_tape_case/模板-如何复用.md`](production/gwangju_tape_case/模板-如何复用.md)。
 参考项目只被读取、不被修改，有测试守着。本片是照这份手册做的第二部，并回补了两处流水线改动
 （`GRADE` 调色常量、`WINDOWS` 的 `None` 处理），见 `制作过程.md` §9。
 

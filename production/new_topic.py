@@ -44,6 +44,9 @@ REFERENCE = HERE / "rabies1885"
 TEMPLATES = HERE / "templates"
 
 # 参考项目里原样复制的流水线引擎（内容无关，只需换路径/分支/片名）。
+# 共享画面文字层引擎：光州胶带案默认风格（解说词字幕 + 中间偏下注释）。
+SHARED_ENGINE_FILES = ("gwangju_style.py",)
+
 ENGINE_FILES = (
     "media.py",
     "throttle.py",
@@ -320,6 +323,8 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
 
 - slug：`{slug}`　出片分支：`{branch}`　成片文件名：`{film}`
 - 规格：1920×1080 / 30 fps / 180 秒；**45 镜 = 38 个 Agnes 动画镜头 + 7 张信息卡（比例可调），每个镜头只出现一次**
+- 默认画面文字层：**光州胶带案风格**（`gwangju_style.py`）——画面内解说词字幕 + 画面中间偏下金色注释；
+  在 `build_story.py` 填 `HOOKS` / `EXPLAINERS`，渲染时自动烧录。参考 `production/gwangju_tape_case/模板-如何复用.md`。
 
 ## 现在还不能出片（故意的）
 
@@ -436,6 +441,10 @@ def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path,
     for name in ENGINE_FILES:
         text = (reference / name).read_text(encoding="utf-8")
         (dest / name).write_text(patch(text, slug, branch, title), encoding="utf-8")
+
+    for name in SHARED_ENGINE_FILES:
+        text = (HERE / name).read_text(encoding="utf-8")
+        (dest / name).write_text(text, encoding="utf-8")
 
     for name in TEMPLATE_FILES:
         text = render_template(name, slug, branch, title, templates)

@@ -2,6 +2,14 @@
 
 本项目是单独案件目录，沿用仓库 `production/missing_groom_89tons/` 的 Agnes Video 2.5 Flash 生成、字幕、音画校验与断点续跑工具链；没有复用旧案件脚本、人物、参考图或输出。目标规格：抖音横屏 16:9、1920×1080、24fps、180 秒、30 个连续运动的写实 3D 动画镜头；不加入 BGM。
 
+## 第 15 期交付入口
+
+- 系列封面：[`交付/第十五期_光州胶带案_系列封面.png`](../../交付/第十五期_光州胶带案_系列封面.png)（同名 JSON 记录取帧/裁剪/事实依据）
+- 发布文案：[`交付/第十五期_抖音发布文案.md`](../../交付/第十五期_抖音发布文案.md) / [`抖音发布文案.md`](抖音发布文案.md)
+- 制作过程：[`制作过程.md`](制作过程.md)
+- 今后默认复用模板：[`模板-如何复用.md`](模板-如何复用.md)
+- 共享画面文字层：[`production/gwangju_style.py`](../gwangju_style.py)
+
 ## 当前真实状态（2026-11-14 UTC，最终交付）
 
 - 最终母版：`交付/光州胶带案_22米胶带_三分钟_带声音.mp4`，SHA-256 `115df3249e272529085cc66aca268239561ac54f711210a4eac4c4017f106e27`，72,574,275 字节；180.000s / 1920×1080 / 24fps / 4320 帧 / AAC 48kHz 立体声 180.000s / 30 条逐镜字幕。
@@ -52,9 +60,9 @@
 ```bash
 python3 production/gwangju_tape_case/build_story.py
 python3 -m py_compile production/gwangju_tape_case/*.py
-python3 -m pytest production/tests/test_gwangju_tape_case.py -q
+python3 -m pytest production/tests/test_gwangju_style.py production/tests/test_new_topic.py -q
 python3 production/gwangju_tape_case/preflight.py
 python3 production/gwangju_tape_case/generate.py --validate --clips-only
 ```
 
-测试覆盖 30 镜/180 秒、角色与引用、提示词边界、Hook/Explainer ASS 字幕及 SFX WAV 时长/哈希。参考图、审批哈希和 revision 完整前，`preflight.py` 与最后一条命令预期阻断；不应通过复用其他案件资产绕过检查。
+测试覆盖默认画面文字层（Caption/Hook/Explainer）、脚手架复制 gwangju_style.py、本案 30 镜/180 秒与发布文案字段；参考图/引用/提示词边界仍由 preflight.py 与 generate.py --validate 守门。参考图、审批哈希和 revision 完整前，`preflight.py` 与最后一条命令预期阻断；不应通过复用其他案件资产绕过检查。
