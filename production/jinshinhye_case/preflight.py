@@ -27,12 +27,11 @@ def sha256(path: Path) -> str:
 
 
 def asset_ids(shot: dict) -> list[str]:
-    ids = [ROLE_TO_ASSET[role] for role in shot.get("characters", [])]
-    for token in str(shot.get("reference_ids", "")).split("+"):
-        token = token.strip().upper()
-        if token:
-            ids.append(token)
-    return list(dict.fromkeys(ids))
+    tokens = [token.strip().upper() for token in str(shot.get("reference_ids", "")).split("+") if token.strip()]
+    scenes = [t for t in tokens if t.startswith("S")]
+    chars = [ROLE_TO_ASSET[role] for role in shot.get("characters", [])]
+    others = [t for t in tokens if not t.startswith("S")]
+    return list(dict.fromkeys(scenes + chars + others))
 
 
 def main() -> int:

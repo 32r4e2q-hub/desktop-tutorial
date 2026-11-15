@@ -70,19 +70,25 @@ def read_json(path: Path, default):
 
 
 def reference_asset_ids(shot: dict) -> list[str]:
-    """Resolve story design IDs plus character roles to the final approved image IDs."""
-    asset_ids = [CHARACTER_REFERENCE_IDS[role] for role in shot.get("characters", [])]
-    design_refs = str(shot.get("reference_ids", shot.get("references", ""))).split("+")
-    for ref in (part.strip().upper() for part in design_refs if part.strip()):
+    """Resolve story design IDs plus character roles to the final approved image IDs (scenes first)."""
+    design_refs = [
+        part.strip().upper()
+        for part in str(shot.get("reference_ids", shot.get("references", ""))).split("+")
+        if part.strip()
+    ]
+    scenes = [SCENE_REFERENCE_IDS[ref] for ref in design_refs if ref in SCENE_REFERENCE_IDS]
+    chars = [CHARACTER_REFERENCE_IDS[role] for role in shot.get("characters", [])]
+    others = []
+    for ref in design_refs:
         if ref in SCENE_REFERENCE_IDS:
-            asset_ids.append(SCENE_REFERENCE_IDS[ref])
+            continue
         elif ref in PROP_REFERENCE_IDS:
-            asset_ids.append(PROP_REFERENCE_IDS[ref])
+            others.append(PROP_REFERENCE_IDS[ref])
         elif ref in set(CHARACTER_REFERENCE_IDS.values()):
-            asset_ids.append(ref)
+            others.append(ref)
         else:
             raise ValueError(f"{shot.get('id')}: unknown reference design ID {ref!r}")
-    return list(dict.fromkeys(asset_ids))
+    return list(dict.fromkeys(scenes + chars + others))
 
 
 def reference_image_urls(shot: dict) -> list[str]:
