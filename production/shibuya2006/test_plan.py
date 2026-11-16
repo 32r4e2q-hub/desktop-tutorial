@@ -80,4 +80,13 @@ class PlanTests(unittest.TestCase):
         for board in json.loads((HERE/'reference/boards/manifest.json').read_text())['boards']:
             for source in board['sources']:
                 self.assertEqual(hashlib.sha256((HERE/'reference'/source['file']).read_bytes()).hexdigest(),source['sha256'])
+    def test_s28_uses_approved_single_views(self):
+        urls=generate.reference_image_urls(self.story['shots'][27])
+        self.assertFalse(any('/boards/' in u for u in urls))
+        self.assertTrue(any('/views/C07-judge-close.png' in u for u in urls))
+        self.assertTrue(any('/reference/C01.png' in u for u in urls))
+    def test_single_view_cannot_substitute_other_character(self):
+        shot=dict(self.story['shots'][27],single_view_references={'C01':'reference/C02.png'})
+        with self.assertRaisesRegex(RuntimeError,'not an approved board source'):
+            generate.reference_image_urls(shot)
 if __name__=='__main__':unittest.main()

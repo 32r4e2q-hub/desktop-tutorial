@@ -13,12 +13,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
-# The old one-frame blend/lighten/gamma "repairs" were removed: against the stabilized
-# sources they themselves became visible brightness spikes (S18 +8 luma, S24 +4, S27 a
-# 0.8s gamma pulse). Global deflicker now handles exposure; only the S07 near-black tail
-# still needs a frame-locked hold so the shot never dips to black before its cut.
-S07_TAIL_HOLD_FRAME = 1003           # S07, 41.792s: last readable frame before the generated near-black tail.
-S07_TAIL_PAD_FRAMES = 4               # Hold that frame for the final 4 frames (0.167s) instead of the blackout.
+# No still-frame clone padding or inherited case-specific tail repairs.
 
 
 def local_frame_index(global_frame: int, shot_start: float) -> int:
@@ -28,13 +23,7 @@ def local_frame_index(global_frame: int, shot_start: float) -> int:
 
 def normalized_video_filter(shot_id: str, shot_start: float,
                             target_seconds: float, frame_count: int) -> str:
-    """Build a shot's normalized picture filter, including the S07 tail hold.
-
-    The source for S07 fades to near-black in its last frames. A timeline-enabled ``tblend``
-    cannot reliably hold an earlier frame across that tail on FFmpeg 4.1, so trim after its
-    last readable frame and append an exact, short clone pad. The shot remains exactly 168
-    frames long; only the generated near-black tail is replaced.
-    """
+    """Normalize a moving source without freezing frames or inventing extra footage."""
     if frame_count != round(target_seconds * FPS):
         raise ValueError(f"{shot_id}: frame count does not match its target duration")
     # Global anti-flicker grade: every shot is luminance-stabilized before the concat, so

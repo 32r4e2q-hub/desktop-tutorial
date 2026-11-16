@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-16",
-  "phase": "video_queue_requested",
+  "phase": "targeted_repair_and_audio_alignment",
   "branch": "arena/8d7fb4aa-desktop-tutorial",
   "reference_images_generated": 30,
   "reference_images_approved": [
@@ -75,5 +75,55 @@
     "G01",
     "G06"
   ],
-  "shot_audio_candidates_current": 21
+  "shot_audio_candidates_current": 21,
+  "current_sources_completed": 30,
+  "round2_sample_review": {
+    "acceptable_pending_playback": [
+      "S04",
+      "S05",
+      "S08",
+      "S11",
+      "S15",
+      "S17"
+    ],
+    "rejected": [
+      "S28"
+    ],
+    "reason": "S28 embedded multi-view reference board; third generation requested using approved single views",
+    "workflow": 43812656063
+  },
+  "audio_current": {
+    "individual_generated": [
+      "S01",
+      "S02",
+      "S03",
+      "S16",
+      "S17",
+      "S18"
+    ],
+    "group_cut_candidates": 21,
+    "alignment_approved": 0,
+    "speech_service_blocked": [
+      "S10",
+      "S11",
+      "S12"
+    ]
+  },
+  "cover": {
+    "file": "交付/第十七期_涩谷短大生惨案_封面.png",
+    "episode": 17,
+    "status": "visually_reviewed",
+    "source": "S17 current generated video at 0.5s; hash verified",
+    "note": "Not a historical image; film not yet final"
+  },
+  "final_film": {
+    "status": "not_rendered",
+    "download_link": null,
+    "blockers": [
+      "S28 replacement pending",
+      "S10-S12 voice unavailable; user decision needed",
+      "21 grouped narration cuts require alignment review",
+      "complete playback and master verification not yet done"
+    ]
+  }
 }
