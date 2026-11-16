@@ -61,4 +61,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception:
+        import traceback
+        (HERE/'qa/narration-asr-error.txt').write_text(traceback.format_exc())
+        raise
