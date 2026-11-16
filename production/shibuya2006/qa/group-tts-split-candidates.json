@@ -1,441 +1,211 @@
 {
-  "status": "candidate_only_not_alignment_pass",
+  "status": "asr_boundary_candidate",
+  "method": "faster-whisper word timestamps; script aligned to words; cuts at word onsets",
   "voice": "voice-01",
-  "policy": "No final audio/manifest.json until missing groups and transcript boundaries are verified",
+  "policy": "Candidates only. Every clip still needs the independent second-pass transcript (or a human listen) before audio/manifest.json is written.",
   "groups": [
     {
       "id": "G02",
       "duration": 17.688,
       "cuts": [
         0.0,
-        6.47115,
-        12.7603,
+        6.64,
+        12.78,
         17.688
       ],
-      "proportional_priors": [
-        6.206315789473684,
-        12.412631578947368
-      ],
-      "detected_silences": [
+      "boundaries": [
         {
-          "start": 1.02871,
-          "end": 1.52054,
-          "middle": 1.274625
+          "expected_char": 20,
+          "asr_char": 20,
+          "time": 6.7,
+          "cut": 6.64,
+          "word_end": 7.06
         },
         {
-          "start": 3.15375,
-          "end": 3.90433,
-          "middle": 3.52904
-        },
-        {
-          "start": 4.27229,
-          "end": 4.59892,
-          "middle": 4.435605
-        },
-        {
-          "start": 5.99763,
-          "end": 6.94467,
-          "middle": 6.47115
-        },
-        {
-          "start": 8.00517,
-          "end": 8.7585,
-          "middle": 8.381834999999999
-        },
-        {
-          "start": 9.71092,
-          "end": 9.988,
-          "middle": 9.84946
-        },
-        {
-          "start": 10.5499,
-          "end": 10.9737,
-          "middle": 10.7618
-        },
-        {
-          "start": 12.3177,
-          "end": 13.2029,
-          "middle": 12.7603
-        },
-        {
-          "start": 14.823,
-          "end": 15.3846,
-          "middle": 15.1038
-        },
-        {
-          "start": 15.8503,
-          "end": 16.234,
-          "middle": 16.04215
+          "expected_char": 40,
+          "asr_char": 40,
+          "time": 12.84,
+          "cut": 12.78,
+          "word_end": 13.34
         }
       ],
-      "review": "pending_listening_or_ASR"
+      "asr_char_coverage": 0.9474,
+      "heard": "这户人家父母都是牙科医师屋里一切整整齐齐长子读牙科自子勇贵二十一岁还在为生学复读妹妹亚成二十岁读短大也有自己的梦想",
+      "review": "pending_second_pass_asr_or_listening"
     },
     {
       "id": "G03",
       "duration": 15.288,
       "cuts": [
         0.0,
-        5.24375,
-        10.9557,
+        5.42,
+        11.24,
         15.288
       ],
-      "proportional_priors": [
-        5.28130909090909,
-        10.56261818181818
-      ],
-      "detected_silences": [
+      "boundaries": [
         {
-          "start": 1.02096,
-          "end": 1.42717,
-          "middle": 1.224065
+          "expected_char": 19,
+          "asr_char": 19,
+          "time": 5.48,
+          "cut": 5.42,
+          "word_end": 5.76
         },
         {
-          "start": 3.0855,
-          "end": 3.49225,
-          "middle": 3.288875
-        },
-        {
-          "start": 4.915,
-          "end": 5.5725,
-          "middle": 5.24375
-        },
-        {
-          "start": 7.07737,
-          "end": 8.02592,
-          "middle": 7.551645
-        },
-        {
-          "start": 8.56604,
-          "end": 8.85938,
-          "middle": 8.71271
-        },
-        {
-          "start": 10.5037,
-          "end": 11.4077,
-          "middle": 10.9557
-        },
-        {
-          "start": 12.5537,
-          "end": 12.7986,
-          "middle": 12.67615
-        },
-        {
-          "start": 13.3118,
-          "end": 13.5786,
-          "middle": 13.4452
+          "expected_char": 38,
+          "asr_char": 38,
+          "time": 11.3,
+          "cut": 11.24,
+          "word_end": 11.5
         }
       ],
-      "review": "pending_listening_or_ASR"
+      "asr_char_coverage": 0.9455,
+      "heard": "那天下午母亲和长子离开家准备回福岛过年父亲随后也出了门门一关家里只剩兄妹两人据她后来的贡述争职中妹妹提到了梦想",
+      "review": "pending_second_pass_asr_or_listening"
     },
     {
       "id": "G05",
       "duration": 13.776,
       "cuts": [
         0.0,
-        4.433,
-        8.710854999999999,
+        4.5,
+        8.46,
         13.776
       ],
-      "proportional_priors": [
-        4.018,
-        8.036
-      ],
-      "detected_silences": [
+      "boundaries": [
         {
-          "start": 1.03137,
-          "end": 1.35813,
-          "middle": 1.19475
+          "expected_char": 14,
+          "asr_char": 14,
+          "time": 4.56,
+          "cut": 4.5,
+          "word_end": 5.0
         },
         {
-          "start": 2.20562,
-          "end": 2.74863,
-          "middle": 2.477125
-        },
-        {
-          "start": 3.99508,
-          "end": 4.87092,
-          "middle": 4.433
-        },
-        {
-          "start": 5.75054,
-          "end": 6.148,
-          "middle": 5.94927
-        },
-        {
-          "start": 6.70362,
-          "end": 7.00083,
-          "middle": 6.852225
-        },
-        {
-          "start": 8.20079,
-          "end": 9.22092,
-          "middle": 8.710854999999999
-        },
-        {
-          "start": 10.4693,
-          "end": 10.8526,
-          "middle": 10.66095
-        },
-        {
-          "start": 11.6978,
-          "end": 11.95,
-          "middle": 11.8239
+          "expected_char": 28,
+          "asr_char": 28,
+          "time": 8.52,
+          "cut": 8.46,
+          "word_end": 9.4
         }
       ],
-      "review": "pending_listening_or_ASR"
+      "asr_char_coverage": 0.9792,
+      "heard": "可当时他没有报警他选择了隐瞒更反常的是第二天他还照常出门十二月三十一日他收拾行李准备去补西班集训",
+      "review": "pending_second_pass_asr_or_listening"
     },
     {
       "id": "G07",
       "duration": 13.536,
       "cuts": [
         0.0,
-        5.205705,
-        10.02297,
+        5.6,
+        10.28,
         13.536
       ],
-      "proportional_priors": [
-        5.2486530612244895,
-        9.944816326530612
-      ],
-      "detected_silences": [
+      "boundaries": [
         {
-          "start": 1.02521,
-          "end": 1.53858,
-          "middle": 1.281895
+          "expected_char": 19,
+          "asr_char": 19,
+          "time": 5.66,
+          "cut": 5.6,
+          "word_end": 5.86
         },
         {
-          "start": 3.33242,
-          "end": 3.714,
-          "middle": 3.5232099999999997
-        },
-        {
-          "start": 4.86883,
-          "end": 5.54258,
-          "middle": 5.205705
-        },
-        {
-          "start": 7.15142,
-          "end": 7.50933,
-          "middle": 7.330375
-        },
-        {
-          "start": 9.56054,
-          "end": 10.4854,
-          "middle": 10.02297
-        },
-        {
-          "start": 11.3041,
-          "end": 11.6202,
-          "middle": 11.462150000000001
+          "expected_char": 36,
+          "asr_char": 36,
+          "time": 10.34,
+          "cut": 10.28,
+          "word_end": 10.58
         }
       ],
-      "review": "pending_listening_or_ASR"
+      "asr_char_coverage": 0.9796,
+      "heard": "一月二日家人结束返乡行程回到了东京的家可直到三日晚上母亲才察觉到一股意味她走上三楼停在儿子的房门前",
+      "review": "pending_second_pass_asr_or_listening"
     },
     {
       "id": "G08",
       "duration": 17.424,
       "cuts": [
         0.0,
-        5.710875,
-        10.6432,
+        5.4,
+        12.36,
         17.424
       ],
-      "proportional_priors": [
-        5.2272,
-        11.3256
-      ],
-      "detected_silences": [
+      "boundaries": [
         {
-          "start": 0.715125,
-          "end": 0.919833,
-          "middle": 0.8174790000000001
+          "expected_char": 18,
+          "asr_char": 18,
+          "time": 5.46,
+          "cut": 5.4,
+          "word_end": 6.18
         },
         {
-          "start": 1.79137,
-          "end": 2.54225,
-          "middle": 2.16681
-        },
-        {
-          "start": 2.87262,
-          "end": 3.26983,
-          "middle": 3.071225
-        },
-        {
-          "start": 4.36142,
-          "end": 4.57271,
-          "middle": 4.467065
-        },
-        {
-          "start": 5.33096,
-          "end": 6.09079,
-          "middle": 5.710875
-        },
-        {
-          "start": 6.84054,
-          "end": 7.08637,
-          "middle": 6.963455
-        },
-        {
-          "start": 8.56263,
-          "end": 9.54421,
-          "middle": 9.05342
-        },
-        {
-          "start": 10.5025,
-          "end": 10.7839,
-          "middle": 10.6432
-        },
-        {
-          "start": 11.9253,
-          "end": 12.7614,
-          "middle": 12.343350000000001
-        },
-        {
-          "start": 14.8089,
-          "end": 15.2448,
-          "middle": 15.02685
+          "expected_char": 39,
+          "asr_char": 39,
+          "time": 12.42,
+          "cut": 12.36,
+          "word_end": 12.9
         }
       ],
-      "review": "pending_listening_or_ASR"
+      "asr_char_coverage": 0.9833,
+      "heard": "真相就此暴露此日警方从集训地带走勇贵他先否认随后承认杀人可法庭的争议才刚刚开始法庭争的不只是他做了什么还有当时的责任能力",
+      "review": "pending_second_pass_asr_or_listening"
     },
     {
       "id": "G09",
       "duration": 19.128,
       "cuts": [
         0.0,
-        6.60133,
-        13.947099999999999,
+        6.86,
+        14.3,
         19.128
       ],
-      "proportional_priors": [
-        6.679619047619048,
-        13.966476190476191
-      ],
-      "detected_silences": [
+      "boundaries": [
         {
-          "start": 1.07433,
-          "end": 1.56912,
-          "middle": 1.321725
+          "expected_char": 22,
+          "asr_char": 22,
+          "time": 6.92,
+          "cut": 6.86,
+          "word_end": 7.22
         },
         {
-          "start": 2.15933,
-          "end": 2.35404,
-          "middle": 2.256685
-        },
-        {
-          "start": 4.23504,
-          "end": 5.02146,
-          "middle": 4.6282499999999995
-        },
-        {
-          "start": 5.39658,
-          "end": 5.67754,
-          "middle": 5.53706
-        },
-        {
-          "start": 6.15187,
-          "end": 7.05079,
-          "middle": 6.60133
-        },
-        {
-          "start": 7.82108,
-          "end": 8.56867,
-          "middle": 8.194875
-        },
-        {
-          "start": 9.47438,
-          "end": 10.1823,
-          "middle": 9.82834
-        },
-        {
-          "start": 12.5315,
-          "end": 12.7749,
-          "middle": 12.6532
-        },
-        {
-          "start": 13.4415,
-          "end": 14.4527,
-          "middle": 13.947099999999999
-        },
-        {
-          "start": 15.4764,
-          "end": 15.795,
-          "middle": 15.6357
-        },
-        {
-          "start": 16.9035,
-          "end": 17.1327,
-          "middle": 17.0181
+          "expected_char": 46,
+          "asr_char": 46,
+          "time": 14.36,
+          "cut": 14.3,
+          "word_end": 14.58
         }
       ],
-      "review": "pending_listening_or_ASR"
+      "asr_char_coverage": 0.9524,
+      "heard": "辩方主长事后是另一个人格控制了他争议就在这里一审七年杀人有罪另一项指控因责任能力问题伙判无罪可二审发现他在侦察时能具体讲清经过",
+      "review": "pending_second_pass_asr_or_listening"
     },
     {
       "id": "G10",
       "duration": 17.976,
       "cuts": [
         0.0,
-        6.055065,
-        12.82075,
+        5.3,
+        12.96,
         17.976
       ],
-      "proportional_priors": [
-        5.8886896551724135,
-        12.707172413793103
-      ],
-      "detected_silences": [
+      "boundaries": [
         {
-          "start": 1.87258,
-          "end": 2.053,
-          "middle": 1.96279
+          "expected_char": 19,
+          "asr_char": 18,
+          "time": 5.36,
+          "cut": 5.3,
+          "word_end": 5.62
         },
         {
-          "start": 2.58821,
-          "end": 3.27179,
-          "middle": 2.93
-        },
-        {
-          "start": 4.09642,
-          "end": 4.51917,
-          "middle": 4.3077950000000005
-        },
-        {
-          "start": 5.55713,
-          "end": 6.553,
-          "middle": 6.055065
-        },
-        {
-          "start": 7.53562,
-          "end": 7.94571,
-          "middle": 7.740665
-        },
-        {
-          "start": 9.40963,
-          "end": 10.3855,
-          "middle": 9.897565
-        },
-        {
-          "start": 11.1166,
-          "end": 11.3915,
-          "middle": 11.25405
-        },
-        {
-          "start": 12.289,
-          "end": 13.3525,
-          "middle": 12.82075
-        },
-        {
-          "start": 13.8214,
-          "end": 14.352,
-          "middle": 14.0867
-        },
-        {
-          "start": 15.4122,
-          "end": 15.7899,
-          "middle": 15.60105
+          "expected_char": 41,
+          "asr_char": 41,
+          "time": 13.02,
+          "cut": 12.96,
+          "word_end": 13.5
         }
       ],
-      "review": "pending_listening_or_ASR"
+      "asr_char_coverage": 0.9483,
+      "heard": "失意鉴定的前提被推翻两罪成立改判十二年压成的人生不该被缩成一句话暴力责任属于施暴者一个家该怎样对待被认为不成器的孩子",
+      "review": "pending_second_pass_asr_or_listening"
     }
   ],
   "clips": [
@@ -443,274 +213,274 @@
       "id": "S04",
       "group": "G02",
       "cut_start": 0.0,
-      "cut_end": 6.47115,
+      "cut_end": 6.64,
       "seconds": 5.856,
-      "target": 7,
+      "target": 7.0,
       "atempo_required": 1.0,
       "text": "这户人家，父母都是牙科医师。屋里，一切整整齐齐。",
       "sha256": "6d0d8394c0307cca368b5329923fca655fefe867eb8aca55c37c56f5cc4ca426",
       "file": "work/shibuya2006/audio_candidates/S04.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S05",
       "group": "G02",
-      "cut_start": 6.47115,
-      "cut_end": 12.7603,
+      "cut_start": 6.64,
+      "cut_end": 12.78,
       "seconds": 5.52,
-      "target": 6,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "长子读牙科。次子勇贵二十一岁，还在为升学复读。",
       "sha256": "6a5c665eb1056678a7ec2394bd0ecb2d9dbdbcf82f7366cd6eb5ffd4ccbd3b04",
       "file": "work/shibuya2006/audio_candidates/S05.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S06",
       "group": "G02",
-      "cut_start": 12.7603,
+      "cut_start": 12.78,
       "cut_end": 17.688,
       "seconds": 4.272,
-      "target": 5,
+      "target": 5.0,
       "atempo_required": 1.0,
       "text": "妹妹亚澄二十岁。读短大，也有自己的梦想。",
       "sha256": "d66fa9fe0e802bfe214deb731eeae590cbe581d9fbb5e67d71b24a4469318a75",
       "file": "work/shibuya2006/audio_candidates/S06.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S07",
       "group": "G03",
       "cut_start": 0.0,
-      "cut_end": 5.24375,
+      "cut_end": 5.42,
       "seconds": 4.68,
-      "target": 7,
+      "target": 7.0,
       "atempo_required": 1.0,
       "text": "那天下午，母亲和长子离开家，准备回福岛过年。",
       "sha256": "c974eb089f17180927c02fe68805e76c5a54c2237d7b1ab2113eb08037816cad",
       "file": "work/shibuya2006/audio_candidates/S07.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S08",
       "group": "G03",
-      "cut_start": 5.24375,
-      "cut_end": 10.9557,
+      "cut_start": 5.42,
+      "cut_end": 11.24,
       "seconds": 5.088,
-      "target": 7,
+      "target": 7.0,
       "atempo_required": 1.0,
       "text": "父亲随后也出了门。门一关，家里只剩兄妹两人。",
       "sha256": "8c750b997492d9bf844c6f0e7fce02ffc26bc9fc6898c5041f1d92013c279ecc",
       "file": "work/shibuya2006/audio_candidates/S08.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S09",
       "group": "G03",
-      "cut_start": 10.9557,
+      "cut_start": 11.24,
       "cut_end": 15.288,
       "seconds": 3.624,
-      "target": 6,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "据他后来的供述，争执中，妹妹提到了梦想。",
       "sha256": "755217bb44bafb58a71157916672912313239e7d866189a37f6c20355a628606",
       "file": "work/shibuya2006/audio_candidates/S09.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S13",
       "group": "G05",
       "cut_start": 0.0,
-      "cut_end": 4.433,
+      "cut_end": 4.5,
       "seconds": 3.816,
-      "target": 6,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "可当时，他没有报警。他选择了隐瞒。",
       "sha256": "083cb37ff86dd33eac030b750516e530eab710b324d74830c7d172149ab85319",
       "file": "work/shibuya2006/audio_candidates/S13.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S14",
       "group": "G05",
-      "cut_start": 4.433,
-      "cut_end": 8.710854999999999,
+      "cut_start": 4.5,
+      "cut_end": 8.46,
       "seconds": 3.48,
-      "target": 5,
+      "target": 5.0,
       "atempo_required": 1.0,
       "text": "更反常的是，第二天，他还照常出门。",
       "sha256": "795cdb87e533b5fa0d3102b5b4a6232fee9018c001de5598737c576a09260fce",
       "file": "work/shibuya2006/audio_candidates/S14.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S15",
       "group": "G05",
-      "cut_start": 8.710854999999999,
+      "cut_start": 8.46,
       "cut_end": 13.776,
       "seconds": 4.296,
-      "target": 6,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "十二月三十一日，他收拾行李，准备去补习班集训。",
       "sha256": "a264f6f4603718fd4487a5969ba8aa810e74efb3612a9792e570c45661dcec60",
       "file": "work/shibuya2006/audio_candidates/S15.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S19",
       "group": "G07",
       "cut_start": 0.0,
-      "cut_end": 5.205705,
-      "seconds": 4.776,
-      "target": 6,
+      "cut_end": 5.6,
+      "seconds": 5.424,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "一月二日，家人结束返乡行程，回到了东京的家。",
-      "sha256": "837846a89c5e5c52815e61cb16a9750d0959a98ff739673b186a715f03e4dd09",
+      "sha256": "769fd5e9c0f3c5231b31d2ff4e6a057a5907b38a67ef7a983c76db091db7e5a7",
       "file": "work/shibuya2006/audio_candidates/S19.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S20",
       "group": "G07",
-      "cut_start": 5.205705,
-      "cut_end": 10.02297,
-      "seconds": 4.176,
-      "target": 6,
+      "cut_start": 5.6,
+      "cut_end": 10.28,
+      "seconds": 4.056,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "可直到三日晚上，母亲才察觉到一股异味。",
-      "sha256": "097a51f0dcfd05623f1d5ed7db454f96e79e3a56f889c5b3f17ece7709e418d6",
+      "sha256": "cf4e78ccf16e729ed83fd7a5bf20e2e3863c9d40dbb2182f2009bc5727dc6e9d",
       "file": "work/shibuya2006/audio_candidates/S20.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S21",
       "group": "G07",
-      "cut_start": 10.02297,
+      "cut_start": 10.28,
       "cut_end": 13.536,
       "seconds": 2.856,
-      "target": 5,
+      "target": 5.0,
       "atempo_required": 1.0,
       "text": "她走上三楼，停在儿子的房门前。",
       "sha256": "4aed2c500abcbb2e12d4f2a88ca165af2de69b718a21df05e73d754d24f25573",
       "file": "work/shibuya2006/audio_candidates/S21.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S22",
       "group": "G08",
       "cut_start": 0.0,
-      "cut_end": 5.710875,
+      "cut_end": 5.4,
       "seconds": 5.208,
-      "target": 5,
+      "target": 5.0,
       "atempo_required": 1.0416,
       "text": "真相就此暴露。次日，警方从集训地带走勇贵。",
       "sha256": "53f47538dcbad9158354ebd70fe92eb5334d28a41f400443bcf0453f052dd752",
       "file": "work/shibuya2006/audio_candidates/S22.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S23",
       "group": "G08",
-      "cut_start": 5.710875,
-      "cut_end": 10.6432,
-      "seconds": 4.56,
-      "target": 7,
+      "cut_start": 5.4,
+      "cut_end": 12.36,
+      "seconds": 6.0,
+      "target": 7.0,
       "atempo_required": 1.0,
       "text": "他先否认，随后承认杀人。可法庭的争议，才刚刚开始。",
-      "sha256": "9b0598394aece2891cabf5eb0830419ff7c957525b268ef790cbf297501dac6a",
+      "sha256": "88fb13a475fa0c6b884714da59e087df2ede8b8c6de7d45608e02dcf5486ee20",
       "file": "work/shibuya2006/audio_candidates/S23.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S24",
       "group": "G08",
-      "cut_start": 10.6432,
+      "cut_start": 12.36,
       "cut_end": 17.424,
-      "seconds": 6.48,
-      "target": 7,
+      "seconds": 4.608,
+      "target": 7.0,
       "atempo_required": 1.0,
       "text": "法庭争的，不只是他做了什么，还有当时的责任能力。",
-      "sha256": "77d7604efd07eb9d41bfb5661527288a1ee48a13981ec35d664b100846851518",
+      "sha256": "44cd44400296d003ee42b989fcd8c0a63592b32b24299aae971a238e4c092048",
       "file": "work/shibuya2006/audio_candidates/S24.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S25",
       "group": "G09",
       "cut_start": 0.0,
-      "cut_end": 6.60133,
+      "cut_end": 6.86,
       "seconds": 6.024,
-      "target": 6,
+      "target": 6.0,
       "atempo_required": 1.004,
       "text": "辩方主张，事后是另一个人格控制了他。争议，就在这里。",
       "sha256": "132cda7db63c9bb63b3f7e3a43c6e0bbbd2ef2738cd2e44b8c5ffd66a9dd8ccf",
       "file": "work/shibuya2006/audio_candidates/S25.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S26",
       "group": "G09",
-      "cut_start": 6.60133,
-      "cut_end": 13.947099999999999,
+      "cut_start": 6.86,
+      "cut_end": 14.3,
       "seconds": 6.552,
-      "target": 6,
-      "atempo_required": 1.0919999999999999,
+      "target": 6.0,
+      "atempo_required": 1.092,
       "text": "一审七年。杀人有罪，另一项指控因责任能力问题获判无罪。",
       "sha256": "674ed28941a0bc6e4c527cba62ddea11eb66c09c71ece18957ec67f1ce5149d7",
       "file": "work/shibuya2006/audio_candidates/S26.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S27",
       "group": "G09",
-      "cut_start": 13.947099999999999,
+      "cut_start": 14.3,
       "cut_end": 19.128,
       "seconds": 4.344,
-      "target": 6,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "可二审发现，他在侦查时，能具体讲清经过。",
       "sha256": "0927042690a2234a715b82cedb19582c1ff124e40a0ffb9ee83203e471c0cf93",
       "file": "work/shibuya2006/audio_candidates/S27.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S28",
       "group": "G10",
       "cut_start": 0.0,
-      "cut_end": 6.055065,
-      "seconds": 5.448,
-      "target": 6,
+      "cut_end": 5.3,
+      "seconds": 5.136,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "失忆鉴定的前提被推翻。两罪成立，改判十二年。",
-      "sha256": "63b4971bb35bd3506928094f4719f6a0bf5f2881b87b832fd9ed9817e1e1cd08",
+      "sha256": "0c591b64f8b9a61259a200024fa953b80c21e94d84646a8819f024cccd1b6eee",
       "file": "work/shibuya2006/audio_candidates/S28.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S29",
       "group": "G10",
-      "cut_start": 6.055065,
-      "cut_end": 12.82075,
-      "seconds": 5.928,
-      "target": 6,
-      "atempo_required": 1.0,
+      "cut_start": 5.3,
+      "cut_end": 12.96,
+      "seconds": 7.104,
+      "target": 6.0,
+      "atempo_required": 1.184,
       "text": "亚澄的人生，不该被缩成一句话。暴力责任属于施暴者。",
-      "sha256": "a125d554f09076974874ac7367dbe52baf51ab806b50d8a96ddb12b51d47d878",
+      "sha256": "b4dfbc26165dec572839a663cd6fd742178568d40ce18712c137f2fa4e60a8db",
       "file": "work/shibuya2006/audio_candidates/S29.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     },
     {
       "id": "S30",
       "group": "G10",
-      "cut_start": 12.82075,
+      "cut_start": 12.96,
       "cut_end": 17.976,
       "seconds": 4.368,
-      "target": 6,
+      "target": 6.0,
       "atempo_required": 1.0,
       "text": "一个家，该怎样对待，被认为不成器的孩子？",
       "sha256": "8c37a225d268860abbb36c0d4c8886f26c0110cb027cb6292f223b85069505e6",
       "file": "work/shibuya2006/audio_candidates/S30.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
+      "alignment_review": "pending; second-pass ASR or human listen required"
     }
   ],
   "missing": [
