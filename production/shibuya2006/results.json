@@ -527,9 +527,9 @@
     "S19": {
       "id": "S19",
       "request_hash": "53a4b3ec3768ca91310365342a0b5112fc99f9b002850642d0b0eb47f29f435c",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-16T01:49:32Z",
+      "updated_at": "2026-11-16T01:54:23Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，日本社会派家庭悲剧风格，2006至2009年东京涩谷幡谷，冬日冷白与屋内暖黄对比，低饱和，暗部厚重，真实人体比例、皮肤、布料与建筑材质；所有人物均为虚构演员式形象，不还原真实肖像。16:9横屏，主体在三分线，底部字幕安全区留空。必须是真实连续运动的写实3D影像，有人物动作、呼吸、布料或自然环境运动；禁止静态图片加推拉。一扇门与时钟是贯穿视觉线索；镜头9至14冷青深蓝，19至28冷灰，29至30暖金转黑。\n\n【C04锚点】57岁日本女性,短卷发,素雅针织衫长裙,神情温婉操劳\n\n【C05锚点】24岁日本青年,戴眼镜,衬衫毛衣,神情认真沉稳,手拿专业书\n\n【C03锚点】62岁日本男子,花白短发,细框眼镜,羊毛开衫衬衫,神情温和严谨\n\n冬日夜间东京住宅外景，母亲与长子提行李走进家门，父亲随后入内；用普通返家意象，不出现车站或列车。衣料与行李轮自然运动。 全程环境保持微动；源片不生成任何文字。\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,伪文字,血腥,伤口,遗体,尸体,分尸,凶器,刀具,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,智能手机,现代电动车,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图片推拉,法槌,真实人物肖像",
@@ -546,10 +546,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4a37003b6892a5d705fee08cdbe2ed310677924c/production/shibuya2006/reference/S02.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 01:54:20. (request id: 2026111601493246225398HiKcV4up) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 289.0
+      "applied_cooldown_seconds": 289.0,
+      "video_id": "task_5qz3W5rK1lLlNeDdArgqVoOYFaWBlpOm",
+      "task_id": "task_5qz3W5rK1lLlNeDdArgqVoOYFaWBlpOm",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S20": {
       "id": "S20",
@@ -681,15 +685,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-16T01:49:32Z",
+  "updated_at": "2026-11-16T01:54:23Z",
   "run_id": "43785043215",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 01:54:20. (request id: 2026111601493246225398HiKcV4up) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 289.0,
-    "last_seen": "2026-11-16T01:49:32Z"
-  }
+  "previous_results": {}
 }
