@@ -11,7 +11,7 @@ import subprocess
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-ROLE_TO_ASSET = {'C01': 'C01', 'C02': 'C02', 'C03': 'C03', 'C04': 'C04', 'C05': 'C05', 'C06': 'C06', 'C07': 'C07', 'C08': 'C08'}
+ROLE_TO_ASSET = {f"C{i:02}": f"C{i:02}" for i in range(1, 11)}
 
 
 def sha256(path: Path) -> str:

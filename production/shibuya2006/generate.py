@@ -56,7 +56,7 @@ REFERENCE_REVISION = REFERENCE_DIR / "revision.txt"
 REPOSITORY = "32r4e2q-hub/desktop-tutorial"
 LOCK = threading.RLock()
 
-CHARACTER_REFERENCE_IDS = {'C01': 'C01', 'C02': 'C02', 'C03': 'C03', 'C04': 'C04', 'C05': 'C05', 'C06': 'C06', 'C07': 'C07', 'C08': 'C08'}
+CHARACTER_REFERENCE_IDS = {f"C{i:02}": f"C{i:02}" for i in range(1, 11)}
 SCENE_REFERENCE_IDS = {f"S{i:02d}": f"S{i:02d}" for i in range(1, 14)}
 PROP_REFERENCE_IDS = {f"P{i:02d}": f"P{i:02d}" for i in range(1, 8)}
 

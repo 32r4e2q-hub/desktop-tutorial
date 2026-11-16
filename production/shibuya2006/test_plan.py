@@ -62,4 +62,20 @@ class PlanTests(unittest.TestCase):
         report=json.loads((HERE/'qa/group-tts-split-candidates.json').read_text())
         self.assertEqual(report['status'],'candidate_only_not_alignment_pass')
         self.assertFalse((HERE/'audio/manifest.json').exists())
+    def test_character_board_bindings(self):
+        import hashlib
+        import preflight
+        approvals=json.loads((HERE/'reference/approvals.json').read_text())['assets']
+        for shot in self.story['shots']:
+            self.assertEqual(set(generate.reference_asset_ids(shot)),set(preflight.asset_ids(shot)))
+        self.assertIn('C09',self.story['shots'][23]['characters'])
+        self.assertNotIn('C09',self.story['shots'][25]['characters'])
+        for i in range(1,11):
+            row=approvals[f'C{i:02}']
+            self.assertEqual(row['status'],'approved')
+            self.assertIn('/boards/',row['file'])
+            self.assertEqual(hashlib.sha256((HERE/row['file']).read_bytes()).hexdigest(),row['sha256'])
+        for board in json.loads((HERE/'reference/boards/manifest.json').read_text())['boards']:
+            for source in board['sources']:
+                self.assertEqual(hashlib.sha256((HERE/'reference'/source['file']).read_bytes()).hexdigest(),source['sha256'])
 if __name__=='__main__':unittest.main()

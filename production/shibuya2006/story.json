@@ -18,8 +18,10 @@
     "C04": "【C04锚点】57岁日本女性,短卷发,素雅针织衫长裙,神情温婉操劳",
     "C05": "【C05锚点】24岁日本青年,戴眼镜,衬衫毛衣,神情认真沉稳,手拿专业书",
     "C06": "【C06锚点】40多岁日本刑警,深色西装风衣,神情严肃克制,眼神锐利",
-    "C07": "【C07锚点】日本法官黑色法袍神情肃穆;检察官深色西装神情冷峻;辩护律师深色西装神情专注",
-    "C08": "【C08锚点】50岁日本男性医师,白大褂,圆框眼镜,神情专注冷静"
+    "C07": "【C07锚点】约60岁日本男性法官，花白短发，无眼镜，黑色法袍白领，神情肃穆克制，仅对应法官参考板",
+    "C08": "【C08锚点】50岁日本男性医师,白大褂,圆框眼镜,神情专注冷静",
+    "C09": "【C09锚点】日本男性辩护律师，后移发际线，藏蓝西装白色细条纹衬衫斜纹领带，神情专注克制，仅对应律师独立参考板",
+    "C10": "【C10锚点】日本男性检察官，黑色短发，炭灰西装白衬衫黑领带，神情严肃克制，仅对应检察官独立参考板"
   },
   "character_seeds": {
     "C01": 20061231,
@@ -29,7 +31,9 @@
     "C05": 20061235,
     "C06": 20061236,
     "C07": 20061237,
-    "C08": 20061238
+    "C08": 20061238,
+    "C09": 20061239,
+    "C10": 20061240
   },
   "narration_spec": {
     "voice_id": "voice-01",
@@ -652,13 +656,14 @@
       "purpose": "日本地方法庭勇贵站被告席，律师起身发言，法官安静听取，无惊讶表演，无槌。",
       "characters": [
         "C01",
-        "C07"
+        "C07",
+        "C09"
       ],
       "seed": 20061254,
       "camera": "连续平稳中景或近景，按动作跟随，不用静帧推拉",
       "sound_design": "克制环境声与动作拟音，不配乐，不复原暴力声",
       "color_grade": "冷灰",
-      "reference_ids": "S10+C01+C07",
+      "reference_ids": "S10+C01+C07+C09",
       "transition_in": "后期短转场，保持时间线",
       "transition_out": "环境微动中停顿，不冻帧"
     },
@@ -801,6 +806,199 @@
   ],
   "reference_images": [
     {
+      "id": "C01",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；21岁日本青年,清瘦,黑色短发,深色卫衣牛仔裤,补习班书包,表情平静空白；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C01.png",
+      "sha256": "03c095f83c18046109756fd1954fdc4270e516b7113b660596f9cbeedf95fa1a",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C02",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；20岁日本年轻女性,及肩栗色头发,笑容明亮,时髦短外套长裙,神情自信活泼；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C02.png",
+      "sha256": "0f102deb0ef43805f744072a47dd4cc0702c874f0a9777bea566f03c5d007587",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C03",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；62岁日本男子,花白短发,细框眼镜,羊毛开衫衬衫,神情温和严谨；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C03.png",
+      "sha256": "80d7b7be1bbf09fcd4ac18b7991eecea4ddf1cf287f31a279e3cca78d15ad250",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C04",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；57岁日本女性,短卷发,素雅针织衫长裙,神情温婉操劳；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C04.png",
+      "sha256": "f34e173942d84e3c0923cf191f49074cb74f355afea713065d7f734ab4432f08",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C05",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；24岁日本青年,戴眼镜,衬衫毛衣,神情认真沉稳,手拿专业书；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C05.png",
+      "sha256": "5ba229e43753d58d381017b2a8d412f4a86c872c8b5f44cd6ca401e1626ce2e0",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C06",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；40多岁日本刑警,深色西装风衣,神情严肃克制,眼神锐利；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C06.png",
+      "sha256": "33a82376a4132814ebd2a942c6e10d84541de09fb7fc678e70e1860eb25b05da",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C07",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；日本法官黑色法袍神情肃穆;检察官深色西装神情冷峻;辩护律师深色西装神情专注；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C07.png",
+      "sha256": "471daa3cc894c62e370a65b6a8193536487048b6e801ef5c61bba3dab0d2939f",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C08",
+      "type": "character",
+      "prompt": "电影级写实3D演员式角色参考，非真实肖像；50岁日本男性医师,白大褂,圆框眼镜,神情专注冷静；浅灰背景，无字，单张独立参考，不拼版。",
+      "status": "approved",
+      "file": "reference/boards/C08.png",
+      "sha256": "355c9b639c9224c677e8ce72b55599434813a24a81234ea08c1d798ee99a4060",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "S01",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；神奈川冬日补习班集合地，旧轿车与巴士，少人，冷白光，干燥路面；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S01.png",
+      "sha256": "9113c0f42d82fb01d65bed164cec5e3e9749260b264b5dfa8bedefec6ae0b235",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "已去除积雪；冬日巴士集合点、轿车与建筑空间可用。巴士局部微小标记不得在视频中变成文字。"
+    },
+    {
+      "id": "S02",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；幡谷三层住宅，所有招牌空白，无车牌文字；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S02.png",
+      "sha256": "b153f8b0b50a72cfcf9f9f379c3261b78cd21497b21967530cee8f94b74e0ac8",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "三层住宅与底层诊所空招牌，无积雪；虚构空间、不作为真实案址照片。"
+    },
+    {
+      "id": "S03",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；日本家庭客厅与厨房，沙发餐桌蔬菜，暖黄灯，无人无刀具；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S03.png",
+      "sha256": "ea607ab7bb87e5cd78ec85b3b07c103a51fda8d901ea4729f869485efbc30200",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "review_note": "已移除电视和整组电子设备，未见残留品牌字形；无雪客厅厨房可用。",
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "revision_method": "AI regeneration and targeted image edits; individually reviewed"
+    },
+    {
+      "id": "S04",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；二楼书房与相邻学生房，牙科书与无字试卷，夕阳，无人；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S04.png",
+      "sha256": "32f334ca352cb65ebf817e2be9d3989c32e8e500637e0771b4322c58a3f6f70e",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "review_note": "已移除电脑主机，书本试卷空白；无雪书房与相邻卧室可用。",
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "revision_method": "AI regeneration and targeted image edits; individually reviewed"
+    },
+    {
+      "id": "S05",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；玄关鞋柜挂钟与楼梯，冬日冷光，无人；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S05.png",
+      "sha256": "695abf7f630bc6c0a734577621e09d680de0556d308156cfe513f508ffbfdd2e",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "review_note": "玄关空柜、关闭木门与楼梯清楚；无字刻度钟约三点，符合门与钟意象。",
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "revision_method": "AI regeneration and targeted image edits; individually reviewed"
+    },
+    {
       "id": "S06",
       "type": "scene",
       "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；完全关闭浴室门，门下白光，冷青，无人体无内部细节；无文字水印，不拼版。",
@@ -827,6 +1025,21 @@
       ],
       "review_note": "已逐张看图：三楼楼梯走廊与紧闭门、细暖光，空镜无文字，签收为本片空间参考。",
       "reviewed_by": "Agent individual image inspection 2026-11-16"
+    },
+    {
+      "id": "S08",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；福岛车站冬夜出发站台，东京方向列车，无标牌文字；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S08.png",
+      "sha256": "e5309a3b83d47b4c7f7806ab4e31295b4e3b87f18b8f7a13d02b034be1ad6b20",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "review_note": "冬夜空站台与无字列车可用；非实际车站照片，修订时间线镜19不使用本图。",
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "revision_method": "AI regeneration and targeted image edits; individually reviewed"
     },
     {
       "id": "S09",
@@ -857,6 +1070,21 @@
       "reviewed_by": "Agent individual image inspection 2026-11-16"
     },
     {
+      "id": "S11",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；精神鉴定室，桌椅柜子旧电脑，无字病历，无人；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S11.png",
+      "sha256": "165d62f3f958de7bc62d057a3b2d9bd8dd45e095d7b6961df6a0f67d45e5424f",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "review_note": "已移除墙钟与柜标签，显示器背面无品牌；咨询室仅作虚构情景。",
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "revision_method": "AI regeneration and targeted image edits; individually reviewed"
+    },
+    {
       "id": "S12",
       "type": "scene",
       "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；东京高等法院法庭，阴天冷灰，木席，无人无法槌；无文字水印，不拼版。",
@@ -869,6 +1097,147 @@
       ],
       "review_note": "已逐张看图：冷灰木质三席法庭、空旁听席，无字无法槌，签收为本片高院概念图。",
       "reviewed_by": "Agent individual image inspection 2026-11-16"
+    },
+    {
+      "id": "S13",
+      "type": "scene",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；黄昏日本客厅，窗边空椅模糊照片暖金光，无人；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/S13.png",
+      "sha256": "903d95ae6a110a27332306348d24d735b52f58ef844a5458407a34b504c2cbd7",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "已去除积雪和书脊字形；空椅暖灯与窗外干燥屋顶适合作结尾意象。",
+      "revision_method": "AI regeneration and targeted image edits; individually reviewed"
+    },
+    {
+      "id": "P01",
+      "type": "prop",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；日式挂钟指向下午三点，黑色背景写实特写；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/P01.png",
+      "sha256": "c771edda9552f093a980c2cfdf0bf8e89cbcab01acdd09c4b8ec7e78b9df546b",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "无字模拟钟，三点构图清楚；仅作视觉意象，不作为案发时刻证据。"
+    },
+    {
+      "id": "P02",
+      "type": "prop",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；2006年旧车钥匙与补习班行李包，暗背景；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/P02.png",
+      "sha256": "4ccd75f2193e97d68634123878260ca80eff470a86f8f528870fa7fc97fe0b0c",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "无品牌车钥匙与旅行包，材质和年代方向可用。"
+    },
+    {
+      "id": "P03",
+      "type": "prop",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；无字模拟试卷台灯笔筒橡皮，暗背景；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/P03.png",
+      "sha256": "55082dbc9ed246b83b20940233be8ce814fec2f4297293f3e3858d2864c33295",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "空白试卷和笔筒，源片不得生成可读文字。"
+    },
+    {
+      "id": "P04",
+      "type": "prop",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；完全闭合浴室门底一线白光，无人体，暗背景；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/P04.png",
+      "sha256": "680cf8b342c8dd0a6599cf6d0313c7babdfb5cd419c23e19f74dbbdd52b4b3f6",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "关闭木门和冷色门缝光，无暴力内容；作为门意象。"
+    },
+    {
+      "id": "P05",
+      "type": "prop",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；无字判决文件与红印章，暗背景；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/P05.png",
+      "sha256": "7f007461a66f2ba6ef5a67050f6f8e28f3a156f64a5ac98ac8f65782fa8abcf8",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "空白卷宗和印章；法律比较文字只能后期添加。"
+    },
+    {
+      "id": "P06",
+      "type": "prop",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；两层略微错位的抽象无面孔人形剪影，冷蓝黑背景；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/P06.png",
+      "sha256": "934d5e35e2d51739f0b9d5d56fcfc1dcdc17278d43746a5aba919dbf6b9b9094",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "匿名磨砂亚克力剪影，仅作辩方说法的意象，不当成诊断依据。"
+    },
+    {
+      "id": "P07",
+      "type": "prop",
+      "prompt": "16:9写实电影级3D参考图，35mm胶片低饱和，真实材质；空椅子与台灯暖黄亮起，昏暗背景；无文字水印，不拼版。",
+      "status": "approved",
+      "file": "reference/P07.png",
+      "sha256": "ce897eb88fdcf273bbb1fffb9ccc3a4d09c77179242d03cef1cd643562a69ce8",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "reviewed_by": "Agent individual visual inspection 2026-11-16",
+      "review_note": "空椅与暖灯，克制无人物；结尾意象可用。"
+    },
+    {
+      "id": "C10",
+      "type": "character",
+      "file": "reference/boards/C07-prosecutor.png",
+      "status": "approved",
+      "sha256": "0cd28670728e314d2dcb45568bc8e176e7133760f4dd82a8b93b41ad774cff97",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
+    },
+    {
+      "id": "C09",
+      "type": "character",
+      "file": "reference/boards/C07-lawyer.png",
+      "status": "approved",
+      "sha256": "7b278ad8af474dc5b7ed5aac1c264b5c55c3071a0288e9742fdfbb0177eb1ef4",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reviewed_by": "Agent individual board inspection 2026-11-16",
+      "review_note": "已打开整板复核，三视图身份方向连续；仅作参考，不作为视频画面。原图含全身或半身，特写保留面部细节。",
+      "source_manifest": "reference/boards/manifest.json"
     }
   ],
   "reference_revision": "",
@@ -881,7 +1250,9 @@
       "C05",
       "C06",
       "C07",
-      "C08"
+      "C08",
+      "C09",
+      "C10"
     ],
     "scenes": [
       "S01",
