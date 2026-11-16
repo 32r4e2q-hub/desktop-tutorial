@@ -12,7 +12,7 @@
 - 30段无BGM确定性环境拟音已生成到work/；不是原案录音。
 - 已读朝日、读卖、每日原报存档及Japan Times正文，修正“返家日=发现日”“当场认罪”“在住宅抓捕”等错误。父亲驾车送行细节仍待可靠来源，事实门禁保留。
 - **30镜视频源片已全部完成**（results.json `selected_sources_ready`，run 43816274028）；成片仍未渲染。
-- 录音缺口仍是 S10–S12 三句（G04 内容审核拒绝，未改词绕过）。上一轮“旁白独立转写核验”失败**不是录音问题**，是 runner 上 PyAV 与 faster-whisper 版本不匹配；现已改为 ffmpeg 解码喂数组、工作流钉 Python 3.11 并装 `production/requirements.txt`。详见 `audio/NARRATION_STATUS.md`。
+- ASR 核验已跑通（run 43829945136）：27 镜有真实语音，22 条 ≥0.90，5 条低分全是 whisper 同音字；切分已改为 ASR 词时间戳，S23/S24 的静音切错已修好。录音缺口仍是 S10–S12 三句（G04 内容审核拒绝，未改词绕过）。上一轮“旁白独立转写核验”失败**不是录音问题**，是 runner 上 PyAV 与 faster-whisper 版本不匹配；现已改为 ffmpeg 解码喂数组、工作流钉 Python 3.11 并装 `production/requirements.txt`。详见 `audio/NARRATION_STATUS.md`。
 - Arena 的 `voice_id` 是会话级的：本轮复用 `voice-01` 被拒（Unknown voice_id），补录三句需要重新试听选定音色或用户提供录音，不能悄悄换声线。
 - 机器可读状态：STATUS.json；审核问题：reference/approvals.json；音频来源：audio/groups/manifest.json。
 
@@ -40,7 +40,7 @@
 `python3 production/shibuya2006/test_plan.py`：13项通过（时间线、参考数与锚点、钩子、付费失败关闭、旧案隔离、音频来源哈希、无旧案冻帧、候选未冒充最终对齐）。
 
 `preflight.py`：当前 READY（仅离线检查；本轮没有调用 Agnes 接口）。
-`python3 -m pytest production/tests -q`：206 passed / 3 skipped；其中 `test_shibuya2006_audio.py` 守转写解码（ffmpeg→float32）、工作流装配与分支口径。音频时长和 SFX 生成已实测；逐字听检、字幕对齐与成片编码仍未做。
+`python3 -m pytest production/tests -q`：208 passed / 3 skipped；其中 `test_shibuya2006_audio.py` 守转写解码（ffmpeg→float32）、工作流装配与分支口径。音频时长和 SFX 生成已实测；逐字听检、字幕对齐与成片编码仍未做。
 
 ## 本轮补充记录
 

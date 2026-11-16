@@ -38,7 +38,20 @@
     "previous_failure_root_cause": "PyAV/faster-whisper API mismatch on the media runner: av.open() had no metadata_errors keyword (TypeError). Not a defect in the recordings.",
     "repair": "transcribe_audio_candidates.py now decodes with ffmpeg to 16 kHz mono float32 and hands the model an in-memory array; the workflow pins Python 3.11 and installs production/requirements.txt (av>=12,<19).",
     "evidence_only": true,
-    "next_run": "triggered by the push of the repaired transcribe script"
+    "next_run": "triggered by the push of the repaired transcribe script",
+    "latest_run": 43829945136,
+    "latest_result": "success",
+    "matched_shots": 22,
+    "flagged_for_homophones": [
+      "S03",
+      "S05",
+      "S09",
+      "S17",
+      "S24"
+    ],
+    "flagged_note": "All five flagged clips transcribe to the script apart from whisper homophones (社谷/衙科/征职/它随对/征得); no missing or wrong sentence.",
+    "boundary_method": "faster-whisper word timestamps; script aligned to words; cuts at word onsets (silence heuristic kept only as fallback)",
+    "boundary_repair": "S23 previously lost its final six characters to a silence-based cut; the ASR boundary restores it (similarity 1.000)."
   },
   "cover": {
     "file": "交付/第十七期_涩谷短大生惨案_封面.png",
@@ -64,7 +77,7 @@
     "continuous_movie_commentary_required": true
   },
   "offline_tests": {
-    "production_tests": "206 passed, 3 skipped",
+    "production_tests": "208 passed, 3 skipped",
     "project_test_plan": "13 passed",
     "preflight": "READY (offline only; Agnes API not called this round)"
   }
