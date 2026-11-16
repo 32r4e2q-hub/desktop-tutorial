@@ -1,0 +1,3642 @@
+{
+  "model": "faster-whisper small multilingual int8",
+  "decode": "ffmpeg -> 16 kHz mono float32 (PyAV not used)",
+  "policy": "ASR evidence only; no alignment signoffs or final manifest auto-created",
+  "shots": [
+    {
+      "id": "S01",
+      "source_kind": "individual",
+      "file": "production/shibuya2006/audio/S01.mp3",
+      "sha256": "c2acf7117ab0d814e72dee61986e94813002506eec02d77376ad13be10303984",
+      "expected": "妹妹遇害第二天，他照常去集训。",
+      "asr_text": "妹妹遇害第二天,她照常去集訓",
+      "first_word_start": 0.0,
+      "last_word_end": 3.14,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.14,
+          "text": "妹妹遇害第二天,她照常去集訓",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.46,
+              "word": "妹",
+              "probability": 0.9929
+            },
+            {
+              "start": 0.46,
+              "end": 0.66,
+              "word": "妹",
+              "probability": 0.9995
+            },
+            {
+              "start": 0.66,
+              "end": 0.88,
+              "word": "遇",
+              "probability": 0.8357
+            },
+            {
+              "start": 0.88,
+              "end": 1.06,
+              "word": "害",
+              "probability": 0.995
+            },
+            {
+              "start": 1.06,
+              "end": 1.32,
+              "word": "第二",
+              "probability": 0.9685
+            },
+            {
+              "start": 1.32,
+              "end": 1.68,
+              "word": "天,",
+              "probability": 0.9998
+            },
+            {
+              "start": 1.98,
+              "end": 2.08,
+              "word": "她",
+              "probability": 0.8774
+            },
+            {
+              "start": 2.08,
+              "end": 2.3,
+              "word": "照",
+              "probability": 0.9533
+            },
+            {
+              "start": 2.3,
+              "end": 2.56,
+              "word": "常",
+              "probability": 0.9916
+            },
+            {
+              "start": 2.56,
+              "end": 2.74,
+              "word": "去",
+              "probability": 0.966
+            },
+            {
+              "start": 2.74,
+              "end": 2.94,
+              "word": "集",
+              "probability": 0.3942
+            },
+            {
+              "start": 2.94,
+              "end": 3.14,
+              "word": "訓",
+              "probability": 0.9924
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9231,
+      "status": "asr_match_needs_review",
+      "target_seconds": 5.0,
+      "speech_seconds": 3.48,
+      "source_seconds": 3.528,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.52
+    },
+    {
+      "id": "S02",
+      "source_kind": "individual",
+      "file": "production/shibuya2006/audio/S02.mp3",
+      "sha256": "87743ed00221fca64727e37be3cc94937b564b2db397d1fb9c7418c98bc00ab5",
+      "expected": "他背着行李，走进集合点。家里，究竟发生了什么？",
+      "asr_text": "她背着行李,走进集合点,家里究竟发生了什么?",
+      "first_word_start": 0.0,
+      "last_word_end": 5.64,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.64,
+          "text": "她背着行李,走进集合点,家里究竟发生了什么?",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.4,
+              "word": "她",
+              "probability": 0.2816
+            },
+            {
+              "start": 0.4,
+              "end": 0.6,
+              "word": "背",
+              "probability": 0.9692
+            },
+            {
+              "start": 0.6,
+              "end": 0.74,
+              "word": "着",
+              "probability": 0.8254
+            },
+            {
+              "start": 0.74,
+              "end": 0.96,
+              "word": "行",
+              "probability": 0.9741
+            },
+            {
+              "start": 0.96,
+              "end": 1.2,
+              "word": "李,",
+              "probability": 0.7813
+            },
+            {
+              "start": 1.56,
+              "end": 1.64,
+              "word": "走",
+              "probability": 0.97
+            },
+            {
+              "start": 1.64,
+              "end": 1.88,
+              "word": "进",
+              "probability": 0.7892
+            },
+            {
+              "start": 1.88,
+              "end": 2.08,
+              "word": "集",
+              "probability": 0.9535
+            },
+            {
+              "start": 2.08,
+              "end": 2.26,
+              "word": "合",
+              "probability": 0.9652
+            },
+            {
+              "start": 2.26,
+              "end": 2.44,
+              "word": "点,",
+              "probability": 0.9699
+            },
+            {
+              "start": 2.76,
+              "end": 3.64,
+              "word": "家",
+              "probability": 0.9072
+            },
+            {
+              "start": 3.64,
+              "end": 3.88,
+              "word": "里",
+              "probability": 0.9767
+            },
+            {
+              "start": 3.88,
+              "end": 4.68,
+              "word": "究",
+              "probability": 0.7384
+            },
+            {
+              "start": 4.68,
+              "end": 4.94,
+              "word": "竟",
+              "probability": 0.9995
+            },
+            {
+              "start": 4.94,
+              "end": 5.1,
+              "word": "发",
+              "probability": 0.9727
+            },
+            {
+              "start": 5.1,
+              "end": 5.28,
+              "word": "生",
+              "probability": 0.9737
+            },
+            {
+              "start": 5.28,
+              "end": 5.4,
+              "word": "了",
+              "probability": 0.9772
+            },
+            {
+              "start": 5.4,
+              "end": 5.64,
+              "word": "什么?",
+              "probability": 0.9855
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9474,
+      "status": "asr_match_needs_review",
+      "target_seconds": 5.0,
+      "speech_seconds": 6.04,
+      "source_seconds": 6.096,
+      "atempo_needed": 1.208,
+      "tail_silence_seconds": 0.0
+    },
+    {
+      "id": "S03",
+      "source_kind": "individual",
+      "file": "production/shibuya2006/audio/S03.mp3",
+      "sha256": "7be71c486b4be32c115a45736c6540256d4a23293622e00962fcd94d7a7ce3b6",
+      "expected": "时间倒回一天前。东京涩谷，年末的街道依然热闹。",
+      "asr_text": "时间倒回一天前东京社谷年末的街道依然惹恼",
+      "first_word_start": 0.0,
+      "last_word_end": 5.56,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.76,
+          "text": "时间倒回一天前",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.6,
+              "word": "时间",
+              "probability": 0.3593
+            },
+            {
+              "start": 0.6,
+              "end": 0.88,
+              "word": "倒",
+              "probability": 0.7296
+            },
+            {
+              "start": 0.88,
+              "end": 1.1,
+              "word": "回",
+              "probability": 0.9079
+            },
+            {
+              "start": 1.1,
+              "end": 1.3,
+              "word": "一",
+              "probability": 0.9469
+            },
+            {
+              "start": 1.3,
+              "end": 1.52,
+              "word": "天",
+              "probability": 0.9963
+            },
+            {
+              "start": 1.52,
+              "end": 1.76,
+              "word": "前",
+              "probability": 0.9945
+            }
+          ]
+        },
+        {
+          "start": 2.28,
+          "end": 5.56,
+          "text": "东京社谷年末的街道依然惹恼",
+          "words": [
+            {
+              "start": 2.28,
+              "end": 2.66,
+              "word": "东",
+              "probability": 0.7299
+            },
+            {
+              "start": 2.66,
+              "end": 2.9,
+              "word": "京",
+              "probability": 0.9949
+            },
+            {
+              "start": 2.9,
+              "end": 3.14,
+              "word": "社",
+              "probability": 0.5797
+            },
+            {
+              "start": 3.14,
+              "end": 3.42,
+              "word": "谷",
+              "probability": 0.6907
+            },
+            {
+              "start": 3.42,
+              "end": 3.98,
+              "word": "年",
+              "probability": 0.42
+            },
+            {
+              "start": 3.98,
+              "end": 4.24,
+              "word": "末",
+              "probability": 0.9736
+            },
+            {
+              "start": 4.24,
+              "end": 4.36,
+              "word": "的",
+              "probability": 0.8396
+            },
+            {
+              "start": 4.36,
+              "end": 4.52,
+              "word": "街",
+              "probability": 0.986
+            },
+            {
+              "start": 4.52,
+              "end": 4.72,
+              "word": "道",
+              "probability": 0.9998
+            },
+            {
+              "start": 4.72,
+              "end": 5.0,
+              "word": "依",
+              "probability": 0.9982
+            },
+            {
+              "start": 5.0,
+              "end": 5.2,
+              "word": "然",
+              "probability": 0.9998
+            },
+            {
+              "start": 5.2,
+              "end": 5.42,
+              "word": "惹",
+              "probability": 0.8698
+            },
+            {
+              "start": 5.42,
+              "end": 5.56,
+              "word": "恼",
+              "probability": 0.7308
+            }
+          ]
+        }
+      ],
+      "similarity": 0.85,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 7.0,
+      "speech_seconds": 5.92,
+      "source_seconds": 5.976,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.08
+    },
+    {
+      "id": "S04",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S04.mp3",
+      "sha256": "6d0d8394c0307cca368b5329923fca655fefe867eb8aca55c37c56f5cc4ca426",
+      "expected": "这户人家，父母都是牙科医师。屋里，一切整整齐齐。",
+      "asr_text": "这户人家父母都是牙科医师屋里一切整整齐齐",
+      "first_word_start": 0.0,
+      "last_word_end": 5.68,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.94,
+          "text": "这户人家父母都是牙科医师",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.2,
+              "word": "这",
+              "probability": 0.7173
+            },
+            {
+              "start": 0.2,
+              "end": 0.38,
+              "word": "户",
+              "probability": 0.956
+            },
+            {
+              "start": 0.38,
+              "end": 0.56,
+              "word": "人",
+              "probability": 0.999
+            },
+            {
+              "start": 0.56,
+              "end": 0.76,
+              "word": "家",
+              "probability": 0.9939
+            },
+            {
+              "start": 0.76,
+              "end": 1.44,
+              "word": "父",
+              "probability": 0.7112
+            },
+            {
+              "start": 1.44,
+              "end": 1.7,
+              "word": "母",
+              "probability": 0.9998
+            },
+            {
+              "start": 1.7,
+              "end": 2.08,
+              "word": "都是",
+              "probability": 0.9922
+            },
+            {
+              "start": 2.08,
+              "end": 2.34,
+              "word": "牙",
+              "probability": 0.6008
+            },
+            {
+              "start": 2.34,
+              "end": 2.52,
+              "word": "科",
+              "probability": 0.9604
+            },
+            {
+              "start": 2.52,
+              "end": 2.7,
+              "word": "医",
+              "probability": 0.9915
+            },
+            {
+              "start": 2.7,
+              "end": 2.94,
+              "word": "师",
+              "probability": 0.9784
+            }
+          ]
+        },
+        {
+          "start": 3.6,
+          "end": 5.68,
+          "text": "屋里一切整整齐齐",
+          "words": [
+            {
+              "start": 3.6,
+              "end": 3.82,
+              "word": "屋",
+              "probability": 0.9159
+            },
+            {
+              "start": 3.82,
+              "end": 4.04,
+              "word": "里",
+              "probability": 0.9905
+            },
+            {
+              "start": 4.04,
+              "end": 4.54,
+              "word": "一",
+              "probability": 0.9795
+            },
+            {
+              "start": 4.54,
+              "end": 4.74,
+              "word": "切",
+              "probability": 0.9933
+            },
+            {
+              "start": 4.74,
+              "end": 5.06,
+              "word": "整",
+              "probability": 0.9963
+            },
+            {
+              "start": 5.06,
+              "end": 5.3,
+              "word": "整",
+              "probability": 0.9974
+            },
+            {
+              "start": 5.3,
+              "end": 5.52,
+              "word": "齐",
+              "probability": 0.7185
+            },
+            {
+              "start": 5.52,
+              "end": 5.68,
+              "word": "齐",
+              "probability": 0.9933
+            }
+          ]
+        }
+      ],
+      "similarity": 1.0,
+      "status": "asr_match_needs_review",
+      "target_seconds": 7.0,
+      "speech_seconds": 5.816,
+      "source_seconds": 5.856,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.184
+    },
+    {
+      "id": "S05",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S05.mp3",
+      "sha256": "6a5c665eb1056678a7ec2394bd0ecb2d9dbdbcf82f7366cd6eb5ffd4ccbd3b04",
+      "expected": "长子读牙科。次子勇贵二十一岁，还在为升学复读。",
+      "asr_text": "长子读衙科自子勇贵21岁还在为生学复读",
+      "first_word_start": 0.0,
+      "last_word_end": 5.36,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.12,
+          "text": "长子读衙科",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.2,
+              "word": "长",
+              "probability": 0.7558
+            },
+            {
+              "start": 0.2,
+              "end": 0.48,
+              "word": "子",
+              "probability": 0.9978
+            },
+            {
+              "start": 0.48,
+              "end": 0.72,
+              "word": "读",
+              "probability": 0.7373
+            },
+            {
+              "start": 0.72,
+              "end": 0.9,
+              "word": "衙",
+              "probability": 0.5535
+            },
+            {
+              "start": 0.9,
+              "end": 1.12,
+              "word": "科",
+              "probability": 0.9767
+            }
+          ]
+        },
+        {
+          "start": 1.84,
+          "end": 3.8,
+          "text": "自子勇贵21岁",
+          "words": [
+            {
+              "start": 1.8,
+              "end": 2.04,
+              "word": "自",
+              "probability": 0.1858
+            },
+            {
+              "start": 2.04,
+              "end": 2.32,
+              "word": "子",
+              "probability": 0.9877
+            },
+            {
+              "start": 2.32,
+              "end": 2.58,
+              "word": "勇",
+              "probability": 0.7964
+            },
+            {
+              "start": 2.58,
+              "end": 2.84,
+              "word": "贵",
+              "probability": 0.9606
+            },
+            {
+              "start": 2.84,
+              "end": 3.3,
+              "word": "21",
+              "probability": 0.6113
+            },
+            {
+              "start": 3.3,
+              "end": 3.8,
+              "word": "岁",
+              "probability": 0.9985
+            }
+          ]
+        },
+        {
+          "start": 3.8,
+          "end": 5.36,
+          "text": "还在为生学复读",
+          "words": [
+            {
+              "start": 3.8,
+              "end": 4.22,
+              "word": "还",
+              "probability": 0.8729
+            },
+            {
+              "start": 4.22,
+              "end": 4.38,
+              "word": "在",
+              "probability": 0.9981
+            },
+            {
+              "start": 4.38,
+              "end": 4.52,
+              "word": "为",
+              "probability": 0.9628
+            },
+            {
+              "start": 4.52,
+              "end": 4.76,
+              "word": "生",
+              "probability": 0.6603
+            },
+            {
+              "start": 4.76,
+              "end": 4.96,
+              "word": "学",
+              "probability": 0.9874
+            },
+            {
+              "start": 4.96,
+              "end": 5.16,
+              "word": "复",
+              "probability": 0.9086
+            },
+            {
+              "start": 5.16,
+              "end": 5.36,
+              "word": "读",
+              "probability": 0.9942
+            }
+          ]
+        }
+      ],
+      "similarity": 0.7179,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 6.0,
+      "speech_seconds": 5.493,
+      "source_seconds": 5.52,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 0.507
+    },
+    {
+      "id": "S06",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S06.mp3",
+      "sha256": "d66fa9fe0e802bfe214deb731eeae590cbe581d9fbb5e67d71b24a4469318a75",
+      "expected": "妹妹亚澄二十岁。读短大，也有自己的梦想。",
+      "asr_text": "妹妹亚成二十岁读短大也有自己的梦想",
+      "first_word_start": 0.0,
+      "last_word_end": 4.16,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.04,
+          "text": "妹妹亚成二十岁",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.22,
+              "word": "妹",
+              "probability": 0.1419
+            },
+            {
+              "start": 0.22,
+              "end": 0.48,
+              "word": "妹",
+              "probability": 0.999
+            },
+            {
+              "start": 0.48,
+              "end": 0.74,
+              "word": "亚",
+              "probability": 0.8786
+            },
+            {
+              "start": 0.74,
+              "end": 1.0,
+              "word": "成",
+              "probability": 0.6524
+            },
+            {
+              "start": 1.0,
+              "end": 1.36,
+              "word": "二",
+              "probability": 0.4851
+            },
+            {
+              "start": 1.36,
+              "end": 1.52,
+              "word": "十",
+              "probability": 0.998
+            },
+            {
+              "start": 1.52,
+              "end": 2.04,
+              "word": "岁",
+              "probability": 0.9799
+            }
+          ]
+        },
+        {
+          "start": 2.04,
+          "end": 2.72,
+          "text": "读短大",
+          "words": [
+            {
+              "start": 2.04,
+              "end": 2.36,
+              "word": "读",
+              "probability": 0.7896
+            },
+            {
+              "start": 2.36,
+              "end": 2.54,
+              "word": "短",
+              "probability": 0.9886
+            },
+            {
+              "start": 2.54,
+              "end": 2.72,
+              "word": "大",
+              "probability": 0.9073
+            }
+          ]
+        },
+        {
+          "start": 2.72,
+          "end": 4.16,
+          "text": "也有自己的梦想",
+          "words": [
+            {
+              "start": 2.72,
+              "end": 3.24,
+              "word": "也",
+              "probability": 0.8779
+            },
+            {
+              "start": 3.24,
+              "end": 3.44,
+              "word": "有",
+              "probability": 0.9985
+            },
+            {
+              "start": 3.44,
+              "end": 3.66,
+              "word": "自己",
+              "probability": 0.9977
+            },
+            {
+              "start": 3.66,
+              "end": 3.84,
+              "word": "的",
+              "probability": 0.9996
+            },
+            {
+              "start": 3.84,
+              "end": 3.98,
+              "word": "梦",
+              "probability": 0.9976
+            },
+            {
+              "start": 3.98,
+              "end": 4.16,
+              "word": "想",
+              "probability": 0.9951
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9412,
+      "status": "asr_match_needs_review",
+      "target_seconds": 5.0,
+      "speech_seconds": 4.243,
+      "source_seconds": 4.272,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 0.757
+    },
+    {
+      "id": "S07",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S07.mp3",
+      "sha256": "c974eb089f17180927c02fe68805e76c5a54c2237d7b1ab2113eb08037816cad",
+      "expected": "那天下午，母亲和长子离开家，准备回福岛过年。",
+      "asr_text": "那天下午母亲和长子离开家准备回福岛过年",
+      "first_word_start": 0.0,
+      "last_word_end": 4.46,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.74,
+          "text": "那天下午母亲和长子离开家",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.14,
+              "word": "那",
+              "probability": 0.9529
+            },
+            {
+              "start": 0.14,
+              "end": 0.32,
+              "word": "天",
+              "probability": 0.9976
+            },
+            {
+              "start": 0.32,
+              "end": 0.52,
+              "word": "下",
+              "probability": 0.998
+            },
+            {
+              "start": 0.52,
+              "end": 0.74,
+              "word": "午",
+              "probability": 0.9999
+            },
+            {
+              "start": 0.74,
+              "end": 1.24,
+              "word": "母",
+              "probability": 0.7046
+            },
+            {
+              "start": 1.24,
+              "end": 1.5,
+              "word": "亲",
+              "probability": 0.689
+            },
+            {
+              "start": 1.5,
+              "end": 1.7,
+              "word": "和",
+              "probability": 0.9968
+            },
+            {
+              "start": 1.7,
+              "end": 1.88,
+              "word": "长",
+              "probability": 0.8663
+            },
+            {
+              "start": 1.88,
+              "end": 2.16,
+              "word": "子",
+              "probability": 0.9994
+            },
+            {
+              "start": 2.16,
+              "end": 2.38,
+              "word": "离",
+              "probability": 0.9978
+            },
+            {
+              "start": 2.38,
+              "end": 2.5,
+              "word": "开",
+              "probability": 0.9947
+            },
+            {
+              "start": 2.5,
+              "end": 2.74,
+              "word": "家",
+              "probability": 0.9942
+            }
+          ]
+        },
+        {
+          "start": 2.74,
+          "end": 4.46,
+          "text": "准备回福岛过年",
+          "words": [
+            {
+              "start": 2.74,
+              "end": 3.28,
+              "word": "准",
+              "probability": 0.9435
+            },
+            {
+              "start": 3.28,
+              "end": 3.42,
+              "word": "备",
+              "probability": 0.9999
+            },
+            {
+              "start": 3.42,
+              "end": 3.6,
+              "word": "回",
+              "probability": 0.9974
+            },
+            {
+              "start": 3.6,
+              "end": 3.84,
+              "word": "福",
+              "probability": 0.7049
+            },
+            {
+              "start": 3.84,
+              "end": 4.08,
+              "word": "岛",
+              "probability": 0.9975
+            },
+            {
+              "start": 4.08,
+              "end": 4.26,
+              "word": "过",
+              "probability": 0.9942
+            },
+            {
+              "start": 4.26,
+              "end": 4.46,
+              "word": "年",
+              "probability": 0.9973
+            }
+          ]
+        }
+      ],
+      "similarity": 1.0,
+      "status": "asr_match_needs_review",
+      "target_seconds": 7.0,
+      "speech_seconds": 4.652,
+      "source_seconds": 4.68,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 2.348
+    },
+    {
+      "id": "S08",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S08.mp3",
+      "sha256": "8c750b997492d9bf844c6f0e7fce02ffc26bc9fc6898c5041f1d92013c279ecc",
+      "expected": "父亲随后也出了门。门一关，家里只剩兄妹两人。",
+      "asr_text": "父親隨後也出了門門一關家裡只剩兄妹兩人",
+      "first_word_start": 0.0,
+      "last_word_end": 4.94,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.6,
+          "text": "父親隨後也出了門",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.26,
+              "word": "父",
+              "probability": 0.9513
+            },
+            {
+              "start": 0.26,
+              "end": 0.5,
+              "word": "親",
+              "probability": 0.5776
+            },
+            {
+              "start": 0.5,
+              "end": 0.76,
+              "word": "隨",
+              "probability": 0.9872
+            },
+            {
+              "start": 0.76,
+              "end": 0.94,
+              "word": "後",
+              "probability": 0.9922
+            },
+            {
+              "start": 0.94,
+              "end": 1.12,
+              "word": "也",
+              "probability": 0.9956
+            },
+            {
+              "start": 1.12,
+              "end": 1.34,
+              "word": "出",
+              "probability": 0.9864
+            },
+            {
+              "start": 1.34,
+              "end": 1.46,
+              "word": "了",
+              "probability": 0.9913
+            },
+            {
+              "start": 1.46,
+              "end": 1.6,
+              "word": "門",
+              "probability": 0.9976
+            }
+          ]
+        },
+        {
+          "start": 2.24,
+          "end": 4.94,
+          "text": "門一關家裡只剩兄妹兩人",
+          "words": [
+            {
+              "start": 2.24,
+              "end": 2.64,
+              "word": "門",
+              "probability": 0.3313
+            },
+            {
+              "start": 2.64,
+              "end": 2.82,
+              "word": "一",
+              "probability": 0.9634
+            },
+            {
+              "start": 2.82,
+              "end": 3.02,
+              "word": "關",
+              "probability": 0.9928
+            },
+            {
+              "start": 3.02,
+              "end": 3.48,
+              "word": "家",
+              "probability": 0.4972
+            },
+            {
+              "start": 3.48,
+              "end": 3.66,
+              "word": "裡",
+              "probability": 0.9676
+            },
+            {
+              "start": 3.66,
+              "end": 3.86,
+              "word": "只",
+              "probability": 0.9912
+            },
+            {
+              "start": 3.86,
+              "end": 4.08,
+              "word": "剩",
+              "probability": 0.9996
+            },
+            {
+              "start": 4.08,
+              "end": 4.3,
+              "word": "兄",
+              "probability": 0.9811
+            },
+            {
+              "start": 4.3,
+              "end": 4.54,
+              "word": "妹",
+              "probability": 0.9985
+            },
+            {
+              "start": 4.54,
+              "end": 4.74,
+              "word": "兩",
+              "probability": 0.9512
+            },
+            {
+              "start": 4.74,
+              "end": 4.94,
+              "word": "人",
+              "probability": 0.9982
+            }
+          ]
+        }
+      ],
+      "similarity": 1.0,
+      "status": "asr_match_needs_review",
+      "target_seconds": 7.0,
+      "speech_seconds": 5.056,
+      "source_seconds": 5.088,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.944
+    },
+    {
+      "id": "S09",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S09.mp3",
+      "sha256": "755217bb44bafb58a71157916672912313239e7d866189a37f6c20355a628606",
+      "expected": "据他后来的供述，争执中，妹妹提到了梦想。",
+      "asr_text": "举他后来的供书征职中妹妹提到了梦想",
+      "first_word_start": 0.0,
+      "last_word_end": 3.52,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.12,
+          "text": "举他后来的供书",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.16,
+              "word": "举",
+              "probability": 0.7038
+            },
+            {
+              "start": 0.16,
+              "end": 0.32,
+              "word": "他",
+              "probability": 0.7052
+            },
+            {
+              "start": 0.32,
+              "end": 0.48,
+              "word": "后",
+              "probability": 0.9969
+            },
+            {
+              "start": 0.48,
+              "end": 0.62,
+              "word": "来",
+              "probability": 0.998
+            },
+            {
+              "start": 0.62,
+              "end": 0.72,
+              "word": "的",
+              "probability": 0.9994
+            },
+            {
+              "start": 0.72,
+              "end": 0.88,
+              "word": "供",
+              "probability": 0.6057
+            },
+            {
+              "start": 0.88,
+              "end": 1.12,
+              "word": "书",
+              "probability": 0.6405
+            }
+          ]
+        },
+        {
+          "start": 1.12,
+          "end": 3.52,
+          "text": "征职中妹妹提到了梦想",
+          "words": [
+            {
+              "start": 1.12,
+              "end": 1.6,
+              "word": "征",
+              "probability": 0.622
+            },
+            {
+              "start": 1.6,
+              "end": 1.78,
+              "word": "职",
+              "probability": 0.942
+            },
+            {
+              "start": 1.78,
+              "end": 1.94,
+              "word": "中",
+              "probability": 0.9494
+            },
+            {
+              "start": 1.94,
+              "end": 2.36,
+              "word": "妹",
+              "probability": 0.9508
+            },
+            {
+              "start": 2.36,
+              "end": 2.56,
+              "word": "妹",
+              "probability": 0.9996
+            },
+            {
+              "start": 2.56,
+              "end": 2.78,
+              "word": "提",
+              "probability": 0.9987
+            },
+            {
+              "start": 2.78,
+              "end": 3.0,
+              "word": "到了",
+              "probability": 0.992
+            },
+            {
+              "start": 3.0,
+              "end": 3.32,
+              "word": "梦",
+              "probability": 0.9858
+            },
+            {
+              "start": 3.32,
+              "end": 3.52,
+              "word": "想",
+              "probability": 0.9748
+            }
+          ]
+        }
+      ],
+      "similarity": 0.7647,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 6.0,
+      "speech_seconds": 3.593,
+      "source_seconds": 3.624,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 2.407
+    },
+    {
+      "id": "S10",
+      "status": "missing_audio",
+      "expected": "他说，她讲了句，你没有梦想。但这不是施暴的理由。",
+      "reason": "moderation_blocked",
+      "target_seconds": 5.0
+    },
+    {
+      "id": "S11",
+      "status": "missing_audio",
+      "expected": "那天下午，亚澄遇害了。此后的平静，才让人难以理解。",
+      "reason": "moderation_blocked",
+      "target_seconds": 7.0
+    },
+    {
+      "id": "S12",
+      "status": "missing_audio",
+      "expected": "他关上房门，也把真相留在了屋里。后来，他承认杀害妹妹。",
+      "reason": "moderation_blocked",
+      "target_seconds": 7.0
+    },
+    {
+      "id": "S13",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S13.mp3",
+      "sha256": "083cb37ff86dd33eac030b750516e530eab710b324d74830c7d172149ab85319",
+      "expected": "可当时，他没有报警。他选择了隐瞒。",
+      "asr_text": "可当时他没有报警,他选择了隐瞒",
+      "first_word_start": 0.0,
+      "last_word_end": 3.62,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.62,
+          "text": "可当时他没有报警,他选择了隐瞒",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.2,
+              "word": "可",
+              "probability": 0.7721
+            },
+            {
+              "start": 0.2,
+              "end": 0.38,
+              "word": "当",
+              "probability": 0.5729
+            },
+            {
+              "start": 0.38,
+              "end": 0.68,
+              "word": "时",
+              "probability": 0.9982
+            },
+            {
+              "start": 0.68,
+              "end": 1.2,
+              "word": "他",
+              "probability": 0.5563
+            },
+            {
+              "start": 1.2,
+              "end": 1.4,
+              "word": "没有",
+              "probability": 0.9934
+            },
+            {
+              "start": 1.4,
+              "end": 1.7,
+              "word": "报",
+              "probability": 0.969
+            },
+            {
+              "start": 1.7,
+              "end": 1.96,
+              "word": "警,",
+              "probability": 0.9973
+            },
+            {
+              "start": 2.48,
+              "end": 2.56,
+              "word": "他",
+              "probability": 0.9343
+            },
+            {
+              "start": 2.56,
+              "end": 2.86,
+              "word": "选",
+              "probability": 0.9993
+            },
+            {
+              "start": 2.86,
+              "end": 3.06,
+              "word": "择",
+              "probability": 0.9977
+            },
+            {
+              "start": 3.06,
+              "end": 3.18,
+              "word": "了",
+              "probability": 0.9835
+            },
+            {
+              "start": 3.18,
+              "end": 3.4,
+              "word": "隐",
+              "probability": 0.987
+            },
+            {
+              "start": 3.4,
+              "end": 3.62,
+              "word": "瞒",
+              "probability": 0.9969
+            }
+          ]
+        }
+      ],
+      "similarity": 1.0,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 3.786,
+      "source_seconds": 3.816,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 2.214
+    },
+    {
+      "id": "S14",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S14.mp3",
+      "sha256": "795cdb87e533b5fa0d3102b5b4a6232fee9018c001de5598737c576a09260fce",
+      "expected": "更反常的是，第二天，他还照常出门。",
+      "asr_text": "更反常的是第二天他還照常出門",
+      "first_word_start": 0.0,
+      "last_word_end": 3.32,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.32,
+          "text": "更反常的是第二天他還照常出門",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.18,
+              "word": "更",
+              "probability": 0.9689
+            },
+            {
+              "start": 0.18,
+              "end": 0.42,
+              "word": "反",
+              "probability": 0.8866
+            },
+            {
+              "start": 0.42,
+              "end": 0.64,
+              "word": "常",
+              "probability": 0.9604
+            },
+            {
+              "start": 0.64,
+              "end": 0.9,
+              "word": "的是",
+              "probability": 0.9899
+            },
+            {
+              "start": 0.9,
+              "end": 1.48,
+              "word": "第二",
+              "probability": 0.7015
+            },
+            {
+              "start": 1.48,
+              "end": 1.9,
+              "word": "天",
+              "probability": 0.9994
+            },
+            {
+              "start": 1.9,
+              "end": 2.3,
+              "word": "他",
+              "probability": 0.5895
+            },
+            {
+              "start": 2.3,
+              "end": 2.5,
+              "word": "還",
+              "probability": 0.9848
+            },
+            {
+              "start": 2.5,
+              "end": 2.68,
+              "word": "照",
+              "probability": 0.8366
+            },
+            {
+              "start": 2.68,
+              "end": 2.94,
+              "word": "常",
+              "probability": 0.9926
+            },
+            {
+              "start": 2.94,
+              "end": 3.14,
+              "word": "出",
+              "probability": 0.9984
+            },
+            {
+              "start": 3.14,
+              "end": 3.32,
+              "word": "門",
+              "probability": 0.9992
+            }
+          ]
+        }
+      ],
+      "similarity": 1.0,
+      "status": "asr_match_needs_review",
+      "target_seconds": 5.0,
+      "speech_seconds": 3.454,
+      "source_seconds": 3.48,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.546
+    },
+    {
+      "id": "S15",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S15.mp3",
+      "sha256": "a264f6f4603718fd4487a5969ba8aa810e74efb3612a9792e570c45661dcec60",
+      "expected": "十二月三十一日，他收拾行李，准备去补习班集训。",
+      "asr_text": "12月31日,他收拾行李,准备去补西班集训",
+      "first_word_start": 0.0,
+      "last_word_end": 4.2,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.2,
+          "text": "12月31日,他收拾行李,准备去补西班集训",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.32,
+              "word": "12",
+              "probability": 0.9255
+            },
+            {
+              "start": 0.32,
+              "end": 0.62,
+              "word": "月",
+              "probability": 0.9684
+            },
+            {
+              "start": 0.62,
+              "end": 0.88,
+              "word": "31",
+              "probability": 0.9979
+            },
+            {
+              "start": 0.88,
+              "end": 1.46,
+              "word": "日,",
+              "probability": 0.9977
+            },
+            {
+              "start": 1.46,
+              "end": 1.8,
+              "word": "他",
+              "probability": 0.7417
+            },
+            {
+              "start": 1.8,
+              "end": 2.02,
+              "word": "收",
+              "probability": 0.9972
+            },
+            {
+              "start": 2.02,
+              "end": 2.18,
+              "word": "拾",
+              "probability": 0.9916
+            },
+            {
+              "start": 2.18,
+              "end": 2.34,
+              "word": "行",
+              "probability": 0.999
+            },
+            {
+              "start": 2.34,
+              "end": 2.54,
+              "word": "李,",
+              "probability": 0.9925
+            },
+            {
+              "start": 2.74,
+              "end": 2.92,
+              "word": "准",
+              "probability": 0.9224
+            },
+            {
+              "start": 2.92,
+              "end": 3.08,
+              "word": "备",
+              "probability": 0.9993
+            },
+            {
+              "start": 3.08,
+              "end": 3.24,
+              "word": "去",
+              "probability": 0.9937
+            },
+            {
+              "start": 3.24,
+              "end": 3.48,
+              "word": "补",
+              "probability": 0.9055
+            },
+            {
+              "start": 3.48,
+              "end": 3.64,
+              "word": "西",
+              "probability": 0.6492
+            },
+            {
+              "start": 3.64,
+              "end": 3.8,
+              "word": "班",
+              "probability": 0.9967
+            },
+            {
+              "start": 3.8,
+              "end": 4.02,
+              "word": "集",
+              "probability": 0.6485
+            },
+            {
+              "start": 4.02,
+              "end": 4.2,
+              "word": "训",
+              "probability": 0.9452
+            }
+          ]
+        }
+      ],
+      "similarity": 0.7179,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 6.0,
+      "speech_seconds": 4.271,
+      "source_seconds": 4.296,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.729
+    },
+    {
+      "id": "S16",
+      "source_kind": "individual",
+      "file": "production/shibuya2006/audio/S16.mp3",
+      "sha256": "eac6f21b6247ab5a8e0743fe5a18979c5e42beb044005a1204d8d6b96131b7a3",
+      "expected": "他背起行李，独自走向补习班的集合点。",
+      "asr_text": "他揹起行李,独自走向補習班的集合點。",
+      "first_word_start": 0.0,
+      "last_word_end": 3.58,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.58,
+          "text": "他揹起行李,独自走向補習班的集合點。",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.44,
+              "word": "他",
+              "probability": 0.6773
+            },
+            {
+              "start": 0.44,
+              "end": 0.62,
+              "word": "揹",
+              "probability": 0.5678
+            },
+            {
+              "start": 0.62,
+              "end": 0.86,
+              "word": "起",
+              "probability": 0.9991
+            },
+            {
+              "start": 0.86,
+              "end": 1.06,
+              "word": "行",
+              "probability": 0.9936
+            },
+            {
+              "start": 1.06,
+              "end": 1.26,
+              "word": "李,",
+              "probability": 0.9904
+            },
+            {
+              "start": 1.64,
+              "end": 1.8,
+              "word": "独",
+              "probability": 0.8124
+            },
+            {
+              "start": 1.8,
+              "end": 2.04,
+              "word": "自",
+              "probability": 0.9993
+            },
+            {
+              "start": 2.04,
+              "end": 2.2,
+              "word": "走",
+              "probability": 0.9941
+            },
+            {
+              "start": 2.2,
+              "end": 2.38,
+              "word": "向",
+              "probability": 0.9997
+            },
+            {
+              "start": 2.38,
+              "end": 2.62,
+              "word": "補",
+              "probability": 0.8316
+            },
+            {
+              "start": 2.62,
+              "end": 2.76,
+              "word": "習",
+              "probability": 0.8206
+            },
+            {
+              "start": 2.76,
+              "end": 2.92,
+              "word": "班",
+              "probability": 0.9846
+            },
+            {
+              "start": 2.92,
+              "end": 3.04,
+              "word": "的",
+              "probability": 0.9977
+            },
+            {
+              "start": 3.04,
+              "end": 3.24,
+              "word": "集",
+              "probability": 0.8292
+            },
+            {
+              "start": 3.24,
+              "end": 3.44,
+              "word": "合",
+              "probability": 0.9816
+            },
+            {
+              "start": 3.44,
+              "end": 3.58,
+              "word": "點。",
+              "probability": 0.9921
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9375,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 3.96,
+      "source_seconds": 4.008,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 2.04
+    },
+    {
+      "id": "S17",
+      "source_kind": "individual",
+      "file": "production/shibuya2006/audio/S17.mp3",
+      "sha256": "c6aea954a4c2991df0abb96882c0f2bb2b80741da5295fbe14e31b4f27befe50",
+      "expected": "集合之后，他随队前往集训。看上去，一切如常。",
+      "asr_text": "集合之后它随对前往集训看上去一切如常",
+      "first_word_start": 0.0,
+      "last_word_end": 4.82,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.68,
+          "text": "集合之后它随对前往集训",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.46,
+              "word": "集",
+              "probability": 0.9042
+            },
+            {
+              "start": 0.46,
+              "end": 0.64,
+              "word": "合",
+              "probability": 0.9982
+            },
+            {
+              "start": 0.64,
+              "end": 0.8,
+              "word": "之",
+              "probability": 0.7998
+            },
+            {
+              "start": 0.8,
+              "end": 0.98,
+              "word": "后",
+              "probability": 0.9983
+            },
+            {
+              "start": 0.98,
+              "end": 1.32,
+              "word": "它",
+              "probability": 0.4918
+            },
+            {
+              "start": 1.32,
+              "end": 1.6,
+              "word": "随",
+              "probability": 0.9896
+            },
+            {
+              "start": 1.6,
+              "end": 1.84,
+              "word": "对",
+              "probability": 0.8429
+            },
+            {
+              "start": 1.84,
+              "end": 2.08,
+              "word": "前",
+              "probability": 0.9664
+            },
+            {
+              "start": 2.08,
+              "end": 2.26,
+              "word": "往",
+              "probability": 0.9956
+            },
+            {
+              "start": 2.26,
+              "end": 2.48,
+              "word": "集",
+              "probability": 0.6012
+            },
+            {
+              "start": 2.48,
+              "end": 2.68,
+              "word": "训",
+              "probability": 0.8301
+            }
+          ]
+        },
+        {
+          "start": 2.68,
+          "end": 4.82,
+          "text": "看上去一切如常",
+          "words": [
+            {
+              "start": 2.68,
+              "end": 3.28,
+              "word": "看",
+              "probability": 0.4195
+            },
+            {
+              "start": 3.28,
+              "end": 3.44,
+              "word": "上",
+              "probability": 0.9974
+            },
+            {
+              "start": 3.44,
+              "end": 3.64,
+              "word": "去",
+              "probability": 0.9989
+            },
+            {
+              "start": 3.64,
+              "end": 4.1,
+              "word": "一",
+              "probability": 0.9486
+            },
+            {
+              "start": 4.1,
+              "end": 4.38,
+              "word": "切",
+              "probability": 0.9975
+            },
+            {
+              "start": 4.38,
+              "end": 4.6,
+              "word": "如",
+              "probability": 0.9991
+            },
+            {
+              "start": 4.6,
+              "end": 4.82,
+              "word": "常",
+              "probability": 0.8805
+            }
+          ]
+        }
+      ],
+      "similarity": 0.8889,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 6.0,
+      "speech_seconds": 5.32,
+      "source_seconds": 5.376,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 0.68
+    },
+    {
+      "id": "S18",
+      "source_kind": "individual",
+      "file": "production/shibuya2006/audio/S18.mp3",
+      "sha256": "454d34723aa7914ee70bbd06b6b82b6ce17918623a88e29a5fa027bef2efcc46",
+      "expected": "而家里的那扇门，仍紧紧关着。",
+      "asr_text": "而家裡的那扇門仍緊緊關著",
+      "first_word_start": 0.0,
+      "last_word_end": 3.28,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.28,
+          "text": "而家裡的那扇門仍緊緊關著",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.46,
+              "word": "而",
+              "probability": 0.9389
+            },
+            {
+              "start": 0.46,
+              "end": 0.68,
+              "word": "家",
+              "probability": 0.997
+            },
+            {
+              "start": 0.68,
+              "end": 0.86,
+              "word": "裡",
+              "probability": 0.6205
+            },
+            {
+              "start": 0.86,
+              "end": 0.96,
+              "word": "的",
+              "probability": 0.9905
+            },
+            {
+              "start": 0.96,
+              "end": 1.12,
+              "word": "那",
+              "probability": 0.9975
+            },
+            {
+              "start": 1.12,
+              "end": 1.28,
+              "word": "扇",
+              "probability": 0.9944
+            },
+            {
+              "start": 1.28,
+              "end": 1.52,
+              "word": "門",
+              "probability": 0.997
+            },
+            {
+              "start": 1.52,
+              "end": 2.2,
+              "word": "仍",
+              "probability": 0.999
+            },
+            {
+              "start": 2.2,
+              "end": 2.46,
+              "word": "緊",
+              "probability": 0.7355
+            },
+            {
+              "start": 2.46,
+              "end": 2.78,
+              "word": "緊",
+              "probability": 0.9976
+            },
+            {
+              "start": 2.78,
+              "end": 3.04,
+              "word": "關",
+              "probability": 0.9902
+            },
+            {
+              "start": 3.04,
+              "end": 3.28,
+              "word": "著",
+              "probability": 0.9246
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9167,
+      "status": "asr_match_needs_review",
+      "target_seconds": 5.0,
+      "speech_seconds": 3.6,
+      "source_seconds": 3.648,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.4
+    },
+    {
+      "id": "S19",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S19.mp3",
+      "sha256": "837846a89c5e5c52815e61cb16a9750d0959a98ff739673b186a715f03e4dd09",
+      "expected": "一月二日，家人结束返乡行程，回到了东京的家。",
+      "asr_text": "1月2日,家人結束返鄉行程回到了東京的家",
+      "first_word_start": 0.0,
+      "last_word_end": 4.62,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.62,
+          "text": "1月2日,家人結束返鄉行程回到了東京的家",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.2,
+              "word": "1",
+              "probability": 0.7618
+            },
+            {
+              "start": 0.2,
+              "end": 0.38,
+              "word": "月",
+              "probability": 0.9685
+            },
+            {
+              "start": 0.38,
+              "end": 0.62,
+              "word": "2",
+              "probability": 0.9895
+            },
+            {
+              "start": 0.62,
+              "end": 0.92,
+              "word": "日,",
+              "probability": 0.9973
+            },
+            {
+              "start": 1.04,
+              "end": 1.5,
+              "word": "家",
+              "probability": 0.9361
+            },
+            {
+              "start": 1.5,
+              "end": 1.74,
+              "word": "人",
+              "probability": 0.9991
+            },
+            {
+              "start": 1.74,
+              "end": 1.98,
+              "word": "結",
+              "probability": 0.6918
+            },
+            {
+              "start": 1.98,
+              "end": 2.2,
+              "word": "束",
+              "probability": 0.9986
+            },
+            {
+              "start": 2.2,
+              "end": 2.48,
+              "word": "返",
+              "probability": 0.947
+            },
+            {
+              "start": 2.48,
+              "end": 2.68,
+              "word": "鄉",
+              "probability": 0.9977
+            },
+            {
+              "start": 2.68,
+              "end": 2.86,
+              "word": "行",
+              "probability": 0.9693
+            },
+            {
+              "start": 2.86,
+              "end": 3.1,
+              "word": "程",
+              "probability": 0.9939
+            },
+            {
+              "start": 3.1,
+              "end": 3.6,
+              "word": "回",
+              "probability": 0.7224
+            },
+            {
+              "start": 3.6,
+              "end": 3.88,
+              "word": "到了",
+              "probability": 0.973
+            },
+            {
+              "start": 3.88,
+              "end": 4.12,
+              "word": "東",
+              "probability": 0.9894
+            },
+            {
+              "start": 4.12,
+              "end": 4.32,
+              "word": "京",
+              "probability": 0.9986
+            },
+            {
+              "start": 4.32,
+              "end": 4.46,
+              "word": "的",
+              "probability": 0.9963
+            },
+            {
+              "start": 4.46,
+              "end": 4.62,
+              "word": "家",
+              "probability": 0.9963
+            }
+          ]
+        }
+      ],
+      "similarity": 0.8947,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 6.0,
+      "speech_seconds": 4.729,
+      "source_seconds": 4.776,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.271
+    },
+    {
+      "id": "S20",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S20.mp3",
+      "sha256": "097a51f0dcfd05623f1d5ed7db454f96e79e3a56f889c5b3f17ece7709e418d6",
+      "expected": "可直到三日晚上，母亲才察觉到一股异味。",
+      "asr_text": "可直到三日晚上母亲才察觉到一股意味",
+      "first_word_start": 0.0,
+      "last_word_end": 4.06,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.6,
+          "text": "可直到三日晚上",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.38,
+              "word": "可",
+              "probability": 0.9479
+            },
+            {
+              "start": 0.38,
+              "end": 0.6,
+              "word": "直",
+              "probability": 0.9638
+            },
+            {
+              "start": 0.6,
+              "end": 0.78,
+              "word": "到",
+              "probability": 0.9956
+            },
+            {
+              "start": 0.78,
+              "end": 1.0,
+              "word": "三",
+              "probability": 0.9342
+            },
+            {
+              "start": 1.0,
+              "end": 1.18,
+              "word": "日",
+              "probability": 0.9825
+            },
+            {
+              "start": 1.18,
+              "end": 1.6,
+              "word": "晚上",
+              "probability": 0.9073
+            }
+          ]
+        },
+        {
+          "start": 1.6,
+          "end": 4.06,
+          "text": "母亲才察觉到一股意味",
+          "words": [
+            {
+              "start": 1.6,
+              "end": 2.16,
+              "word": "母",
+              "probability": 0.7679
+            },
+            {
+              "start": 2.16,
+              "end": 2.42,
+              "word": "亲",
+              "probability": 0.4936
+            },
+            {
+              "start": 2.42,
+              "end": 2.62,
+              "word": "才",
+              "probability": 0.9979
+            },
+            {
+              "start": 2.62,
+              "end": 2.92,
+              "word": "察",
+              "probability": 0.959
+            },
+            {
+              "start": 2.92,
+              "end": 3.1,
+              "word": "觉",
+              "probability": 0.9899
+            },
+            {
+              "start": 3.1,
+              "end": 3.26,
+              "word": "到",
+              "probability": 0.9899
+            },
+            {
+              "start": 3.26,
+              "end": 3.42,
+              "word": "一",
+              "probability": 0.6381
+            },
+            {
+              "start": 3.42,
+              "end": 3.62,
+              "word": "股",
+              "probability": 0.996
+            },
+            {
+              "start": 3.62,
+              "end": 3.88,
+              "word": "意",
+              "probability": 0.8294
+            },
+            {
+              "start": 3.88,
+              "end": 4.06,
+              "word": "味",
+              "probability": 0.8761
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9412,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 4.15,
+      "source_seconds": 4.176,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.85
+    },
+    {
+      "id": "S21",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S21.mp3",
+      "sha256": "4aed2c500abcbb2e12d4f2a88ca165af2de69b718a21df05e73d754d24f25573",
+      "expected": "她走上三楼，停在儿子的房门前。",
+      "asr_text": "他走上三楼停在儿子的房门前",
+      "first_word_start": 0.0,
+      "last_word_end": 2.64,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.64,
+          "text": "他走上三楼停在儿子的房门前",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.16,
+              "word": "他",
+              "probability": 0.7632
+            },
+            {
+              "start": 0.16,
+              "end": 0.3,
+              "word": "走",
+              "probability": 0.9873
+            },
+            {
+              "start": 0.3,
+              "end": 0.46,
+              "word": "上",
+              "probability": 0.9876
+            },
+            {
+              "start": 0.46,
+              "end": 0.66,
+              "word": "三",
+              "probability": 0.9
+            },
+            {
+              "start": 0.66,
+              "end": 0.9,
+              "word": "楼",
+              "probability": 0.8889
+            },
+            {
+              "start": 0.9,
+              "end": 1.34,
+              "word": "停",
+              "probability": 0.6849
+            },
+            {
+              "start": 1.34,
+              "end": 1.54,
+              "word": "在",
+              "probability": 0.9963
+            },
+            {
+              "start": 1.54,
+              "end": 1.78,
+              "word": "儿",
+              "probability": 0.8784
+            },
+            {
+              "start": 1.78,
+              "end": 2.0,
+              "word": "子",
+              "probability": 0.9986
+            },
+            {
+              "start": 2.0,
+              "end": 2.08,
+              "word": "的",
+              "probability": 0.9911
+            },
+            {
+              "start": 2.08,
+              "end": 2.26,
+              "word": "房",
+              "probability": 0.9936
+            },
+            {
+              "start": 2.26,
+              "end": 2.46,
+              "word": "门",
+              "probability": 0.997
+            },
+            {
+              "start": 2.46,
+              "end": 2.64,
+              "word": "前",
+              "probability": 0.9991
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9231,
+      "status": "asr_match_needs_review",
+      "target_seconds": 5.0,
+      "speech_seconds": 2.811,
+      "source_seconds": 2.856,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 2.189
+    },
+    {
+      "id": "S22",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S22.mp3",
+      "sha256": "53f47538dcbad9158354ebd70fe92eb5334d28a41f400443bcf0453f052dd752",
+      "expected": "真相就此暴露。次日，警方从集训地带走勇贵。",
+      "asr_text": "真相就此暴露此日警方从集训地带走勇贵",
+      "first_word_start": 0.0,
+      "last_word_end": 5.14,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.14,
+          "text": "真相就此暴露",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.22,
+              "word": "真",
+              "probability": 0.8341
+            },
+            {
+              "start": 0.22,
+              "end": 0.52,
+              "word": "相",
+              "probability": 0.9973
+            },
+            {
+              "start": 0.52,
+              "end": 0.9,
+              "word": "就",
+              "probability": 0.9592
+            },
+            {
+              "start": 0.9,
+              "end": 1.2,
+              "word": "此",
+              "probability": 0.9996
+            },
+            {
+              "start": 1.2,
+              "end": 1.44,
+              "word": "暴",
+              "probability": 0.9965
+            },
+            {
+              "start": 1.44,
+              "end": 2.14,
+              "word": "露",
+              "probability": 0.9952
+            }
+          ]
+        },
+        {
+          "start": 2.14,
+          "end": 5.14,
+          "text": "此日警方从集训地带走勇贵",
+          "words": [
+            {
+              "start": 2.14,
+              "end": 2.48,
+              "word": "此",
+              "probability": 0.4592
+            },
+            {
+              "start": 2.48,
+              "end": 2.68,
+              "word": "日",
+              "probability": 0.9971
+            },
+            {
+              "start": 2.68,
+              "end": 3.16,
+              "word": "警",
+              "probability": 0.7671
+            },
+            {
+              "start": 3.16,
+              "end": 3.44,
+              "word": "方",
+              "probability": 0.9993
+            },
+            {
+              "start": 3.44,
+              "end": 3.6,
+              "word": "从",
+              "probability": 0.8824
+            },
+            {
+              "start": 3.6,
+              "end": 3.82,
+              "word": "集",
+              "probability": 0.4036
+            },
+            {
+              "start": 3.82,
+              "end": 3.98,
+              "word": "训",
+              "probability": 0.947
+            },
+            {
+              "start": 3.98,
+              "end": 4.12,
+              "word": "地",
+              "probability": 0.9152
+            },
+            {
+              "start": 4.12,
+              "end": 4.52,
+              "word": "带",
+              "probability": 0.9906
+            },
+            {
+              "start": 4.52,
+              "end": 4.72,
+              "word": "走",
+              "probability": 0.9973
+            },
+            {
+              "start": 4.72,
+              "end": 4.9,
+              "word": "勇",
+              "probability": 0.7958
+            },
+            {
+              "start": 4.9,
+              "end": 5.14,
+              "word": "贵",
+              "probability": 0.932
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9444,
+      "status": "asr_match_needs_review",
+      "target_seconds": 5.0,
+      "speech_seconds": 5.177,
+      "source_seconds": 5.208,
+      "atempo_needed": 1.0354,
+      "tail_silence_seconds": 0.0
+    },
+    {
+      "id": "S23",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S23.mp3",
+      "sha256": "9b0598394aece2891cabf5eb0830419ff7c957525b268ef790cbf297501dac6a",
+      "expected": "他先否认，随后承认杀人。可法庭的争议，才刚刚开始。",
+      "asr_text": "他先否认 随后承认杀人可法庭的争议",
+      "first_word_start": 0.0,
+      "last_word_end": 4.5,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.6,
+          "text": "他先否认 随后承认杀人",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.16,
+              "word": "他",
+              "probability": 0.8294
+            },
+            {
+              "start": 0.16,
+              "end": 0.36,
+              "word": "先",
+              "probability": 0.9937
+            },
+            {
+              "start": 0.36,
+              "end": 0.54,
+              "word": "否",
+              "probability": 0.9999
+            },
+            {
+              "start": 0.54,
+              "end": 0.78,
+              "word": "认",
+              "probability": 0.9174
+            },
+            {
+              "start": 1.12,
+              "end": 1.26,
+              "word": " 随",
+              "probability": 0.9836
+            },
+            {
+              "start": 1.26,
+              "end": 1.52,
+              "word": "后",
+              "probability": 0.9984
+            },
+            {
+              "start": 1.52,
+              "end": 1.9,
+              "word": "承",
+              "probability": 0.9906
+            },
+            {
+              "start": 1.9,
+              "end": 2.16,
+              "word": "认",
+              "probability": 0.9978
+            },
+            {
+              "start": 2.16,
+              "end": 2.42,
+              "word": "杀",
+              "probability": 0.9521
+            },
+            {
+              "start": 2.42,
+              "end": 2.6,
+              "word": "人",
+              "probability": 0.9976
+            }
+          ]
+        },
+        {
+          "start": 3.1,
+          "end": 4.5,
+          "text": "可法庭的争议",
+          "words": [
+            {
+              "start": 3.1,
+              "end": 3.58,
+              "word": "可",
+              "probability": 0.7501
+            },
+            {
+              "start": 3.58,
+              "end": 3.82,
+              "word": "法",
+              "probability": 0.9971
+            },
+            {
+              "start": 3.82,
+              "end": 4.06,
+              "word": "庭",
+              "probability": 0.9966
+            },
+            {
+              "start": 4.06,
+              "end": 4.18,
+              "word": "的",
+              "probability": 0.9958
+            },
+            {
+              "start": 4.18,
+              "end": 4.36,
+              "word": "争",
+              "probability": 0.9944
+            },
+            {
+              "start": 4.36,
+              "end": 4.5,
+              "word": "议",
+              "probability": 0.9835
+            }
+          ]
+        }
+      ],
+      "similarity": 0.8649,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 7.0,
+      "speech_seconds": 4.536,
+      "source_seconds": 4.56,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 2.464
+    },
+    {
+      "id": "S24",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S24.mp3",
+      "sha256": "77d7604efd07eb9d41bfb5661527288a1ee48a13981ec35d664b100846851518",
+      "expected": "法庭争的，不只是他做了什么，还有当时的责任能力。",
+      "asr_text": "才刚刚开始法庭争的不只是他做了什么还有当时的责任能力",
+      "first_word_start": 0.0,
+      "last_word_end": 6.4,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.2,
+          "text": "才刚刚开始",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.26,
+              "word": "才",
+              "probability": 0.6254
+            },
+            {
+              "start": 0.26,
+              "end": 0.6,
+              "word": "刚",
+              "probability": 0.8085
+            },
+            {
+              "start": 0.6,
+              "end": 0.82,
+              "word": "刚",
+              "probability": 0.9958
+            },
+            {
+              "start": 0.82,
+              "end": 1.2,
+              "word": "开始",
+              "probability": 0.9917
+            }
+          ]
+        },
+        {
+          "start": 1.78,
+          "end": 4.12,
+          "text": "法庭争的不只是他做了什么",
+          "words": [
+            {
+              "start": 1.78,
+              "end": 2.2,
+              "word": "法",
+              "probability": 0.8926
+            },
+            {
+              "start": 2.2,
+              "end": 2.4,
+              "word": "庭",
+              "probability": 0.9857
+            },
+            {
+              "start": 2.4,
+              "end": 2.58,
+              "word": "争",
+              "probability": 0.7382
+            },
+            {
+              "start": 2.58,
+              "end": 2.74,
+              "word": "的",
+              "probability": 0.8996
+            },
+            {
+              "start": 2.74,
+              "end": 3.1,
+              "word": "不",
+              "probability": 0.9676
+            },
+            {
+              "start": 3.1,
+              "end": 3.3,
+              "word": "只是",
+              "probability": 0.6921
+            },
+            {
+              "start": 3.3,
+              "end": 3.5,
+              "word": "他",
+              "probability": 0.593
+            },
+            {
+              "start": 3.5,
+              "end": 3.76,
+              "word": "做",
+              "probability": 0.9969
+            },
+            {
+              "start": 3.76,
+              "end": 3.92,
+              "word": "了",
+              "probability": 0.9975
+            },
+            {
+              "start": 3.92,
+              "end": 4.12,
+              "word": "什么",
+              "probability": 0.9911
+            }
+          ]
+        },
+        {
+          "start": 4.12,
+          "end": 6.4,
+          "text": "还有当时的责任能力",
+          "words": [
+            {
+              "start": 4.12,
+              "end": 4.72,
+              "word": "还有",
+              "probability": 0.9665
+            },
+            {
+              "start": 4.72,
+              "end": 5.08,
+              "word": "当",
+              "probability": 0.9984
+            },
+            {
+              "start": 5.08,
+              "end": 5.4,
+              "word": "时",
+              "probability": 0.9971
+            },
+            {
+              "start": 5.4,
+              "end": 5.52,
+              "word": "的",
+              "probability": 0.9988
+            },
+            {
+              "start": 5.52,
+              "end": 5.86,
+              "word": "责",
+              "probability": 0.9936
+            },
+            {
+              "start": 5.86,
+              "end": 6.06,
+              "word": "任",
+              "probability": 0.9999
+            },
+            {
+              "start": 6.06,
+              "end": 6.24,
+              "word": "能",
+              "probability": 0.9982
+            },
+            {
+              "start": 6.24,
+              "end": 6.4,
+              "word": "力",
+              "probability": 0.9997
+            }
+          ]
+        }
+      ],
+      "similarity": 0.8936,
+      "status": "inspect_transcript_or_boundary",
+      "target_seconds": 7.0,
+      "speech_seconds": 6.435,
+      "source_seconds": 6.48,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 0.565
+    },
+    {
+      "id": "S25",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S25.mp3",
+      "sha256": "132cda7db63c9bb63b3f7e3a43c6e0bbbd2ef2738cd2e44b8c5ffd66a9dd8ccf",
+      "expected": "辩方主张，事后是另一个人格控制了他。争议，就在这里。",
+      "asr_text": "殿坊主张事后是另一个人格控制了他争议就在这里",
+      "first_word_start": 0.0,
+      "last_word_end": 5.86,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.0,
+          "text": "殿坊主张事后是另一个人格控制了他",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.22,
+              "word": "殿",
+              "probability": 0.5332
+            },
+            {
+              "start": 0.22,
+              "end": 0.46,
+              "word": "坊",
+              "probability": 0.7933
+            },
+            {
+              "start": 0.46,
+              "end": 0.62,
+              "word": "主",
+              "probability": 0.9955
+            },
+            {
+              "start": 0.62,
+              "end": 0.84,
+              "word": "张",
+              "probability": 0.8395
+            },
+            {
+              "start": 0.84,
+              "end": 1.58,
+              "word": "事",
+              "probability": 0.4999
+            },
+            {
+              "start": 1.58,
+              "end": 1.92,
+              "word": "后",
+              "probability": 0.9975
+            },
+            {
+              "start": 1.92,
+              "end": 2.3,
+              "word": "是",
+              "probability": 0.981
+            },
+            {
+              "start": 2.3,
+              "end": 2.6,
+              "word": "另",
+              "probability": 0.9907
+            },
+            {
+              "start": 2.6,
+              "end": 2.92,
+              "word": "一个",
+              "probability": 0.9968
+            },
+            {
+              "start": 2.92,
+              "end": 3.1,
+              "word": "人",
+              "probability": 0.9853
+            },
+            {
+              "start": 3.1,
+              "end": 3.32,
+              "word": "格",
+              "probability": 0.9779
+            },
+            {
+              "start": 3.32,
+              "end": 3.56,
+              "word": "控",
+              "probability": 0.9971
+            },
+            {
+              "start": 3.56,
+              "end": 3.74,
+              "word": "制",
+              "probability": 0.9997
+            },
+            {
+              "start": 3.74,
+              "end": 3.86,
+              "word": "了",
+              "probability": 0.9922
+            },
+            {
+              "start": 3.86,
+              "end": 4.0,
+              "word": "他",
+              "probability": 0.5997
+            }
+          ]
+        },
+        {
+          "start": 4.52,
+          "end": 5.86,
+          "text": "争议就在这里",
+          "words": [
+            {
+              "start": 4.52,
+              "end": 4.98,
+              "word": "争",
+              "probability": 0.9799
+            },
+            {
+              "start": 4.98,
+              "end": 5.22,
+              "word": "议",
+              "probability": 0.9545
+            },
+            {
+              "start": 5.22,
+              "end": 5.54,
+              "word": "就",
+              "probability": 0.9644
+            },
+            {
+              "start": 5.54,
+              "end": 5.68,
+              "word": "在",
+              "probability": 0.9989
+            },
+            {
+              "start": 5.68,
+              "end": 5.86,
+              "word": "这里",
+              "probability": 0.9939
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9091,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 5.977,
+      "source_seconds": 6.024,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 0.023
+    },
+    {
+      "id": "S26",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S26.mp3",
+      "sha256": "674ed28941a0bc6e4c527cba62ddea11eb66c09c71ece18957ec67f1ce5149d7",
+      "expected": "一审七年。杀人有罪，另一项指控因责任能力问题获判无罪。",
+      "asr_text": "一审七年殺人有罪另一項指控因責任能力問題火盼無罪",
+      "first_word_start": 0.0,
+      "last_word_end": 6.48,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.7,
+          "text": "一审七年殺人有罪",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.22,
+              "word": "一",
+              "probability": 0.5984
+            },
+            {
+              "start": 0.22,
+              "end": 0.44,
+              "word": "审",
+              "probability": 0.7178
+            },
+            {
+              "start": 0.44,
+              "end": 0.66,
+              "word": "七",
+              "probability": 0.4271
+            },
+            {
+              "start": 0.66,
+              "end": 0.88,
+              "word": "年",
+              "probability": 0.9959
+            },
+            {
+              "start": 0.88,
+              "end": 1.82,
+              "word": "殺",
+              "probability": 0.3078
+            },
+            {
+              "start": 1.82,
+              "end": 2.08,
+              "word": "人",
+              "probability": 0.9996
+            },
+            {
+              "start": 2.08,
+              "end": 2.28,
+              "word": "有",
+              "probability": 0.998
+            },
+            {
+              "start": 2.28,
+              "end": 2.7,
+              "word": "罪",
+              "probability": 0.9997
+            }
+          ]
+        },
+        {
+          "start": 2.7,
+          "end": 6.48,
+          "text": "另一項指控因責任能力問題火盼無罪",
+          "words": [
+            {
+              "start": 2.7,
+              "end": 3.3,
+              "word": "另",
+              "probability": 0.9183
+            },
+            {
+              "start": 3.3,
+              "end": 3.5,
+              "word": "一",
+              "probability": 0.9755
+            },
+            {
+              "start": 3.5,
+              "end": 3.64,
+              "word": "項",
+              "probability": 0.9876
+            },
+            {
+              "start": 3.64,
+              "end": 3.82,
+              "word": "指",
+              "probability": 0.9812
+            },
+            {
+              "start": 3.82,
+              "end": 4.04,
+              "word": "控",
+              "probability": 0.9997
+            },
+            {
+              "start": 4.04,
+              "end": 4.32,
+              "word": "因",
+              "probability": 0.9404
+            },
+            {
+              "start": 4.32,
+              "end": 4.6,
+              "word": "責",
+              "probability": 0.9906
+            },
+            {
+              "start": 4.6,
+              "end": 4.82,
+              "word": "任",
+              "probability": 0.9999
+            },
+            {
+              "start": 4.82,
+              "end": 4.98,
+              "word": "能",
+              "probability": 0.9936
+            },
+            {
+              "start": 4.98,
+              "end": 5.18,
+              "word": "力",
+              "probability": 0.9974
+            },
+            {
+              "start": 5.18,
+              "end": 5.44,
+              "word": "問題",
+              "probability": 0.992
+            },
+            {
+              "start": 5.44,
+              "end": 5.9,
+              "word": "火",
+              "probability": 0.1137
+            },
+            {
+              "start": 5.9,
+              "end": 6.08,
+              "word": "盼",
+              "probability": 0.7991
+            },
+            {
+              "start": 6.08,
+              "end": 6.28,
+              "word": "無",
+              "probability": 0.9926
+            },
+            {
+              "start": 6.28,
+              "end": 6.48,
+              "word": "罪",
+              "probability": 0.9998
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9167,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 6.513,
+      "source_seconds": 6.552,
+      "atempo_needed": 1.0855,
+      "tail_silence_seconds": 0.0
+    },
+    {
+      "id": "S27",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S27.mp3",
+      "sha256": "0927042690a2234a715b82cedb19582c1ff124e40a0ffb9ee83203e471c0cf93",
+      "expected": "可二审发现，他在侦查时，能具体讲清经过。",
+      "asr_text": "可二审发现他在侦查时能具体讲清经过",
+      "first_word_start": 0.0,
+      "last_word_end": 4.28,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.12,
+          "text": "可二审发现",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.18,
+              "word": "可",
+              "probability": 0.7483
+            },
+            {
+              "start": 0.18,
+              "end": 0.46,
+              "word": "二",
+              "probability": 0.9213
+            },
+            {
+              "start": 0.46,
+              "end": 0.72,
+              "word": "审",
+              "probability": 0.6871
+            },
+            {
+              "start": 0.72,
+              "end": 0.9,
+              "word": "发",
+              "probability": 0.6847
+            },
+            {
+              "start": 0.9,
+              "end": 1.12,
+              "word": "现",
+              "probability": 0.7653
+            }
+          ]
+        },
+        {
+          "start": 1.12,
+          "end": 4.28,
+          "text": "他在侦查时能具体讲清经过",
+          "words": [
+            {
+              "start": 1.12,
+              "end": 1.64,
+              "word": "他",
+              "probability": 0.3281
+            },
+            {
+              "start": 1.64,
+              "end": 1.8,
+              "word": "在",
+              "probability": 0.9965
+            },
+            {
+              "start": 1.8,
+              "end": 2.0,
+              "word": "侦",
+              "probability": 0.9365
+            },
+            {
+              "start": 2.0,
+              "end": 2.24,
+              "word": "查",
+              "probability": 0.7244
+            },
+            {
+              "start": 2.24,
+              "end": 2.48,
+              "word": "时",
+              "probability": 0.9824
+            },
+            {
+              "start": 2.48,
+              "end": 2.84,
+              "word": "能",
+              "probability": 0.9231
+            },
+            {
+              "start": 2.84,
+              "end": 3.18,
+              "word": "具",
+              "probability": 0.9948
+            },
+            {
+              "start": 3.18,
+              "end": 3.46,
+              "word": "体",
+              "probability": 0.9987
+            },
+            {
+              "start": 3.46,
+              "end": 3.68,
+              "word": "讲",
+              "probability": 0.9885
+            },
+            {
+              "start": 3.68,
+              "end": 3.88,
+              "word": "清",
+              "probability": 0.9462
+            },
+            {
+              "start": 3.88,
+              "end": 4.06,
+              "word": "经",
+              "probability": 0.9914
+            },
+            {
+              "start": 4.06,
+              "end": 4.28,
+              "word": "过",
+              "probability": 0.996
+            }
+          ]
+        }
+      ],
+      "similarity": 1.0,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 4.315,
+      "source_seconds": 4.344,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.685
+    },
+    {
+      "id": "S28",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S28.mp3",
+      "sha256": "63b4971bb35bd3506928094f4719f6a0bf5f2881b87b832fd9ed9817e1e1cd08",
+      "expected": "失忆鉴定的前提被推翻。两罪成立，改判十二年。",
+      "asr_text": "失意鑒定的前提被推翻兩罪成立改判十二年",
+      "first_word_start": 0.0,
+      "last_word_end": 5.32,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.38,
+          "text": "失意鑒定的前提被推翻",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.36,
+              "word": "失",
+              "probability": 0.4803
+            },
+            {
+              "start": 0.36,
+              "end": 0.6,
+              "word": "意",
+              "probability": 0.5787
+            },
+            {
+              "start": 0.6,
+              "end": 0.78,
+              "word": "鑒",
+              "probability": 0.8772
+            },
+            {
+              "start": 0.78,
+              "end": 0.96,
+              "word": "定",
+              "probability": 0.9999
+            },
+            {
+              "start": 0.96,
+              "end": 1.1,
+              "word": "的",
+              "probability": 0.9933
+            },
+            {
+              "start": 1.1,
+              "end": 1.32,
+              "word": "前",
+              "probability": 0.9892
+            },
+            {
+              "start": 1.32,
+              "end": 1.6,
+              "word": "提",
+              "probability": 0.9958
+            },
+            {
+              "start": 1.6,
+              "end": 1.92,
+              "word": "被",
+              "probability": 0.9602
+            },
+            {
+              "start": 1.92,
+              "end": 2.12,
+              "word": "推",
+              "probability": 0.9967
+            },
+            {
+              "start": 2.12,
+              "end": 2.38,
+              "word": "翻",
+              "probability": 0.9949
+            }
+          ]
+        },
+        {
+          "start": 3.0,
+          "end": 5.32,
+          "text": "兩罪成立改判十二年",
+          "words": [
+            {
+              "start": 3.0,
+              "end": 3.24,
+              "word": "兩",
+              "probability": 0.8175
+            },
+            {
+              "start": 3.24,
+              "end": 3.54,
+              "word": "罪",
+              "probability": 0.9735
+            },
+            {
+              "start": 3.54,
+              "end": 3.72,
+              "word": "成",
+              "probability": 0.9906
+            },
+            {
+              "start": 3.72,
+              "end": 3.94,
+              "word": "立",
+              "probability": 0.9717
+            },
+            {
+              "start": 3.94,
+              "end": 4.42,
+              "word": "改",
+              "probability": 0.8517
+            },
+            {
+              "start": 4.42,
+              "end": 4.74,
+              "word": "判",
+              "probability": 0.9306
+            },
+            {
+              "start": 4.74,
+              "end": 4.98,
+              "word": "十",
+              "probability": 0.4472
+            },
+            {
+              "start": 4.98,
+              "end": 5.16,
+              "word": "二",
+              "probability": 0.9976
+            },
+            {
+              "start": 5.16,
+              "end": 5.32,
+              "word": "年",
+              "probability": 0.9972
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9474,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 5.424,
+      "source_seconds": 5.448,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 0.576
+    },
+    {
+      "id": "S29",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S29.mp3",
+      "sha256": "a125d554f09076974874ac7367dbe52baf51ab806b50d8a96ddb12b51d47d878",
+      "expected": "亚澄的人生，不该被缩成一句话。暴力责任属于施暴者。",
+      "asr_text": "压成的人生不该被缩成一句话暴力责任属于施暴者",
+      "first_word_start": 0.0,
+      "last_word_end": 5.86,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.94,
+          "text": "压成的人生不该被缩成一句话",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.28,
+              "word": "压",
+              "probability": 0.7537
+            },
+            {
+              "start": 0.28,
+              "end": 0.46,
+              "word": "成",
+              "probability": 0.7239
+            },
+            {
+              "start": 0.46,
+              "end": 0.68,
+              "word": "的人",
+              "probability": 0.9604
+            },
+            {
+              "start": 0.68,
+              "end": 1.0,
+              "word": "生",
+              "probability": 0.9717
+            },
+            {
+              "start": 1.0,
+              "end": 1.54,
+              "word": "不",
+              "probability": 0.9221
+            },
+            {
+              "start": 1.54,
+              "end": 1.74,
+              "word": "该",
+              "probability": 0.9135
+            },
+            {
+              "start": 1.74,
+              "end": 1.96,
+              "word": "被",
+              "probability": 0.994
+            },
+            {
+              "start": 1.96,
+              "end": 2.18,
+              "word": "缩",
+              "probability": 0.9082
+            },
+            {
+              "start": 2.18,
+              "end": 2.4,
+              "word": "成",
+              "probability": 0.9956
+            },
+            {
+              "start": 2.4,
+              "end": 2.6,
+              "word": "一",
+              "probability": 0.9835
+            },
+            {
+              "start": 2.6,
+              "end": 2.72,
+              "word": "句",
+              "probability": 0.9992
+            },
+            {
+              "start": 2.72,
+              "end": 2.94,
+              "word": "话",
+              "probability": 0.996
+            }
+          ]
+        },
+        {
+          "start": 3.62,
+          "end": 5.86,
+          "text": "暴力责任属于施暴者",
+          "words": [
+            {
+              "start": 3.62,
+              "end": 4.06,
+              "word": "暴",
+              "probability": 0.9109
+            },
+            {
+              "start": 4.06,
+              "end": 4.24,
+              "word": "力",
+              "probability": 0.919
+            },
+            {
+              "start": 4.24,
+              "end": 4.48,
+              "word": "责",
+              "probability": 0.9875
+            },
+            {
+              "start": 4.48,
+              "end": 4.64,
+              "word": "任",
+              "probability": 1.0
+            },
+            {
+              "start": 4.64,
+              "end": 5.1,
+              "word": "属",
+              "probability": 0.9935
+            },
+            {
+              "start": 5.1,
+              "end": 5.24,
+              "word": "于",
+              "probability": 0.9964
+            },
+            {
+              "start": 5.24,
+              "end": 5.5,
+              "word": "施",
+              "probability": 0.932
+            },
+            {
+              "start": 5.5,
+              "end": 5.7,
+              "word": "暴",
+              "probability": 0.9891
+            },
+            {
+              "start": 5.7,
+              "end": 5.86,
+              "word": "者",
+              "probability": 0.9998
+            }
+          ]
+        }
+      ],
+      "similarity": 0.9091,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 5.881,
+      "source_seconds": 5.928,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 0.119
+    },
+    {
+      "id": "S30",
+      "source_kind": "pause_cut_candidate",
+      "file": "work/shibuya2006/audio_candidates/S30.mp3",
+      "sha256": "8c37a225d268860abbb36c0d4c8886f26c0110cb027cb6292f223b85069505e6",
+      "expected": "一个家，该怎样对待，被认为不成器的孩子？",
+      "asr_text": "一个家该怎样对待被认为不成器的孩子",
+      "first_word_start": 0.0,
+      "last_word_end": 4.08,
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.08,
+          "text": "一个家该怎样对待被认为不成器的孩子",
+          "words": [
+            {
+              "start": 0.0,
+              "end": 0.22,
+              "word": "一个",
+              "probability": 0.3777
+            },
+            {
+              "start": 0.22,
+              "end": 0.5,
+              "word": "家",
+              "probability": 0.9943
+            },
+            {
+              "start": 0.5,
+              "end": 1.18,
+              "word": "该",
+              "probability": 0.8793
+            },
+            {
+              "start": 1.18,
+              "end": 1.4,
+              "word": "怎",
+              "probability": 0.9531
+            },
+            {
+              "start": 1.4,
+              "end": 1.66,
+              "word": "样",
+              "probability": 0.9996
+            },
+            {
+              "start": 1.66,
+              "end": 1.84,
+              "word": "对",
+              "probability": 0.9952
+            },
+            {
+              "start": 1.84,
+              "end": 2.1,
+              "word": "待",
+              "probability": 0.9988
+            },
+            {
+              "start": 2.1,
+              "end": 2.58,
+              "word": "被",
+              "probability": 0.9207
+            },
+            {
+              "start": 2.58,
+              "end": 2.8,
+              "word": "认",
+              "probability": 0.9954
+            },
+            {
+              "start": 2.8,
+              "end": 2.98,
+              "word": "为",
+              "probability": 0.9987
+            },
+            {
+              "start": 2.98,
+              "end": 3.22,
+              "word": "不",
+              "probability": 0.9904
+            },
+            {
+              "start": 3.22,
+              "end": 3.46,
+              "word": "成",
+              "probability": 0.8942
+            },
+            {
+              "start": 3.46,
+              "end": 3.74,
+              "word": "器",
+              "probability": 0.4094
+            },
+            {
+              "start": 3.74,
+              "end": 3.86,
+              "word": "的",
+              "probability": 0.9986
+            },
+            {
+              "start": 3.86,
+              "end": 4.08,
+              "word": "孩子",
+              "probability": 0.9962
+            }
+          ]
+        }
+      ],
+      "similarity": 1.0,
+      "status": "asr_match_needs_review",
+      "target_seconds": 6.0,
+      "speech_seconds": 4.337,
+      "source_seconds": 4.368,
+      "atempo_needed": 1.0,
+      "tail_silence_seconds": 1.663
+    }
+  ]
+}
