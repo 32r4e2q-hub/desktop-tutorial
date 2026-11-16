@@ -64,10 +64,21 @@ class PlanTests(unittest.TestCase):
         report=json.loads((HERE/'qa/group-tts-split-candidates.json').read_text())
         # 两种候选：静音切分兜底，或 ASR 词边界切分。都不等于对齐签收。
         self.assertIn(report['status'],('candidate_only_not_alignment_pass','asr_boundary_candidate'))
-        self.assertFalse((HERE/'audio/manifest.json').exists())
         for clip in report.get('clips',[]):
             self.assertTrue(clip.get('alignment_review','').startswith('pending'),clip['id'])
             self.assertFalse(clip.get('approved',False),clip['id'])
+        # 最终 manifest 只允许由 30 条逐镜录音 + 逐条复核记录支撑；
+        # 候选切分（三句连读）永远进不来。
+        manifest=HERE/'audio/manifest.json'
+        if manifest.exists():
+            review=json.loads((HERE/'audio/review.json').read_text())
+            clips=review['clips']
+            self.assertEqual(len(clips),30)
+            for row in clips:
+                self.assertEqual(row['status'],'approved',row['id'])
+                self.assertTrue(row.get('reviewed_by'),row['id'])
+                self.assertTrue(row.get('review_method'),row['id'])
+                self.assertEqual(len(row.get('sha256','')),64,row['id'])
     def test_character_board_bindings(self):
         import hashlib
         import preflight

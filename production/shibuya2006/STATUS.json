@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-16",
-  "phase": "full_rerecord_with_new_voice_in_progress",
+  "phase": "narration_complete_manifest_ready_render_requested",
   "branch": "arena/749aaa18-desktop-tutorial",
   "video_sources": {
     "completed": 30,
@@ -28,8 +28,8 @@
     "voice_id_recorded_in_assets": "voice-00",
     "voice_reusable_this_session": true,
     "voice_note": "User re-auditioned and picked voice-00 in this session (2026-11-16) for a full one-clip-per-shot re-record; voice-01 from the previous session is session-scoped and was not reusable.",
-    "alignment_approved": 0,
-    "final_manifest_created": false,
+    "alignment_approved": 30,
+    "final_manifest_created": true,
     "mode": "full_rerecord_one_clip_per_shot",
     "rerecorded": [
       "S01",
@@ -66,7 +66,8 @@
     "rerecord_pending": [],
     "moderation_blocked_now": [],
     "moderation_note": "S10/S11 passed with the locked wording; S12 was refused and now uses the user-approved rewrite (妹妹的死与自己有关), which passed moderation. fact_review.json was rebound to the new plan hash.",
-    "group_sources_role": "provenance only; the 21 ASR-cut candidates are superseded by the per-shot re-record"
+    "group_sources_role": "provenance only; the 21 ASR-cut candidates are superseded by the per-shot re-record",
+    "manifest_note": "audio/manifest.json written from 30 per-shot MP3s; audio/review.json holds 30 transcript-inspected records (not a listening sign-off)."
   },
   "asr_review": {
     "workflow": "第17期 · 旁白独立转写核验",
@@ -88,7 +89,8 @@
     ],
     "flagged_note": "All five flagged clips transcribe to the script apart from whisper homophones (社谷/衙科/征职/它随对/征得); no missing or wrong sentence.",
     "boundary_method": "faster-whisper word timestamps; script aligned to words; cuts at word onsets (silence heuristic kept only as fallback)",
-    "boundary_repair": "S23 previously lost its final six characters to a silence-based cut; the ASR boundary restores it (similarity 1.000)."
+    "boundary_repair": "S23 previously lost its final six characters to a silence-based cut; the ASR boundary restores it (similarity 1.000).",
+    "latest_note": "All 30 rows are individual clips; 24 >= 0.90 and 6 homophone-only deviations are documented in audio/review-allow.json."
   },
   "cover": {
     "file": "交付/第十七期_涩谷短大生惨案_封面.png",
@@ -98,14 +100,10 @@
     "note": "Not a historical image; the film is not final yet."
   },
   "final_film": {
-    "status": "not_rendered",
+    "status": "render_requested",
     "download_link": null,
-    "blockers": [
-      "S10-S12 have no narration audio; a new voice audition or an authorised recording is required",
-      "27 available narration sources are still group-cut candidates with no verified alignment",
-      "No audio/manifest.json with 30 reviewed shot-locked clips yet",
-      "Master render, verify_master, narration_fit and complete playback review not run"
-    ]
+    "blockers": [],
+    "next": "shibuya2006.yml mode=render downloads the 30 hash-verified sources, renders 1080p/24fps/180s, runs qc + narration_fit + verify_master, then commits 交付/."
   },
   "narration_acceptance": {
     "silent_substitute_allowed": false,

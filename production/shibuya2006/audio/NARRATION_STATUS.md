@@ -13,7 +13,9 @@
 - **S12 原句仍被拒**，按用户选定的最小改写重录并已通过审核：
   “他关上房门，也把真相留在了屋里。后来，他承认，妹妹的死与自己有关。”
   `fact_review.json` 已重新绑定新 plan 哈希，`FACT_CHECK.md` 记录了改写范围与事实依据。
-- 30 条已齐，等待最后一次独立转写与复核签收。
+- 30 条已齐；最后一次独立转写全部为 individual 源，24 条 ≥0.90，6 条同音字偏差已逐条写明理由。
+- `assemble_narration_review.py --write` 生成 `audio/review.json`（30/30 approved，口径是转写比对），
+  `build_audio_manifest.py` 生成 `audio/manifest.json`，`narration_fit.py` 全部通过（最大 1.223x）。
 
 ## 上一轮核验结果（run 43829945136，ASR 词边界版本）
 

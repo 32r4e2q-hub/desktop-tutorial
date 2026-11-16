@@ -87,6 +87,7 @@ jobs:
             if [ "$status" -eq 0 ]; then
               python3 production/shibuya2006/generate.py --render-only --publish 2>&1 | tee -a "$log_file"
               status=${PIPESTATUS[0]}
+              if [ "$status" -eq 0 ]; then touch "$RUNNER_TEMP/shibuya-render-done"; fi
             fi
             if [ "$status" -ne 0 ]; then
               mkdir -p production/shibuya2006/qa
@@ -108,6 +109,31 @@ jobs:
           else
             echo "Unsupported continuation mode: $mode" >&2
             exit 2
+          fi
+
+      - name: Master gate (verify_master)
+        # 成片时长/帧数/音轨长度/字幕窗口/字幕与语音同步逐项复核；只有本轮真的出过片才跑。
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ ! -f "$RUNNER_TEMP/shibuya-render-done" ]; then
+            echo 'No render in this run; master gate skipped.'
+            exit 0
+          fi
+          export PATH="$RUNNER_TEMP/media-tools/bin:$PATH"
+          film="$(python3 -c "import json;print(json.load(open('production/shibuya2006/story.json'))['film_name'])")"
+          test -f "交付/$film"
+          python3 production/verify_master.py --film "交付/$film" \
+            --story production/shibuya2006/story.json \
+            --srt "交付/涩谷短大生惨案_Subtitles.srt" \
+            --json production/shibuya2006/qa/verify-master.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- production/shibuya2006/qa/verify-master.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'shibuya2006: verify_master gate report'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
           fi
 
       - name: Upload footage, provenance and QA reports
