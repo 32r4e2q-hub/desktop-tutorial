@@ -2,14 +2,14 @@ name: 第17期 · 本期视频取帧封面
 on:
   push:
     branches: [arena/8d7fb4aa-desktop-tutorial]
-    paths: [.github/workflows/shibuya2006-cover.yml]
+    paths: [production/shibuya2006/COVER_REQUEST]
   workflow_dispatch:
 permissions:
   contents: write
 jobs:
   cover:
     if: github.ref == 'refs/heads/arena/8d7fb4aa-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4

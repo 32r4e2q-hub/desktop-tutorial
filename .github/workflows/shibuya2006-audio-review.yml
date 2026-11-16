@@ -2,7 +2,7 @@ name: 第17期 · 旁白独立转写核验
 on:
   push:
     branches: [arena/8d7fb4aa-desktop-tutorial]
-    paths: [.github/workflows/shibuya2006-audio-review.yml]
+    paths: [production/shibuya2006/ASR_REQUEST]
   workflow_dispatch:
 permissions:
   contents: write
@@ -12,7 +12,7 @@ concurrency:
 jobs:
   transcribe:
     if: github.ref == 'refs/heads/arena/8d7fb4aa-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
