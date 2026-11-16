@@ -1359,7 +1359,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1406,9 +1406,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-16T06:40:28Z",
   "run_id": "43816274028",
@@ -1837,5 +1837,31 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/shibuya2006/clips/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/shibuya2006/clips/涩谷短大生惨案_Cover.jpg",
+    "delivered": {
+      "涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4": {
+        "bytes": 57427151,
+        "sha256": "8b743f426604eee393581211eb5950261610fc4f84fda1935191768e6d4830ea"
+      },
+      "涩谷短大生惨案_Cover.jpg": {
+        "bytes": 335272,
+        "sha256": "cf201dbff553db738ab4d4d87b2591c42371ab8b6d7cc0c0f306c418f5b5198d"
+      },
+      "涩谷短大生惨案_Subtitles.srt": {
+        "bytes": 2993,
+        "sha256": "38b00554389cdb404ca99e24cd6ee3d5bd80f2523c75c951f60fb70dab766ec1"
+      },
+      "涩谷短大生惨案_Technical_Report.json": {
+        "bytes": 11141,
+        "sha256": "ea294661c4b0c3c280ba00efc0069b1a9f92018ac74f831978b86d8b9f7f7369"
+      }
+    }
   }
 }
