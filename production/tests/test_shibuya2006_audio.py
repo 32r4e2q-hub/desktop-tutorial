@@ -125,6 +125,35 @@ class NarrationDecodeTests(unittest.TestCase):
         self.assertAlmostEqual(cuts[2], starts[2] - align.PRE_ROLL, delta=0.6)
 
     @unittest.skipUnless(HAVE_FFMPEG, "需要 ffmpeg 才能造测试音频")
+    def test_quiet_narration_line_is_levelled_to_the_shared_db(self):
+        """单条 TTS 音量塌了 15 dB，不能让整片中间突然变小声。
+
+        2026-11-16 的第二版母版：S16「他背着包，独自走向集合点」比其他句低约 15 dB，
+        听感上像解说突然走远。mix 之前逐条量 mean_volume 并拉到同一电平。
+        """
+        import importlib.util
+        import tempfile
+
+        spec = importlib.util.spec_from_file_location(
+            "shibuya2006_render_level", PROJECT / "render.py")
+        render = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(render)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            quiet = Path(tmp) / "quiet-line.wav"
+            subprocess.run(
+                ["ffmpeg", "-y", "-v", "error", "-f", "lavfi",
+                 "-i", "sine=frequency=300:duration=1.2:sample_rate=48000",
+                 "-af", "volume=-16dB", "-ac", "2", str(quiet)], check=True)
+            before = render.measured_mean_db(quiet)
+            gain = render.level_speech(quiet)
+            after = render.measured_mean_db(quiet)
+
+        self.assertGreater(gain, 5.0)
+        self.assertAlmostEqual(after, render.TARGET_SPEECH_DB, delta=1.5)
+        self.assertGreater(after, before)
+
+    @unittest.skipUnless(HAVE_FFMPEG, "需要 ffmpeg 才能造测试音频")
     def test_caption_lead_is_measured_from_the_first_audible_sample(self):
         """字幕不能凭空从镜头起点开始：先量出真实开口时间，只保留 0.10s 预读。
 

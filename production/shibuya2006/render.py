@@ -13,6 +13,11 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
+# Every narration clip is lifted/dropped to the same mean speech level. 2026-11-16's v2
+# master had one TTS line (S16) come back 15 dB quieter than its neighbours: the voice
+# audibly dropped in the middle of the film even though the words were right.
+TARGET_SPEECH_DB = -19.0
+MAX_SPEECH_GAIN_DB = 20.0
 # No still-frame clone padding or inherited case-specific tail repairs.
 
 
@@ -89,6 +94,39 @@ def speech_onset(path: Path) -> float:
     threshold = max(0.004, float(np.percentile(rms, 95)) * 0.10)
     active = np.nonzero(rms > threshold)[0]
     return round(float(active[0]) / 100, 3) if active.size else 0.0
+
+
+def measured_mean_db(path: Path) -> float:
+    """Mean speech level of a clip, measured the same way for every shot."""
+    import re
+
+    proc = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-nostats", "-i", str(path), "-vn",
+         "-af", "volumedetect", "-f", "null", "-"],
+        capture_output=True, text=True)
+    match = re.search(r"mean_volume:\s*(-?\d+(?:\.\d+)?) dB", proc.stderr)
+    if not match:
+        raise RuntimeError(f"{path.name}: ffmpeg could not measure mean volume")
+    return float(match.group(1))
+
+
+def speech_gain_db(path: Path) -> float:
+    """Gain that puts this clip on the shared narration level, clamped to a sane range."""
+    gain = TARGET_SPEECH_DB - measured_mean_db(path)
+    return round(max(-MAX_SPEECH_GAIN_DB, min(MAX_SPEECH_GAIN_DB, gain)), 2)
+
+
+def level_speech(path: Path) -> float:
+    """Rewrite a speech clip at the shared level; returns the applied gain in dB."""
+    gain = speech_gain_db(path)
+    if abs(gain) < 0.1:
+        return 0.0
+    out = path.with_name(path.stem + ".level.wav")
+    run(["ffmpeg", "-y", "-v", "error", "-i", str(path), "-vn",
+         "-af", f"volume={gain:.2f}dB,alimiter=limit=0.95:level=false",
+         "-ar", str(RATE), "-ac", 2, "-c:a", "pcm_s16le", str(out)])
+    out.replace(path)
+    return gain
 
 
 def srt_time(seconds: float) -> str:
@@ -213,6 +251,12 @@ def main() -> int:
             run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af",
                  f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
             speech_seconds = duration(speech)
+        # One quiet TTS line must not drop the voice mid-film: level every clip to the
+        # same mean speech level before it goes into the mix (measured after atempo).
+        narration_gain = level_speech(speech)
+        speech_seconds = duration(speech)
+        if speech_seconds > target:
+            raise RuntimeError(f"{sid}: speech grew past its window after levelling")
         sfx_record = sfx_rows.get(sid, {})
         sfx_path = sfx_dir / sfx_record.get("file", "missing.wav")
         if (not sfx_path.is_file() or sfx_record.get("script_note") != shot["sound_design"]
@@ -249,6 +293,7 @@ def main() -> int:
                           "source_seconds": round(source_duration, 3), "source_size": [width, height],
                           "source_sha256": record["sha256"], "narration_seconds": round(raw_duration, 3),
                           "narration_atempo": round(speed, 4),
+                          "narration_gain_db": narration_gain,
                           "speech_onset_seconds": onset, "caption_lead_seconds": round(look_ahead, 3)})
 
     video_list.write_text("\n".join(video_entries) + "\n", encoding="utf-8")
