@@ -68,7 +68,7 @@
     "moderation_note": "All 30 new lines passed speech moderation, including S11 (門後遇害／動手的人). The earlier S12 wording exception no longer applies: the new script makes a weaker statement.",
     "group_sources_role": "provenance only; the 21 ASR-cut candidates are superseded by the per-shot re-record",
     "manifest_note": "audio/manifest.json rebuilt from the 30 v2 clips; audio/review.json holds 30 transcript-inspected records (not a listening sign-off).",
-    "script_revision": "narration v2 (2026-11-16): one continuous commentary script, 632 chars, 30 per-shot clips, voice-00",
+    "script_revision": "narration v3 (2026-11-16): v2 film-essay script with the S09 bridge; 30 clips, voice-00",
     "max_atempo": 1.0928,
     "total_speech_seconds": 154.1
   },
@@ -80,7 +80,7 @@
     "repair": "transcribe_audio_candidates.py now decodes with ffmpeg to 16 kHz mono float32 and hands the model an in-memory array; the workflow pins Python 3.11 and installs production/requirements.txt (av>=12,<19).",
     "evidence_only": true,
     "next_run": "triggered by the push of the repaired transcribe script",
-    "latest_run": 43860291513,
+    "latest_run": 43870611130,
     "latest_result": "success",
     "matched_shots": 19,
     "flagged_for_homophones": [
@@ -99,7 +99,8 @@
     "flagged_note": "All 11 sub-0.90 rows are whisper homophones/garble on names and set phrases (集训→急讯, 涩谷→色果, 亚澄→雅成/压成, 那扇→内山, 辩方→变防, 二审→二神). Each has a written reason in audio/review-allow.json. S29 was rejected at 0.718 on the first take because the closing verdict was garbled, re-recorded with a pause, and only then approved at 0.895.",
     "boundary_method": "faster-whisper word timestamps; script aligned to words; cuts at word onsets (silence heuristic kept only as fallback)",
     "boundary_repair": "S23 previously lost its final six characters to a silence-based cut; the ASR boundary restores it (similarity 1.000).",
-    "latest_note": "30/30 individual clips approved by transcript evidence; nothing approved on similarity alone."
+    "latest_note": "30/30 individual clips approved by transcript evidence; nothing approved on similarity alone.",
+    "s09_bridge": "S09 1.000 / S10 0.933 after re-record; review.json and manifest rebuilt, narration_fit 30/30 at max 1.093x."
   },
   "cover": {
     "file": "交付/第十七期_涩谷短大生惨案_封面.png",
@@ -111,19 +112,19 @@
   "final_film": {
     "status": "rendered_gates_passed_playback_review_pending",
     "file": "交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
-    "bytes": 56956689,
-    "sha256": "d0b518b29353a25b239d7e09fd81e697f806b4eb077ca00588d411388f85d026",
-    "run": 43860807291,
+    "bytes": 57284550,
+    "sha256": "239364d7a73317a642b88c9fb17bdd5dd0fe04d85f57880ecfc8f5925380e7d6",
+    "run": 43871158998,
     "qc": "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
-    "narration_fit": "PASS (max atempo 1.093x, 154.1s speech of 180s)",
+    "narration_fit": "PASS (max atempo 1.093x)",
     "verify_master": {
       "status": "PASS",
       "max_caption_lead_seconds": 0.13,
       "cues_without_speech": [],
       "report": "production/shibuya2006/qa/verify-master.json"
     },
-    "visual_sample_review": "6 frames inspected at 1.5/9/56/109/131/169s (qa/final-master-contact-sheet-v2.jpg); S29 bedding ambiguity and H6/subtitle redundancy recorded; no pseudo-text or face defects; full playback still required",
-    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/059f321/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4"
+    "visual_sample_review": "v3: frames 50.5s/57s confirm the new bridge line and 供述 framing on screen; earlier 6-frame pass still holds for unchanged shots; S29 bedding ambiguity unchanged; full playback still required",
+    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/771463c/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4"
   },
   "narration_acceptance": {
     "silent_substitute_allowed": false,
@@ -148,5 +149,5 @@
     "verify_master": "production/shibuya2006/qa/verify-master.json",
     "visual_sample": "production/shibuya2006/qa/final-master-review.md"
   },
-  "script_rewrite_note": "User rejected the first narration as incoherent and asked for a full rewrite. Visuals, shots and cut points are unchanged; only the 30 narration lines, their subtitles and the H5 hook time changed."
+  "script_rewrite_note": "v2 rewrote all 30 lines into one commentary script. v3 (2026-11-16) fixed the abrupt jump at 49s: S09 is now 「门里再没有第三个人。之后的经过，只有他的说法。」 so the switch into his account is motivated on screen. Visuals, shots and cut points unchanged throughout."
 }
