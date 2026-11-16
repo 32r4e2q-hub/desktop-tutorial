@@ -1,0 +1,61 @@
+Story: 30 shots / 180 sec / average 6.00 sec
+References: 28 expected; 5 approved
+
+NOT READY (no Agnes requests permitted):
+- C01: reviewed_partial
+- C02: reviewed_partial
+- C03: reviewed_partial
+- C04: reviewed_partial
+- C05: reviewed_partial
+- C06: reviewed_partial
+- C07: reviewed_partial
+- C08: reviewed_partial
+- P01: pending_generation
+- P02: pending_generation
+- P03: pending_generation
+- P04: pending_generation
+- P05: pending_generation
+- P06: pending_generation
+- P07: pending_generation
+- Public-source fact check is not signed off
+- S01: pending references C01,C03,S01,P02
+- S01: rejected
+- S02: pending references S02
+- S02: rejected
+- S03: pending references S02
+- S03: reviewed_partial
+- S04: pending references C03,C04,S03
+- S04: reviewed_partial
+- S05: pending references C05,C01,S04,P03
+- S05: reviewed_partial
+- S06: pending references C02,S03
+- S07: pending references C04,C05,C02,S05
+- S08: pending references C03,C02,S05,P01
+- S08: reviewed_partial
+- S09: pending references C01,C02,S03
+- S10: pending references C01
+- S11: pending references P04
+- S11: reviewed_partial
+- S12: pending references C01
+- S13: pending references C01,S03
+- S13: pending_generation
+- S14: pending references C01,S03,P01
+- S15: pending references C01,S03,P02
+- S16: pending references C03,C01,S05,P02
+- S17: pending references C03,C01,S02
+- S18: pending references S02
+- S19: pending references C04,C05,C03,S02
+- S20: pending references C04,S05
+- S21: pending references C04
+- S22: pending references C06,C01,S01
+- S23: pending references C01,C06
+- S24: pending references C01,C07
+- S25: pending references C08,S11,P06
+- S26: pending references C01,C03,C04,C07
+- S27: pending references P05
+- S28: pending references C07,C01
+- S29: pending references S13,P07
+- S30: pending references P07,S13
+- reference/revision.txt: immutable 40-character commit is not pinned
+
+PREFLIGHT: BLOCKED
