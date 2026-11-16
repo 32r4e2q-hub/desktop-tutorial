@@ -97,6 +97,18 @@ def reference_image_urls(shot: dict) -> list[str]:
         asset_revision = str(shot.get("reference_revision_override") or record.get("revision") or revision)
         if len(asset_revision) != 40 or any(ch not in "0123456789abcdef" for ch in asset_revision.lower()):
             raise RuntimeError(f"{asset_id}: immutable reference revision is invalid")
+        # Single-view overrides prevent a multi-view character sheet leaking into video.
+        # Only allow an already approved, hash-bound source of that same character board.
+        override = shot.get("single_view_references", {}).get(asset_id)
+        if override:
+            board_manifest = read_json(REFERENCE_DIR / "boards/manifest.json", {})
+            board = next((b for b in board_manifest.get("boards", [])
+                          if b.get("file") == record.get("file") and b.get("status") == "approved"), {})
+            source = next((x for x in board.get("sources", [])
+                           if "reference/" + x.get("file", "") == override), None)
+            if source is None:
+                raise RuntimeError(f"{asset_id}: single view is not an approved board source")
+            record = {**record, "file": override, "sha256": source["sha256"]}
         path = HERE / record.get("file", "")
         if not path.is_file() or path.read_bytes()[:8] != b"\x89PNG\r\n\x1a\n":
             raise RuntimeError(f"{asset_id}: approved reference PNG is missing or invalid")

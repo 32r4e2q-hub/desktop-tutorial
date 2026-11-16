@@ -41,6 +41,11 @@ def build():
                           characters=roles,seed=20061230+i,camera='连续平稳中景或近景，按动作跟随，不用静帧推拉',
                           sound_design='克制环境声与动作拟音，不配乐，不复原暴力声',color_grade=grade,reference_ids=refs,
                           transition_in='后期短转场，保持时间线',transition_out='环境微动中停顿，不冻帧'))
+        if i == 28:
+            shots[-1]['single_view_references'] = {
+                'C01': 'reference/C01.png',
+                'C07': 'reference/views/C07-judge-close.png',
+            }
         cursor+=duration
     assert len(shots)==30 and cursor==180
     approvals=json.loads((HERE/'reference/approvals.json').read_text())
