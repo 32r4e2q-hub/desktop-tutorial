@@ -1227,9 +1227,24 @@
     "S28": {
       "id": "S28",
       "request_hash": "ff1d3422602c41faac84195848ea46a731b73f7ca030ef1348b25368eecdc90b",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-16T06:25:42Z"
+      "updated_at": "2026-11-16T06:25:43Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现，非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，日本社会派家庭悲剧风格，2006至2009年东京涩谷幡谷，冬日冷白与屋内暖黄对比，低饱和，暗部厚重，真实人体比例、皮肤、布料与建筑材质；所有人物均为虚构演员式形象，不还原真实肖像。16:9横屏，主体在三分线，底部字幕安全区留空。必须是真实连续运动的写实3D影像，有人物动作、呼吸、布料或自然环境运动；禁止静态图片加推拉。一扇门与时钟是贯穿视觉线索；镜头9至14冷青深蓝，19至28冷灰，29至30暖金转黑。\n\n【C07锚点】约60岁日本男性法官，花白短发，无眼镜，黑色法袍白领，神情肃穆克制，仅对应法官参考板\n\n单一连续全画幅16:9中近景，唯一人物为约60岁的日本法官，花白短发，无眼镜，黑色法袍白领，独自坐在日本高等法院法台后，低头阅读空白文书，然后缓慢翻动一页。摄影机只拍法官与深木色法台，法官头肩和双手完整。画面内没有青年、没有被告、没有旁听者、没有前景人物、没有第二个人；不得出现分身或重影。固定机位，真实连续翻页与呼吸，满幅构图，无灰边，无拼板，无画中画，无参考图，无转场，无文字无法槌。 全程环境保持微动；源片不生成任何文字。\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,伪文字,血腥,伤口,遗体,尸体,分尸,凶器,刀具,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,智能手机,现代电动车,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图片推拉,法槌,真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 20061237,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4a37003b6892a5d705fee08cdbe2ed310677924c/production/shibuya2006/reference/views/C07-judge-close.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4a37003b6892a5d705fee08cdbe2ed310677924c/production/shibuya2006/reference/S12.png"
+        ]
+      },
+      "error": null
     },
     "S29": {
       "id": "S29",
@@ -1374,7 +1389,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-16T06:25:42Z",
+  "updated_at": "2026-11-16T06:25:43Z",
   "run_id": "43816274028",
   "previous_results": {
     "S04": [
