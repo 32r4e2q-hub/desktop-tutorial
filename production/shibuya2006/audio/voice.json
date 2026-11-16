@@ -6,21 +6,33 @@
   "selected_at": "2026-11-16",
   "selected_by": "user via Arena voice audition battle 01",
   "narration_progress": {
-    "completed_clips": [],
-    "generated_groups": [
-      "G01",
+    "individual_generated": [
+      "S01",
+      "S02",
+      "S03",
+      "S16",
+      "S17",
+      "S18"
+    ],
+    "current_generated_groups": [
       "G02",
       "G03",
       "G05",
-      "G06",
       "G07",
       "G08",
       "G09",
       "G10"
     ],
-    "missing_groups": [
-      "G04"
+    "superseded_groups": [
+      "G01",
+      "G06"
     ],
-    "alignment_status": "pending: sources cover 27 shot texts, not 27 verified final shot clips"
+    "blocked_shots": [
+      "S10",
+      "S11",
+      "S12"
+    ],
+    "completed_clips": [],
+    "alignment_status": "27 shot texts have current audio sources; 21 cuts require independent ASR/semantic review, six independent lines need review; 3 missing. Not final."
   }
 }

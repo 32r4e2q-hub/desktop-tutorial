@@ -17,14 +17,29 @@ def duration(path: Path) -> float:
     raw=subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(path)],text=True)
     return float(raw.strip())
 
+def require_review(shot: dict, path: Path, voice: str, reviews: dict) -> None:
+    """Do not turn a filename or pause-cut guess into verified narration provenance."""
+    row=reviews.get(shot['id'], {})
+    if (row.get('status') != 'approved' or not row.get('reviewed_by')
+            or not row.get('review_method')
+            or row.get('text') != shot['narration']
+            or row.get('sha256') != digest(path)
+            or row.get('voice_id') != voice):
+        raise RuntimeError(f"{shot['id']}: missing approved text/audio/voice alignment review; refusing to relabel an unverified clip")
+
+
 def main() -> None:
     story=json.loads((HERE/'story.json').read_text(encoding='utf-8'))
     voice=story['narration_spec']['voice_id']
+    review_file=HERE/'audio/review.json'
+    review_doc=json.loads(review_file.read_text()) if review_file.exists() else {}
+    reviews={r['id']:r for r in review_doc.get('clips', [])}
     clips=[]; missing=[]
     for shot in story['shots']:
         path=HERE/'audio'/f"{shot['id']}.mp3"
         if not path.is_file():
             missing.append(shot['id']);continue
+        require_review(shot,path,voice,reviews)
         source=duration(path); target=float(shot['duration'])
         speed=max(1.0,source/target)
         if speed>1.55+1e-9:

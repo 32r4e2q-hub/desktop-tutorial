@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-16",
-  "phase": "targeted_repair_and_audio_alignment",
+  "phase": "full_narration_required_asr_review_running",
   "branch": "arena/8d7fb4aa-desktop-tutorial",
   "reference_images_generated": 30,
   "reference_images_approved": [
@@ -125,5 +125,11 @@
       "21 grouped narration cuts require alignment review",
       "complete playback and master verification not yet done"
     ]
+  },
+  "narration_acceptance": {
+    "required_spoken_shots": 30,
+    "silent_substitute_allowed": false,
+    "speaker_change_allowed_without_approval": false,
+    "continuous_movie_commentary_required": true
   }
 }

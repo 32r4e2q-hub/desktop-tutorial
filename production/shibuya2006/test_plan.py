@@ -89,4 +89,17 @@ class PlanTests(unittest.TestCase):
         shot=dict(self.story['shots'][27],single_view_references={'C07':'reference/C02.png'})
         with self.assertRaisesRegex(RuntimeError,'not an approved board source'):
             generate.reference_image_urls(shot)
+    def test_unreviewed_audio_cannot_be_relabelled(self):
+        import build_audio_manifest as audio
+        shot=self.story['shots'][0]
+        with self.assertRaisesRegex(RuntimeError,'missing approved'):
+            audio.require_review(shot,HERE/'audio/S01.mp3','voice-01',{})
+    def test_wrong_audio_text_cannot_be_approved(self):
+        import build_audio_manifest as audio
+        path=HERE/'audio/S01.mp3'
+        shot=self.story['shots'][0]
+        row={'status':'approved','reviewed_by':'test','review_method':'ASR',
+             'text':'wrong sentence','sha256':audio.digest(path),'voice_id':'voice-01'}
+        with self.assertRaisesRegex(RuntimeError,'missing approved'):
+            audio.require_review(shot,path,'voice-01',{'S01':row})
 if __name__=='__main__':unittest.main()
