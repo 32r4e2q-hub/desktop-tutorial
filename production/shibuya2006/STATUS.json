@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-16",
-  "phase": "master_gate_fix_caption_lead_rerender_requested",
+  "phase": "delivered_pending_human_playback_review",
   "branch": "arena/749aaa18-desktop-tutorial",
   "video_sources": {
     "completed": 30,
@@ -100,18 +100,21 @@
     "note": "Not a historical image; the film is not final yet."
   },
   "final_film": {
-    "status": "first_master_rendered_gate_failed_rerender",
+    "status": "rendered_gates_passed_playback_review_pending",
     "file": "交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
-    "first_render": {
-      "run": 43849210541,
-      "size_bytes": 57427151,
-      "qc": "PASS",
-      "narration_fit": "PASS",
-      "verify_master": "FAIL",
-      "failure": "字幕最多领先语音 0.240s，超过 0.2s"
+    "bytes": 57396751,
+    "sha256": "b21faaf672955fe5d935f12ca9e089541323910a992523812b1cde6423c25bbe",
+    "run": 43851061089,
+    "qc": "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
+    "narration_fit": "PASS (max atempo 1.223x)",
+    "verify_master": {
+      "status": "PASS",
+      "max_caption_lead_seconds": 0.11,
+      "cues_without_speech": [],
+      "report": "production/shibuya2006/qa/verify-master.json"
     },
-    "fix": "render.py 逐镜量出真实开口时间（10ms RMS，与 verify_master 同口径），字幕起点只保留 0.10s 预读；技术报告记录 speech_onset_seconds 与 caption_lead_seconds。",
-    "next": "重跑 mode=render，期望 verify_master 通过（预估最大领先 0.15s）。"
+    "visual_sample_review": "9 frames inspected (qa/final-master-contact-sheet.jpg); no pseudo-text or face defects; full playback still required",
+    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/9b1f8d2/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4"
   },
   "narration_acceptance": {
     "silent_substitute_allowed": false,

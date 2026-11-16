@@ -74,3 +74,13 @@
 `render.py` 现在逐镜用 10ms RMS（与 `verify_master` 同口径）量出真实开口时间，
 字幕起点只保留 0.10 秒预读，并把 `speech_onset_seconds` / `caption_lead_seconds` 写进技术报告。
 离线自查 30 条：修正后最大领先 0.15 秒。修好后重跑出片，`verify_master` 报告会一并提交。
+
+
+## 成片已出（2026-11-16，run 43851061089）
+
+- 成片：`交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4`（57.4 MB，SHA256 `b21faaf6…25bbe`）
+- 规格：180.000 s / 4320 帧 / 1920×1080 / 24 fps / 48 kHz 立体声 / 30 条字幕
+- 闸门：`qc.py` 技术通过、`narration_fit` 通过（最大 1.223x）、`verify_master` **PASS**
+  （字幕最大领先语音 0.11 s，无空字幕）
+- 抽帧复核：9 帧接触表 `qa/final-master-contact-sheet.jpg`，记录见 `qa/final-master-review.md`；
+  未发现伪文字/崩脸，**仍需完整播放复核**（抽帧不等于人耳人眼签收）
