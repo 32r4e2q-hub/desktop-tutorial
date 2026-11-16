@@ -70,7 +70,8 @@ def ass_caption(text: str, phrases: list[str], highlight_size: int = 50) -> str:
 def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[str],
               end_card: tuple[str, str, float, float] | None = None,
               onscreen_label: str = "", hooks: list[dict] | None = None,
-              explainers: list[dict] | None = None) -> None:
+              explainers: list[dict] | None = None,
+              explainer_plate: bool = False) -> None:
     rows = [
         "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1920", "PlayResY: 1080",
         "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
@@ -79,6 +80,11 @@ def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[st
         "Style: Caption,Noto Sans CJK SC,44,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.4,0.6,2,120,120,62,1",
         "Style: Label,Noto Sans CJK SC,26,&H60FFFFFF,&H00FFFFFF,&H00101010,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0.0,7,52,52,34,1",
         "Style: Hook,Noto Sans CJK SC,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1",
+        # 2026-11-16: gold annotation text disappeared against bright streets, kitchens and
+        # courtroom whites. The plated variant draws a translucent dark box (BorderStyle 3)
+        # so the explainer survives any background; series projects keep the plain style.
+        ("Style: ExplainerPlate,Noto Sans CJK SC,32,&H0000C8FF,&H00FFFFFF,&H99000000,&H99000000,"
+         "0,0,0,0,100,100,0,0,3,7,0,2,120,120,200,1") if explainer_plate else
         "Style: Explainer,Noto Sans CJK SC,32,&H0000C8FF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,2.2,0.5,2,120,120,200,1",
         "Style: Title,Noto Sans CJK SC,104,&H0000C8FF,&H00FFFFFF,&H00101010,&H80000000,-1,0,0,0,100,100,2,0,1,3.0,1.0,2,120,120,330,1",
         "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
@@ -100,7 +106,8 @@ def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[st
         if end <= start:
             raise ValueError("Explainer overlay has a non-positive duration")
         rendered = r"\N".join(caption_lines(str(explainer["text"]), limit=28))
-        rows.append(f"Dialogue: 1,{ass_time(start)},{ass_time(end)},Explainer,,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}")
+        style = "ExplainerPlate" if explainer_plate else "Explainer"
+        rows.append(f"Dialogue: 1,{ass_time(start)},{ass_time(end)},{style},,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}")
     if onscreen_label:
         rows.append(f"Dialogue: 0,{ass_time(0.8)},{ass_time(176.0)},Label,,0,0,0,,{{\\q2\\fad(300,300)}}{ass_escape(onscreen_label)}")
     if end_card:
