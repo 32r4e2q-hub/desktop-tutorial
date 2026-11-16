@@ -82,3 +82,19 @@ TypeError: open() got an unexpected keyword argument 'metadata_errors'
 - 失败时把完整栈和 `python/ffmpeg` 版本写进 `qa/narration-asr-error.txt`，成功时删掉旧诊断文件，避免“上次的红”挂在报告里。
 
 离线回归见 `production/tests/test_shibuya2006_audio.py`（解码长度/类型、模型不再吃文件路径、工作流装配与分支口径）。
+
+## 同音字偏差的逐条判读（agent 转写比对，非人耳签收）
+
+以下 6 条 ASR 相似度低于 0.90，逐条看过转写差异后确认是 whisper 的同音误听，不是台词缺失或错句；
+理由写在 `audio/review-allow.json`，`assemble_narration_review.py` 只认写入的理由，不按相似度自动放行。
+
+| 镜头 | ASR 听到 | 锁定稿 | 判定 |
+|---|---|---|---|
+| S03 | 到回 / 色古 | 倒回 / 涩谷 | 同音 |
+| S05 | 压科 / 永贵 / 生学 | 牙科 / 勇贵 / 升学 | 同音 |
+| S08 | 附近 | 父亲 | 同音 |
+| S09 | 功术 / 曾志忠 | 供述 / 争执中 | 同音连读 |
+| S18 | 内扇 / 仅仅 | 那扇 / 紧紧 | 同音（已重录一版仍如此） |
+| S28 | 十亿 | 失忆 | 同音 |
+
+成片交付前仍要按手册做一次完整播放复核；上面这份是自动转写比对，不等于人耳签收。
