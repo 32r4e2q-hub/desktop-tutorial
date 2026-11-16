@@ -404,9 +404,23 @@
     "S11": {
       "id": "S11",
       "request_hash": "9dd12c0c1726aa71d33adf957fa221827798afccf36128b641fe584cdc01f7dd",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-16T05:03:37Z"
+      "updated_at": "2026-11-16T05:13:44Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现，非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，日本社会派家庭悲剧风格，2006至2009年东京涩谷幡谷，冬日冷白与屋内暖黄对比，低饱和，暗部厚重，真实人体比例、皮肤、布料与建筑材质；所有人物均为虚构演员式形象，不还原真实肖像。16:9横屏，主体在三分线，底部字幕安全区留空。必须是真实连续运动的写实3D影像，有人物动作、呼吸、布料或自然环境运动；禁止静态图片加推拉。一扇门与时钟是贯穿视觉线索；镜头9至14冷青深蓝，19至28冷灰，29至30暖金转黑。\n\n唯一主体是紧闭木门下沿及门缝冷白光，低机位固定近景。整段门必须始终完全闭合，门把不动，绝对不能打开。只有门缝光照和地面反光轻微变化，无人无人影无浴室内部，不出现其他房间，不转场不推拉。 全程环境保持微动；源片不生成任何文字。\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,伪文字,血腥,伤口,遗体,尸体,分尸,凶器,刀具,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,智能手机,现代电动车,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图片推拉,法槌,真实人物肖像",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 20061241,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4a37003b6892a5d705fee08cdbe2ed310677924c/production/shibuya2006/reference/P04.png"
+        ]
+      },
+      "error": null
     },
     "S12": {
       "id": "S12",
@@ -1212,7 +1226,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-16T05:13:43Z",
+  "updated_at": "2026-11-16T05:13:44Z",
   "run_id": "43807415667",
   "previous_results": {
     "S04": [
