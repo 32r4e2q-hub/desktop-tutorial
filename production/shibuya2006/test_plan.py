@@ -84,9 +84,9 @@ class PlanTests(unittest.TestCase):
         urls=generate.reference_image_urls(self.story['shots'][27])
         self.assertFalse(any('/boards/' in u for u in urls))
         self.assertTrue(any('/views/C07-judge-close.png' in u for u in urls))
-        self.assertTrue(any('/reference/C01.png' in u for u in urls))
+        self.assertFalse(any('/reference/C01.png' in u for u in urls))
     def test_single_view_cannot_substitute_other_character(self):
-        shot=dict(self.story['shots'][27],single_view_references={'C01':'reference/C02.png'})
+        shot=dict(self.story['shots'][27],single_view_references={'C07':'reference/C02.png'})
         with self.assertRaisesRegex(RuntimeError,'not an approved board source'):
             generate.reference_image_urls(shot)
 if __name__=='__main__':unittest.main()

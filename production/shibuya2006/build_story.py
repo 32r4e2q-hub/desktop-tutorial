@@ -43,7 +43,6 @@ def build():
                           transition_in='后期短转场，保持时间线',transition_out='环境微动中停顿，不冻帧'))
         if i == 28:
             shots[-1]['single_view_references'] = {
-                'C01': 'reference/C01.png',
                 'C07': 'reference/views/C07-judge-close.png',
             }
         cursor+=duration
