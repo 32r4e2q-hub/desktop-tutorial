@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Episode 17: deterministic plan. No network calls; no approvals manufactured."""
 import json
+import hashlib
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BRANCH = 'arena/8d7fb4aa-desktop-tutorial'
@@ -12,7 +13,7 @@ STYLE = ('【STYLE】电影级写实3D动画情景重现，非真实历史影像
 NEGATIVE = ('【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,伪文字,血腥,伤口,遗体,尸体,'
             '分尸,凶器,刀具,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,智能手机,现代电动车,低清晰度,画面闪烁,'
             '风格突变,竖屏构图,黑边,静态图片推拉,法槌,真实人物肖像')
-BOUNDS = [(0,10,'父亲送他集训'),(10,35,'精英家庭'),(35,60,'一句话与供述边界'),(60,85,'他选择隐瞒'),
+BOUNDS = [(0,10,'次日照常集训'),(10,35,'精英家庭'),(35,60,'一句话与供述边界'),(60,85,'他选择隐瞒'),
           (85,108,'照常集训'),(108,130,'母亲发现'),(130,150,'另一个人格的主张'),(150,168,'七年与十二年'),(168,180,'一个家')]
 HOOK_TEXT = [
  (0,'妹妹遇害第二天，他去了集训'),(8,'一句“你没有梦想”，为何被反复提起？'),
@@ -28,6 +29,8 @@ EXPLAIN_TEXT = [
 
 def build():
     data=json.loads((HERE/'plan.json').read_text())
+    fact_path=HERE/'fact_review.json'
+    fact=json.loads(fact_path.read_text()) if fact_path.exists() else {}
     shots=[]; cursor=0
     for i,(duration,text,visual,refs) in enumerate(zip(data['durations'],data['narrations'],data['visuals'],data['refs']),1):
         roles=[x for x in refs.split('+') if x.startswith('C')]
@@ -54,24 +57,24 @@ def build():
                shots=shots,reference_images=[dict(id=k,**v) for k,v in approvals['assets'].items() if v['status']=='approved'],
                reference_revision=(HERE/'reference/revision.txt').read_text().strip(),
                reference_designs=dict(characters=[f'C{i:02}' for i in range(1,len(data['anchors'])+1)],scenes=[f'S{i:02}' for i in range(1,14)],props=[f'P{i:02}' for i in range(1,8)]),
-               sfx_only=True,fact_check=dict(status='pending_primary_source_verification',sources_file='FACT_CHECK.md'),
-               presentation=dict(onscreen_label='AI动画情景重现 · 非真实影像',highlight_phrases=['父亲','集训','梦想','隐瞒','另一个人','七年','十二年','一个家'],
+               sfx_only=True,fact_check=dict(status=('verified' if fact.get('status')=='verified' and fact.get('plan_sha256')==hashlib.sha256((HERE/'plan.json').read_bytes()).hexdigest() else 'pending_primary_source_verification'),sources_file='FACT_CHECK.md',review_file='fact_review.json'),
+               presentation=dict(onscreen_label='AI动画情景重现 · 非真实影像',highlight_phrases=['次日','集训','梦想','隐瞒','另一个人','七年','十二年','一个家'],
                                  hooks=[dict(id=f'H{i:01}',start=t,end=t+2,text=x) for i,(t,x) in enumerate(HOOK_TEXT,1)],
                                  explainers=[dict(start=a,end=b,text=t) for a,b,t in EXPLAIN_TEXT],
                                  end_title='涩谷短大生惨案',end_subtitle='东京涩谷 · 2006—2009 · 一句话的代价',title_start=174.6,title_end=179.5,
-                                 cover_text='第二天',cover_concept='本片生成视频父子背影与住宅暗窗取帧，横版裂缝构图；不可用参考图冒充视频帧',
-                                 publish_title='妹妹遇害后的第二天，他仍去集训，父亲开车送他：涩谷短大生惨案',
+                                 cover_text='第二天',cover_concept='本片生成视频青年独自抵达集合点与住宅暗窗取帧，横版裂缝构图；不可用参考图冒充视频帧',
+                                 publish_title='妹妹遇害后的第二天，他仍照常去集训：涩谷短大生惨案',
                                  hashtags=['#真实事件','#涩谷短大生惨案','#日本','#家庭悲剧','#悬疑','#电影感']))
     (HERE/'story.json').write_text(json.dumps(story,ensure_ascii=False,indent=2)+'\n')
     lines=['# 第十七期｜涩谷短大生惨案：一句话的代价','',
-           '制作草案；180秒／30镜／1920×1080／24fps／写实3D动画／无BGM。公开来源核查与参考图未签收，禁止开视频生成。','',
+           '制作草案；180秒／30镜／1920×1080／24fps／写实3D动画／无BGM。制作前须以preflight实测门禁为准；虚构演员动作不作为历史细节。','',
            '|镜头|时间|逐镜旁白|画面|参考图|','|---|---|---|---|---|']
     for s in shots:
         lines.append(f"|{s['id']}|{s['start']}–{s['start']+s['duration']}秒|{s['narration']}|{s['purpose']}|{s['reference_ids']}|")
     lines+=['','## 钩子：每条严格2秒','']+[f'- H{i}｜{t}–{t+2}秒｜{x}' for i,(t,x) in enumerate(HOOK_TEXT,1)]
     lines+=['','## 后期与配音边界','- 普通字幕白字黑边，关键词金色；金色解释字幕与钩子复用光州文字层。',
             '- 每镜独立配音，但前后句语义连续；实测TTS后再做逐句同步，不把文字估时当成已对齐。',
-            '- “父亲开车送他”“隐瞒”“另一个人”“一个家”前预留0.5秒，须以实测语音窗口复核。',
+            '- “次日仍去集训”“隐瞒”“另一个人”“一个家”前预留0.5秒，须以实测语音窗口复核。',
             '- 片尾标题后期添加；源片全部禁字。不得以静态参考图加推拉替代视频。',
             '- 镜头27是法律对比意象，非庭审实录；镜头25是辩方主张示意，非医学诊断。']
     (HERE/'screenplay.md').write_text('\n'.join(lines)+'\n')

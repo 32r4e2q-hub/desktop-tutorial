@@ -29,8 +29,9 @@ class PlanTests(unittest.TestCase):
         self.assertEqual([h['start'] for h in hooks],[0,8,55,80,125,130,144,156,168])
         self.assertTrue(all(h['end']-h['start']==2 for h in hooks))
     def test_paid_requests_fail_closed(self):
+        project=dict(self.story, fact_check={'status':'pending'})
         with self.assertRaisesRegex(RuntimeError,'Fact check'):
-            generate.full_payload(self.story,self.story['shots'][0])
+            generate.full_payload(project,self.story['shots'][0])
     def test_no_old_case_or_false_receipts(self):
         text=json.dumps(self.story,ensure_ascii=False)
         self.assertNotIn('胶带',text)
@@ -46,8 +47,9 @@ class PlanTests(unittest.TestCase):
         manifest=json.loads((HERE/'audio/groups/manifest.json').read_text())
         story_shots={s['id']:s for s in self.story['shots']}
         for group in manifest['groups']:
-            self.assertEqual(''.join(story_shots[s]['narration'] for s in group['shots']),group['text'])
-            if group['status']=='generated':
+            if group['status']!='superseded_script_change':
+                self.assertEqual(''.join(story_shots[s]['narration'] for s in group['shots']),group['text'])
+            if group['status'] in ['generated','superseded_script_change']:
                 path=HERE/'audio/groups'/group['file']
                 self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),group['sha256'])
                 self.assertEqual(group['voice_id'],'voice-01')

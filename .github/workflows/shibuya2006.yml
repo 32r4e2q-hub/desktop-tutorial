@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: arena/8d7fb4aa-desktop-tutorial
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Install media tools and subtitle font
         run: |

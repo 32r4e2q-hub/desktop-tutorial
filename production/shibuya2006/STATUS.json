@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-16",
-  "phase": "references_approved_facts_pending",
+  "phase": "video_queue_requested",
   "branch": "arena/8d7fb4aa-desktop-tutorial",
   "reference_images_generated": 30,
   "reference_images_approved": [
@@ -60,14 +60,20 @@
   "video_sources_completed": 0,
   "master_film_exists": false,
   "blockers": [
-    "G04原稿未取得合规音频；替代文本试音与锁定剧本不符，隔离不用",
-    "核心父亲驾车送行细节仍缺已阅读可靠原始报道直接支持",
-    "逐镜候选音频尚未逐字听检，不可作为最终对齐清单"
+    "G01/G06已因改稿作废，视频任务启动后再处理配音",
+    "G04原稿语音审核问题仍未解决",
+    "所有逐镜配音候选仍未通过听检和对齐"
   ],
   "supplemental_character_views_generated": 22,
   "supplemental_character_views_complete": false,
   "character_boards_reviewed": 10,
   "character_bindings_approved": true,
   "reference_design_slots": 30,
-  "original_design_families": 28
+  "original_design_families": 28,
+  "fact_check": "verified_revised_plan",
+  "tts_groups_superseded": [
+    "G01",
+    "G06"
+  ],
+  "shot_audio_candidates_current": 21
 }
