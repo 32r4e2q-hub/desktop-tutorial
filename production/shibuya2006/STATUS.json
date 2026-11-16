@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-16",
-  "phase": "narration_complete_manifest_ready_render_requested",
+  "phase": "master_gate_fix_caption_lead_rerender_requested",
   "branch": "arena/749aaa18-desktop-tutorial",
   "video_sources": {
     "completed": 30,
@@ -100,10 +100,18 @@
     "note": "Not a historical image; the film is not final yet."
   },
   "final_film": {
-    "status": "render_requested",
-    "download_link": null,
-    "blockers": [],
-    "next": "shibuya2006.yml mode=render downloads the 30 hash-verified sources, renders 1080p/24fps/180s, runs qc + narration_fit + verify_master, then commits 交付/."
+    "status": "first_master_rendered_gate_failed_rerender",
+    "file": "交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
+    "first_render": {
+      "run": 43849210541,
+      "size_bytes": 57427151,
+      "qc": "PASS",
+      "narration_fit": "PASS",
+      "verify_master": "FAIL",
+      "failure": "字幕最多领先语音 0.240s，超过 0.2s"
+    },
+    "fix": "render.py 逐镜量出真实开口时间（10ms RMS，与 verify_master 同口径），字幕起点只保留 0.10s 预读；技术报告记录 speech_onset_seconds 与 caption_lead_seconds。",
+    "next": "重跑 mode=render，期望 verify_master 通过（预估最大领先 0.15s）。"
   },
   "narration_acceptance": {
     "silent_substitute_allowed": false,

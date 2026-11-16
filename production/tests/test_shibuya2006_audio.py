@@ -124,6 +124,35 @@ class NarrationDecodeTests(unittest.TestCase):
         self.assertAlmostEqual(cuts[1], starts[1] - align.PRE_ROLL, delta=0.6)
         self.assertAlmostEqual(cuts[2], starts[2] - align.PRE_ROLL, delta=0.6)
 
+    @unittest.skipUnless(HAVE_FFMPEG, "需要 ffmpeg 才能造测试音频")
+    def test_caption_lead_is_measured_from_the_first_audible_sample(self):
+        """字幕不能凭空从镜头起点开始：先量出真实开口时间，只保留 0.10s 预读。
+
+        2026-11-16 第一版母版就是栽在这里：30 条字幕全部从镜头起点起，语音却晚
+        0.04–0.24 秒，verify_master 判「字幕领先语音 0.240s」。
+        """
+        import importlib.util
+        import tempfile
+
+        # 不能直接 ``import render``：production/tests/test_dahlia_edit.py 也会
+        # 导入一个同名的 render（dahlia 项目），全量跑测试时后者会抢先注册。
+        spec = importlib.util.spec_from_file_location(
+            "shibuya2006_render", PROJECT / "render.py")
+        render = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(render)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "late-voice.wav"
+            # 0.6 秒静音 + 0.6 秒 220Hz：模拟 TTS 的前导静音（runner 上是旧版 ffmpeg，
+            # 不用 anullsrc 的 d= 选项，改用 adelay 补前导静音）。
+            subprocess.run([
+                "ffmpeg", "-y", "-v", "error",
+                "-f", "lavfi", "-i", "sine=frequency=220:sample_rate=48000:duration=0.6",
+                "-af", "adelay=600", "-ac", "1", str(source),
+            ], check=True)
+            onset = render.speech_onset(source)
+        self.assertAlmostEqual(onset, 0.6, delta=0.06)
+
     def test_transcript_approval_needs_a_written_reason(self):
         """相似度只是门槛：同音字偏差必须有写下来的理由，不能自动放行。"""
         import assemble_narration_review as assemble

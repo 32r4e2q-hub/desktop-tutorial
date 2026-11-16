@@ -64,6 +64,33 @@ def duration(path: Path) -> float:
     return float(probe(path)["format"]["duration"])
 
 
+def speech_onset(path: Path) -> float:
+    """Seconds of quiet before the first audible sample in a narration segment.
+
+    Why: 2026-11-16's first master had every caption cue starting exactly at the shot
+    boundary while the voice started 0.04–0.24 s later, so ``verify_master`` flagged a
+    caption leading the speech by 0.240 s (> 0.20 s). Synthetic speech keeps a short
+    lead-in that survives the ffmpeg ``silenceremove``, and it differs per line. Measure
+    it per shot with the same 10 ms RMS rule ``verify_master`` uses, and only keep a
+    deliberate 0.10 s look-ahead so the subtitle still appears just before the voice.
+    """
+    import numpy as np
+
+    raw = subprocess.run([
+        "ffmpeg", "-v", "error", "-i", str(path), "-vn",
+        "-f", "f32le", "-ac", "1", "-ar", str(RATE), "-",
+    ], capture_output=True, check=True).stdout
+    samples = np.frombuffer(raw, dtype="<f4")
+    hop = RATE // 100
+    count = len(samples) // hop
+    if count == 0:
+        return 0.0
+    rms = np.sqrt((samples[: count * hop].reshape(count, hop) ** 2).mean(axis=1))
+    threshold = max(0.004, float(np.percentile(rms, 95)) * 0.10)
+    active = np.nonzero(rms > threshold)[0]
+    return round(float(active[0]) / 100, 3) if active.size else 0.0
+
+
 def srt_time(seconds: float) -> str:
     ms = max(0, round(seconds * 1000))
     h, ms = divmod(ms, 3_600_000)
@@ -211,12 +238,18 @@ def main() -> int:
         if abs(segment_seconds - target) > 0.02:
             raise RuntimeError(f"{sid}: narration segment is {segment_seconds:.3f}s, expected {target:.3f}s")
         audio_entries.append(f"file '{wav.resolve()}'")
-        cues.append((float(shot["start"]),
-                     float(shot["start"]) + min(target - 0.04, speech_seconds), shot["narration"]))
+        onset = speech_onset(speech)
+        look_ahead = max(0.0, onset - 0.10)   # keep at most a 0.10 s lead over the voice
+        cue_start = float(shot["start"]) + look_ahead
+        cue_end = float(shot["start"]) + min(target - 0.04, speech_seconds)
+        if cue_end <= cue_start:
+            raise RuntimeError(f"{sid}: caption window collapses after onset correction")
+        cues.append((round(cue_start, 3), round(cue_end, 3), shot["narration"]))
         technical.append({"id": sid, "target_seconds": target, "target_frames": frames,
                           "source_seconds": round(source_duration, 3), "source_size": [width, height],
                           "source_sha256": record["sha256"], "narration_seconds": round(raw_duration, 3),
-                          "narration_atempo": round(speed, 4)})
+                          "narration_atempo": round(speed, 4),
+                          "speech_onset_seconds": onset, "caption_lead_seconds": round(look_ahead, 3)})
 
     video_list.write_text("\n".join(video_entries) + "\n", encoding="utf-8")
     audio_list.write_text("\n".join(audio_entries) + "\n", encoding="utf-8")

@@ -63,3 +63,14 @@
 ## 修订开场已获用户确认，进入视频制作
 
 已删除父亲驾车送行的未核实主张。现行30镜180秒645字符，fact_review.json绑定修订计划哈希；9项测试、preflight、generate --validate --clips-only通过。G01/G06旧音频及对应候选禁止使用。提交GEN_REQUEST请求30镜workers=2；实际创建数量以Actions日志/results.json为准，不把请求队列等同于30个成功任务。
+
+
+## 第一版母版与字幕领先修正（2026-11-16）
+
+第一版成片已渲染成功（57.4 MB，1080p/24fps/180.000s，qc 与 narration_fit 均通过），
+但新加的 `verify_master` 硬闸门判红：**字幕最多领先语音 0.240s（上限 0.2s）**。
+
+原因不是配音，而是合成语音每条都带 0.04–0.25 秒的前导静音，而字幕一律从镜头起点起。
+`render.py` 现在逐镜用 10ms RMS（与 `verify_master` 同口径）量出真实开口时间，
+字幕起点只保留 0.10 秒预读，并把 `speech_onset_seconds` / `caption_lead_seconds` 写进技术报告。
+离线自查 30 条：修正后最大领先 0.15 秒。修好后重跑出片，`verify_master` 报告会一并提交。
