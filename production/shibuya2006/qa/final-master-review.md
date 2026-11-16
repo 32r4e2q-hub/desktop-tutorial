@@ -41,3 +41,19 @@
 - `verify_master` 本地复跑 PASS（30 cues，max lead 0.13s，无空字幕）
 - 抽帧 50.5s、57s：新字幕与「争执内容来自被告供述」的金色说明同屏，语义一致
 - 其余 28 条未重录，画面、剪辑点未动；人工全片播放听感仍未签收
+
+## v4 音量均衡（2026-11-16，S16 突然变小）
+
+用户反馈：中段「他背着行李，去集合点」声音突然变小。实测确认成立——S16 原始 TTS 平均电平
+**-34.9 dB**，左右相邻的 S15/S17 是 **-19.3 dB**，相差约 15 dB，属于单条合成电平塌陷。
+
+- `render.py` 新增 `measured_mean_db()` / `speech_gain_db()` / `level_speech()`：
+  每条旁白在变速后单独量 `mean_volume`，拉到共用目标 **-19.0 dB**（增益限幅 ±20 dB，
+  `alimiter=limit=0.95:level=false` 防削波），增益写入技术报告 `narration_gain_db`。
+- 本轮实测增益：S16 **+18.6 dB**，其余 +3 上下（统一电平基准）。
+- 成片实测语音窗：85.2s **-18.7 dB**、91.2s **-18.7 dB**、97.2s **-18.6 dB**，
+  落差从 15 dB 收到 0.1 dB 以内；峰值 -0.9 dB，未削波。
+- 新成片：57,069,691 B，SHA256 `6f244ca3…c2453`，run 43876050715，`verify_master` PASS（max lead 0.11s）。
+- 新增回归测试 `test_quiet_narration_line_is_levelled_to_the_shared_db`；
+  本地 212 passed / 3 skipped。
+- 画面与镜头未动；人工全片播放听感仍未签收。

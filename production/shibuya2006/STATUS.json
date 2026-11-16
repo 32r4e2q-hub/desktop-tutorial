@@ -112,19 +112,19 @@
   "final_film": {
     "status": "rendered_gates_passed_playback_review_pending",
     "file": "交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
-    "bytes": 57284550,
-    "sha256": "239364d7a73317a642b88c9fb17bdd5dd0fe04d85f57880ecfc8f5925380e7d6",
-    "run": 43871158998,
+    "bytes": 57069691,
+    "sha256": "6f244ca3b0f83f330ca421ec14257435171efa9a3f7e57fd9375060179ce2453",
+    "run": 43876050715,
     "qc": "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
     "narration_fit": "PASS (max atempo 1.093x)",
     "verify_master": {
       "status": "PASS",
-      "max_caption_lead_seconds": 0.13,
+      "max_caption_lead_seconds": 0.11,
       "cues_without_speech": [],
       "report": "production/shibuya2006/qa/verify-master.json"
     },
-    "visual_sample_review": "v3: frames 50.5s/57s confirm the new bridge line and 供述 framing on screen; earlier 6-frame pass still holds for unchanged shots; S29 bedding ambiguity unchanged; full playback still required",
-    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/771463c/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4"
+    "visual_sample_review": "v4: narration levelled per clip (S16 gained +18.6 dB). Measured speech windows 85–103s now sit at -18.6/-18.7 dB instead of a 15 dB dip at 91–97s. Visuals untouched; earlier frame checks hold; full playback still required",
+    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/902cae2/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4"
   },
   "narration_acceptance": {
     "silent_substitute_allowed": false,
@@ -149,5 +149,42 @@
     "verify_master": "production/shibuya2006/qa/verify-master.json",
     "visual_sample": "production/shibuya2006/qa/final-master-review.md"
   },
-  "script_rewrite_note": "v2 rewrote all 30 lines into one commentary script. v3 (2026-11-16) fixed the abrupt jump at 49s: S09 is now 「门里再没有第三个人。之后的经过，只有他的说法。」 so the switch into his account is motivated on screen. Visuals, shots and cut points unchanged throughout."
+  "script_rewrite_note": "v2 rewrote all 30 lines into one commentary script. v3 (2026-11-16) fixed the abrupt jump at 49s: S09 is now 「门里再没有第三个人。之后的经过，只有他的说法。」 so the switch into his account is motivated on screen. Visuals, shots and cut points unchanged throughout.",
+  "audio_level_policy": {
+    "rule": "Every narration clip is measured with volumedetect after atempo and levelled to a shared -19.0 dB mean (+/-20 dB clamp, alimiter 0.95 level=false) before the SFX mix.",
+    "why": "The v3 master had one TTS line (S16) 15 dB below its neighbours, so the voice audibly dropped in the middle of the film.",
+    "applied_gain": {
+      "S01": 2.9,
+      "S02": 3.8,
+      "S03": 3.4,
+      "S04": 3.3,
+      "S05": 3.2,
+      "S06": 3.2,
+      "S07": 3.1,
+      "S08": 3.4,
+      "S09": 3.7,
+      "S10": 4.4,
+      "S11": 4.8,
+      "S12": 3.4,
+      "S13": 4.3,
+      "S14": 3.8,
+      "S15": 3.1,
+      "S16": 18.6,
+      "S17": 3.2,
+      "S18": 3.8,
+      "S19": 3.1,
+      "S20": 3.3,
+      "S21": 3.6,
+      "S22": 3.5,
+      "S23": 4.4,
+      "S24": 3.3,
+      "S25": 3.5,
+      "S26": 3.6,
+      "S27": 3.7,
+      "S28": 3.3,
+      "S29": 3.9,
+      "S30": 3.4
+    },
+    "test": "production/tests/test_shibuya2006_audio.py::test_quiet_narration_line_is_levelled_to_the_shared_db"
+  }
 }
