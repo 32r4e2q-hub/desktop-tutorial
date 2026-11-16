@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-16",
-  "phase": "narration_audio_incomplete_asr_pipeline_repaired",
+  "phase": "full_rerecord_with_new_voice_in_progress",
   "branch": "arena/749aaa18-desktop-tutorial",
   "video_sources": {
     "completed": 30,
@@ -25,11 +25,51 @@
       "S12"
     ],
     "missing_reason": "G04 was refused by the speech service content moderation; the wording was not altered to bypass it.",
-    "voice_id_recorded_in_assets": "voice-01",
-    "voice_reusable_this_session": false,
-    "voice_note": "Arena voice ids are session-scoped: generate_speech returned Unknown voice_id \"voice-01\" on 2026-11-16. New narration therefore needs a fresh audition, and mixing a new timbre into the existing 27 clips is not allowed without explicit user approval.",
+    "voice_id_recorded_in_assets": "voice-00",
+    "voice_reusable_this_session": true,
+    "voice_note": "User re-auditioned and picked voice-00 in this session (2026-11-16) for a full one-clip-per-shot re-record; voice-01 from the previous session is session-scoped and was not reusable.",
     "alignment_approved": 0,
-    "final_manifest_created": false
+    "final_manifest_created": false,
+    "mode": "full_rerecord_one_clip_per_shot",
+    "rerecorded": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S10",
+      "S11"
+    ],
+    "rerecord_pending": [
+      "S08",
+      "S09",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S22",
+      "S23",
+      "S24",
+      "S25",
+      "S26",
+      "S27",
+      "S28",
+      "S29",
+      "S30"
+    ],
+    "moderation_blocked_now": [
+      "S12"
+    ],
+    "moderation_note": "S10 and S11 passed moderation with the exact locked wording; S12 was still refused. User pre-approved a minimal, fact-checked rewrite of S12 and wording confirmation is pending.",
+    "group_sources_role": "provenance only; the 21 ASR-cut candidates are superseded by the per-shot re-record"
   },
   "asr_review": {
     "workflow": "第17期 · 旁白独立转写核验",

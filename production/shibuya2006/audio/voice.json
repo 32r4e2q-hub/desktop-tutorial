@@ -1,38 +1,51 @@
 {
   "status": "selected",
-  "voice_id": "voice-01",
+  "voice_id": "voice-00",
   "language": "zh-CN",
-  "description": "本期用户试听选定的更低沉成熟男声；悬疑、克制，短句有停顿，不煽情、不猎奇",
+  "description": "本轮用户重新试听选定的低沉成熟男声；悬疑、克制，短句有停顿，不煽情、不猎奇",
   "selected_at": "2026-11-16",
-  "selected_by": "user via Arena voice audition battle 01",
+  "selected_by": "user via Arena voice audition (this session, battle 00)",
   "narration_progress": {
-    "individual_generated": [
+    "mode": "full_rerecord_one_clip_per_shot",
+    "generated": [
       "S01",
       "S02",
       "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S10",
+      "S11"
+    ],
+    "pending": [
+      "S08",
+      "S09",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
       "S16",
       "S17",
-      "S18"
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S22",
+      "S23",
+      "S24",
+      "S25",
+      "S26",
+      "S27",
+      "S28",
+      "S29",
+      "S30"
     ],
-    "current_generated_groups": [
-      "G02",
-      "G03",
-      "G05",
-      "G07",
-      "G08",
-      "G09",
-      "G10"
-    ],
-    "superseded_groups": [
-      "G01",
-      "G06"
-    ],
-    "blocked_shots": [
-      "S10",
-      "S11",
+    "moderation_blocked": [
       "S12"
     ],
-    "completed_clips": [],
-    "alignment_status": "27 shot texts have current audio sources; 21 cuts require independent ASR/semantic review, six independent lines need review; 3 missing. Not final."
-  }
+    "blocked_note": "S12 (他关上房门…后来，他承认杀害妹妹。) was refused by speech content moderation on 2026-11-16; user pre-approved a minimal rewrite, pending wording confirmation.",
+    "alignment_status": "per-shot clips, not yet independently transcribed in CI"
+  },
+  "superseded_voice": "voice-01 (previous session; Arena voice ids are session-scoped and could not be reused)"
 }
