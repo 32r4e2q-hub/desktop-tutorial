@@ -61,8 +61,15 @@ jobs:
           rm -f production/shibuya2006/qa/narration-asr-error.txt
           # 先用词级时间戳切分（句界来自 ASR，不是静音猜测）；模型/环境不可用时
           # 退回静音切分，报告里的 status 会如实写明是哪种。
-          python production/shibuya2006/align_group_audio.py \
-            || python production/shibuya2006/prepare_group_audio.py
+          # 2026-11-16：voice-01 分组连读源全部作废后，不再浪费一次 ASR 去切旧组；
+          # 逐镜 voice-00 录音（audio/S01–S30.mp3）由 transcribe_audio_candidates.py 直接转写。
+          if python3 -c "import json,sys;g=json.load(open('production/shibuya2006/audio/groups/manifest.json'))['groups'];sys.exit(0 if all(x['status'].startswith('superseded') for x in g) else 1)"
+          then
+            echo 'All grouped sources are superseded; skipping group cut candidates.'
+          else
+            python production/shibuya2006/align_group_audio.py \
+              || python production/shibuya2006/prepare_group_audio.py
+          fi
           python production/shibuya2006/transcribe_audio_candidates.py
       - name: Save evidence, not approvals
         if: always()
