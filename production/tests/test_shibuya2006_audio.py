@@ -79,6 +79,51 @@ class NarrationDecodeTests(unittest.TestCase):
         self.assertIn("decode_float32", text)
         self.assertNotIn("model.transcribe(str(path)", text)
 
+    def test_boundaries_land_on_asr_word_onsets_not_on_silence(self):
+        """句界取 ASR 词起点：静音切分会把 S23/S24 切在句子中间。"""
+        from types import SimpleNamespace
+
+        import align_group_audio as align
+
+        texts = ["今天很冷。", "明天更冷。", "后天最冷。"]
+        starts = [0.20, 2.10, 4.05]           # 每句首字真正开口的时间
+        words = []
+        for base, sentence in zip(starts, ("今天很冷", "明天更冷", "后天最冷")):
+            for offset, character in enumerate(sentence):
+                words.append(SimpleNamespace(word=character,
+                                             start=base + offset * 0.2,
+                                             end=base + offset * 0.2 + 0.18))
+        heard, spans = align.char_spans(words)
+        cuts, evidence, matched = align.boundaries_for(texts, heard, spans, 6.0)
+
+        self.assertEqual(len(cuts), 4)
+        self.assertAlmostEqual(cuts[1], starts[1] - align.PRE_ROLL, places=3)
+        self.assertAlmostEqual(cuts[2], starts[2] - align.PRE_ROLL, places=3)
+        self.assertEqual(matched, len(heard))
+        self.assertEqual([row["time"] for row in evidence], starts[1:])
+
+    def test_missing_word_still_yields_a_boundary(self):
+        """ASR 吞字时，就近映射到能对上的字，而不是抛异常或乱切。"""
+        from types import SimpleNamespace
+
+        import align_group_audio as align
+
+        texts = ["今天很冷。", "明天更冷。", "后天最冷。"]
+        starts = [0.2, 3.0, 5.8]
+        words = []
+        for base, sentence in zip(starts, ("今天很冷", "明天更冷", "后天最冷")):
+            for offset, character in enumerate(sentence):
+                if sentence == "明天更冷" and character == "更":
+                    continue          # whisper 吞掉一个字
+                words.append(SimpleNamespace(word=character,
+                                             start=base + offset * 0.5,
+                                             end=base + offset * 0.5 + 0.45))
+        heard, spans = align.char_spans(words)
+        cuts, _evidence, _matched = align.boundaries_for(texts, heard, spans, 8.0)
+        self.assertEqual(len(cuts), 4)
+        self.assertAlmostEqual(cuts[1], starts[1] - align.PRE_ROLL, delta=0.6)
+        self.assertAlmostEqual(cuts[2], starts[2] - align.PRE_ROLL, delta=0.6)
+
     def test_worker_installs_pinned_python_and_shared_requirements(self):
         text = (WORKFLOWS / "shibuya2006-audio-review.yml").read_text(encoding="utf-8")
         self.assertIn("actions/setup-python@v5", text)
@@ -86,6 +131,11 @@ class NarrationDecodeTests(unittest.TestCase):
         self.assertIn("production/requirements.txt", text)
         self.assertIn("faster-whisper", text)
         self.assertIn("WHISPER_CACHE_DIR", text)
+        # 切分优先用 ASR 词时间戳，静音切分只做兜底。
+        step = text[text.index("Cut candidates and independently transcribe"):]
+        self.assertLess(step.index("align_group_audio.py"),
+                        step.index("transcribe_audio_candidates.py"))
+        self.assertIn("|| python production/shibuya2006/prepare_group_audio.py", step)
 
     def test_shibuya_workflows_follow_the_current_arena_branch(self):
         """三条第17期工作流都跑"触发它的那条分支"，不再写死某轮 arena/<id>。"""

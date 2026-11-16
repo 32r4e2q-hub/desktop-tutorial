@@ -59,7 +59,10 @@ jobs:
           python --version
           python -c "import av; print('PyAV', av.__version__)"
           rm -f production/shibuya2006/qa/narration-asr-error.txt
-          python production/shibuya2006/prepare_group_audio.py
+          # 先用词级时间戳切分（句界来自 ASR，不是静音猜测）；模型/环境不可用时
+          # 退回静音切分，报告里的 status 会如实写明是哪种。
+          python production/shibuya2006/align_group_audio.py \
+            || python production/shibuya2006/prepare_group_audio.py
           python production/shibuya2006/transcribe_audio_candidates.py
       - name: Save evidence, not approvals
         if: always()

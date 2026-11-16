@@ -62,8 +62,12 @@ class PlanTests(unittest.TestCase):
             self.assertNotIn('tpad',vf)
     def test_audio_proposals_not_final(self):
         report=json.loads((HERE/'qa/group-tts-split-candidates.json').read_text())
-        self.assertEqual(report['status'],'candidate_only_not_alignment_pass')
+        # 两种候选：静音切分兜底，或 ASR 词边界切分。都不等于对齐签收。
+        self.assertIn(report['status'],('candidate_only_not_alignment_pass','asr_boundary_candidate'))
         self.assertFalse((HERE/'audio/manifest.json').exists())
+        for clip in report.get('clips',[]):
+            self.assertTrue(clip.get('alignment_review','').startswith('pending'),clip['id'])
+            self.assertFalse(clip.get('approved',False),clip['id'])
     def test_character_board_bindings(self):
         import hashlib
         import preflight
