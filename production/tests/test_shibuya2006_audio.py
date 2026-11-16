@@ -124,6 +124,28 @@ class NarrationDecodeTests(unittest.TestCase):
         self.assertAlmostEqual(cuts[1], starts[1] - align.PRE_ROLL, delta=0.6)
         self.assertAlmostEqual(cuts[2], starts[2] - align.PRE_ROLL, delta=0.6)
 
+    def test_transcript_approval_needs_a_written_reason(self):
+        """相似度只是门槛：同音字偏差必须有写下来的理由，不能自动放行。"""
+        import assemble_narration_review as assemble
+
+        self.assertTrue(assemble.decision(0.95, None)[0])
+        approved, _note = assemble.decision(0.70, None)
+        self.assertFalse(approved)
+        approved, note = assemble.decision(0.70, "whisper 把「涩谷」听成「社谷」")
+        self.assertTrue(approved)
+        self.assertIn("涩谷", note)
+
+    def test_review_assembly_refuses_cut_candidates(self):
+        """三句连读切出来的候选不能冒充逐镜录音。"""
+        import assemble_narration_review as assemble
+
+        story = {"shots": [{"id": "S01", "narration": "妹妹遇害第二天，他照常去集训。"}]}
+        asr = {"shots": [{"id": "S01", "source_kind": "pause_cut_candidate",
+                          "sha256": "0" * 64, "similarity": 1.0, "atempo_needed": 1.0}]}
+        rows = assemble.build_rows(story, "voice-00", asr, {})
+        self.assertEqual(rows[0]["status"], "pending")
+        self.assertIn("different source", rows[0]["reason"])
+
     def test_worker_installs_pinned_python_and_shared_requirements(self):
         text = (WORKFLOWS / "shibuya2006-audio-review.yml").read_text(encoding="utf-8")
         self.assertIn("actions/setup-python@v5", text)

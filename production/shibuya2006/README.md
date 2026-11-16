@@ -30,7 +30,7 @@
 
 1. **先解决录音缺口**（当前唯一硬阻塞）：S10–S12 需要真实语音。要么本轮重新试听选定一条音色后全篇逐镜重录（推荐，音色统一且一劳永逸），要么用户提供合规录音。不得用静音、旧期声音或改词绕过审核；换声线必须用户同意。见 `audio/NARRATION_STATUS.md`。
 2. 逐镜合成后跑 `第17期 · 旁白独立转写核验`：报告写 `qa/narration-asr.json`，相似度 ≥0.90 才进入人工听检，工具本身不签收。
-3. 听检通过后写 `audio/review.json`（每条含文本、SHA256、voice_id、复核人），再跑 `build_audio_manifest.py` 生成 `audio/manifest.json`；此时 30 条逐镜文件必须齐全。
+3. 30 条逐镜文件齐了以后跑 `assemble_narration_review.py`：它按 ASR 证据逐条比对 SHA256/文本/音色，只有把同音字偏差的理由写进 `audio/review-allow.json` 才放行；全部通过后加 `--write` 生成 `audio/review.json`，再跑 `build_audio_manifest.py` 生成 `audio/manifest.json`。这份复核是转写比对，不是人耳签收。
 4. 渲染：`{"mode":"render"}` 触发 `shibuya2006.yml`，内部依次跑 `build_audio_manifest.py`、`generate.py --render-only --publish`；成片与报告 commit 回当前分支。
 5. `narration_fit.py`、`verify_master.py`、`qc.py`，再完整播放复核；每 5 镜开接触表抽检面部/服装/年代，失败只重做对应镜头。
 6. 本期视频完成后才从成片取帧制封面，不用参考图冒充截图；保留第17期系列发布信息。
