@@ -4,63 +4,6 @@
   "policy": "No final audio/manifest.json until missing groups and transcript boundaries are verified",
   "groups": [
     {
-      "id": "G01",
-      "duration": 17.448,
-      "cuts": [
-        0.0,
-        3.86327,
-        9.632665,
-        17.448
-      ],
-      "proportional_priors": [
-        4.629061224489796,
-        10.326367346938776
-      ],
-      "detected_silences": [
-        {
-          "start": 1.79854,
-          "end": 2.20133,
-          "middle": 1.999935
-        },
-        {
-          "start": 3.54658,
-          "end": 4.17996,
-          "middle": 3.86327
-        },
-        {
-          "start": 5.6265,
-          "end": 6.5785,
-          "middle": 6.1025
-        },
-        {
-          "start": 7.005,
-          "end": 7.60458,
-          "middle": 7.304790000000001
-        },
-        {
-          "start": 9.05033,
-          "end": 10.215,
-          "middle": 9.632665
-        },
-        {
-          "start": 11.8825,
-          "end": 13.411,
-          "middle": 12.64675
-        },
-        {
-          "start": 14.2781,
-          "end": 15.0922,
-          "middle": 14.68515
-        },
-        {
-          "start": 16.0386,
-          "end": 16.2605,
-          "middle": 16.149549999999998
-        }
-      ],
-      "review": "pending_listening_or_ASR"
-    },
-    {
       "id": "G02",
       "duration": 17.688,
       "cuts": [
@@ -237,53 +180,6 @@
           "start": 11.6978,
           "end": 11.95,
           "middle": 11.8239
-        }
-      ],
-      "review": "pending_listening_or_ASR"
-    },
-    {
-      "id": "G06",
-      "duration": 12.888,
-      "cuts": [
-        0.0,
-        3.98904,
-        9.199375,
-        12.888
-      ],
-      "proportional_priors": [
-        4.495813953488372,
-        9.291348837209302
-      ],
-      "detected_silences": [
-        {
-          "start": 1.73633,
-          "end": 2.13783,
-          "middle": 1.93708
-        },
-        {
-          "start": 3.63975,
-          "end": 4.33833,
-          "middle": 3.98904
-        },
-        {
-          "start": 5.78608,
-          "end": 6.66854,
-          "middle": 6.22731
-        },
-        {
-          "start": 7.38287,
-          "end": 7.78675,
-          "middle": 7.584809999999999
-        },
-        {
-          "start": 8.79821,
-          "end": 9.60054,
-          "middle": 9.199375
-        },
-        {
-          "start": 10.8255,
-          "end": 11.1573,
-          "middle": 10.991399999999999
         }
       ],
       "review": "pending_listening_or_ASR"
@@ -544,45 +440,6 @@
   ],
   "clips": [
     {
-      "id": "S01",
-      "group": "G01",
-      "cut_start": 0.0,
-      "cut_end": 3.86327,
-      "seconds": 3.384,
-      "target": 5,
-      "atempo_required": 1.0,
-      "text": "妹妹遇害第二天，他照常去集训。",
-      "sha256": "9df2a6631e1ca4a91c3a70129db0974df03ee6711bd7cd1fc4969c5fc57bfa8d",
-      "file": "work/shibuya2006/audio_candidates/S01.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
-    },
-    {
-      "id": "S02",
-      "group": "G01",
-      "cut_start": 3.86327,
-      "cut_end": 9.632665,
-      "seconds": 5.016,
-      "target": 5,
-      "atempo_required": 1.0032,
-      "text": "父亲还开车送他。家里，究竟发生了什么？",
-      "sha256": "cb8ef1026710dc61185c3e1a515e08d7ebaf56c6c142f2cf6c203adf7a4109d8",
-      "file": "work/shibuya2006/audio_candidates/S02.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
-    },
-    {
-      "id": "S03",
-      "group": "G01",
-      "cut_start": 9.632665,
-      "cut_end": 17.448,
-      "seconds": 6.96,
-      "target": 7,
-      "atempo_required": 1.0,
-      "text": "时间倒回一天前。东京涩谷，年末的街道依然热闹。",
-      "sha256": "d5b5315f1b9639e2558f4000f4f600aaf1c624bc182664b193efb292ff5e5241",
-      "file": "work/shibuya2006/audio_candidates/S03.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
-    },
-    {
       "id": "S04",
       "group": "G02",
       "cut_start": 0.0,
@@ -697,45 +554,6 @@
       "text": "十二月三十一日，他收拾行李，准备去补习班集训。",
       "sha256": "a264f6f4603718fd4487a5969ba8aa810e74efb3612a9792e570c45661dcec60",
       "file": "work/shibuya2006/audio_candidates/S15.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
-    },
-    {
-      "id": "S16",
-      "group": "G06",
-      "cut_start": 0.0,
-      "cut_end": 3.98904,
-      "seconds": 3.48,
-      "target": 6,
-      "atempo_required": 1.0,
-      "text": "父亲拿起车钥匙，带着儿子走出家门。",
-      "sha256": "50970a1e8ffbbdd3a5bc4cd8b4a161cdc34252a147e4f107db41589a15fe8333",
-      "file": "work/shibuya2006/audio_candidates/S16.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
-    },
-    {
-      "id": "S17",
-      "group": "G06",
-      "cut_start": 3.98904,
-      "cut_end": 9.199375,
-      "seconds": 4.632,
-      "target": 6,
-      "atempo_required": 1.0,
-      "text": "车里一切如常。父亲开车，儿子望着窗外。",
-      "sha256": "e4cb4d1b664a1456f1dfcf42855577d8b6ca7c088a8423a7ca22809b2bc096cc",
-      "file": "work/shibuya2006/audio_candidates/S17.mp3",
-      "alignment_review": "pending; candidate boundary may split the wrong sentence"
-    },
-    {
-      "id": "S18",
-      "group": "G06",
-      "cut_start": 9.199375,
-      "cut_end": 12.888,
-      "seconds": 3.024,
-      "target": 5,
-      "atempo_required": 1.0,
-      "text": "而家里的那扇门，仍紧紧关着。",
-      "sha256": "5b008a1b83501c50721336e05e29ddaae240cebdd97429450958ac78d2de343f",
-      "file": "work/shibuya2006/audio_candidates/S18.mp3",
       "alignment_review": "pending; candidate boundary may split the wrong sentence"
     },
     {
@@ -897,6 +715,15 @@
   ],
   "missing": [
     {
+      "id": "G01",
+      "reason": "superseded_script_change",
+      "shots": [
+        "S01",
+        "S02",
+        "S03"
+      ]
+    },
+    {
       "id": "G04",
       "reason": "moderation_blocked",
       "shots": [
@@ -904,11 +731,15 @@
         "S11",
         "S12"
       ]
+    },
+    {
+      "id": "G06",
+      "reason": "superseded_script_change",
+      "shots": [
+        "S16",
+        "S17",
+        "S18"
+      ]
     }
-  ],
-  "superseded_groups": [
-    "G01",
-    "G06"
-  ],
-  "warning": "G01/G06 script changed by user decision; associated six candidate cuts are obsolete. No cut is alignment-approved."
+  ]
 }
