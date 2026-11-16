@@ -24,9 +24,17 @@ class PlanTests(unittest.TestCase):
             self.assertTrue(p.startswith('【STYLE】'))
             self.assertTrue(p.endswith(build_story.NEGATIVE))
             for role in s['characters']:self.assertIn(self.story['characters'][role],p)
+    def test_narration_budget(self):
+        """新稿按 3.6 字/秒估时，逐镜不得超过该镜时长的 1.2 倍，避免整片被变速拉坏。"""
+        import re
+        for s in self.story['shots']:
+            hanzi = len(re.sub(r'[^\u4e00-\u9fff]', '', s['narration']))
+            self.assertLessEqual(hanzi / 3.6, s['duration'] * 1.2, s['id'])
+            self.assertTrue(s['narration'].rstrip()[-1] in '。？！', s['id'])
+
     def test_hooks(self):
         hooks=self.story['presentation']['hooks']
-        self.assertEqual([h['start'] for h in hooks],[0,8,55,80,125,130,144,156,168])
+        self.assertEqual([h['start'] for h in hooks],[0,8,55,80,108,130,144,156,168])
         self.assertTrue(all(h['end']-h['start']==2 for h in hooks))
     def test_paid_requests_fail_closed(self):
         project=dict(self.story, fact_check={'status':'pending'})
@@ -43,16 +51,16 @@ class PlanTests(unittest.TestCase):
                         self.assertTrue(row.get(field))
         self.assertEqual(generate.REQUEST_INTERVAL_SECONDS,12.1)
     def test_group_audio_provenance(self):
+        """voice-01 分组连读源全部作废，只作留档；现行配音仅用 audio/manifest.json 的逐镜 voice-00。"""
         import hashlib
         manifest=json.loads((HERE/'audio/groups/manifest.json').read_text())
-        story_shots={s['id']:s for s in self.story['shots']}
+        self.assertTrue(manifest['groups'])
         for group in manifest['groups']:
-            if group['status']!='superseded_script_change':
-                self.assertEqual(''.join(story_shots[s]['narration'] for s in group['shots']),group['text'])
-            if group['status'] in ['generated','superseded_script_change']:
+            self.assertTrue(group['status'].startswith('superseded'),group['id'])
+            self.assertEqual(group['voice_id'],'voice-01',group['id'])
+            if group.get('file'):
                 path=HERE/'audio/groups'/group['file']
-                self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),group['sha256'])
-                self.assertEqual(group['voice_id'],'voice-01')
+                self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),group['sha256'],group['id'])
             else:
                 self.assertFalse((HERE/'audio/groups'/f"{group['id']}.mp3").exists())
     def test_no_legacy_tail_freeze(self):

@@ -1,15 +1,17 @@
 {
   "status": "verified",
-  "plan_sha256": "ea40c9e61a150e510c8bfa255ccebe83e9077506b88f16c1bd6d157d2c8984d4",
+  "plan_sha256": "47178d9ad742c93b55b564ab4cebb348d043294f762ea612261ab494da943822",
   "reviewed_at": "2026-11-16",
-  "scope": "Current revised plan only; father-driving claim removed by user decision",
+  "scope": "Current revised plan only; narration rewritten 2026-11-16 into one continuous commentary script; no factual claim changed",
   "sources_file": "FACT_CHECK.md",
   "user_decision": "verified_opening",
   "limitations": [
     "Fictional faces, interiors, clothing and movements are dramatization",
     "Dream argument attributed to accused, not victim-blaming",
     "No exact unverified event times or driving transport claims",
-    "S12 says his sister\\u2019s death is connected to him; the detailed admission is not narrated on screen"
+    "He admitted only in interrogation on 4 Jan; the narration no longer implies an earlier admission",
+    "No method, quantity or body-disposal detail in narration; victim is not framed as the cause",
+    "Narration assigns responsibility to the perpetrator; the closing question is reflection, not indictment of the family"
   ],
   "visual_revision_note": "S28 judge-only staging; remove duplicated foreground youth. No narration or verified fact changes.",
   "narration_wording_revision": {
@@ -19,5 +21,13 @@
     "reason": "Speech content moderation refused the sentence naming the killing; user approved this minimal rewrite in advance and picked this wording.",
     "fact_basis": "He shut the door and later admitted that his sister’s death was connected to him. No new claim, no changed chronology, no mitigation of responsibility; only the graphic verb is removed.",
     "approved_by": "user decision 2026-11-16 (option: 后来，他承认，妹妹的死与自己有关。)"
+  },
+  "narration_rewrite_2026_11_16": {
+    "reason": "User verdict: previous 30 lines read as detached captions — incoherent, illogical, incomplete, no film-commentary voice.",
+    "approach": "One chronological through-line: cold open (31 Dec arrival) → rewind to 30 Dec family and departures → the argument (attributed to his statement) → the killing behind the door → concealment and the camp → return, discovery, arrest → responsibility hearings and the two sentences → reflection.",
+    "fact_effect": "No new factual claim. The old S12 placed 'he later admitted' at 67s, which broke chronology; the admission now sits at S23 with the interrogation. Dream quarrel still only as his statement. No method/body-disposal detail. Two-instance judgment and appeal reasoning unchanged.",
+    "duration_effect": "New script 536 Han characters (~5% shorter than the 565-character version); expected atempo well under the 1.55 limit.",
+    "voice": "voice-00 unchanged; all 30 clips re-recorded, ASR-verified and re-reviewed before render.",
+    "s12_wording_exception": "The previously approved S12 wording is no longer used verbatim; the new S12 makes a weaker statement (he shut the door and left the truth inside). This removes wording, it does not add a claim."
   }
 }

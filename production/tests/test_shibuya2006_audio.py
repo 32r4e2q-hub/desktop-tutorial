@@ -205,12 +205,12 @@ class NarrationDecodeTests(unittest.TestCase):
                         f"{name} 写死了分支名：{stripped}")
 
     def test_missing_narration_is_reported_not_filled(self):
-        """缺 G04（S10–S12）时，转写报告只能写 missing_audio，不许造音频。"""
+        """voice-01 分组源全部作废后，逐镜仍须报告来源缺失，不许造音频。"""
         import transcribe_audio_candidates as transcribe
 
         reasons = transcribe.blocked_reasons()
-        for sid in ("S10", "S11", "S12"):
-            self.assertEqual(reasons.get(sid), "moderation_blocked")
+        self.assertEqual(set(reasons), {f"S{i:02}" for i in range(1, 31)})
+        self.assertEqual(set(reasons.values()), {"superseded_script_change"})
         text = (PROJECT / "transcribe_audio_candidates.py").read_text(encoding="utf-8")
         self.assertIn("missing_audio", text)
         # 不许在本脚本里生成音频：没有写文件、没有合成调用。

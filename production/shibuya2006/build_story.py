@@ -30,7 +30,7 @@ BOUNDS = [(0,10,'次日照常集训'),(10,35,'精英家庭'),(35,60,'一句话�
           (85,108,'照常集训'),(108,130,'母亲发现'),(130,150,'另一个人格的主张'),(150,168,'七年与十二年'),(168,180,'一个家')]
 HOOK_TEXT = [
  (0,'妹妹遇害第二天，他去了集训'),(8,'一句“你没有梦想”，为何被反复提起？'),
- (55,'那天下午，家里只剩两个人'),(80,'他选择了隐瞒'),(125,'谁先察觉到异味？'),
+ (55,'那天下午，家里只剩两个人'),(80,'他选择了隐瞒'),(108,'谁先察觉到异味？'),
  (130,'他先否认、后承认，争议却未结束'),(144,'律师提出：“另一个人”？'),
  (156,'七年变十二年：为何差五年？'),(168,'一个家，怎样对待“不成器”的孩子？')]
 EXPLAIN_TEXT = [
@@ -68,7 +68,7 @@ def build():
                style_prefix=STYLE,style_rumor_prefix=STYLE,negative_prompt=NEGATIVE,
                characters={f'C{i:02}':f'【C{i:02}锚点】'+a for i,a in enumerate(data['anchors'],1)},
                character_seeds={f'C{i:02}':20061230+i for i in range(1,len(data['anchors'])+1)},
-               narration_spec=dict(voice_id=voice.get('voice_id','pending_voice_selection'),description='悬疑低沉、克制的成熟普通话男声；短句、有停顿、不煽情',
+               narration_spec=dict(voice_id=voice.get('voice_id','pending_voice_selection'),description='电影解说体：低沉克制的成熟普通话男声，句子间连贯推进、不逐镜喊口号、不煽情',
                                    language='zh-CN',target_characters_per_second=3.7,alignment='shot-locked; final alignment requires measured TTS'),
                chapters=[dict(id=f'N{i:02}',title=t,start=a,duration=b-a,text=''.join(s['narration'] for s in shots if a<=s['start']<b)) for i,(a,b,t) in enumerate(BOUNDS,1)],
                shots=shots,reference_images=[dict(id=k,**v) for k,v in approvals['assets'].items() if v['status']=='approved'],
