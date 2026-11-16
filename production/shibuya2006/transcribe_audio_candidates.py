@@ -38,14 +38,31 @@ MATCH_THRESHOLD = 0.90
 
 
 def normalize(text: str) -> str:
-    """Compare spoken characters, not punctuation or OpenCC's traditional forms."""
+    """Compare spoken characters: no punctuation, no 繁简差, numbers read aloud.
+
+    This reuses ``production/verbatim_check.py``'s normaliser on purpose. The first
+    run of the repaired pipeline scored S15 at 0.72 only because Whisper wrote
+    ``12月31日`` where the script says ``十二月三十一日`` and S19 dropped for
+    ``1月2日``; folding digits into their spoken form keeps ASR homophones (涩谷→社谷)
+    as the only remaining noise, instead of mistaking a number format for a cut error.
+    """
+    for parent in (ROOT / "production", HERE.parents[1] / "production"):
+        if (parent / "verbatim_check.py").is_file():
+            if str(parent) not in sys.path:
+                sys.path.insert(0, str(parent))
+            break
     try:
-        from opencc import OpenCC
-        text = OpenCC("t2s").convert(text)
-    except ImportError:
-        # OpenCC unavailable is not a reason to skip the check; it only folds 繁→简.
-        pass
-    return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9]", "", text).lower()
+        from verbatim_check import normalize as normalize_for_verbatim
+        return normalize_for_verbatim(text)
+    except Exception:
+        # Fall back to the local fold: the check must still run if verbatim_check
+        # cannot import (it keeps digits, so numbers will look like mismatches).
+        try:
+            from opencc import OpenCC
+            text = OpenCC("t2s").convert(text)
+        except ImportError:
+            pass
+        return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9]", "", text).lower()
 
 
 def ffmpeg_binary() -> str:

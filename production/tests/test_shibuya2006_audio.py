@@ -39,7 +39,14 @@ class NarrationDecodeTests(unittest.TestCase):
 
         self.assertEqual(transcribe.normalize("他说，她讲了句，你没有梦想。"),
                          "他说她讲了句你没有梦想")
-        self.assertEqual(transcribe.normalize("S01 12:30"), "s011230")
+        # 数字要按念出来的字对齐：2026-11-16 那一轮把 "12月31日" 当成不一致。
+        self.assertEqual(transcribe.normalize("12月31日"),
+                         transcribe.normalize("十二月三十一日"))
+        self.assertEqual(transcribe.normalize("1月2日"),
+                         transcribe.normalize("一月二日"))
+        # whisper 会整段吐繁体，繁体/简体不能各记一个错字。
+        self.assertEqual(transcribe.normalize("東京的家"),
+                         transcribe.normalize("东京的家"))
 
     @unittest.skipUnless(HAVE_FFMPEG, "需要 ffmpeg 才能造测试音频")
     def test_decode_uses_ffmpeg_and_returns_16k_float32(self):
