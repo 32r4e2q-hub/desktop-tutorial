@@ -1,6 +1,6 @@
 {
   "status": "verified",
-  "plan_sha256": "78b77335c102f999618d98db5913f7a1b765654bfbdc69e34a270c14dc42edba",
+  "plan_sha256": "ea40c9e61a150e510c8bfa255ccebe83e9077506b88f16c1bd6d157d2c8984d4",
   "reviewed_at": "2026-11-16",
   "scope": "Current revised plan only; father-driving claim removed by user decision",
   "sources_file": "FACT_CHECK.md",
@@ -8,7 +8,16 @@
   "limitations": [
     "Fictional faces, interiors, clothing and movements are dramatization",
     "Dream argument attributed to accused, not victim-blaming",
-    "No exact unverified event times or driving transport claims"
+    "No exact unverified event times or driving transport claims",
+    "S12 says his sister\\u2019s death is connected to him; the detailed admission is not narrated on screen"
   ],
-  "visual_revision_note": "S28 judge-only staging; remove duplicated foreground youth. No narration or verified fact changes."
+  "visual_revision_note": "S28 judge-only staging; remove duplicated foreground youth. No narration or verified fact changes.",
+  "narration_wording_revision": {
+    "shot": "S12",
+    "before": "他关上房门，也把真相留在了屋里。后来，他承认杀害妹妹。",
+    "after": "他关上房门，也把真相留在了屋里。后来，他承认，妹妹的死与自己有关。",
+    "reason": "Speech content moderation refused the sentence naming the killing; user approved this minimal rewrite in advance and picked this wording.",
+    "fact_basis": "He shut the door and later admitted that his sister’s death was connected to him. No new claim, no changed chronology, no mitigation of responsibility; only the graphic verb is removed.",
+    "approved_by": "user decision 2026-11-16 (option: 后来，他承认，妹妹的死与自己有关。)"
+  }
 }

@@ -55,11 +55,12 @@
         "S11",
         "S12"
       ],
-      "text": "他说，她讲了句，你没有梦想。但这不是施暴的理由。那天下午，亚澄遇害了。此后的平静，才让人难以理解。他关上房门，也把真相留在了屋里。后来，他承认杀害妹妹。",
+      "text": "他说，她讲了句，你没有梦想。但这不是施暴的理由。那天下午，亚澄遇害了。此后的平静，才让人难以理解。他关上房门，也把真相留在了屋里。后来，他承认，妹妹的死与自己有关。",
       "voice_id": "voice-01",
       "status": "moderation_blocked",
       "alignment": "pending; continuous TTS source, not final shot-locked audio",
-      "note": "Speech tool returned content-moderation refusal. No audio fabricated, no alternative account/provider used to bypass."
+      "note": "Speech tool refused this three-shot request (content moderation). Never generated. The locked script changed on 2026-11-16 by user decision: the final sentence now says \"妹妹的死与自己有关\" instead of naming the killing; S10/S11 pass moderation with the original wording and are recorded individually as audio/S10.mp3 and audio/S11.mp3.",
+      "original_text": "他说，她讲了句，你没有梦想。但这不是施暴的理由。那天下午，亚澄遇害了。此后的平静，才让人难以理解。他关上房门，也把真相留在了屋里。后来，他承认杀害妹妹。"
     },
     {
       "id": "G05",
@@ -152,5 +153,6 @@
       "file": "G10.mp3",
       "bytes": 72141
     }
-  ]
+  ],
+  "policy_note": "Group sources are provenance only; the final film uses one independent clip per shot (audio/S01..S30.mp3)."
 }

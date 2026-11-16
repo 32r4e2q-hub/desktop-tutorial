@@ -39,12 +39,10 @@
       "S05",
       "S06",
       "S07",
-      "S10",
-      "S11"
-    ],
-    "rerecord_pending": [
       "S08",
       "S09",
+      "S10",
+      "S11",
       "S12",
       "S13",
       "S14",
@@ -52,7 +50,9 @@
       "S16",
       "S17",
       "S18",
-      "S19",
+      "S19"
+    ],
+    "rerecord_pending": [
       "S20",
       "S21",
       "S22",
@@ -65,10 +65,8 @@
       "S29",
       "S30"
     ],
-    "moderation_blocked_now": [
-      "S12"
-    ],
-    "moderation_note": "S10 and S11 passed moderation with the exact locked wording; S12 was still refused. User pre-approved a minimal, fact-checked rewrite of S12 and wording confirmation is pending.",
+    "moderation_blocked_now": [],
+    "moderation_note": "S10/S11 passed with the locked wording; S12 was refused and now uses the user-approved rewrite (妹妹的死与自己有关), which passed moderation. fact_review.json was rebound to the new plan hash.",
     "group_sources_role": "provenance only; the 21 ASR-cut candidates are superseded by the per-shot re-record"
   },
   "asr_review": {
