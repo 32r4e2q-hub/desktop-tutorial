@@ -2,9 +2,22 @@
 """Episode 17: deterministic plan. No network calls; no approvals manufactured."""
 import json
 import hashlib
+import os
+import subprocess
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-BRANCH = 'arena/8d7fb4aa-desktop-tutorial'
+def _branch() -> str:
+    for key in ('SHIBUYA_BRANCH', 'GITHUB_REF_NAME'):
+        value = os.environ.get(key, '').strip()
+        if value:
+            return value
+    try:
+        return subprocess.check_output(['git', 'branch', '--show-current'], text=True).strip() or 'arena/749aaa18-desktop-tutorial'
+    except Exception:
+        return 'arena/749aaa18-desktop-tutorial'
+
+
+BRANCH = _branch()
 STYLE = ('【STYLE】电影级写实3D动画情景重现，非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，日本社会派家庭悲剧风格，'
          '2006至2009年东京涩谷幡谷，冬日冷白与屋内暖黄对比，低饱和，暗部厚重，真实人体比例、皮肤、布料与建筑材质；'
          '所有人物均为虚构演员式形象，不还原真实肖像。16:9横屏，主体在三分线，底部字幕安全区留空。'

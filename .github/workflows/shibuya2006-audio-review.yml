@@ -1,26 +1,52 @@
 name: 第17期 · 旁白独立转写核验
+# 触发面只限“当前这条 Arena 分支”：Arena 每次会话换一条分支名，所以这里不再写死
+# 某一轮的 arena/<id>，而是用 arena/** 加 job 级 if 守卫；checkout 与 push 都用
+# github.ref_name，跑到哪条分支就核哪条分支的音频。
 on:
   push:
-    branches: [arena/8d7fb4aa-desktop-tutorial]
-    paths: [production/shibuya2006/ASR_REQUEST]
+    branches: [arena/**]
+    paths:
+      - production/shibuya2006/ASR_REQUEST
+      - production/shibuya2006/transcribe_audio_candidates.py
+      - .github/workflows/shibuya2006-audio-review.yml
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: shibuya2006-asr-review
+  group: shibuya2006-asr-review-${{ github.ref_name }}
   cancel-in-progress: false
 jobs:
   transcribe:
-    if: github.ref == 'refs/heads/arena/8d7fb4aa-desktop-tutorial'
+    if: startsWith(github.ref, 'refs/heads/arena/')
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 35
+    env:
+      BRANCH: ${{ github.ref_name }}
+      # 连不上 huggingface.co 时把仓库变量 HF_ENDPOINT 设成镜像（如 https://hf-mirror.com）。
+      HF_ENDPOINT: ${{ vars.HF_ENDPOINT || 'https://huggingface.co' }}
+      # 配镜像必须同时关掉 Xet，否则会绕过 HF_ENDPOINT 直连 cas-server.xethub.hf.co。
+      HF_HUB_DISABLE_XET: ${{ vars.HF_HUB_DISABLE_XET || '1' }}
+      # 自托管 runner 上把模型缓存到常驻目录，避免每次重下 small 模型。
+      WHISPER_CACHE_DIR: ${{ vars.WHISPER_CACHE_DIR }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: arena/8d7fb4aa-desktop-tutorial
+          ref: ${{ github.ref_name }}
+      - name: Pin Python 3.11
+        # 2026-11-16：ubuntu-latest 默认 Python 已经到 3.14，pip 因此解析出一套
+        # 与 faster-whisper 不匹配的 PyAV，转写第一步就 TypeError 崩掉。
+        # 显式钉 3.11 后 av/faster-whisper 的轮子都是现成的。
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
       - name: Install transcription and media tools
         run: |
-          python -m pip install faster-whisper opencc-python-reimplemented
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          # requirements.txt 里 av 钉在 >=12,<19；audio-review 之前只装 faster-whisper，
+          # 于是 runner 上已有的老 av 被沿用，才出现 metadata_errors 那个 TypeError。
+          python -m pip install -r production/requirements.txt
+          python -m pip install "faster-whisper>=1.1,<2" opencc-python-reimplemented
           npm install --prefix "$RUNNER_TEMP/media-tools" --no-save --ignore-scripts --no-audit --no-fund @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
           mkdir -p "$RUNNER_TEMP/media-tools/bin"
           chmod +x "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe"
@@ -29,18 +55,36 @@ jobs:
           echo "$RUNNER_TEMP/media-tools/bin" >> "$GITHUB_PATH"
       - name: Cut candidates and independently transcribe all available lines
         run: |
+          export PATH="$RUNNER_TEMP/media-tools/bin:$PATH"
+          python --version
+          python -c "import av; print('PyAV', av.__version__)"
+          rm -f production/shibuya2006/qa/narration-asr-error.txt
           python production/shibuya2006/prepare_group_audio.py
           python production/shibuya2006/transcribe_audio_candidates.py
       - name: Save evidence, not approvals
         if: always()
         run: |
-          if [ -f production/shibuya2006/qa/narration-asr.json ] || [ -f production/shibuya2006/qa/narration-asr-error.txt ]; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add production/shibuya2006/qa/group-tts-split-candidates.json
-            if [ -f production/shibuya2006/qa/narration-asr.json ]; then git add production/shibuya2006/qa/narration-asr.json; fi
-            if [ -f production/shibuya2006/qa/narration-asr-error.txt ]; then git add production/shibuya2006/qa/narration-asr-error.txt; fi
-            git commit -m 'shibuya2006: independent ASR evidence for available narration, no automatic signoff'
-            git pull --rebase origin arena/8d7fb4aa-desktop-tutorial
-            git push origin arena/8d7fb4aa-desktop-tutorial
+          set -euo pipefail
+          test -n "${BRANCH:-}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          changed=0
+          for path in production/shibuya2006/qa/group-tts-split-candidates.json \
+                      production/shibuya2006/qa/narration-asr.json \
+                      production/shibuya2006/qa/narration-asr-error.txt; do
+            if [ -f "$path" ]; then
+              git add -- "$path"
+              changed=1
+            elif git ls-files --error-unmatch "$path" >/dev/null 2>&1; then
+              # 上一次失败留下的诊断文件不该在成功后再挂着。
+              git rm --quiet -- "$path"
+              changed=1
+            fi
+          done
+          if [ "$changed" -eq 0 ]; then
+            echo 'Nothing to record.'
+            exit 0
           fi
+          git commit -m 'shibuya2006: independent ASR evidence for available narration, no automatic signoff'
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"

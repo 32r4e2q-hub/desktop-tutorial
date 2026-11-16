@@ -1,99 +1,16 @@
 {
   "as_of": "2026-11-16",
-  "phase": "full_narration_required_asr_review_running",
-  "branch": "arena/8d7fb4aa-desktop-tutorial",
-  "reference_images_generated": 30,
-  "reference_images_approved": [
-    "C01",
-    "C02",
-    "C03",
-    "C04",
-    "C05",
-    "C06",
-    "C07",
-    "C08",
-    "S01",
-    "S02",
-    "S03",
-    "S04",
-    "S05",
-    "S06",
-    "S07",
-    "S08",
-    "S09",
-    "S10",
-    "S11",
-    "S12",
-    "S13",
-    "P01",
-    "P02",
-    "P03",
-    "P04",
-    "P05",
-    "P06",
-    "P07",
-    "C10",
-    "C09"
-  ],
-  "reference_images_missing": [],
-  "voice_id": "voice-01",
-  "tts_groups_generated": [
-    "G01",
-    "G02",
-    "G03",
-    "G05",
-    "G06",
-    "G07",
-    "G08",
-    "G09",
-    "G10"
-  ],
-  "tts_groups_missing": [
-    "G04"
-  ],
-  "shot_audio_candidates": 27,
-  "shot_audio_alignment_approved": 0,
-  "sfx_clips_generated": 30,
-  "offline_tests_passed": 9,
-  "agnes_creation_requests": 0,
-  "agnes_task_ids": [],
-  "video_sources_completed": 0,
-  "master_film_exists": false,
-  "blockers": [
-    "G01/G06已因改稿作废，视频任务启动后再处理配音",
-    "G04原稿语音审核问题仍未解决",
-    "所有逐镜配音候选仍未通过听检和对齐"
-  ],
-  "supplemental_character_views_generated": 22,
-  "supplemental_character_views_complete": false,
-  "character_boards_reviewed": 10,
-  "character_bindings_approved": true,
-  "reference_design_slots": 30,
-  "original_design_families": 28,
-  "fact_check": "verified_revised_plan",
-  "tts_groups_superseded": [
-    "G01",
-    "G06"
-  ],
-  "shot_audio_candidates_current": 21,
-  "current_sources_completed": 30,
-  "round2_sample_review": {
-    "acceptable_pending_playback": [
-      "S04",
-      "S05",
-      "S08",
-      "S11",
-      "S15",
-      "S17"
-    ],
-    "rejected": [
-      "S28"
-    ],
-    "reason": "S28 embedded multi-view reference board; third generation requested using approved single views",
-    "workflow": 43812656063
+  "phase": "narration_audio_incomplete_asr_pipeline_repaired",
+  "branch": "arena/749aaa18-desktop-tutorial",
+  "video_sources": {
+    "completed": 30,
+    "results_phase": "selected_sources_ready",
+    "note": "All 30 Agnes 2.5 Flash reference shots completed; visual sign-off of the full set still pending.",
+    "run_id": 43816274028
   },
-  "audio_current": {
-    "individual_generated": [
+  "narration": {
+    "required_spoken_shots": 30,
+    "individual_per_shot_clips": [
       "S01",
       "S02",
       "S03",
@@ -101,35 +18,54 @@
       "S17",
       "S18"
     ],
-    "group_cut_candidates": 21,
-    "alignment_approved": 0,
-    "speech_service_blocked": [
+    "three_shot_group_sources_cut_into_candidates": 21,
+    "missing_shots": [
       "S10",
       "S11",
       "S12"
-    ]
+    ],
+    "missing_reason": "G04 was refused by the speech service content moderation; the wording was not altered to bypass it.",
+    "voice_id_recorded_in_assets": "voice-01",
+    "voice_reusable_this_session": false,
+    "voice_note": "Arena voice ids are session-scoped: generate_speech returned Unknown voice_id \"voice-01\" on 2026-11-16. New narration therefore needs a fresh audition, and mixing a new timbre into the existing 27 clips is not allowed without explicit user approval.",
+    "alignment_approved": 0,
+    "final_manifest_created": false
+  },
+  "asr_review": {
+    "workflow": "第17期 · 旁白独立转写核验",
+    "previous_run": 43816706197,
+    "previous_result": "failed",
+    "previous_failure_root_cause": "PyAV/faster-whisper API mismatch on the media runner: av.open() had no metadata_errors keyword (TypeError). Not a defect in the recordings.",
+    "repair": "transcribe_audio_candidates.py now decodes with ffmpeg to 16 kHz mono float32 and hands the model an in-memory array; the workflow pins Python 3.11 and installs production/requirements.txt (av>=12,<19).",
+    "evidence_only": true,
+    "next_run": "triggered by the push of the repaired transcribe script"
   },
   "cover": {
     "file": "交付/第十七期_涩谷短大生惨案_封面.png",
     "episode": 17,
-    "status": "visually_reviewed",
+    "status": "visually_reviewed_draft",
     "source": "S17 current generated video at 0.5s; hash verified",
-    "note": "Not a historical image; film not yet final"
+    "note": "Not a historical image; the film is not final yet."
   },
   "final_film": {
     "status": "not_rendered",
     "download_link": null,
     "blockers": [
-      "S28 replacement pending",
-      "S10-S12 voice unavailable; user decision needed",
-      "21 grouped narration cuts require alignment review",
-      "complete playback and master verification not yet done"
+      "S10-S12 have no narration audio; a new voice audition or an authorised recording is required",
+      "27 available narration sources are still group-cut candidates with no verified alignment",
+      "No audio/manifest.json with 30 reviewed shot-locked clips yet",
+      "Master render, verify_master, narration_fit and complete playback review not run"
     ]
   },
   "narration_acceptance": {
-    "required_spoken_shots": 30,
     "silent_substitute_allowed": false,
     "speaker_change_allowed_without_approval": false,
+    "wording_change_to_bypass_moderation_allowed": false,
     "continuous_movie_commentary_required": true
+  },
+  "offline_tests": {
+    "production_tests": "206 passed, 3 skipped",
+    "project_test_plan": "13 passed",
+    "preflight": "READY (offline only; Agnes API not called this round)"
   }
 }

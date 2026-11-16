@@ -28,7 +28,26 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import agnes_video as agnes  # noqa: E402
 from throttle import RequestGate  # noqa: E402
 
-BRANCH = "arena/8d7fb4aa-desktop-tutorial"
+def _current_branch() -> str:
+    """Work on whichever Arena branch triggered the run, not the branch of a past session.
+
+    Arena gives each conversation its own ``arena/<id>`` branch. The workflow checks out
+    ``github.ref_name``; publishing receipts must push back to that same branch, so the
+    literal branch name is only a local fallback.
+    """
+    for key in ("SHIBUYA_BRANCH", "GITHUB_REF_NAME"):
+        value = os.environ.get(key, "").strip()
+        if value:
+            return value
+    try:
+        branch = subprocess.check_output(
+            ["git", "branch", "--show-current"], text=True).strip()
+    except Exception:
+        branch = ""
+    return branch or "arena/749aaa18-desktop-tutorial"
+
+
+BRANCH = _current_branch()
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
 REQUEST_INTERVAL_SECONDS = 12.1

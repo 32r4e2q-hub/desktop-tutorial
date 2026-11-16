@@ -1,0 +1,114 @@
+"""第17期旁白链路的离线守门：转写解码、分支口径、依赖装配。
+
+为什么要单独守这三条
+--------------------
+2026-11-16 的「旁白独立转写核验」跑了 1 分 14 秒就红：转写第一步就崩，
+
+    TypeError: open() got an unexpected keyword argument 'metadata_errors'
+
+原因是 runner 上的 Python 到了 3.14，pip 解析出的 PyAV 比 faster-whisper 要求的旧。
+**这不是录音坏了**，而是解码路径依赖了 runner 碰巧装了哪个 av 轮子。所以：
+
+1. 转写改成 ffmpeg 解码成 float32 数组再喂模型，PyAV 退出音频路径——这里用一段
+   真造出来的正弦波验证解码长度与类型；
+2. 工作流必须钉 Python 3.11 并装 ``production/requirements.txt``（av 在那边有版本
+   区间），否则同样的坑会换个方式回来；
+3. 工作流不能再写死某一条 ``arena/<id>`` 分支：Arena 每轮换分支，写死就等于下一轮
+   这些作业永远跑不到当前分支上。
+"""
+from __future__ import annotations
+
+import math
+import shutil
+import subprocess
+import sys
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+PROJECT = ROOT / "production" / "shibuya2006"
+WORKFLOWS = ROOT / ".github" / "workflows"
+sys.path.insert(0, str(PROJECT))
+
+HAVE_FFMPEG = shutil.which("ffmpeg") is not None
+
+
+class NarrationDecodeTests(unittest.TestCase):
+    def test_normalize_drops_punctuation_and_keeps_spoken_characters(self):
+        import transcribe_audio_candidates as transcribe
+
+        self.assertEqual(transcribe.normalize("他说，她讲了句，你没有梦想。"),
+                         "他说她讲了句你没有梦想")
+        self.assertEqual(transcribe.normalize("S01 12:30"), "s011230")
+
+    @unittest.skipUnless(HAVE_FFMPEG, "需要 ffmpeg 才能造测试音频")
+    def test_decode_uses_ffmpeg_and_returns_16k_float32(self):
+        """真造 0.5 秒正弦波：解码后长度必须是 16000 × 0.5，类型 float32。
+
+        这条用例替掉的正是崩在 ``av.open(..., metadata_errors=...)`` 上的那条路：
+        只要模块改回把文件路径直接交给模型，PyAV 版本再次漂移时这里会先红。
+        """
+        import tempfile
+
+        import numpy as np
+
+        import transcribe_audio_candidates as transcribe
+
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "tone.wav"
+            subprocess.run([
+                "ffmpeg", "-y", "-v", "error", "-f", "lavfi",
+                "-i", "sine=frequency=440:sample_rate=48000:duration=0.5",
+                "-ac", "2", str(source),
+            ], check=True)
+            samples = transcribe.decode_float32(source)
+        self.assertEqual(samples.dtype, np.float32)
+        self.assertEqual(len(samples), 8000)
+        self.assertGreater(float(np.max(np.abs(samples))), 0.1)
+
+    def test_module_never_passes_a_path_to_the_model(self):
+        """转写必须喂数组：源码里不能再出现 model.transcribe(<文件路径>)。"""
+        text = (PROJECT / "transcribe_audio_candidates.py").read_text(encoding="utf-8")
+        self.assertIn("decode_float32", text)
+        self.assertNotIn("model.transcribe(str(path)", text)
+
+    def test_worker_installs_pinned_python_and_shared_requirements(self):
+        text = (WORKFLOWS / "shibuya2006-audio-review.yml").read_text(encoding="utf-8")
+        self.assertIn("actions/setup-python@v5", text)
+        self.assertIn('python-version: "3.11"', text)
+        self.assertIn("production/requirements.txt", text)
+        self.assertIn("faster-whisper", text)
+        self.assertIn("WHISPER_CACHE_DIR", text)
+
+    def test_shibuya_workflows_follow_the_current_arena_branch(self):
+        """三条第17期工作流都跑"触发它的那条分支"，不再写死某轮 arena/<id>。"""
+        for name in ("shibuya2006.yml", "shibuya2006-audio-review.yml",
+                     "shibuya2006-cover.yml"):
+            with self.subTest(workflow=name):
+                text = (WORKFLOWS / name).read_text(encoding="utf-8")
+                self.assertIn("${{ github.ref_name }}", text)
+                self.assertIn("startsWith(github.ref, 'refs/heads/arena/')", text)
+                for line in text.splitlines():
+                    stripped = line.strip()
+                    if stripped.startswith("#"):
+                        continue
+                    self.assertNotRegex(
+                        stripped, r"arena/[0-9a-f]{8}-desktop-tutorial",
+                        f"{name} 写死了分支名：{stripped}")
+
+    def test_missing_narration_is_reported_not_filled(self):
+        """缺 G04（S10–S12）时，转写报告只能写 missing_audio，不许造音频。"""
+        import transcribe_audio_candidates as transcribe
+
+        reasons = transcribe.blocked_reasons()
+        for sid in ("S10", "S11", "S12"):
+            self.assertEqual(reasons.get(sid), "moderation_blocked")
+        text = (PROJECT / "transcribe_audio_candidates.py").read_text(encoding="utf-8")
+        self.assertIn("missing_audio", text)
+        # 不许在本脚本里生成音频：没有写文件、没有合成调用。
+        for forbidden in ("write_wav", "soundfile", "generate_speech", "silenceremove"):
+            self.assertNotIn(forbidden, text)
+
+
+if __name__ == "__main__":
+    unittest.main()

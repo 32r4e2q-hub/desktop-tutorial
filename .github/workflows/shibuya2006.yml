@@ -3,7 +3,7 @@ run-name: 涩谷短大生惨案 · 30镜视频制作
 
 on:
   push:
-    branches: [arena/8d7fb4aa-desktop-tutorial]
+    branches: [arena/**]
     paths:
       - production/shibuya2006/GEN_REQUEST
       - production/shibuya2006/CANCEL_REQUEST
@@ -19,20 +19,27 @@ permissions:
   actions: read
 
 concurrency:
-  group: shibuya2006-agnes-arena-8d7fb4aa
+  group: shibuya2006-agnes-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   produce:
-    if: github.ref == 'refs/heads/arena/8d7fb4aa-desktop-tutorial'
+    if: startsWith(github.ref, 'refs/heads/arena/')
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 300
     steps:
       - name: Checkout the current Arena branch
         uses: actions/checkout@v4
         with:
-          ref: arena/8d7fb4aa-desktop-tutorial
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
+
+      - name: Pin Python 3.11
+        # 2026-11-16：ubuntu-latest 的默认 Python 到 3.14 后，pip 解析出的 PyAV 与
+        # 调用方要求不匹配，参考图/音频相关步骤会无故 TypeError。钉住 3.11 保证轮子可用。
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
       - name: Install media tools and subtitle font
         run: |
@@ -52,7 +59,7 @@ jobs:
           if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
           ffmpeg -hide_banner -filters 2>&1 | grep -q subtitles
           ffprobe -version | head -1
-          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check numpy pillow av
+          python -m pip install --no-input --disable-pip-version-check -r production/requirements.txt
 
       - name: Validate and run the requested mode
         env:
@@ -87,7 +94,7 @@ jobs:
               git add -- production/shibuya2006/qa/render-failure.log
               if ! git diff --cached --quiet -- production/shibuya2006/qa/render-failure.log; then
                 git commit -m "shibuya2006: retain render failure diagnostics" -- production/shibuya2006/qa/render-failure.log
-                git push origin arena/8d7fb4aa-desktop-tutorial
+                git push origin "HEAD:${{ github.ref_name }}"
               fi
               exit "$status"
             fi

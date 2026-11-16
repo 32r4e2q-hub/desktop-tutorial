@@ -1,8 +1,9 @@
 # 第十七期｜涩谷短大生惨案：一句话的代价
 
-## 当前真实状态（2026-11-16，参考图复核更新）
+## 当前真实状态（2026-11-16，录音与转写核验更新）
 
-- 当前分支 `arena/8d7fb4aa-desktop-tutorial`；main基准 `f88154470b0480277f5ca031cd6679961a6fc3b9`。
+- 当前分支 `arena/749aaa18-desktop-tutorial`；main基准 `f88154470b0480277f5ca031cd6679961a6fc3b9`。
+- 三条第17期工作流已改为跟随触发分支（`github.ref_name` + `arena/**`），不再写死上一轮的 `arena/<id>`，否则本轮分支上这些作业根本不会跑。
 - 30镜连续时间线：180秒、平均6秒、单镜5–7秒；修订后637个含标点字符。
 - 28张参考图文件已齐，逐张复核后20张签收；S01/S02已完成去雪修正，P01–P07通过。S05/S08/S11/S13已修正签收；S03/S04已移除对应电子设备并签收；8张新增角色侧向图已单独复核，角色仍需特写及部分角度修正。
 - 本轮已使用10次图像生成调用，未尝试绕过每轮预算。
@@ -10,7 +11,9 @@
 - 已生成27份逐镜音频切分候选，保存在忽略目录work/。静音检测与字数先验只能辅助切分，尚未通过听检/转写，不发布最终audio/manifest.json。
 - 30段无BGM确定性环境拟音已生成到work/；不是原案录音。
 - 已读朝日、读卖、每日原报存档及Japan Times正文，修正“返家日=发现日”“当场认罪”“在住宅抓捕”等错误。父亲驾车送行细节仍待可靠来源，事实门禁保留。
-- **Agnes创建请求0；任务ID 0；完成源片0；成片未生成。** 未创建GEN_REQUEST，不宣称后台排队。
+- **30镜视频源片已全部完成**（results.json `selected_sources_ready`，run 43816274028）；成片仍未渲染。
+- 录音缺口仍是 S10–S12 三句（G04 内容审核拒绝，未改词绕过）。上一轮“旁白独立转写核验”失败**不是录音问题**，是 runner 上 PyAV 与 faster-whisper 版本不匹配；现已改为 ffmpeg 解码喂数组、工作流钉 Python 3.11 并装 `production/requirements.txt`。详见 `audio/NARRATION_STATUS.md`。
+- Arena 的 `voice_id` 是会话级的：本轮复用 `voice-01` 被拒（Unknown voice_id），补录三句需要重新试听选定音色或用户提供录音，不能悄悄换声线。
 - 机器可读状态：STATUS.json；审核问题：reference/approvals.json；音频来源：audio/groups/manifest.json。
 
 ## 已搭建链路
@@ -25,21 +28,19 @@
 
 ## 续作顺序
 
-1. 补齐角色特写，修正C02/C06/C07侧向角度，并拆分C07法庭角色。参考提示词见 `reference/REFERENCE_PACK.md`。
-2. 逐张人工看图，真正符合后才写 approved、SHA256和尺寸，固定本分支不可变参考图commit。不得直接批量改状态。
-3. 补齐 `FACT_CHECK.md` 原始来源，再更新最终旁白并重建story。未核查不输出到观众字幕。
-4. 运行 `python3 production/shibuya2006/test_plan.py`、`preflight.py`、`generate.py --validate --clips-only`。
-5. 全部闸门通过后，提交 `GEN_REQUEST={"mode":"clips","workers":2}` 到当前分支；该工作流只在届时才排30镜。先确认Actions仓库Secret可用；本轮API枚举Secret返回403，不代表Secret不存在，且不需要用户把密钥发到聊天。
-6. 继续使用本期用户选择的voice-01，原G04审核问题需合规解决，不以改词绕过；逐字复核候选切分，再生成30镜正式MP3与哈希清单。不得用静音或旧期声音补缺。
-7. 每5镜打开接触表抽检面部、服装和年代；失败只重做对应镜头。
-8. 配音哈希清单、拟音、双遍编码、verify_master、qc、narration_fit，最后完整播放审核。
-9. 本期视频完成后才从视频取帧制封面，不用参考图冒充截图；按用户要求做横版父子/暗窗裂缝封面，并保留第17期系列发布信息。
+1. **先解决录音缺口**（当前唯一硬阻塞）：S10–S12 需要真实语音。要么本轮重新试听选定一条音色后全篇逐镜重录（推荐，音色统一且一劳永逸），要么用户提供合规录音。不得用静音、旧期声音或改词绕过审核；换声线必须用户同意。见 `audio/NARRATION_STATUS.md`。
+2. 逐镜合成后跑 `第17期 · 旁白独立转写核验`：报告写 `qa/narration-asr.json`，相似度 ≥0.90 才进入人工听检，工具本身不签收。
+3. 听检通过后写 `audio/review.json`（每条含文本、SHA256、voice_id、复核人），再跑 `build_audio_manifest.py` 生成 `audio/manifest.json`；此时 30 条逐镜文件必须齐全。
+4. 渲染：`{"mode":"render"}` 触发 `shibuya2006.yml`，内部依次跑 `build_audio_manifest.py`、`generate.py --render-only --publish`；成片与报告 commit 回当前分支。
+5. `narration_fit.py`、`verify_master.py`、`qc.py`，再完整播放复核；每 5 镜开接触表抽检面部/服装/年代，失败只重做对应镜头。
+6. 本期视频完成后才从成片取帧制封面，不用参考图冒充截图；保留第17期系列发布信息。
 
 ## 本地校验
 
-`python3 production/shibuya2006/test_plan.py`：8项通过（时间线、参考数与锚点、钩子、付费失败关闭、旧案隔离、音频来源哈希、无旧案冻帧、候选未冒充最终对齐）。
+`python3 production/shibuya2006/test_plan.py`：13项通过（时间线、参考数与锚点、钩子、付费失败关闭、旧案隔离、音频来源哈希、无旧案冻帧、候选未冒充最终对齐）。
 
-`preflight.py`：预期 BLOCKED，原因已如实记录。未做真实Agnes接口、语音逐字听检、最终字幕对齐或成片编码测试。音频时长和SFX生成已实测。
+`preflight.py`：当前 READY（仅离线检查；本轮没有调用 Agnes 接口）。
+`python3 -m pytest production/tests -q`：206 passed / 3 skipped；其中 `test_shibuya2006_audio.py` 守转写解码（ffmpeg→float32）、工作流装配与分支口径。音频时长和 SFX 生成已实测；逐字听检、字幕对齐与成片编码仍未做。
 
 ## 本轮补充记录
 

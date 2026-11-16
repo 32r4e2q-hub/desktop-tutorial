@@ -13,9 +13,12 @@
    贴错内容立刻失败；
 2. 每个工作流形状正确（``name`` / ``on`` / ``jobs``），且**非注释行**里不出现
    Markdown 正文特征；装了 ``pyyaml`` 时再做完整解析与结构校验；
-3. 在**当前分支**上跑的工作流（没有 pin ``ref:`` 的），它引用的脚本必须在本仓库
-   真实存在且能通过 ``bash -n``；pin 了 ``ref:`` 的老工作流跑的是别的分支的代码，
-   脚本可以不在本分支——但必须看得出它是 pin 过的（避免"忘了 pin"混进来）。
+3. 在**当前分支**上跑的工作流（没有 pin ``ref:``，或 checkout 用的是
+   ``ref: ${{ github.ref_name }}``），它引用的脚本必须在本仓库真实存在且能通过
+   ``bash -n``；pin 了某个固定分支名的老工作流跑的是别的分支的代码，脚本可以不在
+   本分支——但必须看得出它是 pin 过的（避免"忘了 pin"混进来）。
+   Arena 每次会话换一条 ``arena/<id>`` 分支，写死分支名的工作流下一轮就再也跑不到
+   当前分支上了，所以新工作流一律用 ``github.ref_name`` 表示"就是触发这条分支"。
 """
 from __future__ import annotations
 
@@ -40,7 +43,10 @@ except ImportError:  # pragma: no cover - 取决于环境
 
 # 顶层键从行首开始，值可以为空（on: / jobs:）也可以跟在冒号后（name: 解说短片出片）
 TOP_LEVEL = re.compile(r"^(?P<key>[A-Za-z_][\w-]*):(?:[ \t].*)?$", re.MULTILINE)
-CHECKOUT_REF = re.compile(r"^\s+ref:\s*(\S+)", re.MULTILINE)
+CHECKOUT_REF = re.compile(r"^\s+ref:\s*(?P<value>.+?)\s*$", re.MULTILINE)
+# Arena 每条会话一条 arena/<id> 分支：checkout 自己的触发分支是"跑本分支代码"，
+# 与完全不写 ref 等价，脚本必须在本仓库存在。
+SAME_BRANCH_REF = re.compile(r"^\$\{\{\s*github\.ref_name\s*\}\}$")
 RUNS_ON = re.compile(r"^\s*runs-on:\s*(?P<value>.+?)\s*$", re.MULTILINE)
 # 仓库转私有后，GitHub-hosted 的每一分钟都在烧额度（2000 分钟/月），自托管不计分钟。
 # 所以 runs-on 统一走这一个开关，见 转私有与自托管Runner手册.md。
@@ -380,12 +386,13 @@ class WorkflowIntegrityTests(unittest.TestCase):
         for path in workflow_files():
             text = path.read_text(encoding="utf-8")
             scripts = re.findall(r"bash\s+(production/[\w./-]+\.sh)", text)
-            refs = CHECKOUT_REF.findall(text)
-            if refs:
+            refs = [match.group("value") for match in CHECKOUT_REF.finditer(text)]
+            if refs and not all(SAME_BRANCH_REF.match(ref) for ref in refs):
                 pinned += len(scripts)
                 self.assertTrue(
                     all(not ref.startswith(("refs/", "$")) for ref in refs),
-                    f"{path.name} 的 ref 是动态表达式，无法判断它跑哪个分支",
+                    f"{path.name} 的 ref 是动态表达式，无法判断它跑哪个分支"
+                    "（只认 ${{ github.ref_name }}，其余请写死或去掉 ref）",
                 )
                 continue  # 老工作流：跑的是别的分支上的脚本，本分支没有是正常的
             for script in scripts:
