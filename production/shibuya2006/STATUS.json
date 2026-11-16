@@ -30,7 +30,7 @@
     "voice_note": "User re-auditioned and picked voice-00 in this session (2026-11-16) for a full one-clip-per-shot re-record; voice-01 from the previous session is session-scoped and was not reusable.",
     "alignment_approved": 30,
     "final_manifest_created": true,
-    "mode": "full_rerecord_one_clip_per_shot",
+    "mode": "film_essay_rewrite_full_rerecord",
     "rerecorded": [
       "S01",
       "S02",
@@ -65,9 +65,12 @@
     ],
     "rerecord_pending": [],
     "moderation_blocked_now": [],
-    "moderation_note": "S10/S11 passed with the locked wording; S12 was refused and now uses the user-approved rewrite (妹妹的死与自己有关), which passed moderation. fact_review.json was rebound to the new plan hash.",
+    "moderation_note": "All 30 new lines passed speech moderation, including S11 (門後遇害／動手的人). The earlier S12 wording exception no longer applies: the new script makes a weaker statement.",
     "group_sources_role": "provenance only; the 21 ASR-cut candidates are superseded by the per-shot re-record",
-    "manifest_note": "audio/manifest.json written from 30 per-shot MP3s; audio/review.json holds 30 transcript-inspected records (not a listening sign-off)."
+    "manifest_note": "audio/manifest.json rebuilt from the 30 v2 clips; audio/review.json holds 30 transcript-inspected records (not a listening sign-off).",
+    "script_revision": "narration v2 (2026-11-16): one continuous commentary script, 632 chars, 30 per-shot clips, voice-00",
+    "max_atempo": 1.0928,
+    "total_speech_seconds": 154.1
   },
   "asr_review": {
     "workflow": "第17期 · 旁白独立转写核验",
@@ -77,44 +80,50 @@
     "repair": "transcribe_audio_candidates.py now decodes with ffmpeg to 16 kHz mono float32 and hands the model an in-memory array; the workflow pins Python 3.11 and installs production/requirements.txt (av>=12,<19).",
     "evidence_only": true,
     "next_run": "triggered by the push of the repaired transcribe script",
-    "latest_run": 43829945136,
+    "latest_run": 43860291513,
     "latest_result": "success",
-    "matched_shots": 22,
+    "matched_shots": 19,
     "flagged_for_homophones": [
-      "S03",
+      "S01",
+      "S04",
       "S05",
-      "S09",
-      "S17",
-      "S24"
+      "S06",
+      "S07",
+      "S11",
+      "S18",
+      "S20",
+      "S25",
+      "S27",
+      "S29"
     ],
-    "flagged_note": "All five flagged clips transcribe to the script apart from whisper homophones (社谷/衙科/征职/它随对/征得); no missing or wrong sentence.",
+    "flagged_note": "All 11 sub-0.90 rows are whisper homophones/garble on names and set phrases (集训→急讯, 涩谷→色果, 亚澄→雅成/压成, 那扇→内山, 辩方→变防, 二审→二神). Each has a written reason in audio/review-allow.json. S29 was rejected at 0.718 on the first take because the closing verdict was garbled, re-recorded with a pause, and only then approved at 0.895.",
     "boundary_method": "faster-whisper word timestamps; script aligned to words; cuts at word onsets (silence heuristic kept only as fallback)",
     "boundary_repair": "S23 previously lost its final six characters to a silence-based cut; the ASR boundary restores it (similarity 1.000).",
-    "latest_note": "All 30 rows are individual clips; 24 >= 0.90 and 6 homophone-only deviations are documented in audio/review-allow.json."
+    "latest_note": "30/30 individual clips approved by transcript evidence; nothing approved on similarity alone."
   },
   "cover": {
     "file": "交付/第十七期_涩谷短大生惨案_封面.png",
     "episode": 17,
     "status": "visually_reviewed_draft",
-    "source": "S17 current generated video at 0.5s; hash verified",
-    "note": "Not a historical image; the film is not final yet."
+    "source": "S17 generated source frame; the same shot sits at 97.0–103.0s of the v2 master",
+    "note": "Not a historical image; the master exists, but the series cover was rendered before this master and its JSON now points at the v2 hash."
   },
   "final_film": {
     "status": "rendered_gates_passed_playback_review_pending",
     "file": "交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
-    "bytes": 57396751,
-    "sha256": "b21faaf672955fe5d935f12ca9e089541323910a992523812b1cde6423c25bbe",
-    "run": 43851061089,
+    "bytes": 56956689,
+    "sha256": "d0b518b29353a25b239d7e09fd81e697f806b4eb077ca00588d411388f85d026",
+    "run": 43860807291,
     "qc": "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
-    "narration_fit": "PASS (max atempo 1.223x)",
+    "narration_fit": "PASS (max atempo 1.093x, 154.1s speech of 180s)",
     "verify_master": {
       "status": "PASS",
-      "max_caption_lead_seconds": 0.11,
+      "max_caption_lead_seconds": 0.13,
       "cues_without_speech": [],
       "report": "production/shibuya2006/qa/verify-master.json"
     },
-    "visual_sample_review": "9 frames inspected (qa/final-master-contact-sheet.jpg); no pseudo-text or face defects; full playback still required",
-    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/9b1f8d2/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4"
+    "visual_sample_review": "6 frames inspected at 1.5/9/56/109/131/169s (qa/final-master-contact-sheet-v2.jpg); S29 bedding ambiguity and H6/subtitle redundancy recorded; no pseudo-text or face defects; full playback still required",
+    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/059f321/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4"
   },
   "narration_acceptance": {
     "silent_substitute_allowed": false,
@@ -123,9 +132,9 @@
     "continuous_movie_commentary_required": true
   },
   "offline_tests": {
-    "production_tests": "208 passed, 3 skipped",
-    "project_test_plan": "13 passed",
-    "preflight": "READY (offline only; Agnes API not called this round)"
+    "production_tests": "195 passed, 19 skipped (with numpy/av/opencc/zhconv/fonttools installed)",
+    "project_test_plan": "14 passed",
+    "preflight": "READY (offline only)"
   },
   "deliverables": {
     "film": "交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
@@ -138,5 +147,6 @@
     "qc": "production/shibuya2006/qa/qc-report.json",
     "verify_master": "production/shibuya2006/qa/verify-master.json",
     "visual_sample": "production/shibuya2006/qa/final-master-review.md"
-  }
+  },
+  "script_rewrite_note": "User rejected the first narration as incoherent and asked for a full rewrite. Visuals, shots and cut points are unchanged; only the 30 narration lines, their subtitles and the H5 hook time changed."
 }
