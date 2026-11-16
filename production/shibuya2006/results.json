@@ -440,9 +440,25 @@
     "S16": {
       "id": "S16",
       "request_hash": "72964145c3fd08ce986f7ffe20164f8ff4c8fa4e632b68bf1d84e2fa4afc043c",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-16T01:17:43Z"
+      "updated_at": "2026-11-16T01:36:01Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画情景重现，非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，日本社会派家庭悲剧风格，2006至2009年东京涩谷幡谷，冬日冷白与屋内暖黄对比，低饱和，暗部厚重，真实人体比例、皮肤、布料与建筑材质；所有人物均为虚构演员式形象，不还原真实肖像。16:9横屏，主体在三分线，底部字幕安全区留空。必须是真实连续运动的写实3D影像，有人物动作、呼吸、布料或自然环境运动；禁止静态图片加推拉。一扇门与时钟是贯穿视觉线索；镜头9至14冷青深蓝，19至28冷灰，29至30暖金转黑。\n\n【C01锚点】21岁日本青年,清瘦,黑色短发,深色卫衣牛仔裤,补习班书包,表情平静空白\n\n勇贵独自背包沿集合地点人行道前行，停在巴士旁整理肩带，其他学员仅远景模糊背影；不出现父亲，不出现接送汽车。 全程环境保持微动；源片不生成任何文字。\n\n【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,水印,字幕,可读文字,伪文字,血腥,伤口,遗体,尸体,分尸,凶器,刀具,暴力过程,裸露,畸形手指,多余肢体,人物面部崩坏,智能手机,现代电动车,低清晰度,画面闪烁,风格突变,竖屏构图,黑边,静态图片推拉,法槌,真实人物肖像",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 20061231,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4a37003b6892a5d705fee08cdbe2ed310677924c/production/shibuya2006/reference/boards/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4a37003b6892a5d705fee08cdbe2ed310677924c/production/shibuya2006/reference/S01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4a37003b6892a5d705fee08cdbe2ed310677924c/production/shibuya2006/reference/P02.png"
+        ]
+      },
+      "error": null
     },
     "S17": {
       "id": "S17",
@@ -595,7 +611,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-16T01:36:00Z",
+  "updated_at": "2026-11-16T01:36:01Z",
   "run_id": "43785043215",
   "previous_results": {}
 }
