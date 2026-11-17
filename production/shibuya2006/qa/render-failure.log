@@ -1,10 +1,54 @@
-Wrote manifest for 30 shot-locked clips; tempo 0.840-1.209x; pace 3.45-3.71 Hanzi/s
+Wrote manifest for 30 shot-locked clips; tempo 0.860-1.228x; pace 4.50-4.50 Hanzi/s
+RESTORE S01 from Agnes receipt
+RESTORE S02 from Agnes receipt
+RESTORE S03 from Agnes receipt
+RESTORE S04 from Agnes receipt
+RESTORE S05 from Agnes receipt
+RESTORE S06 from Agnes receipt
+RESTORE S07 from Agnes receipt
+RESTORE S08 from Agnes receipt
+RESTORE S09 from Agnes receipt
+RESTORE S10 from Agnes receipt
+RESTORE S11 from Agnes receipt
+RESTORE S12 from Agnes receipt
+RESTORE S13 from Agnes receipt
+RESTORE S14 from Agnes receipt
+RESTORE S15 from Agnes receipt
+RESTORE S16 from Agnes receipt
+RESTORE S17 from Agnes receipt
+RESTORE S18 from Agnes receipt
+RESTORE S19 from Agnes receipt
+RESTORE S20 from Agnes receipt
+RESTORE S21 from Agnes receipt
+RESTORE S22 from Agnes receipt
+RESTORE S23 from Agnes receipt
+RESTORE S24 from Agnes receipt
+RESTORE S25 from Agnes receipt
+RESTORE S26 from Agnes receipt
+RESTORE S27 from Agnes receipt
+RESTORE S28 from Agnes receipt
+RESTORE S29 from Agnes receipt
+RESTORE S30 from Agnes receipt
+Wrote 30 deterministic non-musical SFX clips to /home/runner/work/desktop-tutorial/desktop-tutorial/work/shibuya2006/edit/sfx
+Output /home/runner/work/desktop-tutorial/desktop-tutorial/work/shibuya2006/edit/segments/S10.speech.wav same as Input #0 - exiting
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 1211, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/render.py", line 389, in <module>
     raise SystemExit(main())
                      ^^^^^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 765, in main
-    validate(project, require_audio=(render_now or args.render_only))
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 627, in validate
-    raise ValueError("Narration must not be slowed down to fill shot durations")
-ValueError: Narration must not be slowed down to fill shot durations
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/render.py", line 255, in main
+    run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af",
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/render.py", line 52, in run
+    return subprocess.run([str(x) for x in args], check=True, text=capture, capture_output=capture)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ffmpeg', '-y', '-v', 'error', '-i', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/shibuya2006/edit/segments/S10.speech.wav', '-vn', '-af', 'atempo=1.169167', '-ar', '48000', '-ac', '2', '-c:a', 'pcm_s16le', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/shibuya2006/edit/segments/S10.speech.wav']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 1226, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 800, in main
+    subprocess.run([
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/hostedtoolcache/Python/3.11.18/x64/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/shibuya2006/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/shibuya2006/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/shibuya2006/clips/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4']' returned non-zero exit status 1.
