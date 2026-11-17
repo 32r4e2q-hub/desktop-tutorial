@@ -70,9 +70,9 @@ def ass_caption(text: str, phrases: list[str], highlight_size: int = 50) -> str:
 def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[str],
               end_card: tuple[str, str, float, float] | None = None,
               onscreen_label: str = "", hooks: list[dict] | None = None,
-              label_end: float = 176.0,
               explainers: list[dict] | None = None,
-              explainer_plate: bool = False) -> None:
+              explainer_plate: bool = False,
+              label_end: float = 176.0) -> None:
     rows = [
         "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1920", "PlayResY: 1080",
         "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
