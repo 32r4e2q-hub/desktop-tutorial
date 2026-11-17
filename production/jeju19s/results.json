@@ -1371,7 +1371,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1418,9 +1418,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-17T05:30:33Z",
   "run_id": "44023811514",
@@ -1474,5 +1474,31 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/jeju19s/clips/济州岛敞篷车命案_19秒_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/jeju19s/clips/济州岛敞篷车命案_Cover.jpg",
+    "delivered": {
+      "济州岛敞篷车命案_19秒_三分钟_带声音.mp4": {
+        "bytes": 72093790,
+        "sha256": "a4c7975463273e92fcb095dca58dccebf46afb6b065443f427d6bc70a6d6795e"
+      },
+      "济州岛敞篷车命案_Cover.jpg": {
+        "bytes": 148293,
+        "sha256": "b476829d1d13278d7751a58d757066a9e55b6d9f1184a0bd34a4d78825efd953"
+      },
+      "济州岛敞篷车命案_Subtitles.srt": {
+        "bytes": 3222,
+        "sha256": "2059f931b40501bb577294d6090760b1a625223f4ddf024a49ac20065aea990a"
+      },
+      "济州岛敞篷车命案_Technical_Report.json": {
+        "bytes": 11101,
+        "sha256": "b261f037710f5a9dc6752cea25b29e01b3f253856f9fe8270eb80853fb22328e"
+      }
+    }
   }
 }
