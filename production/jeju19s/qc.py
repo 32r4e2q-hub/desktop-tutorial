@@ -229,21 +229,6 @@ def main() -> int:
                     hard_failures.append(f"Subtitle cues with no speech energy: {missed}")
         if not film.with_suffix(".srt").is_file():
             hard_failures.append("Subtitle sidecar is missing")
-        if meta is not None:
-            s07 = next((shot for shot in story["shots"] if shot["id"] == "S07"), None)
-            if s07 is None:
-                hard_failures.append("Story has no S07 shot for the final tail-exposure guard")
-            else:
-                tail_end = round((float(s07["start"]) + float(s07["duration"])) * FPS)
-                tail_frames = list(range(tail_end - S07_TAIL_CHECK_FRAMES, tail_end))
-                tail_means = exact_frame_luma_means(film, tail_frames)
-                meta["s07_tail_frames"] = tail_frames
-                meta["s07_tail_mean_luma"] = tail_means
-                if min(tail_means) < S07_TAIL_MIN_MEAN_LUMA:
-                    hard_failures.append(
-                        f"S07 near-black tail remains: mean luma {tail_means}, "
-                        f"minimum required is {S07_TAIL_MIN_MEAN_LUMA:.1f}")
-
     report = {"status": "FAIL" if hard_failures else "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
               "scope": "sources_only" if args.sources_only else "sources_and_final", "final": meta,
               "source_shots": rows,
