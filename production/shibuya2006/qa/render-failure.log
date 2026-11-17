@@ -1,0 +1,13 @@
+Wrote manifest for 30 shot-locked clips; tempo 0.860-1.228x; pace 4.50-4.50 Hanzi/s
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 1226, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 780, in main
+    validate(project, require_audio=(render_now or args.render_only))
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 581, in validate
+    payload = full_payload(project, shot)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/shibuya2006/generate.py", line 419, in full_payload
+    raise RuntimeError("Fact check is not signed off; paid video generation is blocked")
+RuntimeError: Fact check is not signed off; paid video generation is blocked
