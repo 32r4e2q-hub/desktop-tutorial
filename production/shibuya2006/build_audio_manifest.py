@@ -20,7 +20,11 @@ def duration(path: Path) -> float:
     raw=subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(path)],text=True)
     return float(raw.strip())
 
-def voiced_span(path: Path) -> float:
+PAUSE_CAP_SECONDS = 0.45
+PAUSE_KEPT_SECONDS = 0.25
+
+
+def voiced_span(path: Path) -> dict:
     """Speech time with leading/trailing/internal silence removed.
 
     Pace must be measured against what is actually spoken: take files pad differently,
@@ -36,10 +40,18 @@ def voiced_span(path: Path) -> float:
     starts=[float(x) for x in re.findall(r'silence_start: ([\d.]+)',out)]
     ends=[float(x) for x in re.findall(r'silence_end: ([\d.]+)',out)]
     silence=0.0
+    long_pauses=0
     for index,start in enumerate(starts):
         stop=ends[index] if index<len(ends) else total
-        silence+=max(0.0,stop-start)
-    return max(0.0,total-silence)
+        length=max(0.0,stop-start)
+        silence+=length
+        if length>=PAUSE_CAP_SECONDS:
+            long_pauses+=1
+    voiced=max(0.0,total-silence)
+    # The renderer caps long internal pauses (they are dead air, not pace), so the
+    # length a line will actually occupy is the voiced time plus the shortened pauses.
+    capped=voiced+long_pauses*PAUSE_KEPT_SECONDS
+    return {'total':total,'voiced':voiced,'capped':capped,'long_pauses':long_pauses}
 
 
 def require_review(shot: dict, path: Path, voice: str, reviews: dict) -> None:
@@ -66,11 +78,12 @@ def main() -> None:
             missing.append(shot['id']);continue
         require_review(shot,path,voice,reviews)
         source=duration(path); target=float(shot['duration'])
-        voiced=voiced_span(path)
+        span=voiced_span(path)
+        voiced, capped = span['voiced'], span['capped']
         # Shared pace, measured on spoken time: slow a rushed read down, compress a
         # dragging one, refuse both extremes instead of hiding them in a shot squeeze.
         speed=pace.tempo(shot['narration'],voiced,target)
-        speech=voiced/speed
+        speech=capped/speed
         if speech>target+0.02:
             raise SystemExit(f"{shot['id']}: even at {speed:.3f}x the line speaks {speech:.2f}s "
                              f"past its {target:.0f}s shot; shorten the line or re-record it")
@@ -81,6 +94,7 @@ def main() -> None:
                       'narration_id':shot['narration_id'],'target_start':shot['start'],
                       'target_duration':shot['duration'],'alignment':'shot-locked',
                       'source_duration':round(source,3),'voiced_duration':round(voiced,3),
+                      'capped_duration':round(capped,3),'long_pauses':span['long_pauses'],
                       'atempo':round(speed,4),'speech_seconds':round(speech,3),
                       'hanzi_per_second':pace.delivered_rate(shot['narration'],voiced,speed),
                       'tail_silence_seconds':round(max(0.0,target-speech),3)})

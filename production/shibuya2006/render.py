@@ -241,20 +241,21 @@ def main() -> int:
         # Strip the TTS lead-in silence first: otherwise every caption cue runs ~0.3s ahead
         # of the spoken word and the last line can spill past its shot window.
         speech = segments / f"{sid}.speech.wav"
-        trim = ("silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+        # -40 dB matches the pace measurement in build_audio_manifest.py, and the pause
+        # cap keeps long TTS gaps from eating the shot: gaps are dead air, not pace.
+        trim = ("silenceremove=start_periods=1:start_duration=0:start_threshold=-40dB:start_silence=0.06,"
                 "areverse,"
-                "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
-                "areverse")
+                "silenceremove=start_periods=1:start_duration=0:start_threshold=-40dB:start_silence=0.06,"
+                "areverse,"
+                "silenceremove=stop_periods=-1:stop_duration=0.45:stop_threshold=-40dB:stop_silence=0.25")
         run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af",
              f"{trim},atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
         speech_seconds = duration(speech)
-        if speech_seconds > target:
-            extra = speech_seconds / target
-            if speed * extra > 1.55 + 1e-9:
-                raise RuntimeError(f"{sid}: speech cannot fit even at 1.55x")
-            run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af",
-                 f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
-            speech_seconds = duration(speech)
+        if speech_seconds > target + 0.02:
+            # Never paper over a pacing problem by squeezing this line harder than the
+            # rest of the film: that is exactly what made one segment sound rushed.
+            raise RuntimeError(f"{sid}: paced speech is {speech_seconds:.2f}s in a {target:.0f}s shot; "
+                               "shorten the line or re-record it")
         # One quiet TTS line must not drop the voice mid-film: level every clip to the
         # same mean speech level before it goes into the mix (measured after atempo).
         narration_gain = level_speech(speech)
