@@ -446,9 +446,9 @@
     "S16": {
       "id": "S16",
       "request_hash": "8903b005d6e9f69e402c721884f9d2b9ecd8065862bf73b37200e033b8875796",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-17T02:42:17Z",
+      "updated_at": "2026-11-17T02:45:22Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，韩国悬疑公路电影风格，济州岛海边公路、黑色玄武岩石墙、橘子田；2019年韩国济州，准确呈现当年普通租车行、民宿、餐厅、警用装备与法庭陈设的材质；真实人体比例、自然皮肤纹理、可信布料、车辆与建筑表面，低饱和、暗部厚重、细腻胶片颗粒，克制冷静而压抑的情绪；镜头3至5济州阳光明亮暖色，镜头6转暮色蓝调，镜头7至12夜晚深蓝冷调与红色尾灯，镜头13至14警灯冷青，镜头15至18医院与公寓冷白灰，镜头19至22深夜台灯暖黄与手机冷光，镜头23至29冷灰法庭，镜头30黑场与声波的一抹红；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、海风吹动、灯光变化或车辆行驶，镜头本身平稳移动，绝不以静态图加推拉冒充视频；录音声波与0:19计时器是贯穿全片的视觉母题，红色野马敞篷车与安全带警示灯是第二、第三条线索；事故只用声波图形、黑场、路缘与石墙空镜、事后现场表现，绝不出现撞击瞬间、遗体、血腥或伤口；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。\n\n【C04锚点】58岁韩国女性,短烫发,素色外套,神情憔悴温和\n\n【C03锚点】30岁出头韩国女性,齐肩短发,深色外套,神情沉稳坚定,眼神锐利\n\nICU外，母亲对着手机拨打电话，神情恳求，电话另一头沉默，电话被挂断，母亲慢慢蹲下身，姐姐扶住她，走廊的灯光闪了一下，画面压抑。 本镜头不出现声波图形、计时器数字、悬浮界面、文字、标签、时间戳或招牌；真实连续运动贯穿全镜，镜头运镜：近景缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，撞击瞬间，车祸现场写实画面，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
@@ -464,10 +464,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/4969c617d71ed00014c3c9fbcaf18aab71a67c67/production/jeju19s/reference/S09.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261117024217214841514QItoZRn2) (code=rate_limit_exceeded)",
-      "create_attempts": 20,
+      "error": null,
+      "create_attempts": 26,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 30.0
+      "applied_cooldown_seconds": 30.0,
+      "video_id": "task_WFqv0o9LsbcQhWg0pdrYd3F0C7nVOVfk",
+      "task_id": "task_WFqv0o9LsbcQhWg0pdrYd3F0C7nVOVfk",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S17": {
       "id": "S17",
@@ -620,15 +624,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-17T02:42:17Z",
+  "updated_at": "2026-11-17T02:45:22Z",
   "run_id": "43997954137",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261117024217214841514QItoZRn2) (code=rate_limit_exceeded)",
-    "create_attempts": 20,
-    "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-17T02:42:17Z"
-  }
+  "previous_results": {}
 }
