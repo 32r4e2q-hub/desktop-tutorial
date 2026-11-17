@@ -35,7 +35,7 @@ def main() -> int:
         raw = duration(path)
         target = float(shot["duration"])
         factor = float(row.get("atempo") or max(1.0, raw / target))
-        after = raw / factor
+        after = float(row.get("speech_seconds") or raw / factor)
         status = "PASS" if after <= target + 0.02 and factor <= 1.55 + 1e-9 else "FAIL"
         lines.append(f"| {sid} | {target:.3f} | {raw:.3f} | {factor:.3f}x | {after:.3f}s | {status} |")
         if after > target + 0.02:

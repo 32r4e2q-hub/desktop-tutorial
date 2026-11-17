@@ -241,9 +241,12 @@ def main() -> int:
         # Strip the TTS lead-in silence first: otherwise every caption cue runs ~0.3s ahead
         # of the spoken word and the last line can spill past its shot window.
         speech = segments / f"{sid}.speech.wav"
+        trim = ("silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+                "areverse,"
+                "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+                "areverse")
         run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af",
-             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
-             f"atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+             f"{trim},atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
         speech_seconds = duration(speech)
         if speech_seconds > target:
             extra = speech_seconds / target

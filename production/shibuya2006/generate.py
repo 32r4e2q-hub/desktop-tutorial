@@ -650,7 +650,7 @@ def validate(project: dict, require_audio: bool = True) -> None:
         if not lo - 1e-6 <= tempo <= hi + 1e-6:
             raise ValueError(f"Narration tempo {tempo:.3f}x is outside the shared-pace range: " + shot["id"])
         rate = float(row.get("hanzi_per_second") or 0.0)
-        if abs(rate - target_rate) > 0.35:
+        if abs(rate - target_rate) > 0.25:
             raise ValueError(f"Narration pace {rate:.2f} Hanzi/s is off the {target_rate:.2f}/s film pace: "
                              + shot["id"])
 

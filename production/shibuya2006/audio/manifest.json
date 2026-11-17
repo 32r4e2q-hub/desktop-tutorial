@@ -5,8 +5,9 @@
   "alignment": "one-clip-one-shot-one-caption",
   "max_speedup_factor": 1.55,
   "pace": {
-    "target_hanzi_per_second": 3.45,
-    "min_tempo": 0.84,
+    "target_hanzi_per_second": 4.5,
+    "measured_on": "spoken time (silence stripped), not file length",
+    "min_tempo": 0.82,
     "max_tempo": 1.25,
     "slowdown_allowed": true,
     "note": "clips are slowed or compressed to one shared pace; out-of-range lines fail instead of being rushed"
@@ -25,10 +26,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 5.146,
-      "atempo": 1.0292,
-      "speech_seconds": 5.0,
-      "hanzi_per_second": 3.6,
-      "tail_silence_seconds": 0.0
+      "voiced_duration": 4.004,
+      "atempo": 1.001,
+      "speech_seconds": 4.0,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.0
     },
     {
       "id": "S02",
@@ -42,10 +44,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 4.624,
-      "atempo": 1.0634,
-      "speech_seconds": 4.348,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.652
+      "voiced_duration": 3.483,
+      "atempo": 1.0448,
+      "speech_seconds": 3.333,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.667
     },
     {
       "id": "S03",
@@ -59,10 +62,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 5.146,
-      "atempo": 0.84,
-      "speech_seconds": 6.126,
-      "hanzi_per_second": 3.59,
-      "tail_silence_seconds": 0.874
+      "voiced_duration": 4.488,
+      "atempo": 0.918,
+      "speech_seconds": 4.889,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.111
     },
     {
       "id": "S04",
@@ -76,10 +80,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 6.348,
-      "atempo": 0.9522,
-      "speech_seconds": 6.666,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.334
+      "voiced_duration": 4.847,
+      "atempo": 0.9484,
+      "speech_seconds": 5.111,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.889
     },
     {
       "id": "S05",
@@ -93,10 +98,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 5.956,
-      "atempo": 1.2087,
-      "speech_seconds": 4.928,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 1.072
+      "voiced_duration": 4.117,
+      "atempo": 1.0898,
+      "speech_seconds": 3.778,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.222
     },
     {
       "id": "S06",
@@ -110,10 +116,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 4.937,
-      "atempo": 1.0019,
-      "speech_seconds": 4.928,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.072
+      "voiced_duration": 3.895,
+      "atempo": 1.0311,
+      "speech_seconds": 3.778,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.222
     },
     {
       "id": "S07",
@@ -127,10 +134,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 5.825,
-      "atempo": 0.957,
-      "speech_seconds": 6.087,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.913
+      "voiced_duration": 4.606,
+      "atempo": 0.9871,
+      "speech_seconds": 4.666,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.334
     },
     {
       "id": "S08",
@@ -144,10 +152,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 6.139,
-      "atempo": 1.0589,
-      "speech_seconds": 5.797,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 1.203
+      "voiced_duration": 4.47,
+      "atempo": 1.0057,
+      "speech_seconds": 4.444,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.556
     },
     {
       "id": "S09",
@@ -161,10 +170,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 5.538,
-      "atempo": 0.9553,
-      "speech_seconds": 5.797,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.203
+      "voiced_duration": 3.991,
+      "atempo": 0.8979,
+      "speech_seconds": 4.444,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.556
     },
     {
       "id": "S10",
@@ -178,10 +188,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 5.538,
-      "atempo": 1.1239,
-      "speech_seconds": 4.927,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.073
+      "voiced_duration": 3.397,
+      "atempo": 0.8992,
+      "speech_seconds": 3.778,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.222
     },
     {
       "id": "S11",
@@ -195,10 +206,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 6.06,
-      "atempo": 0.9504,
-      "speech_seconds": 6.377,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.623
+      "voiced_duration": 4.512,
+      "atempo": 0.9229,
+      "speech_seconds": 4.889,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.111
     },
     {
       "id": "S12",
@@ -212,10 +224,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 6.034,
-      "atempo": 0.9913,
-      "speech_seconds": 6.087,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.913
+      "voiced_duration": 4.634,
+      "atempo": 0.993,
+      "speech_seconds": 4.667,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.333
     },
     {
       "id": "S13",
@@ -229,10 +242,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 4.754,
-      "atempo": 0.9112,
-      "speech_seconds": 5.218,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.782
+      "voiced_duration": 3.441,
+      "atempo": 0.8603,
+      "speech_seconds": 4.0,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.0
     },
     {
       "id": "S14",
@@ -246,10 +260,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 6.008,
-      "atempo": 1.2016,
-      "speech_seconds": 5.0,
-      "hanzi_per_second": 3.6,
-      "tail_silence_seconds": 0.0
+      "voiced_duration": 4.159,
+      "atempo": 1.0397,
+      "speech_seconds": 4.0,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.0
     },
     {
       "id": "S15",
@@ -263,10 +278,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 4.545,
-      "atempo": 0.8712,
-      "speech_seconds": 5.217,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.783
+      "voiced_duration": 3.558,
+      "atempo": 0.8895,
+      "speech_seconds": 4.0,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.0
     },
     {
       "id": "S16",
@@ -280,10 +296,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 3.657,
-      "atempo": 0.9705,
-      "speech_seconds": 3.768,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 2.232
+      "voiced_duration": 2.837,
+      "atempo": 0.9819,
+      "speech_seconds": 2.889,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 3.111
     },
     {
       "id": "S17",
@@ -297,10 +314,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 4.258,
-      "atempo": 0.9793,
-      "speech_seconds": 4.348,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 1.652
+      "voiced_duration": 3.243,
+      "atempo": 0.9728,
+      "speech_seconds": 3.333,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.667
     },
     {
       "id": "S18",
@@ -314,10 +332,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 3.448,
-      "atempo": 1.0815,
-      "speech_seconds": 3.188,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 1.812
+      "voiced_duration": 2.619,
+      "atempo": 1.0712,
+      "speech_seconds": 2.445,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.555
     },
     {
       "id": "S19",
@@ -331,10 +350,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 4.937,
-      "atempo": 0.8965,
-      "speech_seconds": 5.507,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.493
+      "voiced_duration": 3.662,
+      "atempo": 0.8674,
+      "speech_seconds": 4.222,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.778
     },
     {
       "id": "S20",
@@ -348,10 +368,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 5.355,
-      "atempo": 1.0264,
-      "speech_seconds": 5.217,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.783
+      "voiced_duration": 4.566,
+      "atempo": 1.1416,
+      "speech_seconds": 4.0,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.0
     },
     {
       "id": "S21",
@@ -365,10 +386,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 4.049,
-      "atempo": 0.9978,
-      "speech_seconds": 4.058,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.942
+      "voiced_duration": 3.208,
+      "atempo": 1.0311,
+      "speech_seconds": 3.111,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.889
     },
     {
       "id": "S22",
@@ -382,10 +404,11 @@
       "target_duration": 5,
       "alignment": "shot-locked",
       "source_duration": 5.251,
-      "atempo": 1.0501,
-      "speech_seconds": 5.0,
-      "hanzi_per_second": 3.6,
-      "tail_silence_seconds": 0.0
+      "voiced_duration": 3.992,
+      "atempo": 0.9981,
+      "speech_seconds": 4.0,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.0
     },
     {
       "id": "S23",
@@ -399,10 +422,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 6.06,
-      "atempo": 1.1004,
-      "speech_seconds": 5.507,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 1.493
+      "voiced_duration": 3.846,
+      "atempo": 0.9109,
+      "speech_seconds": 4.222,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.778
     },
     {
       "id": "S24",
@@ -416,10 +440,11 @@
       "target_duration": 7,
       "alignment": "shot-locked",
       "source_duration": 6.949,
-      "atempo": 0.9927,
-      "speech_seconds": 7.0,
-      "hanzi_per_second": 3.71,
-      "tail_silence_seconds": 0.0
+      "voiced_duration": 5.628,
+      "atempo": 0.974,
+      "speech_seconds": 5.778,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.222
     },
     {
       "id": "S25",
@@ -433,10 +458,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 5.538,
-      "atempo": 1.0614,
-      "speech_seconds": 5.218,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.782
+      "voiced_duration": 3.955,
+      "atempo": 0.9886,
+      "speech_seconds": 4.0,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.0
     },
     {
       "id": "S26",
@@ -450,10 +476,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 6.139,
-      "atempo": 1.0589,
-      "speech_seconds": 5.797,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.203
+      "voiced_duration": 4.477,
+      "atempo": 1.0072,
+      "speech_seconds": 4.445,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.555
     },
     {
       "id": "S27",
@@ -467,10 +494,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 5.068,
-      "atempo": 0.8742,
-      "speech_seconds": 5.797,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.203
+      "voiced_duration": 3.959,
+      "atempo": 0.8909,
+      "speech_seconds": 4.444,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.556
     },
     {
       "id": "S28",
@@ -484,10 +512,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 5.747,
-      "atempo": 1.1663,
-      "speech_seconds": 4.927,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 1.073
+      "voiced_duration": 4.64,
+      "atempo": 1.2282,
+      "speech_seconds": 3.778,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.222
     },
     {
       "id": "S29",
@@ -501,10 +530,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 5.851,
-      "atempo": 1.0625,
-      "speech_seconds": 5.507,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 0.493
+      "voiced_duration": 3.992,
+      "atempo": 0.9455,
+      "speech_seconds": 4.222,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 1.778
     },
     {
       "id": "S30",
@@ -518,10 +548,11 @@
       "target_duration": 6,
       "alignment": "shot-locked",
       "source_duration": 4.18,
-      "atempo": 0.9613,
-      "speech_seconds": 4.348,
-      "hanzi_per_second": 3.45,
-      "tail_silence_seconds": 1.652
+      "voiced_duration": 3.098,
+      "atempo": 0.9293,
+      "speech_seconds": 3.333,
+      "hanzi_per_second": 4.5,
+      "tail_silence_seconds": 2.667
     }
   ]
 }
