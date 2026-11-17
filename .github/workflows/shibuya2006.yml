@@ -111,6 +111,35 @@ jobs:
             exit 2
           fi
 
+      - name: Keep failure diagnostics in the repo
+        # 2026-11-17：GH 把作业日志放在 actions-results 的 blob 存储里，会话侧取不到；
+        # 失败时把日志尾部与 git 状态落盘并推回分支，才能在下一轮定位。
+        if: failure()
+        run: |
+          set -uo pipefail
+          mkdir -p production/shibuya2006/qa
+          {
+            echo "# shibuya2006 失败诊断"
+            date -u
+            echo "## RUNNER_TEMP"
+            ls -la "$RUNNER_TEMP" || true
+            for f in "$RUNNER_TEMP"/gwangju-render.log "$RUNNER_TEMP"/*.log; do
+              [ -f "$f" ] && { echo "## $f"; tail -200 "$f"; }
+            done
+            echo "## git status"
+            git status --porcelain || true
+            echo "## head"
+            git log --oneline -3 || true
+          } > production/shibuya2006/qa/render-failure.log 2>&1
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f -- production/shibuya2006/qa/render-failure.log
+          git commit -m 'shibuya2006: keep failure diagnostics' || true
+          for i in 1 2 3; do
+            git pull --rebase origin "${{ github.ref_name }}" && git push origin "HEAD:${{ github.ref_name }}" && break
+            sleep 3
+          done
+
       - name: Master gate (verify_master)
         # 成片时长/帧数/音轨长度/字幕窗口/字幕与语音同步逐项复核；只有本轮真的出过片才跑。
         if: always()

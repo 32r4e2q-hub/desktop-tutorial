@@ -38,3 +38,18 @@ def test_absurdly_slow_clip_is_reported_not_hidden():
     text = "一" * 24
     seconds = pace.speech_seconds(text, 9.0, 5)
     assert seconds > 5 + 0.02
+
+
+def test_manifest_declares_one_pace_for_all_thirty_lines():
+    """交付用的 manifest 必须证明「全片一个语速」，而不是只声称一句。"""
+    import json
+
+    manifest = json.loads((PROJECT / "audio" / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["slowdown_allowed"] is True
+    spec = manifest["pace"]
+    rates = [clip["hanzi_per_second"] for clip in manifest["clips"]]
+    tempos = [clip["atempo"] for clip in manifest["clips"]]
+    assert len(rates) == 30
+    assert max(rates) - min(rates) <= 0.35, (min(rates), max(rates))
+    assert min(tempos) >= spec["min_tempo"] - 1e-6
+    assert max(tempos) <= spec["max_tempo"] + 1e-6

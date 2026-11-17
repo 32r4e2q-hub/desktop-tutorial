@@ -623,8 +623,16 @@ def validate(project: dict, require_audio: bool = True) -> None:
     expected_voice = narration_spec.get("voice_id")
     if manifest.get("voice") != expected_voice or manifest.get("alignment") != "one-clip-one-shot-one-caption":
         raise ValueError("Narration manifest must use the selected voice and shot-locked alignment")
-    if manifest.get("slowdown_allowed") is not False:
-        raise ValueError("Narration must not be slowed down to fill shot durations")
+    # 2026-11-16 用户反馈：某一段语速明显快过其它段。旧规则「只准加速」会把每条旁白
+    # 硬塞进镜头窗口，语速取决于服务商随机朗读速度。现在的规则是「全片一个语速」：
+    # 允许为对齐统一语速放慢或压缩，但只准落在 narration_pace 的上下限内，
+    # 且每条成品语速必须接近同一目标；靠放慢去填满镜头窗口仍然禁止。
+    pace_spec = manifest.get("pace") or {}
+    if (manifest.get("slowdown_allowed") is not True or pace_spec.get("slowdown_allowed") is not True
+            or not pace_spec.get("target_hanzi_per_second")):
+        raise ValueError("Narration manifest must declare the shared-pace policy")
+    target_rate = float(pace_spec["target_hanzi_per_second"])
+    lo, hi = float(pace_spec["min_tempo"]), float(pace_spec["max_tempo"])
     if len(records) != len(shots):
         raise ValueError("Narration manifest must contain exactly one clip per shot")
     for shot in shots:
@@ -638,6 +646,13 @@ def validate(project: dict, require_audio: bool = True) -> None:
             raise ValueError("Shot-locked narration text/file/timing mismatch: " + shot["id"])
         if row.get("sha256") != digest(audio):
             raise ValueError("Narration SHA-256 mismatch: " + shot["id"])
+        tempo = float(row.get("atempo") or 0.0)
+        if not lo - 1e-6 <= tempo <= hi + 1e-6:
+            raise ValueError(f"Narration tempo {tempo:.3f}x is outside the shared-pace range: " + shot["id"])
+        rate = float(row.get("hanzi_per_second") or 0.0)
+        if abs(rate - target_rate) > 0.35:
+            raise ValueError(f"Narration pace {rate:.2f} Hanzi/s is off the {target_rate:.2f}/s film pace: "
+                             + shot["id"])
 
     for ref in project.get("reference_images", []):
         if not (HERE / ref["file"]).is_file():
