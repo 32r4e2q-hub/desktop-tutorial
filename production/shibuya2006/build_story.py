@@ -29,9 +29,9 @@ NEGATIVE = ('【NEGATIVE】卡通,Q版,动漫,夸张表情,过度饱和,文字,�
 BOUNDS = [(0,10,'次日照常集训'),(10,35,'精英家庭'),(35,60,'一句话与供述边界'),(60,85,'他选择隐瞒'),
           (85,108,'照常集训'),(108,130,'母亲发现'),(130,150,'另一个人格的主张'),(150,168,'七年与十二年'),(168,180,'一个家')]
 HOOK_TEXT = [
- (0,'妹妹遇害第二天，他去了集训'),(8,'一句“你没有梦想”，为何被反复提起？'),
- (55,'那天下午，家里只剩两个人'),(80,'他选择了隐瞒'),(108,'谁先察觉到异味？'),
- (130,'他先否认、后承认，争议却未结束'),(144,'律师提出：“另一个人”？'),
+ (0,'妹妹遇害第二天，勇贵去了集训'),(8,'一句“你没有梦想”，为何被反复提起？'),
+ (55,'那天下午，家里只剩两个人'),(80,'勇贵选择了隐瞒'),(108,'谁先察觉到异味？'),
+ (130,'承认之后，为什么还要打官司？'),(144,'律师提出：“另一个人”？'),
  (156,'七年变十二年：为何差五年？'),(168,'一个家，怎样对待“不成器”的孩子？')]
 EXPLAIN_TEXT = [
  (10,17,'时间倒回：2006年12月30日'),(24,30,'升学经历不是施暴的免责理由'),
@@ -77,6 +77,7 @@ def build():
                sfx_only=True,fact_check=dict(status=('verified' if fact.get('status')=='verified' and fact.get('plan_sha256')==hashlib.sha256((HERE/'plan.json').read_bytes()).hexdigest() else 'pending_primary_source_verification'),sources_file='FACT_CHECK.md',review_file='fact_review.json'),
                presentation=dict(onscreen_label='AI动画情景重现 · 非真实影像 · 人物为化名',highlight_phrases=['次日','集训','梦想','隐瞒','另一个人','七年','十二年','一个家'],
                                  hooks=[dict(id=f'H{i:01}',start=t,end=t+2,text=x) for i,(t,x) in enumerate(HOOK_TEXT,1)],
+                                 label_end=180.0,
                                  explainers=[dict(start=a,end=b,text=t) for a,b,t in EXPLAIN_TEXT],
                                  end_title='涩谷短大生惨案',end_subtitle='东京涩谷 · 2006—2009 · 一句话的代价',title_start=174.6,title_end=179.5,
                                  cover_text='第二天',cover_concept='本片生成视频青年独自抵达集合点与住宅暗窗取帧，横版裂缝构图；不可用参考图冒充视频帧',

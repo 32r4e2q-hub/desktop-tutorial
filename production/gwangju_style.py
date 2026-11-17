@@ -70,6 +70,7 @@ def ass_caption(text: str, phrases: list[str], highlight_size: int = 50) -> str:
 def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[str],
               end_card: tuple[str, str, float, float] | None = None,
               onscreen_label: str = "", hooks: list[dict] | None = None,
+              label_end: float = 176.0,
               explainers: list[dict] | None = None,
               explainer_plate: bool = False) -> None:
     rows = [
@@ -109,7 +110,7 @@ def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[st
         style = "ExplainerPlate" if explainer_plate else "Explainer"
         rows.append(f"Dialogue: 1,{ass_time(start)},{ass_time(end)},{style},,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}")
     if onscreen_label:
-        rows.append(f"Dialogue: 0,{ass_time(0.8)},{ass_time(176.0)},Label,,0,0,0,,{{\\q2\\fad(300,300)}}{ass_escape(onscreen_label)}")
+        rows.append(f"Dialogue: 0,{ass_time(0.8)},{ass_time(label_end)},Label,,0,0,0,,{{\\q2\\fad(300,300)}}{ass_escape(onscreen_label)}")
     if end_card:
         title, subtitle, start, end = end_card
         card = (ass_escape(title) + r"\N" +

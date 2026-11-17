@@ -313,6 +313,7 @@ def main() -> int:
          float(pres.get("title_start", 174.6)), float(pres.get("title_end", 179.5)))
         if pres.get("end_title") else None,
         pres.get("onscreen_label", ""), pres.get("hooks", []), pres.get("explainers", []),
+        label_end=float(pres.get("label_end", 176.0)),
         explainer_plate=True,
     )
     silent = args.work / "picture-only.mp4"
