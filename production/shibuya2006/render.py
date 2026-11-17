@@ -116,6 +116,10 @@ def speech_gain_db(path: Path) -> float:
     return round(max(-MAX_SPEECH_GAIN_DB, min(MAX_SPEECH_GAIN_DB, gain)), 2)
 
 
+DEESS_SHOTS: set[str] = set()
+DEESS_FILTER = ""
+
+
 def level_speech(path: Path) -> float:
     """Rewrite a speech clip at the shared level; returns the applied gain in dB."""
     gain = speech_gain_db(path)
@@ -170,6 +174,10 @@ def main() -> int:
     args = ap.parse_args()
 
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
+    # Per-line de-ess list comes from the story so it is data, not a hidden constant.
+    DEESS_SHOTS.clear(); DEESS_SHOTS.update(story["presentation"].get("deess", []) or [])
+    global DEESS_FILTER
+    DEESS_FILTER = story["presentation"].get("deess_filter", "") or ""
     results = json.loads((HERE / "results.json").read_text(encoding="utf-8"))
     manifest_path = HERE / "audio" / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -256,6 +264,12 @@ def main() -> int:
             # rest of the film: that is exactly what made one segment sound rushed.
             raise RuntimeError(f"{sid}: paced speech is {speech_seconds:.2f}s in a {target:.0f}s shot; "
                                "shorten the line or re-record it")
+        # Optional per-line de-ess (see plan.json "deess"): a 2 dB dip at 6 kHz for the
+        # few takes whose sibilance measured 2.5-3x the film median. Nothing else is touched.
+        if sid in DEESS_SHOTS and DEESS_FILTER:
+            run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af", DEESS_FILTER,
+                 "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", str(speech.with_name(sid + ".deess.wav"))])
+            speech.with_name(sid + ".deess.wav").replace(speech)
         # One quiet TTS line must not drop the voice mid-film: level every clip to the
         # same mean speech level before it goes into the mix (measured after atempo).
         narration_gain = level_speech(speech)

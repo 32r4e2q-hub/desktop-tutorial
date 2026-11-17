@@ -1280,7 +1280,7 @@
   },
   "sfx_only": true,
   "fact_check": {
-    "status": "verified",
+    "status": "pending_primary_source_verification",
     "sources_file": "FACT_CHECK.md",
     "review_file": "fact_review.json"
   },
@@ -1353,6 +1353,13 @@
       }
     ],
     "label_end": 180.0,
+    "deess": [
+      "S01",
+      "S07",
+      "S19",
+      "S20"
+    ],
+    "deess_filter": "equalizer=f=6000:t=q:w=1.1:g=-2",
     "explainers": [
       {
         "start": 10,
