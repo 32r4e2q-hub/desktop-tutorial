@@ -75,7 +75,7 @@ def build():
                reference_revision=(HERE/'reference/revision.txt').read_text().strip(),
                reference_designs=dict(characters=[f'C{i:02}' for i in range(1,len(data['anchors'])+1)],scenes=[f'S{i:02}' for i in range(1,14)],props=[f'P{i:02}' for i in range(1,8)]),
                sfx_only=True,fact_check=dict(status=('verified' if fact.get('status')=='verified' and fact.get('plan_sha256')==hashlib.sha256((HERE/'plan.json').read_bytes()).hexdigest() else 'pending_primary_source_verification'),sources_file='FACT_CHECK.md',review_file='fact_review.json'),
-               presentation=dict(onscreen_label='AI动画情景重现 · 非真实影像',highlight_phrases=['次日','集训','梦想','隐瞒','另一个人','七年','十二年','一个家'],
+               presentation=dict(onscreen_label='AI动画情景重现 · 非真实影像 · 人物为化名',highlight_phrases=['次日','集训','梦想','隐瞒','另一个人','七年','十二年','一个家'],
                                  hooks=[dict(id=f'H{i:01}',start=t,end=t+2,text=x) for i,(t,x) in enumerate(HOOK_TEXT,1)],
                                  explainers=[dict(start=a,end=b,text=t) for a,b,t in EXPLAIN_TEXT],
                                  end_title='涩谷短大生惨案',end_subtitle='东京涩谷 · 2006—2009 · 一句话的代价',title_start=174.6,title_end=179.5,

@@ -5,6 +5,9 @@ Run after all 30 S01.mp3..S30.mp3 files exist; never silently invent missing aud
 from __future__ import annotations
 import hashlib, json, subprocess
 from pathlib import Path
+
+import narration_pace as pace
+
 HERE=Path(__file__).resolve().parent
 
 def digest(path: Path) -> str:
@@ -41,7 +44,13 @@ def main() -> None:
             missing.append(shot['id']);continue
         require_review(shot,path,voice,reviews)
         source=duration(path); target=float(shot['duration'])
-        speed=max(1.0,source/target)
+        # Shared pace: slow a rushed read down, compress a dragging one, refuse both
+        # extremes instead of hiding them behind a shot-window squeeze.
+        speed=pace.tempo(shot['narration'],source,target)
+        speech=source/speed
+        if speech>target+0.02:
+            raise SystemExit(f"{shot['id']}: even at {speech/source:.3f}x the line runs {speech:.2f}s "
+                             f"past its {target:.0f}s shot; shorten the line or re-record it")
         if speed>1.55+1e-9:
             raise SystemExit(f"{shot['id']}: narration needs {speed:.3f}x, over the 1.55x hard limit")
         clips.append({'id':shot['id'],'file':path.name,'text':shot['narration'],'sha256':digest(path),
@@ -49,12 +58,20 @@ def main() -> None:
                       'narration_id':shot['narration_id'],'target_start':shot['start'],
                       'target_duration':shot['duration'],'alignment':'shot-locked',
                       'source_duration':round(source,3),'atempo':round(speed,4),
-                      'tail_silence_seconds':round(max(0.0,target-source/speed),3)})
+                      'speech_seconds':round(speech,3),
+                      'hanzi_per_second':pace.rate(shot['narration'],speech),
+                      'tail_silence_seconds':round(max(0.0,target-speech),3)})
     if missing:
         raise SystemExit('Missing narration: '+', '.join(missing))
+    rates=[c['hanzi_per_second'] for c in clips]
     manifest={'language':'zh-CN','voice':voice,'generation':'Arena TTS; one independent clip per shot',
               'alignment':'one-clip-one-shot-one-caption','max_speedup_factor':1.55,
-              'slowdown_allowed':False,'clips':clips}
+              'pace':{'target_hanzi_per_second':pace.TARGET_HANZI_PER_SECOND,
+                      'min_tempo':pace.MIN_TEMPO,'max_tempo':pace.MAX_TEMPO,
+                      'slowdown_allowed':True,
+                      'note':'clips are slowed or compressed to one shared pace; out-of-range lines fail instead of being rushed'},
+              'slowdown_allowed':True,'clips':clips}
     (HERE/'audio'/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(f"Wrote manifest for {len(clips)} shot-locked clips; max atempo={max(x['atempo'] for x in clips):.3f}x")
+    print(f"Wrote manifest for {len(clips)} shot-locked clips; tempo {min(x['atempo'] for x in clips):.3f}-{max(x['atempo'] for x in clips):.3f}x; "
+          f"pace {min(rates):.2f}-{max(rates):.2f} Hanzi/s")
 if __name__=='__main__': main()

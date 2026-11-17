@@ -20,7 +20,7 @@ def main() -> int:
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
     manifest = json.loads((HERE / "audio" / "manifest.json").read_text(encoding="utf-8"))
     rows = {row["id"]: row for row in manifest.get("clips", [])}
-    lines = ["# 逐镜旁白时长检查", "", "| 镜头 | 目标秒数 | 音频秒数 | 需要加速 | 结果 |", "|---|---:|---:|---:|---|"]
+    lines = ["# 逐镜旁白时长检查", "", "| 镜头 | 目标秒数 | 音频秒数 | 变速 | 变速后 | 结果 |", "|---|---:|---:|---:|---:|---|"]
     failures = []
     for shot in story["shots"]:
         sid = shot["id"]
@@ -34,14 +34,17 @@ def main() -> int:
             continue
         raw = duration(path)
         target = float(shot["duration"])
-        factor = max(1.0, raw / target)
-        status = "PASS" if factor <= 1.55 + 1e-9 else "FAIL"
-        lines.append(f"| {sid} | {target:.3f} | {raw:.3f} | {factor:.3f}x | {status} |")
-        if factor > 1.55 + 1e-9:
+        factor = float(row.get("atempo") or max(1.0, raw / target))
+        after = raw / factor
+        status = "PASS" if after <= target + 0.02 and factor <= 1.55 + 1e-9 else "FAIL"
+        lines.append(f"| {sid} | {target:.3f} | {raw:.3f} | {factor:.3f}x | {after:.3f}s | {status} |")
+        if after > target + 0.02:
+            failures.append(f"{sid}: {after:.3f}s does not fit a {target:.0f}s shot")
+        elif factor > 1.55 + 1e-9:
             failures.append(f"{sid}: requires {factor:.3f}x (limit 1.55x)")
     out = HERE / "qa" / "narration-fit.md"
     out.parent.mkdir(parents=True, exist_ok=True)
-    lines += ["", f"旁白剪辑校验：{'FAIL' if failures else 'PASS'}。仅加速、不拉慢；超出上限即阻止出片。"]
+    lines += ["", f"旁白剪辑校验：{'FAIL' if failures else 'PASS'}。按统一语速放慢或压缩，越界即阻止出片。"]
     out.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(failures) if failures else "All 30 narration clips fit their shot windows.")
     return 1 if failures else 0

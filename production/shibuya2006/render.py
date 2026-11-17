@@ -234,7 +234,8 @@ def main() -> int:
         if arow.get("sha256") != digest(narration) or arow.get("voice_id") != manifest["voice"]:
             raise RuntimeError(f"{sid}: narration checksum/voice provenance mismatch")
         raw_duration = duration(narration)
-        speed = max(1.0, raw_duration / target)
+        # The manifest owns the pace (see narration_pace.py); fall back only for old files.
+        speed = float(arow.get("atempo") or max(1.0, raw_duration / target))
         if speed > 1.55 + 1e-9:
             raise RuntimeError(f"{sid}: speech needs {speed:.3f}x, beyond the 1.55x limit")
         # Strip the TTS lead-in silence first: otherwise every caption cue runs ~0.3s ahead
