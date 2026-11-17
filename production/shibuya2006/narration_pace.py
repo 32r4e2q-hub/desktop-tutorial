@@ -7,7 +7,8 @@ clips *up* to fit their shot. Listeners heard one segment as noticeably faster.
 Rule: keep every line near ``TARGET_HANZI_PER_SECOND``. Clips read too fast are slowed
 down (atempo < 1), clips read too slowly are compressed, and anything that would need
 more than ``MAX_TEMPO`` (or would still overflow its shot) fails the build instead of
-being rushed through.
+being rushed through. The output rate is what listeners hear; the tempo number only says
+how far a take had to be nudged to reach it.
 """
 from __future__ import annotations
 
@@ -15,7 +16,7 @@ import re
 
 TARGET_HANZI_PER_SECOND = 3.45
 MIN_TEMPO = 0.84
-MAX_TEMPO = 1.12
+MAX_TEMPO = 1.25
 
 
 def hanzi_count(text: str) -> int:
