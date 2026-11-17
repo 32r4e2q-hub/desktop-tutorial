@@ -804,8 +804,438 @@
       "transition_out": "以悬念句与短暂停顿收束，环境保持微动"
     }
   ],
-  "reference_images": [],
-  "reference_revision": "pending_reference_revision_not_pinned_yet",
+  "reference_images": [
+    {
+      "id": "C01",
+      "status": "approved",
+      "file": "reference/C01.png",
+      "sha256": "8c9c39eb587c125a4494830eab9f0b96a5fc53bdd2d522a885aa84ffb235de0e",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "type": "character",
+      "review_note": "EUNAE: fictional 29yo Korean woman, beige knit cardigan jeans, warm smile; AI-generated, no real likeness.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "C02",
+      "status": "approved",
+      "file": "reference/C02.png",
+      "sha256": "e925aab1ac11c7287dc76f0abe5f1b54193cfa8e5bf2f1243cd6260a636fb9e2",
+      "dimensions": [
+        768,
+        1376
+      ],
+      "type": "character",
+      "review_note": "CHOI: fictional 34yo slim Korean man, black jacket white T, indifferent evasive gaze; not glorified.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "C03",
+      "status": "approved",
+      "file": "reference/C03.png",
+      "sha256": "7c3536e549ba2446b93e9d09fcbc16c5d5eda2153ad91307284427bd354add68",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "character",
+      "review_note": "SISTER: fictional early-30s Korean woman, short hair dark coat, resolute sharp eyes.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "C04",
+      "status": "approved",
+      "file": "reference/C04.png",
+      "sha256": "b7c776dfbb107ff91b51b172ca35bb078f410179720f9fa4b7a97cfb7c770fa8",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "type": "character",
+      "review_note": "MOTHER: fictional 58yo Korean woman, short perm plain coat, haggard gentle; dignified.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "C05",
+      "status": "approved",
+      "file": "reference/C05.png",
+      "sha256": "c0f0669f55bd055fb0d914b883f2e56965cb21856ab9c95bad412d1c57d35677",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "type": "character",
+      "review_note": "POLICE: two fictional Korean officers, uniform reflective vests, serious; badges illegible/blank.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "C06",
+      "status": "approved",
+      "file": "reference/C06.png",
+      "sha256": "bb5be5b76ea6205a69a0efe0ec3ada6e9d3843593d7fc9241171d4ff88f3ed02",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "type": "character",
+      "review_note": "MANAGER: fictional 60yo Korean man, plain dark work uniform cap, no text patches (regen fixed).",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "C07",
+      "status": "approved",
+      "file": "reference/C07.png",
+      "sha256": "fc154d823f33ebe3b9f4daaf384afd7197774e266924892dcccd1e1b092712ea",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "type": "character",
+      "review_note": "Trio sheet: prosecutor dark suit / judge black robe / expert glasses shirt; three distinct faces.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "C08",
+      "status": "approved",
+      "file": "reference/C08.png",
+      "sha256": "4b72cc7d338d6dcbc325038681ae56c9be76e3136fe9d313952937955d159ed0",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "type": "character",
+      "review_note": "LAWYER: fictional 50yo Korean male lawyer, dark suit, blank unmarked folder.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S01",
+      "status": "approved",
+      "file": "reference/S01.png",
+      "sha256": "2178a00672d63033cbe272dc8a1c872ab9cda31aa7085a23e1e2e7dc72c3e6fd",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Jeju airport arrival hall, glass ceiling, travelers, palms; all signboards blank solid panels (regen fixed).",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S02",
+      "status": "approved",
+      "file": "reference/S02.png",
+      "sha256": "d0c57629d0370c3a109fc22f2b9c42838cab5292434e110f6e31ec226b190721",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Rental shop + red Mustang convertible outside, blank plate; window papers illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S03",
+      "status": "approved",
+      "file": "reference/S03.png",
+      "sha256": "6dfa171ba161633097c2bee6ec50c7c51d1de34059e8ac03c87b358a117c99c5",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Jeju coastline, basalt walls, tangerine field, blue sea; no people/text.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S04",
+      "status": "approved",
+      "file": "reference/S04.png",
+      "sha256": "2c75c346ef209b636ee05f1df2be88150721c8aa0ae55cd479dfeab5a1c6f5a2",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Guesthouse balcony dusk, gold sea horizon; book has no readable text.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S05",
+      "status": "approved",
+      "file": "reference/S05.png",
+      "sha256": "d45cfecff7728109abc6f70dfc677fc51abeb28b92e21a70f5ef57b0c049401d",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Restaurant night, wine bottle blank label, glasses; shelf labels illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S06",
+      "status": "approved",
+      "file": "reference/S06.png",
+      "sha256": "d67ee57d55f061eb7a2f8e4fe839c87cf0a689f0ae24080f205eda55ff954933",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Hallim night coastal road, lamps, basalt wall, waves; road signs blank.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S07",
+      "status": "approved",
+      "file": "reference/S07.png",
+      "sha256": "07a9c1bfb9de42c4df7c0929ef395f9c3933d7a4fa8e82122afc5b28f3e800fa",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Mustang interior night, red seatbelt light glowing; gauges dark, visor print illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S08",
+      "status": "approved",
+      "file": "reference/S08.png",
+      "sha256": "2ece4db7e442c615e6a228b8a4455e1e3e5e4e48d63def4b8d1ee5a6c4410916",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Roadside night, stone wall, tiller silhouette, police glow, smoke; no damage detail/people.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S09",
+      "status": "approved",
+      "file": "reference/S09.png",
+      "sha256": "0ba498def3974b4370677712d97ebdd419e4c36d22086322429066c696a4676c",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Hospital corridor night, ICU doors, gurney, bench; wall/door signs illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S10",
+      "status": "approved",
+      "file": "reference/S10.png",
+      "sha256": "f637f16ed60b6b5bf2f5ffe3da0c1b13b1af2c8f652f3fd5c5f9e1d79e7ec4df",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Door lock red-X error + manager room monitor hallway; keypad digits are correct 1-9 design.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S11",
+      "status": "approved",
+      "file": "reference/S11.png",
+      "sha256": "dc60332cecb639d7ab095ce8b225bef2ba48fa69f8d5d1bdfe257d54d733966c",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Sister room night, lamp, dark phone + earphones; book/notebook scribbles illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S12",
+      "status": "approved",
+      "file": "reference/S12.png",
+      "sha256": "9fb70226d13b2b5a835d83a02a8b0f81d3e7942ba83e35b5be1e219cf0767330",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Police office, desks files fluorescents; whiteboard/notices illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S13",
+      "status": "approved",
+      "file": "reference/S13.png",
+      "sha256": "95d7add39fdf197644026d7617afe16d3edc82be51f73060c3454b53038d4088",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Ward, half curtain, monitor abstract curve, empty beds; bed plate 44 realistic detail.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S14",
+      "status": "approved",
+      "file": "reference/S14.png",
+      "sha256": "aeb74aa97f4e51fdb7c2325f105a63a393755ec0bbde76dae6c0acbf7b731971",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Prosecutor office, files charts lamp; papers/spines illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S15",
+      "status": "approved",
+      "file": "reference/S15.png",
+      "sha256": "1ccf99844adb9b6f16ce770e18198f8216bbd7b518a4e4a2acfff63a29a8b1ce",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "TV studio, abstract screen, stand, seats; no people/text.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S16",
+      "status": "approved",
+      "file": "reference/S16.png",
+      "sha256": "f854ee403475b67722c9ebbdf69845c400dc714926b4b23a23f2a45ce6d39999",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "District courtroom, bench stand gallery; no people/text/emblems.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "S17",
+      "status": "approved",
+      "file": "reference/S17.png",
+      "sha256": "a9b90c344d0b17ac9be720fc7c4f56a08d275f97cdc405f544fa55d1f05c773a",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "scene",
+      "review_note": "Appellate courtroom, five chairs; clock/exit tiny, cabinet marks illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P01",
+      "status": "approved",
+      "file": "reference/P01.png",
+      "sha256": "c626dffc5216a8d3cc89ef425d0bb8f511d9274520556c51a1e0ae83085ed941",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Phone waveform red peaks, timer 0:19 clear correct digits; no other text.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P02",
+      "status": "approved",
+      "file": "reference/P02.png",
+      "sha256": "08233bd364b378fc03e5d3ca386b3c7c4d4b2a2b4cac4e45bc7eaf2f1ba841d6",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Red Mustang convertible 45deg, coastal dusk; plate blank.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P03",
+      "status": "approved",
+      "file": "reference/P03.png",
+      "sha256": "22843ee92e7d215287c562563fafde633869d7267bb924cdc8a9905cac29ae8d",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Seatbelt warning icon glowing alone in darkness, surroundings black/OOF; no text (regen, v1 had VOLUME).",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P04",
+      "status": "approved",
+      "file": "reference/P04.png",
+      "sha256": "e7ef201b31689924b9343c360840c1035de9ed3a0eabb495143957bf4b7235b0",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Abstract speedometer, red needle up, blue dial glow; numerals illegible blobs.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P05",
+      "status": "approved",
+      "file": "reference/P05.png",
+      "sha256": "602596e856096723a1fb74d403198d913f507b967af78e93e7b375973ee94800",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Digital door lock red error light + CCTV red dot; keypad digits illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P06",
+      "status": "approved",
+      "file": "reference/P06.png",
+      "sha256": "8d30e401dfe38e9e23d19574e723c708473351062ed61c70cce4e398570555f6",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Laptop + phone dark screens, warm desk lamp; no text/logos.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P07",
+      "status": "approved",
+      "file": "reference/P07.png",
+      "sha256": "cc396cc59683f8505209f12fcca271cbbe046b622f02f395b4a89091c4c53e68",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Judgment doc abstract line patterns + red seal stamp, seal marks illegible.",
+      "visual_review": "passed_by_agent"
+    },
+    {
+      "id": "P08",
+      "status": "approved",
+      "file": "reference/P08.png",
+      "sha256": "ca7e94176ac036cb0b275f7915cbfba880fdaa6eb58638dba7d677df8c9cd5ce",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "type": "prop",
+      "review_note": "Split concept: timer 0:19 clear correct digits + seatbelt buckle + balance scale; no other text.",
+      "visual_review": "passed_by_agent"
+    }
+  ],
+  "reference_revision": "4969c617d71ed00014c3c9fbcaf18aab71a67c67",
   "reference_designs": {
     "characters": [
       "C01",
