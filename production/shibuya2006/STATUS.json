@@ -112,9 +112,9 @@
   "final_film": {
     "status": "rendered_gates_passed_playback_review_pending",
     "file": "交付/涩谷短大生惨案_一句话的代价_三分钟_带声音.mp4",
-    "bytes": 58213329,
-    "sha256": "95421f8f16eec434e30a7b54b9fbb420a6fbc71f0e55130489a69e0416c190e6",
-    "run": 44086768020,
+    "bytes": 57993880,
+    "sha256": "ac066e2555ed478271392b60ce647aee5c82defaf15b23cf966e3716e29caf55",
+    "run": 44090382853,
     "qc": "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
     "narration_fit": "PASS (30/30 paced to 4.5 Hanzi/s of spoken time; tempo 0.860–1.228x)",
     "verify_master": {
@@ -123,8 +123,8 @@
       "cues_without_speech": [],
       "report": "production/shibuya2006/qa/verify-master.json"
     },
-    "visual_sample_review": "v7: S10 re-shot without the tail blackout, S11 re-shot with breathing camera motion, S29 re-shot as an empty room (no quilt that could read as a body); hooks name 勇贵 and H6 no longer repeats S23; disclaimer now runs to the last frame.",
-    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/d0270c6/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4",
+    "visual_sample_review": "v8: S10/S11/S29 re-shot; hooks name 勇贵, H6 no longer repeats S23; disclaimer runs to the last frame; 2 dB de-ess at 6 kHz on S01/S07/S19/S20 only (-30% sibilance, other 26 lines untouched). Picture, cuts and pacing unchanged since v7.",
+    "download": "https://github.com/32r4e2q-hub/desktop-tutorial/raw/bbb3206/%E4%BA%A4%E4%BB%98/%E6%B6%A9%E8%B0%B7%E7%9F%AD%E5%A4%A7%E7%94%9F%E6%83%A8%E6%A1%88_%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%9A%84%E4%BB%A3%E4%BB%B7_%E4%B8%89%E5%88%86%E9%92%9F_%E5%B8%A6%E5%A3%B0%E9%9F%B3.mp4",
     "full_audit": "qa/full-audit/FULL_AUDIT.md (v7) + qa/full-audit/AUDIO_QC.md: frame-accurate picture checks, per-line narration pace/level/sibilance, master loudness; no human listening sign-off"
   },
   "narration_acceptance": {
