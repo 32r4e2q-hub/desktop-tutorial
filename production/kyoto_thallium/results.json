@@ -750,9 +750,9 @@
     "S14": {
       "id": "S14",
       "request_hash": "faee7491f12d9901680937d25dfa54121663ee86dc8242958e794bf69c60f69b",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-18T05:29:17Z",
+      "updated_at": "2026-11-18T05:34:06Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画，35mm胶片质感，浅景深，长焦压缩，日本社会派悬疑电影风格，京都秋日街巷、立命馆大学校园、住宅区夜晚，暖黄秋光与冷蓝夜色、冷白荧光灯对比，低饱和，暗部厚重，胶片颗粒，真实的皮肤、服装与建筑材质，克制冷静而压抑的情绪，16:9宽银幕横屏构图；所有镜头必须是连续运动的电影镜头，镜头平稳移动，人物有自然呼吸、眨眼、手部动作与衣物飘动，禁止以静态图加推拉冒充视频；所有人物均为非真实肖像的写实演员式形象，不丑化、不暗示结论。\n\n【C06锚点】40多岁日本刑警两人,深色西装外套,神情严肃克制,眼神锐利\n\n白板上只有抽象的红色圈线，红线从医院连到公寓，再连到居酒屋，三条线交汇在一个点上，刑警把一支红笔扣在桌上。真实连续运动贯穿全镜，镜头运镜：俯拍，缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，药片，药瓶，粉末，针剂，血腥，伤口，遗体，尸体，中毒症状，挣扎，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，真实姓名，真实肖像，招牌文字，伪标题。",
@@ -767,10 +767,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5146e03ca73473f26e6469d0ca9334b9798b62d8/production/kyoto_thallium/reference/S08.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 05:34:05. (request id: 20261118052917449771323Ahm5EzlQ) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_LRpabQUGkXHkkB9IjhEjFVtsaAgISE7g",
+      "task_id": "task_LRpabQUGkXHkkB9IjhEjFVtsaAgISE7g",
+      "requested_seconds": 5.0,
+      "requested_size": "720P"
     },
     "S18": {
       "id": "S18",
@@ -846,15 +850,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-18T05:29:17Z",
+  "updated_at": "2026-11-18T05:34:06Z",
   "run_id": "44236968169",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 05:34:05. (request id: 20261118052917449771323Ahm5EzlQ) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-18T05:29:17Z"
-  }
+  "previous_results": {}
 }
