@@ -703,9 +703,9 @@
     "S25": {
       "id": "S25",
       "request_hash": "087858e4b8c2e6b4e04cbf5c3093373fa880cf9fbbe5b3b6253837f755412425",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-18T05:52:28Z",
+      "updated_at": "2026-11-18T05:52:30Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画，35mm胶片质感，浅景深，长焦压缩，日本社会派悬疑电影风格，京都秋日街巷、立命馆大学校园、住宅区夜晚，暖黄秋光与冷蓝夜色、冷白荧光灯对比，低饱和，暗部厚重，胶片颗粒，真实的皮肤、服装与建筑材质，克制冷静而压抑的情绪，16:9宽银幕横屏构图；所有镜头必须是连续运动的电影镜头，镜头平稳移动，人物有自然呼吸、眨眼、手部动作与衣物飘动，禁止以静态图加推拉冒充视频；所有人物均为非真实肖像的写实演员式形象，不丑化、不暗示结论。\n\n黑色背景，一座天平缓缓摇摆，旁边一个抽象的盾牌图标亮起，象征无罪推定，画面冷白，天平最终静止在水平位置。真实连续运动贯穿全镜，镜头运镜：特写，缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，药片，药瓶，粉末，针剂，血腥，伤口，遗体，尸体，中毒症状，挣扎，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，真实姓名，真实肖像，招牌文字，伪标题。",
@@ -731,7 +731,18 @@
       "bytes": 3142704,
       "sha256": "93297656431364f33b11203e01bca9672a2c9d6beea9050bd7658876a7f73974",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3142704,
+        "decoded_ok": true,
+        "contact_sheet": "production/kyoto_thallium/qa/S25.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S26": {
       "id": "S26",
@@ -1161,7 +1172,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-18T05:52:28Z",
+  "updated_at": "2026-11-18T05:52:30Z",
   "run_id": "44236968169",
   "previous_results": {}
 }
