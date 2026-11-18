@@ -5,9 +5,24 @@
     "S03": {
       "id": "S03",
       "request_hash": "48fc08c2eca6fec5b1c1f4bc9598e76f131370cf2dc453d04cd1a097db2016b2",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-18T04:24:26Z"
+      "updated_at": "2026-11-18T04:24:27Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画，35mm胶片质感，浅景深，长焦压缩，日本社会派悬疑电影风格，京都秋日街巷、立命馆大学校园、住宅区夜晚，暖黄秋光与冷蓝夜色、冷白荧光灯对比，低饱和，暗部厚重，胶片颗粒，真实的皮肤、服装与建筑材质，克制冷静而压抑的情绪，16:9宽银幕横屏构图；所有镜头必须是连续运动的电影镜头，镜头平稳移动，人物有自然呼吸、眨眼、手部动作与衣物飘动，禁止以静态图加推拉冒充视频；所有人物均为非真实肖像的写实演员式形象，不丑化、不暗示结论。\n\n【C01锚点】21岁日本女大学生,黑色及肩直发,清秀明亮,浅色针织衫长裙,双肩包,笑容温暖朝气\n\n京都立命馆大学校园，秋天，银杏金黄，21岁的日菜子背着双肩包，和同学笑着走过，阳光穿过树叶落在她的脸上，画面明亮温暖。真实连续运动贯穿全镜，镜头运镜：中景，缓慢跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，药片，药瓶，粉末，针剂，血腥，伤口，遗体，尸体，中毒症状，挣扎，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，真实姓名，真实肖像，招牌文字，伪标题。",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 1101,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5146e03ca73473f26e6469d0ca9334b9798b62d8/production/kyoto_thallium/reference/C01.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5146e03ca73473f26e6469d0ca9334b9798b62d8/production/kyoto_thallium/reference/S02.png"
+        ]
+      },
+      "error": null
     },
     "S04": {
       "id": "S04",
@@ -265,7 +280,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-18T04:24:26Z",
+  "updated_at": "2026-11-18T04:24:27Z",
   "run_id": "44236968169",
   "previous_results": {}
 }
