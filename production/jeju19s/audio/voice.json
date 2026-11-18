@@ -1,19 +1,21 @@
 {
   "status": "selected",
-  "voice_id": "voice-01",
+  "voice_id": "voice-02",
   "language": "zh-CN",
-  "description": "悬疑低沉、克制的成熟普通话男声",
+  "description": "悬疑干脆、有精气神的成熟普通话男声",
   "narration_progress": {
     "completed_clips": [
-      "S01",
-      "S02",
       "S03",
       "S04",
-      "S05",
-      "S06",
       "S07",
       "S08",
-      "S09",
+      "S09"
+    ],
+    "pending_clips": [
+      "S01",
+      "S02",
+      "S05",
+      "S06",
       "S10",
       "S11",
       "S12",
@@ -36,9 +38,8 @@
       "S29",
       "S30"
     ],
-    "pending_clips": [],
-    "qc": "All 30 MP3s (voice-01) fit shot windows at 0.65x-1.28x (1.55x cap); full listening review pending"
+    "qc": "voice-02 batch1: S01 bad file(7KB), S02/S05/S06/S10 trimmed for slower voice; S03/S04/S07/S08/S09 pass ≤1.05x"
   },
   "selected_at": "2026-11-17",
-  "selected_by": "user via Arena voice audition (battle 01; voice-00 skipped, user asked for deeper voice)"
+  "selected_by": "user via Arena voice audition (battle 02; voice-01 retired as too sleepy, user asked for energetic voice)"
 }
