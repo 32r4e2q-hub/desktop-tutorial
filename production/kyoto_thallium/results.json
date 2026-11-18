@@ -176,9 +176,24 @@
     "S23": {
       "id": "S23",
       "request_hash": "d74eb71a8e8b758b5a57170abd8bec38f9e2d8c4c4de9cceb315fcdd3e35878c",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-18T04:24:26Z"
+      "updated_at": "2026-11-18T04:30:07Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】电影级写实3D动画，35mm胶片质感，浅景深，长焦压缩，日本社会派悬疑电影风格，京都秋日街巷、立命馆大学校园、住宅区夜晚，暖黄秋光与冷蓝夜色、冷白荧光灯对比，低饱和，暗部厚重，胶片颗粒，真实的皮肤、服装与建筑材质，克制冷静而压抑的情绪，16:9宽银幕横屏构图；所有镜头必须是连续运动的电影镜头，镜头平稳移动，人物有自然呼吸、眨眼、手部动作与衣物飘动，禁止以静态图加推拉冒充视频；所有人物均为非真实肖像的写实演员式形象，不丑化、不暗示结论。\n\n【C02锚点】37岁日本男子,整洁短发,深色西装衬衫,举止礼貌,神情平静,眼神温和\n\n拘置所会见室，中间一块玻璃，穿深色西装的男子坐在玻璃另一侧，双手放在膝上，神情平静，轻轻垂下目光，画面冷灰。真实连续运动贯穿全镜，镜头运镜：近景，缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，药片，药瓶，粉末，针剂，血腥，伤口，遗体，尸体，中毒症状，挣扎，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，真实姓名，真实肖像，招牌文字，伪标题。",
+        "seconds": "7",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2202,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5146e03ca73473f26e6469d0ca9334b9798b62d8/production/kyoto_thallium/reference/C02.png",
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/5146e03ca73473f26e6469d0ca9334b9798b62d8/production/kyoto_thallium/reference/S09.png"
+        ]
+      },
+      "error": null
     },
     "S24": {
       "id": "S24",
@@ -394,7 +409,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-18T04:30:05Z",
+  "updated_at": "2026-11-18T04:30:07Z",
   "run_id": "44236968169",
   "previous_results": {}
 }
