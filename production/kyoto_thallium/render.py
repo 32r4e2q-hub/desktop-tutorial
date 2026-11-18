@@ -18,6 +18,9 @@ RATE = 48_000
 # 0.8s gamma pulse). Global deflicker now handles exposure; only the S07 near-black tail
 # still needs a frame-locked hold so the shot never dips to black before its cut.
 S07_TAIL_SHOTS: set = set()  # Kyoto cut: no per-shot tail hold needed
+# S28 calendar insert: the generated date digits stay legible, and the prompt asked for them to be
+# unreadable. A light post blur keeps the calendar as an abstract motif without AI-generated text.
+S28_BLUR_SHOTS = {"S28"}
 S07_TAIL_HOLD_FRAME = 1003           # S07, 41.792s: last readable frame before the generated near-black tail.
 S07_TAIL_PAD_FRAMES = 4               # Hold that frame for the final 4 frames (0.167s) instead of the blackout.
 
@@ -56,7 +59,8 @@ def normalized_video_filter(shot_id: str, shot_start: float,
         vf = (f"{base},trim=end_frame={keep_frames},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,"
               f"tpad=stop_mode=clone:stop_duration={pad_frames / FPS:.9f}")
     else:
-        vf = (f"{base},trim=duration={target_seconds:.6f},setpts=PTS-STARTPTS,"
+        blur = "boxblur=luma_radius=6:luma_power=2," if shot_id in S28_BLUR_SHOTS else ""
+        vf = (f"{base},{blur}trim=duration={target_seconds:.6f},setpts=PTS-STARTPTS,"
               "setsar=1,format=yuv420p")
         if shot_id == "S30":
             # Closing shot: hold the falling drop, then fade into black under the end title.
