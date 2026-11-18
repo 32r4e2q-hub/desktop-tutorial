@@ -208,8 +208,12 @@ def main() -> int:
             extra = speech_seconds / target
             if speed * extra > 1.55 + 1e-9:
                 raise RuntimeError(f"{sid}: speech cannot fit even at 1.55x")
+            # Write to a temp file: ffmpeg truncates its output before reading, so reading and
+            # writing the same path produced an unreadable WAV (KeyError: duration on S10).
+            fitted = speech.with_name(speech.stem + ".fit.wav")
             run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af",
-                 f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+                 f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", fitted])
+            fitted.replace(speech)
             speech_seconds = duration(speech)
         sfx_record = sfx_rows.get(sid, {})
         sfx_path = sfx_dir / sfx_record.get("file", "missing.wav")
