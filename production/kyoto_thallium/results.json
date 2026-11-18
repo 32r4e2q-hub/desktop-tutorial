@@ -32,9 +32,9 @@
     "S04": {
       "id": "S04",
       "request_hash": "660a4eefe32162ab7b99ca977eba8223d9143e32872d96e376d2d2863785feba",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-18T05:49:26Z",
+      "updated_at": "2026-11-18T05:49:28Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画，35mm胶片质感，浅景深，长焦压缩，日本社会派悬疑电影风格，京都秋日街巷、立命馆大学校园、住宅区夜晚，暖黄秋光与冷蓝夜色、冷白荧光灯对比，低饱和，暗部厚重，胶片颗粒，真实的皮肤、服装与建筑材质，克制冷静而压抑的情绪，16:9宽银幕横屏构图；所有镜头必须是连续运动的电影镜头，镜头平稳移动，人物有自然呼吸、眨眼、手部动作与衣物飘动，禁止以静态图加推拉冒充视频；所有人物均为非真实肖像的写实演员式形象，不丑化、不暗示结论。\n\n【C01锚点】21岁日本女大学生,黑色及肩直发,清秀明亮,浅色针织衫长裙,双肩包,笑容温暖朝气\n\n【C02锚点】37岁日本男子,整洁短发,深色西装衬衫,举止礼貌,神情平静,眼神温和\n\n京都夜晚的小巷，居酒屋的灯笼与暖黄窗光，石板路被雨润湿，日菜子与一名穿深色西装的男子并肩走过，男子礼貌地为她拉开店门，画面温暖，看似平常。真实连续运动贯穿全镜，镜头运镜：中景，侧面跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，药片，药瓶，粉末，针剂，血腥，伤口，遗体，尸体，中毒症状，挣扎，暴力过程，裸露，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，真实姓名，真实肖像，招牌文字，伪标题。",
@@ -60,7 +60,18 @@
       "bytes": 3047696,
       "sha256": "ad69e22cb6c044e1d8354b0a613f1a062fdf42fd77a285b85d210fb1f6c52deb",
       "reported_size": "720P",
-      "reported_seconds": "7"
+      "reported_seconds": "7",
+      "inspection": {
+        "duration_seconds": 7.328,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3047696,
+        "decoded_ok": true,
+        "contact_sheet": "production/kyoto_thallium/qa/S04.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S07": {
       "id": "S07",
@@ -921,7 +932,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-18T05:49:26Z",
+  "updated_at": "2026-11-18T05:49:28Z",
   "run_id": "44236968169",
   "previous_results": {}
 }
