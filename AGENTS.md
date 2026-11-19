@@ -25,6 +25,16 @@
 
 新题目脚手架 `production/new_topic.py` 会复制该文字层引擎；旧狂犬病/世田谷模式仍可用，但新片不得删掉解说词字幕和中间偏下注释。若用户明确另有要求，以用户要求为准。
 
+## 生成物纪律与“死循环”防复现（2026-11-19 上海冰柜藏尸案事故）
+
+1. `story.json` / `screenplay.md` / `抖音脚本.md` 是 `build_story.py` 的**生成物**，禁止手改；要改剧情/提示词/种子就改生成器再 `python3 production/<slug>/build_story.py`，三件一起提交。CI 会按生成器重跑，手改会被静默覆盖，Request Hash 不变 → 六镜 `reused_existing_asset=true` → 烧了额度却一帧没重做。
+2. 任何“重做”必须核对 `results.json`：`request_hash` 变了、`reused_existing_asset=false`、且 **sha256/video_id 是新值**；缺一即视为没真重做，立刻止损，不看片。
+3. `preflight.py` 的生成物一致性硬闸（`generated_sources_consistency()`）会在 story.json 与 build_story.py 输出不一致时直接 BLOCKED——不要绕过它；看到 BLOCKED 就先跑 `build_story.py`。
+4. `generate.py` 的 create 重试是**无界**的，靠 job timeout 兜底；create 重试 >10 次全 429 属供应商容量问题，停一个批次、改低谷重试，不要无限硬推；不打断正在跑的批次。
+5. “Agnes 任务 completed / QC 解码通过” ≠ 画面合规：AI 伪文字、遗体、未打码只能靠人看接触表兜底，全绿也不等于可交付。
+
+完整复盘：`production/shanghai_freezer_case/LESSONS_2026-11-19_generation-loop.md`。
+
 ## 成片交付前的三条硬校验
 
 1. **跑通用校验器**：`python3 production/verify_master.py --film '交付/<成片>.mp4' --story production/<slug>/story.json --srt '交付/<成片>_Subtitles.srt'`，退出码非 0 不许交付。它查容器/视频/音频三条时长、帧数、分辨率、帧率、采样率、字幕条数与每条字幕窗口、每条字幕窗口里的真实语音、字幕领先语音秒数。
