@@ -134,19 +134,21 @@
     "S04": {
       "id": "S04",
       "request_hash": "920369dd8f779ed37cc35cf7e99591a5a217f50bf7b672ec7f6eaf7f00bb38f8",
-      "status": "queued",
+      "status": "downloaded",
       "video_id": "task_8tjsO1N6VOT6FQT1PfgTPP7WS6BckV9z",
       "task_id": "task_8tjsO1N6VOT6FQT1PfgTPP7WS6BckV9z",
-      "video_url": null,
-      "sha256": null,
-      "bytes": null,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_8tjsO1N6VOT6FQT1PfgTPP7WS6BckV9z.mp4",
+      "sha256": "3d0edd7c85b183dfd3e58aeedf76a1e1ff97f397ab460cac272767a9febbdc0b",
+      "bytes": 3192452,
       "error": null,
-      "updated_at": "2026-11-19T05:38:39Z",
+      "updated_at": "2026-11-19T05:45:59Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 169.0,
       "requested_seconds": 10.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "reported_size": "720P",
+      "reported_seconds": "10"
     },
     "S05": {
       "id": "S05",
@@ -1315,7 +1317,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-19T05:43:53Z",
+  "updated_at": "2026-11-19T05:45:59Z",
   "run_id": "44450698850",
   "previous_results": {
     "S04": [
