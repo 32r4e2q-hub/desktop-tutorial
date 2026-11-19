@@ -631,7 +631,8 @@ def create_contact_sheet(source: Path, shot_id: str, qa_dir: Path) -> dict:
     if not video:
         raise RuntimeError(f"{shot_id}: no video stream")
     duration = float(probe["format"]["duration"])
-    if not 3.75 <= duration <= 9.5 or int(video.get("width", 0)) < 640:
+    # 定稿时间码含 10–13 秒长镜头（S04/S29）；光州遗留的 3.75–9.5s 窗口会误杀这些合法片段。
+    if not 3.0 <= duration <= 13.0 or int(video.get("width", 0)) < 640:
         raise RuntimeError(f"{shot_id}: unsuitable returned clip ({duration:.2f}s, {video.get('width')}px)")
     subprocess.run(["ffmpeg", "-v", "error", "-threads", "2", "-i", str(source),
                     "-map", "0:v:0", "-f", "null", "-"], check=True)
