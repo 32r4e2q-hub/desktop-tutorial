@@ -36,8 +36,8 @@ def normalized_video_filter(shot_id: str, shot_start: float,
     vf = (f"{base},trim=duration={target_seconds:.6f},setpts=PTS-STARTPTS,"
           "setsar=1,format=yuv420p")
     if shot_id == "S28":
-        # 定稿：日历翻页定格后，结尾约 1.7 秒渐隐到纯黑（"最终停在一片纯黑底上"）。
-        # 黑场上的后期大字 "2019·1" 由 ASS Hook H10（158.0–160.0s，2 秒整）呈现；画面不再替模型补字。
+        # 定稿：S28 日历翻页定格后，结尾约 1.7 秒渐隐到纯黑（"最终画面停在一片纯黑底"，见 S28 prompt 与 screenplay.md）。
+        # 只做画面渐隐；文字层由原设计稿 Hook H9「年仅32岁」（02:40–02:42）与 Explainer「2019年1月 · 执行死刑 · 年仅32岁」承担，不新增后期大字。
         vf += f",fade=t=out:st={target_seconds - 1.7:.3f}:d=0.5"
     if shot_id == "S30":
         # Closing shot: fade into black under the end title.

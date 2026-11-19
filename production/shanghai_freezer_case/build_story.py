@@ -179,7 +179,6 @@ HOOKS = [
     {"id": "H7", "start": 129.0, "end": 131.0, "text": "拉开冰柜的瞬间", "style": "big_white_black_outline"},
     {"id": "H8", "start": 144.0, "end": 146.0, "text": "一审死刑，二审维持", "style": "big_white_black_outline"},
     {"id": "H9", "start": 160.0, "end": 162.0, "text": "年仅32岁", "style": "big_white_black_outline", "accent": "red"},
-    {"id": "H10", "start": 158.0, "end": 160.0, "text": "2019·1", "style": "big_white_black_outline"},
     {"id": "CTA", "start": 173.0, "end": 175.0, "text": "第几天会露馅？评论区聊聊", "style": "big_white_black_outline"},
 ]
 
