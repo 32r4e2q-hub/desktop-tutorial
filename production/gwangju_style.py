@@ -6,6 +6,9 @@
 2. Explainer：画面中间偏下（MarginV=200）的金色注释，只补充可核实事实、时间线、术语或法律边界；
 3. Hook：居中偏下（MarginV=275）的大字钩子，每条严格 2 秒。
 
+可选 `accent: "red"`：单条 Hook/Explainer 改用警句红色（HookRed/ExplainerRed）；
+默认仍为金色/白底黑边模板，不影响既有片子。
+
 所有文字必须后期烧录，AI 源片禁止自绘文字。修改此文件会影响新片默认字幕样式；
 已交付母版不重渲，除非明确重新出片。
 """
@@ -79,6 +82,8 @@ def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[st
         "Style: Caption,Noto Sans CJK SC,44,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.4,0.6,2,120,120,62,1",
         "Style: Label,Noto Sans CJK SC,26,&H60FFFFFF,&H00FFFFFF,&H00101010,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0.0,7,52,52,34,1",
         "Style: Hook,Noto Sans CJK SC,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1",
+"Style: HookRed,Noto Sans CJK SC,78,&H001414E8,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1",
+"Style: ExplainerRed,Noto Sans CJK SC,32,&H001414E8,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,2.2,0.5,2,120,120,200,1",
         "Style: Explainer,Noto Sans CJK SC,32,&H0000C8FF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,2.2,0.5,2,120,120,200,1",
         "Style: Title,Noto Sans CJK SC,104,&H0000C8FF,&H00FFFFFF,&H00101010,&H80000000,-1,0,0,0,100,100,2,0,1,3.0,1.0,2,120,120,330,1",
         "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
@@ -94,13 +99,15 @@ def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[st
             ass_caption(line, phrases, highlight_size=86)
             for line in caption_lines(str(hook["text"]), limit=18)
         )
-        rows.append(f"Dialogue: 2,{ass_time(start)},{ass_time(end)},Hook,,0,0,0,,{{\\q2\\fad(90,100)}}{rendered}")
+        hook_style_name = "HookRed" if str(hook.get("accent", "")).lower() == "red" else "Hook"
+        rows.append(f"Dialogue: 2,{ass_time(start)},{ass_time(end)},{hook_style_name},,0,0,0,,{{\\q2\\fad(90,100)}}{rendered}")
     for explainer in explainers or []:
         start, end = float(explainer["start"]), float(explainer["end"])
         if end <= start:
             raise ValueError("Explainer overlay has a non-positive duration")
         rendered = r"\N".join(caption_lines(str(explainer["text"]), limit=28))
-        rows.append(f"Dialogue: 1,{ass_time(start)},{ass_time(end)},Explainer,,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}")
+        explainer_style = "ExplainerRed" if str(explainer.get("accent", "")).lower() == "red" else "Explainer"
+        rows.append(f"Dialogue: 1,{ass_time(start)},{ass_time(end)},{explainer_style},,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}")
     if onscreen_label:
         rows.append(f"Dialogue: 0,{ass_time(0.8)},{ass_time(176.0)},Label,,0,0,0,,{{\\q2\\fad(300,300)}}{ass_escape(onscreen_label)}")
     if end_card:
