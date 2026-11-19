@@ -1317,7 +1317,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1364,9 +1364,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-19T09:36:13Z",
   "run_id": "44496071553",
@@ -2194,8 +2194,8 @@
     "cover": "work/shanghai_freezer_case/clips/上海冰柜藏尸案_Cover.jpg",
     "delivered": {
       "上海冰柜藏尸案_105天_三分钟_带声音.mp4": {
-        "bytes": 60934442,
-        "sha256": "efb5a9b802571f220c37955a821385829f12e34924c6f8a453e3ca02728d4ea2"
+        "bytes": 59638387,
+        "sha256": "e9eaea08d4fa4fda45bd017a04998495f7bdaafc1da83e799e4321b343aa58f0"
       },
       "上海冰柜藏尸案_Cover.jpg": {
         "bytes": 109503,
@@ -2207,7 +2207,7 @@
       },
       "上海冰柜藏尸案_Technical_Report.json": {
         "bytes": 11121,
-        "sha256": "094e8bf71b60fa83e7cb068e191d7f9a0a1624e7eb921c2c09e11348798937c0"
+        "sha256": "2c534fefd1f3a275f25f2a5992370b2178ee7b42d4f8da16ef0ee0c0df3740eb"
       }
     }
   }
