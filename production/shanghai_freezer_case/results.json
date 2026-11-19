@@ -134,19 +134,21 @@
     "S04": {
       "id": "S04",
       "request_hash": "920369dd8f779ed37cc35cf7e99591a5a217f50bf7b672ec7f6eaf7f00bb38f8",
-      "status": "queued",
+      "status": "downloaded",
       "video_id": "task_wp96XjoKfXri8FWNaPYQ1vp96Ag7zfTP",
       "task_id": "task_wp96XjoKfXri8FWNaPYQ1vp96Ag7zfTP",
-      "video_url": null,
-      "sha256": null,
-      "bytes": null,
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_wp96XjoKfXri8FWNaPYQ1vp96Ag7zfTP.mp4",
+      "sha256": "bbe2de02c676a0beb30ab32a72674898cb147cf0a097c8ae6255454b2754ba04",
+      "bytes": 3508066,
       "error": null,
-      "updated_at": "2026-11-19T05:58:59Z",
+      "updated_at": "2026-11-19T06:04:03Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 272.0,
       "requested_seconds": 10.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "reported_size": "720P",
+      "reported_seconds": "10"
     },
     "S05": {
       "id": "S05",
@@ -1220,15 +1222,15 @@
     "S29": {
       "id": "S29",
       "request_hash": "37b8c5ff2edcceabbb009334704d3c2c7817ea4c0226e8752e4ae76076e27ee1",
-      "status": "rate_limited",
+      "status": "waiting_create_slot",
       "video_id": null,
       "task_id": null,
       "video_url": null,
       "sha256": null,
       "bytes": null,
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:03:59. (request id: 20261119055940887210948HZpENthN) (code=rate_limit_exceeded)",
-      "updated_at": "2026-11-19T05:59:40Z",
-      "create_attempts": 1,
+      "error": null,
+      "updated_at": "2026-11-19T05:59:42Z",
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 259.0
     },
@@ -1313,7 +1315,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-19T05:59:40Z",
+  "updated_at": "2026-11-19T06:04:03Z",
   "run_id": "44450698850",
   "previous_results": {
     "S04": [
