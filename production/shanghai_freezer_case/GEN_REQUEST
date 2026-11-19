@@ -1,6 +1,6 @@
 {
   "mode": "clips",
-  "only": "S03,S16,S19,S25,S27,S28",
+  "only": "S19,S27",
   "workers": 2,
-  "note": "build_story.py 源已同步对象级合规约束与 SEED_OVERRIDES；本次为真实重做（run 44482909764 因 CI 重跑 build_story.py 覆盖 story.json，六镜全部 reused 未重做）"
+  "note": "S19/S27 二轮：一轮仍画出可读字符（S19 数字/日期字、S27 黑字线+字符行）；二轮提示词改为完全空白纸页/整面失焦白纸，种子 20163036/20163044"
 }
