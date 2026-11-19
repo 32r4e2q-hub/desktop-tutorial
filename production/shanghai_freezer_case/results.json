@@ -1313,8 +1313,8 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-19T07:11:12Z",
-  "run_id": "44450698850",
+  "updated_at": "2026-11-19T07:14:24Z",
+  "run_id": "44468587750",
   "previous_results": {
     "S04": [
       {
@@ -1764,13 +1764,5 @@
         "reported_seconds": "12"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:16:00. (request id: 20261119071112179178500QFaMiJeP) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-19T07:11:12Z"
   }
 }
