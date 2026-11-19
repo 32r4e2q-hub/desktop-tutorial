@@ -1,5 +1,6 @@
 {
   "mode": "clips",
   "only": "S03,S16,S19,S25,S27,S28",
-  "workers": 2
+  "workers": 2,
+  "note": "build_story.py 源已同步对象级合规约束与 SEED_OVERRIDES；本次为真实重做（run 44482909764 因 CI 重跑 build_story.py 覆盖 story.json，六镜全部 reused 未重做）"
 }
