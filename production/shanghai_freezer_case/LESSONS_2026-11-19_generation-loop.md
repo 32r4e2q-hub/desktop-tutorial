@@ -35,3 +35,10 @@
 - Agnes create 重试仍是**无界**策略（仓库刻意，timeout 兜底）；本文档只把它显性化，没有改成有界。改动它需要主创明确裁决。
 - 本机沙箱下载 CI artifact 持续 EOF；逐镜「完整播放」签核必须在真实机器上由主创完成。
 - AI 伪文字零可读 ≠ 平台审核零风险；S27 纸面行式纹理经主创裁定接受，若平台按最严字面要求「完全无纹理」则必须再议。
+
+## 补充 · 2026-11-19 渲染重试事故（run 44510238238）
+
+- 现象：重推渲染（mode=render，不生成新资产）7 分钟失败，**失败现场日志从未落盘**：工作流失败处理器（`.github/workflows/shanghai-freezer-case.yml`）裸 `git push` 无 rebase 重试，且被触发渲染后我又并行推送了 AGENTS.md（cd79354），远端推进→非快进→push 被拒；`set +e` 吞错→`git diff --cached --quiet` 早已提交 or 提交未推→无任何诊断提交。Actions artifact 下载同样 EOF，故根因靠推断：**最可能是 restore_sources 从 Agnes  receipts 重下 30 镜时网络/平台抖动**（工作流在 5 分钟时仍处于下载校验阶段；编码本身需约 50 分钟），或被并行本地 push 间接拖垮的推送——确切行号未知，**如实留白**。
+- 修复：失败处理器 push 改为 `HEAD:refs/heads/arena/...` 且带 `pull --rebase` 三次重试；第三次仍失败则把日志尾部 120 行写进 Step Summary（artifact 全废也有线索）。
+- 铁律（以后不要再犯）：**触发渲染后，在 run 结束前不再向该分支做任何本地 push**；所有本地提交先做完、push 完，最后一个 push 才触发渲染。CI 内凡是手写的 `git push` 一律三件套（`HEAD:refs/heads/...` + rebase 重试 + 摘要兜底）。
+- 验证缺口：本仓库沙箱下载 Actions artifact/日志持续 EOF（Azure blob 截断），CI 失败取证依赖「失败处理器自提交日志」或 Step Summary——这就是为什么这个闸门不能省。

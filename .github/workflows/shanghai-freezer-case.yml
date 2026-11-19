@@ -115,7 +115,23 @@ jobs:
               git add -- production/shanghai_freezer_case/qa/render-failure.log
               if ! git diff --cached --quiet -- production/shanghai_freezer_case/qa/render-failure.log; then
                 git commit -m "shanghai_freezer_case: retain render failure diagnostics" -- production/shanghai_freezer_case/qa/render-failure.log
-                git push origin arena/30eea026-desktop-tutorial
+                # 2026-11-19 run 44510238238: 本步裸 push 在 origin 被并行本地 push 推进后被拒（non-fast-forward），
+                # set +e 吞掉错误 → 失败现场日志从未落盘。与 generate.py 的 commit_delivery 同款三次重试：
+                # 先 rebase 到 origin 最新再 push；detached HEAD 也用 HEAD:<branch> 显式推。
+                pushed=0
+                for attempt in 1 2 3; do
+                  if git push origin HEAD:refs/heads/arena/30eea026-desktop-tutorial; then
+                    pushed=1
+                    break
+                  fi
+                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/30eea026-desktop-tutorial"
+                  git fetch origin arena/30eea026-desktop-tutorial || true
+                  git pull --rebase origin arena/30eea026-desktop-tutorial || git rebase --abort || true
+                done
+                if [ "$pushed" != "1" ]; then
+                  echo "::error title=failure log push rejected::render-failure.log 三次 push 均失败；最后 120 行已写入步骤摘要，请人工取回"
+                  tail -n 120 "$log_file" >> "${GITHUB_STEP_SUMMARY:-/dev/null}"
+                fi
               fi
               exit "$status"
             fi
