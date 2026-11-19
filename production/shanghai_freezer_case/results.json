@@ -657,9 +657,9 @@
     "S24": {
       "id": "S24",
       "request_hash": "d653f114e3c4b3476b1160bf38ff13edf988f0d77212c079ccbf44c3cee0190f",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-19T04:46:29Z",
+      "updated_at": "2026-11-19T04:46:40Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，类似冷峻悬疑犯罪片的克制、冷静、压抑氛围；2016–2019年上海的普通居民小区、室内与城市街道，准确呈现当年普通家具、立式冰柜、手机与日常物件的材质；真实人体比例、自然皮肤纹理、可信布料与建筑表面，低饱和、暗部厚重、细腻胶片颗粒；暖黄色彩只属于镜头4回忆段，镜头5（卧室暖转冷）完成冷暖转折，此后镜头6–30全程冷青/冷灰主导，结尾黑场金句；16:9横屏宽银幕，主体放在三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，有自然呼吸、眨眼、手部动作、脚步、飘动、灯光变化或物体转动，镜头本身平稳移动，绝不以静态图加推拉冒充视频；冰柜与结霜是贯穿全片的视觉母题：只在镜头5/10/18/25/28真实出现，其余镜头以画面边缘的冷光、门缝光或结霜纹理延续母题，不暗示人物真实存在于冰柜前；每个镜头末端只做一瞬克制的悬念停顿，环境仍保持细微运动；所有人物均为虚构演员式形象，不还原任何真实人物肖像。\n\n【C10锚点】30岁左右男性警察背影,深色制服,面部完全不可见\n\n【C05锚点】同一人背影,黑色短发,偏瘦,深色夹克与衬衫\n\n楼道入口夜景，警察背影跟随朱晓东背影走进楼道，门框形成框架构图，光线由亮入暗（曝光递减），纵深感强，脚步声立体回响。 本镜头禁止出现冰柜、结霜或案件道具，只以冷青色调延续母题；真实连续运动贯穿全镜，镜头运镜：斯坦尼康跟拍进门；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，冰柜内部内容，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
@@ -675,7 +675,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/b248f775985dea501fb0b044ea8ffcf62e0ef9a0/production/shanghai_freezer_case/reference/S15.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 04:51:27. (request id: 2026111904464027666656OwDgv0Vv) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 288.0
     },
     "S25": {
       "id": "S25",
@@ -772,7 +775,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-19T04:46:29Z",
+  "updated_at": "2026-11-19T04:46:40Z",
   "run_id": "44450698850",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 04:51:27. (request id: 2026111904464027666656OwDgv0Vv) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 288.0,
+    "last_seen": "2026-11-19T04:46:40Z"
+  }
 }
