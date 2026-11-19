@@ -1220,15 +1220,15 @@
     "S29": {
       "id": "S29",
       "request_hash": "37b8c5ff2edcceabbb009334704d3c2c7817ea4c0226e8752e4ae76076e27ee1",
-      "status": "rate_limited",
-      "video_id": null,
-      "task_id": null,
+      "status": "queued",
+      "video_id": "task_OFkRBu64rvFHnHCsp5RNxmMlURRzQiEI",
+      "task_id": "task_OFkRBu64rvFHnHCsp5RNxmMlURRzQiEI",
       "video_url": null,
       "sha256": null,
       "bytes": null,
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:16:00. (request id: 202611190714273422994331rqRCBmU) (code=rate_limit_exceeded)",
-      "updated_at": "2026-11-19T07:14:27Z",
-      "create_attempts": 2,
+      "error": null,
+      "updated_at": "2026-11-19T07:16:01Z",
+      "create_attempts": 3,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 93.0,
       "request_payload": {
@@ -1243,7 +1243,9 @@
         "images": [
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/b248f775985dea501fb0b044ea8ffcf62e0ef9a0/production/shanghai_freezer_case/reference/P01.png"
         ]
-      }
+      },
+      "requested_seconds": 12.0,
+      "requested_size": "720P"
     },
     "S30": {
       "id": "S30",
@@ -1326,7 +1328,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-19T07:14:27Z",
+  "updated_at": "2026-11-19T07:16:01Z",
   "run_id": "44468587750",
   "previous_results": {
     "S04": [
@@ -1777,13 +1779,5 @@
         "reported_seconds": "12"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:16:00. (request id: 202611190714273422994331rqRCBmU) (code=rate_limit_exceeded)",
-    "create_attempts": 2,
-    "retry_interval_seconds": 93.0,
-    "last_seen": "2026-11-19T07:14:27Z"
   }
 }
