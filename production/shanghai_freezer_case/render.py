@@ -35,6 +35,10 @@ def normalized_video_filter(shot_id: str, shot_start: float,
         base += f",tpad=stop_mode=clone:stop_duration={shortfall + 0.05:.3f}"
     vf = (f"{base},trim=duration={target_seconds:.6f},setpts=PTS-STARTPTS,"
           "setsar=1,format=yuv420p")
+    if shot_id == "S28":
+        # 定稿：日历翻页定格后，结尾约 1.7 秒渐隐到纯黑（"最终停在一片纯黑底上"）。
+        # 黑场上的后期大字 "2019·1" 由 ASS Hook H10（158.0–160.0s，2 秒整）呈现；画面不再替模型补字。
+        vf += f",fade=t=out:st={target_seconds - 1.7:.3f}:d=0.5"
     if shot_id == "S30":
         # Closing shot: fade into black under the end title.
         vf += f",fade=t=out:st={target_seconds - 0.8:.3f}:d=0.8"
@@ -88,9 +92,11 @@ def write_cover_ass(path: Path, title: str, subtitle: str) -> None:
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
         "Style: CoverTitle,Noto Sans CJK SC,144,&H0000C8FF,&H00FFFFFF,&H00000000,&HAA000000,-1,0,0,0,100,100,0,0,1,6,2,2,100,100,188,1",
         "Style: CoverSubtitle,Noto Sans CJK SC,54,&H00FFFFFF,&H00FFFFFF,&H00000000,&HAA000000,0,0,0,0,100,100,0,0,1,3,1,8,100,100,64,1",
+        "Style: CoverAI,Noto Sans CJK SC,30,&H99FFFFFF,&H00FFFFFF,&H00000000,&HAA000000,0,0,0,0,100,100,0,0,1,1.6,0.5,7,34,34,26,1",
         "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
         f"Dialogue: 1,0:00:00.00,0:00:02.00,CoverSubtitle,,0,0,0,,{{\\q2\\fad(0,0)}}{ass_escape(subtitle)}",
         f"Dialogue: 2,0:00:00.00,0:00:02.00,CoverTitle,,0,0,0,,{{\\q2\\fad(0,0)}}{ass_escape(title)}",
+        "Dialogue: 3,0:00:00.00,0:00:02.00,CoverAI,,0,0,0,,AI动画情景重现 · 非真实影像",
     ]
     path.write_text("\n".join(rows) + "\n", encoding="utf-8")
 

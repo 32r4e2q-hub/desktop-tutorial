@@ -36,7 +36,36 @@ def asset_ids(shot: dict) -> list[str]:
     return list(dict.fromkeys(ids))
 
 
+def generated_sources_consistency() -> list[str]:
+    """build_story.py is the only source of truth for story.json and the two script docs.
+
+    2026-11-19 incident: story.json was hand-edited while build_story.py still emitted the
+    old text; CI re-ran build_story.py, silently wiped the edit, and the Agnes run reused the
+    stale request hashes (reused_existing_asset=true) — a no-op that burned CI minutes and
+    kept publishing the non-compliant footage. Never hand-edit generated files; edit
+    build_story.py and regenerate. Fail loudly here instead of burning Agnes quota.
+    """
+    generated = [
+        "production/shanghai_freezer_case/story.json",
+        "production/shanghai_freezer_case/screenplay.md",
+        "production/shanghai_freezer_case/抖音脚本.md",
+    ]
+    problems: list[str] = []
+    try:
+        proc = subprocess.run(["git", "diff", "--quiet", "HEAD", "--", *generated],
+                              cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception:
+        return []  # no git binary or no checkout; skip the guard rather than block offline work
+    if proc.returncode != 0:
+        problems.append(
+            "story.json / screenplay.md / 抖音脚本.md 与 build_story.py 的输出不一致："
+            "请运行 `python3 production/shanghai_freezer_case/build_story.py` 后提交，"
+            "不要手改这三个生成物（2026-11-19 事故：手改被 CI 重跑覆盖，六镜静默复用旧资产）")
+    return problems
+
+
 def main() -> int:
+    consistency = generated_sources_consistency()
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
     approvals = json.loads((HERE / "reference" / "approvals.json").read_text(encoding="utf-8"))
     assets = approvals.get("assets", {})
@@ -45,6 +74,7 @@ def main() -> int:
                    story["reference_designs"]["props"])
     errors: list[str] = []
     incomplete: list[str] = []
+    errors.extend(consistency)
 
     if len(story.get("shots", [])) != 30 or story.get("target_duration") != 180:
         errors.append("Storyboard must contain 30 shots and target 180 seconds")
