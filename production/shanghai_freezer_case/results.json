@@ -134,14 +134,15 @@
     "S04": {
       "id": "S04",
       "request_hash": "920369dd8f779ed37cc35cf7e99591a5a217f50bf7b672ec7f6eaf7f00bb38f8",
-      "status": "submitting",
+      "status": "waiting_create_slot",
       "video_id": null,
       "task_id": null,
       "video_url": null,
       "sha256": null,
       "bytes": null,
       "error": null,
-      "updated_at": "2026-11-19T06:04:05Z"
+      "updated_at": "2026-11-19T06:04:08Z",
+      "create_attempts": 1
     },
     "S05": {
       "id": "S05",
@@ -1215,17 +1216,19 @@
     "S29": {
       "id": "S29",
       "request_hash": "37b8c5ff2edcceabbb009334704d3c2c7817ea4c0226e8752e4ae76076e27ee1",
-      "status": "waiting_create_slot",
-      "video_id": null,
-      "task_id": null,
+      "status": "queued",
+      "video_id": "task_j9y20kKcOymJ5Cnq1RZ4sXxS3us4K8Je",
+      "task_id": "task_j9y20kKcOymJ5Cnq1RZ4sXxS3us4K8Je",
       "video_url": null,
       "sha256": null,
       "bytes": null,
       "error": null,
-      "updated_at": "2026-11-19T05:59:42Z",
+      "updated_at": "2026-11-19T06:04:18Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 259.0
+      "applied_cooldown_seconds": 259.0,
+      "requested_seconds": 12.0,
+      "requested_size": "720P"
     },
     "S30": {
       "id": "S30",
@@ -1308,7 +1311,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-19T06:04:05Z",
+  "updated_at": "2026-11-19T06:04:18Z",
   "run_id": "44450698850",
   "previous_results": {
     "S04": [
@@ -1512,13 +1515,5 @@
         "reported_seconds": "12"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 06:03:59. (request id: 20261119055940887210948HZpENthN) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 259.0,
-    "last_seen": "2026-11-19T05:59:40Z"
   }
 }
