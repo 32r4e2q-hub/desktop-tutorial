@@ -1321,7 +1321,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1368,9 +1368,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-19T07:20:29Z",
   "run_id": "44468587750",
@@ -1823,5 +1823,31 @@
         "reported_seconds": "12"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/shanghai_freezer_case/clips/上海冰柜藏尸案_105天_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/shanghai_freezer_case/clips/上海冰柜藏尸案_Cover.jpg",
+    "delivered": {
+      "上海冰柜藏尸案_105天_三分钟_带声音.mp4": {
+        "bytes": 60934442,
+        "sha256": "efb5a9b802571f220c37955a821385829f12e34924c6f8a453e3ca02728d4ea2"
+      },
+      "上海冰柜藏尸案_Cover.jpg": {
+        "bytes": 109503,
+        "sha256": "b4516ffc8c02761a3e5817ca124186d3174f636d95b2ff875d85462e039d197a"
+      },
+      "上海冰柜藏尸案_Subtitles.srt": {
+        "bytes": 2943,
+        "sha256": "dd92a1b3b6051de0c7b2848df670b320c3f812760a7fee520d0f6228b240b839"
+      },
+      "上海冰柜藏尸案_Technical_Report.json": {
+        "bytes": 11121,
+        "sha256": "094e8bf71b60fa83e7cb068e191d7f9a0a1624e7eb921c2c09e11348798937c0"
+      }
+    }
   }
 }
