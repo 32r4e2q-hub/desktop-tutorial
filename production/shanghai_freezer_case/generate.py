@@ -533,7 +533,7 @@ def validate(project: dict, require_audio: bool = True) -> None:
     cursor = 0
     for shot in shots:
         duration = int(shot["duration"])
-        if shot["start"] != cursor or not 4 <= duration <= 9:
+        if shot["start"] != cursor or not 2 <= duration <= 13:
             raise ValueError(f"Invalid or non-contiguous timeline at {shot.get('id')}")
         if shot.get("kind") != "agnes" or not shot.get("prompt", "").strip():
             raise ValueError(f"Every shot must be a real Agnes video clip: {shot.get('id')}")
@@ -556,8 +556,8 @@ def validate(project: dict, require_audio: bool = True) -> None:
         if payload.get("model") != MODEL:
             raise ValueError(f"Wrong Agnes model for {shot['id']}")
         if not isinstance(payload.get("seconds"), str) or not payload["seconds"].isdigit() \
-                or int(payload["seconds"]) != duration:
-            raise ValueError(f"2.5 Flash seconds must be the duration string for {shot['id']}")
+                or int(payload["seconds"]) != max(4, min(12, duration)):
+            raise ValueError(f"2.5 Flash seconds must be clamp(4..12, duration) for {shot['id']}")
         if payload.get("size") != SOURCE_SIZE or payload.get("aspect_ratio") != "16:9" \
                 or payload.get("mode") != "reference" or payload.get("n") != 1:
             raise ValueError(f"Invalid 2.5 Flash size/aspect/mode/count for {shot['id']}")

@@ -13,8 +13,14 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FPS = 24
 RATE = 48_000
+# Agnes 2.5 Flash 最长只接受 12 秒来源；镜头窗口超过 12 秒时，渲染会以克隆最后一帧补齐（最多 2 秒），
+# 并在日志里打印 SHORT-SOURCE 警告。超过 2 秒的不足仍然直接报错，绝不静默拉伸/变格。
+SOURCE_SHORTFALL_TOLERANCE = 2.0
+
+
 def normalized_video_filter(shot_id: str, shot_start: float,
-                            target_seconds: float, frame_count: int) -> str:
+                            target_seconds: float, frame_count: int,
+                            shortfall: float = 0.0) -> str:
     """Build a shot's normalized picture filter (global anti-flicker grade only)."""
     if frame_count != round(target_seconds * FPS):
         raise ValueError(f"{shot_id}: frame count does not match its target duration")
@@ -23,6 +29,10 @@ def normalized_video_filter(shot_id: str, shot_start: float,
         f"scale=1920:1080:flags=lanczos,fps={FPS},"
         f"eq=contrast=0.97:brightness=0.018:saturation=0.94"
     )
+    if shortfall > 0:
+        print(f"SHORT-SOURCE {shot_id}: source is {shortfall:.3f}s under the {target_seconds:.1f}s window; "
+              f"holding the last frame (tolerance {SOURCE_SHORTFALL_TOLERANCE:.1f}s)", flush=True)
+        base += f",tpad=stop_mode=clone:stop_duration={shortfall + 0.05:.3f}"
     vf = (f"{base},trim=duration={target_seconds:.6f},setpts=PTS-STARTPTS,"
           "setsar=1,format=yuv420p")
     if shot_id == "S30":
@@ -136,13 +146,15 @@ def main() -> int:
             raise RuntimeError(f"{sid}: source has no video stream")
         source_duration = float(source_probe["format"]["duration"])
         width, height = int(video["width"]), int(video["height"])
-        if source_duration < target - 1 / FPS or width < 640 or height < 360:
-            raise RuntimeError(f"{sid}: source too short or too small ({source_duration:.3f}s, {width}x{height})")
+        shortfall = max(0.0, target - source_duration)
+        if shortfall > SOURCE_SHORTFALL_TOLERANCE or width < 640 or height < 360:
+            raise RuntimeError(f"{sid}: source too short or too small ({source_duration:.3f}s, {width}x{height}; "
+                               f"shortfall tolerance {SOURCE_SHORTFALL_TOLERANCE:.1f}s)")
         if abs(width / height - 16 / 9) > 0.015:
             raise RuntimeError(f"{sid}: source aspect ratio is not 16:9; refusing to distort/crop")
 
         normalized = segments / f"{sid}.mp4"
-        vf = normalized_video_filter(sid, float(shot["start"]), target, frames)
+        vf = normalized_video_filter(sid, float(shot["start"]), target, frames, shortfall)
         filter_args = ["-vf", vf, "-map", "0:v:0"]
         run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
              *filter_args, "-an", "-frames:v", frames, "-r", FPS,
