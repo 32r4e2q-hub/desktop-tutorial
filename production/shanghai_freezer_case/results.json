@@ -1220,19 +1220,14 @@
     "S29": {
       "id": "S29",
       "request_hash": "37b8c5ff2edcceabbb009334704d3c2c7817ea4c0226e8752e4ae76076e27ee1",
-      "status": "downloaded",
-      "video_id": "task_5OFKP3crXbGsgfqb0mSu8Cp60Nn0Zc3u",
-      "task_id": "task_5OFKP3crXbGsgfqb0mSu8Cp60Nn0Zc3u",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_5OFKP3crXbGsgfqb0mSu8Cp60Nn0Zc3u.mp4",
-      "sha256": "8cc0dae8f611bc3e82ee1847b0fd2268c780018f644c74d0443eca4ceba44560",
-      "bytes": 3829596,
-      "error": null,
-      "updated_at": "2026-11-19T05:41:30Z",
-      "create_attempts": 1,
-      "requested_seconds": 12.0,
-      "requested_size": "720P",
-      "reported_size": "720P",
-      "reported_seconds": "12"
+      "status": "retrying_create",
+      "video_id": null,
+      "task_id": null,
+      "video_url": null,
+      "sha256": null,
+      "bytes": null,
+      "error": "S29: unsuitable returned clip (12.26s, 1280px)",
+      "updated_at": "2026-11-19T05:41:31Z"
     },
     "S30": {
       "id": "S30",
@@ -1315,7 +1310,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-19T05:41:30Z",
+  "updated_at": "2026-11-19T05:41:31Z",
   "run_id": "44450698850",
   "previous_results": {
     "S04": [
@@ -1403,6 +1398,23 @@
         "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_04XvrQTJXvyjEQoeJoGeDS493hAGFjkW.mp4",
         "bytes": 3829596,
         "sha256": "8cc0dae8f611bc3e82ee1847b0fd2268c780018f644c74d0443eca4ceba44560",
+        "reported_size": "720P",
+        "reported_seconds": "12"
+      },
+      {
+        "id": "S29",
+        "request_hash": "37b8c5ff2edcceabbb009334704d3c2c7817ea4c0226e8752e4ae76076e27ee1",
+        "status": "downloaded",
+        "video_id": "task_5OFKP3crXbGsgfqb0mSu8Cp60Nn0Zc3u",
+        "task_id": "task_5OFKP3crXbGsgfqb0mSu8Cp60Nn0Zc3u",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_5OFKP3crXbGsgfqb0mSu8Cp60Nn0Zc3u.mp4",
+        "sha256": "8cc0dae8f611bc3e82ee1847b0fd2268c780018f644c74d0443eca4ceba44560",
+        "bytes": 3829596,
+        "error": null,
+        "updated_at": "2026-11-19T05:41:30Z",
+        "create_attempts": 1,
+        "requested_seconds": 12.0,
+        "requested_size": "720P",
         "reported_size": "720P",
         "reported_seconds": "12"
       }
