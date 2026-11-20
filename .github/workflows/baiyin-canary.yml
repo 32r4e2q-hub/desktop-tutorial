@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: arena/aa4972d2-desktop-tutorial
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Install ffmpeg and ffprobe
         run: |
           set -euo pipefail
