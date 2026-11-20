@@ -9,7 +9,7 @@ permissions:
 jobs:
   check:
     if: github.ref == 'refs/heads/arena/aa4972d2-desktop-tutorial'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 5
     steps:
       - name: Check whether Agnes secret is configured without revealing it
