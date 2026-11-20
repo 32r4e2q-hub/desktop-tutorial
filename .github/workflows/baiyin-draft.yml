@@ -4,7 +4,7 @@ on:
     branches: [arena/aa4972d2-desktop-tutorial]
     paths: [production/baiyin_case/DRAFT_REQUEST]
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: baiyin-canary-aa4972d2
   cancel-in-progress: false
@@ -41,6 +41,33 @@ jobs:
             --story production/baiyin_case/story.json \
             --srt work/baiyin_case/draft/baiyin_subtitles.srt \
             --json work/baiyin_case/draft/verify_report.json
+      - name: Persist review cut and sampled frames (not release approval)
+        run: |
+          set -euo pipefail
+          src=work/baiyin_case/draft/baiyin_firstcut_review.mp4
+          size=$(wc -c < "$src")
+          test "$size" -lt 95000000 || { echo 'Review cut too large for Git; artifact will still be uploaded.'; exit 1; }
+          mkdir -p production/baiyin_case/qa/master 交付
+          ffprobe -v error -show_format -show_streams -of json "$src" > production/baiyin_case/qa/master/ffprobe.json
+          cp work/baiyin_case/draft/verify_report.json production/baiyin_case/qa/master/verify_report.json
+          cp work/baiyin_case/draft/source_manifest.json production/baiyin_case/qa/master/source_manifest.json
+          ffmpeg -hide_banner -loglevel error -y -i "$src" -vf 'fps=1/6,scale=320:180,tile=6x5' -frames:v 1 production/baiyin_case/qa/master/contact.jpg
+          for t in 3 32 40 92 102 139 153 179; do
+            ffmpeg -hide_banner -loglevel error -y -ss "$t" -i "$src" -frames:v 1 -q:v 2 "production/baiyin_case/qa/master/frame_${t}.jpg"
+          done
+          cp "$src" '交付/白银案_审片初剪_待复核.mp4'
+          cp work/baiyin_case/draft/baiyin_subtitles.srt '交付/白银案_审片初剪_字幕.srt'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- production/baiyin_case/qa/master '交付/白银案_审片初剪_待复核.mp4' '交付/白银案_审片初剪_字幕.srt'
+          if ! git diff --cached --quiet; then
+            git commit -m 'baiyin: update review draft and technical evidence'
+            for n in 1 2 3; do
+              if git push origin HEAD:refs/heads/arena/aa4972d2-desktop-tutorial; then break; fi
+              test "$n" -lt 3
+              git pull --rebase origin arena/aa4972d2-desktop-tutorial
+            done
+          fi
       - name: Upload review draft and technical evidence
         if: always()
         uses: actions/upload-artifact@v4

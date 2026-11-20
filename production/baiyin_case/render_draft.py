@@ -10,7 +10,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[2];HERE=Path(__file__).resolve().parent
 WORK=ROOT/'work'/'baiyin_case'/'draft';SOURCES=WORK/'sources';CLIPS=WORK/'normalized'
 sys.path.insert(0,str(ROOT/'production'))
-from gwangju_style import write_ass
+from gwangju_style import write_ass, ass_time
 
 
 def run(*cmd):subprocess.run(list(map(str,cmd)),cwd=ROOT,check=True)
@@ -63,6 +63,16 @@ def main():
  hooks=[{'id':'H1','start':0,'end':2,'text':'28年'}, {'id':'H2','start':31,'end':33,'text':'11名遇害者'}, {'id':'H3','start':92,'end':94,'text':'2016年·转机'}]
  explainers=[{'start':9,'end':13,'text':'甘肃·白银｜真实案件'}, {'start':60,'end':64,'text':'警方累计采集指纹23万枚'}, {'start':99,'end':105,'text':'Y染色体提供父系线索，不能单独认定个人'}, {'start':133,'end':138,'text':'2016.8.26｜嫌疑人落网'}, {'start':160,'end':166,'text':'2019.1.3｜已执行死刑'}, {'start':178,'end':180,'text':'信源：新华社（2016）｜央视网（2019）'}]
  write_ass(ass,cues,['28年','11名','23万枚','死刑'],onscreen_label='AI情景演绎·非真实影像',hooks=hooks,explainers=explainers)
+ # All explanatory graphics are post-production text, never AI-generated text.
+ # Explicitly extend the shared label beyond its original 176s endpoint.
+ with ass.open('a',encoding='utf-8') as f:
+  f.write(f"Dialogue: 0,{ass_time(176)},{ass_time(180)},Label,,0,0,0,,{{\\q2}}AI情景演绎·非真实影像\n")
+  for start,end,text in [
+   (26,31,'1988  ─────────────  2002'),
+   (31,36,'白银  ━━━━━━━━━  包头\\N两地示意｜11名遇害者'),
+   (99,107,'父系家系排查\\N线索缩小范围  ≠  单独认定个人'),
+  ]:
+   f.write(f"Dialogue: 3,{ass_time(start)},{ass_time(end)},Hook,,0,0,0,,{{\\an5\\pos(960,400)\\fs56\\fad(200,200)}}{text}\n")
  sources_manifest=[]
  for shot in story['shots']:
   sid=shot['id'];r=results[sid]
