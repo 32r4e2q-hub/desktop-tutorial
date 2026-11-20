@@ -1,0 +1,68 @@
+name: 白银案 · 初剪审片证据
+on:
+  push:
+    branches: [arena/aa4972d2-desktop-tutorial]
+    paths: [production/baiyin_case/REVIEW_REQUEST]
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: baiyin-render-aa4972d2
+  cancel-in-progress: false
+jobs:
+  import:
+    if: github.ref == 'refs/heads/arena/aa4972d2-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/aa4972d2-desktop-tutorial
+          fetch-depth: 1
+      - name: Retrieve review-only cut from completed render
+        uses: actions/download-artifact@v4
+        with:
+          name: baiyin-firstcut-review-1
+          run-id: 44715799381
+          github-token: ${{ github.token }}
+          path: work/baiyin_case/import
+      - name: Install media tools
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media" --no-save --ignore-scripts --no-audit --no-fund @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media/bin"
+          chmod +x "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/bin/ffmpeg"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media/bin/ffprobe"
+          echo "$RUNNER_TEMP/media/bin" >> "$GITHUB_PATH"
+      - name: Save review cut and sampling evidence, not release approval
+        run: |
+          set -euo pipefail
+          src=work/baiyin_case/import/baiyin_firstcut_review.mp4
+          test -s "$src"
+          size=$(wc -c < "$src")
+          test "$size" -lt 95000000 || { echo 'Draft exceeds GitHub file limit; artifact remains available.'; exit 1; }
+          python3 - <<'PY'
+          import json
+          p='work/baiyin_case/import/verify_report.json'
+          x=json.load(open(p))
+          assert x.get('status')=='PASS', 'verify_master did not pass'
+          print('verify_master technical result: PASS; visual review still required')
+          PY
+          mkdir -p production/baiyin_case/qa/master 交付
+          ffprobe -v error -show_format -show_streams -of json "$src" > production/baiyin_case/qa/master/ffprobe.json
+          cp work/baiyin_case/import/verify_report.json production/baiyin_case/qa/master/verify_report.json
+          cp work/baiyin_case/import/source_manifest.json production/baiyin_case/qa/master/source_manifest.json
+          ffmpeg -hide_banner -loglevel error -y -i "$src" -vf 'fps=1/6,scale=320:180,tile=6x5' -frames:v 1 production/baiyin_case/qa/master/contact.jpg
+          for t in 2 40 92 139 153 178; do
+            ffmpeg -hide_banner -loglevel error -y -ss "$t" -i "$src" -frames:v 1 -q:v 2 "production/baiyin_case/qa/master/frame_${t}.jpg"
+          done
+          cp "$src" '交付/白银案_审片初剪_待复核.mp4'
+          cp work/baiyin_case/import/baiyin_subtitles.srt '交付/白银案_审片初剪_字幕.srt'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- production/baiyin_case/qa/master '交付/白银案_审片初剪_待复核.mp4' '交付/白银案_审片初剪_字幕.srt'
+          if ! git diff --cached --quiet; then
+            git commit -m 'baiyin: retain review-only draft and sampled evidence'
+            git push origin HEAD:refs/heads/arena/aa4972d2-desktop-tutorial
+          fi
