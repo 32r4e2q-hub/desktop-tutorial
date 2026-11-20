@@ -288,7 +288,7 @@
     },
     "S13": {
       "id": "S13",
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "775f0438f212c38d045f40e4ec4485156e27f4a17b95e1b858ecfca55a493f82",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -305,7 +305,9 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending",
-      "attempts": 1
+      "attempts": 2,
+      "video_id": "task_auICvCeXGAODKpQjEod9TafgwzdUr9QU",
+      "task_id": "task_auICvCeXGAODKpQjEod9TafgwzdUr9QU"
     }
   },
   "review": "visual_review_pending",
