@@ -1,0 +1,20 @@
+name: Publish episode 21 MP4
+on:
+  push:
+    branches: [arena/b6fdc547-desktop-tutorial]
+    paths: [.github/workflows/baiyin-direct.yml]
+permissions:
+  actions: read
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - run: |
+          gh run download 44744134187 -n baiyin-candidate-1080p-3 -D video
+          src=$(find video -iname '*.mp4' -printf '%s\t%p\n' | sort -nr | head -1 | cut -f2-)
+          cp "$src" baiyin-episode21-1080p.mp4
+          gh release create baiyin-episode21-candidate3 baiyin-episode21-1080p.mp4 --target "$GITHUB_SHA" --prerelease --title '第二十一期｜白银案（1080p 候选成片第3版）' --notes '来源：baiyin-candidate-1080p-3。'
