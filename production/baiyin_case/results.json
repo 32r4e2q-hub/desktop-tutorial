@@ -679,7 +679,7 @@
     },
     "S30": {
       "id": "S30",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "cbd19bdff9cbfe9bde19684545373a5383f15ad2586d3806595f2513189edbf7",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -695,7 +695,8 @@
         ]
       },
       "reused_existing_asset": false,
-      "visual_review": "pending"
+      "visual_review": "pending",
+      "attempts": 1
     }
   },
   "review": "visual_review_pending",
