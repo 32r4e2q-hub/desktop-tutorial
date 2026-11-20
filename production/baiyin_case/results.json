@@ -127,7 +127,7 @@
     },
     "S06": {
       "id": "S06",
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "6bf3deec4f3b37a5a75e5956eb909a29bc9c3a477bc9182f0199a6fb29b6c3cb",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -144,7 +144,9 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending",
-      "attempts": 1
+      "attempts": 2,
+      "video_id": "task_WmQWmMNzSz49QYkicdtJah3BlpELJQFz",
+      "task_id": "task_WmQWmMNzSz49QYkicdtJah3BlpELJQFz"
     }
   },
   "review": "visual_review_pending",
