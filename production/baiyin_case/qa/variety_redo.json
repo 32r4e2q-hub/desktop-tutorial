@@ -24,7 +24,7 @@
       "attempts": 1
     },
     "S20": {
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "b296e7db440fa0e80c384ffc9970931e732190f9a7085d81763a9856cd00e47c",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -41,7 +41,9 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending",
-      "attempts": 1
+      "attempts": 2,
+      "video_id": "task_ztWPP0PrtmZRK3xQYn8HypKASd8cDTkV",
+      "task_id": "task_ztWPP0PrtmZRK3xQYn8HypKASd8cDTkV"
     }
   },
   "visual_review": "pending"
