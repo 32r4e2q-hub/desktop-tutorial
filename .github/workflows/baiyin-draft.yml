@@ -32,6 +32,17 @@ jobs:
           gh api -H 'Accept: application/vnd.github.raw' 'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
           if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
           python3 -m pip install --no-input --disable-pip-version-check numpy av
+      - name: Require all five variety redo receipts
+        run: |
+          python3 - <<'PYCODE'
+          import json
+          from pathlib import Path
+          p = Path('production/baiyin_case/qa/variety_redo.json')
+          doc = json.loads(p.read_text())
+          shots = doc['shots']
+          assert set(shots) == {'S14','S20','S22','S23','S26'}, 'redo set incomplete'
+          assert all(r.get('status') == 'completed' and r.get('sha256') and r.get('video_url') for r in shots.values()), 'redo not completed'
+          PYCODE
       - name: Render a review-only draft
         run: python3 -u production/baiyin_case/render_draft.py
       - name: Verify 180-second master, allowing only the explicitly silent opening
