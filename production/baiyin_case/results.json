@@ -495,7 +495,7 @@
     },
     "S22": {
       "id": "S22",
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "5addbcd5f4e7c2ad6448313d5e3976d783d7db9453239ac7b1e874e9e8beef6c",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -512,7 +512,9 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending",
-      "attempts": 1
+      "attempts": 2,
+      "video_id": "task_M4WeoSvKXkI6OEPKdA8beIfCUBxUFrDg",
+      "task_id": "task_M4WeoSvKXkI6OEPKdA8beIfCUBxUFrDg"
     }
   },
   "review": "visual_review_pending",
