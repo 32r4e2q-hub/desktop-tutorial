@@ -74,6 +74,13 @@ class ShotSpanTests(unittest.TestCase):
         self.assertEqual(verify_master.shot_spans(story),
                          [("S01", 0.0, 5.0), ("S02", 5.0, 11.0)])
 
+    def test_explicit_sfx_only_shot_is_excluded_from_voice_cues(self):
+        story = {"shots": [
+            {"id": "S01", "start": 0, "duration": 2, "sfx_only": True},
+            {"id": "S02", "start": 2, "duration": 5, "sfx_only": False},
+        ]}
+        self.assertEqual(verify_master.shot_spans(story), [("S02", 2.0, 7.0)])
+
     def test_rms_blocks_marks_silence_and_speech(self):
         numpy = __import__("numpy")
         rate = 48_000

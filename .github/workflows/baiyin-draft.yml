@@ -1,0 +1,55 @@
+name: 白银案 · 初剪及技术校验
+on:
+  push:
+    branches: [arena/aa4972d2-desktop-tutorial]
+    paths: [production/baiyin_case/DRAFT_REQUEST]
+permissions:
+  contents: read
+concurrency:
+  group: baiyin-canary-aa4972d2
+  cancel-in-progress: false
+jobs:
+  draft:
+    if: github.ref == 'refs/heads/arena/aa4972d2-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/aa4972d2-desktop-tutorial
+          fetch-depth: 1
+      - name: Install media tools and CJK font
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media" --no-save --ignore-scripts --no-audit --no-fund @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media/bin" "$HOME/.local/share/fonts"
+          chmod +x "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/bin/ffmpeg"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media/bin/ffprobe"
+          echo "$RUNNER_TEMP/media/bin" >> "$GITHUB_PATH"
+          gh api -H 'Accept: application/vnd.github.raw' 'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
+          python3 -m pip install --no-input --disable-pip-version-check numpy av
+      - name: Render a review-only draft
+        run: python3 -u production/baiyin_case/render_draft.py
+      - name: Verify 180-second master, allowing only the explicitly silent opening
+        run: |
+          python3 production/verify_master.py \
+            --film work/baiyin_case/draft/baiyin_firstcut_review.mp4 \
+            --story production/baiyin_case/story.json \
+            --srt work/baiyin_case/draft/baiyin_subtitles.srt \
+            --json work/baiyin_case/draft/verify_report.json
+      - name: Upload review draft and technical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baiyin-firstcut-review-${{ github.run_number }}
+          path: |
+            work/baiyin_case/draft/baiyin_firstcut_review.mp4
+            work/baiyin_case/draft/baiyin_subtitles.srt
+            work/baiyin_case/draft/verify_report.json
+            work/baiyin_case/draft/source_manifest.json
+          if-no-files-found: warn
+          retention-days: 7

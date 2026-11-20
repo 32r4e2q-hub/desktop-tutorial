@@ -49,6 +49,10 @@ def parse_srt(path: Path) -> list[tuple[float, float, str]]:
 def shot_spans(story: dict) -> list[tuple[str, float, float]]:
     spans = []
     for shot in story.get("shots", []):
+        # Explicitly silent/SFX-only shots have no narration cue. Unmarked shots
+        # retain the original strict one-cue-per-shot behavior.
+        if shot.get("sfx_only") is True:
+            continue
         start = float(shot["start"])
         spans.append((str(shot["id"]), start, start + float(shot["duration"])))
     return spans

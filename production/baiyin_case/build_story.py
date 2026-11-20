@@ -23,7 +23,8 @@ def main():
             raise ValueError(f'Invalid timeline at shot {num}')
         shots.append({'id': f'S{num}', 'start': start, 'duration': end-start,
                       'visual': visual, 'narration': '' if index == 1 else narration,
-                      'narration_file': None if index == 1 else f'audio/S{num}.mp3'})
+                      'narration_file': None if index == 1 else f'audio/S{num}.mp3',
+                      'sfx_only': index == 1})
         cursor = end
     if cursor != 180 or rows[0][4] != '无旁白':
         raise ValueError('Expected 180 seconds and silent opening')
