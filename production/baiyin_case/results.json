@@ -265,7 +265,7 @@
     },
     "S12": {
       "id": "S12",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "e6016139cc5b33f1d1bbb97dde920f8156eed0982744e940e9f21693a97db370",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -281,7 +281,8 @@
         ]
       },
       "reused_existing_asset": false,
-      "visual_review": "pending"
+      "visual_review": "pending",
+      "attempts": 1
     }
   },
   "review": "visual_review_pending",
