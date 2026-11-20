@@ -1,0 +1,41 @@
+name: 白银案 · 叙事镜头多样化返工
+on:
+  push:
+    branches: [arena/aa4972d2-desktop-tutorial]
+    paths: [production/baiyin_case/VARIETY_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: baiyin-canary-aa4972d2
+  cancel-in-progress: false
+jobs:
+  regenerate:
+    if: github.ref == 'refs/heads/arena/aa4972d2-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/aa4972d2-desktop-tutorial
+          fetch-depth: 1
+      - name: Install media tools
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media" --no-save --ignore-scripts --no-audit --no-fund @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media/bin"
+          chmod +x "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/bin/ffmpeg"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media/bin/ffprobe"
+          echo "$RUNNER_TEMP/media/bin" >> "$GITHUB_PATH"
+      - name: Regenerate five repetitive shots
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 -u production/baiyin_case/redo_variety.py
+      - name: Upload redo footage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baiyin-variety-${{ github.run_number }}
+          path: work/baiyin_case/variety/*.mp4
+          if-no-files-found: warn
+          retention-days: 7
