@@ -15,11 +15,11 @@ sys.path.insert(0, str(ROOT / 'production'))
 import agnes_video as agnes
 
 BRANCH = 'arena/aa4972d2-desktop-tutorial'
-RESULT = HERE / 'qa' / 'S03_canary.json'
-OUT = ROOT / 'work' / 'baiyin_case' / 'canary' / 'S03.mp4'
-SHEET = HERE / 'qa' / 'S03_canary.jpg'
+RESULT = HERE / 'qa' / 'S03_canary_v2.json'
+OUT = ROOT / 'work' / 'baiyin_case' / 'canary' / 'S03_v2.mp4'
+SHEET = HERE / 'qa' / 'S03_canary_v2.jpg'
 MODEL = 'agnes-video-2.5-flash'
-REF_REV = 'ff7de31553a9af48124bd00adf07b0baec113af4'
+REF_REV = 'da3a0bf8c8d9a0ca174bfe934f51d7291ec129a2'
 
 
 def git(*args):
@@ -55,8 +55,8 @@ def main():
               '画面不出现任何文字、标志、数字、字幕、水印、血腥、伤口、遗体或暴力。横版16:9。')
     payload = {'model': MODEL, 'prompt': prompt, 'seconds': str(max(4,min(12,shot['duration']))),
                'size': '720P', 'aspect_ratio': '16:9', 'mode': 'reference', 'n': 1,
-               'seed': 19880526,
-               'images': [f'https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/{REF_REV}/production/baiyin_case/reference/city.png']}
+               'seed': 19880527,
+               'images': [f'https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/{REF_REV}/production/baiyin_case/reference/city_clean.png']}
     request_hash = hashlib.sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
     data = json.loads(RESULT.read_text()) if RESULT.is_file() else {}
     if data and data.get('request_hash') != request_hash:
