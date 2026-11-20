@@ -44,7 +44,31 @@ jobs:
           assert all(r.get('status') == 'completed' and r.get('sha256') and r.get('video_url') for r in shots.values()), 'redo not completed'
           PYCODE
       - name: Render a review-only draft
-        run: python3 -u production/baiyin_case/render_draft.py
+        run: |
+          set -o pipefail
+          python3 -u production/baiyin_case/render_draft.py 2>&1 | tee "$RUNNER_TEMP/baiyin-render.log"
+      - name: Save sanitized diagnostic on render failure
+        if: failure()
+        run: |
+          python3 - <<'PYCODE'
+          import os, re
+          from pathlib import Path
+          src = Path(os.environ['RUNNER_TEMP']) / 'baiyin-render.log'
+          if src.exists():
+              text = re.sub(r'https?://[^\s]+', '[redacted-url]', src.read_text(errors='replace'))
+              out = Path('production/baiyin_case/qa/render_failure.txt')
+              out.write_text(text[-20000:])
+          PYCODE
+          if test -f production/baiyin_case/qa/render_failure.txt; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add production/baiyin_case/qa/render_failure.txt
+            if ! git diff --cached --quiet; then
+              git commit -m 'baiyin: record sanitized render failure'
+              git pull --rebase origin arena/aa4972d2-desktop-tutorial
+              git push origin HEAD:refs/heads/arena/aa4972d2-desktop-tutorial
+            fi
+          fi
       - name: Verify 180-second master, allowing only the explicitly silent opening
         run: |
           python3 production/verify_master.py \

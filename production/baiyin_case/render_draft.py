@@ -72,7 +72,7 @@ def main():
  audio_files=[heart]+[ROOT/'work'/'baiyin_case'/'audio'/f'{s["id"]}.wav' for s in story['shots'][1:]]
  audio_list=WORK/'audio_concat.txt';audio_list.write_text(''.join("file '"+str(x).replace("'", "'\\''")+"'\n" for x in audio_files))
  audio_m4a=WORK/'audio.m4a';music=WORK/'original_ambient.wav';underscore(music)
- run('ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',audio_list,'-i',music,'-filter_complex','[0:a][1:a]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.9[a]','-map','[a]','-ar','48000','-ac','2','-c:a','aac','-b:a','192k','-t','180',audio_m4a)
+ run('ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',audio_list,'-i',music,'-filter_complex','[0:a][1:a]amix=inputs=2:duration=first,volume=2,alimiter=limit=0.9[a]','-map','[a]','-ar','48000','-ac','2','-c:a','aac','-b:a','192k','-t','180',audio_m4a)
  cues=[]
  for shot in story['shots'][1:]:
   start,end=onset(ROOT/'work'/'baiyin_case'/'audio'/f'{shot["id"]}.wav')
