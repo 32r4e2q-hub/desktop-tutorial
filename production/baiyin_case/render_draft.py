@@ -67,6 +67,8 @@ def main():
    for sid,row in redos.items():
     if row.get('status')=='completed' and row.get('sha256') and row.get('video_url'):
      results[sid]=row
+ # Avoid an unverified red-clothing association; reuse the neutral room shot.
+ results['S08']=results['S09']
  run(sys.executable,HERE/'fit_audio.py')
  heart=WORK/'S01.wav';heartbeat(heart)
  audio_files=[heart]+[ROOT/'work'/'baiyin_case'/'audio'/f'{s["id"]}.wav' for s in story['shots'][1:]]
@@ -106,6 +108,7 @@ def main():
      f.write(block)
   if digest(source)!=r['sha256']:raise RuntimeError('Source hash mismatch: '+sid)
   sources_manifest.append({'id':sid,'sha256':r['sha256'],'video_id':r.get('video_id'),'duration':shot['duration']})
+  if sid=='S08':sources_manifest[-1]['substituted_source']='S09 (neutral room; avoids unverified red-clothing association)'
   dest=CLIPS/f'{sid}.mp4';duration=shot['duration']
   vf=f'scale=1920:1080:flags=lanczos,fps=24,trim=duration={duration},setpts=PTS-STARTPTS,setsar=1'
   if sid=='S25':vf+=f",drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:enable='gte(t,{duration-1})'"
