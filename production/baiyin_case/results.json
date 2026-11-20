@@ -403,7 +403,7 @@
     },
     "S18": {
       "id": "S18",
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "50ab1f274c2a8814ccce69d966491cd2ddf097692b1b1f4369873f4ff59ae88b",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -420,7 +420,9 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending",
-      "attempts": 1
+      "attempts": 2,
+      "video_id": "task_aYbxPgnSzL95tgThd92hKyaGWC6mUfj5",
+      "task_id": "task_aYbxPgnSzL95tgThd92hKyaGWC6mUfj5"
     }
   },
   "review": "visual_review_pending",
