@@ -68,7 +68,7 @@ def main():
     if row.get('status')=='completed' and row.get('sha256') and row.get('video_url'):
      results[sid]=row
  # Avoid an unverified red-clothing association; reuse the neutral room shot.
- results['S08']=results['S09']
+ results['S08']=results['S26']
  run(sys.executable,HERE/'fit_audio.py')
  heart=WORK/'S01.wav';heartbeat(heart)
  audio_files=[heart]+[ROOT/'work'/'baiyin_case'/'audio'/f'{s["id"]}.wav' for s in story['shots'][1:]]
@@ -108,9 +108,10 @@ def main():
      f.write(block)
   if digest(source)!=r['sha256']:raise RuntimeError('Source hash mismatch: '+sid)
   sources_manifest.append({'id':sid,'sha256':r['sha256'],'video_id':r.get('video_id'),'duration':shot['duration']})
-  if sid=='S08':sources_manifest[-1]['substituted_source']='S09 (neutral room; avoids unverified red-clothing association)'
+  if sid=='S08':sources_manifest[-1]['substituted_source']='S26 (neutral room; avoids unverified red-clothing association)'
   dest=CLIPS/f'{sid}.mp4';duration=shot['duration']
-  vf=f'scale=1920:1080:flags=lanczos,fps=24,trim=duration={duration},setpts=PTS-STARTPTS,setsar=1'
+  framing='crop=iw*0.70:ih*0.70:iw*0.06:ih*0.12,' if sid=='S14' else ''
+  vf=framing+f'scale=1920:1080:flags=lanczos,fps=24,trim=duration={duration},setpts=PTS-STARTPTS,setsar=1'
   if sid=='S25':vf+=f",drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:enable='gte(t,{duration-1})'"
   vf+=',drawbox=x=0:y=0:w=iw:h=138:color=black:t=fill,drawbox=x=0:y=942:w=iw:h=138:color=black:t=fill,format=yuv420p'
   if sid=='S16':
