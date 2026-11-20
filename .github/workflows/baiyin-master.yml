@@ -1,0 +1,109 @@
+name: 白银案 · 高码率候选片
+on:
+  push:
+    branches: [arena/aa4972d2-desktop-tutorial]
+    paths: [production/baiyin_case/MASTER_REQUEST]
+permissions:
+  contents: write
+concurrency:
+  group: baiyin-canary-aa4972d2
+  cancel-in-progress: false
+jobs:
+  draft:
+    if: github.ref == 'refs/heads/arena/aa4972d2-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/aa4972d2-desktop-tutorial
+          fetch-depth: 1
+      - name: Install media tools and CJK font
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media" --no-save --ignore-scripts --no-audit --no-fund @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media/bin" "$HOME/.local/share/fonts"
+          chmod +x "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media/bin/ffmpeg"
+          ln -s "$RUNNER_TEMP/media/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media/bin/ffprobe"
+          echo "$RUNNER_TEMP/media/bin" >> "$GITHUB_PATH"
+          gh api -H 'Accept: application/vnd.github.raw' 'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
+          python3 -m pip install --no-input --disable-pip-version-check numpy av
+      - name: Require all five variety redo receipts
+        run: |
+          python3 - <<'PYCODE'
+          import json
+          from pathlib import Path
+          p = Path('production/baiyin_case/qa/variety_redo.json')
+          doc = json.loads(p.read_text())
+          shots = doc['shots']
+          assert set(shots) == {'S14','S20','S22','S23','S26'}, 'redo set incomplete'
+          assert all(r.get('status') == 'completed' and r.get('sha256') and r.get('video_url') for r in shots.values()), 'redo not completed'
+          PYCODE
+      - name: Render a high-bitrate candidate
+        env:
+          BAIYIN_MASTER_MODE: candidate
+        run: |
+          set -o pipefail
+          python3 -u production/baiyin_case/render_draft.py 2>&1 | tee "$RUNNER_TEMP/baiyin-render.log"
+      - name: Save sanitized diagnostic on render failure
+        if: failure()
+        run: |
+          python3 - <<'PYCODE'
+          import os, re
+          from pathlib import Path
+          src = Path(os.environ['RUNNER_TEMP']) / 'baiyin-render.log'
+          if src.exists():
+              text = re.sub(r'https?://[^\s]+', '[redacted-url]', src.read_text(errors='replace'))
+              out = Path('production/baiyin_case/qa/render_failure.txt')
+              out.write_text(text[-20000:])
+          PYCODE
+          if test -f production/baiyin_case/qa/render_failure.txt; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add production/baiyin_case/qa/render_failure.txt
+            if ! git diff --cached --quiet; then
+              git commit -m 'baiyin: record sanitized render failure'
+              git pull --rebase origin arena/aa4972d2-desktop-tutorial
+              git push origin HEAD:refs/heads/arena/aa4972d2-desktop-tutorial
+            fi
+          fi
+      - name: Verify 180-second master, allowing only the explicitly silent opening
+        run: |
+          python3 production/verify_master.py \
+            --film work/baiyin_case/draft/baiyin_candidate_15mb.mp4 \
+            --story production/baiyin_case/story.json \
+            --srt work/baiyin_case/draft/baiyin_subtitles.srt \
+            --json work/baiyin_case/draft/verify_report.json
+      - name: Record candidate technical evidence
+        run: |
+          set -euo pipefail
+          mkdir -p production/baiyin_case/qa/candidate
+          src=work/baiyin_case/draft/baiyin_candidate_15mb.mp4
+          ffprobe -v error -show_format -show_streams -of json "$src" > production/baiyin_case/qa/candidate/ffprobe.json
+          cp work/baiyin_case/draft/verify_report.json production/baiyin_case/qa/candidate/verify_report.json
+          cp work/baiyin_case/draft/source_manifest.json production/baiyin_case/qa/candidate/source_manifest.json
+          ffmpeg -hide_banner -loglevel error -y -i "$src" -vf 'fps=1/6,scale=320:180,tile=6x5' -frames:v 1 production/baiyin_case/qa/candidate/contact.jpg
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/baiyin_case/qa/candidate
+          if ! git diff --cached --quiet; then
+            git commit -m 'baiyin: record candidate technical evidence'
+            git pull --rebase origin arena/aa4972d2-desktop-tutorial
+            git push origin HEAD:refs/heads/arena/aa4972d2-desktop-tutorial
+          fi
+      - name: Upload high-bitrate candidate and technical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baiyin-candidate-1080p-${{ github.run_number }}
+          path: |
+            work/baiyin_case/draft/baiyin_candidate_15mb.mp4
+            work/baiyin_case/draft/baiyin_subtitles.srt
+            work/baiyin_case/draft/verify_report.json
+            work/baiyin_case/draft/source_manifest.json
+          if-no-files-found: warn
+          retention-days: 30
