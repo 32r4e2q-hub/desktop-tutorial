@@ -518,7 +518,7 @@
     },
     "S23": {
       "id": "S23",
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "4622c605e324019ffb4fc622cfae89fd6f78868834dbddffd2630332cb4a924c",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -535,7 +535,9 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending",
-      "attempts": 1
+      "attempts": 2,
+      "video_id": "task_E4QOF637FDC6gBiLLhhSiwysNlFMLaTW",
+      "task_id": "task_E4QOF637FDC6gBiLLhhSiwysNlFMLaTW"
     }
   },
   "review": "visual_review_pending",
