@@ -20,5 +20,6 @@ jobs:
             echo "AGNES_SECRET_CONFIGURED=yes"
           else
             echo "AGNES_SECRET_CONFIGURED=no"
+            exit 1
           fi
           echo "No request sent and no quota consumed."
