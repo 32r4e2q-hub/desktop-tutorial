@@ -1,0 +1,24 @@
+name: 白银案 · 无消耗能力检查
+on:
+  push:
+    branches: [arena/aa4972d2-desktop-tutorial]
+    paths: [.github/workflows/baiyin-capability.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    if: github.ref == 'refs/heads/arena/aa4972d2-desktop-tutorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check whether Agnes secret is configured without revealing it
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: |
+          if [ -n "$AGNES_API_KEY" ]; then
+            echo "AGNES_SECRET_CONFIGURED=yes"
+          else
+            echo "AGNES_SECRET_CONFIGURED=no"
+          fi
+          echo "No request sent and no quota consumed."
