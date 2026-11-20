@@ -311,7 +311,7 @@
     },
     "S14": {
       "id": "S14",
-      "status": "submitting",
+      "status": "rate_limited",
       "request_hash": "8ac5b59cbd824d0e748a1be161b7cdcc9740844e91a71d3b6d65ac63cae44faf",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -327,7 +327,8 @@
         ]
       },
       "reused_existing_asset": false,
-      "visual_review": "pending"
+      "visual_review": "pending",
+      "attempts": 1
     }
   },
   "review": "visual_review_pending",
