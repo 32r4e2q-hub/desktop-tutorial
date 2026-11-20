@@ -37,23 +37,42 @@ def heartbeat(path):
  pcm=(np.clip(np.stack([x,x],axis=1),-1,1)*32767).astype('<i2')
  with wave.open(str(path),'wb') as f:f.setnchannels(2);f.setsampwidth(2);f.setframerate(rate);f.writeframes(pcm.tobytes())
 
+def underscore(path):
+ # Original procedural ambient bed: no samples or third-party composition.
+ rate=48000; duration=180
+ with wave.open(str(path),'wb') as f:
+  f.setnchannels(2);f.setsampwidth(2);f.setframerate(rate)
+  for start in range(duration):
+   t=start+np.arange(rate)/rate
+   envelope=np.minimum(1,np.maximum(0,(t-2)/5))*np.minimum(1,np.maximum(0,(180-t)/5))
+   modulation=.7+.3*np.sin(2*np.pi*.025*t)
+   x=envelope*modulation*(.010*np.sin(2*np.pi*55*t)+.006*np.sin(2*np.pi*82.41*t)+.004*np.sin(2*np.pi*110*t))
+   pcm=(np.stack([x,x],axis=1)*32767).astype('<i2')
+   f.writeframes(pcm.tobytes())
+
 def main():
  for d in (WORK,SOURCES,CLIPS):d.mkdir(parents=True,exist_ok=True)
  story=json.loads((HERE/'story.json').read_text());results=json.loads((HERE/'results.json').read_text())['shots']
  # This is a review draft, not a release: insert completed redo candidates so
  # they can be reviewed in context. The report must keep visual_review=pending.
- redo_file=HERE/'qa'/'keyshots_redo.json'
- if redo_file.exists():
-  redos=json.loads(redo_file.read_text())['shots']
-  for sid,row in redos.items():
-   if row.get('status')=='completed' and row.get('sha256') and row.get('video_url'):
-    results[sid]=row
+ high_bitrate=os.environ.get('BAIYIN_MASTER_MODE')=='candidate'
+ for filename in ('keyshots_redo.json','variety_redo.json'):
+  redo_file=HERE/'qa'/filename
+  if high_bitrate and not redo_file.exists():
+   raise RuntimeError('Candidate requires completed redo set: '+filename)
+  if redo_file.exists():
+   redos=json.loads(redo_file.read_text())['shots']
+   if high_bitrate and any(row.get('status')!='completed' or not row.get('sha256') or not row.get('video_url') for row in redos.values()):
+    raise RuntimeError('Redo set is incomplete: '+filename)
+   for sid,row in redos.items():
+    if row.get('status')=='completed' and row.get('sha256') and row.get('video_url'):
+     results[sid]=row
  run(sys.executable,HERE/'fit_audio.py')
  heart=WORK/'S01.wav';heartbeat(heart)
  audio_files=[heart]+[ROOT/'work'/'baiyin_case'/'audio'/f'{s["id"]}.wav' for s in story['shots'][1:]]
  audio_list=WORK/'audio_concat.txt';audio_list.write_text(''.join("file '"+str(x).replace("'", "'\\''")+"'\n" for x in audio_files))
- audio_m4a=WORK/'audio.m4a'
- run('ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',audio_list,'-ar','48000','-ac','2','-c:a','aac','-b:a','192k','-t','180',audio_m4a)
+ audio_m4a=WORK/'audio.m4a';music=WORK/'original_ambient.wav';underscore(music)
+ run('ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',audio_list,'-i',music,'-filter_complex','[0:a][1:a]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.9[a]','-map','[a]','-ar','48000','-ac','2','-c:a','aac','-b:a','192k','-t','180',audio_m4a)
  cues=[]
  for shot in story['shots'][1:]:
   start,end=onset(ROOT/'work'/'baiyin_case'/'audio'/f'{shot["id"]}.wav')
@@ -91,12 +110,22 @@ def main():
   vf=f'scale=1920:1080:flags=lanczos,fps=24,trim=duration={duration},setpts=PTS-STARTPTS,setsar=1'
   if sid=='S25':vf+=f",drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:enable='gte(t,{duration-1})'"
   vf+=',drawbox=x=0:y=0:w=iw:h=138:color=black:t=fill,drawbox=x=0:y=942:w=iw:h=138:color=black:t=fill,format=yuv420p'
-  run('ffmpeg','-hide_banner','-loglevel','error','-y','-i',source,'-vf',vf,'-an','-c:v','libx264','-preset','veryfast','-crf','18','-r','24','-video_track_timescale','24000',dest)
+  if sid=='S16':
+   # Deliberate warm-shop/cold-archive contrast; both are real generated clips.
+   archive=SOURCES/'S10.mp4'
+   if not archive.is_file():raise RuntimeError('S10 must be verified before S16 split screen')
+   side=f'scale=960:1080:force_original_aspect_ratio=increase,crop=960:1080,fps=24,trim=duration={duration},setpts=PTS-STARTPTS'
+   composite=f'[0:v]{side}[left];[1:v]{side}[right];[left][right]hstack=inputs=2,drawbox=x=0:y=0:w=iw:h=138:color=black:t=fill,drawbox=x=0:y=942:w=iw:h=138:color=black:t=fill,format=yuv420p[out]'
+   run('ffmpeg','-hide_banner','-loglevel','error','-y','-i',source,'-i',archive,'-filter_complex',composite,'-map','[out]','-an','-c:v','libx264','-preset','veryfast','-crf','16','-r','24','-video_track_timescale','24000',dest)
+   sources_manifest[-1]['additional_input']={'id':'S10','sha256':results['S10']['sha256']}
+  else:
+   run('ffmpeg','-hide_banner','-loglevel','error','-y','-i',source,'-vf',vf,'-an','-c:v','libx264','-preset','veryfast','-crf','16','-r','24','-video_track_timescale','24000',dest)
   print('NORMALIZED',sid,flush=True)
  video_list=WORK/'video_concat.txt';video_list.write_text(''.join("file '"+str(CLIPS/(shot['id']+'.mp4'))+"'\n" for shot in story['shots']))
  concat=WORK/'video_concat.mp4';run('ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',video_list,'-c','copy',concat)
- film=WORK/'baiyin_firstcut_review.mp4'
- run('ffmpeg','-hide_banner','-loglevel','error','-y','-i',concat,'-i',audio_m4a,'-vf',f"ass={ass}",'-map','0:v:0','-map','1:a:0','-c:v','libx264','-preset','veryfast','-crf','18','-pix_fmt','yuv420p','-c:a','copy','-t','180','-movflags','+faststart',film)
+ film=WORK/('baiyin_candidate_15mb.mp4' if high_bitrate else 'baiyin_firstcut_review.mp4')
+ video_rate=['-b:v','16M','-minrate','16M','-maxrate','16M','-bufsize','32M','-x264-params','nal-hrd=cbr:force-cfr=1'] if high_bitrate else ['-crf','18']
+ run('ffmpeg','-hide_banner','-loglevel','error','-y','-i',concat,'-i',audio_m4a,'-vf',f"ass={ass}",'-map','0:v:0','-map','1:a:0','-c:v','libx264','-preset','veryfast',*video_rate,'-pix_fmt','yuv420p','-c:a','copy','-t','180','-movflags','+faststart',film)
  (WORK/'source_manifest.json').write_text(json.dumps(sources_manifest,ensure_ascii=False,indent=2)+'\n')
  print('DRAFT',film,'visual review and verifier required',flush=True)
 if __name__=='__main__':main()
