@@ -24,7 +24,7 @@
       "attempts": 1
     },
     "S24": {
-      "status": "rate_limited",
+      "status": "queued",
       "request_hash": "bd68ea9a81b216286b35f6ca9bc2126d986884c3ff4f0bb385ff2ffb45bc2d8a",
       "request": {
         "model": "agnes-video-2.5-flash",
@@ -41,7 +41,9 @@
       },
       "reused_existing_asset": false,
       "visual_review": "pending",
-      "attempts": 1
+      "attempts": 2,
+      "video_id": "task_iOMGIIIc7oUg9nyKKbnd5LvCV6UPoPK5",
+      "task_id": "task_iOMGIIIc7oUg9nyKKbnd5LvCV6UPoPK5"
     }
   },
   "visual_review": "pending"
