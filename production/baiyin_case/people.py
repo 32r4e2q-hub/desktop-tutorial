@@ -16,5 +16,5 @@ if key:
   time.sleep(13)
  for sid,(vid,tid) in jobs.items():
   try:
-   _,url=a.poll_task(base,key,model,vid,tid,interval=18,timeout=400,max_failures=3);a.download(url,OUT/(sid+'.mp4'));print('downloaded',sid,flush=True)
+   _,url=a.poll_task(base,key,model,vid,tid,interval=18,timeout=400,max_failures=3);a.download(url,OUT/(sid+'.mp4'),retries=3,retry_delay=5);print('downloaded',sid,flush=True)
   except Exception: print('reference fallback',sid,flush=True)

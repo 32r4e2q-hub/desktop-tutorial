@@ -2,7 +2,7 @@ name: Episode 21 people cut
 on:
   push:
     branches: [arena/b6fdc547-desktop-tutorial]
-    paths: [.github/workflows/baiyin-people.yml, production/baiyin_case/edit.py, production/baiyin_case/edit_plan.json]
+    paths: [.github/workflows/baiyin-people.yml, production/baiyin_case/edit.py, production/baiyin_case/people.py, production/baiyin_case/edit_plan.json]
 permissions:
   contents: write
 jobs:
