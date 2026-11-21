@@ -39,6 +39,6 @@
       "S30"
     ],
     "pending_clips": [],
-    "qc": "voice-01 MP3 durations measured locally with PyAV：全部30条装入镜头窗口，max atempo=1.271 (S02)，低于 1.55x 硬上限；S02/S04/S05/S06/S26/S28 做了 ≤1.28x 轻微加速；manifest.json 由 CI build_audio_manifest 重建；完整听检仍待主创播放"
+    "qc": "voice-01 MP3 durations measured locally with PyAV：全部30条装入镜头窗口，max atempo=1.271(S02)，低于1.55x硬上限。全员峰值/RMS 复核：S14 首次生成近静音（peak=0.034, rms=0.004），CI 技术QC报'no speech energy: [14]'，已用相同文本重试一条健康 clip（peak=0.773, rms=0.097, len=3.11s）。完整听检仍待主创播放"
   }
 }
