@@ -15,16 +15,18 @@ python3 -m pip install 'pillow>=10,<13' 'fonttools>=4.50,<5' 'av>=12,<19'
 # 或安装完整工具链：python3 -m pip install -r production/requirements.txt
 ```
 
-以下以第一期事实与待审初剪演示，输出放临时目录，**不是新一期**。数字为源帧像素坐标 `(左, 上, 右, 下)`，取帧和裁剪由 Agent 依据实际视频选择和审核：
+以下以第 20 期（上海冰柜藏尸案）演示，输出放临时目录，**不是新一期**。数字为源帧像素坐标 `(左, 上, 右, 下)`，取帧和裁剪由 Agent 依据实际视频选择和审核：
 
 ```bash
 python3 production/mystery-cover-template/generate_cover.py \
-  --episode 1 --line1 '逃亡78天的西口彰' --line2 '却被女孩一眼认出' \
-  --video '交付/Nishiguchi_First_Cut.mp4' --time 134 --crop 0 64 1920 855 \
-  --release-title '逃亡78天的西口彰，却被女孩一眼认出' \
-  --fact-basis 'production/nishiguchi1963/screenplay.md 和 qa/review_round5.md' \
-  --output work/cover/第一期.png
+  --episode 20 --line1 '她死了105天' --line2 '丈夫用她的微信聊了105天' \
+  --video '交付/上海冰柜藏尸案_105天_三分钟_带声音.mp4' --time 2 --crop 0 64 1920 855 \
+  --release-title '她死了105天，丈夫用她的微信和妈妈聊了105天' \
+  --fact-basis 'production/shanghai_freezer_case/FACT_CHECK.md' \
+  --output work/cover/第二十期.png
 ```
+
+> 包内随附的「第一期_西口彰_*」示例图是工具自带的测试夹具（`test_template.py` / `production/tests/test_mystery_cover.py` 依赖），不是本系列当前案件。
 
 也可将 `--video ... --time ...` 改为 `--screenshot /路径/本期已选截图.png`；可以对截图再用 `--crop LEFT TOP RIGHT BOTTOM`。二者必须提供且只能选其一，程序不会默认使用示例图。截图或裁剪后的区域会**居中裁切**填满固定画框，可能切掉边缘；取帧时间、截图来源及裁剪参数会写入同名 JSON，截图来源由 Agent 核实。CLI 不会自主选帧、拟题或核查事实。
 

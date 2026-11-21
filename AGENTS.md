@@ -11,7 +11,7 @@
 5. 调用 `production/mystery-cover-template/generate_cover.py`，传入 `--video ... --time 秒数`（可加 `--crop`）或 `--screenshot ...`；参数及示例见该目录 `README.md`。将 PNG 和同名 JSON 放入当前项目交付目录，写入发布标题、事实依据及截图来源。默认不覆盖已有文件；有碰撞时使用新路径或在确认要更新现有交付后使用 `--force`。字体缺字要换高覆盖字体或重写标题，绝不交付方框字。
 6. 查看生成图并人工复核文字、期数、截图来源、裁剪、排版及事实；自动测试不能代替视觉审核。向用户交付封面、发布标题和可实际访问的下载方式。程序本身不理解案件或自动选帧、生成文案，Agent 必须完成上述识别、核实、拟题与选帧。
 
-详情：`新题目开工手册.md` 的系列封面章节与 `production/mystery-cover-template/README.md`。该竖版封面流程不改变视频的横版制作规格。
+详情：`新题目开工手册.md` 的系列封面章节（第 8 章）与 `production/mystery-cover-template/README.md`。该竖版封面流程不改变视频的横版制作规格。
 
 ## 今后默认画面文字层（光州胶带案风格，2026-11-14 起）
 
@@ -21,9 +21,9 @@
 2. **画面中间偏下注释**：金色小字，ASS `Explainer` / `MarginV=200`，只补充可核实事实、时间线、术语或法律边界，帮助读者看懂。
 3. **钩子大字**：居中偏下 `MarginV=275`，每条严格 2 秒；片尾标题只由后期添加。
 4. **AI 源片禁止自绘文字**；所有中文标题、字幕、注释均后期烧录。
-5. 共享实现：`production/gwangju_style.py`；复用清单：`production/gwangju_tape_case/模板-如何复用.md`；制作过程：`production/gwangju_tape_case/制作过程.md`。
+5. 共享实现：`production/gwangju_style.py`；模板与脚手架：`production/templates/`、`production/new_topic.py`（从上海参考工程复制到新项目）。
 
-新题目脚手架 `production/new_topic.py` 会复制该文字层引擎；旧狂犬病/世田谷模式仍可用，但新片不得删掉解说词字幕和中间偏下注释。若用户明确另有要求，以用户要求为准。
+新题目脚手架 `production/new_topic.py` 会复制该文字层引擎（`gwangju_style.py` 由渲染模板从仓库根 `production/` 导入，不拷贝）；新片不得删掉解说词字幕和中间偏下注释。若用户明确另有要求，以用户要求为准。
 
 ## 生成物纪律与“死循环”防复现（2026-11-19 上海冰柜藏尸案事故）
 
