@@ -1,0 +1,29 @@
+name: Episode 21 people cut
+on:
+  push:
+    branches: [arena/b6fdc547-desktop-tutorial]
+    paths: [.github/workflows/baiyin-people.yml, production/baiyin_case/edit.py, production/baiyin_case/edit_plan.json]
+permissions:
+  contents: write
+jobs:
+  film:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up edit and download verified master
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+          gh release download baiyin-episode21-candidate3 -p '*.mp4' -O base.mp4
+      - name: Animate original character references
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+        run: python3 -u production/baiyin_case/people.py
+      - name: Edit, verify and deliver MP4
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -u production/baiyin_case/edit.py
+          gh release create baiyin-e21-people-v4 Baiyin-E21-People-Cut.mp4 --target "$GITHUB_SHA" --prerelease --title '第二十一期｜白银案 · 人物叙事重剪版' --notes '1080p，AI 情景演绎，非真实影像。'
