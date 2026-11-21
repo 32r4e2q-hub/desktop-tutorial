@@ -54,6 +54,13 @@ CHARACTER_SEEDS: dict[str, int] = {
     # "ROLE_BACK": 20260001,
 }
 
+# 角色代号 → 已批准参考图资产编号（与 reference/approvals.json 的键一致）。
+# generate.py 按它解析每镜的 characters[] → 参考图 URL；参与全部 request_hash——
+# 一旦与已烧掉的批次不一致，渲染会拒绝使用已签收片段。开工后不要随意改动。
+CHARACTER_REFERENCE_IDS: dict[str, str] = {
+    # "ROLE_BACK": "C01",
+}
+
 # duration, narration, visual beat, design references, character roles, camera, sound, color
 # TODO：把下面 30 行改成本片内容。reference ids 对应 reference/approvals.json 里 approved 的条目；
 # characters[] 里的角色名必须在 CHARACTERS 里登记；duration 为整数秒、2–13、合计必须正好 180。
@@ -189,6 +196,7 @@ def build() -> dict:
         "model": "agnes-video-2.5-flash", "source_size": "720P", "branch": BRANCH,
         "style_prefix": STYLE, "negative_prompt": NEGATIVE, "style_rumor_prefix": STYLE,
         "characters": CHARACTERS, "character_seeds": CHARACTER_SEEDS,
+        "character_reference_ids": CHARACTER_REFERENCE_IDS,
         "narration_spec": {
             "voice_id": voice_id,
             "description": voice.get("description", "TODO 试音选定后的音色描述"),

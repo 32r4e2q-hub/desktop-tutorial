@@ -56,16 +56,25 @@ REFERENCE_REVISION = REFERENCE_DIR / "revision.txt"
 REPOSITORY = "32r4e2q-hub/desktop-tutorial"
 LOCK = threading.RLock()
 
-def reference_asset_ids(shot: dict) -> list[str]:
-    """Resolve the storyboard's reference_ids to approved asset IDs.
+def reference_asset_ids(shot: dict, project: dict | None = None) -> list[str]:
+    """Resolve storyboard references to approved asset IDs.
 
-    `reference_ids`（如 "C01+P02"、"S14"）直接按 approvals.json 的键解析——
-    不再维护"角色代号 → 参考图编号"的硬编码映射；每个项目的角色表不同，
-    批准什么、用什么，由该项目自己的 reference/approvals.json 决定。
-    未批准或未登记的 ID 会在 reference_image_urls 里明确报错。
+    - ``characters[]`` 里的角色代号按 ``story.json`` 顶层的 ``character_reference_ids``
+      （由该项目的 ``build_story.py`` 生成，如 LIYINGPING → C01）解析——每个项目的角色表不同，
+      映射属于项目内容，放在生成物里而不是代码里；
+    - ``reference_ids``（如 "C01+P02"、"S14"）按 approvals.json 的键原样解析；
+    - 未登记的角色/ID 会在这里或 reference_image_urls 里明确报错，绝不静默猜测。
     """
+    role_map = (project or {}).get("character_reference_ids") or {}
+    asset_ids = []
+    for role in shot.get("characters", []):
+        role_ref = role_map.get(role)
+        if role_ref is None:
+            raise ValueError(f"{shot.get('id')}: role {role!r} has no reference asset mapped "
+                             f"in story.json's character_reference_ids")
+        asset_ids.append(role_ref)
     design_refs = str(shot.get("reference_ids", shot.get("references", ""))).split("+")
-    asset_ids = [part.strip() for part in design_refs if part.strip()]
+    asset_ids += [part.strip() for part in design_refs if part.strip()]
     return list(dict.fromkeys(asset_ids))
 
 
@@ -73,7 +82,7 @@ def read_json(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
 
 
-def reference_image_urls(shot: dict) -> list[str]:
+def reference_image_urls(shot: dict, project: dict | None = None) -> list[str]:
     """Return immutable raw-GitHub URLs after verifying the approved local PNG digests."""
     approvals = read_json(REFERENCE_APPROVALS, {})
     assets = approvals.get("assets", {})
@@ -81,7 +90,7 @@ def reference_image_urls(shot: dict) -> list[str]:
     if len(revision) != 40 or any(ch not in "0123456789abcdef" for ch in revision.lower()):
         raise RuntimeError("reference/revision.txt must pin the immutable base reference commit")
     urls = []
-    for asset_id in reference_asset_ids(shot):
+    for asset_id in reference_asset_ids(shot, project):
         record = assets.get(asset_id, {})
         if record.get("status") != "approved":
             raise RuntimeError(f"{asset_id}: reference is not approved")
@@ -385,7 +394,7 @@ def full_payload(project: dict, shot: dict) -> dict:
         "mode": "reference",
         "n": 1,
         "seed": payload_seed(project, shot),
-        "images": reference_image_urls(shot),
+        "images": reference_image_urls(shot, project),
     }
 
 

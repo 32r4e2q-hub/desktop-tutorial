@@ -57,6 +57,16 @@ CHARACTER_SEEDS = {
     "EXTRA_BACK": 250010,
     "POLICE_BACK": 300010,
 }
+# 角色代号 → 已批准参考图资产编号（与 reference/approvals.json 的键一致）。
+# generate.py 按它解析每镜的 characters[] → 参考图 URL；参与全部 request_hash，
+# 一旦与运行中的批次不一致，渲染会拒绝使用已签收片段。增删前先与主创确认额度。
+CHARACTER_REFERENCE_IDS = {
+    "LIYINGPING": "C01", "LIYINGPING_SIDE": "C02", "LIYINGPING_BACK": "C03",
+    "ZHUXIAODONG": "C04", "ZHUXIAODONG_BACK": "C05",
+    "YANGMU": "C06", "YANGFU": "C07", "YANGFU_BACK": "C08",
+    "EXTRA_BACK": "C09", "POLICE_BACK": "C10",
+}
+
 
 # duration, narration, visual beat, design references, character roles, camera, sound, color
 # 时间码（0/2/7/9/14/24/30/34/38/42/47/56/62/68/74/78/82/87/92/98/103/110/114/119/125/129/137/144/151/160/173/180）
@@ -313,6 +323,7 @@ def build() -> dict:
         "model": "agnes-video-2.5-flash", "source_size": "720P", "branch": BRANCH,
         "style_prefix": STYLE, "negative_prompt": NEGATIVE, "style_rumor_prefix": STYLE,
         "characters": CHARACTERS, "character_seeds": CHARACTER_SEEDS,
+        "character_reference_ids": CHARACTER_REFERENCE_IDS,
         "narration_spec": {
             "voice_id": voice_id,
             "description": voice.get("description", "悬疑低沉、克制的成熟普通话男声；逐镜独立配音"),
