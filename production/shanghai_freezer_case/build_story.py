@@ -12,7 +12,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 TITLE = "上海冰柜藏尸案：她死了105天，丈夫用她的微信聊了105天"
-BRANCH = "arena/30eea026-desktop-tutorial"
+BRANCH = "arena/f9f847e0-desktop-tutorial"
 
 STYLE = (
     "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，"
