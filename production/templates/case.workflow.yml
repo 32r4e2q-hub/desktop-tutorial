@@ -15,9 +15,10 @@ on:
   push:
     branches: [__BRANCH__]
     paths:
+      # 只认 marker 文件：编辑本工作流自身不得触发出片（见上海工程 2026-11-21 裁决）。
+      # 出片/重渲 = 写 GEN_REQUEST（或 workflow_dispatch）显式触发。
       - production/__SLUG__/GEN_REQUEST
       - production/__SLUG__/CANCEL_REQUEST
-      - .github/workflows/__SLUG__.yml
   workflow_dispatch:
     inputs:
       payload:

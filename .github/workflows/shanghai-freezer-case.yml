@@ -5,9 +5,11 @@ on:
   push:
     branches: [arena/f9f847e0-desktop-tutorial]
     paths:
+      # 只认 marker 文件：编辑本工作流自身不得触发出片（2026-11-21 主创裁决；
+      # 此前自触发曾误跑 clips 流水线并降级 results.json 的 provenance）。
+      # 出片/重渲 = 写 GEN_REQUEST（或 workflow_dispatch）显式触发。
       - production/shanghai_freezer_case/GEN_REQUEST
       - production/shanghai_freezer_case/CANCEL_REQUEST
-      - .github/workflows/shanghai-freezer-case.yml
   workflow_dispatch:
     inputs:
       payload:
