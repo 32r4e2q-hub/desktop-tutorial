@@ -1,10 +1,10 @@
 {
   "status": "selected",
-  "voice_id": "voice-00",
+  "voice_id": "voice-01",
   "language": "zh-CN",
-  "description": "悬疑低沉、克制的成熟普通话男声",
+  "description": "低沉男声（Arena 试音仅一个候选，自动指派；比 voice-00 更低沉）",
   "selected_at": "2026-11-19",
-  "selected_by": "user via Arena voice audition",
+  "selected_by": "user request 2026-11-19: 换个低沉的男声（该 voice 试音时仅一个可用候选，未做盲选）",
   "narration_progress": {
     "completed_clips": [
       "S01",
@@ -39,6 +39,6 @@
       "S30"
     ],
     "pending_clips": [],
-    "qc": "MP3 durations measured locally with PyAV; all 30 fit their shot windows, max atempo=1.016x (1.55x cap); manifest.json built; full listening review pending"
+    "qc": "voice-01 MP3 durations measured locally with PyAV：全部30条装入镜头窗口，max atempo=1.271 (S02)，低于 1.55x 硬上限；S02/S04/S05/S06/S26/S28 做了 ≤1.28x 轻微加速；manifest.json 由 CI build_audio_manifest 重建；完整听检仍待主创播放"
   }
 }

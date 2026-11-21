@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import agnes_video as agnes  # noqa: E402
 from throttle import RequestGate  # noqa: E402
 
-BRANCH = "arena/30eea026-desktop-tutorial"
+BRANCH = "arena/f9f847e0-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
 REQUEST_INTERVAL_SECONDS = 12.1
