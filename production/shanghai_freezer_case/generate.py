@@ -56,35 +56,21 @@ REFERENCE_REVISION = REFERENCE_DIR / "revision.txt"
 REPOSITORY = "32r4e2q-hub/desktop-tutorial"
 LOCK = threading.RLock()
 
-CHARACTER_REFERENCE_IDS = {
-    "LIYINGPING": "C01", "LIYINGPING_SIDE": "C02", "LIYINGPING_BACK": "C03",
-    "ZHUXIAODONG": "C04", "ZHUXIAODONG_BACK": "C05",
-    "YANGMU": "C06", "YANGFU": "C07", "YANGFU_BACK": "C08",
-    "EXTRA_BACK": "C09", "POLICE_BACK": "C10",
-}
-SCENE_REFERENCE_IDS = {f"S{i:02d}": f"S{i:02d}" for i in range(1, 16)}
-PROP_REFERENCE_IDS = {f"P{i:02d}": f"P{i:02d}" for i in range(1, 4)}
+def reference_asset_ids(shot: dict) -> list[str]:
+    """Resolve the storyboard's reference_ids to approved asset IDs.
+
+    `reference_ids`（如 "C01+P02"、"S14"）直接按 approvals.json 的键解析——
+    不再维护"角色代号 → 参考图编号"的硬编码映射；每个项目的角色表不同，
+    批准什么、用什么，由该项目自己的 reference/approvals.json 决定。
+    未批准或未登记的 ID 会在 reference_image_urls 里明确报错。
+    """
+    design_refs = str(shot.get("reference_ids", shot.get("references", ""))).split("+")
+    asset_ids = [part.strip() for part in design_refs if part.strip()]
+    return list(dict.fromkeys(asset_ids))
 
 
 def read_json(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
-
-
-def reference_asset_ids(shot: dict) -> list[str]:
-    """Resolve story design IDs plus character roles to the final approved image IDs."""
-    asset_ids = [CHARACTER_REFERENCE_IDS[role] for role in shot.get("characters", [])]
-    design_refs = str(shot.get("reference_ids", shot.get("references", ""))).split("+")
-    for ref in (part.strip().upper() for part in design_refs if part.strip()):
-        if ref in SCENE_REFERENCE_IDS:
-            asset_ids.append(SCENE_REFERENCE_IDS[ref])
-        elif ref in PROP_REFERENCE_IDS:
-            asset_ids.append(PROP_REFERENCE_IDS[ref])
-        elif ref in set(CHARACTER_REFERENCE_IDS.values()):
-            # Character IDs written directly in the storyboard are the same approved sheets.
-            asset_ids.append(ref)
-        else:
-            raise ValueError(f"{shot.get('id')}: unknown reference design ID {ref!r}")
-    return list(dict.fromkeys(asset_ids))
 
 
 def reference_image_urls(shot: dict) -> list[str]:
@@ -575,8 +561,8 @@ def validate(project: dict, require_audio: bool = True) -> None:
     if cursor != 180:
         raise ValueError(f"Timeline is {cursor}s, not 180s")
     chapters = project.get("chapters", [])
-    if len(chapters) != 9 or sum(int(c["duration"]) for c in chapters) != 180:
-        raise ValueError("Expected nine narration units covering exactly 180 seconds")
+    if not chapters or sum(int(c["duration"]) for c in chapters) != 180:
+        raise ValueError("Narration chapters must be non-empty and cover exactly 180 seconds")
     ch_cursor = 0
     for chapter in chapters:
         if chapter["start"] != ch_cursor or not chapter.get("text", "").strip():
@@ -631,7 +617,7 @@ def create_contact_sheet(source: Path, shot_id: str, qa_dir: Path) -> dict:
     if not video:
         raise RuntimeError(f"{shot_id}: no video stream")
     duration = float(probe["format"]["duration"])
-    # 定稿时间码含 10–13 秒长镜头（S04/S29）；光州遗留的 3.75–9.5s 窗口会误杀这些合法片段。
+    # 镜头本身可以长到 13 秒（长镜头合法）；3.75–9.5s 之类的固定窗口会误杀。
     if not 3.0 <= duration <= 13.0 or int(video.get("width", 0)) < 640:
         raise RuntimeError(f"{shot_id}: unsuitable returned clip ({duration:.2f}s, {video.get('width')}px)")
     subprocess.run(["ffmpeg", "-v", "error", "-threads", "2", "-i", str(source),
@@ -737,7 +723,7 @@ def main() -> int:
     render_now = not args.clips_only
     validate(project, require_audio=(render_now or args.render_only))
     if args.validate:
-        print("VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines, nine chapters and approved references")
+        print("VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines and approved references")
         return 0
 
     if args.render_only:

@@ -149,6 +149,7 @@ jobs:
 
       - name: Upload footage, provenance and QA reports
         if: always()
+        continue-on-error: true   # 成片已在 render 步骤里 commit 回分支；artifact 配额失败不该把整场出片判死
         uses: actions/upload-artifact@v4
         with:
           name: shanghai-freezer-case-${{ github.run_number }}

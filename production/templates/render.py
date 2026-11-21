@@ -1,524 +1,324 @@
 #!/usr/bin/env python3
-"""__TITLE__ —— 确定性三分钟成片（模板由 production/templates/render.py 生成，内容不写在这里）。
+"""《__TITLE__》—— 确定性 180 秒成片（模板由 production/templates/render.py 生成；内容只写在 build_story.py 里）。
 
-只接受 results.json 里登记过、SHA-256 对得上的 Agnes 动画片段 + 六段收紧后的配音；
-缺任何一段都直接报错，绝不用静帧/幻灯片顶替。输出成片、EDL、字幕、音频测量报告和 QA 接触表。
-
-本文件里只有两样东西是"这部片子的"：``CUTS``（切点，按 audio/clause-times.json 对出来）和
-``WINDOWS`` / ``TIGHTER_CROPS``（看片后的镜头修正）。信息卡文案、片头/片尾卡、字幕高亮词、
-逐镜标签、音效事件全部从 story.json 的 ``presentation`` 块读（由 build_story.py 写入），
-所以 build_story.py 是唯一的内容源。
+只接受 results.json 里登记过、SHA-256 对得上的 Agnes 2.5 Flash 720P 片段 + 每镜一条 TTS；
+缺任何一镜都直接报错，绝不用静帧/幻灯片顶替。输出成片、SRT、Technical_Report.json 与 QA 抽帧。
+字幕、钩子大字、金色注释全部走仓库共享的 gwangju_style.py（从仓库根 production/ 导入，不拷贝）。
 """
+from __future__ import annotations
+
 import argparse
 import hashlib
 import json
-import math
 from pathlib import Path
-import re
 import subprocess
 import sys
-import wave
-
-import numpy as np
-from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(ROOT / "production"))
-from media import probe
-from build_audio import build_soundtrack, measure, assert_audible
-from gwangju_style import ass_caption, caption_lines
-
-FPS = 30
-DURATION = 180.0
-INTRO = 0.6
-GAP = 1.08
-OUTRO = 6.0
-RATE = 48000
-END_CARD = 3.8      # 片尾卡时长：最后一镜在旁白结束后再停 DURATION-OUTRO-END_CARD… 见 make_edl
-END_AT = DURATION - END_CARD
-TOTAL_FRAMES = round(DURATION * FPS)
-# 切点 = 收紧后配音（audio/N0x.mp3）里的秒数，取自 clause_times.py 对出来的分句边界
-# （每个切点都要落在分句起点前的 0.35 s 停顿窗里：[clause_start-0.35, clause_start]，用
-#  `python3 production/__SLUG__/clause_times.py --check-cuts` 校验）。
-# 镜头按成片顺序编号，每个镜头只出现一次（make_edl 有断言守着）。
-# 脚手架给的是 4 秒均匀网格，只是起点；拿到配音后必须按 clause-times 重对。
-CUTS = {
-}
-
-# 看片后的镜头修正（第一版为空；复审 qa/*.jpg 后按需填写）
-WINDOWS = {}        # 'S13': (1.0, None) 表示只用 1.0 s 之后的画面；(None→0, 4.5) 表示只用前 4.5 s
-TIGHTER_CROPS = {}  # 'S02': (1.2, 0.5, 0.45) 表示推近 1.2 倍，中心在画面 (50%, 45%)
+FPS = 24
+RATE = 48_000
+# 结尾渐黑（本片专属，可按需增删）：镜头号 -> (在结束前多少秒开始淡出, 淡出时长秒)。
+# 默认只给最后一镜 S30（片尾标题在渐黑中压暗收场）；别的镜头的情绪停顿靠剪辑与音效做。
+END_FADES = {"S30": (0.8, 0.8)}
+# Agnes 2.5 Flash 最长只接受 12 秒来源；镜头窗口超过 12 秒时，渲染会以克隆最后一帧补齐（最多 2 秒），
+# 并在日志里打印 SHORT-SOURCE 警告。超过 2 秒的不足仍然直接报错，绝不静默拉伸/变格。
+SOURCE_SHORTFALL_TOLERANCE = 2.0
 
 
-def run(args, capture=False):
-    return subprocess.run([str(x) for x in args], check=True, capture_output=capture, text=capture)
+def normalized_video_filter(shot_id: str, shot_start: float,
+                            target_seconds: float, frame_count: int,
+                            shortfall: float = 0.0) -> str:
+    """Build a shot's normalized picture filter (global anti-flicker grade only)."""
+    if frame_count != round(target_seconds * FPS):
+        raise ValueError(f"{shot_id}: frame count does not match its target duration")
+    base = (
+        f"deflicker=size=61:mode=am,hqdn3d=3:2:9:9,"
+        f"scale=1920:1080:flags=lanczos,fps={FPS},"
+        f"eq=contrast=0.97:brightness=0.018:saturation=0.94"
+    )
+    if shortfall > 0:
+        print(f"SHORT-SOURCE {shot_id}: source is {shortfall:.3f}s under the {target_seconds:.1f}s window; "
+              f"holding the last frame (tolerance {SOURCE_SHORTFALL_TOLERANCE:.1f}s)", flush=True)
+        base += f",tpad=stop_mode=clone:stop_duration={shortfall + 0.05:.3f}"
+    vf = (f"{base},trim=duration={target_seconds:.6f},setpts=PTS-STARTPTS,"
+          "setsar=1,format=yuv420p")
+    fade = END_FADES.get(shot_id)
+    if fade:
+        offset, fade_duration = fade
+        # 只做画面渐隐；文字层由 presentation.hooks / explainers / end_title 承担，不新增后期大字。
+        vf += f",fade=t=out:st={max(0.0, target_seconds - offset):.3f}:d={fade_duration:.3f}"
+    return vf
 
 
-def digest(path):
-    h=hashlib.sha256()
-    with Path(path).open('rb') as f:
-        for block in iter(lambda:f.read(1024*1024), b''): h.update(block)
+def run(args: list[object], capture: bool = False) -> subprocess.CompletedProcess:
+    return subprocess.run([str(x) for x in args], check=True, text=capture, capture_output=capture)
+
+
+def digest(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for block in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(block)
     return h.hexdigest()
 
 
-def find_font(serif=False):
-    candidates = []
-    if serif:
-        candidates += [ROOT/'.cache/fonts/NotoSerifCJKsc-Regular.otf', Path('/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc')]
-    candidates += [ROOT/'.cache/fonts/NotoSansCJKsc-Regular.otf', Path('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc')]
-    for p in candidates:
-        if p.exists(): return p
-    raise RuntimeError('A Chinese Noto CJK font is required; refusing to render missing glyphs')
+def probe(path: Path) -> dict:
+    result = run(["ffprobe", "-v", "error", "-show_format", "-show_streams", "-of", "json", path], True)
+    return json.loads(result.stdout)
 
 
-def font(size, serif=False):
-    path=find_font(serif)
-    return ImageFont.truetype(str(path), size, index=2 if path.suffix=='.ttc' else 0)
+def duration(path: Path) -> float:
+    return float(probe(path)["format"]["duration"])
 
 
-# 卡片安全排字宽度：1920 宽的画面两侧各留 130 px；信息卡还要落在纸面 (184–1736) 之内。
-# 2026-10-06 实测：片尾卡问句「医学史最该被记住的，是勇气，还是验证勇气的证据？」按 96 px
-# 排出来约 2304 px 宽，两端各被裁掉约两个字（成片 174–180 s 可见）——自动审计只量帧间差异、
-# 黑帧和冻结，从不量文字有没有溢出画面，所以只有排字闸门或人眼能发现。
-CARD_TEXT_MAX_WIDTH = 1660
-CARD_PAPER_TEXT_MAX_WIDTH = 1500
+def srt_time(seconds: float) -> str:
+    ms = max(0, round(seconds * 1000))
+    h, ms = divmod(ms, 3_600_000)
+    m, ms = divmod(ms, 60_000)
+    s, ms = divmod(ms, 1_000)
+    return f"{h:02}:{m:02}:{s:02},{ms:03}"
 
 
-def text_width(draw, text, size, serif=False):
-    box=draw.textbbox((0,0),text,font=font(size,serif))
-    return box[2]-box[0]
+def ffmpeg_escape(path: Path) -> str:
+    return str(path.resolve()).replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'")
 
 
-def fit_size(draw, text, size, max_width, serif=False, floor=20):
-    """把一行字缩到 max_width 以内；缩到 floor 仍放不下就报错，绝不画出被裁掉的文字。"""
-    width=text_width(draw,text,size,serif)
-    if width<=max_width:return size
-    guess=max(floor,int(size*max_width/width))
-    while guess>floor and text_width(draw,text,guess,serif)>max_width:guess-=1
-    if text_width(draw,text,guess,serif)>max_width:
-        raise RuntimeError(f'卡片文案一行放不下，缩到 {floor}px 仍然超出 {max_width}px：{text!r}')
-    return guess
+# 默认画面文字层：光州胶带案风格已固化为仓库共享模板。
+sys.path.insert(0, str(ROOT / "production"))
+from gwangju_style import ass_time, ass_escape, caption_lines, ass_caption, write_ass  # noqa: E402
 
 
-def centered(draw, text, y, size, color, x=960, serif=False, max_width=CARD_TEXT_MAX_WIDTH):
-    size=fit_size(draw,text,size,max_width,serif)
-    f=font(size,serif); box=draw.textbbox((0,0),text,font=f)
-    draw.text((x-(box[2]-box[0])/2,y),text,font=f,fill=color)
+def write_cover_ass(path: Path, title: str, subtitle: str) -> None:
+    """Lay clean, legible title type over a real frame from this film (never a reference PNG)."""
+    rows = [
+        "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1920", "PlayResY: 1080",
+        "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
+        "[V4+ Styles]",
+        "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
+        "Style: CoverTitle,Noto Sans CJK SC,144,&H0000C8FF,&H00FFFFFF,&H00000000,&HAA000000,-1,0,0,0,100,100,0,0,1,6,2,2,100,100,188,1",
+        "Style: CoverSubtitle,Noto Sans CJK SC,54,&H00FFFFFF,&H00FFFFFF,&H00000000,&HAA000000,0,0,0,0,100,100,0,0,1,3,1,8,100,100,64,1",
+        "Style: CoverAI,Noto Sans CJK SC,30,&H99FFFFFF,&H00FFFFFF,&H00000000,&HAA000000,0,0,0,0,100,100,0,0,1,1.6,0.5,7,34,34,26,1",
+        "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
+        f"Dialogue: 1,0:00:00.00,0:00:02.00,CoverSubtitle,,0,0,0,,{{\\q2\\fad(0,0)}}{ass_escape(subtitle)}",
+        f"Dialogue: 2,0:00:00.00,0:00:02.00,CoverTitle,,0,0,0,,{{\\q2\\fad(0,0)}}{ass_escape(title)}",
+        "Dialogue: 3,0:00:00.00,0:00:02.00,CoverAI,,0,0,0,,AI动画情景重现 · 非真实影像",
+    ]
+    path.write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 
-def card_image(sid, variant, directory, presentation):
-    directory.mkdir(parents=True,exist_ok=True)
-    dest=directory/f'{sid}-{variant or "base"}.jpg'
-    if dest.exists():return dest
-    rng=np.random.default_rng(2023+int(sid[1:]) if sid.startswith("S") else 2023)
-    y,x=np.mgrid[0:1080,0:1920]
-    glow=np.clip(1-((x-940)/1200)**2-((y-510)/850)**2,0,1)
-    grain=rng.normal(0,1.2,(1080,1920))
-    bg=np.stack([22+glow*16+grain,25+glow*15+grain,24+glow*10+grain],axis=-1)
-    im=Image.fromarray(np.uint8(np.clip(bg,0,255)),'RGB');d=ImageDraw.Draw(im)
-    if sid=='END':
-        lines=presentation.get('end_card') or []
-        if len(lines)<2:raise RuntimeError('片尾卡缺文案：在 build_story.py 的 END_CARD 里写 2–4 行')
-        layout=[(342,96,'#ede8db',True),(498,46,'#b7aa82',False),(668,34,'#a6aaa0',False),(895,21,'#7f897d',False)]
-        for line,(y,size,color,serif) in zip(lines,layout):
-            centered(d,line,y,size,color,serif=serif)
-    else:
-        d.rounded_rectangle((169,104,1751,954),radius=6,fill='#0d1210')
-        # Physical-paper palette connects the cards to the generated walnut desks and case folders.
-        paper=np.stack([218+grain,212+grain,192+grain],axis=-1)
-        patch=Image.fromarray(np.uint8(np.clip(paper[119:939,184:1736],0,255)),'RGB')
-        im.paste(patch,(184,119));d=ImageDraw.Draw(im)
-        d.text((265,180),presentation.get('card_header') or '资料卡',font=font(24),fill='#5d6456')
-        d.line((265,236,1655,236),fill='#929781',width=2)
-        cards=presentation.get('cards') or {}
-        if sid not in cards:raise RuntimeError(f'信息卡 {sid} 没有文案：在 build_story.py 的 CARDS 里补 (大标题, 第一行, 第二行)')
-        title,line1,line2=cards[sid]
-        centered(d,title,302,108,'#2c3a32',serif=True,max_width=CARD_PAPER_TEXT_MAX_WIDTH)
-        centered(d,line1,486,49,'#475648',max_width=CARD_PAPER_TEXT_MAX_WIDTH)
-        d.line((855,628,1065,628),fill='#958358',width=3)
-        centered(d,line2,720,38,'#5c6656',max_width=CARD_PAPER_TEXT_MAX_WIDTH)
-        d.text((265,875),presentation.get('card_footer') or '资料摘要与示意图 · 并非原始档案影像',font=font(21),fill='#75806c')
-    im.save(dest,quality=93)
-    return dest
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--sources", type=Path, required=True)
+    ap.add_argument("--work", type=Path, required=True)
+    ap.add_argument("--output", type=Path, required=True)
+    args = ap.parse_args()
+
+    story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
+    results = json.loads((HERE / "results.json").read_text(encoding="utf-8"))
+    manifest_path = HERE / "audio" / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    audio_rows = {row["id"]: row for row in manifest.get("clips", [])}
+    if len(audio_rows) != len(story["shots"]):
+        raise RuntimeError("Need exactly one verified narration clip for each of the 30 shots")
+    if manifest.get("voice") != story["narration_spec"]["voice_id"]:
+        raise RuntimeError("Narration manifest does not use the story's selected voice")
+
+    args.work.mkdir(parents=True, exist_ok=True)
+    sfx_dir = args.work / "sfx"
+    subprocess.run([sys.executable, str(HERE / "build_sfx.py"), "--output", str(sfx_dir)],
+                   cwd=ROOT, check=True)
+    sfx_manifest = json.loads((sfx_dir / "manifest.json").read_text(encoding="utf-8"))
+    sfx_rows = {row["id"]: row for row in sfx_manifest.get("clips", [])}
+    if len(sfx_rows) != len(story["shots"]) or "no BGM" not in sfx_manifest.get("policy", ""):
+        raise RuntimeError("Need exactly 30 scripted SFX clips and no BGM")
+    segments = args.work / "segments"
+    segments.mkdir(parents=True, exist_ok=True)
+    video_list = args.work / "video-concat.txt"
+    audio_list = args.work / "audio-concat.txt"
+    srt = args.output.with_suffix(".srt")
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    video_entries, audio_entries, cues, technical = [], [], [], []
+
+    for shot in story["shots"]:
+        sid = shot["id"]
+        target = float(shot["duration"])
+        frames = round(target * FPS)
+        record = results.get("shots", {}).get(sid, {})
+        source = args.sources / f"{sid}.mp4"
+        if record.get("status") != "completed" or not source.is_file():
+            raise RuntimeError(f"{sid}: no completed, retrieved Agnes source; refusing a still substitute")
+        if record.get("request_hash") != __import__("generate").request_hash(story, shot):
+            raise RuntimeError(f"{sid}: request hash differs from the approved storyboard")
+        if record.get("sha256") != digest(source) or record.get("bytes") != source.stat().st_size:
+            raise RuntimeError(f"{sid}: source SHA-256/size differs from its Agnes receipt")
+        source_probe = probe(source)
+        video = next((s for s in source_probe["streams"] if s.get("codec_type") == "video"), None)
+        if not video:
+            raise RuntimeError(f"{sid}: source has no video stream")
+        source_duration = float(source_probe["format"]["duration"])
+        width, height = int(video["width"]), int(video["height"])
+        shortfall = max(0.0, target - source_duration)
+        if shortfall > SOURCE_SHORTFALL_TOLERANCE or width < 640 or height < 360:
+            raise RuntimeError(f"{sid}: source too short or too small ({source_duration:.3f}s, {width}x{height}; "
+                               f"shortfall tolerance {SOURCE_SHORTFALL_TOLERANCE:.1f}s)")
+        if abs(width / height - 16 / 9) > 0.015:
+            raise RuntimeError(f"{sid}: source aspect ratio is not 16:9; refusing to distort/crop")
+
+        normalized = segments / f"{sid}.mp4"
+        vf = normalized_video_filter(sid, float(shot["start"]), target, frames, shortfall)
+        filter_args = ["-vf", vf, "-map", "0:v:0"]
+        run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
+             *filter_args, "-an", "-frames:v", frames, "-r", FPS,
+             "-vsync", "cfr", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
+             "-movflags", "+faststart", normalized])
+        video_entries.append(f"file '{normalized.resolve()}'")
+
+        arow = audio_rows.get(sid)
+        narration = HERE / "audio" / (arow.get("file", "") if arow else "")
+        if not arow or not narration.is_file() or arow.get("text") != shot["narration"]:
+            raise RuntimeError(f"{sid}: missing narration or narration text mismatch")
+        if arow.get("sha256") != digest(narration) or arow.get("voice_id") != manifest["voice"]:
+            raise RuntimeError(f"{sid}: narration checksum/voice provenance mismatch")
+        raw_duration = duration(narration)
+        speed = max(1.0, raw_duration / target)
+        if speed > 1.55 + 1e-9:
+            raise RuntimeError(f"{sid}: speech needs {speed:.3f}x, beyond the 1.55x limit")
+        # Strip the TTS lead-in silence first: otherwise every caption cue runs ~0.3s ahead
+        # of the spoken word and the last line can spill past its shot window.
+        speech = segments / f"{sid}.speech.wav"
+        run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af",
+             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+             f"atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+        speech_seconds = duration(speech)
+        if speech_seconds > target:
+            extra = speech_seconds / target
+            if speed * extra > 1.55 + 1e-9:
+                raise RuntimeError(f"{sid}: speech cannot fit even at 1.55x")
+            run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-vn", "-af",
+                 f"atempo={extra:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+            speech_seconds = duration(speech)
+        sfx_record = sfx_rows.get(sid, {})
+        sfx_path = sfx_dir / sfx_record.get("file", "missing.wav")
+        if (not sfx_path.is_file() or sfx_record.get("script_note") != shot["sound_design"]
+                or sfx_record.get("sha256") != digest(sfx_path)
+                or abs(float(sfx_record.get("seconds", 0)) - target) > 1e-9):
+            raise RuntimeError(f"{sid}: scripted SFX file/hash/timing mismatch")
+        wav = segments / f"{sid}.wav"
+        # Pad narration to the exact shot window, mix only restrained scripted SFX underneath,
+        # then trim to the exact shot length. No generated-video audio or BGM enters the mix.
+        # This runner's pinned FFmpeg 4.1 build predates amix's ``normalize`` option.
+        # Its default normalization divides two inputs by their count, so restore that
+        # factor immediately after amix to retain the intended voice + quiet-SFX gain.
+        mix_filter = (
+            f"[0:a]apad,atrim=duration={target:.6f},volume=1.0[voice];"
+            f"[1:a]atrim=duration={target:.6f},volume=0.35[sfx];"
+            f"[voice][sfx]amix=inputs=2:duration=first:dropout_transition=0,volume=2.0,"
+            f"alimiter=limit=0.98,atrim=duration={target:.6f}[a]"
+        )
+        run(["ffmpeg", "-y", "-v", "error", "-i", speech, "-i", sfx_path,
+             "-filter_complex", mix_filter, "-map", "[a]", "-ar", RATE, "-ac", 2,
+             "-c:a", "pcm_s16le", wav])
+        segment_seconds = duration(wav)
+        if abs(segment_seconds - target) > 0.02:
+            raise RuntimeError(f"{sid}: narration segment is {segment_seconds:.3f}s, expected {target:.3f}s")
+        audio_entries.append(f"file '{wav.resolve()}'")
+        cues.append((float(shot["start"]),
+                     float(shot["start"]) + min(target - 0.04, speech_seconds), shot["narration"]))
+        technical.append({"id": sid, "target_seconds": target, "target_frames": frames,
+                          "source_seconds": round(source_duration, 3), "source_size": [width, height],
+                          "source_sha256": record["sha256"], "narration_seconds": round(raw_duration, 3),
+                          "narration_atempo": round(speed, 4)})
+
+    video_list.write_text("\n".join(video_entries) + "\n", encoding="utf-8")
+    audio_list.write_text("\n".join(audio_entries) + "\n", encoding="utf-8")
+    srt.write_text("\n".join(f"{i}\n{srt_time(a)} --> {srt_time(b)}\n{text}\n"
+                                  for i, (a, b, text) in enumerate(cues, 1)), encoding="utf-8")
+    ass = args.work / "subtitles.ass"
+    pres = story["presentation"]
+    write_ass(
+        ass, cues, pres.get("highlight_phrases", []),
+        (pres.get("end_title", ""), pres.get("end_subtitle", ""),
+         float(pres.get("title_start", 174.6)), float(pres.get("title_end", 179.5)))
+        if pres.get("end_title") else None,
+        pres.get("onscreen_label", ""), pres.get("hooks", []), pres.get("explainers", []),
+    )
+    silent = args.work / "picture-only.mp4"
+    audio_mix = args.work / "audio-mix.wav"
+    run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", video_list,
+         "-c", "copy", "-an", "-movflags", "+faststart", silent])
+    run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", audio_list,
+         "-c:a", "pcm_s16le", "-ar", RATE, "-ac", 2, audio_mix])
+    audio_mix_seconds = duration(audio_mix)
+    if abs(audio_mix_seconds - 180.0) > 0.02:
+        # Force the narration/SFX bus to the full 180s so no line or tail can be clipped.
+        run(["ffmpeg", "-y", "-v", "error", "-i", audio_mix, "-af", "apad",
+             "-t", "180.0", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", audio_mix])
+        audio_mix_seconds = duration(audio_mix)
+    if abs(audio_mix_seconds - 180.0) > 0.05:
+        raise RuntimeError(f"Audio mix is {audio_mix_seconds:.3f}s; the master must be 180.000s")
+
+    subtitle_filter = f"subtitles='{ffmpeg_escape(ass)}'"
+    picture_filter = subtitle_filter
+    # Encode picture and narration/SFX mix separately and then stream-copy them together.
+    # On the runner's older ffmpeg a single combined encode silently dropped the last ~2s of
+    # audio (177.834s instead of 180.000s), which clipped the closing question.
+    picture = args.work / "picture-subbed.mp4"
+    run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", silent,
+         "-vf", picture_filter, "-an", "-t", "180", "-frames:v", 180 * FPS,
+         "-r", FPS, "-vsync", "cfr", "-c:v", "libx264", "-preset", "medium", "-crf", "22",
+         "-maxrate", "3200k", "-bufsize", "6400k", "-pix_fmt", "yuv420p",
+         "-movflags", "+faststart", picture])
+    audio_bus = args.work / "audio-bus.m4a"
+    run(["ffmpeg", "-y", "-v", "error", "-i", audio_mix, "-af", "apad", "-t", "180",
+         "-c:a", "aac", "-b:a", "192k", "-ar", RATE, "-ac", 2, audio_bus])
+    run(["ffmpeg", "-y", "-v", "error", "-i", picture, "-i", audio_bus,
+         "-map", "0:v:0", "-map", "1:a:0", "-c", "copy", "-t", "180",
+         "-movflags", "+faststart", args.output])
+    print(f"PICTURE {duration(picture):.3f}s  AUDIO_MIX {audio_mix_seconds:.3f}s  MUXED {duration(args.output):.3f}s",
+          flush=True)
+    # GitHub rejects a single file over 100 MB; a 3-minute 1080p master must fit comfortably.
+    size_mb = args.output.stat().st_size / (1024 * 1024)
+    if size_mb > 95:
+        raise RuntimeError(f"Final master is {size_mb:.1f} MB; cap the bitrate before delivering")
+
+    pcm = probe(args.output)
+    audio_stream = next((s for s in pcm["streams"] if s.get("codec_type") == "audio"), None)
+    if audio_stream is None:
+        raise RuntimeError("Master has no audio stream")
+    audio_seconds = float(audio_stream.get("duration") or 0.0)
+    if abs(audio_seconds - 180.0) > 0.06:
+        raise RuntimeError(f"Master audio stream is {audio_seconds:.3f}s, expected 180.000s")
+
+    film_name = str(story.get("film_name") or args.output.name)
+    stem = film_name[: -len("_三分钟_带声音.mp4")] if film_name.endswith("_三分钟_带声音.mp4") else Path(film_name).stem
+    cover_text = pres.get("cover_text") or ""
+    end_title = pres.get("end_title") or ""
+    if not cover_text or not end_title:
+        raise RuntimeError("presentation.cover_text / presentation.end_title 必须在 build_story.py 里填好，渲染才生成封面")
+    cover = args.output.parent / f"{stem}_Cover.jpg"
+    cover_ass = args.work / "cover.ass"
+    write_cover_ass(cover_ass, cover_text, end_title)
+    cover_filter = f"setpts=PTS-STARTPTS,subtitles='{ffmpeg_escape(cover_ass)}'"
+    run(["ffmpeg", "-y", "-v", "error", "-ss", "2", "-i", silent,
+         "-vf", cover_filter, "-frames:v", 1, "-q:v", 2, cover])
+    if not cover.is_file() or cover.stat().st_size < 10_000:
+        raise RuntimeError("Cover must be a real 1080p frame from the rendered film with the post-production title")
+
+    report = {"film": str(args.output), "duration_seconds": 180, "width": 1920, "height": 1080,
+              "audio_mix_seconds": round(audio_mix_seconds, 3), "audio_stream_seconds": round(audio_seconds, 3),
+              "fps": FPS, "frames": 180 * FPS,
+              "anti_flicker": "all shots: deflicker=size=61:mode=am,hqdn3d=3:2:9:9,eq=contrast=0.97:brightness=0.018:saturation=0.94; no legacy frame gamma/blend spikes; no strobe/flash transitions",
+              "audio": "shot-locked Mandarin narration plus scripted procedural SFX only; no BGM",
+              "sfx_manifest": str((sfx_dir / "manifest.json").relative_to(ROOT)),
+              "cover": str(cover), "cover_sha256": digest(cover),
+              "cover_source": "frame at 2 seconds from the rendered picture-only film; ASS title overlay",
+              "subtitle_file": str(srt), "shots": technical}
+    report_path = args.work / "technical-report.json"
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("FIRST_CUT_READY", args.output, flush=True)
+    return 0
 
 
-def audio_layout(chapters, audio_root, work, manifest):
-    directory=work/'audio';directory.mkdir(parents=True,exist_ok=True)
-    files=[];durations=[];waves=[]
-    by_id={row['id']:row for row in manifest['clips']}
-    for c in chapters:
-        src=audio_root/(c['id']+'.mp3')
-        receipt=by_id[c['id']]
-        if receipt['text']!=c['text'] or digest(src)!=receipt['sha256']:
-            raise RuntimeError('Narration text/file provenance mismatch: '+c['id'])
-        dest=directory/(c['id']+'.wav')
-        run(['ffmpeg','-v','error','-y','-i',src,'-ac','1','-ar',RATE,'-c:a','pcm_s16le',dest])
-        with wave.open(str(dest),'rb') as f:
-            samples=np.frombuffer(f.readframes(f.getnframes()),dtype='<i2').astype(np.float32)/32768
-        durations.append(len(samples)/RATE);waves.append(samples);files.append(dest)
-    usable=DURATION-INTRO-OUTRO-GAP*(len(chapters)-1)
-    tempo=sum(durations)/usable
-    if not .86<=tempo<=1.1:raise RuntimeError(f'Narration would need excessive retiming: {tempo}')
-    start=INTRO;rows=[]
-    for c,d,path,samples in zip(chapters,durations,files,waves):
-        rows.append({'id':c['id'],'start':start,'end':start+d/tempo,'raw_duration':d,
-                     'tempo':tempo,'path':str(path),'text':c['text']})
-        start+=d/tempo+GAP
-    if abs(rows[-1]['end']-(DURATION-OUTRO))>.001:raise RuntimeError('Narration layout mismatch')
-    return rows,waves
-
-
-def caption_clauses(text):
-    raw=re.findall(r'[^，。！？；：、]+[，。！？；：、]?',text)
-    result=[]
-    for part in raw:
-        while len(part)>24:
-            result.append(part[:22]);part=part[22:]
-        if part.strip():result.append(part.strip())
-    return result
-
-
-def captions_for(row, samples):
-    """Pause-aware proportional alignment, not a claim of word-level ASR accuracy."""
-    clauses=caption_clauses(row['text']);hop=960
-    pad=(-len(samples))%hop
-    blocks=np.pad(samples,(0,pad)).reshape(-1,hop)
-    rms=np.sqrt(np.mean(blocks*blocks,axis=1))
-    active=(rms>.009).astype(float)
-    clock=np.cumsum(active+.04)
-    weights=[max(1,len(re.sub(r'[^\u3400-\u9fffA-Za-z0-9]','',c))) for c in clauses]
-    expected=np.cumsum(weights)/sum(weights)
-    silences=[];begin=None
-    for i,a in enumerate(active):
-        if not a and begin is None:begin=i
-        if a and begin is not None:
-            if (i-begin)*.02>=.14:silences.append(((begin+i)*.01,(i-begin)*.02))
-            begin=None
-    bounds=[0.0]
-    for fraction in expected[:-1]:
-        t=float(np.searchsorted(clock,clock[-1]*fraction))*.02
-        candidates=[(t,0.0)]+[(center,d) for center,d in silences if abs(center-t)<.6]
-        candidates=[(p,d) for p,d in candidates if p>bounds[-1]+.16]
-        if candidates:t=min(candidates,key=lambda p:abs(p[0]-t)-min(.25,p[1]*.35))[0]
-        bounds.append(max(bounds[-1]+.17,min(row['raw_duration']-.18,t)))
-    bounds.append(row['raw_duration'])
-    cues=[]
-    for text,a,b in zip(clauses,bounds,bounds[1:]):
-        cues.append({'start':row['start']+a/row['tempo'],'end':row['start']+b/row['tempo'],'text':text})
-    return cues
-
-
-CLAUSE_TIMES=Path(__file__).with_name('audio')/'clause-times.json'
-
-
-def captions_from_clause_times(row):
-    """clause_times.py 对出来的分句边界（能量包络 DP + 停顿吸附，audio/clause-times.json）。
-
-    与 N03 的 whisper 词级时间互相印证到 ±0.15 s；比 captions_for 的按字数比例估计准
-    （后者在 N05 里最多早了 1.8 s）。对不上（分句文本改过、音频时长变了）就返回 None，退回估计。"""
-    if not CLAUSE_TIMES.exists():return None
-    entry=json.loads(CLAUSE_TIMES.read_text()).get(row['id'])
-    if not entry or abs(float(entry['duration'])-row['raw_duration'])>.06:return None
-    strip=lambda t:re.sub(r'[^\u3400-\u9fffA-Za-z0-9]','',t)
-    pieces=[(strip(c['text']),float(c['start']),float(c['end'])) for c in entry['clauses']]
-    spans=[];pointer=0
-    for text in caption_clauses(row['text']):
-        key=strip(text)
-        if not key:continue
-        consumed='';a=b=None
-        while pointer<len(pieces) and len(consumed)<len(key):
-            piece,start,end=pieces[pointer]
-            if not key.startswith(consumed+piece):return None
-            consumed+=piece;a=start if a is None else a;b=end;pointer+=1
-        if consumed!=key:return None
-        spans.append((text,a,b))
-    if pointer!=len(pieces):return None
-    cues=[];last_end=row['start']
-    for i,(text,a,b) in enumerate(spans):
-        start=max(last_end,row['start']+max(0,a-.09)/row['tempo'])
-        end=row['start']+min(row['raw_duration'],b+.15)/row['tempo']
-        if i+1<len(spans):end=min(end,row['start']+max(0,spans[i+1][1]-.09)/row['tempo'])
-        if end<=start:return None
-        cues.append({'start':start,'end':end,'text':text});last_end=end
-    return cues
-
-
-def make_edl(project, narration):
-    by_id={s['id']:s for s in project['shots']};edl=[]
-    for i,row in enumerate(narration):
-        entries=CUTS[row['id']]
-        chapter_end=narration[i+1]['start'] if i+1<len(narration) else END_AT
-        for j,(raw_start,sid,variant) in enumerate(entries):
-            start=row['start']+raw_start/row['tempo']
-            if not edl:start=0
-            end=(row['start']+entries[j+1][0]/row['tempo']) if j+1<len(entries) else chapter_end
-            a=round(start*FPS);b=round(end*FPS)
-            record={'id':sid,'variant':variant,'kind':by_id[sid]['kind'],'start_frame':a,'end_frame':b,
-                    'narration_id':row['id'],'purpose':by_id[sid]['purpose']}
-            if edl and edl[-1]['id']==sid and edl[-1]['variant']==variant and edl[-1]['end_frame']==a:
-                edl[-1]['end_frame']=b
-            else:edl.append(record)
-    edl.append({'id':'END','kind':'graphic','variant':'','start_frame':round(END_AT*FPS),'end_frame':TOTAL_FRAMES,
-                'narration_id':narration[-1]['id'],'purpose':'片尾卡：把互动问题留在屏幕上，附资料来源'})
-    if edl[0]['start_frame']!=0 or edl[-1]['end_frame']!=TOTAL_FRAMES:raise RuntimeError('EDL duration is not 180s')
-    used=[e['id'] for e in edl if e['id']!='END']
-    if len(used)!=len(set(used)):raise RuntimeError('本片规定每个镜头只用一次，CUTS 里有重复镜头: '+
-                                                   ','.join(sorted({x for x in used if used.count(x)>1})))
-    if set(used)!=set(by_id):raise RuntimeError('CUTS 没有用到全部镜头: '+','.join(sorted(set(by_id)-set(used))))
-    for left,right in zip(edl,edl[1:]):
-        if left['end_frame']!=right['start_frame']:raise RuntimeError('EDL gap/overlap')
-    for e in edl:
-        if e['end_frame']<=e['start_frame']:raise RuntimeError('Empty editorial segment')
-    return edl
-
-
-def ass_time(s):
-    centis=round(s*100);h,centis=divmod(centis,360000);m,centis=divmod(centis,6000);sec,cs=divmod(centis,100)
-    return f'{h}:{m:02d}:{sec:02d}.{cs:02d}'
-
-
-def safe_text(text):
-    return text.replace('\\','/').replace('{','（').replace('}','）').replace('\n',' ')
-
-
-def write_subtitles(path,cues,edl,presentation):
-    text='''[Script Info]
-ScriptType: v4.00+
-PlayResX: 1920
-PlayResY: 1080
-WrapStyle: 2
-ScaledBorderAndShadow: yes
-
-[V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Caption,Noto Sans CJK SC,44,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.4,0.6,2,120,120,62,1
-Style: Label,Noto Sans CJK SC,23,&H60E9E4D4,&H000000FF,&H00262621,&H99000000,0,0,0,0,100,100,1,0,1,1,0,9,60,60,36,1
-Style: Hook,Noto Sans CJK SC,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1
-Style: Explainer,Noto Sans CJK SC,32,&H0000C8FF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,2.2,0.5,2,120,120,200,1
-Style: Title,Noto Serif CJK SC,102,&H00EBE8DE,&H000000FF,&H00141B17,&H99000000,0,0,0,0,100,100,4,0,1,1,2,7,104,104,205,1
-
-[Events]
-Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-'''
-    keywords = presentation.get('caption_keywords') or []
-    for cue in cues:
-        caption = r'\N'.join(ass_caption(line, keywords) for line in caption_lines(cue['text']))
-        text+=f"Dialogue: 1,{ass_time(cue['start'])},{ass_time(cue['end'])},Caption,,0,0,0,,{{\\q2\\fad(45,45)}}{caption}\n"
-    for hook in presentation.get('hooks') or []:
-        start, end = float(hook['start']), float(hook['end'])
-        if abs((end - start) - 2.0) > 1e-6:
-            raise RuntimeError(f"{hook.get('id')}: 钩子字幕必须严格 2 秒")
-        rendered = r'\N'.join(ass_caption(line, keywords, highlight_size=86)
-                              for line in caption_lines(str(hook['text']), limit=18))
-        text+=f"Dialogue: 2,{ass_time(start)},{ass_time(end)},Hook,,0,0,0,,{{\\q2\\fad(90,100)}}{rendered}\n"
-    for explainer in presentation.get('explainers') or []:
-        start, end = float(explainer['start']), float(explainer['end'])
-        if end <= start:
-            raise RuntimeError('注释字幕时长必须为正')
-        rendered = r'\N'.join(caption_lines(str(explainer['text']), limit=28))
-        text+=f"Dialogue: 1,{ass_time(start)},{ass_time(end)},Explainer,,0,0,0,,{{\\q2\\fad(90,120)}}{rendered}\n"
-    for entry in edl:
-        if entry['id']=='END':continue
-        label={'agnes':'AI动画情景重现 · 非新闻影像','archive':'档案照片',
-               'graphic':'资料摘要与示意图 · 非原始档案'}[entry['kind']]
-        label=(presentation.get('label_overrides') or {}).get(entry['id'],label)
-        text+=f"Dialogue: 0,{ass_time(entry['start_frame']/FPS)},{ass_time(entry['end_frame']/FPS)},Label,,0,0,0,,{label}\n"
-    title_lines=[safe_text(x) for x in (presentation.get('title_card') or []) if x]
-    if title_lines:
-        first=title_lines[0];rest=('\\N{\\fs41\\fsp6}'+title_lines[1]) if len(title_lines)>1 else ''
-        text+=f'Dialogue: 2,0:00:00.35,0:00:04.70,Title,,0,0,0,,{{\\fad(500,550)}}{first}{rest}\n'
-    path.write_text(text)
-    srt=path.with_suffix('.srt')
-    def clock(s):
-        ms=round(s*1000);h,ms=divmod(ms,3600000);m,ms=divmod(ms,60000);sec,ms=divmod(ms,1000)
-        return f'{h:02d}:{m:02d}:{sec:02d},{ms:03d}'
-    srt.write_text('\n'.join(f"{i}\n{clock(c['start'])} --> {clock(c['end'])}\n{c['text']}\n" for i,c in enumerate(cues,1)))
-
-
-def write_sfx(path,edl,presentation):
-    rng=np.random.default_rng(20260921);out=np.zeros((round(DURATION*RATE),2),dtype=np.float32)
-    events=[]
-    for source,kind in presentation.get('sfx_events') or []:
-        if kind not in ('paper','machine','press','phone','keys'):raise RuntimeError(f'未知音效类型 {kind}（可用：paper/machine/press/phone/keys）')
-        first=next((e for e in edl if e['id']==source),None)
-        if first is None:raise RuntimeError(f'音效事件指向不存在的镜头 {source}')
-        events.append((max(0,first['start_frame']/FPS-.18),kind))
-    for start,kind in events:
-        duration={'paper':.7,'machine':1.1,'press':1.5,'phone':1.3,'keys':1.1}[kind]
-        t=np.arange(round(duration*RATE))/RATE
-        if kind=='phone':
-            pulse=(np.sin(2*np.pi*18*t)>0).astype(float)
-            signal=(np.sin(2*np.pi*430*t)+.45*np.sin(2*np.pi*580*t))*pulse*.05
-        elif kind in ('machine','press','keys'):
-            interval=.13 if kind=='keys' else .08
-            beat=np.mod(t,interval)
-            signal=rng.normal(0,1,len(t))*np.exp(-beat*160)*.08
-        else:
-            noise=rng.normal(0,1,len(t));signal=np.convolve(noise,np.ones(8)/8,'same')*.13
-        signal*=np.minimum(np.clip(t/.06,0,1),np.clip((duration-t)/.18,0,1))
-        i=round(start*RATE);n=min(len(signal),len(out)-i)
-        out[i:i+n,0]+=signal[:n]*.93;out[i:i+n,1]+=signal[:n]*1.07
-    with wave.open(str(path),'wb') as f:
-        f.setnchannels(2);f.setsampwidth(2);f.setframerate(RATE)
-        f.writeframes(np.int16(np.clip(out,-1,1)*32767).tobytes())
-
-
-def render_segment(entry,index,sources,graphics,segments,width,height,checks,presentation,last_shot):
-    target=segments/f'{index:03d}.mp4';frames=entry['end_frame']-entry['start_frame'];duration=frames/FPS
-    cmd=['ffmpeg','-y','-v','error','-threads','2'];sid=entry['id'];variant=entry['variant']
-    if entry['kind'] in ('graphic','archive'):
-        if entry['kind']=='archive':raise RuntimeError('这条流水线不支持档案照片镜头：所有画面都是 Agnes 动画或信息卡（要用档案照片请照 production/dahlia 的 archive_image 加）')
-        picture=card_image(sid,variant,graphics,presentation)
-        cmd+=['-loop','1','-framerate',str(FPS),'-i',str(picture)]
-        # Restrained paper drift rather than a static slide or artificial fast transition.
-        vf=f"scale={width}:{height},zoompan=z='min(1.025,1+0.00011*on)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s={width}x{height}:fps={FPS}"
-    else:
-        source=sources/(sid+'.mp4');info=checks[sid]
-        length=info['duration'];a=.12;b=length-.12
-        # 本片的镜头时间窗：默认整段可用；看过 qa/ 接触表后若某镜头前/后段有畸变，在 WINDOWS 里收窄。
-        if sid in WINDOWS:
-            wa,wb=WINDOWS[sid];a=max(a,wa);b=min(b,wb if wb is not None else b)
-        available=b-a
-        take=min(available,duration)
-        factor=duration/take
-        if factor>1.33:raise RuntimeError(f'{sid}/{variant}: requires excessive slow motion ({factor:.2f})')
-        cmd+=['-ss',f'{a:.6f}','-t',f'{take:.6f}','-i',str(source)]
-        tighter=''
-        if sid in TIGHTER_CROPS:
-            # 轻微推近，裁掉画面边缘的问题区域（比例 1.15–1.3），中心点按 (cx,cy) 比例给
-            zoom,cx,cy=TIGHTER_CROPS[sid]
-            cw=math.floor(info['width']/zoom/2)*2;ch=math.floor(info['height']/zoom/2)*2
-            x0=min(max(0,round(info['width']*cx-cw/2)),info['width']-cw);y0=min(max(0,round(info['height']*cy-ch/2)),info['height']-ch)
-            tighter=f'crop={cw}:{ch}:{x0}:{y0},'
-        vf=(f'setpts=(PTS-STARTPTS)*{factor:.9f},'+tighter+f'scale={width}:{height}:force_original_aspect_ratio=increase,'
-            f'crop={width}:{height},setsar=1,fps={FPS},eq=saturation=0.92:contrast=1.025:brightness=-0.006,'
-            f'tpad=stop_mode=clone:stop_duration=0.2,trim=end_frame={frames}')
-        entry.update(source_in=a,source_out=a+take,time_stretch=factor)
-    if entry['start_frame']==0:vf+=',fade=t=in:st=0:d=0.25'
-    if sid=='END':vf+=f',fade=t=in:st=0:d=0.2,fade=t=out:st={duration-.8:.6f}:d=0.8'
-    if sid==last_shot:vf+=f',fade=t=out:st={duration-.18:.6f}:d=0.18'
-    cmd+=['-vf',vf+',format=yuv420p']
-    cmd+=['-an','-frames:v',str(frames),'-c:v','libx264','-preset','veryfast',
-          '-crf','21','-maxrate','4000k','-bufsize','8000k','-r',str(FPS),'-g','60','-pix_fmt','yuv420p',str(target)]
-    run(cmd);return target
-
-
-def mix_audio(narration,music,sfx,path,report_path=None):
-    """Build the soundtrack with the measured, deterministic mixer.
-
-    The previous single-graph ffmpeg mix (adelay/amix/sidechaincompress/
-    loudnorm) was never verified by measurement, so an inaudible result could
-    pass every delivery gate. ``build_audio`` mixes in numpy and refuses to
-    return a soundtrack it cannot measure as audible.
-    """
-    return build_soundtrack(narration,music,sfx,path,duration=DURATION,report_path=report_path)
-
-
-def main():
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--sources',type=Path,required=True)
-    parser.add_argument('--work',type=Path,required=True)
-    parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--project',type=Path,default=HERE/'story.json')
-    parser.add_argument('--results',type=Path,default=HERE/'results.json')
-    parser.add_argument('--audio',type=Path,default=HERE/'audio')
-    parser.add_argument('--width',type=int,default=1920)
-    parser.add_argument('--height',type=int,default=1080)
-    parser.add_argument('--skip-asr',action='store_true',help='Use labeled pause-aware caption timing (for offline smoke tests)')
-    args=parser.parse_args();work=args.work;work.mkdir(parents=True,exist_ok=True)
-    project=json.loads(args.project.read_text());results=json.loads(args.results.read_text())
-    presentation=project.get('presentation') or {}
-    if not presentation.get('cards') and any(s['kind']=='graphic' for s in project['shots']):
-        raise RuntimeError('story.json 缺 presentation.cards：先在 build_story.py 里写 CARDS 再跑 build()')
-    if results.get('model')!='agnes-video-v2.0':raise RuntimeError('Only the requested Agnes model is allowed')
-    from generate import request_hash
-    audio_manifest=json.loads((args.audio/'manifest.json').read_text())
-    checks={}
-    for shot in project['shots']:
-        if shot['kind']!='agnes':continue
-        sid=shot['id'];source=args.sources/(sid+'.mp4');receipt=results['shots'].get(sid,{})
-        if (receipt.get('status')!='completed' or receipt.get('request_hash')!=request_hash(project,shot)
-                or not source.exists() or digest(source)!=receipt.get('sha256')):
-            raise RuntimeError(f'Missing or unverified Agnes footage: {sid}; refusing to substitute an image/slideshow')
-        checks[sid]=probe(source)
-    narration,waves=audio_layout(project['chapters'],args.audio,work,audio_manifest)
-    edl=make_edl(project,narration)
-    from align_audio import transcribe_on_runner, aligned_cues
-    asr={} if args.skip_asr else transcribe_on_runner(narration,work)
-    cues=[];alignment=[]
-    for row,samples in zip(narration,waves):
-        aligned=None;coverage=0.0
-        if row['id'] in asr:
-            aligned,coverage=aligned_cues(row,caption_clauses(row['text']),asr[row['id']]['words'])
-        clause_timed=None if aligned else captions_from_clause_times(row)
-        cues.extend(aligned or clause_timed or captions_for(row,samples))
-        alignment.append({'id':row['id'],
-                          'method':'ASR-assisted' if aligned else 'clause-times DP' if clause_timed else 'pause-aware estimate',
-                          'character_match_coverage':coverage})
-    (work/'alignment-report.json').write_text(json.dumps(alignment,ensure_ascii=False,indent=2))
-    subtitle=work/'captions.ass';write_subtitles(subtitle,cues,edl,presentation)
-    (work/'caption-timing.json').write_text(json.dumps(cues,ensure_ascii=False,indent=2))
-    segments=work/'segments';segments.mkdir(exist_ok=True)
-    outputs=[];last_shot=edl[-2]['id']
-    for i,entry in enumerate(edl):
-        outputs.append(render_segment(entry,i,args.sources,work/'graphics',segments,args.width,args.height,checks,presentation,last_shot))
-        print(f'RENDER_SEGMENT {i+1}/{len(edl)} {entry["id"]}',flush=True)
-    concat=work/'concat.txt';concat.write_text(''.join(f"file '{p.resolve().as_posix()}'\n" for p in outputs))
-    image_track=work/'image-track.mp4'
-    run(['ffmpeg','-y','-v','error','-f','concat','-safe','0','-i',concat,'-c','copy',image_track])
-    sys.path.insert(0,str(ROOT/'电影解说工具包'))
-    from generate_horror_bgm import generate_horror_bgm
-    music=work/'score.wav';generate_horror_bgm(music,DURATION)
-    effects=work/'effects.wav';write_sfx(effects,edl,presentation)
-    mixed=work/'mix.wav'
-    mix_report=mix_audio(narration,music,effects,mixed,report_path=work/'audio-report.json')
-    print('SOUNDTRACK_MEASURED '+json.dumps({k:mix_report[k] for k in
-          ('rms_dbfs','peak_dbfs','silent_fraction')},ensure_ascii=False),flush=True)
-    args.output.parent.mkdir(parents=True,exist_ok=True)
-    font_directory=find_font().parent
-    vf=f"subtitles=filename='{subtitle.resolve().as_posix()}':fontsdir='{font_directory.as_posix()}'"
-    run(['ffmpeg','-y','-v','error','-threads','2','-i',image_track,'-i',mixed,'-map','0:v:0','-map','1:a:0',
-         '-vf',vf,'-c:v','libx264','-preset','fast','-crf','21','-maxrate','4000k','-bufsize','8000k',
-         '-pix_fmt','yuv420p','-r','30','-c:a','aac','-b:a','160k','-ar','48000','-t',f'{DURATION:g}',
-         '-movflags','+faststart',args.output])
-    info=probe(args.output)
-    if (abs(info['duration']-DURATION)>.12 or info.get('audio_channels')!=2 or info.get('frames')!=TOTAL_FRAMES
-            or info.get('width')!=args.width or info.get('height')!=args.height or abs(info.get('fps',0)-30)>.01):
-        raise RuntimeError(f'Final technical validation failed: {info}')
-    run(['ffmpeg','-v','error','-threads','2','-i',args.output,'-map','0:v:0','-map','0:a:0','-f','null','-'])
-    # Listening gate: the delivered MP4 must measure as audible, not merely
-    # carry an AAC stream. This is what the first cut never checked.
-    final_audio=measure(args.output,chapters=narration)
-    final_audio['measured_on']='delivered mp4'
-    (work/'final-audio-report.json').write_text(json.dumps(final_audio,ensure_ascii=False,indent=2)+'\n')
-    try:
-        assert_audible(final_audio)
-    except Exception as exc:
-        raise RuntimeError(f'Delivered video is not audibly mixed: {exc}') from exc
-    print('FINAL_AUDIO_MEASURED '+json.dumps({k:final_audio[k] for k in
-          ('rms_dbfs','peak_dbfs','silent_fraction','quietest_window_dbfs')},ensure_ascii=False),flush=True)
-    preview=work/'final-contact.jpg'
-    run(['ffmpeg','-y','-v','error','-i',args.output,'-vf','fps=1/6,scale=320:180,tile=5x6',
-         '-frames:v','1','-q:v','3',preview])
-    technical={**info,'sha256':digest(args.output),'decoded_ok':True,'status':'audio_verified_cut',
-               'visual_review':'pending','caption_alignment':alignment,
-               'narration_voice_id':audio_manifest['voice_id'],'narration_tempo':narration[0]['tempo'],
-               'editorial_segments':len(edl),'source_clips':len(checks),'archival_portrait':False,'unique_shots_no_reuse':True,
-               'output':args.output.name,
-               'soundtrack_mix':{k:mix_report[k] for k in
-                                 ('rms_dbfs','peak_dbfs','silent_fraction','target_rms_dbfs')},
-               'delivered_audio':{k:final_audio[k] for k in
-                                  ('rms_dbfs','peak_dbfs','silent_fraction','quietest_window_dbfs')},
-               'audio_listening_review':'measured (level + per-chapter + silence gate); '
-                                        'not a substitute for human word-level listening',
-               'note':'Audio is measured as audible on the delivered file; visual and '
-                      'word-level review are still pending, so this is not a final sign-off.'}
-    (work/'technical-report.json').write_text(json.dumps(technical,ensure_ascii=False,indent=2)+'\n')
-    (work/'edit-decision-list.json').write_text(json.dumps(edl,ensure_ascii=False,indent=2)+'\n')
-    (work/'narration-timing.json').write_text(json.dumps(narration,ensure_ascii=False,indent=2)+'\n')
-    print('RENDER_COMPLETE '+json.dumps(technical,ensure_ascii=False),flush=True)
-
-
-if __name__=='__main__':main()
+if __name__ == "__main__":
+    raise SystemExit(main())

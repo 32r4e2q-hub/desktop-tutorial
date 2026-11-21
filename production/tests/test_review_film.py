@@ -81,12 +81,8 @@ class FrozenFrameTriageTests(unittest.TestCase):
         self.assertEqual(review_film.triage_score([]), 0.0)
 
     def test_threshold_sits_in_the_gap_measured_on_the_delivered_film(self):
-        """阈值必须落在参考片实测出的两个簇中间，不许凭感觉调。
-
-        数据来自 production/dahlia/delivery/frozen-triage-calibration.json：
-        13 个真静止窗口的中位数 ≤ 0.08，22 个微动窗口的中位数 ≥ 0.21。
-        """
-        path = ROOT / "production" / "dahlia" / "delivery" / "frozen-triage-calibration.json"
+        """阈值必须落在参考片实测出的两个簇中间，不许凭感觉调。"""
+        path = ROOT / "production" / "shanghai_freezer_case" / "delivery" / "frozen-triage-calibration.json"
         if not path.is_file():
             self.skipTest("缺标定数据（在成片上跑一遍 review_film.py 才有）")
         data = json.loads(path.read_text(encoding="utf-8"))

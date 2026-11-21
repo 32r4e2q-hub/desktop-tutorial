@@ -284,9 +284,15 @@ def main() -> int:
     if abs(audio_seconds - 180.0) > 0.06:
         raise RuntimeError(f"Master audio stream is {audio_seconds:.3f}s, expected 180.000s")
 
-    cover = args.output.parent / "上海冰柜藏尸案_Cover.jpg"
+    film_name = str(story.get("film_name") or args.output.name)
+    stem = film_name[: -len("_三分钟_带声音.mp4")] if film_name.endswith("_三分钟_带声音.mp4") else Path(film_name).stem
+    cover_text = pres.get("cover_text") or ""
+    end_title = pres.get("end_title") or ""
+    if not cover_text or not end_title:
+        raise RuntimeError("presentation.cover_text / presentation.end_title 必须在 build_story.py 里填好，渲染才生成封面")
+    cover = args.output.parent / f"{stem}_Cover.jpg"
     cover_ass = args.work / "cover.ass"
-    write_cover_ass(cover_ass, pres.get("cover_text", "她死了105天"), pres.get("end_title", "上海冰柜藏尸案"))
+    write_cover_ass(cover_ass, cover_text, end_title)
     cover_filter = f"setpts=PTS-STARTPTS,subtitles='{ffmpeg_escape(cover_ass)}'"
     run(["ffmpeg", "-y", "-v", "error", "-ss", "2", "-i", silent,
          "-vf", cover_filter, "-frames:v", 1, "-q:v", 2, cover])
