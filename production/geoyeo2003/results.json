@@ -1322,7 +1322,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1369,11 +1369,37 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-22T13:48:40Z",
   "run_id": "45016476370",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/geoyeo2003/clips/巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/geoyeo2003/clips/巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_Cover.jpg",
+    "delivered": {
+      "巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_三分钟_带声音.mp4": {
+        "bytes": 70781069,
+        "sha256": "27e0bbee043b464d379ee0f6c4c5cbaa3d05b89edcd554bd567519a7ce549a62"
+      },
+      "巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_Cover.jpg": {
+        "bytes": 205198,
+        "sha256": "5265003bd328b6b27b78406ae7c245bfc8eb8bcebb1aafd77db9ae9cfaf96059"
+      },
+      "巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_Subtitles.srt": {
+        "bytes": 3728,
+        "sha256": "3dfa87cf8964e27d4dbae77dfb1362426bc43817488c4c19b3cc816fc79eb543"
+      },
+      "巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_Technical_Report.json": {
+        "bytes": 11274,
+        "sha256": "9aa878e8f586ce1547c1c76d602fe5d317b61f592abc5a47a3bab5714705aafc"
+      }
+    }
+  }
 }
