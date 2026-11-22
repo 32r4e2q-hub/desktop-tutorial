@@ -185,15 +185,17 @@ def build() -> dict:
     approvals_raw = json.loads(approvals_path.read_text(encoding="utf-8")) if approvals_path.exists() else {}
     approvals = approvals_raw.get("assets", {}) if isinstance(approvals_raw, dict) else {}
 
-    ref_images = {}
+    ref_images = []
     for key, meta in sorted(approvals.items()):
         if isinstance(meta, dict) and meta.get("status") == "approved":
-            ref_images[key] = {
-                "path": f"production/geoyeo2003/{meta['file']}",
+            ref_images.append({
+                "id": key,
+                "file": meta["file"],
                 "sha256": meta["sha256"],
-                "approved": True,
+                "status": "approved",
+                "dimensions": meta.get("dimensions"),
                 "note": meta.get("note", ""),
-            }
+            })
 
     shots = []
     cursor = 0
@@ -209,8 +211,13 @@ def build() -> dict:
         shots.append({
             "id": sid,
             "narration_id": sid,
+            "kind": "agnes",
             "start": cursor,
             "duration": duration,
+            "seconds": duration,
+            "aspect": "16:9",
+            "source_size": "720P",
+            "seed": 2200 + idx,
             "narration": narration,
             "visual": visual,
             "camera": camera,
@@ -223,10 +230,16 @@ def build() -> dict:
         })
         cursor += duration
 
-    chapters = [
-        {"title": title, "start": start, "end": end}
-        for title, start, end in CHAPTERS
-    ]
+    chapters = []
+    for shot in shots:
+        ch_title = next(t for t, st, en in CHAPTERS if st <= shot["start"] < en)
+        chapters.append({
+            "id": shot["id"],
+            "title": ch_title,
+            "start": shot["start"],
+            "duration": shot["duration"],
+            "text": shot["narration"],
+        })
 
     voice_path = HERE / "audio" / "voice.json"
     voice = json.loads(voice_path.read_text(encoding="utf-8")) if voice_path.exists() else {}
