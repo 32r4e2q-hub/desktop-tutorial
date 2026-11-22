@@ -278,6 +278,11 @@ def build() -> dict:
         "chapters": chapters, "shots": shots,
         "reference_images": ref_images,
         "reference_revision": revision,
+        "reference_designs": {
+            "characters": ["C01", "C02", "C03"],
+            "scenes": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09"],
+            "props": [],
+        },
         "presentation": presentation,
         "sfx_only": True,
         "fact_check": fact_check,
