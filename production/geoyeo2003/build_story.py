@@ -55,9 +55,14 @@ HIGHLIGHT_PHRASES = [
 
 HOOKS = [
     {"id": "H1", "start": 0.5, "end": 2.5, "text": "门从里面反锁，钥匙却在窗缝的包里"},
-    {"id": "H2", "start": 48.0, "end": 50.0, "text": "七楼密室，为什么没有遗书？"},
-    {"id": "H3", "start": 102.0, "end": 104.0, "text": "她一直藏着自己的右手"},
-    {"id": "H4", "start": 168.0, "end": 170.0, "text": "最可怕的不是密室，是熟人"},
+    {"id": "H2", "start": 24.0, "end": 26.0, "text": "高情商同学一到，就找到了包"},
+    {"id": "H3", "start": 48.0, "end": 50.0, "text": "七楼密室，为什么没有遗书？"},
+    {"id": "H4", "start": 72.0, "end": 74.0, "text": "死者手心里，粘着一片小纸片"},
+    {"id": "H5", "start": 96.0, "end": 98.0, "text": "警方推翻自杀，锁定熟人作案"},
+    {"id": "H6", "start": 114.0, "end": 116.0, "text": "她一直藏着自己的右手"},
+    {"id": "H7", "start": 132.0, "end": 134.0, "text": "家里搜出了被切开的塑料瓶"},
+    {"id": "H8", "start": 150.0, "end": 152.0, "text": "嫉妒与不伦，撕开了密室伪装"},
+    {"id": "H9", "start": 168.0, "end": 170.0, "text": "最可怕的不是密室，是熟人"},
 ]
 
 EXPLAINERS = [
@@ -177,7 +182,8 @@ def build() -> dict:
     revision_path = HERE / "reference" / "revision.txt"
     revision = revision_path.read_text(encoding="utf-8").strip() if revision_path.exists() else ""
     approvals_path = HERE / "reference" / "approvals.json"
-    approvals = json.loads(approvals_path.read_text(encoding="utf-8")) if approvals_path.exists() else {}
+    approvals_raw = json.loads(approvals_path.read_text(encoding="utf-8")) if approvals_path.exists() else {}
+    approvals = approvals_raw.get("references", approvals_raw) if isinstance(approvals_raw, dict) else {}
 
     ref_images = {}
     for key, meta in sorted(approvals.items()):
