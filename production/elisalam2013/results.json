@@ -177,9 +177,9 @@
     "S05": {
       "id": "S05",
       "request_hash": "f41fa36b0d1bb2a9df794d45f54ace4d6a698010a2b05fca602448c53c432e01",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-22T05:17:07Z",
+      "updated_at": "2026-11-22T05:17:09Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，冷峻悬疑犯罪片的克制、冷静、低照度氛围；2013年洛杉矶市中心西塞尔酒店——1920年代装饰艺术风格立面、昏暗长廊、复古客房与大堂家具、屋顶金属水箱；蓝黄混光，霓虹与白炽交错，暖黄仅属于回忆段（镜头7至8），此后全程冷青、冷灰主导；16:9横屏宽银幕，主体三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，镜头本身平稳移动，绝不以静态图加推拉冒充；所有人物均为虚构演员式形象，不还原任何真实人物肖像；全程无任何可读文字、伪招牌或屏幕上的字。\n\n电影级单镜航拍：从高空洛杉矶市中心雨夜屋顶缓慢竖直下降到西塞尔酒店1920年代装饰艺术立面，锈色墙面、湿润人行道与霓虹积水倒影依序入画，镜头不停机、不切机位；无可读招牌文字，无人物特写 真实连续运动贯穿全镜，镜头运镜：航拍缓降；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，水中人形，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌，鬼怪，闹鬼符号。",
@@ -203,7 +203,18 @@
       "bytes": 3594503,
       "sha256": "9117dc49f39cf9b12486710f66750e080bae7911ca9a852e2768b13cbddc5544",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3594503,
+        "decoded_ok": true,
+        "contact_sheet": "production/elisalam2013/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S06": {
       "id": "S06",
@@ -1330,7 +1341,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-22T05:17:07Z",
+  "updated_at": "2026-11-22T05:17:09Z",
   "run_id": "44987921757",
   "previous_results": {
     "S11": [
