@@ -347,7 +347,7 @@ def build() -> dict:
         "reference_designs": {
             "characters": ["C01", "C02", "C03", "C04", "C05", "C06"],
             "scenes": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09"],
-            "props": ["P01", "P02", "P03", "P04", "P05", "P06"],
+            "props": ["P01", "P02", "P03", "P04", "P05"],
             "note": "主创已定调：参考图要丰富——人物给正/侧/背/四分之三/手部特写，场景含外景/电梯/长廊/大堂/客房/屋顶水箱（日·黎明）/街道/空房门；未登记批准前 --validate 报错（设计如此）。详见 reference/REFERENCE_PACK.md",
         },
         "presentation": presentation,
