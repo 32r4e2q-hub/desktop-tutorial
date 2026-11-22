@@ -451,9 +451,23 @@
     "S17": {
       "id": "S17",
       "request_hash": "dd033161f833c575a52819b69fbe61e7fbee6ac843163af8e98ba38b425da40b",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-22T11:16:46Z"
+      "updated_at": "2026-11-22T12:32:12Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：刑警站在昏暗走廊里低头看记录本的侧脸，眉头紧锁，眼神锐利。 运镜：特写推近侧脸。影调：高对比冷调。 人物锚点：刑警：四十岁韩国男刑警，深灰夹克，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2217,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/c34952eb422676bae8191d328d2b94012b750e6c/production/geoyeo2003/reference/S04.png"
+        ]
+      },
+      "error": null
     },
     "S18": {
       "id": "S18",
@@ -599,7 +613,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-22T12:32:11Z",
+  "updated_at": "2026-11-22T12:32:12Z",
   "run_id": "45016476370",
   "previous_results": {}
 }
