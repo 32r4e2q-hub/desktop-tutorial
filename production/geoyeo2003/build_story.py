@@ -183,13 +183,13 @@ def build() -> dict:
     revision = revision_path.read_text(encoding="utf-8").strip() if revision_path.exists() else ""
     approvals_path = HERE / "reference" / "approvals.json"
     approvals_raw = json.loads(approvals_path.read_text(encoding="utf-8")) if approvals_path.exists() else {}
-    approvals = approvals_raw.get("references", approvals_raw) if isinstance(approvals_raw, dict) else {}
+    approvals = approvals_raw.get("assets", {}) if isinstance(approvals_raw, dict) else {}
 
     ref_images = {}
     for key, meta in sorted(approvals.items()):
-        if isinstance(meta, dict) and meta.get("approved"):
+        if isinstance(meta, dict) and meta.get("status") == "approved":
             ref_images[key] = {
-                "path": meta["path"],
+                "path": f"production/geoyeo2003/{meta['file']}",
                 "sha256": meta["sha256"],
                 "approved": True,
                 "note": meta.get("note", ""),
@@ -201,10 +201,9 @@ def build() -> dict:
         duration, narration, visual, refs, roles, camera, sound, grade = row
         sid = f"S{idx:02d}"
         role_anchors = "；".join(f"{r}：{CHARACTERS[r]}" for r in roles if r in CHARACTERS)
-        prompt = f"{STYLE} 唯一场景：{visual} 运镜：{camera}。影调：{grade}。"
+        prompt = f"唯一场景：{visual} 运镜：{camera}。影调：{grade}。"
         if role_anchors:
             prompt += f" 人物锚点：{role_anchors}。"
-        prompt += f" {NEGATIVE}"
 
         shots.append({
             "id": sid,
