@@ -1324,7 +1324,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1371,9 +1371,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-22T04:27:56Z",
   "run_id": "44984035163",
@@ -1424,5 +1424,31 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/elisalam2013/clips/蓝可儿案_她把电梯所有按钮都按亮了_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/elisalam2013/clips/蓝可儿案_她把电梯所有按钮都按亮了_Cover.jpg",
+    "delivered": {
+      "蓝可儿案_她把电梯所有按钮都按亮了_三分钟_带声音.mp4": {
+        "bytes": 70088033,
+        "sha256": "c8d627d5ff2acc443347c49455262e03f182955d147f30b27746d49f472f63ee"
+      },
+      "蓝可儿案_她把电梯所有按钮都按亮了_Cover.jpg": {
+        "bytes": 218089,
+        "sha256": "7ca5e5ba27c2134e0c2daa2e1805f7dd39c121898afa0920ff6ee1616d4c3811"
+      },
+      "蓝可儿案_她把电梯所有按钮都按亮了_Subtitles.srt": {
+        "bytes": 2765,
+        "sha256": "4d417acd1a190c9386dfa28da6fce4b5fadd37fd8cbbec05695156db6c386d19"
+      },
+      "蓝可儿案_她把电梯所有按钮都按亮了_Technical_Report.json": {
+        "bytes": 11166,
+        "sha256": "4c0af6b78eadaa3470ffb64fa54c0c3ee00b40872e980935cb36623b8f9418ee"
+      }
+    }
   }
 }
