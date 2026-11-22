@@ -563,9 +563,9 @@
     "S21": {
       "id": "S21",
       "request_hash": "15618990c4454a4cad0d23f2422a8739e004b4657df5a05807b5c0b4a1d1eec3",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-22T12:52:30Z",
+      "updated_at": "2026-11-22T12:57:19Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：刑警目光锐利地看向桌面，女同学手腕不自觉往回缩的瞬间。 运镜：希区柯克式微变焦。影调：强对比。 人物锚点：刑警：四十岁韩国男刑警，深灰夹克，目光锐利，侧脸与手部细节；女同学：三十一岁韩国女性，深色长羽绒服，低头掩饰右手，侧脸或背影剪影。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -579,10 +579,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/c34952eb422676bae8191d328d2b94012b750e6c/production/geoyeo2003/reference/S08.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 12:57:18. (request id: 20261122125230151104509S6Wg2Py0) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_iAbUib6V3PDpZ73AgCjZcjPUNgFi4edI",
+      "task_id": "task_iAbUib6V3PDpZ73AgCjZcjPUNgFi4edI",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S22": {
       "id": "S22",
@@ -700,15 +704,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-22T12:52:30Z",
+  "updated_at": "2026-11-22T12:57:19Z",
   "run_id": "45016476370",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 12:57:18. (request id: 20261122125230151104509S6Wg2Py0) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-22T12:52:30Z"
-  }
+  "previous_results": {}
 }
