@@ -59,14 +59,16 @@ CUTS_BLOCK = re.compile(r"^CUTS = \{.*?^\}", re.M | re.S)   # 保留给旧模板
 ENGINE_FILES = (
     "generate.py",
     "qc.py",
-    "preflight.py",
+    # preflight.py 不再从参考项目整份拷：改走 production/templates/preflight.py
+    # （角色映射从 story.json 现算，避免新题目预检被旧项目的角色代号锁死）。
     "throttle.py",
     "narration_fit.py",
     "build_audio_manifest.py",
     "build_sfx.py",
 )
 # production/templates/ 里"内容与引擎分离"的文件：占位符由本脚本替换。
-TEMPLATE_FILES = ("render.py", "build_story.py")
+# preflight.py 无占位符，render_template 原样拷贝（保留 GENERATED 头注释）。
+TEMPLATE_FILES = ("render.py", "build_story.py", "preflight.py")
 WORKFLOW_TEMPLATES = {
     "case.workflow.yml": "{slug}.yml",
     "verbatim.workflow.yml": "{slug}-verbatim.yml",

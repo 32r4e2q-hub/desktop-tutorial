@@ -56,17 +56,29 @@ NEGATIVE = (
 CHARACTERS: dict[str, str] = {
     "ELISA": "【C01锚点】约二十一岁华裔女性，及肩黑色直发，鹅蛋脸，身材纤细，休闲旅行装束（深色风衣、牛仔裤），神情敏感疲惫，普通长相，自然皮肤纹理，虚构演员式形象",
     "ELISA_SIDE": "【C02锚点】同一人侧影，黑色及肩直发，深色风衣，面部大部分隐于暗处，轮廓模糊，神情紧绷，虚构演员式形象",
+    "ELISA_FRONT": "【C03锚点】同一人正面半身，及肩黑色直发自然垂落，深色风衣，面对镜头，神情拘谨疲惫，普通长相，自然皮肤纹理，虚构演员式形象",
+    "ELISA_THREEQUARTER": "【C04锚点】同一人三分之四侧面，黑色及肩直发，深色风衣立领，看向窗外，神情放空疲惫，虚构演员式形象",
+    "ELISA_HANDS": "【C05锚点】同一人双手近景，纤细手指，深色风衣袖口，指尖按下电梯按钮，虚构演员式形象，无可识别面容",
+    "MAINT_BACK": "【C06锚点】四十岁左右男性维修工背影，工装夹克，屋顶清晨逆光，面部完全不可见，普通背影",
 }
 
 CHARACTER_SEEDS: dict[str, int] = {
     "ELISA": 20130131,
     "ELISA_SIDE": 20130131,
+    "ELISA_FRONT": 20130131,
+    "ELISA_THREEQUARTER": 20130131,
+    "ELISA_HANDS": 20130131,
+    "MAINT_BACK": 20130201,
 }
 
 # 角色代号 → 已批准参考图资产编号（与 reference/approvals.json 的键一致）。
 CHARACTER_REFERENCE_IDS: dict[str, str] = {
     "ELISA": "C01",
     "ELISA_SIDE": "C02",
+    "ELISA_FRONT": "C03",
+    "ELISA_THREEQUARTER": "C04",
+    "ELISA_HANDS": "C05",
+    "MAINT_BACK": "C06",
 }
 
 # duration, narration, visual beat, design references, character roles, camera, sound, color
@@ -198,6 +210,8 @@ HOOKS = [
     {"id": "H5", "start": 114.4, "end": 116.4, "text": "尸检：溺水", "style": "big_white_black_outline"},
     {"id": "H6", "start": 132.4, "end": 134.4, "text": "除了录像，什么都没有", "style": "big_white_black_outline"},
     {"id": "H7", "start": 168.4, "end": 170.4, "text": "她本该早点回家", "style": "big_white_black_outline"},
+    {"id": "H8", "start": 138.4, "end": 140.4, "text": "调查没有结论", "style": "big_white_black_outline"},
+    {"id": "H9", "start": 154.4, "end": 156.4, "text": "酒店仍在营业", "style": "big_white_black_outline"},
 ]
 
 # 金色注释（MarginV=200，只补可核实事实）
@@ -331,10 +345,10 @@ def build() -> dict:
         "reference_images": ref_images,
         "reference_revision": revision,
         "reference_designs": {
-            "characters": ["C01 Elisa背影（走廊/大堂/行李）", "C02 Elisa上半身侧影（电梯/新闻剪影）"],
-            "scenes": ["S01 西塞尔外景（雨夜1920s立面）", "S02 电梯内景", "S03 昏暗长廊", "S04 复古大堂", "S05 客房内景", "S06 屋顶金属水箱", "S07 下城街道夜"],
-            "props": ["P01 双相药瓶", "P02 护照/手机/现金（床上）", "P03 电梯按钮板", "P04 新闻光斑/屏幕（抽象无文字）"],
-            "note": "待主创批准参考图（C01/C02/S01-S07/P01-P04）后登记 approvals.json 与 revision.txt；未批准前 --validate 报错（设计如此）。",
+            "characters": ["C01", "C02", "C03", "C04", "C05", "C06"],
+            "scenes": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09"],
+            "props": ["P01", "P02", "P03", "P04", "P05", "P06"],
+            "note": "主创已定调：参考图要丰富——人物给正/侧/背/四分之三/手部特写，场景含外景/电梯/长廊/大堂/客房/屋顶水箱（日·黎明）/街道/空房门；未登记批准前 --validate 报错（设计如此）。详见 reference/REFERENCE_PACK.md",
         },
         "presentation": presentation,
         "sfx_only": True,
