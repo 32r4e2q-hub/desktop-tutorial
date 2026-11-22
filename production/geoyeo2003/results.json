@@ -1147,9 +1147,9 @@
     "S27": {
       "id": "S27",
       "request_hash": "451a2f2b5e03a5e3a07e1eb406944eb9c8a4e542f4dd8d7ad63b35df4e3d01ac",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-22T13:48:01Z",
+      "updated_at": "2026-11-22T13:48:03Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：走廊小窗缝隙特写，一只深色手提包被从窗外塞进昏暗室内。 运镜：窗缝内外推拉。影调：冷暗调。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -1175,7 +1175,18 @@
       "bytes": 3137503,
       "sha256": "e41081dbc8a1172871b9ce22d4f6d8f084d41c6194f6ef5784ccedd5bb61a145",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3137503,
+        "decoded_ok": true,
+        "contact_sheet": "production/geoyeo2003/qa/S27.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S28": {
       "id": "S28",
@@ -1314,7 +1325,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-22T13:48:01Z",
+  "updated_at": "2026-11-22T13:48:03Z",
   "run_id": "45016476370",
   "previous_results": {}
 }
