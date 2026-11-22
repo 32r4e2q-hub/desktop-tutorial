@@ -603,9 +603,9 @@
     "S15": {
       "id": "S15",
       "request_hash": "95816d676526488a2b83cd24286eb3aae1f7eab74cd80ff7a87917cee76e677c",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-22T13:45:23Z",
+      "updated_at": "2026-11-22T13:45:25Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：阳台边一盆照顾得很好的绿植在微风里轻轻晃动，与冷清房间形成反差。 运镜：浅景深定镜微动。影调：冷暖对比。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -631,7 +631,18 @@
       "bytes": 1833261,
       "sha256": "2138067e04d7e0ac7f6bad9d40201d775d8d2a1ec4abafaadc6b5c727044ccf7",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1833261,
+        "decoded_ok": true,
+        "contact_sheet": "production/geoyeo2003/qa/S15.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S16": {
       "id": "S16",
@@ -1106,7 +1117,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-22T13:45:23Z",
+  "updated_at": "2026-11-22T13:45:25Z",
   "run_id": "45016476370",
   "previous_results": {}
 }
