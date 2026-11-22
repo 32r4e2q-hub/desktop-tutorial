@@ -201,9 +201,10 @@ def build() -> dict:
         duration, narration, visual, refs, roles, camera, sound, grade = row
         sid = f"S{idx:02d}"
         role_anchors = "；".join(f"{r}：{CHARACTERS[r]}" for r in roles if r in CHARACTERS)
-        prompt = f"唯一场景：{visual} 运镜：{camera}。影调：{grade}。"
+        prompt = f"{STYLE} 唯一场景：{visual} 运镜：{camera}。影调：{grade}。"
         if role_anchors:
             prompt += f" 人物锚点：{role_anchors}。"
+        prompt += f" {NEGATIVE}"
 
         shots.append({
             "id": sid,
