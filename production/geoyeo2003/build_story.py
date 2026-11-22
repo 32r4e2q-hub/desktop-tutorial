@@ -221,7 +221,7 @@ def build() -> dict:
             "narration": narration,
             "visual": visual,
             "camera": camera,
-            "sound": sound,
+            "sound_design": sound,
             "grade": grade,
             "reference_ids": "+".join(refs),
             "roles": roles,
