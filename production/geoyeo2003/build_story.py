@@ -202,6 +202,7 @@ def build() -> dict:
 
         shots.append({
             "id": sid,
+            "narration_id": sid,
             "start": cursor,
             "duration": duration,
             "narration": narration,
