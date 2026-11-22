@@ -17,12 +17,12 @@ BRANCH = "arena/f9f847e0-desktop-tutorial"
 FILM_NAME = "巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_三分钟_带声音.mp4"
 
 STYLE = (
-    "韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，"
+    "【STYLE】韩式写实悬疑纪录片质感电影动画，二零零三年冬季韩国首尔公寓内景与走廊，冷青灰与室内暗暖钨丝灯明暗对立，"
     "浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，"
     "画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。"
 )
 NEGATIVE = (
-    "no readable text, no subtitles, no watermark, no gore, no blood, no corpse, "
+    "【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, "
     "no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands"
 )
 
