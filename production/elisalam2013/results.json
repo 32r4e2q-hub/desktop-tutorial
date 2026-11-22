@@ -472,9 +472,9 @@
     "S12": {
       "id": "S12",
       "request_hash": "24024f850b54f755292b074848bc9dbb19fc77a340a45ca358a4ee01c3a5197f",
-      "status": "queued",
+      "status": "downloaded",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-22T02:09:14Z",
+      "updated_at": "2026-11-22T03:42:00Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】电影级写实3D动画情景重现，明确标注为非真实历史影像；35mm胶片摄影质感，浅景深，长焦压缩，冷峻悬疑犯罪片的克制、冷静、低照度氛围；2013年洛杉矶市中心西塞尔酒店——1920年代装饰艺术风格立面、昏暗长廊、复古客房与大堂家具、屋顶金属水箱；蓝黄混光，霓虹与白炽交错，暖黄仅属于回忆段（镜头7至8），此后全程冷青、冷灰主导；16:9横屏宽银幕，主体三分线附近，画面底部六分之一留作字幕安全区；所有镜头必须是真实连续运动的3D影像，镜头本身平稳移动，绝不以静态图加推拉冒充；所有人物均为虚构演员式形象，不还原任何真实人物肖像；全程无任何可读文字、伪招牌或屏幕上的字。\n\n【C02锚点】同一人侧影，黑色及肩直发，深色风衣，面部大部分隐于暗处，轮廓模糊，神情紧绷，虚构演员式形象\n\n监控风格的昏黄半影画面：她在轿厢里贴近门框凝视走廊，走廊空无一人，她按下按钮、又贴回去，门缝冷光反复闪烁，镜头颗粒感强烈 真实连续运动贯穿全镜，镜头运镜：监控视角固定；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，水中人形，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌，鬼怪，闹鬼符号。",
@@ -494,7 +494,12 @@
       "video_id": "task_xEX4BZwZnGMzq2PZeZeHxraW4aojRUOs",
       "task_id": "task_xEX4BZwZnGMzq2PZeZeHxraW4aojRUOs",
       "requested_seconds": 6.0,
-      "requested_size": "720P"
+      "requested_size": "720P",
+      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_xEX4BZwZnGMzq2PZeZeHxraW4aojRUOs.mp4",
+      "bytes": 2016085,
+      "sha256": "cea7278d75d625b46b11cf73cca234051d7ddbfe6fc5c2c41f4ea3df3694514f",
+      "reported_size": "720P",
+      "reported_seconds": "6"
     },
     "S13": {
       "id": "S13",
@@ -1057,7 +1062,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-22T03:41:50Z",
+  "updated_at": "2026-11-22T03:42:00Z",
   "run_id": "44970678123",
   "previous_results": {}
 }
