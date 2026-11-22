@@ -216,7 +216,7 @@ def build() -> dict:
             "camera": camera,
             "sound": sound,
             "grade": grade,
-            "reference_ids": refs,
+            "reference_ids": "+".join(refs),
             "roles": roles,
             "prompt": prompt,
             "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
