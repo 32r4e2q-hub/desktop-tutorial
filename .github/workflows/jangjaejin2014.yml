@@ -1,0 +1,178 @@
+# 模板：production/new_topic.py 会把 韩国最年轻死刑犯：从大学社长到死囚，只因一句分手 / jangjaejin2014 / arena/f9f847e0-desktop-tutorial / f9f847e0-desktop-tutorial / 韩国最年轻死刑犯_从大学社长到死囚，只因一句分手_三分钟_带声音.mp4 换成新项目的值，
+# 生成 production/<slug>/workflows/<slug>.yml；复制到 .github/workflows/ 后即可用 GEN_REQUEST marker push 触发。
+#
+# 触发方式：在分支上写 production/jangjaejin2014/GEN_REQUEST（内容就是 JSON payload）并 push。
+#   全量生成：{"mode":"clips","workers":2}
+#   补做个别镜头：{"mode":"clips","only":"S07,S12","workers":1}
+#   渲染成片：{"mode":"render"}
+#   取消：写 production/jangjaejin2014/CANCEL_REQUEST 后 push（停止再投新任务）
+# 中途失败可断点续跑：改一下 GEN_REQUEST 重新 push，已完成的镜头按 SHA-256 复用、不重新生成。
+
+name: 韩国最年轻死刑犯：从大学社长到死囚，只因一句分手 · 生成与出片
+run-name: 韩国最年轻死刑犯：从大学社长到死囚，只因一句分手 · 30镜视频制作
+
+on:
+  push:
+    branches: [arena/f9f847e0-desktop-tutorial]
+    paths:
+      # 只认 marker 文件：编辑本工作流自身不得触发出片（2026-11-21 裁决；自触发曾误跑并降级 results.json 元数据）。
+      # 出片/重渲 = 写 GEN_REQUEST（或 workflow_dispatch）显式触发。
+      - production/jangjaejin2014/GEN_REQUEST
+      - production/jangjaejin2014/CANCEL_REQUEST
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: JSON payload, e.g. {"mode":"clips","only":"S07,S18,S20","workers":2}
+        type: string
+        default: '{"mode":"clips","only":"S07,S18,S20","workers":2}'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: jangjaejin2014-agnes-arena-f9f847e0-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  produce:
+    if: github.ref == 'refs/heads/arena/f9f847e0-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 300
+    steps:
+      - name: Checkout the production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/f9f847e0-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install media tools and subtitle font
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/media-tools" --no-save --ignore-scripts --no-audit --no-fund \
+            @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+          mkdir -p "$RUNNER_TEMP/media-tools/bin" "$HOME/.local/share/fonts"
+          chmod +x "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" \
+            "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffmpeg-installer/linux-x64/ffmpeg" "$RUNNER_TEMP/media-tools/bin/ffmpeg"
+          ln -sf "$RUNNER_TEMP/media-tools/node_modules/@ffprobe-installer/linux-x64/ffprobe" "$RUNNER_TEMP/media-tools/bin/ffprobe"
+          echo "$RUNNER_TEMP/media-tools/bin" >> "$GITHUB_PATH"
+          export PATH="$RUNNER_TEMP/media-tools/bin:$PATH"
+          GH_TOKEN="${{ github.token }}" gh api -H 'Accept: application/vnd.github.raw' \
+            'repos/notofonts/noto-cjk/contents/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf?ref=f8d157532fbfaeda587e826d4cd5b21a49186f7c' \
+            > "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
+          ffmpeg -hide_banner -filters 2>&1 | grep -q subtitles
+          ffprobe -version | head -1
+          python3 -m pip install --break-system-packages --no-input --disable-pip-version-check numpy pillow av
+
+      - name: Restore approved reference PNGs into the working tree only
+        run: |
+          set -euo pipefail
+          if [ ! -f production/jangjaejin2014/reference/approvals.json ]; then
+            echo "reference/approvals.json 不存在：本项目没有批准参考图，跳过还原（纯文生视频模式）。"
+            exit 0
+          fi
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          here = Path('production/jangjaejin2014')
+          approvals = json.loads((here / 'reference/approvals.json').read_text())
+          default_revision = (here / 'reference/revision.txt').read_text().strip()
+          fetched = set()
+          for aid, row in approvals['assets'].items():
+              if row.get('status') != 'approved':
+                  raise SystemExit(f'{aid}: reference is not approved')
+              revision = str(row.get('revision') or default_revision)
+              if revision not in fetched:
+                  subprocess.run(['git', 'fetch', '--depth=1', 'origin', revision], check=True)
+                  fetched.add(revision)
+              rel = row['file']
+              dest = here / rel
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              data = subprocess.check_output(['git', 'show', f'{revision}:production/jangjaejin2014/{rel}'])
+              if hashlib.sha256(data).hexdigest() != row['sha256']:
+                  raise SystemExit(f'{aid}: pinned reference checksum mismatch')
+              dest.write_bytes(data)
+              print(f'restored {aid} from {revision[:12]} ({len(data)} bytes)')
+          PY
+
+      - name: Validate and run the requested mode
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          PAYLOAD_INPUT: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          payload="${PAYLOAD_INPUT:-}"
+          if [ -z "$payload" ] && [ -f production/jangjaejin2014/GEN_REQUEST ]; then
+            payload="$(cat production/jangjaejin2014/GEN_REQUEST)"
+          fi
+          if [ -z "$payload" ]; then payload='{"mode":"clips","only":"S07,S18,S20","workers":2}'; fi
+          mode="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("mode", "clips"))' <<< "$payload")"
+          if [ "$mode" != "status" ] && [ "$mode" != "retrieve" ] && [ -f production/jangjaejin2014/CANCEL_REQUEST ]; then
+            echo 'Cancellation requested; no Agnes creation requests will be made.'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "$mode" = "render" ]; then
+            log_file="$RUNNER_TEMP/jangjaejin2014-render.log"
+            set +e
+            python3 production/jangjaejin2014/build_audio_manifest.py 2>&1 | tee "$log_file"
+            status=${PIPESTATUS[0]}
+            if [ "$status" -eq 0 ]; then
+              python3 production/jangjaejin2014/generate.py --render-only --publish 2>&1 | tee -a "$log_file"
+              status=${PIPESTATUS[0]}
+            fi
+            if [ "$status" -ne 0 ]; then
+              mkdir -p production/jangjaejin2014/qa
+              cp "$log_file" production/jangjaejin2014/qa/render-failure.log
+              git add -- production/jangjaejin2014/qa/render-failure.log
+              if ! git diff --cached --quiet -- production/jangjaejin2014/qa/render-failure.log; then
+                git commit -m "jangjaejin2014: retain render failure diagnostics" -- production/jangjaejin2014/qa/render-failure.log
+                # 2026-11-19 run 44510238238: 本步裸 push 在 origin 被并行本地 push 推进后被拒（non-fast-forward），
+                # set +e 吞掉错误 → 失败现场日志从未落盘。与 generate.py 的 commit_delivery 同款三次重试：
+                # 先 rebase 到 origin 最新再 push；detached HEAD 也用 HEAD:<branch> 显式推。
+                pushed=0
+                for attempt in 1 2 3; do
+                  if git push origin HEAD:refs/heads/arena/f9f847e0-desktop-tutorial; then
+                    pushed=1
+                    break
+                  fi
+                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/f9f847e0-desktop-tutorial"
+                  git fetch origin arena/f9f847e0-desktop-tutorial || true
+                  git pull --rebase origin arena/f9f847e0-desktop-tutorial || git rebase --abort || true
+                done
+                if [ "$pushed" != "1" ]; then
+                  echo "::error title=failure log push rejected::render-failure.log 三次 push 均失败；最后 120 行已写入步骤摘要，请人工取回"
+                  tail -n 120 "$log_file" >> "${GITHUB_STEP_SUMMARY:-/dev/null}"
+                fi
+              fi
+              exit "$status"
+            fi
+            exit 0
+          elif [ "$mode" = "clips" ]; then
+            test -n "$AGNES_API_KEY"
+            python3 production/jangjaejin2014/build_story.py
+            python3 production/jangjaejin2014/preflight.py
+            python3 production/jangjaejin2014/generate.py --validate --clips-only
+            python3 -u production/jangjaejin2014/generate.py --clips-only --payload "$payload" --publish
+          else
+            echo "Unsupported continuation mode: $mode" >&2
+            exit 2
+          fi
+
+      - name: Upload footage, provenance and QA reports
+        if: always()
+        continue-on-error: true   # 成片已在 render 步骤里 commit 回分支；artifact 配额失败不该把整场出片判死
+        uses: actions/upload-artifact@v4
+        with:
+          name: jangjaejin2014-${{ github.run_number }}
+          path: |
+            work/jangjaejin2014/
+            交付/
+            production/jangjaejin2014/results.json
+            production/jangjaejin2014/qa/
+          if-no-files-found: warn
+          compression-level: 0
+          retention-days: 7
