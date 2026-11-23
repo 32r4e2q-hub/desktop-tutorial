@@ -171,9 +171,9 @@
     "S07": {
       "id": "S07",
       "request_hash": "e336fcb30bfdc7b3b5a27182452884c35899e1b2603c64989c2db42c7b878a0a",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T08:12:24Z",
+      "updated_at": "2026-11-23T08:12:35Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：大邱居民区傍晚街道，路灯下行人稀疏，一道深色连帽衫背影停在街角。 运镜：远景长焦定镜。影调：冷青调。 人物锚点：张载振：二十五岁韩国男大学生，深色连帽外套或深蓝维修工服，背影或暗影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -187,7 +187,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/71b1d0089f527941bc83cb5955fde92f5c4cb62a/production/jangjaejin2014/reference/S04.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:17:23. (request id: 202611230812352469648700wuFVaXc) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 288.0
     },
     "S08": {
       "id": "S08",
@@ -403,7 +406,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T08:12:24Z",
+  "updated_at": "2026-11-23T08:12:35Z",
   "run_id": "45133522824",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 08:17:23. (request id: 202611230812352469648700wuFVaXc) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 288.0,
+    "last_seen": "2026-11-23T08:12:35Z"
+  }
 }
