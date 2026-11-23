@@ -383,9 +383,9 @@
     "S10": {
       "id": "S10",
       "request_hash": "d6ca7aa31b92cb94fea7b80426263717d17455e3db3cad09912321b5252626a3",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T10:14:52Z",
+      "updated_at": "2026-11-23T10:14:54Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：防盗门缓缓打开一条缝，室内暖黄灯光透出，与走廊冷光形成强烈对立。 运镜：门外向门内推进。影调：冷暖强烈对立。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -411,7 +411,18 @@
       "bytes": 2003138,
       "sha256": "28e8a6bde9c7f5077de8e7ea110471bf9cdc75308a96fa6df1eba9e9db03b753",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2003138,
+        "decoded_ok": true,
+        "contact_sheet": "production/jangjaejin2014/qa/S10.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S11": {
       "id": "S11",
@@ -1026,7 +1037,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T10:14:52Z",
+  "updated_at": "2026-11-23T10:14:54Z",
   "run_id": "45133522824",
   "previous_results": {}
 }
