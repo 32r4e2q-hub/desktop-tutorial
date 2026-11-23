@@ -1305,7 +1305,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1352,9 +1352,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-23T04:10:17Z",
   "run_id": "45099315307",
@@ -1387,5 +1387,31 @@
         "requested_size": "720P"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/roppongi2000/clips/六本木洞窟迷案_英国空姐在东京消失，七个月后现身海蚀洞_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/roppongi2000/clips/六本木洞窟迷案_英国空姐在东京消失，七个月后现身海蚀洞_Cover.jpg",
+    "delivered": {
+      "六本木洞窟迷案_英国空姐在东京消失，七个月后现身海蚀洞_三分钟_带声音.mp4": {
+        "bytes": 70839425,
+        "sha256": "97b28f613aafa5203c6df4d8488aa4af3dc8578d2760a10e1d57405f75ef7926"
+      },
+      "六本木洞窟迷案_英国空姐在东京消失，七个月后现身海蚀洞_Cover.jpg": {
+        "bytes": 275202,
+        "sha256": "c24b30bff221e748ecc2d5c8b789c24a0d531c429562c2e51c31a213138441a0"
+      },
+      "六本木洞窟迷案_英国空姐在东京消失，七个月后现身海蚀洞_Subtitles.srt": {
+        "bytes": 3805,
+        "sha256": "49c8a7f9242a6340aa9bcd9eb2e3120898e076ba2eca400f01f2206780938f6c"
+      },
+      "六本木洞窟迷案_英国空姐在东京消失，七个月后现身海蚀洞_Technical_Report.json": {
+        "bytes": 11329,
+        "sha256": "6d5c77d0880446bed111d1c5a7754ac64df4b0422268d6be38f387b05c604d61"
+      }
+    }
   }
 }
