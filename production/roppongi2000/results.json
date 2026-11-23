@@ -781,9 +781,23 @@
     "S29": {
       "id": "S29",
       "request_hash": "e8364db1e743311fc433015521f65f7331f94ea1aaf3f7e5a268f33666ae7736",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T02:17:49Z"
+      "updated_at": "2026-11-23T03:49:53Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：海边海岸线黎明微光，天际泛起一丝冷白亮色。 运镜：缓慢横摇海面。影调：冷暖交替。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2329,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/77bf42642c27a4863d2e13daaf89c56cfeff9338/production/roppongi2000/reference/S07.png"
+        ]
+      },
+      "error": null
     },
     "S30": {
       "id": "S30",
@@ -845,7 +859,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T03:49:52Z",
+  "updated_at": "2026-11-23T03:49:53Z",
   "run_id": "45099315307",
   "previous_results": {}
 }
