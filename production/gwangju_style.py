@@ -79,7 +79,7 @@ def write_ass(path: Path, cues: list[tuple[float, float, str]], phrases: list[st
         "WrapStyle: 2", "ScaledBorderAndShadow: yes", "YCbCr Matrix: TV.709", "",
         "[V4+ Styles]",
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-        "Style: Caption,Noto Sans CJK SC,44,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.4,0.6,2,120,120,62,1",
+        "Style: Caption,Noto Sans CJK SC,56,&H00FFFFFF,&H00FFFFFF,&H00111110,&H99000000,0,0,0,0,100,100,0,0,1,2.8,0.8,2,80,80,62,1",
         "Style: Label,Noto Sans CJK SC,26,&H60FFFFFF,&H00FFFFFF,&H00101010,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0.0,7,52,52,34,1",
         "Style: Hook,Noto Sans CJK SC,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1",
 "Style: HookRed,Noto Sans CJK SC,78,&H001414E8,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,1.0,2,100,100,275,1",
