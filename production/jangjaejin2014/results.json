@@ -59,9 +59,9 @@
     "S03": {
       "id": "S03",
       "request_hash": "deebde6a4089a788425daa57e5cd8c5086d1111ff0625f8d2dd476d48d864fb0",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T07:52:29Z",
+      "updated_at": "2026-11-23T07:57:18Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：大学图书馆走廊窗边，一男一女两名大学生背影并肩走过。 运镜：浅景深侧跟拍。影调：暗暖转冷。 人物锚点：张载振：二十五岁韩国男大学生，深色连帽外套或深蓝维修工服，背影或暗影侧脸，不露正脸；权某：二十多岁韩国女大学生，浅灰针织外套，背影或四分之三侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -75,10 +75,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/71b1d0089f527941bc83cb5955fde92f5c4cb62a/production/jangjaejin2014/reference/S02.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:57:17. (request id: 2026112307522994252780aaYaHrpd) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_TKFEkZuaQGDEn6RiaqA6XF39GWYbgolc",
+      "task_id": "task_TKFEkZuaQGDEn6RiaqA6XF39GWYbgolc",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S04": {
       "id": "S04",
@@ -322,15 +326,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T07:52:29Z",
+  "updated_at": "2026-11-23T07:57:18Z",
   "run_id": "45133522824",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 07:57:17. (request id: 2026112307522994252780aaYaHrpd) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-23T07:52:29Z"
-  }
+  "previous_results": {}
 }
