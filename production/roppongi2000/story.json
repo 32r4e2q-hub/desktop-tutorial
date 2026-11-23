@@ -33,8 +33,8 @@
     ]
   },
   "narration_spec": {
-    "voice_id": "pending_voice_selection",
-    "description": "悬疑纪录片向低沉普通话男声，克制压抑",
+    "voice_id": "voice-02",
+    "description": "悬疑纪录片向低沉普通话男声，克制压抑（沿用至第二十三期）",
     "language": "zh-CN",
     "target_characters_per_second": 4.2,
     "alignment": "一镜一句，一镜一条TTS与一条字幕；只在确有必要时加速，不慢放"
@@ -873,8 +873,141 @@
       "prompt_sha256": "b9090515c974a02875b19fb989a7f176d56ec144a462145046b4672dc7fb81ba"
     }
   ],
-  "reference_images": [],
-  "reference_revision": "",
+  "reference_images": [
+    {
+      "id": "C01",
+      "file": "reference/C01.png",
+      "sha256": "cf48ede82216f28f945d0fbbff35d9803f8a3ad4714cead1c06875cd06d8b0d1",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "C02",
+      "file": "reference/C02.png",
+      "sha256": "efd87e5091642a69446a5009dd9fa549121daf5512c58a413a296c346124bd7b",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "C03",
+      "file": "reference/C03.png",
+      "sha256": "40ed9b6d61bb224256bf40aca405e08cb65c4c28269717fd4544ffa8cb7ce807",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S01",
+      "file": "reference/S01.png",
+      "sha256": "8cbe90b8347c58cc4099d99ddfb37210a7351a1247ef6ecd03ed945e09e8c5d5",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S02",
+      "file": "reference/S02.png",
+      "sha256": "2071a362b531694e463e9d3aa913dd74704ae147f4b1546d4b7719352222f261",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S03",
+      "file": "reference/S03.png",
+      "sha256": "e91acbbc5b3d459dde83eb798ec4d149bddc65d6768b08625be9f28a62c4498a",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S04",
+      "file": "reference/S04.png",
+      "sha256": "844bcb7edd7dd5231599edef7047acf6205850a66253c12ddeebe94bc1705ac2",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S05",
+      "file": "reference/S05.png",
+      "sha256": "30b9cf7abceb61792f708d7031e148f6895a1fb409155c052e5062a42769c981",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S06",
+      "file": "reference/S06.png",
+      "sha256": "e96a88da606d58204db466c9725ae5b0fe98ec19d8305c39da2ffe29854d7adf",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S07",
+      "file": "reference/S07.png",
+      "sha256": "28310f6d80f26d9738239cfd1f6505398c101829b01fa9f760915fdb1f7c6245",
+      "status": "approved",
+      "dimensions": [
+        1376,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S08",
+      "file": "reference/S08.png",
+      "sha256": "caabc87b3833a22ba9eca2117bb4a44dcf52dd40c1852b934ed54f1343d4a8f8",
+      "status": "approved",
+      "dimensions": [
+        1408,
+        768
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    },
+    {
+      "id": "S09",
+      "file": "reference/S09.png",
+      "sha256": "181fc441a93b30230509bec450d83ab6a3e0485d422570889ca1e241071be2a9",
+      "status": "approved",
+      "dimensions": [
+        1584,
+        672
+      ],
+      "note": "2026-11-22 主创确认继续推进；agent 生成并登记"
+    }
+  ],
+  "reference_revision": "294479cfbb16780abd353e3eeee6d0526ebcc12a",
   "reference_designs": {
     "characters": [
       "C01",
