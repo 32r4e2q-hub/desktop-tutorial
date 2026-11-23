@@ -473,9 +473,9 @@
     "S18": {
       "id": "S18",
       "request_hash": "8dda24ba3008c55956f719156637ccf3eea34c8b08ee6afaf87b7d67f4901d71",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T02:54:47Z",
+      "updated_at": "2026-11-23T02:59:36Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：海蚀洞内手电筒光束扫过潮湿岩壁的局部光影，不出现任何遗骸画面。 运镜：手电光束横摇。影调：极暗冷调。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -489,10 +489,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/77bf42642c27a4863d2e13daaf89c56cfeff9338/production/roppongi2000/reference/S08.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 02:59:35. (request id: 202611230254471425778472XLZ8w67) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_6NELzdPxEdNAlLHdls6f8osB1VFWb3po",
+      "task_id": "task_6NELzdPxEdNAlLHdls6f8osB1VFWb3po",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S19": {
       "id": "S19",
@@ -631,15 +635,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T02:54:47Z",
+  "updated_at": "2026-11-23T02:59:36Z",
   "run_id": "45099315307",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 02:59:35. (request id: 202611230254471425778472XLZ8w67) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-23T02:54:47Z"
-  }
+  "previous_results": {}
 }
