@@ -143,9 +143,23 @@
     "S06": {
       "id": "S06",
       "request_hash": "162ea87d4928d1558160defa03ece6019837406fc163fe9f6623cd7ca5dfb66b",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T07:47:12Z"
+      "updated_at": "2026-11-23T08:07:23Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】韩式写实悬疑纪录片质感电影动画，二零一四年春季韩国大邱大学校园与公寓楼道，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗出租屋窗边，男性背影站在阴影里盯着窗外夜色，空气凝固。 运镜：侧逆光推进。影调：极暗冷调。 人物锚点：张载振：二十五岁韩国男大学生，深色连帽外套或深蓝维修工服，背影或暗影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no weapon violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2406,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/71b1d0089f527941bc83cb5955fde92f5c4cb62a/production/jangjaejin2014/reference/S05.png"
+        ]
+      },
+      "error": null
     },
     "S07": {
       "id": "S07",
@@ -368,7 +382,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T08:07:21Z",
+  "updated_at": "2026-11-23T08:07:23Z",
   "run_id": "45133522824",
   "previous_results": {}
 }
