@@ -1322,7 +1322,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1369,11 +1369,37 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-23T10:21:27Z",
   "run_id": "45133583373",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/jangjaejin2014/clips/韩国最年轻死刑犯_从大学社长到死囚，只因一句分手_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/jangjaejin2014/clips/韩国最年轻死刑犯_从大学社长到死囚，只因一句分手_Cover.jpg",
+    "delivered": {
+      "韩国最年轻死刑犯_从大学社长到死囚，只因一句分手_三分钟_带声音.mp4": {
+        "bytes": 69419861,
+        "sha256": "51f8972ec2b7881719c32a0c2a77f8319c6f6127266723008fbdeeaf158ebbf9"
+      },
+      "韩国最年轻死刑犯_从大学社长到死囚，只因一句分手_Cover.jpg": {
+        "bytes": 269432,
+        "sha256": "922a286cfac5f25c2e8fae50b3cea4bc8847c599cc032365fe55632d9006cd1c"
+      },
+      "韩国最年轻死刑犯_从大学社长到死囚，只因一句分手_Subtitles.srt": {
+        "bytes": 3824,
+        "sha256": "6b1165c98b4c0e5dee9cd89386fb589408417b544008e269937cb6fb1c347167"
+      },
+      "韩国最年轻死刑犯_从大学社长到死囚，只因一句分手_Technical_Report.json": {
+        "bytes": 11304,
+        "sha256": "2260b70c0ba75c37ca94a77670bc8853a411fad0044da60d84e0ed987a4f357a"
+      }
+    }
+  }
 }
