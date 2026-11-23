@@ -73,9 +73,9 @@
     "S03": {
       "id": "S03",
       "request_hash": "ab9f08f1cca755ec47c68f284f80488dbd78da929c1e008f44d37589b2ecc026",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T04:00:22Z",
+      "updated_at": "2026-11-23T04:00:23Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗公寓窗边，年轻女性背影低头看手中新款翻盖手机，窗外是东京夜色。 运镜：浅景深侧背影。影调：冷暖交界。 人物锚点：露西：二十一岁金发英国年轻女性，深色夏装外套，背影或四分之三侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -101,7 +101,18 @@
       "bytes": 2091264,
       "sha256": "60f11faa7902f3b8b43a39c3c5027bb07d036675d9110e922b84d2f79bdf7d7b",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2091264,
+        "decoded_ok": true,
+        "contact_sheet": "production/roppongi2000/qa/S03.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S04": {
       "id": "S04",
@@ -908,7 +919,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T04:00:22Z",
+  "updated_at": "2026-11-23T04:00:23Z",
   "run_id": "45099315307",
   "previous_results": {}
 }
