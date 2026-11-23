@@ -669,9 +669,9 @@
     "S25": {
       "id": "S25",
       "request_hash": "78cf1715b34a98a1141881a1b14291056f1c31b63358f6aff27042763e854c0f",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-23T03:29:58Z",
+      "updated_at": "2026-11-23T03:34:47Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，二零零零年夏季东京六本木夜色与神奈川三浦海岸海蚀洞，冷青灰与霓虹暗暖明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：东京高等法院大楼立柱仰拍，厚重石墙在阴天中显得冷峻。 运镜：仰拍缓慢推进。影调：冷灰庄重。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no sexual violence depiction, no anime style, no bright idyllic scenery, no deformed hands",
@@ -685,10 +685,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/77bf42642c27a4863d2e13daaf89c56cfeff9338/production/roppongi2000/reference/S09.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 03:34:46. (request id: 20261123032958157761886PUOe2djY) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_v6XuGGdX7x4i52nxJzMyAiPnVXoxtvMc",
+      "task_id": "task_v6XuGGdX7x4i52nxJzMyAiPnVXoxtvMc",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S26": {
       "id": "S26",
@@ -778,15 +782,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T03:29:58Z",
+  "updated_at": "2026-11-23T03:34:47Z",
   "run_id": "45099315307",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 03:34:46. (request id: 20261123032958157761886PUOe2djY) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-23T03:29:58Z"
-  }
+  "previous_results": {}
 }
