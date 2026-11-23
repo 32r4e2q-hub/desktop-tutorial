@@ -5,21 +5,33 @@
     "S01": {
       "id": "S01",
       "request_hash": "e97c6b9818431029a215757aae5eb0df5709871ae493a7c1e7fbc2f287cf5e8c",
-      "status": "downloaded",
+      "status": "completed",
       "video_id": "task_BdzerOPaRL8cgosw24T7TZj1DA4IxAfc",
       "task_id": "task_BdzerOPaRL8cgosw24T7TZj1DA4IxAfc",
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_BdzerOPaRL8cgosw24T7TZj1DA4IxAfc.mp4",
       "sha256": "4f072a4a5cc2d346b7eea4e6ba6351628dd4ddcc8f29ef35f1a2481e2e6f444b",
       "bytes": 3676215,
       "error": null,
-      "updated_at": "2026-11-23T04:10:14Z",
+      "updated_at": "2026-11-23T04:10:16Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 190.0,
       "requested_seconds": 6.0,
       "requested_size": "720P",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 3676215,
+        "decoded_ok": true,
+        "contact_sheet": "production/roppongi2000/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S02": {
       "id": "S02",
@@ -1344,7 +1356,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-23T04:10:14Z",
+  "updated_at": "2026-11-23T04:10:16Z",
   "run_id": "45099315307",
   "previous_results": {
     "S01": [
