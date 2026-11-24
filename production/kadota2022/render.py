@@ -308,15 +308,23 @@ def main() -> int:
     if not cover.is_file() or cover.stat().st_size < 10_000:
         raise RuntimeError("Cover must be a real 1080p frame from the rendered film with the post-production title")
 
-    report = {"film": str(args.output), "duration_seconds": 180, "width": 1920, "height": 1080,
+    # 2026-11-24（第二十六期）：报告以前写 Actions runner 的绝对路径（/home/runner/work/...），
+    # 交付给读者等于废信息。改写成相对仓库根的路径；不在仓库内则保留原样。
+    def rel(path) -> str:
+        try:
+            return str(Path(path).resolve().relative_to(ROOT))
+        except ValueError:
+            return str(path)
+
+    report = {"film": rel(args.output), "duration_seconds": 180, "width": 1920, "height": 1080,
               "audio_mix_seconds": round(audio_mix_seconds, 3), "audio_stream_seconds": round(audio_seconds, 3),
               "fps": FPS, "frames": 180 * FPS,
               "anti_flicker": "all shots: deflicker=size=61:mode=am,hqdn3d=3:2:9:9,eq=contrast=0.97:brightness=0.018:saturation=0.94; no legacy frame gamma/blend spikes; no strobe/flash transitions",
               "audio": "shot-locked Mandarin narration plus scripted procedural SFX only; no BGM",
-              "sfx_manifest": str((sfx_dir / "manifest.json").relative_to(ROOT)),
-              "cover": str(cover), "cover_sha256": digest(cover),
+              "sfx_manifest": rel(sfx_dir / "manifest.json"),
+              "cover": rel(cover), "cover_sha256": digest(cover),
               "cover_source": "frame at 2 seconds from the rendered picture-only film; ASS title overlay",
-              "subtitle_file": str(srt), "shots": technical}
+              "subtitle_file": rel(srt), "cover_source_absolute": str(cover), "shots": technical}
     report_path = args.work / "technical-report.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     # 逐字听检（production/verbatim_check.py）按章节边界切成片再转写，边界只能来自渲染实测。
