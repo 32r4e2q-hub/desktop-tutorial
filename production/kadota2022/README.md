@@ -102,3 +102,17 @@
 - 自动听检：30 章中 12 章 CER > 0.15，已逐条复核 —— 10 章在干净配音对照组同样超标，
   2 章（S14/S28）仅成片混音上超标；差异全为同音字误识。详见 `qa/verbatim-review.json`。
 - **仍未做**：主创逐字听检、逐镜完整播放签收、抖音上传（均需人工）。
+
+## 交付（2026-11-24）
+
+Google Drive 公开链接（reader / anyone）：
+
+- 成片：https://drive.google.com/file/d/1P3PMx1igNqZo2pxFIqKx2wCCY97DzhLU/view
+- 系列封面：https://drive.google.com/file/d/1guvTW0nPozhrm94OcEV4v4wYxd_CQJps/view
+- 字幕：https://drive.google.com/file/d/1zQGAkgU1e_KYpjz1viWtkR4XxDUMjrbs/view
+
+**GitHub Release 未完成**：本沙箱对 `uploads.github.com` 全部请求返回 EOF（api.github.com 正常），
+空 Release `kadota2022-ep26-final` 已删除，避免留下没有资产的壳。如需 Release 备份，请在有上传通道的环境执行：
+`gh release create kadota2022-ep26-final` 并附 `kadota2022-ep26-180s-1080p.mp4 / -cover.png / -subtitles.srt`。
+
+**抖音上传未做**（需人工）。
