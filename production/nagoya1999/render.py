@@ -382,6 +382,20 @@ def main() -> int:
               "subtitle_file": str(srt), "shots": technical}
     report_path = args.work / "technical-report.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # 逐字听检（production/verbatim_check.py）按章节边界切成片再转写，边界只能来自渲染实测。
+    # 2026-11-24：这条时间轴以前没人写，听检在 Actions 上一步就 SystemExit（少了报告，
+    # 但 continue-on-error 把它算成 success），等于听检从未真正跑过。缺文件必须当场崩，
+    # 不许让"没跑"看起来像"通过"。
+    timing = HERE / "delivery" / "narration-timing.json"
+    timing.parent.mkdir(parents=True, exist_ok=True)
+    timing.write_text(json.dumps(
+        {"film_sha256": digest(args.output),
+         "note": "render.py 实测的章节边界（字幕窗口同源），供 verbatim_check.py 切片转写",
+         "chapters": [{"id": row["id"], "start": shot["start"],
+                       "end": round(shot["start"] + row["target_seconds"], 3)}
+                      for row, shot in zip(technical, story["shots"])]},
+        ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("TIMING_WRITTEN", timing.relative_to(ROOT), flush=True)
     print("FIRST_CUT_READY", args.output, flush=True)
     return 0
 

@@ -289,7 +289,24 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit(f"找不到成片：{args.film}")
     args.work.mkdir(parents=True, exist_ok=True)
 
-    chapters = load_chapters(args.project, args.timing)
+    try:
+        chapters = load_chapters(args.project, args.timing)
+    except VerdictError as error:
+        # 2026-11-24：这条路径以前直接 SystemExit 抛出，Actions 上 continue-on-error
+        # 把它记成 success、报告却没生成 —— "没跑"被当成"通过"。缺时间轴 = 听检没做成，
+        # 必须落一份写明原因的失败报告并以非零退出。
+        out = args.report or args.work / "verbatim-check.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps({
+            "film": args.film.name,
+            "project": str(args.project),
+            "status": "NOT_RUN",
+            "error": str(error),
+            "max_cer_allowed": args.max_cer,
+            "note": "听检没有执行（不是通过）。按 README 第 9 步先补齐渲染时间轴再重跑。",
+        }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"听检未执行：{error}", file=sys.stderr, flush=True)
+        return 2
     print(f"DECODE {args.film}", flush=True)
     samples = decode_audio(args.film, args.work)
 

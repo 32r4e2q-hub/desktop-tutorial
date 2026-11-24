@@ -291,6 +291,33 @@ class ProvenanceTests(unittest.TestCase):
             self.assertEqual(chapters[0]["start"], 0.6)
             self.assertEqual(chapters[0]["text"], "甲")
 
+    def test_a_missing_timeline_is_a_reported_failure_not_a_silent_pass(self):
+        """2026-11-24 事故：缺时间轴时 main() 抛 SystemExit，Actions 的 continue-on-error
+        把它记成 success、报告一份也没生成——"没跑"被当成"通过"。必须非零退出并落失败报告。"""
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            project = root / "project"
+            project.mkdir()
+            (project / "story.json").write_text(
+                '{"chapters":[{"id":"N01","text":"甲"}]}', encoding="utf-8")
+            film = root / "film.wav"
+            with wave.open(str(film), "wb") as writer:
+                writer.setnchannels(1)
+                writer.setsampwidth(2)
+                writer.setframerate(48000)
+                writer.writeframes(b"\x00\x00" * 4800)
+            report = root / "work" / "verbatim-check.json"
+            code = verbatim_check.main([
+                "--film", str(film), "--project", str(project),
+                "--work", str(root / "work"), "--report", str(report),
+            ])
+            self.assertEqual(code, 2)
+            payload = json.loads(report.read_text(encoding="utf-8"))
+            self.assertEqual(payload["status"], "NOT_RUN")
+            self.assertIn("时间轴", payload["error"])
+
 
 if __name__ == "__main__":
     unittest.main()
