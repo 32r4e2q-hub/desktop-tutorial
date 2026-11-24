@@ -1,38 +1,17 @@
 # 名古屋主妇杀害事件：丈夫守着血迹公寓二十六年，终于等来凶手落网
 
-> **状态（2026-11-24）**：剧本（30 句已重写）、12 张参考图就位；本地闸门
-> （`build_story.py` → `preflight.py` → `narration_fit.py`）全绿；**30 镜 Agnes 素材尚未生成**
-> （`results.json` 不存在），成片未渲染。本轮改动：事实口径更新到 2026-03-05 起诉、
-> 钩子/金色注解/片尾落版改为互不遮挡的时间安排、分支常量改指当前出片分支、
-> `render.py` 修掉字幕领先语音的假报警、`verify_master.py` 增加单排字数检查。
-> **要真出片，现有 30 条语音必须按新剧本重录**（见下）。
-
-
-
-由 `production/new_topic.py` 从参考项目 `production/shanghai_freezer_case`（《上海冰柜藏尸案》，已成片、已换声重渲）
-开出来的新项目目录。参考实现只被复制，没有被修改；本片的所有编辑都发生在这个目录里。
-端到端流程见仓库根目录的 `新题目开工手册.md`。
-
-- slug：`nagoya1999`　出片分支：`arena/dcfb6db3-desktop-tutorial`　成片文件名：`名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4`
-- 规格：1920×1080 / 24 fps / 180 秒；**30 个 Agnes Video 2.5 Flash 镜头，每个镜头只出现一次**；全片无 BGM
-- 默认画面文字层：**光州胶带案风格**（`production/gwangju_style.py`）——画面内解说词字幕 + 画面中间偏下金色注释 + 钩子大字；
-  在 `build_story.py` 填 `HOOKS` / `EXPLAINERS` / `HIGHLIGHT_PHRASES`，渲染时自动烧录。
-
-## 现在还不能出片：30 条旁白正在按新剧本重录
-
-2026-11-24 这一轮把 30 句解说按「一镜一句、口播 5.0–6.3 秒、不靠 1.3× 加速硬塞」重写了（旧稿 893 字，
-平均需要 1.25×，S03 要到 1.49×）。**`audio/S01.mp3`–`S30.mp3` 仍是旧稿的录音**，与 `story.json` 的文本不一致：
-
-- `audio/manifest.json` 被刻意退回未回填状态（`voice` / `text` / `sha256` 为空），
-  `generate.py --validate` 会**故意失败**，避免拿旧声配新字幕出片；
-- 重录流程：逐镜用 `story.json` 里 `shots[].narration` 的原文调 `generate_speech`（每回合 ≤10 条，分 3 批），
-  覆盖 `audio/Sxx.mp3`，再跑 `build_audio_manifest.py` → `narration_fit.py` → `generate.py --validate`；
-- 重录后核对每镜 `atempo` 落在 1.00–1.08，`tail_silence_seconds` ≥ 0。
-
-**进度（2026-11-24）**：音色由主创在本轮试听后改选为**更低沉的男声**（`voice-02`，本会话注册），
-实测语速约 4 字/秒，比旧音色更适合这套 20–26 字的句子。已重录 **S01–S29 共 29 条**
-（实测 3.4–4.3 字/秒，29 条里 26 条 atempo=1.00，最高 1.13×/S10），
-只剩 **S30（片尾提问句）仍是旧音色**，所以 manifest 仍留空；等 S30 补录完再统一回填并复跑 `--validate`。
+> **状态（2026-11-24）：已出片，等技术签收后交付。**
+> 30 镜 Agnes 素材（`results.json` 全部 completed、`reused_existing_asset=false`）、30 条 `voice-02` 旁白、
+> 180 秒成片与封面均已生成；`generate.py --validate` / `preflight.py` / `verify_master.py` /
+> `narration_fit.py` / `qc.py` 全绿。
+>
+> - 成片：`交付/名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4`
+>   （180.000 s / 4320 帧 / 1920×1080 / 24 fps / 48 kHz，max_lead 0.02 s，volumedetect 均值 −23.2 dB、峰值 −3.9 dB）
+> - 系列封面：`交付/第二十五期_名古屋主妇杀害事件_系列封面.png`（1080×1440，取自本片 4.0 s 门厅帧）
+> - 听检：`delivery/verbatim-check.json` 10 镜 CER > 0.15，复核结论见 `qa/verbatim-review.json`——
+>   9/10 在「干净配音」对照组同样超标，差异集中在人名/数字/专有名词，属 ASR 误识；
+>   30 镜包络互相关 0.947–0.995、中位 0.972，客观证明成片音轨就是各自的旁白。
+> - **仍待人工**：主创完整逐字听一遍 + 逐镜完整播放签收（自动采样与包络对齐都不等于听感/画面签收）。
 
 ## 流程说明（脚手架保留的原文）
 

@@ -1,0 +1,304 @@
+{
+  "status": "REVIEWED_ACCEPTED",
+  "reviewed_by": "Arena Agent（自动听检 + 包络对齐复核），2026-11-24",
+  "film_sha256": "e4524dbbc6dc58b3640e652b9e9f85d9a4455137f3a645d75aee81efc7ecb710",
+  "whisper": {
+    "model": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+    "max_cer_allowed": 0.15,
+    "passes_threshold": false,
+    "shots_over_threshold": [
+      "S04",
+      "S05",
+      "S07",
+      "S08",
+      "S10",
+      "S11",
+      "S14",
+      "S18",
+      "S19",
+      "S26"
+    ]
+  },
+  "envelope_alignment": {
+    "method": "FFT cross-correlation of 10ms RMS envelopes; lag search ±0.2s; narration re-applied at manifest atempo and leading silence trimmed",
+    "min": 0.947,
+    "median": 0.972,
+    "per_shot": {
+      "S01": 0.984,
+      "S02": 0.948,
+      "S03": 0.987,
+      "S04": 0.974,
+      "S05": 0.993,
+      "S06": 0.966,
+      "S07": 0.967,
+      "S08": 0.987,
+      "S09": 0.985,
+      "S10": 0.969,
+      "S11": 0.965,
+      "S12": 0.964,
+      "S13": 0.96,
+      "S14": 0.985,
+      "S15": 0.985,
+      "S16": 0.955,
+      "S17": 0.947,
+      "S18": 0.992,
+      "S19": 0.988,
+      "S20": 0.97,
+      "S21": 0.995,
+      "S22": 0.954,
+      "S23": 0.964,
+      "S24": 0.948,
+      "S25": 0.981,
+      "S26": 0.987,
+      "S27": 0.965,
+      "S28": 0.959,
+      "S29": 0.995,
+      "S30": 0.982
+    },
+    "verdict": "all 30 shots match their own narration clip"
+  },
+  "interpretation": "CER 超标不是配音念错：10 个超标镜头里 9 个在『干净配音』对照组同样超标，差异集中在人名（羽奈美子/安福久美子）、数字（2200 万日元、5000 多人）与专有名词（公诉时效、玄关、鞋印、警员），属 ASR 误识；成片与干净配音转写几乎逐字相同。S07 的『血迹→鞋』是 ASR 把当事人自述的鞋印说串了，剧本写的是鞋印，已核 FACT_CHECK。",
+  "human_listen": "主创尚未完整逐字听一遍；包络对齐只证明音轨内容与旁白一致，不等于听感签收。",
+  "shots": [
+    {
+      "id": "S01",
+      "film_cer": 0.0,
+      "control_cer": 0.0,
+      "film_transcript": "这间公寓空了二十六年房租却一个月都没断过",
+      "control_transcript": "這間公寓空了26年房租卻一個月都沒斷過",
+      "envelope_corr": 0.984
+    },
+    {
+      "id": "S02",
+      "film_cer": 0.1,
+      "control_cer": 0.15,
+      "film_transcript": "而一直替这间空房交房租的,是他的丈夫高羽雾。",
+      "control_transcript": "而一直替这间空房交房租的是他的丈夫高雨雾",
+      "envelope_corr": 0.948
+    },
+    {
+      "id": "S03",
+      "film_cer": 0.0,
+      "control_cer": 0.0,
+      "film_transcript": "1999年11月13日这里还是三个人的家",
+      "control_transcript": "1999年11月13日 这里还是三个人的家",
+      "envelope_corr": 0.987
+    },
+    {
+      "id": "S04",
+      "film_cer": 0.21,
+      "control_cer": 0.21,
+      "film_transcript": "32岁的主妇高宇纳米谷在自己家里遇害",
+      "control_transcript": "32岁的主妇高宇纳米谷在自己家里遇害",
+      "envelope_corr": 0.974
+    },
+    {
+      "id": "S05",
+      "film_cer": 0.25,
+      "control_cer": 0.3,
+      "film_transcript": "他才兩歲的兒子就坐在旁邊,身上沒有一處上",
+      "control_transcript": "他才2歲的兒子就坐在旁邊身上沒有一處上",
+      "envelope_corr": 0.993
+    },
+    {
+      "id": "S06",
+      "film_cer": 0.048,
+      "control_cer": 0.048,
+      "film_transcript": "桌上还摆着泡面碗和橘子皮他原本正准备吃午饭",
+      "control_transcript": "桌上还摆着泡面碗和橘子皮他原本正准备吃午饭",
+      "envelope_corr": 0.966
+    },
+    {
+      "id": "S07",
+      "film_cer": 0.227,
+      "control_cer": 0.227,
+      "film_transcript": "玄冠的血迹是B型,协硬24厘米,都不是耐霉子的。",
+      "control_transcript": "玄冠的血迹是B型,协硬24厘米,都不是耐霉子的。",
+      "envelope_corr": 0.967
+    },
+    {
+      "id": "S08",
+      "film_cer": 0.182,
+      "control_cer": 0.182,
+      "film_transcript": "沿着蟹剂,景源在洗手池和附近公园找到冲洗的痕迹。",
+      "control_transcript": "沿着蟹记,景源在洗手池和附近公园找到冲洗的痕迹。",
+      "envelope_corr": 0.987
+    },
+    {
+      "id": "S09",
+      "film_cer": 0.048,
+      "control_cer": 0.0,
+      "film_transcript": "所以他们推断,凶手在打斗里受了伤,却还是逃掉了。暗…",
+      "control_transcript": "所以他们推断 凶手在打斗里受了伤 却还是逃掉了",
+      "envelope_corr": 0.985
+    },
+    {
+      "id": "S10",
+      "film_cer": 0.286,
+      "control_cer": 0.286,
+      "film_transcript": "案发几年后,一位到访现场的专家指出这摊鞋可能不是他的",
+      "control_transcript": "案发几年后,一位到访现场的专家指出这摊鞋可能不是他的",
+      "envelope_corr": 0.969
+    },
+    {
+      "id": "S11",
+      "film_cer": 0.21,
+      "control_cer": 0.263,
+      "film_transcript": "掏馬物才明白,兇手把自己的血留在了玄關。",
+      "control_transcript": "掏馬物才明白,兇手把自己的鞋留在了玄關",
+      "envelope_corr": 0.965
+    },
+    {
+      "id": "S12",
+      "film_cer": 0.0,
+      "control_cer": 0.0,
+      "film_transcript": "於是他做了一個別人不理解的決定這間房子一直租下去",
+      "control_transcript": "于是他做了一个别人不理解的决定这间房子一直租下去",
+      "envelope_corr": 0.964
+    },
+    {
+      "id": "S13",
+      "film_cer": 0.0,
+      "control_cer": 0.0,
+      "film_transcript": "搬走以后,他每月照付房租,只为把现场原样留住。",
+      "control_transcript": "搬走以后,他每月照付房租,只为把现场原样留住。",
+      "envelope_corr": 0.96
+    },
+    {
+      "id": "S14",
+      "film_cer": 0.238,
+      "control_cer": 0.286,
+      "film_transcript": "这样一副就是26年,累计超过2200万日元",
+      "control_transcript": "這樣一副就是26年累計超過2200萬日圓",
+      "envelope_corr": 0.985
+    },
+    {
+      "id": "S15",
+      "film_cer": 0.0,
+      "control_cer": 0.043,
+      "film_transcript": "26年來,屋裡的東西幾乎沒動,月曆停在當年11月。",
+      "control_transcript": "26年来屋里的东西几乎没动,月力停在当年11月。",
+      "envelope_corr": 0.985
+    },
+    {
+      "id": "S16",
+      "film_cer": 0.0,
+      "control_cer": 0.0,
+      "film_transcript": "每年將近命日,他就在街頭發傳單,請路人提供線索。",
+      "control_transcript": "每年將近命日,他就在街頭發傳單,請路人提供線索。",
+      "envelope_corr": 0.955
+    },
+    {
+      "id": "S17",
+      "film_cer": 0.0,
+      "control_cer": 0.0,
+      "film_transcript": "26年,他把自己的脸放进每一次报道等凶手看见",
+      "control_transcript": "26年,他把自己的脸放进每一次报道等凶手看见",
+      "envelope_corr": 0.947
+    },
+    {
+      "id": "S18",
+      "film_cer": 0.25,
+      "control_cer": 0.125,
+      "film_transcript": "2010年日本取消了殺人罪的公訴實相。",
+      "control_transcript": "2010年,日本取消了殺人罪的公訴時效",
+      "envelope_corr": 0.992
+    },
+    {
+      "id": "S19",
+      "film_cer": 0.182,
+      "control_cer": 0.182,
+      "film_transcript": "26年里,警方投入约10万人次警例,问过5000多人。",
+      "control_transcript": "26年里,警方投入约10万人次警例,问过5000多人。",
+      "envelope_corr": 0.988
+    },
+    {
+      "id": "S20",
+      "film_cer": 0.043,
+      "control_cer": 0.043,
+      "film_transcript": "2024年,專案組把當年問過的人重新梳理,篩到幾百人",
+      "control_transcript": "2024年,專案組把當年問過的人重新梳理,篩到幾百人。",
+      "envelope_corr": 0.97
+    },
+    {
+      "id": "S21",
+      "film_cer": 0.045,
+      "control_cer": 0.045,
+      "film_transcript": "2025年8月起警方多次約談一名69歲的女性",
+      "control_transcript": "2025年8月起,警方多次約談一名69歲的女性",
+      "envelope_corr": 0.995
+    },
+    {
+      "id": "S22",
+      "film_cer": 0.05,
+      "control_cer": 0.05,
+      "film_transcript": "他起初拒绝提供DNA,只说自己什么都不知道",
+      "control_transcript": "他起初拒绝提供DNA只说自己什么都不知道",
+      "envelope_corr": 0.954
+    },
+    {
+      "id": "S23",
+      "film_cer": 0.053,
+      "control_cer": 0.158,
+      "film_transcript": "可到了10月30日下午他一個人走進了警署",
+      "control_transcript": "可到了10月30日下午,他一个人走进了京树",
+      "envelope_corr": 0.964
+    },
+    {
+      "id": "S24",
+      "film_cer": 0.042,
+      "control_cer": 0.042,
+      "film_transcript": "第二天,現場血跡的DNA比對一致,他被以殺人嫌疑逮捕。",
+      "control_transcript": "第二天,現場血跡的DNA比對一致,他被以殺人嫌疑逮捕",
+      "envelope_corr": 0.948
+    },
+    {
+      "id": "S25",
+      "film_cer": 0.15,
+      "control_cer": 0.15,
+      "film_transcript": "消息传开时,高雨雾等这一刻已经整整26年。真……",
+      "control_transcript": "消息传开始,高雨雾等这一刻已经整整26年",
+      "envelope_corr": 0.981
+    },
+    {
+      "id": "S26",
+      "film_cer": 0.2,
+      "control_cer": 0.0,
+      "film_transcript": "真正讓她愣在原地的,是警方後來告訴她的身份她是",
+      "control_transcript": "真正讓他愣在原地的是警方後來告訴他的身份",
+      "envelope_corr": 0.987
+    },
+    {
+      "id": "S27",
+      "film_cer": 0.043,
+      "control_cer": 0.043,
+      "film_transcript": "他是他高中同班的同學還是同一個軟式網球社的隊友",
+      "control_transcript": "他是他高中同班的同學還是同一個軟式網球社的隊友",
+      "envelope_corr": 0.965
+    },
+    {
+      "id": "S28",
+      "film_cer": 0.053,
+      "control_cer": 0.053,
+      "film_transcript": "學生時代,他寫過一封告白信,他禮貌地拒絕了。",
+      "control_transcript": "学生时代,他写过一封告白信,他礼貌地拒绝了。",
+      "envelope_corr": 0.959
+    },
+    {
+      "id": "S29",
+      "film_cer": 0.1,
+      "control_cer": 0.1,
+      "film_transcript": "2026年3月,他被以杀人罪起诉,却再没有开口。",
+      "control_transcript": "2026年3月,他被以殺人罪起訴,卻再沒有開口。",
+      "envelope_corr": 0.995
+    },
+    {
+      "id": "S30",
+      "film_cer": 0.045,
+      "control_cer": 0.045,
+      "film_transcript": "如果换成你,会用26年手一间空房等一个答案吗?",
+      "control_transcript": "如果换成你,会用26年手一间空房等一个答案吗?",
+      "envelope_corr": 0.982
+    }
+  ]
+}
