@@ -80,7 +80,8 @@
 - 2026-11-24：参考图 12 张全部 approved（C01–C03、S01–S09），`reference/revision.txt` 钉 `e92692f`。
 - 配音音色：`voice-03`（本轮试听由主创选定；第 25 期的 `voice-02` 属上次会话，已不可用）。
 - 已录 **26 条**：S01–S26（S08、S14 已重录，全片无一条顶满 6 s 镜头）。
-- **待录 4 条**：S27–S30。
+- 配音已全部录入（30/30），`build_audio_manifest.py` 回填完成，max atempo=1.000x（无变速）。
+- `generate.py --validate`、`preflight.py`、`narration_fit.py` 全绿。
 - 内容审核会拦的字眼（已踩过）：头部遭重击 / 被杀害 / 被埋。改写方向是法医式中性表述与事后视角，
   不写作案动作；事实与 FACT_CHECK.md 的条目保持一致。
 - 之后：`build_audio_manifest.py` → `generate.py --validate` → `GEN_REQUEST`（clips → render）→ 封面 → 发布文案。
