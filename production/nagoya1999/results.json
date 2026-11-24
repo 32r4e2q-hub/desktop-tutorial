@@ -1312,7 +1312,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1359,11 +1359,37 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-24T06:59:17Z",
   "run_id": "45332586249",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/nagoya1999/clips/名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/nagoya1999/clips/名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_Cover.jpg",
+    "delivered": {
+      "名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4": {
+        "bytes": 70971490,
+        "sha256": "196ade762e2421846d46b12f94127690e6773485eba9a8d810f6a2810c5c0719"
+      },
+      "名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_Cover.jpg": {
+        "bytes": 235703,
+        "sha256": "2bed72c3e7a70a9f6d9ed65f8d523088d6b459323975b17ce168dcd15b21a901"
+      },
+      "名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_Subtitles.srt": {
+        "bytes": 3147,
+        "sha256": "7cee8d6886c77f206210b89afd05872309aaa9fbf1bba579bf76ba1c7760c668"
+      },
+      "名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_Technical_Report.json": {
+        "bytes": 11295,
+        "sha256": "63a4601a385a9aa22d9559460e69bc391404472b838877de4a4eed18588f1434"
+      }
+    }
+  }
 }
