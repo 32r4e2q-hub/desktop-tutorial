@@ -7,14 +7,14 @@
   "fps": 24,
   "model": "agnes-video-2.5-flash",
   "source_size": "720P",
-  "branch": "arena/f9f847e0-desktop-tutorial",
-  "style_prefix": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。",
-  "negative_prompt": "【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-  "style_rumor_prefix": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。",
+  "branch": "arena/dcfb6db3-desktop-tutorial",
+  "style_prefix": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。",
+  "negative_prompt": "【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+  "style_rumor_prefix": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。",
   "characters": {
-    "高羽悟": "三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸",
-    "安福": "六十九岁日本女性，深色朴素外套，低头掩面背影或暗影侧脸，不露正脸",
-    "刑警": "四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节"
+    "高羽悟": "四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸",
+    "安福": "六十多岁的日本女性，身形清瘦，深色朴素外套，低头的背影或暗处剪影，始终不露正脸",
+    "刑警": "四十多岁的日本男刑警，深灰风衣，手里常拿着记事本，只出现侧脸与手部"
   },
   "character_seeds": {
     "高羽悟": 2501,
@@ -36,219 +36,219 @@
     "voice_id": "voice-02",
     "description": "悬疑纪录片向低沉普通话男声，克制压抑",
     "language": "zh-CN",
-    "target_characters_per_second": 4.2,
+    "target_characters_per_second": 4.1,
     "alignment": "一镜一句，一镜一条TTS与一条字幕；只在确有必要时加速，不慢放"
   },
   "chapters": [
     {
       "id": "S01",
-      "title": "第一章 凝结在一九九九",
+      "title": "第一章 停住的房间",
       "start": 0,
       "duration": 6,
-      "text": "一间空无一人的日本公寓，丈夫自费租了整整二十六年，只为守住玄关的痕迹。"
+      "text": "这间公寓空了二十六年，房租却一个月都没断过。"
     },
     {
       "id": "S02",
-      "title": "第一章 凝结在一九九九",
+      "title": "第一章 停住的房间",
       "start": 6,
       "duration": 6,
-      "text": "时间回到一九九九年十一月十三日，名古屋市西区发生了一起震惊日本的命案。"
+      "text": "而一直替这间空房交房租的，是她的丈夫高羽悟。"
     },
     {
       "id": "S03",
-      "title": "第一章 凝结在一九九九",
+      "title": "第一章 停住的房间",
       "start": 12,
       "duration": 6,
-      "text": "当天下午，三十二岁的主妇高羽奈美子在家中遇害，两岁儿子就在身旁。"
+      "text": "一九九九年十一月十三日，这里还是三个人的家。"
     },
     {
       "id": "S04",
-      "title": "第一章 凝结在一九九九",
+      "title": "第一章 停住的房间",
       "start": 18,
       "duration": 6,
-      "text": "警方勘查发现，一向爱干净的奈美子桌上还放着泡面，说明来客完全出乎意料。"
+      "text": "三十二岁的主妇高羽奈美子，在屋里被人杀害。"
     },
     {
       "id": "S05",
-      "title": "第一章 凝结在一九九九",
+      "title": "第一章 停住的房间",
       "start": 24,
       "duration": 6,
-      "text": "更关键的是，警方在玄关处发现了约二十四公分的鞋印和B型血迹。"
+      "text": "她才两岁的儿子就坐在旁边，身上没有一处伤。"
     },
     {
       "id": "S06",
       "title": "第二章 玄关的秘密",
       "start": 30,
       "duration": 6,
-      "text": "警方判断凶手在搏斗中受了伤，捂着伤口逃离，却没能查出对方身份。"
+      "text": "桌上还摆着泡面碗和橘子皮，她原本正准备吃午饭。"
     },
     {
       "id": "S07",
       "title": "第二章 玄关的秘密",
       "start": 36,
       "duration": 6,
-      "text": "案发三年后，一名专家提醒丈夫高羽悟，玄关留下的痕迹很可能属于凶手。"
+      "text": "玄关的血迹是B型，鞋印二十四厘米，都不是奈美子的。"
     },
     {
       "id": "S08",
       "title": "第二章 玄关的秘密",
       "start": 42,
       "duration": 6,
-      "text": "从那以后，高羽悟下定决心，无论搬去哪里，这间案发公寓绝不退租。"
+      "text": "沿着血迹，警员在洗手池和附近公园找到冲洗的痕迹。"
     },
     {
       "id": "S09",
       "title": "第二章 玄关的秘密",
       "start": 48,
       "duration": 6,
-      "text": "为了防止线索被破坏，他用保护垫盖住玄关地面，墙上月历永远停在十一月。"
+      "text": "所以他们推断，凶手在打斗里受了伤，却还是逃掉了。"
     },
     {
       "id": "S10",
       "title": "第二章 玄关的秘密",
       "start": 54,
       "duration": 6,
-      "text": "整整二十六年，他累计支付房租超过两千两百万日元，头发也渐渐花白。"
+      "text": "案发几年后，一位到访现场的专家指出：这摊血可能不是她的。"
     },
     {
       "id": "S11",
-      "title": "第三章 二十六年的房租",
+      "title": "第三章 几年之后",
       "start": 60,
       "duration": 6,
-      "text": "每年案发周年，他都会走上街头分发传单，只求有人能提供哪怕一条线索。"
+      "text": "高羽悟这才明白，凶手把自己的血留在了玄关。"
     },
     {
       "id": "S12",
-      "title": "第三章 二十六年的房租",
+      "title": "第三章 几年之后",
       "start": 66,
       "duration": 6,
-      "text": "与此同时，爱知县警方二十六年来累计动员十万警力，排查了五千多人。"
+      "text": "于是他做了一个别人不理解的决定：这间房子，一直租下去。"
     },
     {
       "id": "S13",
-      "title": "第三章 二十六年的房租",
+      "title": "第三章 几年之后",
       "start": 72,
       "duration": 6,
-      "text": "直到二零二四年，警方重新梳理旧案资料，将重点对象缩小到几百人。"
+      "text": "搬走以后，他每月照付房租，只为把现场原样留住。"
     },
     {
       "id": "S14",
-      "title": "第三章 二十六年的房租",
+      "title": "第三章 几年之后",
       "start": 78,
       "duration": 6,
-      "text": "二零二五年八月，警方开始多次约谈一名住在名古屋港区的六十九岁女性。"
+      "text": "这样一付，就是二十六年，累计超过两千两百万日元。"
     },
     {
       "id": "S15",
-      "title": "第三章 二十六年的房租",
+      "title": "第三章 几年之后",
       "start": 84,
       "duration": 6,
-      "text": "她叫安福久美子，起初多次拒绝提供DNA样本，直到十月底态度突然松动。"
+      "text": "二十六年来，屋里的东西几乎没动，月历停在当年十一月。"
     },
     {
       "id": "S16",
-      "title": "第四章 十万警力的排查",
+      "title": "第四章 房租与传单",
       "start": 90,
       "duration": 6,
-      "text": "十月三十日，安福久美子竟然独自走进警署自首，并在次日被警方正式逮捕。"
+      "text": "每年将近命日，他就在街头发传单，请路人提供线索。"
     },
     {
       "id": "S17",
-      "title": "第四章 十万警力的排查",
+      "title": "第四章 房租与传单",
       "start": 96,
       "duration": 6,
-      "text": "经检测，她与当年现场留下的DNA完全一致，二十六年的悬案终于迎来突破。"
+      "text": "二十六年，他把自己的脸放进每一次报道，等凶手看见。"
     },
     {
       "id": "S18",
-      "title": "第四章 十万警力的排查",
+      "title": "第四章 房租与传单",
       "start": 102,
       "duration": 6,
-      "text": "而当警方公布嫌疑人身份时，守候了二十六年的高羽悟却感到无比震惊。"
+      "text": "二〇一〇年，日本取消了杀人罪的公诉时效。"
     },
     {
       "id": "S19",
-      "title": "第四章 十万警力的排查",
+      "title": "第四章 房租与传单",
       "start": 108,
       "duration": 6,
-      "text": "因为这名六十九岁的嫌疑人，竟然是他当年高中软式网球社的同班同学。"
+      "text": "二十六年里，警方投入约十万人次警力，问过五千多人。"
     },
     {
       "id": "S20",
-      "title": "第四章 十万警力的排查",
+      "title": "第四章 房租与传单",
       "start": 114,
       "duration": 6,
-      "text": "高羽悟回忆，高中时曾收到过她的告白信，自己拒绝后两人几乎再无往来。"
+      "text": "二〇二四年，专案组把当年问过的人重新梳理，筛到几百人。"
     },
     {
       "id": "S21",
-      "title": "第五章 走进警署的女人",
+      "title": "第五章 走进警署的人",
       "start": 120,
       "duration": 6,
-      "text": "谁也没想到，这段几十年前的旧事，竟会演变成二十六年前那场无妄之灾。"
+      "text": "二〇二五年八月起，警方多次约谈一名六十九岁的女性。"
     },
     {
       "id": "S22",
-      "title": "第五章 走进警署的女人",
+      "title": "第五章 走进警署的人",
       "start": 126,
       "duration": 6,
-      "text": "安福久美子交代，这二十六年来自己每天都活在恐惧中，生怕给家人添麻烦。"
+      "text": "她起初拒绝提供DNA，只说自己什么都不知道。"
     },
     {
       "id": "S23",
-      "title": "第五章 走进警署的女人",
+      "title": "第五章 走进警署的人",
       "start": 132,
       "duration": 6,
-      "text": "为了躲避怀疑，她几乎不与邻居深交，在超市打工度日，像透明人一样生活。"
+      "text": "可到了十月三十日下午，她一个人走进了警署。"
     },
     {
       "id": "S24",
-      "title": "第五章 走进警署的女人",
+      "title": "第五章 走进警署的人",
       "start": 138,
       "duration": 6,
-      "text": "二十六年后，警方带着她重返那间从未改变的公寓进行现场勘验。"
+      "text": "第二天，现场血迹的DNA比对一致，她被以杀人嫌疑逮捕。"
     },
     {
       "id": "S25",
-      "title": "第五章 走进警署的女人",
+      "title": "第五章 走进警署的人",
       "start": 144,
       "duration": 6,
-      "text": "掀开保护垫，二十六年前的痕迹依然清晰，仿佛时间从未在这里流走。"
+      "text": "消息传开时，高羽悟等这一刻，已经整整二十六年。"
     },
     {
       "id": "S26",
-      "title": "第六章 迟到二十六年的答案",
+      "title": "第六章 二十六年之后",
       "start": 150,
       "duration": 6,
-      "text": "高羽悟说，二十六年付出的房租都值得，只对妻子感到深深的抱歉。"
+      "text": "真正让他愣在原地的，是警方后来告诉他的身份。"
     },
     {
       "id": "S27",
-      "title": "第六章 迟到二十六年的答案",
+      "title": "第六章 二十六年之后",
       "start": 156,
       "duration": 6,
-      "text": "他终于可以在亡妻的牌位前，亲口说出那个迟到了四分之一世纪的答案。"
+      "text": "她是他高中同班的同学，还是同一个软式网球社的队友。"
     },
     {
       "id": "S28",
-      "title": "第六章 迟到二十六年的答案",
+      "title": "第六章 二十六年之后",
       "start": 162,
       "duration": 6,
-      "text": "两千两百万日元换不回逝去的生命，却守住了唯一没有被时间抹去的证据。"
+      "text": "学生时代，她写过一封告白信，他礼貌地拒绝了。"
     },
     {
       "id": "S29",
-      "title": "第六章 迟到二十六年的答案",
+      "title": "第六章 二十六年之后",
       "start": 168,
       "duration": 6,
-      "text": "再漫长的黑夜也有尽头，只要有人不肯忘记，真相就总有一天会被等来。"
+      "text": "二〇二六年三月，她被以杀人罪起诉，却再没有开口。"
     },
     {
       "id": "S30",
-      "title": "第六章 迟到二十六年的答案",
+      "title": "第六章 二十六年之后",
       "start": 174,
       "duration": 6,
-      "text": "如果是你，你会像高羽悟一样，用二十六年去守一间空房等一个答案吗？"
+      "text": "如果换成你，会用二十六年守一间空房，等一个答案吗？"
     }
   ],
   "shots": [
@@ -262,17 +262,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2501,
-      "narration": "一间空无一人的日本公寓，丈夫自费租了整整二十六年，只为守住玄关的痕迹。",
-      "visual": "昏暗日本旧式公寓玄关空镜，地面铺着深色保护垫，空气凝滞，门外透进冷光。",
-      "camera": "缓慢推近玄关地面",
-      "sound_design": "室内死寂环境风声",
+      "narration": "这间公寓空了二十六年，房租却一个月都没断过。",
+      "visual": "昏暗老式日式公寓玄关，木地板上一块深色地垫，门缝透进一线冷光，空气里浮着细尘。",
+      "camera": "从门缝向玄关地面缓慢推近",
+      "sound_design": "空房间的低频回响与远处车声",
       "grade": "冷青灰强明暗对比",
       "reference_ids": "S01",
-      "roles": [
-        "高羽悟"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗日本旧式公寓玄关空镜，地面铺着深色保护垫，空气凝滞，门外透进冷光。 运镜：缓慢推近玄关地面。影调：冷青灰强明暗对比。 人物锚点：高羽悟：三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "dc7617d225d9d60b5c4540d1c2cca332f610ea30f055c4f5683772ebacc25fee"
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：昏暗老式日式公寓玄关，木地板上一块深色地垫，门缝透进一线冷光，空气里浮着细尘。 运镜：从门缝向玄关地面缓慢推近。影调：冷青灰强明暗对比。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "a5b192ef004a542d6559dbb7d2c7d501d8acba6e3fd5425ee2b09a573c697103"
     },
     {
       "id": "S02",
@@ -284,15 +282,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2502,
-      "narration": "时间回到一九九九年十一月十三日，名古屋市西区发生了一起震惊日本的命案。",
-      "visual": "一九九九年十一月阴天名古屋市区老旧公寓外景，电线交错，街道冷清。",
-      "camera": "缓慢横摇公寓外景",
-      "sound_design": "城市远景风声",
-      "grade": "冷灰蓝",
-      "reference_ids": "S02",
-      "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：一九九九年十一月阴天名古屋市区老旧公寓外景，电线交错，街道冷清。 运镜：缓慢横摇公寓外景。影调：冷灰蓝。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "5937e172343451e491f6711c93d1dc0fdcb2f391f0d56c2cf1f95a799c53e95c"
+      "narration": "而一直替这间空房交房租的，是她的丈夫高羽悟。",
+      "visual": "同一个玄关的另一角度，一双男式皮鞋停在垫子边缘，裤脚沾着雨水。",
+      "camera": "低机位横移跟拍脚步",
+      "sound_design": "皮鞋踩在旧木地板上的轻响",
+      "grade": "暗部压深、门光过曝",
+      "reference_ids": "S01",
+      "roles": [
+        "高羽悟"
+      ],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：同一个玄关的另一角度，一双男式皮鞋停在垫子边缘，裤脚沾着雨水。 运镜：低机位横移跟拍脚步。影调：暗部压深、门光过曝。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "5c9c3d2e5f2543f5ac0fc649dd9e6bfb5ca099e0d74fa43ed7f8edb8a55935c4"
     },
     {
       "id": "S03",
@@ -304,15 +304,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2503,
-      "narration": "当天下午，三十二岁的主妇高羽奈美子在家中遇害，两岁儿子就在身旁。",
-      "visual": "昏暗客厅空镜，茶几旁散落着儿童玩具积木与未收拾的橘子皮，不出现任何遗体。",
-      "camera": "浅景深推进桌面",
-      "sound_design": "室内钟表滴答声",
-      "grade": "冷暖交界",
-      "reference_ids": "S03",
+      "narration": "一九九九年十一月十三日，这里还是三个人的家。",
+      "visual": "名古屋市西区阴天的老式公寓外景，电线低垂，二楼走廊挂着几件没干的衣服。",
+      "camera": "缓慢横摇整栋公寓外立面",
+      "sound_design": "风穿过电线的呜声",
+      "grade": "冷灰蓝、阴天低照度",
+      "reference_ids": "S02",
       "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗客厅空镜，茶几旁散落着儿童玩具积木与未收拾的橘子皮，不出现任何遗体。 运镜：浅景深推进桌面。影调：冷暖交界。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "3f8e5177f5f5b6163a316cb7c54c8732d91a82204b07e25ae44ebb358051c631"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：名古屋市西区阴天的老式公寓外景，电线低垂，二楼走廊挂着几件没干的衣服。 运镜：缓慢横摇整栋公寓外立面。影调：冷灰蓝、阴天低照度。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "9e0254a75255ac5e0376ab662e7e62c89636c15b6b5e4d2a6673af10ebf9f4d8"
     },
     {
       "id": "S04",
@@ -324,15 +324,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2504,
-      "narration": "警方勘查发现，一向爱干净的奈美子桌上还放着泡面，说明来客完全出乎意料。",
-      "visual": "厨房与餐桌一角特写，一只未吃完的泡面碗静静摆在台面，灯光昏暗。",
-      "camera": "浅景深缓慢平移",
-      "sound_design": "水龙头滴水声",
-      "grade": "暗暖转冷",
-      "reference_ids": "S03",
+      "narration": "三十二岁的主妇高羽奈美子，在屋里被人杀害。",
+      "visual": "二楼走廊尽头半开的房门，门内一片暗，走廊灯管忽明忽暗。",
+      "camera": "沿走廊向门口缓推",
+      "sound_design": "灯管电流声与沉闷脚步",
+      "grade": "强明暗对比",
+      "reference_ids": "S02",
       "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：厨房与餐桌一角特写，一只未吃完的泡面碗静静摆在台面，灯光昏暗。 运镜：浅景深缓慢平移。影调：暗暖转冷。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "43087ded9d3615d67de5207eef7bb406e8a30478cdc157e71d41bdc76eee0793"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：二楼走廊尽头半开的房门，门内一片暗，走廊灯管忽明忽暗。 运镜：沿走廊向门口缓推。影调：强明暗对比。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "5e80ebaf3992ae4b45f60302797880ca349315de00e0791471c013d92a829c64"
     },
     {
       "id": "S05",
@@ -344,17 +344,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2505,
-      "narration": "更关键的是，警方在玄关处发现了约二十四公分的鞋印和B型血迹。",
-      "visual": "玄关门厅地面局部光影特写，门框边缘冷硬反光，不见血腥画面。",
-      "camera": "俯拍局部推进",
-      "sound_design": "相机快门轻响",
-      "grade": "强明暗对比",
-      "reference_ids": "S01",
-      "roles": [
-        "刑警"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：玄关门厅地面局部光影特写，门框边缘冷硬反光，不见血腥画面。 运镜：俯拍局部推进。影调：强明暗对比。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "b731458fa33eaa188062db5bd3917c29f8fa18055ca34a15b4f11f586c25c22d"
+      "narration": "她才两岁的儿子就坐在旁边，身上没有一处伤。",
+      "visual": "昏暗室内地板一角，散落着几块彩色积木和一只小拖鞋，窗帘半掩。",
+      "camera": "浅景深贴地慢慢平移",
+      "sound_design": "钟表滴答与室外远处人声",
+      "grade": "暖色残光与冷影交界",
+      "reference_ids": "S03",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：昏暗室内地板一角，散落着几块彩色积木和一只小拖鞋，窗帘半掩。 运镜：浅景深贴地慢慢平移。影调：暖色残光与冷影交界。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "ee403ac9d95a26603ba9cb24883b663e33ce201167970b8d130f85385041178f"
     },
     {
       "id": "S06",
@@ -366,17 +364,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2506,
-      "narration": "警方判断凶手在搏斗中受了伤，捂着伤口逃离，却没能查出对方身份。",
-      "visual": "公寓楼外夜间楼梯间，一道模糊背影迅速走下台阶消失在夜色里。",
-      "camera": "远景侧跟拍",
-      "sound_design": "急促下楼脚步声",
-      "grade": "极暗冷调",
-      "reference_ids": "S02",
-      "roles": [
-        "安福"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：公寓楼外夜间楼梯间，一道模糊背影迅速走下台阶消失在夜色里。 运镜：远景侧跟拍。影调：极暗冷调。 人物锚点：安福：六十九岁日本女性，深色朴素外套，低头掩面背影或暗影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "acedaac3b69e6f8c38316a64e17228532c11abcaf53aecd2fe359565715ecf4f"
+      "narration": "桌上还摆着泡面碗和橘子皮，她原本正准备吃午饭。",
+      "visual": "餐桌上的一只泡面碗与几片橘子皮，筷子搁在碗沿，椅背挂着围裙。",
+      "camera": "桌面高度侧向缓慢推近",
+      "sound_design": "瓷碗轻碰声",
+      "grade": "钨丝灯暗暖",
+      "reference_ids": "S03",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：餐桌上的一只泡面碗与几片橘子皮，筷子搁在碗沿，椅背挂着围裙。 运镜：桌面高度侧向缓慢推近。影调：钨丝灯暗暖。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "82e120f9b6e9f3fd00259c778f468d92d57c402ebcf99cc617b2afeb195afe09"
     },
     {
       "id": "S07",
@@ -388,17 +384,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2507,
-      "narration": "案发三年后，一名专家提醒丈夫高羽悟，玄关留下的痕迹很可能属于凶手。",
-      "visual": "昏暗公寓内，高羽悟背影站在玄关前低头看着地面保护垫，久久不动。",
-      "camera": "侧逆光中景",
-      "sound_design": "低频环境沉音",
-      "grade": "冷灰压抑",
+      "narration": "玄关的血迹是B型，鞋印二十四厘米，都不是奈美子的。",
+      "visual": "玄关地面局部，刑警戴手套的手把标尺放上地垫边缘，手电光柱扫过污痕。",
+      "camera": "俯拍贴地极近推进，手部特写随手电光移动",
+      "sound_design": "相机快门与手套摩擦声",
+      "grade": "冷白高反差",
       "reference_ids": "S01",
       "roles": [
-        "高羽悟"
+        "刑警"
       ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗公寓内，高羽悟背影站在玄关前低头看着地面保护垫，久久不动。 运镜：侧逆光中景。影调：冷灰压抑。 人物锚点：高羽悟：三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "c75573ac404f790fda85f7bfc9180771b22bac8ea83bfeb61f5bdcbb8c3c1875"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：玄关地面局部，刑警戴手套的手把标尺放上地垫边缘，手电光柱扫过污痕。 运镜：俯拍贴地极近推进，手部特写随手电光移动。影调：冷白高反差。 人物锚点：刑警：四十多岁的日本男刑警，深灰风衣，手里常拿着记事本，只出现侧脸与手部。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "93ee6149e7140cc687152759cacdb5763e1dde83d2345710dcbb4e015067929d"
     },
     {
       "id": "S08",
@@ -410,15 +406,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2508,
-      "narration": "从那以后，高羽悟下定决心，无论搬去哪里，这间案发公寓绝不退租。",
-      "visual": "公寓墙面特写，一本泛黄的老式月历安静挂在暗影里，页面静止。",
-      "camera": "定镜缓慢推进",
-      "sound_design": "纸张微动轻响",
-      "grade": "冷硬纪实",
-      "reference_ids": "S04",
+      "narration": "沿着血迹，警员在洗手池和附近公园找到冲洗的痕迹。",
+      "visual": "公寓外铁架楼梯与公共洗手台，水龙头还在滴水，天色已暗，路灯刚亮。",
+      "camera": "沿楼梯扶手向下缓慢跟拍",
+      "sound_design": "金属楼梯的回声与滴水声",
+      "grade": "冷蓝夜色",
+      "reference_ids": "S05",
       "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：公寓墙面特写，一本泛黄的老式月历安静挂在暗影里，页面静止。 运镜：定镜缓慢推进。影调：冷硬纪实。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "eb4d29f7c8a6c63dd0cb3fee5c0a65d193b822c5d16c6bdaed0383afe12fb180"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：公寓外铁架楼梯与公共洗手台，水龙头还在滴水，天色已暗，路灯刚亮。 运镜：沿楼梯扶手向下缓慢跟拍。影调：冷蓝夜色。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "09b46e1519f0adeaedf0e1e5ae68bbf38858bcfa2b89e58eb43ce4da220fbd74"
     },
     {
       "id": "S09",
@@ -430,17 +426,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2509,
-      "narration": "为了防止线索被破坏，他用保护垫盖住玄关地面，墙上月历永远停在十一月。",
-      "visual": "高羽悟戴着手套轻轻铺平玄关保护垫的局部手部特写。",
-      "camera": "局部手部特写",
-      "sound_design": "布料摩擦声",
-      "grade": "暗调高反差",
-      "reference_ids": "S01",
-      "roles": [
-        "高羽悟"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：高羽悟戴着手套轻轻铺平玄关保护垫的局部手部特写。 运镜：局部手部特写。影调：暗调高反差。 人物锚点：高羽悟：三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "a47041ea44124cf12e3ba3173937ceda81c25eca54dd58b66b25f4cccbcb9455"
+      "narration": "所以他们推断，凶手在打斗里受了伤，却还是逃掉了。",
+      "visual": "公寓停车场的水泥地，一滩被水冲淡的印子，路灯下反着光。",
+      "camera": "低角度缓慢升起",
+      "sound_design": "远处汽车驶过与夜风",
+      "grade": "冷调、局部过曝",
+      "reference_ids": "S05",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：公寓停车场的水泥地，一滩被水冲淡的印子，路灯下反着光。 运镜：低角度缓慢升起。影调：冷调、局部过曝。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "54f633106f021edb4b2fd90104b8a2b9236bb52838d75319d9531a44b9f0c999"
     },
     {
       "id": "S10",
@@ -452,17 +446,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2510,
-      "narration": "整整二十六年，他累计支付房租超过两千两百万日元，头发也渐渐花白。",
-      "visual": "名古屋街头冬日风中，鬓角斑白的高羽悟背影独自走过斑马线。",
-      "camera": "中景跟拍背影",
-      "sound_design": "冬季街头风声与车流",
-      "grade": "冷蓝夜色",
-      "reference_ids": "S05",
-      "roles": [
-        "高羽悟"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：名古屋街头冬日风中，鬓角斑白的高羽悟背影独自走过斑马线。 运镜：中景跟拍背影。影调：冷蓝夜色。 人物锚点：高羽悟：三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "5627b5195c031b09a19ad7b606aa12ff14f9f5d127e69d50a4d6372d3c31ce27"
+      "narration": "案发几年后，一位到访现场的专家指出：这摊血可能不是她的。",
+      "visual": "夜晚的书房，桌上摊着放大镜与几张照片，台灯只照亮桌面一角。",
+      "camera": "隔台灯光晕缓慢推近",
+      "sound_design": "翻纸声与室内静默",
+      "grade": "暗暖强对比",
+      "reference_ids": "S04",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：夜晚的书房，桌上摊着放大镜与几张照片，台灯只照亮桌面一角。 运镜：隔台灯光晕缓慢推近。影调：暗暖强对比。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "dd1a074495275d7c5dba89ee2483d98152091f162159d03d9024b9eb254c9b6a"
     },
     {
       "id": "S11",
@@ -474,17 +466,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2511,
-      "narration": "每年案发周年，他都会走上街头分发传单，只求有人能提供哪怕一条线索。",
-      "visual": "人流稀少的名古屋车站外，高羽悟弯腰递出空白纸页传单的侧影。",
-      "camera": "缓慢横摇街景",
-      "sound_design": "街头脚步声",
-      "grade": "冷灰调",
-      "reference_ids": "S05",
+      "narration": "高羽悟这才明白，凶手把自己的血留在了玄关。",
+      "visual": "公寓玄关里，一道男性背影蹲下身，手悬在地面上方没有落下。",
+      "camera": "侧逆光中景缓缓下降",
+      "sound_design": "低沉环境音与呼吸声",
+      "grade": "暖冷交界",
+      "reference_ids": "S01",
       "roles": [
         "高羽悟"
       ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：人流稀少的名古屋车站外，高羽悟弯腰递出空白纸页传单的侧影。 运镜：缓慢横摇街景。影调：冷灰调。 人物锚点：高羽悟：三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "38e903cc0ca8f817517d7e7e04b06d6c86603c6e7074d1c64fbbddcbf557273b"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：公寓玄关里，一道男性背影蹲下身，手悬在地面上方没有落下。 运镜：侧逆光中景缓缓下降。影调：暖冷交界。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "02c0a19dfa0650a84c739c14237e770686c43bf5e12425c7ec6f105d0913aae0"
     },
     {
       "id": "S12",
@@ -496,17 +488,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2512,
-      "narration": "与此同时，爱知县警方二十六年来累计动员十万警力，排查了五千多人。",
-      "visual": "警局夜间档案室，一排排厚重卷宗在冷白日光灯下静静立在铁架上。",
-      "camera": "缓慢平移档案架",
-      "sound_design": "日光灯微嗡",
-      "grade": "冷青调",
-      "reference_ids": "S06",
+      "narration": "于是他做了一个别人不理解的决定：这间房子，一直租下去。",
+      "visual": "老式公寓的租房合同摊在桌上，一支笔停在纸页边缘，窗外是阴天。",
+      "camera": "俯拍手部缓慢平移",
+      "sound_design": "笔尖轻响与远处雨声",
+      "grade": "钨丝灯暖光压暗",
+      "reference_ids": "S04",
       "roles": [
-        "刑警"
+        "高羽悟"
       ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：警局夜间档案室，一排排厚重卷宗在冷白日光灯下静静立在铁架上。 运镜：缓慢平移档案架。影调：冷青调。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "fe7713524f00f9d5bb11267978b1d8c8801bf3f8f62de0e485abbd06a5c43d16"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：老式公寓的租房合同摊在桌上，一支笔停在纸页边缘，窗外是阴天。 运镜：俯拍手部缓慢平移。影调：钨丝灯暖光压暗。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "17da5d39b7a41b56b7d708f85abcf60d3f6ece7037cb600dfb39c8f94a42514b"
     },
     {
       "id": "S13",
@@ -518,17 +510,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2513,
-      "narration": "直到二零二四年，警方重新梳理旧案资料，将重点对象缩小到几百人。",
-      "visual": "刑警坐在办公桌前翻看旧案卷宗的侧脸剪影，桌面台灯亮着。",
-      "camera": "隔玻璃缓慢推进",
-      "sound_design": "纸张翻动声",
-      "grade": "高对比冷调",
-      "reference_ids": "S06",
+      "narration": "搬走以后，他每月照付房租，只为把现场原样留住。",
+      "visual": "信箱里塞进一只信封，一只手把它抽出，背景是斑驳的公寓墙面。",
+      "camera": "手部特写缓慢拉开",
+      "sound_design": "信箱金属摩擦声",
+      "grade": "冷灰",
+      "reference_ids": "S02",
       "roles": [
-        "刑警"
+        "高羽悟"
       ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：刑警坐在办公桌前翻看旧案卷宗的侧脸剪影，桌面台灯亮着。 运镜：隔玻璃缓慢推进。影调：高对比冷调。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "f7265360a4351c2507ff5a2e30d13bd186f77ea4b5cdb8e6d2900322dbd05ef2"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：信箱里塞进一只信封，一只手把它抽出，背景是斑驳的公寓墙面。 运镜：手部特写缓慢拉开。影调：冷灰。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "ab2c47fcc429ca8b4a0eb99282739f84f4949d9d83d3956cf117551545c930ed"
     },
     {
       "id": "S14",
@@ -540,17 +532,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2514,
-      "narration": "二零二五年八月，警方开始多次约谈一名住在名古屋港区的六十九岁女性。",
-      "visual": "审讯室外走廊，一名穿深色朴素外套的年长女性低头走过的背影。",
-      "camera": "长跟拍背影",
-      "sound_design": "走廊脚步声",
-      "grade": "冷暗压抑",
-      "reference_ids": "S07",
-      "roles": [
-        "安福"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：审讯室外走廊，一名穿深色朴素外套的年长女性低头走过的背影。 运镜：长跟拍背影。影调：冷暗压抑。 人物锚点：安福：六十九岁日本女性，深色朴素外套，低头掩面背影或暗影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "a8911fb8b00d3dd6ddc503c527947940b551da6ca145756bfa754c45878da5e4"
+      "narration": "这样一付，就是二十六年，累计超过两千两百万日元。",
+      "visual": "书桌上一叠厚厚的缴费单据，边角已经卷起，台灯照着最上面一张。",
+      "camera": "俯拍纸堆缓慢推近并轻摇",
+      "sound_design": "纸张摩擦声",
+      "grade": "暗暖、浅景深",
+      "reference_ids": "S04",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：书桌上一叠厚厚的缴费单据，边角已经卷起，台灯照着最上面一张。 运镜：俯拍纸堆缓慢推近并轻摇。影调：暗暖、浅景深。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "30aeb0445d5d8487295f9b5072b56118f270bbd492ffd9cff5a44e1c99c57270"
     },
     {
       "id": "S15",
@@ -562,17 +552,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2515,
-      "narration": "她叫安福久美子，起初多次拒绝提供DNA样本，直到十月底态度突然松动。",
-      "visual": "审讯室桌面，一只透明样本管与白色棉签盒静静摆在冷光下。",
-      "camera": "俯拍微距",
-      "sound_design": "桌面轻响",
-      "grade": "冷白聚光",
-      "reference_ids": "S07",
-      "roles": [
-        "刑警"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：审讯室桌面，一只透明样本管与白色棉签盒静静摆在冷光下。 运镜：俯拍微距。影调：冷白聚光。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "244f6abf112d91232154d28aaeb09ae12a5e023292beb62129ac04e183b58a75"
+      "narration": "二十六年来，屋里的东西几乎没动，月历停在当年十一月。",
+      "visual": "墙面上一本泛黄月历，纸角卷起，旁边贴着一张褪色便签，光线偏斜。",
+      "camera": "从侧面缓慢横移到月历",
+      "sound_design": "纸张轻响与室内静默",
+      "grade": "强明暗对比",
+      "reference_ids": "S04",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：墙面上一本泛黄月历，纸角卷起，旁边贴着一张褪色便签，光线偏斜。 运镜：从侧面缓慢横移到月历。影调：强明暗对比。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "b66b7b6855647cb35ef23d5c99f1b2d315cb2d2ce42b43442c2d0defd8f8693a"
     },
     {
       "id": "S16",
@@ -584,17 +572,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2516,
-      "narration": "十月三十日，安福久美子竟然独自走进警署自首，并在次日被警方正式逮捕。",
-      "visual": "日本警署大门外景，阴天冷光下一名年长女性背影独自走上台阶。",
-      "camera": "远景仰拍推进",
-      "sound_design": "城市风声",
-      "grade": "冷灰庄重",
-      "reference_ids": "S08",
+      "narration": "每年将近命日，他就在街头发传单，请路人提供线索。",
+      "visual": "名古屋车站前的阴天街口，一个中年男人背影向行人递出纸页。",
+      "camera": "中景跟拍背影横穿人群",
+      "sound_design": "街头人声与车流",
+      "grade": "冷灰、低饱和",
+      "reference_ids": "S05",
       "roles": [
-        "安福"
+        "高羽悟"
       ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：日本警署大门外景，阴天冷光下一名年长女性背影独自走上台阶。 运镜：远景仰拍推进。影调：冷灰庄重。 人物锚点：安福：六十九岁日本女性，深色朴素外套，低头掩面背影或暗影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "19ef0e8b9d7a18f821d3756aaf54217c4d9aa60af502ca9073891d22c47a169c"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：名古屋车站前的阴天街口，一个中年男人背影向行人递出纸页。 运镜：中景跟拍背影横穿人群。影调：冷灰、低饱和。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "6aef356ec85b5739e02b79ff5692e7f1c3201a56d1ac0ee85d79ad1a4e3e6d7a"
     },
     {
       "id": "S17",
@@ -606,15 +594,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2517,
-      "narration": "经检测，她与当年现场留下的DNA完全一致，二十六年的悬案终于迎来突破。",
-      "visual": "实验室玻璃反光后，检验仪器微光闪烁，镜头缓慢推进。",
-      "camera": "隔玻璃推近",
-      "sound_design": "仪器轻微提示音",
-      "grade": "冷青调",
-      "reference_ids": "S06",
-      "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：实验室玻璃反光后，检验仪器微光闪烁，镜头缓慢推进。 运镜：隔玻璃推近。影调：冷青调。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "fbc75bc4a225e1cddafebbf5c4e2a26dd45afb655c28193efed63247983b5004"
+      "narration": "二十六年，他把自己的脸放进每一次报道，等凶手看见。",
+      "visual": "寒冷的街角，男人背影站在便利店灯箱前，雨丝斜落。",
+      "camera": "背身缓慢拉远",
+      "sound_design": "雨声与霓虹电流声",
+      "grade": "冷蓝夜色",
+      "reference_ids": "S05",
+      "roles": [
+        "高羽悟"
+      ],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：寒冷的街角，男人背影站在便利店灯箱前，雨丝斜落。 运镜：背身缓慢拉远。影调：冷蓝夜色。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "8fa6b1bd430b2dbabc9ff738142d4ea5bdd4648447f8f0a9206f8097860d696a"
     },
     {
       "id": "S18",
@@ -626,17 +616,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2518,
-      "narration": "而当警方公布嫌疑人身份时，守候了二十六年的高羽悟却感到无比震惊。",
-      "visual": "高羽悟站在公寓窗边接听电话的背影剪影，窗外是名古屋阴天。",
-      "camera": "侧逆光定镜",
-      "sound_design": "电话听筒微响",
-      "grade": "强明暗对比",
-      "reference_ids": "S04",
-      "roles": [
-        "高羽悟"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：高羽悟站在公寓窗边接听电话的背影剪影，窗外是名古屋阴天。 运镜：侧逆光定镜。影调：强明暗对比。 人物锚点：高羽悟：三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "b42d35d63ee158fdd0a254459ab4b308a0604209eeff684c928371e531a483fb"
+      "narration": "二〇一〇年，日本取消了杀人罪的公诉时效。",
+      "visual": "警署档案室，一排排标着编号的纸箱沿着铁架延伸到暗处。",
+      "camera": "沿货架缓慢推轨",
+      "sound_design": "铁架轻响与脚步回声",
+      "grade": "冷青、灯管泛白",
+      "reference_ids": "S06",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：警署档案室，一排排标着编号的纸箱沿着铁架延伸到暗处。 运镜：沿货架缓慢推轨。影调：冷青、灯管泛白。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "a8ed1e945bfadb983db70b68ac9bbaad62f73b5a93e15f1b0e4a51d732235977"
     },
     {
       "id": "S19",
@@ -648,15 +636,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2519,
-      "narration": "因为这名六十九岁的嫌疑人，竟然是他当年高中软式网球社的同班同学。",
-      "visual": "泛黄旧校园网球场空镜，铁丝网外冷风吹过空荡球场。",
-      "camera": "广角缓慢横摇",
-      "sound_design": "球网风声",
-      "grade": "冷暖交替",
-      "reference_ids": "S09",
-      "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：泛黄旧校园网球场空镜，铁丝网外冷风吹过空荡球场。 运镜：广角缓慢横摇。影调：冷暖交替。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "c3b7d7829b14cd625819ecd7f4993214a26a5f2a21dfc2ae91315a0511170b8b"
+      "narration": "二十六年里，警方投入约十万人次警力，问过五千多人。",
+      "visual": "档案室长桌，摊开的卷宗层层叠叠，一盏台灯照着密密麻麻的手写字。",
+      "camera": "俯拍缓慢下摇",
+      "sound_design": "翻页声与笔尖声",
+      "grade": "暗暖冷调混光",
+      "reference_ids": "S06",
+      "roles": [
+        "刑警"
+      ],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：档案室长桌，摊开的卷宗层层叠叠，一盏台灯照着密密麻麻的手写字。 运镜：俯拍缓慢下摇。影调：暗暖冷调混光。 人物锚点：刑警：四十多岁的日本男刑警，深灰风衣，手里常拿着记事本，只出现侧脸与手部。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "19ecaa489df42a67192ce3ec6b2e459ff14866cf9673913a48a78bf355698d60"
     },
     {
       "id": "S20",
@@ -668,15 +658,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2520,
-      "narration": "高羽悟回忆，高中时曾收到过她的告白信，自己拒绝后两人几乎再无往来。",
-      "visual": "昏暗书桌一角，一封未拆封的旧信纸在微风中轻轻晃动。",
-      "camera": "浅景深微距",
-      "sound_design": "纸页轻响",
-      "grade": "暗暖转冷",
-      "reference_ids": "S04",
-      "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗书桌一角，一封未拆封的旧信纸在微风中轻轻晃动。 运镜：浅景深微距。影调：暗暖转冷。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "ef64e19c073863a85764e20363b902b5d609b8c3967f65c10e71c58aa89ebe21"
+      "narration": "二〇二四年，专案组把当年问过的人重新梳理，筛到几百人。",
+      "visual": "白板上贴满卡片与连线，一支手把其中一张轻轻扶正，画面里没有可读文字。",
+      "camera": "侧后方浅景深推近白板",
+      "sound_design": "卡片摩擦与马克笔轻响",
+      "grade": "冷白高对比",
+      "reference_ids": "S06",
+      "roles": [
+        "刑警"
+      ],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：白板上贴满卡片与连线，一支手把其中一张轻轻扶正，画面里没有可读文字。 运镜：侧后方浅景深推近白板。影调：冷白高对比。 人物锚点：刑警：四十多岁的日本男刑警，深灰风衣，手里常拿着记事本，只出现侧脸与手部。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "1e4609d68f87f1dafc03f4ffed6c768c6356a35121a34e39afbfd0b6fa078ace"
     },
     {
       "id": "S21",
@@ -688,15 +680,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2521,
-      "narration": "谁也没想到，这段几十年前的旧事，竟会演变成二十六年前那场无妄之灾。",
-      "visual": "名古屋老旧公寓楼外景拉远，天色阴沉。",
-      "camera": "缓慢拉远",
-      "sound_design": "低频环境沉音",
-      "grade": "冷灰绝望",
-      "reference_ids": "S02",
-      "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：名古屋老旧公寓楼外景拉远，天色阴沉。 运镜：缓慢拉远。影调：冷灰绝望。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "6ca52d972907d8972335a3ef1e62d8050928d5397422be6be57848f2c72b57f6"
+      "narration": "二〇二五年八月起，警方多次约谈一名六十九岁的女性。",
+      "visual": "审讯室外走廊，一名年长女性低头走过的背影，墙壁是旧瓷砖。",
+      "camera": "长跟拍背影",
+      "sound_design": "走廊脚步回响",
+      "grade": "冷暗压抑",
+      "reference_ids": "S07",
+      "roles": [
+        "安福"
+      ],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：审讯室外走廊，一名年长女性低头走过的背影，墙壁是旧瓷砖。 运镜：长跟拍背影。影调：冷暗压抑。 人物锚点：安福：六十多岁的日本女性，身形清瘦，深色朴素外套，低头的背影或暗处剪影，始终不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "b7620c0564b8f44f7fd00841a9300a795d23083eab48b75d2aef5b360ce51d3d"
     },
     {
       "id": "S22",
@@ -708,17 +702,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2522,
-      "narration": "安福久美子交代，这二十六年来自己每天都活在恐惧中，生怕给家人添麻烦。",
-      "visual": "审讯室暗影里年长女性低头垂肩的剪影，窗外夜色深沉。",
-      "camera": "缓慢拉远",
-      "sound_design": "室内钟表走动声",
-      "grade": "冷灰压抑",
+      "narration": "她起初拒绝提供DNA，只说自己什么都不知道。",
+      "visual": "审讯桌上一只空水杯和一叠纸巾，对面椅子空着，冷白灯从头顶压下。",
+      "camera": "桌面高度缓缓推近空椅",
+      "sound_design": "日光灯嗡鸣",
+      "grade": "冷白、高反差",
       "reference_ids": "S07",
-      "roles": [
-        "安福"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：审讯室暗影里年长女性低头垂肩的剪影，窗外夜色深沉。 运镜：缓慢拉远。影调：冷灰压抑。 人物锚点：安福：六十九岁日本女性，深色朴素外套，低头掩面背影或暗影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "cae8a214d1fe7bcd87f5c92e1ebf1726cc04b4f146fa62f0dbd8d227f3393b53"
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：审讯桌上一只空水杯和一叠纸巾，对面椅子空着，冷白灯从头顶压下。 运镜：桌面高度缓缓推近空椅。影调：冷白、高反差。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "dec9c0a3dac09c06299a895ce5602486cc264562dfc56f7dc7a56391a5f28300"
     },
     {
       "id": "S23",
@@ -730,17 +722,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2523,
-      "narration": "为了躲避怀疑，她几乎不与邻居深交，在超市打工度日，像透明人一样生活。",
-      "visual": "昏暗居民区小巷，一名穿深色外套的女性背影独自快步走入暗处。",
-      "camera": "远景跟拍背影",
-      "sound_design": "小巷脚步声",
-      "grade": "极暗冷调",
-      "reference_ids": "S05",
+      "narration": "可到了十月三十日下午，她一个人走进了警署。",
+      "visual": "警署门口的石阶，阴天，一名年长女性背影独自往上走。",
+      "camera": "远景仰拍缓慢跟移",
+      "sound_design": "风声与远处车流",
+      "grade": "冷灰、阴天",
+      "reference_ids": "S08",
       "roles": [
         "安福"
       ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗居民区小巷，一名穿深色外套的女性背影独自快步走入暗处。 运镜：远景跟拍背影。影调：极暗冷调。 人物锚点：安福：六十九岁日本女性，深色朴素外套，低头掩面背影或暗影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "52ed150762e95e627fdeabce8ee57b7ab3aceca1856825b94af545809cdfe8e2"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：警署门口的石阶，阴天，一名年长女性背影独自往上走。 运镜：远景仰拍缓慢跟移。影调：冷灰、阴天。 人物锚点：安福：六十多岁的日本女性，身形清瘦，深色朴素外套，低头的背影或暗处剪影，始终不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "c3ab0cac01b7d2bd815bedc1085d9bb046dc81f3dfa06b13a17ebb93df85421b"
     },
     {
       "id": "S24",
@@ -752,17 +744,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2524,
-      "narration": "二十六年后，警方带着她重返那间从未改变的公寓进行现场勘验。",
-      "visual": "公寓门口警车停靠，几名刑警背影走进保存完好的楼道。",
-      "camera": "中景跟拍背影",
-      "sound_design": "对讲机杂音",
-      "grade": "冷硬纪实",
-      "reference_ids": "S02",
-      "roles": [
-        "刑警"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：公寓门口警车停靠，几名刑警背影走进保存完好的楼道。 运镜：中景跟拍背影。影调：冷硬纪实。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "5acebc5afb903ee54f45e26abb7bc143d1c9ddc9b5427f613cadf482f0cd8a76"
+      "narration": "第二天，现场血迹的DNA比对一致，她被以杀人嫌疑逮捕。",
+      "visual": "实验室玻璃后，检验台上的样本架与指示灯，冷光在玻璃上折出反光。",
+      "camera": "隔玻璃浅景深推近",
+      "sound_design": "仪器轻提示音",
+      "grade": "冷青",
+      "reference_ids": "S08",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：实验室玻璃后，检验台上的样本架与指示灯，冷光在玻璃上折出反光。 运镜：隔玻璃浅景深推近。影调：冷青。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "354e569c645a5189a84ec73dbd16bfe8fa11f525b4bedb4143c953998094ec9b"
     },
     {
       "id": "S25",
@@ -774,17 +764,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2525,
-      "narration": "掀开保护垫，二十六年前的痕迹依然清晰，仿佛时间从未在这里流走。",
-      "visual": "玄关地面保护垫被轻轻掀开一角的局部特写，冷光照亮木地板边缘。",
-      "camera": "局部特写推进",
-      "sound_design": "布垫摩擦声",
+      "narration": "消息传开时，高羽悟等这一刻，已经整整二十六年。",
+      "visual": "窗前的背影贴着玻璃，窗外是名古屋阴沉的天空。",
+      "camera": "侧逆光定镜缓慢推近",
+      "sound_design": "电话挂断的轻响",
       "grade": "强明暗对比",
-      "reference_ids": "S01",
+      "reference_ids": "S04",
       "roles": [
-        "刑警"
+        "高羽悟"
       ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：玄关地面保护垫被轻轻掀开一角的局部特写，冷光照亮木地板边缘。 运镜：局部特写推进。影调：强明暗对比。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，目光锐利，侧脸与手部细节。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "ccb2ee51ac949a76935ab5bbf143e1070ec784c9a0239cbeb669c6408c75d00f"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：窗前的背影贴着玻璃，窗外是名古屋阴沉的天空。 运镜：侧逆光定镜缓慢推近。影调：强明暗对比。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "15464ccce1e266bad441c4033e325d7a69fdcdb85533a42589ad50a392379aa0"
     },
     {
       "id": "S26",
@@ -796,17 +786,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2526,
-      "narration": "高羽悟说，二十六年付出的房租都值得，只对妻子感到深深的抱歉。",
-      "visual": "高羽悟背影站在玄关前微微低头，室内透进一丝清晨冷白微光。",
-      "camera": "缓慢推近背影",
-      "sound_design": "清晨微弱风声",
-      "grade": "冷暖交界",
-      "reference_ids": "S01",
-      "roles": [
-        "高羽悟"
-      ],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：高羽悟背影站在玄关前微微低头，室内透进一丝清晨冷白微光。 运镜：缓慢推近背影。影调：冷暖交界。 人物锚点：高羽悟：三十多岁到五十多岁日本男性，深色大衣或西装，疲惫却坚毅的背影与侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "52978a0febb1bffb8492272b92edd8c467a0a5275d819c46b789129f12d30633"
+      "narration": "真正让他愣在原地的，是警方后来告诉他的身份。",
+      "visual": "泛黄的旧校园网球场，铁丝网下空无一人，风把落叶扫过场地。",
+      "camera": "广角缓慢横摇",
+      "sound_design": "铁丝网在风里轻响",
+      "grade": "冷暖交替",
+      "reference_ids": "S09",
+      "roles": [],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：泛黄的旧校园网球场，铁丝网下空无一人，风把落叶扫过场地。 运镜：广角缓慢横摇。影调：冷暖交替。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "f2f22631cbaf2c6c15ee3da0940e6d8a50b5c85c63b114a84666b63cea1a3192"
     },
     {
       "id": "S27",
@@ -818,15 +806,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2527,
-      "narration": "他终于可以在亡妻的牌位前，亲口说出那个迟到了四分之一世纪的答案。",
-      "visual": "昏暗房间窗台前，一束冷白晨光落在空荡的木桌上。",
-      "camera": "缓慢升格推进",
-      "sound_design": "环境风声渐弱",
-      "grade": "冷暖交替",
-      "reference_ids": "S04",
+      "narration": "她是他高中同班的同学，还是同一个软式网球社的队友。",
+      "visual": "旧社团活动室的角落，一张褪色的合影斜靠在柜子上，画面里没有任何可读文字。",
+      "camera": "浅景深微距缓缓推近",
+      "sound_design": "木柜轻响与风声",
+      "grade": "暗暖转冷",
+      "reference_ids": "S09",
       "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：昏暗房间窗台前，一束冷白晨光落在空荡的木桌上。 运镜：缓慢升格推进。影调：冷暖交替。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "2f43f3720f78b65433fd442f817010f30bdf67a3438cb8ccddfd2493a5b8ad93"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：旧社团活动室的角落，一张褪色的合影斜靠在柜子上，画面里没有任何可读文字。 运镜：浅景深微距缓缓推近。影调：暗暖转冷。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "392fb7ea2d49b00d8be30c605f055619cddb3016d8e2461e5fe87b55b6bc60fa"
     },
     {
       "id": "S28",
@@ -838,15 +826,17 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2528,
-      "narration": "两千两百万日元换不回逝去的生命，却守住了唯一没有被时间抹去的证据。",
-      "visual": "名古屋公寓楼外景在晨光中逐渐拉远，天际泛亮。",
-      "camera": "缓慢升格拉远",
-      "sound_design": "清晨微风声",
-      "grade": "极简冷调",
-      "reference_ids": "S02",
-      "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：名古屋公寓楼外景在晨光中逐渐拉远，天际泛亮。 运镜：缓慢升格拉远。影调：极简冷调。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "8f1b94a89bf5bff6e542313890a61f240f458a9a2fb719b460676ed4eef936fd"
+      "narration": "学生时代，她写过一封告白信，他礼貌地拒绝了。",
+      "visual": "旧书桌抽屉被拉开，一叠泛黄信纸压在最下面，窗外光线很淡。",
+      "camera": "俯拍抽屉缓慢推近",
+      "sound_design": "木抽屉摩擦声与纸响",
+      "grade": "暗暖",
+      "reference_ids": "S04",
+      "roles": [
+        "高羽悟"
+      ],
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：旧书桌抽屉被拉开，一叠泛黄信纸压在最下面，窗外光线很淡。 运镜：俯拍抽屉缓慢推近。影调：暗暖。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "f3854ef4fad974514b0524091ab7c5f1ffc64d68ed9e6a15f4a1f582466570de"
     },
     {
       "id": "S29",
@@ -858,15 +848,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2529,
-      "narration": "再漫长的黑夜也有尽头，只要有人不肯忘记，真相就总有一天会被等来。",
-      "visual": "警署石阶在晨光中静默立着，镜头缓慢拉远。",
-      "camera": "缓慢拉远",
-      "sound_design": "环境音渐息",
-      "grade": "冷暖交替",
+      "narration": "二〇二六年三月，她被以杀人罪起诉，却再没有开口。",
+      "visual": "名古屋地检门前的石阶，阴天里空无一人，玻璃门反着灰白的天，台阶上留着未干的水痕。",
+      "camera": "广角缓慢推近石阶",
+      "sound_design": "风声与远处脚步",
+      "grade": "冷青灰",
       "reference_ids": "S08",
       "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：警署石阶在晨光中静默立着，镜头缓慢拉远。 运镜：缓慢拉远。影调：冷暖交替。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "389b98ce32bf2abd3bf0815f4416e71c9f52de71f851aa5107fe46fffd5126d6"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：名古屋地检门前的石阶，阴天里空无一人，玻璃门反着灰白的天，台阶上留着未干的水痕。 运镜：广角缓慢推近石阶。影调：冷青灰。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "b8fc7ac9db93698122f09abcb9775fc19b54887f16eb804510db9e288a388262"
     },
     {
       "id": "S30",
@@ -878,15 +868,15 @@
       "aspect": "16:9",
       "source_size": "720P",
       "seed": 2530,
-      "narration": "如果是你，你会像高羽悟一样，用二十六年去守一间空房等一个答案吗？",
-      "visual": "深色玄关防盗门渐暗入黑，片尾留白等待字幕落版。",
-      "camera": "缓慢推暗渐黑",
-      "sound_design": "关门轻响",
+      "narration": "如果换成你，会用二十六年守一间空房，等一个答案吗？",
+      "visual": "玄关木门在暗处缓缓合上，门缝的光线收成一条线。",
+      "camera": "缓慢推暗至渐黑",
+      "sound_design": "关门轻响与静默",
       "grade": "极简暗调",
       "reference_ids": "S01",
       "roles": [],
-      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年十一月至二零二五年日本名古屋市西区公寓与警署，冷青灰与室内暗暖钨丝灯明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：深色玄关防盗门渐暗入黑，片尾留白等待字幕落版。 运镜：缓慢推暗渐黑。影调：极简暗调。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood pool, no corpse, no child harm depiction, no anime style, no bright idyllic scenery, no deformed hands",
-      "prompt_sha256": "8954c9caaf7b17692b34cc38e4213eda043660feed51a4984c55855d14e593e6"
+      "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：玄关木门在暗处缓缓合上，门缝的光线收成一条线。 运镜：缓慢推暗至渐黑。影调：极简暗调。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+      "prompt_sha256": "5d33a7a9603e553d4149679350b610266d4d536bd800de87ba3581e0abbbb7b1"
     }
   ],
   "reference_images": [
@@ -1046,105 +1036,110 @@
   "presentation": {
     "onscreen_label": "AI动画情景重现 · 非真实影像",
     "highlight_phrases": [
-      "一九九九年十一月十三日",
-      "名古屋",
-      "高羽奈美子",
       "二十六年",
+      "二〇二五年",
+      "高羽奈美子",
+      "高羽悟",
       "两千两百万日元",
-      "二零二五年十月",
-      "安福久美子",
-      "高中同学",
-      "DNA"
+      "DNA",
+      "高中同班同学",
+      "名古屋"
     ],
     "hooks": [
       {
         "id": "H1",
-        "start": 0.5,
-        "end": 2.5,
-        "text": "他租下血迹公寓二十六年，只为等一个名字"
+        "start": 0.4,
+        "end": 2.4,
+        "text": "一间空房，他交了二十六年房租"
       },
       {
         "id": "H2",
-        "start": 24.0,
-        "end": 26.0,
-        "text": "三十一岁主妇家中遇害，两岁幼子就在身旁"
+        "start": 24.4,
+        "end": 26.4,
+        "text": "玄关的血，不是妻子的"
       },
       {
         "id": "H3",
-        "start": 48.0,
-        "end": 50.0,
-        "text": "玄关留下的血脚印，并不属于受害者"
+        "start": 48.4,
+        "end": 50.4,
+        "text": "他把月历停在一九九九年十一月"
       },
       {
         "id": "H4",
-        "start": 72.0,
-        "end": 74.0,
-        "text": "墙上的月历，永远停在一九九九年十一月"
+        "start": 72.4,
+        "end": 74.4,
+        "text": "十万人次警力，找了二十六年"
       },
       {
         "id": "H5",
-        "start": 96.0,
-        "end": 98.0,
-        "text": "二十六年，累计房租超过两千两百万日元"
+        "start": 96.4,
+        "end": 98.4,
+        "text": "六十九岁的她，独自走进警署"
       },
       {
         "id": "H6",
-        "start": 114.0,
-        "end": 116.0,
-        "text": "二零二五年十月，六十九岁女子独自走进警署"
+        "start": 120.4,
+        "end": 122.4,
+        "text": "DNA对上了，她是丈夫的同班同学"
       },
       {
         "id": "H7",
-        "start": 132.0,
-        "end": 134.0,
-        "text": "她竟然是丈夫当年的高中同学"
+        "start": 144.4,
+        "end": 146.4,
+        "text": "他要的不是赔偿，是一个说法"
       },
       {
         "id": "H8",
-        "start": 150.0,
-        "end": 152.0,
-        "text": "DNA比对一致，二十六年悬案终于告破"
+        "start": 162.4,
+        "end": 164.4,
+        "text": "二十六年，只为等一个说法"
       },
       {
         "id": "H9",
-        "start": 168.0,
-        "end": 170.0,
-        "text": "二十六年的执着，终于等来了真相"
+        "start": 168.4,
+        "end": 170.4,
+        "text": "血还在，人已经老了"
       }
     ],
     "explainers": [
       {
         "id": "E1",
-        "start": 12.0,
-        "end": 16.0,
-        "text": "1999年11月13日，日本名古屋市西区"
+        "start": 40.8,
+        "end": 44.6,
+        "text": "2003年，专家指出：玄关血迹可能是凶手的"
       },
       {
         "id": "E2",
-        "start": 84.0,
-        "end": 88.0,
-        "text": "高羽悟自费续租26年，花费超2200万日元"
+        "start": 82.0,
+        "end": 85.8,
+        "text": "26年房租累计约2200万日元（约合人民币100余万元）"
       },
       {
         "id": "E3",
-        "start": 156.0,
-        "end": 160.0,
-        "text": "2025年10月31日，69岁安福久美子被警方逮捕"
+        "start": 145.0,
+        "end": 148.6,
+        "text": "2025年10月31日，安福久美子因杀人嫌疑被逮捕"
+      },
+      {
+        "id": "E4",
+        "start": 169.0,
+        "end": 172.4,
+        "text": "2026年3月5日，名古屋地检以杀人罪起诉，尚未开庭"
       }
     ],
     "end_title": "名古屋主妇杀害事件",
-    "end_subtitle": "1999 – 2025 · 二十六年的守候",
-    "title_start": 174.6,
+    "end_subtitle": "1999 – 2026 · 二十六年，只为等一个说法",
+    "title_start": 176.6,
     "title_end": 179.5,
-    "cover_text": "守着血迹公寓26年",
+    "cover_text": "守着血迹的公寓",
     "cover_concept": "封面只用本片已生成视频截图；禁止用参考图或另造图冒充本期视频帧。",
-    "publish_title": "丈夫守着血迹公寓二十六年，终于等来凶手自首：名古屋主妇杀害事件",
+    "publish_title": "丈夫租下血迹公寓二十六年，凶手竟是他的高中同班同学｜名古屋主妇杀害事件",
     "hashtags": [
       "#名古屋主妇杀害事件",
-      "#日本真实案件",
-      "#高羽奈美子",
+      "#真实案件",
+      "#日本悬案",
       "#案件解说",
-      "#悬疑"
+      "#高羽奈美子"
     ],
     "caption_policy": {
       "regular": "白字黑边，底部居中安全区（MarginV=62），单排56号大字一个逗号出一句；关键词金色高亮并放大",
@@ -1155,24 +1150,58 @@
   },
   "sfx_only": true,
   "fact_check": {
-    "status": "已通过2025年10-11月公开报道核实时间线与逮捕进展；案件仍在司法程序中，不提前定罪，见 FACT_CHECK.md",
-    "as_of": "2026-11-22",
-    "legal_note": "2025年10月31日，69岁嫌疑人安福久美子因DNA比对一致被日本警方以杀人嫌疑逮捕。",
+    "status": "已按2025年10月至2026年3月公开报道核对时间线；2026年3月5日已起诉，刑事裁判未开庭，全片不写判决与动机结论",
+    "as_of": "2026-11-24",
+    "legal_note": "2025年10月31日，安福久美子因现场血迹DNA型一致被爱知县警以杀人嫌疑逮捕；2026年3月5日名古屋地检以杀人罪起诉，首次公判尚未进行，依法推定无罪。",
     "sources": [
       {
-        "publisher": "中央社",
-        "date": "2025-10-31 / 2025-11-03",
-        "url": "https://www.cna.com.tw/news/aopl/202511030244.aspx",
-        "supports": "案发经过、26年租房保存现场与2025年自首被捕"
+        "publisher": "共同通信（47NEWS）",
+        "date": "2025-11-01 前后",
+        "url": "https://www.47news.jp/13685713.html",
+        "supports": "事件经过、26年续租现场保存、房租超过2200万日元、家属表述"
+      },
+      {
+        "publisher": "时事通信",
+        "date": "2025-11-01",
+        "url": "https://www.jiji.com/jc/article?k=2025110100258",
+        "supports": "累计约10万人次警力、5000余人询问、DNA鉴定与10月30日出头、10月31日逮捕"
+      },
+      {
+        "publisher": "朝日新闻",
+        "date": "2026-03-05 / 2026-03-30",
+        "url": "https://www.asahi.com/articles/ASV341G5QV34OIPE01MM.html",
+        "supports": "鉴定留置与杀人罪起诉、家属与长男提起民事赔偿诉讼"
+      },
+      {
+        "publisher": "读卖新闻",
+        "date": "2026-03-05",
+        "url": "https://www.yomiuri.co.jp/national/20260305-GYT1T00201/",
+        "supports": "起诉事实与刑事责任的司法判断"
+      },
+      {
+        "publisher": "产经新闻",
+        "date": "2021-12-25",
+        "url": "https://www.sankei.com/article/20211225-56ZBEHR6SBIVJCLGBYAJXXZS34/",
+        "supports": "玄关血迹与24厘米鞋印、B型、受害者家属现场保存的做法"
+      },
+      {
+        "publisher": "中日新闻",
+        "date": "2025-11",
+        "url": "https://www.chunichi.co.jp/article/1158842",
+        "supports": "被告与被害者丈夫为高中同班同学、同属软式网球社、学生时代曾寄信送巧克力"
       }
     ],
     "editorial_cautions": [
-      "严禁具象化呈现刺杀、大量出血或遗体画面",
-      "嫌疑人刚被逮捕，不得提前写已被判死刑/无期"
+      "严禁具象化呈现刺杀、大量出血或遗体画面（剧本与提示词层面已排除）",
+      "2026年3月已起诉但尚未开庭：不得写判决结果，不得写动机已被证实；片中只写“警方未公布动机”",
+      "不展示现场真实照片、不描摹真实人脸；AI画面一律为虚构演员式背影与局部",
+      "“两千两百万日元”采用逮捕时的公开口径；后续报道出现“2300万日元以上”，片内只取较早的保守数字",
+      "被告姓名与年龄用于事实叙述；其家人、邻居不作任何指名叙述"
     ]
   },
   "production_rules": [
     "全片1920x1080、16:9、24fps、180秒，30段连续运动视频；源片720P，后期高质量放大到1080P。",
-    "全片无BGM；旁白与单排大字字幕逐句锁定，音效/环境声只做轻量辅助，不盖住解说。"
+    "全片无BGM；旁白与单排大字字幕逐句锁定，音效/环境声只做轻量辅助，不盖住解说。",
+    "钩子（MarginV=275）、金色注解（MarginV=200）、底部字幕（MarginV=62）三层时间必须错开，片尾标题只在最后一镜末尾出现。"
   ]
 }

@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 名古屋主妇杀害事件：丈夫守着血迹公寓二十六年，终于等来凶手落网 / nagoya1999 / arena/f9f847e0-desktop-tutorial / f9f847e0-desktop-tutorial / 名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 名古屋主妇杀害事件：丈夫守着血迹公寓二十六年，终于等来凶手落网 / nagoya1999 / arena/dcfb6db3-desktop-tutorial / f9f847e0-desktop-tutorial / 名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>.yml；复制到 .github/workflows/ 后即可用 GEN_REQUEST marker push 触发。
 #
 # 触发方式：在分支上写 production/nagoya1999/GEN_REQUEST（内容就是 JSON payload）并 push。
@@ -13,7 +13,7 @@ run-name: 名古屋主妇杀害事件：丈夫守着血迹公寓二十六年，�
 
 on:
   push:
-    branches: [arena/f9f847e0-desktop-tutorial]
+    branches: [arena/dcfb6db3-desktop-tutorial]
     paths:
       # 只认 marker 文件：编辑本工作流自身不得触发出片（2026-11-21 裁决；自触发曾误跑并降级 results.json 元数据）。
       # 出片/重渲 = 写 GEN_REQUEST（或 workflow_dispatch）显式触发。
@@ -31,19 +31,19 @@ permissions:
   actions: read
 
 concurrency:
-  group: nagoya1999-agnes-arena-f9f847e0-desktop-tutorial
+  group: nagoya1999-agnes-arena-dcfb6db3-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   produce:
-    if: github.ref == 'refs/heads/arena/f9f847e0-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/dcfb6db3-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 300
     steps:
       - name: Checkout the production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/f9f847e0-desktop-tutorial
+          ref: arena/dcfb6db3-desktop-tutorial
           fetch-depth: 1
 
       - name: Install media tools and subtitle font
@@ -135,13 +135,13 @@ jobs:
                 # 先 rebase 到 origin 最新再 push；detached HEAD 也用 HEAD:<branch> 显式推。
                 pushed=0
                 for attempt in 1 2 3; do
-                  if git push origin HEAD:refs/heads/arena/f9f847e0-desktop-tutorial; then
+                  if git push origin HEAD:refs/heads/arena/dcfb6db3-desktop-tutorial; then
                     pushed=1
                     break
                   fi
-                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/f9f847e0-desktop-tutorial"
-                  git fetch origin arena/f9f847e0-desktop-tutorial || true
-                  git pull --rebase origin arena/f9f847e0-desktop-tutorial || git rebase --abort || true
+                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/dcfb6db3-desktop-tutorial"
+                  git fetch origin arena/dcfb6db3-desktop-tutorial || true
+                  git pull --rebase origin arena/dcfb6db3-desktop-tutorial || git rebase --abort || true
                 done
                 if [ "$pushed" != "1" ]; then
                   echo "::error title=failure log push rejected::render-failure.log 三次 push 均失败；最后 120 行已写入步骤摘要，请人工取回"

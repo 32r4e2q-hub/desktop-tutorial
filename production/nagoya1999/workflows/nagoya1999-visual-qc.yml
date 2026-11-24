@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - arena/f9f847e0-desktop-tutorial
+      - arena/dcfb6db3-desktop-tutorial
     paths:
       - production/nagoya1999/VISUAL_QC_REQUEST
 
@@ -20,19 +20,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: nagoya1999-visual-qc-arena-f9f847e0-desktop-tutorial
+  group: nagoya1999-visual-qc-arena-dcfb6db3-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   audit:
-    if: github.ref == 'refs/heads/arena/f9f847e0-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/dcfb6db3-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 90
     steps:
       - name: Check out this production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/f9f847e0-desktop-tutorial
+          ref: arena/dcfb6db3-desktop-tutorial
           fetch-depth: 1
 
       - name: Install ffmpeg, Python and dependencies
@@ -56,9 +56,9 @@ jobs:
           else
             git commit -m "nagoya1999: visual QC report"
             for attempt in 1 2 3; do
-              if git push origin "HEAD:arena/f9f847e0-desktop-tutorial"; then break; fi
-              git fetch origin arena/f9f847e0-desktop-tutorial || true
-              git pull --rebase origin arena/f9f847e0-desktop-tutorial || git rebase --abort || true
+              if git push origin "HEAD:arena/dcfb6db3-desktop-tutorial"; then break; fi
+              git fetch origin arena/dcfb6db3-desktop-tutorial || true
+              git pull --rebase origin arena/dcfb6db3-desktop-tutorial || git rebase --abort || true
             done
           fi
 

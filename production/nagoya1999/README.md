@@ -1,17 +1,39 @@
 # 名古屋主妇杀害事件：丈夫守着血迹公寓二十六年，终于等来凶手落网
 
+> **状态（2026-11-24）**：剧本（30 句已重写）、12 张参考图就位；本地闸门
+> （`build_story.py` → `preflight.py` → `narration_fit.py`）全绿；**30 镜 Agnes 素材尚未生成**
+> （`results.json` 不存在），成片未渲染。本轮改动：事实口径更新到 2026-03-05 起诉、
+> 钩子/金色注解/片尾落版改为互不遮挡的时间安排、分支常量改指当前出片分支、
+> `render.py` 修掉字幕领先语音的假报警、`verify_master.py` 增加单排字数检查。
+> **要真出片，现有 30 条语音必须按新剧本重录**（见下）。
+
+
+
 由 `production/new_topic.py` 从参考项目 `production/shanghai_freezer_case`（《上海冰柜藏尸案》，已成片、已换声重渲）
 开出来的新项目目录。参考实现只被复制，没有被修改；本片的所有编辑都发生在这个目录里。
 端到端流程见仓库根目录的 `新题目开工手册.md`。
 
-- slug：`nagoya1999`　出片分支：`arena/f9f847e0-desktop-tutorial`　成片文件名：`名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4`
+- slug：`nagoya1999`　出片分支：`arena/dcfb6db3-desktop-tutorial`　成片文件名：`名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4`
 - 规格：1920×1080 / 24 fps / 180 秒；**30 个 Agnes Video 2.5 Flash 镜头，每个镜头只出现一次**；全片无 BGM
 - 默认画面文字层：**光州胶带案风格**（`production/gwangju_style.py`）——画面内解说词字幕 + 画面中间偏下金色注释 + 钩子大字；
   在 `build_story.py` 填 `HOOKS` / `EXPLAINERS` / `HIGHLIGHT_PHRASES`，渲染时自动烧录。
 
-## 现在还不能出片（故意的）
+## 现在还不能出片：30 条旁白必须先按新剧本重录
 
-`generate.py --validate` 现在**会失败**，因为解说词、提示词、参考图、配音都是空的。按下面顺序填完，它才会放行。
+2026-11-24 这一轮把 30 句解说按「一镜一句、口播 5.0–6.3 秒、不靠 1.3× 加速硬塞」重写了（旧稿 893 字，
+平均需要 1.25×，S03 要到 1.49×）。**`audio/S01.mp3`–`S30.mp3` 仍是旧稿的录音**，与 `story.json` 的文本不一致：
+
+- `audio/manifest.json` 被刻意退回未回填状态（`voice` / `text` / `sha256` 为空），
+  `generate.py --validate` 会**故意失败**，避免拿旧声配新字幕出片；
+- 重录流程：逐镜用 `story.json` 里 `shots[].narration` 的原文调 `generate_speech`（每回合 ≤10 条，分 3 批），
+  覆盖 `audio/Sxx.mp3`，再跑 `build_audio_manifest.py` → `narration_fit.py` → `generate.py --validate`；
+- 重录后核对每镜 `atempo` 落在 1.00–1.08，`tail_silence_seconds` ≥ 0。
+
+## 流程说明（脚手架保留的原文）
+
+> 注意：下面 1–4 步已经完成（剧本、参考图、角色锚点、事实核查表），5–12 步是出片与验收流程。
+
+流程闸门：`generate.py --validate` 只有等 30 条旁白按新剧本重录、manifest 回填之后才会放行。
 
 ## 待办清单（上海冰柜藏尸案模式）
 

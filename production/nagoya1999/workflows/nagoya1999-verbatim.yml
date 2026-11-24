@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - arena/f9f847e0-desktop-tutorial
+      - arena/dcfb6db3-desktop-tutorial
     paths:
       - production/nagoya1999/VERBATIM_REQUEST
 
@@ -19,12 +19,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: nagoya1999-verbatim-arena-f9f847e0-desktop-tutorial
+  group: nagoya1999-verbatim-arena-dcfb6db3-desktop-tutorial
   cancel-in-progress: false
 
 jobs:
   listen:
-    if: github.ref == 'refs/heads/arena/f9f847e0-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/dcfb6db3-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 60
     env:

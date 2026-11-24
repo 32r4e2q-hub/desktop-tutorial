@@ -24,6 +24,39 @@ import sys
 from pathlib import Path
 
 SRT_TIME = re.compile(r"(\d+):(\d+):(\d+)[,.](\d+) --> (\d+):(\d+):(\d+)[,.](\d+)")
+# 中文台词没有词间空格：用全角标点切句，短句内部才按逗号分。默认识别这套"一排一句"的排版。
+CJK_BREAK = re.compile(r"[，。；：、！？!?,;:]")
+CJK_CHAR = re.compile(r"[\u3400-\u9fff]")
+
+
+def caption_line_overflows(text: str, limit: int = 20) -> list[str]:
+    """把一条字幕拆成实际会显示的行，并挑出超过 limit 个汉字的行。
+
+    渲染器（gwangju_style.caption_lines）按标点把一条旁白拆成若干单排行显示；这里用同样的
+    拆分规则复算一遍，保证"单行 ≤20 字"不是靠肉眼。SRT 里如果已经用换行手写了断句，就沿用。
+    """
+    problems: list[str] = []
+    lines: list[str] = []
+    for raw_line in text.split("\n"):
+        if "\n" not in text and CJK_CHAR.search(raw_line):
+            # 与 caption_lines 相同：先按句内标点切，标点留在前一段，超长再对半切。
+            pieces = [piece for piece in CJK_BREAK.split(raw_line) if piece.strip()]
+            buffer = ""
+            for piece in pieces:
+                candidate = buffer + piece
+                if buffer and len(candidate) > limit:
+                    lines.append(buffer)
+                    buffer = piece
+                else:
+                    buffer = candidate
+            if buffer:
+                lines.append(buffer)
+        else:
+            lines.append(raw_line)
+    for line in lines:
+        if len(line.strip()) > limit:
+            problems.append(line.strip())
+    return problems
 
 
 # ── 纯函数部分：不需要 av / 媒体文件，测试直接调 ─────────────────────────────
@@ -128,6 +161,8 @@ def main(argv=None) -> int:
     ap.add_argument("--json", type=Path, help="报告输出路径")
     ap.add_argument("--max-lead", type=float, default=0.20,
                     help="允许的字幕领先语音上限（秒），默认 0.20")
+    ap.add_argument("--max-line", type=int, default=20,
+                    help="单排字幕最多汉字数；<=0 关闭检查。默认 20（与渲染器 caption_lines 一致）")
     args = ap.parse_args(argv)
 
     import av
@@ -197,6 +232,10 @@ def main(argv=None) -> int:
         failures.append(f"字幕缺失或无法解析：{srt}")
     elif spans:
         failures.extend(cue_window_problems(cues, spans))
+        if args.max_line > 0:
+            for index, cue in enumerate(cues, 1):
+                for line in caption_line_overflows(cue[2], args.max_line):
+                    failures.append(f"第 {index} 条字幕单排 {len(line)} 字，超过 {args.max_line} 字：{line}")
         try:
             samples, rate = decode_audio(args.film)
             blocks = rms_blocks(samples, rate)

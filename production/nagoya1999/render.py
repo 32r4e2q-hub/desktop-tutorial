@@ -107,6 +107,69 @@ def write_cover_ass(path: Path, title: str, subtitle: str) -> None:
     path.write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 
+def settle_cues(cues: list[tuple[float, float, str]],
+                 gap: float = 0.03) -> list[tuple[float, float, str]]:
+    """Trim every caption's tail so it cannot ride over the next shot's picture.
+
+    A caption must still start inside its own shot: ``verify_master.py`` rejects a cue that
+    begins before its shot window, so the lead-in fix lives in the audio (see
+    ``trim_leading_silence``) rather than in the subtitle timings.
+    """
+    trimmed: list[tuple[float, float, str]] = []
+    for index, (start, end, text) in enumerate(cues):
+        if index + 1 < len(cues):
+            end = min(end, cues[index + 1][0] - gap)
+        if end <= start:
+            raise RuntimeError(f"Caption window collapsed while settling: {text!r}")
+        trimmed.append((start, end, text))
+    return trimmed
+
+
+def trim_leading_silence(path: Path, keep: float = 0.02) -> float:
+    """Cut the residual lead-in silence from a rendered narration wav, sample-accurately.
+
+    ``silenceremove`` leaves a breath of silence in front of the line (its ``start_silence``
+    window), and soft Chinese onsets are another few tens of milliseconds of low energy. Both
+    push the first block that an energy detector or ASR accepts past the caption start, which
+    showed up as a 0.19–0.22 s "caption ahead of speech" failure in ``verify_master.py`` even
+    though the line was already aligned to its shot. Trimming to the first voiced sample (minus
+    a 20 ms breath) keeps the caption inside its shot and inside the 0.20 s lead budget.
+    Returns the number of seconds removed.
+    """
+    import wave
+
+    with wave.open(str(path), "rb") as wav:
+        rate, channels, width = wav.getframerate(), wav.getnchannels(), wav.getsampwidth()
+        frames = wav.readframes(wav.getnframes())
+    if width != 2 or not frames:
+        return 0.0
+    import array
+
+    samples = array.array("h")
+    samples.frombytes(frames)
+    if channels > 1:
+        samples = array.array("h", samples[::channels])
+    hop = max(1, rate // 100)  # 10 ms
+    peak = max((abs(v) for v in samples), default=0)
+    if peak == 0:
+        return 0.0
+    threshold = max(120.0, peak * 0.06)
+    offset = 0
+    for start in range(0, max(1, len(samples) - hop), hop):
+        block = samples[start:start + hop]
+        if block and (sum(abs(v) for v in block) / len(block)) > threshold:
+            offset = start
+            break
+    seconds = max(0.0, offset / rate - keep)
+    if seconds <= 0.002:
+        return 0.0
+    trimmed = path.with_name(path.stem + ".trim.wav")
+    run(["ffmpeg", "-y", "-v", "error", "-i", path, "-af", f"atrim=start={seconds:.4f}",
+         "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", trimmed])
+    trimmed.replace(path)
+    return seconds
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sources", type=Path, required=True)
@@ -188,8 +251,9 @@ def main() -> int:
         # of the spoken word and the last line can spill past its shot window.
         speech = segments / f"{sid}.speech.wav"
         run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af",
-             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0,"
              f"atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
+        trim_leading_silence(speech)
         speech_seconds = duration(speech)
         if speech_seconds > target:
             extra = speech_seconds / target
@@ -232,6 +296,8 @@ def main() -> int:
 
     video_list.write_text("\n".join(video_entries) + "\n", encoding="utf-8")
     audio_list.write_text("\n".join(audio_entries) + "\n", encoding="utf-8")
+    # 每条字幕的尾部与下一条对齐，留 30ms 缝：不让一句字幕骑到下一镜的画面上。
+    cues = settle_cues(cues)
     srt.write_text("\n".join(f"{i}\n{srt_time(a)} --> {srt_time(b)}\n{text}\n"
                                   for i, (a, b, text) in enumerate(cues, 1)), encoding="utf-8")
     ass = args.work / "subtitles.ass"
