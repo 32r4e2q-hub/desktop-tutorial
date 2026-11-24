@@ -359,9 +359,9 @@
     "S14": {
       "id": "S14",
       "request_hash": "62043eba7bda7a050e98eddda8d2a7cfb9ffa54e2c26fe0fc65caedf7e141ad8",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-24T05:40:14Z",
+      "updated_at": "2026-11-24T05:41:16Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：书桌上一叠厚厚的缴费单据，边角已经卷起，台灯照着最上面一张。 运镜：俯拍纸堆缓慢推近并轻摇。影调：暗暖、浅景深。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
@@ -375,10 +375,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/39d98ee009b7332ccf80b319cc4a8da44feef4ae/production/nagoya1999/reference/S04.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261124054014361168856AAeqkAo8) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 3,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 30.0
+      "applied_cooldown_seconds": 30.0,
+      "video_id": "task_Z3MVrc5VXNlcQGlXm85Ya5jdeoNZwyJ7",
+      "task_id": "task_Z3MVrc5VXNlcQGlXm85Ya5jdeoNZwyJ7",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S15": {
       "id": "S15",
@@ -545,15 +549,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-24T05:40:14Z",
+  "updated_at": "2026-11-24T05:41:16Z",
   "run_id": "45332586249",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261124054014361168856AAeqkAo8) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-24T05:40:14Z"
-  }
+  "previous_results": {}
 }
