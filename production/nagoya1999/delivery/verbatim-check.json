@@ -1,0 +1,1287 @@
+{
+  "film": "名古屋主妇杀害事件_丈夫守着血迹公寓二十六年，终于等来凶手落网_三分钟_带声音.mp4",
+  "film_sha256": "e4524dbbc6dc58b3640e652b9e9f85d9a4455137f3a645d75aee81efc7ecb710",
+  "film_bytes": 70966219,
+  "project": "production/nagoya1999",
+  "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
+  "max_cer_allowed": 0.15,
+  "film_pass": {
+    "chapters": [
+      {
+        "id": "S01",
+        "start": 0.0,
+        "end": 6.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "这间公寓空了二十六年房租却一个月都没断过"
+      },
+      {
+        "id": "S02",
+        "start": 6.0,
+        "end": 12.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.1,
+        "match_coverage": 0.9,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "悟",
+            "heard": "雾"
+          }
+        ],
+        "transcript": "而一直替这间空房交房租的,是他的丈夫高羽雾。"
+      },
+      {
+        "id": "S03",
+        "start": 12.0,
+        "end": 18.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "1999年11月13日这里还是三个人的家"
+      },
+      {
+        "id": "S04",
+        "start": 18.0,
+        "end": 24.0,
+        "script_chars": 19,
+        "heard_chars": 19,
+        "character_error_rate": 0.2105,
+        "match_coverage": 0.7895,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "羽奈美子",
+            "heard": "宇纳米谷"
+          }
+        ],
+        "transcript": "32岁的主妇高宇纳米谷在自己家里遇害"
+      },
+      {
+        "id": "S05",
+        "start": 24.0,
+        "end": 30.0,
+        "script_chars": 20,
+        "heard_chars": 19,
+        "character_error_rate": 0.25,
+        "match_coverage": 0.8,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          },
+          {
+            "at": 10,
+            "kind": "delete",
+            "script": "她",
+            "heard": ""
+          },
+          {
+            "at": 13,
+            "kind": "delete",
+            "script": "浑",
+            "heard": ""
+          },
+          {
+            "at": 15,
+            "kind": "insert",
+            "script": "",
+            "heard": "上"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "伤",
+            "heard": "上"
+          }
+        ],
+        "transcript": "他才兩歲的兒子就坐在旁邊,身上沒有一處上"
+      },
+      {
+        "id": "S06",
+        "start": 30.0,
+        "end": 36.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "桌上还摆着泡面碗和橘子皮他原本正准备吃午饭"
+      },
+      {
+        "id": "S07",
+        "start": 36.0,
+        "end": 42.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.2273,
+        "match_coverage": 0.7727,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "replace",
+            "script": "关",
+            "heard": "冠"
+          },
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "鞋印",
+            "heard": "协硬"
+          },
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "奈美",
+            "heard": "耐霉"
+          }
+        ],
+        "transcript": "玄冠的血迹是B型,协硬24厘米,都不是耐霉子的。"
+      },
+      {
+        "id": "S08",
+        "start": 42.0,
+        "end": 48.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.1818,
+        "match_coverage": 0.8182,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 2,
+            "kind": "replace",
+            "script": "血迹警员",
+            "heard": "蟹剂景源"
+          }
+        ],
+        "transcript": "沿着蟹剂,景源在洗手池和附近公园找到冲洗的痕迹。"
+      },
+      {
+        "id": "S09",
+        "start": 48.0,
+        "end": 54.0,
+        "script_chars": 21,
+        "heard_chars": 22,
+        "character_error_rate": 0.0476,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 21,
+            "kind": "insert",
+            "script": "",
+            "heard": "暗"
+          }
+        ],
+        "transcript": "所以他们推断,凶手在打斗里受了伤,却还是逃掉了。暗…"
+      },
+      {
+        "id": "S10",
+        "start": 54.0,
+        "end": 60.0,
+        "script_chars": 21,
+        "heard_chars": 25,
+        "character_error_rate": 0.2857,
+        "match_coverage": 0.9048,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 5,
+            "kind": "insert",
+            "script": "",
+            "heard": "一位"
+          },
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "血",
+            "heard": "鞋可能"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "案发几年后,一位到访现场的专家指出这摊鞋可能不是他的"
+      },
+      {
+        "id": "S11",
+        "start": 60.0,
+        "end": 66.0,
+        "script_chars": 19,
+        "heard_chars": 18,
+        "character_error_rate": 0.2105,
+        "match_coverage": 0.7895,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "高羽悟这",
+            "heard": "掏马物"
+          }
+        ],
+        "transcript": "掏馬物才明白,兇手把自己的血留在了玄關。"
+      },
+      {
+        "id": "S12",
+        "start": 66.0,
+        "end": 72.0,
+        "script_chars": 24,
+        "heard_chars": 24,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "於是他做了一個別人不理解的決定這間房子一直租下去"
+      },
+      {
+        "id": "S13",
+        "start": 72.0,
+        "end": 78.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "搬走以后,他每月照付房租,只为把现场原样留住。"
+      },
+      {
+        "id": "S14",
+        "start": 78.0,
+        "end": 84.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.2381,
+        "match_coverage": 0.7619,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 3,
+            "kind": "replace",
+            "script": "付",
+            "heard": "副"
+          },
+          {
+            "at": 14,
+            "kind": "replace",
+            "script": "两千两百",
+            "heard": "二二零零"
+          }
+        ],
+        "transcript": "这样一副就是26年,累计超过2200万日元"
+      },
+      {
+        "id": "S15",
+        "start": 84.0,
+        "end": 90.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "26年來,屋裡的東西幾乎沒動,月曆停在當年11月。"
+      },
+      {
+        "id": "S16",
+        "start": 90.0,
+        "end": 96.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "每年將近命日,他就在街頭發傳單,請路人提供線索。"
+      },
+      {
+        "id": "S17",
+        "start": 96.0,
+        "end": 102.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "26年,他把自己的脸放进每一次报道等凶手看见"
+      },
+      {
+        "id": "S18",
+        "start": 102.0,
+        "end": 108.0,
+        "script_chars": 16,
+        "heard_chars": 18,
+        "character_error_rate": 0.25,
+        "match_coverage": 0.875,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 2,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 14,
+            "kind": "replace",
+            "script": "时效",
+            "heard": "实相"
+          }
+        ],
+        "transcript": "2010年日本取消了殺人罪的公訴實相。"
+      },
+      {
+        "id": "S19",
+        "start": 108.0,
+        "end": 114.0,
+        "script_chars": 22,
+        "heard_chars": 24,
+        "character_error_rate": 0.1818,
+        "match_coverage": 0.9091,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "力",
+            "heard": "例"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "千",
+            "heard": "零零零"
+          }
+        ],
+        "transcript": "26年里,警方投入约10万人次警例,问过5000多人。"
+      },
+      {
+        "id": "S20",
+        "start": 114.0,
+        "end": 120.0,
+        "script_chars": 23,
+        "heard_chars": 24,
+        "character_error_rate": 0.0435,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          }
+        ],
+        "transcript": "2024年,專案組把當年問過的人重新梳理,篩到幾百人"
+      },
+      {
+        "id": "S21",
+        "start": 120.0,
+        "end": 126.0,
+        "script_chars": 22,
+        "heard_chars": 23,
+        "character_error_rate": 0.0455,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          }
+        ],
+        "transcript": "2025年8月起警方多次約談一名69歲的女性"
+      },
+      {
+        "id": "S22",
+        "start": 126.0,
+        "end": 132.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.05,
+        "match_coverage": 0.95,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "他起初拒绝提供DNA,只说自己什么都不知道"
+      },
+      {
+        "id": "S23",
+        "start": 132.0,
+        "end": 138.0,
+        "script_chars": 19,
+        "heard_chars": 19,
+        "character_error_rate": 0.0526,
+        "match_coverage": 0.9474,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "可到了10月30日下午他一個人走進了警署"
+      },
+      {
+        "id": "S24",
+        "start": 138.0,
+        "end": 144.0,
+        "script_chars": 24,
+        "heard_chars": 24,
+        "character_error_rate": 0.0417,
+        "match_coverage": 0.9583,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "第二天,現場血跡的DNA比對一致,他被以殺人嫌疑逮捕。"
+      },
+      {
+        "id": "S25",
+        "start": 144.0,
+        "end": 150.0,
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.15,
+        "match_coverage": 0.9,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "羽悟",
+            "heard": "雨雾"
+          },
+          {
+            "at": 20,
+            "kind": "insert",
+            "script": "",
+            "heard": "真"
+          }
+        ],
+        "transcript": "消息传开时,高雨雾等这一刻已经整整26年。真……"
+      },
+      {
+        "id": "S26",
+        "start": 150.0,
+        "end": 156.0,
+        "script_chars": 20,
+        "heard_chars": 22,
+        "character_error_rate": 0.2,
+        "match_coverage": 0.9,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 3,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "他",
+            "heard": "她"
+          },
+          {
+            "at": 20,
+            "kind": "insert",
+            "script": "",
+            "heard": "她是"
+          }
+        ],
+        "transcript": "真正讓她愣在原地的,是警方後來告訴她的身份她是"
+      },
+      {
+        "id": "S27",
+        "start": 156.0,
+        "end": 162.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "他是他高中同班的同學還是同一個軟式網球社的隊友"
+      },
+      {
+        "id": "S28",
+        "start": 162.0,
+        "end": 168.0,
+        "script_chars": 19,
+        "heard_chars": 19,
+        "character_error_rate": 0.0526,
+        "match_coverage": 0.9474,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "學生時代,他寫過一封告白信,他禮貌地拒絕了。"
+      },
+      {
+        "id": "S29",
+        "start": 168.0,
+        "end": 174.0,
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.1,
+        "match_coverage": 0.95,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "2026年3月,他被以杀人罪起诉,却再没有开口。"
+      },
+      {
+        "id": "S30",
+        "start": 174.0,
+        "end": 180.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0455,
+        "match_coverage": 0.9545,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "守",
+            "heard": "手"
+          }
+        ],
+        "transcript": "如果换成你,会用26年手一间空房等一个答案吗?"
+      }
+    ],
+    "max_cer": 0.2857,
+    "failing": [
+      "S04",
+      "S05",
+      "S07",
+      "S08",
+      "S10",
+      "S11",
+      "S14",
+      "S18",
+      "S19",
+      "S26"
+    ]
+  },
+  "narration_control": {
+    "chapters": [
+      {
+        "id": "S01",
+        "start": 0.0,
+        "end": 6.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "這間公寓空了26年房租卻一個月都沒斷過"
+      },
+      {
+        "id": "S02",
+        "start": 6.0,
+        "end": 12.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.15,
+        "match_coverage": 0.85,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          },
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "羽悟",
+            "heard": "雨雾"
+          }
+        ],
+        "transcript": "而一直替这间空房交房租的是他的丈夫高雨雾"
+      },
+      {
+        "id": "S03",
+        "start": 12.0,
+        "end": 18.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "1999年11月13日 这里还是三个人的家"
+      },
+      {
+        "id": "S04",
+        "start": 18.0,
+        "end": 24.0,
+        "script_chars": 19,
+        "heard_chars": 19,
+        "character_error_rate": 0.2105,
+        "match_coverage": 0.7895,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "羽奈美子",
+            "heard": "宇纳米谷"
+          }
+        ],
+        "transcript": "32岁的主妇高宇纳米谷在自己家里遇害"
+      },
+      {
+        "id": "S05",
+        "start": 24.0,
+        "end": 30.0,
+        "script_chars": 20,
+        "heard_chars": 19,
+        "character_error_rate": 0.3,
+        "match_coverage": 0.75,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          },
+          {
+            "at": 2,
+            "kind": "replace",
+            "script": "两",
+            "heard": "二"
+          },
+          {
+            "at": 10,
+            "kind": "delete",
+            "script": "她",
+            "heard": ""
+          },
+          {
+            "at": 13,
+            "kind": "delete",
+            "script": "浑",
+            "heard": ""
+          },
+          {
+            "at": 15,
+            "kind": "insert",
+            "script": "",
+            "heard": "上"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "伤",
+            "heard": "上"
+          }
+        ],
+        "transcript": "他才2歲的兒子就坐在旁邊身上沒有一處上"
+      },
+      {
+        "id": "S06",
+        "start": 30.0,
+        "end": 36.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 12,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "桌上还摆着泡面碗和橘子皮他原本正准备吃午饭"
+      },
+      {
+        "id": "S07",
+        "start": 36.0,
+        "end": 42.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.2273,
+        "match_coverage": 0.7727,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "replace",
+            "script": "关",
+            "heard": "冠"
+          },
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "鞋印",
+            "heard": "协硬"
+          },
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "奈美",
+            "heard": "耐霉"
+          }
+        ],
+        "transcript": "玄冠的血迹是B型,协硬24厘米,都不是耐霉子的。"
+      },
+      {
+        "id": "S08",
+        "start": 42.0,
+        "end": 48.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.1818,
+        "match_coverage": 0.8182,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 2,
+            "kind": "replace",
+            "script": "血迹警员",
+            "heard": "蟹记景源"
+          }
+        ],
+        "transcript": "沿着蟹记,景源在洗手池和附近公园找到冲洗的痕迹。"
+      },
+      {
+        "id": "S09",
+        "start": 48.0,
+        "end": 54.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "所以他们推断 凶手在打斗里受了伤 却还是逃掉了"
+      },
+      {
+        "id": "S10",
+        "start": 54.0,
+        "end": 60.0,
+        "script_chars": 21,
+        "heard_chars": 25,
+        "character_error_rate": 0.2857,
+        "match_coverage": 0.9048,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 5,
+            "kind": "insert",
+            "script": "",
+            "heard": "一位"
+          },
+          {
+            "at": 16,
+            "kind": "replace",
+            "script": "血",
+            "heard": "鞋可能"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "案发几年后,一位到访现场的专家指出这摊鞋可能不是他的"
+      },
+      {
+        "id": "S11",
+        "start": 60.0,
+        "end": 66.0,
+        "script_chars": 19,
+        "heard_chars": 18,
+        "character_error_rate": 0.2632,
+        "match_coverage": 0.7368,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "高羽悟这",
+            "heard": "掏马物"
+          },
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "血",
+            "heard": "鞋"
+          }
+        ],
+        "transcript": "掏馬物才明白,兇手把自己的鞋留在了玄關"
+      },
+      {
+        "id": "S12",
+        "start": 66.0,
+        "end": 72.0,
+        "script_chars": 24,
+        "heard_chars": 24,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "于是他做了一个别人不理解的决定这间房子一直租下去"
+      },
+      {
+        "id": "S13",
+        "start": 72.0,
+        "end": 78.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "搬走以后,他每月照付房租,只为把现场原样留住。"
+      },
+      {
+        "id": "S14",
+        "start": 78.0,
+        "end": 84.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.2857,
+        "match_coverage": 0.7143,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 3,
+            "kind": "replace",
+            "script": "付",
+            "heard": "副"
+          },
+          {
+            "at": 14,
+            "kind": "replace",
+            "script": "两千两百",
+            "heard": "二二零零"
+          },
+          {
+            "at": 20,
+            "kind": "replace",
+            "script": "元",
+            "heard": "圆"
+          }
+        ],
+        "transcript": "這樣一副就是26年累計超過2200萬日圓"
+      },
+      {
+        "id": "S15",
+        "start": 84.0,
+        "end": 90.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "历",
+            "heard": "力"
+          }
+        ],
+        "transcript": "26年来屋里的东西几乎没动,月力停在当年11月。"
+      },
+      {
+        "id": "S16",
+        "start": 90.0,
+        "end": 96.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "每年將近命日,他就在街頭發傳單,請路人提供線索。"
+      },
+      {
+        "id": "S17",
+        "start": 96.0,
+        "end": 102.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "26年,他把自己的脸放进每一次报道等凶手看见"
+      },
+      {
+        "id": "S18",
+        "start": 102.0,
+        "end": 108.0,
+        "script_chars": 16,
+        "heard_chars": 18,
+        "character_error_rate": 0.125,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 2,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          }
+        ],
+        "transcript": "2010年,日本取消了殺人罪的公訴時效"
+      },
+      {
+        "id": "S19",
+        "start": 108.0,
+        "end": 114.0,
+        "script_chars": 22,
+        "heard_chars": 24,
+        "character_error_rate": 0.1818,
+        "match_coverage": 0.9091,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "力",
+            "heard": "例"
+          },
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "千",
+            "heard": "零零零"
+          }
+        ],
+        "transcript": "26年里,警方投入约10万人次警例,问过5000多人。"
+      },
+      {
+        "id": "S20",
+        "start": 114.0,
+        "end": 120.0,
+        "script_chars": 23,
+        "heard_chars": 24,
+        "character_error_rate": 0.0435,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          }
+        ],
+        "transcript": "2024年,專案組把當年問過的人重新梳理,篩到幾百人。"
+      },
+      {
+        "id": "S21",
+        "start": 120.0,
+        "end": 126.0,
+        "script_chars": 22,
+        "heard_chars": 23,
+        "character_error_rate": 0.0455,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          }
+        ],
+        "transcript": "2025年8月起,警方多次約談一名69歲的女性"
+      },
+      {
+        "id": "S22",
+        "start": 126.0,
+        "end": 132.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.05,
+        "match_coverage": 0.95,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "他起初拒绝提供DNA只说自己什么都不知道"
+      },
+      {
+        "id": "S23",
+        "start": 132.0,
+        "end": 138.0,
+        "script_chars": 19,
+        "heard_chars": 19,
+        "character_error_rate": 0.1579,
+        "match_coverage": 0.8421,
+        "verdict": "needs_human_listen",
+        "diff": [
+          {
+            "at": 10,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          },
+          {
+            "at": 17,
+            "kind": "replace",
+            "script": "警署",
+            "heard": "京树"
+          }
+        ],
+        "transcript": "可到了10月30日下午,他一个人走进了京树"
+      },
+      {
+        "id": "S24",
+        "start": 138.0,
+        "end": 144.0,
+        "script_chars": 24,
+        "heard_chars": 24,
+        "character_error_rate": 0.0417,
+        "match_coverage": 0.9583,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 15,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "第二天,現場血跡的DNA比對一致,他被以殺人嫌疑逮捕"
+      },
+      {
+        "id": "S25",
+        "start": 144.0,
+        "end": 150.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.15,
+        "match_coverage": 0.85,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "时",
+            "heard": "始"
+          },
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "羽悟",
+            "heard": "雨雾"
+          }
+        ],
+        "transcript": "消息传开始,高雨雾等这一刻已经整整26年"
+      },
+      {
+        "id": "S26",
+        "start": 150.0,
+        "end": 156.0,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "真正讓他愣在原地的是警方後來告訴他的身份"
+      },
+      {
+        "id": "S27",
+        "start": 156.0,
+        "end": 162.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "他是他高中同班的同學還是同一個軟式網球社的隊友"
+      },
+      {
+        "id": "S28",
+        "start": 162.0,
+        "end": 168.0,
+        "script_chars": 19,
+        "heard_chars": 19,
+        "character_error_rate": 0.0526,
+        "match_coverage": 0.9474,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 4,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "学生时代,他写过一封告白信,他礼貌地拒绝了。"
+      },
+      {
+        "id": "S29",
+        "start": 168.0,
+        "end": 174.0,
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.1,
+        "match_coverage": 0.95,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 1,
+            "kind": "insert",
+            "script": "",
+            "heard": "零"
+          },
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          }
+        ],
+        "transcript": "2026年3月,他被以殺人罪起訴,卻再沒有開口。"
+      },
+      {
+        "id": "S30",
+        "start": 174.0,
+        "end": 180.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0455,
+        "match_coverage": 0.9545,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "守",
+            "heard": "手"
+          }
+        ],
+        "transcript": "如果换成你,会用26年手一间空房等一个答案吗?"
+      }
+    ],
+    "max_cer": 0.3,
+    "failing": [
+      "S04",
+      "S05",
+      "S07",
+      "S08",
+      "S10",
+      "S11",
+      "S14",
+      "S19",
+      "S23"
+    ]
+  },
+  "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
+}
