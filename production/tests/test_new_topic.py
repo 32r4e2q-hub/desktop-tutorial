@@ -1,16 +1,16 @@
-"""脚手架测试（狂犬病模式）：新题目目录能不能被真实地用起来。
+"""脚手架测试（上海冰柜藏尸案模式）：新题目目录能不能被真实地用起来。
 
 覆盖四件事：
 1. 复制出来的引擎副本、渲染模板、工作流里没有残留参考项目的路径 / 分支 / 片名 / 案件内容；
-2. 生成的 ``story.json`` 骨架在时间轴上是机械正确的（45 镜 × 4 秒、6 章 × 30 秒），
-   ``generate.validate()`` 在提示词为空时**会拦下来**、填完之后**放行**；
-3. 模板 ``render.py`` 的关键守卫真的在：CUTS 骨架覆盖全部镜头、每镜只用一次（复用会被 make_edl 拒绝）、
-   信息卡 / 片尾卡从 ``story.json`` 的 ``presentation`` 取文案（缺文案就报错）；
-   模板 ``build_story.py`` 能写出带 ``presentation`` 的 story.json，``--publish`` 不依赖配音就能出发布文案；
-4. 参考项目 ``production/rabies1885`` 在脚手架运行前后一个字节都没变。
+2. 生成的 ``story.json`` 骨架在时间轴上是机械正确的（30 镜 × 6 秒、6 章 × 30 秒），
+   ``generate.validate()`` 在内容为空时**会拦下来**、填完（含批准参考图与配音收据）之后**放行**；
+3. 模板 ``build_story.py`` 能写出带 ``presentation`` 的 story.json，
+   模板 ``render.py`` 只留本片常数的钩子（END_FADES），不把 上海片的结尾定稿烧进去；
+4. 参考项目 ``production/shanghai_freezer_case`` 在脚手架运行前后一个字节都没变。
 """
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 import os
@@ -31,7 +31,7 @@ import new_topic  # noqa: E402
 SLUG = "scaffoldtest"
 TITLE = "测试题目：脚手架自检"
 BRANCH = "arena/scaffold-test-branch"
-REFERENCE = ROOT / "production/rabies1885"
+REFERENCE = ROOT / "production/shanghai_freezer_case"
 RUNS_ON = "runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}"
 
 
@@ -44,7 +44,6 @@ def load_module(name: str, path: Path):
 
 
 def _hash_tree(root: Path) -> dict:
-    import hashlib
     out = {}
     for path in sorted(root.rglob("*")):
         if path.is_file() and "__pycache__" not in path.parts:
@@ -62,13 +61,15 @@ class ScaffoldTests(unittest.TestCase):
         cls.production = cls.tmp / "production"
         cls.production.mkdir(parents=True)
         shutil.copy2(ROOT / "production/agnes_video.py", cls.production / "agnes_video.py")
-        if (ROOT / ".cache/fonts").is_dir():   # 本机渲染信息卡用的 CJK 字体（render.find_font 先查 ROOT/.cache/fonts）
+        shutil.copy2(ROOT / "production/gwangju_style.py", cls.production / "gwangju_style.py")
+        if (ROOT / ".cache/fonts").is_dir():   # 渲染信息卡用的 CJK 字体（render 先查 ROOT/.cache/fonts）
             shutil.copytree(ROOT / ".cache/fonts", cls.tmp / ".cache/fonts")
         cls.project_dir = cls.production / SLUG
         new_topic.scaffold(SLUG, TITLE, BRANCH, cls.project_dir, REFERENCE)
         cls.workflows = {
-            kind: cls.project_dir / "workflows" / f"{SLUG}-{kind}.yml"
-            for kind in ("gen", "render", "verbatim", "visual-qc")
+            "case": cls.project_dir / "workflows" / f"{SLUG}.yml",
+            "verbatim": cls.project_dir / "workflows" / f"{SLUG}-verbatim.yml",
+            "visual-qc": cls.project_dir / "workflows" / f"{SLUG}-visual-qc.yml",
         }
 
     @classmethod
@@ -82,20 +83,21 @@ class ScaffoldTests(unittest.TestCase):
     def test_engine_template_and_workflow_files_present(self):
         for name in (*new_topic.ENGINE_FILES, *new_topic.TEMPLATE_FILES):
             self.assertTrue((self.project_dir / name).is_file(), name)
-        for name in ("story.json", "screenplay.md", "README.md", "audio/manifest.json"):
+        for name in ("story.json", "screenplay.md", "README.md",
+                     "audio/manifest.json", "reference/approvals.json"):
             self.assertTrue((self.project_dir / name).is_file(), name)
         for path in self.workflows.values():
             self.assertTrue(path.is_file(), path.name)
-        self.assertTrue((self.project_dir / "audio/raw").is_dir())
 
     def test_no_reference_identity_leaks_into_the_copy(self):
         leftovers = []
         # 只扫"复制出来的副本"：.py / .yml。story.json、README.md、screenplay.md 是新生成的文档，
-        # 里面**故意**保留"参考 production/rabies1885"的出处说明；build_story.py 的文档字符串也允许
-        # 提一次样板出处，但案情内容、分支、成片名一个都不许出现。
-        forbidden = ("work/rabies1885", new_topic.REFERENCE_BRANCH, "cb25986c", new_topic.REFERENCE_FILM,
-                     "狂犬病疫苗", "巴斯德", "迈斯特", "pasteur", "rabies1885-agnes", "rabies1885-render",
-                     "rabies1885-verbatim", "rabies1885-visual-qc", "'rabies1885: '")
+        # 里面**故意**保留"参考 production/shanghai_freezer_case"的出处说明。
+        # build_story.py 的文档字符串也允许提一次出处；案情内容、分支、成片名一个都不许出现。
+        forbidden = ("work/shanghai_freezer_case", new_topic.REFERENCE_BRANCH, "f9f847e0",
+                     new_topic.REFERENCE_FILM, new_topic.REFERENCE_TITLE, new_topic.REFERENCE_STEM,
+                     "上海冰柜藏尸案", "朱晓东", "杨俪萍", "杨父", "20161017", "2017年2月1日",
+                     "shanghai_freezer_case-agnes", "上海")
         for path in sorted(self.project_dir.rglob("*")):
             if not path.is_file() or path.suffix not in (".py", ".yml"):
                 continue
@@ -104,12 +106,12 @@ class ScaffoldTests(unittest.TestCase):
             for token in forbidden:
                 if token.lower() in lowered:
                     leftovers.append(f"{path.name}:{token}")
-            if path.name != "build_story.py" and "rabies1885" in lowered:
-                leftovers.append(f"{path.name}:rabies1885")
+            if path.name != "build_story.py" and "shanghai_freezer_case" in lowered:
+                leftovers.append(f"{path.name}:shanghai_freezer_case")
         self.assertEqual(leftovers, [])
         story = json.loads((self.project_dir / "story.json").read_text())
-        self.assertEqual(story["_scaffold"]["reference"], "production/rabies1885")
-        self.assertEqual(story["presentation"], {})
+        self.assertEqual(story["_scaffold"]["reference"], "production/shanghai_freezer_case")
+        self.assertEqual(story["presentation"]["hooks"], [])
 
     def test_branch_and_artifact_names_follow_the_new_project(self):
         generator = load_module("scaffold_generate", self.project_dir / "generate.py")
@@ -119,24 +121,23 @@ class ScaffoldTests(unittest.TestCase):
         self.assertEqual(story["title"], TITLE)
         film = new_topic.film_name(TITLE)
         self.assertEqual(film, "测试题目_脚手架自检_三分钟_带声音.mp4")
+        self.assertEqual(story["film_name"], film)
         for kind, path in self.workflows.items():
             text = path.read_text(encoding="utf-8")
             self.assertIn(f"refs/heads/{BRANCH}", text, kind)
             self.assertIn(f"production/{SLUG}/", text, kind)
-            self.assertNotIn("rabies1885", text.lower(), kind)
-        gen = self.workflows["gen"].read_text(encoding="utf-8")
-        self.assertIn(f"production/{SLUG}/GEN_REQUEST", gen)
-        self.assertIn(f"python3 production/{SLUG}/generate.py --validate", gen)
-        render = self.workflows["render"].read_text(encoding="utf-8")
-        self.assertIn(f"production/{SLUG}/RENDER_REQUEST", render)
-        self.assertIn(film, render)
-        # 出片步骤统一在共用脚本里，工作流只是薄薄一层
-        self.assertIn("bash production/run_project.sh", render)
+            self.assertNotIn("shanghai_freezer_case", text.lower(), kind)
+        case = self.workflows["case"].read_text(encoding="utf-8")
+        self.assertIn(f"production/{SLUG}/GEN_REQUEST", case)
+        self.assertIn(f"python3 production/{SLUG}/generate.py --validate", case)
+        self.assertIn(f"production/{SLUG}/CANCEL_REQUEST", case)
         verbatim = self.workflows["verbatim"].read_text(encoding="utf-8")
         self.assertIn(f"production/{SLUG}/VERBATIM_REQUEST", verbatim)
+        self.assertIn("production/verbatim_check.py", verbatim)
+        self.assertIn(film, verbatim)
         visual_qc = self.workflows["visual-qc"].read_text(encoding="utf-8")
         self.assertIn(f"production/{SLUG}/VISUAL_QC_REQUEST", visual_qc)
-        self.assertIn(f"production/{SLUG}/audit_frame_distortions.py", visual_qc)
+        self.assertIn(f"production/{SLUG}/qc.py", visual_qc)
 
     def test_workflows_parse_and_follow_repo_conventions(self):
         for kind, path in self.workflows.items():
@@ -154,116 +155,110 @@ class ScaffoldTests(unittest.TestCase):
     # -- 2. 骨架正确 + 闸门有效 -------------------------------------------
     def test_story_skeleton_timeline_is_mechanically_correct(self):
         story = json.loads((self.project_dir / "story.json").read_text())
-        self.assertEqual(len(story["shots"]), 45)
+        self.assertEqual(len(story["shots"]), 30)
         self.assertEqual(story["target_duration"], 180)
+        self.assertEqual((story["width"], story["height"], story["fps"]), (1920, 1080, 24))
+        self.assertEqual(story["model"], "agnes-video-2.5-flash")
+        self.assertEqual(story["source_size"], "720P")
         for index, shot in enumerate(story["shots"]):
             self.assertEqual(shot["id"], f"S{index + 1:02d}")
-            self.assertEqual(shot["start"], index * 4)
-            self.assertEqual(shot["duration"], 4)
+            self.assertEqual(shot["start"], index * 6)
+            self.assertEqual(shot["duration"], 6)
+            self.assertEqual(shot["seconds"], 6)
             self.assertEqual(shot["kind"], "agnes")
-            self.assertEqual((shot["seconds"], shot["frame_rate"], shot["aspect"], shot["resolution"]),
-                             (7, 24, "16:9", "1080p"))
+            self.assertEqual(shot["aspect"], "16:9")
         self.assertEqual([c["start"] for c in story["chapters"]], [0, 30, 60, 90, 120, 150])
         self.assertEqual(sum(chapter["duration"] for chapter in story["chapters"]), 180)
-        # 4 秒网格落在 30 秒章节上：N01 -> S01..S08（0–28 s），S09 从 32 s 起属于 N02，S45 属于 N06
         self.assertEqual(story["shots"][0]["narration_id"], "N01")
-        self.assertEqual(story["shots"][7]["narration_id"], "N01")
-        self.assertEqual(story["shots"][8]["narration_id"], "N02")
-        self.assertEqual(story["shots"][44]["narration_id"], "N06")
-        self.assertEqual(len({shot["seed"] for shot in story["shots"]}), 45)
+        self.assertEqual(story["shots"][4]["narration_id"], "N01")
+        self.assertEqual(story["shots"][5]["narration_id"], "N02")
+        self.assertEqual(story["shots"][29]["narration_id"], "N06")
+        self.assertEqual(len({shot["seed"] for shot in story["shots"]}), 30)
 
     def test_validate_blocks_the_empty_skeleton(self):
         generator = load_module("scaffold_generate_gate", self.project_dir / "generate.py")
         story = json.loads((self.project_dir / "story.json").read_text())
-        # 提示词与 style_prefix 都是空的：validate() 必须抛错，不许去烧生成额度。
-        # 空提示词由 agnes_video.build_payload 先拦（Fatal），其余结构性错误是 ValueError。
-        with self.assertRaises((ValueError, agnes_video.Fatal)) as caught:
+        # 提示词、解说词、style 都是空的：validate() 必须抛错，不许去烧生成额度。
+        with self.assertRaises((ValueError, agnes_video.Fatal)):
             generator.validate(story)
-        self.assertIn("prompt", str(caught.exception).lower())
 
     def test_validate_passes_once_the_plan_is_written(self):
         generator = load_module("scaffold_generate_filled", self.project_dir / "generate.py")
-        story = json.loads((self.project_dir / "story.json").read_text())
-        story["style_prefix"] = "Hand-drawn 2D animated documentary, muted palette, 16:9. "
+        project_dir = self.project_dir
+        story = json.loads((project_dir / "story.json").read_text())
+        prefix = "【STYLE】Hand-drawn 2D documentary, muted palette, 16:9. "
+        story["style_prefix"] = prefix
+        story["style_rumor_prefix"] = prefix
+        story["negative_prompt"] = "【NEGATIVE】readable text, blood, corpse"
         for shot in story["shots"]:
             shot["prompt"] = f"a wide establishing shot of a foggy street, unit {shot['id']}"
+            shot["narration"] = f"第{int(shot['id'][1:])}句解说。"
+            shot["reference_ids"] = "R1"
         for chapter in story["chapters"]:
             chapter["title"] = "章节"
-            chapter["text"] = "解说词占位，实际写作时按一百二十到一百四十字填写。"
+            chapter["text"] = "解说词占位，实际写作时逐句填写。"
+        # 批准参考图：validate 要求 1–5 张 approved、PNG 魔数、sha256 与 approvals.json 一致
+        from PIL import Image
+        import io
+        ref = project_dir / "reference" / "R1.png"
+        Image.new("RGB", (16, 16), (24, 32, 48)).save(ref, format="PNG")
+        ref_sha = hashlib.sha256(ref.read_bytes()).hexdigest()
+        revision = "deadbeef" * 5
+        (project_dir / "reference" / "approvals.json").write_text(json.dumps({
+            "assets": {"R1": {"status": "approved", "file": "reference/R1.png", "sha256": ref_sha}},
+        }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        (project_dir / "reference" / "revision.txt").write_text(revision + "\n", encoding="utf-8")
+        story["reference_images"] = [{
+            "id": "R1", "file": "reference/R1.png", "status": "approved", "sha256": ref_sha,
+        }]
+        story["reference_revision"] = revision
+        # 配音收据：require_audio=True 时要求每镜一条 sha256 对得上的音频
+        audio_dir = project_dir / "audio"
+        audio_dir.mkdir(exist_ok=True)
+        voice_id = "voice-test"
+        story["narration_spec"]["voice_id"] = voice_id
+        clips = []
+        for shot in story["shots"]:
+            clip = audio_dir / f"{shot['id']}.mp3"
+            clip.write_bytes(f"fake-tts-{shot['id']}".encode())
+            clips.append({
+                "id": shot["id"], "file": clip.name, "text": shot["narration"],
+                "sha256": hashlib.sha256(clip.read_bytes()).hexdigest(),
+                "voice_id": voice_id, "narration_id": shot["narration_id"],
+                "target_start": shot["start"], "target_duration": shot["duration"],
+                "alignment": "shot-locked",
+            })
+        (audio_dir / "manifest.json").write_text(json.dumps({
+            "language": "zh-CN", "voice": voice_id,
+            "generation": "test", "alignment": "one-clip-one-shot-one-caption",
+            "max_speedup_factor": 1.55, "slowdown_allowed": False, "clips": clips,
+        }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         generator.validate(story)              # 填完必须放行
         for shot in story["shots"]:
             payload = generator.full_payload(story, shot)
-            self.assertEqual(payload["model"], "agnes-video-v2.0")
-            self.assertEqual((payload["num_frames"] - 1) % 8, 0)
+            self.assertEqual(payload["model"], "agnes-video-2.5-flash")
 
-    def test_narration_manifest_is_bound_to_the_chapter_ids(self):
+    def test_narration_manifest_is_bound_to_the_shot_ids(self):
         story = json.loads((self.project_dir / "story.json").read_text())
-        manifest = json.loads((self.project_dir / "audio/manifest.json").read_text())
+        manifest = json.loads((self.project_dir / "audio" / "manifest.json").read_text())
         self.assertEqual([clip["id"] for clip in manifest["clips"]],
-                         [chapter["id"] for chapter in story["chapters"]])
-        for clip in manifest["clips"]:
-            self.assertEqual(clip["sha256"], "")   # 没配音就是空，generate.py 会拒绝
+                         [shot["id"] for shot in story["shots"]])
+        self.assertEqual(manifest["alignment"], "one-clip-one-shot-one-caption")
+        self.assertIs(manifest["slowdown_allowed"], False)
+        for clip, shot in zip(manifest["clips"], story["shots"]):
+            self.assertEqual(clip["sha256"], "")   # 没配音就是空，build_audio_manifest.py 会拒绝
             self.assertEqual(clip["text"], "")
+            self.assertEqual(clip["target_start"], shot["start"])
+            self.assertEqual(clip["target_duration"], shot["duration"])
 
     # -- 3. 模板 render.py / build_story.py 的守卫 ---------------------------
-    def test_render_cuts_skeleton_covers_every_shot_exactly_once(self):
+    def test_render_template_keeps_only_the_local_fade_hook(self):
         render = load_module("scaffold_render", self.project_dir / "render.py")
-        story = json.loads((self.project_dir / "story.json").read_text())
-        self.assertEqual(sorted(render.CUTS), [f"N{i:02d}" for i in range(1, 7)])
-        used = []
-        for cue, entries in render.CUTS.items():
-            self.assertEqual(entries[0][0], 0, f"{cue} 的第一个切点必须是 0")
-            for offset, shot_id, variant in entries:
-                self.assertEqual(variant, "")
-                self.assertIsInstance(offset, (int, float))
-                used.append(shot_id)
-        self.assertEqual(used, [shot["id"] for shot in story["shots"]])
-        self.assertEqual(render.DURATION, 180.0)
-        self.assertEqual(render.TOTAL_FRAMES, 5400)
-        self.assertEqual(render.END_AT, 180.0 - render.END_CARD)
-
-    def test_make_edl_rejects_shot_reuse_and_accepts_the_skeleton(self):
-        render = load_module("scaffold_render_edl", self.project_dir / "render.py")
-        story = json.loads((self.project_dir / "story.json").read_text())
-        narration = []
-        start = render.INTRO
-        for chapter in story["chapters"]:
-            narration.append({"id": chapter["id"], "start": start, "duration": 28.0, "tempo": 1.0})
-            start += 28.0 + render.GAP
-        edl = render.make_edl(story, narration)
-        self.assertEqual(edl[-1]["id"], "END")
-        self.assertEqual(len(edl), 46)
-        self.assertEqual(edl[0]["start_frame"], 0)
-        self.assertEqual(edl[-1]["end_frame"], render.TOTAL_FRAMES)
-        # 复用一个镜头：必须被拒绝，而不是悄悄出片
-        original = render.CUTS["N06"]
-        render.CUTS["N06"] = [(0, "S01", ""), *original[1:]]
-        try:
-            with self.assertRaises(RuntimeError) as caught:
-                render.make_edl(story, narration)
-            self.assertIn("只用一次", str(caught.exception))
-        finally:
-            render.CUTS["N06"] = original
-
-    def test_cards_come_from_presentation_and_missing_copy_fails_loudly(self):
-        render = load_module("scaffold_render_cards", self.project_dir / "render.py")
-        try:
-            render.find_font()
-        except Exception as exc:  # 本机没有中日韩字体时跳过（Actions 运行器装了 fonts-noto-cjk）
-            self.skipTest(f"no CJK font available: {exc}")
-        out = self.tmp / "cards"
-        presentation = {"card_header": "案件档案 / TEST", "cards": {"S05": ["大标题", "第一行", "第二行"]},
-                        "end_card": ["提问读者的一句话？", "案名 · 年代", "金句", "资料来源"]}
-        card = render.card_image("S05", "", out, presentation)
-        end = render.card_image("END", "", out, presentation)
-        from PIL import Image
-        for path in (card, end):
-            self.assertTrue(path.is_file())
-            self.assertEqual(Image.open(path).size, (1920, 1080))
-        with self.assertRaises(RuntimeError):
-            render.card_image("S06", "", out, presentation)
-        with self.assertRaises(RuntimeError):
-            render.card_image("END", "", self.tmp / "cards2", {"cards": {}})
+        self.assertEqual(render.FPS, 24)
+        self.assertEqual(render.END_FADES, {"S30": (0.8, 0.8)})
+        # 上海片专属的结尾定稿（第28镜日历/年仅32岁）不许被带进模板
+        text = (self.project_dir / "render.py").read_text(encoding="utf-8")
+        self.assertNotIn("S28", text)
 
     def test_build_story_template_writes_presentation_and_publish_copy(self):
         # 在一个独立副本上跑，不污染其它测试读取的骨架
@@ -272,26 +267,32 @@ class ScaffoldTests(unittest.TestCase):
         env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
         run = subprocess.run([sys.executable, "build_story.py"], cwd=project, capture_output=True, text=True, env=env)
         self.assertEqual(run.returncode, 0, run.stderr)
-        self.assertIn("TODO", run.stderr, "骨架里的 TODO 必须被提醒")
         story = json.loads((project / "story.json").read_text())
-        self.assertEqual(len(story["shots"]), 45)
-        self.assertEqual([s["id"] for s in story["shots"]], [f"S{i:02d}" for i in range(1, 46)])
-        for key in ("card_header", "card_footer", "cards", "title_card", "end_card",
-                    "caption_keywords", "label_overrides", "sfx_events"):
+        self.assertEqual(len(story["shots"]), 30)
+        self.assertEqual([s["id"] for s in story["shots"]], [f"S{i:02d}" for i in range(1, 31)])
+        self.assertEqual(sum(s["duration"] for s in story["shots"]), 180)
+        for key in ("onscreen_label", "highlight_phrases", "hooks", "explainers",
+                    "end_title", "end_subtitle", "title_start", "title_end", "cover_text",
+                    "cover_concept", "publish_title", "hashtags", "caption_policy"):
             self.assertIn(key, story["presentation"], key)
-        manifest = json.loads((project / "audio/manifest.json").read_text())
-        self.assertEqual([c["text"] for c in manifest["clips"]], [c["text"] for c in story["chapters"]])
-        run = subprocess.run([sys.executable, "build_story.py", "--publish"], cwd=project,
-                             capture_output=True, text=True, env=env)
-        self.assertEqual(run.returncode, 0, run.stderr)
-        publish = (project / "抖音发布文案.md").read_text()
-        for heading in ("## 题目", "## 抖音介绍", "## 提问读者一句话"):
+        self.assertEqual(story["presentation"]["onscreen_label"], "AI动画情景重现 · 非真实影像")
+        publish = (project / "抖音发布文案.md").read_text(encoding="utf-8")
+        for heading in ("## 抖音标题", "## 简短介绍", "## 提问读者一句话", "## 话题"):
             self.assertIn(heading, publish)
+
+    def test_manifest_schema_matches_build_audio_manifest(self):
+        # 骨架 manifest 必须是 build_audio_manifest.py 能原样回填的形状
+        manifest = json.loads((self.project_dir / "audio" / "manifest.json").read_text())
+        self.assertEqual(manifest["alignment"], "one-clip-one-shot-one-caption")
+        self.assertEqual(manifest["max_speedup_factor"], 1.55)
+        self.assertEqual(set(manifest["clips"][0]),
+                         {"id", "file", "text", "sha256", "voice_id", "voice_description",
+                          "narration_id", "target_start", "target_duration", "alignment",
+                          "source_duration", "atempo", "tail_silence_seconds"})
 
     # -- 4. 参考项目不许被动 ----------------------------------------------
     def test_reference_project_is_untouched(self):
         # 脚手架运行前后，参考项目每个文件的哈希必须完全一致。
-        # （不能用 git status：参考项目里允许另外提交审片记录这类新文件。）
         self.assertEqual(_hash_tree(REFERENCE), self.reference_before,
                          "脚手架不允许修改已交付的参考项目")
 

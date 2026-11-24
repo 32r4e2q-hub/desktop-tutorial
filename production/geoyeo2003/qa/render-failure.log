@@ -1,0 +1,74 @@
+Wrote manifest for 30 shot-locked clips; max atempo=1.358x
+RESTORE S01 from Agnes receipt
+RESTORE S02 from Agnes receipt
+RESTORE S03 from Agnes receipt
+RESTORE S04 from Agnes receipt
+RESTORE S05 from Agnes receipt
+RESTORE S06 from Agnes receipt
+RESTORE S07 from Agnes receipt
+RESTORE S08 from Agnes receipt
+RESTORE S09 from Agnes receipt
+RESTORE S10 from Agnes receipt
+RESTORE S11 from Agnes receipt
+RESTORE S12 from Agnes receipt
+RESTORE S13 from Agnes receipt
+RESTORE S14 from Agnes receipt
+RESTORE S15 from Agnes receipt
+RESTORE S16 from Agnes receipt
+RESTORE S17 from Agnes receipt
+RESTORE S18 from Agnes receipt
+RESTORE S19 from Agnes receipt
+RESTORE S20 from Agnes receipt
+RESTORE S21 from Agnes receipt
+RESTORE S22 from Agnes receipt
+RESTORE S23 from Agnes receipt
+RESTORE S24 from Agnes receipt
+RESTORE S25 from Agnes receipt
+RESTORE S26 from Agnes receipt
+RESTORE S27 from Agnes receipt
+RESTORE S28 from Agnes receipt
+RESTORE S29 from Agnes receipt
+RESTORE S30 from Agnes receipt
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/build_sfx.py", line 285, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/build_sfx.py", line 280, in main
+    build(args.output)
+    ~~~~~^^^^^^^^^^^^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/build_sfx.py", line 262, in build
+    "script_note": shot["sound_design"], "source": "deterministic procedural SFX; no music",
+                   ~~~~^^^^^^^^^^^^^^^^
+KeyError: 'sound_design'
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/render.py", line 324, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/render.py", line 129, in main
+    subprocess.run([sys.executable, str(HERE / "build_sfx.py"), "--output", str(sfx_dir)],
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   cwd=ROOT, check=True)
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/build_sfx.py', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/geoyeo2003/edit/sfx']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/generate.py", line 1179, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/generate.py", line 753, in main
+    subprocess.run([
+    ~~~~~~~~~~~~~~^^
+        sys.executable, str(HERE / "render.py"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--sources", str(sources), "--work", str(ROOT / "work" / "geoyeo2003" / "edit"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--output", str(output),
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ], cwd=ROOT, check=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/geoyeo2003/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/geoyeo2003/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/geoyeo2003/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/geoyeo2003/clips/巨余洞密室案_门从里面反锁，钥匙却在窗缝的包里_三分钟_带声音.mp4']' returned non-zero exit status 1.

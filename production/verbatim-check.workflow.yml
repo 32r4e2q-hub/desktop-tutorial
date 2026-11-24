@@ -15,13 +15,13 @@ on:
   workflow_dispatch:
     inputs:
       project:
-        description: '项目目录名（production/ 下的 slug，例如 dahlia）'
+        description: '项目目录名（production/ 下的 slug，例如 shanghai_freezer_case）'
         required: true
-        default: 'dahlia'
+        default: 'shanghai_freezer_case'
       film:
         description: '成片路径（仓库内的相对路径）'
         required: false
-        default: '交付/黑色大丽花_三分钟_带声音.mp4'
+        default: '交付/上海冰柜藏尸案_105天_三分钟_带声音.mp4'
       model:
         description: 'whisper 模型：tiny / base / small / medium / large-v3（越大越准越慢）'
         required: false

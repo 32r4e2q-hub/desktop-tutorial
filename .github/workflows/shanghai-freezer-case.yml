@@ -3,11 +3,13 @@ run-name: 上海冰柜藏尸案 · 30镜视频制作
 
 on:
   push:
-    branches: [arena/30eea026-desktop-tutorial]
+    branches: [arena/f9f847e0-desktop-tutorial]
     paths:
+      # 只认 marker 文件：编辑本工作流自身不得触发出片（2026-11-21 主创裁决；
+      # 此前自触发曾误跑 clips 流水线并降级 results.json 的 provenance）。
+      # 出片/重渲 = 写 GEN_REQUEST（或 workflow_dispatch）显式触发。
       - production/shanghai_freezer_case/GEN_REQUEST
       - production/shanghai_freezer_case/CANCEL_REQUEST
-      - .github/workflows/shanghai-freezer-case.yml
   workflow_dispatch:
     inputs:
       payload:
@@ -20,19 +22,19 @@ permissions:
   actions: read
 
 concurrency:
-  group: shanghai-freezer-case-agnes-arena-30eea026
+  group: shanghai-freezer-case-agnes-arena-f9f847e0
   cancel-in-progress: false
 
 jobs:
   produce:
-    if: github.ref == 'refs/heads/arena/30eea026-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/f9f847e0-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 300
     steps:
       - name: Checkout the current Arena branch
         uses: actions/checkout@v4
         with:
-          ref: arena/30eea026-desktop-tutorial
+          ref: arena/f9f847e0-desktop-tutorial
           fetch-depth: 1
 
       - name: Install media tools and subtitle font
@@ -120,13 +122,13 @@ jobs:
                 # 先 rebase 到 origin 最新再 push；detached HEAD 也用 HEAD:<branch> 显式推。
                 pushed=0
                 for attempt in 1 2 3; do
-                  if git push origin HEAD:refs/heads/arena/30eea026-desktop-tutorial; then
+                  if git push origin HEAD:refs/heads/arena/f9f847e0-desktop-tutorial; then
                     pushed=1
                     break
                   fi
-                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/30eea026-desktop-tutorial"
-                  git fetch origin arena/30eea026-desktop-tutorial || true
-                  git pull --rebase origin arena/30eea026-desktop-tutorial || git rebase --abort || true
+                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/f9f847e0-desktop-tutorial"
+                  git fetch origin arena/f9f847e0-desktop-tutorial || true
+                  git pull --rebase origin arena/f9f847e0-desktop-tutorial || git rebase --abort || true
                 done
                 if [ "$pushed" != "1" ]; then
                   echo "::error title=failure log push rejected::render-failure.log 三次 push 均失败；最后 120 行已写入步骤摘要，请人工取回"
@@ -149,6 +151,7 @@ jobs:
 
       - name: Upload footage, provenance and QA reports
         if: always()
+        continue-on-error: true   # 成片已在 render 步骤里 commit 回分支；artifact 配额失败不该把整场出片判死
         uses: actions/upload-artifact@v4
         with:
           name: shanghai-freezer-case-${{ github.run_number }}

@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
-"""新题目开工脚手架（狂犬病模式）：以《狂犬病疫苗：一百四十年前那场赌局》为参考实现，开出一个可以独立编辑的项目目录。
+"""新题目开工脚手架（上海冰柜藏尸案模式）：以《上海冰柜藏尸案》为参考实现，开出一个可以独立编辑的项目目录。
 
 用法::
 
-    python3 production/new_topic.py --slug ripper1888 \\
-        --title "开膛手杰克：1888 年的秋天" \\
+    python3 production/new_topic.py --slug jinan1998 \\
+        --title "济南大明湖案：……" \\
         --branch arena/xxxx-desktop-tutorial
 
 它做的事（不改参考项目一个字节）：
 
 1. **复制**流水线引擎到 ``production/<slug>/``：
-   ``media / throttle / align_audio / build_audio / generate / fetch_sources / watch_run``
-   + 中文配音那部新增的 ``tighten_pauses``（收紧 TTS 停顿）和 ``clause_times``（分句对时间 + CUTS 校验）
-   + **检验工具链**：``qc_shots``（逐镜接触表初筛）、``audit_frame_distortions``（成片全帧审计）、
-   ``compose_all_frame_sheets``（5400 张全帧接触表）、``export_visual_review_candidates``（候选帧导出）、
-   ``publish_visual_review_bundle``（把审片证据写回仓库）——狂犬病那部就是靠这条链子才查出
-   "片尾卡一行字越出画面"这种自动审计量不到的缺陷；
-2. **替换**副本里所有 ``production/rabies1885``、``work/rabies1885``、分支名、片名、Actions 并发组名；
-3. 从 ``production/templates/`` **渲染**三份"内容与引擎分离"的文件：
-   ``build_story.py``（唯一内容源：解说词 / 45 镜 / 信息卡文案 / 字幕高亮词 / 发布文案，全是 TODO）、
-   ``render.py``（引擎；只有 CUTS 和看片后的镜头修正属于本片）、``script_table.py``（抖音脚本 / 发布文案生成）；
-4. **生成**骨架：``story.json``（45 镜 × 4 秒、6 章 × 30 秒的时间轴已算好）、``screenplay.md``、
-   ``audio/manifest.json``、``README.md``（待办清单），以及 ``workflows/`` 下四份 marker 触发的工作流
-   （生成 / 出片 / 逐字听检 / **全帧视觉 QC**；Release 上传用仓库里通用的 ``release-upload.yml``）。
+   ``generate``（Agnes 2.5 Flash reference 模式：断点续跑 / 节流 / 按 SHA-256 复用 / --validate 闸门）、
+   ``qc``（源片与成片技术 QC）、``preflight``（开工前硬闸）、``throttle`` / ``narration_fit`` /
+   ``build_audio_manifest``（配音收据）/ ``build_sfx``（逐镜音效与全片无 BGM 闸门）；
+2. **替换**副本里所有 ``production/shanghai_freezer_case``、``work/shanghai_freezer_case``、
+   出片分支名、片名、成片名、交付物文件名（``上海冰柜藏尸案_Cover.jpg`` 之类）；
+3. 从 ``production/templates/`` **渲染**两份"内容与引擎分离"的文件：
+   ``build_story.py``（唯一内容源：解说词 / 30 镜 / 钩子 / 金色注释 / 发布文案，全是 TODO）、
+   ``render.py``（渲染引擎；本片专属的只有结尾渐黑表 ``END_FADES`` 属于本片）；
+4. **生成**骨架：``story.json``（30 镜 × 6 秒、6 章 × 30 秒的时间轴已算好）、``screenplay.md``、
+   ``audio/manifest.json``、``reference/approvals.json``（空）、``README.md``（待办清单），
+   以及 ``workflows/`` 下三份工作流（合一 ``GEN_REQUEST`` 生成/出片、逐字听检、技术 QC；
+   Release 上传用仓库里通用的 ``release-upload.yml``）。
 
-生成的项目**故意过不了** ``generate.py --validate``：解说词、提示词、配音、SHA-256 都是空的，
+生成的项目**故意过不了** ``generate.py --validate``：解说词、提示词、参考图、配音都是空的，
 必须人来填（填在 ``build_story.py`` 里，跑一次 ``build_story.py`` 写进 story.json）。
 这是设计，不是缺陷——参考项目的前身里"无声成片"就是被一道只看容器字段的校验放过去的。
 
@@ -40,64 +39,51 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent          # production/
 ROOT = HERE.parent                              # repo root
-REFERENCE = HERE / "rabies1885"
+REFERENCE = HERE / "shanghai_freezer_case"
 TEMPLATES = HERE / "templates"
 
-# 参考项目里原样复制的流水线引擎（内容无关，只需换路径/分支/片名）。
-# 共享画面文字层引擎：光州胶带案默认风格（解说词字幕 + 中间偏下注释）。
-SHARED_ENGINE_FILES = ("gwangju_style.py",)
+# 参考项目的固定标识 -> 新项目标识。顺序有意义：先长串后短串。
+REFERENCE_SLUG = "shanghai_freezer_case"
+REFERENCE_BRANCH = "arena/f9f847e0-desktop-tutorial"
+REFERENCE_TITLE = "上海冰柜藏尸案：她死了105天，丈夫用她的微信聊了105天"
+REFERENCE_FILM = "上海冰柜藏尸案_105天_三分钟_带声音.mp4"
+REFERENCE_STEM = "上海冰柜藏尸案"   # 交付物文件名前缀：Cover.jpg / Subtitles.srt / Technical_Report.json
+
+SHOT_COUNT = 30
+GRID = 6
+CHAPTER_COUNT = 6
+CHAPTER_LENGTH = 30
+
+CUTS_BLOCK = re.compile(r"^CUTS = \{.*?^\}", re.M | re.S)   # 保留给旧模板兼容，新模板不用
 
 ENGINE_FILES = (
-    "media.py",
-    "throttle.py",
-    "align_audio.py",
-    "build_audio.py",
     "generate.py",
-    "fetch_sources.py",
-    "watch_run.py",
-    "tighten_pauses.py",
-    "clause_times.py",
-    # 参考项目本部新增的检验工具链：逐镜初筛 + 成片全帧审计 + 证据打包
-    "qc_shots.py",
-    "audit_frame_distortions.py",
-    "compose_all_frame_sheets.py",
-    "export_visual_review_candidates.py",
-    "publish_visual_review_bundle.py",
-    # 人看的两个本地页面（镜头复审、制作进度），可选但跟着复制过去
-    "review_app.py",
-    "progress_app.py",
+    "qc.py",
+    # preflight.py 不再从参考项目整份拷：改走 production/templates/preflight.py
+    # （角色映射从 story.json 现算，避免新题目预检被旧项目的角色代号锁死）。
+    "throttle.py",
+    "narration_fit.py",
+    "build_audio_manifest.py",
+    "build_sfx.py",
 )
 # production/templates/ 里"内容与引擎分离"的文件：占位符由本脚本替换。
-TEMPLATE_FILES = ("render.py", "build_story.py", "script_table.py")
+# preflight.py 无占位符，render_template 原样拷贝（保留 GENERATED 头注释）。
+TEMPLATE_FILES = ("render.py", "build_story.py", "preflight.py")
 WORKFLOW_TEMPLATES = {
-    "gen.workflow.yml": "{slug}-gen.yml",
-    "render.workflow.yml": "{slug}-render.yml",
+    "case.workflow.yml": "{slug}.yml",
     "verbatim.workflow.yml": "{slug}-verbatim.yml",
     "visual-qc.workflow.yml": "{slug}-visual-qc.yml",
 }
 
-# 参考项目的固定标识 -> 新项目标识。顺序有意义：先长串后短串。
-# 2026-10-06 起参考实现是《狂犬病疫苗：一百四十年前那场赌局》（production/rabies1885）：
-# 它是唯一跑通"全帧视觉 QC + 卡片排字闸门 + 人工语义签收"三步的成片，
-# 也带着本部踩出来的两个真缺陷的修法（片尾卡裁字、S18 取景窗）。
-REFERENCE_SLUG = "rabies1885"
-REFERENCE_BRANCH = "arena/cb25986c-desktop-tutorial"
-REFERENCE_TITLE = "狂犬病疫苗：一百四十年前那场赌局"
-REFERENCE_FILM = "狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4"
-
-SHOT_COUNT = 45
-GRID = 4
-CHAPTER_COUNT = 6
-CHAPTER_LENGTH = 30
-AGNES_SECONDS = 7
-
-CUTS_BLOCK = re.compile(r"^CUTS = \{.*?^\}", re.M | re.S)
-
 
 def film_name(title: str) -> str:
-    """片名 -> 成片文件名：狂犬病疫苗：一百四十年前那场赌局 -> 狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4"""
+    """片名 -> 成片文件名：上海冰柜藏尸案：…… -> 上海冰柜藏尸案_105天_三分钟_带声音.mp4"""
     safe = re.sub(r'[\\/:*?"<>|：]', "_", title).strip("_ ") or "untitled"
     return f"{safe}_三分钟_带声音.mp4"
+
+
+def film_stem(title: str) -> str:
+    return film_name(title)[: -len("_三分钟_带声音.mp4")]
 
 
 # --------------------------------------------------------------------------
@@ -110,18 +96,13 @@ def substitutions(slug: str, branch: str, title: str) -> tuple[tuple[str, str], 
         (REFERENCE_BRANCH, branch),
         (f"production/{REFERENCE_SLUG}", f"production/{slug}"),
         (f"work/{REFERENCE_SLUG}", f"work/{slug}"),
-        (f"arena-{REFERENCE_SLUG}-refetch", f"arena-{slug}-refetch"),
-        (f"{REFERENCE_SLUG}-agnes-", f"{slug}-agnes-"),
-        (f"{REFERENCE_SLUG}-render-arena-", f"{slug}-render-arena-"),
-        (f"'{REFERENCE_SLUG}: '", f"'{slug}: '"),
         (REFERENCE_FILM, film_name(title)),
+        (REFERENCE_STEM, film_stem(title)),     # Cover.jpg / Subtitles.srt / Technical_Report.json 等交付物名
         (REFERENCE_TITLE, title),
-        ("cb25986c-desktop-tutorial", short_branch),
-        # 兜底：任何漏网的旧 slug / 旧片名都换掉，副本里不残留旧品牌
         (REFERENCE_SLUG, slug),
-        ("狂犬病疫苗：一百四十年前那场赌局", title),
-        ("一百四十年前那场赌局", title),
-        ("狂犬病疫苗", title),
+        ("f9f847e0-desktop-tutorial", short_branch),   # 兜底：并发组里的短分支名
+        # 兜底：任何漏网的旧片名都换掉，副本里不残留旧品牌
+        ("上海冰柜藏尸案", title),
     )
 
 
@@ -157,13 +138,12 @@ def chapter_of(start: int) -> str:
 
 
 def starter_story(slug: str, branch: str, title: str, reference: Path) -> dict:
-    """按参考项目的分镜结构生成骨架：45 镜 × 4 秒规划网格、6 章 × 30 秒。
+    """按参考项目的分镜结构生成骨架：30 镜 × 6 秒规划网格、6 章 × 30 秒。
 
     时间轴、分辨率、帧率这些"机械正确"的部分直接算好；提示词与解说词留空，
     留给人写（写在 build_story.py 里）——空的提示词会让 ``validate()`` 直接报错。
     """
     ref_story = json.loads((reference / "story.json").read_text(encoding="utf-8"))
-    ref_shot = next(s for s in ref_story["shots"] if s["kind"] == "agnes")
 
     shots = []
     for index in range(SHOT_COUNT):
@@ -171,18 +151,23 @@ def starter_story(slug: str, branch: str, title: str, reference: Path) -> dict:
         shots.append({
             "id": f"S{index + 1:02d}",
             "kind": "agnes",
-            "start": start,
+            "start": float(start),
             "duration": GRID,
+            "seconds": GRID,
+            "aspect": "16:9",
+            "source_size": "720P",
             "narration_id": chapter_of(start),
-            "prompt": "",                      # TODO 人来写（build_story.py 的 SHOTS）
+            "narration": "",                   # TODO 人来写（build_story.py 的 ROWS）
+            "prompt": "",                      # TODO 人来写
             "purpose": "",
+            "camera": "",
+            "sound_design": "",
+            "color_grade": "",
+            "reference_ids": "",               # TODO 对应 reference/approvals.json 的批准条目
+            "characters": [],
+            "seed": 20260101 + index,
+            "transition_in": "",
             "transition_out": "",
-            "graphic": "",
-            "seed": 1000 + index,
-            "seconds": ref_shot.get("seconds", AGNES_SECONDS),
-            "aspect": ref_shot.get("aspect", "16:9"),
-            "resolution": ref_shot.get("resolution", "1080p"),
-            "frame_rate": ref_shot.get("frame_rate", 24),
         })
 
     chapters = []
@@ -192,31 +177,67 @@ def starter_story(slug: str, branch: str, title: str, reference: Path) -> dict:
             "title": "",                       # TODO 章节标题
             "start": index * CHAPTER_LENGTH,
             "duration": CHAPTER_LENGTH,
-            "text": "",                        # TODO 解说词（六段合计 ≈ 760–800 字）
+            "text": "",                        # TODO 解说词（六段合计自填）
         })
 
     return {
         "title": title,
+        "film_name": film_name(title),
         "target_duration": SHOT_COUNT * GRID,
         "width": ref_story.get("width", 1920),
         "height": ref_story.get("height", 1080),
-        "fps": ref_story.get("fps", 30),
-        "model": ref_story.get("model", "agnes-video-v2.0"),
+        "fps": ref_story.get("fps", 24),
+        "model": ref_story.get("model", "agnes-video-2.5-flash"),
+        "source_size": ref_story.get("source_size", "720P"),
         "branch": branch,
-        "style_prefix": "",                    # TODO build_story.py 的 STYLE_PREFIX
-        "negative_prompt": ref_story.get("negative_prompt", ""),
-        "principles": [],
+        "style_prefix": "",                    # TODO build_story.py 的 STYLE
+        "style_rumor_prefix": "",              # TODO 同 STYLE（校验要求以【STYLE 开头）
+        "negative_prompt": "",                 # TODO build_story.py 的 NEGATIVE
+        "characters": {},
+        "character_seeds": {},
+        "narration_spec": {
+            "voice_id": "pending_voice_selection",
+            "description": "",                 # TODO 试音选定后的音色描述
+            "language": "zh-CN",
+            "target_characters_per_second": 4.2,
+            "alignment": "一镜一句，一镜一条TTS与一条字幕",
+        },
         "chapters": chapters,
         "shots": shots,
-        "sources": [],
-        "presentation": {},                    # build_story.py 写入：信息卡文案、片头/片尾卡、字幕高亮词、标签、音效
+        "reference_images": [],                # build_story.py 从 reference/approvals.json 回填
+        "reference_revision": "",
+        "reference_designs": {"characters": [], "scenes": [], "props": [],
+                              "note": "先出参考图并逐张批准，再跑 --validate；否则会按设计报错。"},
+        "presentation": {
+            "onscreen_label": "AI动画情景重现 · 非真实影像",
+            "highlight_phrases": [],
+            "hooks": [],
+            "explainers": [],
+            "end_title": "",
+            "end_subtitle": "",
+            "title_start": 174.6,
+            "title_end": 179.5,
+            "cover_text": "",
+            "cover_concept": "",
+            "publish_title": "",
+            "hashtags": [],
+            "caption_policy": {
+                "regular": "白字黑边，底部居中安全区（MarginV=62），逐镜与旁白逐句同步；关键词金色高亮并放大",
+                "hook": "白字黑边，大号字幕，居中偏下（MarginV=275），每条停留2秒，不挡主体",
+                "explainer": "金色小字，画面中间偏下（MarginV=200），只补充可核实事实，帮助读者看懂",
+                "end_title": "只在最后一镜由后期添加标题文字，AI源片禁止自绘文字",
+            },
+        },
+        "sfx_only": True,
+        "fact_check": {"status": "TODO", "as_of": "", "legal_note": "", "sources": [], "editorial_cautions": []},
+        "production_rules": [],
         "_scaffold": {
             "reference": f"production/{REFERENCE_SLUG}",
             "generator": "production/new_topic.py",
             "slug": slug,
-            "note": f"{SHOT_COUNT} 镜 × {GRID} 秒 / 6 章 × 30 秒 的骨架已算好；内容写在 build_story.py 里，"
-                    "跑一次 build_story.py 才会进 story.json；提示词、解说词、style_prefix、principles、"
-                    "sources 必须填完才能通过 --validate。",
+            "note": f"{SHOT_COUNT} 镜 × {GRID} 秒 / {CHAPTER_COUNT} 章 × {CHAPTER_LENGTH} 秒 的骨架已算好；"
+                    "内容写在 build_story.py 里，跑一次 build_story.py 才会进 story.json；"
+                    "提示词、解说词、style_prefix、批准参考图必须填完才能通过 --validate。",
         },
     }
 
@@ -228,30 +249,17 @@ def chapter_shots(story: dict) -> dict[str, list[str]]:
     return grouped
 
 
-def cuts_skeleton(story: dict) -> str:
-    """按 story.json 生成 render.py 的 CUTS 剪辑表骨架（每章第一个切点必须是 0）。
-
-    参考项目里 CUTS 的时间点是按 audio/clause-times.json 的分句边界对出来的；这里只给一个
-    均匀起点（每 4 秒一切），拿到配音后必须重对，并用 clause_times.py --check-cuts 校验。
-    """
-    lines = ["CUTS = {"]
-    for cue, shots in chapter_shots(story).items():
-        body = ", ".join(f"({slot * GRID},'{shot}','')" for slot, shot in enumerate(shots))
-        lines.append(f"    '{cue}': [{body}],")
-    lines.append("}")
-    return "\n".join(lines)
-
-
-def shots_skeleton(story: dict) -> str:
-    """build_story.py 里 SHOTS 的 45 个占位元组（按章分组，带 TODO）。"""
+def rows_skeleton(story: dict) -> str:
+    """build_story.py 里 ROWS 的 30 行占位（按章分组，带 TODO）。"""
     lines = []
     for cue, shots in chapter_shots(story).items():
         lines.append(f"    # ---------------- {cue}（{len(shots)} 镜）----------------")
         for shot in shots:
             lines.append(
-                f'    ("{shot}", "agnes", "TODO 运镜", "TODO 叙事职责", "TODO 衔接方式",\n'
-                f'     "TODO English prompt: one place, one camera move, no faces, no readable text, HOLD sentence",\n'
-                f'     "TODO 音效备注"),')
+                f'    ({GRID}, "TODO 解说一句话",\n'
+                f'     "TODO 这一镜的画面与运镜（中文，含机位/景别/主体/动作/环境）",\n'
+                f'     "TODO 参考图编号，如 P01 或 S02+C01", [], "TODO 运镜", "TODO 音效/环境声", "TODO 色调"),'
+            )
     return "\n".join(lines)
 
 
@@ -265,7 +273,7 @@ def starter_screenplay(title: str, story: dict) -> str:
         "## 事实边界",
         "",
         "TODO 写清楚：哪些是公开资料可证的事实，哪些是情景重现，哪些坚决不写。",
-        "这一段是这部片子的底线，比任何画面都重要（参考 `production/rabies1885/screenplay.md`）。",
+        "这一段是这部片子的底线，比任何画面都重要（参考 `production/shanghai_freezer_case/FACT_CHECK.md`）。",
         "",
         "## 解说稿与时间线",
         "",
@@ -277,39 +285,37 @@ def starter_screenplay(title: str, story: dict) -> str:
         sections.append(
             f"### {start // 60:02d}:{start % 60:02d}—{end // 60:02d}:{end % 60:02d}"
             f"　TODO 章节标题（{chapter['id']}）\n\n"
-            "TODO 解说词。六段合计约 760–800 字；写在 `build_story.py` 的 CHAPTERS 里，跑一次 "
-            "`build_story.py` 会同步进 `story.json` 的 `chapters[].text` 和 `audio/manifest.json` 的 "
-            "`clips[].text`；这里再抄一遍，三处必须逐字一致，否则 `generate.py` 会拒绝出片。\n"
+            "TODO 解说词。写在 `build_story.py` 的 ROWS 里，跑一次 `build_story.py` 会同步进 "
+            "`story.json` 的 `shots[].narration`；这里再抄一遍，两处必须逐字一致，否则渲染会拒绝出片。\n"
         )
     table = [
         "## 分镜与衔接",
         "",
-        "| 镜头 | 规划时间 | 类型 | 叙事职责 | 衔接方式 |",
+        "| 镜头 | 规划时间 | 类型 | 画面与运镜 | 参考图 |",
         "|---|---|---|---|---|",
     ]
-    grouped = chapter_shots(story)
-    for cue, shots in grouped.items():
-        for shot_id in shots:
-            shot = next(s for s in story["shots"] if s["id"] == shot_id)
-            start = shot["start"]
-            table.append(
-                f"| {shot['id']} | {start:03d}—{start + shot['duration']:03d}s | "
-                f"{shot['kind']} | TODO | TODO |"
-            )
-        table.append(f"| — | — | 解说 {cue} 结束 | — | — |")
+    for shot in story["shots"]:
+        start = int(shot["start"])
+        table.append(f"| {shot['id']} | {start:03d}—{start + shot['duration']:03d}s | Agnes | TODO | TODO |")
     return "\n".join(head + sections + table) + "\n"
 
 
 def starter_manifest(story: dict) -> dict:
     return {
-        "voice_id": "",
         "language": "zh-CN",
-        "selection": "TODO 用户试听后选定的音色（add_voice 的 voice_id）",
+        "voice": "",                          # TODO：试音后的 voice_id（audio/voice.json 同步登记；build_audio_manifest.py 回填）
+        "generation": "Arena TTS; one independent clip per shot",
+        "alignment": "one-clip-one-shot-one-caption",
+        "max_speedup_factor": 1.55,
+        "slowdown_allowed": False,
         "clips": [
-            {"id": chapter["id"], "file": f"{chapter['id']}.mp3", "sha256": "", "text": ""}
-            for chapter in story["chapters"]
+            {"id": shot["id"], "file": f"{shot['id']}.mp3", "text": "", "sha256": "",
+             "voice_id": "", "voice_description": "", "narration_id": shot["narration_id"],
+             "target_start": shot["start"], "target_duration": shot["duration"],
+             "alignment": "shot-locked", "source_duration": 0.0, "atempo": 1.0,
+             "tail_silence_seconds": 0.0}
+            for shot in story["shots"]
         ],
-        "post_processing": "TODO tighten_pauses.py 收紧停顿后的说明（原始 TTS 在 audio/raw/）",
     }
 
 
@@ -317,100 +323,80 @@ def starter_readme(slug: str, title: str, branch: str) -> str:
     film = film_name(title)
     return f"""# {title}
 
-由 `production/new_topic.py` 从参考项目 `production/rabies1885`（《狂犬病疫苗：一百四十年前那场赌局》，已成片、已发布）
+由 `production/new_topic.py` 从参考项目 `production/shanghai_freezer_case`（《上海冰柜藏尸案》，已成片、已换声重渲）
 开出来的新项目目录。参考实现只被复制，没有被修改；本片的所有编辑都发生在这个目录里。
-流程细节见仓库根目录的 `新题目开工手册.md`。
+端到端流程见仓库根目录的 `新题目开工手册.md`。
 
 - slug：`{slug}`　出片分支：`{branch}`　成片文件名：`{film}`
-- 规格：1920×1080 / 30 fps / 180 秒；**45 镜 = 38 个 Agnes 动画镜头 + 7 张信息卡（比例可调），每个镜头只出现一次**
-- 默认画面文字层：**光州胶带案风格**（`gwangju_style.py`）——画面内解说词字幕 + 画面中间偏下金色注释；
-  在 `build_story.py` 填 `HOOKS` / `EXPLAINERS`，渲染时自动烧录。参考 `production/gwangju_tape_case/模板-如何复用.md`。
+- 规格：1920×1080 / 24 fps / 180 秒；**30 个 Agnes Video 2.5 Flash 镜头，每个镜头只出现一次**；全片无 BGM
+- 默认画面文字层：**光州胶带案风格**（`production/gwangju_style.py`）——画面内解说词字幕 + 画面中间偏下金色注释 + 钩子大字；
+  在 `build_story.py` 填 `HOOKS` / `EXPLAINERS` / `HIGHLIGHT_PHRASES`，渲染时自动烧录。
 
 ## 现在还不能出片（故意的）
 
-`generate.py --validate` 现在**会失败**，因为解说词、提示词、配音都是空的。按下面顺序填完，它才会放行。
+`generate.py --validate` 现在**会失败**，因为解说词、提示词、参考图、配音都是空的。按下面顺序填完，它才会放行。
 
-## 待办清单（狂犬病模式）
+## 待办清单（上海冰柜藏尸案模式）
 
-1. **事实与红线** → `build_story.py` 的 `SOURCES` / `PRINCIPLES`，`screenplay.md` 的「事实边界」。每句话都要有公开来源。
-2. **解说稿** → `build_story.py` 的 `CHAPTERS`：六段合计 ≈ 760–800 字，数字写中文读法，每段末尾留钩子，不写血腥细节。
-3. **分镜** → `build_story.py` 的 `SHOTS`（45 个元组）：哪几镜是信息卡（`kind="graphic"`）由你定，信息卡文案写进 `CARDS`；
-   提示词先钉死唯一场景、再排除别的场景、最后加 HOLD 句。`TITLE_CARD` / `END_CARD` / `CAPTION_KEYWORDS` /
-   `LABEL_OVERRIDES` / `SFX_EVENTS` 也在这里。写完跑：
-
-   ```bash
-   python3 production/{slug}/build_story.py          # 写 story.json + audio/manifest.json 的逐字文本
-   ```
-
-4. **配音** → 试音选定音色 → 六段 TTS 放 `audio/raw/N0x.mp3` → 收紧停顿、对分句时间、填 SHA-256：
+1. **事实与红线** → `FACT_CHECK.md`（先写这个文件）：公开资料口径、判决/进展、媒体口径 vs 日历口径的数字差异、
+   受害者称谓、施害过程不展示。每句话都要能指到一个公开来源；未实时复核的，如实写在 `story.json` 的 `fact_check.status`。
+2. **解说稿** → `build_story.py` 的 `ROWS`：30 句、一镜一句、数字中文读法、不写血腥细节；
+   每句都要能对上参考图与 `FACT_CHECK.md` 的条目。
+3. **分镜与参考图** → `ROWS` 的 visual / refs / characters / camera：提示词先钉死唯一场景，
+   再明确排除别的场景，最后加运镜句。参考图批准后放 `reference/` 并登记 `reference/approvals.json`
+   （`status=approved` + sha256）与 `reference/revision.txt`（git 里的 reference 快照 commit）。
+4. **角色锚点** → `CHARACTERS` / `CHARACTER_SEEDS`：每个反复出现的角色一个锚点一句（虚构演员式形象），每角色固定 seed。
+5. 写完跑：
 
    ```bash
-   python3 production/{slug}/tighten_pauses.py       # raw/ -> audio/N0x.mp3，写 audio/tighten-report.json
-   python3 production/{slug}/clause_times.py         # 写 audio/clause-times.json
-   sha256sum production/{slug}/audio/N0*.mp3         # 填进 audio/manifest.json 的 sha256，voice_id 也要填
-   python3 production/{slug}/generate.py --validate  # 闸门一
+   python3 production/{slug}/build_story.py          # 写 story.json + screenplay.md + 抖音脚本.md + 抖音发布文案.md
+   python3 production/{slug}/generate.py --validate  # 闸门一（空内容会被它拦住）
    ```
 
-5. **生成素材** → 把 `workflows/` 下四份（`{slug}-gen.yml` / `-render.yml` / `-verbatim.yml` / `-visual-qc.yml`）复制到
-   `.github/workflows/`（需要 workflows 写权限），然后写 `GEN_REQUEST`（`{{"workers":2}}`）并 push；
-   `watch_run.py` 拉回 `results.json` 与 `qa/` 接触表；逐镜初筛可跑 `qc_shots.py`（黑帧 / 冻结 / 中途换场 /
-   伪文字 / 人脸 / 手部几何），看完再用 `review_app.py` 把要重做的镜头勾成 `REDO.json`。
-6. **复审** → 逐镜看 `qa/Sxx.jpg`（14 帧）：画的是不是这一镜的场景、7 秒内有没有换场、有没有脸/可读伪文字/遗体。
-   坏镜头只改它的 prompt，`GEN_REQUEST` 写 `{{"workers":2,"only":"S03,S08"}}` 重做，其余按 SHA-256 复用。
-7. **剪辑表** → `render.py` 的 `CUTS` 骨架是 4 秒均匀一切，**必须**按 `audio/clause-times.json` 重对
-   （切点落在分句起点前 0.15 s 左右），然后：
-
-   ```bash
-   python3 production/{slug}/clause_times.py --check-cuts   # 每个切点都要在停顿窗内
-   ```
-
-8. **出片** → 写 `RENDER_REQUEST` 并 push；成片 commit 回 `交付/{film}`，报告在 `delivery/`。
-   复检：按 EDL 逐段抽帧看画面/字幕/标签；按分句起点前后 0.25 s 抽帧核对字幕切换。
-9. **听检** → 写 `VERBATIM_REQUEST` 并 push；`delivery/verbatim-check.json` 六章 CER 都要 ≤ 0.15。
-10. **全帧视觉 QC** → 写 `VISUAL_QC_REQUEST` 并 push；工作流解码成片**每一帧**（5400/5400），
-    输出 `delivery/frame-distortion-audit.md`、`visual-qc-summary.json` 与 `qa/final-frame-review/`
-    （全帧接触表 + 手部动态表 + 原始分辨率候选帧）。自动结果是**分诊**，不是签收。
-11. **人工语义签收** → 逐张看完候选帧再决定：片尾卡与信息卡**有没有字被画面裁掉**
-    （自动审计不量这个！本部就是在这一步发现片尾卡问句两端缺字的）、人脸是不是误检、
-    手部是否畸变、有没有可读伪文字。确认无问题才动 Release；有问题回对应步骤修完重渲。
-    卡片排字有闸门守着：`production/tests/test_card_typography.py`（**通用**，自动扫 production/*/，
-    有 `presentation.end_card` 的项目都会被真画一遍卡片、量左右 100 px 安全带，不用照抄）。
-12. **发布** → `gh release create <tag>` + 写 `RELEASE_UPLOAD_REQUEST`（tag / src / asset）；
-    `build_story.py --script` 生成 `抖音脚本.md`，`build_story.py --publish` 生成 `抖音发布文案.md`。
+6. **配音** → `add_voice`（先让用户试听并选定）→ 30 条 TTS 放 `audio/Sxx.mp3` → 写 `audio/voice.json` →
+   `python3 production/{slug}/build_audio_manifest.py` 回填 sha256/时长。
+7. **生成素材** → 把 `workflows/` 下三份复制到 `.github/workflows/`（需要 workflows 写权限），写 `GEN_REQUEST`
+   （`{{"mode":"clips","workers":2}}`）并 push；逐镜看 `qa/Sxx.jpg`，坏镜头只改它的 prompt 后
+   `{{"mode":"clips","only":"S03,S08"}}` 重做，其余按 SHA-256 复用。
+8. **出片** → `GEN_REQUEST` 写 `{{"mode":"render"}}` 并 push；成片 commit 回 `交付/{film}`；
+   复检：按 EDL 逐段抽帧看画面/字幕/标签。
+9. **听检** → 写 `VERBATIM_REQUEST` 并 push（或 Actions 手动触发 `{slug}-verbatim.yml`）；
+   `delivery/verbatim-check.json` 每镜 CER 都要 ≤ 0.15，否则人工听。
+10. **技术 QC** → 写 `VISUAL_QC_REQUEST` 并 push（或手动触发 `{slug}-visual-qc.yml`）；
+    工作流跑 `qc.py` 并把 `qa/qc-report.json` / `qa/qc-summary.md` commit 回分支。**自动结果只是分诊，不是签收。**
+11. **人工语义签收** → 逐镜完整播放：伪文字、面部/手部形变、字幕与画面冲突、钩子/注释有没有被裁、片尾卡是否完整。
+    发现问题回对应步骤修完重渲。
+12. **发布** → 抖音发布由主创手动上传（本仓库不自动发布）；`build_story.py` 已生成 `抖音发布文案.md`；
+    系列封面走 `production/mystery-cover-template/`；需要 Release 时写 `RELEASE_UPLOAD_REQUEST`。
 
 ## 目录
 
 | 路径 | 作用 |
 |---|---|
-| `build_story.py` | **唯一内容源**：解说词、45 镜、信息卡文案、片头/片尾卡、字幕高亮词、标签、音效事件、发布文案 |
-| `story.json` | 分镜计划：45 镜 × 4 秒、6 章 × 30 秒（由 build_story.py 写入，含 `presentation` 块） |
-| `screenplay.md` | 解说稿 + 事实边界 + 分镜表 |
-| `script_table.py` | 由 story.json + CUTS + 分句时间生成 `抖音脚本.md` / `抖音发布文案.md` |
-| `audio/raw/` → `audio/N0x.mp3` | TTS 原始输出 → 收紧停顿后的配音（manifest 的 SHA-256 记的是后者） |
-| `audio/manifest.json` / `clause-times.json` / `tighten-report.json` | 配音收据、分句时间、收紧报告 |
-| `tighten_pauses.py` / `clause_times.py` | 收紧停顿；分句对时间 + `--check-cuts` |
-| `generate.py` | 生成 Agnes 素材（75 秒节流、断点续跑、`--prune-failed`）+ `--validate` 闸门 |
-| `fetch_sources.py` / `watch_run.py` | 按 SHA-256 回填素材；从分支拉回 results/qa/delivery |
-| `render.py` | 剪辑引擎：CUTS（每镜只用一次，有断言）、信息卡（排字自适应缩号）、字幕（ASR → clause-times → 估算）、混音、成品复测 |
-| `build_audio.py` / `align_audio.py` / `media.py` / `throttle.py` | 公共实现（副本） |
-| `qc_shots.py` | 逐镜初筛：黑帧 / 冻结 / 中途换场 / 伪文字 / 人脸 / 手部几何 / 色温颗粒 |
-| `audit_frame_distortions.py` / `compose_all_frame_sheets.py` / `export_visual_review_candidates.py` / `publish_visual_review_bundle.py` | 成片全帧审计 → 全帧接触表 → 候选帧 → 审片证据写回仓库 |
-| `review_app.py` / `progress_app.py` | 本地页面：勾选要重做的镜头（`REDO.json`）；一屏看制作进度 |
-| `workflows/` | 四份 marker 触发的工作流（生成 / 出片 / 听检 / 全帧视觉 QC），复制到 `.github/workflows/` 才生效 |
-| `GEN_REQUEST` / `RENDER_REQUEST` / `VERBATIM_REQUEST` / `VISUAL_QC_REQUEST` / `RELEASE_UPLOAD_REQUEST` | push 触发工作流的 marker 文件（按需创建） |
-| `../run_project.sh` | **所有项目共用**的出片脚本：`bash production/run_project.sh {slug}` |
+| `FACT_CHECK.md` | 事实边界与来源（先写它） |
+| `build_story.py` | **唯一内容源**：解说词、30 镜、STYLE/NEGATIVE、角色锚点、钩子、注释、发布文案 |
+| `story.json` | 分镜计划（由 build_story.py 写入，含 `presentation` 块） |
+| `screenplay.md` / `抖音脚本.md` | 解说稿 + 分镜表（生成物，禁手改） |
+| `抖音发布文案.md` | 标题/介绍/提问/话题（生成物，禁手改） |
+| `reference/` + `reference/approvals.json` + `revision.txt` | 批准的参考图 + sha256 登记 + git 快照 commit |
+| `audio/Sxx.mp3` / `audio/voice.json` / `audio/manifest.json` | 每镜配音 / 选定音色 / 收据 |
+| `generate.py` | Agnes 生成（节流、断点续跑、--validate 闸门、--render-only 出片） |
+| `render.py` | 剪辑引擎：逐镜归一化、字幕/钩子/注释烧录、混音、成品测量 |
+| `qc.py` / `preflight.py` | 源片与成片技术 QC；开工前硬闸 |
+| `build_audio_manifest.py` / `build_sfx.py` / `narration_fit.py` / `throttle.py` | 配音收据 / 逐镜音效（无 BGM）/ TTS 适配 / 节流 |
+| `workflows/` | 三份工作流（合一出片 / 逐字听检 / 技术 QC），复制到 `.github/workflows/` 才生效 |
+| `GEN_REQUEST` / `CANCEL_REQUEST` / `VERBATIM_REQUEST` / `VISUAL_QC_REQUEST` / `RELEASE_UPLOAD_REQUEST` | push 触发工作流的 marker 文件（按需创建） |
+| `qa/` | 接触表、QC 报告（CI 写回） |
 
 ## 红线（继承自参考项目，不要删）
 
-- AI 画面一律标注「AI动画情景重现 · 非新闻影像」，不冒充真实影像；
-- 真实人物只以背影、剪影、手出现，不用 AI 生成的脸冒充本人；受害者不以人像出现；
+- AI 画面一律标注「AI动画情景重现 · 非真实影像」，不冒充真实影像；
+- 真实人物只以 AI 虚构演员式形象出现，不用 AI 生成的脸冒充本人；受害者不以人像出现；
 - 不展示遗体、血腥或侵害过程；未定论的事不写成结论；
-- 中文姓名、日期、字幕一律后期添加，不交给视频模型拼写；
-- 成片必须实测电平（`--validate` 之后还有 `render.py` 的成品复测），无声不许交付；
-- 每个镜头只出现一次，不复用（`render.py` 的 `make_edl` 有断言）；
-- **卡片上的一行字不许越出画面**：`render.py` 的 `centered()` 会按 `max_width` 缩号，放不下直接报错。
-  狂犬病那部的片尾卡问句曾按固定 96 px 排出 2304 px 宽、两端各裁掉两个字，而三道自动闸门全是绿的
-  —— 自动审计只量黑帧、冻结、帧间差异和人脸/手，**从不量文字溢出**。
+- 中文姓名、日期、字幕一律后期烧录，不交给视频模型拼写；
+- 成片必须实测电平与时长（`python3 production/verify_master.py ...`），无声/时长不对不许交付；
+- 每个镜头只出现一次，不复用；
+- **成片交付前必须人工完整播放**：QC 绿 ≠ 可交付。
 """
 
 
@@ -433,7 +419,8 @@ def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path,
         raise SystemExit(f"目标目录已存在，先删掉或换一个 slug：{dest}")
 
     dest.mkdir(parents=True)
-    (dest / "audio" / "raw").mkdir(parents=True)
+    (dest / "audio").mkdir()
+    (dest / "reference").mkdir()
     (dest / "workflows").mkdir()
 
     story = starter_story(slug, branch, title, reference)
@@ -442,20 +429,12 @@ def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path,
         text = (reference / name).read_text(encoding="utf-8")
         (dest / name).write_text(patch(text, slug, branch, title), encoding="utf-8")
 
-    for name in SHARED_ENGINE_FILES:
-        text = (HERE / name).read_text(encoding="utf-8")
-        (dest / name).write_text(text, encoding="utf-8")
-
     for name in TEMPLATE_FILES:
         text = render_template(name, slug, branch, title, templates)
-        if name == "render.py":
-            text, hits = CUTS_BLOCK.subn(lambda _m: cuts_skeleton(story), text, count=1)
-            if hits != 1:
-                raise SystemExit("模板 render.py 里找不到 CUTS 剪辑表，脚手架已中止")
         if name == "build_story.py":
-            if "__SHOTS__" not in text:
-                raise SystemExit("模板 build_story.py 里找不到 __SHOTS__ 占位，脚手架已中止")
-            text = text.replace("__SHOTS__", shots_skeleton(story))
+            if "__ROWS__" not in text:
+                raise SystemExit("模板 build_story.py 里找不到 __ROWS__ 占位，脚手架已中止")
+            text = text.replace("__ROWS__", rows_skeleton(story))
         (dest / name).write_text(text, encoding="utf-8")
 
     for name, target in WORKFLOW_TEMPLATES.items():
@@ -466,6 +445,8 @@ def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path,
     (dest / "screenplay.md").write_text(starter_screenplay(title, story), encoding="utf-8")
     (dest / "audio" / "manifest.json").write_text(
         json.dumps(starter_manifest(story), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (dest / "reference" / "approvals.json").write_text(
+        json.dumps({"assets": {}}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (dest / "README.md").write_text(starter_readme(slug, title, branch), encoding="utf-8")
     return dest
 
@@ -473,13 +454,13 @@ def scaffold(slug: str, title: str, branch: str, dest: Path, reference: Path,
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--slug", required=True, help="新项目目录名，小写字母数字，如 ripper1888")
-    parser.add_argument("--title", required=True, help="中文片名，如 开膛手杰克：1888 年的秋天")
+    parser.add_argument("--slug", required=True, help="新项目目录名，小写字母数字，如 jinanforum")
+    parser.add_argument("--title", required=True, help="中文片名，如 某某案：一句钩子")
     parser.add_argument("--branch", default="", help="出片分支（默认取当前 git 分支）")
     parser.add_argument("--dest", type=Path, default=None,
                         help="项目目录（默认 production/<slug>）")
     parser.add_argument("--reference", type=Path, default=REFERENCE,
-                        help="参考项目目录（默认 production/rabies1885）")
+                        help="参考项目目录（默认 production/shanghai_freezer_case）")
     parser.add_argument("--templates", type=Path, default=TEMPLATES,
                         help="模板目录（默认 production/templates）")
     args = parser.parse_args(argv)
@@ -500,7 +481,8 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"已开出新项目：{created.relative_to(ROOT) if created.is_relative_to(ROOT) else created}")
     print(f"  出片分支：{branch}")
-    print(f"  下一步：填 {created.name}/build_story.py（解说词 / 45 镜 / 信息卡 / 发布文案），")
+    print(f"  成片文件名：{film_name(args.title)}")
+    print(f"  下一步：先写 FACT_CHECK.md，再填 {created.name}/build_story.py（ROWS / STYLE / 钩子），")
     print(f"        跑 python3 production/{args.slug}/build_story.py 写入 story.json，")
     print(f"        再跑 python3 production/{args.slug}/generate.py --validate")
     print(f"  工作流：把 {created.name}/workflows/*.yml 复制到 .github/workflows/ 才能用 marker 文件触发")

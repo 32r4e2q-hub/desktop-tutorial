@@ -3,8 +3,8 @@
 
 用法::
 
-    python3 production/review_film.py --film 交付/黑色大丽花_三分钟_带声音.mp4 \
-        --project production/dahlia --work work/dahlia/review
+    python3 production/review_film.py --film '交付/上海冰柜藏尸案_105天_三分钟_带声音.mp4' \
+        --project production/shanghai_freezer_case --work work/shanghai_freezer_case/review
 
 产出：
 
@@ -21,8 +21,8 @@
 字幕有没有错字、AI 画面有没有畸变，仍然要人看抽样帧——这个工具的作用
 是把该看的东西摆到你面前，并且把"看起来没问题"变成可复查的数字。
 
-音频复测刻意**不复用** ``production/dahlia/build_audio.py``：独立实现同一套
-阈值（1 秒窗、静音 -50 dBFS、逐章 -40 dBFS 下限），这样它是对成片的第二双眼睛，
+音频复测刻意**不复用**各项目的 build_audio/音频生成代码：独立实现同一套阈值
+（1 秒窗、静音 -50 dBFS、逐章 -40 dBFS 下限），这样它是对成片的第二双眼睛，
 而不是把同一段代码再跑一遍。
 """
 from __future__ import annotations
@@ -36,7 +36,7 @@ import numpy as np
 from PIL import Image
 
 RATE = 48000
-# 与 production/dahlia/build_audio.py 相同的判定口径（独立实现，见模块说明）
+# 与项目内音频生成代码相同的判定口径（独立实现，见模块说明）
 SILENCE_THRESHOLD_DBFS = -50.0
 MIN_CHAPTER_RMS_DBFS = -40.0
 BLACK_FRAME_LUMA = 12.0

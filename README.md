@@ -1,166 +1,74 @@
-# 系列封面与制作手册
+# 迷案解码人 · 案件解说短片生产仓
 
-**「迷案解码人」系列**：用户告诉 Agent 是第几期，Agent 根据当前案件材料核实事实、自拟标题、选取本期视频截图并生成固定版式竖版封面；若案件或截图来源不明确会先询问。入口：[`系列封面工具和使用说明`](production/mystery-cover-template/README.md) · [`新题目开工手册`](新题目开工手册.md) · [`Agent 工作约定`](AGENTS.md)。
+真实案件 180 秒中文解说短片（抖音横版 · 1920×1080 · 24 fps）。
+现阶段仓库里关于案件只有一部：**上海「冰柜藏尸案」**（第二十期）。
+此前的全部旧案件工程、旧成片、旧工作流已删除（主创 2026-11-21 授权）；
+git 历史仍含旧案二进制（瘦身需 filter-repo/BFG + 强推，未经主创明示不会执行）。
 
----
+- 制作总约定：[`AGENTS.md`](AGENTS.md)
+- **从一个题目到一条成片：[`新题目开工手册.md`](新题目开工手册.md)**
+- 当前唯一上架内容与交付物见下文。
 
-# 第十五期 · 光州胶带案：22米胶带，封住了谁的真相？
+## 当前成片（第二十期 · 上海冰柜藏尸案）
 
-> **最新成片（2026-11-14）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.000 s · 30 镜 / 628 字 / 无 BGM
->
-> - 影片：[`交付/光州胶带案_22米胶带_三分钟_带声音.mp4`](交付/光州胶带案_22米胶带_三分钟_带声音.mp4)（72,574,275 B · SHA-256 `115df324…`）
-> - Drive 下载：https://drive.google.com/file/d/1aey4Z3PV4f-th-dsXXkTLnOQ5menihsf/view?usp=drivesdk
-> - 系列封面：[`第十五期_光州胶带案_系列封面.png`](交付/第十五期_光州胶带案_系列封面.png) · 发布文案：[`第十五期_抖音发布文案.md`](交付/第十五期_抖音发布文案.md)
-> - 制作过程：[`production/gwangju_tape_case/制作过程.md`](production/gwangju_tape_case/制作过程.md) · 复用模板：[`模板-如何复用.md`](production/gwangju_tape_case/模板-如何复用.md)
-> - **从这一部起，画面文字层一律按本片默认**：画面内解说词字幕 + 画面中间偏下金色注释（`production/gwangju_style.py`）。
-> - 质检：`verify_master.py` PASS；最大字幕领先 0.11s；技术 QC 与 Agent 抽帧复核通过，仍需用户完整播放人工复核。
-
----
-
-# 上一部：世田谷一家四口杀人案：留下无数线索，凶手为何仍未找到？
-
-> **上一部成片（2026-10-28）** · 三分钟横屏 · 1920×1080 · 24 fps · 180.0 s · 29 个 Agnes Video 2.5 Flash 镜头
->
-> - 影片：[`交付/Setagaya_Case_Final.mp4`](交付/Setagaya_Case_Final.mp4)（65.4 MB）
-> - 封面 / 字幕 / 旁白：[`Setagaya_Cover.png`](交付/Setagaya_Cover.png) · [`Setagaya_Subtitles.srt`](交付/Setagaya_Subtitles.srt) · [`Setagaya_Narration.wav`](交付/Setagaya_Narration.wav)
-> - 全流程与状态：[`production/setagaya2000/README.md`](production/setagaya2000/README.md)
-> - **历史模板**：[`production/setagaya2000/模板-如何复用.md`](production/setagaya2000/模板-如何复用.md)（画面文字层默认已由光州胶带案风格取代）
->   （29 镜一镜一句 · **解说词与片段等长**：镜头时长跟着旁白走，只快不慢 · 24 fps · 720P 源片放大 1080P · 一份 yml + 三个 marker · 闸门在 runner 上跑）
-> - 质检：`QC PASS`，`hard_gate_failures: []`（非预期黑帧 0 · 冻结 0 · 闪烁 0 · 字幕 0 问题 · RMS −21.04 dBFS · 末秒 −120 dBFS）
-
----
-
-# 上一部：雨夜屠夫林过云：一卷菲林里的四条人命
-
-三分钟横版（16:9）中文悬疑解说短片 · 抖音横屏观看版 · 写实 3D 动画情景重现。
-一九八二年二月至七月，香港四名夜归女子坐上同一辆夜班的士后再没有回家；
-警方查了半年，最后揭开真相的不是目击者、不是指纹，而是凶手自己送去冲印店的一卷菲林。
-
-这个仓库是这部片子的**成片、脚本、发布文案**，以及把它做出来的**整条可复现流水线**
-（换题目照 [`新题目开工手册.md`](新题目开工手册.md) 再做一部）。
-
-## 成片
+> 2026-11-19 换声重渲（run 44906491612）；母版 `7ee0d60d…`（sha256 `7ee0d60d04e0f6c1cbf2257936668eca9adcb9de38139e4d44793e102c447652`）
 
 | 项 | 内容 |
 |---|---|
-| 文件 | [`交付/雨夜屠夫林过云_一卷菲林里的四条人命_三分钟_带声音.mp4`](交付/雨夜屠夫林过云_一卷菲林里的四条人命_三分钟_带声音.mp4)（67.0 MB · 1920×1080 · 30 fps · 180.0 s · 5400 帧） |
-| 下载 | [Release lamkorwan-v1](https://github.com/32r4e2q-hub/desktop-tutorial/releases/tag/lamkorwan-v1) → `lamkorwan-rainy-night-butcher-3min-1080p.mp4`（与 `交付/` 里的文件字节一致，SHA-256 `b57ad26f7d520bb1d5066daa9a257d9c87651e3f9c0b99b80fa736fae9d20804`） |
-| 画面 | 45 个镜头 = **38 个 Agnes Video V2.0 写实 3D 动画镜头 + 7 张信息卡 + 片尾卡，每个镜头只出现一次**；全片常驻「AI动画情景重现 · 非新闻影像」标签 |
-| 声音 | 六段配音 796 字（TTS → 只剪静音收紧到 174.34 s，整体变速 1.038）+ 原创配乐 + 合成音效；成片实测 RMS −20.31 dBFS · 峰值 −1.51 dBFS · 静音占比 0.55 %（六章逐段 RMS −19.91 / −19.92 / −20.00 / −20.12 … dBFS） |
-| 字幕 | 分句字幕、关键词描黄；**字号 60 px**（模板默认 43，按「字幕要大一些」调大）、描边 3.2 |
-| 调色 | 手机端可读性提亮 `eq=gamma=1.45:brightness=0.012`：暗部由 22–28/255 抬到 51–55/255，夜景氛围保留（改动记在 `render.py` 的 `GRADE`） |
-| 听检 | whisper small 逐章字错率 0.018–0.081（同一成片重复跑有小幅波动，上限 0.15），报告 [`delivery/verbatim-check.json`](production/lamkorwan/delivery/verbatim-check.json) |
-| 全帧 QC | 5400/5400 帧解码；冻结段 0；**人脸复核候选 0**；非计划黑帧 1（S45→片尾卡交接的转场压黑，已人工确认），报告 [`delivery/visual-qc-summary.json`](production/lamkorwan/delivery/visual-qc-summary.json) |
+| 影片 | [`交付/上海冰柜藏尸案_105天_三分钟_带声音.mp4`](交付/上海冰柜藏尸案_105天_三分钟_带声音.mp4)（59,550,078 B · 1920×1080 · 24 fps · 180.000 s · 4320 帧） |
+| 封面 / 字幕 / 技术报告 | [`上海冰柜藏尸案_Cover.jpg`](交付/上海冰柜藏尸案_Cover.jpg) · [`上海冰柜藏尸案_Subtitles.srt`](交付/上海冰柜藏尸案_Subtitles.srt) · [`上海冰柜藏尸案_Technical_Report.json`](交付/上海冰柜藏尸案_Technical_Report.json) |
+| 系列封面 | [`第二十期_上海冰柜藏尸案_系列封面.png`](交付/第二十期_上海冰柜藏尸案_系列封面.png)（+ 同名 JSON 记录期数/标题/截图来源） |
+| 发布文案 | [`交付/第二十期_上海冰柜藏尸案_抖音发布文案.md`](交付/第二十期_上海冰柜藏尸案_抖音发布文案.md) |
+| 旁白 | voice-01 低沉男声（30 条，一镜一句；**未经主创完整听检**；S14 近静音已重试，peak 0.773） |
+| 事实核查 | [`production/shanghai_freezer_case/FACT_CHECK.md`](production/shanghai_freezer_case/FACT_CHECK.md) — **未联网实时复核**，媒体口径"105天"全片统一 |
+| 流水线 | [`production/shanghai_freezer_case/`](production/shanghai_freezer_case/)（唯一参考实现，也是一条将在下期复制它的生产线） |
 
-## 发布用
+> 成片 commit 在当前分支（`arena/f9f847e0-desktop-tutorial`）上，对应 **PR #55（换声；状态以 GitHub 为准，本次未合并 main）**。
+> 发布到抖音由主创手动；Agent 不代发。
+> 交付前待主创完成：完整听检（voice-01）+ 抽帧复核（伪文字/崩脸/未打码）——**自动 QC ≠ 人工签收**。
 
-- **题目（三选一）**
-  1. 香港最轰动的奇案：他把四条人命拍进菲林，最后栽在一台坏掉的放大机上
-  2. 雨夜屠夫林过云：一卷送去冲印的照片，把自己送进了法庭｜香港十大奇案
-  3. 1982年香港雨夜，四个女人上了同一辆的士，再也没下车
-- **提问读者一句话**：如果那台放大机没有坏，这个案子还会被揭开吗？
-- **金句**：他想让全世界看见自己的作品，结果正是那卷菲林，把他送上了法庭。
-- **抖音介绍 + 话题**：[`production/lamkorwan/抖音发布文案.md`](production/lamkorwan/抖音发布文案.md)
-- **脚本**（三个标题 / 核心爆点 / 四列分镜表：时间轴 · 口播文案 · 画面描述 · 音效备注 / 金句结尾 / 事实边界 / 资料来源）：
-  [`production/lamkorwan/抖音脚本.md`](production/lamkorwan/抖音脚本.md)
-- **流水线更新**：本片把两条新规矩写进了 [`新题目开工手册.md`](新题目开工手册.md)——① 街景/店面镜头必须放大到原始像素查 AI 伪文字（缩略图看不见）；② **露脸模式**：从下一部起可以露脸，但「每个人物一张不同的脸、同一人物跨镜同一张脸」由 `production/face_cast.py` 两道闸门守着（静态查 token、画面查换脸/撞脸）
-
-## 案件事实链（片中每一句都有公开来源，见脚本第六节）
-
-| 时间 | 事 |
-|---|---|
-| 1982-02-03 → 02-11 | 陈凤兰（22 岁）凌晨在尖沙咀搭上一辆的士后失踪；二月十一日，警方在沙田城门河发现女性头颅与一双女子手臂，全案曝光 |
-| 1982-05-29 | 陈云洁（31 岁，收银员）凌晨下班搭车后遇害 |
-| 1982-06-17 | 梁秀云（29 岁，清洁工）凌晨下班搭车后遇害 |
-| 1982-07-02 | 梁惠心（17 岁，学生）参加谢师宴后搭车，是四名受害者中最后一位 |
-| 1982-08 | 凶手家中没有暗房，惯常把菲林送到尖沙咀一间相铺冲洗；放大机故障，底片转到分店由人手冲晒，店员看清照片内容后报警 |
-| 1982-08-18 | 警方在冲印店埋伏，等他自己来取相时拘捕；同日搜查土瓜湾贵州街住所，搜出照片、录像带、手术器材等证物 |
-| 1983-03-03 → 04-08 | 高等法院开审；五名精神科医生评估过；四月八日，七人陪审团一致通过四项谋杀罪名成立，判处死刑 |
-| 1984-08 | 港督会同行政局赦免死刑，改判终身监禁；至今仍在服刑 |
-
-事实边界：AI 画面不冒充新闻、庭审或证物影像；凶嫌只以背影、剪影、手出现；**四名受害者不以任何人像出现**，
-只用信息卡致意；不展示遗体、血腥或侵害过程，不重演作案；来源打架的细节（拘捕日、冲印店位置、发现照片的具体日子、
-精神鉴定的比例）一律用不会写错的写法，处理方式见 [`史实核对.md`](production/lamkorwan/史实核对.md)；
-**不说「已释放／已出狱」**；中文姓名、日期、字幕一律后期添加。
-
-## 这部片子是怎么做出来的
-
-```
-文案上传（抖音文案/ + 电影解说工具包/upload_text_server.py：网页上传区收 txt）
-  └─ 事实核查（7 条公开来源：HK01 / 思考香港 / NOWnews / 香港教育城 / 百度百科 …）
-       └─ build_story.py：六段解说 796 字 + 45 镜提示词 + 7 张信息卡 + 片头片尾卡   ← 唯一内容源
-            └─ TTS 六段 → tighten_pauses.py（只剪静音不动字）→ clause_times.py（分句对时间）
-                 └─ generate.py --validate → GEN_REQUEST → Actions 生成 38 镜（75 秒节流、断点续跑）
-                      └─ 逐镜复审 qa/ 接触表 → {"only":"Sxx"} 重做坏镜头（按 SHA-256 复用其余）
-                           └─ render.py：CUTS 按分句停顿切、信息卡、60 px 字幕、调色、混音 → RENDER_REQUEST
-                                └─ VERBATIM_REQUEST 逐字听检（六章 CER ≤ 0.15）
-                                     └─ VISUAL_QC_REQUEST 全帧审计 5400/5400 帧 + 候选帧导出
-                                          └─ 人工语义复核 + 抽帧复检 → Release 资产上传
-```
-
-全过程（含三轮复审改了哪些镜头、终版两个缺陷怎么被发现和修掉的）：
-[`production/lamkorwan/制作过程.md`](production/lamkorwan/制作过程.md)。
-
-| 路径（`production/lamkorwan/`） | 内容 |
-|---|---|
-| `build_story.py` / `story.json` / `screenplay.md` | 解说词、45 镜分镜、信息卡、片头/片尾卡、事实边界、来源 |
-| `audio/` | 六段配音（收紧后）、原始 TTS、SHA-256 收据、分句时间、收紧报告 |
-| `results.json` / `qa/` | 38 镜的生成回执、接触表 |
-| `render.py` / `clause_times.py` / `tighten_pauses.py` / `generate.py` … | 出片引擎（详见目录里的 README） |
-| `qc_shots.py` / `audit_frame_distortions.py` / … | 逐镜初筛与成片全帧审计 |
-| `delivery/` | 技术报告、EDL、字幕时间轴、混音与成品音频实测、逐字听检、全帧审计、[AI 辅助视觉复核](production/lamkorwan/delivery/AI辅助视觉复核-2026-10-06.md) |
-| `抖音脚本.md` / `抖音发布文案.md` | 交付给发布的脚本与文案（都由 `build_story.py` 生成，和成片同源） |
-
-## 用同一套流程做下一部
+## 下一个题目怎么来
 
 ```bash
-python3 production/new_topic.py --slug <slug> --title "<片名>" --branch <分支>
+python3 production/new_topic.py --slug <kebab-case> --title "片名" --branch <当前分支>
 ```
 
-脚手架以 `production/rabies1885/` 为参考开出新目录（45 镜 × 4 秒骨架、内容与引擎分离的
-`build_story.py` / `render.py` / `script_table.py`、检验工具链、四份 marker 触发的工作流：
-生成 / 出片 / 听检 / **全帧视觉 QC**），并复制 `production/gwangju_style.py` 作为默认画面文字层
-（画面内解说词字幕 + 画面中间偏下注释）。然后照 [`新题目开工手册.md`](新题目开工手册.md) 的 12 步走；
-完整 30 镜 reference 模式见 [`production/gwangju_tape_case/模板-如何复用.md`](production/gwangju_tape_case/模板-如何复用.md)。
-参考项目只被读取、不被修改，有测试守着。本片是照这份手册做的第二部，并回补了两处流水线改动
-（`GRADE` 调色常量、`WINDOWS` 的 `None` 处理），见 `制作过程.md` §9。
+会生成 `production/<slug>/`（引擎 + 渲染/写作模板 + 机械正确的 30×6 s story.json 骨架 +
+工作流三件套），随后按 [`新题目开工手册.md`](新题目开工手册.md) 填空 → 事实核查 → 参考图 →
+配音 → `--validate` → 触发出片 → 三道 QC 闸门 → 封面/文案 → 主创发布。
 
-## 闸门（任何一道不过都不许出片）
+## 仓库结构
 
-1. `generate.py --validate` —— 时间轴 45×4、提示词非空、配音文本与剧本逐字一致、配音 SHA-256；
-2. `clause_times.py --check-cuts` —— 切点落在分句停顿窗内；`render.py::make_edl` —— 每个镜头只用一次、全部用到、EDL 无缝；
-3. `render.py` 开头 —— 素材必须是 `results.json` 里 SHA-256 对得上的 Agnes 片段，不用图片/幻灯片顶替；
-4. `build_audio.py` —— 整体电平 / 波峰因数 / 静音占比 / **逐段**解说电平；
-5. `render.py` 收尾 —— 对**最终 mp4** 复测一遍；
-6. `verbatim_check.py`（Actions）—— 成片转写与剧本的字错率逐章 ≤ 0.15；
-7. `test_card_typography.py`（离线自检，**通用**）—— 真画片尾卡与信息卡，左右各 100 px 安全带里不许有字；
-8. `audit_frame_distortions.py`（Actions）—— 成片 5400/5400 帧解码：黑帧 / 冻结 / 时序突变 / 人脸 / 手部；
-   **它是分诊，不是签收**；
-9. 人工语义复核 —— 逐张看完候选帧；自动审计量不到的（文字溢出、构图语义、整体亮度观感）只能人看。
+```
+production/
+├── shanghai_freezer_case/    # 第二十期工程（唯一保留的案件工程；new_topic.py 的参考实现）
+├── templates/                # 出片渲染/写作/工作流模板（render.py / build_story.py / *.workflow.yml）
+├── new_topic.py              # 新题目脚手架（复制参考工程 → 新项目；--branch 默认当前分支）
+├── mystery-cover-template/   # 「迷案解码人」系列竖版封面工具（1080×1440）
+├── gwangju_style.py          # 共享画面文字层（字幕/金色注释/钩子大字；所有新片默认）
+├── agnes_video.py            # Agnes 2.5 Flash 客户端共享引擎
+├── verify_master.py          # 成片硬校验（退出码非 0 不许交付）
+├── preflight.py              # 生成物一致性闸门（BLOCKED = 先跑 build_story.py）
+├── review_film.py            # 成片接触表/抽帧复核辅助（人工复核用）
+├── verbatim_check.py         # ASR 听检（faster-whisper；报告 commit 回分支）
+└── tests/                    # 流水线闸门测试（pytest，CI: .github/workflows/ci-tests.yml）
+.github/workflows/            # ci-tests、shanghai-freezer-case（出片）、verbatim-check、cleanup-artifacts、release-upload
+交付/                         # 第二十期成片 + 字幕 + 封面 + 发布文案
+```
 
-## 出片方式
-
-本地：`bash production/run_project.sh <slug> [skip_asr] [成片文件名]`。
-Actions：在分支上写 marker 文件并 push——`production/<slug>/GEN_REQUEST`（生成）/ `RENDER_REQUEST`（出片）/
-`VERBATIM_REQUEST`（听检）/ `VISUAL_QC_REQUEST`（全帧 QC）/ `RELEASE_UPLOAD_REQUEST`（传 release）。
-本片的四条工作流在 [`.github/workflows/lamkorwan-*.yml`](.github/workflows/)，成片与报告由工作流 commit 回分支。
+## 自检
 
 ```bash
-python3 -m pip install -r production/requirements.txt   # 另需 ffmpeg 与中文字体（fonts-noto-cjk）
-python3 -m pytest production/tests -q                   # 离线自检
+python3 -m pytest production/tests -q      # 全绿才继续；含模板渲染与参考工程哈希哨兵
+python3 production/shanghai_freezer_case/generate.py --validate
 ```
 
-## 仓库里还有什么
+## 红线（摘要）
 
-| 路径 | 内容 |
-|---|---|
-| [`抖音文案/`](抖音文案/) + [`电影解说工具包/upload_text_server.py`](电影解说工具包/upload_text_server.py) | 文案上传区：浏览器拖 txt / 直接粘贴 → 存进 `抖音文案/`（自动识别 GBK 等编码、带时间戳不覆盖） |
-| [`新题目开工手册.md`](新题目开工手册.md) | 开工手册：12 步 + 闸门表 + 踩坑清单 + 文件地图 |
-| [`production/new_topic.py`](production/new_topic.py) + [`production/templates/`](production/templates/) | 开新题目的脚手架与模板（四份工作流模板：生成 / 出片 / 听检 / 全帧 QC） |
-| [`production/verbatim_check.py`](production/verbatim_check.py) / [`review_film.py`](production/review_film.py) | 逐字听检；黑帧 / 冻结帧 / 电平 / 语速审片初筛 |
-| [`production/somerton/`](production/somerton/README.md) | 《塔玛姆·舒德：索马顿海滩无名男尸》新建项目：29镜故事板、选定男声旁白、参考图、Agnes 生成/渲染工作流；**Agnes 镜头与成片仍待生成** |
-| [`production/rabies1885/`](production/rabies1885/) | 上一部《狂犬病疫苗：一百四十年前那场赌局》（45 镜、写实动画）及其[制作过程](production/rabies1885/制作过程.md)；成片 `交付/狂犬病疫苗_一百四十年前那场赌局_三分钟_带声音.mp4` |
-| [`production/gilgo/`](production/gilgo/) | 更早的参考实现《吉尔戈海滩：披萨盒里的凶手》（38+7 镜、手绘 2D 风） |
-| [`production/dahlia/`](production/dahlia/) | 更早的《黑色大丽花：消失的六天》（30 镜 × 6 秒、带档案照片） |
-| [`电影解说工具包/`](电影解说工具包/) | 更早的一套工具；`render.py` 的配乐 `generate_horror_bgm.py` 在这里 |
-| [`runner/`](runner/) + [`转私有与自托管Runner手册.md`](转私有与自托管Runner手册.md) | 本地出片机：一键安装注册、自检、卸载；转私有的正确顺序与 `RUNNER_LABEL` 开关 |
+1. `story.json` 等是 `build_story.py` **生成物**，禁手改；生成器与三件产物一起提交。
+2. `--validate` / `verify_master.py` 非 0 不许出片/不许交付；不许绕过闸门。
+3. 生成额度宝贵：先全绿再 push `GEN_REQUEST`；重摇必须核对 `results.json` 的 `reused_existing_asset` 与 sha256/video_id。
+4. FACT_CHECK 未联网复核就如实写"未复核"；不得编造判决/日期/数字。
+5. voice-01 未经主创完整听检；Douyin 不代发；自动 QC 结果 ≠ 人工签收。
+6. 默认画面文字层 = 光州胶带案风格（`gwangju_style.py`）：解说词字幕 + 金色注释 + 钩子大字，全片常驻「AI动画情景重现 · 非真实影像」。
+7. 解说要有电影感（2026-11-21）：前 3 秒反常事实 + 强视觉、中段每 20–30 秒钩子、结尾 8 秒金句 → 互动 → 落版、字幕单行 ≤ 16 字、记忆锚点数字 ≥ 5 次；交付硬指标：≥1080P / ≥15 Mbps / ≈−14 dB / 24fps（详见手册 §3.1、§10）。
