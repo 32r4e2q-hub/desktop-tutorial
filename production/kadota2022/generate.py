@@ -442,6 +442,11 @@ def commit_delivery(message: str) -> None:
         report = HERE / "qa" / name
         if report.is_file():
             paths.append(str(report.relative_to(ROOT)))
+    # 2026-11-24（第二十六期）：渲染实测的章节时间轴是听检的输入，但不落在 交付/ 里，
+    # 于是从来没有被 commit，verbatim_check 一直报 NOT_RUN（=听检没跑），而工作流仍显示成功。
+    timing = HERE / "delivery" / "narration-timing.json"
+    if timing.is_file():
+        paths.append(str(timing.relative_to(ROOT)))
     if DELIVERY_DIR.exists():
         for path in sorted(DELIVERY_DIR.iterdir()):
             # 2026-11-24（第二十六期）：封面 JPEG 是交付物本体，不是附属小文件；原先的
