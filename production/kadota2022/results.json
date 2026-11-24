@@ -1309,7 +1309,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1356,9 +1356,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-24T13:21:59Z",
   "run_id": "45377755033",
@@ -1393,5 +1393,27 @@
         "requested_size": "720P"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/kadota2022/clips/门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/kadota2022/clips/门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Cover.jpg",
+    "delivered": {
+      "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4": {
+        "bytes": 70407984,
+        "sha256": "0374a4613b66eaa7e85a1e77af19290a72894215889dcf0ee1bb05ef106c1401"
+      },
+      "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Subtitles.srt": {
+        "bytes": 2792,
+        "sha256": "2166c5a248771d643c8e912073a17cc3b80f9322b97dea813ff3e79e44832669"
+      },
+      "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Technical_Report.json": {
+        "bytes": 11283,
+        "sha256": "3a932c83761c1f536904fb3583f53bd76a7f10825537a3dc74b42a9b08d6938f"
+      }
+    }
   }
 }
