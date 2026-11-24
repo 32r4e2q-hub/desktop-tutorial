@@ -18,7 +18,7 @@
 - 默认画面文字层：**光州胶带案风格**（`production/gwangju_style.py`）——画面内解说词字幕 + 画面中间偏下金色注释 + 钩子大字；
   在 `build_story.py` 填 `HOOKS` / `EXPLAINERS` / `HIGHLIGHT_PHRASES`，渲染时自动烧录。
 
-## 现在还不能出片：30 条旁白必须先按新剧本重录
+## 现在还不能出片：30 条旁白正在按新剧本重录
 
 2026-11-24 这一轮把 30 句解说按「一镜一句、口播 5.0–6.3 秒、不靠 1.3× 加速硬塞」重写了（旧稿 893 字，
 平均需要 1.25×，S03 要到 1.49×）。**`audio/S01.mp3`–`S30.mp3` 仍是旧稿的录音**，与 `story.json` 的文本不一致：
@@ -28,6 +28,10 @@
 - 重录流程：逐镜用 `story.json` 里 `shots[].narration` 的原文调 `generate_speech`（每回合 ≤10 条，分 3 批），
   覆盖 `audio/Sxx.mp3`，再跑 `build_audio_manifest.py` → `narration_fit.py` → `generate.py --validate`；
 - 重录后核对每镜 `atempo` 落在 1.00–1.08，`tail_silence_seconds` ≥ 0。
+
+**进度（2026-11-24）**：音色由主创在本轮试听后改选为**更低沉的男声**（`voice-02`，本会话注册），
+实测语速约 4 字/秒，比旧音色更适合这套 20–26 字的句子。已重录 **S01–S03、S05–S10 共 9 条**，
+S11–S30 仍是旧音色旧稿，S04 待重录。未回填 manifest 就是这个原因，**不要**在缺条目的情况下 build。
 
 ## 流程说明（脚手架保留的原文）
 
