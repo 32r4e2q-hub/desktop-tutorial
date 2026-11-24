@@ -441,9 +441,9 @@
     "S17": {
       "id": "S17",
       "request_hash": "eb461b5d515624c6ae4d7085124d136866f56802f57d4263af944dbaa1628c6c",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-24T05:42:55Z",
+      "updated_at": "2026-11-24T05:47:44Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：寒冷的街角，男人背影站在便利店灯箱前，雨丝斜落。 运镜：背身缓慢拉远。影调：冷蓝夜色。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
@@ -457,10 +457,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/39d98ee009b7332ccf80b319cc4a8da44feef4ae/production/nagoya1999/reference/S05.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 202611240542552203227902kiWFt8A) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 4,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 30.0
+      "applied_cooldown_seconds": 226.0,
+      "video_id": "task_FCSCHSin97islKyUa8niNbRdEKnLUf7s",
+      "task_id": "task_FCSCHSin97islKyUa8niNbRdEKnLUf7s",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S18": {
       "id": "S18",
@@ -606,15 +610,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-24T05:42:55Z",
+  "updated_at": "2026-11-24T05:47:44Z",
   "run_id": "45332586249",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 202611240542552203227902kiWFt8A) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-24T05:42:55Z"
-  }
+  "previous_results": {}
 }
