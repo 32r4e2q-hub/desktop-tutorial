@@ -1121,9 +1121,9 @@
     "S27": {
       "id": "S27",
       "request_hash": "a0f8ac5f9ac587100023728846bc617e9c5df23b1de0bd98940d8b6d99300407",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-24T06:58:24Z",
+      "updated_at": "2026-11-24T06:58:26Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：旧社团活动室的角落，一张褪色的合影斜靠在柜子上，画面里没有任何可读文字。 运镜：浅景深微距缓缓推近。影调：暗暖转冷。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
@@ -1149,7 +1149,18 @@
       "bytes": 1463606,
       "sha256": "e5bb1549999ec74b9a80050c22dda5453c3b7677c3235b072902c4c96a639c20",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1463606,
+        "decoded_ok": true,
+        "contact_sheet": "production/nagoya1999/qa/S27.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S28": {
       "id": "S28",
@@ -1288,7 +1299,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-24T06:58:24Z",
+  "updated_at": "2026-11-24T06:58:26Z",
   "run_id": "45332586249",
   "previous_results": {}
 }
