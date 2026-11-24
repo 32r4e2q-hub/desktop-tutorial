@@ -563,9 +563,9 @@
     "S21": {
       "id": "S21",
       "request_hash": "5822d3114695ffa47ad3bf0691bb32f01bfe42f1ea26accc30a342823a996486",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-24T12:21:42Z",
+      "updated_at": "2026-11-24T12:26:32Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，二〇一九至二〇二四年的日本爱知县——名古屋中区的旧公寓、荣町的深夜小巷、丰田市的山林公路、东浦町的早春农田与地方法院法庭，冷青灰现实与钨丝灯、霓虹的暗暖形成冷暖对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，二〇一九至二〇二四年的日本爱知县——名古屋中区的旧公寓、荣町的深夜小巷、丰田市的山林公路、东浦町的早春农田与地方法院法庭，冷青灰现实与钨丝灯、霓虹的暗暖形成冷暖对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：夜间的小警署门口，檐下的灯箱面板是空白的，玻璃门内透出冷白的光。 运镜：从街对面缓慢推向玻璃门。影调：冷白与纯黑。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no shop signage, no kanji on signs, no gore, no blood, no corpse, no body, no plastic bag, no cord, no restraint, no strangulation, no digging, no shallow grave, no exposed skin, no sexual content, no weapon close-up, no anime style, no idol-drama faces, no deformed hands, no extra limbs, no black bars\n\n【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no shop signage, no kanji on signs, no gore, no blood, no corpse, no body, no plastic bag, no cord, no restraint, no strangulation, no digging, no shallow grave, no exposed skin, no sexual content, no weapon close-up, no anime style, no idol-drama faces, no deformed hands, no extra limbs, no black bars",
@@ -579,10 +579,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/311bfec9b21f6b266822cb346b1bd7ff8319830f/production/kadota2022/reference/S07.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 12:26:30. (request id: 20261124122142499503856KlySIg5Z) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_QKzQoL6jmfg74raYJLc9wOCEHQXyiXzU",
+      "task_id": "task_QKzQoL6jmfg74raYJLc9wOCEHQXyiXzU",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S22": {
       "id": "S22",
@@ -700,15 +704,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-24T12:21:42Z",
+  "updated_at": "2026-11-24T12:26:32Z",
   "run_id": "45377755033",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 12:26:30. (request id: 20261124122142499503856KlySIg5Z) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-24T12:21:42Z"
-  }
+  "previous_results": {}
 }
