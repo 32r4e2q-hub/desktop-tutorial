@@ -805,9 +805,23 @@
     "S30": {
       "id": "S30",
       "request_hash": "643eec677002b48bcdeb9af4a7e7510e78bde6d5065f468aae622472c3971d95",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-24T05:22:11Z"
+      "updated_at": "2026-11-24T06:48:08Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：玄关木门在暗处缓缓合上，门缝的光线收成一条线。 运镜：缓慢推暗至渐黑。影调：极简暗调。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2530,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/39d98ee009b7332ccf80b319cc4a8da44feef4ae/production/nagoya1999/reference/S01.png"
+        ]
+      },
+      "error": null
     }
   },
   "source_size": "720P",
@@ -862,7 +876,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-24T06:48:06Z",
+  "updated_at": "2026-11-24T06:48:08Z",
   "run_id": "45332586249",
   "previous_results": {}
 }
