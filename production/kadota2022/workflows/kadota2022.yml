@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 门田典子案：三个女人——一个死在暴力里，一个死在自己曾经做过的事里 / kadota2022 / arena/dcfb6db3-desktop-tutorial / dcfb6db3-desktop-tutorial / 门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 门田典子案：她帮着埋了一个女人，三年后，她自己被埋进另一片土里 / kadota2022 / arena/dcfb6db3-desktop-tutorial / dcfb6db3-desktop-tutorial / 门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>.yml；复制到 .github/workflows/ 后即可用 GEN_REQUEST marker push 触发。
 #
 # 触发方式：在分支上写 production/kadota2022/GEN_REQUEST（内容就是 JSON payload）并 push。
@@ -8,8 +8,8 @@
 #   取消：写 production/kadota2022/CANCEL_REQUEST 后 push（停止再投新任务）
 # 中途失败可断点续跑：改一下 GEN_REQUEST 重新 push，已完成的镜头按 SHA-256 复用、不重新生成。
 
-name: 门田典子案：三个女人——一个死在暴力里，一个死在自己曾经做过的事里 · 生成与出片
-run-name: 门田典子案：三个女人——一个死在暴力里，一个死在自己曾经做过的事里 · 30镜视频制作
+name: 门田典子案：她帮着埋了一个女人，三年后，她自己被埋进另一片土里 · 生成与出片
+run-name: 门田典子案：她帮着埋了一个女人，三年后，她自己被埋进另一片土里 · 30镜视频制作
 
 on:
   push:

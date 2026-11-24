@@ -1,10 +1,10 @@
-# 模板：production/new_topic.py 会把 kadota2022 / 门田典子案：三个女人——一个死在暴力里，一个死在自己曾经做过的事里 / 门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 kadota2022 / 门田典子案：她帮着埋了一个女人，三年后，她自己被埋进另一片土里 / 门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>-verbatim.yml；复制到 .github/workflows/ 后即可用 marker/手动触发。
 #
 # 把成片里的解说转写成文字，与剧本逐字比对，回答"配音念的字和剧本一字不差吗"。
 # 为什么必须在 Actions 上做：ASR 模型要从 Hugging Face 下载，本地沙箱连不上（网络策略拦截）。
 # 刻意不给 whisper 喂 initial_prompt：让模型"复述"剧本是循环论证（对轨可以，取证不行）。
-name: 门田典子案：三个女人——一个死在暴力里，一个死在自己曾经做过的事里 · 逐字听检
+name: 门田典子案：她帮着埋了一个女人，三年后，她自己被埋进另一片土里 · 逐字听检
 run-name: 听检 · kadota2022 · ${{ github.ref_name }}
 
 on:
@@ -51,7 +51,7 @@ jobs:
         continue-on-error: true        # 报告一定先落盘，再决定这次运行算不算失败
         env:
           PROJECT: kadota2022
-          FILM: 交付/门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4
+          FILM: 交付/门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4
           MODEL: small
           MAX_CER: "0.15"
         run: |
