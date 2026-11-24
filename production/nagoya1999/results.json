@@ -331,9 +331,9 @@
     "S13": {
       "id": "S13",
       "request_hash": "f8ccbf033daf94963129fee20495f714ed2ed33f6aa887d4440af095285b95fb",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-24T05:36:17Z",
+      "updated_at": "2026-11-24T05:36:28Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。\n\n【STYLE】日系写实悬疑纪录片质感电影动画，一九九九年日本名古屋市西区老式木造公寓与名古屋街头、警署走廊，冷青灰现实与室内暗暖钨丝灯形成暖冷对立，浅景深、强明暗对比与克制推拉运镜，人物一律以虚构演员式背影、侧脸、手部局部或剪影出现，不还原任何真实人物肖像，画面内无任何可读文字、招牌或字幕，镜头连续运动，16:9，画面底部预留字幕安全区。 唯一场景：信箱里塞进一只信封，一只手把它抽出，背景是斑驳的公寓墙面。 运镜：手部特写缓慢拉开。影调：冷灰。 人物锚点：高羽悟：四十岁上下的日本男性，短发，深色大衣或旧夹克，肩背略驼，始终以背影、侧脸或低头的手部出现，不露正脸。 【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands\n\n【NEGATIVE】no readable text, no letters, no subtitles, no watermark, no glossy advertisement look, no gore, no blood pool, no corpse, no weapon close-up, no stabbing motion, no child distress, no anime style, no idol-drama faces, no bright idyllic scenery, no deformed hands",
@@ -347,7 +347,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/39d98ee009b7332ccf80b319cc4a8da44feef4ae/production/nagoya1999/reference/S02.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026112405362877233738cmJAfTGh) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 30.0
     },
     "S14": {
       "id": "S14",
@@ -521,7 +524,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-24T05:36:17Z",
+  "updated_at": "2026-11-24T05:36:28Z",
   "run_id": "45332586249",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026112405362877233738cmJAfTGh) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 30.0,
+    "last_seen": "2026-11-24T05:36:28Z"
+  }
 }
