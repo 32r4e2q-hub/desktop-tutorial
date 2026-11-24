@@ -446,6 +446,11 @@ def commit_delivery(message: str) -> None:
         for path in sorted(DELIVERY_DIR.iterdir()):
             if path.suffix.lower() in {".json", ".srt", ".jpg", ".png"} and path.stat().st_size < 2_000_000:
                 paths.append(str(path.relative_to(ROOT)))
+    # render.py 出片时写下的实测章节时间轴：听检（verbatim_check.py）靠它切片。
+    # 2026-11-24：它以前既没人写、也没被 commit，听检在 Actions 上等于从未执行过。
+    timing = HERE / "delivery" / "narration-timing.json"
+    if timing.is_file():
+        paths.append(str(timing.relative_to(ROOT)))
     git("add", "-f", "--", *paths)
     if not subprocess.run(["git", "diff", "--cached", "--quiet", "--", *paths], cwd=ROOT).returncode:
         return
