@@ -443,21 +443,33 @@
     "S11": {
       "id": "S11",
       "request_hash": "b592b9b9be6f0fb8d99ca7dd4404c9fc6ec64f3ea455e89aba7242008ce2c012",
-      "status": "downloaded",
+      "status": "completed",
       "video_id": "task_JPxh3tsCpwLsx99kBpFVklOZNP2zD4Pp",
       "task_id": "task_JPxh3tsCpwLsx99kBpFVklOZNP2zD4Pp",
       "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_JPxh3tsCpwLsx99kBpFVklOZNP2zD4Pp.mp4",
       "sha256": "ad5865258fec57edd738d382b469dda57f0515b4e4b608c09366b4e07dc38ce9",
       "bytes": 1212993,
       "error": null,
-      "updated_at": "2026-11-24T13:21:19Z",
+      "updated_at": "2026-11-24T13:21:20Z",
       "create_attempts": 2,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 166.0,
       "requested_seconds": 6.0,
       "requested_size": "720P",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1212993,
+        "decoded_ok": true,
+        "contact_sheet": "production/kadota2022/qa/S11.jpg",
+        "visual_review": "pending"
+      },
+      "reused_existing_asset": false,
+      "visual_review": "pending"
     },
     "S12": {
       "id": "S12",
@@ -1300,7 +1312,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-24T13:21:19Z",
+  "updated_at": "2026-11-24T13:21:20Z",
   "run_id": "45377755033",
   "previous_results": {
     "S11": [
