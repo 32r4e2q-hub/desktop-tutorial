@@ -413,7 +413,7 @@ def request_hash(project: dict, shot: dict) -> str:
 
 
 DELIVERY_DIR = ROOT / "交付"
-DELIVERY_FILM = "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4"
+DELIVERY_FILM = "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4"
 
 
 def publish_delivery(film: Path) -> dict:
@@ -422,9 +422,9 @@ def publish_delivery(film: Path) -> dict:
     work = ROOT / "work" / "kadota2022" / "edit"
     sources = [
         (film, DELIVERY_FILM),
-        (film.parent / "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Cover.jpg", "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Cover.jpg"),
-        (film.with_suffix(".srt"), "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Subtitles.srt"),
-        (work / "technical-report.json", "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Technical_Report.json"),
+        (film.parent / "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_Cover.jpg", "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_Cover.jpg"),
+        (film.with_suffix(".srt"), "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_Subtitles.srt"),
+        (work / "technical-report.json", "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_Technical_Report.json"),
     ]
     copied = {}
     for source, name in sources:
@@ -444,7 +444,11 @@ def commit_delivery(message: str) -> None:
             paths.append(str(report.relative_to(ROOT)))
     if DELIVERY_DIR.exists():
         for path in sorted(DELIVERY_DIR.iterdir()):
-            if path.suffix.lower() in {".json", ".srt", ".jpg", ".png"} and path.stat().st_size < 2_000_000:
+            # 2026-11-24（第二十六期）：封面 JPEG 是交付物本体，不是附属小文件；原先的
+            # 2MB 上限把 q:v 2 的 1080p 封面挡在 commit 之外，结果封面只留在 artifact 里，
+            # 交付 目录缺件却没人发现。封面/SRT/报告一律按交付物对待。
+            if path.suffix.lower() in {".json", ".srt"} and path.stat().st_size < 2_000_000 \
+                    or path.suffix.lower() in {".jpg", ".png"} and path.stat().st_size < 18_000_000:
                 paths.append(str(path.relative_to(ROOT)))
     git("add", "-f", "--", *paths)
     if not subprocess.run(["git", "diff", "--cached", "--quiet", "--", *paths], cwd=ROOT).returncode:
@@ -694,9 +698,9 @@ def main() -> int:
         # QC-only run: verify the plan and the delivered film, refresh qa/ (contact sheets,
         # full-resolution stills, qc-report.json, qc-summary.md), never regenerate footage.
         validate(project, require_audio=True)
-        film = DELIVERY_DIR / "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4"
+        film = DELIVERY_DIR / "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4"
         if not film.is_file():
-            raise RuntimeError("QC requested but 交付/门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4 不存在")
+            raise RuntimeError("QC requested but 交付/门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4 不存在")
         if os.getenv("GITHUB_ACTIONS") == "true":
             git("config", "user.name", "github-actions[bot]")
             git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
@@ -769,7 +773,7 @@ def main() -> int:
                          "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."}
         doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                            "width": 1920, "height": 1080, "fps": 24,
-                           "cover": str((output.parent / "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Cover.jpg").relative_to(ROOT)),
+                           "cover": str((output.parent / "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_Cover.jpg").relative_to(ROOT)),
                            "delivered": delivered}
         RESULTS.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.publish:
@@ -1161,7 +1165,7 @@ def main() -> int:
                      "note": "First cut rendered; a human must inspect all 30 contact sheets and final playback."}
     doc["delivery"] = {"film": str(output.relative_to(ROOT)), "duration_seconds": 180,
                        "width": 1920, "height": 1080, "fps": 24,
-                       "cover": str((output.parent / "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_Cover.jpg").relative_to(ROOT)),
+                       "cover": str((output.parent / "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_Cover.jpg").relative_to(ROOT)),
                        "delivered": publish_delivery(output)}
     checkpoint("kadota2022 180-second first cut ready", publish=False)
     if args.publish:
@@ -1169,7 +1173,7 @@ def main() -> int:
     summary = os.getenv("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as stream:
-            stream.write("## 门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里：她死了105天，丈夫用她的微信聊了105天\n\n")
+            stream.write("## 门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里：她死了105天，丈夫用她的微信聊了105天\n\n")
             stream.write("30个Agnes Video 2.5 Flash动态镜头（720P源片后期放大）；1920×1080；16:9；24fps；180秒。\n\n")
             stream.write("初版已渲染。逐镜接触表和成片仍需人工视觉/听觉复核。\n")
     return 0
