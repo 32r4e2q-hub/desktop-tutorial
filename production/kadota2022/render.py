@@ -186,9 +186,12 @@ def main() -> int:
             raise RuntimeError(f"{sid}: speech needs {speed:.3f}x, beyond the 1.55x limit")
         # Strip the TTS lead-in silence first: otherwise every caption cue runs ~0.3s ahead
         # of the spoken word and the last line can spill past its shot window.
+        # 2026-11-24（第二十六期）：-50dB 太宽松。选定的 TTS 音色在字头前普遍有约 0.2 秒
+        # −47～−50dB 的气口，穿得过阈值，导致字幕比语音早 0.23 秒（S05 判 FAIL）。
+        # 改为 -36dB 并附加「持续 3 个 10ms 块」条件：既切掉气口，又不会削掉以弱辅音开头的字头。
         speech = segments / f"{sid}.speech.wav"
         run(["ffmpeg", "-y", "-v", "error", "-i", narration, "-vn", "-af",
-             "silenceremove=start_periods=1:start_duration=0:start_threshold=-50dB:start_silence=0.06,"
+             "silenceremove=start_periods=1:start_duration=0.03:start_threshold=-36dB:start_silence=0.06,"
              f"atempo={speed:.6f}", "-ar", RATE, "-ac", 2, "-c:a", "pcm_s16le", speech])
         speech_seconds = duration(speech)
         if speech_seconds > target:
