@@ -36,14 +36,14 @@ concurrency:
 
 jobs:
   produce:
-    if: github.ref == 'refs/heads/arena/22d23262-desktop-tutorial'
+    if: startsWith(github.ref, 'refs/heads/arena/')
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 300
     steps:
       - name: Checkout the production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/22d23262-desktop-tutorial
+          ref: ${{ github.ref_name }}
           fetch-depth: 1
 
       - name: Install media tools and subtitle font
