@@ -13,7 +13,7 @@ run-name: 札幌薄野酒店无头男尸案：二十九岁女子与精神科医�
 
 on:
   push:
-    branches: [arena/22d23262-desktop-tutorial]
+    branches: ['arena/*']
     paths:
       # 只认 marker 文件：编辑本工作流自身不得触发出片（2026-11-21 裁决；自触发曾误跑并降级 results.json 元数据）。
       # 出片/重渲 = 写 GEN_REQUEST（或 workflow_dispatch）显式触发。
