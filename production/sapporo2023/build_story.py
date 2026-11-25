@@ -8,7 +8,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 TITLE = "札幌薄野酒店无头男尸案：二十九岁女子与精神科医生父亲的诡异共谋"
-BRANCH = "arena/07b30353-desktop-tutorial"
+BRANCH = "arena/fff1060d-desktop-tutorial"
 FILM_NAME = "札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4"
 
 STYLE = (
