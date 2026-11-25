@@ -107,8 +107,13 @@
 
 Google Drive 公开链接（reader / anyone）：
 
+**v2（2026-11-25 重录重渲，请用这一版）**
+- 成片：https://drive.google.com/file/d/1RdGdTEldWDGP2JudgpVOvLNooOzL2s3I/view
+- 字幕：https://drive.google.com/file/d/1e4EJfPMRcTSoYTKnhGFFMjvj-HQu11DH/view
+- 系列封面（沿用 v1，画面与 v2 的第 2 秒帧相同）：https://drive.google.com/file/d/1guvTW0nPozhrm94OcEV4v4wYxd_CQJps/view
+
+v1（初版解说，留白偏多，仅留档）：
 - 成片：https://drive.google.com/file/d/1P3PMx1igNqZo2pxFIqKx2wCCY97DzhLU/view
-- 系列封面：https://drive.google.com/file/d/1guvTW0nPozhrm94OcEV4v4wYxd_CQJps/view
 - 字幕：https://drive.google.com/file/d/1zQGAkgU1e_KYpjz1viWtkR4XxDUMjrbs/view
 
 **GitHub Release 未完成**：本沙箱对 `uploads.github.com` 全部请求返回 EOF（api.github.com 正常），
