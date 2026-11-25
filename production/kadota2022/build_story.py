@@ -336,7 +336,9 @@ def build() -> dict:
         "narration_spec": {
             "voice_id": voice_id,
             "description": voice.get("description", "悬疑纪录片向低沉普通话男声，克制压抑"),
-            "language": "zh-CN", "target_characters_per_second": 4.1,
+            # 2026-11-24：原按 4.1 字/秒估算，实测该音色为 4.77 字/秒，导致每镜平均空 1.84 秒；
+            # 改按实测值定稿字数。
+            "language": "zh-CN", "target_characters_per_second": 4.77,
             "alignment": "一镜一句，一镜一条TTS与一条字幕；只在确有必要时加速，不慢放",
         },
         "chapters": chapters, "shots": shots,
