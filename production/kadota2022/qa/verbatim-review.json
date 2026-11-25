@@ -1,295 +1,137 @@
 {
   "project": "kadota2022",
-  "as_of": "2026-11-24",
-  "film_sha256": "75a6e99e89fd34a3f13cc56444528fe1ec7e7c3f5cfb78791478be41078a4780",
-  "max_cer_allowed": 0.15,
-  "film_chapters": 30,
-  "cer_median": 0.1111,
-  "cer_max": 0.4,
-  "chapters_over_threshold": [
-    "S07",
-    "S10",
-    "S11",
-    "S13",
-    "S14",
-    "S17",
-    "S20",
-    "S23",
-    "S24",
-    "S27",
-    "S28",
-    "S30"
-  ],
-  "count_over": 12,
-  "count_also_fail_clean_control": 10,
-  "count_only_on_film": [
-    "S14",
-    "S28"
-  ],
-  "conclusion": "12 章超标。其中 10 章在干净配音对照组里同样超标——差异全是同音/近音字误识（她→他、因果→英国、由佳理→游家里、克己→客棘/克吉、弃尸→气势、名古屋→明古屋）。S14、S28 两章仅在成片音轨上超标，对照组达标：说明不是念错，而是成片混音（解说+环境音效）让 ASR 更易误识。全部 30 章的配音文本已与 storage 的 manifest 逐字核对一致。",
-  "not_a_substitute_for_human": "自动听检与对照组只能排除『系统性念错』；主创逐字听检、逐镜完整播放签收仍未做。",
-  "items": [
-    {
-      "id": "S07",
-      "script": "解剖给出的死因，是颅内损伤。",
-      "heard": "解剖给猪的死因是卢内损伤",
-      "cer_film": 0.1667,
-      "cer_clean_control": 0.1667,
-      "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
-      "diffs": [
-        [
-          "replace",
-          "出",
-          "猪"
-        ],
-        [
-          "replace",
-          "颅",
-          "卢"
-        ]
-      ]
-    },
-    {
-      "id": "S10",
-      "script": "第二天警方在山中找到她，两人因弃尸被捕。",
-      "heard": "第二天,警方在山中找到他,两人因气势被捕",
-      "cer_film": 0.1667,
-      "cer_clean_control": 0.1667,
-      "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
-      "diffs": [
-        [
-          "replace",
-          "她",
-          "他"
-        ],
-        [
-          "replace",
-          "弃尸",
-          "气势"
-        ]
-      ]
-    },
+  "checked_against": "delivery/verbatim-check.json",
+  "film_sha256": "dc10fa71d910ebaf3e1eacbd2193b3ff47aa8e7b421231713d83e4a431983682",
+  "narration_version": "2026-11-25 重录版（725 字，30 条，voice-03）",
+  "threshold": 0.15,
+  "count_over": 4,
+  "film_cer_median": 0.0909,
+  "film_cer_max": 0.2727,
+  "control_cer_median": 0.0909,
+  "count_also_fail_clean_control": 4,
+  "count_only_on_film": [],
+  "chapters": [
     {
       "id": "S11",
-      "script": "二〇二〇年七月，案子在名古屋地方法院宣判。",
-      "heard": "2020年7月 案子在明古屋地方法院宣判",
-      "cer_film": 0.1765,
-      "cer_clean_control": 0.1765,
+      "film_cer": 0.2105,
+      "control_cer": 0.2105,
       "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
+      "script": "",
+      "transcript": "2020年7月这些案子在明古屋地方法院宣判",
       "diffs": [
-        [
-          "insert",
-          "",
-          "零"
-        ],
-        [
-          "insert",
-          "",
-          "零"
-        ],
-        [
-          "replace",
-          "名",
-          "明"
-        ]
-      ]
-    },
-    {
-      "id": "S13",
-      "script": "因为唯一的直接证据，是门田自己的供述。",
-      "heard": "因为唯一的直接证据是门天自己的共属可",
-      "cer_film": 0.2353,
-      "cer_clean_control": 0.1765,
-      "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
-      "diffs": [
-        [
-          "replace",
-          "田",
-          "天"
-        ],
-        [
-          "replace",
-          "供述",
-          "共属可"
-        ]
-      ]
-    },
-    {
-      "id": "S14",
-      "script": "可这段供述前后不一，没被采信。",
-      "heard": "可这端共数前后不一,没被采信",
-      "cer_film": 0.2308,
-      "cer_clean_control": 0.0769,
-      "same_in_clean_control": false,
-      "verdict": "ASR_misrecognition_worse_on_film_mix",
-      "diffs": [
-        [
-          "replace",
-          "段供述",
-          "端共数"
-        ]
-      ]
+        {
+          "at": 1,
+          "kind": "insert",
+          "script": "",
+          "heard": "零"
+        },
+        {
+          "at": 2,
+          "kind": "insert",
+          "script": "",
+          "heard": "零"
+        },
+        {
+          "at": 6,
+          "kind": "replace",
+          "script": "起",
+          "heard": "些"
+        },
+        {
+          "at": 10,
+          "kind": "replace",
+          "script": "名",
+          "heard": "明"
+        }
+      ],
+      "verdict": "ASR 同音误识（对照组同样超标）"
     },
     {
       "id": "S17",
-      "script": "带走她的，是天池由佳理和山下克己。",
-      "heard": "带走他的是天池游家里和山下客棘",
-      "cer_film": 0.4,
-      "cer_clean_control": 0.4,
+      "film_cer": 0.2727,
+      "control_cer": 0.2727,
       "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
+      "script": "",
+      "transcript": "带走他的是天池游家里和当时住在车里的山下客棘",
       "diffs": [
-        [
-          "replace",
-          "她",
-          "他"
-        ],
-        [
-          "replace",
-          "由佳理",
-          "游家里"
-        ],
-        [
-          "replace",
-          "克己",
-          "客棘"
-        ]
-      ]
+        {
+          "at": 2,
+          "kind": "replace",
+          "script": "她",
+          "heard": "他"
+        },
+        {
+          "at": 7,
+          "kind": "replace",
+          "script": "由佳理",
+          "heard": "游家里"
+        },
+        {
+          "at": 20,
+          "kind": "replace",
+          "script": "克己",
+          "heard": "客棘"
+        }
+      ],
+      "verdict": "ASR 同音误识（对照组同样超标）"
     },
     {
-      "id": "S20",
-      "script": "第二天，她被埋进东浦町的一片农田。",
-      "heard": "第二天,他被埋進東坡廳的一片農田",
-      "cer_film": 0.2,
-      "cer_clean_control": 0.2,
+      "id": "S22",
+      "film_cer": 0.2381,
+      "control_cer": 0.1905,
       "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
+      "script": "",
+      "transcript": "沈迅忠 天池说出他的下落4月4日 警方找到了他",
       "diffs": [
-        [
-          "replace",
-          "她",
-          "他"
-        ],
-        [
-          "replace",
-          "浦町",
-          "坡厅"
-        ]
-      ]
+        {
+          "at": 0,
+          "kind": "replace",
+          "script": "审讯中",
+          "heard": "沈迅忠"
+        },
+        {
+          "at": 7,
+          "kind": "replace",
+          "script": "她",
+          "heard": "他"
+        },
+        {
+          "at": 20,
+          "kind": "replace",
+          "script": "她",
+          "heard": "他"
+        }
+      ],
+      "verdict": "ASR 同音误识（对照组同样超标）"
     },
     {
       "id": "S23",
-      "script": "二〇二四年三月，天池由佳理被判十六年。",
-      "heard": "2024年3月,天池由家里背叛16年",
-      "cer_film": 0.3125,
-      "cer_clean_control": 0.3125,
+      "film_cer": 0.2,
+      "control_cer": 0.2,
       "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
+      "script": "",
+      "transcript": "2024年3月天池由家里备判有期徒刑16年",
       "diffs": [
-        [
-          "insert",
-          "",
-          "零"
-        ],
-        [
-          "replace",
-          "佳理被判",
-          "家里背叛"
-        ]
-      ]
-    },
-    {
-      "id": "S24",
-      "script": "同年七月，山下克己被判处有期徒刑二十八年。",
-      "heard": "同年七月山下克吉被判28年",
-      "cer_film": 0.3158,
-      "cer_clean_control": 0.3684,
-      "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
-      "diffs": [
-        [
-          "replace",
-          "己",
-          "吉"
-        ],
-        [
-          "delete",
-          "处有期徒刑",
-          ""
-        ]
-      ]
-    },
-    {
-      "id": "S27",
-      "script": "二〇一九年她帮着埋人，三年后她自己被埋。",
-      "heard": "2019年他帮着埋人三年后他自己被埋",
-      "cer_film": 0.1765,
-      "cer_clean_control": 0.1765,
-      "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
-      "diffs": [
-        [
-          "insert",
-          "",
-          "零"
-        ],
-        [
-          "replace",
-          "她",
-          "他"
-        ],
-        [
-          "replace",
-          "她",
-          "他"
-        ]
-      ]
-    },
-    {
-      "id": "S28",
-      "script": "网上很多人说，这就是因果报应，躲不掉的。",
-      "heard": "网上很多人说这就是英国报应夺不掉的",
-      "cer_film": 0.1765,
-      "cer_clean_control": 0.1176,
-      "same_in_clean_control": false,
-      "verdict": "ASR_misrecognition_worse_on_film_mix",
-      "diffs": [
-        [
-          "replace",
-          "因果",
-          "英国"
-        ],
-        [
-          "replace",
-          "躲",
-          "夺"
-        ]
-      ]
-    },
-    {
-      "id": "S30",
-      "script": "是因果，还是巧合？这一次，答案留给你。",
-      "heard": "是英国还是巧合这次答案留给你",
-      "cer_film": 0.2,
-      "cer_clean_control": 0.2,
-      "same_in_clean_control": true,
-      "verdict": "ASR_misrecognition_also_in_clean_control",
-      "diffs": [
-        [
-          "replace",
-          "因果",
-          "英国"
-        ],
-        [
-          "delete",
-          "一",
-          ""
-        ]
-      ]
+        {
+          "at": 1,
+          "kind": "insert",
+          "script": "",
+          "heard": "零"
+        },
+        {
+          "at": 9,
+          "kind": "replace",
+          "script": "佳理被",
+          "heard": "家里备"
+        }
+      ],
+      "verdict": "ASR 同音误识（对照组同样超标）"
     }
-  ]
+  ],
+  "conclusion": "30 章中 4 章 CER 超 0.15（S11 .211 / S17 .273 / S22 .238 / S23 .200）。这 4 章在干净配音对照组中同样超标，差异全部为同音/近音字误识（她→他、由佳理→游家里/家里、克己→客棘、名古屋→明古屋、审讯中→沈迅忠），判定为 ASR 识别误差，不是配音念错。中位 CER 0.091，低于上一版 0.111。",
+  "still_pending": [
+    "主创逐字听检（未做）",
+    "逐镜完整播放签收（未做）"
+  ],
+  "note": "本条结论只说明「未发现系统性念错」，不构成人耳签收。"
 }
