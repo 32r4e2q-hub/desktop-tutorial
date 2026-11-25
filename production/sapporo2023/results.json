@@ -251,9 +251,23 @@
     "S10": {
       "id": "S10",
       "request_hash": "164ea17a82af1960aafb5f1512dcdc4383561fa3a672e353f6532055e60f5448",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T07:33:06Z"
+      "updated_at": "2026-11-25T07:47:36Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：夜店门外雨夜霓虹街景，模糊人影在门廊下停留。 运镜：缓慢平移街景。影调：霓虹暗红。 人物锚点：田村瑠奈：二十九岁日本女性，深色连帽风衣或大衣，背影与低头侧脸剪影，拖着黑色拉杆箱，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 2610,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/17ba12f07256806756c88a121f3ef75a1fab4716/production/sapporo2023/reference/S01.png"
+        ]
+      },
+      "error": null
     },
     "S11": {
       "id": "S11",
@@ -448,7 +462,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T07:47:35Z",
+  "updated_at": "2026-11-25T07:47:36Z",
   "run_id": "45568926930",
   "previous_results": {}
 }
