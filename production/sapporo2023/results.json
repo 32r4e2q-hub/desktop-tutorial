@@ -159,9 +159,9 @@
     "S05": {
       "id": "S05",
       "request_hash": "61c4b64a150e20f9a67e307064843ff5e797254faede3d3a0ff2fccaa90b25ba",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T09:15:03Z",
+      "updated_at": "2026-11-25T09:15:05Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：凌晨酒店后门小巷，穿深色风衣的女子背影拖着黑色拉杆箱快步走入夜色。 运镜：中景跟拍背影。影调：极暗冷调。 人物锚点：田村瑠奈：二十九岁日本女性，深色连帽风衣或大衣，背影与低头侧脸剪影，拖着黑色拉杆箱，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands",
@@ -187,7 +187,18 @@
       "bytes": 1898204,
       "sha256": "38cb7febbc9c7d3d22044e5237fde7cdd42f7d600b0a3ed0134915d5b0d52883",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1898204,
+        "decoded_ok": true,
+        "contact_sheet": "production/sapporo2023/qa/S05.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S06": {
       "id": "S06",
@@ -938,7 +949,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T09:15:03Z",
+  "updated_at": "2026-11-25T09:15:05Z",
   "run_id": "45568926930",
   "previous_results": {}
 }
