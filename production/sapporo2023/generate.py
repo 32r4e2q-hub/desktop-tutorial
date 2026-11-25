@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import agnes_video as agnes  # noqa: E402
 from throttle import RequestGate  # noqa: E402
 
-BRANCH = "arena/22d23262-desktop-tutorial"
+BRANCH = "arena/0dca6842-desktop-tutorial"
 MODEL = "agnes-video-2.5-flash"
 SOURCE_SIZE = "720P"
 REQUEST_INTERVAL_SECONDS = 12.1
@@ -1169,7 +1169,7 @@ def main() -> int:
     summary = os.getenv("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as stream:
-            stream.write("## 札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋：她死了105天，丈夫用她的微信聊了105天\n\n")
+            stream.write("## 札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋：拖箱离开的女子，和精神科医生父亲\n\n")
             stream.write("30个Agnes Video 2.5 Flash动态镜头（720P源片后期放大）；1920×1080；16:9；24fps；180秒。\n\n")
             stream.write("初版已渲染。逐镜接触表和成片仍需人工视觉/听觉复核。\n")
     return 0

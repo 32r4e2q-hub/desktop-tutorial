@@ -8,7 +8,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 TITLE = "札幌薄野酒店无头男尸案：二十九岁女子与精神科医生父亲的诡异共谋"
-BRANCH = "arena/07b30353-desktop-tutorial"
+BRANCH = "arena/0dca6842-desktop-tutorial"
 FILM_NAME = "札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4"
 
 STYLE = (
@@ -56,7 +56,8 @@ HOOKS = [
 EXPLAINERS = [
     {"id": "E1", "start": 12.0, "end": 16.0, "text": "2023年7月2日，日本北海道札幌市薄野地区"},
     {"id": "E2", "start": 84.0, "end": 88.0, "text": "嫌疑人田村瑠奈，其父田村修为精神科医生"},
-    {"id": "E3", "start": 138.0, "end": 142.0, "text": "2026年1-2月，札幌高裁二审维持父母有罪认定"},
+    {"id": "E3", "start": 138.0, "end": 142.0, "text": "2026年1-2月，札幌高裁二审均认定损坏遗体帮助罪"},
+    {"id": "E4", "start": 152.0, "end": 156.0, "text": "截至2026年8月，主犯公审仍未开始；父母已上告最高裁"},
 ]
 
 CHAPTERS = [
@@ -254,9 +255,9 @@ def build() -> dict:
     }
 
     fact_check = {
-        "status": "已通过2025-2026年日本经济新闻、信浓毎日新闻公开报道核实；主犯田村瑠奈仍在公审程序中，见 FACT_CHECK.md",
-        "as_of": "2026-11-22",
-        "legal_note": "2026年1-2月札幌高等法院二审分别认定田村修、田村浩子有罪并予缓刑；田村瑠奈仍在公审中。",
+        "status": "已通过日本经济新闻、信浓毎日新闻、北海道放送、TBS NEWS DIG 等公开报道核实（2026-11-25 实时复核）；主犯田村瑠奈公审尚未开始，见 FACT_CHECK.md",
+        "as_of": "2026-11-25",
+        "legal_note": "2026年1-2月札幌高等法院二审分别认定田村修、田村浩子损坏遗体帮助罪并予缓刑，两人已上告最高裁；截至2026年8月主犯田村瑠奈仍未迎来初公判。",
         "sources": [
             {"publisher": "日本经济新闻", "date": "2026-01-27", "url": "https://www.nikkei.com/article/DGXZQOUD27C6U0X20C26A1000000/", "supports": "田村修二审改判有期徒刑1年、缓刑3年"},
         ],

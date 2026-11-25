@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - arena/22d23262-desktop-tutorial
+      - arena/0dca6842-desktop-tutorial
     paths:
       - production/sapporo2023/VISUAL_QC_REQUEST
 
@@ -25,14 +25,14 @@ concurrency:
 
 jobs:
   audit:
-    if: github.ref == 'refs/heads/arena/22d23262-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/0dca6842-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 90
     steps:
       - name: Check out this production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/22d23262-desktop-tutorial
+          ref: arena/0dca6842-desktop-tutorial
           fetch-depth: 1
 
       - name: Install ffmpeg, Python and dependencies
@@ -56,9 +56,9 @@ jobs:
           else
             git commit -m "sapporo2023: visual QC report"
             for attempt in 1 2 3; do
-              if git push origin "HEAD:arena/22d23262-desktop-tutorial"; then break; fi
-              git fetch origin arena/22d23262-desktop-tutorial || true
-              git pull --rebase origin arena/22d23262-desktop-tutorial || git rebase --abort || true
+              if git push origin "HEAD:arena/0dca6842-desktop-tutorial"; then break; fi
+              git fetch origin arena/0dca6842-desktop-tutorial || true
+              git pull --rebase origin arena/0dca6842-desktop-tutorial || git rebase --abort || true
             done
           fi
 

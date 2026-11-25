@@ -1,4 +1,4 @@
-# 模板：production/new_topic.py 会把 札幌薄野酒店无头男尸案：二十九岁女子与精神科医生父亲的诡异共谋 / sapporo2023 / arena/22d23262-desktop-tutorial / 22d23262-desktop-tutorial / 札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4 换成新项目的值，
+# 模板：production/new_topic.py 会把 札幌薄野酒店无头男尸案：二十九岁女子与精神科医生父亲的诡异共谋 / sapporo2023 / arena/0dca6842-desktop-tutorial / 22d23262-desktop-tutorial / 札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4 换成新项目的值，
 # 生成 production/<slug>/workflows/<slug>.yml；复制到 .github/workflows/ 后即可用 GEN_REQUEST marker push 触发。
 #
 # 触发方式：在分支上写 production/sapporo2023/GEN_REQUEST（内容就是 JSON payload）并 push。
@@ -13,7 +13,7 @@ run-name: 札幌薄野酒店无头男尸案：二十九岁女子与精神科医�
 
 on:
   push:
-    branches: [arena/22d23262-desktop-tutorial]
+    branches: [arena/0dca6842-desktop-tutorial]
     paths:
       # 只认 marker 文件：编辑本工作流自身不得触发出片（2026-11-21 裁决；自触发曾误跑并降级 results.json 元数据）。
       # 出片/重渲 = 写 GEN_REQUEST（或 workflow_dispatch）显式触发。
@@ -36,14 +36,14 @@ concurrency:
 
 jobs:
   produce:
-    if: github.ref == 'refs/heads/arena/22d23262-desktop-tutorial'
+    if: github.ref == 'refs/heads/arena/0dca6842-desktop-tutorial'
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 300
     steps:
       - name: Checkout the production branch
         uses: actions/checkout@v4
         with:
-          ref: arena/22d23262-desktop-tutorial
+          ref: arena/0dca6842-desktop-tutorial
           fetch-depth: 1
 
       - name: Install media tools and subtitle font
@@ -135,13 +135,13 @@ jobs:
                 # 先 rebase 到 origin 最新再 push；detached HEAD 也用 HEAD:<branch> 显式推。
                 pushed=0
                 for attempt in 1 2 3; do
-                  if git push origin HEAD:refs/heads/arena/22d23262-desktop-tutorial; then
+                  if git push origin HEAD:refs/heads/arena/0dca6842-desktop-tutorial; then
                     pushed=1
                     break
                   fi
-                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/22d23262-desktop-tutorial"
-                  git fetch origin arena/22d23262-desktop-tutorial || true
-                  git pull --rebase origin arena/22d23262-desktop-tutorial || git rebase --abort || true
+                  echo "failure-log push attempt ${attempt} rejected; rebasing onto origin/arena/0dca6842-desktop-tutorial"
+                  git fetch origin arena/0dca6842-desktop-tutorial || true
+                  git pull --rebase origin arena/0dca6842-desktop-tutorial || git rebase --abort || true
                 done
                 if [ "$pushed" != "1" ]; then
                   echo "::error title=failure log push rejected::render-failure.log 三次 push 均失败；最后 120 行已写入步骤摘要，请人工取回"
@@ -153,10 +153,24 @@ jobs:
             exit 0
           elif [ "$mode" = "clips" ]; then
             test -n "$AGNES_API_KEY"
-            python3 production/sapporo2023/build_story.py
-            python3 production/sapporo2023/preflight.py
-            python3 production/sapporo2023/generate.py --validate --clips-only
-            python3 -u production/sapporo2023/generate.py --clips-only --payload "$payload" --publish
+            log_file="$RUNNER_TEMP/sapporo2023-clips.log"
+            set +e
+            (
+              python3 production/sapporo2023/build_story.py &&
+              python3 production/sapporo2023/preflight.py &&
+              python3 production/sapporo2023/generate.py --validate --clips-only &&
+              python3 -u production/sapporo2023/generate.py --clips-only --payload "$payload" --publish
+            ) 2>&1 | tee "$log_file"
+            status=${PIPESTATUS[0]}
+            if [ "$status" -ne 0 ]; then
+              mkdir -p production/sapporo2023/qa
+              tail -n 120 "$log_file" > production/sapporo2023/qa/clips-failure.log
+              git add -- production/sapporo2023/qa/clips-failure.log
+              git commit -m "sapporo2023: retain clips failure diagnostics" -- production/sapporo2023/qa/clips-failure.log || true
+              git push origin HEAD:refs/heads/arena/0dca6842-desktop-tutorial || true
+              exit "$status"
+            fi
+            exit 0
           else
             echo "Unsupported continuation mode: $mode" >&2
             exit 2
