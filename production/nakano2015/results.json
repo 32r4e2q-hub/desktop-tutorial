@@ -660,7 +660,7 @@
       "request_hash": "027c374eeee0d0e0aaa8e2592a0b914f33a64c4a979cbe5622a0f30ee30aa394",
       "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T20:54:50Z",
+      "updated_at": "2026-11-25T20:59:54Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零一五年至二零一九年日本东京中野区街巷、旧公寓走廊、便利店、练功房与裁判所外景；深夜冷蓝街灯与暖黄室内光明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，single continuous shot, one scene only, no collage, no grid, no tiled frames, no split screen, no storyboard, no repetition, 16:9, 底部预留字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n唯一场景：便利店玻璃门外街景，年轻女性背影从门口走过，路灯拉长影子。 真实连续运动贯穿全镜，单一镜头、单一画面，镜头运镜：玻璃反射跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands, no collage, no grid, no tiled frames, no split screen, no storyboard, no repeated panels, no montage, no freeze frame, no static image",
@@ -675,8 +675,8 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: API usage limit reached. Please try again after 2026-11-26 00:00 UTC**. (request id: 20261125205450644682012FryNJMlx)",
-      "create_attempts": 240,
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: API usage limit reached. Please try again after 2026-11-26 00:00 UTC**. (request id: 20261125205954615691124tZattybD)",
+      "create_attempts": 250,
       "capacity_error": "HTTP 429",
       "applied_cooldown_seconds": 30.0
     },
@@ -775,7 +775,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T20:54:50Z",
+  "updated_at": "2026-11-25T20:59:54Z",
   "run_id": "45659579355",
   "previous_results": {
     "S01": [
@@ -2177,9 +2177,9 @@
   "provider_outage": {
     "model": "agnes-video-2.5-flash",
     "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: API usage limit reached. Please try again after 2026-11-26 00:00 UTC**. (request id: 20261125205450644682012FryNJMlx)",
-    "create_attempts": 240,
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: API usage limit reached. Please try again after 2026-11-26 00:00 UTC**. (request id: 20261125205954615691124tZattybD)",
+    "create_attempts": 250,
     "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-25T20:54:50Z"
+    "last_seen": "2026-11-25T20:59:54Z"
   }
 }
