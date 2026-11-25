@@ -57,9 +57,9 @@
     "S03": {
       "id": "S03",
       "request_hash": "fd679212492fc6d6ecc8b823b994cb957b996fefd77d0c68493e7fb810039de6",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T07:33:33Z",
+      "updated_at": "2026-11-25T07:34:35Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：酒店客房玄关空镜，地上散落一只黑色皮鞋边缘与微弱水渍反光，不出现任何遗体。 运镜：浅景深缓慢平移。影调：冷灰压抑。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands",
@@ -73,10 +73,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/17ba12f07256806756c88a121f3ef75a1fab4716/production/sapporo2023/reference/S02.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026112507333395432566wA8Q5byN) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 3,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 30.0
+      "applied_cooldown_seconds": 30.0,
+      "video_id": "task_cFhfuQQVtMtYBIL5fb0Co41kEIGI5ZTr",
+      "task_id": "task_cFhfuQQVtMtYBIL5fb0Co41kEIGI5ZTr",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S04": {
       "id": "S04",
@@ -320,15 +324,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T07:33:33Z",
+  "updated_at": "2026-11-25T07:34:35Z",
   "run_id": "45568926930",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 2026112507333395432566wA8Q5byN) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-25T07:33:33Z"
-  }
+  "previous_results": {}
 }
