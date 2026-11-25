@@ -39,15 +39,17 @@ FILM_NAME = "东京中野女演员尾随案_一句搭讪之后的致命跟踪_�
 # 后半句（人物只给虚构演员形象、无可读文字、连续运动、16:9、底部字幕安全区）是流水线规则，别删。
 # 注意：style_prefix 参与全部 Agnes 镜头的 request_hash，开工后改一个字 = 30 镜全部重做。
 STYLE = (
-    "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、"
-    "练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，"
-    "轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；"
-    "画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。"
+    "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零一五年至二零一九年日本东京中野区街巷、旧公寓走廊、"
+    "便利店、练功房与裁判所外景；深夜冷蓝街灯与暖黄室内光明暗对立，浅景深镜头语言与克制推拉运镜，"
+    "人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，"
+    "single continuous shot, one scene only, no collage, no grid, no tiled frames, no split screen, "
+    "no storyboard, no repetition, 16:9, 底部预留字幕安全区。"
 )
 NEGATIVE = (
-    "【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，"
-    "血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，"
-    "人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。"
+    "【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, "
+    "no severed head, no nudity, no weapon closeup, no anime style, no deformed hands, "
+    "no collage, no grid, no tiled frames, no split screen, no storyboard, no repeated panels, "
+    "no montage, no freeze frame, no static image"
 )
 
 # 角色锚点：generate.py 会把锚点原文拼到对应镜头的提示词中。TODO：按本片实际角色增删。
@@ -236,8 +238,9 @@ def build() -> dict:
             if lo <= start < hi
         )
         prompt = (
-            f"{visual} 真实连续运动贯穿全镜，镜头运镜：{camera}；构图保持16:9横屏，"
-            "主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。"
+            f"唯一场景：{visual} 真实连续运动贯穿全镜，单一镜头、单一画面，镜头运镜：{camera}；"
+            "构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；"
+            "不要任何文字、标签、时间戳或招牌。"
         )
         shots.append({
             "id": sid, "kind": "agnes", "start": start, "duration": duration,
