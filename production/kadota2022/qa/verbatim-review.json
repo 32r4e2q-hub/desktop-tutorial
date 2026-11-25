@@ -1,23 +1,22 @@
 {
   "project": "kadota2022",
   "checked_against": "delivery/verbatim-check.json",
-  "film_sha256": "dc10fa71d910ebaf3e1eacbd2193b3ff47aa8e7b421231713d83e4a431983682",
-  "narration_version": "2026-11-25 重录版（725 字，30 条，voice-03）",
+  "film_sha256": "f8f0705f4505961c481bf517441611cb03abab36fea3d3ff57957d1bfc4843b9",
+  "narration_version": "2026-11-25 逻辑澄清版（728 字，30 条，voice-03）",
   "threshold": 0.15,
   "count_over": 4,
-  "film_cer_median": 0.0909,
-  "film_cer_max": 0.2727,
-  "control_cer_median": 0.0909,
+  "film_cer_median": 0.093,
+  "film_cer_max": 0.2381,
+  "control_cer_median": 0.0952,
   "count_also_fail_clean_control": 4,
   "count_only_on_film": [],
   "chapters": [
     {
       "id": "S11",
-      "film_cer": 0.2105,
-      "control_cer": 0.2105,
+      "film_cer": 0.2,
+      "control_cer": 0.2,
       "same_in_clean_control": true,
-      "script": "",
-      "transcript": "2020年7月这些案子在明古屋地方法院宣判",
+      "transcript": "2020年7月明古地方法院開庭審理這起案子",
       "diffs": [
         {
           "at": 1,
@@ -32,74 +31,38 @@
           "heard": "零"
         },
         {
-          "at": 6,
-          "kind": "replace",
-          "script": "起",
-          "heard": "些"
-        },
-        {
-          "at": 10,
+          "at": 5,
           "kind": "replace",
           "script": "名",
           "heard": "明"
+        },
+        {
+          "at": 7,
+          "kind": "delete",
+          "script": "屋",
+          "heard": ""
         }
       ],
       "verdict": "ASR 同音误识（对照组同样超标）"
     },
     {
       "id": "S17",
-      "film_cer": 0.2727,
-      "control_cer": 0.2727,
+      "film_cer": 0.2381,
+      "control_cer": 0.2857,
       "same_in_clean_control": true,
-      "script": "",
-      "transcript": "带走他的是天池游家里和当时住在车里的山下客棘",
+      "transcript": "带走她的不是同屋的人是天池有家里和山下客棘",
       "diffs": [
         {
-          "at": 2,
-          "kind": "replace",
-          "script": "她",
-          "heard": "他"
-        },
-        {
-          "at": 7,
+          "at": 13,
           "kind": "replace",
           "script": "由佳理",
-          "heard": "游家里"
+          "heard": "有家里"
         },
         {
-          "at": 20,
+          "at": 19,
           "kind": "replace",
           "script": "克己",
           "heard": "客棘"
-        }
-      ],
-      "verdict": "ASR 同音误识（对照组同样超标）"
-    },
-    {
-      "id": "S22",
-      "film_cer": 0.2381,
-      "control_cer": 0.1905,
-      "same_in_clean_control": true,
-      "script": "",
-      "transcript": "沈迅忠 天池说出他的下落4月4日 警方找到了他",
-      "diffs": [
-        {
-          "at": 0,
-          "kind": "replace",
-          "script": "审讯中",
-          "heard": "沈迅忠"
-        },
-        {
-          "at": 7,
-          "kind": "replace",
-          "script": "她",
-          "heard": "他"
-        },
-        {
-          "at": 20,
-          "kind": "replace",
-          "script": "她",
-          "heard": "他"
         }
       ],
       "verdict": "ASR 同音误识（对照组同样超标）"
@@ -109,8 +72,7 @@
       "film_cer": 0.2,
       "control_cer": 0.2,
       "same_in_clean_control": true,
-      "script": "",
-      "transcript": "2024年3月天池由家里备判有期徒刑16年",
+      "transcript": "2024年3月,天池由家里备判,有期徒刑16年",
       "diffs": [
         {
           "at": 1,
@@ -126,9 +88,43 @@
         }
       ],
       "verdict": "ASR 同音误识（对照组同样超标）"
+    },
+    {
+      "id": "S27",
+      "film_cer": 0.2273,
+      "control_cer": 0.2273,
+      "same_in_clean_control": true,
+      "transcript": "二由19年他帮着埋了同屋的犬寺三年后他自己被埋",
+      "diffs": [
+        {
+          "at": 1,
+          "kind": "replace",
+          "script": "一",
+          "heard": "由十"
+        },
+        {
+          "at": 4,
+          "kind": "replace",
+          "script": "她",
+          "heard": "他"
+        },
+        {
+          "at": 13,
+          "kind": "replace",
+          "script": "饲",
+          "heard": "寺"
+        },
+        {
+          "at": 17,
+          "kind": "replace",
+          "script": "她",
+          "heard": "他"
+        }
+      ],
+      "verdict": "ASR 同音误识（对照组同样超标）"
     }
   ],
-  "conclusion": "30 章中 4 章 CER 超 0.15（S11 .211 / S17 .273 / S22 .238 / S23 .200）。这 4 章在干净配音对照组中同样超标，差异全部为同音/近音字误识（她→他、由佳理→游家里/家里、克己→客棘、名古屋→明古屋、审讯中→沈迅忠），判定为 ASR 识别误差，不是配音念错。中位 CER 0.091，低于上一版 0.111。",
+  "conclusion": "30 章中 4 章 CER 超 0.15（S11 / S17 / S23 / S27），这 4 章在干净配音对照组中同样超标，差异全部为同音/近音字误识（名古屋→明古、由佳理→有家里、克己→客棘、犬饲→犬寺、她→他），判定为 ASR 识别误差，不是配音念错。中位 CER 0.093。",
   "still_pending": [
     "主创逐字听检（未做）",
     "逐镜完整播放签收（未做）"
