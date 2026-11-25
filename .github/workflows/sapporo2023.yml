@@ -153,10 +153,24 @@ jobs:
             exit 0
           elif [ "$mode" = "clips" ]; then
             test -n "$AGNES_API_KEY"
-            python3 production/sapporo2023/build_story.py
-            python3 production/sapporo2023/preflight.py
-            python3 production/sapporo2023/generate.py --validate --clips-only
-            python3 -u production/sapporo2023/generate.py --clips-only --payload "$payload" --publish
+            log_file="$RUNNER_TEMP/sapporo2023-clips.log"
+            set +e
+            (
+              python3 production/sapporo2023/build_story.py &&
+              python3 production/sapporo2023/preflight.py &&
+              python3 production/sapporo2023/generate.py --validate --clips-only &&
+              python3 -u production/sapporo2023/generate.py --clips-only --payload "$payload" --publish
+            ) 2>&1 | tee "$log_file"
+            status=${PIPESTATUS[0]}
+            if [ "$status" -ne 0 ]; then
+              mkdir -p production/sapporo2023/qa
+              tail -n 120 "$log_file" > production/sapporo2023/qa/clips-failure.log
+              git add -- production/sapporo2023/qa/clips-failure.log
+              git commit -m "sapporo2023: retain clips failure diagnostics" -- production/sapporo2023/qa/clips-failure.log || true
+              git push origin HEAD:refs/heads/"${GITHUB_REF_NAME}" || true
+              exit "$status"
+            fi
+            exit 0
           else
             echo "Unsupported continuation mode: $mode" >&2
             exit 2

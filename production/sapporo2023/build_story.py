@@ -8,7 +8,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 TITLE = "札幌薄野酒店无头男尸案：二十九岁女子与精神科医生父亲的诡异共谋"
-BRANCH = "arena/22d23262-desktop-tutorial"
+BRANCH = "arena/07b30353-desktop-tutorial"
 FILM_NAME = "札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4"
 
 STYLE = (
@@ -49,6 +49,8 @@ HOOKS = [
     {"id": "H5", "start": 96.0, "end": 98.0, "text": "父母不仅没报警，反而帮女儿隐瞒真相"},
     {"id": "H6", "start": 120.0, "end": 122.0, "text": "二零二六年二审宣判，父母双双获刑"},
     {"id": "H7", "start": 150.0, "end": 152.0, "text": "主犯二十九岁女儿至今仍在等待公审"},
+    {"id": "H8", "start": 162.0, "end": 164.0, "text": "医生家庭的畸形顺从，最终毁掉底线"},
+    {"id": "H9", "start": 170.0, "end": 172.0, "text": "薄野霓虹闪烁，却照不亮门后人性"},
 ]
 
 EXPLAINERS = [
