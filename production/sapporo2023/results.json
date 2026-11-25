@@ -247,9 +247,9 @@
     "S07": {
       "id": "S07",
       "request_hash": "8ebbddb91d9325590dab6b3795db4698ed6cb6df0e6d792611123e68561449d4",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T09:15:27Z",
+      "updated_at": "2026-11-25T09:15:29Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：医院或诊所走廊，穿深色西装戴眼镜的男性背影独自走过冷白灯光下。 运镜：中景跟拍背影。影调：冷白高对比。 人物锚点：田村修：六十岁日本男性，深色西装与眼镜轮廓，医院或住宅暗影中的背影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands",
@@ -275,7 +275,18 @@
       "bytes": 1640609,
       "sha256": "2310fcce97e52819ad28bea160fa6890cbce05878b7aee61ba2a9f4ad046f6e5",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1640609,
+        "decoded_ok": true,
+        "contact_sheet": "production/sapporo2023/qa/S07.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S08": {
       "id": "S08",
@@ -970,7 +981,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T09:15:27Z",
+  "updated_at": "2026-11-25T09:15:29Z",
   "run_id": "45568926930",
   "previous_results": {}
 }
