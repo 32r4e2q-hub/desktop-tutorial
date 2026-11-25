@@ -174,9 +174,9 @@
     "S07": {
       "id": "S07",
       "request_hash": "31463501007dac02f7e6c894825dbeb6d6533ecfb760d132798faf8acc29d9e8",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T14:21:14Z",
+      "updated_at": "2026-11-25T14:26:03Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n中野区狭窄街巷的清晨俯拍，公寓与便利店相邻，一名男性背影走入巷口。 真实连续运动贯穿全镜，镜头运镜：高处缓慢摇移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
@@ -191,10 +191,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 14:26:02. (request id: 20261125142114106000744D57rW4VK) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU",
+      "task_id": "task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S08": {
       "id": "S08",
@@ -410,15 +414,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T14:21:14Z",
+  "updated_at": "2026-11-25T14:26:03Z",
   "run_id": "45628439268",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 14:26:02. (request id: 20261125142114106000744D57rW4VK) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-25T14:21:14Z"
-  }
+  "previous_results": {}
 }
