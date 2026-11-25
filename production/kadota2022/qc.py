@@ -151,7 +151,14 @@ def main() -> int:
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
     sources = args.sources
     film = args.film
-    srt_path = film.with_name(film.name.split("_三分钟_带声音")[0] + "_Subtitles.srt")
+    # 渲染产物与成片同名：…_三分钟_带声音.srt（render.py 写入）。
+    # 交付环节才会把它改名为 …_Subtitles.srt（generate.py 的 publish 步骤）。
+    # qc.py 在渲染后、改名之前运行，所以这里必须按成片同名推导。
+    srt_path = film.with_suffix(".srt")
+    if not args.sources_only and not srt_path.is_file():
+        alt = film.with_name(film.name.split("_三分钟_带声音")[0] + "_Subtitles.srt")
+        if alt.is_file():
+            srt_path = alt
     if not args.sources_only and not film.is_file():
         raise SystemExit(f"Final film is missing: {film}")
     hard_failures = []
