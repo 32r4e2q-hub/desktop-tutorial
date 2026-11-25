@@ -1,7 +1,7 @@
 {
   "film": "门田典子案_她帮着埋了一个女人，三年后，她自己被埋进另一片土里_三分钟_带声音.mp4",
-  "film_sha256": "75a6e99e89fd34a3f13cc56444528fe1ec7e7c3f5cfb78791478be41078a4780",
-  "film_bytes": 70400004,
+  "film_sha256": "dc10fa71d910ebaf3e1eacbd2193b3ff47aa8e7b421231713d83e4a431983682",
+  "film_bytes": 71000518,
   "project": "production/kadota2022",
   "method": "faster-whisper small，无 initial_prompt；转写对象为最终成片按章节切出的音频",
   "max_cer_allowed": 0.15,
@@ -11,35 +11,29 @@
         "id": "S01",
         "start": 0.0,
         "end": 6.0,
-        "script_chars": 19,
-        "heard_chars": 20,
-        "character_error_rate": 0.1053,
-        "match_coverage": 0.9474,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
         "verdict": "ok",
         "diff": [
           {
-            "at": 1,
-            "kind": "insert",
-            "script": "",
-            "heard": "零"
-          },
-          {
-            "at": 4,
+            "at": 3,
             "kind": "replace",
             "script": "名",
             "heard": "明"
           }
         ],
-        "transcript": "2019年明古屋有三个女人住在同一间屋里"
+        "transcript": "故事从明古屋的一间小屋开始那里先后住过三个女人"
       },
       {
         "id": "S02",
         "start": 6.0,
         "end": 12.0,
-        "script_chars": 19,
-        "heard_chars": 19,
-        "character_error_rate": 0.1053,
-        "match_coverage": 0.8947,
+        "script_chars": 22,
+        "heard_chars": 23,
+        "character_error_rate": 0.0909,
+        "match_coverage": 0.9545,
         "verdict": "ok",
         "diff": [
           {
@@ -49,58 +43,72 @@
             "heard": "他"
           },
           {
-            "at": 16,
-            "kind": "replace",
-            "script": "男",
-            "heard": "南"
+            "at": 22,
+            "kind": "insert",
+            "script": "",
+            "heard": "先"
           }
         ],
-        "transcript": "他们在同一个夜里上班也追着同一个南公关"
+        "transcript": "他们在同一家店上夜班追同一个男公关钱也一起花先"
       },
       {
         "id": "S03",
         "start": 12.0,
         "end": 18.0,
-        "script_chars": 19,
-        "heard_chars": 19,
-        "character_error_rate": 0.0,
-        "match_coverage": 1.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.1364,
+        "match_coverage": 0.8636,
         "verdict": "ok",
-        "diff": [],
-        "transcript": "其中两个早就认识第三个是后来才搬进来的"
+        "diff": [
+          {
+            "at": 18,
+            "kind": "replace",
+            "script": "犬饲幸",
+            "heard": "全四姓"
+          }
+        ],
+        "transcript": "先来的两人早就认识最后搬进来的那个叫全四姓子"
       },
       {
         "id": "S04",
         "start": 18.0,
         "end": 24.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.0,
+        "script_chars": 21,
+        "heard_chars": 23,
+        "character_error_rate": 0.0952,
         "match_coverage": 1.0,
         "verdict": "ok",
-        "diff": [],
-        "transcript": "一间屋子住三个人谁说了算很快就分出来"
+        "diff": [
+          {
+            "at": 21,
+            "kind": "insert",
+            "script": "",
+            "heard": "最后"
+          }
+        ],
+        "transcript": "三個人擠在一間屋裡誰說了算很快就分出了高下最後"
       },
       {
         "id": "S05",
         "start": 24.0,
         "end": 30.0,
-        "script_chars": 17,
-        "heard_chars": 17,
+        "script_chars": 23,
+        "heard_chars": 23,
         "character_error_rate": 0.0,
         "match_coverage": 1.0,
         "verdict": "ok",
         "diff": [],
-        "transcript": "后来搬进来的那个慢慢成了被使唤的人"
+        "transcript": "最后搬进来的那一个慢慢成了屋里被使唤被拿钱的人"
       },
       {
         "id": "S06",
         "start": 30.0,
         "end": 36.0,
-        "script_chars": 19,
-        "heard_chars": 20,
-        "character_error_rate": 0.1053,
-        "match_coverage": 0.9474,
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.15,
+        "match_coverage": 0.9,
         "verdict": "ok",
         "diff": [
           {
@@ -109,6 +117,50 @@
             "script": "",
             "heard": "零"
           },
+          {
+            "at": 11,
+            "kind": "replace",
+            "script": "犬饲",
+            "heard": "权四"
+          }
+        ],
+        "transcript": "2019年2月,31岁的权四死在了这间屋里"
+      },
+      {
+        "id": "S07",
+        "start": 36.0,
+        "end": 42.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0909,
+        "match_coverage": 0.9091,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          },
+          {
+            "at": 20,
+            "kind": "replace",
+            "script": "瘀",
+            "heard": "预"
+          }
+        ],
+        "transcript": "解剖报告写的死因是头部外伤他身上另有多处预伤"
+      },
+      {
+        "id": "S08",
+        "start": 42.0,
+        "end": 48.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
+        "verdict": "ok",
+        "diff": [
           {
             "at": 6,
             "kind": "replace",
@@ -116,104 +168,47 @@
             "heard": "他"
           }
         ],
-        "transcript": "2019年2月他死在了三个人同住的屋子里"
-      },
-      {
-        "id": "S07",
-        "start": 36.0,
-        "end": 42.0,
-        "script_chars": 12,
-        "heard_chars": 12,
-        "character_error_rate": 0.1667,
-        "match_coverage": 0.8333,
-        "verdict": "needs_human_listen",
-        "diff": [
-          {
-            "at": 3,
-            "kind": "replace",
-            "script": "出",
-            "heard": "猪"
-          },
-          {
-            "at": 8,
-            "kind": "replace",
-            "script": "颅",
-            "heard": "卢"
-          }
-        ],
-        "transcript": "解剖给猪的死因是卢内损伤"
-      },
-      {
-        "id": "S08",
-        "start": 42.0,
-        "end": 48.0,
-        "script_chars": 13,
-        "heard_chars": 13,
-        "character_error_rate": 0.0769,
-        "match_coverage": 0.9231,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 4,
-            "kind": "replace",
-            "script": "她",
-            "heard": "他"
-          }
-        ],
-        "transcript": "2月4日,他的遺体被运进山里"
+        "transcript": "2月4日前后他被装上车运往60公里外的山林"
       },
       {
         "id": "S09",
         "start": 48.0,
         "end": 54.0,
-        "script_chars": 20,
-        "heard_chars": 20,
-        "character_error_rate": 0.05,
-        "match_coverage": 0.95,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
         "verdict": "ok",
-        "diff": [
-          {
-            "at": 15,
-            "kind": "replace",
-            "script": "熟",
-            "heard": "书"
-          }
-        ],
-        "transcript": "2月24日清晨5点40分一个书人报了警"
+        "diff": [],
+        "transcript": "二十天后的清晨五点四十分一个熟人拨通了报警电话"
       },
       {
         "id": "S10",
         "start": 54.0,
         "end": 60.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.1667,
-        "match_coverage": 0.8333,
-        "verdict": "needs_human_listen",
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
+        "verdict": "ok",
         "diff": [
           {
-            "at": 10,
+            "at": 0,
             "kind": "replace",
             "script": "她",
             "heard": "他"
-          },
-          {
-            "at": 14,
-            "kind": "replace",
-            "script": "弃尸",
-            "heard": "气势"
           }
         ],
-        "transcript": "第二天,警方在山中找到他,两人因气势被捕"
+        "transcript": "他带着警察进了山,找到遗体两个女人随后被逮捕"
       },
       {
         "id": "S11",
         "start": 60.0,
         "end": 66.0,
-        "script_chars": 17,
-        "heard_chars": 19,
-        "character_error_rate": 0.1765,
-        "match_coverage": 0.9412,
+        "script_chars": 19,
+        "heard_chars": 21,
+        "character_error_rate": 0.2105,
+        "match_coverage": 0.8947,
         "verdict": "needs_human_listen",
         "diff": [
           {
@@ -229,116 +224,135 @@
             "heard": "零"
           },
           {
-            "at": 8,
+            "at": 6,
+            "kind": "replace",
+            "script": "起",
+            "heard": "些"
+          },
+          {
+            "at": 10,
             "kind": "replace",
             "script": "名",
             "heard": "明"
           }
         ],
-        "transcript": "2020年7月 案子在明古屋地方法院宣判"
+        "transcript": "2020年7月这些案子在明古屋地方法院宣判"
       },
       {
         "id": "S12",
         "start": 66.0,
         "end": 72.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.0,
-        "match_coverage": 1.0,
+        "script_chars": 17,
+        "heard_chars": 17,
+        "character_error_rate": 0.0588,
+        "match_coverage": 0.9412,
         "verdict": "ok",
-        "diff": [],
-        "transcript": "伤害致死这一项法院最终判了无罪"
+        "diff": [
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "无",
+            "heard": "诬"
+          }
+        ],
+        "transcript": "傷害致死,判了誣罪,只剩棄屍和盜竊兩項。"
       },
       {
         "id": "S13",
         "start": 72.0,
         "end": 78.0,
-        "script_chars": 17,
-        "heard_chars": 18,
-        "character_error_rate": 0.2353,
-        "match_coverage": 0.8235,
-        "verdict": "needs_human_listen",
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.087,
+        "match_coverage": 0.913,
+        "verdict": "ok",
         "diff": [
           {
-            "at": 11,
+            "at": 15,
             "kind": "replace",
             "script": "田",
             "heard": "天"
           },
           {
-            "at": 15,
+            "at": 21,
             "kind": "replace",
-            "script": "供述",
-            "heard": "共属可"
+            "script": "供",
+            "heard": "共"
           }
         ],
-        "transcript": "因为唯一的直接证据是门天自己的共属可"
+        "transcript": "能证明有人动手致死的几乎只有门天自己的那段共述"
       },
       {
         "id": "S14",
         "start": 78.0,
         "end": 84.0,
-        "script_chars": 13,
-        "heard_chars": 13,
-        "character_error_rate": 0.2308,
-        "match_coverage": 0.7692,
-        "verdict": "needs_human_listen",
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0455,
+        "match_coverage": 0.9545,
+        "verdict": "ok",
         "diff": [
           {
-            "at": 2,
+            "at": 3,
             "kind": "replace",
-            "script": "段供述",
-            "heard": "端共数"
+            "script": "供",
+            "heard": "贡"
           }
         ],
-        "transcript": "可这端共数前后不一,没被采信"
+        "transcript": "可这段贡述前后不一 法院没有采信 罪名因此不成立"
       },
       {
         "id": "S15",
         "start": 84.0,
         "end": 90.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.1111,
-        "match_coverage": 0.8889,
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.1,
+        "match_coverage": 0.9,
         "verdict": "ok",
         "diff": [
           {
+            "at": 0,
+            "kind": "replace",
+            "script": "石",
+            "heard": "十"
+          },
+          {
             "at": 13,
             "kind": "replace",
-            "script": "判缓",
-            "heard": "盼唤"
+            "script": "刑",
+            "heard": "行"
           }
         ],
-        "transcript": "成立的只有棄屍和盜竊两人都盼唤刑四年"
+        "transcript": "十川二年八月,门田二年,都是缓行四年,同月确定。"
       },
       {
         "id": "S16",
         "start": 90.0,
         "end": 96.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.1111,
-        "match_coverage": 0.8889,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
         "verdict": "ok",
         "diff": [
           {
-            "at": 9,
+            "at": 14,
             "kind": "replace",
-            "script": "田典",
-            "heard": "天巅"
+            "script": "典",
+            "heard": "点"
           }
         ],
-        "transcript": "两年多以后的春天门天巅子自己也不见了"
+        "transcript": "两年多以后的春天40岁的门田点子也从家里消失了"
       },
       {
         "id": "S17",
         "start": 96.0,
         "end": 102.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.4,
-        "match_coverage": 0.6,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.2727,
+        "match_coverage": 0.7273,
         "verdict": "needs_human_listen",
         "diff": [
           {
@@ -354,22 +368,22 @@
             "heard": "游家里"
           },
           {
-            "at": 13,
+            "at": 20,
             "kind": "replace",
             "script": "克己",
             "heard": "客棘"
           }
         ],
-        "transcript": "带走他的是天池游家里和山下客棘"
+        "transcript": "带走他的是天池游家里和当时住在车里的山下客棘"
       },
       {
         "id": "S18",
         "start": 102.0,
         "end": 108.0,
-        "script_chars": 17,
-        "heard_chars": 17,
-        "character_error_rate": 0.1176,
-        "match_coverage": 0.8824,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0952,
+        "match_coverage": 0.9048,
         "verdict": "ok",
         "diff": [
           {
@@ -385,42 +399,42 @@
             "heard": "他"
           }
         ],
-        "transcript": "简方说他们以讨债为名要钱他拿不出来"
+        "transcript": "简方说他们以讨债为名要钱他拿不出来人被带走"
       },
       {
         "id": "S19",
         "start": 108.0,
         "end": 114.0,
-        "script_chars": 16,
-        "heard_chars": 16,
-        "character_error_rate": 0.125,
-        "match_coverage": 0.875,
+        "script_chars": 21,
+        "heard_chars": 23,
+        "character_error_rate": 0.1429,
+        "match_coverage": 0.9524,
         "verdict": "ok",
         "diff": [
           {
-            "at": 7,
-            "kind": "replace",
-            "script": "她",
-            "heard": "他"
-          },
-          {
             "at": 15,
             "kind": "replace",
-            "script": "逝",
-            "heard": "世"
+            "script": "她",
+            "heard": "它"
+          },
+          {
+            "at": 21,
+            "kind": "insert",
+            "script": "",
+            "heard": "第二"
           }
         ],
-        "transcript": "3月15日前后,他在停着的车里去世"
+        "transcript": "3月15日前后在一辆停着的车里它停止了呼吸第二"
       },
       {
         "id": "S20",
         "start": 114.0,
         "end": 120.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.2,
-        "match_coverage": 0.8,
-        "verdict": "needs_human_listen",
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.1429,
+        "match_coverage": 0.8571,
+        "verdict": "ok",
         "diff": [
           {
             "at": 3,
@@ -432,33 +446,46 @@
             "at": 8,
             "kind": "replace",
             "script": "浦町",
-            "heard": "坡厅"
+            "heard": "普厅"
           }
         ],
-        "transcript": "第二天,他被埋進東坡廳的一片農田"
+        "transcript": "第二天,他被埋进东普厅的农田,身边只有土和水沟"
       },
       {
         "id": "S21",
         "start": 120.0,
         "end": 126.0,
-        "script_chars": 19,
-        "heard_chars": 19,
-        "character_error_rate": 0.0,
-        "match_coverage": 1.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0455,
+        "match_coverage": 0.9545,
         "verdict": "ok",
-        "diff": [],
-        "transcript": "案子能浮出水面是因为两人先因别的事被捕"
+        "diff": [
+          {
+            "at": 1,
+            "kind": "replace",
+            "script": "起",
+            "heard": "些"
+          }
+        ],
+        "transcript": "这些案子之所以能浮出水面是两个人先因另案被捕"
       },
       {
         "id": "S22",
         "start": 126.0,
         "end": 132.0,
-        "script_chars": 20,
-        "heard_chars": 20,
-        "character_error_rate": 0.1,
-        "match_coverage": 0.9,
-        "verdict": "ok",
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.2381,
+        "match_coverage": 0.7619,
+        "verdict": "needs_human_listen",
         "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "审讯中",
+            "heard": "沈迅忠"
+          },
           {
             "at": 7,
             "kind": "replace",
@@ -466,22 +493,22 @@
             "heard": "他"
           },
           {
-            "at": 15,
+            "at": 20,
             "kind": "replace",
-            "script": "遗",
-            "heard": "一"
+            "script": "她",
+            "heard": "他"
           }
         ],
-        "transcript": "审讯中天池说出他的下落4月4日一体被找到"
+        "transcript": "沈迅忠 天池说出他的下落4月4日 警方找到了他"
       },
       {
         "id": "S23",
         "start": 132.0,
         "end": 138.0,
-        "script_chars": 16,
-        "heard_chars": 17,
-        "character_error_rate": 0.3125,
-        "match_coverage": 0.75,
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.2,
+        "match_coverage": 0.85,
         "verdict": "needs_human_listen",
         "diff": [
           {
@@ -493,60 +520,16 @@
           {
             "at": 9,
             "kind": "replace",
-            "script": "佳理被判",
-            "heard": "家里背叛"
+            "script": "佳理被",
+            "heard": "家里备"
           }
         ],
-        "transcript": "2024年3月,天池由家里背叛16年"
+        "transcript": "2024年3月天池由家里备判有期徒刑16年"
       },
       {
         "id": "S24",
         "start": 138.0,
         "end": 144.0,
-        "script_chars": 19,
-        "heard_chars": 14,
-        "character_error_rate": 0.3158,
-        "match_coverage": 0.6842,
-        "verdict": "needs_human_listen",
-        "diff": [
-          {
-            "at": 7,
-            "kind": "replace",
-            "script": "己",
-            "heard": "吉"
-          },
-          {
-            "at": 10,
-            "kind": "delete",
-            "script": "处有期徒刑",
-            "heard": ""
-          }
-        ],
-        "transcript": "同年七月山下克吉被判28年"
-      },
-      {
-        "id": "S25",
-        "start": 144.0,
-        "end": 150.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.0667,
-        "match_coverage": 0.9333,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 14,
-            "kind": "replace",
-            "script": "告",
-            "heard": "高"
-          }
-        ],
-        "transcript": "两人都上诉,二审维持,天池仍在上高"
-      },
-      {
-        "id": "S26",
-        "start": 150.0,
-        "end": 156.0,
         "script_chars": 20,
         "heard_chars": 20,
         "character_error_rate": 0.05,
@@ -554,23 +537,54 @@
         "verdict": "ok",
         "diff": [
           {
-            "at": 8,
+            "at": 7,
             "kind": "replace",
-            "script": "会",
-            "heard": "回"
+            "script": "己",
+            "heard": "吉"
           }
         ],
-        "transcript": "把两起案子并排放回看到一个让人不安的对称"
+        "transcript": "同年7月,山下克吉被判28年,他否认也没用。"
+      },
+      {
+        "id": "S25",
+        "start": 144.0,
+        "end": 150.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "审",
+            "heard": "神"
+          }
+        ],
+        "transcript": "两人都上诉二神都维持原判天池的案子还在最高法院"
+      },
+      {
+        "id": "S26",
+        "start": 150.0,
+        "end": 156.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
+        "verdict": "ok",
+        "diff": [],
+        "transcript": "把两起案子并排放在一起会看到一个让人不安的对称"
       },
       {
         "id": "S27",
         "start": 156.0,
         "end": 162.0,
-        "script_chars": 17,
-        "heard_chars": 18,
-        "character_error_rate": 0.1765,
-        "match_coverage": 0.8824,
-        "verdict": "needs_human_listen",
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.15,
+        "match_coverage": 0.9,
+        "verdict": "ok",
         "diff": [
           {
             "at": 1,
@@ -585,23 +599,23 @@
             "heard": "他"
           },
           {
-            "at": 12,
+            "at": 15,
             "kind": "replace",
             "script": "她",
             "heard": "他"
           }
         ],
-        "transcript": "2019年他帮着埋人三年后他自己被埋"
+        "transcript": "2019年他帮着埋了一个人三年后他自己被埋"
       },
       {
         "id": "S28",
         "start": 162.0,
         "end": 168.0,
-        "script_chars": 17,
-        "heard_chars": 17,
-        "character_error_rate": 0.1765,
-        "match_coverage": 0.8235,
-        "verdict": "needs_human_listen",
+        "script_chars": 23,
+        "heard_chars": 24,
+        "character_error_rate": 0.1304,
+        "match_coverage": 0.913,
+        "verdict": "ok",
         "diff": [
           {
             "at": 9,
@@ -610,73 +624,59 @@
             "heard": "英国"
           },
           {
-            "at": 13,
-            "kind": "replace",
-            "script": "躲",
-            "heard": "夺"
+            "at": 23,
+            "kind": "insert",
+            "script": "",
+            "heard": "可"
           }
         ],
-        "transcript": "网上很多人说这就是英国报应夺不掉的"
+        "transcript": "网上很多人说 这就是英国报应谁也躲不过去 传得很广可"
       },
       {
         "id": "S29",
         "start": 168.0,
         "end": 174.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.1111,
-        "match_coverage": 0.8889,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
         "verdict": "ok",
         "diff": [
           {
-            "at": 3,
+            "at": 12,
             "kind": "replace",
-            "script": "只认",
-            "heard": "执任"
+            "script": "她",
+            "heard": "他"
           }
         ],
-        "transcript": "但法庭执任证据前案没认定致死后案未结"
+        "transcript": "可法庭只认证据前案没认定他致死后案还没结束"
       },
       {
         "id": "S30",
         "start": 174.0,
         "end": 180.0,
         "script_chars": 15,
-        "heard_chars": 14,
-        "character_error_rate": 0.2,
-        "match_coverage": 0.8,
-        "verdict": "needs_human_listen",
+        "heard_chars": 15,
+        "character_error_rate": 0.1333,
+        "match_coverage": 0.8667,
+        "verdict": "ok",
         "diff": [
           {
             "at": 1,
             "kind": "replace",
             "script": "因果",
             "heard": "英国"
-          },
-          {
-            "at": 8,
-            "kind": "delete",
-            "script": "一",
-            "heard": ""
           }
         ],
-        "transcript": "是英国还是巧合这次答案留给你"
+        "transcript": "是英国还是巧合这一次答案留给你"
       }
     ],
-    "max_cer": 0.4,
+    "max_cer": 0.2727,
     "failing": [
-      "S07",
-      "S10",
       "S11",
-      "S13",
-      "S14",
       "S17",
-      "S20",
-      "S23",
-      "S24",
-      "S27",
-      "S28",
-      "S30"
+      "S22",
+      "S23"
     ]
   },
   "narration_control": {
@@ -685,35 +685,29 @@
         "id": "S01",
         "start": 0.0,
         "end": 6.0,
-        "script_chars": 19,
-        "heard_chars": 20,
-        "character_error_rate": 0.1053,
-        "match_coverage": 0.9474,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
         "verdict": "ok",
         "diff": [
           {
-            "at": 1,
-            "kind": "insert",
-            "script": "",
-            "heard": "零"
-          },
-          {
-            "at": 4,
+            "at": 3,
             "kind": "replace",
             "script": "名",
             "heard": "明"
           }
         ],
-        "transcript": "2019年明古屋有三个女人住在同一间屋里"
+        "transcript": "故事从明古屋的一间小屋开始那里先后住过三个女人"
       },
       {
         "id": "S02",
         "start": 6.0,
         "end": 12.0,
-        "script_chars": 19,
-        "heard_chars": 19,
-        "character_error_rate": 0.1053,
-        "match_coverage": 0.8947,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0455,
+        "match_coverage": 0.9545,
         "verdict": "ok",
         "diff": [
           {
@@ -721,60 +715,61 @@
             "kind": "replace",
             "script": "她",
             "heard": "他"
-          },
-          {
-            "at": 16,
-            "kind": "replace",
-            "script": "男",
-            "heard": "南"
           }
         ],
-        "transcript": "他们在同一个夜里上班也追着同一个南公关"
+        "transcript": "他们在同一家店上夜班追同一个男公关钱也一起花"
       },
       {
         "id": "S03",
         "start": 12.0,
         "end": 18.0,
-        "script_chars": 19,
-        "heard_chars": 19,
-        "character_error_rate": 0.0,
-        "match_coverage": 1.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0909,
+        "match_coverage": 0.9091,
         "verdict": "ok",
-        "diff": [],
-        "transcript": "其中两个早就认识第三个是后来才搬进来的"
+        "diff": [
+          {
+            "at": 19,
+            "kind": "replace",
+            "script": "饲幸",
+            "heard": "思性"
+          }
+        ],
+        "transcript": "先来的两人早就认识最后搬进来的那个叫犬思性子"
       },
       {
         "id": "S04",
         "start": 18.0,
         "end": 24.0,
-        "script_chars": 18,
-        "heard_chars": 18,
+        "script_chars": 21,
+        "heard_chars": 21,
         "character_error_rate": 0.0,
         "match_coverage": 1.0,
         "verdict": "ok",
         "diff": [],
-        "transcript": "一间屋子住三个人谁说了算很快就分出来"
+        "transcript": "三個人擠在一間屋裡誰說了算很快就分出了高下"
       },
       {
         "id": "S05",
         "start": 24.0,
         "end": 30.0,
-        "script_chars": 17,
-        "heard_chars": 17,
+        "script_chars": 23,
+        "heard_chars": 23,
         "character_error_rate": 0.0,
         "match_coverage": 1.0,
         "verdict": "ok",
         "diff": [],
-        "transcript": "后来搬进来的那个慢慢成了被使唤的人"
+        "transcript": "最后搬进来的那一个慢慢成了屋里被使唤被拿钱的人"
       },
       {
         "id": "S06",
         "start": 30.0,
         "end": 36.0,
-        "script_chars": 19,
-        "heard_chars": 20,
-        "character_error_rate": 0.1053,
-        "match_coverage": 0.9474,
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.15,
+        "match_coverage": 0.9,
         "verdict": "ok",
         "diff": [
           {
@@ -784,110 +779,97 @@
             "heard": "零"
           },
           {
+            "at": 11,
+            "kind": "replace",
+            "script": "犬饲",
+            "heard": "权四"
+          }
+        ],
+        "transcript": "2019年2月,31岁的权四死在了这间屋里"
+      },
+      {
+        "id": "S07",
+        "start": 36.0,
+        "end": 42.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0909,
+        "match_coverage": 0.9091,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 13,
+            "kind": "replace",
+            "script": "她",
+            "heard": "他"
+          },
+          {
+            "at": 20,
+            "kind": "replace",
+            "script": "瘀",
+            "heard": "预"
+          }
+        ],
+        "transcript": "解剖报告写的死因是头部外伤他身上另有多处预伤"
+      },
+      {
+        "id": "S08",
+        "start": 42.0,
+        "end": 48.0,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
+        "verdict": "ok",
+        "diff": [
+          {
             "at": 6,
             "kind": "replace",
             "script": "她",
             "heard": "他"
           }
         ],
-        "transcript": "2019年2月,他死在了三个人同住的屋子里"
-      },
-      {
-        "id": "S07",
-        "start": 36.0,
-        "end": 42.0,
-        "script_chars": 12,
-        "heard_chars": 12,
-        "character_error_rate": 0.1667,
-        "match_coverage": 0.8333,
-        "verdict": "needs_human_listen",
-        "diff": [
-          {
-            "at": 3,
-            "kind": "replace",
-            "script": "出",
-            "heard": "猪"
-          },
-          {
-            "at": 8,
-            "kind": "replace",
-            "script": "颅",
-            "heard": "卢"
-          }
-        ],
-        "transcript": "解剖给猪的死因是卢内损伤"
-      },
-      {
-        "id": "S08",
-        "start": 42.0,
-        "end": 48.0,
-        "script_chars": 13,
-        "heard_chars": 13,
-        "character_error_rate": 0.0769,
-        "match_coverage": 0.9231,
-        "verdict": "ok",
-        "diff": [
-          {
-            "at": 4,
-            "kind": "replace",
-            "script": "她",
-            "heard": "他"
-          }
-        ],
-        "transcript": "2月4日,他的遺体被运进山里"
+        "transcript": "2月4日前后他被装上车运往60公里外的山林"
       },
       {
         "id": "S09",
         "start": 48.0,
         "end": 54.0,
-        "script_chars": 20,
-        "heard_chars": 20,
-        "character_error_rate": 0.05,
-        "match_coverage": 0.95,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0,
+        "match_coverage": 1.0,
         "verdict": "ok",
-        "diff": [
-          {
-            "at": 15,
-            "kind": "replace",
-            "script": "熟",
-            "heard": "书"
-          }
-        ],
-        "transcript": "2月24日清晨5点40分一个书人报了警"
+        "diff": [],
+        "transcript": "20天后的清晨5点40分一个熟人拨通了报警电话"
       },
       {
         "id": "S10",
         "start": 54.0,
         "end": 60.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.1667,
-        "match_coverage": 0.8333,
-        "verdict": "needs_human_listen",
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
+        "verdict": "ok",
         "diff": [
           {
-            "at": 10,
+            "at": 0,
             "kind": "replace",
             "script": "她",
             "heard": "他"
-          },
-          {
-            "at": 14,
-            "kind": "replace",
-            "script": "弃尸",
-            "heard": "气势"
           }
         ],
-        "transcript": "第二天警方在山中找到他两人因气势被捕"
+        "transcript": "他带着警察进了山 找到遗体两个女人随后被逮捕"
       },
       {
         "id": "S11",
         "start": 60.0,
         "end": 66.0,
-        "script_chars": 17,
-        "heard_chars": 19,
-        "character_error_rate": 0.1765,
-        "match_coverage": 0.9412,
+        "script_chars": 19,
+        "heard_chars": 21,
+        "character_error_rate": 0.2105,
+        "match_coverage": 0.8947,
         "verdict": "needs_human_listen",
         "diff": [
           {
@@ -903,30 +885,24 @@
             "heard": "零"
           },
           {
-            "at": 8,
+            "at": 6,
+            "kind": "replace",
+            "script": "起",
+            "heard": "些"
+          },
+          {
+            "at": 10,
             "kind": "replace",
             "script": "名",
             "heard": "明"
           }
         ],
-        "transcript": "2020年7月 案子在明古屋地方法院宣判"
+        "transcript": "2020年7月这些案子在明古屋地方法院宣判"
       },
       {
         "id": "S12",
         "start": 66.0,
         "end": 72.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.0,
-        "match_coverage": 1.0,
-        "verdict": "ok",
-        "diff": [],
-        "transcript": "伤害致死这一项 法院最终判了无罪"
-      },
-      {
-        "id": "S13",
-        "start": 72.0,
-        "end": 78.0,
         "script_chars": 17,
         "heard_chars": 17,
         "character_error_rate": 0.1765,
@@ -934,97 +910,128 @@
         "verdict": "needs_human_listen",
         "diff": [
           {
+            "at": 2,
+            "kind": "replace",
+            "script": "致",
+            "heard": "至"
+          },
+          {
+            "at": 6,
+            "kind": "replace",
+            "script": "无",
+            "heard": "诬"
+          },
+          {
             "at": 11,
+            "kind": "replace",
+            "script": "尸",
+            "heard": "事"
+          }
+        ],
+        "transcript": "伤害至死 判了诬罪 只剩棄事和盗窃两项"
+      },
+      {
+        "id": "S13",
+        "start": 72.0,
+        "end": 78.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.087,
+        "match_coverage": 0.913,
+        "verdict": "ok",
+        "diff": [
+          {
+            "at": 15,
             "kind": "replace",
             "script": "田",
             "heard": "天"
           },
           {
-            "at": 15,
+            "at": 21,
             "kind": "replace",
-            "script": "供述",
-            "heard": "共属"
+            "script": "供",
+            "heard": "共"
           }
         ],
-        "transcript": "因为唯一的直接证据是门天自己的共属"
+        "transcript": "能证明有人动手致死的几乎只有门天自己的那段共述"
       },
       {
         "id": "S14",
         "start": 78.0,
         "end": 84.0,
-        "script_chars": 13,
-        "heard_chars": 13,
-        "character_error_rate": 0.0769,
-        "match_coverage": 0.9231,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.1364,
+        "match_coverage": 0.8636,
         "verdict": "ok",
         "diff": [
           {
-            "at": 4,
+            "at": 3,
             "kind": "replace",
-            "script": "述",
-            "heard": "数"
+            "script": "供述",
+            "heard": "共恕"
+          },
+          {
+            "at": 8,
+            "kind": "replace",
+            "script": "一",
+            "heard": "依"
           }
         ],
-        "transcript": "可这段供数前后不一没被采信"
+        "transcript": "可这段共恕前后不依法院没有采信罪名因此不成立"
       },
       {
         "id": "S15",
         "start": 84.0,
         "end": 90.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.3889,
-        "match_coverage": 0.6111,
-        "verdict": "needs_human_listen",
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.1,
+        "match_coverage": 0.9,
+        "verdict": "ok",
         "diff": [
           {
-            "at": 5,
+            "at": 0,
             "kind": "replace",
-            "script": "弃尸",
-            "heard": "契师"
-          },
-          {
-            "at": 8,
-            "kind": "replace",
-            "script": "盗窃",
-            "heard": "道歉"
+            "script": "石",
+            "heard": "十"
           },
           {
             "at": 13,
             "kind": "replace",
-            "script": "判缓刑",
-            "heard": "盼唤行"
+            "script": "刑",
+            "heard": "行"
           }
         ],
-        "transcript": "成立的只有契师和道歉两人都盼唤行四年"
+        "transcript": "十川二年八月 门田二年 都是缓行四年 同月确定"
       },
       {
         "id": "S16",
         "start": 90.0,
         "end": 96.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.1111,
-        "match_coverage": 0.8889,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
         "verdict": "ok",
         "diff": [
           {
-            "at": 9,
+            "at": 14,
             "kind": "replace",
-            "script": "田典",
-            "heard": "天点"
+            "script": "典",
+            "heard": "点"
           }
         ],
-        "transcript": "两年多以后的春天门天点子自己也不见了"
+        "transcript": "两年多以后的春天四十岁的门田点子也从家里消失了"
       },
       {
         "id": "S17",
         "start": 96.0,
         "end": 102.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.4,
-        "match_coverage": 0.6,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.2727,
+        "match_coverage": 0.7273,
         "verdict": "needs_human_listen",
         "diff": [
           {
@@ -1040,22 +1047,22 @@
             "heard": "游家里"
           },
           {
-            "at": 13,
+            "at": 20,
             "kind": "replace",
             "script": "克己",
             "heard": "客棘"
           }
         ],
-        "transcript": "带走他的是天池游家里和山下客棘"
+        "transcript": "带走他的是天池游家里和当时住在车里的山下客棘"
       },
       {
         "id": "S18",
         "start": 102.0,
         "end": 108.0,
-        "script_chars": 17,
-        "heard_chars": 17,
-        "character_error_rate": 0.1176,
-        "match_coverage": 0.8824,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0952,
+        "match_coverage": 0.9048,
         "verdict": "ok",
         "diff": [
           {
@@ -1071,42 +1078,36 @@
             "heard": "他"
           }
         ],
-        "transcript": "简方说他们以讨债为名要钱他拿不出来"
+        "transcript": "简方说他们以讨债为名要钱他拿不出来人被带走"
       },
       {
         "id": "S19",
         "start": 108.0,
         "end": 114.0,
-        "script_chars": 16,
-        "heard_chars": 16,
-        "character_error_rate": 0.125,
-        "match_coverage": 0.875,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0476,
+        "match_coverage": 0.9524,
         "verdict": "ok",
         "diff": [
           {
-            "at": 7,
-            "kind": "replace",
-            "script": "她",
-            "heard": "他"
-          },
-          {
             "at": 15,
             "kind": "replace",
-            "script": "逝",
-            "heard": "世"
+            "script": "她",
+            "heard": "它"
           }
         ],
-        "transcript": "3月15日前后他在停着的车里去世"
+        "transcript": "3月15日前后在一辆停着的车里它停止了呼吸"
       },
       {
         "id": "S20",
         "start": 114.0,
         "end": 120.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.2,
-        "match_coverage": 0.8,
-        "verdict": "needs_human_listen",
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.1429,
+        "match_coverage": 0.8571,
+        "verdict": "ok",
         "diff": [
           {
             "at": 3,
@@ -1118,33 +1119,46 @@
             "at": 8,
             "kind": "replace",
             "script": "浦町",
-            "heard": "坡厅"
+            "heard": "普厅"
           }
         ],
-        "transcript": "第二天他被埋進東坡廳的一片農田"
+        "transcript": "第二天,他被埋进东普厅的农田,身边只有土和水沟"
       },
       {
         "id": "S21",
         "start": 120.0,
         "end": 126.0,
-        "script_chars": 19,
-        "heard_chars": 19,
-        "character_error_rate": 0.0,
-        "match_coverage": 1.0,
+        "script_chars": 22,
+        "heard_chars": 22,
+        "character_error_rate": 0.0455,
+        "match_coverage": 0.9545,
         "verdict": "ok",
-        "diff": [],
-        "transcript": "案子能浮出水面是因为两人先因别的事被捕"
+        "diff": [
+          {
+            "at": 1,
+            "kind": "replace",
+            "script": "起",
+            "heard": "些"
+          }
+        ],
+        "transcript": "这些案子之所以能浮出水面是两个人先因另案被捕"
       },
       {
         "id": "S22",
         "start": 126.0,
         "end": 132.0,
-        "script_chars": 20,
-        "heard_chars": 20,
-        "character_error_rate": 0.1,
-        "match_coverage": 0.9,
-        "verdict": "ok",
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.1905,
+        "match_coverage": 0.8095,
+        "verdict": "needs_human_listen",
         "diff": [
+          {
+            "at": 0,
+            "kind": "replace",
+            "script": "审讯",
+            "heard": "沈迅"
+          },
           {
             "at": 7,
             "kind": "replace",
@@ -1152,22 +1166,22 @@
             "heard": "他"
           },
           {
-            "at": 15,
+            "at": 20,
             "kind": "replace",
-            "script": "遗",
-            "heard": "一"
+            "script": "她",
+            "heard": "他"
           }
         ],
-        "transcript": "审讯中天池说出他的下落4月4日一体被找到"
+        "transcript": "沈迅中 天池说出他的下落4月4日 警方找到了他"
       },
       {
         "id": "S23",
         "start": 132.0,
         "end": 138.0,
-        "script_chars": 16,
-        "heard_chars": 17,
-        "character_error_rate": 0.3125,
-        "match_coverage": 0.75,
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.2,
+        "match_coverage": 0.85,
         "verdict": "needs_human_listen",
         "diff": [
           {
@@ -1179,83 +1193,84 @@
           {
             "at": 9,
             "kind": "replace",
-            "script": "佳理被判",
-            "heard": "家里背叛"
+            "script": "佳理被",
+            "heard": "家里备"
           }
         ],
-        "transcript": "2024年3月 天池由家里背叛16年"
+        "transcript": "2024年3月,天池由家里备判,有期徒刑16年"
       },
       {
         "id": "S24",
         "start": 138.0,
         "end": 144.0,
-        "script_chars": 19,
-        "heard_chars": 14,
-        "character_error_rate": 0.3684,
-        "match_coverage": 0.6316,
-        "verdict": "needs_human_listen",
+        "script_chars": 20,
+        "heard_chars": 20,
+        "character_error_rate": 0.1,
+        "match_coverage": 0.9,
+        "verdict": "ok",
         "diff": [
           {
-            "at": 0,
+            "at": 5,
             "kind": "replace",
-            "script": "同",
-            "heard": "童"
+            "script": "下",
+            "heard": "峡"
           },
           {
             "at": 7,
             "kind": "replace",
             "script": "己",
             "heard": "吉"
-          },
-          {
-            "at": 10,
-            "kind": "delete",
-            "script": "处有期徒刑",
-            "heard": ""
           }
         ],
-        "transcript": "童年七月 山下克吉被判28年"
+        "transcript": "同年7月山峡克吉被判28年他否认也没用"
       },
       {
         "id": "S25",
         "start": 144.0,
         "end": 150.0,
-        "script_chars": 15,
-        "heard_chars": 15,
-        "character_error_rate": 0.0667,
-        "match_coverage": 0.9333,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
         "verdict": "ok",
         "diff": [
           {
-            "at": 14,
+            "at": 6,
             "kind": "replace",
-            "script": "告",
-            "heard": "高"
+            "script": "审",
+            "heard": "神"
           }
         ],
-        "transcript": "两人都上诉 二审维持 天池仍在上高"
+        "transcript": "两人都上诉二神都维持原判天池的案子还在最高法院"
       },
       {
         "id": "S26",
         "start": 150.0,
         "end": 156.0,
-        "script_chars": 20,
-        "heard_chars": 20,
-        "character_error_rate": 0.0,
-        "match_coverage": 1.0,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.0435,
+        "match_coverage": 0.9565,
         "verdict": "ok",
-        "diff": [],
-        "transcript": "把两起案子并排放会看到一个让人不安的对称"
+        "diff": [
+          {
+            "at": 2,
+            "kind": "replace",
+            "script": "起",
+            "heard": "棋"
+          }
+        ],
+        "transcript": "把两棋案子并排放在一起会看到一个让人不安的对称"
       },
       {
         "id": "S27",
         "start": 156.0,
         "end": 162.0,
-        "script_chars": 17,
-        "heard_chars": 18,
-        "character_error_rate": 0.1765,
-        "match_coverage": 0.8824,
-        "verdict": "needs_human_listen",
+        "script_chars": 20,
+        "heard_chars": 21,
+        "character_error_rate": 0.15,
+        "match_coverage": 0.9,
+        "verdict": "ok",
         "diff": [
           {
             "at": 1,
@@ -1270,22 +1285,22 @@
             "heard": "他"
           },
           {
-            "at": 12,
+            "at": 15,
             "kind": "replace",
             "script": "她",
             "heard": "他"
           }
         ],
-        "transcript": "2019年他帮着埋人三年后他自己被埋"
+        "transcript": "2019年他帮着埋了一个人三年后他自己被埋"
       },
       {
         "id": "S28",
         "start": 162.0,
         "end": 168.0,
-        "script_chars": 17,
-        "heard_chars": 17,
-        "character_error_rate": 0.1176,
-        "match_coverage": 0.8824,
+        "script_chars": 23,
+        "heard_chars": 23,
+        "character_error_rate": 0.087,
+        "match_coverage": 0.913,
         "verdict": "ok",
         "diff": [
           {
@@ -1295,66 +1310,54 @@
             "heard": "英国"
           }
         ],
-        "transcript": "网上很多人说这就是英国报应躲不掉的"
+        "transcript": "网上很多人说 这就是英国报应 谁也躲不过去 传得很广"
       },
       {
         "id": "S29",
         "start": 168.0,
         "end": 174.0,
-        "script_chars": 18,
-        "heard_chars": 18,
-        "character_error_rate": 0.1111,
-        "match_coverage": 0.8889,
+        "script_chars": 21,
+        "heard_chars": 21,
+        "character_error_rate": 0.0952,
+        "match_coverage": 0.9048,
         "verdict": "ok",
         "diff": [
           {
-            "at": 3,
+            "at": 12,
             "kind": "replace",
-            "script": "只认",
-            "heard": "执任"
+            "script": "她致",
+            "heard": "他至"
           }
         ],
-        "transcript": "但法庭执任证据前案没认定致死后案未结"
+        "transcript": "可法庭只认证据前案没认定他至死后案还没结束"
       },
       {
         "id": "S30",
         "start": 174.0,
         "end": 180.0,
         "script_chars": 15,
-        "heard_chars": 14,
-        "character_error_rate": 0.2,
-        "match_coverage": 0.8,
-        "verdict": "needs_human_listen",
+        "heard_chars": 15,
+        "character_error_rate": 0.1333,
+        "match_coverage": 0.8667,
+        "verdict": "ok",
         "diff": [
           {
             "at": 1,
             "kind": "replace",
             "script": "因果",
             "heard": "英国"
-          },
-          {
-            "at": 8,
-            "kind": "delete",
-            "script": "一",
-            "heard": ""
           }
         ],
-        "transcript": "是英国还是巧合这次答案留给你"
+        "transcript": "是英国还是巧合这一次答案留给你"
       }
     ],
-    "max_cer": 0.4,
+    "max_cer": 0.2727,
     "failing": [
-      "S07",
-      "S10",
       "S11",
-      "S13",
-      "S15",
+      "S12",
       "S17",
-      "S20",
-      "S23",
-      "S24",
-      "S27",
-      "S30"
+      "S22",
+      "S23"
     ]
   },
   "note": "CER = 编辑距离 / 剧本字数。ASR 本身也会错，所以 'needs_human_listen' 的意思是\"这一段的差异需要人耳裁决\"，不等于\"配音一定错了\"；对照组（干净配音）字错率明显低于成片时，差异多半来自音乐干扰 ASR。"
