@@ -118,9 +118,9 @@
     "S05": {
       "id": "S05",
       "request_hash": "5933bc97ec6d609868b97976a355404465376c6612a4864afdf96226830ab7c4",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T17:13:45Z",
+      "updated_at": "2026-11-25T17:13:56Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零一五年至二零一九年日本东京中野区街巷、旧公寓走廊、便利店、练功房与裁判所外景；深夜冷蓝街灯与暖黄室内光明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，single continuous shot, one scene only, no collage, no grid, no tiled frames, no split screen, no storyboard, no repetition, 16:9, 底部预留字幕安全区。\n\n唯一场景：实验室里一排排样本管被放入检测架，冷白灯下技术人员侧影低头记录。 真实连续运动贯穿全镜，单一镜头、单一画面，镜头运镜：轨道缓慢横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands, no collage, no grid, no tiled frames, no split screen, no storyboard, no repeated panels, no montage, no freeze frame, no static image",
@@ -134,7 +134,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 17:18:43. (request id: 20261125171355992630476pmH6nWNL) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 288.0
     },
     "S06": {
       "id": "S06",
@@ -364,7 +367,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T17:13:45Z",
+  "updated_at": "2026-11-25T17:13:56Z",
   "run_id": "45659579355",
   "previous_results": {
     "S01": [
@@ -1762,5 +1765,13 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 17:18:43. (request id: 20261125171355992630476pmH6nWNL) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 288.0,
+    "last_seen": "2026-11-25T17:13:56Z"
   }
 }
