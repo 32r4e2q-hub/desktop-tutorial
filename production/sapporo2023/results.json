@@ -5,9 +5,9 @@
     "S01": {
       "id": "S01",
       "request_hash": "1c55dc755fe75680c1dc8e7f94f9b12eb7140349a0c99332a17229620c77b601",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T09:14:28Z",
+      "updated_at": "2026-11-25T09:14:30Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：二零二三年七月雨夜札幌薄野街头远景，霓虹灯在湿润沥青路面反射出冷青与暗红光影，行人撑伞。 运镜：缓慢航拍推进街景。影调：冷青与暗红对比。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands",
@@ -31,7 +31,18 @@
       "bytes": 4420324,
       "sha256": "9818667ed33677a7f16d8b6e2899db9b23b306268546015c4691553f09e4e812",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 4420324,
+        "decoded_ok": true,
+        "contact_sheet": "production/sapporo2023/qa/S01.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S02": {
       "id": "S02",
@@ -890,7 +901,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T09:14:28Z",
+  "updated_at": "2026-11-25T09:14:30Z",
   "run_id": "45568926930",
   "previous_results": {}
 }
