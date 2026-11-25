@@ -1314,7 +1314,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1361,11 +1361,37 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-25T09:20:21Z",
   "run_id": "45568926930",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/sapporo2023/clips/札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/sapporo2023/clips/札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_Cover.jpg",
+    "delivered": {
+      "札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4": {
+        "bytes": 67289549,
+        "sha256": "9d2ed2a7f3b448ee4dbc0696f7dca370712b1ce60384a6a0dcd764066bfb5a8f"
+      },
+      "札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_Cover.jpg": {
+        "bytes": 374660,
+        "sha256": "e4e331f725a12059e30affa92588c995cd7b870dab8d945a011993a98f6f9ef4"
+      },
+      "札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_Subtitles.srt": {
+        "bytes": 4061,
+        "sha256": "ea59a1f75ae6e000de9e21224cdd0d483c573088a7bc6572e144ddf6e19a093e"
+      },
+      "札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_Technical_Report.json": {
+        "bytes": 11370,
+        "sha256": "93347381e7d9b330192038a0f6c0bf9ede3f72fcf574ec338245f5f5b13fffbc"
+      }
+    }
+  }
 }
