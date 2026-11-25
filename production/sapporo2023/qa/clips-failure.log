@@ -2,7 +2,12 @@ WROTE 30 shots / 180s / 30 chapters / narration chars=1007
 Story: 30 shots / 180 sec / average 6.00 sec
 References: 12 expected; 12 approved
 
-HARD ERRORS:
-- story.json / screenplay.md / 抖音脚本.md 与 build_story.py 的输出不一致：请运行 `python3 <本项目>/build_story.py` 后提交，不要手改这三个生成物（2026-11-19 事故：手改被 CI 重跑覆盖，镜头静默复用旧资产）
-
-PREFLIGHT: BLOCKED
+PREFLIGHT: READY (offline only; API has not been called)
+VALID: 180 seconds, 30 Agnes Video 2.5 Flash clips (720P source), 1080P delivery, 30 shot-locked voice lines and approved references
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sapporo2023/generate.py", line 1179, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/sapporo2023/generate.py", line 799, in main
+    raise RuntimeError("Publishing is restricted to the fixed Arena branch in GitHub Actions")
+RuntimeError: Publishing is restricted to the fixed Arena branch in GitHub Actions
