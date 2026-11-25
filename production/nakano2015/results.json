@@ -1026,9 +1026,9 @@
     "S24": {
       "id": "S24",
       "request_hash": "3f8af707cdb16d0f73f989f9493909bf9a2d92312969116410928d2acb162227",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:27:13Z",
+      "updated_at": "2026-11-25T16:27:15Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n便利店玻璃门外街景，年轻女性背影从门口走过，路灯拉长影子。 真实连续运动贯穿全镜，镜头运镜：玻璃反射跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
@@ -1055,7 +1055,18 @@
       "bytes": 2653965,
       "sha256": "936d092e557d6154f68234718570ddda8ee399ad6f899d1c3f4c1a3bf48107f9",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2653965,
+        "decoded_ok": true,
+        "contact_sheet": "production/nakano2015/qa/S24.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S25": {
       "id": "S25",
@@ -1315,7 +1326,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T16:27:13Z",
+  "updated_at": "2026-11-25T16:27:15Z",
   "run_id": "45628439268",
   "previous_results": {}
 }
