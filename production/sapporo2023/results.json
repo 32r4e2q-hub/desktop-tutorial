@@ -167,9 +167,9 @@
     "S07": {
       "id": "S07",
       "request_hash": "8ebbddb91d9325590dab6b3795db4698ed6cb6df0e6d792611123e68561449d4",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T07:45:25Z",
+      "updated_at": "2026-11-25T07:45:36Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：医院或诊所走廊，穿深色西装戴眼镜的男性背影独自走过冷白灯光下。 运镜：中景跟拍背影。影调：冷白高对比。 人物锚点：田村修：六十岁日本男性，深色西装与眼镜轮廓，医院或住宅暗影中的背影侧脸，不露正脸。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands",
@@ -183,7 +183,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/17ba12f07256806756c88a121f3ef75a1fab4716/production/sapporo2023/reference/S05.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261125074536506593515j2isr1R) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 30.0
     },
     "S08": {
       "id": "S08",
@@ -399,7 +402,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T07:45:25Z",
+  "updated_at": "2026-11-25T07:45:36Z",
   "run_id": "45568926930",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261125074536506593515j2isr1R) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 30.0,
+    "last_seen": "2026-11-25T07:45:36Z"
+  }
 }
