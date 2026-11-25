@@ -156,10 +156,21 @@ def main() -> int:
         raise SystemExit(f"Final film is missing: {film}")
     hard_failures = []
     rows = []
+    # 2026-11-25：源片在 work/ 下，而 work/ 被 .gitignore 排除，CI 的浅 checkout 里永远没有源片。
+    # 旧逻辑把「源片不存在」当硬失败，于是 CI 上 qc.py 恒 FAIL（30 镜全 missing），
+    # 其结论与画面质量无关，却会被读成「画面不合格」。
+    # 现在：源片整体缺席时记为 skipped（不计硬失败），源片存在但校验不符才判失败。
+    sources_present = sources.is_dir() and any((sources / f"{s['id']}.mp4").is_file() for s in story["shots"])
+    if not sources_present:
+        skipped_sources = True
+    else:
+        skipped_sources = False
     for shot in story["shots"]:
         sid = shot["id"]
         path = sources / f"{sid}.mp4"
         record = results.get("shots", {}).get(sid, {})
+        if not sources_present:
+            continue
         if record.get("status") != "completed" or not path.is_file():
             hard_failures.append(f"{sid}: missing completed source")
             continue
@@ -241,8 +252,10 @@ def main() -> int:
             pass  # no shot-specific exposure guards in this film
 
     report = {"status": "FAIL" if hard_failures else "TECHNICAL_PASS_VISUAL_REVIEW_PENDING",
-              "scope": "sources_only" if args.sources_only else "sources_and_final", "final": meta,
+              "scope": ("sources_only" if args.sources_only else "sources_and_final") + ("_no_sources_in_checkout" if skipped_sources else ""),
+              "final": meta,
               "source_shots": rows,
+              "sources_skipped": skipped_sources,
               "hard_failures": hard_failures,
               "limitations": ["Sampled grayscale freeze/exposure metrics do not detect anatomical distortions reliably.",
                               "Human full-playback signoff is required for faces, hands, scene continuity, and temporal artifacts."]}

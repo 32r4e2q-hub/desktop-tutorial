@@ -46,6 +46,10 @@ jobs:
         run: python3 production/kadota2022/qc.py
 
       - name: Commit the QC report back to the branch
+        # 2026-11-25：QC 判定 FAIL 时默认会跳过后续步骤，报告不落库，
+        # 分支上的 qc-report.json 会停在旧版本，读起来像「画面合格」或像「旧结论」。
+        # 报告必须无条件提交，失败原因才能被看到。
+        if: always()
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
