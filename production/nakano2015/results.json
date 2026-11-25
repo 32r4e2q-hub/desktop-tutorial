@@ -4,1338 +4,213 @@
   "shots": {
     "S01": {
       "id": "S01",
-      "request_hash": "171dd2883f831c228c171e17b468fe8365866a4a4656fa7fc76d4aa6457a1997",
-      "status": "completed",
+      "request_hash": "3697e71a791fc2911486b6d729f89dfa77a8c848ebcf5e9bdf2b7d6cec307680",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:23:00Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n深夜中野区旧公寓外景，楼道口的灯忽明忽暗，门牌模糊不可读，门缝里透出一线冷光。 真实连续运动贯穿全镜，镜头运镜：缓慢推近楼门；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260102,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 1,
-      "video_id": "task_hffRSl9rX78CzW8CNKqtDkMGhcFrfGkW",
-      "task_id": "task_hffRSl9rX78CzW8CNKqtDkMGhcFrfGkW",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_hffRSl9rX78CzW8CNKqtDkMGhcFrfGkW.mp4",
-      "bytes": 2339275,
-      "sha256": "7a1797f028012b68ab39dbdd25e218ff3bad24b978276f6bd3d932d881e01f8d",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2339275,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S01.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S02": {
       "id": "S02",
-      "request_hash": "9f8be4dc68f1d93be1aac63e6497796020a5fe98cddbcbf21fe57b0eddb356db",
-      "status": "completed",
+      "request_hash": "2304b968285cd19cb44462be6dc46446d783899e212b29a85344ea294e9e90af",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:22:12Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n公寓走廊尽头两名同事的模糊背影停在门前，一人抬手敲门，气氛凝固。 真实连续运动贯穿全镜，镜头运镜：过肩镜头缓慢前移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20150826,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S02.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_p2l4kxhIFMuH9CfVN2POC645DmKtM9Di",
-      "task_id": "task_p2l4kxhIFMuH9CfVN2POC645DmKtM9Di",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_p2l4kxhIFMuH9CfVN2POC645DmKtM9Di.mp4",
-      "bytes": 1590388,
-      "sha256": "a534e6ec9903e3f34617453cc6737e6ddffecfc2f86e53b766021d0ec93e550d",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1590388,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S02.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S03": {
       "id": "S03",
-      "request_hash": "0c51f2f1eff362d5538619522135ae5b41398f52b202c00b8de89bb4b4aa0140",
-      "status": "completed",
+      "request_hash": "33e83d5c515cc5f3bc7e35b91ecf9855242fe2cac152a6c5e1fa8ed3770e39a3",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:22:25Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n雨夜街边，年轻女性背影独自沿便利店方向走远，远处一名男性背影保持距离跟随。 真实连续运动贯穿全镜，镜头运镜：低机位跟拍推进；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260104,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_Fcy0FjYvAl4EyCTGCMqO6CVKVdYQHBrj",
-      "task_id": "task_Fcy0FjYvAl4EyCTGCMqO6CVKVdYQHBrj",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Fcy0FjYvAl4EyCTGCMqO6CVKVdYQHBrj.mp4",
-      "bytes": 2291722,
-      "sha256": "9c7af3d9d182d61b9f299ecb29efd0f211432c16ae6d4e28e9743c3f9663d25c",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2291722,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S03.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S04": {
       "id": "S04",
-      "request_hash": "dac1544c59626668b18ae2cbdc6cad1f6f3cd6266607c0a05cb39c3f27e75db5",
-      "status": "completed",
+      "request_hash": "6c454d472634000d7497a8487928671086021c96737bde9db6d5eb2ae2acc5c0",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:22:36Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n公寓玄关空镜，物证人员戴手套用棉签取样，手电光柱扫过门把手，不出现任何遗体。 真实连续运动贯穿全镜，镜头运镜：特写轻微横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260105,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_ZJiMMTKDPCEVx4epU08GY5O1gTuUqo4K",
-      "task_id": "task_ZJiMMTKDPCEVx4epU08GY5O1gTuUqo4K",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZJiMMTKDPCEVx4epU08GY5O1gTuUqo4K.mp4",
-      "bytes": 1483189,
-      "sha256": "d66ab092d692c794cef0a18b9e15b9653b7f58e51311f522ad9e46d7706ae591",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1483189,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S04.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S05": {
       "id": "S05",
-      "request_hash": "0cc935afdf45d7204f310af6eb4255d4f88772369471c64307c741203ce6c61d",
-      "status": "completed",
+      "request_hash": "5933bc97ec6d609868b97976a355404465376c6612a4864afdf96226830ab7c4",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:22:49Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n实验室里一排排样本管被放入检测架，冷白灯下技术人员侧影低头记录。 真实连续运动贯穿全镜，镜头运镜：轨道缓慢横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260106,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_AgDTnsAd0O5CzLg0O7hkLweVvfIJ2xIV",
-      "task_id": "task_AgDTnsAd0O5CzLg0O7hkLweVvfIJ2xIV",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AgDTnsAd0O5CzLg0O7hkLweVvfIJ2xIV.mp4",
-      "bytes": 2108619,
-      "sha256": "76efc907ce64eaac93e5c301f0415277e7d9c10c364fc5f980174e08ca84b84f",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2108619,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S05.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S06": {
       "id": "S06",
-      "request_hash": "c96df58e48a57baa9ec7dc55c1db80cf1e7b2c651822b14ba549d0e89f2064fe",
-      "status": "completed",
+      "request_hash": "5e904461c91c5036fec9eb79d4537488d2db3e46488ee293ca9bdcd981aaac36",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:23:13Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n宽长走廊里警员抱着样本箱快步通过，门缝下透出冷白灯光。 真实连续运动贯穿全镜，镜头运镜：手持跟拍微晃；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260107,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_29yajvCA8OofZfh2Wh2iDKgBKPHx2TTx",
-      "task_id": "task_29yajvCA8OofZfh2Wh2iDKgBKPHx2TTx",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_29yajvCA8OofZfh2Wh2iDKgBKPHx2TTx.mp4",
-      "bytes": 3123273,
-      "sha256": "8e177e30df6f9d2440cbb6ed5d942a8655ead93a7e87c7d8442e1e28e0a37fce",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 3123273,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S06.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S07": {
       "id": "S07",
-      "request_hash": "31463501007dac02f7e6c894825dbeb6d6533ecfb760d132798faf8acc29d9e8",
-      "status": "completed",
+      "request_hash": "363f64145229248221ed7a344e0536f8348e345717fa6af31d8cdee58c35b21a",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:23:49Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n中野区狭窄街巷的清晨俯拍，公寓与便利店相邻，一名男性背影走入巷口。 真实连续运动贯穿全镜，镜头运镜：高处缓慢摇移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20160312,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU",
-      "task_id": "task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU.mp4",
-      "bytes": 1881019,
-      "sha256": "6ab669f9059a82deda5da394a0119477959b165e7e384f2ad093c8b4e67cba86",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1881019,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S07.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S08": {
       "id": "S08",
-      "request_hash": "5baf2445aab1d96e7110af8dd0d73da2e5a7c2634e2b331fbeee49c760d7506f",
-      "status": "completed",
+      "request_hash": "52be75a465de40017a0aed7f4fb994446ddfdd6925a5a927d28f9c6d159b602e",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:23:26Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n简陋单间里行李袋靠墙放着，男性背影坐在床沿，窗帘缝隙漏进灰光。 真实连续运动贯穿全镜，镜头运镜：固定镜头微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20160312,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_AM5tRUXCLozAZiwOMN0VeE0TXfiNjvLe",
-      "task_id": "task_AM5tRUXCLozAZiwOMN0VeE0TXfiNjvLe",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AM5tRUXCLozAZiwOMN0VeE0TXfiNjvLe.mp4",
-      "bytes": 1562157,
-      "sha256": "80dff8fa69f445a294891d473c0c26691bf036aeb214f987bb8251b8d2926607",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1562157,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S08.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S09": {
       "id": "S09",
-      "request_hash": "42ee196d1f4d238cc01f2fdc3d69a9a976a2669ca92125dc806ba0aa0da66e67",
-      "status": "completed",
+      "request_hash": "f8ee84ffefdda2564636e6b60811b0a00b31a6d70c6aa88a7240719da650c811",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:23:37Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n福岛街边警车旁，便衣警员一前一后带走男性背影，周围行人模糊。 真实连续运动贯穿全镜，镜头运镜：侧方平移跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20160312,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_AGF8OeL5QF6gpsQvnlkCIRq6ALEijz3l",
-      "task_id": "task_AGF8OeL5QF6gpsQvnlkCIRq6ALEijz3l",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AGF8OeL5QF6gpsQvnlkCIRq6ALEijz3l.mp4",
-      "bytes": 2579467,
-      "sha256": "0c8587227903f50d6bc8e67ac2f8e27475599befa3fd0b5c3c936fad13edb89f",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2579467,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S09.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S10": {
       "id": "S10",
-      "request_hash": "ced2d86c32f8fd628aa3b85faad70531fe6b22ebeb1ad182d5e4e63fbdd4c6c0",
-      "status": "completed",
+      "request_hash": "cbeb3e9cbf562acf61ba2e3146c58093d7ccbca1de9dd3a3520d6842c4e8bcd2",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:24:49Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n日历纸被一张张翻过的桌面特写，窗外夜色渐深，无可读数字。 真实连续运动贯穿全镜，镜头运镜：俯拍缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260111,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 289.0,
-      "video_id": "task_rUnRqY7E6a29ar22YWzK1kG6T8qNvi4n",
-      "task_id": "task_rUnRqY7E6a29ar22YWzK1kG6T8qNvi4n",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_rUnRqY7E6a29ar22YWzK1kG6T8qNvi4n.mp4",
-      "bytes": 1730122,
-      "sha256": "6afeea88f4ee6abb8352c9b136f8afb7fdbe1d2bb7256e5a1d5a8839216c055e",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1730122,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S10.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S11": {
       "id": "S11",
-      "request_hash": "9d4dce9987aa918c5da6712999d26512aa6ccac088d4ea1443e2f64cfdeff13a",
-      "status": "completed",
+      "request_hash": "dff038029536f2be0e05f11ea6c17784a242de9d913bc0c59888356e1e015f87",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:24:01Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n法院走廊里一名戴帽男性背影被法警带过，旁人自动让出通道。 真实连续运动贯穿全镜，镜头运镜：长焦侧拍缓推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20160312,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_OGHVJZXxAxHyRBEvz4nmsgNTFNdaRbBO",
-      "task_id": "task_OGHVJZXxAxHyRBEvz4nmsgNTFNdaRbBO",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_OGHVJZXxAxHyRBEvz4nmsgNTFNdaRbBO.mp4",
-      "bytes": 2047464,
-      "sha256": "de7c0bec490395a8d33a9ae071ee053614fb51aa323742c8e049a7b1afc2c8a0",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2047464,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S11.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S12": {
       "id": "S12",
-      "request_hash": "309822a38a656090855baec95c5c10f67072ff40198a050651227db84b9aa393",
-      "status": "completed",
+      "request_hash": "01db426511bfc6b7abdfa4fa1df74a52c235e046298f9725a4c39cb3447a9b56",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:24:13Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n被告席空镜，木质栏杆与桌面上的水杯，旁听区只留下模糊轮廓。 真实连续运动贯穿全镜，镜头运镜：固定机位浅景深；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260113,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_La4WttBrgxzialWWF5Gwi04Qyq4ywckP",
-      "task_id": "task_La4WttBrgxzialWWF5Gwi04Qyq4ywckP",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_La4WttBrgxzialWWF5Gwi04Qyq4ywckP.mp4",
-      "bytes": 767208,
-      "sha256": "93fcbda0943d716ab8140a51197df094a4cff42f9396ab623d84634a4c2d1536",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 767208,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S12.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S13": {
       "id": "S13",
-      "request_hash": "6eaa7f2ce2962055d0997913eb807d0192a012cc47ede457ecff3d09e934facf",
-      "status": "completed",
+      "request_hash": "3408766f636b0884fff1b4dc132b962be64e985c9000f914b00ea2fef293d143",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:24:25Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n案卷纸页在灯下被逐页翻开，检方手指停在一段文字处，字不可读。 真实连续运动贯穿全镜，镜头运镜：俯拍缓慢横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260114,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_sfDj7ezOqzUbSoRilJqtZEF4bo0WSgV5",
-      "task_id": "task_sfDj7ezOqzUbSoRilJqtZEF4bo0WSgV5",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_sfDj7ezOqzUbSoRilJqtZEF4bo0WSgV5.mp4",
-      "bytes": 1625579,
-      "sha256": "379de98681be61ab361ab0ccd21e85a36f869c8c23c3d9f1c422ac708abdcfdc",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1625579,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S13.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S14": {
       "id": "S14",
-      "request_hash": "58bd59e45f2fea1002bb20b854a3f9ee364bc79446dcbcd262983d1d38a6ec38",
-      "status": "completed",
+      "request_hash": "ac94a9ae1281e4b2bdcdd71a06da7362f93a8b951ba3ab73746c2e0bed116902",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:24:37Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n夜间街道监控视角，两个模糊身影前后走过路口，路面反射冷光。 真实连续运动贯穿全镜，镜头运镜：监控定镜微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260115,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_u5PmkvHw1ysxEKHCP3nCptTSeeU79Zc3",
-      "task_id": "task_u5PmkvHw1ysxEKHCP3nCptTSeeU79Zc3",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_u5PmkvHw1ysxEKHCP3nCptTSeeU79Zc3.mp4",
-      "bytes": 1631162,
-      "sha256": "850b06815a5bea617f23b0ceb180affce6fb9e381113682e4425d7cab8e26c98",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1631162,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S14.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S15": {
       "id": "S15",
-      "request_hash": "59767c77d903b2d9bb36716e50b5a4143dadb9f8372dd6831ba6d4ff126999ed",
-      "status": "completed",
+      "request_hash": "f79404ffdbd95e15d8c7bf7583270513cbb25fb58477bb93fce743055092e140",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:25:38Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n东京地裁建筑外立面与阶梯，陌生人影匆匆上下，天气阴沉。 真实连续运动贯穿全镜，镜头运镜：低机位缓慢上摇；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260116,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_WO7ufGVNbHnWKhnjoYLXWzskz25OpF8D",
-      "task_id": "task_WO7ufGVNbHnWKhnjoYLXWzskz25OpF8D",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_WO7ufGVNbHnWKhnjoYLXWzskz25OpF8D.mp4",
-      "bytes": 4697496,
-      "sha256": "d53fefcc44f60fc0f48b856f3a4114f6df8e6f29a6f757e652a64d65bc87d13b",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 4697496,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S15.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S16": {
       "id": "S16",
-      "request_hash": "83d073469a09d23e046d74d48e8ac812ad490e5b09efa1cd94f24bab7c37ed58",
-      "status": "completed",
+      "request_hash": "f1defc75c7dd31eb73152d8a1262de9abd792f2974de319ec120e0fe67713c1c",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:25:02Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n法庭空镜，正中央的审判席与旁听席在冷光中安静下来，无人说话。 真实连续运动贯穿全镜，镜头运镜：缓慢推近空席；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260117,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_JGkf4kgZtShBvV1gLnhkC6zbuDiedOoc",
-      "task_id": "task_JGkf4kgZtShBvV1gLnhkC6zbuDiedOoc",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_JGkf4kgZtShBvV1gLnhkC6zbuDiedOoc.mp4",
-      "bytes": 2058050,
-      "sha256": "08df5a641f163dcfd7b2259375c738d5a2598eb87bbf834c3716dab06d8d5f66",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2058050,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S16.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S17": {
       "id": "S17",
-      "request_hash": "ac20a6ee4ca8adfb3774d28475f78ce3836c7ad8423d1520b695eae73fbb694c",
-      "status": "completed",
+      "request_hash": "a0d09133c849fd76593d67859510cc4f66ac64a79c2b78424bcd0c7666007c6d",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:25:14Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C02锚点】同一虚构演员式年轻女性的侧脸与半身，练功房把杆前的安静侧影，五官与C01保持一致，不还原真实人物肖像\n\n练功房里把杆与木地板空镜，晨光斜照，一双舞鞋整齐摆在角落。 真实连续运动贯穿全镜，镜头运镜：缓慢环绕推轨；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20150827,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C02.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S02.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_Qfky3MwCDmmbaqVtIUFISsRQwHKFFzVm",
-      "task_id": "task_Qfky3MwCDmmbaqVtIUFISsRQwHKFFzVm",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Qfky3MwCDmmbaqVtIUFISsRQwHKFFzVm.mp4",
-      "bytes": 1666662,
-      "sha256": "4e794ceb82501ecc20069b5dd1894fbb2421480e370d6fc2a5a4beef66604215",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1666662,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S17.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S18": {
       "id": "S18",
-      "request_hash": "593fc33db19241e345e1a2ca2dc1ee737573ff2378f7448835e443e41cae53b8",
-      "status": "completed",
+      "request_hash": "1a11c0cc944076fe30f479fbadd829a14455aa9f29bbdac0c0f2423cc6d9c3f3",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:25:26Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n街头灯柱下光影分界，一个人影走出光亮进入暗处。 真实连续运动贯穿全镜，镜头运镜：固定镜头轻微推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20160312,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_FniCknrLUoTC4X7keSxBMCWG3ArfTBj3",
-      "task_id": "task_FniCknrLUoTC4X7keSxBMCWG3ArfTBj3",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_FniCknrLUoTC4X7keSxBMCWG3ArfTBj3.mp4",
-      "bytes": 2303875,
-      "sha256": "516c3114897b94a24b6ffd82776d1a2146aeea25aa254981edb06f9fe76cac93",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2303875,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S18.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S19": {
       "id": "S19",
-      "request_hash": "978555edb82785770eeea39c32f22a8f93ff3ed9685caa648bc55f86afc94367",
-      "status": "completed",
+      "request_hash": "0207406590caa58f5ce378f510381d8202185e87d6630cb575be2c70e9d43067",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:25:50Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n上诉材料被装进文件袋，法警在走廊尽头的门边停下。 真实连续运动贯穿全镜，镜头运镜：浅景深跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260120,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_DYfOpI3PF3bkECvXI15DOI1u8dP7b3TU",
-      "task_id": "task_DYfOpI3PF3bkECvXI15DOI1u8dP7b3TU",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_DYfOpI3PF3bkECvXI15DOI1u8dP7b3TU.mp4",
-      "bytes": 1641926,
-      "sha256": "4bfcc3227ee2f03f58fe6fa2e3fc5ee92da3b0dffe1a389172ddc3d629d6a9a1",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1641926,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S19.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S20": {
       "id": "S20",
-      "request_hash": "df4dc158ac1b2648372ed05f031cc0744e5a458fc4eb5c05ce535a819a0ea7fd",
-      "status": "completed",
+      "request_hash": "267aac67c333c0614a1789b2ccfae7323633d7952b5941fbc13aeaca38b187b0",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:26:03Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n高级法院外的台阶空镜，落日被云层遮住，行人稀疏。 真实连续运动贯穿全镜，镜头运镜：缓慢后拉；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260121,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_bjmaU4p2wsPvBBq87yttbla55PQzpA9a",
-      "task_id": "task_bjmaU4p2wsPvBBq87yttbla55PQzpA9a",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_bjmaU4p2wsPvBBq87yttbla55PQzpA9a.mp4",
-      "bytes": 4653570,
-      "sha256": "b5e8e4f2a6073933bce802014d68af16e0235644bdbd63833f671f04ec368889",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 4653570,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S20.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S21": {
       "id": "S21",
-      "request_hash": "9b77300914d4d1a7640b29a3007b88cf6e546ae3535b967a98bfa975267b76c3",
-      "status": "completed",
+      "request_hash": "a2219578daa53095486028d8d3fd6358598f240dc2b36185235a735ba859cfe0",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:26:40Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n最高裁建筑外景，樱花树枝在风中轻晃，石阶上只有零星人影。 真实连续运动贯穿全镜，镜头运镜：缓慢横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260122,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_yIf5UkRMICzjazpBWEiIVWRKJ9hxybdT",
-      "task_id": "task_yIf5UkRMICzjazpBWEiIVWRKJ9hxybdT",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_yIf5UkRMICzjazpBWEiIVWRKJ9hxybdT.mp4",
-      "bytes": 7356692,
-      "sha256": "1e1cf8c8f55f4e7c5b7071d1e1b095237cd077467261f33866210403a54178c5",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 7356692,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S21.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S22": {
       "id": "S22",
-      "request_hash": "06e77c5016644cdf2ae0db5770dac0acee3d60677686a73dbcda2f176bd371f2",
-      "status": "completed",
+      "request_hash": "37cd098eb3ad6606ae15e342ef2b1a6493dc508bc06dc14a6a07abfcb8c7dd93",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:26:14Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n法院门厅空镜，玻璃门映出模糊人影，光线平静。 真实连续运动贯穿全镜，镜头运镜：静止后轻微推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260123,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_vojBFtP1i9K6cZqg0u7MN4J539Qk0QyA",
-      "task_id": "task_vojBFtP1i9K6cZqg0u7MN4J539Qk0QyA",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_vojBFtP1i9K6cZqg0u7MN4J539Qk0QyA.mp4",
-      "bytes": 1069743,
-      "sha256": "91003f88832040e8d38d79458935482decf38e193a92ce12c399a32ab3108d79",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1069743,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S22.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S23": {
       "id": "S23",
-      "request_hash": "75ad9ec64cf5907d0f4c2f0aa87986e95fb0225927fc5cf49933bb13d440b6d0",
-      "status": "completed",
+      "request_hash": "55591cbfd7cbdd5a8ed003e2096c29dcdec46cda65d6878fd9a04e2725fb1f09",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:26:28Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n时间流逝蒙太奇：公寓门廊灯光从夜到晨，一个人影始终没有出现。 真实连续运动贯穿全镜，镜头运镜：固定延时感推轨；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260124,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_95Kp3tIGcUDrJYIcfqJv4Q6kgt075zGt",
-      "task_id": "task_95Kp3tIGcUDrJYIcfqJv4Q6kgt075zGt",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_95Kp3tIGcUDrJYIcfqJv4Q6kgt075zGt.mp4",
-      "bytes": 1988107,
-      "sha256": "ada00c0581353244d8f80ce4fc404e80ed45a241de3eb556f4836f80c5d396fd",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1988107,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S23.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S24": {
       "id": "S24",
-      "request_hash": "3f8af707cdb16d0f73f989f9493909bf9a2d92312969116410928d2acb162227",
-      "status": "completed",
+      "request_hash": "027c374eeee0d0e0aaa8e2592a0b914f33a64c4a979cbe5622a0f30ee30aa394",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:27:15Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n便利店玻璃门外街景，年轻女性背影从门口走过，路灯拉长影子。 真实连续运动贯穿全镜，镜头运镜：玻璃反射跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20150826,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_lg94Epy8Il8wwSvnzn5YMcVJG2UfCLpZ",
-      "task_id": "task_lg94Epy8Il8wwSvnzn5YMcVJG2UfCLpZ",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lg94Epy8Il8wwSvnzn5YMcVJG2UfCLpZ.mp4",
-      "bytes": 2653965,
-      "sha256": "936d092e557d6154f68234718570ddda8ee399ad6f899d1c3f4c1a3bf48107f9",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2653965,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S24.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S25": {
       "id": "S25",
-      "request_hash": "58edac6861602276b454086a478505305f32ae6fdac7286e95513a4dd1ca03b5",
-      "status": "completed",
+      "request_hash": "eba5a1cfbdcd313652b63e38fc357140e86b54693aa0bb457c2cf6e90eff8d31",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:26:52Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C02锚点】同一虚构演员式年轻女性的侧脸与半身，练功房把杆前的安静侧影，五官与C01保持一致，不还原真实人物肖像\n\n空荡排练厅里聚光灯渐暗，把杆前的身影只剩模糊轮廓。 真实连续运动贯穿全镜，镜头运镜：极缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20150827,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C02.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S02.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_7nqZhAJa4C9j6dml4DXrz3EhaRDLXv9O",
-      "task_id": "task_7nqZhAJa4C9j6dml4DXrz3EhaRDLXv9O",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_7nqZhAJa4C9j6dml4DXrz3EhaRDLXv9O.mp4",
-      "bytes": 1131076,
-      "sha256": "8b27a6438ab0771ec7ed5d7fa4840c40a5762fd8bb43468c552d87f51bee6507",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1131076,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S25.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S26": {
       "id": "S26",
-      "request_hash": "1efd71392429bc2c242a83da552198800ddbf450910fa6058d045d6a6c00f72b",
-      "status": "completed",
+      "request_hash": "99bfe4baff3e245af200b5b59a227af8ccc2f3d4e5ca9befa3c4df8194688577",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:27:04Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n夜街拐角空镜，一盏路灯忽明忽暗，行人影子被拉向不同方向。 真实连续运动贯穿全镜，镜头运镜：缓慢摇镜；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260127,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_o4lgixklQY6uiYVuXkimreGGoFZxp4gl",
-      "task_id": "task_o4lgixklQY6uiYVuXkimreGGoFZxp4gl",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_o4lgixklQY6uiYVuXkimreGGoFZxp4gl.mp4",
-      "bytes": 4431819,
-      "sha256": "e62929100d0113dcab94666aacf7da0d9e4bb6168a0063a7730565a6c3e5af82",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 4431819,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S26.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S27": {
       "id": "S27",
-      "request_hash": "f92d85fa36ee805c5c2ef8a3ddeb00f01812756d2f638480f9bd9ddc5e7624c4",
-      "status": "completed",
+      "request_hash": "a25d0a8729b8db03676a3884b72e8715e84d20bc8fbfb60cf92543b2d68bb32d",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:27:26Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n长街监控视角，两个模糊人影一前一后越走越近，画面克制无冲突。 真实连续运动贯穿全镜，镜头运镜：监控定镜微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260128,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_2N2JigPT6m7gMgmzwwNfk0YhS2lB8Sqy",
-      "task_id": "task_2N2JigPT6m7gMgmzwwNfk0YhS2lB8Sqy",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_2N2JigPT6m7gMgmzwwNfk0YhS2lB8Sqy.mp4",
-      "bytes": 1584100,
-      "sha256": "8655412694b7e77477276daba3360fd27bc5a5e8f5e45760b4f3fe8b7574e97e",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1584100,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S27.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S28": {
       "id": "S28",
-      "request_hash": "e68ef772476d1cdf34fc70153f6de621fd79a525e8d4da8288c68db611679b06",
-      "status": "completed",
+      "request_hash": "825c7c7a40ceadd8e3452668e19415dc3a83c0b14c48959ca1d84f2e093351dd",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:27:39Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n清晨地铁口人流，年轻人背影汇入人群，光线逐渐明亮。 真实连续运动贯穿全镜，镜头运镜：高处缓慢俯拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20150826,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_rfUoSNVkMwXhjTciVyK9MWtINYVpAGch",
-      "task_id": "task_rfUoSNVkMwXhjTciVyK9MWtINYVpAGch",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_rfUoSNVkMwXhjTciVyK9MWtINYVpAGch.mp4",
-      "bytes": 2750135,
-      "sha256": "833fc681b7f6cd4b455bb715d8251dd545d2d72cb8f06d60caabad73e8df8725",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2750135,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S28.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S29": {
       "id": "S29",
-      "request_hash": "18f08805c6c1febdd29071fff1c7fe1fc64aa3a41556b4a06653969ec7bda583",
-      "status": "completed",
+      "request_hash": "29bd85e13c71a68bd76d5a14062ba15f7f935d71e1ffa97973b36ddca5a4efd1",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:28:03Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n公寓楼下仰拍镜头，年轻女性背影停下脚步回头望向空街。 真实连续运动贯穿全镜，镜头运镜：缓慢上摇后定；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20150826,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_yR0IbZoZ8kwJCcXtS2diR7WSVXqYL3yO",
-      "task_id": "task_yR0IbZoZ8kwJCcXtS2diR7WSVXqYL3yO",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_yR0IbZoZ8kwJCcXtS2diR7WSVXqYL3yO.mp4",
-      "bytes": 1612525,
-      "sha256": "3ff6aeb56a56a131525b4784b34187efc484d7eb622e10b788099ba1ac09e236",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 1612525,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S29.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     },
     "S30": {
       "id": "S30",
-      "request_hash": "0b3ef02f327675cff18467b2af16811e93d54d3f770911277e383e1c8cd4922b",
-      "status": "completed",
+      "request_hash": "f340c28e6450168bff9242b2798c167bacd1befad9747f2a44e5f5c0a13ebbe2",
+      "status": "retrying_create",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:27:52Z",
-      "request_payload": {
-        "model": "agnes-video-2.5-flash",
-        "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n雨后的中野街口远景，街灯渐次亮起，画面安静收束。 真实连续运动贯穿全镜，镜头运镜：极缓慢后拉；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
-        "seconds": "6",
-        "size": "720P",
-        "aspect_ratio": "16:9",
-        "mode": "reference",
-        "n": 1,
-        "seed": 20260131,
-        "images": [
-          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
-        ]
-      },
-      "error": null,
-      "create_attempts": 2,
-      "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0,
-      "video_id": "task_cGxQ1otkWv2XnndKb8GMmwiX1cnIPlrb",
-      "task_id": "task_cGxQ1otkWv2XnndKb8GMmwiX1cnIPlrb",
-      "requested_seconds": 6.0,
-      "requested_size": "720P",
-      "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_cGxQ1otkWv2XnndKb8GMmwiX1cnIPlrb.mp4",
-      "bytes": 2332499,
-      "sha256": "50e687fb66785a934fcce695961e1b546916df3bc01b6f18e53a1ae74ce8bd8a",
-      "reported_size": "720P",
-      "reported_seconds": "6",
-      "inspection": {
-        "duration_seconds": 6.592,
-        "width": 1280,
-        "height": 720,
-        "fps": "24/1",
-        "bytes": 2332499,
-        "decoded_ok": true,
-        "contact_sheet": "production/nakano2015/qa/S30.jpg",
-        "visual_review": "pending"
-      },
-      "visual_review": "pending"
+      "updated_at": "2026-11-25T16:58:36Z"
     }
   },
   "source_size": "720P",
@@ -1390,7 +265,1403 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T16:58:35Z",
+  "updated_at": "2026-11-25T16:58:37Z",
   "run_id": "45659579355",
-  "previous_results": {}
+  "previous_results": {
+    "S01": [
+      {
+        "id": "S01",
+        "request_hash": "171dd2883f831c228c171e17b468fe8365866a4a4656fa7fc76d4aa6457a1997",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:23:00Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n深夜中野区旧公寓外景，楼道口的灯忽明忽暗，门牌模糊不可读，门缝里透出一线冷光。 真实连续运动贯穿全镜，镜头运镜：缓慢推近楼门；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260102,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 1,
+        "video_id": "task_hffRSl9rX78CzW8CNKqtDkMGhcFrfGkW",
+        "task_id": "task_hffRSl9rX78CzW8CNKqtDkMGhcFrfGkW",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_hffRSl9rX78CzW8CNKqtDkMGhcFrfGkW.mp4",
+        "bytes": 2339275,
+        "sha256": "7a1797f028012b68ab39dbdd25e218ff3bad24b978276f6bd3d932d881e01f8d",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2339275,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S01.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S02": [
+      {
+        "id": "S02",
+        "request_hash": "9f8be4dc68f1d93be1aac63e6497796020a5fe98cddbcbf21fe57b0eddb356db",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:22:12Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n公寓走廊尽头两名同事的模糊背影停在门前，一人抬手敲门，气氛凝固。 真实连续运动贯穿全镜，镜头运镜：过肩镜头缓慢前移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20150826,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S02.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_p2l4kxhIFMuH9CfVN2POC645DmKtM9Di",
+        "task_id": "task_p2l4kxhIFMuH9CfVN2POC645DmKtM9Di",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_p2l4kxhIFMuH9CfVN2POC645DmKtM9Di.mp4",
+        "bytes": 1590388,
+        "sha256": "a534e6ec9903e3f34617453cc6737e6ddffecfc2f86e53b766021d0ec93e550d",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1590388,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S02.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S03": [
+      {
+        "id": "S03",
+        "request_hash": "0c51f2f1eff362d5538619522135ae5b41398f52b202c00b8de89bb4b4aa0140",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:22:25Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n雨夜街边，年轻女性背影独自沿便利店方向走远，远处一名男性背影保持距离跟随。 真实连续运动贯穿全镜，镜头运镜：低机位跟拍推进；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260104,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_Fcy0FjYvAl4EyCTGCMqO6CVKVdYQHBrj",
+        "task_id": "task_Fcy0FjYvAl4EyCTGCMqO6CVKVdYQHBrj",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Fcy0FjYvAl4EyCTGCMqO6CVKVdYQHBrj.mp4",
+        "bytes": 2291722,
+        "sha256": "9c7af3d9d182d61b9f299ecb29efd0f211432c16ae6d4e28e9743c3f9663d25c",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2291722,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S03.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S04": [
+      {
+        "id": "S04",
+        "request_hash": "dac1544c59626668b18ae2cbdc6cad1f6f3cd6266607c0a05cb39c3f27e75db5",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:22:36Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n公寓玄关空镜，物证人员戴手套用棉签取样，手电光柱扫过门把手，不出现任何遗体。 真实连续运动贯穿全镜，镜头运镜：特写轻微横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260105,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_ZJiMMTKDPCEVx4epU08GY5O1gTuUqo4K",
+        "task_id": "task_ZJiMMTKDPCEVx4epU08GY5O1gTuUqo4K",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_ZJiMMTKDPCEVx4epU08GY5O1gTuUqo4K.mp4",
+        "bytes": 1483189,
+        "sha256": "d66ab092d692c794cef0a18b9e15b9653b7f58e51311f522ad9e46d7706ae591",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1483189,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S04.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S05": [
+      {
+        "id": "S05",
+        "request_hash": "0cc935afdf45d7204f310af6eb4255d4f88772369471c64307c741203ce6c61d",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:22:49Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n实验室里一排排样本管被放入检测架，冷白灯下技术人员侧影低头记录。 真实连续运动贯穿全镜，镜头运镜：轨道缓慢横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260106,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_AgDTnsAd0O5CzLg0O7hkLweVvfIJ2xIV",
+        "task_id": "task_AgDTnsAd0O5CzLg0O7hkLweVvfIJ2xIV",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AgDTnsAd0O5CzLg0O7hkLweVvfIJ2xIV.mp4",
+        "bytes": 2108619,
+        "sha256": "76efc907ce64eaac93e5c301f0415277e7d9c10c364fc5f980174e08ca84b84f",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2108619,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S05.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S06": [
+      {
+        "id": "S06",
+        "request_hash": "c96df58e48a57baa9ec7dc55c1db80cf1e7b2c651822b14ba549d0e89f2064fe",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:23:13Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n宽长走廊里警员抱着样本箱快步通过，门缝下透出冷白灯光。 真实连续运动贯穿全镜，镜头运镜：手持跟拍微晃；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260107,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_29yajvCA8OofZfh2Wh2iDKgBKPHx2TTx",
+        "task_id": "task_29yajvCA8OofZfh2Wh2iDKgBKPHx2TTx",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_29yajvCA8OofZfh2Wh2iDKgBKPHx2TTx.mp4",
+        "bytes": 3123273,
+        "sha256": "8e177e30df6f9d2440cbb6ed5d942a8655ead93a7e87c7d8442e1e28e0a37fce",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 3123273,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S06.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S07": [
+      {
+        "id": "S07",
+        "request_hash": "31463501007dac02f7e6c894825dbeb6d6533ecfb760d132798faf8acc29d9e8",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:23:49Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n中野区狭窄街巷的清晨俯拍，公寓与便利店相邻，一名男性背影走入巷口。 真实连续运动贯穿全镜，镜头运镜：高处缓慢摇移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20160312,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU",
+        "task_id": "task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_gwrnAKJ4J4x6c2TEbluvx5jx116nvBoU.mp4",
+        "bytes": 1881019,
+        "sha256": "6ab669f9059a82deda5da394a0119477959b165e7e384f2ad093c8b4e67cba86",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1881019,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S07.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S08": [
+      {
+        "id": "S08",
+        "request_hash": "5baf2445aab1d96e7110af8dd0d73da2e5a7c2634e2b331fbeee49c760d7506f",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:23:26Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n简陋单间里行李袋靠墙放着，男性背影坐在床沿，窗帘缝隙漏进灰光。 真实连续运动贯穿全镜，镜头运镜：固定镜头微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20160312,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_AM5tRUXCLozAZiwOMN0VeE0TXfiNjvLe",
+        "task_id": "task_AM5tRUXCLozAZiwOMN0VeE0TXfiNjvLe",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AM5tRUXCLozAZiwOMN0VeE0TXfiNjvLe.mp4",
+        "bytes": 1562157,
+        "sha256": "80dff8fa69f445a294891d473c0c26691bf036aeb214f987bb8251b8d2926607",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1562157,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S08.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S09": [
+      {
+        "id": "S09",
+        "request_hash": "42ee196d1f4d238cc01f2fdc3d69a9a976a2669ca92125dc806ba0aa0da66e67",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:23:37Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n福岛街边警车旁，便衣警员一前一后带走男性背影，周围行人模糊。 真实连续运动贯穿全镜，镜头运镜：侧方平移跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20160312,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_AGF8OeL5QF6gpsQvnlkCIRq6ALEijz3l",
+        "task_id": "task_AGF8OeL5QF6gpsQvnlkCIRq6ALEijz3l",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_AGF8OeL5QF6gpsQvnlkCIRq6ALEijz3l.mp4",
+        "bytes": 2579467,
+        "sha256": "0c8587227903f50d6bc8e67ac2f8e27475599befa3fd0b5c3c936fad13edb89f",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2579467,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S09.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S10": [
+      {
+        "id": "S10",
+        "request_hash": "ced2d86c32f8fd628aa3b85faad70531fe6b22ebeb1ad182d5e4e63fbdd4c6c0",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:24:49Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n日历纸被一张张翻过的桌面特写，窗外夜色渐深，无可读数字。 真实连续运动贯穿全镜，镜头运镜：俯拍缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260111,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 289.0,
+        "video_id": "task_rUnRqY7E6a29ar22YWzK1kG6T8qNvi4n",
+        "task_id": "task_rUnRqY7E6a29ar22YWzK1kG6T8qNvi4n",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_rUnRqY7E6a29ar22YWzK1kG6T8qNvi4n.mp4",
+        "bytes": 1730122,
+        "sha256": "6afeea88f4ee6abb8352c9b136f8afb7fdbe1d2bb7256e5a1d5a8839216c055e",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1730122,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S10.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S11": [
+      {
+        "id": "S11",
+        "request_hash": "9d4dce9987aa918c5da6712999d26512aa6ccac088d4ea1443e2f64cfdeff13a",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:24:01Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n法院走廊里一名戴帽男性背影被法警带过，旁人自动让出通道。 真实连续运动贯穿全镜，镜头运镜：长焦侧拍缓推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20160312,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_OGHVJZXxAxHyRBEvz4nmsgNTFNdaRbBO",
+        "task_id": "task_OGHVJZXxAxHyRBEvz4nmsgNTFNdaRbBO",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_OGHVJZXxAxHyRBEvz4nmsgNTFNdaRbBO.mp4",
+        "bytes": 2047464,
+        "sha256": "de7c0bec490395a8d33a9ae071ee053614fb51aa323742c8e049a7b1afc2c8a0",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2047464,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S11.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S12": [
+      {
+        "id": "S12",
+        "request_hash": "309822a38a656090855baec95c5c10f67072ff40198a050651227db84b9aa393",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:24:13Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n被告席空镜，木质栏杆与桌面上的水杯，旁听区只留下模糊轮廓。 真实连续运动贯穿全镜，镜头运镜：固定机位浅景深；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260113,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_La4WttBrgxzialWWF5Gwi04Qyq4ywckP",
+        "task_id": "task_La4WttBrgxzialWWF5Gwi04Qyq4ywckP",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_La4WttBrgxzialWWF5Gwi04Qyq4ywckP.mp4",
+        "bytes": 767208,
+        "sha256": "93fcbda0943d716ab8140a51197df094a4cff42f9396ab623d84634a4c2d1536",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 767208,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S12.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S13": [
+      {
+        "id": "S13",
+        "request_hash": "6eaa7f2ce2962055d0997913eb807d0192a012cc47ede457ecff3d09e934facf",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:24:25Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n案卷纸页在灯下被逐页翻开，检方手指停在一段文字处，字不可读。 真实连续运动贯穿全镜，镜头运镜：俯拍缓慢横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260114,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_sfDj7ezOqzUbSoRilJqtZEF4bo0WSgV5",
+        "task_id": "task_sfDj7ezOqzUbSoRilJqtZEF4bo0WSgV5",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_sfDj7ezOqzUbSoRilJqtZEF4bo0WSgV5.mp4",
+        "bytes": 1625579,
+        "sha256": "379de98681be61ab361ab0ccd21e85a36f869c8c23c3d9f1c422ac708abdcfdc",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1625579,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S13.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S14": [
+      {
+        "id": "S14",
+        "request_hash": "58bd59e45f2fea1002bb20b854a3f9ee364bc79446dcbcd262983d1d38a6ec38",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:24:37Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n夜间街道监控视角，两个模糊身影前后走过路口，路面反射冷光。 真实连续运动贯穿全镜，镜头运镜：监控定镜微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260115,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_u5PmkvHw1ysxEKHCP3nCptTSeeU79Zc3",
+        "task_id": "task_u5PmkvHw1ysxEKHCP3nCptTSeeU79Zc3",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_u5PmkvHw1ysxEKHCP3nCptTSeeU79Zc3.mp4",
+        "bytes": 1631162,
+        "sha256": "850b06815a5bea617f23b0ceb180affce6fb9e381113682e4425d7cab8e26c98",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1631162,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S14.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S15": [
+      {
+        "id": "S15",
+        "request_hash": "59767c77d903b2d9bb36716e50b5a4143dadb9f8372dd6831ba6d4ff126999ed",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:25:38Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n东京地裁建筑外立面与阶梯，陌生人影匆匆上下，天气阴沉。 真实连续运动贯穿全镜，镜头运镜：低机位缓慢上摇；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260116,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_WO7ufGVNbHnWKhnjoYLXWzskz25OpF8D",
+        "task_id": "task_WO7ufGVNbHnWKhnjoYLXWzskz25OpF8D",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_WO7ufGVNbHnWKhnjoYLXWzskz25OpF8D.mp4",
+        "bytes": 4697496,
+        "sha256": "d53fefcc44f60fc0f48b856f3a4114f6df8e6f29a6f757e652a64d65bc87d13b",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 4697496,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S15.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S16": [
+      {
+        "id": "S16",
+        "request_hash": "83d073469a09d23e046d74d48e8ac812ad490e5b09efa1cd94f24bab7c37ed58",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:25:02Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n法庭空镜，正中央的审判席与旁听席在冷光中安静下来，无人说话。 真实连续运动贯穿全镜，镜头运镜：缓慢推近空席；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260117,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_JGkf4kgZtShBvV1gLnhkC6zbuDiedOoc",
+        "task_id": "task_JGkf4kgZtShBvV1gLnhkC6zbuDiedOoc",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_JGkf4kgZtShBvV1gLnhkC6zbuDiedOoc.mp4",
+        "bytes": 2058050,
+        "sha256": "08df5a641f163dcfd7b2259375c738d5a2598eb87bbf834c3716dab06d8d5f66",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2058050,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S16.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S17": [
+      {
+        "id": "S17",
+        "request_hash": "ac20a6ee4ca8adfb3774d28475f78ce3836c7ad8423d1520b695eae73fbb694c",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:25:14Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C02锚点】同一虚构演员式年轻女性的侧脸与半身，练功房把杆前的安静侧影，五官与C01保持一致，不还原真实人物肖像\n\n练功房里把杆与木地板空镜，晨光斜照，一双舞鞋整齐摆在角落。 真实连续运动贯穿全镜，镜头运镜：缓慢环绕推轨；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20150827,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C02.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S02.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_Qfky3MwCDmmbaqVtIUFISsRQwHKFFzVm",
+        "task_id": "task_Qfky3MwCDmmbaqVtIUFISsRQwHKFFzVm",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_Qfky3MwCDmmbaqVtIUFISsRQwHKFFzVm.mp4",
+        "bytes": 1666662,
+        "sha256": "4e794ceb82501ecc20069b5dd1894fbb2421480e370d6fc2a5a4beef66604215",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1666662,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S17.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S18": [
+      {
+        "id": "S18",
+        "request_hash": "593fc33db19241e345e1a2ca2dc1ee737573ff2378f7448835e443e41cae53b8",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:25:26Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n街头灯柱下光影分界，一个人影走出光亮进入暗处。 真实连续运动贯穿全镜，镜头运镜：固定镜头轻微推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20160312,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_FniCknrLUoTC4X7keSxBMCWG3ArfTBj3",
+        "task_id": "task_FniCknrLUoTC4X7keSxBMCWG3ArfTBj3",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_FniCknrLUoTC4X7keSxBMCWG3ArfTBj3.mp4",
+        "bytes": 2303875,
+        "sha256": "516c3114897b94a24b6ffd82776d1a2146aeea25aa254981edb06f9fe76cac93",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2303875,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S18.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S19": [
+      {
+        "id": "S19",
+        "request_hash": "978555edb82785770eeea39c32f22a8f93ff3ed9685caa648bc55f86afc94367",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:25:50Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n上诉材料被装进文件袋，法警在走廊尽头的门边停下。 真实连续运动贯穿全镜，镜头运镜：浅景深跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260120,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_DYfOpI3PF3bkECvXI15DOI1u8dP7b3TU",
+        "task_id": "task_DYfOpI3PF3bkECvXI15DOI1u8dP7b3TU",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_DYfOpI3PF3bkECvXI15DOI1u8dP7b3TU.mp4",
+        "bytes": 1641926,
+        "sha256": "4bfcc3227ee2f03f58fe6fa2e3fc5ee92da3b0dffe1a389172ddc3d629d6a9a1",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1641926,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S19.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S20": [
+      {
+        "id": "S20",
+        "request_hash": "df4dc158ac1b2648372ed05f031cc0744e5a458fc4eb5c05ce535a819a0ea7fd",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:26:03Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n高级法院外的台阶空镜，落日被云层遮住，行人稀疏。 真实连续运动贯穿全镜，镜头运镜：缓慢后拉；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260121,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_bjmaU4p2wsPvBBq87yttbla55PQzpA9a",
+        "task_id": "task_bjmaU4p2wsPvBBq87yttbla55PQzpA9a",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_bjmaU4p2wsPvBBq87yttbla55PQzpA9a.mp4",
+        "bytes": 4653570,
+        "sha256": "b5e8e4f2a6073933bce802014d68af16e0235644bdbd63833f671f04ec368889",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 4653570,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S20.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S21": [
+      {
+        "id": "S21",
+        "request_hash": "9b77300914d4d1a7640b29a3007b88cf6e546ae3535b967a98bfa975267b76c3",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:26:40Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n最高裁建筑外景，樱花树枝在风中轻晃，石阶上只有零星人影。 真实连续运动贯穿全镜，镜头运镜：缓慢横移；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260122,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S07.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_yIf5UkRMICzjazpBWEiIVWRKJ9hxybdT",
+        "task_id": "task_yIf5UkRMICzjazpBWEiIVWRKJ9hxybdT",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_yIf5UkRMICzjazpBWEiIVWRKJ9hxybdT.mp4",
+        "bytes": 7356692,
+        "sha256": "1e1cf8c8f55f4e7c5b7071d1e1b095237cd077467261f33866210403a54178c5",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 7356692,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S21.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S22": [
+      {
+        "id": "S22",
+        "request_hash": "06e77c5016644cdf2ae0db5770dac0acee3d60677686a73dbcda2f176bd371f2",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:26:14Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n法院门厅空镜，玻璃门映出模糊人影，光线平静。 真实连续运动贯穿全镜，镜头运镜：静止后轻微推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260123,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S08.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_vojBFtP1i9K6cZqg0u7MN4J539Qk0QyA",
+        "task_id": "task_vojBFtP1i9K6cZqg0u7MN4J539Qk0QyA",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_vojBFtP1i9K6cZqg0u7MN4J539Qk0QyA.mp4",
+        "bytes": 1069743,
+        "sha256": "91003f88832040e8d38d79458935482decf38e193a92ce12c399a32ab3108d79",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1069743,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S22.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S23": [
+      {
+        "id": "S23",
+        "request_hash": "75ad9ec64cf5907d0f4c2f0aa87986e95fb0225927fc5cf49933bb13d440b6d0",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:26:28Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n时间流逝蒙太奇：公寓门廊灯光从夜到晨，一个人影始终没有出现。 真实连续运动贯穿全镜，镜头运镜：固定延时感推轨；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260124,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_95Kp3tIGcUDrJYIcfqJv4Q6kgt075zGt",
+        "task_id": "task_95Kp3tIGcUDrJYIcfqJv4Q6kgt075zGt",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_95Kp3tIGcUDrJYIcfqJv4Q6kgt075zGt.mp4",
+        "bytes": 1988107,
+        "sha256": "ada00c0581353244d8f80ce4fc404e80ed45a241de3eb556f4836f80c5d396fd",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1988107,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S23.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S24": [
+      {
+        "id": "S24",
+        "request_hash": "3f8af707cdb16d0f73f989f9493909bf9a2d92312969116410928d2acb162227",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:27:15Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n便利店玻璃门外街景，年轻女性背影从门口走过，路灯拉长影子。 真实连续运动贯穿全镜，镜头运镜：玻璃反射跟拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20150826,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_lg94Epy8Il8wwSvnzn5YMcVJG2UfCLpZ",
+        "task_id": "task_lg94Epy8Il8wwSvnzn5YMcVJG2UfCLpZ",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_lg94Epy8Il8wwSvnzn5YMcVJG2UfCLpZ.mp4",
+        "bytes": 2653965,
+        "sha256": "936d092e557d6154f68234718570ddda8ee399ad6f899d1c3f4c1a3bf48107f9",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2653965,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S24.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S25": [
+      {
+        "id": "S25",
+        "request_hash": "58edac6861602276b454086a478505305f32ae6fdac7286e95513a4dd1ca03b5",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:26:52Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C02锚点】同一虚构演员式年轻女性的侧脸与半身，练功房把杆前的安静侧影，五官与C01保持一致，不还原真实人物肖像\n\n空荡排练厅里聚光灯渐暗，把杆前的身影只剩模糊轮廓。 真实连续运动贯穿全镜，镜头运镜：极缓慢推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20150827,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C02.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S02.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_7nqZhAJa4C9j6dml4DXrz3EhaRDLXv9O",
+        "task_id": "task_7nqZhAJa4C9j6dml4DXrz3EhaRDLXv9O",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_7nqZhAJa4C9j6dml4DXrz3EhaRDLXv9O.mp4",
+        "bytes": 1131076,
+        "sha256": "8b27a6438ab0771ec7ed5d7fa4840c40a5762fd8bb43468c552d87f51bee6507",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1131076,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S25.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S26": [
+      {
+        "id": "S26",
+        "request_hash": "1efd71392429bc2c242a83da552198800ddbf450910fa6058d045d6a6c00f72b",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:27:04Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n夜街拐角空镜，一盏路灯忽明忽暗，行人影子被拉向不同方向。 真实连续运动贯穿全镜，镜头运镜：缓慢摇镜；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260127,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_o4lgixklQY6uiYVuXkimreGGoFZxp4gl",
+        "task_id": "task_o4lgixklQY6uiYVuXkimreGGoFZxp4gl",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_o4lgixklQY6uiYVuXkimreGGoFZxp4gl.mp4",
+        "bytes": 4431819,
+        "sha256": "e62929100d0113dcab94666aacf7da0d9e4bb6168a0063a7730565a6c3e5af82",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 4431819,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S26.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S27": [
+      {
+        "id": "S27",
+        "request_hash": "f92d85fa36ee805c5c2ef8a3ddeb00f01812756d2f638480f9bd9ddc5e7624c4",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:27:26Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n【C03锚点】虚构演员式中年男性背影，深灰夹克、略驼背、棒球帽压低，夜间独行，不还原真实人物肖像\n\n长街监控视角，两个模糊人影一前一后越走越近，画面克制无冲突。 真实连续运动贯穿全镜，镜头运镜：监控定镜微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260128,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C03.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_2N2JigPT6m7gMgmzwwNfk0YhS2lB8Sqy",
+        "task_id": "task_2N2JigPT6m7gMgmzwwNfk0YhS2lB8Sqy",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_2N2JigPT6m7gMgmzwwNfk0YhS2lB8Sqy.mp4",
+        "bytes": 1584100,
+        "sha256": "8655412694b7e77477276daba3360fd27bc5a5e8f5e45760b4f3fe8b7574e97e",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1584100,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S27.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S28": [
+      {
+        "id": "S28",
+        "request_hash": "e68ef772476d1cdf34fc70153f6de621fd79a525e8d4da8288c68db611679b06",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:27:39Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n清晨地铁口人流，年轻人背影汇入人群，光线逐渐明亮。 真实连续运动贯穿全镜，镜头运镜：高处缓慢俯拍；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20150826,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S05.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_rfUoSNVkMwXhjTciVyK9MWtINYVpAGch",
+        "task_id": "task_rfUoSNVkMwXhjTciVyK9MWtINYVpAGch",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_rfUoSNVkMwXhjTciVyK9MWtINYVpAGch.mp4",
+        "bytes": 2750135,
+        "sha256": "833fc681b7f6cd4b455bb715d8251dd545d2d72cb8f06d60caabad73e8df8725",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2750135,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S28.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S29": [
+      {
+        "id": "S29",
+        "request_hash": "18f08805c6c1febdd29071fff1c7fe1fc64aa3a41556b4a06653969ec7bda583",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:28:03Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式年轻女性背影，深色齐肩发、浅色薄外套与长裙，独自走在夜街，不还原真实人物肖像\n\n公寓楼下仰拍镜头，年轻女性背影停下脚步回头望向空街。 真实连续运动贯穿全镜，镜头运镜：缓慢上摇后定；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20150826,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/C01.png",
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S03.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_yR0IbZoZ8kwJCcXtS2diR7WSVXqYL3yO",
+        "task_id": "task_yR0IbZoZ8kwJCcXtS2diR7WSVXqYL3yO",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_yR0IbZoZ8kwJCcXtS2diR7WSVXqYL3yO.mp4",
+        "bytes": 1612525,
+        "sha256": "3ff6aeb56a56a131525b4784b34187efc484d7eb622e10b788099ba1ac09e236",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 1612525,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S29.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ],
+    "S30": [
+      {
+        "id": "S30",
+        "request_hash": "0b3ef02f327675cff18467b2af16811e93d54d3f770911277e383e1c8cd4922b",
+        "status": "completed",
+        "reused_existing_asset": false,
+        "updated_at": "2026-11-25T16:27:52Z",
+        "request_payload": {
+          "model": "agnes-video-2.5-flash",
+          "prompt": "【STYLE】二零一五年至二零一九年日本东京的纪录片式写实电影画面，中野区街巷、旧公寓走廊、便利店、练功房与法院外景；深夜冷蓝街灯、室内暖黄台灯、清晨低饱和日光交替，35毫米胶片质感，浅景深，轻微手持与缓慢推轨的连续运动。人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面不出现可读文字与招牌，16:9横屏，底部预留干净字幕安全区。\n\n雨后的中野街口远景，街灯渐次亮起，画面安静收束。 真实连续运动贯穿全镜，镜头运镜：极缓慢后拉；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】卡通，Q版，动漫，夸张表情，过度饱和，文字，水印，字幕，可读文字，真实姓名，真实肖像，血腥，伤口，遗体，尸体，绑缚，窒息过程，性相关内容，暴力过程，武器，畸形手指，多余肢体，人物面部崩坏，低清晰度，画面闪烁，风格突变，竖屏构图，黑边，静态图加推拉，幻灯片，拼版，伪招牌。",
+          "seconds": "6",
+          "size": "720P",
+          "aspect_ratio": "16:9",
+          "mode": "reference",
+          "n": 1,
+          "seed": 20260131,
+          "images": [
+            "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+          ]
+        },
+        "error": null,
+        "create_attempts": 2,
+        "capacity_error": "HTTP 429",
+        "applied_cooldown_seconds": 288.0,
+        "video_id": "task_cGxQ1otkWv2XnndKb8GMmwiX1cnIPlrb",
+        "task_id": "task_cGxQ1otkWv2XnndKb8GMmwiX1cnIPlrb",
+        "requested_seconds": 6.0,
+        "requested_size": "720P",
+        "video_url": "https://platform-outputs.agnes-ai.space/videos/agnes-video-2.5/task_cGxQ1otkWv2XnndKb8GMmwiX1cnIPlrb.mp4",
+        "bytes": 2332499,
+        "sha256": "50e687fb66785a934fcce695961e1b546916df3bc01b6f18e53a1ae74ce8bd8a",
+        "reported_size": "720P",
+        "reported_seconds": "6",
+        "inspection": {
+          "duration_seconds": 6.592,
+          "width": 1280,
+          "height": 720,
+          "fps": "24/1",
+          "bytes": 2332499,
+          "decoded_ok": true,
+          "contact_sheet": "production/nakano2015/qa/S30.jpg",
+          "visual_review": "pending"
+        },
+        "visual_review": "pending"
+      }
+    ]
+  }
 }
