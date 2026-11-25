@@ -107,7 +107,12 @@
 
 Google Drive 公开链接（reader / anyone）：
 
-**v2（2026-11-25 重录重渲，请用这一版）**
+**v3（2026-11-25 逻辑澄清版，请用这一版）**
+- 成片：https://drive.google.com/file/d/1pRZZdSfSEsAK_cWQ2wqZ95DFOW8Z-i_d/view
+- 字幕：https://drive.google.com/file/d/1cvr8Z_ZSID1-8Hf9fgHU8xAPY8pRl-qS/view
+- 系列封面（沿用，画面未变）：https://drive.google.com/file/d/1guvTW0nPozhrm94OcEV4v4wYxd_CQJps/view
+
+v2（重录填满镜头，逻辑仍含糊，留档）：
 - 成片：https://drive.google.com/file/d/1RdGdTEldWDGP2JudgpVOvLNooOzL2s3I/view
 - 字幕：https://drive.google.com/file/d/1e4EJfPMRcTSoYTKnhGFFMjvj-HQu11DH/view
 - 系列封面（沿用 v1，画面与 v2 的第 2 秒帧相同）：https://drive.google.com/file/d/1guvTW0nPozhrm94OcEV4v4wYxd_CQJps/view
