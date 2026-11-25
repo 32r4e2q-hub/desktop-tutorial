@@ -138,7 +138,12 @@ def speech_activity(film: Path):
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, default=ROOT / "work" / "kadota2022" / "sources")
-    parser.add_argument("--film", type=Path, default=ROOT / "交付" / "门田典子案_三个女人——一个死在暴力里，一个死在自己曾经做过的事里_三分钟_带声音.mp4")
+    # 2026-11-25：原默认值写死第 26 期骨架名，成片改标题后 qc.py 找不到文件直接退出，
+    # workflow 的 "Run QC" 步骤因此 failure，易被误读成「画面不合格」。
+    # 改为从 story.json 的 film_name 取，和 DELIVERY_FILM / 工作流保持同一个来源。
+    story_for_name = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
+    parser.add_argument("--film", type=Path,
+                        default=ROOT / "交付" / story_for_name["film_name"])
     parser.add_argument("--sources-only", action="store_true", help="decode and sample all sources without requiring a rendered film")
     args = parser.parse_args()
     results_path = HERE / "results.json"
@@ -146,6 +151,7 @@ def main() -> int:
     story = json.loads((HERE / "story.json").read_text(encoding="utf-8"))
     sources = args.sources
     film = args.film
+    srt_path = film.with_name(film.name.split("_三分钟_带声音")[0] + "_Subtitles.srt")
     if not args.sources_only and not film.is_file():
         raise SystemExit(f"Final film is missing: {film}")
     hard_failures = []
@@ -208,7 +214,9 @@ def main() -> int:
                     hard_failures.append(
                         f"Final audio stream is {audio_seconds:.3f}s, expected {DURATION}s (narration clipped)")
                 # Subtitle timing gate: one cue per shot, inside its own shot window and over real speech.
-                cues = read_srt_cues(film.with_suffix(".srt"))
+                # 成片名是 "…_三分钟_带声音.mp4"，字幕名是 "…_Subtitles.srt"，
+                # with_suffix 推出的是不存在的路径，会让 QC 恒报「字幕缺失」。
+                cues = read_srt_cues(srt_path)
                 meta["subtitle_cues"] = len(cues)
                 if len(cues) != len(story["shots"]):
                     hard_failures.append(
@@ -227,8 +235,8 @@ def main() -> int:
                 meta["cues_without_speech"] = missed
                 if missed:
                     hard_failures.append(f"Subtitle cues with no speech energy: {missed}")
-        if not film.with_suffix(".srt").is_file():
-            hard_failures.append("Subtitle sidecar is missing")
+        if not srt_path.is_file():
+            hard_failures.append(f"Subtitle sidecar is missing: {srt_path.name}")
         if meta is not None:
             pass  # no shot-specific exposure guards in this film
 
