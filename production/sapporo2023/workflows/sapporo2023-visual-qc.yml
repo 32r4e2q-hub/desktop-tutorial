@@ -1,0 +1,72 @@
+# 模板：production/new_topic.py 会把 sapporo2023 / 札幌薄野酒店无头男尸案：二十九岁女子与精神科医生父亲的诡异共谋 / 札幌薄野酒店无头男尸案_二十九岁女子与精神科医生父亲的诡异共谋_三分钟_带声音.mp4 换成新项目的值，
+# 生成 production/<slug>/workflows/<slug>-visual-qc.yml；复制到 .github/workflows/ 后用 marker 触发。
+#
+# 成片渲染完之后跑：对源片与成片做自动技术 QC（解码、黑白帧、冻结窗、字幕窗口/语音能量、时长/分辨率/帧率），
+# 输出 qa/qc-report.json 与 qa/qc-summary.md 并 commit 回分支。
+# 自动结果只是**分诊**，不是签收：AI 伪文字、手指与面部形变、字幕与画面遮挡这类缺陷，自动审计量不到，
+# 交付前必须人工完整播放复核。
+name: 札幌薄野酒店无头男尸案：二十九岁女子与精神科医生父亲的诡异共谋 · 成片技术QC
+run-name: 成片技术QC · sapporo2023 · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/22d23262-desktop-tutorial
+    paths:
+      - production/sapporo2023/VISUAL_QC_REQUEST
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sapporo2023-visual-qc-arena-22d23262-desktop-tutorial
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/arena/22d23262-desktop-tutorial'
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 90
+    steps:
+      - name: Check out this production branch
+        uses: actions/checkout@v4
+        with:
+          ref: arena/22d23262-desktop-tutorial
+          fetch-depth: 1
+
+      - name: Install ffmpeg, Python and dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          python -m pip install --upgrade pip
+          python -m pip install -r production/requirements.txt
+
+      - name: Run the source and final-film QC
+        run: python3 production/sapporo2023/qc.py
+
+      - name: Commit the QC report back to the branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add production/sapporo2023/qa/qc-report.json production/sapporo2023/qa/qc-summary.md
+          if git diff --cached --quiet; then
+            echo "No changes to publish"
+          else
+            git commit -m "sapporo2023: visual QC report"
+            for attempt in 1 2 3; do
+              if git push origin "HEAD:arena/22d23262-desktop-tutorial"; then break; fi
+              git fetch origin arena/22d23262-desktop-tutorial || true
+              git pull --rebase origin arena/22d23262-desktop-tutorial || git rebase --abort || true
+            done
+          fi
+
+      - name: Upload the QC report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sapporo2023-visual-qc-${{ github.run_number }}
+          path: production/sapporo2023/qa/
+          if-no-files-found: warn
+          retention-days: 14
