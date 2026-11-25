@@ -198,6 +198,7 @@ HOOKS = [
     {"id": "H6", "start": 90.5, "end": 92.5, "text": "裁判员法庭判无期", "style": "big_white_black_outline"},
     {"id": "H7", "start": 120.5, "end": 122.5, "text": "最高裁驳回上告", "style": "big_white_black_outline"},
     {"id": "H8", "start": 150.5, "end": 152.5, "text": "跟随不是一时冲动", "style": "big_white_black_outline"},
+    {"id": "H9", "start": 168.5, "end": 170.5, "text": "深夜回家被人跟着呢", "style": "big_white_black_outline"},
 ]
 
 # 金色注释（MarginV=200，只补可核实事实/时间线/术语）。TODO：按本片填写；没有注释就留 []。
@@ -245,7 +246,7 @@ def build() -> dict:
             "prompt": prompt, "purpose": visual, "characters": roles,
             "seed": SEED_OVERRIDES.get(index, 20260101 + index),
             "camera": camera, "sound_design": sound,
-            "color_grade": grade, "reference_ids": refs,
+            "color_grade": grade, "reference_ids": "+".join(refs),
             "transition_in": "按本片色调方案执行的短促电影转场，不改变事实内容",
             "transition_out": "以悬念句与短暂停顿收束，环境保持微动",
         })
@@ -330,8 +331,8 @@ def build() -> dict:
         "reference_images": ref_images,
         "reference_revision": revision,
         "reference_designs": {
-            "characters": [],
-            "scenes": [],
+            "characters": ["C01", "C02", "C03"],
+            "scenes": ["S01", "S02", "S03", "S05", "S07", "S08"],
             "props": [],
             "note": "角色C01/C02/C03与场景S01/S02/S03/S05/S07/S08均由仓库既有写实风格参考图裁切复用，已登记approvals.json；人物仅为虚构演员式形象。",
         },
