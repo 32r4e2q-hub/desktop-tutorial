@@ -291,9 +291,9 @@
     "S08": {
       "id": "S08",
       "request_hash": "941709d34b747ae23acf51f3c01368bab098739c4acd158d16b9c99efc6b52ca",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T09:15:40Z",
+      "updated_at": "2026-11-25T09:15:42Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。\n\n【STYLE】日系冷峻悬疑纪录片质感电影动画，二零二三年七月日本北海道札幌薄野红灯区与雨夜住宅区，冷青灰与霓虹暗红明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，连续运动，16:9，底部预留字幕安全区。 唯一场景：警车停在独栋住宅门前，警示灯在阴天墙面投下微弱红蓝反光。 运镜：远景定镜。影调：冷硬纪实。 人物锚点：刑警：四十岁日本男刑警，深灰风衣，冷峻侧脸剪影。 【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands",
@@ -319,7 +319,18 @@
       "bytes": 2392486,
       "sha256": "c9bcbff97e119d3f6e96bf9a760f98ac2ce1e1231445806c07b821b558f44a86",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2392486,
+        "decoded_ok": true,
+        "contact_sheet": "production/sapporo2023/qa/S08.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S09": {
       "id": "S09",
@@ -986,7 +997,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T09:15:40Z",
+  "updated_at": "2026-11-25T09:15:42Z",
   "run_id": "45568926930",
   "previous_results": {}
 }
