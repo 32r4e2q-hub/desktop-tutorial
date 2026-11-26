@@ -775,8 +775,8 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-25T21:55:40Z",
-  "run_id": "45659579355",
+  "updated_at": "2026-11-26T00:27:06Z",
+  "run_id": "45728727725",
   "previous_results": {
     "S01": [
       {
@@ -2173,13 +2173,5 @@
         "visual_review": "pending"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: API usage limit reached. Please try again after 2026-11-26 00:00 UTC**. (request id: 20261125215540303780967DeeCxEvd)",
-    "create_attempts": 360,
-    "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-25T21:55:40Z"
   }
 }
