@@ -1335,7 +1335,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1382,9 +1382,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-26T00:39:07Z",
   "run_id": "45728727725",
@@ -2784,5 +2784,31 @@
         "visual_review": "pending"
       }
     ]
+  },
+  "delivery": {
+    "film": "work/nakano2015/clips/东京中野女演员尾随案_一句搭讪之后的致命跟踪_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/nakano2015/clips/东京中野女演员尾随案_一句搭讪之后的致命跟踪_Cover.jpg",
+    "delivered": {
+      "东京中野女演员尾随案_一句搭讪之后的致命跟踪_三分钟_带声音.mp4": {
+        "bytes": 66831056,
+        "sha256": "fc8b2a1dcdeba1b670df9df3b56cc60b23ab02aa7b1d53e4554d466b4930fa37"
+      },
+      "东京中野女演员尾随案_一句搭讪之后的致命跟踪_Cover.jpg": {
+        "bytes": 155490,
+        "sha256": "498d46a1a80a88ad5a2c7117697f5cd4cba20412314fb47276c316b2dbfccdf8"
+      },
+      "东京中野女演员尾随案_一句搭讪之后的致命跟踪_Subtitles.srt": {
+        "bytes": 2954,
+        "sha256": "51a27ea38f2a20405629c053724644960a800d4b0ba3a337d6b9a8b3c7daeaeb"
+      },
+      "东京中野女演员尾随案_一句搭讪之后的致命跟踪_Technical_Report.json": {
+        "bytes": 11224,
+        "sha256": "53d02bec8df7fbed99bf7b78297cfd2d115e945aae26e944ebef7aed582b664f"
+      }
+    }
   }
 }
