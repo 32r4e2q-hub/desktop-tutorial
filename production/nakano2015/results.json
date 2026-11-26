@@ -828,9 +828,23 @@
     "S30": {
       "id": "S30",
       "request_hash": "f340c28e6450168bff9242b2798c167bacd1befad9747f2a44e5f5c0a13ebbe2",
-      "status": "retrying_create",
+      "status": "submitting",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-25T16:58:36Z"
+      "updated_at": "2026-11-26T00:31:46Z",
+      "request_payload": {
+        "model": "agnes-video-2.5-flash",
+        "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零一五年至二零一九年日本东京中野区街巷、旧公寓走廊、便利店、练功房与裁判所外景；深夜冷蓝街灯与暖黄室内光明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，single continuous shot, one scene only, no collage, no grid, no tiled frames, no split screen, no storyboard, no repetition, 16:9, 底部预留字幕安全区。\n\n唯一场景：雨后的中野街口远景，街灯渐次亮起，画面安静收束。 真实连续运动贯穿全镜，单一镜头、单一画面，镜头运镜：极缓慢后拉；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands, no collage, no grid, no tiled frames, no split screen, no storyboard, no repeated panels, no montage, no freeze frame, no static image",
+        "seconds": "6",
+        "size": "720P",
+        "aspect_ratio": "16:9",
+        "mode": "reference",
+        "n": 1,
+        "seed": 20260131,
+        "images": [
+          "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
+        ]
+      },
+      "error": null
     }
   },
   "source_size": "720P",
@@ -885,7 +899,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-26T00:31:45Z",
+  "updated_at": "2026-11-26T00:31:46Z",
   "run_id": "45728727725",
   "previous_results": {
     "S01": [
