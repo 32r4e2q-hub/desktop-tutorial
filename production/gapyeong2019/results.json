@@ -74,9 +74,9 @@
     "S03": {
       "id": "S03",
       "request_hash": "1985d1f5d13efd1a8b2c8933881c4b293768a9bc4bf4e00487f621a1dfbc8d6f",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-26T06:08:05Z",
+      "updated_at": "2026-11-26T06:08:07Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零一九年韩国京畿道加平溪谷、民宿、钓鱼场、警局与法院；35毫米胶片质感、变形宽银幕浅景深、自然皮肤与织物纹理、纪录片式克制推轨与轻微手持，冷蓝夜色与暖黄台灯交替，真实电影摄影曝光与色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C01锚点】虚构演员式韩国女性背影与四分之三侧脸三十岁出头，深色及肩发与深色外套，站在溪谷边，不还原真实人物肖像\n\n【C02锚点】虚构演员式韩国男性背影与低垂侧脸三十岁出头，深色夹克与压低棒球帽，夜间独行，不还原真实人物肖像\n\n岸边空地两人背影并肩站立，背对镜头望向水面，手边是收好的野餐垫。 真实连续运动贯穿全镜，镜头运镜：过肩镜头微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body in water, no drowning struggle, no violence, no weapon closeup, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -104,7 +104,18 @@
       "bytes": 2168373,
       "sha256": "56883b7361b814289067839c2649544fea22650a5e6aea6cbf00ba8d5e13c216",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2168373,
+        "decoded_ok": true,
+        "contact_sheet": "production/gapyeong2019/qa/S03.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S04": {
       "id": "S04",
@@ -921,7 +932,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-26T06:08:05Z",
+  "updated_at": "2026-11-26T06:08:07Z",
   "run_id": "45753756215",
   "previous_results": {}
 }
