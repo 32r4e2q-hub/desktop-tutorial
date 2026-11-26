@@ -714,9 +714,9 @@
     "S26": {
       "id": "S26",
       "request_hash": "99bfe4baff3e245af200b5b59a227af8ccc2f3d4e5ca9befa3c4df8194688577",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-26T00:27:33Z",
+      "updated_at": "2026-11-26T00:28:35Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】日系冷峻悬疑纪录片质感电影动画，二零一五年至二零一九年日本东京中野区街巷、旧公寓走廊、便利店、练功房与裁判所外景；深夜冷蓝街灯与暖黄室内光明暗对立，浅景深镜头语言与克制推拉运镜，人物均为虚构演员式背影侧脸与局部剪影，不还原任何真实人物肖像，画面内无任何可读文字或招牌，single continuous shot, one scene only, no collage, no grid, no tiled frames, no split screen, no storyboard, no repetition, 16:9, 底部预留字幕安全区。\n\n唯一场景：夜街拐角空镜，一盏路灯忽明忽暗，行人影子被拉向不同方向。 真实连续运动贯穿全镜，单一镜头、单一画面，镜头运镜：缓慢摇镜；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no severed head, no nudity, no weapon closeup, no anime style, no deformed hands, no collage, no grid, no tiled frames, no split screen, no storyboard, no repeated panels, no montage, no freeze frame, no static image",
@@ -730,10 +730,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/3d01734d4de5f1084f99b85428f8eb7e15282dfe/production/nakano2015/reference/S01.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261126002733518946515duDPPRg6) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 3,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 30.0
+      "applied_cooldown_seconds": 30.0,
+      "video_id": "task_vYtI9Oxyc3cZCeoBtu2sfOVEEZBjGQaL",
+      "task_id": "task_vYtI9Oxyc3cZCeoBtu2sfOVEEZBjGQaL",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S27": {
       "id": "S27",
@@ -816,7 +820,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-26T00:27:33Z",
+  "updated_at": "2026-11-26T00:28:35Z",
   "run_id": "45728727725",
   "previous_results": {
     "S01": [
@@ -2214,13 +2218,5 @@
         "visual_review": "pending"
       }
     ]
-  },
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 20261126002733518946515duDPPRg6) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 30.0,
-    "last_seen": "2026-11-26T00:27:33Z"
   }
 }
