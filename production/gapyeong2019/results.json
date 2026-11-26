@@ -47,9 +47,9 @@
     "S02": {
       "id": "S02",
       "request_hash": "7359e5fc8cbc86bcd20ef6e21e9e739992b82d5f5469e3048a157e74c63e92c1",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-26T06:09:18Z",
+      "updated_at": "2026-11-26T06:09:20Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零一九年韩国京畿道加平溪谷、民宿、钓鱼场、警局与法院；35毫米胶片质感、变形宽银幕浅景深、自然皮肤与织物纹理、纪录片式克制推轨与轻微手持，冷蓝夜色与暖黄台灯交替，真实电影摄影曝光与色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式韩国男性背影与柔和侧影近四十岁，浅色衬衫深色长裤，站在溪流木台上，不还原真实人物肖像\n\n夜色中的四米岩台空镜，一盏应急灯照亮湿滑石面，崖下水潭保持安静，不出现落水者。 真实连续运动贯穿全镜，镜头运镜：高处缓慢下摇；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body in water, no drowning struggle, no violence, no weapon closeup, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -74,7 +74,18 @@
       "bytes": 2181110,
       "sha256": "84615031b788cea372cc7c555c0e24e2261045f36c5941d201445c6d12761b9c",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 2181110,
+        "decoded_ok": true,
+        "contact_sheet": "production/gapyeong2019/qa/S02.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S03": {
       "id": "S03",
@@ -1017,7 +1028,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-26T06:09:18Z",
+  "updated_at": "2026-11-26T06:09:20Z",
   "run_id": "45753756215",
   "previous_results": {}
 }
