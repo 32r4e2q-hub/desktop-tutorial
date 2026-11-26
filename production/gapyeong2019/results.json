@@ -1329,7 +1329,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1376,11 +1376,37 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-26T06:13:48Z",
   "run_id": "45753756215",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/gapyeong2019/clips/韩国黑寡妇案_尹相烨的四米悬崖与八亿保单_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/gapyeong2019/clips/韩国黑寡妇案_尹相烨的四米悬崖与八亿保单_Cover.jpg",
+    "delivered": {
+      "韩国黑寡妇案_尹相烨的四米悬崖与八亿保单_三分钟_带声音.mp4": {
+        "bytes": 66995353,
+        "sha256": "ff34e4d76c6a85866c2409edcebd5ded2f68aadc0b7bb8569870a1ce48faff32"
+      },
+      "韩国黑寡妇案_尹相烨的四米悬崖与八亿保单_Cover.jpg": {
+        "bytes": 260873,
+        "sha256": "e9b0c1cbea1699afd963dac81fa239a781db2dc2d60d8de20770bf9fe5931d91"
+      },
+      "韩国黑寡妇案_尹相烨的四米悬崖与八亿保单_Subtitles.srt": {
+        "bytes": 2792,
+        "sha256": "60cb3d462f826c9e081b81a37c2a962a2b5b08720c14a4d367f9fdd3c45576e4"
+      },
+      "韩国黑寡妇案_尹相烨的四米悬崖与八亿保单_Technical_Report.json": {
+        "bytes": 11204,
+        "sha256": "3fb51262efc9af04c16abbcebc176bd37d91c37b7e5ca36ca142cb958281f7cf"
+      }
+    }
+  }
 }
