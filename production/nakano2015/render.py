@@ -24,6 +24,12 @@ END_FADES = {"S30": (0.8, 0.8)}
 # Agnes 2.5 Flash 最长只接受 12 秒来源；镜头窗口超过 12 秒时，渲染会以克隆最后一帧补齐（最多 2 秒），
 # 并在日志里打印 SHORT-SOURCE 警告。超过 2 秒的不足仍然直接报错，绝不静默拉伸/变格。
 SOURCE_SHORTFALL_TOLERANCE = 2.0
+# verify_master 实测：TTS 起音爬升使字幕领先语音最多 0.17s；统一后移 0.05s，更稳地落在 0.2s 上限内。
+CAPTION_START_DELAY = 0.05
+# 混音母版实测均值 -23.0dB / 峰值 -5.2dB；补 10dB 后真峰值限幅到 0.7（-3dB），
+# 均值应回到约 -14dB，符合主创响度指标，且不引入 BGM。
+MASTER_GAIN_DB = 10.0
+MASTER_LIMIT_LINEAR = 0.7
 
 
 def normalized_video_filter(shot_id: str, shot_start: float,
@@ -223,8 +229,9 @@ def main() -> int:
         if abs(segment_seconds - target) > 0.02:
             raise RuntimeError(f"{sid}: narration segment is {segment_seconds:.3f}s, expected {target:.3f}s")
         audio_entries.append(f"file '{wav.resolve()}'")
-        cues.append((float(shot["start"]),
-                     float(shot["start"]) + min(target - 0.04, speech_seconds), shot["narration"]))
+        cues.append((float(shot["start"]) + CAPTION_START_DELAY,
+                     float(shot["start"]) + min(target - 0.04, CAPTION_START_DELAY + speech_seconds),
+                     shot["narration"]))
         technical.append({"id": sid, "target_seconds": target, "target_frames": frames,
                           "source_seconds": round(source_duration, 3), "source_size": [width, height],
                           "source_sha256": record["sha256"], "narration_seconds": round(raw_duration, 3),
@@ -270,7 +277,12 @@ def main() -> int:
          "-maxrate", "3200k", "-bufsize", "6400k", "-pix_fmt", "yuv420p",
          "-movflags", "+faststart", picture])
     audio_bus = args.work / "audio-bus.m4a"
-    run(["ffmpeg", "-y", "-v", "error", "-i", audio_mix, "-af", "apad", "-t", "180",
+    master_filter = (
+        "apad,"
+        f"volume={MASTER_GAIN_DB:g}dB,"
+        f"alimiter=limit={MASTER_LIMIT_LINEAR:g}:level=false:attack=5:release=50"
+    )
+    run(["ffmpeg", "-y", "-v", "error", "-i", audio_mix, "-af", master_filter, "-t", "180",
          "-c:a", "aac", "-b:a", "192k", "-ar", RATE, "-ac", 2, audio_bus])
     run(["ffmpeg", "-y", "-v", "error", "-i", picture, "-i", audio_bus,
          "-map", "0:v:0", "-map", "1:a:0", "-c", "copy", "-t", "180",
