@@ -423,9 +423,9 @@
     "S16": {
       "id": "S16",
       "request_hash": "7b02f924b4d9ab55dda807549029450a26b63c5aa709155fbeea9d6a128a09ef",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-26T04:52:29Z",
+      "updated_at": "2026-11-26T04:57:19Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零一九年韩国京畿道加平溪谷、民宿、钓鱼场、警局与法院；35毫米胶片质感、变形宽银幕浅景深、自然皮肤与织物纹理、纪录片式克制推轨与轻微手持，冷蓝夜色与暖黄台灯交替，真实电影摄影曝光与色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n白天溪谷远景，游客在浅滩驻足，峭壁投下大片阴影，画面克制无冲突。 真实连续运动贯穿全镜，镜头运镜：缓慢航拍推进；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body in water, no drowning struggle, no violence, no weapon closeup, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -439,10 +439,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/cc32e01310b119d4b86c9584429422badb061a3a/production/gapyeong2019/reference/S01.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 04:57:17. (request id: 20261126045229659062841BzsyAUkN) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_qZOalV57oovb4HMLjbmNJdfTnyW13YZW",
+      "task_id": "task_qZOalV57oovb4HMLjbmNJdfTnyW13YZW",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S17": {
       "id": "S17",
@@ -595,15 +599,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-26T04:52:29Z",
+  "updated_at": "2026-11-26T04:57:19Z",
   "run_id": "45753756215",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 04:57:17. (request id: 20261126045229659062841BzsyAUkN) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-26T04:52:29Z"
-  }
+  "previous_results": {}
 }
