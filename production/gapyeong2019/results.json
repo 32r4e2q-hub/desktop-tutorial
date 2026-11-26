@@ -1022,9 +1022,9 @@
     "S24": {
       "id": "S24",
       "request_hash": "62775ac087a0a6a15b0288d764e9be9aeee0bc993654ce81fc9a34e927f0b36d",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-26T06:12:31Z",
+      "updated_at": "2026-11-26T06:12:33Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零一九年韩国京畿道加平溪谷、民宿、钓鱼场、警局与法院；35毫米胶片质感、变形宽银幕浅景深、自然皮肤与织物纹理、纪录片式克制推轨与轻微手持，冷蓝夜色与暖黄台灯交替，真实电影摄影曝光与色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n审判席空镜，桌面木纹与水面反光，旁听席在浅景深里虚化。 真实连续运动贯穿全镜，镜头运镜：静止后轻微推近；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body in water, no drowning struggle, no violence, no weapon closeup, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -1050,7 +1050,18 @@
       "bytes": 996458,
       "sha256": "4525e50ea1a5c477e01d281e1ad60189493f3e78835dd0f37c2b01de41f9f0a6",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 996458,
+        "decoded_ok": true,
+        "contact_sheet": "production/gapyeong2019/qa/S24.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S25": {
       "id": "S25",
@@ -1273,7 +1284,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-26T06:12:31Z",
+  "updated_at": "2026-11-26T06:12:33Z",
   "run_id": "45753756215",
   "previous_results": {}
 }
