@@ -31,9 +31,9 @@
     "S02": {
       "id": "S02",
       "request_hash": "0d8394e5d66232efabf13186e6f60c00db0ea4717c5c9ab5dd0fbd3f90bb07e9",
-      "status": "submitting",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-27T00:52:29Z",
+      "updated_at": "2026-11-27T00:52:40Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零零六年东京涩谷与西新宿；35毫米胶片质感与轻微颗粒、变形宽银幕浅景深、自然皮肤与化纤地毯的旧纹理、纪录片式克制推轨与手持微晃，室内暖黄钨丝灯对室外冷青夜色，真实电影摄影曝光与低饱和色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n隔着车流长焦拍向缘石，塑料袋被风吹动一角，前景车灯拉出细长光带，路面潮湿反光。 真实连续运动贯穿全镜，镜头运镜：长焦压缩景深，固定微推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body parts, no saw, no knife, no weapon closeup, no violence, no struggle, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -47,7 +47,12 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/711c447e962a11ae779a95420e72856e527e2479/production/mihashi2006/reference/S01.png"
         ]
       },
-      "error": null
+      "error": null,
+      "create_attempts": 1,
+      "video_id": "task_20qzvKqtdqlomEDVwIcDX9bLRaRHTV0W",
+      "task_id": "task_20qzvKqtdqlomEDVwIcDX9bLRaRHTV0W",
+      "requested_seconds": 4.0,
+      "requested_size": "720P"
     },
     "S03": {
       "id": "S03",
@@ -298,7 +303,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-27T00:52:29Z",
+  "updated_at": "2026-11-27T00:52:40Z",
   "run_id": "45919161875",
   "previous_results": {}
 }
