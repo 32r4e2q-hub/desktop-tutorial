@@ -9,11 +9,26 @@ HERE = Path(__file__).resolve().parent
 
 
 def duration(path: Path) -> float:
-    raw = subprocess.check_output([
-        "ffprobe", "-v", "error", "-show_entries", "format=duration",
-        "-of", "default=nw=1:nk=1", str(path),
-    ], text=True)
-    return float(raw.strip())
+    """ffprobe 优先；本地沙箱没有独立 ffprobe 时退回 imageio-ffmpeg 的 ffmpeg -i 解析。"""
+    try:
+        raw = subprocess.check_output([
+            "ffprobe", "-v", "error", "-show_entries", "format=duration",
+            "-of", "default=nw=1:nk=1", str(path),
+        ], text=True, stderr=subprocess.DEVNULL)
+        return float(raw.strip())
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        import re
+        try:
+            import imageio_ffmpeg
+            exe = imageio_ffmpeg.get_ffmpeg_exe()
+        except Exception as exc:  # noqa: BLE001
+            raise SystemExit(f"ffprobe 不可用，且 imageio_ffmpeg 也取不到：{exc}")
+        err = subprocess.run([exe, "-i", str(path)], capture_output=True, text=True).stderr
+        match = re.search(r"Duration: (\d+):(\d+):(\d+\.\d+)", err)
+        if not match:
+            raise SystemExit(f"{path}: 读不出时长")
+        h, m, sec = match.groups()
+        return int(h) * 3600 + int(m) * 60 + float(sec)
 
 
 def main() -> int:
