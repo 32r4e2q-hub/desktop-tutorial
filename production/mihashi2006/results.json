@@ -1404,7 +1404,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "sources_ready_pending_render",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1451,11 +1451,37 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-27T02:39:46Z",
   "run_id": "45919161875",
-  "previous_results": {}
+  "previous_results": {},
+  "delivery": {
+    "film": "work/mihashi2006/clips/东京街头分尸案_三桥歌织的四小时电梯_三分钟_带声音.mp4",
+    "duration_seconds": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "cover": "work/mihashi2006/clips/东京街头分尸案_三桥歌织的四小时电梯_Cover.jpg",
+    "delivered": {
+      "东京街头分尸案_三桥歌织的四小时电梯_三分钟_带声音.mp4": {
+        "bytes": 62825166,
+        "sha256": "5964aa2214591ec2ef5b8d3008d8ef589a9d9e93c0692151b41a1dcd10833571"
+      },
+      "东京街头分尸案_三桥歌织的四小时电梯_Cover.jpg": {
+        "bytes": 269870,
+        "sha256": "a36eccbc017a55d56777192fa46c5a80996fe7752768d3d2109fbd65c756b630"
+      },
+      "东京街头分尸案_三桥歌织的四小时电梯_Subtitles.srt": {
+        "bytes": 2765,
+        "sha256": "e5b96fb190f48253c1a03b579a76177be11dd8d9d4dfb6f523116120db792d9d"
+      },
+      "东京街头分尸案_三桥歌织的四小时电梯_Technical_Report.json": {
+        "bytes": 11168,
+        "sha256": "965b7428f1fecafb30fd617cb4f5c7c7980f5711c54b0d968def0d5aba2b69ed"
+      }
+    }
+  }
 }
