@@ -1,8 +1,58 @@
 Wrote manifest for 30 shot-locked clips; max atempo=1.189x
+RESTORE S01 from Agnes receipt
+RESTORE S02 from Agnes receipt
+RESTORE S03 from Agnes receipt
+RESTORE S04 from Agnes receipt
+RESTORE S05 from Agnes receipt
+RESTORE S06 from Agnes receipt
+RESTORE S07 from Agnes receipt
+RESTORE S08 from Agnes receipt
+RESTORE S09 from Agnes receipt
+RESTORE S10 from Agnes receipt
+RESTORE S11 from Agnes receipt
+RESTORE S12 from Agnes receipt
+RESTORE S13 from Agnes receipt
+RESTORE S14 from Agnes receipt
+RESTORE S15 from Agnes receipt
+RESTORE S16 from Agnes receipt
+RESTORE S17 from Agnes receipt
+RESTORE S18 from Agnes receipt
+RESTORE S19 from Agnes receipt
+RESTORE S20 from Agnes receipt
+RESTORE S21 from Agnes receipt
+RESTORE S22 from Agnes receipt
+RESTORE S23 from Agnes receipt
+RESTORE S24 from Agnes receipt
+RESTORE S25 from Agnes receipt
+RESTORE S26 from Agnes receipt
+RESTORE S27 from Agnes receipt
+RESTORE S28 from Agnes receipt
+RESTORE S29 from Agnes receipt
+RESTORE S30 from Agnes receipt
+Wrote 30 deterministic non-musical SFX clips to /home/runner/work/desktop-tutorial/desktop-tutorial/work/mihashi2006/edit/sfx
+Traceback (most recent call last):
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/render.py", line 335, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/render.py", line 157, in main
+    raise RuntimeError(f"{sid}: request hash differs from the approved storyboard")
+RuntimeError: S01: request hash differs from the approved storyboard
 Traceback (most recent call last):
   File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/generate.py", line 1179, in <module>
     raise SystemExit(main())
                      ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/generate.py", line 747, in main
-    raise RuntimeError("Render requested but these clips are not completed: " + ", ".join(missing))
-RuntimeError: Render requested but these clips are not completed: S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S19, S20, S21, S22, S23, S24, S25, S26, S28, S29, S30
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/generate.py", line 753, in main
+    subprocess.run([
+    ~~~~~~~~~~~~~~^^
+        sys.executable, str(HERE / "render.py"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--sources", str(sources), "--work", str(ROOT / "work" / "mihashi2006" / "edit"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "--output", str(output),
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ], cwd=ROOT, check=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/render.py', '--sources', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/mihashi2006/sources', '--work', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/mihashi2006/edit', '--output', '/home/runner/work/desktop-tutorial/desktop-tutorial/work/mihashi2006/clips/东京街头分尸案_三桥歌织的四小时电梯_三分钟_带声音.mp4']' returned non-zero exit status 1.
