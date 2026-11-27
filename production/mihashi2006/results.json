@@ -47,9 +47,9 @@
     "S27": {
       "id": "S27",
       "request_hash": "c358f6b4b7cd3be959a14ae6a787fc9d28bffea2c9852b97a002c6aecf40e36d",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-27T03:09:38Z",
+      "updated_at": "2026-11-27T03:09:39Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零零六年东京涩谷与西新宿；35毫米胶片质感与轻微颗粒、变形宽银幕浅景深、自然皮肤与化纤地毯的旧纹理、纪录片式克制推轨与手持微晃，室内暖黄钨丝灯对室外冷青夜色，真实电影摄影曝光与低饱和色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n庭审笔录的横线纸特写，纸上只有空白的横线与装订孔，没有一处字形，台灯光从左上压下。 真实连续运动贯穿全镜，镜头运镜：俯拍微距缓推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body parts, no saw, no knife, no weapon closeup, no violence, no struggle, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -75,7 +75,18 @@
       "bytes": 1985203,
       "sha256": "f88e572df0749bb0987d2715d51850a2178fc418e25d5213e47ba3828835399c",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 1985203,
+        "decoded_ok": true,
+        "contact_sheet": "production/mihashi2006/qa/S27.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     }
   },
   "source_size": "720P",
@@ -130,7 +141,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-27T03:09:38Z",
+  "updated_at": "2026-11-27T03:09:39Z",
   "run_id": "45931012243",
   "previous_results": {}
 }
