@@ -408,7 +408,26 @@ def payload_seed(project: dict, shot: dict) -> int:
 
 
 def request_hash(project: dict, shot: dict) -> str:
-    encoded = json.dumps(full_payload(project, shot), ensure_ascii=False, sort_keys=True).encode("utf-8")
+    """镜头生成请求的身份哈希：参考图只认内容，不认它所在的那个提交。
+
+    2026-11-27 事故：``reference/revision.txt`` 钉的是参考图快照提交，URL 里带着提交号。
+    为 S27 补一张 S11 参考图后修订号前移，30 镜的 URL 全部换前缀，但 PNG 字节一字未变；
+    旧的实现把整条 URL 算进哈希，渲染闸门于是把已经生成好的 30 镜判成「与分镜不符」，
+    白跑两次出片。现在把 images 规整成 (repo 内路径, approvals.json 的 sha256)：
+    换提交号不再变哈希；图片内容或批准记录真的改了，哈希照样会变。
+    """
+    payload = json.loads(json.dumps(full_payload(project, shot), ensure_ascii=False))
+    approvals = read_json(REFERENCE_APPROVALS, {}).get("assets", {})
+    if isinstance(payload.get("images"), list):
+        fingerprints = []
+        for url in payload["images"]:
+            text = str(url)
+            marker = f"/production/{HERE.name}/"
+            relative = text.split(marker, 1)[1] if marker in text else text
+            record = approvals.get(Path(relative).stem, {})
+            fingerprints.append({"path": relative, "sha256": record.get("sha256", "")})
+        payload["images"] = fingerprints
+    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
 
 
