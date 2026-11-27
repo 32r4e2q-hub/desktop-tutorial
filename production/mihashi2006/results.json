@@ -612,9 +612,9 @@
     "S23": {
       "id": "S23",
       "request_hash": "90456f0825ea3fb8bd314c8f3cf2b27e4f72cf4c809e726f4104be082f0504a7",
-      "status": "rate_limited",
+      "status": "queued",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-27T01:44:13Z",
+      "updated_at": "2026-11-27T01:49:03Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零零六年东京涩谷与西新宿；35毫米胶片质感与轻微颗粒、变形宽银幕浅景深、自然皮肤与化纤地毯的旧纹理、纪录片式克制推轨与手持微晃，室内暖黄钨丝灯对室外冷青夜色，真实电影摄影曝光与低饱和色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C03锚点】虚构演员式日本女性坐姿侧脸三十二岁，低马尾、浅灰家居服，低头看手中纸张，不还原真实人物肖像\n\n律师会见室的隔断玻璃，虚构女性侧脸与对面模糊的西装轮廓，中间一道金属网。 真实连续运动贯穿全镜，镜头运镜：侧面固定，玻璃反光叠影；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body parts, no saw, no knife, no weapon closeup, no violence, no struggle, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -629,10 +629,14 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/711c447e962a11ae779a95420e72856e527e2479/production/mihashi2006/reference/S03.png"
         ]
       },
-      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 01:49:01. (request id: 20261127014413842173226UrwohE5A) (code=rate_limit_exceeded)",
-      "create_attempts": 1,
+      "error": null,
+      "create_attempts": 2,
       "capacity_error": "HTTP 429",
-      "applied_cooldown_seconds": 288.0
+      "applied_cooldown_seconds": 288.0,
+      "video_id": "task_AXFHRjkdnk0yv53B8hdxviop78lUDibs",
+      "task_id": "task_AXFHRjkdnk0yv53B8hdxviop78lUDibs",
+      "requested_seconds": 6.0,
+      "requested_size": "720P"
     },
     "S24": {
       "id": "S24",
@@ -736,15 +740,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-27T01:44:13Z",
+  "updated_at": "2026-11-27T01:49:03Z",
   "run_id": "45919161875",
-  "previous_results": {},
-  "provider_outage": {
-    "model": "agnes-video-2.5-flash",
-    "reason": "HTTP 429",
-    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 01:49:01. (request id: 20261127014413842173226UrwohE5A) (code=rate_limit_exceeded)",
-    "create_attempts": 1,
-    "retry_interval_seconds": 288.0,
-    "last_seen": "2026-11-27T01:44:13Z"
-  }
+  "previous_results": {}
 }
