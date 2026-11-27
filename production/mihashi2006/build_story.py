@@ -104,10 +104,10 @@ ROWS = [
     (6, "此后的监控里，他再没出来过。",
      "电梯轿厢内空镜，楼层数字不显示，镜面墙映出摄影机的影子，轻微抖动。",
      ["S07"], [], "轿厢内固定镜头，轻微手持", "电梯钢缆与通风声", "金属冷灰"),
-    (6, "十四日晚上十点，她拖着一只大行李箱下楼。",
+    (9, "十四日夜里十点，她拖着一只大行李箱下楼。",
      "公寓电梯口，虚构女性背影拖着行李箱进入轿厢，箱轮在地砖上留下细响。",
      ["S07"], ["WIFE_BACK"], "侧后方跟拍，随电梯门合拢收住", "箱轮滚动与门铃", "暖黄走廊灯"),
-    (4, "四个小时后，她空着手回来。",
+    (3, "四个小时后，她空着手回来。",
      "深夜公寓大堂，玻璃门外雨丝斜落，同一个背影推门进来，两手空空，头发被雨打湿。",
      ["S07"], ["WIFE_BACK"], "从大堂内侧向她缓慢平移", "雨声与自动门滑轨声", "冷蓝夜色"),
     (6, "十五分钟后，她又推了一辆手推车出去。",
@@ -161,7 +161,7 @@ ROWS = [
     (8, "二零一零年六月，东京高裁驳回上诉，辩方放弃上告，十五年就此确定。",
      "高等法院外墙与围栏，风把树影吹动在石墙上，路人背影快速走过。",
      ["S10"], [], "隔着围栏长焦横移", "风声与远处广播", "阴天灰"),
-    (8, "从报案到刑期确定，隔了三年半；那四个小时，监控记得清清楚楚。",
+    (6, "从报案到刑期确定，隔了三年半；那四个小时，监控记得清清楚楚。",
      "法院后门台阶，一辆黑色轿车停着，车窗反光挡住车内，无人上下，风吹动袖口。",
      ["S10"], [], "静止后极缓慢后拉", "发动机怠速与风声", "冷灰"),
 ]
@@ -169,10 +169,10 @@ ROWS = [
 CHAPTER_BOUNDS = [
     (0, 28, "第一章 缘石上的黑袋子"),
     (28, 58, "第二章 没有手术疤的报告"),
-    (58, 86, "第三章 四小时电梯"),
-    (86, 116, "第四章 铺土的新柜子"),
-    (116, 146, "第五章 十五年的判决"),
-    (146, 180, "第六章 重新刷过的墙"),
+    (58, 88, "第三章 四小时电梯"),
+    (88, 118, "第四章 铺土的新柜子"),
+    (118, 148, "第五章 十五年的判决"),
+    (148, 180, "第六章 重新刷过的墙"),
 ]
 
 SEED_OVERRIDES: dict[int, int] = {
@@ -181,19 +181,19 @@ SEED_OVERRIDES: dict[int, int] = {
 
 HOOKS = [
     {"id": "H1", "start": 0.5, "end": 2.5, "text": "路边一只黑袋子", "style": "big_white_black_outline"},
-    {"id": "H2", "start": 6.5, "end": 8.5, "text": "路人说那是假人模特", "style": "big_white_black_outline"},
-    {"id": "H3", "start": 16.5, "end": 18.5, "text": "涩谷空宅又找到下半身", "style": "big_white_black_outline"},
-    {"id": "H4", "start": 34.5, "end": 36.5, "text": "报案的是他妻子", "style": "big_white_black_outline"},
+    {"id": "H2", "start": 7.5, "end": 9.5, "text": "路人说那是假人模特", "style": "big_white_black_outline"},
+    {"id": "H3", "start": 18.5, "end": 20.5, "text": "涩谷空宅又找到下半身", "style": "big_white_black_outline"},
+    {"id": "H4", "start": 36.5, "end": 38.5, "text": "报案的是他妻子", "style": "big_white_black_outline"},
     {"id": "H5", "start": 46.5, "end": 48.5, "text": "胸口没有那道疤", "style": "big_white_black_outline"},
     {"id": "H6", "start": 64.5, "end": 66.5, "text": "深夜十点的行李箱", "style": "big_white_black_outline"},
-    {"id": "H7", "start": 70.5, "end": 72.5, "text": "四个小时后空手", "style": "big_white_black_outline"},
-    {"id": "H8", "start": 74.5, "end": 76.5, "text": "手推车也没了", "style": "big_white_black_outline"},
-    {"id": "H9", "start": 86.5, "end": 88.5, "text": "监控圈出四小时", "style": "big_white_black_outline"},
-    {"id": "H10", "start": 98.5, "end": 100.5, "text": "柜子里二十袋土", "style": "big_white_black_outline"},
-    {"id": "H11", "start": 116.5, "end": 118.5, "text": "他喝醉了回家", "style": "big_white_black_outline"},
-    {"id": "H12", "start": 134.5, "end": 136.5, "text": "鼻骨断在二零零五年", "style": "big_white_black_outline"},
-    {"id": "H13", "start": 146.5, "end": 148.5, "text": "求刑二十年", "style": "big_white_black_outline"},
-    {"id": "H14", "start": 158.5, "end": 160.5, "text": "判了十五年", "style": "big_white_black_outline"},
+    {"id": "H7", "start": 72.5, "end": 74.5, "text": "四个小时后空手", "style": "big_white_black_outline"},
+    {"id": "H8", "start": 76.5, "end": 78.5, "text": "手推车也没了", "style": "big_white_black_outline"},
+    {"id": "H9", "start": 88.5, "end": 90.5, "text": "监控圈出四小时", "style": "big_white_black_outline"},
+    {"id": "H10", "start": 100.5, "end": 102.5, "text": "柜子里二十袋土", "style": "big_white_black_outline"},
+    {"id": "H11", "start": 118.5, "end": 120.5, "text": "他喝醉了回家", "style": "big_white_black_outline"},
+    {"id": "H12", "start": 136.5, "end": 138.5, "text": "鼻骨断在二零零五年", "style": "big_white_black_outline"},
+    {"id": "H13", "start": 148.5, "end": 150.5, "text": "求刑二十年", "style": "big_white_black_outline"},
+    {"id": "H14", "start": 160.5, "end": 162.5, "text": "判了十五年", "style": "big_white_black_outline"},
     {"id": "H15", "start": 172.5, "end": 174.5, "text": "监控记得清清楚楚", "style": "big_white_black_outline"},
 ]
 
