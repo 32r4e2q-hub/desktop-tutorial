@@ -1,39 +1,43 @@
-# 交接：还差什么才能出片（2026-11-25）
+# 交接：还差什么才能出片（2026-11-27 更新）
 
-当前进度：脚本、事实核查、10/13 张参考图、S01–S10 旁白已完成；S11–S30 旁白与 S08/S09/S10 参考图未做。
+进度：事实核查、30 镜脚本、去 AI 味预检、14 张参考图、**30 镜视频素材全部生成完毕**、S01–S20 旁白已完成。
+**卡在最后一件事：S21–S30 十条旁白还没做**（本回合 TTS 配额在 S11–S20 那批用完了，连续两回合都是这个限制）。
 
-## 1. 参考图还差三张（生图每回合上限 10 张，本回合用完）
+## 下一回合要做的第一件事
 
-`reference/S08.png`（地下车库坡道与手推车）、`S09.png`（重新粉刷的空房间与倒放衣柜）、`S10.png`（东京地裁石阶外景）。
-生成后必须：写 `approvals.json` 条目（`status=approved` + sha256 + dimensions）→ 提交 → 把该提交 hash 写进
-`reference/revision.txt` → 重跑 `build_story.py` 与 `preflight.py`（现在 preflight 报 `pending references S10` 就是因为缺这三张）。
+用 `voice-01` 逐条合成 `audio/S21.mp3` … `audio/S30.mp3`，文本严格照 `story.json` 的 `shots[].narration`：
 
-## 2. 旁白还差二十条（TTS 每回合上限 10 条）
+| 镜号 | 旁白 |
+|---|---|
+| S21 | 她说，十二月十二日早上，他喝醉了回家。 |
+| S22 | 她提出离婚，他把离婚申请书撕了。 |
+| S23 | 律师说，她长期被家暴，患上了创伤后应激障碍。 |
+| S24 | 二零零五年六月，她的鼻骨被打断，进过庇护所。 |
+| S25 | 辩方主张她当时心神丧失，应当无罪。 |
+| S26 | 二零零八年四月二十八日，东京地裁给出结论。 |
+| S27 | 幻视幻听存在，但没有影响到责任能力。 |
+| S28 | 求刑二十年，判了十五年。 |
+| S29 | 二零一零年六月，东京高裁驳回上诉，辩方放弃上告，十五年就此确定。 |
+| S30 | 从报案到刑期确定，隔了三年半；那四个小时，监控记得清清楚楚。 |
 
-`audio/S11.mp3` … `audio/S30.mp3`，逐字用 `story.json` 的 `shots[].narration`，音色 `voice-01`
-（`audio/voice.json` 已登记）。做完跑：
+然后：
 
 ```bash
-python3 production/mihashi2006/build_audio_manifest.py
-python3 production/mihashi2006/narration_fit.py     # 逐镜比对时长，超 1.55 倍就重写那句
+.venv/bin/python production/mihashi2006/build_audio_manifest.py   # 本地无 ffprobe，已加 imageio-ffmpeg 兜底
+.venv/bin/python production/mihashi2006/narration_fit.py
 python3 production/mihashi2006/preflight.py
 python3 production/mihashi2006/generate.py --validate --clips-only
+printf '{"mode":"render"}\n' > production/mihashi2006/GEN_REQUEST      # 提交并 push 出片
 ```
 
-## 3. 生成 30 镜与出片
+## 已经不用再做的
 
-```bash
-printf '{"mode":"clips","workers":2}\n' > production/mihashi2006/GEN_REQUEST   # 提交并 push
-# 30 镜全部 completed 后
-printf '{"mode":"render"}\n' > production/mihashi2006/GEN_REQUEST
-```
+- 参考图 14 张（C01–C03、S01–S11）已全部批准并钉进 `reference/revision.txt`。
+- 30 镜素材已全部 `completed`；S18（土上手印）与 S27（纸面伪文字）已单镜重做，`reused_existing_asset=false`。
+- 工作流已装到 `.github/workflows/mihashi2006*.yml`。
 
-工作流已装到 `.github/workflows/mihashi2006*.yml`；成片落 `交付/东京街头分尸案_三桥歌织的四小时电梯_三分钟_带声音.mp4`。
+## 出片后
 
-## 4. 出片后
-
-- `verify_master.py --film ... --story ... --srt ...` 必须 PASS；`volumedetect` 记进 QA（目标均值≈-14 dB、峰值 -3～-6 dB；
-  `render.py` 已加 10 dB 增益 + limiter）。
-- 抽帧看画面：13 张参考图与成片都必须是**照片级写实**；出现动画/插画质感就单镜重做。
-- 第 29 期封面：`python3 production/mystery-cover-template/generate_cover.py --episode 29 ...`
-- 发布文案已在 `抖音发布文案.md`（生成物），交付时另存一份到 `交付/`。
+- `verify_master.py --film ... --story ... --srt ...` 必须 PASS；`volumedetect` 记进 QA（目标均值≈-14 dB、峰值 -3～-6 dB，`render.py` 已加 10 dB 增益 + limiter）。
+- 成片抽帧复核字幕压暗部（S08/S22/S25 偏暗）；第 29 期封面用 `mystery-cover-template/generate_cover.py --episode 29`。
+- 发布文案是生成物 `抖音发布文案.md`，交付时另存一份到 `交付/`。
