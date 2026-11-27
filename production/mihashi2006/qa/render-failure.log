@@ -1,4 +1,4 @@
-Wrote manifest for 30 shot-locked clips; max atempo=1.189x
+Wrote manifest for 30 shot-locked clips; max atempo=1.058x
 RESTORE S01 from Agnes receipt
 RESTORE S02 from Agnes receipt
 RESTORE S03 from Agnes receipt
@@ -38,10 +38,10 @@ Traceback (most recent call last):
     raise RuntimeError(f"{sid}: request hash differs from the approved storyboard")
 RuntimeError: S01: request hash differs from the approved storyboard
 Traceback (most recent call last):
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/generate.py", line 1179, in <module>
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/generate.py", line 1198, in <module>
     raise SystemExit(main())
                      ~~~~^^
-  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/generate.py", line 753, in main
+  File "/home/runner/work/desktop-tutorial/desktop-tutorial/production/mihashi2006/generate.py", line 772, in main
     subprocess.run([
     ~~~~~~~~~~~~~~^^
         sys.executable, str(HERE / "render.py"),
