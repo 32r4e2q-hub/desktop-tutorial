@@ -1399,7 +1399,7 @@
     }
   },
   "source_size": "720P",
-  "phase": "selected_sources_ready",
+  "phase": "first_cut_ready",
   "required_generated_shots": [
     "S01",
     "S02",
@@ -1446,9 +1446,9 @@
     "capacity_retries_unbounded": true
   },
   "review": {
-    "status": "pending",
+    "status": "technical_pass_visual_review_pending",
     "visual_review_required": true,
-    "note": "A decoded clip and contact sheet are not a human visual sign-off."
+    "note": "Technical and sampled-frame checks passed; full-motion human signoff remains required."
   },
   "updated_at": "2026-11-27T05:47:48Z",
   "run_id": "45947447770",
@@ -1512,8 +1512,8 @@
     "cover": "work/mihashi2006/clips/东京街头分尸案_三桥歌织的四小时电梯_Cover.jpg",
     "delivered": {
       "东京街头分尸案_三桥歌织的四小时电梯_三分钟_带声音.mp4": {
-        "bytes": 62558949,
-        "sha256": "0b240470ae00d1bee456dfa923ec9f44f23d09f409bccfa49b416a84c5169315"
+        "bytes": 62070484,
+        "sha256": "6e8b39f2375be7d6f6e7907370c9947d0eac264a9110011515f52dfbb52b3fe9"
       },
       "东京街头分尸案_三桥歌织的四小时电梯_Cover.jpg": {
         "bytes": 269870,
@@ -1525,7 +1525,7 @@
       },
       "东京街头分尸案_三桥歌织的四小时电梯_Technical_Report.json": {
         "bytes": 11166,
-        "sha256": "b87bca1cb57a3fb49a82bb6967704238f53ad87e02cc6a5ba373c216ea9da807"
+        "sha256": "b18f59559cee3176116975a17546a38f012c03b162bc91f29f891c47d664b8b6"
       }
     }
   }
