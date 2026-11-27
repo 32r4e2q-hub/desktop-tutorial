@@ -181,11 +181,11 @@ SEED_OVERRIDES: dict[int, int] = {
 
 HOOKS = [
     {"id": "H1", "start": 0.4, "end": 2.4, "text": "路边躺着一个人", "style": "big_white_black_outline"},
-    {"id": "H2", "start": 6.4, "end": 8.4, "text": "报警的是他妻子", "style": "big_white_black_outline"},
+    {"id": "H2", "start": 6.4, "end": 8.4, "text": "报警的说像个假人", "style": "big_white_black_outline"},
     {"id": "H3", "start": 10.4, "end": 12.4, "text": "少了下半身", "style": "big_white_black_outline"},
     {"id": "H4", "start": 16.4, "end": 18.4, "text": "涩谷空宅又挖出下半身", "style": "big_white_black_outline"},
     {"id": "H5", "start": 28.4, "end": 30.4, "text": "三十岁，投行分析师", "style": "big_white_black_outline"},
-    {"id": "H6", "start": 40.4, "end": 42.4, "text": "胸口少了一道疤", "style": "big_white_black_outline"},
+    {"id": "H6", "start": 34.4, "end": 36.4, "text": "报案的是他妻子", "style": "big_white_black_outline"},
     {"id": "H7", "start": 52.4, "end": 54.4, "text": "他进了电梯，再没出来", "style": "big_white_black_outline"},
     {"id": "H8", "start": 64.4, "end": 66.4, "text": "深夜十点，一只行李箱", "style": "big_white_black_outline"},
     {"id": "H9", "start": 73.4, "end": 75.4, "text": "四小时后，空手回来", "style": "big_white_black_outline"},
@@ -195,8 +195,8 @@ HOOKS = [
     {"id": "H13", "start": 118.4, "end": 120.4, "text": "那天他喝醉了", "style": "big_white_black_outline"},
     {"id": "H14", "start": 124.4, "end": 126.4, "text": "他当场撕了离婚书", "style": "big_white_black_outline"},
     {"id": "H15", "start": 136.4, "end": 138.4, "text": "鼻骨断在二零零五年", "style": "big_white_black_outline"},
-    {"id": "H16", "start": 148.4, "end": 150.4, "text": "她确实幻听", "style": "big_white_black_outline"},
-    {"id": "H17", "start": 160.4, "end": 162.4, "text": "求刑二十年", "style": "big_white_black_outline"},
+    {"id": "H16", "start": 148.4, "end": 150.4, "text": "东京地裁宣判", "style": "big_white_black_outline"},
+    {"id": "H17", "start": 154.4, "end": 156.4, "text": "她确实幻听", "style": "big_white_black_outline"},
     {"id": "H18", "start": 166.4, "end": 168.4, "text": "判了十五年", "style": "big_white_black_outline"},
     {"id": "H19", "start": 172.4, "end": 174.4, "text": "那次报警，没人跟到底", "style": "big_white_black_outline"},
 ]
