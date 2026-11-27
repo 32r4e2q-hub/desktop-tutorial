@@ -248,9 +248,9 @@
     "S10": {
       "id": "S10",
       "request_hash": "310c46c6dcfdd4923ac06a497273a69f314761160c0aa97f104d5ee54a8a66e0",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-27T01:00:44Z",
+      "updated_at": "2026-11-27T01:00:55Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零零六年东京涩谷与西新宿；35毫米胶片质感与轻微颗粒、变形宽银幕浅景深、自然皮肤与化纤地毯的旧纹理、纪录片式克制推轨与手持微晃，室内暖黄钨丝灯对室外冷青夜色，真实电影摄影曝光与低饱和色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n【C02锚点】虚构演员式日本男性背影与柔和侧影三十岁，短黑发、深灰西装外套，走在夜归街道，不还原真实人物肖像\n\n公寓入口的监控画面质感走廊，深灰西装背影刷卡进门，时间是虚焦的角落，看不清脸。 真实连续运动贯穿全镜，镜头运镜：从他身后跟拍到电梯门合上；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body parts, no saw, no knife, no weapon closeup, no violence, no struggle, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -265,7 +265,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/711c447e962a11ae779a95420e72856e527e2479/production/mihashi2006/reference/S07.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 202611270100557545101648x8PqRme) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 30.0
     },
     "S11": {
       "id": "S11",
@@ -460,7 +463,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-27T01:00:44Z",
+  "updated_at": "2026-11-27T01:00:55Z",
   "run_id": "45919161875",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: Too many requests. Please try again in a moment. (request id: 202611270100557545101648x8PqRme) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 30.0,
+    "last_seen": "2026-11-27T01:00:55Z"
+  }
 }
