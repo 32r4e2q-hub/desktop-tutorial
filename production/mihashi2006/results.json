@@ -117,9 +117,9 @@
     "S04": {
       "id": "S04",
       "request_hash": "b1ad2e5cca8c2621f25275b041fb21465b7898c481ce83312dcd50ea3f45f467",
-      "status": "downloaded",
+      "status": "completed",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-27T02:24:51Z",
+      "updated_at": "2026-11-27T02:24:53Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零零六年东京涩谷与西新宿；35毫米胶片质感与轻微颗粒、变形宽银幕浅景深、自然皮肤与化纤地毯的旧纹理、纪录片式克制推轨与手持微晃，室内暖黄钨丝灯对室外冷青夜色，真实电影摄影曝光与低饱和色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n神山町的旧木宅院门半开，院内杂草与晾衣杆，门牌字迹被刻意打虚，光线从屋檐缝隙落下。 真实连续运动贯穿全镜，镜头运镜：从门缝向内缓慢推进；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body parts, no saw, no knife, no weapon closeup, no violence, no struggle, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -143,7 +143,18 @@
       "bytes": 5002739,
       "sha256": "e3e008498a6a3ea0d75d160d80505c0c707850f7b4c6586d0d366a0e8ad51784",
       "reported_size": "720P",
-      "reported_seconds": "6"
+      "reported_seconds": "6",
+      "inspection": {
+        "duration_seconds": 6.592,
+        "width": 1280,
+        "height": 720,
+        "fps": "24/1",
+        "bytes": 5002739,
+        "decoded_ok": true,
+        "contact_sheet": "production/mihashi2006/qa/S04.jpg",
+        "visual_review": "pending"
+      },
+      "visual_review": "pending"
     },
     "S05": {
       "id": "S05",
@@ -924,7 +935,7 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-27T02:24:51Z",
+  "updated_at": "2026-11-27T02:24:53Z",
   "run_id": "45919161875",
   "previous_results": {}
 }
