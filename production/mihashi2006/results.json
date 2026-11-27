@@ -725,9 +725,9 @@
     "S27": {
       "id": "S27",
       "request_hash": "555b5f1397cf08c6a6e74dc0e2c09857cf7627af6f0833e23ce8c7aeb4a1d012",
-      "status": "submitting",
+      "status": "rate_limited",
       "reused_existing_asset": false,
-      "updated_at": "2026-11-27T02:04:08Z",
+      "updated_at": "2026-11-27T02:04:19Z",
       "request_payload": {
         "model": "agnes-video-2.5-flash",
         "prompt": "【STYLE】照片级写实真人电影画面，二零零六年东京涩谷与西新宿；35毫米胶片质感与轻微颗粒、变形宽银幕浅景深、自然皮肤与化纤地毯的旧纹理、纪录片式克制推轨与手持微晃，室内暖黄钨丝灯对室外冷青夜色，真实电影摄影曝光与低饱和色彩，单一连续镜头，photorealistic live-action cinematic film, 35mm anamorphic, natural skin texture, documentary crime thriller grade. 人物一律虚构演员式背影或侧脸，不还原任何真实人物肖像；画面内无任何可读文字或招牌，16:9横屏，底部预留干净字幕安全区。\n\n判决书正文特写，段落文字全部虚焦，只有纸张纹理与折痕清晰。 真实连续运动贯穿全镜，镜头运镜：俯拍微距缓推；构图保持16:9横屏，主体置于三分线，底部字幕安全区保持低干扰；不要任何文字、标签、时间戳或招牌。\n\n【NEGATIVE】anime, cartoon, animation, illustration, painting, 3D render, CG render, game engine, stylized, comic book, doll-like skin, plastic skin, oversaturated, no readable text, no subtitles, no watermark, no gore, no blood, no corpse, no body parts, no saw, no knife, no weapon closeup, no violence, no struggle, no deformed hands, no extra limbs, no face distortion, no flicker, no collage, no split screen, no tiled frames, no montage, no static image",
@@ -741,7 +741,10 @@
           "https://raw.githubusercontent.com/32r4e2q-hub/desktop-tutorial/711c447e962a11ae779a95420e72856e527e2479/production/mihashi2006/reference/S06.png"
         ]
       },
-      "error": null
+      "error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 02:09:07. (request id: 20261127020419600015337kor00Xqj) (code=rate_limit_exceeded)",
+      "create_attempts": 1,
+      "capacity_error": "HTTP 429",
+      "applied_cooldown_seconds": 288.0
     },
     "S28": {
       "id": "S28",
@@ -817,7 +820,15 @@
     "visual_review_required": true,
     "note": "A decoded clip and contact sheet are not a human visual sign-off."
   },
-  "updated_at": "2026-11-27T02:04:08Z",
+  "updated_at": "2026-11-27T02:04:19Z",
   "run_id": "45919161875",
-  "previous_results": {}
+  "previous_results": {},
+  "provider_outage": {
+    "model": "agnes-video-2.5-flash",
+    "reason": "HTTP 429",
+    "last_error": "Could not create video task after 1 attempts; last problem: HTTP 429: You have used up today's video generation quota and are now limited to 1 request every 5 minutes. Try again after 02:09:07. (request id: 20261127020419600015337kor00Xqj) (code=rate_limit_exceeded)",
+    "create_attempts": 1,
+    "retry_interval_seconds": 288.0,
+    "last_seen": "2026-11-27T02:04:19Z"
+  }
 }
